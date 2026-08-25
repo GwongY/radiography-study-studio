@@ -3066,6 +3066,21 @@ export function isDue(rec, now = Date.now()) {
   return rec.due <= now;
 }
 
+/*
+ * Five-tier mastery ladder for the dashboard. Pure function over a score
+ * (masteryScore()'s 0..1 output) and an attempted flag — no storage access,
+ * so it's testable without a browser.
+ */
+export const TIER_LABELS = ['Not started', 'Seen', 'Recognised', 'Recalled', 'Mastered'];
+
+export function tierFor(score, attempted) {
+  if (!attempted) return 0;
+  if (score >= 0.85) return 4;
+  if (score >= 0.65) return 3;
+  if (score >= 0.4) return 2;
+  return 1;
+}
+
 export function dimensionFor(question) {
   if (question.image) return 'location';
   if (question.type === 'typed' || question.type === 'cloze') return 'typedRecall';
