@@ -3067,6 +3067,7 @@ export function isDue(rec, now = Date.now()) {
 }
 
 export function dimensionFor(question) {
+  if (question.image) return 'location';
   if (question.type === 'typed' || question.type === 'cloze') return 'typedRecall';
   return (ITEM_TYPES[question.type] || {}).dimension || 'recognition';
 }
