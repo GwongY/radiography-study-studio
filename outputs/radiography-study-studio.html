@@ -1,0 +1,1384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1118">
+  <title>Radiography Study Studio — learn, remember, recall, apply</title>
+  <style>
+    :root{--bg:#081016;--panel:#0e1820;--panel-2:#111f29;--line:#21333d;--text:#f0eee7;--muted:#91a4ad;--teal:#72e3cf;--orange:#ffba67;--red:#f18181;--green:#8ce2ae;--shadow:0 18px 55px rgba(0,0,0,.28)}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 80% -10%,#16313b 0,#081016 42%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body{padding:24px clamp(14px,3vw,42px) 46px}.shell{max-width:1440px;margin:auto}
+    button,input{font:inherit}button{color:inherit}.topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:24px}.eyebrow,.mono{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase}.eyebrow{color:var(--teal);font-weight:700}.title{font-size:clamp(28px,4vw,48px);line-height:1.02;letter-spacing:-.045em;margin:7px 0 9px;max-width:760px}.sub{max-width:720px;color:var(--muted);font-size:15px;line-height:1.55}.top-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.ghost,.primary,.icon-btn,.mode-btn,.region-btn,.answer{border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:10px;padding:10px 13px;cursor:pointer;transition:.18s ease}.ghost:hover,.icon-btn:hover,.mode-btn:hover,.region-btn:hover,.answer:hover{border-color:var(--teal);transform:translateY(-1px)}.primary{background:var(--teal);border-color:var(--teal);color:#071316;font-weight:800}.primary:hover{filter:brightness(1.08)}
+    .modebar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:13px}.mode-btn{font-size:13px;color:var(--muted);padding:10px 15px}.mode-btn.active{color:var(--teal);border-color:var(--teal);background:rgba(114,227,207,.1)}.mode-btn .level{font-size:10px;margin-left:5px;color:#6e8089}
+    .layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(310px,.72fr);gap:14px;align-items:start}.stage-card,.card{background:rgba(14,24,32,.88);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.stage-card{overflow:hidden}.stage-head{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}.stage-label{font-weight:800}.stage-meta{color:var(--muted);font-size:12px}.stage{height:min(70vh,690px);min-height:430px;background:radial-gradient(circle at 50% 42%,#1d2e35 0,#0d1820 43%,#071016 100%);position:relative;touch-action:none}.stage canvas{display:block;width:100%;height:100%}.stage-state{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;text-align:center;padding:30px;background:linear-gradient(180deg,rgba(8,16,22,.95),rgba(8,16,22,.76));z-index:3}.stage-state.hidden{display:none}.stage-state h2{font-size:18px;margin:0 0 8px}.stage-state p{color:var(--muted);font-size:13px;line-height:1.55;max-width:360px;margin:0 0 15px}.progress{position:absolute;left:16px;right:16px;bottom:12px;height:3px;border-radius:3px;background:rgba(255,255,255,.09);overflow:hidden;z-index:2}.progress span{display:block;height:100%;width:0;background:var(--teal);transition:width .18s ease}.stage-hint{position:absolute;top:13px;left:16px;right:16px;text-align:center;pointer-events:none;color:rgba(240,238,231,.58);font-size:11px}.stage-controls{display:flex;gap:7px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--line)}.icon-btn{font-size:12px;padding:8px 11px}.icon-btn.active{color:var(--orange);border-color:var(--orange);background:rgba(255,186,103,.08)}
+    .side{display:grid;gap:14px}.card{padding:17px}.task-kicker{color:var(--orange);font-weight:800;font-size:11px;letter-spacing:.13em;text-transform:uppercase}.task-title{font-size:23px;line-height:1.15;margin:6px 0 8px}.task-copy{font-size:13px;color:var(--muted);line-height:1.5;margin:0}.selected{border-left:3px solid var(--teal);padding-left:13px;margin-top:17px}.selected-name{font-size:23px;font-weight:800;letter-spacing:-.02em}.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.chip{font-size:11px;color:var(--muted);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:5px 8px}.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.info-label{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.1em}.info-value{font-size:13px;line-height:1.4;margin-top:4px}.compact-list{padding-left:18px;margin:7px 0 0;color:#c8d0d1;font-size:13px;line-height:1.55}.feedback{margin-top:14px;border-radius:10px;padding:10px 11px;font-size:13px;line-height:1.45;display:none}.feedback.show{display:block}.feedback.good{background:rgba(140,226,174,.11);color:var(--green);border:1px solid rgba(140,226,174,.3)}.feedback.bad{background:rgba(241,129,129,.1);color:#ffb0b0;border:1px solid rgba(241,129,129,.28)}.answers{display:grid;gap:8px;margin-top:15px}.answer{text-align:left;font-size:13px;padding:12px 13px}.answer b{color:var(--teal);margin-right:8px}.answer.correct{border-color:var(--green);background:rgba(140,226,174,.12)}.answer.wrong{border-color:var(--red);background:rgba(241,129,129,.1)}.answer:disabled{cursor:default;transform:none;opacity:.88}.next{display:none;width:100%;margin-top:10px}.next.show{display:block}.empty{color:var(--muted);font-size:13px;line-height:1.5}
+    .below{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.search-row{display:flex;gap:8px}.search-row input{width:100%;background:#0a141b;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 12px;outline:none}.search-row input:focus{border-color:var(--teal)}.search-results{display:grid;gap:6px;margin-top:11px;max-height:260px;overflow:auto}.result{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid transparent;border-radius:9px;padding:9px 10px;background:rgba(255,255,255,.025);cursor:pointer}.result:hover{border-color:var(--line);background:rgba(255,255,255,.05)}.result strong{font-size:13px}.result span{color:var(--muted);font-size:11px}.region-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.region-btn{font-size:11px;color:var(--muted);padding:7px 9px}.region-btn.active{color:var(--orange);border-color:var(--orange)}.review-meter{display:flex;align-items:center;gap:10px;margin-top:12px}.meter{height:6px;background:rgba(255,255,255,.08);border-radius:8px;overflow:hidden;flex:1}.meter span{display:block;height:100%;background:var(--teal);width:0}.review-number{font-size:12px;color:var(--muted)}.small{font-size:12px;color:var(--muted);line-height:1.5}.about{max-width:650px}.about h3{margin:16px 0 5px;font-size:14px}.about p,.about li{color:#bac7ca;font-size:13px;line-height:1.55}.about ul{padding-left:20px}.close{float:right}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(12px);opacity:0;pointer-events:none;background:#d6fff4;color:#092018;font-weight:700;border-radius:999px;padding:10px 14px;font-size:12px;transition:.2s ease;z-index:20}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    dialog{width:min(680px,calc(100% - 28px));background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow)}dialog::backdrop{background:rgba(0,0,0,.65)}
+    @media(max-width:900px){.layout{grid-template-columns:1fr}.stage{height:58vh;min-height:390px}.below{grid-template-columns:1fr}.topbar{display:block}.top-actions{justify-content:flex-start;margin-top:15px}}
+    @media(max-width:560px){body{padding:16px 10px 30px}.title{font-size:31px}.stage{min-height:360px;height:55vh}.stage-head{padding:12px}.stage-controls{padding:10px 12px}.card{padding:14px}.info-grid{grid-template-columns:1fr 1fr}.ghost,.primary{padding:9px 11px}}
+  .memtip{margin-top:13px;border-left:3px solid var(--orange);padding:9px 12px;background:rgba(255,186,103,.07);border-radius:0 10px 10px 0;font-size:13px;line-height:1.55}.memtip .mem-root{display:block;color:var(--orange);font-size:11px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}.memtip .mem-body{color:#e8dcc6}.detail-open{margin-top:12px;width:100%}.pick-label{position:fixed;z-index:50;transform:translate(-50%,-140%);background:#0d2233;color:#cfe8ff;border:1px solid #2b5f8f;border-radius:8px;padding:5px 10px;font-size:12px;pointer-events:none;animation:pickfade .9s ease forwards}@keyframes pickfade{to{opacity:0;transform:translate(-50%,-190%)}}
+/* ---------- Radiography Study Studio shell ---------- */
+.view{display:block}.view.hidden{display:none}
+.brandrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.crumbs{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:16px;font:12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.crumbs button{background:none;border:0;padding:0;color:var(--teal);cursor:pointer;font:inherit;letter-spacing:inherit;text-transform:inherit}
+.crumbs button:hover{text-decoration:underline}.crumbs span.sep{opacity:.45}
+.subject-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:14px}
+.subject-card{position:relative;text-align:left;display:flex;flex-direction:column;gap:9px;padding:18px 18px 16px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));cursor:pointer;transition:.18s ease}
+.subject-card:hover{transform:translateY(-2px);border-color:var(--accent,var(--teal))}
+.subject-card .code{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.13em;color:var(--accent,var(--teal));font-weight:700}
+.subject-card h3{margin:0;font-size:19px;line-height:1.2;letter-spacing:-.02em}
+.subject-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.subject-card .bar{height:5px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:4px}
+.subject-card .bar span{display:block;height:100%;border-radius:99px;background:var(--accent,var(--teal));width:0}
+.subject-card .foot{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:3px 9px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--muted)}
+.pill.full{color:var(--green);border-color:rgba(140,226,174,.35);background:rgba(140,226,174,.09)}
+.pill.substitute{color:var(--orange);border-color:rgba(255,186,103,.35);background:rgba(255,186,103,.09)}
+.pill.limited{color:var(--orange);border-color:rgba(255,186,103,.3)}
+.pill.none{color:var(--red);border-color:rgba(241,129,129,.32);background:rgba(241,129,129,.08)}
+.notice{border-left:3px solid var(--orange);background:rgba(255,186,103,.07);border-radius:0 10px 10px 0;padding:12px 15px;margin:14px 0;font-size:13.5px;line-height:1.6;color:var(--text)}
+.notice.stop{border-left-color:var(--red);background:rgba(241,129,129,.07)}
+.notice strong{display:block;margin-bottom:4px}
+.notice p{margin:6px 0 0;color:var(--muted)}
+.mode-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:10px;margin-top:6px}
+.rss-mode{display:flex;gap:11px;align-items:flex-start;text-align:left;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.03);cursor:pointer;transition:.16s ease}
+.rss-mode:hover{border-color:var(--teal);transform:translateY(-1px)}
+.rss-mode .ic{font-size:16px;line-height:1.2;color:var(--teal)}
+.rss-mode b{display:block;font-size:14px;margin-bottom:3px}
+.rss-mode small{color:var(--muted);font-size:12px;line-height:1.45}
+.unit-list{display:grid;gap:8px;margin-top:4px}
+.unit-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.028);cursor:pointer;transition:.16s ease}
+.unit-row:hover{border-color:var(--teal)}
+.unit-row .grow{flex:1;min-width:0}
+.unit-row b{display:block;font-size:14px;margin-bottom:2px}
+.unit-row small{color:var(--muted);font-size:12px}
+.unit-row .meter{width:78px;height:5px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;flex:none}
+.unit-row .meter span{display:block;height:100%;background:var(--teal)}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.step{flex:1;min-width:104px;border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:rgba(255,255,255,.025);font-size:12px;color:var(--muted);text-align:left;cursor:pointer;transition:.16s ease}
+.step b{display:block;font-size:13px;color:var(--text);margin-bottom:2px}
+.step.active{border-color:var(--teal);background:rgba(114,227,207,.1)}.step.active b{color:var(--teal)}
+.step.done b::after{content:' ✓';color:var(--green)}
+.step:disabled{opacity:.4;cursor:not-allowed}
+.session-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(288px,.68fr);gap:14px;align-items:start}
+@media(max-width:960px){.session-grid{grid-template-columns:1fr}}
+.stagecard{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:20px clamp(16px,2.2vw,26px);box-shadow:var(--shadow)}
+.lesson h2{margin:6px 0 12px;font-size:clamp(20px,2.6vw,29px);line-height:1.14;letter-spacing:-.03em}
+.lesson .body{font-size:15px;line-height:1.68;color:#dfe6ea}
+.facts{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:7px}
+.facts li{position:relative;padding-left:20px;font-size:14px;line-height:1.55;color:#d5dee3}
+.facts li::before{content:'';position:absolute;left:5px;top:9px;width:5px;height:5px;border-radius:99px;background:var(--teal)}
+.subhead{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:20px 0 8px}
+.hookcard{border:1px solid var(--line);border-left:3px solid var(--orange);border-radius:0 12px 12px 0;background:rgba(255,186,103,.06);padding:12px 15px;margin-bottom:9px}
+.hookcard .kind{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);font-weight:700;margin-bottom:4px}
+.hookcard .txt{font-size:14px;line-height:1.6}
+.reveal-stack{display:grid;gap:9px;margin-top:6px}
+.reveal{border:1px dashed var(--line);border-radius:11px;padding:12px 15px;background:rgba(255,255,255,.02)}
+.reveal.open{border-style:solid;border-color:var(--teal);background:rgba(114,227,207,.06)}
+.reveal .lab{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.reveal.open .lab{color:var(--teal)}
+.reveal .txt{font-size:14px;line-height:1.6;color:#d9e2e7}
+.q-prompt{font-size:17px;line-height:1.5;margin:4px 0 15px;font-weight:600}
+.opts{display:grid;gap:8px}
+.opt{width:100%;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:11px;padding:12px 14px;cursor:pointer;font-size:14.5px;line-height:1.45;transition:.14s ease}
+.opt:hover:not(:disabled){border-color:var(--teal)}
+.opt.right{border-color:var(--green);background:rgba(140,226,174,.12)}
+.opt.wrong{border-color:var(--red);background:rgba(241,129,129,.12)}
+.opt:disabled{cursor:default}
+.typed-row{display:flex;gap:8px;flex-wrap:wrap}
+.typed-row input{flex:1;min-width:190px;border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:11px;padding:12px 14px;color:var(--text)}
+.typed-row input:focus{outline:0;border-color:var(--teal)}
+.seq-list{display:grid;gap:7px;margin-bottom:10px}
+.seq-item{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:11px;padding:10px 12px;background:rgba(255,255,255,.03);font-size:14px}
+.seq-item .n{width:22px;height:22px;flex:none;border-radius:99px;background:rgba(114,227,207,.16);color:var(--teal);display:grid;place-items:center;font-size:11px;font-weight:800}
+.seq-item .grow{flex:1;min-width:0}
+.seq-item .mv{display:flex;gap:4px}
+.seq-item .mv button{border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:7px;width:26px;height:26px;cursor:pointer;line-height:1;color:var(--muted)}
+.seq-item .mv button:hover{color:var(--teal);border-color:var(--teal)}
+.seq-item.right{border-color:var(--green)}.seq-item.wrong{border-color:var(--red)}
+.match-grid{display:grid;gap:8px}
+.match-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:8px;align-items:center}
+@media(max-width:560px){.match-row{grid-template-columns:1fr}}
+.match-row .lhs{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:rgba(255,255,255,.03);font-size:13.5px}
+.match-row select{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--panel-2);color:var(--text);font:inherit;width:100%}
+.match-row select:focus{outline:0;border-color:var(--teal)}
+.match-row.right select{border-color:var(--green)}.match-row.wrong select{border-color:var(--red)}
+.diagram-wrap{border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02);padding:10px;margin-bottom:12px;overflow-x:auto}
+.diagram-wrap svg{width:100%;height:auto;max-width:520px;display:block;margin:auto}
+.diagram-wrap svg .sk{fill:none;stroke:var(--muted);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.diagram-wrap svg .hot{fill:rgba(114,227,207,.18);stroke:var(--teal);stroke-width:1.5;cursor:pointer}
+.diagram-wrap svg .hot.picked{fill:rgba(255,186,103,.35);stroke:var(--orange)}
+.diagram-wrap svg .hot.right{fill:rgba(140,226,174,.35);stroke:var(--green)}
+.diagram-wrap svg .hot.wrong{fill:rgba(241,129,129,.35);stroke:var(--red)}
+.diagram-wrap svg text{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;fill:var(--text)}
+.conf-row{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:14px 0 0}
+.conf-row .lab{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.conf{border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:9px;padding:7px 11px;font-size:12.5px;cursor:pointer;transition:.14s ease}
+.conf:hover{border-color:var(--teal)}.conf.on{border-color:var(--teal);background:rgba(114,227,207,.13);color:var(--teal);font-weight:700}
+.verdict{border-radius:12px;padding:13px 15px;margin-top:14px;font-size:14px;line-height:1.6;border:1px solid var(--line)}
+.verdict.ok{border-color:rgba(140,226,174,.4);background:rgba(140,226,174,.08)}
+.verdict.no{border-color:rgba(241,129,129,.4);background:rgba(241,129,129,.08)}
+.verdict h4{margin:0 0 6px;font-size:14px;letter-spacing:-.01em}
+.verdict .why{color:#d7e0e5}
+.verdict .mistakes{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.55}
+.srcbtn{background:none;border:0;padding:0;color:var(--teal);cursor:pointer;font:inherit;font-size:12.5px;text-decoration:underline dotted;text-underline-offset:3px}
+.srcline{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px;color:var(--muted)}
+.mastery{display:grid;gap:7px}
+.mastery .row{display:flex;align-items:center;gap:9px;font-size:12.5px}
+.mastery .row .nm{width:96px;flex:none;color:var(--muted)}
+.mastery .row .mt{flex:1;height:6px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.mastery .row .mt span{display:block;height:100%;border-radius:99px;background:var(--teal)}
+.mastery .row .pc{width:34px;text-align:right;flex:none;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+.srctable{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+.srctable th,.srctable td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.srctable th{color:var(--muted);font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em;text-transform:uppercase;font-weight:700}
+.srctable td.k{white-space:nowrap}
+.cov-sec{border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:11px;background:rgba(255,255,255,.02)}
+.cov-sec h4{margin:0 0 8px;font-size:15px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.cov-sec ul{margin:6px 0 0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.6}
+.cov-sec ul.good li{color:#cfdae0}
+.dlg-scroll{max-height:min(68vh,620px);overflow:auto;padding-right:4px}
+.filelist{display:grid;gap:6px;margin-top:8px}
+.filerow{border:1px solid var(--line);border-radius:9px;padding:9px 12px;background:rgba(255,255,255,.025);font-size:13px}
+.filerow .fn{font-weight:600;word-break:break-word}
+.filerow .fp{color:var(--muted);font-size:11.5px;margin-top:3px;word-break:break-word}
+.emptybox{border:1px dashed var(--line);border-radius:13px;padding:26px 20px;text-align:center;color:var(--muted);font-size:13.5px;line-height:1.6}
+.statrow{display:flex;gap:16px;flex-wrap:wrap;margin:2px 0 0}
+.statrow .s{display:grid;gap:1px}
+.statrow .s b{font-size:22px;letter-spacing:-.03em}
+.statrow .s small{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.tagrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tag{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 8px}
+.studio-embed{margin-top:14px}
+.rss-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+@media(max-width:560px){.steps{gap:5px}.step{min-width:0;flex:1 1 30%;padding:8px}.step b{font-size:12px}.step{font-size:11px}}
+
+  </style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">Offline-first personal study system</div>
+      <h1 class="title">Radiography Study Studio</h1>
+      <p class="sub">Teach me, hook it into memory, test recall, explain the mistake, apply it, schedule the review. Every fact traces back to a file in your own source folders.</p>
+    </div>
+    <div class="top-actions">
+      <button class="ghost" id="rssHomeBtn">All subjects</button>
+      <button class="ghost" id="rssCoverageBtn">Coverage report</button>
+      <button class="ghost" id="aboutBtn">Sources &amp; model</button>
+    </div>
+  </header>
+
+  <nav class="crumbs" id="rssCrumbs" aria-label="Breadcrumb"></nav>
+
+  <!-- ============================ HOME ============================ -->
+  <section class="view" id="homeView">
+    <section class="card" style="margin-bottom:14px">
+      <div class="task-kicker">Today</div>
+      <h2 class="task-title" id="rssTodayTitle">Start a session</h2>
+      <p class="task-copy" id="rssTodayCopy">Pick a study mode, or open a subject and work through one unit at a time.</p>
+      <div class="statrow" id="rssTodayStats"></div>
+      <div class="mode-grid" id="rssModeGrid" style="margin-top:16px"></div>
+    </section>
+
+    <div class="subhead">Subjects</div>
+    <div class="subject-grid" id="rssSubjectGrid"></div>
+  </section>
+
+  <!-- ========================== SUBJECT =========================== -->
+  <section class="view hidden" id="subjectView">
+    <section class="card" style="margin-bottom:14px">
+      <div class="task-kicker" id="rssSubjCode">—</div>
+      <h2 class="task-title" id="rssSubjTitle">—</h2>
+      <p class="task-copy" id="rssSubjBlurb"></p>
+      <div id="rssSubjNotice"></div>
+      <div class="statrow" id="rssSubjStats"></div>
+      <div class="rss-actions" id="rssSubjActions"></div>
+    </section>
+    <div class="subhead" id="rssUnitHead">Units</div>
+    <div class="unit-list" id="rssUnitList"></div>
+    <div id="rssSubjExtra"></div>
+  </section>
+
+  <!-- ========================== SESSION =========================== -->
+  <section class="view hidden" id="sessionView">
+    <div class="steps" id="rssSteps"></div>
+    <div class="session-grid">
+      <section class="stagecard" id="rssStage"></section>
+      <aside class="side">
+        <section class="card">
+          <div class="task-kicker">Session</div>
+          <h2 class="task-title" id="rssSessionTitle">—</h2>
+          <p class="task-copy" id="rssSessionCopy"></p>
+          <div class="review-meter"><div class="meter"><span id="rssSessionBar"></span></div><div class="review-number" id="rssSessionCount">0/0</div></div>
+          <div class="rss-actions">
+            <button class="ghost" id="rssSkipBtn">Skip item</button>
+            <button class="ghost" id="rssEndBtn">End session</button>
+          </div>
+        </section>
+        <section class="card">
+          <div class="task-kicker">Mastery — this item</div>
+          <h2 class="task-title" id="rssMasteryTitle">Not started</h2>
+          <div class="mastery" id="rssMastery"></div>
+          <p class="small" id="rssDueHint" style="margin-top:11px"></p>
+        </section>
+        <section class="card" id="rssSourceCard">
+          <div class="task-kicker">Source</div>
+          <h2 class="task-title" style="font-size:16px">Where this comes from</h2>
+          <div id="rssSourceList"></div>
+        </section>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===================== OSTEOLOGY 3D STUDIO ==================== -->
+  <section class="view hidden" id="osteologyView">
+    <div class="notice" style="margin-top:0">
+      <strong>HSS2011 · Anatomy · Osteology module</strong>
+      The interactive skeleton, bone identification, laterality, landmarks, memory hooks and its own local review history all work exactly as before. If the 3D model cannot load, everything below the stage still works, and the Osteology study items in the session workflow do not need 3D at all.
+    </div>
+    <div class="rss-actions" style="margin:0 0 14px">
+      <button class="ghost" id="rssBackSubject">← Back to HSS2011</button>
+      <button class="ghost" id="reviewBtn">Start review</button>
+    </div>
+
+  <nav class="modebar" aria-label="Learning modes">
+    <button class="mode-btn active" data-mode="explore">Explore</button>
+    <button class="mode-btn" data-mode="identify">Identify <span class="level">L1</span></button>
+    <button class="mode-btn" data-mode="find">Find <span class="level">L4</span></button>
+    <button class="mode-btn" data-mode="side">Left / right <span class="level">L2</span></button>
+    <button class="mode-btn" data-mode="landmarks">Landmarks <span class="level">L3</span></button>
+    <button class="mode-btn" data-mode="memory">Memory hooks <span class="level">L5</span></button>
+  </nav>
+
+  <main class="layout">
+    <section class="stage-card" aria-label="Interactive skeleton">
+      <div class="stage-head"><div><div class="stage-label">Full skeleton reference · direct control</div><div class="stage-meta" id="stageMeta">Precise named-structure skeleton · select Upper limb for focused meshes</div></div><div class="mono" id="regionMeta">All regions</div></div>
+      <div class="stage" id="stage">
+        <div class="stage-hint">drag to rotate · pinch to zoom · tap a structure</div>
+        <div class="stage-state" id="stageState"><h2 id="stateTitle">Preparing the 3D study model</h2><p id="stateCopy">The anatomy database and quiz remain available while the interactive layer starts.</p><button class="primary" id="retryBtn">Retry 3D model</button></div>
+        <div class="progress"><span id="progressBar"></span></div>
+      </div>
+      <div class="stage-controls"><button class="icon-btn" id="resetBtn">Reset view</button><button class="icon-btn" id="zoomInBtn">Zoom in</button><button class="icon-btn" id="zoomOutBtn">Zoom out</button><button class="icon-btn" id="focusBtn">Focus selected</button><button class="icon-btn active" id="motionBtn">Pause animation</button><button class="icon-btn" id="isolateBtn">Isolate selected</button><button class="icon-btn" id="showAllBtn">Show all</button><button class="icon-btn" id="frontBtn">AP view</button><button class="icon-btn" id="lateralBtn">Lateral view</button></div>
+    </section>
+
+    <aside class="side">
+      <section class="card" id="taskCard">
+        <div class="task-kicker" id="taskKicker">Explore</div>
+        <h2 class="task-title" id="taskTitle">Select a structure</h2>
+        <p class="task-copy" id="taskCopy">Tap a named mesh to see only the high-yield anatomy you need right now.</p>
+        <div class="selected" id="selectedCard"><div class="selected-name" id="selectedName">Nothing selected</div><div class="chips" id="selectedChips"></div><div id="selectedDetails"></div></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="answers" id="answers"></div>
+        <button class="primary next" id="nextBtn">Next question</button>
+      </section>
+      <section class="card">
+        <div class="task-kicker">Smart review</div>
+        <h2 class="task-title" id="reviewTitle">Build weak spots</h2>
+        <p class="task-copy">Attempts and response time stay on this device. Missed structures are weighted into the next session.</p>
+        <div class="review-meter"><div class="meter"><span id="reviewBar"></span></div><div class="review-number" id="reviewNumber">0 / 20 reviewed</div></div>
+        <p class="small" id="reviewHint">Start with Identify to create your first review history.</p>
+      </section>
+    </aside>
+  </main>
+
+  <section class="below">
+    <section class="card"><div class="task-kicker">Anatomy search</div><h2 class="task-title">Open a structure</h2><div class="search-row"><input id="searchInput" type="search" placeholder="Try radius, collarbone, kneecap…" aria-label="Search anatomy"><button class="primary" id="clearSearch">Clear</button></div><div class="search-results" id="searchResults"></div></section>
+    <section class="card"><div class="task-kicker">Region filter</div><h2 class="task-title">Study one area</h2><p class="task-copy">Filtering changes the model and the quiz pool without changing the underlying records.</p><div class="region-row" id="regionButtons"></div><p class="small" style="margin-top:15px">Level path: major bones → side → landmarks → spatial finding → radiographic resources.</p></section>
+  </section>
+  </section>
+</div>
+
+<dialog id="aboutDialog"><button class="ghost close" id="closeAbout">Close</button><div class="eyebrow">Sources / architecture</div><h2 class="task-title">Designed for replaceable anatomy assets</h2><div class="about"><p><strong>Active model:</strong> five separate, real BodyParts3D upper-limb GLBs: clavicle, scapula, humerus, radius and ulna. They are loaded locally and mapped into the canonical anatomy database at runtime; the procedural scene is only a last-resort fallback.</p><h3>Model attribution</h3><p>BodyParts3D / Anatomography, © The Database Center for Life Science, licensed under CC BY-SA 2.1 JP. Files are distributed through the open <a href="https://github.com/paulvanmetre/anatomy-viewer" target="_blank" rel="noreferrer">anatomy-viewer</a> study project, which documents the per-bone BodyParts3D source and share-alike attribution.</p><h3>Candidate sources reviewed</h3><ul><li><a href="https://github.com/paulvanmetre/anatomy-viewer" target="_blank" rel="noreferrer">BodyParts3D upper-limb GLBs</a> — active real per-bone source.</li><li><a href="https://3d.nih.gov/entries/3dpx-016838" target="_blank" rel="noreferrer">NIH 3D Human Skeleton, 3DPX-016838</a> — accurate CT-derived source, but the exported GLB is a single fused mesh and is not used for bone picking.</li><li><a href="https://threejs.org/docs/pages/GLTFLoader.html" target="_blank" rel="noreferrer">Three.js GLTFLoader</a> — direct local GLB loading boundary. Only the model adapter needs to change when assets are replaced.</li></ul><h3>Radiography-ready data</h3><p>Each record already has landmarks, articulations, radiography importance, difficulty and a future resource slot. Add openly licensed AP, PA, lateral or oblique studies to the data layer when the image source is cleared.</p><h3>Offline and failure behavior</h3><p>Anatomy search, records, regions and quiz choices render without the 3D dependency. If the local BodyParts3D assets or Three.js CDN are unavailable, the model area exits with a retryable fallback state instead of leaving an infinite spinner.</p></div></dialog>
+<dialog id="detailDialog"><button class="ghost close" id="closeDetail">Close</button><div class="eyebrow">Structure detail</div><h2 class="task-title" id="detailTitle">Structure</h2><div class="chips" id="detailChips"></div><div class="about" id="detailBody"></div></dialog>
+<div class="toast" id="toast" role="status"></div>
+<dialog id="sourceDialog"><button class="ghost close" id="closeSource">Close</button><div class="eyebrow">Source trace</div><h2 class="task-title" id="sourceTitle" style="margin-top:6px">Where this comes from</h2><div class="dlg-scroll" id="sourceBody"></div></dialog>
+<dialog id="coverageDialog"><button class="ghost close" id="closeCoverage">Close</button><div class="eyebrow">Coverage report</div><h2 class="task-title" style="margin-top:6px">What the supplied sources actually cover</h2><div class="dlg-scroll" id="coverageBody"></div></dialog>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js"}}</script>
+<script type="module">
+  import { ANATOMY_DATABASE, LANDMARK_HOTSPOTS, MODEL_CATALOG, REGIONS, getAnatomy, searchAnatomy } from './anatomy-data.js?v=4';
+
+  const $ = (id) => document.getElementById(id);
+  const els = { stage:$('stage'), state:$('stageState'), stateTitle:$('stateTitle'), stateCopy:$('stateCopy'), retry:$('retryBtn'), progress:$('progressBar'), stageMeta:$('stageMeta'), regionMeta:$('regionMeta'), selectedName:$('selectedName'), selectedChips:$('selectedChips'), selectedDetails:$('selectedDetails'), taskKicker:$('taskKicker'), taskTitle:$('taskTitle'), taskCopy:$('taskCopy'), answers:$('answers'), feedback:$('feedback'), next:$('nextBtn'), search:$('searchInput'), results:$('searchResults'), regions:$('regionButtons'), reviewBar:$('reviewBar'), reviewNumber:$('reviewNumber'), reviewHint:$('reviewHint'), toast:$('toast'), detailDialog:$('detailDialog'), detailTitle:$('detailTitle'), detailChips:$('detailChips'), detailBody:$('detailBody'), zoomIn:$('zoomInBtn'), zoomOut:$('zoomOutBtn'), focus:$('focusBtn'), motion:$('motionBtn') };
+  const state = { mode:'explore', region:'all', selectedId:null, selectedSide:null, current:null, quizStarted:false, isolated:false, meshes:[], fullMeshes:[], hotspots:[], fullPickables:[], importedRecords:new Map(), selectionAnchor:null, lastPick:{x:0,y:0,t:0,candidates:[],index:-1}, lastDetailId:null, hashRestored:false, scene:null, camera:null, controls:null, renderer:null, raycaster:null, pointer:null, fullModel:null, realModel:null, realIsProcedural:false, memoryStreak:0, motionEnabled:true, motionPhase:0, stats:loadStats() };
+  const MEMORY_TIPS={
+    cranium:{root:'Greek kranion — helmet/skull',tip:'CRANium is the cap that holds the brain.'},
+    mandible:{root:'Latin mandere — to chew',tip:'MANdible = MAN-chews. It is the mobile skull bone.'},
+    cervical:{root:'Latin cervix — neck',tip:'Seven vertebrae: breakfast at 7. C1 Atlas holds the head; C2 Axis lets you say no.'},
+    thoracic:{root:'Greek thorax — chest armour',tip:'Twelve vertebrae: lunch at 12, with ribs attached.'},
+    lumbar:{root:'Latin lumbus — loin',tip:'Five large load-bearing vertebrae: dinner at 5. Lumbar bodies are chunky.'},
+    sacrum:{root:'Latin os sacrum — sacred bone',tip:'The sacred wedge-shaped keystone locks the pelvic ring together.'},
+    coccyx:{root:'Greek kokkyx — cuckoo',tip:'It is shaped like a cuckoo beak: the tail remnant left behind.'},
+    sternum:{root:'Greek sternon — chest',tip:'Manubrium, body, xiphoid: head, torso, sword-tip.'},
+    ribs:{root:'Rib-count memory',tip:'1–7 go alone, 8–10 carpool, 11–12 walk free.'},
+    clavicle:{root:'Latin clavicula — little key',tip:'The only horizontal long bone: an S-shaped key between sternum and shoulder.'},
+    scapula:{root:'Shoulder blade / spade',tip:'A flat triangle with a spine and a shallow glenoid socket: mobility over stability.'},
+    humerus:{root:'The funny-bone groove',tip:'The humerus has the radial nerve spiral groove: the funny bone grooves.'},
+    radius:{root:'Latin radius — spoke/rod',tip:'The radius rotates over the ulna like a wheel spoke. It is on the thumb side.'},
+    ulna:{root:'Latin ulna — elbow',tip:'ULna = yoUr elbow side: the pinky-side stable hinge.'},
+    hand:{root:'8 carpals, 5 metacarpals, 14 phalanges',tip:'Carpals: Some Lovers Try Positions That They Can’t Handle.'},
+    pelvis:{root:'Latin pelvis — basin',tip:'A basin made of ilium, ischium and pubis: I sit on my ischial tuberosity.'},
+    femur:{root:'The thigh bone',tip:'The longest and strongest bone angles inward from hip to knee.'},
+    patella:{root:'Latin — small pan/dish',tip:'The largest sesamoid bone slides like a dish in the trochlear groove.'},
+    tibia:{root:'Latin tibia — flute/shinbone',tip:'TIBia = TIBe weight-bearing. The medial malleolus is the inner ankle bump.'},
+    fibula:{root:'Latin fibula — pin/buckle',tip:'FiBUla is the thin lateral pin and ends in the lower lateral malleolus.'},
+    foot:{root:'26 bones per foot',tip:'Tarsals, metatarsals, phalanges: 7–5–14.'}
+  };
+
+  function loadStats(){ try{return JSON.parse(localStorage.getItem('osteology-studio-stats') || '{}')}catch{return {}} }
+  function saveStats(){ try{localStorage.setItem('osteology-studio-stats',JSON.stringify(state.stats))}catch{} }
+  function record(id, correct, elapsed){ const s=state.stats[id] || {attempts:0,correct:0,incorrect:0,avgMs:0,lastReviewed:null,confidence:0}; s.attempts++; correct?s.correct++:s.incorrect++; s.avgMs=Math.round(((s.avgMs*(s.attempts-1))+elapsed)/s.attempts); s.lastReviewed=new Date().toISOString(); s.confidence=Math.round((s.correct/s.attempts)*100); state.stats[id]=s; saveStats(); renderReview(); }
+  function showToast(message){ els.toast.textContent=message; els.toast.classList.add('show'); clearTimeout(showToast.t); showToast.t=setTimeout(()=>els.toast.classList.remove('show'),2200); }
+  function clean(text){return text.replace(/[&<>"']/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  function memoryTipHTML(record){const key=record?.id?.replace(/^(full:|real:)/,'')?.replace(/-(left|right)$/,'');const tip=MEMORY_TIPS[key]||MEMORY_TIPS[record?.modelObjectIds?.map(id=>id.replace(/-(left|right)$/,'')).find(id=>MEMORY_TIPS[id])];return tip?`<div class="memtip"><span class="mem-root">Memory hook · ${clean(tip.root)}</span><span class="mem-body">💡 ${clean(tip.tip)}</span></div>`:''}
+  function regionLabel(id){return id==='all'?'All regions':REGIONS.find(r=>r.id===id)?.label || id}
+  function pool(){return ANATOMY_DATABASE.filter((r)=>state.region==='all'||r.region===state.region)}
+  function weightedPick(records=pool()){const sorted=[...records].sort((a,b)=>((state.stats[b.id]?.incorrect||0)-(state.stats[a.id]?.incorrect||0))||((state.stats[a.id]?.attempts||0)-(state.stats[b.id]?.attempts||0)));return sorted[Math.floor(Math.random()*Math.min(5,sorted.length))] || records[0]}
+
+  function renderRegions(){ els.regions.innerHTML=''; [['all','All regions'],...REGIONS.map(r=>[r.id,r.label])].forEach(([id,label])=>{const b=document.createElement('button');b.className='region-btn'+(state.region===id?' active':'');b.textContent=label;b.onclick=()=>{state.region=id;els.regionMeta.textContent=regionLabel(id);applyVisibility();if(state.mode!=='explore')startQuestion();renderRegions()};els.regions.appendChild(b)}) }
+  function renderReview(){const reviewed=Object.values(state.stats).filter(s=>s.attempts>0).length;const accuracy=Object.values(state.stats).reduce((n,s)=>n+s.correct,0)/Math.max(1,Object.values(state.stats).reduce((n,s)=>n+s.attempts,0));els.reviewNumber.textContent=`${reviewed} / ${ANATOMY_DATABASE.length} reviewed`;els.reviewBar.style.width=`${Math.round(accuracy*100)}%`;els.reviewHint.textContent=reviewed?`${Math.round(accuracy*100)}% correct overall · weaker structures are prioritised.`:'Start with Identify to create your first review history.'}
+  function selectBone(id, side=null){state.selectedId=id;state.selectedSide=side;const record=getRecord(id);if(!record)return;state.selectionAnchor=state.meshes.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||state.fullMeshes.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||state.fullPickables.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||null;renderSelected(record,side);highlight(id,side);if(state.isolated)applyVisibility()}
+  function openDetail(record,side=null){els.detailTitle.textContent=record.canonicalName;els.detailChips.innerHTML=`<span class="chip">${regionLabel(record.region)}</span><span class="chip">${side||record.side}</span><span class="chip">Level ${record.difficulty}</span>`;els.detailBody.innerHTML=`<div class="info-grid"><div><div class="info-label">Landmarks</div><ul class="compact-list">${record.landmarks.map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div><div><div class="info-label">Articulations</div><ul class="compact-list">${record.articulations.map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div></div>${memoryTipHTML(record)}<h3>Radiography</h3><p>${clean(record.radiographyImportance)}</p><h3>Common confusions</h3><p>${record.commonConfusions?.map(clean).join(', ')||'None listed.'}</p>`;state.lastDetailId=record.id;location.hash=`detail/${record.id}`;els.detailDialog.showModal()}
+  function renderSelected(record,side){els.selectedName.textContent=record.canonicalName;els.selectedChips.innerHTML=`<span class="chip">${regionLabel(record.region)}</span><span class="chip">${side||record.side}</span><span class="chip">Level ${record.difficulty}</span>`;els.selectedDetails.innerHTML=`<div class="info-grid"><div><div class="info-label">Landmarks</div><ul class="compact-list">${record.landmarks.slice(0,4).map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div><div><div class="info-label">Radiography</div><div class="info-value">${clean(record.radiographyImportance)}</div></div></div>${memoryTipHTML(record)}<button class="primary detail-open" id="openDetailBtn">Open detail</button>`;$('openDetailBtn').onclick=()=>openDetail(record,side)}
+  function clearFeedback(){els.feedback.className='feedback';els.feedback.textContent='';els.next.classList.remove('show')}
+  function setMode(mode){state.mode=mode;state.current=null;clearFeedback();document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));if(mode!=='explore'&&mode!=='memory'&&state.region!=='upper_limb'){state.region='upper_limb';els.regionMeta.textContent='Upper limb';renderRegions()}if(mode==='explore'){els.taskKicker.textContent='Explore';els.taskTitle.textContent='Select a structure';els.taskCopy.textContent='Tap any named bone in the structure-level skeleton. Upper limb uses the separately selectable study set.';els.answers.innerHTML='';if(state.selectedId)renderSelected(getRecord(state.selectedId),state.selectedSide)}else{startQuestion()}applyModeVisuals();applyVisibility()}
+  function applyModeVisuals(){if(state.mode==='landmarks'&&!state.hotspots.length&&state.THREE&&state.scene){addHotspots(state.THREE,state.realModel||state.scene);if(!state.realIsProcedural)remapHotspotsToReal(state.THREE)}state.hotspots.forEach(h=>h.visible=state.mode==='landmarks'&&(!state.selectedId||h.userData.parentId===state.selectedId));if(state.mode==='find'&&state.current){clearHighlight()}else if(state.current?.id){highlight(state.current.id,state.current.side)} }
+  function startQuestion(){const mode=state.mode;let records=pool();if(mode==='side')records=records.filter(r=>r.modelObjectIds.some(id=>id.includes('-left')||id.includes('-right')));if(mode==='landmarks')records=records.filter(r=>LANDMARK_HOTSPOTS[r.id]?.length);if(mode==='memory')records=records.filter(r=>MEMORY_TIPS[r.id]);const record=weightedPick(records);if(!record)return;let side=null;if(mode==='side'){const ids=record.modelObjectIds.filter(id=>id.includes('-left')||id.includes('-right'));side=ids[Math.floor(Math.random()*ids.length)].includes('-left')?'Left':'Right'}state.current={id:record.id,side,started:performance.now(),mode};state.quizStarted=true;els.taskKicker.textContent=mode==='identify'?'Level 1 · Identify':mode==='find'?'Level 4 · Find':mode==='side'?'Level 2 · Side':mode==='memory'?'Level 5 · Memory hooks':'Level 3 · Landmark';els.taskTitle.textContent=mode==='identify'?'What bone is this?':mode==='find'?`Find the ${record.canonicalName.toLowerCase()}`:mode==='side'?`Is this a left or right ${record.canonicalName.toLowerCase()}?`:mode==='memory'?'Which bone does this hook belong to?':'Identify the highlighted landmark';els.taskCopy.textContent=mode==='find'?'Rotate the model and tap the structure. It is not highlighted yet.':mode==='side'?'Use landmarks and anatomical position, not the screen side.':mode==='identify'?'Choose the canonical name from the options.':mode==='memory'?'Read the memory hook, then choose the structure.':'Tap the hotspot label you are being asked to find.';if(mode==='identify')highlight(record.id);else if(mode==='side')highlight(record.id,side);else clearHighlight();if(mode==='memory'){if(state.memoryStreak>=2){state.current.cloze=true;renderMemoryCloze(record)}else renderMemoryAnswers(record)}else renderAnswers(record,mode);if(mode==='landmarks')renderLandmarkQuestion(record);}
+  function startQuestionFor(record){state.current={id:record.id,side:null,started:performance.now(),mode:state.mode};renderAnswers(record,state.mode)}
+  function renderAnswers(record,mode){els.answers.innerHTML='';if(mode==='find'||mode==='landmarks')return;let options=[];if(mode==='side'){options=['Left','Right']}else{const others=pool().filter(r=>r.id!==record.id).sort(()=>Math.random()-.5).slice(0,3);options=[record,...others].sort(()=>Math.random()-.5).map(r=>r.id)}options.forEach((option,i)=>{const b=document.createElement('button');b.className='answer';b.innerHTML=`<b>${String.fromCharCode(65+i)}</b>${mode==='side'?option:clean(getAnatomy(option).canonicalName)}`;b.onclick=()=>answer(option,b);els.answers.appendChild(b)})}
+  function renderMemoryAnswers(record){els.answers.innerHTML='';const tip=MEMORY_TIPS[record.id];if(!tip){startQuestion();return}const box=document.createElement('div');box.className='memtip';box.innerHTML=`<span class="mem-root">Memory hook</span><span class="mem-body">💡 ${clean(tip.tip)}</span>`;els.answers.appendChild(box);const others=pool().filter(r=>r.id!==record.id&&MEMORY_TIPS[r.id]).sort(()=>Math.random()-.5).slice(0,3);[record,...others].sort(()=>Math.random()-.5).forEach((r,i)=>{const b=document.createElement('button');b.className='answer';b.innerHTML=`<b>${String.fromCharCode(65+i)}</b>${clean(r.canonicalName)}`;b.onclick=()=>answer(r.id,b);els.answers.appendChild(b)})}
+  function renderMemoryCloze(record){const tip=MEMORY_TIPS[record.id];els.answers.innerHTML='';const box=document.createElement('div');box.className='memtip';box.innerHTML=`<span class="mem-root">Cloze recall</span><span class="mem-body">💡 ${clean(tip.tip)}</span>`;const input=document.createElement('input');input.type='search';input.placeholder='Type the bone name';input.autocomplete='off';input.style.cssText='width:100%;background:#0a141b;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 12px;outline:none';const button=document.createElement('button');button.className='primary next show';button.textContent='Check answer';button.onclick=()=>{const normalize=s=>s.toLowerCase().replace(/[^a-z]/g,'');recordAnswer(normalize(input.value)===normalize(record.canonicalName),record,null)};els.answers.append(box,input,button);setTimeout(()=>input.focus(),50)}
+  function renderLandmarkQuestion(record){const hotspots=LANDMARK_HOTSPOTS[record.id]||[];if(!hotspots.length){els.taskTitle.textContent='Landmark data next';els.taskCopy.textContent='This bone is in the database, but high-yield hotspot coordinates have not been added yet.';return}const target=hotspots[Math.floor(Math.random()*hotspots.length)];state.current.landmark=target.id;els.taskTitle.textContent=`Find the ${target.label.toLowerCase()}`;els.answers.innerHTML='';hotspots.forEach((h)=>{const b=document.createElement('button');b.className='answer';b.textContent=h.label;b.onclick=()=>answer(h.id,b);els.answers.appendChild(b)});showHotspots(record.id)}
+  function answer(option,button){if(!state.current)return;const correct=state.current.mode==='side'?option===state.current.side:state.current.mode==='landmarks'?option===state.current.landmark:option===state.current.id;const record=getRecord(state.current.id);if(record)recordAnswer(correct,record,button);}
+  function recordAnswer(correct,bone,button){const elapsed=performance.now()-state.current.started;if(state.current.mode==='memory')state.memoryStreak=correct?state.memoryStreak+1:0;record(bone.id,correct,elapsed);document.querySelectorAll('.answer').forEach(b=>b.disabled=true);if(button)button.classList.add(correct?'correct':'wrong');if(!correct){const correctText=state.current.mode==='side'?state.current.side:state.current.mode==='landmarks'?(LANDMARK_HOTSPOTS[bone.id]||[]).find(h=>h.id===state.current.landmark)?.label:bone.canonicalName;const hook=MEMORY_TIPS[bone.id]?.tip?` Memory hook: ${MEMORY_TIPS[bone.id].tip}`:'';els.feedback.className='feedback bad show';els.feedback.textContent=`Not quite. Correct: ${correctText}. ${bone.landmarks[0]} is the useful distinguishing landmark.${hook}`}else{els.feedback.className='feedback good show';els.feedback.textContent=state.current.mode==='find'?'Correct — you found it in space.':`Correct. ${bone.radiographyImportance}`;}highlight(bone.id,state.current.side);els.next.classList.add('show')}
+  function onBonePicked(obj){const {canonicalId,side}=obj.userData;const record=getRecord(canonicalId);const sourceId=obj.userData.sourceCanonicalId;const canUseReal=['clavicle','scapula','humerus','radius','ulna'].includes(sourceId);if(state.mode==='explore'&&(state.fullMeshes.includes(obj)||state.fullPickables.includes(obj))&&canUseReal&&state.region!=='upper_limb'){state.region='upper_limb';els.regionMeta.textContent='Upper limb';renderRegions();applyVisibility();return selectBone(sourceId,side)}if(state.mode==='find'&&state.current){const correct=canonicalId===state.current.id;const questionRecord=getAnatomy(state.current.id);recordAnswer(correct,questionRecord,null);if(!correct){selectBone(canonicalId,side);els.feedback.className='feedback bad show';els.feedback.textContent=`Not that one — try again. You tapped ${getRecord(canonicalId)?.canonicalName||'another structure'}.`;els.next.classList.remove('show');document.querySelectorAll('.answer').forEach(b=>b.disabled=false);state.current.started=performance.now();return}return}if(state.mode==='landmarks'&&obj.userData.landmarkId){answer(obj.userData.landmarkId,null);return}if(record)selectBone(canonicalId,side)}
+  function clearHighlight(){[...state.meshes,...state.fullMeshes].forEach(m=>{m.material.emissive?.setHex(0x000000);m.material.emissiveIntensity=0;m.userData.presentationActive=false;m.scale.set(...(m.userData.baseScale||[1,1,1]));if(m.userData.basePosition)m.position.set(...m.userData.basePosition)});state.fullPickables.forEach(m=>{m.material.opacity=0})}
+  function highlight(id,side=null){clearHighlight();[...state.meshes,...state.fullMeshes].filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{m.material.emissive?.setHex(0x1eb9a6);m.material.emissiveIntensity=.95;m.userData.presentationActive=true});state.fullPickables.filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{m.material.opacity=.26})}
+  function applyVisibility(){const realActive=state.region==='upper_limb';if(state.fullModel)state.fullModel.visible=!realActive;if(state.realModel)state.realModel.visible=realActive;state.fullPickables.forEach(m=>m.visible=!realActive);state.fullMeshes.forEach(m=>{const inRegion=state.region==='all'||m.userData.region===state.region;const isolated=!state.isolated||!state.selectedId||m.userData.canonicalId===state.selectedId;m.visible=!realActive&&inRegion&&isolated});state.meshes.forEach(m=>{const inRegion=state.region==='all'||m.userData.region===state.region;const isolated=!state.isolated||!state.selectedId||m.userData.canonicalId===state.selectedId;m.visible=realActive&&inRegion&&isolated});state.hotspots.forEach(h=>h.visible=realActive&&state.mode==='landmarks'&&(!state.selectedId||h.userData.parentId===state.selectedId));if(state.fullMeshes.length)els.stageMeta.textContent=`Precise Z-Anatomy / BodyParts3D skeleton · ${state.fullMeshes.length} named structure meshes · upper-limb study set`}
+  function addMesh(THREE,group,geometry,position,canonicalId,region,side=null,scale=[1,1,1],label=''){const mat=new THREE.MeshStandardMaterial({color:0xd9d1bc,roughness:.74,metalness:.03});const mesh=new THREE.Mesh(geometry,mat);mesh.position.set(...position);mesh.scale.set(...scale);mesh.userData={canonicalId,region,side,baseScale:[...scale],basePosition:[...position],presentationActive:false,label};group.add(mesh);state.meshes.push(mesh);return mesh}
+  function between(THREE,group,a,b,r,id,region,side=null){const dir=new THREE.Vector3(...b).sub(new THREE.Vector3(...a));const mesh=addMesh(THREE,group,new THREE.CylinderGeometry(r,r*.9,dir.length(),10),new THREE.Vector3(...a).add(new THREE.Vector3(...b)).multiplyScalar(.5).toArray(),id,region,side);mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.normalize());return mesh}
+  function tube(THREE,group,points,r,id,region,side=null){const curve=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));return addMesh(THREE,group,new THREE.TubeGeometry(curve,14,r,6,false),[0,0,0],id,region,side)}
+  function createProceduralModel(THREE){state.realIsProcedural=true;const group=new THREE.Group();state.meshes=[];const sphere=new THREE.SphereGeometry(1,16,12), smallSphere=new THREE.SphereGeometry(1,12,8);
+    addMesh(THREE,group,sphere,[0,11.2,.15],'cranium','skull',null,[1.35,1.55,1.1]);addMesh(THREE,group,new THREE.BoxGeometry(1.6,.4,.85),[0,9.85,.35],'mandible','skull',null,[1,1,1]);
+    for(let i=0;i<7;i++)addMesh(THREE,group,new THREE.CylinderGeometry(.38,.43,.25,10),[0,8.95-i*.62,0],'cervical','spine',null,[1,1,1],`C${i+1}`);
+    for(let i=0;i<12;i++)addMesh(THREE,group,new THREE.CylinderGeometry(.46,.52,.24,10),[0,4.55-i*.43,0],'thoracic','spine',null,[1,1,1],`T${i+1}`);
+    for(let i=0;i<5;i++)addMesh(THREE,group,new THREE.CylinderGeometry(.6,.68,.3,10),[0,-.65-i*.5,0],'lumbar','spine',null,[1,1,1],`L${i+1}`);
+    addMesh(THREE,group,new THREE.ConeGeometry(1.7,2.6,8),[0,-3.4,0],'sacrum','spine',null,[1,.9,.45]);addMesh(THREE,group,new THREE.ConeGeometry(.48,1.2,8),[0,-4.85,0],'coccyx','spine',null,[1,.9,.5]);
+    addMesh(THREE,group,new THREE.BoxGeometry(.5,3.2,.38),[0,4.55,1.25],'sternum','thorax',null,[1,1,1]);
+    for(let i=0;i<12;i++){const y=4.4-i*.42;const bend=i<7?1.65:1.42;for(const s of [-1,1])tube(THREE,group,[[0.25*s,y,-.05],[.8*s,y+.1,.65],[bend*s,y-.1,1.05],[2.0*s,y-.24,1.15]],.075,'ribs','thorax',s<0?'left':'right')}
+    for(const s of [-1,1]){const side=s<0?'left':'right';between(THREE,group,[.1*s,8.65,1.0],[2.25*s,8.35,.9],.16,'clavicle','upper_limb',side);addMesh(THREE,group,sphere,[2.35*s,7.25,.15],'scapula','upper_limb',side,[.9,1.35,.22]);between(THREE,group,[2.55*s,7.05,.15],[2.85*s,3.85,.12],.23,'humerus','upper_limb',side);between(THREE,group,[2.78*s,3.65,.14],[2.55*s,.75,.15],.14,'radius','upper_limb',side);between(THREE,group,[3.04*s,3.68,-.02],[2.98*s,.78,-.02],.16,'ulna','upper_limb',side);addMesh(THREE,group,new THREE.BoxGeometry(1.1,.7,.4),[2.75*s,.25,.15],'hand','upper_limb',side,[1,1,1]);
+      addMesh(THREE,group,sphere,[1.25*s,-.25,.1],'pelvis','pelvis',side,[1.1,1.25,.5]);between(THREE,group,[1.0*s,-1.0,0],[1.18*s,-5.0,.05],.32,'femur','lower_limb',side);addMesh(THREE,group,smallSphere,[1.18*s,-5.12,.38],'patella','lower_limb',side,[.38,.32,.18]);between(THREE,group,[1.18*s,-5.3,0],[1.18*s,-9.0,.02],.24,'tibia','lower_limb',side);between(THREE,group,[1.52*s,-5.3,-.04],[1.5*s,-8.95,-.02],.12,'fibula','lower_limb',side);addMesh(THREE,group,new THREE.BoxGeometry(1.2,1.55,.55),[1.3*s,-9.5,.4],'foot','lower_limb',side,[1,1,1])}
+    return group;
+  }
+  function showHotspots(parentId){state.hotspots.forEach(h=>h.visible=h.userData.parentId===parentId)}
+  function addHotspots(THREE,scene){const parentNode=state.realModel||scene;state.hotspots=[];Object.entries(LANDMARK_HOTSPOTS).forEach(([parent,spots])=>spots.forEach((spot)=>{const mat=new THREE.MeshBasicMaterial({color:0xffba67});const mesh=new THREE.Mesh(new THREE.SphereGeometry(.13,10,8),mat);mesh.position.set(...spot.position);mesh.userData={canonicalId:parent,parentId:parent,landmarkId:spot.id,label:spot.label};mesh.visible=false;parentNode.add(mesh);state.hotspots.push(mesh)}))}
+  function addFullPickables(THREE,scene){if(state.fullMeshes.length)return;const parentNode=state.fullModel||scene;state.fullPickables=[];const zones=[['cranium',null,[0,6.25,.15],.62],['mandible',null,[0,5.5,.2],.38],['clavicle','left',[-1.15,4.75,.15],.35],['clavicle','right',[1.15,4.75,.15],.35],['scapula','left',[-1.3,4.25,.15],.58],['scapula','right',[1.3,4.25,.15],.58],['humerus','left',[-1.52,3.65,.12],.43],['humerus','right',[1.52,3.65,.12],.43],['radius','left',[-1.72,2.75,.1],.28],['radius','right',[1.72,2.75,.1],.28],['ulna','left',[-1.98,2.75,.1],.28],['ulna','right',[1.98,2.75,.1],.28],['hand','left',[-1.82,1.8,.1],.34],['hand','right',[1.82,1.8,.1],.34],['sternum',null,[0,4.0,.3],.34],['ribs',null,[0,3.65,.1],.82],['cervical',null,[0,4.65,-.05],.24],['thoracic',null,[0,3.3,-.05],.34],['lumbar',null,[0,2.15,-.05],.34],['sacrum',null,[0,.65,.1],.36],['coccyx',null,[0,.15,.1],.22],['pelvis','left',[-.72,.45,.15],.58],['pelvis','right',[.72,.45,.15],.58],['femur','left',[-.82,-1.15,.1],.38],['femur','right',[.82,-1.15,.1],.38],['patella','left',[-.82,-3.0,.1],.25],['patella','right',[.82,-3.0,.1],.25],['tibia','left',[-.82,-4.45,.1],.25],['tibia','right',[.82,-4.45,.1],.25],['fibula','left',[-1.05,-4.45,.1],.2],['fibula','right',[1.05,-4.45,.1],.2],['foot','left',[-.82,-6.05,.18],.38],['foot','right',[.82,-6.05,.18],.38]];zones.forEach(([id,side,position,radius])=>{const mat=new THREE.MeshBasicMaterial({color:0x72e3cf,transparent:true,opacity:0,depthWrite:false});const mesh=new THREE.Mesh(new THREE.SphereGeometry(radius,12,8),mat);mesh.position.set(...position);mesh.userData={canonicalId:id,side};parentNode.add(mesh);state.fullPickables.push(mesh)})}
+  function mapImportedName(raw){const value=String(raw||'').toLowerCase().replace(/[_.\-]+/g,' ');const direct={cranium:'cranium',skull:'cranium',mandible:'mandible',jaw:'mandible',cervical:'cervical',atlas:'cervical',axis:'cervical',thoracic:'thoracic',lumbar:'lumbar',sacrum:'sacrum',coccyx:'coccyx',sternum:'sternum',manubrium:'sternum',rib:'ribs',costa:'ribs',clavicle:'clavicle',collarbone:'clavicle',scapula:'scapula',humerus:'humerus',radius:'radius',ulna:'ulna',carpal:'hand',metacarpal:'hand',phalanx:'hand',ilium:'pelvis',ischium:'pelvis',pubis:'pelvis',pelvis:'pelvis',acetabulum:'pelvis',femur:'femur',patella:'patella',tibia:'tibia',fibula:'fibula',tarsal:'foot',metatarsal:'foot',calcaneus:'foot',talus:'foot'};for(const [needle,id] of Object.entries(direct)){if(value.includes(needle))return id}return null}
+  function sideFromImportedName(raw){const value=String(raw||'').toLowerCase().replace(/[_.\-]+/g,' ');if(/\b(left|l)\b/.test(value)||value.endsWith(' l')||/(bone|phalanx|humerus|radius|ulna|scapula|clavicle|femur|tibia|fibula|patella|talus|calcaneus)l$/.test(value))return 'left';if(/\b(right|r)\b/.test(value)||value.endsWith(' r')||/(bone|phalanx|humerus|radius|ulna|scapula|clavicle|femur|tibia|fibula|patella|talus|calcaneus)r$/.test(value))return 'right';return null}
+  function cleanImportedLabel(raw){let value=String(raw||'').replace(/[_.\-]+/g,' ').replace(/\s+/g,' ').trim();value=value.replace(/(bone|phalanx|humerus|radius|ulna|scapula|clavicle|femur|tibia|fibula|patella|talus|calcaneus)([lr])$/i,'$1');return value.replace(/\s+[lr]$/i,'').trim()}
+  function importedRegion(raw,mapped){if(mapped&&getAnatomy(mapped))return getAnatomy(mapped).region;const value=String(raw||'').toLowerCase();if(/humerus|radius|ulna|scapula|clavicle|carpal|metacarpal|phalanx|hand/.test(value))return 'upper_limb';if(/femur|tibia|fibula|patella|tarsal|metatarsal|calcaneus|talus|foot/.test(value))return 'lower_limb';if(/vertebra|sacrum|coccyx|spine/.test(value))return 'spine';if(/rib|sternum|costal/.test(value))return 'thorax';if(/ilium|ischium|pubis|hip|pelvis|acetabulum/.test(value))return 'pelvis';return 'skull'}
+  function importedRecord(id,raw,mapped,region){const known=mapped&&getAnatomy(mapped);const label=cleanImportedLabel(raw);const side=sideFromImportedName(raw);if(known)return {...known,id,canonicalName:label||known.canonicalName,side:side||known.side};return {id,canonicalName:label||'Unnamed structure',aliases:[],region,side:side||'bilateral',category:'named atlas structure',landmarks:[],articulations:[],radiographyImportance:'Named atlas structure from the interactive skeleton source.',difficulty:3,modelObjectIds:[],commonConfusions:[]}}
+  function getRecord(id){return getAnatomy(id)||state.importedRecords.get(id)||null}
+  function prepareFullReference(THREE,root){state.THREE=THREE;state.fullMeshes=[];state.fullPickables=[];root.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(root);const size=box.getSize(new THREE.Vector3());const maxDim=Math.max(size.x,size.y,size.z)||1;root.scale.setScalar(11.8/maxDim);const scaledBox=new THREE.Box3().setFromObject(root);const center=scaledBox.getCenter(new THREE.Vector3());root.position.x-=center.x;root.position.y+=1-center.y;root.position.z-=center.z;root.updateMatrixWorld(true);root.traverse((obj)=>{if(!obj.isMesh)return;const raw=obj.name||obj.parent?.name||'Unnamed structure';const mapped=mapImportedName(raw);const region=importedRegion(raw,mapped);const id=`full:${state.fullMeshes.length}:${raw}`;state.importedRecords.set(id,importedRecord(id,raw,mapped,region));obj.userData={...(obj.userData||{}),baseScale:obj.scale.toArray(),basePosition:obj.position.toArray(),presentationActive:false,canonicalId:id,sourceCanonicalId:mapped,region,side:sideFromImportedName(raw),label:raw,precise:true};if(obj.material){obj.material=obj.material.clone();obj.material.color?.setHex(0xd9d1bc);obj.material.roughness=.8;obj.material.metalness=.02}state.fullMeshes.push(obj)});const pivot=new THREE.Group();pivot.name='fullSkeletonPivot';pivot.add(root);return pivot}
+  function prepareImportedModel(THREE,root){state.realIsProcedural=false;const box=new THREE.Box3().setFromObject(root);const size=box.getSize(new THREE.Vector3());const maxDim=Math.max(size.x,size.y,size.z)||1;const scalar=11/maxDim;root.scale.setScalar(scalar);const scaledBox=new THREE.Box3().setFromObject(root);const center=scaledBox.getCenter(new THREE.Vector3());root.position.x-=center.x;root.position.y+=.5-center.y;root.position.z-=center.z;state.meshes=[];let mapped=0,unmapped=0;const importedNames=[];root.traverse((obj)=>{if(!obj.isMesh)return;importedNames.push(obj.name||obj.parent?.name||'unnamed');const canonicalId=obj.userData.sourceCanonicalId||mapImportedName(obj.name||obj.parent?.name);if(!canonicalId){unmapped++;obj.visible=false;return}const known=getAnatomy(canonicalId);if(!known){unmapped++;obj.visible=false;return}mapped++;obj.userData={...(obj.userData||{}),baseScale:obj.scale.toArray(),basePosition:obj.position.toArray(),presentationActive:false,canonicalId,region:known.region,side:obj.userData.sourceSide||sideFromImportedName(obj.name||obj.parent?.name),label:obj.userData.sourceLabel||obj.name};if(obj.material){obj.material=obj.material.clone();obj.material.color?.setHex(0xd9d1bc);obj.material.roughness=.78;obj.material.metalness=.02}state.meshes.push(obj)});return {mapped,unmapped}}
+  function remapHotspotsToReal(THREE){if(!state.realModel||state.realIsProcedural)return;const byId=new Map();state.meshes.forEach(m=>{if(!byId.has(m.userData.canonicalId))byId.set(m.userData.canonicalId,m)});state.realModel.updateMatrixWorld(true);Object.entries(LANDMARK_HOTSPOTS).forEach(([parent,spots])=>{const mesh=byId.get(parent);if(!mesh)return;mesh.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(mesh),center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3());spots.forEach(spot=>{const h=state.hotspots.find(x=>x.userData.parentId===parent&&x.userData.landmarkId===spot.id);if(!h)return;const rel=new THREE.Vector3(...spot.position).sub(new THREE.Vector3(-2.4,7.7,.45));rel.x=Math.max(-1.2,Math.min(1.2,rel.x));rel.y=Math.max(-1.2,Math.min(1.2,rel.y));rel.z=Math.max(-.8,Math.min(.8,rel.z));const worldPoint=center.clone().add(rel.multiply(new THREE.Vector3(size.x*.5,size.y*.5,size.z*.5)));h.position.copy(state.realModel.worldToLocal(worldPoint));h.visible=false})})}
+  async function loadImportedModel(THREE,GLTFLoader,DRACOLoader){const root=new THREE.Group();const loader=new GLTFLoader();const draco=new DRACOLoader();draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/libs/draco/');loader.setDRACOLoader(draco);for(let i=0;i<MODEL_CATALOG.active.files.length;i++){const source=MODEL_CATALOG.active.files[i];const gltf=await new Promise((resolve,reject)=>loader.load(source.file,resolve,(event)=>{const ratio=event.total?event.loaded/event.total:0;els.progress.style.width=`${Math.round(((i+ratio)/MODEL_CATALOG.active.files.length)*60)+28}%`},reject));gltf.scene.traverse((obj)=>{obj.userData={...(obj.userData||{}),sourceCanonicalId:source.id,sourceSide:source.side,sourceLabel:source.label}});root.add(gltf.scene)}const pivot=new THREE.Group();pivot.name='realUpperLimbPivot';pivot.add(root);return pivot}
+  async function loadFullReference(THREE,GLTFLoader){const loader=new GLTFLoader();const gltf=await new Promise((resolve,reject)=>loader.load(MODEL_CATALOG.fullSkeletonFile,resolve,(event)=>{const ratio=event.total?event.loaded/event.total:0;els.progress.style.width=`${Math.round(ratio*25)+3}%`},reject));return gltf.scene}
+  function cameraView(kind){if(!state.camera||!state.controls)return;if(kind==='lateral'){state.camera.position.set(24,1,0);state.controls.target.set(0,1,0)}else{state.camera.position.set(0,1,25);state.controls.target.set(0,1,0)}state.controls.update()}
+  async function boot3D(){els.state.classList.remove('hidden');els.stateTitle.textContent='Loading full skeleton reference';els.stateCopy.textContent='Loading the CT-derived reference model, then preparing the individually selectable upper-limb set…';els.retry.style.display='none';els.progress.style.width='3%';try{const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js');const {OrbitControls}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js');const {GLTFLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js');const {DRACOLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/DRACOLoader.js');state.scene=new THREE.Scene();state.scene.background=new THREE.Color(0x0b151b);state.camera=new THREE.PerspectiveCamera(32,1,.1,100);state.camera.position.set(0,1,25);state.renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});state.renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));state.renderer.outputColorSpace=THREE.SRGBColorSpace;els.stage.prepend(state.renderer.domElement);state.controls=new OrbitControls(state.camera,state.renderer.domElement);state.controls.enableDamping=true;state.controls.dampingFactor=.08;state.controls.minDistance=2.5;state.controls.maxDistance=45;state.controls.target.set(0,1,0);state.raycaster=new THREE.Raycaster();state.pointer=new THREE.Vector2();state.scene.add(new THREE.HemisphereLight(0xdce9e7,0x102026,2.1));const key=new THREE.DirectionalLight(0xffffff,2.4);key.position.set(5,12,16);state.scene.add(key);state.scene.add(new THREE.DirectionalLight(0x5cd1c4,.8));try{state.fullModel=prepareFullReference(THREE,await loadFullReference(THREE,GLTFLoader));state.scene.add(state.fullModel);addFullPickables(THREE,state.scene);els.stageMeta.textContent='Full NIH CT-derived skeleton reference · named click zones · upper-limb meshes selectable by region';}catch(fullError){console.warn('Full reference failed',fullError)}try{state.realModel=await loadImportedModel(THREE,GLTFLoader,DRACOLoader);const info=prepareImportedModel(THREE,state.realModel);state.scene.add(state.realModel);els.stageMeta.textContent+=` · ${info.mapped} real BodyParts3D upper-limb meshes`;}catch(importError){console.warn('Real upper-limb model failed, using local fallback',importError);state.realModel=createProceduralModel(THREE);state.scene.add(state.realModel);addHotspots(THREE,state.scene);els.stageMeta.textContent='Full reference + fallback upper-limb meshes';}resize();applyVisibility();els.progress.style.width='100%';setTimeout(()=>els.state.classList.add('hidden'),500);animate();return true}catch(error){els.stateTitle.textContent='3D model unavailable';els.stateCopy.textContent='The study tools still work. Check your connection, then retry the model layer.';els.retry.style.display='inline-flex';els.progress.style.width='100%';console.warn(error);return false}}
+  function resize(){if(!state.renderer||!state.camera)return;const rect=els.stage.getBoundingClientRect();state.renderer.setSize(rect.width,rect.height,false);state.camera.aspect=rect.width/rect.height;state.camera.updateProjectionMatrix()}
+  function animate(){if(!state.renderer)return;requestAnimationFrame(animate);state.motionPhase=performance.now()*.001;if(state.motionEnabled){const turn=Math.sin(state.motionPhase*.55)*.24;[state.fullModel,state.realModel].forEach(root=>{if(root)root.rotation.y=turn})}const pulse=.72+.28*Math.sin(state.motionPhase*3.2);[...state.meshes,...state.fullMeshes].filter(m=>m.userData.presentationActive).forEach(m=>{if(m.material.emissive)m.material.emissiveIntensity=.95*pulse});state.controls.update();state.renderer.render(state.scene,state.camera)}
+  function zoomCamera(factor){if(!state.camera||!state.controls)return;const offset=state.camera.position.clone().sub(state.controls.target);const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,offset.length()*factor));state.camera.position.copy(state.controls.target).add(offset.normalize().multiplyScalar(distance));state.controls.update()}
+  function focusSelected(){if(!state.camera||!state.controls||!state.selectionAnchor){showToast('Select a structure first');return}state.controls.minDistance=2.5;const box=new state.THREE.Box3().setFromObject(state.selectionAnchor);const center=box.getCenter(new state.THREE.Vector3());const size=box.getSize(new state.THREE.Vector3());const radius=Math.max(size.x,size.y,size.z,.35);const offset=state.camera.position.clone().sub(state.controls.target).normalize();const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,radius*3.6));state.controls.target.copy(center);state.camera.position.copy(center).add(offset.multiplyScalar(distance));state.controls.update()}
+  function toggleIsolation(){if(!state.selectedId){showToast('Select a structure first');return}const record=getRecord(state.selectedId);if(!state.fullMeshes.length&&record?.region!=='upper_limb'&&state.region!=='upper_limb'){showToast('This fallback reference is fused. Use Upper limb for per-bone isolation.');focusSelected();return}if(state.region!=='upper_limb'&&record?.region==='upper_limb'&&state.meshes.length){state.region='upper_limb';els.regionMeta.textContent='Upper limb';renderRegions();applyVisibility()}state.isolated=!state.isolated;$('isolateBtn').classList.toggle('active',state.isolated);applyVisibility();focusSelected()}
+  function isSelfOrAncestorVisible(obj){let o=obj;while(o){if(!o.visible)return false;o=o.parent}return true}
+  function nearestVisibleMesh(event,rect){if(!state.THREE)return null;const pool=state.region==='upper_limb'?state.meshes:state.fullMeshes;let best=null;for(const mesh of pool){if(!isSelfOrAncestorVisible(mesh))continue;const box=new state.THREE.Box3().setFromObject(mesh);const boxSize=box.getSize(new state.THREE.Vector3());box.expandByScalar(-Math.min(boxSize.length()*.08,.15));const center=box.getCenter(new state.THREE.Vector3()).project(state.camera);const px=rect.left+(center.x+1)*rect.width/2;const py=rect.top+(1-center.y)*rect.height/2;const radiusPx=Math.max(4,Math.min(32,Math.max(boxSize.x,boxSize.y,boxSize.z)*state.camera.position.distanceTo(state.controls.target)*3));const distance=Math.hypot(event.clientX-px,event.clientY-py);const tolerance=Math.max(18,radiusPx+10);if(distance<=tolerance&&(!best||distance<best.distance))best={mesh,distance}}return best?.mesh||null}
+  function flashLabel(x,y,text){const el=document.createElement('div');el.className='pick-label';el.textContent=text;el.style.left=x+'px';el.style.top=y+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),900)}
+  function confirmPick(obj,event){if(!obj)return;onBonePicked(obj);const picked=getRecord(obj.userData.canonicalId);if(picked){flashLabel(event.clientX,event.clientY,picked.canonicalName);if(navigator.vibrate)navigator.vibrate(10)}}
+  function pick(event,focusAfter=false){if(!state.renderer)return;const rect=state.renderer.domElement.getBoundingClientRect();state.pointer.x=((event.clientX-rect.left)/rect.width)*2-1;state.pointer.y=-((event.clientY-rect.top)/rect.height)*2+1;state.raycaster.setFromCamera(state.pointer,state.camera);const hotspotTargets=state.mode==='landmarks'?state.hotspots:[];const targets=[...state.meshes,...state.fullMeshes,...hotspotTargets];const hits=state.raycaster.intersectObjects(targets,true).filter(h=>isSelfOrAncestorVisible(h.object)&&h.object.userData.canonicalId);hits.sort((a,b)=>{const d=a.distance-b.distance;if(Math.abs(d)>.05)return d;const sa=new state.THREE.Box3().setFromObject(a.object).getSize(new state.THREE.Vector3()).length();const sb=new state.THREE.Box3().setFromObject(b.object).getSize(new state.THREE.Vector3()).length();return sa-sb});const now=performance.now();const sameSpot=!focusAfter&&Math.hypot(event.clientX-state.lastPick.x,event.clientY-state.lastPick.y)<14&&now-state.lastPick.t<900;let chosen=null;if(sameSpot&&state.lastPick.candidates.length>1){state.lastPick.index=(state.lastPick.index+1)%state.lastPick.candidates.length;chosen=state.lastPick.candidates[state.lastPick.index]}else{const seen=new Set();const candidates=[];hits.forEach(h=>{const id=h.object.userData.canonicalId;if(!seen.has(id)){seen.add(id);candidates.push(h.object)}});state.lastPick={x:event.clientX,y:event.clientY,t:now,candidates,index:0};chosen=candidates[0]||null}if(chosen){confirmPick(chosen,event);if(focusAfter&&state.selectionAnchor)focusSelected();return}const zones=state.raycaster.intersectObjects(state.fullPickables,false).filter(h=>isSelfOrAncestorVisible(h.object));if(zones[0]){confirmPick(zones[0].object,event);if(focusAfter&&state.selectionAnchor)focusSelected();return}const nearest=nearestVisibleMesh(event,rect);if(nearest){confirmPick(nearest,event);if(focusAfter&&state.selectionAnchor)focusSelected()}}
+  let pointerDown=null;function bindCanvas(){let lastTap=0;els.stage.addEventListener('pointerdown',(e)=>{pointerDown={x:e.clientX,y:e.clientY}});els.stage.addEventListener('pointerup',(e)=>{if(pointerDown&&Math.hypot(e.clientX-pointerDown.x,e.clientY-pointerDown.y)<7){const now=performance.now();const isDouble=now-lastTap<320;lastTap=now;pick(e,isDouble)}pointerDown=null})}
+  function renderSearch(){const dbHits=searchAnatomy(els.search.value).slice(0,10);const needle=els.search.value.trim().toLowerCase();const atlasHits=needle?[...state.importedRecords.values()].filter(r=>r.canonicalName.toLowerCase().includes(needle)).slice(0,6):[];const hits=[...dbHits,...atlasHits];els.results.innerHTML=hits.map(r=>`<div class="result" data-id="${r.id}"><strong>${clean(r.canonicalName)}</strong><span>${clean(state.importedRecords.has(r.id)?'Atlas':regionLabel(r.region))}</span></div>`).join('')||'<div class="empty">No matching structure. Try an alias such as collarbone or kneecap.</div>';els.results.querySelectorAll('.result').forEach(el=>el.onclick=()=>{const record=getRecord(el.dataset.id);if(!record)return;state.region=record.region==='upper_limb'?'upper_limb':'all';els.regionMeta.textContent=regionLabel(state.region);renderRegions();setMode('explore');selectBone(record.id);showToast(`${record.canonicalName} opened`)})}
+  function clearSelection(){state.selectedId=null;state.selectedSide=null;state.selectionAnchor=null;state.isolated=false;$('isolateBtn').classList.remove('active');clearHighlight();applyVisibility();els.selectedName.textContent='Nothing selected';els.selectedChips.innerHTML='';els.selectedDetails.innerHTML=''}
+  document.querySelectorAll('.mode-btn').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));$('resetBtn').onclick=()=>{cameraView('front');state.isolated=false;$('isolateBtn').classList.remove('active');applyVisibility()};els.zoomIn.onclick=()=>zoomCamera(.72);els.zoomOut.onclick=()=>zoomCamera(1.38);els.focus.onclick=focusSelected;$('frontBtn').onclick=()=>cameraView('front');$('lateralBtn').onclick=()=>cameraView('lateral');$('isolateBtn').onclick=toggleIsolation;$('showAllBtn').onclick=()=>{state.region='all';els.regionMeta.textContent='All regions';renderRegions();clearSelection()};els.next.onclick=()=>startQuestion();$('reviewBtn').onclick=()=>{setMode('identify');showToast('Review session started')};$('aboutBtn').onclick=()=>$('aboutDialog').showModal();$('closeAbout').onclick=()=>$('aboutDialog').close();$('closeDetail').onclick=()=>{els.detailDialog.close();state.lastDetailId=null;history.replaceState(null,'',location.pathname+location.search)};els.search.oninput=renderSearch;$('clearSearch').onclick=()=>{els.search.value='';renderSearch()};els.retry.onclick=()=>{try{state.controls?.dispose()}catch{}if(state.renderer){state.renderer.domElement.remove();state.renderer=null;state.controls=null}state.scene=null;state.camera=null;state.fullModel=null;state.realModel=null;state.meshes=[];state.fullMeshes=[];state.hotspots=[];state.fullPickables=[];boot3D()};window.addEventListener('resize',resize);
+  els.motion.onclick=()=>{state.motionEnabled=!state.motionEnabled;els.motion.textContent=state.motionEnabled?'Pause animation':'Play animation';els.motion.classList.toggle('active',state.motionEnabled)};renderRegions();renderReview();renderSearch();bindCanvas();setMode('explore');window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;boot3D()}},resize,select:(id)=>{const r=getRecord(id);if(r)selectBone(r.id)},state};if(false&&!sessionStorage.getItem('osteology-memory-tip-shown')){const tips=Object.values(MEMORY_TIPS);if(tips.length){showToast(`💡 ${tips[Math.floor(Math.random()*tips.length)].tip}`);sessionStorage.setItem('osteology-memory-tip-shown','1')}}
+  window.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&state.selectedId&&!document.getElementById('osteologyView').classList.contains('hidden')&&!document.querySelector('dialog[open]'))clearSelection()});
+  function restoreFromHash(){if(!location.hash)return;const m=location.hash.match(/^#detail\/([\w:-]+)/);if(!m||m[1]===state.lastDetailId)return;state.hashTries=(state.hashTries||0)+1;const record=getRecord(m[1]);if(!record){if(!state.fullMeshes.length&&!state.meshes.length&&state.hashTries<20)setTimeout(restoreFromHash,250);return}selectBone(record.id);openDetail(record)}
+  window.addEventListener('hashchange',restoreFromHash);setTimeout(restoreFromHash,250);
+  const activeModelCopy=document.querySelector('#aboutDialog .about p');
+  if(activeModelCopy)activeModelCopy.innerHTML='<strong>Active model:</strong> a precise Z-Anatomy / BodyParts3D full skeleton with 277 named meshes for structure-level picking. Upper limb and quiz modes additionally load five separate BodyParts3D study meshes: clavicle, scapula, humerus, radius and ulna. The procedural scene is only a last-resort fallback.';
+</script>
+<script type="module">
+import {
+  SUBJECTS, STUDY_ITEMS, STUDY_MODES, ITEM_TYPES, MASTERY_DIMENSIONS, MEMORY_METHODS,
+  SOURCE_FILES, SOURCE_ROOTS, COVERAGE, DIAGRAMS, SOCIOLOGY_NOTICE, PLACEHOLDER_NOTICES,
+  STORAGE_PREFIX, LEGACY_STATS_KEY, DATA_VERSION,
+  getSubject, getItem, itemsForSubject, itemsForUnit, questionsOf, allQuestions,
+  describeSource, coverageFor, blankMastery, schedule, masteryScore, isDue, dimensionFor,
+  validateCorpus, validateApplications,
+} from './study-data.js';
+
+const $$ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+/* ------------------------------------------------------------------ *
+ * Storage — versioned keys, one-time migration from the osteology app
+ * ------------------------------------------------------------------ */
+
+const K = {
+  mastery: STORAGE_PREFIX + 'mastery',
+  items: STORAGE_PREFIX + 'items',
+  mistakes: STORAGE_PREFIX + 'mistakes',
+  meta: STORAGE_PREFIX + 'meta',
+};
+
+function read(key, fallback) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch { return fallback; }
+}
+function write(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* quota or private mode — keep running in memory */ }
+}
+
+const store = {
+  mastery: read(K.mastery, {}),
+  items: read(K.items, {}),
+  mistakes: read(K.mistakes, []),
+  meta: read(K.meta, null),
+};
+
+function migrate() {
+  if (store.meta && store.meta.version === DATA_VERSION) return;
+  const meta = store.meta || {};
+  let migrated = meta.migratedLegacy || 0;
+  if (!meta.migratedLegacy) {
+    const legacy = read(LEGACY_STATS_KEY, null);
+    if (legacy && typeof legacy === 'object') {
+      for (const [boneId, s] of Object.entries(legacy)) {
+        if (!s || !s.attempts) continue;
+        /* Imported atlas ids carry a full:/real: prefix and a side suffix. */
+        const base = String(boneId).replace(/^(full:|real:)/, '').replace(/-(left|right)$/, '');
+        const itemId = `hss2011-bone-${base}`;
+        if (!getItem(itemId)) continue;
+        const key = `${itemId}::recognition`;
+        const prior = store.mastery[key] || blankMastery();
+        store.mastery[key] = {
+          ...prior,
+          attempts: prior.attempts + s.attempts,
+          correct: prior.correct + (s.correct || 0),
+          lapses: prior.lapses + (s.incorrect || 0),
+          avgMs: s.avgMs || prior.avgMs,
+          reps: Math.max(prior.reps, Math.min(3, s.correct || 0)),
+          intervalDays: Math.max(prior.intervalDays, (s.correct || 0) > 1 ? 2 : 1),
+          due: Date.now(),
+          lastSeen: s.lastReviewed ? Date.parse(s.lastReviewed) || Date.now() : Date.now(),
+          confidenceSum: prior.confidenceSum + Math.round(((s.confidence || 0) / 100) * 3 * s.attempts),
+          confidenceN: prior.confidenceN + s.attempts,
+        };
+        store.items[itemId] = { ...(store.items[itemId] || {}), status: 'review', seen: (store.items[itemId]?.seen || 0) + s.attempts };
+        migrated += 1;
+      }
+    }
+  }
+  store.meta = { ...meta, version: DATA_VERSION, migratedLegacy: migrated, migratedAt: meta.migratedAt || Date.now() };
+  write(K.mastery, store.mastery); write(K.items, store.items); write(K.meta, store.meta);
+  if (migrated) toast(`Carried ${migrated} bone${migrated === 1 ? '' : 's'} of existing progress into the new mastery record.`);
+}
+
+function masteryKey(itemId, dim) { return `${itemId}::${dim}`; }
+function getMastery(itemId, dim) { return store.mastery[masteryKey(itemId, dim)] || null; }
+function setMastery(itemId, dim, rec) { store.mastery[masteryKey(itemId, dim)] = rec; write(K.mastery, store.mastery); }
+
+function itemScore(itemId) {
+  const recs = MASTERY_DIMENSIONS.map((d) => getMastery(itemId, d.id)).filter(Boolean);
+  if (!recs.length) return 0;
+  return recs.reduce((n, r) => n + masteryScore(r), 0) / recs.length;
+}
+function itemAttempted(itemId) {
+  return MASTERY_DIMENSIONS.some((d) => (getMastery(itemId, d.id) || {}).attempts > 0);
+}
+function itemDue(itemId, now = Date.now()) {
+  const recs = MASTERY_DIMENSIONS.map((d) => getMastery(itemId, d.id)).filter((r) => r && r.attempts);
+  if (!recs.length) return true;
+  return recs.some((r) => isDue(r, now));
+}
+function itemLapses(itemId) {
+  return MASTERY_DIMENSIONS.reduce((n, d) => n + ((getMastery(itemId, d.id) || {}).lapses || 0), 0);
+}
+
+function logMistake(entry) {
+  store.mistakes.unshift({ ...entry, at: Date.now() });
+  store.mistakes = store.mistakes.slice(0, 400);
+  write(K.mistakes, store.mistakes);
+}
+
+function subjectStats(subjectId) {
+  const items = itemsForSubject(subjectId);
+  const seen = items.filter((i) => itemAttempted(i.id)).length;
+  const score = items.length ? items.reduce((n, i) => n + itemScore(i.id), 0) / items.length : 0;
+  const due = items.filter((i) => itemAttempted(i.id) && itemDue(i.id)).length;
+  return { total: items.length, seen, score, due };
+}
+
+/* ------------------------------------------------------------------ *
+ * Small UI helpers
+ * ------------------------------------------------------------------ */
+
+let toastTimer = null;
+function toast(msg) {
+  const el = $$('toast');
+  if (!el) return;
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 4200);
+}
+
+const VIEWS = ['homeView', 'subjectView', 'sessionView', 'osteologyView'];
+function showView(id) {
+  VIEWS.forEach((v) => $$(v).classList.toggle('hidden', v !== id));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (id === 'osteologyView' && window.__osteo) {
+    window.__osteo.boot();
+    setTimeout(() => window.__osteo.resize(), 60);
+  }
+}
+
+function crumbs(parts) {
+  const el = $$('rssCrumbs');
+  el.innerHTML = parts.map((p, i) => {
+    const sep = i ? '<span class="sep">/</span>' : '';
+    return p.go ? `${sep}<button data-crumb="${i}">${esc(p.label)}</button>` : `${sep}<span>${esc(p.label)}</span>`;
+  }).join(' ');
+  el.querySelectorAll('[data-crumb]').forEach((b) => { b.onclick = () => parts[+b.dataset.crumb].go(); });
+}
+
+function coveragePill(status) {
+  const map = { full: ['full', 'Full coverage'], substitute: ['substitute', 'Substitute source'], limited: ['limited', 'Limited source coverage'], none: ['none', 'No source materials'] };
+  const [cls, label] = map[status] || ['none', status];
+  return `<span class="pill ${cls}">${esc(label)}</span>`;
+}
+
+/* ------------------------------------------------------------------ *
+ * Home
+ * ------------------------------------------------------------------ */
+
+function renderHome() {
+  crumbs([{ label: 'All subjects' }]);
+  const totalItems = STUDY_ITEMS.length;
+  const seen = STUDY_ITEMS.filter((i) => itemAttempted(i.id)).length;
+  const due = STUDY_ITEMS.filter((i) => itemAttempted(i.id) && itemDue(i.id)).length;
+  const fresh = STUDY_ITEMS.filter((i) => !itemAttempted(i.id)).length;
+  const mistakes = new Set(store.mistakes.map((m) => m.itemId)).size;
+
+  $$('rssTodayTitle').textContent = due ? `${due} item${due === 1 ? '' : 's'} due for review` : (seen ? 'Nothing due — go forward instead' : 'Start with a daily pre-study session');
+  $$('rssTodayCopy').textContent = due
+    ? 'Reviews are scheduled from accuracy, confidence, response time and how often an item has caught you out before.'
+    : 'Pick a study mode below, or open a subject and work through one unit at a time.';
+  $$('rssTodayStats').innerHTML = [
+    ['Studied', `${seen}/${totalItems}`], ['Due now', String(due)], ['Never seen', String(fresh)], ['With mistakes', String(mistakes)],
+  ].map(([lab, v]) => `<div class="s"><b>${esc(v)}</b><small>${esc(lab)}</small></div>`).join('');
+
+  $$('rssModeGrid').innerHTML = STUDY_MODES.map((m) =>
+    `<button class="rss-mode" data-mode="${m.id}"><span class="ic">${esc(m.icon)}</span><span><b>${esc(m.label)}</b><small>${esc(m.hint)}</small></span></button>`).join('');
+  $$('rssModeGrid').querySelectorAll('[data-mode]').forEach((b) => {
+    b.onclick = () => { if (b.dataset.mode === 'subject') { toast('Pick a subject below, then choose a unit.'); return; } startSession({ mode: b.dataset.mode }); };
+  });
+
+  $$('rssSubjectGrid').innerHTML = SUBJECTS.map((s) => {
+    const st = subjectStats(s.id);
+    const pct = Math.round(st.score * 100);
+    return `<button class="subject-card" style="--accent:${s.accent}" data-subject="${s.id}">
+      <span class="code">${esc(s.code)}</span>
+      <h3>${esc(s.title)}</h3>
+      <p>${esc(s.blurb)}</p>
+      <span class="bar"><span style="width:${st.total ? pct : 0}%"></span></span>
+      <span class="foot"><span>${st.total ? `${st.seen}/${st.total} studied · ${pct}% mastery` : 'No study items'}</span>${coveragePill(s.coverage)}</span>
+    </button>`;
+  }).join('');
+  $$('rssSubjectGrid').querySelectorAll('[data-subject]').forEach((b) => { b.onclick = () => renderSubject(b.dataset.subject); });
+  showView('homeView');
+}
+
+/* ------------------------------------------------------------------ *
+ * Subject
+ * ------------------------------------------------------------------ */
+
+function fileRowsHTML(refs) {
+  return `<div class="filelist">${refs.map((r) => {
+    const s = SOURCE_FILES[r];
+    if (!s) return '';
+    return `<div class="filerow"><div class="fn">${esc(s.file)}</div><div class="fp">${esc((SOURCE_ROOTS[s.root] || s.root) + ' / ' + s.folder)} · ${esc(s.kind)}${s.note ? ' · ' + esc(s.note) : ''}</div></div>`;
+  }).join('')}</div>`;
+}
+
+function renderSubject(subjectId) {
+  const subject = getSubject(subjectId);
+  if (!subject) return renderHome();
+  crumbs([{ label: 'All subjects', go: renderHome }, { label: subject.code }]);
+
+  $$('rssSubjCode').textContent = subject.code;
+  $$('rssSubjTitle').textContent = subject.title;
+  $$('rssSubjBlurb').textContent = subject.blurb;
+
+  const notice = $$('rssSubjNotice');
+  const cov = coverageFor(subjectId);
+  if (subject.coverage === 'substitute') {
+    notice.innerHTML = `<div class="notice"><strong>Source notice — the exact ${esc(subject.code)} source set was not found</strong>
+      The supplied folders contain <em>${esc(subject.substituteFor)}</em>, which is the closest available material and is what every item below is built from. The subject has <strong>not</strong> been silently renamed: each source reference still shows the original HTI17101 filename and folder.
+      <p>Projection terminology is limited to what the supplied lectures actually contain — only <strong>PA</strong> and <strong>Lat</strong> appear, in one worked chest X-ray request form. No item claims AP or oblique.</p></div>`;
+  } else if (subject.coverage === 'limited') {
+    notice.innerHTML = `<div class="notice stop"><strong>${esc(SOCIOLOGY_NOTICE.headline)}</strong>${esc(SOCIOLOGY_NOTICE.detail)}</div>`;
+  } else if (subject.coverage === 'none') {
+    const p = PLACEHOLDER_NOTICES[subjectId];
+    notice.innerHTML = `<div class="notice stop"><strong>${esc(p.headline)}</strong>${esc(p.detail)}
+      <p>Searched for: ${p.searched.map((t) => `<code>${esc(t)}</code>`).join(', ')}.${p.doNotSubstitute ? ' Deliberately not substituted: ' + p.doNotSubstitute.map((x) => esc(x)).join('; ') + '.' : ''}</p></div>`;
+  } else {
+    notice.innerHTML = '';
+  }
+
+  const st = subjectStats(subjectId);
+  $$('rssSubjStats').innerHTML = st.total
+    ? [['Items', String(st.total)], ['Studied', String(st.seen)], ['Mastery', `${Math.round(st.score * 100)}%`], ['Due', String(st.due)], ['Source files', String(cov ? cov.files : 0)]]
+      .map(([l, v]) => `<div class="s"><b>${esc(v)}</b><small>${esc(l)}</small></div>`).join('')
+    : `<div class="s"><b>0</b><small>Study items</small></div><div class="s"><b>${esc(String(cov ? cov.files : 0))}</b><small>Source files found</small></div>`;
+
+  const actions = $$('rssSubjActions');
+  actions.innerHTML = '';
+  if (st.total) {
+    const study = document.createElement('button');
+    study.className = 'primary'; study.textContent = 'Study this subject';
+    study.onclick = () => startSession({ mode: 'subject', subject: subjectId });
+    actions.appendChild(study);
+    const weak = document.createElement('button');
+    weak.className = 'ghost'; weak.textContent = 'Weakest first';
+    weak.onclick = () => startSession({ mode: 'weakest', subject: subjectId });
+    actions.appendChild(weak);
+    const hooks = document.createElement('button');
+    hooks.className = 'ghost'; hooks.textContent = 'Memory hooks only';
+    hooks.onclick = () => startSession({ mode: 'hooks', subject: subjectId });
+    actions.appendChild(hooks);
+  }
+  const covBtn = document.createElement('button');
+  covBtn.className = 'ghost'; covBtn.textContent = 'Coverage for this subject';
+  covBtn.onclick = () => openCoverage(subjectId);
+  actions.appendChild(covBtn);
+
+  const list = $$('rssUnitList');
+  $$('rssUnitHead').textContent = subject.units.length ? 'Units' : '';
+  list.innerHTML = subject.units.map((u) => {
+    const items = itemsForUnit(subjectId, u.id);
+    const score = items.length ? Math.round((items.reduce((n, i) => n + itemScore(i.id), 0) / items.length) * 100) : 0;
+    const studioTag = u.hasStudio ? ' <span class="pill">3D studio</span>' : '';
+    return `<button class="unit-row" data-unit="${esc(u.id)}">
+      <span class="grow"><b>${esc(u.label)}${studioTag}</b><small>${items.length ? `${items.length} item${items.length === 1 ? '' : 's'}` : 'No study items yet'}${u.note ? ' · ' + esc(u.note) : ''}</small></span>
+      <span class="meter"><span style="width:${score}%"></span></span>
+      <span class="pc" style="font-size:11px;color:var(--muted);min-width:32px;text-align:right">${score}%</span>
+    </button>`;
+  }).join('');
+  list.querySelectorAll('[data-unit]').forEach((b) => {
+    b.onclick = () => {
+      const unitId = b.dataset.unit;
+      const unit = subject.units.find((u) => u.id === unitId);
+      const items = itemsForUnit(subjectId, unitId);
+      if (unit && unit.hasStudio && !items.length) return openOsteology();
+      if (!items.length) return toast('No study items for this unit yet — the coverage report says why.');
+      startSession({ mode: 'subject', subject: subjectId, unit: unitId });
+    };
+  });
+
+  const extra = $$('rssSubjExtra');
+  if (subjectId === 'APSS1A08') {
+    extra.innerHTML = `<div class="subhead">Supplied files (${SOCIOLOGY_NOTICE.fileRefs.length})</div>${fileRowsHTML(SOCIOLOGY_NOTICE.fileRefs)}
+      <div class="subhead">Concept words appearing in the supplied coursework</div>
+      <div class="notice">These are recorded only as evidence of what the student coursework discusses. They are <strong>not</strong> definitions, and nothing here has been checked against course material — no study items, flashcards or questions have been generated.
+      <ul style="margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.6">${SOCIOLOGY_NOTICE.conceptMentions.map((c) => `<li><strong style="color:var(--text)">${esc(c.term)}</strong> — ${esc(c.note)} <em>(${esc(SOURCE_FILES[c.ref].file)})</em></li>`).join('')}</ul></div>`;
+  } else if (subject.coverage === 'none') {
+    extra.innerHTML = `<div class="emptybox">No source files found for ${esc(subject.code)}.<br><br>Drop materials into a subject folder on the source drive and re-run the coverage scan. Study content is only ever created once verified source files exist — nothing is generated from general knowledge.</div>`;
+  } else if (subjectId === 'HSS2011') {
+    extra.innerHTML = `<div class="subhead">Osteology 3D studio</div>
+      <div class="unit-list"><button class="unit-row" id="rssOpenStudio"><span class="grow"><b>Open the interactive skeleton</b><small>Explore, identify, find, left/right, landmarks and memory hooks — with its own local review history</small></span><span class="pill">3D</span></button></div>`;
+    const btn = $$('rssOpenStudio');
+    if (btn) btn.onclick = openOsteology;
+  } else {
+    extra.innerHTML = '';
+  }
+  showView('subjectView');
+}
+
+function openOsteology() {
+  crumbs([{ label: 'All subjects', go: renderHome }, { label: 'HSS2011', go: () => renderSubject('HSS2011') }, { label: 'Osteology 3D studio' }]);
+  showView('osteologyView');
+}
+
+/* ------------------------------------------------------------------ *
+ * Session engine
+ * ------------------------------------------------------------------ */
+
+const STEPS = [
+  { id: 'learn', label: 'Learn', copy: 'Read the teaching explanation and the key facts.' },
+  { id: 'remember', label: 'Remember', copy: 'Memory Coach — hints revealed one stage at a time.' },
+  { id: 'practise', label: 'Practise', copy: 'Answer, rate your confidence, then see why.' },
+  { id: 'apply', label: 'Apply', copy: 'Use the idea on something you have not seen.' },
+  { id: 'review', label: 'Review', copy: 'Confirm what was scheduled and what to fix.' },
+];
+
+let session = null;
+
+function pickItems(opts) {
+  const now = Date.now();
+  let pool = STUDY_ITEMS.slice();
+  if (opts.subject) pool = pool.filter((i) => i.subject === opts.subject);
+  if (opts.unit) pool = pool.filter((i) => i.unit === opts.unit);
+
+  const unseen = pool.filter((i) => !itemAttempted(i.id));
+  const due = pool.filter((i) => itemAttempted(i.id) && itemDue(i.id, now));
+  const byWeak = (a, b) => (itemScore(a.id) - itemScore(b.id)) || (itemLapses(b.id) - itemLapses(a.id));
+  const shuffle = (arr) => arr.map((v) => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map((p) => p[1]);
+
+  switch (opts.mode) {
+    case 'new':
+      return shuffle(unseen).slice(0, 8);
+    case 'weakest':
+      return pool.filter((i) => itemAttempted(i.id)).sort(byWeak).slice(0, 10);
+    case 'quick10':
+      return [...due.sort(byWeak).slice(0, 4), ...shuffle(unseen).slice(0, 2)].slice(0, 6);
+    case 'exam': {
+      const examItems = pool.filter((i) => questionsOf(i).some((q) => q.src && (q.type === 'mcq' || q.type === 'cloze')));
+      return shuffle(examItems).slice(0, 10);
+    }
+    case 'hooks':
+      return shuffle(pool.filter((i) => i.memory && Object.keys(i.memory).length)).slice(0, 12);
+    case 'mistakes': {
+      const ids = [...new Set(store.mistakes.map((m) => m.itemId))];
+      return ids.map(getItem).filter(Boolean).filter((i) => !opts.subject || i.subject === opts.subject).slice(0, 12);
+    }
+    case 'daily': {
+      const grab = (subject, unit, n) => shuffle(STUDY_ITEMS.filter((i) => i.subject === subject && (!unit || i.unit === unit))).sort((a, b) => (itemDue(b.id) - itemDue(a.id))).slice(0, n);
+      return [
+        ...grab('HSS2011', 'hss.term', 2),
+        ...grab('HSS2011', 'hss.osteo', 3),
+        ...grab('ABCT2326', null, 2),
+        ...grab('HTI17103', null, 1),
+      ];
+    }
+    case 'mixed':
+      return shuffle(STUDY_ITEMS.filter((i) => ['HSS2011', 'ABCT2326', 'HTI17103'].includes(i.subject))).slice(0, 14);
+    case 'subject':
+    default: {
+      const queue = [...due.sort(byWeak), ...shuffle(unseen)].slice(0, 12);
+      return queue.length ? queue : shuffle(pool).slice(0, 12);
+    }
+  }
+}
+
+function startSession(opts) {
+  const items = pickItems(opts).filter(Boolean);
+  if (!items.length) {
+    if (opts.mode === 'mistakes') return toast('No mistakes recorded yet — nothing to explain.');
+    if (opts.mode === 'new') return toast('Every item has been seen at least once. Try "Review my weakest topics".');
+    return toast('Nothing to study for that selection yet.');
+  }
+  const mode = STUDY_MODES.find((m) => m.id === opts.mode);
+  const hooksOnly = opts.mode === 'hooks';
+  session = {
+    opts, mode, items, index: 0, step: hooksOnly ? 'remember' : 'learn',
+    /* Hooks-only is a browsing mode, so open every hint straight away. */
+    reveal: hooksOnly ? REVEAL_STAGES.length : 0,
+    qIndex: 0, answered: false, confidence: null, startedAt: 0,
+    results: [], hooksOnly,
+  };
+  const subject = opts.subject ? getSubject(opts.subject) : null;
+  crumbs([
+    { label: 'All subjects', go: renderHome },
+    ...(subject ? [{ label: subject.code, go: () => renderSubject(subject.id) }] : []),
+    { label: mode ? mode.label : 'Session' },
+  ]);
+  $$('rssSessionTitle').textContent = mode ? mode.label : 'Study session';
+  $$('rssSessionCopy').textContent = mode ? mode.hint : '';
+  showView('sessionView');
+  renderStep();
+}
+
+function currentItem() { return session.items[session.index]; }
+
+function setStep(step) {
+  session.step = step;
+  session.reveal = session.hooksOnly ? REVEAL_STAGES.length : 0;
+  session.answered = false;
+  session.confidence = null;
+  if (step === 'practise' || step === 'apply') session.startedAt = performance.now();
+  renderStep();
+}
+
+function renderSteps() {
+  const el = $$('rssSteps');
+  const order = STEPS.map((s) => s.id);
+  el.innerHTML = STEPS.map((s) => {
+    const done = order.indexOf(s.id) < order.indexOf(session.step);
+    return `<button class="step ${s.id === session.step ? 'active' : ''} ${done ? 'done' : ''}" data-step="${s.id}"><b>${esc(s.label)}</b>${esc(s.copy)}</button>`;
+  }).join('');
+  el.querySelectorAll('[data-step]').forEach((b) => { b.onclick = () => setStep(b.dataset.step); });
+}
+
+function renderSessionMeter() {
+  const total = session.items.length;
+  const n = session.index + 1;
+  $$('rssSessionCount').textContent = `${n}/${total}`;
+  $$('rssSessionBar').style.width = `${Math.round((session.index / total) * 100)}%`;
+}
+
+function renderMasteryPanel(item) {
+  const rows = MASTERY_DIMENSIONS.map((d) => {
+    const rec = getMastery(item.id, d.id);
+    const pct = Math.round(masteryScore(rec) * 100);
+    const shown = d.id === 'confidence' && rec && rec.confidenceN
+      ? Math.round((rec.confidenceSum / (rec.confidenceN * 3)) * 100)
+      : pct;
+    return `<div class="row" title="${esc(d.hint)}"><span class="nm">${esc(d.label)}</span><span class="mt"><span style="width:${shown}%"></span></span><span class="pc">${rec && rec.attempts ? shown + '%' : '—'}</span></div>`;
+  }).join('');
+  $$('rssMastery').innerHTML = rows;
+  const overall = Math.round(itemScore(item.id) * 100);
+  $$('rssMasteryTitle').textContent = itemAttempted(item.id) ? `${overall}% overall` : 'Not started';
+  const recs = MASTERY_DIMENSIONS.map((d) => getMastery(item.id, d.id)).filter((r) => r && r.attempts);
+  if (!recs.length) { $$('rssDueHint').textContent = 'No review scheduled yet — answering once will schedule the first one.'; return; }
+  const soonest = Math.min(...recs.map((r) => r.due));
+  const days = Math.round((soonest - Date.now()) / 86400000);
+  const lapses = itemLapses(item.id);
+  $$('rssDueHint').textContent = (soonest <= Date.now() ? 'Due now.' : days < 1 ? 'Due later today.' : `Next review in about ${days} day${days === 1 ? '' : 's'}.`)
+    + (lapses ? ` Missed ${lapses} time${lapses === 1 ? '' : 's'} before, so intervals are held short.` : '');
+}
+
+function renderSourceCard(item) {
+  $$('rssSourceList').innerHTML = item.sourceRefs.map((r) => {
+    const d = describeSource(r);
+    return `<div class="filerow"><div class="fn">${esc(d.file)}${d.authored ? ' <span class="pill">app-authored</span>' : ''}</div><div class="fp">${esc(d.folder)}${d.location ? ' · ' + esc(d.location) : ''}</div></div>`;
+  }).join('') + `<div class="rss-actions"><button class="ghost" id="rssFullSource">Full source trace</button></div>`;
+  const b = $$('rssFullSource');
+  if (b) b.onclick = () => openSourceDialog(item);
+}
+
+function renderStep() {
+  const item = currentItem();
+  renderSteps();
+  renderSessionMeter();
+  renderMasteryPanel(item);
+  renderSourceCard(item);
+  const stage = $$('rssStage');
+  if (session.step === 'learn') stage.innerHTML = learnHTML(item);
+  else if (session.step === 'remember') { stage.innerHTML = rememberHTML(item); wireReveal(item); }
+  else if (session.step === 'practise') { stage.innerHTML = practiseHTML(item); wirePractise(item); }
+  else if (session.step === 'apply') { stage.innerHTML = applyHTML(item); wireApply(item); }
+  else stage.innerHTML = reviewHTML(item);
+  wireStageNav(item);
+}
+
+function typeLabel(t) { return (ITEM_TYPES[t] || {}).label || t; }
+
+function learnHTML(item) {
+  const subject = getSubject(item.subject);
+  return `<div class="lesson">
+    <div class="eyebrow" style="color:${subject ? subject.accent : 'var(--teal)'}">${esc(subject ? subject.code : item.subject)} · ${esc(typeLabel(item.type))}</div>
+    <h2>${esc(item.title)}</h2>
+    <div class="body">${esc(item.lesson.explanation)}</div>
+    ${item.lesson.keyFacts && item.lesson.keyFacts.length ? `<div class="subhead">Key facts to remember</div><ul class="facts">${item.lesson.keyFacts.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>` : ''}
+    ${item.lesson.examples && item.lesson.examples.length ? `<div class="subhead">Examples</div><ul class="facts">${item.lesson.examples.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>` : ''}
+    ${item.lesson.studyNote ? `<div class="notice"><strong>Radiography study note — written by this app</strong>${esc(item.lesson.studyNote)}<p>This framing is not a claim from the supplied sources. The anatomy above is; this sentence is study scaffolding.</p></div>` : ''}
+    ${item.tags && item.tags.length ? `<div class="tagrow">${item.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}
+    <div class="rss-actions"><button class="primary" data-nav="remember">Give me the memory aids →</button><button class="ghost" data-nav="practise">Skip to practice</button></div>
+  </div>`;
+}
+
+const REVEAL_STAGES = [
+  { lab: 'Stage 1 — small clue', pick: (item) => (item.memory.chunking || item.memory.wordOrigin || item.memory.location || item.memory.comparison || 'Start from the title and ask what category the answer belongs to.') },
+  { lab: 'Stage 2 — memory hook', pick: (item) => (item.memory.mnemonic || item.memory.firstLetter || item.memory.visualCue || item.memory.sequence || item.memory.chunking || 'Attach the fact to something you already know well.') },
+  { lab: 'Stage 3 — partial answer', pick: (item) => (item.lesson.keyFacts && item.lesson.keyFacts[0]) || item.lesson.explanation.split('. ')[0] + '.' },
+  { lab: 'Stage 4 — full explanation', pick: (item) => item.lesson.explanation },
+];
+
+function rememberHTML(item) {
+  const hooks = Object.entries(item.memory || {}).filter(([, v]) => v);
+  const stack = REVEAL_STAGES.map((s, i) =>
+    `<div class="reveal ${i < session.reveal ? 'open' : ''}" data-stage="${i}">
+      <div class="lab">${esc(s.lab)}</div>
+      <div class="txt">${i < session.reveal ? esc(s.pick(item)) : '<em style="color:var(--muted)">Hidden — reveal only if you need it. Trying to retrieve first is what makes it stick.</em>'}</div>
+    </div>`).join('');
+  return `<div class="lesson">
+    <div class="eyebrow">Memory Coach</div>
+    <h2>${esc(item.title)}</h2>
+    <p class="task-copy">${session.hooksOnly ? 'Browsing memory hooks — nothing is scored in this mode.' : 'Hints come one stage at a time. Try to answer before opening the next one.'}</p>
+    ${session.hooksOnly ? '' : `<div class="reveal-stack">${stack}</div>`}
+    <div class="rss-actions">
+      ${session.hooksOnly ? '' : `<button class="ghost" id="rssRevealBtn">${session.reveal >= REVEAL_STAGES.length ? 'All hints shown' : 'Reveal next hint'}</button>`}
+      ${session.hooksOnly
+        ? (session.index >= session.items.length - 1 ? '<button class="primary" id="rssFinish">Finish</button>' : '<button class="primary" id="rssNextItem">Next hook →</button>')
+        : '<button class="primary" data-nav="practise">Test me →</button>'}
+    </div>
+    ${hooks.length ? `<div class="subhead">All memory aids for this item</div>${hooks.map(([k, v]) => `<div class="hookcard"><div class="kind">${esc(MEMORY_METHODS[k] || k)}</div><div class="txt">${esc(v)}</div></div>`).join('')}
+      <p class="small" style="color:var(--muted);margin-top:10px">Memory aids are written by this app. The facts they point at are the source-traced ones above.</p>` : '<div class="emptybox" style="margin-top:14px">No memory aid authored for this item yet.</div>'}
+  </div>`;
+}
+
+function wireReveal(item) {
+  const b = $$('rssRevealBtn');
+  if (!b) return;
+  b.disabled = session.reveal >= REVEAL_STAGES.length;
+  b.onclick = () => { session.reveal = Math.min(REVEAL_STAGES.length, session.reveal + 1); renderStep(); };
+}
+
+/* ---------------- question rendering ---------------- */
+
+function questionBody(q) {
+  switch (q.type) {
+    case 'mcq': case 'comparison':
+      return `<div class="opts">${q.options.map((o, i) => `<button class="opt" data-opt="${i}">${esc(o)}</button>`).join('')}</div>`;
+    case 'typed': case 'cloze': case 'landmark':
+      return `<div class="typed-row"><input id="rssTypedInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${q.type === 'landmark' ? 'List the landmarks, separated by commas' : 'Type your answer'}"><button class="primary" id="rssTypedGo">Check</button></div>`;
+    case 'sequence': {
+      const order = session.seqOrder || (session.seqOrder = q.items.map((v, i) => i).sort(() => Math.random() - 0.5));
+      return `<div class="seq-list" id="rssSeq">${order.map((oi, pos) => `<div class="seq-item" data-pos="${pos}"><span class="n">${pos + 1}</span><span class="grow">${esc(q.items[oi])}</span><span class="mv"><button data-up="${pos}" aria-label="Move up">↑</button><button data-down="${pos}" aria-label="Move down">↓</button></span></div>`).join('')}</div>
+        <button class="primary" id="rssSeqGo">Check order</button>`;
+    }
+    case 'matching': {
+      const rights = session.matchRights || (session.matchRights = q.pairs.map((p) => p[1]).sort(() => Math.random() - 0.5));
+      return `<div class="match-grid" id="rssMatch">${q.pairs.map((p, i) => `<div class="match-row" data-row="${i}"><span class="lhs">${esc(p[0])}</span><select data-sel="${i}"><option value="">Choose…</option>${rights.map((r) => `<option value="${esc(r)}">${esc(r)}</option>`).join('')}</select></div>`).join('')}</div>
+        <button class="primary" id="rssMatchGo" style="margin-top:10px">Check matches</button>`;
+    }
+    case 'diagram': {
+      const d = DIAGRAMS[q.diagram];
+      if (!d) return '<div class="emptybox">Diagram unavailable.</div>';
+      const target = session.diagramTarget ?? (session.diagramTarget = Math.floor(Math.random() * q.labels.length));
+      const hotspots = q.labels.map((l) => {
+        const pt = d.labels[l.id];
+        if (!pt) return '';
+        return `<circle class="hot" data-hot="${esc(l.id)}" cx="${pt[0]}" cy="${pt[1]}" r="13"></circle>`;
+      }).join('');
+      return `<div class="diagram-wrap"><svg viewBox="${d.viewBox}" role="img" aria-label="${esc(d.title)}">
+        ${d.shapes.map((s) => s.kind === 'ellipse' ? `<ellipse class="sk" cx="${s.cx}" cy="${s.cy}" rx="${s.rx}" ry="${s.ry}"/>`
+          : s.kind === 'circle' ? `<circle class="sk" cx="${s.cx}" cy="${s.cy}" r="${s.r}" ${s.faint ? 'opacity=".4"' : ''}/>`
+          : `<path class="sk" d="${s.d}"/>`).join('')}
+        ${hotspots}
+      </svg><p class="small" style="text-align:center;color:var(--muted);margin:8px 0 0">${esc(d.caption)}</p></div>
+      <div class="q-prompt" style="font-size:15px">Click the hotspot for: <strong>${esc(q.labels[target].label)}</strong></div>`;
+    }
+    case 'id3d': case 'laterality':
+      return `<div class="notice"><strong>This one is best answered on the 3D skeleton</strong>Open the Osteology studio to find it on the model. If 3D is unavailable, answer from the landmark list instead — the explanation below covers both routes.</div>
+        <div class="opts"><button class="opt" data-opt="0">I found it / I know where it is</button><button class="opt" data-opt="1">I could not place it</button></div>
+        <div class="rss-actions"><button class="ghost" id="rssGoStudio">Open the 3D studio</button></div>`;
+    case 'explain': case 'scenario':
+      return `<div class="typed-row"><input id="rssTypedInput" autocomplete="off" placeholder="Answer in your own words, then check against the model answer"></div>
+        <button class="primary" id="rssSelfGo" style="margin-top:9px">Show the model answer</button>`;
+    default:
+      return '<div class="emptybox">This question type is not renderable.</div>';
+  }
+}
+
+function confidenceRow() {
+  const labels = ['Guessed', 'Unsure', 'Fairly sure', 'Certain'];
+  return `<div class="conf-row"><span class="lab">How sure were you?</span>${labels.map((l, i) => `<button class="conf ${session.confidence === i ? 'on' : ''}" data-conf="${i}">${esc(l)}</button>`).join('')}</div>`;
+}
+
+function practiseHTML(item) {
+  const qs = questionsOf(item);
+  if (!qs.length) return '<div class="emptybox">No practice questions on this item.</div>';
+  const q = qs[Math.min(session.qIndex, qs.length - 1)];
+  session.currentQ = q;
+  return `<div class="lesson">
+    <div class="eyebrow">Practise · ${esc(typeLabel(q.type))} · question ${Math.min(session.qIndex, qs.length - 1) + 1} of ${qs.length}</div>
+    <div class="q-prompt">${esc(q.prompt)}</div>
+    <div id="rssQBody">${questionBody(q)}</div>
+    ${confidenceRow()}
+    <div id="rssVerdict"></div>
+    <div class="rss-actions" id="rssPractiseNav"></div>
+  </div>`;
+}
+
+function normalise(s) {
+  return String(s).toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9;,\s]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+function looseMatch(given, accepted) {
+  const g = normalise(given);
+  if (!g) return false;
+  return accepted.some((a) => {
+    const n = normalise(a);
+    if (g === n) return true;
+    /* multi-part answers: accept the same set of parts in any order */
+    const gp = g.split(/[;,]\s*|\s+and\s+/).map((x) => x.trim()).filter(Boolean).sort();
+    const np = n.split(/[;,]\s*|\s+and\s+/).map((x) => x.trim()).filter(Boolean).sort();
+    if (np.length > 1 && gp.length === np.length && gp.every((x, i) => x === np[i])) return true;
+    return false;
+  });
+}
+function spellingNear(given, accepted) {
+  const g = normalise(given);
+  return accepted.some((a) => {
+    const n = normalise(a);
+    if (Math.abs(g.length - n.length) > 3) return false;
+    let d = 0, i = 0, j = 0;
+    while (i < g.length && j < n.length) {
+      if (g[i] === n[j]) { i++; j++; continue; }
+      d++; if (d > 2) return false;
+      if (g.length > n.length) i++; else if (n.length > g.length) j++; else { i++; j++; }
+    }
+    return d + (g.length - i) + (n.length - j) <= 2;
+  });
+}
+
+function verdictHTML(item, q, correct, extra) {
+  const rationale = q.explanation || q.model || '';
+  const srcBtn = q.src ? ` <button class="srcbtn" id="rssQSrc">Source for this answer</button>` : '';
+  return `<div class="verdict ${correct ? 'ok' : 'no'}">
+    <h4>${correct ? 'Correct' : 'Not right — here is why'}</h4>
+    <div class="why">${esc(rationale)}${extra ? ' ' + extra : ''}</div>
+    ${!correct && item.commonMistakes && item.commonMistakes.length ? `<ul class="mistakes">${item.commonMistakes.map((m) => `<li>${esc(m)}</li>`).join('')}</ul>` : ''}
+    <div class="srcline"><span>Traced to ${esc(item.sourceRefs.map((r) => describeSource(r).file).join(', '))}</span><button class="srcbtn" id="rssVSrc">Open source dialog</button>${srcBtn}</div>
+  </div>`;
+}
+
+function finishQuestion(item, q, correct, extra) {
+  if (session.answered) return;
+  session.answered = true;
+  const ms = Math.max(400, performance.now() - session.startedAt);
+  const dim = dimensionFor(q);
+  const conf = session.confidence ?? 1;
+
+  const rec = schedule(getMastery(item.id, dim), { correct, confidence: conf, ms, expectedMs: q.type === 'explain' || q.type === 'scenario' ? 45000 : 14000 });
+  setMastery(item.id, dim, rec);
+  /* Confidence is tracked as its own dimension: was your certainty justified? */
+  const confRec = schedule(getMastery(item.id, 'confidence'), { correct: correct === (conf >= 2), confidence: conf, ms, expectedMs: 14000 });
+  setMastery(item.id, 'confidence', confRec);
+  if ((q.type === 'typed' || q.type === 'cloze' || q.type === 'landmark')) {
+    const spellRec = schedule(getMastery(item.id, 'spelling'), { correct: correct && !extra, confidence: conf, ms, expectedMs: 14000 });
+    setMastery(item.id, 'spelling', spellRec);
+  }
+  store.items[item.id] = { ...(store.items[item.id] || {}), status: correct ? 'review' : 'learning', seen: (store.items[item.id]?.seen || 0) + 1, lastSeen: Date.now() };
+  write(K.items, store.items);
+  if (!correct) logMistake({ itemId: item.id, qid: q.qid, type: q.type, prompt: q.prompt });
+  session.results.push({ itemId: item.id, qid: q.qid, correct, conf, ms });
+
+  $$('rssVerdict').innerHTML = verdictHTML(item, q, correct, extra);
+  const vs = $$('rssVSrc'); if (vs) vs.onclick = () => openSourceDialog(item);
+  const qs2 = $$('rssQSrc'); if (qs2) qs2.onclick = () => openSourceDialog(item, q);
+
+  const qs = questionsOf(item);
+  const nav = $$('rssPractiseNav');
+  nav.innerHTML = session.qIndex < qs.length - 1
+    ? '<button class="primary" id="rssNextQ">Next question →</button><button class="ghost" data-nav="apply">Go to apply</button>'
+    : '<button class="primary" data-nav="apply">Apply it →</button>';
+  const nq = $$('rssNextQ');
+  if (nq) nq.onclick = () => { session.qIndex += 1; session.answered = false; session.confidence = null; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.startedAt = performance.now(); renderStep(); };
+  wireStageNav(item);
+  renderMasteryPanel(item);
+}
+
+function wirePractise(item) {
+  const q = session.currentQ;
+  if (!q) return;
+  if (!session.startedAt) session.startedAt = performance.now();
+  document.querySelectorAll('[data-conf]').forEach((b) => {
+    b.onclick = () => { session.confidence = +b.dataset.conf; document.querySelectorAll('[data-conf]').forEach((x) => x.classList.toggle('on', x === b)); };
+  });
+
+  const lockOpts = (correctIdx, chosen) => {
+    document.querySelectorAll('[data-opt]').forEach((b) => {
+      const i = +b.dataset.opt;
+      b.disabled = true;
+      if (i === correctIdx) b.classList.add('right');
+      else if (i === chosen) b.classList.add('wrong');
+    });
+  };
+
+  if (q.type === 'mcq' || q.type === 'comparison') {
+    document.querySelectorAll('[data-opt]').forEach((b) => {
+      b.onclick = () => { const i = +b.dataset.opt; lockOpts(q.answer, i); finishQuestion(item, q, i === q.answer); };
+    });
+  } else if (q.type === 'typed' || q.type === 'cloze' || q.type === 'landmark') {
+    const input = $$('rssTypedInput'); const go = $$('rssTypedGo');
+    const submit = () => {
+      const val = input.value;
+      if (!val.trim()) return toast('Type an answer first — a guess still teaches you more than skipping.');
+      let correct = looseMatch(val, q.accept);
+      let extra = '';
+      if (!correct && q.type === 'landmark') {
+        const parts = normalise(val).split(/[;,]/).map((x) => x.trim()).filter(Boolean);
+        const hits = q.accept.filter((a) => parts.some((p) => normalise(a).includes(p) || p.includes(normalise(a))));
+        if (hits.length >= Math.ceil(q.accept.length / 2)) { correct = true; extra = `You named ${hits.length} of ${q.accept.length}.`; }
+      }
+      if (!correct && spellingNear(val, q.accept)) { correct = true; extra = `Spelling was off — the exact form is "${esc(q.accept[0])}".`; }
+      input.disabled = true; go.disabled = true;
+      if (!correct) extra = `You wrote "${esc(val.trim())}". Accepted: ${q.accept.map((a) => esc(a)).join(' / ')}.`;
+      finishQuestion(item, q, correct, extra);
+    };
+    go.onclick = submit;
+    input.onkeydown = (e) => { if (e.key === 'Enter') submit(); };
+    input.focus();
+  } else if (q.type === 'sequence') {
+    const redraw = () => {
+      const list = $$('rssSeq');
+      list.innerHTML = session.seqOrder.map((oi, pos) => `<div class="seq-item" data-pos="${pos}"><span class="n">${pos + 1}</span><span class="grow">${esc(q.items[oi])}</span><span class="mv"><button data-up="${pos}">↑</button><button data-down="${pos}">↓</button></span></div>`).join('');
+      bindMoves();
+    };
+    const bindMoves = () => {
+      document.querySelectorAll('[data-up]').forEach((b) => { b.onclick = () => { const p = +b.dataset.up; if (p > 0) { const a = session.seqOrder; [a[p - 1], a[p]] = [a[p], a[p - 1]]; redraw(); } }; });
+      document.querySelectorAll('[data-down]').forEach((b) => { b.onclick = () => { const p = +b.dataset.down; const a = session.seqOrder; if (p < a.length - 1) { [a[p + 1], a[p]] = [a[p], a[p + 1]]; redraw(); } }; });
+    };
+    bindMoves();
+    $$('rssSeqGo').onclick = () => {
+      const correct = session.seqOrder.every((oi, pos) => oi === pos);
+      document.querySelectorAll('#rssSeq .seq-item').forEach((el, pos) => el.classList.add(session.seqOrder[pos] === pos ? 'right' : 'wrong'));
+      document.querySelectorAll('#rssSeq button').forEach((b) => { b.disabled = true; });
+      $$('rssSeqGo').disabled = true;
+      finishQuestion(item, q, correct, correct ? '' : `Correct order: ${q.items.map((x, i) => `${i + 1}. ${esc(x)}`).join(' → ')}.`);
+    };
+  } else if (q.type === 'matching') {
+    $$('rssMatchGo').onclick = () => {
+      const sels = [...document.querySelectorAll('[data-sel]')];
+      if (sels.some((s) => !s.value)) return toast('Match every row before checking.');
+      let allRight = true;
+      sels.forEach((s) => {
+        const i = +s.dataset.sel;
+        const ok = s.value === q.pairs[i][1];
+        if (!ok) allRight = false;
+        s.closest('.match-row').classList.add(ok ? 'right' : 'wrong');
+        s.disabled = true;
+      });
+      $$('rssMatchGo').disabled = true;
+      finishQuestion(item, q, allRight, allRight ? '' : `Correct pairs: ${q.pairs.map((p) => `${esc(p[0])} → ${esc(p[1])}`).join('; ')}.`);
+    };
+  } else if (q.type === 'diagram') {
+    const target = q.labels[session.diagramTarget];
+    document.querySelectorAll('[data-hot]').forEach((c) => {
+      c.onclick = () => {
+        if (session.answered) return;
+        const ok = c.dataset.hot === target.id;
+        c.classList.add(ok ? 'right' : 'wrong');
+        if (!ok) { const right = document.querySelector(`[data-hot="${target.id}"]`); if (right) right.classList.add('right'); }
+        finishQuestion(item, q, ok, ok ? '' : `The highlighted hotspot is the ${esc(target.label)}.`);
+      };
+    });
+  } else if (q.type === 'id3d' || q.type === 'laterality') {
+    const studio = $$('rssGoStudio');
+    if (studio) studio.onclick = () => { openOsteology(); if (window.__osteo && q.boneId) window.__osteo.select(q.boneId); };
+    document.querySelectorAll('[data-opt]').forEach((b) => {
+      b.onclick = () => { const found = +b.dataset.opt === 0; document.querySelectorAll('[data-opt]').forEach((x) => { x.disabled = true; }); b.classList.add(found ? 'right' : 'wrong'); finishQuestion(item, q, found); };
+    });
+  } else if (q.type === 'explain' || q.type === 'scenario') {
+    $$('rssSelfGo').onclick = () => {
+      const val = ($$('rssTypedInput').value || '').trim();
+      if (!val) return toast('Write something first — even a rough answer. Comparing beats reading.');
+      $$('rssTypedInput').disabled = true;
+      $$('rssSelfGo').disabled = true;
+      const model = q.model || q.explanation;
+      const rubric = q.rubric || [];
+      $$('rssVerdict').innerHTML = `<div class="verdict"><h4>Compare with the model answer</h4><div class="why">${esc(model)}</div>
+        ${rubric.length ? `<ul class="mistakes">${rubric.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>` : ''}
+        <div class="conf-row"><span class="lab">Did you cover it?</span><button class="conf" id="rssSelfYes">Yes, I had it</button><button class="conf" id="rssSelfPart">Partly</button><button class="conf" id="rssSelfNo">No</button></div></div>`;
+      const grade = (correct, note) => { session.confidence = session.confidence ?? (correct ? 2 : 0); finishQuestion(item, q, correct, note); };
+      $$('rssSelfYes').onclick = () => grade(true, 'Self-graded as covered.');
+      $$('rssSelfPart').onclick = () => grade(false, 'Self-graded as partial — the points you missed are listed above.');
+      $$('rssSelfNo').onclick = () => grade(false, 'Self-graded as missed.');
+    };
+  }
+}
+
+function applyHTML(item) {
+  const apps = item.application || [];
+  if (!apps.length) return `<div class="lesson"><div class="eyebrow">Apply</div><h2>${esc(item.title)}</h2><div class="emptybox">No application task authored for this item.</div><div class="rss-actions"><button class="primary" data-nav="review">Go to review →</button></div></div>`;
+  const a = apps[0];
+  return `<div class="lesson">
+    <div class="eyebrow">Apply · scenario</div>
+    <h2>${esc(item.title)}</h2>
+    <div class="q-prompt">${esc(a.prompt)}</div>
+    <div class="typed-row"><input id="rssApplyInput" autocomplete="off" placeholder="Work it out in your own words"></div>
+    <button class="primary" id="rssApplyGo" style="margin-top:9px">Show the model answer</button>
+    <div id="rssApplyVerdict"></div>
+    <div class="rss-actions" id="rssApplyNav"></div>
+  </div>`;
+}
+
+function wireApply(item) {
+  const apps = item.application || [];
+  if (!apps.length) return;
+  const a = apps[0];
+  if (!session.startedAt) session.startedAt = performance.now();
+  const go = $$('rssApplyGo');
+  go.onclick = () => {
+    const val = ($$('rssApplyInput').value || '').trim();
+    if (!val) return toast('Have a go first. Applying it badly and then correcting beats reading the answer.');
+    $$('rssApplyInput').disabled = true; go.disabled = true;
+    $$('rssApplyVerdict').innerHTML = `<div class="verdict"><h4>Model answer</h4><div class="why">${esc(a.model)}</div>
+      <ul class="mistakes">${(a.rubric || []).map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
+      <div class="conf-row"><span class="lab">Did you get there?</span><button class="conf" id="rssAppYes">Yes</button><button class="conf" id="rssAppPart">Partly</button><button class="conf" id="rssAppNo">No</button></div></div>`;
+    const grade = (correct) => {
+      const ms = Math.max(800, performance.now() - session.startedAt);
+      const rec = schedule(getMastery(item.id, 'application'), { correct, confidence: correct ? 2 : 0, ms, expectedMs: 60000 });
+      setMastery(item.id, 'application', rec);
+      const expRec = schedule(getMastery(item.id, 'explanation'), { correct, confidence: correct ? 2 : 0, ms, expectedMs: 60000 });
+      setMastery(item.id, 'explanation', expRec);
+      if (!correct) logMistake({ itemId: item.id, qid: `${item.id}!app0`, type: 'scenario', prompt: a.prompt });
+      renderMasteryPanel(item);
+      $$('rssApplyNav').innerHTML = '<button class="primary" data-nav="review">See what was scheduled →</button>';
+      wireStageNav(item);
+      toast(correct ? 'Application recorded.' : 'Recorded — this one will come back sooner.');
+    };
+    $$('rssAppYes').onclick = () => grade(true);
+    $$('rssAppPart').onclick = () => grade(false);
+    $$('rssAppNo').onclick = () => grade(false);
+  };
+}
+
+function reviewHTML(item) {
+  const mine = session.results.filter((r) => r.itemId === item.id);
+  const right = mine.filter((r) => r.correct).length;
+  const recs = MASTERY_DIMENSIONS.map((d) => ({ d, rec: getMastery(item.id, d.id) })).filter((x) => x.rec && x.rec.attempts);
+  const soonest = recs.length ? Math.min(...recs.map((x) => x.rec.due)) : 0;
+  const days = soonest ? Math.max(0, Math.round((soonest - Date.now()) / 86400000)) : 0;
+  const overconfident = mine.filter((r) => !r.correct && r.conf >= 2).length;
+  const last = session.index >= session.items.length - 1;
+  return `<div class="lesson">
+    <div class="eyebrow">Review · scheduled</div>
+    <h2>${esc(item.title)}</h2>
+    <div class="body">${mine.length ? `You answered ${right} of ${mine.length} correctly on this item.` : 'No answers recorded for this item in this session.'}
+      ${soonest ? (soonest <= Date.now() ? ' It stays in today’s queue.' : ` Next review in about ${days} day${days === 1 ? '' : 's'}.`) : ''}</div>
+    ${overconfident ? `<div class="notice"><strong>Confidently wrong ${overconfident} time${overconfident === 1 ? '' : 's'}</strong>That is the pattern worth fixing first: a wrong answer you were sure about is a well-learned mistake, so the interval has been cut harder than a hesitant miss would be.</div>` : ''}
+    ${recs.length ? `<div class="subhead">What changed</div><ul class="facts">${recs.map((x) => `<li>${esc(x.d.label)} — ${Math.round(masteryScore(x.rec) * 100)}% · ${x.rec.intervalDays ? `next in ${x.rec.intervalDays} day${x.rec.intervalDays === 1 ? '' : 's'}` : 'back in this session'}${x.rec.lapses ? ` · ${x.rec.lapses} lapse${x.rec.lapses === 1 ? '' : 's'} on record` : ''}</li>`).join('')}</ul>` : ''}
+    ${item.commonMistakes && item.commonMistakes.length ? `<div class="subhead">Common confusions on this item</div><ul class="facts">${item.commonMistakes.map((m) => `<li>${esc(m)}</li>`).join('')}</ul>` : ''}
+    <div class="rss-actions">
+      ${last ? '<button class="primary" id="rssFinish">Finish session</button>' : '<button class="primary" id="rssNextItem">Next item →</button>'}
+      <button class="ghost" data-nav="learn">Re-read the lesson</button>
+    </div>
+  </div>`;
+}
+
+function wireStageNav(item) {
+  document.querySelectorAll('#rssStage [data-nav]').forEach((b) => { b.onclick = () => setStep(b.dataset.nav); });
+  const next = $$('rssNextItem');
+  if (next) next.onclick = () => {
+    session.index += 1; session.qIndex = 0; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null;
+    setStep(session.hooksOnly ? 'remember' : 'learn');
+  };
+  const fin = $$('rssFinish');
+  if (fin) fin.onclick = endSession;
+}
+
+function endSession() {
+  const right = session.results.filter((r) => r.correct).length;
+  const total = session.results.length;
+  const meta = store.meta || {};
+  const today = new Date().toISOString().slice(0, 10);
+  meta.sessionsDone = (meta.sessionsDone || 0) + 1;
+  meta.streak = meta.lastSessionDay === today ? (meta.streak || 1) : (meta.lastSessionDay ? (meta.streak || 0) + 1 : 1);
+  meta.lastSessionDay = today;
+  store.meta = meta; write(K.meta, meta);
+  toast(total ? `Session done — ${right}/${total} correct. Reviews scheduled.` : 'Session ended.');
+  session = null;
+  renderHome();
+}
+
+/* ------------------------------------------------------------------ *
+ * Source dialog
+ * ------------------------------------------------------------------ */
+
+function sourceTableHTML(refs, heading) {
+  const rows = refs.map((r) => {
+    const d = describeSource(r);
+    return `<tr>
+      <td class="k"><strong>${esc(d.file)}</strong>${d.note ? `<div style="color:var(--muted);font-size:11.5px;margin-top:3px">${esc(d.note)}</div>` : ''}</td>
+      <td>${esc(d.subject)}</td>
+      <td>${esc(d.folder)}</td>
+      <td>${esc(d.location || '—')}</td>
+      <td>${d.authored ? '<span class="pill">App-authored aid</span>' : `<span class="pill ${d.kind === 'student' ? 'limited' : 'full'}">${esc(d.kind === 'student' ? 'Student work' : d.kind === 'assessment' ? 'Assessment' : d.kind === 'admin' ? 'Admin' : 'Source-derived')}</span>`}</td>
+    </tr>`;
+  }).join('');
+  return `${heading ? `<div class="subhead">${esc(heading)}</div>` : ''}<table class="srctable"><thead><tr><th>File</th><th>Subject</th><th>Folder</th><th>Page / section</th><th>Type</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function openSourceDialog(item, question) {
+  $$('sourceTitle').textContent = item.title;
+  const memoryKeys = Object.keys(item.memory || {}).filter((k) => item.memory[k]);
+  $$('sourceBody').innerHTML = `
+    <p class="task-copy" style="margin-top:0">Every factual claim on this item traces to a file below. Memory aids are written by this app and are marked separately.</p>
+    ${question && question.src ? sourceTableHTML([question.src], 'Source for the answer you just saw') : ''}
+    ${sourceTableHTML(item.sourceRefs, question && question.src ? 'Sources for the whole item' : '')}
+    ${memoryKeys.length ? `<div class="subhead">App-authored memory aids on this item</div>
+      <div class="notice">These are study devices, not source claims. ${memoryKeys.map((k) => esc(MEMORY_METHODS[k] || k)).join(', ')}.</div>` : ''}
+    <div class="subhead">How to read the type column</div>
+    <ul class="facts">
+      <li><strong>Source-derived</strong> — teaching material issued by the subject: lecture handouts, study manuals, slide decks.</li>
+      <li><strong>Assessment</strong> — past papers, revision exercises, model answers and question banks.</li>
+      <li><strong>Student work</strong> — coursework produced by students. Used only to confirm topic scope, never as a fact source.</li>
+      <li><strong>App-authored aid</strong> — written by this app to help you remember. Not a claim from your sources.</li>
+    </ul>`;
+  $$('sourceDialog').showModal();
+}
+
+/* ------------------------------------------------------------------ *
+ * Coverage report
+ * ------------------------------------------------------------------ */
+
+function openCoverage(focusSubject) {
+  const failures = validateCorpus().concat(validateApplications());
+  const qCount = allQuestions().length;
+  const subjects = focusSubject ? COVERAGE.subjects.filter((s) => s.id === focusSubject) : COVERAGE.subjects;
+  $$('coverageBody').innerHTML = `
+    <p class="task-copy" style="margin-top:0">${esc(COVERAGE.generated)}</p>
+    <div class="statrow" style="margin:12px 0 16px">
+      <div class="s"><b>${STUDY_ITEMS.length}</b><small>Study items</small></div>
+      <div class="s"><b>${qCount}</b><small>Questions</small></div>
+      <div class="s"><b>${Object.keys(SOURCE_FILES).length}</b><small>Source files cited</small></div>
+      <div class="s"><b>${failures.length}</b><small>Validation failures</small></div>
+    </div>
+    ${failures.length
+      ? `<div class="notice stop"><strong>${failures.length} question${failures.length === 1 ? '' : 's'} failed validation</strong>${failures.slice(0, 12).map((f) => esc(`${f.qid || f.itemId}: ${f.problems.join('; ')}`)).join('<br>')}</div>`
+      : '<div class="notice"><strong>Every question validates</strong>All ' + qCount + ' questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.</div>'}
+
+    ${subjects.map((s) => {
+      const subject = getSubject(s.id);
+      const n = itemsForSubject(s.id).length;
+      return `<div class="cov-sec">
+        <h4>${esc(subject ? subject.code + ' — ' + subject.title : s.id)} ${coveragePill(s.status)} <span class="tag">${n} item${n === 1 ? '' : 's'}</span> <span class="tag">${s.files} source file${s.files === 1 ? '' : 's'}</span></h4>
+        ${s.covered.length ? `<div class="subhead" style="margin:8px 0 2px">Covered</div><ul class="good">${s.covered.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>` : ''}
+        ${s.gaps.length ? `<div class="subhead" style="margin:10px 0 2px">Missing or limited</div><ul>${s.gaps.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>` : ''}
+      </div>`;
+    }).join('')}
+
+    ${focusSubject ? '' : `
+    <div class="cov-sec">
+      <h4>Duplicate materials</h4>
+      <ul>${COVERAGE.duplicates.map((d) => `<li><strong style="color:var(--text)">${esc(d.what)}</strong><br>${d.where.map((w) => esc(w)).join('<br>')}</li>`).join('')}</ul>
+    </div>
+    <div class="cov-sec">
+      <h4>Source conflicts and how each was handled</h4>
+      <ul>${COVERAGE.conflicts.map((c) => `<li><strong style="color:var(--text)">${esc(c.what)}</strong><br>${esc(c.detail)}<br><em style="color:var(--teal)">${esc(c.handled)}</em></li>`).join('')}</ul>
+    </div>
+    <div class="cov-sec">
+      <h4>Notes</h4>
+      <ul>${COVERAGE.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
+    </div>`}`;
+  $$('coverageDialog').showModal();
+}
+
+/* ------------------------------------------------------------------ *
+ * Boot
+ * ------------------------------------------------------------------ */
+
+migrate();
+$$('rssHomeBtn').onclick = renderHome;
+$$('rssBackSubject').onclick = () => renderSubject('HSS2011');
+$$('rssCoverageBtn').onclick = () => openCoverage(null);
+$$('closeSource').onclick = () => $$('sourceDialog').close();
+$$('closeCoverage').onclick = () => $$('coverageDialog').close();
+$$('rssSkipBtn').onclick = () => {
+  if (!session) return;
+  if (session.index >= session.items.length - 1) return endSession();
+  session.index += 1; session.qIndex = 0; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null;
+  setStep('learn');
+};
+$$('rssEndBtn').onclick = () => { if (session) endSession(); else renderHome(); };
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !document.querySelector('dialog[open]') && session) { /* let the osteology handler own Escape in its own view */ }
+});
+renderHome();
+
+</script>
+</body>
+</html>
