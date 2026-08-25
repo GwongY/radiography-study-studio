@@ -547,6 +547,16 @@ function toast(msg) {
   clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 4200);
 }
 
+/* A missing radiograph image degrades to a plain notice instead of a
+   broken-image icon or a blocked session. */
+function xrayFallback(el) {
+  const div = document.createElement('div');
+  div.className = 'emptybox';
+  div.textContent = 'Image not found — add it to assets/xray/ and reload.';
+  el.replaceWith(div);
+}
+window.xrayFallback = xrayFallback;
+
 const VIEWS = ['homeView', 'subjectView', 'sessionView', 'osteologyView'];
 function showView(id) {
   VIEWS.forEach((v) => $$(v).classList.toggle('hidden', v !== id));
@@ -999,6 +1009,7 @@ function practiseHTML(item) {
   return `<div class="lesson">
     <div class="eyebrow">Practise · ${esc(typeLabel(q.type))} · question ${Math.min(session.qIndex, qs.length - 1) + 1} of ${qs.length}</div>
     <div class="q-prompt">${esc(q.prompt)}</div>
+    ${q.image ? `<img class="xray-img" src="assets/xray/${esc(q.image)}" alt="Radiograph" onerror="xrayFallback(this)">` : ''}
     <div id="rssQBody">${questionBody(q)}</div>
     ${confidenceRow()}
     <div id="rssVerdict"></div>
