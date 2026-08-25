@@ -2550,6 +2550,42 @@ const HTI_ITEMS = [
   },
 ];
 
+/*
+ * Radiograph image questions — schema for later use, not live data.
+ *
+ * A radiograph question is a normal STUDY_ITEM (any subject/unit) whose
+ * `practice` entries carry an extra `image` field: a filename resolved
+ * against outputs/assets/xray/. No new item type is needed — `mcq` and
+ * `typed` questions both support it as-is, and dimensionFor() already
+ * routes any question with an `image` field to the 'location' mastery
+ * dimension.
+ *
+ * Add real cases only once you have a licensed image file AND a genuine
+ * sourceRefs entry pointing at a file that exists in the supplied source
+ * folders — see outputs/assets/xray/README.md and the project rule at the
+ * top of this file. Do not invent positioning notes, landmark facts or
+ * mnemonics. The supplied HTI17103/HTI17101 materials only establish "PA"
+ * and "Lat" as projection terms so far (see the
+ * 'hti17103-department-and-request' item above) — a real case's prompt and
+ * explanation text must stay inside what the cited source actually says.
+ *
+ * Example shape (illustrative only — do not add this object to STUDY_ITEMS):
+ *
+ * {
+ *   id: 'hti17103-cxr-pa-example',
+ *   subject: 'HTI17103', unit: 'hti.modalities', type: 'mcq',
+ *   title: 'Reading a CXR PA radiograph',
+ *   lesson: { explanation: '...', keyFacts: ['...'], prerequisites: [], examples: [] },
+ *   practice: [
+ *     { type: 'mcq', image: 'cxr-pa-001.jpg',
+ *       prompt: 'Which projection is shown here?',
+ *       options: ['PA', 'Lat', 'AP', 'Oblique'], answer: 0,
+ *       explanation: '...cite exactly what the source says...' },
+ *   ],
+ *   sourceRefs: [{ ref: 'hti.w2', location: '...' }],
+ * }
+ */
+
 /* ------------------------------------------------------------------ *
  * APSS1A08 — limited coverage. No syllabus is invented here.
  * These entries only record which concept words appear in the supplied
