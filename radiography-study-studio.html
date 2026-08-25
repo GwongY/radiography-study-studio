@@ -430,6 +430,7 @@ import {
   STORAGE_PREFIX, LEGACY_STATS_KEY, DATA_VERSION,
   getSubject, getItem, itemsForSubject, itemsForUnit, questionsOf, allQuestions,
   describeSource, coverageFor, blankMastery, schedule, masteryScore, isDue, dimensionFor,
+  tierFor, TIER_LABELS,
   validateCorpus, validateApplications,
 } from './study-data.js';
 
@@ -1371,6 +1372,31 @@ function openCoverage(focusSubject) {
 }
 
 /* ------------------------------------------------------------------ *
+ * Mastery dashboard
+ * ------------------------------------------------------------------ */
+
+function openDashboard() {
+  $$('dashLegend').innerHTML = TIER_LABELS.map((label, i) =>
+    `<span><span class="tier-dot t${i}"></span>${esc(label)}</span>`).join('');
+
+  const blocks = SUBJECTS.filter((s) => itemsForSubject(s.id).length).map((subject) => {
+    const unitRows = subject.units.map((unit) => {
+      const items = itemsForUnit(subject.id, unit.id);
+      if (!items.length) return '';
+      const tiers = items.map((i) => tierFor(itemScore(i.id), itemAttempted(i.id)));
+      const dots = items.map((i, idx) =>
+        `<span class="tier-dot t${tiers[idx]}" title="${esc(i.title)} — ${esc(TIER_LABELS[tiers[idx]])}"></span>`).join('');
+      const solid = tiers.filter((t) => t >= 3).length;
+      return `<div class="dash-unit"><div class="lab"><span>${esc(unit.label)}</span><span class="mono" style="color:var(--muted)">${solid}/${items.length} recalled+</span></div><div>${dots}</div></div>`;
+    }).join('');
+    return `<div class="cov-sec"><h4>${esc(subject.code + ' — ' + subject.title)}</h4>${unitRows}</div>`;
+  }).join('');
+
+  $$('dashBody').innerHTML = blocks || '<div class="emptybox">No study items yet.</div>';
+  $$('dashDialog').showModal();
+}
+
+/* ------------------------------------------------------------------ *
  * Boot
  * ------------------------------------------------------------------ */
 
@@ -1378,8 +1404,11 @@ migrate();
 $$('rssHomeBtn').onclick = renderHome;
 $$('rssBackSubject').onclick = () => renderSubject('HSS2011');
 $$('rssCoverageBtn').onclick = () => openCoverage(null);
+$$('rssDashBtn').onclick = openDashboard;
 $$('closeSource').onclick = () => $$('sourceDialog').close();
 $$('closeCoverage').onclick = () => $$('coverageDialog').close();
+$$('closeDash').onclick = () => $$('dashDialog').close();
+$$('dashWeakestBtn').onclick = () => { $$('dashDialog').close(); startSession({ mode: 'weakest', limit: 20 }); };
 $$('rssSkipBtn').onclick = () => {
   if (!session) return;
   if (session.index >= session.items.length - 1) return endSession();
