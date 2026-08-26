@@ -164,13 +164,39 @@ record, mapping each bone id (including `full:`/`real:` prefixed and side-suffix
 onto the new 0–3 scale. **The legacy key is left in place**, so the original `osteology-studio.html`
 and the embedded studio's own review history keep working unchanged.
 
+## Installable app (PWA)
+
+The app installs to an iPhone home screen or a desktop via `manifest.webmanifest` and `sw.js`.
+Manifest shortcuts jump straight into a daily, weakest-topics or quick-10 session.
+
+Caching is deliberately split three ways, because precaching everything would mean a ~37 MB install
+that downloads neuroanatomy for someone who only studies bones:
+
+| Cache | Contents | Strategy | When |
+| --- | --- | --- | --- |
+| `rss-shell` | HTML, both data modules, manifest, icons (~600 KB) | network-first, cache fallback | precached at install |
+| `rss-models` | the six `.glb` files (~37 MB) | cache-first | each cached the first time it is opened |
+| `rss-cdn` | three.js, its loaders, the Draco wasm decoder | cache-first | on first 3D use |
+
+So the offline footprint grows to match what you actually study. Bump `CACHE_VERSION` in `sw.js` on
+any shell change; old caches are pruned on activate.
+
+**Verified offline** with the dev server stopped: the app loads, a full study session runs and writes
+mastery to `localStorage`, the 3D studio boots with all 277 skeleton meshes, and a previously-opened
+model loads from cache. A model that was never opened returns `false` and shows a toast rather than
+hanging — the studio stays usable.
+
+Service workers need a secure context, so this is a no-op on `file://`. Serve over `http://localhost`
+or `https://` to get offline support. Note that the worker script itself must not be served with
+`Cache-Control: no-store` — Chrome refuses to register it.
+
 ## Offline behaviour
 
 The study system makes no network requests at all. Three.js is loaded from a CDN by dynamic import
-**only** when the 3D studio is opened — a pre-existing dependency of the original app. If it or the
-GLB assets are unavailable, `boot3D()` fails into a retry state confined to the stage panel and
-everything else keeps working. 3D identification and laterality questions each state a non-3D route
-to the answer in their explanation.
+**only** when the 3D studio is opened — a pre-existing dependency of the original app, now cached by
+the service worker so it works offline after the first use. If it or the GLB assets are unavailable,
+`boot3D()` fails into a retry state confined to the stage panel and everything else keeps working. 3D
+identification and laterality questions each state a non-3D route to the answer in their explanation.
 
 ## Validation
 
