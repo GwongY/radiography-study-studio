@@ -13,7 +13,7 @@ The workflow is the same for every subject:
 | File | What it is |
 | --- | --- |
 | `radiography-study-studio.html` | The app. Subject selector, learning workflow, Memory Coach, source dialogs, coverage report, and the full osteology 3D studio embedded as the HSS2011 Osteology module. |
-| `study-data.js` | The study layer: source registry, subject registry, 90 study items, spaced repetition, coverage report, corpus validator. |
+| `study-data.js` | The study layer: source registry, subject registry, 94 study items, spaced repetition, coverage report, corpus validator. |
 | `anatomy-data.js` | Unchanged. Canonical bone records, landmark hotspots and the 3D model adapter metadata. |
 | `osteology-studio.html` | The original app, left in place and still working, as a fallback. |
 | `assets/` | Local GLB models. Unchanged. |
@@ -81,8 +81,8 @@ shared folders, source conflicts and how each was handled, plus live validator o
 Each item carries a teaching explanation, key facts, one or more memory aids, practice questions, an
 explanation of the correct answer, common mistakes or confusions, source references and a mastery
 record. Supported item types: definition, multiple choice, typed recall, cloze, sequence ordering,
-matching, diagram labelling, 3D identification, structure set, laterality, landmark identification,
-comparison, short explanation and scenario application.
+matching, diagram labelling, 3D identification, structure set, joint movement, laterality, landmark
+identification, comparison, short explanation and scenario application.
 
 Diagram labelling uses inline SVG schematics authored by the app — no supplied labelled diagram
 images exist in the assets folder, only `.glb` models. The label names come from the cited sources.
@@ -121,6 +121,24 @@ All six come from `DrMuratAltun/anatomi-simulatoru` under CC BY-SA 4.0, derived 
 (DBCLS) via Z-Anatomy. `MODEL_CATALOG` in `anatomy-data.js` records each model's coverage **and its
 gaps** — the circulatory model has no conducting system, the nervous model has few named cortical
 gyri, and the joint model has no synovial membrane or joint cavity.
+
+## Joint movements
+
+Four movements can be driven on the model: supination/pronation, elbow flexion/extension, abduction
+of the arm, and opposition of the thumb.
+
+The skeleton GLB has no skin and no animation track — it is 277 rigid meshes. That is not a
+limitation to work around: a bone genuinely *is* a rigid body rotating about a joint axis, so the
+movements are driven by reparenting the moving meshes into a pivot group and rotating it. Pivot and
+axis are resolved at runtime from the bounding boxes of named bones, never hard-coded, because the
+model is rescaled and recentred on import.
+
+Verified: each movement sweeps its exact stated range, every moving bone shifts in world space, and
+**every fixed reference bone shifts by exactly 0** — supination moves the radius and not the ulna,
+abduction moves the humerus and not the scapula. Mesh count is unchanged after arm/teardown cycles.
+
+The controls sit **in the studio, not next to the question**, because the render loop only runs while
+the studio is on screen. A slider beside the question would have moved bones nobody could see.
 
 ## Memory Coach
 
@@ -206,7 +224,7 @@ identification and laterality questions each state a non-3D route to the answer 
 `validateCorpus()` and `validateApplications()` run on every open of the coverage report and check
 that every question has a resolvable correct answer and an explanation, every item has a teaching
 explanation and at least one practice question, and every item carries a source reference. Current
-state: **90 items, 422 questions, 75 source files cited, 0 validation failures.**
+state: **94 items, 434 questions, 75 source files cited, 0 validation failures.**
 
 ## Osteology studio — unchanged behaviour
 
