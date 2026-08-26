@@ -13,7 +13,7 @@ The workflow is the same for every subject:
 | File | What it is |
 | --- | --- |
 | `radiography-study-studio.html` | The app. Subject selector, learning workflow, Memory Coach, source dialogs, coverage report, and the full osteology 3D studio embedded as the HSS2011 Osteology module. |
-| `study-data.js` | The study layer: source registry, subject registry, 80 study items, spaced repetition, coverage report, corpus validator. |
+| `study-data.js` | The study layer: source registry, subject registry, 89 study items, spaced repetition, coverage report, corpus validator. |
 | `anatomy-data.js` | Unchanged. Canonical bone records, landmark hotspots and the 3D model adapter metadata. |
 | `osteology-studio.html` | The original app, left in place and still working, as a fallback. |
 | `assets/` | Local GLB models. Unchanged. |
@@ -97,15 +97,27 @@ The bundled skeleton carries 277 individually named meshes, far more than the co
 originally used. Four sets drive tap-to-identify directly against them, and tapping a name also
 selects that mesh in the 3D studio so the name and the place arrive together:
 
-| Set | Members |
-| --- | --- |
-| Carpals | 8 — scaphoid through hamate, in proximal and distal rows |
-| Tarsals | 7 — talus, calcaneus, navicular, cuboid, three cuneiforms |
-| Skull bones | 12 — six cranial, six facial |
-| Vertebral regions | 7 — atlas, axis, typical C/T/L, sacrum, coccyx |
+Thirteen sets cover 115 tappable structures across six bundled models:
 
-The model contains **no soft tissue** — no heart, lung, brain, kidney, liver, muscle or vessel — so
-3D work on organs, pathways or neuroanatomy would need models this project does not yet ship.
+| Model | Sets | Structures |
+| --- | --- | --- |
+| `z-anatomy-skeleton.glb` | carpals, tarsals, skull bones, vertebral regions | 34 |
+| `ic-organlar.glb` | airway tree, urinary tract, digestive tract | 30 |
+| `dolasim.glb` | heart chambers & valves, great vessels | 16 |
+| `sinir.glb` | cranial nerves, brainstem & ventricles | 21 |
+| `kas.glb` | rotator cuff & abduction muscles | 8 |
+| `eklem.glb` | knee joint | 6 |
+
+Every one of the 115 mesh references is verified to resolve against its model.
+
+Models load **on demand**, not at boot, and are shown *instead of* the skeleton rather than overlaid:
+the captures are not spatially registered to each other, so overlaying would place organs wrongly
+relative to bone.
+
+All six come from `DrMuratAltun/anatomi-simulatoru` under CC BY-SA 4.0, derived from BodyParts3D
+(DBCLS) via Z-Anatomy. `MODEL_CATALOG` in `anatomy-data.js` records each model's coverage **and its
+gaps** — the circulatory model has no conducting system, the nervous model has few named cortical
+gyri, and the joint model has no synovial membrane or joint cavity.
 
 ## Memory Coach
 
@@ -165,7 +177,7 @@ to the answer in their explanation.
 `validateCorpus()` and `validateApplications()` run on every open of the coverage report and check
 that every question has a resolvable correct answer and an explanation, every item has a teaching
 explanation and at least one practice question, and every item carries a source reference. Current
-state: **80 items, 369 questions, 72 source files cited, 0 validation failures.**
+state: **89 items, 414 questions, 72 source files cited, 0 validation failures.**
 
 ## Osteology studio — unchanged behaviour
 
