@@ -144,6 +144,45 @@ git commit -m "style: add IA redesign design tokens and nav shell CSS"
 **Files:**
 - Modify: `outputs/radiography-study-studio.html:195-348` (everything from `<body>` through the closing `</div>` of `.shell`, i.e. the old topbar/crumbs/homeView/subjectView/sessionView/osteologyView wrapper — the *contents* of `osteologyView` from Task 6 onward are kept, only the wrapping view divs and topbar/crumbs change)
 
+- [ ] **Step 0: Fixes folded in from the Task 1 code review — do these FIRST**
+
+The Task 1 review found six issues that are plan gaps rather than defects in that commit. They all bite the moment this task lands markup, so clear them before touching the body. All are in `outputs/radiography-study-studio.html`.
+
+**0a — Delete the stale mobile body padding.** The pre-existing `@media(max-width:560px)` block (was line 26, now ~line 29) still contains `body{padding:16px 10px 30px}`. Task 1 set `body{padding:0;overflow:hidden}`, but this later rule has equal specificity and wins on source order, so at ≤560px the body regains 46px of vertical padding while `.shell` is `height:100vh` — the shell overflows its parent's content box and `overflow:hidden` clips the bottom, which is exactly where `.bottomtab` lives. Remove **only** the `body{...}` declaration from that block; leave `.title`, `.stage`, `.stage-head`, `.stage-controls`, `.card`, `.info-grid`, `.ghost,.primary` alone. The block becomes:
+```css
+@media(max-width:560px){.title{font-size:31px}.stage{min-height:360px;height:55vh}.stage-head{padding:12px}.stage-controls{padding:10px 12px}.card{padding:14px}.info-grid{grid-template-columns:1fr 1fr}.ghost,.primary{padding:9px 11px}}
+```
+
+**0b — `.shell{height:100vh}` → `height:100%`.** `100vh` is the *large* viewport on mobile browsers: it excludes the retractable URL bar, so with `overflow:hidden` and no page scroll the tab bar sits under the browser chrome and is unreachable. `body` is already `height:100%`, so change the `.shell` rule Task 1 wrote to `.shell{height:100%;display:flex;flex-direction:column;overflow:hidden}`.
+
+**0c — Add `min-height:0` to `.navmain`.** It is the only element in the new nav block without it. `min-width:0` is the right axis for the desktop row, but the `@media(max-width:900px)` block flips `.app-body` to `flex-direction:column`, flipping the constraining axis with it. Per spec it should still work, but iOS Safari is historically unreliable here and the failure mode is severe (no page scroll to recover an off-screen tab bar). Change to:
+```css
+.navmain{flex:1;min-width:0;min-height:0;display:flex;flex-direction:column}
+```
+
+**0d — Give the serif stack a real fallback.** `.editorial{font-family:Newsreader,serif}` falls back to Times New Roman on Windows, which reads as broken rather than as a fallback for a display face. Change the `.editorial` rule Task 1 added to:
+```css
+.editorial{font-family:Newsreader,ui-serif,Georgia,'Times New Roman',serif;letter-spacing:-.02em}
+```
+Then reduce `.navhead .htitle` to stop duplicating it — it currently re-declares the same family and letter-spacing:
+```css
+.navhead .htitle{font:500 24px/1.15;margin-top:3px}
+```
+and render the header title with **both** classes in Step 1's markup: `<div class="htitle editorial" id="navTitle">`. This keeps the serif fallback defined in exactly one place.
+
+**0e — Add safe-area insets.** `<meta viewport>` already sets `viewport-fit=cover` and the app declares `apple-mobile-web-app-status-bar-style: black-translucent`, but the file uses zero `env(safe-area-inset-*)`. That was cosmetically absorbed by the old body padding; now the shell is viewport-locked with edge-anchored chrome, so the top bar renders under the notch and the `22px` bottom padding is a magic number that is ~12px short on notched iPhones. Update the two rules Task 1 added:
+```css
+.app-topbar{flex:none;display:flex;align-items:center;justify-content:space-between;padding:calc(9px + env(safe-area-inset-top)) 18px 7px;font:600 12px ui-monospace,Menlo,monospace;color:var(--muted)}
+```
+and inside the `@media(max-width:900px)` block:
+```css
+.bottomtab{display:flex;flex:none;border-top:1px solid var(--line);background:rgba(8,16,22,.94);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+```
+
+**0f — Update `theme-color`.** Line 6 is `<meta name="theme-color" content="#0b1118">`, and `manifest.webmanifest` sets `background_color`/`theme_color` to `#081016` — both are the *old* `--bg`. Change the meta tag to `content="#05090d"`. The manifest is on the do-not-modify list, so the installed PWA will still flash `#081016` on splash before painting `#05090d`; that seam cannot be closed under the current constraints. Note it in your report rather than modifying the manifest.
+
+(A seventh review finding, `showView()`'s now-dead `window.scrollTo`, is handled in Step 4b below since it is a JS change.)
+
 - [ ] **Step 1: Replace the topbar and breadcrumb nav**
 
 Delete lines 196–211 (the `<div class="shell"><header class="topbar">...</header><nav class="crumbs" id="rssCrumbs" ...></nav>`) and replace with:
@@ -207,6 +246,14 @@ Cut the old `<section class="view hidden" id="sessionView">...</section>` block 
     <!-- ...unchanged contents, old lines 243-271... -->
   </section>
 </div> <!-- closes .shell -->
+```
+
+- [ ] **Step 4b: Redirect the now-dead scroll-to-top**
+
+`showView(id)` (around line 846) ends with `window.scrollTo({ top: 0, behavior: 'smooth' });`. Task 1 made `body{overflow:hidden}`, so the document never scrolls — scroll position now lives in `.navcontent`, and this line is a permanent no-op. It is the only scroll-dependent line in the file (verified by grepping `scrollIntoView`, `scrollTop`, `scrollY`, scroll listeners and `position:sticky` — one hit total), so the fix is contained. Replace that line with:
+```javascript
+  const pane = $$('navContent');
+  if (pane) pane.scrollTo({ top: 0, behavior: 'smooth' });
 ```
 
 - [ ] **Step 5: Verify the page is still valid HTML**
@@ -647,6 +694,14 @@ if (id === 'viewerView' && window.__osteo) {
 
 Search for `openOsteology` (`grep -n "openOsteology" outputs/radiography-study-studio.html`) — every call site (Task 4's "Open in Viewer" button already calls `goTo('viewer')` instead; the old call in `renderSubject` no longer exists since Task 4 deleted that function) should now be `openViewer`. Confirm none remain pointing at the deleted `openOsteology` name.
 
+- [ ] **Step 4b: Re-check the viewport-relative sizings inside the new scroll container**
+
+The Task 1 code review flagged that `.stage{height:min(70vh,690px);min-height:430px}` and `.dlg-scroll{max-height:min(68vh,620px)}` were both written for a page that scrolled the document. They now live inside `.navcontent`, which is itself a `flex:1;min-height:0;overflow:auto` pane under a topbar and a header — so `70vh` is no longer 70% of the space actually available to the stage, and on a short window `min-height:430px` can force the stage taller than its container.
+
+Load the Viewer at a deliberately short window (~700px tall) and at ~600px tall. Confirm the 3D canvas is fully visible and `.navcontent` scrolls to reach the controls beneath it, rather than the stage being clipped or the page becoming unreachable. If it misbehaves, change `.stage` to be relative to its container instead of the viewport — `height:min(70vh,690px)` → `height:clamp(360px,60vh,690px)` is usually enough; report what you changed and why. If it behaves correctly at both sizes, change nothing and say so.
+
+`.dlg-scroll` is used only inside `<dialog>` elements opened with `showModal()`, which render in the top layer outside the shell's `overflow:hidden` — so it is very likely unaffected. Confirm by opening the coverage dialog at a short window, then leave it alone.
+
 - [ ] **Step 5: Verify in browser**
 
 Navigate to Viewer. Expect: segmented "3D skeleton / Radiograph" switch, 3D skeleton stage boots exactly as before (drag/pinch/tap still work — this is unchanged three.js code), clicking Radiograph shows the empty-state notice instead of a broken image.
@@ -891,6 +946,26 @@ git commit -m "feat: wire nav rail/bottom-tab destinations, remove dead breadcru
 
 **Files:**
 - Modify: `outputs/sw.js` (bump `CACHE_VERSION`), `outputs/README.md` (one line noting the IA redesign date)
+
+- [ ] **Step 0: Cache the Google Fonts so the app stays genuinely offline-first**
+
+Task 1 added `<link>` tags for Instrument Sans and Newsreader from `fonts.googleapis.com` / `fonts.gstatic.com`. The service worker does **not** cache them: `isCdn()` (`outputs/sw.js:66`) matches only `cdn.jsdelivr.net`, and the fetch handler bails on all other cross-origin requests (`outputs/sw.js:106`, `if (url.origin !== self.location.origin) return;`). So offline typography rests entirely on the HTTP cache — and while the font *files* are `max-age=31536000`, the *stylesheet* declaring the `@font-face` rules is only `max-age=86400`. Study offline more than a day after your last online visit and no `@font-face` is ever declared, so both typefaces fall back regardless of what is cached.
+
+This is the constraint the handoff doc raised (`README.md:197`: "if the codebase must stay offline-only, self-host both or fall back to `ui-sans-serif` and a system serif") and which the plan dropped in translation. Self-hosting would require new files under `assets/`, which is on the do-not-modify list — so extend the existing cache-first CDN path instead. This matches the strategy `sw.js` already documents for three.js at lines 16–19, and both Google hosts send CORS headers so responses are non-opaque and `response.ok` is true, meaning the existing `cacheFirst` helper works unmodified.
+
+Change `outputs/sw.js:66` from:
+```javascript
+function isCdn(url) { return url.hostname === 'cdn.jsdelivr.net'; }
+```
+to:
+```javascript
+function isCdn(url) {
+  return url.hostname === 'cdn.jsdelivr.net'
+      || url.hostname === 'fonts.googleapis.com'
+      || url.hostname === 'fonts.gstatic.com';
+}
+```
+Read the actual line before editing — the exact formatting may differ from what is quoted here.
 
 - [ ] **Step 1: Bump `CACHE_VERSION`**
 
