@@ -258,6 +258,7 @@ export const ITEM_TYPES = {
   diagram: { label: 'Diagram labelling', dimension: 'location' },
   id3d: { label: '3D identification', dimension: 'location' },
   structure: { label: 'Structure set — tap to identify', dimension: 'location' },
+  movement: { label: 'Joint movement — drive it on the model', dimension: 'location' },
   laterality: { label: 'Laterality', dimension: 'location' },
   landmark: { label: 'Landmark identification', dimension: 'location' },
   comparison: { label: 'Comparison', dimension: 'comparison' },
@@ -2881,6 +2882,85 @@ export const STRUCTURE_SETS = {
 
 export function structureSet(id) { return STRUCTURE_SETS[id] || null; }
 
+/* ------------------------------------------------------------------ *
+ * Joint movements
+ *
+ * The skeleton GLB has no skin and no animation track — it is 277 rigid
+ * meshes. That is not a limitation to work around: a bone genuinely is a
+ * rigid body rotating about a joint axis, so driving these procedurally
+ * is the anatomically honest way to show them.
+ *
+ * Pivot and axis are resolved at runtime from the bounding boxes of named
+ * meshes rather than hard-coded, because the model is rescaled and
+ * recentred on import. `at` picks an end of a mesh along the model's
+ * vertical: 'proximal' is the higher end for a limb hanging at the side.
+ * ------------------------------------------------------------------ */
+
+export const JOINT_MOVEMENTS = {
+  supination: {
+    id: 'supination', label: 'Supination and pronation', subject: 'HSS2011', unit: 'hss.joints',
+    model: 'skeleton', side: 'right',
+    joint: 'Superior and inferior radioulnar joints',
+    summary: 'The radius rotates against the ulna, crossing over it. The hand comes along with the forearm, which is why turning a doorknob feels like the wrist moving when it is not.',
+    moves: ['Radius', 'Scaphoid bone', 'Lunate bone', 'Triquetrum bone', 'Pisiform bone', 'Trapezium bone', 'Trapezoid bone', 'Capitate bone', 'Hamate bone',
+      'First metacarpal bone', 'Second metacarpal bone', 'Third metacarpal bone', 'Fourth metacarpal bone', 'Fifth metacarpal bone'],
+    fixed: ['Ulna', 'Humerus'],
+    pivot: { mesh: 'Radius', at: 'proximal' },
+    axis: { from: { mesh: 'Radius', at: 'proximal' }, to: { mesh: 'Ulna', at: 'distal' } },
+    range: [-80, 80],
+    labels: { min: 'Pronated', mid: 'Neutral', max: 'Supinated' },
+    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p44 supination and pronation of the forearm' }, { ref: 'hss.revans', location: 'Module 0, Fill-in-blanks 2' }],
+  },
+  elbowFlexion: {
+    id: 'elbowFlexion', label: 'Elbow flexion and extension', subject: 'HSS2011', unit: 'hss.joints',
+    model: 'skeleton', side: 'right',
+    joint: 'Elbow joint',
+    summary: 'A hinge joint: movement in one plane only. The humeral trochlea sits in the trochlear notch of the ulna, and the whole forearm swings as one.',
+    moves: ['Radius', 'Ulna', 'Scaphoid bone', 'Lunate bone', 'Triquetrum bone', 'Pisiform bone', 'Trapezium bone', 'Trapezoid bone', 'Capitate bone', 'Hamate bone',
+      'First metacarpal bone', 'Second metacarpal bone', 'Third metacarpal bone', 'Fourth metacarpal bone', 'Fifth metacarpal bone'],
+    fixed: ['Humerus', 'Scapula'],
+    pivot: { mesh: 'Ulna', at: 'proximal' },
+    axis: { vector: [1, 0, 0] },
+    range: [0, 140],
+    labels: { min: 'Extended', mid: 'Half flexed', max: 'Flexed' },
+    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p43 flexion and extension of the forearm' }, { ref: 'hss.4.3', location: 'Slide "Elbow Joint (Anterior View)", Fig. 8-4c' }],
+  },
+  shoulderAbduction: {
+    id: 'shoulderAbduction', label: 'Abduction of the arm', subject: 'HSS2011', unit: 'hss.joints',
+    model: 'skeleton', side: 'right',
+    joint: 'Glenohumeral joint',
+    summary: 'A ball-and-socket joint moving in all three planes. Full abduction is a four-muscle sequence, not one muscle: supraspinatus starts it, deltoid drives it, infraspinatus and teres minor rotate laterally, trapezius rotates the scapula upward.',
+    moves: ['Humerus', 'Radius', 'Ulna', 'Scaphoid bone', 'Lunate bone', 'Triquetrum bone', 'Pisiform bone', 'Trapezium bone', 'Trapezoid bone', 'Capitate bone', 'Hamate bone',
+      'First metacarpal bone', 'Second metacarpal bone', 'Third metacarpal bone', 'Fourth metacarpal bone', 'Fifth metacarpal bone'],
+    fixed: ['Scapula', 'Clavicle'],
+    pivot: { mesh: 'Humerus', at: 'proximal' },
+    axis: { vector: [0, 0, 1] },
+    range: [0, 90],
+    stages: [
+      { at: 15, note: 'Supraspinatus initiates the first 15 degrees.' },
+      { at: 60, note: 'Deltoid drives the bulk of abduction.' },
+      { at: 90, note: 'Beyond this the scapula must rotate upward — trapezius.' },
+    ],
+    labels: { min: 'At the side', mid: 'Mid abduction', max: '90 degrees' },
+    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p40 movement of the arm' }, { ref: 'hss.4.3', location: 'Slide "Muscles Involved in Full Abduction of the Arm"' }],
+  },
+  thumbOpposition: {
+    id: 'thumbOpposition', label: 'Opposition of the thumb', subject: 'HSS2011', unit: 'hss.joints',
+    model: 'skeleton', side: 'right',
+    joint: 'Carpo-metacarpal joint of the thumb',
+    summary: 'A saddle joint — the only one that can oppose. Opposition is tip-to-tip contact of the thumb with any finger; its opposite is reposition. The palm, not the middle finger, is the reference plane for thumb movement.',
+    moves: ['First metacarpal bone', 'Proximal phalanx of first finger of hand', 'Distal phalanx of first finger of hand'],
+    fixed: ['Trapezium bone', 'Second metacarpal bone', 'Third metacarpal bone'],
+    pivot: { mesh: 'First metacarpal bone', at: 'proximal' },
+    axis: { vector: [0.4, 0.5, 0.75] },
+    range: [0, 55],
+    labels: { min: 'Reposition', mid: 'Mid range', max: 'Opposition' },
+    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p52 opposition of thumb; p50–51 thumb movements at the carpo-metacarpal joint' }, { ref: 'hss.revans', location: 'Module 0, Fill-in-blanks 1 and 5' }],
+  },
+};
+
+export function jointMovement(id) { return JOINT_MOVEMENTS[id] || null; }
+
 /* Which bundled GLB a structure set needs. */
 export const STRUCTURE_MODELS = {
   skeleton: { file: './assets/z-anatomy-skeleton.glb', label: 'Skeleton', meshes: 277 },
@@ -3526,6 +3606,79 @@ function structureItem(set) {
 const STRUCTURE_ITEMS = Object.values(STRUCTURE_SETS).map(structureItem);
 
 /* ------------------------------------------------------------------ *
+ * Movement items — generated from JOINT_MOVEMENTS
+ * ------------------------------------------------------------------ */
+
+const MOVEMENT_HOOKS = {
+  supination: {
+    mnemonic: 'You hold a bowl of SOUP in a supinated palm. Turn it over and you spill it — that is pronation.',
+    comparison: 'The wrist does not rotate. If a movement turns the palm over, it happened at the radioulnar joints, and the hand only came along for the ride.',
+    visualCue: 'Watch the radius cross over the ulna as you scrub the slider. That crossing IS pronation — there is nothing else to remember.',
+  },
+  elbowFlexion: {
+    chunking: 'Hinge means one plane. If a question offers you two or three planes for the elbow, it is wrong before you read the rest.',
+    location: 'The axis runs side to side through the trochlea. Put a finger on each epicondyle and that line is the hinge.',
+  },
+  shoulderAbduction: {
+    firstLetter: 'The running order is Start, Lift, Rotate, Tilt — Supraspinatus, Deltoid, Infraspinatus and teres minor, Trapezius.',
+    sequence: 'Abduction is a relay, not a single muscle. Supraspinatus only runs the first 15 degrees.',
+    comparison: 'Ball-and-socket at the shoulder and at the hip both give three planes. The glenoid fossa is shallow, so the shoulder trades stability for this range.',
+  },
+  thumbOpposition: {
+    mnemonic: 'Only a saddle joint can oppose. If a question mentions opposition, it is the thumb carpo-metacarpal joint every time.',
+    comparison: 'Finger abduction is referenced to the middle finger; thumb movement is referenced to the palm. Different reference planes.',
+  },
+};
+
+function movementItem(mv) {
+  const stageNote = (mv.stages || []).map((s) => `${s.at}°: ${s.note}`);
+  return {
+    id: `hss2011-movement-${mv.id}`,
+    subject: mv.subject, unit: mv.unit, type: 'movement',
+    title: mv.label,
+    tags: ['joints', 'movement', '3d'],
+    movementId: mv.id,
+    lesson: {
+      explanation: `${mv.label} happens at the ${mv.joint.toLowerCase()}. ${mv.summary} `
+        + `On the model you can drive it yourself: the bones that move are ${mv.moves.length === 1 ? 'one mesh' : `${mv.moves.length} meshes`}, rotating about an axis resolved from the bones themselves, while ${mv.fixed.join(' and ')} stay put as the reference.`,
+      keyFacts: [
+        `Joint: ${mv.joint}.`,
+        `Range shown: ${mv.range[0]}° to ${mv.range[1]}°.`,
+        `Moves: ${mv.moves.slice(0, 3).join(', ')}${mv.moves.length > 3 ? ` and ${mv.moves.length - 3} more` : ''}.`,
+        `Held still for reference: ${mv.fixed.join(', ')}.`,
+        ...stageNote,
+      ],
+      prerequisites: ['hss2011-joints-classification'],
+      examples: [],
+    },
+    memory: MOVEMENT_HOOKS[mv.id] || {},
+    practice: [
+      { type: 'movement', prompt: `Drive ${mv.label.toLowerCase()} on the model and watch which bones move.`, movementId: mv.id,
+        explanation: `${mv.summary} The bones held still — ${mv.fixed.join(' and ')} — are what makes the movement legible: without a fixed reference you cannot see what moved.` },
+      { type: 'typed', prompt: `At which joint does ${mv.label.toLowerCase().replace(/ and .*/, '')} take place?`, accept: [mv.joint.toLowerCase(), mv.joint.toLowerCase().replace(/^(the|superior and inferior)\s+/, '')],
+        explanation: `${mv.joint}. Naming the joint is worth as many marks as naming the movement, and it is the half people leave out.`,
+        src: mv.sourceRefs[0] },
+      { type: 'mcq', prompt: `Which bones stay still during ${mv.label.toLowerCase()}?`,
+        options: [mv.fixed.join(' and '), mv.moves.slice(0, 2).join(' and '), 'Every bone in the limb moves together', 'None — the joint is fixed'], answer: 0,
+        explanation: `${mv.fixed.join(' and ')} stay still. Movement is always relative: naming what did NOT move is half of describing what did.` },
+    ],
+    application: [
+      { type: 'scenario', prompt: `Someone describes ${mv.label.toLowerCase()} without naming a joint. Why is that description incomplete, and what would you add?`,
+        model: `A movement name alone does not say where it happened, and several joints can produce superficially similar motion. You would add that it takes place at the ${mv.joint.toLowerCase()}, and name the bones that stay fixed — ${mv.fixed.join(' and ')} — because a movement is only defined relative to something that did not move.`,
+        rubric: ['States the movement name alone is ambiguous', `Names the ${mv.joint.toLowerCase()}`, 'Notes movement is relative to a fixed reference'] },
+    ],
+    commonMistakes: [
+      `Naming the movement but not the joint. The Module 0 fill-in-blanks ask for the joint as often as the movement.`,
+      ...(mv.id === 'supination' ? ['Attributing forearm rotation to the wrist. The wrist does not rotate; the radius does.'] : []),
+      ...(mv.id === 'shoulderAbduction' ? ['Answering "deltoid" for the start of abduction. Supraspinatus initiates the first 15 degrees.'] : []),
+    ],
+    sourceRefs: mv.sourceRefs,
+  };
+}
+
+const MOVEMENT_ITEMS = Object.values(JOINT_MOVEMENTS).map(movementItem);
+
+/* ------------------------------------------------------------------ *
  * Assembled corpus
  * ------------------------------------------------------------------ */
 
@@ -3534,6 +3687,7 @@ export const STUDY_ITEMS = [
   ...HSS_OSTEOLOGY,
   ...BONE_ITEMS,
   ...STRUCTURE_ITEMS,
+  ...MOVEMENT_ITEMS,
   ...HSS_JOINTS,
   ...HSS_MODULES,
   ...PHYS_ITEMS,
@@ -3604,6 +3758,17 @@ export function validateQuestion(q) {
     case 'laterality':
       if (!q.boneId) problems.push('no bone reference');
       break;
+    case 'movement': {
+      const mv = JOINT_MOVEMENTS[q.movementId];
+      if (!mv) problems.push(`unknown movement "${q.movementId}"`);
+      else {
+        if (!Array.isArray(mv.moves) || !mv.moves.length) problems.push('movement has no meshes to move');
+        if (!mv.pivot || !mv.pivot.mesh) problems.push('movement has no pivot mesh');
+        if (!mv.axis || (!mv.axis.vector && !(mv.axis.from && mv.axis.to))) problems.push('movement has no resolvable axis');
+        if (!Array.isArray(mv.range) || mv.range.length !== 2 || mv.range[0] >= mv.range[1]) problems.push('movement range is not a valid [min,max]');
+      }
+      break;
+    }
     case 'structure': {
       const set = STRUCTURE_SETS[q.setId];
       if (!set) problems.push(`unknown structure set "${q.setId}"`);
