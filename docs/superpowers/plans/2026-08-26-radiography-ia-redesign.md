@@ -10,6 +10,30 @@
 
 ---
 
+## ⚠ Line numbers in Tasks 3–10 are STALE — use grep anchors instead
+
+Every line number below was written against the pre-Task-2 file. Task 2 deleted the topbar, the breadcrumb bar and two whole `<section>` blocks, then relocated two more, so **all of them have shifted.** An executor who blindly cuts "old lines 890–982" will delete the wrong region and silently destroy working code.
+
+**Locate every target by name, not by number.** Before editing anything, run:
+```bash
+grep -n "function renderHome\|function renderSubject\|function openOsteology\|function openDashboard\|function openCoverage\|function showView\|function crumbs\|const VIEWS\|const STEPS\|function setStep\|function startSession\|function endSession\|function pickItems" outputs/radiography-study-studio.html
+```
+Known positions as of the end of Task 2 (verify these too — later tasks shift them again):
+
+| Symbol | Was (plan text) | After Task 2 |
+|---|---|---|
+| `crumbs` | 822–829 | ~839 |
+| `renderHome` | 841–876 | ~857–897 |
+| `renderSubject` | 890–982 | ~906–999 |
+| `openOsteology` | 984–987 | ~1001 |
+| `openCoverage` | ~1766 | ~1782 |
+| `openDashboard` | 1812–1831 | ~1828 |
+| boot wiring | 1837–1869 | ~1853–1872 |
+
+When a step says "delete old lines N–M", read that as "delete the named function(s), whatever their current line numbers." When a step quotes a literal string to replace, match on the string.
+
+---
+
 ## Before you start
 
 - [ ] **Step 0a: Confirm a clean tree and create a branch**
@@ -364,7 +388,7 @@ function renderToday() {
   $$('weakestList').querySelectorAll('[data-weak]').forEach((b) => { b.onclick = () => renderReviewTab('mistakes'); });
   $$('allWeakBtn').onclick = () => goTo('review');
 
-  const streak = computeStreak();
+  const streak = (store.meta && store.meta.streak) || 0;
   $$('todayStatrow').innerHTML = [
     [String(streak), 'day streak'], [String(due.length), 'due now'],
     [`${totalItems ? Math.round(attempted.reduce((n, i) => n + itemScore(i.id), 0) / totalItems * 100) : 0}%`, 'mastered'],
@@ -398,12 +422,16 @@ function resumeContinue(cont) {
   openSessionOverlay();
   setStep(cont.step);
 }
-function computeStreak() {
-  const days = new Set(store.mistakes.concat(Object.values(store.mastery).flatMap((m) => (m.lastSeen ? [m] : []))).map((r) => new Date(r.at || r.lastSeen).toDateString()));
-  let n = 0, d = new Date();
-  while (days.has(d.toDateString())) { n += 1; d.setDate(d.getDate() - 1); }
-  return n;
-}
+/* NO computeStreak() — the app already maintains a streak.
+   `endSession()` persists `store.meta.streak` (with a `lastSessionDay`
+   dedupe). Deriving a second streak from mistakes + mastery.lastSeen would
+   produce a different number for the same day: the existing one counts
+   completed sessions, a derived one would count days with any activity.
+   Read the stored value instead — see Step 2, which uses:
+       const streak = (store.meta && store.meta.streak) || 0;
+   Pre-existing behaviour worth knowing but NOT in scope to change here:
+   that increment fires whenever `lastSessionDay` is set and is not today,
+   so a gap of several days still increments rather than resetting to 1. */
 function relativeTime(ts) {
   const mins = Math.round((Date.now() - ts) / 60000);
   if (mins < 60) return `${mins}m`;
@@ -427,13 +455,14 @@ const VIEWS = ['todayView', 'learnView', 'viewerView', 'reviewView', 'moreView']
 ```
 Also update the special-case id in the same function — `if (id === 'osteologyView' && window.__osteo)` becomes `if (id === 'viewerView' && window.__osteo)`. (`sessionView` is deliberately absent from `VIEWS`: Task 5 makes it an overlay managed by its own open/close helpers, not by `showView`.)
 
-**Delete all four dead topbar wirings** in the boot section near the end of the second script block. These reference buttons Task 2 removed from the markup, and the first one throws before `renderToday()` is ever called:
+**Delete all four dead wirings** in the boot section near the end of the second script block. The first three reference topbar buttons Task 2 removed, and the first one throws before `renderToday()` is ever called:
 ```javascript
 $$('rssHomeBtn').onclick = renderHome;          // delete
 $$('rssDashBtn').onclick = openDashboard;        // delete
 $$('rssCoverageBtn').onclick = () => openCoverage(null);  // delete
 $$('rssBackSubject').onclick = () => renderSubject('HSS2011');  // delete
 ```
+Note on the fourth: `#rssBackSubject` is **not** in the same category. Its button was *inside* the relocated 3D-studio markup, so it survived Task 2 as a live "← Back to HSS2011" control — Task 2's follow-up commit deleted the button element, since Viewer is now a top-level destination with no parent subject and `renderSubject` disappears in Task 4 anyway. Confirm the element is gone (`grep -n rssBackSubject`) before deleting its wiring; if the button is somehow still present, delete it too.
 Leave `$$('closeSource')`, `$$('closeCoverage')`, `$$('rssSkipBtn')` and `$$('rssEndBtn')` alone — their elements still exist. Do **not** delete `openDashboard`/`openCoverage`/`$$('closeDash')` yet; Tasks 7 and 8 own those.
 
 After this step the app should boot cleanly to a working Today screen, which is what makes Steps 5's verification meaningful.
@@ -492,7 +521,18 @@ Append to the `<style>` block (same location as Task 1 Step 3):
 
 - [ ] **Step 3: Write `renderLearn()` and its helpers**
 
-This fully replaces `renderSubject()` (delete old lines 878–982, i.e. `fileRowsHTML` through the end of `openOsteology`'s old body — but **keep** `fileRowsHTML`, it is still used by Task 8's More screen; only delete `renderSubject` and `openOsteology`, and rewrite `openOsteology` in Task 6). Add:
+This replaces `renderSubject()`. To be unambiguous — the earlier wording of this step was self-contradictory — delete **exactly two** functions, located by name, not by line number:
+
+- `function renderSubject(subjectId) { … }` — delete entirely
+- `function openOsteology() { … }` — delete entirely (Task 6 writes `openViewer()` in its place)
+
+and **keep** `function fileRowsHTML(refs) { … }`, which sits immediately above them and is still used by Task 8's More screen. Verify after deleting:
+```bash
+grep -n "function fileRowsHTML\|function renderSubject\|function openOsteology" outputs/radiography-study-studio.html
+```
+Expected: one hit for `fileRowsHTML`, zero for the other two.
+
+Then add:
 ```javascript
 const SUBJECT_GROUP = { HSS2011: { label: 'Anatomy', accent: '#72e3cf' }, ABCT2326: { label: 'Physiology', accent: '#ffba67' }, HTI17103: { label: 'Radiation science', accent: '#8ea9ff' } };
 const LEARN_FILTERS = [['all', 'Everything'], ['Anatomy', 'Anatomy'], ['Physiology', 'Physiology'], ['Radiation science', 'Radiation science'], ['3d', 'Has 3D / images']];
@@ -621,12 +661,21 @@ let tabBeforeSession = 'today';
 function openSessionOverlay() {
   tabBeforeSession = currentTab || 'today';
   $$('sessionView').classList.remove('hidden');
+  /* The overlay is position:fixed, so the nav rail, tab bar and search
+     button behind it stay in the tab order without this. `inert` is
+     baseline-supported and needs no focus-trap code. */
+  const shell = document.querySelector('.app-shell');
+  if (shell) shell.inert = true;
 }
 function closeSessionOverlay() {
   $$('sessionView').classList.add('hidden');
+  const shell = document.querySelector('.app-shell');
+  if (shell) shell.inert = false;
   goTo(tabBeforeSession);
 }
 ```
+
+Note: the overlay's positioning CSS (`#sessionView{position:fixed;inset:0;z-index:10;…}`, `#sessionView.hidden{display:none}`, the `#sessionView .navcontent` rule and the `fadeUp` keyframes) was already added in Task 2's fix-up commit — without it, a visible `#sessionView` collapsed `.app-shell` to 0px height. Check whether it is present before adding it again; Step 1 below only needs the markup wrapper.
 `currentTab` is defined in Task 9 — leave as a forward reference for now.
 
 In `startSession(opts)` (around line 1050), replace the line `showView('sessionView');` with `openSessionOverlay();`.
@@ -881,7 +930,14 @@ function setActiveNav(id) {
   currentTab = id;
   $$('navTitle').textContent = NAV_TITLES[id];
   $$('navKicker').textContent = { today: '14 due · streak', learn: 'Anatomy · physiology · radiation science', viewer: 'Model and images in one place', review: 'Mistakes, due items, mastery', more: 'Sources, coverage, settings' }[id];
-  document.querySelectorAll('.navrail button, .bottomtab button').forEach((b) => b.classList.toggle('active', b.dataset.nav === id));
+  document.querySelectorAll('.navrail button, .bottomtab button').forEach((b) => {
+    const on = b.dataset.nav === id;
+    b.classList.toggle('active', on);
+    /* .active is a purely visual cue; aria-current is what a screen reader
+       announces. Do NOT reach for role="tab"/aria-selected — that obligates
+       full tablist/tabpanel wiring and arrow-key handling for no gain. */
+    b.setAttribute('aria-current', on ? 'page' : 'false');
+  });
 }
 function goTo(id) { const dest = NAV_DESTS.find((d) => d[0] === id); if (dest) dest[3](); }
 function renderNavButtons() {
@@ -916,6 +972,16 @@ migrate();
 renderNavButtons();
 $$('closeSource').onclick = () => $$('sourceDialog').close();
 $$('closeCoverage').onclick = () => $$('coverageDialog').close();
+/* The header ⌕ button has existed since Task 2 and is wired by no other
+   task — a focusable, labelled, permanently inert control is worse than
+   none. The full global search sheet from the prototype is explicitly out
+   of scope (see Self-review notes), so point it at the anatomy search that
+   already exists inside the Viewer rather than inventing a new surface. */
+$$('rssSearchBtn').onclick = () => {
+  goTo('viewer');
+  const input = $$('searchInput');
+  if (input) { input.focus(); input.select(); }
+};
 $$('rssSkipBtn').onclick = () => {
   if (!session) return;
   if (session.index >= session.items.length - 1) return endSession();
