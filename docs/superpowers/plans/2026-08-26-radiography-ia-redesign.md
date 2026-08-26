@@ -465,7 +465,11 @@ $$('rssBackSubject').onclick = () => renderSubject('HSS2011');  // delete
 Note on the fourth: `#rssBackSubject` is **not** in the same category. Its button was *inside* the relocated 3D-studio markup, so it survived Task 2 as a live "← Back to HSS2011" control — Task 2's follow-up commit deleted the button element, since Viewer is now a top-level destination with no parent subject and `renderSubject` disappears in Task 4 anyway. Confirm the element is gone (`grep -n rssBackSubject`) before deleting its wiring; if the button is somehow still present, delete it too.
 Leave `$$('closeSource')`, `$$('closeCoverage')`, `$$('rssSkipBtn')` and `$$('rssEndBtn')` alone — their elements still exist. Do **not** delete `openDashboard`/`openCoverage`/`$$('closeDash')` yet; Tasks 7 and 8 own those.
 
-After this step the app should boot cleanly to a working Today screen, which is what makes Steps 5's verification meaningful.
+**Order matters — delete all four in the SAME edit.** They sit on consecutive lines, and each one only looks harmless because the line above it throws first. Delete `rssHomeBtn` alone and `rssBackSubject` immediately becomes the new first throw, trading one aborting TypeError for another and leaving the app just as dead.
+
+**One more stale reference, currently silent rather than loud:** `openOsteology()` still ends with `showView('osteologyView')`, which now names a non-existent view. It is unreachable in practice — its only callers live inside `renderSubject`, which no longer has any UI entry point — so leave it alone; Task 4 deletes both functions outright. Do not "fix" it here.
+
+After this step the app should boot cleanly to a working Today screen, which is what makes Step 5's verification meaningful.
 
 - [ ] **Step 4: Update remaining call sites**
 
