@@ -3752,7 +3752,7 @@ export const COVERAGE = {
     },
   ],
   notes: [
-    'The "downloaded ZIP" referred to in the brief was not present anywhere on this machine. The only downloaded asset found was Skeleton_NIH3D.glb, which is already bundled in outputs/assets and used as the fused reference fallback.',
+    'The "downloaded ZIP" referred to in the brief was not present anywhere on this machine. The only downloaded asset found was Skeleton_NIH3D.glb. It has since been removed: it carried just 2 named nodes, so it could not support structure-level picking, and no code ever loaded it.',
     'No labelled diagram image files exist in the supplied app assets — only .glb 3D models — so diagram labelling uses authored inline SVG schematics whose label names come from the cited sources.',
     'The bundled Z-Anatomy / BodyParts3D skeleton is far more granular than the app originally used: 277 individually named meshes covering every carpal and tarsal, the separate skull bones, all 24 presacral vertebrae, and even the ear ossicles. It contains NO soft tissue — no heart, lung, brain, kidney, liver, muscle or vessel — so any 3D work on organs, muscles, pathways or neuroanatomy needs models this project does not yet have.',
     'Structure-set questions and diagram labelling both support a three-state reveal — labelled (teaching), guided (a couple of anchors left in) and blank (test). Blank is the default so a question stays a question; the labelled view is opened deliberately.',

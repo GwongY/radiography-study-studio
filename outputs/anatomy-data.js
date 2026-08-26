@@ -70,7 +70,6 @@ export const MODEL_CATALOG = {
     ],
   },
   fullSkeletonFile: './assets/z-anatomy-skeleton.glb',
-  fusedReferenceFile: './assets/Skeleton_NIH3D.glb',
   organSystemFile: './assets/ic-organlar.glb',
   organSystem: {
     id: 'anatomi-simulatoru-organs-v1',
@@ -125,7 +124,7 @@ export const MODEL_CATALOG = {
   },
   replacementCandidates: [
     { label:'Z-Anatomy / BodyParts3D skeleton system', url:'https://github.com/DrMuratAltun/anatomi-simulatoru', note:'Active structure-level source; 277 named meshes and CC BY-SA 4.0 data attribution documented by the source project.' },
-    { label:'NIH 3D — Human Skeleton 3DPX-016838', url:'https://3d.nih.gov/entries/3dpx-016838', note:'Promising CT-derived candidate; verify the entry-level license and separate-object quality before bundling.' },
+    { label:'NIH 3D — Human Skeleton 3DPX-016838', url:'https://3d.nih.gov/entries/3dpx-016838', note:'Reviewed and REJECTED. It was bundled at one point but carried only 2 named nodes, so it could not support structure-level picking. Dropped once the 277-mesh Z-Anatomy skeleton made it redundant; it was costing 9.1 MB for no capability.' },
     { label:'BodyParts3D / Anatomography', url:'https://lifesciencedb.jp/bp3d/info_en/index.html', note:'Open OBJ data with named anatomical concepts; CC BY-SA 2.1 JP requires attribution and share-alike.' },
   ],
 };
