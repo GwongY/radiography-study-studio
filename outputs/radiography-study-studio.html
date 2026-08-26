@@ -129,6 +129,13 @@
 .struct .n{width:20px;height:20px;flex:none;border-radius:99px;background:rgba(114,227,207,.16);color:var(--teal);display:grid;place-items:center;font-size:10px;font-weight:800}
 .struct .grow{flex:1;min-width:0;font-size:13.5px;line-height:1.35}
 .struct .grow small{display:block;color:var(--muted);font-size:11.5px;margin-top:2px;line-height:1.4}
+.mv-panel{border:1px solid var(--line);border-radius:12px;padding:14px 15px;background:rgba(255,255,255,.025)}
+.mv-row{display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+.mv-row input[type=range]{flex:1;min-width:170px;accent-color:var(--teal)}
+.mv-read{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--teal);min-width:150px}
+.mv-ends{display:flex;justify-content:space-between;margin-top:7px;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+.mv-meta{display:grid;gap:4px;margin-top:11px;font-size:12.5px;color:var(--muted)}
+.mv-meta b{color:var(--text);font-weight:600}
 .struct .go{flex:none;font:10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:1px 5px}
 .conf-row{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:14px 0 0}
 .conf-row .lab{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
@@ -272,6 +279,17 @@
     <div class="rss-actions" style="margin:0 0 14px">
       <button class="ghost" id="rssBackSubject">← Back to HSS2011</button>
       <button class="ghost" id="reviewBtn">Start review</button>
+      <button class="ghost hidden" id="mvBackToSession">← Back to the question</button>
+    </div>
+    <div class="mv-panel hidden" id="mvBar" style="margin:0 0 14px">
+      <div class="mv-row">
+        <strong id="mvBarTitle" style="font-size:14px"></strong>
+        <button class="ghost" id="mvBarPlay">▶ Play</button>
+        <input type="range" id="mvBarSlider" min="0" max="90" value="0" step="1" aria-label="Joint angle">
+        <span class="mv-read" id="mvBarReadout">0°</span>
+        <button class="ghost" id="mvBarStop">Reset</button>
+      </div>
+      <div class="mv-ends"><span id="mvBarMin"></span><span id="mvBarMid"></span><span id="mvBarMax"></span></div>
     </div>
 
   <nav class="modebar" aria-label="Learning modes">
@@ -421,7 +439,14 @@
   function cameraView(kind){if(!state.camera||!state.controls)return;if(kind==='lateral'){state.camera.position.set(24,1,0);state.controls.target.set(0,1,0)}else{state.camera.position.set(0,1,25);state.controls.target.set(0,1,0)}state.controls.update()}
   async function boot3D(){els.state.classList.remove('hidden');els.stateTitle.textContent='Loading full skeleton reference';els.stateCopy.textContent='Loading the CT-derived reference model, then preparing the individually selectable upper-limb set…';els.retry.style.display='none';els.progress.style.width='3%';try{const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js');const {OrbitControls}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js');const {GLTFLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js');const {DRACOLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/DRACOLoader.js');state.scene=new THREE.Scene();state.scene.background=new THREE.Color(0x0b151b);state.camera=new THREE.PerspectiveCamera(32,1,.1,100);state.camera.position.set(0,1,25);state.renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});state.renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));state.renderer.outputColorSpace=THREE.SRGBColorSpace;els.stage.prepend(state.renderer.domElement);state.controls=new OrbitControls(state.camera,state.renderer.domElement);state.controls.enableDamping=true;state.controls.dampingFactor=.08;state.controls.minDistance=2.5;state.controls.maxDistance=45;state.controls.target.set(0,1,0);state.raycaster=new THREE.Raycaster();state.pointer=new THREE.Vector2();state.scene.add(new THREE.HemisphereLight(0xdce9e7,0x102026,2.1));const key=new THREE.DirectionalLight(0xffffff,2.4);key.position.set(5,12,16);state.scene.add(key);state.scene.add(new THREE.DirectionalLight(0x5cd1c4,.8));try{state.fullModel=prepareFullReference(THREE,await loadFullReference(THREE,GLTFLoader));state.scene.add(state.fullModel);addFullPickables(THREE,state.scene);els.stageMeta.textContent='Full NIH CT-derived skeleton reference · named click zones · upper-limb meshes selectable by region';}catch(fullError){console.warn('Full reference failed',fullError)}try{state.realModel=await loadImportedModel(THREE,GLTFLoader,DRACOLoader);const info=prepareImportedModel(THREE,state.realModel);state.scene.add(state.realModel);els.stageMeta.textContent+=` · ${info.mapped} real BodyParts3D upper-limb meshes`;}catch(importError){console.warn('Real upper-limb model failed, using local fallback',importError);state.realModel=createProceduralModel(THREE);state.scene.add(state.realModel);addHotspots(THREE,state.scene);els.stageMeta.textContent='Full reference + fallback upper-limb meshes';}resize();applyVisibility();els.progress.style.width='100%';setTimeout(()=>els.state.classList.add('hidden'),500);animate();return true}catch(error){els.stateTitle.textContent='3D model unavailable';els.stateCopy.textContent='The study tools still work. Check your connection, then retry the model layer.';els.retry.style.display='inline-flex';els.progress.style.width='100%';console.warn(error);return false}}
   function resize(){if(!state.renderer||!state.camera)return;const rect=els.stage.getBoundingClientRect();state.renderer.setSize(rect.width,rect.height,false);state.camera.aspect=rect.width/rect.height;state.camera.updateProjectionMatrix()}
-  function animate(){if(!state.renderer)return;requestAnimationFrame(animate);state.motionPhase=performance.now()*.001;if(state.motionEnabled){const turn=Math.sin(state.motionPhase*.55)*.24;[state.fullModel,state.realModel].forEach(root=>{if(root)root.rotation.y=turn})}const pulse=.72+.28*Math.sin(state.motionPhase*3.2);[...state.meshes,...state.fullMeshes].filter(m=>m.userData.presentationActive).forEach(m=>{if(m.material.emissive)m.material.emissiveIntensity=.95*pulse});state.controls.update();state.renderer.render(state.scene,state.camera)}
+  function animate(){if(!state.renderer)return;requestAnimationFrame(animate);
+  if(state.movement&&state.movement.playing){
+    const mv=state.movement.mv, step=(mv.range[1]-mv.range[0])/90;
+    let a=state.movement.angle+step*state.movement.dir;
+    if(a>=mv.range[1]){a=mv.range[1];state.movement.dir=-1}
+    else if(a<=mv.range[0]){a=mv.range[0];state.movement.dir=1}
+    setMovementAngle(a);
+  }state.motionPhase=performance.now()*.001;if(state.motionEnabled){const turn=Math.sin(state.motionPhase*.55)*.24;[state.fullModel,state.realModel].forEach(root=>{if(root)root.rotation.y=turn})}const pulse=.72+.28*Math.sin(state.motionPhase*3.2);[...state.meshes,...state.fullMeshes].filter(m=>m.userData.presentationActive).forEach(m=>{if(m.material.emissive)m.material.emissiveIntensity=.95*pulse});state.controls.update();state.renderer.render(state.scene,state.camera)}
   function zoomCamera(factor){if(!state.camera||!state.controls)return;const offset=state.camera.position.clone().sub(state.controls.target);const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,offset.length()*factor));state.camera.position.copy(state.controls.target).add(offset.normalize().multiplyScalar(distance));state.controls.update()}
   function focusSelected(){if(!state.camera||!state.controls||!state.selectionAnchor){showToast('Select a structure first');return}state.controls.minDistance=2.5;const box=new state.THREE.Box3().setFromObject(state.selectionAnchor);const center=box.getCenter(new state.THREE.Vector3());const size=box.getSize(new state.THREE.Vector3());const radius=Math.max(size.x,size.y,size.z,.35);const offset=state.camera.position.clone().sub(state.controls.target).normalize();const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,radius*3.6));state.controls.target.copy(center);state.camera.position.copy(center).add(offset.multiplyScalar(distance));state.controls.update()}
   function toggleIsolation(){if(!state.selectedId){showToast('Select a structure first');return}const record=getRecord(state.selectedId);if(!state.fullMeshes.length&&record?.region!=='upper_limb'&&state.region!=='upper_limb'){showToast('This fallback reference is fused. Use Upper limb for per-bone isolation.');focusSelected();return}if(state.region!=='upper_limb'&&record?.region==='upper_limb'&&state.meshes.length){state.region='upper_limb';els.regionMeta.textContent='Upper limb';renderRegions();applyVisibility()}state.isolated=!state.isolated;$('isolateBtn').classList.toggle('active',state.isolated);applyVisibility();focusSelected()}
@@ -512,7 +537,90 @@ function highlightExtra(mesh){
   els.selectedName.textContent=clean;
   els.selectedChips.innerHTML=side?`<span class="chip">${side}</span>`:'';
 }
+/*
+ * Joint movement player.
+ *
+ * The skeleton has no skin and no animation track, so movement is driven by
+ * rigid-body rotation: the moving meshes are reparented into a pivot group
+ * whose origin sits on the joint axis, and that group is rotated. A bone
+ * really is a rigid body rotating about a joint axis, so this is the honest
+ * representation rather than a shortcut.
+ *
+ * Pivot and axis are resolved from the bounding boxes of named meshes at
+ * runtime, never hard-coded, because the model is rescaled and recentred on
+ * import — any baked-in coordinate would silently drift.
+ */
+state.movement=null;
+function meshesNamed(names,side){
+  const norm=s=>String(s||'').toLowerCase().replace(/[_()\-.]+/g,' ').replace(/\s+/g,' ').trim();
+  const want=names.map(norm);
+  const suffix=side==='left'?'l':side==='right'?'r':null;
+  return state.fullMeshes.filter(mesh=>{
+    const n=norm(mesh.userData?.label||mesh.name);
+    return want.some(w=> n===w || (suffix && n===w+suffix) || (!suffix && (n===w+'l'||n===w+'r')) );
+  });
+}
+function endPoint(THREE,names,side,at){
+  const ms=meshesNamed(names,side);
+  if(!ms.length)return null;
+  const box=new THREE.Box3();
+  ms.forEach(m=>box.expandByObject(m));
+  const c=box.getCenter(new THREE.Vector3());
+  /* 'proximal' is the higher end for a limb hanging at the side. */
+  if(at==='proximal')c.y=box.max.y;
+  else if(at==='distal')c.y=box.min.y;
+  return c;
+}
+function startMovement(mv){
+  const THREE=state.THREE;
+  if(!THREE||!state.fullModel){showToast('Open the 3D model first.');return false}
+  endMovement();
+  const moving=meshesNamed(mv.moves,mv.side);
+  if(!moving.length){showToast('Those bones are not in the loaded model.');return false}
+  const pivot=endPoint(THREE,[mv.pivot.mesh],mv.side,mv.pivot.at);
+  if(!pivot)return false;
+  let axis;
+  if(mv.axis.vector)axis=new THREE.Vector3(...mv.axis.vector).normalize();
+  else{
+    const a=endPoint(THREE,[mv.axis.from.mesh],mv.side,mv.axis.from.at);
+    const b=endPoint(THREE,[mv.axis.to.mesh],mv.side,mv.axis.to.at);
+    if(!a||!b)return false;
+    axis=b.clone().sub(a).normalize();
+  }
+  const group=new THREE.Group();
+  group.position.copy(pivot);
+  state.fullModel.add(group);
+  /* Reparent while preserving world transform, so nothing jumps on attach. */
+  const restore=moving.map(mesh=>({mesh,parent:mesh.parent}));
+  moving.forEach(mesh=>group.attach(mesh));
+  state.movement={mv,group,axis,restore,angle:0,playing:false,dir:1};
+  setMovementAngle(mv.range[0]);
+  return true;
+}
+function setMovementAngle(deg){
+  const m=state.movement; if(!m)return;
+  const lo=m.mv.range[0], hi=m.mv.range[1];
+  m.angle=Math.max(lo,Math.min(hi,deg));
+  m.group.setRotationFromAxisAngle(m.axis, m.angle*Math.PI/180);
+  const el=document.getElementById('mvBarReadout');
+  if(el){
+    const stage=(m.mv.stages||[]).filter(s=>m.angle>=s.at).pop();
+    el.textContent=`${Math.round(m.angle)}°`+(stage?` — ${stage.note}`:'');
+  }
+  const sl=document.getElementById('mvBarSlider');
+  if(sl&&Math.round(+sl.value)!==Math.round(m.angle))sl.value=String(Math.round(m.angle));
+}
+function endMovement(){
+  const m=state.movement; if(!m)return;
+  m.restore.forEach(({mesh,parent})=>parent&&parent.attach(mesh));
+  m.group.parent&&m.group.parent.remove(m.group);
+  state.movement=null;
+}
 window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;boot3D()}},resize,
+  startMovement:(mv)=>startMovement(mv),
+  setMovementAngle:(d)=>setMovementAngle(d),
+  endMovement:()=>endMovement(),
+  movementState:()=>state.movement?{id:state.movement.mv.id,angle:state.movement.angle,moving:state.movement.restore.length}:null,
   showSystem:async(key,file)=>{
     if(!key){setExtraVisible(null);return true}
     try{await loadExtraModel(key,file);setExtraVisible(key);return true}
@@ -574,7 +682,7 @@ import {
   getSubject, getItem, itemsForSubject, itemsForUnit, questionsOf, allQuestions,
   describeSource, coverageFor, blankMastery, schedule, masteryScore, isDue, dimensionFor,
   tierFor, TIER_LABELS,
-  isDelayedAttempt, REVEAL_MODES, structureSet, STRUCTURE_MODELS,
+  isDelayedAttempt, REVEAL_MODES, structureSet, STRUCTURE_MODELS, jointMovement,
   validateCorpus, validateApplications,
 } from './study-data.js';
 
@@ -1144,6 +1252,25 @@ function questionBody(q) {
       </svg><p class="small" style="text-align:center;color:var(--muted);margin:8px 0 0">${esc(d.caption)}</p></div>
       <div class="q-prompt" style="font-size:15px">Click the hotspot for: <strong>${esc(q.labels[target].label)}</strong></div>`;
     }
+    case 'movement': {
+      const mv = jointMovement(q.movementId);
+      if (!mv) return '<div class="emptybox">Movement unavailable.</div>';
+      return `<div class="notice" style="margin-top:0"><strong>${esc(mv.joint)}</strong>${esc(mv.summary)}</div>
+      <div class="mv-panel">
+        <div class="mv-meta">
+          <span><b>Range:</b> ${mv.range[0]}° to ${mv.range[1]}° — ${esc(mv.labels.min)} through ${esc(mv.labels.max)}</span>
+          <span><b>Moves:</b> ${esc(mv.moves.slice(0,3).join(', '))}${mv.moves.length>3?` +${mv.moves.length-3} more`:''}</span>
+          <span><b>Held still:</b> ${esc(mv.fixed.join(', '))}</span>
+        </div>
+        ${(mv.stages||[]).length?`<ul class="facts" style="margin-top:10px">${mv.stages.map(s=>`<li><strong>${s.at}°</strong> — ${esc(s.note)}</li>`).join('')}</ul>`:''}
+        <p class="small" style="color:var(--muted);margin:11px 0 0">The controls live with the model — the render loop only runs while the studio is on screen, so a slider here would move bones you cannot see.</p>
+      </div>
+      <div class="rss-actions">
+        <button class="primary" id="mvStudio">Open the studio and drive it →</button>
+        <button class="ghost" id="mvDone">I can see how it moves</button>
+        <button class="ghost" id="mvFail">I could not follow it</button>
+      </div>`;
+    }
     case 'structure': {
       const set = structureSet(q.setId);
       if (!set) return '<div class="emptybox">Structure set unavailable.</div>';
@@ -1286,7 +1413,7 @@ function finishQuestion(item, q, correct, extra) {
     ? '<button class="primary" id="rssNextQ">Next question →</button><button class="ghost" data-nav="apply">Go to apply</button>'
     : '<button class="primary" data-nav="apply">Apply it →</button>';
   const nq = $$('rssNextQ');
-  if (nq) nq.onclick = () => { session.qIndex += 1; session.answered = false; session.confidence = null; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.diagramReveal = null; session.startedAt = performance.now(); renderStep(); };
+  if (nq) nq.onclick = () => { session.qIndex += 1; session.answered = false; session.confidence = null; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.diagramReveal = null; if (window.__osteo && window.__osteo.endMovement) { window.__osteo.endMovement(); const b=$$('mvBar'); if(b) b.classList.add('hidden'); const bk=$$('mvBackToSession'); if(bk) bk.classList.add('hidden'); } session.startedAt = performance.now(); renderStep(); };
   wireStageNav(item);
   renderMasteryPanel(item);
 }
@@ -1295,6 +1422,49 @@ function finishQuestion(item, q, correct, extra) {
  * Route a structure to the right bundled model. The skeleton is already in the
  * scene; organ and circulatory models are fetched the first time one is asked for.
  */
+/*
+ * Arms the movement control bar inside the studio. The bar lives there rather
+ * than on the question because the render loop only runs while the studio is
+ * on screen — a slider next to the question would move bones nobody can see.
+ */
+function armMovementBar(mv, cameFromSession) {
+  if (!window.__osteo) { toast('The 3D model is not available.'); return false; }
+  window.__osteo.showSystem(null);
+  const ok = window.__osteo.startMovement(mv);
+  const bar = $$('mvBar');
+  if (!ok) { bar.classList.add('hidden'); toast('Could not set that movement up on the model.'); return false; }
+
+  bar.classList.remove('hidden');
+  $$('mvBarTitle').textContent = mv.label;
+  $$('mvBarMin').textContent = mv.labels.min;
+  $$('mvBarMid').textContent = mv.labels.mid;
+  $$('mvBarMax').textContent = mv.labels.max;
+  const slider = $$('mvBarSlider');
+  slider.min = String(mv.range[0]); slider.max = String(mv.range[1]); slider.value = String(mv.range[0]);
+  slider.oninput = () => { const wanted = +slider.value; window.__osteo.setMovementAngle(wanted); };
+  const play = $$('mvBarPlay');
+  play.textContent = '▶ Play';
+  play.onclick = () => {
+    const st = window.__osteo.state.movement;
+    if (!st) return;
+    st.playing = !st.playing;
+    play.textContent = st.playing ? '❚❚ Pause' : '▶ Play';
+  };
+  $$('mvBarStop').onclick = () => {
+    const st = window.__osteo.state.movement;
+    if (st) { st.playing = false; play.textContent = '▶ Play'; }
+    window.__osteo.setMovementAngle(mv.range[0]);
+  };
+  const back = $$('mvBackToSession');
+  back.classList.toggle('hidden', !cameFromSession);
+  back.onclick = () => {
+    window.__osteo.endMovement();
+    bar.classList.add('hidden'); back.classList.add('hidden');
+    if (session) { showView('sessionView'); renderStep(); } else { renderHome(); }
+  };
+  return true;
+}
+
 function targetIn3D(set, member) {
   if (!window.__osteo) return;
   const modelKey = set.model || 'skeleton';
@@ -1378,6 +1548,16 @@ function wirePractise(item) {
       $$('rssMatchGo').disabled = true;
       finishQuestion(item, q, allRight, allRight ? '' : `Correct pairs: ${q.pairs.map((p) => `${esc(p[0])} → ${esc(p[1])}`).join('; ')}.`);
     };
+  } else if (q.type === 'movement') {
+    const mv = jointMovement(q.movementId);
+    const studio = $$('mvStudio');
+    if (studio) studio.onclick = () => { openOsteology(); setTimeout(() => armMovementBar(mv, true), 500); };
+    const finish = (correct) => {
+      [$$('mvStudio'), $$('mvDone'), $$('mvFail')].forEach((b) => b && (b.disabled = true));
+      finishQuestion(item, q, correct, correct ? '' : `Held still for reference: ${esc(mv.fixed.join(', '))}. Without a fixed bone there is nothing to see the movement against.`);
+    };
+    $$('mvDone').onclick = () => finish(true);
+    $$('mvFail').onclick = () => finish(false);
   } else if (q.type === 'structure') {
     const set = structureSet(q.setId);
     const revealed = new Set();
@@ -1521,7 +1701,7 @@ function wireStageNav(item) {
   document.querySelectorAll('#rssStage [data-nav]').forEach((b) => { b.onclick = () => setStep(b.dataset.nav); });
   const next = $$('rssNextItem');
   if (next) next.onclick = () => {
-    session.index += 1; session.qIndex = 0; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.diagramReveal = null;
+    session.index += 1; session.qIndex = 0; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.diagramReveal = null; if (window.__osteo && window.__osteo.endMovement) { window.__osteo.endMovement(); const b=$$('mvBar'); if(b) b.classList.add('hidden'); const bk=$$('mvBackToSession'); if(bk) bk.classList.add('hidden'); }
     setStep(session.hooksOnly ? 'remember' : 'learn');
   };
   const fin = $$('rssFinish');
@@ -1666,7 +1846,7 @@ $$('dashWeakestBtn').onclick = () => { $$('dashDialog').close(); startSession({ 
 $$('rssSkipBtn').onclick = () => {
   if (!session) return;
   if (session.index >= session.items.length - 1) return endSession();
-  session.index += 1; session.qIndex = 0; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.diagramReveal = null;
+  session.index += 1; session.qIndex = 0; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.diagramReveal = null; if (window.__osteo && window.__osteo.endMovement) { window.__osteo.endMovement(); const b=$$('mvBar'); if(b) b.classList.add('hidden'); const bk=$$('mvBackToSession'); if(bk) bk.classList.add('hidden'); }
   setStep('learn');
 };
 $$('rssEndBtn').onclick = () => { if (session) endSession(); else renderHome(); };
