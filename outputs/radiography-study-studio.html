@@ -206,7 +206,7 @@
 .navmain{flex:1;min-width:0;min-height:0;display:flex;flex-direction:column}
 .navhead{flex:none;display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--line)}
 .navhead .kicker{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
-.navhead .htitle{font-weight:500;font-size:24px;line-height:1.15;margin-top:3px}
+.navhead .htitle{font-weight:500;font-size:24px;line-height:1.15;margin:3px 0 0}
 .navhead .grow{flex:1;min-width:0}
 .navcontent{flex:1;min-height:0;overflow:auto;padding:22px}
 .bottomtab{display:none}
@@ -214,12 +214,17 @@
   .navrail{display:none}
   .navmain{width:100%}
   .app-body{flex-direction:column}
-  .bottomtab{display:flex;flex:none;border-top:1px solid var(--line);background:rgba(8,16,22,.94);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+  .bottomtab{display:flex;flex:none;border-top:1px solid var(--line);background:rgba(8,16,22,.94);padding:6px 4px 22px;padding-bottom:max(22px, env(safe-area-inset-bottom))}
   .bottomtab button{flex:1;min-height:52px;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);font:600 10.5px 'Instrument Sans',sans-serif}
   .bottomtab button .ic{font:17px ui-monospace,Menlo,monospace;line-height:1}
   .bottomtab button.active{color:var(--teal)}
   .navcontent{padding:14px 14px 20px}
 }
+/* ---------- IA redesign: session overlay ---------- */
+#sessionView{position:fixed;inset:0;z-index:10;background:var(--bg);display:flex;flex-direction:column;animation:fadeUp .2s ease}
+#sessionView.hidden{display:none}
+#sessionView .navcontent{flex:1;min-height:0;overflow:auto;padding:22px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
   </style>
 </head>
@@ -238,7 +243,7 @@
         <header class="navhead">
           <div class="grow">
             <div class="kicker" id="navKicker">Today</div>
-            <div class="htitle editorial" id="navTitle">Today</div>
+            <h1 class="htitle editorial" id="navTitle">Today</h1>
           </div>
           <button class="icon-btn" id="rssSearchBtn" aria-label="Search" style="min-width:44px;min-height:44px;border-radius:11px">⌕</button>
         </header>
@@ -253,7 +258,6 @@
       The interactive skeleton, bone identification, laterality, landmarks, memory hooks and its own local review history all work exactly as before. If the 3D model cannot load, everything below the stage still works, and the Osteology study items in the session workflow do not need 3D at all.
     </div>
     <div class="rss-actions" style="margin:0 0 14px">
-      <button class="ghost" id="rssBackSubject">← Back to HSS2011</button>
       <button class="ghost" id="reviewBtn">Start review</button>
       <button class="ghost hidden" id="mvBackToSession">← Back to the question</button>
     </div>
@@ -368,6 +372,58 @@
   const $ = (id) => document.getElementById(id);
   const els = { stage:$('stage'), state:$('stageState'), stateTitle:$('stateTitle'), stateCopy:$('stateCopy'), retry:$('retryBtn'), progress:$('progressBar'), stageMeta:$('stageMeta'), regionMeta:$('regionMeta'), selectedName:$('selectedName'), selectedChips:$('selectedChips'), selectedDetails:$('selectedDetails'), taskKicker:$('taskKicker'), taskTitle:$('taskTitle'), taskCopy:$('taskCopy'), answers:$('answers'), feedback:$('feedback'), next:$('nextBtn'), search:$('searchInput'), results:$('searchResults'), regions:$('regionButtons'), reviewBar:$('reviewBar'), reviewNumber:$('reviewNumber'), reviewHint:$('reviewHint'), toast:$('toast'), detailDialog:$('detailDialog'), detailTitle:$('detailTitle'), detailChips:$('detailChips'), detailBody:$('detailBody'), zoomIn:$('zoomInBtn'), zoomOut:$('zoomOutBtn'), focus:$('focusBtn'), motion:$('motionBtn') };
   const state = { mode:'explore', region:'all', selectedId:null, selectedSide:null, current:null, quizStarted:false, isolated:false, meshes:[], fullMeshes:[], hotspots:[], fullPickables:[], importedRecords:new Map(), selectionAnchor:null, lastPick:{x:0,y:0,t:0,candidates:[],index:-1}, lastDetailId:null, hashRestored:false, scene:null, camera:null, controls:null, renderer:null, raycaster:null, pointer:null, fullModel:null, realModel:null, realIsProcedural:false, memoryStreak:0, motionEnabled:true, motionPhase:0, stats:loadStats() };
+window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;boot3D()}},resize,
+  startMovement:(mv)=>startMovement(mv),
+  setMovementAngle:(d)=>setMovementAngle(d),
+  endMovement:()=>endMovement(),
+  movementState:()=>state.movement?{id:state.movement.mv.id,angle:state.movement.angle,moving:state.movement.restore.length}:null,
+  showSystem:async(key,file)=>{
+    if(!key){setExtraVisible(null);return true}
+    try{await loadExtraModel(key,file);setExtraVisible(key);return true}
+    catch(e){showToast('Could not load that model — the skeleton is still available.');return false}
+  },
+  selectInSystem:async(key,file,meshName)=>{
+    try{
+      const m=await loadExtraModel(key,file);
+      setExtraVisible(key);
+      const norm=s=>String(s||'').toLowerCase().replace(/[_()\-.]+/g,' ').replace(/\s+/g,' ').trim();
+      const want=norm(meshName);
+      let hit=null;
+      for(const cand of [want,want+'l',want+'r']){
+        hit=m.meshes.find(o=>norm(o.userData.label||o.name)===cand);
+        if(hit)break;
+      }
+      if(!hit)hit=m.meshes.find(o=>norm(o.userData.label||o.name).startsWith(want));
+      if(!hit)return false;
+      highlightExtra(hit);
+      return true;
+    }catch(e){return false}
+  },select:(id)=>{const r=getRecord(id);if(r)selectBone(r.id)},selectMesh:(meshName,preferSide)=>{
+    /*
+     * Target one of the 277 atlas meshes by its source name. The loader
+     * normalises names on import: "Scaphoid bone.r" arrives as "Scaphoid_boner",
+     * so the side suffix loses its dot and glues onto the end.
+     * We APPEND a candidate l/r rather than stripping one, because plenty of
+     * bones legitimately end in those letters (femur, vomer, patella).
+     */
+    const norm=(s)=>String(s||'').toLowerCase().replace(/[_()\-.]+/g,' ').replace(/\s+/g,' ').trim();
+    const want=norm(meshName);
+    if(!want)return false;
+    const candidates=preferSide==='left'?[want+'l',want,want+'r']
+      :preferSide==='right'?[want+'r',want,want+'l']
+      :[want,want+'l',want+'r'];
+    let hit=null;
+    for(const cand of candidates){
+      hit=state.fullMeshes.find(mesh=>norm(mesh.userData?.label||mesh.name)===cand);
+      if(hit)break;
+    }
+    if(!hit)hit=state.fullMeshes.find(mesh=>norm(mesh.userData?.label||mesh.name).startsWith(want));
+    if(!hit)return false;
+    const id=hit.userData?.canonicalId;
+    if(!id)return false;
+    selectBone(id,hit.userData?.side||null);
+    return true;
+  },state};
   const MEMORY_TIPS={
     cranium:{root:'Greek kranion — helmet/skull',tip:'CRANium is the cap that holds the brain.'},
     mandible:{root:'Latin mandere — to chew',tip:'MANdible = MAN-chews. It is the mobile skull bone.'},
@@ -631,59 +687,8 @@ function endMovement(){
   m.group.parent&&m.group.parent.remove(m.group);
   state.movement=null;
 }
-window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;boot3D()}},resize,
-  startMovement:(mv)=>startMovement(mv),
-  setMovementAngle:(d)=>setMovementAngle(d),
-  endMovement:()=>endMovement(),
-  movementState:()=>state.movement?{id:state.movement.mv.id,angle:state.movement.angle,moving:state.movement.restore.length}:null,
-  showSystem:async(key,file)=>{
-    if(!key){setExtraVisible(null);return true}
-    try{await loadExtraModel(key,file);setExtraVisible(key);return true}
-    catch(e){showToast('Could not load that model — the skeleton is still available.');return false}
-  },
-  selectInSystem:async(key,file,meshName)=>{
-    try{
-      const m=await loadExtraModel(key,file);
-      setExtraVisible(key);
-      const norm=s=>String(s||'').toLowerCase().replace(/[_()\-.]+/g,' ').replace(/\s+/g,' ').trim();
-      const want=norm(meshName);
-      let hit=null;
-      for(const cand of [want,want+'l',want+'r']){
-        hit=m.meshes.find(o=>norm(o.userData.label||o.name)===cand);
-        if(hit)break;
-      }
-      if(!hit)hit=m.meshes.find(o=>norm(o.userData.label||o.name).startsWith(want));
-      if(!hit)return false;
-      highlightExtra(hit);
-      return true;
-    }catch(e){return false}
-  },select:(id)=>{const r=getRecord(id);if(r)selectBone(r.id)},selectMesh:(meshName,preferSide)=>{
-    /*
-     * Target one of the 277 atlas meshes by its source name. The loader
-     * normalises names on import: "Scaphoid bone.r" arrives as "Scaphoid_boner",
-     * so the side suffix loses its dot and glues onto the end.
-     * We APPEND a candidate l/r rather than stripping one, because plenty of
-     * bones legitimately end in those letters (femur, vomer, patella).
-     */
-    const norm=(s)=>String(s||'').toLowerCase().replace(/[_()\-.]+/g,' ').replace(/\s+/g,' ').trim();
-    const want=norm(meshName);
-    if(!want)return false;
-    const candidates=preferSide==='left'?[want+'l',want,want+'r']
-      :preferSide==='right'?[want+'r',want,want+'l']
-      :[want,want+'l',want+'r'];
-    let hit=null;
-    for(const cand of candidates){
-      hit=state.fullMeshes.find(mesh=>norm(mesh.userData?.label||mesh.name)===cand);
-      if(hit)break;
-    }
-    if(!hit)hit=state.fullMeshes.find(mesh=>norm(mesh.userData?.label||mesh.name).startsWith(want));
-    if(!hit)return false;
-    const id=hit.userData?.canonicalId;
-    if(!id)return false;
-    selectBone(id,hit.userData?.side||null);
-    return true;
-  },state};if(false&&!sessionStorage.getItem('osteology-memory-tip-shown')){const tips=Object.values(MEMORY_TIPS);if(tips.length){showToast(`💡 ${tips[Math.floor(Math.random()*tips.length)].tip}`);sessionStorage.setItem('osteology-memory-tip-shown','1')}}
-  window.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&state.selectedId&&!document.getElementById('osteologyView').classList.contains('hidden')&&!document.querySelector('dialog[open]'))clearSelection()});
+  if(false&&!sessionStorage.getItem('osteology-memory-tip-shown')){const tips=Object.values(MEMORY_TIPS);if(tips.length){showToast(`💡 ${tips[Math.floor(Math.random()*tips.length)].tip}`);sessionStorage.setItem('osteology-memory-tip-shown','1')}}
+  window.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&state.selectedId&&!document.getElementById('viewerView').classList.contains('hidden')&&!document.querySelector('dialog[open]'))clearSelection()});
   function restoreFromHash(){if(!location.hash)return;const m=location.hash.match(/^#detail\/([\w:-]+)/);if(!m||m[1]===state.lastDetailId)return;state.hashTries=(state.hashTries||0)+1;const record=getRecord(m[1]);if(!record){if(!state.fullMeshes.length&&!state.meshes.length&&state.hashTries<20)setTimeout(restoreFromHash,250);return}selectBone(record.id);openDetail(record)}
   window.addEventListener('hashchange',restoreFromHash);setTimeout(restoreFromHash,250);
   const activeModelCopy=document.querySelector('#aboutDialog .about p');
@@ -837,6 +842,7 @@ function showView(id) {
 
 function crumbs(parts) {
   const el = $$('rssCrumbs');
+  if (!el) return;
   el.innerHTML = parts.map((p, i) => {
     const sep = i ? '<span class="sep">/</span>' : '';
     return p.go ? `${sep}<button data-crumb="${i}">${esc(p.label)}</button>` : `${sep}<span>${esc(p.label)}</span>`;
