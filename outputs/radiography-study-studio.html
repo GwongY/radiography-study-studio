@@ -112,6 +112,16 @@
 .diagram-wrap svg .hot.right{fill:rgba(140,226,174,.35);stroke:var(--green)}
 .diagram-wrap svg .hot.wrong{fill:rgba(241,129,129,.35);stroke:var(--red)}
 .diagram-wrap svg text{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;fill:var(--text)}
+.diagram-wrap svg text.dlab{font:10px ui-monospace,SFMono-Regular,Menlo,monospace;fill:var(--teal)}
+.struct-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:7px}
+.struct{display:flex;align-items:center;gap:9px;text-align:left;border:1px dashed var(--line);border-radius:10px;padding:9px 11px;background:rgba(255,255,255,.025);cursor:pointer;transition:.14s ease;color:inherit;font:inherit}
+.struct:hover:not(:disabled){border-color:var(--teal)}
+.struct.shown{border-style:solid;border-color:var(--teal);background:rgba(114,227,207,.07)}
+.struct:disabled{cursor:default;opacity:.85}
+.struct .n{width:20px;height:20px;flex:none;border-radius:99px;background:rgba(114,227,207,.16);color:var(--teal);display:grid;place-items:center;font-size:10px;font-weight:800}
+.struct .grow{flex:1;min-width:0;font-size:13.5px;line-height:1.35}
+.struct .grow small{display:block;color:var(--muted);font-size:11.5px;margin-top:2px;line-height:1.4}
+.struct .go{flex:none;font:10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:1px 5px}
 .conf-row{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:14px 0 0}
 .conf-row .lab{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .conf{border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:9px;padding:7px 11px;font-size:12.5px;cursor:pointer;transition:.14s ease}
@@ -416,7 +426,126 @@
   function renderSearch(){const dbHits=searchAnatomy(els.search.value).slice(0,10);const needle=els.search.value.trim().toLowerCase();const atlasHits=needle?[...state.importedRecords.values()].filter(r=>r.canonicalName.toLowerCase().includes(needle)).slice(0,6):[];const hits=[...dbHits,...atlasHits];els.results.innerHTML=hits.map(r=>`<div class="result" data-id="${r.id}"><strong>${clean(r.canonicalName)}</strong><span>${clean(state.importedRecords.has(r.id)?'Atlas':regionLabel(r.region))}</span></div>`).join('')||'<div class="empty">No matching structure. Try an alias such as collarbone or kneecap.</div>';els.results.querySelectorAll('.result').forEach(el=>el.onclick=()=>{const record=getRecord(el.dataset.id);if(!record)return;state.region=record.region==='upper_limb'?'upper_limb':'all';els.regionMeta.textContent=regionLabel(state.region);renderRegions();setMode('explore');selectBone(record.id);showToast(`${record.canonicalName} opened`)})}
   function clearSelection(){state.selectedId=null;state.selectedSide=null;state.selectionAnchor=null;state.isolated=false;$('isolateBtn').classList.remove('active');clearHighlight();applyVisibility();els.selectedName.textContent='Nothing selected';els.selectedChips.innerHTML='';els.selectedDetails.innerHTML=''}
   document.querySelectorAll('.mode-btn').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));$('resetBtn').onclick=()=>{cameraView('front');state.isolated=false;$('isolateBtn').classList.remove('active');applyVisibility()};els.zoomIn.onclick=()=>zoomCamera(.72);els.zoomOut.onclick=()=>zoomCamera(1.38);els.focus.onclick=focusSelected;$('frontBtn').onclick=()=>cameraView('front');$('lateralBtn').onclick=()=>cameraView('lateral');$('isolateBtn').onclick=toggleIsolation;$('showAllBtn').onclick=()=>{state.region='all';els.regionMeta.textContent='All regions';renderRegions();clearSelection()};els.next.onclick=()=>startQuestion();$('reviewBtn').onclick=()=>{setMode('identify');showToast('Review session started')};$('aboutBtn').onclick=()=>$('aboutDialog').showModal();$('closeAbout').onclick=()=>$('aboutDialog').close();$('closeDetail').onclick=()=>{els.detailDialog.close();state.lastDetailId=null;history.replaceState(null,'',location.pathname+location.search)};els.search.oninput=renderSearch;$('clearSearch').onclick=()=>{els.search.value='';renderSearch()};els.retry.onclick=()=>{try{state.controls?.dispose()}catch{}if(state.renderer){state.renderer.domElement.remove();state.renderer=null;state.controls=null}state.scene=null;state.camera=null;state.fullModel=null;state.realModel=null;state.meshes=[];state.fullMeshes=[];state.hotspots=[];state.fullPickables=[];boot3D()};window.addEventListener('resize',resize);
-  els.motion.onclick=()=>{state.motionEnabled=!state.motionEnabled;els.motion.textContent=state.motionEnabled?'Pause animation':'Play animation';els.motion.classList.toggle('active',state.motionEnabled)};renderRegions();renderReview();renderSearch();bindCanvas();setMode('explore');window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;boot3D()}},resize,select:(id)=>{const r=getRecord(id);if(r)selectBone(r.id)},state};if(false&&!sessionStorage.getItem('osteology-memory-tip-shown')){const tips=Object.values(MEMORY_TIPS);if(tips.length){showToast(`💡 ${tips[Math.floor(Math.random()*tips.length)].tip}`);sessionStorage.setItem('osteology-memory-tip-shown','1')}}
+  els.motion.onclick=()=>{state.motionEnabled=!state.motionEnabled;els.motion.textContent=state.motionEnabled?'Pause animation':'Play animation';els.motion.classList.toggle('active',state.motionEnabled)};renderRegions();renderReview();renderSearch();bindCanvas();setMode('explore');/*
+ * Extra system models (organs, circulatory) live in their own GLB files and are
+ * loaded only when a structure set from them is opened. They are shown INSTEAD
+ * of the skeleton rather than alongside it: the files come from different
+ * captures and are not spatially registered to each other, so overlaying them
+ * would place organs in the wrong place relative to bone.
+ */
+state.extraModels={};
+async function loadExtraModel(key,file){
+  if(state.extraModels[key])return state.extraModels[key];
+  if(!state.scene)throw new Error('3D scene not ready');
+  const THREE=state.THREE||await import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js');
+  const {GLTFLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js');
+  const gltf=await new Promise((ok,err)=>new GLTFLoader().load(file,ok,undefined,err));
+  const root=gltf.scene;
+  /* Same normalisation the skeleton gets: fit to 11 units and centre. */
+  const box=new THREE.Box3().setFromObject(root);
+  const size=box.getSize(new THREE.Vector3());
+  root.scale.setScalar(11/(Math.max(size.x,size.y,size.z)||1));
+  const sb=new THREE.Box3().setFromObject(root);
+  const c=sb.getCenter(new THREE.Vector3());
+  root.position.set(-c.x,.5-c.y,-c.z);
+  const meshes=[];
+  root.traverse(o=>{
+    if(!o.isMesh)return;
+    o.userData={...(o.userData||{}),label:o.name,extraKey:key};
+    if(o.material){o.material=o.material.clone();o.material.roughness=.72;o.material.metalness=.03}
+    meshes.push(o);
+  });
+  root.visible=false;
+  state.scene.add(root);
+  state.extraModels[key]={root,meshes};
+  return state.extraModels[key];
+}
+function setExtraVisible(key){
+  /* null = back to the skeleton. */
+  Object.entries(state.extraModels).forEach(([k,m])=>{m.root.visible=(k===key)});
+  const showSkeleton=!key;
+  if(state.fullModel)state.fullModel.visible=showSkeleton;
+  if(state.realModel)state.realModel.visible=showSkeleton&&state.region==='upper_limb';
+  state.activeExtra=key||null;
+  els.stageMeta.textContent=key
+    ?`${key==='organs'?'Internal organ system':'Circulatory system'} · on-demand model · tap a structure`
+    :'Precise Z-Anatomy / BodyParts3D skeleton · 277 named structure meshes · upper-limb study set';
+}
+function highlightExtra(mesh){
+  const m=state.extraModels[state.activeExtra];
+  if(!m)return;
+  m.meshes.forEach(o=>{o.material.emissive?.setHex(0x000000)});
+  mesh.material.emissive?.setHex(0x1c6f66);
+  if(state.camera&&state.controls&&state.THREE){
+    const box=new state.THREE.Box3().setFromObject(mesh);
+    const c=box.getCenter(new state.THREE.Vector3());
+    state.controls.target.copy(c);
+    state.controls.update();
+  }
+  /* Mesh names arrive normalised — "Kidneyl" — so restore a readable label. */
+  const raw=String(mesh.userData.label||mesh.name||'');
+  let side='';
+  let clean=raw.replace(/_/g,' ').trim();
+  const m2=clean.match(/^(.*[a-z])(l|r)$/i);
+  if(m2&&!/\b(l|r)$/i.test(m2[1])){
+    const stem=m2[1].trim();
+    const partner=state.extraModels[state.activeExtra]?.meshes.some(o=>{
+      const n=String(o.userData.label||o.name||'').replace(/_/g,' ').trim();
+      return n.toLowerCase()===(stem+(m2[2].toLowerCase()==='l'?'r':'l')).toLowerCase();
+    });
+    if(partner){clean=stem;side=m2[2].toLowerCase()==='l'?'Left':'Right'}
+  }
+  els.selectedName.textContent=clean;
+  els.selectedChips.innerHTML=side?`<span class="chip">${side}</span>`:'';
+}
+window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;boot3D()}},resize,
+  showSystem:async(key,file)=>{
+    if(!key){setExtraVisible(null);return true}
+    try{await loadExtraModel(key,file);setExtraVisible(key);return true}
+    catch(e){showToast('Could not load that model — the skeleton is still available.');return false}
+  },
+  selectInSystem:async(key,file,meshName)=>{
+    try{
+      const m=await loadExtraModel(key,file);
+      setExtraVisible(key);
+      const norm=s=>String(s||'').toLowerCase().replace(/[_()\-.]+/g,' ').replace(/\s+/g,' ').trim();
+      const want=norm(meshName);
+      let hit=null;
+      for(const cand of [want,want+'l',want+'r']){
+        hit=m.meshes.find(o=>norm(o.userData.label||o.name)===cand);
+        if(hit)break;
+      }
+      if(!hit)hit=m.meshes.find(o=>norm(o.userData.label||o.name).startsWith(want));
+      if(!hit)return false;
+      highlightExtra(hit);
+      return true;
+    }catch(e){return false}
+  },select:(id)=>{const r=getRecord(id);if(r)selectBone(r.id)},selectMesh:(meshName,preferSide)=>{
+    /*
+     * Target one of the 277 atlas meshes by its source name. The loader
+     * normalises names on import: "Scaphoid bone.r" arrives as "Scaphoid_boner",
+     * so the side suffix loses its dot and glues onto the end.
+     * We APPEND a candidate l/r rather than stripping one, because plenty of
+     * bones legitimately end in those letters (femur, vomer, patella).
+     */
+    const norm=(s)=>String(s||'').toLowerCase().replace(/[_()\-.]+/g,' ').replace(/\s+/g,' ').trim();
+    const want=norm(meshName);
+    if(!want)return false;
+    const candidates=preferSide==='left'?[want+'l',want,want+'r']
+      :preferSide==='right'?[want+'r',want,want+'l']
+      :[want,want+'l',want+'r'];
+    let hit=null;
+    for(const cand of candidates){
+      hit=state.fullMeshes.find(mesh=>norm(mesh.userData?.label||mesh.name)===cand);
+      if(hit)break;
+    }
+    if(!hit)hit=state.fullMeshes.find(mesh=>norm(mesh.userData?.label||mesh.name).startsWith(want));
+    if(!hit)return false;
+    const id=hit.userData?.canonicalId;
+    if(!id)return false;
+    selectBone(id,hit.userData?.side||null);
+    return true;
+  },state};if(false&&!sessionStorage.getItem('osteology-memory-tip-shown')){const tips=Object.values(MEMORY_TIPS);if(tips.length){showToast(`💡 ${tips[Math.floor(Math.random()*tips.length)].tip}`);sessionStorage.setItem('osteology-memory-tip-shown','1')}}
   window.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&state.selectedId&&!document.getElementById('osteologyView').classList.contains('hidden')&&!document.querySelector('dialog[open]'))clearSelection()});
   function restoreFromHash(){if(!location.hash)return;const m=location.hash.match(/^#detail\/([\w:-]+)/);if(!m||m[1]===state.lastDetailId)return;state.hashTries=(state.hashTries||0)+1;const record=getRecord(m[1]);if(!record){if(!state.fullMeshes.length&&!state.meshes.length&&state.hashTries<20)setTimeout(restoreFromHash,250);return}selectBone(record.id);openDetail(record)}
   window.addEventListener('hashchange',restoreFromHash);setTimeout(restoreFromHash,250);
@@ -431,6 +560,7 @@ import {
   getSubject, getItem, itemsForSubject, itemsForUnit, questionsOf, allQuestions,
   describeSource, coverageFor, blankMastery, schedule, masteryScore, isDue, dimensionFor,
   tierFor, TIER_LABELS,
+  isDelayedAttempt, REVEAL_MODES, structureSet, STRUCTURE_MODELS,
   validateCorpus, validateApplications,
 } from './study-data.js';
 
@@ -826,6 +956,8 @@ function startSession(opts) {
 function currentItem() { return session.items[session.index]; }
 
 function setStep(step) {
+  /* Step buttons stay in the DOM after a session ends; ignore late clicks. */
+  if (!session) return;
   session.step = step;
   session.reveal = session.hooksOnly ? REVEAL_STAGES.length : 0;
   session.answered = false;
@@ -971,18 +1103,58 @@ function questionBody(q) {
       const d = DIAGRAMS[q.diagram];
       if (!d) return '<div class="emptybox">Diagram unavailable.</div>';
       const target = session.diagramTarget ?? (session.diagramTarget = Math.floor(Math.random() * q.labels.length));
-      const hotspots = q.labels.map((l) => {
+      /*
+       * Blank mode: labelled teaches, guided leaves a couple of anchors in,
+       * blank tests. Defaults to blank so the question stays a question —
+       * the learner opens the labelled view deliberately.
+       */
+      const reveal = session.diagramReveal || (session.diagramReveal = 'blank');
+      const anchorCount = Math.max(1, Math.round(q.labels.length / 4));
+      const named = (l, i) => reveal === 'labelled' || (reveal === 'guided' && i < anchorCount);
+      const hotspots = q.labels.map((l, i) => {
         const pt = d.labels[l.id];
         if (!pt) return '';
-        return `<circle class="hot" data-hot="${esc(l.id)}" cx="${pt[0]}" cy="${pt[1]}" r="13"></circle>`;
+        const text = named(l, i)
+          ? `<text x="${pt[0] + 17}" y="${pt[1] + 4}" class="dlab">${esc(l.label)}</text>`
+          : '';
+        return `<circle class="hot" data-hot="${esc(l.id)}" cx="${pt[0]}" cy="${pt[1]}" r="13"></circle>${text}`;
       }).join('');
-      return `<div class="diagram-wrap"><svg viewBox="${d.viewBox}" role="img" aria-label="${esc(d.title)}">
+      const modeBtns = REVEAL_MODES.map((r) =>
+        `<button class="conf ${reveal === r.id ? 'on' : ''}" data-reveal="${r.id}" title="${esc(r.hint)}">${esc(r.label)}</button>`).join('');
+      return `<div class="conf-row" style="margin:0 0 10px"><span class="lab">View</span>${modeBtns}</div>
+      <div class="diagram-wrap"><svg viewBox="${d.viewBox}" role="img" aria-label="${esc(d.title)}">
         ${d.shapes.map((s) => s.kind === 'ellipse' ? `<ellipse class="sk" cx="${s.cx}" cy="${s.cy}" rx="${s.rx}" ry="${s.ry}"/>`
           : s.kind === 'circle' ? `<circle class="sk" cx="${s.cx}" cy="${s.cy}" r="${s.r}" ${s.faint ? 'opacity=".4"' : ''}/>`
           : `<path class="sk" d="${s.d}"/>`).join('')}
         ${hotspots}
       </svg><p class="small" style="text-align:center;color:var(--muted);margin:8px 0 0">${esc(d.caption)}</p></div>
       <div class="q-prompt" style="font-size:15px">Click the hotspot for: <strong>${esc(q.labels[target].label)}</strong></div>`;
+    }
+    case 'structure': {
+      const set = structureSet(q.setId);
+      if (!set) return '<div class="emptybox">Structure set unavailable.</div>';
+      const reveal = q.reveal || 'blank';
+      const groups = [...new Set(set.members.map((mem) => mem.group))];
+      const isNamed = (mem) => reveal === 'labelled' || (reveal === 'guided' && set.anchors.includes(mem.id));
+      const rows = groups.map((g) => {
+        const inGroup = set.members.filter((mem) => mem.group === g);
+        return `<div class="subhead" style="margin:12px 0 6px">${esc(g)}</div>
+          <div class="struct-grid">${inGroup.map((mem) => `
+            <button class="struct" data-struct="${esc(mem.id)}" data-mesh="${esc(mem.mesh)}">
+              <span class="n">${mem.order}</span>
+              <span class="grow">${isNamed(mem) ? esc(mem.label) : '<em style="color:var(--muted)">tap to reveal</em>'}
+                ${isNamed(mem) && mem.note ? `<small>${esc(mem.note)}</small>` : ''}</span>
+              <span class="go">3D</span>
+            </button>`).join('')}</div>`;
+      }).join('');
+      return `<div class="notice" style="margin-top:0"><strong>${esc(REVEAL_MODES.find((r) => r.id === reveal).label)} view</strong>${esc(REVEAL_MODES.find((r) => r.id === reveal).hint)}
+        ${set.paired ? ' These are paired — the side is part of the answer.' : ''}</div>
+      <div id="rssStructList">${rows}</div>
+      <div class="rss-actions">
+        <button class="ghost" id="rssStructStudio">Open the 3D studio</button>
+        <button class="primary" id="rssStructDone">I identified them all</button>
+        <button class="ghost" id="rssStructFail">I could not</button>
+      </div>`;
     }
     case 'id3d': case 'laterality':
       return `<div class="notice"><strong>This one is best answered on the 3D skeleton</strong>Open the Osteology studio to find it on the model. If 3D is unavailable, answer from the landmark list instead — the explanation below covers both routes.</div>
@@ -1066,8 +1238,18 @@ function finishQuestion(item, q, correct, extra) {
   const dim = dimensionFor(q);
   const conf = session.confidence ?? 1;
 
-  const rec = schedule(getMastery(item.id, dim), { correct, confidence: conf, ms, expectedMs: q.type === 'explain' || q.type === 'scenario' ? 45000 : 14000 });
+  const priorRec = getMastery(item.id, dim);
+  const rec = schedule(priorRec, { correct, confidence: conf, ms, expectedMs: q.type === 'explain' || q.type === 'scenario' ? 45000 : 14000 });
   setMastery(item.id, dim, rec);
+  /*
+   * Delayed recall is scored only when this is the first attempt after a real
+   * gap — checked against the record as it stood before this attempt. Getting
+   * it right three times in one sitting says nothing about surviving a night.
+   */
+  if (isDelayedAttempt(priorRec)) {
+    const delayedRec = schedule(getMastery(item.id, 'delayedRecall'), { correct, confidence: conf, ms, expectedMs: 20000 });
+    setMastery(item.id, 'delayedRecall', delayedRec);
+  }
   /* Confidence is tracked as its own dimension: was your certainty justified? */
   const confRec = schedule(getMastery(item.id, 'confidence'), { correct: correct === (conf >= 2), confidence: conf, ms, expectedMs: 14000 });
   setMastery(item.id, 'confidence', confRec);
@@ -1090,9 +1272,22 @@ function finishQuestion(item, q, correct, extra) {
     ? '<button class="primary" id="rssNextQ">Next question →</button><button class="ghost" data-nav="apply">Go to apply</button>'
     : '<button class="primary" data-nav="apply">Apply it →</button>';
   const nq = $$('rssNextQ');
-  if (nq) nq.onclick = () => { session.qIndex += 1; session.answered = false; session.confidence = null; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.startedAt = performance.now(); renderStep(); };
+  if (nq) nq.onclick = () => { session.qIndex += 1; session.answered = false; session.confidence = null; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.diagramReveal = null; session.startedAt = performance.now(); renderStep(); };
   wireStageNav(item);
   renderMasteryPanel(item);
+}
+
+/*
+ * Route a structure to the right bundled model. The skeleton is already in the
+ * scene; organ and circulatory models are fetched the first time one is asked for.
+ */
+function targetIn3D(set, member) {
+  if (!window.__osteo) return;
+  const modelKey = set.model || 'skeleton';
+  if (modelKey === 'skeleton') { window.__osteo.showSystem(null); window.__osteo.selectMesh(member.mesh); return; }
+  const model = STRUCTURE_MODELS[modelKey];
+  if (!model) return;
+  window.__osteo.selectInSystem(modelKey, model.file, member.mesh);
 }
 
 function wirePractise(item) {
@@ -1169,8 +1364,42 @@ function wirePractise(item) {
       $$('rssMatchGo').disabled = true;
       finishQuestion(item, q, allRight, allRight ? '' : `Correct pairs: ${q.pairs.map((p) => `${esc(p[0])} → ${esc(p[1])}`).join('; ')}.`);
     };
+  } else if (q.type === 'structure') {
+    const set = structureSet(q.setId);
+    const revealed = new Set();
+    document.querySelectorAll('[data-struct]').forEach((b) => {
+      b.onclick = () => {
+        const mem = set.members.find((mm) => mm.id === b.dataset.struct);
+        if (!mem) return;
+        revealed.add(mem.id);
+        b.classList.add('shown');
+        b.querySelector('.grow').innerHTML = `${esc(mem.label)}${mem.note ? `<small>${esc(mem.note)}</small>` : ''}`;
+        /* Tapping also drives the 3D model, so the name and the place arrive together. */
+        targetIn3D(set, mem);
+      };
+    });
+    const studio = $$('rssStructStudio');
+    if (studio) studio.onclick = () => { openOsteology(); targetIn3D(set, set.members[0]); };
+    const finish = (correct) => {
+      const missed = set.members.filter((mem) => !revealed.has(mem.id));
+      const note = correct
+        ? (revealed.size ? `You revealed ${revealed.size} of ${set.members.length} along the way.` : '')
+        : `Still unnamed: ${missed.map((mem) => esc(mem.label)).join(', ') || 'none'}.`;
+      document.querySelectorAll('[data-struct]').forEach((b) => { b.disabled = true; });
+      $$('rssStructDone').disabled = true; $$('rssStructFail').disabled = true;
+      finishQuestion(item, q, correct, note);
+    };
+    $$('rssStructDone').onclick = () => finish(true);
+    $$('rssStructFail').onclick = () => finish(false);
   } else if (q.type === 'diagram') {
     const target = q.labels[session.diagramTarget];
+    document.querySelectorAll('[data-reveal]').forEach((b) => {
+      b.onclick = () => {
+        if (session.answered) return;
+        session.diagramReveal = b.dataset.reveal;
+        renderStep();
+      };
+    });
     document.querySelectorAll('[data-hot]').forEach((c) => {
       c.onclick = () => {
         if (session.answered) return;
@@ -1278,7 +1507,7 @@ function wireStageNav(item) {
   document.querySelectorAll('#rssStage [data-nav]').forEach((b) => { b.onclick = () => setStep(b.dataset.nav); });
   const next = $$('rssNextItem');
   if (next) next.onclick = () => {
-    session.index += 1; session.qIndex = 0; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null;
+    session.index += 1; session.qIndex = 0; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.diagramReveal = null;
     setStep(session.hooksOnly ? 'remember' : 'learn');
   };
   const fin = $$('rssFinish');
@@ -1423,7 +1652,7 @@ $$('dashWeakestBtn').onclick = () => { $$('dashDialog').close(); startSession({ 
 $$('rssSkipBtn').onclick = () => {
   if (!session) return;
   if (session.index >= session.items.length - 1) return endSession();
-  session.index += 1; session.qIndex = 0; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null;
+  session.index += 1; session.qIndex = 0; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.diagramReveal = null;
   setStep('learn');
 };
 $$('rssEndBtn').onclick = () => { if (session) endSession(); else renderHome(); };
