@@ -13,7 +13,7 @@ The workflow is the same for every subject:
 | File | What it is |
 | --- | --- |
 | `radiography-study-studio.html` | The app. Subject selector, learning workflow, Memory Coach, source dialogs, coverage report, and the full osteology 3D studio embedded as the HSS2011 Osteology module. |
-| `study-data.js` | The study layer: source registry, subject registry, 89 study items, spaced repetition, coverage report, corpus validator. |
+| `study-data.js` | The study layer: source registry, subject registry, 90 study items, spaced repetition, coverage report, corpus validator. |
 | `anatomy-data.js` | Unchanged. Canonical bone records, landmark hotspots and the 3D model adapter metadata. |
 | `osteology-studio.html` | The original app, left in place and still working, as a fallback. |
 | `assets/` | Local GLB models. Unchanged. |
@@ -50,7 +50,7 @@ answer used was then cross-checked against its question text.
 | Subject | Status | Notes |
 | --- | --- | --- |
 | ABCT2326 Human Physiology | Full | 10 system lectures, supplementary decks, tutorial answers, extra exercises, Martini eBook |
-| HSS2011 Human Anatomy | Full | Vocabulary, Study Manuals 1819/1920, Modules 0–4, revision exercises with model answers, past papers |
+| HSS2011 Human Anatomy | Full | Vocabulary, Study Manuals 1819/1920, Modules 0–4, revision exercises with model answers, and past papers back to 2003–04 |
 | HTI17103 Introduction to Medical Radiation Science | **Substitute source** | The exact HTI17103 set was not found. Built from HTI17101 Exploring Radiography, the closest available material. Not silently renamed — every source reference still shows the HTI17101 filename and folder. |
 | APSS1A08 Introduction to Sociology | **Limited source coverage** | No verified lecture syllabus found. Only student assignments and papers. No study content generated. |
 | DSAI1202 Introduction to AI and Data Analytics | **No materials** | Placeholder page. No lessons or flashcards invented. |
@@ -69,6 +69,12 @@ shared folders, source conflicts and how each was handled, plus live validator o
 - Three questions from the HSS2011 revision exercises were excluded rather than propagated: one whose
   model answer contradicts its own study-guide text, and two whose wording is ambiguous. All three are
   listed in the coverage report's conflicts section.
+- The topic-sorted past-paper bank was confirmed in scope — the 2012–13 paper header reads
+  `HSS201/HSS2011(2012)`, so `HSS201` is just the older code for the same subject. But **it carries no
+  answer key**; the only answers are photographs of handwritten pages. Items were therefore built only
+  from questions whose answers a current HSS2011 lecture or the revision-exercise key independently
+  confirms. Questions it asks that nothing on hand can verify — brachial plexus M-shape, femoral
+  triangle borders, epimysium, amphiarthroses/synarthroses, TMJ muscles — were left out.
 
 ## Item model
 
@@ -93,11 +99,8 @@ Test is the default, so a question stays a question; the labelled view is opened
 
 ## Structure sets
 
-The bundled skeleton carries 277 individually named meshes, far more than the coarse bone taxonomy
-originally used. Four sets drive tap-to-identify directly against them, and tapping a name also
-selects that mesh in the 3D studio so the name and the place arrive together:
-
-Thirteen sets cover 115 tappable structures across six bundled models:
+Tapping a name in a structure set also selects that mesh in the 3D studio, so the name and the place
+arrive together. Thirteen sets cover 115 tappable structures across six bundled models:
 
 | Model | Sets | Structures |
 | --- | --- | --- |
@@ -203,7 +206,7 @@ identification and laterality questions each state a non-3D route to the answer 
 `validateCorpus()` and `validateApplications()` run on every open of the coverage report and check
 that every question has a resolvable correct answer and an explanation, every item has a teaching
 explanation and at least one practice question, and every item carries a source reference. Current
-state: **89 items, 414 questions, 72 source files cited, 0 validation failures.**
+state: **90 items, 422 questions, 75 source files cited, 0 validation failures.**
 
 ## Osteology studio — unchanged behaviour
 
