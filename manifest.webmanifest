@@ -1,0 +1,38 @@
+{
+  "name": "Radiography Study Studio",
+  "short_name": "Study Studio",
+  "description": "Offline-first study system for HSS2011 Human Anatomy, ABCT2326 Human Physiology and medical radiation science, with an interactive 3D skeleton and organ models.",
+  "id": "/radiography-study-studio",
+  "start_url": "./radiography-study-studio.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#081016",
+  "theme_color": "#081016",
+  "categories": ["education", "medical"],
+  "icons": [
+    { "src": "./assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Daily pre-study session",
+      "short_name": "Daily",
+      "description": "Mixed warm-up across anatomy terminology, bones, a physiology sequence and a radiation-science concept",
+      "url": "./radiography-study-studio.html#mode=daily"
+    },
+    {
+      "name": "Review my weakest topics",
+      "short_name": "Weakest",
+      "description": "Lowest mastery first, weighted by repeated mistakes",
+      "url": "./radiography-study-studio.html#mode=weakest"
+    },
+    {
+      "name": "Quick 10-minute session",
+      "short_name": "Quick 10",
+      "description": "A short due-and-weak mix",
+      "url": "./radiography-study-studio.html#mode=quick10"
+    }
+  ]
+}
