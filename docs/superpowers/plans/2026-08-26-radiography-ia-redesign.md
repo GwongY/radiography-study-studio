@@ -164,9 +164,9 @@ The Task 1 review found six issues that are plan gaps rather than defects in tha
 ```css
 .editorial{font-family:Newsreader,ui-serif,Georgia,'Times New Roman',serif;letter-spacing:-.02em}
 ```
-Then reduce `.navhead .htitle` to stop duplicating it — it currently re-declares the same family and letter-spacing:
+Then reduce `.navhead .htitle` to stop duplicating it — it currently re-declares the same family and letter-spacing. Use **longhand**, not the `font` shorthand: `font:500 24px/1.15` is invalid CSS because the shorthand requires a `font-family`, so the whole declaration would be dropped and the title would silently render at inherited 16px/400.
 ```css
-.navhead .htitle{font:500 24px/1.15;margin-top:3px}
+.navhead .htitle{font-weight:500;font-size:24px;line-height:1.15;margin-top:3px}
 ```
 and render the header title with **both** classes in Step 1's markup: `<div class="htitle editorial" id="navTitle">`. This keeps the serif fallback defined in exactly one place.
 
@@ -413,9 +413,33 @@ function relativeTime(ts) {
 ```
 `STORAGE_PREFIX` is already imported at the top of this script block (line 681) — no new import needed. `openSessionOverlay` and `goTo` are defined in Task 9 (nav wiring); leave them as forward references for now, they will exist by the time this file is loaded end-to-end after Task 9.
 
-- [ ] **Step 4: Update call sites**
+- [ ] **Step 3b: Update `VIEWS` and delete the dead topbar wiring — REQUIRED before this task can be verified**
 
-Change line 1838 from `$$('rssHomeBtn').onclick = renderHome;` — delete this line entirely (Task 9's nav rail wiring replaces it).
+Task 2 deleted the old topbar and the `homeView`/`subjectView` sections, but their JavaScript references survive and currently abort the second script block's boot. Two fixes, both mandatory here rather than in a later task:
+
+**`VIEWS` is stale.** In `showView(id)` (around line 846) it still reads:
+```javascript
+const VIEWS = ['homeView', 'subjectView', 'sessionView', 'osteologyView'];
+```
+`showView` does `VIEWS.forEach((v) => $$(v).classList.toggle(...))`, so with the old list `$$('homeView')` is `null` and `renderToday()`'s closing `showView('todayView')` throws. Replace it with:
+```javascript
+const VIEWS = ['todayView', 'learnView', 'viewerView', 'reviewView', 'moreView'];
+```
+Also update the special-case id in the same function — `if (id === 'osteologyView' && window.__osteo)` becomes `if (id === 'viewerView' && window.__osteo)`. (`sessionView` is deliberately absent from `VIEWS`: Task 5 makes it an overlay managed by its own open/close helpers, not by `showView`.)
+
+**Delete all four dead topbar wirings** in the boot section near the end of the second script block. These reference buttons Task 2 removed from the markup, and the first one throws before `renderToday()` is ever called:
+```javascript
+$$('rssHomeBtn').onclick = renderHome;          // delete
+$$('rssDashBtn').onclick = openDashboard;        // delete
+$$('rssCoverageBtn').onclick = () => openCoverage(null);  // delete
+$$('rssBackSubject').onclick = () => renderSubject('HSS2011');  // delete
+```
+Leave `$$('closeSource')`, `$$('closeCoverage')`, `$$('rssSkipBtn')` and `$$('rssEndBtn')` alone — their elements still exist. Do **not** delete `openDashboard`/`openCoverage`/`$$('closeDash')` yet; Tasks 7 and 8 own those.
+
+After this step the app should boot cleanly to a working Today screen, which is what makes Steps 5's verification meaningful.
+
+- [ ] **Step 4: Update remaining call sites**
+
 Change line 1856 from `renderHome();` to `renderToday();`.
 Search the whole file for remaining calls to `renderHome` (`grep -n "renderHome" outputs/radiography-study-studio.html`) and change each to `renderToday` — expect matches inside `crumbs([{ label: 'All subjects', go: renderHome }...` calls in `renderSubject`, `startSession`, `openOsteology`; those whole `crumbs([...])` calls are deleted in Task 9 when the breadcrumb bar is removed, so it is fine to leave them pointing at `renderToday` in the meantime (a stale but harmless reference) — Task 9 removes the calls outright.
 
@@ -670,25 +694,11 @@ function openViewer() {
 ```
 (Compare mode from the prototype is deliberately **not** implemented here — the handoff doc lists "Compare mode's synchronised highlighting" under Out of scope / open questions. Two tabs, not three.)
 
-- [ ] **Step 3: Update `showView`'s special-case id**
+- [ ] **Step 3: Confirm `showView` was already updated in Task 3**
 
-In `showView(id)` (around line 813), change:
-```javascript
-const VIEWS = ['homeView', 'subjectView', 'sessionView', 'osteologyView'];
-```
-to:
-```javascript
-const VIEWS = ['todayView', 'learnView', 'viewerView', 'reviewView', 'moreView'];
-```
-and change the special-case block:
-```javascript
-if (id === 'osteologyView' && window.__osteo) {
-```
-to:
-```javascript
-if (id === 'viewerView' && window.__osteo) {
-```
-(`sessionView` is removed from `VIEWS` entirely since Task 5 made it an overlay managed by `openSessionOverlay`/`closeSessionOverlay`, not by `showView`.)
+Task 3's Step 3b already changed `VIEWS` to `['todayView','learnView','viewerView','reviewView','moreView']` and the special case to `if (id === 'viewerView' && window.__osteo)`. Verify both are in place — `grep -n "const VIEWS\|=== 'viewerView'" outputs/radiography-study-studio.html`. If either still names `osteologyView`, apply the change now; otherwise change nothing and move on.
+
+Also confirm `window.__osteo` is actually defined at runtime (`typeof window.__osteo` in the console) before testing the 3D pane. Task 2's follow-up commit removed a dead `$('aboutBtn')` handler that had been aborting the entire three.js module at evaluation time; if that regressed, the Viewer will look correct but be inert.
 
 - [ ] **Step 4: Fix the one remaining internal reference**
 
@@ -834,7 +844,14 @@ The old `#aboutDialog` (model attribution, candidate sources) has no explicit sl
 ```javascript
 { title: 'Sources & model attribution', badge: '—', color: 'var(--muted)', note: 'BodyParts3D / Anatomography model licensing and candidate sources reviewed.', open: () => $$('aboutDialog').showModal() },
 ```
-Delete the old `$$('aboutBtn').onclick = ...` wiring line if present and the `<button ... id="aboutBtn">` markup (already gone per Task 2).
+
+**Important — this dialog currently has no way to open or close.** Its old handlers lived in the *first* script block (the three.js module) on the long wiring line ~476, and Task 2's follow-up commit deleted them: `$('aboutBtn').onclick` referenced a button that no longer exists, and because that line is top-level module code the resulting TypeError aborted the whole 3D module before `window.__osteo` was published. Removing it was necessary to bring the 3D studio back.
+
+The consequence is that `$('closeAbout').onclick` went with it, so the dialog's own Close button is dead. Re-wire it here, in the **second** script block, alongside the other dialog close handlers in the boot section:
+```javascript
+$$('closeAbout').onclick = () => $$('aboutDialog').close();
+```
+Do **not** put this back in the first script block — the three.js module should own only 3D concerns, and a null-reference there is fatal to the whole viewer rather than merely to one dialog.
 
 - [ ] **Step 4: Verify in browser**
 
