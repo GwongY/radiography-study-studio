@@ -248,7 +248,35 @@
           <button class="icon-btn" id="rssSearchBtn" aria-label="Search" style="min-width:44px;min-height:44px;border-radius:11px">⌕</button>
         </header>
         <div class="navcontent" id="navContent">
-          <section class="view" id="todayView">Today — replaced in Task 3</section>
+          <section class="view" id="todayView">
+            <div style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,.7fr);gap:14px;align-items:start" id="todayGrid">
+              <div style="display:grid;gap:14px;min-width:0">
+                <div id="continueCard" style="border:1px solid rgba(114,227,207,.4);border-radius:16px;background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03));padding:18px"></div>
+                <div>
+                  <div class="task-kicker" style="margin-bottom:9px">Start a session</div>
+                  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px" id="sessionTiles"></div>
+                </div>
+                <div class="card">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+                    <div class="task-kicker" style="color:var(--orange)">Weakest right now</div>
+                    <button class="ghost" id="allWeakBtn" style="border:0;background:none;color:var(--teal);padding:6px 0">All weak spots →</button>
+                  </div>
+                  <div style="display:grid;gap:7px;margin-top:11px" id="weakestList"></div>
+                </div>
+              </div>
+              <div style="display:grid;gap:14px;min-width:0">
+                <div class="card">
+                  <div class="task-kicker">Today</div>
+                  <div class="statrow" id="todayStatrow" style="margin-top:12px"></div>
+                  <p class="small" style="margin-top:13px">Delayed recall is the only dimension counted here — three right answers in one sitting do not move it.</p>
+                </div>
+                <div class="card">
+                  <div class="task-kicker">Recent</div>
+                  <div style="display:grid;gap:9px;margin-top:11px" id="recentList"></div>
+                </div>
+              </div>
+            </div>
+          </section>
           <section class="view hidden" id="learnView">Learn — replaced in Task 4</section>
 
           <!-- ===================== OSTEOLOGY 3D STUDIO ==================== -->
@@ -829,12 +857,12 @@ function xrayFallback(el) {
 }
 window.xrayFallback = xrayFallback;
 
-const VIEWS = ['homeView', 'subjectView', 'sessionView', 'osteologyView'];
+const VIEWS = ['todayView', 'learnView', 'viewerView', 'reviewView', 'moreView'];
 function showView(id) {
   VIEWS.forEach((v) => $$(v).classList.toggle('hidden', v !== id));
   const pane = $$('navContent');
   if (pane) pane.scrollTo({ top: 0, behavior: 'smooth' });
-  if (id === 'osteologyView' && window.__osteo) {
+  if (id === 'viewerView' && window.__osteo) {
     window.__osteo.boot();
     setTimeout(() => window.__osteo.resize(), 60);
   }
@@ -860,41 +888,89 @@ function coveragePill(status) {
  * Home
  * ------------------------------------------------------------------ */
 
-function renderHome() {
-  crumbs([{ label: 'All subjects' }]);
+/* TEMPORARY STUBS — replaced by the real implementations in Tasks 7 and 9.
+   They exist so Task 3 can be verified in a browser; delete on sight there. */
+if (typeof setActiveNav === 'undefined') { var setActiveNav = () => {}; }
+if (typeof goTo === 'undefined') { var goTo = () => {}; }
+if (typeof renderReviewTab === 'undefined') { var renderReviewTab = () => {}; }
+if (typeof openSessionOverlay === 'undefined') { var openSessionOverlay = () => { $$('sessionView').classList.remove('hidden'); }; }
+
+function getContinueTarget() {
+  const raw = read(STORAGE_PREFIX + 'continue', null);
+  if (!raw || !raw.itemId) return null;
+  const item = getItem(raw.itemId);
+  if (!item) return null;
+  const siblings = itemsForSubject(item.subject);
+  const index = siblings.findIndex((i) => i.id === item.id);
+  return { item, step: raw.step || 'learn', index: index < 0 ? 0 : index, total: siblings.length };
+}
+function saveContinue(itemId, step) { write(STORAGE_PREFIX + 'continue', { itemId, step }); }
+function resumeContinue(cont) {
+  session = { opts: { mode: 'subject', subject: cont.item.subject }, mode: null, items: [cont.item], index: 0, step: cont.step, reveal: 0, qIndex: 0, answered: false, confidence: null, startedAt: 0, results: [], hooksOnly: false };
+  openSessionOverlay();
+  setStep(cont.step);
+}
+function relativeTime(ts) {
+  const mins = Math.round((Date.now() - ts) / 60000);
+  if (mins < 60) return `${mins}m`;
+  if (mins < 1440) return `${Math.round(mins / 60)}h`;
+  return `${Math.round(mins / 1440)}d`;
+}
+
+function renderToday() {
+  setActiveNav('today');
   const totalItems = STUDY_ITEMS.length;
-  const seen = STUDY_ITEMS.filter((i) => itemAttempted(i.id)).length;
-  const due = STUDY_ITEMS.filter((i) => itemAttempted(i.id) && itemDue(i.id)).length;
-  const fresh = STUDY_ITEMS.filter((i) => !itemAttempted(i.id)).length;
-  const mistakes = new Set(store.mistakes.map((m) => m.itemId)).size;
+  const attempted = STUDY_ITEMS.filter((i) => itemAttempted(i.id));
+  const due = attempted.filter((i) => itemDue(i.id));
 
-  $$('rssTodayTitle').textContent = due ? `${due} item${due === 1 ? '' : 's'} due for review` : (seen ? 'Nothing due — go forward instead' : 'Start with a daily pre-study session');
-  $$('rssTodayCopy').textContent = due
-    ? 'Reviews are scheduled from accuracy, confidence, response time and how often an item has caught you out before.'
-    : 'Pick a study mode below, or open a subject and work through one unit at a time.';
-  $$('rssTodayStats').innerHTML = [
-    ['Studied', `${seen}/${totalItems}`], ['Due now', String(due)], ['Never seen', String(fresh)], ['With mistakes', String(mistakes)],
-  ].map(([lab, v]) => `<div class="s"><b>${esc(v)}</b><small>${esc(lab)}</small></div>`).join('');
+  const cont = getContinueTarget();
+  $$('continueCard').innerHTML = cont ? `
+    <div class="task-kicker">Continue</div>
+    <h2 class="editorial" style="font-size:24px;margin:8px 0 0">${esc(cont.item.title)}</h2>
+    <p class="small" style="margin-top:6px">${esc(getSubject(cont.item.subject).title)} · item ${cont.index + 1} of ${cont.total} · left off at ${esc(STEPS.find((s) => s.id === cont.step).label)}</p>
+    <div style="height:6px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden;margin-top:14px"><div style="height:100%;width:${Math.round(itemScore(cont.item.id) * 100)}%;border-radius:99px;background:var(--teal)"></div></div>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:14px">
+      <button class="primary" id="continueBtn">Continue →</button>
+      <span class="small">${Math.round(itemScore(cont.item.id) * 100)}% mastered</span>
+    </div>` : `
+    <div class="task-kicker">Continue</div>
+    <h2 class="editorial" style="font-size:24px;margin:8px 0 0">Nothing in progress</h2>
+    <p class="small" style="margin-top:6px">Start a session below to begin.</p>`;
+  if (cont) $$('continueBtn').onclick = () => resumeContinue(cont);
 
-  $$('rssModeGrid').innerHTML = STUDY_MODES.map((m) =>
-    `<button class="rss-mode" data-mode="${m.id}"><span class="ic">${esc(m.icon)}</span><span><b>${esc(m.label)}</b><small>${esc(m.hint)}</small></span></button>`).join('');
-  $$('rssModeGrid').querySelectorAll('[data-mode]').forEach((b) => {
-    b.onclick = () => { if (b.dataset.mode === 'subject') { toast('Pick a subject below, then choose a unit.'); return; } startSession({ mode: b.dataset.mode }); };
-  });
+  $$('sessionTiles').innerHTML = [
+    ['daily', 'Daily session', '◔', 'var(--teal)', `${pickItems({ mode: 'daily' }).length} mixed items`],
+    ['weakest', 'Weak spots', '▼', 'var(--orange)', `${attempted.filter((i) => itemScore(i.id) < .5).length} items you keep getting wrong`],
+    ['exam', 'Exam recall', '⌸', 'var(--blue)', 'Past-paper style, no options shown'],
+  ].map(([mode, label, icon, color, hint]) => `
+    <button class="rss-mode" style="flex-direction:column;align-items:flex-start;gap:5px;min-height:96px" data-mode="${mode}">
+      <span class="ic" style="font-size:17px;color:${color}">${icon}</span>
+      <b>${esc(label)}</b><small>${esc(hint)}</small>
+    </button>`).join('');
+  $$('sessionTiles').querySelectorAll('[data-mode]').forEach((b) => { b.onclick = () => startSession({ mode: b.dataset.mode }); });
 
-  $$('rssSubjectGrid').innerHTML = SUBJECTS.map((s) => {
-    const st = subjectStats(s.id);
-    const pct = Math.round(st.score * 100);
-    return `<button class="subject-card" style="--accent:${s.accent}" data-subject="${s.id}">
-      <span class="code">${esc(s.code)}</span>
-      <h3>${esc(s.title)}</h3>
-      <p>${esc(s.blurb)}</p>
-      <span class="bar"><span style="width:${st.total ? pct : 0}%"></span></span>
-      <span class="foot"><span>${st.total ? `${st.seen}/${st.total} studied · ${pct}% mastery` : 'No study items'}</span>${coveragePill(s.coverage)}</span>
-    </button>`;
-  }).join('');
-  $$('rssSubjectGrid').querySelectorAll('[data-subject]').forEach((b) => { b.onclick = () => renderSubject(b.dataset.subject); });
-  showView('homeView');
+  const weakest = attempted.slice().sort((a, b) => itemScore(a.id) - itemScore(b.id)).slice(0, 3);
+  $$('weakestList').innerHTML = weakest.length ? weakest.map((i) => `
+    <button class="unit-row" data-weak="${esc(i.id)}">
+      <span class="grow"><b>${esc(i.title)}</b><small>${esc(getSubject(i.subject).title)}</small></span>
+      <span class="meter"><span style="width:${Math.round(itemScore(i.id) * 100)}%;background:var(--orange)"></span></span>
+      <span class="pc">${Math.round(itemScore(i.id) * 100)}%</span>
+    </button>`).join('') : '<div class="empty">Nothing studied yet — start a session to build this list.</div>';
+  $$('weakestList').querySelectorAll('[data-weak]').forEach((b) => { b.onclick = () => renderReviewTab('mistakes'); });
+  $$('allWeakBtn').onclick = () => goTo('review');
+
+  const streak = (store.meta && store.meta.streak) || 0;
+  $$('todayStatrow').innerHTML = [
+    [String(streak), 'day streak'], [String(due.length), 'due now'],
+    [`${totalItems ? Math.round(attempted.reduce((n, i) => n + itemScore(i.id), 0) / totalItems * 100) : 0}%`, 'mastered'],
+  ].map(([v, l], idx) => `<div class="s"><b${idx === 1 ? ' style="color:var(--orange)"' : ''}>${esc(v)}</b><small>${esc(l)}</small></div>`).join('');
+
+  $$('recentList').innerHTML = store.mistakes.slice(0, 4).map((m) => {
+    const item = getItem(m.itemId);
+    return item ? `<div style="display:flex;gap:10px;align-items:baseline;font-size:12.5px"><span style="color:${m.correct ? 'var(--green)' : 'var(--red)'}">●</span><span style="flex:1">${esc(item.title)}</span><span class="small">${esc(relativeTime(m.at))}</span></div>` : '';
+  }).join('') || '<div class="empty">No activity yet.</div>';
+
+  showView('todayView');
 }
 
 /* ------------------------------------------------------------------ *
@@ -911,8 +987,8 @@ function fileRowsHTML(refs) {
 
 function renderSubject(subjectId) {
   const subject = getSubject(subjectId);
-  if (!subject) return renderHome();
-  crumbs([{ label: 'All subjects', go: renderHome }, { label: subject.code }]);
+  if (!subject) return renderToday();
+  crumbs([{ label: 'All subjects', go: renderToday }, { label: subject.code }]);
 
   $$('rssSubjCode').textContent = subject.code;
   $$('rssSubjTitle').textContent = subject.title;
@@ -1004,7 +1080,7 @@ function renderSubject(subjectId) {
 }
 
 function openOsteology() {
-  crumbs([{ label: 'All subjects', go: renderHome }, { label: 'HSS2011', go: () => renderSubject('HSS2011') }, { label: 'Osteology 3D studio' }]);
+  crumbs([{ label: 'All subjects', go: renderToday }, { label: 'HSS2011', go: () => renderSubject('HSS2011') }, { label: 'Osteology 3D studio' }]);
   showView('osteologyView');
 }
 
@@ -1087,13 +1163,13 @@ function startSession(opts) {
   };
   const subject = opts.subject ? getSubject(opts.subject) : null;
   crumbs([
-    { label: 'All subjects', go: renderHome },
+    { label: 'All subjects', go: renderToday },
     ...(subject ? [{ label: subject.code, go: () => renderSubject(subject.id) }] : []),
     { label: mode ? mode.label : 'Session' },
   ]);
   $$('rssSessionTitle').textContent = mode ? mode.label : 'Study session';
   $$('rssSessionCopy').textContent = mode ? mode.hint : '';
-  showView('sessionView');
+  openSessionOverlay();
   renderStep();
 }
 
@@ -1482,7 +1558,7 @@ function armMovementBar(mv, cameFromSession) {
   back.onclick = () => {
     window.__osteo.endMovement();
     bar.classList.add('hidden'); back.classList.add('hidden');
-    if (session) { showView('sessionView'); renderStep(); } else { renderHome(); }
+    if (session) { showView('sessionView'); renderStep(); } else { renderToday(); }
   };
   return true;
 }
@@ -1741,7 +1817,7 @@ function endSession() {
   store.meta = meta; write(K.meta, meta);
   toast(total ? `Session done — ${right}/${total} correct. Reviews scheduled.` : 'Session ended.');
   session = null;
-  renderHome();
+  renderToday();
 }
 
 /* ------------------------------------------------------------------ *
@@ -1857,10 +1933,6 @@ function openDashboard() {
  * ------------------------------------------------------------------ */
 
 migrate();
-$$('rssHomeBtn').onclick = renderHome;
-$$('rssBackSubject').onclick = () => renderSubject('HSS2011');
-$$('rssCoverageBtn').onclick = () => openCoverage(null);
-$$('rssDashBtn').onclick = openDashboard;
 $$('closeSource').onclick = () => $$('sourceDialog').close();
 $$('closeCoverage').onclick = () => $$('coverageDialog').close();
 $$('closeDash').onclick = () => $$('dashDialog').close();
@@ -1871,11 +1943,11 @@ $$('rssSkipBtn').onclick = () => {
   session.index += 1; session.qIndex = 0; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.diagramReveal = null; if (window.__osteo && window.__osteo.endMovement) { window.__osteo.endMovement(); const b=$$('mvBar'); if(b) b.classList.add('hidden'); const bk=$$('mvBackToSession'); if(bk) bk.classList.add('hidden'); }
   setStep('learn');
 };
-$$('rssEndBtn').onclick = () => { if (session) endSession(); else renderHome(); };
+$$('rssEndBtn').onclick = () => { if (session) endSession(); else renderToday(); };
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !document.querySelector('dialog[open]') && session) { /* let the osteology handler own Escape in its own view */ }
 });
-renderHome();
+renderToday();
 
 /*
  * Manifest shortcuts land here as #mode=daily etc. Start that session straight
