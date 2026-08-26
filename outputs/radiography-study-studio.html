@@ -486,8 +486,14 @@ function highlightExtra(mesh){
   const raw=String(mesh.userData.label||mesh.name||'');
   let side='';
   let clean=raw.replace(/_/g,' ').trim();
-  const m2=clean.match(/^(.*[a-z])(l|r)$/i);
-  if(m2&&!/\b(l|r)$/i.test(m2[1])){
+  /*
+   * Any non-space char may precede the glued side letter — "Vagus nerve (X)r"
+   * ends in ')r'. The partner check below is what makes this safe: we only
+   * strip when the opposite-side twin actually exists, so Femur and Vomer,
+   * which genuinely end in r, are left alone.
+   */
+  const m2=clean.match(/^(.*\S)(l|r)$/i);
+  if(m2){
     const stem=m2[1].trim();
     const partner=state.extraModels[state.activeExtra]?.meshes.some(o=>{
       const n=String(o.userData.label||o.name||'').replace(/_/g,' ').trim();
