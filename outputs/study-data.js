@@ -68,6 +68,10 @@ export const SOURCE_FILES = {
   'hss.pp1718': { file: '2017-2018 Human Anatomy Exam.pdf', subject: 'HSS2011', root: 'y1s1', folder: 'HSS2011 Human Anatomy/Final Exam', kind: 'assessment' },
   'hss.ppans': { file: '2012-2017 Human Anatomy Exam Answer.pdf', subject: 'HSS2011', root: 'y1s1', folder: 'HSS2011 Human Anatomy/Final Exam', kind: 'assessment' },
   'hss.fib5yr': { file: '5yrs PP module 1-4 FIB.pdf', subject: 'HSS2011', root: 'green', folder: 'year 1 sem 1/HSS2011 Human Anatomy', kind: 'assessment' },
+  'hss.1920.m1.cp': { file: '1920_L1_cardiopulmonary_systems.pdf', subject: 'HSS2011', root: 'gold', folder: 'Sem 1 (Year 1)/Human Anatomy/Lecture ppt_1920/Module 1', kind: 'primary', note: 'The 2019/20 lecture set — the same academic year as Study Manual 1920, so its module numbering matches the manual rather than the older Previous Years copies.' },
+  'hss.1920.m1.thorax': { file: '1920_L2_thorax.pdf', subject: 'HSS2011', root: 'gold', folder: 'Sem 1 (Year 1)/Human Anatomy/Lecture ppt_1920/Module 1', kind: 'primary' },
+  'hss.1516.lec11': { file: 'Lec11_Skeletal, joint and muscular system.pdf', subject: 'HSS2011', root: 'gold', folder: 'Sem 1 (Year 1)/Human Anatomy/Lectures ppt_1516', kind: 'primary', note: 'The 2015/16 lecture set, kept as a second reading of the same material.' },
+  'hss.vocab.jack': { file: 'LAST MINUTE VOCAB LIST (Jack).pdf', subject: 'HSS2011', root: 'gold', folder: 'Sem 1 (Year 1)/Human Anatomy', kind: 'student', note: 'Student-compiled, module-grouped term list. Mostly names rather than definitions, but carries useful equivalences such as "visceral = epicardium".' },
   'hss.mooc1': { file: 'MOOC 1 Arterial Supply of Body Trunk and Upper Limbs.pdf', subject: 'HSS2011', root: 'y1s1', folder: 'HSS2011 Human Anatomy/Old MOOC', kind: 'primary' },
   'hss.mooc3': { file: 'MOOC 3 Anatomical Correlates of Stroke.pdf', subject: 'HSS2011', root: 'y1s1', folder: 'HSS2011 Human Anatomy/Old MOOC', kind: 'primary' },
 
@@ -79,7 +83,9 @@ export const SOURCE_FILES = {
   'phys.3': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/3. Respiratory System', kind: 'primary' },
   'phys.4': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/4. Digestive System', kind: 'primary' },
   'phys.5': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/5. Renal System', kind: 'primary' },
-  'phys.6': { file: 'Lecture notes.ppt', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/6. Reproductive System', kind: 'primary', note: 'Legacy binary .ppt. Text could not be extracted offline, so no study items were generated from it.' },
+  'phys.6': { file: 'Lecture notes.ppt', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/6. Reproductive System', kind: 'primary', note: 'Legacy binary .ppt, not readable offline. Superseded here by Lec6_Reproduction.pdf, which is the same lecture in a readable form.' },
+  'phys.6.pdf': { file: 'Lec6_Reproduction.pdf', subject: 'ABCT2326', root: 'gold', folder: 'Sem 1 (Year 1)/Human Physiology/Lecture', kind: 'primary', note: 'Readable copy of the reproductive-system lecture, from the 2020/21 set.' },
+  'phys.2.supp': { file: '2. Cardiovascular System_Supplementary Information.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/2. Cardiovascular System', kind: 'primary' },
   'phys.7': { file: 'Lecture notes.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/7. Endocrine System', kind: 'primary' },
   'phys.8': { file: 'Lecture notes.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/8. Nervous System', kind: 'primary' },
   'phys.9': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/9. Musculoskeletal System', kind: 'primary' },
@@ -248,9 +254,10 @@ export const ITEM_TYPES = {
   matching: { label: 'Matching', dimension: 'recognition' },
   diagram: { label: 'Diagram labelling', dimension: 'location' },
   id3d: { label: '3D identification', dimension: 'location' },
+  structure: { label: 'Structure set — tap to identify', dimension: 'location' },
   laterality: { label: 'Laterality', dimension: 'location' },
   landmark: { label: 'Landmark identification', dimension: 'location' },
-  comparison: { label: 'Comparison', dimension: 'recognition' },
+  comparison: { label: 'Comparison', dimension: 'comparison' },
   explain: { label: 'Short explanation', dimension: 'explanation' },
   scenario: { label: 'Scenario application', dimension: 'application' },
 };
@@ -263,6 +270,8 @@ export const MASTERY_DIMENSIONS = [
   { id: 'sequence', label: 'Sequence', hint: 'Putting a pathway or order into the right sequence.' },
   { id: 'explanation', label: 'Explanation', hint: 'Saying why, in your own words.' },
   { id: 'application', label: 'Application', hint: 'Using the fact in a scenario you have not seen before.' },
+  { id: 'comparison', label: 'Comparison', hint: 'Telling it apart from the structure it is most confused with.' },
+  { id: 'delayedRecall', label: 'Delayed recall', hint: 'Getting it right on the first attempt after a gap of a day or more — not just within a session.' },
   { id: 'confidence', label: 'Confidence', hint: 'How sure you were, checked against whether you were right.' },
 ];
 
@@ -2620,6 +2629,565 @@ export const PLACEHOLDER_NOTICES = {
 };
 
 /* ------------------------------------------------------------------ *
+ * Structure sets — granular 3D targets
+ *
+ * The bundled Z-Anatomy / BodyParts3D skeleton carries 277 individually
+ * named meshes, including every carpal, every tarsal, the separate skull
+ * bones and all 24 presacral vertebrae. `mesh` is the exact node name in
+ * that file, minus the .l / .r side suffix, which the picker matches on
+ * either side. These sets drive tap-to-identify with a blank test view.
+ * ------------------------------------------------------------------ */
+
+export const REVEAL_MODES = [
+  { id: 'labelled', label: 'Teaching', hint: 'Everything named. Read it and build the picture.' },
+  { id: 'guided', label: 'Guided', hint: 'A couple of anchors left in. Work out the rest from them.' },
+  { id: 'blank', label: 'Test', hint: 'Nothing named. Identify every structure yourself.' },
+];
+
+/*
+ * `model` names which bundled GLB a set's meshes live in:
+ *   'skeleton'    z-anatomy-skeleton.glb   277 named meshes, bones only
+ *   'organs'      ic-organlar.glb          120 named meshes, viscera
+ *   'circulatory' dolasim.glb              676 named meshes, heart and vessels
+ */
+export const STRUCTURE_SETS = {
+  carpals: {
+    id: 'carpals', label: 'The eight carpal bones', subject: 'HSS2011', unit: 'hss.osteo',
+    model: 'skeleton', view: 'upper_limb', paired: true,
+    anchors: ['scaphoid', 'pisiform'],
+    members: [
+      { id: 'scaphoid', label: 'Scaphoid', mesh: 'Scaphoid bone', group: 'Proximal row', order: 1, note: 'Most lateral of the proximal row — the thumb side.' },
+      { id: 'lunate', label: 'Lunate', mesh: 'Lunate bone', group: 'Proximal row', order: 2, note: 'Sits medial to the scaphoid.' },
+      { id: 'triquetrum', label: 'Triquetrum', mesh: 'Triquetrum bone', group: 'Proximal row', order: 3 },
+      { id: 'pisiform', label: 'Pisiform', mesh: 'Pisiform bone', group: 'Proximal row', order: 4, note: 'The pea-shaped sesamoid sitting on the triquetrum.' },
+      { id: 'trapezium', label: 'Trapezium', mesh: 'Trapezium bone', group: 'Distal row', order: 5, note: 'Under the thumb — trapeziuM for thuMb.' },
+      { id: 'trapezoid', label: 'Trapezoid', mesh: 'Trapezoid bone', group: 'Distal row', order: 6 },
+      { id: 'capitate', label: 'Capitate', mesh: 'Capitate bone', group: 'Distal row', order: 7, note: 'The largest carpal.' },
+      { id: 'hamate', label: 'Hamate', mesh: 'Hamate bone', group: 'Distal row', order: 8 },
+    ],
+    sourceRefs: [{ ref: 'hss.4.3', location: 'Slide "Carpal Bones" — proximal and distal row key' }, { ref: 'hss.m0.1718', location: 'L1 p45 right wrist (radiocarpal) joint' }],
+  },
+  tarsals: {
+    id: 'tarsals', label: 'The seven tarsal bones', subject: 'HSS2011', unit: 'hss.osteo',
+    model: 'skeleton', view: 'lower_limb', paired: true,
+    anchors: ['talus', 'calcaneus'],
+    members: [
+      { id: 'talus', label: 'Talus', mesh: 'Talus', group: 'Proximal', order: 1, note: 'Sits on the calcaneus and takes the leg’s load into the foot.' },
+      { id: 'calcaneus', label: 'Calcaneus', mesh: 'Calcaneus', group: 'Proximal', order: 2, note: 'The heel bone.' },
+      { id: 'navicular', label: 'Navicular', mesh: 'Navicular bone', group: 'Intermediate', order: 3, note: 'Between the talus and the cuneiforms.' },
+      { id: 'cuboid', label: 'Cuboid', mesh: 'Cuboid bone', group: 'Lateral', order: 4 },
+      { id: 'medial-cuneiform', label: 'Medial cuneiform', mesh: 'Medial cuneiform bone', group: 'Distal', order: 5 },
+      { id: 'intermediate-cuneiform', label: 'Intermediate cuneiform', mesh: 'Intermediate cuneiform bone', group: 'Distal', order: 6 },
+      { id: 'lateral-cuneiform', label: 'Lateral cuneiform', mesh: 'Lateral cuneiform bone', group: 'Distal', order: 7 },
+    ],
+    sourceRefs: [{ ref: 'hss.4.3', location: 'Slide "Ankle & Foot" — tarsal bones' }],
+  },
+  skullBones: {
+    id: 'skullBones', label: 'Bones of the skull', subject: 'HSS2011', unit: 'hss.osteo',
+    model: 'skeleton', view: 'skull', paired: false,
+    anchors: ['frontal', 'mandible'],
+    members: [
+      { id: 'frontal', label: 'Frontal bone', mesh: 'Frontal bone', group: 'Cranial', order: 1 },
+      { id: 'parietal', label: 'Parietal bone', mesh: 'Parietal bone', group: 'Cranial', order: 2, note: 'Paired — meets its partner at the sagittal suture.' },
+      { id: 'temporal', label: 'Temporal bone', mesh: 'Temporal bone', group: 'Cranial', order: 3, note: 'Meets the parietal at the squamous suture.' },
+      { id: 'occipital', label: 'Occipital bone', mesh: 'Occipital bone', group: 'Cranial', order: 4, note: 'Meets the parietals at the lambdoid suture.' },
+      { id: 'sphenoid', label: 'Sphenoid bone', mesh: 'Sphenoid bone', group: 'Cranial', order: 5 },
+      { id: 'ethmoid', label: 'Ethmoid bone', mesh: 'Ethmoid bone', group: 'Cranial', order: 6 },
+      { id: 'maxilla', label: 'Maxilla', mesh: 'Maxilla', group: 'Facial', order: 7 },
+      { id: 'zygomatic', label: 'Zygomatic bone', mesh: 'Zygomatic bone', group: 'Facial', order: 8 },
+      { id: 'nasal', label: 'Nasal bone', mesh: 'Nasal bone', group: 'Facial', order: 9 },
+      { id: 'lacrimal', label: 'Lacrimal bone', mesh: 'Lacrimal bone', group: 'Facial', order: 10 },
+      { id: 'vomer', label: 'Vomer', mesh: 'Vomer', group: 'Facial', order: 11 },
+      { id: 'mandible', label: 'Mandible', mesh: 'Mandible', group: 'Facial', order: 12, note: 'The only movable bone in the skull.' },
+    ],
+    sourceRefs: [{ ref: 'hss.4.2', location: 'Head and neck — bones of the skull' }, { ref: 'hss.revans', location: 'More exercises Module 4, labels A4–A12' }],
+  },
+  vertebralRegions: {
+    id: 'vertebralRegions', label: 'Regions of the vertebral column', subject: 'HSS2011', unit: 'hss.osteo',
+    model: 'skeleton', view: 'spine', paired: false,
+    anchors: ['atlas'],
+    members: [
+      { id: 'atlas', label: 'Atlas (C1)', mesh: 'Atlas (C1)', group: 'Cervical', order: 1, note: 'Carries the skull; the nod happens here.' },
+      { id: 'axis', label: 'Axis (C2)', mesh: 'Axis (C2)', group: 'Cervical', order: 2, note: 'Its dens is the pivot the head shakes on.' },
+      { id: 'c-typical', label: 'Typical cervical vertebra (C3–C7)', mesh: 'Vertebra C5', group: 'Cervical', order: 3, note: 'Seven cervical vertebrae in all.' },
+      { id: 't-typical', label: 'Typical thoracic vertebra (T1–T12)', mesh: 'Vertebra T6', group: 'Thoracic', order: 4, note: 'Twelve of them, one per rib pair.' },
+      { id: 'l-typical', label: 'Typical lumbar vertebra (L1–L5)', mesh: 'Vertebra L3', group: 'Lumbar', order: 5, note: 'Five, with the largest bodies.' },
+      { id: 'sacrum', label: 'Sacrum', mesh: 'Sacrum', group: 'Sacral', order: 6, note: 'S1–S5 fused.' },
+      { id: 'coccyx', label: 'Coccyx', mesh: 'Coccyx', group: 'Coccygeal', order: 7, note: 'Co1–Co4 fused.' },
+    ],
+    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p15 vertebral column; p21 general structure; p28–29 cervical vertebrae' }],
+  },
+  heartChambers: {
+    id: 'heartChambers', label: 'Heart chambers and valves', subject: 'ABCT2326', unit: 'phys.cvs',
+    model: 'circulatory', view: 'thorax', paired: false,
+    anchors: ['ra', 'lv'],
+    members: [
+      { id: 'ra', label: 'Right atrium', mesh: 'Right atrium', group: 'Chambers', order: 1, note: 'Receives from the venae cavae.' },
+      { id: 'rv', label: 'Right ventricle', mesh: 'Right ventricle', group: 'Chambers', order: 2, note: 'Thinner, pouch-shaped wall; pumps to the lungs.' },
+      { id: 'la', label: 'Left atrium', mesh: 'Left atrium', group: 'Chambers', order: 3, note: 'Receives the pulmonary veins.' },
+      { id: 'lv', label: 'Left ventricle', mesh: 'Left ventricle', group: 'Chambers', order: 4, note: 'Round and thick-walled; pumps into the aorta.' },
+      { id: 'tricuspid', label: 'Right AV (tricuspid) valve', mesh: 'Septal leaflet of right atrioventricular valve', group: 'Valves', order: 5, note: 'Three cusps; closes when the right ventricle contracts.' },
+      { id: 'mitral', label: 'Left AV (bicuspid) valve', mesh: 'Posterior leaflet of left atrioventricular valve', group: 'Valves', order: 6, note: 'Two cusps — bicuspid, or mitral.' },
+      { id: 'pulmvalve', label: 'Pulmonary valve', mesh: 'Anterior semilunar leaflet of pulmonary valve', group: 'Valves', order: 7, note: 'Semilunar; guards the exit to the pulmonary trunk.' },
+      { id: 'papillary', label: 'Papillary muscle', mesh: 'Anterior papillary muscle of right ventricle', group: 'Valve apparatus', order: 8, note: 'Holds the AV valve through the chordae tendineae.' },
+    ],
+    sourceRefs: [{ ref: 'phys.2', location: 'Slides 28–39 heart chambers, AV valves, semilunar valves, functions of the valves' }, { ref: 'hss.1.2', location: 'Cardiopulmonary system and associated structures' }],
+    modelGap: 'The aortic valve leaflets are not separately named in this model, and neither is the conducting system.',
+  },
+  greatVessels: {
+    id: 'greatVessels', label: 'Great vessels of the heart', subject: 'ABCT2326', unit: 'phys.cvs',
+    model: 'circulatory', view: 'thorax', paired: false,
+    anchors: ['aorticarch'],
+    members: [
+      { id: 'svc', label: 'Superior vena cava', mesh: 'Superior vena cava', group: 'Venous inflow', order: 1 },
+      { id: 'ivc', label: 'Inferior vena cava', mesh: 'Inferior vena cava (thoracic part)', group: 'Venous inflow', order: 2 },
+      { id: 'pulmtrunk', label: 'Pulmonary trunk', mesh: 'Pulmonary trunk', group: 'Pulmonary circuit', order: 3, note: 'Leaves the right ventricle carrying deoxygenated blood.' },
+      { id: 'rpa', label: 'Right pulmonary artery', mesh: 'Right pulmonary artery', group: 'Pulmonary circuit', order: 4 },
+      { id: 'lpa', label: 'Left pulmonary artery', mesh: 'Left pulmonary artery', group: 'Pulmonary circuit', order: 5 },
+      { id: 'aorticarch', label: 'Aortic arch', mesh: 'Aortic arch', group: 'Systemic outflow', order: 6, note: 'Lies in the superior mediastinum.' },
+      { id: 'coronarysinus', label: 'Coronary sinus', mesh: 'Coronary sinus', group: 'Coronary circulation', order: 7 },
+      { id: 'rca', label: 'Right coronary artery', mesh: 'Right coronary artery', group: 'Coronary circulation', order: 8 },
+    ],
+    sourceRefs: [{ ref: 'phys.2', location: 'Slides 18–20 pulmonary and systemic circulations; Figure 20-1' }, { ref: 'hss.revans', location: 'HSS2011 Module 1.2 and 1.3 answers' }],
+  },
+  airwayTree: {
+    id: 'airwayTree', label: 'The airway and the lung lobes', subject: 'ABCT2326', unit: 'phys.resp',
+    model: 'organs', view: 'thorax', paired: false,
+    anchors: ['trachea'],
+    members: [
+      { id: 'trachea', label: 'Trachea', mesh: 'Trachea', group: 'Conducting — proximal', order: 1 },
+      { id: 'rmain', label: 'Right main bronchus', mesh: 'Right main bronchus', group: 'Conducting — proximal', order: 2 },
+      { id: 'lmain', label: 'Left main bronchus', mesh: 'Left main bronchus', group: 'Conducting — proximal', order: 3 },
+      { id: 'rsuplobar', label: 'Right superior lobar bronchus', mesh: 'Right superior lobar bronchus', group: 'Conducting — lobar', order: 4 },
+      { id: 'rmidlobar', label: 'Right middle lobar bronchus', mesh: 'Middle lobar bronchus', group: 'Conducting — lobar', order: 5 },
+      { id: 'rinflobar', label: 'Right inferior lobar bronchus', mesh: 'Right inferior lobar bronchus', group: 'Conducting — lobar', order: 6 },
+      { id: 'rsuplobe', label: 'Superior lobe of right lung', mesh: 'Superior lobe of right lung', group: 'Right lung — three lobes', order: 7 },
+      { id: 'rmidlobe', label: 'Middle lobe of right lung', mesh: 'Middle lobe of right lung', group: 'Right lung — three lobes', order: 8 },
+      { id: 'rinflobe', label: 'Inferior lobe of right lung', mesh: 'Inferior lobe of right lung', group: 'Right lung — three lobes', order: 9 },
+      { id: 'lsuplobe', label: 'Superior lobe of left lung', mesh: 'Superior lobe of left lung', group: 'Left lung — two lobes', order: 10 },
+      { id: 'linflobe', label: 'Inferior lobe of left lung', mesh: 'Inferior lobe of left lung', group: 'Left lung — two lobes', order: 11 },
+      { id: 'pleura', label: 'Pleura', mesh: 'Pleura', group: 'Covering', order: 12, note: 'Visceral pleura covers the lung; parietal lines the cavity.' },
+    ],
+    sourceRefs: [{ ref: 'phys.3', location: 'Slides 5–7 organisation of the respiratory system, the respiratory tract' }, { ref: 'hss.1.1', location: 'Cardiovascular system and lungs — pleura and lung surfaces' }],
+  },
+  urinaryTract: {
+    id: 'urinaryTract', label: 'The urinary tract', subject: 'ABCT2326', unit: 'phys.renal',
+    model: 'organs', view: 'abdomen', paired: false,
+    anchors: ['kidney'],
+    members: [
+      { id: 'suprarenal', label: 'Suprarenal gland', mesh: 'Suprarenal gland', group: 'Related', order: 1, note: 'Sits on the kidney but is endocrine, not urinary.' },
+      { id: 'kidney', label: 'Kidney', mesh: 'Kidney', group: 'Urine formation', order: 2, note: 'Holds over a million nephrons.' },
+      { id: 'renalpelvis', label: 'Renal pelvis', mesh: 'Renal pelvis', group: 'Drainage', order: 3, note: 'Minor calyces unite into a major calyx, then the pelvis.' },
+      { id: 'ureter', label: 'Ureter', mesh: 'Ureter', group: 'Drainage', order: 4, note: 'Enters the posterior wall of the bladder.' },
+      { id: 'bladder', label: 'Urinary bladder', mesh: 'Urinary bladder', group: 'Storage', order: 5, note: 'Its muscular wall is the detrusor.' },
+      { id: 'urethra', label: 'Urethra', mesh: 'Urethra', group: 'Outflow', order: 6 },
+    ],
+    sourceRefs: [{ ref: 'phys.5', location: 'Slides 4–5 structure of the urinary system and the kidney' }, { ref: 'hss.3.2', location: 'Urogenital system lecture' }],
+  },
+  digestiveTract: {
+    id: 'digestiveTract', label: 'The digestive tract and its accessory organs', subject: 'ABCT2326', unit: 'phys.dig',
+    model: 'organs', view: 'abdomen', paired: false,
+    anchors: ['stomach'],
+    members: [
+      { id: 'oesophagus', label: 'Oesophagus', mesh: 'Oesophagus', group: 'Tract — upper', order: 1, note: 'Pierces the diaphragm at T10.' },
+      { id: 'stomach', label: 'Stomach', mesh: 'Stomach', group: 'Tract — upper', order: 2, note: 'Entered at the cardiac orifice; pylorus lies at L1.' },
+      { id: 'duodenum', label: 'Duodenum', mesh: 'Duodenum', group: 'Tract — small intestine', order: 3 },
+      { id: 'jejunum', label: 'Jejunum', mesh: 'Jejunum', group: 'Tract — small intestine', order: 4, note: 'Begins at the duodenojejunal junction.' },
+      { id: 'ascending', label: 'Ascending colon', mesh: 'Ascending colon', group: 'Tract — large intestine', order: 5 },
+      { id: 'transverse', label: 'Transverse colon', mesh: 'Transverse colon', group: 'Tract — large intestine', order: 6 },
+      { id: 'descending', label: 'Descending colon', mesh: 'Descending colon', group: 'Tract — large intestine', order: 7 },
+      { id: 'sigmoid', label: 'Sigmoid colon', mesh: 'Sigmoid colon', group: 'Tract — large intestine', order: 8 },
+      { id: 'appendix', label: 'Vermiform appendix', mesh: 'Vermiform appendix', group: 'Tract — large intestine', order: 9 },
+      { id: 'liver', label: 'Liver', mesh: 'Liver', group: 'Accessory', order: 10, note: 'Secretes bile; receives gut blood by the hepatic portal vein.' },
+      { id: 'gallbladder', label: 'Gallbladder', mesh: 'Gallbladder', group: 'Accessory', order: 11, note: 'Stores and concentrates bile.' },
+      { id: 'pancreas', label: 'Pancreas', mesh: 'Pancreas', group: 'Accessory', order: 12, note: 'Exocrine buffers and enzymes; endocrine hormones.' },
+    ],
+    sourceRefs: [{ ref: 'phys.4', location: 'Slides 2–3 major organs of the digestive tract and accessory organs' }, { ref: 'hss.3.1', location: 'Digestive system lecture' }],
+  },
+};
+
+export function structureSet(id) { return STRUCTURE_SETS[id] || null; }
+
+/* Which bundled GLB a structure set needs. */
+export const STRUCTURE_MODELS = {
+  skeleton: { file: './assets/z-anatomy-skeleton.glb', label: 'Skeleton', meshes: 277 },
+  organs: { file: './assets/ic-organlar.glb', label: 'Internal organs', meshes: 120 },
+  circulatory: { file: './assets/dolasim.glb', label: 'Circulatory system', meshes: 676 },
+};
+
+/* ------------------------------------------------------------------ *
+ * Expansion batch — fills gaps found in a coverage audit
+ * ------------------------------------------------------------------ */
+
+const EXPANSION_ITEMS = [
+  {
+    id: 'hss2011-terminology-word-parts',
+    subject: 'HSS2011', unit: 'hss.term', type: 'matching',
+    title: 'Word parts — prefixes, suffixes and roots',
+    tags: ['terminology', 'foundation', 'high-yield'],
+    lesson: {
+      explanation: 'Anatomical terms are built from roots, prefixes and suffixes. The root usually names an organ, tissue or condition; the prefix or suffix describes it. Once you can take a term apart, you can read one you have never met. The subject supplies a word-part list prepared by the Module 0 lecturer: prefixes of position such as epi- (above, upon), hypo- (below; also deficient), inter- (between), peri- and circum- (around), pre- (before, in front of), post- (behind, after), retro- (backward), ab- (away from), para- (near, beside; also abnormal); roots of place such as cardi/o (heart), oste/o (bone), arthr/o (joint), my/o (muscle), neur/o (nerve), nephr/o and ren/o (kidney), pulmon/o (lung), crani/o (skull), cost/o (rib), later/o (side), medi/o (middle), anter/o (front), poster/o and dors/o (back), ventr/o (belly side), proxim/o (near), infer/o (downward); and suffixes of process such as -graphy (process of recording), -graph (instrument to record), -scopy (process of viewing), -tomy (incision, cutting), -stomy (new opening), -itis (inflammation), -algia and -dynia (pain), -megaly (enlargement), -osis (abnormal condition), -emia (blood condition), -pathy (disease process).',
+      keyFacts: [
+        'Root = organ, tissue or condition. Prefix/suffix = describes the root.',
+        'epi- above/upon · hypo- below or deficient · inter- between · circum- around · pre- before · post- after · retro- backward · ab- away from.',
+        'cardi/o heart · oste/o bone · arthr/o joint · my/o muscle · neur/o nerve · nephr/o and ren/o kidney · crani/o skull · cost/o rib.',
+        'later/o side · medi/o middle · anter/o front · poster/o and dors/o back · ventr/o belly side · proxim/o near · infer/o downward.',
+        '-graphy process of recording · -graph the instrument · -scopy process of viewing · -itis inflammation · -algia pain · -megaly enlargement · -osis abnormal condition · -emia blood condition.',
+        'hypertension = hyper- (high/over) + tension (pressure) = abnormally high blood pressure.',
+      ],
+      prerequisites: ['hss2011-terminology-directional-pairs'],
+      examples: ['Radiography itself is a word part exercise: radio- (radiation) + -graphy (process of recording).'],
+    },
+    memory: {
+      chunking: 'Three slots, always in the same order: prefix (where/how much) → root (what) → suffix (what is happening to it). Read any term left to right in those slots.',
+      wordOrigin: 'The directional roots are the Latin words behind the directional terms you already know — proxim/o is proximal, later/o is lateral, medi/o is medial. You have half of this list already.',
+      comparison: '-graphy is the process, -graph is the machine, -gram is the result. Radiography is what you do, the radiograph is what you get.',
+      teachBack: 'Take a term you have never seen — say "costochondritis" — and split it out loud: cost/o rib + chondr/o cartilage + -itis inflammation. If you can do that cold, you have the skill.',
+    },
+    practice: [
+      { type: 'matching', prompt: 'Match each prefix to its meaning.',
+        pairs: [['epi-', 'Above, upon'], ['hypo-', 'Below; deficient'], ['inter-', 'Between'], ['retro-', 'Backward']],
+        explanation: 'These are the meanings given in the subject word-part list.' },
+      { type: 'matching', prompt: 'Match each suffix to its meaning.',
+        pairs: [['-itis', 'Inflammation'], ['-algia', 'Pain'], ['-megaly', 'Enlargement'], ['-graphy', 'Process of recording']],
+        explanation: 'Note -graphy is the process; -graph is the instrument that records.' },
+      { type: 'typed', prompt: 'Which root means bone?', accept: ['oste/o', 'osteo', 'oste', 'oss/i', 'osse/o'],
+        explanation: 'oste/o (also oss/i, osse/o). It is the root inside "osteology", the study of bones.' },
+      { type: 'typed', prompt: 'Split the word "radiography" into its two parts and give the meaning of each.', accept: ['radio- radiation, -graphy process of recording', 'radio radiation graphy recording', 'radio = radiation, graphy = process of recording'],
+        explanation: 'radio- is the radial spread-out of energy, i.e. radiation; -graphy is the process of recording. The HTI17103 lecture makes exactly this split.' },
+      { type: 'mcq', prompt: 'A term ending in -ostomy describes what?', options: ['An incision', 'A new opening', 'An instrument to view', 'An abnormal condition'], answer: 1,
+        explanation: '-stomy is a new opening. -tomy is incision or cutting, -scope is the instrument to view, -osis is an abnormal condition.' },
+    ],
+    application: [
+      { type: 'scenario', prompt: 'You meet the term "pericarditis" for the first time in a report. Work out what it means from its parts, and say which structure from your thorax study it involves.',
+        model: 'peri- (around) + cardi/o (heart) + -itis (inflammation) — inflammation of the structure around the heart, which is the pericardium. That is the sac you already distinguish from the epicardium, which is the heart wall’s own outer layer.',
+        rubric: ['Splits the term into all three parts', 'Gives the meaning of each part', 'Identifies the pericardium and separates it from the epicardium'] },
+    ],
+    commonMistakes: [
+      'Confusing -graphy (the process), -graph (the instrument) and -gram (the record produced).',
+      'Reading hypo- only as "below in position" — the list also gives it as "deficient, below, under", which is how it is used in words like hypoglycaemia.',
+    ],
+    sourceRefs: [{ ref: 'hss.wordparts', location: 'Full word-part list, prepared by Josephine Lau (HTI)' }, { ref: 'hss.orientation', location: 'Opening paragraph on roots, prefixes and suffixes' }],
+  },
+  {
+    id: 'hss2011-joints-synovial-types',
+    subject: 'HSS2011', unit: 'hss.joints', type: 'comparison',
+    title: 'The six synovial joint types, with examples',
+    tags: ['joints', 'high-yield'],
+    lesson: {
+      explanation: 'Synovial joints are the most common in the body and come in six types, classified by the shape of the articulating surfaces and by how many axes of movement they allow. Hinge joints move in one plane only — the elbow, where the humeral trochlea sits in the trochlear notch of the ulna, and the interphalangeal joints. Pivot joints allow rotation about a single axis — the median atlanto-axial joint, where the atlas turns on the dens of the axis, and the proximal radioulnar joint that carries supination and pronation. Condylar joints allow movement in two planes — the radiocarpal (wrist) joint and the metacarpophalangeal joints. Saddle joints also allow two planes plus opposition — the carpo-metacarpal joint of the thumb. Plane joints allow gliding — the apophyseal (facet) joints of the vertebral column and the acromioclavicular joint. Ball-and-socket joints allow movement in all three planes — the glenohumeral joint, where the humeral head sits in the shallow glenoid fossa, and the hip joint, where the femoral head sits in the deep acetabulum.',
+      keyFacts: [
+        'Hinge — one plane. Elbow; interphalangeal joints.',
+        'Pivot — rotation about one axis. Median atlanto-axial joint; proximal radioulnar joint.',
+        'Condylar — two planes. Radiocarpal (wrist); metacarpophalangeal joints.',
+        'Saddle — two planes plus opposition. Carpo-metacarpal joint of the thumb.',
+        'Plane — gliding. Apophyseal (facet) joints; acromioclavicular joint.',
+        'Ball-and-socket — all three planes. Glenohumeral; hip.',
+        'Monoaxial means movement in one plane only.',
+      ],
+      prerequisites: ['hss2011-joints-classification'],
+      examples: [],
+    },
+    memory: {
+      chunking: 'Sort by how many planes first, then name the shape. One plane: hinge and pivot. Two planes: condylar and saddle. Three planes: ball-and-socket. Gliding sits outside the count.',
+      comparison: 'Glenohumeral and hip are both ball-and-socket, and both let you move in three planes — but the glenoid fossa is shallow and the acetabulum is deep. Same class, opposite trade-off between mobility and stability.',
+      visualCue: 'A saddle joint really is a saddle: two surfaces each curved one way and hollow the other, sitting across each other. That is why the thumb can oppose and the wrist cannot.',
+      mnemonic: 'The thumb is the saddle. If a question mentions opposition, it is the carpo-metacarpal joint of the thumb every time.',
+    },
+    practice: [
+      { type: 'matching', prompt: 'Match each synovial joint type to its example.',
+        pairs: [['Hinge', 'Elbow joint'], ['Pivot', 'Median atlanto-axial joint'], ['Saddle', 'Carpo-metacarpal joint of the thumb'], ['Ball-and-socket', 'Glenohumeral joint']],
+        explanation: 'These are the worked examples used across the Module 0 and Module 4 material.' },
+      { type: 'mcq', prompt: 'Which joint type allows movement in all three planes?', options: ['Hinge', 'Pivot', 'Plane', 'Ball-and-socket'], answer: 3,
+        explanation: 'Ball-and-socket is the triaxial type — the glenohumeral and hip joints. A hinge is monoaxial, moving in one plane only.' },
+      { type: 'comparison', prompt: 'Both the glenohumeral and hip joints are ball-and-socket. What is the anatomical difference that changes their behaviour?',
+        options: [
+          'The glenoid fossa is shallow while the acetabulum is deep, so the shoulder trades stability for mobility',
+          'The hip has no articular cartilage',
+          'The shoulder is a fibrous joint',
+          'The hip allows movement in only two planes',
+        ], answer: 0,
+        explanation: 'Both are ball-and-socket and both are triaxial. The difference is socket depth: the shallow glenoid fossa allows a much wider range but far less bony stability than the deep acetabulum.' },
+      { type: 'typed', prompt: 'Which synovial joint type carries supination and pronation of the forearm?', accept: ['pivot', 'pivot joint'],
+        explanation: 'A pivot joint — the radioulnar joints, where the radius rotates against the ulna.' },
+      { type: 'sequence', prompt: 'Order these synovial joint types by how many planes of movement they allow, fewest first.', items: ['Hinge — one plane', 'Condylar — two planes', 'Ball-and-socket — three planes'],
+        explanation: 'Monoaxial hinge, then biaxial condylar, then triaxial ball-and-socket.' },
+    ],
+    application: [
+      { type: 'scenario', prompt: 'A joint allows you to flex, extend, abduct, adduct and oppose. Which type is it, where is it, and which single movement rules out the alternatives?',
+        model: 'A saddle joint — the carpo-metacarpal joint of the thumb. Opposition is the deciding movement: a condylar joint gives you two planes but cannot oppose, and only the thumb’s saddle joint carries opposition among the types listed.',
+        rubric: ['Names saddle', 'Locates it at the thumb CMC joint', 'Uses opposition as the discriminator'] },
+    ],
+    commonMistakes: [
+      'Calling the wrist a hinge. It is condylar — it abducts and adducts as well as flexing and extending.',
+      'Forgetting that both the elbow and the proximal radioulnar joint sit at the elbow region but are different joint types doing different jobs.',
+    ],
+    sourceRefs: [{ ref: 'hss.4.1', location: 'Slides "Classification of Joints — Synovial joints", "Synovial joints"' }, { ref: 'hss.m0.1718', location: 'L1 p18 joint types; p29 atlanto-axial; p43–51 elbow, radioulnar, wrist and thumb movements' }, { ref: 'hss.1516.lec11', location: 'Skeletal, joint and muscular system lecture' }],
+  },
+  {
+    id: 'abct2326-cvs-conduction',
+    subject: 'ABCT2326', unit: 'phys.cvs', type: 'sequence',
+    title: 'The cardiac conducting system',
+    tags: ['cardiovascular', 'high-yield'],
+    lesson: {
+      explanation: 'The heart holds two types of cardiac muscle cell: the conducting system, which initiates and distributes the electrical impulses that stimulate contraction and so controls and coordinates the heartbeat, and the contractile cells, which produce the contractions that propel blood. The cardiac cycle begins with an action potential at the sinoatrial node, which is transmitted through the conducting system and produces action potentials in the contractile cells. The SA node sits in the posterior wall of the right atrium, contains pacemaker cells and begins atrial activation. Its prepotential, or pacemaker potential, drifts spontaneously from about −60 mV toward a −40 mV threshold — the drift is caused by Na⁺ flowing through an HCN channel that opens when the cell is hyperpolarised — and at threshold voltage-gated Ca²⁺ channels open to produce the upstroke. Because the SA node depolarises first, it sets the heart rate. The impulse spreads through the atrial myocardium via gap junctions, but needs a special route to the ventricles because the fibrous cardiac skeleton does not conduct. It reaches the AV node in the floor of the right atrium, which delays it while atrial contraction begins, then passes to the AV bundle (bundle of His) in the septum, out to the left and right bundle branches, and finally to the Purkinje fibres, which distribute it through the ventricles so ventricular contraction begins.',
+      keyFacts: [
+        'Two cell types: conducting system (initiates and distributes) and contractile cells (propel blood).',
+        'SA node — posterior wall of right atrium, holds pacemaker cells, sets heart rate.',
+        'Pacemaker potential drifts from about −60 mV to a −40 mV threshold via an HCN Na⁺ channel; Ca²⁺ channels then open for the upstroke.',
+        'AV node — floor of the right atrium; receives, then delays the impulse.',
+        'AV bundle (bundle of His) in the septum → left and right bundle branches → Purkinje fibres.',
+        'The moderator band conducts to the papillary muscles.',
+        'The fibrous cardiac skeleton is why a special conducting route to the ventricles is needed at all.',
+        'Myocardial cells rest at −90 mV and have a 200–300 ms plateau from balanced Ca²⁺ influx and K⁺ efflux.',
+      ],
+      prerequisites: ['abct2326-cvs-heart-structure'],
+      examples: [],
+    },
+    memory: {
+      sequence: 'SA → AV → bundle of His → bundle branches → Purkinje. Five stops, top to bottom, right to left. Say it as a route, not a list.',
+      location: 'Both nodes are in the right atrium — SA in the posterior wall, AV in the floor. If you can remember they are neighbours, you only have to remember which is higher.',
+      chunking: 'The AV node’s job is a pause, not a relay. That delay is what lets the atria finish emptying before the ventricles squeeze.',
+      wordOrigin: 'Sino-atrial names its location: the sinus of the atrium. Atrio-ventricular names the border it sits on.',
+    },
+    practice: [
+      { type: 'sequence', prompt: 'Order the structures of the conducting system as the impulse travels.',
+        items: ['Sinoatrial (SA) node', 'Internodal pathways / atrial myocardium', 'Atrioventricular (AV) node', 'AV bundle (bundle of His)', 'Left and right bundle branches', 'Purkinje fibres'],
+        explanation: 'This is the five-step route given across the conducting-system slides, from atrial activation to ventricular contraction.' },
+      { type: 'typed', prompt: 'Where in the heart is the SA node located?', accept: ['posterior wall of the right atrium', 'right atrium', 'posterior wall of right atrium', 'wall of the right atrium'],
+        explanation: 'The posterior wall of the right atrium. The AV node is lower, in the floor of the same chamber.' },
+      { type: 'mcq', prompt: 'What is the functional point of the delay at the AV node?', options: ['To slow the overall heart rate', 'To let atrial contraction complete before the ventricles contract', 'To protect the Purkinje fibres', 'To recharge the SA node'], answer: 1,
+        explanation: 'The AV node delays the impulse while atrial contraction begins, so the atria finish emptying into the ventricles before ventricular contraction starts.' },
+      { type: 'cloze', prompt: 'The SA node sets the heart rate because its ______ depolarises spontaneously and reaches threshold first.', accept: ['prepotential', 'pacemaker potential', 'prepotential (pacemaker potential)'],
+        explanation: 'The prepotential, also called the pacemaker potential — the resting potential of conducting cells, which drifts toward threshold on its own.' },
+      { type: 'explain', prompt: 'Why does the impulse need the AV node and bundle of His at all, rather than simply spreading from atria to ventricles?',
+        model: 'Because the fibrous cardiac skeleton between the atria and ventricles does not conduct. Atrial impulses spread through the atrial myocardium via gap junctions but cannot cross that insulating layer, so the AV node and AV bundle provide the only electrical route through to the ventricles.',
+        rubric: ['Names the fibrous cardiac skeleton as non-conducting', 'States it separates atria from ventricles electrically', 'Identifies the AV node/bundle as the only route through'] },
+    ],
+    application: [
+      { type: 'scenario', prompt: 'If the SA node stopped firing but the AV node kept working, what would happen to the heart rate, and why does any beat survive at all?',
+        model: 'A beat survives because pacemaker cells are not unique to the SA node — the conducting system as a whole has cells whose prepotential depolarises spontaneously. The SA node normally sets the rate only because it reaches threshold first. With it silent, a slower downstream pacemaker takes over, so the heart keeps beating but more slowly.',
+        rubric: ['States the SA node leads because it depolarises fastest', 'Recognises other conducting cells also have a prepotential', 'Predicts a slower rate rather than arrest'] },
+    ],
+    commonMistakes: [
+      'Treating the AV node as a simple relay — its defining contribution is the delay.',
+      'Placing the bundle of His in the atria; it is in the interventricular septum.',
+    ],
+    sourceRefs: [{ ref: 'phys.2', location: 'Slides 40–53 the conducting system, SA node, pacemaker potential, AV node, AV bundle, Purkinje fibres, myocardial action potentials' }],
+  },
+  {
+    id: 'abct2326-cvs-ecg-cycle',
+    subject: 'ABCT2326', unit: 'phys.cvs', type: 'definition',
+    title: 'ECG waves, the cardiac cycle and heart sounds',
+    tags: ['cardiovascular', 'high-yield'],
+    lesson: {
+      explanation: 'An electrocardiogram is a recording of the electrical events in the heart, obtained by electrodes at specific body locations, and abnormal patterns are used to diagnose damage. It has three features: the P wave, atrial depolarisation; the QRS complex, ventricular depolarisation; and the T wave, ventricular repolarisation. The P–R interval runs from the start of atrial depolarisation to the start of the QRS complex, and the Q–T interval from ventricular depolarisation to ventricular repolarisation. The cardiac cycle itself is the repeating pattern of contraction and relaxation: systole is the contraction phase, diastole the relaxation phase, and both atria contract simultaneously with the ventricles following 0.1–0.2 seconds later. End-diastolic volume is the blood in the ventricles at the end of diastole, stroke volume is the amount ejected during systole, and end-systolic volume is what is left afterwards. The Frank–Starling law states that stroke volume increases as end-diastolic volume increases, because the increased blood volume stretches the ventricular wall and the force of contraction rises. Two loud heart sounds mark the cycle: S1 is produced by the AV valves and S2 by the semilunar valves. Cardiac muscle also has a long absolute refractory period — the ventricular action potential lasts 250–300 ms, about thirty times longer than a skeletal muscle fibre — which prevents summation and tetany.',
+      keyFacts: [
+        'P wave — atria depolarise. QRS complex — ventricles depolarise. T wave — ventricles repolarise.',
+        'P–R interval: start of atrial depolarisation to start of QRS. Q–T interval: ventricular depolarisation to repolarisation.',
+        'Systole = contraction; diastole = relaxation. Ventricles follow the atria by 0.1–0.2 s.',
+        'End-diastolic volume → stroke volume ejected → end-systolic volume left behind.',
+        'Frank–Starling law: stroke volume rises as end-diastolic volume rises, because stretch increases force of contraction.',
+        'S1 is produced by the AV valves; S2 by the semilunar valves.',
+        'Ventricular action potential lasts 250–300 ms — about 30× a skeletal muscle fibre — and the long refractory period prevents summation and tetany.',
+      ],
+      prerequisites: ['abct2326-cvs-conduction'],
+      examples: [],
+    },
+    memory: {
+      mnemonic: 'P before QRS before T, in the order the heart actually fires: atria depolarise, ventricles depolarise, ventricles recover. There is no wave for atrial repolarisation because the QRS buries it.',
+      chunking: 'Three volumes, one subtraction: end-diastolic minus stroke volume equals end-systolic. If you know two you can derive the third.',
+      visualCue: 'S1 "lubb" is the AV valves shutting as the ventricles start to squeeze; S2 "dupp" is the semilunar valves shutting as they finish. The sounds are doors closing, in order.',
+      comparison: 'Systole and diastole are easy to swap under pressure. SyStole = Squeeze.',
+    },
+    practice: [
+      { type: 'matching', prompt: 'Match each ECG feature to the electrical event it represents.',
+        pairs: [['P wave', 'Atria depolarise'], ['QRS complex', 'Ventricles depolarise'], ['T wave', 'Ventricles repolarise'], ['P–R interval', 'Start of atrial depolarisation to start of QRS']],
+        explanation: 'These are the ECG features listed on the electrocardiogram slide.' },
+      { type: 'mcq', prompt: 'Which valves produce the first heart sound, S1?', options: ['The semilunar valves', 'The AV valves', 'The aortic valve alone', 'The pulmonary valve alone'], answer: 1,
+        explanation: 'S1 is produced by the AV valves and S2 by the semilunar valves.' },
+      { type: 'typed', prompt: 'What is the name of the law stating that stroke volume increases as end-diastolic volume increases?', accept: ['frank-starling', 'frank starling', 'frank-starling law', 'starling'],
+        explanation: 'The Frank–Starling law. Increased blood volume stretches the ventricular wall, and the force of contraction rises.' },
+      { type: 'cloze', prompt: 'The contraction phase of the cardiac cycle is called ______ and the relaxation phase ______.', accept: ['systole; diastole', 'systole, diastole', 'systole and diastole'],
+        explanation: 'Systole is contraction, diastole is relaxation.' },
+      { type: 'explain', prompt: 'Why does the long refractory period of cardiac muscle matter?',
+        model: 'The ventricular action potential lasts 250–300 ms, roughly thirty times a skeletal muscle fibre. That long absolute refractory period means the cell cannot respond to a second stimulus during it, so cardiac muscle cannot summate or go into tetany — it has to relax and refill between beats.',
+        rubric: ['Gives the 250–300 ms duration or the 30× comparison', 'States it prevents summation and tetany', 'Connects that to the need to refill'] },
+    ],
+    application: [
+      { type: 'scenario', prompt: 'A patient’s end-diastolic volume rises after a fluid infusion. Using the Frank–Starling law, predict what happens to stroke volume and say why.',
+        model: 'Stroke volume increases. The extra blood volume stretches the ventricular wall further at the end of diastole, and the force of contraction rises with that stretch, so more blood is ejected during systole.',
+        rubric: ['Predicts an increase in stroke volume', 'Names ventricular wall stretch as the mechanism', 'Links stretch to force of contraction'] },
+    ],
+    commonMistakes: [
+      'Looking for a wave representing atrial repolarisation — the lecture lists only P, QRS and T.',
+      'Swapping S1 and S2. S1 is the AV valves, at the start of ventricular contraction.',
+    ],
+    sourceRefs: [{ ref: 'phys.2', location: 'Slides 55–64 refractory periods, electrocardiogram, cardiac cycle, heart sounds; Figure 20-18b' }],
+  },
+  {
+    id: 'abct2326-resp-gas-transport',
+    subject: 'ABCT2326', unit: 'phys.resp', type: 'definition',
+    title: 'Gas exchange, oxygen transport and the control of respiration',
+    tags: ['respiratory', 'high-yield'],
+    lesson: {
+      explanation: 'Gas exchange happens across the alveolar epithelium, which is simple squamous epithelium made of thin type I pneumocytes patrolled by alveolar macrophages, or dust cells, alongside type II pneumocytes that produce surfactant. The majority of gas exchange occurs across the type I pneumocytes, and a single capillary may exchange with several alveoli at once. Gases move down partial-pressure gradients between alveolar air and the alveolar capillaries. Oxygen binds to the iron ions in haemoglobin molecules to form oxyhaemoglobin; haemoglobin saturation is the percentage of heme units carrying bound oxygen, and the oxygen–haemoglobin saturation curve relates that saturation to the partial pressure of oxygen. Respiration is controlled by respiratory centres whose ventral and dorsal respiratory groups establish the basic pace and depth, modified by the pneumotaxic centre. Reflex input comes from chemoreceptors sensitive to PCO₂, PO₂ or pH of blood or cerebrospinal fluid; baroreceptors in the aortic or carotid sinuses sensitive to blood pressure; stretch receptors responding to lung volume; and irritant, pain, temperature and visceral sensations. Peripheral chemoreceptor input arrives by the glossopharyngeal nerve from the carotid bodies and the vagus nerve from the aortic bodies, while central chemoreceptors on the ventrolateral surface of the medulla oblongata respond to the PCO₂ and pH of cerebrospinal fluid. Chemoreceptor stimulation increases the depth and rate of respiration, and is subject to adaptation — sensitivity falls under chronic stimulation.',
+      keyFacts: [
+        'Type I pneumocytes — thin, where the majority of gas exchange occurs. Type II pneumocytes — produce surfactant. Alveolar macrophages — dust cells.',
+        'Oxygen binds the iron ions of haemoglobin to form oxyhaemoglobin.',
+        'Haemoglobin saturation = the percentage of heme units carrying bound oxygen.',
+        'Respiratory centres: ventral and dorsal respiratory groups set pace and depth; the pneumotaxic centre modifies the pace.',
+        'Chemoreceptors respond to PCO₂, PO₂ or pH of blood or CSF.',
+        'Glossopharyngeal nerve (CN IX) from the carotid bodies; vagus nerve (CN X) from the aortic bodies.',
+        'Central chemoreceptors sit on the ventrolateral surface of the medulla oblongata and monitor CSF.',
+        'Chemoreceptor stimulation raises depth and rate, and adapts under chronic stimulation.',
+      ],
+      prerequisites: ['abct2326-resp-pathway'],
+      examples: [],
+    },
+    memory: {
+      comparison: 'Type I is thin so gas crosses it; type II is secretory so it makes surfactant. One roman numeral, one job: I for interchange, II for the substance.',
+      location: 'Two peripheral sensing sites, two nerves, and each nerve serves the body part it is named near: glossopharyngeal from the carotid bodies in the neck, vagus from the aortic bodies in the chest.',
+      chunking: 'Control has three layers: a rhythm generator (VRG/DRG), a modifier (pneumotaxic centre), and sensors feeding back (chemo-, baro-, stretch).',
+      wordOrigin: 'Oxyhaemoglobin is simply oxygen + haem + globin — the carrier named after what it is carrying.',
+    },
+    practice: [
+      { type: 'mcq', prompt: 'Across which cell type does the majority of gas exchange occur?', options: ['Type II pneumocytes', 'Alveolar macrophages', 'Type I pneumocytes', 'Goblet cells'], answer: 2,
+        explanation: 'Type I pneumocytes are the thin, delicate cells of the alveolar epithelium and the majority of gas exchange occurs across them. Type II pneumocytes make surfactant.' },
+      { type: 'typed', prompt: 'Oxygen binds to which part of the haemoglobin molecule?', accept: ['iron ions', 'iron', 'the iron ions', 'heme iron'],
+        explanation: 'The iron ions in haemoglobin. The result is called oxyhaemoglobin.' },
+      { type: 'matching', prompt: 'Match each receptor site to the nerve carrying its input.',
+        pairs: [['Carotid bodies', 'Glossopharyngeal nerve (CN IX)'], ['Aortic bodies', 'Vagus nerve (CN X)'], ['Cerebrospinal fluid', 'Central chemoreceptors on the medulla oblongata'], ['Aortic and carotid sinuses', 'Baroreceptors sensitive to blood pressure']],
+        explanation: 'These are the chemoreceptor and baroreceptor routes given in the control-of-respiration slides.' },
+      { type: 'cloze', prompt: 'Haemoglobin ______ is the percentage of heme units in a haemoglobin molecule that contain bound oxygen.', accept: ['saturation'],
+        explanation: 'Saturation. The oxygen–haemoglobin saturation curve plots it against the partial pressure of oxygen.' },
+      { type: 'explain', prompt: 'What does it mean that chemoreceptor stimulation "is subject to adaptation"?',
+        model: 'Sensitivity falls under chronic stimulation. A chemoreceptor that is being stimulated continuously stops driving the same increase in depth and rate that the same signal would produce acutely, so a long-standing abnormality provokes less of a response than a sudden one.',
+        rubric: ['States sensitivity decreases with chronic stimulation', 'Contrasts acute with chronic response'] },
+    ],
+    application: [
+      { type: 'scenario', prompt: 'Your respiratory rate rises sharply during exercise. Name two different receptor types from this lecture that could be contributing, and say what each is responding to.',
+        model: 'Chemoreceptors responding to rising PCO₂, falling PO₂ or falling pH in blood or cerebrospinal fluid; and stretch receptors responding to the changes in lung volume as breathing deepens. Baroreceptors in the aortic and carotid sinuses could also contribute, since they respond to the blood-pressure changes exercise produces.',
+        rubric: ['Names at least two receptor types from the lecture list', 'States correctly what each responds to'] },
+    ],
+    commonMistakes: [
+      'Attributing surfactant production to type I pneumocytes — that is type II.',
+      'Assuming central chemoreceptors sense blood; they monitor cerebrospinal fluid.',
+    ],
+    sourceRefs: [{ ref: 'phys.3', location: 'Slides 10–12 alveolar epithelium; 66–74 control of respiration, respiratory and chemoreceptor reflexes, homeostasis of arterial PCO₂; partial pressure and oxygen–haemoglobin saturation slides' }],
+  },
+  {
+    id: 'abct2326-immune-adaptive',
+    subject: 'ABCT2326', unit: 'phys.imm', type: 'comparison',
+    title: 'Inflammation, complement and adaptive immunity',
+    tags: ['immune', 'high-yield'],
+    lesson: {
+      explanation: 'Inflammation is a localised response triggered by any stimulus that kills cells or injures tissue. Its four principal signs carry Latin names: swelling (tumor), redness (rubor), heat (calor) and pain (dolor). It has three effects — temporary repair and a barrier against pathogens, retarding the spread of pathogens into surrounding areas, and mobilising local and systemic defences while facilitating repair. Its products include necrosis, the destruction of injured cells; pus, the viscous mixture of debris, fluid and dead cells that accumulates at the injury site; and an abscess, an accumulation of pus in an enclosed tissue space. Complement is a system of about thirty plasma proteins that work in cascades. There are two activation pathways: the classical pathway, which requires antibody binding and C1 attachment and is the most rapid and effective, and the alternative pathway, which involves no antibody, occurs more slowly and less effectively, and is activated by exposure to foreign materials. Either pathway turns on the common pathway from C5 to C9, generating the membrane attack complex on the bacterial surface and causing cell lysis. Adaptive immunity is not present at birth: you acquire immunity to a specific antigen only after exposure to it or by receiving antibodies. It splits into active immunity, where antibodies develop after exposure to an antigen, and passive immunity, where antibodies are transferred from another source; and it is studied as cell-mediated (cellular) immunity versus antibody-mediated (humoral) immunity, involving T cells and B cells respectively.',
+      keyFacts: [
+        'Four signs of inflammation: swelling (tumor), redness (rubor), heat (calor), pain (dolor).',
+        'Three effects: temporary repair and barrier, retarding spread, mobilising defences and facilitating repair.',
+        'Products: necrosis, pus, abscess.',
+        'Complement = about 30 plasma proteins working in a cascade.',
+        'Classical pathway needs antibody binding and C1; it is the most rapid and effective. Alternative pathway needs no antibody, is slower and less effective.',
+        'Both converge on the common pathway C5–C9, forming the membrane attack complex (MAC) and lysing the cell.',
+        'Adaptive immunity is acquired after birth — by exposure to an antigen or by receiving antibodies.',
+        'Active immunity: antibodies develop after exposure. Passive immunity: antibodies transferred from another source.',
+        'Cell-mediated immunity involves T cells; antibody-mediated (humoral) immunity involves B cells.',
+      ],
+      prerequisites: ['abct2326-innate-adaptive'],
+      examples: [],
+    },
+    memory: {
+      firstLetter: 'The four Latin signs are easier as a set than singly: tumor, rubor, calor, dolor — swelling, redness, heat, pain. They rhyme, which is the point.',
+      comparison: 'Classical vs alternative complement: classical needs an antibody and is fast; alternative needs none and is slow. The pathway that waits for a specific antibody is the one that works best once it arrives.',
+      chunking: 'Active vs passive immunity is about who made the antibody. Active — you did, after exposure. Passive — someone else did, and it was transferred.',
+      mnemonic: 'B cells make antiBodies. T cells do the cell-mediated work. One letter each, and it holds.',
+    },
+    practice: [
+      { type: 'matching', prompt: 'Match each Latin sign of inflammation to its meaning.',
+        pairs: [['Tumor', 'Swelling'], ['Rubor', 'Redness'], ['Calor', 'Heat'], ['Dolor', 'Pain']],
+        explanation: 'These are the four principal signs and symptoms of inflammation as given in the lecture, with their Latin names.' },
+      { type: 'comparison', prompt: 'What distinguishes the classical from the alternative complement pathway?',
+        options: [
+          'The classical pathway requires antibody binding and is faster and more effective; the alternative requires no antibody and is slower',
+          'The classical pathway is slower and requires no antibody',
+          'Only the alternative pathway forms a membrane attack complex',
+          'They use entirely separate proteins with no common pathway',
+        ], answer: 0,
+        explanation: 'The classical pathway begins with antibody binding and C1 attachment and is the most rapid and effective. The alternative involves no antibody, is slower and less effective. Both converge on the common pathway C5–C9 and both end in the membrane attack complex.' },
+      { type: 'typed', prompt: 'What is the name of the structure generated by the common complement pathway that lyses the target cell?', accept: ['membrane attack complex', 'mac', 'membrane attack complex (mac)'],
+        explanation: 'The membrane attack complex (MAC), formed from C5b with C6, C7, C8 and C9.' },
+      { type: 'mcq', prompt: 'Antibodies transferred from another source rather than made after your own exposure describes:', options: ['Active immunity', 'Passive immunity', 'Innate immunity', 'Cell-mediated immunity'], answer: 1,
+        explanation: 'Passive immunity — antibodies are transferred from another source. Active immunity is where antibodies develop after your own exposure to the antigen.' },
+      { type: 'cloze', prompt: 'Cell-mediated immunity involves ______ cells, while antibody-mediated (humoral) immunity involves ______ cells.', accept: ['t; b', 't, b', 't cells and b cells', 't and b'],
+        explanation: 'T cells for cell-mediated, B cells for antibody-mediated (humoral) immunity.' },
+    ],
+    application: [
+      { type: 'scenario', prompt: 'An accumulation of pus has formed in an enclosed tissue space. Name it, and trace it back through the inflammatory process that produced it.',
+        model: 'That is an abscess. Inflammation was triggered by a stimulus that killed cells or injured tissue; injured cells underwent necrosis; as local inflammation continued, debris, fluid and dead and dying cells accumulated at the site as pus; and pus enclosed in a tissue space is an abscess.',
+        rubric: ['Names abscess', 'Traces necrosis → pus → abscess', 'Identifies the triggering injury'] },
+    ],
+    commonMistakes: [
+      'Assuming the alternative complement pathway is an equal substitute — the lecture says it is slower and less effective.',
+      'Treating adaptive immunity as present at birth. It is acquired only after exposure or antibody transfer.',
+    ],
+    sourceRefs: [{ ref: 'phys.10', location: 'Slides 27–35 complement system and pathways, inflammation, products of inflammation, forms of immunity; learning outcomes slide 2' }],
+  },
+  {
+    id: 'hti17103-modality-best-use',
+    subject: 'HTI17103', unit: 'hti.modalities', type: 'matching',
+    title: 'What each modality is best used for',
+    tags: ['modalities', 'high-yield'],
+    lesson: {
+      explanation: 'Each modality in the Week 2 lecture is introduced with the job it is suited to. Fluoroscopy provides real-time monitoring and is applicable intraoperatively, which is what makes it the choice for angiography, stent installation, bone cement work and function imaging of the digestive system. Mammography is presented as an extreme of resolution. Computed tomography exists because radiologists normally need two views and CT offers a 360-degree view; modern spiral CT adds multiplanar reconstruction and 3D angiographic reconstruction, up to a simulated heart model. Radionuclide imaging gives the non-invasive visualisation of bio-distribution, using a radiopharmaceutical made of a radioisotope plus a specific compound — the compound decides where it goes. MRI is summarised as giving good soft-tissue contrast, being compatible with function imaging and 3D/4D reconstruction, and being non-ionising. General X-ray, in its direct digital form, is the time-saving workhorse with no readers and no physical film.',
+      keyFacts: [
+        'Fluoroscopy — real-time, intraoperative: angiography, stent installation, bone cement, digestive function imaging.',
+        'Mammography — an extreme of resolution.',
+        'CT — a 360-degree view where two projections are not enough; multiplanar and 3D angiographic reconstruction.',
+        'Radionuclide imaging — non-invasive visualisation of bio-distribution.',
+        'MRI — good soft-tissue contrast, function imaging, 3D/4D, non-ionising.',
+        'Direct digital radiography — no readers, time-saving, no physical films, but expensive.',
+        'Contrast agents extend fluoroscopy: oral barium sulfate, or intravenous ionic vs non-ionic agents.',
+      ],
+      prerequisites: ['hti17103-ionizing-vs-nonionizing'],
+      examples: [],
+    },
+    memory: {
+      chunking: 'Sort by what the modality gives you that others cannot: time (fluoroscopy), resolution (mammography), a third dimension (CT), function and distribution (RNI), soft tissue without ionising radiation (MRI).',
+      comparison: 'CT and MRI both give cross-sections. CT is fast and ionising; MRI has better soft-tissue contrast and no ionising radiation. If the question is about soft tissue, it is MRI.',
+      mnemonic: 'Fluoroscopy is the only one that shows you *change over time*. Anything described as real-time or intraoperative is pointing at it.',
+    },
+    practice: [
+      { type: 'matching', prompt: 'Match each modality to the capability the lecture highlights.',
+        pairs: [['Fluoroscopy', 'Real-time monitoring, applicable intraoperatively'], ['Computed tomography', 'A 360-degree view with multiplanar reconstruction'], ['Magnetic resonance imaging', 'Good soft-tissue contrast, non-ionising'], ['Radionuclide imaging', 'Non-invasive visualisation of bio-distribution']],
+        explanation: 'These are the defining capabilities each modality is introduced with in the Week 2 lecture.' },
+      { type: 'mcq', prompt: 'A stent is being installed and the operator needs to watch it move into position. Which modality does the lecture point to?', options: ['Computed tomography', 'Fluoroscopy', 'Mammography', 'Magnetic resonance imaging'], answer: 1,
+        explanation: 'Fluoroscopy — real-time monitoring, intraoperatively applicable, and stent installation is one of the listed applications.' },
+      { type: 'typed', prompt: 'Which modality does the lecture describe as "an extreme of resolution"?', accept: ['mammography', 'mammogram'],
+        explanation: 'Mammography.' },
+      { type: 'comparison', prompt: 'CT and MRI both produce cross-sectional images. Which difference matters most when choosing between them?',
+        options: [
+          'MRI gives better soft-tissue contrast and uses no ionising radiation, while CT is an ionising modality',
+          'CT cannot produce 3D reconstructions',
+          'MRI is an ionising modality and CT is not',
+          'They produce identical images by different means',
+        ], answer: 0,
+        explanation: 'Both give cross-sections, but the lecture puts CT in the ionising column and MRI in the non-ionising column, and summarises MRI as giving good soft-tissue contrast. Both can reconstruct in 3D.' },
+    ],
+    application: [
+      { type: 'scenario', prompt: 'A radiopharmaceutical is described as a radioisotope combined with a specific compound. Which half decides what you can image, and why does that make radionuclide imaging different from CT?',
+        model: 'The specific compound decides where the agent goes in the body, so it determines what you can image; the radioisotope only makes that distribution visible. That is what the lecture means by non-invasive visualisation of bio-distribution — RNI images function and where a substance travels, whereas CT images structure.',
+        rubric: ['Identifies the compound as determining distribution', 'Identifies the isotope as providing the signal', 'Contrasts function/distribution with structure'] },
+    ],
+    commonMistakes: [
+      'Choosing CT whenever cross-sections are wanted, without weighing the ionising-radiation difference against MRI.',
+      'Forgetting that fluoroscopy is defined by being real-time, not by being an X-ray technique.',
+    ],
+    sourceRefs: [{ ref: 'hti.w2', location: 'Slides 12–49 general X-ray cassettes, fluoroscopy and contrast enhancement, mammography, computed tomography, radiopharmaceuticals, RNI, MRI summary' }],
+  },
+];
+
+/* ------------------------------------------------------------------ *
  * Osteology items generated from the canonical bone records
  *
  * The bone names, landmarks, sides and articulations are all covered by
@@ -2739,6 +3307,82 @@ function boneItem(record) {
 const BONE_ITEMS = ANATOMY_DATABASE.map(boneItem);
 
 /* ------------------------------------------------------------------ *
+ * Structure-set items — tap-to-identify with a three-state reveal
+ * ------------------------------------------------------------------ */
+
+const STRUCTURE_HOOKS = {
+  carpals: {
+    firstLetter: 'Proximal row then distal row, lateral to medial: Scaphoid, Lunate, Triquetrum, Pisiform — Trapezium, Trapezoid, Capitate, Hamate.',
+    chunking: 'Four and four, two rows. Almost every carpal question is really asking which row a bone is in, so learn the rows as units before the individual bones.',
+    comparison: 'TrapeziuM sits under the thuMb; the trapezoid is its neighbour. That one letter settles the pair people most often swap.',
+    location: 'Start at the thumb side of the wrist crease and work across, then step down a row and come back. Same path every time.',
+  },
+  tarsals: {
+    location: 'Build it in layers rather than a row: talus on top of calcaneus takes the load, navicular in front of the talus, cuboid on the lateral side, three cuneiforms fanning forward.',
+    comparison: 'Carpals are in the wrist, tarsals in the ankle. If a question says "collective name for wrist bones", the answer is carpal — tarsal is the distractor.',
+    chunking: 'Seven bones, four groups: two big weight-bearers, one navicular, one cuboid, three cuneiforms.',
+  },
+  skullBones: {
+    chunking: 'Split cranial from facial first. Six cranial bones form the vault and floor; the facial bones hang off the front.',
+    location: 'Trace it as a face: forehead is frontal, sides are parietal then temporal, back is occipital, cheek is zygomatic, upper jaw is maxilla, lower jaw is mandible.',
+    comparison: 'Sphenoid and ethmoid are the two you cannot see from outside — both sit deep in the floor of the cranium, which is why they are the two most often missed.',
+  },
+  vertebralRegions: {
+    mnemonic: 'Breakfast at 7, lunch at 12, dinner at 5 — cervical 7, thoracic 12, lumbar 5.',
+    comparison: 'Atlas carries the world and gives you the nod; Axis is the pin and gives you the shake.',
+    chunking: 'Five regions top to bottom, two of them fused: cervical, thoracic, lumbar, then sacrum and coccyx.',
+  },
+};
+
+function structureItem(set) {
+  const hooks = STRUCTURE_HOOKS[set.id] || {};
+  const groups = [...new Set(set.members.map((mem) => mem.group))];
+  const listing = set.members.map((mem) => `${mem.label}${mem.note ? ` — ${mem.note}` : ''}`);
+  return {
+    id: `hss2011-structures-${set.id}`,
+    subject: set.subject, unit: set.unit, type: 'structure',
+    title: set.label,
+    tags: ['osteology', '3d', 'blank-mode'],
+    structureSet: set.id,
+    lesson: {
+      explanation: `${set.label} — ${set.members.length} structures in ${groups.length} group${groups.length === 1 ? '' : 's'}: ${groups.join(', ')}. `
+        + `Every one of these is a separately named mesh in the bundled skeleton, so you can rotate to it and tap it directly. `
+        + `Work through the labelled view first, then the guided view with only ${set.anchors.length} anchor${set.anchors.length === 1 ? '' : 's'} left in, then the blank view where nothing is named.`
+        + (set.paired ? ' These are paired structures, so the side is always part of the answer.' : ''),
+      keyFacts: listing,
+      prerequisites: ['hss2011-osteo-axial-appendicular'],
+      examples: [],
+    },
+    memory: hooks,
+    practice: [
+      { type: 'structure', prompt: `Name every structure in the set, working from the labelled view.`, setId: set.id, reveal: 'labelled',
+        explanation: `Teaching view. All ${set.members.length} are named — read them in group order (${groups.join(' → ')}) and say each one out loud before moving on.` },
+      { type: 'structure', prompt: `Only the anchors are named now. Identify the rest.`, setId: set.id, reveal: 'guided',
+        explanation: `Guided view. ${set.anchors.map((a) => (set.members.find((mem) => mem.id === a) || {}).label).filter(Boolean).join(' and ')} stay labelled — everything else is worked out from their position relative to those.` },
+      { type: 'structure', prompt: `Blank view. Identify all ${set.members.length}.`, setId: set.id, reveal: 'blank',
+        explanation: `Test view. Nothing is named. If you can do this cold, the set is learned: ${listing.map((l) => l.split(' — ')[0]).join(', ')}.` },
+      { type: 'typed', prompt: `How many structures are in the set "${set.label.toLowerCase()}"?`, accept: [String(set.members.length)],
+        explanation: `${set.members.length}. Counting the set is the fastest check that you have not dropped one.` },
+      { type: 'matching', prompt: 'Match each structure to the group it belongs to.',
+        pairs: set.members.slice(0, 4).map((mem) => [mem.label, mem.group]),
+        explanation: `Groups in this set: ${groups.join(', ')}. Knowing the group narrows any identification question before you look at shape.` },
+    ],
+    application: [
+      { type: 'scenario', prompt: `You are shown one structure from this set in isolation, with no neighbours visible. What do you use to identify it, and what do you lose without the neighbours?`,
+        model: `You fall back on the shape and any distinctive feature of that individual structure. What you lose is position, which is what the group and the ordering normally give you — ${groups.join(' and ')} are defined by where they sit relative to each other, so isolating a structure removes the most reliable clue.`,
+        rubric: ['Names shape/individual features as the fallback', 'Identifies relative position as what is lost', 'Refers to the group structure of the set'] },
+    ],
+    commonMistakes: [
+      `Learning the names as a flat list. This set has ${groups.length} group${groups.length === 1 ? '' : 's'} (${groups.join(', ')}), and the group is usually what a question is really testing.`,
+      ...(set.paired ? ['Reading the side off the screen instead of the model’s own left and right.'] : []),
+    ],
+    sourceRefs: set.sourceRefs,
+  };
+}
+
+const STRUCTURE_ITEMS = Object.values(STRUCTURE_SETS).map(structureItem);
+
+/* ------------------------------------------------------------------ *
  * Assembled corpus
  * ------------------------------------------------------------------ */
 
@@ -2746,10 +3390,12 @@ export const STUDY_ITEMS = [
   ...HSS_TERMINOLOGY,
   ...HSS_OSTEOLOGY,
   ...BONE_ITEMS,
+  ...STRUCTURE_ITEMS,
   ...HSS_JOINTS,
   ...HSS_MODULES,
   ...PHYS_ITEMS,
   ...HTI_ITEMS,
+  ...EXPANSION_ITEMS,
 ].map((item) => ({ status: 'unseen', ...item }));
 
 export const ITEM_BY_ID = new Map(STUDY_ITEMS.map((i) => [i.id, i]));
@@ -2815,6 +3461,14 @@ export function validateQuestion(q) {
     case 'laterality':
       if (!q.boneId) problems.push('no bone reference');
       break;
+    case 'structure': {
+      const set = STRUCTURE_SETS[q.setId];
+      if (!set) problems.push(`unknown structure set "${q.setId}"`);
+      else if (!Array.isArray(set.members) || set.members.length < 2) problems.push('structure set needs at least two members');
+      else if (set.members.some((mem) => !mem.mesh || !mem.label)) problems.push('structure set member missing mesh or label');
+      if (q.reveal && !REVEAL_MODES.some((r) => r.id === q.reveal)) problems.push(`unknown reveal mode "${q.reveal}"`);
+      break;
+    }
     default:
       problems.push(`unknown question type "${q.type}"`);
   }
@@ -2898,7 +3552,7 @@ export const DIAGRAMS = {
  * ------------------------------------------------------------------ */
 
 export const COVERAGE = {
-  generated: 'Built from a recursive scan of the 22 shared source folders reachable from the supplied drive (8,554 files at depth 6).',
+  generated: 'Built from a recursive scan of the 22 shared source folders reachable from the supplied drive. The first scan was capped at depth 6 and saw 8,554 files; a full-depth re-scan found 15,499 (12,810 excluding desktop.ini and Drive stubs), so roughly 45% of the corpus was invisible to the original pass. Coverage below reflects the full-depth scan.',
   subjects: [
     {
       id: 'HSS2011', status: 'full',
@@ -2911,6 +3565,9 @@ export const COVERAGE = {
         'Pelvic girdle, lower limb bones, tarsal bones',
         'Thoracic cage, thoracic inlet, mediastinum',
         'Joint classification, synovial joint structure, movements and their joints',
+        'The six synovial joint types with worked examples, sorted by axes of movement',
+        'Tap-to-identify structure sets on the 3D model with a three-state reveal: all 8 carpals, all 7 tarsals, 12 skull bones and the vertebral regions',
+        'Word parts — prefixes, suffixes and roots, and how to take an unfamiliar term apart',
         'Rotator cuff and full abduction sequence',
         'Module 1 thorax, Module 2 neuroanatomy, Module 3 abdomen and pelvis',
       ],
@@ -2933,11 +3590,16 @@ export const COVERAGE = {
         'Nephron tubule order, urine drainage pathway, GFR figures',
         'Hormone delivery classes and endocrine gland principle',
         'Lymphatic return and MALT',
+        'Cardiac conducting system: SA node, pacemaker potential, AV delay, bundle of His, Purkinje fibres',
+        'ECG waves and intervals, cardiac cycle, stroke volume, Frank–Starling law, heart sounds, refractory period',
+        'Gas exchange at the alveolus, oxyhaemoglobin and saturation, and the full control-of-respiration reflex set',
+        'Inflammation, the complement pathways and the membrane attack complex, active vs passive and cell- vs antibody-mediated immunity',
       ],
       gaps: [
-        'Reproductive system (folder 6): the lecture notes are a legacy binary .ppt that could not be read offline, so no items were generated.',
-        'Nervous system (folder 8) and musculoskeletal system (folder 9) lecture decks were extracted but only lightly mined; more items could be added.',
-        'The 29-chapter question blank and the tutorial-answer PDFs are catalogued but not yet turned into items.',
+        'BLOOD-PRESSURE REGULATION IS NOT IN THE SUPPLIED SOURCES. Neither the cardiovascular lecture deck nor its supplementary deck mentions blood-pressure regulation or baroreceptors as a cardiovascular topic. No items were written for it. (Baroreceptors do appear, but only in the respiratory lecture, as an input to the control of respiration — which is where they are covered here.)',
+        'Reproductive system: the folder-6 lecture is a legacy binary .ppt that cannot be read offline, but the same lecture exists in readable form as Lec6_Reproduction.pdf in the 2020/21 set, so this is no longer a blocker — items simply have not been written yet.',
+        'The 29-chapter question blank, the per-system tutorial-answer PDFs and the 2020/21 Lec1–Lec10 deck set are catalogued but not yet turned into items.',
+        'Digestive-organ function and absorption is covered at pathway level only; the enzyme-by-enzyme detail in the lecture has not been mined.',
       ],
       files: 191,
     },
@@ -3019,7 +3681,13 @@ export const COVERAGE = {
   notes: [
     'The "downloaded ZIP" referred to in the brief was not present anywhere on this machine. The only downloaded asset found was Skeleton_NIH3D.glb, which is already bundled in outputs/assets and used as the fused reference fallback.',
     'No labelled diagram image files exist in the supplied app assets — only .glb 3D models — so diagram labelling uses authored inline SVG schematics whose label names come from the cited sources.',
+    'The bundled Z-Anatomy / BodyParts3D skeleton is far more granular than the app originally used: 277 individually named meshes covering every carpal and tarsal, the separate skull bones, all 24 presacral vertebrae, and even the ear ossicles. It contains NO soft tissue — no heart, lung, brain, kidney, liver, muscle or vessel — so any 3D work on organs, muscles, pathways or neuroanatomy needs models this project does not yet have.',
+    'Structure-set questions and diagram labelling both support a three-state reveal — labelled (teaching), guided (a couple of anchors left in) and blank (test). Blank is the default so a question stays a question; the labelled view is opened deliberately.',
+    'Note on 3D mesh names: the loader normalises them on import, so "Scaphoid bone.r" in the source file becomes "Scaphoid_boner" in the scene. Structure sets store the clean source name and the matcher appends a candidate side letter rather than stripping one, because several bones legitimately end in l or r (femur, vomer, patella).',
     'Student coursework (lab reports, assignments, worksheets, presentations) was used only to confirm which topics are examined, never as a source for factual claims.',
+    'Two scan bugs were found and fixed. The first pass was capped at depth 6, hiding about 45% of the files. It also filtered on subject codes, which missed folders that organise by topic name instead — the 2019/20 and 2015/16 HSS2011 lecture sets and the 2020/21 ABCT2326 set are all filed under plain "Human Anatomy" and "Human Physiology" with no code in the path.',
+    'ICRP dose limits are quoted only because the exact values appear on Week 6 slide 10 of the supplied lecture, which cites ICRP Publication 103 directly. They are recorded as current-as-taught. If ICRP revises them, the app will still show what your course taught — check the source dialog before relying on them outside the exam.',
+    'A topic-sorted MCQ and short-question bank exists at 超神秘星巴黑材料 / Human anatomy / useful HA!!!! / Exam / MC + SQ by topic 2005-2011, covering 14 topics, alongside past papers back to 2003-04. It has NOT been used: the filenames say "Generic Anatomy" and "HSS201", not HSS2011, so whether it is the same subject is unverified. Confirm the syllabus overlap before treating it as in scope.',
   ],
 };
 
@@ -3086,6 +3754,20 @@ export function schedule(prev, outcome, now = Date.now()) {
   rec.due = now + Math.max(0, rec.intervalDays) * DAY_MS;
   if (!outcome.correct) rec.due = now + 10 * 60 * 1000; /* back within the same session */
   return rec;
+}
+
+/*
+ * Delayed recall only means something on the first attempt after a real gap.
+ * Answering correctly three times inside one session says nothing about
+ * whether it survived a night's sleep, so the caller checks this against the
+ * record as it stood *before* the current attempt was folded in.
+ * 20h rather than 24h so a morning session still counts against an evening one.
+ */
+export const DELAY_THRESHOLD_MS = 20 * 60 * 60 * 1000;
+
+export function isDelayedAttempt(prevRec, now = Date.now()) {
+  if (!prevRec || !prevRec.attempts || !prevRec.lastSeen) return false;
+  return (now - prevRec.lastSeen) >= DELAY_THRESHOLD_MS;
 }
 
 export function masteryScore(rec) {

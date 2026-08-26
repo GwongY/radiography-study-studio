@@ -13,7 +13,7 @@ The workflow is the same for every subject:
 | File | What it is |
 | --- | --- |
 | `radiography-study-studio.html` | The app. Subject selector, learning workflow, Memory Coach, source dialogs, coverage report, and the full osteology 3D studio embedded as the HSS2011 Osteology module. |
-| `study-data.js` | The study layer: source registry, subject registry, 69 study items, spaced repetition, coverage report, corpus validator. |
+| `study-data.js` | The study layer: source registry, subject registry, 80 study items, spaced repetition, coverage report, corpus validator. |
 | `anatomy-data.js` | Unchanged. Canonical bone records, landmark hotspots and the 3D model adapter metadata. |
 | `osteology-studio.html` | The original app, left in place and still working, as a fallback. |
 | `assets/` | Local GLB models. Unchanged. |
@@ -75,11 +75,37 @@ shared folders, source conflicts and how each was handled, plus live validator o
 Each item carries a teaching explanation, key facts, one or more memory aids, practice questions, an
 explanation of the correct answer, common mistakes or confusions, source references and a mastery
 record. Supported item types: definition, multiple choice, typed recall, cloze, sequence ordering,
-matching, diagram labelling, 3D identification, laterality, landmark identification, comparison,
-short explanation and scenario application.
+matching, diagram labelling, 3D identification, structure set, laterality, landmark identification,
+comparison, short explanation and scenario application.
 
 Diagram labelling uses inline SVG schematics authored by the app — no supplied labelled diagram
 images exist in the assets folder, only `.glb` models. The label names come from the cited sources.
+
+## Blank mode
+
+Diagram and structure-set questions each render in three states:
+
+1. **Teaching** — everything named
+2. **Guided** — a couple of anchors left in, the rest worked out from them
+3. **Test** — nothing named, identify everything yourself
+
+Test is the default, so a question stays a question; the labelled view is opened deliberately.
+
+## Structure sets
+
+The bundled skeleton carries 277 individually named meshes, far more than the coarse bone taxonomy
+originally used. Four sets drive tap-to-identify directly against them, and tapping a name also
+selects that mesh in the 3D studio so the name and the place arrive together:
+
+| Set | Members |
+| --- | --- |
+| Carpals | 8 — scaphoid through hamate, in proximal and distal rows |
+| Tarsals | 7 — talus, calcaneus, navicular, cuboid, three cuneiforms |
+| Skull bones | 12 — six cranial, six facial |
+| Vertebral regions | 7 — atlas, axis, typical C/T/L, sacrum, coccyx |
+
+The model contains **no soft tissue** — no heart, lung, brain, kidney, liver, muscle or vessel — so
+3D work on organs, pathways or neuroanatomy would need models this project does not yet ship.
 
 ## Memory Coach
 
@@ -95,7 +121,9 @@ association. Hints are revealed progressively rather than all at once:
 ## Mastery and scheduling
 
 Mastery is tracked separately for recognition, typed recall, spelling, location, sequence,
-explanation, application and confidence. Scheduling is SM-2 shaped and then modified by:
+explanation, application, comparison, delayed recall and confidence. Delayed recall scores only the
+first attempt after a gap of 20 hours or more — answering correctly three times inside one sitting
+says nothing about whether it survived a night's sleep. Scheduling is SM-2 shaped and then modified by:
 
 - **Confidence** — a confidently wrong answer costs more ease than a hesitant one, because a
   well-learned mistake is harder to unlearn. Confidence is also scored as its own dimension: was your
@@ -137,7 +165,7 @@ to the answer in their explanation.
 `validateCorpus()` and `validateApplications()` run on every open of the coverage report and check
 that every question has a resolvable correct answer and an explanation, every item has a teaching
 explanation and at least one practice question, and every item carries a source reference. Current
-state: **69 items, 315 questions, 66 source files cited, 0 validation failures.**
+state: **80 items, 369 questions, 72 source files cited, 0 validation failures.**
 
 ## Osteology studio — unchanged behaviour
 
