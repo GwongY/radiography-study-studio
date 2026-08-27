@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Radiography Study Studio</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#081016">
+<link rel="canonical" href="./radiography-study-studio.html">
+<!--
+  The site root just opens the app.
+
+  Pages serves outputs/ as the root, so the bare URL would otherwise land on a
+  directory listing. replace() rather than assign() keeps this page out of the
+  back stack, and the hash is carried through so the manifest's daily / weakest
+  / quick-10 shortcuts still arrive with their mode intact.
+-->
+<meta http-equiv="refresh" content="0; url=./radiography-study-studio.html">
+<style>
+  html{background:#05090d;color:#91a4ad;font:14px/1.6 ui-monospace,Menlo,monospace}
+  body{display:grid;place-content:center;min-height:100vh;margin:0;text-align:center}
+  a{color:#72e3cf}
+</style>
+</head>
+<body>
+<p>Opening <a href="./radiography-study-studio.html">Radiography Study Studio</a>…</p>
+<script>location.replace('./radiography-study-studio.html' + location.search + location.hash);</script>
+</body>
+</html>
