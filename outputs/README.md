@@ -399,6 +399,21 @@ picking still works — tap a bone in the projection and it names itself.
 Highlighting had to change for it: a shader material has no emissive channel, so
 a pick raises that mesh's attenuation instead.
 
+**Zoom is source-to-image distance.** The clip planes follow the dolly, so zooming
+out no longer pushes the body past the far plane and blanks the pane, and the
+caption reports the effective SID as it changes. Orbit more than 4 degrees off
+the nominal axis and the caption stops claiming PA or AP and reads *oblique, N
+degrees off* instead — saying "AP" over an oblique is exactly the quiet
+wrongness this view exists to avoid.
+
+**AP and PA** are explained in the pane, in a box labelled as app-authored. The
+supplied set names only PA and Lat, in one worked chest request form, and never
+contrasts them with AP, so that explanation is study scaffolding rather than a
+sourced claim and is marked as such. It also states the one thing the view
+cannot show: real PA positioning rolls the shoulders forward to swing the
+scapulae off the lung fields, which is patient positioning rather than beam
+direction, and the model cannot move its arms.
+
 ### What it still is not
 
 Stated in the pane, not left to be discovered:
