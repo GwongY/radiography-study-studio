@@ -280,7 +280,57 @@
 /* ---------- Viewer: dominant canvas, one control pill, one sheet ---------- */
 .stagewrap{position:relative;height:min(72vh,700px);min-height:400px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:radial-gradient(circle at 50% 42%,#1d2e35 0,#0d1820 45%,#050b10 100%)}
 .stagewrap .stage{height:100%;min-height:0;border-radius:0}
-.stagenote{position:absolute;top:12px;left:14px;z-index:3;display:flex;gap:12px;flex-wrap:wrap;max-width:calc(100% - 300px);font:11px ui-monospace,Menlo,monospace;color:var(--dim);pointer-events:none}
+.stagenote{position:absolute;top:12px;left:14px;z-index:3;display:flex;flex-direction:column;gap:4px;max-width:calc(100% - 300px);font:11px ui-monospace,Menlo,monospace;color:var(--dim);pointer-events:none}
+.stagenote-row{display:flex;gap:12px;flex-wrap:wrap}
+/* ---------- Lesson visual: every lesson opens with something to look at ---- */
+.lessonvis{margin:0 0 18px;border:1px solid var(--line);border-radius:14px;background:rgba(8,16,22,.55);overflow:hidden}
+.lessonvis-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;padding:11px 14px 0}
+.lessonvis-kick{font:10px ui-monospace,Menlo,monospace;letter-spacing:1.4;color:var(--teal);text-transform:uppercase}
+.lessonvis-title{font-size:13px;font-weight:700;color:var(--text)}
+.lessonvis-body{padding:12px 14px 4px}
+.lessonvis-body svg{display:block;width:100%;height:auto}
+.lessonvis-cap{padding:2px 14px 12px;font-size:11.5px;line-height:1.5;color:var(--muted)}
+.lessonvis-mount{position:relative;height:min(46vh,360px);min-height:250px;background:radial-gradient(circle at 50% 42%,#1d2e35 0,#0d1820 45%,#050b10 100%)}
+.lessonvis-mount .stage{height:100%;min-height:0;border-radius:0}
+.lessonvis-busy{position:absolute;inset:0;display:grid;place-content:center;font:11px ui-monospace,Menlo,monospace;color:var(--dim);z-index:5}
+.lessonvis-fallback{padding:12px 14px;font-size:12px;color:var(--orange)}
+.lessonvis-readout{padding:9px 14px;border-top:1px solid var(--line);font-size:13px;font-weight:700;color:var(--teal);min-height:38px;display:flex;align-items:center;gap:8px}
+.lessonvis-readout .dim{font:11px ui-monospace,Menlo,monospace;font-weight:400;color:var(--dim)}
+.lessonvis-readout .side{font:10px ui-monospace,Menlo,monospace;font-weight:400;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 6px}
+.vis-flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px}
+.vis-step{flex:1 1 140px;min-width:130px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.035);font-size:12px;line-height:1.4;color:var(--text)}
+.vis-step b{display:block;font:10px ui-monospace,Menlo,monospace;color:var(--teal);margin-bottom:4px}
+.vis-arrow{align-self:center;color:var(--dim);font-size:14px}
+.vis-grid{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1.25fr);gap:7px 12px;align-items:center;font-size:12px}
+.vis-grid .k{color:var(--teal);font-weight:700}
+.vis-grid .a{color:var(--dim)}
+.vis-grid .v{color:var(--text)}
+.vis-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
+.vis-fact{padding:10px 12px;border:1px solid var(--line);border-left:2px solid var(--teal);border-radius:0 9px 9px 0;background:rgba(255,255,255,.03);font-size:12px;line-height:1.45;color:var(--text)}
+.vis-contrast{padding:12px 14px;border:1px solid rgba(255,186,103,.4);border-radius:11px;background:rgba(255,186,103,.07);font-size:12.5px;line-height:1.55;color:var(--text)}
+@media(max-width:640px){
+  .lessonvis-mount{height:min(42vh,300px);min-height:220px}
+  .vis-grid{grid-template-columns:minmax(0,1fr);gap:2px}
+  .vis-grid .a{display:none}
+  .vis-grid .v{color:var(--muted);margin-bottom:6px}
+}
+.layerrail{position:absolute;left:14px;top:52px;z-index:4;display:flex;flex-direction:column;gap:4px;max-width:172px}
+.layerchip{display:flex;align-items:center;gap:8px;min-height:32px;padding:5px 10px 5px 8px;border:1px solid var(--line);border-radius:10px;background:rgba(8,16,22,.82);backdrop-filter:blur(12px);color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;text-align:left;transition:color .12s ease,border-color .12s ease}
+.layerchip:hover{color:var(--teal);border-color:rgba(114,227,207,.45)}
+.layerchip .dot{flex:none;width:11px;height:11px;border-radius:50%;border:1.5px solid currentColor;background:transparent}
+.layerchip .cnt{margin-left:auto;font:10px ui-monospace,Menlo,monospace;opacity:.55}
+.layerchip[data-state="solid"]{color:var(--teal);border-color:rgba(114,227,207,.5);background:rgba(114,227,207,.1)}
+.layerchip[data-state="solid"] .dot{background:currentColor}
+.layerchip[data-state="ghost"]{color:var(--orange);border-color:rgba(255,186,103,.5);background:rgba(255,186,103,.08)}
+.layerchip[data-state="ghost"] .dot{background:linear-gradient(90deg,currentColor 50%,transparent 50%)}
+.layerchip[data-busy="1"]{opacity:.6;cursor:progress}
+.layerhint{margin-top:2px;font:10px ui-monospace,Menlo,monospace;color:var(--dim);opacity:.75;line-height:1.4;pointer-events:none}
+@media(max-width:900px){
+  .layerrail{max-width:none;left:14px;right:14px;top:auto;bottom:64px;flex-direction:row;flex-wrap:wrap;gap:5px}
+  .layerchip{min-height:36px;padding:6px 10px}
+  .layerchip .cnt,.layerhint{display:none}
+}
+.stagenote .stage-hint{position:static;left:auto;right:auto;top:auto;text-align:left;color:rgba(240,238,231,.42)}
 .ctrlpill{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:4;display:flex;gap:5px;padding:6px;border:1px solid var(--line);border-radius:14px;background:rgba(8,16,22,.9);backdrop-filter:blur(14px)}
 .ctrlpill .icon-btn{min-width:46px;min-height:44px;border:0;border-radius:10px;background:rgba(255,255,255,.05);font-size:12px;padding:0 12px;white-space:nowrap}
 .ctrlpill .icon-btn:hover{background:rgba(114,227,207,.16);color:var(--teal);transform:none}
@@ -391,13 +441,13 @@
       </div>
       <div class="mv-ends"><span id="mvBarMin"></span><span id="mvBarMid"></span><span id="mvBarMax"></span></div>
     </div>
-    <div class="stagewrap">
+    <div class="stagewrap" id="stageHome">
       <div class="stage" id="stage">
-        <div class="stage-hint">drag to rotate · pinch to zoom · tap a structure</div>
         <div class="stage-state" id="stageState"><h2 id="stateTitle">Preparing the 3D study model</h2><p id="stateCopy">The anatomy database and quiz remain available while the interactive layer starts.</p><button class="primary" id="retryBtn">Retry 3D model</button></div>
         <div class="progress"><span id="progressBar"></span></div>
       </div>
-      <div class="stagenote"><span id="stageMeta">z-anatomy-skeleton.glb · cached offline</span><span class="mono" id="regionMeta">All regions</span></div>
+      <div class="layerrail" id="layerRail" aria-label="Body layers"></div>
+      <div class="stagenote"><span class="stagenote-row"><span id="stageMeta">z-anatomy-skeleton.glb · cached offline</span><span class="mono" id="regionMeta">All regions</span></span><span class="stage-hint">drag to rotate · pinch to zoom · tap a structure</span></div>
       <aside class="selpanel" id="taskCard">
         <div class="task-kicker" id="taskKicker">Explore</div>
         <h2 class="task-title" id="taskTitle">Select a structure</h2>
@@ -512,11 +562,25 @@
   const $ = (id) => document.getElementById(id);
   const els = { stage:$('stage'), state:$('stageState'), stateTitle:$('stateTitle'), stateCopy:$('stateCopy'), retry:$('retryBtn'), progress:$('progressBar'), stageMeta:$('stageMeta'), regionMeta:$('regionMeta'), selectedName:$('selectedName'), selectedChips:$('selectedChips'), selectedDetails:$('selectedDetails'), taskKicker:$('taskKicker'), taskTitle:$('taskTitle'), taskCopy:$('taskCopy'), answers:$('answers'), feedback:$('feedback'), next:$('nextBtn'), search:$('searchInput'), results:$('searchResults'), regions:$('regionButtons'), reviewBar:$('reviewBar'), reviewNumber:$('reviewNumber'), reviewHint:$('reviewHint'), toast:$('toast'), detailDialog:$('detailDialog'), detailTitle:$('detailTitle'), detailChips:$('detailChips'), detailBody:$('detailBody'), zoomIn:$('zoomInBtn'), zoomOut:$('zoomOutBtn'), focus:$('focusBtn'), motion:$('motionBtn') };
   const state = { mode:'explore', region:'all', selectedId:null, selectedSide:null, current:null, quizStarted:false, isolated:false, meshes:[], fullMeshes:[], hotspots:[], fullPickables:[], importedRecords:new Map(), selectionAnchor:null, lastPick:{x:0,y:0,t:0,candidates:[],index:-1}, lastDetailId:null, hashRestored:false, scene:null, camera:null, controls:null, renderer:null, raycaster:null, pointer:null, fullModel:null, realModel:null, realIsProcedural:false, memoryStreak:0, motionEnabled:true, motionPhase:0, stats:loadStats() };
-window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;boot3D()}},resize,
+const LAYER_NAMES={skeleton:'Skeleton',muscle:'Muscles',organs:'Organs',circulatory:'Vessels',nervous:'Nerves',joint:'Ligaments',lymphatic:'Lymphatic'};
+window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootPromise=boot3D()}return state.bootPromise||Promise.resolve(!!state.scene)},resize,
   startMovement:(mv)=>startMovement(mv),
   setMovementAngle:(d)=>setMovementAngle(d),
   endMovement:()=>endMovement(),
   movementState:()=>state.movement?{id:state.movement.mv.id,angle:state.movement.angle,moving:state.movement.restore.length}:null,
+  focusStructures:(spec)=>focusStructures(spec),
+  setPickHook:(fn)=>{state.pickHook=fn||null},
+  clearStudyFocus:()=>clearStudyFocus(),
+  stageEl:()=>els.stage,
+  setLayer:async(key,on,file)=>{
+    if(key==='skeleton'){setLayer('skeleton',on);return true}
+    if(!on){setLayer(key,false);return true}
+    try{await loadExtraModel(key,file);setLayer(key,true);return true}
+    catch(e){showToast('Could not load that layer — the others are still there.');return false}
+  },
+  layerState:()=>({...state.layers}),
+  layerLoaded:(key)=>key==='skeleton'?!!state.fullModel:!!state.extraModels[key],
+  setLayerOpacity:(key,v)=>{state.layerOpacity={...(state.layerOpacity||{}),[key]:v};applyLayers()},
   showSystem:async(key,file)=>{
     if(!key){setExtraVisible(null);return true}
     try{await loadExtraModel(key,file);setExtraVisible(key);return true}
@@ -526,7 +590,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;boot3D()}},res
     try{
       const m=await loadExtraModel(key,file);
       setExtraVisible(key);
-      const norm=s=>String(s||'').toLowerCase().replace(/[_()\-.]+/g,' ').replace(/\s+/g,' ').trim();
+      const norm=s=>String(s||'').toLowerCase().replace(/[()'’]/g,'').replace(/[_\-.,]+/g,' ').replace(/\s+/g,' ').trim();
       const want=norm(meshName);
       let hit=null;
       for(const cand of [want,want+'l',want+'r']){
@@ -546,7 +610,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;boot3D()}},res
      * We APPEND a candidate l/r rather than stripping one, because plenty of
      * bones legitimately end in those letters (femur, vomer, patella).
      */
-    const norm=(s)=>String(s||'').toLowerCase().replace(/[_()\-.]+/g,' ').replace(/\s+/g,' ').trim();
+    const norm=(s)=>String(s||'').toLowerCase().replace(/[()'’]/g,'').replace(/[_\-.,]+/g,' ').replace(/\s+/g,' ').trim();
     const want=norm(meshName);
     if(!want)return false;
     const candidates=preferSide==='left'?[want+'l',want,want+'r']
@@ -594,13 +658,13 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;boot3D()}},res
   function showToast(message){ els.toast.textContent=message; els.toast.classList.add('show'); clearTimeout(showToast.t); showToast.t=setTimeout(()=>els.toast.classList.remove('show'),2200); }
   function clean(text){return text.replace(/[&<>"']/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   function memoryTipHTML(record){const key=record?.id?.replace(/^(full:|real:)/,'')?.replace(/-(left|right)$/,'');const tip=MEMORY_TIPS[key]||MEMORY_TIPS[record?.modelObjectIds?.map(id=>id.replace(/-(left|right)$/,'')).find(id=>MEMORY_TIPS[id])];return tip?`<div class="memtip"><span class="mem-root">Memory hook · ${clean(tip.root)}</span><span class="mem-body">💡 ${clean(tip.tip)}</span></div>`:''}
-  function regionLabel(id){return id==='all'?'All regions':REGIONS.find(r=>r.id===id)?.label || id}
+  function regionLabel(id){if(id==='all')return 'All regions';/* System layers carry their layer key as a region -- a vein has no bone region. */if(LAYER_NAMES[id])return LAYER_NAMES[id];return REGIONS.find(r=>r.id===id)?.label || id}
   function pool(){return ANATOMY_DATABASE.filter((r)=>state.region==='all'||r.region===state.region)}
   function weightedPick(records=pool()){const sorted=[...records].sort((a,b)=>((state.stats[b.id]?.incorrect||0)-(state.stats[a.id]?.incorrect||0))||((state.stats[a.id]?.attempts||0)-(state.stats[b.id]?.attempts||0)));return sorted[Math.floor(Math.random()*Math.min(5,sorted.length))] || records[0]}
 
   function renderRegions(){ els.regions.innerHTML=''; [['all','All regions'],...REGIONS.map(r=>[r.id,r.label])].forEach(([id,label])=>{const b=document.createElement('button');b.className='region-btn'+(state.region===id?' active':'');b.textContent=label;b.onclick=()=>{state.region=id;els.regionMeta.textContent=regionLabel(id);applyVisibility();if(state.mode!=='explore')startQuestion();renderRegions()};els.regions.appendChild(b)}) }
   function renderReview(){const reviewed=Object.values(state.stats).filter(s=>s.attempts>0).length;const accuracy=Object.values(state.stats).reduce((n,s)=>n+s.correct,0)/Math.max(1,Object.values(state.stats).reduce((n,s)=>n+s.attempts,0));els.reviewNumber.textContent=`${reviewed} / ${ANATOMY_DATABASE.length} reviewed`;els.reviewBar.style.width=`${Math.round(accuracy*100)}%`;els.reviewHint.textContent=reviewed?`${Math.round(accuracy*100)}% correct overall · weaker structures are prioritised.`:'Start with Identify to create your first review history.'}
-  function selectBone(id, side=null){state.selectedId=id;state.selectedSide=side;const record=getRecord(id);if(!record)return;state.selectionAnchor=state.meshes.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||state.fullMeshes.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||state.fullPickables.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||null;renderSelected(record,side);highlight(id,side);if(state.isolated)applyVisibility()}
+  function selectBone(id, side=null){state.selectedId=id;state.selectedSide=side;const record=getRecord(id);if(!record)return;const layerMeshes=Object.values(state.extraModels||{}).flatMap(m=>m.meshes);state.selectionAnchor=state.meshes.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||layerMeshes.find(m=>m.userData.canonicalId===id)||state.fullMeshes.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||state.fullPickables.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||null;renderSelected(record,side);highlight(id,side);if(state.isolated)applyVisibility()}
   function openDetail(record,side=null){els.detailTitle.textContent=record.canonicalName;els.detailChips.innerHTML=`<span class="chip">${regionLabel(record.region)}</span><span class="chip">${side||record.side}</span><span class="chip">Level ${record.difficulty}</span>`;els.detailBody.innerHTML=`<div class="info-grid"><div><div class="info-label">Landmarks</div><ul class="compact-list">${record.landmarks.map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div><div><div class="info-label">Articulations</div><ul class="compact-list">${record.articulations.map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div></div>${memoryTipHTML(record)}<h3>Radiography</h3><p>${clean(record.radiographyImportance)}</p><h3>Common confusions</h3><p>${record.commonConfusions?.map(clean).join(', ')||'None listed.'}</p>`;state.lastDetailId=record.id;location.hash=`detail/${record.id}`;els.detailDialog.showModal()}
   function renderSelected(record,side){els.selectedName.textContent=record.canonicalName;els.selectedChips.innerHTML=`<span class="chip">${regionLabel(record.region)}</span><span class="chip">${side||record.side}</span><span class="chip">Level ${record.difficulty}</span>`;els.selectedDetails.innerHTML=`<div class="info-grid"><div><div class="info-label">Landmarks</div><ul class="compact-list">${record.landmarks.slice(0,4).map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div><div><div class="info-label">Radiography</div><div class="info-value">${clean(record.radiographyImportance)}</div></div></div>${memoryTipHTML(record)}<button class="primary detail-open" id="openDetailBtn">Open detail</button>`;$('openDetailBtn').onclick=()=>openDetail(record,side)}
   function clearFeedback(){els.feedback.className='feedback';els.feedback.textContent='';els.next.classList.remove('show')}
@@ -615,9 +679,9 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;boot3D()}},res
   function answer(option,button){if(!state.current)return;const correct=state.current.mode==='side'?option===state.current.side:state.current.mode==='landmarks'?option===state.current.landmark:option===state.current.id;const record=getRecord(state.current.id);if(record)recordAnswer(correct,record,button);}
   function recordAnswer(correct,bone,button){const elapsed=performance.now()-state.current.started;if(state.current.mode==='memory')state.memoryStreak=correct?state.memoryStreak+1:0;record(bone.id,correct,elapsed);document.querySelectorAll('.answer').forEach(b=>b.disabled=true);if(button)button.classList.add(correct?'correct':'wrong');if(!correct){const correctText=state.current.mode==='side'?state.current.side:state.current.mode==='landmarks'?(LANDMARK_HOTSPOTS[bone.id]||[]).find(h=>h.id===state.current.landmark)?.label:bone.canonicalName;const hook=MEMORY_TIPS[bone.id]?.tip?` Memory hook: ${MEMORY_TIPS[bone.id].tip}`:'';els.feedback.className='feedback bad show';els.feedback.textContent=`Not quite. Correct: ${correctText}. ${bone.landmarks[0]} is the useful distinguishing landmark.${hook}`}else{els.feedback.className='feedback good show';els.feedback.textContent=state.current.mode==='find'?'Correct — you found it in space.':`Correct. ${bone.radiographyImportance}`;}highlight(bone.id,state.current.side);els.next.classList.add('show')}
   function onBonePicked(obj){const {canonicalId,side}=obj.userData;const record=getRecord(canonicalId);const sourceId=obj.userData.sourceCanonicalId;const canUseReal=['clavicle','scapula','humerus','radius','ulna'].includes(sourceId);if(state.mode==='explore'&&(state.fullMeshes.includes(obj)||state.fullPickables.includes(obj))&&canUseReal&&state.region!=='upper_limb'){state.region='upper_limb';els.regionMeta.textContent='Upper limb';renderRegions();applyVisibility();return selectBone(sourceId,side)}if(state.mode==='find'&&state.current){const correct=canonicalId===state.current.id;const questionRecord=getAnatomy(state.current.id);recordAnswer(correct,questionRecord,null);if(!correct){selectBone(canonicalId,side);els.feedback.className='feedback bad show';els.feedback.textContent=`Not that one — try again. You tapped ${getRecord(canonicalId)?.canonicalName||'another structure'}.`;els.next.classList.remove('show');document.querySelectorAll('.answer').forEach(b=>b.disabled=false);state.current.started=performance.now();return}return}if(state.mode==='landmarks'&&obj.userData.landmarkId){answer(obj.userData.landmarkId,null);return}if(record)selectBone(canonicalId,side)}
-  function clearHighlight(){[...state.meshes,...state.fullMeshes].forEach(m=>{m.material.emissive?.setHex(0x000000);m.material.emissiveIntensity=0;m.userData.presentationActive=false;m.scale.set(...(m.userData.baseScale||[1,1,1]));if(m.userData.basePosition)m.position.set(...m.userData.basePosition)});state.fullPickables.forEach(m=>{m.material.opacity=0})}
-  function highlight(id,side=null){clearHighlight();[...state.meshes,...state.fullMeshes].filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{m.material.emissive?.setHex(0x1eb9a6);m.material.emissiveIntensity=.95;m.userData.presentationActive=true});state.fullPickables.filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{m.material.opacity=.26})}
-  function applyVisibility(){const realActive=state.region==='upper_limb';if(state.fullModel)state.fullModel.visible=!realActive;if(state.realModel)state.realModel.visible=realActive;state.fullPickables.forEach(m=>m.visible=!realActive);state.fullMeshes.forEach(m=>{const inRegion=state.region==='all'||m.userData.region===state.region;const isolated=!state.isolated||!state.selectedId||m.userData.canonicalId===state.selectedId;m.visible=!realActive&&inRegion&&isolated});state.meshes.forEach(m=>{const inRegion=state.region==='all'||m.userData.region===state.region;const isolated=!state.isolated||!state.selectedId||m.userData.canonicalId===state.selectedId;m.visible=realActive&&inRegion&&isolated});state.hotspots.forEach(h=>h.visible=realActive&&state.mode==='landmarks'&&(!state.selectedId||h.userData.parentId===state.selectedId));if(state.fullMeshes.length)els.stageMeta.textContent=`Precise Z-Anatomy / BodyParts3D skeleton · ${state.fullMeshes.length} named structure meshes · upper-limb study set`}
+  function clearHighlight(){[...state.meshes,...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].forEach(m=>{m.material.emissive?.setHex(0x000000);m.material.emissiveIntensity=0;m.userData.presentationActive=false;m.scale.set(...(m.userData.baseScale||[1,1,1]));if(m.userData.basePosition)m.position.set(...m.userData.basePosition)});state.fullPickables.forEach(m=>{m.material.opacity=0})}
+  function highlight(id,side=null){clearHighlight();[...state.meshes,...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{m.material.emissive?.setHex(0x1eb9a6);m.material.emissiveIntensity=.95;m.userData.presentationActive=true});state.fullPickables.filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{m.material.opacity=.26})}
+  function applyVisibility(){const skelOn=state.layers?state.layers.skeleton!==false:true;const realActive=state.region==='upper_limb';if(state.fullModel)state.fullModel.visible=skelOn&&!realActive;if(state.realModel)state.realModel.visible=skelOn&&realActive;state.fullPickables.forEach(m=>m.visible=skelOn&&!realActive);state.fullMeshes.forEach(m=>{const inRegion=state.region==='all'||m.userData.region===state.region;const isolated=!state.isolated||!state.selectedId||m.userData.canonicalId===state.selectedId;m.visible=skelOn&&!realActive&&inRegion&&isolated});state.meshes.forEach(m=>{const inRegion=state.region==='all'||m.userData.region===state.region;const isolated=!state.isolated||!state.selectedId||m.userData.canonicalId===state.selectedId;m.visible=skelOn&&realActive&&inRegion&&isolated});state.hotspots.forEach(h=>h.visible=skelOn&&realActive&&state.mode==='landmarks'&&(!state.selectedId||h.userData.parentId===state.selectedId));if(state.fullMeshes.length&&typeof updateStageMeta==='function')updateStageMeta()}
   function addMesh(THREE,group,geometry,position,canonicalId,region,side=null,scale=[1,1,1],label=''){const mat=new THREE.MeshStandardMaterial({color:0xd9d1bc,roughness:.74,metalness:.03});const mesh=new THREE.Mesh(geometry,mat);mesh.position.set(...position);mesh.scale.set(...scale);mesh.userData={canonicalId,region,side,baseScale:[...scale],basePosition:[...position],presentationActive:false,label};group.add(mesh);state.meshes.push(mesh);return mesh}
   function between(THREE,group,a,b,r,id,region,side=null){const dir=new THREE.Vector3(...b).sub(new THREE.Vector3(...a));const mesh=addMesh(THREE,group,new THREE.CylinderGeometry(r,r*.9,dir.length(),10),new THREE.Vector3(...a).add(new THREE.Vector3(...b)).multiplyScalar(.5).toArray(),id,region,side);mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.normalize());return mesh}
   function tube(THREE,group,points,r,id,region,side=null){const curve=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));return addMesh(THREE,group,new THREE.TubeGeometry(curve,14,r,6,false),[0,0,0],id,region,side)}
@@ -642,7 +706,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;boot3D()}},res
   function importedRegion(raw,mapped){if(mapped&&getAnatomy(mapped))return getAnatomy(mapped).region;const value=String(raw||'').toLowerCase();if(/humerus|radius|ulna|scapula|clavicle|carpal|metacarpal|phalanx|hand/.test(value))return 'upper_limb';if(/femur|tibia|fibula|patella|tarsal|metatarsal|calcaneus|talus|foot/.test(value))return 'lower_limb';if(/vertebra|sacrum|coccyx|spine/.test(value))return 'spine';if(/rib|sternum|costal/.test(value))return 'thorax';if(/ilium|ischium|pubis|hip|pelvis|acetabulum/.test(value))return 'pelvis';return 'skull'}
   function importedRecord(id,raw,mapped,region){const known=mapped&&getAnatomy(mapped);const label=cleanImportedLabel(raw);const side=sideFromImportedName(raw);if(known)return {...known,id,canonicalName:label||known.canonicalName,side:side||known.side};return {id,canonicalName:label||'Unnamed structure',aliases:[],region,side:side||'bilateral',category:'named atlas structure',landmarks:[],articulations:[],radiographyImportance:'Named atlas structure from the interactive skeleton source.',difficulty:3,modelObjectIds:[],commonConfusions:[]}}
   function getRecord(id){return getAnatomy(id)||state.importedRecords.get(id)||null}
-  function prepareFullReference(THREE,root){state.THREE=THREE;state.fullMeshes=[];state.fullPickables=[];root.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(root);const size=box.getSize(new THREE.Vector3());const maxDim=Math.max(size.x,size.y,size.z)||1;root.scale.setScalar(11.8/maxDim);const scaledBox=new THREE.Box3().setFromObject(root);const center=scaledBox.getCenter(new THREE.Vector3());root.position.x-=center.x;root.position.y+=1-center.y;root.position.z-=center.z;root.updateMatrixWorld(true);root.traverse((obj)=>{if(!obj.isMesh)return;const raw=obj.name||obj.parent?.name||'Unnamed structure';const mapped=mapImportedName(raw);const region=importedRegion(raw,mapped);const id=`full:${state.fullMeshes.length}:${raw}`;state.importedRecords.set(id,importedRecord(id,raw,mapped,region));obj.userData={...(obj.userData||{}),baseScale:obj.scale.toArray(),basePosition:obj.position.toArray(),presentationActive:false,canonicalId:id,sourceCanonicalId:mapped,region,side:sideFromImportedName(raw),label:raw,precise:true};if(obj.material){obj.material=obj.material.clone();obj.material.color?.setHex(0xd9d1bc);obj.material.roughness=.8;obj.material.metalness=.02}state.fullMeshes.push(obj)});const pivot=new THREE.Group();pivot.name='fullSkeletonPivot';pivot.add(root);return pivot}
+  function prepareFullReference(THREE,root){state.THREE=THREE;state.fullMeshes=[];state.fullPickables=[];root.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(root);const size=box.getSize(new THREE.Vector3());const maxDim=Math.max(size.x,size.y,size.z)||1;root.scale.setScalar(11.8/maxDim);const scaledBox=new THREE.Box3().setFromObject(root);const center=scaledBox.getCenter(new THREE.Vector3());root.position.x-=center.x;root.position.y+=1-center.y;root.position.z-=center.z;root.updateMatrixWorld(true);/* The canonical body frame. Every other layer gets THIS transform verbatim -- see loadExtraModel. */state.bodyTransform={scalar:11.8/maxDim,offset:[root.position.x,root.position.y,root.position.z]};root.traverse((obj)=>{if(!obj.isMesh)return;const raw=obj.name||obj.parent?.name||'Unnamed structure';const mapped=mapImportedName(raw);const region=importedRegion(raw,mapped);const id=`full:${state.fullMeshes.length}:${raw}`;state.importedRecords.set(id,importedRecord(id,raw,mapped,region));obj.userData={...(obj.userData||{}),baseScale:obj.scale.toArray(),basePosition:obj.position.toArray(),presentationActive:false,canonicalId:id,sourceCanonicalId:mapped,region,side:sideFromImportedName(raw),label:raw,precise:true};if(obj.material){obj.material=obj.material.clone();obj.material.color?.setHex(0xd9d1bc);obj.material.roughness=.8;obj.material.metalness=.02}state.fullMeshes.push(obj)});const pivot=new THREE.Group();pivot.name='fullSkeletonPivot';pivot.add(root);return pivot}
   function prepareImportedModel(THREE,root){state.realIsProcedural=false;const box=new THREE.Box3().setFromObject(root);const size=box.getSize(new THREE.Vector3());const maxDim=Math.max(size.x,size.y,size.z)||1;const scalar=11/maxDim;root.scale.setScalar(scalar);const scaledBox=new THREE.Box3().setFromObject(root);const center=scaledBox.getCenter(new THREE.Vector3());root.position.x-=center.x;root.position.y+=.5-center.y;root.position.z-=center.z;state.meshes=[];let mapped=0,unmapped=0;const importedNames=[];root.traverse((obj)=>{if(!obj.isMesh)return;importedNames.push(obj.name||obj.parent?.name||'unnamed');const canonicalId=obj.userData.sourceCanonicalId||mapImportedName(obj.name||obj.parent?.name);if(!canonicalId){unmapped++;obj.visible=false;return}const known=getAnatomy(canonicalId);if(!known){unmapped++;obj.visible=false;return}mapped++;obj.userData={...(obj.userData||{}),baseScale:obj.scale.toArray(),basePosition:obj.position.toArray(),presentationActive:false,canonicalId,region:known.region,side:obj.userData.sourceSide||sideFromImportedName(obj.name||obj.parent?.name),label:obj.userData.sourceLabel||obj.name};if(obj.material){obj.material=obj.material.clone();obj.material.color?.setHex(0xd9d1bc);obj.material.roughness=.78;obj.material.metalness=.02}state.meshes.push(obj)});return {mapped,unmapped}}
   function remapHotspotsToReal(THREE){if(!state.realModel||state.realIsProcedural)return;const byId=new Map();state.meshes.forEach(m=>{if(!byId.has(m.userData.canonicalId))byId.set(m.userData.canonicalId,m)});state.realModel.updateMatrixWorld(true);Object.entries(LANDMARK_HOTSPOTS).forEach(([parent,spots])=>{const mesh=byId.get(parent);if(!mesh)return;mesh.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(mesh),center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3());spots.forEach(spot=>{const h=state.hotspots.find(x=>x.userData.parentId===parent&&x.userData.landmarkId===spot.id);if(!h)return;const rel=new THREE.Vector3(...spot.position).sub(new THREE.Vector3(-2.4,7.7,.45));rel.x=Math.max(-1.2,Math.min(1.2,rel.x));rel.y=Math.max(-1.2,Math.min(1.2,rel.y));rel.z=Math.max(-.8,Math.min(.8,rel.z));const worldPoint=center.clone().add(rel.multiply(new THREE.Vector3(size.x*.5,size.y*.5,size.z*.5)));h.position.copy(state.realModel.worldToLocal(worldPoint));h.visible=false})})}
   async function loadImportedModel(THREE,GLTFLoader,DRACOLoader){const root=new THREE.Group();const loader=new GLTFLoader();const draco=new DRACOLoader();draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/libs/draco/');loader.setDRACOLoader(draco);for(let i=0;i<MODEL_CATALOG.active.files.length;i++){const source=MODEL_CATALOG.active.files[i];const gltf=await new Promise((resolve,reject)=>loader.load(source.file,resolve,(event)=>{const ratio=event.total?event.loaded/event.total:0;els.progress.style.width=`${Math.round(((i+ratio)/MODEL_CATALOG.active.files.length)*60)+28}%`},reject));gltf.scene.traverse((obj)=>{obj.userData={...(obj.userData||{}),sourceCanonicalId:source.id,sourceSide:source.side,sourceLabel:source.label}});root.add(gltf.scene)}const pivot=new THREE.Group();pivot.name='realUpperLimbPivot';pivot.add(root);return pivot}
@@ -664,8 +728,8 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;boot3D()}},res
   function isSelfOrAncestorVisible(obj){let o=obj;while(o){if(!o.visible)return false;o=o.parent}return true}
   function nearestVisibleMesh(event,rect){if(!state.THREE)return null;const pool=state.region==='upper_limb'?state.meshes:state.fullMeshes;let best=null;for(const mesh of pool){if(!isSelfOrAncestorVisible(mesh))continue;const box=new state.THREE.Box3().setFromObject(mesh);const boxSize=box.getSize(new state.THREE.Vector3());box.expandByScalar(-Math.min(boxSize.length()*.08,.15));const center=box.getCenter(new state.THREE.Vector3()).project(state.camera);const px=rect.left+(center.x+1)*rect.width/2;const py=rect.top+(1-center.y)*rect.height/2;const radiusPx=Math.max(4,Math.min(32,Math.max(boxSize.x,boxSize.y,boxSize.z)*state.camera.position.distanceTo(state.controls.target)*3));const distance=Math.hypot(event.clientX-px,event.clientY-py);const tolerance=Math.max(18,radiusPx+10);if(distance<=tolerance&&(!best||distance<best.distance))best={mesh,distance}}return best?.mesh||null}
   function flashLabel(x,y,text){const el=document.createElement('div');el.className='pick-label';el.textContent=text;el.style.left=x+'px';el.style.top=y+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),900)}
-  function confirmPick(obj,event){if(!obj)return;onBonePicked(obj);const picked=getRecord(obj.userData.canonicalId);if(picked){flashLabel(event.clientX,event.clientY,picked.canonicalName);if(navigator.vibrate)navigator.vibrate(10)}}
-  function pick(event,focusAfter=false){if(!state.renderer)return;const rect=state.renderer.domElement.getBoundingClientRect();state.pointer.x=((event.clientX-rect.left)/rect.width)*2-1;state.pointer.y=-((event.clientY-rect.top)/rect.height)*2+1;state.raycaster.setFromCamera(state.pointer,state.camera);const hotspotTargets=state.mode==='landmarks'?state.hotspots:[];const targets=[...state.meshes,...state.fullMeshes,...hotspotTargets];const hits=state.raycaster.intersectObjects(targets,true).filter(h=>isSelfOrAncestorVisible(h.object)&&h.object.userData.canonicalId);hits.sort((a,b)=>{const d=a.distance-b.distance;if(Math.abs(d)>.05)return d;const sa=new state.THREE.Box3().setFromObject(a.object).getSize(new state.THREE.Vector3()).length();const sb=new state.THREE.Box3().setFromObject(b.object).getSize(new state.THREE.Vector3()).length();return sa-sb});const now=performance.now();const sameSpot=!focusAfter&&Math.hypot(event.clientX-state.lastPick.x,event.clientY-state.lastPick.y)<14&&now-state.lastPick.t<900;let chosen=null;if(sameSpot&&state.lastPick.candidates.length>1){state.lastPick.index=(state.lastPick.index+1)%state.lastPick.candidates.length;chosen=state.lastPick.candidates[state.lastPick.index]}else{const seen=new Set();const candidates=[];hits.forEach(h=>{const id=h.object.userData.canonicalId;if(!seen.has(id)){seen.add(id);candidates.push(h.object)}});state.lastPick={x:event.clientX,y:event.clientY,t:now,candidates,index:0};chosen=candidates[0]||null}if(chosen){confirmPick(chosen,event);if(focusAfter&&state.selectionAnchor)focusSelected();return}const zones=state.raycaster.intersectObjects(state.fullPickables,false).filter(h=>isSelfOrAncestorVisible(h.object));if(zones[0]){confirmPick(zones[0].object,event);if(focusAfter&&state.selectionAnchor)focusSelected();return}const nearest=nearestVisibleMesh(event,rect);if(nearest){confirmPick(nearest,event);if(focusAfter&&state.selectionAnchor)focusSelected()}}
+  function confirmPick(obj,event){if(!obj)return;onBonePicked(obj);const picked=getRecord(obj.userData.canonicalId);if(picked){flashLabel(event.clientX,event.clientY,picked.canonicalName);if(navigator.vibrate)navigator.vibrate(10);/* The lesson card owns no selection panel, so it listens instead. */if(state.pickHook)try{state.pickHook(picked)}catch(e){}}}
+  function pick(event,focusAfter=false){if(!state.renderer)return;const rect=state.renderer.domElement.getBoundingClientRect();state.pointer.x=((event.clientX-rect.left)/rect.width)*2-1;state.pointer.y=-((event.clientY-rect.top)/rect.height)*2+1;state.raycaster.setFromCamera(state.pointer,state.camera);const hotspotTargets=state.mode==='landmarks'?state.hotspots:[];const layerTargets=Object.entries(state.extraModels||{}).filter(([k])=>state.layers[k]).flatMap(([,m])=>m.meshes);/* A focused lesson names only what it is teaching. The ghosted body behind it is context, so tapping a lymph node must not answer 'Sacrum'. */const targets=state.focus?layerPool(state.focus.key):[...state.meshes,...state.fullMeshes,...layerTargets,...hotspotTargets];const hits=state.raycaster.intersectObjects(targets,true).filter(h=>isSelfOrAncestorVisible(h.object)&&h.object.userData.canonicalId);hits.sort((a,b)=>{const d=a.distance-b.distance;if(Math.abs(d)>.05)return d;const sa=new state.THREE.Box3().setFromObject(a.object).getSize(new state.THREE.Vector3()).length();const sb=new state.THREE.Box3().setFromObject(b.object).getSize(new state.THREE.Vector3()).length();return sa-sb});const now=performance.now();const sameSpot=!focusAfter&&Math.hypot(event.clientX-state.lastPick.x,event.clientY-state.lastPick.y)<14&&now-state.lastPick.t<900;let chosen=null;if(sameSpot&&state.lastPick.candidates.length>1){state.lastPick.index=(state.lastPick.index+1)%state.lastPick.candidates.length;chosen=state.lastPick.candidates[state.lastPick.index]}else{const seen=new Set();const candidates=[];hits.forEach(h=>{const id=h.object.userData.canonicalId;if(!seen.has(id)){seen.add(id);candidates.push(h.object)}});state.lastPick={x:event.clientX,y:event.clientY,t:now,candidates,index:0};chosen=candidates[0]||null}if(chosen){confirmPick(chosen,event);if(focusAfter&&state.selectionAnchor)focusSelected();return}const zones=state.raycaster.intersectObjects(state.fullPickables,false).filter(h=>isSelfOrAncestorVisible(h.object));if(zones[0]){confirmPick(zones[0].object,event);if(focusAfter&&state.selectionAnchor)focusSelected();return}const nearest=nearestVisibleMesh(event,rect);if(nearest){confirmPick(nearest,event);if(focusAfter&&state.selectionAnchor)focusSelected()}}
   let pointerDown=null;function bindCanvas(){let lastTap=0;els.stage.addEventListener('pointerdown',(e)=>{pointerDown={x:e.clientX,y:e.clientY}});els.stage.addEventListener('pointerup',(e)=>{if(pointerDown&&Math.hypot(e.clientX-pointerDown.x,e.clientY-pointerDown.y)<7){const now=performance.now();const isDouble=now-lastTap<320;lastTap=now;pick(e,isDouble)}pointerDown=null})}
   function renderSearch(){const dbHits=searchAnatomy(els.search.value).slice(0,10);const needle=els.search.value.trim().toLowerCase();const atlasHits=needle?[...state.importedRecords.values()].filter(r=>r.canonicalName.toLowerCase().includes(needle)).slice(0,6):[];const hits=[...dbHits,...atlasHits];els.results.innerHTML=hits.map(r=>`<div class="result" data-id="${r.id}"><strong>${clean(r.canonicalName)}</strong><span>${clean(state.importedRecords.has(r.id)?'Atlas':regionLabel(r.region))}</span></div>`).join('')||'<div class="empty">No matching structure. Try an alias such as collarbone or kneecap.</div>';els.results.querySelectorAll('.result').forEach(el=>el.onclick=()=>{const record=getRecord(el.dataset.id);if(!record)return;state.region=record.region==='upper_limb'?'upper_limb':'all';els.regionMeta.textContent=regionLabel(state.region);renderRegions();setMode('explore');selectBone(record.id);showToast(`${record.canonicalName} opened`)})}
   function clearSelection(){state.selectedId=null;state.selectedSide=null;state.selectionAnchor=null;state.isolated=false;$('isolateBtn').classList.remove('active');clearHighlight();applyVisibility();els.selectedName.textContent='Nothing selected';els.selectedChips.innerHTML='';els.selectedDetails.innerHTML=''}
@@ -677,7 +741,8 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;boot3D()}},res
  * captures and are not spatially registered to each other, so overlaying them
  * would place organs in the wrong place relative to bone.
  */
-state.extraModels={};
+state.extraModels=state.extraModels||{};
+state.layers=state.layers||{skeleton:true};
 async function loadExtraModel(key,file){
   if(state.extraModels[key])return state.extraModels[key];
   if(!state.scene)throw new Error('3D scene not ready');
@@ -685,35 +750,196 @@ async function loadExtraModel(key,file){
   const {GLTFLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js');
   const gltf=await new Promise((ok,err)=>new GLTFLoader().load(file,ok,undefined,err));
   const root=gltf.scene;
-  /* Same normalisation the skeleton gets: fit to 11 units and centre. */
-  const box=new THREE.Box3().setFromObject(root);
-  const size=box.getSize(new THREE.Vector3());
-  root.scale.setScalar(11/(Math.max(size.x,size.y,size.z)||1));
-  const sb=new THREE.Box3().setFromObject(root);
-  const c=sb.getCenter(new THREE.Vector3());
-  root.position.set(-c.x,.5-c.y,-c.z);
+  /*
+   * All six BodyParts3D / Z-Anatomy layers are exported in ONE shared source
+   * frame. Measured, every full-body layer spans y 0.00-1.70 and x +-0.33 to
+   * within a few millimetres of the skeleton; the organ layer is torso-only
+   * (y 0.73-1.62) and sits exactly where the ribcage puts it.
+   *
+   * Normalising each layer to its OWN bounding box is what used to break that
+   * registration: fitting the torso-only organ layer to the same 11 units
+   * scaled it ~1.9x and floated it off the skeleton, which is why overlaying
+   * looked impossible. Apply the skeleton's transform verbatim instead and the
+   * layers line up, because they were already aligned before we touched them.
+   */
+  const bt=state.bodyTransform;
+  if(bt){root.scale.setScalar(bt.scalar);root.position.set(bt.offset[0],bt.offset[1],bt.offset[2])}
+  else{
+    const box=new THREE.Box3().setFromObject(root);
+    const size=box.getSize(new THREE.Vector3());
+    root.scale.setScalar(11/(Math.max(size.x,size.y,size.z)||1));
+    const sb=new THREE.Box3().setFromObject(root);
+    const c=sb.getCenter(new THREE.Vector3());
+    root.position.set(-c.x,.5-c.y,-c.z);
+  }
   const meshes=[];
-  root.traverse(o=>{
-    if(!o.isMesh)return;
-    o.userData={...(o.userData||{}),label:o.name,extraKey:key};
-    if(o.material){o.material=o.material.clone();o.material.roughness=.72;o.material.metalness=.03}
-    meshes.push(o);
+  const raws=[];
+  root.traverse(o=>{if(o.isMesh){meshes.push(o);raws.push(o.name||o.parent?.name||'Unnamed structure')}});
+  /*
+   * Side letters are glued straight onto the name -- "Kidneyl", "Vagus nerve
+   * (X)r", "Internal thoracic veinsl". Stripping any trailing l/r would maim
+   * Femur and Vomer, so only strip when the opposite-side twin actually exists
+   * in this layer. That needs every name in hand, hence the two passes.
+   */
+  const flat=new Set(raws.map(r=>r.replace(/_/g,' ').trim().toLowerCase()));
+  const readable=(raw)=>{
+    const clean=String(raw).replace(/_/g,' ').replace(/\s+/g,' ').trim();
+    const m=clean.match(/^(.*\S)(l|r)$/i);
+    if(m){
+      const stem=m[1].trim();
+      const twin=(stem+(m[2].toLowerCase()==='l'?'r':'l')).toLowerCase();
+      if(flat.has(twin))return {label:stem,side:m[2].toLowerCase()==='l'?'left':'right'};
+    }
+    return {label:clean,side:'bilateral'};
+  };
+  meshes.forEach((o,i)=>{
+    const raw=raws[i];
+    const {label,side}=readable(raw);
+    /* A canonicalId is what makes a mesh pickable: pick() filters on it and
+       confirmPick looks the record up. Without one these layers could only be
+       selected programmatically from a structure-set question. */
+    const id=`sys:${key}:${i}:${raw}`;
+    const mapped=mapImportedName(raw);
+    const known=mapped&&getAnatomy(mapped);
+    state.importedRecords.set(id, known
+      ? {...known,id,canonicalName:label,side}
+      : {id,canonicalName:label,aliases:[],region:key,side,
+         category:`${LAYER_NAMES[key]||key} layer structure`,landmarks:[],articulations:[],
+         radiographyImportance:`Named structure in the ${(LAYER_NAMES[key]||key).toLowerCase()} layer of the BodyParts3D atlas.`,
+         difficulty:3,modelObjectIds:[],commonConfusions:[]});
+    o.userData={...(o.userData||{}),label:raw,extraKey:key,canonicalId:id,layerKey:key,side,region:key};
+    if(o.material){o.material=o.material.clone();o.material.roughness=.72;o.material.metalness=.03;o.material.transparent=false;o.material.opacity=1}
   });
   root.visible=false;
   state.scene.add(root);
   state.extraModels[key]={root,meshes};
   return state.extraModels[key];
 }
+function updateStageMeta(){
+  const on=Object.keys(state.layers).filter(k=>state.layers[k]);
+  if(!on.length){els.stageMeta.textContent='No layer shown — turn one on to study it';return}
+  const count=on.reduce((t,k)=>t+(k==='skeleton'?state.fullMeshes.length:(state.extraModels[k]?.meshes.length||0)),0);
+  els.stageMeta.textContent=on.length===1&&on[0]==='skeleton'
+    ?`Precise Z-Anatomy / BodyParts3D skeleton · ${state.fullMeshes.length} named structure meshes · upper-limb study set`
+    :`${on.map(k=>LAYER_NAMES[k]||k).join(' + ')} · ${count} named meshes · one registered body · tap a structure`;
+}
+/*
+ * Layers composite. They are not alternatives to each other: the whole point
+ * of a shared body frame is that muscle over bone is the real spatial
+ * relationship, so any combination can be on at once.
+ */
+function applyLayers(){
+  Object.entries(state.extraModels).forEach(([k,m])=>{
+    m.root.visible=!!state.layers[k];
+    const op=state.layerOpacity?.[k];
+    if(op!==undefined)m.meshes.forEach(o=>{
+      if(!o.material)return;
+      const t=op<.99;
+      if(o.material.transparent!==t)o.material.needsUpdate=true;
+      o.material.transparent=t;o.material.opacity=op;o.material.depthWrite=!t;
+    });
+  });
+  /* The skeleton ghosts too -- seeing vessels against translucent bone is the
+     whole reason to put two layers on at once. */
+  const so=state.layerOpacity?.skeleton;
+  if(so!==undefined)[...state.fullMeshes,...state.meshes].forEach(o=>{
+    if(!o.material)return;
+    const t=so<.99;
+    /* three.js compiles transparency into the shader program, so flipping the
+       flag without needsUpdate leaves the mesh stubbornly opaque. */
+    if(o.material.transparent!==t)o.material.needsUpdate=true;
+    o.material.transparent=t;o.material.opacity=so;o.material.depthWrite=!t;
+  });
+  state.activeExtra=Object.keys(state.extraModels).filter(k=>state.layers[k]).pop()||null;
+  applyVisibility();
+  updateStageMeta();
+}
+/*
+ * Study focus.
+ *
+ * A lesson does not want the whole body -- it wants the four carpal rows, or
+ * the heart valves, framed and named. focusStructures resolves names against a
+ * layer, hides that layer's other meshes, ghosts the skeleton behind them for
+ * context, and frames the camera on what is left.
+ *
+ * Names resolve exactly or with the glued side letter. Prefix a name with '~'
+ * to match on containment instead -- "~vertebra" is how you ask for all 24 of
+ * them without listing every one.
+ */
+state.focus=null;
+function normName(v){return String(v||'').toLowerCase().replace(/[()'’]/g,'').replace(/[_\-.,]+/g,' ').replace(/\s+/g,' ').trim()}
+function layerPool(key){return key==='skeleton'?state.fullMeshes:(state.extraModels[key]?.meshes||[])}
+function resolveMeshNames(key,names){
+  const pool=layerPool(key);
+  const out=new Set();
+  (names||[]).forEach(n=>{
+    const loose=String(n).startsWith('~');
+    const w=normName(loose?String(n).slice(1):n);
+    if(!w)return;
+    pool.forEach(o=>{
+      const l=normName(o.userData.label||o.name);
+      if(loose?l.includes(w):(l===w||l===w+'l'||l===w+'r'))out.add(o);
+    });
+  });
+  return [...out];
+}
+function clearStudyFocus(){
+  if(!state.focus)return;
+  const {key}=state.focus;
+  layerPool(key).forEach(o=>{o.visible=true;if(o.material)o.material.emissive?.setHex(0x000000)});
+  state.focus=null;
+  applyLayers();
+}
+async function focusStructures(spec){
+  if(!state.scene)return {ok:false,reason:'not-booted',found:0};
+  const key=spec.layer||'skeleton';
+  if(key!=='skeleton'){
+    if(!state.extraModels[key]){
+      if(!spec.file)return {ok:false,reason:'no-file',found:0};
+      await loadExtraModel(key,spec.file);
+    }
+  }
+  clearStudyFocus();
+  const hits=resolveMeshNames(key,spec.meshes);
+  /* An unresolvable name must not silently show the whole body as if it were
+     the answer -- the caller shows a still diagram instead. */
+  if(!hits.length)return {ok:false,reason:'no-match',found:0};
+  Object.keys(state.layers).forEach(k=>{state.layers[k]=false});
+  state.layers[key]=true;
+  state.layerOpacity={...(state.layerOpacity||{}),[key]:1};
+  if(spec.ghostBody&&key!=='skeleton'){state.layers.skeleton=true;state.layerOpacity.skeleton=.16}
+  applyLayers();
+  if(spec.isolate!==false){
+    const keep=new Set(hits);
+    layerPool(key).forEach(o=>{o.visible=keep.has(o)});
+  }
+  const THREE=state.THREE;
+  hits.forEach(o=>{if(o.material)o.material.emissive?.setHex(0x14574f)});
+  if(THREE&&state.camera&&state.controls){
+    const box=new THREE.Box3();
+    hits.forEach(o=>box.expandByObject(o));
+    const c=box.getCenter(new THREE.Vector3());
+    const size=box.getSize(new THREE.Vector3());
+    const radius=Math.max(size.x,size.y,size.z,.4);
+    const dir=state.camera.position.clone().sub(state.controls.target).normalize();
+    const dist=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,radius*2.6));
+    state.controls.target.copy(c);
+    state.camera.position.copy(c).add(dir.multiplyScalar(dist));
+    state.controls.update();
+  }
+  state.focus={key,count:hits.length};
+  els.stageMeta.textContent=`${spec.label||LAYER_NAMES[key]||key} · ${hits.length} named mesh${hits.length===1?'':'es'} · tap to name them`;
+  return {ok:true,found:hits.length};
+}
+function setLayer(key,on){
+  state.layers[key]=!!on;
+  applyLayers();
+}
 function setExtraVisible(key){
-  /* null = back to the skeleton. */
-  Object.entries(state.extraModels).forEach(([k,m])=>{m.root.visible=(k===key)});
-  const showSkeleton=!key;
-  if(state.fullModel)state.fullModel.visible=showSkeleton;
-  if(state.realModel)state.realModel.visible=showSkeleton&&state.region==='upper_limb';
-  state.activeExtra=key||null;
-  els.stageMeta.textContent=key
-    ?`${key==='organs'?'Internal organ system':'Circulatory system'} · on-demand model · tap a structure`
-    :'Precise Z-Anatomy / BodyParts3D skeleton · 277 named structure meshes · upper-limb study set';
+  /* Exclusive mode, kept for the structure-set flow: show one system alone. */
+  Object.keys(state.extraModels).forEach(k=>{state.layers[k]=(k===key)});
+  state.layers.skeleton=!key;
+  applyLayers();
 }
 function highlightExtra(mesh){
   const m=state.extraModels[state.activeExtra];
@@ -763,7 +989,7 @@ function highlightExtra(mesh){
  */
 state.movement=null;
 function meshesNamed(names,side){
-  const norm=s=>String(s||'').toLowerCase().replace(/[_()\-.]+/g,' ').replace(/\s+/g,' ').trim();
+  const norm=s=>String(s||'').toLowerCase().replace(/[()'’]/g,'').replace(/[_\-.,]+/g,' ').replace(/\s+/g,' ').trim();
   const want=names.map(norm);
   const suffix=side==='left'?'l':side==='right'?'r':null;
   return state.fullMeshes.filter(mesh=>{
@@ -846,6 +1072,8 @@ import {
   validateCorpus, validateApplications,
 } from './study-data.js';
 import { searchAnatomy } from './anatomy-data.js?v=4';
+import { visualFor } from './visual-data.js?v=2';
+import { schematic } from './schematics.js?v=2';
 
 const $$ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -1052,6 +1280,7 @@ function openSessionOverlay() {
   if (shell) shell.inert = true;
 }
 function closeSessionOverlay() {
+  releaseLessonVisual();
   $$('sessionView').classList.add('hidden');
   const shell = document.querySelector('.app-shell');
   if (shell) shell.inert = false;
@@ -1416,6 +1645,72 @@ function renderLearn() {
    from the prototype is deliberately not built: the handoff lists its
    synchronised highlighting as undesigned. */
 let viewerTab = '3d';
+
+/*
+ * Body layers.
+ *
+ * All six GLBs are exported in one shared frame, so they are layers of one
+ * body rather than six alternative models -- muscle really does sit on the
+ * bone it is drawn over. Each chip cycles off -> solid -> ghost, because
+ * peeling is the whole point: you want the vessels solid AND the skeleton
+ * ghosted behind them to see where they run.
+ *
+ * Layers load on demand. Precaching six models is ~37 MB of download for
+ * someone who may only study bones tonight.
+ */
+const BODY_LAYERS = [
+  { key: 'skeleton', label: 'Skeleton' },
+  { key: 'muscle', label: 'Muscles' },
+  { key: 'joint', label: 'Ligaments' },
+  { key: 'organs', label: 'Organs' },
+  { key: 'circulatory', label: 'Vessels' },
+  { key: 'nervous', label: 'Nerves' },
+  { key: 'lymphatic', label: 'Lymphatic' },
+];
+const LAYER_CYCLE = { off: 'solid', solid: 'ghost', ghost: 'off' };
+const GHOST_OPACITY = 0.34;
+let layerState = { skeleton: 'solid' };
+
+function layerCount(key) {
+  if (key === 'skeleton') return 277;
+  const m = STRUCTURE_MODELS[key];
+  return m ? m.meshes : 0;
+}
+
+function renderLayerRail() {
+  const rail = $$('layerRail');
+  if (!rail) return;
+  rail.innerHTML = BODY_LAYERS.map((l) => {
+    const st = layerState[l.key] || 'off';
+    return `<button class="layerchip" data-layer="${esc(l.key)}" data-state="${st}" aria-pressed="${st !== 'off'}">
+      <span class="dot"></span><span>${esc(l.label)}</span><span class="cnt">${layerCount(l.key)}</span>
+    </button>`;
+  }).join('') + '<div class="layerhint">tap to cycle · solid → ghost → off</div>';
+  rail.querySelectorAll('[data-layer]').forEach((b) => { b.onclick = () => cycleLayer(b.dataset.layer, b); });
+}
+
+async function cycleLayer(key, btn) {
+  if (btn && btn.dataset.busy === '1') return;
+  const next = LAYER_CYCLE[layerState[key] || 'off'];
+  const model = STRUCTURE_MODELS[key];
+  const needsLoad = next !== 'off' && key !== 'skeleton' && !(window.__osteo && window.__osteo.layerLoaded(key));
+  if (needsLoad && btn) { btn.dataset.busy = '1'; btn.querySelector('.cnt').textContent = '···'; }
+  try {
+    if (!window.__osteo) { toast('Open the 3D model first.'); return; }
+    if (next === 'off') {
+      await window.__osteo.setLayer(key, false);
+    } else {
+      const ok = await window.__osteo.setLayer(key, true, model ? model.file : null);
+      if (!ok) return;
+      window.__osteo.setLayerOpacity(key, next === 'ghost' ? GHOST_OPACITY : 1);
+    }
+    layerState[key] = next;
+  } finally {
+    if (btn) { btn.dataset.busy = '0'; }
+    renderLayerRail();
+  }
+}
+
 function renderViewerTabs() {
   $$('viewerTabs').innerHTML = [['3d', '3D skeleton'], ['xray', 'Radiograph']].map(([id, label]) =>
     `<button class="seg${viewerTab === id ? ' active' : ''}" data-vtab="${esc(id)}">${esc(label)}</button>`).join('');
@@ -1423,9 +1718,24 @@ function renderViewerTabs() {
   $$('viewerSkeletonPane').classList.toggle('hidden', viewerTab !== '3d');
   $$('viewerXrayPane').classList.toggle('hidden', viewerTab !== 'xray');
 }
+async function syncLayersToRail() {
+  if (!window.__osteo || !window.__osteo.setLayer) return;
+  if (window.__osteo.clearStudyFocus) window.__osteo.clearStudyFocus();
+  for (const l of BODY_LAYERS) {
+    const st = layerState[l.key] || 'off';
+    const model = STRUCTURE_MODELS[l.key];
+    if (st === 'off') { await window.__osteo.setLayer(l.key, false); continue; }
+    const ok = await window.__osteo.setLayer(l.key, true, model ? model.file : null);
+    if (ok) window.__osteo.setLayerOpacity(l.key, st === 'ghost' ? GHOST_OPACITY : 1);
+  }
+}
+
 function openViewer() {
   setActiveNav('viewer');
   renderViewerTabs();
+  renderLayerRail();
+  /* A lesson may have left a study focus and other layers on. */
+  syncLayersToRail();
   showView('viewerView');
 }
 
@@ -1618,22 +1928,170 @@ function renderStep() {
   renderMasteryPanel(item);
   renderSourceCard(item);
   const stage = $$('rssStage');
-  if (session.step === 'learn') stage.innerHTML = learnHTML(item);
-  else if (session.step === 'remember') { stage.innerHTML = rememberHTML(item); wireReveal(item); }
-  else if (session.step === 'practise') { stage.innerHTML = practiseHTML(item); wirePractise(item); }
-  else if (session.step === 'apply') { stage.innerHTML = applyHTML(item); wireApply(item); }
-  else stage.innerHTML = reviewHTML(item);
+  if (session.step === 'learn') { stage.innerHTML = learnHTML(item); mountLessonVisual(item); }
+  else if (session.step === 'remember') { releaseLessonVisual(); stage.innerHTML = rememberHTML(item); wireReveal(item); }
+  else if (session.step === 'practise') { releaseLessonVisual(); stage.innerHTML = practiseHTML(item); wirePractise(item); }
+  else if (session.step === 'apply') { releaseLessonVisual(); stage.innerHTML = applyHTML(item); wireApply(item); }
+  else { releaseLessonVisual(); stage.innerHTML = reviewHTML(item); }
   wireStageNav(item);
   renderSessionFoot(item);
 }
 
 function typeLabel(t) { return (ITEM_TYPES[t] || {}).label || t; }
 
+/* ------------------------------------------------------------------ *
+ * Lesson visuals
+ *
+ * Every lesson opens with something to look at. Where the structure exists in
+ * one of the six registered layers, that IS the visual: the studio canvas is
+ * moved into the lesson card and focused on the named meshes, so it stays
+ * tappable and rotatable rather than becoming a picture of itself. There is
+ * only ever one WebGL context — it is relocated, never duplicated.
+ * ------------------------------------------------------------------ */
+
+let visMounted = null;   /* the spec currently occupying the shared canvas */
+
+function visualSlotHTML(item) {
+  const spec = visualFor(item);
+  if (!spec) return '';
+  if (spec.kind === 'model') {
+    return `<figure class="lessonvis" id="lessonVis" data-kind="model">
+      <div class="lessonvis-head"><span class="lessonvis-kick">3D · tap to name</span><span class="lessonvis-title">${esc(spec.label || item.title)}</span></div>
+      <div class="lessonvis-mount" id="lessonVisMount"><div class="lessonvis-busy" id="lessonVisBusy">preparing the model…</div></div>
+      <div class="lessonvis-readout" id="lessonVisReadout"><span class="dim">tap a structure to name it</span></div>
+      <figcaption class="lessonvis-cap">${esc(spec.caption || '')}</figcaption>
+    </figure>`;
+  }
+  if (spec.kind === 'schematic') {
+    const sc = schematic(spec.id);
+    if (!sc) return '';
+    return `<figure class="lessonvis" data-kind="schematic">
+      <div class="lessonvis-head"><span class="lessonvis-kick">Schematic</span><span class="lessonvis-title">${esc(sc.title)}</span></div>
+      <div class="lessonvis-body">${sc.svg()}</div>
+      <figcaption class="lessonvis-cap">${esc(sc.caption)}</figcaption>
+    </figure>`;
+  }
+  if (spec.kind === 'labelled') {
+    const d = DIAGRAMS[spec.id];
+    if (!d) return '';
+    const shapes = d.shapes.map((x) => x.kind === 'ellipse' ? `<ellipse class="sk" cx="${x.cx}" cy="${x.cy}" rx="${x.rx}" ry="${x.ry}"/>`
+      : x.kind === 'circle' ? `<circle class="sk" cx="${x.cx}" cy="${x.cy}" r="${x.r}" ${x.faint ? 'opacity=".4"' : ''}/>`
+      : `<path class="sk" d="${x.d}"/>`).join('');
+    /* The teaching view: the shape with its anchor points. The blank, guided
+       and labelled views belong to the practice question, not to the lesson. */
+    const dots = Object.entries(d.labels).map(([, pt]) =>
+      `<circle class="hot" cx="${pt[0]}" cy="${pt[1]}" r="6" style="pointer-events:none"/>`).join('');
+    return `<figure class="lessonvis" data-kind="labelled">
+      <div class="lessonvis-head"><span class="lessonvis-kick">Diagram</span><span class="lessonvis-title">${esc(d.title)}</span></div>
+      <div class="lessonvis-body"><svg viewBox="${d.viewBox}" role="img" aria-label="${esc(d.title)}">${shapes}${dots}</svg></div>
+      <figcaption class="lessonvis-cap">${esc(d.caption)} Every point is answerable in the practice question.</figcaption>
+    </figure>`;
+  }
+  if (spec.kind === 'generated') return generatedVisualHTML(spec);
+  return '';
+}
+
+/*
+ * Generated visuals draw the item's own sourced data. Nothing new is asserted
+ * here — the same steps, pairs and facts the lesson already lists, laid out so
+ * that the shape of the answer is visible instead of buried in a paragraph.
+ */
+function generatedVisualHTML(spec) {
+  let kick = 'From this item';
+  let body = '';
+  if (spec.form === 'flow') {
+    kick = 'Order';
+    body = `<div class="vis-flow">${spec.steps.map((st, i) =>
+      `${i ? '<span class="vis-arrow">→</span>' : ''}<div class="vis-step"><b>${i + 1}</b>${esc(st)}</div>`).join('')}</div>`;
+  } else if (spec.form === 'grid') {
+    kick = 'Pairs';
+    body = `<div class="vis-grid">${spec.pairs.map(([k, v]) =>
+      `<span class="k">${esc(k)}</span><span class="a">→</span><span class="v">${esc(v)}</span>`).join('')}</div>`;
+  } else if (spec.form === 'contrast') {
+    kick = 'The contrast';
+    body = `<div class="vis-contrast">${esc(spec.text)}</div>${spec.facts.length
+      ? `<div class="vis-facts" style="margin-top:10px">${spec.facts.map((f) => `<div class="vis-fact">${esc(f)}</div>`).join('')}</div>` : ''}`;
+  } else {
+    kick = 'At a glance';
+    body = `<div class="vis-facts">${spec.facts.map((f) => `<div class="vis-fact">${esc(f)}</div>`).join('')}</div>`;
+  }
+  return `<figure class="lessonvis" data-kind="generated">
+    <div class="lessonvis-head"><span class="lessonvis-kick">${esc(kick)}</span><span class="lessonvis-title">${esc(spec.label)}</span></div>
+    <div class="lessonvis-body">${body}</div>
+  </figure>`;
+}
+
+/*
+ * Move the shared studio canvas into the lesson and focus it. Reparenting a
+ * canvas keeps its WebGL context alive, so this costs a resize and nothing else.
+ */
+async function mountLessonVisual(item) {
+  const mount = $$('lessonVisMount');
+  if (!mount) { releaseLessonVisual(); return; }
+  const spec = visualFor(item);
+  if (!spec || spec.kind !== 'model') { releaseLessonVisual(); return; }
+  const busy = $$('lessonVisBusy');
+  try {
+    if (!window.__osteo) throw new Error('no engine');
+    /* boot3D is async and may still be fetching three.js and the skeleton. */
+    const booted = await window.__osteo.boot();
+    if (!booted) throw new Error('boot failed');
+    const stage = window.__osteo.stageEl();
+    if (!stage) throw new Error('no stage');
+    mount.appendChild(stage);
+    visMounted = spec;
+    window.__osteo.resize();
+    if (busy) busy.textContent = 'loading the layer…';
+    const res = await window.__osteo.focusStructures(spec);
+    window.__osteo.resize();
+    if (!res || !res.ok) {
+      /* Never quietly fall back to the whole body — that would read as though
+         the entire skeleton were the answer to the question being taught. */
+      visualFallback(res && res.reason === 'no-match'
+        ? 'None of this item’s structures resolved in the model, so no 3D is shown.'
+        : 'The 3D layer could not be loaded right now.');
+      return;
+    }
+    if (busy) busy.remove();
+    window.__osteo.setPickHook((rec) => {
+      const out = $$('lessonVisReadout');
+      if (!out || !rec) return;
+      const side = rec.side && rec.side !== 'bilateral' ? `<span class="side">${esc(rec.side)}</span>` : '';
+      out.innerHTML = `${esc(rec.canonicalName)}${side}`;
+    });
+  } catch (e) {
+    visualFallback('3D is unavailable right now.');
+  }
+}
+
+function visualFallback(msg) {
+  restoreStage();
+  visMounted = null;
+  const fig = $$('lessonVis');
+  if (fig) fig.innerHTML = `<div class="lessonvis-fallback">${esc(msg)} The lesson below is unaffected.</div>`;
+}
+
+function restoreStage() {
+  const home = $$('stageHome');
+  const stage = window.__osteo && window.__osteo.stageEl && window.__osteo.stageEl();
+  if (home && stage && stage.parentElement !== home) home.insertBefore(stage, home.firstChild);
+}
+
+function releaseLessonVisual() {
+  if (window.__osteo && window.__osteo.setPickHook) window.__osteo.setPickHook(null);
+  if (!visMounted) { restoreStage(); return; }
+  visMounted = null;
+  if (window.__osteo && window.__osteo.clearStudyFocus) window.__osteo.clearStudyFocus();
+  restoreStage();
+  if (window.__osteo && window.__osteo.resize) window.__osteo.resize();
+}
+
 function learnHTML(item) {
   const subject = getSubject(item.subject);
   return `<div class="lesson">
     <div class="eyebrow" style="color:${subject ? subject.accent : 'var(--teal)'}">${esc(subject ? subject.code : item.subject)} · ${esc(typeLabel(item.type))}</div>
     <h2>${esc(item.title)}</h2>
+    ${visualSlotHTML(item)}
     <div class="body">${esc(item.lesson.explanation)}</div>
     ${item.lesson.keyFacts && item.lesson.keyFacts.length ? `<div class="subhead">Key facts to remember</div><ul class="facts">${item.lesson.keyFacts.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>` : ''}
     ${item.lesson.examples && item.lesson.examples.length ? `<div class="subhead">Examples</div><ul class="facts">${item.lesson.examples.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>` : ''}

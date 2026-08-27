@@ -3,9 +3,11 @@
  *
  * Caching strategy, and why it is split:
  *
- *   SHELL (precached on install) — the HTML, the two data modules, the
- *   manifest and the icons. Around 600 KB, so installing is fast and the
- *   whole study system works offline immediately after the first visit.
+ *   SHELL (precached on install) — the HTML, the four data modules (study,
+ *   anatomy, visual registry and schematics), the manifest and the icons.
+ *   Still well under a megabyte, so installing is fast and the whole study
+ *   system — including every lesson schematic — works offline immediately
+ *   after the first visit.
  *
  *   MODELS (cached on first use) — the six .glb files total ~37 MB.
  *   Precaching those would make installation slow and would download
@@ -21,7 +23,7 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
@@ -31,6 +33,8 @@ const SHELL = [
   './radiography-study-studio.html',
   './study-data.js',
   './anatomy-data.js',
+  './visual-data.js?v=2',
+  './schematics.js?v=2',
   './manifest.webmanifest',
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png',

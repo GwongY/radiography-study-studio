@@ -2969,6 +2969,7 @@ export const STRUCTURE_MODELS = {
   nervous: { file: './assets/sinir.glb', label: 'Nervous system', meshes: 582 },
   muscle: { file: './assets/kas.glb', label: 'Muscular system', meshes: 683 },
   joint: { file: './assets/eklem.glb', label: 'Ligaments and joints', meshes: 413 },
+  lymphatic: { file: './assets/lenf.glb', label: 'Lymphatic system', meshes: 163 },
 };
 
 /* ------------------------------------------------------------------ *

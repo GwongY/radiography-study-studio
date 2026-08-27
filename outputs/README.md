@@ -15,6 +15,8 @@ The workflow is the same for every subject:
 | `radiography-study-studio.html` | The app. Subject selector, learning workflow, Memory Coach, source dialogs, coverage report, and the full osteology 3D studio embedded as the HSS2011 Osteology module. |
 | `study-data.js` | The study layer: source registry, subject registry, 94 study items, spaced repetition, coverage report, corpus validator. |
 | `anatomy-data.js` | Unchanged. Canonical bone records, landmark hotspots and the 3D model adapter metadata. |
+| `visual-data.js` | The visual registry: which of the six model layers and which named meshes each study item is about, and which items get a hand-drawn schematic instead. Verified mesh names, not guesses. |
+| `schematics.js` | 31 hand-authored SVG diagrams for the concepts no mesh can show — the feedback loop, the inside of a long bone, the EM spectrum, the cardiac conducting system. |
 | `osteology-studio.html` | The original app, left in place and still working, as a fallback. |
 | `assets/` | Local GLB models. Unchanged. |
 
@@ -87,6 +89,71 @@ identification, comparison, short explanation and scenario application.
 Diagram labelling uses inline SVG schematics authored by the app — no supplied labelled diagram
 images exist in the assets folder, only `.glb` models. The label names come from the cited sources.
 
+## Every lesson opens with a visual
+
+No lesson is a wall of prose. All 94 items resolve to a visual, and the resolver never invents one:
+
+| Kind | Items | What it is |
+| --- | --- | --- |
+| **model** | 59 | The real named meshes for the structure being taught. The studio canvas is *moved into* the lesson card and focused on those meshes — still rotatable, still tappable, with a readout naming whatever you tap. One WebGL context, relocated rather than duplicated. |
+| **schematic** | 31 | A hand-authored SVG in `schematics.js`, for what no mesh can show. |
+| **labelled** | 2 | The existing authored diagram, shown as the teaching view. |
+| **generated** | 2 | Drawn from the item's own sourced data — a sequence item's ordered steps become a flow, a matching item's pairs become a grid. A change of form, not of content. |
+
+Every one of the 59 model specs was checked against the actual GLB name index: **59 of 59 resolve,
+with no dead mesh names**. A spec that resolved to nothing would show a short note saying so rather
+than quietly falling back to the whole skeleton — a lesson on the carpal bones must never render as
+an entire body and let you assume that was the answer.
+
+Every schematic label is a term that appears in that item's own lesson or key facts. Nothing came
+from outside the supplied sources; these are drawings of content the app already carried. Where a
+bundled model genuinely cannot show something — the cardiac conducting system, an alveolus, the
+inside of a long bone — the caption says so instead of pretending otherwise.
+
+Layout is checked mechanically rather than by eye: all 31 schematics are verified to have **no text
+overflowing its canvas and no overlapping text runs**.
+
+## Body layers
+
+The Viewer carries a layer rail. Each layer cycles **off → solid → ghost**, and any combination can
+be on at once, because peeling is the point: vessels solid with the skeleton ghosted behind them is
+how you see where they actually run.
+
+| Layer | Meshes |
+| --- | --- |
+| Skeleton | 277 |
+| Muscles | 683 |
+| Ligaments | 413 |
+| Organs | 120 |
+| Vessels | 676 |
+| Nerves | 582 |
+| Lymphatic | 163 |
+
+That is 2,914 individually named, individually tappable structures in one registered body. Layers
+load on demand — turning one on fetches its GLB the first time and never again.
+
+The lymphatic layer (`lenf.glb`, 1.4 MB) was added after the other six, from the same project and the
+same export pipeline. Registration was **measured before it was wired in**, not assumed: its x-centre
+matches the skeleton's to 0.0000 and its envelope (y 0.317–1.595) sits cleanly inside the skeleton's.
+It carries every named node group plus the spleen, both lobes of thymus and the palatine tonsils —
+which is also where the organ layer's missing spleen came from.
+
+It holds nodes and lymphoid organs but **no lymphatic vessels**, so the cisterna chyli and the
+thoracic duct are not in it. The lesson that uses it says so in its own caption rather than letting
+you assume the drainage route is on screen.
+
+Inside a focused lesson, picking is restricted to the layer being taught. Otherwise the ghosted body
+behind it steals the tap, and tapping a lymph node answers "Sacrum".
+
+Tapping any mesh in any layer names it. That needed a fix beyond the loader: system-layer meshes
+previously carried no canonical id, so they could only be selected programmatically from a
+structure-set question — tapping a kidney did nothing.
+
+One further bug the mesh audit caught: the name normaliser turned `(` and `)` into spaces, so
+`Olfactory_nerve_(I)r` normalised to `olfactory nerve i r` and could never match its own name plus a
+side letter. Every parenthesised structure — the twelve cranial nerves among them — was unmatchable,
+including in the pre-existing cranial-nerve structure set.
+
 ## Blank mode
 
 Diagram and structure-set questions each render in three states:
@@ -100,7 +167,7 @@ Test is the default, so a question stays a question; the labelled view is opened
 ## Structure sets
 
 Tapping a name in a structure set also selects that mesh in the 3D studio, so the name and the place
-arrive together. Thirteen sets cover 115 tappable structures across six bundled models:
+arrive together. Thirteen sets cover 115 tappable structures across the bundled models:
 
 | Model | Sets | Structures |
 | --- | --- | --- |
@@ -113,11 +180,22 @@ arrive together. Thirteen sets cover 115 tappable structures across six bundled 
 
 Every one of the 115 mesh references is verified to resolve against its model.
 
-Models load **on demand**, not at boot, and are shown *instead of* the skeleton rather than overlaid:
-the captures are not spatially registered to each other, so overlaying would place organs wrongly
-relative to bone.
+Models load **on demand**, not at boot. They are **layers of one body**, not alternatives to each
+other, and any combination can be shown at once.
 
-All six come from `DrMuratAltun/anatomi-simulatoru` under CC BY-SA 4.0, derived from BodyParts3D
+An earlier version of this file claimed the captures were not spatially registered and that
+overlaying would place organs wrongly relative to bone. That was wrong, and the app's own loader was
+what made it look true. Measured directly from the GLBs, every full-body layer spans y 0.00–1.70 and
+x ±0.33 to within a few millimetres of the skeleton, and the torso-only organ layer (y 0.73–1.62)
+sits exactly where the ribcage puts it. They were exported from one source body and were aligned all
+along.
+
+What broke it: `loadExtraModel` normalised **each layer to its own bounding box**, fitting it to the
+same 11 units. The organ layer is torso-only, so that scaled it about 1.9× and floated it off the
+skeleton. The fix is one line of intent — capture the skeleton's transform once as the canonical body
+frame and apply it verbatim to every other layer.
+
+All seven come from `DrMuratAltun/anatomi-simulatoru` under CC BY-SA 4.0, derived from BodyParts3D
 (DBCLS) via Z-Anatomy. `MODEL_CATALOG` in `anatomy-data.js` records each model's coverage **and its
 gaps** — the circulatory model has no conducting system, the nervous model has few named cortical
 gyri, and the joint model has no synovial membrane or joint cavity.
@@ -195,8 +273,8 @@ that downloads neuroanatomy for someone who only studies bones:
 
 | Cache | Contents | Strategy | When |
 | --- | --- | --- | --- |
-| `rss-shell` | HTML, both data modules, manifest, icons (~600 KB) | network-first, cache fallback | precached at install |
-| `rss-models` | the six `.glb` files (~37 MB) | cache-first | each cached the first time it is opened |
+| `rss-shell` | HTML, the four data modules, manifest, icons (~700 KB) | network-first, cache fallback | precached at install |
+| `rss-models` | the seven `.glb` files (~39 MB) | cache-first | each cached the first time it is opened |
 | `rss-cdn` | three.js, its loaders, the Draco wasm decoder | cache-first | on first 3D use |
 
 So the offline footprint grows to match what you actually study. Bump `CACHE_VERSION` in `sw.js` on
