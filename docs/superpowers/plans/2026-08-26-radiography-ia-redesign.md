@@ -682,7 +682,13 @@ function closeSessionOverlay() {
 Note: the overlay's positioning CSS (`#sessionView{position:fixed;inset:0;z-index:10;…}`, `#sessionView.hidden{display:none}`, the `#sessionView .navcontent` rule and the `fadeUp` keyframes) was already added in Task 2's fix-up commit — without it, a visible `#sessionView` collapsed `.app-shell` to 0px height. Check whether it is present before adding it again; Step 1 below only needs the markup wrapper.
 `currentTab` is defined in Task 9 — leave as a forward reference for now.
 
-In `startSession(opts)` (around line 1050), replace the line `showView('sessionView');` with `openSessionOverlay();`.
+In `startSession(opts)`, replace `showView('sessionView');` with `openSessionOverlay();` — **Task 3 already did this one**, because removing `sessionView` from `VIEWS` turned that call into a silent no-op. Verify it rather than redoing it.
+
+**A second `showView('sessionView')` still needs fixing here.** `armMovementBar()` — the 3D studio's "← Back to the question" button, which returns you to a session after driving a joint movement on the model — also calls `showView('sessionView')` and is therefore equally a no-op. Task 3 deliberately left it because it is only reachable from a `movement`-type item mid-session, which Task 3 could not exercise. Change it to `openSessionOverlay()` as well:
+```bash
+grep -n "showView('sessionView')" outputs/radiography-study-studio.html
+```
+Expected: exactly one remaining hit, inside `armMovementBar`. Fix it, then re-grep and confirm zero. This path matters — `movement` is one of the 15 item types, used by the "Rotator cuff and full abduction" item among others, and it is the only route back into the session from the 3D stage.
 
 Find `endSession()` (search for `function endSession`) and replace its call to `renderHome()` (if present) or `showView('homeView')` with `closeSessionOverlay(); write(STORAGE_PREFIX + 'continue', null);` — clearing Continue on a completed/ended session is intentional: a finished session has nothing left to resume.
 
