@@ -21,7 +21,7 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
@@ -63,7 +63,19 @@ self.addEventListener('activate', (event) => {
 });
 
 function isModel(url) { return url.pathname.endsWith('.glb'); }
-function isCdn(url) { return url.hostname === 'cdn.jsdelivr.net'; }
+/*
+ * The IA redesign loads Instrument Sans and Newsreader from Google Fonts.
+ * Without caching them the app is not genuinely offline-first: the font FILES
+ * are max-age=1y, but the stylesheet declaring the @font-face rules is only
+ * max-age=1d, so studying offline more than a day after the last online visit
+ * loses both typefaces. Both hosts send CORS headers, so the responses are
+ * non-opaque and cacheFirst works on them unchanged.
+ */
+function isCdn(url) {
+  return url.hostname === 'cdn.jsdelivr.net'
+      || url.hostname === 'fonts.googleapis.com'
+      || url.hostname === 'fonts.gstatic.com';
+}
 
 /* Cache-first: for immutable assets where freshness does not matter. */
 async function cacheFirst(request, cacheName) {
