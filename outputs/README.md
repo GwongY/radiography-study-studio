@@ -331,7 +331,31 @@ state: **94 items, 434 questions, 75 source files cited, 0 validation failures.*
 ## Osteology studio — unchanged behaviour
 
 Explore, Identify (L1), Left/right (L2), Landmarks (L3), Find (L4) and Memory hooks (L5) all work as
-before, along with the 277-mesh Z-Anatomy / BodyParts3D skeleton, the five-bone BodyParts3D upper-limb
-study set, search across atlas structures, region filtering, isolation, camera views, double-tap
+before, along with the 277-mesh Z-Anatomy / BodyParts3D skeleton, search across atlas structures, region filtering, isolation, camera views, double-tap
 focus, pick cycling and the local review meter. See the in-app **Sources & model** dialog for model
 attribution and licensing.
+
+## The five-bone upper-limb set, retired from display
+
+The original app carried five separate per-bone BodyParts3D GLBs — clavicle, scapula, humerus, radius,
+ulna — because it needed individually selectable bones. The active skeleton is now a 277-mesh
+structure-level model that already names all five, so the separate set no longer adds anything, and it
+is no longer drawn. It stays loaded as the anchor that positions the landmark hotspots.
+
+It had the same self-normalising bug the system layers had, and worse: `prepareImportedModel` fitted
+those five arm bones to an 11-unit box — **measured at 19.9x**, five arm bones scaled to the height of
+an entire body. Nothing revealed it while the set was shown alone on a black background. The moment
+layers composited at true body scale, it appeared as a body-sized arm floating beside the figure with
+a detached clavicle in mid-air.
+
+Two things made it worse:
+
+- Tapping a clavicle, scapula, humerus, radius or ulna **silently switched the viewer to the
+  upper-limb region**, which swapped the model out from under you. Tapping a bone now just selects it.
+- That switch hid all 277 skeleton meshes to show 5, so the muscle layer was left with nothing inside
+  it. `upper_limb` is now an ordinary region filter on the full skeleton.
+
+The five bones were in the body frame all along: measured, the separate right humerus matches the
+skeleton's own to within 3% of size. Applying the shared transform puts the landmark hotspots where
+they belong — all 8 now land **inside** their parent bone in the real skeleton, distance 0, where
+before they were positioned against a 20x-oversized arm.
