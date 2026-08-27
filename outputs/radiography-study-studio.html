@@ -302,6 +302,12 @@
 .xray-exp .mono{font-size:11px;color:var(--muted);letter-spacing:0;text-transform:none;min-width:44px}
 .xraywrap{position:relative;height:min(72vh,700px);min-height:400px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#000}
 .xraywrap .stage{height:100%;min-height:0;border-radius:0;background:#000}
+.xray-appa{margin-top:12px;padding:13px 15px;border:1px solid var(--line);border-left:2px solid var(--teal);border-radius:0 11px 11px 0;background:rgba(114,227,207,.05);max-width:760px}
+.xray-appa-lab{font:10px ui-monospace,Menlo,monospace;letter-spacing:1.4;text-transform:uppercase;color:var(--teal);margin-bottom:9px}
+.xray-appa p{margin:0 0 9px;font-size:12.5px;line-height:1.62;color:var(--text)}
+.xray-appa p:last-child{margin-bottom:0}
+.xray-appa .xray-appa-limit{padding:9px 11px;border-left:2px solid var(--orange);background:rgba(255,186,103,.07);border-radius:0 8px 8px 0;color:var(--muted);font-size:12px}
+.xray-appa .xray-appa-src{color:var(--dim);font-size:11.5px}
 .xray-note{margin-top:12px;padding:11px 13px;border-left:2px solid var(--orange);border-radius:0 9px 9px 0;background:rgba(255,186,103,.07);font-size:11.5px;line-height:1.6;color:var(--muted);max-width:760px}
 @media(max-width:900px){.xraywrap{height:min(58vh,460px)}}
 .mv-note{margin-top:9px;padding:8px 10px;border-left:2px solid var(--orange);border-radius:0 8px 8px 0;background:rgba(255,186,103,.08);font-size:11.5px;line-height:1.5;color:var(--muted)}
@@ -505,6 +511,32 @@
                 </label>
               </div>
               <div class="xraywrap" id="xrayMount"></div>
+              <div class="xray-appa">
+                <div class="xray-appa-lab">AP and PA — written by this app, not from your sources</div>
+                <p><strong>The name is the direction the beam travels through the patient.</strong>
+                <strong>PA</strong> is posterior&nbsp;&rarr;&nbsp;anterior: the patient faces the detector and the beam
+                enters the back. <strong>AP</strong> is anterior&nbsp;&rarr;&nbsp;posterior: the beam enters the front
+                and the detector is behind.</p>
+                <p><strong>What actually differs is geometry.</strong> Whatever sits further from the detector is
+                magnified more and blurred more. That is the whole difference — and it is the part this view
+                reproduces, because the beam here diverges from a real source distance. Switch between PA and AP and
+                watch which structures grow.</p>
+                <p><strong>Why it matters on a chest.</strong> The heart is an anterior structure. On <strong>PA</strong>
+                it lies almost against the detector and projects close to its true size. On <strong>AP</strong> it sits
+                further away and comes out magnified — which is why heart size is not judged from an AP film.</p>
+                <p><strong>Why AP gets used at all.</strong> It does not need the patient to stand and face a detector,
+                so it is the ward, mobile and trauma projection.</p>
+                <p><strong>Both are hung the same way</strong> — as though you are facing the patient, their right on
+                your left. That is why this view mirrors the PA image and not the AP one.</p>
+                <p class="xray-appa-limit"><strong>One thing this view does not show:</strong> real PA chest positioning
+                rolls the shoulders forward so the scapulae swing clear of the lung fields, while on an AP film they
+                overlie them. That is patient positioning, not beam direction — the model cannot move its arms, so the
+                scapulae sit identically in both here. Do not learn that difference from this picture.</p>
+                <p class="xray-appa-src">Your supplied set names only <strong>PA</strong> and <strong>Lat</strong>, in
+                one worked chest request form, and never contrasts them with AP. Everything in this box is therefore
+                app-authored study scaffolding rather than a claim traced to a source file, and is labelled as such
+                under the same rule the rest of the app follows.</p>
+              </div>
               <div class="xray-note">
                 <strong>Simulated projection, not a radiograph.</strong> Each ray's path length through material is
                 measured and attenuated by Beer–Lambert, with bone about ten times the coefficient of soft tissue,
@@ -1160,8 +1192,8 @@ function applyXrayCamera(){
   const R=XRAY_REGIONS[x.region]||XRAY_REGIONS.body;
   const dist=R.sid*XRAY_UNITS_PER_M;
   c.fov=2*Math.atan(R.half/dist)*180/Math.PI;
-  c.near=Math.max(.1,dist-30); c.far=dist+30;
   c.updateProjectionMatrix();
+  xrayClip();
   ctr.target.set(R.c[0],R.c[1],R.c[2]);
   /*
    * +z is anterior on this model -- the face looks that way. PA puts the source
@@ -1178,8 +1210,29 @@ function applyXrayCamera(){
    * image is flipped to match how it would actually be hung.
    */
   x.postMat.uniforms.uFlipX.value=x.view==='pa'?1:0;
-  const names={pa:'PA',ap:'AP',lat:'Lateral'};
-  els.stageMeta.textContent=`${R.label} · ${names[x.view]||x.view} · SID ${Math.round(R.sid*100)} cm · simulated · tap to name`;
+  x.shownSid=null; x.shownOff=null;
+}
+/*
+ * The clip planes have to follow the dolly. Pinning them to the distance the
+ * region was set up at meant zooming out pushed the body past the far plane and
+ * the whole pane went black. Depth precision is irrelevant here -- the depth
+ * test is off -- so the span can be generous enough to always contain the body.
+ */
+function xrayOffAxis(){
+  const x=state.xray; if(!x)return 0;
+  const THREE=state.THREE, c=state.camera, ctr=state.controls;
+  const nominal=x.view==='lat'?new THREE.Vector3(1,0,0)
+    :new THREE.Vector3(0,0,x.view==='ap'?1:-1);
+  const actual=c.position.clone().sub(ctr.target).normalize();
+  return Math.acos(Math.max(-1,Math.min(1,actual.dot(nominal))))*180/Math.PI;
+}
+function xrayClip(){
+  const c=state.camera, ctr=state.controls;
+  const d=c.position.distanceTo(ctr.target);
+  const span=40;
+  const near=Math.max(.05,d-span), far=d+span;
+  if(c.near!==near||c.far!==far){c.near=near;c.far=far;c.updateProjectionMatrix()}
+  return d;
 }
 function setXrayExposure(v){
   if(!state.xray)return;
@@ -1189,6 +1242,23 @@ function setXrayExposure(v){
 function renderXray(){
   const x=state.xray; if(!x)return false;
   const r=state.renderer;
+  const d=xrayClip();
+  /* Dollying really is changing the source-to-image distance, so say so. */
+  const sid=Math.round(d/XRAY_UNITS_PER_M*100);
+  /*
+   * Orbit away from the nominal axis and this stops being the projection its
+   * button claims. Saying "AP" over an oblique is exactly the kind of quiet
+   * wrongness this view is supposed to avoid, so the label degrades to oblique
+   * with the angle off axis.
+   */
+  const off=Math.round(xrayOffAxis());
+  if(sid!==x.shownSid||off!==x.shownOff){
+    x.shownSid=sid; x.shownOff=off;
+    const R=XRAY_REGIONS[x.region]||XRAY_REGIONS.body;
+    const names={pa:'PA',ap:'AP',lat:'Lateral'};
+    const proj=off>4?`oblique · ${off}° off ${names[x.view]||x.view}`:(names[x.view]||x.view);
+    els.stageMeta.textContent=`${R.label} · ${proj} · SID ${sid} cm · simulated · tap to name`;
+  }
   x.postMat.uniforms.uSeed.value=(performance.now()*.06)%1000;
   r.autoClear=true;
   r.setRenderTarget(x.rt);
