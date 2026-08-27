@@ -215,6 +215,30 @@ Verified: each movement sweeps its exact stated range, every moving bone shifts 
 **every fixed reference bone shifts by exactly 0** — supination moves the radius and not the ulna,
 abduction moves the humerus and not the scapula. Mesh count is unchanged after arm/teardown cycles.
 
+### What the soft tissue does
+
+Once layers composite, rotating only the bones looks broken: the forearm swings and its muscle stays
+pointing at the floor. But rigidly rotating all of it would be worse than broken, it would be wrong —
+a muscle crossing a joint shortens and bulges, it does not swing, and swinging it tears it off its
+origin.
+
+So a movement splits the visible soft tissue in two, by bounding box against that movement's own
+fixed and moving bone sets:
+
+- **Distal to the joint** — the hand's intrinsic muscles, the forearm flexors during elbow flexion.
+  These travel with the segment as one piece, so rigid rotation *is* correct for them and they are
+  attached to the pivot group along with the bones.
+- **Crossing the joint** — biceps during elbow flexion, anything anchored on a bone being held still.
+  Ghosted to 10% and held. The movement panel says how many, and why.
+
+Measured on elbow flexion with the muscle layer on: right radius moves 1.99, right ulna 1.24,
+flexor digitorum profundus 3.31 — while the right humerus, the left radius and the long head of
+biceps each move **exactly 0**. Ending the movement restores every parent and every opacity, and the
+mesh count is unchanged across all four movements.
+
+The margin is deliberately biased towards holding: anything that merely grazes a fixed bone is held
+rather than rotated, because a structure wrongly swung is a worse error than one wrongly frozen.
+
 The controls sit **in the studio, not next to the question**, because the render loop only runs while
 the studio is on screen. A slider beside the question would have moved bones nobody could see.
 

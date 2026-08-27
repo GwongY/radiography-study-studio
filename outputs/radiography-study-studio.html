@@ -296,6 +296,8 @@
 .lessonvis-fallback{padding:12px 14px;font-size:12px;color:var(--orange)}
 .lessonvis-readout{padding:9px 14px;border-top:1px solid var(--line);font-size:13px;font-weight:700;color:var(--teal);min-height:38px;display:flex;align-items:center;gap:8px}
 .lessonvis-readout .dim{font:11px ui-monospace,Menlo,monospace;font-weight:400;color:var(--dim)}
+.mv-note{margin-top:9px;padding:8px 10px;border-left:2px solid var(--orange);border-radius:0 8px 8px 0;background:rgba(255,186,103,.08);font-size:11.5px;line-height:1.5;color:var(--muted)}
+.mv-note.hidden{display:none}
 .lessonvis-readout .side{font:10px ui-monospace,Menlo,monospace;font-weight:400;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 6px}
 .vis-flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px}
 .vis-step{flex:1 1 140px;min-width:130px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.035);font-size:12px;line-height:1.4;color:var(--text)}
@@ -440,6 +442,7 @@
         <button class="ghost" id="mvBarStop">Reset</button>
       </div>
       <div class="mv-ends"><span id="mvBarMin"></span><span id="mvBarMid"></span><span id="mvBarMax"></span></div>
+      <div class="mv-note hidden" id="mvBarNote"></div>
     </div>
     <div class="stagewrap" id="stageHome">
       <div class="stage" id="stage">
@@ -932,6 +935,9 @@ async function focusStructures(spec){
   return {ok:true,found:hits.length};
 }
 function setLayer(key,on){
+  /* Meshes carried by a movement live under the pivot group, not their layer
+     root, so a toggle mid-movement could not hide them. End it first. */
+  if(state.movement)endMovement();
   state.layers[key]=!!on;
   applyLayers();
 }
@@ -1008,6 +1014,60 @@ function endPoint(THREE,names,side,at){
   else if(at==='distal')c.y=box.min.y;
   return c;
 }
+
+/*
+ * Soft tissue and a moving joint.
+ *
+ * A bone genuinely is a rigid body rotating about a joint axis, which is why
+ * this player rotates bone meshes directly. Soft tissue splits in two:
+ *
+ *   distal to the joint  — the hand's vessels, nerves and intrinsic muscles
+ *     travel with the forearm as one piece. Rotating them rigidly is right,
+ *     so they are attached to the pivot group along with the bones.
+ *
+ *   crossing the joint   — biceps, the forearm flexors, anything anchored on a
+ *     bone that is being held still. These shorten and bulge; they do not
+ *     swing. Rotating them would tear them off their origin and quietly teach
+ *     something false, so they are ghosted and held, and the panel says so.
+ *
+ * Classification is by bounding box against the movement's own fixed and
+ * moving bone sets, so it follows the data rather than a hard-coded list.
+ */
+function worldBox(THREE,mesh){
+  if(!mesh.geometry)return null;
+  if(!mesh.geometry.boundingBox)mesh.geometry.computeBoundingBox();
+  if(!mesh.geometry.boundingBox)return null;
+  mesh.updateMatrixWorld();
+  return mesh.geometry.boundingBox.clone().applyMatrix4(mesh.matrixWorld);
+}
+function unionBox(THREE,meshes){
+  const box=new THREE.Box3();
+  let any=false;
+  meshes.forEach(m=>{const b=worldBox(THREE,m);if(b){box.union(b);any=true}});
+  return any?box:null;
+}
+function classifySoftTissue(THREE,movingBones,fixedBones){
+  const carried=[],held=[];
+  const movingBox=unionBox(THREE,movingBones);
+  const fixedBox=unionBox(THREE,fixedBones);
+  if(!movingBox)return {carried,held};
+  /* Err towards holding: a little margin round the fixed bones means anything
+     that merely grazes an origin is held rather than rotated. */
+  if(fixedBox){
+    const pad=fixedBox.getSize(new THREE.Vector3()).multiplyScalar(.03);
+    fixedBox.expandByVector(pad);
+  }
+  Object.entries(state.extraModels||{}).forEach(([key,layer])=>{
+    if(!state.layers[key])return;
+    layer.meshes.forEach(mesh=>{
+      const b=worldBox(THREE,mesh);
+      if(!b||!b.intersectsBox(movingBox))return;
+      if(fixedBox&&b.intersectsBox(fixedBox))held.push(mesh);
+      else carried.push(mesh);
+    });
+  });
+  return {carried,held};
+}
 function startMovement(mv){
   const THREE=state.THREE;
   if(!THREE||!state.fullModel){showToast('Open the 3D model first.');return false}
@@ -1027,10 +1087,31 @@ function startMovement(mv){
   const group=new THREE.Group();
   group.position.copy(pivot);
   state.fullModel.add(group);
+  const {carried,held}=classifySoftTissue(THREE,moving,meshesNamed(mv.fixed,mv.side));
   /* Reparent while preserving world transform, so nothing jumps on attach. */
-  const restore=moving.map(mesh=>({mesh,parent:mesh.parent}));
-  moving.forEach(mesh=>group.attach(mesh));
-  state.movement={mv,group,axis,restore,angle:0,playing:false,dir:1};
+  const travelling=[...moving,...carried];
+  const restore=travelling.map(mesh=>({mesh,parent:mesh.parent}));
+  travelling.forEach(mesh=>group.attach(mesh));
+  const ghosted=held.map(mesh=>({mesh,opacity:mesh.material?mesh.material.opacity:1,
+    transparent:mesh.material?mesh.material.transparent:false}));
+  ghosted.forEach(({mesh})=>{
+    if(!mesh.material)return;
+    if(!mesh.material.transparent)mesh.material.needsUpdate=true;
+    mesh.material.transparent=true;mesh.material.opacity=.1;mesh.material.depthWrite=false;
+  });
+  const note=document.getElementById('mvBarNote');
+  if(note){
+    if(held.length){
+      note.textContent=`${carried.length} soft-tissue structures travel with the bone. `
+        +`${held.length} cross the joint and are ghosted and held still — muscle and vessel deform across a joint `
+        +`rather than rotating rigidly, so swinging them would tear them off their origin.`;
+      note.classList.remove('hidden');
+    } else if(carried.length){
+      note.textContent=`${carried.length} soft-tissue structures travel with the bone.`;
+      note.classList.remove('hidden');
+    } else note.classList.add('hidden');
+  }
+  state.movement={mv,group,axis,restore,ghosted,angle:0,playing:false,dir:1};
   setMovementAngle(mv.range[0]);
   return true;
 }
@@ -1050,8 +1131,15 @@ function setMovementAngle(deg){
 function endMovement(){
   const m=state.movement; if(!m)return;
   m.restore.forEach(({mesh,parent})=>parent&&parent.attach(mesh));
+  (m.ghosted||[]).forEach(({mesh,opacity,transparent})=>{
+    if(!mesh.material)return;
+    if(mesh.material.transparent!==transparent)mesh.material.needsUpdate=true;
+    mesh.material.transparent=transparent;mesh.material.opacity=opacity;mesh.material.depthWrite=!transparent;
+  });
   m.group.parent&&m.group.parent.remove(m.group);
   state.movement=null;
+  const note=document.getElementById('mvBarNote');
+  if(note)note.classList.add('hidden');
 }
   if(false&&!sessionStorage.getItem('osteology-memory-tip-shown')){const tips=Object.values(MEMORY_TIPS);if(tips.length){showToast(`💡 ${tips[Math.floor(Math.random()*tips.length)].tip}`);sessionStorage.setItem('osteology-memory-tip-shown','1')}}
   window.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&state.selectedId&&!document.getElementById('viewerView').classList.contains('hidden')&&!document.querySelector('dialog[open]'))clearSelection()});
