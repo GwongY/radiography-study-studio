@@ -359,3 +359,32 @@ The five bones were in the body frame all along: measured, the separate right hu
 skeleton's own to within 3% of size. Applying the shared transform puts the landmark hotspots where
 they belong — all 8 now land **inside** their parent bone in the real skeleton, distance 0, where
 before they were positioned against a 20x-oversized arm.
+
+## Projection view
+
+The Viewer's second tab was an empty placeholder. It now renders the bundled model as a simulated
+projection: additive blending with depth-write off, so every surface the ray crosses adds brightness
+and thick or overlapping bone comes out bright while soft tissue is a haze. Bone carries roughly ten
+times the weight of muscle, which is the right order for the effect and not a dose figure. Every
+loaded layer contributes density, so the picture is a body rather than a floating skeleton.
+
+Two views, **Frontal** and **Lateral**, an exposure control, and picking still works — tap a bone in
+the projection and it names itself.
+
+Its limits are stated in the pane rather than left for you to discover:
+
+- It is geometry, not physics. No exposure factor, no scatter, no pathology.
+- It **cannot distinguish PA from AP**. That difference is beam direction, object-to-detector distance
+  and the magnification they produce; a parallel projection reproduces none of it. The source set
+  names only PA and Lat, and nothing here claims otherwise.
+
+`assets/xray/` is still scaffolded and empty. Real radiographs need both a licence-cleared image and
+a source that says what it shows, and neither was in the supplied material.
+
+## Side letters on skeleton labels
+
+148 of the 277 skeleton structures displayed their glued side letter as part of the name — "Costal
+cartilage of fifth ribl", "Incusr". cleanImportedLabel only knew a fixed list of bone words. The
+partner-aware strip already used for the system layers now runs over the skeleton too: strip the
+trailing letter only when the opposite-side twin actually exists. Down to 10, and those ten are
+Femur, Vomer, incisor, premolar and molar — real words that end in l or r and have no twin.

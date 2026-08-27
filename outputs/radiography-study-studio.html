@@ -296,6 +296,14 @@
 .lessonvis-fallback{padding:12px 14px;font-size:12px;color:var(--orange)}
 .lessonvis-readout{padding:9px 14px;border-top:1px solid var(--line);font-size:13px;font-weight:700;color:var(--teal);min-height:38px;display:flex;align-items:center;gap:8px}
 .lessonvis-readout .dim{font:11px ui-monospace,Menlo,monospace;font-weight:400;color:var(--dim)}
+.xray-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:11px}
+.xray-exp{display:flex;align-items:center;gap:9px;font:10px ui-monospace,Menlo,monospace;letter-spacing:1.2;color:var(--dim);text-transform:uppercase}
+.xray-exp input[type=range]{width:150px}
+.xray-exp .mono{font-size:11px;color:var(--muted);letter-spacing:0;text-transform:none;min-width:44px}
+.xraywrap{position:relative;height:min(72vh,700px);min-height:400px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#000}
+.xraywrap .stage{height:100%;min-height:0;border-radius:0;background:#000}
+.xray-note{margin-top:12px;padding:11px 13px;border-left:2px solid var(--orange);border-radius:0 9px 9px 0;background:rgba(255,186,103,.07);font-size:11.5px;line-height:1.6;color:var(--muted);max-width:760px}
+@media(max-width:900px){.xraywrap{height:min(58vh,460px)}}
 .mv-note{margin-top:9px;padding:8px 10px;border-left:2px solid var(--orange);border-radius:0 8px 8px 0;background:rgba(255,186,103,.08);font-size:11.5px;line-height:1.5;color:var(--muted)}
 .mv-note.hidden{display:none}
 .lessonvis-readout .side{font:10px ui-monospace,Menlo,monospace;font-weight:400;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 6px}
@@ -488,7 +496,26 @@
     </div>
             </div>
             <div id="viewerXrayPane" class="hidden">
-              <div class="emptybox">No radiograph images are bundled yet — <code>assets/xray/</code> is scaffolded and empty.<br><br>Add a licence-cleared image there and this pane will display it. Until then the source set names only <strong>PA</strong> and <strong>Lat</strong> projections, so nothing here claims AP or oblique.</div>
+              <div class="xray-bar">
+                <div class="segbar" id="xrayViews"></div>
+                <label class="xray-exp"><span>Exposure</span>
+                  <input type="range" id="xrayExposure" min="40" max="220" value="100" step="5" aria-label="Exposure">
+                  <span class="mono" id="xrayExposureRead">1.00&times;</span>
+                </label>
+              </div>
+              <div class="xraywrap" id="xrayMount"></div>
+              <div class="xray-note">
+                <strong>Simulated projection, not a radiograph.</strong> This is the bundled CC BY-SA model rendered by
+                accumulating every surface the ray crosses, so thick bone comes out bright and soft tissue is a haze.
+                It is geometry, not physics: there is no exposure factor, no scatter, no pathology.
+                <br><br>
+                It also <strong>cannot tell PA from AP</strong> — that difference is beam direction, object-to-detector
+                distance and the magnification they produce, none of which a parallel projection reproduces. Your source
+                set names only <strong>PA</strong> and <strong>Lat</strong>, and nothing here claims otherwise.
+                <br><br>
+                Real images go in <code>assets/xray/</code>, which is scaffolded and empty. Drop a licence-cleared file
+                there and reference it from a question to have it render.
+              </div>
             </div>
           </section>
 
@@ -572,6 +599,11 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   endMovement:()=>endMovement(),
   movementState:()=>state.movement?{id:state.movement.mv.id,angle:state.movement.angle,moving:state.movement.restore.length}:null,
   focusStructures:(spec)=>focusStructures(spec),
+  enterXray:()=>enterXray(),
+  exitXray:()=>exitXray(),
+  xrayView:(v)=>setXrayView(v),
+  xrayExposure:(v)=>setXrayExposure(v),
+  inXray:()=>!!state.xray,
   setPickHook:(fn)=>{state.pickHook=fn||null},
   clearStudyFocus:()=>clearStudyFocus(),
   stageEl:()=>els.stage,
@@ -682,8 +714,8 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   function answer(option,button){if(!state.current)return;const correct=state.current.mode==='side'?option===state.current.side:state.current.mode==='landmarks'?option===state.current.landmark:option===state.current.id;const record=getRecord(state.current.id);if(record)recordAnswer(correct,record,button);}
   function recordAnswer(correct,bone,button){const elapsed=performance.now()-state.current.started;if(state.current.mode==='memory')state.memoryStreak=correct?state.memoryStreak+1:0;record(bone.id,correct,elapsed);document.querySelectorAll('.answer').forEach(b=>b.disabled=true);if(button)button.classList.add(correct?'correct':'wrong');if(!correct){const correctText=state.current.mode==='side'?state.current.side:state.current.mode==='landmarks'?(LANDMARK_HOTSPOTS[bone.id]||[]).find(h=>h.id===state.current.landmark)?.label:bone.canonicalName;const hook=MEMORY_TIPS[bone.id]?.tip?` Memory hook: ${MEMORY_TIPS[bone.id].tip}`:'';els.feedback.className='feedback bad show';els.feedback.textContent=`Not quite. Correct: ${correctText}. ${bone.landmarks[0]} is the useful distinguishing landmark.${hook}`}else{els.feedback.className='feedback good show';els.feedback.textContent=state.current.mode==='find'?'Correct — you found it in space.':`Correct. ${bone.radiographyImportance}`;}highlight(bone.id,state.current.side);els.next.classList.add('show')}
   function onBonePicked(obj){const {canonicalId,side}=obj.userData;const record=getRecord(canonicalId);const sourceId=obj.userData.sourceCanonicalId;/* Tapping a bone selects it. It used to also flip the viewer to the   upper-limb region and swap the model, which is a surprise at the best of   times and left the other layers standing next to a different skeleton. */if(state.mode==='find'&&state.current){const correct=canonicalId===state.current.id;const questionRecord=getAnatomy(state.current.id);recordAnswer(correct,questionRecord,null);if(!correct){selectBone(canonicalId,side);els.feedback.className='feedback bad show';els.feedback.textContent=`Not that one — try again. You tapped ${getRecord(canonicalId)?.canonicalName||'another structure'}.`;els.next.classList.remove('show');document.querySelectorAll('.answer').forEach(b=>b.disabled=false);state.current.started=performance.now();return}return}if(state.mode==='landmarks'&&obj.userData.landmarkId){answer(obj.userData.landmarkId,null);return}if(record)selectBone(canonicalId,side)}
-  function clearHighlight(){[...state.meshes,...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].forEach(m=>{m.material.emissive?.setHex(0x000000);m.material.emissiveIntensity=0;m.userData.presentationActive=false;if(m.userData.baseScale)m.scale.set(...m.userData.baseScale);if(m.userData.basePosition)m.position.set(...m.userData.basePosition)});state.fullPickables.forEach(m=>{m.material.opacity=0})}
-  function highlight(id,side=null){clearHighlight();[...state.meshes,...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{m.material.emissive?.setHex(0x1eb9a6);m.material.emissiveIntensity=.95;m.userData.presentationActive=true});state.fullPickables.filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{m.material.opacity=.26})}
+  function clearHighlight(){[...state.meshes,...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].forEach(m=>{m.material.emissive?.setHex(0x000000);m.material.emissiveIntensity=0;m.userData.presentationActive=false;if(state.xray&&m.material.userData&&m.material.userData.baseOpacity!==undefined){m.material.color.setHex(0xffffff);m.material.opacity=m.material.userData.baseOpacity*state.xray.exposure}if(m.userData.baseScale)m.scale.set(...m.userData.baseScale);if(m.userData.basePosition)m.position.set(...m.userData.basePosition)});state.fullPickables.forEach(m=>{m.material.opacity=0})}
+  function highlight(id,side=null){clearHighlight();[...state.meshes,...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{/* In the projection there is no emissive channel to light up, so a pick   reads as a brighter, tinted accumulation instead. */if(state.xray&&m.material.userData&&m.material.userData.baseOpacity!==undefined){m.material.color.setHex(0x72e3cf);m.material.opacity=Math.min(1,m.material.userData.baseOpacity*state.xray.exposure*6)}else{m.material.emissive?.setHex(0x1eb9a6);m.material.emissiveIntensity=.95}m.userData.presentationActive=true});state.fullPickables.filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{m.material.opacity=.26})}
   function applyVisibility(){const skelOn=state.layers?state.layers.skeleton!==false:true;/* 'upper_limb' is now an ordinary region filter on the full skeleton. The   separate five-bone set is never drawn -- the skeleton already names those   five -- but its group stays visible so the landmark hotspots parented to   it can show. */if(state.fullModel)state.fullModel.visible=skelOn;if(state.realModel)state.realModel.visible=true;state.fullPickables.forEach(m=>m.visible=skelOn);state.fullMeshes.forEach(m=>{const inRegion=state.region==='all'||m.userData.region===state.region;const isolated=!state.isolated||!state.selectedId||m.userData.canonicalId===state.selectedId;m.visible=skelOn&&inRegion&&isolated});state.meshes.forEach(m=>{m.visible=false});state.hotspots.forEach(h=>h.visible=skelOn&&state.mode==='landmarks'&&(!state.selectedId||h.userData.parentId===state.selectedId));if(state.fullMeshes.length&&typeof updateStageMeta==='function')updateStageMeta()}
   function addMesh(THREE,group,geometry,position,canonicalId,region,side=null,scale=[1,1,1],label=''){const mat=new THREE.MeshStandardMaterial({color:0xd9d1bc,roughness:.74,metalness:.03});const mesh=new THREE.Mesh(geometry,mat);mesh.position.set(...position);mesh.scale.set(...scale);mesh.userData={canonicalId,region,side,baseScale:[...scale],basePosition:[...position],presentationActive:false,label};group.add(mesh);state.meshes.push(mesh);return mesh}
   function between(THREE,group,a,b,r,id,region,side=null){const dir=new THREE.Vector3(...b).sub(new THREE.Vector3(...a));const mesh=addMesh(THREE,group,new THREE.CylinderGeometry(r,r*.9,dir.length(),10),new THREE.Vector3(...a).add(new THREE.Vector3(...b)).multiplyScalar(.5).toArray(),id,region,side);mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.normalize());return mesh}
@@ -709,7 +741,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   function importedRegion(raw,mapped){if(mapped&&getAnatomy(mapped))return getAnatomy(mapped).region;const value=String(raw||'').toLowerCase();if(/humerus|radius|ulna|scapula|clavicle|carpal|metacarpal|phalanx|hand/.test(value))return 'upper_limb';if(/femur|tibia|fibula|patella|tarsal|metatarsal|calcaneus|talus|foot/.test(value))return 'lower_limb';if(/vertebra|sacrum|coccyx|spine/.test(value))return 'spine';if(/rib|sternum|costal/.test(value))return 'thorax';if(/ilium|ischium|pubis|hip|pelvis|acetabulum/.test(value))return 'pelvis';return 'skull'}
   function importedRecord(id,raw,mapped,region){const known=mapped&&getAnatomy(mapped);const label=cleanImportedLabel(raw);const side=sideFromImportedName(raw);if(known)return {...known,id,canonicalName:label||known.canonicalName,side:side||known.side};return {id,canonicalName:label||'Unnamed structure',aliases:[],region,side:side||'bilateral',category:'named atlas structure',landmarks:[],articulations:[],radiographyImportance:'Named atlas structure from the interactive skeleton source.',difficulty:3,modelObjectIds:[],commonConfusions:[]}}
   function getRecord(id){return getAnatomy(id)||state.importedRecords.get(id)||null}
-  function prepareFullReference(THREE,root){state.THREE=THREE;state.fullMeshes=[];state.fullPickables=[];root.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(root);const size=box.getSize(new THREE.Vector3());const maxDim=Math.max(size.x,size.y,size.z)||1;root.scale.setScalar(11.8/maxDim);const scaledBox=new THREE.Box3().setFromObject(root);const center=scaledBox.getCenter(new THREE.Vector3());root.position.x-=center.x;root.position.y+=1-center.y;root.position.z-=center.z;root.updateMatrixWorld(true);/* The canonical body frame. Every other layer gets THIS transform verbatim -- see loadExtraModel. */state.bodyTransform={scalar:11.8/maxDim,offset:[root.position.x,root.position.y,root.position.z]};root.traverse((obj)=>{if(!obj.isMesh)return;const raw=obj.name||obj.parent?.name||'Unnamed structure';const mapped=mapImportedName(raw);const region=importedRegion(raw,mapped);const id=`full:${state.fullMeshes.length}:${raw}`;state.importedRecords.set(id,importedRecord(id,raw,mapped,region));obj.userData={...(obj.userData||{}),baseScale:obj.scale.toArray(),basePosition:obj.position.toArray(),presentationActive:false,canonicalId:id,sourceCanonicalId:mapped,region,side:sideFromImportedName(raw),label:raw,precise:true};if(obj.material){obj.material=obj.material.clone();obj.material.color?.setHex(0xd9d1bc);obj.material.roughness=.8;obj.material.metalness=.02}state.fullMeshes.push(obj)});const pivot=new THREE.Group();pivot.name='fullSkeletonPivot';pivot.add(root);return pivot}
+  function prepareFullReference(THREE,root){state.THREE=THREE;state.fullMeshes=[];state.fullPickables=[];root.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(root);const size=box.getSize(new THREE.Vector3());const maxDim=Math.max(size.x,size.y,size.z)||1;root.scale.setScalar(11.8/maxDim);const scaledBox=new THREE.Box3().setFromObject(root);const center=scaledBox.getCenter(new THREE.Vector3());root.position.x-=center.x;root.position.y+=1-center.y;root.position.z-=center.z;root.updateMatrixWorld(true);/* The canonical body frame. Every other layer gets THIS transform verbatim -- see loadExtraModel. */state.bodyTransform={scalar:11.8/maxDim,offset:[root.position.x,root.position.y,root.position.z]};/* * Side letters are glued onto the name -- 'Costal_cartilage_of_fifth_ribl', * 'Incusr'. cleanImportedLabel only knew a fixed list of bone words, so 148 * of the 277 structures displayed their side letter as part of the name. * Strip it only when the opposite-side twin actually exists, which needs * every name in hand first -- hence two passes. Femur and Vomer genuinely * end in r and have no twin, so they are left alone. */const objs=[];root.traverse((o)=>{if(o.isMesh)objs.push(o)});const raws=objs.map(o=>o.name||o.parent?.name||'Unnamed structure');const flatNames=new Set(raws.map(r=>r.replace(/_/g,' ').trim().toLowerCase()));const sideAware=(raw)=>{const clean=String(raw).replace(/_/g,' ').replace(/\s+/g,' ').trim();const mm=clean.match(/^(.*\S)(l|r)$/i);if(mm){const stem=mm[1].trim();const twin=(stem+(mm[2].toLowerCase()==='l'?'r':'l')).toLowerCase();if(flatNames.has(twin))return {label:stem,side:mm[2].toLowerCase()==='l'?'left':'right'}}return {label:clean,side:null}};objs.forEach((obj,i)=>{const raw=raws[i];const {label,side:sd}=sideAware(raw);const mapped=mapImportedName(raw);const region=importedRegion(raw,mapped);const id=`full:${i}:${raw}`;const base=importedRecord(id,raw,mapped,region);state.importedRecords.set(id,{...base,canonicalName:label||base.canonicalName,side:sd||base.side});obj.userData={...(obj.userData||{}),baseScale:obj.scale.toArray(),basePosition:obj.position.toArray(),presentationActive:false,canonicalId:id,sourceCanonicalId:mapped,region,side:sd||sideFromImportedName(raw),label:raw,precise:true};if(obj.material){obj.material=obj.material.clone();obj.material.color?.setHex(0xd9d1bc);obj.material.roughness=.8;obj.material.metalness=.02}state.fullMeshes.push(obj)});const pivot=new THREE.Group();pivot.name='fullSkeletonPivot';pivot.add(root);return pivot}
   function prepareImportedModel(THREE,root){state.realIsProcedural=false;/* Same shared body frame as every other layer. Normalising this set to its   OWN bounding box scaled five arm bones to the height of a whole body. */const bt=state.bodyTransform;if(bt){root.scale.setScalar(bt.scalar);root.position.set(bt.offset[0],bt.offset[1],bt.offset[2])}else{const box=new THREE.Box3().setFromObject(root);const size=box.getSize(new THREE.Vector3());const maxDim=Math.max(size.x,size.y,size.z)||1;root.scale.setScalar(11/maxDim);const scaledBox=new THREE.Box3().setFromObject(root);const center=scaledBox.getCenter(new THREE.Vector3());root.position.x-=center.x;root.position.y+=.5-center.y;root.position.z-=center.z}state.meshes=[];let mapped=0,unmapped=0;const importedNames=[];root.traverse((obj)=>{if(!obj.isMesh)return;importedNames.push(obj.name||obj.parent?.name||'unnamed');const canonicalId=obj.userData.sourceCanonicalId||mapImportedName(obj.name||obj.parent?.name);if(!canonicalId){unmapped++;obj.visible=false;return}const known=getAnatomy(canonicalId);if(!known){unmapped++;obj.visible=false;return}mapped++;obj.userData={...(obj.userData||{}),baseScale:obj.scale.toArray(),basePosition:obj.position.toArray(),presentationActive:false,canonicalId,region:known.region,side:obj.userData.sourceSide||sideFromImportedName(obj.name||obj.parent?.name),label:obj.userData.sourceLabel||obj.name};if(obj.material){obj.material=obj.material.clone();obj.material.color?.setHex(0xd9d1bc);obj.material.roughness=.78;obj.material.metalness=.02}state.meshes.push(obj)});return {mapped,unmapped}}
   function remapHotspotsToReal(THREE){if(!state.realModel||state.realIsProcedural)return;const byId=new Map();state.meshes.forEach(m=>{if(!byId.has(m.userData.canonicalId))byId.set(m.userData.canonicalId,m)});state.realModel.updateMatrixWorld(true);Object.entries(LANDMARK_HOTSPOTS).forEach(([parent,spots])=>{const mesh=byId.get(parent);if(!mesh)return;mesh.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(mesh),center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3());spots.forEach(spot=>{const h=state.hotspots.find(x=>x.userData.parentId===parent&&x.userData.landmarkId===spot.id);if(!h)return;const rel=new THREE.Vector3(...spot.position).sub(new THREE.Vector3(-2.4,7.7,.45));rel.x=Math.max(-1.2,Math.min(1.2,rel.x));rel.y=Math.max(-1.2,Math.min(1.2,rel.y));rel.z=Math.max(-.8,Math.min(.8,rel.z));const worldPoint=center.clone().add(rel.multiply(new THREE.Vector3(size.x*.5,size.y*.5,size.z*.5)));h.position.copy(state.realModel.worldToLocal(worldPoint));h.visible=false})})}
   async function loadImportedModel(THREE,GLTFLoader,DRACOLoader){const root=new THREE.Group();const loader=new GLTFLoader();const draco=new DRACOLoader();draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/libs/draco/');loader.setDRACOLoader(draco);for(let i=0;i<MODEL_CATALOG.active.files.length;i++){const source=MODEL_CATALOG.active.files[i];const gltf=await new Promise((resolve,reject)=>loader.load(source.file,resolve,(event)=>{const ratio=event.total?event.loaded/event.total:0;els.progress.style.width=`${Math.round(((i+ratio)/MODEL_CATALOG.active.files.length)*60)+28}%`},reject));gltf.scene.traverse((obj)=>{obj.userData={...(obj.userData||{}),sourceCanonicalId:source.id,sourceSide:source.side,sourceLabel:source.label}});root.add(gltf.scene)}const pivot=new THREE.Group();pivot.name='realUpperLimbPivot';pivot.add(root);return pivot}
@@ -736,7 +768,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   let pointerDown=null;function bindCanvas(){let lastTap=0;els.stage.addEventListener('pointerdown',(e)=>{pointerDown={x:e.clientX,y:e.clientY}});els.stage.addEventListener('pointerup',(e)=>{if(pointerDown&&Math.hypot(e.clientX-pointerDown.x,e.clientY-pointerDown.y)<7){const now=performance.now();const isDouble=now-lastTap<320;lastTap=now;pick(e,isDouble)}pointerDown=null})}
   function renderSearch(){const dbHits=searchAnatomy(els.search.value).slice(0,10);const needle=els.search.value.trim().toLowerCase();const atlasHits=needle?[...state.importedRecords.values()].filter(r=>r.canonicalName.toLowerCase().includes(needle)).slice(0,6):[];const hits=[...dbHits,...atlasHits];els.results.innerHTML=hits.map(r=>`<div class="result" data-id="${r.id}"><strong>${clean(r.canonicalName)}</strong><span>${clean(state.importedRecords.has(r.id)?'Atlas':regionLabel(r.region))}</span></div>`).join('')||'<div class="empty">No matching structure. Try an alias such as collarbone or kneecap.</div>';els.results.querySelectorAll('.result').forEach(el=>el.onclick=()=>{const record=getRecord(el.dataset.id);if(!record)return;state.region=record.region==='upper_limb'?'upper_limb':'all';els.regionMeta.textContent=regionLabel(state.region);renderRegions();setMode('explore');selectBone(record.id);showToast(`${record.canonicalName} opened`)})}
   function clearSelection(){state.selectedId=null;state.selectedSide=null;state.selectionAnchor=null;state.isolated=false;$('isolateBtn').classList.remove('active');clearHighlight();applyVisibility();els.selectedName.textContent='Nothing selected';els.selectedChips.innerHTML='';els.selectedDetails.innerHTML=''}
-  document.querySelectorAll('.mode-btn').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));$('resetBtn').onclick=()=>{cameraView('front');state.isolated=false;$('isolateBtn').classList.remove('active');applyVisibility()};els.zoomIn.onclick=()=>zoomCamera(.72);els.zoomOut.onclick=()=>zoomCamera(1.38);els.focus.onclick=focusSelected;$('frontBtn').onclick=()=>cameraView('front');$('lateralBtn').onclick=()=>cameraView('lateral');$('isolateBtn').onclick=toggleIsolation;$('showAllBtn').onclick=()=>{state.region='all';els.regionMeta.textContent='All regions';renderRegions();clearSelection()};els.next.onclick=()=>startQuestion();$('reviewBtn').onclick=()=>{setMode('identify');showToast('Review session started')};$('closeDetail').onclick=()=>{els.detailDialog.close();state.lastDetailId=null;history.replaceState(null,'',location.pathname+location.search)};els.search.oninput=renderSearch;$('clearSearch').onclick=()=>{els.search.value='';renderSearch()};els.retry.onclick=()=>{try{state.controls?.dispose()}catch{}if(state.renderer){state.renderer.domElement.remove();state.renderer=null;state.controls=null}state.scene=null;state.camera=null;state.fullModel=null;state.realModel=null;state.meshes=[];state.fullMeshes=[];state.hotspots=[];state.fullPickables=[];boot3D()};window.addEventListener('resize',resize);
+  document.querySelectorAll('.mode-btn').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));$('resetBtn').onclick=()=>{if(state.xray){setXrayView(state.xray.view);return}cameraView('front');state.isolated=false;$('isolateBtn').classList.remove('active');applyVisibility()};els.zoomIn.onclick=()=>zoomCamera(.72);els.zoomOut.onclick=()=>zoomCamera(1.38);els.focus.onclick=focusSelected;$('frontBtn').onclick=()=>cameraView('front');$('lateralBtn').onclick=()=>cameraView('lateral');$('isolateBtn').onclick=toggleIsolation;$('showAllBtn').onclick=()=>{state.region='all';els.regionMeta.textContent='All regions';renderRegions();clearSelection()};els.next.onclick=()=>startQuestion();$('reviewBtn').onclick=()=>{setMode('identify');showToast('Review session started')};$('closeDetail').onclick=()=>{els.detailDialog.close();state.lastDetailId=null;history.replaceState(null,'',location.pathname+location.search)};els.search.oninput=renderSearch;$('clearSearch').onclick=()=>{els.search.value='';renderSearch()};els.retry.onclick=()=>{try{state.controls?.dispose()}catch{}if(state.renderer){state.renderer.domElement.remove();state.renderer=null;state.controls=null}state.scene=null;state.camera=null;state.fullModel=null;state.realModel=null;state.meshes=[];state.fullMeshes=[];state.hotspots=[];state.fullPickables=[];boot3D()};window.addEventListener('resize',resize);
   els.motion.onclick=()=>{state.motionEnabled=!state.motionEnabled;els.motion.textContent=state.motionEnabled?'Pause animation':'Play animation';els.motion.classList.toggle('active',state.motionEnabled)};renderRegions();renderReview();renderSearch();bindCanvas();setMode('explore');/*
  * Extra system models (organs, circulatory) live in their own GLB files and are
  * loaded only when a structure set from them is opened. They are shown INSTEAD
@@ -940,6 +972,91 @@ async function focusStructures(spec){
   state.focus={key,count:hits.length};
   els.stageMeta.textContent=`${spec.label||LAYER_NAMES[key]||key} · ${hits.length} named mesh${hits.length===1?'':'es'} · tap to name them`;
   return {ok:true,found:hits.length};
+}
+
+/*
+ * Projection view.
+ *
+ * A radiograph is an accumulation of attenuation along a ray, so the honest
+ * cheap analogue is additive blending with depth-write off: every surface the
+ * ray crosses adds a little brightness, and thick or overlapping bone comes out
+ * bright while soft tissue is a haze. Bone carries roughly ten times the weight
+ * of muscle here, which is the right order for the effect, not a dose figure.
+ *
+ * The camera is a very narrow field of view pulled a long way back, which is a
+ * near-parallel projection. That is also this view's honest limit: a parallel
+ * projection CANNOT distinguish PA from AP. The difference between them is beam
+ * direction, object-to-detector distance and the resulting magnification -- none
+ * of which geometry alone reproduces. The pane says so.
+ */
+state.xray=null;
+const XRAY_DENSITY={skeleton:.13,muscle:.012,organs:.02,circulatory:.016,nervous:.014,joint:.03,lymphatic:.02};
+function xrayMaterial(THREE,op){
+  const m=new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:op,
+    blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide});
+  m.userData={baseOpacity:op};
+  return m;
+}
+function enterXray(){
+  if(state.xray||!state.scene)return false;
+  const THREE=state.THREE;
+  const c=state.camera, ctr=state.controls;
+  state.xray={
+    mats:new Map(), bg:state.scene.background,
+    fov:c.fov, near:c.near, far:c.far,
+    minD:ctr.minDistance, maxD:ctr.maxDistance,
+    pos:c.position.clone(), target:ctr.target.clone(),
+    layers:{...state.layers}, layerOpacity:{...(state.layerOpacity||{})},
+    motion:state.motionEnabled, exposure:1, view:'frontal',
+  };
+  /* Every loaded layer contributes density, so the picture is a body and not a
+     floating skeleton. Layers the learner turned off stay off. */
+  state.layers.skeleton=true;
+  Object.keys(state.extraModels||{}).forEach(k=>{if(state.extraModels[k])state.layers[k]=true});
+  const apply=(mesh,key)=>{state.xray.mats.set(mesh,mesh.material);mesh.material=xrayMaterial(THREE,XRAY_DENSITY[key]||.02)};
+  state.fullMeshes.forEach(m=>apply(m,'skeleton'));
+  Object.entries(state.extraModels||{}).forEach(([k,l])=>l.meshes.forEach(m=>apply(m,k)));
+  Object.entries(state.extraModels||{}).forEach(([k,l])=>{l.root.visible=!!state.layers[k]});
+  state.scene.background=new THREE.Color(0x000000);
+  /* The idle yaw would smear a projection that is meant to be read square on. */
+  state.motionEnabled=false;
+  [state.fullModel,state.realModel,...Object.values(state.extraModels||{}).map(m=>m.pivot)]
+    .forEach(r=>{if(r)r.rotation.y=0});
+  ctr.maxDistance=600; ctr.minDistance=20;
+  setXrayView('frontal');
+  return true;
+}
+function setXrayView(view){
+  if(!state.xray)return;
+  const THREE=state.THREE, c=state.camera, ctr=state.controls;
+  state.xray.view=view;
+  c.fov=3.2; c.near=1; c.far=2000; c.updateProjectionMatrix();
+  const dist=5.95/Math.tan((c.fov/2)*Math.PI/180);
+  ctr.target.set(0,1,0);
+  const dir=view==='lateral'?new THREE.Vector3(1,0,0):new THREE.Vector3(0,0,1);
+  c.position.copy(ctr.target).add(dir.multiplyScalar(dist));
+  ctr.update();
+  els.stageMeta.textContent=`Simulated ${view==='lateral'?'lateral':'frontal'} projection · ${state.fullMeshes.length} named bones · tap to name`;
+}
+function setXrayExposure(v){
+  if(!state.xray)return;
+  state.xray.exposure=v;
+  state.xray.mats.forEach((_orig,mesh)=>{
+    if(mesh.material&&mesh.material.userData)mesh.material.opacity=mesh.material.userData.baseOpacity*v;
+  });
+}
+function exitXray(){
+  const x=state.xray; if(!x)return;
+  const c=state.camera, ctr=state.controls;
+  x.mats.forEach((orig,mesh)=>{if(mesh.material&&mesh.material.dispose)mesh.material.dispose();mesh.material=orig});
+  state.scene.background=x.bg;
+  c.fov=x.fov;c.near=x.near;c.far=x.far;c.updateProjectionMatrix();
+  ctr.minDistance=x.minD;ctr.maxDistance=x.maxD;
+  c.position.copy(x.pos);ctr.target.copy(x.target);ctr.update();
+  state.layers=x.layers;state.layerOpacity=x.layerOpacity;
+  state.motionEnabled=x.motion;
+  state.xray=null;
+  applyLayers();
 }
 function setLayer(key,on){
   /* Meshes carried by a movement live under the pivot group, not their layer
@@ -1690,6 +1807,7 @@ function topicHasViewer(items) { return items.some((i) => ['id3d', 'structure', 
 function topicPct(items) { return items.length ? Math.round(items.reduce((n, i) => n + itemScore(i.id), 0) / items.length * 100) : 0; }
 
 function renderLearn() {
+  leaveProjection();
   setActiveNav('learn');
   const visible = topicsWithContent().filter((t) => learnFilter === 'all' || (learnFilter === '3d' ? topicHasViewer(t.items) : t.group.label === learnFilter));
   if (!learnTopic || !visible.some((t) => t.unit.id === learnTopic)) learnTopic = visible[0] ? visible[0].unit.id : null;
@@ -1806,12 +1924,47 @@ async function cycleLayer(key, btn) {
   }
 }
 
+const XRAY_VIEWS = [['frontal', 'Frontal'], ['lateral', 'Lateral']];
+let xrayView = 'frontal';
+
 function renderViewerTabs() {
-  $$('viewerTabs').innerHTML = [['3d', '3D skeleton'], ['xray', 'Radiograph']].map(([id, label]) =>
+  $$('viewerTabs').innerHTML = [['3d', '3D skeleton'], ['xray', 'Projection']].map(([id, label]) =>
     `<button class="seg${viewerTab === id ? ' active' : ''}" data-vtab="${esc(id)}">${esc(label)}</button>`).join('');
   $$('viewerTabs').querySelectorAll('[data-vtab]').forEach((b) => { b.onclick = () => { viewerTab = b.dataset.vtab; renderViewerTabs(); }; });
   $$('viewerSkeletonPane').classList.toggle('hidden', viewerTab !== '3d');
   $$('viewerXrayPane').classList.toggle('hidden', viewerTab !== 'xray');
+  if (viewerTab === 'xray') enterProjection(); else leaveProjection();
+}
+
+function renderXrayViews() {
+  $$('xrayViews').innerHTML = XRAY_VIEWS.map(([id, label]) =>
+    `<button class="seg${xrayView === id ? ' active' : ''}" data-xview="${esc(id)}">${esc(label)}</button>`).join('');
+  $$('xrayViews').querySelectorAll('[data-xview]').forEach((b) => {
+    b.onclick = () => { xrayView = b.dataset.xview; renderXrayViews(); if (window.__osteo) window.__osteo.xrayView(xrayView); };
+  });
+}
+
+/* The projection borrows the same canvas the studio and the lessons use. */
+async function enterProjection() {
+  const mount = $$('xrayMount');
+  if (!mount || !window.__osteo) return;
+  renderXrayViews();
+  const booted = await window.__osteo.boot();
+  if (!booted) { mount.innerHTML = '<div class="emptybox">3D is unavailable, so the projection cannot be drawn.</div>'; return; }
+  const stage = window.__osteo.stageEl();
+  if (stage && stage.parentElement !== mount) mount.appendChild(stage);
+  window.__osteo.resize();
+  window.__osteo.enterXray();
+  window.__osteo.xrayView(xrayView);
+  window.__osteo.xrayExposure(+$$('xrayExposure').value / 100);
+  window.__osteo.resize();
+}
+
+function leaveProjection() {
+  if (!window.__osteo || !window.__osteo.inXray || !window.__osteo.inXray()) { restoreStage(); return; }
+  window.__osteo.exitXray();
+  restoreStage();
+  window.__osteo.resize();
 }
 async function syncLayersToRail() {
   if (!window.__osteo || !window.__osteo.setLayer) return;
@@ -1829,6 +1982,15 @@ function openViewer() {
   setActiveNav('viewer');
   renderViewerTabs();
   renderLayerRail();
+  const exp = $$('xrayExposure');
+  if (exp && !exp.dataset.wired) {
+    exp.dataset.wired = '1';
+    exp.oninput = () => {
+      const v = +exp.value / 100;
+      $$('xrayExposureRead').innerHTML = v.toFixed(2) + '&times;';
+      if (window.__osteo && window.__osteo.inXray()) window.__osteo.xrayExposure(v);
+    };
+  }
   /* A lesson may have left a study focus and other layers on. */
   syncLayersToRail();
   showView('viewerView');
