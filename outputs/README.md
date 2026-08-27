@@ -362,24 +362,60 @@ before they were positioned against a 20x-oversized arm.
 
 ## Projection view
 
-The Viewer's second tab was an empty placeholder. It now renders the bundled model as a simulated
-projection: additive blending with depth-write off, so every surface the ray crosses adds brightness
-and thick or overlapping bone comes out bright while soft tissue is a haze. Bone carries roughly ten
-times the weight of muscle, which is the right order for the effect and not a dose figure. Every
-loaded layer contributes density, so the picture is a body rather than a floating skeleton.
+The Viewer's second tab was an empty placeholder. It renders the bundled model
+as a simulated projection.
 
-Two views, **Frontal** and **Lateral**, an exposure control, and picking still works — tap a bone in
-the projection and it names itself.
+The first attempt accumulated surfaces: every polygon the ray crossed added a
+fixed amount of brightness. That is wrong in a way worth spelling out. These
+meshes are hollow shells, so a femur contributed the same two crossings as a
+sheet of bone a millimetre thick, and everything came out looking like outlines.
 
-Its limits are stated in the pane rather than left for you to discover:
+It now measures the path length **through** material and applies Beer-Lambert.
+Each fragment writes its own distance from the camera, signed by facing: back
+faces add, front faces subtract. Summed along a ray with additive blending,
+`sum(exits) - sum(entries)` is exactly the distance spent inside solid material,
+and it stays correct for any number of separate objects stacked along the ray.
+Scaled by a per-tissue coefficient that sum is optical depth, and the film reads
+`1 - exp(-tau)`. So bone is bright because the ray spent longer in bone, not
+because it crossed more polygons.
 
-- It is geometry, not physics. No exposure factor, no scatter, no pathology.
-- It **cannot distinguish PA from AP**. That difference is beam direction, object-to-detector distance
-  and the magnification they produce; a parallel projection reproduces none of it. The source set
-  names only PA and Lat, and nothing here claims otherwise.
+**Collimation.** A whole-body film is not a thing anyone is handed, so the view
+offers regions that are: chest, abdomen, pelvis, hand, plus whole body. Every
+centre and field size was measured off the loaded skeleton rather than guessed —
+ribs centre at y 3.74 and stand 2.71 tall, the hip bones centre at y 1.33, a hand
+centres near x 2.1, y 0.47. The model is 11.8 units for a 1.7 m body, so one
+metre is about 6.94 units, and source-to-image distances are set in real terms:
+180 cm for a chest, 100 cm for the rest.
 
-`assets/xray/` is still scaffolded and empty. Real radiographs need both a licence-cleared image and
-a source that says what it shows, and neither was in the supplied material.
+**PA, AP and Lateral.** The beam diverges from a point at that distance, which is
+what makes PA and AP genuinely different here rather than a label — whatever lies
+further from the detector is magnified more. +z is anterior on this model, so PA
+puts the source behind the patient and AP in front. Both films are read as though
+you were facing the patient, their right on your left; viewed from behind PA comes
+out mirrored, so the image is flipped to match how it would actually be hung.
+
+Exposure is adjustable, quantum mottle rises where fewer photons arrive, and
+picking still works — tap a bone in the projection and it names itself.
+Highlighting had to change for it: a shader material has no emissive channel, so
+a pick raises that mesh's attenuation instead.
+
+### What it still is not
+
+Stated in the pane, not left to be discovered:
+
+- The coefficients are **relative**, chosen for familiar contrast. No kVp, no mAs,
+  no dose.
+- No scatter, no grid, no pathology.
+- The source meshes are hollow surfaces, so **cortex and marrow do not differ**. A
+  long bone reads as uniformly dense where a real film shows a bright cortex
+  around a darker medullary cavity.
+
+Use it for projection anatomy — what overlaps what, and where a structure lands
+when the body is flattened onto a detector. It will not teach you to read a film.
+
+`assets/xray/` is still scaffolded and empty. A real radiograph needs both a
+licence-cleared image and a source that says what it shows, and neither was in
+the supplied material.
 
 ## Side letters on skeleton labels
 

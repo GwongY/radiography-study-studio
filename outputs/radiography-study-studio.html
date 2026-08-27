@@ -497,21 +497,28 @@
             </div>
             <div id="viewerXrayPane" class="hidden">
               <div class="xray-bar">
+                <div class="segbar" id="xrayRegions"></div>
                 <div class="segbar" id="xrayViews"></div>
                 <label class="xray-exp"><span>Exposure</span>
-                  <input type="range" id="xrayExposure" min="40" max="220" value="100" step="5" aria-label="Exposure">
-                  <span class="mono" id="xrayExposureRead">1.00&times;</span>
+                  <input type="range" id="xrayExposure" min="40" max="260" value="160" step="5" aria-label="Exposure">
+                  <span class="mono" id="xrayExposureRead">1.60&times;</span>
                 </label>
               </div>
               <div class="xraywrap" id="xrayMount"></div>
               <div class="xray-note">
-                <strong>Simulated projection, not a radiograph.</strong> This is the bundled CC BY-SA model rendered by
-                accumulating every surface the ray crosses, so thick bone comes out bright and soft tissue is a haze.
-                It is geometry, not physics: there is no exposure factor, no scatter, no pathology.
+                <strong>Simulated projection, not a radiograph.</strong> Each ray's path length through material is
+                measured and attenuated by Beer–Lambert, with bone about ten times the coefficient of soft tissue,
+                so bone is bright because the ray spent longer in bone. The beam diverges from a point at a set
+                source-to-image distance, which is what makes <strong>PA</strong> and <strong>AP</strong> genuinely
+                differ here: whatever lies further from the detector magnifies more.
                 <br><br>
-                It also <strong>cannot tell PA from AP</strong> — that difference is beam direction, object-to-detector
-                distance and the magnification they produce, none of which a parallel projection reproduces. Your source
-                set names only <strong>PA</strong> and <strong>Lat</strong>, and nothing here claims otherwise.
+                <strong>What it still is not.</strong> The coefficients are relative, chosen for familiar contrast —
+                no kVp, no mAs, no dose. There is no scatter, no grid, no pathology. And the source meshes are hollow
+                surfaces, so <strong>cortex and marrow do not differ</strong>: a long bone reads as uniformly dense
+                where a real film shows a bright cortex around a darker medullary cavity.
+                <br><br>
+                Use it for projection anatomy — what overlaps what, and where a structure lands when the body is
+                flattened onto a detector. It will not teach you to read a film.
                 <br><br>
                 Real images go in <code>assets/xray/</code>, which is scaffolded and empty. Drop a licence-cleared file
                 there and reference it from a question to have it render.
@@ -602,6 +609,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   enterXray:()=>enterXray(),
   exitXray:()=>exitXray(),
   xrayView:(v)=>setXrayView(v),
+  xrayRegion:(v)=>setXrayRegion(v),
   xrayExposure:(v)=>setXrayExposure(v),
   inXray:()=>!!state.xray,
   setPickHook:(fn)=>{state.pickHook=fn||null},
@@ -714,8 +722,8 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   function answer(option,button){if(!state.current)return;const correct=state.current.mode==='side'?option===state.current.side:state.current.mode==='landmarks'?option===state.current.landmark:option===state.current.id;const record=getRecord(state.current.id);if(record)recordAnswer(correct,record,button);}
   function recordAnswer(correct,bone,button){const elapsed=performance.now()-state.current.started;if(state.current.mode==='memory')state.memoryStreak=correct?state.memoryStreak+1:0;record(bone.id,correct,elapsed);document.querySelectorAll('.answer').forEach(b=>b.disabled=true);if(button)button.classList.add(correct?'correct':'wrong');if(!correct){const correctText=state.current.mode==='side'?state.current.side:state.current.mode==='landmarks'?(LANDMARK_HOTSPOTS[bone.id]||[]).find(h=>h.id===state.current.landmark)?.label:bone.canonicalName;const hook=MEMORY_TIPS[bone.id]?.tip?` Memory hook: ${MEMORY_TIPS[bone.id].tip}`:'';els.feedback.className='feedback bad show';els.feedback.textContent=`Not quite. Correct: ${correctText}. ${bone.landmarks[0]} is the useful distinguishing landmark.${hook}`}else{els.feedback.className='feedback good show';els.feedback.textContent=state.current.mode==='find'?'Correct — you found it in space.':`Correct. ${bone.radiographyImportance}`;}highlight(bone.id,state.current.side);els.next.classList.add('show')}
   function onBonePicked(obj){const {canonicalId,side}=obj.userData;const record=getRecord(canonicalId);const sourceId=obj.userData.sourceCanonicalId;/* Tapping a bone selects it. It used to also flip the viewer to the   upper-limb region and swap the model, which is a surprise at the best of   times and left the other layers standing next to a different skeleton. */if(state.mode==='find'&&state.current){const correct=canonicalId===state.current.id;const questionRecord=getAnatomy(state.current.id);recordAnswer(correct,questionRecord,null);if(!correct){selectBone(canonicalId,side);els.feedback.className='feedback bad show';els.feedback.textContent=`Not that one — try again. You tapped ${getRecord(canonicalId)?.canonicalName||'another structure'}.`;els.next.classList.remove('show');document.querySelectorAll('.answer').forEach(b=>b.disabled=false);state.current.started=performance.now();return}return}if(state.mode==='landmarks'&&obj.userData.landmarkId){answer(obj.userData.landmarkId,null);return}if(record)selectBone(canonicalId,side)}
-  function clearHighlight(){[...state.meshes,...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].forEach(m=>{m.material.emissive?.setHex(0x000000);m.material.emissiveIntensity=0;m.userData.presentationActive=false;if(state.xray&&m.material.userData&&m.material.userData.baseOpacity!==undefined){m.material.color.setHex(0xffffff);m.material.opacity=m.material.userData.baseOpacity*state.xray.exposure}if(m.userData.baseScale)m.scale.set(...m.userData.baseScale);if(m.userData.basePosition)m.position.set(...m.userData.basePosition)});state.fullPickables.forEach(m=>{m.material.opacity=0})}
-  function highlight(id,side=null){clearHighlight();[...state.meshes,...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{/* In the projection there is no emissive channel to light up, so a pick   reads as a brighter, tinted accumulation instead. */if(state.xray&&m.material.userData&&m.material.userData.baseOpacity!==undefined){m.material.color.setHex(0x72e3cf);m.material.opacity=Math.min(1,m.material.userData.baseOpacity*state.xray.exposure*6)}else{m.material.emissive?.setHex(0x1eb9a6);m.material.emissiveIntensity=.95}m.userData.presentationActive=true});state.fullPickables.filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{m.material.opacity=.26})}
+  function clearHighlight(){[...state.meshes,...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].forEach(m=>{m.material.emissive?.setHex(0x000000);m.material.emissiveIntensity=0;m.userData.presentationActive=false;if(state.xray&&m.userData.xrayHot){m.material.dispose();m.material=state.xray.shared.get(m.userData.xrayKey);delete m.userData.xrayHot}if(m.userData.baseScale)m.scale.set(...m.userData.baseScale);if(m.userData.basePosition)m.position.set(...m.userData.basePosition)});state.fullPickables.forEach(m=>{m.material.opacity=0})}
+  function highlight(id,side=null){clearHighlight();[...state.meshes,...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{/* In the projection there is no emissive channel to light up, so a pick   reads as a brighter, tinted accumulation instead. */if(state.xray&&m.userData.xrayKey){const mu=(XRAY_MU[m.userData.xrayKey]||.12)*3.4;m.material=xrayDepthMaterial(state.THREE,mu);m.userData.xrayHot=true}else{m.material.emissive?.setHex(0x1eb9a6);m.material.emissiveIntensity=.95}m.userData.presentationActive=true});state.fullPickables.filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{m.material.opacity=.26})}
   function applyVisibility(){const skelOn=state.layers?state.layers.skeleton!==false:true;/* 'upper_limb' is now an ordinary region filter on the full skeleton. The   separate five-bone set is never drawn -- the skeleton already names those   five -- but its group stays visible so the landmark hotspots parented to   it can show. */if(state.fullModel)state.fullModel.visible=skelOn;if(state.realModel)state.realModel.visible=true;state.fullPickables.forEach(m=>m.visible=skelOn);state.fullMeshes.forEach(m=>{const inRegion=state.region==='all'||m.userData.region===state.region;const isolated=!state.isolated||!state.selectedId||m.userData.canonicalId===state.selectedId;m.visible=skelOn&&inRegion&&isolated});state.meshes.forEach(m=>{m.visible=false});state.hotspots.forEach(h=>h.visible=skelOn&&state.mode==='landmarks'&&(!state.selectedId||h.userData.parentId===state.selectedId));if(state.fullMeshes.length&&typeof updateStageMeta==='function')updateStageMeta()}
   function addMesh(THREE,group,geometry,position,canonicalId,region,side=null,scale=[1,1,1],label=''){const mat=new THREE.MeshStandardMaterial({color:0xd9d1bc,roughness:.74,metalness:.03});const mesh=new THREE.Mesh(geometry,mat);mesh.position.set(...position);mesh.scale.set(...scale);mesh.userData={canonicalId,region,side,baseScale:[...scale],basePosition:[...position],presentationActive:false,label};group.add(mesh);state.meshes.push(mesh);return mesh}
   function between(THREE,group,a,b,r,id,region,side=null){const dir=new THREE.Vector3(...b).sub(new THREE.Vector3(...a));const mesh=addMesh(THREE,group,new THREE.CylinderGeometry(r,r*.9,dir.length(),10),new THREE.Vector3(...a).add(new THREE.Vector3(...b)).multiplyScalar(.5).toArray(),id,region,side);mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.normalize());return mesh}
@@ -748,7 +756,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   async function loadFullReference(THREE,GLTFLoader){const loader=new GLTFLoader();const gltf=await new Promise((resolve,reject)=>loader.load(MODEL_CATALOG.fullSkeletonFile,resolve,(event)=>{const ratio=event.total?event.loaded/event.total:0;els.progress.style.width=`${Math.round(ratio*25)+3}%`},reject));return gltf.scene}
   function cameraView(kind){if(!state.camera||!state.controls)return;if(kind==='lateral'){state.camera.position.set(24,1,0);state.controls.target.set(0,1,0)}else{state.camera.position.set(0,1,25);state.controls.target.set(0,1,0)}state.controls.update()}
   async function boot3D(){els.state.classList.remove('hidden');els.stateTitle.textContent='Loading full skeleton reference';els.stateCopy.textContent='Loading the CT-derived reference model, then preparing the individually selectable upper-limb set…';els.retry.style.display='none';els.progress.style.width='3%';try{const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js');const {OrbitControls}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js');const {GLTFLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js');const {DRACOLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/DRACOLoader.js');state.scene=new THREE.Scene();state.scene.background=new THREE.Color(0x0b151b);state.camera=new THREE.PerspectiveCamera(32,1,.1,100);state.camera.position.set(0,1,25);state.renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});state.renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));state.renderer.outputColorSpace=THREE.SRGBColorSpace;els.stage.prepend(state.renderer.domElement);state.controls=new OrbitControls(state.camera,state.renderer.domElement);state.controls.enableDamping=true;state.controls.dampingFactor=.08;state.controls.minDistance=2.5;state.controls.maxDistance=45;state.controls.target.set(0,1,0);state.raycaster=new THREE.Raycaster();state.pointer=new THREE.Vector2();state.scene.add(new THREE.HemisphereLight(0xdce9e7,0x102026,2.1));const key=new THREE.DirectionalLight(0xffffff,2.4);key.position.set(5,12,16);state.scene.add(key);state.scene.add(new THREE.DirectionalLight(0x5cd1c4,.8));try{state.fullModel=prepareFullReference(THREE,await loadFullReference(THREE,GLTFLoader));state.scene.add(state.fullModel);addFullPickables(THREE,state.scene);els.stageMeta.textContent='Full NIH CT-derived skeleton reference · named click zones · upper-limb meshes selectable by region';}catch(fullError){console.warn('Full reference failed',fullError)}try{state.realModel=await loadImportedModel(THREE,GLTFLoader,DRACOLoader);const info=prepareImportedModel(THREE,state.realModel);state.scene.add(state.realModel);els.stageMeta.textContent+=` · ${info.mapped} real BodyParts3D upper-limb meshes`;}catch(importError){console.warn('Real upper-limb model failed, using local fallback',importError);state.realModel=createProceduralModel(THREE);state.scene.add(state.realModel);addHotspots(THREE,state.scene);els.stageMeta.textContent='Full reference + fallback upper-limb meshes';}resize();applyVisibility();els.progress.style.width='100%';setTimeout(()=>els.state.classList.add('hidden'),500);animate();return true}catch(error){els.stateTitle.textContent='3D model unavailable';els.stateCopy.textContent='The study tools still work. Check your connection, then retry the model layer.';els.retry.style.display='inline-flex';els.progress.style.width='100%';console.warn(error);return false}}
-  function resize(){if(!state.renderer||!state.camera)return;const rect=els.stage.getBoundingClientRect();state.renderer.setSize(rect.width,rect.height,false);state.camera.aspect=rect.width/rect.height;state.camera.updateProjectionMatrix()}
+  function resize(){if(!state.renderer||!state.camera)return;const rect=els.stage.getBoundingClientRect();state.renderer.setSize(rect.width,rect.height,false);state.camera.aspect=rect.width/rect.height;state.camera.updateProjectionMatrix();if(state.xray&&state.xray.rt)state.xray.rt.setSize(Math.max(2,Math.floor(rect.width)),Math.max(2,Math.floor(rect.height)))}
   function animate(){if(!state.renderer)return;requestAnimationFrame(animate);
   if(state.movement&&state.movement.playing){
     const mv=state.movement.mv, step=(mv.range[1]-mv.range[0])/90;
@@ -756,7 +764,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
     if(a>=mv.range[1]){a=mv.range[1];state.movement.dir=-1}
     else if(a<=mv.range[0]){a=mv.range[0];state.movement.dir=1}
     setMovementAngle(a);
-  }state.motionPhase=performance.now()*.001;if(state.motionEnabled){const turn=Math.sin(state.motionPhase*.55)*.24;[state.fullModel,state.realModel,...Object.values(state.extraModels||{}).map(m=>m.pivot)].forEach(root=>{if(root)root.rotation.y=turn})}const pulse=.72+.28*Math.sin(state.motionPhase*3.2);[...state.meshes,...state.fullMeshes].filter(m=>m.userData.presentationActive).forEach(m=>{if(m.material.emissive)m.material.emissiveIntensity=.95*pulse});state.controls.update();state.renderer.render(state.scene,state.camera)}
+  }state.motionPhase=performance.now()*.001;if(state.motionEnabled){const turn=Math.sin(state.motionPhase*.55)*.24;[state.fullModel,state.realModel,...Object.values(state.extraModels||{}).map(m=>m.pivot)].forEach(root=>{if(root)root.rotation.y=turn})}const pulse=.72+.28*Math.sin(state.motionPhase*3.2);[...state.meshes,...state.fullMeshes].filter(m=>m.userData.presentationActive).forEach(m=>{if(m.material.emissive)m.material.emissiveIntensity=.95*pulse});state.controls.update();if(!renderXray())state.renderer.render(state.scene,state.camera)}
   function zoomCamera(factor){if(!state.camera||!state.controls)return;const offset=state.camera.position.clone().sub(state.controls.target);const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,offset.length()*factor));state.camera.position.copy(state.controls.target).add(offset.normalize().multiplyScalar(distance));state.controls.update()}
   function focusSelected(){if(!state.camera||!state.controls||!state.selectionAnchor){showToast('Select a structure first');return}state.controls.minDistance=2.5;const box=new state.THREE.Box3().setFromObject(state.selectionAnchor);const center=box.getCenter(new state.THREE.Vector3());const size=box.getSize(new state.THREE.Vector3());const radius=Math.max(size.x,size.y,size.z,.35);const offset=state.camera.position.clone().sub(state.controls.target).normalize();const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,radius*3.6));state.controls.target.copy(center);state.camera.position.copy(center).add(offset.multiplyScalar(distance));state.controls.update()}
   function toggleIsolation(){if(!state.selectedId){showToast('Select a structure first');return}const record=getRecord(state.selectedId);if(!state.fullMeshes.length&&record?.region!=='upper_limb'&&state.region!=='upper_limb'){showToast('This fallback reference is fused. Use Upper limb for per-bone isolation.');focusSelected();return}if(state.region!=='upper_limb'&&record?.region==='upper_limb'&&state.meshes.length){state.region='upper_limb';els.regionMeta.textContent='Upper limb';renderRegions();applyVisibility()}state.isolated=!state.isolated;$('isolateBtn').classList.toggle('active',state.isolated);applyVisibility();focusSelected()}
@@ -990,71 +998,221 @@ async function focusStructures(spec){
  * of which geometry alone reproduces. The pane says so.
  */
 state.xray=null;
-const XRAY_DENSITY={skeleton:.13,muscle:.012,organs:.02,circulatory:.016,nervous:.014,joint:.03,lymphatic:.02};
-function xrayMaterial(THREE,op){
-  const m=new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:op,
-    blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide});
-  m.userData={baseOpacity:op};
-  return m;
+
+/*
+ * Projection view.
+ *
+ * The first version accumulated surfaces: every polygon the ray crossed added a
+ * fixed amount of brightness. That is wrong in a way worth spelling out. These
+ * meshes are hollow shells, so a femur contributed the same two crossings as a
+ * sheet of bone one millimetre thick, and everything came out looking like
+ * outlines rather than solid bone.
+ *
+ * This version measures the path length THROUGH material and applies
+ * Beer-Lambert. Each fragment writes its own distance from the camera, signed
+ * by facing: back faces add, front faces subtract. Summed over a ray with
+ * additive blending, sum(exits) - sum(entries) is exactly the distance spent
+ * inside solid material, and it stays correct for any number of separate
+ * objects stacked along the ray. Scaled by a per-tissue attenuation
+ * coefficient, that sum is optical depth, and the film reads 1 - exp(-tau).
+ *
+ * So bone is bright because the ray spent longer in bone, not because it
+ * crossed more polygons. Cortex and marrow still do not differ -- the source
+ * meshes are surfaces with nothing inside them -- and the pane says so.
+ *
+ * mu values below are relative, chosen so bone/soft-tissue contrast lands in
+ * the familiar range. They are not tabulated linear attenuation coefficients
+ * and no dose or kVp is implied.
+ */
+const XRAY_MU={skeleton:1.0,joint:.30,organs:.16,muscle:.10,circulatory:.13,nervous:.10,lymphatic:.12};
+
+const XRAY_VERT=`
+varying float vDist;
+void main(){
+  vec4 mv = modelViewMatrix * vec4(position,1.0);
+  vDist = -mv.z;
+  gl_Position = projectionMatrix * mv;
+}`;
+const XRAY_FRAG=`
+uniform float uMu;
+varying float vDist;
+void main(){
+  /* Back faces are where the ray leaves material, front faces where it enters. */
+  float sgn = gl_FrontFacing ? -1.0 : 1.0;
+  gl_FragColor = vec4(sgn * vDist * uMu, 0.0, 0.0, 1.0);
+}`;
+const XRAY_POST_FRAG=`
+uniform sampler2D tTau;
+uniform float uGain, uLatitude, uGrain, uSeed, uFlipX;
+varying vec2 vUv;
+float hash(vec2 p){ return fract(sin(dot(p, vec2(12.9898,78.233))) * 43758.5453); }
+void main(){
+  /* Shells that are not quite closed can integrate slightly negative. */
+  vec2 uv = vec2(uFlipX > 0.5 ? 1.0 - vUv.x : vUv.x, vUv.y);
+  float tau = max(0.0, texture2D(tTau, uv).r) * uGain;
+  float transmitted = exp(-tau);
+  float density = 1.0 - transmitted;
+  /* Film latitude: the toe and shoulder of the characteristic curve. */
+  density = pow(density, uLatitude);
+  /* Quantum mottle. Noise rises where fewer photons arrive, as it does on film. */
+  float n = hash(uv * 1024.0 + uSeed) - 0.5;
+  density += n * uGrain * (0.35 + 0.65 * density);
+  gl_FragColor = vec4(vec3(clamp(density, 0.0, 1.0)), 1.0);
+}`;
+
+function xrayDepthMaterial(THREE,mu){
+  return new THREE.ShaderMaterial({
+    uniforms:{uMu:{value:mu}},
+    vertexShader:XRAY_VERT, fragmentShader:XRAY_FRAG,
+    side:THREE.DoubleSide, depthTest:false, depthWrite:false,
+    blending:THREE.CustomBlending, blendEquation:THREE.AddEquation,
+    blendSrc:THREE.OneFactor, blendDst:THREE.OneFactor,
+  });
 }
+
 function enterXray(){
   if(state.xray||!state.scene)return false;
   const THREE=state.THREE;
   const c=state.camera, ctr=state.controls;
+  const size=new THREE.Vector2();
+  state.renderer.getSize(size);
+  const rt=new THREE.WebGLRenderTarget(Math.max(2,size.x),Math.max(2,size.y),{
+    type:THREE.FloatType, format:THREE.RedFormat,
+    minFilter:THREE.LinearFilter, magFilter:THREE.LinearFilter, depthBuffer:false,
+  });
+  const post=new THREE.Scene();
+  const postCam=new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+  const postMat=new THREE.ShaderMaterial({
+    uniforms:{tTau:{value:rt.texture},uGain:{value:1.6},uLatitude:{value:.78},uGrain:{value:.05},uSeed:{value:0},uFlipX:{value:0}},
+    vertexShader:'varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.0,1.0); }',
+    fragmentShader:XRAY_POST_FRAG, depthTest:false, depthWrite:false,
+  });
+  post.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),postMat));
+
   state.xray={
-    mats:new Map(), bg:state.scene.background,
+    mats:new Map(), shared:new Map(), rt, post, postCam, postMat,
+    bg:state.scene.background, fog:state.scene.fog,
     fov:c.fov, near:c.near, far:c.far,
     minD:ctr.minDistance, maxD:ctr.maxDistance,
     pos:c.position.clone(), target:ctr.target.clone(),
     layers:{...state.layers}, layerOpacity:{...(state.layerOpacity||{})},
-    motion:state.motionEnabled, exposure:1, view:'frontal',
+    motion:state.motionEnabled, autoClear:state.renderer.autoClear,
+    exposure:1.6, view:'pa', region:'chest',
   };
-  /* Every loaded layer contributes density, so the picture is a body and not a
-     floating skeleton. Layers the learner turned off stay off. */
+  /* Every loaded layer attenuates, so the picture is a body and not a floating
+     skeleton. Layers the learner switched off stay off. */
   state.layers.skeleton=true;
-  Object.keys(state.extraModels||{}).forEach(k=>{if(state.extraModels[k])state.layers[k]=true});
-  const apply=(mesh,key)=>{state.xray.mats.set(mesh,mesh.material);mesh.material=xrayMaterial(THREE,XRAY_DENSITY[key]||.02)};
+  Object.keys(state.extraModels||{}).forEach(k=>{state.layers[k]=true});
+  const shared=(key)=>{
+    if(!state.xray.shared.has(key))state.xray.shared.set(key,xrayDepthMaterial(THREE,XRAY_MU[key]||.12));
+    return state.xray.shared.get(key);
+  };
+  const apply=(mesh,key)=>{state.xray.mats.set(mesh,mesh.material);mesh.material=shared(key);mesh.userData.xrayKey=key};
   state.fullMeshes.forEach(m=>apply(m,'skeleton'));
   Object.entries(state.extraModels||{}).forEach(([k,l])=>l.meshes.forEach(m=>apply(m,k)));
   Object.entries(state.extraModels||{}).forEach(([k,l])=>{l.root.visible=!!state.layers[k]});
-  state.scene.background=new THREE.Color(0x000000);
-  /* The idle yaw would smear a projection that is meant to be read square on. */
+  state.scene.background=null;
+  state.scene.fog=null;
+  /* A yaw would smear a projection that is meant to be read square on. */
   state.motionEnabled=false;
   [state.fullModel,state.realModel,...Object.values(state.extraModels||{}).map(m=>m.pivot)]
     .forEach(r=>{if(r)r.rotation.y=0});
-  ctr.maxDistance=600; ctr.minDistance=20;
-  setXrayView('frontal');
+  ctr.minDistance=.5; ctr.maxDistance=900;
+  setXrayRegion('chest');
   return true;
+}
+
+/*
+ * Collimation.
+ *
+ * A whole-body film is not a thing anyone is handed, so the view offers regions
+ * that are. Every centre and field size below was measured off the loaded
+ * skeleton rather than guessed -- ribs centre at y 3.74 and stand 2.71 tall,
+ * the hip bones centre at y 1.33, a hand centres near x 2.1, y 0.47.
+ *
+ * The model is 11.8 units for a 1.7 m body, so one metre is about 6.94 units.
+ * Source-to-image distances are set in real terms and converted: 180 cm for a
+ * chest, 100 cm for the rest. The beam diverges from that point, which is what
+ * makes PA and AP genuinely different here rather than a label -- whatever lies
+ * further from the detector is magnified more.
+ */
+const XRAY_UNITS_PER_M=6.94;
+const XRAY_REGIONS={
+  chest: {label:'Chest',      c:[0,3.80,0], half:1.95, sid:1.80},
+  abdo:  {label:'Abdomen',    c:[0,2.30,0], half:1.95, sid:1.00},
+  pelvis:{label:'Pelvis',     c:[0,1.33,0], half:1.15, sid:1.00},
+  hand:  {label:'Hand',       c:[2.10,0.47,0], half:0.78, sid:1.00},
+  body:  {label:'Whole body', c:[0,1.00,0], half:6.10, sid:4.00},
+};
+function setXrayRegion(key){
+  if(!state.xray)return;
+  state.xray.region=key;
+  applyXrayCamera();
 }
 function setXrayView(view){
   if(!state.xray)return;
-  const THREE=state.THREE, c=state.camera, ctr=state.controls;
   state.xray.view=view;
-  c.fov=3.2; c.near=1; c.far=2000; c.updateProjectionMatrix();
-  const dist=5.95/Math.tan((c.fov/2)*Math.PI/180);
-  ctr.target.set(0,1,0);
-  const dir=view==='lateral'?new THREE.Vector3(1,0,0):new THREE.Vector3(0,0,1);
+  applyXrayCamera();
+}
+function applyXrayCamera(){
+  const x=state.xray; if(!x)return;
+  const THREE=state.THREE, c=state.camera, ctr=state.controls;
+  const R=XRAY_REGIONS[x.region]||XRAY_REGIONS.body;
+  const dist=R.sid*XRAY_UNITS_PER_M;
+  c.fov=2*Math.atan(R.half/dist)*180/Math.PI;
+  c.near=Math.max(.1,dist-30); c.far=dist+30;
+  c.updateProjectionMatrix();
+  ctr.target.set(R.c[0],R.c[1],R.c[2]);
+  /*
+   * +z is anterior on this model -- the face looks that way. PA puts the source
+   * behind the patient, AP in front.
+   */
+  const dir=x.view==='lat'?new THREE.Vector3(1,0,0)
+    :new THREE.Vector3(0,0,x.view==='ap'?1:-1);
   c.position.copy(ctr.target).add(dir.multiplyScalar(dist));
+  c.up.set(0,1,0);
   ctr.update();
-  els.stageMeta.textContent=`Simulated ${view==='lateral'?'lateral':'frontal'} projection · ${state.fullMeshes.length} named bones · tap to name`;
+  /*
+   * Both a PA and an AP film are read as though you were facing the patient,
+   * their right on your left. Viewed from behind, PA comes out mirrored, so the
+   * image is flipped to match how it would actually be hung.
+   */
+  x.postMat.uniforms.uFlipX.value=x.view==='pa'?1:0;
+  const names={pa:'PA',ap:'AP',lat:'Lateral'};
+  els.stageMeta.textContent=`${R.label} · ${names[x.view]||x.view} · SID ${Math.round(R.sid*100)} cm · simulated · tap to name`;
 }
 function setXrayExposure(v){
   if(!state.xray)return;
   state.xray.exposure=v;
-  state.xray.mats.forEach((_orig,mesh)=>{
-    if(mesh.material&&mesh.material.userData)mesh.material.opacity=mesh.material.userData.baseOpacity*v;
-  });
+  state.xray.postMat.uniforms.uGain.value=v;
+}
+function renderXray(){
+  const x=state.xray; if(!x)return false;
+  const r=state.renderer;
+  x.postMat.uniforms.uSeed.value=(performance.now()*.06)%1000;
+  r.autoClear=true;
+  r.setRenderTarget(x.rt);
+  r.setClearColor(0x000000,1);
+  r.clear(true,false,false);
+  r.render(state.scene,state.camera);
+  r.setRenderTarget(null);
+  r.render(x.post,x.postCam);
+  return true;
 }
 function exitXray(){
   const x=state.xray; if(!x)return;
   const c=state.camera, ctr=state.controls;
-  x.mats.forEach((orig,mesh)=>{if(mesh.material&&mesh.material.dispose)mesh.material.dispose();mesh.material=orig});
-  state.scene.background=x.bg;
+  x.mats.forEach((orig,mesh)=>{mesh.material=orig;delete mesh.userData.xrayKey});
+  x.shared.forEach(m=>m.dispose());
+  x.postMat.dispose(); x.rt.dispose();
+  state.scene.background=x.bg; state.scene.fog=x.fog;
   c.fov=x.fov;c.near=x.near;c.far=x.far;c.updateProjectionMatrix();
   ctr.minDistance=x.minD;ctr.maxDistance=x.maxD;
   c.position.copy(x.pos);ctr.target.copy(x.target);ctr.update();
   state.layers=x.layers;state.layerOpacity=x.layerOpacity;
   state.motionEnabled=x.motion;
+  state.renderer.autoClear=x.autoClear;
+  state.renderer.setRenderTarget(null);
   state.xray=null;
   applyLayers();
 }
@@ -1924,8 +2082,10 @@ async function cycleLayer(key, btn) {
   }
 }
 
-const XRAY_VIEWS = [['frontal', 'Frontal'], ['lateral', 'Lateral']];
-let xrayView = 'frontal';
+const XRAY_VIEWS = [['pa', 'PA'], ['ap', 'AP'], ['lat', 'Lateral']];
+const XRAY_REGION_LIST = [['chest', 'Chest'], ['abdo', 'Abdomen'], ['pelvis', 'Pelvis'], ['hand', 'Hand'], ['body', 'Whole body']];
+let xrayView = 'pa';
+let xrayRegion = 'chest';
 
 function renderViewerTabs() {
   $$('viewerTabs').innerHTML = [['3d', '3D skeleton'], ['xray', 'Projection']].map(([id, label]) =>
@@ -1942,6 +2102,11 @@ function renderXrayViews() {
   $$('xrayViews').querySelectorAll('[data-xview]').forEach((b) => {
     b.onclick = () => { xrayView = b.dataset.xview; renderXrayViews(); if (window.__osteo) window.__osteo.xrayView(xrayView); };
   });
+  $$('xrayRegions').innerHTML = XRAY_REGION_LIST.map(([id, label]) =>
+    `<button class="seg${xrayRegion === id ? ' active' : ''}" data-xregion="${esc(id)}">${esc(label)}</button>`).join('');
+  $$('xrayRegions').querySelectorAll('[data-xregion]').forEach((b) => {
+    b.onclick = () => { xrayRegion = b.dataset.xregion; renderXrayViews(); if (window.__osteo) window.__osteo.xrayRegion(xrayRegion); };
+  });
 }
 
 /* The projection borrows the same canvas the studio and the lessons use. */
@@ -1955,6 +2120,7 @@ async function enterProjection() {
   if (stage && stage.parentElement !== mount) mount.appendChild(stage);
   window.__osteo.resize();
   window.__osteo.enterXray();
+  window.__osteo.xrayRegion(xrayRegion);
   window.__osteo.xrayView(xrayView);
   window.__osteo.xrayExposure(+$$('xrayExposure').value / 100);
   window.__osteo.resize();
