@@ -3,8 +3,12 @@
   "configurations": [
     {
       "name": "osteology-studio",
+      "autoPort": true,
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8420", "--directory", "outputs"],
+      "runtimeArgs": [
+        "-c",
+        "import os,functools,http.server,socketserver;port=int(os.environ.get('PORT','8420'));Handler=functools.partial(http.server.SimpleHTTPRequestHandler,directory='outputs');socketserver.TCPServer.allow_reuse_address=True;socketserver.TCPServer(('127.0.0.1',port),Handler).serve_forever()"
+      ],
       "port": 8420
     }
   ]
