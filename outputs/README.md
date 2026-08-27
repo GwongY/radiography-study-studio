@@ -439,3 +439,27 @@ cartilage of fifth ribl", "Incusr". cleanImportedLabel only knew a fixed list of
 partner-aware strip already used for the system layers now runs over the skeleton too: strip the
 trailing letter only when the opposite-side twin actually exists. Down to 10, and those ten are
 Femur, Vomer, incisor, premolar and molar — real words that end in l or r and have no twin.
+
+## Published
+
+Live at **https://gwongy.github.io/radiography-study-studio/**, deployed by
+`.github/workflows/pages.yml` on every push to `master`.
+
+Pages' deploy-from-a-branch mode can only serve the repo root or `/docs`, and the
+app lives in `outputs/`, so the workflow uploads that directory as the site
+artifact instead. The site root is therefore the app directory, and every
+relative path in it — the service worker scope, the manifest, `./assets/*.glb` —
+resolves unchanged. `outputs/index.html` redirects the bare URL to the app,
+carrying query and hash through so the manifest's daily / weakest / quick-10
+shortcuts keep their mode.
+
+HTTPS is what makes the service worker register at all, so the published site is
+the only place the PWA genuinely works offline. On iPad: open in **Safari**
+(other iOS browsers cannot install to the home screen), Share → Add to Home
+Screen, then open Viewer and toggle each layer once while on wifi. Models cache
+on first use rather than upfront, so that is what pulls the ~39 MB down. Keeping
+it on the home screen also matters: installed PWAs are exempt from the 7-day
+storage eviction Safari applies to ordinary tabs.
+
+A `gh-pages` branch from the earlier manual `git subtree push` deployment is
+left in place as a fallback. It is no longer what serves the site.
