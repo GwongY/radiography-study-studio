@@ -233,6 +233,33 @@
 .segbar{display:inline-flex;gap:6px;padding:5px;border:1px solid var(--line);border-radius:12px;background:rgba(14,24,32,.8)}
 .seg{min-height:38px;border:0;border-radius:8px;padding:0 15px;cursor:pointer;font:600 12.5px 'Instrument Sans',sans-serif;background:transparent;color:var(--muted);white-space:nowrap}
 .seg.active{background:var(--teal);color:var(--onaccent)}
+/* ---------- Session overlay: one centred column ---------- */
+.sessioncol{max-width:720px;margin:0 auto;display:grid;gap:12px}
+.sessioncol .stagecard{padding:22px}
+.sessprog{flex:none;width:110px;height:6px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden}
+.sessprog span{display:block;height:100%;width:0;background:var(--teal);transition:width .18s ease}
+.sesscount{flex:none;font-size:11.5px;color:var(--muted)}
+.srcinline{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--line)}
+.srclab{font:11px ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.masterydet{border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.025);padding:11px 13px}
+.masterydet summary{cursor:pointer;font-size:12.5px;color:var(--text);list-style:none}
+.masterydet summary::-webkit-details-marker{display:none}
+.masterydet summary::after{content:" \25be";color:var(--muted)}
+.masterydet[open] summary::after{content:" \25b4"}
+.masterydet .mastery{margin-top:11px}
+.sessionfoot{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.sessionfoot .primary{min-height:48px;padding:0 22px;white-space:nowrap}
+.sessionfoot .ghost{min-height:48px;white-space:nowrap}
+.foothint{font-size:11.5px;color:var(--dim)}
+@media(max-width:900px){.sessioncol .stagecard{padding:16px}.sessprog{width:70px}}
+
+/* ---------- Learn: phone drills into the topic detail ---------- */
+.topiclist{min-width:0;display:grid;gap:12px}
+@media(max-width:900px){
+  #learnGrid.drilled #topicListPane{display:none}
+  #learnGrid:not(.drilled) #topicDetailPane{display:none}
+}
+@media(min-width:901px){#navBackBtn{display:none}}
 
 /* ---------- Viewer: dominant canvas, one control pill, one sheet ---------- */
 .stagewrap{position:relative;height:min(72vh,700px);min-height:400px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:radial-gradient(circle at 50% 42%,#1d2e35 0,#0d1820 45%,#050b10 100%)}
@@ -287,6 +314,7 @@
       </nav>
       <div class="navmain">
         <header class="navhead">
+          <button class="icon-btn hidden" id="navBackBtn" aria-label="Back to topics" style="min-width:44px;min-height:44px;border-radius:11px">←</button>
           <div class="grow">
             <div class="kicker" id="navKicker">Today</div>
             <h1 class="htitle editorial" id="navTitle">Today</h1>
@@ -325,7 +353,7 @@
           </section>
           <section class="view hidden" id="learnView">
             <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.9fr);gap:14px;align-items:start" id="learnGrid">
-              <div style="min-width:0;display:grid;gap:12px" id="topicListPane">
+              <div class="topiclist" id="topicListPane">
                 <div style="display:flex;gap:7px;flex-wrap:wrap" id="learnFilters"></div>
                 <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px" id="topicGrid"></div>
               </div>
@@ -412,36 +440,33 @@
   <section class="view hidden" id="sessionView">
     <div class="navhead">
       <button class="icon-btn" id="rssSessionClose" aria-label="Close session" style="min-width:44px;min-height:44px;border-radius:11px">✕</button>
-      <div class="grow"><div class="kicker" id="rssSessionKicker">Session</div><div class="small" id="rssSessionMeta"></div></div>
+      <div class="grow">
+        <div class="kicker" id="rssSessionKicker">Learn</div>
+        <div class="small" id="rssSessionMeta"></div>
+      </div>
+      <div class="sessprog"><span id="rssSessionBar"></span></div>
+      <span class="mono sesscount" id="rssSessionCount">0/0</span>
     </div>
     <div class="navcontent">
-    <div class="steps" id="rssSteps"></div>
-    <div class="session-grid">
-      <section class="stagecard" id="rssStage"></section>
-      <aside class="side">
-        <section class="card">
-          <div class="task-kicker">Session</div>
-          <h2 class="task-title" id="rssSessionTitle">—</h2>
-          <p class="task-copy" id="rssSessionCopy"></p>
-          <div class="review-meter"><div class="meter"><span id="rssSessionBar"></span></div><div class="review-number" id="rssSessionCount">0/0</div></div>
-          <div class="rss-actions">
-            <button class="ghost" id="rssSkipBtn">Skip item</button>
-            <button class="ghost" id="rssEndBtn">End session</button>
-          </div>
-        </section>
-        <section class="card">
-          <div class="task-kicker">Mastery — this item</div>
-          <h2 class="task-title" id="rssMasteryTitle">Not started</h2>
+      <div class="steps" id="rssSteps"></div>
+      <div class="sessioncol">
+        <section class="stagecard" id="rssStage"></section>
+        <div class="srcinline">
+          <span class="srclab">Source</span>
+          <button class="srcbtn" id="rssSourceInline">—</button>
+        </div>
+        <details class="masterydet">
+          <summary><span class="srclab">Mastery</span> <span id="rssMasteryTitle">Not started</span></summary>
           <div class="mastery" id="rssMastery"></div>
-          <p class="small" id="rssDueHint" style="margin-top:11px"></p>
-        </section>
-        <section class="card" id="rssSourceCard">
-          <div class="task-kicker">Source</div>
-          <h2 class="task-title" style="font-size:16px">Where this comes from</h2>
-          <div id="rssSourceList"></div>
-        </section>
-      </aside>
-    </div>
+          <p class="small" id="rssDueHint"></p>
+        </details>
+        <div class="sessionfoot">
+          <button class="primary" id="rssNextStep">Next</button>
+          <button class="ghost" id="rssEndBtn">Save &amp; exit</button>
+          <button class="ghost" id="rssSkipBtn">Skip item</button>
+          <span class="mono foothint" id="rssFootHint">Autosaves as you go</span>
+        </div>
+      </div>
     </div>
   </section>
 </div>
@@ -962,6 +987,7 @@ let currentTab = 'today';
 function setActiveNav(id) {
   currentTab = id;
   $$('navTitle').textContent = NAV_TITLES[id] || 'Study Studio';
+  if (id !== 'learn') $$('navBackBtn').classList.add('hidden');
   $$('navKicker').textContent = NAV_KICKERS[id] || '';
   document.querySelectorAll('.navrail [data-nav], .bottomtab [data-nav]').forEach((b) => {
     const on = b.dataset.nav === id;
@@ -971,6 +997,7 @@ function setActiveNav(id) {
   });
 }
 function goTo(id) {
+  learnDrill = false;
   const dest = NAV_DESTS.find((d) => d[0] === id);
   if (dest) dest[3]();
 }
@@ -1198,6 +1225,7 @@ const SUBJECT_GROUP = { HSS2011: { label: 'Anatomy', accent: '#72e3cf' }, ABCT23
 const LEARN_FILTERS = [['all', 'Everything'], ['Anatomy', 'Anatomy'], ['Physiology', 'Physiology'], ['Radiation science', 'Radiation science'], ['3d', 'Has 3D / images']];
 let learnFilter = 'all';
 let learnTopic = null;
+let learnDrill = false;   /* phone only: detail replaces the list */
 
 /* A "topic" is one subject.unit that actually has study items. Subjects with no
    items (APSS1A08, DSAI1202, LEI1101) drop out of Learn here on their own --
@@ -1234,7 +1262,7 @@ function renderLearn() {
       <span class="topic-bar"><span style="width:${topicPct(t.items)}%"></span></span>
       <span class="small">${t.items.length} item${t.items.length === 1 ? '' : 's'}${topicHasViewer(t.items) ? ' \u00b7 3D studio' : ''}</span>
     </button>`).join('') || '<div class="empty">No topics match this filter yet.</div>';
-  $$('topicGrid').querySelectorAll('[data-topic]').forEach((b) => { b.onclick = () => { learnTopic = b.dataset.topic; renderLearn(); }; });
+  $$('topicGrid').querySelectorAll('[data-topic]').forEach((b) => { b.onclick = () => { learnTopic = b.dataset.topic; learnDrill = true; renderLearn(); }; });
 
   const T = visible.find((t) => t.unit.id === learnTopic);
   $$('topicDetailPane').innerHTML = !T ? '' : `
@@ -1260,6 +1288,8 @@ function renderLearn() {
   if ($$('openViewerBtn')) $$('openViewerBtn').onclick = () => goTo('viewer');
   $$('topicDetailPane').querySelectorAll('[data-item]').forEach((b) => { b.onclick = () => startSession({ mode: 'subject', subject: T.subject.id, unit: T.unit.id }); });
 
+  $$('learnGrid').classList.toggle('drilled', learnDrill);
+  $$('navBackBtn').classList.toggle('hidden', !learnDrill);
   showView('learnView');
 }
 
@@ -1357,8 +1387,7 @@ function startSession(opts) {
     qIndex: 0, answered: false, confidence: null, startedAt: 0,
     results: [], hooksOnly,
   };
-  $$('rssSessionTitle').textContent = mode ? mode.label : 'Study session';
-  $$('rssSessionCopy').textContent = mode ? mode.hint : '';
+  session.modeLabel = mode ? mode.label : 'Study session';
   openSessionOverlay();
   renderStep();
 }
@@ -1391,6 +1420,7 @@ function renderSessionMeter() {
   const total = session.items.length;
   const n = session.index + 1;
   $$('rssSessionCount').textContent = `${n}/${total}`;
+  $$('rssSessionMeta').textContent = `Item ${n} of ${total} \u00b7 ${session.modeLabel || 'Session'}`;
   $$('rssSessionBar').style.width = `${Math.round((session.index / total) * 100)}%`;
 }
 
@@ -1415,17 +1445,55 @@ function renderMasteryPanel(item) {
     + (lapses ? ` Missed ${lapses} time${lapses === 1 ? '' : 's'} before, so intervals are held short.` : '');
 }
 
+/* The source trace is inline under every item now, not a side card. */
 function renderSourceCard(item) {
-  $$('rssSourceList').innerHTML = item.sourceRefs.map((r) => {
-    const d = describeSource(r);
-    return `<div class="filerow"><div class="fn">${esc(d.file)}${d.authored ? ' <span class="pill">app-authored</span>' : ''}</div><div class="fp">${esc(d.folder)}${d.location ? ' · ' + esc(d.location) : ''}</div></div>`;
-  }).join('') + `<div class="rss-actions"><button class="ghost" id="rssFullSource">Full source trace</button></div>`;
-  const b = $$('rssFullSource');
-  if (b) b.onclick = () => openSourceDialog(item);
+  const refs = item.sourceRefs || [];
+  const first = refs.length ? describeSource(refs[0]) : null;
+  const btn = $$('rssSourceInline');
+  const extra = refs.length > 1 ? ` \u00b7 +${refs.length - 1} more` : '';
+  btn.textContent = first ? first.file + (first.authored ? ' (app-authored)' : '') + extra : 'No reference';
+  btn.onclick = () => openSourceDialog(item);
 }
 
+
+/* One consistent advance control. The per-step buttons the HTML builders
+   emit are removed so there is never a second Next in the card. */
+function renderSessionFoot(item) {
+  $$('rssStage').querySelectorAll('[data-nav], #rssNextItem, #rssFinish').forEach((b) => {
+    const wrap = b.closest('.rss-actions');
+    b.remove();
+    if (wrap && !wrap.querySelector('button')) wrap.remove();
+  });
+  const order = STEPS.map((x) => x.id);
+  const at = order.indexOf(session.step);
+  const lastStep = at === order.length - 1;
+  const lastItem = session.index >= session.items.length - 1;
+  const btn = $$('rssNextStep');
+  if (!lastStep) {
+    btn.textContent = `Next: ${STEPS[at + 1].label} \u2192`;
+    btn.onclick = () => setStep(order[at + 1]);
+  } else if (!lastItem) {
+    btn.textContent = 'Finish \u00b7 next item \u2192';
+    btn.onclick = () => {
+      session.index += 1; session.qIndex = 0; session.seqOrder = null; session.matchRights = null;
+      session.diagramTarget = null; session.diagramReveal = null;
+      if (window.__osteo && window.__osteo.endMovement) {
+        window.__osteo.endMovement();
+        const b = $$('mvBar'); if (b) b.classList.add('hidden');
+        const bk = $$('mvBackToSession'); if (bk) bk.classList.add('hidden');
+      }
+      setStep(session.hooksOnly ? 'remember' : 'learn');
+    };
+  } else {
+    btn.textContent = 'Finish session \u2192';
+    btn.onclick = endSession;
+  }
+  $$('rssFootHint').textContent = lastStep ? 'Review scheduled from your answers' : 'Autosaves as you go';
+}
 function renderStep() {
   const item = currentItem();
+  const stepDef = STEPS.find((x) => x.id === session.step) || STEPS[0];
+  $$('rssSessionKicker').textContent = stepDef.label;
   renderSteps();
   renderSessionMeter();
   renderMasteryPanel(item);
@@ -1437,6 +1505,7 @@ function renderStep() {
   else if (session.step === 'apply') { stage.innerHTML = applyHTML(item); wireApply(item); }
   else stage.innerHTML = reviewHTML(item);
   wireStageNav(item);
+  renderSessionFoot(item);
 }
 
 function typeLabel(t) { return (ITEM_TYPES[t] || {}).label || t; }
@@ -2112,6 +2181,8 @@ renderNavButtons();
 $$('closeSource').onclick = () => $$('sourceDialog').close();
 $$('closeCoverage').onclick = () => $$('coverageDialog').close();
 $$('closeAbout').onclick = () => $$('aboutDialog').close();
+/* Contextual back: only meaningful on a phone drilled into a topic. */
+$$('navBackBtn').onclick = () => { learnDrill = false; renderLearn(); };
 /* The viewer keeps four primary controls on the canvas; everything the old
    studio showed at once now sits behind this one toggle. */
 $$('viewerMoreBtn').onclick = () => {
