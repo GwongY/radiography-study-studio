@@ -32,9 +32,6 @@
 /* ---------- Radiography Study Studio shell ---------- */
 .view{display:block}.view.hidden{display:none}
 .brandrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.crumbs{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:16px;font:12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
-.crumbs button{background:none;border:0;padding:0;color:var(--teal);cursor:pointer;font:inherit;letter-spacing:inherit;text-transform:inherit}
-.crumbs button:hover{text-decoration:underline}.crumbs span.sep{opacity:.45}
 .subject-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:14px}
 .subject-card{position:relative;text-align:left;display:flex;flex-direction:column;gap:9px;padding:18px 18px 16px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));cursor:pointer;transition:.18s ease}
 .subject-card:hover{transform:translateY(-2px);border-color:var(--accent,var(--teal))}
@@ -901,16 +898,6 @@ function showView(id) {
     window.__osteo.boot();
     setTimeout(() => window.__osteo.resize(), 60);
   }
-}
-
-function crumbs(parts) {
-  const el = $$('rssCrumbs');
-  if (!el) return;
-  el.innerHTML = parts.map((p, i) => {
-    const sep = i ? '<span class="sep">/</span>' : '';
-    return p.go ? `${sep}<button data-crumb="${i}">${esc(p.label)}</button>` : `${sep}<span>${esc(p.label)}</span>`;
-  }).join(' ');
-  el.querySelectorAll('[data-crumb]').forEach((b) => { b.onclick = () => parts[+b.dataset.crumb].go(); });
 }
 
 function coveragePill(status) {
