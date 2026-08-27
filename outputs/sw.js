@@ -23,13 +23,15 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v9';
+const CACHE_VERSION = 'v10';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
 const ALL_CACHES = [SHELL_CACHE, MODEL_CACHE, CDN_CACHE];
 
 const SHELL = [
+  './',
+  './index.html',
   './radiography-study-studio.html',
   './study-data.js',
   './anatomy-data.js',
