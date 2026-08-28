@@ -837,8 +837,10 @@ export const WORD_PARTS = {
 };
 
 /* Ordinary English that happens to contain a medical stem. Splitting "glossary"
-   into gloss + ary teaches nothing and cheapens the breakdowns that do. */
-export const NOT_A_TERM = new Set(['arbitrary', 'auxiliary', 'boundary', 'category', 'chemist', 'chemists', 'conduct', 'conducting', 'conduction', 'conductor', 'conducts', 'consider', 'considered', 'consist', 'consisting', 'consists', 'contain', 'container', 'contains', 'contract', 'contraction', 'contracts', 'contrary', 'conversion', 'converted', 'converts', 'customary', 'february', 'glossary', 'imaginary', 'interfere', 'interferes', 'involuntary', 'january', 'library', 'military', 'momentary', 'monetary', 'necessary', 'ordinary', 'precision', 'prepare', 'prepared', 'prepares', 'preparing', 'present', 'presented', 'presents', 'primary', 'products', 'protect', 'protects', 'represent', 'salary', 'secondary', 'sedentary', 'subtract', 'subtracts', 'summary', 'temporary', 'transfer', 'transferred', 'transferring', 'transfers', 'transport', 'voluntary']);
+   into gloss + ary teaches nothing and cheapens the breakdowns that do.
+   'correct' reading as pupil + rectum is the clearest example of why: a split
+   that is arithmetically valid and completely false. */
+export const NOT_A_TERM = new Set(['analogy', 'arbitrary', 'auxiliary', 'boundary', 'category', 'chemist', 'chemists', 'conduct', 'conducting', 'conduction', 'conductor', 'conducts', 'consider', 'considered', 'consist', 'consisting', 'consists', 'contain', 'container', 'contains', 'contract', 'contraction', 'contracts', 'contrary', 'conversion', 'converted', 'converts', 'correct', 'customary', 'diagram', 'diagrams', 'diameter', 'february', 'glossary', 'imaginary', 'interfere', 'interferes', 'interior', 'involuntary', 'january', 'library', 'military', 'momentary', 'monetary', 'necessary', 'ordinary', 'paragraph', 'paragraphs', 'photograph', 'photographs', 'precision', 'prepare', 'prepared', 'prepares', 'preparing', 'present', 'presented', 'presents', 'primary', 'products', 'pronate', 'pronated', 'pronation', 'protect', 'protects', 'represent', 'salary', 'secondary', 'sedentary', 'subtract', 'subtracts', 'summary', 'temporary', 'transfer', 'transferred', 'transferring', 'transfers', 'transport', 'voluntary']);
 
 /* Connecting vowels and grammatical tails: real, but not word parts. */
 const ENDINGS = {
