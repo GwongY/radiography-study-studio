@@ -54,8 +54,8 @@ export const FLOW_CLASSES = {
   arterial: {
     label: 'Systemic artery', short: 'Artery',
     color: 0xc4372f, flow: 0xff8a72,
-    says: 'Oxygenated blood leaving the heart. The crest is the pulse wave — it travels away from the heart at every beat.',
-    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.95, freq: 1.7, sharp: 5, gain: 1.5, beat: 'cardiac' },
+    says: 'Oxygenated blood leaving the heart. The crest is the pulse wave — it travels away from the heart at every beat, and the wall swells as the pulse passes.',
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.95, freq: 1.7, sharp: 5, gain: 1.5, beat: 'cardiac', mode: 'inflate', deform: 'cardiac', inflate: 0.06 },
   },
   venous: {
     label: 'Systemic vein', short: 'Vein',
@@ -66,8 +66,8 @@ export const FLOW_CLASSES = {
   pulmArtery: {
     label: 'Pulmonary artery', short: 'Pulm. artery',
     color: 0x5a4bbf, flow: 0x9d8cff,
-    says: 'The exception: an artery carrying DEOXYGENATED blood. Right ventricle to lung.',
-    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.9, freq: 2.6, sharp: 5, gain: 1.5, beat: 'cardiac' },
+    says: 'The exception: an artery carrying DEOXYGENATED blood. Right ventricle to lung — and it swells with that ventricle\'s pulse.',
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.9, freq: 2.6, sharp: 5, gain: 1.5, beat: 'cardiac', mode: 'inflate', deform: 'cardiac', inflate: 0.06 },
   },
   pulmVein: {
     label: 'Pulmonary vein', short: 'Pulm. vein',
@@ -78,8 +78,20 @@ export const FLOW_CLASSES = {
   heart: {
     label: 'Heart', short: 'Heart',
     color: 0x9e2f2f, flow: 0xff7a63,
-    says: 'The pump itself. It brightens through systole and settles through diastole.',
+    says: 'Valves, septa and conducting tissue. They do not contract themselves — they open, close and fire as the chambers around them pump.',
     rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 1.35, beat: 'cardiac' },
+  },
+  heartAtrium: {
+    label: 'Atrium', short: 'Atrium',
+    color: 0x9e2f2f, flow: 0xff7a63,
+    says: 'The primer. Both atria contract first, topping the ventricles up just before they fire.',
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 1.15, beat: 'cardiac', mode: 'contract', deform: 'atrial', contract: 0.09 },
+  },
+  heartVentricle: {
+    label: 'Ventricle', short: 'Ventricle',
+    color: 0x9e2f2f, flow: 0xff7a63,
+    says: 'The main pump. Both ventricles contract together in systole — right to the lungs, left to the body. The papillary muscles shorten with them.',
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 1.35, beat: 'cardiac', mode: 'contract', deform: 'ventricular', contract: 0.14 },
   },
   nerve: {
     label: 'Peripheral nerve', short: 'Nerve',
@@ -127,7 +139,9 @@ export const FLOW_CLASSES = {
     label: 'Skeletal muscle', short: 'Muscle',
     color: 0xa8443c, flow: 0xff9b7a,
     says: 'Contracting: it shortens along its own long axis and thickens across it, then relaxes.',
-    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0.85, beat: 'contract', contract: true },
+    /* gain 0: the contraction is shown purely as deformation, so the muscle
+       does not glow and dim with each beat. */
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0, beat: 'contract', mode: 'contract', deform: 'contract' },
   },
   bursa: {
     label: 'Bursa or sheath', short: 'Bursa',
@@ -156,11 +170,21 @@ export const FLOW_CLASSES = {
   airway: {
     label: 'Airway or lung', short: 'Lung',
     color: 0x86b4c9, flow: 0xd6f0ff,
-    says: 'Where the gas exchange the whole circulation exists to serve actually happens.',
-    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0.5, beat: 'breath' },
+    says: 'Where the gas exchange the whole circulation exists to serve actually happens. Watch it swell with each breath in and settle as you breathe out.',
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0.3, beat: 'breath', mode: 'inflate', deform: 'breath', inflate: 0.05 },
   },
-  gut: { label: 'Digestive organ', short: 'Gut', color: 0xc08a56, flow: 0xffd2a1, rule: null },
-  urinary: { label: 'Urinary organ', short: 'Urinary', color: 0xa07bb8, flow: 0xe4c8f5, rule: null },
+  gut: {
+    label: 'Digestive organ', short: 'Gut',
+    color: 0xc08a56, flow: 0xffd2a1,
+    says: 'A ring of contraction travels down the tube, squeezing its contents onward — peristalsis, shown as the constriction you can watch move.',
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.45, freq: 1.2, sharp: 4, gain: 0, beat: null, mode: 'peristalsis', deform: 'steady', pinch: 0.18, match: /stomach|intestine|colon|caec|cecum|duoden|jejun|ile|rect|oesophag|esophag|appendix/i },
+  },
+  urinary: {
+    label: 'Urinary organ', short: 'Urinary',
+    color: 0xa07bb8, flow: 0xe4c8f5,
+    says: 'The ureters squeeze urine onward in slow ripples. The kidneys filter steadily — no rhythm to show, so they sit still.',
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.3, freq: 2.0, sharp: 3, gain: 0, beat: null, mode: 'peristalsis', deform: 'steady', pinch: 0.15, match: /ureter/i },
+  },
   gland: { label: 'Gland', short: 'Gland', color: 0xcf9a4e, flow: 0xffe0a8, rule: null },
   organ: { label: 'Organ', short: 'Organ', color: 0xb08268, flow: 0xffd8bd, rule: null },
   bone: { label: 'Bone', short: 'Bone', color: 0xd9d1bc, flow: 0xffffff, rule: null },
@@ -168,7 +192,7 @@ export const FLOW_CLASSES = {
 
 /* Which classes a given layer can produce, for the legend. */
 export const LAYER_CLASSES = {
-  circulatory: ['arterial', 'venous', 'pulmArtery', 'pulmVein', 'heart'],
+  circulatory: ['arterial', 'venous', 'pulmArtery', 'pulmVein', 'heart', 'heartAtrium', 'heartVentricle'],
   nervous: ['cns', 'nerve'],
   lymphatic: ['lymphVessel', 'lymphNode', 'lymphOrgan'],
   muscle: ['muscle', 'tendon', 'bursa'],
@@ -182,12 +206,18 @@ const has = (s, re) => re.test(s);
 /*
  * Classification.
  *
- * Order matters and is the whole argument. Pulmonary is tested before the
- * plain artery/vein split, because 'Superior_lobar_artery_of_right_lung' is an
- * artery by name and pulmonary by function, and function is what the colour is
- * claiming. Chambers are tested after vessels, because 'Inferior_vein_of_left
- * _ventricle' is a cardiac VEIN, not a chamber, and it does carry
- * deoxygenated blood.
+ * Order matters and is the whole argument. The pulmonary/vein tests come
+ * first: 'Inferior_vein_of_left_ventricle' is a cardiac VEIN, not a chamber,
+ * and it does carry deoxygenated blood, so 'ventricle' must not catch it.
+ * Once veins are out of the way, the chambers are matched before the plain
+ * 'arterial' fallback, because 'Left_ventricle' would otherwise pass the
+ * artery test ('ventricle' contains 'arter'). The chambers split into two
+ * animated classes -- contracting atria and contracting ventricles -- while
+ * the valves, leaflets and conducting tissue stay in the static 'heart' class
+ * (they open, close and fire; they do not pump). Pulmonary arteries are
+ * matched after the chamber tests so that 'Pulmonary_trunk' still reads as an
+ * artery-like vessel. A name is pulmonary by function ('Superior_lobar_artery
+ * _of_right_lung'), and function is what the colour is claiming.
  */
 export function classify(layerKey, rawName) {
   const n = String(rawName || '').replace(/_/g, ' ').toLowerCase();
@@ -197,9 +227,11 @@ export function classify(layerKey, rawName) {
     const vein = has(n, /vein|venous|vena|sinus/);
     const artery = has(n, /arter|aort|trunk|arch|branch|anastomosis|circle of willis/);
     if (pulmonary && vein) return 'pulmVein';
-    if (pulmonary && artery) return 'pulmArtery';
     if (vein) return 'venous';
-    if (has(n, /atrium|ventricle|leaflet|valve|papillary|chordae|septum|myocard|pericard|node of|bundle/)) return 'heart';
+    if (has(n, /ventricle/)) return 'heartVentricle';
+    if (has(n, /atrium/)) return 'heartAtrium';
+    if (has(n, /leaflet|valve|papillary|chordae|septum|myocard|pericard|node of|bundle/)) return 'heart';
+    if (pulmonary && artery) return 'pulmArtery';
     return 'arterial';
   }
 
@@ -231,8 +263,11 @@ export function classify(layerKey, rawName) {
 
   if (layerKey === 'organs') {
     if (has(n, /lung|bronch|trachea|larynx|pleura|alveol/)) return 'airway';
-    if (has(n, /kidney|ureter|bladder|urethra|renal/)) return 'urinary';
+    /* Gland must be tested before urinary: 'Suprarenal_gland' contains 'renal'
+       and would otherwise be caught as a urinary organ. */
     if (has(n, /thyroid|adrenal|suprarenal|pituitar|pancrea|parathyroid|gland/)) return 'gland';
+    /* Word-boundary bladder, so 'Gallbladder' (a gut organ) is not caught here. */
+    if (has(n, /kidney|ureter|\bbladder\b|urethra|renal/)) return 'urinary';
     if (has(n, /stomach|intestine|colon|caecum|cecum|duoden|jejun|ile|rect|oesophag|esophag|liver|gall|append/)) return 'gut';
     return 'organ';
   }
@@ -276,6 +311,27 @@ export function contractEnvelope(t) {
   if (p < 0.42) return 1;
   if (p < 0.72) return 1 - Math.pow((p - 0.42) / 0.30, 1.3);
   return 0;
+}
+
+/* The pump has two phases, and the chambers must move at the right moment:
+   the atria fire at the end of diastole to top the ventricles up, then the
+   ventricles do the real squeeze through systole. 'p' is the fraction of one
+   cardiac cycle; it wraps at the ventricular upstroke. */
+export function ventricleEnvelope(t) {
+  const p = (t * RATES.heartBpm / 60) % 1;
+  if (p < 0.12) return Math.sin((p / 0.12) * Math.PI * 0.5);          /* rapid systolic squeeze */
+  if (p < 0.45) return Math.cos(((p - 0.12) / 0.33) * Math.PI * 0.5); /* relax through ejection */
+  return 0;                                                           /* diastole, refilling */
+}
+
+export function atriumEnvelope(t) {
+  const p = (t * RATES.heartBpm / 60) % 1;
+  if (p < 0.78) return 0;                              /* quiet through most of diastole */
+  const q = (p - 0.78) / 0.20;                         /* 0..1 across the last fifth */
+  if (q < 0.45) return Math.sin((q / 0.45) * Math.PI * 0.5);   /* contract */
+  /* Clamp the fall at zero: past the end of the window cos would go negative,
+     which would stretch the chamber instead of just letting it go. */
+  return Math.max(0, Math.cos(((q - 0.45) / 0.55) * Math.PI * 0.5)); /* let go before the ventricles fire */
 }
 
 export const CLASS_COUNT = Object.keys(FLOW_CLASSES).length;
