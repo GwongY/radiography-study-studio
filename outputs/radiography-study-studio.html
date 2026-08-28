@@ -46,7 +46,7 @@
 .pill.substitute{color:var(--orange);border-color:rgba(255,186,103,.35);background:rgba(255,186,103,.09)}
 .pill.limited{color:var(--orange);border-color:rgba(255,186,103,.3)}
 .pill.none{color:var(--red);border-color:rgba(241,129,129,.32);background:rgba(241,129,129,.08)}
-.notice{border-left:3px solid var(--orange);background:rgba(255,186,103,.07);border-radius:0 10px 10px 0;padding:12px 15px;margin:14px 0;font-size:13.5px;line-height:1.6;color:var(--text)}
+.notice{border-left:3px solid var(--orange);background:rgba(255,186,103,.07);border-radius:0 10px 10px 0;padding:12px 15px;margin:14px 0;font-size:13.5px;line-height:1.6;color:var(--text)}.moduleline{border-left:2px solid var(--teal);background:rgba(20,184,166,.05);border-radius:0 8px 8px 0;padding:8px 12px;margin:12px 0 14px;font-size:13px;line-height:1.55;color:var(--muted)}.plainlead{border:1px dashed rgba(20,184,166,.4);border-radius:8px;padding:10px 13px;margin:12px 0 16px;font-size:14px;line-height:1.65;color:var(--text)}.apptag{font:10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-right:8px}
 .notice.stop{border-left-color:var(--red);background:rgba(241,129,129,.07)}
 .notice strong{display:block;margin-bottom:4px}
 .notice p{margin:6px 0 0;color:var(--muted)}
@@ -2327,6 +2327,7 @@ import {
   isDelayedAttempt, REVEAL_MODES, structureSet, STRUCTURE_MODELS, jointMovement,
   validateCorpus, validateApplications,
   priorOf, priorSources, priorAdjustedScore, entryStep,
+  moduleInfo,
 } from './study-data.js';
 import { searchAnatomy } from './anatomy-data.js?v=4';
 import { visualFor, plateFor } from './visual-data.js?v=3';
@@ -2335,8 +2336,8 @@ import { schematic } from './schematics.js?v=2';
 import { figureFor } from './figures.js?v=1';
 import { layoutFor } from './layouts.js?v=1';
 import { decompose, readingOf, partOf } from './wordparts.js?v=3';
-import { termNote } from './term-notes.js?v=1';
-import { termGloss } from './term-gloss.js?v=1';
+import { termNote } from './term-notes.js?v=3';
+import { termGloss } from './term-gloss.js?v=3';
 
 const $$ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -4030,7 +4031,10 @@ function lookupTerm(word) {
   /* The meaning and the Chinese. A word is not worth tapping for a breakdown
      alone, so this is what the dialog leads with wherever it exists. */
   const gloss = termGloss(word);
-  const found = (note || split || part) ? { word, note, split, part, gloss } : null;
+  /* The glossary alone is enough to make a word tappable — the old condition
+     dropped it, so words that resolve only through TERM_GLOSS (cavity, heart,
+     and every adjective the fold maps to its noun) were silently inert. */
+  const found = (note || split || part || gloss) ? { word, note, split, part, gloss } : null;
   glossCache.set(key, found);
   return found;
 }
@@ -4223,8 +4227,13 @@ function openTermDialog(word) {
     ? `Written by this app: ${authored.join(', ').replace(/, ([^,]*)$/, ' and $1')}. Study scaffolding, not a claim traced to a source file — the technical definition on the item is the sourced one.`
     : '')
     + ((split || part) ? ' Word parts from <strong>definition_wordparts.pdf</strong>, the HSS2011 list prepared by Josephine Lau (HTI).' : '');
+  /* When the fold or an alias resolved this word to its noun — pericardial ->
+     pericardium, thoracic -> thorax — name that base form so the connection
+     between the adjective and the noun is made instead of silently assumed. */
+  const canon = gloss && gloss.key !== word.toLowerCase() ? gloss.key : null;
   $$('termTitle').textContent = word;
   $$('termBody').innerHTML = `
+    ${canon ? `<p class="small" style="margin:0 0 10px;color:var(--muted)">Base form: <strong style="color:var(--ink)">${esc(canon)}</strong></p>` : ''}
     ${(meaning || zh) ? `<div class="meaning">
       ${meaning ? `<p class="en">${esc(meaning)}</p>` : ''}
       ${zh ? `<p class="zh" lang="zh-Hant">${esc(zh)}</p>` : ''}
@@ -4314,6 +4323,22 @@ function layoutHTML(id, sc) {
   </figure>`;
 }
 
+/* Where in the HSS2011 course this lesson sits — app-authored framing, not a source claim. */
+function moduleLine(item) {
+  const m = moduleInfo(item);
+  if (!m) return '';
+  return `<div class="moduleline"><span class="apptag">App note</span>From <strong>Module ${m.n}</strong> · ${esc(m.name)} — ${esc(m.plain)}</div>`;
+}
+
+/* App-authored plain-English lead — a hook for dense lessons so the sourced
+   explanation below has something to hang on. Tagged; not a source claim.
+   Glossified like key facts so the hard words stay tappable here too. */
+function plainLeadHTML(item) {
+  const p = item.lesson && item.lesson.plain;
+  if (!p) return '';
+  return `<div class="plainlead"><span class="apptag">App note</span><strong>In plain English:</strong> ${glossify(esc(p))}</div>`;
+}
+
 function learnHTML(item) {
   const subject = getSubject(item.subject);
   const prior = priorOf(item);
@@ -4322,11 +4347,12 @@ function learnHTML(item) {
   const examples = item.lesson.examples && item.lesson.examples.length
     ? `<div class="subhead">Examples</div><ul class="facts">${item.lesson.examples.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>` : '';
   const teaching = prior
-    ? `${priorLeadHTML(item, prior)}${facts}${examples}
+    ? `${plainLeadHTML(item)}${priorLeadHTML(item, prior)}${facts}${examples}
     <details class="priorback"><summary>${esc(prior.short)}-level background — the part you already have</summary>${proseHTML(item.lesson.explanation)}</details>`
-    : `${proseHTML(item.lesson.explanation)}${facts}${examples}`;
+    : `${plainLeadHTML(item)}${proseHTML(item.lesson.explanation)}${facts}${examples}`;
   return `<div class="lesson">
     <div class="eyebrow" style="color:${subject ? subject.accent : 'var(--teal)'}">${esc(subject ? subject.code : item.subject)} · ${esc(typeLabel(item.type))}</div>
+    ${moduleLine(item)}
     <h2>${esc(item.title)}</h2>
     ${visualSlotHTML(item)}
     ${teaching}
