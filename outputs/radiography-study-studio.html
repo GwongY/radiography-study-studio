@@ -241,12 +241,6 @@
 .verdict .mistakes{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.55}
 .srcbtn{background:none;border:0;padding:0;color:var(--teal);cursor:pointer;font:inherit;font-size:12.5px;text-decoration:underline dotted;text-underline-offset:3px}
 .srcline{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px;color:var(--muted)}
-.mastery{display:grid;gap:7px}
-.mastery .row{display:flex;align-items:center;gap:9px;font-size:12.5px}
-.mastery .row .nm{width:96px;flex:none;color:var(--muted)}
-.mastery .row .mt{flex:1;height:6px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
-.mastery .row .mt span{display:block;height:100%;border-radius:99px;background:var(--teal)}
-.mastery .row .pc{width:34px;text-align:right;flex:none;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
 .srctable{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
 .srctable th,.srctable td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
 .srctable th{color:var(--muted);font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em;text-transform:uppercase;font-weight:700}
@@ -348,12 +342,6 @@
 .sesscount{flex:none;font-size:11.5px;color:var(--muted)}
 .srcinline{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--line)}
 .srclab{font:11px ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.masterydet{border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.025);padding:11px 13px}
-.masterydet summary{cursor:pointer;font-size:12.5px;color:var(--text);list-style:none}
-.masterydet summary::-webkit-details-marker{display:none}
-.masterydet summary::after{content:" \25be";color:var(--muted)}
-.masterydet[open] summary::after{content:" \25b4"}
-.masterydet .mastery{margin-top:11px}
 .sessionfoot{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
 .sessionfoot .primary{min-height:48px;padding:0 22px;white-space:nowrap}
 .sessionfoot .ghost{min-height:48px;white-space:nowrap}
@@ -751,11 +739,6 @@
           <span class="srclab">Source</span>
           <button class="srcbtn" id="rssSourceInline">—</button>
         </div>
-        <details class="masterydet">
-          <summary><span class="srclab">Mastery</span> <span id="rssMasteryTitle">Not started</span></summary>
-          <div class="mastery" id="rssMastery"></div>
-          <p class="small" id="rssDueHint"></p>
-        </details>
         <div class="sessionfoot">
           <button class="primary" id="rssNextStep">Next</button>
           <button class="ghost" id="rssEndBtn">Save &amp; exit</button>
@@ -2840,17 +2823,6 @@ function closeSessionOverlay() {
 
 let reviewTab = 'mistakes';
 
-/* Average of one mastery dimension across every item that has been tried. */
-function dimensionAggregate(dimId) {
-  const suffix = '::' + dimId;
-  const recs = Object.keys(store.mastery)
-    .filter((k) => k.endsWith(suffix))
-    .map((k) => store.mastery[k])
-    .filter((r) => r && r.attempts > 0);
-  if (!recs.length) return 0;
-  return Math.round(recs.reduce((n, r) => n + masteryScore(r), 0) / recs.length * 100);
-}
-
 function reviewRow(title, note, badge, color) {
   return `<div class="unit-row" style="cursor:default"><span class="grow"><b>${esc(title)}</b><small>${esc(note)}</small></span><span class="mono" style="color:${color}">${esc(badge)}</span></div>`;
 }
@@ -2858,7 +2830,7 @@ function reviewRow(title, note, badge, color) {
 function renderReviewTab(tab) {
   reviewTab = tab || 'mistakes';
   setActiveNav('review');
-  $$('reviewTabs').innerHTML = [['mistakes', 'My mistakes'], ['due', 'Due'], ['mastery', 'Mastery map']]
+  $$('reviewTabs').innerHTML = [['mistakes', 'My mistakes'], ['due', 'Due']]
     .map(([id, label]) => `<button class="seg${reviewTab === id ? ' active' : ''}" data-rtab="${esc(id)}">${esc(label)}</button>`).join('');
   $$('reviewTabs').querySelectorAll('[data-rtab]').forEach((b) => { b.onclick = () => renderReviewTab(b.dataset.rtab); });
 
@@ -2880,12 +2852,6 @@ function renderReviewTab(tab) {
     rows = due.map((i) => reviewRow(i.title, getSubject(i.subject).title, 'due', 'var(--teal)')).join('')
       || '<div class="empty">Nothing due right now.</div>';
     if (due.length) { cta = 'Start due session \u2192'; ctaMode = { mode: 'weakest', limit: due.length }; }
-  } else {
-    const dims = MASTERY_DIMENSIONS.map((d) => ({ d, pct: dimensionAggregate(d.id) })).sort((a, b) => a.pct - b.pct);
-    copy = 'Ten dimensions per item. This shows the weakest dimension rather than an average \u2014 an item can look mastered and still fail on delayed recall.';
-    rows = dims.map(({ d, pct }) => reviewRow(d.label, d.hint, pct + '%',
-      pct >= 70 ? 'var(--green)' : pct >= 40 ? 'var(--orange)' : 'var(--red)')).join('');
-    cta = 'Drill weakest 20 \u2192'; ctaMode = { mode: 'weakest', limit: 20 };
   }
 
   $$('reviewBody').innerHTML = `<p class="small">${esc(copy)}</p><div style="display:grid;gap:8px;margin-top:13px">${rows}</div>`
@@ -2930,7 +2896,7 @@ function closeSearchSheet() {
 function studySingleItem(item) {
   session = {
     opts: { mode: 'subject', subject: item.subject }, mode: null, items: [item], index: 0,
-    step: 'learn', reveal: 0, qIndex: 0, answered: false, confidence: null, startedAt: 0,
+    step: 'learn', reveal: 0, qIndex: 0, answered: false, startedAt: 0,
     results: [], hooksOnly: false, modeLabel: 'Single item',
   };
   openSessionOverlay();
@@ -2951,7 +2917,7 @@ function studyItemWithin(topic, itemId) {
   const items = [ordered[at], ...ordered.slice(0, at), ...ordered.slice(at + 1)];
   session = {
     opts: { mode: 'subject', subject: topic.subject.id, unit: topic.unit.id }, mode: null, items, index: 0,
-    step: 'learn', reveal: 0, qIndex: 0, answered: false, confidence: null, startedAt: 0,
+    step: 'learn', reveal: 0, qIndex: 0, answered: false, startedAt: 0,
     results: [], hooksOnly: false, modeLabel: topic.unit.label,
   };
   openSessionOverlay();
@@ -3027,7 +2993,7 @@ function renderMore() {
     { title: 'Offline & storage', badge: 'PWA', color: 'var(--muted)',
       note: 'Shell cached at install. Each 3D model caches the first time you open it, so the footprint grows to match what you study.' },
     { title: 'Scheduling rules', badge: 'SM-2+', color: 'var(--muted)',
-      note: 'SM-2 shaped, then modified by confidence, response time and repeat mistakes.' },
+      note: 'SM-2 shaped, then modified by response time and repeat mistakes.' },
     { title: 'Move progress to another device', badge: 'JSON', color: 'var(--teal)',
       note: 'Mastery lives in this browser only, so the desktop and the iPad keep separate schedules. Export a file here and import it on the other device.',
       open: () => openTransferDialog() },
@@ -3060,7 +3026,7 @@ function getContinueTarget() {
 }
 function saveContinue(itemId, step) { write(STORAGE_PREFIX + 'continue', { itemId, step }); }
 function resumeContinue(cont) {
-  session = { opts: { mode: 'subject', subject: cont.item.subject }, mode: null, items: [cont.item], index: 0, step: cont.step, reveal: 0, qIndex: 0, answered: false, confidence: null, startedAt: 0, results: [], hooksOnly: false };
+  session = { opts: { mode: 'subject', subject: cont.item.subject }, mode: null, items: [cont.item], index: 0, step: cont.step, reveal: 0, qIndex: 0, answered: false, startedAt: 0, results: [], hooksOnly: false };
   openSessionOverlay();
   setStep(cont.step);
 }
@@ -3549,7 +3515,7 @@ function openViewer() {
 const STEPS = [
   { id: 'learn', label: 'Learn', copy: 'Read the teaching explanation and the key facts.' },
   { id: 'remember', label: 'Remember', copy: 'Memory Coach — hints revealed one stage at a time.' },
-  { id: 'practise', label: 'Practise', copy: 'Answer, rate your confidence, then see why.' },
+  { id: 'practise', label: 'Practise', copy: 'Answer, then see why.' },
   { id: 'apply', label: 'Apply', copy: 'Use the idea on something you have not seen.' },
   { id: 'review', label: 'Review', copy: 'Confirm what was scheduled and what to fix.' },
 ];
@@ -3640,7 +3606,7 @@ function startSession(opts) {
     opts, mode, items, index: 0, step: hooksOnly ? 'remember' : entryStep(first, itemAttempted(first.id)),
     /* Hooks-only is a browsing mode, so open every hint straight away. */
     reveal: hooksOnly ? REVEAL_STAGES.length : 0,
-    qIndex: 0, answered: false, confidence: null, startedAt: 0,
+    qIndex: 0, answered: false, startedAt: 0,
     results: [], hooksOnly,
   };
   session.modeLabel = mode ? mode.label : 'Study session';
@@ -3675,7 +3641,6 @@ function setStep(step) {
   if (session.items[session.index]) saveContinue(session.items[session.index].id, step);
   session.reveal = session.hooksOnly ? REVEAL_STAGES.length : 0;
   session.answered = false;
-  session.confidence = null;
   if (step === 'practise' || step === 'apply') session.startedAt = performance.now();
   renderStep();
 }
@@ -3696,35 +3661,6 @@ function renderSessionMeter() {
   $$('rssSessionCount').textContent = `${n}/${total}`;
   $$('rssSessionMeta').textContent = `Item ${n} of ${total} \u00b7 ${session.modeLabel || 'Session'}`;
   $$('rssSessionBar').style.width = `${Math.round((session.index / total) * 100)}%`;
-}
-
-function renderMasteryPanel(item) {
-  const rows = MASTERY_DIMENSIONS.map((d) => {
-    const rec = getMastery(item.id, d.id);
-    const pct = Math.round(masteryScore(rec) * 100);
-    const shown = d.id === 'confidence' && rec && rec.confidenceN
-      ? Math.round((rec.confidenceSum / (rec.confidenceN * 3)) * 100)
-      : pct;
-    return `<div class="row" title="${esc(d.hint)}"><span class="nm">${esc(d.label)}</span><span class="mt"><span style="width:${shown}%"></span></span><span class="pc">${rec && rec.attempts ? shown + '%' : '—'}</span></div>`;
-  }).join('');
-  $$('rssMastery').innerHTML = rows;
-  const overall = Math.round(itemScore(item.id) * 100);
-  const priorHere = priorOf(item);
-  $$('rssMasteryTitle').textContent = itemAttempted(item.id)
-    ? `${overall}% overall`
-    : priorHere ? `Assumed known · ${priorHere.short}` : 'Not started';
-  const recs = MASTERY_DIMENSIONS.map((d) => getMastery(item.id, d.id)).filter((r) => r && r.attempts);
-  if (!recs.length) {
-    $$('rssDueHint').textContent = priorHere
-      ? `Nothing recorded for this subject yet. One answer replaces the ${priorHere.short} assumption with evidence.`
-      : 'No review scheduled yet — answering once will schedule the first one.';
-    return;
-  }
-  const soonest = Math.min(...recs.map((r) => r.due));
-  const days = Math.round((soonest - Date.now()) / 86400000);
-  const lapses = itemLapses(item.id);
-  $$('rssDueHint').textContent = (soonest <= Date.now() ? 'Due now.' : days < 1 ? 'Due later today.' : `Next review in about ${days} day${days === 1 ? '' : 's'}.`)
-    + (lapses ? ` Missed ${lapses} time${lapses === 1 ? '' : 's'} before, so intervals are held short.` : '');
 }
 
 /* The source trace is inline under every item now, not a side card. */
@@ -3769,7 +3705,6 @@ function renderStep() {
   $$('rssSessionKicker').textContent = stepDef.label;
   renderSteps();
   renderSessionMeter();
-  renderMasteryPanel(item);
   renderSourceCard(item);
   const stage = $$('rssStage');
   if (session.step === 'learn') { stage.innerHTML = learnHTML(item); mountLessonVisual(item); }
@@ -4372,12 +4307,23 @@ function learnHTML(item) {
     ? `${plainLeadHTML(item)}${priorLeadHTML(item, prior)}${facts}${examples}
     <details class="priorback"><summary>${esc(prior.short)}-level background — the part you already have</summary>${proseHTML(item.lesson.explanation)}</details>`
     : `${plainLeadHTML(item)}${proseHTML(item.lesson.explanation)}${facts}${examples}`;
+  /*
+   * "Skills to build" — app-authored and content-anchored: each entry names a
+   * concrete thing to be able to DO with this item's own facts (draw it, run a
+   * decision test, recite in order), never generic how-to-study advice. Tagged
+   * App note because the skill framing is study scaffolding, even though every
+   * fact it points at is source-traced on this card.
+   */
+  const skillsBlock = item.skills && item.skills.length
+    ? `<div class="subhead">Skills to build with this content</div><ul class="facts">${item.skills.map((s) => `<li>${glossify(esc(s))}</li>`).join('')}</ul><p class="small" style="color:var(--muted);margin-top:8px"><span class="apptag">App note</span> Written by this app from the content above. The facts are the sourced ones; the skill framing is study scaffolding.</p>`
+    : '';
   return `<div class="lesson">
     <div class="eyebrow" style="color:${subject ? subject.accent : 'var(--teal)'}">${esc(subject ? subject.code : item.subject)} · ${esc(typeLabel(item.type))}</div>
     ${moduleLine(item)}
     <h2>${esc(item.title)}</h2>
     ${visualSlotHTML(item)}
     ${teaching}
+    ${skillsBlock}
     ${item.lesson.studyNote ? `<div class="notice"><strong>Radiography study note — written by this app</strong>${esc(item.lesson.studyNote)}<p>This framing is not a claim from the supplied sources. The anatomy above is; this sentence is study scaffolding.</p></div>` : ''}
     ${plateHTML(item)}
     ${item.tags && item.tags.length ? `<div class="tagrow">${item.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}
@@ -4426,69 +4372,83 @@ function originHint(item) {
 }
 
 /*
- * Stage 1 and stage 2 were picking from overlapping lists, and `chunking`
- * appeared in both. On the eighteen items whose only small clue IS the chunking
- * line, the learner opened stage 2 and was shown the sentence they had just
- * read in stage 1 -- the reveal cost them a hint and gave nothing back.
- *
- * So the stages are resolved together rather than independently. Each one takes
- * the first of its candidates that no other stage has already claimed, and the
- * full explanation claims its text first so the partial answer above it can
- * never turn out to be the whole thing.
+ * The stages are resolved together rather than independently: each one takes
+ * the first of its candidates that no earlier stage has already claimed, so a
+ * hint is never shown twice inside one ladder.
  */
 const REVEAL_STAGES = [
   { lab: 'Stage 1 — small clue',
-    candidates: (item) => [item.memory.chunking, item.memory.wordOrigin, item.memory.location, item.memory.comparison,
-      setHint(item, true), item.memory.mnemonic, item.memory.firstLetter, item.memory.visualCue, item.memory.sequence,
-      item.memory.teachBack, originHint(item)],
+    candidates: (item) => [
+      { k: 'chunking', v: item.memory.chunking }, { k: 'wordOrigin', v: item.memory.wordOrigin },
+      { k: 'location', v: item.memory.location }, { k: 'comparison', v: item.memory.comparison },
+      { v: setHint(item, true) },
+      { k: 'mnemonic', v: item.memory.mnemonic }, { k: 'firstLetter', v: item.memory.firstLetter },
+      { k: 'visualCue', v: item.memory.visualCue }, { k: 'sequence', v: item.memory.sequence },
+      { k: 'teachBack', v: item.memory.teachBack }, { v: originHint(item) },
+    ],
     fallback: 'Start from the title and ask what category the answer belongs to.' },
   { lab: 'Stage 2 — memory hook',
-    candidates: (item) => [item.lesson.hook, item.memory.mnemonic, item.memory.firstLetter, item.memory.visualCue, item.memory.sequence,
-      item.memory.chunking, setHint(item, false), originHint(item), item.memory.comparison, item.memory.wordOrigin,
-      item.memory.location, item.memory.teachBack],
+    candidates: (item) => [
+      { v: item.lesson.hook },
+      { k: 'mnemonic', v: item.memory.mnemonic }, { k: 'firstLetter', v: item.memory.firstLetter },
+      { k: 'visualCue', v: item.memory.visualCue }, { k: 'sequence', v: item.memory.sequence },
+      { k: 'chunking', v: item.memory.chunking }, { v: setHint(item, false) }, { v: originHint(item) },
+      { k: 'comparison', v: item.memory.comparison }, { k: 'wordOrigin', v: item.memory.wordOrigin },
+      { k: 'location', v: item.memory.location }, { k: 'teachBack', v: item.memory.teachBack },
+    ],
     fallback: 'Attach the fact to something you already know well.' },
-  { lab: 'Stage 3 — partial answer',
-    candidates: (item) => [item.lesson.keyFacts && item.lesson.keyFacts[0], item.lesson.explanation.split('. ')[0] + '.'],
-    /* one-sentence explanation, no key facts: give the opening of it, not all of it */
-    fallback: (item) => leadIn(item.lesson.explanation) },
-  { lab: 'Stage 4 — full explanation', fixed: true, prose: true,
-    candidates: (item) => [item.lesson.explanation] },
+  { lab: 'Stage 3 — before you move on',
+    candidates: (item) => (item.commonMistakes || []).map((m) => ({ v: `Watch out: ${m}` })),
+    fallback: 'Try to answer out loud before revealing anything. Producing the answer is the skill the exam tests — recognising it is not the same skill.' },
 ];
 
-/* The first 140-odd characters, cut at a word. */
-function leadIn(text) {
-  const t = String(text || '').trim();
-  if (t.length <= 150) return t;
-  const cut = t.slice(0, 140);
-  return cut.slice(0, Math.max(cut.lastIndexOf(' '), 60)).replace(/[,;:]$/, '') + ' …';
-}
+/*
+ * Stage 3 is content-anchored, not generic: it shows this item's own common
+ * confusions (authored in the corpus) as the trap to avoid, and only falls
+ * back to a plain retrieval instruction when the item has none.
+ */
 
 const sameText = (a, b) => String(a).trim().toLowerCase().replace(/\s+/g, ' ') === String(b).trim().toLowerCase().replace(/\s+/g, ' ');
 
 function stageTexts(item) {
   const out = new Array(REVEAL_STAGES.length).fill('');
+  const usedKeys = new Set();
   const used = [];
-  const claim = (i, text) => { out[i] = text; used.push(text); };
-  /* the fixed stage first, so the others dedupe against it and not the reverse */
-  REVEAL_STAGES.forEach((s, i) => { if (s.fixed) claim(i, s.candidates(item).filter(Boolean)[0] || ''); });
+  const claim = (i, cand) => {
+    if (!cand || !cand.v || used.some((u) => sameText(u, cand.v))) return false;
+    out[i] = cand.v;
+    if (cand.k) usedKeys.add(cand.k);
+    used.push(cand.v);
+    return true;
+  };
   REVEAL_STAGES.forEach((s, i) => {
-    if (s.fixed) return;
-    const free = s.candidates(item).filter(Boolean).find((c) => !used.some((u) => sameText(u, c)));
-    claim(i, free || (typeof s.fallback === 'function' ? s.fallback(item) : s.fallback) || '');
+    if (!s.candidates(item).some((c) => claim(i, c))) {
+      out[i] = (typeof s.fallback === 'function' ? s.fallback(item) : s.fallback) || '';
+    }
   });
-  return out;
+  return { texts: out, usedKeys, used };
 }
 
 function rememberHTML(item) {
   const hooks = Object.entries(item.memory || {}).filter(([, v]) => v);
-  const texts = stageTexts(item);
+  const { texts, usedKeys, used } = stageTexts(item);
   const stack = REVEAL_STAGES.map((s, i) =>
     `<div class="reveal ${i < session.reveal ? 'open' : ''}" data-stage="${i}">
       <div class="lab">${esc(s.lab)}</div>
-      <div class="txt">${i < session.reveal
-        ? (s.prose ? proseHTML(texts[i]) : glossify(esc(texts[i])))
+      <div class="txt">${i < session.reveal ? glossify(esc(texts[i]))
         : '<em style="color:var(--muted)">Hidden — reveal only if you need it. Trying to retrieve first is what makes it stick.</em>'}</div>
     </div>`).join('');
+  /*
+   * The coach does not list every memory aid underneath the ladder any more —
+   * that list repeated the very texts the stages reveal. Once the ladder is
+   * fully open, only the hooks the stages did not already show appear here.
+   * Hooks-only mode has no ladder, so it keeps the full list.
+   */
+  const moreHooks = session.reveal >= REVEAL_STAGES.length
+    ? hooks.filter(([k, v]) => v && !usedKeys.has(k) && !used.some((u) => sameText(u, v)))
+    : [];
+  const hooksList = (list) => `${list.map(([k, v]) => `<div class="hookcard"><div class="kind">${esc(MEMORY_METHODS[k] || k)}</div><div class="txt">${esc(v)}</div></div>`).join('')}
+      <p class="small" style="color:var(--muted);margin-top:10px">Memory aids are written by this app. The facts they point at are the source-traced ones on the Learn card.</p>`;
   return `<div class="lesson">
     <div class="eyebrow">Memory Coach</div>
     <h2>${esc(item.title)}</h2>
@@ -4500,8 +4460,11 @@ function rememberHTML(item) {
         ? (session.index >= session.items.length - 1 ? '<button class="primary" id="rssFinish">Finish</button>' : '<button class="primary" id="rssNextItem">Next hook →</button>')
         : '<button class="primary" data-nav="practise">Test me →</button>'}
     </div>
-    ${hooks.length ? `<div class="subhead">All memory aids for this item</div>${hooks.map(([k, v]) => `<div class="hookcard"><div class="kind">${esc(MEMORY_METHODS[k] || k)}</div><div class="txt">${esc(v)}</div></div>`).join('')}
-      <p class="small" style="color:var(--muted);margin-top:10px">Memory aids are written by this app. The facts they point at are the source-traced ones above.</p>` : '<div class="emptybox" style="margin-top:14px">No memory aid authored for this item yet.</div>'}
+    ${item.selfCheck ? `<div class="subhead" style="margin-top:14px">Prove it to yourself</div>
+      <div class="hookcard"><div class="kind">Blank-page check · <span class="apptag">App note</span></div><div class="txt">${glossify(esc(item.selfCheck))}</div></div>` : ''}
+    ${session.hooksOnly
+      ? (hooks.length ? `<div class="subhead">All memory aids for this item</div>${hooksList(hooks)}` : '<div class="emptybox" style="margin-top:14px">No memory aid authored for this item yet.</div>')
+      : (moreHooks.length ? `<div class="subhead" style="margin-top:14px">More hooks for this item</div>${hooksList(moreHooks)}` : '')}
   </div>`;
 }
 
@@ -4619,11 +4582,6 @@ function questionBody(q) {
   }
 }
 
-function confidenceRow() {
-  const labels = ['Guessed', 'Unsure', 'Fairly sure', 'Certain'];
-  return `<div class="conf-row"><span class="lab">How sure were you?</span>${labels.map((l, i) => `<button class="conf ${session.confidence === i ? 'on' : ''}" data-conf="${i}">${esc(l)}</button>`).join('')}</div>`;
-}
-
 function practiseHTML(item) {
   const qs = questionsOf(item);
   if (!qs.length) return '<div class="emptybox">No practice questions on this item.</div>';
@@ -4644,7 +4602,6 @@ function practiseHTML(item) {
     <div class="q-prompt">${glossify(esc(q.prompt))}</div>
     ${q.image ? `<img class="xray-img" src="assets/xray/${esc(q.image)}" alt="Radiograph" onerror="xrayFallback(this)">` : ''}
     <div id="rssQBody">${questionBody(q)}</div>
-    ${confidenceRow()}
     <div id="rssVerdict"></div>
     <div class="rss-actions" id="rssPractiseNav"></div>
   </div>`;
@@ -4692,14 +4649,13 @@ function verdictHTML(item, q, correct, extra) {
   </div>`;
 }
 
-function finishQuestion(item, q, correct, extra) {
+function finishQuestion(item, q, correct, extra, conf = 2) {
   if (session.answered) return;
   session.answered = true;
   /* Read before scheduling: the first answer is what flips itemAttempted. */
   const untestedPrior = !!priorOf(item) && !itemAttempted(item.id);
   const ms = Math.max(400, performance.now() - session.startedAt);
   const dim = dimensionFor(q);
-  const conf = session.confidence ?? 1;
 
   const priorRec = getMastery(item.id, dim);
   const rec = schedule(priorRec, { correct, confidence: conf, ms, expectedMs: q.type === 'explain' || q.type === 'scenario' ? 45000 : 14000 });
@@ -4713,9 +4669,6 @@ function finishQuestion(item, q, correct, extra) {
     const delayedRec = schedule(getMastery(item.id, 'delayedRecall'), { correct, confidence: conf, ms, expectedMs: 20000 });
     setMastery(item.id, 'delayedRecall', delayedRec);
   }
-  /* Confidence is tracked as its own dimension: was your certainty justified? */
-  const confRec = schedule(getMastery(item.id, 'confidence'), { correct: correct === (conf >= 2), confidence: conf, ms, expectedMs: 14000 });
-  setMastery(item.id, 'confidence', confRec);
   if ((q.type === 'typed' || q.type === 'cloze' || q.type === 'landmark')) {
     const spellRec = schedule(getMastery(item.id, 'spelling'), { correct: correct && !extra, confidence: conf, ms, expectedMs: 14000 });
     setMastery(item.id, 'spelling', spellRec);
@@ -4723,7 +4676,7 @@ function finishQuestion(item, q, correct, extra) {
   store.items[item.id] = { ...(store.items[item.id] || {}), status: correct ? 'review' : 'learning', seen: (store.items[item.id]?.seen || 0) + 1, lastSeen: Date.now() };
   write(K.items, store.items);
   if (!correct) logMistake({ itemId: item.id, qid: q.qid, type: q.type, prompt: q.prompt });
-  session.results.push({ itemId: item.id, qid: q.qid, correct, conf, ms });
+  session.results.push({ itemId: item.id, qid: q.qid, correct, ms });
 
   $$('rssVerdict').innerHTML = verdictHTML(item, q, correct, extra);
   wireTerms($$('rssVerdict'));
@@ -4744,9 +4697,8 @@ function finishQuestion(item, q, correct, extra) {
     toast('Carried over as known, but missed — worth reading the lesson on this one.');
   }
   const nq = $$('rssNextQ');
-  if (nq) nq.onclick = () => { session.qIndex += 1; session.answered = false; session.confidence = null; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.diagramReveal = null; if (window.__osteo && window.__osteo.endMovement) { window.__osteo.endMovement(); const b=$$('mvBar'); if(b) b.classList.add('hidden'); const bk=$$('mvBackToSession'); if(bk) bk.classList.add('hidden'); } session.startedAt = performance.now(); renderStep(); };
+  if (nq) nq.onclick = () => { session.qIndex += 1; session.answered = false; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.diagramReveal = null; if (window.__osteo && window.__osteo.endMovement) { window.__osteo.endMovement(); const b=$$('mvBar'); if(b) b.classList.add('hidden'); const bk=$$('mvBackToSession'); if(bk) bk.classList.add('hidden'); } session.startedAt = performance.now(); renderStep(); };
   wireStageNav(item);
-  renderMasteryPanel(item);
 }
 
 /*
@@ -4812,9 +4764,6 @@ function wirePractise(item) {
   const showLesson = $$('rssPriorLesson');
   if (showLesson) showLesson.onclick = () => setStep('learn');
   if (!session.startedAt) session.startedAt = performance.now();
-  document.querySelectorAll('[data-conf]').forEach((b) => {
-    b.onclick = () => { session.confidence = +b.dataset.conf; document.querySelectorAll('[data-conf]').forEach((x) => x.classList.toggle('on', x === b)); };
-  });
 
   const lockOpts = (correctIdx, chosen) => {
     document.querySelectorAll('[data-opt]').forEach((b) => {
@@ -4954,10 +4903,10 @@ function wirePractise(item) {
       $$('rssVerdict').innerHTML = `<div class="verdict"><h4>Compare with the model answer</h4><div class="why">${esc(model)}</div>
         ${rubric.length ? `<ul class="mistakes">${rubric.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>` : ''}
         <div class="conf-row"><span class="lab">Did you cover it?</span><button class="conf" id="rssSelfYes">Yes, I had it</button><button class="conf" id="rssSelfPart">Partly</button><button class="conf" id="rssSelfNo">No</button></div></div>`;
-      const grade = (correct, note) => { session.confidence = session.confidence ?? (correct ? 2 : 0); finishQuestion(item, q, correct, note); };
-      $$('rssSelfYes').onclick = () => grade(true, 'Self-graded as covered.');
-      $$('rssSelfPart').onclick = () => grade(false, 'Self-graded as partial — the points you missed are listed above.');
-      $$('rssSelfNo').onclick = () => grade(false, 'Self-graded as missed.');
+      const grade = (correct, note, conf) => finishQuestion(item, q, correct, note, conf);
+      $$('rssSelfYes').onclick = () => grade(true, 'Self-graded as covered.', 2);
+      $$('rssSelfPart').onclick = () => grade(false, 'Self-graded as partial — the points you missed are listed above.', 0);
+      $$('rssSelfNo').onclick = () => grade(false, 'Self-graded as missed.', 0);
     };
   }
 }
@@ -5002,8 +4951,11 @@ function wireApply(item) {
       for (const dim of ['application', 'explanation']) {
         setMastery(item.id, dim, schedule(getMastery(item.id, dim), { correct, confidence: conf, ms, expectedMs: 60000 }));
       }
-      if (!correct) logMistake({ itemId: item.id, qid: `${item.id}!app0`, type: 'scenario', prompt: a.prompt });
-      renderMasteryPanel(item);
+      if (!correct) {
+        logMistake({ itemId: item.id, qid: `${item.id}!app0`, type: 'scenario', prompt: a.prompt });
+        /* So the Review step's missed-question recap includes the Apply miss. */
+        session.results.push({ itemId: item.id, qid: `${item.id}!app0`, correct, ms });
+      }
       $$('rssApplyNav').innerHTML = '<button class="primary" data-nav="review">See what was scheduled →</button>';
       wireStageNav(item);
       toast(!correct ? 'Recorded — this one will come back sooner.'
@@ -5023,16 +4975,33 @@ function reviewHTML(item) {
   const recs = MASTERY_DIMENSIONS.map((d) => ({ d, rec: getMastery(item.id, d.id) })).filter((x) => x.rec && x.rec.attempts);
   const soonest = recs.length ? Math.min(...recs.map((x) => x.rec.due)) : 0;
   const days = soonest ? Math.max(0, Math.round((soonest - Date.now()) / 86400000)) : 0;
-  const overconfident = mine.filter((r) => !r.correct && r.conf >= 2).length;
   const last = session.index >= session.items.length - 1;
+  /*
+   * The Review step recaps what actually went wrong in this session — the
+   * exact questions missed, with their own explanations — rather than generic
+   * study advice. Clean pass falls back to the item's authored confusions.
+   */
+  const qs = questionsOf(item);
+  const appTask = (item.application || [])[0];
+  const missedQs = mine.filter((r) => !r.correct)
+    .map((r) => r.qid === `${item.id}!app0`
+      ? { prompt: appTask ? appTask.prompt : '', why: appTask ? appTask.model : '' }
+      : qs.find((q) => q.qid === r.qid))
+    .filter(Boolean);
+  const fixBlock = missedQs.length
+    ? `<div class="subhead" style="margin-top:14px">What you missed — to fix before it comes back</div>
+       <ul class="facts">${missedQs.map((q) => `<li><strong>${esc(q.prompt)}</strong><br>${esc(q.why)}</li>`).join('')}</ul>`
+    : (item.commonMistakes && item.commonMistakes.length
+      ? `<div class="subhead" style="margin-top:14px">Common confusions on this item</div><ul class="facts">${item.commonMistakes.map((m) => `<li>${esc(m)}</li>`).join('')}</ul>`
+      : '');
   return `<div class="lesson">
     <div class="eyebrow">Review · scheduled</div>
     <h2>${esc(item.title)}</h2>
     <div class="body">${mine.length ? `You answered ${right} of ${mine.length} correctly on this item.` : 'No answers recorded for this item in this session.'}
       ${soonest ? (soonest <= Date.now() ? ' It stays in today’s queue.' : ` Next review in about ${days} day${days === 1 ? '' : 's'}.`) : ''}</div>
-    ${overconfident ? `<div class="notice"><strong>Confidently wrong ${overconfident} time${overconfident === 1 ? '' : 's'}</strong>That is the pattern worth fixing first: a wrong answer you were sure about is a well-learned mistake, so the interval has been cut harder than a hesitant miss would be.</div>` : ''}
-    ${recs.length ? `<div class="subhead">What changed</div><ul class="facts">${recs.map((x) => `<li>${esc(x.d.label)} — ${Math.round(masteryScore(x.rec) * 100)}% · ${x.rec.intervalDays ? `next in ${x.rec.intervalDays} day${x.rec.intervalDays === 1 ? '' : 's'}` : 'back in this session'}${x.rec.lapses ? ` · ${x.rec.lapses} lapse${x.rec.lapses === 1 ? '' : 's'} on record` : ''}</li>`).join('')}</ul>` : ''}
-    ${item.commonMistakes && item.commonMistakes.length ? `<div class="subhead">Common confusions on this item</div><ul class="facts">${item.commonMistakes.map((m) => `<li>${esc(m)}</li>`).join('')}</ul>` : ''}
+    ${fixBlock}
+    ${item.selfCheck ? `<div class="subhead" style="margin-top:14px">Before it comes back</div>
+      <div class="hookcard"><div class="kind">Blank-page check · <span class="apptag">App note</span></div><div class="txt">${glossify(esc(item.selfCheck))}</div></div>` : ''}
     <div class="rss-actions">
       ${last ? '<button class="primary" id="rssFinish">Finish session</button>' : '<button class="primary" id="rssNextItem">Next item →</button>'}
       <button class="ghost" data-nav="learn">Re-read the lesson</button>

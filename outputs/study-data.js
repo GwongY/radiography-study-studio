@@ -283,7 +283,6 @@ export const MASTERY_DIMENSIONS = [
   { id: 'application', label: 'Application', hint: 'Using the fact in a scenario you have not seen before.' },
   { id: 'comparison', label: 'Comparison', hint: 'Telling it apart from the structure it is most confused with.' },
   { id: 'delayedRecall', label: 'Delayed recall', hint: 'Getting it right on the first attempt after a gap of a day or more — not just within a session.' },
-  { id: 'confidence', label: 'Confidence', hint: 'How sure you were, checked against whether you were right.' },
 ];
 
 export const MEMORY_METHODS = {
@@ -443,6 +442,11 @@ const HSS_TERMINOLOGY = [
       'Drawing the anatomical position with palms facing backward — that is standing at ease, and it flips your mental map of the forearm bones.',
       'Re-defining anterior and posterior to match how the patient is actually lying.',
     ],
+    skills: [
+      'Stand up and take the position yourself, deliberately putting the palms forward — then check every detail against the key facts list, because palms forward is the one detail that separates this from standing at ease.',
+      'Practise the fixed-reference habit: for any description of a patient in any position, say the directional term and then state "as if anatomical position" before you commit to an answer.',
+    ],
+    selfCheck: 'From a blank page: the full stance in the source’s own detail, and the reasoning for why an anterior carpal scar is on the palm side of the wrist even in a prone patient.',
     sourceRefs: [{ ref: 'hss.orientation', location: 'Section "Anatomical Position"' }, { ref: 'hss.m0.1718', location: 'L1 p4 "The anatomical position"' }],
   },
   {
@@ -477,6 +481,11 @@ const HSS_TERMINOLOGY = [
         rubric: ['Recognises systemic lectures come first', 'States the regional lecture reassembles them in one cavity', 'Mentions spatial relationships'] },
     ],
     commonMistakes: ['Treating the "regional anatomy of" lectures as revision of the system lectures rather than as a new relational layer.'],
+    skills: [
+      'For any anatomy lecture title, ask "where am I standing?" versus "what job am I following?" — a place means regional, a job means systemic.',
+      'Use the HSS2011 module list itself as the practice set: classify Module 1.1, 1.2 and 1.3 by approach, and explain why the regional lecture comes after the systemic ones.',
+    ],
+    selfCheck: 'From a blank page: both definitions in one sentence each, and what the Module 1 ordering — two systemic lectures then "Regional Anatomy of the Thorax" — tells you about how revision should end.',
     sourceRefs: [{ ref: 'hss.orientation', location: 'Opening section' }, { ref: 'hss.manual1920', location: 'Subject Description Form, Objectives' }],
   },
   {
@@ -530,6 +539,11 @@ const HSS_TERMINOLOGY = [
       'Forgetting that palms-forward is what makes the thumb lateral; with palms back it would look medial.',
       'Swapping a term for its own partner under time pressure, which is the single most common terminology error.',
     ],
+    skills: [
+      'Learn the ten as five opposed pairs and self-test by naming the partner first: if you can produce "distal" when given "proximal" instantly, the most common exam error — picking the partner of the right answer — is closed off.',
+      'Run the limb check on every proximal/distal question: those terms only work along a limb measured from where it joins the trunk, so between two trunk regions the pair cannot be the answer.',
+    ],
+    selfCheck: 'From a blank page: all five pairs, each term matched to its source example — brachium to antebrachium, pollex to the digits — plus the distal-radius reasoning and why the thumb is lateral to the index finger.',
     sourceRefs: [{ ref: 'hss.orientation', location: 'Section "Directional Terms"' }, { ref: 'hss.vocab', location: 'Glossary entries for each term' }],
   },
   {
@@ -571,6 +585,11 @@ const HSS_TERMINOLOGY = [
       'Mixing coronal and sagittal because both are vertical cuts — anchor each one to the pair of terms it produces instead of to its orientation.',
       'Assuming only one name is correct; the glossary lists frontal/coronal and mid-sagittal/median as paired names.',
     ],
+    skills: [
+      'Memorise three splits, not three planes: coronal → anterior/posterior, transverse → superior/inferior, mid-sagittal → left/right. Any plane question is answered the moment you recall its split.',
+      'Practise giving both names for each plane — frontal/coronal, horizontal/transverse, median/mid-sagittal — because the glossary lists the pairs and the exam may use either.',
+    ],
+    selfCheck: 'Match each plane to the pair of terms it creates without looking, give both accepted names for each, and pick the plane you would need to judge how far forward a structure sits.',
     sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p4 "The anatomical position" — plane annotations' }, { ref: 'hss.vocab', location: 'Glossary: Frontal/Coronal Plane; Mid-sagittal/Median Plane' }],
   },
   {
@@ -612,6 +631,11 @@ const HSS_TERMINOLOGY = [
       'Treating quadrants and regions as the same scheme — they are two different grids over the same abdomen.',
       'Reading "hypochondriac" with its everyday meaning instead of "below the costal cartilage".',
     ],
+    skills: [
+      'Draw the nine-region grid from memory top to bottom — hypochondriac–epigastric–hypochondriac, lumbar–umbilical–lumbar, inguinal–hypogastric–inguinal — keeping the middle column on the midline, then place four quadrant labels over the same rectangle.',
+      'Practise translating between the two schemes and naming what is lost: map right hypochondriac to the right upper quadrant and say in one sentence why the quadrant answer is coarser.',
+    ],
+    selfCheck: 'From a blank page: which two cavities sit inside the thoracic cavity, the single name covering abdominal and pelvic together, and the region directly above the umbilical region in the nine-box grid.',
     sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p5 "Body cavities"; L1 p6–7 "Directional references"' }, { ref: 'hss.vocab', location: 'Glossary: cavity, region and quadrant entries' }],
   },
 ];
@@ -656,6 +680,11 @@ const HSS_OSTEOLOGY = [
       'Filing the clavicle, scapula or hip bone as axial because they sit on the trunk.',
       'Forgetting the sacrum is axial while the hip bone it joins is appendicular.',
     ],
+    skills: [
+      'For any bone, ask "does it exist to carry a limb?" — the girdles are appendicular for exactly that reason, even though they sit on the trunk; weight-bearing is never the criterion.',
+      'Sort this item’s own boneRefs list into two columns without looking — skull to sternum on the axial side, clavicle onward on the appendicular — and check the sacrum/hip-bone pair last, because that is where the slip happens.',
+    ],
+    selfCheck: 'From a blank page: the total count, the four axial members, the four appendicular members, and the reasoning that puts the pelvic girdle with the limbs while its neighbour the sacrum stays axial.',
     sourceRefs: [{ ref: 'hss.4.1', location: 'Slide "Bones" — 206 in adult skeleton' }, { ref: 'hss.m0.1718', location: 'L1 p13–14 Axial and Appendicular Skeleton' }, { ref: 'hss.vocab', location: 'Glossary: Axial Skeleton; Appendicular Skeleton' }],
   },
   {
@@ -701,6 +730,11 @@ const HSS_OSTEOLOGY = [
       'Calling a vertebra a short bone because it looks blocky — it is irregular.',
       'Forgetting pneumatic and sesamoid, which the lecture treats as their own categories.',
     ],
+    skills: [
+      'For each of the six categories, say the shape’s consequence before its example — tube means lever, cube means carpus/tarsus, sandwich means compact-cancellous-compact — then attach the lecture’s own example to it.',
+      'Quiz yourself specifically on the two extras: pneumatic must produce an air-sinus example (frontal or sphenoidal) and sesamoid must produce a tendon nodule (patella), or the category is not yours yet.',
+    ],
+    selfCheck: 'From a blank page: all six shape categories, each with the lecture example, plus the vertebra question answered with a reason — irregular because of its mixed shape, not short because it looks blocky.',
     sourceRefs: [{ ref: 'hss.4.1', location: 'Slides "Shape of bones", "Short bones", "Flat bones", "Irregular bones", "Pneumatic bones", "Sesamoid bones"' }],
   },
   {
@@ -748,6 +782,11 @@ const HSS_OSTEOLOGY = [
       'Confusing periosteum (outer surface) with endosteum (internal surfaces) — this is the exact distractor used in the revision exercise.',
       'Describing trabeculae as randomly arranged; the source is explicit that they develop along the lines of stress.',
     ],
+    skills: [
+      'Sketch one long bone and label it from the centre outward — diaphysis, metaphysis, epiphysis — then check the order against the prefixes: dia- through the middle, meta- after, epi- upon the end.',
+      'On the same sketch, mark where compact and cancellous bone sit in each location, the periosteum with its osteogenic inner layer, the medullary cavity, and the nutrient foramen where the large artery enters.',
+    ],
+    selfCheck: 'Your sketch carries: the three regions in order, which bone form is on the outside of every bone, where spongy bone sits at the ends, the three-word fill-in-blank ending in trabeculae along lines of stress, and why stripping the periosteum matters.',
     sourceRefs: [{ ref: 'hss.4.1', location: 'Slides "Long bone", "Long bone — structures", "Structures", "Blood supply to bone"' }, { ref: 'hss.revans', location: 'Module 4.1 answers' }],
   },
   {
@@ -784,6 +823,11 @@ const HSS_OSTEOLOGY = [
         rubric: ['Names the lever function', 'Explains muscles need something rigid to pull against'] },
     ],
     commonMistakes: ['Listing only the mechanical functions and forgetting marrow and mineral storage.'],
+    skills: [
+      'Recite the five in the 3+2 split — three mechanical jobs, then the two biological ones — because the two P-words (Production, storage of Phosphate and calcium) are the ones the list-testing drops.',
+      'For the protection function, name the protected organs the lecture itself lists — brain, spinal cord, heart, lungs, liver, bladder — rather than a generic answer.',
+    ],
+    selfCheck: 'From a blank page: all five functions, the organ list for protection, and which function the manual’s sit-stand-walk-run sentence describes (levers, with the reason muscles need something rigid to pull against).',
     sourceRefs: [{ ref: 'hss.4.1', location: 'Slide "Functions"' }, { ref: 'hss.manual1920', location: 'Module 4 introduction, p.41' }],
   },
   {
@@ -828,6 +872,11 @@ const HSS_OSTEOLOGY = [
       'Swapping pedicle and lamina — the pedicle is the stalk from the body, the lamina is the plate closing the arch behind.',
       'Confusing the vertebral foramen (spinal cord) with the intervertebral foramen (spinal nerve) and the transverse foramen (vertebral artery).',
     ],
+    skills: [
+      'Draw one vertebra and walk the ring in order — body, pedicle, lamina, spinous process — adding the transverse processes and articular processes last, so the labelling answers B1–B6 can be filled from your own drawing.',
+      'Drill the three-holes test until it is automatic: vertebral foramen carries the spinal cord, intervertebral foramen lets a spinal nerve out, transverse foramina carry the vertebral arteries — different hole, different traffic.',
+    ],
+    selfCheck: 'From a blank page: the six labelled parts from the More-exercises answers, the weight-bearing component named with its position, and the cervical transverse-foramina scenario answered with the artery named.',
     sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p21 "General structures of a vertebra"; L1 p28 cervical vertebrae' }, { ref: 'hss.revans', location: 'More exercises, Module 4, labels B1–B6' }],
   },
   {
@@ -869,6 +918,11 @@ const HSS_OSTEOLOGY = [
       'Guessing the segment counts. They are fixed: 7, 12, 5.',
       'Assuming "primary" means larger or more important rather than earlier.',
     ],
+    skills: [
+      'Say the counts first — breakfast at 7, lunch at 12, dinner at 5 — then attach the names, so a segment-count question and a region-order question are answered from the same recitation.',
+      'For every curvature, test timing before direction: primary = present from the embryonic stage (thoracic, pelvic), secondary = developed after birth (cervical, lumbar) — then check the concavity follows.',
+    ],
+    selfCheck: 'From a blank page: the five regions superior to inferior with their counts, which two curvatures are secondary and which way each group is concave, and the infant C-shaped spine reasoning.',
     sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p15 "Vertebral column"; L1 p16 "Curvatures"' }, { ref: 'hss.revans', location: 'Module 0, Fill-in-blanks' }],
   },
   {
@@ -912,6 +966,11 @@ const HSS_OSTEOLOGY = [
       'Swapping the two joints — the nod is higher (skull on C1), the shake is lower (C1 on C2).',
       'Not recognising "odontoid process" and "dens" as the same structure under two names.',
     ],
+    skills: [
+      'Do the two movements on yourself while naming the joint: nod and say atlanto-occipital (skull on C1), shake and say atlanto-axial (C1 turning on the dens of C2) — the dens is the pivot pin, and pins mean rotation.',
+      'Practise both names as one item: the transverse ligament holds the atlas and the dens — also called the odontoid process — of the axis in place, so either exam wording gets the same answer.',
+    ],
+    selfCheck: 'From a blank page: which joint nods and which shakes with the bones of each named, what the transverse ligament holds, and the can-nod-cannot-shake patient reasoning.',
     sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p28–29 cervical vertebrae, atlanto-axial joint' }, { ref: 'hss.4.2', location: 'Head and neck — cervical spine features' }, { ref: 'hss.revans', location: 'Module 0 and Module 4.2 answers' }],
   },
   {
@@ -961,6 +1020,11 @@ const HSS_OSTEOLOGY = [
       'Answering sagittal when asked about parietal-to-temporal. Sagittal is parietal-to-parietal on the midline.',
       'Forgetting the mandible when asked which skull bone moves.',
     ],
+    skills: [
+      'Trace the sutures on your own head or on a skull image, front to back along the top — coronal, sagittal, lambdoid — then find the squamous low on the side where the temporal slides under the parietal.',
+      'For each suture, name both bones it joins out loud; drill the squamous-versus-sagittal pair until parietal-to-temporal instantly produces squamous, not sagittal.',
+    ],
+    selfCheck: 'From a blank page: the four sutures with their bone pairs, why a suture permits the least movement of the listed joints (fibrous tissue, process-and-indentation interlock), and the only movable skull bone.',
     sourceRefs: [{ ref: 'hss.4.2', location: 'Head and neck — skull, sutures' }, { ref: 'hss.4.1', location: 'Slide "Fibrous joints — Sutures"' }, { ref: 'hss.revans', location: 'Module 4.2 answers; More exercises Module 4, labels A1–A12' }],
   },
   {
@@ -1003,6 +1067,11 @@ const HSS_OSTEOLOGY = [
       'Adding the humerus to the pectoral girdle. The girdle is clavicle and scapula only; the humerus is the limb it carries.',
       'Confusing retraction and protraction; retraction is backwards.',
     ],
+    skills: [
+      'Recite the chain from the arm inward — glenohumeral, acromioclavicular, sternoclavicular — and mark the sternoclavicular joint as the only bony link back to the axial skeleton; the raise-your-arm-overhead question is that chain in order.',
+      'Perform the six scapular movements on yourself in opposite pairs — up and down, back and forward, lateral and medial rotation — so retraction and protraction are felt, not memorised.',
+    ],
+    selfCheck: 'From a blank page: the two girdle bones, the three shoulder joints in chain order, where the humeral head articulates, and the six scapular movements including which one squaring your shoulders is.',
     sourceRefs: [{ ref: 'hss.4.3', location: 'Slides "Pectoral Girdle", "Joints Around Shoulder Region" (Fig. 8-2)' }, { ref: 'hss.m0.1718', location: 'L1 p36 movements of the scapula; L1 p39 shoulder joint' }],
   },
   {
@@ -1056,6 +1125,11 @@ const HSS_OSTEOLOGY = [
       'Mixing trapezium and trapezoid; trapeziuM is under the thuMb.',
       'Calling wrist bones tarsals — tarsals are in the ankle.',
     ],
+    skills: [
+      'Write the eight carpals as two rows of four, proximal row first, lateral to medial, and locate the scaphoid at the thumb end of the proximal row — then most carpal questions reduce to "which row is it in?"',
+      'Pair the elbow surfaces as two matches: trochlea of the humerus into the trochlear notch of the ulna, capitulum onto the head of the radius — say which forearm bone each one involves before answering.',
+    ],
+    selfCheck: 'From a blank page: both carpal rows in order, which bones form the radiocarpal joint, the base-of-thumb fall scenario answered with row and side, and the trapezium-versus-trapezoid M-for-thuMb check.',
     sourceRefs: [{ ref: 'hss.4.3', location: 'Slides "Radius and Ulna" (Fig. 8-5b), "Elbow Joint" (Fig. 8-4c), "Carpal Bones"' }, { ref: 'hss.m0.1718', location: 'L1 p45 right wrist (radiocarpal) joint; L1 p47 joints of thumb and fingers' }, { ref: 'hss.revans', location: 'Module 4.3 answers' }],
   },
   {
@@ -1100,6 +1174,11 @@ const HSS_OSTEOLOGY = [
       'Answering glenoid cavity for the femoral head — that is the shoulder socket.',
       'Listing the sacrum as one of the three bones of the hip bone; it is axial and articulates with the ilium, but it is not part of it.',
     ],
+    skills: [
+      'Anchor I-I-P to your own body — hands on hips is ilium, sitting down is ischium, the front join is pubis — then confirm all three meet in one place and name it (the acetabulum).',
+      'Contrast the two sockets every time a question offers both: deep acetabulum takes the femoral head and makes the hip stable, shallow glenoid takes the humeral head and makes the shoulder mobile.',
+    ],
+    selfCheck: 'From a blank page: the three hip-bone names, the femoral head’s socket, the proximal femoral landmarks in order from head to condyles, and the neck-of-femur reasoning — between head and trochanters, separating head from shaft.',
     sourceRefs: [{ ref: 'hss.4.3', location: 'Slides "Hip & Gluteal Region: Pelvic Girdle", "Femur (Right)" (Fig. 8-11), "Proximal End of Femur"' }, { ref: 'hss.revans', location: 'Module 4.3 answers' }],
   },
   {
@@ -1145,6 +1224,11 @@ const HSS_OSTEOLOGY = [
       'Assigning the medial malleolus to the fibula. Medial goes with tibia.',
       'Calling tarsals "carpals" — carpals are in the wrist.',
     ],
+    skills: [
+      'Learn the malleolus pairing from one anchor — lateral goes with fibula — and derive medial-with-tibia; then feel your own shin to fix which leg bone takes the weight and which is the slender pin.',
+      'Build the tarsus from the back: talus on top of the calcaneus taking the leg’s load, navicular and cuboid and the three cuneiforms fanning forward — then add the three arches as the reason the footprint is not flat.',
+    ],
+    selfCheck: 'From a blank page: which bone carries which malleolus, the seven named tarsals, which leg bone is weight-bearing, and the lateral-malleolus swelling scenario answered with both facts.',
     sourceRefs: [{ ref: 'hss.4.3', location: 'Slides "Patella (Right)" (Fig. 8-12), "Tibia and Fibula (Right)" (Fig. 8-13), "Ankle & Foot"' }, { ref: 'hss.revans', location: 'Module 4.3, Fill-in-blanks 5' }],
   },
   {
@@ -1193,6 +1277,11 @@ const HSS_OSTEOLOGY = [
       'Including the clavicle or scapula in the thoracic inlet — the boundary is ribs, vertebra and sternum only.',
       'Assuming everything under the ribs is thoracic; the lower ribs cover abdominal organs.',
     ],
+    skills: [
+      'Recite the rib classes with the counts — 1–7 on their own, 8–10 sharing cartilage, 11–12 attached to nothing in front — and check yourself by touching the front of your own chest at each band.',
+      'Trace the thoracic inlet as a ring with your fingers — manubrium in front, first ribs at the sides, first thoracic vertebra behind — then confirm the scapula never joins it and neither does the clavicle.',
+    ],
+    selfCheck: 'From a blank page: the inlet boundaries as the model answer words them, the three rib classes with their numbers, and the broken 10th rib scenario — left kidney and spleen, and what that shows about how far the cage reaches over the abdomen.',
     sourceRefs: [{ ref: 'hss.1.3', location: 'Regional anatomy of the thorax — boundaries, rib classification' }, { ref: 'hss.manual1920', location: 'Submodule 1.3 guiding questions, p.22' }, { ref: 'hss.revans', location: 'Module 1.3 answers; More exercises Module 3' }],
   },
 ];
@@ -1242,6 +1331,11 @@ const HSS_JOINTS = [
       'Treating "cartilaginous" as one type rather than two — synchondrosis and symphysis behave very differently.',
       'Assuming a diarthrosis is immobile because the word sounds technical; it is the freely movable class.',
     ],
+    skills: [
+      'Classify any joint by asking what fills the gap first — fibrous tissue, cartilage or a synovial cavity — and let the mobility answer follow from that, never the other way round.',
+      'Inside the cartilaginous class, decide synchondrosis versus symphysis on two axes at once: hyaline and temporary versus fibrocartilage and permanent.',
+    ],
+    selfCheck: 'From a blank page: the three classes with one lecture example each, the six synovial types, which listed joint is least movable, and the growth-plate story — class, type, and what happens to it by about 25.',
     sourceRefs: [{ ref: 'hss.4.1', location: 'Slides "Arthrology", "Classification of Joints", "Fibrous joints", "Cartilaginous joints"' }, { ref: 'hss.m0.1718', location: 'L1 p18 "Joints"' }, { ref: 'hss.revans', location: 'Module 4.1 answers' }],
   },
   {
@@ -1288,6 +1382,11 @@ const HSS_JOINTS = [
       'Calling a ligament a tendon. Ligament is bone to bone.',
       'Thinking articular cartilage has its own blood supply.',
     ],
+    skills: [
+      'Rebuild the joint from the bone outward in one direction: cartilage on the bone, fluid in the gap, membrane lining the gap, capsule wrapping it, ligaments thickening the capsule — then name each part’s job as you go.',
+      'Apply the keyword test on every ligament/tendon question: the phrase "binding one bone to another" pins the answer to ligament, whatever else the sentence mentions.',
+    ],
+    selfCheck: 'From a blank page: the parts in order from the bone outward, the type of cartilage on the bone ends, the three routes that nourish it, and the reasoning for why an immobilised joint’s cartilage deteriorates.',
     sourceRefs: [{ ref: 'hss.4.1', location: 'Slides "Synovial joints" — articular cartilage, fibrous capsule, ligaments, synovial membrane' }, { ref: 'hss.revans', location: 'Module 4.1 fill-in-blanks' }, { ref: 'hss.m0.1718', location: 'L1 p26 intervertebral disc as shock absorber' }],
   },
   {
@@ -1338,6 +1437,11 @@ const HSS_JOINTS = [
       'Attributing forearm rotation to the wrist joint rather than the radioulnar joints.',
       'Referencing thumb abduction to the middle finger; the thumb is referenced to the palm.',
     ],
+    skills: [
+      'For every movement question, ask "which joint?" before "which direction?" — the Module 0 fill-in-blanks award the mark for the joint name, and the direction answer follows from it.',
+      'Perform each movement on your own body while naming its joint: rotate the forearm and say radioulnar, rock the hand side to side and say radiocarpal, touch thumb to fingertip and say carpo-metacarpal.',
+    ],
+    selfCheck: 'Match supination/pronation, radial and ulnar flexion, and opposition to their joints without looking, then correct the doorknob statement out loud: why the wrist does not rotate and what actually happens.',
     sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p42–53 movement slides' }, { ref: 'hss.revans', location: 'Module 0, Fill-in-blanks' }],
   },
   {
@@ -1385,6 +1489,11 @@ const HSS_JOINTS = [
       'Including deltoid in the rotator cuff — it is a shoulder-girdle muscle, not a cuff muscle.',
       'Answering "deltoid" for the initiation of abduction.',
     ],
+    skills: [
+      'Recite SITS, then immediately give each muscle its single job: supraspinatus starts, infraspinatus and teres minor rotate out, subscapularis rotates in — a name without its action earns nothing in the fill-in-blanks.',
+      'Use the front/back test on the scapula: three cuff muscles sit behind and rotate laterally or start abduction; subscapularis is the only one in front and the only medial rotator — and deltoid belongs to neither group.',
+    ],
+    selfCheck: 'From a blank page: the four cuff muscles with actions, the four-part full-abduction sequence in order, and which muscle you suspect when a patient can hold the arm out but cannot start the lift.',
     sourceRefs: [{ ref: 'hss.4.3', location: 'Slides "Rotator Cuff Muscles", "Muscle of Upper Arm: Deltoid", "Muscles Involved in Full Abduction of the Arm"' }, { ref: 'hss.revans', location: 'Module 4.3, Fill-in-blanks 3' }],
   },
 ];
@@ -1505,6 +1614,11 @@ const HSS_MODULES = [
       'Counting the pericardium as a layer of the heart wall.',
       'Calling the left AV valve semilunar — it is bicuspid (mitral).',
     ],
+    skills: [
+      'For every heart-wall question, ask first whether the structure is part of the wall or merely around it — the pericardium is the trap the model answer is built on.',
+      'Answer valve questions from function, not recall: name what the valve separates, then ask which way pressure moves when the ventricle contracts — that alone tells you which valves are closed.',
+    ],
+    selfCheck: 'From a blank page: the three wall layers in order, why the pericardium is not one of them, which valve has three cusps and when it closes, and which chest region sits between the two pleural cavities.',
     sourceRefs: [{ ref: 'hss.1.2', location: 'Cardiopulmonary system and associated structures' }, { ref: 'hss.manual1920', location: 'Submodule 1.2 guiding questions, p.19' }, { ref: 'hss.revans', location: 'Module 1.2 answers' }],
   },
   {
@@ -1557,6 +1671,11 @@ const HSS_MODULES = [
       'Swapping visceral and parietal pleura.',
       'Assuming the pulmonary arteries nourish the lung tissue.',
     ],
+    skills: [
+      'Draw the fist-in-the-balloon picture from the memory aid, then answer every pleura question from it: touching the lung = visceral, lining the cavity wall or diaphragm = parietal.',
+      'For any lung vessel question, sort by job before naming: blood passing through for gas exchange (pulmonary) versus blood feeding the lung tissue itself (bronchial).',
+    ],
+    selfCheck: 'From a blank page: which pleura covers what, where the hilum sits and why, which cell makes surfactant, the structure that keeps food out of the trachea, and why bronchial arteries exist at all.',
     sourceRefs: [{ ref: 'hss.1.1', location: 'Cardiovascular system and lungs' }, { ref: 'hss.manual1920', location: 'Submodule 1.1 guiding questions, p.17' }, { ref: 'hss.revans', location: 'Module 1.1 answers' }],
   },
   {
@@ -1609,6 +1728,11 @@ const HSS_MODULES = [
       'Reversing ventral (motor out) and dorsal (sensory in).',
       'Swapping gyri and sulci.',
     ],
+    skills: [
+      'For every spinal-nerve question, start from direction of travel — motor leaves through the ventral root, sensation arrives through the dorsal — then match the option to the direction instead of trusting the word order.',
+      'Attach the cord-extent fact to its consequence: because the cord ends at L1–L2, anything below that in the canal is nerve roots in CSF, which is exactly what makes a lumbar puncture below L2 safe.',
+    ],
+    selfCheck: 'From a blank page: which root carries what and in which direction, where the cord begins and ends, ridge versus groove on the cortex, and the full lumbar-puncture reasoning with the space named.',
     sourceRefs: [{ ref: 'hss.2.2', location: 'Nervous system and special sense' }, { ref: 'hss.manual1920', location: 'Submodule 2.1 revision exercises, p.27' }, { ref: 'hss.revans', location: 'Module 2.1 answers' }],
   },
   {
@@ -1664,6 +1788,11 @@ const HSS_MODULES = [
       'Mixing up trigeminal (chewing) and facial (expression).',
       'Putting Wernicke’s area in the limbic system because it sounds anatomical rather than cortical.',
     ],
+    skills: [
+      'Run this item as the checklist its teaching text describes: one line per fact — drainage destination, thalamus location, PNS versus CNS myelin, parietal function, limbic membership, the two named cranial nerves — and tick each from memory.',
+      'For any myelin question, answer the system first and the cell second: Schwann only ever means peripheral, oligodendrocyte only ever means central.',
+    ],
+    selfCheck: 'From a blank page: the three limbic structures plus the cortical area wrongly lumped with them, which nerve chews and which one makes faces, and where blood and CSF drain from the brain.',
     sourceRefs: [{ ref: 'hss.2.3', location: 'Neuroanatomy lecture' }, { ref: 'hss.manual1920', location: 'Submodule 2.3 revision exercises, p.31–32' }, { ref: 'hss.revans', location: 'Module 2.3 answers' }],
   },
   {
@@ -1721,6 +1850,11 @@ const HSS_MODULES = [
       'Using "hepatic vein" and "hepatic portal vein" interchangeably. They run in opposite directions.',
       'Placing gastric pits in the submucosa.',
     ],
+    skills: [
+      'Say the portal route as directions, in and out: hepatic portal vein carries gut nutrients INTO the liver, hepatic vein carries blood OUT to the heart — given either one, reconstruct the other before answering.',
+      'Walk the tube and name the door at each junction from memory: cardiac orifice into the stomach, pylorus out of it, duodenojejunal junction into the jejunum.',
+    ],
+    selfCheck: 'From a blank page: the longest gut segment, where gastric pits sit in the stomach wall, the stomach’s extra muscle layer, the largest salivary gland, and the vessel-by-vessel nutrient route to and from the liver.',
     sourceRefs: [{ ref: 'hss.3.1', location: 'Digestive system lecture' }, { ref: 'hss.manual1920', location: 'Module 3.1 revision exercises, p.33; Module 3.3 p.37' }, { ref: 'hss.revans', location: 'Module 3.1 and 3.3 answers' }],
   },
   {
@@ -1779,6 +1913,11 @@ const HSS_MODULES = [
       'Assuming the female pelvis is the heavier one because it must carry a pregnancy — it is the lighter, broader one.',
       'Assuming every abdominal artery arises from the aorta.',
     ],
+    skills: [
+      'Own the two vertebral numbers as a pair — T10 for the oesophageal hiatus, L1 for the pylorus — by sketching a simple spine and marking both doorways before you check the answer.',
+      'For artery-origin questions, run the aorta list out loud: suprarenal, testicular, ovarian all come off it, so the uterine artery is the exception — and reject any claim that the female pelvis is the heavier one.',
+    ],
+    selfCheck: 'From a blank page: the three sites a ureteric stone sticks and what they share, both vertebral levels, the bladder’s wall muscle, and the three muscles forming the posterior abdominal wall.',
     sourceRefs: [{ ref: 'hss.3.2', location: 'Urogenital system lecture' }, { ref: 'hss.3.3', location: 'Regional anatomy of the abdominopelvic region' }, { ref: 'hss.revans', location: 'Module 3.2 and 3.3 answers; More exercises Module 3' }],
   },
 ];
@@ -1849,6 +1988,11 @@ const PHYS_ITEMS = [
       'Calling blood a muscle or an epithelial tissue.',
       'Listing organ systems from memory of another course; this lecture names eleven specific ones.',
     ],
+    skills: [
+      'Recite the eleven organ systems from the slide, then cover the page and write them — the one you drop or reorder is the one to re-read.',
+      'Take each of the four tissue types and give one place it lives and one job it does, using the epithelial functions list as your standard.',
+    ],
+    selfCheck: 'From a blank page: the four tissue types, the eleven organ systems, and why blood lands in connective tissue rather than anywhere else.',
     sourceRefs: [{ ref: 'phys.1', location: 'Slides 33–35 "An Introduction to Tissues", "Epithelial Tissue"' }, { ref: 'hss.revans', location: 'HSS2011 Module 0, MCQ 3' }],
   },
   {
@@ -1906,6 +2050,11 @@ const PHYS_ITEMS = [
       'Treating homeostasis as "keeping things constant" — the lecture says within a normal range, not at a fixed point.',
       'Forgetting that positive feedback is also part of homeostatic regulation, not an error state.',
     ],
+    skills: [
+      'Walk any example through the loop in three words — receptor, control centre, effector — and label which box each detail of the story belongs to.',
+      'Classify a described response as autoregulation or extrinsic regulation with one question: are nerves or hormones involved?',
+    ],
+    selfCheck: 'Take body temperature and write the loop using this lecture’s three component names (not the DSE wording), then say what positive feedback does differently from negative.',
     sourceRefs: [{ ref: 'phys.1', location: 'Slides 58–59 "Homeostasis", "Mechanisms of Regulation"; learning outcomes 4-3 and 4-4' }, { ref: 'phys.5', location: 'Slides 18–19 regulation of GFR — worked example of intrinsic vs extrinsic' }],
   },
   {
@@ -1961,6 +2110,11 @@ const PHYS_ITEMS = [
       'Assuming arteries always carry oxygenated blood — the pulmonary artery is the exception.',
       'Reversing the two circuits by starting from the left ventricle when asked about pulmonary flow.',
     ],
+    skills: [
+      'Recite the full circuit from vena cavae to aorta without the card, then recite it backwards from the aorta — the reverse direction is where the sequence actually breaks.',
+      'For each of the four chambers, state what it receives and where it pumps, holding the matching answers as the standard.',
+    ],
+    selfCheck: 'Draw the figure-of-eight from the visual cue, place all nine stops on it in order, and mark which ventricle has the thinner wall and why.',
     sourceRefs: [{ ref: 'phys.2', location: 'Slides 18–20 "An Introduction to the Cardiovascular System", "Pulmonary and Systemic Circulations"; Figure 20-1' }],
   },
   {
@@ -2025,6 +2179,11 @@ const PHYS_ITEMS = [
       'Putting the bicuspid valve on the right. Tricuspid is right.',
       'Calling the chordae tendineae muscles — they are cords; the papillary muscles are the muscular part.',
     ],
+    skills: [
+      'Name all four valves and, for each, the two chambers or vessels it sits between.',
+      'Trace what holds an AV valve shut — papillary muscles through chordae tendineae to the cusp — and say why ventricular pressure cannot evert it.',
+    ],
+    selfCheck: 'Cover the card and draw the four chambers with all four valves placed; label each valve AV or semilunar, and put tricuspid on the correct side.',
     sourceRefs: [{ ref: 'phys.2', location: 'Slides 21–36 heart structure, AV valves, semilunar valves, functions of the valves; Figures 20-4, 20-5, 20-8' }],
   },
   {
@@ -2084,6 +2243,11 @@ const PHYS_ITEMS = [
       'Ending the conducting zone at the respiratory bronchiole instead of the terminal bronchiole.',
       'Placing the larynx in the upper respiratory system; the split is above the larynx.',
     ],
+    skills: [
+      'Write the airway branching order from trachea to alveoli and mark the exact point where the conducting portion ends.',
+      'Cut the same tube twice from memory: anatomically at the larynx, functionally at the terminal bronchiole.',
+    ],
+    selfCheck: 'Cover the card and write the branching sequence; then check the boundary — terminal bronchiole ends conduction, respiratory bronchiole starts exchange.',
     sourceRefs: [{ ref: 'phys.3', location: 'Slides 3–8 functions, organisation, the respiratory tract' }, { ref: 'hss.revans', location: 'HSS2011 Module 1.1, Fill-in-blanks 2' }],
   },
   {
@@ -2152,6 +2316,11 @@ const PHYS_ITEMS = [
       'Putting the distal convoluted tubule before the loop of Henle.',
       'Treating the glomerulus alone as the renal corpuscle — the corpuscle is glomerulus plus capsule.',
     ],
+    skills: [
+      'Recite the six tubule stops as a rhythm — capsule, proximal, down, up, distal, collect — then write them out in full anatomical terms.',
+      'Keep the two journeys separate: trace fluid inside the nephron, then trace urine from calyx to urethra, and never mix the lists.',
+    ],
+    selfCheck: 'Write the tubule order and the drainage path side by side from memory; the classic slip is the distal tubule before the loop of Henle — check yours against the key facts.',
     sourceRefs: [{ ref: 'phys.5', location: 'Slides 4–17 structure of the urinary system, kidney, nephron, nephron tubules, glomerular filtration, GFR' }, { ref: 'hss.revans', location: 'HSS2011 Module 3.2 answers' }],
   },
   {
@@ -2214,6 +2383,11 @@ const PHYS_ITEMS = [
       'Counting the liver or pancreas as part of the tract.',
       'Attributing nutrient absorption to the large intestine; that is the small intestine’s role.',
     ],
+    skills: [
+      'List the tract in order, list the accessory organs beside it, and draw an arrow from each accessory organ to where it delivers into the tube.',
+      'Match each of the six functions to the lecture’s own definition — absorption is the one defined as crossing the epithelium.',
+    ],
+    selfCheck: 'From a blank page: tract order, the six accessory organs, and the six functions. The exam hinge is which organs food never passes through.',
     sourceRefs: [{ ref: 'phys.4', location: 'Slides 2–6 major organs, accessory organs, six functions of the digestive system' }],
   },
   {
@@ -2273,6 +2447,11 @@ const PHYS_ITEMS = [
       'Treating "endocrine" as a synonym for any hormone signalling; it is one of four specific routes.',
       'Assuming nearness determines which cells respond rather than receptor presence.',
     ],
+    skills: [
+      'Translate the four prefixes — auto, para, endo, neuro — and let each name hand you its route.',
+      'Sort the four delivery classes with one question: does the blood carry it, or not?',
+    ],
+    selfCheck: 'Write the four delivery classes with a one-line route for each, then answer the target-cell question: why a hormone in the blood reaches every cell but acts on few.',
     sourceRefs: [{ ref: 'phys.7', location: 'Slides 3–7 "What is a Hormone?", "Hormone Function", "Classes of Hormone Delivery", "Endocrine Glands"' }],
   },
   {
@@ -2341,6 +2520,11 @@ const PHYS_ITEMS = [
       'Using plasma and serum interchangeably.',
       'Assuming large arteries provide most of the resistance — the lecture says small arteries and arterioles do.',
     ],
+    skills: [
+      'Match the three plasma proteins to their jobs and quote the percentage ranges the slide gives.',
+      'Layer a vessel from outside in — externa, media, interna — then say what a capillary keeps of the three.',
+    ],
+    selfCheck: 'From memory, answer three things: what is missing from serum and why, the haematocrit ranges for women and men, and which size of vessel provides most of the resistance.',
     sourceRefs: [{ ref: 'phys.2', location: 'Slides 6–17 composition of blood, plasma, formed elements, structure of blood vessels, arteries, capillaries, veins' }, { ref: 'hss.revans', location: 'HSS2011 Module 1.2, MCQ 4' }],
   },
   {
@@ -2375,11 +2559,16 @@ const PHYS_ITEMS = [
         rubric: ['Names recovery of excess capillary filtrate', 'Names return to the veins'] },
     ],
     application: [
-      { type: 'scenario', prompt: 'The HSS2011 revision exercise asks which organ does NOT drain into the left lymphatic duct, and the answer is the right eye. What general principle does that single answer encode?',
+      { type: 'scenario', prompt: 'The HSS2011 revision exercise asks which body part does NOT drain into the left lymphatic duct, and the answer is the right arm. What general principle does that single answer encode?',
         model: 'That lymphatic drainage is asymmetric. The right upper quadrant of the body — including the right side of the head and the right upper limb — drains by a separate route, while everything else converges on the left. Knowing the exception is the way to remember the rule.',
         rubric: ['States drainage is asymmetric', 'Identifies the right upper body as the exception'] },
     ],
     commonMistakes: ['Assuming lymph drainage is symmetrical left and right.'],
+    skills: [
+      'Expand MALT from its full name and let the name itself place it in the correct organ layer.',
+      'Say the lymphatic system’s job for the circulation in one sentence: excess capillary filtrate picked up and returned to the veins.',
+    ],
+    selfCheck: 'From a blank page, answer the two exam anchors: which tissue layer MALT sits in, and which part of the body does not drain into the left lymphatic duct.',
     sourceRefs: [{ ref: 'phys.10', location: 'Immune system lecture' }, { ref: 'phys.2', location: 'Slide 4 "Circulatory System" — lymphatic role' }, { ref: 'hss.revans', location: 'HSS2011 Module 1.2 and 1.3 answers' }],
   },
   {
@@ -2437,6 +2626,11 @@ const PHYS_ITEMS = [
       'Treating the autonomic nervous system as separate from the PNS — it is one of its two divisions.',
       'Calling interneurons peripheral; they are located completely within the CNS.',
     ],
+    skills: [
+      'Sort any neuron with two questions: which direction does the traffic flow, and does the fibre ever leave the CNS?',
+      'Draw the division tree from memory: CNS and PNS, then somatic versus autonomic, then sympathetic versus parasympathetic.',
+    ],
+    selfCheck: 'From memory, name the three neuron classes with their directions, then say which motor class reaches skeletal muscle and which reaches smooth muscle, cardiac muscle and glands.',
     sourceRefs: [{ ref: 'phys.8', location: 'Slides 2–8 what the nervous system is, its divisions, classification of neurons, PNS' }, { ref: 'hss.revans', location: 'HSS2011 Module 2.1, Fill-in-blanks 4' }],
   },
   {
@@ -2498,6 +2692,11 @@ const PHYS_ITEMS = [
       'Assuming striated means voluntary — cardiac muscle is striated and involuntary.',
       'Forgetting that skeletal muscle also acts involuntarily in reflexes.',
     ],
+    skills: [
+      'Identify a described muscle cell as skeletal, smooth or cardiac using only the two decisive features: striation and nucleus number or position.',
+      'Recite the four properties and give the lecture’s definition for each — the extensibility versus elasticity pair is the one to nail.',
+    ],
+    selfCheck: 'Build the three-column table from memory — striated?, nucleus, control — and add the giveaway feature for cardiac and smooth; check it against the key facts.',
     sourceRefs: [{ ref: 'phys.9', location: 'Slides 4–8 introduction, four properties of muscle, classification of muscle tissue types' }, { ref: 'hss.revans', location: 'HSS2011 Module 4.1, MCQ 5' }],
   },
   {
@@ -2556,6 +2755,11 @@ const PHYS_ITEMS = [
       'Treating agonist and antagonist as fixed labels for particular muscles.',
       'Swapping origin and insertion — the insertion is on the bone that moves.',
     ],
+    skills: [
+      'Given a named movement, assign agonist and antagonist — then reverse the movement and swap the roles on purpose.',
+      'For any muscle, decide origin versus insertion by asking one question: which bone moves?',
+    ],
+    selfCheck: 'Using biceps and triceps: state who is agonist in flexion and in extension, and which biceps attachment is the insertion — the moving-bone rule decides.',
     sourceRefs: [{ ref: 'phys.9', location: 'Slides 10–11 skeletal muscle action, flexors and extensors, agonist and antagonist' }, { ref: 'hss.4.3', location: 'Biceps brachii and triceps brachii actions' }, { ref: 'hss.revans', location: 'HSS2011 Module 4.1, MCQ 6' }],
   },
   {
@@ -2621,6 +2825,11 @@ const PHYS_ITEMS = [
       'Saying interferons kill viruses — they block replication in neighbouring cells instead.',
       'Grouping natural killer cells with the adaptive system because they are lymphocytes by lineage; the lecture places them under innate immune surveillance.',
     ],
+    skills: [
+      'Recite the seven innate categories in lecture order, then say each one’s agent in a phrase — barriers block, phagocytes eat, NK cells survey, interferons block replication, complement cascades, inflammation localises, fever accelerates.',
+      'File a described mechanism into its category: perforin release is surveillance, not interferon; the cascade that punches holes is complement.',
+    ],
+    selfCheck: 'Cover the card, write the seven categories, then answer the two traps: what interferons actually do to viruses, and which arm NK cells belong to.',
     sourceRefs: [{ ref: 'phys.10', location: 'Slides 5–21 defense mechanisms, seven innate categories, phagocytes, macrophage types, immunological surveillance' }],
   },
 ];
@@ -2674,6 +2883,11 @@ const HTI_ITEMS = [
       'Using radiographer and radiologist as synonyms.',
       'Assuming radiography only happens in hospitals — the lecture lists security, customs and industrial uses.',
     ],
+    skills: [
+      'Split every job title at the hyphen and let the suffix give you the verb: who writes the image, who studies it, who treats with it.',
+      'Sort the six roles into their three pairs — beam operators, interpreters and prescribers, preparers and measurers.',
+    ],
+    selfCheck: 'From a blank page, assign each of the six roles its one-line job, then answer the two-metal question about the X-ray tube target.',
     sourceRefs: [{ ref: 'hti.w1b', location: 'Slides 3–9 "What is Radiography?", "Where does the radiation light come?", "Who is working with radiation in hospitals?"' }],
   },
   {
@@ -2719,6 +2933,11 @@ const HTI_ITEMS = [
       'Assuming higher power means ionizing — power and ionizing ability are different properties.',
       'Putting MRI in the ionizing column because it is a large hospital machine.',
     ],
+    skills: [
+      'Sort any modality into the two columns using the free-an-electron test — not machine size, not power.',
+      'Learn the short column first — MRI and ultrasound — then treat every other named modality as ionizing by elimination.',
+    ],
+    selfCheck: 'Write both columns from memory, then answer the phone claim in the lecture’s own framing: the frequencies, the free-electron definition, and the two unit systems.',
     sourceRefs: [{ ref: 'hti.w2', location: 'Slides 3, 5 "Imaging Modalities", "Ionizing vs. non-ionizing Radiation"; slide 49 "MRI - summary"' }],
   },
   {
@@ -2767,6 +2986,11 @@ const HTI_ITEMS = [
       'Confusing computed radiography (cassettes plus readers) with direct digital radiography (no readers).',
       'Assuming PET is simply a better SPECT rather than a different trade-off around half-life and cost.',
     ],
+    skills: [
+      'Recite the film processing order and be ready to say why each step sits where it does.',
+      'Compare SPECT and PET on half-life, cost and cyclotron need, then predict one practical consequence of each difference.',
+    ],
+    selfCheck: 'From memory: the four film steps in order, CR versus DR (which one needs readers), and the two named radionuclides with their imaging techniques.',
     sourceRefs: [{ ref: 'hti.w2', location: 'Slides 6–41 discovery of X-ray, general X-ray, cassettes, fluoroscopy, CT, radiopharmaceuticals, RNI, SPECT/PET' }],
   },
   {
@@ -2817,6 +3041,11 @@ const HTI_ITEMS = [
       'Listing only time, distance and shielding — this course names four measures.',
       'Confusing the annual averaged worker limit (20 mSv) with the single-year ceiling (50 mSv).',
     ],
+    skills: [
+      'Name all four measures, then take a scenario (say, staying in the room during fluoroscopy) and decide which measures still apply and which cannot.',
+      'Recite the dose limits as a pair: 20 mSv averaged for workers, 1 mSv for the public — and 1 mSv again the moment a pregnancy is declared.',
+    ],
+    selfCheck: 'Write the four measures, both dose limits, and the monitoring device with its range — then check the one most people miss: the fourth measure, decay.',
     sourceRefs: [{ ref: 'hti.w6', location: 'Slides 3, 10–16 TLD, dose limits (ICRP Publication 103), radioprotective measures, ALARA' }],
   },
   {
@@ -2865,6 +3094,11 @@ const HTI_ITEMS = [
       'Assuming every cancer patient is referred to clinical oncology — the lecture explicitly says not all are.',
       'Treating simulation as the first step; determining treatment position comes first.',
     ],
+    skills: [
+      'Order the planning session — position, simulate, plan — and justify why immobilisation comes first, using reproducibility as the reason.',
+      'Rebuild the twelve-centre figure as six public plus six private, and attach the four immobilisation considerations to step 1.',
+    ],
+    selfCheck: 'From a blank page: the three planning steps in order, the four immobilisation considerations, and the Hong Kong totals — twelve centres, about 420 therapists.',
     sourceRefs: [{ ref: 'hti.w3', location: 'Slides 2–15 job titles, RT services in HK, patient pathway, planning session steps 1–3' }],
   },
   {
@@ -2906,6 +3140,11 @@ const HTI_ITEMS = [
     commonMistakes: [
       'Reading only the "Examination Requested" line and ignoring the clinical information, diagnosis and LMP fields.',
     ],
+    skills: [
+      'Read a request form as four questions — who, what examination, how urgent, how they arrive — and point to the field that answers each.',
+      'State the two-role radiographer pair and what each is doing during an exposure.',
+    ],
+    selfCheck: 'From memory: the HA cluster count, the two radiographer roles, and the worked example examination with its two projections — PA and Lat, the only projection abbreviations the supplied lectures use.',
     sourceRefs: [{ ref: 'hti.w5', location: 'Slides 3–7 Hospital Authority structure, manpower, team work, floor plan, reading the order form' }],
   },
 ];
@@ -3372,6 +3611,11 @@ const EXPANSION_ITEMS = [
       'Confusing -graphy (the process), -graph (the instrument) and -gram (the record produced).',
       'Reading hypo- only as "below in position" — the list also gives it as "deficient, below, under", which is how it is used in words like hypoglycaemia.',
     ],
+    skills: [
+      'Read any unfamiliar term in three slots, left to right — prefix (where or how much), root (what), suffix (what is happening to it) — and say each slot’s meaning out loud before giving the whole translation.',
+      'Drill the recording triad until it never slips: -graphy is the process, -graph is the instrument, -gram is the record produced — then test it with radiography, radiograph, radiogram.',
+    ],
+    selfCheck: 'Split costochondritis and pericarditis cold into all three parts with meanings, and correctly classify all three of -graphy, -graph and -gram.',
     sourceRefs: [{ ref: 'hss.wordparts', location: 'Full word-part list, prepared by Josephine Lau (HTI)' }, { ref: 'hss.orientation', location: 'Opening paragraph on roots, prefixes and suffixes' }],
   },
   {
@@ -3434,6 +3678,11 @@ const EXPANSION_ITEMS = [
       'Answering "cartilage" when the question asks for the joint TYPE — the answer wanted is cartilaginous, or more precisely a symphysis.',
       'Giving the acromioclavicular joint for the medial end of the clavicle; medial means the sternal end, so it is the sternoclavicular joint.',
     ],
+    skills: [
+      'Answer every cloze in the same order — the two bones first, then the joint name — because nearly all of these questions are the same question in different wording, and that order works for both blanks.',
+      'Check the giveaway word before answering: suture means fibrous, disc means cartilaginous, and any question naming a cavity or free movement points to synovial.',
+    ],
+    selfCheck: 'Run the eight cloze prompts of this item from a blank page, then take ten joints of your own body and state each one’s two bones and class out loud without a miss.',
     sourceRefs: [
       { ref: 'hss.ga.topics', location: 'Skeletal Joint and Muscular systems; Upper Limbs and Lower Limbs — questions 2006-07 to 2011-12' },
       { ref: 'hss.4.1', location: 'Joint classification and bone structure slides' },
@@ -3495,6 +3744,11 @@ const EXPANSION_ITEMS = [
       'Calling the wrist a hinge. It is condylar — it abducts and adducts as well as flexing and extending.',
       'Forgetting that both the elbow and the proximal radioulnar joint sit at the elbow region but are different joint types doing different jobs.',
     ],
+    skills: [
+      'For any joint, count the planes of movement first — one, two or three — then match the count to a shape (hinge or pivot, condylar or saddle, ball-and-socket) and attach the lecture example that belongs to that shape.',
+      'Use opposition as the saddle discriminator and socket depth as the ball-and-socket contrast: only the thumb’s carpo-metacarpal joint opposes, and shallow glenoid versus deep acetabulum is why the shoulder trades stability for mobility.',
+    ],
+    selfCheck: 'From a blank page: all six types each with its example, why the wrist is condylar and not hinge, and the flex-extend-abduct-adduct-oppose scenario solved by naming the deciding movement.',
     sourceRefs: [{ ref: 'hss.4.1', location: 'Slides "Classification of Joints — Synovial joints", "Synovial joints"' }, { ref: 'hss.m0.1718', location: 'L1 p18 joint types; p29 atlanto-axial; p43–51 elbow, radioulnar, wrist and thumb movements' }, { ref: 'hss.1516.lec11', location: 'Skeletal, joint and muscular system lecture' }],
   },
   {
@@ -3562,6 +3816,11 @@ const EXPANSION_ITEMS = [
       'Treating the AV node as a simple relay — its defining contribution is the delay.',
       'Placing the bundle of His in the atria; it is in the interventricular septum.',
     ],
+    skills: [
+      'Walk the five-stop route out loud until it runs without hesitation — SA node, AV node, bundle of His, bundle branches, Purkinje fibres — adding the location of each stop as you go (both nodes are neighbours in the right atrium).',
+      'Answer any prepotential question with the numbers and the channel order: drift from about −60 mV to the −40 mV threshold on Na⁺ through an HCN channel, then voltage-gated Ca²⁺ channels open for the upstroke.',
+    ],
+    selfCheck: 'From a blank page: the full route with locations, why the fibrous cardiac skeleton forces this route to exist, what the AV node’s delay buys, and the SA-node-fails prediction — a slower beat, not arrest.',
     sourceRefs: [{ ref: 'phys.2', location: 'Slides 40–53 the conducting system, SA node, pacemaker potential, AV node, AV bundle, Purkinje fibres, myocardial action potentials' }],
   },
   {
@@ -3629,6 +3888,11 @@ const EXPANSION_ITEMS = [
       'Looking for a wave representing atrial repolarisation — the lecture lists only P, QRS and T.',
       'Swapping S1 and S2. S1 is the AV valves, at the start of ventricular contraction.',
     ],
+    skills: [
+      'Sketch one ECG cycle and label the three waves with their events, both intervals, and the reason there is no atrial-repolarisation wave — the QRS buries it.',
+      'Run the volume subtraction as arithmetic you can do under pressure: end-diastolic minus stroke volume leaves end-systolic — and name which valves close for S1 and for S2 as doors shutting in order.',
+    ],
+    selfCheck: 'From a blank page: the labelled cycle sketch, the Frank–Starling infusion prediction with the stretch mechanism, and the 250–300 ms refractory-period consequence — no summation, no tetany, the heart must refill.',
     sourceRefs: [{ ref: 'phys.2', location: 'Slides 55–64 refractory periods, electrocardiogram, cardiac cycle, heart sounds; Figure 20-18b' }],
   },
   {
@@ -3699,6 +3963,11 @@ const EXPANSION_ITEMS = [
       'Attributing surfactant production to type I pneumocytes — that is type II.',
       'Assuming central chemoreceptors sense blood; they monitor cerebrospinal fluid.',
     ],
+    skills: [
+      'Fix the roman numerals to the jobs — type I is thin so interchange crosses it, type II is secretory so it makes surfactant — and add the dust cells (macrophages) as the third resident of the alveolus.',
+      'Match each sensing site to its nerve as fixed pairs — carotid bodies via glossopharyngeal, aortic bodies via vagus, CSF read by central chemoreceptors on the medulla — then place them in the three-layer control scheme: generator, modifier, sensors.',
+    ],
+    selfCheck: 'From a blank page: the three alveolar cell types with their jobs, both chemoreceptor-to-nerve pairs plus the central route, and the exercise scenario naming two receptor types with what each responds to.',
     sourceRefs: [{ ref: 'phys.3', location: 'Slides 10–12 alveolar epithelium; 66–74 control of respiration, respiratory and chemoreceptor reflexes, homeostasis of arterial PCO₂; partial pressure and oxygen–haemoglobin saturation slides' }],
   },
   {
@@ -3773,6 +4042,11 @@ const EXPANSION_ITEMS = [
       'Assuming the alternative complement pathway is an equal substitute — the lecture says it is slower and less effective.',
       'Treating adaptive immunity as present at birth. It is acquired only after exposure or antibody transfer.',
     ],
+    skills: [
+      'Recite inflammation as the lecture structures it — the four Latin signs as a rhymed set, then the three effects, then the product chain necrosis → pus → abscess — one layer at a time, not as a mixed list.',
+      'Decide the complement pathway with one question — does it wait for an antibody? yes: classical, fast and effective; no: alternative, slower — then confirm both converge on C5–C9 to build the membrane attack complex.',
+    ],
+    selfCheck: 'From a blank page: the four signs with Latin names, the pathway decision with its reason, who made the antibody in active versus passive immunity, and the pus-in-an-enclosed-space trace back to the triggering injury.',
     sourceRefs: [{ ref: 'phys.10', location: 'Slides 27–35 complement system and pathways, inflammation, products of inflammation, forms of immunity; learning outcomes slide 2' }],
   },
   {
@@ -3825,6 +4099,11 @@ const EXPANSION_ITEMS = [
       'Choosing CT whenever cross-sections are wanted, without weighing the ionising-radiation difference against MRI.',
       'Forgetting that fluoroscopy is defined by being real-time, not by being an X-ray technique.',
     ],
+    skills: [
+      'For each modality, name the one capability the others lack — time (fluoroscopy), resolution (mammography), a third dimension (CT), function and distribution (radionuclide), soft tissue without ionising radiation (MRI) — and let the exam wording pick the modality for you.',
+      'Apply the radiopharmaceutical two-halves test: the specific compound decides where the agent goes and therefore what you can image; the radioisotope only makes that distribution visible — which is why radionuclide imaging shows function while CT shows structure.',
+    ],
+    selfCheck: 'From a blank page: the matching of all four highlighted capabilities, the CT-versus-MRI decision with the ionising-radiation reason, and the stent scenario answered with the real-time modality.',
     sourceRefs: [{ ref: 'hti.w2', location: 'Slides 12–49 general X-ray cassettes, fluoroscopy and contrast enhancement, mammography, computed tomography, radiopharmaceuticals, RNI, MRI summary' }],
   },
 ];
@@ -3941,6 +4220,13 @@ function boneItem(record) {
     ],
     commonMistakes: (record.commonConfusions || []).map((c) => `Mistaking it for the ${String(c).toLowerCase()} — compare landmark sets rather than overall shape.`)
       .concat(record.side === 'paired' ? ['Calling the side from the screen rather than from the model’s own left and right.'] : []),
+    skills: [
+      `Cover this card and recite the ${record.canonicalName.toLowerCase()}’s landmarks from memory — ${record.landmarks.slice(0, 2).join(' and ')} first — then uncover and check, because the landmark list rather than overall shape is what separates it from ${(record.commonConfusions || []).length ? `the ${String(record.commonConfusions[0]).toLowerCase()}` : 'any lookalike bone'}.`,
+      record.side === 'paired'
+        ? 'Practise side decisions the way the laterality question works: the model faces you, so its left is on your right — derive the side from an asymmetric landmark in the anatomical position, never from the screen.'
+        : `Locate it by its articulations instead of searching the skeleton: it must meet ${record.articulations.slice(0, 2).join(' and ')}, and only one place offers those neighbours.`,
+    ],
+    selfCheck: `From a blank page: the region, the side (${record.side}), every landmark, and the full articulation list for the ${record.canonicalName.toLowerCase()}${(record.commonConfusions || []).length ? `, told apart from the ${String(record.commonConfusions[0]).toLowerCase()} by landmarks alone` : ''}.`,
     sourceRefs: (REGION_SOURCES[record.region] || [{ ref: 'hss.vocab', location: 'Glossary' }])
       .concat(record.radiographyImportance ? [{ ref: null, location: 'Radiography study note authored by this app — not a claim from the supplied sources', authored: true }] : []),
   };
@@ -4058,6 +4344,11 @@ function structureItem(set) {
       `Learning the names as a flat list. This set has ${groups.length} group${groups.length === 1 ? '' : 's'} (${groups.join(', ')}), and the group is usually what a question is really testing.`,
       ...(set.paired ? ['Reading the side off the screen instead of the model’s own left and right.'] : []),
     ],
+    skills: [
+      `Say the set in group order — ${groups.join(' → ')} — naming each member out loud as you go, because the group is usually what an identification question is really testing.`,
+      'Climb the three-view ladder in order and do not skip rungs: labelled view to read, guided view (anchors only) to reconstruct the rest from position, blank view to prove it — move down only when the current view is clean.',
+    ],
+    selfCheck: `The blank view, cold: all ${set.members.length} named in group order, with the count used as the drop-check — if your list is shorter than ${set.members.length}, find which group you dropped before moving on.`,
     sourceRefs: set.sourceRefs,
   };
 }
@@ -4131,6 +4422,11 @@ function movementItem(mv) {
       ...(mv.id === 'supination' ? ['Attributing forearm rotation to the wrist. The wrist does not rotate; the radius does.'] : []),
       ...(mv.id === 'shoulderAbduction' ? ['Answering "deltoid" for the start of abduction. Supraspinatus initiates the first 15 degrees.'] : []),
     ],
+    skills: [
+      `Drive ${mv.label.toLowerCase()} on the model and narrate both parties: what rotates about the axis, and what stays fixed (${mv.fixed.join(' and ')}) as the reference — a movement is only defined relative to something that did not move.`,
+      `Say the pair as one phrase every time — “${mv.label} at the ${mv.joint}” — because the Module 0 fill-in-blanks award the joint name as often as the movement name.${stageNote.length ? ` Then own the stage marker: ${stageNote[0]}.` : ''}`,
+    ],
+    selfCheck: `Drive it through the full ${mv.range[0]}°–${mv.range[1]}° range, then state the joint, the moving bones and the fixed references with the labels hidden.`,
     sourceRefs: mv.sourceRefs,
   };
 }
