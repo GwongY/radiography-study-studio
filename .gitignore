@@ -1,0 +1,8 @@
+# Shortcuts to the shared source folders on Google Drive.
+#
+# These are Windows .lnk files whose targets are Drive stream paths containing
+# the shared-folder IDs. This repository is public — it serves the app through
+# GitHub Pages — so committing them would publish links into private course
+# folders. The sources are read from disk at authoring time and never need to
+# be in version control.
+Uni/

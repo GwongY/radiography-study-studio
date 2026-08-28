@@ -13,11 +13,16 @@ The workflow is the same for every subject:
 | File | What it is |
 | --- | --- |
 | `radiography-study-studio.html` | The app. Subject selector, learning workflow, Memory Coach, source dialogs, coverage report, and the full osteology 3D studio embedded as the HSS2011 Osteology module. |
-| `study-data.js` | The study layer: source registry, subject registry, 94 study items, spaced repetition, coverage report, corpus validator. |
+| `study-data.js` | The study layer: source registry, subject registry, 94 study items, prior-knowledge registry, spaced repetition, coverage report, corpus validator. |
+| `wordparts.js` | 814 medical word parts, inverted from the HSS2011 glossary, plus the segmenter that takes a long term apart. |
+| `term-notes.js` | 89 hand-written pronunciations and plain-English readings for the terms word parts alone cannot rescue. App-authored, labelled as such. |
+| `assets/plates/` | Five public-domain anatomy plates from Gray's Anatomy (1918), licence-verified through the Wikimedia Commons API before download. |
 | `anatomy-data.js` | Unchanged. Canonical bone records, landmark hotspots and the 3D model adapter metadata. |
 | `visual-data.js` | The visual registry: which of the six model layers and which named meshes each study item is about, and which items get a hand-drawn schematic instead. Verified mesh names, not guesses. |
-| `schematics.js` | 31 hand-authored SVG diagrams for the concepts no mesh can show — the feedback loop, the inside of a long bone, the EM spectrum, the cardiac conducting system. |
-| `osteology-studio.html` | The original app, left in place and still working, as a fallback. |
+| `layouts.js` | The 16 non-depictions as HTML layout data — cards, flows, term grids. Replaced the hand-plotted SVG versions. |
+| `schematics.js` | The retired SVG plotter. Still the fallback for anything without a layout entry; nothing currently uses it. |
+| `figures.js` | 15 published figures that replaced the hand-drawn *anatomy*, with author, licence and source page captured from the Wikimedia API. |
+| `assets/figures/` | Those 15 image files. Licence-gated at download: anything not demonstrably free is refused. |
 | `assets/` | Local GLB models. Unchanged. |
 
 ## Run
@@ -253,6 +258,109 @@ association. Hints are revealed progressively rather than all at once:
 3. Partial answer
 4. Full explanation
 
+## Reading help — chunks, and the long words
+
+Two different problems make a physiology page feel unreadable, so there are two fixes.
+
+**Paragraphs.** Lesson prose is no longer a single block. `chunkText()` splits it at sentence
+boundaries into numbered cards of about two sentences or 210 characters, whichever comes first, and
+never leaves a lone tail clause.
+
+Sentence boundaries alone were not enough. The word-parts lesson is **one 961-character sentence**
+held together with semicolons, so it sailed straight through the first version and landed as exactly
+the wall the chunker existed to prevent. Oversized pieces are now broken again at semicolons, then at
+comma-and-conjunction boundaries, against a 300-character hard cap — and `splitTopLevel()` ignores
+any separator inside brackets, because splitting "hypo- (below; also deficient)" tore a definition in
+half and left the next card opening with *"also deficient)"*.
+
+Across the corpus that took chunks over the cap from **32 down to 4**, and the worst case from 961
+characters to 322 — and the four that remain are rendered as grids rather than prose, so their length
+does not reach the reader.
+
+**Enumerations become tables, because that is what they are.** Three or more `term (gloss)` pairs
+covering most of a chunk render as a grid of cards instead of a paragraph: the lead-in stays prose,
+each term gets its own cell, and every cell whose term is in the glossary is tappable. The word-parts
+lesson went from one 961-character block to five cards carrying **36 term cells, 34 of them tappable**.
+
+**Word parts are tappable as themselves.** `epi-`, `-graphy` and `cardi/o` are matched directly
+against the glossary now, not just as pieces of longer words — on the terminology items the text *is*
+a list of them, and leaving them inert while the app shipped an 814-stem glossary was daft.
+
+**The words.** Any term the app can genuinely help with is underlined and tappable. Tapping gives
+three things:
+
+- **How to say it** — `glo-MER-yoo-luss`, stress in capitals.
+- **What it is, in ordinary English** — "the little ball of leaky capillaries that blood is filtered through".
+- **What it is built out of** — `inter` + `ventricul` + `ar` = between + ventricle.
+
+The breakdown is real, not decorative: `wordparts.js` holds 814 stems inverted out of
+`definition_wordparts.pdf`, and the segmenter returns **nothing at all** unless the whole word
+resolves into known parts and recognised endings. That rule is what stops it splitting *glossary*
+into gloss + ary, or *properties* into pro + per. Four glossary rows that wrapped in the source PDF
+were corrected by hand — one of them was making `diagnosis` read as "through + kneecap".
+
+Pronunciations and plain-English lines are **written by this app**. The term panel says so, under the
+same rule the memory aids follow.
+
+## Prior knowledge — what not to teach from zero
+
+Fifteen of the twenty-three ABCT2326 Human Physiology items cover material HKDSE Biology already
+taught. Teaching those from zero wastes the session and buries the two or three things the PolyU
+lecture actually adds on top, so they carry a `priorKnowledge` field and are **verified rather than
+taught**:
+
+- The session opens them on **Practise**, not Learn, with a banner saying why and a "Show the lesson
+  first" button for when the answer does not come.
+- Their **Learn card leads with "What this lecture adds beyond DSE Bio"** — the named lists, the
+  terminology and the specific numbers from the lecture slides. The full explanation is not deleted;
+  it drops into a fold at the foot of the card labelled as background you already have.
+- **Weakest-first queues** treat them as half known rather than as a zero they have not earned, so
+  they sort behind material no syllabus ever taught. "Teach me something new" excludes them until the
+  genuinely new items run out.
+- **Getting one wrong** puts the lesson back in front of that item — the assumption failed, so the
+  teaching is worth reading after all.
+
+### Checked against the actual syllabus, not against a guess
+
+Every tag carries a `syllabusRef` into the **EDB Biology Curriculum and Assessment Guide (S4–6)**,
+registered as `edb.bio` with `kind: 'syllabus'` — a kind that is allowed to support exactly one sort
+of claim, "a previous course already taught this", and never a fact about anatomy or physiology.
+
+Reading it changed the tagging, because assumptions about DSE turned out to be wrong:
+
+- The **nephron, the cardiac cycle, the pacemaker and the respiratory centres are not in the
+  compulsory part at all.** They sit in the elective *Human Physiology: Regulation and Control*.
+  `dsePart` records which part covered each item, and 4 of the 17 rest on that elective.
+- DSE **does** name sensory, inter- and motor neurones. A `beyond` line claiming interneurones were
+  new material was wrong and has been replaced.
+- DSE never groups tissues into epithelial/connective/muscle/neural, so the cells item covers *less*
+  prior ground than first assumed and was downgraded from `most` to `part`.
+
+`covers: 'most'` means the lecture mostly re-treads DSE and adds terminology or a list;
+`covers: 'part'` means a substantial part is genuinely new. Lymphoid tissue / MALT stays untagged:
+no DSE topic covers the cisterna chyli, and the only source for it is an answer key rather than a
+physiology deck.
+
+Every `beyond` line was written against the lecture deck itself and carries its own citation, the
+same way a practice question does:
+
+```js
+{ t: 'GFR as a figure: 115 ml/min in women, 125 ml/min in men, about 180 L a day…',
+  src: { ref: 'phys.5', location: 'Slide 17 "Glomerular Filtration Rate (GFR)"' } }
+```
+
+All 69 of them point at a `kind: 'primary'` ABCT2326 teaching deck — `phys.1`–`phys.10`, the
+`Lecture notes.pptx` and `.pdf` files — never at a past paper, a tutorial answer or student work,
+and never at the textbook. `validateCorpus()` fails the build on a line with no `src`, an
+unresolvable `ref`, or no slide named, so a line cannot quietly become textbook expansion later. The
+source dialog on a prior-knowledge item lists those slides in their own table.
+
+Nothing about this writes to the mastery store. `priorAdjustedScore()` is derived at read time for
+ordering and for the dashboard label, so attempts, accuracy, lapses and intervals stay a record of
+what was actually answered in this subject — no seeded attempts inflate them. The dashboard rings an
+assumed item in the dim colour and labels it `assumed from DSE Bio, unverified` until the first real
+answer replaces the assumption with evidence.
+
 ## Mastery and scheduling
 
 Mastery is tracked separately for recognition, typed recall, spelling, location, sequence,
@@ -276,6 +384,92 @@ Semester 1 review.
 The daily session deliberately mixes anatomy terminology, bone names, one physiology sequence and one
 radiation-science concept.
 
+**All of them now have a way in.** Six of the nine were implemented in `pickItems()` and never given
+a tile — including *Explain my mistakes*, which is the one you want most in the week before an exam,
+and *Quick 10-minute session*. Today renders a tile per mode instead of three hardcoded ones.
+(*Subject-specific* is the exception: it is entered by choosing a topic in Learn, so a tile for it
+would be a second door onto the same room with no topic chosen.)
+
+The count under each tile comes from **running the picker**, not from a separate estimate that could
+drift away from what the session would actually contain, and a mode with nothing to offer is disabled
+and says why — *"No mistakes logged — good"* — rather than opening an empty session and apologising
+in a toast.
+
+## Reading help reaches the questions now
+
+The term layer stopped at the lesson. **107 distinct words the glossary can explain also appear in
+question prompts, answer explanations and Apply scenarios** — which is exactly where you are under
+time pressure and least able to go and look something up. Prompts, verdict explanations, common
+mistakes, Apply scenarios, model answers and rubrics are all glossified now.
+
+The one place it deliberately does not go is the MCQ option buttons: a `<button>` inside a
+`<button data-opt>` is invalid HTML, and the inner one would swallow the click meant to answer the
+question. Verified zero nested buttons.
+
+## Dialogs and the keyboard
+
+Seven dialogs, two things a keyboard user was owed.
+
+**Escape did not close them.** They are genuinely modal — `:modal` reports true — but a keydown that
+demonstrably reached the document produced no `cancel` event and left the dialog open. Rather than
+work out whether that is the browser or the page, a global handler now closes the topmost open
+dialog; it costs nothing where the platform already does it, because by then there is nothing left
+to close.
+
+**Focus was dropped on the floor.** The focused element was inside the dialog that had just gone, so
+the next Tab restarted from the top of the document — every term lookup cost a keyboard user their
+place. `openDialog()` remembers the opener and restores focus on close. All seven go through it,
+including the one in the osteology module, which reaches it via the same `window` bridge it already
+uses. Verified with a real key press: Escape closes, and focus lands back on the exact chip.
+
+## The day streak counted wrong
+
+```js
+meta.streak = meta.lastSessionDay === today ? (meta.streak || 1)
+            : (meta.lastSessionDay ? (meta.streak || 0) + 1 : 1);
+```
+
+Any earlier day incremented it, so returning after three weeks away read as *one day longer* rather
+than as a broken run. `nextStreak()` replaces it — same day unchanged, yesterday +1, anything longer
+back to 1 — and it is a pure function so it can be checked without a browser. Eight cases pass,
+including both calendar boundaries and a clock that went backwards.
+
+## Quick 10 handed over two items
+
+```js
+[...due.slice(0, 4), ...shuffle(unseen).slice(0, 2)].slice(0, 6)
+```
+
+Nothing can be due on a fresh install, so the mode advertised as a ten-minute session delivered
+**two** items — under-delivering worst at the exact moment someone was trying the app for the first
+time. It now takes due work first and fills the remaining room from unseen, then from the weakest,
+to reach six. Verified at 6 on a clean install.
+
+## Memory Coach
+
+Two things were wrong with the hint ladder.
+
+**Stage 4 put the wall of text back.** It rendered `lesson.explanation` through `esc()` as a single
+blob — 1,181 characters on the word-parts item — inside an app that had just been taught to chunk
+prose everywhere else. It goes through `proseHTML()` now, so the same chunking, term grids and
+tappable words apply. 57 of the 94 items had a stage 4 over 400 characters.
+
+**The nine structure-set items had no hints at all**, so stages 1 and 2 fell back on filler —
+*"Attach the fact to something you already know well"* is not a hint, it is a sentence shaped like
+one. Those items do carry something better: every member has a note off the lecture, and the members
+are grouped. `setHint()` uses them:
+
+> **Stage 1** — 8 structures in 3 groups: Chambers, Valves, Valve apparatus. Name the group first, then place the members inside it.
+> **Stage 2** — One to start you off — Right atrium: Receives from the venae cavae.
+
+## Grading an Apply answer
+
+Yes / Partly / No are three buttons, and they used to produce two outcomes: **Partly was scored
+exactly as No**, logging a mistake and taking the lapse penalty from someone who had most of it.
+
+Partly now records as reached but at the lowest confidence, so it earns the shortest interval —
+verified as `attempts 1, correct 1, lapses 0, intervalDays 1`, with no mistake written to the log.
+
 ## Storage and migration
 
 Progress is kept in `localStorage` under versioned keys: `rss.v1.mastery`, `rss.v1.items`,
@@ -284,8 +478,25 @@ Progress is kept in `localStorage` under versioned keys: `rss.v1.mastery`, `rss.
 On first run the app migrates any existing `osteology-studio-stats` history into the new mastery
 record, mapping each bone id (including `full:`/`real:` prefixed and side-suffixed atlas ids) onto its
 `hss2011-bone-*` item under the recognition dimension, and converting the old 0–100 confidence figure
-onto the new 0–3 scale. **The legacy key is left in place**, so the original `osteology-studio.html`
-and the embedded studio's own review history keep working unchanged.
+onto the new 0–3 scale. **The legacy key is left in place**, because the embedded osteology module
+still writes its own review history there. The standalone `osteology-studio.html` it was also serving
+has been deleted — the module inside the study studio replaced it, and keeping a second copy of the
+same app around meant two places to fix every bug.
+
+## Resetting
+
+**More → Reset progress on this device.** It shows what is about to go — how many mastery records,
+across how many items, how many logged mistakes — offers an export first, and needs the erase button
+pressed twice before it acts.
+
+It deletes all five `rss.v1.*` keys **and** `osteology-studio-stats`. That last one is not optional:
+`migrate()` re-runs whenever the stored meta version does not match, and it imports the legacy key, so
+a reset that left it behind would resurrect your bone history on the next load and look broken. A
+completed `meta` is written immediately afterwards so the migration has nothing left to redo, and the
+embedded studio's in-memory stats are cleared through `__osteo.resetStats()` so its review meter does
+not go on showing a history whose storage is already gone.
+
+There is no server, so an export file is the only undo that exists.
 
 ## Installable app (PWA)
 
@@ -463,3 +674,105 @@ storage eviction Safari applies to ordinary tabs.
 
 A `gh-pages` branch from the earlier manual `git subtree push` deployment is
 left in place as a fallback. It is no longer what serves the site.
+
+## Diagrams — what is drawn here and what is not
+
+The hand-plotted SVGs were the wrong tool for anatomy. They were laid out from guessed coordinates,
+so proportions and positions were whatever the numbers happened to be, and at least one actively
+contradicted its own lesson: the nephron schematic's loop of Henle descended 118 px while the
+collecting duct beside it ran 126 px, and the figure carried **no cortex/medulla boundary at all** —
+on an item whose teaching is about salt pumping building an osmotic gradient down the medulla.
+
+So the split is now explicit:
+
+- **Depictions use published figures.** 17 of them, in `figures.js`. If it is a picture of a real
+  structure, it is a real picture.
+- **Layouts are laid out, not drawn.** 16 of them, in `layouts.js`, rendered as HTML. They are still
+  labelled *"Drawn by this app"* with the line *"A layout, not a depiction — no anatomy is being drawn
+  to scale here."* A feedback loop, a modality decision table and the six named digestive functions
+  are arrangements of the lecture's own words; there is no photograph of those.
+
+### Why they stopped being SVG
+
+Two measured faults, both of them consequences of drawing a layout rather than laying one out.
+
+**Text escaped its boxes.** `box()` drew a rect at a fixed height, then poured wrapped text into it
+with the wrap estimated at 0.55em per character. Guess low and the text runs out of the bottom, and
+nothing in the code can notice — measured at up to **15.4 px of overflow across three figures**.
+
+**The text was tiny.** An SVG with a 720-wide viewBox rendered into a 645 px card scales everything
+by 0.9, so 11 px body text arrived at **9.9 px** beside 14.5 px lesson prose. On a phone the card is
+nearer 340 px — a scale of 0.47 — and the same text arrives at about **5 px**.
+
+As HTML the cards size themselves to their content, so the overflow is not a bug that got fixed, it
+is a bug that can no longer be expressed. Verified across all 16 at both 645 px and 340 px:
+
+| | before | after |
+| --- | --- | --- |
+| figures with text outside its box | 3 | **0** |
+| smallest rendered text, desktop | 9.9 px | **13.5 px** |
+| smallest rendered text, phone | ~5 px | **13.5 px** |
+| horizontal overflow at 340 px | — | **none** |
+
+Terms inside them are tappable now too, since they are ordinary DOM text going through the same
+`glossify()` as everything else — the word-parts figure alone carries 25 tappable cells.
+
+Two depictions could not be replaced and are still drawn: **`anatomicalPosition`** (a stick figure
+with the palms-forward callout) and **`muscleAction`** (a lever with origin and insertion marked).
+Nothing suitably licensed and small enough turned up for either. They are the remaining weak spots.
+
+### The two labelled diagrams, and why they were the worst of them
+
+`DIAGRAMS` held two hand-plotted figures that were not decoration — they were the picture a
+**labelling question** was scored against. The heart one placed all four chambers at mirrored
+coordinates as equal quadrants of a single oval, with both semilunar valves at identical height. The
+same corpus teaches that *"the right ventricle wall is thinner and pouch-shaped; the left ventricle is
+round and develops more pressure."* The learner was being tested against geometry that contradicted
+the lesson.
+
+Both are retired. A hotspot question needs coordinates on the picture it is drawn over, and there is
+no honest way to place those on a photograph nobody has measured — so the questions were rebuilt as
+**matching**, which examines the same knowledge with nothing invented, and the source references from
+the Module 4 answer key were carried into the new explanations rather than lost with the drawing.
+
+Locating structures in space is still examined, in the place where it is correct: the
+**Heart chambers and valves structure set**, which runs tap-to-identify against the real circulatory
+meshes and already carries the right notes — *"Thinner, pouch-shaped wall"* on the right ventricle,
+*"Round and thick-walled"* on the left.
+
+There are now **zero** diagram-labelling questions scored against a plotted figure.
+
+### Licensing
+
+`fetch-figures.py` reads the licence from the Wikimedia Commons API and **refuses to download**
+anything that is not demonstrably free — the gate runs before the request, not after. The author,
+licence, licence URL and source page in `figures.js` are written from that same API response rather
+than typed by hand, so the credit the app shows cannot drift from the credit the licence requires.
+CC BY and CC BY-SA both require attribution; the app renders it on the figure itself, with the
+licence name linking to the deed.
+
+Across the 17: 6 public domain, 3 CC BY 3.0, 2 CC BY 4.0, 5 CC BY-SA 3.0, 1 CC BY-SA 4.0.
+
+### Size
+
+5.45 MB of figures. The twelve under 360 KB are precached in the service-worker shell; the five larger
+ones are deliberately left out so a first install stays lean, and `networkFirst` caches them into the
+same shell cache the first time a lesson shows one — so they end up offline either way.
+
+## Plates — the only pictures not made here
+
+Five illustrations from **Gray's Anatomy of the Human Body, 1918**, in `assets/plates/`. Every one
+was licence-checked through the Wikimedia Commons API *before* download — `Public domain`, verified,
+not assumed — and each is stored locally and precached in the service worker, so the app stays
+offline-first. They are credited on the picture itself rather than in a footnote.
+
+| Plate | On which item |
+| --- | --- |
+| Scheme of renal tubule and its vascular supply | Nephron tubule and the urine pathway |
+| Bronchi and bronchioles | The respiratory pathway and its two zones |
+| The pancreas and duodenum from behind | Digestive tract and accessory organs |
+| Three cusps of the aortic valve | Heart chambers, valves and the cardiac skeleton |
+| Front view of heart and lungs | Lungs and airway (HSS2011 Module 1) |
+
+They illustrate; they do not source. A 1918 plate never overrides a 2019 lecture slide, and every
+factual claim on those items still traces to the supplied lecture material.
