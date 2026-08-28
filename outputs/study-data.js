@@ -3954,25 +3954,56 @@ const BONE_ITEMS = ANATOMY_DATABASE.map(boneItem);
 
 const STRUCTURE_HOOKS = {
   carpals: {
+    hook: 'Two rows of four, lateral to medial: proximal is Scaphoid, Lunate, Triquetrum, Pisiform; distal is Trapezium, Trapezoid, Capitate, Hamate. Learn the row first — almost every carpal question is which row a bone is in.',
     firstLetter: 'Proximal row then distal row, lateral to medial: Scaphoid, Lunate, Triquetrum, Pisiform — Trapezium, Trapezoid, Capitate, Hamate.',
     chunking: 'Four and four, two rows. Almost every carpal question is really asking which row a bone is in, so learn the rows as units before the individual bones.',
     comparison: 'TrapeziuM sits under the thuMb; the trapezoid is its neighbour. That one letter settles the pair people most often swap.',
     location: 'Start at the thumb side of the wrist crease and work across, then step down a row and come back. Same path every time.',
   },
   tarsals: {
+    hook: 'Three layers, not a row: talus on calcaneus takes the load, navicular sits in front of the talus, cuboid is on the lateral side, and three cuneiforms fan forward to the toes.',
     location: 'Build it in layers rather than a row: talus on top of calcaneus takes the load, navicular in front of the talus, cuboid on the lateral side, three cuneiforms fanning forward.',
     comparison: 'Carpals are in the wrist, tarsals in the ankle. If a question says "collective name for wrist bones", the answer is carpal — tarsal is the distractor.',
     chunking: 'Seven bones, four groups: two big weight-bearers, one navicular, one cuboid, three cuneiforms.',
   },
   skullBones: {
+    hook: 'Split cranial from facial first: the cranial vault and floor are frontal, parietals, temporals, occipital, sphenoid and ethmoid; the facial bones hang off the front, with the mandible the only movable one.',
     chunking: 'Split cranial from facial first. Six cranial bones form the vault and floor; the facial bones hang off the front.',
     location: 'Trace it as a face: forehead is frontal, sides are parietal then temporal, back is occipital, cheek is zygomatic, upper jaw is maxilla, lower jaw is mandible.',
     comparison: 'Sphenoid and ethmoid are the two you cannot see from outside — both sit deep in the floor of the cranium, which is why they are the two most often missed.',
   },
   vertebralRegions: {
+    hook: 'Five regions top to bottom: cervical (7), thoracic (12), lumbar (5), then two fused — sacrum and coccyx. Breakfast at 7, lunch at 12, dinner at 5.',
     mnemonic: 'Breakfast at 7, lunch at 12, dinner at 5 — cervical 7, thoracic 12, lumbar 5.',
     comparison: 'Atlas carries the world and gives you the nod; Axis is the pin and gives you the shake.',
     chunking: 'Five regions top to bottom, two of them fused: cervical, thoracic, lumbar, then sacrum and coccyx.',
+  },
+  heartChambers: {
+    hook: 'Two atria receive, two ventricles pump — the right side sends blood to the lungs, the left to the body. The AV valves (tricuspid on the right, bicuspid on the left) keep it one-way and are held shut by papillary muscle; the pulmonary valve guards the exit to the lungs.',
+  },
+  greatVessels: {
+    hook: 'Follow the loop: the venae cavae bring blood back, the pulmonary trunk and arteries carry it to the lungs, the aortic arch carries it to the body — and the coronary sinus and right coronary artery feed the heart’s own muscle.',
+  },
+  airwayTree: {
+    hook: 'A tree, not a list: one trachea splits into two main bronchi, then lobar bronchi, one per lobe. The right lung has three lobes, the left has two — the heart takes that space. The pleura wraps the whole thing.',
+  },
+  urinaryTract: {
+    hook: 'Follow the urine: the kidney makes it, the renal pelvis and ureter drain it, the bladder stores it, the urethra lets it out. The suprarenal gland sits on top but is endocrine, not part of this tract.',
+  },
+  digestiveTract: {
+    hook: 'One tube with two calibres: the small intestine (duodenum, jejunum) does the absorbing, the large intestine frames it around the edge and carries the appendix; the liver, gallbladder and pancreas are accessory organs that pour their secretions into the tube.',
+  },
+  rotatorCuff: {
+    hook: 'Four cuff muscles hold the humeral head in the socket — supraspinatus, infraspinatus, teres minor, subscapularis. Supraspinatus starts abduction, deltoid powers it, trapezius finishes it; latissimus and pectoralis major are the big girdle movers.',
+  },
+  cranialNerves: {
+    hook: 'Learn them by job, not by number: smell (I), sight (II), hearing and balance (VIII) are special sense; IV and VI move the eye; V and VII run the face; IX and X reach the pharynx and organs; XII moves the tongue.',
+  },
+  brainAndCsf: {
+    hook: 'One vertical axis: the brainstem (midbrain, pons, medulla) carries the core, the ventricles run CSF down its middle (lateral → third → aqueduct → fourth), the forebrain (corpus callosum, thalamus) caps it, and the spinal cord trails below.',
+  },
+  kneeJoint: {
+    hook: 'One capsule, two cruciate ligaments inside it, two menisci as shock absorbers — and the hip capsule alongside for comparison: the same parts, but a deeper, more stable socket.',
   },
 };
 
@@ -3980,6 +4011,13 @@ function structureItem(set) {
   const hooks = STRUCTURE_HOOKS[set.id] || {};
   const groups = [...new Set(set.members.map((mem) => mem.group))];
   const listing = set.members.map((mem) => `${mem.label}${mem.note ? ` — ${mem.note}` : ''}`);
+  const keyFactsGroups = set.members.reduce((acc, mem) => {
+    const g = mem.group || 'Ungrouped';
+    let bucket = acc.find((b) => b.group === g);
+    if (!bucket) { bucket = { group: g, items: [] }; acc.push(bucket); }
+    bucket.items.push(`${mem.label}${mem.note ? ` — ${mem.note}` : ''}`);
+    return acc;
+  }, []);
   return {
     id: `hss2011-structures-${set.id}`,
     subject: set.subject, unit: set.unit, type: 'structure',
@@ -3992,6 +4030,8 @@ function structureItem(set) {
         + `Work through the labelled view first, then the guided view with only ${set.anchors.length} anchor${set.anchors.length === 1 ? '' : 's'} left in, then the blank view where nothing is named.`
         + (set.paired ? ' These are paired structures, so the side is always part of the answer.' : ''),
       keyFacts: listing,
+      keyFactsGroups,
+      hook: hooks.hook || null,
       prerequisites: ['hss2011-osteo-axial-appendicular'],
       examples: [],
     },
