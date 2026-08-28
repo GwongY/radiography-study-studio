@@ -838,7 +838,7 @@
 <script type="module">
   import { ANATOMY_DATABASE, LANDMARK_HOTSPOTS, MODEL_CATALOG, REGIONS, getAnatomy, searchAnatomy } from './anatomy-data.js?v=4';
   import { FLOW_CLASSES, FLOW_ANCHORS, LAYER_CLASSES, classify,
-    cardiacEnvelope, breathEnvelope, spikeEnvelope, contractEnvelope, RATES } from './physiology.js?v=1';
+    cardiacEnvelope, breathEnvelope, spikeEnvelope, contractEnvelope, atriumEnvelope, ventricleEnvelope, RATES } from './physiology.js?v=4';
 
   const $ = (id) => document.getElementById(id);
   const els = { stage:$('stage'), state:$('stageState'), stateTitle:$('stateTitle'), stateCopy:$('stateCopy'), retry:$('retryBtn'), progress:$('progressBar'), stageMeta:$('stageMeta'), regionMeta:$('regionMeta'), selectedName:$('selectedName'), selectedChips:$('selectedChips'), selectedDetails:$('selectedDetails'), taskKicker:$('taskKicker'), taskTitle:$('taskTitle'), taskCopy:$('taskCopy'), answers:$('answers'), feedback:$('feedback'), next:$('nextBtn'), search:$('searchInput'), results:$('searchResults'), regions:$('regionButtons'), reviewBar:$('reviewBar'), reviewNumber:$('reviewNumber'), reviewHint:$('reviewHint'), toast:$('toast'), detailDialog:$('detailDialog'), detailTitle:$('detailTitle'), detailChips:$('detailChips'), detailBody:$('detailBody'), zoomIn:$('zoomInBtn'), zoomOut:$('zoomOutBtn'), focus:$('focusBtn'), motion:$('motionBtn') };
@@ -1482,7 +1482,7 @@ async function loadExtraModel(key,file){
 /* On by default. A body that does not move is the thing this exists to fix,
    and with only the skeleton loaded there is nothing with a rule, so it costs
    nothing until a system layer is actually on. */
-state.flow = { on:true, uT:{value:0}, uOn:{value:1}, uContract:{value:0}, classes:{}, counts:{} };
+state.flow = { on:true, uT:{value:0}, uOn:{value:1}, classes:{}, counts:{}, connective:[] };
 
 /* World Y of the top and bottom of the body, so anchors can be fractions. */
 function bodySpanY(){
@@ -1517,6 +1517,11 @@ function classUniforms(cls){
     uFreq:{value:r.freq||0},
     uSharp:{value:r.sharp||1},
     uGain:{value:r.gain||0},
+    /* Deformation amount and mode are decoupled from the glow (uBeat) so a
+       class can deform on its own envelope: lungs ride the breath, muscle the
+       squeeze, peristalsis runs steady. */
+    uDeform:{value:0},
+    uMode:{value:r.mode==='inflate'?2:r.mode==='peristalsis'?3:1},
   };
   return state.flow.classes[cls];
 }
@@ -1535,41 +1540,74 @@ function installFlow(mesh,cls){
   if(mat.color) mat.color.setHex(spec.color);
   if(!spec.rule) return;                    /* coloured, but nothing to animate */
   const uni=classUniforms(cls);
-  const contract=!!spec.rule.contract;
+  const rule=spec.rule;
+  /* A rule can deform only some meshes of a class -- peristalsis on the gut
+     tube but not the liver, ureters but not the kidneys. Meshes that do not
+     match are coloured but otherwise static. */
+  const deform=!!rule && (rule.contract || rule.mode)
+    && (!rule.match || rule.match.test(mesh.userData.label||mesh.name||''));
   let mCenter=null,mAxis=null,mAmt=0;
-  if(contract){
+  if(deform){
     const g=mesh.geometry;
     if(!g.boundingBox) g.computeBoundingBox();
     const bb=g.boundingBox;
     const size=[bb.max.x-bb.min.x,bb.max.y-bb.min.y,bb.max.z-bb.min.z];
     const longest=size.indexOf(Math.max(...size));
     mCenter=new state.THREE.Vector3((bb.min.x+bb.max.x)/2,(bb.min.y+bb.max.y)/2,(bb.min.z+bb.max.z)/2);
-    mAxis=new state.THREE.Vector3(longest===0?1:0,longest===1?1:0,longest===2?1:0);
-    /* A long strap muscle shortens visibly; a short stubby one barely moves in
-       life either, so the amount tracks how elongated the mesh actually is. */
-    const ratio=Math.max(...size)/(Math.min(...size)||1e-4);
-    mAmt=Math.min(.11,.03+.014*Math.min(6,ratio));
+    const mode=rule.mode;
+    if(mode==='inflate'){
+      /* A lung expands evenly from its own centre; the contract squash would
+         read as the lung being squeezed, not breathing. */
+      mAxis=new state.THREE.Vector3(0,1,0);
+      mAmt=rule.inflate||.05;
+    }else if(mode==='peristalsis'){
+      /* The tube direction is taken as the mesh's longest axis, and a narrow
+         band of constriction travels along it, pinching perpendicular at the
+         front. */
+      mAxis=new state.THREE.Vector3(longest===0?1:0,longest===1?1:0,longest===2?1:0);
+      mAmt=rule.pinch||.18;
+    }else{
+      mAxis=new state.THREE.Vector3(longest===0?1:0,longest===1?1:0,longest===2?1:0);
+      /* A long strap muscle shortens visibly; a short stubby one barely moves in
+         life either, so the amount tracks how elongated the mesh actually is --
+         unless the rule sets its own squeeze ('contract: 0.14'), as the heart
+         chambers do. */
+      const ratio=Math.max(...size)/(Math.min(...size)||1e-4);
+      mAmt=(typeof rule.contract==='number'&&rule.contract>0)
+        ?rule.contract
+        :Math.min(.11,.03+.014*Math.min(6,ratio));
+    }
   }
-  mat.customProgramCacheKey=()=>'rssflow:'+cls;
+  /* The deformed and colour-only meshes of a class compile to different
+     programs, so the cache key has to name the variant or the first to compile
+     is silently reused for every mesh of the class. */
+  mat.customProgramCacheKey=()=>'rssflow:'+cls+(deform?':d':':c');
   mat.onBeforeCompile=(sh)=>{
     sh.uniforms.uT=state.flow.uT;
     sh.uniforms.uOn=state.flow.uOn;
     Object.assign(sh.uniforms,uni);
-    if(contract){
-      sh.uniforms.uContract=state.flow.uContract;
+    if(deform){
       sh.uniforms.uMCenter={value:mCenter};
       sh.uniforms.uMAxis={value:mAxis};
       sh.uniforms.uMAmt={value:mAmt};
     }
     sh.vertexShader='varying float vFlowY;\n'
-      +(contract?'uniform float uContract;uniform vec3 uMCenter;uniform vec3 uMAxis;uniform float uMAmt;\n':'')
+      +(deform?'uniform float uDeform;uniform vec3 uMCenter;uniform vec3 uMAxis;uniform float uMAmt;uniform float uMode;\nuniform float uT;uniform float uSpeed;uniform float uDir;uniform float uFreq;uniform float uSharp;\n':'')
       +sh.vertexShader.replace('#include <begin_vertex>',
         '#include <begin_vertex>\n'
-        +(contract
+        +(deform
           ?'float rssAlong=dot(transformed-uMCenter,uMAxis);\n'
            +'vec3 rssPerp=(transformed-uMCenter)-rssAlong*uMAxis;\n'
-           +'transformed-=uMAxis*rssAlong*uContract*uMAmt;\n'
-           +'transformed+=rssPerp*uContract*uMAmt*.55;\n'
+           +'if(uMode>2.5){/* peristalsis: a ring of constriction travelling along the tube */\n'
+           +'  float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n'
+           +'  float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n'
+           +'  transformed-=rssPerp*rssRip*uMAmt*uDeform;\n'
+           +'}else if(uMode>1.5){/* inflate: even expansion away from the centre */\n'
+           +'  transformed+=(transformed-uMCenter)*uDeform*uMAmt;\n'
+           +'}else{/* contract: shorten along the axis, thicken across it */\n'
+           +'  transformed-=uMAxis*rssAlong*uDeform*uMAmt;\n'
+           +'  transformed+=rssPerp*uDeform*uMAmt*.55;\n'
+           +'}\n'
           :'')
         +'vFlowY=(modelMatrix*vec4(transformed,1.0)).y;');
     sh.fragmentShader='varying float vFlowY;\n'
@@ -1598,6 +1636,10 @@ function installLayerFlow(key,meshes){
     o.userData.flowClass=cls;
     counts[cls]=(counts[cls]||0)+1;
     installFlow(o,cls);
+    /* Tendons, bursae and the other connective tissue do not contract, and while
+       physiology is on they sit pale and static over the contracting muscles --
+       so they are dropped for the animation and restored when it is off. */
+    if(cls==='tendon'||cls==='bursa'){ state.flow.connective.push(o); o.visible=!state.flow.on; }
   });
   state.flow.counts[key]=counts;
   /* The span is only knowable once something is in the scene, so anchors set
@@ -1609,9 +1651,27 @@ function installLayerFlow(key,meshes){
   return counts;
 }
 
+/* Tendons, bursae and the other connective tissue drop out of view while
+   physiology is running so the contracting muscles are not occluded, and come
+   back when it is turned off. Re-applied from applyLayers too, so a layer
+   toggle or a cleared study focus cannot resurrect them mid-animation. */
+function applyConnectiveVisibility(){
+  if(!state.flow.connective) return;
+  const show=!state.flow.on;
+  state.flow.connective.forEach(m=>{ m.visible=show; });
+}
 function setPhysiology(on){
   state.flow.on=!!on;
   state.flow.uOn.value=on?1:0;
+  /* stepPhysiology only writes these while live is on, so turning it off mid-
+     cycle would leave uDeform frozen at the last value -- a muscle stuck at
+     full bulge or a lung held half-swollen under the restored structures. Zero
+     them so every mesh returns to its rest shape. */
+  if(!on){
+    state.flow.uT.value=0;
+    Object.values(state.flow.classes).forEach(u=>{ if(u.uDeform) u.uDeform.value=0; });
+  }
+  applyConnectiveVisibility();
   return state.flow.on;
 }
 
@@ -1619,8 +1679,7 @@ function setPhysiology(on){
 function stepPhysiology(t){
   if(!state.flow.on) return;
   state.flow.uT.value=t;
-  const beat=cardiacEnvelope(t),spike=spikeEnvelope(t),breath=breathEnvelope(t),squeeze=contractEnvelope(t);
-  state.flow.uContract.value=squeeze;
+  const beat=cardiacEnvelope(t),spike=spikeEnvelope(t),breath=breathEnvelope(t),squeeze=contractEnvelope(t),atrial=atriumEnvelope(t),ventricular=ventricleEnvelope(t);
   Object.entries(state.flow.classes).forEach(([cls,u])=>{
     const r=(FLOW_CLASSES[cls]||{}).rule; if(!r) return;
     u.uBeat.value=r.beat==='cardiac'?.25+.75*beat
@@ -1628,6 +1687,16 @@ function stepPhysiology(t){
       :r.beat==='breath'?.3+.7*breath
       :r.beat==='contract'?.2+.8*squeeze
       :1;
+    /* The deformation amount is its own envelope per class: lungs ride the
+       breath, muscle the squeeze, peristalsis runs steady at full strength,
+       the arteries swell with the pulse, and the two chamber types contract
+       at their own moment of the cardiac cycle. */
+    u.uDeform.value=r.deform==='breath'?breath
+      :r.deform==='contract'?squeeze
+      :r.deform==='cardiac'?beat
+      :r.deform==='atrial'?atrial
+      :r.deform==='ventricular'?ventricular
+      :r.deform==='steady'?1 : 0;
   });
 }
 function updateStageMeta(){
@@ -1667,6 +1736,7 @@ function applyLayers(){
   });
   state.activeExtra=Object.keys(state.extraModels).filter(k=>state.layers[k]).pop()||null;
   applyVisibility();
+  applyConnectiveVisibility();
   updateStageMeta();
 }
 /*
@@ -2260,7 +2330,7 @@ import {
 } from './study-data.js';
 import { searchAnatomy } from './anatomy-data.js?v=4';
 import { visualFor, plateFor } from './visual-data.js?v=3';
-import { FLOW_CLASSES, LAYER_CLASSES, RATES } from './physiology.js?v=1';
+import { FLOW_CLASSES, LAYER_CLASSES, RATES } from './physiology.js?v=4';
 import { schematic } from './schematics.js?v=2';
 import { figureFor } from './figures.js?v=1';
 import { layoutFor } from './layouts.js?v=1';

@@ -23,7 +23,7 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v22';
+const CACHE_VERSION = 'v28';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
@@ -40,7 +40,7 @@ const SHELL = [
   './wordparts.js?v=3',
   './term-notes.js?v=1',
   './term-gloss.js?v=1',
-  './physiology.js?v=1',
+  './physiology.js?v=4',
   './figures.js?v=1',
   './layouts.js?v=1',
   './manifest.webmanifest',
