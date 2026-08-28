@@ -46,7 +46,7 @@
 .pill.substitute{color:var(--orange);border-color:rgba(255,186,103,.35);background:rgba(255,186,103,.09)}
 .pill.limited{color:var(--orange);border-color:rgba(255,186,103,.3)}
 .pill.none{color:var(--red);border-color:rgba(241,129,129,.32);background:rgba(241,129,129,.08)}
-.notice{border-left:3px solid var(--orange);background:rgba(255,186,103,.07);border-radius:0 10px 10px 0;padding:12px 15px;margin:14px 0;font-size:13.5px;line-height:1.6;color:var(--text)}.moduleline{border-left:2px solid var(--teal);background:rgba(20,184,166,.05);border-radius:0 8px 8px 0;padding:8px 12px;margin:12px 0 14px;font-size:13px;line-height:1.55;color:var(--muted)}.plainlead{border:1px dashed rgba(20,184,166,.4);border-radius:8px;padding:10px 13px;margin:12px 0 16px;font-size:14px;line-height:1.65;color:var(--text)}.apptag{font:10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-right:8px}
+.notice{border-left:3px solid var(--orange);background:rgba(255,186,103,.07);border-radius:0 10px 10px 0;padding:12px 15px;margin:14px 0;font-size:13.5px;line-height:1.6;color:var(--text)}.moduleline{border-left:2px solid var(--teal);background:rgba(20,184,166,.05);border-radius:0 8px 8px 0;padding:8px 12px;margin:12px 0 14px;font-size:13px;line-height:1.55;color:var(--muted)}.plainlead{border:1px dashed rgba(20,184,166,.4);border-radius:8px;padding:10px 13px;margin:12px 0 16px;font-size:14px;line-height:1.65;color:var(--text)}.hook{border:1px dashed rgba(114,227,207,.5);border-radius:8px;padding:10px 13px;margin:12px 0 16px;font-size:14px;line-height:1.65;color:var(--text);background:rgba(114,227,207,.045)}.apptag{font:10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-right:8px}
 .notice.stop{border-left-color:var(--red);background:rgba(241,129,129,.07)}
 .notice strong{display:block;margin-bottom:4px}
 .notice p{margin:6px 0 0;color:var(--muted)}
@@ -79,6 +79,7 @@
 .facts li{position:relative;padding-left:20px;font-size:14px;line-height:1.55;color:#d5dee3}
 .facts li::before{content:'';position:absolute;left:5px;top:9px;width:5px;height:5px;border-radius:99px;background:var(--teal)}
 .subhead{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:20px 0 8px}
+.factgroup{margin:16px 0 0}.factgroup-head{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:700;margin:0 0 4px}.factgroup .facts{margin:4px 0 0}
 .priorbar{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;border:1px solid rgba(114,227,207,.28);border-left:3px solid var(--teal);background:rgba(114,227,207,.06);border-radius:0 12px 12px 0;padding:12px 15px;margin:0 0 16px;font-size:13.5px;line-height:1.6}
 .priorbar .kick{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:700;display:block;margin-bottom:4px}
 .priorbar p{margin:6px 0 0;color:var(--muted)}
@@ -4336,14 +4337,35 @@ function moduleLine(item) {
 function plainLeadHTML(item) {
   const p = item.lesson && item.lesson.plain;
   if (!p) return '';
-  return `<div class="plainlead"><span class="apptag">App note</span><strong>In plain English:</strong> ${glossify(esc(p))}</div>`;
+  return `<div class="plainlead"><span class="apptag">App note</span> ${glossify(esc(p))}</div>`;
+}
+
+/*
+ * Key-facts block. Structure-set lessons carry a grouped form — an app-authored
+ * hook with the organising idea (tagged APP NOTE, a study device not a source
+ * claim), then the members under the group headings that already exist in the
+ * data. Every other lesson renders the flat list unchanged. Member strings stay
+ * glossified either way so the hard words remain tappable.
+ */
+function factsHTML(item) {
+  const lesson = item.lesson || {};
+  const groups = lesson.keyFactsGroups;
+  if (groups && groups.length) {
+    const hook = lesson.hook
+      ? `<div class="hook"><span class="apptag">App note</span> The idea to hang it on: ${glossify(esc(lesson.hook))}</div>`
+      : '';
+    const blocks = groups.map((bucket) => `<div class="factgroup"><div class="factgroup-head">${esc(bucket.group)}</div>`
+      + `<ul class="facts">${bucket.items.map((f) => `<li>${glossify(esc(f))}</li>`).join('')}</ul></div>`).join('');
+    return `${hook}<div class="subhead">Key facts to remember</div>${blocks}`;
+  }
+  return lesson.keyFacts && lesson.keyFacts.length
+    ? `<div class="subhead">Key facts to remember</div><ul class="facts">${lesson.keyFacts.map((f) => `<li>${glossify(esc(f))}</li>`).join('')}</ul>` : '';
 }
 
 function learnHTML(item) {
   const subject = getSubject(item.subject);
   const prior = priorOf(item);
-  const facts = item.lesson.keyFacts && item.lesson.keyFacts.length
-    ? `<div class="subhead">Key facts to remember</div><ul class="facts">${item.lesson.keyFacts.map((f) => `<li>${glossify(esc(f))}</li>`).join('')}</ul>` : '';
+  const facts = factsHTML(item);
   const examples = item.lesson.examples && item.lesson.examples.length
     ? `<div class="subhead">Examples</div><ul class="facts">${item.lesson.examples.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>` : '';
   const teaching = prior
@@ -4421,7 +4443,7 @@ const REVEAL_STAGES = [
       item.memory.teachBack, originHint(item)],
     fallback: 'Start from the title and ask what category the answer belongs to.' },
   { lab: 'Stage 2 — memory hook',
-    candidates: (item) => [item.memory.mnemonic, item.memory.firstLetter, item.memory.visualCue, item.memory.sequence,
+    candidates: (item) => [item.lesson.hook, item.memory.mnemonic, item.memory.firstLetter, item.memory.visualCue, item.memory.sequence,
       item.memory.chunking, setHint(item, false), originHint(item), item.memory.comparison, item.memory.wordOrigin,
       item.memory.location, item.memory.teachBack],
     fallback: 'Attach the fact to something you already know well.' },
