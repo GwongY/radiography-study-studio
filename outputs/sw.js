@@ -23,7 +23,7 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v11';
+const CACHE_VERSION = 'v20';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
@@ -35,13 +35,43 @@ const SHELL = [
   './radiography-study-studio.html',
   './study-data.js',
   './anatomy-data.js',
-  './visual-data.js?v=2',
+  './visual-data.js?v=3',
   './schematics.js?v=2',
+  './wordparts.js?v=2',
+  './term-notes.js?v=1',
+  './figures.js?v=1',
+  './layouts.js?v=1',
   './manifest.webmanifest',
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png',
   './assets/icons/icon-maskable-512.png',
   './assets/icons/apple-touch-icon.png',
+  /* Public-domain plates. Small, and the app is offline-first, so they belong in
+     the shell rather than being something a lesson has to go and fetch. */
+  './assets/plates/nephron-tubule.png',
+  './assets/plates/bronchi-bronchioles.png',
+  './assets/plates/pancreas-duodenum.png',
+  './assets/plates/aortic-valve-cusps.png',
+  './assets/plates/heart-and-lungs.png',
+  /*
+   * Replacement figures. The small ones ship in the shell; the larger ones
+   * (body-cavities.png, body-movements.jpg, muscle-tissue-types.jpg, nephron.jpg, synovial-joints.jpg)
+   * are left out on purpose so a first install stays lean -- networkFirst caches
+   * them into this same shell cache the first time a lesson shows them, so they
+   * end up available offline either way.
+   */
+  './assets/figures/anatomy-planes.svg',
+  './assets/figures/blood-components.jpg',
+  './assets/figures/cardiac-conduction.svg',
+  './assets/figures/ecg-sinus-rhythm.svg',
+  './assets/figures/em-spectrum.svg',
+  './assets/figures/heart-diagram.svg',
+  './assets/figures/heart-interior.svg',
+  './assets/figures/long-bone.jpg',
+  './assets/figures/nervous-system-overview.jpg',
+  './assets/figures/respiratory-system.svg',
+  './assets/figures/synovial-joint-structure.png',
+  './assets/figures/vertebra-superior.png',
 ];
 
 self.addEventListener('install', (event) => {

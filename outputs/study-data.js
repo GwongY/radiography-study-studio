@@ -33,6 +33,7 @@ export const SOURCE_ROOTS = {
   torti: '21 Torti Source',
   oste20: '20 Oste sourcesssss',
   greengrp: 'Green Group Source',
+  edb: 'EDB — external, fetched from edb.gov.hk',
 };
 
 /*
@@ -41,6 +42,9 @@ export const SOURCE_ROOTS = {
  *   'assessment' past papers, exercises, answer keys, question banks
  *   'student'    student-produced coursework — evidence of topics, NOT authoritative
  *   'admin'      schedules, rubrics, subject description forms
+ *   'syllabus'   an external curriculum document. The ONLY thing it is allowed
+ *                to support is a claim about what a previous course already
+ *                taught. It never sources anatomy or physiology itself.
  */
 export const SOURCE_FILES = {
   /* ---------------- HSS2011 Human Anatomy ---------------- */
@@ -124,6 +128,9 @@ export const SOURCE_FILES = {
   'soc.a2.gold': { file: 'Au Chung Chin - APSS1A08 Assignment 2.docx', subject: 'APSS1A08', root: 'gold', folder: 'Sociology', kind: 'student' },
   'soc.ass1.oste': { file: 'ASS1.doc', subject: 'APSS1A08', root: 'oste20', folder: 'GUR Subjects/CAR Subjects/Sociology', kind: 'student' },
   'soc.ass2.oste': { file: 'Assessment 2.docx', subject: 'APSS1A08', root: 'oste20', folder: 'GUR Subjects/CAR Subjects/Sociology', kind: 'student' },
+  /* ---------------- Prior knowledge ---------------- */
+  'edb.bio': { file: 'Biology Curriculum and Assessment Guide (S4–6), updated Nov 2015', subject: 'HKDSE', root: 'edb', folder: 'Science Education KLA — edb.gov.hk', kind: 'syllabus', note: 'Fetched from edb.gov.hk, not from the supplied shared folders. It is here for exactly one purpose: to say what HKDSE Biology already covered, and whether a topic sat in the compulsory part or in the Human Physiology elective. No anatomy or physiology claim in this file is sourced to it.' },
+
   'soc.img.torti': { file: 'IMG_4192.JPG / IMG_4193.JPG / IMG_4194.JPG', subject: 'APSS1A08', root: 'torti', folder: 'GUR subjects/CAR/Introduction to Sociology', kind: 'student', note: 'Photographs. Not machine-readable offline, so their contents are unverified.' },
 };
 
@@ -290,6 +297,94 @@ export const MEMORY_METHODS = {
   teachBack: 'Teach-back',
   location: 'Location-based association',
 };
+
+/* ------------------------------------------------------------------ *
+ * Prior knowledge
+ *
+ * Some of this corpus is not new material for the person studying it. Where a
+ * whole school subject already taught the same content, teaching it again from
+ * zero wastes the session and, worse, buries the two or three things the
+ * lecture actually adds on top of it.
+ *
+ * An item carrying a priorKnowledge entry is therefore VERIFIED rather than
+ * taught: the session opens on Practise, the lesson stays one click away, and
+ * the Learn card leads with what the lecture adds instead of the shared
+ * background.
+ *
+ *   covers: 'most'  the prior subject taught the substance of this item; the
+ *                   lecture adds terminology, a named list or specific numbers.
+ *   covers: 'part'  the prior subject taught the foundation only; a substantial
+ *                   part of this item is genuinely new.
+ *
+ * beyond[] is drawn from the lecture deck itself, and each line carries its own
+ * src the way a practice question does: { ref, location } pointing at the slide
+ * it came off. Nothing here is textbook expansion or DSE-syllabus knowledge
+ * written from memory — if a line has no slide behind it, it does not belong.
+ * ------------------------------------------------------------------ */
+
+export const PRIOR_KNOWLEDGE = {
+  'dse-bio': {
+    label: 'HKDSE Biology',
+    short: 'DSE Bio',
+    blurb: 'Covered at HKDSE Biology level. Verify it rather than sit through it — the full lesson is one click away if the answer does not come.',
+  },
+};
+
+/*
+ * Which part of the DSE syllabus carried it.
+ *
+ * This distinction is not pedantry. The nephron, the cardiac cycle, the
+ * pacemaker and the respiratory centres are NOT in the compulsory part — they
+ * sit in the elective "Human Physiology: Regulation and Control". Tagging them
+ * as already-known is only correct for someone who took that elective, and
+ * sending anyone else straight to a question on unseen material would be the
+ * opposite of helpful. Every dsePart below is checked against the EDB guide.
+ */
+export const DSE_PARTS = {
+  core: { label: 'compulsory part', note: 'Every HKDSE Biology candidate takes this.' },
+  'elective-hp': { label: 'elective — Human Physiology: Regulation and Control', note: 'Only assumed because this learner took that elective.' },
+};
+
+export function priorOf(item) {
+  const pk = item && item.priorKnowledge;
+  if (!pk) return null;
+  const level = PRIOR_KNOWLEDGE[pk.level];
+  if (!level) return null;
+  /* A bare string is accepted so a line can be sketched before its slide is found. */
+  const beyond = (pk.beyond || []).map((b) => (typeof b === 'string' ? { t: b, src: null } : b));
+  const part = DSE_PARTS[pk.dsePart] || DSE_PARTS.core;
+  return { ...level, id: pk.level, covers: pk.covers || 'part', beyond, dsePart: pk.dsePart || 'core', part };
+}
+
+/* Every beyond line's citation, for the source dialog. */
+export function priorSources(item) {
+  const prior = priorOf(item);
+  if (!prior) return [];
+  return prior.beyond.map((b) => b.src).filter(Boolean);
+}
+
+/*
+ * An unattempted item scores zero, which puts it at the front of every
+ * weakest-first queue. A prior-knowledge item is not zero — it is unverified,
+ * which is a different thing — so ordering treats it as half known until the
+ * first real answer replaces the assumption with evidence.
+ *
+ * This is a DERIVED value, used for ordering and for the dashboard label. It is
+ * never written into the mastery store: attempts, accuracy, lapses and
+ * intervals stay a record of what was actually answered in this course, with no
+ * seeded attempts inflating them.
+ */
+export const PRIOR_ASSUMED_SCORE = 0.5;
+
+export function priorAdjustedScore(item, score, attempted) {
+  if (attempted) return score;
+  return priorOf(item) ? PRIOR_ASSUMED_SCORE : 0;
+}
+
+/* Where a session opens an item: verify what is already known, teach what is not. */
+export function entryStep(item, attempted) {
+  return !attempted && priorOf(item) ? 'practise' : 'learn';
+}
 
 /* ------------------------------------------------------------------ *
  * Study modes
@@ -711,17 +806,9 @@ const HSS_OSTEOLOGY = [
       comparison: 'Vertebral foramen is the hole for the spinal cord; the intervertebral foramen between two vertebrae is where a spinal nerve exits. Different hole, different traffic.',
     },
     practice: [
-      { type: 'diagram', prompt: 'Label the parts of a typical vertebra, superior view.', diagram: 'vertebra',
-        labels: [
-          { id: 'body', label: 'Vertebral body' },
-          { id: 'foramen', label: 'Vertebral foramen' },
-          { id: 'pedicle', label: 'Pedicle' },
-          { id: 'lamina', label: 'Lamina' },
-          { id: 'transverse', label: 'Transverse process' },
-          { id: 'spinous', label: 'Spinous process' },
-          { id: 'sap', label: 'Superior articular facet' },
-        ],
-        explanation: 'These are the labels used on the Module 0 vertebra slide and repeated in the Module 4 labelling answers (B1 vertebral foramen, B2 pedicle, B3 transverse process, B4 spinous process, B5 lamina, B6 superior articular facet).',
+      { type: 'matching', prompt: 'Match each part of a vertebra to what it is.',
+        pairs: [['Vertebral body', 'The weight-bearing block at the front'], ['Vertebral foramen', 'The opening the spinal cord passes through'], ['Pedicle', 'The short bridge running back from the body'], ['Lamina', 'The flat plate closing the arch behind'], ['Transverse process', 'The side projection, one on each side'], ['Spinous process', 'The single backward projection you can feel through the skin']],
+        explanation: 'The body is anterior and bears weight; the arch behind it encloses the foramen the cord runs in, pedicle then lamina front to back. These are the parts the Module 4 labelling answers name: B1 vertebral foramen, B2 pedicle, B3 transverse process, B4 spinous process, B5 lamina, B6 superior articular facet.',
         src: { ref: 'hss.revans', location: 'More exercises, Module 4, labels B1–B6' } },
       { type: 'typed', prompt: 'Which part of a vertebra is the primary weight-bearing component?', accept: ['vertebral body', 'body'],
         explanation: 'The vertebral body, described on the slide as serving as the primary weight-bearing component of the spine.' },
@@ -1636,6 +1723,24 @@ const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.cells', type: 'sequence',
     title: 'Cell → tissue → organ → system',
     tags: ['foundation', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'part', dsePart: 'core',
+      syllabusRef: { ref: 'edb.bio', location: 'Compulsory I "Cells and Molecules of Life" — cell structure, organelles and membrane transport only. The syllabus never groups tissues into types, and its "levels of organisation" are the ecological ones (species → population → community), not cell → tissue → organ.' },
+      beyond: [
+        { t: 'The four tissue types as a classification — epithelial, connective, muscle, neural. DSE stops at the cell and never groups them this way.',
+          src: { ref: 'phys.1', location: 'Slide 33 "An Introduction to Tissues"' } },
+        { t: 'The eleven organ systems the slide names: integumentary, nervous, endocrine, skeletal, muscular, circulatory, immune, respiratory, urinary, digestive, reproductive.',
+          src: { ref: 'phys.1', location: 'Slide 33 "An Introduction to Tissues"' } },
+        { t: 'Five characteristics of epithelium — cellularity, polarity, attachment to a basement membrane, avascularity, regeneration — and its four functions.',
+          src: { ref: 'phys.1', location: 'Slide 34 "1. Epithelial Tissue"' } },
+        { t: 'Epithelia classified twice over: by shape (squamous, cuboidal, columnar) and by layers (simple, stratified).',
+          src: { ref: 'phys.1', location: 'Slide 35 "Classification of Epithelia"' } },
+        { t: 'Glandular epithelia split by route — endocrine glands ductless into interstitial fluid, exocrine glands onto surfaces through ducts.',
+          src: { ref: 'phys.1', location: 'Slide 37 "Classification of Epithelia (cont’d)"' } },
+        { t: 'Connective tissue defined by its matrix — specialised cells, protein fibres, ground substance — in three classes: proper, fluid, supporting.',
+          src: { ref: 'phys.1', location: 'Slides 38–40 "2. Connective Tissue"' } },
+      ],
+    },
     lesson: {
       explanation: 'Tissues are structures with discrete structural and functional properties. Tissues in combination form organs such as the heart or the liver, and organs can be grouped into eleven organ systems: integumentary, nervous, endocrine, skeletal, muscular, circulatory, immune, respiratory, urinary, digestive and reproductive. There are four types of tissue: epithelial, connective, muscle and neural. Cells themselves split into somatic cells — all body cells — and sex or germ cells, the sperm and the oocyte.',
       keyFacts: [
@@ -1681,6 +1786,22 @@ const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.cells', type: 'explain',
     title: 'Homeostasis and the feedback loop',
     tags: ['foundation', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'most', dsePart: 'core',
+      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(e) "Homeostasis" — concept, importance, feedback mechanism, and regulation of blood glucose; plus Elective V(b) "Regulation of body temperature".' },
+      beyond: [
+        { t: 'Autoregulation (intrinsic) against extrinsic regulation by the nervous and endocrine systems, as two named mechanisms. DSE teaches the loop without ever splitting it this way.',
+          src: { ref: 'phys.1', location: 'Slide 59 "Mechanisms of Regulation"' } },
+        { t: 'The middle box is renamed. DSE says stimulus → receptor → coordination system → effector → response; this lecture says receptor → control centre → effector, and "control centre" is the wording to answer with here.',
+          src: { ref: 'phys.1', location: 'Slide 59 "Mechanisms of Regulation"' } },
+        { t: 'Positive feedback stated as moving the body away from homeostasis and losing the normal range — used to speed a process up, not an error state.',
+          src: { ref: 'phys.1', location: 'Slide 60 "Negative and Positive Feedback"' } },
+        { t: 'The thermostat with numbers on it: a 37 °C set point, held between 36.7 °C and 37.2 °C.',
+          src: { ref: 'phys.1', location: 'Slide 61 "Negative Feedback — Control of Body Temperature"' } },
+        { t: 'Homeostasis as dynamic equilibrium — continual adaptation rather than a fixed point — with failure ending in disease or death.',
+          src: { ref: 'phys.1', location: 'Slide 63 "Systems Integration"' } },
+      ],
+    },
     lesson: {
       explanation: 'Homeostasis is all body systems working together to maintain a stable internal environment; systems respond to external and internal changes so the body functions within a normal range, for example body temperature and fluid balance. Regulation happens two ways: autoregulation, an intrinsic and automatic response within a cell, tissue or organ to an environmental change; and extrinsic regulation, controlled by the nervous and endocrine systems. Any homeostatic loop has three parts — a receptor that receives the stimulus, a control centre that processes the signal and sends instructions, and an effector that carries out the instructions. Negative and positive feedback are the two forms this regulation takes.',
       keyFacts: [
@@ -1722,6 +1843,18 @@ const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.cvs', type: 'sequence',
     title: 'Pulmonary and systemic circuits',
     tags: ['cardiovascular', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'most', dsePart: 'core',
+      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(b) "Essential life processes in animals" — "General plan of the circulatory system and lymphatic system".' },
+      beyond: [
+        { t: 'Flow through the systemic circuit equals flow through the pulmonary circuit, because the two run in series.',
+          src: { ref: 'phys.2', location: 'Slide 18 "An Introduction to the Cardiovascular System"' } },
+        { t: 'The whole route named as one recitable sequence, vena cavae through to aorta.',
+          src: { ref: 'phys.2', location: 'Slide 20 "Pulmonary and Systemic Circulations"' } },
+        { t: 'The right ventricle wall is thinner and develops less pressure; the right ventricle is pouch-shaped, the left round.',
+          src: { ref: 'phys.2', location: 'Slide 31 "Structural Differences between the Left and Right Ventricles"' } },
+      ],
+    },
     lesson: {
       explanation: 'The pulmonary circulation is the path of blood from the right ventricle through the lungs and back to the heart. The systemic circulation is the path from the left ventricle to the body and back. Blood coming from the tissues enters the superior and inferior vena cavae, which empty into the right atrium, then the right ventricle, which pumps it through the pulmonary arteries to the lungs. Oxygenated blood returns from the lungs through the pulmonary veins to the left atrium, then the left ventricle, which pumps it through the aorta to the body. The rate of flow through the systemic circulation equals the flow rate through the pulmonary circuit.',
       keyFacts: [
@@ -1765,6 +1898,22 @@ const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.cvs', type: 'diagram',
     title: 'Heart chambers, valves and the cardiac skeleton',
     tags: ['cardiovascular', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'part', dsePart: 'core',
+      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(b) "Essential life processes in animals" — the circulatory system in general plan only; the syllabus gets to heart structure through a pig-heart dissection, not through named histology.' },
+      beyond: [
+        { t: 'The cardiac (fibrous) skeleton: dense connective tissue encircling the valves and the bases of the pulmonary trunk and aorta, separating atria from ventricles structurally, functionally and electrically.',
+          src: { ref: 'phys.2', location: 'Slide 30 "Structure of Heart continued"' } },
+        { t: 'Three heart wall layers — epicardium (visceral pericardium), myocardium in concentric layers, endocardium of simple squamous epithelium.',
+          src: { ref: 'phys.2', location: 'Slide 22 "Structure of the Heart — Heart Wall"' } },
+        { t: 'Intercalated discs secured by desmosomes and linked by gap junctions, doing two jobs: conveying the force of contraction and propagating action potentials.',
+          src: { ref: 'phys.2', location: 'Slide 24 "Structure of the Heart — Cardiac Muscle Tissue"' } },
+        { t: 'Cardiac muscle cells characterised as small, single central nucleus, branching interconnections.',
+          src: { ref: 'phys.2', location: 'Slide 27 "Characteristics of Cardiac Muscle Cells"' } },
+        { t: 'Papillary muscles contracting through the chordae tendineae as what stops ventricular pressure everting the AV valves.',
+          src: { ref: 'phys.2', location: 'Slide 35 "Functions of the valves"' } },
+      ],
+    },
     lesson: {
       explanation: 'The heart has four chambers: two atria receive blood from the venous system and two ventricles pump blood to the arteries, with the two sides separated by a muscular septum. Blood flows from atria into ventricles through the one-way atrioventricular valves — the tricuspid on the right, the bicuspid or mitral on the left. The semilunar valves, pulmonary and aortic, prevent backflow from the pulmonary arteries and the aorta into the right and left ventricles. Valve opening and closing results from pressure differences. The AV valves are stopped from everting by the papillary muscles, which connect to them by the chordae tendineae. Between atria and ventricles sits the cardiac (fibrous) skeleton, a layer of dense connective tissue that encircles the heart valves and the bases of the pulmonary trunk and aorta; it separates the ventricles from the atria both structurally and electrically.',
       keyFacts: [
@@ -1785,18 +1934,9 @@ const PHYS_ITEMS = [
       chunking: 'Two valve families: AV valves between atrium and ventricle, semilunar valves at the exits. Every valve question is really asking which family.',
     },
     practice: [
-      { type: 'diagram', prompt: 'Label the heart: chambers and valves.', diagram: 'heart',
-        labels: [
-          { id: 'ra', label: 'Right atrium' },
-          { id: 'rv', label: 'Right ventricle' },
-          { id: 'la', label: 'Left atrium' },
-          { id: 'lv', label: 'Left ventricle' },
-          { id: 'tri', label: 'Tricuspid (right AV) valve' },
-          { id: 'bi', label: 'Bicuspid (left AV) valve' },
-          { id: 'pv', label: 'Pulmonary valve' },
-          { id: 'av', label: 'Aortic valve' },
-        ],
-        explanation: 'Chamber and valve names as given on the heart structure and valve slides.' },
+      { type: 'matching', prompt: 'Match each chamber to what the lecture says about it.',
+        pairs: [['Right atrium', 'Receives blood from the venae cavae'], ['Right ventricle', 'Thinner, pouch-shaped wall; pumps to the lungs'], ['Left atrium', 'Receives the pulmonary veins'], ['Left ventricle', 'Round and thick-walled; develops more pressure']],
+        explanation: 'The two ventricles are not mirror images. The right is pouch-shaped and develops less pressure because it only has to reach the lungs; the left is round and thick because it drives the systemic circuit. To place them in space rather than name them, use the Heart chambers and valves structure set, which runs on the real circulatory meshes.' },
       { type: 'typed', prompt: 'What structure electrically insulates the ventricular muscle cells from the atrial muscle cells?', accept: ['cardiac skeleton', 'fibrous skeleton', 'cardiac (fibrous) skeleton', 'fibrous cardiac skeleton'],
         explanation: 'The cardiac (fibrous) skeleton — a layer of dense connective tissue that separates the ventricles and atria structurally and electrically.' },
       { type: 'matching', prompt: 'Match each valve to its position.',
@@ -1822,6 +1962,20 @@ const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.resp', type: 'sequence',
     title: 'The respiratory pathway and its two zones',
     tags: ['respiratory', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'most', dsePart: 'core',
+      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(b) "Essential life processes in animals" — "General plan of the breathing system", gas exchange in air sacs, and the mechanism of ventilation.' },
+      beyond: [
+        { t: 'A second cut through the same tube: conducting portion from the nasal cavity to the terminal bronchioles, respiratory portion from the respiratory bronchioles on.',
+          src: { ref: 'phys.3', location: 'Slide 6 "The respiratory tract"' } },
+        { t: 'The full branching order, trachea through to the alveoli of a pulmonary lobule, drawn with the conducting/respiratory boundary marked on it.',
+          src: { ref: 'phys.3', location: 'Slide 7 (labelled airway diagram)' } },
+        { t: 'Five functions, sound production and the olfactory sense included alongside gas exchange.',
+          src: { ref: 'phys.3', location: 'Slide 3 "Five functions of the respiratory system"' } },
+        { t: 'Respiratory bronchioles wrapped in smooth muscle that changes the diameter of those airways.',
+          src: { ref: 'phys.3', location: 'Slide 8 "Alveolus"' } },
+      ],
+    },
     lesson: {
       explanation: 'The respiratory system is divided at the larynx: the upper respiratory system is above it — nose, nasal cavity, sinuses and pharynx — and the lower respiratory system is below it — larynx, trachea, bronchus, bronchioles, smallest bronchioles and alveoli. The tract also divides functionally: the conducting portion runs from the nasal cavity to the terminal bronchioles, and the respiratory portion is the respiratory bronchioles and alveoli. The lecture gives five functions: providing an extensive gas-exchange surface between air and circulating blood, moving air to and from those surfaces, protecting the respiratory surfaces from the outside environment, producing sounds, and participating in the olfactory sense.',
       keyFacts: [
@@ -1867,6 +2021,22 @@ const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.renal', type: 'sequence',
     title: 'Nephron tubule and the urine pathway',
     tags: ['renal', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'part', dsePart: 'elective-hp',
+      syllabusRef: { ref: 'edb.bio', location: 'Elective V(a) "Regulation of water content (osmoregulation)" — general plan of the urinary system, nephron structure and function, ultrafiltration, reabsorption and ADH. Not in the compulsory part at all.' },
+      beyond: [
+        { t: 'The kidney’s internal architecture: cortex holding capillaries and outer nephrons, medulla of renal pyramids separated by renal columns, minor calyces uniting into a major calyx.',
+          src: { ref: 'phys.5', location: 'Slide 5 "Structure of Kidney"' } },
+        { t: 'The vascular route running alongside the tubular one — interlobular artery → afferent arteriole → glomerulus → efferent arteriole → peritubular capillaries (vasa recta) → interlobular vein.',
+          src: { ref: 'phys.5', location: 'Slide 9 "Renal Blood Vessels"' } },
+        { t: 'GFR as a figure: 115 ml/min in women, 125 ml/min in men, about 180 L a day, so most filtered water must be reabsorbed.',
+          src: { ref: 'phys.5', location: 'Slide 17 "Glomerular Filtration Rate (GFR)"' } },
+        { t: 'The countercurrent multiplier: salt pumping in the thick ascending limb builds medullary osmolality until it settles at 1400.',
+          src: { ref: 'phys.5', location: 'Slide 27 "Countercurrent Multiplier System"' } },
+        { t: 'The renin–angiotensin–aldosterone system, with ACE doing the angiotensin I → II conversion in the lungs.',
+          src: { ref: 'phys.5', location: 'Slide 40 "Renin-Angiotensin-Aldosterone System"' } },
+      ],
+    },
     lesson: {
       explanation: 'The nephron is the functional unit of the kidney, responsible for forming urine, with more than one million per kidney. The tubular part begins with the glomerular capsule, transitions into the proximal convoluted tubule, then the descending and ascending limbs of the loop of Henle, then the distal convoluted tubule, and ends where it empties into a collecting duct. The glomerular capsule surrounds the glomerulus and together they form the renal corpuscle, where glomerular filtration occurs. Beyond the nephron, urine flows from the kidneys into the ureters, which empty into the bladder, and the urethra drains urine from the bladder. Inside the kidney, the cortex contains many capillaries and the outer parts of nephrons, the medulla consists of renal pyramids separated by renal columns, and a pyramid contains minor calyces which unite to form a major calyx.',
       keyFacts: [
@@ -1918,6 +2088,22 @@ const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.dig', type: 'sequence',
     title: 'Digestive tract, accessory organs and the six functions',
     tags: ['digestive', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'most', dsePart: 'core',
+      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(b) "Essential life processes in animals" — "Nutrition in humans": general plan of the digestive system, digestion in each part of the alimentary canal, absorption, the role of the liver and egestion.' },
+      beyond: [
+        { t: 'The six named functions with the lecture’s own definitions — ingestion, mechanical processing, digestion, secretion, absorption, excretion.',
+          src: { ref: 'phys.4', location: 'Slides 4–6 "The Digestive Tract"' } },
+        { t: 'Four histological layers of the tract: mucosa, submucosa, muscularis externa, serosa.',
+          src: { ref: 'phys.4', location: 'Slide 7 "Digestive Tract Layers"' } },
+        { t: 'Accessory organs listed with the job each one does, none of them part of the tube food passes through.',
+          src: { ref: 'phys.4', location: 'Slide 3 "Accessory Organs of the Digestive System"' } },
+        { t: 'Digestive enzymes classed by target: carbohydrases, proteases, lipases, and brush border enzymes on nucleotides.',
+          src: { ref: 'phys.4', location: 'Slides 66–67 "Digestion — Digestive Enzymes"' } },
+        { t: 'Water is never actively absorbed — it follows osmotic gradients; ions are what active transport moves.',
+          src: { ref: 'phys.4', location: 'Slide 68 "Water Absorption / Ion Absorption"' } },
+      ],
+    },
     lesson: {
       explanation: 'The major organs of the digestive tract in order are the oral cavity, pharynx, oesophagus, stomach, small intestine, large intestine and anus. The oral cavity handles ingestion, mechanical processing with the teeth and tongue, moistening and mixing with salivary secretions; the pharynx propels material into the oesophagus; the oesophagus transports it to the stomach; the stomach breaks material down chemically with acid and enzymes and mechanically through muscular contraction; the small intestine performs enzymatic digestion and absorption of water, organic substrates, vitamins and ions; the large intestine dehydrates and compacts indigestible material for elimination. The accessory organs are the teeth, tongue, salivary glands, liver, gallbladder and pancreas. The six functions of the digestive system are ingestion, mechanical processing, digestion, secretion, absorption and excretion.',
       keyFacts: [
@@ -1964,6 +2150,20 @@ const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.endo', type: 'comparison',
     title: 'Hormones and the four modes of delivery',
     tags: ['endocrine', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'part', dsePart: 'core',
+      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(d) "Coordination and response" — "Hormonal coordination in humans" is two lines in the syllabus: the nature of hormonal coordination and a general plan of the endocrine system. Almost everything on this item is past it.' },
+      beyond: [
+        { t: 'Four named classes of delivery — autocrine, paracrine, endocrine, neuroendocrine — where DSE taught only the blood-borne one.',
+          src: { ref: 'phys.7', location: 'Page 5 "Classes of Hormone Delivery"' } },
+        { t: 'Endocrine glands as ductless, with neurohormones secreted into blood by specialised neurons.',
+          src: { ref: 'phys.7', location: 'Page 7 "Endocrine Glands"' } },
+        { t: 'Target cell receptors described by three properties: specificity, high affinity, low capacity.',
+          src: { ref: 'phys.7', location: 'Page 13 "Mechanisms of Hormone Action"' } },
+        { t: 'Lipophilic hormones on cytoplasmic or nuclear receptors — genomic action taking at least 30 minutes — against hydrophilic hormones on surface receptors working fast through second messengers.',
+          src: { ref: 'phys.7', location: 'Page 13 "Mechanisms of Hormone Action"' } },
+      ],
+    },
     lesson: {
       explanation: 'A hormone is a chemical that transfers information and instructions between cells. Hormones regulate growth and development, control the function of various tissues, support reproductive function and regulate metabolism. There are four classes of hormone delivery. Autocrine: the hormone feeds back on the same cell without entering blood circulation. Paracrine: it diffuses to adjacent target cells through the immediate extracellular space, with blood not directly involved. Endocrine: the most common, classical mode, where hormones are delivered to target cells by the blood circulation. Neuroendocrine: the hormone is produced and released by a neuron and delivered to targets by the bloodstream. Endocrine glands are ductless and secrete hormones into the bloodstream, where they travel to target cells containing receptor proteins for them.',
       keyFacts: [
@@ -2009,6 +2209,24 @@ const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.cvs', type: 'definition',
     title: 'Blood composition and the vessel wall',
     tags: ['cardiovascular'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'part', dsePart: 'core',
+      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(b) "Essential life processes in animals" — "Composition and functions of blood, tissue fluid and lymph". The syllabus wants the components and what they do; it never quantifies them or dissects a vessel wall.' },
+      beyond: [
+        { t: 'Haematocrit as a named measurement with ranges: 36–46% in women, 41–53% in men.',
+          src: { ref: 'phys.2', location: 'Slide 6 "Composition of Blood"' } },
+        { t: 'Three plasma protein classes and their jobs — albumin at 60–80% creating colloid osmotic pressure, globulins carrying lipids with gamma globulins as antibodies, fibrinogen converting to fibrin.',
+          src: { ref: 'phys.2', location: 'Slide 7 "Plasma"' } },
+        { t: 'Vessel wall layers — tunica externa, media, interna — with capillaries as endothelium alone.',
+          src: { ref: 'phys.2', location: 'Slide 11 "Structure of Blood Vessels"' } },
+        { t: 'Small arteries and arterioles, not the large ones, providing most of the resistance in the circulatory system.',
+          src: { ref: 'phys.2', location: 'Slide 13 "Arteries"' } },
+        { t: 'Continuous against fenestrated capillaries, and which tissues each is found in.',
+          src: { ref: 'phys.2', location: 'Slide 16 "Types of Capillaries"' } },
+        { t: 'Veins as the capacitance side: they hold most of the blood at about 2 mmHg, too little to return it, so the skeletal muscle pump, the pressure drop in the chest during breathing and one-way valves do the work.',
+          src: { ref: 'phys.2', location: 'Slide 17 "Veins"' } },
+      ],
+    },
     lesson: {
       explanation: 'Total blood volume is about 5 L, made of formed elements and plasma. Red blood cells make up most of the formed elements; the percentage of RBCs in a centrifuged sample is the haematocrit, 36–46% in women and 41–53% in men. Plasma is a straw-coloured liquid of water and dissolved solutes. Plasma proteins are 7–9% of plasma and come in three types: albumins, which are 60–80% and create the colloid osmotic pressure maintaining blood volume and pressure; globulins, which carry lipids and include the gamma globulins that are antibodies; and fibrinogen, the clotting factor converted to fibrin. Serum is the fluid left when blood clots. Every vessel has endothelium as its innermost layer; capillaries are made of endothelial cells alone, while arteries and veins have three layers — tunica externa (connective tissue), media (mostly smooth muscle) and interna (endothelium, basement membrane and elastin).',
       keyFacts: [
@@ -2098,6 +2316,18 @@ const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.nerv', type: 'definition',
     title: 'Divisions of the nervous system and classes of neuron',
     tags: ['nervous', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'most', dsePart: 'core',
+      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(d) "Coordination and response" — "Nervous coordination in humans" already names the CNS, the brain parts, the spinal cord, sensory / interneurone / motor neurones, the synapse and the reflex arc.' },
+      beyond: [
+        { t: 'The PNS split into somatic and autonomic, and the autonomic again into sympathetic and parasympathetic. DSE names the three neurone types but never this branching of the PNS.',
+          src: { ref: 'phys.8', location: 'Page 8 "Peripheral Nervous System (PNS)"' } },
+        { t: 'Motor neurons sorted by what they innervate: somatic ones to skeletal muscle for reflexes and voluntary control, autonomic ones to smooth muscle, cardiac muscle and glands.',
+          src: { ref: 'phys.8', location: 'Page 8 "Peripheral Nervous System (PNS)"' } },
+        { t: 'The scale figures: almost 97% of the body’s neural tissue in the adult brain, about 100 billion neurons and 1,000 billion neuroglia.',
+          src: { ref: 'phys.8', location: 'Page 4 "Central Nervous System"' } },
+      ],
+    },
     lesson: {
       explanation: 'The nervous system provides information from the outside world — light, sounds, taste, touch — and keeps the body in a homeostatic condition, letting the brain know what is happening in the rest of the body. It divides into the central nervous system, the brain and spinal cord, and the peripheral nervous system, which subdivides into the somatic and autonomic nervous systems. Neurons come in three classes: sensory neurons conduct impulses from sensory receptors to the CNS; motor neurons conduct impulses from the CNS to target organs, muscles or glands; and association neurons, or interneurons, lie completely within the CNS and integrate the functions of the nervous system. Motor neurons split further: somatic motor neurons are responsible for reflexes and voluntary control of skeletal muscle, while autonomic motor neurons innervate involuntary targets such as smooth muscle, cardiac muscle and glands, through sympathetic and parasympathetic divisions.',
       keyFacts: [
@@ -2143,6 +2373,20 @@ const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.msk', type: 'comparison',
     title: 'Three muscle tissue types and the four properties',
     tags: ['musculoskeletal', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'part', dsePart: 'core',
+      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(d) "Coordination and response" — "Movement in humans" lists skeleton, muscles, joints, tendons and ligaments and the action of opposing muscle pairs. No histology, and no muscle tissue types.' },
+      beyond: [
+        { t: 'The four named properties: contractility, excitability, extensibility, elasticity.',
+          src: { ref: 'phys.9', location: 'Slide 5 "4 Properties of Muscle"' } },
+        { t: 'Three muscle tissue types told apart histologically — nucleus number and position, striation, intercalated discs, gap junctions in visceral smooth muscle — rather than by where they sit.',
+          src: { ref: 'phys.9', location: 'Slide 6 "Classification of 3 Muscle Tissue Types"' } },
+        { t: 'Voluntary defined as directed by thought through the nervous system, involuntary as directed by the autonomic nervous system.',
+          src: { ref: 'phys.9', location: 'Slide 7 "Classification of muscle"' } },
+        { t: 'The sarcomere between two Z discs, with M lines anchoring myosin and titin supplying the elastic recoil.',
+          src: { ref: 'phys.9', location: 'Slide 18 "Sarcomeres"' } },
+      ],
+    },
     lesson: {
       explanation: 'Muscle has four properties: contractility, the ability to shorten with force; excitability, the capacity to respond to a stimulus; extensibility, the ability to be stretched to normal resting length and beyond to a limited degree; and elasticity, the ability to recoil to the original resting length after being stretched. There are three muscle tissue types. Skeletal muscle attaches to bones, has multiple peripherally located nuclei, is striated, and is voluntary as well as involuntary in reflexes. Smooth muscle lies in the walls of hollow organs, blood vessels, the eye, glands and skin, has a single centrally located nucleus, is not striated, is involuntary and has gap junctions in visceral smooth muscle. Cardiac muscle is in the heart, has a single centrally located nucleus, is striated, is involuntary and has intercalated discs. Voluntary muscles are directed by thought via the nervous system; involuntary muscles are directed by the autonomic nervous system. Skeletal muscle makes up about 40% of body weight in males and about 32% in females.',
       keyFacts: [
@@ -2190,6 +2434,20 @@ const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.msk', type: 'definition',
     title: 'Origin, insertion, agonist and antagonist',
     tags: ['musculoskeletal'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'part', dsePart: 'core',
+      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(d) "Coordination and response" — "Action of opposing muscle pairs" and the neuromuscular junction. Origin, insertion and the motor unit are not in the syllabus.' },
+      beyond: [
+        { t: 'Origin and insertion as named attachments — insertion on the bone that moves, distal; origin on the bone that does not, closer to the body.',
+          src: { ref: 'phys.9', location: 'Slide 10 "Skeletal Muscle Action"' } },
+        { t: 'Agonist and antagonist as roles that swap with the direction of movement, not fixed labels for particular muscles.',
+          src: { ref: 'phys.9', location: 'Slide 11 "Skeletal Muscles"' } },
+        { t: 'The motor unit — one motor neuron and every fibre it innervates, all of which contract together.',
+          src: { ref: 'phys.9', location: 'Slide 42 "Motor Unit"' } },
+        { t: 'Control against strength as a stated trade-off: eye muscles run about 20 fibres per motor unit, large muscles thousands.',
+          src: { ref: 'phys.9', location: 'Slide 43 "Motor Unit"' } },
+      ],
+    },
     lesson: {
       explanation: 'When a muscle contracts it shortens, placing tension on the tendons connecting it to bone and moving the bone at a joint. The bone that moves is attached at the muscle insertion, which is distal to the body; the muscle is attached at its origin to a bone that does not move, closer to the body. Flexor muscles decrease the angle between two bones at a joint and extensor muscles increase it. The main muscle responsible for movement in a given direction is the agonist — the one that is contracting — and flexors and extensors that work together are antagonists. The greater the number of muscle fibres in each motor unit, the less precise the control will be.',
       keyFacts: [
@@ -2234,6 +2492,22 @@ const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.imm', type: 'comparison',
     title: 'Innate vs adaptive immunity and the seven innate categories',
     tags: ['immune', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'part', dsePart: 'core',
+      syllabusRef: { ref: 'edb.bio', location: 'Compulsory IV(c) "Body defence mechanisms" — non-specific defence is listed as skin, mucus, cilia, phagocytes, blood clotting and inflammatory responses. Interferons, complement and NK cells are not in the syllabus.' },
+      beyond: [
+        { t: 'The seven named categories of innate immunity, in the lecture’s own order — DSE lists six examples loosely; this is a numbered set you can be asked to reproduce.',
+          src: { ref: 'phys.10', location: 'Slide 6 "7 Major Categories of Innate Immunity"' } },
+        { t: 'Microphages (neutrophils, eosinophils) against macrophages from monocytes, which together make up the monocyte–macrophage (reticuloendothelial) system.',
+          src: { ref: 'phys.10', location: 'Slide 13 "2. Two Classes of Phagocytes"' } },
+        { t: 'Fixed macrophages (histiocytes) against free macrophages, with the named examples: microglia in the CNS, Kupffer cells in liver sinusoids, alveolar dust cells.',
+          src: { ref: 'phys.10', location: 'Slides 15–16 "Two Types of Macrophages", "Examples of Fixed and Free Macrophages"' } },
+        { t: 'How innate immunity is switched on at all: PAMPs on pathogens read by toll-like receptors, one class of pattern-recognition receptor, ten of them identified.',
+          src: { ref: 'phys.10', location: 'Slide 18 "Activation of Innate Immunity"' } },
+        { t: 'Interferons as protein cytokines released by activated lymphocytes and macrophages, triggering antiviral proteins that interfere with replication rather than killing virus.',
+          src: { ref: 'phys.10', location: 'Slide 25 "5. Interferons"' } },
+      ],
+    },
     lesson: {
       explanation: 'Innate, or nonspecific, immunity always works the same way against any type of invading agent — nonspecific resistance you are born with. Adaptive, or specific, immunity protects against specific pathogens, depends on the activities of lymphocytes, and develops after exposure to hazardous microbes in the environment. Innate immunity has seven major categories: physical barriers, phagocytes, immune surveillance, interferons, complement, the inflammatory response and fever. Physical barriers keep pathogens outside. Phagocytes attack and remove dangerous microorganisms, and come in two classes — microphages, which are neutrophils and eosinophils that leave the bloodstream to enter peripheral tissues, and macrophages, large phagocytic cells derived from monocytes. Immune surveillance is carried out by natural killer cells, which form perforin vesicles and release perforins that lyse the abnormal plasma membrane, also attacking cancer cells and virus-infected cells. Interferons are chemical messengers that trigger production of antiviral proteins in normal cells; the antiviral proteins do not kill viruses but block replication in neighbouring cells. Complement is a system of circulating proteins amplifying in a cascade and assisting antibodies in destroying pathogens. The inflammatory response is a localised tissue-level response limiting the spread of injury or infection. Fever increases metabolism, accelerates defences and inhibits some viruses and bacteria.',
       keyFacts: [
@@ -3153,6 +3427,22 @@ const EXPANSION_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.cvs', type: 'sequence',
     title: 'The cardiac conducting system',
     tags: ['cardiovascular', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'part', dsePart: 'elective-hp',
+      syllabusRef: { ref: 'edb.bio', location: 'Elective V(c) "Regulation of gas content in blood" — "Control of cardiac output: heart rate and stroke volume, Pacemaker and cardiac cycle". The elective names the pacemaker; it does not go inside it.' },
+      beyond: [
+        { t: 'The route as five named stops: SA node → AV node → AV bundle (bundle of His) → left and right bundle branches → Purkinje fibres.',
+          src: { ref: 'phys.2', location: 'Slides 43–52 "The Conducting System"' } },
+        { t: 'Inside the pacemaker: the prepotential drifting from about −60 mV to a −40 mV threshold on Na⁺ through an HCN channel, then voltage-gated Ca²⁺ channels for the upstroke.',
+          src: { ref: 'phys.2', location: 'Slides 47–48 "Pacemaker potential"' } },
+        { t: 'Why a special route exists at all — the fibrous cardiac skeleton does not conduct, so the impulse cannot simply spread from atria to ventricles.',
+          src: { ref: 'phys.2', location: 'Slide 49 "From SA node to AV node"' } },
+        { t: 'The AV node as a deliberate delay rather than a relay, which is what lets the atria finish emptying first.',
+          src: { ref: 'phys.2', location: 'Slide 50 "The Conducting System – AV Node"' } },
+        { t: 'Myocardial cells resting at −90 mV with a 200–300 ms plateau from balanced Ca²⁺ influx and K⁺ efflux.',
+          src: { ref: 'phys.2', location: 'Slide 53 "Myocardial Action Potentials"' } },
+      ],
+    },
     lesson: {
       explanation: 'The heart holds two types of cardiac muscle cell: the conducting system, which initiates and distributes the electrical impulses that stimulate contraction and so controls and coordinates the heartbeat, and the contractile cells, which produce the contractions that propel blood. The cardiac cycle begins with an action potential at the sinoatrial node, which is transmitted through the conducting system and produces action potentials in the contractile cells. The SA node sits in the posterior wall of the right atrium, contains pacemaker cells and begins atrial activation. Its prepotential, or pacemaker potential, drifts spontaneously from about −60 mV toward a −40 mV threshold — the drift is caused by Na⁺ flowing through an HCN channel that opens when the cell is hyperpolarised — and at threshold voltage-gated Ca²⁺ channels open to produce the upstroke. Because the SA node depolarises first, it sets the heart rate. The impulse spreads through the atrial myocardium via gap junctions, but needs a special route to the ventricles because the fibrous cardiac skeleton does not conduct. It reaches the AV node in the floor of the right atrium, which delays it while atrial contraction begins, then passes to the AV bundle (bundle of His) in the septum, out to the left and right bundle branches, and finally to the Purkinje fibres, which distribute it through the ventricles so ventricular contraction begins.',
       keyFacts: [
@@ -3204,6 +3494,22 @@ const EXPANSION_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.cvs', type: 'definition',
     title: 'ECG waves, the cardiac cycle and heart sounds',
     tags: ['cardiovascular', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'part', dsePart: 'elective-hp',
+      syllabusRef: { ref: 'edb.bio', location: 'Elective V(c) — "Outline the major events during the cardiac cycle" and cardiac output as heart rate × stroke volume. The ECG trace itself is not in the syllabus at all.' },
+      beyond: [
+        { t: 'The ECG as three named features — P wave atrial depolarisation, QRS ventricular depolarisation, T wave ventricular repolarisation — plus the P–R and Q–T intervals.',
+          src: { ref: 'phys.2', location: 'Slides 57–59 "Electrocardiogram (ECG or EKG)"' } },
+        { t: 'Three volumes that subtract: end-diastolic volume minus stroke volume leaves end-systolic volume.',
+          src: { ref: 'phys.2', location: 'Slides 60–62 "Cardiac Cycle"' } },
+        { t: 'The Frank–Starling law — stroke volume rises with end-diastolic volume because the stretch increases the force of contraction.',
+          src: { ref: 'phys.2', location: 'Slides 62–63 "Cardiac Cycle continued"' } },
+        { t: 'S1 from the AV valves and S2 from the semilunar valves, so the two sounds are doors closing in order.',
+          src: { ref: 'phys.2', location: 'Slide 64 "Heart Sounds"' } },
+        { t: 'A ventricular action potential of 250–300 ms — about thirty times a skeletal muscle fibre — whose long refractory period is what prevents summation and tetany in the heart.',
+          src: { ref: 'phys.2', location: 'Slide 55 "Refractory Periods"' } },
+      ],
+    },
     lesson: {
       explanation: 'An electrocardiogram is a recording of the electrical events in the heart, obtained by electrodes at specific body locations, and abnormal patterns are used to diagnose damage. It has three features: the P wave, atrial depolarisation; the QRS complex, ventricular depolarisation; and the T wave, ventricular repolarisation. The P–R interval runs from the start of atrial depolarisation to the start of the QRS complex, and the Q–T interval from ventricular depolarisation to ventricular repolarisation. The cardiac cycle itself is the repeating pattern of contraction and relaxation: systole is the contraction phase, diastole the relaxation phase, and both atria contract simultaneously with the ventricles following 0.1–0.2 seconds later. End-diastolic volume is the blood in the ventricles at the end of diastole, stroke volume is the amount ejected during systole, and end-systolic volume is what is left afterwards. The Frank–Starling law states that stroke volume increases as end-diastolic volume increases, because the increased blood volume stretches the ventricular wall and the force of contraction rises. Two loud heart sounds mark the cycle: S1 is produced by the AV valves and S2 by the semilunar valves. Cardiac muscle also has a long absolute refractory period — the ventricular action potential lasts 250–300 ms, about thirty times longer than a skeletal muscle fibre — which prevents summation and tetany.',
       keyFacts: [
@@ -3254,6 +3560,24 @@ const EXPANSION_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.resp', type: 'definition',
     title: 'Gas exchange, oxygen transport and the control of respiration',
     tags: ['respiratory', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'part', dsePart: 'elective-hp',
+      syllabusRef: { ref: 'edb.bio', location: 'Elective V(c) "Regulation of gas content in blood" — control of the rate and depth of breathing, the respiratory centre and chemoreceptors, and the effect of blood CO₂. Alveolar histology is not in the syllabus.' },
+      beyond: [
+        { t: 'Alveolar histology: simple squamous epithelium of thin type I pneumocytes where most exchange happens, type II pneumocytes (septal cells) making surfactant, alveolar macrophages as dust cells.',
+          src: { ref: 'phys.3', location: 'Slide 10 "Alveolar epithelium"' } },
+        { t: 'What surfactant is for — an oily phospholipid and protein secretion that lowers surface tension and stops the lung collapsing.',
+          src: { ref: 'phys.3', location: 'Slide 13 "Surfactant"' } },
+        { t: 'The oxygen–haemoglobin saturation curve shifted by pH (normal blood 7.35–7.45) and by temperature (normal 38 °C).',
+          src: { ref: 'phys.3', location: 'Slides 47–54 "Oxygen–hemoglobin saturation curve", "Hemoglobin and pH", "Hemoglobin and temperature"' } },
+        { t: 'Carbon dioxide carried three ways: converted to carbonic acid, bound to haemoglobin inside red cells, dissolved in plasma.',
+          src: { ref: 'phys.3', location: 'Slide 55 "Carbon dioxide gas transport"' } },
+        { t: 'The respiratory centre resolved into parts — dorsal and ventral respiratory groups in the medulla, modified by the apneustic and pneumotaxic centres of the pons.',
+          src: { ref: 'phys.3', location: 'Slides 59–64 "The respiratory centers of the brain"' } },
+        { t: 'Chemoreceptor reflexes routed by named nerves — glossopharyngeal (N IX) from the carotid bodies, vagus (N X) from the aortic bodies — with central chemoreceptors on the ventrolateral medulla reading CSF.',
+          src: { ref: 'phys.3', location: 'Slides 68–71 "Chemoreceptor reflexes"' } },
+      ],
+    },
     lesson: {
       explanation: 'Gas exchange happens across the alveolar epithelium, which is simple squamous epithelium made of thin type I pneumocytes patrolled by alveolar macrophages, or dust cells, alongside type II pneumocytes that produce surfactant. The majority of gas exchange occurs across the type I pneumocytes, and a single capillary may exchange with several alveoli at once. Gases move down partial-pressure gradients between alveolar air and the alveolar capillaries. Oxygen binds to the iron ions in haemoglobin molecules to form oxyhaemoglobin; haemoglobin saturation is the percentage of heme units carrying bound oxygen, and the oxygen–haemoglobin saturation curve relates that saturation to the partial pressure of oxygen. Respiration is controlled by respiratory centres whose ventral and dorsal respiratory groups establish the basic pace and depth, modified by the pneumotaxic centre. Reflex input comes from chemoreceptors sensitive to PCO₂, PO₂ or pH of blood or cerebrospinal fluid; baroreceptors in the aortic or carotid sinuses sensitive to blood pressure; stretch receptors responding to lung volume; and irritant, pain, temperature and visceral sensations. Peripheral chemoreceptor input arrives by the glossopharyngeal nerve from the carotid bodies and the vagus nerve from the aortic bodies, while central chemoreceptors on the ventrolateral surface of the medulla oblongata respond to the PCO₂ and pH of cerebrospinal fluid. Chemoreceptor stimulation increases the depth and rate of respiration, and is subject to adaptation — sensitivity falls under chronic stimulation.',
       keyFacts: [
@@ -3305,6 +3629,22 @@ const EXPANSION_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.imm', type: 'comparison',
     title: 'Inflammation, complement and adaptive immunity',
     tags: ['immune', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'part', dsePart: 'core',
+      syllabusRef: { ref: 'edb.bio', location: 'Compulsory IV(c) "Body defence mechanisms" — specific defence: immune response, antigen and antibody, B and T lymphocytes, primary and secondary responses, active and passive immunity. Complement and MHC are not in it.' },
+      beyond: [
+        { t: 'The complement cascade with its steps named: about 30 plasma proteins, classical or alternative activation, then the common pathway where C3b splits C5 and C5b–C9 assemble the membrane attack complex.',
+          src: { ref: 'phys.10', location: 'Slides 27, 29 "Complement System"' } },
+        { t: 'Inflammation as a named set: four Latin signs, three effects, and the products necrosis, pus and abscess.',
+          src: { ref: 'phys.10', location: 'Slides 31–33 "Inflammation"' } },
+        { t: 'Active and passive immunity each split again into naturally acquired and artificially induced — a four-cell grid, where DSE stops at the pair.',
+          src: { ref: 'phys.10', location: 'Slide 35 "Active Immunity / Passive Immunity"' } },
+        { t: 'Four major T cell types: cytotoxic, memory, helper and suppressor.',
+          src: { ref: 'phys.10', location: 'Slide 39 "4 Major Types of T Cells"' } },
+        { t: 'MHC proteins, coded on chromosome 6, as the reason T cells only ever see presented antigen — class I on all nucleated cells, class II on antigen-presenting cells.',
+          src: { ref: 'phys.10', location: 'Slides 40–41 "T Cells and Immunity", "Two Classes of MHC Proteins"' } },
+      ],
+    },
     lesson: {
       explanation: 'Inflammation is a localised response triggered by any stimulus that kills cells or injures tissue. Its four principal signs carry Latin names: swelling (tumor), redness (rubor), heat (calor) and pain (dolor). It has three effects — temporary repair and a barrier against pathogens, retarding the spread of pathogens into surrounding areas, and mobilising local and systemic defences while facilitating repair. Its products include necrosis, the destruction of injured cells; pus, the viscous mixture of debris, fluid and dead cells that accumulates at the injury site; and an abscess, an accumulation of pus in an enclosed tissue space. Complement is a system of about thirty plasma proteins that work in cascades. There are two activation pathways: the classical pathway, which requires antibody binding and C1 attachment and is the most rapid and effective, and the alternative pathway, which involves no antibody, occurs more slowly and less effectively, and is activated by exposure to foreign materials. Either pathway turns on the common pathway from C5 to C9, generating the membrane attack complex on the bacterial surface and causing cell lysis. Adaptive immunity is not present at birth: you acquire immunity to a specific antigen only after exposure to it or by receiving antibodies. It splits into active immunity, where antibodies develop after exposure to an antigen, and passive immunity, where antibodies are transferred from another source; and it is studied as cell-mediated (cellular) immunity versus antibody-mediated (humoral) immunity, involving T cells and B cells respectively.',
       keyFacts: [
@@ -3791,6 +4131,25 @@ export function validateCorpus() {
     if (!item.sourceRefs || !item.sourceRefs.length) failures.push({ itemId: item.id, qid: null, problems: ['no source reference'] });
     if (!item.lesson || !item.lesson.explanation) failures.push({ itemId: item.id, qid: null, problems: ['no teaching explanation'] });
     if (!item.practice || !item.practice.length) failures.push({ itemId: item.id, qid: null, problems: ['no practice questions'] });
+    if (item.priorKnowledge) {
+      const problems = [];
+      if (!PRIOR_KNOWLEDGE[item.priorKnowledge.level]) problems.push('unknown prior-knowledge level');
+      if (!['most', 'part'].includes(item.priorKnowledge.covers)) problems.push('prior knowledge needs covers: most | part');
+      if (!DSE_PARTS[item.priorKnowledge.dsePart || 'core']) problems.push('unknown dsePart ' + item.priorKnowledge.dsePart);
+      if (!item.priorKnowledge.syllabusRef) problems.push('prior knowledge with no syllabus reference');
+      const beyond = item.priorKnowledge.beyond || [];
+      if (!beyond.length) problems.push('prior knowledge with nothing listed beyond it');
+      /* An item that opens on Practise with no question would open on nothing. */
+      if (!item.practice || !item.practice.length) problems.push('prior-knowledge item has no practice questions to verify with');
+      for (const [i, b] of beyond.entries()) {
+        const line = typeof b === 'string' ? { t: b, src: null } : b;
+        if (!line.t) problems.push('beyond line ' + (i + 1) + ' has no text');
+        if (!line.src || !line.src.ref) problems.push('beyond line ' + (i + 1) + ' cites no source');
+        else if (!SOURCE_FILES[line.src.ref]) problems.push('beyond line ' + (i + 1) + ' cites unknown source ' + line.src.ref);
+        else if (!line.src.location) problems.push('beyond line ' + (i + 1) + ' cites no slide');
+      }
+      if (problems.length) failures.push({ itemId: item.id, qid: null, problems });
+    }
     for (const q of questionsOf(item)) {
       const problems = validateQuestion(q);
       if (problems.length) failures.push({ itemId: item.id, qid: q.qid, problems });

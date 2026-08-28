@@ -306,3 +306,68 @@ function withFile(spec) {
   if (spec.kind !== 'model') return spec;
   return { ...spec, file: LAYER_FILES[spec.layer] || null };
 }
+
+/* ------------------------------------------------------------------ *
+ * Plates
+ *
+ * A fourth kind, and the only one whose pictures were not made here.
+ *
+ * The 3D layers show you where a structure is; a schematic shows you a
+ * mechanism. Neither draws the thing an anatomy plate draws — a considered,
+ * labelled cross-section by someone who was looking at the specimen. So five
+ * of those are bundled, chosen to sit against the items whose new material is
+ * exactly what the plate shows: the nephron's vascular supply, the branching
+ * of the bronchial tree, the accessory organs behind the stomach, the cusps of
+ * the aortic valve, the heart sitting between the lungs.
+ *
+ * Every one is from Gray's Anatomy of the Human Body, 1918 edition, and every
+ * one is in the PUBLIC DOMAIN — verified through the Wikimedia Commons API
+ * before download, not assumed. They are the only files in this app fetched
+ * from the internet, they are stored locally so the app stays offline-first,
+ * and the app credits them on the picture rather than in a footnote.
+ *
+ * They illustrate; they do not source. Every factual claim on an item still
+ * traces to the supplied lecture material, and a 1918 plate never overrides a
+ * 2019 lecture slide where the two disagree.
+ * ------------------------------------------------------------------ */
+
+export const PLATES = {
+  'abct2326-renal-nephron': {
+    file: 'nephron-tubule.png',
+    title: 'Scheme of renal tubule and its vascular supply',
+    caption: 'The tubule and its blood supply drawn together — the second journey the lecture adds alongside the tubular one.',
+  },
+  'abct2326-resp-pathway': {
+    file: 'bronchi-bronchioles.png',
+    title: 'Bronchi and bronchioles',
+    caption: 'The branching order as an actual tree, lungs separated and tissue cut away.',
+  },
+  'abct2326-digestive-pathway': {
+    file: 'pancreas-duodenum.png',
+    title: 'The pancreas and duodenum from behind',
+    caption: 'Accessory organs in place: the pancreas delivering into the tube without food ever passing through it.',
+  },
+  'abct2326-cvs-heart-structure': {
+    file: 'aortic-valve-cusps.png',
+    title: 'The three cusps of the aortic valve',
+    caption: 'A semilunar valve looked at face on, with the sinuses of Valsalva and the coronary origins.',
+  },
+  'hss2011-m1-lungs-airway': {
+    file: 'heart-and-lungs.png',
+    title: 'Front view of heart and lungs',
+    caption: 'What a PA chest projection is flattening: the heart sitting between the lungs.',
+  },
+};
+
+/* One credit line, one licence, one origin — true of all five. */
+export const PLATE_CREDIT = {
+  work: 'Gray\u2019s Anatomy of the Human Body, 20th US edition, 1918',
+  licence: 'Public domain',
+  via: 'Wikimedia Commons',
+  note: 'Public-domain illustration, not from your supplied sources. It is here to be looked at; the facts on this item come from the lecture material cited above.',
+};
+
+export function plateFor(item) {
+  const p = PLATES[item && item.id];
+  return p ? { ...p, ...PLATE_CREDIT, src: 'assets/plates/' + p.file } : null;
+}
