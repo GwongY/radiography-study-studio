@@ -452,6 +452,7 @@ const HSS_TERMINOLOGY = [
     tags: ['terminology', 'foundation'],
     lesson: {
       explanation: 'There are two general approaches to studying the body. Regional anatomy studies the interrelationships of all the structures in one body region, such as the abdomen, so you can see how muscles, nerves and vessels work together there. Systemic anatomy studies the structures making up one discrete body system that shares a function, such as all the skeletal muscles. HSS2011 uses both approaches, which is why the modules mix system lectures with "regional anatomy of" lectures.',
+      plain: 'Two ways to study the body. Regional anatomy looks at one whole region — the abdomen, say — and how all the structures there work together. Systemic anatomy follows one system that shares a job — all the skeletal muscles, say — wherever it runs through the body. HSS2011 uses both, which is why the module list mixes system lectures with “regional anatomy of” lectures.',
       keyFacts: [
         'Regional anatomy = one region, all systems in it.',
         'Systemic anatomy = one system, wherever it goes in the body.',
@@ -579,6 +580,7 @@ const HSS_TERMINOLOGY = [
     tags: ['terminology'],
     lesson: {
       explanation: 'Module 0 introduces the body cavities alongside the directional references. The glossary fixes which cavity and surface-region names are examinable: the thoracic cavity with the pericardial and pleural cavities inside it, the abdominal and pelvic cavities which together form the abdominopelvic cavity, and the peritoneal cavity. Surface description uses either the four-quadrant scheme or the nine-region scheme, and the glossary lists both.',
+      plain: 'The body has internal spaces called cavities, and this course fixes exactly which names you must know. “Examinable” just means the exam can ask about them — the glossary is the list that decides. Inside the thorax sit the pericardial and pleural cavities; the abdominal and pelvic cavities together make the abdominopelvic cavity; and there is also the peritoneal cavity. On the surface, a location is described either as one of four quadrants or as one of nine regions — two different grids over the same abdomen.',
       keyFacts: [
         'Cavities named in the glossary: thoracic, pericardial, pleural, abdominal, pelvic, abdominopelvic, peritoneal, oral, medullary, scrotal.',
         'Four quadrants: right upper, left upper, right lower, left lower.',
@@ -663,6 +665,7 @@ const HSS_OSTEOLOGY = [
     tags: ['osteology', 'high-yield'],
     lesson: {
       explanation: 'Bones are classified by shape. Long bones are tubular, found in the limbs, and serve as levers for muscles; they have a shaft and two expanded ends. Short bones are cubical — the carpus and tarsus — and are cancellous bone inside a thin compact shell. Flat bones are built like sandwiches, two layers of compact bone with cancellous bone between. Irregular bones have a mixed shape and include some skull bones, the vertebrae and the hip bones. The lecture adds two special categories: pneumatic bones, where cancellous tissue has been absorbed and an air sinus is present, such as the frontal and sphenoidal sinuses; and sesamoid bones, nodules that develop inside tendons and alter the direction of pull, the patella being the example.',
+      plain: 'Bones are sorted by shape, and the shape tells you the job. Long bones are tubes that work as levers in the limbs; short bones are cubes — the carpus and tarsus; flat bones are like sandwiches of compact bone with spongy bone in the middle; irregular bones are the mixed shapes, like vertebrae and hip bones. Two extras: pneumatic bones hold an air sinus, and sesamoid bones form inside tendons — the patella is the example.',
       keyFacts: [
         'Long — tubular, in limbs, levers for muscles, shaft plus two expanded ends.',
         'Short — cubical; carpus and tarsus.',
@@ -707,6 +710,7 @@ const HSS_OSTEOLOGY = [
     tags: ['osteology', 'high-yield'],
     lesson: {
       explanation: 'A long bone runs diaphysis, metaphysis, epiphysis from the centre outward. The diaphysis is the central region; the metaphysis is the recently developed end next to the epiphyseal cartilage; the epiphysis is the bone end. Covering the outer surface of the shaft is the periosteum, whose inner layer is osteogenic — able to differentiate into osteoblasts — and which is richly supplied with capillaries and nerves. Bone itself comes in two forms: compact bone, a dense solid mass forming the outer surface layer of all bones, and cancellous or spongy bone with larger cavities, supported by trabeculae. In the shaft, compact bone surrounds cancellous bone around a medullary cavity containing bone marrow. The bone end is spongy bone under a thin layer of compact bone.',
+      plain: 'Read a long bone from the middle outward: diaphysis (the shaft), metaphysis (the growing zone next to the epiphyseal cartilage), epiphysis (the bone end). The shaft is wrapped in periosteum, whose inner layer can make bone cells and which is rich in capillaries and nerves. The wall of the shaft is dense compact bone around spongy bone and a marrow-filled medullary cavity; the ends are spongy bone under a thin compact layer.',
       keyFacts: [
         'Diaphysis = central region; metaphysis = recently developed end next to the epiphyseal cartilage; epiphysis = bone end.',
         'Periosteum covers the outer surface of the shaft; inner layer is osteogenic and richly supplied with capillaries and nerve.',
@@ -1293,6 +1297,7 @@ const HSS_JOINTS = [
     tags: ['joints', 'movements', 'high-yield'],
     lesson: {
       explanation: 'Module 0 pins each movement to the joint that produces it. Flexion and extension of the forearm take place at the elbow joint. Supination and pronation of the forearm take place at the radioulnar joints, superior and inferior, with the radius rotating against the ulna and bringing the hand with it. Abduction and adduction of the wrist — also called radial and ulnar flexion — happen at the radiocarpal joint. Flexion, extension, abduction, adduction and opposition of the thumb all happen at the carpo-metacarpal joint of the thumb, with the palm as the fixed plane of reference. Opposition is tip-to-tip contact of the thumb with any finger; its opposite is reposition. Circumduction is a combination of flexion, abduction, lateral rotation, medial rotation, adduction and extension. For the fingers, abduction and adduction are measured against the middle finger as the fixed reference.',
+      plain: 'This lesson pins every movement to the joint that makes it: forearm flexion and extension at the elbow, turning the palm up and down at the radioulnar joints, wrist side-to-side at the radiocarpal joint, and all thumb movements at its carpo-metacarpal joint. Opposition is touching the thumb tip to any finger; circumduction is a whole sequence of movements strung together; and finger abduction is measured against the middle finger.',
       keyFacts: [
         'Elbow joint → flexion and extension of the forearm.',
         'Superior and inferior radioulnar joints → supination and pronation.',
@@ -1384,6 +1389,68 @@ const HSS_JOINTS = [
   },
 ];
 
+/* ------------------------------------------------------------------ *
+ * Course modules — app-authored framing, not a source claim
+ * ------------------------------------------------------------------ */
+
+/*
+ * MODULES is course organisation, not anatomy. The official unit names come
+ * from the supplied folder structure and study manual; the one-line
+ * descriptions are app-authored framing the UI labels as such.
+ *
+ * `moduleOf(item)` maps an item to its HSS2011 module. The default is by unit:
+ * the terminology / osteology / joint lessons are the Module 0 "Human Body and
+ * Movement" foundation, hss.m1..m4 are Modules 1..4, and physiology and
+ * radiography units have no HSS2011 module. The override map exists because
+ * some osteo/joints lessons were authored purely from Module 1 or Module 4
+ * files — a blanket unit→module map would mislabel them as Module 0.
+ */
+export const MODULES = {
+  0: { name: 'Human Body and Movement', plain: 'The self-study foundation — anatomical position and terms, the body’s cavities and regions, and the bones, joints and movement the rest of the course builds on.' },
+  1: { name: 'Thorax', plain: 'The chest — the heart, lungs, pleura and the great vessels inside the rib cage.' },
+  2: { name: 'Neuroanatomy', plain: 'The brain, spinal cord and the nerves that carry signals.' },
+  3: { name: 'Abdomen and Pelvis', plain: 'The gut, the urinary system and the organs of the lower trunk.' },
+  4: { name: 'Musculoskeletal System', plain: 'Muscles, bones and joints, and how they produce movement.' },
+};
+
+/* Items whose sources name a module other than their unit’s default. */
+const MODULE_OVERRIDES = {
+  'hss2011-osteo-bone-shapes': 4,           /* hss.4.1 slides only */
+  'hss2011-osteo-long-bone-structure': 4,   /* hss.4.1 slides only */
+  'hss2011-osteo-bone-functions': 4,        /* hss.4.1 slides only */
+  'hss2011-osteo-skull-sutures': 4,         /* hss.4.2 / hss.4.1 */
+  'hss2011-osteo-pelvic-girdle': 4,         /* hss.4.3 slides only */
+  'hss2011-osteo-leg-tarsals': 4,           /* hss.4.3 slides only */
+  'hss2011-osteo-ribs-sternum': 1,          /* hss.1.3 thorax only */
+  'hss2011-bone-cranium': 4,                /* hss.4.2 only */
+  'hss2011-bone-mandible': 4,               /* hss.4.2 only */
+  'hss2011-bone-pelvis': 4,                 /* hss.4.3 only */
+  'hss2011-joints-rotator-cuff': 4,         /* hss.4.3 only */
+  'hss2011-pastpaper-joints-articulations': 4, /* hss.4.x past-paper */
+  'hss2011-structures-rotatorCuff': 4,      /* hss.4.3 only */
+  'hss2011-structures-skullBones': 4,       /* hss.4.2 only */
+  'hss2011-structures-tarsals': 4,          /* hss.4.3 only */
+};
+
+const MODULE_BY_UNIT = {
+  'hss.term': 0, 'hss.osteo': 0, 'hss.joints': 0,
+  'hss.m1': 1, 'hss.m2': 2, 'hss.m3': 3, 'hss.m4': 4,
+};
+
+export function moduleOf(item) {
+  if (!item) return null;
+  if (MODULE_OVERRIDES[item.id]) return MODULE_OVERRIDES[item.id];
+  const m = MODULE_BY_UNIT[item.unit];
+  return m === undefined ? null : m;
+}
+
+export function moduleInfo(item) {
+  const n = moduleOf(item);
+  if (n === null || n === undefined) return null;
+  const M = MODULES[n];
+  return M ? { n, name: M.name, plain: M.plain } : null;
+}
+
 const HSS_MODULES = [
   {
     id: 'hss2011-m1-heart-wall-valves',
@@ -1392,6 +1459,7 @@ const HSS_MODULES = [
     tags: ['thorax', 'high-yield'],
     lesson: {
       explanation: 'The heart wall has three layers: epicardium, myocardium and endocardium. The pericardium is a separate sac around the heart and is not part of the heart wall itself — that distinction is the point of the revision question. Cardiac muscle cells are interconnected by intercalated discs. The AV valves separate the atria from the ventricles; the right AV valve is the tricuspid, with three cusps, and it closes when the right ventricle contracts to prevent backflow into the right atrium. The anterior interventricular sulcus marks the boundary between the left and right ventricles on the front of the heart, and the interventricular septum is the muscular partition between them inside.',
+      plain: 'The heart wall has three layers — epicardium, myocardium, endocardium — and the pericardium is a separate sac around the heart, not part of the wall itself. That separation is exactly the point of the revision question. The AV valves sit between the atria and the ventricles; the right one (tricuspid) has three flaps and closes when the right ventricle contracts so blood cannot flow backwards into the right atrium.',
       keyFacts: [
         'Heart wall layers: epicardium, myocardium, endocardium. The pericardium is not one of them.',
         'Cardiac muscle cells are interconnected by intercalated discs.',
@@ -1550,6 +1618,7 @@ const HSS_MODULES = [
     tags: ['neuroanatomy'],
     lesson: {
       explanation: 'Blood and cerebrospinal fluid drain from the brain into the dural sinuses. The thalamus forms the walls of the diencephalon around the third ventricle. In the peripheral nervous system it is the Schwann cells that provide the myelin sheath, whereas oligodendrocytes do that job in the CNS. The parietal lobe is primarily sensory. Wernicke’s area is not a limbic structure — hippocampus, cingulate gyrus and amygdala are. The interventricular foramen connects the lateral ventricle to the third ventricle, the corpus callosum is the principal commissural tract linking the hemispheres, the trigeminal nerve controls the muscles of mastication, the vagus is the longest cranial nerve, and the reticular formation is the loosely organised web of grey matter running vertically through all levels of the brainstem.',
+      plain: 'A grab-bag of separate brain facts, each likely to be tested on its own, so treat this as a checklist rather than one story: CSF and blood drain into the dural sinuses; the thalamus walls the diencephalon around the third ventricle; Schwann cells myelinate nerves in the PNS but oligodendrocytes do it in the CNS; the parietal lobe is sensory; Wernicke’s area is not limbic (hippocampus, cingulate gyrus and amygdala are); the trigeminal nerve drives the chewing muscles; and the vagus is the longest cranial nerve.',
       keyFacts: [
         'Blood and CSF drain from the brain into the dural sinuses.',
         'The thalamus forms the walls of the diencephalon around the third ventricle.',
@@ -1661,6 +1730,7 @@ const HSS_MODULES = [
     tags: ['abdomen', 'pelvis'],
     lesson: {
       explanation: 'The arcuate arteries arch along the boundary between the cortex and medulla of the kidney. The cervical canal is the passageway between the internal os and the external os. The detrusor is the powerful muscle in the muscularis layer of the bladder wall, and a calyx is the cup-shaped drain receiving urine discharged from a renal papilla. Regionally, the pylorus of the stomach lies at the level of L1, the oesophagus pierces the diaphragm at the level of T10, the fundus is the most superior part of the stomach, the ureters penetrate the posterior wall of the bladder, and the posterior abdominal wall is mainly formed by psoas, quadratus lumborum and erector spinae. The uterine artery, unlike the suprarenal, testicular and ovarian arteries, does not originate from the aorta. The female pelvis is not more massive than the male pelvis — it is lighter, with an obtuse subpubic arch and an oval shape.',
+      plain: 'Another list of standalone facts to learn one at a time: the arcuate arteries run along the kidney’s cortex–medulla border; the detrusor is the bladder wall’s strong muscle; a calyx drains urine from a renal papilla; the pylorus sits at L1 and the oesophagus pierces the diaphragm at T10; the uterine artery does not come off the aorta like the suprarenal, testicular and ovarian arteries do; and the female pelvis is actually lighter than the male pelvis, not more massive.',
       keyFacts: [
         'Arcuate arteries arch at the corticomedullary boundary of the kidney.',
         'Cervical canal runs between the internal os and external os.',
@@ -2039,6 +2109,7 @@ const PHYS_ITEMS = [
     },
     lesson: {
       explanation: 'The nephron is the functional unit of the kidney, responsible for forming urine, with more than one million per kidney. The tubular part begins with the glomerular capsule, transitions into the proximal convoluted tubule, then the descending and ascending limbs of the loop of Henle, then the distal convoluted tubule, and ends where it empties into a collecting duct. The glomerular capsule surrounds the glomerulus and together they form the renal corpuscle, where glomerular filtration occurs. Beyond the nephron, urine flows from the kidneys into the ureters, which empty into the bladder, and the urethra drains urine from the bladder. Inside the kidney, the cortex contains many capillaries and the outer parts of nephrons, the medulla consists of renal pyramids separated by renal columns, and a pyramid contains minor calyces which unite to form a major calyx.',
+      plain: 'The nephron is the kidney’s work unit — more than a million per kidney — and it makes urine. Follow the fluid through it: glomerular capsule, proximal tubule, down and up the loop of Henle, distal tubule, then out into a collecting duct. The capsule plus the glomerulus is the renal corpuscle, where filtration happens. Beyond the nephron, urine travels ureters → bladder → urethra.',
       keyFacts: [
         'Nephron = functional unit of the kidney; >1 million per kidney.',
         'Tubule order: glomerular capsule → proximal convoluted tubule → descending limb → ascending limb → distal convoluted tubule → collecting duct.',
@@ -2705,6 +2776,7 @@ const HTI_ITEMS = [
     tags: ['radioprotection', 'high-yield'],
     lesson: {
       explanation: 'The Week 6 lecture gives four radioprotective measures. Time: potential exposure to radiation should be as short as possible, because of the dose-rate issue. Distance: personnel should keep as far as possible from radiation sources, following the inverse square law. Shielding: without obstructing the work, personnel should be protected by shielding as comprehensively as possible. Decay: if the radioactive material cannot be removed, a certain time period should be given until its natural decay, and the relevant concept is half-life — physical, biological and effective. The governing principle is ALARA, as low as reasonably achievable. Dose limits from ICRP Publication 103 are, for radiology workers, 20 mSv per year averaged over five consecutive years with 50 mSv in any single year, and 1 mSv if pregnancy is declared; for the public the limit is 1 mSv in a year. Exposure is monitored with a thermoluminescent dosimeter, whose detection range is 0.05 mSv to 10 Sv but which is not feasible for accidental exposure. Radiation-induced damage is divided into stochastic and deterministic effects.',
+      plain: 'Four ways to cut radiation exposure: spend less time near the source, stay further away, shield it, and if the material cannot be moved, wait for it to decay. The rule these all serve is ALARA — as low as reasonably achievable. The lecture also fixes the exam numbers: the dose limits for workers and the public, and the dosimeter used to measure exposure.',
       keyFacts: [
         'Four measures: time, distance, shielding, decay.',
         'Distance works through the inverse square law.',
@@ -2754,6 +2826,7 @@ const HTI_ITEMS = [
     tags: ['radiation therapy'],
     lesson: {
       explanation: 'In Hong Kong the job title is radiation therapist, previously therapeutic radiographer; in the USA the equivalent roles are radiologic technologists, whose duties differ from those in Hong Kong, and dosimetrists, who specialise in treatment planning and dose calculation. Radiation therapy and oncology services are provided by six public hospitals — Queen Mary, Pamela Youde Nethersole Eastern, Queen Elizabeth, Princess Margaret, Prince of Wales and Tuen Mun — and six private hospitals, giving twelve RT centres in Hong Kong with around 420 registered radiation therapists. The patient pathway runs: diagnosis confirmed by doctors from various specialities, referral to clinical oncology, oncologists meeting the patient and relatives to decide an initial treatment plan, then referral for radiation therapy if that is part of the regimen. The RT planning session then proceeds step by step: determine the treatment position with personalised immobilisation devices to minimise movement, considering patient comfort, treatment accuracy, planning feasibility and reproducibility; then simulation, acquiring medical images for treatment planning and simulating the real treatment setup; then RT treatment planning.',
+      plain: 'This is about the job and the treatment pathway, not the physics. In Hong Kong the title is radiation therapist; the USA uses different titles and different duties. Radiotherapy runs in twelve HK centres — six public, six private — with about 420 registered therapists. The pathway: diagnosis, referral to clinical oncology, an initial treatment plan agreed with the patient, then, if radiation is part of the plan, a step-by-step planning session — position, simulation, then planning.',
       keyFacts: [
         'Hong Kong title: radiation therapist (previously therapeutic radiographer).',
         'USA: radiologic technologists (different role) and dosimetrists (planning and dose calculation).',
@@ -3258,6 +3331,7 @@ const EXPANSION_ITEMS = [
     tags: ['terminology', 'foundation', 'high-yield'],
     lesson: {
       explanation: 'Anatomical terms are built from roots, prefixes and suffixes. The root usually names an organ, tissue or condition; the prefix or suffix describes it. Once you can take a term apart, you can read one you have never met. The subject supplies a word-part list prepared by the Module 0 lecturer: prefixes of position such as epi- (above, upon), hypo- (below; also deficient), inter- (between), peri- and circum- (around), pre- (before, in front of), post- (behind, after), retro- (backward), ab- (away from), para- (near, beside; also abnormal); roots of place such as cardi/o (heart), oste/o (bone), arthr/o (joint), my/o (muscle), neur/o (nerve), nephr/o and ren/o (kidney), pulmon/o (lung), crani/o (skull), cost/o (rib), later/o (side), medi/o (middle), anter/o (front), poster/o and dors/o (back), ventr/o (belly side), proxim/o (near), infer/o (downward); and suffixes of process such as -graphy (process of recording), -graph (instrument to record), -scopy (process of viewing), -tomy (incision, cutting), -stomy (new opening), -itis (inflammation), -algia and -dynia (pain), -megaly (enlargement), -osis (abnormal condition), -emia (blood condition), -pathy (disease process).',
+      plain: 'Anatomical words are built from roots, prefixes and suffixes, like building blocks. The root names the thing — heart (cardi/o), bone (oste/o), joint (arthr/o) — and a prefix or suffix changes the meaning, e.g. peri- means around and -itis means inflammation. Learn the parts and you can read a term you have never met. The course gives you a word-part list organised as prefixes of position, roots of place and suffixes of process.',
       keyFacts: [
         'Root = organ, tissue or condition. Prefix/suffix = describes the root.',
         'epi- above/upon · hypo- below or deficient · inter- between · circum- around · pre- before · post- after · retro- backward · ab- away from.',
@@ -3374,6 +3448,7 @@ const EXPANSION_ITEMS = [
     tags: ['joints', 'high-yield'],
     lesson: {
       explanation: 'Synovial joints are the most common in the body and come in six types, classified by the shape of the articulating surfaces and by how many axes of movement they allow. Hinge joints move in one plane only — the elbow, where the humeral trochlea sits in the trochlear notch of the ulna, and the interphalangeal joints. Pivot joints allow rotation about a single axis — the median atlanto-axial joint, where the atlas turns on the dens of the axis, and the proximal radioulnar joint that carries supination and pronation. Condylar joints allow movement in two planes — the radiocarpal (wrist) joint and the metacarpophalangeal joints. Saddle joints also allow two planes plus opposition — the carpo-metacarpal joint of the thumb. Plane joints allow gliding — the apophyseal (facet) joints of the vertebral column and the acromioclavicular joint. Ball-and-socket joints allow movement in all three planes — the glenohumeral joint, where the humeral head sits in the shallow glenoid fossa, and the hip joint, where the femoral head sits in the deep acetabulum.',
+      plain: 'Most movable joints are synovial joints, and they come in six types classified by the shape of the meeting surfaces and how many axes (directions) of movement they allow: hinge moves in one plane, pivot rotates about one axis, condylar moves in two planes, saddle also moves in two planes plus opposition, plane glides, and ball-and-socket moves in all three. Each type comes with examples — the memorisation target.',
       keyFacts: [
         'Hinge — one plane. Elbow; interphalangeal joints.',
         'Pivot — rotation about one axis. Median atlanto-axial joint; proximal radioulnar joint.',
@@ -3512,6 +3587,7 @@ const EXPANSION_ITEMS = [
     },
     lesson: {
       explanation: 'An electrocardiogram is a recording of the electrical events in the heart, obtained by electrodes at specific body locations, and abnormal patterns are used to diagnose damage. It has three features: the P wave, atrial depolarisation; the QRS complex, ventricular depolarisation; and the T wave, ventricular repolarisation. The P–R interval runs from the start of atrial depolarisation to the start of the QRS complex, and the Q–T interval from ventricular depolarisation to ventricular repolarisation. The cardiac cycle itself is the repeating pattern of contraction and relaxation: systole is the contraction phase, diastole the relaxation phase, and both atria contract simultaneously with the ventricles following 0.1–0.2 seconds later. End-diastolic volume is the blood in the ventricles at the end of diastole, stroke volume is the amount ejected during systole, and end-systolic volume is what is left afterwards. The Frank–Starling law states that stroke volume increases as end-diastolic volume increases, because the increased blood volume stretches the ventricular wall and the force of contraction rises. Two loud heart sounds mark the cycle: S1 is produced by the AV valves and S2 by the semilunar valves. Cardiac muscle also has a long absolute refractory period — the ventricular action potential lasts 250–300 ms, about thirty times longer than a skeletal muscle fibre — which prevents summation and tetany.',
+      plain: 'An ECG is a trace of the heart’s electrical activity, read as three waves: P (the atria squeezing), QRS (the ventricles squeezing) and T (the ventricles relaxing). The cardiac cycle is the repeating squeeze-and-relax pattern — systole squeezes, diastole relaxes. The Frank–Starling law says more blood in the ventricle before a beat makes the next squeeze stronger. Two heart sounds mark the cycle: S1 from the AV valves and S2 from the semilunar valves.',
       keyFacts: [
         'P wave — atria depolarise. QRS complex — ventricles depolarise. T wave — ventricles repolarise.',
         'P–R interval: start of atrial depolarisation to start of QRS. Q–T interval: ventricular depolarisation to repolarisation.',
@@ -3580,6 +3656,7 @@ const EXPANSION_ITEMS = [
     },
     lesson: {
       explanation: 'Gas exchange happens across the alveolar epithelium, which is simple squamous epithelium made of thin type I pneumocytes patrolled by alveolar macrophages, or dust cells, alongside type II pneumocytes that produce surfactant. The majority of gas exchange occurs across the type I pneumocytes, and a single capillary may exchange with several alveoli at once. Gases move down partial-pressure gradients between alveolar air and the alveolar capillaries. Oxygen binds to the iron ions in haemoglobin molecules to form oxyhaemoglobin; haemoglobin saturation is the percentage of heme units carrying bound oxygen, and the oxygen–haemoglobin saturation curve relates that saturation to the partial pressure of oxygen. Respiration is controlled by respiratory centres whose ventral and dorsal respiratory groups establish the basic pace and depth, modified by the pneumotaxic centre. Reflex input comes from chemoreceptors sensitive to PCO₂, PO₂ or pH of blood or cerebrospinal fluid; baroreceptors in the aortic or carotid sinuses sensitive to blood pressure; stretch receptors responding to lung volume; and irritant, pain, temperature and visceral sensations. Peripheral chemoreceptor input arrives by the glossopharyngeal nerve from the carotid bodies and the vagus nerve from the aortic bodies, while central chemoreceptors on the ventrolateral surface of the medulla oblongata respond to the PCO₂ and pH of cerebrospinal fluid. Chemoreceptor stimulation increases the depth and rate of respiration, and is subject to adaptation — sensitivity falls under chronic stimulation.',
+      plain: 'Gas exchange happens across the very thin walls of the alveoli (the air sacs), where oxygen binds to iron in haemoglobin to make oxyhaemoglobin; how much oxygen is carried depends on its partial pressure — that relationship is the saturation curve. Breathing itself is set by respiratory centres in the brain and tuned by reflex inputs: chemoreceptors that sense carbon dioxide, oxygen or pH, baroreceptors that sense blood pressure, stretch receptors that sense lung volume, and others.',
       keyFacts: [
         'Type I pneumocytes — thin, where the majority of gas exchange occurs. Type II pneumocytes — produce surfactant. Alveolar macrophages — dust cells.',
         'Oxygen binds the iron ions of haemoglobin to form oxyhaemoglobin.',
@@ -3647,6 +3724,7 @@ const EXPANSION_ITEMS = [
     },
     lesson: {
       explanation: 'Inflammation is a localised response triggered by any stimulus that kills cells or injures tissue. Its four principal signs carry Latin names: swelling (tumor), redness (rubor), heat (calor) and pain (dolor). It has three effects — temporary repair and a barrier against pathogens, retarding the spread of pathogens into surrounding areas, and mobilising local and systemic defences while facilitating repair. Its products include necrosis, the destruction of injured cells; pus, the viscous mixture of debris, fluid and dead cells that accumulates at the injury site; and an abscess, an accumulation of pus in an enclosed tissue space. Complement is a system of about thirty plasma proteins that work in cascades. There are two activation pathways: the classical pathway, which requires antibody binding and C1 attachment and is the most rapid and effective, and the alternative pathway, which involves no antibody, occurs more slowly and less effectively, and is activated by exposure to foreign materials. Either pathway turns on the common pathway from C5 to C9, generating the membrane attack complex on the bacterial surface and causing cell lysis. Adaptive immunity is not present at birth: you acquire immunity to a specific antigen only after exposure to it or by receiving antibodies. It splits into active immunity, where antibodies develop after exposure to an antigen, and passive immunity, where antibodies are transferred from another source; and it is studied as cell-mediated (cellular) immunity versus antibody-mediated (humoral) immunity, involving T cells and B cells respectively.',
+      plain: 'Inflammation is the body’s local reaction to injury, with four classic signs — swelling, redness, heat, pain (tumor, rubor, calor, dolor in the exam wording). Complement is a team of about thirty plasma proteins that work in cascades; the classical pathway needs antibodies and is fast, the alternative pathway does not and is slower. Adaptive immunity is learned after birth: active when your own body makes antibodies after exposure, passive when you receive them from outside.',
       keyFacts: [
         'Four signs of inflammation: swelling (tumor), redness (rubor), heat (calor), pain (dolor).',
         'Three effects: temporary repair and barrier, retarding spread, mobilising defences and facilitating repair.',

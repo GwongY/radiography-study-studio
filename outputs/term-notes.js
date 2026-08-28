@@ -124,6 +124,19 @@ export const TERM_NOTES = {
   symphysis: { say: 'SIM-fih-siss', plain: 'A joint where two bones are held by cartilage and barely move, like the pubic symphysis.', from: 'sym-, together + physis, growth' },
   styloid: { say: 'STY-loyd', plain: 'Shaped like a pen or spike.', from: 'styl/o, pen + -oid, resembling' },
   interosseous: { say: 'in-ter-OSS-ee-uss', plain: 'Between two bones — like the sheet of tissue joining radius and ulna.', from: 'inter-, between + osse/o, bone' },
+
+  /* ---------------- Terminology: cavities and regions ---------------- */
+  cavity: { say: 'KAV-ih-tee', plain: 'A hollow space inside the body that holds organs.' },
+  thoracic: { say: 'thor-ASS-ik', plain: 'To do with the thorax, the chest — the part of the trunk inside the rib cage.', from: 'thorac/o, chest' },
+  pericardial: { say: 'pair-ih-KAR-dee-al', plain: 'To do with the pericardium — the bag around the heart.', from: 'peri-, around + cardi/o, heart' },
+  pleural: { say: 'PLOOR-al', plain: 'To do with the pleura — the wet two-layer wrap around each lung.', from: 'pleur/o, the pleura' },
+  abdominal: { say: 'ab-DOM-in-al', plain: 'To do with the abdomen, the part of the trunk below the diaphragm.', from: 'abdomin/o, abdomen' },
+  pelvic: { say: 'PEL-vik', plain: 'To do with the pelvis — the basin of bone at the base of the trunk.', from: 'pelv/i, pelvis' },
+  peritoneal: { say: 'pair-ih-toh-NEE-al', plain: 'To do with the peritoneum — the slippery lining of the abdominal cavity.', from: 'peritone/o, peritoneum' },
+  oral: { say: 'OR-al', plain: 'To do with the mouth.' },
+  scrotal: { say: 'SKROH-tal', plain: 'To do with the scrotum, the pouch that holds the testes.', from: 'scrot/o, scrotum' },
+  lumbar: { say: 'LUM-bar', plain: 'To do with the loins — the lower back on each side.', from: 'lumb/o, lower back' },
+  inguinal: { say: 'ING-gwin-al', plain: 'To do with the groin.', from: 'inguin/o, groin' },
 };
 
 /* Every note is keyed lower case; plurals and adjectives fall back to the stem. */
