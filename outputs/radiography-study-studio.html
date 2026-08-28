@@ -3617,8 +3617,9 @@ function pickItems(opts) {
       return shuffle(STUDY_ITEMS.filter((i) => ['HSS2011', 'ABCT2326', 'HTI17103'].includes(i.subject))).slice(0, 14);
     case 'subject':
     default: {
-      const queue = [...due.sort(byWeak), ...shuffle(unseen)].slice(0, 12);
-      return queue.length ? queue : shuffle(pool).slice(0, 12);
+      /* Study this topic walks the whole topic in the weakest-first order the
+         list already shows -- no shuffle, no 12-item cap. */
+      return pool.slice().sort(byWeak);
     }
   }
 }
