@@ -85,9 +85,9 @@ shared folders, source conflicts and how each was handled, plus live validator o
 
 ## Item model
 
-Each item carries a teaching explanation, key facts, one or more memory aids, practice questions, an
-explanation of the correct answer, common mistakes or confusions, source references and a mastery
-record. Supported item types: definition, multiple choice, typed recall, cloze, sequence ordering,
+Each item carries a teaching explanation, key facts, one or more memory aids, per-item skills (see
+*Memory Coach* below), practice questions, an explanation of the correct answer, common mistakes or
+confusions, source references and a mastery record. Supported item types: definition, multiple choice, typed recall, cloze, sequence ordering,
 matching, diagram labelling, 3D identification, structure set, joint movement, laterality, landmark
 identification, comparison, short explanation and scenario application.
 
@@ -253,10 +253,33 @@ Every item has memory aids drawn from: mnemonic, first-letter mnemonic, chunking
 association, contrast with a confusable, sequence grouping, teach-back and location-based
 association. Hints are revealed progressively rather than all at once:
 
-1. Small clue
-2. Memory hook
-3. Partial answer
-4. Full explanation
+1. **Small clue** — the gentlest aid the item has: a chunking, a word origin, a location, a contrast.
+2. **Memory hook** — the strongest organising idea: the lesson's hook or a mnemonic.
+3. **Before you move on** — this item's own authored confusions ("Watch out: …"), the specific
+   trap most people fall into on this fact, not general study advice.
+
+Each stage shows an aid the earlier stages have not already shown, so the ladder never repeats
+itself. After the final stage, any aids the ladder did not use appear under *More hooks for this
+item*. Memory aids are app-authored study devices; the facts they point at are the source-traced
+ones on the Learn card.
+
+The Review step is specific in the same way: when something was missed it recaps **the exact
+questions you answered wrong, with their explanations** (including the Apply scenario), rather
+than generic guidance. A clean pass instead shows the item's authored *common confusions*.
+
+Two more content-anchored fields sit alongside the ladder, authored for every item:
+
+- **Skills to build with this content** (Learn card, after the teaching) — one or two concrete
+  things to be able to *do* with this item's own facts: run a decision test, recite the set in
+  group order, draw the structure and check it against the list. Each is derived from that item's
+  key facts, memory aids and practice material, so a skills line is specific to the knowledge it
+  teaches — never a generic "say it aloud" study tip.
+- **Prove it to yourself** (Memory Coach and Review steps) — the item's blank-page standard: a
+  single sentence saying exactly what you should be able to reproduce from nothing ("From a blank
+  page: …"). On Review it is the check to pass before the item's next scheduled return.
+
+Both are app-authored study scaffolding and tagged *App note* wherever they appear; the facts they
+point at are the source-traced ones on the same card.
 
 ## Reading help — chunks, and the long words
 
@@ -364,16 +387,17 @@ answer replaces the assumption with evidence.
 ## Mastery and scheduling
 
 Mastery is tracked separately for recognition, typed recall, spelling, location, sequence,
-explanation, application, comparison, delayed recall and confidence. Delayed recall scores only the
+explanation, application, comparison and delayed recall. Delayed recall scores only the
 first attempt after a gap of 20 hours or more — answering correctly three times inside one sitting
 says nothing about whether it survived a night's sleep. Scheduling is SM-2 shaped and then modified by:
 
-- **Confidence** — a confidently wrong answer costs more ease than a hesitant one, because a
-  well-learned mistake is harder to unlearn. Confidence is also scored as its own dimension: was your
-  certainty justified?
 - **Response time** — a slow correct answer earns a shorter interval than a fast one.
 - **Repeat mistakes** — items with 2 lapses cap at 9 days, items with 3+ cap at 4 days regardless of
   how well the current rep went.
+
+There is no confidence picker: a wrong answer is a miss worth fixing, full stop. The only
+self-reported signals left are the self-grades (Yes / Partly / No) on the Explain/Scenario
+questions and the Apply scenario, where Partly is scored as reached-but-shaky.
 
 ## Study modes
 
@@ -445,16 +469,16 @@ Nothing can be due on a fresh install, so the mode advertised as a ten-minute se
 time. It now takes due work first and fills the remaining room from unseen, then from the weakest,
 to reach six. Verified at 6 on a clean install.
 
-## Memory Coach
+## Memory Coach — why stage 4 is gone
 
-Two things were wrong with the hint ladder.
+The old ladder ended with **Stage 4 — the full explanation**, which repeated the Learn card's
+teaching verbatim (up to 1,181 characters on the word-parts item), so the Remember step asked you to
+read the same paragraph twice. Stage 3 was the first sentence of that same explanation, so the ladder
+repeated itself twice before it was done. The ladder now ends at three stages and its last stage
+surfaces this item's own authored confusions ("Watch out: …") rather than a re-read or generic
+advice, and every stage is deduped against the ones before it — no aid is shown twice.
 
-**Stage 4 put the wall of text back.** It rendered `lesson.explanation` through `esc()` as a single
-blob — 1,181 characters on the word-parts item — inside an app that had just been taught to chunk
-prose everywhere else. It goes through `proseHTML()` now, so the same chunking, term grids and
-tappable words apply. 57 of the 94 items had a stage 4 over 400 characters.
-
-**The nine structure-set items had no hints at all**, so stages 1 and 2 fell back on filler —
+**The nine structure-set items had no hints at all**, so the early stages fell back on filler —
 *"Attach the fact to something you already know well"* is not a hint, it is a sentence shaped like
 one. Those items do carry something better: every member has a note off the lecture, and the members
 are grouped. `setHint()` uses them:
