@@ -41,7 +41,7 @@ const html = readFileSync(join(OUT, 'radiography-study-studio.html'), 'utf8');
 const blocks = [...html.matchAll(/<script type="module">([\s\S]*?)<\/script>/g)].map((m) => m[1]);
 console.log(`inline module scripts: ${blocks.length}`);
 for (const [i, s] of blocks.entries()) await parseCheck(`inline-module[${i}]`, s);
-for (const f of ['study-data.js', 'anatomy-data.js', 'visual-data.js', 'physiology.js', 'schematics.js', 'figures.js', 'layouts.js', 'wordparts.js', 'term-notes.js', 'term-gloss.js']) {
+for (const f of ['study-data.js', 'anatomy-data.js', 'visual-data.js', 'physiology.js', 'schematics.js', 'figures.js', 'layouts.js', 'wordparts.js', 'term-notes.js', 'term-gloss.js', 'bodymap.js']) {
   try { await parseCheck(`outputs/${f}`, readFileSync(join(OUT, f), 'utf8')); }
   catch { console.log(`SKIP  parse outputs/${f} (not found)`); }
 }

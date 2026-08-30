@@ -507,7 +507,10 @@
 .pickstack .ph{display:flex;align-items:center;gap:6px;padding:7px 10px;font:10px ui-monospace,Menlo,monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--orange)}
 .pickstack .ph .x{margin-left:auto;cursor:pointer;background:none;border:0;color:var(--dim);font-size:14px;line-height:1;padding:0 2px}
 .pickstack ol{list-style:none;margin:0;padding:0 0 4px;max-height:196px;overflow:auto}
+.pickstack ol li{display:flex;align-items:center}
+.pickstack li button[data-pick]{display:flex;width:100%;align-items:baseline;gap:7px;padding:6px 10px;background:none;border:0;text-align:left;cursor:pointer;color:#c8d0d1;font-size:12px;line-height:1.35}
 .pickstack li button{display:flex;width:100%;align-items:baseline;gap:7px;padding:6px 10px;background:none;border:0;text-align:left;cursor:pointer;color:#c8d0d1;font-size:12px;line-height:1.35}
+.pickstack li .peel[data-hide]{flex:none;width:auto;padding:6px 10px}
 @media(hover:hover){.pickstack li button:hover{background:rgba(255,255,255,.06);color:var(--text)}}
 .pickstack li button .d{flex:none;width:14px;font:10px ui-monospace,Menlo,monospace;color:var(--dim)}
 .pickstack li button .ly{margin-left:auto;flex:none;font:9.5px ui-monospace,Menlo,monospace;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
@@ -533,6 +536,35 @@
   .ctrlpill{bottom:10px;gap:4px;padding:5px;max-width:calc(100% - 16px)}
   .ctrlpill .icon-btn{min-width:44px;padding:0 8px;font-size:11px}
 }
+
+/* ---------- Hide tray + search-uncover banner + spatial overlays ---------- */
+.hiddentray{position:absolute;left:14px;bottom:14px;z-index:5;max-width:min(280px,calc(100% - 28px));display:flex;flex-direction:column;gap:5px}
+.hiddentray.empty{display:none}
+.hiddentray .htoggle{display:flex;align-items:center;gap:7px;min-height:32px;padding:5px 11px;border:1px solid rgba(255,186,103,.5);border-radius:10px;background:rgba(8,16,22,.86);backdrop-filter:blur(12px);color:var(--orange);font-size:12px;font-weight:700;cursor:pointer}
+.hiddentray .hlist{display:none;flex-direction:column;gap:3px;padding:8px;border:1px solid var(--line);border-radius:10px;background:rgba(8,16,22,.92);backdrop-filter:blur(12px);max-height:34vh;overflow:auto}
+.hiddentray.open .hlist{display:flex}
+.hiddentray .hrow{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted);line-height:1.35}
+.hiddentray .hrow .hn{flex:1;min-width:0}
+.hiddentray .hrow .hy{font:9px ui-monospace,Menlo,monospace;color:var(--orange);opacity:.85}
+.hiddentray .hrow .hl{font:9px ui-monospace,Menlo,monospace;opacity:.5}
+.hiddentray .hrow button{flex:none;border:0;background:rgba(114,227,207,.14);color:var(--teal);border-radius:7px;padding:3px 8px;font-size:11px;cursor:pointer}
+.hiddentray .hall{border:0;background:none;color:var(--teal);font-size:11px;padding:4px 0 0;cursor:pointer;text-decoration:underline dotted;text-align:left}
+.uncoverbanner{position:absolute;left:50%;top:12px;transform:translateX(-50%);z-index:6;max-width:calc(100% - 28px);display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid rgba(255,186,103,.55);border-radius:12px;background:rgba(10,18,24,.94);backdrop-filter:blur(14px);font-size:12px;color:#d7dfe0;line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.uncoverbanner.hidden{display:none}
+.overlaycaption{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:5;max-width:calc(100% - 120px);display:flex;flex-direction:column;gap:3px;padding:7px 13px;border:1px solid rgba(114,227,207,.4);border-radius:11px;background:rgba(10,18,24,.92);backdrop-filter:blur(12px);font-size:11.5px;color:#c8d0d1;line-height:1.4;text-align:center}
+.overlaycaption.hidden{display:none}
+.overlaycaption b{color:var(--teal)}
+@media(max-width:700px){.overlaycaption{bottom:auto;top:8px;max-width:calc(100% - 24px);font-size:10.5px;padding:5px 9px}}
+.uncoverbanner b{color:var(--orange)}
+.uncoverbanner button{flex:none;border:0;border-radius:8px;padding:6px 10px;font-size:11.5px;font-weight:700;cursor:pointer}
+.uncoverbanner .show{background:rgba(114,227,207,.16);color:var(--teal)}
+.uncoverbanner .keep{background:rgba(255,255,255,.06);color:var(--muted)}
+.overlaycard .ogroups{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.overlaycard .ochip{display:flex;align-items:center;justify-content:center;gap:6px;min-height:38px;padding:6px 10px;border:1px solid var(--line);border-radius:10px;background:rgba(8,16,22,.5);color:var(--muted);font-size:12px;font-weight:600;cursor:pointer}
+.overlaycard .ochip[aria-pressed="true"]{color:var(--teal);border-color:rgba(114,227,207,.5);background:rgba(114,227,207,.12)}
+.overlaycard .olist{display:flex;flex-wrap:wrap;gap:5px}
+.overlaycard .oitem{border:1px solid var(--line);border-radius:8px;background:none;color:var(--dim);font-size:11px;padding:4px 8px;cursor:pointer}
+.overlaycard .oitem[aria-pressed="true"]{color:var(--teal);border-color:rgba(114,227,207,.5);background:rgba(114,227,207,.1)}
 
 /* There was never a generic .hidden rule -- only .view.hidden and
    .stage-state.hidden -- so `class="... hidden"` was inert on #mvBar,
@@ -622,6 +654,12 @@
         <div class="progress"><span id="progressBar"></span></div>
       </div>
       <div class="layerrail" id="layerRail" aria-label="Body layers"></div>
+      <div class="uncoverbanner hidden" id="uncoverBanner" role="status"></div>
+      <div class="overlaycaption hidden" id="overlayCaption"></div>
+      <div class="hiddentray empty" id="hiddenTray">
+        <button class="htoggle" id="hiddenToggle" aria-expanded="false">🚫 <span id="hiddenCount">Hidden</span></button>
+        <div class="hlist" id="hiddenList"></div>
+      </div>
       <div class="stagenote"><span class="stagenote-row"><span id="stageMeta">z-anatomy-skeleton.glb · cached offline</span><span class="mono" id="regionMeta">All regions</span></span><span class="stage-hint">drag to rotate · pinch to zoom · tap a structure · tap the same spot again to go deeper</span></div>
       <aside class="selpanel" id="taskCard">
         <!--
@@ -663,6 +701,13 @@
         <div class="review-meter"><div class="meter"><span id="reviewBar"></span></div><div class="review-number" id="reviewNumber">0 / 20 reviewed</div></div>
         <p class="small" id="reviewHint">Start with Identify to create your first review history.</p>
       </section>
+        <section class="card overlaycard">
+          <div class="task-kicker">Spatial overlays</div>
+          <h2 class="task-title">Cavities, regions, planes</h2>
+          <p class="task-copy">These are not in the model — the viewer draws them over the body. Tap a group for the whole set, or search a single one.</p>
+          <div class="ogroups" id="overlayGroups"></div>
+          <div class="olist" id="overlayItems"></div>
+        </section>
       </div>
     </div>
             </div>
@@ -741,6 +786,7 @@
   <section class="view hidden" id="sessionView">
     <div class="navhead">
       <button class="icon-btn" id="rssSessionClose" aria-label="Close session" style="min-width:44px;min-height:44px;border-radius:11px">✕</button>
+      <button class="icon-btn" id="rssSessionSearch" aria-label="Search" style="min-width:44px;min-height:44px;border-radius:11px">⌕</button>
       <div class="grow">
         <div class="kicker" id="rssSessionKicker">Learn</div>
         <div class="small" id="rssSessionMeta"></div>
@@ -840,12 +886,427 @@
   import { ANATOMY_DATABASE, LANDMARK_HOTSPOTS, MODEL_CATALOG, REGIONS, getAnatomy, searchAnatomy } from './anatomy-data.js?v=4';
   import { FLOW_CLASSES, FLOW_ANCHORS, LAYER_CLASSES, classify,
     cardiacEnvelope, breathEnvelope, spikeEnvelope, contractEnvelope, atriumEnvelope, ventricleEnvelope, RATES } from './physiology.js?v=4';
+  import { BODY_CONCEPTS, CONCEPT_GROUPS, conceptById } from './bodymap.js?v=1';
 
   const $ = (id) => document.getElementById(id);
   const els = { stage:$('stage'), state:$('stageState'), stateTitle:$('stateTitle'), stateCopy:$('stateCopy'), retry:$('retryBtn'), progress:$('progressBar'), stageMeta:$('stageMeta'), regionMeta:$('regionMeta'), selectedName:$('selectedName'), selectedChips:$('selectedChips'), selectedDetails:$('selectedDetails'), taskKicker:$('taskKicker'), taskTitle:$('taskTitle'), taskCopy:$('taskCopy'), answers:$('answers'), feedback:$('feedback'), next:$('nextBtn'), search:$('searchInput'), results:$('searchResults'), regions:$('regionButtons'), reviewBar:$('reviewBar'), reviewNumber:$('reviewNumber'), reviewHint:$('reviewHint'), toast:$('toast'), detailDialog:$('detailDialog'), detailTitle:$('detailTitle'), detailChips:$('detailChips'), detailBody:$('detailBody'), zoomIn:$('zoomInBtn'), zoomOut:$('zoomOutBtn'), focus:$('focusBtn'), motion:$('motionBtn') };
   const state = { mode:'explore', region:'all', selectedId:null, selectedSide:null, current:null, quizStarted:false, isolated:false, meshes:[], fullMeshes:[], hotspots:[], fullPickables:[], importedRecords:new Map(), selectionAnchor:null, lastPick:{x:0,y:0,t:0,candidates:[],index:-1}, lastDetailId:null, hashRestored:false, scene:null, camera:null, controls:null, renderer:null, raycaster:null, pointer:null, fullModel:null, realModel:null, realIsProcedural:false, memoryStreak:0, motionEnabled:true, motionPhase:0, stats:loadStats() };
 const LAYER_NAMES={skeleton:'Skeleton',muscle:'Muscles',organs:'Organs',circulatory:'Vessels',nervous:'Nerves',joint:'Ligaments',lymphatic:'Lymphatic'};
+
+/* ------------------------------------------------------------------ *
+ * Hide, and search-driven uncover
+ *
+ * state.hidden      meshes the learner hid by hand
+ * state.autoHidden  meshes hidden automatically to expose a searched part,
+ *                   kept apart so the banner and tray can say so and restore
+ *                   them as one group.
+ *
+ * Every visibility pass in the engine ends by calling enforceHidden(), so a
+ * layer toggle or a region filter can never quietly bring a hidden part back.
+ * ------------------------------------------------------------------ */
+state.hidden = new Set();
+state.autoHidden = new Set();
+function enforceHidden(){
+  state.hidden.forEach(m=>{ if(m) m.visible=false; });
+  state.autoHidden.forEach(m=>{ if(m) m.visible=false; });
+}
+function hiddenName(m){
+  const rec=getRecord(m.userData?.canonicalId);
+  return rec?.canonicalName || m.userData?.label && String(m.userData.label).replace(/[_]+/g,' ').replace(/\.(l|r)$/i,'').trim() || 'Unnamed structure';
+}
+function hiddenLayerName(m){
+  return LAYER_NAMES[m.userData?.layerKey||m.userData?.extraKey] || (m.userData?.landmarkId?'Landmark':'Skeleton');
+}
+function publishHidden(){
+  if(!state.hiddenHook) return;
+  const rows=[];
+  state.hidden.forEach(m=>rows.push({token:m.uuid,name:hiddenName(m),layer:hiddenLayerName(m),auto:false}));
+  state.autoHidden.forEach(m=>rows.push({token:m.uuid,name:hiddenName(m),layer:hiddenLayerName(m),auto:true}));
+  try{ state.hiddenHook(rows); }catch(e){}
+}
+function meshByUuid(uuid){
+  const all=[...state.fullMeshes,...state.meshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)];
+  return all.find(m=>m.uuid===uuid)||null;
+}
+function hideMesh(mesh){
+  const m=mesh||state.selectionAnchor;
+  if(!m){ showToast('Select a structure first'); return false; }
+  state.hidden.add(m);
+  state.autoHidden.delete(m);
+  if(state.selectionAnchor===m){ clearSelection(); }
+  applyLayers(); applyVisibility(); enforceHidden(); publishHidden();
+  showToast(`${hiddenName(m)} hidden`);
+  return true;
+}
+function unhide(token){
+  if(token==='all'){ state.hidden.clear(); state.autoHidden.clear(); }
+  else if(token==='auto'){ state.autoHidden.clear(); }
+  else if(token==='manual'){ state.hidden.clear(); }
+  else {
+    const m=meshByUuid(token);
+    if(m){ state.hidden.delete(m); state.autoHidden.delete(m); }
+  }
+  applyLayers(); applyVisibility(); publishHidden();
+}
+
+/* ------------------------------------------------------------------ *
+ * Search -> viewer: frame the part, then hide only what stands in front
+ * ------------------------------------------------------------------ */
+function frameOn(objs){
+  const THREE=state.THREE;
+  if(!THREE||!state.camera||!state.controls||!objs.length) return null;
+  const box=new THREE.Box3();
+  objs.forEach(o=>box.expandByObject(o));
+  if(box.isEmpty()) return null;
+  const c=box.getCenter(new THREE.Vector3());
+  const size=box.getSize(new THREE.Vector3());
+  const radius=Math.max(size.x,size.y,size.z,.35);
+  const dir=state.camera.position.clone().sub(state.controls.target).normalize();
+  const dist=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,radius*3.4));
+  state.controls.target.copy(c);
+  state.camera.position.copy(c).add(dir.multiplyScalar(dist));
+  state.controls.update();
+  return {center:c,radius};
+}
+function occludersOf(targets,frame){
+  const THREE=state.THREE;
+  if(!THREE||!frame||!targets.length) return [];
+  const targetSet=new Set(targets);
+  const from=state.camera.position.clone();
+  const ray=new THREE.Raycaster();
+  const covered=new Set();
+  /* A few rays across the target, not just its centre, so a part half behind
+     something still reads as covered. */
+  const samples=[frame.center.clone()];
+  for(const dx of [-.5,.5]) for(const dy of [-.5,.5]){
+    samples.push(frame.center.clone().add(new THREE.Vector3(dx*frame.radius,dy*frame.radius,0)));
+  }
+  const pool=[...state.fullMeshes,...state.meshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)]
+    .filter(m=>m.userData&&m.userData.canonicalId&&!targetSet.has(m));
+  samples.forEach(pt=>{
+    const d=pt.clone().sub(from);
+    const len=d.length();
+    ray.set(from,d.normalize());
+    ray.far=len-0.02;
+    ray.intersectObjects(pool,true).forEach(h=>{
+      if(h.object.userData&&h.object.userData.canonicalId&&h.object.visible) covered.add(h.object);
+    });
+  });
+  return [...covered];
+}
+async function revealStructure(spec){
+  if(!state.scene){ await window.__osteo.boot(); }
+  if(!state.scene) return {ok:false,found:0,covered:[]};
+  state.autoHidden.clear();
+  clearStudyFocus && clearStudyFocus();
+  let targets=[];
+  if(spec.id){
+    const rec=getRecord(spec.id);
+    if(rec){
+      /* Real-skeleton meshes carry a per-mesh id (full:N:name); the canonical
+         'ribs' lives on userData.sourceCanonicalId. Match either. */
+      const pools=[state.meshes,state.fullMeshes,...Object.values(state.extraModels||{}).map(m=>m.meshes)];
+      pools.forEach(p=>p.forEach(m=>{
+        if(m.userData&&(m.userData.canonicalId===rec.id||m.userData.sourceCanonicalId===rec.id||m.userData.canonicalId===spec.id)) targets.push(m);
+      }));
+      if(spec.side) targets=targets.filter(m=>!m.userData.side||m.userData.side===spec.side);
+      if(targets.length){
+        const pm=targets[0];
+        selectBone(pm.userData.canonicalId, pm.userData.side||spec.side||null);
+      } else {
+        selectBone(rec.id, spec.side||null);
+        if(state.selectionAnchor) targets=[state.selectionAnchor];
+      }
+    }
+  } else if(spec.system && spec.mesh){
+    let layer=state.extraModels[spec.system];
+    if(!layer && spec.file){
+      try{ layer=await loadExtraModel(spec.system,spec.file); }catch(e){ layer=null; }
+    }
+    if(layer){
+      state.layers[spec.system]=true;
+      state.layerOpacity={...(state.layerOpacity||{}),[spec.system]:1};
+      applyLayers();
+      const want=normName(spec.mesh);
+      const pick=(pred)=>layer.meshes.filter(pred);
+      let hits=pick(o=>{ const l=normName(o.userData.label||o.name); return l===want||l===want+' l'||l===want+' r'; });
+      if(!hits.length) hits=pick(o=>normName(o.userData.label||o.name).startsWith(want));
+      targets=hits;
+      if(hits.length){
+        const id=hits[0].userData.canonicalId;
+        if(id) selectBone(id, hits[0].userData.side||null);
+      }
+    }
+  }
+  if(!targets.length){ showToast('Could not locate that structure in the model'); return {ok:false,found:0,covered:[]}; }
+  /* A curated group ('ribs' -> 24 meshes) is one structure: frame and light the
+     whole set. A left/right pair from the system path unions to a midline box,
+     so frame only the nearest of the two. */
+  const curatedGroup=!!spec.id&&targets.length>1;
+  let primary=targets[0];
+  if(targets.length>1&&state.camera){
+    primary=targets.map(o=>{ const b=new state.THREE.Box3().setFromObject(o); return {o,d:b.getCenter(new state.THREE.Vector3()).distanceTo(state.camera.position)}; })
+      .sort((a,b)=>a.d-b.d)[0].o;
+  }
+  const frameTargets=curatedGroup?targets:[primary];
+  const frame=frameOn(frameTargets);
+  const occ=occludersOf(frameTargets,frame);
+  occ.forEach(m=>state.autoHidden.add(m));
+  applyLayers(); applyVisibility(); enforceHidden();
+  clearHighlight();
+  (curatedGroup?targets:[primary]).forEach(m=>{
+    if(m.material){ m.material.emissive&&m.material.emissive.setHex(0x1eb9a6); m.material.emissiveIntensity=.95; m.userData.presentationActive=true; }
+  });
+  publishHidden();
+  const names=[...new Set(occ.map(hiddenName))];
+  return {ok:true,found:targets.length,covered:names};
+}
+
+/* ------------------------------------------------------------------ *
+ * Spatial concept overlays -- cavities, regions, quadrants, planes.
+ * Drawn procedurally, sized to the rendered body's bounding box, never
+ * from a GLB. See bodymap.js for the fractions.
+ * ------------------------------------------------------------------ */
+state.concepts = new Set();          /* ids currently shown */
+state.conceptGroup = null;
+function bodyMetrics(){
+  const THREE=state.THREE;
+  const box=new THREE.Box3();
+  const src=state.fullMeshes.length?state.fullMeshes
+    :state.meshes.length?state.meshes
+    :Object.values(state.extraModels||{}).flatMap(m=>m.meshes);
+  src.forEach(o=>{ if(o.visible!==false) box.expandByObject(o); });
+  if(box.isEmpty()&&state.fullModel) box.expandByObject(state.fullModel);
+  const min=box.min, max=box.max;
+  const H=Math.max(max.y-min.y,1);
+  const cx=(min.x+max.x)/2, cz=(min.z+max.z)/2;
+  return {
+    H, cx, cz, minY:min.y, maxY:max.y,
+    halfX:0.15*H, halfZ:0.12*H,
+    yAt:(f)=>min.y+f*H,
+    xAt:(f)=>cx+f*0.15*H,
+    zAt:(f)=>cz+f*0.12*H,
+  };
+}
+function labelSprite(text,color){
+  const THREE=state.THREE;
+  const pad=16, font=44;
+  const c=document.createElement('canvas');
+  const g=c.getContext('2d');
+  g.font=`600 ${font}px Instrument Sans, system-ui, sans-serif`;
+  const w=Math.ceil(g.measureText(text).width)+pad*2;
+  c.width=w; c.height=font+pad*2;
+  g.font=`600 ${font}px Instrument Sans, system-ui, sans-serif`;
+  g.fillStyle='rgba(6,14,20,.82)';
+  if(g.roundRect){ g.beginPath(); g.roundRect(0,0,c.width,c.height,14); g.fill(); }
+  else g.fillRect(0,0,c.width,c.height);
+  g.fillStyle='#'+((color||0xdfe9e7)>>>0).toString(16).padStart(6,'0');
+  g.textBaseline='middle';
+  g.fillText(text,pad,c.height/2);
+  const tex=new THREE.CanvasTexture(c);
+  tex.colorSpace=THREE.SRGBColorSpace;
+  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,depthTest:false,transparent:true}));
+  sp.scale.set(w/c.height*1.1,1.1,1);
+  sp.renderOrder=999;
+  return sp;
+}
+function ensureConceptGroup(){
+  if(state.conceptGroup) return state.conceptGroup;
+  const THREE=state.THREE;
+  const grp=new THREE.Group();
+  grp.name='conceptOverlays';
+  state.scene.add(grp);
+  state.conceptGroup=grp;
+  return grp;
+}
+function buildCavity(c,M,grp){
+  const THREE=state.THREE;
+  const x0=M.xAt(c.box.fx[0]), x1=M.xAt(c.box.fx[1]);
+  const y0=M.yAt(c.box.fy[0]), y1=M.yAt(c.box.fy[1]);
+  const z0=M.zAt(c.box.fz[0]), z1=M.zAt(c.box.fz[1]);
+  const w=Math.abs(x1-x0)||.1, h=Math.abs(y1-y0)||.1, d=Math.abs(z1-z0)||.1;
+  const geo=new THREE.BoxGeometry(w,h,d);
+  const mat=new THREE.MeshBasicMaterial({color:c.color,transparent:true,opacity:.2,depthWrite:false});
+  const mesh=new THREE.Mesh(geo,mat);
+  mesh.position.set((x0+x1)/2,(y0+y1)/2,(z0+z1)/2);
+  const edge=new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:c.color,transparent:true,opacity:.85}));
+  mesh.add(edge);
+  const lab=labelSprite(c.name,c.color);
+  lab.scale.multiplyScalar(0.82);
+  /* vertebral canal is a posterior midline strip -- its label goes left so it
+     does not stack on the thoracic/abdominal labels. */
+  const leftSide=c.id==='cav-vertebral';
+  lab.position.set(M.xAt(leftSide?-1.7:1.25),(y0+y1)/2,leftSide?M.zAt(-1):(z0+z1)/2);
+  grp.add(mesh,lab);
+  return [mesh,lab];
+}
+function buildPlane(c,M,grp){
+  const THREE=state.THREE;
+  const mat=new THREE.MeshBasicMaterial({color:c.color,transparent:true,opacity:.16,depthWrite:false,side:THREE.DoubleSide});
+  const spanY=M.H*1.02, spanX=M.halfX*3.4, spanZ=M.halfZ*3.4;
+  let geo, mesh;
+  if(c.axis==='x'){
+    geo=new THREE.PlaneGeometry(spanZ,spanY);
+    mesh=new THREE.Mesh(geo,mat);
+    mesh.rotation.y=Math.PI/2;
+    mesh.position.set(M.xAt(c.at),M.yAt(0.5),M.cz);
+  } else if(c.axis==='z'){
+    geo=new THREE.PlaneGeometry(spanX,spanY);
+    mesh=new THREE.Mesh(geo,mat);
+    mesh.position.set(M.cx,M.yAt(0.5),M.zAt(c.at));
+  } else if(c.axis==='y'){
+    geo=new THREE.PlaneGeometry(spanX,spanZ);
+    mesh=new THREE.Mesh(geo,mat);
+    mesh.rotation.x=Math.PI/2;
+    mesh.position.set(M.cx,M.yAt(c.at),M.cz);
+  } else { /* oblique */
+    geo=new THREE.PlaneGeometry(spanX,spanY*0.9);
+    mesh=new THREE.Mesh(geo,mat);
+    mesh.rotation.z=Math.PI/5;
+    mesh.rotation.x=Math.PI/9;
+    mesh.position.set(M.cx,M.yAt(c.at),M.cz);
+  }
+  const edge=new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:c.color,transparent:true,opacity:.6}));
+  mesh.add(edge);
+  const out=[mesh];
+  if(c.ends&&(c.ends[0]||c.ends[1])){
+    if(c.axis==='x'){
+      const a=labelSprite(c.ends[0],c.color); a.position.set(M.xAt(c.at),M.yAt(0.5),M.zAt(-1.4)); grp.add(a); out.push(a);
+      const b=labelSprite(c.ends[1],c.color); b.position.set(M.xAt(c.at),M.yAt(0.5),M.zAt(1.4)); grp.add(b); out.push(b);
+    } else if(c.axis==='z'){
+      const a=labelSprite(c.ends[0],c.color); a.position.set(M.xAt(-1.6),M.yAt(0.5),M.zAt(c.at)); grp.add(a); out.push(a);
+      const b=labelSprite(c.ends[1],c.color); b.position.set(M.xAt(1.6),M.yAt(0.5),M.zAt(c.at)); grp.add(b); out.push(b);
+    } else if(c.axis==='y'){
+      const a=labelSprite(c.ends[0],c.color); a.position.set(M.xAt(1.5),M.yAt(c.at-0.12),M.cz); grp.add(a); out.push(a);
+      const b=labelSprite(c.ends[1],c.color); b.position.set(M.xAt(1.5),M.yAt(c.at+0.12),M.cz); grp.add(b); out.push(b);
+    }
+  }
+  return out;
+}
+/* the 9-region / 4-quadrant panel on the front of the trunk */
+function buildCellGrid(kind,emphId,M,grp){
+  const THREE=state.THREE;
+  const cols=kind==='quadrant'?2:3, rows=kind==='quadrant'?2:3;
+  const box=kind==='quadrant'?{fy:[0.47,0.72],fx:[-1.0,1.0]}:{fy:[0.47,0.71],fx:[-1.0,1.0]};
+  const zFront=M.zAt(1.05);
+  const x0=M.xAt(box.fx[0]), x1=M.xAt(box.fx[1]);
+  const y0=M.yAt(box.fy[0]), y1=M.yAt(box.fy[1]);
+  const cw=(x1-x0)/cols, ch=(y1-y0)/rows;
+  const items=BODY_CONCEPTS.filter(c=>c.kind===kind);
+  const out=[];
+  items.forEach(c=>{
+    const [col,row]=c.cell;
+    /* patient's right is screen-left = world -x, so column 0 sits at x0 */
+    const cxp=x0+cw*(col+0.5);
+    const cyp=y1-ch*(row+0.5);
+    const emph=emphId?c.id===emphId:true;
+    const geo=new THREE.PlaneGeometry(cw*0.94,ch*0.94);
+    const mat=new THREE.MeshBasicMaterial({color:0x72e3cf,transparent:true,opacity:emph?0.22:0.09,depthWrite:false,side:THREE.DoubleSide});
+    const mesh=new THREE.Mesh(geo,mat);
+    mesh.position.set(cxp,cyp,zFront);
+    const edge=new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:0x72e3cf,transparent:true,opacity:emph?0.7:0.25}));
+    mesh.add(edge);
+    grp.add(mesh); out.push(mesh);
+    if(emph){
+      /* quadrants -> the abbreviation (RUQ); regions -> the distinctive word
+         only, since the cell position already shows the side */
+      const m=c.name.match(/\(([A-Z]{2,4})\)/);
+      const text=m?m[1]:c.name.replace(/^(Right|Left) /,'').replace(/ region$/,'');
+      const lab=labelSprite(text,0x72e3cf);
+      lab.scale.multiplyScalar(kind==='quadrant'?0.62:0.44);
+      lab.position.set(cxp,cyp,zFront+0.05);
+      grp.add(lab); out.push(lab);
+    }
+  });
+  return out;
+}
+function conceptObjects(id){
+  const c=conceptById(id);
+  if(!c||!state.THREE||!state.scene) return [];
+  const grp=ensureConceptGroup();
+  const M=bodyMetrics();
+  if(c.kind==='cavity') return buildCavity(c,M,grp);
+  if(c.kind==='plane') return buildPlane(c,M,grp);
+  if(c.kind==='region'||c.kind==='quadrant') return buildCellGrid(c.kind,c.id,M,grp);
+  return [];
+}
+function disposeConceptObj(o){
+  o.traverse&&o.traverse(x=>{ x.geometry&&x.geometry.dispose&&x.geometry.dispose(); if(x.material){ x.material.map&&x.material.map.dispose&&x.material.map.dispose(); x.material.dispose&&x.material.dispose(); } });
+  if(o.material){ o.material.map&&o.material.map.dispose&&o.material.map.dispose(); o.material.dispose&&o.material.dispose(); }
+  o.parent&&o.parent.remove(o);
+}
+function clearConcepts(){
+  if(state.conceptGroup){ [...state.conceptGroup.children].forEach(disposeConceptObj); }
+  state.concepts.clear();
+  state._conceptObjs&&state._conceptObjs.clear();
+  publishConcepts();
+}
+state._conceptObjs=new Map();
+function showConcept(id){
+  const c=conceptById(id);
+  if(!c) return false;
+  if(!state.scene){ window.__osteo.boot().then(()=>showConcept(id)); return true; }
+  /* regions/quadrants share one panel: rebuild so the emphasis follows the last pick */
+  if(c.kind==='region'||c.kind==='quadrant'){
+    BODY_CONCEPTS.filter(x=>x.kind===c.kind).forEach(x=>{
+      const objs=state._conceptObjs.get(x.id); if(objs){ objs.forEach(disposeConceptObj); state._conceptObjs.delete(x.id); state.concepts.delete(x.id); }
+    });
+    const grp=ensureConceptGroup();
+    const M=bodyMetrics();
+    const objs=buildCellGrid(c.kind,c.id,M,grp);
+    state._conceptObjs.set(c.id,objs);
+    BODY_CONCEPTS.filter(x=>x.kind===c.kind).forEach(x=>state.concepts.add(x.id));
+  } else {
+    if(state.concepts.has(id)) return true;
+    const objs=conceptObjects(id);
+    state._conceptObjs.set(id,objs);
+    state.concepts.add(id);
+  }
+  publishConcepts();
+  return true;
+}
+function hideConcept(id){
+  const objs=state._conceptObjs.get(id);
+  if(objs){ objs.forEach(disposeConceptObj); state._conceptObjs.delete(id); }
+  state.concepts.delete(id);
+  publishConcepts();
+}
+function toggleConcept(id){ return state.concepts.has(id)?(hideConcept(id),false):(showConcept(id),true); }
+function showConceptKind(kind){
+  const ids=BODY_CONCEPTS.filter(c=>c.kind===kind&&!c.standalone).map(c=>c.id);
+  const allOn=ids.length&&ids.every(i=>state.concepts.has(i));
+  if(allOn){ ids.forEach(hideConcept); return false; }
+  if(kind==='region'||kind==='quadrant'){
+    /* one build draws the whole grid; null emphasis = every cell equal */
+    BODY_CONCEPTS.filter(x=>x.kind===kind).forEach(x=>{
+      const o=state._conceptObjs.get(x.id); if(o){ o.forEach(disposeConceptObj); state._conceptObjs.delete(x.id); }
+    });
+    const grp=ensureConceptGroup();
+    const objs=buildCellGrid(kind,null,bodyMetrics(),grp);
+    state._conceptObjs.set(ids[0],objs);
+    ids.forEach(i=>state.concepts.add(i));
+    publishConcepts();
+    return true;
+  }
+  ids.forEach(showConcept);
+  return true;
+}
+function publishConcepts(){ if(state.conceptHook) try{ state.conceptHook([...state.concepts]); }catch(e){} }
+
 window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootPromise=boot3D()}return state.bootPromise||Promise.resolve(!!state.scene)},resize,
+  hide:(m)=>hideMesh(m||null),
+  hideSelected:()=>hideMesh(null),
+  unhide:(t)=>unhide(t),
+  hiddenList:()=>{ const r=[]; state.hidden.forEach(m=>r.push({token:m.uuid,name:hiddenName(m),layer:hiddenLayerName(m),auto:false})); state.autoHidden.forEach(m=>r.push({token:m.uuid,name:hiddenName(m),layer:hiddenLayerName(m),auto:true})); return r; },
+  setHiddenHook:(fn)=>{state.hiddenHook=fn||null;publishHidden();},
+  revealStructure:(spec)=>revealStructure(spec),
+  showConcept:(id)=>showConcept(id),
+  hideConcept:(id)=>hideConcept(id),
+  toggleConcept:(id)=>toggleConcept(id),
+  toggleConceptKind:(k)=>showConceptKind(k),
+  clearConcepts:()=>clearConcepts(),
+  activeConcepts:()=>[...state.concepts],
+  setConceptHook:(fn)=>{state.conceptHook=fn||null;publishConcepts();},
   startMovement:(mv)=>startMovement(mv),
   setMovementAngle:(d)=>setMovementAngle(d),
   endMovement:()=>endMovement(),
@@ -863,6 +1324,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   setStackHook:(fn)=>{state.stackHook=fn||null},
   pickStack:()=>stackEntries(),
   pickFromStack:(i)=>selectFromStack(i),
+  hideFromStack:(i)=>hideFromStack(i),
   clearPeel:()=>{restorePeel();publishStack()},
   peelDepth:()=>state.peeled.length,
   clearStudyFocus:()=>clearStudyFocus(),
@@ -1025,7 +1487,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
     if(!spec||!spec.says) return '';
     return `<div class="physline" style="--tone:#${spec.color.toString(16).padStart(6,'0')}"><b>${clean(spec.label)}</b><span>${clean(spec.says)}</span></div>`;
   }
-  function renderSelected(record,side){const card=$('selectedCard');if(card)card.classList.remove('quiet');els.selectedName.textContent=record.canonicalName;els.selectedChips.innerHTML=`<span class="chip">${regionLabel(record.region)}</span><span class="chip">${side||record.side}</span><span class="chip">Level ${record.difficulty}</span>`;els.selectedDetails.innerHTML=`${physLineHTML(record.id)}<div class="info-grid"><div><div class="info-label">Landmarks</div><ul class="compact-list">${record.landmarks.slice(0,4).map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div><div><div class="info-label">Radiography</div><div class="info-value">${clean(record.radiographyImportance)}</div></div></div>${memoryTipHTML(record)}<button class="primary detail-open" id="openDetailBtn">Open detail</button>`;$('openDetailBtn').onclick=()=>openDetail(record,side)}
+  function renderSelected(record,side){const card=$('selectedCard');if(card)card.classList.remove('quiet');els.selectedName.textContent=record.canonicalName;els.selectedChips.innerHTML=`<span class="chip">${regionLabel(record.region)}</span><span class="chip">${side||record.side}</span><span class="chip">Level ${record.difficulty}</span>`;els.selectedDetails.innerHTML=`${physLineHTML(record.id)}<div class="info-grid"><div><div class="info-label">Landmarks</div><ul class="compact-list">${record.landmarks.slice(0,4).map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div><div><div class="info-label">Radiography</div><div class="info-value">${clean(record.radiographyImportance)}</div></div></div>${memoryTipHTML(record)}<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><button class="primary detail-open" id="openDetailBtn" style="margin-top:0">Open detail</button><button class="icon-btn" id="hideSelectedBtn" style="min-height:38px;border:1px solid var(--line);border-radius:9px;background:rgba(255,186,103,.12);color:var(--orange);padding:0 12px;font-size:12px">Hide this</button></div>`;$('openDetailBtn').onclick=()=>openDetail(record,side);const hb=$('hideSelectedBtn');if(hb)hb.onclick=()=>hideMesh(state.selectionAnchor)}
   function clearFeedback(){els.feedback.className='feedback';els.feedback.textContent='';els.next.classList.remove('show')}
   /*
    * Choosing a mode used to silently rewrite the region to 'upper limb'.
@@ -1161,7 +1623,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   function onBonePicked(obj){const {canonicalId,side}=obj.userData;const record=getRecord(canonicalId);const sourceId=obj.userData.sourceCanonicalId;/* Tapping a bone selects it. It used to also flip the viewer to the   upper-limb region and swap the model, which is a surprise at the best of   times and left the other layers standing next to a different skeleton. */if(state.mode==='find'&&state.current){const correct=canonicalId===state.current.id;const questionRecord=getAnatomy(state.current.id);recordAnswer(correct,questionRecord,null);if(!correct){selectBone(canonicalId,side);els.feedback.className='feedback bad show';els.feedback.textContent=`Not that one — try again. You tapped ${getRecord(canonicalId)?.canonicalName||'another structure'}.`;els.next.classList.remove('show');document.querySelectorAll('.answer').forEach(b=>b.disabled=false);state.current.started=performance.now();return}return}if(state.mode==='landmarks'&&obj.userData.landmarkId){answer(obj.userData.landmarkId,null);return}if(record)selectBone(canonicalId,side)}
   function clearHighlight(){[...state.meshes,...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].forEach(m=>{m.material.emissive?.setHex(0x000000);m.material.emissiveIntensity=0;m.userData.presentationActive=false;if(state.xray&&m.userData.xrayHot){m.material.dispose();m.material=state.xray.shared.get(m.userData.xrayKey);delete m.userData.xrayHot}if(m.userData.baseScale)m.scale.set(...m.userData.baseScale);if(m.userData.basePosition)m.position.set(...m.userData.basePosition)});state.fullPickables.forEach(m=>{m.material.opacity=0})}
   function highlight(id,side=null){clearHighlight();[...state.meshes,...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{/* In the projection there is no emissive channel to light up, so a pick   reads as a brighter, tinted accumulation instead. */if(state.xray&&m.userData.xrayKey){const mu=(XRAY_MU[m.userData.xrayKey]||.12)*3.4;m.material=xrayDepthMaterial(state.THREE,mu);m.userData.xrayHot=true}else{m.material.emissive?.setHex(0x1eb9a6);m.material.emissiveIntensity=.95}m.userData.presentationActive=true});state.fullPickables.filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{m.material.opacity=.26})}
-  function applyVisibility(){const skelOn=state.layers?state.layers.skeleton!==false:true;/* 'upper_limb' is now an ordinary region filter on the full skeleton. The   separate five-bone set is never drawn -- the skeleton already names those   five -- but its group stays visible so the landmark hotspots parented to   it can show. */if(state.fullModel)state.fullModel.visible=skelOn;if(state.realModel)state.realModel.visible=true;state.fullPickables.forEach(m=>m.visible=skelOn);state.fullMeshes.forEach(m=>{const inRegion=state.region==='all'||m.userData.region===state.region;const isolated=!state.isolated||!state.selectedId||m.userData.canonicalId===state.selectedId;m.visible=skelOn&&inRegion&&isolated});state.meshes.forEach(m=>{m.visible=false});state.hotspots.forEach(h=>h.visible=skelOn&&state.mode==='landmarks'&&(!state.selectedId||h.userData.parentId===state.selectedId));if(state.fullMeshes.length&&typeof updateStageMeta==='function')updateStageMeta()}
+  function applyVisibility(){const skelOn=state.layers?state.layers.skeleton!==false:true;/* 'upper_limb' is now an ordinary region filter on the full skeleton. The   separate five-bone set is never drawn -- the skeleton already names those   five -- but its group stays visible so the landmark hotspots parented to   it can show. */if(state.fullModel)state.fullModel.visible=skelOn;if(state.realModel)state.realModel.visible=true;state.fullPickables.forEach(m=>m.visible=skelOn);state.fullMeshes.forEach(m=>{const inRegion=state.region==='all'||m.userData.region===state.region;const isolated=!state.isolated||!state.selectedId||m.userData.canonicalId===state.selectedId;m.visible=skelOn&&inRegion&&isolated});state.meshes.forEach(m=>{m.visible=false});state.hotspots.forEach(h=>h.visible=skelOn&&state.mode==='landmarks'&&(!state.selectedId||h.userData.parentId===state.selectedId));if(typeof enforceHidden==='function')enforceHidden();if(state.fullMeshes.length&&typeof updateStageMeta==='function')updateStageMeta()}
   function addMesh(THREE,group,geometry,position,canonicalId,region,side=null,scale=[1,1,1],label=''){const mat=new THREE.MeshStandardMaterial({color:0xd9d1bc,roughness:.74,metalness:.03});const mesh=new THREE.Mesh(geometry,mat);mesh.position.set(...position);mesh.scale.set(...scale);mesh.userData={canonicalId,region,side,baseScale:[...scale],basePosition:[...position],presentationActive:false,label};group.add(mesh);state.meshes.push(mesh);return mesh}
   function between(THREE,group,a,b,r,id,region,side=null){const dir=new THREE.Vector3(...b).sub(new THREE.Vector3(...a));const mesh=addMesh(THREE,group,new THREE.CylinderGeometry(r,r*.9,dir.length(),10),new THREE.Vector3(...a).add(new THREE.Vector3(...b)).multiplyScalar(.5).toArray(),id,region,side);mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.normalize());return mesh}
   function tube(THREE,group,points,r,id,region,side=null){const curve=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));return addMesh(THREE,group,new THREE.TubeGeometry(curve,14,r,6,false),[0,0,0],id,region,side)}
@@ -1201,7 +1663,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
     if(a>=mv.range[1]){a=mv.range[1];state.movement.dir=-1}
     else if(a<=mv.range[0]){a=mv.range[0];state.movement.dir=1}
     setMovementAngle(a);
-  }state.motionPhase=performance.now()*.001;stepPhysiology(state.motionPhase);if(state.motionEnabled){const turn=Math.sin(state.motionPhase*.55)*.24;[state.fullModel,state.realModel,...Object.values(state.extraModels||{}).map(m=>m.pivot)].forEach(root=>{if(root)root.rotation.y=turn})}const pulse=.72+.28*Math.sin(state.motionPhase*3.2);[...state.meshes,...state.fullMeshes].filter(m=>m.userData.presentationActive).forEach(m=>{if(m.material.emissive)m.material.emissiveIntensity=.95*pulse});state.controls.update();if(!renderXray())state.renderer.render(state.scene,state.camera)}
+  }state.motionPhase=performance.now()*.001;stepPhysiology(state.motionPhase);if(state.motionEnabled){const turn=Math.sin(state.motionPhase*.55)*.24;[state.fullModel,state.realModel,state.conceptGroup,...Object.values(state.extraModels||{}).map(m=>m.pivot)].forEach(root=>{if(root)root.rotation.y=turn})}const pulse=.72+.28*Math.sin(state.motionPhase*3.2);[...state.meshes,...state.fullMeshes].filter(m=>m.userData.presentationActive).forEach(m=>{if(m.material.emissive)m.material.emissiveIntensity=.95*pulse});state.controls.update();if(!renderXray())state.renderer.render(state.scene,state.camera)}
   function zoomCamera(factor){if(!state.camera||!state.controls)return;const offset=state.camera.position.clone().sub(state.controls.target);const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,offset.length()*factor));state.camera.position.copy(state.controls.target).add(offset.normalize().multiplyScalar(distance));state.controls.update()}
   function focusSelected(){if(!state.camera||!state.controls||!state.selectionAnchor){showToast('Select a structure first');return}state.controls.minDistance=2.5;const box=new state.THREE.Box3().setFromObject(state.selectionAnchor);const center=box.getCenter(new state.THREE.Vector3());const size=box.getSize(new state.THREE.Vector3());const radius=Math.max(size.x,size.y,size.z,.35);const offset=state.camera.position.clone().sub(state.controls.target).normalize();const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,radius*3.6));state.controls.target.copy(center);state.camera.position.copy(center).add(offset.multiplyScalar(distance));state.controls.update()}
   function toggleIsolation(){if(!state.selectedId){showToast('Select a structure first');return}const record=getRecord(state.selectedId);if(!state.fullMeshes.length&&record?.region!=='upper_limb'&&state.region!=='upper_limb'){showToast('This fallback reference is fused. Use Upper limb for per-bone isolation.');focusSelected();return}if(state.region!=='upper_limb'&&record?.region==='upper_limb'&&state.meshes.length){state.region='upper_limb';els.regionMeta.textContent='Upper limb';renderRegions();applyVisibility()}state.isolated=!state.isolated;$('isolateBtn').classList.toggle('active',state.isolated);applyVisibility();focusSelected()}
@@ -1261,6 +1723,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
       current:m===state.pickCurrent,
     }));
   }
+  function hideFromStack(index){const m=state.pickStack[index];if(m)hideMesh(m);}
   function publishStack(){ if(state.stackHook)try{state.stackHook(stackEntries())}catch(e){} }
   function selectFromStack(index){
     const obj=state.pickStack[index];
@@ -1738,6 +2201,7 @@ function applyLayers(){
   state.activeExtra=Object.keys(state.extraModels).filter(k=>state.layers[k]).pop()||null;
   applyVisibility();
   applyConnectiveVisibility();
+  if(typeof enforceHidden==='function')enforceHidden();
   updateStageMeta();
 }
 /*
@@ -1799,6 +2263,7 @@ async function focusStructures(spec){
     const keep=new Set(hits);
     layerPool(key).forEach(o=>{o.visible=keep.has(o)});
   }
+  if(typeof enforceHidden==='function')enforceHidden();
   const THREE=state.THREE;
   hits.forEach(o=>{if(o.material)o.material.emissive?.setHex(0x14574f)});
   if(THREE&&state.camera&&state.controls){
@@ -2331,6 +2796,7 @@ import {
   moduleInfo,
 } from './study-data.js';
 import { searchAnatomy } from './anatomy-data.js?v=4';
+import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS } from './bodymap.js?v=1';
 import { visualFor, plateFor } from './visual-data.js?v=3';
 import { FLOW_CLASSES, LAYER_CLASSES, RATES } from './physiology.js?v=4';
 import { schematic } from './schematics.js?v=2';
@@ -2753,6 +3219,11 @@ function showView(id) {
     window.__osteo.boot();
     setTimeout(() => window.__osteo.resize(), 60);
   }
+  if (id !== 'viewerView' && window.__osteo) {
+    /* Hiding and the concept overlays are a within-viewer working state. */
+    if (window.__osteo.clearConcepts) window.__osteo.clearConcepts();
+    if (window.__osteo.unhide) window.__osteo.unhide('all');
+  }
 }
 
 function coveragePill(status) {
@@ -2895,6 +3366,10 @@ function openSearchSheet() {
   $$('searchScrim').classList.remove('hidden');
   const shell = document.querySelector('.app-shell');
   if (shell) shell.inert = true;
+  /* The session overlay is a sibling of the shell, not a child — inert it too so
+     focus cannot land on the lesson behind the scrim. */
+  const sess = $$('sessionView');
+  if (sess && !sess.classList.contains('hidden')) sess.inert = true;
   const input = $$('globalSearch');
   input.value = '';
   runSearch('');
@@ -2902,10 +3377,28 @@ function openSearchSheet() {
 }
 function closeSearchSheet() {
   $$('searchScrim').classList.add('hidden');
+  const sess = $$('sessionView');
+  const sessionUp = sess && !sess.classList.contains('hidden');
   const shell = document.querySelector('.app-shell');
-  if (shell) shell.inert = false;
+  /* If a lesson is still underneath, the shell stays inert for it. */
+  if (shell) shell.inert = !!sessionUp;
+  if (sess) sess.inert = false;
   if (searchReturnFocus && searchReturnFocus.focus) searchReturnFocus.focus();
   searchReturnFocus = null;
+}
+
+/* A search result that jumps into the viewer has to take down the lesson
+   overlay first — it is a fixed layer that showView() does not touch. The
+   lesson autosaves each step, so dropping the current one is safe. */
+function dismissSessionForNav() {
+  const sess = $$('sessionView');
+  if (!sess || sess.classList.contains('hidden')) return;
+  if (typeof releaseLessonVisual === 'function') releaseLessonVisual();
+  session = null;
+  sess.classList.add('hidden');
+  sess.inert = false;
+  const shell = document.querySelector('.app-shell');
+  if (shell) shell.inert = false;
 }
 
 /* One item, taught on its own -- used when a search result names a
@@ -2949,7 +3442,7 @@ function searchHits(q) {
   topicsWithContent().forEach((t) => {
     if (t.unit.label.toLowerCase().includes(needle) || t.subject.code.toLowerCase().includes(needle)) {
       hits.push({ kind: 'Topic', title: t.unit.label, note: `${t.group.label} \u00b7 ${t.subject.code} \u00b7 ${t.items.length} items`,
-        go: () => { learnFilter = 'all'; learnTopic = t.unit.id; learnDrill = true; closeSearchSheet(); renderLearn(); } });
+        go: () => { learnFilter = 'all'; learnTopic = t.unit.id; learnDrill = true; closeSearchSheet(); dismissSessionForNav(); renderLearn(); } });
     }
   });
 
@@ -2961,13 +3454,36 @@ function searchHits(q) {
     }
   });
 
-  searchAnatomy(needle).slice(0, 12).forEach((r) => {
+  searchAnatomy(needle).slice(0, 10).forEach((r) => {
     hits.push({ kind: 'Structure', title: r.canonicalName, note: `${r.region} \u00b7 opens in Viewer`,
-      go: () => {
-        closeSearchSheet();
-        goTo('viewer');
-        if (window.__osteo && window.__osteo.select) setTimeout(() => window.__osteo.select(r.id), 80);
-      } });
+      go: () => openStructureInViewer({ id: r.id }) });
+  });
+
+  /* Curated extras \u2014 structures that live in a system layer (muscles, heart
+     chambers, brain, organs). */
+  SEARCH_EXTRAS.forEach((x) => {
+    const hay = (x.name + ' ' + (x.aliases || []).join(' ') + ' ' + x.system).toLowerCase();
+    if (!hay.includes(needle)) return;
+    hits.push({ kind: 'Structure', title: x.name,
+      note: `${STRUCTURE_MODELS[x.system] ? STRUCTURE_MODELS[x.system].label : x.system} \u00b7 ${x.blurb}`,
+      go: () => openStructureInViewer({ system: x.system, mesh: x.mesh,
+        file: STRUCTURE_MODELS[x.system] && STRUCTURE_MODELS[x.system].file, name: x.name }) });
+  });
+
+  /* Spatial concepts \u2014 individual cavities/regions/quadrants/planes first, then
+     the group entries that open the whole set. */
+  BODY_CONCEPTS.forEach((c) => {
+    const hay = (c.name + ' ' + (c.aliases || []).join(' ')).toLowerCase();
+    if (!hay.includes(needle)) return;
+    const kindLabel = { cavity: 'Cavity', region: 'Region', quadrant: 'Quadrant', plane: 'Plane' }[c.kind];
+    const note = c.kind === 'plane' ? `Plane \u00b7 separates ${c.separates}` : `${kindLabel} \u00b7 ${c.blurb}`;
+    hits.push({ kind: kindLabel, title: c.name, note,
+      go: () => { closeSearchSheet(); dismissSessionForNav(); goTo('viewer'); setTimeout(() => window.__osteo && window.__osteo.showConcept && window.__osteo.showConcept(c.id), 160); } });
+  });
+  CONCEPT_GROUPS.forEach((g) => {
+    if (!g.words.some((w) => w === needle || w.startsWith(needle) || needle === g.kind)) return;
+    hits.push({ kind: 'Overlay', title: g.name, note: `Show all in the Viewer`,
+      go: () => { closeSearchSheet(); dismissSessionForNav(); goTo('viewer'); setTimeout(() => window.__osteo && window.__osteo.toggleConceptKind && window.__osteo.toggleConceptKind(g.kind), 160); } });
   });
 
   if (/radiograph|x-?ray|projection/.test(needle)) {
@@ -2992,6 +3508,95 @@ function runSearch(q) {
   box.innerHTML = hits.slice(0, 30).map((h, n) =>
     `<button class="sres" data-hit="${n}"><span class="grow"><b>${esc(h.title)}</b><small>${esc(h.note)}</small></span><span class="kind">${esc(h.kind)}</span></button>`).join('');
   box.querySelectorAll('[data-hit]').forEach((b) => { b.onclick = () => hits[+b.dataset.hit].go(); });
+}
+
+/* ------------------------------------------------------------------ *
+ * Search -> viewer: open the model, select the part, auto-uncover, and
+ * say what was hidden.
+ * ------------------------------------------------------------------ */
+function openStructureInViewer(spec) {
+  closeSearchSheet();
+  dismissSessionForNav();
+  goTo('viewer');
+  setTimeout(async () => {
+    if (!window.__osteo || !window.__osteo.revealStructure) return;
+    const res = await window.__osteo.revealStructure(spec);
+    if (res && res.ok && res.covered && res.covered.length) {
+      showUncoverBanner(spec.name || spec.id || 'that structure', res.covered);
+    } else {
+      hideUncoverBanner();
+    }
+  }, 140);
+}
+function showUncoverBanner(target, names) {
+  const el = $$('uncoverBanner');
+  if (!el) return;
+  const list = names.slice(0, 4).join(', ') + (names.length > 4 ? ` +${names.length - 4} more` : '');
+  el.innerHTML = `<span>Hid <b>${esc(list)}</b> to uncover ${esc(target)}.</span>
+    <button class="show" id="uncoverShow">Show them</button>
+    <button class="keep" id="uncoverKeep">Keep hidden</button>`;
+  el.classList.remove('hidden');
+  $$('uncoverShow').onclick = () => { if (window.__osteo) window.__osteo.unhide('auto'); hideUncoverBanner(); };
+  $$('uncoverKeep').onclick = hideUncoverBanner;
+  clearTimeout(showUncoverBanner.t);
+  showUncoverBanner.t = setTimeout(hideUncoverBanner, 9000);
+}
+function hideUncoverBanner() {
+  const el = $$('uncoverBanner');
+  if (el) el.classList.add('hidden');
+}
+
+/* ------------------------------------------------------------------ *
+ * Hidden tray
+ * ------------------------------------------------------------------ */
+function renderHiddenTray(rows) {
+  const tray = $$('hiddenTray');
+  if (!tray) return;
+  rows = rows || (window.__osteo && window.__osteo.hiddenList ? window.__osteo.hiddenList() : []);
+  tray.classList.toggle('empty', !rows.length);
+  $$('hiddenCount').textContent = rows.length ? `Hidden (${rows.length})` : 'Hidden';
+  if (!rows.length) { tray.classList.remove('open'); $$('hiddenToggle').setAttribute('aria-expanded', 'false'); }
+  $$('hiddenList').innerHTML = rows.map((r) =>
+    `<div class="hrow"><span class="hn">${esc(r.name)}</span>${r.auto ? '<span class="hy">auto</span>' : ''}<span class="hl">${esc(r.layer)}</span><button data-show="${esc(r.token)}">show</button></div>`).join('')
+    + (rows.length > 1 ? `<button class="hall" id="hiddenShowAll">Show all</button>` : '');
+  $$('hiddenList').querySelectorAll('[data-show]').forEach((b) => {
+    b.onclick = () => { if (window.__osteo) window.__osteo.unhide(b.dataset.show); };
+  });
+  const all = $$('hiddenShowAll');
+  if (all) all.onclick = () => { if (window.__osteo) window.__osteo.unhide('all'); hideUncoverBanner(); };
+}
+
+/* ------------------------------------------------------------------ *
+ * Spatial overlay controls (viewer "..." sheet)
+ * ------------------------------------------------------------------ */
+function renderOverlayCard(active) {
+  active = active || (window.__osteo && window.__osteo.activeConcepts ? window.__osteo.activeConcepts() : []);
+  const set = new Set(active);
+  renderOverlayCaption(set);
+  const groups = $$('overlayGroups');
+  const items = $$('overlayItems');
+  if (!groups || !items) return;
+  groups.innerHTML = CONCEPT_GROUPS.map((g) => {
+    const ids = BODY_CONCEPTS.filter((c) => c.kind === g.kind && !c.standalone).map((c) => c.id);
+    const on = ids.length && ids.every((i) => set.has(i));
+    return `<button class="ochip" data-kind="${g.kind}" aria-pressed="${on}">${esc(g.name)}</button>`;
+  }).join('');
+  items.innerHTML = BODY_CONCEPTS.filter((c) => c.kind === 'cavity' || c.kind === 'plane').map((c) =>
+    `<button class="oitem" data-concept="${c.id}" aria-pressed="${set.has(c.id)}">${esc(c.name)}</button>`).join('');
+  groups.querySelectorAll('[data-kind]').forEach((b) => {
+    b.onclick = () => { if (window.__osteo && window.__osteo.toggleConceptKind) { window.__osteo.toggleConceptKind(b.dataset.kind); } };
+  });
+  items.querySelectorAll('[data-concept]').forEach((b) => {
+    b.onclick = () => { if (window.__osteo && window.__osteo.toggleConcept) { window.__osteo.toggleConcept(b.dataset.concept); } };
+  });
+}
+function renderOverlayCaption(set) {
+  const el = $$('overlayCaption');
+  if (!el) return;
+  const planes = BODY_CONCEPTS.filter((c) => c.kind === 'plane' && set.has(c.id));
+  if (!planes.length) { el.classList.add('hidden'); el.innerHTML = ''; return; }
+  el.classList.remove('hidden');
+  el.innerHTML = planes.map((c) => `<span><b>${esc(c.name)}</b> — separates ${esc(c.separates)}</span>`).join('');
 }
 function renderMore() {
   setActiveNav('more');
@@ -3372,12 +3977,16 @@ function renderPickStack(entries) {
       <button class="x" id="pickStackClose" aria-label="Dismiss">×</button></div>
     <ol>${entries.map((e) => `<li data-cur="${e.current ? 1 : 0}">
       <button data-pick="${e.index}"><span class="d">${e.index + 1}</span><span>${esc(e.name)}</span><span class="ly">${esc(e.layer)}</span></button>
+      <button class="peel" data-hide="${e.index}" aria-label="Hide ${esc(e.name)}">hide</button>
     </li>`).join('')}</ol>
     <div class="pf">${at > 0
       ? `${at} structure${at === 1 ? '' : 's'} in front ghosted to expose it · <button class="peel" id="pickStackRestore">put them back</button>`
       : 'Nearest first. Tap any of them, or tap the model again in the same spot to step deeper.'}</div>`;
   box.querySelectorAll('[data-pick]').forEach((b) => {
     b.onclick = () => { if (window.__osteo && window.__osteo.pickFromStack) window.__osteo.pickFromStack(+b.dataset.pick); };
+  });
+  box.querySelectorAll('[data-hide]').forEach((b) => {
+    b.onclick = () => { if (window.__osteo && window.__osteo.hideFromStack) window.__osteo.hideFromStack(+b.dataset.hide); };
   });
   const close = $$('pickStackClose');
   if (close) close.onclick = () => { if (window.__osteo && window.__osteo.clearPeel) window.__osteo.clearPeel(); box.classList.add('hidden'); };
@@ -3507,10 +4116,27 @@ async function syncLayersToRail() {
   }
 }
 
+function bindViewerExtras() {
+  if (bindViewerExtras.done) return;
+  if (!window.__osteo || !window.__osteo.setHiddenHook) return;
+  window.__osteo.setHiddenHook(renderHiddenTray);
+  window.__osteo.setConceptHook(renderOverlayCard);
+  const t = $$('hiddenToggle');
+  if (t) t.onclick = () => {
+    const tray = $$('hiddenTray');
+    const open = tray.classList.toggle('open');
+    t.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+  bindViewerExtras.done = true;
+}
+
 function openViewer() {
   setActiveNav('viewer');
   renderViewerTabs();
   renderLayerRail();
+  bindViewerExtras();
+  renderHiddenTray();
+  renderOverlayCard();
   const exp = $$('xrayExposure');
   if (exp && !exp.dataset.wired) {
     exp.dataset.wired = '1';
@@ -5184,6 +5810,7 @@ $$('viewerMoreBtn').onclick = () => {
   const open = sheet.classList.toggle('hidden') === false;
   $$('viewerMoreBtn').classList.toggle('active', open);
   $$('viewerMoreBtn').setAttribute('aria-expanded', open ? 'true' : 'false');
+  if (open) renderOverlayCard();
 };
 /* ------------------------------------------------------------------ *
  * Dialog behaviour, applied to all seven at once
@@ -5234,6 +5861,7 @@ for (const dlg of document.querySelectorAll('dialog')) {
 
 /* Global search: one sheet, reachable from every destination and Cmd/Ctrl-K. */
 $$('rssSearchBtn').onclick = openSearchSheet;
+$$('rssSessionSearch').onclick = openSearchSheet;
 $$('searchClose').onclick = closeSearchSheet;
 $$('searchScrim').onclick = (e) => { if (e.target === $$('searchScrim')) closeSearchSheet(); };
 $$('globalSearch').oninput = (e) => runSearch(e.target.value);
