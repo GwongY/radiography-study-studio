@@ -274,3 +274,14 @@ the sagittal plane — the lesson blurb already draws that distinction, and the
 planes figure the lesson shows (`assets/figures/anatomy-planes.svg`) labels it.
 
 `sw.js` → v38, `bodymap.js?v=3`.
+
+---
+
+**Superseded, 2026-08-30 (second revision).** The cavity, region and quadrant
+sections above — including revision 1's surfaces of revolution, the `sag`
+mechanism and the `ABDOMEN` grid constants — no longer describe the
+implementation. Those shapes were tuned by eye; they are now derived from the
+loaded anatomical meshes. See
+[2026-08-30-cavities-from-anatomy-design.md](./2026-08-30-cavities-from-anatomy-design.md).
+
+The search, plane and hidden-tray sections of this document still stand.
