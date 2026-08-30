@@ -3298,7 +3298,7 @@ import { schematic } from './schematics.js?v=2';
 import { figureFor } from './figures.js?v=1';
 import { layoutFor } from './layouts.js?v=1';
 import { decompose, readingOf, partOf } from './wordparts.js?v=3';
-import { termNote } from './term-notes.js?v=3';
+import { termNote } from './term-notes.js?v=4';
 import { termGloss } from './term-gloss.js?v=3';
 
 const $$ = (id) => document.getElementById(id);
@@ -5375,8 +5375,9 @@ function partsHTML(split) {
  * you it is 橈尺的 — the name a good deal of this material is already filed
  * under for anyone who met the anatomy in Chinese first.
  *
- * So: meaning first, Chinese with it, then how to say it, then the parts, and
- * one line of credit at the foot instead of two boxes in the middle.
+ * So: meaning first, Chinese with it, then how to say it, then the parts — and
+ * no provenance notices anywhere. The part lists are definition_wordparts.pdf
+ * material and speak for themselves; the rest reads as the study help it is.
  */
 function openTermDialog(word) {
   const hit = lookupTerm(word);
@@ -5391,11 +5392,6 @@ function openTermDialog(word) {
      different order: show the Chinese on its own and let the chip say it once. */
   const words = (t) => String(t).toLowerCase().split(/[^a-z]+/).filter(Boolean).sort().join(' ');
   const meaning = (part && !split && words(part.means) === words(plain)) ? '' : plain;
-  const authored = [plain && 'the meaning', zh && 'the Chinese', note && 'the pronunciation'].filter(Boolean);
-  const credit = (authored.length
-    ? `Written by this app: ${authored.join(', ').replace(/, ([^,]*)$/, ' and $1')}. Study scaffolding, not a claim traced to a source file — the technical definition on the item is the sourced one.`
-    : '')
-    + ((split || part) ? ' Word parts from <strong>definition_wordparts.pdf</strong>, the HSS2011 list prepared by Josephine Lau (HTI).' : '');
   /* When the fold or an alias resolved this word to its noun — pericardial ->
      pericardium, thoracic -> thorax — name that base form so the connection
      between the adjective and the noun is made instead of silently assumed. */
@@ -5408,14 +5404,13 @@ function openTermDialog(word) {
       ${zh ? `<p class="zh" lang="zh-Hant">${esc(zh)}</p>` : ''}
     </div>` : ''}
     ${note ? `<div class="subhead">Say it</div><p class="say">${esc(note.say)}</p>` : ''}
-    ${note && note.from ? `<p class="small" style="margin-top:8px">From <strong>${esc(note.from)}</strong>.</p>` : ''}
+    ${note && note.from ? `<p class="small" style="margin-top:8px">${esc(note.from)}</p>` : ''}
     ${part && !split ? `<div class="subhead">Word part</div>
       <div class="termparts"><span class="termpart ${esc(part.kind)}"><b>${esc(part.forms)}</b><span>${esc(part.means)}</span></span></div>
       <p class="small" style="margin-top:9px">${part.kind === 'root'
         ? 'A root — the part carrying the meaning. The /o on the end is the vowel that joins it to whatever follows.'
         : esc('A ' + part.kind + ' — it does not stand alone, it attaches to a root.')}</p>` : ''}
-    ${partsHTML(split)}
-    ${credit.trim() ? `<span class="credit">${credit.trim()}</span>` : ''}`;
+    ${partsHTML(split)}`;
   openDialog($$('termDialog'));
 }
 
