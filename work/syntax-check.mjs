@@ -32,7 +32,7 @@ const blocks = [...html.matchAll(/<script type="module">([\s\S]*?)<\/script>/g)]
 console.log(`inline module scripts: ${blocks.length}`);
 for (const [i, s] of blocks.entries()) await check(`inline-module[${i}]`, s);
 
-for (const f of ['study-data.js', 'anatomy-data.js', 'term-notes.js', 'term-gloss.js', 'wordparts.js']) {
+for (const f of ['study-data.js', 'anatomy-data.js', 'term-notes.js', 'term-gloss.js', 'wordparts.js', 'bodymap.js']) {
   try {
     await check(`outputs/${f}`, readFileSync(join(root, 'outputs', f), 'utf8'));
   } catch {
