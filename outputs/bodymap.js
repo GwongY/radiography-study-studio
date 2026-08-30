@@ -249,9 +249,15 @@ export const BODY_CONCEPTS = [
   { id: 'plane-transverse', kind: 'plane', name: 'Transverse plane', aliases: ['horizontal plane', 'axial plane', 'cross-section'],
     axis: 'y', at: 0.600, separates: 'superior (upper) from inferior (lower)', ends: ['Inferior', 'Superior'], color: 0xe3c072,
     blurb: 'A horizontal cut — separates upper from lower. CT slices are transverse; this one is drawn at the umbilicus.' },
-  { id: 'plane-oblique', kind: 'plane', name: 'Oblique plane', aliases: ['angled plane'],
-    axis: 'oblique', at: 0.62, separates: 'the body at an angle to the other three planes', ends: ['', ''], color: 0xe38f72,
-    blurb: 'Any slice that is not parallel to the sagittal, coronal or transverse planes.' },
+  /*
+   * Three planes only. L1 p4 and the glossary give the coronal/frontal,
+   * transverse/horizontal and mid-sagittal/median planes and nothing else, and
+   * the word "oblique" does not appear anywhere in the supplied lecture set --
+   * see the HTI17101 source-fidelity note in study-data.js. An oblique plane
+   * lived here until 2026-08-30 and was removed as off-syllabus.
+   * Parasagittal stays: it is not a fourth plane but the off-midline case of
+   * the sagittal plane, and it is labelled on the planes figure the lesson shows.
+   */
 
   // ---------- 9 abdominopelvic regions ----------
   { id: 'reg-right-hypochondriac', kind: 'region', name: 'Right hypochondriac region', cell: [0, 0], short: 'Right\nhypochondriac',

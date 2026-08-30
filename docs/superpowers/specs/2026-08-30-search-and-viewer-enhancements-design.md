@@ -255,3 +255,22 @@ The tags themselves are terser and the full names, colour key and plane
 overlay instead of only planes.
 
 `sw.js` → v37, `bodymap.js?v=2`.
+
+### 5. Oblique plane removed as off-syllabus
+
+The original sketch above listed an oblique plane as a fourth entry. It is not
+taught in this course: the planes lesson (`study-data.js`, `hss.m0.1718` /
+`hss.vocab`) says *three* standard planes and names only frontal/coronal,
+transverse/horizontal and mid-sagittal/median, and the HTI17101 source-fidelity
+note records that the word "oblique" does not appear anywhere in the supplied
+lecture set. An off-syllabus concept in the viewer is worse than a missing one —
+it invites revision time on something the exam cannot ask — so `plane-oblique`
+is deleted, along with the now-unreachable angled-plane branch in `buildPlane()`.
+That function now returns `[]` for an unrecognised axis rather than falling
+through to a default cut.
+
+`plane-parasagittal` stays. It is not a fourth plane but the off-midline case of
+the sagittal plane — the lesson blurb already draws that distinction, and the
+planes figure the lesson shows (`assets/figures/anatomy-planes.svg`) labels it.
+
+`sw.js` → v38, `bodymap.js?v=3`.
