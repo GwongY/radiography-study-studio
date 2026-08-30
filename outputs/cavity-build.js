@@ -292,7 +292,18 @@ function buildMediastinum(ctx, M) {
   const sb = boundsOf(pos(sternum));
   const vb = boundsOf(pos(spine));
   const bands = 18, depth = 9;
-  const y0 = sb.minY, y1 = sb.maxY;
+  /*
+   * Start at the diaphragm, not at the xiphoid. The last centimetre or two
+   * above the xiphoid cuts the lungs at their very base, where each one is a
+   * thin crescent lying on the dome and its medial edge has already swung far
+   * out to the side. Measured there, "the gap between the lungs" is most of the
+   * chest, and the compartment ends in a pair of wings twice the width of the
+   * heart. The mediastinum's floor is the diaphragm, so that is where it starts.
+   */
+  const y1 = sb.maxY;
+  const midZ = (vb.maxZ + boundsOf(pos(sternum)).minZ) / 2;
+  const dFloor = M.diaphragmAt ? M.diaphragmAt(0, midZ) : NaN;
+  const y0 = Number.isFinite(dFloor) ? Math.max(sb.minY, Math.min(dFloor, sb.maxY - (sb.maxY - sb.minY) * 0.3)) : sb.minY;
   const dy = (y1 - y0) / bands;
   const halfY = dy * 0.9;
 
