@@ -163,6 +163,15 @@ export const LANDMARKS = {
   },
   'thorax.manubrium': { label: 'Manubrium', layer: 'skeleton', match: ['^manubrium'] },
   'thorax.xiphoid': { label: 'Xiphoid process', layer: 'skeleton', match: ['^xiphoid'] },
+  /* the surface grid's vertical lines are dropped from the middle of these */
+  'thorax.clavicle': { label: 'Clavicle', layer: 'skeleton', match: ['^clavicle'] },
+  /* the subcostal plane is taken at the inferior border of the tenth cartilage */
+  'thorax.cartilageTenth': {
+    label: 'Tenth costal cartilage', layer: 'skeleton', match: ['costal cartilage of tenth rib'],
+  },
+  'spine.L3': { label: 'L3', layer: 'skeleton', match: ['^vertebra l3'] },
+  'spine.L4': { label: 'L4', layer: 'skeleton', match: ['^vertebra l4'] },
+  'spine.L5': { label: 'L5', layer: 'skeleton', match: ['^vertebra l5'] },
 
   /* ---------------- pelvis ---------------- */
   'pelvis.hipBone': { label: 'Hip bones', layer: 'skeleton', match: ['^hip bone'] },

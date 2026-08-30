@@ -477,9 +477,16 @@ export function sampleField(f, x, z) {
  * costodiaphragmatic recess its depth.
  */
 export function domeFromRim(rimStack, opts = {}) {
-  /* apexRise is a fraction of the rim's own radius, so this is scale-free and
-     works the same in GLB metres and in the viewer's scaled units */
-  const { apexRise = 0.62, apexShiftZ = 0.15, power = 2.0 } = opts;
+  /*
+   * apexRise is a fraction of the rim's own radius, so this is scale-free and
+   * works the same in GLB metres and in the viewer's scaled units.
+   *
+   * The defaults are not invented: they were fitted against the real Diaphragm
+   * mesh in the muscle layer, and reproduce its dome to about 28 mm RMS over
+   * the front, back, lateral and central probes. So the fallback is calibrated
+   * to the structure it stands in for, not to how it looks.
+   */
+  const { apexRise = 1.75, apexShiftZ = 0, power = 3.0 } = opts;
   const k = 0;                                   /* lowest band = the costal margin */
   const cx = rimStack.cx[k], cz = rimStack.cz[k];
   const rimY = opts.rimY != null ? opts.rimY : rimStack.ys[k];
@@ -855,6 +862,64 @@ export function canalPath(vertebraClouds, opts = {}) {
   return { nodes, path, radius, xMid };
 }
 
+/**
+ * A tube of varying radius swept along a path. three.js TubeGeometry takes a
+ * single radius, and the canal genuinely is not one: it is widest in the
+ * cervical and lumbar enlargements and narrowest in the mid-thoracic spine,
+ * which is measured per vertebra, so the tube carries a radius per node.
+ */
+export function tubeMesh(path, radii, opts = {}) {
+  const sides = opts.sides || 14;
+  const smooth = opts.resample || 3;               /* extra points between nodes */
+  /* Catmull-Rom resample so the tube curves smoothly through the foramina */
+  const P = [], Rd = [];
+  const at = (i) => path[Math.min(path.length - 1, Math.max(0, i))];
+  const rat = (i) => radii[Math.min(radii.length - 1, Math.max(0, i))];
+  for (let i = 0; i < path.length - 1; i++) {
+    for (let s = 0; s < smooth; s++) {
+      const t = s / smooth, t2 = t * t, t3 = t2 * t;
+      const p0 = at(i - 1), p1 = at(i), p2 = at(i + 1), p3 = at(i + 2);
+      const q = [0, 1, 2].map((k) => 0.5 * ((2 * p1[k]) + (-p0[k] + p2[k]) * t
+        + (2 * p0[k] - 5 * p1[k] + 4 * p2[k] - p3[k]) * t2
+        + (-p0[k] + 3 * p1[k] - 3 * p2[k] + p3[k]) * t3));
+      P.push(q);
+      Rd.push(rat(i) + (rat(i + 1) - rat(i)) * t);
+    }
+  }
+  P.push(at(path.length - 1)); Rd.push(rat(radii.length - 1));
+
+  const pos = [], idx = [];
+  let prevN = [1, 0, 0];
+  for (let i = 0; i < P.length; i++) {
+    const a = P[Math.max(0, i - 1)], b = P[Math.min(P.length - 1, i + 1)];
+    let t = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];
+    const tl = Math.hypot(...t) || 1; t = t.map((v) => v / tl);
+    /* parallel-transport a reference vector so the tube does not twist */
+    let n = [prevN[0], prevN[1], prevN[2]];
+    const d = n[0] * t[0] + n[1] * t[1] + n[2] * t[2];
+    n = [n[0] - t[0] * d, n[1] - t[1] * d, n[2] - t[2] * d];
+    let nl = Math.hypot(...n);
+    if (nl < 1e-6) { n = Math.abs(t[1]) < 0.9 ? [0, 1, 0] : [1, 0, 0]; nl = 1; }
+    n = n.map((v) => v / nl);
+    prevN = n;
+    const bn = [t[1] * n[2] - t[2] * n[1], t[2] * n[0] - t[0] * n[2], t[0] * n[1] - t[1] * n[0]];
+    for (let s = 0; s < sides; s++) {
+      const a2 = s / sides * TAU, ca = Math.cos(a2), sa = Math.sin(a2), r = Rd[i];
+      pos.push(P[i][0] + (n[0] * ca + bn[0] * sa) * r,
+        P[i][1] + (n[1] * ca + bn[1] * sa) * r,
+        P[i][2] + (n[2] * ca + bn[2] * sa) * r);
+    }
+  }
+  for (let i = 0; i < P.length - 1; i++) {
+    for (let s = 0; s < sides; s++) {
+      const s2 = (s + 1) % sides;
+      const a = i * sides + s, b = i * sides + s2, c = (i + 1) * sides + s, d = (i + 1) * sides + s2;
+      idx.push(a, c, b, b, c, d);
+    }
+  }
+  return { positions: new Float32Array(pos), indices: idx };
+}
+
 /* ------------------------------------------------------------------ *
  * anterior surface -- where the region grid gets painted
  * ------------------------------------------------------------------ */
@@ -872,11 +937,22 @@ export function frontSurface(points, opts = {}) {
   const y0 = opts.y0 != null ? opts.y0 : b.minY, y1 = opts.y1 != null ? opts.y1 : b.maxY;
   const dx = (x1 - x0) / nx, dy = (y1 - y0) / ny;
   const h = Array.from({ length: nx }, () => new Array(ny).fill(NaN));
+  /*
+   * zMin discards the back of the body before measuring. Without it, a band
+   * with no anterior structure in it -- the belly, when only the skeleton is
+   * loaded -- has nothing but lumbar vertebrae in its cells, and the "front"
+   * surface collapses onto the spine, putting the region grid inside the
+   * patient. Dropping posterior points leaves those cells empty instead, and
+   * the fill then interpolates between the costal margin above and the pelvis
+   * below, which are both genuinely at the front.
+   */
+  const zMin = opts.zMin != null ? opts.zMin : -Infinity;
   for (const p of list) {
     for (let i = 0; i < p.length; i += 3) {
+      const v = p[i + 2];
+      if (v < zMin) continue;
       const gx = Math.floor((p[i] - x0) / dx), gy = Math.floor((p[i + 1] - y0) / dy);
       if (gx < 0 || gx >= nx || gy < 0 || gy >= ny) continue;
-      const v = p[i + 2];
       if (!Number.isFinite(h[gx][gy]) || v > h[gx][gy]) h[gx][gy] = v;
     }
   }
