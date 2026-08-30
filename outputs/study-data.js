@@ -4308,7 +4308,7 @@ function structureItem(set) {
     id: `hss2011-structures-${set.id}`,
     subject: set.subject, unit: set.unit, type: 'structure',
     title: set.label,
-    tags: ['osteology', '3d', 'blank-mode'],
+    tags: ['osteology', '3d'],
     structureSet: set.id,
     lesson: {
       explanation: `${set.label} — ${set.members.length} structures in ${groups.length} group${groups.length === 1 ? '' : 's'}: ${groups.join(', ')}. `
