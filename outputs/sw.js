@@ -23,7 +23,7 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v42';
+const CACHE_VERSION = 'v43';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
@@ -44,9 +44,9 @@ const SHELL = [
   './bodymap.js?v=4',
   /* the cavity engine: resolver, maths, builders. Small, and the overlays are
      part of the study system, so they belong in the offline shell. */
-  './landmarks.js',
-  './cavity-geom.js',
-  './cavity-build.js',
+  './landmarks.js?v=2',
+  './cavity-geom.js?v=2',
+  './cavity-build.js?v=2',
   './figures.js?v=1',
   './layouts.js?v=1',
   './manifest.webmanifest',

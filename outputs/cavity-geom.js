@@ -266,6 +266,43 @@ function fillGapsCircular(a) {
   return out;
 }
 
+/**
+ * Raise a sampled curve onto its own upper concave envelope: afterwards no
+ * sample sits below the straight line joining any two others.
+ *
+ * This is how the anterior wall of the trunk is kept honest where there is
+ * nothing to measure it from. Between the costal margin and the pubis a
+ * skeleton offers no anterior structure at all, and the bands in that stretch
+ * are not empty -- they are full of posterior ilium -- so the ordinary
+ * interpolate-the-gaps rule never fires and the "front" of the body collapses
+ * onto the back of it. A belly does not dent inwards between two levels where
+ * it is known to be forward, so the wall is held out to at least the chord
+ * between them. Where the data is real (the muscle layer loaded, or the costal
+ * arch) it already lies above every chord and this changes nothing.
+ */
+function upperEnvelope(vals, dy) {
+  const n = vals.length;
+  const idx = [];
+  for (let i = 0; i < n; i++) if (Number.isFinite(vals[i])) idx.push(i);
+  if (idx.length < 3) return vals.slice();
+  const hull = [];
+  for (const i of idx) {
+    while (hull.length >= 2) {
+      const a = hull[hull.length - 2], b = hull[hull.length - 1];
+      /* drop b if it is at or below the chord a->i */
+      const t = (b - a) / (i - a);
+      if (vals[b] <= vals[a] + (vals[i] - vals[a]) * t + 1e-12) hull.pop(); else break;
+    }
+    hull.push(i);
+  }
+  const out = vals.slice();
+  for (let h = 0; h < hull.length - 1; h++) {
+    const a = hull[h], b = hull[h + 1];
+    for (let i = a + 1; i < b; i++) out[i] = vals[a] + (vals[b] - vals[a]) * ((i - a) / (b - a));
+  }
+  return out;
+}
+
 function smoothColumn(a, radius) {
   const n = a.length, out = new Array(n);
   for (let i = 0; i < n; i++) {
@@ -986,9 +1023,96 @@ export function tubeMesh(path, radii, opts = {}) {
  * ------------------------------------------------------------------ */
 
 /**
+ * The trunk, band by band: how wide it is and how far forward it reaches.
+ *
+ * The nine regions and four quadrants are drawn ON the front of the body, so
+ * they need a torso-shaped surface to sit on. A z = f(x, y) grid sampled
+ * straight off the point cloud is not that surface: with only the skeleton
+ * loaded, a band through the flank contains no anterior bone at all, so its
+ * cells fall back to whatever IS there -- the lumbar vertebrae -- and the
+ * "front" collapses onto the spine, putting the grid inside the patient.
+ *
+ * So the trunk is described the way a cross-section actually behaves instead.
+ * Per height band, three measurements:
+ *
+ *   w      half-width -- the lateral silhouette
+ *   zFront how far forward the wall reaches, as a high percentile of z so one
+ *          stray vertex cannot pull the whole belly forward
+ *   zMid   the section's own mid-depth, halfway between its front and its back
+ *
+ * and the anterior surface is the ellipse arc between them: apex forward on the
+ * midline, turning away to the mid-depth at the flank, which is the shape of a
+ * real abdominal cross-section. Bands with no points are interpolated
+ * vertically between the nearest bands that have some, the same honest-gap rule
+ * the cavity walls use, and `coverage` reports how much was measured.
+ *
+ * Nothing here knows about organs. Feed it the wall, not the contents: the
+ * regions are topographic divisions and the liver must not be able to move one.
+ */
+export function torsoProfile(points, opts = {}) {
+  const list = asList(points);
+  if (!list.length) return null;
+  const b = boundsOf(list);
+  const bands = opts.bands || 26;
+  const cx = opts.centreX || 0;
+  const y0 = opts.y0 != null ? opts.y0 : b.minY;
+  const y1 = opts.y1 != null ? opts.y1 : b.maxY;
+  const dy = (y1 - y0) / bands;
+  if (!(dy > 0)) return null;
+
+  const w = new Array(bands).fill(NaN);           /* half-width */
+  const zs = Array.from({ length: bands }, () => []);
+  const bandOf = (y) => Math.floor((y - y0) / dy);
+  for (const p of list) {
+    for (let i = 0; i < p.length; i += 3) {
+      const k = bandOf(p[i + 1]);
+      if (k < 0 || k >= bands) continue;
+      const d = Math.abs(p[i] - cx);
+      if (!Number.isFinite(w[k]) || d > w[k]) w[k] = d;
+      zs[k].push(p[i + 2]);
+    }
+  }
+  const covered = zs.map((a) => a.length > 0);
+  const front = new Array(bands).fill(NaN);
+  const mid = new Array(bands).fill(NaN);
+  for (let k = 0; k < bands; k++) {
+    if (!zs[k].length) continue;
+    zs[k].sort((a, c) => a - c);
+    const hi = percentileOf(zs[k], 0.98), lo = percentileOf(zs[k], 0.02);
+    front[k] = hi;
+    mid[k] = (hi + lo) / 2;
+  }
+  fillGapsLinear(w); fillGapsLinear(front); fillGapsLinear(mid);
+  const sm = opts.smooth == null ? 2 : opts.smooth;
+  let W = w, F = upperEnvelope(front, dy), Mi = mid;
+  for (let i = 0; i < sm; i++) { W = smoothColumn(W, 1); F = smoothColumn(F, 1); Mi = smoothColumn(Mi, 1); }
+  /* the front of a section cannot end up behind its own middle */
+  for (let k = 0; k < bands; k++) if (!(F[k] > Mi[k])) F[k] = Mi[k] + Math.abs(W[k]) * 0.05;
+
+  const at = (arr, y) => {
+    const g = Math.min(bands - 1, Math.max(0, (y - y0) / dy - 0.5));
+    const i0 = Math.floor(g), i1 = Math.min(bands - 1, i0 + 1);
+    return arr[i0] + (arr[i1] - arr[i0]) * (g - i0);
+  };
+  const lift = opts.lift || 0;
+  return {
+    y0, y1, bands, centreX: cx, covered,
+    halfWidthAt: (y) => at(W, y),
+    surfaceAt: (x, y) => {
+      const ww = at(W, y) || 1e-6;
+      const f = at(F, y), m = at(Mi, y);
+      const t = Math.min(1, Math.abs(x - cx) / ww);
+      return m + (f - m) * Math.sqrt(Math.max(0, 1 - t * t)) + lift;
+    },
+    /* fraction of the bands that had real points in them */
+    coverage: covered.filter(Boolean).length / bands,
+  };
+}
+
+/**
  * z = f(x, y) of the front of the body: the largest z at each (x, y) cell.
- * The nine regions and four quadrants are drawn ON this, so the lines curve
- * with the belly instead of floating on a flat sheet in front of it.
+ * Kept for callers that have a genuinely covered anterior cloud; the region
+ * grid uses torsoProfile instead, for the reason given there.
  */
 export function frontSurface(points, opts = {}) {
   const list = asList(points);

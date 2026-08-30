@@ -27,7 +27,7 @@
 
 import {
   ringStack, stackMesh, starShell, starMesh, heightField, sampleField, domeFromRim,
-  canalPath, tubeMesh, boundsOf, planeThrough, frontSurface, polyStack,
+  canalPath, tubeMesh, boundsOf, planeThrough, torsoProfile, polyStack,
 } from './cavity-geom.js';
 
 const pos = (meshes) => meshes.map((m) => m.positions);
@@ -523,133 +523,181 @@ function buildPelvic(ctx, M) {
  * ------------------------------------------------------------------ */
 
 /*
- * Every line of the grid is a named anatomical plane, and every one of them is
- * measured here rather than assumed:
+ * The nine regions and the four quadrants are TOPOGRAPHIC divisions: lines a
+ * clinician draws on a patient's skin, defined by named reference planes and by
+ * nothing else. The anatomy underneath is what the lines are used to talk
+ * ABOUT -- it is never allowed to bend one. The liver crosses three regions;
+ * that does not make the epigastric boundary liver-shaped.
  *
- *   midclavicular   dropped from the middle of each clavicle
- *   subcostal       the inferior border of the tenth costal cartilage
- *   transtubercular the tubercles of the iliac crest, taken at L5
- *   transumbilical  the L3/L4 junction, where the umbilicus sits
- *   costal margin   the actual lower edge of the anterior rib cage, per x
- *   pubis           the top of the pubic symphysis
+ * So each boundary here is one measurement of one landmark, and every one of
+ * them comes out as a CONSTANT -- a flat plane, not a curve:
  *
- * and they are drawn ON the front of the body, not on a plane in front of it.
+ *   median          the true midline of this body, from the axial skeleton
+ *   midclavicular   dropped from the midpoint of each clavicle
+ *   subcostal       the inferior border of the tenth costal cartilage (~L3)
+ *   transtubercular the tubercles of the iliac crest (~L5)
+ *   transumbilical  the L3/L4 junction, the skeletal level of the umbilicus
+ *
+ * plus the two levels at which the drawing simply stops -- the xiphisternal
+ * joint above and the top of the pubic symphysis below. Those two are not
+ * dividing planes and nothing is defined by them; they are the ends of the
+ * lines.
+ *
+ * The lines are then painted on the front of the torso (see torsoProfile), so
+ * they curve with the body in three dimensions while their anatomical levels
+ * stay exactly where they were measured.
  */
+
+/** the median-plane distance of the 1st and 99th percentile of a half-cloud */
+function spanOf(values) {
+  if (values.length < 8) return null;
+  values.sort((a, b) => a - b);
+  const at = (q) => values[Math.min(values.length - 1, Math.round(q * (values.length - 1)))];
+  return [at(0.01), at(0.99)];
+}
+
 export function measureGrid(ctx, M) {
   const G = {};
   const grab = (k) => pos(ctx.meshesFor(k));
 
+  /*
+   * The median plane. Measured, not assumed to be x = 0: it is the plane the
+   * quadrants are actually divided by, so it is taken from the structures that
+   * define the midline -- the vertebral column and the sternum.
+   */
+  const axial = grab('spine.lumbar').concat(grab('spine.thoracic'), grab('thorax.sternum'));
+  if (axial.length) { const b = boundsOf(axial); G.medianX = (b.minX + b.maxX) / 2; }
+  else G.medianX = 0;
+
+  /*
+   * The two midclavicular lines: vertical, parallel, one per side, each dropped
+   * from the midpoint of its own clavicle -- halfway between the sternal and
+   * the acromial end, which is what the line is named for. Taken per side and
+   * then averaged, so the pair is symmetric about the median plane and cannot
+   * converge on anything lower down.
+   */
   const clav = grab('thorax.clavicle');
-  const hip = grab('pelvis.hipBone');
-  const hb = hip.length ? boundsOf(hip) : null;
   if (clav.length) {
-    /* mid-clavicular: halfway along the bone, which is what the line is named for */
-    const cb = boundsOf(clav);
-    G.midclavicularX = (Math.abs(cb.minX) + Math.abs(cb.maxX)) / 4;
-  } else if (hb) {
-    G.midclavicularX = hb.maxX * 0.55;
+    const side = [[], []];                 /* 0 = patient's right (-x), 1 = left */
+    for (const p of clav) {
+      for (let i = 0; i < p.length; i += 3) {
+        const d = p[i] - G.medianX;
+        side[d < 0 ? 0 : 1].push(Math.abs(d));
+      }
+    }
+    const mids = side.map(spanOf).filter(Boolean).map(([sternal, acromial]) => (sternal + acromial) / 2);
+    if (mids.length) G.midclavicularX = mids.reduce((a, b) => a + b, 0) / mids.length;
   }
 
+  /* the subcostal plane: the inferior border of the tenth costal cartilage */
   const tenth = grab('thorax.cartilageTenth');
   if (tenth.length) G.subcostalY = boundsOf(tenth).minY;
 
   const l3 = grab('spine.L3'), l4 = grab('spine.L4'), l5 = grab('spine.L5');
+  /* the umbilicus is not a mesh in any of these layers; L3/L4 is its level */
   if (l3.length && l4.length) {
     const a = boundsOf(l3), b = boundsOf(l4);
     G.transumbilicalY = (a.minY + b.maxY) / 2;
   }
-  if (l5.length) {
-    const b = boundsOf(l5);
-    G.transtubercularY = (b.minY + b.maxY) / 2;
-  }
-
-  G.bottomY = M.symphysis ? M.symphysis[1] : (hb ? hb.minY + (hb.maxY - hb.minY) * 0.25 : 0);
-  G.halfX = hb ? Math.max(Math.abs(hb.minX), hb.maxX) : 0.1;
+  if (l3.length && G.subcostalY == null) G.subcostalY = boundsOf(l3).maxY;
 
   /*
-   * The costal margin, as a real curve. For each x, the lowest ANTERIOR point
-   * of the rib cage: restricting to z > 0 keeps the low posterior tips of ribs
-   * 11 and 12 from dragging the arch down at the flanks, where the margin the
-   * grid needs is the cartilage in front.
+   * The transtubercular plane: through the tubercle of each iliac crest -- the
+   * point at which the crest bulges furthest laterally, a couple of centimetres
+   * behind and below its summit. Asking each hip bone for its own widest point
+   * finds it directly, so the plane is measured from the landmark it is named
+   * for rather than read off a vertebra. (L5 is the fallback, and on this model
+   * the two agree to within a millimetre, which is the check that it is right.)
    */
-  const cage = grab('thorax.ribsLower').concat(grab('thorax.costalCartilage'));
-  if (cage.length) {
-    const cb = boundsOf(cage);
-    const nb = 21;
-    const lo = new Array(nb).fill(NaN);
-    for (const p of cage) {
+  const tub = [];
+  for (const sign of [-1, 1]) {
+    let best = -Infinity, bestY = NaN;
+    for (const p of grab('pelvis.hipBone')) {
       for (let i = 0; i < p.length; i += 3) {
-        if (p[i + 2] <= 0) continue;
-        const t = (p[i] - cb.minX) / (cb.maxX - cb.minX || 1);
-        const bi = Math.min(nb - 1, Math.max(0, Math.round(t * (nb - 1))));
-        if (!Number.isFinite(lo[bi]) || p[i + 1] < lo[bi]) lo[bi] = p[i + 1];
+        const d = (p[i] - G.medianX) * sign;
+        if (d > best) { best = d; bestY = p[i + 1]; }
       }
     }
-    /* hold the ends and smooth, so the arch is continuous across the sternum */
-    let first = lo.findIndex(Number.isFinite);
-    if (first >= 0) {
-      let last = lo.length - 1;
-      while (!Number.isFinite(lo[last])) last--;
-      for (let i = 0; i < first; i++) lo[i] = lo[first];
-      for (let i = last + 1; i < nb; i++) lo[i] = lo[last];
-      for (let i = first; i <= last; i++) if (!Number.isFinite(lo[i])) lo[i] = lo[i - 1];
-      const sm = lo.map((v, i) => {
-        let s = 0, c = 0;
-        for (let k = -2; k <= 2; k++) { const j = i + k; if (j >= 0 && j < nb) { s += lo[j]; c++; } }
-        return s / c;
-      });
-      G.costalMarginAt = (x) => {
-        const t = (x - cb.minX) / (cb.maxX - cb.minX || 1);
-        const g = Math.min(nb - 1, Math.max(0, t * (nb - 1)));
-        const i0 = Math.floor(g), i1 = Math.min(nb - 1, i0 + 1);
-        return sm[i0] + (sm[i1] - sm[i0]) * (g - i0);
-      };
-      G.topY = Math.max(...sm);
-    }
+    if (Number.isFinite(bestY)) tub.push(bestY);
   }
+  if (tub.length) G.transtubercularY = tub.reduce((a, b) => a + b, 0) / tub.length;
+  else if (l5.length) { const b = boundsOf(l5); G.transtubercularY = (b.minY + b.maxY) / 2; }
 
   /*
-   * The surface the grid is painted on: the front of whatever is loaded. With
-   * the muscle layer that is the real abdominal wall; with only the skeleton it
-   * is the rib cage above and the ilia below, and the gap between them -- which
-   * has no bone in it at all -- is bridged by the same fill the cavity walls
-   * use. Either way the lines curve with the body instead of floating on a
-   * sheet in front of it.
+   * Where the drawing stops. Above: the tip of the xiphoid process, the lowest
+   * point of the sternum and the one a clinician can put a finger on. Below:
+   * the top of the pubic symphysis. Both are levels, not dividing planes --
+   * nothing is defined by them, they are simply the ends of the lines. The
+   * costal margin is deliberately NOT used: following that arch is what turned
+   * the epigastric region into a triangle pointed at the xiphoid.
    */
-  const skin = grab('wall.abdominal')
-    .concat(grab('thorax.ribsLower'), grab('thorax.costalCartilage'),
-      grab('pelvis.hipBone'), grab('organs.abdominal'));
-  if (skin.length) {
-    const sb = boundsOf(skin);
-    const field = frontSurface(skin, {
-      nx: 26, ny: 30, smooth: 2,
-      /* front half only -- see the zMin note in frontSurface */
-      zMin: 0,
-      x0: -G.halfX * 1.05, x1: G.halfX * 1.05,
-      y0: G.bottomY - (sb.maxY - sb.minY) * 0.02,
-      y1: (G.topY != null ? G.topY : sb.maxY) + (sb.maxY - sb.minY) * 0.02,
+  const xiph = grab('thorax.xiphoid');
+  const hip = grab('pelvis.hipBone');
+  const hb = hip.length ? boundsOf(hip) : null;
+  if (xiph.length) G.topY = boundsOf(xiph).minY;
+  else if (tenth.length) G.topY = boundsOf(tenth).maxY;
+  G.bottomY = M.symphysis ? M.symphysis[1] : (hb ? hb.minY + (hb.maxY - hb.minY) * 0.25 : 0);
+
+  /*
+   * The torso the grid is painted on. The wall only -- bone, plus the abdominal
+   * muscles when that layer is loaded. Organs are deliberately excluded: they
+   * are the contents, and letting them into this measurement is how a boundary
+   * ends up following the liver.
+   *
+   * The femur is in the list because the drawing runs down to the pubic
+   * symphysis, and at that level the outline of the body is the hip, not the
+   * pelvis: the ilium has already fallen away towards the acetabulum while the
+   * greater trochanter is still carrying the flank. Leave it out and the
+   * silhouette pinches in below the iliac crest, which squeezes the two iliac
+   * regions to slivers.
+   */
+  const wall = grab('wall.abdominal')
+    .concat(grab('thorax.ribsLower'), grab('thorax.costalCartilage'), grab('thorax.sternum'),
+      grab('pelvis.hipBone'), grab('pelvis.femur'));
+  if (wall.length && G.topY != null) {
+    const wb = boundsOf(wall);
+    const pad = (G.topY - G.bottomY) * 0.06;
+    const profile = torsoProfile(wall, {
+      bands: 26, smooth: 2, centreX: G.medianX,
+      y0: G.bottomY - pad, y1: G.topY + pad,
+      /* stand the lines a few millimetres clear of the wall they lie on */
+      lift: (wb.maxX - wb.minX) * 0.018,
     });
-    const lift = (sb.maxX - sb.minX) * 0.012;
-    G.surfaceAt = (x, y) => sampleField(field, x, y) + lift;
-    G.hasMuscleWall = ctx.meshesFor('wall.abdominal').length > 0;
+    if (profile) {
+      G.halfWidthAt = profile.halfWidthAt;
+      G.surfaceAt = profile.surfaceAt;
+      G.halfX = profile.halfWidthAt((G.topY + G.bottomY) / 2);
+      G.wallMeasured = ctx.meshesFor('wall.abdominal').length > 0;
+      G.wallCoverage = profile.coverage;
+    }
   }
   return G;
 }
 
 /**
- * Cell boundaries for the nine regions / four quadrants, as fractions of the
- * measured planes. Returns column x-boundaries and row y-boundaries, where a
- * row boundary may be a function of x (the costal margin is an arch).
+ * The boundaries the renderer draws, for one grid.
+ *
+ * `verticals` and `horizontals` are the defining lines -- constants, so they
+ * are straight and level and the same two verticals run through all three rows.
+ * `cols` and `rows` add the outer edges so a single cell can be filled: the
+ * outer column edge is a function of height, because it is the body's own
+ * silhouette rather than a box drawn round the abdomen.
  */
 export function gridBounds(kind, G) {
   const quad = kind === 'quadrant';
-  const cols = quad
-    ? [-G.halfX, 0, G.halfX]
-    : [-G.halfX, -G.midclavicularX, G.midclavicularX, G.halfX];
-  const rows = quad
-    ? [G.costalMarginAt, G.transumbilicalY, G.bottomY]
-    : [G.costalMarginAt, G.subcostalY, G.transtubercularY, G.bottomY];
-  return { cols, rows };
+  const verticals = quad ? [G.medianX]
+    : [G.medianX - G.midclavicularX, G.medianX + G.midclavicularX];
+  const horizontals = quad ? [G.transumbilicalY] : [G.subcostalY, G.transtubercularY];
+  const left = (y) => G.medianX - G.halfWidthAt(y);
+  const right = (y) => G.medianX + G.halfWidthAt(y);
+  return {
+    verticals,
+    horizontals,
+    cols: [left, ...verticals, right],
+    rows: [G.topY, ...horizontals, G.bottomY],
+    top: G.topY,
+    bottom: G.bottomY,
+  };
 }
 
 const BUILDERS = {

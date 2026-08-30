@@ -319,11 +319,21 @@ export const REFERENCE_CHAINS = {
     primary: ['thorax.ribsLower', 'spine.lumbar', 'pelvis.ring', 'thorax.costalCartilage'],
     secondary: ['diaphragm', 'wall.abdominal', 'organs.abdominal', 'organs.pelvic'],
   },
-  /* the surface grids project onto the front of the trunk */
+  /*
+   * The surface grids. The primary tier is the landmarks the reference lines
+   * are MEASURED from -- clavicles for the midclavicular lines, the tenth
+   * costal cartilage for the subcostal plane, the hip bones for the iliac
+   * tubercles, L3/L4 for the transumbilical plane, the xiphoid and the
+   * symphysis for the ends. The secondary tier only changes what the lines are
+   * painted on: with the abdominal wall loaded the torso surface is measured,
+   * without it the wall is interpolated between the costal margin and the
+   * pelvis. Organs are not in either tier and never will be -- the regions are
+   * topographic divisions, and the liver must not be able to move a boundary.
+   */
   'grid.abdomen': {
-    primary: ['thorax.ribsLower', 'thorax.costalCartilage', 'thorax.xiphoid', 'pelvis.hipBone',
-      'spine.lumbar'],
-    secondary: ['wall.abdominal', 'organs.abdominal'],
+    primary: ['thorax.clavicle', 'thorax.cartilageTenth', 'pelvis.hipBone', 'thorax.xiphoid',
+      'spine.L3', 'spine.L4', 'spine.lumbar', 'thorax.sternum'],
+    secondary: ['wall.abdominal', 'thorax.ribsLower', 'thorax.costalCartilage', 'pelvis.femur'],
   },
 };
 
