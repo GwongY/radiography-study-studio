@@ -1,0 +1,389 @@
+assets/z-anatomy-skeleton.glb: 388 names
+  Anterior cells of ethmoid bone
+  Anterior cells of ethmoid bone.l
+  Anterior cells of ethmoid bone.r
+  Arytenoid cartilage
+  Arytenoid cartilage.l
+  Arytenoid cartilage.r
+  Atlas (C1)
+  Axis (C2)
+  Body of sternum
+  Calcaneus.l
+  Calcaneus.r
+  Capitate bone
+  Capitate bone.l
+  Capitate bone.r
+  Clavicle
+  Clavicle.l
+  Clavicle.r
+  Coccyx
+  Corniculate cartilage.l
+  Corniculate cartilage.r
+  Costal cartilage of eighth rib
+  Costal cartilage of eighth rib.l
+  Costal cartilage of eighth rib.r
+  Costal cartilage of fifth rib
+  Costal cartilage of fifth rib.l
+  Costal cartilage of fifth rib.r
+  Costal cartilage of first rib
+  Costal cartilage of first rib.l
+  Costal cartilage of first rib.r
+  Costal cartilage of fourth rib
+  Costal cartilage of fourth rib.l
+  Costal cartilage of fourth rib.r
+  Costal cartilage of ninth rib
+  Costal cartilage of ninth rib.l
+  Costal cartilage of ninth rib.r
+  Costal cartilage of second rib
+  Costal cartilage of second rib.l
+  Costal cartilage of second rib.r
+  Costal cartilage of seventh rib
+  Costal cartilage of seventh rib.l
+  Costal cartilage of seventh rib.r
+  Costal cartilage of sixth rib
+  Costal cartilage of sixth rib.l
+  Costal cartilage of sixth rib.r
+  Costal cartilage of tenth rib
+  Costal cartilage of tenth rib.l
+  Costal cartilage of tenth rib.r
+  Costal cartilage of third rib
+  Costal cartilage of third rib.l
+  Costal cartilage of third rib.r
+  Cricoid cartilage
+  Cuboid bone
+  Cuboid bone.l
+  Cuboid bone.r
+  Distal phalanx of fifth finger of foot
+  Distal phalanx of fifth finger of foot.l
+  Distal phalanx of fifth finger of foot.r
+  Distal phalanx of fifth finger of hand.l
+  Distal phalanx of fifth finger of hand.r
+  Distal phalanx of first finger of foot
+  Distal phalanx of first finger of foot.l
+  Distal phalanx of first finger of foot.r
+  Distal phalanx of first finger of hand
+  Distal phalanx of first finger of hand.l
+  Distal phalanx of first finger of hand.r
+  Distal phalanx of fourth finger of foot
+  Distal phalanx of fourth finger of foot.l
+  Distal phalanx of fourth finger of foot.r
+  Distal phalanx of fourth finger of hand
+  Distal phalanx of fourth finger of hand.l
+  Distal phalanx of fourth finger of hand.r
+  Distal phalanx of second finger of foot
+  Distal phalanx of second finger of foot.l
+  Distal phalanx of second finger of foot.r
+  Distal phalanx of second finger of hand
+  Distal phalanx of second finger of hand.l
+  Distal phalanx of second finger of hand.r
+  Distal phalanx of third finger of foot
+  Distal phalanx of third finger of foot.l
+  Distal phalanx of third finger of foot.r
+  Distal phalanx of third finger of hand
+  Distal phalanx of third finger of hand.l
+  Distal phalanx of third finger of hand.r
+  Eighth rib
+  Eighth rib.l
+  Eighth rib.r
+  Eleventh rib
+  Eleventh rib.l
+  Eleventh rib.r
+  Ethmoid bone
+  Femur
+  Femur.l
+  Femur.r
+  Fibula
+  Fibula.l
+  Fibula.r
+  Fifth metacarpal bone
+  Fifth metacarpal bone.l
+  Fifth metacarpal bone.r
+  Fifth metatarsal bone
+  Fifth metatarsal bone.l
+  Fifth metatarsal bone.r
+  Fifth rib
+  Fifth rib.l
+  Fifth rib.r
+  First metacarpal bone
+  First metacarpal bone.l
+  First metacarpal bone.r
+  First metatarsal bone
+  First metatarsal bone.l
+  First metatarsal bone.r
+  First rib
+  First rib.l
+  First rib.r
+  Fourth metacarpal bone
+  Fourth metacarpal bone.l
+  Fourth metacarpal bone.r
+  Fourth metatarsal bone
+  Fourth metatarsal bone.l
+  Fourth metatarsal bone.r
+  Fourth rib
+  Fourth rib.l
+  Fourth rib.r
+  Frontal bone
+  Hamate bone
+  Hamate bone.l
+  Hamate bone.r
+  Hip bone
+  Hip bone.l
+  Hip bone.r
+  Humerus
+  Humerus.l
+  Humerus.r
+  Hyoid bone
+  Incus
+  Incus.l
+  Incus.r
+  Inferior nasal concha bone
+  Inferior nasal concha bone.l
+  Inferior nasal concha bone.r
+  Intermediate cuneiform bone.l
+  Intermediate cuneiform bone.r
+  Lacrimal bone
+  Lacrimal bone.l
+  Lacrimal bone.r
+  Lateral cuneiform bone.l
+  Lateral cuneiform bone.r
+  Lateral process of nasal septal cartilage
+  Lateral process of nasal septal cartilage.l
+  Lateral process of nasal septal cartilage.r
+  Lower canine
+  Lower canine.l
+  Lower canine.r
+  Lower first molar tooth
+  Lower first molar tooth.l
+  Lower first molar tooth.r
+  Lower first premolar
+  Lower first premolar.l
+  Lower first premolar.r
+  Lower lateral incisor
+  Lower lateral incisor.l
+  Lower lateral incisor.r
+  Lower medial incisor
+  Lower medial incisor.l
+  Lower medial incisor.r
+  Lower second molar tooth
+  Lower second molar tooth.l
+  Lower second molar tooth.r
+  Lower second premolar
+  Lower second premolar.l
+  Lower second premolar.r
+  Lunate bone
+  Lunate bone.l
+  Lunate bone.r
+  Major alar cartilage
+  Major alar cartilage.l
+  Major alar cartilage.r
+  Malleus
+  Malleus.l
+  Malleus.r
+  Mandible
+  Manubrium of sternum
+  Maxilla
+  Maxilla.l
+  Maxilla.r
+  Medial cuneiform bone.l
+  Medial cuneiform bone.r
+  Middle cells of ethmoid bone
+  Middle cells of ethmoid bone.l
+  Middle cells of ethmoid bone.r
+  Middle phalanx of fifth finger of foot
+  Middle phalanx of fifth finger of foot.l
+  Middle phalanx of fifth finger of foot.r
+  Middle phalanx of fifth finger of hand
+  Middle phalanx of fifth finger of hand.l
+  Middle phalanx of fifth finger of hand.r
+  Middle phalanx of fourth finger of foot
+  Middle phalanx of fourth finger of foot.l
+  Middle phalanx of fourth finger of foot.r
+  Middle phalanx of fourth finger of hand
+  Middle phalanx of fourth finger of hand.l
+  Middle phalanx of fourth finger of hand.r
+  Middle phalanx of second finger of foot
+  Middle phalanx of second finger of foot.l
+  Middle phalanx of second finger of foot.r
+  Middle phalanx of second finger of hand
+  Middle phalanx of second finger of hand.l
+  Middle phalanx of second finger of hand.r
+  Middle phalanx of third finger of foot
+  Middle phalanx of third finger of foot.l
+  Middle phalanx of third finger of foot.r
+  Middle phalanx of third finger of hand
+  Middle phalanx of third finger of hand.l
+  Middle phalanx of third finger of hand.r
+  Nasal bone
+  Nasal bone.l
+  Nasal bone.r
+  Nasal septal cartilage
+  Navicular bone
+  Navicular bone.l
+  Navicular bone.r
+  Ninth rib
+  Ninth rib.l
+  Ninth rib.r
+  Occipital bone
+  Palatine bone
+  Palatine bone.l
+  Palatine bone.r
+  Parietal bone.l
+  Parietal bone.r
+  Patella
+  Patella.l
+  Patella.r
+  Pisiform bone
+  Pisiform bone.l
+  Pisiform bone.r
+  Posterior cells of ethmoid bone
+  Posterior cells of ethmoid bone.l
+  Posterior cells of ethmoid bone.r
+  Proximal phalanx of fifth finger of foot
+  Proximal phalanx of fifth finger of foot.l
+  Proximal phalanx of fifth finger of foot.r
+  Proximal phalanx of fifth finger of hand
+  Proximal phalanx of fifth finger of hand.l
+  Proximal phalanx of fifth finger of hand.r
+  Proximal phalanx of first finger of foot
+  Proximal phalanx of first finger of foot.l
+  Proximal phalanx of first finger of foot.r
+  Proximal phalanx of first finger of hand
+  Proximal phalanx of first finger of hand.l
+  Proximal phalanx of first finger of hand.r
+  Proximal phalanx of fourth finger of foot
+  Proximal phalanx of fourth finger of foot.l
+  Proximal phalanx of fourth finger of foot.r
+  Proximal phalanx of fourth finger of hand
+  Proximal phalanx of fourth finger of hand.l
+  Proximal phalanx of fourth finger of hand.r
+  Proximal phalanx of second finger of foot
+  Proximal phalanx of second finger of foot.l
+  Proximal phalanx of second finger of foot.r
+  Proximal phalanx of second finger of hand
+  Proximal phalanx of second finger of hand.l
+  Proximal phalanx of second finger of hand.r
+  Proximal phalanx of third finger of foot
+  Proximal phalanx of third finger of foot.l
+  Proximal phalanx of third finger of foot.r
+  Proximal phalanx of third finger of hand
+  Proximal phalanx of third finger of hand.l
+  Proximal phalanx of third finger of hand.r
+  Radius
+  Radius.l
+  Radius.r
+  Sacrum
+  Scaphoid bone
+  Scaphoid bone.l
+  Scaphoid bone.r
+  Scapula
+  Scapula.l
+  Scapula.r
+  Second metacarpal bone
+  Second metacarpal bone.l
+  Second metacarpal bone.r
+  Second metatarsal bone
+  Second metatarsal bone.l
+  Second metatarsal bone.r
+  Second rib
+  Second rib.l
+  Second rib.r
+  Sesamoid bones of foot
+  Sesamoid bones of foot.l
+  Sesamoid bones of foot.r
+  Seventh rib
+  Seventh rib.l
+  Seventh rib.r
+  Sinus of frontal bone
+  Sinus of sphenoid bone
+  Sixth rib
+  Sixth rib.l
+  Sixth rib.r
+  Sphenoid bone
+  Sphenoid bone.l
+  Stapes
+  Stapes.l
+  Stapes.r
+  Talus.l
+  Talus.r
+  Temporal bone
+  Temporal bone.l
+  Temporal bone.r
+  Tenth rib
+  Tenth rib.l
+  Tenth rib.r
+  Third metacarpal bone
+  Third metacarpal bone.l
+  Third metacarpal bone.r
+  Third metatarsal bone
+  Third metatarsal bone.l
+  Third metatarsal bone.r
+  Third rib
+  Third rib.l
+  Third rib.r
+  Thyroid cartilage
+  Tibia
+  Tibia.l
+  Tibia.r
+  Trapezium bone
+  Trapezium bone.l
+  Trapezium bone.r
+  Trapezoid bone
+  Trapezoid bone.l
+  Trapezoid bone.r
+  Triquetrum bone
+  Triquetrum bone.l
+  Triquetrum bone.r
+  Twelfth rib
+  Twelfth rib.l
+  Twelfth rib.r
+  Ulna
+  Ulna.l
+  Ulna.r
+  Upper canine
+  Upper canine.l
+  Upper canine.r
+  Upper first molar tooth
+  Upper first molar tooth.l
+  Upper first molar tooth.r
+  Upper first premolar
+  Upper first premolar.l
+  Upper first premolar.r
+  Upper lateral incisor
+  Upper lateral incisor.l
+  Upper lateral incisor.r
+  Upper medial incisor
+  Upper medial incisor.l
+  Upper medial incisor.r
+  Upper second molar tooth
+  Upper second molar tooth.l
+  Upper second molar tooth.r
+  Upper second premolar
+  Upper second premolar.l
+  Upper second premolar.r
+  Vertebra C3
+  Vertebra C4
+  Vertebra C5
+  Vertebra C6
+  Vertebra C7
+  Vertebra L1
+  Vertebra L2
+  Vertebra L3
+  Vertebra L4
+  Vertebra L5
+  Vertebra T1
+  Vertebra T10
+  Vertebra T11
+  Vertebra T12
+  Vertebra T2
+  Vertebra T3
+  Vertebra T4
+  Vertebra T5
+  Vertebra T6
+  Vertebra T7
+  Vertebra T8
+  Vertebra T9
+  Vomer
+  Xiphoid process
+  Zygomatic bone
+  Zygomatic bone.l
+  Zygomatic bone.r
