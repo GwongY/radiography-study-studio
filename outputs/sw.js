@@ -23,7 +23,7 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v43';
+const CACHE_VERSION = 'v44';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
@@ -34,7 +34,7 @@ const SHELL = [
   './index.html',
   './radiography-study-studio.html',
   './study-data.js',
-  './anatomy-data.js',
+  './anatomy-data.js?v=4',
   './visual-data.js?v=3',
   './schematics.js?v=2',
   './wordparts.js?v=3',
@@ -42,6 +42,10 @@ const SHELL = [
   './term-gloss.js?v=3',
   './physiology.js?v=4',
   './bodymap.js?v=4',
+  /* the search index: every named mesh in every layer, plus the synonym table
+     that maps "collarbone" and "voice box" onto what the model calls them */
+  './mesh-index.js?v=1',
+  './synonyms.js?v=1',
   /* the cavity engine: resolver, maths, builders. Small, and the overlays are
      part of the study system, so they belong in the offline shell. */
   './landmarks.js?v=2',
