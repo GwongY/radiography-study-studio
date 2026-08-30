@@ -288,6 +288,67 @@ export function ringPoint(stack, band, sector) {
 }
 
 /**
+ * A stack whose cross-sections are given as explicit polygons in (x, z).
+ *
+ * The mediastinum needs this rather than a rectangle: it is broad in front,
+ * where the heart pushes the lungs apart, and narrow behind, where they close
+ * in beside the vertebral bodies. A single width per height cannot say that,
+ * and it is the difference between the compartment and a slot.
+ *
+ * The polygon is converted to a radius per sector about its own centroid,
+ * which is valid as long as the shape is star-shaped from there -- true of a
+ * cross-section that is widest where the centroid falls.
+ *
+ * bands: [{ y, poly: [[x, z], ...] }]
+ */
+export function polyStack(bands, opts = {}) {
+  const sectors = opts.sectors || 44;
+  const ys = [], cx = [], cz = [], r = [], covered = [];
+  for (const b of bands) {
+    const poly = b.poly;
+    let sx = 0, sz = 0;
+    for (const p of poly) { sx += p[0]; sz += p[1]; }
+    const c = [sx / poly.length, sz / poly.length];
+    const row = new Array(sectors).fill(NaN);
+    for (let s = 0; s < sectors; s++) {
+      const a = s / sectors * TAU, dx = Math.cos(a), dz = Math.sin(a);
+      let best = Infinity;
+      for (let i = 0; i < poly.length; i++) {
+        const p0 = poly[i], p1 = poly[(i + 1) % poly.length];
+        /* ray c + t*d against segment p0->p1 */
+        const ex = p1[0] - p0[0], ez = p1[1] - p0[1];
+        const den = dx * ez - dz * ex;
+        if (Math.abs(den) < 1e-12) continue;
+        const qx = p0[0] - c[0], qz = p0[1] - c[1];
+        const t = (qx * ez - qz * ex) / den;
+        const u = (qx * dz - qz * dx) / den;
+        if (t > 1e-9 && u >= -1e-9 && u <= 1 + 1e-9 && t < best) best = t;
+      }
+      row[s] = Number.isFinite(best) ? best : NaN;
+    }
+    ys.push(b.y); cx.push(c[0]); cz.push(c[1]);
+    r.push(fillGapsCircular(row));
+    covered.push(new Array(sectors).fill(true));
+  }
+  /* a little vertical smoothing so the compartment does not step band to band */
+  const sm = opts.smoothV != null ? opts.smoothV : 1;
+  if (sm) {
+    const copy = r.map((row) => row.slice());
+    for (let k = 0; k < r.length; k++) for (let s = 0; s < sectors; s++) {
+      let sum = 0, c2 = 0;
+      for (let d = -sm; d <= sm; d++) {
+        const kk = k + d;
+        if (kk < 0 || kk >= r.length) continue;
+        if (Number.isFinite(copy[kk][s])) { sum += copy[kk][s]; c2++; }
+      }
+      if (c2) r[k][s] = sum / c2;
+    }
+  }
+  return { ys, cx, cz, r, covered, sectors, bands: bands.length,
+    y0: ys[0], y1: ys[ys.length - 1] };
+}
+
+/**
  * Turn a ring stack into a closed surface.
  *
  * The ends are the interesting part. A cavity's lid and floor are rarely flat:

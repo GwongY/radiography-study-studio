@@ -575,6 +575,17 @@
 .overlaycard .oitem i{flex:none;width:8px;height:8px;border-radius:3px;opacity:.75}
 .overlaycard .oitem[aria-pressed="true"]{color:var(--teal);border-color:rgba(114,227,207,.5);background:rgba(114,227,207,.1)}
 .overlaycard .oitem[aria-pressed="true"] i{opacity:1}
+.overlaycard .oitem.child{margin-left:14px;font-size:10.5px;opacity:.92}
+.overlaycard .omodes{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0 0}
+.overlaycard .omodes.hidden{display:none}
+.overlaycard .omode{border:1px solid var(--line);border-radius:8px;background:none;color:var(--dim);font-size:11px;padding:5px 9px;cursor:pointer}
+.overlaycard .omode[aria-pressed="true"]{color:var(--teal);border-color:rgba(114,227,207,.5);background:rgba(114,227,207,.1)}
+.overlaycard .oprov{margin-top:10px;font-size:11px;line-height:1.45;color:var(--muted)}
+.overlaycard .oprov.hidden{display:none}
+.overlaycard .oprov h4{margin:0 0 3px;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.overlaycard .oprov .otrail{color:var(--dim)}
+.overlaycard .oprov .otrail b{color:#e2eceb;font-weight:600}
+.overlaycard .oprov .oapprox{color:var(--amber,#e8a53a)}
 
 /* There was never a generic .hidden rule -- only .view.hidden and
    .stage-state.hidden -- so `class="... hidden"` was inert on #mvBar,
@@ -714,9 +725,11 @@
         <section class="card overlaycard">
           <div class="task-kicker">Spatial overlays</div>
           <h2 class="task-title">Cavities, regions, planes</h2>
-          <p class="task-copy">These are not in the model — the viewer draws them over the body. Tap a group for the whole set, or search a single one.</p>
+          <p class="task-copy">Spaces rather than structures: each one is measured from the meshes already loaded, so it sits where this body puts it. Tap a group for the whole set, or search a single one.</p>
           <div class="ogroups" id="overlayGroups"></div>
           <div class="olist" id="overlayItems"></div>
+          <div class="omodes" id="overlayModes"></div>
+          <div class="oprov" id="overlayProv"></div>
         </section>
       </div>
     </div>
@@ -872,7 +885,7 @@
   </div>
   <p class="small" id="resetHint" style="margin-top:8px">The 3D models, the lessons and the source files are untouched — only your own history is.</p>
 </dialog>
-<dialog id="aboutDialog"><button class="ghost close" id="closeAbout">Close</button><div class="eyebrow">Sources / architecture</div><h2 class="task-title">Designed for replaceable anatomy assets</h2><div class="about"><p><strong>Active model:</strong> five separate, real BodyParts3D upper-limb GLBs: clavicle, scapula, humerus, radius and ulna. They are loaded locally and mapped into the canonical anatomy database at runtime; the procedural scene is only a last-resort fallback.</p><h3>Model attribution</h3><p>BodyParts3D / Anatomography, © The Database Center for Life Science, licensed under CC BY-SA 2.1 JP. Files are distributed through the open <a href="https://github.com/paulvanmetre/anatomy-viewer" target="_blank" rel="noreferrer">anatomy-viewer</a> study project, which documents the per-bone BodyParts3D source and share-alike attribution.</p><h3>Candidate sources reviewed</h3><ul><li><a href="https://github.com/paulvanmetre/anatomy-viewer" target="_blank" rel="noreferrer">BodyParts3D upper-limb GLBs</a> — active real per-bone source.</li><li><a href="https://3d.nih.gov/entries/3dpx-016838" target="_blank" rel="noreferrer">NIH 3D Human Skeleton, 3DPX-016838</a> — accurate CT-derived source, but the exported GLB is a single fused mesh and is not used for bone picking.</li><li><a href="https://threejs.org/docs/pages/GLTFLoader.html" target="_blank" rel="noreferrer">Three.js GLTFLoader</a> — direct local GLB loading boundary. Only the model adapter needs to change when assets are replaced.</li></ul><h3>Radiography-ready data</h3><p>Each record already has landmarks, articulations, radiography importance, difficulty and a future resource slot. Add openly licensed AP, PA, lateral or oblique studies to the data layer when the image source is cleared.</p><h3>Offline and failure behavior</h3><p>Anatomy search, records, regions and quiz choices render without the 3D dependency. If the local BodyParts3D assets or Three.js CDN are unavailable, the model area exits with a retryable fallback state instead of leaving an infinite spinner.</p></div></dialog>
+<dialog id="aboutDialog"><button class="ghost close" id="closeAbout">Close</button><div class="eyebrow">Sources / architecture</div><h2 class="task-title">Seven named anatomical layers</h2><div class="about"><p><strong>Active model:</strong> seven Z-Anatomy / BodyParts3D GLB layers, about 2,900 individually named and selectable meshes in one shared coordinate frame — skeleton (277), muscles (683), ligaments and joints (413), organs (120), vessels (676), nerves (582) and lymphatic (163). The skeleton loads first; the other six are fetched the moment you first switch one on, so a first install does not download neuroanatomy for someone studying bones.</p><h3>Model attribution</h3><p>BodyParts3D / Anatomography, &copy; The Database Center for Life Science, licensed under CC BY-SA 2.1 JP. The layer set is distributed through the open <a href="https://github.com/DrMuratAltun/anatomi-simulatoru" target="_blank" rel="noreferrer">anatomi-simulatoru</a> project, which documents the per-structure BodyParts3D source and the share-alike attribution.</p><h3>Spatial overlays are measured, not drawn</h3><p>The body cavities, the nine abdominopelvic regions and the four quadrants are not in any GLB. They are generated at runtime <em>from</em> the loaded meshes: the thoracic cavity is swept from the inner surface of these ribs, sternum and thoracic vertebrae and floored by the diaphragm; the vertebral canal is threaded through the foramen found in each vertebra; the pelvic cavity is the space inside these hip bones below the brim. Nothing is placed by hand, so the overlays follow the model rather than a remembered position, and they would follow a different body too.</p><p>Where a cavity is defined by a structure from a layer you have not loaded — the pericardial sac is defined by the heart — the viewer falls back to the strongest bony reference it does have and says on the card that the result is estimated rather than measured.</p><h3>Legacy files</h3><p><code>assets/bodyparts3d/</code> still holds five per-bone upper-limb GLBs (clavicle, scapula, humerus, radius, ulna) from an earlier iteration of this app. They are <strong>not</strong> the active source and nothing in the current viewer is built around them.</p><h3>Offline and failure behaviour</h3><p>Anatomy search, records, regions and quiz choices render without the 3D dependency. If the local assets or the three.js CDN are unavailable, the model area exits with a retryable fallback state instead of leaving an infinite spinner.</p></div></dialog>
 <dialog id="detailDialog"><button class="ghost close" id="closeDetail">Close</button><div class="eyebrow">Structure detail</div><h2 class="task-title" id="detailTitle">Structure</h2><div class="chips" id="detailChips"></div><div class="about" id="detailBody"></div></dialog>
 <div class="sheetscrim hidden" id="searchScrim">
   <div class="sheet" id="searchSheet" role="dialog" aria-modal="true" aria-label="Search everything">
@@ -1323,11 +1336,24 @@ function cavityShape(id){
  * mode lifts that, and it does so by making the BONE transparent rather than by
  * letting the cavity punch through it.
  */
+/*
+ * Fading is not enough on its own. With every layer loaded there are ~2,900
+ * overlapping surfaces, and forty of them at 16% alpha stack up to something
+ * indistinguishable from solid. So the modes that need to see past the anatomy
+ * HIDE it: isolate keeps only the structures the cavity is defined by, and
+ * x-ray drops the soft-tissue layers and leaves the skeleton faint.
+ *
+ *   skin/wire    the cavity's own opacities
+ *   wireThrough  let the outline read through solid anatomy
+ *   bone         fade every remaining anatomy mesh to this
+ *   keepBasis    hide everything except the cavity's defining structures
+ *   skeletonOnly hide the six soft-tissue layers
+ */
 const CAVITY_STYLE={
   normal:{skin:0.30,wire:0.30,wireThrough:false,bone:null},
-  isolation:{skin:0.42,wire:0.40,wireThrough:false,bone:0.16},
+  isolation:{skin:0.44,wire:0.42,wireThrough:false,bone:null,keepBasis:true},
   cutaway:{skin:0.40,wire:0.38,wireThrough:false,bone:null},
-  xray:{skin:0.52,wire:0.55,wireThrough:true,bone:0.10},
+  xray:{skin:0.50,wire:0.55,wireThrough:true,bone:0.12,skeletonOnly:true},
   anatomy:{skin:0.10,wire:0.14,wireThrough:false,bone:null},
 };
 function cavityStyle(){ return CAVITY_STYLE[state.cavityMode||'normal']||CAVITY_STYLE.normal; }
@@ -1597,16 +1623,22 @@ function applyCavityMode(mode){
   restoreAnatomyMaterials();
   const st=cavityStyle();
   const active=state.concepts&&state.concepts.size;
-  if(active&&(st.bone!=null||next==='cutaway')){
-    const keep=next==='isolation'?cavityBasisObjects():new Set();
+  if(active&&(st.bone!=null||st.keepBasis||next==='cutaway')){
+    const keep=st.keepBasis?cavityBasisObjects():new Set();
     const box=next==='cutaway'?activeCavityBox():null;
     const THREE=state.THREE;
     const tmp=box?new THREE.Box3():null;
+    const skeleton=new Set(state.fullMeshes);
     anatomyMeshes().forEach((o)=>{
-      if(!o.material||o.visible===false&&!o.userData._cavStash) { /* already hidden by the user */ }
-      o.userData._cavStash={t:o.material?o.material.transparent:false,
-        o:o.material?o.material.opacity:1,
-        d:o.material?o.material.depthWrite:true, v:o.visible};
+      if(!o.material) return;
+      o.userData._cavStash={t:o.material.transparent,o:o.material.opacity,
+        d:o.material.depthWrite,v:o.visible};
+      if(st.keepBasis){
+        /* the cavity plus the structures that define it, and nothing else */
+        if(!keep.has(o)) o.visible=false;
+        return;
+      }
+      if(st.skeletonOnly&&!skeleton.has(o)){ o.visible=false; return; }
       if(next==='cutaway'){
         /*
          * Hide what is genuinely in the way: a structure that reaches in front
@@ -2117,7 +2149,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   async function loadImportedModel(THREE,GLTFLoader,DRACOLoader){const root=new THREE.Group();const loader=new GLTFLoader();const draco=new DRACOLoader();draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/libs/draco/');loader.setDRACOLoader(draco);for(let i=0;i<MODEL_CATALOG.active.files.length;i++){const source=MODEL_CATALOG.active.files[i];const gltf=await new Promise((resolve,reject)=>loader.load(source.file,resolve,(event)=>{const ratio=event.total?event.loaded/event.total:0;els.progress.style.width=`${Math.round(((i+ratio)/MODEL_CATALOG.active.files.length)*60)+28}%`},reject));gltf.scene.traverse((obj)=>{obj.userData={...(obj.userData||{}),sourceCanonicalId:source.id,sourceSide:source.side,sourceLabel:source.label}});root.add(gltf.scene)}const pivot=new THREE.Group();pivot.name='realUpperLimbPivot';pivot.add(root);return pivot}
   async function loadFullReference(THREE,GLTFLoader){const loader=new GLTFLoader();const gltf=await new Promise((resolve,reject)=>loader.load(MODEL_CATALOG.fullSkeletonFile,resolve,(event)=>{const ratio=event.total?event.loaded/event.total:0;els.progress.style.width=`${Math.round(ratio*25)+3}%`},reject));return gltf.scene}
   function cameraView(kind){if(!state.camera||!state.controls)return;if(kind==='lateral'){state.camera.position.set(24,1,0);state.controls.target.set(0,1,0)}else{state.camera.position.set(0,1,25);state.controls.target.set(0,1,0)}state.controls.update()}
-  async function boot3D(){els.state.classList.remove('hidden');els.stateTitle.textContent='Loading full skeleton reference';els.stateCopy.textContent='Loading the CT-derived reference model, then preparing the individually selectable upper-limb set…';els.retry.style.display='none';els.progress.style.width='3%';try{const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js');const {OrbitControls}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js');const {GLTFLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js');const {DRACOLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/DRACOLoader.js');state.scene=new THREE.Scene();state.scene.background=new THREE.Color(0x0b151b);state.camera=new THREE.PerspectiveCamera(32,1,.1,100);state.camera.position.set(0,1,25);state.renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});state.renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));state.renderer.outputColorSpace=THREE.SRGBColorSpace;els.stage.prepend(state.renderer.domElement);state.controls=new OrbitControls(state.camera,state.renderer.domElement);state.controls.enableDamping=true;state.controls.dampingFactor=.08;state.controls.minDistance=2.5;state.controls.maxDistance=45;state.controls.target.set(0,1,0);state.raycaster=new THREE.Raycaster();state.pointer=new THREE.Vector2();state.scene.add(new THREE.HemisphereLight(0xdce9e7,0x102026,2.1));const key=new THREE.DirectionalLight(0xffffff,2.4);key.position.set(5,12,16);state.scene.add(key);state.scene.add(new THREE.DirectionalLight(0x5cd1c4,.8));try{state.fullModel=prepareFullReference(THREE,await loadFullReference(THREE,GLTFLoader));state.scene.add(state.fullModel);addFullPickables(THREE,state.scene);els.stageMeta.textContent='Full NIH CT-derived skeleton reference · named click zones · upper-limb meshes selectable by region';}catch(fullError){console.warn('Full reference failed',fullError)}try{state.realModel=await loadImportedModel(THREE,GLTFLoader,DRACOLoader);const info=prepareImportedModel(THREE,state.realModel);state.scene.add(state.realModel);els.stageMeta.textContent+=` · ${info.mapped} real BodyParts3D upper-limb meshes`;}catch(importError){console.warn('Real upper-limb model failed, using local fallback',importError);state.realModel=createProceduralModel(THREE);state.scene.add(state.realModel);addHotspots(THREE,state.scene);els.stageMeta.textContent='Full reference + fallback upper-limb meshes';}resize();applyVisibility();els.progress.style.width='100%';setTimeout(()=>els.state.classList.add('hidden'),500);animate();return true}catch(error){els.stateTitle.textContent='3D model unavailable';els.stateCopy.textContent='The study tools still work. Check your connection, then retry the model layer.';els.retry.style.display='inline-flex';els.progress.style.width='100%';console.warn(error);return false}}
+  async function boot3D(){els.state.classList.remove('hidden');els.stateTitle.textContent='Loading the skeleton layer';els.stateCopy.textContent='Loading the Z-Anatomy skeleton — 277 named, individually selectable structures. The other six system layers load on demand.';els.retry.style.display='none';els.progress.style.width='3%';try{const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js');const {OrbitControls}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js');const {GLTFLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js');const {DRACOLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/DRACOLoader.js');state.scene=new THREE.Scene();state.scene.background=new THREE.Color(0x0b151b);state.camera=new THREE.PerspectiveCamera(32,1,.1,100);state.camera.position.set(0,1,25);state.renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});state.renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));state.renderer.outputColorSpace=THREE.SRGBColorSpace;els.stage.prepend(state.renderer.domElement);state.controls=new OrbitControls(state.camera,state.renderer.domElement);state.controls.enableDamping=true;state.controls.dampingFactor=.08;state.controls.minDistance=2.5;state.controls.maxDistance=45;state.controls.target.set(0,1,0);state.raycaster=new THREE.Raycaster();state.pointer=new THREE.Vector2();state.scene.add(new THREE.HemisphereLight(0xdce9e7,0x102026,2.1));const key=new THREE.DirectionalLight(0xffffff,2.4);key.position.set(5,12,16);state.scene.add(key);state.scene.add(new THREE.DirectionalLight(0x5cd1c4,.8));try{state.fullModel=prepareFullReference(THREE,await loadFullReference(THREE,GLTFLoader));state.scene.add(state.fullModel);addFullPickables(THREE,state.scene);els.stageMeta.textContent='Z-Anatomy / BodyParts3D skeleton · 277 named structure meshes';}catch(fullError){console.warn('Full reference failed',fullError)}try{state.realModel=await loadImportedModel(THREE,GLTFLoader,DRACOLoader);const info=prepareImportedModel(THREE,state.realModel);state.scene.add(state.realModel);els.stageMeta.textContent+=` · ${info.mapped} real BodyParts3D upper-limb meshes`;}catch(importError){console.warn('Real upper-limb model failed, using local fallback',importError);state.realModel=createProceduralModel(THREE);state.scene.add(state.realModel);addHotspots(THREE,state.scene);els.stageMeta.textContent='Full reference + fallback upper-limb meshes';}resize();applyVisibility();els.progress.style.width='100%';setTimeout(()=>els.state.classList.add('hidden'),500);animate();return true}catch(error){els.stateTitle.textContent='3D model unavailable';els.stateCopy.textContent='The study tools still work. Check your connection, then retry the model layer.';els.retry.style.display='inline-flex';els.progress.style.width='100%';console.warn(error);return false}}
   function resize(){if(!state.renderer||!state.camera)return;const rect=els.stage.getBoundingClientRect();state.renderer.setSize(rect.width,rect.height,false);state.camera.aspect=rect.width/rect.height;state.camera.updateProjectionMatrix();if(state.xray&&state.xray.rt)state.xray.rt.setSize(Math.max(2,Math.floor(rect.width)),Math.max(2,Math.floor(rect.height)))}
   function animate(){if(!state.renderer)return;requestAnimationFrame(animate);
   if(state.movement&&state.movement.playing){
@@ -3259,7 +3291,7 @@ import {
   moduleInfo,
 } from './study-data.js';
 import { searchAnatomy } from './anatomy-data.js?v=4';
-import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS } from './bodymap.js?v=3';
+import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS, conceptById, conceptAncestors, conceptChildren } from './bodymap.js?v=4';
 import { visualFor, plateFor } from './visual-data.js?v=3';
 import { FLOW_CLASSES, LAYER_CLASSES, RATES } from './physiology.js?v=4';
 import { schematic } from './schematics.js?v=2';
@@ -4045,17 +4077,90 @@ function renderOverlayCard(active) {
     return `<button class="ochip" data-kind="${g.kind}" aria-pressed="${on}">${esc(g.name)}</button>`;
   }).join('');
   const swatch = (c) => `<i style="background:#${(c.color >>> 0).toString(16).padStart(6, '0')}"></i>`;
-  const row = (kind, heading) => `<div class="ohead">${heading}</div>`
-    + BODY_CONCEPTS.filter((c) => c.kind === kind).map((c) =>
-      `<button class="oitem" data-concept="${c.id}" aria-pressed="${set.has(c.id)}" title="${esc(c.blurb || '')}">`
-      + `${swatch(c)}${esc(c.name)}</button>`).join('');
-  items.innerHTML = row('cavity', 'Cavities') + row('plane', 'Planes');
+  const btn = (c, cls) => `<button class="oitem${cls ? ' ' + cls : ''}" data-concept="${c.id}"`
+    + ` aria-pressed="${set.has(c.id)}" title="${esc(c.blurb || '')}">${swatch(c)}${esc(c.name)}</button>`;
+  /*
+   * Cavities nest, so the list nests: the two body cavities first, then what
+   * each contains, indented. A flat list of eleven gives no clue that the
+   * pericardial sac is inside the mediastinum, which is the relationship the
+   * exam actually asks about.
+   */
+  const cavityRows = () => {
+    const out = ['<div class="ohead">Cavities</div>'];
+    const emitted = new Set();
+    const emit = (c, depth) => {
+      if (emitted.has(c.id)) return;
+      emitted.add(c.id);
+      out.push(btn(c, depth ? 'child' : ''));
+      conceptChildren(c.id).forEach((k) => emit(k, depth + 1));
+    };
+    BODY_CONCEPTS.filter((c) => c.kind === 'cavity' && !c.parent).forEach((c) => emit(c, 0));
+    BODY_CONCEPTS.filter((c) => c.kind === 'cavity' && !emitted.has(c.id)).forEach((c) => emit(c, 0));
+    return out.join('');
+  };
+  const planeRows = '<div class="ohead">Planes</div>'
+    + BODY_CONCEPTS.filter((c) => c.kind === 'plane').map((c) => btn(c)).join('');
+  items.innerHTML = cavityRows() + planeRows;
   groups.querySelectorAll('[data-kind]').forEach((b) => {
     b.onclick = () => { if (window.__osteo && window.__osteo.toggleConceptKind) { window.__osteo.toggleConceptKind(b.dataset.kind); } };
   });
   items.querySelectorAll('[data-concept]').forEach((b) => {
     b.onclick = () => { if (window.__osteo && window.__osteo.toggleConcept) { window.__osteo.toggleConcept(b.dataset.concept); } };
   });
+  renderOverlayModes(set);
+  renderOverlayProvenance(set);
+}
+/*
+ * The five ways of looking. Only offered while something is shown, because
+ * every one of them works by changing how the ANATOMY is drawn.
+ */
+function renderOverlayModes(set) {
+  const el = $$('overlayModes');
+  if (!el) return;
+  const api = window.__osteo;
+  if (!api || !api.cavityModes || !set.size) { el.classList.add('hidden'); el.innerHTML = ''; return; }
+  const cur = api.cavityMode ? api.cavityMode() : 'normal';
+  el.classList.remove('hidden');
+  el.innerHTML = '<div class="ohead">How to look</div>'
+    + api.cavityModes().map((m) =>
+      `<button class="omode" data-mode="${m.id}" aria-pressed="${m.id === cur}" title="${esc(m.hint)}">${esc(m.label)}</button>`).join('');
+  el.querySelectorAll('[data-mode]').forEach((b) => {
+    b.onclick = () => { api.setCavityMode(b.dataset.mode); renderOverlayCard(); };
+  });
+}
+/*
+ * Where the shape came from.
+ *
+ * Every cavity is derived from real meshes, but they are not all derived
+ * equally well: with the organ layer unloaded the mediastinum is estimated
+ * from the vertebral bodies rather than measured between the lungs. Saying so
+ * costs three lines and is the difference between a model and a claim.
+ */
+function renderOverlayProvenance(set) {
+  const el = $$('overlayProv');
+  if (!el) return;
+  const api = window.__osteo;
+  const shown = BODY_CONCEPTS.filter((c) => c.kind === 'cavity' && set.has(c.id));
+  if (!api || !api.conceptProvenance || !shown.length) {
+    el.classList.add('hidden'); el.innerHTML = ''; return;
+  }
+  const parts = [];
+  shown.forEach((c) => {
+    const p = api.conceptProvenance(c.id);
+    if (!p) return;
+    const trail = conceptAncestors(c.id).map((a) => esc(a.name));
+    const kids = conceptChildren(c.id).map((k) => esc(k.name));
+    const bits = [];
+    if (trail.length) bits.push(`inside ${trail.join(' → ')}`);
+    if (kids.length) bits.push(`contains ${kids.join(', ')}`);
+    parts.push(`<div class="otrail"><b>${esc(c.name)}</b>${bits.length ? ' — ' + bits.join('; ') : ''}`
+      + (p.basis && p.basis.length ? `<br>measured from ${esc(p.basis.join(', ').toLowerCase())}` : '')
+      + (p.notes || []).map((n) => `<br><span class="oapprox">${esc(n)}</span>`).join('')
+      + '</div>');
+  });
+  if (!parts.length) { el.classList.add('hidden'); el.innerHTML = ''; return; }
+  el.classList.remove('hidden');
+  el.innerHTML = '<h4>Derived from</h4>' + parts.join('');
 }
 /*
  * The on-stage legend. The 3D tags are deliberately terse -- an overlay is
@@ -4076,7 +4181,7 @@ function renderOverlayCaption(set) {
   CONCEPT_GROUPS.filter((g) => g.kind === 'region' || g.kind === 'quadrant').forEach((g) => {
     const ids = BODY_CONCEPTS.filter((c) => c.kind === g.kind).map((c) => c.id);
     if (ids.some((i) => set.has(i))) {
-      rows.push(`<span><i style="background:#72e3cf"></i><b>${esc(g.name)}</b> — on the anterior abdominal wall</span>`);
+      rows.push(`<span><i style="background:#72e3cf"></i><b>${esc(g.name)}</b> — projected on the anterior abdominal wall</span>`);
     }
   });
   if (!rows.length) { el.classList.add('hidden'); el.innerHTML = ''; return; }

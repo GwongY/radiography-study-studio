@@ -27,7 +27,7 @@
 
 import {
   ringStack, stackMesh, starShell, starMesh, heightField, sampleField, domeFromRim,
-  canalPath, tubeMesh, boundsOf, planeThrough, frontSurface,
+  canalPath, tubeMesh, boundsOf, planeThrough, frontSurface, polyStack,
 } from './cavity-geom.js';
 
 const pos = (meshes) => meshes.map((m) => m.positions);
@@ -275,10 +275,13 @@ function mediastinalHalfWidth(ctx, stack) {
 /*
  * MEDIASTINUM -- the space between the two pleural sacs.
  *
- * Built by the same sweep as every other cavity, but pointed at a different
- * wall: the nearest of {left lung, right lung, sternum, thoracic vertebrae} in
- * each direction. That gives lungs to the sides, sternum in front and the
- * vertebral column behind without any of it being stated as a coordinate.
+ * Named walls rather than a sweep, and a real cross-section rather than a
+ * width. At each height, and at each depth within that height, the compartment
+ * runs from the medial surface of one lung to the other; front to back it runs
+ * from the back of the sternum to the front of the vertebral bodies. That is
+ * the textbook definition, and it is the only construction that gets the shape
+ * right -- broad in front where the heart pushes the lungs apart, narrow behind
+ * where they close in beside the vertebral column.
  */
 function buildMediastinum(ctx, M) {
   const L = ctx.meshesFor('lung.left'), R = ctx.meshesFor('lung.right');
@@ -286,33 +289,94 @@ function buildMediastinum(ctx, M) {
   const spine = ctx.meshesFor('spine.thoracic');
   if (!sternum.length || !spine.length) return null;
   const haveLungs = L.length && R.length;
-  const wall = pos(sternum).concat(pos(spine), haveLungs ? pos(L).concat(pos(R)) : []);
   const sb = boundsOf(pos(sternum));
-  const stack = ringStack(wall, {
-    y0: sb.minY, y1: sb.maxY,
-    bands: 20, sectors: 44, percentile: 0.06, axis: [0, 0],
-    smoothA: 2, smoothV: 1, capUncovered: 1.1,
-  });
-  /* without lungs there is nothing to stop the sweep going out to the ribs */
-  const cap = haveLungs ? null : (boundsOf(pos(spine)).maxX - boundsOf(pos(spine)).minX) * 0.85;
-  if (cap != null) {
-    for (let i = 0; i < stack.bands; i++) {
-      for (let s = 0; s < stack.sectors; s++) {
-        const a = s / stack.sectors * Math.PI * 2;
-        const lateral = Math.abs(Math.cos(a));
-        stack.r[i][s] = Math.min(stack.r[i][s], cap / Math.max(lateral, 0.35));
+  const vb = boundsOf(pos(spine));
+  const bands = 18, depth = 9;
+  const y0 = sb.minY, y1 = sb.maxY;
+  const dy = (y1 - y0) / bands;
+  const halfY = dy * 0.9;
+
+  const inBand = (y, k) => Math.abs(y - (y0 + (k + 0.5) * dy)) <= halfY;
+  /* extreme of a cloud within a band, optionally within a depth window too */
+  const extreme = (clouds, k, wantMax, zLo, zHi) => {
+    let best = NaN;
+    for (const cl of clouds) {
+      for (let i = 0; i < cl.length; i += 3) {
+        const y = cl[i + 1];
+        if (!inBand(y, k)) continue;
+        const z = cl[i + 2];
+        if (zLo != null && (z < zLo || z > zHi)) continue;
+        const v = cl[i];
+        if (!Number.isFinite(best) || (wantMax ? v > best : v < best)) best = v;
       }
     }
+    return best;
+  };
+  const zExtreme = (clouds, k, wantMax) => {
+    let best = NaN;
+    for (const cl of clouds) {
+      for (let i = 0; i < cl.length; i += 3) {
+        if (!inBand(cl[i + 1], k)) continue;
+        const v = cl[i + 2];
+        if (!Number.isFinite(best) || (wantMax ? v > best : v < best)) best = v;
+      }
+    }
+    return best;
+  };
+  const hold = (arr) => {
+    let first = arr.findIndex(Number.isFinite);
+    if (first < 0) return arr;
+    let last = arr.length - 1;
+    while (!Number.isFinite(arr[last])) last--;
+    for (let i = 0; i < first; i++) arr[i] = arr[first];
+    for (let i = last + 1; i < arr.length; i++) arr[i] = arr[last];
+    for (let i = first; i <= last; i++) if (!Number.isFinite(arr[i])) arr[i] = arr[i - 1];
+    return arr;
+  };
+
+  const back = hold(Array.from({ length: bands }, (_, k) => zExtreme(pos(spine), k, true)));
+  const front = hold(Array.from({ length: bands }, (_, k) => zExtreme(pos(sternum), k, false)));
+  const minWidth = (vb.maxX - vb.minX) * 0.32;
+
+  const out = [];
+  for (let k = 0; k < bands; k++) {
+    const zb = back[k], zf = front[k];
+    if (!(zf > zb + 1e-4)) continue;
+    const dz = (zf - zb) / (depth - 1);
+    const leftAt = [], rightAt = [];
+    for (let j = 0; j < depth; j++) {
+      const z = zb + j * dz;
+      if (haveLungs) {
+        leftAt.push(extreme(pos(L), k, false, z - dz * 0.75, z + dz * 0.75));
+        rightAt.push(extreme(pos(R), k, true, z - dz * 0.75, z + dz * 0.75));
+      } else {
+        /* no organ layer: the vertebral bodies are the only honest guide */
+        leftAt.push(vb.maxX * 0.85); rightAt.push(vb.minX * 0.85);
+      }
+    }
+    hold(leftAt); hold(rightAt);
+    if (!Number.isFinite(leftAt[0]) || !Number.isFinite(rightAt[0])) continue;
+    const poly = [];
+    /* up the left wall from back to front, then back down the right wall */
+    for (let j = 0; j < depth; j++) {
+      poly.push([Math.max(leftAt[j], minWidth), zb + j * dz]);
+    }
+    for (let j = depth - 1; j >= 0; j--) {
+      poly.push([Math.min(rightAt[j], -minWidth), zb + j * dz]);
+    }
+    out.push({ y: y0 + (k + 0.5) * dy, poly });
   }
+  if (out.length < 3) return null;
+  const stack = polyStack(out, { sectors: 44, smoothV: 1 });
   const mesh = stackMesh(stack, { floor: M.diaphragmAt, capRings: 4 });
   return {
     parts: [mesh],
     stack,                       /* the pericardial fallback subsets this */
-    centroid: [0, (sb.minY + sb.maxY) / 2, (boundsOf(wall).minZ + boundsOf(wall).maxZ) / 2],
+    centroid: [0, (y0 + y1) / 2, (back[Math.floor(bands / 2)] + front[Math.floor(bands / 2)]) / 2],
     exact: haveLungs,
     basis: haveLungs ? ['lung.left', 'lung.right', 'thorax.sternum', 'spine.thoracic']
       : ['thorax.sternum', 'spine.thoracic'],
-    note: haveLungs ? 'lateral walls are the lungs themselves'
+    note: haveLungs ? 'lateral walls are the medial surfaces of the lungs'
       : 'organ layer not loaded — width estimated from the vertebral bodies',
   };
 }
