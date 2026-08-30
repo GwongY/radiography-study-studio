@@ -5396,6 +5396,10 @@ function openTermDialog(word) {
      pericardium, thoracic -> thorax — name that base form so the connection
      between the adjective and the noun is made instead of silently assumed. */
   const canon = gloss && gloss.key !== word.toLowerCase() ? gloss.key : null;
+  /* A curated `from` is the hand-checked breakdown, so it stands alone: when it
+     is present the auto word-part chips and "Reads as" line are suppressed, or
+     the dialog shows the same word taken apart twice (see vestibulocochlear). */
+  const showParts = !(note && note.from);
   $$('termTitle').textContent = word;
   $$('termBody').innerHTML = `
     ${canon ? `<p class="small" style="margin:0 0 10px;color:var(--muted)">Base form: <strong style="color:var(--ink)">${esc(canon)}</strong></p>` : ''}
@@ -5405,12 +5409,12 @@ function openTermDialog(word) {
     </div>` : ''}
     ${note ? `<div class="subhead">Say it</div><p class="say">${esc(note.say)}</p>` : ''}
     ${note && note.from ? `<p class="small" style="margin-top:8px">${esc(note.from)}</p>` : ''}
-    ${part && !split ? `<div class="subhead">Word part</div>
+    ${showParts && part && !split ? `<div class="subhead">Word part</div>
       <div class="termparts"><span class="termpart ${esc(part.kind)}"><b>${esc(part.forms)}</b><span>${esc(part.means)}</span></span></div>
       <p class="small" style="margin-top:9px">${part.kind === 'root'
         ? 'A root — the part carrying the meaning. The /o on the end is the vowel that joins it to whatever follows.'
         : esc('A ' + part.kind + ' — it does not stand alone, it attaches to a root.')}</p>` : ''}
-    ${partsHTML(split)}`;
+    ${showParts ? partsHTML(split) : ''}`;
   openDialog($$('termDialog'));
 }
 
