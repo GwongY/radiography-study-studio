@@ -896,7 +896,7 @@
   import { ANATOMY_DATABASE, LANDMARK_HOTSPOTS, MODEL_CATALOG, REGIONS, getAnatomy, searchAnatomy } from './anatomy-data.js?v=4';
   import { FLOW_CLASSES, FLOW_ANCHORS, LAYER_CLASSES, classify,
     cardiacEnvelope, breathEnvelope, spikeEnvelope, contractEnvelope, atriumEnvelope, ventricleEnvelope, RATES } from './physiology.js?v=4';
-  import { BODY_CONCEPTS, CONCEPT_GROUPS, ABDOMEN, conceptById } from './bodymap.js?v=2';
+  import { BODY_CONCEPTS, CONCEPT_GROUPS, ABDOMEN, conceptById } from './bodymap.js?v=3';
 
   const $ = (id) => document.getElementById(id);
   const els = { stage:$('stage'), state:$('stageState'), stateTitle:$('stateTitle'), stateCopy:$('stateCopy'), retry:$('retryBtn'), progress:$('progressBar'), stageMeta:$('stageMeta'), regionMeta:$('regionMeta'), selectedName:$('selectedName'), selectedChips:$('selectedChips'), selectedDetails:$('selectedDetails'), taskKicker:$('taskKicker'), taskTitle:$('taskTitle'), taskCopy:$('taskCopy'), answers:$('answers'), feedback:$('feedback'), next:$('nextBtn'), search:$('searchInput'), results:$('searchResults'), regions:$('regionButtons'), reviewBar:$('reviewBar'), reviewNumber:$('reviewNumber'), reviewHint:$('reviewHint'), toast:$('toast'), detailDialog:$('detailDialog'), detailTitle:$('detailTitle'), detailChips:$('detailChips'), detailBody:$('detailBody'), zoomIn:$('zoomInBtn'), zoomOut:$('zoomOutBtn'), focus:$('focusBtn'), motion:$('motionBtn') };
@@ -1347,13 +1347,9 @@ function buildPlane(c,M,grp){
     mesh=new THREE.Mesh(geo,mat);
     mesh.rotation.x=Math.PI/2;
     mesh.position.set(M.cx,M.yAt(c.at),M.cz);
-  } else { /* oblique */
-    geo=new THREE.PlaneGeometry(spanX*0.95,spanY*0.62);
-    mesh=new THREE.Mesh(geo,mat);
-    mesh.rotation.z=Math.PI/5;
-    mesh.rotation.x=Math.PI/9;
-    mesh.position.set(M.cx,M.yAt(c.at),M.cz);
   }
+  /* the syllabus has exactly three plane axes; anything else is a data error */
+  if(!mesh) return [];
   mesh.renderOrder=8;
   mesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo),
     new THREE.LineBasicMaterial({color:c.color,transparent:true,opacity:.7,depthTest:false})));
@@ -3031,7 +3027,7 @@ import {
   moduleInfo,
 } from './study-data.js';
 import { searchAnatomy } from './anatomy-data.js?v=4';
-import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS } from './bodymap.js?v=2';
+import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS } from './bodymap.js?v=3';
 import { visualFor, plateFor } from './visual-data.js?v=3';
 import { FLOW_CLASSES, LAYER_CLASSES, RATES } from './physiology.js?v=4';
 import { schematic } from './schematics.js?v=2';
