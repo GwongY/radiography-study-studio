@@ -91,8 +91,6 @@
 .priorback[open]>summary::before{content:'\25be  '}
 .priorback .body{padding:0 0 14px}
 .beyondcite{display:block;margin-top:3px;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em;color:var(--dim)}
-.seg .mu{font:10px ui-monospace,SFMono-Regular,Menlo,monospace;opacity:.62;margin-left:5px}
-.seg.locked{opacity:.75;cursor:default}
 /*
  * A hard word is marked, not hidden: a dotted underline you can tap.
  *
@@ -725,7 +723,7 @@
         <section class="card overlaycard">
           <div class="task-kicker">Spatial overlays</div>
           <h2 class="task-title">Cavities, regions, planes</h2>
-          <p class="task-copy">Spaces rather than structures: each one is measured from the meshes already loaded, so it sits where this body puts it. Tap a group for the whole set, or search a single one.</p>
+          <p class="task-copy">Spaces and reference lines rather than structures. The cavities are measured from the meshes already loaded; the regions and quadrants are the named planes a clinician draws, taken from the clavicles, the tenth costal cartilage and the iliac tubercles. Either way it sits where this body puts it. Tap a group for the whole set, or search a single one.</p>
           <div class="ogroups" id="overlayGroups"></div>
           <div class="olist" id="overlayItems"></div>
           <div class="omodes" id="overlayModes"></div>
@@ -738,7 +736,6 @@
               <div class="xray-bar">
                 <div class="segbar" id="xrayRegions"></div>
                 <div class="segbar" id="xrayViews"></div>
-                <div class="segbar" id="xrayTissues"></div>
                 <label class="xray-exp"><span>Exposure</span>
                   <input type="range" id="xrayExposure" min="40" max="260" value="160" step="5" aria-label="Exposure">
                   <span class="mono" id="xrayExposureRead">1.60&times;</span>
@@ -885,7 +882,7 @@
   </div>
   <p class="small" id="resetHint" style="margin-top:8px">The 3D models, the lessons and the source files are untouched — only your own history is.</p>
 </dialog>
-<dialog id="aboutDialog"><button class="ghost close" id="closeAbout">Close</button><div class="eyebrow">Sources / architecture</div><h2 class="task-title">Seven named anatomical layers</h2><div class="about"><p><strong>Active model:</strong> seven Z-Anatomy / BodyParts3D GLB layers, about 2,900 individually named and selectable meshes in one shared coordinate frame — skeleton (277), muscles (683), ligaments and joints (413), organs (120), vessels (676), nerves (582) and lymphatic (163). The skeleton loads first; the other six are fetched the moment you first switch one on, so a first install does not download neuroanatomy for someone studying bones.</p><h3>Model attribution</h3><p>BodyParts3D / Anatomography, &copy; The Database Center for Life Science, licensed under CC BY-SA 2.1 JP. The layer set is distributed through the open <a href="https://github.com/DrMuratAltun/anatomi-simulatoru" target="_blank" rel="noreferrer">anatomi-simulatoru</a> project, which documents the per-structure BodyParts3D source and the share-alike attribution.</p><h3>Spatial overlays are measured, not drawn</h3><p>The body cavities, the nine abdominopelvic regions and the four quadrants are not in any GLB. They are generated at runtime <em>from</em> the loaded meshes: the thoracic cavity is swept from the inner surface of these ribs, sternum and thoracic vertebrae and floored by the diaphragm; the vertebral canal is threaded through the foramen found in each vertebra; the pelvic cavity is the space inside these hip bones below the brim. Nothing is placed by hand, so the overlays follow the model rather than a remembered position, and they would follow a different body too.</p><p>Where a cavity is defined by a structure from a layer you have not loaded — the pericardial sac is defined by the heart — the viewer falls back to the strongest bony reference it does have and says on the card that the result is estimated rather than measured.</p><h3>Legacy files</h3><p><code>assets/bodyparts3d/</code> still holds five per-bone upper-limb GLBs (clavicle, scapula, humerus, radius, ulna) from an earlier iteration of this app. They are <strong>not</strong> the active source and nothing in the current viewer is built around them.</p><h3>Offline and failure behaviour</h3><p>Anatomy search, records, regions and quiz choices render without the 3D dependency. If the local assets or the three.js CDN are unavailable, the model area exits with a retryable fallback state instead of leaving an infinite spinner.</p></div></dialog>
+<dialog id="aboutDialog"><button class="ghost close" id="closeAbout">Close</button><div class="eyebrow">Sources / architecture</div><h2 class="task-title">Seven named anatomical layers</h2><div class="about"><p><strong>Active model:</strong> seven Z-Anatomy / BodyParts3D GLB layers, about 2,900 individually named and selectable meshes in one shared coordinate frame — skeleton (277), muscles (683), ligaments and joints (413), organs (120), vessels (676), nerves (582) and lymphatic (163). The skeleton loads first; the other six are fetched the moment you first switch one on, so a first install does not download neuroanatomy for someone studying bones.</p><h3>Model attribution</h3><p>BodyParts3D / Anatomography, &copy; The Database Center for Life Science, licensed under CC BY-SA 2.1 JP. The layer set is distributed through the open <a href="https://github.com/DrMuratAltun/anatomi-simulatoru" target="_blank" rel="noreferrer">anatomi-simulatoru</a> project, which documents the per-structure BodyParts3D source and the share-alike attribution.</p><h3>Spatial overlays are measured, not drawn</h3><p>The body cavities, the nine abdominopelvic regions and the four quadrants are not in any GLB. They are generated at runtime <em>from</em> the loaded meshes: the thoracic cavity is swept from the inner surface of these ribs, sternum and thoracic vertebrae and floored by the diaphragm; the vertebral canal is threaded through the foramen found in each vertebra; the pelvic cavity is the space inside these hip bones below the brim. Nothing is placed by hand, so the overlays follow the model rather than a remembered position, and they would follow a different body too.</p><p>The nine regions and the four quadrants are not spaces at all — they are topographic divisions, so they are built the way a clinician draws them: two midclavicular lines dropped from the midpoint of each clavicle, the subcostal plane at the inferior border of the tenth costal cartilage, the transtubercular plane through the tubercle of each iliac crest, the median and transumbilical planes for the quadrants. Every one of those is a measured level and stays a flat, straight boundary; only the projection onto the front of the torso curves, because the belly does. The organs underneath are what the regions are used to <em>talk about</em> and are deliberately excluded from the measurement — the liver crosses three regions and is not allowed to bend one.</p><p>Where a cavity is defined by a structure from a layer you have not loaded — the pericardial sac is defined by the heart — the viewer falls back to the strongest bony reference it does have and says on the card that the result is estimated rather than measured.</p><h3>Legacy files</h3><p><code>assets/bodyparts3d/</code> still holds five per-bone upper-limb GLBs (clavicle, scapula, humerus, radius, ulna) from an earlier iteration of this app. They are <strong>not</strong> the active source and nothing in the current viewer is built around them.</p><h3>Offline and failure behaviour</h3><p>Anatomy search, records, regions and quiz choices render without the 3D dependency. If the local assets or the three.js CDN are unavailable, the model area exits with a retryable fallback state instead of leaving an infinite spinner.</p></div></dialog>
 <dialog id="detailDialog"><button class="ghost close" id="closeDetail">Close</button><div class="eyebrow">Structure detail</div><h2 class="task-title" id="detailTitle">Structure</h2><div class="chips" id="detailChips"></div><div class="about" id="detailBody"></div></dialog>
 <div class="sheetscrim hidden" id="searchScrim">
   <div class="sheet" id="searchSheet" role="dialog" aria-modal="true" aria-label="Search everything">
@@ -910,9 +907,9 @@
   import { FLOW_CLASSES, FLOW_ANCHORS, LAYER_CLASSES, classify,
     cardiacEnvelope, breathEnvelope, spikeEnvelope, contractEnvelope, atriumEnvelope, ventricleEnvelope, RATES } from './physiology.js?v=4';
   import { BODY_CONCEPTS, CONCEPT_GROUPS, conceptById, conceptAncestors, conceptChildren, conceptLeaves } from './bodymap.js?v=4';
-  import { createResolver } from './landmarks.js';
-  import { buildCavityGeometry, measureLandmarks, measureGrid, gridBounds } from './cavity-build.js';
-  import { boundsOf, sampleField } from './cavity-geom.js';
+  import { createResolver } from './landmarks.js?v=2';
+  import { buildCavityGeometry, measureLandmarks, measureGrid, gridBounds } from './cavity-build.js?v=2';
+  import { boundsOf, sampleField } from './cavity-geom.js?v=2';
 
   const $ = (id) => document.getElementById(id);
   const els = { stage:$('stage'), state:$('stageState'), stateTitle:$('stateTitle'), stateCopy:$('stateCopy'), retry:$('retryBtn'), progress:$('progressBar'), stageMeta:$('stageMeta'), regionMeta:$('regionMeta'), selectedName:$('selectedName'), selectedChips:$('selectedChips'), selectedDetails:$('selectedDetails'), taskKicker:$('taskKicker'), taskTitle:$('taskTitle'), taskCopy:$('taskCopy'), answers:$('answers'), feedback:$('feedback'), next:$('nextBtn'), search:$('searchInput'), results:$('searchResults'), regions:$('regionButtons'), reviewBar:$('reviewBar'), reviewNumber:$('reviewNumber'), reviewHint:$('reviewHint'), toast:$('toast'), detailDialog:$('detailDialog'), detailTitle:$('detailTitle'), detailChips:$('detailChips'), detailBody:$('detailBody'), zoomIn:$('zoomInBtn'), zoomOut:$('zoomOutBtn'), focus:$('focusBtn'), motion:$('motionBtn') };
@@ -1212,6 +1209,13 @@ function updateHudSprites(){
     let ht=h.world!=null?h.world:(h.px||0.03)*span;
     if(h.minPx!=null) ht=Math.max(ht,h.minPx*span);
     if(h.maxPx!=null) ht=Math.min(ht,h.maxPx*span);
+    /*
+     * A hard tag keeps the size it was given. The legibility floor exists so a
+     * tag does not vanish when you zoom out, but a region name that grows past
+     * its own region has stopped naming that region, and a tag whose position
+     * was computed from its width has to keep that width to stay put.
+     */
+    if(h.hard&&h.world!=null) ht=h.world;
     o.scale.set(ht*h.aspect,ht,1);
   });
 }
@@ -1220,6 +1224,9 @@ function ensureConceptGroup(){
   const THREE=state.THREE;
   const grp=new THREE.Group();
   grp.name='conceptOverlays';
+  /* an overlay created while the projection is up belongs to the 3D view, not
+     to the film -- it appears when the projection is left, not on top of it */
+  grp.visible=!state.xray;
   state.scene.add(grp);
   state.conceptGroup=grp;
   return grp;
@@ -1472,94 +1479,183 @@ function buildPlane(c,M,grp){
 /* ---- the nine regions / four quadrants, painted on the front of the body ---- */
 /*
  * These are not cavities and they are not sections: they are lines a clinician
- * draws ON a patient, so they are drawn on the patient here too. Every
- * boundary is a measured plane (see measureGrid in cavity-build.js) and every
- * vertex is placed on the body's own anterior surface, so the grid wraps the
- * belly and turns with the model instead of hanging in front of it.
+ * draws ON a patient, so they are drawn on the patient here too.
+ *
+ * The construction is deliberately one-way. measureGrid finds the anatomical
+ * levels -- two midclavicular lines, the subcostal and transtubercular planes,
+ * the median and transumbilical planes for the quadrants -- and every one of
+ * them comes back as a CONSTANT. This module then projects those constants onto
+ * the body's own anterior surface. The anatomy can bend the lines in three
+ * dimensions, because the belly is curved; it can never move the level they
+ * were measured at. That direction matters: the previous version let the costal
+ * arch be a boundary, which pulled the top of the grid into a triangle pointed
+ * at the xiphoid and made the epigastric region taper to nothing.
+ *
+ * There is also no outer frame. The lateral edge of an outer cell is the body's
+ * own silhouette at that height, so the set reads as lines drawn on a torso
+ * rather than as a box parked in front of one.
  */
 function gridMetrics(){
   const ctx=cavityContext();
   if(!ctx) return null;
   if(state._cavGrid&&state._cavGrid.sig===ctx.sig) return state._cavGrid;
   const G=measureGrid(ctx,cavityMeasured(ctx));
-  if(!G.surfaceAt||!G.costalMarginAt||G.subcostalY==null||G.transtubercularY==null
+  if(!G.surfaceAt||!G.halfWidthAt||G.topY==null||G.bottomY==null
+     ||G.subcostalY==null||G.transtubercularY==null
      ||G.transumbilicalY==null||G.midclavicularX==null) return null;
   G.sig=ctx.sig;
   state._cavGrid=G;
   return G;
 }
-const gridEdge=(v,x)=>(typeof v==='function'?v(x):v);
+/* a column edge is either a reference line (a number) or the silhouette (f(y)) */
+const gridEdge=(v,y)=>(typeof v==='function'?v(y):v);
 
 /* a curved panel: a tessellated patch of the anterior surface between four boundaries */
 function gridPanel(G,xa,xb,yBot,yTop,nx,ny){
   const THREE=state.THREE;
-  nx=nx||12; ny=ny||8;
+  nx=nx||14; ny=ny||10;
   const pos=[], idx=[];
-  for(let i=0;i<=nx;i++){
-    const x=xa+(xb-xa)*(i/nx);
-    const b=gridEdge(yBot,x), t=gridEdge(yTop,x);
-    for(let j=0;j<=ny;j++){
-      const y=b+(t-b)*(j/ny);
+  for(let j=0;j<=ny;j++){
+    const y=yBot+(yTop-yBot)*(j/ny);
+    const a=gridEdge(xa,y), b=gridEdge(xb,y);
+    for(let i=0;i<=nx;i++){
+      const x=a+(b-a)*(i/nx);
       pos.push(x,y,G.surfaceAt(x,y));
     }
   }
-  for(let i=0;i<nx;i++) for(let j=0;j<ny;j++){
-    const a=i*(ny+1)+j, d=a+ny+1;
-    idx.push(a,d,a+1,a+1,d,d+1);
+  for(let j=0;j<ny;j++) for(let i=0;i<nx;i++){
+    const p=j*(nx+1)+i, q=p+nx+1;
+    idx.push(p,q,p+1,p+1,q,q+1);
   }
   const g=new THREE.BufferGeometry();
   g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
   g.setIndex(idx); g.computeVertexNormals();
   return g;
 }
+/* the border of one cell, walked round on the surface */
 function gridOutline(G,xa,xb,yBot,yTop,n){
   const THREE=state.THREE;
-  n=n||12;
-  const pos=[];
-  const walk=(edge,rev)=>{
-    for(let k=0;k<=n;k++){
-      const i=rev?n-k:k;
-      const x=xa+(xb-xa)*(i/n), y=gridEdge(edge,x);
-      pos.push(x,y,G.surfaceAt(x,y));
-    }
+  n=n||14;
+  const pos=[], lift=(yTop-yBot)*0.004;
+  const push=(x,y)=>pos.push(x,y,G.surfaceAt(x,y)+lift);
+  const across=(y,rev)=>{
+    const a=gridEdge(xa,y), b=gridEdge(xb,y);
+    for(let k=0;k<=n;k++){ const t=rev?1-k/n:k/n; push(a+(b-a)*t,y); }
   };
-  walk(yBot,false); walk(yTop,true);
+  const down=(edge,rev)=>{
+    for(let k=0;k<=n;k++){ const t=rev?1-k/n:k/n; const y=yBot+(yTop-yBot)*t; push(gridEdge(edge,y),y); }
+  };
+  across(yBot,false); down(xb,false); across(yTop,true); down(xa,true);
   const g=new THREE.BufferGeometry();
   g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
   return g;
+}
+/*
+ * One reference line, laid on the surface. A vertical runs the height of the
+ * drawing at a fixed x; a horizontal runs from silhouette to silhouette at a
+ * fixed y. Both are sampled densely enough to follow the curve of the belly.
+ */
+function gridLine(G,B,axis,at,tint,opacity){
+  const THREE=state.THREE, n=32;
+  const pos=[], lift=(B.top-B.bottom)*0.006;
+  for(let k=0;k<=n;k++){
+    const t=k/n;
+    let x,y;
+    if(axis==='x'){ x=at; y=B.bottom+(B.top-B.bottom)*t; }
+    else { y=at; const w=G.halfWidthAt(y); x=G.medianX+(2*t-1)*w; }
+    pos.push(x,y,G.surfaceAt(x,y)+lift);
+  }
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  const line=new THREE.Line(g,new THREE.LineBasicMaterial({color:tint,transparent:true,
+    opacity,depthWrite:false}));
+  line.renderOrder=7;
+  return line;
 }
 function buildCellGrid(kind,emphId,M,grp){
   const THREE=state.THREE, tint=0x72e3cf;
   const G=gridMetrics();
   if(!G) return [];
-  const {cols,rows}=gridBounds(kind,G);
+  const B=gridBounds(kind,G);
+  const {cols,rows}=B;
   const out=[], all=!emphId;
+
+  /*
+   * The cells carry a wash, not a border. Nine outlined boxes is what made the
+   * old overlay look like a cage bolted to the abdomen; the divisions the
+   * learner is meant to see are the four reference lines, drawn once below.
+   * Only a singled-out region gets its own edge, because then the edge IS the
+   * answer to "how far does this region reach".
+   */
   BODY_CONCEPTS.filter((c)=>c.kind===kind).forEach((c)=>{
     const [col,row]=c.cell;
     /* patient's right is world -x, so column 0 is the leftmost boundary pair */
     const xa=cols[col], xb=cols[col+1], yTop=rows[row], yBot=rows[row+1];
-    const emph=all||c.id===emphId;
-    /* whole grid at once = a light wash with firm division lines, the way the
-       textbook draws it; one region singled out = that cell filled, rest faint */
-    const fill=emph?(all?0.085:0.26):0.045;
-    const line=emph?(all?0.62:0.9):0.22;
+    const emph=!all&&c.id===emphId;
     const mesh=new THREE.Mesh(gridPanel(G,xa,xb,yBot,yTop),
-      new THREE.MeshBasicMaterial({color:tint,transparent:true,opacity:fill,
+      new THREE.MeshBasicMaterial({color:tint,transparent:true,
+        opacity:emph?0.28:(all?0.075:0.035),
         depthWrite:false,side:THREE.DoubleSide}));
     mesh.renderOrder=5;
-    mesh.add(new THREE.LineLoop(gridOutline(G,xa,xb,yBot,yTop),
-      new THREE.LineBasicMaterial({color:tint,transparent:true,opacity:line})));
+    if(emph) mesh.add(new THREE.LineLoop(gridOutline(G,xa,xb,yBot,yTop),
+      new THREE.LineBasicMaterial({color:tint,transparent:true,opacity:0.95,depthWrite:false})));
     grp.add(mesh); out.push(mesh);
-    if(emph){
-      const xc=(xa+xb)/2;
-      const t=gridEdge(yTop,xc), b=gridEdge(yBot,xc), yc=(t+b)/2;
-      const lab=labelSprite(c.short||c.name,tint,{minLine:0.013,maxLine:0.030});
-      /* size the tag to the cell it names, so it can never spill into the next */
-      lab.userData.hud.world=Math.min((xb-xa)*0.86/lab.userData.hud.aspect,(t-b)*0.8);
-      lab.position.set(xc,yc,G.surfaceAt(xc,yc)+M.H*0.008);
+    if(all||emph){
+      const yc=(yTop+yBot)/2;
+      const a=gridEdge(xa,yc), b=gridEdge(xb,yc), xc=(a+b)/2;
+      const lift=M.H*0.008;
+      const lab=labelSprite(c.short||c.name,tint);
+      const hud=lab.userData.hud, asp=hud.aspect;
+      hud.hard=true;
+      /* one type size for every region name, so a two-line tag reads the same
+         as a one-line one instead of being drawn at half scale */
+      const want=M.H*0.013*hud.lineRatio;
+      const fit=Math.min((b-a)*0.88/asp,(yTop-yBot)*0.75);
+      const ht=fit>=want*0.8?Math.min(fit,want):want;
+      hud.world=ht;
+      if(fit>=want*0.8){
+        lab.position.set(xc,yc,G.surfaceAt(xc,yc)+lift);
+      } else {
+        /*
+         * A lateral column is about four centimetres wide and "Right
+         * hypochondriac" is not. Shrinking the tag until it fits makes it
+         * unreadable; letting it spill puts the name of one region across the
+         * next one, which is worse. So it goes beside the body with a leader
+         * back to its cell, the way an atlas plate labels a narrow field.
+         */
+        const sign=xc<G.medianX?-1:1;
+        const w=G.halfWidthAt(yc);
+        const edge=G.medianX+sign*(w+M.H*0.010);
+        const z=G.surfaceAt(G.medianX+sign*w*0.97,yc)+lift;
+        lab.position.set(edge+sign*ht*asp/2,yc,z);
+        const lg=new THREE.BufferGeometry();
+        lg.setAttribute('position',new THREE.Float32BufferAttribute(
+          [xc,yc,G.surfaceAt(xc,yc)+lift, edge,yc,z],3));
+        const leader=new THREE.Line(lg,new THREE.LineBasicMaterial({color:tint,
+          transparent:true,opacity:0.4,depthWrite:false,depthTest:false}));
+        leader.renderOrder=7;
+        grp.add(leader); out.push(leader);
+      }
       grp.add(lab); out.push(lab);
     }
   });
+
+  /* the boundaries themselves: the four (or two) lines that define the set */
+  const strong=all?0.9:0.55;
+  B.verticals.forEach((x)=>{ const l=gridLine(G,B,'x',x,tint,strong); grp.add(l); out.push(l); });
+  B.horizontals.forEach((y)=>{ const l=gridLine(G,B,'y',y,tint,strong); grp.add(l); out.push(l); });
+
+  /* how it was derived, for the overlay card -- see conceptProvenance */
+  state._cavInfo=state._cavInfo||new Map();
+  const info={exact:!!G.wallMeasured,built:out.length>0,
+    notes:[kind==='quadrant'
+      ? 'median plane from the vertebral column and sternum; transumbilical plane at the L3/L4 junction'
+      : 'midclavicular lines from the midpoint of each clavicle; subcostal plane at the tenth costal cartilage; transtubercular plane at the iliac tubercles',
+      G.wallMeasured?'drawn on the abdominal wall muscles'
+        :'wall interpolated between the costal margin and the pelvis (muscle layer not loaded)'],
+    basis:kind==='quadrant'?['spine.lumbar','thorax.sternum','spine.L3','spine.L4']
+      :['thorax.clavicle','thorax.cartilageTenth','pelvis.hipBone']};
+  BODY_CONCEPTS.filter((c)=>c.kind===kind).forEach((c)=>state._cavInfo.set(c.id,info));
   return out;
 }
 /* ------------------------------------------------------------------ *
@@ -1824,7 +1920,6 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   peelDepth:()=>state.peeled.length,
   clearStudyFocus:()=>clearStudyFocus(),
   stageEl:()=>els.stage,
-  xrayMu:()=>({...XRAY_MU}),
   /* The embedded osteology module keeps its quiz history in memory as well as in
      localStorage, so a reset has to reach in here or the review meter keeps
      showing a history whose storage has already gone. */
@@ -2896,22 +2991,29 @@ function enterXray(){
     pos:c.position.clone(), target:ctr.target.clone(),
     layers:{...state.layers}, layerOpacity:{...(state.layerOpacity||{})},
     motion:state.motionEnabled, autoClear:state.renderer.autoClear,
+    concepts:state.conceptGroup?state.conceptGroup.visible:true,
     exposure:1.6, view:'pa', region:'chest',
   };
   /*
-   * Bone always attenuates -- a projection with no skeleton in it is not a
-   * radiograph -- but every other tissue is the learner's call and stays their
-   * call in here.
+   * The projection is a skeleton film.
    *
-   * This used to force every LOADED layer on, which made the film's exposure a
-   * function of what had been browsed earlier in the session rather than of the
-   * controls: the same Chest / PA button read at mean 15.6 before the muscle
-   * layer had ever been opened and at 43.1 after, with a fifth of the pane blown
-   * out. Worse, switching muscle back off on the 3D tab did nothing, because
-   * coming back in here switched it on again -- so the learner could not undo it
-   * at all. Whatever the rail says is what the beam passes through.
+   * It used to pass the beam through whatever the 3D tab happened to have
+   * loaded, which made the exposure a function of what had been browsed earlier
+   * in the session rather than of the controls: the same Chest / PA button read
+   * at mean 15.6 before the muscle layer had ever been opened and at 43.1 after,
+   * with a fifth of the pane blown out. Six soft-tissue layers at 0.10-0.30
+   * against bone at 1.00 also do not add up to a radiograph -- they add up to a
+   * fog with a skeleton somewhere in it. So the beam sees bone, always, and only.
+   * Whatever is on in the 3D tab is restored on the way out.
    */
   state.layers.skeleton=true;
+  Object.keys(state.extraModels||{}).forEach((k)=>{state.layers[k]=false});
+  /*
+   * Cavities, regions and planes are teaching overlays drawn ON the anatomy.
+   * A radiograph has nothing painted on it, and an additive beam would render
+   * them as bright fog anyway, so they are hidden here rather than composited.
+   */
+  if(state.conceptGroup)state.conceptGroup.visible=false;
   const shared=(key)=>{
     if(!state.xray.shared.has(key))state.xray.shared.set(key,xrayDepthMaterial(THREE,XRAY_MU[key]||.12));
     return state.xray.shared.get(key);
@@ -3058,6 +3160,7 @@ function exitXray(){
   c.position.copy(x.pos);ctr.target.copy(x.target);ctr.update();
   state.layers=x.layers;state.layerOpacity=x.layerOpacity;
   state.motionEnabled=x.motion;
+  if(state.conceptGroup)state.conceptGroup.visible=x.concepts;
   state.renderer.autoClear=x.autoClear;
   state.renderer.setRenderTarget(null);
   state.xray=null;
@@ -4141,6 +4244,16 @@ function renderOverlayProvenance(set) {
   if (!el) return;
   const api = window.__osteo;
   const shown = BODY_CONCEPTS.filter((c) => c.kind === 'cavity' && set.has(c.id));
+  /*
+   * A grid is one construction from one set of landmarks, so the nine regions
+   * get one entry rather than nine identical ones. The lines they are built
+   * from are the whole claim being made, and this is where it gets stated.
+   */
+  const GRID_TITLE = { region: 'The nine abdominopelvic regions', quadrant: 'The four quadrants' };
+  Object.keys(GRID_TITLE).forEach((kind) => {
+    const first = BODY_CONCEPTS.find((c) => c.kind === kind && set.has(c.id));
+    if (first) shown.push(first);
+  });
   if (!api || !api.conceptProvenance || !shown.length) {
     el.classList.add('hidden'); el.innerHTML = ''; return;
   }
@@ -4153,7 +4266,8 @@ function renderOverlayProvenance(set) {
     const bits = [];
     if (trail.length) bits.push(`inside ${trail.join(' → ')}`);
     if (kids.length) bits.push(`contains ${kids.join(', ')}`);
-    parts.push(`<div class="otrail"><b>${esc(c.name)}</b>${bits.length ? ' — ' + bits.join('; ') : ''}`
+    const title = GRID_TITLE[c.kind] || c.name;
+    parts.push(`<div class="otrail"><b>${esc(title)}</b>${bits.length ? ' — ' + bits.join('; ') : ''}`
       + (p.basis && p.basis.length ? `<br>measured from ${esc(p.basis.join(', ').toLowerCase())}` : '')
       + (p.notes || []).map((n) => `<br><span class="oapprox">${esc(n)}</span>`).join('')
       + '</div>');
@@ -4608,62 +4722,23 @@ function renderViewerTabs() {
 }
 
 /*
- * What the beam passes through, controlled from the pane the beam is shown in.
+ * The tissue rail used to live here: one chip per layer, each carrying its
+ * relative attenuation coefficient, so the beam could be sent through muscle or
+ * organs as well as bone. It is gone, and so is the mixing it allowed.
  *
- * These are the same layers as the 3D rail -- one source of truth, so a tissue
- * switched off here is off there too. They live here as well because the film's
- * exposure depends on them: reaching them used to mean leaving the projection,
- * which is how they came to be forced on in the first place.
- *
- * Each chip carries its relative attenuation coefficient, because that is the
- * thing being demonstrated -- bone at 1.0 against muscle at 0.10 is why bone is
- * bright, and seeing the number move with the picture is the lesson.
+ * A projection is a bone film. Six soft-tissue layers at 0.10-0.30 against bone
+ * at 1.00 do not read as a radiograph; they read as fog with a skeleton
+ * somewhere behind it, and the exposure slider then spends its whole range
+ * fighting them. enterXray now passes the beam through the skeleton alone and
+ * restores the 3D tab's layers on the way out, so there is nothing here to
+ * control and no way for an earlier browse to change what the film looks like.
  */
-function renderXrayTissues() {
-  const rail = $$('xrayTissues');
-  if (!rail || !window.__osteo) return;
-  const mu = window.__osteo.xrayMu ? window.__osteo.xrayMu() : {};
-  const on = window.__osteo.layerState ? window.__osteo.layerState() : {};
-  rail.innerHTML = BODY_LAYERS.filter((l) => l.key === 'skeleton' || STRUCTURE_MODELS[l.key])
-    .map((l) => {
-      const isBone = l.key === 'skeleton';
-      const active = isBone || !!on[l.key];
-      const busy = xrayTissueBusy === l.key;
-      return `<button class="seg${active ? ' active' : ''}${isBone ? ' locked' : ''}" data-xtissue="${esc(l.key)}"
-        ${isBone ? 'aria-disabled="true" title="A projection with no bone in it is not a radiograph."' : ''}
-        >${esc(l.label)}<span class="mu">${busy ? '\u00b7\u00b7\u00b7' : '\u03bc ' + (mu[l.key] ?? 0).toFixed(2)}</span></button>`;
-    }).join('');
-  rail.querySelectorAll('[data-xtissue]').forEach((b) => { b.onclick = () => toggleXrayTissue(b.dataset.xtissue); });
-}
-
-let xrayTissueBusy = null;
-
-async function toggleXrayTissue(key) {
-  if (key === 'skeleton') { toast('Bone always attenuates \u2014 without it there is no radiograph.'); return; }
-  if (xrayTissueBusy) return;
-  const wanted = !(window.__osteo.layerState() || {})[key];
-  const model = STRUCTURE_MODELS[key];
-  /* The GLB is fetched on demand, so say so rather than looking frozen. */
-  if (wanted && !window.__osteo.layerLoaded(key)) { xrayTissueBusy = key; renderXrayTissues(); }
-  try {
-    await window.__osteo.setLayer(key, wanted, model ? model.file : null);
-    /* Keep the 3D rail honest: it is the same layer, so it shows the same state. */
-    layerState[key] = wanted ? 'solid' : 'off';
-    if (wanted) window.__osteo.setLayerOpacity(key, 1);
-  } finally {
-    xrayTissueBusy = null;
-    renderXrayTissues();
-    renderLayerRail();
-  }
-}
-
 function renderXrayViews() {
   $$('xrayViews').innerHTML = XRAY_VIEWS.map(([id, label]) =>
     `<button class="seg${xrayView === id ? ' active' : ''}" data-xview="${esc(id)}">${esc(label)}</button>`).join('');
   $$('xrayViews').querySelectorAll('[data-xview]').forEach((b) => {
     b.onclick = () => { xrayView = b.dataset.xview; renderXrayViews(); if (window.__osteo) window.__osteo.xrayView(xrayView); };
   });
-  renderXrayTissues();
   $$('xrayRegions').innerHTML = XRAY_REGION_LIST.map(([id, label]) =>
     `<button class="seg${xrayRegion === id ? ' active' : ''}" data-xregion="${esc(id)}">${esc(label)}</button>`).join('');
   $$('xrayRegions').querySelectorAll('[data-xregion]').forEach((b) => {
