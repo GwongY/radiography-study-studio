@@ -156,7 +156,8 @@ export const BODY_CONCEPTS = [
   { id: 'cav-cranial', kind: 'cavity', name: 'Cranial cavity', aliases: ['skull cavity'],
     blurb: 'Holds the brain, inside the skull. Continuous with the vertebral canal through the foramen magnum.',
     color: 0xf0745a, labelFx: 0.10, labelFy: 0.965,
-    shell: { rx: 0.045, rz: 0.055, cz: -0.006, profile: [
+    shell: { rx: 0.045, rz: 0.055, cz: -0.006,
+      sag: { front: 0.012, back: -0.005, at0: 0.958, at1: 0.922 }, profile: [
       [0.00, 0.922], [0.45, 0.9255], [0.75, 0.932], [0.92, 0.941], [0.99, 0.953], [1.00, 0.964],
       [0.96, 0.975], [0.85, 0.984], [0.62, 0.990], [0.32, 0.9925], [0.00, 0.993]] } },
 
@@ -171,7 +172,8 @@ export const BODY_CONCEPTS = [
   { id: 'cav-thoracic', kind: 'cavity', name: 'Thoracic cavity', aliases: ['chest cavity'],
     blurb: 'Heart, lungs and great vessels — everything above the diaphragm. Its floor is the diaphragm’s dome.',
     color: 0x9a6fd0, labelFx: 0.135, labelFy: 0.775,
-    shell: { rx: 0.078, rz: 0.052, cz: -0.002, profile: [
+    shell: { rx: 0.078, rz: 0.052, cz: -0.002,
+      sag: { front: 0.020, back: -0.030, at0: 0.730, at1: 0.655 }, profile: [
       [0.00, 0.716], [0.34, 0.712], [0.62, 0.701], [0.85, 0.683], [0.97, 0.664], [1.00, 0.650],
       [1.00, 0.678], [0.99, 0.706], [0.97, 0.735], [0.93, 0.765], [0.86, 0.792], [0.74, 0.815],
       [0.56, 0.834], [0.34, 0.847], [0.00, 0.856]] } },
@@ -179,7 +181,8 @@ export const BODY_CONCEPTS = [
   { id: 'cav-abdominal', kind: 'cavity', name: 'Abdominal cavity', aliases: ['abdomen'],
     blurb: 'Stomach, liver, spleen, gut and kidneys. Its roof is the underside of the same diaphragm; it opens below into the pelvic cavity.',
     color: 0xe0517f, labelFx: 0.145, labelFy: 0.630,
-    shell: { rx: 0.086, rz: 0.058, cz: 0.008, profile: [
+    shell: { rx: 0.086, rz: 0.052, cz: 0.014,
+      sag: { front: 0.020, back: -0.030, at0: 0.610, at1: 0.716 }, profile: [
       [0.00, 0.716], [0.36, 0.711], [0.66, 0.699], [0.88, 0.680], [0.98, 0.660], [1.00, 0.640],
       [1.00, 0.615], [0.99, 0.596], [0.96, 0.580], [0.88, 0.568], [0.70, 0.560], [0.40, 0.556],
       [0.00, 0.554]] } },
@@ -187,14 +190,16 @@ export const BODY_CONCEPTS = [
   { id: 'cav-pelvic', kind: 'cavity', name: 'Pelvic cavity', aliases: ['pelvis cavity'],
     blurb: 'Bladder, rectum and the internal reproductive organs, funnelling down inside the bony pelvis.',
     color: 0x62c46a, labelFx: 0.135, labelFy: 0.510,
-    shell: { rx: 0.050, rz: 0.042, cz: -0.006, profile: [
+    shell: { rx: 0.050, rz: 0.042, cz: -0.006,
+      sag: { front: -0.036, back: 0.012, at0: 0.505, at1: 0.560 }, profile: [
       [0.00, 0.560], [0.48, 0.559], [0.80, 0.555], [0.96, 0.546], [1.00, 0.532],
       [0.97, 0.514], [0.88, 0.497], [0.72, 0.482], [0.50, 0.470], [0.26, 0.463], [0.00, 0.460]] } },
 
   { id: 'cav-abdominopelvic', kind: 'cavity', name: 'Abdominopelvic cavity', aliases: ['abdomino-pelvic'],
     blurb: 'The abdominal and pelvic cavities together — no wall divides them, so it is one continuous space.',
     color: 0xd06fb0, standalone: true, labelFx: 0.15, labelFy: 0.590,
-    shell: { rx: 0.086, rz: 0.058, cz: 0.006, profile: [
+    shell: { rx: 0.086, rz: 0.052, cz: 0.012,
+      sag: { front: 0.020, back: -0.030, at0: 0.610, at1: 0.716 }, profile: [
       [0.00, 0.716], [0.36, 0.711], [0.66, 0.699], [0.88, 0.680], [0.98, 0.660], [1.00, 0.640],
       [1.00, 0.612], [0.97, 0.590], [0.90, 0.570], [0.80, 0.552], [0.70, 0.534], [0.60, 0.512],
       [0.48, 0.492], [0.34, 0.474], [0.18, 0.464], [0.00, 0.460]] } },
@@ -226,7 +231,8 @@ export const BODY_CONCEPTS = [
   { id: 'cav-pleural', kind: 'cavity', name: 'Pleural cavities', aliases: ['pleural cavity', 'pleura'],
     blurb: 'The two sacs around the lungs, one either side of the mediastinum. Air in one is a pneumothorax.',
     color: 0x8f6fd0, standalone: true, labelFx: 0.155, labelFy: 0.800,
-    shell: { cx: 0.046, mirror: true, rx: 0.032, rz: 0.052, cz: -0.006, profile: [
+    shell: { cx: 0.046, mirror: true, rx: 0.032, rz: 0.052, cz: -0.006,
+      sag: { front: 0.018, back: -0.028, at0: 0.725, at1: 0.658 }, profile: [
       [0.00, 0.700], [0.40, 0.696], [0.72, 0.686], [0.92, 0.672], [1.00, 0.658],
       [1.00, 0.700], [0.98, 0.740], [0.92, 0.780], [0.78, 0.812], [0.52, 0.838], [0.00, 0.854]] } },
 

@@ -184,6 +184,23 @@ itself gives the diaphragm: the same dome is the floor of the thoracic cavity
 and the roof of the abdominal one. The vertebral canal is a `CatmullRomCurve3`
 tube following the real cervical, thoracic and lumbar curves.
 
+A pure surface of revolution is front-back symmetric and several of these
+cavities are not, so a shell may also carry a `sag`:
+
+```js
+sag: { front, back, at0, at1 }   // fy offsets at the fully anterior / posterior
+                                 // points, faded in from at0 to at1, scaled by
+                                 // the local radius so the poles never move
+```
+
+That is what gives the thoracic floor its **costodiaphragmatic recess** —
+dropping lower behind than in front, which is where a pleural effusion collects
+and why the costophrenic angles are the first thing checked on a chest film.
+The abdominal roof carries the mirror-image sag so the two stay in contact, the
+pleural sacs share it, the pelvic brim tips down anteriorly (sacral promontory
+high behind, pubis low in front), and the cranial floor slopes from the
+anterior fossa down to the foramen magnum.
+
 Each cavity renders twice — a lit `MeshStandardMaterial` skin with depth testing
 **on**, so bone in front occludes it and it reads as being inside the body, plus
 a coarse wireframe with depth testing **off**, so its outline stays visible
