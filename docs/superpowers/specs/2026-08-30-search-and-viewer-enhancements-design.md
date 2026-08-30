@@ -157,3 +157,84 @@ Manual, via the dev preview:
   skeleton loads). If the skeleton failed and the procedural fallback is up,
   `showConcept` falls back to measuring the current model bbox.
 - `bodymap.js` must stay ASCII-clean and pass the existing module verifier.
+
+---
+
+## Revision — 2026-08-30, after first review
+
+The overlays shipped as decided (fidelity option A, "schematic translucent
+boxes/slabs"). Seen next to a textbook plate, that choice was wrong: a cavity is
+a *membrane*, and a box does not read as one. Three further faults showed up in
+the same review. All four are now fixed, and this section supersedes the
+Cavity / region / plane parts of the spec above.
+
+### 1. Cavities are surfaces of revolution, not boxes
+
+`BODY_CONCEPTS[].box` is replaced by `shell` (a lathe) or `tube` (a swept path):
+
+```js
+shell: { rx, rz, cx, cz, mirror?, profile: [[radius 0..1, fy], ...] }
+tube:  { r, path: [[fy, fz], ...] }
+combine: ['cav-a', 'cav-b']        // dorsal / ventral, drawn in one colour
+```
+
+`profile` is revolved about a vertical axis and stretched to `rx` wide by `rz`
+deep, so one curve describes an elliptical sac. A profile that doubles back on
+itself gives the diaphragm: the same dome is the floor of the thoracic cavity
+and the roof of the abdominal one. The vertebral canal is a `CatmullRomCurve3`
+tube following the real cervical, thoracic and lumbar curves.
+
+Each cavity renders twice — a lit `MeshStandardMaterial` skin with depth testing
+**on**, so bone in front occludes it and it reads as being inside the body, plus
+a coarse wireframe with depth testing **off**, so its outline stays visible
+through the skeleton.
+
+Added while the shapes were being rebuilt, since the reference plate names them:
+dorsal and ventral body cavities (composites), mediastinum, pericardial cavity
+and the paired pleural cavities. All `standalone`, so "Body cavities" still
+means the five core ones.
+
+### 2. One coordinate system, measured off the skeleton
+
+Old geometry mixed units: `fx`/`fz` were fractions of a *guessed* trunk
+half-width (`0.15 H` / `0.12 H`). Everything is now a fraction of body height,
+with `fx 0` at the median plane and `fz 0` at the trunk's front-back centre —
+and every landmark was read off the loaded skeleton rather than estimated
+(xiphoid 0.727, 10th costal cartilage 0.621, L3 0.612, iliac crest 0.591,
+widest ribs `fx` 0.088, sternum front `fz` +0.060, spinous tips −0.067).
+
+`bodyMetrics()` also had a real bug: it measured a **world-space** box, but the
+idle turntable spins the model, so the frame swung several centimetres a second
+and dragged the overlays with it. It now un-rotates each mesh box back through
+the pivot and measures in the model's own upright frame, which is the frame
+`conceptGroup` lives in.
+
+The nine-region grid was rebuilt from those landmarks: its top edge is the
+**costal margin**, an arch falling from the xiphoid to the flank (which is what
+makes the hypochondriac cells short and the epigastric one tall), its verticals
+are the midclavicular lines, and the panels bow around the belly instead of
+floating as a flat decal.
+
+### 3. Plane side-labels were on the wrong axis
+
+The tags naming what a plane separates were offset **along** the plane rather
+than along its normal — so the sagittal plane's "Right" and "Left" both sat on
+the midline, and the coronal plane's "Front" and "Back" both sat on the coronal
+plane. Each tag now sits on its own side of the cut. (The plane mesh itself was
+also never added to the overlay group, so only the tags had been drawing.)
+
+### 4. Label sizing
+
+Sprites scaled in world units balloon on zoom; sprites pinned to a fraction of
+the viewport can never be made legible by zooming in. Each tag now carries a
+`userData.hud` descriptor — `{world, px, minPx, maxPx}` — and is resized every
+frame to its natural size clamped between a floor and a ceiling. `minLine` /
+`maxLine` bound a single line of text rather than the whole pill, so one- and
+two-line tags get type of the same size. Region tags are additionally sized to
+the cell they name, so they can never spill into the next region.
+
+The tags themselves are terser and the full names, colour key and plane
+"separates" text moved into the DOM legend, which now lists every active
+overlay instead of only planes.
+
+`sw.js` → v37, `bodymap.js?v=2`.

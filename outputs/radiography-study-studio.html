@@ -551,10 +551,17 @@
 .hiddentray .hall{border:0;background:none;color:var(--teal);font-size:11px;padding:4px 0 0;cursor:pointer;text-decoration:underline dotted;text-align:left}
 .uncoverbanner{position:absolute;left:50%;top:12px;transform:translateX(-50%);z-index:6;max-width:calc(100% - 28px);display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid rgba(255,186,103,.55);border-radius:12px;background:rgba(10,18,24,.94);backdrop-filter:blur(14px);font-size:12px;color:#d7dfe0;line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 .uncoverbanner.hidden{display:none}
-.overlaycaption{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:5;max-width:calc(100% - 120px);display:flex;flex-direction:column;gap:3px;padding:7px 13px;border:1px solid rgba(114,227,207,.4);border-radius:11px;background:rgba(10,18,24,.92);backdrop-filter:blur(12px);font-size:11.5px;color:#c8d0d1;line-height:1.4;text-align:center}
+.overlaycaption{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:5;max-width:min(560px,calc(100% - 120px));display:flex;flex-direction:column;gap:4px;padding:8px 13px;border:1px solid rgba(255,255,255,.1);border-radius:11px;background:rgba(10,18,24,.92);backdrop-filter:blur(12px);font-size:11.5px;color:#aab6b7;line-height:1.35}
 .overlaycaption.hidden{display:none}
-.overlaycaption b{color:var(--teal)}
-@media(max-width:700px){.overlaycaption{bottom:auto;top:8px;max-width:calc(100% - 24px);font-size:10.5px;padding:5px 9px}}
+.overlaycaption span{display:flex;align-items:baseline;gap:7px}
+.overlaycaption i{flex:none;width:8px;height:8px;border-radius:3px;transform:translateY(1px)}
+.overlaycaption b{color:#e2eceb;font-weight:600}
+/* A phone stage has no free margin: the top carries the model caption, the
+   bottom the layer chips and toolbar. So the legend becomes a solid band across
+   the top, deliberately covering the caption -- it only appears while an
+   overlay is on, and then it is the more useful of the two. */
+@media(max-width:700px){.overlaycaption{left:0;right:0;top:0;bottom:auto;transform:none;max-width:none;
+  font-size:10.5px;padding:7px 10px;gap:3px;border-radius:0 0 11px 11px;border-width:0 0 1px}}
 .uncoverbanner b{color:var(--orange)}
 .uncoverbanner button{flex:none;border:0;border-radius:8px;padding:6px 10px;font-size:11.5px;font-weight:700;cursor:pointer}
 .uncoverbanner .show{background:rgba(114,227,207,.16);color:var(--teal)}
@@ -563,8 +570,11 @@
 .overlaycard .ochip{display:flex;align-items:center;justify-content:center;gap:6px;min-height:38px;padding:6px 10px;border:1px solid var(--line);border-radius:10px;background:rgba(8,16,22,.5);color:var(--muted);font-size:12px;font-weight:600;cursor:pointer}
 .overlaycard .ochip[aria-pressed="true"]{color:var(--teal);border-color:rgba(114,227,207,.5);background:rgba(114,227,207,.12)}
 .overlaycard .olist{display:flex;flex-wrap:wrap;gap:5px}
-.overlaycard .oitem{border:1px solid var(--line);border-radius:8px;background:none;color:var(--dim);font-size:11px;padding:4px 8px;cursor:pointer}
+.overlaycard .ohead{flex:0 0 100%;margin:6px 0 1px;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.overlaycard .oitem{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:8px;background:none;color:var(--dim);font-size:11px;padding:5px 9px;cursor:pointer;text-align:left}
+.overlaycard .oitem i{flex:none;width:8px;height:8px;border-radius:3px;opacity:.75}
 .overlaycard .oitem[aria-pressed="true"]{color:var(--teal);border-color:rgba(114,227,207,.5);background:rgba(114,227,207,.1)}
+.overlaycard .oitem[aria-pressed="true"] i{opacity:1}
 
 /* There was never a generic .hidden rule -- only .view.hidden and
    .stage-state.hidden -- so `class="... hidden"` was inert on #mvBar,
@@ -886,7 +896,7 @@
   import { ANATOMY_DATABASE, LANDMARK_HOTSPOTS, MODEL_CATALOG, REGIONS, getAnatomy, searchAnatomy } from './anatomy-data.js?v=4';
   import { FLOW_CLASSES, FLOW_ANCHORS, LAYER_CLASSES, classify,
     cardiacEnvelope, breathEnvelope, spikeEnvelope, contractEnvelope, atriumEnvelope, ventricleEnvelope, RATES } from './physiology.js?v=4';
-  import { BODY_CONCEPTS, CONCEPT_GROUPS, conceptById } from './bodymap.js?v=1';
+  import { BODY_CONCEPTS, CONCEPT_GROUPS, ABDOMEN, conceptById } from './bodymap.js?v=2';
 
   const $ = (id) => document.getElementById(id);
   const els = { stage:$('stage'), state:$('stageState'), stateTitle:$('stateTitle'), stateCopy:$('stateCopy'), retry:$('retryBtn'), progress:$('progressBar'), stageMeta:$('stageMeta'), regionMeta:$('regionMeta'), selectedName:$('selectedName'), selectedChips:$('selectedChips'), selectedDetails:$('selectedDetails'), taskKicker:$('taskKicker'), taskTitle:$('taskTitle'), taskCopy:$('taskCopy'), answers:$('answers'), feedback:$('feedback'), next:$('nextBtn'), search:$('searchInput'), results:$('searchResults'), regions:$('regionButtons'), reviewBar:$('reviewBar'), reviewNumber:$('reviewNumber'), reviewHint:$('reviewHint'), toast:$('toast'), detailDialog:$('detailDialog'), detailTitle:$('detailTitle'), detailChips:$('detailChips'), detailBody:$('detailBody'), zoomIn:$('zoomInBtn'), zoomOut:$('zoomOutBtn'), focus:$('focusBtn'), motion:$('motionBtn') };
@@ -1069,46 +1079,125 @@ async function revealStructure(spec){
  * ------------------------------------------------------------------ */
 state.concepts = new Set();          /* ids currently shown */
 state.conceptGroup = null;
+/*
+ * The body is measured in the MODEL's own frame, not in world space. The idle
+ * turntable spins state.fullModel (and conceptGroup with it), so a world-space
+ * bounding box swings by several centimetres a second and would drag every
+ * overlay around with it. Un-rotating each mesh's box back through the pivot
+ * gives a still, upright frame -- and conceptGroup shares that frame, so
+ * overlays built here ride the turntable exactly as the skeleton does.
+ *
+ * All three axes are returned in the same unit: fractions of body height.
+ * fx 0 is the median plane (+ = patient's left), fz 0 the trunk's front-back
+ * centre (+ = anterior). See bodymap.js for the landmark measurements.
+ */
 function bodyMetrics(){
   const THREE=state.THREE;
-  const box=new THREE.Box3();
+  const root=state.fullModel||state.realModel
+    ||(Object.values(state.extraModels||{})[0]||{}).pivot||null;
   const src=state.fullMeshes.length?state.fullMeshes
     :state.meshes.length?state.meshes
-    :Object.values(state.extraModels||{}).flatMap(m=>m.meshes);
-  src.forEach(o=>{ if(o.visible!==false) box.expandByObject(o); });
-  if(box.isEmpty()&&state.fullModel) box.expandByObject(state.fullModel);
-  const min=box.min, max=box.max;
-  const H=Math.max(max.y-min.y,1);
-  const cx=(min.x+max.x)/2, cz=(min.z+max.z)/2;
+    :Object.values(state.extraModels||{}).flatMap(m=>m.meshes||[]);
+  const box=new THREE.Box3();
+  if(root){
+    root.updateMatrixWorld(true);
+    const inv=new THREE.Matrix4().copy(root.matrixWorld).invert();
+    const v=new THREE.Vector3(), m4=new THREE.Matrix4();
+    src.forEach(o=>{
+      if(o.visible===false||!o.geometry) return;
+      if(!o.geometry.boundingBox) o.geometry.computeBoundingBox();
+      const bb=o.geometry.boundingBox; if(!bb) return;
+      m4.multiplyMatrices(inv,o.matrixWorld);
+      for(let i=0;i<8;i++){
+        v.set(i&1?bb.max.x:bb.min.x,i&2?bb.max.y:bb.min.y,i&4?bb.max.z:bb.min.z).applyMatrix4(m4);
+        box.expandByPoint(v);
+      }
+    });
+  }
+  if(box.isEmpty()) box.set(new THREE.Vector3(-2.3,-4.9,-1.05),new THREE.Vector3(2.3,6.9,1.05));
+  const H=Math.max(box.max.y-box.min.y,1);
+  const cx=(box.min.x+box.max.x)/2, cz=(box.min.z+box.max.z)/2;
   return {
-    H, cx, cz, minY:min.y, maxY:max.y,
-    halfX:0.15*H, halfZ:0.12*H,
-    yAt:(f)=>min.y+f*H,
-    xAt:(f)=>cx+f*0.15*H,
-    zAt:(f)=>cz+f*0.12*H,
+    H, cx, cz, minY:box.min.y, maxY:box.max.y,
+    halfX:(box.max.x-box.min.x)/2, halfZ:(box.max.z-box.min.z)/2,
+    yAt:(f)=>box.min.y+f*H,
+    xAt:(f)=>cx+f*H,
+    zAt:(f)=>cz+f*H,
   };
 }
-function labelSprite(text,color){
+/*
+ * Overlay tags.
+ *
+ * A sprite sized in world units balloons the moment you zoom in -- that is what
+ * made the first version's labels unreadable. One pinned to a fixed share of
+ * the viewport has the opposite fault: zooming in can never make a small tag
+ * legible. So each tag carries a userData.hud descriptor and is resized every
+ * frame to its natural world size CLAMPED between a floor and a ceiling
+ * expressed as fractions of the viewport height:
+ *
+ *   world  natural size in world units (e.g. a region tag is sized to its cell)
+ *   px     use this fraction of the viewport instead of a world size
+ *   minPx  never smaller than this fraction -- readable when zoomed out
+ *   maxPx  never larger  than this fraction -- never swamps the anatomy
+ *
+ * Text wraps on \n; the concept colour rides a small chip so the words stay
+ * near-white and legible against bone.
+ */
+function labelSprite(text,color,hud){
   const THREE=state.THREE;
-  const pad=16, font=44;
-  const c=document.createElement('canvas');
-  const g=c.getContext('2d');
-  g.font=`600 ${font}px Instrument Sans, system-ui, sans-serif`;
-  const w=Math.ceil(g.measureText(text).width)+pad*2;
-  c.width=w; c.height=font+pad*2;
-  g.font=`600 ${font}px Instrument Sans, system-ui, sans-serif`;
-  g.fillStyle='rgba(6,14,20,.82)';
-  if(g.roundRect){ g.beginPath(); g.roundRect(0,0,c.width,c.height,14); g.fill(); }
-  else g.fillRect(0,0,c.width,c.height);
-  g.fillStyle='#'+((color||0xdfe9e7)>>>0).toString(16).padStart(6,'0');
-  g.textBaseline='middle';
-  g.fillText(text,pad,c.height/2);
+  const lines=String(text).split('\n');
+  const S=2;                                   /* supersample for crisp text */
+  const font=30*S, lh=Math.round(font*1.16), padX=10*S, padY=7*S, chip=6*S, gap=7*S;
+  const c=document.createElement('canvas'), g=c.getContext('2d');
+  const setFont=()=>{ g.font=`600 ${font}px "Instrument Sans", system-ui, -apple-system, sans-serif`; };
+  setFont();
+  const tw=Math.max(...lines.map(l=>g.measureText(l).width));
+  c.width=Math.ceil(tw+padX*2+chip+gap);
+  c.height=Math.ceil(lines.length*lh+padY*2);
+  setFont();
+  const hex='#'+(((color==null?0x9fb0b3:color)>>>0)&0xffffff).toString(16).padStart(6,'0');
+  g.beginPath();
+  const r=Math.min(13*S,c.height/2);
+  if(g.roundRect) g.roundRect(1,1,c.width-2,c.height-2,r); else g.rect(1,1,c.width-2,c.height-2);
+  g.fillStyle='rgba(7,14,19,.88)'; g.fill();
+  g.lineWidth=1.6*S; g.strokeStyle=hex+'99'; g.stroke();
+  g.beginPath(); g.arc(padX+chip/2,c.height/2,chip/2,0,Math.PI*2); g.fillStyle=hex; g.fill();
+  g.fillStyle='#e9f1f0'; g.textBaseline='middle'; g.textAlign='left';
+  const tx=padX+chip+gap, ty=c.height/2-(lines.length-1)*lh/2;
+  lines.forEach((l,i)=>g.fillText(l,tx,ty+i*lh));
   const tex=new THREE.CanvasTexture(c);
   tex.colorSpace=THREE.SRGBColorSpace;
-  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,depthTest:false,transparent:true}));
-  sp.scale.set(w/c.height*1.1,1.1,1);
+  tex.minFilter=THREE.LinearFilter; tex.generateMipmaps=false;
+  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,depthTest:false,depthWrite:false,transparent:true}));
+  /*
+   * minLine/maxLine bound a single LINE of text rather than the whole pill, so
+   * a two-line tag and a one-line tag end up with type of the same size on
+   * screen instead of the two-liner being drawn at half scale.
+   */
+  const ratio=c.height/lh;
+  const o=Object.assign({},typeof hud==='number'?{px:hud}:(hud||{}));
+  if(o.minLine!=null){ o.minPx=o.minLine*ratio; delete o.minLine; }
+  if(o.maxLine!=null){ o.maxPx=o.maxLine*ratio; delete o.maxLine; }
+  sp.userData.hud=Object.assign({aspect:c.width/c.height,lineRatio:ratio,minPx:0.023,maxPx:0.052},o);
   sp.renderOrder=999;
   return sp;
+}
+/* Called every frame: keeps every tag inside its legible band. */
+function updateHudSprites(){
+  const grp=state.conceptGroup, cam=state.camera;
+  if(!grp||!cam||!grp.children.length) return;
+  const tan=Math.tan(cam.fov*Math.PI/360);
+  const p=state._hudVec||(state._hudVec=new state.THREE.Vector3());
+  grp.traverse((o)=>{
+    const h=o.userData&&o.userData.hud;
+    if(!h) return;
+    o.getWorldPosition(p);
+    const span=2*cam.position.distanceTo(p)*tan;   /* viewport height, in world units */
+    let ht=h.world!=null?h.world:(h.px||0.03)*span;
+    if(h.minPx!=null) ht=Math.max(ht,h.minPx*span);
+    if(h.maxPx!=null) ht=Math.min(ht,h.maxPx*span);
+    o.scale.set(ht*h.aspect,ht,1);
+  });
 }
 function ensureConceptGroup(){
   if(state.conceptGroup) return state.conceptGroup;
@@ -1119,31 +1208,89 @@ function ensureConceptGroup(){
   state.conceptGroup=grp;
   return grp;
 }
-function buildCavity(c,M,grp){
+/*
+ * A cavity is drawn as a membrane, so it gets two surfaces: a lit, translucent
+ * skin that the bones in front of it correctly occlude (which is what makes it
+ * read as being INSIDE the body), plus a coarse wireframe drawn with depth
+ * testing off, so the shape's outline stays visible through the skeleton.
+ */
+function cavitySkin(color){
   const THREE=state.THREE;
-  const x0=M.xAt(c.box.fx[0]), x1=M.xAt(c.box.fx[1]);
-  const y0=M.yAt(c.box.fy[0]), y1=M.yAt(c.box.fy[1]);
-  const z0=M.zAt(c.box.fz[0]), z1=M.zAt(c.box.fz[1]);
-  const w=Math.abs(x1-x0)||.1, h=Math.abs(y1-y0)||.1, d=Math.abs(z1-z0)||.1;
-  const geo=new THREE.BoxGeometry(w,h,d);
-  const mat=new THREE.MeshBasicMaterial({color:c.color,transparent:true,opacity:.2,depthWrite:false});
-  const mesh=new THREE.Mesh(geo,mat);
-  mesh.position.set((x0+x1)/2,(y0+y1)/2,(z0+z1)/2);
-  const edge=new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:c.color,transparent:true,opacity:.85}));
-  mesh.add(edge);
-  const lab=labelSprite(c.name,c.color);
-  lab.scale.multiplyScalar(0.82);
-  /* vertebral canal is a posterior midline strip -- its label goes left so it
-     does not stack on the thoracic/abdominal labels. */
-  const leftSide=c.id==='cav-vertebral';
-  lab.position.set(M.xAt(leftSide?-1.7:1.25),(y0+y1)/2,leftSide?M.zAt(-1):(z0+z1)/2);
-  grp.add(mesh,lab);
-  return [mesh,lab];
+  return new THREE.MeshStandardMaterial({color,transparent:true,opacity:.30,roughness:.45,
+    metalness:0,side:THREE.DoubleSide,depthWrite:false});
+}
+function cavityWire(color){
+  const THREE=state.THREE;
+  return new THREE.MeshBasicMaterial({color,transparent:true,opacity:.26,wireframe:true,
+    depthTest:false,depthWrite:false});
+}
+/*
+ * profile points are [radius 0..1, fy]; the lathe revolves them about a
+ * vertical axis and the mesh scale stretches that unit radius out to rx wide
+ * and rz deep, so one profile describes an elliptical sac. Because the profile
+ * may double back on itself, the same curve can be the domed floor of one
+ * cavity and the domed roof of the next -- that is the diaphragm.
+ */
+function shellMeshes(part,color,M){
+  const THREE=state.THREE;
+  const pts=part.profile.map(([r,fy])=>new THREE.Vector2(Math.max(r,0),M.yAt(fy)));
+  const sides=part.mirror?[Math.abs(part.cx||0),-Math.abs(part.cx||0)]:[part.cx||0];
+  return sides.map((cx)=>{
+    const mesh=new THREE.Mesh(new THREE.LatheGeometry(pts,64),cavitySkin(color));
+    mesh.scale.set((part.rx||0.05)*M.H,1,(part.rz||0.05)*M.H);
+    mesh.position.set(M.xAt(cx),0,M.zAt(part.cz||0));
+    mesh.renderOrder=6;
+    const wire=new THREE.Mesh(new THREE.LatheGeometry(pts,14),cavityWire(color));
+    wire.renderOrder=7;
+    mesh.add(wire);            /* child: inherits the same scale and offset */
+    return mesh;
+  });
+}
+/* the vertebral canal, swept along the real cervical/thoracic/lumbar curves */
+function tubeMeshes(part,color,M){
+  const THREE=state.THREE;
+  const curve=new THREE.CatmullRomCurve3(part.path.map(([fy,fz])=>
+    new THREE.Vector3(M.xAt(part.cx||0),M.yAt(fy),M.zAt(fz))));
+  const r=(part.r||0.008)*M.H;
+  const mesh=new THREE.Mesh(new THREE.TubeGeometry(curve,90,r,16,false),cavitySkin(color));
+  mesh.renderOrder=6;
+  const wire=new THREE.Mesh(new THREE.TubeGeometry(curve,34,r,6,false),cavityWire(color));
+  wire.renderOrder=7;
+  mesh.add(wire);
+  return [mesh];
+}
+/* `combine` cavities (dorsal, ventral) borrow their members' geometry. */
+function cavityParts(c,seen){
+  if(c.combine){
+    seen=seen||new Set();
+    return c.combine.flatMap((id)=>{
+      if(seen.has(id)) return [];
+      seen.add(id);
+      const o=conceptById(id);
+      return o?cavityParts(o,seen):[];
+    });
+  }
+  if(c.shell) return [{kind:'shell',part:c.shell}];
+  if(c.tube) return [{kind:'tube',part:c.tube}];
+  return [];
+}
+function buildCavity(c,M,grp){
+  const out=[];
+  cavityParts(c).forEach((p)=>{
+    (p.kind==='tube'?tubeMeshes(p.part,c.color,M):shellMeshes(p.part,c.color,M))
+      .forEach((m)=>{ grp.add(m); out.push(m); });
+  });
+  const lab=labelSprite(c.name,c.color,{world:M.H*0.026,minLine:0.020,maxLine:0.027});
+  lab.position.set(M.xAt(c.labelFx==null?0.14:c.labelFx),M.yAt(c.labelFy==null?0.65:c.labelFy),M.zAt(0.02));
+  grp.add(lab); out.push(lab);
+  return out;
 }
 function buildPlane(c,M,grp){
   const THREE=state.THREE;
-  const mat=new THREE.MeshBasicMaterial({color:c.color,transparent:true,opacity:.16,depthWrite:false,side:THREE.DoubleSide});
-  const spanY=M.H*1.02, spanX=M.halfX*3.4, spanZ=M.halfZ*3.4;
+  /* a plane is a cut, so it must be visible straight through the body */
+  const mat=new THREE.MeshBasicMaterial({color:c.color,transparent:true,opacity:.13,
+    depthWrite:false,depthTest:false,side:THREE.DoubleSide});
+  const spanY=M.H*1.03, spanX=M.halfX*2.15, spanZ=M.halfZ*2.5;
   let geo, mesh;
   if(c.axis==='x'){
     geo=new THREE.PlaneGeometry(spanZ,spanY);
@@ -1160,61 +1307,108 @@ function buildPlane(c,M,grp){
     mesh.rotation.x=Math.PI/2;
     mesh.position.set(M.cx,M.yAt(c.at),M.cz);
   } else { /* oblique */
-    geo=new THREE.PlaneGeometry(spanX,spanY*0.9);
+    geo=new THREE.PlaneGeometry(spanX*0.95,spanY*0.62);
     mesh=new THREE.Mesh(geo,mat);
     mesh.rotation.z=Math.PI/5;
     mesh.rotation.x=Math.PI/9;
     mesh.position.set(M.cx,M.yAt(c.at),M.cz);
   }
-  const edge=new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:c.color,transparent:true,opacity:.6}));
-  mesh.add(edge);
+  mesh.renderOrder=8;
+  mesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo),
+    new THREE.LineBasicMaterial({color:c.color,transparent:true,opacity:.7,depthTest:false})));
+  grp.add(mesh);
   const out=[mesh];
+  /*
+   * The two tags name what the plane SEPARATES, so each has to sit on its own
+   * side of the cut -- offset along the plane's normal, never along the plane
+   * itself, or both words end up in the same place on the midline.
+   */
+  const tag=(text,x,y,z)=>{ const s=labelSprite(text,c.color,{world:M.H*0.024,minLine:0.018,maxLine:0.025});
+    s.position.set(x,y,z); grp.add(s); out.push(s); return s; };
   if(c.ends&&(c.ends[0]||c.ends[1])){
-    if(c.axis==='x'){
-      const a=labelSprite(c.ends[0],c.color); a.position.set(M.xAt(c.at),M.yAt(0.5),M.zAt(-1.4)); grp.add(a); out.push(a);
-      const b=labelSprite(c.ends[1],c.color); b.position.set(M.xAt(c.at),M.yAt(0.5),M.zAt(1.4)); grp.add(b); out.push(b);
-    } else if(c.axis==='z'){
-      const a=labelSprite(c.ends[0],c.color); a.position.set(M.xAt(-1.6),M.yAt(0.5),M.zAt(c.at)); grp.add(a); out.push(a);
-      const b=labelSprite(c.ends[1],c.color); b.position.set(M.xAt(1.6),M.yAt(0.5),M.zAt(c.at)); grp.add(b); out.push(b);
-    } else if(c.axis==='y'){
-      const a=labelSprite(c.ends[0],c.color); a.position.set(M.xAt(1.5),M.yAt(c.at-0.12),M.cz); grp.add(a); out.push(a);
-      const b=labelSprite(c.ends[1],c.color); b.position.set(M.xAt(1.5),M.yAt(c.at+0.12),M.cz); grp.add(b); out.push(b);
+    if(c.axis==='x'){            /* normal is x: right (-x) and left (+x) */
+      tag(c.ends[0],M.xAt(c.at-0.155),M.yAt(0.50),M.zAt(0.10));
+      tag(c.ends[1],M.xAt(c.at+0.155),M.yAt(0.50),M.zAt(0.10));
+    } else if(c.axis==='z'){     /* normal is z: back (-z) and front (+z) */
+      tag(c.ends[0],M.xAt(0.16),M.yAt(0.50),M.zAt(c.at-0.145));
+      tag(c.ends[1],M.xAt(0.16),M.yAt(0.50),M.zAt(c.at+0.145));
+    } else if(c.axis==='y'){     /* normal is y: below and above */
+      tag(c.ends[0],M.xAt(0.235),M.yAt(c.at-0.075),M.zAt(0.02));
+      tag(c.ends[1],M.xAt(0.235),M.yAt(c.at+0.075),M.zAt(0.02));
     }
   }
   return out;
 }
-/* the 9-region / 4-quadrant panel on the front of the trunk */
-function buildCellGrid(kind,emphId,M,grp){
+/* ---- the nine-region / four-quadrant grid on the anterior abdominal wall ---- */
+/* upper edge = the costal margin, falling away from the xiphoid to the flank */
+function abdArch(fx){
+  const A=ABDOMEN;
+  return A.top-(A.top-A.costalLat)*Math.pow(Math.min(1,Math.abs(fx)/A.halfX),A.archExp);
+}
+/* and the grid bows around the belly rather than floating as a flat decal */
+function abdZ(fx){
+  const A=ABDOMEN, t=Math.min(1,Math.abs(fx)/A.halfX);
+  return A.zEdge+(A.zMid-A.zEdge)*Math.sqrt(Math.max(0,1-t*t));
+}
+const abdEdge=(v,fx)=>(typeof v==='function'?v(fx):v);
+function abdPanel(M,fxa,fxb,fyBot,fyTop,nx,ny){
   const THREE=state.THREE;
-  const cols=kind==='quadrant'?2:3, rows=kind==='quadrant'?2:3;
-  const box=kind==='quadrant'?{fy:[0.47,0.72],fx:[-1.0,1.0]}:{fy:[0.47,0.71],fx:[-1.0,1.0]};
-  const zFront=M.zAt(1.05);
-  const x0=M.xAt(box.fx[0]), x1=M.xAt(box.fx[1]);
-  const y0=M.yAt(box.fy[0]), y1=M.yAt(box.fy[1]);
-  const cw=(x1-x0)/cols, ch=(y1-y0)/rows;
-  const items=BODY_CONCEPTS.filter(c=>c.kind===kind);
-  const out=[];
-  items.forEach(c=>{
+  nx=nx||14; ny=ny||8;
+  const pos=[], idx=[];
+  for(let i=0;i<=nx;i++){
+    const fx=fxa+(fxb-fxa)*(i/nx), b=abdEdge(fyBot,fx), t=abdEdge(fyTop,fx), z=M.zAt(abdZ(fx));
+    for(let j=0;j<=ny;j++) pos.push(M.xAt(fx),M.yAt(b+(t-b)*(j/ny)),z);
+  }
+  for(let i=0;i<nx;i++) for(let j=0;j<ny;j++){
+    const a=i*(ny+1)+j, d=a+ny+1;
+    idx.push(a,d,a+1,a+1,d,d+1);
+  }
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  g.setIndex(idx); g.computeVertexNormals();
+  return g;
+}
+function abdOutline(M,fxa,fxb,fyBot,fyTop,n){
+  const THREE=state.THREE;
+  n=n||14;
+  const pos=[];
+  for(let i=0;i<=n;i++){ const fx=fxa+(fxb-fxa)*(i/n); pos.push(M.xAt(fx),M.yAt(abdEdge(fyBot,fx)),M.zAt(abdZ(fx))); }
+  for(let i=n;i>=0;i--){ const fx=fxa+(fxb-fxa)*(i/n); pos.push(M.xAt(fx),M.yAt(abdEdge(fyTop,fx)),M.zAt(abdZ(fx))); }
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  return g;
+}
+function buildCellGrid(kind,emphId,M,grp){
+  const THREE=state.THREE, A=ABDOMEN, tint=0x72e3cf;
+  const quad=kind==='quadrant';
+  /* patient's right is world -x, so column 0 is the leftmost boundary pair */
+  const colF=quad?[-A.halfX,0,A.halfX]:[-A.halfX,-A.midclavicular,A.midclavicular,A.halfX];
+  /* row boundaries run top to bottom; the first is the arched costal margin */
+  const rowF=quad?[abdArch,A.transumbilical,A.bottom]
+                 :[abdArch,A.subcostal,A.transtubercular,A.bottom];
+  const out=[], all=!emphId;
+  BODY_CONCEPTS.filter((c)=>c.kind===kind).forEach((c)=>{
     const [col,row]=c.cell;
-    /* patient's right is screen-left = world -x, so column 0 sits at x0 */
-    const cxp=x0+cw*(col+0.5);
-    const cyp=y1-ch*(row+0.5);
-    const emph=emphId?c.id===emphId:true;
-    const geo=new THREE.PlaneGeometry(cw*0.94,ch*0.94);
-    const mat=new THREE.MeshBasicMaterial({color:0x72e3cf,transparent:true,opacity:emph?0.22:0.09,depthWrite:false,side:THREE.DoubleSide});
-    const mesh=new THREE.Mesh(geo,mat);
-    mesh.position.set(cxp,cyp,zFront);
-    const edge=new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:0x72e3cf,transparent:true,opacity:emph?0.7:0.25}));
-    mesh.add(edge);
+    const fxa=colF[col], fxb=colF[col+1], fyTop=rowF[row], fyBot=rowF[row+1];
+    const emph=all||c.id===emphId;
+    /* whole grid at once = a light wash with firm division lines, the way the
+       textbook draws it; one region singled out = that cell filled, rest faint */
+    const fill=emph?(all?0.085:0.26):0.045;
+    const line=emph?(all?0.62:0.9):0.22;
+    const mesh=new THREE.Mesh(abdPanel(M,fxa,fxb,fyBot,fyTop),
+      new THREE.MeshBasicMaterial({color:tint,transparent:true,opacity:fill,
+        depthWrite:false,side:THREE.DoubleSide}));
+    mesh.renderOrder=5;
+    mesh.add(new THREE.LineLoop(abdOutline(M,fxa,fxb,fyBot,fyTop),
+      new THREE.LineBasicMaterial({color:tint,transparent:true,opacity:line})));
     grp.add(mesh); out.push(mesh);
     if(emph){
-      /* quadrants -> the abbreviation (RUQ); regions -> the distinctive word
-         only, since the cell position already shows the side */
-      const m=c.name.match(/\(([A-Z]{2,4})\)/);
-      const text=m?m[1]:c.name.replace(/^(Right|Left) /,'').replace(/ region$/,'');
-      const lab=labelSprite(text,0x72e3cf);
-      lab.scale.multiplyScalar(kind==='quadrant'?0.62:0.44);
-      lab.position.set(cxp,cyp,zFront+0.05);
+      const fxc=(fxa+fxb)/2;
+      const ft=abdEdge(fyTop,fxc), fb=abdEdge(fyBot,fxc), fyc=(ft+fb)/2;
+      const lab=labelSprite(c.short||c.name,tint,{minLine:0.013,maxLine:0.030});
+      /* size the tag to the cell it names, so it can never spill into the next */
+      lab.userData.hud.world=Math.min((fxb-fxa)*M.H*0.86/lab.userData.hud.aspect,(ft-fb)*M.H*0.8);
+      lab.position.set(M.xAt(fxc),M.yAt(fyc),M.zAt(abdZ(fxc)+0.008));
       grp.add(lab); out.push(lab);
     }
   });
@@ -1663,7 +1857,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
     if(a>=mv.range[1]){a=mv.range[1];state.movement.dir=-1}
     else if(a<=mv.range[0]){a=mv.range[0];state.movement.dir=1}
     setMovementAngle(a);
-  }state.motionPhase=performance.now()*.001;stepPhysiology(state.motionPhase);if(state.motionEnabled){const turn=Math.sin(state.motionPhase*.55)*.24;[state.fullModel,state.realModel,state.conceptGroup,...Object.values(state.extraModels||{}).map(m=>m.pivot)].forEach(root=>{if(root)root.rotation.y=turn})}const pulse=.72+.28*Math.sin(state.motionPhase*3.2);[...state.meshes,...state.fullMeshes].filter(m=>m.userData.presentationActive).forEach(m=>{if(m.material.emissive)m.material.emissiveIntensity=.95*pulse});state.controls.update();if(!renderXray())state.renderer.render(state.scene,state.camera)}
+  }state.motionPhase=performance.now()*.001;stepPhysiology(state.motionPhase);if(state.motionEnabled){const turn=Math.sin(state.motionPhase*.55)*.24;[state.fullModel,state.realModel,state.conceptGroup,...Object.values(state.extraModels||{}).map(m=>m.pivot)].forEach(root=>{if(root)root.rotation.y=turn})}const pulse=.72+.28*Math.sin(state.motionPhase*3.2);[...state.meshes,...state.fullMeshes].filter(m=>m.userData.presentationActive).forEach(m=>{if(m.material.emissive)m.material.emissiveIntensity=.95*pulse});state.controls.update();if(typeof updateHudSprites==='function')updateHudSprites();if(!renderXray())state.renderer.render(state.scene,state.camera)}
   function zoomCamera(factor){if(!state.camera||!state.controls)return;const offset=state.camera.position.clone().sub(state.controls.target);const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,offset.length()*factor));state.camera.position.copy(state.controls.target).add(offset.normalize().multiplyScalar(distance));state.controls.update()}
   function focusSelected(){if(!state.camera||!state.controls||!state.selectionAnchor){showToast('Select a structure first');return}state.controls.minDistance=2.5;const box=new state.THREE.Box3().setFromObject(state.selectionAnchor);const center=box.getCenter(new state.THREE.Vector3());const size=box.getSize(new state.THREE.Vector3());const radius=Math.max(size.x,size.y,size.z,.35);const offset=state.camera.position.clone().sub(state.controls.target).normalize();const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,radius*3.6));state.controls.target.copy(center);state.camera.position.copy(center).add(offset.multiplyScalar(distance));state.controls.update()}
   function toggleIsolation(){if(!state.selectedId){showToast('Select a structure first');return}const record=getRecord(state.selectedId);if(!state.fullMeshes.length&&record?.region!=='upper_limb'&&state.region!=='upper_limb'){showToast('This fallback reference is fused. Use Upper limb for per-bone isolation.');focusSelected();return}if(state.region!=='upper_limb'&&record?.region==='upper_limb'&&state.meshes.length){state.region='upper_limb';els.regionMeta.textContent='Upper limb';renderRegions();applyVisibility()}state.isolated=!state.isolated;$('isolateBtn').classList.toggle('active',state.isolated);applyVisibility();focusSelected()}
@@ -2796,7 +2990,7 @@ import {
   moduleInfo,
 } from './study-data.js';
 import { searchAnatomy } from './anatomy-data.js?v=4';
-import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS } from './bodymap.js?v=1';
+import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS } from './bodymap.js?v=2';
 import { visualFor, plateFor } from './visual-data.js?v=3';
 import { FLOW_CLASSES, LAYER_CLASSES, RATES } from './physiology.js?v=4';
 import { schematic } from './schematics.js?v=2';
@@ -3581,8 +3775,12 @@ function renderOverlayCard(active) {
     const on = ids.length && ids.every((i) => set.has(i));
     return `<button class="ochip" data-kind="${g.kind}" aria-pressed="${on}">${esc(g.name)}</button>`;
   }).join('');
-  items.innerHTML = BODY_CONCEPTS.filter((c) => c.kind === 'cavity' || c.kind === 'plane').map((c) =>
-    `<button class="oitem" data-concept="${c.id}" aria-pressed="${set.has(c.id)}">${esc(c.name)}</button>`).join('');
+  const swatch = (c) => `<i style="background:#${(c.color >>> 0).toString(16).padStart(6, '0')}"></i>`;
+  const row = (kind, heading) => `<div class="ohead">${heading}</div>`
+    + BODY_CONCEPTS.filter((c) => c.kind === kind).map((c) =>
+      `<button class="oitem" data-concept="${c.id}" aria-pressed="${set.has(c.id)}" title="${esc(c.blurb || '')}">`
+      + `${swatch(c)}${esc(c.name)}</button>`).join('');
+  items.innerHTML = row('cavity', 'Cavities') + row('plane', 'Planes');
   groups.querySelectorAll('[data-kind]').forEach((b) => {
     b.onclick = () => { if (window.__osteo && window.__osteo.toggleConceptKind) { window.__osteo.toggleConceptKind(b.dataset.kind); } };
   });
@@ -3590,13 +3788,31 @@ function renderOverlayCard(active) {
     b.onclick = () => { if (window.__osteo && window.__osteo.toggleConcept) { window.__osteo.toggleConcept(b.dataset.concept); } };
   });
 }
+/*
+ * The on-stage legend. The 3D tags are deliberately terse -- an overlay is
+ * useless if the words cover the anatomy -- so the full name, the colour key
+ * and, for a plane, what it separates all live here in DOM text instead.
+ * Regions and quadrants collapse to one line: nine tags on the belly already
+ * say which is which.
+ */
 function renderOverlayCaption(set) {
   const el = $$('overlayCaption');
   if (!el) return;
-  const planes = BODY_CONCEPTS.filter((c) => c.kind === 'plane' && set.has(c.id));
-  if (!planes.length) { el.classList.add('hidden'); el.innerHTML = ''; return; }
+  const rows = [];
+  BODY_CONCEPTS.filter((c) => (c.kind === 'plane' || c.kind === 'cavity') && set.has(c.id)).forEach((c) => {
+    const hex = '#' + ((c.color >>> 0) & 0xffffff).toString(16).padStart(6, '0');
+    rows.push(`<span><i style="background:${hex}"></i><b>${esc(c.name)}</b>`
+      + (c.separates ? ` — separates ${esc(c.separates)}` : '') + '</span>');
+  });
+  CONCEPT_GROUPS.filter((g) => g.kind === 'region' || g.kind === 'quadrant').forEach((g) => {
+    const ids = BODY_CONCEPTS.filter((c) => c.kind === g.kind).map((c) => c.id);
+    if (ids.some((i) => set.has(i))) {
+      rows.push(`<span><i style="background:#72e3cf"></i><b>${esc(g.name)}</b> — on the anterior abdominal wall</span>`);
+    }
+  });
+  if (!rows.length) { el.classList.add('hidden'); el.innerHTML = ''; return; }
   el.classList.remove('hidden');
-  el.innerHTML = planes.map((c) => `<span><b>${esc(c.name)}</b> — separates ${esc(c.separates)}</span>`).join('');
+  el.innerHTML = rows.join('');
 }
 function renderMore() {
   setActiveNav('more');
