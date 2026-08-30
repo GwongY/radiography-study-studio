@@ -5354,15 +5354,36 @@ function wireTerms(root) {
   (root || document).querySelectorAll('[data-term]').forEach((b) => { b.onclick = () => openTermDialog(b.dataset.term); });
 }
 
+/* Parse a curated `from` string — "Built out of: a-, near + b/o, thing" — into
+   the shape decompose() returns, so one renderer draws both kinds of breakdown. */
+function fromSplit(fromStr) {
+  if (!fromStr) return null;
+  const body = String(fromStr).replace(/^\s*Built out of:\s*/i, '').trim();
+  if (!body) return null;
+  const parts = body.split(/\s*\+\s*/).map((seg) => {
+    const s = seg.trim();
+    const ci = s.indexOf(',');
+    const text = (ci === -1 ? s : s.slice(0, ci)).trim();
+    const means = ci === -1 ? '' : s.slice(ci + 1).trim();
+    const kind = /^-/.test(text) ? 'suffix' : /-$/.test(text) ? 'prefix' : 'root';
+    return { text, kind, means };
+  }).filter((p) => p.text);
+  return parts.length ? { parts } : null;
+}
+
 function partsHTML(split) {
-  if (!split) return '';
+  if (!split || !split.parts || !split.parts.length) return '';
   const cells = split.parts.map((p) => {
     const cls = p.kind === 'link' ? 'link' : p.kind === 'ending' ? 'ending' : p.kind;
     return `<span class="termpart ${esc(cls)}"><b>${esc(p.text)}</b><span>${esc(p.means || '')}</span></span>`;
   });
+  const reads = split.parts
+    .filter((p) => p.kind !== 'link' && p.kind !== 'ending')
+    .map((p) => (p.means || '').split(',')[0].trim())
+    .filter(Boolean).join(' + ');
   return `<div class="subhead">Built out of</div>
     <div class="termparts">${cells.join('<span class="termplus">+</span>')}</div>
-    <p class="small" style="margin-top:9px">Reads as: <strong>${esc(readingOf(split))}</strong></p>`;
+    ${reads ? `<p class="small" style="margin-top:9px">Reads as: <strong>${esc(reads)}</strong></p>` : ''}`;
 }
 
 /*
@@ -5396,10 +5417,10 @@ function openTermDialog(word) {
      pericardium, thoracic -> thorax — name that base form so the connection
      between the adjective and the noun is made instead of silently assumed. */
   const canon = gloss && gloss.key !== word.toLowerCase() ? gloss.key : null;
-  /* A curated `from` is the hand-checked breakdown, so it stands alone: when it
-     is present the auto word-part chips and "Reads as" line are suppressed, or
-     the dialog shows the same word taken apart twice (see vestibulocochlear). */
-  const showParts = !(note && note.from);
+  /* One breakdown per term. A curated `from` is the hand-checked reading, so it
+     is preferred over decompose()'s automatic split where a word has both
+     (glomerulus has only a `from`; vestibulocochlear used to show both). */
+  const breakdown = fromSplit(note && note.from) || split;
   $$('termTitle').textContent = word;
   $$('termBody').innerHTML = `
     ${canon ? `<p class="small" style="margin:0 0 10px;color:var(--muted)">Base form: <strong style="color:var(--ink)">${esc(canon)}</strong></p>` : ''}
@@ -5408,13 +5429,12 @@ function openTermDialog(word) {
       ${zh ? `<p class="zh" lang="zh-Hant">${esc(zh)}</p>` : ''}
     </div>` : ''}
     ${note ? `<div class="subhead">Say it</div><p class="say">${esc(note.say)}</p>` : ''}
-    ${note && note.from ? `<p class="small" style="margin-top:8px">${esc(note.from)}</p>` : ''}
-    ${showParts && part && !split ? `<div class="subhead">Word part</div>
+    ${part && !split ? `<div class="subhead">Word part</div>
       <div class="termparts"><span class="termpart ${esc(part.kind)}"><b>${esc(part.forms)}</b><span>${esc(part.means)}</span></span></div>
       <p class="small" style="margin-top:9px">${part.kind === 'root'
         ? 'A root — the part carrying the meaning. The /o on the end is the vowel that joins it to whatever follows.'
         : esc('A ' + part.kind + ' — it does not stand alone, it attaches to a root.')}</p>` : ''}
-    ${showParts ? partsHTML(split) : ''}`;
+    ${partsHTML(breakdown)}`;
   openDialog($$('termDialog'));
 }
 
