@@ -304,3 +304,84 @@ tray.
   phase 5 stops early, `studio.js`.
 - Every probe baseline byte-identical from phase 0 to the end.
 - The deployed app is indistinguishable from before.
+
+## Result — phases 0 and 1
+
+Measured on 2026-08-31, on completion of the phase-0/1 plan.
+
+### The always-on cost, which was the point
+
+| | Lines | Bytes | ~Tokens |
+| --- | --- | --- | --- |
+| `CLAUDE.md` before | 365 | 27,153 | 7,339 |
+| `CLAUDE.md` after | 126 | 9,818 | 2,654 |
+| **Saved, every session** | | | **~4,685 (64%)** |
+
+### Moved to on-demand
+
+Read only by a session that needs them, and only the relevant section of each.
+
+| File | Lines | ~Tokens | Replaces a read of |
+| --- | --- | --- | --- |
+| `docs/CODEMAP.md` | 196 | 3,456 | `radiography-study-studio.html` — 7,957 lines, ~131,500 tokens |
+| `docs/TRAPS.md` | 293 | 5,361 | (was inside the always-on cost) |
+| `docs/DATA-INDEX.md` | 90 | 787 | `mesh-index.js` — ~38,200 tokens |
+| `work/query.mjs` | — | tens | `study-data.js` — ~125,700 tokens |
+
+The map is 196 lines against a 7,957-line monolith, and it now also sections the
+banner-carrying data modules — `study-data.js` (21 banners over 4,897 lines),
+`cavity-geom.js` (6), `visual-data.js` (4), `cavity-build.js` (3),
+`landmarks.js` (3), `schematics.js` (1). That last part was missing from the
+first implementation and was caught in review.
+
+### Success criteria
+
+| Criterion | Met | Actual |
+| --- | --- | --- |
+| `CLAUDE.md` under 130 lines | yes | 126 |
+| `docs/CODEMAP.md` under 200 lines, generated | yes | 196, from `work/codemap.mjs` |
+| Every probe baseline reproducible | yes | all 8, none excluded |
+| No trap lost in the move | yes | 43 bolded bullets before, 3 + 40 = 43 after |
+| Application untouched | yes | `git diff master..HEAD -- outputs/` empty |
+
+### Baselines
+
+All eight repo-only probes proved reproducible across two fresh processes and
+were captured: `search-probe`, `region-probe`, `figure-key-check`,
+`landmark-check`, `cavity-probe`, `grid-probe`, `grid-probe --all`,
+`build-check`. None was excluded for non-determinism; none currently fails.
+`build-course-terms` is excluded by design — it needs the Drive mount.
+
+`node work/baseline.mjs --check` passed at the end of the phase, which is the
+evidence that no application behaviour moved.
+
+### What review caught that implementation did not
+
+Worth recording, because it is the argument for keeping the review stage in
+phases 2–5:
+
+- **`htmlBlocks()` would have gutted the map at phase 2, silently.** Its comment
+  claimed it would survive the CSS and module blocks moving to their own files.
+  It would instead have emitted a single zero-length row per block, losing ~35 of
+  37 useful rows — and `codemap-check.mjs` would still have passed, because
+  regeneration is deterministic. The map now writes a warning into itself and the
+  check fails while that warning is present.
+- **The heading anchors did not match GitHub's slugger.** An em-dash in a trap
+  heading is stripped leaving two spaces; GitHub emits one dash per space
+  character while the generator collapsed the run. Every trap link would have
+  been broken on the rendered view.
+- **Every line count in the map was one too many.** `split()` on a file ending in
+  a newline yields a trailing empty element, so the map claimed 7,958 lines for a
+  7,957-line file and each module's last section row pointed one past the end.
+- **The traps were filed under the wrong files in the first draft.** The
+  region-grid traps were assigned to `landmarks.js`; they belong to the HTML
+  (the classifiers, which `region-probe.mjs` lifts out of it) and to
+  `cavity-build.js` (`measureGrid`/`gridBounds`).
+
+### Note for phases 2–5
+
+`CLAUDE.md` was **not tracked in git** before this phase — it existed only as a
+working-tree file, so the 365-line original has no git history. Its content
+survives in full across the new `CLAUDE.md` and `docs/TRAPS.md` (verified
+against 26 distinctive strings spanning every original section), but there is no
+`git show` to recover it from. Both files are tracked now.
