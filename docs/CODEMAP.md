@@ -81,8 +81,8 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs) · [Overla
 | `mesh-index.js` | 2584 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `physiology.js` | 337 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
-| `study-data.js` | 4897 | Radiography Study Studio — study data layer |  |
-| `sw.js` | 188 | Radiography Study Studio — service worker |  |
+| `study-data.js` | 117 | Radiography Study Studio — study data layer. |  |
+| `sw.js` | 223 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
 | `term-gloss.js` | 781 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
 | `term-notes.js` | 313 | Term notes — say it, then mean it. |  |
@@ -100,7 +100,6 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs) · [Overla
 - `layouts.js` — `LAYOUTS`, `layoutFor`, `LAYOUT_COUNT`
 - `physiology.js` — `FLOW_ANCHORS`, `FLOW_CLASSES`, `LAYER_CLASSES`, `classify`, `RATES`, `cardiacEnvelope`, `breathEnvelope`, `spikeEnvelope`, `contractEnvelope`, `ventricleEnvelope`, `atriumEnvelope`, `CLASS_COUNT`
 - `schematics.js` — `SCHEMATICS`, `schematic`
-- `study-data.js` — `DATA_VERSION`, `STORAGE_PREFIX`, `LEGACY_STATS_KEY`, `SOURCE_ROOTS`, `SOURCE_FILES`, `sourceRef`, `describeSource`, `SUBJECTS`, `getSubject`, `getUnit`, `ITEM_TYPES`, `MASTERY_DIMENSIONS`, `MEMORY_METHODS`, `PRIOR_KNOWLEDGE`, `DSE_PARTS`, `priorOf`, `priorSources`, `PRIOR_ASSUMED_SCORE`, `priorAdjustedScore`, `entryStep`, `STUDY_MODES`, `MODULES`, `moduleOf`, `moduleInfo`, `SOCIOLOGY_NOTICE`, `PLACEHOLDER_NOTICES`, `REVEAL_MODES`, `STRUCTURE_SETS`, `structureSet`, `JOINT_MOVEMENTS`, `jointMovement`, `STRUCTURE_MODELS`, `BONE_HOOKS`, `STUDY_ITEMS`, `ITEM_BY_ID`, `getItem`, `itemsForSubject`, `itemsForUnit`, `questionsOf`, `allQuestions`, `validateQuestion`, `validateCorpus`, `validateApplications`, `DIAGRAMS`, `COVERAGE`, `coverageFor`, `DAY_MS`, `blankMastery`, `schedule`, `DELAY_THRESHOLD_MS`, `isDelayedAttempt`, `masteryScore`, `isDue`, `TIER_LABELS`, `tierFor`, `dimensionFor`
 - `synonyms.js` — `COMPOSITES`, `NOT_MODELLED`, `SYNONYMS`, `expandQuery`, `missingFor`, `compositeFor`
 - `term-gloss.js` — `TERM_GLOSS`, `termGloss`, `GLOSS_COUNT`
 - `term-notes.js` — `TERM_NOTES`, `termNote`, `hasNote`, `TERM_COUNT`
@@ -145,33 +144,6 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs) · [Overla
 | --- | --- |
 | 1–110 | preamble |
 | 111–784 | The schematics |
-
-**`study-data.js`** — 4897 lines
-
-| Lines | Section |
-| --- | --- |
-| 1–19 | preamble |
-| 20–156 | Source registry |
-| 157–253 | Subjects |
-| 254–299 | Item types and mastery dimensions |
-| 300–387 | Prior knowledge |
-| 388–403 | Study modes |
-| 404–1500 | Study items — HSS2011 Human Anatomy |
-| 1501–1924 | Course modules — app-authored framing, not a source claim |
-| 1925–2836 | Study items — ABCT2326 Human Physiology |
-| 2837–3187 | Study items — HTI17103 (from the HTI17101 Exploring Radiography set) |
-| 3188–3220 | APSS1A08 — limited coverage. No syllabus is invented here. |
-| 3221–3470 | Structure sets — granular 3D targets |
-| 3471–3560 | Joint movements |
-| 3561–4110 | Expansion batch — fills gaps found in a coverage audit |
-| 4111–4236 | Osteology items generated from the canonical bone records |
-| 4237–4357 | Structure-set items — tap-to-identify with a three-state reveal |
-| 4358–4435 | Movement items — generated from JOINT_MOVEMENTS |
-| 4436–4475 | Assembled corpus |
-| 4476–4589 | Validation — every question must have a resolvable answer and an |
-| 4590–4631 | Diagrams — authored schematics, drawn inline as SVG so the app needs |
-| 4632–4784 | Coverage report |
-| 4785–4897 | Spaced repetition |
 
 **`visual-data.js`** — 417 lines
 
