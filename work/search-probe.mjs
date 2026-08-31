@@ -156,39 +156,92 @@ console.log(`— catalogue names survive the loader's mangling —`);
     `all ${mangled.length} rows the loader renames still match (e.g. ${mangled[0] ? mangled[0].mesh + ' -> ' + sanitize(mangled[0].mesh) : 'none'})`);
 }
 
-console.log(`— study depth —`);
+console.log(`\u2014 study depth is read from the sources, not guessed \u2014`);
 {
+  const t0 = MESH_INDEX.filter((m) => m.tier === 0);
   const t1 = MESH_INDEX.filter((m) => m.tier === 1);
-  ok(t1.length > 100 && t1.length < MESH_INDEX.length * 0.2,
-    `${t1.length} of ${MESH_INDEX.length} rows are finer than course level`);
-  /* A family needs at least two members -- a lone sub-part is listed plainly
-     rather than under a group heading for a set of one. */
+  ok(t0.length > 400 && t0.length < MESH_INDEX.length * 0.5,
+    `${t0.length} of ${MESH_INDEX.length} structures are named by the course material`);
+  ok(t0.every((m) => m.source && m.source.file),
+    'every course-level row names the file that names it');
+  ok(t1.every((m) => !m.source), 'no row beyond the course claims a source');
+  ok(t0.every((m) => ['listed', 'named', 'described', 'mirrored'].includes(m.source.evidence)),
+    'every source carries how it names the structure');
+  /*
+   * The tier used to come from a hand-written regex of "detail" words in this
+   * repo. That is the syllabus guessing this app was told not to do, and it
+   * left 1,488 of 1,687 rows at course level -- every lymph node, every
+   * ligament, every named sulcus. The tier now comes from
+   * work/course-terms.json, built from the HSS2011 / ABCT2326 material.
+   */
+  const gloss = t0.filter((m) => m.source.evidence === 'listed');
+  ok(gloss.length > 200, `${gloss.length} rows are in the examinable glossary itself`);
+
+  /* A family needs at least two members -- a lone sub-part is collected with
+     the other unique ones rather than shown under a group heading for a set
+     of one. */
   const sizes = new Map();
   t1.forEach((m) => { if (m.family) sizes.set(m.family, (sizes.get(m.family) || 0) + 1); });
   ok([...sizes.values()].every((n) => n >= 2), 'no family has fewer than two members');
-  ok(t1.filter((m) => !m.family).every((m) => !sizes.has(m.family)),
-    `${t1.filter((m) => m.family).length} tier-1 rows group; ${t1.filter((m) => !m.family).length} stand alone`);
-  ok(MESH_INDEX.filter((m) => m.tier === 0).every((m) => !m.family),
-    'no tier-0 row is folded into a family');
+  ok(t0.every((m) => !m.family), 'no course-level row is folded into a family');
+
+  /* What the course does name stays visible, one row each. */
+  for (const n of ['Liver', 'Stomach', 'Trachea', 'Kidney', 'Urinary bladder',
+    'Thyroid cartilage', 'Femur', 'Scapula', 'Oesophagus', 'Body of sternum', 'Diaphragm']) {
+    const r = MESH_INDEX.find((m) => m.name === n);
+    if (!r) { ok(false, `${n} is missing from the index`); continue; }
+    ok(r.tier === 0, `${n} is named by the course (${r.source ? r.source.evidence : 'NOT'})`);
+  }
   /*
-   * The tier test is vocabulary, not name length. "Superior lobe of right
-   * lung" is five words and is the whole point of a chest film; demoting it
-   * on length would have hidden the lung lobes behind a group row.
+   * The lung lobes are the point of a chest film and the notes give them as
+   * "the right lung is divided into superior, middle and inferior lobes" --
+   * never as the atlas's "Superior lobe of right lung". Phrase matching alone
+   * lost all five; proximity matching is why they are back.
    */
   const lobes = MESH_INDEX.filter((m) => /lobe of (left|right) lung/i.test(m.name));
   ok(lobes.length === 5 && lobes.every((m) => m.tier === 0),
-    `all ${lobes.length} lung lobes stay at course level`);
+    `all ${lobes.length} lung lobes are at course level`);
+  ok(lobes.every((m) => ['described', 'mirrored'].includes(m.source.evidence)),
+    'and they got there by being described in place, or mirrored from the other side');
+
+  /* What it does not name is grouped away. */
   const seg = MESH_INDEX.filter((m) => /segmental bronchus/i.test(m.name));
   ok(seg.length > 15 && seg.every((m) => m.tier === 1),
     `all ${seg.length} segmental bronchi are folded away`);
-  for (const n of ['Liver', 'Stomach', 'Trachea', 'Kidney', 'Urinary bladder', 'Thyroid cartilage']) {
-    const r = MESH_INDEX.find((m) => m.name === n);
-    ok(r && r.tier === 0, `${n} stays at course level`);
-  }
-  const fams = new Set(t1.map((m) => m.family));
+  const toes = MESH_INDEX.filter((m) => /phalanx of .* of foot/i.test(m.name));
+  ok(toes.length === 14 && toes.every((m) => m.family === 'Phalanges of foot'),
+    `all ${toes.length} phalanges of the foot group under one row`);
+  const numberedRibs = MESH_INDEX.filter((m) => /^(Second|Fourth|Fifth|Sixth|Seventh|Eighth|Ninth|Tenth|Eleventh|Twelfth) rib$/.test(m.name));
+  ok(numberedRibs.every((m) => m.family === 'Ribs'),
+    `the ${numberedRibs.length} ribs the notes never number individually group under "Ribs"`);
+  ok(MESH_INDEX.find((m) => m.name === 'First rib').tier === 0,
+    'the first rib, which the glossary lists, stays on its own');
+
+  /* Nothing is thrown away: every tier-1 row is reachable. */
+  const lost = t1.filter((m) => !m.family);
+  ok(lost.length > 0 && lost.length < t1.length,
+    `${t1.length - lost.length} rows group into ${sizes.size} families; `
+    + `${lost.length} are one of a kind and the search collects them per layer`);
+
+  const fams = new Set(t1.map((m) => m.family).filter(Boolean));
   console.log(`       ${fams.size} families, largest: `
     + [...fams].map((f) => [f, t1.filter((m) => m.family === f).length])
       .sort((a, b) => b[1] - a[1]).slice(0, 3).map(([f, n]) => `${f} (${n})`).join(', '));
+  console.log(`       sources: ${new Set(t0.map((m) => m.source.file)).size} files name at least one structure`);
+}
+
+console.log(`\u2014 family labels read as anatomy, not as string surgery \u2014`);
+{
+  const labels = [...new Set(MESH_INDEX.map((m) => m.family).filter(Boolean))];
+  /* Double plurals were the give-away that the label was assembled rather than
+     read: "Axillary nodeses", "Orbital gyris", "Fasciculus propriuses". */
+  /* -is is a normal Latin genitive ending (pollicis, hallucis, ulnaris) and
+     must not be mistaken for a doubled plural. */
+  const doubled = labels.filter((l) => /(ses|ums|uses)$/.test(l)
+    && !/(sinuses|plexuses|arches|bursae)$/i.test(l));
+  ok(!doubled.length, doubled.length ? `double plurals: ${doubled.join(', ')}` : 'no double plurals');
+  ok(!labels.some((l) => /^Fingers of (foot|hand)$/.test(l)),
+    'a phalanx of the foot is not a finger of it');
 }
 
 console.log(`— families are named after the thing, not the pieces —`);
@@ -203,13 +256,25 @@ console.log(`— families are named after the thing, not the pieces —`);
   const whole = [
     ['Acromial part of deltoid muscle', 'Deltoid muscle'],
     ['Descending part of trapezius muscle', 'Trapezius muscle'],
-    ['Long head of triceps brachii', 'Triceps brachii'],
+
     ['Sternocostal head of pectoralis major muscle', 'Pectoralis major muscle'],
     ['Anterior semilunar leaflet of pulmonary valve', 'Pulmonary valve'],
     ['Left coronary leaflet', 'Aortic valve'],
   ];
   for (const [part, want] of whole) ok(fam(part) === want,
     `"${part}" belongs to ${want}${fam(part) === want ? '' : ` (got ${fam(part)})`}`);
+  /*
+   * The triceps used to be in that list. It is not any more, and the reason is
+   * the whole change: the 2019/20 musculoskeletal deck names the long, lateral
+   * and medial heads of triceps brachii one by one, so all three are at course
+   * level and are listed one by one. A part is only folded into its whole when
+   * the course does not name the part.
+   */
+  for (const n of ['Long head of triceps brachii', 'Lateral head of triceps brachii',
+    'Medial head of triceps brachii']) {
+    const r = MESH_INDEX.find((m) => m.name === n);
+    ok(r && r.tier === 0 && !r.family, `${n} is named by the course, so it stands alone`);
+  }
 
   /*
    * Where the whole DOES have a mesh of its own, the family must stay
@@ -217,7 +282,6 @@ console.log(`— families are named after the thing, not the pieces —`);
    * ulnar nerve is not its branches.
    */
   const beside = [
-    ['Anterior lateral segment of liver (VI)', 'Segments of liver', 'Liver'],
     ['Deep branch of ulnar nerve', 'Branches of ulnar nerve', 'Ulnar nerve'],
   ];
   for (const [part, want, whole2] of beside) {
@@ -228,8 +292,12 @@ console.log(`— families are named after the thing, not the pieces —`);
   /* the segmental bronchi are not the lung */
   ok(fam('Anterior segmental bronchus of left lung (BIII)') === 'Bronchi of the left lung',
     'segmental bronchi group as bronchi, not as the lung');
+  ok(fam('Costal cartilage of eighth rib') === 'Costal cartilages',
+    '"Costal cartilages of rib" says nothing "Costal cartilages" does not');
   ok(!MESH_INDEX.some((m) => m.family && /^Parts of |^Heads of |^Leaflets$/.test(m.family)),
     'no family is named after its pieces where the whole could be named');
+  ok(fam('Left coronary leaflet') === 'Aortic valve',
+    'the aortic cusps name their valve, which none of them says on its own');
 }
 
 console.log(`— composites point at real meshes —`);

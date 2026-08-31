@@ -6,7 +6,12 @@
  * map its node names to these canonical ids without changing quiz logic.
  */
 export const REGIONS = [
-  { id: 'skull', label: 'Skull' },
+  /* 'Skull' as a filter label was a lie once the classifier stopped dumping
+     everything it could not place into this bucket: it holds the cranial and
+     facial bones AND the neck — hyoid, the laryngeal cartilages, the ear
+     ossicles and the teeth. HSS2011 teaches them together as Module 4.2
+     Head and Neck, so the filter is named after the module. */
+  { id: 'skull', label: 'Head & neck' },
   { id: 'spine', label: 'Vertebral column' },
   { id: 'thorax', label: 'Thoracic cage' },
   { id: 'upper_limb', label: 'Upper limb' },
