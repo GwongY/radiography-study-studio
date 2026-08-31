@@ -23,7 +23,7 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v54';
+const CACHE_VERSION = 'v55';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
@@ -41,6 +41,17 @@ const SHELL = [
   './study.js?v=1',
   './study-data.js',
   './anatomy-data.js?v=5',
+  /*
+   * The same two files again, unversioned — NOT a duplicate. A cache key is the
+   * whole URL, query included, and two modules import these without the query:
+   * study-data.js imports './anatomy-data.js' and cavity-build.js imports
+   * './cavity-geom.js'. Precaching only the ?v= form left both 404ing offline —
+   * the bone records and the entire overlay engine. Found by the transitive
+   * import walk in work/shell-check.mjs; the old one-level scrape could not see
+   * a second-level import at all.
+   */
+  './anatomy-data.js',
+  './cavity-geom.js',
   './visual-data.js?v=4',
   './schematics.js?v=2',
   './wordparts.js?v=3',
