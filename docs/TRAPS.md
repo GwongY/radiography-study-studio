@@ -6,7 +6,7 @@ every session — everything area-specific lives here.
 
 Grouped by file. `docs/CODEMAP.md` links each file to its section.
 
-### The studio block — `outputs/radiography-study-studio.html`
+### The studio block — `outputs/studio.js`
 
 - **The 3D module's top-level code is fatal ground.** It wires ~20 buttons as bare
   `$('id').onclick = …` at module top level; deleting any element throws and aborts
@@ -52,7 +52,7 @@ Grouped by file. `docs/CODEMAP.md` links each file to its section.
 - `MODEL_CATALOG` in `anatomy-data.js` records each layer's coverage *and its gaps* —
   check it before assuming a structure exists.
 
-### Overlays and cavities — `outputs/cavity-build.js`, `outputs/cavity-geom.js`, `outputs/radiography-study-studio.html`
+### Overlays and cavities — `outputs/cavity-build.js`, `outputs/cavity-geom.js`, `outputs/studio.js`
 
 - **Measure with `state.scene.updateMatrixWorld(true)`, not the object's own.**
   A layer loaded moments ago has a pivot that is scaled and offset but not yet
@@ -102,7 +102,7 @@ Grouped by file. `docs/CODEMAP.md` links each file to its section.
 See also: **The nine regions and four quadrants are topographic, not derived
 shapes** — in "The region grid and classifiers" below.
 
-### The region grid and classifiers — `outputs/radiography-study-studio.html`, `outputs/cavity-build.js`
+### The region grid and classifiers — `outputs/studio.js`, `outputs/cavity-build.js`
 
 - **The nine regions and four quadrants are topographic, not derived shapes.**
   `measureGrid` returns measured CONSTANTS — midclavicular lines, subcostal,
@@ -125,7 +125,7 @@ shapes** — in "The region grid and classifiers" below.
   joint, so including the girdle drew a box that swallowed the trunk and
   "Upper limb" showed 90 of the 120 organs.
 
-### Visibility and hiding — `outputs/radiography-study-studio.html`
+### Visibility and hiding — `outputs/studio.js`
 
 - **`revealStructure` must dedupe its targets.** Each part of a multi-part spec
   widens to its whole unit, so a 39-part spec collected the same 77 meshes 39
@@ -248,7 +248,7 @@ shapes** — in "The region grid and classifiers" below.
   it is a two-column term list, and flattening it to prose puts unrelated
   entries next to each other — that adjacency alone "found" the third rib.
 
-### CSS — `outputs/radiography-study-studio.html`
+### CSS — `outputs/app.css`
 
 - An inline `style="display:grid"` outranks any stylesheet rule.
 - A single-class rule declared later beats an equally-specific earlier one, so toggles
@@ -279,7 +279,7 @@ shapes** — in "The region grid and classifiers" below.
   stage (layer rail, control pill) has to be sized around it — see the
   `calc(60% - 140px)` rail heights.
 
-### The viewer is a manipulation surface — `outputs/radiography-study-studio.html`
+### The viewer is a manipulation surface — `outputs/studio.js`, `outputs/app.css`
 
 - **A hidden element measures 0×0 — never write that into the camera.** `resize()`
   ran on `window.resize` alone, so "boot on Today, then open Viewer" never sized
