@@ -528,3 +528,68 @@ matched something.
 `study.js` description that a session cannot work without; the fourth expands the SHELL rule to
 describe the cache-key bug above, which shipped precisely because the old one-sentence version
 did not say it. Not shaved to hit the round number.
+
+## Phases 4 and 5 — stopped, with the measurement that stopped them
+
+Attempted on 2026-09-01. **Neither shipped.** The spec's risk ordering for these two phases was
+backwards, and the evidence is unambiguous enough to record rather than re-derive.
+
+### What this spec claimed, and what is actually true
+
+> "Block 1 splits along these lines with no restructuring."
+> "Block 0 does **not** split cleanly. 109 top-level declarations close over one mutable `state`
+> object … This is the same code the trap list documents ~20 measurement bugs in."
+
+Measured with a cross-section assignment analyser:
+
+| | Mutual section dependencies | Bindings assigned across a section boundary |
+| --- | --- | --- |
+| `study.js` (block 1) — "splits with no restructuring" | 12 | **5**, at 12 write sites in 7 sections |
+| `studio.js` (block 0) — "does not split cleanly", high risk | 3 | **0** |
+
+The inversion has one cause. `studio.js` funnels everything through a single mutable `state`
+**object**, so every cross-section write is `state.foo = x` — a property write, which is legal
+through an imported binding. `study.js` uses bare `let`s, and **assigning to an imported binding
+is a compile-time error**, not a risk to be managed:
+
+- `session` (`let`, Session engine) is written from Reset, Global search ×3, Spatial overlay
+  controls, and Layout figures. **137 reference sites.**
+- `learnDrill`, `learnFilter`, `learnTopic`, `viewerTab` (all `let`, Subject) are written from
+  Navigation, Global search, Boot, and What-is-under-the-tap. 28 sites between them.
+
+### Why stopping is the right answer, not a smaller split
+
+Splitting `study.js` requires converting those five bindings into a holder object and rewriting
+~165 call sites. That is restructuring, which this spec lists as a non-goal for the move phases,
+and it would destroy the only safety argument the phases have — a diff that touches 165 lines of
+live UI code cannot be reviewed against a baseline the way a pure move can.
+
+`studio.js` was actually attempted. The generated split produced nine parts, but with heavy
+coupling (`visualisation-modes.js` importing 18 names), three import cycles, and an entry point
+that is only side-effect imports — a structure that is *harder* to reason about than one file
+with nine clearly bannered regions the map already indexes. It was reverted.
+
+And the benefit was never large. **The map already delivers almost all of it.** `docs/CODEMAP.md`
+says Spatial concept overlays is `studio.js` 336–786; a session reads exactly those 451 lines with
+an offset read, for the same tokens a 451-line file would cost. This spec said as much for phase 5
+already — "the map is what saves the tokens; the file boundary only makes the map's targets
+smaller" — and that reasoning turns out to apply to phase 4 too.
+
+So the success criterion "no file in `outputs/` over 1,500 lines" is **not met**: `studio.js` is
+3,404 and `study.js` 3,445. That criterion was written believing both files split cleanly. It
+buys little now that the map indexes both by line range, and meeting it costs a 165-site rewrite
+of the most trap-laden code in the repo.
+
+### What the attempt was worth anyway
+
+It found a fourth instance of the pattern from phases 2 and 3. `load-check.mjs`'s inliner matched
+only `from '…'`, so a bare `import './x.js';` was left untouched — an entry point that is nothing
+but side-effect imports would have been inlined to an empty module, and the check that exists to
+catch load-time deaths would have reported `NO LOAD-TIME ERRORS` having evaluated nothing. Fixed.
+
+### If this is ever picked up again
+
+Do `studio.js` first, not last — it is the one that needs no state rewrite. Do `study.js` only as
+a deliberate, separately-specced refactor of those five bindings into `study/state.js`, with the
+137 `session` sites converted mechanically and `work/corpus-snapshot.mjs`-style fingerprinting
+extended to the UI before starting.
