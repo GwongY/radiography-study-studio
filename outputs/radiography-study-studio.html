@@ -1059,7 +1059,7 @@
   </div>
   <p class="small" id="resetHint" style="margin-top:8px">The 3D models, the lessons and the source files are untouched — only your own history is.</p>
 </dialog>
-<dialog id="aboutDialog"><button class="ghost close" id="closeAbout">Close</button><div class="eyebrow">Sources / architecture</div><h2 class="task-title">Seven named anatomical layers</h2><div class="about"><p><strong>Active model:</strong> seven Z-Anatomy / BodyParts3D GLB layers in one shared coordinate frame, holding 1,686 individually named and selectable structures — skeleton (159), muscles (344), ligaments and joints (236), organs (104), vessels (419), nerves (317) and lymphatic (107). Of those, 612 are named somewhere in the HSS2011 / ABCT2326 teaching and assessment material, and the layer chips lead with that number. The skeleton loads first; the other six are fetched the moment you first switch one on, so a first install does not download neuroanatomy for someone studying bones.</p><h3>Model attribution</h3><p>BodyParts3D / Anatomography, &copy; The Database Center for Life Science, licensed under CC BY-SA 2.1 JP. The layer set is distributed through the open <a href="https://github.com/DrMuratAltun/anatomi-simulatoru" target="_blank" rel="noreferrer">anatomi-simulatoru</a> project, which documents the per-structure BodyParts3D source and the share-alike attribution.</p><h3>Which names you are asked to know</h3><p>1,686 structures is an atlas, not a vocabulary list. Every structure therefore carries the file that names it, or records that nothing does. A build step reads the HSS2011 and ABCT2326 teaching and assessment material — the examinable glossary, both study manuals, every module lecture and revision exercise, the model answers, the MOOCs, every past paper on the drive, and the ten physiology lectures with their tutorials and exercises — and asks, for each of the 1,686, whether the course names it. 612 do: 261 are listed in the glossary itself, 244 appear verbatim, 106 are described in place (your notes say “the right lung is divided into superior, middle and inferior lobes”, never “Superior lobe of right lung”), and one is the mirror image of a structure named on the other side.</p><p>Three things are left out of that corpus on purpose. The set textbook — Martini, <em>Fundamentals of Anatomy &amp; Physiology</em> — names essentially every structure in the body, so counting it would mark almost everything examinable and destroy the distinction; it remains a source for facts, but it is not evidence that a NAME must be memorised. Student coursework is evidence of topic scope only, which is what the source registry already says. And the publisher’s question bank is not taught material.</p><p>Nothing is hidden by this. The other 1,074 structures stay modelled, searchable and tappable; the search groups them — one row for the fourteen phalanges of a foot, one for the twenty-two segmental bronchi — instead of listing them beside the names you are actually asked to learn.</p><h3>Spatial overlays are measured, not drawn</h3><p>The body cavities, the nine abdominopelvic regions and the four quadrants are not in any GLB. They are generated at runtime <em>from</em> the loaded meshes: the thoracic cavity is swept from the inner surface of these ribs, sternum and thoracic vertebrae and floored by the diaphragm; the vertebral canal is threaded through the foramen found in each vertebra; the pelvic cavity is the space inside these hip bones below the brim. Nothing is placed by hand, so the overlays follow the model rather than a remembered position, and they would follow a different body too.</p><p>The nine regions and the four quadrants are not spaces at all — they are topographic divisions, so they are built the way a clinician draws them: two midclavicular lines dropped from the midpoint of each clavicle, the subcostal plane at the inferior border of the tenth costal cartilage, the transtubercular plane through the tubercle of each iliac crest, the median and transumbilical planes for the quadrants. Every one of those is a measured level and stays a flat, straight boundary; only the projection onto the front of the torso curves, because the belly does. The organs underneath are what the regions are used to <em>talk about</em> and are deliberately excluded from the measurement — the liver crosses three regions and is not allowed to bend one.</p><p>Where a cavity is defined by a structure from a layer you have not loaded — the pericardial sac is defined by the heart — the viewer falls back to the strongest bony reference it does have and says on the card that the result is estimated rather than measured.</p><h3>Legacy files</h3><p><code>assets/bodyparts3d/</code> still holds five per-bone upper-limb GLBs (clavicle, scapula, humerus, radius, ulna) from an earlier iteration of this app. They are <strong>not</strong> the active source and nothing in the current viewer is built around them.</p><h3>Offline and failure behaviour</h3><p>Search, records, regions and quiz choices render without the 3D dependency. If the local assets or the three.js CDN are unavailable, the model area exits with a retryable fallback state instead of leaving an infinite spinner.</p></div></dialog>
+<dialog id="aboutDialog"><button class="ghost close" id="closeAbout">Close</button><div class="eyebrow">Sources / architecture</div><h2 class="task-title">Seven named anatomical layers</h2><div class="about"><p><strong>Active model:</strong> seven Z-Anatomy / BodyParts3D GLB layers in one shared coordinate frame, holding 1,686 named structures, which resolve to 787 things a tap can select — skeleton (159), muscles (344), ligaments and joints (236), organs (104), vessels (419), nerves (317) and lymphatic (107). Of those, 619 are named somewhere in the HSS2011 / ABCT2326 teaching and assessment material, and the layer chips lead with that number. The skeleton loads first; the other six are fetched the moment you first switch one on, so a first install does not download neuroanatomy for someone studying bones.</p><h3>Model attribution</h3><p>BodyParts3D / Anatomography, &copy; The Database Center for Life Science, licensed under CC BY-SA 2.1 JP. The layer set is distributed through the open <a href="https://github.com/DrMuratAltun/anatomi-simulatoru" target="_blank" rel="noreferrer">anatomi-simulatoru</a> project, which documents the per-structure BodyParts3D source and the share-alike attribution.</p><h3>Which names you are asked to know</h3><p>1,686 structures is an atlas, not a vocabulary list. Every structure therefore carries the file that names it, or records that nothing does. A build step reads the HSS2011 and ABCT2326 teaching and assessment material — the examinable glossary, both study manuals, every module lecture and revision exercise, the model answers, the MOOCs, every past paper on the drive, and the ten physiology lectures with their tutorials and exercises — and asks, for each of the 1,686, whether the course names it. 619 do: 261 are listed in the glossary itself, 244 appear verbatim, 106 are described in place (your notes say “the right lung is divided into superior, middle and inferior lobes”, never “Superior lobe of right lung”), one is the mirror image of a structure named on the other side, and seven finish a numbered series the sources name over and over — six thoracic vertebrae and one lumbar, because a course that names T1, T2, T4, T5, T6 and T12 in six different documents is teaching the thoracic vertebrae, not six of them.</p><p>Three things are left out of that corpus on purpose. The set textbook — Martini, <em>Fundamentals of Anatomy &amp; Physiology</em> — names essentially every structure in the body, so counting it would mark almost everything examinable and destroy the distinction; it remains a source for facts, but it is not evidence that a NAME must be memorised. Student coursework is evidence of topic scope only, which is what the source registry already says. And the publisher’s question bank is not taught material.</p><h3>What a tap can select</h3><p>Knowing which names matter is only half of it. The model splits further than any course does — the deltoid exists only as three “parts”, the left lung as eleven segmental bronchi, the wrist as thirty-three separately named ligaments — and while every one of those was individually selectable, tapping the wrist answered “Dorsal scaphotriquetral ligament”, a name that appears in no lecture, no exercise and no paper.</p><p>So every structure now resolves to a <strong>study unit</strong>, and the unit is what a tap selects. A structure the course names is its own unit and keeps its name. Everything below that joins one, in the order the anatomy allows: into the whole it is a piece of, where the model has one (the branches of the ulnar nerve <em>are</em> the ulnar nerve); under the whole they collectively make up, where it has none (the three “parts” become the deltoid); or under their kind and where they are — “Ligaments of the foot”, “Bronchi of the left lung”, “Lymph nodes of the abdomen”. Where they are is measured off the model, not read out of the name: nothing in the words “capitohamate interosseous ligament” says hand, but the nearest bone to it does.</p><p>That turns 1,374 separately selectable things into 787: the 619 the course names, 158 groups, and 10 structures that are genuinely one of a kind with nothing to join. Those 10 stay selectable under their own name and say so. Nothing is hidden — all 1,686 names are still searchable, and searching one that belongs to a group opens the group and tells you which name it was found under.</p><h3>Spatial overlays are measured, not drawn</h3><p>The body cavities, the nine abdominopelvic regions and the four quadrants are not in any GLB. They are generated at runtime <em>from</em> the loaded meshes: the thoracic cavity is swept from the inner surface of these ribs, sternum and thoracic vertebrae and floored by the diaphragm; the vertebral canal is threaded through the foramen found in each vertebra; the pelvic cavity is the space inside these hip bones below the brim. Nothing is placed by hand, so the overlays follow the model rather than a remembered position, and they would follow a different body too.</p><p>The nine regions and the four quadrants are not spaces at all — they are topographic divisions, so they are built the way a clinician draws them: two midclavicular lines dropped from the midpoint of each clavicle, the subcostal plane at the inferior border of the tenth costal cartilage, the transtubercular plane through the tubercle of each iliac crest, the median and transumbilical planes for the quadrants. Every one of those is a measured level and stays a flat, straight boundary; only the projection onto the front of the torso curves, because the belly does. The organs underneath are what the regions are used to <em>talk about</em> and are deliberately excluded from the measurement — the liver crosses three regions and is not allowed to bend one.</p><p>Where a cavity is defined by a structure from a layer you have not loaded — the pericardial sac is defined by the heart — the viewer falls back to the strongest bony reference it does have and says on the card that the result is estimated rather than measured.</p><h3>Legacy files</h3><p><code>assets/bodyparts3d/</code> still holds five per-bone upper-limb GLBs (clavicle, scapula, humerus, radius, ulna) from an earlier iteration of this app. They are <strong>not</strong> the active source and nothing in the current viewer is built around them.</p><h3>Offline and failure behaviour</h3><p>Search, records, regions and quiz choices render without the 3D dependency. If the local assets or the three.js CDN are unavailable, the model area exits with a retryable fallback state instead of leaving an infinite spinner.</p></div></dialog>
 <dialog id="detailDialog"><button class="ghost close" id="closeDetail">Close</button><div class="eyebrow">Structure detail</div><h2 class="task-title" id="detailTitle">Structure</h2><div class="chips" id="detailChips"></div><div class="about" id="detailBody"></div></dialog>
 <div class="sheetscrim hidden" id="searchScrim">
   <div class="sheet" id="searchSheet" role="dialog" aria-modal="true" aria-label="Search everything">
@@ -1090,7 +1090,7 @@
   /* Block 0 has its own import scope -- block 1's copy is not visible here.
      Picking needs the index to know which meshes are sub-parts of one
      named structure. See the note in CLAUDE.md about the two scopes. */
-  import { MESH_INDEX } from './mesh-index.js?v=4';
+  import { MESH_INDEX, UNITS } from './mesh-index.js?v=5';
 
   const $ = (id) => document.getElementById(id);
   const els = { stage:$('stage'), state:$('stageState'), stateTitle:$('stateTitle'), stateCopy:$('stateCopy'), retry:$('retryBtn'), progress:$('progressBar'), stageMeta:$('stageMeta'), regionMeta:$('regionMeta'), selectedName:$('selectedName'), selectedChips:$('selectedChips'), selectedDetails:$('selectedDetails'), taskKicker:$('taskKicker'), taskTitle:$('taskTitle'), taskCopy:$('taskCopy'), answers:$('answers'), feedback:$('feedback'), next:$('nextBtn'), regions:$('regionButtons'), reviewBar:$('reviewBar'), reviewNumber:$('reviewNumber'), reviewHint:$('reviewHint'), toast:$('toast'), detailDialog:$('detailDialog'), detailTitle:$('detailTitle'), detailChips:$('detailChips'), detailBody:$('detailBody'), zoomIn:$('zoomInBtn'), zoomOut:$('zoomOutBtn'), focus:$('focusBtn'), motion:$('motionBtn') };
@@ -1121,12 +1121,30 @@ function hiddenName(m){
 function hiddenLayerName(m){
   return LAYER_NAMES[m.userData?.layerKey||m.userData?.extraKey] || (m.userData?.landmarkId?'Landmark':'Skeleton');
 }
+/*
+ * One row per STRUCTURE, not per mesh.
+ *
+ * Hiding takes the whole structure (see kinOf) and a structure is many meshes
+ * -- the fourteen phalanges of a hand are one study unit -- so a per-mesh tray
+ * listed "Phalanges of the hand" fourteen times, with fourteen identical
+ * "show" buttons that each did the same thing. unhide() already restores the
+ * whole kin from any one of them, so collapsing here is only about the list.
+ */
+function hiddenRows(){
+  const seen=new Map();
+  const add=(m,auto)=>{
+    const key=(m.userData&&m.userData.canonicalId)||m.uuid;
+    const row=seen.get(key);
+    if(row){ row.auto=row.auto&&auto; return; }
+    seen.set(key,{token:m.uuid,name:hiddenName(m),layer:hiddenLayerName(m),auto});
+  };
+  state.hidden.forEach(m=>add(m,false));
+  state.autoHidden.forEach(m=>add(m,true));
+  return [...seen.values()];
+}
 function publishHidden(){
   if(!state.hiddenHook) return;
-  const rows=[];
-  state.hidden.forEach(m=>rows.push({token:m.uuid,name:hiddenName(m),layer:hiddenLayerName(m),auto:false}));
-  state.autoHidden.forEach(m=>rows.push({token:m.uuid,name:hiddenName(m),layer:hiddenLayerName(m),auto:true}));
-  try{ state.hiddenHook(rows); }catch(e){}
+  try{ state.hiddenHook(hiddenRows()); }catch(e){}
 }
 function meshByUuid(uuid){
   const all=[...state.fullMeshes,...state.meshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)];
@@ -1306,6 +1324,9 @@ async function revealStructure(spec){
         ?layer.meshes.filter(o=>ids.has(o.userData.canonicalId))
         :hits);
     }
+    /* Each part widens to its whole unit, so a 39-part spec collected the same
+       77 meshes 39 times and the panel read "3003 parts". */
+    targets=[...new Set(targets)];
     applyLayers();
     if(targets.length){
       const id=targets[0].userData.canonicalId;
@@ -1383,9 +1404,12 @@ async function revealStructure(spec){
        anchoring over both put the vagus nerve's dot on the opposite nerve. */
     showPickCallout(frameTargets,spec.name);
     els.selectedName.textContent=spec.name;
-    els.selectedChips.innerHTML=spec.parts
+    /* selectBone already rendered the card; overwriting the chips here dropped
+       the one that says whether the course names this. Put it back. */
+    const chip=courseChipHTML({canonicalName:spec.name},state.selectionAnchor);
+    els.selectedChips.innerHTML=(spec.parts
       ?`<span class="chip">${targets.length} parts</span>`
-      :(targets[0]&&targets[0].userData.side?`<span class="chip">${targets[0].userData.side}</span>`:'');
+      :(targets[0]&&targets[0].userData.side?`<span class="chip">${targets[0].userData.side}</span>`:''))+chip;
   }
   const names=[...new Set(occ.map(hiddenName))];
   return {ok:true,found:targets.length,covered:names};
@@ -2511,7 +2535,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   hide:(m)=>hideMesh(m||null),
   hideSelected:()=>hideMesh(null),
   unhide:(t)=>unhide(t),
-  hiddenList:()=>{ const r=[]; state.hidden.forEach(m=>r.push({token:m.uuid,name:hiddenName(m),layer:hiddenLayerName(m),auto:false})); state.autoHidden.forEach(m=>r.push({token:m.uuid,name:hiddenName(m),layer:hiddenLayerName(m),auto:true})); return r; },
+  hiddenList:()=>hiddenRows(),
   setHiddenHook:(fn)=>{state.hiddenHook=fn||null;publishHidden();},
   revealStructure:(spec)=>revealStructure(spec),
   showConcept:(id)=>showConcept(id),
@@ -2727,10 +2751,10 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
    * none does -- so the card can say which of the two you are looking at.
    */
   const INDEX_ROW=new Map();
-  const INDEX_FAMILY=new Set();
+  const INDEX_UNIT=new Map();
   MESH_INDEX.forEach(m=>{
     INDEX_ROW.set(m.layer+'|'+m.name.toLowerCase(),m);
-    if(m.family) INDEX_FAMILY.add(m.layer+'|'+m.family.toLowerCase());
+    if(m.unitKind!=='course') INDEX_UNIT.set(m.layer+'|'+m.unit.toLowerCase(),m);
   });
   function courseChipHTML(record,anchor){
     const ud=anchor&&anchor.userData||{};
@@ -2745,8 +2769,10 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
         :`Named in ${leaf}`;
       return `<span class="chip learn" title="${clean(row.source.file)}">${clean(how)}</span>`;
     }
-    if(INDEX_FAMILY.has(key))
-      return '<span class="chip beyond">A group \u2014 your notes do not name these one by one</span>';
+    const unit=INDEX_UNIT.get(key);
+    if(unit) return unit.unitKind==='lone'
+      ? '<span class="chip beyond">Beyond your course \u2014 one of a kind</span>'
+      : `<span class="chip beyond">Beyond your course \u2014 ${unit.unitSize} under one name</span>`;
     if(row) return '<span class="chip beyond">Not named in your course material</span>';
     return '';
   }
@@ -3116,13 +3142,13 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   }
   function importedRecord(id,raw,mapped,region){const known=mapped&&getAnatomy(mapped);const label=cleanImportedLabel(raw);const side=sideFromImportedName(raw);if(known)return {...known,id,canonicalName:label||known.canonicalName,side:side||known.side};return {id,canonicalName:label||'Unnamed structure',aliases:[],region,side:side||'bilateral',category:'named atlas structure',landmarks:[],articulations:[],radiographyImportance:'Named atlas structure from the interactive skeleton source.',difficulty:3,modelObjectIds:[],commonConfusions:[]}}
   function getRecord(id){return getAnatomy(id)||state.importedRecords.get(id)||null}
-  function prepareFullReference(THREE,root){state.THREE=THREE;state.fullMeshes=[];state.fullPickables=[];root.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(root);const size=box.getSize(new THREE.Vector3());const maxDim=Math.max(size.x,size.y,size.z)||1;root.scale.setScalar(11.8/maxDim);const scaledBox=new THREE.Box3().setFromObject(root);const center=scaledBox.getCenter(new THREE.Vector3());root.position.x-=center.x;root.position.y+=1-center.y;root.position.z-=center.z;root.updateMatrixWorld(true);/* The canonical body frame. Every other layer gets THIS transform verbatim -- see loadExtraModel. */state.bodyTransform={scalar:11.8/maxDim,offset:[root.position.x,root.position.y,root.position.z]};/* * Side letters are glued onto the name -- 'Costal_cartilage_of_fifth_ribl', * 'Incusr'. cleanImportedLabel only knew a fixed list of bone words, so 148 * of the 277 structures displayed their side letter as part of the name. * Strip it only when the opposite-side twin actually exists, which needs * every name in hand first -- hence two passes. Femur and Vomer genuinely * end in r and have no twin, so they are left alone. */const objs=[];root.traverse((o)=>{if(o.isMesh)objs.push(o)});const raws=objs.map(o=>o.name||o.parent?.name||'Unnamed structure');const flatNames=new Set(raws.map(r=>r.replace(/_/g,' ').trim().toLowerCase()));const sideAware=(raw)=>{const clean=String(raw).replace(/_/g,' ').replace(/\s+/g,' ').trim();const mm=clean.match(/^(.*\S)(l|r)$/i);if(mm){const stem=mm[1].trim();const twin=(stem+(mm[2].toLowerCase()==='l'?'r':'l')).toLowerCase();if(flatNames.has(twin))return {label:stem,side:mm[2].toLowerCase()==='l'?'left':'right'}}return {label:clean,side:null}};objs.forEach((obj,i)=>{const raw=raws[i];const {label,side:sd}=sideAware(raw);const mapped=mapImportedName(raw);const region=importedRegion(raw,mapped);const regions=importedRegions(raw,mapped);const id=`full:${i}:${raw}`;const base=importedRecord(id,raw,mapped,region);state.importedRecords.set(id,{...base,canonicalName:label||base.canonicalName,side:sd||base.side});obj.userData={...(obj.userData||{}),baseScale:obj.scale.toArray(),basePosition:obj.position.toArray(),presentationActive:false,canonicalId:id,sourceCanonicalId:mapped,region,regions,side:sd||sideFromImportedName(raw),label:raw,precise:true};if(obj.material){obj.material=obj.material.clone();obj.material.color?.setHex(0xd9d1bc);obj.material.roughness=.8;obj.material.metalness=.02}state.fullMeshes.push(obj)});const pivot=new THREE.Group();pivot.name='fullSkeletonPivot';pivot.add(root);return pivot}
+  function prepareFullReference(THREE,root){state.THREE=THREE;state.fullMeshes=[];state.fullPickables=[];root.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(root);const size=box.getSize(new THREE.Vector3());const maxDim=Math.max(size.x,size.y,size.z)||1;root.scale.setScalar(11.8/maxDim);const scaledBox=new THREE.Box3().setFromObject(root);const center=scaledBox.getCenter(new THREE.Vector3());root.position.x-=center.x;root.position.y+=1-center.y;root.position.z-=center.z;root.updateMatrixWorld(true);/* The canonical body frame. Every other layer gets THIS transform verbatim -- see loadExtraModel. */state.bodyTransform={scalar:11.8/maxDim,offset:[root.position.x,root.position.y,root.position.z]};/* * Side letters are glued onto the name -- 'Costal_cartilage_of_fifth_ribl', * 'Incusr'. cleanImportedLabel only knew a fixed list of bone words, so 148 * of the 277 structures displayed their side letter as part of the name. * Strip it only when the opposite-side twin actually exists, which needs * every name in hand first -- hence two passes. Femur and Vomer genuinely * end in r and have no twin, so they are left alone. */const objs=[];root.traverse((o)=>{if(o.isMesh)objs.push(o)});const raws=objs.map(o=>o.name||o.parent?.name||'Unnamed structure');const flatNames=new Set(raws.map(r=>r.replace(/_/g,' ').trim().toLowerCase()));const sideAware=(raw)=>{const clean=String(raw).replace(/_/g,' ').replace(/\s+/g,' ').trim();const mm=clean.match(/^(.*\S)(l|r)$/i);if(mm){const stem=mm[1].trim();const twin=(stem+(mm[2].toLowerCase()==='l'?'r':'l')).toLowerCase();if(flatNames.has(twin))return {label:stem,side:mm[2].toLowerCase()==='l'?'left':'right'}}return {label:clean,side:null}};objs.forEach((obj,i)=>{const raw=raws[i];const {label,side:sd}=sideAware(raw);const mapped=mapImportedName(raw);const region=importedRegion(raw,mapped);const regions=importedRegions(raw,mapped);/* The same study units as every other layer -- see unitFor. Before this the skeleton handed every mesh its own id, so tapping a toe returned "Distal phalanx of fifth finger of foot", a name no lecture uses. */const unit=unitFor('skeleton',raw);const id=unit?`full:u:${unit.unitId}${sd?':'+sd:''}`:`full:${i}:${raw}`;const base=importedRecord(id,raw,mapped,region);if(!state.importedRecords.has(id)){const rec={...base,canonicalName:(unit?unit.unit:label)||base.canonicalName,side:sd||base.side};if(unit&&unit.unitKind!=='course'&&!(mapped&&getAnatomy(mapped)))rec.radiographyImportance=unitBlurb(unit,'skeleton');state.importedRecords.set(id,rec);}obj.userData={...(obj.userData||{}),baseScale:obj.scale.toArray(),basePosition:obj.position.toArray(),presentationActive:false,canonicalId:id,sourceCanonicalId:mapped,region,regions,side:sd||sideFromImportedName(raw),label:raw,precise:true};if(obj.material){obj.material=obj.material.clone();obj.material.color?.setHex(0xd9d1bc);obj.material.roughness=.8;obj.material.metalness=.02}state.fullMeshes.push(obj)});const pivot=new THREE.Group();pivot.name='fullSkeletonPivot';pivot.add(root);return pivot}
   function prepareImportedModel(THREE,root){state.realIsProcedural=false;/* Same shared body frame as every other layer. Normalising this set to its   OWN bounding box scaled five arm bones to the height of a whole body. */const bt=state.bodyTransform;if(bt){root.scale.setScalar(bt.scalar);root.position.set(bt.offset[0],bt.offset[1],bt.offset[2])}else{const box=new THREE.Box3().setFromObject(root);const size=box.getSize(new THREE.Vector3());const maxDim=Math.max(size.x,size.y,size.z)||1;root.scale.setScalar(11/maxDim);const scaledBox=new THREE.Box3().setFromObject(root);const center=scaledBox.getCenter(new THREE.Vector3());root.position.x-=center.x;root.position.y+=.5-center.y;root.position.z-=center.z}state.meshes=[];let mapped=0,unmapped=0;const importedNames=[];root.traverse((obj)=>{if(!obj.isMesh)return;importedNames.push(obj.name||obj.parent?.name||'unnamed');const canonicalId=obj.userData.sourceCanonicalId||mapImportedName(obj.name||obj.parent?.name);if(!canonicalId){unmapped++;obj.visible=false;return}const known=getAnatomy(canonicalId);if(!known){unmapped++;obj.visible=false;return}mapped++;obj.userData={...(obj.userData||{}),baseScale:obj.scale.toArray(),basePosition:obj.position.toArray(),presentationActive:false,canonicalId,region:known.region,side:obj.userData.sourceSide||sideFromImportedName(obj.name||obj.parent?.name),label:obj.userData.sourceLabel||obj.name};if(obj.material){obj.material=obj.material.clone();obj.material.color?.setHex(0xd9d1bc);obj.material.roughness=.78;obj.material.metalness=.02}state.meshes.push(obj)});return {mapped,unmapped}}
   function remapHotspotsToReal(THREE){if(!state.realModel||state.realIsProcedural)return;const byId=new Map();state.meshes.forEach(m=>{if(!byId.has(m.userData.canonicalId))byId.set(m.userData.canonicalId,m)});state.realModel.updateMatrixWorld(true);Object.entries(LANDMARK_HOTSPOTS).forEach(([parent,spots])=>{const mesh=byId.get(parent);if(!mesh)return;mesh.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(mesh),center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3());spots.forEach(spot=>{const h=state.hotspots.find(x=>x.userData.parentId===parent&&x.userData.landmarkId===spot.id);if(!h)return;const rel=new THREE.Vector3(...spot.position).sub(new THREE.Vector3(-2.4,7.7,.45));rel.x=Math.max(-1.2,Math.min(1.2,rel.x));rel.y=Math.max(-1.2,Math.min(1.2,rel.y));rel.z=Math.max(-.8,Math.min(.8,rel.z));const worldPoint=center.clone().add(rel.multiply(new THREE.Vector3(size.x*.5,size.y*.5,size.z*.5)));h.position.copy(state.realModel.worldToLocal(worldPoint));h.visible=false})})}
   async function loadImportedModel(THREE,GLTFLoader,DRACOLoader){const root=new THREE.Group();const loader=new GLTFLoader();const draco=new DRACOLoader();draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/libs/draco/');loader.setDRACOLoader(draco);for(let i=0;i<MODEL_CATALOG.active.files.length;i++){const source=MODEL_CATALOG.active.files[i];const gltf=await new Promise((resolve,reject)=>loader.load(source.file,resolve,(event)=>{const ratio=event.total?event.loaded/event.total:0;els.progress.style.width=`${Math.round(((i+ratio)/MODEL_CATALOG.active.files.length)*60)+28}%`},reject));gltf.scene.traverse((obj)=>{obj.userData={...(obj.userData||{}),sourceCanonicalId:source.id,sourceSide:source.side,sourceLabel:source.label}});root.add(gltf.scene)}const pivot=new THREE.Group();pivot.name='realUpperLimbPivot';pivot.add(root);return pivot}
   async function loadFullReference(THREE,GLTFLoader){const loader=new GLTFLoader();const gltf=await new Promise((resolve,reject)=>loader.load(MODEL_CATALOG.fullSkeletonFile,resolve,(event)=>{const ratio=event.total?event.loaded/event.total:0;els.progress.style.width=`${Math.round(ratio*25)+3}%`},reject));return gltf.scene}
   function cameraView(kind){if(!state.camera||!state.controls)return;if(kind==='lateral'){state.camera.position.set(24,1,0);state.controls.target.set(0,1,0)}else{state.camera.position.set(0,1,25);state.controls.target.set(0,1,0)}state.controls.update()}
-  async function boot3D(){els.state.classList.remove('hidden');els.stateTitle.textContent='Loading the skeleton layer';els.stateCopy.textContent='Loading the Z-Anatomy skeleton — 159 named, individually selectable structures, 73 of them named by your course material. The other six system layers load on demand.';els.retry.style.display='none';els.progress.style.width='3%';try{const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js');const {OrbitControls}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js');const {GLTFLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js');const {DRACOLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/DRACOLoader.js');state.scene=new THREE.Scene();state.scene.background=new THREE.Color(0x0b151b);state.camera=new THREE.PerspectiveCamera(32,1,.1,100);state.camera.position.set(0,1,25);state.renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});state.renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));state.renderer.outputColorSpace=THREE.SRGBColorSpace;els.stage.prepend(state.renderer.domElement);state.controls=new OrbitControls(state.camera,state.renderer.domElement);state.controls.enableDamping=true;state.controls.dampingFactor=.08;state.controls.minDistance=2.5;state.controls.maxDistance=45;state.controls.target.set(0,1,0);state.raycaster=new THREE.Raycaster();state.pointer=new THREE.Vector2();state.scene.add(new THREE.HemisphereLight(0xdce9e7,0x102026,2.1));const key=new THREE.DirectionalLight(0xffffff,2.4);key.position.set(5,12,16);state.scene.add(key);state.scene.add(new THREE.DirectionalLight(0x5cd1c4,.8));try{state.fullModel=prepareFullReference(THREE,await loadFullReference(THREE,GLTFLoader));state.scene.add(state.fullModel);addFullPickables(THREE,state.scene);els.stageMeta.textContent='Z-Anatomy / BodyParts3D skeleton · 159 named structures';}catch(fullError){console.warn('Full reference failed',fullError)}try{state.realModel=await loadImportedModel(THREE,GLTFLoader,DRACOLoader);const info=prepareImportedModel(THREE,state.realModel);state.scene.add(state.realModel);els.stageMeta.textContent+=` · ${info.mapped} real BodyParts3D upper-limb meshes`;}catch(importError){console.warn('Real upper-limb model failed, using local fallback',importError);state.realModel=createProceduralModel(THREE);state.scene.add(state.realModel);addHotspots(THREE,state.scene);els.stageMeta.textContent='Full reference + fallback upper-limb meshes';}resize();watchStageSize();applyVisibility();els.progress.style.width='100%';setTimeout(()=>els.state.classList.add('hidden'),500);animate();return true}catch(error){els.stateTitle.textContent='3D model unavailable';els.stateCopy.textContent='The study tools still work. Check your connection, then retry the model layer.';els.retry.style.display='inline-flex';els.progress.style.width='100%';console.warn(error);return false}}
+  async function boot3D(){els.state.classList.remove('hidden');els.stateTitle.textContent='Loading the skeleton layer';els.stateCopy.textContent='Loading the Z-Anatomy skeleton — 159 named structures, 80 of them named by your course material, 88 things you can select. The other six system layers load on demand.';els.retry.style.display='none';els.progress.style.width='3%';try{const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js');const {OrbitControls}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js');const {GLTFLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js');const {DRACOLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/DRACOLoader.js');state.scene=new THREE.Scene();state.scene.background=new THREE.Color(0x0b151b);state.camera=new THREE.PerspectiveCamera(32,1,.1,100);state.camera.position.set(0,1,25);state.renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});state.renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));state.renderer.outputColorSpace=THREE.SRGBColorSpace;els.stage.prepend(state.renderer.domElement);state.controls=new OrbitControls(state.camera,state.renderer.domElement);state.controls.enableDamping=true;state.controls.dampingFactor=.08;state.controls.minDistance=2.5;state.controls.maxDistance=45;state.controls.target.set(0,1,0);state.raycaster=new THREE.Raycaster();state.pointer=new THREE.Vector2();state.scene.add(new THREE.HemisphereLight(0xdce9e7,0x102026,2.1));const key=new THREE.DirectionalLight(0xffffff,2.4);key.position.set(5,12,16);state.scene.add(key);state.scene.add(new THREE.DirectionalLight(0x5cd1c4,.8));try{state.fullModel=prepareFullReference(THREE,await loadFullReference(THREE,GLTFLoader));state.scene.add(state.fullModel);addFullPickables(THREE,state.scene);els.stageMeta.textContent='Z-Anatomy / BodyParts3D skeleton · 159 named structures';}catch(fullError){console.warn('Full reference failed',fullError)}try{state.realModel=await loadImportedModel(THREE,GLTFLoader,DRACOLoader);const info=prepareImportedModel(THREE,state.realModel);state.scene.add(state.realModel);els.stageMeta.textContent+=` · ${info.mapped} real BodyParts3D upper-limb meshes`;}catch(importError){console.warn('Real upper-limb model failed, using local fallback',importError);state.realModel=createProceduralModel(THREE);state.scene.add(state.realModel);addHotspots(THREE,state.scene);els.stageMeta.textContent='Full reference + fallback upper-limb meshes';}resize();watchStageSize();applyVisibility();els.progress.style.width='100%';setTimeout(()=>els.state.classList.add('hidden'),500);animate();return true}catch(error){els.stateTitle.textContent='3D model unavailable';els.stateCopy.textContent='The study tools still work. Check your connection, then retry the model layer.';els.retry.style.display='inline-flex';els.progress.style.width='100%';console.warn(error);return false}}
   /*
    * Canvas sizing.
    *
@@ -3428,9 +3454,9 @@ async function loadExtraModel(key,file){
      * The side stays in the id: left and right are never merged, because
      * telling them apart is the entire L2 drill.
      */
-    const fam=familyLabelFor(key,raw);
-    const id=fam?`sys:${key}:fam:${fam}${side?':'+side:''}`:`sys:${key}:${i}:${raw}`;
-    const shownName=fam||label;
+    const unit=unitFor(key,raw);
+    const id=unit?`sys:${key}:u:${unit.unitId}${side?':'+side:''}`:`sys:${key}:${i}:${raw}`;
+    const shownName=unit?unit.unit:label;
     if(!state.importedRecords.has(id)){
       const mapped=mapImportedName(raw);
       const known=mapped&&getAnatomy(mapped);
@@ -3438,9 +3464,7 @@ async function loadExtraModel(key,file){
         ? {...known,id,canonicalName:shownName,side}
         : {id,canonicalName:shownName,aliases:[],region:key,side,
            category:`${LAYER_NAMES[key]||key} layer structure`,landmarks:[],articulations:[],
-           radiographyImportance:fam
-             ? `The ${(LAYER_NAMES[key]||key).toLowerCase()} layer models this as separate parts; they are selected together because the course names the whole.`
-             : `Named structure in the ${(LAYER_NAMES[key]||key).toLowerCase()} layer of the BodyParts3D atlas.`,
+           radiographyImportance:unitBlurb(unit,key),
            difficulty:3,modelObjectIds:[],commonConfusions:[]});
     }
     o.userData={...(o.userData||{}),label:raw,extraKey:key,canonicalId:id,layerKey:key,side,region:key,
@@ -3721,16 +3745,21 @@ function stepPhysiology(t){
 const LAYER_NAMED=MESH_INDEX.reduce((a,m)=>{a[m.layer]=(a[m.layer]||0)+1;return a},{});
 /* and, of those, how many the course material actually names */
 const LAYER_COURSE=MESH_INDEX.reduce((a,m)=>{if(m.tier===0)a[m.layer]=(a[m.layer]||0)+1;return a},{});
+/* and how many separate things a tap can select: every course-named structure
+   plus one per group of the rest. The three numbers only agree because they
+   all come out of the same index -- see UNITS in mesh-index.js. */
+const LAYER_UNITS=UNITS.reduce((a,u)=>{a[u.layer]=(a[u.layer]||0)+1;return a},{});
 function updateStageMeta(){
   const on=Object.keys(state.layers).filter(k=>state.layers[k]);
   if(!on.length){els.stageMeta.textContent='No layer shown — turn one on to study it';return}
   const named=on.reduce((t,k)=>t+(LAYER_NAMED[k]||0),0);
   const course=on.reduce((t,k)=>t+(LAYER_COURSE[k]||0),0);
+  const units=on.reduce((t,k)=>t+(LAYER_UNITS[k]||0),0);
   /* The second number is the one that answers "which of these do I have to
      remember?" -- see the Sources & model dialog. */
   const base=on.length===1&&on[0]==='skeleton'
-    ?`Precise Z-Anatomy / BodyParts3D skeleton · ${LAYER_NAMED.skeleton} structures, ${LAYER_COURSE.skeleton} named by your course`
-    :`${on.map(k=>LAYER_NAMES[k]||k).join(' + ')} · ${named} structures, ${course} named by your course · one registered body · tap a structure`;
+    ?`Precise Z-Anatomy / BodyParts3D skeleton · ${LAYER_NAMED.skeleton} structures, ${LAYER_COURSE.skeleton} named by your course, ${LAYER_UNITS.skeleton} you can select`
+    :`${on.map(k=>LAYER_NAMES[k]||k).join(' + ')} · ${named} structures, ${course} named by your course, ${units} you can select · tap one`;
   /* Say what the region filter did, or it looks like nothing happened. */
   if(state.region&&state.region!=='all'){
     const bones=state.fullMeshes.filter(m=>m.visible).length;
@@ -4172,26 +4201,42 @@ function setExtraVisible(key){
  * asked to identify and left the rest of the muscle dark.
  *
  * mesh-index.js already marks those rows tier 1 and gives each a family. Here
- * that grouping decides what a TAP selects: the whole family lights together
- * and is named as the whole. Left and right stay separate -- the L2 drill is
+ * that grouping decides what a TAP selects: the whole unit lights together
+ * and is named as the unit. Left and right stay separate -- the L2 drill is
  * exactly about telling them apart -- so sides are never merged.
  */
 const tightKey=(v)=>normName(v).replace(/[^a-z0-9]/g,'');
-let _famMap=null;
-/* layer -> Map(tight mesh name -> family label), tier-1 rows only. */
-function familyMap(){
-  if(_famMap) return _famMap;
-  _famMap=new Map();
+let _unitMap=null;
+/* layer -> Map(tight mesh name -> its index row, which carries its unit). */
+function unitMap(){
+  if(_unitMap) return _unitMap;
+  _unitMap=new Map();
   MESH_INDEX.forEach((r)=>{
-    if(r.tier!==1||!r.family) return;
-    if(!_famMap.has(r.layer)) _famMap.set(r.layer,new Map());
-    _famMap.get(r.layer).set(tightKey(r.name),r.family);
+    if(!_unitMap.has(r.layer)) _unitMap.set(r.layer,new Map());
+    _unitMap.get(r.layer).set(tightKey(r.name),r);
   });
-  return _famMap;
+  return _unitMap;
 }
-/* The family a raw GLB name belongs to, if it is a sub-part of one. */
-function familyLabelFor(layerKey,raw){
-  const fm=familyMap().get(layerKey);
+/*
+ * What the panel says about a structure the course does not name.
+ *
+ * It has to answer the question the student actually has -- "why is this one
+ * thing called something else, and do I have to learn it?" -- rather than
+ * repeat the atlas's own confidence about every mesh equally.
+ */
+function unitBlurb(unit,key){
+  const layer=(LAYER_NAMES[key]||key).toLowerCase();
+  if(!unit) return `Named structure in the ${layer} layer of the BodyParts3D atlas.`;
+  if(unit.unitKind==='group')
+    return `Your course material names none of these one by one, so the ${unit.unitSize} of them are selected together under a name it does use. The atlas calls this one "${unit.name}".`;
+  if(unit.unitKind==='lone')
+    return `Modelled in the ${layer} layer and named in none of your course material. Nothing of its kind is near enough to group it with, so it stays on its own.`;
+  return `Named structure in the ${layer} layer of the BodyParts3D atlas.`;
+}
+/* The study unit a raw GLB name belongs to, or null if the index has no such
+   name (unnamed geometry, and the handful of modelling artefacts). */
+function unitFor(layerKey,raw){
+  const fm=unitMap().get(layerKey);
   if(!fm) return null;
   const k=tightKey(raw);
   return fm.get(k)||(/[lr]$/.test(k)?fm.get(k.slice(0,-1)):null)||null;
@@ -4419,7 +4464,7 @@ import {
 } from './study-data.js';
 import { searchAnatomy } from './anatomy-data.js?v=5';
 import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS, conceptById, conceptAncestors, conceptChildren } from './bodymap.js?v=4';
-import { MESH_INDEX } from './mesh-index.js?v=4';
+import { MESH_INDEX, UNITS } from './mesh-index.js?v=5';
 import { expandQuery, missingFor, compositeFor } from './synonyms.js?v=3';
 import { visualFor, plateFor } from './visual-data.js?v=3';
 import { FLOW_CLASSES, LAYER_CLASSES, RATES } from './physiology.js?v=4';
@@ -5114,6 +5159,22 @@ function sourceNote(m) {
     : `${EVIDENCE_WORD[m.source.evidence] || 'named in'} ${shortSource(m.source.file)}`;
 }
 
+/*
+ * Unit -> its rows, and unit -> the row that IS the unit.
+ *
+ * EVERY row belongs to a unit, so these two cover the whole index: a
+ * course-named structure together with the finer rows absorbed into it, a
+ * group and its members, or a lone structure on its own.
+ */
+const UNIT_ROWS = new Map();
+const UNIT_HEAD = new Map();
+MESH_INDEX.forEach((m) => {
+  const list = UNIT_ROWS.get(m.unitId) || [];
+  list.push(m);
+  UNIT_ROWS.set(m.unitId, list);
+  if (m.isUnit) UNIT_HEAD.set(m.unitId, m);
+});
+
 function searchHits(q) {
   const needle = q.trim().toLowerCase();
   if (!needle) return [];
@@ -5177,70 +5238,65 @@ function searchHits(q) {
    * STARTS with what you typed beats one that merely contains it -- otherwise
    * "kidney" is buried under every renal vessel.
    */
+  /*
+   * Results are UNITS, not rows.
+   *
+   * Every one of the 1,686 rows is still findable by its own name -- typing
+   * "cuboideonavicular" works -- but what comes back is the thing the viewer
+   * can actually select, which for anything below course level is the group it
+   * belongs to. Listing the rows themselves is what made a search for
+   * "ligament" return two hundred names out of no lecture, and offered a
+   * selection the viewer no longer makes.
+   */
   const idxHits = [];
-  const families = new Map();          /* family label -> the rows inside it */
-  const beyond = new Map();            /* layer -> tier-1 rows with no family */
+  const found = new Map();             /* unit id -> what matched inside it */
   MESH_INDEX.forEach((m) => {
-    const hay = m.name.toLowerCase();
-    if (!matches(hay) || taken(m.name)) return;
-    claim(m.name);
-    /*
-     * Tier 1 is finer than the course goes, so it is collected rather than
-     * listed. Two ways of collecting it:
-     *
-     *   with a family   one row that opens every member -- twenty segmental
-     *                   bronchi with their BI-BX codes buried the main and
-     *                   lobar bronchi that were actually being looked for
-     *   without one     a structure the model names exactly once and no
-     *                   lecture, exercise or paper mentions. There are ~590 of
-     *                   these; listed individually they ARE the result list.
-     *                   They collapse into one row per layer.
-     */
-    if (m.tier === 1 && m.family) {
-      const list = families.get(m.family) || [];
-      list.push(m);
-      families.set(m.family, list);
+    /* the unit's own name counts too, or "lymph node" finds nothing: the rows
+       are called "Axillary nodes" and "Pre-aortic nodes", and the thing the
+       viewer actually selects is "Lymph nodes of the abdomen" */
+    const byName = matches(m.name.toLowerCase());
+    if (!byName && !matches(m.unit.toLowerCase())) return;
+    const g = found.get(m.unitId) || { rows: [], named: [] };
+    g.rows.push(m);
+    if (byName) g.named.push(m);
+    found.set(m.unitId, g);
+  });
+  found.forEach((g, unitId) => {
+    const rows = g.rows;
+    const any = rows[0];
+    const label = any.unit;
+    if (taken(label)) return;
+    claim(label);
+    const model = STRUCTURE_MODELS[any.layer];
+    /* opens the WHOLE unit, not only the rows that matched */
+    const parts = (UNIT_ROWS.get(unitId) || rows).map((m) => ({ system: m.layer, mesh: m.mesh,
+      file: model && model.file }));
+    const go = () => openStructureInViewer({ parts, name: label });
+    const hay = label.toLowerCase();
+    const rank = hay === needle ? 0 : hay.startsWith(needle) ? 1 : hay.includes(needle) ? 2 : 3;
+    /* matched on a name the unit is not called by: say which one, or the row
+       reads as a result for something it does not appear to contain */
+    const via = g.named.length && !g.named.some((m) => m.name === label)
+      ? ` · found under "${g.named[0].name}"` : '';
+    if (any.unitKind === 'course') {
+      const head = UNIT_HEAD.get(unitId) || any;
+      const side = head.sides === 'b' ? 'left and right' : head.sides === 'l' ? 'left'
+        : head.sides === 'r' ? 'right' : '';
+      idxHits.push({ rank, hit: { kind: 'Structure', title: label,
+        note: `${model ? model.label : any.layer}${side ? ' · ' + side : ''} · ${sourceNote(head)}${via}`, go } });
       return;
     }
-    if (m.tier === 1) {
-      const list = beyond.get(m.layer) || [];
-      list.push(m);
-      beyond.set(m.layer, list);
+    if (any.unitKind === 'lone') {
+      idxHits.push({ rank: rank + 4, hit: { kind: 'Beyond', title: label,
+        note: `${model ? model.label : any.layer} · modelled, but named in none of your course material`, go } });
       return;
     }
-    const model = STRUCTURE_MODELS[m.layer];
-    const side = m.sides === 'b' ? 'left and right' : m.sides === 'l' ? 'left' : m.sides === 'r' ? 'right' : '';
-    idxHits.push({
-      rank: hay === needle ? 0 : hay.startsWith(needle) ? 1 : 2,
-      hit: { kind: 'Structure', title: m.name,
-        note: `${model ? model.label : m.layer}${side ? ' · ' + side : ''} · ${sourceNote(m)}`,
-        go: () => openStructureInViewer({ system: m.layer, mesh: m.mesh,
-          file: model && model.file, name: m.name }) },
-    });
+    idxHits.push({ rank: rank + 4, hit: { kind: 'Group', title: `${label} — ${any.unitSize}`,
+      note: `${model ? model.label : any.layer} · your course names none of these one by one`
+        + ` · opens all together${via}`, go } });
   });
   idxHits.sort((a, b) => a.rank - b.rank || a.hit.title.length - b.hit.title.length);
-  idxHits.slice(0, 30).forEach((r) => hits.push(r.hit));
-
-  /* One row per family, largest first, after the plain structures. */
-  [...families.entries()].sort((a, b) => b[1].length - a[1].length).forEach(([label, list]) => {
-    const parts = list.map((m) => ({ system: m.layer, mesh: m.mesh,
-      file: STRUCTURE_MODELS[m.layer] && STRUCTURE_MODELS[m.layer].file }));
-    const model = STRUCTURE_MODELS[list[0].layer];
-    hits.push({ kind: 'Group', title: `${label} — ${list.length}`,
-      note: `${model ? model.label : list[0].layer} · your notes do not name these one by one · opens all together`,
-      go: () => openStructureInViewer({ parts, name: label }) });
-  });
-
-  /* Then, last, the one-of-a-kind structures nothing in the course names. */
-  [...beyond.entries()].sort((a, b) => b[1].length - a[1].length).forEach(([layer, list]) => {
-    const model = STRUCTURE_MODELS[layer];
-    const parts = list.map((m) => ({ system: m.layer, mesh: m.mesh, file: model && model.file }));
-    const label = `${list.length} more in ${model ? model.label.toLowerCase() : layer}`;
-    hits.push({ kind: 'Beyond', title: label,
-      note: `${list.slice(0, 3).map((m) => m.name).join(', ')}${list.length > 3 ? '…' : ''}`
-        + ` · modelled, but not named in your course material`,
-      go: () => openStructureInViewer({ parts, name: label }) });
-  });
+  idxHits.slice(0, 40).forEach((r) => hits.push(r.hit));
 
   /*
    * Answer the whole-structure question, at the top, before the parts.
@@ -5822,6 +5878,20 @@ function layerCount(key) {
 function layerCourseCount(key) {
   return (LAYER_STRUCTURES[key] || {}).course || 0;
 }
+/*
+ * How many separate things this layer lets you select.
+ *
+ * Not the same as either number on the chip, and that is the point: 419
+ * vessels are modelled, 186 of them are named by the course, and a tap can
+ * land on 217 things -- those 186 plus one per group of the other 233.
+ */
+const LAYER_UNIT_COUNT = UNITS.reduce((acc, u) => {
+  acc[u.layer] = (acc[u.layer] || 0) + 1;
+  return acc;
+}, {});
+function layerUnitCount(key) {
+  return LAYER_UNIT_COUNT[key] || 0;
+}
 
 const hex = (n) => '#' + Number(n).toString(16).padStart(6, '0');
 
@@ -5864,7 +5934,7 @@ function renderLayerRail() {
     </button>` + BODY_LAYERS.map((l) => {
     const st = layerState[l.key] || 'off';
     return `<button class="layerchip" data-layer="${esc(l.key)}" data-state="${st}" aria-pressed="${st !== 'off'}">
-      <span class="dot"></span><span>${esc(l.label)}</span><span class="cnt" title="${layerCourseCount(l.key)} named by your course · ${layerCount(l.key)} modelled">${layerCourseCount(l.key)}<i>/${layerCount(l.key)}</i></span>
+      <span class="dot"></span><span>${esc(l.label)}</span><span class="cnt" title="${layerCourseCount(l.key)} named by your course · ${layerCount(l.key)} modelled · ${layerUnitCount(l.key)} separately selectable">${layerCourseCount(l.key)}<i>/${layerCount(l.key)}</i></span>
     </button>`;
   }).join('') + '<div class="layerhint">tap to cycle · solid → ghost → off</div>' + renderFlowKey();
   rail.querySelectorAll('[data-layer]').forEach((b) => { b.onclick = () => cycleLayer(b.dataset.layer, b); });
