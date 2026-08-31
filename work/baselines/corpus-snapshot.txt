@@ -1,0 +1,156 @@
+— the export surface of outputs/study-data.js — 57 exports —
+  f6ce6e2d285e4eb0      3308  BONE_HOOKS  object[21]
+  fcf594ddbed32eab     13128  COVERAGE  object[5]
+  6b86b273ff34fce1         1  DATA_VERSION  number
+  619d6a33617fad34         8  DAY_MS  number
+  aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
+  b27df81e56274c00      1272  DIAGRAMS  object[2]
+  6faf83c533413f49       228  DSE_PARTS  object[2]
+  58f25b0a5c46e4e4    489481  ITEM_BY_ID  Map[94]
+  ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
+  c529371f74fc1d2a      4250  JOINT_MOVEMENTS  object[4]
+  f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
+  420a0e68b2bda59f       967  MASTERY_DIMENSIONS  array[9]
+  365f0cf2af2e474f       281  MEMORY_METHODS  object[9]
+  a7a8760e15ef3941       632  MODULES  object[5]
+  657793960a26ba67      1085  PLACEHOLDER_NOTICES  object[2]
+  d2cbad71ff333de6         3  PRIOR_ASSUMED_SCORE  number
+  f428292239abe4d6       199  PRIOR_KNOWLEDGE  object[1]
+  98a503c7f71e10a2       285  REVEAL_MODES  array[3]
+  0d0b5bb6f4c96e17      1348  SOCIOLOGY_NOTICE  object[5]
+  03cfd37444ded5dc     15094  SOURCE_FILES  object[76]
+  a843b56cc421ff5d       305  SOURCE_ROOTS  object[11]
+  f5a4a790ced096e6         9  STORAGE_PREFIX  string
+  304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
+  57b60f7998459a29     20933  STRUCTURE_SETS  object[13]
+  0ad6656e2f2b67a4    486767  STUDY_ITEMS  array[94]
+  e961925afaa20e06      1155  STUDY_MODES  array[9]
+  e5a59e899377a9a2      2937  SUBJECTS  array[6]
+  963154a00b363295        57  TIER_LABELS  array[5]
+  32039fd949359b25        88  allQuestions  function
+  f22dc64193861bbd       207  blankMastery  function
+  19d93af5294891af       120  coverageFor  function
+  e4df7c44e478c27b    521124  default  object[7]
+  3ccc8570c78e7c7d       511  describeSource  function
+  3ab99068d04f2a58       249  dimensionFor  function
+  ecbf07ccb87a7a5c       115  entryStep  function
+  9f00631a1516b77e        74  getItem  function
+  a72516bb00e74602        95  getSubject  function
+  d60054715a25370b       183  getUnit  function
+  2e3e6263da135938       207  isDelayedAttempt  function
+  7ea1a49ef2d01a08       119  isDue  function
+  11ac4422a2e3567e       121  itemsForSubject  function
+  25498cad4c3607c3       144  itemsForUnit  function
+  b5dc8533700355bc        85  jointMovement  function
+  e57aba4948ebb600       412  masteryScore  function
+  0b96b12bc1d3c7eb       204  moduleInfo  function
+  251f9a3a88308bc4       210  moduleOf  function
+  97992b474f7b8875       160  priorAdjustedScore  function
+  eb588cef64a3ecc6       527  priorOf  function
+  1fa771353264707c       162  priorSources  function
+  fd4bc0f092703d06       156  questionsOf  function
+  ab67db13c9dd65b7      2004  schedule  function
+  9455bac69cc918ba        78  sourceRef  function
+  c66385619e50da76        82  structureSet  function
+  1e4bbf472267ad81       183  tierFor  function
+  26fdf16524e01e89       526  validateApplications  function
+  bb157d6583e754f9      2211  validateCorpus  function
+  f4c4104303214acd      3081  validateQuestion  function
+
+  a639fd20e6d9cda1  WHOLE SURFACE
+
+— every study item, by id — 94 items —
+  896be4c758f70c6a  abct2326-blood-composition
+  87ce8b9c57dec61f  abct2326-cells-organisation
+  45f0c8e428492490  abct2326-cvs-circuits
+  f1dc7ec7cda6e7ed  abct2326-cvs-conduction
+  0ad6abb6ff038fe5  abct2326-cvs-ecg-cycle
+  13459b1b1ecaebf4  abct2326-cvs-heart-structure
+  3c05dc067935cd87  abct2326-digestive-pathway
+  c08813fc6c0bfa26  abct2326-endocrine-delivery
+  7de3ed00729fc0f4  abct2326-homeostasis
+  11c6fcfebb45023f  abct2326-immune-adaptive
+  afde6d9705e6abb6  abct2326-innate-adaptive
+  0482d29d4b0e9f70  abct2326-msk-immune-overview
+  354f451134563833  abct2326-muscle-action
+  cec0a827b386716c  abct2326-muscle-types
+  cc3e4bba59170054  abct2326-nervous-divisions
+  b56fa5bb681c7f68  abct2326-renal-nephron
+  999f06f875c38a5e  abct2326-resp-gas-transport
+  2f7a3fe527e9c2f5  abct2326-resp-pathway
+  4ae762fbcbd53998  hss2011-bone-cervical
+  f20eec934dfb38c4  hss2011-bone-clavicle
+  1d44b8f543963d3b  hss2011-bone-coccyx
+  5cd5c6cd082f2d7b  hss2011-bone-cranium
+  b53c36adc60d10b6  hss2011-bone-femur
+  9c5d23e3f7729215  hss2011-bone-fibula
+  3ee490ad4773cd14  hss2011-bone-foot
+  a8f12ef677f09fe9  hss2011-bone-hand
+  f48c197b6cfccb5b  hss2011-bone-humerus
+  62ff86c4beaee83c  hss2011-bone-lumbar
+  d2e84c4c3eec8b57  hss2011-bone-mandible
+  de69f5641f81a742  hss2011-bone-patella
+  6aeb796e9b05689c  hss2011-bone-pelvis
+  edc68726ec57eca0  hss2011-bone-radius
+  2c67ff52066071b5  hss2011-bone-ribs
+  931bde00cb8337bb  hss2011-bone-sacrum
+  5d16e21e353fcac6  hss2011-bone-scapula
+  400f4078f134708a  hss2011-bone-sternum
+  5854b055c313b405  hss2011-bone-thoracic
+  1c66130a9f71a832  hss2011-bone-tibia
+  4b3cbf527ae4daa0  hss2011-bone-ulna
+  6a5419f5a79d10f7  hss2011-joints-classification
+  63358bbd323ef6f4  hss2011-joints-movements
+  626822404a6c637d  hss2011-joints-rotator-cuff
+  edbc95d788dd3214  hss2011-joints-synovial-structure
+  c4415ee4d89be2b3  hss2011-joints-synovial-types
+  71ead34ff86900f2  hss2011-m1-heart-wall-valves
+  113b1d1661d1902f  hss2011-m1-lungs-airway
+  7c59aa3d5c08abe5  hss2011-m2-brain-regions
+  23d95d9ec81dcac5  hss2011-m2-cns-basics
+  8bf911263d03e2ba  hss2011-m3-digestive
+  6b9c5e940967ac03  hss2011-m3-urogenital-pelvis
+  531b5e027b093349  hss2011-movement-elbowFlexion
+  3cbfbe7405e5d9ea  hss2011-movement-shoulderAbduction
+  6869d087ff1d1615  hss2011-movement-supination
+  528546d2babc805b  hss2011-movement-thumbOpposition
+  f563a356f080690d  hss2011-osteo-axial-appendicular
+  af859f81f5cd1885  hss2011-osteo-bone-functions
+  036e29da7c05ce9c  hss2011-osteo-bone-shapes
+  4029b6b20b99ca1f  hss2011-osteo-c1-c2
+  a2251035b236c53a  hss2011-osteo-forearm-carpals
+  754a5d846a484da1  hss2011-osteo-leg-tarsals
+  d82f39e3b0c2ea74  hss2011-osteo-long-bone-structure
+  89e04318e36886ad  hss2011-osteo-pectoral-girdle
+  430bbddd998c4d40  hss2011-osteo-pelvic-girdle
+  a38db9ff4b38dc4c  hss2011-osteo-ribs-sternum
+  761298655bd84742  hss2011-osteo-skull-sutures
+  c49f490cb0faf520  hss2011-osteo-vertebra-parts
+  f4a84558373b9fa6  hss2011-osteo-vertebral-column
+  ac175621dd6e8fc1  hss2011-pastpaper-joints-articulations
+  1ae0fafeb89fe43e  hss2011-structures-airwayTree
+  ebe23bc2d7967097  hss2011-structures-brainAndCsf
+  28268b45ba3b828f  hss2011-structures-carpals
+  cd2277fb9bd4de63  hss2011-structures-cranialNerves
+  f1cc27bbf1d7c55e  hss2011-structures-digestiveTract
+  23d86c9f845e523c  hss2011-structures-greatVessels
+  3d88b66b496e92f4  hss2011-structures-heartChambers
+  c62cefe67fe2ee4a  hss2011-structures-kneeJoint
+  1cd30e6d5448036c  hss2011-structures-rotatorCuff
+  1f2fa00b5752c887  hss2011-structures-skullBones
+  8de425e3d0ef4184  hss2011-structures-tarsals
+  5b1f7e02151c3603  hss2011-structures-urinaryTract
+  ce7613b5d9a3e32e  hss2011-structures-vertebralRegions
+  5f9de156dbd09f3e  hss2011-terminology-anatomical-position
+  5810d823aa975c45  hss2011-terminology-cavities-regions
+  572e6f949517b94f  hss2011-terminology-directional-pairs
+  8679d7fda664afbe  hss2011-terminology-planes
+  52529f1f0bc34f1b  hss2011-terminology-regional-systemic
+  73218c2314bd1528  hss2011-terminology-word-parts
+  3e2e199f6fb277d0  hti17103-department-and-request
+  fd414089fad28f7a  hti17103-ionizing-vs-nonionizing
+  d7800d6ab5b09b0d  hti17103-modality-best-use
+  9c2fe6cd0c7a43f3  hti17103-modality-detail
+  23abafc22ae6d54f  hti17103-radiation-therapy
+  aa40072ac12deec0  hti17103-radioprotection
+  b4c77e940cadf86c  hti17103-what-is-radiography
