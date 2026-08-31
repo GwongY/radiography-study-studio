@@ -194,6 +194,7 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs) · [Overla
 | `work/cavity-probe.mjs` | Numeric validation of the cavity derivation against the real GLBs. |  |
 | `work/codemap-check.mjs` | Codemap check — is docs/CODEMAP.md what work/codemap.mjs would generate |  |
 | `work/codemap.mjs` | Code map generator — writes docs/CODEMAP.md. Do not edit that file by hand. |  |
+| `work/corpus-snapshot.mjs` | Corpus snapshot — a content fingerprint of everything study-data.js exports. |  |
 | `work/data-index-check.mjs` | Data index check — is docs/DATA-INDEX.md what work/data-index.mjs would |  |
 | `work/data-index.mjs` | Data index generator — writes docs/DATA-INDEX.md. |  |
 | `work/dense-lessons.mjs` | Task #9 candidate scan — list the densest explanations (nested clauses, |  |
