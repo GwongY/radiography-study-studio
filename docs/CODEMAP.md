@@ -6,7 +6,7 @@ Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps c
 
 ## `outputs/radiography-study-studio.html` — 7958 lines
 
-Traps: [The studio block](TRAPS.md#the-studio-block-outputsradiography-study-studiohtml) · [Overlays and cavities](TRAPS.md#overlays-and-cavities-outputscavity-buildjs-outputscavity-geomjs-outputsradiography-study-studiohtml) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers-outputsradiography-study-studiohtml-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding-outputsradiography-study-studiohtml) · [CSS](TRAPS.md#css-outputsradiography-study-studiohtml) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface-outputsradiography-study-studiohtml)
+Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-studiohtml) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsradiography-study-studiohtml) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsradiography-study-studiohtml-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsradiography-study-studiohtml) · [CSS](TRAPS.md#css--outputsradiography-study-studiohtml) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsradiography-study-studiohtml)
 
 | Lines | Section |
 | --- | --- |
@@ -53,8 +53,8 @@ Traps: [The studio block](TRAPS.md#the-studio-block-outputsradiography-study-stu
 | --- | --- | --- | --- |
 | `anatomy-data.js` | 146 | Osteology Studio — anatomy data layer |  |
 | `bodymap.js` | 320 | Body map — search extras and spatial concepts for the 3D viewer. |  |
-| `cavity-build.js` | 733 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities-outputscavity-buildjs-outputscavity-geomjs-outputsradiography-study-studiohtml)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers-outputsradiography-study-studiohtml-outputscavity-buildjs) |
-| `cavity-geom.js` | 1149 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities-outputscavity-buildjs-outputscavity-geomjs-outputsradiography-study-studiohtml) |
+| `cavity-build.js` | 733 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsradiography-study-studiohtml)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsradiography-study-studiohtml-outputscavity-buildjs) |
+| `cavity-geom.js` | 1149 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsradiography-study-studiohtml) |
 | `figures.js` | 391 | figures.js — the diagrams that replaced the hand-drawn ones. |  |
 | `landmarks.js` | 436 | landmarks.js -- the one place that knows how to find a named anatomical |  |
 | `layouts.js` | 305 | layouts.js — the sixteen that are layouts, as layouts. |  |
@@ -86,6 +86,82 @@ Traps: [The studio block](TRAPS.md#the-studio-block-outputsradiography-study-stu
 - `term-notes.js` — `TERM_NOTES`, `termNote`, `hasNote`, `TERM_COUNT`
 - `visual-data.js` — `LAYER_FILES`, `BONE_MESHES`, `ITEM_VISUALS`, `visualFor`, `generatedFor`, `PLATES`, `PLATE_CREDIT`, `plateFor`
 - `wordparts.js` — `WORD_PARTS`, `NOT_A_TERM`, `decompose`, `readingOf`, `partOf`, `looksLikePart`
+
+### Sections inside the larger modules
+
+**`cavity-build.js`** — 733 lines
+
+| Lines | Section |
+| --- | --- |
+| 1–34 | preamble |
+| 35–103 | shared anatomical measurements |
+| 104–520 | builders |
+| 521–733 | the surface grid: nine regions and four quadrants |
+
+**`cavity-geom.js`** — 1149 lines
+
+| Lines | Section |
+| --- | --- |
+| 1–43 | preamble |
+| 44–88 | small helpers |
+| 89–487 | ringStack -- cross-sections of an enclosing wall |
+| 488–613 | heightField -- the diaphragm |
+| 614–729 | starShell -- blobs (cranial cavity, pericardial sac) |
+| 730–1020 | vertebral canal |
+| 1021–1149 | anterior surface -- where the region grid gets painted |
+
+**`landmarks.js`** — 436 lines
+
+| Lines | Section |
+| --- | --- |
+| 1–45 | preamble |
+| 46–84 | Name normalisation |
+| 85–339 | The registry |
+| 340–436 | Resolution |
+
+**`schematics.js`** — 785 lines
+
+| Lines | Section |
+| --- | --- |
+| 1–110 | preamble |
+| 111–785 | The schematics |
+
+**`study-data.js`** — 4898 lines
+
+| Lines | Section |
+| --- | --- |
+| 1–19 | preamble |
+| 20–156 | Source registry |
+| 157–253 | Subjects |
+| 254–299 | Item types and mastery dimensions |
+| 300–387 | Prior knowledge |
+| 388–403 | Study modes |
+| 404–1500 | Study items — HSS2011 Human Anatomy |
+| 1501–1924 | Course modules — app-authored framing, not a source claim |
+| 1925–2836 | Study items — ABCT2326 Human Physiology |
+| 2837–3187 | Study items — HTI17103 (from the HTI17101 Exploring Radiography set) |
+| 3188–3220 | APSS1A08 — limited coverage. No syllabus is invented here. |
+| 3221–3470 | Structure sets — granular 3D targets |
+| 3471–3560 | Joint movements |
+| 3561–4110 | Expansion batch — fills gaps found in a coverage audit |
+| 4111–4236 | Osteology items generated from the canonical bone records |
+| 4237–4357 | Structure-set items — tap-to-identify with a three-state reveal |
+| 4358–4435 | Movement items — generated from JOINT_MOVEMENTS |
+| 4436–4475 | Assembled corpus |
+| 4476–4589 | Validation — every question must have a resolvable answer and an |
+| 4590–4631 | Diagrams — authored schematics, drawn inline as SVG so the app needs |
+| 4632–4784 | Coverage report |
+| 4785–4898 | Spaced repetition |
+
+**`visual-data.js`** — 418 lines
+
+| Lines | Section |
+| --- | --- |
+| 1–29 | preamble |
+| 30–63 | Bone records -> skeleton meshes |
+| 64–235 | Explicit per-item visuals |
+| 236–307 | Resolver |
+| 308–418 | Plates |
 
 ## Verifiers and generators — `work/*.mjs`
 

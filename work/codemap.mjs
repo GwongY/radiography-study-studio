@@ -51,8 +51,11 @@ function sections(ls, from, to, prefix) {
 }
 
 /*
- * Find the <style> and <script> blocks. Detected by scanning rather than
- * hard-coded, so this still works after the blocks move to their own files.
+ * Find the <style> and inline <script> blocks by scanning the tags. This
+ * works ONLY while the CSS and the two module blocks are still inline in the
+ * HTML. A later phase extracts them to app.css / studio.js / study.js; after
+ * that this scan finds nothing to section and the caller emits a loud warning
+ * into the map rather than shipping a map that lost most of its rows.
  */
 function htmlBlocks(ls) {
   const blocks = [];
@@ -110,11 +113,18 @@ function headline(ls) {
   return '';
 }
 
+/* A heading names files AND code identifiers; only the former get checked. */
+const isPath = (s) => /^(outputs|work|docs|assets)\//.test(s) || /\.(mjs|js|html|css|md|json|glb)$/.test(s);
+
 /*
  * file path -> every docs/TRAPS.md anchor whose heading names it.
  * The HTML is named by several sections (CSS, the studio block, visibility),
  * so this maps to a LIST — keeping only the last would silently point a
  * cavity edit at the CSS traps.
+ *
+ * The slug must match GitHub's own slugger: it turns EACH whitespace char
+ * into a dash, so a stripped em-dash (` — ` -> `  `) becomes `--`. Collapsing
+ * the run with \s+ gave a single dash and every trap link 404'd on the render.
  */
 function trapAnchors() {
   const p = join(root, 'docs/TRAPS.md');
@@ -123,10 +133,10 @@ function trapAnchors() {
   for (const l of readFileSync(p, 'utf8').split(/\r?\n/)) {
     const h = l.match(/^###\s+(.+?)\s*$/);
     if (!h) continue;
-    const slug = h[1].toLowerCase().replace(/`/g, '').replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
+    const slug = h[1].toLowerCase().replace(/`/g, '').replace(/[^\w\s-]/g, '').trim().replace(/\s/g, '-');
     const short = h[1].replace(/\s*—.*$/, '').replace(/`/g, '').trim();
     for (const f of h[1].matchAll(/`([^`]+)`/g)) {
-      if (!/[./]/.test(f[1]) || f[1].includes(' ')) continue;
+      if (!isPath(f[1])) continue;
       if (!m.has(f[1])) m.set(f[1], []);
       m.get(f[1]).push({ slug, short });
     }
@@ -152,8 +162,27 @@ p();
 
 /* ---- the HTML ---- */
 const htmlLines = linesOf(join(outputs, HTML));
+/*
+ * A later phase moves the CSS to app.css and the two module blocks to
+ * studio.js / study.js. When that lands this scan finds nothing to section
+ * and the map quietly loses most of its rows — so say it IN the map.
+ * codemap-check.mjs fails while this warning is present, which makes the
+ * collapse impossible to commit unnoticed.
+ */
+const blocks = htmlBlocks(htmlLines);
+const inlineModules = blocks.filter((b) => (b.label === 'studio' || b.label === 'study') && b.to > b.from);
+const hasCss = blocks.some((b) => b.label === 'CSS' && b.to > b.from);
+const SPLIT_WARNING = 'WARNING — work/codemap.mjs needs updating.';
+
 p(`## \`outputs/${HTML}\` — ${htmlLines.length} lines`);
 p();
+if (inlineModules.length < 2 || !hasCss) {
+  p(`> **${SPLIT_WARNING}** The inline blocks this map was built from are gone`);
+  p('> (the CSS and/or the two module blocks moved to their own files). Teach the');
+  p('> generator about the extracted files — until then this map is missing most');
+  p('> of what makes it useful.');
+  p();
+}
 /*
  * Several trap sections name the HTML (CSS, the studio block, visibility).
  * List them ONCE above the table — repeating them on all ~60 rows would cost
@@ -163,7 +192,7 @@ const htmlTraps = trapCell(`outputs/${HTML}`);
 if (htmlTraps) { p(`Traps: ${htmlTraps.replace(/<br>/g, ' · ')}`); p(); }
 p('| Lines | Section |');
 p('| --- | --- |');
-for (const b of htmlBlocks(htmlLines)) {
+for (const b of blocks) {
   for (const r of sections(htmlLines, b.from, b.to, `${b.label} · `)) {
     p(`| ${r.from}–${r.to} | ${r.title} |`);
   }
@@ -194,6 +223,23 @@ for (const f of mods) {
   p(`- \`${f}\` — ${ex.map((e) => `\`${e}\``).join(', ')}`);
 }
 p();
+
+/* ---- section maps for the modules big enough to carry banners ---- */
+const sectioned = mods.filter((f) => !GENERATED.has(f))
+  .map((f) => ({ f, ls: linesOf(join(outputs, f)) }))
+  .filter(({ ls }) => banners(ls, 1, ls.length).length);
+if (sectioned.length) {
+  p('### Sections inside the larger modules');
+  p();
+  for (const { f, ls } of sectioned) {
+    p(`**\`${f}\`** — ${ls.length} lines`);
+    p();
+    p('| Lines | Section |');
+    p('| --- | --- |');
+    for (const r of sections(ls, 1, ls.length, '')) p(`| ${r.from}–${r.to} | ${r.title} |`);
+    p();
+  }
+}
 
 /* ---- the verifiers ---- */
 p('## Verifiers and generators — `work/*.mjs`');
