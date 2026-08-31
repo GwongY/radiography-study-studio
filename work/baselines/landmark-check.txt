@@ -1,0 +1,61 @@
+loaded 2914 meshes across 7 layers
+
+LANDMARK                LAYER            N  examples
+ skull.vault            skeleton         8  ethmoid bone, frontal bone, occipital bone
+ skull.base             skeleton         4  occipital bone, sphenoid bone, temporal bonel
+ skull.face             skeleton        14  inferior nasal concha bonel, inferior nasal concha boner, lacrimal bonel
+ spine.cervical         skeleton         7  atlas (c1), axis (c2), vertebra c3
+ spine.thoracic         skeleton        12  vertebra t1, vertebra t10, vertebra t11
+ spine.lumbar           skeleton         5  vertebra l1, vertebra l2, vertebra l3
+ spine.sacrum           skeleton         1  sacrum
+ spine.coccyx           skeleton         1  coccyx
+ spine.all              skeleton        26  atlas (c1), axis (c2), vertebra c3
+ thorax.ribs            skeleton        24  eighth ribl, eighth ribr, eleventh ribl
+ thorax.ribsUpper       skeleton        12  fifth ribl, fifth ribr, first ribl
+ thorax.ribsLower       skeleton        12  eighth ribl, eighth ribr, eleventh ribl
+ thorax.ribFirst        skeleton         2  first ribl, first ribr
+ thorax.costalCartilage skeleton        20  costal cartilage of eighth ribl, costal cartilage of eighth ribr, costal carti
+ thorax.sternum         skeleton         3  body of sternum, manubrium of sternum, xiphoid process
+ thorax.manubrium       skeleton         1  manubrium of sternum
+ thorax.xiphoid         skeleton         1  xiphoid process
+ thorax.clavicle        skeleton         2  claviclel, clavicler
+ thorax.cartilageTenth  skeleton         2  costal cartilage of tenth ribl, costal cartilage of tenth ribr
+ spine.L3               skeleton         1  vertebra l3
+ spine.L4               skeleton         1  vertebra l4
+ spine.L5               skeleton         1  vertebra l5
+ pelvis.hipBone         skeleton         2  hip bonel, hip boner
+ pelvis.ring            skeleton         4  hip bonel, hip boner, coccyx
+ pelvis.femur           skeleton         2  femurl, femurr
+ diaphragm              muscle           1  diaphragm
+ wall.abdominal         muscle           8  external abdominal oblique musclel, external abdominal oblique muscler, intern
+ wall.thoracic          muscle           8  external intercostal musclesl, external intercostal musclesr, innermost interc
+ pelvis.floor           muscle           4  obturator internusl, obturator internusr, coccygeus musclel
+ lung.left              organs           2  inferior lobe of left lung, superior lobe of left lung
+ lung.right             organs           3  inferior lobe of right lung, middle lobe of right lung, superior lobe of right
+ liver                  organs           9  liver, anterior lateral segment of liver (vi), anterior medial segment of live
+ stomach                organs           1  stomach
+ kidneys                organs           2  kidneyl, kidneyr
+ trachea                organs           3  left main bronchus, right main bronchus, trachea
+ oesophagus             organs           1  oesophagus
+ bladder                organs           1  urinary bladder
+ organs.pelvic          organs           3  sigmoid colon, prostate, urinary bladder
+ organs.abdominal       organs          19  jejunum, ascending colon, descending colon
+ heart                  circulatory      4  left atrium, left ventricle, right atrium
+ heart.greatVessels     circulatory      6  aortic arch, thoracic aorta, ascending aorta
+ cord.spinal            nervous          3  anterior horn of spinal cord, posterior horn of spinal cord, white matter of s
+ brain                  nervous         11  medulla oblongatal, medulla oblongatar, midbrainl
+ spleen                 lymphatic        1  spleen
+
+--- skeleton-only availability (the worst case at runtime) ---
+  cav-cranial            exact   usable: 1   skull.vault
+  cav-vertebral          exact   usable: 4   spine.cervical spine.thoracic spine.lumbar spine.sacrum
+  cav-thoracic           exact   usable: 4   thorax.ribs thorax.sternum spine.thoracic thorax.costalCartilage
+  cav-pleural            exact   usable: 3   thorax.ribs thorax.sternum spine.thoracic
+  cav-mediastinum        exact   usable: 3   thorax.sternum spine.thoracic thorax.ribs
+  cav-pericardial        approx  usable: 3   thorax.sternum spine.thoracic thorax.ribsLower
+  cav-abdominal          exact   usable: 4   thorax.ribsLower spine.lumbar pelvis.hipBone thorax.costalCartilage
+  cav-pelvic             exact   usable: 1   pelvis.ring
+  cav-abdominopelvic     exact   usable: 4   thorax.ribsLower spine.lumbar pelvis.ring thorax.costalCartilage
+  grid.abdomen           exact   usable: 8   thorax.clavicle thorax.cartilageTenth pelvis.hipBone thorax.xiphoid spine.L3 spine.L4 spine.lumbar thorax.sternum
+
+ALL LANDMARKS RESOLVE
