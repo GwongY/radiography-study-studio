@@ -1,0 +1,65 @@
+— every mesh lands somewhere —
+  ok   277 named meshes in the skeleton layer
+  ok   no mesh falls through to a catch-all
+  ok   every region used is a real one (lower_limb, pelvis, skull, spine, thorax, upper_limb)
+— the reported failure —
+  ok   all 28 phalanges of the foot are lower limb
+  ok   all 28 phalanges of the hand are upper limb
+  ok   all 16 carpals are upper limb, not skull
+  ok   all 14 tarsals are lower limb, not skull
+  ok   the 6 ear ossicles are head & neck
+— spot checks across all six —
+  ok   Femurl -> lower_limb
+  ok   Patellal -> lower_limb
+  ok   Tibiar -> lower_limb
+  ok   Fibulal -> lower_limb
+  ok   Fifth_metatarsal_bonel -> lower_limb
+  ok   Humerusl -> upper_limb
+  ok   Radiusr -> upper_limb
+  ok   Ulnal -> upper_limb
+  ok   Clavicler -> upper_limb
+  ok   Scapulal -> upper_limb
+  ok   First_metacarpal_bonel -> upper_limb
+  ok   Hip_bonel -> pelvis
+  ok   Vertebra_C3 -> spine
+  ok   Vertebra_T7 -> spine
+  ok   Vertebra_L5 -> spine
+  ok   Atlas_(C1) -> spine
+  ok   Sacrum -> spine
+  ok   Coccyx -> spine
+  ok   Eighth_ribl -> thorax
+  ok   Costal_cartilage_of_first_ribr -> thorax
+  ok   Body_of_sternum -> thorax
+  ok   Manubrium_of_sternum -> thorax
+  ok   Xiphoid_process -> thorax
+  ok   Mandible -> skull
+  ok   Frontal_bone -> skull
+  ok   Vomer -> skull
+  ok   Hyoid_bone -> skull
+  ok   Thyroid_cartilage -> skull
+  ok   Cricoid_cartilage -> skull
+  ok   Upper_first_molar_toothl -> skull
+  ok   Sinus_of_sphenoid_bone -> skull
+  ok   Nasal_septal_cartilage -> skull
+— the curated mapping —
+  ok   a toe maps to the foot record, not the hand
+  ok   C5 maps to the cervical record
+  ok   T9 maps to the thoracic record
+  ok   L2 maps to the lumbar record
+  ok   costal cartilage maps to the ribs
+  ok   the thyroid cartilage has no curated bone record
+— bones that belong to two regions —
+  ok   the sacrum is spine AND pelvis (spine,pelvis)
+  ok   the coccyx is spine AND pelvis (spine,pelvis)
+  ok   an ordinary bone still has exactly one region
+  ok   the pelvic ring shows 4 meshes, not 2 (Hip bone.l, Hip bone.r, Coccyx, Sacrum)
+
+— distribution —
+  Head & neck          76
+  Vertebral column     26
+  Thoracic cage        47
+  Upper limb           64
+  Pelvis                2
+  Lower limb           62
+
+ALL PASS
