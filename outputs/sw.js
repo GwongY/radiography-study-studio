@@ -23,7 +23,7 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v55';
+const CACHE_VERSION = 'v56';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
@@ -40,6 +40,30 @@ const SHELL = [
   './studio.js?v=1',
   './study.js?v=1',
   './study-data.js',
+  /*
+   * study-data.js is a barrel; these are what it re-exports. The app never
+   * imports them directly, but the browser fetches every one of them, so all
+   * seventeen have to be in the shell or the study system is empty offline.
+   * work/shell-check.mjs walks the import graph and will name any that is
+   * missing.
+   */
+  './study/corpus/schema.js',
+  './study/corpus/hss-terminology.js',
+  './study/corpus/hss-osteology.js',
+  './study/corpus/hss-joints.js',
+  './study/corpus/modules.js',
+  './study/corpus/hss-modules.js',
+  './study/corpus/physiology-items.js',
+  './study/corpus/hti-items.js',
+  './study/corpus/notices.js',
+  './study/corpus/structures.js',
+  './study/corpus/expansion-items.js',
+  './study/corpus/derived-items.js',
+  './study/corpus/corpus.js',
+  './study/corpus/validate.js',
+  './study/corpus/diagrams.js',
+  './study/corpus/coverage.js',
+  './study/corpus/mastery.js',
   './anatomy-data.js?v=5',
   /*
    * The same two files again, unversioned — NOT a duplicate. A cache key is the
