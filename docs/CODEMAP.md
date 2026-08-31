@@ -4,7 +4,7 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 7958 lines
+## `outputs/radiography-study-studio.html` — 7957 lines
 
 Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-studiohtml) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsradiography-study-studiohtml) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsradiography-study-studiohtml-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsradiography-study-studiohtml) · [CSS](TRAPS.md#css--outputsradiography-study-studiohtml) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsradiography-study-studiohtml)
 
@@ -51,23 +51,23 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-st
 
 | File | Lines | What it holds | Traps |
 | --- | --- | --- | --- |
-| `anatomy-data.js` | 146 | Osteology Studio — anatomy data layer |  |
-| `bodymap.js` | 320 | Body map — search extras and spatial concepts for the 3D viewer. |  |
-| `cavity-build.js` | 733 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsradiography-study-studiohtml)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsradiography-study-studiohtml-outputscavity-buildjs) |
-| `cavity-geom.js` | 1149 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsradiography-study-studiohtml) |
-| `figures.js` | 391 | figures.js — the diagrams that replaced the hand-drawn ones. |  |
-| `landmarks.js` | 436 | landmarks.js -- the one place that knows how to find a named anatomical |  |
-| `layouts.js` | 305 | layouts.js — the sixteen that are layouts, as layouts. |  |
-| `mesh-index.js` | 2585 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
-| `physiology.js` | 338 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
-| `schematics.js` | 785 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
-| `study-data.js` | 4898 | Radiography Study Studio — study data layer |  |
-| `sw.js` | 183 | Radiography Study Studio — service worker |  |
-| `synonyms.js` | 324 | Synonyms — the other names for the same thing. |  |
-| `term-gloss.js` | 782 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
-| `term-notes.js` | 314 | Term notes — say it, then mean it. |  |
-| `visual-data.js` | 418 | visual-data.js — a visual for every study item. |  |
-| `wordparts.js` | 916 | Word parts — the medical vocabulary broken into the pieces it is built from. |  |
+| `anatomy-data.js` | 145 | Osteology Studio — anatomy data layer |  |
+| `bodymap.js` | 319 | Body map — search extras and spatial concepts for the 3D viewer. |  |
+| `cavity-build.js` | 732 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsradiography-study-studiohtml)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsradiography-study-studiohtml-outputscavity-buildjs) |
+| `cavity-geom.js` | 1148 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsradiography-study-studiohtml) |
+| `figures.js` | 390 | figures.js — the diagrams that replaced the hand-drawn ones. |  |
+| `landmarks.js` | 435 | landmarks.js -- the one place that knows how to find a named anatomical |  |
+| `layouts.js` | 304 | layouts.js — the sixteen that are layouts, as layouts. |  |
+| `mesh-index.js` | 2584 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
+| `physiology.js` | 337 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
+| `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
+| `study-data.js` | 4897 | Radiography Study Studio — study data layer |  |
+| `sw.js` | 182 | Radiography Study Studio — service worker |  |
+| `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
+| `term-gloss.js` | 781 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
+| `term-notes.js` | 313 | Term notes — say it, then mean it. |  |
+| `visual-data.js` | 417 | visual-data.js — a visual for every study item. |  |
+| `wordparts.js` | 915 | Word parts — the medical vocabulary broken into the pieces it is built from. |  |
 
 ### Exported symbols
 
@@ -89,16 +89,16 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-st
 
 ### Sections inside the larger modules
 
-**`cavity-build.js`** — 733 lines
+**`cavity-build.js`** — 732 lines
 
 | Lines | Section |
 | --- | --- |
 | 1–34 | preamble |
 | 35–103 | shared anatomical measurements |
 | 104–520 | builders |
-| 521–733 | the surface grid: nine regions and four quadrants |
+| 521–732 | the surface grid: nine regions and four quadrants |
 
-**`cavity-geom.js`** — 1149 lines
+**`cavity-geom.js`** — 1148 lines
 
 | Lines | Section |
 | --- | --- |
@@ -108,25 +108,25 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-st
 | 488–613 | heightField -- the diaphragm |
 | 614–729 | starShell -- blobs (cranial cavity, pericardial sac) |
 | 730–1020 | vertebral canal |
-| 1021–1149 | anterior surface -- where the region grid gets painted |
+| 1021–1148 | anterior surface -- where the region grid gets painted |
 
-**`landmarks.js`** — 436 lines
+**`landmarks.js`** — 435 lines
 
 | Lines | Section |
 | --- | --- |
 | 1–45 | preamble |
 | 46–84 | Name normalisation |
 | 85–339 | The registry |
-| 340–436 | Resolution |
+| 340–435 | Resolution |
 
-**`schematics.js`** — 785 lines
+**`schematics.js`** — 784 lines
 
 | Lines | Section |
 | --- | --- |
 | 1–110 | preamble |
-| 111–785 | The schematics |
+| 111–784 | The schematics |
 
-**`study-data.js`** — 4898 lines
+**`study-data.js`** — 4897 lines
 
 | Lines | Section |
 | --- | --- |
@@ -151,9 +151,9 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-st
 | 4476–4589 | Validation — every question must have a resolvable answer and an |
 | 4590–4631 | Diagrams — authored schematics, drawn inline as SVG so the app needs |
 | 4632–4784 | Coverage report |
-| 4785–4898 | Spaced repetition |
+| 4785–4897 | Spaced repetition |
 
-**`visual-data.js`** — 418 lines
+**`visual-data.js`** — 417 lines
 
 | Lines | Section |
 | --- | --- |
@@ -161,7 +161,7 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-st
 | 30–63 | Bone records -> skeleton meshes |
 | 64–235 | Explicit per-item visuals |
 | 236–307 | Resolver |
-| 308–418 | Plates |
+| 308–417 | Plates |
 
 ## Verifiers and generators — `work/*.mjs`
 

@@ -67,10 +67,20 @@ for (const [kind, n] of sorted(tally(UNITS, (u) => u.kind))) {
   p(`| ${kind} | ${n} | ${KIND_MEANING[kind] || ''} |`);
 }
 p();
+/* How strong the naming is, weakest last. "series" is the inferred one: the
+   sources name T1, T2, T4, T5, T6 and T12 and never spell out the rest, which
+   is not a distinction the course draws — see docs/TRAPS.md. */
+const EVIDENCE_MEANING = {
+  listed: 'appears in a term list or table',
+  named: 'named in running text',
+  described: 'named, with an explanation',
+  mirrored: 'the other side of a structure named once',
+  series: 'inferred: enough of a numbered series is named to fill in the rest',
+};
 p('| Evidence | Rows | How the source names it |');
 p('| --- | --- | --- |');
 for (const [ev, n] of sorted(tally(MESH_INDEX.filter((r) => r.source), (r) => r.source.evidence))) {
-  p(`| ${ev} | ${n} | |`);
+  p(`| ${ev} | ${n} | ${EVIDENCE_MEANING[ev] || ''} |`);
 }
 p();
 

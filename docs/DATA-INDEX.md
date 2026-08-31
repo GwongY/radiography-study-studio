@@ -41,11 +41,11 @@ Blender duplicate suffixes. Row shape:
 
 | Evidence | Rows | How the source names it |
 | --- | --- | --- |
-| listed | 261 | |
-| named | 244 | |
-| described | 106 | |
-| series | 7 | |
-| mirrored | 1 | |
+| listed | 261 | appears in a term list or table |
+| named | 244 | named in running text |
+| described | 106 | named, with an explanation |
+| series | 7 | inferred: enough of a numbered series is named to fill in the rest |
+| mirrored | 1 | the other side of a structure named once |
 
 ## `outputs/synonyms.js`
 

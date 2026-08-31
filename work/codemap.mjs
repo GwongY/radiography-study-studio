@@ -20,7 +20,9 @@ const HTML = 'radiography-study-studio.html';
 /* Generated files a session must never read. The map points at the summary. */
 const GENERATED = new Map([['mesh-index.js', 'docs/DATA-INDEX.md']]);
 
-const linesOf = (p) => readFileSync(p, 'utf8').split(/\r?\n/);
+/* Drop the trailing newline before splitting, or every count in the map is one
+   too many and the last section row points at a line that does not exist. */
+const linesOf = (p) => readFileSync(p, 'utf8').replace(/\r?\n$/, '').split(/\r?\n/);
 
 /*
  * A banner sections the code: a rule line of dashes, then a title line.
