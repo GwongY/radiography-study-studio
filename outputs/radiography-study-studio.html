@@ -141,6 +141,19 @@
 .lessonvis-fig{background:#f6f4ee;padding:10px;display:flex;justify-content:center}
 .lessonvis-fig img{display:block;max-width:100%;max-height:min(52vh,430px);max-height:min(52dvh,430px);height:auto;object-fit:contain}
 .figcredit{display:block;margin-top:7px;padding-top:7px;border-top:1px solid var(--line);font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--dim);line-height:1.5}
+/* Teach from the image: an orientation line above it, a callout key below. */
+.figintro{margin:0;padding:11px 14px 0;font-size:12.5px;line-height:1.55;color:var(--muted)}
+.figkey{margin:9px 14px 0;padding:0;display:grid;grid-template-columns:minmax(44px,max-content) 1fr;gap:5px 12px;font-size:12px;line-height:1.5}
+.figkey>div{display:contents}
+.figkey dt{margin:0;font-weight:700;color:var(--teal);font-variant-numeric:tabular-nums}
+.figkey dd{margin:0;color:#c8d0d1}
+.figkey>div.beyond dt,.figkey>div.beyond dd{opacity:.6}
+.figkey>div.beyond dt{color:var(--muted)}
+.figkey-note{margin:8px 14px 0;font-size:11px;line-height:1.5;color:var(--dim)}
+.plate .figintro{padding:0;margin:0 0 9px;color:var(--muted)}
+.plate .figkey{margin:10px 0 0;padding-top:9px;border-top:1px solid var(--line)}
+.plate .figkey dd{color:#d5dee3}
+.plate .figkey-note{margin:8px 0 0}
 /* An enumeration is a list. Setting it as prose is what made it unreadable. */
 .chunklist{margin:8px 0 0;padding:0 0 0 2px;list-style:none;display:grid;gap:6px}
 .chunklist li{position:relative;padding-left:15px;font-size:14px;line-height:1.55;color:#d5dee3}
@@ -4490,10 +4503,10 @@ import { searchAnatomy } from './anatomy-data.js?v=5';
 import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS, conceptById, conceptAncestors, conceptChildren } from './bodymap.js?v=4';
 import { MESH_INDEX, UNITS } from './mesh-index.js?v=5';
 import { expandQuery, missingFor, compositeFor } from './synonyms.js?v=3';
-import { visualFor, plateFor } from './visual-data.js?v=3';
+import { visualFor, plateFor } from './visual-data.js?v=4';
 import { FLOW_CLASSES, LAYER_CLASSES, RATES } from './physiology.js?v=4';
 import { schematic } from './schematics.js?v=2';
-import { figureFor } from './figures.js?v=1';
+import { figureFor } from './figures.js?v=2';
 import { layoutFor } from './layouts.js?v=1';
 import { decompose, readingOf, partOf } from './wordparts.js?v=3';
 import { termNote } from './term-notes.js?v=4';
@@ -6352,6 +6365,38 @@ function typeLabel(t) { return (ITEM_TYPES[t] || {}).label || t; }
 
 let visMounted = null;   /* the spec currently occupying the shared canvas */
 
+/*
+ * A published figure, rendered with its teaching apparatus: an orientation line
+ * above the image, and a key resolving every callout below it. A `beyond` entry
+ * is a callout this lesson's own sources do not name -- it is read off the
+ * figure's own published labelling, which is legitimate because the figure is a
+ * cited, attributed source. Those are dimmed, sorted last, and trigger the note.
+ * Shared by the schematic->figure and labelled->figure paths and by plateHTML.
+ */
+function figureKeyHTML(spec) {
+  if (!Array.isArray(spec.key) || !spec.key.length) return '';
+  const rows = [...spec.key].sort((a, b) => (a.beyond ? 1 : 0) - (b.beyond ? 1 : 0));
+  const anyBeyond = rows.some((r) => r.beyond);
+  return `<dl class="figkey">${rows.map((r) =>
+    `<div${r.beyond ? ' class="beyond"' : ''}><dt>${esc(r.mark)}</dt><dd>${glossify(esc(r.name))}</dd></div>`).join('')}</dl>`
+    + (anyBeyond ? '<p class="figkey-note">Dimmed marks are the figure’s own labels, beyond this lesson’s named set.</p>' : '');
+}
+
+function figureBlockHTML(fig) {
+  const lic = fig.licenceUrl
+    ? `<a href="${esc(fig.licenceUrl)}" target="_blank" rel="noreferrer">${esc(fig.licence)}</a>`
+    : esc(fig.licence);
+  return `<figure class="lessonvis" data-kind="figure">
+    <div class="lessonvis-head"><span class="lessonvis-kick">Figure</span><span class="lessonvis-title">${esc(fig.title)}</span></div>
+    ${fig.intro ? `<p class="figintro">${glossify(esc(fig.intro))}</p>` : ''}
+    <div class="lessonvis-fig"><img src="${esc(fig.src)}" alt="${esc(fig.title)}" loading="lazy"></div>
+    <figcaption class="lessonvis-cap">${esc(fig.caption)}
+      <span class="figcredit">${esc(fig.author)} · ${lic} · <a href="${esc(fig.commons)}" target="_blank" rel="noreferrer">Wikimedia Commons</a></span>
+    </figcaption>
+    ${figureKeyHTML(fig)}
+  </figure>`;
+}
+
 function visualSlotHTML(item) {
   const spec = visualFor(item);
   if (!spec) return '';
@@ -6371,18 +6416,7 @@ function visualSlotHTML(item) {
      * numbers happened to be. Where a real one exists it is used instead.
      */
     const fig = figureFor(spec.id);
-    if (fig) {
-      const lic = fig.licenceUrl
-        ? `<a href="${esc(fig.licenceUrl)}" target="_blank" rel="noreferrer">${esc(fig.licence)}</a>`
-        : esc(fig.licence);
-      return `<figure class="lessonvis" data-kind="figure">
-        <div class="lessonvis-head"><span class="lessonvis-kick">Figure</span><span class="lessonvis-title">${esc(fig.title)}</span></div>
-        <div class="lessonvis-fig"><img src="${esc(fig.src)}" alt="${esc(fig.title)}" loading="lazy"></div>
-        <figcaption class="lessonvis-cap">${esc(fig.caption)}
-          <span class="figcredit">${esc(fig.author)} \u00b7 ${lic} \u00b7 <a href="${esc(fig.commons)}" target="_blank" rel="noreferrer">Wikimedia Commons</a></span>
-        </figcaption>
-      </figure>`;
-    }
+    if (fig) return figureBlockHTML(fig);
     const sc = schematic(spec.id);
     if (!sc) return '';
     /* HTML where the content has been rebuilt as a layout; the plotted SVG only
@@ -6405,18 +6439,7 @@ function visualSlotHTML(item) {
      * the left is round and thick. A real figure replaces it where one exists.
      */
     const fig = figureFor(spec.id);
-    if (fig) {
-      const lic = fig.licenceUrl
-        ? `<a href="${esc(fig.licenceUrl)}" target="_blank" rel="noreferrer">${esc(fig.licence)}</a>`
-        : esc(fig.licence);
-      return `<figure class="lessonvis" data-kind="figure">
-        <div class="lessonvis-head"><span class="lessonvis-kick">Figure</span><span class="lessonvis-title">${esc(fig.title)}</span></div>
-        <div class="lessonvis-fig"><img src="${esc(fig.src)}" alt="${esc(fig.title)}" loading="lazy"></div>
-        <figcaption class="lessonvis-cap">${esc(fig.caption)}
-          <span class="figcredit">${esc(fig.author)} \u00b7 ${lic} \u00b7 <a href="${esc(fig.commons)}" target="_blank" rel="noreferrer">Wikimedia Commons</a></span>
-        </figcaption>
-      </figure>`;
-    }
+    if (fig) return figureBlockHTML(fig);
     const d = DIAGRAMS[spec.id];
     if (!d) return '';
     const shapes = d.shapes.map((x) => x.kind === 'ellipse' ? `<ellipse class="sk" cx="${x.cx}" cy="${x.cy}" rx="${x.rx}" ry="${x.ry}"/>`
@@ -6837,9 +6860,10 @@ function plateHTML(item) {
   if (!pl) return '';
   return `<figure class="plate">
     <img src="${esc(pl.src)}" alt="${esc(pl.title)}" loading="lazy">
-    <figcaption><strong>${esc(pl.title)}</strong><br>${esc(pl.caption)}
+    <figcaption>${pl.intro ? `<p class="figintro">${glossify(esc(pl.intro))}</p>` : ''}<strong>${esc(pl.title)}</strong><br>${esc(pl.caption)}
       <span class="credit">${esc(pl.work)} \u00b7 <span class="pd">${esc(pl.licence)}</span> \u00b7 via ${esc(pl.via)}</span>
       <span class="credit">${esc(pl.note)}</span>
+      ${figureKeyHTML(pl)}
     </figcaption>
   </figure>`;
 }

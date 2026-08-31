@@ -22,6 +22,43 @@ Out of scope: coordinate / hotspot overlays on the image; the hand-drawn
 schematics and layouts (they render their own labels); rewording existing
 `caption` fields unless an `intro` makes one redundant.
 
+## Figure fixes uncovered during the survey (added scope)
+
+Checking each image against its lesson turned up mismatches that the
+callout-key work has to fix first:
+
+| Figure / item | Fix |
+| --- | --- |
+| `synovialJoint` (*Structures of a synovial joint*) — file was `synovial-joint-structure.png`, actually Gray 349 (knee from above, menisci + cruciates) | repoint to `synovial-joints.jpg`, which is already in the repo and is OpenStax 907 "Synovial Joints" (the structure section this lesson wants); rewrite its `title`/`caption` |
+| `synovialTypes` (*The six synovial joint types*) — file was `synovial-joints.jpg` (the 907 structure section, i.e. `synovialJoint`'s image) | fetch OpenStax 909 "Types of Synovial Joints" → `synovial-joint-types.jpg` |
+| `vertebra` (*General structure of a vertebra*) — Gray 93, labels only the processes, missing body / foramen / pedicle / lamina / spinous | fetch OpenStax 718 "Vertebra" (Parts of a Typical Vertebra) → `vertebra-parts.jpg` |
+| `nephron` (*Nephron tubule and the urine pathway*) — OpenStax 2618, shows transport per segment, segments unnamed; lesson is tubule order | fetch OpenStax 2611 "Blood Flow in the Nephron" → `nephron-blood-flow.jpg` (names the segments and the vessels) |
+| `gasTransport` (*Gas exchange…*) — whole-airway overview SVG, wrong for an alveolus/pneumocyte lesson | fetch OpenStax 2310 "Structures of the Respiratory Zone" → `respiratory-zone.jpg`, add as new FIGURES key `respiratoryExchange` for `abct2326-resp-gas-transport`; repoint `abct2326-resp-pathway` from its 3D organ model to the whole-airway SVG (`FIGURES.gasTransport`, still `respiratory-system.svg`) — the airway meshes stay searchable in the Viewer; README `model` count 59 → 58 |
+| `heart` (*Heart chambers…*) — SVG has zero text labels | keep the image, `intro` only, no `key` |
+| `conduction` — numbered 1–12, no legend in the file | pull the legend from the Wikimedia Commons page and build the `key` from it |
+
+New assets fetched from Wikimedia (all OpenStax, CC BY 3.0, licence checked
+via the Commons API before download): `synovial-joint-types.jpg`,
+`vertebra-parts.jpg`, `nephron-blood-flow.jpg`, `respiratory-zone.jpg`.
+Retired assets (deleted, removed from the SW shell): `synovial-joint-structure.png`,
+`vertebra-superior.png`, `nephron.jpg`.
+
+The `conduction` figure legend (numbers 1–12) was read from the Wikimedia
+Commons file page: 1 SA node, 2 Bachmann's bundle, 3–5 anterior/middle/posterior
+internodal tracts, 6 AV node, 7 bundle of His, 8/9 right/left bundle branch,
+10/11 left anterior/posterior fascicle, 12 Purkinje fibres.
+
+### As built
+
+18 `FIGURES` entries (was 17: +`respiratoryExchange`, all four mismatches
+repointed/replaced). Every figure a lesson renders and all 5 plates carry
+`intro` + `key` (`heart` is `intro`-only — its SVG has no printed labels).
+`figureBlockHTML` / `figureKeyHTML` are shared by the schematic→figure,
+labelled→figure and plate paths. `figure-key-check.mjs` passes: 18 figures,
+5 plates, 0 unused. All after-edit verifiers green; browser-checked the
+cavities, respiratory-pathway and nephron lessons — image + intro + key +
+`beyond` dimming + glossary links all render.
+
 ## Data model
 
 Two optional fields on each `FIGURES` entry and each `PLATES` entry:

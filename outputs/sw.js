@@ -23,7 +23,7 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v52';
+const CACHE_VERSION = 'v53';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
@@ -35,7 +35,7 @@ const SHELL = [
   './radiography-study-studio.html',
   './study-data.js',
   './anatomy-data.js?v=5',
-  './visual-data.js?v=3',
+  './visual-data.js?v=4',
   './schematics.js?v=2',
   './wordparts.js?v=3',
   './term-notes.js?v=4',
@@ -51,7 +51,7 @@ const SHELL = [
   './landmarks.js?v=2',
   './cavity-geom.js?v=2',
   './cavity-build.js?v=2',
-  './figures.js?v=1',
+  './figures.js?v=2',
   './layouts.js?v=1',
   './manifest.webmanifest',
   './assets/icons/icon-192.png',
@@ -67,7 +67,7 @@ const SHELL = [
   './assets/plates/heart-and-lungs.png',
   /*
    * Replacement figures. The small ones ship in the shell; the larger ones
-   * (body-cavities.png, body-movements.jpg, muscle-tissue-types.jpg, nephron.jpg, synovial-joints.jpg)
+   * (body-cavities.png, body-movements.jpg, muscle-tissue-types.jpg, synovial-joints.jpg)
    * are left out on purpose so a first install stays lean -- networkFirst caches
    * them into this same shell cache the first time a lesson shows them, so they
    * end up available offline either way.
@@ -80,10 +80,12 @@ const SHELL = [
   './assets/figures/heart-diagram.svg',
   './assets/figures/heart-interior.svg',
   './assets/figures/long-bone.jpg',
+  './assets/figures/nephron-blood-flow.jpg',
   './assets/figures/nervous-system-overview.jpg',
   './assets/figures/respiratory-system.svg',
-  './assets/figures/synovial-joint-structure.png',
-  './assets/figures/vertebra-superior.png',
+  './assets/figures/respiratory-zone.jpg',
+  './assets/figures/synovial-joint-types.jpg',
+  './assets/figures/vertebra-parts.jpg',
 ];
 
 self.addEventListener('install', (event) => {
