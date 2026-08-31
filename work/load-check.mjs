@@ -18,7 +18,7 @@
  */
 import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { dirname, join, normalize } from 'node:path';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(root, 'outputs');
@@ -84,13 +84,30 @@ for (const n of ['document', 'window', 'localStorage', 'sessionStorage', 'naviga
   if (!(n in globalThis)) { try { globalThis[n] = stub(); } catch { /* const globals can't be set */ } }
 }
 
+/*
+ * Inline every relative import as a data: URL, depth first.
+ *
+ * Paths are relative to outputs/ with forward slashes, and a specifier is
+ * resolved against the file that WROTE it. This used to strip a leading './'
+ * and treat the rest as a filename in outputs/, which worked only while every
+ * module was a sibling. Phase 3 put the corpus in study/corpus/, where
+ * './structures.js' means study/corpus/structures.js and '../../anatomy-data.js'
+ * did not match the pattern at all — the first crashed on ENOENT, the second
+ * would have been left unresolved.
+ */
 const urls = new Map();
+const rel = (dir, spec) => normalize(join(dir, spec.split('?')[0])).replace(/\\/g, '/');
+
+function inline(src, dir) {
+  return src
+    .replace(/from\s+(['"])(\.\.?\/[^'"]+)\1/g, (m, q, spec) => `from ${q}${moduleUrl(rel(dir, spec))}${q}`)
+    .replace(/import\(\s*(['"])(\.\.?\/[^'"]+)\1\s*\)/g, (m, q, spec) => `import(${q}${moduleUrl(rel(dir, spec))}${q})`);
+}
+
 function moduleUrl(fname) {
   if (urls.has(fname)) return urls.get(fname);
   urls.set(fname, `PENDING(${fname})`); /* cycle guard */
-  let src = readFileSync(join(OUT, fname), 'utf8');
-  src = src.replace(/from\s+(['"])(\.\/[^'"]+)\1/g, (m, q, spec) => `from ${q}${moduleUrl(spec.replace(/^\.\//, '').split('?')[0])}${q}`);
-  src = src.replace(/import\(\s*(['"])(\.\/[^'"]+)\1\s*\)/g, (m, q, spec) => `import(${q}${moduleUrl(spec.replace(/^\.\//, '').split('?')[0])}${q})`);
+  const src = inline(readFileSync(join(OUT, fname), 'utf8'), dirname(fname));
   const url = 'data:text/javascript;base64,' + Buffer.from(src, 'utf8').toString('base64');
   urls.set(fname, url);
   return url;
@@ -104,8 +121,9 @@ function classify(label, e) {
 }
 
 for (const b of blocks) {
-  const src = b.src.replace(/from\s+(['"])(\.\/[^'"]+)\1/g, (m, q, spec) => `from ${q}${moduleUrl(spec.replace(/^\.\//, '').split('?')[0])}${q}`);
-  const url = 'data:text/javascript;base64,' + Buffer.from(src, 'utf8').toString('base64');
+  /* Both entry points live in outputs/ itself — inline or extracted, their
+     specifiers resolve against that directory. */
+  const url = 'data:text/javascript;base64,' + Buffer.from(inline(b.src, '.'), 'utf8').toString('base64');
   try { await import(url); console.log(`OK    eval  ${b.label} (ran to completion under stubs)`); }
   catch (e) { classify(b.label, e); }
 }
