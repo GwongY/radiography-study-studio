@@ -24,7 +24,7 @@ The workflow is the same for every subject:
 | `figures.js` | 15 published figures that replaced the hand-drawn *anatomy*, with author, licence and source page captured from the Wikimedia API. |
 | `assets/figures/` | Those 15 image files. Licence-gated at download: anything not demonstrably free is refused. |
 | `assets/` | Local GLB models. Unchanged. |
-| `mesh-index.js` | **Generated.** Every named structure in every GLB layer (1,686), with the course file that names it. Rebuild with `node work/build-mesh-index.mjs`; never hand-edit. |
+| `mesh-index.js` | **Generated.** Every named structure in every GLB layer (1,686), with the course file that names it and the study unit it resolves to (`UNITS`, 787 of them). Rebuild with `node work/build-mesh-index.mjs`; never hand-edit. |
 | `synonyms.js` | Query expansion (collarbone → clavicle), composites (a name with no mesh but real parts), and the three structures genuinely not modelled. |
 | `bodymap.js`, `landmarks.js`, `cavity-geom.js`, `cavity-build.js` | The spatial-overlay engine: concept metadata, the semantic landmark resolver, the overlay maths and one builder per cavity. |
 
@@ -585,7 +585,7 @@ answers, the MOOCs, every past paper, and the ten physiology lectures with their
 exercises — and asks of each structure whether the course names it. The answer, plus which file said
 so, is committed as `work/course-terms.json` and baked into `mesh-index.js`.
 
-**612 of the 1,686 are named by the course:**
+**619 of the 1,686 are named by the course:**
 
 | Evidence | Count | What it means |
 | --- | --- | --- |
@@ -593,6 +593,7 @@ so, is committed as `work/course-terms.json` and baked into `mesh-index.js`.
 | `named` | 244 | the exact name appears in a lecture, exercise, model answer or past paper |
 | `described` | 106 | all of its words appear together in one sentence of one — the notes say "the right lung is divided into superior, middle and inferior lobes", never "Superior lobe of right lung" |
 | `mirrored` | 1 | the same structure on the other side of a body that is symmetrical about it |
+| `series` | 7 | the rest of a numbered set the sources name over and over: six thoracic vertebrae and one lumbar. The bar is three members named and a quarter of the set, which admits these two series and nothing else in the model — not the twelve ribs (two named), not the five cervical discs (one) |
 
 Three things are excluded from that corpus **on purpose**, and the exclusion is the whole point:
 
@@ -609,14 +610,67 @@ Nothing is removed by any of this:
 - each layer chip shows both numbers — `Vessels 186/419` is 186 names to learn inside an atlas of 419;
 - a course-named row in search says where it is named ("in the examinable glossary", "named in 1.2
   Cardiopulmonary System and Associated Structures"), and the selection card carries the same chip;
-- the other 1,074 are still modelled, searchable and tappable. 483 of them fold into 171 families —
-  one row for "Phalanges of foot — 14", one for "Bronchi of the right lung — 11" — that open every
-  member together; the 591 that are one of a kind are collected into one "N more in *layer*" row at
-  the end of the results.
+- all 1,686 stay modelled and searchable. What changes is what a tap can *select* — see below.
 
 `work/search-probe.mjs` asserts all of it, including that the lung lobes survive (they are
 `described`, never named verbatim) and that the first rib, which the glossary lists, stays out of the
-"Ribs" family.
+"Ribs" group.
+
+## Study units — what a tap can select
+
+Knowing which names matter is only half of it. The model splits further than any course does: the
+deltoid exists only as three "parts", the left lung as eleven segmental bronchi, the wrist as
+thirty-three separately named ligaments. Every one of those used to be individually selectable, so
+tapping the wrist answered **"Dorsal scaphotriquetral ligament"** — a name in no lecture, no
+exercise and no paper. 1,686 structures meant 1,374 separately selectable things.
+
+Every row now resolves to a **unit**, and the unit is the only thing the viewer selects. Rows keep
+their own names in the index and in search; the unit is the identity behind them, and it is what
+`canonicalId` is built from, so picking, highlighting, hiding, isolation and the quiz all agree.
+
+| Unit kind | Count | What it is |
+| --- | --- | --- |
+| `course` | 619 | a structure the course names. Its own unit, under its own name |
+| `group` | 158 | finer structures selected together under a more general name |
+| `lone` | 10 | one structure with nothing to group with. Stays selectable and says it is beyond the course |
+
+A row joins a unit in the order the anatomy allows:
+
+1. **Absorbed into the whole it is a piece of**, where the model has that whole in the same layer.
+   The branches of the ulnar nerve *are* the ulnar nerve; the eight liver segments are the liver;
+   the two roots of the trigeminal nerve are that nerve. Only genuine part-of relations absorb —
+   "of" is not "part of", so a bursa *of* the piriformis and a ligament *of* the radius do not.
+2. **Named after the whole they collectively make up**, where the model has no mesh for it. There
+   is no "Deltoid muscle" mesh, only three "parts"; selecting the three IS selecting the deltoid, so
+   the unit is called "Deltoid muscle". Same for the trapezius, the pectoralis major, the digastric,
+   and the aortic valve, whose three cusps are named "Left coronary leaflet", "Right coronary
+   leaflet" and "Non-coronary leaflet" and never say which valve.
+3. **Grouped by kind and place** otherwise: "Ligaments of the foot" (39), "Bronchi of the left lung"
+   (11), "Lymph nodes of the abdomen" (15), "Gyri of the brain" (12), "Ribs" (10).
+
+The place is **measured, not read off the name**. Nothing in the words "capitohamate interosseous
+ligament" says hand, and nothing in "dorsal cuboideonavicular ligament" says foot. Each structure's
+box is read out of the GLB in the shared body frame, and the zone is the nearest bone's for the
+limbs and a height band for the axial body — bands taken off the model itself (jugular notch 1.404,
+mandible 1.496, diaphragm 1.042–1.262, iliac crest 1.012). A bone is the one exception: its own
+name settles it, because splitting the rib cage by height put four of the twelve ribs "in the
+abdomen".
+
+Two rules keep the labels readable. A whole the model keeps referring to beats a body zone, even
+when it has no mesh — there is no "Right lung", only its three lobes, and yet thirty-two rows are
+named "… of right lung", so the bronchi and vessels there are named after it. And a kind is only
+split by place where the split is real: ligaments need it (39 in the foot, 33 in the hand), the
+three taeniae of the colon do not, and a kind that occurs in one place only drops the place from its
+name ("Ribs", "Teeth").
+
+In the app: the group's name is what the callout and the selection card show, the card carries a
+grey **"Beyond your course — N under one name"** chip beside the teal source chip, search returns
+one row per unit and says which member name it was found under, and the stage caption reads
+"159 structures, 80 named by your course, 88 you can select".
+
+`work/search-probe.mjs` asserts the whole resolution: every row has a unit, no course-named
+structure is grouped away, a unit never spans two layers, the labels carry no double plurals and no
+"of the body" shrug, and thirty-odd specific structures land where they should.
 
 ## Region filter
 

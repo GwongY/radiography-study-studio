@@ -2604,6 +2604,34 @@
   "organs|Inferior lobe of left lung": [
    30,
    "mirrored"
+  ],
+  "skeleton|Vertebra L4": [
+   7,
+   "series"
+  ],
+  "skeleton|Vertebra T10": [
+   7,
+   "series"
+  ],
+  "skeleton|Vertebra T11": [
+   7,
+   "series"
+  ],
+  "skeleton|Vertebra T3": [
+   7,
+   "series"
+  ],
+  "skeleton|Vertebra T7": [
+   7,
+   "series"
+  ],
+  "skeleton|Vertebra T8": [
+   7,
+   "series"
+  ],
+  "skeleton|Vertebra T9": [
+   7,
+   "series"
   ]
  }
 }
