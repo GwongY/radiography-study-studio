@@ -11,18 +11,25 @@
  *   - importedRegion ended in a bare `return 'skull'`, so every name no rule
  *     matched was absorbed into the cranium rather than reported.
  *
- * This lifts both classifiers straight out of the HTML and runs them over the
- * real mesh names read from the skeleton GLB, so neither can regress silently.
+ * This lifts both classifiers straight out of outputs/studio.js and runs them
+ * over the real mesh names read from the skeleton GLB, so neither can regress
+ * silently.
  *
  * Usage: node work/region-probe.mjs [--list]
  */
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { REGIONS, getAnatomy } from '../outputs/anatomy-data.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const html = readFileSync(join(root, 'outputs/radiography-study-studio.html'), 'utf8');
+/*
+ * Phase 2 moved the studio block out of the HTML. The variable keeps its name
+ * so the lift() calls below are untouched — what matters is that this reads the
+ * code that actually ships, whichever file that is today.
+ */
+const STUDIO = join(root, 'outputs/studio.js');
+const html = readFileSync(existsSync(STUDIO) ? STUDIO : join(root, 'outputs/radiography-study-studio.html'), 'utf8');
 
 /* Take the two rule tables and their functions from the page itself, so the
    probe can never drift away from what actually ships. */
