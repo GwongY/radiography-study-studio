@@ -1318,7 +1318,10 @@ async function revealStructure(spec){
    * the panel was showing. The catalogue name is the clean one.
    */
   if(spec.name&&(spec.parts||spec.system)){
-    showPickCallout(targets,spec.name);
+    /* Anchor on what was actually selected and lit, not on every mesh the
+       name matched. A bilateral result frames and lights ONE side, so
+       anchoring over both put the vagus nerve's dot on the opposite nerve. */
+    showPickCallout(frameTargets,spec.name);
     els.selectedName.textContent=spec.name;
     els.selectedChips.innerHTML=spec.parts
       ?`<span class="chip">${targets.length} parts</span>`
@@ -1629,6 +1632,58 @@ function silhouetteHalfAt(y,band){
   return half;
 }
 /*
+ * The point on a structure nearest its own centre.
+ *
+ * A leader has to land ON the thing it names, and a bounding-box centre is not
+ * on the thing whenever the thing is curved, hollow or elongated -- which
+ * covers most of the body. The oesophagus is the clear case: it runs behind
+ * the trachea at the top and swings forward to reach the stomach, so its box
+ * centre sits about 1.7 cm ANTERIOR to the tube, floating in the trachea's
+ * depth. The dot appeared to point at empty space in front of the windpipe.
+ *
+ * Snapping to the nearest actual vertex fixes that for every such structure --
+ * vessels, nerves, ribs, bowel, the aortic arch -- and for solid ones it just
+ * moves the dot from inside the mesh onto its surface, where it can be seen.
+ *
+ * Vertices are sampled with a stride: a few thousand points across the whole
+ * selection is far more than enough to find the middle, and this runs once per
+ * selection rather than per frame.
+ */
+function nearestSurfacePoint(list,target,inv){
+  const THREE=state.THREE;
+  const v=new THREE.Vector3(), m4=new THREE.Matrix4();
+  const BUDGET=6000;
+  const total=list.reduce((n,o)=>n+((o.geometry&&o.geometry.attributes.position)?o.geometry.attributes.position.count:0),0);
+  const stride=Math.max(1,Math.ceil(total/BUDGET));
+  /* Pass 1, strided: which mesh holds the nearest point. */
+  let best=Infinity,pick=null;
+  list.forEach((o)=>{
+    const pos=o.geometry&&o.geometry.attributes.position;
+    if(!pos) return;
+    m4.multiplyMatrices(inv,o.matrixWorld);
+    for(let i=0;i<pos.count;i+=stride){
+      v.fromBufferAttribute(pos,i).applyMatrix4(m4);
+      const d=v.distanceToSquared(target);
+      if(d<best){ best=d; pick=o; }
+    }
+  });
+  if(!pick) return null;
+  /* Pass 2, exact on that one mesh. Striding alone left the anchor up to 7mm
+     off on structures that run the length of the body -- the anterior
+     longitudinal ligament, the vagus -- where consecutive samples are far
+     apart. Scanning one mesh in full is bounded and costs nothing here: this
+     runs once per selection, not per frame. */
+  const pos=pick.geometry.attributes.position;
+  m4.multiplyMatrices(inv,pick.matrixWorld);
+  let bd=Infinity,out=null;
+  for(let i=0;i<pos.count;i++){
+    v.fromBufferAttribute(pos,i).applyMatrix4(m4);
+    const d=v.distanceToSquared(target);
+    if(d<bd){ bd=d; out=out?out.copy(v):v.clone(); }
+  }
+  return out;
+}
+/*
  * `obj` may be one mesh or a set of them -- a composite is named once, over the
  * union of its parts, not once per part.
  *
@@ -1675,8 +1730,12 @@ function showPickCallout(obj,text){
     list.forEach((o)=>box.expandByObject(o));
   }
   if(box.isEmpty()) return;
-  const anchor=box.getCenter(new THREE.Vector3());
   const size=box.getSize(new THREE.Vector3());
+  /* The middle of the structure, moved onto the structure. */
+  const centre=box.getCenter(new THREE.Vector3());
+  const anchor=(root
+    ? nearestSurfacePoint(list,centre,new THREE.Matrix4().copy(root.matrixWorld).invert())
+    : null)||centre;
   const grp=ensurePickGroup();
   const M=bodyMetrics();
   /*
