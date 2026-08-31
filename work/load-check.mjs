@@ -16,7 +16,7 @@
  *   "<Name> is not defined" / obvious missing-browser globals   -> tolerated
  * Run:  node work/load-check.mjs
  */
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -37,10 +37,22 @@ async function parseCheck(label, source) {
   }
 }
 
+/*
+ * The two application modules. Phase 2 moved them out of the HTML into
+ * studio.js and study.js; read them from there, falling back to the inline
+ * blocks so this keeps working on older checkouts. Finding NEITHER is a
+ * failure, not an empty pass — this check exists because a load-time death
+ * shipped once, and a silent zero-module run would let the next one through.
+ */
 const html = readFileSync(join(OUT, 'radiography-study-studio.html'), 'utf8');
-const blocks = [...html.matchAll(/<script type="module">([\s\S]*?)<\/script>/g)].map((m) => m[1]);
-console.log(`inline module scripts: ${blocks.length}`);
-for (const [i, s] of blocks.entries()) await parseCheck(`inline-module[${i}]`, s);
+const EXTRACTED = ['studio.js', 'study.js'];
+const blocks = EXTRACTED.every((f) => existsSync(join(OUT, f)))
+  ? EXTRACTED.map((f) => ({ label: `outputs/${f}`, src: readFileSync(join(OUT, f), 'utf8') }))
+  : [...html.matchAll(/<script type="module">([\s\S]*?)<\/script>/g)]
+      .map((m, i) => ({ label: `inline-module[${i}]`, src: m[1] }));
+console.log(`application modules: ${blocks.length} (${blocks.map((b) => b.label).join(', ') || 'NONE'})`);
+if (blocks.length < 2) fail(`expected 2 application modules, found ${blocks.length} — the app moved and this check did not follow it`);
+for (const b of blocks) await parseCheck(b.label, b.src);
 for (const f of ['study-data.js', 'anatomy-data.js', 'visual-data.js', 'physiology.js', 'schematics.js', 'figures.js', 'layouts.js', 'wordparts.js', 'term-notes.js', 'term-gloss.js', 'bodymap.js']) {
   try { await parseCheck(`outputs/${f}`, readFileSync(join(OUT, f), 'utf8')); }
   catch { console.log(`SKIP  parse outputs/${f} (not found)`); }
@@ -91,11 +103,11 @@ function classify(label, e) {
   console.log(`OK    eval  ${label} (parsed fully; stopped on browser-only call: ${e.constructor.name}: ${msg.split('\n')[0].slice(0, 100)})`);
 }
 
-const sources = blocks.map((src) => src.replace(/from\s+(['"])(\.\/[^'"]+)\1/g, (m, q, spec) => `from ${q}${moduleUrl(spec.replace(/^\.\//, '').split('?')[0])}${q}`));
-for (const [i, src] of sources.entries()) {
+for (const b of blocks) {
+  const src = b.src.replace(/from\s+(['"])(\.\/[^'"]+)\1/g, (m, q, spec) => `from ${q}${moduleUrl(spec.replace(/^\.\//, '').split('?')[0])}${q}`);
   const url = 'data:text/javascript;base64,' + Buffer.from(src, 'utf8').toString('base64');
-  try { await import(url); console.log(`OK    eval  inline-module[${i}] (ran to completion under stubs)`); }
-  catch (e) { classify(`inline-module[${i}]`, e); }
+  try { await import(url); console.log(`OK    eval  ${b.label} (ran to completion under stubs)`); }
+  catch (e) { classify(b.label, e); }
 }
 
 console.log(failed ? `\n${failed} PROBLEM(S) — see FAIL lines` : '\nNO LOAD-TIME ERRORS FOUND');
