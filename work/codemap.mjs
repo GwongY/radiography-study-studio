@@ -299,6 +299,30 @@ if (sectioned.length) {
   }
 }
 
+/*
+ * ---- the corpus ----
+ * study-data.js is a barrel; readdirSync is not recursive, so without this the
+ * seventeen files holding every lesson are invisible to a map whose whole
+ * promise is "read this before grepping".
+ */
+const corpusDir = join(outputs, 'study', 'corpus');
+const corpus = existsSync(corpusDir) ? readdirSync(corpusDir).filter((f) => f.endsWith('.js')).sort() : [];
+if (corpus.length) {
+  p('## The corpus — `outputs/study/corpus/*.js`');
+  p();
+  p('Every lesson lives here. `outputs/study-data.js` is a barrel that re-exports');
+  p('these under the same 57 names, so importers never name these files.');
+  p('To read one item without opening a file: `node work/query.mjs item <id>`.');
+  p();
+  p('| File | Lines | What it holds |');
+  p('| --- | --- | --- |');
+  for (const f of corpus) {
+    const ls = linesOf(join(corpusDir, f));
+    p(`| \`${f}\` | ${ls.length} | ${headline(ls)} |`);
+  }
+  p();
+}
+
 /* ---- the verifiers ---- */
 p('## Verifiers and generators — `work/*.mjs`');
 p();

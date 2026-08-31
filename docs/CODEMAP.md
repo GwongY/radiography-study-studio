@@ -155,6 +155,32 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs) · [Overla
 | 236–307 | Resolver |
 | 308–417 | Plates |
 
+## The corpus — `outputs/study/corpus/*.js`
+
+Every lesson lives here. `outputs/study-data.js` is a barrel that re-exports
+these under the same 57 names, so importers never name these files.
+To read one item without opening a file: `node work/query.mjs item <id>`.
+
+| File | Lines | What it holds |
+| --- | --- | --- |
+| `corpus.js` | 57 | The assembled corpus — every item array spread into one list, and the |
+| `coverage.js` | 161 | Coverage report — what the supplied sources actually cover, and what they |
+| `derived-items.js` | 336 | Items generated rather than authored: one per canonical bone record, one |
+| `diagrams.js` | 50 | Diagrams — authored schematics, drawn inline as SVG so the app needs no |
+| `expansion-items.js` | 557 | Expansion batch — fills gaps found in a coverage audit. |
+| `hss-joints.js` | 219 | HSS2011 Human Anatomy — joints and the muscles that move them. |
+| `hss-modules.js` | 369 | HSS2011 Human Anatomy — the per-module study items. |
+| `hss-osteology.js` | 654 | HSS2011 Human Anatomy — osteology: bone classification, the axial and |
+| `hss-terminology.js` | 247 | HSS2011 Human Anatomy — anatomical terminology: position, planes, movement |
+| `hti-items.js` | 359 | HTI17103, drawn from the HTI17101 Exploring Radiography set — the study |
+| `mastery.js` | 121 | Spaced repetition — the schedule, the mastery score and its dimensions, and |
+| `modules.js` | 70 | Course modules — app-authored framing, not a source claim. Which unit |
+| `notices.js` | 41 | APSS1A08 — limited coverage. The notices that say so, in the app, rather |
+| `physiology-items.js` | 919 | ABCT2326 Human Physiology — the study items. |
+| `schema.js` | 397 | Scaffolding: the source registry, the subjects and their units, the item |
+| `structures.js` | 348 | Granular 3D targets: the structure sets a tap-to-identify item draws from, |
+| `validate.js` | 125 | Validation — every question must have a resolvable answer and every claim a |
+
 ## Verifiers and generators — `work/*.mjs`
 
 | Script | What it does | Traps |
