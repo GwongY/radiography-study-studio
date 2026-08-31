@@ -10,7 +10,9 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-st
 
 | Lines | Section |
 | --- | --- |
+| 1–18 | markup — no banners, grep here |
 | 19–765 | CSS · preamble |
+| 766–1081 | markup — no banners, grep here |
 | 1082–1082 | importmap · preamble |
 | 1083–1100 | studio · preamble |
 | 1101–1198 | studio · Hide, and search-driven uncover |
@@ -46,6 +48,7 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-st
 | 7816–7844 | study · Boot |
 | 7845–7935 | study · Dialog behaviour, applied to all seven at once |
 | 7936–7955 | classic script · preamble |
+| 7956–7957 | markup — no banners, grep here |
 
 ## Data modules — `outputs/*.js`
 
@@ -165,31 +168,32 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-st
 
 ## Verifiers and generators — `work/*.mjs`
 
-| Script | What it does |
-| --- | --- |
-| `work/baseline.mjs` | Probe baselines — capture what the verifiers say TODAY, so a later |
-| `work/build-check.mjs` | Build every cavity from the real GLBs and assert the results are anatomy. |
-| `work/build-course-terms.mjs` | Build work/course-terms.json — which of the model's 1,687 named structures |
-| `work/build-mesh-index.mjs` | Build outputs/mesh-index.js — the searchable name index for every mesh in |
-| `work/cavity-probe.mjs` | Numeric validation of the cavity derivation against the real GLBs. |
-| `work/codemap-check.mjs` | Codemap check — is docs/CODEMAP.md what work/codemap.mjs would generate |
-| `work/codemap.mjs` | Code map generator — writes docs/CODEMAP.md. Do not edit that file by hand. |
-| `work/data-index.mjs` | Data index generator — writes docs/DATA-INDEX.md. |
-| `work/dense-lessons.mjs` | Task #9 candidate scan — list the densest explanations (nested clauses, |
-| `work/dev-server.mjs` | Minimal static server for outputs/ — same role as `python -m http.server 8420` |
-| `work/dump-plain-candidates.mjs` |  |
-| `work/figure-key-check.mjs` | Figure key check — every published figure and plate a lesson shows carries an |
-| `work/glb-bounds.mjs` | Per-mesh axis-aligned bounding boxes straight out of a GLB, without three.js. |
-| `work/glb-mesh.mjs` | Decode POSITION vertices out of an uncompressed GLB, node-side. |
-| `work/glb-names.mjs` | Dump mesh/node names from a GLB (JSON chunk only). Usage: node work/glb-names.mjs assets/kas.glb [fi |
-| `work/gloss-gap-scan.mjs` | Gloss gap scan — regression check for the reading help. |
-| `work/grid-probe.mjs` | Numeric validation of the abdominal surface grid -- the nine regions and the |
-| `work/landmark-check.mjs` | Does every landmark actually resolve against the real GLBs? |
-| `work/load-check.mjs` | Load-time verification for radiography-study-studio.html. |
-| `work/query.mjs` | Ask the data a question instead of reading the file. |
-| `work/region-probe.mjs` | Region probe — does the region filter put every bone in the right region? |
-| `work/search-probe.mjs` | Search probe — does typing a structure's name find it? |
-| `work/shell-check.mjs` | Shell check — every module the page imports is precached under the SAME |
-| `work/syntax-check.mjs` | Syntax-checks every inline <script type="module"> block in the app HTML, plus |
-| `work/verify-modules.mjs` | Task #8 verification — module mapping + corpus integrity. |
+| Script | What it does | Traps |
+| --- | --- | --- |
+| `work/baseline.mjs` | Probe baselines — capture what the verifiers say TODAY, so a later |  |
+| `work/build-check.mjs` | Build every cavity from the real GLBs and assert the results are anatomy. |  |
+| `work/build-course-terms.mjs` | Build work/course-terms.json — which of the model's 1,687 named structures | [Study depth and course terms](TRAPS.md#study-depth-and-course-terms--workbuild-course-termsmjs) |
+| `work/build-mesh-index.mjs` | Build outputs/mesh-index.js — the searchable name index for every mesh in | [The mesh index](TRAPS.md#the-mesh-index--workbuild-mesh-indexmjs-worklibmesh-namesmjs) |
+| `work/cavity-probe.mjs` | Numeric validation of the cavity derivation against the real GLBs. |  |
+| `work/codemap-check.mjs` | Codemap check — is docs/CODEMAP.md what work/codemap.mjs would generate |  |
+| `work/codemap.mjs` | Code map generator — writes docs/CODEMAP.md. Do not edit that file by hand. |  |
+| `work/data-index-check.mjs` | Data index check — is docs/DATA-INDEX.md what work/data-index.mjs would |  |
+| `work/data-index.mjs` | Data index generator — writes docs/DATA-INDEX.md. |  |
+| `work/dense-lessons.mjs` | Task #9 candidate scan — list the densest explanations (nested clauses, |  |
+| `work/dev-server.mjs` | Minimal static server for outputs/ — same role as `python -m http.server 8420` |  |
+| `work/dump-plain-candidates.mjs` |  |  |
+| `work/figure-key-check.mjs` | Figure key check — every published figure and plate a lesson shows carries an |  |
+| `work/glb-bounds.mjs` | Per-mesh axis-aligned bounding boxes straight out of a GLB, without three.js. |  |
+| `work/glb-mesh.mjs` | Decode POSITION vertices out of an uncompressed GLB, node-side. |  |
+| `work/glb-names.mjs` | Dump mesh/node names from a GLB (JSON chunk only). Usage: node work/glb-names.mjs assets/kas.glb [fi |  |
+| `work/gloss-gap-scan.mjs` | Gloss gap scan — regression check for the reading help. |  |
+| `work/grid-probe.mjs` | Numeric validation of the abdominal surface grid -- the nine regions and the |  |
+| `work/landmark-check.mjs` | Does every landmark actually resolve against the real GLBs? |  |
+| `work/load-check.mjs` | Load-time verification for radiography-study-studio.html. |  |
+| `work/query.mjs` | Ask the data a question instead of reading the file. |  |
+| `work/region-probe.mjs` | Region probe — does the region filter put every bone in the right region? |  |
+| `work/search-probe.mjs` | Search probe — does typing a structure's name find it? |  |
+| `work/shell-check.mjs` | Shell check — every module the page imports is precached under the SAME |  |
+| `work/syntax-check.mjs` | Syntax-checks every inline <script type="module"> block in the app HTML, plus |  |
+| `work/verify-modules.mjs` | Task #8 verification — module mapping + corpus integrity. |  |
 
