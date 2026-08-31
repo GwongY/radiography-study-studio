@@ -23,7 +23,7 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v46';
+const CACHE_VERSION = 'v47';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
@@ -44,8 +44,8 @@ const SHELL = [
   './bodymap.js?v=4',
   /* the search index: every named mesh in every layer, plus the synonym table
      that maps "collarbone" and "voice box" onto what the model calls them */
-  './mesh-index.js?v=2',
-  './synonyms.js?v=2',
+  './mesh-index.js?v=3',
+  './synonyms.js?v=3',
   /* the cavity engine: resolver, maths, builders. Small, and the overlays are
      part of the study system, so they belong in the offline shell. */
   './landmarks.js?v=2',

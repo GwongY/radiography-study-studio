@@ -1068,6 +1068,10 @@
   import { createResolver } from './landmarks.js?v=2';
   import { buildCavityGeometry, measureLandmarks, measureGrid, gridBounds } from './cavity-build.js?v=2';
   import { boundsOf, sampleField } from './cavity-geom.js?v=2';
+  /* Block 0 has its own import scope -- block 1's copy is not visible here.
+     Picking needs the index to know which meshes are sub-parts of one
+     named structure. See the note in CLAUDE.md about the two scopes. */
+  import { MESH_INDEX } from './mesh-index.js?v=3';
 
   const $ = (id) => document.getElementById(id);
   const els = { stage:$('stage'), state:$('stageState'), stateTitle:$('stateTitle'), stateCopy:$('stateCopy'), retry:$('retryBtn'), progress:$('progressBar'), stageMeta:$('stageMeta'), regionMeta:$('regionMeta'), selectedName:$('selectedName'), selectedChips:$('selectedChips'), selectedDetails:$('selectedDetails'), taskKicker:$('taskKicker'), taskTitle:$('taskTitle'), taskCopy:$('taskCopy'), answers:$('answers'), feedback:$('feedback'), next:$('nextBtn'), search:$('searchInput'), results:$('searchResults'), regions:$('regionButtons'), reviewBar:$('reviewBar'), reviewNumber:$('reviewNumber'), reviewHint:$('reviewHint'), toast:$('toast'), detailDialog:$('detailDialog'), detailTitle:$('detailTitle'), detailChips:$('detailChips'), detailBody:$('detailBody'), zoomIn:$('zoomInBtn'), zoomOut:$('zoomOutBtn'), focus:$('focusBtn'), motion:$('motionBtn') };
@@ -1240,13 +1244,24 @@ async function revealStructure(spec){
     for(const p of parts){
       let layer=state.extraModels[p.system];
       if(!layer&&p.file){
-        try{ layer=await loadExtraModel(p.system,p.file); }catch(e){ layer=null; }
+        try{ layer=await loadExtraModel(p.system,p.file); }catch(e){ console.warn('layer load failed',p.system,e); layer=null; }
       }
       if(!layer) continue;
       state.layers[p.system]=true;
       state.layerOpacity={...(state.layerOpacity||{}),[p.system]:1};
       const hits=meshesFor(layer,p.mesh);
-      targets=targets.concat(hits);
+      /*
+       * Widen to the whole structure.
+       *
+       * Sub-parts share a canonicalId (see loadExtraModel), so naming any one
+       * of them names all of them. Without this, the curated "Deltoid" entry
+       * lit one of its three parts while the grouped search row lit all three
+       * -- two routes to the same muscle disagreeing about what it is.
+       */
+      const ids=new Set(hits.map(o=>o.userData.canonicalId).filter(Boolean));
+      targets=targets.concat(ids.size
+        ?layer.meshes.filter(o=>ids.has(o.userData.canonicalId))
+        :hits);
     }
     applyLayers();
     if(targets.length){
@@ -1258,21 +1273,38 @@ async function revealStructure(spec){
   /* A curated group ('ribs' -> 24 meshes) is one structure: frame and light the
      whole set. A left/right pair from the system path unions to a midline box,
      so frame only the nearest of the two. */
-  /* A composite is one structure made of many meshes, exactly like the curated
-     'ribs' group: frame and light the whole set, not the nearest of them. */
+  /*
+   * One structure made of many meshes -- frame and light the whole set, not
+   * the nearest of them. Three ways that happens: a curated group ('ribs' is
+   * 24 meshes), a composite (the larynx spans two layers), and a merged
+   * family, where the source split one structure into parts that now share a
+   * canonicalId. Without the last case, opening the deltoid lit one third of
+   * it and framed that third.
+   */
   const curatedGroup=(!!spec.id||!!spec.parts)&&targets.length>1;
   let primary=targets[0];
   if(targets.length>1&&state.camera){
     primary=targets.map(o=>{ const b=new state.THREE.Box3().setFromObject(o); return {o,d:b.getCenter(new state.THREE.Vector3()).distanceTo(state.camera.position)}; })
       .sort((a,b)=>a.d-b.d)[0].o;
   }
-  const frameTargets=curatedGroup?targets:[primary];
+  /*
+   * Everything that IS the selected structure.
+   *
+   * Sub-parts share a canonicalId, so a merged structure -- the deltoid's
+   * three parts -- lights and frames as one. Left and right keep separate ids
+   * on purpose, so a paired result still frames the nearer side rather than
+   * a midline box spanning both, which is the behaviour the pair case wanted
+   * all along.
+   */
+  const kin=targets.filter(o=>o.userData.canonicalId
+    &&o.userData.canonicalId===primary.userData.canonicalId);
+  const frameTargets=curatedGroup?targets:(kin.length>1?kin:[primary]);
   const frame=frameOn(frameTargets);
   const occ=occludersOf(frameTargets,frame);
   occ.forEach(m=>state.autoHidden.add(m));
   applyLayers(); applyVisibility(); enforceHidden();
   clearHighlight();
-  (curatedGroup?targets:[primary]).forEach(m=>{
+  frameTargets.forEach(m=>{
     if(m.material){ m.material.emissive&&m.material.emissive.setHex(0x1eb9a6); m.material.emissiveIntensity=.95; m.userData.presentationActive=true; }
   });
   publishHidden();
@@ -1461,14 +1493,25 @@ function calloutAt(anchor,text,color,M,opts){
    *
    * Body-scale overlays (the cavities) clear the whole silhouette, so their
    * tags line up in one margin column. A single selected structure passes
-   * `clear` -- its own half-width -- and the tag hugs it instead: the camera
-   * has usually just framed that structure, so a tag parked at the body's
-   * outer edge would be off the side of the screen, or under the Explore
-   * panel, which is exactly where the femur's label was landing.
+   * `clear` -- how far from the MIDLINE the tip must sit, measured from what
+   * is visible at that height -- and the tag hugs the anatomy instead: the
+   * camera has usually just framed that structure, so a tag parked at the
+   * body's outer edge would be off the side of the screen, or under the
+   * Explore panel, which is exactly where the femur's label was landing.
    */
-  const reach=o.clear!=null
-    ? Math.abs(dx)+o.clear+M.H*0.015
+  let reach=o.clear!=null
+    ? Math.max(Math.abs(dx),o.clear)+M.H*0.015
     : Math.max(Math.abs(dx)+M.H*0.02,M.halfX+M.H*0.03);
+  /*
+   * ...but never further out than the camera can see.
+   *
+   * Clearing the silhouette is the right anatomical answer and the wrong one
+   * when the camera has just framed a two-centimetre tube: the oesophagus's
+   * tag cleared the rib cage correctly and landed off the side of the stage.
+   * `maxReach` is the framed half-width less the tag's own width, so the tag
+   * lands inside the picture even when the body does not fit in it.
+   */
+  if(o.maxReach!=null) reach=Math.min(reach,Math.max(Math.abs(dx)+M.H*0.01,o.maxReach));
   const tipX=M.cx+sign*reach;
   const z=anchor.z;
   /*
@@ -1555,6 +1598,37 @@ function clearPickCallout(){
   [...state.pickGroup.children].forEach(disposeConceptObj);
 }
 /*
+ * How wide the visible body is at a given height, measured in the body's own
+ * upright frame. Bounding boxes only -- this runs once per selection, and a
+ * box is close enough for deciding where a label goes.
+ */
+function silhouetteHalfAt(y,band){
+  const THREE=state.THREE;
+  const root=state.fullModel||state.realModel
+    ||(Object.values(state.extraModels||{})[0]||{}).pivot||null;
+  if(!root) return 0;
+  const inv=new THREE.Matrix4().copy(root.matrixWorld).invert();
+  const v=new THREE.Vector3(), m4=new THREE.Matrix4();
+  const pools=[state.fullMeshes,state.meshes,
+    ...Object.values(state.extraModels||{}).map(m=>m.meshes||[])];
+  let half=0;
+  pools.forEach(pool=>pool.forEach(o=>{
+    if(!o.visible||!o.geometry) return;
+    if(!o.geometry.boundingBox) o.geometry.computeBoundingBox();
+    const bb=o.geometry.boundingBox; if(!bb) return;
+    m4.multiplyMatrices(inv,o.matrixWorld);
+    let lo=Infinity,hi=-Infinity,x=0;
+    for(let i=0;i<8;i++){
+      v.set(i&1?bb.max.x:bb.min.x,i&2?bb.max.y:bb.min.y,i&4?bb.max.z:bb.min.z).applyMatrix4(m4);
+      if(v.y<lo)lo=v.y; if(v.y>hi)hi=v.y;
+      const d=Math.abs(v.x); if(d>x)x=d;
+    }
+    if(hi<y-band||lo>y+band) return;      /* not at this height */
+    if(x>half) half=x;
+  }));
+  return half;
+}
+/*
  * `obj` may be one mesh or a set of them -- a composite is named once, over the
  * union of its parts, not once per part.
  *
@@ -1605,10 +1679,31 @@ function showPickCallout(obj,text){
   const size=box.getSize(new THREE.Vector3());
   const grp=ensurePickGroup();
   const M=bodyMetrics();
-  /* Clear the structure's own width, capped at the body's -- a whole rib cage
-     would otherwise throw its tag as far out as the old body-scale reach did. */
-  const clear=Math.min(size.x/2,M.halfX);
-  calloutAt(anchor,text,0x72e3cf,M,{size:0.030,leaderOpacity:0.6,clear})
+  /*
+   * Clear whatever is actually VISIBLE at this height, not the structure's own
+   * width and not the whole body's.
+   *
+   * Using the structure's own half-width put the oesophagus's tag flat on top
+   * of the rib cage: the tube is two centimetres wide and sits on the midline,
+   * so "just outside it" is deep inside the chest. Using the body's half-width
+   * instead throws a thigh label out past the shoulders. The silhouette at the
+   * anchor's own height is the thing a tag has to get past, and it accounts
+   * for which layers are switched on -- with the skeleton hidden, the organ
+   * outline is much narrower and the tag comes in to meet it.
+   */
+  const clear=Math.max(Math.abs(anchor.x-M.cx)+size.x/2,
+    silhouetteHalfAt(anchor.y,Math.max(size.y/2,M.H*0.02)));
+  /* What the camera can show at the anchor's depth, less the tag's own width.
+     updateHudSprites resizes tags every frame within a legibility band, so the
+     width is worked out the same way here rather than from hud.world alone. */
+  let maxReach=null;
+  const cam=state.camera;
+  if(cam){
+    const span=2*cam.position.distanceTo(anchor)*Math.tan(cam.fov*Math.PI/360);
+    const ht=Math.min(Math.max(M.H*0.030,0.023*span),0.052*span);
+    maxReach=Math.max(0,span*cam.aspect/2-ht*6.2-M.H*0.02);
+  }
+  calloutAt(anchor,text,0x72e3cf,M,{size:0.030,leaderOpacity:0.6,clear,maxReach})
     .forEach((o)=>grp.add(o));
   syncOverlayYaw(grp);
   grp.visible=!state.xray;
@@ -2670,7 +2765,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   async function loadImportedModel(THREE,GLTFLoader,DRACOLoader){const root=new THREE.Group();const loader=new GLTFLoader();const draco=new DRACOLoader();draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/libs/draco/');loader.setDRACOLoader(draco);for(let i=0;i<MODEL_CATALOG.active.files.length;i++){const source=MODEL_CATALOG.active.files[i];const gltf=await new Promise((resolve,reject)=>loader.load(source.file,resolve,(event)=>{const ratio=event.total?event.loaded/event.total:0;els.progress.style.width=`${Math.round(((i+ratio)/MODEL_CATALOG.active.files.length)*60)+28}%`},reject));gltf.scene.traverse((obj)=>{obj.userData={...(obj.userData||{}),sourceCanonicalId:source.id,sourceSide:source.side,sourceLabel:source.label}});root.add(gltf.scene)}const pivot=new THREE.Group();pivot.name='realUpperLimbPivot';pivot.add(root);return pivot}
   async function loadFullReference(THREE,GLTFLoader){const loader=new GLTFLoader();const gltf=await new Promise((resolve,reject)=>loader.load(MODEL_CATALOG.fullSkeletonFile,resolve,(event)=>{const ratio=event.total?event.loaded/event.total:0;els.progress.style.width=`${Math.round(ratio*25)+3}%`},reject));return gltf.scene}
   function cameraView(kind){if(!state.camera||!state.controls)return;if(kind==='lateral'){state.camera.position.set(24,1,0);state.controls.target.set(0,1,0)}else{state.camera.position.set(0,1,25);state.controls.target.set(0,1,0)}state.controls.update()}
-  async function boot3D(){els.state.classList.remove('hidden');els.stateTitle.textContent='Loading the skeleton layer';els.stateCopy.textContent='Loading the Z-Anatomy skeleton — 277 named, individually selectable structures. The other six system layers load on demand.';els.retry.style.display='none';els.progress.style.width='3%';try{const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js');const {OrbitControls}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js');const {GLTFLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js');const {DRACOLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/DRACOLoader.js');state.scene=new THREE.Scene();state.scene.background=new THREE.Color(0x0b151b);state.camera=new THREE.PerspectiveCamera(32,1,.1,100);state.camera.position.set(0,1,25);state.renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});state.renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));state.renderer.outputColorSpace=THREE.SRGBColorSpace;els.stage.prepend(state.renderer.domElement);state.controls=new OrbitControls(state.camera,state.renderer.domElement);state.controls.enableDamping=true;state.controls.dampingFactor=.08;state.controls.minDistance=2.5;state.controls.maxDistance=45;state.controls.target.set(0,1,0);state.raycaster=new THREE.Raycaster();state.pointer=new THREE.Vector2();state.scene.add(new THREE.HemisphereLight(0xdce9e7,0x102026,2.1));const key=new THREE.DirectionalLight(0xffffff,2.4);key.position.set(5,12,16);state.scene.add(key);state.scene.add(new THREE.DirectionalLight(0x5cd1c4,.8));try{state.fullModel=prepareFullReference(THREE,await loadFullReference(THREE,GLTFLoader));state.scene.add(state.fullModel);addFullPickables(THREE,state.scene);els.stageMeta.textContent='Z-Anatomy / BodyParts3D skeleton · 277 named structure meshes';}catch(fullError){console.warn('Full reference failed',fullError)}try{state.realModel=await loadImportedModel(THREE,GLTFLoader,DRACOLoader);const info=prepareImportedModel(THREE,state.realModel);state.scene.add(state.realModel);els.stageMeta.textContent+=` · ${info.mapped} real BodyParts3D upper-limb meshes`;}catch(importError){console.warn('Real upper-limb model failed, using local fallback',importError);state.realModel=createProceduralModel(THREE);state.scene.add(state.realModel);addHotspots(THREE,state.scene);els.stageMeta.textContent='Full reference + fallback upper-limb meshes';}resize();watchStageSize();applyVisibility();els.progress.style.width='100%';setTimeout(()=>els.state.classList.add('hidden'),500);animate();return true}catch(error){els.stateTitle.textContent='3D model unavailable';els.stateCopy.textContent='The study tools still work. Check your connection, then retry the model layer.';els.retry.style.display='inline-flex';els.progress.style.width='100%';console.warn(error);return false}}
+  async function boot3D(){els.state.classList.remove('hidden');els.stateTitle.textContent='Loading the skeleton layer';els.stateCopy.textContent='Loading the Z-Anatomy skeleton — 159 named, individually selectable structures. The other six system layers load on demand.';els.retry.style.display='none';els.progress.style.width='3%';try{const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js');const {OrbitControls}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js');const {GLTFLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js');const {DRACOLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/DRACOLoader.js');state.scene=new THREE.Scene();state.scene.background=new THREE.Color(0x0b151b);state.camera=new THREE.PerspectiveCamera(32,1,.1,100);state.camera.position.set(0,1,25);state.renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});state.renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));state.renderer.outputColorSpace=THREE.SRGBColorSpace;els.stage.prepend(state.renderer.domElement);state.controls=new OrbitControls(state.camera,state.renderer.domElement);state.controls.enableDamping=true;state.controls.dampingFactor=.08;state.controls.minDistance=2.5;state.controls.maxDistance=45;state.controls.target.set(0,1,0);state.raycaster=new THREE.Raycaster();state.pointer=new THREE.Vector2();state.scene.add(new THREE.HemisphereLight(0xdce9e7,0x102026,2.1));const key=new THREE.DirectionalLight(0xffffff,2.4);key.position.set(5,12,16);state.scene.add(key);state.scene.add(new THREE.DirectionalLight(0x5cd1c4,.8));try{state.fullModel=prepareFullReference(THREE,await loadFullReference(THREE,GLTFLoader));state.scene.add(state.fullModel);addFullPickables(THREE,state.scene);els.stageMeta.textContent='Z-Anatomy / BodyParts3D skeleton · 159 named structures';}catch(fullError){console.warn('Full reference failed',fullError)}try{state.realModel=await loadImportedModel(THREE,GLTFLoader,DRACOLoader);const info=prepareImportedModel(THREE,state.realModel);state.scene.add(state.realModel);els.stageMeta.textContent+=` · ${info.mapped} real BodyParts3D upper-limb meshes`;}catch(importError){console.warn('Real upper-limb model failed, using local fallback',importError);state.realModel=createProceduralModel(THREE);state.scene.add(state.realModel);addHotspots(THREE,state.scene);els.stageMeta.textContent='Full reference + fallback upper-limb meshes';}resize();watchStageSize();applyVisibility();els.progress.style.width='100%';setTimeout(()=>els.state.classList.add('hidden'),500);animate();return true}catch(error){els.stateTitle.textContent='3D model unavailable';els.stateCopy.textContent='The study tools still work. Check your connection, then retry the model layer.';els.retry.style.display='inline-flex';els.progress.style.width='100%';console.warn(error);return false}}
   /*
    * Canvas sizing.
    *
@@ -2947,15 +3042,38 @@ async function loadExtraModel(key,file){
     /* A canonicalId is what makes a mesh pickable: pick() filters on it and
        confirmPick looks the record up. Without one these layers could only be
        selected programmatically from a structure-set question. */
-    const id=`sys:${key}:${i}:${raw}`;
-    const mapped=mapImportedName(raw);
-    const known=mapped&&getAnatomy(mapped);
-    state.importedRecords.set(id, known
-      ? {...known,id,canonicalName:label,side}
-      : {id,canonicalName:label,aliases:[],region:key,side,
-         category:`${LAYER_NAMES[key]||key} layer structure`,landmarks:[],articulations:[],
-         radiographyImportance:`Named structure in the ${(LAYER_NAMES[key]||key).toLowerCase()} layer of the BodyParts3D atlas.`,
-         difficulty:3,modelObjectIds:[],commonConfusions:[]});
+    /*
+     * Sub-parts share ONE id, so they are one selectable structure.
+     *
+     * The source splits further than the course does: the deltoid is three
+     * "parts", the trapezius three, the left lung eleven segmental bronchi.
+     * Given an id each, tapping the shoulder selected "Acromial part of
+     * deltoid muscle" and left the other two thirds of the muscle dark --
+     * naming a fragment nobody is asked to identify.
+     *
+     * mesh-index.js already marks those rows tier 1 and groups them into a
+     * family; here that grouping becomes the identity of the thing. Because
+     * picking, highlighting, isolation and the quiz all key off canonicalId,
+     * merging it here merges them everywhere at once.
+     *
+     * The side stays in the id: left and right are never merged, because
+     * telling them apart is the entire L2 drill.
+     */
+    const fam=familyLabelFor(key,raw);
+    const id=fam?`sys:${key}:fam:${fam}${side?':'+side:''}`:`sys:${key}:${i}:${raw}`;
+    const shownName=fam||label;
+    if(!state.importedRecords.has(id)){
+      const mapped=mapImportedName(raw);
+      const known=mapped&&getAnatomy(mapped);
+      state.importedRecords.set(id, known
+        ? {...known,id,canonicalName:shownName,side}
+        : {id,canonicalName:shownName,aliases:[],region:key,side,
+           category:`${LAYER_NAMES[key]||key} layer structure`,landmarks:[],articulations:[],
+           radiographyImportance:fam
+             ? `The ${(LAYER_NAMES[key]||key).toLowerCase()} layer models this as separate parts; they are selected together because the course names the whole.`
+             : `Named structure in the ${(LAYER_NAMES[key]||key).toLowerCase()} layer of the BodyParts3D atlas.`,
+           difficulty:3,modelObjectIds:[],commonConfusions:[]});
+    }
     o.userData={...(o.userData||{}),label:raw,extraKey:key,canonicalId:id,layerKey:key,side,region:key,
       baseScale:o.scale.toArray(),basePosition:o.position.toArray(),presentationActive:false};
     if(o.material){o.material=o.material.clone();o.material.roughness=.72;o.material.metalness=.03;o.material.transparent=false;o.material.opacity=1}
@@ -3227,13 +3345,16 @@ function stepPhysiology(t){
       :r.deform==='steady'?1 : 0;
   });
 }
+/* Named structures per layer, from the index -- the same collapsing the chips
+   and the search use, so all three agree. Meshes are geometry; this is anatomy. */
+const LAYER_NAMED=MESH_INDEX.reduce((a,m)=>{a[m.layer]=(a[m.layer]||0)+1;return a},{});
 function updateStageMeta(){
   const on=Object.keys(state.layers).filter(k=>state.layers[k]);
   if(!on.length){els.stageMeta.textContent='No layer shown — turn one on to study it';return}
-  const count=on.reduce((t,k)=>t+(k==='skeleton'?state.fullMeshes.length:(state.extraModels[k]?.meshes.length||0)),0);
+  const named=on.reduce((t,k)=>t+(LAYER_NAMED[k]||0),0);
   els.stageMeta.textContent=on.length===1&&on[0]==='skeleton'
-    ?`Precise Z-Anatomy / BodyParts3D skeleton · ${state.fullMeshes.length} named structure meshes`
-    :`${on.map(k=>LAYER_NAMES[k]||k).join(' + ')} · ${count} named meshes · one registered body · tap a structure`;
+    ?`Precise Z-Anatomy / BodyParts3D skeleton · ${LAYER_NAMED.skeleton} named structures`
+    :`${on.map(k=>LAYER_NAMES[k]||k).join(' + ')} · ${named} named structures · one registered body · tap a structure`;
 }
 /*
  * Layers composite. They are not alternatives to each other: the whole point
@@ -3655,13 +3776,53 @@ function setExtraVisible(key){
   state.layers.skeleton=!key;
   applyLayers();
 }
+/*
+ * Sub-parts are not separately selectable.
+ *
+ * The model breaks structures down further than the course does -- the deltoid
+ * is three "parts", the trapezius three, the left lung's bronchial tree eleven
+ * segmental branches. Tapping one of those selected that fragment alone and
+ * named it "Acromial part of deltoid muscle", which is not a thing anyone is
+ * asked to identify and left the rest of the muscle dark.
+ *
+ * mesh-index.js already marks those rows tier 1 and gives each a family. Here
+ * that grouping decides what a TAP selects: the whole family lights together
+ * and is named as the whole. Left and right stay separate -- the L2 drill is
+ * exactly about telling them apart -- so sides are never merged.
+ */
+const tightKey=(v)=>normName(v).replace(/[^a-z0-9]/g,'');
+let _famMap=null;
+/* layer -> Map(tight mesh name -> family label), tier-1 rows only. */
+function familyMap(){
+  if(_famMap) return _famMap;
+  _famMap=new Map();
+  MESH_INDEX.forEach((r)=>{
+    if(r.tier!==1||!r.family) return;
+    if(!_famMap.has(r.layer)) _famMap.set(r.layer,new Map());
+    _famMap.get(r.layer).set(tightKey(r.name),r.family);
+  });
+  return _famMap;
+}
+/* The family a raw GLB name belongs to, if it is a sub-part of one. */
+function familyLabelFor(layerKey,raw){
+  const fm=familyMap().get(layerKey);
+  if(!fm) return null;
+  const k=tightKey(raw);
+  return fm.get(k)||(/[lr]$/.test(k)?fm.get(k.slice(0,-1)):null)||null;
+}
+
 function highlightExtra(mesh){
   const m=state.extraModels[state.activeExtra];
   if(!m)return;
   m.meshes.forEach(o=>{o.material.emissive?.setHex(0x000000)});
-  mesh.material.emissive?.setHex(0x1c6f66);
+  /* Sub-parts share one canonicalId (see loadExtraModel), so the thing that
+     was tapped is every mesh carrying that id, not the one triangle hit. */
+  const kin=m.meshes.filter(o=>o.userData.canonicalId===mesh.userData.canonicalId);
+  const lit=kin.length?kin:[mesh];
+  lit.forEach(o=>o.material.emissive?.setHex(0x1c6f66));
   if(state.camera&&state.controls&&state.THREE){
-    const box=new state.THREE.Box3().setFromObject(mesh);
+    const box=new state.THREE.Box3();
+    lit.forEach(o=>box.expandByObject(o));
     const c=box.getCenter(new state.THREE.Vector3());
     state.controls.target.copy(c);
     state.controls.update();
@@ -3687,7 +3848,7 @@ function highlightExtra(mesh){
   }
   els.selectedName.textContent=clean;
   els.selectedChips.innerHTML=side?`<span class="chip">${side}</span>`:'';
-  showPickCallout(mesh,side?`${clean}\n${side}`:clean);
+  showPickCallout(lit,side?`${clean}\n${side}`:clean);
 }
 /*
  * Joint movement player.
@@ -3855,7 +4016,7 @@ function endMovement(){
   function restoreFromHash(){if(!location.hash)return;const m=location.hash.match(/^#detail\/([\w:-]+)/);if(!m||m[1]===state.lastDetailId)return;state.hashTries=(state.hashTries||0)+1;const record=getRecord(m[1]);if(!record){if(!state.fullMeshes.length&&!state.meshes.length&&state.hashTries<20)setTimeout(restoreFromHash,250);return}selectBone(record.id);openDetail(record)}
   window.addEventListener('hashchange',restoreFromHash);setTimeout(restoreFromHash,250);
   const activeModelCopy=document.querySelector('#aboutDialog .about p');
-  if(activeModelCopy)activeModelCopy.innerHTML='<strong>Active model:</strong> a precise Z-Anatomy / BodyParts3D full skeleton with 277 named meshes for structure-level picking, plus six further BodyParts3D layers — muscles, ligaments, organs, vessels, nerves and lymphatic — in the same registered body frame, 2,914 named structures in all. Five separate per-bone upper-limb GLBs are still loaded as the anchor that positions the landmark hotspots, but they are no longer drawn: the full skeleton already names those five bones. The procedural scene is only a last-resort fallback.';
+  if(activeModelCopy)activeModelCopy.innerHTML='<strong>Active model:</strong> a precise Z-Anatomy / BodyParts3D full skeleton, plus six further BodyParts3D layers — muscles, ligaments, organs, vessels, nerves and lymphatic — in the same registered body frame. The seven layers hold 2,914 meshes, which collapse to <strong>1,687 named structures</strong>: the counts shown on the layer chips are structures, not meshes, because the same thing is exported once per side, again per duplicate, and again per sub-part. Tapping a sub-part selects the whole structure it belongs to. Five separate per-bone upper-limb GLBs are still loaded as the anchor that positions the landmark hotspots, but they are no longer drawn: the full skeleton already names those five bones. The procedural scene is only a last-resort fallback.';
 </script>
 <script type="module">
 import {
@@ -3872,8 +4033,8 @@ import {
 } from './study-data.js';
 import { searchAnatomy } from './anatomy-data.js?v=4';
 import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS, conceptById, conceptAncestors, conceptChildren } from './bodymap.js?v=4';
-import { MESH_INDEX } from './mesh-index.js?v=2';
-import { expandQuery, missingFor, compositeFor } from './synonyms.js?v=2';
+import { MESH_INDEX } from './mesh-index.js?v=3';
+import { expandQuery, missingFor, compositeFor } from './synonyms.js?v=3';
 import { visualFor, plateFor } from './visual-data.js?v=3';
 import { FLOW_CLASSES, LAYER_CLASSES, RATES } from './physiology.js?v=4';
 import { schematic } from './schematics.js?v=2';
@@ -5190,10 +5351,22 @@ const LAYER_CYCLE = { off: 'solid', solid: 'ghost', ghost: 'off' };
 const GHOST_OPACITY = 0.34;
 let layerState = { skeleton: 'solid' };
 
+/*
+ * How many structures a layer contains -- not how many meshes it holds.
+ *
+ * The chips used to show the raw mesh counts (skeleton 277, muscles 683,
+ * vessels 676), which is a count of geometry, not of anatomy. The same
+ * structure is counted twice when it is paired, again for each duplicate
+ * export, and once more for every sub-part the source split out. The index
+ * already collapses all three, so "Muscles 345" is the number of things you
+ * can actually name -- and it is the same number the search offers.
+ */
+const LAYER_STRUCTURES = MESH_INDEX.reduce((acc, m) => {
+  acc[m.layer] = (acc[m.layer] || 0) + 1;
+  return acc;
+}, {});
 function layerCount(key) {
-  if (key === 'skeleton') return 277;
-  const m = STRUCTURE_MODELS[key];
-  return m ? m.meshes : 0;
+  return LAYER_STRUCTURES[key] || 0;
 }
 
 const hex = (n) => '#' + Number(n).toString(16).padStart(6, '0');
