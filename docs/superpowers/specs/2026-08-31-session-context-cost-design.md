@@ -464,3 +464,67 @@ locates its subject by pattern must assert it found one.**
 `codemap.mjs`'s own guard was already in place from phase 1 and did exactly its job — it fired
 the moment the blocks moved, which is what forced the generator to be taught about the extracted
 files rather than silently shipping a map with 35 rows missing.
+
+## Result — phase 3
+
+Measured on 2026-09-01. `outputs/study-data.js`: **4,897 lines → a 117-line barrel**, with the
+corpus in seventeen files under `outputs/study/corpus/`, largest 919 lines
+(`physiology-items.js`), smallest 41 (`notices.js`).
+
+### The proof, and why it had to be semantic
+
+Phase 2 could prove byte-identity; phase 3 adds file headers and imports by definition, so it
+cannot. `work/corpus-snapshot.mjs` was written first and captured as a baseline **before** the
+split: it hashes each of the 57 exports and each of the 94 study items individually by id, so a
+moved lesson word, a dropped `sourceRefs`, or a reordered `options` array moves exactly one line
+and the line names what changed.
+
+It earned its keep immediately. The barrel initially re-exported **56** names, not 57 — the
+57th is a `export default { … }` at the bottom of the file that a hand-typed public list missed
+and that the code map's `export (const|function)` scan had never listed either. The snapshot
+named it in one line. That default now lives in the barrel, where a data layer's default export
+belongs, rather than stranded at the bottom of `mastery.js`.
+
+It is also why the barrel re-exports by name instead of `export *`: the ten item arrays the
+corpus files share with each other would have widened the public API from 57 to 67, and the
+snapshot would have failed. The snapshot now enforces the API surface as a side effect.
+
+Final state, verified in the browser through the real barrel: 57 exports, a default with its
+seven keys, 94 items, 6 subjects, `validateCorpus()` at zero failures, every corpus file 200.
+
+### Two real bugs, found by making a check honest
+
+Neither is a refactoring artefact. Both were live in the shipped app.
+
+**The offline shell was missing two modules.** `shell-check.mjs` scraped `from './x.js'` one
+level deep from the entry points, so it had never looked at what the data modules import.
+Replacing that with a transitive walk of the import graph immediately reported two second-level
+imports with no shell entry under the spelling they use: `study-data.js` imports
+`'./anatomy-data.js'` and `cavity-build.js` imports `'./cavity-geom.js'`, both bare, while the
+shell listed only `?v=5` and `?v=2`. A cache key is the whole URL, so offline both 404'd — the
+canonical bone records and the entire cavity engine. The walk then also caught all seventeen
+corpus files before they could ship unprecached.
+
+**`load-check.mjs` could not resolve a nested import.** Its inliner stripped a leading `./` and
+treated the rest as a filename in `outputs/`, which held only while every module was a sibling.
+It now resolves each specifier against the file that wrote it.
+
+### And one check that was reading source text
+
+`figure-key-check.mjs` read `study-data.js` as a *string* and grepped it for `type: 'diagram'`,
+recovering the enclosing item's id from a 600-character lookback. The barrel has no item text, so
+it silently found 16 figures instead of 18 and reported two as unused. Only the committed
+baseline caught it. It now asks `STUDY_ITEMS`.
+
+That is the third instance of one pattern in two phases, so it is worth stating as a rule:
+**a check that locates its subject by pattern-matching source text will pass, quietly and
+wrongly, the first time the source moves.** Ask the data; and if you must match, assert you
+matched something.
+
+### Cost
+
+`CLAUDE.md` grew from 129 lines to 133 (10,041 → 11,095 bytes), against a stated target of under
+130. Three lines are a new `outputs/study/corpus/` row and an `app.css` / `studio.js` /
+`study.js` description that a session cannot work without; the fourth expands the SHELL rule to
+describe the cache-key bug above, which shipped precisely because the old one-sentence version
+did not say it. Not shaved to hit the round number.
