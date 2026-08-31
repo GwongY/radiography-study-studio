@@ -1,0 +1,306 @@
+# Session context cost — a map, then a split
+
+## Problem
+
+Every new session pays to orient itself in this repo, and the bill is large
+enough to crowd out the work. Measured:
+
+| Cost | Size | When it is paid |
+| --- | --- | --- |
+| `CLAUDE.md` | 27 KB, 364 lines — **~7K tokens** | **every session, automatically** |
+| `outputs/radiography-study-studio.html` | 487 KB, 7,957 lines — ~125K tokens | any session touching app logic |
+| `outputs/study-data.js` | 465 KB, 4,900 lines — ~120K tokens | any session touching lesson content |
+| `outputs/mesh-index.js` | 141 KB — ~36K tokens | any session asking what is modelled |
+| Blind grep-and-read orientation | 5–20K tokens | every session |
+
+Three separate causes, and they are not equally important:
+
+1. **The always-on cost is invisible.** Most of `CLAUDE.md` is *area-specific*
+   traps — the mesh-name normaliser, `syncOverlayYaw`, the region classifiers,
+   `measureGrid`. All of it loads in full even when the session is fixing a CSS
+   rule. Nothing in the file distinguishes "true for every session" from
+   "true when you are editing the cavity builders".
+2. **There is no map, so a session greps.** Finding the search-to-viewer bridge
+   means several grep-and-read rounds against a 7,957-line file, and each round
+   pulls context that is discarded.
+3. **The monoliths make every read all-or-nothing.** Two inline
+   `<script type="module">` blocks (3,406 and 3,447 lines) hold the entire
+   application. There is no unit smaller than "the whole app" to open.
+
+The rule this establishes: **a session should be able to find the 200 lines it
+needs without reading anything larger than the map.**
+
+## Non-goals
+
+- No build step, no framework, no bundler. Unchanged product constraint.
+- No reformatting, renaming, or style cleanup during any move. Diff noise makes
+  the baseline comparison worthless, which is the only safety net phases 2–5
+  have.
+- No splitting of generated files (`mesh-index.js`, `work/course-terms.json`).
+  The generators own their shape.
+- No behaviour change anywhere. This is a context-cost change; if the rendered
+  app differs in any way, the phase is wrong.
+
+## Approach
+
+Three moves, in descending order of leverage:
+
+1. **Slim the always-on context.** `CLAUDE.md` keeps only what is true for
+   every session. Area-specific traps move into the header of the module they
+   guard, where a session reads them only if it is working there.
+2. **Add a generated map.** `docs/CODEMAP.md`, built from the banner comments
+   that already exist in the code, so it cannot drift.
+3. **Split the monoliths**, so the map has small things to point at.
+
+The map is load-bearing and comes first. Splitting without a map costs *more*
+than the monolith — more files to discover, and no index to discover them by.
+
+## Current shape
+
+Both inline blocks are already sectioned by `/* ---- *\n * Title` banners. The
+banners are, in effect, a file list that was never acted on.
+
+### Block 0 — 3D studio, lines 1083–4488
+
+| Banner | Lines |
+| --- | --- |
+| (imports, `els`, `state`, `LAYER_NAMES`) | 1083–1100 |
+| Hide, and search-driven uncover | 1101–1198 |
+| Search → viewer: frame the part | 1199–1418 |
+| Spatial concept overlays | 1419–1869 |
+| Cavity geometry, derived from the loaded anatomy | 1870–2330 |
+| Visualisation modes (contains the `window.__osteo` literal at 2557) | 2331–3525 |
+| Live physiology | 3526–4488 |
+
+Block 0 does **not** split cleanly. 109 top-level declarations close over one
+mutable `state` object, and the `window.__osteo` surface sits *inside* the
+visualisation-modes section rather than at a boundary. This is the same code the
+trap list documents ~20 measurement bugs in.
+
+### Block 1 — study system, lines 4489–7935
+
+| Banner | Lines |
+| --- | --- |
+| Storage — versioned keys, migration | 4518–4620 |
+| Moving progress between devices | 4621–4665 |
+| Reset | 4666–4896 |
+| Small UI helpers | 4897–4940 |
+| Home | 4941–4944 |
+| Navigation — five destinations | 4945–5023 |
+| Review — mistakes, due items, mastery map | 5024–5071 |
+| More — sources, coverage | 5072–5076 |
+| Global search | 5077–5414 |
+| Search → viewer | 5415–5450 |
+| Hidden tray | 5451–5470 |
+| Spatial overlay controls | 5471–5735 |
+| Subject | 5736–5991 |
+| What is under the tap | 5992–6144 |
+| Session engine | 6145–6355 |
+| Lesson visuals | 6356–6583 |
+| Reading help | 6584–6870 |
+| Layout figures | 6871–7721 |
+| Source dialog | 7722–7764 |
+| Coverage report | 7765–7810 |
+| Mastery dashboard | 7811–7815 |
+| Boot | 7816–7844 |
+| Dialog behaviour, all seven at once | 7845–7935 |
+
+Block 1 splits along these lines with no restructuring.
+
+### `study-data.js`
+
+`STUDY_ITEMS` is a spread of seven named arrays, so the corpus separates from
+the scaffolding without touching either:
+
+```js
+export const STUDY_ITEMS = [
+  ...HSS_TERMINOLOGY, ...HSS_OSTEOLOGY, ...BONE_ITEMS, ...STRUCTURE_ITEMS,
+  ...MOVEMENT_ITEMS, ...HSS_JOINTS, ...HSS_MODULES, ...PHYS_ITEMS,
+  ...HTI_ITEMS, ...EXPANSION_ITEMS,
+].map((item) => ({ status: 'unseen', ...item }));
+```
+
+Thirteen files import it: `bodymap.js`, `schematics.js`, `visual-data.js`,
+`sw.js`, the HTML, and nine `work/` scripts.
+
+## Target layout
+
+```
+outputs/
+  radiography-study-studio.html   ~800 lines — markup + two <script src> tags
+  app.css                         746 lines (was the inline <style>)
+
+  studio/          block 0 — split LAST, and only as far as is safe
+    state.js         the shared singleton, els, bodyTransform
+    hide.js          hide / search-driven uncover              ~100
+    reveal.js        search → viewer framing                   ~220
+    overlays.js      cavities, regions, quadrants, planes      ~450
+    cavity.js        geometry derived from loaded anatomy      ~460
+    modes.js         visualisation modes + the __osteo surface ~1200
+    physiology.js    live physiology                           ~960
+
+  study/           block 1 — splits along its own banners
+    storage.js       versioned keys, device sync, reset        ~380
+    nav.js           navigation + small UI helpers             ~130
+    review.js        mistakes, due items, mastery map          ~55
+    search.js        the global search sheet                   ~340
+    viewer-bridge.js search→viewer, hidden tray, overlay ctls  ~320
+    subject.js                                                 ~256
+    tap.js           what is under the tap                     ~153
+    session.js       the session engine                        ~211
+    visuals.js       lesson visuals                            ~228
+    reading-help.js                                            ~287
+    figures.js       layout figures                            ~850
+    dialogs.js       source, coverage, dialog behaviour        ~180
+    boot.js                                                    ~30
+
+  study/corpus/    study-data.js's contents
+    schema.js        SOURCE_ROOTS/FILES, SUBJECTS, ITEM_TYPES,
+                     MASTERY_DIMENSIONS, MEMORY_METHODS, PRIOR_KNOWLEDGE,
+                     DSE_PARTS, STUDY_MODES, MODULES
+    hss-terminology.js    408–642
+    hss-osteology.js      643–1288
+    hss-joints.js        1289–1516
+    hss-modules.js       1563–1928
+    physiology-items.js  1929–2840
+    hti-items.js         2841–3193
+    expansion-items.js   3565–4119
+    structures.js    STRUCTURE_SETS, JOINT_MOVEMENTS, STRUCTURE_MODELS,
+                     BONE_HOOKS, STRUCTURE_HOOKS, MOVEMENT_HOOKS, derived items
+    mastery.js       schedule, masteryScore, isDue, tierFor, dimensionFor,
+                     blankMastery, isDelayedAttempt
+    validate.js      validateQuestion, validateCorpus, validateApplications
+    coverage.js      COVERAGE, DIAGRAMS, SOCIOLOGY_NOTICE, PLACEHOLDER_NOTICES
+
+  study-data.js    barrel — re-exports everything, assembles STUDY_ITEMS
+```
+
+`study-data.js` surviving as a barrel is what keeps the thirteen importers
+untouched.
+
+`window.__osteo` is unchanged: one object literal, one cross-block channel. The
+two blocks stay two separate `<script type="module" src=…>` tags, so they keep
+separate import scopes — the trap in `CLAUDE.md` still applies verbatim.
+
+## Deliverables
+
+### `docs/CODEMAP.md` — generated
+
+Section title → file → line range → exported surface, for every file in
+`outputs/`. Built by `work/codemap.mjs` by scanning for the existing
+`/* ---- *\n * Title` banners and `export` statements. Target under 200 lines.
+
+`work/codemap-check.mjs` joins the after-every-edit set and fails if the
+committed map does not match a fresh generation. The map is never hand-edited.
+
+### `docs/DATA-INDEX.md` — generated
+
+What a session needs to know about `mesh-index.js` and `course-terms.json`
+without opening either: row counts per layer, the shape of one row, what `UNITS`
+is and how a row resolves to one, how tiering is derived, the three genuinely
+`NOT_MODELLED` structures. Target ~80 lines against 141 KB.
+
+### `work/query.mjs` — new
+
+A CLI so a session **asks** the data instead of reading it:
+
+```bash
+node work/query.mjs unit "Deltoid"
+node work/query.mjs item hss-term-01
+node work/query.mjs mesh Scaphoid
+```
+
+Answers in tens of lines. "What does the index say about X" is the most common
+reason a session opens a large generated file, so this is the largest
+per-session saving after the map itself.
+
+### `CLAUDE.md` — rewritten, 364 → ~120 lines
+
+Keeps: the layout table, the hard rules, the run command, the after-every-edit
+command list, the git/deploy note, and a pointer to `docs/CODEMAP.md` with the
+instruction to read it before grepping.
+
+Moves out: every trap that applies to one area. Each goes to the header of the
+module that owns it — the mesh-name normaliser trap to `studio/reveal.js`, the
+`updateMatrixWorld` traps to `studio/cavity.js`, the grid traps to
+`studio/overlays.js`, the CSS traps to `app.css`, the label-derivation traps to
+`work/build-mesh-index.mjs`. Nothing is deleted; the trap list is the repo's
+most valuable document. It is only relocated to where it is read on demand.
+
+## Phasing
+
+Every phase is independently shippable and independently revertible, ends with
+the full check suite plus a baseline diff, and bumps `CACHE_VERSION` with
+matching `?v=N` SHELL entries.
+
+`app.css` is a `<link>`, not a module import, so `shell-check.mjs` does not
+currently police it. Phase 2 extends the check to cover versioned `<link>`
+hrefs as well — an unversioned stylesheet in the SHELL is the same offline
+cache-miss bug the `?v=N` rule exists to prevent, and it would only show up
+offline.
+
+| Phase | What moves | Risk | Saving |
+| --- | --- | --- | --- |
+| **0** | Nothing ships. Make the probes deterministic, capture baselines, write `work/codemap.mjs`, `work/data-index.mjs` and `work/codemap-check.mjs`. | none | none yet |
+| **1** | `CLAUDE.md` slimmed; `docs/CODEMAP.md`, `docs/DATA-INDEX.md` generated and committed; `work/query.mjs` added; `codemap-check.mjs` joins the check list. | none — docs and tooling only | **~5K tokens off every session** |
+| **2** | `<style>` → `app.css`; block 0 → `studio.js`; block 1 → `study.js`. Byte-identical move. | low | the monolith stops being unavoidable |
+| **3** | `study-data.js` → `study/corpus/*.js` + barrel. | low — public API identical | lesson-content edits get cheap |
+| **4** | `study.js` → `study/*.js` along its banners. | medium | the common case gets cheap |
+| **5** | `studio.js` → `studio/*.js`, partial. | **high** — the `state` singleton | the rare case gets cheaper |
+
+### Phase 0 baselines
+
+The existing checks prove modules *load*, not that overlays *measure*. The trap
+list documents ~20 bugs a load-check would have passed. So before any code
+moves, make each probe deterministic — no timestamps, no wall-clock durations,
+key order sorted — then capture and commit the output of:
+
+`cavity-probe.mjs`, `grid-probe.mjs` (with and without `--all`),
+`landmark-check.mjs`, `build-check.mjs` (with all layers and skeleton-only),
+`region-probe.mjs`, `search-probe.mjs`, `figure-key-check.mjs`
+
+into `work/baselines/`. Every later phase diffs against them. A phase that
+changes a baseline has changed behaviour and is wrong by definition.
+
+### Phase 5 may stop early
+
+If `modes.js` will not come apart without threading `state` through sixty
+functions, `studio.js` stays whole and `docs/CODEMAP.md` points into it by line
+range. That still captures most of the benefit, because the map is what saves
+the tokens — the file boundary only makes the map's targets smaller.
+
+The decision point is explicit: attempt `state.js` as an exported mutable
+singleton first. If the resulting diff touches more than ~30% of block 0's
+lines, stop and keep `studio.js` whole.
+
+## Verification
+
+After every phase, the standard set:
+
+```bash
+node work/load-check.mjs
+node work/syntax-check.mjs
+node work/verify-modules.mjs
+node work/shell-check.mjs
+node work/search-probe.mjs
+node work/region-probe.mjs
+node work/figure-key-check.mjs
+node work/codemap-check.mjs      # new in phase 0
+```
+
+plus a diff against `work/baselines/`, and — for phases 2, 4 and 5 — a manual
+pass in real Chrome over: boot on Today then open Viewer (the degenerate-resize
+trap), a cavity overlay with the vessel layer toggled on afterwards (the
+rebuild trap), a search that opens the viewer and auto-uncovers, and the hidden
+tray.
+
+## Success criteria
+
+- `CLAUDE.md` under 130 lines, with no trap that applies to a single module.
+- `docs/CODEMAP.md` under 200 lines and generated.
+- A session can locate any named behaviour by reading only `CLAUDE.md` plus
+  `docs/CODEMAP.md` — no grep round needed to find *where*.
+- No file in `outputs/` over 1,500 lines except the generated ones and, if
+  phase 5 stops early, `studio.js`.
+- Every probe baseline byte-identical from phase 0 to the end.
+- The deployed app is indistinguishable from before.
