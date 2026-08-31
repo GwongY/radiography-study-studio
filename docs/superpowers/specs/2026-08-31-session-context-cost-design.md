@@ -314,8 +314,8 @@ Measured on 2026-08-31, on completion of the phase-0/1 plan.
 | | Lines | Bytes | ~Tokens |
 | --- | --- | --- | --- |
 | `CLAUDE.md` before | 365 | 27,153 | 7,339 |
-| `CLAUDE.md` after | 126 | 9,818 | 2,654 |
-| **Saved, every session** | | | **~4,685 (64%)** |
+| `CLAUDE.md` after | 129 | 10,041 | 2,714 |
+| **Saved, every session** | | | **~4,625 (63%)** |
 
 ### Moved to on-demand
 
@@ -323,7 +323,7 @@ Read only by a session that needs them, and only the relevant section of each.
 
 | File | Lines | ~Tokens | Replaces a read of |
 | --- | --- | --- | --- |
-| `docs/CODEMAP.md` | 196 | 3,456 | `radiography-study-studio.html` — 7,957 lines, ~131,500 tokens |
+| `docs/CODEMAP.md` | 199 | 3,510 | `radiography-study-studio.html` — 7,957 lines, ~131,500 tokens |
 | `docs/TRAPS.md` | 293 | 5,361 | (was inside the always-on cost) |
 | `docs/DATA-INDEX.md` | 90 | 787 | `mesh-index.js` — ~38,200 tokens |
 | `work/query.mjs` | — | tens | `study-data.js` — ~125,700 tokens |
@@ -338,8 +338,8 @@ first implementation and was caught in review.
 
 | Criterion | Met | Actual |
 | --- | --- | --- |
-| `CLAUDE.md` under 130 lines | yes | 126 |
-| `docs/CODEMAP.md` under 200 lines, generated | yes | 196, from `work/codemap.mjs` |
+| `CLAUDE.md` under 130 lines | yes | 129 (10,041 bytes against a 10,000 target — 41 over, not worth shaving) |
+| `docs/CODEMAP.md` under 200 lines, generated | yes | 199, from `work/codemap.mjs` |
 | Every probe baseline reproducible | yes | all 8, none excluded |
 | No trap lost in the move | yes | 43 bolded bullets before, 3 + 40 = 43 after |
 | Application untouched | yes | `git diff master..HEAD -- outputs/` empty |
@@ -385,3 +385,29 @@ working-tree file, so the 365-line original has no git history. Its content
 survives in full across the new `CLAUDE.md` and `docs/TRAPS.md` (verified
 against 26 distinctive strings spanning every original section), but there is no
 `git show` to recover it from. Both files are tracked now.
+
+### Landed after the final review
+
+The whole-branch review returned READY TO MERGE with three recommendations.
+All three were taken, because each protects the premise that these documents
+can be trusted without opening what they describe:
+
+- **`work/data-index-check.mjs`.** `docs/CODEMAP.md` had a drift check;
+  `docs/DATA-INDEX.md` had none, so the first study item, synonym or
+  `mesh-index.js` rebuild would have made it quietly wrong. It also gives
+  phase 3 a corpus digest: the probe baselines freeze the geometry engine, but
+  nothing froze the item counts, so a `study-data.js` split could have altered
+  content while `validateCorpus()` still passed.
+- **A Traps column on the map's verifiers table.** The two sharpest trap
+  sections — the mesh index and the course terms — were unreachable from the
+  map, so a session told "read the map first" would open
+  `work/build-mesh-index.mjs` and see only a one-line headline.
+- **Rows for the unmapped markup.** `htmlBlocks()` only sections `<style>` and
+  `<script>`, so HTML lines 766–1081 — the nav rail, the five views, the
+  dialogs — produced no row at all. A table headed "where everything is" was
+  telling a markup task there was nothing to find. Gaps now render as
+  `markup — no banners, grep here`.
+
+The hard-coded index counts in `CLAUDE.md`'s module table were also removed and
+replaced with a pointer to `docs/DATA-INDEX.md` — they duplicated the generated
+file and would have rotted silently in the one document every session pays for.

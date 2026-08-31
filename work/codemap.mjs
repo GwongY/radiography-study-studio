@@ -194,11 +194,22 @@ const htmlTraps = trapCell(`outputs/${HTML}`);
 if (htmlTraps) { p(`Traps: ${htmlTraps.replace(/<br>/g, ' · ')}`); p(); }
 p('| Lines | Section |');
 p('| --- | --- |');
+/*
+ * Account for EVERY line, not just the blocks. The markup between </style> and
+ * the first module — the nav rail, the five views, the dialogs — is a third of
+ * a thousand lines with no banners in it. Leaving it out of a table headed
+ * "where everything is" tells a session working on markup that there is
+ * nothing to find, which is worse than telling it to grep.
+ */
+let cursor = 1;
 for (const b of blocks) {
+  if (b.from > cursor) p(`| ${cursor}–${b.from - 1} | markup — no banners, grep here |`);
   for (const r of sections(htmlLines, b.from, b.to, `${b.label} · `)) {
     p(`| ${r.from}–${r.to} | ${r.title} |`);
   }
+  cursor = b.to + 1;
 }
+if (cursor <= htmlLines.length) p(`| ${cursor}–${htmlLines.length} | markup — no banners, grep here |`);
 p();
 
 /* ---- the data modules ---- */
@@ -246,10 +257,16 @@ if (sectioned.length) {
 /* ---- the verifiers ---- */
 p('## Verifiers and generators — `work/*.mjs`');
 p();
-p('| Script | What it does |');
-p('| --- | --- |');
+/*
+ * These carry traps too, and the sharpest ones: how a unit label is derived,
+ * what ABSORB does, why the Martini eBook is excluded. Without the column a
+ * session told to read the map first opens build-mesh-index.mjs and sees only
+ * a one-line headline.
+ */
+p('| Script | What it does | Traps |');
+p('| --- | --- | --- |');
 for (const f of readdirSync(join(root, 'work')).filter((f) => f.endsWith('.mjs')).sort()) {
-  p(`| \`work/${f}\` | ${headline(linesOf(join(root, 'work', f)))} |`);
+  p(`| \`work/${f}\` | ${headline(linesOf(join(root, 'work', f)))} | ${trapCell(`work/${f}`)} |`);
 }
 p();
 

@@ -44,8 +44,8 @@ read them and never edit them; ask `work/query.mjs` instead.
 | `visual-data.js`, `schematics.js`, `figures.js`, `layouts.js` | Lesson visuals. `figures.js` / `visual-data.js` `PLATES` — published images, each with an `intro` line and a callout `key` (`{mark,name,beyond?}`) so the lesson teaches from the image; `beyond` = a callout the lesson's sources don't name, read off the figure's own labelling, rendered dimmed. `work/figure-key-check.mjs` enforces this. |
 | `wordparts.js`, `term-notes.js`, `term-gloss.js` | Terminology fold: root/prefix/suffix decomposition, pronunciation + plain-English notes, tappable glossary. |
 | `sw.js` | Service worker. `CACHE_VERSION` + the SHELL list. |
-| `mesh-index.js` | **Generated** — every named mesh in every GLB layer (1,686 structures, side- and duplicate-collapsed), each carrying the course file that names it (or nothing) and the STUDY UNIT it resolves to. `UNITS` (787) is what a tap can select: 619 course-named structures, 158 groups, 10 one of a kind. Rebuild with `node work/build-course-terms.mjs` then `node work/build-mesh-index.mjs`; never hand-edit. |
-| `work/course-terms.json` | **Generated, committed** — which of the 1,686 the HSS2011 / ABCT2326 taught and assessed material names, and where. Needs the drive to rebuild; `build-mesh-index.mjs` only reads it. |
+| `mesh-index.js` | **Generated** — every named mesh in every GLB layer, side- and duplicate-collapsed, each carrying the course file that names it (or nothing) and the STUDY UNIT it resolves to. `UNITS` is what a tap can select. Counts live in `docs/DATA-INDEX.md`, never here. Rebuild with `node work/build-course-terms.mjs` then `node work/build-mesh-index.mjs`; never hand-edit. |
+| `work/course-terms.json` | **Generated, committed** — which structures the HSS2011 / ABCT2326 taught and assessed material names, and where. Needs the drive to rebuild; `build-mesh-index.mjs` only reads it. |
 | `synonyms.js` | `SYNONYMS` (query expansion: collarbone→clavicle, esophagus→oesophagus, CN X→vagus), `COMPOSITES` (a name with no mesh but real parts — larynx, ossicles, eyeball), `NOT_MODELLED` (the three things genuinely absent). |
 | `bodymap.js` | `SEARCH_EXTRAS` (atlas structures beyond the curated bone list, each → a named mesh in a system layer) + `BODY_CONCEPTS` (cavities/regions/quadrants/planes: names, aliases, blurbs, colour, containment hierarchy — **no geometry**). |
 | `landmarks.js` | Semantic key → the meshes currently loaded. The resolver every cavity builder goes through. |
@@ -87,13 +87,17 @@ node work/shell-check.mjs       # ?v= imports match the SW SHELL; shell files ex
 node work/search-probe.mjs      # index integrity, synonyms, tiering, study units
 node work/region-probe.mjs      # every skeleton mesh lands in the right region
 node work/figure-key-check.mjs  # every figure/plate a lesson shows has intro + key
-node work/codemap-check.mjs  # the map matches the code; TRAPS names real files
+node work/codemap-check.mjs     # the map matches the code; TRAPS names real files
+node work/data-index-check.mjs  # the data summary matches the data
 node work/baseline.mjs --check  # the probes still say what they said
 ```
 
 - Added, moved or renamed a section banner, a file, or an export? Run
   `node work/codemap.mjs` and commit the regenerated `docs/CODEMAP.md`.
   `codemap-check.mjs` fails until you do.
+- Changed a study item, a synonym, a `COMPOSITE`, or rebuilt `mesh-index.js`?
+  Run `node work/data-index.mjs` and commit `docs/DATA-INDEX.md`.
+  `data-index-check.mjs` fails until you do.
 - A trap you learn the hard way goes in `docs/TRAPS.md`, under the file it
   governs — not here. This file is loaded into every session; that one is read
   only by a session working in that file.
