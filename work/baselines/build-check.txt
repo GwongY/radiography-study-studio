@@ -1,0 +1,82 @@
+
+================ ALL SEVEN LAYERS LOADED ================
+  built in <ms>   diaphragm: real mesh
+  cav-cranial        exact  parts=1 verts=  576  y 1.556..1.701  x -0.070..0.070  z -0.098..0.079
+  cav-vertebral      exact  parts=1 verts= 1358  y 0.943..1.537  x -0.020..0.020  z -0.066..0.006
+                       note: 25 vertebral foramina located
+  cav-thoracic       exact  parts=1 verts= 2016  y 1.155..1.439  x -0.126..0.126  z -0.082..0.112
+                       note: floor is the diaphragm mesh
+  cav-pleural        exact  parts=2 verts= 2240  y 1.174..1.424  x -0.137..0.138  z -0.086..0.106
+  cav-mediastinum    exact  parts=1 verts= 1144  y 1.222..1.399  x -0.077..0.080  z -0.034..0.095
+                       note: lateral walls are the medial surfaces of the lungs
+  cav-pericardial    exact  parts=1 verts=  448  y 1.230..1.349  x -0.044..0.090  z -0.039..0.087
+  cav-abdominal      exact  parts=1 verts= 1632  y 0.833..1.259  x -0.131..0.131  z -0.083..0.116
+                       note: lateral wall measured from the abdominal muscles
+  cav-pelvic         exact  parts=1 verts= 1144  y 0.806..0.984  x -0.071..0.075  z -0.077..0.042
+  --- relationships ---
+    ok   mediastinum is inside the thoracic cavity
+    ok   pericardial sac is inside the mediastinum
+    ok   pericardial sac is much smaller than the thorax  — 14.3% of its box volume
+    ok   abdominal cavity sits below the thoracic cavity  — abdomen 0.833..1.259  thorax 1.155..1.439
+    ok   pelvic cavity sits below the abdominal cavity
+    ok   abdomen and pelvis meet without a gap  — pelvis top 0.984 vs abdomen floor 0.833
+    ok   pelvic cavity stays inside the pelvic bones  — cavity x -0.071..0.075 vs bone -0.135..0.135
+    ok   cranial cavity stays inside the skull
+    ok   vertebral canal is behind the thoracic cavity centre  — canal z -0.030 vs thorax centre 0.015
+    ok   vertebral canal is narrow  — 0.040 m wide
+    ok   vertebral canal runs most of the trunk  — 0.594 m long
+    ok   the two pleural cavities are separate  — left x 0.009..0.138   right x -0.137..-0.003
+    ok   pleural cavities are lateral to the mediastinum
+
+================ SKELETON ONLY (first open) ================
+  built in <ms>   diaphragm: synthesised from the costal margin
+  cav-cranial        exact  parts=1 verts=  576  y 1.556..1.701  x -0.070..0.070  z -0.098..0.079
+  cav-vertebral      exact  parts=1 verts= 1358  y 0.943..1.537  x -0.020..0.020  z -0.066..0.006
+                       note: 25 vertebral foramina located
+  cav-thoracic       exact  parts=1 verts= 2016  y 1.078..1.439  x -0.126..0.126  z -0.082..0.112
+                       note: floor raised off the costal margin (muscle layer not loaded)
+  cav-pleural        approx parts=2 verts= 3264  y 1.078..1.439  x -0.126..0.126  z -0.081..0.112
+                       note: lungs not loaded — medial wall placed at the vertebral bodies
+  cav-mediastinum    approx parts=1 verts= 1144  y 1.218..1.400  x -0.033..0.033  z -0.035..0.088
+                       note: organ layer not loaded — width estimated from the vertebral bodies
+  cav-pericardial    approx parts=1 verts=  792  y 1.287..1.351  x -0.009..0.047  z -0.024..0.076
+                       note: circulatory layer not loaded — sac occupies the lower mediastinum, not measured from the heart
+  cav-abdominal      exact  parts=1 verts= 1632  y 0.858..1.277  x -0.130..0.131  z -0.085..0.109
+                       note: lateral wall interpolated between the costal margin and the iliac crest
+  cav-pelvic         exact  parts=1 verts= 1144  y 0.806..0.984  x -0.071..0.075  z -0.077..0.042
+  --- relationships ---
+    ok   mediastinum is inside the thoracic cavity
+    ok   pericardial sac is inside the mediastinum
+    ok   pericardial sac is much smaller than the thorax  — 2.1% of its box volume
+    ok   abdominal cavity sits below the thoracic cavity  — abdomen 0.858..1.277  thorax 1.078..1.439
+    ok   pelvic cavity sits below the abdominal cavity
+    ok   abdomen and pelvis meet without a gap  — pelvis top 0.984 vs abdomen floor 0.858
+    ok   pelvic cavity stays inside the pelvic bones  — cavity x -0.071..0.075 vs bone -0.135..0.135
+    ok   cranial cavity stays inside the skull
+    ok   vertebral canal is behind the thoracic cavity centre  — canal z -0.030 vs thorax centre 0.015
+    ok   vertebral canal is narrow  — 0.040 m wide
+    ok   vertebral canal runs most of the trunk  — 0.594 m long
+    ok   the two pleural cavities are separate  — left x 0.043..0.126   right x -0.126..-0.043
+    ok   pleural cavities are lateral to the mediastinum
+
+================ EVERY LAYER COMBINATION ================
+  cavity                  #0    #1    #2    #3    #4    #5    #6    #7
+  cav-cranial             ok    ok    ok    ok    ok    ok    ok    ok
+  cav-vertebral           ok    ok    ok    ok    ok    ok    ok    ok
+  cav-thoracic            ok    ok    ok    ok    ok    ok    ok    ok
+  cav-pleural            est    ok   est   est    ok    ok    ok    ok
+  cav-mediastinum        est    ok   est   est    ok    ok    ok    ok
+  cav-pericardial        est   est   est    ok   est    ok    ok    ok
+  cav-abdominal           ok    ok    ok    ok    ok    ok    ok    ok
+  cav-pelvic              ok    ok    ok    ok    ok    ok    ok    ok
+    #0 skeleton
+    #1 skeleton + organs
+    #2 skeleton + muscle
+    #3 skeleton + circulatory
+    #4 skeleton + muscle + organs
+    #5 skeleton + organs + circulatory
+    #6 skeleton + muscle + organs + circulatory
+    #7 skeleton + muscle + organs + circulatory + nervous + lymphatic + joint
+    ok   every cavity builds in every layer combination
+
+ALL BUILD CHECKS PASSED

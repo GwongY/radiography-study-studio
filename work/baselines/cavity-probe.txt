@@ -1,0 +1,63 @@
+body: y 0.009..1.705  H=1.696 m
+
+VERTEBRAL CANAL
+  vertebrae in: 24   foramina found: 24
+  canal radius  min 0.009  max 0.017 m  (real: ~0.006-0.012)
+  ok   every vertebra reported a foramen  — 24/24
+  ok   canal radius is anatomically plausible
+  canal z: cervical -0.023  thoracic -0.052  lumbar -0.009
+  ok   canal curves rather than running straight
+  ok   canal stays on the midline  — max |x| 0.000
+     atlas (c1)     y=1.543 (fy 0.904)  z=-0.021  r=0.015
+     axis (c2)      y=1.530 (fy 0.897)  z=-0.024  r=0.009
+     vertebra c3    y=1.506 (fy 0.883)  z=-0.022  r=0.009
+     vertebra l4    y=1.015 (fy 0.593)  z=0.003  r=0.015
+     vertebra l5    y=0.983 (fy 0.574)  z=-0.021  r=0.019
+
+THORACIC CAVITY
+  wall cloud y 1.056..1.453  (fy 0.617..0.851)
+  mid-chest ring: y 1.282 axis(0.000,0.004) rmax 0.124
+  ok   chest half-width is plausible  — 0.124 m
+  ok   mid-chest ring is mostly real bone  — 100% sectors covered
+  radius front 0.083  back 0.055
+
+DIAPHRAGM
+  ok   diaphragm mesh present in the muscle layer
+  diaphragm cloud y 1.042..1.262 (fy 0.609..0.739)
+  height at: right dome 1.257  left dome 1.238  front 1.245  back 1.187
+  ok   dome sits higher in front than behind  — front 1.245 vs back 1.187  (this is the costodiaphragmatic recess)
+  ok   right dome is at least as high as the left  — liver pushes the right dome up
+  synthesised (no muscle layer): front 1.250  back 1.195
+  ok   synthesised dome also leans forward
+
+CRANIAL CAVITY
+  vault box y 1.549..1.705  x +-0.074  z -0.103..0.087
+  inner radius min 0.053  max 0.096 m  (real: ~0.06-0.09)
+  ok   cranial cavity radius is plausible
+  ok   every cranial-cavity vertex is inside the vault  — 0 vertices escaped
+
+PELVIC CAVITY
+  pelvic bones y 0.797..1.012 (fy 0.465..0.591)
+  sacral promontory y 0.960 z -0.023   pubic symphysis top y 0.854 z 0.021
+  ok   the inlet slopes down towards the front  — promontory is 0.106 m higher — that tilt is the pelvic inclination
+  true-pelvis rmax 0.079 m  (a real pelvic inlet is ~0.06-0.07 m in radius)
+  ok   pelvic cavity stays inside the pelvic ring  — 0.079 m
+  ok   pelvic cavity is not a pinpoint
+  ok   nothing pokes up through the pelvic inlet  — 0 vertices above the brim
+
+PERICARDIAL CAVITY
+  heart box x -0.037..0.082  y 1.237..1.345  z -0.032..0.081
+  sac radius min 0.038  max 0.074 m
+  ok   pericardial sac is much smaller than the chest
+  ok   heart sits left of the midline  — centre x 0.023 (+x is the patient's left)
+
+PLEURAL CAVITIES
+  left lung  x 0.009..0.130   right lung x -0.131..-0.003
+  ok   the two lungs do not overlap across the midline  — gap between them is the mediastinum
+  mediastinal width between lungs: 0.012 m
+
+ANTERIOR ABDOMINAL SURFACE
+  front z at midline 0.106   at flank 0.073
+  ok   the belly bulges forward of the flank  — so the grid curves round the body
+
+ALL CHECKS PASSED

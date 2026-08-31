@@ -784,10 +784,19 @@ Run: `node -e "import('./outputs/mesh-index.js').then(m=>console.log(m.MESH_INDE
 
 Expected: `1686 rows 787 units`, matching the totals in the generated file.
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 4: Regenerate the codemap**
+
+Adding `work/data-index.mjs` changes the "Verifiers and generators" table, so the
+committed map is now stale and `work/codemap-check.mjs` fails until it is rebuilt.
+
+Run: `node work/codemap.mjs && node work/codemap-check.mjs`
+
+Expected: the map is rewritten, then `ALL PASS`.
+
+- [ ] **Step 5: Commit**
 
 ```bash
-git add work/data-index.mjs docs/DATA-INDEX.md
+git add work/data-index.mjs docs/DATA-INDEX.md docs/CODEMAP.md
 git commit -m "docs(data): summarise the generated files so nobody opens them
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
@@ -933,10 +942,19 @@ Run: `node work/query.mjs`
 
 Expected: usage text listing the five commands and the seven layer keys, exit 1.
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 4: Regenerate the codemap**
+
+Adding `work/query.mjs` changes the "Verifiers and generators" table, so the
+committed map is stale until it is rebuilt.
+
+Run: `node work/codemap.mjs && node work/codemap-check.mjs`
+
+Expected: the map is rewritten, then `ALL PASS`.
+
+- [ ] **Step 5: Commit**
 
 ```bash
-git add work/query.mjs
+git add work/query.mjs docs/CODEMAP.md
 git commit -m "feat(query): ask the index and the corpus instead of reading them
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"

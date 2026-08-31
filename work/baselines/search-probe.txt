@@ -1,0 +1,151 @@
+— index —
+  ok   1686 structures indexed
+  ok   every row has name, layer and mesh
+  ok   no Blender duplicate suffix survived into a display name
+  ok   no modelling artefacts indexed
+  ok   all seven layers present (circulatory, joint, lymphatic, muscle, nervous, organs, skeleton)
+— the reported failure —
+  ok   the degenerate "Pharynx" node is not in the index
+  ok   "pharynx" resolves to a composite
+  ok   "pharynx" finds all three named parts
+  ok   "throat" reaches the pharynx via synonym
+  ok   "larynx" is NOT claimed to be missing — its cartilages are loaded
+  ok   "larynx" resolves to a composite
+  ok   "larynx" surfaces the laryngeal cartilages
+  ok   "voice box" reaches the same composite
+  ok   "eye" reaches the eyeball's parts
+  ok   "ossicles" reaches the ear bones
+  ok   "thymus" finds the thymus
+— multiple names for one thing —
+  ok   "collarbone" finds Clavicle
+  ok   "kneecap" finds Patella
+  ok   "breastbone" finds Sternum
+  ok   "tailbone" finds Coccyx
+  ok   "shoulder blade" finds Scapula
+  ok   "thigh bone" finds Femur
+  ok   "windpipe" finds Trachea
+  ok   "esophagus" finds Oesophagus
+  ok   "gullet" finds Oesophagus
+  ok   "adrenal gland" finds Suprarenal gland
+  ok   "vas deferens" finds Ductus deferens
+  ok   "appendix" finds Vermiform appendix
+  ok   "gall bladder" finds Gallbladder
+  ok   "achilles tendon" finds Calcaneal tendon
+  ok   "mitral valve" finds Posterior leaflet of left atrioventricular valve
+  ok   "tricuspid valve" finds Septal leaflet of right atrioventricular valve
+  ok   "cranial nerve x" finds Vagus nerve (X)
+  ok   "tenth cranial nerve" finds Vagus nerve (X)
+  ok   "posterior pituitary" finds Neurohypophysis
+  ok   "fallopian tube" finds Urinary bladder
+— expansion stays narrow —
+  ok   a 3-letter fragment does not pull in whole synonym groups
+  ok   "rib" does not match by accident inside another word group
+  ok   "kidney" finds Kidney
+  ok   "kidney" stays focused (14 hits, not every renal vessel)
+— catalogue names survive the loader's mangling —
+  ok   all 1686 index rows resolve after sanitizeNodeName
+  ok   all 1616 rows the loader renames still match (e.g. Abdominal aorta -> Abdominal_aorta)
+— study depth is read from the sources, not guessed —
+  ok   619 of 1686 structures are named by the course material
+  ok   every course-level row names the file that names it
+  ok   no row beyond the course claims a source
+  ok   every source carries how it names the structure
+  ok   261 rows are in the examinable glossary itself
+  ok   Liver is named by the course (listed)
+  ok   Stomach is named by the course (listed)
+  ok   Trachea is named by the course (listed)
+  ok   Kidney is named by the course (listed)
+  ok   Urinary bladder is named by the course (listed)
+  ok   Thyroid cartilage is named by the course (listed)
+  ok   Femur is named by the course (listed)
+  ok   Scapula is named by the course (listed)
+  ok   Oesophagus is named by the course (listed)
+  ok   Body of sternum is named by the course (named)
+  ok   Diaphragm is named by the course (listed)
+  ok   all 5 lung lobes are at course level
+  ok   and they got there by being described in place, or mirrored from the other side
+  ok   all 12 thoracic vertebrae are at course level
+  ok   six of them by their siblings, six named outright
+  ok   and the series pass admits nothing else but Vertebra L4
+  ok   all 22 segmental bronchi are folded away
+  ok   the first rib, which the glossary lists, stays on its own
+       sources: 37 files name at least one structure
+— every structure resolves to something a tap can select —
+  ok   every row has a unit
+  ok   and every unit is course-named, a group, or one of a kind
+  ok   1686 structures resolve to 787 units
+  ok   the row and the unit table agree on the label
+  ok   a unit never spans two layers -- the viewer keys ids by layer
+  ok   no course-named structure is grouped away under another name
+  ok   619 course-named structures, 619 course units
+  ok   every unit knows how many rows it holds
+  ok   a lone unit holds exactly one structure
+  ok   only 10 structures are one of a kind
+  ok   vessels: 419 structures, 186 named by the course, 225 selectable (34 groups, 5 one of a kind)
+— unit names read as anatomy, not as string surgery —
+  ok   no double plurals
+  ok   a phalanx of the foot is not a finger of it
+  ok   no group is named after its pieces where the whole could be named
+  ok   no group gave up and said "of the body"
+— groups are named after the thing, not the pieces —
+  ok   "Acromial part of deltoid muscle" belongs to Deltoid muscle
+  ok   "Descending part of trapezius muscle" belongs to Trapezius muscle
+  ok   "Sternocostal head of pectoralis major muscle" belongs to Pectoralis major muscle
+  ok   "Left coronary leaflet" belongs to Aortic valve
+  ok   "Anterior semilunar leaflet of pulmonary valve" belongs to Pulmonary valve
+  ok   "Adenohypophysis" belongs to Pituitary gland
+  ok   Long head of triceps brachii is named by the course, so it stands alone
+  ok   Lateral head of triceps brachii is named by the course, so it stands alone
+  ok   Medial head of triceps brachii is named by the course, so it stands alone
+  ok   "Deep branch of ulnar nerve" is selected as Ulnar nerve (got Ulnar nerve)
+  ok   Ulnar nerve still stands on its own
+  ok   "Left medial segment of liver (IV)" is selected as Liver (got Liver)
+  ok   Liver still stands on its own
+  ok   "Motor root of trigeminal nerve" is selected as Trigeminal nerve (V) (got Trigeminal nerve (V))
+  ok   Trigeminal nerve (V) still stands on its own
+  ok   a ligament of a bone is not absorbed into the bone
+  ok   segmental bronchi group as bronchi of the lung, not as the lung
+  ok   and the vessels of a lung are named after it too
+  ok   "Capitohamate interosseous ligament" is measured into Ligaments of the hand
+  ok   "Dorsal cuboideonavicular ligament" is measured into Ligaments of the foot
+  ok   "Abductor pollicis brevis" is measured into Muscles of the hand
+  ok   "Abductor hallucis" is measured into Muscles of the foot
+  ok   "Anconeus muscle" is measured into Muscles of the forearm
+  ok   "Retropharyngeal nodes" is measured into Lymph nodes of the head and neck
+  ok   "Pararectal nodes" is measured into Lymph nodes of the pelvis
+  ok   "Angular gyrus" is measured into Gyri of the brain
+  ok   the 10 ribs the notes never number individually group under "Ribs"
+  ok   the 14 teeth group under "Teeth", not "Bones of the head and neck"
+  ok   all 14 phalanges of the foot group under one row
+  ok   and the hand keeps its own, because a phalanx is not always in the foot
+       158 groups, largest: Muscles of the head and neck (46), Ligaments of the foot (39), Ligaments of the hand (33)
+— composites point at real meshes —
+  ok   Pharynx: Nasopharynx exists in the organs layer
+  ok   Pharynx: Oropharynx exists in the organs layer
+  ok   Pharynx: Laryngopharynx exists in the organs layer
+  ok   Larynx: Thyroid cartilage exists in the skeleton layer
+  ok   Larynx: Cricoid cartilage exists in the skeleton layer
+  ok   Larynx: Arytenoid cartilage exists in the skeleton layer
+  ok   Larynx: Corniculate cartilage exists in the skeleton layer
+  ok   Larynx: Epiglottis exists in the organs layer
+  ok   Auditory ossicles: Malleus exists in the skeleton layer
+  ok   Auditory ossicles: Incus exists in the skeleton layer
+  ok   Auditory ossicles: Stapes exists in the skeleton layer
+  ok   Auditory ossicles: Tympanic membrane exists in the nervous layer
+  ok   Eyeball: Sclera exists in the nervous layer
+  ok   Eyeball: Cornea exists in the nervous layer
+  ok   Eyeball: Iris exists in the nervous layer
+  ok   Eyeball: Lens exists in the nervous layer
+  ok   Eyeball: Retina exists in the nervous layer
+  ok   Eyeball: Vitreous body exists in the nervous layer
+  ok   Thymus: Left lobe of thymus exists in the lymphatic layer
+  ok   Thymus: Right lobe of thymus exists in the lymphatic layer
+— gap notes are usable, and honest —
+  ok   "breast" points at Sternocostal head of pectoralis major muscle, which exists in the muscle layer
+  ok   "breast" really is absent
+  ok   "uterus" points at Urinary bladder, which exists in the organs layer
+  ok   "uterus" really is absent
+  ok   "skin" points at Rectus abdominis muscle, which exists in the muscle layer
+  ok   "skin" really is absent
+
+ALL PASS
