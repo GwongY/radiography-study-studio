@@ -101,6 +101,15 @@ const rel = (dir, spec) => normalize(join(dir, spec.split('?')[0])).replace(/\\/
 function inline(src, dir) {
   return src
     .replace(/from\s+(['"])(\.\.?\/[^'"]+)\1/g, (m, q, spec) => `from ${q}${moduleUrl(rel(dir, spec))}${q}`)
+    /*
+     * A side-effect import — `import './parts/x.js';` — has no `from`, so the
+     * rule above never sees it. An entry point that is nothing but a list of
+     * these would be inlined to nothing at all and this check would report
+     * NO LOAD-TIME ERRORS having evaluated an empty module. Found while trying
+     * a barrel-of-side-effects split in phase 4.
+     */
+    .replace(/(^|\n)(\s*import\s+)(['"])(\.\.?\/[^'"]+)\3/g,
+      (m, nl, kw, q, spec) => `${nl}${kw}${q}${moduleUrl(rel(dir, spec))}${q}`)
     .replace(/import\(\s*(['"])(\.\.?\/[^'"]+)\1\s*\)/g, (m, q, spec) => `import(${q}${moduleUrl(rel(dir, spec))}${q})`);
 }
 
