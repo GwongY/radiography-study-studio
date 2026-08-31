@@ -55,10 +55,19 @@ ok(!MESH_INDEX.some((m) => /^(Mesh|Circle|Cube)$/i.test(m.name)), 'no modelling 
 console.log(`— the reported failure —`);
 {
   const p = hitsFor('pharynx');
-  ok(p.includes('Pharynx'), `"pharynx" finds Pharynx`);
+  /*
+   * There is no mesh called "Pharynx" and there should not be. The organs
+   * layer carried a node called `Pharynx.j` which was a zero-height sliver,
+   * not anatomy — it won the name and framed an invisible nothing in the
+   * neck. The generator drops degenerate nodes; the whole is a composite of
+   * the three real floors.
+   */
+  ok(!MESH_INDEX.some((m) => m.name === 'Pharynx'),
+    `the degenerate "Pharynx" node is not in the index`);
+  ok(!!compositeFor('pharynx'), `"pharynx" resolves to a composite`);
   ok(p.includes('Nasopharynx') && p.includes('Oropharynx') && p.includes('Laryngopharynx'),
-    `"pharynx" finds all three named parts (${p.filter((n) => /pharynx$/i.test(n)).length} pharynx meshes)`);
-  ok(hitsFor('throat').includes('Pharynx'), `"throat" finds Pharynx via synonym`);
+    `"pharynx" finds all three named parts`);
+  ok(hitsFor('throat').includes('Nasopharynx'), `"throat" reaches the pharynx via synonym`);
 }
 {
   /* The larynx has no mesh of its own but IS modelled, as its cartilages. An
@@ -140,10 +149,40 @@ console.log(`— catalogue names survive the loader's mangling —`);
   ok(!broken.length, broken.length
     ? `${broken.length} index rows cannot be resolved after import, e.g. ${broken.slice(0, 3).join('; ')}`
     : `all ${MESH_INDEX.length} index rows resolve after sanitizeNodeName`);
-  /* the specific row that was broken */
-  const ph = MESH_INDEX.find((m) => m.name === 'Pharynx');
-  ok(ph && tight(sanitize(ph.mesh)) === tight(ph.mesh),
-    `Pharynx (${ph ? ph.mesh : '?'} -> ${ph ? sanitize(ph.mesh) : '?'}) matches on the tight pass`);
+  /* every row whose GLB name the loader actually alters */
+  const mangled = MESH_INDEX.filter((m) => sanitize(m.mesh) !== m.mesh);
+  ok(mangled.every((m) => tight(sanitize(m.mesh)).startsWith(tight(m.mesh))
+    || tight(sanitize(m.mesh)) === tight(m.mesh) + 'l' || tight(sanitize(m.mesh)) === tight(m.mesh) + 'r'),
+    `all ${mangled.length} rows the loader renames still match (e.g. ${mangled[0] ? mangled[0].mesh + ' -> ' + sanitize(mangled[0].mesh) : 'none'})`);
+}
+
+console.log(`— study depth —`);
+{
+  const t1 = MESH_INDEX.filter((m) => m.tier === 1);
+  ok(t1.length > 100 && t1.length < MESH_INDEX.length * 0.2,
+    `${t1.length} of ${MESH_INDEX.length} rows are finer than course level`);
+  ok(t1.every((m) => m.family), 'every tier-1 row belongs to a family');
+  ok(MESH_INDEX.filter((m) => m.tier === 0).every((m) => !m.family),
+    'no tier-0 row is folded into a family');
+  /*
+   * The tier test is vocabulary, not name length. "Superior lobe of right
+   * lung" is five words and is the whole point of a chest film; demoting it
+   * on length would have hidden the lung lobes behind a group row.
+   */
+  const lobes = MESH_INDEX.filter((m) => /lobe of (left|right) lung/i.test(m.name));
+  ok(lobes.length === 5 && lobes.every((m) => m.tier === 0),
+    `all ${lobes.length} lung lobes stay at course level`);
+  const seg = MESH_INDEX.filter((m) => /segmental bronchus/i.test(m.name));
+  ok(seg.length > 15 && seg.every((m) => m.tier === 1),
+    `all ${seg.length} segmental bronchi are folded away`);
+  for (const n of ['Liver', 'Stomach', 'Trachea', 'Kidney', 'Urinary bladder', 'Thyroid cartilage']) {
+    const r = MESH_INDEX.find((m) => m.name === n);
+    ok(r && r.tier === 0, `${n} stays at course level`);
+  }
+  const fams = new Set(t1.map((m) => m.family));
+  console.log(`       ${fams.size} families, largest: `
+    + [...fams].map((f) => [f, t1.filter((m) => m.family === f).length])
+      .sort((a, b) => b[1] - a[1]).slice(0, 3).map(([f, n]) => `${f} (${n})`).join(', '));
 }
 
 console.log(`— composites point at real meshes —`);

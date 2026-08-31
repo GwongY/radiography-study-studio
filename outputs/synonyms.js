@@ -189,6 +189,19 @@ const GROUPS = [
  * quietly pointing at nothing.
  */
 export const COMPOSITES = [
+  /*
+   * The pharynx is modelled ONLY as its three parts.
+   *
+   * There was a fourth node called `Pharynx.j` and it was not the pharynx: a
+   * flat sliver of zero height, a construction artefact. It sorted as the
+   * plainest match for "pharynx" and so became the search result, which
+   * framed an invisible nothing in the neck. The index generator now drops
+   * degenerate nodes, and the whole is named here instead.
+   */
+  { term: 'pharynx', also: ['throat', 'pharyngeal'],
+    name: 'Pharynx',
+    note: 'The throat, modelled as its three floors: nasopharynx behind the nose, oropharynx behind the mouth, laryngopharynx behind the larynx.',
+    parts: [['organs', 'Nasopharynx'], ['organs', 'Oropharynx'], ['organs', 'Laryngopharynx']] },
   { term: 'larynx', also: ['voice box', 'laryngeal skeleton', 'laryngeal cartilages'],
     name: 'Larynx',
     note: 'Modelled as its parts, not as one mesh: the thyroid, cricoid, arytenoid and corniculate cartilages in the skeleton layer, the epiglottis in organs.',

@@ -1490,8 +1490,18 @@ function calloutAt(anchor,text,color,M,opts){
     while(guard++<40&&taken.some((t)=>t.side===sign&&Math.abs(t.y-y)<band)) y-=band;
     taken.push({y,side:sign});
   }
-  /* hud.world is the tag HEIGHT; half its width is height*aspect/2. */
-  lab.position.set(tipX+sign*hud.world*hud.aspect/2,y,z);
+  /*
+   * Anchor the tag by the edge nearest the body, not by its centre.
+   *
+   * updateHudSprites rescales every tag each frame to keep it legible, so its
+   * world width changes with the camera. A centre-anchored tag placed with a
+   * creation-time half-width therefore walks outward as you zoom in -- framing
+   * a small structure pushed the pharynx's label clean off the left of the
+   * stage. Sprite.center moves the anchor to the inner edge, so the tag grows
+   * away from the leader instead of dragging itself off screen.
+   */
+  lab.center.set(sign<0?1:0,0.5);
+  lab.position.set(tipX,y,z);
   lab.renderOrder=999;
   lab.userData.calloutBand={y,side:sign};   /* read back by the next callout */
   const lg=new THREE.BufferGeometry();
@@ -3862,8 +3872,8 @@ import {
 } from './study-data.js';
 import { searchAnatomy } from './anatomy-data.js?v=4';
 import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS, conceptById, conceptAncestors, conceptChildren } from './bodymap.js?v=4';
-import { MESH_INDEX } from './mesh-index.js?v=1';
-import { expandQuery, missingFor, compositeFor } from './synonyms.js?v=1';
+import { MESH_INDEX } from './mesh-index.js?v=2';
+import { expandQuery, missingFor, compositeFor } from './synonyms.js?v=2';
 import { visualFor, plateFor } from './visual-data.js?v=3';
 import { FLOW_CLASSES, LAYER_CLASSES, RATES } from './physiology.js?v=4';
 import { schematic } from './schematics.js?v=2';
@@ -4591,10 +4601,23 @@ function searchHits(q) {
    * "kidney" is buried under every renal vessel.
    */
   const idxHits = [];
+  const families = new Map();          /* family label -> the rows inside it */
   MESH_INDEX.forEach((m) => {
     const hay = m.name.toLowerCase();
     if (!matches(hay) || taken(m.name)) return;
     claim(m.name);
+    /*
+     * Tier 1 is finer than the course goes, so it is collected rather than
+     * listed: twenty segmental bronchi with their BI\u2013BX codes buried the main
+     * and lobar bronchi that were actually being looked for. Each family
+     * becomes one row that opens all of its members together.
+     */
+    if (m.tier === 1 && m.family) {
+      const list = families.get(m.family) || [];
+      list.push(m);
+      families.set(m.family, list);
+      return;
+    }
     const model = STRUCTURE_MODELS[m.layer];
     const side = m.sides === 'b' ? 'left and right' : m.sides === 'l' ? 'left' : m.sides === 'r' ? 'right' : '';
     idxHits.push({
@@ -4606,7 +4629,17 @@ function searchHits(q) {
     });
   });
   idxHits.sort((a, b) => a.rank - b.rank || a.hit.title.length - b.hit.title.length);
-  idxHits.slice(0, 40).forEach((r) => hits.push(r.hit));
+  idxHits.slice(0, 30).forEach((r) => hits.push(r.hit));
+
+  /* One row per family, largest first, after the plain structures. */
+  [...families.entries()].sort((a, b) => b[1].length - a[1].length).forEach(([label, list]) => {
+    const parts = list.map((m) => ({ system: m.layer, mesh: m.mesh,
+      file: STRUCTURE_MODELS[m.layer] && STRUCTURE_MODELS[m.layer].file }));
+    const model = STRUCTURE_MODELS[list[0].layer];
+    hits.push({ kind: 'Group', title: `${label} \u2014 ${list.length}`,
+      note: `${model ? model.label : list[0].layer} \u00b7 finer than the course names them \u00b7 opens all together`,
+      go: () => openStructureInViewer({ parts, name: label }) });
+  });
 
   /*
    * Answer the whole-structure question, at the top, before the parts.
