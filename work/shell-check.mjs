@@ -18,7 +18,7 @@
  * Usage: node work/shell-check.mjs
  */
 import { readFileSync, existsSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { join, dirname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..', 'outputs');
@@ -29,19 +29,34 @@ let fail = 0;
 const ok = (cond, msg) => { console.log(`  ${cond ? 'ok  ' : 'FAIL'} ${msg}`); if (!cond) fail++; };
 
 /*
- * What the app imports, local modules only. Phase 2 moved the two module blocks
- * out of the HTML, so the imports now live in studio.js and study.js — scrape
- * all three. Anything the HTML pulls in by tag counts too: an unversioned
- * stylesheet in the shell is the same offline cache miss as an unversioned
- * import, and nothing else would catch it.
+ * Every local module reachable from the app, at any depth. Phase 2 moved the
+ * imports into studio.js / study.js; phase 3 put the corpus two directories
+ * down behind a barrel. A flat scrape of the entry points would have missed all
+ * seventeen corpus files — they would have 404'd offline while this said ALL
+ * PASS — so walk the graph instead of pattern-matching one level of it.
+ *
+ * Anything the HTML pulls in by tag counts too: an unversioned stylesheet in
+ * the shell is the same offline cache miss as an unversioned import, and
+ * nothing else would catch it.
  */
-const APP_FILES = ['radiography-study-studio.html', 'studio.js', 'study.js'];
-const imports = new Set();
-for (const f of APP_FILES) {
-  if (!existsSync(join(root, f))) continue;
-  for (const m of readFileSync(join(root, f), 'utf8')
-    .matchAll(/from\s+'\.\/([A-Za-z0-9._-]+\.js(?:\?v=\d+)?)'/g)) imports.add(m[1]);
+const ENTRIES = ['radiography-study-studio.html', 'studio.js', 'study.js'];
+const imports = new Set();            /* specifier as written, query and all */
+const seen = new Set();
+function walk(rel) {
+  if (seen.has(rel)) return;
+  seen.add(rel);
+  const abs = join(root, rel);
+  if (!existsSync(abs)) return;
+  const dir = dirname(rel);
+  for (const m of readFileSync(abs, 'utf8').matchAll(/from\s+'(\.\.?\/[^']+\.js(?:\?v=\d+)?)'/g)) {
+    /* Resolve against the importing file, then record it as the service worker
+       would see it: a path relative to outputs/, forward slashes. */
+    const resolved = normalize(join(dir, m[1])).replace(/\\/g, '/');
+    imports.add(resolved);
+    walk(resolved.split('?')[0]);
+  }
 }
+for (const e of ENTRIES) walk(e);
 
 /* Tag references in the HTML: <link href> and <script src>, local only. */
 const tagRefs = new Set();
@@ -62,7 +77,7 @@ console.log('— every imported module is precached, query and all —');
  * this guard, `imports` would have been empty and the loop below would have
  * passed vacuously while every module fell out of the offline shell.
  */
-ok(imports.size > 0, `found ${imports.size} local module imports across ${APP_FILES.join(', ')}`);
+ok(imports.size > 0, `found ${imports.size} local modules reachable from ${ENTRIES.join(', ')}`);
 for (const imp of [...imports].sort()) {
   const hit = shell.has(imp);
   const near = [...shell].find((s) => bare(s) === bare(imp));
