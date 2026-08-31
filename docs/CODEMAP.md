@@ -6,8 +6,6 @@ Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps c
 
 ## `outputs/radiography-study-studio.html` — 360 lines
 
-Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-studiohtml) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsradiography-study-studiohtml) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsradiography-study-studiohtml-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsradiography-study-studiohtml) · [CSS](TRAPS.md#css--outputsradiography-study-studiohtml) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsradiography-study-studiohtml)
-
 | Lines | Section |
 | --- | --- |
 | 1–335 | markup — no banners, grep here |
@@ -22,9 +20,11 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-st
 The two module blocks that were inline in the HTML until phase 2. They keep
 separate import scopes and talk only through `window.__osteo`.
 
-`outputs/app.css` — 745 lines.
+`outputs/app.css` — 745 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss)
 
 **`outputs/studio.js`** — 3404 lines
+
+Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss)
 
 | Lines | Section |
 | --- | --- |
@@ -73,8 +73,8 @@ separate import scopes and talk only through `window.__osteo`.
 | --- | --- | --- | --- |
 | `anatomy-data.js` | 145 | Osteology Studio — anatomy data layer |  |
 | `bodymap.js` | 319 | Body map — search extras and spatial concepts for the 3D viewer. |  |
-| `cavity-build.js` | 732 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsradiography-study-studiohtml)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsradiography-study-studiohtml-outputscavity-buildjs) |
-| `cavity-geom.js` | 1148 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsradiography-study-studiohtml) |
+| `cavity-build.js` | 732 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
+| `cavity-geom.js` | 1148 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
 | `figures.js` | 390 | figures.js — the diagrams that replaced the hand-drawn ones. |  |
 | `landmarks.js` | 435 | landmarks.js -- the one place that knows how to find a named anatomical |  |
 | `layouts.js` | 304 | layouts.js — the sixteen that are layouts, as layouts. |  |
