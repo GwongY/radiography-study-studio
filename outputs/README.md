@@ -18,11 +18,11 @@ The workflow is the same for every subject:
 | `term-notes.js` | 89 hand-written pronunciations and plain-English readings for the terms word parts alone cannot rescue. App-authored, labelled as such. |
 | `assets/plates/` | Five public-domain anatomy plates from Gray's Anatomy (1918), licence-verified through the Wikimedia Commons API before download. |
 | `anatomy-data.js` | Unchanged. Canonical bone records, landmark hotspots and the 3D model adapter metadata. |
-| `visual-data.js` | The visual registry: which of the six model layers and which named meshes each study item is about, and which items get a hand-drawn schematic instead. Verified mesh names, not guesses. |
+| `visual-data.js` | The visual registry: which model layer and meshes each study item is about, and which items get a schematic or figure instead. Verified mesh names, not guesses. Also `PLATES` — the Gray's plate on five physiology items, each with its `intro` and callout `key`. |
 | `layouts.js` | The 16 non-depictions as HTML layout data — cards, flows, term grids. Replaced the hand-plotted SVG versions. |
 | `schematics.js` | The retired SVG plotter. Still the fallback for anything without a layout entry; nothing currently uses it. |
-| `figures.js` | 15 published figures that replaced the hand-drawn *anatomy*, with author, licence and source page captured from the Wikimedia API. |
-| `assets/figures/` | Those 15 image files. Licence-gated at download: anything not demonstrably free is refused. |
+| `figures.js` | 18 published figures that replaced the hand-drawn *anatomy*, each with author/licence/source captured from the Wikimedia API and an `intro` + callout `key` so the lesson teaches from the image. |
+| `assets/figures/` | Those 18 image files. Licence-gated at download: anything not demonstrably free is refused. |
 | `assets/` | Local GLB models. Unchanged. |
 | `mesh-index.js` | **Generated.** Every named structure in every GLB layer (1,686), with the course file that names it and the study unit it resolves to (`UNITS`, 787 of them). Rebuild with `node work/build-mesh-index.mjs`; never hand-edit. |
 | `synonyms.js` | Query expansion (collarbone → clavicle), composites (a name with no mesh but real parts), and the three structures genuinely not modelled. |
@@ -103,23 +103,41 @@ No lesson is a wall of prose. All 94 items resolve to a visual, and the resolver
 
 | Kind | Items | What it is |
 | --- | --- | --- |
-| **model** | 59 | The real named meshes for the structure being taught. The studio canvas is *moved into* the lesson card and focused on those meshes — still rotatable, still tappable, with a readout naming whatever you tap. One WebGL context, relocated rather than duplicated. |
-| **schematic** | 31 | A hand-authored SVG in `schematics.js`, for what no mesh can show. |
-| **labelled** | 2 | The existing authored diagram, shown as the teaching view. |
+| **model** | 58 | The real named meshes for the structure being taught. The studio canvas is *moved into* the lesson card and focused on those meshes — still rotatable, still tappable, with a readout naming whatever you tap. One WebGL context, relocated rather than duplicated. |
+| **figure** | ~19 | A published Wikimedia/OpenStax/Gray's image (`figures.js`), rendered through the schematic/labelled path when a figure exists for the id. |
+| **schematic** | ~13 | A hand-authored SVG or HTML layout, for what no mesh or photograph can show — a feedback loop, the EM spectrum, a decision table. |
 | **generated** | 2 | Drawn from the item's own sourced data — a sequence item's ordered steps become a flow, a matching item's pairs become a grid. A change of form, not of content. |
 
-Every one of the 59 model specs was checked against the actual GLB name index: **59 of 59 resolve,
-with no dead mesh names**. A spec that resolved to nothing would show a short note saying so rather
-than quietly falling back to the whole skeleton — a lesson on the carpal bones must never render as
-an entire body and let you assume that was the answer.
+Every model spec was checked against the actual GLB name index: **all resolve, with no dead mesh
+names**. A spec that resolved to nothing would show a short note saying so rather than quietly
+falling back to the whole skeleton — a lesson on the carpal bones must never render as an entire
+body and let you assume that was the answer.
 
 Every schematic label is a term that appears in that item's own lesson or key facts. Nothing came
 from outside the supplied sources; these are drawings of content the app already carried. Where a
 bundled model genuinely cannot show something — the cardiac conducting system, an alveolus, the
 inside of a long bone — the caption says so instead of pretending otherwise.
 
-Layout is checked mechanically rather than by eye: all 31 schematics are verified to have **no text
-overflowing its canvas and no overlapping text runs**.
+**Every figure teaches from the image.** A published figure used to render as image + one-line
+caption + credit, with nothing tying it to the lesson and nothing explaining the callouts drawn on
+it — the body-cavities figure carried twelve marks (`1`–`7`, `a`–`e`) and the lesson named none of
+them. Each `FIGURES`/`PLATES` entry now carries an `intro` (one or two sentences: what the image
+shows, why it is on this lesson, how to read it) and a `key` (every visible callout resolved to a
+name, glossary terms tappable). A key entry marked `beyond` is a callout this lesson's own sources
+do not name — it is read off the figure's own published labelling, which is legitimate because the
+figure is a cited, attributed source on the page; the renderer dims those and adds a note.
+`work/figure-key-check.mjs` fails the build if a figure a lesson shows has no `intro`, no `key`, or a
+malformed key row.
+
+The survey that added this also fixed the figures that did not match their lesson: the
+*Structures of a synovial joint* figure was pointing at Gray 349 (the knee from above); the
+*six synovial joint types* figure was actually the structure cross-section; the vertebra figure
+labelled only the processes, missing the body / arch / foramen the labelling exercise is built on;
+and the gas-exchange lesson carried a whole-airway overview instead of an alveolus. Those were
+repointed or replaced with licence-checked OpenStax figures (`909`, `718`, `2611`, `2310`).
+
+Layout is checked mechanically rather than by eye: every hand-authored schematic is verified to have
+**no text overflowing its canvas and no overlapping text runs**.
 
 ## Body layers
 
@@ -835,8 +853,9 @@ on an item whose teaching is about salt pumping building an osmotic gradient dow
 
 So the split is now explicit:
 
-- **Depictions use published figures.** 17 of them, in `figures.js`. If it is a picture of a real
-  structure, it is a real picture.
+- **Depictions use published figures.** 18 of them, in `figures.js`, each carrying an `intro` and a
+  callout `key` (see "Every lesson opens with a visual"). If it is a picture of a real structure, it
+  is a real picture.
 - **Layouts are laid out, not drawn.** 16 of them, in `layouts.js`, rendered as HTML. They are still
   labelled *"Drawn by this app"* with the line *"A layout, not a depiction — no anatomy is being drawn
   to scale here."* A feedback loop, a modality decision table and the six named digestive functions
@@ -894,20 +913,21 @@ There are now **zero** diagram-labelling questions scored against a plotted figu
 
 ### Licensing
 
-`fetch-figures.py` reads the licence from the Wikimedia Commons API and **refuses to download**
-anything that is not demonstrably free — the gate runs before the request, not after. The author,
-licence, licence URL and source page in `figures.js` are written from that same API response rather
-than typed by hand, so the credit the app shows cannot drift from the credit the licence requires.
-CC BY and CC BY-SA both require attribution; the app renders it on the figure itself, with the
-licence name linking to the deed.
+Every figure was licence-checked against the Wikimedia Commons API *before* download — the fetch
+reads `extmetadata.LicenseShortName` and refuses anything that is not demonstrably free, so the gate
+runs before the request, not after. The author, licence, licence URL and source page in `figures.js`
+are written from that same API response rather than typed by hand, so the credit the app shows
+cannot drift from the credit the licence requires. CC BY and CC BY-SA both require attribution; the
+app renders it on the figure itself, with the licence name linking to the deed.
 
-Across the 17: 6 public domain, 3 CC BY 3.0, 2 CC BY 4.0, 5 CC BY-SA 3.0, 1 CC BY-SA 4.0.
+Across the 18: 4 public domain, 6 CC BY 3.0, 2 CC BY 4.0, 5 CC BY-SA 3.0, 1 CC BY-SA 4.0.
 
 ### Size
 
-5.45 MB of figures. The twelve under 360 KB are precached in the service-worker shell; the five larger
-ones are deliberately left out so a first install stays lean, and `networkFirst` caches them into the
-same shell cache the first time a lesson shows one — so they end up offline either way.
+The ones under ~360 KB are precached in the service-worker shell; the four largest
+(`body-cavities.png`, `body-movements.jpg`, `muscle-tissue-types.jpg`, `synovial-joints.jpg`) are
+deliberately left out so a first install stays lean, and `networkFirst` caches them into the same
+shell cache the first time a lesson shows one — so they end up offline either way.
 
 ## Plates — the only pictures not made here
 
