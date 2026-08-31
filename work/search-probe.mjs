@@ -161,7 +161,13 @@ console.log(`— study depth —`);
   const t1 = MESH_INDEX.filter((m) => m.tier === 1);
   ok(t1.length > 100 && t1.length < MESH_INDEX.length * 0.2,
     `${t1.length} of ${MESH_INDEX.length} rows are finer than course level`);
-  ok(t1.every((m) => m.family), 'every tier-1 row belongs to a family');
+  /* A family needs at least two members -- a lone sub-part is listed plainly
+     rather than under a group heading for a set of one. */
+  const sizes = new Map();
+  t1.forEach((m) => { if (m.family) sizes.set(m.family, (sizes.get(m.family) || 0) + 1); });
+  ok([...sizes.values()].every((n) => n >= 2), 'no family has fewer than two members');
+  ok(t1.filter((m) => !m.family).every((m) => !sizes.has(m.family)),
+    `${t1.filter((m) => m.family).length} tier-1 rows group; ${t1.filter((m) => !m.family).length} stand alone`);
   ok(MESH_INDEX.filter((m) => m.tier === 0).every((m) => !m.family),
     'no tier-0 row is folded into a family');
   /*
@@ -183,6 +189,47 @@ console.log(`— study depth —`);
   console.log(`       ${fams.size} families, largest: `
     + [...fams].map((f) => [f, t1.filter((m) => m.family === f).length])
       .sort((a, b) => b[1] - a[1]).slice(0, 3).map(([f, n]) => `${f} (${n})`).join(', '));
+}
+
+console.log(`— families are named after the thing, not the pieces —`);
+{
+  const fam = (n) => { const r = MESH_INDEX.find((m) => m.name === n); return r && r.family; };
+  /*
+   * Where the source models a structure ONLY as its parts, the family takes
+   * the structure's name -- selecting the deltoid's three parts is selecting
+   * the deltoid, and "Parts of deltoid muscle" names nothing anyone is asked
+   * to identify.
+   */
+  const whole = [
+    ['Acromial part of deltoid muscle', 'Deltoid muscle'],
+    ['Descending part of trapezius muscle', 'Trapezius muscle'],
+    ['Long head of triceps brachii', 'Triceps brachii'],
+    ['Sternocostal head of pectoralis major muscle', 'Pectoralis major muscle'],
+    ['Anterior semilunar leaflet of pulmonary valve', 'Pulmonary valve'],
+    ['Left coronary leaflet', 'Aortic valve'],
+  ];
+  for (const [part, want] of whole) ok(fam(part) === want,
+    `"${part}" belongs to ${want}${fam(part) === want ? '' : ` (got ${fam(part)})`}`);
+
+  /*
+   * Where the whole DOES have a mesh of its own, the family must stay
+   * distinguishable from it -- the liver is not its eight segments, and the
+   * ulnar nerve is not its branches.
+   */
+  const beside = [
+    ['Anterior lateral segment of liver (VI)', 'Segments of liver', 'Liver'],
+    ['Deep branch of ulnar nerve', 'Branches of ulnar nerve', 'Ulnar nerve'],
+  ];
+  for (const [part, want, whole2] of beside) {
+    ok(fam(part) === want, `"${part}" belongs to ${want} (got ${fam(part)})`);
+    ok(MESH_INDEX.some((m) => m.name === whole2 && m.tier === 0),
+      `${whole2} still exists on its own`);
+  }
+  /* the segmental bronchi are not the lung */
+  ok(fam('Anterior segmental bronchus of left lung (BIII)') === 'Bronchi of the left lung',
+    'segmental bronchi group as bronchi, not as the lung');
+  ok(!MESH_INDEX.some((m) => m.family && /^Parts of |^Heads of |^Leaflets$/.test(m.family)),
+    'no family is named after its pieces where the whole could be named');
 }
 
 console.log(`— composites point at real meshes —`);
