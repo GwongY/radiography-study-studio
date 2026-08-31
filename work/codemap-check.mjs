@@ -16,6 +16,9 @@ import { fileURLToPath } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const norm = (s) => s.replace(/\r\n/g, '\n').trimEnd();
 
+/* A heading names files AND code identifiers; only the former get checked. */
+const isPath = (s) => /^(outputs|work|docs|assets)\//.test(s) || /\.(mjs|js|html|css|md|json|glb)$/.test(s);
+
 let fail = 0;
 const ok = (good, msg) => { console.log(`  ${good ? 'ok  ' : 'FAIL'} ${msg}`); if (!good) fail++; };
 
@@ -45,11 +48,16 @@ if (!existsSync(trapPath)) {
   const heads = readFileSync(trapPath, 'utf8').split(/\r?\n/).filter((l) => /^###\s/.test(l));
   ok(heads.length > 0, `${heads.length} trap sections found`);
   for (const h of heads) {
-    const paths = [...h.matchAll(/`([^`]+)`/g)].map((m) => m[1])
-      .filter((p) => /[./]/.test(p) && !p.includes(' '));
+    const paths = [...h.matchAll(/`([^`]+)`/g)].map((m) => m[1]).filter(isPath);
     if (!paths.length) { ok(false, `no file named in heading: ${h.trim()}`); continue; }
     for (const p of paths) ok(existsSync(join(root, p)), `${p} (${h.replace(/^###\s*/, '').trim()})`);
   }
+}
+
+console.log('— the map has not silently collapsed —');
+if (existsSync(mapPath)) {
+  ok(!readFileSync(mapPath, 'utf8').includes('WARNING — work/codemap.mjs needs updating'),
+    'the generator still finds the sections it maps — if this fails, teach work/codemap.mjs about the extracted files');
 }
 
 console.log(fail ? `\n${fail} FAILED` : '\nALL PASS');
