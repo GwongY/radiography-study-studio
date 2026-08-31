@@ -449,8 +449,15 @@
 .navcontent.bleed #viewerSkeletonPane:not(.hidden),
 .navcontent.bleed #viewerXrayPane:not(.hidden){flex:1;min-height:0;display:flex;flex-direction:column}
 .navcontent.bleed .stagewrap{flex:1;min-height:220px;height:auto}
-/* The sheet is the only thing here that scrolls, and never past half the view. */
-.navcontent.bleed .vsheet{flex:none;max-height:46%;overflow:auto;margin-bottom:12px}
+/*
+ * The "⋯" sheet opens BELOW the viewer and the pane scrolls to it. It does not
+ * take a slice off the stage: opening the model controls should not shrink the
+ * model. So while the sheet is open the pane stops being a fixed flex column
+ * and becomes a scroller, and the stage keeps the full height it already had.
+ */
+.navcontent.bleed #viewerSkeletonPane.sheet-open{display:block;overflow:auto;overscroll-behavior:contain}
+.navcontent.bleed #viewerSkeletonPane.sheet-open .stagewrap{height:100%}
+.navcontent.bleed #viewerSkeletonPane.sheet-open .vsheet{margin-bottom:14px}
 /*
  * The projection pane is the exception: it carries the exposure controls and
  * the appearance notes BELOW the film, so it scrolls and the film keeps a real
@@ -1168,6 +1175,34 @@ function occludersOf(targets,frame){
   });
   return [...covered];
 }
+/*
+ * Find the meshes a catalogue name refers to, inside one loaded layer.
+ *
+ * The trap: names in the GLB are NOT the names in the scene. three.js runs
+ * every node name through sanitizeNodeName on import, which deletes `. [ ] : /`
+ * and turns whitespace into underscores. So the catalogue's `Pharynx.j` is
+ * `Pharynxj` once loaded, and `Kidney.l` is `Kidneyl`.
+ *
+ * normName turns a dot into a SPACE, so it read the catalogue name as
+ * "pharynx j" and the loaded name as "pharynxj" -- no match on either the
+ * equality pass or the startsWith pass, and the search result reported
+ * "could not locate that structure" for a mesh that was sitting right there.
+ *
+ * Hence the tight pass: both sides stripped to letters and digits, which is
+ * the one form the loader's mangling cannot change. Side letters are still
+ * APPENDED, never stripped, so Femur and Vomer survive (see CLAUDE.md).
+ */
+function meshesFor(layer,name){
+  const tight=(s)=>normName(s).replace(/[^a-z0-9]/g,'');
+  const want=normName(name), wantT=tight(name);
+  const nameOf=(o)=>o.userData.label||o.name;
+  const pick=(pred)=>layer.meshes.filter(pred);
+  let hits=pick(o=>{ const l=normName(nameOf(o)); return l===want||l===want+' l'||l===want+' r'; });
+  if(!hits.length) hits=pick(o=>{ const t=tight(nameOf(o)); return t===wantT||t===wantT+'l'||t===wantT+'r'; });
+  if(!hits.length) hits=pick(o=>normName(nameOf(o)).startsWith(want));
+  if(!hits.length) hits=pick(o=>tight(nameOf(o)).startsWith(wantT));
+  return hits;
+}
 async function revealStructure(spec){
   if(!state.scene){ await window.__osteo.boot(); }
   if(!state.scene) return {ok:false,found:0,covered:[]};
@@ -1192,31 +1227,40 @@ async function revealStructure(spec){
         if(state.selectionAnchor) targets=[state.selectionAnchor];
       }
     }
-  } else if(spec.system && spec.mesh){
-    let layer=state.extraModels[spec.system];
-    if(!layer && spec.file){
-      try{ layer=await loadExtraModel(spec.system,spec.file); }catch(e){ layer=null; }
-    }
-    if(layer){
-      state.layers[spec.system]=true;
-      state.layerOpacity={...(state.layerOpacity||{}),[spec.system]:1};
-      applyLayers();
-      const want=normName(spec.mesh);
-      const pick=(pred)=>layer.meshes.filter(pred);
-      let hits=pick(o=>{ const l=normName(o.userData.label||o.name); return l===want||l===want+' l'||l===want+' r'; });
-      if(!hits.length) hits=pick(o=>normName(o.userData.label||o.name).startsWith(want));
-      targets=hits;
-      if(hits.length){
-        const id=hits[0].userData.canonicalId;
-        if(id) selectBone(id, hits[0].userData.side||null);
+  } else if(spec.parts||(spec.system&&spec.mesh)){
+    /*
+     * One spec can name several meshes across several layers.
+     *
+     * A composite -- the larynx, the ossicles, the eyeball -- has no single
+     * mesh; it IS its parts, and opening it should light all of them, in
+     * whichever layers they live. `spec.parts` carries that list. A plain
+     * {system, mesh} is just the one-part case.
+     */
+    const parts=spec.parts||[{system:spec.system,mesh:spec.mesh,file:spec.file}];
+    for(const p of parts){
+      let layer=state.extraModels[p.system];
+      if(!layer&&p.file){
+        try{ layer=await loadExtraModel(p.system,p.file); }catch(e){ layer=null; }
       }
+      if(!layer) continue;
+      state.layers[p.system]=true;
+      state.layerOpacity={...(state.layerOpacity||{}),[p.system]:1};
+      const hits=meshesFor(layer,p.mesh);
+      targets=targets.concat(hits);
+    }
+    applyLayers();
+    if(targets.length){
+      const id=targets[0].userData.canonicalId;
+      if(id) selectBone(id, targets[0].userData.side||null);
     }
   }
   if(!targets.length){ showToast('Could not locate that structure in the model'); return {ok:false,found:0,covered:[]}; }
   /* A curated group ('ribs' -> 24 meshes) is one structure: frame and light the
      whole set. A left/right pair from the system path unions to a midline box,
      so frame only the nearest of the two. */
-  const curatedGroup=!!spec.id&&targets.length>1;
+  /* A composite is one structure made of many meshes, exactly like the curated
+     'ribs' group: frame and light the whole set, not the nearest of them. */
+  const curatedGroup=(!!spec.id||!!spec.parts)&&targets.length>1;
   let primary=targets[0];
   if(targets.length>1&&state.camera){
     primary=targets.map(o=>{ const b=new state.THREE.Box3().setFromObject(o); return {o,d:b.getCenter(new state.THREE.Vector3()).distanceTo(state.camera.position)}; })
@@ -1232,6 +1276,22 @@ async function revealStructure(spec){
     if(m.material){ m.material.emissive&&m.material.emissive.setHex(0x1eb9a6); m.material.emissiveIntensity=.95; m.userData.presentationActive=true; }
   });
   publishHidden();
+  /*
+   * Name it what the catalogue calls it.
+   *
+   * Two reasons the mesh's own name is the wrong label here. A composite is
+   * named as the WHOLE -- selection has just labelled it with whichever part
+   * came first, which is not what was searched for. And a single mesh carries
+   * the loader's mangling: `Pharynx.j` arrives as `Pharynxj`, which is what
+   * the panel was showing. The catalogue name is the clean one.
+   */
+  if(spec.name&&(spec.parts||spec.system)){
+    showPickCallout(targets,spec.name);
+    els.selectedName.textContent=spec.name;
+    els.selectedChips.innerHTML=spec.parts
+      ?`<span class="chip">${targets.length} parts</span>`
+      :(targets[0]&&targets[0].userData.side?`<span class="chip">${targets[0].userData.side}</span>`:'');
+  }
   const names=[...new Set(occ.map(hiddenName))];
   return {ok:true,found:targets.length,covered:names};
 }
@@ -1459,6 +1519,18 @@ function calloutAt(anchor,text,color,M,opts){
  * happened to be in view. The name now stays until the selection changes, and
  * it is attached to the structure rather than to the screen.
  */
+/*
+ * Overlay groups are built in the body's un-rotated frame and then yawed to
+ * match the pivots, which the animate loop keeps in step while the turntable
+ * runs. While it is PAUSED the loop does not touch them, so a group created at
+ * that moment has to adopt the pivot's current yaw itself -- otherwise it is
+ * drawn square-on against a body that is turned a few degrees away.
+ */
+function syncOverlayYaw(grp){
+  const root=state.fullModel||state.realModel
+    ||(Object.values(state.extraModels||{})[0]||{}).pivot||null;
+  if(grp&&root) grp.rotation.y=root.rotation.y;
+}
 function ensurePickGroup(){
   if(state.pickGroup) return state.pickGroup;
   const grp=new state.THREE.Group();
@@ -1472,11 +1544,52 @@ function clearPickCallout(){
   if(!state.pickGroup) return;
   [...state.pickGroup.children].forEach(disposeConceptObj);
 }
+/*
+ * `obj` may be one mesh or a set of them -- a composite is named once, over the
+ * union of its parts, not once per part.
+ *
+ * The box is measured in the BODY's own upright frame, un-rotated back through
+ * the pivot, exactly as bodyMetrics does and for the same reason: the idle
+ * turntable yaws the pivots continuously, so a world-space measurement is only
+ * true for the frame it was taken in. The callout group rides the same pivots
+ * (see the animate loop), so a world-space anchor would be rotated twice and
+ * the leader would point somewhere the structure used to be.
+ */
 function showPickCallout(obj,text){
   if(!state.scene||!state.THREE||!obj||!text) return;
+  const list=Array.isArray(obj)?obj.filter(Boolean):[obj];
+  if(!list.length) return;
   clearPickCallout();
   const THREE=state.THREE;
-  const box=new THREE.Box3().setFromObject(obj);
+  const root=state.fullModel||state.realModel
+    ||(Object.values(state.extraModels||{})[0]||{}).pivot||null;
+  /*
+   * Update the WHOLE scene, not just this object's branch.
+   *
+   * o.updateMatrixWorld() composes against the parent's cached matrix, so a
+   * layer loaded moments ago -- whose pivot has been scaled and offset into
+   * the body frame but not yet flushed -- still reports its meshes in raw GLB
+   * metres. That is one structure at y 1.6 among six at y 5.3, which dragged
+   * the larynx's anchor from the throat down to mid-chest.
+   */
+  state.scene.updateMatrixWorld(true);
+  const box=new THREE.Box3();
+  if(root){
+    const inv=new THREE.Matrix4().copy(root.matrixWorld).invert();
+    const v=new THREE.Vector3(), m4=new THREE.Matrix4();
+    list.forEach((o)=>{
+      if(!o.geometry) return;
+      if(!o.geometry.boundingBox) o.geometry.computeBoundingBox();
+      const bb=o.geometry.boundingBox; if(!bb) return;
+      m4.multiplyMatrices(inv,o.matrixWorld);
+      for(let i=0;i<8;i++){
+        v.set(i&1?bb.max.x:bb.min.x,i&2?bb.max.y:bb.min.y,i&4?bb.max.z:bb.min.z).applyMatrix4(m4);
+        box.expandByPoint(v);
+      }
+    });
+  } else {
+    list.forEach((o)=>box.expandByObject(o));
+  }
   if(box.isEmpty()) return;
   const anchor=box.getCenter(new THREE.Vector3());
   const size=box.getSize(new THREE.Vector3());
@@ -1487,6 +1600,7 @@ function showPickCallout(obj,text){
   const clear=Math.min(size.x/2,M.halfX);
   calloutAt(anchor,text,0x72e3cf,M,{size:0.030,leaderOpacity:0.6,clear})
     .forEach((o)=>grp.add(o));
+  syncOverlayYaw(grp);
   grp.visible=!state.xray;
 }
 
@@ -1500,6 +1614,7 @@ function ensureConceptGroup(){
   grp.visible=!state.xray;
   state.scene.add(grp);
   state.conceptGroup=grp;
+  syncOverlayYaw(grp);
   return grp;
 }
 /* ------------------------------------------------------------------ *
@@ -2591,7 +2706,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
     if(a>=mv.range[1]){a=mv.range[1];state.movement.dir=-1}
     else if(a<=mv.range[0]){a=mv.range[0];state.movement.dir=1}
     setMovementAngle(a);
-  }state.motionPhase=performance.now()*.001;stepPhysiology(state.motionPhase);if(state.motionEnabled){const turn=Math.sin(state.motionPhase*.55)*.24;[state.fullModel,state.realModel,state.conceptGroup,...Object.values(state.extraModels||{}).map(m=>m.pivot)].forEach(root=>{if(root)root.rotation.y=turn})}const pulse=.72+.28*Math.sin(state.motionPhase*3.2);[...state.meshes,...state.fullMeshes].filter(m=>m.userData.presentationActive).forEach(m=>{if(m.material.emissive)m.material.emissiveIntensity=.95*pulse});state.controls.update();if(typeof updateHudSprites==='function')updateHudSprites();if(!renderXray())state.renderer.render(state.scene,state.camera)}
+  }state.motionPhase=performance.now()*.001;stepPhysiology(state.motionPhase);if(state.motionEnabled){const turn=Math.sin(state.motionPhase*.55)*.24;[state.fullModel,state.realModel,state.conceptGroup,state.pickGroup,...Object.values(state.extraModels||{}).map(m=>m.pivot)].forEach(root=>{if(root)root.rotation.y=turn})}const pulse=.72+.28*Math.sin(state.motionPhase*3.2);[...state.meshes,...state.fullMeshes].filter(m=>m.userData.presentationActive).forEach(m=>{if(m.material.emissive)m.material.emissiveIntensity=.95*pulse});state.controls.update();if(typeof updateHudSprites==='function')updateHudSprites();if(!renderXray())state.renderer.render(state.scene,state.camera)}
   function zoomCamera(factor){if(!state.camera||!state.controls)return;const offset=state.camera.position.clone().sub(state.controls.target);const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,offset.length()*factor));state.camera.position.copy(state.controls.target).add(offset.normalize().multiplyScalar(distance));state.controls.update()}
   function focusSelected(){if(!state.camera||!state.controls||!state.selectionAnchor){showToast('Select a structure first');return}state.controls.minDistance=2.5;const box=new state.THREE.Box3().setFromObject(state.selectionAnchor);const center=box.getCenter(new state.THREE.Vector3());const size=box.getSize(new state.THREE.Vector3());const radius=Math.max(size.x,size.y,size.z,.35);const offset=state.camera.position.clone().sub(state.controls.target).normalize();const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,radius*3.6));state.controls.target.copy(center);state.camera.position.copy(center).add(offset.multiplyScalar(distance));state.controls.update()}
   function toggleIsolation(){if(!state.selectedId){showToast('Select a structure first');return}const record=getRecord(state.selectedId);if(!state.fullMeshes.length&&record?.region!=='upper_limb'&&state.region!=='upper_limb'){showToast('This fallback reference is fused. Use Upper limb for per-bone isolation.');focusSelected();return}if(state.region!=='upper_limb'&&record?.region==='upper_limb'&&state.meshes.length){state.region='upper_limb';els.regionMeta.textContent='Upper limb';renderRegions();applyVisibility()}state.isolated=!state.isolated;$('isolateBtn').classList.toggle('active',state.isolated);applyVisibility();focusSelected()}
@@ -4503,11 +4618,14 @@ function searchHits(q) {
    */
   const comp = compositeFor(needle);
   if (comp) {
-    const [layer, mesh] = comp.parts[0];
-    const model = STRUCTURE_MODELS[layer];
+    /* Every part, in whatever layer it lives \u2014 the larynx spans the skeleton
+       and organs layers, so opening only the first lit one cartilage and left
+       the rest of the larynx dark. */
+    const parts = comp.parts.map(([layer, mesh]) => ({
+      system: layer, mesh, file: STRUCTURE_MODELS[layer] && STRUCTURE_MODELS[layer].file }));
     hits.unshift({ kind: 'Composite', title: `${comp.name} \u2014 ${comp.parts.length} parts`,
       note: comp.note,
-      go: () => openStructureInViewer({ system: layer, mesh, file: model && model.file, name: mesh }) });
+      go: () => openStructureInViewer({ parts, name: comp.name }) });
   }
 
   /*
@@ -6955,7 +7073,16 @@ $$('viewerMoreBtn').onclick = () => {
   const open = sheet.classList.toggle('hidden') === false;
   $$('viewerMoreBtn').classList.toggle('active', open);
   $$('viewerMoreBtn').setAttribute('aria-expanded', open ? 'true' : 'false');
-  if (open) renderOverlayCard();
+  /* Opening the model controls must not shrink the model: the pane becomes a
+     scroller and the sheet sits below a full-height stage. */
+  $$('viewerSkeletonPane').classList.toggle('sheet-open', open);
+  if (open) {
+    renderOverlayCard();
+    /* Show that there IS something below, without hiding the model to do it. */
+    requestAnimationFrame(() => sheet.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
+  } else {
+    $$('viewerSkeletonPane').scrollTop = 0;
+  }
 };
 /* ------------------------------------------------------------------ *
  * Dialog behaviour, applied to all seven at once
