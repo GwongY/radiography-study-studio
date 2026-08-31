@@ -107,6 +107,45 @@ ok(!hitsFor('rib').includes('Cribriform plate'), `"rib" does not match by accide
   ok(k.length < 60, `"kidney" stays focused (${k.length} hits, not every renal vessel)`);
 }
 
+/*
+ * Names in the GLB are not the names in the scene.
+ *
+ * three.js runs every node name through PropertyBinding.sanitizeNodeName on
+ * import: whitespace becomes '_', and `[ ] . : /` are deleted outright. The
+ * viewer's normName then turns '.' into a space -- so the catalogue's
+ * `Pharynx.j` read as "pharynx j" while the loaded mesh read as "pharynxj",
+ * and clicking the Pharynx search result reported "could not locate that
+ * structure" for a mesh that was loaded and visible.
+ *
+ * meshesFor() in the page now has a tight pass that strips both sides to
+ * letters and digits. This checks every row in the index survives it.
+ */
+const sanitize = (n) => n.replace(/\s/g, '_').replace(/[[\]./:]/g, '');
+const normName = (v) => String(v || '').toLowerCase().replace(/[()'’]/g, '')
+  .replace(/[_\-.,]+/g, ' ').replace(/\s+/g, ' ').trim();
+const tight = (s) => normName(s).replace(/[^a-z0-9]/g, '');
+
+console.log(`— catalogue names survive the loader's mangling —`);
+{
+  const broken = [];
+  for (const m of MESH_INDEX) {
+    const loaded = sanitize(m.mesh);            /* what the scene will call it */
+    const w = tight(m.mesh), t = tight(loaded);
+    /* the page tries: exact, tight-exact (+side letter), startsWith, tight-startsWith */
+    const found = normName(loaded) === normName(m.mesh)
+      || t === w || t === w + 'l' || t === w + 'r'
+      || normName(loaded).startsWith(normName(m.mesh)) || t.startsWith(w);
+    if (!found) broken.push(`${m.layer}:${m.mesh} -> ${loaded}`);
+  }
+  ok(!broken.length, broken.length
+    ? `${broken.length} index rows cannot be resolved after import, e.g. ${broken.slice(0, 3).join('; ')}`
+    : `all ${MESH_INDEX.length} index rows resolve after sanitizeNodeName`);
+  /* the specific row that was broken */
+  const ph = MESH_INDEX.find((m) => m.name === 'Pharynx');
+  ok(ph && tight(sanitize(ph.mesh)) === tight(ph.mesh),
+    `Pharynx (${ph ? ph.mesh : '?'} -> ${ph ? sanitize(ph.mesh) : '?'}) matches on the tight pass`);
+}
+
 console.log(`— composites point at real meshes —`);
 for (const row of COMPOSITES) {
   for (const [layer, mesh] of row.parts) {
