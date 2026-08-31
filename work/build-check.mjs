@@ -143,5 +143,44 @@ function run(label, entries) {
 run('ALL SEVEN LAYERS LOADED', all);
 run('SKELETON ONLY (first open)', all.filter((e) => e.layer === 'skeleton'));
 
+/*
+ * Every layer combination a user can actually reach, not just the two ends.
+ *
+ * The layers load one at a time, on demand, so the interesting states are the
+ * ones in between -- and a builder that quietly returns null in one of them
+ * takes its children with it. With only the organ layer up, the mediastinum is
+ * measured from the lungs rather than from the vertebral bodies, and the
+ * pericardial sac is a subset of the mediastinum: one null there and the sac
+ * disappears with no error anywhere.
+ *
+ * Shapes are checked in run() above; this asks the cheaper question of every
+ * combination -- did it build at all.
+ */
+console.log('\n================ EVERY LAYER COMBINATION ================');
+{
+  const COMBOS = [
+    ['skeleton'], ['skeleton', 'organs'], ['skeleton', 'muscle'], ['skeleton', 'circulatory'],
+    ['skeleton', 'muscle', 'organs'], ['skeleton', 'organs', 'circulatory'],
+    ['skeleton', 'muscle', 'organs', 'circulatory'], Object.keys(LAYERS),
+  ];
+  const ids = [...BUILDABLE];
+  console.log('  ' + 'cavity'.padEnd(20) + COMBOS.map((_, i) => ('#' + i).padStart(6)).join(''));
+  const missing = [];
+  for (const id of ids) {
+    const row = [];
+    for (const combo of COMBOS) {
+      const set = new Set(combo);
+      const ctx = makeCtx(all.filter((e) => set.has(e.layer)));
+      const r = buildCavityGeometry(id, ctx, measureLandmarks(ctx));
+      if (!r) missing.push(`${id} with ${combo.join('+')}`);
+      row.push(r ? (r.exact ? '  ok' : ' est') : 'NULL');
+    }
+    console.log('  ' + id.padEnd(20) + row.map((v) => v.padStart(6)).join(''));
+  }
+  COMBOS.forEach((c, i) => console.log(`    #${i} ${c.join(' + ')}`));
+  check('every cavity builds in every layer combination', !missing.length,
+    missing.slice(0, 4).join('; '));
+}
+
 console.log(bad ? `\n${bad} CHECK(S) FAILED` : '\nALL BUILD CHECKS PASSED');
 process.exit(bad ? 1 : 0);

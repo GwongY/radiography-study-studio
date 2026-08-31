@@ -1429,9 +1429,10 @@ function bodyMetrics(){
   const src=state.fullMeshes.length?state.fullMeshes
     :state.meshes.length?state.meshes
     :Object.values(state.extraModels||{}).flatMap(m=>m.meshes||[]);
+  /* the whole scene, for the reason spelled out in cavityContext */
+  if(state.scene) state.scene.updateMatrixWorld(true);
   const box=new THREE.Box3();
   if(root){
-    root.updateMatrixWorld(true);
     const inv=new THREE.Matrix4().copy(root.matrixWorld).invert();
     const v=new THREE.Vector3(), m4=new THREE.Matrix4();
     src.forEach(o=>{
@@ -1909,8 +1910,22 @@ function cavityContext(){
   if(state._cavCtx&&state._cavCtx.sig===sig) return state._cavCtx;
   const THREE=state.THREE;
   const root=state.fullModel;
-  if(!root||!THREE) return null;
-  root.updateMatrixWorld(true);
+  if(!root||!THREE||!state.scene) return null;
+  /*
+   * Flush the WHOLE scene, forced, before reading a single vertex.
+   *
+   * `root.updateMatrixWorld(true)` walks the skeleton's branch and nothing
+   * else, so a layer loaded moments ago -- pivot scaled and offset into the
+   * body frame, matrixWorld still identity -- had every one of its meshes read
+   * through `inv` alone. Measured: the left lung came back at x 0.06-0.18,
+   * y -0.08-0.10 while the ribs it sits inside are x +/-0.99, y 2.39-5.10. No
+   * lung point then falls in any mediastinal band, so the mediastinum built
+   * from nothing and returned null, and the pericardial sac inside it went
+   * with it. The thoracic cavity survived only because it can fall back to
+   * bone. Nothing in the picture says "wrong transform" -- it says "cavity
+   * missing", or "cavity out in front of the body".
+   */
+  state.scene.updateMatrixWorld(true);
   const inv=new THREE.Matrix4().copy(root.matrixWorld).invert();
 
   const entries=[];
@@ -1938,6 +1953,13 @@ function cavityContext(){
   state._cavCtx=ctx;
   state._cavMeasured=null;
   state._cavCache=new Map();
+  /*
+   * The vertex cache goes too. It is keyed by mesh uuid and survives every
+   * rebuild, so one measurement taken against an unflushed matrix used to
+   * poison every later build of every cavity for the rest of the session --
+   * which is what made this bug look permanent rather than transient.
+   */
+  state._cavPts=new Map();
   return ctx;
 }
 
