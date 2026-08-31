@@ -24,6 +24,9 @@ The workflow is the same for every subject:
 | `figures.js` | 15 published figures that replaced the hand-drawn *anatomy*, with author, licence and source page captured from the Wikimedia API. |
 | `assets/figures/` | Those 15 image files. Licence-gated at download: anything not demonstrably free is refused. |
 | `assets/` | Local GLB models. Unchanged. |
+| `mesh-index.js` | **Generated.** Every named structure in every GLB layer (1,686), with the course file that names it. Rebuild with `node work/build-mesh-index.mjs`; never hand-edit. |
+| `synonyms.js` | Query expansion (collarbone → clavicle), composites (a name with no mesh but real parts), and the three structures genuinely not modelled. |
+| `bodymap.js`, `landmarks.js`, `cavity-geom.js`, `cavity-build.js` | The spatial-overlay engine: concept metadata, the semantic landmark resolver, the overlay maths and one builder per cavity. |
 
 ## Run
 
@@ -563,10 +566,79 @@ that every question has a resolvable correct answer and an explanation, every it
 explanation and at least one practice question, and every item carries a source reference. Current
 state: **94 items, 434 questions, 75 source files cited, 0 validation failures.**
 
+## Which structure names you are asked to know
+
+The seven layers name 1,686 structures. A first- and second-year radiography student is not asked to
+memorise 1,686 names, and an index that offers all of them as equal, individually pressable rows
+teaches nothing about what matters — twenty-two segmental bronchi buried the lobar bronchi, and
+fourteen phalanges of one foot buried the foot.
+
+An earlier version decided this with a hand-written regex of "detail" words (`segmental`,
+`branch of`, …). That was this repo guessing at the syllabus, which is the one thing the source
+rule forbids, and it left 1,488 of the 1,686 at course level — every lymph node, every ligament,
+every named sulcus.
+
+`work/build-course-terms.mjs` replaces the guess with the sources. It reads the HSS2011 and ABCT2326
+**taught and assessed** material off the shared drive — the examinable glossary, both study manuals,
+every module lecture (2019/20 and the previous-year sets), every revision exercise, the model
+answers, the MOOCs, every past paper, and the ten physiology lectures with their tutorials and
+exercises — and asks of each structure whether the course names it. The answer, plus which file said
+so, is committed as `work/course-terms.json` and baked into `mesh-index.js`.
+
+**612 of the 1,686 are named by the course:**
+
+| Evidence | Count | What it means |
+| --- | --- | --- |
+| `listed` | 261 | in `Vocabulary.pdf`, the course's own statement of which term names are examinable |
+| `named` | 244 | the exact name appears in a lecture, exercise, model answer or past paper |
+| `described` | 106 | all of its words appear together in one sentence of one — the notes say "the right lung is divided into superior, middle and inferior lobes", never "Superior lobe of right lung" |
+| `mirrored` | 1 | the same structure on the other side of a body that is symmetrical about it |
+
+Three things are excluded from that corpus **on purpose**, and the exclusion is the whole point:
+
+- **Martini, *Fundamentals of Anatomy & Physiology*** (the set eBook). It is a 1,300-page reference
+  that names essentially every structure in the body; counting it would mark almost all 1,686 as
+  course level and rebuild the problem. It stays a source for facts. It is not evidence that a NAME
+  must be memorised.
+- **Student coursework** (lab reports, assignments, "Susan notes") — the source registry already
+  treats student work as evidence of topic scope only.
+- **The publisher's question bank**, which is not taught material.
+
+Nothing is removed by any of this:
+
+- each layer chip shows both numbers — `Vessels 186/419` is 186 names to learn inside an atlas of 419;
+- a course-named row in search says where it is named ("in the examinable glossary", "named in 1.2
+  Cardiopulmonary System and Associated Structures"), and the selection card carries the same chip;
+- the other 1,074 are still modelled, searchable and tappable. 483 of them fold into 171 families —
+  one row for "Phalanges of foot — 14", one for "Bronchi of the right lung — 11" — that open every
+  member together; the 591 that are one of a kind are collected into one "N more in *layer*" row at
+  the end of the results.
+
+`work/search-probe.mjs` asserts all of it, including that the lung lobes survive (they are
+`described`, never named verbatim) and that the first rib, which the glossary lists, stays out of the
+"Ribs" family.
+
+## Region filter
+
+The six regions filter the skeleton by an ordered classifier over the mesh names, and the six
+soft-tissue layers by a **measured box**: that region's own bones give an axis-aligned box in the
+body frame, and a soft-tissue structure belongs to the region when its centre lies inside it. Paired
+limbs get one box per side, and the upper-limb box is measured from the free limb only — the
+clavicle reaches the midline at the sternoclavicular joint, so including the pectoral girdle drew a
+box that swallowed the whole trunk. The sacrum and coccyx belong to two regions, the vertebral
+column and the pelvic ring, so a mesh carries a list rather than a single region.
+
+Two bugs are recorded here because they were silent for a long time: `mapImportedName` walked an
+object literal with `String.includes`, so `phalanx → hand` beat `metatarsal → foot` on key order and
+all sixty phalanges of the toes classified as upper limb; and `importedRegion` ended in a bare
+`return 'skull'`, so every name no rule matched was absorbed into the cranium — the carpals, the
+tarsals and the ear ossicles among them. `work/region-probe.mjs` lifts both classifiers out of the
+HTML and runs them over the real GLB names, and fails if a single one of the 277 meshes is unplaced.
+
 ## Osteology studio — unchanged behaviour
 
 Explore, Identify (L1), Left/right (L2), Landmarks (L3), Find (L4) and Memory hooks (L5) all work as
-before, along with the 277-mesh Z-Anatomy / BodyParts3D skeleton, search across atlas structures, region filtering, isolation, camera views, double-tap
+before, along with the Z-Anatomy / BodyParts3D skeleton (277 meshes, 159 structures), search across every indexed structure, region filtering, isolation, camera views, double-tap
 focus, pick cycling and the local review meter. See the in-app **Sources & model** dialog for model
 attribution and licensing.
 
