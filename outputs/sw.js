@@ -23,7 +23,7 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v53';
+const CACHE_VERSION = 'v54';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
@@ -33,6 +33,12 @@ const SHELL = [
   './',
   './index.html',
   './radiography-study-studio.html',
+  /* The app itself. Lifted out of the HTML in phase 2 — same code, three files.
+     The queries MUST match the <link> and <script src> in the HTML exactly;
+     work/shell-check.mjs enforces that. */
+  './app.css?v=1',
+  './studio.js?v=1',
+  './study.js?v=1',
   './study-data.js',
   './anatomy-data.js?v=5',
   './visual-data.js?v=4',
