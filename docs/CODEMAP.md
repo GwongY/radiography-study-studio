@@ -186,6 +186,7 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-st
 | `work/grid-probe.mjs` | Numeric validation of the abdominal surface grid -- the nine regions and the |
 | `work/landmark-check.mjs` | Does every landmark actually resolve against the real GLBs? |
 | `work/load-check.mjs` | Load-time verification for radiography-study-studio.html. |
+| `work/query.mjs` | Ask the data a question instead of reading the file. |
 | `work/region-probe.mjs` | Region probe — does the region filter put every bone in the right region? |
 | `work/search-probe.mjs` | Search probe — does typing a structure's name find it? |
 | `work/shell-check.mjs` | Shell check — every module the page imports is precached under the SAME |
