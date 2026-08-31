@@ -411,3 +411,56 @@ can be trusted without opening what they describe:
 The hard-coded index counts in `CLAUDE.md`'s module table were also removed and
 replaced with a pointer to `docs/DATA-INDEX.md` — they duplicated the generated
 file and would have rotted silently in the one document every session pays for.
+
+## Result — phase 2
+
+Measured on 2026-09-01.
+
+| File | Before | After |
+| --- | --- | --- |
+| `radiography-study-studio.html` | 7,957 lines / 468 KB | **360 lines / 30 KB** |
+| `app.css` | — | 745 lines / 68 KB |
+| `studio.js` | — | 3,404 lines / 200 KB |
+| `study.js` | — | 3,445 lines / 176 KB |
+
+A session working on the study system now opens a 3,445-line file, and the map points it at a
+36-line range inside it. The same task before phase 1 meant a 7,957-line read.
+
+### The move was provably lossless
+
+Three independent proofs, all passing:
+
+1. **Reassembly.** Gluing the three extracted files back into the HTML's original shape
+   reproduced all 7,958 lines exactly.
+2. **Character identity.** Each extracted file compared against the corresponding inline block
+   at `e607a06` — identical, modulo the one boundary newline each side of a `<script>` tag.
+3. **Baselines.** All eight probe baselines byte-identical, including `region-probe`, which now
+   lifts the two region classifiers out of `studio.js` instead of the HTML.
+
+Browser pass: `app.css` applies (601 rules, themed background), all three files serve 200,
+`window.__osteo` publishes 55 keys, the study module renders six views, and opening Viewer from
+Today sizes the canvas to 1165×605 — matching the stage, not the degenerate strip the resize
+trap describes. No console errors.
+
+### Four tools would have passed while checking nothing
+
+The reason this phase was not a text move. `load-check`, `syntax-check` and `shell-check` all
+found the code by matching `<script type="module">` against the HTML; with the blocks extracted
+each would have matched zero, looped zero times and **exited 0**. `load-check` is the check that
+exists because a load-time death shipped once.
+
+Each now fails on an empty set, and each guard was verified by deleting `studio.js` and watching
+the check go red rather than green:
+
+- `load-check` / `syntax-check` — `FAIL expected 2 application modules, found 0`, exit 1.
+- `shell-check` — `FAIL found 0 local module imports`, plus a new section policing the HTML's
+  `<link>`/`<script src>` references for a `?v=` query. Verified by unversioning the shell's
+  `app.css` entry: `FAIL app.css?v=1 is referenced but the shell lists "app.css"`.
+
+This is the same defect class the phase-1 review caught in `codemap.mjs`, found a second time in
+three more files. The lesson is general enough to be worth stating: **in this repo a check that
+locates its subject by pattern must assert it found one.**
+
+`codemap.mjs`'s own guard was already in place from phase 1 and did exactly its job — it fired
+the moment the blocks moved, which is what forced the generator to be taught about the extracted
+files rather than silently shipping a map with 35 rows missing.
