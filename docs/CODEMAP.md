@@ -98,6 +98,7 @@ Traps: [The studio block](TRAPS.md#the-studio-block-outputsradiography-study-stu
 | `work/cavity-probe.mjs` | Numeric validation of the cavity derivation against the real GLBs. |
 | `work/codemap-check.mjs` | Codemap check — is docs/CODEMAP.md what work/codemap.mjs would generate |
 | `work/codemap.mjs` | Code map generator — writes docs/CODEMAP.md. Do not edit that file by hand. |
+| `work/data-index.mjs` | Data index generator — writes docs/DATA-INDEX.md. |
 | `work/dense-lessons.mjs` | Task #9 candidate scan — list the densest explanations (nested clauses, |
 | `work/dev-server.mjs` | Minimal static server for outputs/ — same role as `python -m http.server 8420` |
 | `work/dump-plain-candidates.mjs` |  |
