@@ -4,51 +4,68 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 7957 lines
+## `outputs/radiography-study-studio.html` — 360 lines
 
 Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-studiohtml) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsradiography-study-studiohtml) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsradiography-study-studiohtml-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsradiography-study-studiohtml) · [CSS](TRAPS.md#css--outputsradiography-study-studiohtml) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsradiography-study-studiohtml)
 
 | Lines | Section |
 | --- | --- |
-| 1–18 | markup — no banners, grep here |
-| 19–765 | CSS · preamble |
-| 766–1081 | markup — no banners, grep here |
-| 1082–1082 | importmap · preamble |
-| 1083–1100 | studio · preamble |
-| 1101–1198 | studio · Hide, and search-driven uncover |
-| 1199–1418 | studio · Search -> viewer: frame the part, then hide only what stands in front |
-| 1419–1869 | studio · Spatial concept overlays -- cavities, regions, quadrants, planes. |
-| 1870–2330 | studio · Cavity geometry, derived from the loaded anatomy. |
-| 2331–2937 | studio · Visualisation modes. |
-| 2938–3233 | studio · Region boxes — how the region filter reaches the six soft-tissue layers |
-| 3234–3525 | studio · Depth picking |
-| 3526–4488 | studio · Live physiology |
-| 4489–4517 | study · preamble |
-| 4518–4620 | study · Storage — versioned keys, one-time migration from the osteology app |
-| 4621–4665 | study · Moving progress between devices |
-| 4666–4896 | study · Reset |
-| 4897–4940 | study · Small UI helpers |
-| 4941–4944 | study · Home |
-| 4945–5023 | study · Navigation -- five destinations, rendered into both the icon rail and |
-| 5024–5071 | study · Review -- mistakes, due items, and the mastery map that replaced the |
-| 5072–5076 | study · More -- sources, coverage, and the things demoted out of the topbar. |
-| 5077–5414 | study · Global search -- one sheet over every destination, mixing structures, |
-| 5415–5450 | study · Search -> viewer: open the model, select the part, auto-uncover, and |
-| 5451–5470 | study · Hidden tray |
-| 5471–5735 | study · Spatial overlay controls (viewer "..." sheet) |
-| 5736–5991 | study · Subject |
-| 5992–6144 | study · What is under the tap |
-| 6145–6355 | study · Session engine |
-| 6356–6583 | study · Lesson visuals |
-| 6584–6870 | study · Reading help |
-| 6871–7721 | study · Layout figures |
-| 7722–7764 | study · Source dialog |
-| 7765–7810 | study · Coverage report |
-| 7811–7815 | study · Mastery dashboard |
-| 7816–7844 | study · Boot |
-| 7845–7935 | study · Dialog behaviour, applied to all seven at once |
-| 7936–7955 | classic script · preamble |
-| 7956–7957 | markup — no banners, grep here |
+| 1–335 | markup — no banners, grep here |
+| 336–336 | importmap |
+| 337–337 | loads studio.js |
+| 338–338 | loads study.js |
+| 339–358 | classic script · preamble |
+| 359–360 | markup — no banners, grep here |
+
+## The application — `outputs/studio.js`, `outputs/study.js`
+
+The two module blocks that were inline in the HTML until phase 2. They keep
+separate import scopes and talk only through `window.__osteo`.
+
+`outputs/app.css` — 745 lines.
+
+**`outputs/studio.js`** — 3404 lines
+
+| Lines | Section |
+| --- | --- |
+| 1–17 | preamble |
+| 18–115 | Hide, and search-driven uncover |
+| 116–335 | Search -> viewer: frame the part, then hide only what stands in front |
+| 336–786 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
+| 787–1247 | Cavity geometry, derived from the loaded anatomy. |
+| 1248–1854 | Visualisation modes. |
+| 1855–2150 | Region boxes — how the region filter reaches the six soft-tissue layers |
+| 2151–2442 | Depth picking |
+| 2443–3404 | Live physiology |
+
+**`outputs/study.js`** — 3445 lines
+
+| Lines | Section |
+| --- | --- |
+| 1–28 | preamble |
+| 29–131 | Storage — versioned keys, one-time migration from the osteology app |
+| 132–176 | Moving progress between devices |
+| 177–407 | Reset |
+| 408–451 | Small UI helpers |
+| 452–455 | Home |
+| 456–534 | Navigation -- five destinations, rendered into both the icon rail and |
+| 535–582 | Review -- mistakes, due items, and the mastery map that replaced the |
+| 583–587 | More -- sources, coverage, and the things demoted out of the topbar. |
+| 588–925 | Global search -- one sheet over every destination, mixing structures, |
+| 926–961 | Search -> viewer: open the model, select the part, auto-uncover, and |
+| 962–981 | Hidden tray |
+| 982–1246 | Spatial overlay controls (viewer "..." sheet) |
+| 1247–1502 | Subject |
+| 1503–1655 | What is under the tap |
+| 1656–1866 | Session engine |
+| 1867–2094 | Lesson visuals |
+| 2095–2381 | Reading help |
+| 2382–3232 | Layout figures |
+| 3233–3275 | Source dialog |
+| 3276–3321 | Coverage report |
+| 3322–3326 | Mastery dashboard |
+| 3327–3355 | Boot |
+| 3356–3445 | Dialog behaviour, applied to all seven at once |
 
 ## Data modules — `outputs/*.js`
 
@@ -65,7 +82,7 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-st
 | `physiology.js` | 337 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 4897 | Radiography Study Studio — study data layer |  |
-| `sw.js` | 182 | Radiography Study Studio — service worker |  |
+| `sw.js` | 188 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
 | `term-gloss.js` | 781 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
 | `term-notes.js` | 313 | Term notes — say it, then mean it. |  |

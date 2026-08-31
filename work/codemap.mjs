@@ -20,6 +20,14 @@ const HTML = 'radiography-study-studio.html';
 /* Generated files a session must never read. The map points at the summary. */
 const GENERATED = new Map([['mesh-index.js', 'docs/DATA-INDEX.md']]);
 
+/*
+ * The application itself, lifted out of the HTML in phase 2. These are listed
+ * separately from the data modules: they are the code a session usually wants,
+ * and they are the only outputs/*.js files that are not a data layer.
+ */
+const APP_JS = ['studio.js', 'study.js'];
+const APP_CSS = 'app.css';
+
 /* Drop the trailing newline before splitting, or every count in the map is one
    too many and the last section row points at a line that does not exist. */
 const linesOf = (p) => readFileSync(p, 'utf8').replace(/\r?\n$/, '').split(/\r?\n/);
@@ -71,7 +79,12 @@ function htmlBlocks(ls) {
     let label = null;
     if (/<style\b/.test(l)) label = 'CSS';
     else if (/<script\b[^>]*type="importmap"/.test(l)) label = 'importmap';
-    else if (/<script\b[^>]*type="module"/.test(l)) label = ['studio', 'study'][moduleN++] || `module ${moduleN}`;
+    else if (/<script\b[^>]*type="module"/.test(l)) {
+      /* An external module tag names its file; only an inline block is a block
+         of code this map should try to section. */
+      const src = (l.match(/src="\.\/([^"?]+)/) || [])[1];
+      label = src ? `loads ${src}` : (['studio', 'study'][moduleN++] || `module ${moduleN}`);
+    }
     else if (/<script\b/.test(l)) label = 'classic script';
     if (!label) continue;
     open = { label, from: n, to: n };
@@ -164,47 +177,50 @@ p();
 
 /* ---- the HTML ---- */
 const htmlLines = linesOf(join(outputs, HTML));
-/*
- * A later phase moves the CSS to app.css and the two module blocks to
- * studio.js / study.js. When that lands this scan finds nothing to section
- * and the map quietly loses most of its rows — so say it IN the map.
- * codemap-check.mjs fails while this warning is present, which makes the
- * collapse impossible to commit unnoticed.
- */
 const blocks = htmlBlocks(htmlLines);
 const inlineModules = blocks.filter((b) => (b.label === 'studio' || b.label === 'study') && b.to > b.from);
-const hasCss = blocks.some((b) => b.label === 'CSS' && b.to > b.from);
+const hasInlineCss = blocks.some((b) => b.label === 'CSS' && b.to > b.from);
+const extracted = [...APP_JS, APP_CSS].filter((f) => existsSync(join(outputs, f)));
+
+/*
+ * The app's code must be accounted for SOMEWHERE — inline in the HTML, or in
+ * the extracted files. If neither is true the map has quietly lost most of its
+ * rows, so say it IN the map; codemap-check.mjs fails while this warning is
+ * present, which makes the collapse impossible to commit unnoticed.
+ */
 const SPLIT_WARNING = 'WARNING — work/codemap.mjs needs updating.';
+const accounted = extracted.length === 3 || (inlineModules.length === 2 && hasInlineCss);
 
 p(`## \`outputs/${HTML}\` — ${htmlLines.length} lines`);
 p();
-if (inlineModules.length < 2 || !hasCss) {
-  p(`> **${SPLIT_WARNING}** The inline blocks this map was built from are gone`);
-  p('> (the CSS and/or the two module blocks moved to their own files). Teach the');
-  p('> generator about the extracted files — until then this map is missing most');
-  p('> of what makes it useful.');
+if (!accounted) {
+  /* Build the file list outside the template — nesting backticks inside a
+     template literal that is itself emitting backticks is how you get a map
+     that renders as one long code span. */
+  const appList = [...APP_JS, APP_CSS].map((f) => '`' + f + '`').join(', ');
+  p(`> **${SPLIT_WARNING}** The app's code is neither inline in the HTML nor in`);
+  p(`> ${appList}. Teach the generator where it went — until then this map is`);
+  p('> missing most of what makes it useful.');
   p();
 }
-/*
- * Several trap sections name the HTML (CSS, the studio block, visibility).
- * List them ONCE above the table — repeating them on all ~60 rows would cost
- * more to read than the map saves.
- */
 const htmlTraps = trapCell(`outputs/${HTML}`);
 if (htmlTraps) { p(`Traps: ${htmlTraps.replace(/<br>/g, ' · ')}`); p(); }
 p('| Lines | Section |');
 p('| --- | --- |');
 /*
- * Account for EVERY line, not just the blocks. The markup between </style> and
- * the first module — the nav rail, the five views, the dialogs — is a third of
- * a thousand lines with no banners in it. Leaving it out of a table headed
- * "where everything is" tells a session working on markup that there is
- * nothing to find, which is worse than telling it to grep.
+ * Account for EVERY line, not just the blocks. The markup between </head> and
+ * the script tags — the nav rail, the five views, the dialogs — has no banners
+ * in it. Leaving it out of a table headed "where everything is" tells a session
+ * working on markup that there is nothing to find, which is worse than telling
+ * it to grep.
  */
 let cursor = 1;
 for (const b of blocks) {
   if (b.from > cursor) p(`| ${cursor}–${b.from - 1} | markup — no banners, grep here |`);
-  for (const r of sections(htmlLines, b.from, b.to, `${b.label} · `)) {
+  /* A one-line tag is not a block of code to section — sectioning it produces a
+     bogus "· preamble" row for a line that only names a file. */
+  if (b.from === b.to) p(`| ${b.from}–${b.to} | ${b.label} |`);
+  else for (const r of sections(htmlLines, b.from, b.to, `${b.label} · `)) {
     p(`| ${r.from}–${r.to} | ${r.title} |`);
   }
   cursor = b.to + 1;
@@ -212,8 +228,37 @@ for (const b of blocks) {
 if (cursor <= htmlLines.length) p(`| ${cursor}–${htmlLines.length} | markup — no banners, grep here |`);
 p();
 
+/* ---- the application modules ---- */
+const appPresent = APP_JS.filter((f) => existsSync(join(outputs, f)));
+if (appPresent.length) {
+  p('## The application — `outputs/studio.js`, `outputs/study.js`');
+  p();
+  p('The two module blocks that were inline in the HTML until phase 2. They keep');
+  p('separate import scopes and talk only through `window.__osteo`.');
+  p();
+  if (existsSync(join(outputs, APP_CSS))) {
+    const cssLines = linesOf(join(outputs, APP_CSS));
+    const cssTraps = trapCell(`outputs/${APP_CSS}`);
+    p(`\`outputs/${APP_CSS}\` — ${cssLines.length} lines.${cssTraps ? ` Traps: ${cssTraps.replace(/<br>/g, ' · ')}` : ''}`);
+    p();
+  }
+  for (const f of appPresent) {
+    const ls = linesOf(join(outputs, f));
+    const t = trapCell(`outputs/${f}`);
+    p(`**\`outputs/${f}\`** — ${ls.length} lines`);
+    p();
+    if (t) { p(`Traps: ${t.replace(/<br>/g, ' · ')}`); p(); }
+    p('| Lines | Section |');
+    p('| --- | --- |');
+    for (const r of sections(ls, 1, ls.length, '')) p(`| ${r.from}–${r.to} | ${r.title} |`);
+    p();
+  }
+}
+
 /* ---- the data modules ---- */
-const mods = readdirSync(outputs).filter((f) => f.endsWith('.js')).sort();
+/* studio.js and study.js are the app, not a data layer — they get their own
+   section above, and listing them here would give them two homes in the map. */
+const mods = readdirSync(outputs).filter((f) => f.endsWith('.js') && !APP_JS.includes(f)).sort();
 p('## Data modules — `outputs/*.js`');
 p();
 p('| File | Lines | What it holds | Traps |');
