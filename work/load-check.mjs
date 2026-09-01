@@ -16,9 +16,9 @@
  *   "<Name> is not defined" / obvious missing-browser globals   -> tolerated
  * Run:  node work/load-check.mjs
  */
-import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { dirname, join, normalize } from 'node:path';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(root, 'outputs');
@@ -37,10 +37,22 @@ async function parseCheck(label, source) {
   }
 }
 
+/*
+ * The two application modules. Phase 2 moved them out of the HTML into
+ * studio.js and study.js; read them from there, falling back to the inline
+ * blocks so this keeps working on older checkouts. Finding NEITHER is a
+ * failure, not an empty pass — this check exists because a load-time death
+ * shipped once, and a silent zero-module run would let the next one through.
+ */
 const html = readFileSync(join(OUT, 'radiography-study-studio.html'), 'utf8');
-const blocks = [...html.matchAll(/<script type="module">([\s\S]*?)<\/script>/g)].map((m) => m[1]);
-console.log(`inline module scripts: ${blocks.length}`);
-for (const [i, s] of blocks.entries()) await parseCheck(`inline-module[${i}]`, s);
+const EXTRACTED = ['studio.js', 'study.js'];
+const blocks = EXTRACTED.every((f) => existsSync(join(OUT, f)))
+  ? EXTRACTED.map((f) => ({ label: `outputs/${f}`, file: f, src: readFileSync(join(OUT, f), 'utf8') }))
+  : [...html.matchAll(/<script type="module">([\s\S]*?)<\/script>/g)]
+      .map((m, i) => ({ label: `inline-module[${i}]`, src: m[1] }));
+console.log(`application modules: ${blocks.length} (${blocks.map((b) => b.label).join(', ') || 'NONE'})`);
+if (blocks.length < 2) fail(`expected 2 application modules, found ${blocks.length} — the app moved and this check did not follow it`);
+for (const b of blocks) await parseCheck(b.label, b.src);
 for (const f of ['study-data.js', 'anatomy-data.js', 'visual-data.js', 'physiology.js', 'schematics.js', 'figures.js', 'layouts.js', 'wordparts.js', 'term-notes.js', 'term-gloss.js', 'bodymap.js']) {
   try { await parseCheck(`outputs/${f}`, readFileSync(join(OUT, f), 'utf8')); }
   catch { console.log(`SKIP  parse outputs/${f} (not found)`); }
@@ -72,30 +84,100 @@ for (const n of ['document', 'window', 'localStorage', 'sessionStorage', 'naviga
   if (!(n in globalThis)) { try { globalThis[n] = stub(); } catch { /* const globals can't be set */ } }
 }
 
+/*
+ * Inline every relative import as a data: URL, depth first.
+ *
+ * Paths are relative to outputs/ with forward slashes, and a specifier is
+ * resolved against the file that WROTE it. This used to strip a leading './'
+ * and treat the rest as a filename in outputs/, which worked only while every
+ * module was a sibling. Phase 3 put the corpus in study/corpus/, where
+ * './structures.js' means study/corpus/structures.js and '../../anatomy-data.js'
+ * did not match the pattern at all — the first crashed on ENOENT, the second
+ * would have been left unresolved.
+ */
 const urls = new Map();
+const rel = (dir, spec) => normalize(join(dir, spec.split('?')[0])).replace(/\\/g, '/');
+
+function inline(src, dir) {
+  return src
+    .replace(/from\s+(['"])(\.\.?\/[^'"]+)\1/g, (m, q, spec) => `from ${q}${moduleUrl(rel(dir, spec))}${q}`)
+    /*
+     * A side-effect import — `import './parts/x.js';` — has no `from`, so the
+     * rule above never sees it. An entry point that is nothing but a list of
+     * these would be inlined to nothing at all and this check would report
+     * NO LOAD-TIME ERRORS having evaluated an empty module. Found while trying
+     * a barrel-of-side-effects split in phase 4.
+     */
+    .replace(/(^|\n)(\s*import\s+)(['"])(\.\.?\/[^'"]+)\3/g,
+      (m, nl, kw, q, spec) => `${nl}${kw}${q}${moduleUrl(rel(dir, spec))}${q}`)
+    .replace(/import\(\s*(['"])(\.\.?\/[^'"]+)\1\s*\)/g, (m, q, spec) => `import(${q}${moduleUrl(rel(dir, spec))}${q})`);
+}
+
 function moduleUrl(fname) {
   if (urls.has(fname)) return urls.get(fname);
+  /*
+   * The rewrites above are regexes over the raw text, so they also match an
+   * example import written inside a COMMENT. Leaving the specifier alone when
+   * nothing is there turns that into an ordinary unresolved-import message
+   * instead of an ENOENT stack trace with no hint of which file to look at.
+   */
+  if (!existsSync(join(OUT, fname))) { urls.set(fname, `./${fname}`); return `./${fname}`; }
   urls.set(fname, `PENDING(${fname})`); /* cycle guard */
-  let src = readFileSync(join(OUT, fname), 'utf8');
-  src = src.replace(/from\s+(['"])(\.\/[^'"]+)\1/g, (m, q, spec) => `from ${q}${moduleUrl(spec.replace(/^\.\//, '').split('?')[0])}${q}`);
-  src = src.replace(/import\(\s*(['"])(\.\/[^'"]+)\1\s*\)/g, (m, q, spec) => `import(${q}${moduleUrl(spec.replace(/^\.\//, '').split('?')[0])}${q})`);
+  const src = inline(readFileSync(join(OUT, fname), 'utf8'), dirname(fname));
   const url = 'data:text/javascript;base64,' + Buffer.from(src, 'utf8').toString('base64');
   urls.set(fname, url);
   return url;
+}
+
+/*
+ * Names the data modules export. A "<name> is not defined" for one of these is
+ * a broken wiring — a split that forgot to pass a binding down — not a missing
+ * browser global, and tolerating it let exactly that ship once: the study parts
+ * used STORAGE_PREFIX from the entry module's imports without importing it, and
+ * this check called it a browser-only call and passed.
+ */
+const dataExports = new Set();
+for (const f of readdirSync(OUT).filter((n) => n.endsWith('.js'))) {
+  const src = readFileSync(join(OUT, f), 'utf8');
+  for (const m of src.matchAll(/^export\s+(?:async\s+)?(?:const|let|function|class)\s+([A-Za-z_$][\w$]*)/gm)) {
+    dataExports.add(m[1]);
+  }
+  /* study-data.js is a barrel, so its whole surface is `export { … } from`. */
+  for (const m of src.matchAll(/export\s*\{([^}]*)\}/g)) {
+    for (const n of m[1].split(',')) {
+      const name = n.trim().split(/\s+as\s+/).pop().trim();
+      if (/^[A-Za-z_$][\w$]*$/.test(name) && name !== 'default') dataExports.add(name);
+    }
+  }
 }
 
 function classify(label, e) {
   const msg = String(e.message || '');
   if (e instanceof SyntaxError) return fail(`eval  ${label}: SyntaxError — ${msg}`);
   if (/before initialization|Cannot access/.test(msg)) return fail(`eval  ${label}: LOAD-TIME ERROR — ${msg}`);
+  const undef = (msg.match(/^([A-Za-z_$][\w$]*) is not defined$/) || [])[1];
+  if (undef && dataExports.has(undef)) {
+    return fail(`eval  ${label}: MISSING BINDING — ${undef} is exported by a data module but nothing here imports it`);
+  }
   console.log(`OK    eval  ${label} (parsed fully; stopped on browser-only call: ${e.constructor.name}: ${msg.split('\n')[0].slice(0, 100)})`);
 }
 
-const sources = blocks.map((src) => src.replace(/from\s+(['"])(\.\/[^'"]+)\1/g, (m, q, spec) => `from ${q}${moduleUrl(spec.replace(/^\.\//, '').split('?')[0])}${q}`));
-for (const [i, src] of sources.entries()) {
-  const url = 'data:text/javascript;base64,' + Buffer.from(src, 'utf8').toString('base64');
-  try { await import(url); console.log(`OK    eval  inline-module[${i}] (ran to completion under stubs)`); }
-  catch (e) { classify(`inline-module[${i}]`, e); }
+for (const b of blocks) {
+  /*
+   * Evaluate what actually ships. When the app is real files, import them from
+   * disk — Node resolves the whole graph itself, query strings and all.
+   *
+   * The data: URL inlining below is only for the INLINE fallback, where there
+   * is no file to import. It also cannot survive a large cyclic graph: each
+   * module's base64 embeds its dependencies' base64, so phase 4's 24 mutually
+   * importing parts blew up with "RangeError: Invalid string length" before
+   * evaluating anything.
+   */
+  let url;
+  if (b.file) url = pathToFileURL(join(OUT, b.file)).href;
+  else url = 'data:text/javascript;base64,' + Buffer.from(inline(b.src, '.'), 'utf8').toString('base64');
+  try { await import(url); console.log(`OK    eval  ${b.label} (ran to completion under stubs)`); }
+  catch (e) { classify(b.label, e); }
 }
 
 console.log(failed ? `\n${failed} PROBLEM(S) — see FAIL lines` : '\nNO LOAD-TIME ERRORS FOUND');

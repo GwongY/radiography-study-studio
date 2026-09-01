@@ -23,7 +23,7 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v53';
+const CACHE_VERSION = 'v59';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
@@ -33,8 +33,91 @@ const SHELL = [
   './',
   './index.html',
   './radiography-study-studio.html',
+  /* The app itself. Lifted out of the HTML in phase 2 — same code, three files.
+     The queries MUST match the <link> and <script src> in the HTML exactly;
+     work/shell-check.mjs enforces that. */
+  './app.css?v=1',
+  './studio.js?v=1',
+  './study.js?v=1',
+  /*
+   * studio.js is an entry point that imports these in order. They are listed in
+   * that order, not alphabetically, so the shell reads like the module graph.
+   */
+  './studio/imports.js',
+  './studio/hide-and-search.js',
+  './studio/search-viewer-frame.js',
+  './studio/spatial-concept-overlays.js',
+  './studio/cavity-geometry-derived.js',
+  './studio/visualisation-modes.js',
+  './studio/region-boxes-how.js',
+  './studio/depth-picking.js',
+  './studio/live-physiology.js',
+  /*
+   * study.js is an entry point that imports these and then calls their init()s.
+   * Every one has to be in the shell or the study system is blank offline.
+   */
+  './study/imports.js',
+  './study/state.js',
+  './study/storage-versioned-keys.js',
+  './study/moving-progress-between.js',
+  './study/reset.js',
+  './study/small-ui-helpers.js',
+  './study/home.js',
+  './study/navigation-five-destinations.js',
+  './study/review-mistakes-due.js',
+  './study/more-sources-coverage.js',
+  './study/global-search-one.js',
+  './study/search-viewer-open.js',
+  './study/hidden-tray.js',
+  './study/spatial-overlay-controls.js',
+  './study/subject.js',
+  './study/what-is-under.js',
+  './study/session-engine.js',
+  './study/lesson-visuals.js',
+  './study/reading-help.js',
+  './study/layout-figures.js',
+  './study/source-dialog.js',
+  './study/coverage-report.js',
+  './study/mastery-dashboard.js',
+  './study/boot.js',
+  './study/dialog-behaviour-applied.js',
   './study-data.js',
+  /*
+   * study-data.js is a barrel; these are what it re-exports. The app never
+   * imports them directly, but the browser fetches every one of them, so all
+   * seventeen have to be in the shell or the study system is empty offline.
+   * work/shell-check.mjs walks the import graph and will name any that is
+   * missing.
+   */
+  './study/corpus/schema.js',
+  './study/corpus/hss-terminology.js',
+  './study/corpus/hss-osteology.js',
+  './study/corpus/hss-joints.js',
+  './study/corpus/modules.js',
+  './study/corpus/hss-modules.js',
+  './study/corpus/physiology-items.js',
+  './study/corpus/hti-items.js',
+  './study/corpus/notices.js',
+  './study/corpus/structures.js',
+  './study/corpus/expansion-items.js',
+  './study/corpus/derived-items.js',
+  './study/corpus/corpus.js',
+  './study/corpus/validate.js',
+  './study/corpus/diagrams.js',
+  './study/corpus/coverage.js',
+  './study/corpus/mastery.js',
   './anatomy-data.js?v=5',
+  /*
+   * The same two files again, unversioned — NOT a duplicate. A cache key is the
+   * whole URL, query included, and two modules import these without the query:
+   * study-data.js imports './anatomy-data.js' and cavity-build.js imports
+   * './cavity-geom.js'. Precaching only the ?v= form left both 404ing offline —
+   * the bone records and the entire overlay engine. Found by the transitive
+   * import walk in work/shell-check.mjs; the old one-level scrape could not see
+   * a second-level import at all.
+   */
+  './anatomy-data.js',
+  './cavity-geom.js',
   './visual-data.js?v=4',
   './schematics.js?v=2',
   './wordparts.js?v=3',
