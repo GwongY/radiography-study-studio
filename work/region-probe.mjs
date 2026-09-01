@@ -11,35 +11,18 @@
  *   - importedRegion ended in a bare `return 'skull'`, so every name no rule
  *     matched was absorbed into the cranium rather than reported.
  *
- * This lifts both classifiers straight out of outputs/studio.js and runs them
- * over the real mesh names read from the skeleton GLB, so neither can regress
- * silently.
+ * This lifts both classifiers straight out of the HTML and runs them over the
+ * real mesh names read from the skeleton GLB, so neither can regress silently.
  *
  * Usage: node work/region-probe.mjs [--list]
  */
-import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { REGIONS, getAnatomy } from '../outputs/anatomy-data.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-/*
- * Read the code that actually ships, wherever it lives today. Phase 2 moved the
- * studio block out of the HTML into studio.js; phase 5 split that into
- * studio/*.js, leaving studio.js a list of imports. Rather than name the file
- * that currently holds the classifiers, concatenate every candidate and let the
- * markers below find them — a rename or another split cannot break this, and a
- * missing marker still throws rather than passing quietly.
- */
-const candidates = [
-  join(root, 'outputs/radiography-study-studio.html'),
-  join(root, 'outputs/studio.js'),
-  ...(existsSync(join(root, 'outputs/studio'))
-    ? readdirSync(join(root, 'outputs/studio')).filter((f) => f.endsWith('.js'))
-      .map((f) => join(root, 'outputs/studio', f))
-    : []),
-];
-const html = candidates.filter((p) => existsSync(p)).map((p) => readFileSync(p, 'utf8')).join('\n');
+const html = readFileSync(join(root, 'outputs/radiography-study-studio.html'), 'utf8');
 
 /* Take the two rule tables and their functions from the page itself, so the
    probe can never drift away from what actually ships. */
@@ -58,13 +41,8 @@ const src = lift('const IMPORT_MAP=[', 'function mapImportedName(raw){')
 
 const alsoSrc = html.slice(html.indexOf('const REGION_ALSO=['),
   html.indexOf('\n  }', html.indexOf('function importedRegions(raw,mapped){')) + 4);
-/* The split gave these declarations an `export` prefix; new Function() is not a
-   module, so drop it. The bodies are what this probe is checking, not the
-   keyword in front of them. */
-const noExport = (s) => s.replace(/(^|\n)(\s*)export\s+/g, '$1$2');
-
 const { mapImportedName, importedRegion, importedRegions } =
-  new Function('getAnatomy', noExport(src) + '\n' + noExport(alsoSrc)
+  new Function('getAnatomy', src + '\n' + alsoSrc
     + '\nreturn { mapImportedName, importedRegion, importedRegions };')(getAnatomy);
 
 /* Every named node in the skeleton layer, straight out of the GLB. */

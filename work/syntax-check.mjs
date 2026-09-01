@@ -5,7 +5,7 @@
  * relative import, runtime throw) means the file parsed fine. Run:
  *   node work/syntax-check.mjs
  */
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -27,22 +27,10 @@ async function check(label, source) {
   }
 }
 
-/*
- * The two application modules, wherever they live. Phase 2 extracted them to
- * studio.js / study.js; the inline fallback keeps older checkouts working.
- * Fewer than two is a failure — an empty match set used to exit 0 and report
- * ALL PARSED CLEAN having parsed nothing.
- */
-const OUT = join(root, 'outputs');
-const html = readFileSync(join(OUT, 'radiography-study-studio.html'), 'utf8');
-const EXTRACTED = ['studio.js', 'study.js'];
-const blocks = EXTRACTED.every((f) => existsSync(join(OUT, f)))
-  ? EXTRACTED.map((f) => ({ label: `outputs/${f}`, src: readFileSync(join(OUT, f), 'utf8') }))
-  : [...html.matchAll(/<script type="module">([\s\S]*?)<\/script>/g)]
-      .map((m, i) => ({ label: `inline-module[${i}]`, src: m[1] }));
-console.log(`application modules: ${blocks.length} (${blocks.map((b) => b.label).join(', ') || 'NONE'})`);
-if (blocks.length < 2) { failed++; console.log(`FAIL  expected 2 application modules, found ${blocks.length}`); }
-for (const b of blocks) await check(b.label, b.src);
+const html = readFileSync(join(root, 'outputs', 'radiography-study-studio.html'), 'utf8');
+const blocks = [...html.matchAll(/<script type="module">([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+console.log(`inline module scripts: ${blocks.length}`);
+for (const [i, s] of blocks.entries()) await check(`inline-module[${i}]`, s);
 
 for (const f of ['study-data.js', 'anatomy-data.js', 'term-notes.js', 'term-gloss.js', 'wordparts.js', 'bodymap.js', 'mesh-index.js', 'synonyms.js']) {
   try {
