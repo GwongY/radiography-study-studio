@@ -229,30 +229,36 @@ if (cursor <= htmlLines.length) p(`| ${cursor}–${htmlLines.length} | markup �
 p();
 
 /* ---- the application modules ---- */
-const appPresent = APP_JS.filter((f) => existsSync(join(outputs, f)));
+const appPresent = [APP_CSS, ...APP_JS].filter((f) => existsSync(join(outputs, f)));
 if (appPresent.length) {
-  p('## The application — `outputs/studio.js`, `outputs/study.js`');
+  p('## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`');
   p();
-  p('The two module blocks that were inline in the HTML until phase 2. They keep');
-  p('separate import scopes and talk only through `window.__osteo`.');
+  p('`studio.js` and `study.js` are entry points: each imports its parts — listed');
+  p('in the two sections below — and then calls their `init()`s. The parts import');
+  p('each other cyclically, so **nothing may run at module scope**; side effects');
+  p('belong in `init()`. The two keep separate import scopes and talk only through');
+  p('`window.__osteo`. See [TRAPS.md](TRAPS.md).');
   p();
-  if (existsSync(join(outputs, APP_CSS))) {
-    const cssLines = linesOf(join(outputs, APP_CSS));
-    const cssTraps = trapCell(`outputs/${APP_CSS}`);
-    p(`\`outputs/${APP_CSS}\` — ${cssLines.length} lines.${cssTraps ? ` Traps: ${cssTraps.replace(/<br>/g, ' · ')}` : ''}`);
-    p();
-  }
   for (const f of appPresent) {
     const ls = linesOf(join(outputs, f));
     const t = trapCell(`outputs/${f}`);
-    p(`**\`outputs/${f}\`** — ${ls.length} lines`);
-    p();
-    if (t) { p(`Traps: ${t.replace(/<br>/g, ' · ')}`); p(); }
-    p('| Lines | Section |');
-    p('| --- | --- |');
-    for (const r of sections(ls, 1, ls.length, '')) p(`| ${r.from}–${r.to} | ${r.title} |`);
-    p();
+    p(`- \`outputs/${f}\` — ${ls.length} lines.${t ? ` Traps: ${t.replace(/<br>/g, ' · ')}` : ''}`);
+    /*
+     * A per-file section table only when the file HAS sections. Both entry
+     * points are a list of imports now, and a table whose single row reads
+     * "1–40 preamble" is noise in a document whose whole job is to be shorter
+     * than what it describes.
+     */
+    const rows = /\.js$/.test(f) ? sections(ls, 1, ls.length, '') : [];
+    if (rows.length > 1) {
+      p();
+      p('| Lines | Section |');
+      p('| --- | --- |');
+      for (const r of rows) p(`| ${r.from}–${r.to} | ${r.title} |`);
+      p();
+    }
   }
+  p();
 }
 
 /* ---- the data modules ---- */
@@ -285,18 +291,25 @@ p();
 /* ---- section maps for the modules big enough to carry banners ---- */
 const sectioned = mods.filter((f) => !GENERATED.has(f))
   .map((f) => ({ f, ls: linesOf(join(outputs, f)) }))
-  .filter(({ ls }) => banners(ls, 1, ls.length).length);
+  /* Two rows, one of them "preamble", tells a reader nothing they could not get
+     from the line count already in the table above. */
+  .filter(({ ls }) => banners(ls, 1, ls.length).length > 1);
 if (sectioned.length) {
   p('### Sections inside the larger modules');
   p();
+  /* One table, not one per file. Four tables cost five lines of scaffolding
+     each for the same rows, in a document whose job is to be shorter than what
+     it describes. */
+  p('| File | Lines | Section |');
+  p('| --- | --- | --- |');
   for (const { f, ls } of sectioned) {
-    p(`**\`${f}\`** — ${ls.length} lines`);
-    p();
-    p('| Lines | Section |');
-    p('| --- | --- |');
-    for (const r of sections(ls, 1, ls.length, '')) p(`| ${r.from}–${r.to} | ${r.title} |`);
-    p();
+    let first = true;
+    for (const r of sections(ls, 1, ls.length, '')) {
+      p(`| ${first ? `\`${f}\`` : ''} | ${r.from}–${r.to} | ${r.title} |`);
+      first = false;
+    }
   }
+  p();
 }
 
 /*
@@ -310,10 +323,6 @@ for (const [dir, title] of [['studio', 'The 3D studio'], ['study', 'The study sy
   const parts = existsSync(d) ? readdirSync(d).filter((f) => f.endsWith('.js')).sort() : [];
   if (!parts.length) continue;
   p(`## ${title} — \`outputs/${dir}/*.js\``);
-  p();
-  p(`\`outputs/${dir}.js\` imports these in order, then calls their \`init()\`s.`);
-  p('They import each other cyclically, so nothing may run at module scope —');
-  p('side effects belong in `init()`. See [TRAPS.md](TRAPS.md).');
   p();
   p('| File | Lines | What it holds |');
   p('| --- | --- | --- |');

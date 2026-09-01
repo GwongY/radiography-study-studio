@@ -122,14 +122,6 @@ Branch is `master`, auto-deploys `outputs/` via `.github/workflows/pages.yml` to
 https://gwongy.github.io/radiography-study-studio/ on every push — don't push
 half-finished shell changes.
 
-`master` and `origin/master` are level as of 2026-08-31, at `32c3924`. It carries
-the figure-callout-keys feature (fast-forwarded from `feat/figure-callout-keys`
-on 2026-08-31 — intro + callout key on every published figure/plate, four
-replacement figure images, `work/figure-key-check.mjs`), the search-everywhere +
-hide/uncover + spatial-overlay feature (fast-forwarded from
-`feat/search-everywhere-viewer-overlays` on 2026-08-30), the reading-help
-pass, the source-derived study depth, and the study-unit pass that decides what a
-tap can select.
-
-`feat/search-everywhere-viewer-overlays` (on origin) is fully contained in
-`master` — safe to delete.
+What `master` currently carries is `git log --oneline`; it is not repeated here,
+because a changelog in the one file every session loads is a changelog that goes
+stale unread.
