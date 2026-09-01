@@ -38,34 +38,13 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs) · [Overla
 | 2151–2442 | Depth picking |
 | 2443–3404 | Live physiology |
 
-**`outputs/study.js`** — 3445 lines
+**`outputs/study.js`** — 40 lines
+
+Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudystatejs)
 
 | Lines | Section |
 | --- | --- |
-| 1–28 | preamble |
-| 29–131 | Storage — versioned keys, one-time migration from the osteology app |
-| 132–176 | Moving progress between devices |
-| 177–407 | Reset |
-| 408–451 | Small UI helpers |
-| 452–455 | Home |
-| 456–534 | Navigation -- five destinations, rendered into both the icon rail and |
-| 535–582 | Review -- mistakes, due items, and the mastery map that replaced the |
-| 583–587 | More -- sources, coverage, and the things demoted out of the topbar. |
-| 588–925 | Global search -- one sheet over every destination, mixing structures, |
-| 926–961 | Search -> viewer: open the model, select the part, auto-uncover, and |
-| 962–981 | Hidden tray |
-| 982–1246 | Spatial overlay controls (viewer "..." sheet) |
-| 1247–1502 | Subject |
-| 1503–1655 | What is under the tap |
-| 1656–1866 | Session engine |
-| 1867–2094 | Lesson visuals |
-| 2095–2381 | Reading help |
-| 2382–3232 | Layout figures |
-| 3233–3275 | Source dialog |
-| 3276–3321 | Coverage report |
-| 3322–3326 | Mastery dashboard |
-| 3327–3355 | Boot |
-| 3356–3445 | Dialog behaviour, applied to all seven at once |
+| 1–40 | preamble |
 
 ## Data modules — `outputs/*.js`
 
@@ -82,7 +61,7 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs) · [Overla
 | `physiology.js` | 337 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 117 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 223 | Radiography Study Studio — service worker |  |
+| `sw.js` | 252 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
 | `term-gloss.js` | 781 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
 | `term-notes.js` | 313 | Term notes — say it, then mean it. |  |
@@ -155,6 +134,40 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs) · [Overla
 | 236–307 | Resolver |
 | 308–417 | Plates |
 
+## The study system — `outputs/study/*.js`
+
+`outputs/study.js` imports these in order, then calls their `init()`s.
+They import each other cyclically, so nothing may run at module scope —
+side effects belong in `init()`. See [TRAPS.md](TRAPS.md).
+
+| File | Lines | What it holds |
+| --- | --- | --- |
+| `boot.js` | 44 | Boot |
+| `coverage-report.js` | 54 | Coverage report |
+| `dialog-behaviour-applied.js` | 106 | Dialog behaviour, applied to all seven at once |
+| `global-search-one.js` | 354 | Global search -- one sheet over every destination, mixing structures, |
+| `hidden-tray.js` | 27 | Hidden tray |
+| `home.js` | 9 | Home |
+| `imports.js` | 92 |  |
+| `layout-figures.js` | 866 | Layout figures |
+| `lesson-visuals.js` | 236 | Lesson visuals |
+| `mastery-dashboard.js` | 9 | Mastery dashboard |
+| `more-sources-coverage.js` | 9 | More -- sources, coverage, and the things demoted out of the topbar. |
+| `moving-progress-between.js` | 52 | Moving progress between devices |
+| `navigation-five-destinations.js` | 90 | Navigation -- five destinations, rendered into both the icon rail and |
+| `reading-help.js` | 294 | Reading help |
+| `reset.js` | 243 | Reset |
+| `review-mistakes-due.js` | 58 | Review -- mistakes, due items, and the mastery map that replaced the |
+| `search-viewer-open.js` | 44 | Search -> viewer: open the model, select the part, auto-uncover, and |
+| `session-engine.js` | 224 | Session engine |
+| `small-ui-helpers.js` | 54 | Small UI helpers |
+| `source-dialog.js` | 57 | Source dialog |
+| `spatial-overlay-controls.js` | 279 | Spatial overlay controls (viewer "..." sheet) |
+| `state.js` | 28 | The study system's mutable UI state. |
+| `storage-versioned-keys.js` | 109 | Storage — versioned keys, one-time migration from the osteology app |
+| `subject.js` | 264 | Subject |
+| `what-is-under.js` | 165 | What is under the tap |
+
 ## The corpus — `outputs/study/corpus/*.js`
 
 Every lesson lives here. `outputs/study-data.js` is a barrel that re-exports
@@ -211,5 +224,6 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/search-probe.mjs` | Search probe — does typing a structure's name find it? |  |
 | `work/shell-check.mjs` | Shell check — every module the page imports is precached under the SAME |  |
 | `work/syntax-check.mjs` | Syntax-checks every inline <script type="module"> block in the app HTML, plus |  |
+| `work/ui-strings.mjs` | UI strings — every literal the app can put on screen, as a sorted fingerprint. |  |
 | `work/verify-modules.mjs` | Task #8 verification — module mapping + corpus integrity. |  |
 

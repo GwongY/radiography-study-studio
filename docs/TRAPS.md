@@ -290,3 +290,27 @@ shapes** — in "The region grid and classifiers" below.
   `user-select:none` and `-webkit-touch-callout:none`; without it a long press
   anywhere in the stage started a text selection on iPadOS and threw up the
   Copy / Look Up callout.
+
+### The split app — `outputs/study.js`, `outputs/study/state.js`
+
+- **Nothing may run at module scope in `study/*.js`.** The parts import each
+  other cyclically, so a part pulled in early as somebody's dependency evaluates
+  before another part has reached a `let` it needs. `dialog-behaviour-applied.js`
+  calling `renderToday()` at module scope gave
+  `Cannot access 'currentTab' before initialization` — the same class of failure
+  that killed the app on 2026-08-29. Side effects go in the part's exported
+  `init()`, which `study.js` calls after every import has evaluated.
+- **The five mutable UI bindings live in `study/state.js` as `ui.*`.** An
+  imported binding is read-only, so `session`, `learnFilter`, `learnTopic`,
+  `learnDrill` and `viewerTab` cannot be plain `let`s once anything else writes
+  them. Add a new cross-part mutable there, not as a module-level `let`.
+- **A rename that runs over source text will rewrite prose too.** Hoisting
+  `session` to `ui.session` skipped comments but not string literals, and
+  shipped "Start a ui.session below to begin." to the interface. Seven strings.
+  `work/ui-strings.mjs` fingerprints every sentence the interface can show and
+  is a committed baseline; run `node work/baseline.mjs --check` after any rename.
+- **A browser check can be served a stale module.** `study.js?v=1` did not
+  change when the file changed, so a reload returned the cached body and the
+  behavioural check passed against code that was no longer on disk. Clear
+  `caches`, unregister the service worker, or bump the query before trusting a
+  before/after comparison in the browser.

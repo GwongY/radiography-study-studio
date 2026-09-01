@@ -300,6 +300,31 @@ if (sectioned.length) {
 }
 
 /*
+ * ---- the study system's parts ----
+ * study.js is an entry point now; the code is in study/*.js. Without this the
+ * map points at a 40-line list of imports and says nothing about where the
+ * session engine or the reading help actually live.
+ */
+const studyDir = join(outputs, 'study');
+const parts = existsSync(studyDir)
+  ? readdirSync(studyDir).filter((f) => f.endsWith('.js')).sort() : [];
+if (parts.length) {
+  p('## The study system — `outputs/study/*.js`');
+  p();
+  p('`outputs/study.js` imports these in order, then calls their `init()`s.');
+  p('They import each other cyclically, so nothing may run at module scope —');
+  p('side effects belong in `init()`. See [TRAPS.md](TRAPS.md).');
+  p();
+  p('| File | Lines | What it holds |');
+  p('| --- | --- | --- |');
+  for (const f of parts) {
+    const ls = linesOf(join(studyDir, f));
+    p(`| \`${f}\` | ${ls.length} | ${headline(ls)} |`);
+  }
+  p();
+}
+
+/*
  * ---- the corpus ----
  * study-data.js is a barrel; readdirSync is not recursive, so without this the
  * seventeen files holding every lesson are invisible to a map whose whole
