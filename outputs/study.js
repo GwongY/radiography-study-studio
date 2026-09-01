@@ -16,7 +16,7 @@ import './study/home.js';
 import './study/navigation-five-destinations.js';
 import './study/review-mistakes-due.js';
 import './study/more-sources-coverage.js';
-import { init as init_global_search_one_js } from './study/global-search-one.js';
+import './study/global-search-one.js';
 import './study/search-viewer-open.js';
 import './study/hidden-tray.js';
 import './study/spatial-overlay-controls.js';
@@ -33,7 +33,6 @@ import { init as init_boot_js } from './study/boot.js';
 import { init as init_dialog_behaviour_applied_js } from './study/dialog-behaviour-applied.js';
 
 init_small_ui_helpers_js();
-init_global_search_one_js();
 init_layout_figures_js();
 init_source_dialog_js();
 init_boot_js();

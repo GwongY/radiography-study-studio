@@ -19,7 +19,7 @@ export function toast(msg) {
 
 /* A missing radiograph image degrades to a plain notice instead of a
    broken-image icon or a blocked session. */
-function xrayFallback(el) {
+export function xrayFallback(el) {
   const div = document.createElement('div');
   div.className = 'emptybox';
   div.textContent = 'Image not found — add it to assets/xray/ and reload.';

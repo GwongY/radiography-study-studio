@@ -3,12 +3,16 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, DIAGRAMS, MEMORY_METHODS, REVEAL_MODES, decompose, esc, getSubject, jointMovement, layoutFor, moduleInfo, priorOf, questionsOf, readingOf, structureSet, ui } from './imports.js';
+import { $$, DIAGRAMS, MASTERY_DIMENSIONS, MEMORY_METHODS, REVEAL_MODES, STRUCTURE_MODELS, decompose, describeSource, dimensionFor, esc, getSubject, isDelayedAttempt, jointMovement, layoutFor, moduleInfo, priorOf, questionsOf, readingOf, schedule, structureSet, ui } from './imports.js';
+import { K, getMastery, itemAttempted, logMistake, read, setMastery, store, write } from './storage-versioned-keys.js';
+import { advanceItem, renderSessionFoot, renderStep, setStep, typeLabel } from './session-engine.js';
 import { closeSessionOverlay } from './navigation-five-destinations.js';
 import { glossify, lookupTerm, plateHTML, proseHTML, wireTerms } from './reading-help.js';
-import { itemAttempted } from './storage-versioned-keys.js';
+import { openSourceDialog } from './source-dialog.js';
+import { openViewer } from './what-is-under.js';
 import { priorLeadHTML, visualSlotHTML } from './lesson-visuals.js';
-import { renderStep, typeLabel } from './session-engine.js';
+import { renderToday } from './spatial-overlay-controls.js';
+import { showView, toast, xrayFallback } from './small-ui-helpers.js';
 
 /* ------------------------------------------------------------------ *
  * Layout figures

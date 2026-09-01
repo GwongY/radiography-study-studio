@@ -25,7 +25,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 - `outputs/app.css` — 745 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss)
 - `outputs/studio.js` — 24 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
-- `outputs/study.js` — 40 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
+- `outputs/study.js` — 39 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
 ## Data modules — `outputs/*.js`
 
@@ -111,18 +111,18 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | --- | --- | --- |
 | `boot.js` | 44 | Boot |
 | `coverage-report.js` | 54 | Coverage report |
-| `dialog-behaviour-applied.js` | 106 | Dialog behaviour, applied to all seven at once |
-| `global-search-one.js` | 354 | Global search -- one sheet over every destination, mixing structures, |
+| `dialog-behaviour-applied.js` | 107 | Dialog behaviour, applied to all seven at once |
+| `global-search-one.js` | 351 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
 | `home.js` | 9 | Home |
-| `imports.js` | 92 |  |
-| `layout-figures.js` | 866 | Layout figures |
-| `lesson-visuals.js` | 236 | Lesson visuals |
+| `imports.js` | 96 |  |
+| `layout-figures.js` | 870 | Layout figures |
+| `lesson-visuals.js` | 237 | Lesson visuals |
 | `mastery-dashboard.js` | 9 | Mastery dashboard |
 | `more-sources-coverage.js` | 9 | More -- sources, coverage, and the things demoted out of the topbar. |
 | `moving-progress-between.js` | 52 | Moving progress between devices |
 | `navigation-five-destinations.js` | 90 | Navigation -- five destinations, rendered into both the icon rail and |
-| `reading-help.js` | 294 | Reading help |
+| `reading-help.js` | 295 | Reading help |
 | `reset.js` | 243 | Reset |
 | `review-mistakes-due.js` | 58 | Review -- mistakes, due items, and the mastery map that replaced the |
 | `search-viewer-open.js` | 44 | Search -> viewer: open the model, select the part, auto-uncover, and |
@@ -133,7 +133,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `state.js` | 28 | The study system's mutable UI state. |
 | `storage-versioned-keys.js` | 109 | Storage — versioned keys, one-time migration from the osteology app |
 | `subject.js` | 264 | Subject |
-| `what-is-under.js` | 165 | What is under the tap |
+| `what-is-under.js` | 166 | What is under the tap |
 
 ## The corpus — `outputs/study/corpus/*.js`
 
@@ -166,6 +166,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | Script | What it does | Traps |
 | --- | --- | --- |
 | `work/baseline.mjs` | Probe baselines — capture what the verifiers say TODAY, so a later |  |
+| `work/binding-check.mjs` | Binding check — does every split part import the names it uses? | [Missing imports in a split part](TRAPS.md#missing-imports-in-a-split-part--workbinding-checkmjs) |
 | `work/build-check.mjs` | Build every cavity from the real GLBs and assert the results are anatomy. |  |
 | `work/build-course-terms.mjs` | Build work/course-terms.json — which of the model's 1,687 named structures | [Study depth and course terms](TRAPS.md#study-depth-and-course-terms--workbuild-course-termsmjs) |
 | `work/build-mesh-index.mjs` | Build outputs/mesh-index.js — the searchable name index for every mesh in | [The mesh index](TRAPS.md#the-mesh-index--workbuild-mesh-indexmjs-worklibmesh-namesmjs) |

@@ -4,6 +4,7 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, STUDY_MODES, ui } from './imports.js';
+import { K } from './storage-versioned-keys.js';
 import { closeSearchSheet, openSearchSheet, runSearch } from './global-search-one.js';
 import { closeSessionOverlay } from './navigation-five-destinations.js';
 import { commitTransfer, exportProgress, handleTransferFile } from './reset.js';
@@ -46,61 +47,61 @@ function closeTopDialog() {
   return true;
 }
 
+for (const dlg of document.querySelectorAll('dialog')) {
+  dlg.addEventListener('close', () => {
+    const back = dialogOpener;
+    dialogOpener = null;
+    /* Only if nothing else has taken focus in the meantime, and it is still there. */
+    if (back && document.contains(back) && (document.activeElement === document.body || !document.activeElement)) {
+      try { back.focus({ preventScroll: true }); } catch { /* not focusable any more */ }
+    }
+  });
+}
 
 /* Global search: one sheet, reachable from every destination and Cmd/Ctrl-K. */
+window.addEventListener('keydown', (e) => {
+  const open = !$$('searchScrim').classList.contains('hidden');
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); open ? closeSearchSheet() : openSearchSheet(); return; }
+  if (e.key === 'Escape' && open) { e.preventDefault(); closeSearchSheet(); return; }
+  if (e.key === 'Escape' && closeTopDialog()) e.preventDefault();
+});
+$$('rssSkipBtn').onclick = () => {
+  if (!ui.session) return;
+  if (ui.session.index >= ui.session.items.length - 1) return endSession();
+  ui.session.index += 1; ui.session.qIndex = 0; ui.session.seqOrder = null; ui.session.matchRights = null; ui.session.diagramTarget = null; ui.session.diagramReveal = null; if (window.__osteo && window.__osteo.endMovement) { window.__osteo.endMovement(); const b=$$('mvBar'); if(b) b.classList.add('hidden'); const bk=$$('mvBackToSession'); if(bk) bk.classList.add('hidden'); }
+  setStep('learn');
+};
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !document.querySelector('dialog[open]') && ui.session) { /* let the osteology handler own Escape in its own view */ }
+});
 
 /*
  * Manifest shortcuts land here as #mode=daily etc. Start that session straight
  * away, then clear the hash so a later reload does not silently restart it.
  */
+(() => {
+  const wanted = window.__rssLaunchMode;
+  if (!wanted) return;
+  const mode = STUDY_MODES.find((m) => m.id === wanted);
+  if (!mode || mode.id === 'subject') return;
+  history.replaceState(null, '', location.pathname + location.search);
+  startSession({ mode: mode.id });
+})();
 
 /* Runs after every part has evaluated — see the entry point. */
 export function init() {
   window.__rssOpenDialog = (d) => openDialog(d);
-  for (const dlg of document.querySelectorAll('dialog')) {
-    dlg.addEventListener('close', () => {
-      const back = dialogOpener;
-      dialogOpener = null;
-      /* Only if nothing else has taken focus in the meantime, and it is still there. */
-      if (back && document.contains(back) && (document.activeElement === document.body || !document.activeElement)) {
-        try { back.focus({ preventScroll: true }); } catch { /* not focusable any more */ }
-      }
-    });
-  }
   $$('rssSearchBtn').onclick = openSearchSheet;
   $$('rssSessionSearch').onclick = openSearchSheet;
   $$('searchClose').onclick = closeSearchSheet;
   $$('searchScrim').onclick = (e) => { if (e.target === $$('searchScrim')) closeSearchSheet(); };
   $$('globalSearch').oninput = (e) => runSearch(e.target.value);
-  window.addEventListener('keydown', (e) => {
-    const open = !$$('searchScrim').classList.contains('hidden');
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); open ? closeSearchSheet() : openSearchSheet(); return; }
-    if (e.key === 'Escape' && open) { e.preventDefault(); closeSearchSheet(); return; }
-    if (e.key === 'Escape' && closeTopDialog()) e.preventDefault();
-  });
   $$('rssSessionClose').onclick = () => { if (ui.session) endSession(); else closeSessionOverlay(); };
-  $$('rssSkipBtn').onclick = () => {
-    if (!ui.session) return;
-    if (ui.session.index >= ui.session.items.length - 1) return endSession();
-    ui.session.index += 1; ui.session.qIndex = 0; ui.session.seqOrder = null; ui.session.matchRights = null; ui.session.diagramTarget = null; ui.session.diagramReveal = null; if (window.__osteo && window.__osteo.endMovement) { window.__osteo.endMovement(); const b=$$('mvBar'); if(b) b.classList.add('hidden'); const bk=$$('mvBackToSession'); if(bk) bk.classList.add('hidden'); }
-    setStep('learn');
-  };
   $$('rssEndBtn').onclick = () => { if (ui.session) endSession(); else closeSessionOverlay(); };
   $$('closeTransfer').onclick = () => $$('transferDialog').close();
   $$('transferExport').onclick = () => exportProgress();
   $$('transferFile').onchange = (e) => handleTransferFile(e.target.files && e.target.files[0]);
   $$('transferMerge').onclick = () => commitTransfer('merge');
   $$('transferReplace').onclick = () => commitTransfer('replace');
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !document.querySelector('dialog[open]') && ui.session) { /* let the osteology handler own Escape in its own view */ }
-  });
   renderToday();
-  (() => {
-    const wanted = window.__rssLaunchMode;
-    if (!wanted) return;
-    const mode = STUDY_MODES.find((m) => m.id === wanted);
-    if (!mode || mode.id === 'subject') return;
-    history.replaceState(null, '', location.pathname + location.search);
-    startSession({ mode: mode.id });
-  })();
 }

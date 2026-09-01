@@ -4,7 +4,7 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, DATA_VERSION, LEGACY_STATS_KEY, STORAGE_PREFIX, esc, itemsForSubject, ui } from './imports.js';
-import { K, itemAttempted, itemDue, itemScore, read, store, write } from './storage-versioned-keys.js';
+import { K, itemAttempted, itemDue, itemScore, migrate, read, store, write } from './storage-versioned-keys.js';
 import { PROGRESS_FORMAT, buildProgressExport } from './moving-progress-between.js';
 import { closeSessionOverlay, goTo } from './navigation-five-destinations.js';
 import { openDialog } from './dialog-behaviour-applied.js';

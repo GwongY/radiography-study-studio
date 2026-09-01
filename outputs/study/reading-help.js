@@ -3,8 +3,9 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { decompose, esc, partOf, termGloss, termNote } from './imports.js';
+import { $$, decompose, esc, partOf, plateFor, termGloss, termNote } from './imports.js';
 import { figureKeyHTML } from './lesson-visuals.js';
+import { openDialog } from './dialog-behaviour-applied.js';
 
 /* ------------------------------------------------------------------ *
  * Reading help
