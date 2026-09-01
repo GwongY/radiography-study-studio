@@ -16,8 +16,8 @@
  *   "<Name> is not defined" / obvious missing-browser globals   -> tolerated
  * Run:  node work/load-check.mjs
  */
-import { readFileSync, existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join, normalize } from 'node:path';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -47,7 +47,7 @@ async function parseCheck(label, source) {
 const html = readFileSync(join(OUT, 'radiography-study-studio.html'), 'utf8');
 const EXTRACTED = ['studio.js', 'study.js'];
 const blocks = EXTRACTED.every((f) => existsSync(join(OUT, f)))
-  ? EXTRACTED.map((f) => ({ label: `outputs/${f}`, src: readFileSync(join(OUT, f), 'utf8') }))
+  ? EXTRACTED.map((f) => ({ label: `outputs/${f}`, file: f, src: readFileSync(join(OUT, f), 'utf8') }))
   : [...html.matchAll(/<script type="module">([\s\S]*?)<\/script>/g)]
       .map((m, i) => ({ label: `inline-module[${i}]`, src: m[1] }));
 console.log(`application modules: ${blocks.length} (${blocks.map((b) => b.label).join(', ') || 'NONE'})`);
@@ -129,17 +129,53 @@ function moduleUrl(fname) {
   return url;
 }
 
+/*
+ * Names the data modules export. A "<name> is not defined" for one of these is
+ * a broken wiring — a split that forgot to pass a binding down — not a missing
+ * browser global, and tolerating it let exactly that ship once: the study parts
+ * used STORAGE_PREFIX from the entry module's imports without importing it, and
+ * this check called it a browser-only call and passed.
+ */
+const dataExports = new Set();
+for (const f of readdirSync(OUT).filter((n) => n.endsWith('.js'))) {
+  const src = readFileSync(join(OUT, f), 'utf8');
+  for (const m of src.matchAll(/^export\s+(?:async\s+)?(?:const|let|function|class)\s+([A-Za-z_$][\w$]*)/gm)) {
+    dataExports.add(m[1]);
+  }
+  /* study-data.js is a barrel, so its whole surface is `export { … } from`. */
+  for (const m of src.matchAll(/export\s*\{([^}]*)\}/g)) {
+    for (const n of m[1].split(',')) {
+      const name = n.trim().split(/\s+as\s+/).pop().trim();
+      if (/^[A-Za-z_$][\w$]*$/.test(name) && name !== 'default') dataExports.add(name);
+    }
+  }
+}
+
 function classify(label, e) {
   const msg = String(e.message || '');
   if (e instanceof SyntaxError) return fail(`eval  ${label}: SyntaxError — ${msg}`);
   if (/before initialization|Cannot access/.test(msg)) return fail(`eval  ${label}: LOAD-TIME ERROR — ${msg}`);
+  const undef = (msg.match(/^([A-Za-z_$][\w$]*) is not defined$/) || [])[1];
+  if (undef && dataExports.has(undef)) {
+    return fail(`eval  ${label}: MISSING BINDING — ${undef} is exported by a data module but nothing here imports it`);
+  }
   console.log(`OK    eval  ${label} (parsed fully; stopped on browser-only call: ${e.constructor.name}: ${msg.split('\n')[0].slice(0, 100)})`);
 }
 
 for (const b of blocks) {
-  /* Both entry points live in outputs/ itself — inline or extracted, their
-     specifiers resolve against that directory. */
-  const url = 'data:text/javascript;base64,' + Buffer.from(inline(b.src, '.'), 'utf8').toString('base64');
+  /*
+   * Evaluate what actually ships. When the app is real files, import them from
+   * disk — Node resolves the whole graph itself, query strings and all.
+   *
+   * The data: URL inlining below is only for the INLINE fallback, where there
+   * is no file to import. It also cannot survive a large cyclic graph: each
+   * module's base64 embeds its dependencies' base64, so phase 4's 24 mutually
+   * importing parts blew up with "RangeError: Invalid string length" before
+   * evaluating anything.
+   */
+  let url;
+  if (b.file) url = pathToFileURL(join(OUT, b.file)).href;
+  else url = 'data:text/javascript;base64,' + Buffer.from(inline(b.src, '.'), 'utf8').toString('base64');
   try { await import(url); console.log(`OK    eval  ${b.label} (ran to completion under stubs)`); }
   catch (e) { classify(b.label, e); }
 }
