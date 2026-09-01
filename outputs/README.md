@@ -13,7 +13,7 @@ The workflow is the same for every subject:
 | File | What it is |
 | --- | --- |
 | `radiography-study-studio.html` | The app. Subject selector, learning workflow, Memory Coach, source dialogs, coverage report, and the full osteology 3D studio embedded as the HSS2011 Osteology module. |
-| `study-data.js` | The study layer: source registry, subject registry, 94 study items, prior-knowledge registry, spaced repetition, coverage report, corpus validator. |
+| `study-data.js` | The study layer: source registry, subject registry, 106 study items, prior-knowledge registry, spaced repetition, coverage report, corpus validator. |
 | `wordparts.js` | 814 medical word parts, inverted from the HSS2011 glossary, plus the segmenter that takes a long term apart. |
 | `term-notes.js` | 89 hand-written pronunciations and plain-English readings for the terms word parts alone cannot rescue. App-authored, labelled as such. |
 | `assets/plates/` | Five public-domain anatomy plates from Gray's Anatomy (1918), licence-verified through the Wikimedia Commons API before download. |
@@ -59,7 +59,7 @@ answer used was then cross-checked against its question text.
 
 | Subject | Status | Notes |
 | --- | --- | --- |
-| ABCT2326 Human Physiology | Full | 10 system lectures, supplementary decks, tutorial answers, extra exercises, Martini eBook |
+| ABCT2326 Human Physiology | Full | 10 system lectures, supplementary decks, the lecturer's own prose notes for the endocrine, nervous, musculoskeletal and immune units, tutorial answers, extra exercises, Martini eBook |
 | HSS2011 Human Anatomy | Full | Vocabulary, Study Manuals 1819/1920, Modules 0–4, revision exercises with model answers, and past papers back to 2003–04 |
 | HTI17103 Introduction to Medical Radiation Science | **Substitute source** | The exact HTI17103 set was not found. Built from HTI17101 Exploring Radiography, the closest available material. Not silently renamed — every source reference still shows the HTI17101 filename and folder. |
 | APSS1A08 Introduction to Sociology | **Limited source coverage** | No verified lecture syllabus found. Only student assignments and papers. No study content generated. |
@@ -99,14 +99,15 @@ images exist in the assets folder, only `.glb` models. The label names come from
 
 ## Every lesson opens with a visual
 
-No lesson is a wall of prose. All 94 items resolve to a visual, and the resolver never invents one:
+No lesson is a wall of prose. All 106 items resolve to a visual, and the resolver never invents one:
 
 | Kind | Items | What it is |
 | --- | --- | --- |
 | **model** | 58 | The real named meshes for the structure being taught. The studio canvas is *moved into* the lesson card and focused on those meshes — still rotatable, still tappable, with a readout naming whatever you tap. One WebGL context, relocated rather than duplicated. |
-| **figure** | ~19 | A published Wikimedia/OpenStax/Gray's image (`figures.js`), rendered through the schematic/labelled path when a figure exists for the id. |
-| **schematic** | ~13 | A hand-authored SVG or HTML layout, for what no mesh or photograph can show — a feedback loop, the EM spectrum, a decision table. |
-| **generated** | 2 | Drawn from the item's own sourced data — a sequence item's ordered steps become a flow, a matching item's pairs become a grid. A change of form, not of content. |
+| **figure** | 16 | A published Wikimedia/OpenStax/Gray's image (`figures.js`), rendered through the schematic/labelled path when a figure exists for the id. |
+| **schematic** | 16 | A hand-authored SVG or HTML layout, for what no mesh or photograph can show — a feedback loop, the EM spectrum, a decision table. |
+| **generated** | 14 | Drawn from the item's own sourced data — a sequence item's ordered steps become a flow, a matching item's pairs become a grid. A change of form, not of content. |
+| **labelled** | 2 | An app-authored labelling diagram from `DIAGRAMS` — the vertebra and the heart — used by the two `diagram` items. |
 
 Every model spec was checked against the actual GLB name index: **all resolve, with no dead mesh
 names**. A spec that resolved to nothing would show a short note saying so rather than quietly
@@ -583,7 +584,7 @@ identification and laterality questions each state a non-3D route to the answer 
 `validateCorpus()` and `validateApplications()` run on every open of the coverage report and check
 that every question has a resolvable correct answer and an explanation, every item has a teaching
 explanation and at least one practice question, and every item carries a source reference. Current
-state: **94 items, 434 questions, 75 source files cited, 0 validation failures.**
+state: **106 items, 487 questions, 82 source files registered, 0 validation failures.**
 
 ## Which structure names you are asked to know
 
@@ -620,9 +621,16 @@ Three things are excluded from that corpus **on purpose**, and the exclusion is 
   that names essentially every structure in the body; counting it would mark almost all 1,686 as
   course level and rebuild the problem. It stays a source for facts. It is not evidence that a NAME
   must be memorised.
-- **Student coursework** (lab reports, assignments, "Susan notes") — the source registry already
-  treats student work as evidence of topic scope only.
+- **Student coursework**, recognised by where it sits — a Lab Report folder, an Assignment. The
+  source registry already treats student work as evidence of topic scope only.
 - **The publisher's question bank**, which is not taught material.
+
+"Susan notes" was on that list and should not have been. Those four files sit one per system inside
+the numbered lecture folders (7. Endocrine, 8. Nervous, 9. Musculoskeletal, 10. Immune), the
+catalogue classifies all four `primary`, and the endocrine one is byte-identical to
+`ABCT2326 Hormone Mechanism _ABCT2326_.pdf` — registered as `phys.hormech`, and already taught from.
+The exclusion was withholding, from the evidence of what the course teaches, a document the course
+teaches. Exclusions here go by **provenance**: decide them by folder, never by filename.
 
 Nothing is removed by any of this:
 

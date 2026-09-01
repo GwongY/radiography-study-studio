@@ -157,8 +157,8 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `mastery.js` | 121 | Spaced repetition — the schedule, the mastery score and its dimensions, and |
 | `modules.js` | 70 | Course modules — app-authored framing, not a source claim. Which unit |
 | `notices.js` | 41 | APSS1A08 — limited coverage. The notices that say so, in the app, rather |
-| `physiology-items.js` | 1070 | ABCT2326 Human Physiology — the study items. |
-| `schema.js` | 407 | Scaffolding: the source registry, the subjects and their units, the item |
+| `physiology-items.js` | 1575 | ABCT2326 Human Physiology — the study items. |
+| `schema.js` | 420 | Scaffolding: the source registry, the subjects and their units, the item |
 | `structures.js` | 348 | Granular 3D targets: the structure sets a tap-to-identify item draws from, |
 | `validate.js` | 125 | Validation — every question must have a resolvable answer and every claim a |
 

@@ -96,6 +96,19 @@ export const SOURCE_FILES = {
   'phys.8': { file: 'Lecture notes.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/8. Nervous System', kind: 'primary' },
   'phys.9': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/9. Musculoskeletal System', kind: 'primary' },
   'phys.10': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/10. Immune System', kind: 'primary' },
+  /*
+   * The lecturer's own prose notes, one per system, filed inside the numbered
+   * lecture folders alongside the deck. They are the same author writing at
+   * length: where the deck gives a labelled diagram, these give the mechanism
+   * in sentences.
+   *
+   * The endocrine one is NOT listed here because it is already registered — it
+   * is byte-identical to phys.hormech, which arrived under a different name
+   * from a different folder. Four files, three ids.
+   */
+  'phys.susan8': { file: 'Susan notes.docx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/8. Nervous System', kind: 'primary', note: 'A page written in answer to a student question, on how drugs act at synapses: the eight points in the mechanism a drug can attack, why long-term effects resist prediction, and SSRIs as the worked example.' },
+  'phys.susan9': { file: 'Susan notes.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/9. Musculoskeletal System', kind: 'primary', note: 'Twenty-one pages on muscle: sarcomere banding, the crossbridge cycle step by step, the neuromuscular junction and excitation-contraction coupling, muscle fuel and VO2 max, slow/fast twitch, spindles and the Golgi tendon organ, pyramidal and extrapyramidal control.' },
+  'phys.susan10': { file: 'Susan notes.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/10. Immune System', kind: 'primary', note: 'Seventeen pages on immunity: the seven innate defences one by one, both complement pathways in sequence, then the adaptive side — MHC class I and II, CD4/CD8, costimulation, and how a B cell waits for a helper T cell.' },
   'phys.tut': { file: 'Tutorial answer.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/<system folder>', kind: 'assessment', note: 'One per system folder (1–10).' },
   'phys.extra': { file: 'Extra exercise.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/<system folder>', kind: 'assessment', note: 'One per system folder (1–10).' },
   'phys.qblank': { file: 'question blank/Chapter 1–29.pdf', subject: 'ABCT2326', root: 'green', folder: 'year 1 sem 1/ABCT2326 Human Physiology', kind: 'assessment', note: '29 chapter-level question sets.' },
