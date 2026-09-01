@@ -23,7 +23,7 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v58';
+const CACHE_VERSION = 'v59';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
@@ -39,6 +39,19 @@ const SHELL = [
   './app.css?v=1',
   './studio.js?v=1',
   './study.js?v=1',
+  /*
+   * studio.js is an entry point that imports these in order. They are listed in
+   * that order, not alphabetically, so the shell reads like the module graph.
+   */
+  './studio/imports.js',
+  './studio/hide-and-search.js',
+  './studio/search-viewer-frame.js',
+  './studio/spatial-concept-overlays.js',
+  './studio/cavity-geometry-derived.js',
+  './studio/visualisation-modes.js',
+  './studio/region-boxes-how.js',
+  './studio/depth-picking.js',
+  './studio/live-physiology.js',
   /*
    * study.js is an entry point that imports these and then calls their init()s.
    * Every one has to be in the shell or the study system is blank offline.
