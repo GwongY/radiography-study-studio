@@ -22,25 +22,17 @@ separate import scopes and talk only through `window.__osteo`.
 
 `outputs/app.css` — 745 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss)
 
-**`outputs/studio.js`** — 3404 lines
+**`outputs/studio.js`** — 24 lines
 
-Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss)
+Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
 | Lines | Section |
 | --- | --- |
-| 1–17 | preamble |
-| 18–115 | Hide, and search-driven uncover |
-| 116–335 | Search -> viewer: frame the part, then hide only what stands in front |
-| 336–786 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
-| 787–1247 | Cavity geometry, derived from the loaded anatomy. |
-| 1248–1854 | Visualisation modes. |
-| 1855–2150 | Region boxes — how the region filter reaches the six soft-tissue layers |
-| 2151–2442 | Depth picking |
-| 2443–3404 | Live physiology |
+| 1–24 | preamble |
 
 **`outputs/study.js`** — 40 lines
 
-Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudystatejs)
+Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
 | Lines | Section |
 | --- | --- |
@@ -61,7 +53,7 @@ Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudystatej
 | `physiology.js` | 337 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 117 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 252 | Radiography Study Studio — service worker |  |
+| `sw.js` | 265 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
 | `term-gloss.js` | 781 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
 | `term-notes.js` | 313 | Term notes — say it, then mean it. |  |
@@ -133,6 +125,24 @@ Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudystatej
 | 64–235 | Explicit per-item visuals |
 | 236–307 | Resolver |
 | 308–417 | Plates |
+
+## The 3D studio — `outputs/studio/*.js`
+
+`outputs/studio.js` imports these in order, then calls their `init()`s.
+They import each other cyclically, so nothing may run at module scope —
+side effects belong in `init()`. See [TRAPS.md](TRAPS.md).
+
+| File | Lines | What it holds |
+| --- | --- | --- |
+| `cavity-geometry-derived.js` | 472 | Cavity geometry, derived from the loaded anatomy. |
+| `depth-picking.js` | 308 | Depth picking |
+| `hide-and-search.js` | 112 | Hide, and search-driven uncover |
+| `imports.js` | 48 | Block 0 has its own import scope -- block 1's copy is not visible here. |
+| `live-physiology.js` | 978 | Live physiology |
+| `region-boxes-how.js` | 308 | Region boxes — how the region filter reaches the six soft-tissue layers |
+| `search-viewer-frame.js` | 232 | Search -> viewer: frame the part, then hide only what stands in front |
+| `spatial-concept-overlays.js` | 466 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
+| `visualisation-modes.js` | 625 | Visualisation modes. |
 
 ## The study system — `outputs/study/*.js`
 
@@ -224,6 +234,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/search-probe.mjs` | Search probe — does typing a structure's name find it? |  |
 | `work/shell-check.mjs` | Shell check — every module the page imports is precached under the SAME |  |
 | `work/syntax-check.mjs` | Syntax-checks every inline <script type="module"> block in the app HTML, plus |  |
+| `work/toplevel.mjs` | Which names does a module declare at TOP level? Ask Node, not the indentation. |  |
 | `work/ui-strings.mjs` | UI strings — every literal the app can put on screen, as a sorted fingerprint. |  |
 | `work/verify-modules.mjs` | Task #8 verification — module mapping + corpus integrity. |  |
 
