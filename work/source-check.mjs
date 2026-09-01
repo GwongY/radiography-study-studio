@@ -177,5 +177,86 @@ if (missing.length) {
   console.log('Either the file is named wrongly in SOURCE_FILES, or it is not in the shared folders.');
 }
 
-console.log(missing.length ? `\n${missing.length} FAILED` : '\nALL PASS');
-process.exit(missing.length ? 1 : 0);
+/* ------------------------------------------------------------------ *
+ * And one level deeper: does the cited page actually say it?
+ *
+ * A sourceRef is `{ ref, location }`, and a location is written the way a
+ * person cites — `L1 p4 "The anatomical position"`, `Section "Directional
+ * Terms"`. Where it carries a quoted phrase, that phrase is a claim about what
+ * the source says, and work/source-text.json can now settle it. Nothing has
+ * ever checked this: a quote could drift, or be transcribed from a different
+ * edition of the same lecture, and look perfectly sourced.
+ *
+ * Only quoted phrases are checked. `Opening section` and `Glossary entries for
+ * each term` describe where to look rather than assert wording, and inventing a
+ * test for them would manufacture failures out of prose.
+ * ------------------------------------------------------------------ */
+
+const TEXT = join(WORK, 'source-text.json');
+let quoteFails = 0;
+if (existsSync(TEXT)) {
+  const { sources, failed: noText } = JSON.parse(readFileSync(TEXT, 'utf8'));
+  const { STUDY_ITEMS } = await import('../outputs/study-data.js');
+
+  /* Compare on collapsed whitespace: pdftotext -layout pads columns out with
+     runs of spaces, so a phrase that reads as one line in the PDF is not one
+     line here. Curly quotes and dashes differ between source and transcription
+     for the same reason nobody notices them. */
+  const flat = (s) => String(s).toLowerCase()
+    .replace(/[‘’“”]/g, "'")
+    .replace(/[‐-―]/g, '-')
+    .replace(/\s+/g, ' ').trim();
+
+  const checked = [], drifted = [], unverifiable = [];
+  for (const item of STUDY_ITEMS) {
+    for (const r of item.sourceRefs || []) {
+      const quote = (String(r.location || '').match(/"([^"]{4,})"/) || [])[1];
+      if (!quote) continue;
+      const src = sources[r.ref];
+      if (!src) { unverifiable.push({ item: item.id, r, why: noText?.[r.ref] || 'no text for this source' }); continue; }
+
+      /*
+       * A spaced em dash inside a quote is the CITATION's connector, not text
+       * in the source: `Slide "Fibrous joints — Sutures"` points at a slide
+       * headed "Fibrous joints" with "Sutures" beneath it, two lines apart on
+       * page 29. Requiring the literal string called two accurate citations
+       * broken. Split on it and require every part on the same page; a quote
+       * without one is matched whole, exactly as before.
+       */
+      const parts = quote.split(/\s+[—–]\s+/).map(flat).filter(Boolean);
+      const pageHit = src.pages.findIndex((p) => {
+        const f = flat(p);
+        return parts.every((x) => f.includes(x));
+      });
+      if (pageHit < 0) { drifted.push({ item: item.id, r, file: src.file }); continue; }
+
+      /* If the location names a page, check the quote is on THAT page. */
+      const claimed = Number((String(r.location).match(/\bp\.?\s?(\d+)/i) || [])[1]);
+      checked.push({ item: item.id, r, file: src.file, at: pageHit + 1, claimed, ok: !claimed || claimed === pageHit + 1 });
+    }
+  }
+
+  const onPage = checked.filter((c) => c.ok);
+  const offPage = checked.filter((c) => !c.ok);
+  console.log('\n— and the cited page says what the citation quotes —');
+  console.log(`  ok   ${onPage.length} quoted citations found in the source they name`);
+  console.log(`       ${offPage.length} on a different page, ${drifted.length} not found, ${unverifiable.length} no text to check against`);
+
+  if (offPage.length) {
+    console.log(`\n— quote found, but not on the page cited (${offPage.length}) —`);
+    for (const c of offPage) console.log(`  warn ${c.item}  ${c.file}  cited p${c.claimed}, found p${c.at}  "${(c.r.location.match(/"([^"]+)"/) || [])[1]}"`);
+  }
+  if (drifted.length) {
+    console.log(`\n— quoted, but the source does not contain it (${drifted.length}) —`);
+    for (const d of drifted) console.log(`  FAIL ${d.item}  ${d.r.ref} (${d.file})  ${d.r.location}`);
+    console.log('\nEither the wording drifted from the source, or it came from a different edition.');
+    quoteFails = drifted.length;
+  }
+} else {
+  console.log('\n— quoted citations not checked: no work/source-text.json —');
+  console.log('  run: node work/build-source-text.mjs');
+}
+
+const fails = missing.length + quoteFails;
+console.log(fails ? `\n${fails} FAILED` : '\nALL PASS');
+process.exit(fails ? 1 : 0);

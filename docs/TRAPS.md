@@ -370,3 +370,33 @@ shapes** — in "The region grid and classifiers" below.
   The first version of `source-check.mjs` reported six failures and every one was
   the check being wrong. Ask the right question per shape, and report
   "not checkable here" separately from "missing" — they mean opposite things.
+
+### Source text — `work/build-source-text.mjs`, `work/lib/source-resolve.mjs`
+
+- **A `SOURCE_FILES` entry is not identified by its filename.** Eighteen distinct
+  documents on the drive are called `Lecture notes.pptx` or `Lecture notes.pdf`,
+  one per lecture, and the registry separates them by `folder` alone. Resolving
+  on the name gave every one of `phys.1`…`phys.10` the text of the same anatomy
+  lecture — not an empty result, a confidently WRONG one that read as properly
+  sourced. `lib/source-resolve.mjs` exists for this; it returns `ambiguous` when
+  the folder still cannot separate the candidates, so a caller can refuse rather
+  than take the first. The quoted-citation check is what caught it.
+- **`pdftotext` on Windows cannot open a non-ASCII path.** Most of these shared
+  folders are named things like `🏅🥇依吖温金牌梳士🥇🏅/Sem 1我哋又重新上路🌟`. It
+  fails with a bare "Command failed", which is indistinguishable from a corrupt
+  PDF — nine of ten "unreadable" documents extracted first try once copied to an
+  ASCII temp path. Copy only when the path needs it; some of these are 200 MB.
+- **An em dash inside a quoted citation is usually the citation's own
+  connector.** `Slide "Fibrous joints — Sutures"` points at a slide headed
+  "Fibrous joints" with "Sutures" below it — two lines apart in the extracted
+  text, and no such literal string anywhere. Match the parts, not the whole.
+- **Never commit the set textbook's extracted text.** The eBook and the publisher
+  question bank were 89% of the committed file, and this repository is public;
+  extracting them into it republishes two commercial works. They live in the
+  gitignored cache, where they are just as searchable here. `PUBLISHER` in
+  `build-source-text.mjs` holds them back and records why, so their absence does
+  not later read as a missing source.
+- **The cache pass is Drive-bound, not CPU-bound.** One process managed ~3
+  documents a minute — forty hours for 8,114. Six `--shard i/6` processes do
+  ~75 a minute. Each shard writes its own `index-<i>.json`; a reader unions
+  every `index*.json` it finds.
