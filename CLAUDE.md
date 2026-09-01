@@ -27,14 +27,11 @@ read them and never edit them; ask `work/query.mjs` instead.
 
 | Path | What it is |
 | --- | --- |
-| `outputs/` | The app, deployed as-is — no build step. `radiography-study-studio.html` is now markup only (~360 lines); it pulls in `app.css`, then `studio.js` (3D studio) and `study.js` (study system) as two separate module scripts, in that order. They keep separate import scopes and talk only through `window.__osteo`. |
+| `outputs/` | The app. `radiography-study-studio.html` is the whole product: two inline `<script type="module">` blocks (3D studio first, study system second) talking through `window.__osteo`. Deployed as-is — no build step. |
 | `outputs/*.js` | Data modules, each imported with `?v=N` (see the SW SHELL rule below). Map is below. |
-| `outputs/study/*.js` | The study system, 25 parts. `study.js` imports them in order, then calls their `init()`s — **nothing may run at module scope**, they import each other cyclically. Shared mutable UI state lives in `study/state.js` as `ui.*`; the studio's equivalent is its `state` object. |
-| `outputs/study/corpus/*.js` | The lesson corpus, seventeen files. `study-data.js` is a barrel re-exporting them under the same 57 names, so nothing imports these directly. |
-| `outputs/studio/*.js` | The 3D studio, 9 parts, same shape as `study/`. Its top level is indented inconsistently, so no text or brace rule can tell a top-level declaration from a nested one — `node work/toplevel.mjs <file>` asks V8 instead, and is the tool to use before touching its structure. |
-| `outputs/assets/*.glb` | The seven anatomical layers (skeleton, muscles, ligaments, organs, vessels, nerves, lymphatic), ~39 MB, lazy-loaded on demand. Per-layer counts: `docs/DATA-INDEX.md`. |
+| `outputs/assets/*.glb` | The seven anatomical layers (skeleton, muscles, ligaments, organs, vessels, nerves, lymphatic — 2,914 named meshes total, ~39 MB), lazy-loaded on demand. |
 | `docs/superpowers/` | Design specs (`specs/`) and implementation plans (`plans/`). Follow this pattern for new work. |
-| `work/` | Node verifiers, run outside the browser. `load-check.mjs`, `syntax-check.mjs`, `verify-modules.mjs` are the after-every-edit set. Cavity-engine checks: `landmark-check.mjs`, `cavity-probe.mjs`, `build-check.mjs` (relational — hold with all layers and skeleton-only), `grid-probe.mjs` (the nine regions / four quadrants; run it with and without `--all`), plus `glb-bounds`/`glb-mesh`/`glb-names` helpers. `search-probe.mjs` (the name index + synonyms + the source-derived tiering + the study units every row resolves to), `region-probe.mjs` (the two region classifiers, lifted out of `studio.js` and run over the real GLB names), `shell-check.mjs` (walks the import graph transitively; every reachable module is precached under the same query), `corpus-snapshot.mjs` (a content hash of every export and every study item — the net that catches moved lesson wording), `ui-strings.mjs` (every sentence the interface can show — the net that catches a rename running over a string literal; both are baselines), `figure-key-check.mjs` (every published figure/plate a lesson renders carries a well-formed `intro` + `key`). Generators: `build-course-terms.mjs` (needs the drive + `pdftotext`) then `build-mesh-index.mjs`; shared GLB-name reading AND per-structure geometry (`boxesIn`, `measureStructures`) live in `lib/mesh-names.mjs`. One-offs: `dense-lessons`, `gloss-gap-scan`, `dump-plain-candidates`. `scan-output.txt` and `id-inventory-*.txt` are scratch. |
+| `work/` | Node verifiers, run outside the browser. `load-check.mjs`, `syntax-check.mjs`, `verify-modules.mjs` are the after-every-edit set. Cavity-engine checks: `landmark-check.mjs`, `cavity-probe.mjs`, `build-check.mjs` (relational — hold with all layers and skeleton-only), `grid-probe.mjs` (the nine regions / four quadrants; run it with and without `--all`), plus `glb-bounds`/`glb-mesh`/`glb-names` helpers. `search-probe.mjs` (the name index + synonyms + the source-derived tiering + the study units every row resolves to), `region-probe.mjs` (the two region classifiers, lifted out of the HTML and run over the real GLB names), `shell-check.mjs` (every `?v=` import is precached under the same query), `figure-key-check.mjs` (every published figure/plate a lesson renders carries a well-formed `intro` + `key`). Generators: `build-course-terms.mjs` (needs the drive + `pdftotext`) then `build-mesh-index.mjs`; shared GLB-name reading AND per-structure geometry (`boxesIn`, `measureStructures`) live in `lib/mesh-names.mjs`. One-offs: `dense-lessons`, `gloss-gap-scan`, `dump-plain-candidates`. `scan-output.txt` and `id-inventory-*.txt` are scratch. |
 | `Uni/` | `.lnk` shortcuts to the Google Drive source folders. They resolve into `G:\.shortcut-targets-by-id\` — enumerate that directory, don't trust the shortcut list alone. |
 
 ### `outputs/` data modules
@@ -42,7 +39,7 @@ read them and never edit them; ask `work/query.mjs` instead.
 | Module | What it holds |
 | --- | --- |
 | `anatomy-data.js` | `ANATOMY_DATABASE` (curated bone records), `LANDMARK_HOTSPOTS`, `MODEL_CATALOG` (per-layer coverage **and gaps**), `REGIONS`, search. |
-| `study-data.js` | **Barrel** over `study/corpus/*.js` — the lesson corpus, `STRUCTURE_MODELS` (layer key → GLB), `validateCorpus()`. Re-exports by name, never `export *`: the corpus files share item arrays with each other that are not public API. |
+| `study-data.js` | The lesson corpus, `STRUCTURE_MODELS` (layer key → GLB), `validateCorpus()`. |
 | `physiology.js` | Flow/layer classes, animation envelopes, `RATES`. |
 | `visual-data.js`, `schematics.js`, `figures.js`, `layouts.js` | Lesson visuals. `figures.js` / `visual-data.js` `PLATES` — published images, each with an `intro` line and a callout `key` (`{mark,name,beyond?}`) so the lesson teaches from the image; `beyond` = a callout the lesson's sources don't name, read off the figure's own labelling, rendered dimmed. `work/figure-key-check.mjs` enforces this. |
 | `wordparts.js`, `term-notes.js`, `term-gloss.js` | Terminology fold: root/prefix/suffix decomposition, pronunciation + plain-English notes, tappable glossary. |
@@ -104,15 +101,12 @@ node work/baseline.mjs --check  # the probes still say what they said
 - A trap you learn the hard way goes in `docs/TRAPS.md`, under the file it
   governs — not here. This file is loaded into every session; that one is read
   only by a session working in that file.
-- Any shell change (HTML, `app.css`, any JS module) → bump `CACHE_VERSION` in `sw.js`.
-- **The cache key is the whole URL, query and all.** Every module reachable from
-  the app — at any depth, by any path — must be in the SW SHELL under the
-  *identical* specifier it is imported by. A mismatch is a 404 that appears only
-  offline, the one condition this app is built for. `shell-check.mjs` walks the
-  import graph and enforces it; a one-level version of it missed
-  `study-data.js`'s bare `./anatomy-data.js` and `cavity-build.js`'s bare
-  `./cavity-geom.js` for as long as both existed. If one file is imported both
-  with and without a query, **both** spellings need a shell entry.
+- Any shell change (HTML, JS modules, CSS in the HTML) → bump `CACHE_VERSION` in
+  `sw.js`.
+- A module imported with `?v=N` in the HTML must appear in the SW SHELL list with the
+  **identical** `?v=N` — a mismatch is an offline cache miss that only shows up
+  offline. `shell-check.mjs` now enforces this; it caught `anatomy-data.js?v=4`
+  imported against a bare `./anatomy-data.js` in the shell.
 - Touched `mesh-index.js`? It is generated — rerun `node work/build-mesh-index.mjs`
   rather than editing it, then `node work/search-probe.mjs`.
 
@@ -122,6 +116,14 @@ Branch is `master`, auto-deploys `outputs/` via `.github/workflows/pages.yml` to
 https://gwongy.github.io/radiography-study-studio/ on every push — don't push
 half-finished shell changes.
 
-What `master` currently carries is `git log --oneline`; it is not repeated here,
-because a changelog in the one file every session loads is a changelog that goes
-stale unread.
+`master` and `origin/master` are level as of 2026-08-31, at `32c3924`. It carries
+the figure-callout-keys feature (fast-forwarded from `feat/figure-callout-keys`
+on 2026-08-31 — intro + callout key on every published figure/plate, four
+replacement figure images, `work/figure-key-check.mjs`), the search-everywhere +
+hide/uncover + spatial-overlay feature (fast-forwarded from
+`feat/search-everywhere-viewer-overlays` on 2026-08-30), the reading-help
+pass, the source-derived study depth, and the study-unit pass that decides what a
+tap can select.
+
+`feat/search-everywhere-viewer-overlays` (on origin) is fully contained in
+`master` — safe to delete.

@@ -16,7 +16,6 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { FIGURES, figureFor } from '../outputs/figures.js';
 import { ITEM_VISUALS, PLATES } from '../outputs/visual-data.js';
-import { STUDY_ITEMS } from '../outputs/study-data.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..', 'outputs');
 let bad = 0;
@@ -31,19 +30,13 @@ const usedFigureIds = new Set();
 for (const spec of Object.values(ITEM_VISUALS)) {
   if (spec && spec.kind === 'schematic' && FIGURES[spec.id]) usedFigureIds.add(spec.id);
 }
-/*
- * Ask the data, not the file. This used to read study-data.js as text and grep
- * it for `type: 'diagram'`, recovering the enclosing item's id from a
- * 600-character lookback. Phase 3 moved the items into study/corpus/*.js and
- * left a barrel with no item text in it, so the grep matched nothing and two
- * figures quietly became "unused" — caught only because the check's output is a
- * committed baseline. Importing STUDY_ITEMS says exactly the same thing and
- * cannot be broken by moving a file.
- */
-for (const item of STUDY_ITEMS) {
-  if (item.type !== 'diagram') continue;
-  if (/vertebra/.test(item.id) && FIGURES.vertebra) usedFigureIds.add('vertebra');
-  if (/heart/.test(item.id) && FIGURES.heart) usedFigureIds.add('heart');
+const studyData = readFileSync(join(root, 'study-data.js'), 'utf8');
+for (const m of studyData.matchAll(/type:\s*'diagram'/g)) {
+  const before = studyData.slice(Math.max(0, m.index - 600), m.index);
+  const idm = [...before.matchAll(/id:\s*'([^']+)'/g)].pop();
+  const id = idm ? idm[1] : '';
+  if (/vertebra/.test(id) && FIGURES.vertebra) usedFigureIds.add('vertebra');
+  if (/heart/.test(id) && FIGURES.heart) usedFigureIds.add('heart');
 }
 
 /* Figures with no printed callouts at all (labels are outlined paths, or the
