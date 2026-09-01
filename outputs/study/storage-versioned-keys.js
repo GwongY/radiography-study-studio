@@ -70,8 +70,8 @@ export function migrate() {
 }
 
 function masteryKey(itemId, dim) { return `${itemId}::${dim}`; }
-function getMastery(itemId, dim) { return store.mastery[masteryKey(itemId, dim)] || null; }
-function setMastery(itemId, dim, rec) { store.mastery[masteryKey(itemId, dim)] = rec; write(K.mastery, store.mastery); }
+export function getMastery(itemId, dim) { return store.mastery[masteryKey(itemId, dim)] || null; }
+export function setMastery(itemId, dim, rec) { store.mastery[masteryKey(itemId, dim)] = rec; write(K.mastery, store.mastery); }
 
 export function itemScore(itemId) {
   const recs = MASTERY_DIMENSIONS.map((d) => getMastery(itemId, d.id)).filter(Boolean);
@@ -102,7 +102,7 @@ export function adjScore(item) {
   return priorAdjustedScore(item, itemScore(item.id), itemAttempted(item.id));
 }
 
-function logMistake(entry) {
+export function logMistake(entry) {
   store.mistakes.unshift({ ...entry, at: Date.now() });
   store.mistakes = store.mistakes.slice(0, 400);
   write(K.mistakes, store.mistakes);

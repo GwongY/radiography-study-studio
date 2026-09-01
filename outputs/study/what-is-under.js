@@ -5,6 +5,7 @@
  */
 import { $$, STRUCTURE_MODELS, esc, ui } from './imports.js';
 import { BODY_LAYERS, GHOST_OPACITY, layerState, renderLayerRail } from './subject.js';
+import { read } from './storage-versioned-keys.js';
 import { renderHiddenTray } from './hidden-tray.js';
 import { renderOverlayCard } from './spatial-overlay-controls.js';
 import { restoreStage } from './lesson-visuals.js';

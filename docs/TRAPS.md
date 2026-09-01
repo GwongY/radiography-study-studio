@@ -328,3 +328,20 @@ shapes** — in "The region grid and classifiers" below.
   `/*` took the next section's comment opener with it and commented out what
   followed. Any tool that classifies lines in this file has to track backtick
   parity and dangling `/*`.
+
+### Missing imports in a split part — `work/binding-check.mjs`
+
+- **A missing import loads clean and fails only when that code path runs.**
+  `study/reading-help.js` referenced `plateFor` without importing it. Every
+  module loaded, the corpus was intact, all ten baselines matched, and the app
+  looked normal — until you opened a lesson, where the render threw a
+  ReferenceError, left the DOM half-built, and never reached the line that wires
+  the close button. The lesson was blank AND you could not get out of it.
+  `node work/binding-check.mjs` after any edit to `study/` or `studio/`.
+- **`load-check.mjs` cannot see this.** It evaluates module scope; the name is
+  only reached inside a function. And a ReferenceError is what a missing browser
+  global looks like under stubs, so it cannot fail on the message either.
+- **The cause was an identifier scan that stripped comments and strings.**
+  `/*` sequences inside string literals shift the non-greedy comment pairing, so
+  one bad pair silently ate real code and the names in it were never imported.
+  Scan raw text: over-importing a name that exists is inert, missing one is not.

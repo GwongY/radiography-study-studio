@@ -126,7 +126,7 @@ function currentItem() { return ui.session.items[ui.session.index]; }
  * syllabus already covered opens on Practise to be verified, everything else
  * opens on Learn to be taught.
  */
-function advanceItem() {
+export function advanceItem() {
   ui.session.index += 1; ui.session.qIndex = 0; ui.session.seqOrder = null; ui.session.matchRights = null;
   ui.session.diagramTarget = null; ui.session.diagramReveal = null;
   if (window.__osteo && window.__osteo.endMovement) {
@@ -180,7 +180,7 @@ function renderSourceCard(item) {
 
 /* One consistent advance control. The per-step buttons the HTML builders
    emit are removed so there is never a second Next in the card. */
-function renderSessionFoot(item) {
+export function renderSessionFoot(item) {
   $$('rssStage').querySelectorAll('[data-nav], #rssNextItem, #rssFinish').forEach((b) => {
     const wrap = b.closest('.rss-actions');
     b.remove();
