@@ -15,28 +15,17 @@ Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps c
 | 339–358 | classic script · preamble |
 | 359–360 | markup — no banners, grep here |
 
-## The application — `outputs/studio.js`, `outputs/study.js`
+## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
-The two module blocks that were inline in the HTML until phase 2. They keep
-separate import scopes and talk only through `window.__osteo`.
+`studio.js` and `study.js` are entry points: each imports its parts — listed
+in the two sections below — and then calls their `init()`s. The parts import
+each other cyclically, so **nothing may run at module scope**; side effects
+belong in `init()`. The two keep separate import scopes and talk only through
+`window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-`outputs/app.css` — 745 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss)
-
-**`outputs/studio.js`** — 24 lines
-
-Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
-
-| Lines | Section |
-| --- | --- |
-| 1–24 | preamble |
-
-**`outputs/study.js`** — 40 lines
-
-Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
-
-| Lines | Section |
-| --- | --- |
-| 1–40 | preamble |
+- `outputs/app.css` — 745 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss)
+- `outputs/studio.js` — 24 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
+- `outputs/study.js` — 40 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
 ## Data modules — `outputs/*.js`
 
@@ -79,58 +68,30 @@ Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-ou
 
 ### Sections inside the larger modules
 
-**`cavity-build.js`** — 732 lines
-
-| Lines | Section |
-| --- | --- |
-| 1–34 | preamble |
-| 35–103 | shared anatomical measurements |
-| 104–520 | builders |
-| 521–732 | the surface grid: nine regions and four quadrants |
-
-**`cavity-geom.js`** — 1148 lines
-
-| Lines | Section |
-| --- | --- |
-| 1–43 | preamble |
-| 44–88 | small helpers |
-| 89–487 | ringStack -- cross-sections of an enclosing wall |
-| 488–613 | heightField -- the diaphragm |
-| 614–729 | starShell -- blobs (cranial cavity, pericardial sac) |
-| 730–1020 | vertebral canal |
-| 1021–1148 | anterior surface -- where the region grid gets painted |
-
-**`landmarks.js`** — 435 lines
-
-| Lines | Section |
-| --- | --- |
-| 1–45 | preamble |
-| 46–84 | Name normalisation |
-| 85–339 | The registry |
-| 340–435 | Resolution |
-
-**`schematics.js`** — 784 lines
-
-| Lines | Section |
-| --- | --- |
-| 1–110 | preamble |
-| 111–784 | The schematics |
-
-**`visual-data.js`** — 417 lines
-
-| Lines | Section |
-| --- | --- |
-| 1–29 | preamble |
-| 30–63 | Bone records -> skeleton meshes |
-| 64–235 | Explicit per-item visuals |
-| 236–307 | Resolver |
-| 308–417 | Plates |
+| File | Lines | Section |
+| --- | --- | --- |
+| `cavity-build.js` | 1–34 | preamble |
+|  | 35–103 | shared anatomical measurements |
+|  | 104–520 | builders |
+|  | 521–732 | the surface grid: nine regions and four quadrants |
+| `cavity-geom.js` | 1–43 | preamble |
+|  | 44–88 | small helpers |
+|  | 89–487 | ringStack -- cross-sections of an enclosing wall |
+|  | 488–613 | heightField -- the diaphragm |
+|  | 614–729 | starShell -- blobs (cranial cavity, pericardial sac) |
+|  | 730–1020 | vertebral canal |
+|  | 1021–1148 | anterior surface -- where the region grid gets painted |
+| `landmarks.js` | 1–45 | preamble |
+|  | 46–84 | Name normalisation |
+|  | 85–339 | The registry |
+|  | 340–435 | Resolution |
+| `visual-data.js` | 1–29 | preamble |
+|  | 30–63 | Bone records -> skeleton meshes |
+|  | 64–235 | Explicit per-item visuals |
+|  | 236–307 | Resolver |
+|  | 308–417 | Plates |
 
 ## The 3D studio — `outputs/studio/*.js`
-
-`outputs/studio.js` imports these in order, then calls their `init()`s.
-They import each other cyclically, so nothing may run at module scope —
-side effects belong in `init()`. See [TRAPS.md](TRAPS.md).
 
 | File | Lines | What it holds |
 | --- | --- | --- |
@@ -145,10 +106,6 @@ side effects belong in `init()`. See [TRAPS.md](TRAPS.md).
 | `visualisation-modes.js` | 625 | Visualisation modes. |
 
 ## The study system — `outputs/study/*.js`
-
-`outputs/study.js` imports these in order, then calls their `init()`s.
-They import each other cyclically, so nothing may run at module scope —
-side effects belong in `init()`. See [TRAPS.md](TRAPS.md).
 
 | File | Lines | What it holds |
 | --- | --- | --- |

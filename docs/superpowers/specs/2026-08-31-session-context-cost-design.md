@@ -248,6 +248,13 @@ offline.
 | **4** | `study.js` → `study/*.js` along its banners. | medium | the common case gets cheap |
 | **5** | `studio.js` → `studio/*.js`, partial. | **high** — the `state` singleton | the rare case gets cheaper |
 
+**This risk ordering was wrong, and the results below say why.** Phase 4 was the
+hard one — `study.js` writes five bare `let`s from seven sections, and assigning
+to an imported binding is a compile-time error. Phase 5 was blocked by something
+this table did not anticipate at all: no text rule can find `studio.js`'s
+top-level declarations. Neither turned out to be about the `state` singleton,
+which is in fact what made block 0 splittable.
+
 ### Phase 0 baselines
 
 The existing checks prove modules *load*, not that overlays *measure*. The trap
@@ -263,6 +270,10 @@ into `work/baselines/`. Every later phase diffs against them. A phase that
 changes a baseline has changed behaviour and is wrong by definition.
 
 ### Phase 5 may stop early
+
+*(Written before the attempt. It did not stop early — see "Result — phases 4 and
+5". The real blocker was finding the top-level declarations at all, and
+`work/toplevel.mjs` solved it by asking V8.)*
 
 If `modes.js` will not come apart without threading `state` through sixty
 functions, `studio.js` stays whole and `docs/CODEMAP.md` points into it by line
@@ -530,7 +541,7 @@ describe the cache-key bug above, which shipped precisely because the old one-se
 did not say it. Not shaved to hit the round number.
 
 
-## Result — phase 4, and why phase 5 stopped
+## Result — phases 4 and 5
 
 The spec's risk ordering for these two was **backwards**, and correcting it is the main finding.
 
@@ -617,18 +628,22 @@ cross-module call — `revealStructure`, `hiddenList`, `setCavityMode`,
 
 | Criterion | Met | Actual |
 | --- | --- | --- |
-| `CLAUDE.md` under 130 lines | no | 135 — three rows the split made necessary, and a SHELL rule that now describes a bug that shipped |
-| `docs/CODEMAP.md` under 200 lines, generated | no | 241, and it now maps 51 files instead of one |
+| `CLAUDE.md` under 130 lines | yes | 127 |
+| `docs/CODEMAP.md` under 200 lines, generated | yes | 197, and it maps 51 files rather than one |
 | A session can locate any behaviour from the map alone | yes | every part is a named file with a one-line headline |
-| **No file in `outputs/` over 1,500 lines** | **yes** | largest hand-written is `cavity-geom.js` at 1,148; only the generated `mesh-index.js` (2,584) is bigger |
-| Every probe baseline unchanged | yes | 10 of them, including two written during this work |
-| The deployed app is indistinguishable from before | yes | verified per phase in the browser |
+| No file in `outputs/` over 1,500 lines | yes | largest hand-written is `cavity-geom.js` at 1,148; only the generated `mesh-index.js` (2,584) is bigger |
+| Every probe baseline unchanged | yes | 10 of them, two written during this work |
+| The deployed app is indistinguishable from before | yes | verified in the browser after every phase |
 
-The two misses are both documents that grew because there is more to describe,
-and both are read on demand rather than every session. The always-on cost —
-the thing this whole spec was about — is still 63% below where it started.
+Both documents overshot at first — 135 and 241 — and were brought back by
+removing duplication rather than content. `CLAUDE.md` lost a hand-written
+changelog of what `master` carried, which `git log` answers and which had already
+gone stale (it named a deleted branch and a superseded commit). `docs/CODEMAP.md`
+lost four tables' worth of repeated scaffolding, a caveat printed twice, and two
+tables whose single row read "1–40 preamble" for a file that is a list of
+imports. Every row of content survived both trims.
 
-### Tooling that came out of phases 2–4
+### Tooling that came out of phases 2–5
 
 Five checks were wrong or absent when this started, each found by the phase that broke it:
 
