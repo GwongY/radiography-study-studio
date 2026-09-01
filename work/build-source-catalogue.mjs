@@ -108,7 +108,28 @@ function repoShortcuts() {
  * cannot be checked.
  */
 const SHARED = /^g:\/\.shortcut-targets-by-id\/[^/]+\/[^/]+/;
-function inScope(key) { return SHARED.test(key); }
+
+/*
+ * The drive is not the only place sources arrive.
+ *
+ * "New source/" in this repo is where material gets dropped straight in — the
+ * 2026 edition of the HTI17103 opening lecture landed there, and so did a
+ * subject the app does not cover at all. None of it was catalogued, because the
+ * rule above only admits shared Drive folders, so `query.mjs file` answered
+ * "no match" for documents sitting in the working tree. Include them.
+ */
+const LOCAL_SOURCE_DIRS = ['New source', 'Old source'];
+const localRoots = LOCAL_SOURCE_DIRS
+  .map((d) => join(REPO, d))
+  .filter(existsSync)
+  .map((p) => resolve(p).replace(/\\/g, '/'));
+const localKeys = new Set(localRoots.map((p) => p.toLowerCase()));
+
+function inScope(key) {
+  if (SHARED.test(key)) return true;
+  for (const l of localKeys) if (key === l || key.startsWith(`${l}/`)) return true;
+  return false;
+}
 
 function listShortcutRoot() {
   const listed = [];
@@ -188,7 +209,9 @@ function main() {
    * reachable through a shortcut stored inside another shared folder.
    */
   const rejected = [];
-  let frontier = [...repoShortcuts(), ...listShortcutRoot()];
+  /* Local source folders first, so a document held in the working tree is
+     attributed to it rather than to whichever Drive folder also has a copy. */
+  let frontier = [...localRoots, ...repoShortcuts(), ...listShortcutRoot()];
   for (let round = 1; frontier.length && round <= 8; round++) {
     const fresh = [];
     for (const p of frontier) {
