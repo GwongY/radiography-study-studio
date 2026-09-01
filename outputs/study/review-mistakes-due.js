@@ -4,7 +4,7 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, STUDY_ITEMS, esc, getItem, getSubject } from './imports.js';
-import { itemAttempted, itemDue, store } from './storage-versioned-keys.js';
+import { K, itemAttempted, itemDue, store } from './storage-versioned-keys.js';
 import { setActiveNav } from './navigation-five-destinations.js';
 import { showView } from './small-ui-helpers.js';
 import { startSession } from './session-engine.js';
