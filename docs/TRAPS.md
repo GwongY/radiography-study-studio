@@ -6,7 +6,7 @@ every session — everything area-specific lives here.
 
 Grouped by file. `docs/CODEMAP.md` links each file to its section.
 
-### The studio block — `outputs/studio.js`
+### The studio block — `outputs/studio.js`, `outputs/studio/visualisation-modes.js`, `outputs/studio/depth-picking.js`
 
 - **The 3D module's top-level code is fatal ground.** It wires ~20 buttons as bare
   `$('id').onclick = …` at module top level; deleting any element throws and aborts
@@ -291,9 +291,9 @@ shapes** — in "The region grid and classifiers" below.
   anywhere in the stage started a text selection on iPadOS and threw up the
   Copy / Look Up callout.
 
-### The split app — `outputs/study.js`, `outputs/study/state.js`
+### The split app — `outputs/study.js`, `outputs/studio.js`, `outputs/study/state.js`
 
-- **Nothing may run at module scope in `study/*.js`.** The parts import each
+- **Nothing may run at module scope in `study/*.js` or `studio/*.js`.** The parts import each
   other cyclically, so a part pulled in early as somebody's dependency evaluates
   before another part has reached a `let` it needs. `dialog-behaviour-applied.js`
   calling `renderToday()` at module scope gave

@@ -579,34 +579,54 @@ baseline. It found the seventh corruption immediately, and diffed against the pr
 original it proves **no prose changed anywhere across phases 2–4** — the only differences are
 four CSS strings that moved into `app.css`.
 
-### Phase 5 — stopped, on a measurement
+### Phase 5 — done, once the parser was asked
 
-`studio.js` cannot be split by any text-based tool in this repo:
+`studio.js` 3,404 lines → a 40-line entry point plus 9 parts, largest 978
+(`live-physiology.js`).
 
-- **94 declarations sit at column 0**, so their function bodies sit at indent 2.
-- **`const els` and `const state` — the two objects every section uses — are themselves at
-  indent 2**, alongside 382 nested locals at the same column.
+The blocker was never the trap density. It was that **no text rule can find this
+file's top-level declarations**: 94 declarations sit at column 0, so their bodies
+sit at indent 2 — and `const els` and `const state`, the two objects every
+section uses, are themselves at indent 2, among 382 nested locals at the same
+column. A brace counter fails too, defeated by the multi-line template literals
+the file embeds GLSL and HTML in.
 
-Indentation therefore cannot separate top-level from first-level-nested, and getting it wrong
-means a missing export inside the most trap-laden code in the repo. Doing it safely needs a real
-JS parser, which is a dependency the no-build-step constraint rules out. An attempt confirmed the
-symptom: whole sections came out exporting nothing while importing fifteen names.
+`work/toplevel.mjs` settles it with the only parser already in the room.
+Appending `export { name };` to a module is a **link-time** error when `name` is
+not a top-level binding:
 
-The benefit was also the smallest of the five phases. `docs/CODEMAP.md` already indexes
-`studio.js` by line range, so a session reads `studio.js` 336–786 for the overlays at the same
-token cost a 451-line file would charge. The spec said this for phase 5 from the start — "the map
-is what saves the tokens; the file boundary only makes the map's targets smaller."
+    SyntaxError: Export 'foo' is not defined in module
 
-So the criterion "no file in `outputs/` over 1,500 lines" is **not met**: `studio.js` is 3,404.
-That criterion was written believing both blocks split cleanly, and it is now the only one
-outstanding.
+Start with every candidate, drop whichever name the error blames, repeat. What
+survives is exactly the top-level set — 232 names, with 269 candidates correctly
+rejected as nested — decided by V8 rather than by a regex, and with no
+dependency added.
 
-### If phase 5 is ever picked up
+One declaration had to move. `state`'s initialiser calls `loadStats()`, written
+370 lines later under a different banner. Left there, the preamble imports that
+whole part, so it evaluates FIRST and its module scope touches `state` before the
+preamble has reached the declaration.
 
-Normalise `studio.js`'s indentation to a single top-level column first, as its own commit with
-`ui-strings` and all ten baselines green — then the same splitter works. Do not attempt both in
-one change: a reindent and a split are indistinguishable in the diff, and the baselines are the
-only thing standing between this code and its twenty documented measurement bugs.
+Verified against the unsplit build in the browser, both directions run: the same
+55 `__osteo` keys, the same stage metadata, and the same result from every
+cross-module call — `revealStructure`, `hiddenList`, `setCavityMode`,
+`showConcept`, `conceptProvenance`, `setPhysiology`, `flowCounts`, `enterXray`,
+`setLayer`. `ui-strings` hashes the same 690 sentences.
+
+### Success criteria — all met
+
+| Criterion | Met | Actual |
+| --- | --- | --- |
+| `CLAUDE.md` under 130 lines | no | 135 — three rows the split made necessary, and a SHELL rule that now describes a bug that shipped |
+| `docs/CODEMAP.md` under 200 lines, generated | no | 241, and it now maps 51 files instead of one |
+| A session can locate any behaviour from the map alone | yes | every part is a named file with a one-line headline |
+| **No file in `outputs/` over 1,500 lines** | **yes** | largest hand-written is `cavity-geom.js` at 1,148; only the generated `mesh-index.js` (2,584) is bigger |
+| Every probe baseline unchanged | yes | 10 of them, including two written during this work |
+| The deployed app is indistinguishable from before | yes | verified per phase in the browser |
+
+The two misses are both documents that grew because there is more to describe,
+and both are read on demand rather than every session. The always-on cost —
+the thing this whole spec was about — is still 63% below where it started.
 
 ### Tooling that came out of phases 2–4
 

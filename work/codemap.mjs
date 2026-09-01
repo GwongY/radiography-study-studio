@@ -305,20 +305,20 @@ if (sectioned.length) {
  * map points at a 40-line list of imports and says nothing about where the
  * session engine or the reading help actually live.
  */
-const studyDir = join(outputs, 'study');
-const parts = existsSync(studyDir)
-  ? readdirSync(studyDir).filter((f) => f.endsWith('.js')).sort() : [];
-if (parts.length) {
-  p('## The study system — `outputs/study/*.js`');
+for (const [dir, title] of [['studio', 'The 3D studio'], ['study', 'The study system']]) {
+  const d = join(outputs, dir);
+  const parts = existsSync(d) ? readdirSync(d).filter((f) => f.endsWith('.js')).sort() : [];
+  if (!parts.length) continue;
+  p(`## ${title} — \`outputs/${dir}/*.js\``);
   p();
-  p('`outputs/study.js` imports these in order, then calls their `init()`s.');
+  p(`\`outputs/${dir}.js\` imports these in order, then calls their \`init()\`s.`);
   p('They import each other cyclically, so nothing may run at module scope —');
   p('side effects belong in `init()`. See [TRAPS.md](TRAPS.md).');
   p();
   p('| File | Lines | What it holds |');
   p('| --- | --- | --- |');
   for (const f of parts) {
-    const ls = linesOf(join(studyDir, f));
+    const ls = linesOf(join(d, f));
     p(`| \`${f}\` | ${ls.length} | ${headline(ls)} |`);
   }
   p();
