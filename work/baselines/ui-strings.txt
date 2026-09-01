@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 690 —
-  c31c62315bfae59f  WHOLE SET
+— user-facing strings in outputs/ — 691 —
+  879ee869a5f33b1e  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -149,12 +149,13 @@
   9b1cc7817bd82354  A layout, not a depiction \u2014 no anatomy is being drawn to scale here.
   d05095ea594f8f5a  A real part of this item is new. The background you already have is folded away at the foot of the card.
   43efab18440887ca  A root — the part carrying the meaning. The /o on the end is the vowel that joins it to whatever follows.
+  11903751ff4bca8a  AI & data
   92508480855a651c  Acromial part of deltoid muscle
   077ffef3c99e0f88  All ' + qCount + ' questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.
   aaaadf5a23df48bd  All hints shown
   8968425df01d3da6  All regions
   aa3acf22b193a343  Already covered ·
-  6b348474bdc2a1e0  Anatomy \u00b7 physiology \u00b7 radiation science
+  5a45a945110c7b2e  Anatomy \u00b7 physiology \u00b7 radiation science \u00b7 AI
   90d82470f4817358  Anatomy first
   8e84fc2aae90b055  Anatomy search
   06f59255e2ecf0df  Answer in your own words, then check against the model answer

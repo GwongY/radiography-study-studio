@@ -42,7 +42,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `physiology.js` | 337 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 117 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 289 | Radiography Study Studio — service worker |  |
+| `sw.js` | 290 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
 | `term-gloss.js` | 781 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
 | `term-notes.js` | 313 | Term notes — say it, then mean it. |  |
@@ -132,7 +132,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `spatial-overlay-controls.js` | 279 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 28 | The study system's mutable UI state. |
 | `storage-versioned-keys.js` | 109 | Storage — versioned keys, one-time migration from the osteology app |
-| `subject.js` | 264 | Subject |
+| `subject.js` | 272 | Subject |
 | `what-is-under.js` | 166 | What is under the tap |
 
 ## The corpus — `outputs/study/corpus/*.js`
@@ -143,10 +143,11 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 
 | File | Lines | What it holds |
 | --- | --- | --- |
-| `corpus.js` | 57 | The assembled corpus — every item array spread into one list, and the |
+| `corpus.js` | 59 | The assembled corpus — every item array spread into one list, and the |
 | `coverage.js` | 161 | Coverage report — what the supplied sources actually cover, and what they |
 | `derived-items.js` | 336 | Items generated rather than authored: one per canonical bone record, one |
 | `diagrams.js` | 50 | Diagrams — authored schematics, drawn inline as SVG so the app needs no |
+| `dsai-items.js` | 145 | DSAI1202, from the Week 1 overview deck. |
 | `expansion-items.js` | 557 | Expansion batch — fills gaps found in a coverage audit. |
 | `hss-joints.js` | 219 | HSS2011 Human Anatomy — joints and the muscles that move them. |
 | `hss-modules.js` | 369 | HSS2011 Human Anatomy — the per-module study items. |
@@ -157,7 +158,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `modules.js` | 70 | Course modules — app-authored framing, not a source claim. Which unit |
 | `notices.js` | 41 | APSS1A08 — limited coverage. The notices that say so, in the app, rather |
 | `physiology-items.js` | 1056 | ABCT2326 Human Physiology — the study items. |
-| `schema.js` | 402 | Scaffolding: the source registry, the subjects and their units, the item |
+| `schema.js` | 407 | Scaffolding: the source registry, the subjects and their units, the item |
 | `structures.js` | 348 | Granular 3D targets: the structure sets a tap-to-identify item draws from, |
 | `validate.js` | 125 | Validation — every question must have a resolvable answer and every claim a |
 

@@ -13,6 +13,7 @@ import { HSS_JOINTS } from './hss-joints.js';
 import { HSS_MODULES } from './hss-modules.js';
 import { PHYS_ITEMS } from './physiology-items.js';
 import { HTI_ITEMS } from './hti-items.js';
+import { DSAI_ITEMS } from './dsai-items.js';
 import { EXPANSION_ITEMS } from './expansion-items.js';
 import { BONE_ITEMS, STRUCTURE_ITEMS, MOVEMENT_ITEMS } from './derived-items.js';
 
@@ -30,6 +31,7 @@ export const STUDY_ITEMS = [
   ...HSS_MODULES,
   ...PHYS_ITEMS,
   ...HTI_ITEMS,
+  ...DSAI_ITEMS,
   ...EXPANSION_ITEMS,
 ].map((item) => ({ status: 'unseen', ...item }));
 

@@ -86,7 +86,7 @@ export function pickItems(opts) {
       ];
     }
     case 'mixed':
-      return shuffle(STUDY_ITEMS.filter((i) => ['HSS2011', 'ABCT2326', 'HTI17103'].includes(i.subject))).slice(0, 14);
+      return shuffle(STUDY_ITEMS.filter((i) => ['HSS2011', 'ABCT2326', 'HTI17103', 'DSAI1202'].includes(i.subject))).slice(0, 14);
     case 'subject':
     default: {
       /* Study this topic walks the whole topic in the weakest-first order the
