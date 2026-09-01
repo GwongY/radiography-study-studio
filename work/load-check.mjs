@@ -115,6 +115,13 @@ function inline(src, dir) {
 
 function moduleUrl(fname) {
   if (urls.has(fname)) return urls.get(fname);
+  /*
+   * The rewrites above are regexes over the raw text, so they also match an
+   * example import written inside a COMMENT. Leaving the specifier alone when
+   * nothing is there turns that into an ordinary unresolved-import message
+   * instead of an ENOENT stack trace with no hint of which file to look at.
+   */
+  if (!existsSync(join(OUT, fname))) { urls.set(fname, `./${fname}`); return `./${fname}`; }
   urls.set(fname, `PENDING(${fname})`); /* cycle guard */
   const src = inline(readFileSync(join(OUT, fname), 'utf8'), dirname(fname));
   const url = 'data:text/javascript;base64,' + Buffer.from(src, 'utf8').toString('base64');
