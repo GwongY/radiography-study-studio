@@ -499,8 +499,18 @@ export function enterXray(){
   if(state.xray||!state.scene)return false;
   const THREE=state.THREE;
   const c=state.camera, ctr=state.controls;
+  /*
+   * Size the film in DEVICE pixels, not CSS pixels.
+   *
+   * getSize returns CSS pixels; the canvas the post pass blits onto is
+   * pixelRatio times that (capped at 1.7 in boot3D). Sizing the target from
+   * getSize therefore rendered the projection at 1/pixelRatio and let the GPU
+   * upscale it -- on any HiDPI screen the film came out visibly softer than the
+   * 3D view beside it, which is a poor look for the one view meant to resemble
+   * a radiograph. getDrawingBufferSize is that same number already multiplied.
+   */
   const size=new THREE.Vector2();
-  state.renderer.getSize(size);
+  state.renderer.getDrawingBufferSize(size);
   const rt=new THREE.WebGLRenderTarget(Math.max(2,size.x),Math.max(2,size.y),{
     type:THREE.FloatType, format:THREE.RedFormat,
     minFilter:THREE.LinearFilter, magFilter:THREE.LinearFilter, depthBuffer:false,

@@ -400,3 +400,28 @@ shapes** — in "The region grid and classifiers" below.
   documents a minute — forty hours for 8,114. Six `--shard i/6` processes do
   ~75 a minute. Each shard writes its own `index-<i>.json`; a reader unions
   every `index*.json` it finds.
+
+### The projection's film — `outputs/studio/live-physiology.js`, `outputs/studio/region-boxes-how.js`
+
+- **The offscreen target must be sized in DEVICE pixels.** `renderer.getSize()`
+  returns CSS pixels; the canvas the post pass blits onto is `pixelRatio` times
+  that (capped at 1.7 in `boot3D`). Sizing the target from `getSize` rendered
+  the whole projection at 1/pixelRatio and let the GPU upscale it, so the one
+  view meant to look like a radiograph was the softest thing on screen. Use
+  `getDrawingBufferSize`, and multiply by `getPixelRatio()` in `resize()` — the
+  resize path will silently undo the fix otherwise.
+- **A screenshot of the Browser pane is not a measurement.** Chasing "the
+  projection is off-centre" cost four wrong diagnoses: the pane crops the page
+  (it showed the left 66% of a 1342px viewport at 0.89 scale), so a correctly
+  centred image sat visibly right of centre. Calibrate against two known
+  element rects before believing pixel positions, or read the canvas directly —
+  centre of mass of the composited buffer settled it in one call.
+- **Re-rendering to measure measures the wrong thing.** `renderer.render(scene,
+  camera)` draws the raw scene, NOT the x-ray post pass, so sampling after it
+  reports what an ordinary render would look like. Capture inside a
+  `requestAnimationFrame` after the app's own loop has drawn instead.
+- **A browser check can pass on a cached module.** The dev page is service-worker
+  controlled, so an edited module kept loading in its old form and the fix
+  appeared not to work. `fetch(url, {cache:'no-store'})` tells you what the
+  SERVER has; unregister the worker and clear caches before believing a
+  before/after.

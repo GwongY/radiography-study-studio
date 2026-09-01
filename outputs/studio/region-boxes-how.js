@@ -274,7 +274,12 @@ import { loadExtraModel } from './depth-picking.js';
     state.renderer.setSize(w,h,false);
     state.camera.aspect=w/h;
     state.camera.updateProjectionMatrix();
-    if(state.xray&&state.xray.rt)state.xray.rt.setSize(w,h);
+    /* In device pixels, matching enterXray -- see the note there. Passing the
+       CSS size here would undo that fix on the first resize. */
+    if(state.xray&&state.xray.rt){
+      const pr=state.renderer.getPixelRatio();
+      state.xray.rt.setSize(Math.max(2,Math.floor(w*pr)),Math.max(2,Math.floor(h*pr)));
+    }
   }
   function watchStageSize(){
     if(state._sizeWatch||typeof ResizeObserver!=='function')return;
