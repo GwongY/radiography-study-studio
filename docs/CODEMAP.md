@@ -170,6 +170,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/build-check.mjs` | Build every cavity from the real GLBs and assert the results are anatomy. |  |
 | `work/build-course-terms.mjs` | Build work/course-terms.json — which of the model's 1,687 named structures | [Study depth and course terms](TRAPS.md#study-depth-and-course-terms--workbuild-course-termsmjs) |
 | `work/build-mesh-index.mjs` | Build outputs/mesh-index.js — the searchable name index for every mesh in | [The mesh index](TRAPS.md#the-mesh-index--workbuild-mesh-indexmjs-worklibmesh-namesmjs) |
+| `work/build-source-catalogue.mjs` | Build work/source-catalogue.json — what is on the source drive, so that no | [The source drive](TRAPS.md#the-source-drive--workbuild-source-cataloguemjs-worksource-checkmjs) |
 | `work/cavity-probe.mjs` | Numeric validation of the cavity derivation against the real GLBs. |  |
 | `work/codemap-check.mjs` | Codemap check — is docs/CODEMAP.md what work/codemap.mjs would generate |  |
 | `work/codemap.mjs` | Code map generator — writes docs/CODEMAP.md. Do not edit that file by hand. |  |
@@ -191,6 +192,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/region-probe.mjs` | Region probe — does the region filter put every bone in the right region? |  |
 | `work/search-probe.mjs` | Search probe — does typing a structure's name find it? |  |
 | `work/shell-check.mjs` | Shell check — every module the page imports is precached under the SAME |  |
+| `work/source-check.mjs` | Does every source the corpus cites actually exist on the drive? | [The source drive](TRAPS.md#the-source-drive--workbuild-source-cataloguemjs-worksource-checkmjs) |
 | `work/syntax-check.mjs` | Syntax-checks every inline <script type="module"> block in the app HTML, plus |  |
 | `work/toplevel.mjs` | Which names does a module declare at TOP level? Ask Node, not the indentation. |  |
 | `work/ui-strings.mjs` | UI strings — every literal the app can put on screen, as a sorted fingerprint. |  |

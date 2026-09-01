@@ -18,10 +18,12 @@ govern it.
 | What breaks when you edit file F | the `docs/TRAPS.md` section CODEMAP links | this file |
 | What the model contains | `docs/DATA-INDEX.md`, then `node work/query.mjs` | `outputs/mesh-index.js` |
 | What one structure or item says | `node work/query.mjs unit\|mesh\|item\|layer\|source <term>` | `outputs/study-data.js` |
+| Whether a source file exists, and where | `node work/query.mjs file\|where <term>` | walking `G:` |
 | Why a decision was made | `outputs/README.md`, `git log` | reopening it |
 
-`outputs/mesh-index.js` and `work/course-terms.json` are **generated**. Never
-read them and never edit them; ask `work/query.mjs` instead.
+`outputs/mesh-index.js`, `work/course-terms.json` and `work/source-catalogue.json`
+are **generated** — never read or edit them, ask `work/query.mjs`. **Never walk
+`G:` for a source**: minutes of network stats, and the catalogue already knows.
 
 ## Layout
 
@@ -34,7 +36,7 @@ read them and never edit them; ask `work/query.mjs` instead.
 | `outputs/studio/*.js` | The 3D studio, 9 parts, same shape as `study/`. Its top level is indented inconsistently, so no text or brace rule can tell a top-level declaration from a nested one — `node work/toplevel.mjs <file>` asks V8 instead, and is the tool to use before touching its structure. |
 | `outputs/assets/*.glb` | The seven anatomical layers (skeleton, muscles, ligaments, organs, vessels, nerves, lymphatic), ~39 MB, lazy-loaded on demand. Per-layer counts: `docs/DATA-INDEX.md`. |
 | `docs/superpowers/` | Design specs (`specs/`) and implementation plans (`plans/`). Follow this pattern for new work. |
-| `work/` | Node verifiers, run outside the browser. `load-check.mjs`, `syntax-check.mjs`, `verify-modules.mjs` are the after-every-edit set. Cavity-engine checks: `landmark-check.mjs`, `cavity-probe.mjs`, `build-check.mjs` (relational — hold with all layers and skeleton-only), `grid-probe.mjs` (the nine regions / four quadrants; run it with and without `--all`), plus `glb-bounds`/`glb-mesh`/`glb-names` helpers. `search-probe.mjs` (the name index + synonyms + the source-derived tiering + the study units every row resolves to), `region-probe.mjs` (the two region classifiers, lifted out of `studio.js` and run over the real GLB names), `shell-check.mjs` (walks the import graph transitively; every reachable module is precached under the same query), `corpus-snapshot.mjs` (a content hash of every export and every study item — the net that catches moved lesson wording), `ui-strings.mjs` (every sentence the interface can show — the net that catches a rename running over a string literal; both are baselines), `binding-check.mjs` (every split part imports what it references — the net that catches a missing import, which loads clean and throws only when the code path runs), `toplevel.mjs` (asks V8 which names a module declares at top level, because indentation in `studio/` does not say), `figure-key-check.mjs` (every published figure/plate a lesson renders carries a well-formed `intro` + `key`). Generators: `build-course-terms.mjs` (needs the drive + `pdftotext`) then `build-mesh-index.mjs`; shared GLB-name reading AND per-structure geometry (`boxesIn`, `measureStructures`) live in `lib/mesh-names.mjs`. One-offs: `dense-lessons`, `gloss-gap-scan`, `dump-plain-candidates`. `scan-output.txt` and `id-inventory-*.txt` are scratch. |
+| `work/` | Node verifiers, run outside the browser. `load-check.mjs`, `syntax-check.mjs`, `verify-modules.mjs` are the after-every-edit set. Cavity-engine checks: `landmark-check.mjs`, `cavity-probe.mjs`, `build-check.mjs` (relational — hold with all layers and skeleton-only), `grid-probe.mjs` (the nine regions / four quadrants; run it with and without `--all`), plus `glb-bounds`/`glb-mesh`/`glb-names` helpers. `search-probe.mjs` (the name index + synonyms + the source-derived tiering + the study units every row resolves to), `region-probe.mjs` (the two region classifiers, lifted out of `studio.js` and run over the real GLB names), `shell-check.mjs` (walks the import graph transitively; every reachable module is precached under the same query), `corpus-snapshot.mjs` (a content hash of every export and every study item — the net that catches moved lesson wording), `ui-strings.mjs` (every sentence the interface can show — the net that catches a rename running over a string literal; both are baselines), `binding-check.mjs` (every split part imports what it references — the net that catches a missing import, which loads clean and throws only when the code path runs), `toplevel.mjs` (asks V8 which names a module declares at top level, because indentation in `studio/` does not say), `figure-key-check.mjs` (every published figure/plate a lesson renders carries a well-formed `intro` + `key`), `source-check.mjs` (every source `SOURCE_FILES` cites really is on the drive — reads the committed catalogue, so it needs no drive). Generators: `build-course-terms.mjs` (needs the drive + `pdftotext`) then `build-mesh-index.mjs`; `build-source-catalogue.mjs` (needs the drive); shared GLB-name reading AND per-structure geometry (`boxesIn`, `measureStructures`) live in `lib/mesh-names.mjs`. One-offs: `dense-lessons`, `gloss-gap-scan`, `dump-plain-candidates`. `scan-output.txt` and `id-inventory-*.txt` are scratch. |
 | `Uni/` | `.lnk` shortcuts to the Google Drive source folders. They resolve into `G:\.shortcut-targets-by-id\` — enumerate that directory, don't trust the shortcut list alone. |
 
 ### `outputs/` data modules
@@ -49,6 +51,7 @@ read them and never edit them; ask `work/query.mjs` instead.
 | `sw.js` | Service worker. `CACHE_VERSION` + the SHELL list. |
 | `mesh-index.js` | **Generated** — every named mesh in every GLB layer, side- and duplicate-collapsed, each carrying the course file that names it (or nothing) and the STUDY UNIT it resolves to. `UNITS` is what a tap can select. Counts live in `docs/DATA-INDEX.md`, never here. Rebuild with `node work/build-course-terms.mjs` then `node work/build-mesh-index.mjs`; never hand-edit. |
 | `work/course-terms.json` | **Generated, committed** — which structures the HSS2011 / ABCT2326 taught and assessed material names, and where. Needs the drive to rebuild; `build-mesh-index.mjs` only reads it. |
+| `work/source-catalogue.json` | **Generated, committed** — every document in the shared course folders: 8,801 distinct files (13,546 counting re-shares) across 46.9 GB and 28 shared folders. Never read it; ask `query.mjs file` / `where`. Rebuild with `build-source-catalogue.mjs` when the drive changes. |
 | `synonyms.js` | `SYNONYMS` (query expansion: collarbone→clavicle, esophagus→oesophagus, CN X→vagus), `COMPOSITES` (a name with no mesh but real parts — larynx, ossicles, eyeball), `NOT_MODELLED` (the three things genuinely absent). |
 | `bodymap.js` | `SEARCH_EXTRAS` (atlas structures beyond the curated bone list, each → a named mesh in a system layer) + `BODY_CONCEPTS` (cavities/regions/quadrants/planes: names, aliases, blurbs, colour, containment hierarchy — **no geometry**). |
 | `landmarks.js` | Semantic key → the meshes currently loaded. The resolver every cavity builder goes through. |
@@ -68,10 +71,10 @@ pane freezes animations and won't register the worker).
 ## Hard rules
 
 - **Source traceability.** Every factual study claim must cite a `sourceRefs` entry
-  keyed to a file that actually exists in the supplied source folders. No internet
-  research, no generic textbook expansion, no invented syllabus. App-authored memory
-  aids are fine but must be tagged as such. `validateCorpus()` must stay at zero
-  failures.
+  keyed to a file that actually exists in the supplied source folders — checked by
+  `source-check.mjs`. No internet research, no generic textbook expansion, no
+  invented syllabus. App-authored memory aids are fine but must be tagged as such.
+  `validateCorpus()` must stay at zero failures.
 - **No build step, no framework, no bundler.** Plain HTML + vanilla ES modules is a
   product constraint, not an oversight.
 - **Patch `radiography-study-studio.html` directly.** Never re-run the old scratchpad
@@ -99,25 +102,22 @@ node work/baseline.mjs --check  # the probes still say what they said
 ```
 
 - Added, moved or renamed a section banner, a file, or an export? Run
-  `node work/codemap.mjs` and commit the regenerated `docs/CODEMAP.md`.
-  `codemap-check.mjs` fails until you do.
-- Changed a study item, a synonym, a `COMPOSITE`, or rebuilt `mesh-index.js`?
-  Run `node work/data-index.mjs` and commit `docs/DATA-INDEX.md`.
-  `data-index-check.mjs` fails until you do.
+  `node work/codemap.mjs` and commit `docs/CODEMAP.md` — the check fails until you do.
+- Changed a study item, a synonym, a `COMPOSITE`, or rebuilt `mesh-index.js`? Run
+  `node work/data-index.mjs` and commit `docs/DATA-INDEX.md` — likewise.
 - A trap you learn the hard way goes in `docs/TRAPS.md`, under the file it
   governs — not here. This file is loaded into every session; that one is read
   only by a session working in that file.
 - Any shell change (HTML, `app.css`, any JS module) → bump `CACHE_VERSION` in `sw.js`.
 - **The cache key is the whole URL, query and all.** Every module reachable from
-  the app — at any depth, by any path — must be in the SW SHELL under the
-  *identical* specifier it is imported by. A mismatch is a 404 that appears only
-  offline, the one condition this app is built for. `shell-check.mjs` walks the
-  import graph and enforces it; a one-level version of it missed
-  `study-data.js`'s bare `./anatomy-data.js` and `cavity-build.js`'s bare
-  `./cavity-geom.js` for as long as both existed. If one file is imported both
-  with and without a query, **both** spellings need a shell entry.
-- Touched `mesh-index.js`? It is generated — rerun `node work/build-mesh-index.mjs`
-  rather than editing it, then `node work/search-probe.mjs`.
+  the app, at any depth, must be in the SW SHELL under the *identical* specifier
+  it is imported by — a mismatch is a 404 that appears only offline, the one
+  condition this app is built for. `shell-check.mjs` walks the import graph and
+  enforces it. A file imported both with and without a query needs **both**.
+- Touched `mesh-index.js`? Rerun `node work/build-mesh-index.mjs` rather than
+  editing it, then `node work/search-probe.mjs`.
+- Added or renamed a `SOURCE_FILES` entry? Run `node work/source-check.mjs` — it
+  is the only mechanical enforcement the source-traceability rule has.
 
 ## Git / deploy
 
