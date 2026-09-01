@@ -115,6 +115,9 @@ export const SOURCE_FILES = {
   'hti.pres': { file: 'Guidelines and Topics for Presentations 2018-19.pdf', subject: 'HTI17103', root: 'radio', folder: 'Yr1 Sem1 Radiography/HTI17101 Exploring Radiography/Class Information', kind: 'admin' },
   'hti.sdf': { file: 'Subject Desciption Form.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography', kind: 'admin' },
 
+  /* ---------------- DSAI1202 Introduction to AI and Data Analytics ---------------- */
+  'dsai.w1': { file: '1.+Week1-Overview.pptx', subject: 'DSAI1202', root: 'newsrc', folder: '', kind: 'primary', note: 'Week 1 overview, 47 slides, Dr Xiuling Wang. Half course admin, half a tour of where AI already sits in daily life, healthcare and work. The deck states its own limits: this is an AI-literacy General University Requirement, and programming and the mathematics of AI are explicitly not included.' },
+
   /* ---------------- APSS1A08 Introduction to Sociology ---------------- */
   'soc.a1.star': { file: 'assignment 1.docx', subject: 'APSS1A08', root: 'star', folder: 'CAR/introduction to sociology', kind: 'student' },
   'soc.a2.star': { file: 'assignment 2.docx', subject: 'APSS1A08', root: 'star', folder: 'CAR/introduction to sociology', kind: 'student' },
@@ -226,9 +229,11 @@ export const SUBJECTS = [
     code: 'DSAI1202',
     title: 'Introduction to AI and Data Analytics',
     accent: '#7fd1a0',
-    coverage: 'none',
-    blurb: 'No verified DSAI1202 materials were found in the supplied source folders.',
-    units: [],
+    coverage: 'limited',
+    blurb: 'The Week 1 overview deck only, dropped into New source/ as the semester started. It is a General University Requirement AI-literacy subject, explicitly not technical: the deck says programming and the mathematics of AI are not included. The other twelve weeks — AI overview, GenAI, machine learning — have not been supplied.',
+    units: [
+      { id: 'dsai.overview', label: 'Week 1 — Course overview & AI in practice' },
+    ],
   },
   {
     id: 'LEI1101',
@@ -398,5 +403,5 @@ export const STUDY_MODES = [
   { id: 'hooks', label: 'Memory hooks only', hint: 'Just the memory aids, no scoring.', icon: '⚓' },
   { id: 'mistakes', label: 'Explain my mistakes', hint: 'Everything you have got wrong, with the explanation and the confusion that caused it.', icon: '⚠' },
   { id: 'subject', label: 'Subject-specific study', hint: 'Stay inside one subject or one unit.', icon: '▦' },
-  { id: 'mixed', label: 'Mixed Semester 1 review', hint: 'Everything across HSS2011, ABCT2326 and the radiation-science set.', icon: '⇄' },
+  { id: 'mixed', label: 'Mixed Semester 1 review', hint: 'Everything across HSS2011, ABCT2326, the radiation-science set and DSAI1202.', icon: '⇄' },
 ];

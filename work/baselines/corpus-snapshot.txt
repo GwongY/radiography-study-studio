@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  273d3aab54709be0    513820  ITEM_BY_ID  Map[97]
+  e0fa581980da638a    530321  ITEM_BY_ID  Map[99]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   c529371f74fc1d2a      4250  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -18,19 +18,19 @@
   f428292239abe4d6       199  PRIOR_KNOWLEDGE  object[1]
   98a503c7f71e10a2       285  REVEAL_MODES  array[3]
   0d0b5bb6f4c96e17      1348  SOCIOLOGY_NOTICE  object[5]
-  3f604890753a8f36     16008  SOURCE_FILES  object[78]
+  3bd5332b8df24291     16422  SOURCE_FILES  object[79]
   7cb3178e2949d4d5       327  SOURCE_ROOTS  object[12]
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   57b60f7998459a29     20933  STRUCTURE_SETS  object[13]
-  b0d049c43575d431    511009  STUDY_ITEMS  array[97]
-  e961925afaa20e06      1155  STUDY_MODES  array[9]
-  e5a59e899377a9a2      2937  SUBJECTS  array[6]
+  b87b03d8631b0983    527459  STUDY_ITEMS  array[99]
+  732916ea01d90fc1      1165  STUDY_MODES  array[9]
+  153456db74c04d0b      3265  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  0fd47d40b60f8998    546280  default  object[7]
+  bd686543d36d3484    563482  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -57,9 +57,9 @@
   bb157d6583e754f9      2211  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  edc4f70be083894b  WHOLE SURFACE
+  95d54288379a290f  WHOLE SURFACE
 
-— every study item, by id — 97 items —
+— every study item, by id — 99 items —
   896be4c758f70c6a  abct2326-blood-composition
   87ce8b9c57dec61f  abct2326-cells-organisation
   45f0c8e428492490  abct2326-cvs-circuits
@@ -80,6 +80,8 @@
   b56fa5bb681c7f68  abct2326-renal-nephron
   999f06f875c38a5e  abct2326-resp-gas-transport
   2f7a3fe527e9c2f5  abct2326-resp-pathway
+  089d251bc36f7514  dsai1202-ai-in-healthcare
+  370c86f6d722c41b  dsai1202-ai-literacy
   4ae762fbcbd53998  hss2011-bone-cervical
   f20eec934dfb38c4  hss2011-bone-clavicle
   1d44b8f543963d3b  hss2011-bone-coccyx

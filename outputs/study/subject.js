@@ -23,12 +23,20 @@ function fileRowsHTML(refs) {
   }).join('')}</div>`;
 }
 
-const SUBJECT_GROUP = { HSS2011: { label: 'Anatomy', accent: '#72e3cf' }, ABCT2326: { label: 'Physiology', accent: '#ffba67' }, HTI17103: { label: 'Radiation science', accent: '#8ea9ff' } };
-const LEARN_FILTERS = [['all', 'Everything'], ['Anatomy', 'Anatomy'], ['Physiology', 'Physiology'], ['Radiation science', 'Radiation science'], ['3d', 'Has 3D / images']];
+const SUBJECT_GROUP = { HSS2011: { label: 'Anatomy', accent: '#72e3cf' }, ABCT2326: { label: 'Physiology', accent: '#ffba67' }, HTI17103: { label: 'Radiation science', accent: '#8ea9ff' }, DSAI1202: { label: 'AI & data', accent: '#7fd1a0' } };
+const LEARN_FILTERS = [['all', 'Everything'], ['Anatomy', 'Anatomy'], ['Physiology', 'Physiology'], ['Radiation science', 'Radiation science'], ['AI & data', 'AI & data'], ['3d', 'Has 3D / images']];
 
-/* A "topic" is one subject.unit that actually has study items. Subjects with no
-   items (APSS1A08, DSAI1202, LEI1101) drop out of Learn here on their own --
-   there is deliberately no hide-list to maintain. */
+/*
+ * A "topic" is one subject.unit that actually has study items.
+ *
+ * TWO gates, and the second one used to be described as the only one. A unit
+ * with no items drops out below; a subject with no SUBJECT_GROUP entry never
+ * gets that far. The comment here claimed subjects dropped out on their own,
+ * which was true only while the subjects lacking a group also lacked items --
+ * DSAI1202 gained items and stayed invisible until it was given a group.
+ * Adding a subject to the tree means adding it to SUBJECT_GROUP and, if it
+ * deserves its own chip, to LEARN_FILTERS.
+ */
 export function topicsWithContent() {
   const list = [];
   for (const subject of SUBJECTS) {
