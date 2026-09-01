@@ -190,6 +190,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/glb-names.mjs` | Dump mesh/node names from a GLB (JSON chunk only). Usage: node work/glb-names.mjs assets/kas.glb [fi |  |
 | `work/gloss-gap-scan.mjs` | Gloss gap scan — regression check for the reading help. |  |
 | `work/grid-probe.mjs` | Numeric validation of the abdominal surface grid -- the nine regions and the |  |
+| `work/handoff-export.mjs` | Turn the unread manifest into a folder another AI can actually read. |  |
 | `work/landmark-check.mjs` | Does every landmark actually resolve against the real GLBs? |  |
 | `work/load-check.mjs` | Load-time verification for radiography-study-studio.html. |  |
 | `work/query.mjs` | Ask the data a question instead of reading the file. |  |
