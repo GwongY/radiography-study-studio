@@ -1,0 +1,693 @@
+— user-facing strings in outputs/ — 690 —
+  c31c62315bfae59f  WHOLE SET
+
+  2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
+  0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
+  87d3f6c7e5dec280   It stays in today’s queue.
+  c8f303e7554a57f7   These are paired — the side is part of the answer.
+  37fc3c511ef2af7e   \u00b7 3D studio
+  1f1170e574c9a100   \u2014 nearest to it
+  a160b4379bca601e   due. Delayed recall only scores on the first attempt after a gap of a day or more.
+  b76b153720aa5733   files cited. Conflicts and duplicates listed in full.
+  a6ea15bb7e35bc0f   have no verified sources, so they are hidden from Learn rather than shown as empty shelves.
+  c82482e143ba29a6   questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.</div>
+  4086a0d4cd005901   showed metatarsals with no toes; choosing 
+  2599c70aaa36cb29   · assumed from 
+  ee2ecbd9ea7a7e36   — it does not stand alone, it attaches to a root.
+  b3c0b044207f0ecc  " aria-pressed="
+  428d71c485304cd4  " class="dlab">
+  d9f636bbe94e0ae5  " data-concept="
+  ef15913a4f42b0cc  " data-filter="
+  921e345548b45de2  " data-reveal="
+  854ec856a1bc5f87  " data-rtab="
+  ab4db5fd38212e44  " data-stage="
+  d73ec115ea9142c9  " data-state="
+  19d374017e84dc66  " data-step="
+  339e1b7085304bc2  " data-topic="
+  e2d80c92ddbb5f6d  " data-vtab="
+  40096d512b202dd9  " data-xregion="
+  33ebbb5a93b28f77  " data-xview="
+  ee816f3b5b66dbf1  " loading="lazy">
+  14d9928de191e4c8  " r="6" style="pointer-events:none"/>
+  9496b6eb7e0374d5  " role="img" aria-label="
+  1b0741baa2d2f617  " style="--accent:
+  a70a4627802e8fd1  " style="text-align:left;cursor:
+  d8353d56700520ba  " target="_blank" rel="noreferrer">
+  2c99b5c4dedfd5a5  " target="_blank" rel="noreferrer">Wikimedia Commons
+  e272ca64fe23b521  " title="
+  23db48b468bb0c9a  % correct overall · weaker structures are prioritised.
+  1fa5a4b7dc45d675  % mastered
+  7ac7679148ff1f49  , and this app is on
+  eaad1c08038293ae  , unverified
+  dc6a7d80c9915298  , with the questions you got wrong.
+  c0b1daed9b12da7c  -level background — the part you already have
+  f6532b372c4a48d5  /* Back faces are where the ray leaves material, front faces where it enters. */
+  54a3a62c81a70183  /* Film latitude: the toe and shoulder of the characteristic curve. */
+  90a185ba41cbc908  /* Quantum mottle. Noise rises where fewer photons arrive, as it does on film. */
+  382773b522d5ceac  /* Shells that are not quite closed can integrate slightly negative. */
+  9a6893535657967f  1–7 go alone, 8–10 carpool, 11–12 walk free.
+  315afd5b7575b942  26 bones per foot
+  ac30f30602e06aa0  3003 parts
+  7e8b92cf9af05e38  3D is unavailable right now.
+  58982e92cc27e4fa  3D model unavailable
+  69ea32698864c4c1  3D scene not ready
+  a69501ff8629fca7  3D skeleton
+  a7fbec4f385f22fb  3D · tap to name
+  70ec40827f738641  8 carpals, 5 metacarpals, 14 phalanges
+  02c400f14d7569ed  <a href="
+  1a6ab45c16783dc4  <button class="card" data-row="
+  3f235ec9141a2347  <button class="conf
+  125f93e4a929b76f  <button class="filter-chip
+  eccfc54f8a6ac23c  <button class="ghost" id="openViewerBtn">Open in Viewer</button>
+  e930ca7db13997d6  <button class="ghost" id="rssPriorLesson">Read the lesson</button>
+  efe13358035bbef6  <button class="layerchip" data-layer="
+  7929e87a656cae65  <button class="livechip" id="liveChip" data-on="
+  9cf783159a7226c8  <button class="ochip" data-kind="
+  1b80327a8260e72e  <button class="oitem
+  346f8acb28a2cff6  <button class="omode" data-mode="
+  b93aaff64fde9120  <button class="primary" data-nav="apply">Apply it →</button>
+  7a600a4fe8fc3508  <button class="primary" data-nav="practise">Test me →</button>
+  49edcf4cec189c44  <button class="primary" data-nav="review">See what was scheduled →</button>
+  4a8dfeb9b037e6a4  <button class="primary" id="rssFinish">Finish session</button>
+  a8fe76c9e49873c6  <button class="primary" id="rssFinish">Finish</button>
+  041bb1de3e01a00e  <button class="primary" id="rssNextItem">Next hook →</button>
+  f8db73fad7b2457b  <button class="primary" id="rssNextItem">Next item →</button>
+  63d4be2570536586  <button class="primary" id="rssNextQ">Next question →</button><button class="ghost" data-nav="apply">Go to apply</button>
+  6822ad345e3c6a68  <button class="rss-mode" style="flex-direction:column;align-items:flex-start;gap:5px;min-height:104px" data-mode="
+  52c2a2e072de9ed6  <button class="seg
+  6dcaad6caa1d4d6e  <button class="sres" data-hit="
+  996524c555242052  <button class="step
+  4a802c42822eaf15  <button class="topic-card
+  3886648a24082fe7  <button class="unit-row" data-weak="
+  3b5f48665ac61ed0  <button data-down="
+  4e33c3206cbfafcf  <button data-nav="
+  a92d150b6b9eeea2  <button data-show="
+  b41b98da72c1a4ce  <button data-up="
+  5037f4fbb7be28c4  <button type="button" class="term" data-term="
+  c788de990354b04d  <circle class="hot" cx="
+  19fcd2a46cd8e679  <circle class="hot" data-hot="
+  ae442e0069cfe5fb  <circle class="sk" cx="
+  99d8a3f36624e22e  <div class="card" style="animation:fadeUp .22s ease;--accent:
+  0004d45a7b738a61  <div class="empty">No activity yet.</div>
+  ecb0e29a4e98fcab  <div class="empty">No mistakes recorded yet.</div>
+  933dac4c71ff915a  <div class="empty">No topics match this filter yet.</div>
+  278065c2dae78674  <div class="empty">Nothing due right now.</div>
+  a2faff27b66651a1  <div class="empty">Nothing studied yet — start a session to build this list.</div>
+  94ca8e2b60e2f26b  <div class="empty">Search structures, study items and topics. Press Esc to close.</div>
+  35ce3a36a607c3e6  <div class="emptybox" style="margin-top:14px">No memory aid authored for this item yet.</div>
+  54769c1024f53f51  <div class="emptybox">3D is unavailable, so the projection cannot be drawn.</div>
+  bb363a3bd702def4  <div class="emptybox">Diagram unavailable.</div>
+  d9c86f19c355240f  <div class="emptybox">Movement unavailable.</div>
+  f9d3a9e3de82b3af  <div class="emptybox">No practice questions on this item.</div>
+  6a67b586c93aec27  <div class="emptybox">Structure set unavailable.</div>
+  828d38aa47993dea  <div class="emptybox">This question type is not renderable.</div>
+  62a3238117318412  <div class="eyebrow" style="color:
+  d10dbba90cf966b3  <div class="lay-card" style="--tone:
+  7aaa787059967e32  <div class="lay-note
+  985853d5ea72ae92  <div class="lay-row
+  81bbed0091211144  <div class="layerhint">tap to cycle · solid → ghost → off</div>
+  b72e23b04ca38453  <div class="note">Red is oxygenated, blue is not — which is why the pulmonary artery is blue-violet and the pulmonary veins are red. Vessel type does not decide the colour; what it carries does.</div>
+  f7e97a446dcb1b5b  <div class="notice"><strong>Every question validates</strong>All 
+  ab35719b544daab9  <div class="ohead">Cavities</div>
+  cd51c79109a79fed  <div class="ohead">How to look</div>
+  4008203e0b664f6f  <div class="ohead">Planes</div>
+  e0871ec754d0a09c  <div class="physline" style="--tone:#
+  49be18234eff434d  <div class="reveal
+  dc5da9c1fabda5e9  <div class="seq-item" data-pos="
+  20a11226de7c5b9f  <div class="studyscore">no attempts yet on this device</div>
+  eb7577ba3c5c592f  <div class="verdict
+  c1e9dab7d597ae36  <div style="height:100%;width:
+  bdf855c7c177a453  <ellipse class="sk" cx="
+  0c1dd03a4ae6869d  <em style="color:var(--muted)">Hidden — reveal only if you need it. Trying to retrieve first is what makes it stick.</em>
+  798cf300248becd5  <em style="color:var(--muted)">tap to reveal</em>
+  c5c104a746bff703  <h4>Derived from</h4>
+  a03547db46bf9e4b  <i style="background:#
+  6f722b80156fb8ac  <img src="
+  2f476a078765d308  <input id="rssTypedInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="
+  5f0ccbf50845efd8  <option value="
+  541b9a046de22b45  <p class="figkey-note">Dimmed marks are the figure’s own labels, beyond this lesson’s named set.</p>
+  67bad9b6b48321f9  <path class="sk" d="
+  c01f823061ea0f83  <span class="chip beyond">Beyond your course \u2014 one of a kind</span>
+  7b73cadaeb914935  <span class="chip beyond">Not named in your course material</span>
+  ca7957e9685c2f1b  <span class="chip learn" title="
+  87a837b4b8e9abcd  <span class="cnt" title="
+  8bfd7adceef1345f  <span class="hy">auto</span>
+  8d6062a22cc4af23  <span class="ic" style="font-size:17px;color:
+  b2aa118a497b3f4e  <span class="lay-arrow">\u2192</span>
+  62bc3808f16130c2  <span class="mono" style="color:
+  1120ce038e281d16  <span class="pill
+  8c0951042a96d65b  <span class="pill">App-authored aid</span>
+  4714c142e626766f  <span class="sc
+  c556c181d6a203e1  <span class="termpart
+  a05bf7cf9eb01e77  <span class="termplus">+</span>
+  9ff1547fa8321e02  <span class="vis-arrow">→</span>
+  33fbe9092c8b20e9  <span style="color:
+  3e23d75fa4bb7dbb  <span style="width:
+  9a190444c57e8ead  <svg viewBox="
+  c12c67df1fb8fe14  A basin made of ilium, ischium and pubis: I sit on my ischial tuberosity.
+  bd5105f51b6139f1  A flat triangle with a spine and a shallow glenoid socket: mobility over stability.
+  9b1cc7817bd82354  A layout, not a depiction \u2014 no anatomy is being drawn to scale here.
+  d05095ea594f8f5a  A real part of this item is new. The background you already have is folded away at the foot of the card.
+  43efab18440887ca  A root — the part carrying the meaning. The /o on the end is the vowel that joins it to whatever follows.
+  92508480855a651c  Acromial part of deltoid muscle
+  077ffef3c99e0f88  All ' + qCount + ' questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.
+  aaaadf5a23df48bd  All hints shown
+  8968425df01d3da6  All regions
+  aa3acf22b193a343  Already covered ·
+  6b348474bdc2a1e0  Anatomy \u00b7 physiology \u00b7 radiation science
+  90d82470f4817358  Anatomy first
+  8e84fc2aae90b055  Anatomy search
+  06f59255e2ecf0df  Answer in your own words, then check against the model answer
+  52d6c898fba9d472  Answer, then see why.
+  729af5ea912cd156  App note
+  67cce00647649afd  App-authored aid
+  5638e57272cc5eeb  Application recorded.
+  96610ec0bf887745  Apply · scenario
+  46b396c85919af7d  At a glance
+  98c427b530ed1f56  Attach the fact to something you already know well.
+  30f9484f78fa55f8  Autosaves as you go
+  b7e50f8f4d18036a  Axillary nodes
+  7a3047bbc5a1f2a4  Back to topics
+  442808ef2fd68469  Backup exported. The erase button is still there when you are ready.
+  87b238e3beba6204  Beyond your course \u2014
+  182d6f9b9b115719  Body cavities
+  e72ca92c0272f35b  Body layers
+  2cea2e3a045ac3d2  BodyParts3D / Anatomography model licensing and the candidate sources that were reviewed.
+  14352d43201b3476  Bone goes translucent; the cavity reads straight through it.
+  67914e2d1393fea9  Browsing memory hooks — nothing is scored in this mode.
+  4edfab653f74507f  Browsing the
+  f30ae92534e255f4  Built out of
+  955687714a9cf383  Built out of: a-, near + b/o, thing
+  2863d4882fc93b85  CRANium is the cap that holds the brain.
+  d72271896337e29f  Carried over as known, but missed — worth reading the lesson on this one.
+  f4bfeb743bb75d23  Cavities behind the anatomy, correctly occluded.
+  9cd4f2c0c016002f  Cavities drop back to a hint so the structures lead.
+  59b5b25c3f1225bb  Check answer
+  df8077d81115769e  Check matches
+  b731b58ee17f6202  Check order
+  1fd0e2b073997f0d  Click the hotspot for:
+  55656b5e434f4c06  Close search
+  e503367c41c06b12  Close session
+  78e0f97b52bcc45f  Cloze recall
+  2c5b57d5e71b2811  Colours and rhythms are drawn by this app, not measured.
+  c6ffddc144cdab7e  Common confusions
+  b1eb88b86761c850  Common confusions on this item
+  20db2e0618629cd5  Compare with the model answer
+  436776be0111d058  Confirm what was scheduled and what to fix.
+  496267ccc6b01605  Continue →
+  37b72d6c576f83a7  Correct — you found it in space.
+  4a0c3a0072aecfa0  Could not load that layer — the others are still there.
+  7405b8bbcaf9d423  Could not load that model — the skeleton is still available.
+  73a069d82b0d3b67  Could not locate that structure in the model
+  3e43a3e5c3ac8956  Could not set that movement up on the model.
+  e3c1a5d80a89f718  Day streak, per-item status and the item you were last part-way through.
+  1ce89851847711af  Delete every mastery record, mistake and schedule stored in this browser. There is no server and no undo, so export a backup first if you might want it.
+  71eb8a08ffd768d7  Delete everything
+  6b4482e521d6ca2b  Described in
+  f02a6b73528ef5aa  Did you cover it?
+  93d539da04aaa89f  Did you get there?
+  6e3a2aaa642e7315  Distal phalanx of fifth finger of foot
+  84aa3c799bf45058  Distal phalanx of third finger of foot
+  def37d546eb3a08f  Drawn by this app
+  892bd00331369854  Drill these 
+  e3531efed93e66d7  Every factual claim on this item traces to a file below. Memory aids are written by this app and are marked separately.
+  f157d75c393db061  Every item has been seen
+  eb33e7f0fd9f3397  Every item has been seen at least once. Try "Review my weakest topics".
+  7588a781fa751450  Every point is answerable in the practice question.
+  4b18c8812e334be5  Every question validates
+  49070002f587bcf4  Everything you have got wrong, most-repeated first. Each one keeps its own explanation and the confusion that caused it.
+  c00d4a1a69e70add  Explain my mistakes
+  9f7d2428f854a82f  Fade everything except the structures that define the cavity.
+  b4b9abe93d713048  FiBUla is the thin lateral pin and ends in the lower lateral malleolus.
+  1a5d72ec7b07df58  Find the
+  68ed5dff9e6e0d16  Finish \u00b7 next item \u2192
+  fd2f684294d47cfc  Finish session \u2192
+  8802e1925c84cdea  Five large load-bearing vertebrae: dinner at 5. Lumbar bodies are chunky.
+  7e4442b59b339275  From this item
+  8e8f88fe40d45d19  Frontal bone
+  4e5ee32632668b6e  Full coverage
+  3ee9379ac50332af  Full reference + fallback upper-limb meshes
+  c779b95a4e70b011  Full reference failed
+  40c84cdc3af701a2  Give me the memory aids →
+  831a75c9cc4213cd  Go to review →
+  9f6d5644228aca65  Greek kokkyx — cuckoo
+  6ac6a5c7f23082d7  Greek kranion — helmet/skull
+  a5ae4d1e81505bca  Greek sternon — chest
+  a7412a5575ad7d75  Greek thorax — chest armour
+  805e154ea0f599bc  Has 3D / images
+  318e02bf5cf6ad64  Have a go first. Applying it badly and then correcting beats reading the answer.
+  dc0798173dbd926c  Held still for reference:
+  6fd0c5d030af33d3  Held still:
+  2a7c8d2f587fec15  Hidden (
+  33832e6712de5c86  Hide this
+  74e99a080c63e742  Hints come one stage at a time. Try to answer before opening the next one.
+  17dd4e0e76c7a31e  How to read the type column
+  65df92c8f92a9651  I can see how it moves
+  ae6900e95532340c  I could not
+  bf86a7499d7d6ae8  I could not follow it
+  71d0c345b3b19dfe  I could not place it
+  95873b2461b45a1f  I found it / I know where it is
+  8e0e442a601073a4  I identified them all
+  61dbe2ea793be5ad  Identify the highlighted landmark
+  faf46f11200150fe  Image not found — add it to assets/xray/ and reload.
+  ec0f7ff7ac2ed3e2  In the examinable glossary
+  52e1d334ec0f4d41  Instrument Sans
+  6952e888c308114f  Is this a left or right
+  85a238105e1d6ab5  It is lit up on the model. Choose its canonical name.
+  8ccc3126acbbefa7  It is shaped like a cuckoo beak: the tail remnant left behind.
+  9d0d3e0a20bc01d4  Joint angle
+  39fb4546ac87cc3a  Judge it from the landmarks in anatomical position, not from which side of the screen it is on.
+  bfd62f38eb7f415e  Keep hidden
+  c6867b20a8fd8669  Key facts to remember
+  31fb459fac2d4100  Landmark data next
+  03b26f0f8e4b2a5e  Larynx \u2014 modelled as its parts
+  ffae3eb13d34cfa9  Latin cervix — neck
+  5832761b1cc98797  Latin clavicula — little key
+  4d04ac817195f8ab  Latin fibula — pin/buckle
+  f4db3fa04a6c4fc7  Latin lumbus — loin
+  69b91e35a1fdc8dc  Latin mandere — to chew
+  e010eb884afccafe  Latin os sacrum — sacred bone
+  0d4eb395b8d2c02b  Latin pelvis — basin
+  7f3be09469a48b96  Latin radius — spoke/rod
+  f59b26851c73e9b0  Latin tibia — flute/shinbone
+  a280355bca83b833  Latin ulna — elbow
+  19a26e702fb685e6  Latin — small pan/dish
+  929fda3beb4aa693  Left / right
+  a3053906dabadf84  Level 1 · Identify
+  479faebc365f0ab1  Level 1 · Your weakest
+  617be6645af4d311  Level 2 · Left or right
+  c0a7072453a97480  Level 3 · Landmarks
+  fe13eb18e1aabd2a  Level 4 · Find
+  fb0cba7118d5431a  Level 5 · Memory hooks
+  4e0daaeb43239f40  Lift out whatever sits in front of the cavity.
+  ae0fd8d06fa2440f  Limited source coverage
+  86d0a64d8957c6f4  Live physiology
+  24c4a56f525fe0d9  Loading the Z-Anatomy skeleton — 159 named structures, 80 of them named by your course material, 88 things you can select. The other six system layers load on demand.
+  d9ebad5495305a37  Loading the skeleton layer
+  f244cc971bb836e5  Lymph nodes of the abdomen
+  a7dc140c63a71953  MANdible = MAN-chews. It is the mobile skull bone.
+  13166033a2c30bb5  Manubrium, body, xiphoid: head, torso, sword-tip.
+  74c4823f019f3ab0  Mastery and review schedules —
+  d64f4eee948af6c3  Mastery lives in this browser only, so the desktop and the iPad keep separate schedules. Export a file here and import it on the other device.
+  36d4a1c821f13df1  Match every row before checking.
+  24510835c032ba21  Memory Coach
+  074adaab2556a2ff  Memory Coach — hints revealed one stage at a time.
+  d0a53277a5d4ccb7  Memory aids are written by this app. The facts they point at are the source-traced ones on the Learn card.
+  e7f85340bf6b2c31  Memory hook
+  055b6d2dba839774  Memory hook ·
+  679aacb3f38bd649  Memory hook:
+  79c644f4e1f774d0  Memory hooks
+  ac1e653bdd328c9d  Missing or limited
+  caa340a3f3de98c9  Mistakes, due items, mastery
+  57fe077d62f2439c  Model and images in one place
+  073c6093b8588908  Model answer
+  5eece731d84439fc  Modelled in the
+  16ad3d834f99b1f1  Module 1 Thorax/Previous Years/1.1 Cardiovascular System and Lungs (17-18)
+  a309612d6e1bb379  More viewer controls
+  4c67f0e5acff873f  Motion off. The anatomical colours stay.
+  40bb50da160cdc21  Move down
+  5cad0eb3bde4cb2b  Move progress to another device
+  47bad95e45aec9ab  Muscles 345
+  88f8470351458866  My mistakes
+  d326e3de4eabd98d  Named atlas structure from the interactive skeleton source.
+  dd5d38109490e655  Named in
+  884edaf6a85ff6cc  Named in your notes, on the other side
+  7a7ed8508aa3a822  Named structure in the
+  1072a05d6e1e212d  Nearest first. Tap any of them, or tap the model again in the same spot to step deeper.
+  2c4dad4227b99379  No answers recorded for this item in this session.
+  5174f99c057c3927  No application task authored for this item.
+  e15d3dda4ba3b830  No layer shown — turn one on to study it
+  acb7f9d4b343d5e8  No memory aid authored for this item yet.
+  aea685df17960549  No memory aids found
+  c6455c0a33c2de61  No mistakes logged — good
+  f6a29e5cf126ace1  No mistakes recorded yet — nothing to explain.
+  8099974808517c76  No mistakes recorded yet — starting a normal Identify drill.
+  b7cae769b9db0fc6  No radiographs bundled
+  ef8c7dae7a20163c  No reference
+  f6a59c0ee7b34cc0  No source materials
+  166b0cc5ce4455c1  No structure in
+  7731f34185d19140  No structure in the database has
+  79575cdd56093f95  None listed.
+  041f683d3d9b3b9c  None of this item’s structures resolved in the model, so no 3D is shown.
+  24bc2b88e5e580eb  Not modelled
+  8e1c1b7eb909b934  Not quite. Correct:
+  e843982c79a688a1  Not right — here is why
+  2ca96754a9566ca9  Not that one — try again. You tapped
+  be01d5e7a809719c  Nothing attempted yet
+  01c734adb1d8dbbe  Nothing due or weak yet
+  17c54ae148fd8107  Nothing has happened yet. Close this dialog and it never will.
+  44a3cc778bbfd521  Nothing in progress
+  a272b965cae90dba  Nothing is assumed about your answer — this is the first thing recorded for the item.
+  992f6502afaafa7a  Nothing is highlighted. Rotate the model and tap it. Tapping the same spot twice steps behind whatever is in front.
+  e482fecba95e8c84  Nothing matches \u201c
+  f8c104249eb21c8b  Nothing selected
+  5f659a0f0761bf95  Nothing to ask here yet
+  dcc202d7f9385e97  Nothing to delete.
+  91d3cc9c39ce4d97  Nothing to study
+  f5de33541d146691  Nothing to study for that selection yet.
+  2efc956104ec7d7a  Offline & storage
+  e1070a158b550318  Offline-first study system for HSS2011 Human Anatomy, ABCT2326 Human Physiology and medical radiation science.
+  a6c061874897dabb  One learning tree
+  2db2d8da5f89a995  One to start you off —
+  4ab8e7a5acc75973  Open detail
+  9b33b799de06232b  Open source dialog
+  bc135a2d441222b6  Open the 3D model first.
+  c6e5cd42315997d4  Open the 3D studio
+  dcac248f8a2e0ec7  Open the Osteology studio to find it on the model. If 3D is unavailable, answer from the landmark list instead — the explanation below covers both routes.
+  e48bafe3f0edb133  Open the studio and drive it →
+  5d4ccdb9cfeecb7a  Opens in Viewer
+  c5ca4a0d519c1995  Page / section
+  d44f57779facfe5b  Pause turntable
+  ce253ba033cf1abf  Phalanges of the hand
+  032a270b28e8d32d  Plane \u00b7 separates
+  6500e2302d2dac54  Practise ·
+  d5ff712edaa1e542  Pre-aortic nodes
+  6b6b69ac71bfe9de  Precise Z-Anatomy / BodyParts3D skeleton ·
+  97bbce4ac834ffb8  Progress erased \u2014
+  dbe0aa3439619d84  Progress merged.
+  045742deb50fcee2  Progress replaced from file.
+  fbb2baef613596d9  Radiation science
+  908b9d8d4c977990  Radioulnar joints
+  b31c27474dfc22c8  Re-read the lesson
+  726a962ec689197d  Read the hook, then choose the structure it describes.
+  1202164db500bf1e  Read the teaching explanation and the key facts.
+  164775a7b441c383  Real upper-limb model failed, using local fallback
+  88bf9f43dc509b45  Recorded as partly — no mistake logged, but it comes back soon.
+  a42518e9381f9348  Recorded — this one will come back sooner.
+  7914bbadb94c3bc3  Region filter cleared \u2014 that structure is outside it
+  236dba4cad011ac5  Replace wipes this device\u2019s progress and installs the file instead. There is no undo. Continue?
+  fc56055b48b49999  Reset progress on this device
+  914423b50b0c8bb6  Reveal next hint
+  ff43191f37c6e281  Review scheduled from your answers
+  0386ccda7d5b5be3  Review · scheduled
+  70e713c50b354a05  Rib-count memory
+  265caba7c7686645  SM-2 shaped, then modified by response time and repeat mistakes.
+  557649a62d5eb1a6  Scaphoid bone.r
+  c2faf1deb36d01f2  Scheduling rules
+  415155739590b1f9  Search everything
+  82b194198823cb4e  Select a structure
+  e448874d62e27a4a  Select a structure first
+  ee65719205c6c855  Self-graded as covered.
+  4b36a73963ed2610  Self-graded as missed.
+  8eda29c62c095bb5  Self-graded as partial — the points you missed are listed above.
+  b4821ec5efba32ad  Session done —
+  37c08ac1e02f263c  Session ended.
+  8bbf4d2a69b0c709  Seven vertebrae: breakfast at 7. C1 Atlas holds the head; C2 Axis lets you say no.
+  55d75c2270210ef6  Shell cached at install. Each 3D model caches the first time you open it, so the footprint grows to match what you study.
+  b7e2eaa5cec47a39  Shoulder blade / spade
+  2150d8df37e48957  Show all
+  6eabbe9ab1e22c72  Show all in the Viewer
+  667095c7b2d70a16  Show the lesson first
+  0595489058178b10  Show the model answer
+  cab88e281cc40392  Show them
+  f95f623f793c9f96  Single item
+  14ff2c02f1b62ffb  Skills to build
+  72e816aa3b0aaa5b  Skills to build with this content
+  da2e37e9592542f8  Skip to practice
+  0eb673542101b71b  Slides behind the "beyond DSE Biology" lines
+  89d17970366ba5b3  Source files cited
+  b6ade0f684ef5714  Source for the answer you just saw
+  d7505a67aed74fd6  Source for this answer
+  5719963622aa46e1  Sourced from
+  11f066152b09be80  Sources & coverage report
+  da72a8dda063752a  Sources & model attribution
+  824ba78711430662  Sources for the whole item
+  781ffed29fcefcff  Sources, coverage, settings
+  8453b6ae9d67090b  Spelling was off — the exact form is "
+  c58398bfd89d3d58  Spin turntable
+  59cb04a3b5eb6328  Stage 1 — small clue
+  337936b3e90d64b6  Stage 2 — memory hook
+  fea0bf83be0c98af  Stage 3 — before you move on
+  d29d2b38dac7572e  Start a session below to begin.
+  ed4ac7d9bce75d7f  Start due session \u2192
+  b13f13a030dc286c  Start from the title and ask what category the answer belongs to.
+  73a408b0bf3f0f58  Start with Identify to create your first review history.
+  e5424ad7564878f3  Starting with
+  abf1b14dc2f90ee7  Static model
+  893865becae0ba06  Still unnamed:
+  e6a0a4c59cbb9600  Structures, study items, topics…
+  4a085fa65d717e0d  Student work
+  381d54ae5dc158bf  Study Studio
+  7aeec7e28ab447b1  Study items
+  197a9cfd7132bfb2  Study modes
+  6db1fe691cb5e688  Study session
+  da5c0cb3a2f2cda1  Study this topic
+  307e3df259cf7ea5  Subjects with no material
+  25a2aae6c2da8872  Substitute source
+  eb81808a3bbd84cf  TIBia = TIBe weight-bearing. The medial malleolus is the inner ankle bump.
+  86daae5b32dfb5e1  Tap again to erase \u2014 this is final
+  eb5e1fc43df87ac0  Tap any named structure. Tap the same spot again to step through whatever is behind it.
+  caff82fe942e6cfe  Tarsals, metatarsals, phalanges: 7–5–14.
+  e9fe8433758b6f59  That file could not be read.
+  77b11fb420786198  That file is not JSON this app understands.
+  9b7eb2fb53d7ebf5  That file is not valid JSON.
+  8f42be5eb962d271  That file was written for data version
+  6a89036a1ab7f02a  That is not a Study Studio progress file.
+  e1bee8d506ebb8f0  The 3D layer could not be loaded right now.
+  1a87df33818b2fb0  The 3D model is not available.
+  188a07a1f493d877  The 3D models, the lessons and the source files are untouched \u2014 only your own history is.
+  d6811f43e25d4939  The contrast
+  d216dedb9f2f1d46  The controls live with the model — the render loop only runs while the studio is on screen, so a slider here would move bones you cannot see.
+  f44fc384994cd331  The four quadrants
+  f1b6f4d1bbc67e3f  The funny-bone groove
+  3932fc91ec44669c  The highlighted hotspot is the
+  751126bbdcad0ed8  The hotspots are showing. Tap the one you are asked for.
+  4be07258aa5be37a  The humerus has the radial nerve spiral groove: the funny bone grooves.
+  069595d801ed04e6  The idea to hang it on:
+  0afc2685e3e71794  The item record in that file is missing or malformed.
+  f0d091ecd0468216  The largest sesamoid bone slides like a dish in the trochlear groove.
+  c305592b8a2341d1  The lesson below is unaffected.
+  f0864c68a8d121df  The longest and strongest bone angles inward from hip to knee.
+  bc8615178d30481f  The mastery record in that file is missing or malformed.
+  75527df298173eb8  The mistake log in that file is malformed.
+  dabc54de5c7ac201  The name is doing the work:
+  c30d436bb4db379e  The nine abdominopelvic regions
+  1ee065c69f618147  The only horizontal long bone: an S-shaped key between sternum and shoulder.
+  f952c4467244cd99  The original osteology quiz history —
+  8baacea34fdc4ab0  The radius rotates over the ulna like a wheel spoke. It is on the thumb side.
+  444c5de284285e50  The sacred wedge-shaped keystone locks the pelvic ring together.
+  d34c527efb66b8ea  The study tools still work. Check your connection, then retry the model layer.
+  dd5fd4c64fb6fb43  The thigh bone
+  51aee75534b22418  There is nothing recorded on this device yet, so there is nothing to erase.
+  b5792b631250ed3a  This bone is in the database, but high-yield hotspot coordinates have not been added yet.
+  948c12e38dda005e  This device holds
+  d424b366dd8d36ab  This fallback reference is fused. Use Upper limb for per-bone isolation.
+  334addec24dbdad9  This lecture mostly re-treads it. The lines below are what it adds on top, and they are the examinable part.
+  160a7acfab0d47ae  This one is best answered on the 3D skeleton
+  2a2abf143c0b1cb9  Thoracic cage
+  8278421692e43358  Those bones are not in the loaded model.
+  365876067e586bde  Traced to
+  4605d18762092f89  Try to answer out loud before revealing anything. Producing the answer is the skill the exam tests — recognising it is not the same skill.
+  325a3667381bade5  Twelve vertebrae: lunch at 12, with ribs attached.
+  431c871a874df758  Type an answer first — a guess still teaches you more than skipping.
+  41146b07110e6e0c  Type the bone name
+  314528767e58f2ee  ULna = yoUr elbow side: the pinky-side stable hinge.
+  132f74cac4453f6b  Unnamed structure
+  cef68b40feba1c6a  Upper first molar tooth
+  75f3e35ccd2851cf  Upper limb
+  a16d86c59b699247  Use the idea on something you have not seen.
+  c4114cbb2027abdb  Vagus nerve (X)r
+  ad3067dcb5a43246  Validation failures
+  6b46d2656d79336e  Verifying, not teaching
+  235aff25d47f45e6  Vertebra T5
+  bf5f5fb18964519a  Vessels 186/419
+  dd74882d7fe5f23d  Vessels 419
+  b84226aa522fbc3d  Watch out:
+  1ad371bd047f8bcf  What bone is this?
+  9aa8e28faa9142cd  What the colours mean
+  b4162094b978eb6b  What this lecture adds beyond
+  536306b242c83602  What to do now
+  d3ab8637fc736ca3  What you missed — to fix before it comes back
+  99e5997ec6eb3f95  Which bone does this hook belong to?
+  14ab8c8c07e135d1  Whole body
+  a6075b915d80c000  Work it out in your own words
+  2efde2e039fd8b4b  Write something first — even a rough answer. Comparing beats reading.
+  dc7062ecedebebc9  Written by this app from the content above. The facts are the sourced ones; the skill framing is study scaffolding.
+  c9d8ebfea055fc4e  Yes, I had it
+  1a33ef3e9b63cd34  You named
+  6072830a754d6f42  You revealed
+  3885517f2e4fef0c  You wrote "
+  94661d68cd8ce6bb  Your course material names none of these one by one, so the
+  69bfb7f1b8cfd020  Your mistake log —
+  5aacae2229c04415  Z-Anatomy / BodyParts3D skeleton · 159 named structures
+  942d247338ecf9f4  \u00b7 every item carries its own reference
+  10c21ae68a2b089a  \u00b7 opens in Viewer
+  b90043e9bd499c60  \u00b7 via
+  f1d2a707f4eba80b  a left and a right in the model
+  0a48f9e432c65fab  above, upon
+  cae3667040774d63  along the way.
+  f6ca2bae3ef97f78  already covered this, so the session opens on the question.
+  9200422efeb6a14b  also deficient)
+  d69ed2e7567c8fed  an authored memory hook
+  069d6e57d291854b  another structure
+  4dafb342c48fd85e  artery = red = oxygenated
+  038dbe3356c60c5f  assets/xray/ is empty \u2014 add a licence-cleared image
+  4c7527e58057a88f  beats and
+  8db95312cb849877  bone mesh
+  38787ac0dc7c1d95  boot failed
+  642d69680683778d  boot on Today, then tap Viewer
+  a4d8d4905749584b  border:1px solid rgba(114,227,207,.4);border-radius:16px;background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03));padding:18px
+  1d647a1965983c2a  breaths a minute
+  dee735ed000908c8  card overlaycard
+  67e4b13874eb864a  chip beyond
+  4fdb308b1fc87ab3  chip learn
+  9b6a126af19abc00  cm · simulated · tap to name
+  2cbe9c9f6127a32e  const attrs = hit ?
+  150b21e4e5effc2a  const hit = lookupTerm(term);
+  278b6cfc619726c6  const n = itemsForSubject(s.id).length;
+  3d088b55d74552a6  const subject = getSubject(s.id);
+  fa75afdd29c43adb  const tag = hit ? 'button' : 'span';
+  bda336734237a549  correct. Reviews scheduled.
+  8936e4bc4884d331  could not locate that structure
+  d3967cf0a967dbd6  cross the joint and are ghosted and held still — muscle and vessel deform across a joint
+  beaf6f881a9b75ac  day streak
+  292aa52b6bc5ade8  density += n * uGrain * (0.35 + 0.65 * density);
+  408b18ff04d6b1aa  density = pow(density, uLatitude);
+  69bde2c73b039a19  described in
+  efe8bcccea6ac349  dlg-scroll termbody
+  9c029c43f1357a43  drawn on the abdominal wall muscles
+  099aa9ffa0926efa  emptybox hidden
+  aa9b42a9c9734d2f  epi- (above, upon), hypo- (below; also deficient), inter- (between)
+  8983c81d3b29aff6  feedback bad show
+  fa671a9de2c2bd28  feedback good show
+  a4b75f1962298751  float density = 1.0 - transmitted;
+  5ecd6cf556acd465  float n = hash(uv * 1024.0 + uSeed) - 0.5;
+  84b1d2d907ea8193  float rssAlong=dot(transformed-uMCenter,uMAxis);\n
+  eea76eefee8acb5d  float rssBand=1.;\n
+  5f88a5c8e77785f0  float rssD=vFlowY-uOrigin;\n
+  d10d90ea7a935deb  float rssSide=uWrap>.5?step(0.,rssD):(uWrap<-.5?step(rssD,0.):1.);\n
+  58c52e396dc3adee  float sgn = gl_FrontFacing ? -1.0 : 1.0;
+  7496cb54c851ba78  float tau = max(0.0, texture2D(tTau, uv).r) * uGain;
+  c10f8a601e7ff109  float transmitted = exp(-tau);
+  c99a222fc3470c4f  ghost close
+  1a282eee876c39f0  ghost hidden
+  fdb7920c327b021a  gl_FragColor = vec4(sgn * vDist * uMu, 0.0, 0.0, 1.0);
+  2417f7519a9d91f5  gl_FragColor = vec4(vec3(clamp(density, 0.0, 1.0)), 1.0);
+  6a590bc9c97002da  gl_Position = projectionMatrix * mv;
+  801150784042ae58  hiddentray empty
+  1627ca8d8438acb8  how far does this region reach
+  940f7dac806d0907  htitle editorial
+  12978f00d3618a61  hypo- (below; also deficient)
+  137b8d7486c4defb  icon-btn active
+  30ff167763f8ae0e  icon-btn hidden
+  9ea746df2b511e0a  if (!s) return '';
+  92e25ebd96c6b686  in a row
+  40ba1be988786a47  in line here
+  8f4e6e661819b86b  in the examinable glossary
+  77fffafaf552e5b1  in this drill ·
+  c7e4e6c144bbd4f1  inside its measured box
+  c8e3253dee590724  is held back by Live physiology — turn it off to see it
+  63ba7e6dace7932d  is outside the current region filter
+  65dfd88eb248fc0c  is the useful distinguishing landmark.
+  6aa85599ef7f853e  items \u00b7 weakest first
+  27b597099a09d320  items, and
+  ffffa4a4024beb37  just outside it
+  b6e8823c4c7321ea  lay-note dim
+  bc90f206ab9838a2  layer and named in none of your course material. Nothing of its kind is near enough to group it with, so it stays on its own.
+  025e05ffcefaecc7  layer load failed
+  0cfd299bdbf8c9ad  layer of the BodyParts3D atlas.
+  bfbe15ec0c9d325e  layer structure
+  685dafbd5e3df475  left and right
+  689235b631da6a04  loading the layer…
+  11e35ae68e488f96  logged mistakes.
+  a5dc748e4551de5f  lymph node
+  57126b5ca3bfa9fe  margin-top:14px;padding-top:12px;border-top:1px solid var(--line)
+  bcdc5cfcf9c33fa1  mastery record
+  fba43240d360273f  mastery records across
+  e63085a46870e9f1  mastery records this device has never seen — added.
+  9cb9cc72d6bb3f51  mastery records.
+  b4d0b1a5df8f0d4a  measured from
+  ddef735c79b2f059  median plane from the vertebral column and sternum; transumbilical plane at the L3/L4 junction
+  1c75c0d36de79131  midclavicular lines from the midpoint of each clavicle; subcostal plane at the tenth costal cartilage; transtubercular plane at the iliac tubercles
+  f3d699287b13df92  min-height:38px;border:1px solid var(--line);border-radius:9px;background:rgba(255,186,103,.12);color:var(--orange);padding:0 12px;font-size:12px
+  128ac26d1dc5e406  mistakes added to the log.
+  c66389c491b110b2  mode-btn active
+  2ecfe0945353a3ea  modebar tight
+  3d293ff29b16699d  mono foothint
+  91468c5437728572  mono sesscount
+  f46b7e5ab634f52d  mv-note hidden
+  31f204f598d94b86  mv-panel hidden
+  2db7c5d825e1b1e4  named atlas structure
+  4f80462d467f4c06  named by your course ·
+  19b05a182a8f5ce6  named by your course,
+  fa33373d92168af7  named in
+  ec127246ffd2352f  named landmark hotspots
+  65a8e13d43e16a88  named mesh
+  fb71e35554b8c081  new items,
+  e7b1a45f4258c96c  no engine
+  3c990f97c8ed9e68  no stage
+  29c0d92fb897dea2  not named in your course material
+  6c72de620a530165  notice stop
+  bcc38d49bd57532e  of existing progress into the new mastery record.
+  051d858fae071603  of them are selected together under a name it does use. The atlas calls this one "
+  77aaf50327326363  pick up where you left off
+  ccdf632a1acc3583  pickstack hidden
+  40eee7f54cdcbf3f  preparing the model…
+  d2c10c79856392a6  primary detail-open
+  63d1b7f8646ef672  primary next
+  c504c70741f08c26  primary next show
+  777503f25750cf8f  px "Instrument Sans", system-ui, -apple-system, sans-serif
+  9104b22058806e6c  rather than rotating rigidly, so swinging them would tear them off their origin.
+  9601152cce8eb58a  reads as
+  c93a88684ed76c4f  real BodyParts3D upper-limb meshes
+  6ab01b1dba123b71  region filter does not work
+  dce1c177b1e44a6a  s depth, less the tag
+  df49128572cf09cb  s job is only to feed it those meshes in the body
+  91f0e226c82016ff  s left), fz 0 the trunk
+  4e01dcdc55cd6293  s own half-width put the oesophagus
+  cd3c2bcf3f5c6659  segbar hidden
+  37e8cb66682dd7b0  separately selectable">
+  a8970b03087f1926  sheetscrim hidden
+  b06f2f1ca52fc976  soft-tissue mesh
+  f004ce84a1c00cd6  soft-tissue structures travel with the bone.
+  7d30607b3e9c2d7a  structures in
+  036a99f6c882069b  structures to name. Work round them in a fixed order every time, so the order itself becomes the cue.
+  4132e48b488fc684  studied, across
+  79ea393804dc771d  tap a structure to name it
+  f5f88ae39b9a5ceb  that structure
+  5d2033a00068467a  to uncover
+  91ca901995ca8a91  type="button" data-term="
+  e53766dcd94ffbe0  uncoverbanner hidden
+  b76b61628827fa7f  under one name
+  d6fe37ca2b5bb8f8  uniform float uDeform;uniform vec3 uMCenter;uniform vec3 uMAxis;uniform float uMAmt;uniform float uMode;\nuniform float uT;uniform float uSpeed;uniform float uDir;uniform float uFreq;uniform float uSharp;\n
+  63f7d8ba8fb13ebf  uniform float uFreq;uniform float uSharp;uniform float uGain;\n
+  3f67153726cf1417  uniform float uGain, uLatitude, uGrain, uSeed, uFlipX;
+  f7c6dbf063900925  uniform float uMu;
+  3d482f7345225afc  uniform float uOrigin;uniform float uWrap;uniform float uDir;uniform float uSpeed;\n
+  44710d35e1fad7ee  uniform float uT;uniform float uOn;uniform float uBeat;uniform vec3 uFlowColor;\n
+  98250706ec88a1f3  uniform sampler2D tTau;
+  9d59aa851d0f5a24  unknown time
+  c965a53737adbfdc  upon, above
+  a7f1899a2980bf16  upper limb
+  0e58ec839ddda109  use the whole skeleton
+  a51f2aefe70c5d79  varying float vDist;
+  9c46d65d8d548c7f  varying float vFlowY;\n
+  18dca9f54eeb687d  varying vec2 vUv;
+  a5a3ab4b74593ad7  vec2 uv = vec2(uFlipX > 0.5 ? 1.0 - vUv.x : vUv.x, vUv.y);
+  48aeee7eb3f531af  vec3 rssPerp=(transformed-uMCenter)-rssAlong*uMAxis;\n
+  eddc22218b2be4a2  vec4 mv = modelViewMatrix * vec4(position,1.0);
+  6a721f9bcdcf952d  view hidden
+  4d3a303a1b27367f  vsheet hidden
+  517a9e300094cc0d  wall interpolated between the costal margin and the pelvis (muscle layer not loaded)
+  5fd1f8e2da61b599  what this mode needs
+  c9ef209dbe30af9e  where the file is more recent — replaced.
+  8198bdb854b9ed3d  where this device is more recent — kept as they are.
+  f15917d478d385d3  which of these is a skull bone
+  a08b97ce59de6217  whole skeleton
+  29ff11bb0c6073f7  width:100%;background:#0a141b;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 12px;outline:none
+  19453f5759aed21a  wrong transform
+  a280303e42e6da2d  you can select
+  0ab77651425c254f  you can select · tap one
+  0a070443fbd9b75b  · <a href="
+  cede9d46ada8b8f1  · found under "
+  220cbb8b7a5db024  · left off at
+  36a28bbb25a617bc  · modelled, but named in none of your course material
+  6b4bb99b4ebbd84c  · only these have
+  b49836c27fde6f76  · opens all together
+  0f3ebbb0ff98d5ec  · question
+  dbfe3f147332dc00  · tap to name them
+  2b40b61749321612  · your course names none of these one by one
+  2ed64db2b62cdd4f  — coursework produced by students. Used only to confirm topic scope, never as a fact source.
+  906d335588568bc2  — past papers, revision exercises, model answers and question banks.
+  6c3aff886c4d2790  — teaching material issued by the subject: lecture handouts, study manuals, slide decks.
+  6e5571bd88962ae4  — written by this app to help you remember. Not a claim from your sources.
