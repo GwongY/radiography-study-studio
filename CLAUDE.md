@@ -2,15 +2,14 @@
 
 Read `outputs/README.md` and `git log` before making changes; both are kept current.
 Settled content decisions (subject scope, source substitutions, what was deliberately
-left out) are documented there and in the coverage report — do not re-open them
-without new source evidence.
+left out) live there and in the coverage report — do not re-open them without new
+source evidence.
 
 ## Find things here first
 
-**Read `docs/CODEMAP.md` before grepping.** It is generated from the banner
-comments in the code (`node work/codemap.mjs`), so it is always current: every
-section of the app, its file, its line range, and a link to the traps that
-govern it.
+**Read `docs/CODEMAP.md` before grepping.** Generated from the code's own banner
+comments (`node work/codemap.mjs`), so it is always current: every section of the
+app, its file, its line range, and a link to the traps that govern it.
 
 | Want | Read | Not |
 | --- | --- | --- |
@@ -19,6 +18,7 @@ govern it.
 | What the model contains | `docs/DATA-INDEX.md`, then `node work/query.mjs` | `outputs/mesh-index.js` |
 | What one structure or item says | `node work/query.mjs unit\|mesh\|item\|layer\|source <term>` | `outputs/study-data.js` |
 | Whether a source file exists, and where | `node work/query.mjs file\|where <term>` | walking `G:` |
+| What a source actually SAYS, and on which page | `node work/query.mjs text <term>` | opening the PDF |
 | Why a decision was made | `outputs/README.md`, `git log` | reopening it |
 
 `outputs/mesh-index.js`, `work/course-terms.json` and `work/source-catalogue.json`
@@ -36,7 +36,7 @@ are **generated** — never read or edit them, ask `work/query.mjs`. **Never wal
 | `outputs/studio/*.js` | The 3D studio, 9 parts, same shape as `study/`. Its top level is indented inconsistently, so no text or brace rule can tell a top-level declaration from a nested one — `node work/toplevel.mjs <file>` asks V8 instead, and is the tool to use before touching its structure. |
 | `outputs/assets/*.glb` | The seven anatomical layers (skeleton, muscles, ligaments, organs, vessels, nerves, lymphatic), ~39 MB, lazy-loaded on demand. Per-layer counts: `docs/DATA-INDEX.md`. |
 | `docs/superpowers/` | Design specs (`specs/`) and implementation plans (`plans/`). Follow this pattern for new work. |
-| `work/` | Node verifiers, run outside the browser. `load-check.mjs`, `syntax-check.mjs`, `verify-modules.mjs` are the after-every-edit set. Cavity-engine checks: `landmark-check.mjs`, `cavity-probe.mjs`, `build-check.mjs` (relational — hold with all layers and skeleton-only), `grid-probe.mjs` (the nine regions / four quadrants; run it with and without `--all`), plus `glb-bounds`/`glb-mesh`/`glb-names` helpers. `search-probe.mjs` (the name index + synonyms + the source-derived tiering + the study units every row resolves to), `region-probe.mjs` (the two region classifiers, lifted out of `studio.js` and run over the real GLB names), `shell-check.mjs` (walks the import graph transitively; every reachable module is precached under the same query), `corpus-snapshot.mjs` (a content hash of every export and every study item — the net that catches moved lesson wording), `ui-strings.mjs` (every sentence the interface can show — the net that catches a rename running over a string literal; both are baselines), `binding-check.mjs` (every split part imports what it references — the net that catches a missing import, which loads clean and throws only when the code path runs), `toplevel.mjs` (asks V8 which names a module declares at top level, because indentation in `studio/` does not say), `figure-key-check.mjs` (every published figure/plate a lesson renders carries a well-formed `intro` + `key`), `source-check.mjs` (every source `SOURCE_FILES` cites really is on the drive — reads the committed catalogue, so it needs no drive). Generators: `build-course-terms.mjs` (needs the drive + `pdftotext`) then `build-mesh-index.mjs`; `build-source-catalogue.mjs` (needs the drive); shared GLB-name reading AND per-structure geometry (`boxesIn`, `measureStructures`) live in `lib/mesh-names.mjs`. One-offs: `dense-lessons`, `gloss-gap-scan`, `dump-plain-candidates`. `scan-output.txt` and `id-inventory-*.txt` are scratch. |
+| `work/` | Node verifiers, run outside the browser. `load-check.mjs`, `syntax-check.mjs`, `verify-modules.mjs` are the after-every-edit set. Cavity-engine checks: `landmark-check.mjs`, `cavity-probe.mjs`, `build-check.mjs` (relational — hold with all layers and skeleton-only), `grid-probe.mjs` (the nine regions / four quadrants; run it with and without `--all`), plus `glb-bounds`/`glb-mesh`/`glb-names` helpers. `search-probe.mjs` (the name index + synonyms + the source-derived tiering + the study units every row resolves to), `region-probe.mjs` (the two region classifiers, lifted out of `studio.js` and run over the real GLB names), `shell-check.mjs` (walks the import graph transitively; every reachable module is precached under the same query), `corpus-snapshot.mjs` (a content hash of every export and every study item — the net that catches moved lesson wording), `ui-strings.mjs` (every sentence the interface can show — the net that catches a rename running over a string literal; both are baselines), `binding-check.mjs` (every split part imports what it references — the net that catches a missing import, which loads clean and throws only when the code path runs), `toplevel.mjs` (asks V8 which names a module declares at top level, because indentation in `studio/` does not say), `figure-key-check.mjs` (every published figure/plate a lesson renders carries a well-formed `intro` + `key`), `source-check.mjs` (every source `SOURCE_FILES` cites really is on the drive, AND every quoted citation is on the page it names — reads committed data, so it needs no drive). Generators: `build-course-terms.mjs` (needs the drive + `pdftotext`) then `build-mesh-index.mjs`; `build-source-catalogue.mjs` then `build-source-text.mjs` (both need the drive; `lib/doc-text.mjs` reads pdf/docx/pptx, `lib/source-resolve.mjs` decides WHICH copy a `SOURCE_FILES` entry means); shared GLB-name reading AND per-structure geometry (`boxesIn`, `measureStructures`) live in `lib/mesh-names.mjs`. One-offs: `dense-lessons`, `gloss-gap-scan`, `dump-plain-candidates`. `scan-output.txt` and `id-inventory-*.txt` are scratch. |
 | `Uni/` | `.lnk` shortcuts to the Google Drive source folders. They resolve into `G:\.shortcut-targets-by-id\` — enumerate that directory, don't trust the shortcut list alone. |
 
 ### `outputs/` data modules
@@ -52,6 +52,7 @@ are **generated** — never read or edit them, ask `work/query.mjs`. **Never wal
 | `mesh-index.js` | **Generated** — every named mesh in every GLB layer, side- and duplicate-collapsed, each carrying the course file that names it (or nothing) and the STUDY UNIT it resolves to. `UNITS` is what a tap can select. Counts live in `docs/DATA-INDEX.md`, never here. Rebuild with `node work/build-course-terms.mjs` then `node work/build-mesh-index.mjs`; never hand-edit. |
 | `work/course-terms.json` | **Generated, committed** — which structures the HSS2011 / ABCT2326 taught and assessed material names, and where. Needs the drive to rebuild; `build-mesh-index.mjs` only reads it. |
 | `work/source-catalogue.json` | **Generated, committed** — every document in the shared course folders: 8,801 distinct files (13,546 counting re-shares) across 46.9 GB and 28 shared folders. Never read it; ask `query.mjs file` / `where`. Rebuild with `build-source-catalogue.mjs` when the drive changes. |
+| `work/source-text.json` | **Generated, committed** — the text of the 65 cited sources, by page, so every `sourceRefs` page citation is checkable with the drive unmounted. Ask `query.mjs text`. The set textbook and the publisher question bank are deliberately absent: this repo is public and they are not ours to republish. |
 | `synonyms.js` | `SYNONYMS` (query expansion: collarbone→clavicle, esophagus→oesophagus, CN X→vagus), `COMPOSITES` (a name with no mesh but real parts — larynx, ossicles, eyeball), `NOT_MODELLED` (the three things genuinely absent). |
 | `bodymap.js` | `SEARCH_EXTRAS` (atlas structures beyond the curated bone list, each → a named mesh in a system layer) + `BODY_CONCEPTS` (cavities/regions/quadrants/planes: names, aliases, blurbs, colour, containment hierarchy — **no geometry**). |
 | `landmarks.js` | Semantic key → the meshes currently loaded. The resolver every cavity builder goes through. |
@@ -65,8 +66,8 @@ node work/dev-server.mjs        # static server on port 8420
 ```
 
 Then `http://localhost:8420/radiography-study-studio.html`. ES modules need http://,
-never file://. Use real Chrome for PWA/service-worker behaviour (the in-app Browser
-pane freezes animations and won't register the worker).
+never file://. Use real Chrome for PWA/service-worker behaviour — the in-app Browser
+pane freezes animations and will not register the worker.
 
 ## Hard rules
 
@@ -125,6 +126,5 @@ Branch is `master`, auto-deploys `outputs/` via `.github/workflows/pages.yml` to
 https://gwongy.github.io/radiography-study-studio/ on every push — don't push
 half-finished shell changes.
 
-What `master` currently carries is `git log --oneline`; it is not repeated here,
-because a changelog in the one file every session loads is a changelog that goes
-stale unread.
+What `master` carries is `git log --oneline` — not repeated here, because a
+changelog in the one file every session loads is one that goes stale unread.

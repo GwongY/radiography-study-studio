@@ -1,2 +1,7 @@
 .superpowers/
 _skel-names.txt
+
+# Local full-text cache of the source drive (work/build-source-text.mjs --all).
+# ~29 MB of extracted text, rebuildable, and only useful on a machine that has
+# the drive mounted. The CITED sources are committed, in work/source-text.json.
+work/.source-text/

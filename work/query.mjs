@@ -14,8 +14,10 @@
  *   node work/query.mjs source <term>   which course file names a structure
  *   node work/query.mjs file  <term>    which source document on the drive
  *   node work/query.mjs where <term>    which folder on the drive holds them
+ *   node work/query.mjs text  <term>    what the sources SAY, with file and page
  */
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { gunzipSync } from 'node:zlib';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { MESH_INDEX, UNITS } from '../outputs/mesh-index.js';
@@ -53,6 +55,7 @@ const usage = () => {
   source <term>   which course file names a structure
   file   <term>   which source document on the drive, and where its copies are
   where  <term>   which folders on the drive match, and how much is in them
+  text   <term>   what the sources say, quoted with the file and page it is on
 
 Layers: ${[...new Set(MESH_INDEX.map((r) => r.layer))].sort().join(', ')}`);
   process.exit(1);
@@ -154,6 +157,61 @@ switch (cmd) {
     const rows = [...folders].sort((a, b) => b[1].n - a[1].n);
     console.log(`${rows.length} folder(s) matching "${term}"\n`);
     show(rows, ([dir, e]) => console.log(`  ${String(e.n).padStart(4)} docs  ${MB(e.b).padStart(8)}  ${dir}`));
+    break;
+  }
+  case 'text': {
+    /*
+     * The one that replaces opening a PDF. Searches the cited sources first —
+     * those are committed, so this works with the drive unmounted — then the
+     * local cache if it has been built. A hit is quoted with the file and the
+     * PAGE, because that is the shape every sourceRefs entry is written in.
+     */
+    const needle = term.toLowerCase();
+    const hits = [];
+
+    const cited = join(WORK, 'source-text.json');
+    if (existsSync(cited)) {
+      const { sources } = JSON.parse(readFileSync(cited, 'utf8'));
+      for (const [id, s] of Object.entries(sources)) {
+        s.pages.forEach((page, i) => {
+          if (page.toLowerCase().includes(needle)) hits.push({ id, file: s.file, page: i + 1, page_text: page, cited: true });
+        });
+      }
+    }
+
+    /* The cache holds everything else, gzipped, one file per document. */
+    const cache = join(WORK, '.source-text');
+    const cacheIndex = join(cache, 'index.json');
+    if (existsSync(cacheIndex)) {
+      const index = JSON.parse(readFileSync(cacheIndex, 'utf8'));
+      for (const [k, e] of Object.entries(index)) {
+        if (!e.ok) continue;
+        let text;
+        try { text = gunzipSync(readFileSync(join(cache, `${k}.txt.gz`))).toString('utf8'); } catch { continue; }
+        if (!text.toLowerCase().includes(needle)) continue;
+        text.split('\f').forEach((page, i) => {
+          if (page.toLowerCase().includes(needle)) hits.push({ id: null, file: e.n, page: i + 1, page_text: page, cited: false });
+        });
+      }
+    }
+
+    if (!hits.length && !existsSync(cited)) {
+      console.log('no source text — run: node work/build-source-text.mjs');
+      break;
+    }
+    /* Cited sources first: a claim should be sourced to something the corpus
+       already registers, not to whatever else on the drive happens to say it. */
+    hits.sort((a, b) => (b.cited - a.cited) || a.file.localeCompare(b.file) || a.page - b.page);
+    console.log(`${hits.length} page(s) mentioning "${term}"\n`);
+    show(hits, (h) => {
+      /* One line of context around the hit, trimmed — the point is to locate
+         the passage, not to reproduce the page. */
+      const line = h.page_text.split('\n').find((l) => l.toLowerCase().includes(needle)) || '';
+      const at = line.toLowerCase().indexOf(needle);
+      const snippet = line.slice(Math.max(0, at - 60), at + needle.length + 60).trim();
+      console.log(`${h.file}  p${h.page}${h.id ? `  [${h.id}]` : '  (uncited source)'}`);
+      console.log(`    …${snippet}…`);
+    });
     break;
   }
   default:
