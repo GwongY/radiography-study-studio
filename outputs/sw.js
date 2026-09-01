@@ -23,7 +23,12 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v53';
+/*
+ * v60, not back to v53. The split shipped as v59 and was reverted; a version
+ * that goes BACKWARDS leaves whatever a browser already stored under the newer
+ * name in play. Cache versions only ever increase.
+ */
+const CACHE_VERSION = 'v60';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
