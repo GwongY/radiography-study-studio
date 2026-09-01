@@ -36,9 +36,21 @@
  *     Counting it would mark almost all 1,687 rows as course level and rebuild
  *     the problem this script exists to solve. It remains a source for facts;
  *     it is not evidence that a NAME must be memorised.
- *   - student coursework (lab reports, assignments, "Susan notes"). The source
- *     registry already treats student work as evidence of topic scope only.
+ *   - student coursework, recognised by WHERE it sits: a Lab Report folder, an
+ *     Assignment. The source registry already treats student work as evidence
+ *     of topic scope only.
  *   - the physiology question bank, which is publisher material, not taught.
+ *
+ * "Susan notes" was on that list and should not have been. The four files of
+ * that name sit inside the numbered lecture folders — 7. Endocrine, 8. Nervous,
+ * 9. Musculoskeletal, 10. Immune — one per system, which is where the lecturer
+ * puts lecture material and not where anyone files their own coursework. The
+ * catalogue classifies all four `primary`. The proof is the endocrine one: it
+ * is byte-identical to `ABCT2326 Hormone Mechanism _ABCT2326_.pdf`, registered
+ * as source phys.hormech and already taught from. A name-based exclusion was
+ * withholding, from the evidence of what the course teaches, a document the
+ * course teaches. Exclusions here are about PROVENANCE — decide them by folder,
+ * never by filename.
  *
  * Requires: the shared drive mounted, and `pdftotext` (poppler) on PATH.
  * The output is committed, so build-mesh-index.mjs runs without either.
@@ -90,13 +102,14 @@ const SUBJECTS = [
 ];
 
 /* See the header: a reference textbook, student coursework and publisher
-   question banks are not evidence that a name must be memorised. */
+   question banks are not evidence that a name must be memorised. Every pattern
+   here names a PLACE or a document type, never a particular file — a filename
+   cannot tell you who wrote something, and one that tried got it wrong. */
 const EXCLUDE = [
   /eBook/i,
   /Question Bank/i,
   /[/\\]Lab Report[/\\]/i,
   /Assignment/i,
-  /Susan notes/i,
   /Marking Rubrics/i,
   /Subject Desc/i,
 ];

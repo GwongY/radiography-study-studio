@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  2f4aa12d3242d0d3    557776  ITEM_BY_ID  Map[99]
+  8867056df6d27f20    635462  ITEM_BY_ID  Map[106]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   c529371f74fc1d2a      4250  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -18,19 +18,19 @@
   f428292239abe4d6       199  PRIOR_KNOWLEDGE  object[1]
   98a503c7f71e10a2       285  REVEAL_MODES  array[3]
   0d0b5bb6f4c96e17      1348  SOCIOLOGY_NOTICE  object[5]
-  3bd5332b8df24291     16422  SOURCE_FILES  object[79]
+  96d704848d5c86f3     17591  SOURCE_FILES  object[82]
   7cb3178e2949d4d5       327  SOURCE_ROOTS  object[12]
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   57b60f7998459a29     20933  STRUCTURE_SETS  object[13]
-  c731a0a9240c8919    554914  STUDY_ITEMS  array[99]
+  9a46f52594f136b0    632412  STUDY_ITEMS  array[106]
   732916ea01d90fc1      1165  STUDY_MODES  array[9]
   153456db74c04d0b      3265  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  383322d2077ee77b    590937  default  object[7]
+  cd2d37b5e067921d    669604  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -57,11 +57,13 @@
   bb157d6583e754f9      2211  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  063ef86278c4f609  WHOLE SURFACE
+  b9968fc063603dcd  WHOLE SURFACE
 
-— every study item, by id — 99 items —
+— every study item, by id — 106 items —
   0f85a14f65a3eba6  abct2326-blood-composition
   4ed4a4bcc30b6099  abct2326-cells-organisation
+  7ee9efe79a198747  abct2326-complement
+  efac25ae85e7018d  abct2326-crossbridge-cycle
   84e1305ac46b6f8f  abct2326-cvs-circuits
   6a2f36f61277e0ef  abct2326-cvs-conduction
   63b109fc10aba566  abct2326-cvs-ecg-cycle
@@ -70,16 +72,21 @@
   e246e26a706511a4  abct2326-endocrine-delivery
   e5455303e6005d77  abct2326-endocrine-receptors
   967cad0f5cc8c074  abct2326-endocrine-second-messengers
+  8818be715532d7a8  abct2326-fibre-types-fuel
   cceccaadd5326b16  abct2326-homeostasis
   9c39ddbdc704f20a  abct2326-immune-adaptive
   94d97f78cbd476f8  abct2326-innate-adaptive
+  7135b2b87ea57271  abct2326-mhc-costimulation
   6acde0174042a751  abct2326-msk-immune-overview
   0ac8bee0fa11e88a  abct2326-muscle-action
   75d9e0b371485183  abct2326-muscle-types
   333b0e851b69cd66  abct2326-nervous-divisions
+  e1cee3653b7d5cc1  abct2326-nmj-coupling
   882027b20b1f10d2  abct2326-renal-nephron
   1565f23b9247f161  abct2326-resp-gas-transport
   567383e26e8b6ef5  abct2326-resp-pathway
+  1a7643a21b266c66  abct2326-spindle-golgi
+  981a724977954078  abct2326-synapse-drug-action
   0ebcaf129ca95338  dsai1202-ai-in-healthcare
   045448165150e1e6  dsai1202-ai-literacy
   e912b64ee121b291  hss2011-bone-cervical
