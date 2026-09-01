@@ -21,17 +21,36 @@
  *   been opened once.
  *
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
+ * MODEL_VERSION and CDN_VERSION are deliberately separate, so a shell edit does
+ * not throw away the anatomy someone has already downloaded — see below.
  */
 
 /*
- * v60, not back to v53. The split shipped as v59 and was reverted; a version
- * that goes BACKWARDS leaves whatever a browser already stored under the newer
- * name in play. Cache versions only ever increase.
+ * Cache versions only ever increase — a version that goes BACKWARDS leaves
+ * whatever a browser already stored under the newer name in play. v59 shipped a
+ * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v60';
+const CACHE_VERSION = 'v61';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
-const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
-const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
+
+/*
+ * The models and the CDN get their OWN versions, and they do not move when the
+ * shell does.
+ *
+ * They used to be keyed to CACHE_VERSION, and `activate` deletes every rss-*
+ * cache not in ALL_CACHES — so every single shell edit threw away up to 37 MB of
+ * downloaded anatomy and all of three.js. Eight shell bumps in one day meant
+ * eight full re-downloads, which on a slow or metered connection is
+ * indistinguishable from "the layers will not load".
+ *
+ * Neither needs the shell's version. A .glb is addressed by its filename and its
+ * contents never change in place; the CDN URLs pin three.js to 0.161.0. Bump
+ * MODEL_VERSION only when a .glb file is actually replaced.
+ */
+const MODEL_VERSION = 'm1';
+const CDN_VERSION = 'c1';
+const MODEL_CACHE = `rss-models-${MODEL_VERSION}`;
+const CDN_CACHE = `rss-cdn-${CDN_VERSION}`;
 const ALL_CACHES = [SHELL_CACHE, MODEL_CACHE, CDN_CACHE];
 
 const SHELL = [
