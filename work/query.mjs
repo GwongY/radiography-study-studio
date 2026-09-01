@@ -179,11 +179,22 @@ switch (cmd) {
       }
     }
 
-    /* The cache holds everything else, gzipped, one file per document. */
+    /*
+     * The cache holds everything else, gzipped, one file per document. Its
+     * index is SHARDED — build-source-text.mjs runs six processes in parallel
+     * and each writes its own index-<i>.json. Reading only "index.json" found
+     * nothing and reported "no match", which is the worst possible failure for
+     * a search: indistinguishable from a real answer.
+     */
     const cache = join(WORK, '.source-text');
-    const cacheIndex = join(cache, 'index.json');
-    if (existsSync(cacheIndex)) {
-      const index = JSON.parse(readFileSync(cacheIndex, 'utf8'));
+    const shards = existsSync(cache)
+      ? readdirSync(cache).filter((f) => /^index(-\d+)?\.json$/.test(f))
+      : [];
+    if (shards.length) {
+      const index = {};
+      for (const f of shards) {
+        try { Object.assign(index, JSON.parse(readFileSync(join(cache, f), 'utf8'))); } catch { /* mid-write */ }
+      }
       for (const [k, e] of Object.entries(index)) {
         if (!e.ok) continue;
         let text;
