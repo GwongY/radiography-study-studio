@@ -1,5 +1,5 @@
 — user-facing strings in outputs/ — 691 —
-  879ee869a5f33b1e  WHOLE SET
+  eed4b4e626bbd465  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -503,7 +503,7 @@
   14ab8c8c07e135d1  Whole body
   a6075b915d80c000  Work it out in your own words
   2efde2e039fd8b4b  Write something first — even a rough answer. Comparing beats reading.
-  dc7062ecedebebc9  Written by this app from the content above. The facts are the sourced ones; the skill framing is study scaffolding.
+  a1a80fe79d9495e1  Written by this app from the content above. The facts are the sourced ones; the insight framing is study scaffolding.
   c9d8ebfea055fc4e  Yes, I had it
   1a33ef3e9b63cd34  You named
   6072830a754d6f42  You revealed
