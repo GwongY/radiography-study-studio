@@ -43,6 +43,9 @@ const PROBES = [
      Captured before phase 3 split the corpus, so the split has to prove it
      moved no lesson wording, not merely no item counts. */
   ['corpus-snapshot', ['work/corpus-snapshot.mjs']],
+  /* Words, not data: every sentence the interface can show. A rename that runs
+     over a string literal moves this and nothing else. */
+  ['ui-strings', ['work/ui-strings.mjs']],
 ];
 
 /* Wall-clock timings and absolute paths differ between runs and machines.

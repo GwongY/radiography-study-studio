@@ -23,7 +23,7 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v57';
+const CACHE_VERSION = 'v58';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
@@ -39,7 +39,35 @@ const SHELL = [
   './app.css?v=1',
   './studio.js?v=1',
   './study.js?v=1',
+  /*
+   * study.js is an entry point that imports these and then calls their init()s.
+   * Every one has to be in the shell or the study system is blank offline.
+   */
+  './study/imports.js',
   './study/state.js',
+  './study/storage-versioned-keys.js',
+  './study/moving-progress-between.js',
+  './study/reset.js',
+  './study/small-ui-helpers.js',
+  './study/home.js',
+  './study/navigation-five-destinations.js',
+  './study/review-mistakes-due.js',
+  './study/more-sources-coverage.js',
+  './study/global-search-one.js',
+  './study/search-viewer-open.js',
+  './study/hidden-tray.js',
+  './study/spatial-overlay-controls.js',
+  './study/subject.js',
+  './study/what-is-under.js',
+  './study/session-engine.js',
+  './study/lesson-visuals.js',
+  './study/reading-help.js',
+  './study/layout-figures.js',
+  './study/source-dialog.js',
+  './study/coverage-report.js',
+  './study/mastery-dashboard.js',
+  './study/boot.js',
+  './study/dialog-behaviour-applied.js',
   './study-data.js',
   /*
    * study-data.js is a barrel; these are what it re-exports. The app never
