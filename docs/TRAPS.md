@@ -314,3 +314,17 @@ shapes** — in "The region grid and classifiers" below.
   behavioural check passed against code that was no longer on disk. Clear
   `caches`, unregister the service worker, or bump the query before trusting a
   before/after comparison in the browser.
+- **Indentation does not tell you what is top level in `studio/*.js`.** That
+  code writes its top level at column 0 AND at indent 2 — `els` and `state`, which
+  every part uses, are at indent 2, alongside hundreds of nested locals at the
+  same column. A brace counter fails too: the parts embed GLSL and HTML in
+  multi-line template literals whose braces and column-0 lines defeat it. Ask V8
+  instead — `node work/toplevel.mjs outputs/studio/<part>.js` appends
+  `export { name }` per candidate and reads the link error, so the answer comes
+  from the parser that will run the code. Use it before moving anything.
+- **A column-0 line can be inside a template literal, or end by opening a block
+  comment.** Both bit the phase-5 split: GLSL like `uniform float uMu;` was
+  lifted out of a shader as if it were a statement, and a boot line ending in
+  `/*` took the next section's comment opener with it and commented out what
+  followed. Any tool that classifies lines in this file has to track backtick
+  parity and dangling `/*`.
