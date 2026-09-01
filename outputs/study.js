@@ -22,6 +22,7 @@ import { layoutFor } from './layouts.js?v=1';
 import { decompose, readingOf, partOf } from './wordparts.js?v=3';
 import { termNote } from './term-notes.js?v=4';
 import { termGloss } from './term-gloss.js?v=3';
+import { ui } from './study/state.js';
 
 const $$ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -257,7 +258,7 @@ function resetProgress() {
   write(K.meta, store.meta);
   $$('resetDialog').close();
   /* A session still holding the erased records would keep scheduling against them. */
-  if (session) { session = null; closeSessionOverlay(); }
+  if (ui.session) { ui.session = null; closeSessionOverlay(); }
   toast(`Progress erased \u2014 ${c.dims} mastery record${c.dims === 1 ? '' : 's'} and ${c.mistakes} mistake${c.mistakes === 1 ? '' : 's'} gone.`);
   goTo('today');
 }
@@ -499,7 +500,7 @@ function setActiveNav(id) {
   });
 }
 function goTo(id) {
-  learnDrill = false;
+  ui.learnDrill = false;
   const dest = NAV_DESTS.find((d) => d[0] === id);
   if (dest) dest[3]();
 }
@@ -567,7 +568,7 @@ function renderReviewTab(tab) {
     copy = due.length + ' item' + (due.length === 1 ? ' is' : 's are') + ' due. Delayed recall only scores on the first attempt after a gap of a day or more.';
     rows = due.map((i) => reviewRow(i.title, getSubject(i.subject).title, 'due', 'var(--teal)')).join('')
       || '<div class="empty">Nothing due right now.</div>';
-    if (due.length) { cta = 'Start due session \u2192'; ctaMode = { mode: 'weakest', limit: due.length }; }
+    if (due.length) { cta = 'Start due ui.session \u2192'; ctaMode = { mode: 'weakest', limit: due.length }; }
   }
 
   /* .reviewrows wraps into columns instead of running one long list down the
@@ -625,7 +626,7 @@ function dismissSessionForNav() {
   const sess = $$('sessionView');
   if (!sess || sess.classList.contains('hidden')) return;
   if (typeof releaseLessonVisual === 'function') releaseLessonVisual();
-  session = null;
+  ui.session = null;
   sess.classList.add('hidden');
   sess.inert = false;
   const shell = document.querySelector('.app-shell');
@@ -635,7 +636,7 @@ function dismissSessionForNav() {
 /* One item, taught on its own -- used when a search result names a
    specific study item rather than a whole topic. */
 function studySingleItem(item) {
-  session = {
+  ui.session = {
     opts: { mode: 'subject', subject: item.subject }, mode: null, items: [item], index: 0,
     step: 'learn', reveal: 0, qIndex: 0, answered: false, startedAt: 0,
     results: [], hooksOnly: false, modeLabel: 'Single item',
@@ -656,7 +657,7 @@ function studyItemWithin(topic, itemId) {
   const at = ordered.findIndex((i) => i.id === itemId);
   if (at < 0) return;
   const items = [ordered[at], ...ordered.slice(0, at), ...ordered.slice(at + 1)];
-  session = {
+  ui.session = {
     opts: { mode: 'subject', subject: topic.subject.id, unit: topic.unit.id }, mode: null, items, index: 0,
     step: 'learn', reveal: 0, qIndex: 0, answered: false, startedAt: 0,
     results: [], hooksOnly: false, modeLabel: topic.unit.label,
@@ -732,7 +733,7 @@ function searchHits(q) {
   topicsWithContent().forEach((t) => {
     if (t.unit.label.toLowerCase().includes(needle) || t.subject.code.toLowerCase().includes(needle)) {
       hits.push({ kind: 'Topic', title: t.unit.label, note: `${t.group.label} \u00b7 ${t.subject.code} \u00b7 ${t.items.length} items`,
-        go: () => { learnFilter = 'all'; learnTopic = t.unit.id; learnDrill = true; closeSearchSheet(); dismissSessionForNav(); renderLearn(); } });
+        go: () => { ui.learnFilter = 'all'; ui.learnTopic = t.unit.id; ui.learnDrill = true; closeSearchSheet(); dismissSessionForNav(); renderLearn(); } });
     }
   });
 
@@ -1149,7 +1150,7 @@ function getContinueTarget() {
 }
 function saveContinue(itemId, step) { write(STORAGE_PREFIX + 'continue', { itemId, step }); }
 function resumeContinue(cont) {
-  session = { opts: { mode: 'subject', subject: cont.item.subject }, mode: null, items: [cont.item], index: 0, step: cont.step, reveal: 0, qIndex: 0, answered: false, startedAt: 0, results: [], hooksOnly: false };
+  ui.session = { opts: { mode: 'subject', subject: cont.item.subject }, mode: null, items: [cont.item], index: 0, step: cont.step, reveal: 0, qIndex: 0, answered: false, startedAt: 0, results: [], hooksOnly: false };
   openSessionOverlay();
   setStep(cont.step);
 }
@@ -1178,7 +1179,7 @@ function renderToday() {
     </div>` : `
     <div class="task-kicker">Continue</div>
     <h2 class="editorial" style="font-size:24px;margin:8px 0 0">Nothing in progress</h2>
-    <p class="small" style="margin-top:6px">Start a session below to begin.</p>`;
+    <p class="small" style="margin-top:6px">Start a ui.session below to begin.</p>`;
   if (cont) $$('continueBtn').onclick = () => resumeContinue(cont);
 
   /*
@@ -1226,7 +1227,7 @@ function renderToday() {
       <span class="grow"><b>${esc(i.title)}</b><small>${esc(getSubject(i.subject).title)}</small></span>
       <span class="meter"><span style="width:${Math.round(itemScore(i.id) * 100)}%;background:var(--orange)"></span></span>
       <span class="pc">${Math.round(itemScore(i.id) * 100)}%</span>
-    </button>`).join('') : '<div class="empty">Nothing studied yet — start a session to build this list.</div>';
+    </button>`).join('') : '<div class="empty">Nothing studied yet — start a ui.session to build this list.</div>';
   $$('weakestList').querySelectorAll('[data-weak]').forEach((b) => { b.onclick = () => renderReviewTab('mistakes'); });
   $$('allWeakBtn').onclick = () => goTo('review');
 
@@ -1258,9 +1259,6 @@ function fileRowsHTML(refs) {
 
 const SUBJECT_GROUP = { HSS2011: { label: 'Anatomy', accent: '#72e3cf' }, ABCT2326: { label: 'Physiology', accent: '#ffba67' }, HTI17103: { label: 'Radiation science', accent: '#8ea9ff' } };
 const LEARN_FILTERS = [['all', 'Everything'], ['Anatomy', 'Anatomy'], ['Physiology', 'Physiology'], ['Radiation science', 'Radiation science'], ['3d', 'Has 3D / images']];
-let learnFilter = 'all';
-let learnTopic = null;
-let learnDrill = false;   /* phone only: detail replaces the list */
 
 /* A "topic" is one subject.unit that actually has study items. Subjects with no
    items (APSS1A08, DSAI1202, LEI1101) drop out of Learn here on their own --
@@ -1284,23 +1282,23 @@ function topicPct(items) { return items.length ? Math.round(items.reduce((n, i) 
 function renderLearn() {
   leaveProjection();
   setActiveNav('learn');
-  const visible = topicsWithContent().filter((t) => learnFilter === 'all' || (learnFilter === '3d' ? topicHasViewer(t.items) : t.group.label === learnFilter));
-  if (!learnTopic || !visible.some((t) => t.unit.id === learnTopic)) learnTopic = visible[0] ? visible[0].unit.id : null;
+  const visible = topicsWithContent().filter((t) => ui.learnFilter === 'all' || (ui.learnFilter === '3d' ? topicHasViewer(t.items) : t.group.label === ui.learnFilter));
+  if (!ui.learnTopic || !visible.some((t) => t.unit.id === ui.learnTopic)) ui.learnTopic = visible[0] ? visible[0].unit.id : null;
 
   $$('learnFilters').innerHTML = LEARN_FILTERS.map(([id, label]) =>
-    `<button class="filter-chip${learnFilter === id ? ' active' : ''}" data-filter="${esc(id)}">${esc(label)}</button>`).join('');
-  $$('learnFilters').querySelectorAll('[data-filter]').forEach((b) => { b.onclick = () => { learnFilter = b.dataset.filter; renderLearn(); }; });
+    `<button class="filter-chip${ui.learnFilter === id ? ' active' : ''}" data-filter="${esc(id)}">${esc(label)}</button>`).join('');
+  $$('learnFilters').querySelectorAll('[data-filter]').forEach((b) => { b.onclick = () => { ui.learnFilter = b.dataset.filter; renderLearn(); }; });
 
   $$('topicGrid').innerHTML = visible.map((t) => `
-    <button class="topic-card${t.unit.id === learnTopic ? ' active' : ''}" style="--accent:${t.group.accent}" data-topic="${esc(t.unit.id)}">
+    <button class="topic-card${t.unit.id === ui.learnTopic ? ' active' : ''}" style="--accent:${t.group.accent}" data-topic="${esc(t.unit.id)}">
       <span class="topic-tag">${esc(t.group.label)} \u00b7 ${esc(t.subject.code)}</span>
       <span class="editorial" style="font-size:17px">${esc(t.unit.label)}</span>
       <span class="topic-bar"><span style="width:${topicPct(t.items)}%"></span></span>
       <span class="small">${t.items.length} item${t.items.length === 1 ? '' : 's'}${topicHasViewer(t.items) ? ' \u00b7 3D studio' : ''}</span>
     </button>`).join('') || '<div class="empty">No topics match this filter yet.</div>';
-  $$('topicGrid').querySelectorAll('[data-topic]').forEach((b) => { b.onclick = () => { learnTopic = b.dataset.topic; learnDrill = true; renderLearn(); }; });
+  $$('topicGrid').querySelectorAll('[data-topic]').forEach((b) => { b.onclick = () => { ui.learnTopic = b.dataset.topic; ui.learnDrill = true; renderLearn(); }; });
 
-  const T = visible.find((t) => t.unit.id === learnTopic);
+  const T = visible.find((t) => t.unit.id === ui.learnTopic);
   $$('topicDetailPane').innerHTML = !T ? '' : `
     <div class="card" style="animation:fadeUp .22s ease;--accent:${T.group.accent}">
       <span class="topic-tag">${esc(T.group.label)} \u00b7 ${esc(T.subject.code)}</span>
@@ -1340,15 +1338,14 @@ function renderLearn() {
     b.onclick = () => studyItemWithin(T, b.dataset.item);
   });
 
-  $$('learnGrid').classList.toggle('drilled', learnDrill);
-  $$('navBackBtn').classList.toggle('hidden', !learnDrill);
+  $$('learnGrid').classList.toggle('drilled', ui.learnDrill);
+  $$('navBackBtn').classList.toggle('hidden', !ui.learnDrill);
   showView('learnView');
 }
 
 /* Viewer -- the 3D studio and radiographs share one destination. Compare mode
    from the prototype is deliberately not built: the handoff lists its
    synchronised highlighting as undesigned. */
-let viewerTab = '3d';
 
 /*
  * Body layers.
@@ -1551,11 +1548,11 @@ function bindStackHook() {
 function renderViewerTabs() {
   bindStackHook();
   $$('viewerTabs').innerHTML = [['3d', '3D skeleton'], ['xray', 'Projection']].map(([id, label]) =>
-    `<button class="seg${viewerTab === id ? ' active' : ''}" data-vtab="${esc(id)}">${esc(label)}</button>`).join('');
-  $$('viewerTabs').querySelectorAll('[data-vtab]').forEach((b) => { b.onclick = () => { viewerTab = b.dataset.vtab; renderViewerTabs(); }; });
-  $$('viewerSkeletonPane').classList.toggle('hidden', viewerTab !== '3d');
-  $$('viewerXrayPane').classList.toggle('hidden', viewerTab !== 'xray');
-  if (viewerTab === 'xray') enterProjection(); else leaveProjection();
+    `<button class="seg${ui.viewerTab === id ? ' active' : ''}" data-vtab="${esc(id)}">${esc(label)}</button>`).join('');
+  $$('viewerTabs').querySelectorAll('[data-vtab]').forEach((b) => { b.onclick = () => { ui.viewerTab = b.dataset.vtab; renderViewerTabs(); }; });
+  $$('viewerSkeletonPane').classList.toggle('hidden', ui.viewerTab !== '3d');
+  $$('viewerXrayPane').classList.toggle('hidden', ui.viewerTab !== 'xray');
+  if (ui.viewerTab === 'xray') enterProjection(); else leaveProjection();
 }
 
 /*
@@ -1665,7 +1662,6 @@ const STEPS = [
   { id: 'review', label: 'Review', copy: 'Confirm what was scheduled and what to fix.' },
 ];
 
-let session = null;
 
 function pickItems(opts) {
   const now = Date.now();
@@ -1747,19 +1743,19 @@ function startSession(opts) {
   const mode = STUDY_MODES.find((m) => m.id === opts.mode);
   const hooksOnly = opts.mode === 'hooks';
   const first = items[0];
-  session = {
+  ui.session = {
     opts, mode, items, index: 0, step: hooksOnly ? 'remember' : entryStep(first, itemAttempted(first.id)),
     /* Hooks-only is a browsing mode, so open every hint straight away. */
     reveal: hooksOnly ? REVEAL_STAGES.length : 0,
     qIndex: 0, answered: false, startedAt: 0,
     results: [], hooksOnly,
   };
-  session.modeLabel = mode ? mode.label : 'Study session';
+  ui.session.modeLabel = mode ? mode.label : 'Study ui.session';
   openSessionOverlay();
   renderStep();
 }
 
-function currentItem() { return session.items[session.index]; }
+function currentItem() { return ui.session.items[ui.session.index]; }
 
 /*
  * Moving to the next item. The footer control and the review card's own button
@@ -1768,25 +1764,25 @@ function currentItem() { return session.items[session.index]; }
  * opens on Learn to be taught.
  */
 function advanceItem() {
-  session.index += 1; session.qIndex = 0; session.seqOrder = null; session.matchRights = null;
-  session.diagramTarget = null; session.diagramReveal = null;
+  ui.session.index += 1; ui.session.qIndex = 0; ui.session.seqOrder = null; ui.session.matchRights = null;
+  ui.session.diagramTarget = null; ui.session.diagramReveal = null;
   if (window.__osteo && window.__osteo.endMovement) {
     window.__osteo.endMovement();
     const b = $$('mvBar'); if (b) b.classList.add('hidden');
     const bk = $$('mvBackToSession'); if (bk) bk.classList.add('hidden');
   }
-  const next = session.items[session.index];
-  setStep(session.hooksOnly ? 'remember' : entryStep(next, itemAttempted(next.id)));
+  const next = ui.session.items[ui.session.index];
+  setStep(ui.session.hooksOnly ? 'remember' : entryStep(next, itemAttempted(next.id)));
 }
 
 function setStep(step) {
   /* Step buttons stay in the DOM after a session ends; ignore late clicks. */
-  if (!session) return;
-  session.step = step;
-  if (session.items[session.index]) saveContinue(session.items[session.index].id, step);
-  session.reveal = session.hooksOnly ? REVEAL_STAGES.length : 0;
-  session.answered = false;
-  if (step === 'practise' || step === 'apply') session.startedAt = performance.now();
+  if (!ui.session) return;
+  ui.session.step = step;
+  if (ui.session.items[ui.session.index]) saveContinue(ui.session.items[ui.session.index].id, step);
+  ui.session.reveal = ui.session.hooksOnly ? REVEAL_STAGES.length : 0;
+  ui.session.answered = false;
+  if (step === 'practise' || step === 'apply') ui.session.startedAt = performance.now();
   renderStep();
 }
 
@@ -1794,18 +1790,18 @@ function renderSteps() {
   const el = $$('rssSteps');
   const order = STEPS.map((s) => s.id);
   el.innerHTML = STEPS.map((s) => {
-    const done = order.indexOf(s.id) < order.indexOf(session.step);
-    return `<button class="step ${s.id === session.step ? 'active' : ''} ${done ? 'done' : ''}" data-step="${s.id}"><b>${esc(s.label)}</b>${esc(s.copy)}</button>`;
+    const done = order.indexOf(s.id) < order.indexOf(ui.session.step);
+    return `<button class="step ${s.id === ui.session.step ? 'active' : ''} ${done ? 'done' : ''}" data-step="${s.id}"><b>${esc(s.label)}</b>${esc(s.copy)}</button>`;
   }).join('');
   el.querySelectorAll('[data-step]').forEach((b) => { b.onclick = () => setStep(b.dataset.step); });
 }
 
 function renderSessionMeter() {
-  const total = session.items.length;
-  const n = session.index + 1;
+  const total = ui.session.items.length;
+  const n = ui.session.index + 1;
   $$('rssSessionCount').textContent = `${n}/${total}`;
-  $$('rssSessionMeta').textContent = `Item ${n} of ${total} \u00b7 ${session.modeLabel || 'Session'}`;
-  $$('rssSessionBar').style.width = `${Math.round((session.index / total) * 100)}%`;
+  $$('rssSessionMeta').textContent = `Item ${n} of ${total} \u00b7 ${ui.session.modeLabel || 'Session'}`;
+  $$('rssSessionBar').style.width = `${Math.round((ui.session.index / total) * 100)}%`;
 }
 
 /* The source trace is inline under every item now, not a side card. */
@@ -1828,9 +1824,9 @@ function renderSessionFoot(item) {
     if (wrap && !wrap.querySelector('button')) wrap.remove();
   });
   const order = STEPS.map((x) => x.id);
-  const at = order.indexOf(session.step);
+  const at = order.indexOf(ui.session.step);
   const lastStep = at === order.length - 1;
-  const lastItem = session.index >= session.items.length - 1;
+  const lastItem = ui.session.index >= ui.session.items.length - 1;
   const btn = $$('rssNextStep');
   if (!lastStep) {
     btn.textContent = `Next: ${STEPS[at + 1].label} \u2192`;
@@ -1839,23 +1835,23 @@ function renderSessionFoot(item) {
     btn.textContent = 'Finish \u00b7 next item \u2192';
     btn.onclick = advanceItem;
   } else {
-    btn.textContent = 'Finish session \u2192';
+    btn.textContent = 'Finish ui.session \u2192';
     btn.onclick = endSession;
   }
   $$('rssFootHint').textContent = lastStep ? 'Review scheduled from your answers' : 'Autosaves as you go';
 }
 function renderStep() {
   const item = currentItem();
-  const stepDef = STEPS.find((x) => x.id === session.step) || STEPS[0];
+  const stepDef = STEPS.find((x) => x.id === ui.session.step) || STEPS[0];
   $$('rssSessionKicker').textContent = stepDef.label;
   renderSteps();
   renderSessionMeter();
   renderSourceCard(item);
   const stage = $$('rssStage');
-  if (session.step === 'learn') { stage.innerHTML = learnHTML(item); mountLessonVisual(item); }
-  else if (session.step === 'remember') { releaseLessonVisual(); stage.innerHTML = rememberHTML(item); wireReveal(item); }
-  else if (session.step === 'practise') { releaseLessonVisual(); stage.innerHTML = practiseHTML(item); wirePractise(item); }
-  else if (session.step === 'apply') { releaseLessonVisual(); stage.innerHTML = applyHTML(item); wireApply(item); }
+  if (ui.session.step === 'learn') { stage.innerHTML = learnHTML(item); mountLessonVisual(item); }
+  else if (ui.session.step === 'remember') { releaseLessonVisual(); stage.innerHTML = rememberHTML(item); wireReveal(item); }
+  else if (ui.session.step === 'practise') { releaseLessonVisual(); stage.innerHTML = practiseHTML(item); wirePractise(item); }
+  else if (ui.session.step === 'apply') { releaseLessonVisual(); stage.innerHTML = applyHTML(item); wireApply(item); }
   else { releaseLessonVisual(); stage.innerHTML = reviewHTML(item); }
   wireStageNav(item);
   wireTerms($$('rssStage'));
@@ -2608,9 +2604,9 @@ function rememberHTML(item) {
   const hooks = Object.entries(item.memory || {}).filter(([, v]) => v);
   const { texts, usedKeys, used } = stageTexts(item);
   const stack = REVEAL_STAGES.map((s, i) =>
-    `<div class="reveal ${i < session.reveal ? 'open' : ''}" data-stage="${i}">
+    `<div class="reveal ${i < ui.session.reveal ? 'open' : ''}" data-stage="${i}">
       <div class="lab">${esc(s.lab)}</div>
-      <div class="txt">${i < session.reveal ? glossify(esc(texts[i]))
+      <div class="txt">${i < ui.session.reveal ? glossify(esc(texts[i]))
         : '<em style="color:var(--muted)">Hidden — reveal only if you need it. Trying to retrieve first is what makes it stick.</em>'}</div>
     </div>`).join('');
   /*
@@ -2619,7 +2615,7 @@ function rememberHTML(item) {
    * fully open, only the hooks the stages did not already show appear here.
    * Hooks-only mode has no ladder, so it keeps the full list.
    */
-  const moreHooks = session.reveal >= REVEAL_STAGES.length
+  const moreHooks = ui.session.reveal >= REVEAL_STAGES.length
     ? hooks.filter(([k, v]) => v && !usedKeys.has(k) && !used.some((u) => sameText(u, v)))
     : [];
   const hooksList = (list) => `${list.map(([k, v]) => `<div class="hookcard"><div class="kind">${esc(MEMORY_METHODS[k] || k)}</div><div class="txt">${esc(v)}</div></div>`).join('')}
@@ -2627,17 +2623,17 @@ function rememberHTML(item) {
   return `<div class="lesson">
     <div class="eyebrow">Memory Coach</div>
     <h2>${esc(item.title)}</h2>
-    <p class="task-copy">${session.hooksOnly ? 'Browsing memory hooks — nothing is scored in this mode.' : 'Hints come one stage at a time. Try to answer before opening the next one.'}</p>
-    ${session.hooksOnly ? '' : `<div class="reveal-stack">${stack}</div>`}
+    <p class="task-copy">${ui.session.hooksOnly ? 'Browsing memory hooks — nothing is scored in this mode.' : 'Hints come one stage at a time. Try to answer before opening the next one.'}</p>
+    ${ui.session.hooksOnly ? '' : `<div class="reveal-stack">${stack}</div>`}
     <div class="rss-actions">
-      ${session.hooksOnly ? '' : `<button class="ghost" id="rssRevealBtn">${session.reveal >= REVEAL_STAGES.length ? 'All hints shown' : 'Reveal next hint'}</button>`}
-      ${session.hooksOnly
-        ? (session.index >= session.items.length - 1 ? '<button class="primary" id="rssFinish">Finish</button>' : '<button class="primary" id="rssNextItem">Next hook →</button>')
+      ${ui.session.hooksOnly ? '' : `<button class="ghost" id="rssRevealBtn">${ui.session.reveal >= REVEAL_STAGES.length ? 'All hints shown' : 'Reveal next hint'}</button>`}
+      ${ui.session.hooksOnly
+        ? (ui.session.index >= ui.session.items.length - 1 ? '<button class="primary" id="rssFinish">Finish</button>' : '<button class="primary" id="rssNextItem">Next hook →</button>')
         : '<button class="primary" data-nav="practise">Test me →</button>'}
     </div>
     ${item.selfCheck ? `<div class="subhead" style="margin-top:14px">Prove it to yourself</div>
       <div class="hookcard"><div class="kind">Blank-page check · <span class="apptag">App note</span></div><div class="txt">${glossify(esc(item.selfCheck))}</div></div>` : ''}
-    ${session.hooksOnly
+    ${ui.session.hooksOnly
       ? (hooks.length ? `<div class="subhead">All memory aids for this item</div>${hooksList(hooks)}` : '<div class="emptybox" style="margin-top:14px">No memory aid authored for this item yet.</div>')
       : (moreHooks.length ? `<div class="subhead" style="margin-top:14px">More hooks for this item</div>${hooksList(moreHooks)}` : '')}
   </div>`;
@@ -2647,8 +2643,8 @@ function wireReveal(item) {
   wireTerms($$('rssStage'));
   const b = $$('rssRevealBtn');
   if (!b) return;
-  b.disabled = session.reveal >= REVEAL_STAGES.length;
-  b.onclick = () => { session.reveal = Math.min(REVEAL_STAGES.length, session.reveal + 1); renderStep(); };
+  b.disabled = ui.session.reveal >= REVEAL_STAGES.length;
+  b.onclick = () => { ui.session.reveal = Math.min(REVEAL_STAGES.length, ui.session.reveal + 1); renderStep(); };
 }
 
 /* ---------------- question rendering ---------------- */
@@ -2660,25 +2656,25 @@ function questionBody(q) {
     case 'typed': case 'cloze': case 'landmark':
       return `<div class="typed-row"><input id="rssTypedInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${q.type === 'landmark' ? 'List the landmarks, separated by commas' : 'Type your answer'}"><button class="primary" id="rssTypedGo">Check</button></div>`;
     case 'sequence': {
-      const order = session.seqOrder || (session.seqOrder = q.items.map((v, i) => i).sort(() => Math.random() - 0.5));
+      const order = ui.session.seqOrder || (ui.session.seqOrder = q.items.map((v, i) => i).sort(() => Math.random() - 0.5));
       return `<div class="seq-list" id="rssSeq">${order.map((oi, pos) => `<div class="seq-item" data-pos="${pos}"><span class="n">${pos + 1}</span><span class="grow">${esc(q.items[oi])}</span><span class="mv"><button data-up="${pos}" aria-label="Move up">↑</button><button data-down="${pos}" aria-label="Move down">↓</button></span></div>`).join('')}</div>
         <button class="primary" id="rssSeqGo">Check order</button>`;
     }
     case 'matching': {
-      const rights = session.matchRights || (session.matchRights = q.pairs.map((p) => p[1]).sort(() => Math.random() - 0.5));
+      const rights = ui.session.matchRights || (ui.session.matchRights = q.pairs.map((p) => p[1]).sort(() => Math.random() - 0.5));
       return `<div class="match-grid" id="rssMatch">${q.pairs.map((p, i) => `<div class="match-row" data-row="${i}"><span class="lhs">${esc(p[0])}</span><select data-sel="${i}"><option value="">Choose…</option>${rights.map((r) => `<option value="${esc(r)}">${esc(r)}</option>`).join('')}</select></div>`).join('')}</div>
         <button class="primary" id="rssMatchGo" style="margin-top:10px">Check matches</button>`;
     }
     case 'diagram': {
       const d = DIAGRAMS[q.diagram];
       if (!d) return '<div class="emptybox">Diagram unavailable.</div>';
-      const target = session.diagramTarget ?? (session.diagramTarget = Math.floor(Math.random() * q.labels.length));
+      const target = ui.session.diagramTarget ?? (ui.session.diagramTarget = Math.floor(Math.random() * q.labels.length));
       /*
        * Blank mode: labelled teaches, guided leaves a couple of anchors in,
        * blank tests. Defaults to blank so the question stays a question —
        * the learner opens the labelled view deliberately.
        */
-      const reveal = session.diagramReveal || (session.diagramReveal = 'blank');
+      const reveal = ui.session.diagramReveal || (ui.session.diagramReveal = 'blank');
       const anchorCount = Math.max(1, Math.round(q.labels.length / 4));
       const named = (l, i) => reveal === 'labelled' || (reveal === 'guided' && i < anchorCount);
       const hotspots = q.labels.map((l, i) => {
@@ -2760,8 +2756,8 @@ function questionBody(q) {
 function practiseHTML(item) {
   const qs = questionsOf(item);
   if (!qs.length) return '<div class="emptybox">No practice questions on this item.</div>';
-  const q = qs[Math.min(session.qIndex, qs.length - 1)];
-  session.currentQ = q;
+  const q = qs[Math.min(ui.session.qIndex, qs.length - 1)];
+  ui.session.currentQ = q;
   /*
    * A prior-knowledge item with nothing recorded against it yet opened straight
    * onto this step. Say so, rather than leaving it looking like the lesson was
@@ -2769,11 +2765,11 @@ function practiseHTML(item) {
    */
   const prior = priorOf(item);
   const verifying = prior && !itemAttempted(item.id)
-    ? `<div class="priorbar"><div class="txt"><span class="kick">Verifying, not teaching</span>${esc(prior.label)} already covered this, so the session opens on the question.<p>Nothing is assumed about your answer — this is the first thing recorded for the item.</p></div><button class="ghost" id="rssPriorLesson">Show the lesson first</button></div>`
+    ? `<div class="priorbar"><div class="txt"><span class="kick">Verifying, not teaching</span>${esc(prior.label)} already covered this, so the ui.session opens on the question.<p>Nothing is assumed about your answer — this is the first thing recorded for the item.</p></div><button class="ghost" id="rssPriorLesson">Show the lesson first</button></div>`
     : '';
   return `<div class="lesson">
     ${verifying}
-    <div class="eyebrow">Practise · ${esc(typeLabel(q.type))} · question ${Math.min(session.qIndex, qs.length - 1) + 1} of ${qs.length}</div>
+    <div class="eyebrow">Practise · ${esc(typeLabel(q.type))} · question ${Math.min(ui.session.qIndex, qs.length - 1) + 1} of ${qs.length}</div>
     <div class="q-prompt">${glossify(esc(q.prompt))}</div>
     ${q.image ? `<img class="xray-img" src="assets/xray/${esc(q.image)}" alt="Radiograph" onerror="xrayFallback(this)">` : ''}
     <div id="rssQBody">${questionBody(q)}</div>
@@ -2825,11 +2821,11 @@ function verdictHTML(item, q, correct, extra) {
 }
 
 function finishQuestion(item, q, correct, extra, conf = 2) {
-  if (session.answered) return;
-  session.answered = true;
+  if (ui.session.answered) return;
+  ui.session.answered = true;
   /* Read before scheduling: the first answer is what flips itemAttempted. */
   const untestedPrior = !!priorOf(item) && !itemAttempted(item.id);
-  const ms = Math.max(400, performance.now() - session.startedAt);
+  const ms = Math.max(400, performance.now() - ui.session.startedAt);
   const dim = dimensionFor(q);
 
   const priorRec = getMastery(item.id, dim);
@@ -2851,7 +2847,7 @@ function finishQuestion(item, q, correct, extra, conf = 2) {
   store.items[item.id] = { ...(store.items[item.id] || {}), status: correct ? 'review' : 'learning', seen: (store.items[item.id]?.seen || 0) + 1, lastSeen: Date.now() };
   write(K.items, store.items);
   if (!correct) logMistake({ itemId: item.id, qid: q.qid, type: q.type, prompt: q.prompt });
-  session.results.push({ itemId: item.id, qid: q.qid, correct, ms });
+  ui.session.results.push({ itemId: item.id, qid: q.qid, correct, ms });
 
   $$('rssVerdict').innerHTML = verdictHTML(item, q, correct, extra);
   wireTerms($$('rssVerdict'));
@@ -2860,7 +2856,7 @@ function finishQuestion(item, q, correct, extra, conf = 2) {
 
   const qs = questionsOf(item);
   const nav = $$('rssPractiseNav');
-  nav.innerHTML = session.qIndex < qs.length - 1
+  nav.innerHTML = ui.session.qIndex < qs.length - 1
     ? '<button class="primary" id="rssNextQ">Next question →</button><button class="ghost" data-nav="apply">Go to apply</button>'
     : '<button class="primary" data-nav="apply">Apply it →</button>';
   if (untestedPrior && !correct) {
@@ -2872,7 +2868,7 @@ function finishQuestion(item, q, correct, extra, conf = 2) {
     toast('Carried over as known, but missed — worth reading the lesson on this one.');
   }
   const nq = $$('rssNextQ');
-  if (nq) nq.onclick = () => { session.qIndex += 1; session.answered = false; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.diagramReveal = null; if (window.__osteo && window.__osteo.endMovement) { window.__osteo.endMovement(); const b=$$('mvBar'); if(b) b.classList.add('hidden'); const bk=$$('mvBackToSession'); if(bk) bk.classList.add('hidden'); } session.startedAt = performance.now(); renderStep(); };
+  if (nq) nq.onclick = () => { ui.session.qIndex += 1; ui.session.answered = false; ui.session.seqOrder = null; ui.session.matchRights = null; ui.session.diagramTarget = null; ui.session.diagramReveal = null; if (window.__osteo && window.__osteo.endMovement) { window.__osteo.endMovement(); const b=$$('mvBar'); if(b) b.classList.add('hidden'); const bk=$$('mvBackToSession'); if(bk) bk.classList.add('hidden'); } ui.session.startedAt = performance.now(); renderStep(); };
   wireStageNav(item);
 }
 
@@ -2918,7 +2914,7 @@ function armMovementBar(mv, cameFromSession) {
   back.onclick = () => {
     window.__osteo.endMovement();
     bar.classList.add('hidden'); back.classList.add('hidden');
-    if (session) { showView('sessionView'); renderStep(); } else { renderToday(); }
+    if (ui.session) { showView('sessionView'); renderStep(); } else { renderToday(); }
   };
   return true;
 }
@@ -2933,12 +2929,12 @@ function targetIn3D(set, member) {
 }
 
 function wirePractise(item) {
-  const q = session.currentQ;
+  const q = ui.session.currentQ;
   if (!q) return;
   /* Survives renderSessionFoot, which strips [data-nav] buttons out of the card. */
   const showLesson = $$('rssPriorLesson');
   if (showLesson) showLesson.onclick = () => setStep('learn');
-  if (!session.startedAt) session.startedAt = performance.now();
+  if (!ui.session.startedAt) ui.session.startedAt = performance.now();
 
   const lockOpts = (correctIdx, chosen) => {
     document.querySelectorAll('[data-opt]').forEach((b) => {
@@ -2976,17 +2972,17 @@ function wirePractise(item) {
   } else if (q.type === 'sequence') {
     const redraw = () => {
       const list = $$('rssSeq');
-      list.innerHTML = session.seqOrder.map((oi, pos) => `<div class="seq-item" data-pos="${pos}"><span class="n">${pos + 1}</span><span class="grow">${esc(q.items[oi])}</span><span class="mv"><button data-up="${pos}">↑</button><button data-down="${pos}">↓</button></span></div>`).join('');
+      list.innerHTML = ui.session.seqOrder.map((oi, pos) => `<div class="seq-item" data-pos="${pos}"><span class="n">${pos + 1}</span><span class="grow">${esc(q.items[oi])}</span><span class="mv"><button data-up="${pos}">↑</button><button data-down="${pos}">↓</button></span></div>`).join('');
       bindMoves();
     };
     const bindMoves = () => {
-      document.querySelectorAll('[data-up]').forEach((b) => { b.onclick = () => { const p = +b.dataset.up; if (p > 0) { const a = session.seqOrder; [a[p - 1], a[p]] = [a[p], a[p - 1]]; redraw(); } }; });
-      document.querySelectorAll('[data-down]').forEach((b) => { b.onclick = () => { const p = +b.dataset.down; const a = session.seqOrder; if (p < a.length - 1) { [a[p + 1], a[p]] = [a[p], a[p + 1]]; redraw(); } }; });
+      document.querySelectorAll('[data-up]').forEach((b) => { b.onclick = () => { const p = +b.dataset.up; if (p > 0) { const a = ui.session.seqOrder; [a[p - 1], a[p]] = [a[p], a[p - 1]]; redraw(); } }; });
+      document.querySelectorAll('[data-down]').forEach((b) => { b.onclick = () => { const p = +b.dataset.down; const a = ui.session.seqOrder; if (p < a.length - 1) { [a[p + 1], a[p]] = [a[p], a[p + 1]]; redraw(); } }; });
     };
     bindMoves();
     $$('rssSeqGo').onclick = () => {
-      const correct = session.seqOrder.every((oi, pos) => oi === pos);
-      document.querySelectorAll('#rssSeq .seq-item').forEach((el, pos) => el.classList.add(session.seqOrder[pos] === pos ? 'right' : 'wrong'));
+      const correct = ui.session.seqOrder.every((oi, pos) => oi === pos);
+      document.querySelectorAll('#rssSeq .seq-item').forEach((el, pos) => el.classList.add(ui.session.seqOrder[pos] === pos ? 'right' : 'wrong'));
       document.querySelectorAll('#rssSeq button').forEach((b) => { b.disabled = true; });
       $$('rssSeqGo').disabled = true;
       finishQuestion(item, q, correct, correct ? '' : `Correct order: ${q.items.map((x, i) => `${i + 1}. ${esc(x)}`).join(' → ')}.`);
@@ -3044,17 +3040,17 @@ function wirePractise(item) {
     $$('rssStructDone').onclick = () => finish(true);
     $$('rssStructFail').onclick = () => finish(false);
   } else if (q.type === 'diagram') {
-    const target = q.labels[session.diagramTarget];
+    const target = q.labels[ui.session.diagramTarget];
     document.querySelectorAll('[data-reveal]').forEach((b) => {
       b.onclick = () => {
-        if (session.answered) return;
-        session.diagramReveal = b.dataset.reveal;
+        if (ui.session.answered) return;
+        ui.session.diagramReveal = b.dataset.reveal;
         renderStep();
       };
     });
     document.querySelectorAll('[data-hot]').forEach((c) => {
       c.onclick = () => {
-        if (session.answered) return;
+        if (ui.session.answered) return;
         const ok = c.dataset.hot === target.id;
         c.classList.add(ok ? 'right' : 'wrong');
         if (!ok) { const right = document.querySelector(`[data-hot="${target.id}"]`); if (right) right.classList.add('right'); }
@@ -3105,7 +3101,7 @@ function wireApply(item) {
   const apps = item.application || [];
   if (!apps.length) return;
   const a = apps[0];
-  if (!session.startedAt) session.startedAt = performance.now();
+  if (!ui.session.startedAt) ui.session.startedAt = performance.now();
   const go = $$('rssApplyGo');
   go.onclick = () => {
     const val = ($$('rssApplyInput').value || '').trim();
@@ -3122,14 +3118,14 @@ function wireApply(item) {
      * penalty that repeated failure carries.
      */
     const grade = (correct, conf) => {
-      const ms = Math.max(800, performance.now() - session.startedAt);
+      const ms = Math.max(800, performance.now() - ui.session.startedAt);
       for (const dim of ['application', 'explanation']) {
         setMastery(item.id, dim, schedule(getMastery(item.id, dim), { correct, confidence: conf, ms, expectedMs: 60000 }));
       }
       if (!correct) {
         logMistake({ itemId: item.id, qid: `${item.id}!app0`, type: 'scenario', prompt: a.prompt });
         /* So the Review step's missed-question recap includes the Apply miss. */
-        session.results.push({ itemId: item.id, qid: `${item.id}!app0`, correct, ms });
+        ui.session.results.push({ itemId: item.id, qid: `${item.id}!app0`, correct, ms });
       }
       $$('rssApplyNav').innerHTML = '<button class="primary" data-nav="review">See what was scheduled →</button>';
       wireStageNav(item);
@@ -3145,12 +3141,12 @@ function wireApply(item) {
 }
 
 function reviewHTML(item) {
-  const mine = session.results.filter((r) => r.itemId === item.id);
+  const mine = ui.session.results.filter((r) => r.itemId === item.id);
   const right = mine.filter((r) => r.correct).length;
   const recs = MASTERY_DIMENSIONS.map((d) => ({ d, rec: getMastery(item.id, d.id) })).filter((x) => x.rec && x.rec.attempts);
   const soonest = recs.length ? Math.min(...recs.map((x) => x.rec.due)) : 0;
   const days = soonest ? Math.max(0, Math.round((soonest - Date.now()) / 86400000)) : 0;
-  const last = session.index >= session.items.length - 1;
+  const last = ui.session.index >= ui.session.items.length - 1;
   /*
    * The Review step recaps what actually went wrong in this session — the
    * exact questions missed, with their own explanations — rather than generic
@@ -3172,13 +3168,13 @@ function reviewHTML(item) {
   return `<div class="lesson">
     <div class="eyebrow">Review · scheduled</div>
     <h2>${esc(item.title)}</h2>
-    <div class="body">${mine.length ? `You answered ${right} of ${mine.length} correctly on this item.` : 'No answers recorded for this item in this session.'}
+    <div class="body">${mine.length ? `You answered ${right} of ${mine.length} correctly on this item.` : 'No answers recorded for this item in this ui.session.'}
       ${soonest ? (soonest <= Date.now() ? ' It stays in today’s queue.' : ` Next review in about ${days} day${days === 1 ? '' : 's'}.`) : ''}</div>
     ${fixBlock}
     ${item.selfCheck ? `<div class="subhead" style="margin-top:14px">Before it comes back</div>
       <div class="hookcard"><div class="kind">Blank-page check · <span class="apptag">App note</span></div><div class="txt">${glossify(esc(item.selfCheck))}</div></div>` : ''}
     <div class="rss-actions">
-      ${last ? '<button class="primary" id="rssFinish">Finish session</button>' : '<button class="primary" id="rssNextItem">Next item →</button>'}
+      ${last ? '<button class="primary" id="rssFinish">Finish ui.session</button>' : '<button class="primary" id="rssNextItem">Next item →</button>'}
       <button class="ghost" data-nav="learn">Re-read the lesson</button>
     </div>
   </div>`;
@@ -3213,8 +3209,8 @@ function nextStreak(current, lastDay, today) {
 window.__rssNextStreak = nextStreak;   /* so the behaviour can be checked from a test */
 
 function endSession() {
-  const right = session.results.filter((r) => r.correct).length;
-  const total = session.results.length;
+  const right = ui.session.results.filter((r) => r.correct).length;
+  const total = ui.session.results.length;
   const meta = store.meta || {};
   const today = new Date().toISOString().slice(0, 10);
   meta.sessionsDone = (meta.sessionsDone || 0) + 1;
@@ -3222,7 +3218,7 @@ function endSession() {
   meta.lastSessionDay = today;
   store.meta = meta; write(K.meta, meta);
   toast(total ? `Session done — ${right}/${total} correct. Reviews scheduled.` : 'Session ended.');
-  session = null;
+  ui.session = null;
   /* The resume point is deliberately NOT cleared here. Ending a session still
      leaves a sensible "pick up where you left off" target; clearing it would
      leave Today's Continue card empty almost always, which is the one thing
@@ -3334,7 +3330,7 @@ $$('closeSource').onclick = () => $$('sourceDialog').close();
 $$('closeCoverage').onclick = () => $$('coverageDialog').close();
 $$('closeAbout').onclick = () => $$('aboutDialog').close();
 /* Contextual back: only meaningful on a phone drilled into a topic. */
-$$('navBackBtn').onclick = () => { learnDrill = false; renderLearn(); };
+$$('navBackBtn').onclick = () => { ui.learnDrill = false; renderLearn(); };
 /* The viewer keeps four primary controls on the canvas; everything the old
    studio showed at once now sits behind this one toggle. */
 $$('viewerMoreBtn').onclick = () => {
@@ -3412,21 +3408,21 @@ window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && open) { e.preventDefault(); closeSearchSheet(); return; }
   if (e.key === 'Escape' && closeTopDialog()) e.preventDefault();
 });
-$$('rssSessionClose').onclick = () => { if (session) endSession(); else closeSessionOverlay(); };
+$$('rssSessionClose').onclick = () => { if (ui.session) endSession(); else closeSessionOverlay(); };
 $$('rssSkipBtn').onclick = () => {
-  if (!session) return;
-  if (session.index >= session.items.length - 1) return endSession();
-  session.index += 1; session.qIndex = 0; session.seqOrder = null; session.matchRights = null; session.diagramTarget = null; session.diagramReveal = null; if (window.__osteo && window.__osteo.endMovement) { window.__osteo.endMovement(); const b=$$('mvBar'); if(b) b.classList.add('hidden'); const bk=$$('mvBackToSession'); if(bk) bk.classList.add('hidden'); }
+  if (!ui.session) return;
+  if (ui.session.index >= ui.session.items.length - 1) return endSession();
+  ui.session.index += 1; ui.session.qIndex = 0; ui.session.seqOrder = null; ui.session.matchRights = null; ui.session.diagramTarget = null; ui.session.diagramReveal = null; if (window.__osteo && window.__osteo.endMovement) { window.__osteo.endMovement(); const b=$$('mvBar'); if(b) b.classList.add('hidden'); const bk=$$('mvBackToSession'); if(bk) bk.classList.add('hidden'); }
   setStep('learn');
 };
-$$('rssEndBtn').onclick = () => { if (session) endSession(); else closeSessionOverlay(); };
+$$('rssEndBtn').onclick = () => { if (ui.session) endSession(); else closeSessionOverlay(); };
 $$('closeTransfer').onclick = () => $$('transferDialog').close();
 $$('transferExport').onclick = () => exportProgress();
 $$('transferFile').onchange = (e) => handleTransferFile(e.target.files && e.target.files[0]);
 $$('transferMerge').onclick = () => commitTransfer('merge');
 $$('transferReplace').onclick = () => commitTransfer('replace');
 window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && !document.querySelector('dialog[open]') && session) { /* let the osteology handler own Escape in its own view */ }
+  if (e.key === 'Escape' && !document.querySelector('dialog[open]') && ui.session) { /* let the osteology handler own Escape in its own view */ }
 });
 renderToday();
 

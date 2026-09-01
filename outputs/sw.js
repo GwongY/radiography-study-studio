@@ -23,7 +23,7 @@
  * Bump CACHE_VERSION on any shell change; old caches are pruned on activate.
  */
 
-const CACHE_VERSION = 'v56';
+const CACHE_VERSION = 'v57';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 const MODEL_CACHE = `rss-models-${CACHE_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CACHE_VERSION}`;
@@ -39,6 +39,7 @@ const SHELL = [
   './app.css?v=1',
   './studio.js?v=1',
   './study.js?v=1',
+  './study/state.js',
   './study-data.js',
   /*
    * study-data.js is a barrel; these are what it re-exports. The app never
