@@ -12,9 +12,32 @@
  *   node work/query.mjs item  <term>    study items by id, title or tag
  *   node work/query.mjs layer <key>     one layer's counts and its top units
  *   node work/query.mjs source <term>   which course file names a structure
+ *   node work/query.mjs file  <term>    which source document on the drive
+ *   node work/query.mjs where <term>    which folder on the drive holds them
  */
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { MESH_INDEX, UNITS } from '../outputs/mesh-index.js';
 import { STUDY_ITEMS } from '../outputs/study-data.js';
+
+/*
+ * The drive catalogue: 8,801 distinct documents across 46.9 GB of shared
+ * folders. Read lazily and never printed whole — the point of `file` and
+ * `where` is that a session stops walking Google Drive to find out what it
+ * already knows. See work/build-source-catalogue.mjs.
+ */
+const WORK = dirname(fileURLToPath(import.meta.url));
+let catalogue = null;
+function drive() {
+  if (catalogue) return catalogue;
+  try { catalogue = JSON.parse(readFileSync(join(WORK, 'source-catalogue.json'), 'utf8')); }
+  catch { catalogue = { roots: [], docs: [] }; }
+  return catalogue;
+}
+/* Where a document lives, as "<shared folder>/<path below it>". */
+const at = (c, [ri, p]) => `${ri < 0 ? '?' : c.roots[ri].split('/').pop()}/${p}`;
+const MB = (b) => (b >= 1048576 ? `${(b / 1048576).toFixed(1)} MB` : `${Math.round(b / 1024)} KB`);
 
 const [cmd, ...rest] = process.argv.slice(2);
 const term = rest.join(' ').trim();
@@ -28,6 +51,8 @@ const usage = () => {
   item   <term>   study items by id, title or tag
   layer  <key>    one layer's counts and its largest units
   source <term>   which course file names a structure
+  file   <term>   which source document on the drive, and where its copies are
+  where  <term>   which folders on the drive match, and how much is in them
 
 Layers: ${[...new Set(MESH_INDEX.map((r) => r.layer))].sort().join(', ')}`);
   process.exit(1);
@@ -93,6 +118,42 @@ switch (cmd) {
     const rows = MESH_INDEX.filter((r) => r.source && (hit(r.name) || hit(r.source.file)));
     console.log(`${rows.length} sourced row(s) matching "${term}"\n`);
     show(rows, (r) => console.log(`${r.name.padEnd(44)} ${r.source.file}  [${r.source.subject}, ${r.source.evidence}]`));
+    break;
+  }
+  case 'file': {
+    const c = drive();
+    if (!c.docs.length) { console.log('no catalogue — run: node work/build-source-catalogue.mjs'); break; }
+    /* Match the filename first, then any path it lives at, so "past paper"
+       finds the folder as readily as "Vocabulary.pdf" finds the file. */
+    const rows = c.docs.filter((d) => hit(d.n) || d.at.some(([, p]) => hit(p)));
+    console.log(`${rows.length} document(s) matching "${term}"\n`);
+    show(rows, (d) => {
+      console.log(`${d.n}  [${MB(d.b)}${d.code ? `, ${d.code}` : ''}${d.kind ? `, ${d.kind}` : ''}]`);
+      for (const loc of d.at.slice(0, 3)) console.log(`    ${at(c, loc)}`);
+      /* Copies matter: a session that opens one has opened all of them. */
+      if (d.at.length > 3) console.log(`    … ${d.at.length - 3} more copies of the same file`);
+    });
+    break;
+  }
+  case 'where': {
+    const c = drive();
+    if (!c.docs.length) { console.log('no catalogue — run: node work/build-source-catalogue.mjs'); break; }
+    /* Group by containing folder rather than by file, for "is there anything
+       on X at all, and if so where do I look". */
+    const folders = new Map();
+    for (const d of c.docs) {
+      for (const loc of d.at) {
+        const full = at(c, loc);
+        const dir = full.slice(0, full.lastIndexOf('/'));
+        if (!hit(dir)) continue;
+        const e = folders.get(dir) || { n: 0, b: 0 };
+        e.n++; e.b += d.b;
+        folders.set(dir, e);
+      }
+    }
+    const rows = [...folders].sort((a, b) => b[1].n - a[1].n);
+    console.log(`${rows.length} folder(s) matching "${term}"\n`);
+    show(rows, ([dir, e]) => console.log(`  ${String(e.n).padStart(4)} docs  ${MB(e.b).padStart(8)}  ${dir}`));
     break;
   }
   default:

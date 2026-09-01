@@ -345,3 +345,28 @@ shapes** — in "The region grid and classifiers" below.
   `/*` sequences inside string literals shift the non-greedy comment pairing, so
   one bad pair silently ate real code and the names in it were never imported.
   Scan raw text: over-importing a name that exists is inert, missing one is not.
+
+### The source drive — `work/build-source-catalogue.mjs`, `work/source-check.mjs`
+
+- **Google Drive materialises a shortcut target only once something opens it.**
+  Enumerating `G:\.shortcut-targets-by-id` on a cold drive listed 3 folders; the
+  real number is 28. Reading the `.lnk` files first is what makes the rest
+  appear, so the generator resolves shortcuts *before* it enumerates, and
+  re-enumerates after every round. Without the re-enumeration the build
+  converges only across repeated runs — the first one quietly reports a smaller
+  corpus than the second, and both look successful.
+- **Shortcuts are nested.** One shared folder is nothing but shortcuts to twelve
+  others. Walking only the shortcuts in this repo missed 3,642 documents (21 GB),
+  including `21 Torti Source` and `extra source` — two roots `SOURCE_ROOTS`
+  already cites. Follow every `.lnk` met during the walk, to a fixpoint, and keep
+  a visited-directory set: the roots overlap and one is inside another.
+- **One of those shortcuts points at `G:\` itself.** Following it swept in 476
+  files from outside the course folders, personal My Drive content included. A
+  source lives at `G:/.shortcut-targets-by-id/<id>/<folder>/…` and nowhere else;
+  the generator drops anything else and prints what it dropped.
+- **A `SOURCE_FILES` entry is not always one filename.** It can name a folder
+  cited as a set (`Exam Past paper by year 2003-2013/ (11 papers)`), photographs
+  that no document index can see, or an external URL fetched from edb.gov.hk.
+  The first version of `source-check.mjs` reported six failures and every one was
+  the check being wrong. Ask the right question per shape, and report
+  "not checkable here" separately from "missing" — they mean opposite things.
