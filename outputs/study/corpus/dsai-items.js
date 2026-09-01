@@ -69,8 +69,8 @@ export const DSAI_ITEMS = [
       'Confusing the Hospital Command Centre with clinical AI. It is patient-flow monitoring and visualisation, not diagnosis.',
     ],
     skills: [
-      'For any AI application named here, state the constraint it relieves before naming the technology — shortage of specialists, cost, doctor time, waiting times.',
-      'Separate the three layers when asked where AI sits in a hospital: the image, the ward, the whole institution.',
+      'Assist is the deck\'s load-bearing word: the fracture-flagging tool and the GenAI report drafter are both introduced with a human kept in the loop — the report "still needs to be reviewed and finalized by doctors". The examinable distinction is which workflows replace absent expertise (retinal reading where no specialist exists) and which merely replace typing (drafts a doctor signs).',
+      'The Hospital Command Centre is patient-flow monitoring, not clinical AI: it tracks arrival → admission → transfer → discharge and visualises bed occupancy — no diagnosis anywhere in it. Filing it with the imaging tools is the deck\'s own planted confusion.',
     ],
     selfCheck: 'From blank: the four smart-hospital technologies, three named imaging or ward-level AI uses, and what the deck says happens to a GenAI-drafted report before it reaches the patient.',
     sourceRefs: [
@@ -131,8 +131,8 @@ export const DSAI_ITEMS = [
       'Treating "deepfake" loosely as any AI image. The definition given is narrower: a fake EVENT, in photo, video or audio.',
     ],
     skills: [
-      'Recite the definition by its three verbs and its qualifier before elaborating.',
-      'When asked what the subject covers, answer with the exclusions too — they are stated on the deck and they are what makes the scope clear.',
+      'The deepfake definition is narrower than the way the word gets used: a fake EVENT, in photo, video or audio — not any AI-generated image. The deck\'s fraud cases impersonate public figures, which is why "event" is the word that matters.',
+      'The deck\'s exclusions are content, not fine print: refusing programming and AI mathematics is what makes an AI-literacy course a course in judgement about the technology rather than command of it — and its assessment policy (use GenAI, document the use) follows from that same framing rather than fighting it.',
     ],
     selfCheck: 'Write the definition of AI literacy, list the two things the subject excludes, and state the GenAI assessment policy in one sentence.',
     sourceRefs: [

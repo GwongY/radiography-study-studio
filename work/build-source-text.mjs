@@ -137,7 +137,7 @@ function buildCited() {
     if (!hit) { failed[id] = 'not a single catalogued document (folder, image or external citation)'; continue; }
     const d = hit.doc;
     if (PUBLISHER.some((re) => re.test(d.n))) {
-      failed[id] = 'commercial work — text held in the local cache, deliberately not committed to a public repo';
+      failed[id] = 'commercial work — extracted to the local cache only, deliberately not committed to a public repo';
       continue;
     }
     if (hit.ambiguous) ambiguous++;
@@ -171,9 +171,22 @@ function buildCache() {
   /* Write only this shard's index; skip anything ANY shard has already done. */
   const index = existsSync(CACHE_INDEX) ? JSON.parse(readFileSync(CACHE_INDEX, 'utf8')) : {};
   const held = readCacheIndex();
+  /* Every filename SOURCE_FILES registers — these override the size cap below. */
+  const registered = new Set(Object.values(SOURCE_FILES).map((e) => String(e.file).toLowerCase()));
 
   const todo = cat.docs
-    .filter((d) => d.b < BOOK_BYTES && /\.(pdf|docx|pptx|txt|md)$/i.test(d.n))
+    /*
+     * Size-capped, EXCEPT for anything SOURCE_FILES registers.
+     *
+     * The cap exists so a run does not spend an hour on reference books
+     * nobody cites. But phys.ebook is 208 MB and IS registered, so the cap
+     * excluded it from the cache while buildCited excluded it from the commit
+     * as a commercial work -- and the message there claimed its text was held
+     * in the local cache. It was held nowhere. A registered source with no
+     * text anywhere is a citation that can never be quote-checked, which is
+     * the one thing this file exists to prevent. Registration wins.
+     */
+    .filter((d) => (d.b < BOOK_BYTES || registered.has(d.n.toLowerCase())) && /\.(pdf|docx|pptx|txt|md)$/i.test(d.n))
     /* Shard on the content key, not the position: stable whatever order the
        catalogue is in, so a resumed shard picks up its own work. */
     .filter((d) => SHARDS === 1 || parseInt(key(d).slice(0, 8), 16) % SHARDS === SHARD)
@@ -193,7 +206,9 @@ function buildCache() {
     const k = key(d);
     process.stdout.write(`\r  ${done + failed + 1}/${todo.length}  ${d.n.slice(0, 44).padEnd(44)}`);
     /* Books excepted, a teaching document that takes over a minute is stuck. */
-    const r = extractText(fullPath(d), { timeout: 60000 });
+    /* A 200 MB textbook needs longer than a 2 MB handout; 60 s timed the
+       eBook out on every attempt. */
+    const r = extractText(fullPath(d), { timeout: d.b > BOOK_BYTES ? 1800000 : 60000 });
     if (!r.ok) { index[k] = { n: d.n, b: d.b, ok: false, why: r.why }; failed++; }
     else {
       const text = r.pages.join('\f');
