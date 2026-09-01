@@ -3,7 +3,7 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, SOURCE_FILES, STORAGE_PREFIX, STUDY_ITEMS, STUDY_MODES, SUBJECTS, allQuestions, conceptAncestors, conceptChildren, esc, getItem, getSubject, itemsForSubject, ui, validateApplications, validateCorpus } from './imports.js';
+import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, SOURCE_FILES, STORAGE_PREFIX, STUDY_ITEMS, STUDY_MODES, SUBJECTS, allQuestions, conceptAncestors, conceptChildren, esc, getItem, getSubject, itemsForSubject, schedule, ui, validateApplications, validateCorpus } from './imports.js';
 import { STEPS, pickItems, setStep, startSession } from './session-engine.js';
 import { goTo, openSessionOverlay, setActiveNav } from './navigation-five-destinations.js';
 import { itemAttempted, itemDue, itemScore, read, store, write } from './storage-versioned-keys.js';

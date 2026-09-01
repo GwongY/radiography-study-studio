@@ -4,8 +4,9 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, DIAGRAMS, describeSource, esc, figureFor, schematic, visualFor } from './imports.js';
-import { glossify } from './reading-help.js';
+import { glossify, plateHTML } from './reading-help.js';
 import { layoutHTML } from './layout-figures.js';
+import { read } from './storage-versioned-keys.js';
 
 /* ------------------------------------------------------------------ *
  * Lesson visuals

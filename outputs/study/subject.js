@@ -4,7 +4,7 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, FLOW_CLASSES, ITEM_TYPES, LAYER_CLASSES, MESH_INDEX, RATES, SOURCE_FILES, SOURCE_ROOTS, STRUCTURE_MODELS, SUBJECTS, UNITS, describeSource, esc, itemsForUnit, priorOf, tierFor, ui } from './imports.js';
-import { adjScore, itemAttempted, itemScore } from './storage-versioned-keys.js';
+import { adjScore, itemAttempted, itemScore, read } from './storage-versioned-keys.js';
 import { goTo, setActiveNav } from './navigation-five-destinations.js';
 import { leaveProjection } from './what-is-under.js';
 import { showView, toast } from './small-ui-helpers.js';

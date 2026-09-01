@@ -3,13 +3,14 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, ITEM_TYPES, MESH_INDEX, SEARCH_EXTRAS, STRUCTURE_MODELS, STUDY_ITEMS, compositeFor, entryStep, esc, expandQuery, getSubject, missingFor, searchAnatomy, ui } from './imports.js';
+import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, ITEM_TYPES, MESH_INDEX, SEARCH_EXTRAS, STRUCTURE_MODELS, STUDY_ITEMS, UNITS, compositeFor, entryStep, esc, expandQuery, getSubject, missingFor, searchAnatomy, ui } from './imports.js';
 import { adjScore, itemAttempted } from './storage-versioned-keys.js';
 import { goTo, openSessionOverlay } from './navigation-five-destinations.js';
 import { openStructureInViewer } from './search-viewer-open.js';
 import { releaseLessonVisual } from './lesson-visuals.js';
 import { renderLearn, topicsWithContent } from './subject.js';
 import { setStep } from './session-engine.js';
+import { showView } from './small-ui-helpers.js';
 
 /* ------------------------------------------------------------------ *
  * Global search -- one sheet over every destination, mixing structures,
@@ -142,6 +143,12 @@ function sourceNote(m) {
  */
 const UNIT_ROWS = new Map();
 const UNIT_HEAD = new Map();
+MESH_INDEX.forEach((m) => {
+  const list = UNIT_ROWS.get(m.unitId) || [];
+  list.push(m);
+  UNIT_ROWS.set(m.unitId, list);
+  if (m.isUnit) UNIT_HEAD.set(m.unitId, m);
+});
 
 function searchHits(q) {
   const needle = q.trim().toLowerCase();
@@ -341,14 +348,4 @@ export function runSearch(q) {
   box.innerHTML = hits.slice(0, 30).map((h, n) =>
     `<button class="sres" data-hit="${n}"><span class="grow"><b>${esc(h.title)}</b><small>${esc(h.note)}</small></span><span class="kind">${esc(h.kind)}</span></button>`).join('');
   box.querySelectorAll('[data-hit]').forEach((b) => { b.onclick = () => hits[+b.dataset.hit].go(); });
-}
-
-/* Runs after every part has evaluated — see the entry point. */
-export function init() {
-  MESH_INDEX.forEach((m) => {
-    const list = UNIT_ROWS.get(m.unitId) || [];
-    list.push(m);
-    UNIT_ROWS.set(m.unitId, list);
-    if (m.isUnit) UNIT_HEAD.set(m.unitId, m);
-  });
 }
