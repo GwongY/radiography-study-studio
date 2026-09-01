@@ -5,3 +5,10 @@ _skel-names.txt
 # ~29 MB of extracted text, rebuildable, and only useful on a machine that has
 # the drive mounted. The CITED sources are committed, in work/source-text.json.
 work/.source-text/
+
+# Course source material. Copyrighted lecture decks and textbooks that are not
+# ours to publish, and this repository is public — 47 MB of them sit in
+# "New source/" alone. They are catalogued and their text is indexed
+# (work/source-catalogue.json, work/.source-text/), which is what the app needs;
+# the files themselves stay out.
+New source/
