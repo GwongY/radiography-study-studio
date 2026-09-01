@@ -29,6 +29,9 @@ export const SOURCE_ROOTS = {
   oste20: '20 Oste sourcesssss',
   greengrp: 'Green Group Source',
   edb: 'EDB — external, fetched from edb.gov.hk',
+  /* Not a shared drive folder: material dropped straight into the repo as the
+     semester runs. Catalogued alongside the drive by build-source-catalogue. */
+  newsrc: 'New source',
 };
 
 /*
@@ -89,6 +92,7 @@ export const SOURCE_FILES = {
   'phys.6.pdf': { file: 'Lec6_Reproduction.pdf', subject: 'ABCT2326', root: 'gold', folder: 'Sem 1 (Year 1)/Human Physiology/Lecture', kind: 'primary', note: 'Readable copy of the reproductive-system lecture, from the 2020/21 set.' },
   'phys.2.supp': { file: '2. Cardiovascular System_Supplementary Information.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/2. Cardiovascular System', kind: 'primary' },
   'phys.7': { file: 'Lecture notes.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/7. Endocrine System', kind: 'primary' },
+  'phys.hormech': { file: 'ABCT2326 Hormone Mechanism _ABCT2326_.pdf', subject: 'ABCT2326', root: 'gold', folder: 'Human Physiology/Lecture', kind: 'primary', note: 'Nine pages of prose on how a hormone actually acts: receptors and up/downregulation, the three hydrophilic second-messenger systems (adenylate cyclase-cAMP, phospholipase C-Ca2+, tyrosine kinase), and the hydrophobic/genomic route. The Week 7 slide deck names the mechanisms; this is the file that explains them.' },
   'phys.8': { file: 'Lecture notes.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/8. Nervous System', kind: 'primary' },
   'phys.9': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/9. Musculoskeletal System', kind: 'primary' },
   'phys.10': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/10. Immune System', kind: 'primary' },
@@ -100,6 +104,7 @@ export const SOURCE_FILES = {
   /* ---------------- HTI17101 Exploring Radiography (stand-in for HTI17103) ---------------- */
   'hti.w1a': { file: 'Week 1 About the Subject.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography/Lecture notes', kind: 'primary' },
   'hti.w1b': { file: 'Week 1 Radiographer To Be.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography/Lecture notes', kind: 'primary' },
+  'hti.w1.2026': { file: 'ER_Lec1%282026%29.pdf', subject: 'HTI17103', root: 'newsrc', folder: '', kind: 'primary', note: 'The 2026 edition of the opening lecture, by Liang-Ting Lin. Most of it restates hti.w1b — same etymology, same six professional roles, same tungsten/rhenium target. What is new is the back half: the radiotherapy technique list, structural versus functional imaging, and the criteria by which a modality is chosen.' },
   'hti.w2': { file: 'Week 2 Medical Imaging Modalities and Equipment.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography/Lecture notes', kind: 'primary' },
   'hti.w3': { file: 'Week 3 Introduction to Radiation Therapy.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography/Lecture notes', kind: 'primary' },
   'hti.w5': { file: 'Week 5 Radiographer Role Extension.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography/Lecture notes', kind: 'primary' },

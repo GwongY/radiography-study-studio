@@ -916,4 +916,141 @@ export const PHYS_ITEMS = [
     selfCheck: 'Cover the card, write the seven categories, then answer the two traps: what interferons actually do to viruses, and which arm NK cells belong to.',
     sourceRefs: [{ ref: 'phys.10', location: 'Slides 5–21 defense mechanisms, seven innate categories, phagocytes, macrophage types, immunological surveillance' }],
   },
+  {
+    id: 'abct2326-endocrine-receptors',
+    subject: 'ABCT2326', unit: 'phys.endo', type: 'definition',
+    title: 'The hormone receptor, and why cells change how many they have',
+    tags: ['endocrine', 'high-yield'],
+    priorKnowledge: {
+      level: 'dse-bio', covers: 'part', dsePart: 'core',
+      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(d) "Coordination and response" — the syllabus asks for the nature of hormonal coordination and a general plan of the endocrine system. That a hormone acts on specific target cells is DSE; receptor occupancy, the response ceiling and up/downregulation are past it.' },
+      beyond: [
+        { t: 'The receptor as a signal transducer — an extracellular hormonal signal converted into an intracellular one.',
+          src: { ref: 'phys.hormech', location: 'p2 "MECHANISM OF HORMONE ACTION — Receptors"' } },
+        { t: 'Response magnitude set by the NUMBER of receptors occupied, with a ceiling once all are occupied.',
+          src: { ref: 'phys.hormech', location: 'p2 "The magnitude of biological response depends on a number of receptors occupied"' } },
+        { t: 'Up- and downregulation as the cell’s own adjustment to hormone concentration in the blood.',
+          src: { ref: 'phys.hormech', location: 'p2 "downregulation" / "upregulation"' } },
+      ],
+    },
+    lesson: {
+      explanation: 'A receptor is a three-dimensional protein molecule, either inside the cell or in the plasma membrane, that specifically recognises and binds one particular hormone. Binding starts a sequence of events that produces a biological response. The binding itself involves only weak chemical forces and is reversible, and when the hormone is bound the receptor’s three-dimensional conformation is altered. The effect appears only while hormone is bound, which is why the receptor is described as a signal transducer: it converts an extracellular hormonal signal into an intracellular one. How big the response is depends on how many receptors are occupied — so once every receptor is occupied, no greater response can be achieved however much more hormone arrives. Surface receptors are in constant turnover: the cell makes new ones and inserts them into the membrane, while receptors that have reacted are broken down or recycled. That turnover lets the cell answer back. If the hormone concentration in the blood rises, the cell may reduce the number of receptors in its membrane to hold the level of hormonal interaction steady — downregulation. If the concentration falls, upregulation increases the number of receptors.',
+      keyFacts: [
+        'Receptor = a 3-D protein, in the membrane or inside the cell, that binds one particular hormone.',
+        'Binding uses weak chemical forces and is reversible; the receptor’s conformation changes when bound.',
+        'The receptor is a signal transducer: extracellular hormonal signal → intracellular signal.',
+        'Response magnitude depends on the NUMBER of receptors occupied.',
+        'All receptors occupied = ceiling. No greater response is possible.',
+        'Receptors are in constant turnover — made, inserted, broken down or recycled.',
+        'Downregulation: blood hormone rises → fewer receptors, holding interaction steady.',
+        'Upregulation: blood hormone falls → more receptors.',
+      ],
+      prerequisites: ['abct2326-endocrine-delivery'],
+      examples: [],
+    },
+    memory: {
+      wordOrigin: 'Down and up describe the receptor count, not the hormone. Downregulation happens when hormone is HIGH — the direction in the name is the cell’s response, which is the opposite of the stimulus.',
+      chunking: 'Three facts about binding (weak, reversible, changes shape), then one about magnitude (how many occupied), then one about turnover (which is what makes regulation possible).',
+      comparison: 'Compare with the delivery item: what makes a cell a target is HAVING the receptor; what sets how strongly it responds is HOW MANY are occupied.',
+    },
+    practice: [
+      { type: 'mcq', prompt: 'A patient’s blood level of a hormone has been high for weeks. What does the source say happens to the number of receptors on its target cells?', options: ['It increases — upregulation', 'It decreases — downregulation', 'It is unchanged; receptor number is fixed', 'The receptors change shape permanently'], answer: 1,
+        explanation: 'If the concentration of a hormone in the blood increases, the number of receptors in the cell wall may go down, to maintain the same level of hormonal interaction in the cell. That is downregulation.' },
+      { type: 'explain', prompt: 'Doubling the dose of a hormone stops producing any extra effect. Explain why, in terms of receptors.',
+        model: 'The magnitude of the biological response depends on the number of receptors occupied by the hormone. Once all the receptors are occupied, no greater response can be achieved, so additional hormone has nothing left to bind.',
+        rubric: ['States response depends on number of receptors occupied', 'States a ceiling once all are occupied'] },
+      { type: 'typed', prompt: 'What one word describes the receptor’s job of turning an extracellular hormonal signal into an intracellular one?', accept: ['signal transducer', 'transducer', 'signal transduction'],
+        explanation: 'The source calls receptors signal transducers: only when the hormone is bound is the biological effect seen.' },
+    ],
+    application: [
+      { type: 'scenario', prompt: 'Receptor turnover is described as constant — new receptors made and inserted, used ones broken down or recycled. Why does that matter for regulation rather than being mere housekeeping?',
+        model: 'Because regulation requires the count to be changeable. If receptors were permanent the cell could not raise or lower how many sit in the membrane, so up- and downregulation would be impossible. Constant turnover is the mechanism that lets the cell answer a changed blood concentration by adjusting its own sensitivity.',
+        rubric: ['Links turnover to the ability to change receptor number', 'Names up- and/or downregulation as what turnover enables'] },
+    ],
+    commonMistakes: [
+      'Reading "downregulation" as the hormone level going down. It is the RECEPTOR count going down, in response to hormone going up.',
+      'Assuming a bigger dose always gives a bigger effect — it cannot once every receptor is occupied.',
+      'Thinking the receptor is consumed by binding. Binding is reversible and uses weak forces.',
+    ],
+    skills: [
+      'State the stimulus and the direction separately: hormone high → receptors down; hormone low → receptors up.',
+      'Given a described response, say whether it is limited by hormone concentration or by receptor number.',
+    ],
+    selfCheck: 'Without the card: define a receptor in one line, say what sets response magnitude, and give the two regulation directions with their triggers.',
+    sourceRefs: [{ ref: 'phys.hormech', location: 'p2 "MECHANISM OF HORMONE ACTION — Receptors", downregulation and upregulation' }],
+  },
+  {
+    id: 'abct2326-endocrine-second-messengers',
+    subject: 'ABCT2326', unit: 'phys.endo', type: 'comparison',
+    title: 'Water-soluble against lipid-soluble: two routes into the cell',
+    tags: ['endocrine', 'high-yield'],
+    /*
+     * No priorKnowledge block on purpose. The schema allows covers: most|part,
+     * and neither is true here — DSE Biology carries nothing on second
+     * messengers or genomic hormone action, so claiming it covers "part" would
+     * be a false statement about the syllabus in a corpus whose first rule is
+     * not making those. An absent block says "new material" honestly.
+     */
+    lesson: {
+      explanation: 'Which route a hormone takes is decided by whether it dissolves in the lipid of the plasma membrane. Hydrophilic hormones — the amine and peptide hormones — cannot penetrate that lipid layer, so they bind receptors on the outside and generate an intracellular signal, the second messenger, which changes the activity of proteins already present in the cell. The source names three such systems. In the adenylate cyclase–cAMP system a hormone binds a beta receptor; that activates a G protein whose alpha subunit detaches and stimulates adenylate cyclase on the inner membrane surface; the enzyme converts ATP to cyclic AMP; cAMP activates protein kinase A, which phosphorylates other enzymes and changes their activity — in the worked example it activates the transcription factor CREB, which turns on gene transcription. In the phospholipase C–calcium system, adrenaline binding an alpha adrenergic receptor activates a G protein and then phospholipase C, which splits a membrane phospholipid into DAG and IP3; IP3 diffuses to the endoplasmic reticulum, opens calcium channels, and the released calcium binds calmodulin, which activates protein kinase C. In the tyrosine kinase system the receptor is itself the enzyme: insulin binds the alpha subunits, two receptor units dimerise, the beta subunits autophosphorylate, and the activated receptor phosphorylates other molecules — moving GLUT4 vesicles to the membrane so glucose enters the cell. Hydrophobic hormones take the other route entirely. Sex steroids, aldosterone, cortisol and thyroxine dissociate from carrier proteins and move freely across the membrane to intracellular receptors. Each such receptor has two domains, one binding the hormone and one binding DNA; bound, it attaches to a hormone response element and stimulates gene transcription, so the cell makes new protein.',
+      keyFacts: [
+        'The dividing line is solubility in the membrane lipid, not hormone size.',
+        'Hydrophilic (amine, peptide): surface receptor → second messenger → changes proteins ALREADY in the cell.',
+        'Hydrophobic (steroids, thyroxine): crosses the membrane → intracellular receptor → changes which genes are transcribed → NEW protein.',
+        'System 1 — adenylate cyclase converts ATP to cAMP; cAMP activates protein kinase A.',
+        'System 2 — phospholipase C splits a phospholipid into DAG and IP3; IP3 releases Ca2+, Ca2+ binds calmodulin, calmodulin activates protein kinase C.',
+        'System 3 — tyrosine kinase: the receptor IS the enzyme; insulin causes dimerisation and autophosphorylation, then GLUT4 moves to the membrane.',
+        'Adrenaline uses two systems: phospholipase C at the alpha receptor, adenylate cyclase–cAMP at the beta receptor.',
+        'Intracellular receptors carry two domains: a hormone-binding domain and a DNA-binding domain.',
+        'The DNA site the bound receptor attaches to is the hormone response element.',
+      ],
+      prerequisites: ['abct2326-endocrine-receptors'],
+      examples: [
+        'Adrenaline in a fight-or-flight moment: through phospholipase C the chain ends at protein kinase C driving glycogen → glucose 6-phosphate → glucose → blood.',
+        'Insulin through tyrosine kinase: GLUT4 carriers inserted into the membrane let glucose into the cell, lowering blood glucose.',
+      ],
+    },
+    memory: {
+      wordOrigin: 'Hydro-philic = water-loving, so it stays in the water outside. Hydro-phobic = water-fearing, so it is at home in lipid and walks through the membrane. The name tells you which side of the membrane the receptor is on.',
+      chunking: 'Two routes, then three systems inside the first. Give each system its enzyme: adenylate cyclase, phospholipase C, tyrosine kinase — the enzyme names the system.',
+      comparison: 'The sharpest contrast is what changes. Second messengers modify proteins the cell already has, so the effect is fast. Genomic action makes new protein, so it is slow. Same endocrine system, opposite timescales.',
+      story: 'Adrenaline is the hormone that refuses to pick a side: alpha receptor takes the phospholipase C road, beta receptor takes the cAMP road, and both end in more glucose.',
+    },
+    practice: [
+      { type: 'matching', prompt: 'Match each second-messenger system to the enzyme or molecule the source uses to define it.',
+        pairs: [['Adenylate cyclase system', 'Converts ATP to cAMP, which activates protein kinase A'], ['Phospholipase C system', 'Splits a membrane phospholipid into DAG and IP3'], ['Tyrosine kinase system', 'The receptor is itself the enzyme; subunits autophosphorylate'], ['Hydrophobic route', 'No second messenger — the receptor binds DNA directly']],
+        explanation: 'These are the three hydrophilic systems the source lists, plus the hydrophobic alternative.' },
+      { type: 'mcq', prompt: 'Why do hydrophilic hormones need a second messenger at all?', options: ['They are too large to fit through membrane pores', 'They are insoluble in the lipid layer of the plasma membrane, so cannot cross it', 'They are destroyed by cytoplasmic enzymes', 'Their receptors are only made inside the nucleus'], answer: 1,
+        explanation: 'The source is explicit: the reason is their insolubility in the lipid layer of the plasma membrane. Unable to penetrate it, they must signal through an intracellular messenger.' },
+      { type: 'typed', prompt: 'In the calcium system, which protein does Ca2+ bind to before protein kinase C is activated?', accept: ['calmodulin'],
+        explanation: 'Ca2+ binds calmodulin, making it active; calmodulin then activates protein kinase C.' },
+      { type: 'mcq', prompt: 'Thyroxine is an amino-acid hormone, yet the source classes it with the steroids. Why?', options: ['Because it is made by a gland rather than a neuron', 'Because its iodide makes it slightly insoluble, so it behaves as hydrophobic', 'Because it circulates bound to a carrier protein', 'Because it acts on the nervous system'], answer: 1,
+        explanation: 'The note is specific: thyroxine has an iodide compound making it slightly insoluble, so it is classed as a hydrophobic hormone and uses intracellular receptors.' },
+    ],
+    application: [
+      { type: 'scenario', prompt: 'One hormone produces its effect within seconds; another takes half an hour or more. Using the two routes, explain the difference — and say what each is actually doing to the cell.',
+        model: 'The fast one is hydrophilic and works through a second messenger. It changes the activity of proteins that already exist in the cell — phosphorylating enzymes that are sitting there — so no synthesis is needed and the effect is immediate. The slow one is hydrophobic: it crosses the membrane, binds an intracellular receptor, and the complex binds a hormone response element on DNA to alter transcription. The cell then has to make new protein, and that is what takes the time.',
+        rubric: ['Assigns fast to hydrophilic/second messenger and slow to hydrophobic/genomic', 'States second messengers modify existing proteins', 'States the genomic route produces new protein via transcription'] },
+      { type: 'scenario', prompt: 'Adrenaline binds both alpha and beta adrenergic receptors. What does that tell you about the relationship between a hormone and a second-messenger system?',
+        model: 'That the system is a property of the receptor, not of the hormone. The same adrenaline molecule triggers the phospholipase C–Ca2+ route at an alpha receptor and the adenylate cyclase–cAMP route at a beta receptor, so which cascade runs is decided by which receptor the target cell carries.',
+        rubric: ['States the pathway follows the receptor rather than the hormone', 'Names both routes and their receptors'] },
+    ],
+    commonMistakes: [
+      'Calling cAMP the hormone. The hormone never enters the cell in this route — cAMP is the intracellular messenger it causes.',
+      'Assuming one hormone means one pathway; adrenaline runs two, chosen by the receptor.',
+      'Filing thyroxine with the peptide hormones because it is amino-acid derived. Its iodide makes it behave as hydrophobic.',
+      'Saying second messengers switch on genes as their defining action — that is the hydrophobic route. cAMP does reach CREB in the source’s example, but the general point is that second messengers alter proteins already present.',
+    ],
+    skills: [
+      'Name the route from the hormone class before tracing any cascade: amine or peptide → surface and second messenger; steroid or thyroxine → through the membrane to DNA.',
+      'Recite each hydrophilic system by its enzyme, then its messenger, then its kinase — cyclase/cAMP/PKA, phospholipase C/IP3 and Ca2+/PKC, tyrosine kinase/autophosphorylation/GLUT4.',
+    ],
+    selfCheck: 'From blank: draw the two routes side by side, mark where the receptor sits in each, and write what each one changes — existing protein or new protein. Then add the three enzymes.',
+    sourceRefs: [
+      { ref: 'phys.hormech', location: 'p3 "HYDROPHILIC HORMONE MECHANISM (water soluble hormones)" and the adenylate cyclase–cAMP system' },
+      { ref: 'phys.hormech', location: 'p5 "PHOSPHOLIPASE C" second messenger system; p6 note on adrenaline using two systems' },
+      { ref: 'phys.hormech', location: 'p7 "TYROSINE KINASE SECOND MESSENGER SYSTEM"' },
+      { ref: 'phys.hormech', location: 'p8 "HYDROPHOBIC HORMONE MECHANISM"; p9 hormone response element' },
+    ],
+  },
 ];

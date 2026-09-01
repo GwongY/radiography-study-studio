@@ -152,12 +152,12 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `hss-modules.js` | 369 | HSS2011 Human Anatomy — the per-module study items. |
 | `hss-osteology.js` | 654 | HSS2011 Human Anatomy — osteology: bone classification, the axial and |
 | `hss-terminology.js` | 247 | HSS2011 Human Anatomy — anatomical terminology: position, planes, movement |
-| `hti-items.js` | 359 | HTI17103, drawn from the HTI17101 Exploring Radiography set — the study |
+| `hti-items.js` | 424 | HTI17103, drawn from the HTI17101 Exploring Radiography set — the study |
 | `mastery.js` | 121 | Spaced repetition — the schedule, the mastery score and its dimensions, and |
 | `modules.js` | 70 | Course modules — app-authored framing, not a source claim. Which unit |
 | `notices.js` | 41 | APSS1A08 — limited coverage. The notices that say so, in the app, rather |
-| `physiology-items.js` | 919 | ABCT2326 Human Physiology — the study items. |
-| `schema.js` | 397 | Scaffolding: the source registry, the subjects and their units, the item |
+| `physiology-items.js` | 1056 | ABCT2326 Human Physiology — the study items. |
+| `schema.js` | 402 | Scaffolding: the source registry, the subjects and their units, the item |
 | `structures.js` | 348 | Granular 3D targets: the structure sets a tap-to-identify item draws from, |
 | `validate.js` | 125 | Validation — every question must have a resolvable answer and every claim a |
 

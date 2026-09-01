@@ -224,15 +224,32 @@ if (existsSync(TEXT)) {
        * without one is matched whole, exactly as before.
        */
       const parts = quote.split(/\s+[—–]\s+/).map(flat).filter(Boolean);
-      const pageHit = src.pages.findIndex((p) => {
-        const f = flat(p);
+      const on = (i) => {
+        const f = flat(src.pages[i] || '');
         return parts.every((x) => f.includes(x));
-      });
-      if (pageHit < 0) { drifted.push({ item: item.id, r, file: src.file }); continue; }
+      };
 
-      /* If the location names a page, check the quote is on THAT page. */
+      /*
+       * If the location names a page, ask about THAT page — do not go hunting
+       * for the first page that happens to contain the words.
+       *
+       * A lecture states its headings more than once: "How many modalities are
+       * applied in hospitals?" is a question on the opening slide and the
+       * heading of slide 15, and the three second-messenger systems are listed
+       * on p3 before each gets its own section later. Reporting the first hit
+       * called four correct citations wrong, because it answered "where does
+       * this phrase first appear" when the citation claims something narrower
+       * and checkable: that the phrase is on the page named.
+       */
       const claimed = Number((String(r.location).match(/\bp\.?\s?(\d+)/i) || [])[1]);
-      checked.push({ item: item.id, r, file: src.file, at: pageHit + 1, claimed, ok: !claimed || claimed === pageHit + 1 });
+      if (claimed && claimed >= 1 && claimed <= src.pages.length && on(claimed - 1)) {
+        checked.push({ item: item.id, r, file: src.file, at: claimed, claimed, ok: true });
+        continue;
+      }
+
+      const pageHit = src.pages.findIndex((_, i) => on(i));
+      if (pageHit < 0) { drifted.push({ item: item.id, r, file: src.file }); continue; }
+      checked.push({ item: item.id, r, file: src.file, at: pageHit + 1, claimed, ok: !claimed });
     }
   }
 

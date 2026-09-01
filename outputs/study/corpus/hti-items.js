@@ -320,6 +320,71 @@ export const HTI_ITEMS = [
     selfCheck: 'From memory: the HA cluster count, the two radiographer roles, and the worked example examination with its two projections — PA and Lat, the only projection abbreviations the supplied lectures use.',
     sourceRefs: [{ ref: 'hti.w5', location: 'Slides 3–7 Hospital Authority structure, manpower, team work, floor plan, reading the order form' }],
   },
+  {
+    id: 'hti17103-modality-choice',
+    subject: 'HTI17103', unit: 'hti.modalities', type: 'comparison',
+    title: 'Structural against functional, and how a modality gets chosen',
+    tags: ['modalities', 'high-yield'],
+    lesson: {
+      explanation: 'The 2026 lecture sorts the imaging modalities two ways at once. First by department: diagnostic radiology runs general (routine) X-ray, vascular interventional imaging, computed tomography, magnetic resonance imaging, ultrasound imaging and nuclear medicine imaging, while radiotherapy runs the linear accelerator (LINAC), 3D conformational radiotherapy (3D-CRT), intensity-modulated radiotherapy (IMRT), image-guided radiotherapy (IGRT), brachytherapy, and heavy ion or proton therapy. Second, and more usefully, by what the image actually shows. Structural imaging indicates anatomical changes, and covers general X-ray, vascular interventional imaging, CT, MRI and ultrasound. Functional imaging indicates physiological changes, and covers nuclear medicine imaging and MRI. MRI appears in both lists, which is the point worth holding on to: the same machine can be asked either question. Choosing between them is not a matter of picking the best machine. The lecture gives three grounds. The structure of interest — bones, soft tissues, or biochemical activities. The disease — tumour heterogeneity, an air/fluid level, fat pad signs. And the patient’s condition. Alongside this the lecture states how a radiographer actually contributes to a diagnosis: to calmly communicate with and comfort patients in preparation, to precisely position them and set the imaging parameters, to safeguard their welfare including radiation dose and safety measures, to stay cautious through the entire intervention, and to provide informative images for diagnosis.',
+      keyFacts: [
+        'Diagnostic radiology: general (routine) X-ray, vascular interventional imaging, CT, MRI, ultrasound, nuclear medicine.',
+        'Radiotherapy: LINAC, 3D-CRT, IMRT, IGRT, brachytherapy, heavy ion / proton therapy.',
+        'Structural imaging = anatomical changes: general X-ray, vascular interventional, CT, MRI, ultrasound.',
+        'Functional imaging = physiological changes: nuclear medicine, MRI.',
+        'MRI is on BOTH lists — structural and functional.',
+        'Modality chosen on three grounds: structure of interest, the disease, the patient’s condition.',
+        'Structure of interest splits into bones, soft tissues, biochemical activities.',
+        'Disease-dependent examples: tumour heterogeneity, air/fluid level, fat pad signs.',
+        'Radiographer’s five contributions: communicate and comfort, position and set parameters, safeguard welfare and dose, stay cautious throughout, provide informative images.',
+      ],
+      prerequisites: ['hti17103-what-is-radiography'],
+      examples: [
+        'A fat pad sign is the disease deciding the modality: it is an elbow finding read off a plain radiograph, so the cheap structural study is the correct one, not a cross-section.',
+      ],
+    },
+    memory: {
+      wordOrigin: 'Structure-al shows the structure; function-al shows the function. IMRT, IGRT and 3D-CRT all end in the same RT — radiotherapy — and the letters in front say what is modulated: intensity, image guidance, or 3D conformation.',
+      chunking: 'Six diagnostic modalities and six radiotherapy techniques — the two departments each get six, which makes the pair easy to check you have not dropped one.',
+      comparison: 'The one modality on both lists is MRI. If you can say why — the same scanner can be set to report anatomy or physiology — you have understood the distinction rather than memorised two lists.',
+      story: 'Three questions decide the modality, and they run outward from the body: what am I looking at (structure), what is wrong with it (disease), and who is on the table (patient condition).',
+    },
+    practice: [
+      { type: 'matching', prompt: 'Sort each modality by what the lecture says its image indicates.',
+        pairs: [['Nuclear medicine imaging', 'Functional — physiological changes'], ['Computed tomography', 'Structural — anatomical changes'], ['Ultrasound imaging', 'Structural — anatomical changes'], ['Magnetic resonance imaging', 'Both — the lecture lists it under structural AND functional']],
+        explanation: 'Structural imaging indicates anatomical changes; functional imaging indicates physiological changes. MRI is the one modality the lecture places in both groups.' },
+      { type: 'mcq', prompt: 'Which of these is a radiotherapy technique rather than a diagnostic modality?', options: ['Vascular interventional imaging', 'Brachytherapy', 'Computed tomography', 'Ultrasound imaging'], answer: 1,
+        explanation: 'Brachytherapy is listed under the Department of Radiotherapy, with LINAC, 3D-CRT, IMRT, IGRT and heavy ion / proton therapy. The other three are diagnostic radiology modalities.' },
+      { type: 'typed', prompt: 'Name the three grounds the lecture gives for choosing one modality over another.', accept: ['structure of interest, disease, patient condition', 'structure-of-interest, disease-dependent, patient condition', 'structure of interest; disease dependent; patient condition'],
+        explanation: 'Structure-of-interest (bones, soft tissues, biochemical activities), disease-dependent (tumour heterogeneity, air/fluid level, fat pad signs), and patient condition.' },
+      { type: 'mcq', prompt: 'What does IMRT stand for?', options: ['Image-monitored radiotherapy', 'Intensity-modulated radiotherapy', 'Internal multi-beam radiotherapy', 'Isotope-mediated radiotherapy'], answer: 1,
+        explanation: 'Intensity-modulated radiotherapy. Its neighbour on the list, IGRT, is image-guided radiotherapy.' },
+    ],
+    application: [
+      { type: 'scenario', prompt: 'MRI is the only modality the lecture puts under both structural and functional imaging. What does that tell you about the difference between the two categories?',
+        model: 'That the categories describe the question being asked, not the equipment. Structural imaging is defined as indicating anatomical changes and functional imaging as indicating physiological changes — so a single scanner that can be set up to report either belongs in both. The category is a property of the study, not of the machine.',
+        rubric: ['States the categories describe what the image indicates, not the hardware', 'Names anatomical versus physiological change'] },
+      { type: 'scenario', prompt: 'The lecture lists "tumour heterogeneity, air/fluid level, fat pad signs" as disease-dependent grounds for modality choice. Pick one and say what it implies about which modality to use.',
+        model: 'An air/fluid level is a boundary between two densities and shows on a plain radiograph taken with the right beam orientation, so it argues for a simple structural study rather than an expensive one. Tumour heterogeneity is the opposite case: variation in biochemical activity across a mass is what functional imaging reports, so it argues towards nuclear medicine. Either answer works provided the modality follows from what the finding actually is.',
+        rubric: ['Picks one named disease-dependent ground', 'Connects it to structural or functional imaging with a reason'] },
+    ],
+    commonMistakes: [
+      'Treating structural and functional as a hardware split, then having nowhere to put MRI.',
+      'Filing the LINAC with the diagnostic modalities. It is radiotherapy equipment.',
+      'Confusing IGRT with IMRT — image guidance against intensity modulation.',
+      'Assuming the newest or most detailed modality is the right one; the lecture makes the choice depend on structure, disease and patient condition, not on capability.',
+    ],
+    skills: [
+      'Given a modality, say its department and then whether its image indicates anatomy, physiology, or both.',
+      'Given a clinical finding, name the ground it falls under — structure, disease, or patient condition — before naming any modality.',
+    ],
+    selfCheck: 'Write the two department lists from memory, six each. Then mark every diagnostic one S, F, or both — and check that only MRI carries both.',
+    sourceRefs: [
+      { ref: 'hti.w1.2026', location: 'p15 "How many modalities are applied in hospitals?" — the diagnostic radiology and radiotherapy lists' },
+      { ref: 'hti.w1.2026', location: 'p16 "How Radiographers contribute to Diagnosis" — structural versus functional imaging' },
+      { ref: 'hti.w1.2026', location: 'p17 "Why is certain modality chosen?" — structure-of-interest, disease-dependent, patient condition' },
+    ],
+  },
 ];
 
 /*
