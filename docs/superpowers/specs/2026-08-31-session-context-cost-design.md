@@ -529,67 +529,97 @@ matched something.
 describe the cache-key bug above, which shipped precisely because the old one-sentence version
 did not say it. Not shaved to hit the round number.
 
-## Phases 4 and 5 — stopped, with the measurement that stopped them
 
-Attempted on 2026-09-01. **Neither shipped.** The spec's risk ordering for these two phases was
-backwards, and the evidence is unambiguous enough to record rather than re-derive.
+## Result — phase 4, and why phase 5 stopped
 
-### What this spec claimed, and what is actually true
+The spec's risk ordering for these two was **backwards**, and correcting it is the main finding.
 
-> "Block 1 splits along these lines with no restructuring."
-> "Block 0 does **not** split cleanly. 109 top-level declarations close over one mutable `state`
-> object … This is the same code the trap list documents ~20 measurement bugs in."
-
-Measured with a cross-section assignment analyser:
-
-| | Mutual section dependencies | Bindings assigned across a section boundary |
+| | Mutual section deps | Bindings assigned across a section boundary |
 | --- | --- | --- |
 | `study.js` (block 1) — "splits with no restructuring" | 12 | **5**, at 12 write sites in 7 sections |
 | `studio.js` (block 0) — "does not split cleanly", high risk | 3 | **0** |
 
-The inversion has one cause. `studio.js` funnels everything through a single mutable `state`
-**object**, so every cross-section write is `state.foo = x` — a property write, which is legal
-through an imported binding. `study.js` uses bare `let`s, and **assigning to an imported binding
-is a compile-time error**, not a risk to be managed:
+`studio.js` funnels state through one mutable `state` **object**, so every cross-section write is
+a property write, which is legal through an imported binding. `study.js` used bare `let`s, and
+assigning to an imported binding is a **compile-time error**. That, not the trap density, was
+what blocked block 1.
 
-- `session` (`let`, Session engine) is written from Reset, Global search ×3, Spatial overlay
-  controls, and Layout figures. **137 reference sites.**
-- `learnDrill`, `learnFilter`, `learnTopic`, `viewerTab` (all `let`, Subject) are written from
-  Navigation, Global search, Boot, and What-is-under-the-tap. 28 sites between them.
+### Phase 4 — done
 
-### Why stopping is the right answer, not a smaller split
+`study.js` 3,445 lines → a 40-line entry point plus 25 files under `outputs/study/`, largest 866
+(`layout-figures.js`). Two changes were needed beyond moving text, and both were forced:
 
-Splitting `study.js` requires converting those five bindings into a holder object and rewriting
-~165 call sites. That is restructuring, which this spec lists as a non-goal for the move phases,
-and it would destroy the only safety argument the phases have — a diff that touches 165 lines of
-live UI code cannot be reviewed against a baseline the way a pure move can.
+1. **`study/state.js`.** `session`, `learnFilter`, `learnTopic`, `learnDrill` and `viewerTab`
+   became properties of one exported `ui` object; 147 code references rewritten.
+2. **`init()` per part.** The parts import each other cyclically, so a part pulled in early as
+   somebody's dependency runs its body before another part has reached a `let` it needs.
+   `dialog-behaviour-applied.js` calling `renderToday()` at module scope gave
+   `Cannot access 'currentTab' before initialization` — the same failure class that killed the app
+   on 2026-08-29. `study.js` now imports every part, then calls their `init()`s in the original
+   order: declarations first, side effects afterwards, exactly what one top-to-bottom file used to
+   guarantee for free.
 
-`studio.js` was actually attempted. The generated split produced nine parts, but with heavy
-coupling (`visualisation-modes.js` importing 18 names), three import cycles, and an entry point
-that is only side-effect imports — a structure that is *harder* to reason about than one file
-with nine clearly bannered regions the map already indexes. It was reverted.
+Verified: all ten checks, all ten baselines, and a browser fingerprint in which every one of the
+five destinations hashes **identically** to a capture taken before any of it started.
 
-And the benefit was never large. **The map already delivers almost all of it.** `docs/CODEMAP.md`
-says Spatial concept overlays is `studio.js` 336–786; a session reads exactly those 451 lines with
-an offset read, for the same tokens a 451-line file would cost. This spec said as much for phase 5
-already — "the map is what saves the tokens; the file boundary only makes the map's targets
-smaller" — and that reasoning turns out to apply to phase 4 too.
+### The bug that nearly shipped, and the check that now prevents it
 
-So the success criterion "no file in `outputs/` over 1,500 lines" is **not met**: `studio.js` is
-3,404 and `study.js` 3,445. That criterion was written believing both files split cleanly. It
-buys little now that the map indexes both by line range, and meeting it costs a 165-site rewrite
-of the most trap-laden code in the repo.
+Rewriting the identifier `session` to `ui.session` skipped comments but **not string literals**.
+Seven pieces of user-facing prose became `Start a ui.session below to begin.`,
+`Finish ui.session →`, `Study ui.session`, `No answers recorded for this item in this ui.session.`
 
-### What the attempt was worth anyway
+Nothing caught it. Every module loaded. Every probe passed. The corpus was untouched, so
+`corpus-snapshot` was silent — the strings live in the UI, not the data. And the browser check
+that should have seen it **passed against a stale file**: `study.js?v=1` did not change when
+`study.js` changed, so the reload served the cached body. A false green from the one tool that
+was looking in the right place.
 
-It found a fourth instance of the pattern from phases 2 and 3. `load-check.mjs`'s inliner matched
-only `from '…'`, so a bare `import './x.js';` was left untouched — an entry point that is nothing
-but side-effect imports would have been inlined to an empty module, and the check that exists to
-catch load-time deaths would have reported `NO LOAD-TIME ERRORS` having evaluated nothing. Fixed.
+`work/ui-strings.mjs` now fingerprints every sentence the interface can show, as an eleventh
+baseline. It found the seventh corruption immediately, and diffed against the pre-refactor
+original it proves **no prose changed anywhere across phases 2–4** — the only differences are
+four CSS strings that moved into `app.css`.
 
-### If this is ever picked up again
+### Phase 5 — stopped, on a measurement
 
-Do `studio.js` first, not last — it is the one that needs no state rewrite. Do `study.js` only as
-a deliberate, separately-specced refactor of those five bindings into `study/state.js`, with the
-137 `session` sites converted mechanically and `work/corpus-snapshot.mjs`-style fingerprinting
-extended to the UI before starting.
+`studio.js` cannot be split by any text-based tool in this repo:
+
+- **94 declarations sit at column 0**, so their function bodies sit at indent 2.
+- **`const els` and `const state` — the two objects every section uses — are themselves at
+  indent 2**, alongside 382 nested locals at the same column.
+
+Indentation therefore cannot separate top-level from first-level-nested, and getting it wrong
+means a missing export inside the most trap-laden code in the repo. Doing it safely needs a real
+JS parser, which is a dependency the no-build-step constraint rules out. An attempt confirmed the
+symptom: whole sections came out exporting nothing while importing fifteen names.
+
+The benefit was also the smallest of the five phases. `docs/CODEMAP.md` already indexes
+`studio.js` by line range, so a session reads `studio.js` 336–786 for the overlays at the same
+token cost a 451-line file would charge. The spec said this for phase 5 from the start — "the map
+is what saves the tokens; the file boundary only makes the map's targets smaller."
+
+So the criterion "no file in `outputs/` over 1,500 lines" is **not met**: `studio.js` is 3,404.
+That criterion was written believing both blocks split cleanly, and it is now the only one
+outstanding.
+
+### If phase 5 is ever picked up
+
+Normalise `studio.js`'s indentation to a single top-level column first, as its own commit with
+`ui-strings` and all ten baselines green — then the same splitter works. Do not attempt both in
+one change: a reindent and a split are indistinguishable in the diff, and the baselines are the
+only thing standing between this code and its twenty documented measurement bugs.
+
+### Tooling that came out of phases 2–4
+
+Five checks were wrong or absent when this started, each found by the phase that broke it:
+
+| Check | What it could not see |
+| --- | --- |
+| `shell-check.mjs` | Anything past one import level — it missed two live offline 404s and would have missed 42 more files |
+| `load-check.mjs` | Nested imports, side-effect imports, and a missing binding it reported as a browser global |
+| `figure-key-check.mjs` | The corpus, once it stopped being one text file to grep |
+| `corpus-snapshot.mjs` | *(new)* Lesson content, as opposed to lesson counts |
+| `ui-strings.mjs` | *(new)* Every sentence the interface shows |
+
+The pattern behind four of the five is worth keeping: **a check that locates its subject by
+pattern-matching source text passes, quietly and wrongly, the first time the source moves.** Ask
+the data; and if you must match, assert that you matched something.
