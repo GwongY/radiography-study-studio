@@ -65,7 +65,7 @@ Traps: [The studio block](TRAPS.md#the-studio-block--outputsradiography-study-st
 | `physiology.js` | 337 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 4897 | Radiography Study Studio — study data layer |  |
-| `sw.js` | 182 | Radiography Study Studio — service worker |  |
+| `sw.js` | 206 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
 | `term-gloss.js` | 781 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
 | `term-notes.js` | 313 | Term notes — say it, then mean it. |  |
