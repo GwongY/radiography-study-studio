@@ -57,8 +57,7 @@ export const HTI_ITEMS = [
       'Assuming radiography only happens in hospitals — the lecture lists security, customs and industrial uses.',
     ],
     skills: [
-      'Split every job title at the hyphen and let the suffix give you the verb: who writes the image, who studies it, who treats with it.',
-      'Sort the six roles into their three pairs — beam operators, interpreters and prescribers, preparers and measurers.',
+      'Radiographer versus radiologist is the confusion pair, and the suffix separates them: -grapher writes the image, -logist studies it. All six job titles share the same "radio-" and differ only in the verb — who makes, who reads, who treats, who measures.',
     ],
     selfCheck: 'From a blank page, assign each of the six roles its one-line job, then answer the two-metal question about the X-ray tube target.',
     sourceRefs: [{ ref: 'hti.w1b', location: 'Slides 3–9 "What is Radiography?", "Where does the radiation light come?", "Who is working with radiation in hospitals?"' }],
@@ -107,8 +106,8 @@ export const HTI_ITEMS = [
       'Putting MRI in the ionizing column because it is a large hospital machine.',
     ],
     skills: [
-      'Sort any modality into the two columns using the free-an-electron test — not machine size, not power.',
-      'Learn the short column first — MRI and ultrasound — then treat every other named modality as ionizing by elimination.',
+      'Power and ionizing ability are different properties, and the microwave slide proves it: 2,450 MHz delivers far more watts than a chest X-ray and cannot free a single outer-shell electron. The dividing test is electron-freeing, not energy quantity — which is also why the two regimes are measured in different units entirely (W/kg and tesla versus J/kg, gray and sievert).',
+      'MRI and ultrasound are the entire non-ionizing column: learn the short list and sort everything else by elimination. Machine size is not evidence — MRI is a large, expensive hospital magnet and still cannot ionize, because magnetic fields and radiofrequency waves do not free electrons.',
     ],
     selfCheck: 'Write both columns from memory, then answer the phone claim in the lecture’s own framing: the frequencies, the free-electron definition, and the two unit systems.',
     sourceRefs: [{ ref: 'hti.w2', location: 'Slides 3, 5 "Imaging Modalities", "Ionizing vs. non-ionizing Radiation"; slide 49 "MRI - summary"' }],
@@ -160,8 +159,9 @@ export const HTI_ITEMS = [
       'Assuming PET is simply a better SPECT rather than a different trade-off around half-life and cost.',
     ],
     skills: [
-      'Recite the film processing order and be ready to say why each step sits where it does.',
-      'Compare SPECT and PET on half-life, cost and cyclotron need, then predict one practical consequence of each difference.',
+      'SPECT versus PET is one fact fanned out into five: half-life. A long enough half-life (technetium-99m, 6.02 hours) means the tracer can be made elsewhere and shipped, so SPECT is cheap and everywhere. Minutes-short (fluorine-18, 109.75 minutes) means the tracer dies before it arrives, so PET needs an on-site cyclotron, robotic handling, and expense. Every other difference on the comparison table is downstream of that one number.',
+      'Computed and direct digital radiography differ by exactly one piece of hardware — the reader. CR keeps cassettes and needs readers; DR eliminates them, which buys speed and no physical film at the price of being the expensive option. The MCQ distractor is always the reader.',
+      'A radiopharmaceutical is a taxi and a passenger: the radioisotope is what the gamma camera sees, the compound is what decides where it goes — which is how the same technetium serves a bone scan as MDP and a renal function scan as DTPA.',
     ],
     selfCheck: 'From memory: the four film steps in order, CR versus DR (which one needs readers), and the two named radionuclides with their imaging techniques.',
     sourceRefs: [{ ref: 'hti.w2', location: 'Slides 6–41 discovery of X-ray, general X-ray, cassettes, fluoroscopy, CT, radiopharmaceuticals, RNI, SPECT/PET' }],
@@ -215,8 +215,9 @@ export const HTI_ITEMS = [
       'Confusing the annual averaged worker limit (20 mSv) with the single-year ceiling (50 mSv).',
     ],
     skills: [
-      'Name all four measures, then take a scenario (say, staying in the room during fluoroscopy) and decide which measures still apply and which cannot.',
-      'Recite the dose limits as a pair: 20 mSv averaged for workers, 1 mSv for the public — and 1 mSv again the moment a pregnancy is declared.',
+      'Decay is the measure that only applies to a source you cannot switch off: time, distance and shielding all work on an X-ray tube, but the tube does not decay — waiting changes nothing about it. The fourth measure exists for radioactive material that cannot be removed, and the fluoroscopy scenario is how the exam tests whether you know that.',
+      'The declared-pregnancy limit is the public limit: 1 mSv. A worker drops from the 20 mSv regime to the public one in a single sentence — which is why the numbers are worth holding as a pair (20 averaged / 1 public) rather than as three separate facts.',
+      'The TLD is a monitor, not an alarm: its detection range runs 0.05 mSv to 10 Sv for routine wear, and the lecture states outright that it is not feasible for accidental exposure. A wide range does not mean fast response.',
     ],
     selfCheck: 'Write the four measures, both dose limits, and the monitoring device with its range — then check the one most people miss: the fourth measure, decay.',
     sourceRefs: [{ ref: 'hti.w6', location: 'Slides 3, 10–16 TLD, dose limits (ICRP Publication 103), radioprotective measures, ALARA' }],
@@ -268,8 +269,8 @@ export const HTI_ITEMS = [
       'Treating simulation as the first step; determining treatment position comes first.',
     ],
     skills: [
-      'Order the planning session — position, simulate, plan — and justify why immobilisation comes first, using reproducibility as the reason.',
-      'Rebuild the twelve-centre figure as six public plus six private, and attach the four immobilisation considerations to step 1.',
+      'Immobilisation comes first because reproducibility is the point of everything after it: the simulation images are used to plan a beam that must fire identically at every fraction, so they are only meaningful if taken in the position the patient will actually hold. The order position → simulate → plan is a consequence, not a convention.',
+      'The USA titles do not translate one-to-one: "radiologic technologist" and "dosimetrist" split work that a Hong Kong radiation therapist does as one job — planning and dose calculation is a separate specialism there, not a separate person here. Job-title questions are testing that you do not map the roles across.',
     ],
     selfCheck: 'From a blank page: the three planning steps in order, the four immobilisation considerations, and the Hong Kong totals — twelve centres, about 420 therapists.',
     sourceRefs: [{ ref: 'hti.w3', location: 'Slides 2–15 job titles, RT services in HK, patient pathway, planning session steps 1–3' }],
@@ -314,8 +315,8 @@ export const HTI_ITEMS = [
       'Reading only the "Examination Requested" line and ignoring the clinical information, diagnosis and LMP fields.',
     ],
     skills: [
-      'Read a request form as four questions — who, what examination, how urgent, how they arrive — and point to the field that answers each.',
-      'State the two-role radiographer pair and what each is doing during an exposure.',
+      'The examination line and the clinical information answer different questions: "CXR (PA + Lat)" says which images to take; "Cough x 2/12, SOB — chest infection" says what the image is being asked to show. Reading only the examination name is the named mistake, and it loses exactly the information that guides positioning and image assessment.',
+      'The two-radiographer pair is a split of the room, not a rota: during the exposure one handles the patient and one controls the panel, and neither can swap — which is why the lecture presents teamwork as a requirement rather than a preference.',
     ],
     selfCheck: 'From memory: the HA cluster count, the two radiographer roles, and the worked example examination with its two projections — PA and Lat, the only projection abbreviations the supplied lectures use.',
     sourceRefs: [{ ref: 'hti.w5', location: 'Slides 3–7 Hospital Authority structure, manpower, team work, floor plan, reading the order form' }],
@@ -375,8 +376,9 @@ export const HTI_ITEMS = [
       'Assuming the newest or most detailed modality is the right one; the lecture makes the choice depend on structure, disease and patient condition, not on capability.',
     ],
     skills: [
-      'Given a modality, say its department and then whether its image indicates anatomy, physiology, or both.',
-      'Given a clinical finding, name the ground it falls under — structure, disease, or patient condition — before naming any modality.',
+      'MRI appearing on both lists is the tell: structural and functional describe the question the study asks — anatomical change versus physiological change — not the machine. One scanner can be set to answer either, so treating the split as a hardware divide leaves MRI homeless. That is the whole distinction, tested with one modality.',
+      'IMRT and IGRT differ by what is modulated: intensity versus image guidance. The shared "-RT" marks them as radiotherapy techniques, and the front letters name the flavour — the same reading rule as 3D-CRT (conformation) and brachytherapy (brachy = short distance).',
+      'The newest or most detailed machine is not the right machine: the choice runs structure of interest → disease → patient condition, and a fat pad sign read off a plain elbow film is the correct study precisely because it answers the actual question — capability is not a selection criterion.',
     ],
     selfCheck: 'Write the two department lists from memory, six each. Then mark every diagnostic one S, F, or both — and check that only MRI carries both.',
     sourceRefs: [
