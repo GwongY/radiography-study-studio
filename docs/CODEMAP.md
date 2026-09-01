@@ -203,4 +203,5 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/ui-strings.mjs` | UI strings — every literal the app can put on screen, as a sorted fingerprint. |  |
 | `work/unread-manifest.mjs` | Write a work list of everything the corpus has not read, for handing to |  |
 | `work/verify-modules.mjs` | Task #8 verification — module mapping + corpus integrity. |  |
+| `work/verify-notes.mjs` | Check notes that came back from another reader, before any of it becomes a |  |
 

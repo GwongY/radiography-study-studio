@@ -34,7 +34,7 @@
  *   node work/handoff-export.mjs --batch=40          files per upload folder
  *   node work/handoff-export.mjs --kind=student      include what is excluded
  */
-import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, readdirSync, existsSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -46,6 +46,15 @@ const arg = (n, d) => (process.argv.find((a) => a.startsWith(`--${n}=`)) || `=${
 const SCOPE = arg('manifest', 'sem1');
 const SHAPES = arg('shape', 'PROSE,SLIDES').split(',');
 const BATCH = Number(arg('batch', 40));
+/*
+ * A batch is bounded by BOTH a file count and a byte budget, and the byte
+ * budget is the one that matters.
+ *
+ * Counting files alone produced a 2.3 MB batch beside a 36 KB one — the same
+ * "40 documents" in each, and only one of them readable in a single pass. What
+ * exhausts a reader is text, not filenames.
+ */
+const MAXKB = Number(arg('maxkb', 600));
 const OUT = join(CACHE, 'handoff');
 
 const manifest = join(CACHE, `UNREAD-MANIFEST-${SCOPE}.tsv`);
@@ -93,14 +102,26 @@ function rank(r) {
 }
 if (!want.length) { console.error(`no ${SHAPES.join('/')} rows in ${manifest}`); process.exit(1); }
 
-/* A fresh folder every run: a stale file from a previous scope silently
-   enlarges the upload, and nothing in the folder says which run wrote it. */
-if (existsSync(OUT)) rmSync(OUT, { recursive: true });
+/*
+ * A fresh folder every run: a stale file from a previous scope silently
+ * enlarges the upload, and nothing in the folder says which run wrote it.
+ *
+ * Emptied rather than removed. On Windows a directory that any process holds
+ * as its working directory cannot be deleted — a shell sitting in it, or the
+ * file manager showing it — and rmSync on the root then fails EPERM even
+ * though every file inside deletes cleanly. Removing the CONTENTS achieves the
+ * same thing and does not care who is standing in the doorway.
+ */
 mkdirSync(OUT, { recursive: true });
+for (const k of readdirSync(OUT)) rmSync(join(OUT, k), { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
 
 const safe = (s) => s.replace(/\.[a-z0-9]+$/i, '').replace(/[^\w\- ]+/g, '_').replace(/\s+/g, ' ').trim().slice(0, 70);
 
-let n = 0, chars = 0, batches = 0;
+let n = 0, chars = 0;
+/* Batch state: roll over on whichever limit is hit first. A single document
+   larger than the whole budget still gets its own batch rather than being
+   split — a half-document cannot be judged, and the verdict is per document. */
+let batchNo = 1, batchFiles = 0, batchBytes = 0;
 const index = [['batch', 'file', 'subject', 'kind', 'shape', 'pages', 'source'].join('\t')];
 for (const r of want) {
   let text;
@@ -110,8 +131,12 @@ for (const r of want) {
      so a returned "p. 12" means what a reader opening the PDF would call p. 12. */
   const paged = text.split('\f').map((p, i) => `\n[[page ${i + 1}]]\n${p.trim()}`).join('\n');
 
-  const batch = String(Math.floor(n / BATCH) + 1).padStart(2, '0');
-  batches = Math.max(batches, Number(batch));
+  if (batchFiles && (batchFiles >= BATCH || batchBytes + paged.length > MAXKB * 1024)) {
+    batchNo++; batchFiles = 0; batchBytes = 0;
+  }
+  batchFiles++; batchBytes += paged.length;
+
+  const batch = String(batchNo).padStart(2, '0');
   const dir = join(OUT, `batch-${batch}`);
   mkdirSync(dir, { recursive: true });
 
@@ -137,7 +162,7 @@ writeFileSync(join(OUT, 'INDEX.tsv'), `${index.join('\n')}\n`, 'utf8');
 const byKind = {};
 for (const r of want) byKind[r.kind] = (byKind[r.kind] || 0) + 1;
 
-console.log(`${n} documents, ${(chars / 1048576).toFixed(1)} MB of text, ${batches} batches of <=${BATCH}`);
+console.log(`${n} documents, ${(chars / 1048576).toFixed(1)} MB of text, ${batchNo} batches of <=${BATCH} files / <=${MAXKB} KB`);
 console.log(`shapes: ${SHAPES.join(', ')}   scope: ${SCOPE}`);
 console.log(`kinds:  ${Object.entries(byKind).map(([k, v]) => `${k} ${v}`).join(', ')}`);
 if (SKIP_KIND.size) console.log(`held back: ${[...SKIP_KIND].join(', ')} (--kind=<name> to include)`);
@@ -228,5 +253,27 @@ hand.
 
 Output the SOURCE line and \`VERDICT: THIN\` with a one-line reason. Garbled
 extraction is expected in a minority of files; do not attempt to reconstruct it.
+
+## What happens to this afterwards
+
+Save the output as one \`.md\` file per batch under \`work/.source-text/notes/\`,
+then run:
+
+    node work/verify-notes.mjs --batch=NN
+
+Every claim is re-read against the exact page it cites. The check reports four
+things separately, and it is worth knowing which one you are being told about:
+
+- **NOT ON PAGE** — the quote is real, the page number is wrong. Count the
+  \`[[page N]]\` markers again; this is what off-by-one looks like.
+- **NOT IN SOURCE** — the quote is nowhere in the document. Paraphrased, or
+  invented. The claim is discarded.
+- **UNKNOWN SOURCE** — the \`SOURCE\` line does not match any document sent.
+  Copy that line verbatim from the header rather than retyping it.
+- **NO BLOCK** — a document was sent and nothing came back about it. Every
+  file needs a block, including the ones you judge ADMIN or THIN.
+
+A claim that fails does not get corrected downstream — it is dropped. Accuracy
+on the page number is worth more than volume of claims.
 `;
 }
