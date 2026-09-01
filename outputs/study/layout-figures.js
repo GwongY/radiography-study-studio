@@ -118,14 +118,16 @@ export function learnHTML(item) {
     <details class="priorback"><summary>${esc(prior.short)}-level background — the part you already have</summary>${proseHTML(item.lesson.explanation)}</details>`
     : `${plainLeadHTML(item)}${proseHTML(item.lesson.explanation)}${facts}${examples}`;
   /*
-   * "Skills to build" — app-authored and content-anchored: each entry names a
-   * concrete thing to be able to DO with this item's own facts (draw it, run a
-   * decision test, recite in order), never generic how-to-study advice. Tagged
-   * App note because the skill framing is study scaffolding, even though every
-   * fact it points at is source-traced on this card.
+   * "Skills to build" — app-authored and content-embedded: each entry is an
+   * insight that lives inside this item's own knowledge — a misconception
+   * with its correction, a distinction with the discriminator that separates
+   * it, a discrimination pattern, a trap in an otherwise reasonable
+   * assumption — never generic how-to-study advice. Tagged App note because
+   * the insight framing is study scaffolding, even though every fact it
+   * turns is source-traced on this card.
    */
   const skillsBlock = item.skills && item.skills.length
-    ? `<div class="subhead">Skills to build with this content</div><ul class="facts">${item.skills.map((s) => `<li>${glossify(esc(s))}</li>`).join('')}</ul><p class="small" style="color:var(--muted);margin-top:8px"><span class="apptag">App note</span> Written by this app from the content above. The facts are the sourced ones; the skill framing is study scaffolding.</p>`
+    ? `<div class="subhead">Skills to build with this content</div><ul class="facts">${item.skills.map((s) => `<li>${glossify(esc(s))}</li>`).join('')}</ul><p class="small" style="color:var(--muted);margin-top:8px"><span class="apptag">App note</span> Written by this app from the content above. The facts are the sourced ones; the insight framing is study scaffolding.</p>`
     : '';
   return `<div class="lesson">
     <div class="eyebrow" style="color:${subject ? subject.accent : 'var(--teal)'}">${esc(subject ? subject.code : item.subject)} · ${esc(typeLabel(item.type))}</div>

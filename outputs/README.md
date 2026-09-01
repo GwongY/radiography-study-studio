@@ -290,11 +290,12 @@ than generic guidance. A clean pass instead shows the item's authored *common co
 
 Two more content-anchored fields sit alongside the ladder, authored for every item:
 
-- **Skills to build with this content** (Learn card, after the teaching) — one or two concrete
-  things to be able to *do* with this item's own facts: run a decision test, recite the set in
-  group order, draw the structure and check it against the list. Each is derived from that item's
-  key facts, memory aids and practice material, so a skills line is specific to the knowledge it
-  teaches — never a generic "say it aloud" study tip.
+- **Skills to build with this content** (Learn card, after the teaching) — one or two
+  content-embedded insights that live inside this item's own knowledge: a misconception with its
+  correction, a distinction with the discriminator that separates it, a discrimination pattern, a
+  trap in an otherwise reasonable assumption. Each is derived from that item's key facts, memory
+  aids, practice and common mistakes, so a skills line teaches something about the knowledge
+  itself — never a generic "say it aloud" study tip.
 - **Prove it to yourself** (Memory Coach and Review steps) — the item's blank-page standard: a
   single sentence saying exactly what you should be able to reproduce from nothing ("From a blank
   page: …"). On Review it is the check to pass before the item's next scheduled return.

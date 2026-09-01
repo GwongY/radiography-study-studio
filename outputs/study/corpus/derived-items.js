@@ -123,10 +123,10 @@ function boneItem(record) {
     commonMistakes: (record.commonConfusions || []).map((c) => `Mistaking it for the ${String(c).toLowerCase()} — compare landmark sets rather than overall shape.`)
       .concat(record.side === 'paired' ? ['Calling the side from the screen rather than from the model’s own left and right.'] : []),
     skills: [
-      `Cover this card and recite the ${record.canonicalName.toLowerCase()}’s landmarks from memory — ${record.landmarks.slice(0, 2).join(' and ')} first — then uncover and check, because the landmark list rather than overall shape is what separates it from ${(record.commonConfusions || []).length ? `the ${String(record.commonConfusions[0]).toLowerCase()}` : 'any lookalike bone'}.`,
+      `The landmark set, not the silhouette, is the discriminator: ${(record.commonConfusions || []).length ? `${record.canonicalName} carries ${record.landmarks.slice(0, 2).join(' and ')} — the very landmarks that separate it from the ${String(record.commonConfusions[0]).toLowerCase()} — so two bones that look alike are told apart by their landmark lists, never by overall shape` : `${record.canonicalName} is known by carrying ${record.landmarks.slice(0, 2).join(' and ')}${record.landmarks.length > 2 ? `, with ${record.landmarks.slice(2).join(', ')} confirming` : ''}, and lookalike bones are told apart by their landmark lists, never by overall shape`}.`,
       record.side === 'paired'
-        ? 'Practise side decisions the way the laterality question works: the model faces you, so its left is on your right — derive the side from an asymmetric landmark in the anatomical position, never from the screen.'
-        : `Locate it by its articulations instead of searching the skeleton: it must meet ${record.articulations.slice(0, 2).join(' and ')}, and only one place offers those neighbours.`,
+        ? 'A paired bone\'s side is a consequence of the anatomical position, not of how you happen to hold it: find an asymmetric landmark and ask which way it must face when the body stands palms-forward — and the model faces you, so its left is on your right.'
+        : `The articulations are an address, not an afterthought: a bone that must meet ${record.articulations.slice(0, 2).join(' and ')} fits exactly one place in the skeleton, so the neighbour list locates the bone before any shape judgement does.`,
     ],
     selfCheck: `From a blank page: the region, the side (${record.side}), every landmark, and the full articulation list for the ${record.canonicalName.toLowerCase()}${(record.commonConfusions || []).length ? `, told apart from the ${String(record.commonConfusions[0]).toLowerCase()} by landmarks alone` : ''}.`,
     sourceRefs: (REGION_SOURCES[record.region] || [{ ref: 'hss.vocab', location: 'Glossary' }])
@@ -247,8 +247,10 @@ function structureItem(set) {
       ...(set.paired ? ['Reading the side off the screen instead of the model’s own left and right.'] : []),
     ],
     skills: [
-      `Say the set in group order — ${groups.join(' → ')} — naming each member out loud as you go, because the group is usually what an identification question is really testing.`,
-      'Climb the three-view ladder in order and do not skip rungs: labelled view to read, guided view (anchors only) to reconstruct the rest from position, blank view to prove it — move down only when the current view is clean.',
+      `The flat list is the trap this set sets: it is really ${groups.length} group${groups.length === 1 ? '' : 's'} (${groups.join(', ')}), and the question behind most identification questions is which group — which position relative to the others — a member sits in. Naming a member without placing it is half an answer.`,
+      set.paired
+        ? 'Paired means the side is part of the name: every structure here exists twice, and the reliable side-cue is the model\'s own left and right — it faces you, so its left is on your right, never the screen edge.'
+        : `Anchor logic is what holds the set together: the ${set.anchors.length} named anchor${set.anchors.length === 1 ? '' : 's'} (${set.anchors.map((a) => (set.members.find((mem) => mem.id === a) || {}).label).filter(Boolean).join(', ')}) are what every other member is reconstructed from — which is why a structure seen in isolation loses its most reliable clue, and only individual shape remains.`,
     ],
     selfCheck: `The blank view, cold: all ${set.members.length} named in group order, with the count used as the drop-check — if your list is shorter than ${set.members.length}, find which group you dropped before moving on.`,
     sourceRefs: set.sourceRefs,
@@ -325,8 +327,8 @@ function movementItem(mv) {
       ...(mv.id === 'shoulderAbduction' ? ['Answering "deltoid" for the start of abduction. Supraspinatus initiates the first 15 degrees.'] : []),
     ],
     skills: [
-      `Drive ${mv.label.toLowerCase()} on the model and narrate both parties: what rotates about the axis, and what stays fixed (${mv.fixed.join(' and ')}) as the reference — a movement is only defined relative to something that did not move.`,
-      `Say the pair as one phrase every time — “${mv.label} at the ${mv.joint}” — because the Module 0 fill-in-blanks award the joint name as often as the movement name.${stageNote.length ? ` Then own the stage marker: ${stageNote[0]}.` : ''}`,
+      `A movement is defined by its stillness as much as its motion: ${mv.label.toLowerCase()} only means something against what stays fixed — ${mv.fixed.join(' and ')} — because the same motion against a different reference is a different movement. Naming the moving bones without the fixed ones is half an answer.`,
+      `"${mv.label}" without a joint is the half-answer the fill-in-blanks price in: this one happens at the ${mv.joint.toLowerCase()}, and naming the joint is worth as many marks as naming the movement.${stageNote.length ? ` The stage marker carries the mechanism: ${stageNote[0]}.` : ''}`,
     ],
     selfCheck: `Drive it through the full ${mv.range[0]}°–${mv.range[1]}° range, then state the joint, the moving bones and the fixed references with the labels hidden.`,
     sourceRefs: mv.sourceRefs,
