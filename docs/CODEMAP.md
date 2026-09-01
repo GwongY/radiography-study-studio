@@ -116,7 +116,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `hidden-tray.js` | 27 | Hidden tray |
 | `home.js` | 9 | Home |
 | `imports.js` | 96 |  |
-| `layout-figures.js` | 870 | Layout figures |
+| `layout-figures.js` | 872 | Layout figures |
 | `lesson-visuals.js` | 237 | Lesson visuals |
 | `mastery-dashboard.js` | 9 | Mastery dashboard |
 | `more-sources-coverage.js` | 9 | More -- sources, coverage, and the things demoted out of the topbar. |
@@ -145,19 +145,19 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | --- | --- | --- |
 | `corpus.js` | 59 | The assembled corpus — every item array spread into one list, and the |
 | `coverage.js` | 161 | Coverage report — what the supplied sources actually cover, and what they |
-| `derived-items.js` | 336 | Items generated rather than authored: one per canonical bone record, one |
+| `derived-items.js` | 338 | Items generated rather than authored: one per canonical bone record, one |
 | `diagrams.js` | 50 | Diagrams — authored schematics, drawn inline as SVG so the app needs no |
 | `dsai-items.js` | 145 | DSAI1202, from the Week 1 overview deck. |
-| `expansion-items.js` | 557 | Expansion batch — fills gaps found in a coverage audit. |
-| `hss-joints.js` | 219 | HSS2011 Human Anatomy — joints and the muscles that move them. |
-| `hss-modules.js` | 369 | HSS2011 Human Anatomy — the per-module study items. |
-| `hss-osteology.js` | 654 | HSS2011 Human Anatomy — osteology: bone classification, the axial and |
-| `hss-terminology.js` | 247 | HSS2011 Human Anatomy — anatomical terminology: position, planes, movement |
-| `hti-items.js` | 424 | HTI17103, drawn from the HTI17101 Exploring Radiography set — the study |
+| `expansion-items.js` | 564 | Expansion batch — fills gaps found in a coverage audit. |
+| `hss-joints.js` | 222 | HSS2011 Human Anatomy — joints and the muscles that move them. |
+| `hss-modules.js` | 375 | HSS2011 Human Anatomy — the per-module study items. |
+| `hss-osteology.js` | 663 | HSS2011 Human Anatomy — osteology: bone classification, the axial and |
+| `hss-terminology.js` | 248 | HSS2011 Human Anatomy — anatomical terminology: position, planes, movement |
+| `hti-items.js` | 426 | HTI17103, drawn from the HTI17101 Exploring Radiography set — the study |
 | `mastery.js` | 121 | Spaced repetition — the schedule, the mastery score and its dimensions, and |
 | `modules.js` | 70 | Course modules — app-authored framing, not a source claim. Which unit |
 | `notices.js` | 41 | APSS1A08 — limited coverage. The notices that say so, in the app, rather |
-| `physiology-items.js` | 1056 | ABCT2326 Human Physiology — the study items. |
+| `physiology-items.js` | 1070 | ABCT2326 Human Physiology — the study items. |
 | `schema.js` | 407 | Scaffolding: the source registry, the subjects and their units, the item |
 | `structures.js` | 348 | Granular 3D targets: the structure sets a tap-to-identify item draws from, |
 | `validate.js` | 125 | Validation — every question must have a resolvable answer and every claim a |
@@ -200,5 +200,6 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/syntax-check.mjs` | Syntax-checks every inline <script type="module"> block in the app HTML, plus |  |
 | `work/toplevel.mjs` | Which names does a module declare at TOP level? Ask Node, not the indentation. |  |
 | `work/ui-strings.mjs` | UI strings — every literal the app can put on screen, as a sorted fingerprint. |  |
+| `work/unread-manifest.mjs` | Write a work list of everything the corpus has not read, for handing to |  |
 | `work/verify-modules.mjs` | Task #8 verification — module mapping + corpus integrity. |  |
 
