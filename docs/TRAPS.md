@@ -6,7 +6,7 @@ every session — everything area-specific lives here.
 
 Grouped by file. `docs/CODEMAP.md` links each file to its section.
 
-### The studio block — `outputs/radiography-study-studio.html`
+### The studio block — `outputs/studio.js`, `outputs/studio/visualisation-modes.js`, `outputs/studio/depth-picking.js`
 
 - **The 3D module's top-level code is fatal ground.** It wires ~20 buttons as bare
   `$('id').onclick = …` at module top level; deleting any element throws and aborts
@@ -52,7 +52,7 @@ Grouped by file. `docs/CODEMAP.md` links each file to its section.
 - `MODEL_CATALOG` in `anatomy-data.js` records each layer's coverage *and its gaps* —
   check it before assuming a structure exists.
 
-### Overlays and cavities — `outputs/cavity-build.js`, `outputs/cavity-geom.js`, `outputs/radiography-study-studio.html`
+### Overlays and cavities — `outputs/cavity-build.js`, `outputs/cavity-geom.js`, `outputs/studio.js`
 
 - **Measure with `state.scene.updateMatrixWorld(true)`, not the object's own.**
   A layer loaded moments ago has a pivot that is scaled and offset but not yet
@@ -102,7 +102,7 @@ Grouped by file. `docs/CODEMAP.md` links each file to its section.
 See also: **The nine regions and four quadrants are topographic, not derived
 shapes** — in "The region grid and classifiers" below.
 
-### The region grid and classifiers — `outputs/radiography-study-studio.html`, `outputs/cavity-build.js`
+### The region grid and classifiers — `outputs/studio.js`, `outputs/cavity-build.js`
 
 - **The nine regions and four quadrants are topographic, not derived shapes.**
   `measureGrid` returns measured CONSTANTS — midclavicular lines, subcostal,
@@ -125,7 +125,7 @@ shapes** — in "The region grid and classifiers" below.
   joint, so including the girdle drew a box that swallowed the trunk and
   "Upper limb" showed 90 of the 120 organs.
 
-### Visibility and hiding — `outputs/radiography-study-studio.html`
+### Visibility and hiding — `outputs/studio.js`
 
 - **`revealStructure` must dedupe its targets.** Each part of a multi-part spec
   widens to its whole unit, so a 39-part spec collected the same 77 meshes 39
@@ -248,7 +248,7 @@ shapes** — in "The region grid and classifiers" below.
   it is a two-column term list, and flattening it to prose puts unrelated
   entries next to each other — that adjacency alone "found" the third rib.
 
-### CSS — `outputs/radiography-study-studio.html`
+### CSS — `outputs/app.css`
 
 - An inline `style="display:grid"` outranks any stylesheet rule.
 - A single-class rule declared later beats an equally-specific earlier one, so toggles
@@ -279,7 +279,7 @@ shapes** — in "The region grid and classifiers" below.
   stage (layer rail, control pill) has to be sized around it — see the
   `calc(60% - 140px)` rail heights.
 
-### The viewer is a manipulation surface — `outputs/radiography-study-studio.html`
+### The viewer is a manipulation surface — `outputs/studio.js`, `outputs/app.css`
 
 - **A hidden element measures 0×0 — never write that into the camera.** `resize()`
   ran on `window.resize` alone, so "boot on Today, then open Viewer" never sized
@@ -290,3 +290,41 @@ shapes** — in "The region grid and classifiers" below.
   `user-select:none` and `-webkit-touch-callout:none`; without it a long press
   anywhere in the stage started a text selection on iPadOS and threw up the
   Copy / Look Up callout.
+
+### The split app — `outputs/study.js`, `outputs/studio.js`, `outputs/study/state.js`
+
+- **Nothing may run at module scope in `study/*.js` or `studio/*.js`.** The parts import each
+  other cyclically, so a part pulled in early as somebody's dependency evaluates
+  before another part has reached a `let` it needs. `dialog-behaviour-applied.js`
+  calling `renderToday()` at module scope gave
+  `Cannot access 'currentTab' before initialization` — the same class of failure
+  that killed the app on 2026-08-29. Side effects go in the part's exported
+  `init()`, which `study.js` calls after every import has evaluated.
+- **The five mutable UI bindings live in `study/state.js` as `ui.*`.** An
+  imported binding is read-only, so `session`, `learnFilter`, `learnTopic`,
+  `learnDrill` and `viewerTab` cannot be plain `let`s once anything else writes
+  them. Add a new cross-part mutable there, not as a module-level `let`.
+- **A rename that runs over source text will rewrite prose too.** Hoisting
+  `session` to `ui.session` skipped comments but not string literals, and
+  shipped "Start a ui.session below to begin." to the interface. Seven strings.
+  `work/ui-strings.mjs` fingerprints every sentence the interface can show and
+  is a committed baseline; run `node work/baseline.mjs --check` after any rename.
+- **A browser check can be served a stale module.** `study.js?v=1` did not
+  change when the file changed, so a reload returned the cached body and the
+  behavioural check passed against code that was no longer on disk. Clear
+  `caches`, unregister the service worker, or bump the query before trusting a
+  before/after comparison in the browser.
+- **Indentation does not tell you what is top level in `studio/*.js`.** That
+  code writes its top level at column 0 AND at indent 2 — `els` and `state`, which
+  every part uses, are at indent 2, alongside hundreds of nested locals at the
+  same column. A brace counter fails too: the parts embed GLSL and HTML in
+  multi-line template literals whose braces and column-0 lines defeat it. Ask V8
+  instead — `node work/toplevel.mjs outputs/studio/<part>.js` appends
+  `export { name }` per candidate and reads the link error, so the answer comes
+  from the parser that will run the code. Use it before moving anything.
+- **A column-0 line can be inside a template literal, or end by opening a block
+  comment.** Both bit the phase-5 split: GLSL like `uniform float uMu;` was
+  lifted out of a shader as if it were a statement, and a boot line ending in
+  `/*` took the next section's comment opener with it and commented out what
+  followed. Any tool that classifies lines in this file has to track backtick
+  parity and dangling `/*`.
