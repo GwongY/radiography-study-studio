@@ -107,6 +107,12 @@
       </div>
       <div class="layerrail" id="layerRail" aria-label="Body layers"></div>
       <div class="uncoverbanner hidden" id="uncoverBanner" role="status"></div>
+      <!--
+        The tools live in the "..." sheet, and the sheet is usually shut while
+        you are using one. This says which tool has the stage, and gives it
+        back in one press.
+      -->
+      <div class="toolchip hidden" id="toolChip" role="status"><span id="toolChipText"></span><button id="toolChipOff">Done</button></div>
       <div class="hiddentray empty" id="hiddenTray">
         <button class="htoggle" id="hiddenToggle" aria-expanded="false">🚫 <span id="hiddenCount">Hidden</span></button>
         <div class="hlist" id="hiddenList"></div>
@@ -161,6 +167,39 @@
           <div class="olist" id="overlayItems"></div>
           <div class="omodes" id="overlayModes"></div>
           <div class="oprov" id="overlayProv"></div>
+        </section>
+        <!--
+          Tools. The four things you DO to the model rather than look at:
+          section it, mark it, name it, keep the picture. Grouped in the order
+          you reach for them.
+        -->
+        <section class="card toolcard">
+          <div class="task-kicker">Tools</div>
+          <h2 class="task-title">Cut, annotate, capture</h2>
+          <p class="task-copy">Everything here is stored on the body, not on the screen — a cut, a pen stroke and a pinned name all turn with the model and survive a zoom, a view change and a layer switch.</p>
+
+          <div class="tool-lab">Annotate</div>
+          <div class="tool-row" id="toolButtons"></div>
+          <input class="tool-note" id="toolNote" maxlength="90" placeholder="Note text, then tap the structure">
+          <div class="tool-row"><button class="icon-btn" id="toolUndo">Undo</button><button class="icon-btn" id="toolClear">Clear all</button><span class="tool-count" id="toolCount">nothing drawn yet</span></div>
+
+          <div class="tool-lab">Section cut</div>
+          <div class="tool-row" id="cutButtons"></div>
+          <label class="tool-slider"><span>Position</span><input type="range" id="cutSlider" min="0" max="100" value="50" aria-label="Cut position"><span class="mono" id="cutRead">no cut</span></label>
+          <div class="tool-row"><button class="icon-btn" id="cutFlip">Flip side</button><button class="icon-btn" id="cutClear">Clear cut</button></div>
+
+          <div class="tool-lab">Layer depth</div>
+          <div class="depthlist" id="layerDepth"></div>
+
+          <div class="tool-lab">Capture</div>
+          <div class="tool-row"><button class="icon-btn" id="toolShot">Save screen (PNG)</button></div>
+
+          <p class="tool-limits"><strong>What the cut is, and is not.</strong> It is a real clipping plane, so a
+          vertebra sectioned at mid-body shows its own cross-section the way a CT slice does — the geometry is cut,
+          not hidden. It is not a reconstruction: there is no internal texture behind the surface, so the cut face
+          reads as an outline rather than as tissue. The pen raycasts onto whatever surface is under the pointer and
+          does not know about the cut, so draw first and section afterwards. Annotations live for this visit — nothing
+          here is written to storage.</p>
         </section>
       </div>
     </div>

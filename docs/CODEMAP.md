@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 367 lines
+## `outputs/radiography-study-studio.html` — 406 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–342 | markup — no banners, grep here |
-| 343–343 | importmap |
-| 344–344 | loads studio.js |
-| 345–345 | loads study.js |
-| 346–365 | classic script · preamble |
-| 366–367 | markup — no banners, grep here |
+| 1–381 | markup — no banners, grep here |
+| 382–382 | importmap |
+| 383–383 | loads studio.js |
+| 384–384 | loads study.js |
+| 385–404 | classic script · preamble |
+| 405–406 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -23,9 +23,9 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1060 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss)
-- `outputs/studio.js` — 24 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
-- `outputs/study.js` — 43 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
+- `outputs/app.css` — 1084 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss)
+- `outputs/studio.js` — 26 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
+- `outputs/study.js` — 45 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
 ## Data modules — `outputs/*.js`
 
@@ -43,7 +43,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `schedule.js` | 562 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 117 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 293 | Radiography Study Studio — service worker |  |
+| `sw.js` | 295 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
 | `term-gloss.js` | 955 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
 | `term-notes.js` | 313 | Term notes — say it, then mean it. |  |
@@ -117,16 +117,17 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
 | `imports.js` | 48 | Block 0 has its own import scope -- block 1's copy is not visible here. |
 | `live-physiology.js` | 988 | Live physiology |
-| `region-boxes-how.js` | 313 | Region boxes — how the region filter reaches the six soft-tissue layers |
+| `region-boxes-how.js` | 314 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 232 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 466 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
-| `visualisation-modes.js` | 625 | Visualisation modes. |
+| `tools-and-capture.js` | 486 | Tools — section cuts, surface ink, pinned labels, capture. |
+| `visualisation-modes.js` | 626 | Visualisation modes. |
 
 ## The study system — `outputs/study/*.js`
 
 | File | Lines | What it holds |
 | --- | --- | --- |
-| `boot.js` | 44 | Boot |
+| `boot.js` | 49 | Boot |
 | `course-timetable.js` | 397 | Course — the syllabus and the timetable, with attendance |
 | `coverage-report.js` | 54 | Coverage report |
 | `dialog-behaviour-applied.js` | 107 | Dialog behaviour, applied to all seven at once |
@@ -152,6 +153,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `storage-versioned-keys.js` | 119 | Storage — versioned keys, one-time migration from the osteology app |
 | `subject.js` | 272 | Subject |
 | `text-size.js` | 81 | Text size |
+| `viewer-tools.js` | 194 | Viewer tools — annotate, cut, layer depth, capture |
 | `what-is-under.js` | 166 | What is under the tap |
 
 ## The corpus — `outputs/study/corpus/*.js`
