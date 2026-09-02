@@ -13,7 +13,7 @@ The workflow is the same for every subject:
 | File | What it is |
 | --- | --- |
 | `radiography-study-studio.html` | The app. Subject selector, learning workflow, Memory Coach, source dialogs, coverage report, and the full osteology 3D studio embedded as the HSS2011 Osteology module. |
-| `study-data.js` | The study layer: source registry, subject registry, 127 study items, prior-knowledge registry, spaced repetition, coverage report, corpus validator. |
+| `study-data.js` | The study layer: source registry, subject registry, 128 study items, prior-knowledge registry, spaced repetition, coverage report, corpus validator. |
 | `wordparts.js` | 814 medical word parts, inverted from the HSS2011 glossary, plus the segmenter that takes a long term apart. |
 | `term-notes.js` | 89 hand-written pronunciations and plain-English readings for the terms word parts alone cannot rescue. App-authored, labelled as such. |
 | `assets/plates/` | Five public-domain anatomy plates from Gray's Anatomy (1918), licence-verified through the Wikimedia Commons API before download. |
@@ -25,6 +25,7 @@ The workflow is the same for every subject:
 | `assets/figures/` | Those 18 image files. Licence-gated at download: anything not demonstrably free is refused. |
 | `assets/` | Local GLB models. Unchanged. |
 | `mesh-index.js` | **Generated.** Every named structure in every GLB layer (1,686), with the course file that names it and the study unit it resolves to (`UNITS`, 796 of them). Rebuild with `node work/build-mesh-index.mjs`; never hand-edit. |
+| `schedule.js` | The semester: the syllabus of each subject as its description form states it, and every timetabled session with its date, time, room and teacher. Course logistics, not anatomy — but every row cites the document it came off. |
 | `synonyms.js` | Query expansion (collarbone → clavicle), composites (a name with no mesh but real parts), and the three structures genuinely not modelled. |
 | `bodymap.js`, `landmarks.js`, `cavity-geom.js`, `cavity-build.js` | The spatial-overlay engine: concept metadata, the semantic landmark resolver, the overlay maths and one builder per cavity. |
 
@@ -126,6 +127,44 @@ That is how a gap becomes invisible: a topic listed as covered because a neighbo
 it gives no later reader any reason to look again. Nine items now teach it, and the coverage lines
 were rewritten to describe **what a lesson teaches** rather than what the corpus has read.
 
+## Course — the timetable, the syllabus, and what you have already missed
+
+A sixth destination. The rest of the app answers *what should I study*; this answers *where am I
+meant to be, and what have I already missed*.
+
+- **Now / next.** The teaching week, whatever is running at this moment, and what follows it with a
+  countdown. The clock is live — the panel re-renders every minute while it is open.
+- **This week / Full term.** Every session across all three subjects in time order. A past row dims
+  and grows two buttons, *Went* and *Missed*; a running one is ringed; the next one carries its
+  countdown. That is the whole of the "attendance" feature: it records what you say happened, and
+  it only asks once the session is over.
+- **Syllabus.** Each subject as its description form states it — objective, intended learning
+  outcomes, the assessment table with weights, study effort, and the reading list. Every weight
+  carries the file and page it was read off, the same way a lesson does.
+
+### The week grid is derived, and the derivation is written down
+
+Only two of the three schedules carry dates. The grid that reconciles them is **teaching week N runs
+Monday to Sunday, and week 1 Monday is 31 Aug 2026** — confirmed three times over, from three
+separate documents: HTI17103 week 1 is "Aug 31st (Mon)"; the ABCT2326 week 1 lecture is 02/09/26, a
+Wednesday; and HSS2011 week 13 holds the test on Sat 28 Nov 2026, which is Mon 23 Nov plus five.
+Every date in all three lands on the weekday its own document names.
+
+### What is deliberately not known
+
+- **HSS2011 has no published times.** Its Canvas schedule gives week numbers and topics and nothing
+  else; only the test carries a time. Those sessions are placed in their teaching week and nowhere
+  more precise. They are labelled *week only*, they say **This week** rather than **On now**, and
+  they do not go past until the week does. Inventing a slot would have been easy and wrong.
+- **The tutorial and lab groups are unknown.** The ABCT2326 schedule lists all three of each without
+  saying which is the student’s. All are carried; a picker in the tab records the answer, and the
+  other groups’ slots then stop counting against attendance. They stay visible, dimmed, because the
+  document lists them.
+- **Two of the schedule sources are screenshots**, not documents — the HSS2011 Canvas schedule and
+  the ABCT2326 group timetable were supplied as images, and no document copy exists. They cannot be
+  text-checked the way a lecture can, so everything read off them is written out in `schedule.js`
+  where it can be read and corrected.
+
 ## Item model
 
 Each item carries a teaching explanation, key facts, one or more memory aids, per-item skills (see
@@ -139,14 +178,14 @@ images exist in the assets folder, only `.glb` models. The label names come from
 
 ## Every lesson opens with a visual
 
-No lesson is a wall of prose. All 127 items resolve to a visual, and the resolver never invents one:
+No lesson is a wall of prose. All 128 items resolve to a visual, and the resolver never invents one:
 
 | Kind | Items | What it is |
 | --- | --- | --- |
 | **model** | 58 | The real named meshes for the structure being taught. The studio canvas is *moved into* the lesson card and focused on those meshes — still rotatable, still tappable, with a readout naming whatever you tap. One WebGL context, relocated rather than duplicated. |
 | **figure** | 16 | A published Wikimedia/OpenStax/Gray's image (`figures.js`), rendered through the schematic/labelled path when a figure exists for the id. |
 | **schematic** | 16 | A hand-authored SVG or HTML layout, for what no mesh or photograph can show — a feedback loop, the EM spectrum, a decision table. |
-| **generated** | 35 | Drawn from the item's own sourced data — a sequence item's ordered steps become a flow, a matching item's pairs become a grid. A change of form, not of content. |
+| **generated** | 36 | Drawn from the item's own sourced data — a sequence item's ordered steps become a flow, a matching item's pairs become a grid. A change of form, not of content. |
 | **labelled** | 2 | An app-authored labelling diagram from `DIAGRAMS` — the vertebra and the heart — used by the two `diagram` items. |
 
 Every model spec was checked against the actual GLB name index: **all resolve, with no dead mesh
@@ -624,7 +663,7 @@ identification and laterality questions each state a non-3D route to the answer 
 `validateCorpus()` and `validateApplications()` run on every open of the coverage report and check
 that every question has a resolvable correct answer and an explanation, every item has a teaching
 explanation and at least one practice question, and every item carries a source reference. Current
-state: **127 items, 589 questions, 85 source files registered, 0 validation failures.**
+state: **128 items, 595 questions, 90 source files registered, 0 validation failures.**
 
 ## Which structure names you are asked to know
 

@@ -19,6 +19,9 @@ export const ui = {
   learnTopic: null,
   learnDrill: false,
 
+  /* Course: which panel of the timetable tab — 'week' | 'term' | 'syllabus'. */
+  courseTab: 'week',
+
   /* Viewer: '3d' or the projection tab. */
   viewerTab: '3d',
 

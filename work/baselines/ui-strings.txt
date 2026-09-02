@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 692 —
-  7ab1fd47dcec7aa5  WHOLE SET
+— user-facing strings in outputs/ — 730 —
+  161cc1b3067223db  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -13,11 +13,16 @@
   c82482e143ba29a6   questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.</div>
   4086a0d4cd005901   showed metatarsals with no toes; choosing 
   2599c70aaa36cb29   · assumed from 
+  df725abe14c48979   · this week
   ee2ecbd9ea7a7e36   — it does not stand alone, it attaches to a root.
   b3c0b044207f0ecc  " aria-pressed="
   428d71c485304cd4  " class="dlab">
+  88c26bf09f179369  " data-att="missed" data-sid="
+  56dab152666c2c7c  " data-att="went" data-sid="
   d9f636bbe94e0ae5  " data-concept="
   ef15913a4f42b0cc  " data-filter="
+  5265bd1a089ac9df  " data-groupopt="
+  9d18b1672389d7fe  " data-groupset="
   921e345548b45de2  " data-reveal="
   854ec856a1bc5f87  " data-rtab="
   ab4db5fd38212e44  " data-stage="
@@ -30,11 +35,13 @@
   ee816f3b5b66dbf1  " loading="lazy">
   14d9928de191e4c8  " r="6" style="pointer-events:none"/>
   9496b6eb7e0374d5  " role="img" aria-label="
+  eb82935571faaac8  " style="--acc:
   1b0741baa2d2f617  " style="--accent:
   a70a4627802e8fd1  " style="text-align:left;cursor:
   d8353d56700520ba  " target="_blank" rel="noreferrer">
   2c99b5c4dedfd5a5  " target="_blank" rel="noreferrer">Wikimedia Commons
   e272ca64fe23b521  " title="
+  5465451fbdda9b14  ">Study this →
   23db48b468bb0c9a  % correct overall · weaker structures are prioritised.
   1fa5a4b7dc45d675  % mastered
   7ac7679148ff1f49  , and this app is on
@@ -55,9 +62,12 @@
   a7fbec4f385f22fb  3D · tap to name
   70ec40827f738641  8 carpals, 5 metacarpals, 14 phalanges
   02c400f14d7569ed  <a href="
+  13afbf804d8a2068  <button class="attbtn
+  a7efef6ed82b83dc  <button class="attbtn miss
   1a6ab45c16783dc4  <button class="card" data-row="
   3f235ec9141a2347  <button class="conf
   125f93e4a929b76f  <button class="filter-chip
+  7c91d479afddcabc  <button class="ghost tolesson" data-unit="
   eccfc54f8a6ac23c  <button class="ghost" id="openViewerBtn">Open in Viewer</button>
   e930ca7db13997d6  <button class="ghost" id="rssPriorLesson">Read the lesson</button>
   efe13358035bbef6  <button class="layerchip" data-layer="
@@ -99,6 +109,8 @@
   bb363a3bd702def4  <div class="emptybox">Diagram unavailable.</div>
   d9c86f19c355240f  <div class="emptybox">Movement unavailable.</div>
   f9d3a9e3de82b3af  <div class="emptybox">No practice questions on this item.</div>
+  eacaf6e72b6f92ef  <div class="emptybox">Nothing scheduled this week.</div>
+  cce4305b03b60844  <div class="emptybox">Outside the teaching term — use the full-term view.</div>
   6a67b586c93aec27  <div class="emptybox">Structure set unavailable.</div>
   828d38aa47993dea  <div class="emptybox">This question type is not renderable.</div>
   62a3238117318412  <div class="eyebrow" style="color:
@@ -108,12 +120,14 @@
   81bbed0091211144  <div class="layerhint">tap to cycle · solid → ghost → off</div>
   b72e23b04ca38453  <div class="note">Red is oxygenated, blue is not — which is why the pulmonary artery is blue-violet and the pulmonary veins are red. Vessel type does not decide the colour; what it carries does.</div>
   f7e97a446dcb1b5b  <div class="notice"><strong>Every question validates</strong>All 
+  28c656ec553bbafd  <div class="nowcard
   ab35719b544daab9  <div class="ohead">Cavities</div>
   cd51c79109a79fed  <div class="ohead">How to look</div>
   4008203e0b664f6f  <div class="ohead">Planes</div>
   e0871ec754d0a09c  <div class="physline" style="--tone:#
   49be18234eff434d  <div class="reveal
   dc5da9c1fabda5e9  <div class="seq-item" data-pos="
+  079bd17310af1ec7  <div class="sessnote">Another group’s slot — hidden from your counts.</div>
   20a11226de7c5b9f  <div class="studyscore">no attempts yet on this device</div>
   eb7577ba3c5c592f  <div class="verdict
   c1e9dab7d597ae36  <div style="height:100%;width:
@@ -124,9 +138,12 @@
   a03547db46bf9e4b  <i style="background:#
   6f722b80156fb8ac  <img src="
   2f476a078765d308  <input id="rssTypedInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="
+  4a0089a78242886e  <li class="sessrow
   5f0ccbf50845efd8  <option value="
   541b9a046de22b45  <p class="figkey-note">Dimmed marks are the figure’s own labels, beyond this lesson’s named set.</p>
   67bad9b6b48321f9  <path class="sk" d="
+  44253459e8795ded  <section class="card sylcard" style="--acc:
+  797b7e050cea9dbd  <section class="weekblock
   c01f823061ea0f83  <span class="chip beyond">Beyond your course \u2014 one of a kind</span>
   7b73cadaeb914935  <span class="chip beyond">Not named in your course material</span>
   ca7957e9685c2f1b  <span class="chip learn" title="
@@ -134,12 +151,15 @@
   8bfd7adceef1345f  <span class="hy">auto</span>
   8d6062a22cc4af23  <span class="ic" style="font-size:17px;color:
   b2aa118a497b3f4e  <span class="lay-arrow">\u2192</span>
+  0f87e484d07b041c  <span class="livenow">On now</span>
   62bc3808f16130c2  <span class="mono" style="color:
+  79494432a3df21c8  <span class="openwk">This week</span>
   1120ce038e281d16  <span class="pill
   8c0951042a96d65b  <span class="pill">App-authored aid</span>
   4714c142e626766f  <span class="sc
   c556c181d6a203e1  <span class="termpart
   a05bf7cf9eb01e77  <span class="termplus">+</span>
+  a8c0e6943d65acd5  <span class="vague" title="No time published for this subject">week only</span>
   9ff1547fa8321e02  <span class="vis-arrow">→</span>
   33fbe9092c8b20e9  <span style="color:
   3e23d75fa4bb7dbb  <span style="width:
@@ -229,6 +249,7 @@
   4e5ee32632668b6e  Full coverage
   3ee9379ac50332af  Full reference + fallback upper-limb meshes
   c779b95a4e70b011  Full reference failed
+  edf0377d91509acb  Full term
   40c84cdc3af701a2  Give me the memory aids →
   831a75c9cc4213cd  Go to review →
   9f6d5644228aca65  Greek kokkyx — cuckoo
@@ -340,6 +361,7 @@
   44a3cc778bbfd521  Nothing in progress
   a272b965cae90dba  Nothing is assumed about your answer — this is the first thing recorded for the item.
   992f6502afaafa7a  Nothing is highlighted. Rotate the model and tap it. Tapping the same spot twice steps behind whatever is in front.
+  db09520da1bff2bb  Nothing left on the published timetable.
   e482fecba95e8c84  Nothing matches \u201c
   f8c104249eb21c8b  Nothing selected
   5f659a0f0761bf95  Nothing to ask here yet
@@ -429,6 +451,7 @@
   e6a0a4c59cbb9600  Structures, study items, topics…
   4a085fa65d717e0d  Student work
   381d54ae5dc158bf  Study Studio
+  7934c545a704cdcc  Study effort
   7aeec7e28ab447b1  Study items
   197a9cfd7132bfb2  Study modes
   6db1fe691cb5e688  Study session
@@ -439,6 +462,7 @@
   86daae5b32dfb5e1  Tap again to erase \u2014 this is final
   eb5e1fc43df87ac0  Tap any named structure. Tap the same spot again to step through whatever is behind it.
   caff82fe942e6cfe  Tarsals, metatarsals, phalanges: 7–5–14.
+  da36c0320030978c  Teaching week
   e9fe8433758b6f59  That file could not be read.
   77b11fb420786198  That file is not JSON this app understands.
   9b7eb2fb53d7ebf5  That file is not valid JSON.
@@ -468,6 +492,9 @@
   8baacea34fdc4ab0  The radius rotates over the ulna like a wheel spoke. It is on the thumb side.
   444c5de284285e50  The sacred wedge-shaped keystone locks the pelvic ring together.
   d34c527efb66b8ea  The study tools still work. Check your connection, then retry the model layer.
+  0e418effcb6578f9  The supplied timetable lists all three tutorial and lab groups without saying which is yours. Pick them once and the other groups’ slots stop counting against your attendance.
+  8786e514e5dee92d  The teaching term is over
+  09612087f1b58b52  The term has not started yet
   dd5fd4c64fb6fb43  The thigh bone
   51aee75534b22418  There is nothing recorded on this device yet, so there is nothing to erase.
   b5792b631250ed3a  This bone is in the database, but high-yield hotspot coordinates have not been added yet.
@@ -475,11 +502,14 @@
   d424b366dd8d36ab  This fallback reference is fused. Use Upper limb for per-bone isolation.
   334addec24dbdad9  This lecture mostly re-treads it. The lines below are what it adds on top, and they are the examinable part.
   160a7acfab0d47ae  This one is best answered on the 3D skeleton
+  8c4eef5ab2532515  This week
   2a2abf143c0b1cb9  Thoracic cage
   8278421692e43358  Those bones are not in the loaded model.
+  f3fbfcd5fea4fbe9  Timetable, syllabus, attendance
   365876067e586bde  Traced to
   4605d18762092f89  Try to answer out loud before revealing anything. Producing the answer is the skill the exam tests — recognising it is not the same skill.
   325a3667381bade5  Twelve vertebrae: lunch at 12, with ribs attached.
+  f43e8542dedb6219  Two of those are screenshots of Canvas rather than documents, because no document copy was supplied. They cannot be text-checked the way a lecture can, so everything taken from them is written out in this repo’s timetable data module, in full, where it can be read and corrected.
   431c871a874df758  Type an answer first — a guess still teaches you more than skipping.
   41146b07110e6e0c  Type the bone name
   314528767e58f2ee  ULna = yoUr elbow side: the pinky-side stable hinge.
@@ -499,6 +529,7 @@
   b4162094b978eb6b  What this lecture adds beyond
   536306b242c83602  What to do now
   d3ab8637fc736ca3  What you missed — to fix before it comes back
+  7efbff3832400d93  Where all of this came from
   99e5997ec6eb3f95  Which bone does this hook belong to?
   14ab8c8c07e135d1  Whole body
   a6075b915d80c000  Work it out in your own words
@@ -509,6 +540,7 @@
   6072830a754d6f42  You revealed
   3885517f2e4fef0c  You wrote "
   94661d68cd8ce6bb  Your course material names none of these one by one, so the
+  62375359a1826914  Your groups
   69bfb7f1b8cfd020  Your mistake log —
   0766aba44d3ed61b  Your sources call it
   5aacae2229c04415  Z-Anatomy / BodyParts3D skeleton · 159 named structures
@@ -530,7 +562,9 @@
   642d69680683778d  boot on Today, then tap Viewer
   a4d8d4905749584b  border:1px solid rgba(114,227,207,.4);border-radius:16px;background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03));padding:18px
   1d647a1965983c2a  breaths a minute
+  a4c18480ff6a58f4  card grouppick
   dee735ed000908c8  card overlaycard
+  53a55ca51fe7c9ab  card sylcard
   67e4b13874eb864a  chip beyond
   4fdb308b1fc87ab3  chip learn
   9b6a126af19abc00  cm · simulated · tap to name
@@ -563,9 +597,11 @@
   c10f8a601e7ff109  float transmitted = exp(-tau);
   c99a222fc3470c4f  ghost close
   1a282eee876c39f0  ghost hidden
+  8a4081dbed1f6c62  ghost tolesson
   fdb7920c327b021a  gl_FragColor = vec4(sgn * vDist * uMu, 0.0, 0.0, 1.0);
   2417f7519a9d91f5  gl_FragColor = vec4(vec3(clamp(density, 0.0, 1.0)), 1.0);
   6a590bc9c97002da  gl_Position = projectionMatrix * mv;
+  136c83226ce5507e  held so far
   801150784042ae58  hiddentray empty
   1627ca8d8438acb8  how far does this region reach
   940f7dac806d0907  htitle editorial
@@ -637,6 +673,7 @@
   df49128572cf09cb  s job is only to feed it those meshes in the body
   91f0e226c82016ff  s left), fz 0 the trunk
   4e01dcdc55cd6293  s own half-width put the oesophagus
+  d0f660b8c5b0b50c  segbar coursetabs
   cd3c2bcf3f5c6659  segbar hidden
   37e8cb66682dd7b0  separately selectable">
   a8970b03087f1926  sheetscrim hidden
@@ -671,6 +708,7 @@
   6a721f9bcdcf952d  view hidden
   4d3a303a1b27367f  vsheet hidden
   517a9e300094cc0d  wall interpolated between the costal margin and the pelvis (muscle layer not loaded)
+  d1d9ae15f23c9b21  what should I study
   5fd1f8e2da61b599  what this mode needs
   c9ef209dbe30af9e  where the file is more recent — replaced.
   8198bdb854b9ed3d  where this device is more recent — kept as they are.

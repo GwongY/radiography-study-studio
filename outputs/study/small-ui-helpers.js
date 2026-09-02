@@ -26,7 +26,7 @@ export function xrayFallback(el) {
   el.replaceWith(div);
 }
 
-const VIEWS = ['todayView', 'learnView', 'viewerView', 'reviewView', 'moreView'];
+const VIEWS = ['todayView', 'learnView', 'viewerView', 'courseView', 'reviewView', 'moreView'];
 export function showView(id) {
   VIEWS.forEach((v) => $$(v).classList.toggle('hidden', v !== id));
   const pane = $$('navContent');

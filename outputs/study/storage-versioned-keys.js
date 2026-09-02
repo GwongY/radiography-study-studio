@@ -15,6 +15,10 @@ export const K = {
   items: STORAGE_PREFIX + 'items',
   mistakes: STORAGE_PREFIX + 'mistakes',
   meta: STORAGE_PREFIX + 'meta',
+  /* Course tab: which sessions were attended, and which tutorial and lab
+     group the student is in — neither is derivable from the schedule. */
+  attendance: STORAGE_PREFIX + 'attendance',
+  groups: STORAGE_PREFIX + 'groups',
 };
 
 export function read(key, fallback) {
@@ -29,6 +33,8 @@ export const store = {
   items: read(K.items, {}),
   mistakes: read(K.mistakes, []),
   meta: read(K.meta, null),
+  attendance: read(K.attendance, {}),
+  groups: read(K.groups, {}),
 };
 
 export function migrate() {
