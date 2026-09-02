@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 730 —
-  161cc1b3067223db  WHOLE SET
+— user-facing strings in outputs/ — 757 —
+  87c1adfb7dd12205  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -15,11 +15,13 @@
   2599c70aaa36cb29   · assumed from 
   df725abe14c48979   · this week
   ee2ecbd9ea7a7e36   — it does not stand alone, it attaches to a root.
+  f50d324d8a3b2119  " aria-label="
   b3c0b044207f0ecc  " aria-pressed="
   428d71c485304cd4  " class="dlab">
   88c26bf09f179369  " data-att="missed" data-sid="
   56dab152666c2c7c  " data-att="went" data-sid="
   d9f636bbe94e0ae5  " data-concept="
+  8ea7e01970b3f34f  " data-depth="
   ef15913a4f42b0cc  " data-filter="
   5265bd1a089ac9df  " data-groupopt="
   9d18b1672389d7fe  " data-groupset="
@@ -28,6 +30,7 @@
   ab4db5fd38212e44  " data-stage="
   d73ec115ea9142c9  " data-state="
   19d374017e84dc66  " data-step="
+  62d7f300f56bd1fa  " data-tool="off" aria-pressed="
   339e1b7085304bc2  " data-topic="
   e2d80c92ddbb5f6d  " data-vtab="
   40096d512b202dd9  " data-xregion="
@@ -70,6 +73,7 @@
   7c91d479afddcabc  <button class="ghost tolesson" data-unit="
   eccfc54f8a6ac23c  <button class="ghost" id="openViewerBtn">Open in Viewer</button>
   e930ca7db13997d6  <button class="ghost" id="rssPriorLesson">Read the lesson</button>
+  6d228961058fd5cf  <button class="icon-btn
   efe13358035bbef6  <button class="layerchip" data-layer="
   7929e87a656cae65  <button class="livechip" id="liveChip" data-on="
   9cf783159a7226c8  <button class="ochip" data-kind="
@@ -138,9 +142,11 @@
   a03547db46bf9e4b  <i style="background:#
   6f722b80156fb8ac  <img src="
   2f476a078765d308  <input id="rssTypedInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="
+  3a324e9e0d188447  <input type="range" min="8" max="100" value="
   4a0089a78242886e  <li class="sessrow
   5f0ccbf50845efd8  <option value="
   541b9a046de22b45  <p class="figkey-note">Dimmed marks are the figure’s own labels, beyond this lesson’s named set.</p>
+  6f16f7184cae76ac  <p class="small">Turn a layer on below the model and its opacity appears here.</p>
   67bad9b6b48321f9  <path class="sk" d="
   44253459e8795ded  <section class="card sylcard" style="--acc:
   797b7e050cea9dbd  <section class="weekblock
@@ -152,6 +158,7 @@
   8d6062a22cc4af23  <span class="ic" style="font-size:17px;color:
   b2aa118a497b3f4e  <span class="lay-arrow">\u2192</span>
   0f87e484d07b041c  <span class="livenow">On now</span>
+  b83f09d243f67fb8  <span class="mono" data-depthread="
   62bc3808f16130c2  <span class="mono" style="color:
   79494432a3df21c8  <span class="openwk">This week</span>
   1120ce038e281d16  <span class="pill
@@ -166,9 +173,12 @@
   9a190444c57e8ead  <svg viewBox="
   c12c67df1fb8fe14  A basin made of ilium, ischium and pubis: I sit on my ischial tuberosity.
   bd5105f51b6139f1  A flat triangle with a spine and a shallow glenoid socket: mobility over stability.
+  023844eacdc79cc6  A frontal slice. Keeps the anterior half; flip for the posterior.
   9b1cc7817bd82354  A layout, not a depiction \u2014 no anatomy is being drawn to scale here.
   d05095ea594f8f5a  A real part of this item is new. The background you already have is folded away at the foot of the card.
   43efab18440887ca  A root — the part carrying the meaning. The /o on the end is the vowel that joins it to whatever follows.
+  1a650cac2c2c4567  A sagittal slice, median at 50%. Keeps the patient's left; flip for the right.
+  2dee5d201e02f95e  A transverse slice, the plane a CT slice is taken in. Keeps everything above it; flip to keep what is below.
   11903751ff4bca8a  AI & data
   92508480855a651c  Acromial part of deltoid muscle
   077ffef3c99e0f88  All ' + qCount + ' questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.
@@ -221,6 +231,7 @@
   7405b8bbcaf9d423  Could not load that model — the skeleton is still available.
   73a069d82b0d3b67  Could not locate that structure in the model
   3e43a3e5c3ac8956  Could not set that movement up on the model.
+  80593d9330e238e5  Cut position
   e3c1a5d80a89f718  Day streak, per-item status and the item you were last part-way through.
   1ce89851847711af  Delete every mastery record, mistake and schedule stored in this browser. There is no server and no undo, so export a backup first if you might want it.
   71eb8a08ffd768d7  Delete everything
@@ -229,6 +240,7 @@
   93d539da04aaa89f  Did you get there?
   6e3a2aaa642e7315  Distal phalanx of fifth finger of foot
   84aa3c799bf45058  Distal phalanx of third finger of foot
+  25c830e43bff1b31  Drag on a structure to draw on it.
   def37d546eb3a08f  Drawn by this app
   892bd00331369854  Drill these 
   e3531efed93e66d7  Every factual claim on this item traces to a file below. Memory aids are written by this app and are marked separately.
@@ -294,6 +306,7 @@
   f59b26851c73e9b0  Latin tibia — flute/shinbone
   a280355bca83b833  Latin ulna — elbow
   19a26e702fb685e6  Latin — small pan/dish
+  bf913fcad550f5eb  Layer 7, Muscular
   929fda3beb4aa693  Left / right
   a3053906dabadf84  Level 1 · Identify
   479faebc365f0ab1  Level 1 · Your weakest
@@ -355,6 +368,7 @@
   8e1c1b7eb909b934  Not quite. Correct:
   e843982c79a688a1  Not right — here is why
   2ca96754a9566ca9  Not that one — try again. You tapped
+  05d0ba9bf71b048a  Note text, then tap the structure
   be01d5e7a809719c  Nothing attempted yet
   01c734adb1d8dbbe  Nothing due or weak yet
   17c54ae148fd8107  Nothing has happened yet. Close this dialog and it never will.
@@ -368,6 +382,7 @@
   dcc202d7f9385e97  Nothing to delete.
   91d3cc9c39ce4d97  Nothing to study
   f5de33541d146691  Nothing to study for that selection yet.
+  bf9913bba7204a22  Nothing to undo.
   2efc956104ec7d7a  Offline & storage
   e1070a158b550318  Offline-first study system for HSS2011 Human Anatomy, ABCT2326 Human Physiology and medical radiation science.
   a6c061874897dabb  One learning tree
@@ -405,6 +420,7 @@
   0386ccda7d5b5be3  Review · scheduled
   70e713c50b354a05  Rib-count memory
   265caba7c7686645  SM-2 shaped, then modified by response time and repeat mistakes.
+  226449e53de8c9e3  Saved the current view as a PNG.
   557649a62d5eb1a6  Scaphoid bone.r
   c2faf1deb36d01f2  Scheduling rules
   415155739590b1f9  Search everything
@@ -444,6 +460,7 @@
   d29d2b38dac7572e  Start a session below to begin.
   ed4ac7d9bce75d7f  Start due session \u2192
   b13f13a030dc286c  Start from the title and ask what category the answer belongs to.
+  bbbe87b5cafa988b  Start the stroke on a structure.
   73a408b0bf3f0f58  Start with Identify to create your first review history.
   e5424ad7564878f3  Starting with
   abf1b14dc2f90ee7  Static model
@@ -459,6 +476,9 @@
   307e3df259cf7ea5  Subjects with no material
   25a2aae6c2da8872  Substitute source
   eb81808a3bbd84cf  TIBia = TIBe weight-bearing. The medial malleolus is the inner ankle bump.
+  2d7a925fbe1c1b06  Tap a structure to pin it.
+  b39ae8aef682cd9b  Tap a structure to pin the name it is taught under.
+  527fcabced0fccfb  Tap a structure to pin your own text to it.
   86daae5b32dfb5e1  Tap again to erase \u2014 this is final
   eb5e1fc43df87ac0  Tap any named structure. Tap the same spot again to step through whatever is behind it.
   caff82fe942e6cfe  Tarsals, metatarsals, phalanges: 7–5–14.
@@ -485,6 +505,7 @@
   f0864c68a8d121df  The longest and strongest bone angles inward from hip to knee.
   bc8615178d30481f  The mastery record in that file is missing or malformed.
   75527df298173eb8  The mistake log in that file is malformed.
+  45ac6ce6220f94f4  The model is not rendering yet.
   dabc54de5c7ac201  The name is doing the work:
   c30d436bb4db379e  The nine abdominopelvic regions
   1ee065c69f618147  The only horizontal long bone: an S-shaped key between sternum and shoulder.
@@ -512,6 +533,7 @@
   f43e8542dedb6219  Two of those are screenshots of Canvas rather than documents, because no document copy was supplied. They cannot be text-checked the way a lecture can, so everything taken from them is written out in this repo’s timetable data module, in full, where it can be read and corrected.
   431c871a874df758  Type an answer first — a guess still teaches you more than skipping.
   41146b07110e6e0c  Type the bone name
+  111ce187bae23ee4  Type the note first, then tap the structure.
   314528767e58f2ee  ULna = yoUr elbow side: the pinky-side stable hinge.
   132f74cac4453f6b  Unnamed structure
   cef68b40feba1c6a  Upper first molar tooth
@@ -565,6 +587,7 @@
   a4c18480ff6a58f4  card grouppick
   dee735ed000908c8  card overlaycard
   53a55ca51fe7c9ab  card sylcard
+  3498234b41cec63c  card toolcard
   67e4b13874eb864a  chip beyond
   4fdb308b1fc87ab3  chip learn
   9b6a126af19abc00  cm · simulated · tap to name
@@ -601,6 +624,7 @@
   fdb7920c327b021a  gl_FragColor = vec4(sgn * vDist * uMu, 0.0, 0.0, 1.0);
   2417f7519a9d91f5  gl_FragColor = vec4(vec3(clamp(density, 0.0, 1.0)), 1.0);
   6a590bc9c97002da  gl_Position = projectionMatrix * mv;
+  c3218bfbba24a149  half the model has gone missing
   136c83226ce5507e  held so far
   801150784042ae58  hiddentray empty
   1627ca8d8438acb8  how far does this region reach
@@ -655,6 +679,7 @@
   e7b1a45f4258c96c  no engine
   3c990f97c8ed9e68  no stage
   29c0d92fb897dea2  not named in your course material
+  639098cfaf4687c5  nothing drawn yet
   6c72de620a530165  notice stop
   bcc38d49bd57532e  of existing progress into the new mastery record.
   051d858fae071603  of them are selected together under a name it does use. The atlas calls this one "
@@ -684,7 +709,9 @@
   4132e48b488fc684  studied, across
   79ea393804dc771d  tap a structure to name it
   f5f88ae39b9a5ceb  that structure
+  8ef9472e82771a5b  the body frame
   5d2033a00068467a  to uncover
+  e738706e3a65b48b  toolchip hidden
   91ca901995ca8a91  type="button" data-term="
   e53766dcd94ffbe0  uncoverbanner hidden
   b76b61628827fa7f  under one name

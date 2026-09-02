@@ -10,6 +10,7 @@ import { bodyMetrics, ensureConceptGroup, showPickCallout } from './spatial-conc
 import { buildCavity, buildCellGrid, buildPlane, cavityContext, cavityStyle, layerSignature } from './cavity-geometry-derived.js';
 import { hiddenRows, hideMesh, publishHidden, unhide } from './hide-and-search.js';
 import { hideFromStack, loadExtraModel, pick, publishStack, restorePeel, selectFromStack, stackEntries } from './depth-picking.js';
+import { frameRegion } from './tools-and-capture.js';
 import { revealStructure } from './search-viewer-frame.js';
 
 /* ------------------------------------------------------------------ *
@@ -425,7 +426,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   }
   function weightedPick(records=pool()){const sorted=[...records].sort((a,b)=>((state.stats[b.id]?.incorrect||0)-(state.stats[a.id]?.incorrect||0))||((state.stats[a.id]?.attempts||0)-(state.stats[b.id]?.attempts||0)));return sorted[Math.floor(Math.random()*Math.min(5,sorted.length))] || records[0]}
 
-  export function renderRegions(){ els.regions.innerHTML=''; [['all','All regions'],...REGIONS.map(r=>[r.id,r.label])].forEach(([id,label])=>{const b=document.createElement('button');b.className='region-btn'+(state.region===id?' active':'');b.textContent=label;b.onclick=()=>{state.region=id;els.regionMeta.textContent=regionLabel(id);applyVisibility();if(state.mode!=='explore')startQuestion();renderRegions();renderStudyPool()};els.regions.appendChild(b)}) }
+  export function renderRegions(){ els.regions.innerHTML=''; [['all','All regions'],...REGIONS.map(r=>[r.id,r.label])].forEach(([id,label])=>{const b=document.createElement('button');b.className='region-btn'+(state.region===id?' active':'');b.textContent=label;b.onclick=()=>{state.region=id;els.regionMeta.textContent=regionLabel(id);applyVisibility();/* Filtering without moving left you looking at a whole skeleton with most of it off. See frameRegion in studio/tools-and-capture.js. */frameRegion();if(state.mode!=='explore')startQuestion();renderRegions();renderStudyPool()};els.regions.appendChild(b)}) }
   export function renderReview(){const reviewed=Object.values(state.stats).filter(s=>s.attempts>0).length;const accuracy=Object.values(state.stats).reduce((n,s)=>n+s.correct,0)/Math.max(1,Object.values(state.stats).reduce((n,s)=>n+s.attempts,0));els.reviewNumber.textContent=`${reviewed} / ${ANATOMY_DATABASE.length} reviewed`;els.reviewBar.style.width=`${Math.round(accuracy*100)}%`;els.reviewHint.textContent=reviewed?`${Math.round(accuracy*100)}% correct overall · weaker structures are prioritised.`:'Start with Identify to create your first review history.'}
   export function selectBone(id, side=null){state.selectedId=id;state.selectedSide=side;const record=getRecord(id);if(!record)return;const layerMeshes=Object.values(state.extraModels||{}).flatMap(m=>m.meshes);state.selectionAnchor=state.meshes.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||layerMeshes.find(m=>m.userData.canonicalId===id)||state.fullMeshes.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||state.fullPickables.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||null;renderSelected(record,side);highlight(id,side);
     /* the name stays on the model until the selection changes */
@@ -513,7 +514,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   /* The line under the mode buttons: what is in the pool, and how to change it.
      The old build left you to infer both. */
   const MODE_LABEL={explore:'Explore',identify:'Identify',side:'Left / right',landmarks:'Landmarks',find:'Find',memory:'Memory hooks'};
-  function renderStudyPool(){
+  export function renderStudyPool(){
     const box=$('studyPool');if(!box)return;
     const region=state.region==='all'?'whole skeleton':regionLabel(state.region);
     if(state.mode==='explore'){

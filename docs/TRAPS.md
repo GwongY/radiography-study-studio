@@ -425,3 +425,40 @@ shapes** — in "The region grid and classifiers" below.
   appeared not to work. `fetch(url, {cache:'no-store'})` tells you what the
   SERVER has; unregister the worker and clear caches before believing a
   before/after.
+
+### Tools: cut, ink, pins — `outputs/studio/tools-and-capture.js`, `outputs/study/viewer-tools.js`
+
+- **Two pointer-capture owners for one pointer breaks OrbitControls.** The pen
+  captured the pointer on `#stage` while OrbitControls had already captured it
+  on the canvas inside it, so the library's own `pointerup` never fired, its
+  `pointers` array kept a stale id, and the NEXT gesture threw
+  `Cannot read properties of undefined (reading 'x')` from
+  `pointerPositions[staleId]` — inside three.js, on a later interaction, with
+  nothing pointing back at this file. The pen sets `controls.enabled = false`
+  instead and takes the surface outright; events still reach the stage by
+  bubbling. Never call `setPointerCapture` on an ancestor of the canvas.
+- **The clipping plane must be re-derived from the root's world matrix every
+  frame.** The turntable yaws the pivots continuously, so a plane computed once
+  in world space when you press "Axial" swings away from the body as it turns.
+  `state.cut.local` is stored in the body frame and `syncCut()` maps it out on
+  each frame, from `animate()` via `syncTools()`.
+- **The annotation group is a scene sibling, not a child of `fullModel`.** It
+  shares that root's frame and copies its world matrix each frame, because
+  `applyVisibility()` sets `fullModel.visible` from the skeleton chip — parented,
+  a pen stroke on the liver would vanish when somebody turned the bones off.
+- **`LineBasicMaterial.linewidth` is ignored by every desktop WebGL driver.**
+  A finished pen stroke is a `TubeGeometry` for that reason; the `Line` is only
+  the live preview, because it is free to rebuild on every pointermove.
+- **`renderer.clippingPlanes` is global and clips sprites too.** Pinned labels
+  are placed clear of the silhouette, so they normally sit on the kept side, but
+  a cut CAN eat a tag — that is the plane doing its job, not a bug to route
+  around with per-material planes.
+- **Which way each cut plane faces was measured, not assumed** — right clavicle
+  x −0.58 (so +x is the patient's LEFT), sternum z +0.55 against T8 z −0.53 (+z
+  ANTERIOR), frontal bone y 6.5 against femur y −0.4 (+y SUPERIOR). A clipping
+  plane keeps the half its normal points into; get one backwards and the app
+  teaches a student the wrong side of their own section. Re-measure before
+  changing a normal.
+- **The raycaster does not know about the clipping plane**, so with a cut open
+  the pen can land on a surface the cut has removed. The card says draw first,
+  section second.

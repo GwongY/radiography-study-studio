@@ -30,7 +30,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v73';
+const CACHE_VERSION = 'v74';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -76,6 +76,7 @@ const SHELL = [
   './studio/region-boxes-how.js',
   './studio/depth-picking.js',
   './studio/live-physiology.js',
+  './studio/tools-and-capture.js',
   /*
    * study.js is an entry point that imports these and then calls their init()s.
    * Every one has to be in the shell or the study system is blank offline.
@@ -104,6 +105,7 @@ const SHELL = [
   './study/coverage-report.js',
   './study/mastery-dashboard.js',
   './study/course-timetable.js',
+  './study/viewer-tools.js',
   './study/boot.js',
   './study/dialog-behaviour-applied.js',
   './study-data.js',
