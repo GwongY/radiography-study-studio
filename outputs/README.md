@@ -127,6 +127,36 @@ That is how a gap becomes invisible: a topic listed as covered because a neighbo
 it gives no later reader any reason to look again. Nine items now teach it, and the coverage lines
 were rewritten to describe **what a lesson teaches** rather than what the corpus has read.
 
+## Reading help — every technical word the corpus uses
+
+Tapping a word gives its plain-English meaning **and its Traditional Chinese term**. That second half
+is not decoration: this is a Hong Kong course taught in English off English sources, and a lot of this
+anatomy is already known under its Chinese name, so carrying both lets one hook the other instead of
+the same structure being learnt twice.
+
+Eighteen lessons were written before the glossary caught up with them, and the cost was measurable:
+**83 of 147 technical words in those lessons were not tappable at all** — intron, exon, mitosis,
+meiosis, Golgi, cytoplasm, organelle, osteocyte, epimysium, fascicle, myosin, actin, platelet, enzyme,
+and the whole vocabulary of a bony landmark. A lesson could say *"introns will be removed and exons
+spliced together"* — the lecture slide’s own words — with neither word underlined, defined in the
+lesson, or defined anywhere else. `TERM_GLOSS` went from 656 entries to 775 and that number is zero.
+
+Two structural fixes came with it.
+
+- **The tokenizer floor was six letters.** That made `fossa`, `bursa`, `ramus`, `gyrus`, `crest`,
+  `facet`, `hilum`, `sulci`, `cilia`, `codon`, `actin` and `exons` permanently inert however good
+  their glossary entry was — and that is anatomy’s own working vocabulary. It is five now, but a
+  five-letter word has to earn it: it needs a curated WHOLE-WORD entry, not merely a decomposition.
+  Without that guard "costs" underlines as the rib root `cost/o`, "later" as `later/o` (side) and
+  "inter" as a prefix — ordinary English wearing an anatomical meaning it does not have, which is
+  worse than leaving it plain.
+- **Word parts gained the anatomy set** — `ab-`, `ad-`, `bi-`, `syn-`, `amphi-`, `dia-`, `iso-`, and
+  the stems behind epimysium, osteoblast, acetabulofemoral and glenohumeral.
+
+Where a term is used but its own source never defines it — introns and exons are exactly that case —
+the lesson’s plain lead now carries the sentence that does, tagged app-authored the way every
+app-authored line is.
+
 ## Course — the timetable, the syllabus, and what you have already missed
 
 A sixth destination. The rest of the app answers *what should I study*; this answers *where am I
@@ -141,6 +171,11 @@ meant to be, and what have I already missed*.
 - **Syllabus.** Each subject as its description form states it — objective, intended learning
   outcomes, the assessment table with weights, study effort, and the reading list. Every weight
   carries the file and page it was read off, the same way a lesson does.
+- **What to read before each week.** The timetable names a topic; `WEEK_STUDY` in `schedule.js` says
+  which of our lessons teach it, in order, with a button that runs the whole week as one session.
+  128 lessons in subject order is not a study plan. Week 7 is deliberately **empty** — the schedule
+  teaches Special Senses and nothing in the corpus covers it, and the tab prints the gap rather than
+  hiding it.
 
 ### The week grid is derived, and the derivation is written down
 
