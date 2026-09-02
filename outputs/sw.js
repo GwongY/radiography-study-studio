@@ -96,6 +96,7 @@ const SHELL = [
   './study/hidden-tray.js',
   './study/spatial-overlay-controls.js',
   './study/subject.js',
+  './study/text-size.js',
   './study/what-is-under.js',
   './study/session-engine.js',
   './study/lesson-visuals.js',

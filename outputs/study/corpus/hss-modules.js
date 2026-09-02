@@ -373,84 +373,19 @@ export const HSS_MODULES = [
     sourceRefs: [{ ref: 'hss.3.2', location: 'Urogenital system lecture' }, { ref: 'hss.3.3', location: 'Regional anatomy of the abdominopelvic region' }, { ref: 'hss.revans', location: 'Module 3.2 and 3.3 answers; More exercises Module 3' }],
   },
   /* ------------------------------------------------------------------ *
-   * The 2026 material — hss.w1.2026 (subject orientation) and
-   * hss.msk.2026 (Module 1 Week 1). Both are New source files, and both
-   * teach things no older HSS2011 file in this corpus states: the module
-   * numbering the student is actually assessed under, and the histology
-   * and muscle-organisation half of the musculoskeletal module.
+   * The 2026 material — hss.msk.2026, Module 1 Week 1. A New source file
+   * teaching the histology and muscle-organisation half of the
+   * musculoskeletal module, which no older HSS2011 file here states.
+   *
+   * A companion item, "What HSS2011 is, and how it is marked", used to sit
+   * here and was DELETED. It was course logistics wearing a lesson's
+   * clothes: module titles, assessment weights and where Canvas lives are
+   * not anatomy, they are not revisable, and answering a flashcard about
+   * the marking scheme teaches nothing. All of it is now in the Course tab,
+   * sourced and side by side with the timetable, which is where you would
+   * actually look for it. The orientation deck hss.w1.2026 is still cited
+   * by outputs/schedule.js.
    * ------------------------------------------------------------------ */
-  {
-    id: 'hss2011-subject-2026',
-    subject: 'HSS2011', unit: 'hss.subject', type: 'definition',
-    title: 'What HSS2011 is, and how it is marked',
-    tags: ['foundation', 'high-yield'],
-    lesson: {
-      explanation: 'The subject objective is that, with systemic and regional approaches, students will demonstrate basic understanding of the structure, organization and function of the human body. It runs across four modules: Module 1 Musculoskeletal system (bones and muscles; support and movement), Module 2 Nervous system (central and peripheral nervous system; sensing, coordination, motor commands), Module 3 Cardiovascular and pulmonary system (circulation and heart, airway and lungs; distribution of materials and removal of waste), and Module 4 Digestive and urogenital system (the major organs at the abdominal regions, with the digestive system processing nutrients, the urinary system removing waste and the reproductive system producing offspring). Assessment is three parts: a Revision Exercise worth 8%, online and open book, covering Modules 1 to 4; in-class activities worth 32%, using artificial intelligence to finish a randomly allocated task, discussed in the first session and given as a three-minute presentation on one slide in the second; and a final quiz worth 60%, individual and close book, covering Lectures 1 to 12. Canvas carries the course information, modules and schedule.',
-      plain: 'Four modules, and the numbering matters: musculoskeletal is Module 1 this year even though every file you have been given calls it Module 4. The marks are 8% open-book revision exercise, 32% in-class AI task ending in a three-minute one-slide presentation, and 60% close-book final quiz over all twelve lectures. Only the revision exercise is open book — the thing worth 60% is not.',
-      keyFacts: [
-        'Module 1 Musculoskeletal, 2 Nervous, 3 Cardiovascular and pulmonary, 4 Digestive and urogenital.',
-        'Revision Exercise 8% — online, open book, Modules 1–4.',
-        'In-class activities 32% — an AI task allocated at random, discussed in session 1, presented in 3 minutes on 1 slide in session 2.',
-        'Final quiz 60% — individual, close book, Lectures 1–12.',
-        'Subject objective: systemic AND regional approaches to structure, organization and function.',
-        'The stated key interests of Human Anatomy are the cellular level, tissue level, organ, system level and organism.',
-        'The subject description form titles the modules I Musculoskeletal system, II Neuroanatomy, III The Thorax, IV The Abdomen and Pelvis — the same modules the orientation deck describes by what they contain.',
-        'Module I holds Musculoskeletal System, Upper and Lower Limbs, Head & Neck. Module II holds Nervous System, Special Senses, Neuroanatomy.',
-        'Module III holds Cardiovascular System, Respiratory System, Regional Anatomy of the Thorax. Module IV holds Regional Anatomy of the Abdomen & Pelvis, Digestive System, Urogenital System.',
-        'Six intended learning outcomes: use the terminology; identify and locate structures; understand tissue organization; integrate systemic with regional and their spatial relationship; explain function; recognize anatomical pathways.',
-        'Study effort: 26 hours of lecture and 10 of tutorial make 36 hours of class contact, with 93 hours of other study — 129 in total.',
-        'Set text: Martini, Nath & Bartholomew (2024), Fundamentals of Anatomy and Physiology, 12th edition.',
-      ],
-      prerequisites: [],
-      examples: [],
-    },
-    memory: {
-      chunking: '8 / 32 / 60. The small open-book one, the group AI one, and the one that decides your grade.',
-      comparison: 'Open book applies to the 8% only. The 60% quiz is close book, which is the opposite of the assumption carried over from the revision exercise.',
-      location: 'Everything administrative lives on Canvas — course information, modules, schedule, and your group’s timetable.',
-    },
-    practice: [
-      { type: 'mcq', prompt: 'Which assessment carries the most marks in HSS2011?', options: ['Revision Exercise', 'In-class activities', 'Final quiz', 'They are equally weighted'], answer: 2,
-        explanation: 'The final quiz is 60%, against 32% for in-class activities and 8% for the revision exercise.',
-        src: { ref: 'hss.w1.2026', location: 'p7 "Final quiz (60%)"' } },
-      { type: 'mcq', prompt: 'Which module is the Musculoskeletal system in the 2026 subject orientation?', options: ['Module 1', 'Module 2', 'Module 3', 'Module 4'], answer: 0,
-        explanation: 'Module 1. The source folders on the drive file it as Module 4, from an older ordering — the orientation deck is the current one.',
-        src: { ref: 'hss.w1.2026', location: 'p10 "Module 1: Musculoskeletal system"' } },
-      { type: 'matching', prompt: 'Match each 2026 module number to its system.', pairs: [['Module 1', 'Musculoskeletal system'], ['Module 2', 'Nervous system'], ['Module 3', 'Cardiovascular and pulmonary system'], ['Module 4', 'Digestive and urogenital system']],
-        explanation: 'One slide per module, in this order, in the Week 1 orientation deck.',
-        src: { ref: 'hss.w1.2026', location: 'p10 "Module 1: Musculoskeletal system"' } },
-      { type: 'matching', prompt: 'Match each module to a topic the subject description form files under it.', pairs: [['Module I Musculoskeletal system', 'Upper and Lower Limbs'], ['Module II Neuroanatomy', 'Special Senses'], ['Module III The Thorax', 'Cardiovascular System'], ['Module IV The Abdomen and Pelvis', 'Urogenital System']],
-        explanation: 'The form lists three topics under each module. Head & Neck is also Module I; Nervous System and Neuroanatomy are Module II; Respiratory System and Regional Anatomy of the Thorax are Module III; Digestive System and Regional Anatomy of the Abdomen & Pelvis are Module IV.',
-        src: { ref: 'hss.sdf.2627', location: 'p1 "Upper and Lower Limbs            Special Senses"' } },
-      { type: 'typed', prompt: 'The Revision Exercise is worth what percentage?', accept: ['8', '8%', 'eight', '8 percent'],
-        explanation: '8%, online and open book, covering Modules 1–4.' },
-      { type: 'mcq', prompt: 'Which of these is open book?', options: ['The final quiz', 'The Revision Exercise', 'Both', 'Neither'], answer: 1,
-        explanation: 'The Revision Exercise is the open-book one. The final quiz is a close book quiz.',
-        src: { ref: 'hss.w1.2026', location: 'p7 "Revision Exercise (8%)"' } },
-    ],
-    application: [
-      { type: 'scenario', prompt: 'Your lecture files are filed under "Module 4 Musculoskeletal System" but this year’s orientation calls it Module 1. Which do you answer with, and why does the discrepancy exist?',
-        model: 'Answer with the 2026 numbering — Module 1 — because that is what the current subject orientation states and what the assessment is set against. The folders on the shared drive are from earlier years, when the modules were ordered Thorax, Neuroanatomy, Abdomen and Pelvis, Musculoskeletal. The content of the file is still the right content; only its number has moved.',
-        rubric: ['Chooses the 2026 numbering', 'Identifies the folders as an older ordering', 'Notes the content itself is unchanged'] },
-    ],
-    commonMistakes: [
-      'Assuming the final quiz is open book because the revision exercise is.',
-      'Quoting the module number off the source folder — those carry the previous ordering.',
-      'Reading the quiz and the revision exercise as the same scope: the revision exercise is Modules 1–4, the quiz is Lectures 1–12.',
-    ],
-    skills: [
-      'The two written assessments have different scopes AND different rules: the 8% revision exercise is open book over Modules 1–4, the 60% quiz is close book over Lectures 1–12. A revision plan that treats them as one thing under-prepares for the one carrying the grade.',
-      'A module number is metadata, not anatomy. When a file and the current syllabus disagree about it, the syllabus of the year you are sitting wins and the file is still correct about everything else — which is the shape of every conflict between archived course material and a current one.',
-    ],
-    selfCheck: 'From a blank page: the four modules in this year’s order, the three assessment weights, which one is open book, and the scope of each.',
-    sourceRefs: [
-      { ref: 'hss.w1.2026', location: 'p2 "demonstrate basic understanding of the structure"' },
-      { ref: 'hss.w1.2026', location: 'p7 "Revision Exercise (8%)"' },
-      { ref: 'hss.w1.2026', location: 'p10 "Module 1: Musculoskeletal system"' },
-      { ref: 'hss.sdf.2627', location: 'p1 "Understand and familiarize anatomical terminology of the human body"' },
-      { ref: 'hss.sdf.2627', location: 'p1 "The Thorax                       The Abdomen and Pelvis"' },
-    ],
-  },
   {
     id: 'hss2011-msk-bone-histology',
     subject: 'HSS2011', unit: 'hss.m4', type: 'definition',

@@ -22,7 +22,7 @@ import {
 } from './imports.js';
 import { showView } from './small-ui-helpers.js';
 import { setActiveNav } from './navigation-five-destinations.js';
-import { K, read, store, write } from './storage-versioned-keys.js';
+import { K, itemAttempted, itemScore, read, store, write } from './storage-versioned-keys.js';
 import { renderLearn } from './subject.js';
 import { startSession } from './session-engine.js';
 
@@ -89,8 +89,12 @@ function sessionRow(r, now) {
       </div>`
     : '';
 
-  const lessons = s.unit && itemsForUnit(s.subject, s.unit).length
-    ? `<button class="ghost tolesson" data-unit="${esc(s.unit)}">Study this →</button>` : '';
+  /* Three of the six subjects have no lessons in this app at all. Saying so
+     on the row beats an absent button, which reads as "not written yet". */
+  const lessons = s.noStudy
+    ? '<span class="nostudy">No lessons here — timetable only</span>'
+    : s.unit && itemsForUnit(s.subject, s.unit).length
+      ? `<button class="ghost tolesson" data-unit="${esc(s.unit)}">Study this →</button>` : '';
 
   return `<li class="sessrow ${esc(r.status)}${other ? ' otherg' : ''}" style="--acc:${esc(subjectAccent(s.subject))}">
     <div class="sesswhen">
@@ -150,26 +154,87 @@ function nowNextHTML(rows, now) {
  * as a gap rather than hidden — week 7 is Special Senses and nothing in the
  * corpus covers it, which the student should find out from here and not in
  * the exam.
+ *
+ * The first version of this printed every lesson as a button. Week 1 is
+ * twenty-two of them, which is a wall of identical pills: it tells you the
+ * work exists and nothing about whether you have done it. So the unit here
+ * is the WEEK'S PROGRESS, and the individual lessons are secondary —
+ * collapsed to the few you have not got to yet, with the rest one tap away.
+ *
+ * "Studied" and "mastered" are two different questions and both are shown.
+ * Attempted counts lessons you have answered anything on; the percentage is
+ * mean mastery across the whole week, so it can only reach 100 by actually
+ * getting things right, and a week of half-remembered lessons reads as such.
  */
-function readingHTML(week) {
-  const out = [];
-  for (const subject of ['HSS2011', 'ABCT2326']) {
-    const list = studyFor(subject, week);
-    if (!list) continue;
-    if (!list.length) {
-      out.push(`<div class="readgap"><span class="sesscode">${esc(subject)}</span>Nothing in the corpus covers this week yet — your timetable teaches it, we do not.</div>`);
-      continue;
-    }
-    const items = list.map(getItem).filter(Boolean);
-    const pills = items.map((it) => `<button class="readpill" data-item="${esc(it.id)}">${esc(it.title)}</button>`).join('');
-    const plural = items.length === 1 ? '' : 's';
-    out.push(`<div class="readrow">
-      <div class="readhead"><span class="sesscode">${esc(subject)}</span>Read before this week · ${items.length} lesson${plural}</div>
-      <div class="readlist">${pills}</div>
-      <button class="ghost readall" data-week-subject="${esc(subject)}" data-week="${esc(week)}">Study all ${items.length} in order →</button>
-    </div>`);
+
+/* Lessons you have not attempted first, then weakest first. This is the
+   order "Study all" runs them in as well, so the list is the plan. */
+function readOrder(items) {
+  return items.slice().sort((a, b) => {
+    const aa = itemAttempted(a.id); const ba = itemAttempted(b.id);
+    if (aa !== ba) return aa ? 1 : -1;
+    return itemScore(a.id) - itemScore(b.id);
+  });
+}
+
+function lessonRow(it) {
+  const attempted = itemAttempted(it.id);
+  const pc = Math.round(itemScore(it.id) * 100);
+  const state = !attempted ? 'new' : pc >= 80 ? 'strong' : pc >= 45 ? 'part' : 'weak';
+  const label = !attempted ? 'Not started' : `${pc}%`;
+  return `<button class="readline ${state}" data-item="${esc(it.id)}">
+    <span class="readdot" aria-hidden="true"></span>
+    <span class="readname">${esc(it.title)}</span>
+    <span class="readpc">${esc(label)}</span>
+  </button>`;
+}
+
+const PREVIEW = 3;
+
+function subjectReading(subject, week) {
+  const list = studyFor(subject, week);
+  if (!list) return '';
+  if (!list.length) {
+    return `<div class="readgap"><span class="sesscode">${esc(subject)}</span>Nothing in the corpus covers this week yet — your timetable teaches it, we do not.</div>`;
   }
-  return out.join('');
+  const items = readOrder(list.map(getItem).filter(Boolean));
+  if (!items.length) return '';
+
+  const done = items.filter((i) => itemAttempted(i.id)).length;
+  const pc = Math.round(items.reduce((n, i) => n + itemScore(i.id), 0) / items.length * 100);
+  const open = !!ui.readOpen[subject];
+  const shown = open ? items : items.slice(0, PREVIEW);
+  const rest = items.length - shown.length;
+
+  /* The one line worth reading if you read nothing else on the card. */
+  const verdict = done === 0 ? 'Not started'
+    : done < items.length ? `${done} of ${items.length} started`
+      : pc >= 80 ? 'All started, and holding' : 'All started';
+
+  return `<section class="readcard" style="--acc:${esc(subjectAccent(subject))}">
+    <div class="readtop">
+      <span class="sesscode">${esc(subject)}</span>
+      <b>Read before this week</b>
+      <span class="readcount">${items.length} lesson${items.length === 1 ? '' : 's'}</span>
+    </div>
+    <div class="readbar"><span style="width:${pc}%"></span></div>
+    <div class="readstat"><b>${pc}%</b> mastered · ${esc(verdict)}</div>
+    <div class="readlines">${shown.map(lessonRow).join('')}</div>
+    <div class="readacts">
+      <button class="primary readall" data-week-subject="${esc(subject)}" data-week="${esc(week)}">${
+  done ? 'Continue' : 'Start'} — all ${items.length} in order</button>
+      ${items.length > PREVIEW
+    ? `<button class="ghost readmore" data-readtoggle="${esc(subject)}">${
+      open ? 'Show fewer' : `Show all ${items.length}`}</button>`
+    : ''}
+    </div>
+    ${!open && rest > 0
+    ? `<p class="readhint">Weakest first. ${rest} more behind “Show all”.</p>` : ''}
+  </section>`;
+}
+
+function readingHTML(week) {
+  return ['HSS2011', 'ABCT2326', 'HTI17103'].map((s) => subjectReading(s, week)).join('');
 }
 
 function weekPanel(rows, now) {
@@ -253,7 +318,7 @@ function syllabusPanel() {
   }).join('') + `<section class="card">
     <div class="task-kicker">Where all of this came from</div>
     <ul class="txtlist" style="margin-top:10px">${SCHEDULE_SOURCES.map((s) =>
-      `<li><span class="txtrole">${esc(s.subject)}</span>${esc((describeSource({ ref: s.ref }).file || s.ref))} — ${esc(s.what)}</li>`).join('')}</ul>
+      `<li><span class="txtrole">${esc(s.subject)}</span>${esc(s.label || describeSource({ ref: s.ref }).file || s.ref)} — ${esc(s.what)}</li>`).join('')}</ul>
     <p class="small" style="margin-top:11px">Two of those are screenshots of Canvas rather than documents, because no document copy was supplied. They cannot be text-checked the way a lecture can, so everything taken from them is written out in this repo’s timetable data module, in full, where it can be read and corrected.</p>
   </section>`;
 }
@@ -286,6 +351,13 @@ export function renderCourse() {
   $$('courseView').querySelectorAll('[data-ctab]').forEach((b) => {
     b.onclick = () => { ui.courseTab = b.dataset.ctab; renderCourse(); };
   });
+  $$('courseView').querySelectorAll('[data-readtoggle]').forEach((b) => {
+    b.onclick = () => {
+      const k = b.dataset.readtoggle;
+      ui.readOpen = { ...ui.readOpen, [k]: !ui.readOpen[k] };
+      renderCourse();
+    };
+  });
   $$('courseView').querySelectorAll('[data-att]').forEach((b) => {
     b.onclick = () => { setAttendance(b.dataset.sid, b.dataset.att); renderCourse(); };
   });
@@ -296,9 +368,13 @@ export function renderCourse() {
     b.onclick = () => startSession({ mode: 'ids', ids: [b.dataset.item] });
   });
   $$('courseView').querySelectorAll('[data-week-subject]').forEach((b) => {
+    /* Same order the card lists them in — unstarted first, then weakest.
+       If the button ran the declared order instead, the card would be
+       showing you one plan and the button would run a different one. */
     b.onclick = () => startSession({
       mode: 'ids',
-      ids: studyFor(b.dataset.weekSubject, Number(b.dataset.week)) || [],
+      ids: readOrder((studyFor(b.dataset.weekSubject, Number(b.dataset.week)) || [])
+        .map(getItem).filter(Boolean)).map((i) => i.id),
     });
   });
   $$('courseView').querySelectorAll('[data-unit]').forEach((b) => {
