@@ -70,6 +70,50 @@ const m = (layer, meshes, label, caption, extra = {}) =>
 const sch = (id) => ({ kind: 'schematic', id });
 
 export const ITEM_VISUALS = {
+  /* --------------------------------------------------------------- *
+   * The 2026 items. All eighteen shipped on a generated layout — a flow
+   * or a grid drawn from their own text — which is a visual but not a
+   * PICTURE of anything. Every one of them now has a real depiction.
+   *
+   * The cell-biology half was left on layouts once, on the grounds that
+   * nothing on disk showed a membrane or a Golgi apparatus. Nothing did;
+   * but the OpenStax Anatomy & Physiology figures are free, and OpenStax
+   * A&P 2e is the textbook the HSS2011 orientation deck names as the free
+   * reading. "Not on disk" was never the same claim as "not available",
+   * and treating it as one cost these lessons their pictures for a month.
+   * --------------------------------------------------------------- */
+  'abct2326-cells-organisation': sch('levelsOfOrganisation'),
+  'abct2326-plasma-membrane': sch('plasmaMembrane'),
+  'abct2326-organelles': sch('animalCell'),
+  'abct2326-nucleus-genetic-code': sch('cellNucleus'),
+  'abct2326-protein-synthesis': sch('mrnaSplicing'),
+  'abct2326-cell-division': sch('mitosisStages'),
+  'abct2326-epithelium-classification': sch('epitheliumTypes'),
+  'abct2326-feedback-loops': sch('negativeFeedback'),
+  'abct2326-muscle-neural-tissue': sch('muscleTypes'),
+  'abct2326-connective-tissue-classes': sch('bloodComposition'),
+  'hss2011-msk-joint-classifications': sch('synovialTypes'),
+  'hss2011-msk-bone-histology': sch('boneCells'),
+  'hss2011-msk-tissues-of-movement': sch('cartilageTypes'),
+  /* The long-bone schematic showed a labelled diagram; this is a photograph
+     of a cut bone with the colour boundary actually visible, which is the
+     one thing the lesson is asking you to be able to recognise. */
+  'hss2011-msk-bone-marrow': sch('boneMarrow'),
+  'hss2011-msk-muscle-organisation': m('muscle',
+    ['Long head of biceps brachii', 'Short head of biceps brachii'],
+    'Biceps brachii',
+    'One muscle, whole. Every layer the lesson names is inside this: the epimysium around what you can see, then fascicles, then fibres, then myofibrils. Rotate it and find the two heads.',
+    { ghostBody: true }),
+  'hss2011-msk-tendon-attachment': m('muscle',
+    ['Long head of biceps brachii', 'Short head of biceps brachii', 'Long head of triceps brachii', 'Lateral head of triceps brachii', 'Medial head of triceps brachii'],
+    'Biceps and triceps brachii',
+    'Two muscles pulling opposite ways across the elbow. Follow either to its ends: the tapering is the tendon, and where it meets bone is the osteotendinous junction. The end that does not move is the origin.',
+    { ghostBody: true }),
+  'hss2011-msk-motor-unit-tone': m('muscle',
+    ['Lateral head of gastrocnemius', 'Medial head of gastrocnemius'],
+    'Gastrocnemius',
+    'The calf muscle the lesson counts: one motor neuron here may command around 2000 fibres, against 13 to 20 in a muscle that moves the eye. This is what a large motor unit is buying force for.',
+    { ghostBody: true }),
   /* --- HSS2011 terminology ------------------------------------------ */
   'hss2011-terminology-anatomical-position': sch('anatomicalPosition'),
   'hss2011-terminology-planes': sch('bodyPlanes'),
@@ -188,7 +232,9 @@ export const ITEM_VISUALS = {
     { ghostBody: true }),
 
   /* --- ABCT2326 physiology ------------------------------------------ */
-  'abct2326-cells-organisation': sch('cellOrganisation'),
+  /* Was sch('cellOrganisation'), a hand-drawn four-box flow. Replaced by the
+     OpenStax pyramid, which follows ONE tissue up every level instead of
+     naming four levels abstractly. Declared with the 2026 set above. */
   'abct2326-homeostasis': sch('homeostasis'),
   'abct2326-cvs-circuits': sch('circuits'),
   'abct2326-cvs-conduction': sch('conduction'),

@@ -13,7 +13,7 @@ The workflow is the same for every subject:
 | File | What it is |
 | --- | --- |
 | `radiography-study-studio.html` | The app. Subject selector, learning workflow, Memory Coach, source dialogs, coverage report, and the full osteology 3D studio embedded as the HSS2011 Osteology module. |
-| `study-data.js` | The study layer: source registry, subject registry, 110 study items, prior-knowledge registry, spaced repetition, coverage report, corpus validator. |
+| `study-data.js` | The study layer: source registry, subject registry, 128 study items, prior-knowledge registry, spaced repetition, coverage report, corpus validator. |
 | `wordparts.js` | 814 medical word parts, inverted from the HSS2011 glossary, plus the segmenter that takes a long term apart. |
 | `term-notes.js` | 89 hand-written pronunciations and plain-English readings for the terms word parts alone cannot rescue. App-authored, labelled as such. |
 | `assets/plates/` | Five public-domain anatomy plates from Gray's Anatomy (1918), licence-verified through the Wikimedia Commons API before download. |
@@ -25,6 +25,7 @@ The workflow is the same for every subject:
 | `assets/figures/` | Those 18 image files. Licence-gated at download: anything not demonstrably free is refused. |
 | `assets/` | Local GLB models. Unchanged. |
 | `mesh-index.js` | **Generated.** Every named structure in every GLB layer (1,686), with the course file that names it and the study unit it resolves to (`UNITS`, 796 of them). Rebuild with `node work/build-mesh-index.mjs`; never hand-edit. |
+| `schedule.js` | The semester: the syllabus of each subject as its description form states it, and every timetabled session with its date, time, room and teacher. Course logistics, not anatomy — but every row cites the document it came off. |
 | `synonyms.js` | Query expansion (collarbone → clavicle), composites (a name with no mesh but real parts), and the three structures genuinely not modelled. |
 | `bodymap.js`, `landmarks.js`, `cavity-geom.js`, `cavity-build.js` | The spatial-overlay engine: concept metadata, the semantic landmark resolver, the overlay maths and one builder per cavity. |
 
@@ -37,6 +38,15 @@ python -m http.server 8080 --directory .
 ```
 
 Then open `http://localhost:8080/radiography-study-studio.html`.
+
+## One lesson was deleted
+
+*"What HSS2011 is, and how it is marked"* is gone. It was course logistics wearing a lesson's
+clothes — module titles, assessment weights, where Canvas lives — and none of that is anatomy, none
+of it is revisable, and answering a flashcard about the marking scheme teaches nothing. All of it is
+on the Course tab's Syllabus panel, sourced, beside the timetable it belongs with, which is where
+anyone would actually look for it. The now-empty `hss.subject` unit went with it: an empty unit is a
+topic card that opens onto nothing.
 
 ## Source discipline
 
@@ -59,8 +69,8 @@ answer used was then cross-checked against its question text.
 
 | Subject | Status | Notes |
 | --- | --- | --- |
-| ABCT2326 Human Physiology | Full | 10 system lectures, supplementary decks, the lecturer's own prose notes for the endocrine, nervous, musculoskeletal and immune units, tutorial answers, extra exercises, Martini eBook |
-| HSS2011 Human Anatomy | Full | Vocabulary, Study Manuals 1819/1920, Modules 0–4, revision exercises with model answers, and past papers back to 2003–04 |
+| ABCT2326 Human Physiology | Full | 10 system lectures, supplementary decks, the lecturer's own prose notes for the endocrine, nervous, musculoskeletal and immune units, tutorial answers, extra exercises, Martini eBook, and the 2026 copy of the Lecture 1 cell-biology deck |
+| HSS2011 Human Anatomy | Full | Vocabulary, Study Manuals 1819/1920, Modules 0–4, revision exercises with model answers, past papers back to 2003–04, and the 2026 Week 1 pair — subject orientation and the Module 1 musculoskeletal lecture |
 | HTI17103 Introduction to Medical Radiation Science | **Substitute source** | The exact HTI17103 set was not found. Built from HTI17101 Exploring Radiography, the closest available material. Not silently renamed — every source reference still shows the HTI17101 filename and folder. |
 | APSS1A08 Introduction to Sociology | **Limited source coverage** | No verified lecture syllabus found. Only student assignments and papers. No study content generated. |
 | DSAI1202 Introduction to AI and Data Analytics | **No materials** | Placeholder page. No lessons or flashcards invented. |
@@ -84,7 +94,180 @@ shared folders, source conflicts and how each was handled, plus live validator o
   answer key**; the only answers are photographs of handwritten pages. Items were therefore built only
   from questions whose answers a current HSS2011 lecture or the revision-exercise key independently
   confirms. Questions it asks that nothing on hand can verify — brachial plexus M-shape, femoral
-  triangle borders, epimysium, amphiarthroses/synarthroses, TMJ muscles — were left out.
+  triangle borders, TMJ muscles — were left out. **Two of that list have since been unblocked**:
+  the 2026 Module 1 deck names the epimysium / perimysium / endomysium layers and gives the functional
+  joint classification (synarthrosis, amphiarthrosis, diarthrosis) outright, so both are now taught
+  from a current source rather than left out.
+
+### The module numbers moved, and the folders did not
+
+The 2026 subject-orientation deck gives one slide per module and numbers them:
+
+| 2026 | Module | What every source folder on the drive calls it |
+| --- | --- | --- |
+| Module 1 | Musculoskeletal system | `Module 4 Musculoskeletal System` |
+| Module 2 | Nervous system | `Module 2 Neuroanatomy` (its files are numbered `3.x`) |
+| Module 3 | Cardiovascular and pulmonary system | `Module 1 Thorax` |
+| Module 4 | Digestive and urogenital system | `Module 3 Abdomen and Pelvis` (files numbered `2.x`) |
+
+The app now numbers by the deck, because that is the numbering on Canvas and in the assessment. It
+also **prints the old number underneath** — a lesson headed *Module 1* that cites *"Module 4.1
+answers"* looks like one of the two is wrong, and neither is.
+
+The subject has renumbered before: `hss.2.2` is a file called *3.2 Nervous System and Special Sense*
+sitting in a folder called *Module 2 Neuroanatomy*. Mismatch between a file's number, its folder's
+number and the current syllabus is the normal state of this material.
+
+The **unit keys were deliberately not renamed**. `hss.m1` … `hss.m4` still carry the folder numbers,
+because saved progress in the browser is keyed by them and renaming would orphan it. They mean "the
+unit whose sources are the old Module N folder" and nothing else; `MODULE_BY_UNIT` in
+`study/corpus/modules.js` is the single place that turns one into a module number.
+
+### A gap the coverage report was hiding
+
+Until this pass, the ABCT2326 entry listed *"Cells, four tissue types, eleven organ systems"* as
+covered and marked the subject **Full**. The unit had two items. Both were written from the back of
+the lecture — tissues, and homeostasis. Everything in front of it (the plasma membrane, the
+organelles, the nucleus, the genetic code, transcription and translation, the cell cycle, mitosis and
+meiosis) had been catalogued inside **one item's prior-knowledge sidebar** as material that goes
+beyond HKDSE Biology, and never turned into a lesson.
+
+That is how a gap becomes invisible: a topic listed as covered because a neighbouring item mentions
+it gives no later reader any reason to look again. Nine items now teach it, and the coverage lines
+were rewritten to describe **what a lesson teaches** rather than what the corpus has read.
+
+## Reading help — every technical word the corpus uses
+
+Tapping a word gives its plain-English meaning **and its Traditional Chinese term**. That second half
+is not decoration: this is a Hong Kong course taught in English off English sources, and a lot of this
+anatomy is already known under its Chinese name, so carrying both lets one hook the other instead of
+the same structure being learnt twice.
+
+Eighteen lessons were written before the glossary caught up with them, and the cost was measurable:
+**83 of 147 technical words in those lessons were not tappable at all** — intron, exon, mitosis,
+meiosis, Golgi, cytoplasm, organelle, osteocyte, epimysium, fascicle, myosin, actin, platelet, enzyme,
+and the whole vocabulary of a bony landmark. A lesson could say *"introns will be removed and exons
+spliced together"* — the lecture slide’s own words — with neither word underlined, defined in the
+lesson, or defined anywhere else. `TERM_GLOSS` went from 656 entries to 775 and that number is zero.
+
+Two structural fixes came with it.
+
+- **The tokenizer floor was six letters.** That made `fossa`, `bursa`, `ramus`, `gyrus`, `crest`,
+  `facet`, `hilum`, `sulci`, `cilia`, `codon`, `actin` and `exons` permanently inert however good
+  their glossary entry was — and that is anatomy’s own working vocabulary. It is five now, but a
+  five-letter word has to earn it: it needs a curated WHOLE-WORD entry, not merely a decomposition.
+  Without that guard "costs" underlines as the rib root `cost/o`, "later" as `later/o` (side) and
+  "inter" as a prefix — ordinary English wearing an anatomical meaning it does not have, which is
+  worse than leaving it plain.
+- **Word parts gained the anatomy set** — `ab-`, `ad-`, `bi-`, `syn-`, `amphi-`, `dia-`, `iso-`, and
+  the stems behind epimysium, osteoblast, acetabulofemoral and glenohumeral.
+
+Where a term is used but its own source never defines it — introns and exons are exactly that case —
+the lesson’s plain lead now carries the sentence that does, tagged app-authored the way every
+app-authored line is.
+
+## Course — the timetable, the syllabus, and what you have already missed
+
+A sixth destination. The rest of the app answers *what should I study*; this answers *where am I
+meant to be, and what have I already missed*.
+
+- **Now / next.** The teaching week, whatever is running at this moment, and what follows it with a
+  countdown. The clock is live — the panel re-renders every minute while it is open.
+- **This week / Full term.** Every session across all three subjects in time order. A past row dims
+  and grows two buttons, *Went* and *Missed*; a running one is ringed; the next one carries its
+  countdown. That is the whole of the "attendance" feature: it records what you say happened, and
+  it only asks once the session is over.
+- **Syllabus.** Each subject as its description form states it — objective, intended learning
+  outcomes, the assessment table with weights, study effort, and the reading list. Every weight
+  carries the file and page it was read off, the same way a lesson does.
+- **What to read before each week.** The timetable names a topic; `WEEK_STUDY` in `schedule.js` says
+  which of our lessons teach it, in order, with a button that runs the whole week as one session.
+  128 lessons in subject order is not a study plan. Week 7 is deliberately **empty** — the schedule
+  teaches Special Senses and nothing in the corpus covers it, and the tab prints the gap rather than
+  hiding it.
+
+### The reading list is a progress card, not a row of pills
+
+The first version printed every lesson for the week as a button. Week 1 of HSS2011 is twenty-one of
+them: a wall of identical pills that tells you the work exists and nothing about whether you have
+done any of it. The unit is now the **week's progress** —
+
+- a bar and one line: *6% mastered · 3 of 21 started*. Two different questions, both answered.
+  *Started* counts lessons you have attempted; the percentage is mean mastery across the whole week,
+  so it can only reach 100 by getting things right, and a week of half-remembered lessons reads
+  as one;
+- **three** lessons shown, not twenty-one — unstarted first, then weakest. The rest are behind
+  *Show all*;
+- each row carries its own state as a dot and a number: unstarted, weak, part, holding;
+- the button says **Start** or **Continue**, and runs the week in the order the card lists it in.
+  It used to run the declared order while the card displayed another one.
+
+### The week grid is derived, and the derivation is written down
+
+Only two of the three schedules carry dates. The grid that reconciles them is **teaching week N runs
+Monday to Sunday, and week 1 Monday is 31 Aug 2026** — confirmed three times over, from three
+separate documents: HTI17103 week 1 is "Aug 31st (Mon)"; the ABCT2326 week 1 lecture is 02/09/26, a
+Wednesday; and HSS2011 week 13 holds the test on Sat 28 Nov 2026, which is Mon 23 Nov plus five.
+Every date in all three lands on the weekday its own document names.
+
+### The times came from the calendar, and here is why that source is trusted
+
+HSS2011 publishes week numbers and topics and **no times at all** — only the test carries one. Every
+HSS2011 row used to be `undated`: placed in its teaching week and nowhere more precise, labelled
+*week only*, saying *This week* rather than *On now*. Inventing a slot would have been easy and
+wrong.
+
+The times are now real, and they came from the student's own PolyU timetable in Google Calendar.
+That is a different **kind** of source from everything else here — not a published document, not
+re-checkable by anyone else — so it is worth being exact about why it is trusted: it reproduces all
+three published schedules on every date they both carry, across all thirteen weeks, including the
+four revision-exercise deadlines and the test. A source that independently reproduces three
+documents it was not derived from is telling the truth about the fourth.
+
+- **HSS2011** — tutorial Wed 12:30–13:20 CD512, lecture Fri 16:30–18:20 V322. Within a teaching week
+  the tutorial comes **first**, which is easy to get backwards.
+- Where the calendar and a published schedule disagree, **the document decides what happens and the
+  calendar decides when and where**, and the row says so. Two ABCT2326 rows carry a live conflict:
+  the teaching schedule cancels a lab for National Day and calls week 10 a no-class week, and the
+  timetable books both. Cancelled here, flagged there — skipping a class on our say-so is the
+  expensive direction to be wrong in.
+- **The other three subjects are in the timetable now.** This app teaches three and the student sits
+  six. A timetable showing half a week cannot show a clash, gets *what is on now* wrong whenever it
+  is one of the others, and undercounts *what have I missed* by three subjects. DSAI1202, APSS1A08
+  and the LCR seminar are carried as slots, marked **No lessons here — timetable only**, claiming
+  nothing.
+- **The tutorial and lab groups are unknown.** The ABCT2326 schedule lists all three of each without
+  saying which is the student’s. All are carried; a picker in the tab records the answer, and the
+  other groups’ slots then stop counting against attendance. They stay visible, dimmed, because the
+  document lists them.
+- **Two of the schedule sources are screenshots**, not documents — the HSS2011 Canvas schedule and
+  the ABCT2326 group timetable were supplied as images, and no document copy exists. They cannot be
+  text-checked the way a lecture can, so everything read off them is written out in `schedule.js`
+  where it can be read and corrected.
+
+## Text size
+
+Three steps, from the `Aa` in either header, remembered across sessions. A reading app on a tablet
+held at arm's length is not the same reading distance as a laptop, and the type here was set for the
+laptop.
+
+`zoom` on the scroll container would have been one line and it is the wrong tool: it scales the
+padding, the borders, the 3D stage and the `max-width` that stops a line of prose running the full
+width of an iPad, so at 125% the layout is not a larger version of itself, it is a narrower one.
+Browser page zoom already does that job for anyone who wants it. Instead `--ts` multiplies the type
+on the **reading surfaces only**, in one block at the end of `app.css`. The cost is that the block
+has to name those surfaces, so a size added to a new lesson element will not scale until it is
+listed there — a real maintenance cost, taken deliberately, because it is greppable and it never
+surprises the layout.
+
+## Tablet layout
+
+`.sessioncol` capped the whole reading column at 720px. On a 1024-wide iPad that is 300px of empty
+rail on each side **while the figure inside it is squeezed into 52vh** — the two worst outcomes at
+once. The column now widens with the viewport (900px at 1024, 1000px at 1400) and `.lesson` keeps
+prose to a readable measure inside it, so the extra width goes to the figures and the tables, which
+are what wanted it. In portrait, where 768px never reaches the cap, the win is the figure height
+instead: 430px to 560px. Every fixed surface pays its own `env(safe-area-inset-*)`.
 
 ## Item model
 
@@ -99,15 +282,35 @@ images exist in the assets folder, only `.glb` models. The label names come from
 
 ## Every lesson opens with a visual
 
-No lesson is a wall of prose. All 110 items resolve to a visual, and the resolver never invents one:
+No lesson is a wall of prose. All 127 items resolve to a visual, and the resolver never invents one:
 
 | Kind | Items | What it is |
 | --- | --- | --- |
-| **model** | 58 | The real named meshes for the structure being taught. The studio canvas is *moved into* the lesson card and focused on those meshes — still rotatable, still tappable, with a readout naming whatever you tap. One WebGL context, relocated rather than duplicated. |
-| **figure** | 16 | A published Wikimedia/OpenStax/Gray's image (`figures.js`), rendered through the schematic/labelled path when a figure exists for the id. |
-| **schematic** | 16 | A hand-authored SVG or HTML layout, for what no mesh or photograph can show — a feedback loop, the EM spectrum, a decision table. |
-| **generated** | 18 | Drawn from the item's own sourced data — a sequence item's ordered steps become a flow, a matching item's pairs become a grid. A change of form, not of content. |
-| **labelled** | 2 | An app-authored labelling diagram from `DIAGRAMS` — the vertebra and the heart — used by the two `diagram` items. |
+| **model** | 61 | The real named meshes for the structure being taught. The studio canvas is *moved into* the lesson card and focused on those meshes — still rotatable, still tappable, with a readout naming whatever you tap. One WebGL context, relocated rather than duplicated. |
+| **figure** | 32 | A published Wikimedia/OpenStax/Gray's image (`figures.js` — **29 figures**, every one of them in use), rendered through the schematic/labelled path when a figure exists for the id. |
+| **generated** | 19 | Drawn from the item's own sourced data — a sequence item's ordered steps become a flow, a matching item's pairs become a grid. A change of form, not of content. |
+| **schematic** | 15 | A hand-authored SVG or HTML layout, for what no mesh or photograph can show — a feedback loop, the EM spectrum, a decision table. |
+
+### "Not on disk" is not the same claim as "not available"
+
+The eighteen lessons written in 2026 shipped on generated layouts, and the note in `visual-data.js`
+gave the reason: *nothing here depicts a membrane or a Golgi apparatus, and a wrong picture is worse
+than a diagram*. Both halves of that were true and the conclusion did not follow. Nothing **on the
+supplied drive** depicted a membrane. The whole OpenStax *Anatomy & Physiology* figure set is on
+Wikimedia Commons under CC BY — and OpenStax A&P 2e is the free textbook the HSS2011 orientation
+deck names as recommended reading. The pictures were a search away for a month.
+
+Eleven were added: the levels of organisation, the plasma membrane, a model cell, the nucleus,
+**mRNA splicing**, the stages of mitosis, every epithelium, the negative-feedback loop, the four
+bone cells, red and yellow marrow in a real photographed bone, and the three cartilages. The
+splicing one exists because a lesson said *"introns will be removed and exons will be spliced
+together"* — its source slide's own words — and showed nothing; that figure draws the sentence.
+
+`work/fetch-figure.mjs` is how they arrived, and it will not download anything whose licence is not
+demonstrably free. The author, licence and source page the app renders were read out of the same API
+response that authorised the download, so the credit cannot drift from the credit the licence
+requires. There is no override flag. Every callout key was written from **looking at the image**,
+not from knowing what that figure usually shows.
 
 Every model spec was checked against the actual GLB name index: **all resolve, with no dead mesh
 names**. A spec that resolved to nothing would show a short note saying so rather than quietly
@@ -584,7 +787,7 @@ identification and laterality questions each state a non-3D route to the answer 
 `validateCorpus()` and `validateApplications()` run on every open of the coverage report and check
 that every question has a resolvable correct answer and an explanation, every item has a teaching
 explanation and at least one practice question, and every item carries a source reference. Current
-state: **110 items, 507 questions, 82 source files registered, 0 validation failures.**
+state: **128 items, 595 questions, 90 source files registered, 0 validation failures.**
 
 ## Which structure names you are asked to know
 

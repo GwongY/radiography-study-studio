@@ -753,3 +753,308 @@
    #mvBackToSession and #viewerXrayPane, which showed when they should not.
    Declared last so it wins source-order ties against single-class rules. */
 .hidden{display:none}
+
+/* ---------- The module line's legacy-numbering aside ---------- */
+/* The 2026 orientation deck renumbered the modules and the source folders did
+   not, so a lesson headed "Module 1" cites "Module 4.1". This says which. */
+.modlegacy{display:block;margin-top:3px;font-size:11.5px;color:var(--dim)}
+
+/*
+ * ---------- iPad / installed web app ----------
+ *
+ * The manifest is standalone and the meta is apple-mobile-web-app-capable with
+ * a BLACK-TRANSLUCENT status bar, which means iPadOS draws the clock, VPN badge
+ * and battery ON TOP of the page rather than above it. .app-topbar already pads
+ * itself past that inset. #sessionView does not: it is position:fixed;inset:0
+ * and its .navhead starts at y=0, so the close and search buttons sat directly
+ * under the status bar and could be neither read nor reliably tapped.
+ *
+ * Every fixed-position surface has to pay the inset itself; being inside a
+ * padded ancestor does not help when you are taken out of flow.
+ *
+ * The inset is ADDED to the design padding rather than folded into a max(),
+ * matching .app-topbar above: the inset is unusable space, so the 14px of
+ * breathing room has to sit BELOW it, not partly inside it. On an iPad the top
+ * inset is around 20px, which max(14px, inset+6px) would have turned into 26px
+ * of padding holding a 44px button -- clearing the status bar by two pixels.
+ */
+#sessionView{
+  padding-left:env(safe-area-inset-left);
+  padding-right:env(safe-area-inset-right);
+}
+#sessionView .navhead{
+  padding-top:calc(14px + env(safe-area-inset-top));
+}
+/* The session's own scroller ends above the home indicator, not under it. */
+#sessionView .navcontent{padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+
+/* The toast and the search sheet are fixed to the bottom edge for the same
+   reason and need the same treatment. */
+.toast{bottom:calc(20px + env(safe-area-inset-bottom))}
+.sheetscrim{padding-bottom:calc(40px + env(safe-area-inset-bottom))}
+@media(max-width:700px){
+  .sheetscrim{padding:0}
+  .sheet{padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+}
+
+/*
+ * Touch targets. Apple's own floor is 44pt and several controls were sitting
+ * around 36: the five session steps, the source button under a lesson, and the
+ * inline answer buttons. Raised only for coarse pointers, so the desktop
+ * density is untouched.
+ */
+@media(pointer:coarse){
+  .step{min-height:46px;display:flex;flex-direction:column;justify-content:center}
+  .srcbtn,.filter-chip,.seg,.answer,.opt{min-height:44px}
+  .navrail button{min-height:52px}
+}
+
+/*
+ * Rubber-banding. Overscrolling a lesson used to drag the whole standalone app
+ * with it, which in a web app looks like the page has come loose. Contain the
+ * bounce inside the scroller that owns it.
+ */
+.navcontent,.sheetresults,.dlg-scroll,#sessionView .navcontent{overscroll-behavior:contain}
+
+/*
+ * Safari inflates text when an iPad is rotated to landscape unless it is told
+ * not to. The type here is already sized per breakpoint; let it be.
+ */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+
+/*
+ * iPad landscape (1024-1366) reads as a small desktop and gets the desktop
+ * grids, which is right. What it does not get by default is a comfortable
+ * measure in the session overlay: 720px of lesson on a 1194px screen leaves the
+ * column stranded in the middle. Widen it a little where there is room.
+ */
+@media(min-width:1024px) and (max-width:1366px) and (pointer:coarse){
+  .sessioncol{max-width:820px}
+  #sessionView .navcontent{padding:22px 28px}
+}
+
+/*
+ * ---------- Course: timetable, syllabus, attendance ----------
+ *
+ * Three states drive everything here, and they come from the clock rather than
+ * from anything stored: a row is `past`, `now` or `next`/upcoming. Past rows
+ * dim and grow the two attendance buttons; the running one is ringed; the next
+ * one carries a countdown. A row belonging to a tutorial or lab group the
+ * student has said is not theirs goes quiet but is not removed — the schedule
+ * lists it, so hiding it would misrepresent the document.
+ */
+.coursebody{margin-top:14px}
+.coursetabs{margin-top:14px}
+
+/* Now / next */
+.nowcard{border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025);padding:16px 18px}
+.nowcard.islive{border-color:var(--teal);background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03))}
+.nowline{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 11px;margin-top:11px}
+.nowline b{font-size:17px;font-weight:600;letter-spacing:-.01em}
+.nowlead{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.13em;text-transform:uppercase;color:var(--teal);flex:none}
+.nowmeta{font-size:12.5px;color:var(--muted);width:100%}
+
+/* Attendance tally */
+.attsum{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02)}
+.attsum .s{display:grid;gap:1px}
+.attsum .s b{font-size:20px;letter-spacing:-.03em}
+.attsum .s small{font:10.5px ui-monospace,Menlo,monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+
+/* Session rows */
+.sesslist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.sessrow{display:grid;grid-template-columns:minmax(150px,190px) minmax(0,1fr);gap:14px;border:1px solid var(--line);border-left:3px solid var(--acc,var(--teal));border-radius:12px;background:rgba(255,255,255,.025);padding:12px 14px}
+.sessrow.past{opacity:.62}
+.sessrow.now{border-color:var(--teal);background:rgba(114,227,207,.09)}
+.sessrow.next{border-color:rgba(114,227,207,.45)}
+.sessrow.otherg{opacity:.4}
+.sesswhen{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.sessdate{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--text)}
+.livenow{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--onaccent);background:var(--teal);border-radius:99px;padding:2px 8px}
+.nextin{font:11px ui-monospace,Menlo,monospace;color:var(--teal)}
+.vague{font:10px ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);border:1px solid var(--line);border-radius:99px;padding:1px 7px}
+.sessbody{min-width:0}
+.sesshead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
+.sesshead b{font-size:14.5px;font-weight:600}
+.sesscode{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.1em;color:var(--acc,var(--teal))}
+.sessmeta{font-size:12px;color:var(--muted);margin-top:3px}
+.sessnote{font-size:12px;color:var(--dim);margin-top:5px;line-height:1.5}
+.sessacts{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:9px}
+.sessacts:empty{display:none}
+.tolesson{padding:6px 11px;font-size:12px;color:var(--teal);border-color:rgba(114,227,207,.4)}
+.attrow{display:flex;gap:6px}
+.attbtn{border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--muted);border-radius:99px;padding:6px 13px;font:600 12px 'Instrument Sans',sans-serif;cursor:pointer}
+.attbtn.on{border-color:var(--green);color:var(--green);background:rgba(140,226,174,.13)}
+.attbtn.miss.on{border-color:var(--red);color:var(--red);background:rgba(241,129,129,.13)}
+@media(hover:hover){.attbtn:hover{border-color:var(--teal)}}
+
+/* Week blocks in the full-term view */
+.weekblock{margin:0 0 20px}
+.weekblock.thisweek .weekhead{color:var(--teal)}
+.weekhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;font:700 12px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;margin:0 0 9px;color:var(--muted)}
+.weekhead span{font-weight:400;letter-spacing:.04em;text-transform:none;color:var(--dim)}
+
+/* Syllabus cards */
+.sylcard{margin-bottom:14px;border-left:3px solid var(--acc,var(--teal))}
+.sylhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:9px}
+.sylhead b{font-size:19px;font-weight:600;letter-spacing:-.015em}
+.sylmeta{width:100%;font-size:12px;color:var(--muted)}
+.sylobj{font-size:14px;line-height:1.6;color:var(--text);margin:12px 0 0}
+.ilos{margin:8px 0 0;padding-left:22px;display:grid;gap:5px}
+.ilos li{font-size:13.5px;line-height:1.55;color:#bac7ca}
+.asslist{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:7px}
+.asslist li{display:flex;gap:12px;align-items:baseline;border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:rgba(255,255,255,.02)}
+.assw{flex:none;font:700 15px ui-monospace,Menlo,monospace;color:var(--acc,var(--teal));min-width:46px}
+.assn{min-width:0}
+.assn b{display:block;font-size:13.5px;font-weight:600}
+.assn small{display:block;font-size:12px;color:var(--muted);margin-top:3px;line-height:1.5}
+.efflist{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
+.efflist li{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--muted);padding:4px 0;border-bottom:1px dashed rgba(255,255,255,.06)}
+.efflist li.tot{color:var(--text);font-weight:600;border-bottom:0}
+.txtlist{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}
+.txtlist li{font-size:12.5px;line-height:1.55;color:#bac7ca}
+.txtlist a{color:var(--teal)}
+.txtrole{display:inline-block;font:10px ui-monospace,Menlo,monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-right:8px}
+
+/* Group picker */
+.grouppick{margin-top:16px}
+.grouprow{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:9px}
+.grouplab{font-size:12.5px;color:var(--muted);min-width:170px}
+.groupopts{display:flex;gap:6px;flex-wrap:wrap}
+
+@media(max-width:700px){
+  .sessrow{grid-template-columns:1fr;gap:7px}
+  .sesswhen{flex-direction:row;align-items:center;flex-wrap:wrap}
+  .grouplab{min-width:0;width:100%}
+}
+/* Six tabs is one more than the phone bar was built for; buy the room back
+   from the label rather than from the tap target. */
+@media(max-width:420px){
+  .bottomtab button{font-size:9.5px;letter-spacing:-.01em}
+  .bottomtab button .ic{font-size:16px}
+}
+
+/* The week's reading list — which lessons cover what is being taught. */
+.readgap{margin-top:12px;border:1px dashed rgba(255,186,103,.45);border-radius:12px;padding:11px 14px;font-size:12.5px;line-height:1.55;color:var(--muted);display:flex;gap:9px;flex-wrap:wrap;align-items:baseline}
+/* .readall is still on the week button; the pill rules that used to sit
+   here are gone — see the reading-card block at the end of this file. */
+.readall{font-size:12.5px}
+
+/* ==================================================================
+ * Course — what to read before a week's class
+ *
+ * Replaces a row of identical pills, one per lesson. Week 1 is twenty-two
+ * of those, which is a wall: it says the work exists and nothing about
+ * whether you have done it. Here the week's PROGRESS is the object, and the
+ * individual lessons are a short preview of what is left, weakest first.
+ * ================================================================== */
+.readcard{border:1px solid var(--line);border-left:3px solid var(--acc,var(--teal));border-radius:0 14px 14px 0;background:rgba(255,255,255,.028);padding:14px 16px;margin-top:12px;display:grid;gap:10px}
+.readtop{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.readtop b{font-size:14px}
+.readcount{margin-left:auto;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--dim);letter-spacing:.04em}
+.readbar{height:7px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden}
+.readbar span{display:block;height:100%;border-radius:99px;background:var(--acc,var(--teal));transition:width .3s ease;min-width:2px}
+.readstat{font-size:12.5px;color:var(--muted)}
+.readstat b{color:var(--text);font-size:14px}
+.readlines{display:grid;gap:5px}
+/* One lesson. The dot carries the state, so the row reads at a glance and
+   the percentage is there for when you want the number. */
+.readline{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.02);border-radius:10px;padding:9px 11px;cursor:pointer;font:inherit;transition:.16s ease}
+.readdot{flex:none;width:8px;height:8px;border-radius:99px;background:var(--dim)}
+.readline.new .readdot{background:transparent;box-shadow:inset 0 0 0 2px var(--dim)}
+.readline.weak .readdot{background:var(--red,#ff8f8f)}
+.readline.part .readdot{background:var(--orange)}
+.readline.strong .readdot{background:var(--teal)}
+.readname{flex:1;min-width:0;font-size:13.5px;line-height:1.4;color:#dfe6ea}
+.readpc{flex:none;font:11.5px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+.readline.new .readpc{color:var(--dim)}
+@media(hover:hover){.readline:hover{border-color:var(--acc,var(--teal));background:rgba(255,255,255,.05)}}
+.readacts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.readacts .primary{flex:1 1 auto;min-height:44px}
+.readacts .ghost{min-height:44px;font-size:12.5px}
+.readhint{margin:0;font-size:11.5px;color:var(--dim);line-height:1.5}
+
+/* ==================================================================
+ * Tablet: the lesson box was sized for a laptop
+ *
+ * .sessioncol capped the whole reading column at 720px. On a 1024-wide
+ * iPad that is 300px of empty rail either side while the figure inside is
+ * squeezed into 52vh — the two worst outcomes at once. The column now
+ * widens with the viewport; .lesson keeps prose to a readable measure
+ * inside it, so the extra width goes to the figures and the tables, which
+ * is what actually wanted it.
+ * ================================================================== */
+@media(min-width:1024px){
+  .sessioncol{max-width:900px}
+  .lesson{max-width:820px}
+  .lessonvis-fig img{max-height:min(64vh,620px);max-height:min(64dvh,620px)}
+  .plate img{max-height:min(66vh,660px);max-height:min(66dvh,660px)}
+}
+@media(min-width:1400px){
+  .sessioncol{max-width:1000px}
+  .lesson{max-width:860px}
+}
+/* iPad portrait: 768 wide, so the cap is never reached — the win there is
+   the figure height and the padding, not the column. */
+@media(min-width:701px) and (max-width:1023px){
+  .lessonvis-fig img{max-height:min(58vh,560px);max-height:min(58dvh,560px)}
+  .plate img{max-height:min(60vh,580px);max-height:min(60dvh,580px)}
+  .sessioncol .stagecard{padding:22px clamp(18px,3vw,28px)}
+}
+
+/* ==================================================================
+ * Text size — html[data-ts] set by outputs/study/text-size.js
+ *
+ * --ts multiplies the type on the reading surfaces and NOTHING else: no
+ * padding, no borders, no max-width, no 3D stage. See the reasoning in
+ * text-size.js. Every scaled size is listed here on purpose — a new lesson
+ * element does not scale until it is added, which is greppable and never
+ * surprises the layout.
+ * ================================================================== */
+:root{--ts:1}
+html[data-ts="l"]{--ts:1.13}
+html[data-ts="xl"]{--ts:1.28}
+.tsbtn{font-weight:800;letter-spacing:-.02em}
+.tsbtn.active{color:var(--teal);border-color:var(--teal);background:rgba(114,227,207,.08)}
+
+/* Lesson prose and its lists */
+.lesson .body{font-size:calc(15px * var(--ts))}
+.lesson h2{font-size:calc(clamp(20px,2.6vw,29px) * var(--ts))}
+.facts li{font-size:calc(14px * var(--ts))}
+.chunks li{font-size:calc(14.5px * var(--ts))}
+.chunklead{font-size:calc(14.5px * var(--ts))}
+.chunklist li{font-size:calc(14px * var(--ts))}
+.small{font-size:calc(12px * var(--ts))}
+
+/* Teaching from the image: the intro line and the callout key are prose,
+   and at Standard they are the smallest type in the app. */
+.figintro{font-size:calc(12.5px * var(--ts))}
+.figkey{font-size:calc(12px * var(--ts))}
+.figkey-note{font-size:calc(11px * var(--ts))}
+.plate figcaption{font-size:calc(13px * var(--ts))}
+
+/* Generated layouts */
+.lay-card b{font-size:calc(14.5px * var(--ts))}
+.lay-card span{font-size:calc(13.5px * var(--ts))}
+.lay-note{font-size:calc(13.5px * var(--ts))}
+.lay-note.dim{font-size:calc(12.5px * var(--ts))}
+
+/* Questions — the words you are being asked, and the answers you pick */
+.opt{font-size:calc(14.5px * var(--ts))}
+.answer{font-size:calc(13px * var(--ts))}
+.expl{font-size:calc(13.5px * var(--ts))}
+
+/* The terminology dialog: this is the one the reading-help work is for */
+.termbody .meaning .en{font-size:calc(15px * var(--ts))}
+.termbody .meaning .zh{font-size:calc(21px * var(--ts))}
+.termpart b{font-size:calc(14px * var(--ts))}
+.termpart span{font-size:calc(11.5px * var(--ts))}
+.termgrid .gt b{font-size:calc(13px * var(--ts))}
+.termgrid .gt span{font-size:calc(12px * var(--ts))}
+
+/* Course tab */
+.readname{font-size:calc(13.5px * var(--ts))}
+.readstat{font-size:calc(12.5px * var(--ts))}
+.sessnote{font-size:calc(12.5px * var(--ts))}
+.sylobj{font-size:calc(14px * var(--ts))}
+
+.nostudy{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--dim);letter-spacing:.04em;align-self:center}

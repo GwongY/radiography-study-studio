@@ -29,6 +29,7 @@ export const SOURCE_ROOTS = {
   oste20: '20 Oste sourcesssss',
   greengrp: 'Green Group Source',
   edb: 'EDB — external, fetched from edb.gov.hk',
+  web: 'External — a reference the course names, not a file in the shared folders',
   /* Not a shared drive folder: material dropped straight into the repo as the
      semester runs. Catalogued alongside the drive by build-source-catalogue. */
   newsrc: 'New source',
@@ -79,11 +80,30 @@ export const SOURCE_FILES = {
   'hss.ga.sqans': { file: 'SQ Answer by year 2007-2011/ (photographs)', subject: 'HSS2011', root: 'star', folder: 'Human anatomy/useful HA!!!!/Exam', kind: 'assessment', note: 'Short-question answers, but as JPG photographs of handwritten pages. Not machine-readable offline, so they could not be used to verify anything.' },
   'hss.mooc1': { file: 'MOOC 1 Arterial Supply of Body Trunk and Upper Limbs.pdf', subject: 'HSS2011', root: 'y1s1', folder: 'HSS2011 Human Anatomy/Old MOOC', kind: 'primary' },
   'hss.mooc3': { file: 'MOOC 3 Anatomical Correlates of Stroke.pdf', subject: 'HSS2011', root: 'y1s1', folder: 'HSS2011 Human Anatomy/Old MOOC', kind: 'primary' },
+  'hss.sdf.2627': { file: 'SDFHSS2011_2627confirmed.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'admin', note: 'The confirmed Subject Description Form for 2026/27, footed "Updated in August 2026". The authority for the module TITLES — Module I Musculoskeletal system, II Neuroanatomy, III The Thorax, IV The Abdomen and Pelvis — and for what sits inside each. Also the six intended learning outcomes, the 100% continuous-assessment structure, the 129-hour study effort, and Martini 12th edition as the set text. Its tables come out of pdftotext column-shifted; read them with -table, and see the note on study effort in the coverage report.' },
+  'hss.sched.2026': { file: 'HSS2011_ScheduleLearningTeaching2026_screenshot.png', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'admin', note: 'The Schedule for Learning & Teaching Activities as shown on Canvas, captured as a screenshot — there is no document copy of it. Thirteen weeks, each with its 2-hour lecture and 1-hour collaborative learning session, the module each week belongs to, and the closed-book test on 28 Nov 2026. Being an image it cannot be text-checked, so every claim taken from it is ALSO carried in outputs/schedule.js where it can be read.' },
+  'hss.sched.2026b': { file: 'HSS2011_Schedule_AssessmentAndDates_2026_screenshot.png', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'admin', note: 'The second half of the same Canvas page, also a screenshot. It carries what the first half did not: the assessment split as the subject states it — Individual Assignment 68% (revision exercise 8% + closed-book test 60%) and Group Assignment 32% (in-class exercise) — and an Important Dates table showing the 8% is FOUR separate 2% revision exercises, due at the end of weeks 2, 5, 8 and 10. Those four deadlines are the only hard dates HSS2011 publishes apart from the test.' },
+  /*
+   * The 2026 material, dropped into the repo as the semester runs. These two
+   * are the first HSS2011 files from the year the student is actually sitting,
+   * and the orientation deck RENUMBERS THE MODULES — see MODULES in modules.js.
+   */
+  'hss.w1.2026': { file: 'HSS2011_Wk1__orientat_intro.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'primary', note: 'Week 1 subject orientation, Benson Lau, 18 pages. The authority for the 2026 module ordering — Module 1 Musculoskeletal, 2 Nervous, 3 Cardiovascular and pulmonary, 4 Digestive and urogenital — which is a different numbering from the "Module 1 Thorax … Module 4 Musculoskeletal System" folders every older file is filed under. Also carries the assessment weights and the body-orientation terminology.' },
+  'hss.msk.2026': { file: 'W1_MusculoskeletalSystem_2026_CKK_upload.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'primary', note: 'Module 1 Week 1, Dr Alex Cheung, 39 pages. Bone histology and gross structure, marrow, the five bone types, the three joint classifications and the six synovial types, ligaments, cartilage, muscle organisation from epimysium down to myofilament, tendon and the Golgi tendon organ, origin and insertion, the fascicle arrangements, motor units and muscle tone. Its fibre-type comparison table and its movement-terminology slides are pictures, so neither extracts as text.' },
 
   /* ---------------- ABCT2326 Human Physiology ---------------- */
   'phys.ebook': { file: 'Fundamentals of Anatomy and Physiology_eBook.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology', kind: 'primary', note: 'Martini, Nath & Bartholomew (2015), 10th ed. — the core textbook named on the lecture-note title slides.' },
   'phys.qbank': { file: 'Fundamentals of Anatomy and Physiology_Question Bank.pdf', subject: 'ABCT2326', root: 'y1s1', folder: '(subject root)', kind: 'assessment' },
   'phys.1': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/1. Cells and Body Organization', kind: 'primary' },
+  /*
+   * The 2026 edition of the same lecture, dropped into New source. It is the
+   * Martini Chapter 3 lecture presentation at full length — 62 pages — where
+   * phys.1 is the shorter deck the older folder holds. Registering it was
+   * missed when the other two New source files were: everything before
+   * "An Introduction to Tissues" — the membrane, the organelles, the nucleus,
+   * protein synthesis, mitosis and meiosis — had no source to be cited to.
+   */
+  'phys.1.2026': { file: 'Lecture 1 - Cells and Body Organization.pdf', subject: 'ABCT2326', root: 'newsrc', folder: '', kind: 'primary', note: 'Chapter 3 of Martini as delivered, 62 pages: the plasma membrane and its six protein classes, every organelle in turn, the nucleus and the genetic code, transcription and translation, the cell cycle and mitosis, meiosis, then body organisation, the four tissue types and homeostasis. A second copy of the same filename sits on the drive under "extra source" at a different size; this entry means the New source copy.' },
   'phys.2': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/2. Cardiovascular System', kind: 'primary' },
   'phys.3': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/3. Respiratory System', kind: 'primary' },
   'phys.4': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/4. Digestive System', kind: 'primary' },
@@ -113,6 +133,7 @@ export const SOURCE_FILES = {
   'phys.extra': { file: 'Extra exercise.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/<system folder>', kind: 'assessment', note: 'One per system folder (1–10).' },
   'phys.qblank': { file: 'question blank/Chapter 1–29.pdf', subject: 'ABCT2326', root: 'green', folder: 'year 1 sem 1/ABCT2326 Human Physiology', kind: 'assessment', note: '29 chapter-level question sets.' },
   'phys.sdf': { file: 'Subject Description Form.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology', kind: 'admin' },
+  'phys.sched.2026': { file: 'ABCT2326_TeachingSchedule2026_OptRad_screenshot.jpg', subject: 'ABCT2326', root: 'newsrc', folder: '', kind: 'admin', note: 'The 2026 teaching schedule for Opt & Rad Group 4 (subject groups 1107 and 1111), captured as a screenshot — no document copy exists. Eleven lectures, their tutorials and the three lab rotations, with dates, times and rooms; the teaching team; the quiz on 07 Oct 2026 over Lectures 1-5; and the assessment split the subject description form does not give — quizzes 35%, lab report 15%, written exam 50%. Being an image it cannot be text-checked, so its content is also carried in outputs/schedule.js.' },
 
   /* ---------------- HTI17101 Exploring Radiography (stand-in for HTI17103) ---------------- */
   'hti.w1a': { file: 'Week 1 About the Subject.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography/Lecture notes', kind: 'primary' },
@@ -127,6 +148,7 @@ export const SOURCE_FILES = {
   'hti.rni': { file: 'RADIONUCLIDE IMAGING  (RNI).pptx', subject: 'HTI17103', root: 'greengrp', folder: 'Exploring Radiography', kind: 'student' },
   'hti.pres': { file: 'Guidelines and Topics for Presentations 2018-19.pdf', subject: 'HTI17103', root: 'radio', folder: 'Yr1 Sem1 Radiography/HTI17101 Exploring Radiography/Class Information', kind: 'admin' },
   'hti.sdf': { file: 'Subject Desciption Form.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography', kind: 'admin' },
+  'hti.sched.2026': { file: 'HTI17103_TeachingSchedule2026.pdf', subject: 'HTI17103', root: 'newsrc', folder: '', kind: 'admin', note: 'The real HTI17103 teaching schedule for 2026 — the first document in this repo under the actual subject code rather than its HTI17101 stand-in. Eight sessions across Aug 31 to Oct 22, the lecturers (Liang-Ting Lin, Vincent Leung, clinical educators), the venues, and the assessment: worksheet 50%, seminar presentation 50%. It confirms the substitution was well chosen — every topic it lists has a lesson already built from the HTI17101 set.' },
 
   /* ---------------- DSAI1202 Introduction to AI and Data Analytics ---------------- */
   'dsai.w1': { file: '1.+Week1-Overview.pptx', subject: 'DSAI1202', root: 'newsrc', folder: '', kind: 'primary', note: 'Week 1 overview, 47 slides, Dr Xiuling Wang. Half course admin, half a tour of where AI already sits in daily life, healthcare and work. The deck states its own limits: this is an AI-literacy General University Requirement, and programming and the mathematics of AI are explicitly not included.' },
@@ -146,6 +168,7 @@ export const SOURCE_FILES = {
   'soc.ass2.oste': { file: 'Assessment 2.docx', subject: 'APSS1A08', root: 'oste20', folder: 'GUR Subjects/CAR Subjects/Sociology', kind: 'student' },
   /* ---------------- Prior knowledge ---------------- */
   'edb.bio': { file: 'Biology Curriculum and Assessment Guide (S4–6), updated Nov 2015', subject: 'HKDSE', root: 'edb', folder: 'Science Education KLA — edb.gov.hk', kind: 'syllabus', note: 'Fetched from edb.gov.hk, not from the supplied shared folders. It is here for exactly one purpose: to say what HKDSE Biology already covered, and whether a topic sat in the compulsory part or in the Human Physiology elective. No anatomy or physiology claim in this file is sourced to it.' },
+  'openstax.ap2e': { file: 'Anatomy and Physiology 2e — openstax.org/details/books/anatomy-and-physiology-2e', subject: 'HSS2011', root: 'web', folder: 'OpenStax — openstax.org', kind: 'primary', note: 'The free OpenStax textbook, named as a reference on the last slide of the 2026 HSS2011 orientation deck (which links the first edition; this is the current one). It is registered so the app can point at it, and for NOTHING ELSE: this repo does not fetch it, and no claim in the corpus is sourced to it. Reading it is a thing the student does, not a thing the corpus does — see the source-discipline rule in outputs/README.md.' },
 
   'soc.img.torti': { file: 'IMG_4192.JPG / IMG_4193.JPG / IMG_4194.JPG', subject: 'APSS1A08', root: 'torti', folder: 'GUR subjects/CAR/Introduction to Sociology', kind: 'student', note: 'Photographs. Not machine-readable offline, so their contents are unverified.' },
 };
@@ -183,13 +206,22 @@ export const SUBJECTS = [
     coverage: 'full',
     blurb: 'Four modules plus the online foundation module, taught through a flipped-classroom study manual with revision exercises and model answers.',
     units: [
-      { id: 'hss.term', label: 'Anatomical orientation & terminology', note: 'Module 0 foundation' },
+      /*
+       * Ordered and numbered by the 2026 orientation deck (hss.w1.2026 p10-13),
+       * not by the source folders. The unit KEYS still carry the folder numbers
+       * because saved progress is keyed by them — see modules.js.
+       */
+      /* 'hss.subject' was here. Its one item was course logistics — module
+         titles and assessment weights — and it is now on the Course tab's
+         Syllabus panel, sourced, beside the timetable it belongs with.
+         An empty unit is a topic card that opens onto nothing. */
+      { id: 'hss.term', label: 'Anatomical orientation & terminology', note: 'Week 1 foundation' },
       { id: 'hss.osteo', label: 'Osteology — bones, landmarks, articulations', note: 'Interactive 3D skeleton', hasStudio: true },
       { id: 'hss.joints', label: 'Joints & movements' },
-      { id: 'hss.m1', label: 'Module 1 — Thorax' },
-      { id: 'hss.m2', label: 'Module 2 — Neuroanatomy' },
-      { id: 'hss.m3', label: 'Module 3 — Abdomen & pelvis' },
-      { id: 'hss.m4', label: 'Module 4 — Musculoskeletal system' },
+      { id: 'hss.m4', label: 'Module 1 — Musculoskeletal system', note: 'Filed as Module 4 on the drive' },
+      { id: 'hss.m2', label: 'Module 2 — Nervous system' },
+      { id: 'hss.m1', label: 'Module 3 — Cardiovascular & pulmonary', note: 'Filed as Module 1 on the drive' },
+      { id: 'hss.m3', label: 'Module 4 — Digestive & urogenital', note: 'Filed as Module 3 on the drive' },
     ],
   },
   {

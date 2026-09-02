@@ -38,6 +38,12 @@ export function pickItems(opts) {
   const shuffle = (arr) => arr.map((v) => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map((p) => p[1]);
 
   switch (opts.mode) {
+    case 'ids':
+      /* The order is the caller’s: a week’s reading list is a sequence,
+         not a pool to shuffle. Unknown ids drop out silently rather than
+         emptying the session -- work/schedule-check.mjs is what stops them
+         being unknown in the first place. */
+      return (opts.ids || []).map(getItem).filter(Boolean);
     case 'new': {
       /* Revision dressed as novelty is still revision: prior-knowledge items
          fill the tail of this queue only once the genuinely new ones run out. */

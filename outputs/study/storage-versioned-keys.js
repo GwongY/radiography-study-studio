@@ -15,6 +15,14 @@ export const K = {
   items: STORAGE_PREFIX + 'items',
   mistakes: STORAGE_PREFIX + 'mistakes',
   meta: STORAGE_PREFIX + 'meta',
+  /* Course tab: which sessions were attended, and which tutorial and lab
+     group the student is in — neither is derivable from the schedule. */
+  attendance: STORAGE_PREFIX + 'attendance',
+  groups: STORAGE_PREFIX + 'groups',
+  /* A display preference, not progress: which of the three type steps
+     the reader chose. Kept out of `store` because nothing reads it in a
+     loop — text-size.js asks for it when it applies it. */
+  textSize: STORAGE_PREFIX + 'textsize',
 };
 
 export function read(key, fallback) {
@@ -29,6 +37,8 @@ export const store = {
   items: read(K.items, {}),
   mistakes: read(K.mistakes, []),
   meta: read(K.meta, null),
+  attendance: read(K.attendance, {}),
+  groups: read(K.groups, {}),
 };
 
 export function migrate() {

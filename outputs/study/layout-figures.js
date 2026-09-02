@@ -73,7 +73,10 @@ export function layoutHTML(id, sc) {
 function moduleLine(item) {
   const m = moduleInfo(item);
   if (!m) return '';
-  return `<div class="moduleline"><span class="apptag">App note</span>From <strong>Module ${m.n}</strong> · ${esc(m.name)} — ${esc(m.plain)}</div>`;
+  /* The sources number the modules differently — say so here rather than let
+     the citation under the lesson look like it contradicts the header. */
+  const was = m.legacy ? `<span class="modlegacy">Your sources call it ${esc(m.legacy)}</span>` : '';
+  return `<div class="moduleline"><span class="apptag">App note</span>From <strong>Module ${m.n}</strong> · ${esc(m.name)} — ${esc(m.plain)}${was}</div>`;
 }
 
 /* App-authored plain-English lead — a hook for dense lessons so the sourced

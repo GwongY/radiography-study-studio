@@ -15,22 +15,33 @@ const check = (label, got, want) => {
   else console.log(`  ok  ${label}: ${got}`);
 };
 
+/*
+ * These numbers changed on 2026-09-02 and the change is deliberate.
+ *
+ * The 2026 subject-orientation deck (hss.w1.2026 p10-13) numbers the modules
+ * Musculoskeletal / Nervous / Cardiovascular-pulmonary / Digestive-urogenital,
+ * which is not the order the source folders on the drive are named in. The
+ * unit KEYS still carry the folder numbers because saved progress is keyed by
+ * them, so hss.m4 (the musculoskeletal unit) now correctly maps to Module 1.
+ * If these fail again, check whether a NEWER orientation deck moved them once
+ * more before assuming modules.js is wrong.
+ */
 console.log('— unit defaults —');
 check('hss.term  → 0', moduleOf({ id: 'x', unit: 'hss.term' }), 0);
 check('hss.osteo → 0', moduleOf({ id: 'x', unit: 'hss.osteo' }), 0);
 check('hss.joints→ 0', moduleOf({ id: 'x', unit: 'hss.joints' }), 0);
-check('hss.m1    → 1', moduleOf({ id: 'x', unit: 'hss.m1' }), 1);
+check('hss.m1    → 3', moduleOf({ id: 'x', unit: 'hss.m1' }), 3);   /* thorax        */
 check('hss.m2    → 2', moduleOf({ id: 'x', unit: 'hss.m2' }), 2);
-check('hss.m3    → 3', moduleOf({ id: 'x', unit: 'hss.m3' }), 3);
-check('hss.m4    → 4', moduleOf({ id: 'x', unit: 'hss.m4' }), 4);
+check('hss.m3    → 4', moduleOf({ id: 'x', unit: 'hss.m3' }), 4);   /* abdomen       */
+check('hss.m4    → 1', moduleOf({ id: 'x', unit: 'hss.m4' }), 1);   /* musculoskeletal */
 check('phys.*    → null', moduleOf({ id: 'x', unit: 'phys.heart' }), null);
 check('hti.*     → null', moduleOf({ id: 'x', unit: 'hti.rad' }), null);
 
 console.log('— curated overrides —');
-check('hss2011-osteo-bone-shapes → 4', moduleOf({ id: 'hss2011-osteo-bone-shapes', unit: 'hss.osteo' }), 4);
-check('hss2011-osteo-ribs-sternum → 1', moduleOf({ id: 'hss2011-osteo-ribs-sternum', unit: 'hss.osteo' }), 1);
-check('hss2011-joints-rotator-cuff → 4', moduleOf({ id: 'hss2011-joints-rotator-cuff', unit: 'hss.joints' }), 4);
-check('hss2011-structures-tarsals → 4', moduleOf({ id: 'hss2011-structures-tarsals', unit: 'hss.osteo' }), 4);
+check('hss2011-osteo-bone-shapes → 1', moduleOf({ id: 'hss2011-osteo-bone-shapes', unit: 'hss.osteo' }), 1);
+check('hss2011-osteo-ribs-sternum → 3', moduleOf({ id: 'hss2011-osteo-ribs-sternum', unit: 'hss.osteo' }), 3);
+check('hss2011-joints-rotator-cuff → 1', moduleOf({ id: 'hss2011-joints-rotator-cuff', unit: 'hss.joints' }), 1);
+check('hss2011-structures-tarsals → 1', moduleOf({ id: 'hss2011-structures-tarsals', unit: 'hss.osteo' }), 1);
 
 console.log('— live items —');
 const dist = {};
@@ -49,7 +60,7 @@ for (const id of ['hss2011-osteo-bone-shapes','hss2011-osteo-long-bone-structure
 
 console.log('— moduleInfo —');
 const mi = moduleInfo(STUDY_ITEMS.find((i) => i.id === 'hss2011-osteo-bone-shapes'));
-check('moduleInfo(osteo-bone-shapes).n', mi?.n, 4);
+check('moduleInfo(osteo-bone-shapes).n', mi?.n, 1);
 check('moduleInfo(osteo-bone-shapes).name', mi?.name, 'Musculoskeletal System');
 check('moduleInfo(osteo-bone-shapes).plain non-empty', (mi?.plain || '').length > 0, true);
 
