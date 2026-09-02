@@ -45,8 +45,8 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `study-data.js` | 117 | Radiography Study Studio — study data layer. |  |
 | `sw.js` | 295 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
-| `term-gloss.js` | 955 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
-| `term-notes.js` | 313 | Term notes — say it, then mean it. |  |
+| `term-gloss.js` | 991 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
+| `term-notes.js` | 354 | Term notes — say it, then mean it. |  |
 | `visual-data.js` | 463 | visual-data.js — a visual for every study item. |  |
 | `wordparts.js` | 952 | Word parts — the medical vocabulary broken into the pieces it is built from. |  |
 
@@ -97,10 +97,10 @@ belong in `init()`. The two keep separate import scopes and talk only through
 |  | 293–462 | Which lessons cover which week |
 |  | 463–511 | Where a session sits in time |
 |  | 512–562 | Formatting — kept here so the view has no date arithmetic in it |
-| `term-gloss.js` | 1–662 | preamble |
-|  | 663–750 | 2026 sweep — the cell, from the Lecture 1 items |
-|  | 751–795 | 2026 sweep — bone, muscle and the tissues of movement |
-|  | 796–955 | The vocabulary of a bony landmark |
+| `term-gloss.js` | 1–702 | preamble |
+|  | 703–788 | 2026 sweep — the cell, from the Lecture 1 items |
+|  | 789–831 | 2026 sweep — bone, muscle and the tissues of movement |
+|  | 832–991 | The vocabulary of a bony landmark |
 | `visual-data.js` | 1–29 | preamble |
 |  | 30–63 | Bone records -> skeleton meshes |
 |  | 64–72 | Explicit per-item visuals |
