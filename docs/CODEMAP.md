@@ -183,7 +183,6 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 
 | Script | What it does | Traps |
 | --- | --- | --- |
-| `work/_docs.mjs` |  |  |
 | `work/baseline.mjs` | Probe baselines — capture what the verifiers say TODAY, so a later |  |
 | `work/binding-check.mjs` | Binding check — does every split part import the names it uses? | [Missing imports in a split part](TRAPS.md#missing-imports-in-a-split-part--workbinding-checkmjs) |
 | `work/bridge-check.mjs` | Does the studio actually expose everything the study system calls on it? |  |
