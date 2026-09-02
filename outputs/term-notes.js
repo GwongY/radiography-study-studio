@@ -90,6 +90,7 @@ export const TERM_NOTES = {
   lipophilic: { say: 'lip-o-FIL-ik', plain: 'Fat-loving, so it slips straight through a cell membrane.', from: 'Built out of: lip/o, fat + phil/o, attraction' },
   hydrophilic: { say: 'hy-dro-FIL-ik', plain: 'Water-loving, so it cannot cross a membrane and must knock at a surface receptor.', from: 'Built out of: hydr/o, water + phil/o, attraction' },
   squamous: { say: 'SKWAY-muss', plain: 'Flat and scale-like — the shape of the thinnest lining cells.', from: 'Built out of: squam/o, scale' },
+  stratified: { say: 'STRAT-ih-fyd', plain: 'Arranged in layers, stacked one on top of another — stratified epithelium is several cells deep.' },
   avascularity: { say: 'ay-vas-kyoo-LAIR-ih-tee', plain: 'Having no blood vessels of its own.', from: 'Built out of: a-, without + vascul/o, vessel' },
   homeostasis: { say: 'home-ee-o-STAY-siss', plain: 'Holding the inside of the body steady while the outside changes.', from: 'Built out of: home/o, same + -stasis, standing still' },
 
@@ -135,6 +136,7 @@ export const TERM_NOTES = {
   abdominal: { say: 'ab-DOM-in-al', plain: 'To do with the abdomen, the part of the trunk below the diaphragm.', from: 'Built out of: abdomin/o, abdomen' },
   pelvic: { say: 'PEL-vik', plain: 'To do with the pelvis — the basin of bone at the base of the trunk.', from: 'Built out of: pelv/i, pelvis' },
   peritoneal: { say: 'pair-ih-toh-NEE-al', plain: 'To do with the peritoneum — the slippery lining of the abdominal cavity.', from: 'Built out of: peritone/o, peritoneum' },
+  interstitial: { say: 'in-ter-STISH-al', plain: 'In the spaces between cells or tissues — not inside a vessel or inside a cell.', from: 'Built out of: interstit/o, space between' },
   oral: { say: 'OR-al', plain: 'To do with the mouth.' },
   scrotal: { say: 'SKROH-tal', plain: 'To do with the scrotum, the pouch that holds the testes.', from: 'Built out of: scrot/o, scrotum' },
   lumbar: { say: 'LUM-bar', plain: 'To do with the loins — the lower back on each side.', from: 'Built out of: lumb/o, lower back' },
