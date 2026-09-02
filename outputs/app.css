@@ -933,6 +933,16 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .bottomtab button .ic{font-size:16px}
 }
 
+/* The week's reading list — which lessons cover what is being taught. */
+.readrow{margin-top:12px;border:1px solid rgba(114,227,207,.3);border-radius:12px;background:rgba(114,227,207,.05);padding:12px 14px}
+.readhead{display:flex;flex-wrap:wrap;gap:9px;align-items:baseline;font:11px ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.readlist{display:flex;flex-wrap:wrap;gap:6px}
+.readpill{border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);border-radius:99px;padding:7px 13px;font:500 12.5px 'Instrument Sans',sans-serif;cursor:pointer;text-align:left}
+@media(hover:hover){.readpill:hover{border-color:var(--teal);color:var(--teal)}}
+@media(pointer:coarse){.readpill{min-height:40px}}
+.readgap{margin-top:12px;border:1px dashed rgba(255,186,103,.45);border-radius:12px;padding:11px 14px;font-size:12.5px;line-height:1.55;color:var(--muted);display:flex;gap:9px;flex-wrap:wrap;align-items:baseline}
+.readall{margin-top:10px;padding:8px 14px;font-size:12.5px;color:var(--teal);border-color:rgba(114,227,207,.45)}
+
 /* ---------------- Viewer tools: cut, annotate, capture ---------------- */
 /* The armed-tool badge. Sits opposite the uncover banner so the two never
    collide — that one announces what the viewer did, this one what it is

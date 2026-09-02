@@ -30,7 +30,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v74';
+const CACHE_VERSION = 'v75';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
