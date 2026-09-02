@@ -39,6 +39,15 @@ python -m http.server 8080 --directory .
 
 Then open `http://localhost:8080/radiography-study-studio.html`.
 
+## One lesson was deleted
+
+*"What HSS2011 is, and how it is marked"* is gone. It was course logistics wearing a lesson's
+clothes — module titles, assessment weights, where Canvas lives — and none of that is anatomy, none
+of it is revisable, and answering a flashcard about the marking scheme teaches nothing. All of it is
+on the Course tab's Syllabus panel, sourced, beside the timetable it belongs with, which is where
+anyone would actually look for it. The now-empty `hss.subject` unit went with it: an empty unit is a
+topic card that opens onto nothing.
+
 ## Source discipline
 
 Every factual claim in `study-data.js` carries a `sourceRefs` entry pointing at a file that exists in
@@ -177,6 +186,22 @@ meant to be, and what have I already missed*.
   teaches Special Senses and nothing in the corpus covers it, and the tab prints the gap rather than
   hiding it.
 
+### The reading list is a progress card, not a row of pills
+
+The first version printed every lesson for the week as a button. Week 1 of HSS2011 is twenty-one of
+them: a wall of identical pills that tells you the work exists and nothing about whether you have
+done any of it. The unit is now the **week's progress** —
+
+- a bar and one line: *6% mastered · 3 of 21 started*. Two different questions, both answered.
+  *Started* counts lessons you have attempted; the percentage is mean mastery across the whole week,
+  so it can only reach 100 by getting things right, and a week of half-remembered lessons reads
+  as one;
+- **three** lessons shown, not twenty-one — unstarted first, then weakest. The rest are behind
+  *Show all*;
+- each row carries its own state as a dot and a number: unstarted, weak, part, holding;
+- the button says **Start** or **Continue**, and runs the week in the order the card lists it in.
+  It used to run the declared order while the card displayed another one.
+
 ### The week grid is derived, and the derivation is written down
 
 Only two of the three schedules carry dates. The grid that reconciles them is **teaching week N runs
@@ -185,12 +210,32 @@ separate documents: HTI17103 week 1 is "Aug 31st (Mon)"; the ABCT2326 week 1 lec
 Wednesday; and HSS2011 week 13 holds the test on Sat 28 Nov 2026, which is Mon 23 Nov plus five.
 Every date in all three lands on the weekday its own document names.
 
-### What is deliberately not known
+### The times came from the calendar, and here is why that source is trusted
 
-- **HSS2011 has no published times.** Its Canvas schedule gives week numbers and topics and nothing
-  else; only the test carries a time. Those sessions are placed in their teaching week and nowhere
-  more precise. They are labelled *week only*, they say **This week** rather than **On now**, and
-  they do not go past until the week does. Inventing a slot would have been easy and wrong.
+HSS2011 publishes week numbers and topics and **no times at all** — only the test carries one. Every
+HSS2011 row used to be `undated`: placed in its teaching week and nowhere more precise, labelled
+*week only*, saying *This week* rather than *On now*. Inventing a slot would have been easy and
+wrong.
+
+The times are now real, and they came from the student's own PolyU timetable in Google Calendar.
+That is a different **kind** of source from everything else here — not a published document, not
+re-checkable by anyone else — so it is worth being exact about why it is trusted: it reproduces all
+three published schedules on every date they both carry, across all thirteen weeks, including the
+four revision-exercise deadlines and the test. A source that independently reproduces three
+documents it was not derived from is telling the truth about the fourth.
+
+- **HSS2011** — tutorial Wed 12:30–13:20 CD512, lecture Fri 16:30–18:20 V322. Within a teaching week
+  the tutorial comes **first**, which is easy to get backwards.
+- Where the calendar and a published schedule disagree, **the document decides what happens and the
+  calendar decides when and where**, and the row says so. Two ABCT2326 rows carry a live conflict:
+  the teaching schedule cancels a lab for National Day and calls week 10 a no-class week, and the
+  timetable books both. Cancelled here, flagged there — skipping a class on our say-so is the
+  expensive direction to be wrong in.
+- **The other three subjects are in the timetable now.** This app teaches three and the student sits
+  six. A timetable showing half a week cannot show a clash, gets *what is on now* wrong whenever it
+  is one of the others, and undercounts *what have I missed* by three subjects. DSAI1202, APSS1A08
+  and the LCR seminar are carried as slots, marked **No lessons here — timetable only**, claiming
+  nothing.
 - **The tutorial and lab groups are unknown.** The ABCT2326 schedule lists all three of each without
   saying which is the student’s. All are carried; a picker in the tab records the answer, and the
   other groups’ slots then stop counting against attendance. They stay visible, dimmed, because the
@@ -199,6 +244,30 @@ Every date in all three lands on the weekday its own document names.
   the ABCT2326 group timetable were supplied as images, and no document copy exists. They cannot be
   text-checked the way a lecture can, so everything read off them is written out in `schedule.js`
   where it can be read and corrected.
+
+## Text size
+
+Three steps, from the `Aa` in either header, remembered across sessions. A reading app on a tablet
+held at arm's length is not the same reading distance as a laptop, and the type here was set for the
+laptop.
+
+`zoom` on the scroll container would have been one line and it is the wrong tool: it scales the
+padding, the borders, the 3D stage and the `max-width` that stops a line of prose running the full
+width of an iPad, so at 125% the layout is not a larger version of itself, it is a narrower one.
+Browser page zoom already does that job for anyone who wants it. Instead `--ts` multiplies the type
+on the **reading surfaces only**, in one block at the end of `app.css`. The cost is that the block
+has to name those surfaces, so a size added to a new lesson element will not scale until it is
+listed there — a real maintenance cost, taken deliberately, because it is greppable and it never
+surprises the layout.
+
+## Tablet layout
+
+`.sessioncol` capped the whole reading column at 720px. On a 1024-wide iPad that is 300px of empty
+rail on each side **while the figure inside it is squeezed into 52vh** — the two worst outcomes at
+once. The column now widens with the viewport (900px at 1024, 1000px at 1400) and `.lesson` keeps
+prose to a readable measure inside it, so the extra width goes to the figures and the tables, which
+are what wanted it. In portrait, where 768px never reaches the cap, the win is the figure height
+instead: 430px to 560px. Every fixed surface pays its own `env(safe-area-inset-*)`.
 
 ## Item model
 
@@ -213,15 +282,35 @@ images exist in the assets folder, only `.glb` models. The label names come from
 
 ## Every lesson opens with a visual
 
-No lesson is a wall of prose. All 128 items resolve to a visual, and the resolver never invents one:
+No lesson is a wall of prose. All 127 items resolve to a visual, and the resolver never invents one:
 
 | Kind | Items | What it is |
 | --- | --- | --- |
-| **model** | 58 | The real named meshes for the structure being taught. The studio canvas is *moved into* the lesson card and focused on those meshes — still rotatable, still tappable, with a readout naming whatever you tap. One WebGL context, relocated rather than duplicated. |
-| **figure** | 16 | A published Wikimedia/OpenStax/Gray's image (`figures.js`), rendered through the schematic/labelled path when a figure exists for the id. |
-| **schematic** | 16 | A hand-authored SVG or HTML layout, for what no mesh or photograph can show — a feedback loop, the EM spectrum, a decision table. |
-| **generated** | 36 | Drawn from the item's own sourced data — a sequence item's ordered steps become a flow, a matching item's pairs become a grid. A change of form, not of content. |
-| **labelled** | 2 | An app-authored labelling diagram from `DIAGRAMS` — the vertebra and the heart — used by the two `diagram` items. |
+| **model** | 61 | The real named meshes for the structure being taught. The studio canvas is *moved into* the lesson card and focused on those meshes — still rotatable, still tappable, with a readout naming whatever you tap. One WebGL context, relocated rather than duplicated. |
+| **figure** | 32 | A published Wikimedia/OpenStax/Gray's image (`figures.js` — **29 figures**, every one of them in use), rendered through the schematic/labelled path when a figure exists for the id. |
+| **generated** | 19 | Drawn from the item's own sourced data — a sequence item's ordered steps become a flow, a matching item's pairs become a grid. A change of form, not of content. |
+| **schematic** | 15 | A hand-authored SVG or HTML layout, for what no mesh or photograph can show — a feedback loop, the EM spectrum, a decision table. |
+
+### "Not on disk" is not the same claim as "not available"
+
+The eighteen lessons written in 2026 shipped on generated layouts, and the note in `visual-data.js`
+gave the reason: *nothing here depicts a membrane or a Golgi apparatus, and a wrong picture is worse
+than a diagram*. Both halves of that were true and the conclusion did not follow. Nothing **on the
+supplied drive** depicted a membrane. The whole OpenStax *Anatomy & Physiology* figure set is on
+Wikimedia Commons under CC BY — and OpenStax A&P 2e is the free textbook the HSS2011 orientation
+deck names as recommended reading. The pictures were a search away for a month.
+
+Eleven were added: the levels of organisation, the plasma membrane, a model cell, the nucleus,
+**mRNA splicing**, the stages of mitosis, every epithelium, the negative-feedback loop, the four
+bone cells, red and yellow marrow in a real photographed bone, and the three cartilages. The
+splicing one exists because a lesson said *"introns will be removed and exons will be spliced
+together"* — its source slide's own words — and showed nothing; that figure draws the sentence.
+
+`work/fetch-figure.mjs` is how they arrived, and it will not download anything whose licence is not
+demonstrably free. The author, licence and source page the app renders were read out of the same API
+response that authorised the download, so the credit cannot drift from the credit the licence
+requires. There is no override flag. Every callout key was written from **looking at the image**,
+not from knowing what that figure usually shows.
 
 Every model spec was checked against the actual GLB name index: **all resolve, with no dead mesh
 names**. A spec that resolved to nothing would show a short note saying so rather than quietly

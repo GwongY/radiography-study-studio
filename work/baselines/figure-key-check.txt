@@ -1,5 +1,5 @@
 — every figure a lesson shows has intro (+ key) —
-  ok  18 figures checked
+  ok  29 figures checked
 — every plate has intro + key —
   ok  5 plates checked
 — unused FIGURES entries (informational) —
