@@ -26,7 +26,7 @@ import { termGloss } from '../term-gloss.js?v=3';
 import {
   GROUP_CHOICES, KINDS, SCHEDULE_SOURCES, SESSIONS, STAFF, SUBJECT_ADMIN, TERM,
   fmtDate, fmtTime, fmtWeekRange, fmtWhen, isOtherGroup, sessionSpan, sessionStatus,
-  sessionsWithStatus, weekEnd, weekOf, weekStart,
+  sessionsWithStatus, studyFor, weekEnd, weekOf, weekStart,
 } from '../schedule.js?v=1';
 import { ui } from './state.js';
 
@@ -54,6 +54,7 @@ export {
   weekEnd,
   weekOf,
   weekStart,
+  studyFor,
   CONCEPT_GROUPS,
   COVERAGE,
   DATA_VERSION,

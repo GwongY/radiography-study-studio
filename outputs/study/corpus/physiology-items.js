@@ -2128,7 +2128,7 @@ export const PHYS_ITEMS = [
     tags: ['foundation', 'high-yield'],
     lesson: {
       explanation: 'Protein synthesis starts with gene activation — uncoiling the DNA so it can be used. Transcription then copies the instructions from DNA to mRNA, inside the nucleus. RNA polymerase produces the messenger RNA: it binds to the promoter region on the template strand and works along it. The transcript is then processed — introns are removed and exons are spliced together — and the mRNA leaves the nucleus for the cytoplasm through the nuclear pores. Translation follows: a ribosome, on the rough ER, reads the code from the mRNA in the cytoplasm.',
-      plain: 'Two steps in two places, and the place is half the answer. Transcription happens in the nucleus because that is where the DNA is; translation happens in the cytoplasm because that is where the ribosomes are; and the mRNA exists precisely to carry the message between them, out through a nuclear pore. Between the two steps the transcript is edited — introns cut out, exons joined up — so what leaves the nucleus is shorter than what was copied.',
+      plain: 'Two steps in two places, and the place is half the answer. Transcription happens in the nucleus because that is where the DNA is; translation happens in the cytoplasm because that is where the ribosomes are; and the mRNA exists precisely to carry the message between them, out through a nuclear pore. Between the two steps the transcript is edited. A gene is not one continuous instruction: it comes in pieces, and only some of them are the recipe. The pieces that ARE kept are called exons — remember it as exons EXit the nucleus — and the ones cut out and discarded are introns, which stay IN. Splicing is the joining of the kept pieces end to end, so what leaves the nucleus is shorter than what was copied.',
       keyFacts: [
         'Gene activation = uncoiling DNA so it can be used.',
         'Transcription copies instructions from DNA to mRNA, in the nucleus.',
@@ -2143,7 +2143,7 @@ export const PHYS_ITEMS = [
     memory: {
       wordOrigin: 'Transcription is writing the same language again (DNA to RNA, both nucleic acids). Translation is changing language (nucleic acid to protein). The words are exact.',
       sequence: 'Uncoil, copy, edit, export, read. Five verbs, and the third and fourth are the ones people forget.',
-      comparison: 'Exons EXit the nucleus; introns stay IN and are removed.',
+      comparison: 'Exons EXit the nucleus and are EXpressed; introns stay IN and are cut out. Two words, one letter each doing the work.',
     },
     practice: [
       { type: 'sequence', prompt: 'Order the steps of protein synthesis.', items: ['Gene activation — uncoiling DNA', 'RNA polymerase binds the promoter and produces mRNA', 'Introns removed, exons spliced together', 'mRNA leaves through the nuclear pores', 'Ribosome reads the mRNA in the cytoplasm'],
