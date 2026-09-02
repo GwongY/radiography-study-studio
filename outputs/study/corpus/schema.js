@@ -211,7 +211,10 @@ export const SUBJECTS = [
        * not by the source folders. The unit KEYS still carry the folder numbers
        * because saved progress is keyed by them — see modules.js.
        */
-      { id: 'hss.subject', label: 'About the subject & how it is assessed', note: '2026 orientation' },
+      /* 'hss.subject' was here. Its one item was course logistics — module
+         titles and assessment weights — and it is now on the Course tab's
+         Syllabus panel, sourced, beside the timetable it belongs with.
+         An empty unit is a topic card that opens onto nothing. */
       { id: 'hss.term', label: 'Anatomical orientation & terminology', note: 'Week 1 foundation' },
       { id: 'hss.osteo', label: 'Osteology — bones, landmarks, articulations', note: 'Interactive 3D skeleton', hasStudio: true },
       { id: 'hss.joints', label: 'Joints & movements' },

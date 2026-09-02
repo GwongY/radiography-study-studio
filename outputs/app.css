@@ -934,14 +934,130 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 }
 
 /* The week's reading list — which lessons cover what is being taught. */
-.readrow{margin-top:12px;border:1px solid rgba(114,227,207,.3);border-radius:12px;background:rgba(114,227,207,.05);padding:12px 14px}
-.readhead{display:flex;flex-wrap:wrap;gap:9px;align-items:baseline;font:11px ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
-.readlist{display:flex;flex-wrap:wrap;gap:6px}
-.readpill{border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);border-radius:99px;padding:7px 13px;font:500 12.5px 'Instrument Sans',sans-serif;cursor:pointer;text-align:left}
-@media(hover:hover){.readpill:hover{border-color:var(--teal);color:var(--teal)}}
-@media(pointer:coarse){.readpill{min-height:40px}}
 .readgap{margin-top:12px;border:1px dashed rgba(255,186,103,.45);border-radius:12px;padding:11px 14px;font-size:12.5px;line-height:1.55;color:var(--muted);display:flex;gap:9px;flex-wrap:wrap;align-items:baseline}
-.readall{margin-top:10px;padding:8px 14px;font-size:12.5px;color:var(--teal);border-color:rgba(114,227,207,.45)}
+/* .readall is still on the week button; the pill rules that used to sit
+   here are gone — see the reading-card block at the end of this file. */
+.readall{font-size:12.5px}
+
+/* ==================================================================
+ * Course — what to read before a week's class
+ *
+ * Replaces a row of identical pills, one per lesson. Week 1 is twenty-two
+ * of those, which is a wall: it says the work exists and nothing about
+ * whether you have done it. Here the week's PROGRESS is the object, and the
+ * individual lessons are a short preview of what is left, weakest first.
+ * ================================================================== */
+.readcard{border:1px solid var(--line);border-left:3px solid var(--acc,var(--teal));border-radius:0 14px 14px 0;background:rgba(255,255,255,.028);padding:14px 16px;margin-top:12px;display:grid;gap:10px}
+.readtop{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.readtop b{font-size:14px}
+.readcount{margin-left:auto;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--dim);letter-spacing:.04em}
+.readbar{height:7px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden}
+.readbar span{display:block;height:100%;border-radius:99px;background:var(--acc,var(--teal));transition:width .3s ease;min-width:2px}
+.readstat{font-size:12.5px;color:var(--muted)}
+.readstat b{color:var(--text);font-size:14px}
+.readlines{display:grid;gap:5px}
+/* One lesson. The dot carries the state, so the row reads at a glance and
+   the percentage is there for when you want the number. */
+.readline{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.02);border-radius:10px;padding:9px 11px;cursor:pointer;font:inherit;transition:.16s ease}
+.readdot{flex:none;width:8px;height:8px;border-radius:99px;background:var(--dim)}
+.readline.new .readdot{background:transparent;box-shadow:inset 0 0 0 2px var(--dim)}
+.readline.weak .readdot{background:var(--red,#ff8f8f)}
+.readline.part .readdot{background:var(--orange)}
+.readline.strong .readdot{background:var(--teal)}
+.readname{flex:1;min-width:0;font-size:13.5px;line-height:1.4;color:#dfe6ea}
+.readpc{flex:none;font:11.5px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+.readline.new .readpc{color:var(--dim)}
+@media(hover:hover){.readline:hover{border-color:var(--acc,var(--teal));background:rgba(255,255,255,.05)}}
+.readacts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.readacts .primary{flex:1 1 auto;min-height:44px}
+.readacts .ghost{min-height:44px;font-size:12.5px}
+.readhint{margin:0;font-size:11.5px;color:var(--dim);line-height:1.5}
+
+/* ==================================================================
+ * Tablet: the lesson box was sized for a laptop
+ *
+ * .sessioncol capped the whole reading column at 720px. On a 1024-wide
+ * iPad that is 300px of empty rail either side while the figure inside is
+ * squeezed into 52vh — the two worst outcomes at once. The column now
+ * widens with the viewport; .lesson keeps prose to a readable measure
+ * inside it, so the extra width goes to the figures and the tables, which
+ * is what actually wanted it.
+ * ================================================================== */
+@media(min-width:1024px){
+  .sessioncol{max-width:900px}
+  .lesson{max-width:820px}
+  .lessonvis-fig img{max-height:min(64vh,620px);max-height:min(64dvh,620px)}
+  .plate img{max-height:min(66vh,660px);max-height:min(66dvh,660px)}
+}
+@media(min-width:1400px){
+  .sessioncol{max-width:1000px}
+  .lesson{max-width:860px}
+}
+/* iPad portrait: 768 wide, so the cap is never reached — the win there is
+   the figure height and the padding, not the column. */
+@media(min-width:701px) and (max-width:1023px){
+  .lessonvis-fig img{max-height:min(58vh,560px);max-height:min(58dvh,560px)}
+  .plate img{max-height:min(60vh,580px);max-height:min(60dvh,580px)}
+  .sessioncol .stagecard{padding:22px clamp(18px,3vw,28px)}
+}
+
+/* ==================================================================
+ * Text size — html[data-ts] set by outputs/study/text-size.js
+ *
+ * --ts multiplies the type on the reading surfaces and NOTHING else: no
+ * padding, no borders, no max-width, no 3D stage. See the reasoning in
+ * text-size.js. Every scaled size is listed here on purpose — a new lesson
+ * element does not scale until it is added, which is greppable and never
+ * surprises the layout.
+ * ================================================================== */
+:root{--ts:1}
+html[data-ts="l"]{--ts:1.13}
+html[data-ts="xl"]{--ts:1.28}
+.tsbtn{font-weight:800;letter-spacing:-.02em}
+.tsbtn.active{color:var(--teal);border-color:var(--teal);background:rgba(114,227,207,.08)}
+
+/* Lesson prose and its lists */
+.lesson .body{font-size:calc(15px * var(--ts))}
+.lesson h2{font-size:calc(clamp(20px,2.6vw,29px) * var(--ts))}
+.facts li{font-size:calc(14px * var(--ts))}
+.chunks li{font-size:calc(14.5px * var(--ts))}
+.chunklead{font-size:calc(14.5px * var(--ts))}
+.chunklist li{font-size:calc(14px * var(--ts))}
+.small{font-size:calc(12px * var(--ts))}
+
+/* Teaching from the image: the intro line and the callout key are prose,
+   and at Standard they are the smallest type in the app. */
+.figintro{font-size:calc(12.5px * var(--ts))}
+.figkey{font-size:calc(12px * var(--ts))}
+.figkey-note{font-size:calc(11px * var(--ts))}
+.plate figcaption{font-size:calc(13px * var(--ts))}
+
+/* Generated layouts */
+.lay-card b{font-size:calc(14.5px * var(--ts))}
+.lay-card span{font-size:calc(13.5px * var(--ts))}
+.lay-note{font-size:calc(13.5px * var(--ts))}
+.lay-note.dim{font-size:calc(12.5px * var(--ts))}
+
+/* Questions — the words you are being asked, and the answers you pick */
+.opt{font-size:calc(14.5px * var(--ts))}
+.answer{font-size:calc(13px * var(--ts))}
+.expl{font-size:calc(13.5px * var(--ts))}
+
+/* The terminology dialog: this is the one the reading-help work is for */
+.termbody .meaning .en{font-size:calc(15px * var(--ts))}
+.termbody .meaning .zh{font-size:calc(21px * var(--ts))}
+.termpart b{font-size:calc(14px * var(--ts))}
+.termpart span{font-size:calc(11.5px * var(--ts))}
+.termgrid .gt b{font-size:calc(13px * var(--ts))}
+.termgrid .gt span{font-size:calc(12px * var(--ts))}
+
+/* Course tab */
+.readname{font-size:calc(13.5px * var(--ts))}
+.readstat{font-size:calc(12.5px * var(--ts))}
+.sessnote{font-size:calc(12.5px * var(--ts))}
+.sylobj{font-size:calc(14px * var(--ts))}
+
+.nostudy{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--dim);letter-spacing:.04em;align-self:center}
 
 /* ---------------- Viewer tools: cut, annotate, capture ---------------- */
 /* The armed-tool badge. Sits opposite the uncover banner so the two never
