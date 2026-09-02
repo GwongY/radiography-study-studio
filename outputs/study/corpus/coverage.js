@@ -118,6 +118,11 @@ export const COVERAGE = {
   ],
   conflicts: [
     {
+      what: 'The two ABCT2326 immune documents disagree on how many complement proteins there are',
+      detail: 'The Week 10 slide deck says "Plasma contains 30 special complement (C) proteins". The lecturer\'s own prose notes filed in the same folder say "The blood plasma contains 11 special complement (C) proteins", in an otherwise identical sentence. Both are course material by the same author, neither corrects the other, and nothing else on the drive settles it. Counting the named C proteins gives eleven; counting the whole system including its factors gives about thirty, so the two are probably answering different questions — but that reading is inference, not something either document states.',
+      handled: 'Both numbers carried, both cited, and the lesson says they disagree. The item teaches the cascade instead, and its common-mistakes list warns against quoting either count as settled.',
+    },
+    {
       what: 'HSS2011 module numbering differs between the two shared folder sets',
       detail: 'The "Year 1 Sem 1 Source" set numbers Module 2 as Neuroanatomy and Module 3 as Abdomen and Pelvis, matching the Study Manual 1920. The "Radiography Sources" set numbers them the other way round, and the underlying lecture PDFs still carry the older numbering (2.x for abdomen, 3.x for neuro). This app follows the Study Manual 1920 ordering and records the original filename in every source reference.',
       handled: 'Followed the newer manual ordering; original filenames preserved in the source dialog.',

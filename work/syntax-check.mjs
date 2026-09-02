@@ -5,7 +5,7 @@
  * relative import, runtime throw) means the file parsed fine. Run:
  *   node work/syntax-check.mjs
  */
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -44,13 +44,30 @@ console.log(`application modules: ${blocks.length} (${blocks.map((b) => b.label)
 if (blocks.length < 2) { failed++; console.log(`FAIL  expected 2 application modules, found ${blocks.length}`); }
 for (const b of blocks) await check(b.label, b.src);
 
-for (const f of ['study-data.js', 'anatomy-data.js', 'term-notes.js', 'term-gloss.js', 'wordparts.js', 'bodymap.js', 'mesh-index.js', 'synonyms.js']) {
+/*
+ * The data modules, and the directories they were split into.
+ *
+ * study-data.js is now a barrel. Checking it alone proves nothing: the
+ * data: URL cannot resolve its relative imports, so it stops at the first
+ * one and reports OK having parsed a re-export list. Every real lesson,
+ * every source entry and the whole coverage report live in the files behind
+ * it, and an unescaped apostrophe in one of those passed this check and was
+ * caught two checks later by verify-modules. Walk the directories.
+ */
+const FILES = ['study-data.js', 'anatomy-data.js', 'term-notes.js', 'term-gloss.js', 'wordparts.js', 'bodymap.js', 'mesh-index.js', 'synonyms.js'];
+for (const dir of ['study/corpus', 'study', 'studio']) {
+  try {
+    for (const f of readdirSync(join(root, 'outputs', dir))) if (f.endsWith('.js')) FILES.push(`${dir}/${f}`);
+  } catch { /* a checkout from before the split */ }
+}
+for (const f of FILES) {
   try {
     await check(`outputs/${f}`, readFileSync(join(root, 'outputs', f), 'utf8'));
   } catch {
     console.log(`SKIP  outputs/${f} (not found)`);
   }
 }
+console.log(`data and part modules checked: ${FILES.length}`);
 
 console.log(failed ? `\n${failed} PARSE FAILURE(S)` : '\nALL PARSED CLEAN');
 process.exit(failed ? 1 : 0);
