@@ -29,9 +29,14 @@ export const COVERAGE = {
         'Tap-to-identify structure sets on the 3D model with a three-state reveal: all 8 carpals, all 7 tarsals, 12 skull bones and the vertebral regions',
         'Word parts — prefixes, suffixes and roots, and how to take an unfamiliar term apart',
         'Rotator cuff and full abduction sequence',
-        'Module 1 thorax, Module 2 neuroanatomy, Module 3 abdomen and pelvis',
+      'The four teaching modules, NUMBERED BY THE 2026 ORIENTATION DECK: 1 Musculoskeletal, 2 Nervous, 3 Cardiovascular and pulmonary, 4 Digestive and urogenital. Every source folder on the drive uses the older ordering (1 Thorax … 4 Musculoskeletal) and the app now prints both.',
+      'What the subject is and how it is marked: the objective, the four modules, and the 8 / 32 / 60 assessment split with which parts are open book.',
+      'Bone histology — the two matrix components and the four cell types — and red versus yellow marrow.',
+      'Muscle organisation from epimysium to myofilament, the five fascicle arrangements, tendon and its two junctions, origin and insertion, the motor unit and muscle tone.',
       ],
       gaps: [
+      'The 2026 Module 1 deck has slides that carry no extractable text: the slow/fast oxidative/glycolytic comparison table and the movement-terminology slides are pictures. Those two topics are therefore NOT taught from this source — fibre types are covered on the physiology side (phys.susan9), and the movement terminology from the older HSS2011 files.',
+      'Only Week 1 of the 2026 material has been supplied. Modules 2–4 are still covered from the previous years’ files, which is why their citations carry the old module numbers.',
         'MOOC 1–3 arterial supply and stroke correlates are present in the folders but no study items have been generated from them yet.',
         'Detailed muscle attachments beyond those named in the revision-exercise answers were deliberately not added.',
         'No local labelled diagram images exist in the app assets, so diagram labelling uses authored schematics plus the 3D model.',
@@ -41,8 +46,9 @@ export const COVERAGE = {
     {
       id: 'ABCT2326', status: 'full',
       covered: [
-        'Cells, four tissue types, eleven organ systems',
-        'Homeostasis, autoregulation vs extrinsic regulation, receptor–control centre–effector',
+      'The cell itself: plasma membrane and its six protein classes, the membranous and non-membranous organelles, the nucleus and the genetic code, transcription and translation, the cell cycle, mitosis and meiosis.',
+      'Four tissue types, eleven organ systems, and each tissue in detail: epithelial classification by shape and by layers plus the glandular split, the three connective tissue classes with the blood argument, the three muscle types, neurons and neuroglia.',
+      'Homeostasis, autoregulation vs extrinsic regulation, receptor–control centre–effector, and both feedback loops with the lecture’s worked examples (body temperature, blood clotting).',
         'Pulmonary and systemic circuits; heart chambers, valves, cardiac skeleton',
         'Blood composition, plasma proteins, vessel wall layers',
         'Respiratory pathway and conducting vs respiratory zones',
@@ -149,6 +155,8 @@ export const COVERAGE = {
     },
   ],
   notes: [
+    'THE COVERAGE REPORT ITSELF HID A GAP. Until 2026-09-02 this entry listed "Cells, four tissue types, eleven organ systems" as covered for ABCT2326 and marked the subject full. Only two items existed for that unit and both were written from the back of the lecture — tissues and homeostasis. Everything before it (membrane, organelles, nucleus, protein synthesis, cell division) had been catalogued in ONE item’s prior-knowledge sidebar as things that go beyond DSE Biology, and never turned into lessons. Listing a topic as covered because a related item mentions it is how a gap becomes invisible: nothing downstream had any reason to look again. Nine items now teach it. When adding a covered line, describe what a lesson TEACHES, not what the corpus has read.',
+    'The 2026 orientation deck renumbers the four HSS2011 modules and every source folder on the drive still uses the old ordering. The app numbers by the deck and prints the old number underneath, because a lesson headed Module 1 that cites "Module 4.1" looks wrong otherwise. The unit KEYS (hss.m1 … hss.m4) were deliberately NOT renamed — saved progress in the browser is keyed by them.',
     'The "downloaded ZIP" referred to in the brief was not present anywhere on this machine. The only downloaded asset found was Skeleton_NIH3D.glb. It has since been removed: it carried just 2 named nodes, so it could not support structure-level picking, and no code ever loaded it.',
     'No labelled diagram image files exist in the supplied app assets — only .glb 3D models — so diagram labelling uses authored inline SVG schematics whose label names come from the cited sources.',
     'The bundled Z-Anatomy / BodyParts3D skeleton is far more granular than the app originally used: 277 individually named meshes covering every carpal and tarsal, the separate skull bones, all 24 presacral vertebrae, and even the ear ossicles. It contains NO soft tissue — no heart, lung, brain, kidney, liver, muscle or vessel — so any 3D work on organs, muscles, pathways or neuroanatomy needs models this project does not yet have.',

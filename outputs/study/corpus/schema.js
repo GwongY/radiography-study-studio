@@ -79,11 +79,27 @@ export const SOURCE_FILES = {
   'hss.ga.sqans': { file: 'SQ Answer by year 2007-2011/ (photographs)', subject: 'HSS2011', root: 'star', folder: 'Human anatomy/useful HA!!!!/Exam', kind: 'assessment', note: 'Short-question answers, but as JPG photographs of handwritten pages. Not machine-readable offline, so they could not be used to verify anything.' },
   'hss.mooc1': { file: 'MOOC 1 Arterial Supply of Body Trunk and Upper Limbs.pdf', subject: 'HSS2011', root: 'y1s1', folder: 'HSS2011 Human Anatomy/Old MOOC', kind: 'primary' },
   'hss.mooc3': { file: 'MOOC 3 Anatomical Correlates of Stroke.pdf', subject: 'HSS2011', root: 'y1s1', folder: 'HSS2011 Human Anatomy/Old MOOC', kind: 'primary' },
+  /*
+   * The 2026 material, dropped into the repo as the semester runs. These two
+   * are the first HSS2011 files from the year the student is actually sitting,
+   * and the orientation deck RENUMBERS THE MODULES — see MODULES in modules.js.
+   */
+  'hss.w1.2026': { file: 'HSS2011_Wk1__orientat_intro.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'primary', note: 'Week 1 subject orientation, Benson Lau, 18 pages. The authority for the 2026 module ordering — Module 1 Musculoskeletal, 2 Nervous, 3 Cardiovascular and pulmonary, 4 Digestive and urogenital — which is a different numbering from the "Module 1 Thorax … Module 4 Musculoskeletal System" folders every older file is filed under. Also carries the assessment weights and the body-orientation terminology.' },
+  'hss.msk.2026': { file: 'W1_MusculoskeletalSystem_2026_CKK_upload.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'primary', note: 'Module 1 Week 1, Dr Alex Cheung, 39 pages. Bone histology and gross structure, marrow, the five bone types, the three joint classifications and the six synovial types, ligaments, cartilage, muscle organisation from epimysium down to myofilament, tendon and the Golgi tendon organ, origin and insertion, the fascicle arrangements, motor units and muscle tone. Its fibre-type comparison table and its movement-terminology slides are pictures, so neither extracts as text.' },
 
   /* ---------------- ABCT2326 Human Physiology ---------------- */
   'phys.ebook': { file: 'Fundamentals of Anatomy and Physiology_eBook.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology', kind: 'primary', note: 'Martini, Nath & Bartholomew (2015), 10th ed. — the core textbook named on the lecture-note title slides.' },
   'phys.qbank': { file: 'Fundamentals of Anatomy and Physiology_Question Bank.pdf', subject: 'ABCT2326', root: 'y1s1', folder: '(subject root)', kind: 'assessment' },
   'phys.1': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/1. Cells and Body Organization', kind: 'primary' },
+  /*
+   * The 2026 edition of the same lecture, dropped into New source. It is the
+   * Martini Chapter 3 lecture presentation at full length — 62 pages — where
+   * phys.1 is the shorter deck the older folder holds. Registering it was
+   * missed when the other two New source files were: everything before
+   * "An Introduction to Tissues" — the membrane, the organelles, the nucleus,
+   * protein synthesis, mitosis and meiosis — had no source to be cited to.
+   */
+  'phys.1.2026': { file: 'Lecture 1 - Cells and Body Organization.pdf', subject: 'ABCT2326', root: 'newsrc', folder: '', kind: 'primary', note: 'Chapter 3 of Martini as delivered, 62 pages: the plasma membrane and its six protein classes, every organelle in turn, the nucleus and the genetic code, transcription and translation, the cell cycle and mitosis, meiosis, then body organisation, the four tissue types and homeostasis. A second copy of the same filename sits on the drive under "extra source" at a different size; this entry means the New source copy.' },
   'phys.2': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/2. Cardiovascular System', kind: 'primary' },
   'phys.3': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/3. Respiratory System', kind: 'primary' },
   'phys.4': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/4. Digestive System', kind: 'primary' },
@@ -183,13 +199,19 @@ export const SUBJECTS = [
     coverage: 'full',
     blurb: 'Four modules plus the online foundation module, taught through a flipped-classroom study manual with revision exercises and model answers.',
     units: [
-      { id: 'hss.term', label: 'Anatomical orientation & terminology', note: 'Module 0 foundation' },
+      /*
+       * Ordered and numbered by the 2026 orientation deck (hss.w1.2026 p10-13),
+       * not by the source folders. The unit KEYS still carry the folder numbers
+       * because saved progress is keyed by them — see modules.js.
+       */
+      { id: 'hss.subject', label: 'About the subject & how it is assessed', note: '2026 orientation' },
+      { id: 'hss.term', label: 'Anatomical orientation & terminology', note: 'Week 1 foundation' },
       { id: 'hss.osteo', label: 'Osteology — bones, landmarks, articulations', note: 'Interactive 3D skeleton', hasStudio: true },
       { id: 'hss.joints', label: 'Joints & movements' },
-      { id: 'hss.m1', label: 'Module 1 — Thorax' },
-      { id: 'hss.m2', label: 'Module 2 — Neuroanatomy' },
-      { id: 'hss.m3', label: 'Module 3 — Abdomen & pelvis' },
-      { id: 'hss.m4', label: 'Module 4 — Musculoskeletal system' },
+      { id: 'hss.m4', label: 'Module 1 — Musculoskeletal system', note: 'Filed as Module 4 on the drive' },
+      { id: 'hss.m2', label: 'Module 2 — Nervous system' },
+      { id: 'hss.m1', label: 'Module 3 — Cardiovascular & pulmonary', note: 'Filed as Module 1 on the drive' },
+      { id: 'hss.m3', label: 'Module 4 — Digestive & urogenital', note: 'Filed as Module 3 on the drive' },
     ],
   },
   {

@@ -753,3 +753,82 @@
    #mvBackToSession and #viewerXrayPane, which showed when they should not.
    Declared last so it wins source-order ties against single-class rules. */
 .hidden{display:none}
+
+/* ---------- The module line's legacy-numbering aside ---------- */
+/* The 2026 orientation deck renumbered the modules and the source folders did
+   not, so a lesson headed "Module 1" cites "Module 4.1". This says which. */
+.modlegacy{display:block;margin-top:3px;font-size:11.5px;color:var(--dim)}
+
+/*
+ * ---------- iPad / installed web app ----------
+ *
+ * The manifest is standalone and the meta is apple-mobile-web-app-capable with
+ * a BLACK-TRANSLUCENT status bar, which means iPadOS draws the clock, VPN badge
+ * and battery ON TOP of the page rather than above it. .app-topbar already pads
+ * itself past that inset. #sessionView does not: it is position:fixed;inset:0
+ * and its .navhead starts at y=0, so the close and search buttons sat directly
+ * under the status bar and could be neither read nor reliably tapped.
+ *
+ * Every fixed-position surface has to pay the inset itself; being inside a
+ * padded ancestor does not help when you are taken out of flow.
+ *
+ * The inset is ADDED to the design padding rather than folded into a max(),
+ * matching .app-topbar above: the inset is unusable space, so the 14px of
+ * breathing room has to sit BELOW it, not partly inside it. On an iPad the top
+ * inset is around 20px, which max(14px, inset+6px) would have turned into 26px
+ * of padding holding a 44px button -- clearing the status bar by two pixels.
+ */
+#sessionView{
+  padding-left:env(safe-area-inset-left);
+  padding-right:env(safe-area-inset-right);
+}
+#sessionView .navhead{
+  padding-top:calc(14px + env(safe-area-inset-top));
+}
+/* The session's own scroller ends above the home indicator, not under it. */
+#sessionView .navcontent{padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+
+/* The toast and the search sheet are fixed to the bottom edge for the same
+   reason and need the same treatment. */
+.toast{bottom:calc(20px + env(safe-area-inset-bottom))}
+.sheetscrim{padding-bottom:calc(40px + env(safe-area-inset-bottom))}
+@media(max-width:700px){
+  .sheetscrim{padding:0}
+  .sheet{padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+}
+
+/*
+ * Touch targets. Apple's own floor is 44pt and several controls were sitting
+ * around 36: the five session steps, the source button under a lesson, and the
+ * inline answer buttons. Raised only for coarse pointers, so the desktop
+ * density is untouched.
+ */
+@media(pointer:coarse){
+  .step{min-height:46px;display:flex;flex-direction:column;justify-content:center}
+  .srcbtn,.filter-chip,.seg,.answer,.opt{min-height:44px}
+  .navrail button{min-height:52px}
+}
+
+/*
+ * Rubber-banding. Overscrolling a lesson used to drag the whole standalone app
+ * with it, which in a web app looks like the page has come loose. Contain the
+ * bounce inside the scroller that owns it.
+ */
+.navcontent,.sheetresults,.dlg-scroll,#sessionView .navcontent{overscroll-behavior:contain}
+
+/*
+ * Safari inflates text when an iPad is rotated to landscape unless it is told
+ * not to. The type here is already sized per breakpoint; let it be.
+ */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+
+/*
+ * iPad landscape (1024-1366) reads as a small desktop and gets the desktop
+ * grids, which is right. What it does not get by default is a comfortable
+ * measure in the session overlay: 720px of lesson on a 1194px screen leaves the
+ * column stranded in the middle. Widen it a little where there is room.
+ */
+@media(min-width:1024px) and (max-width:1366px) and (pointer:coarse){
+  .sessioncol{max-width:820px}
+  #sessionView .navcontent{padding:22px 28px}
+}
