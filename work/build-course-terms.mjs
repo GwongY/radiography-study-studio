@@ -57,12 +57,11 @@
  *
  * Usage: node work/build-course-terms.mjs [--root <Year 1 Sem 1 Source>]
  */
-import { readFileSync, writeFileSync, readdirSync, statSync, mkdtempSync, rmSync, existsSync } from 'node:fs';
-import { execFileSync } from 'node:child_process';
-import { join, dirname, relative, extname, basename } from 'node:path';
+import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from 'node:fs';
+import { join, dirname, relative, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { tmpdir } from 'node:os';
 import { collectStructures } from './lib/mesh-names.mjs';
+import { extractText } from './lib/doc-text.mjs';
 
 const WORK = dirname(fileURLToPath(import.meta.url));
 
@@ -112,6 +111,10 @@ const EXCLUDE = [
   /Assignment/i,
   /Marking Rubrics/i,
   /Subject Desc/i,
+  /* Not documents at all. Google Drive scatters desktop.ini through every
+     folder, and forty lines of "unsupported .ini" in the unread report buries
+     the handful of entries that name a real gap. */
+  /\.(ini|jpe?g|png|gif|bmp|webp|mp4|mov|zip)$/i,
 ];
 
 function walk(dir, out = []) {
@@ -131,51 +134,17 @@ function walk(dir, out = []) {
  * Reading them
  * ------------------------------------------------------------------ */
 
-const tmp = mkdtempSync(join(tmpdir(), 'rss-terms-'));
-
-function pdfText(file) {
-  const out = join(tmp, 'x.txt');
-  try {
-    execFileSync('pdftotext', ['-layout', file, out], { stdio: 'ignore' });
-    return readFileSync(out, 'utf8');
-  } catch { return ''; }
-}
-
-/* A .pptx is a zip of XML; the slide text is every <a:t> run. No dependency
-   beyond what node already ships (raw DEFLATE via zlib). */
-import { inflateRawSync } from 'node:zlib';
-function pptxText(file) {
-  let buf;
-  try { buf = readFileSync(file); } catch { return ''; }
-  const parts = [];
-  /* central directory: walk the End Of Central Directory back to each entry */
-  let eocd = buf.length - 22;
-  while (eocd >= 0 && buf.readUInt32LE(eocd) !== 0x06054b50) eocd--;
-  if (eocd < 0) return '';
-  const count = buf.readUInt16LE(eocd + 10);
-  let p = buf.readUInt32LE(eocd + 16);
-  for (let i = 0; i < count; i++) {
-    if (buf.readUInt32LE(p) !== 0x02014b50) break;
-    const method = buf.readUInt16LE(p + 10);
-    const compSize = buf.readUInt32LE(p + 20);
-    const nameLen = buf.readUInt16LE(p + 28);
-    const extraLen = buf.readUInt16LE(p + 30);
-    const commentLen = buf.readUInt16LE(p + 32);
-    const localOff = buf.readUInt32LE(p + 42);
-    const name = buf.slice(p + 46, p + 46 + nameLen).toString('utf8');
-    p += 46 + nameLen + extraLen + commentLen;
-    if (!/^ppt\/(slides|notesSlides)\/.*\.xml$/.test(name)) continue;
-    const lNameLen = buf.readUInt16LE(localOff + 26);
-    const lExtraLen = buf.readUInt16LE(localOff + 28);
-    const start = localOff + 30 + lNameLen + lExtraLen;
-    const raw = buf.slice(start, start + compSize);
-    let xml;
-    try { xml = method === 0 ? raw.toString('utf8') : inflateRawSync(raw).toString('utf8'); }
-    catch { continue; }
-    for (const m of xml.matchAll(/<a:t>([\s\S]*?)<\/a:t>/g)) parts.push(m[1]);
-  }
-  return parts.join('\n');
-}
+/*
+ * There is no extractor here. There used to be two — a pdftotext wrapper and
+ * a .pptx zip reader — copied from work/lib/doc-text.mjs and then left to
+ * drift, and drift is exactly what happened. The copy read .pdf and .pptx
+ * only, so every .docx in the course folders was skipped in silence, the
+ * lecturer's nervous-system notes among them. It also lacked the shared
+ * version's non-ASCII path workaround, which these shared folders need.
+ *
+ * One extractor, used everywhere. A second copy of a reader is a second set
+ * of formats it can silently fail to read.
+ */
 
 /* ------------------------------------------------------------------ *
  * Matching
@@ -287,17 +256,22 @@ function nearIn(doc, words) {
  * ------------------------------------------------------------------ */
 
 const docs = [];
+/* why each unreadable document was unreadable, counted — a format nobody can
+ * open should be a reported number, never an empty result. */
+const unread = new Map();
 for (const sub of SUBJECTS) {
   const base = join(ROOT, sub.dir);
   if (!existsSync(base)) { console.warn(`  (missing) ${sub.dir}`); continue; }
   for (const file of walk(base)) {
     const rel = relative(ROOT, file).replace(/\\/g, '/');
     if (EXCLUDE.some((re) => re.test(rel))) continue;
-    const ext = extname(file).toLowerCase();
-    let text = '';
-    if (ext === '.pdf') text = pdfText(file);
-    else if (ext === '.pptx') text = pptxText(file);
-    else continue;
+    /* One reader for every format, from work/lib/doc-text.mjs. It reports WHY
+       it could not read something, which is the difference between a document
+       with no text in it and a format nothing here can open. */
+    const r = extractText(file);
+    if (!r.ok) { unread.set(r.why, (unread.get(r.why) || 0) + 1); continue; }
+    /* Pages rejoined on the form feed the glossary parser already strips. */
+    const text = r.pages.join('\f');
     if (!text.trim()) continue;
     /* the glossary is a term LIST, so it keeps its raw two-column layout */
     const keepRaw = /Vocabulary\.pdf$/i.test(rel);
@@ -305,8 +279,8 @@ for (const sub of SUBJECTS) {
       text: ' ' + norm(text) + ' ', raw: keepRaw ? text : null });
   }
 }
-rmSync(tmp, { recursive: true, force: true });
 console.log(`corpus: ${docs.length} documents, ${docs.reduce((a, d) => a + d.text.length, 0).toLocaleString()} normalised characters`);
+for (const [why, n] of [...unread].sort((x, y) => y[1] - x[1])) console.log(`  ${String(n).padStart(4)} unread — ${why}`);
 if (docs.length < 20) { console.error('corpus too small — is pdftotext on PATH?'); process.exit(2); }
 
 /*
@@ -318,9 +292,17 @@ const glossDoc = docs.find((d) => /Vocabulary\.pdf$/i.test(d.file));
 const glossary = new Set();
 const glossarySets = new Set();
 if (glossDoc && glossDoc.raw) {
-  for (const ln of glossDoc.raw.split('\n')) {
-    /* two columns; a run of two or more spaces is the gutter */
-    for (const chunk of ln.replace(/\f/g, ' ').trim().split(/\s{2,}/)) {
+  for (const ln of glossDoc.raw.replace(/\f/g, '\n').split('\n')) {
+    /* Two columns; a run of two or more spaces is the gutter.
+
+       The form feed above becomes a NEWLINE, not a space. A page break is a
+       line break: replacing it with a space joined the last line of one page
+       to the first line of the next, and the single space between them then
+       read as ordinary text rather than as the gutter. That glued the list
+       numeral onto the term after it -- 'i arytenoid cartilage' rather than
+       'arytenoid cartilage' -- costing fifteen examinable terms, three of
+       them structures that dropped out of the glossary tier with them. */
+    for (const chunk of ln.trim().split(/\s{2,}/)) {
       const c = chunk.trim();
       if (!c || c.length < 3) continue;
       if (/^For reference|^subject assessments|^Glossary$/i.test(c)) continue;

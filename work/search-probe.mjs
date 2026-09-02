@@ -197,22 +197,30 @@ console.log(`\u2014 study depth is read from the sources, not guessed \u2014`);
     'and they got there by being described in place, or mirrored from the other side');
 
   /*
-   * The thoracic vertebrae come in by series, and nothing else does.
+   * Two numbered series come in whole, and they are the only two.
    *
-   * Six of the twelve are named one by one across six different documents,
-   * which is a course teaching the thoracic vertebrae rather than six of
-   * them. The bar that admits them (three named, and a quarter of the set)
-   * has to stay high enough to leave the ribs alone: two of the twelve are
-   * named, and two is not a pattern.
+   * Six of the twelve thoracic vertebrae are named one by one across six
+   * different documents, which is a course teaching the thoracic vertebrae
+   * rather than six of them. The bar is three members named and a quarter of
+   * the set.
+   *
+   * The ribs used to sit below that bar with two named, and this probe said
+   * so. They cross it now because a THIRD rib turned out to be named all
+   * along, in the 2017-18 exam answer key — a .txt file, which the old
+   * extractor skipped along with every .docx. The bar did not move and the
+   * rule did not change; a source that had never been read became readable.
+   * That is the tiering working as designed, and it is why the evidence for
+   * a tier is recorded per row rather than asserted here.
    */
   const tv = MESH_INDEX.filter((m) => /^Vertebra T\d+$/.test(m.name));
   ok(tv.length === 12 && tv.every((m) => m.tier === 0),
     `all ${tv.length} thoracic vertebrae are at course level`);
   ok(tv.filter((m) => m.source.evidence === 'series').length === 6,
     'six of them by their siblings, six named outright');
-  ok(MESH_INDEX.filter((m) => m.source && m.source.evidence === 'series').length === 7,
-    'and the series pass admits nothing else but Vertebra L4');
-
+  const ribsBySeries = MESH_INDEX.filter((m) => m.source && m.source.evidence === 'series' && / rib$/.test(m.name));
+  ok(ribsBySeries.length === 9, `nine ribs completed from the three the sources name`);
+  ok(MESH_INDEX.filter((m) => m.source && m.source.evidence === 'series').length === 16,
+    'and the series pass admits nothing beyond those, Vertebra L4 apart');
   /* What it does not name is grouped away. */
   const seg = MESH_INDEX.filter((m) => /segmental bronchus/i.test(m.name));
   ok(seg.length > 15 && seg.every((m) => m.tier === 1),
@@ -366,10 +374,17 @@ console.log(`${'\u2014'} groups are named after the thing, not the pieces ${'\u2
   for (const [n, want] of zoned) ok(unit(n) === want,
     `"${n}" is measured into ${want}${unit(n) === want ? '' : ` (got ${unit(n)})`}`);
 
-  /* A kind that is only ever in one place does not need the place naming it. */
-  const ribs = MESH_INDEX.filter((m) => /^(Second|Fourth|Fifth|Sixth|Seventh|Eighth|Ninth|Tenth|Eleventh|Twelfth) rib$/.test(m.name));
-  ok(ribs.length === 10 && ribs.every((m) => m.unit === 'Ribs'),
-    `the ${ribs.length} ribs the notes never number individually group under "Ribs"`);
+  /* A kind that is only ever in one place does not need the place naming it.
+     The ribs used to demonstrate this and no longer can: all twelve are at
+     course level now, so each is its own unit under its own name. The teeth
+     still make the point, and rib COSTAL CARTILAGES — which no source numbers
+     — make it in the thorax specifically. */
+  const costal = MESH_INDEX.filter((m) => /^Costal cartilage of \w+ rib$/.test(m.name));
+  ok(costal.length >= 10 && costal.every((m) => m.unit === 'Cartilages of the thorax'),
+    `the ${costal.length} costal cartilages group under "Cartilages of the thorax"`);
+  const ribs = MESH_INDEX.filter((m) => /^(First|Second|Third|Fourth|Fifth|Sixth|Seventh|Eighth|Ninth|Tenth|Eleventh|Twelfth) rib$/.test(m.name));
+  ok(ribs.length === 12 && ribs.every((m) => m.tier === 0 && m.unit === m.name),
+    `all ${ribs.length} ribs are at course level, each its own unit`);
   const teeth = MESH_INDEX.filter((m) => m.layer === 'skeleton' && /(canine|premolar|incisor|molar)( tooth)?$/i.test(m.name));
   ok(teeth.length === 14 && teeth.every((m) => m.unit === 'Teeth'),
     `the ${teeth.length} teeth group under "Teeth", not "Bones of the head and neck"`);

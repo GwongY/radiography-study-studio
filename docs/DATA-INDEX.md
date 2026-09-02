@@ -6,7 +6,7 @@ For anything more specific: `node work/query.mjs <unit|mesh|item|layer> <term>`.
 
 ## `outputs/mesh-index.js` — GENERATED, never hand-edit
 
-1686 structure rows resolving to 787 study units.
+1686 structure rows resolving to 796 study units.
 Rebuild: `node work/build-course-terms.mjs` (needs the Drive) then `node work/build-mesh-index.mjs`.
 
 One row per named structure per layer, collapsed across side letters and
@@ -28,23 +28,23 @@ Blender duplicate suffixes. Row shape:
 | muscle | 344 | 115 |
 | nervous | 317 | 127 |
 | joint | 236 | 16 |
-| skeleton | 159 | 80 |
+| skeleton | 159 | 90 |
 | lymphatic | 107 | 33 |
 | organs | 104 | 62 |
-| **total** | **1686** | **619** |
+| **total** | **1686** | **629** |
 
 | Unit kind | Count | Meaning |
 | --- | --- | --- |
-| course | 619 | the course names this structure — it is its own unit |
-| group | 158 | finer than the course goes — folded into a named group |
+| course | 629 | the course names this structure — it is its own unit |
+| group | 157 | finer than the course goes — folded into a named group |
 | lone | 10 | one of a kind, with nothing to join |
 
 | Evidence | Rows | How the source names it |
 | --- | --- | --- |
 | listed | 261 | appears in a term list or table |
-| named | 244 | named in running text |
+| named | 245 | named in running text |
 | described | 106 | named, with an explanation |
-| series | 7 | inferred: enough of a numbered series is named to fill in the rest |
+| series | 16 | inferred: enough of a numbered series is named to fill in the rest |
 | mirrored | 1 | the other side of a structure named once |
 
 ## `outputs/synonyms.js`
