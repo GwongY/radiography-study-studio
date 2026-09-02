@@ -29,6 +29,7 @@ export const SOURCE_ROOTS = {
   oste20: '20 Oste sourcesssss',
   greengrp: 'Green Group Source',
   edb: 'EDB — external, fetched from edb.gov.hk',
+  web: 'External — a reference the course names, not a file in the shared folders',
   /* Not a shared drive folder: material dropped straight into the repo as the
      semester runs. Catalogued alongside the drive by build-source-catalogue. */
   newsrc: 'New source',
@@ -79,6 +80,8 @@ export const SOURCE_FILES = {
   'hss.ga.sqans': { file: 'SQ Answer by year 2007-2011/ (photographs)', subject: 'HSS2011', root: 'star', folder: 'Human anatomy/useful HA!!!!/Exam', kind: 'assessment', note: 'Short-question answers, but as JPG photographs of handwritten pages. Not machine-readable offline, so they could not be used to verify anything.' },
   'hss.mooc1': { file: 'MOOC 1 Arterial Supply of Body Trunk and Upper Limbs.pdf', subject: 'HSS2011', root: 'y1s1', folder: 'HSS2011 Human Anatomy/Old MOOC', kind: 'primary' },
   'hss.mooc3': { file: 'MOOC 3 Anatomical Correlates of Stroke.pdf', subject: 'HSS2011', root: 'y1s1', folder: 'HSS2011 Human Anatomy/Old MOOC', kind: 'primary' },
+  'hss.sdf.2627': { file: 'SDFHSS2011_2627confirmed.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'admin', note: 'The confirmed Subject Description Form for 2026/27, footed "Updated in August 2026". The authority for the module TITLES — Module I Musculoskeletal system, II Neuroanatomy, III The Thorax, IV The Abdomen and Pelvis — and for what sits inside each. Also the six intended learning outcomes, the 100% continuous-assessment structure, the 129-hour study effort, and Martini 12th edition as the set text. Its tables come out of pdftotext column-shifted; read them with -table, and see the note on study effort in the coverage report.' },
+  'hss.sched.2026': { file: 'HSS2011_ScheduleLearningTeaching2026_screenshot.png', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'admin', note: 'The Schedule for Learning & Teaching Activities as shown on Canvas, captured as a screenshot — there is no document copy of it. Thirteen weeks, each with its 2-hour lecture and 1-hour collaborative learning session, the module each week belongs to, and the closed-book test on 28 Nov 2026. Being an image it cannot be text-checked, so every claim taken from it is ALSO carried in outputs/schedule.js where it can be read.' },
   /*
    * The 2026 material, dropped into the repo as the semester runs. These two
    * are the first HSS2011 files from the year the student is actually sitting,
@@ -129,6 +132,7 @@ export const SOURCE_FILES = {
   'phys.extra': { file: 'Extra exercise.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/<system folder>', kind: 'assessment', note: 'One per system folder (1–10).' },
   'phys.qblank': { file: 'question blank/Chapter 1–29.pdf', subject: 'ABCT2326', root: 'green', folder: 'year 1 sem 1/ABCT2326 Human Physiology', kind: 'assessment', note: '29 chapter-level question sets.' },
   'phys.sdf': { file: 'Subject Description Form.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology', kind: 'admin' },
+  'phys.sched.2026': { file: 'ABCT2326_TeachingSchedule2026_OptRad_screenshot.jpg', subject: 'ABCT2326', root: 'newsrc', folder: '', kind: 'admin', note: 'The 2026 teaching schedule for Opt & Rad Group 4 (subject groups 1107 and 1111), captured as a screenshot — no document copy exists. Eleven lectures, their tutorials and the three lab rotations, with dates, times and rooms; the teaching team; the quiz on 07 Oct 2026 over Lectures 1-5; and the assessment split the subject description form does not give — quizzes 35%, lab report 15%, written exam 50%. Being an image it cannot be text-checked, so its content is also carried in outputs/schedule.js.' },
 
   /* ---------------- HTI17101 Exploring Radiography (stand-in for HTI17103) ---------------- */
   'hti.w1a': { file: 'Week 1 About the Subject.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography/Lecture notes', kind: 'primary' },
@@ -143,6 +147,7 @@ export const SOURCE_FILES = {
   'hti.rni': { file: 'RADIONUCLIDE IMAGING  (RNI).pptx', subject: 'HTI17103', root: 'greengrp', folder: 'Exploring Radiography', kind: 'student' },
   'hti.pres': { file: 'Guidelines and Topics for Presentations 2018-19.pdf', subject: 'HTI17103', root: 'radio', folder: 'Yr1 Sem1 Radiography/HTI17101 Exploring Radiography/Class Information', kind: 'admin' },
   'hti.sdf': { file: 'Subject Desciption Form.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography', kind: 'admin' },
+  'hti.sched.2026': { file: 'HTI17103_TeachingSchedule2026.pdf', subject: 'HTI17103', root: 'newsrc', folder: '', kind: 'admin', note: 'The real HTI17103 teaching schedule for 2026 — the first document in this repo under the actual subject code rather than its HTI17101 stand-in. Eight sessions across Aug 31 to Oct 22, the lecturers (Liang-Ting Lin, Vincent Leung, clinical educators), the venues, and the assessment: worksheet 50%, seminar presentation 50%. It confirms the substitution was well chosen — every topic it lists has a lesson already built from the HTI17101 set.' },
 
   /* ---------------- DSAI1202 Introduction to AI and Data Analytics ---------------- */
   'dsai.w1': { file: '1.+Week1-Overview.pptx', subject: 'DSAI1202', root: 'newsrc', folder: '', kind: 'primary', note: 'Week 1 overview, 47 slides, Dr Xiuling Wang. Half course admin, half a tour of where AI already sits in daily life, healthcare and work. The deck states its own limits: this is an AI-literacy General University Requirement, and programming and the mathematics of AI are explicitly not included.' },
@@ -162,6 +167,7 @@ export const SOURCE_FILES = {
   'soc.ass2.oste': { file: 'Assessment 2.docx', subject: 'APSS1A08', root: 'oste20', folder: 'GUR Subjects/CAR Subjects/Sociology', kind: 'student' },
   /* ---------------- Prior knowledge ---------------- */
   'edb.bio': { file: 'Biology Curriculum and Assessment Guide (S4–6), updated Nov 2015', subject: 'HKDSE', root: 'edb', folder: 'Science Education KLA — edb.gov.hk', kind: 'syllabus', note: 'Fetched from edb.gov.hk, not from the supplied shared folders. It is here for exactly one purpose: to say what HKDSE Biology already covered, and whether a topic sat in the compulsory part or in the Human Physiology elective. No anatomy or physiology claim in this file is sourced to it.' },
+  'openstax.ap2e': { file: 'Anatomy and Physiology 2e — openstax.org/details/books/anatomy-and-physiology-2e', subject: 'HSS2011', root: 'web', folder: 'OpenStax — openstax.org', kind: 'primary', note: 'The free OpenStax textbook, named as a reference on the last slide of the 2026 HSS2011 orientation deck (which links the first edition; this is the current one). It is registered so the app can point at it, and for NOTHING ELSE: this repo does not fetch it, and no claim in the corpus is sourced to it. Reading it is a thing the student does, not a thing the corpus does — see the source-discipline rule in outputs/README.md.' },
 
   'soc.img.torti': { file: 'IMG_4192.JPG / IMG_4193.JPG / IMG_4194.JPG', subject: 'APSS1A08', root: 'torti', folder: 'GUR subjects/CAR/Introduction to Sociology', kind: 'student', note: 'Photographs. Not machine-readable offline, so their contents are unverified.' },
 };

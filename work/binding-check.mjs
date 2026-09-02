@@ -22,6 +22,12 @@
  * the group whose original file had them at top level. Data modules are never
  * cross-checked — they are separate modules and never shared a scope.
  *
+ * KNOWN LIMIT: prose inside a TEMPLATE literal is still scanned. Quoted
+ * strings are stripped below, but template literals nest, and a mis-split
+ * there could hide a real reference — which is the one thing this check
+ * exists to catch. So a false positive on rendered prose is left in place
+ * deliberately: reword the sentence, do not weaken the scan.
+ *
  * Usage: node work/binding-check.mjs
  */
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
@@ -96,7 +102,16 @@ for (const [label, relDir] of GROUPS) {
       else if (inBlock && t.includes('*/')) inBlock = false;
       if (wasBlock || t.startsWith('*') || t.startsWith('/*') || t.startsWith('//')) return false;
       return !/^\s*(?:import|export)\s*[{*]?[^=]*from\s*'/.test(l) && !/^\s*import\s+'/.test(l);
-    }).join('\n');
+    }).join('\n')
+      /*
+       * ...then quoted strings, which carry prose for the same reason a
+       * comment does: STORAGE_PREFIX + 'attendance' is not a call to
+       * attendance(), and a nav kicker listing the word is not one either.
+       * Template literals are deliberately NOT stripped -- they nest, and a
+       * mis-split there could hide a real reference instead of prose.
+       */
+      .replace(/'(?:[^'\\\n]|\\.)*'/g, "''")
+      .replace(/"(?:[^"\\\n]|\\.)*"/g, '""');
 
     const missing = new Set();
     /*

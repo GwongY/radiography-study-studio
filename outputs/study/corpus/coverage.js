@@ -31,6 +31,7 @@ export const COVERAGE = {
         'Rotator cuff and full abduction sequence',
       'The four teaching modules, NUMBERED BY THE 2026 ORIENTATION DECK: 1 Musculoskeletal, 2 Nervous, 3 Cardiovascular and pulmonary, 4 Digestive and urogenital. Every source folder on the drive uses the older ordering (1 Thorax … 4 Musculoskeletal) and the app now prints both.',
       'What the subject is and how it is marked: the objective, the four modules, and the 8 / 32 / 60 assessment split with which parts are open book.',
+        'The confirmed 2026/27 subject description form: the six intended learning outcomes, the official module titles, what each module contains, the 129-hour study effort and the set text.',
       'Bone histology — the two matrix components and the four cell types — and red versus yellow marrow.',
       'Muscle organisation from epimysium to myofilament, the five fascicle arrangements, tendon and its two junctions, origin and insertion, the motor unit and muscle tone.',
       ],
@@ -79,9 +80,10 @@ export const COVERAGE = {
         'Time, distance, shielding, decay; ALARA; ICRP dose limits; TLD',
         'Radiation therapy roles, HK service structure and the three planning steps',
         'Radiology department staffing and reading an X-ray request form',
+        'The 2026 subject shape itself: eight sessions, the three contact-hour components, both assessments and the Observation Day.',
       ],
       gaps: [
-        'The exact HTI17103 source set was not found anywhere in the supplied folders. Everything here comes from HTI17101 Exploring Radiography, which is the closest available material.',
+        'PARTLY RESOLVED. The 2026 teaching schedule under the real subject code has since been supplied, and so has the 2026 opening lecture — by Liang-Ting Lin, the lecturer that schedule names. The LECTURE SET is still HTI17101 Exploring Radiography, which is why the status stays substitute; but the schedule confirms the substitution topic by topic — every session it lists has a lesson built from the HTI17101 material — and the subject’s own shape (26 contact hours, worksheet 50%, seminar 50%, the two-day hospital observation) is now sourced from the real document.',
         'Projection terminology: only "PA" and "Lat" appear anywhere in the supplied lecture set, in one worked chest X-ray request form. "AP" and "oblique" do not appear, so no items claim them.',
         'MI and RT worksheets are student submissions and were used only to confirm topic scope, not as fact sources.',
       ],
@@ -124,6 +126,11 @@ export const COVERAGE = {
   ],
   conflicts: [
     {
+      what: 'The subject description form and the orientation deck title the HSS2011 modules differently',
+      detail: 'The confirmed 2026/27 description form calls them Module I Musculoskeletal system, II Neuroanatomy, III The Thorax, IV The Abdomen and Pelvis. The Week 1 orientation deck names the same four modules by what they contain — musculoskeletal, nervous, cardiovascular and pulmonary, digestive and urogenital. They are the same modules in the same order, so this is a naming difference rather than a disagreement; but it matters because the form’s names for Modules III and IV are exactly the names the OLD source folders use, which is what made the old numbering look right for so long.',
+      handled: 'The app titles the modules from the description form, describes them in the deck’s words, and prints the old folder number under every lesson. Both documents are cited.',
+    },
+    {
       what: 'The two ABCT2326 immune documents disagree on how many complement proteins there are',
       detail: 'The Week 10 slide deck says "Plasma contains 30 special complement (C) proteins". The lecturer\'s own prose notes filed in the same folder say "The blood plasma contains 11 special complement (C) proteins", in an otherwise identical sentence. Both are course material by the same author, neither corrects the other, and nothing else on the drive settles it. Counting the named C proteins gives eleven; counting the whole system including its factors gives about thirty, so the two are probably answering different questions — but that reading is inference, not something either document states.',
       handled: 'Both numbers carried, both cited, and the lesson says they disagree. The item teaches the cascade instead, and its common-mistakes list warns against quoting either count as settled.',
@@ -155,6 +162,7 @@ export const COVERAGE = {
     },
   ],
   notes: [
+    'PRIOR-KNOWLEDGE LISTS ARE NOT A SUMMARY, THEY ARE THE LESSON. When an item carries priorKnowledge, the app folds the sourced explanation away and leads with the `beyond` list instead — so anything missing from that list is missing from the lesson as it is actually read. The organelles item shipped with covers:\'most\' and a two-line list, which folded the cytoskeleton, the 9 + 0 centriole array, the Golgi cisternae and the two ERs behind a claim that the lecture mostly re-treads DSE Biology. It does not. That item is now covers:\'part\' with six lines. The nucleus item deliberately carries NO priorKnowledge block: half of it is genetics, this repo has never checked which part of the DSE syllabus carries that, and an unverified claim about prior knowledge would fold real teaching away. No block means the explanation always leads.',
     'THE COVERAGE REPORT ITSELF HID A GAP. Until 2026-09-02 this entry listed "Cells, four tissue types, eleven organ systems" as covered for ABCT2326 and marked the subject full. Only two items existed for that unit and both were written from the back of the lecture — tissues and homeostasis. Everything before it (membrane, organelles, nucleus, protein synthesis, cell division) had been catalogued in ONE item’s prior-knowledge sidebar as things that go beyond DSE Biology, and never turned into lessons. Listing a topic as covered because a related item mentions it is how a gap becomes invisible: nothing downstream had any reason to look again. Nine items now teach it. When adding a covered line, describe what a lesson TEACHES, not what the corpus has read.',
     'The 2026 orientation deck renumbers the four HSS2011 modules and every source folder on the drive still uses the old ordering. The app numbers by the deck and prints the old number underneath, because a lesson headed Module 1 that cites "Module 4.1" looks wrong otherwise. The unit KEYS (hss.m1 … hss.m4) were deliberately NOT renamed — saved progress in the browser is keyed by them.',
     'The "downloaded ZIP" referred to in the brief was not present anywhere on this machine. The only downloaded asset found was Skeleton_NIH3D.glb. It has since been removed: it carried just 2 named nodes, so it could not support structure-level picking, and no code ever loaded it.',

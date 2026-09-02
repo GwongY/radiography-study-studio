@@ -30,6 +30,14 @@
  * is Module 3. This file now numbers by the 2026 deck, because that is the
  * numbering on the student's Canvas page and in their revision exercise.
  *
+ * The confirmed 2026/27 Subject Description Form (hss.sdf.2627 p1, "Updated in
+ * August 2026") is the authority for the TITLES, and it settles something the
+ * deck alone did not: Module III is called "The Thorax" and Module IV "The
+ * Abdomen and Pelvis" — the same names the old source folders use. The folder
+ * NAMES were never wrong. Only the numbers moved. The orientation deck gives
+ * the same modules by what they contain (cardiovascular and pulmonary,
+ * digestive and urogenital), and that phrasing survives in `plain`.
+ *
  * The subject has renumbered before: hss.2.2 is a file named "3.2 Nervous
  * System and Special Sense" sitting in a folder called "Module 2 Neuroanatomy".
  * So the mismatch below is the normal state of this course's material, not a
@@ -57,23 +65,23 @@ export const MODULES = {
   },
   1: {
     name: 'Musculoskeletal System',
-    plain: 'Bones and muscles — support and movement.',
+    plain: 'Bones and muscles, support and movement — the musculoskeletal system itself, then the upper and lower limbs, then head and neck.',
     legacy: 'Module 4 in the source folders and in every past revision exercise.',
   },
   2: {
-    name: 'Nervous System',
-    plain: 'Central and peripheral nervous system — sensing, coordination and motor commands.',
+    name: 'Neuroanatomy',
+    plain: 'Central and peripheral nervous system — sensing, coordination and motor commands — with the special senses and neuroanatomy proper.',
     legacy: 'Module 2 in the source folders too, but its lecture files are numbered 3.x from a still older ordering.',
   },
   3: {
-    name: 'Cardiovascular and Pulmonary System',
-    plain: 'Circulation and the heart, airway and lungs — distributing materials and removing waste.',
-    legacy: 'Module 1 in the source folders and in every past revision exercise.',
+    name: 'The Thorax',
+    plain: 'Circulation and the heart, airway and lungs, then the regional anatomy of the thorax — distributing materials and removing waste.',
+    legacy: 'Module 1 in the source folders, where it carries this same name. Only the number moved.',
   },
   4: {
-    name: 'Digestive and Urogenital System',
-    plain: 'The major organs of the abdominal regions — digestive for nutrient processing, urinary for waste removal, reproductive for offspring.',
-    legacy: 'Module 3 in the source folders; its lecture files are numbered 2.x from a still older ordering.',
+    name: 'The Abdomen and Pelvis',
+    plain: 'The regional anatomy of the abdomen and pelvis, the digestive system for nutrient processing, and the urogenital system for waste and for offspring.',
+    legacy: 'Module 3 in the source folders, where it carries this same name; its lecture files are numbered 2.x from a still older ordering.',
   },
 };
 
