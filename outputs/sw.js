@@ -30,7 +30,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v72';
+const CACHE_VERSION = 'v73';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -146,8 +146,8 @@ const SHELL = [
   './visual-data.js?v=4',
   './schematics.js?v=2',
   './wordparts.js?v=3',
-  './term-notes.js?v=5',
-  './term-gloss.js?v=4',
+  './term-notes.js?v=6',
+  './term-gloss.js?v=5',
   './physiology.js?v=4',
   './bodymap.js?v=4',
   /* the search index: every named mesh in every layer, plus the synonym table

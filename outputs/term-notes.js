@@ -37,6 +37,7 @@ export const TERM_NOTES = {
   aldosterone: { say: 'al-DOS-ter-own', plain: 'The hormone that tells the kidney to hold on to sodium, and water with it.' },
   angiotensin: { say: 'an-jee-o-TEN-sin', plain: 'A blood-borne signal that raises blood pressure.', from: 'Built out of: angi/o, vessel + tens/o, tension' },
   renin: { say: 'REE-nin', plain: 'The kidney enzyme that starts the blood-pressure cascade.', from: 'Built out of: ren/o, kidney' },
+  urogenital: { say: 'yoor-o-JEN-it-al', plain: 'To do with the urinary and reproductive systems together — they share embryonic origins and much of their anatomy.', from: 'Built out of: ur/o, urinary + genit/o, reproduction' },
 
   /* ---------------- Cardiovascular ---------------- */
   atrioventricular: { say: 'ay-tree-o-ven-TRIK-yoo-lar', plain: 'Between an atrium and a ventricle.', from: 'Built out of: atri/o + ventricul/o' },
@@ -58,6 +59,8 @@ export const TERM_NOTES = {
   endothelium: { say: 'en-do-THEE-lee-um', plain: 'The single smooth layer of cells lining the inside of every blood vessel.', from: 'Built out of: endo-, within + theli/o, nipple/lining' },
   tunica: { say: 'TYOO-nih-ka', plain: 'A coat. Blood vessel walls are three coats: outer, middle, inner.' },
   anastomosis: { say: 'an-ass-toh-MOH-sis', plain: 'A place where two vessels join up, so blood has a second way round.' },
+  biconcave: { say: 'by-KON-kayv', plain: 'Curved inward on both faces, like a red blood cell — the shape that maximises surface area for gas exchange.' },
+  megakaryocytes: { say: 'meg-a-KAR-ee-o-sites', plain: 'The giant bone-marrow cells that break apart to shed platelets.', from: 'Built out of: mega-, large + kary/o, nucleus + -cyte, cell' },
 
   /* ---------------- Respiratory ---------------- */
   alveolus: { say: 'al-VEE-o-luss', plain: 'One air sac. Gas crosses into blood here.', from: 'Built out of: alveol/o, alveolus' },
@@ -67,6 +70,7 @@ export const TERM_NOTES = {
   surfactant: { say: 'sur-FAK-tant', plain: 'The soapy film that stops air sacs sticking shut when you breathe out.' },
   larynx: { say: 'LAIR-inks', plain: 'The voice box. It is also the dividing line between the upper and lower airway.', from: 'Built out of: laryng/o, larynx' },
   pharynx: { say: 'FAIR-inks', plain: 'The throat — the shared passage behind the nose and mouth.', from: 'Built out of: pharyng/o, throat' },
+  oropharynx: { say: 'OR-o-FAIR-inks', plain: 'The middle part of the throat, behind the mouth — between the nasopharynx above and the laryngopharynx below.', from: 'Built out of: or/o, mouth + pharyng/o, throat' },
   glossopharyngeal: { say: 'gloss-o-fair-IN-jee-al', plain: 'The nerve running to the tongue and throat. It carries the carotid body’s reports on your blood.', from: 'Built out of: gloss/o, tongue + pharyng/o, throat' },
   pneumotaxic: { say: 'new-mo-TAK-sik', plain: 'The pons centre that fine-tunes the breathing rhythm the medulla sets.', from: 'Built out of: pneum/o, breathing + tax/o, arrangement' },
   apneustic: { say: 'ap-NEW-stik', plain: 'The pons centre that lengthens a breath in.', from: 'Built out of: a-, without + pne/o, breathing' },
@@ -82,6 +86,8 @@ export const TERM_NOTES = {
   peristalsis: { say: 'pair-ih-STAL-siss', plain: 'The squeezing wave that pushes food along the tube.', from: 'Built out of: peri-, around + stal/o, contraction' },
   mastication: { say: 'mass-tih-KAY-shun', plain: 'Chewing.' },
   duodenum: { say: 'dew-oh-DEE-num, or dew-ODD-en-um', plain: 'The first stretch of small intestine, just past the stomach.' },
+  vermiform: { say: 'VER-mih-form', plain: 'Worm-shaped — the vermiform appendix is the worm-shaped pouch off the first part of the large intestine.' },
+  mesenteric: { say: 'mez-en-TER-ik', plain: 'To do with the mesentery — the fan of tissue that slings the intestines from the back wall of the abdomen and carries their blood vessels.', from: 'Built out of: mes/o, middle + enter/o, intestine' },
 
   /* ---------------- Endocrine / cells ---------------- */
   autocrine: { say: 'AW-toh-krin', plain: 'A signal a cell sends to itself.', from: 'Built out of: auto-, self + crin/o, to secrete' },
@@ -91,8 +97,13 @@ export const TERM_NOTES = {
   hydrophilic: { say: 'hy-dro-FIL-ik', plain: 'Water-loving, so it cannot cross a membrane and must knock at a surface receptor.', from: 'Built out of: hydr/o, water + phil/o, attraction' },
   squamous: { say: 'SKWAY-muss', plain: 'Flat and scale-like — the shape of the thinnest lining cells.', from: 'Built out of: squam/o, scale' },
   stratified: { say: 'STRAT-ih-fyd', plain: 'Arranged in layers, stacked one on top of another — stratified epithelium is several cells deep.' },
+  pseudostratified: { say: 'SOO-doh-STRAT-ih-fyd', plain: 'Looking layered because the cell nuclei sit at different heights, but really one layer deep — every cell still touches the base.' },
+  mesothelium: { say: 'mez-o-THEE-lee-um', plain: 'The thin membrane lining the body’s major cavities and covering the organs inside them — the pleura, pericardium and peritoneum are all mesothelium.', from: 'Built out of: mes/o, middle + theli/o, lining' },
+  cytoplasm: { say: 'SY-toh-plaz-um', plain: 'Everything inside a cell except the nucleus.', from: 'Built out of: cyto-, cell + -plasm, formation' },
+  isoenzyme: { say: 'EYE-so-EN-zime', plain: 'One of several slightly different forms of the same enzyme, letting different tissues run the same reaction at a different rate.' },
   avascularity: { say: 'ay-vas-kyoo-LAIR-ih-tee', plain: 'Having no blood vessels of its own.', from: 'Built out of: a-, without + vascul/o, vessel' },
   homeostasis: { say: 'home-ee-o-STAY-siss', plain: 'Holding the inside of the body steady while the outside changes.', from: 'Built out of: home/o, same + -stasis, standing still' },
+  hypoglycaemia: { say: 'HY-po-gly-SEE-mee-a', plain: 'Low blood sugar.', from: 'Built out of: hypo-, deficient + glyc/o, sugar + -emia, blood condition' },
 
   /* ---------------- Immune ---------------- */
   phagocyte: { say: 'FAG-o-site', plain: 'A cell that eats things — bacteria, debris, dead cells.', from: 'Built out of: phag/o, eat + -cyte, cell' },
@@ -102,6 +113,12 @@ export const TERM_NOTES = {
   perforin: { say: 'PER-for-in', plain: 'The protein NK cells use to punch holes in a target cell. It perforates.' },
   interferon: { say: 'in-ter-FEER-on', plain: 'A signal that warns neighbouring cells to switch on anti-virus defences. It interferes with the virus copying itself.' },
   complement: { say: 'KOM-pleh-ment', plain: 'A chain of about thirty blood proteins that ends by drilling a hole in a bacterium.' },
+  properdin: { say: 'proh-PER-din', plain: 'A complement protein (factor P) that stabilises the enzyme which starts the alternative pathway of the complement cascade.' },
+  convertase: { say: 'kon-VER-tayss', plain: 'An enzyme that activates the next protein in the complement cascade by splitting it in two — as in C3 convertase.' },
+  cytotoxic: { say: 'sy-toh-TOK-sik', plain: 'Directly poisonous to a target cell — what cytotoxic T cells and NK cells do to an infected or cancerous cell.', from: 'Built out of: cyto-, cell + toxic/o, poison' },
+  costimulation: { say: 'ko-stim-yoo-LAY-shun', plain: 'A second signal a cell needs, alongside the first, before it will actually respond — a safety check against attacking healthy tissue.' },
+  lymphotoxin: { say: 'lim-fo-TOK-sin', plain: 'A cell-killing protein released by an activated cytotoxic cell onto its target.', from: 'Built out of: lymph/o, lymph + toxic/o, poison' },
+  reticuloendothelial: { say: 'reh-tik-yoo-lo-en-doh-THEE-lee-al', plain: 'The old name for the body’s scattered network of phagocytic cells — monocytes and the macrophages they grow into — now usually called the mononuclear phagocyte system.', from: 'Built out of: reticul/o, network + endo-, within + theli/o, lining' },
   opsonisation: { say: 'op-son-eye-ZAY-shun', plain: 'Coating a germ so phagocytes find it appetising.' },
   lymphoid: { say: 'LIM-foyd', plain: 'Made of, or to do with, lymph tissue.', from: 'Built out of: lymph/o, lymph + -oid, resembling' },
   cisterna: { say: 'sis-TER-na', plain: 'A reservoir. The cisterna chyli is the sac where lymph from the lower body pools.' },
@@ -109,6 +126,18 @@ export const TERM_NOTES = {
   /* ---------------- Musculoskeletal ---------------- */
   sarcomere: { say: 'SAR-ko-meer', plain: 'The repeating unit that actually shortens when muscle contracts.', from: 'Built out of: sarc/o, flesh + -mere, part' },
   sarcoplasmic: { say: 'sar-ko-PLAZ-mik', plain: 'To do with the inside of a muscle cell. Its reticulum stores the calcium that triggers contraction.', from: 'Built out of: sarc/o, flesh + plasm/o' },
+  sarcolemma: { say: 'sar-ko-LEM-a', plain: 'The cell membrane of a muscle fibre.', from: 'Built out of: sarc/o, flesh + -lemma, husk' },
+  reticulum: { say: 'reh-TIK-yoo-lum', plain: 'A network of tubes inside a cell; the sarcoplasmic reticulum stores the calcium that triggers a muscle contraction.', from: 'Built out of: reticul/o, network' },
+  myofibril: { say: 'my-o-FY-bril', plain: 'One of the many rod-like strands packed inside a muscle fibre; each is banded with sarcomeres.', from: 'Built out of: my/o, muscle + fibr/o, fibre' },
+  myoglobin: { say: 'my-o-GLOH-bin', plain: 'The oxygen-storing protein inside muscle cells, cousin to haemoglobin.', from: 'Built out of: my/o, muscle + -globin, protein substance' },
+  myosin: { say: 'MY-o-sin', plain: 'The motor protein of the thick filament; its head pulls on actin to shorten a sarcomere.', from: 'Built out of: my/o, muscle' },
+  tropomyosin: { say: 'tro-po-MY-o-sin', plain: 'The thread-like protein that blocks the myosin-binding site on actin until calcium moves it aside.', from: 'Built out of: trop/o, turning + my/o, muscle' },
+  troponin: { say: 'TRO-po-nin', plain: 'The regulatory protein on actin that calcium binds to, swinging tropomyosin aside so the myosin head can attach.' },
+  phosphocreatine: { say: 'fos-fo-KREE-a-teen', plain: 'A stored high-energy phosphate that regenerates ATP within seconds, for the shortest, most explosive efforts.' },
+  extrafusal: { say: 'eks-tra-FEW-zal', plain: 'The ordinary, force-producing muscle fibres outside a muscle spindle’s capsule.', from: 'Built out of: extra-, outside + fus/o, spindle' },
+  intrafusal: { say: 'in-tra-FEW-zal', plain: 'The small sensory muscle fibres inside a muscle spindle’s capsule, which detect stretch rather than produce force.', from: 'Built out of: intra-, within + fus/o, spindle' },
+  popliteus: { say: 'pop-LIT-ee-us', plain: 'The small muscle behind the knee that unlocks it from full extension so the leg can bend.', from: 'Built out of: poplite/o, back of the knee' },
+  apophyseal: { say: 'ap-o-FIZ-ee-al', plain: 'To do with an apophysis, a bony outgrowth — the apophyseal (facet) joints are the small gliding joints between vertebrae.' },
   titin: { say: 'TY-tin', plain: 'A giant springy protein. It is why a stretched muscle recoils.' },
   epiphysis: { say: 'eh-PIF-ih-siss', plain: 'The knobbly end of a long bone.', from: 'Built out of: epi-, upon + physis, growth' },
   diaphysis: { say: 'dy-AF-ih-siss', plain: 'The shaft down the middle of a long bone.', from: 'Built out of: dia-, through + physis, growth' },
@@ -144,6 +173,15 @@ export const TERM_NOTES = {
 
   /* ---------------- Nervous system ---------------- */
   neuron: { say: 'NOO-ron', plain: 'A nerve cell — the basic unit of the nervous system.', from: 'Built out of: neur/o, nerve' },
+  innervation: { say: 'in-er-VAY-shun', plain: 'The nerve supply to a muscle or organ — which nerve controls it, and how densely.', from: 'Built out of: in-, into + nerv/o, nerve' },
+  extrapyramidal: { say: 'eks-tra-pi-RAM-ih-dal', plain: 'The motor tracts outside the pyramidal (corticospinal) system — they coordinate and fine-tune movement rather than command it directly.', from: 'Built out of: extra-, outside + pyramid, pyramid-shaped' },
+  commissural: { say: 'kom-ih-SHOOR-al', plain: 'To do with a commissure — a tract of fibres joining the two halves of the brain, like the corpus callosum.', from: 'Built out of: commissur/o, connection' },
+  astrocytes: { say: 'AS-tro-sites', plain: 'Star-shaped support cells in the brain and spinal cord; they help form the blood–brain barrier.', from: 'Built out of: astr/o, star + -cyte, cell' },
+  acetylcholinesterase: { say: 'a-see-til-KOH-lin-ESS-ter-ays', plain: 'The enzyme at the neuromuscular junction that breaks acetylcholine down, ending the signal.' },
+  calmodulin: { say: 'kal-MOD-yoo-lin', plain: 'The calcium-binding protein that switches on a cell’s response once calcium rushes in.' },
+  noradrenaline: { say: 'nor-a-DREN-a-lin', plain: 'The neurotransmitter (and hormone) that raises alertness and arousal; also called norepinephrine.' },
+  downregulation: { say: 'down-reg-yoo-LAY-shun', plain: 'A cell reducing the number of receptors it displays, to turn down its own sensitivity to a signal.' },
+  upregulation: { say: 'up-reg-yoo-LAY-shun', plain: 'A cell increasing the number of receptors it displays, to turn up its own sensitivity to a signal.' },
   dendrite: { say: 'DEN-dryt', plain: 'The branching part of a neuron that receives signals.', from: 'Built out of: dendro, tree' },
   axon: { say: 'AK-son', plain: 'The long extension of a neuron that sends signals away.', from: 'Built out of: axo, axis' },
   synapse: { say: 'SIN-aps', plain: 'The gap between two neurons where signals jump across.', from: 'Built out of: syn-, together + haptein, to fasten' },
@@ -247,6 +285,7 @@ export const TERM_NOTES = {
   syndesmosis: { say: 'sin-dez-MOH-sis', from: 'Built out of: syndesm/o, ligament + -osis, condition' },
   diarthrosis: { say: 'dy-ar-THROH-sis', from: 'Built out of: arthr/o, joint + -osis, condition' },
   gomphosis: { say: 'gom-FOH-sis' },
+  gomphoses: { say: 'gom-FOH-seez' },
   temporomandibular: { say: 'tem-po-ro-man-DIB-yoo-lar', from: 'Built out of: tempor/o, temple + mandibul/o, lower jaw' },
   /* Muscles */
   pectoralis: { say: 'pek-tor-AL-iss', from: 'Built out of: pector/o, chest' },
