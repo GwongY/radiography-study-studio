@@ -834,6 +834,43 @@ export const WORD_PARTS = {
   xiph: ['root', 'xiph/i', 'xiphoid process'],
   zygom: ['root', 'zygom/o', 'cheekbone (zygoma)'],
   zygomat: ['root', 'zygomat/o', 'cheekbone (zygoma)'],
+
+  /* --------------------------------------------------------------- *
+   * 2026 sweep. An anatomy course spends every lecture on landmarks and
+   * on words built out of these, and none of them decomposed: ab-, ad-,
+   * bi-, syn-, amphi-, dia-, and the stems behind epimysium, osteoblast,
+   * acetabulofemoral and glenohumeral. Keyed by bare stem, as partOf().
+   * --------------------------------------------------------------- */
+  ab: ['prefix', 'ab-', 'away from'],
+  ad: ['prefix', 'ad-', 'toward, near'],
+  bi: ['prefix', 'bi-', 'two, both'],
+  semi: ['prefix', 'semi-', 'half, partly'],
+  iso: ['prefix', 'iso-', 'equal, the same'],
+  eu: ['prefix', 'eu-', 'good, normal'],
+  de: ['prefix', 'de-', 'down, away, removal'],
+  re: ['prefix', 're-', 'back, again'],
+  sym: ['prefix', 'sym-', 'together, joined'],
+  syn: ['prefix', 'syn-', 'together, joined'],
+  amphi: ['prefix', 'amphi-', 'both, on both sides'],
+  dia: ['prefix', 'dia-', 'through, across'],
+  proto: ['prefix', 'proto-', 'first'],
+  multi: ['prefix', 'multi-', 'many'],
+  uni: ['prefix', 'uni-', 'one'],
+  cyt: ['root', 'cyt/o', 'cell'],
+  my: ['root', 'my/o', 'muscle'],
+  ur: ['root', 'ur/o', 'urine, urinary tract'],
+  ot: ['root', 'ot/o', 'ear'],
+  coccy: ['root', 'coccy/g', 'tailbone, coccyx'],
+  patell: ['root', 'patell/o', 'kneecap'],
+  acetabul: ['root', 'acetabul/o', 'the hip socket'],
+  glen: ['root', 'glen/o', 'the shoulder socket'],
+  troch: ['root', 'trochanter', 'a large bump on the femur'],
+  tuberos: ['root', 'tuberosity', 'a rough bump for a tendon'],
+  mys: ['root', 'mys/i', 'muscle (as in epimysium)'],
+  blast: ['suffix', '-blast', 'a building, immature cell'],
+  clast: ['suffix', '-clast', 'a breaking-down cell'],
+  physis: ['suffix', '-physis', 'growth, a part of a long bone'],
+  arthrosis: ['suffix', '-arthrosis', 'a joint, by how much it moves'],
 };
 
 /* Ordinary English that happens to contain a medical stem. Splitting "glossary"

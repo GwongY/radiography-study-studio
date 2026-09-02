@@ -30,7 +30,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v73';
+const CACHE_VERSION = 'v76';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -95,6 +95,7 @@ const SHELL = [
   './study/hidden-tray.js',
   './study/spatial-overlay-controls.js',
   './study/subject.js',
+  './study/text-size.js',
   './study/what-is-under.js',
   './study/session-engine.js',
   './study/lesson-visuals.js',
@@ -103,6 +104,7 @@ const SHELL = [
   './study/source-dialog.js',
   './study/coverage-report.js',
   './study/mastery-dashboard.js',
+  './study/course-timetable.js',
   './study/boot.js',
   './study/dialog-behaviour-applied.js',
   './study-data.js',
@@ -149,6 +151,7 @@ const SHELL = [
   './term-notes.js?v=6',
   './term-gloss.js?v=5',
   './physiology.js?v=4',
+  './schedule.js?v=1',
   './bodymap.js?v=4',
   /* the search index: every named mesh in every layer, plus the synonym table
      that maps "collarbone" and "voice box" onto what the model calls them */

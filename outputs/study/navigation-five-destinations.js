@@ -9,6 +9,7 @@ import { releaseLessonVisual } from './lesson-visuals.js';
 import { renderLearn } from './subject.js';
 import { renderMore, renderToday } from './spatial-overlay-controls.js';
 import { renderReviewTab, reviewTab } from './review-mistakes-due.js';
+import { renderCourse } from './course-timetable.js';
 
 /* ------------------------------------------------------------------ *
  * Navigation -- five destinations, rendered into both the icon rail and
@@ -19,14 +20,16 @@ const NAV_DESTS = [
   ['today', 'Today', '\u25d4', () => renderToday()],
   ['learn', 'Learn', '\u25a6', () => renderLearn()],
   ['viewer', 'Viewer', '\u25c9', () => openViewer()],
+  ['course', 'Course', '\u25f3', () => renderCourse()],
   ['review', 'Review', '\u21bb', () => renderReviewTab(reviewTab)],
   ['more', 'More', '\u22ef', () => renderMore()],
 ];
-const NAV_TITLES = { today: 'Today', learn: 'One learning tree', viewer: 'Viewer', review: 'Review', more: 'More' };
+const NAV_TITLES = { today: 'Today', learn: 'One learning tree', viewer: 'Viewer', course: 'Course', review: 'Review', more: 'More' };
 const NAV_KICKERS = {
   today: 'What to do now',
   learn: 'Anatomy \u00b7 physiology \u00b7 radiation science \u00b7 AI',
   viewer: 'Model and images in one place',
+  course: 'Timetable, syllabus, attendance',
   review: 'Mistakes, due items, mastery',
   more: 'Sources, coverage, settings',
 };

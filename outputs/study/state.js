@@ -19,6 +19,13 @@ export const ui = {
   learnTopic: null,
   learnDrill: false,
 
+  /* Course: which panel of the timetable tab — 'week' | 'term' | 'syllabus'. */
+  courseTab: 'week',
+  /* Course: which subjects' full reading lists are expanded, keyed by
+     subject code. Collapsed by default — a week can carry twenty-two
+     lessons and printing all of them as buttons is a wall, not a plan. */
+  readOpen: {},
+
   /* Viewer: '3d' or the projection tab. */
   viewerTab: '3d',
 
