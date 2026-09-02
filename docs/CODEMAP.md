@@ -38,7 +38,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `figures.js` | 390 | figures.js — the diagrams that replaced the hand-drawn ones. |  |
 | `landmarks.js` | 435 | landmarks.js -- the one place that knows how to find a named anatomical |  |
 | `layouts.js` | 304 | layouts.js — the sixteen that are layouts, as layouts. |  |
-| `mesh-index.js` | 2584 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
+| `mesh-index.js` | 2594 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `physiology.js` | 337 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 117 | Radiography Study Studio — study data layer. |  |

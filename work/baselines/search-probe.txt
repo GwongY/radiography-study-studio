@@ -46,7 +46,7 @@
   ok   all 1686 index rows resolve after sanitizeNodeName
   ok   all 1616 rows the loader renames still match (e.g. Abdominal aorta -> Abdominal_aorta)
 — study depth is read from the sources, not guessed —
-  ok   619 of 1686 structures are named by the course material
+  ok   629 of 1686 structures are named by the course material
   ok   every course-level row names the file that names it
   ok   no row beyond the course claims a source
   ok   every source carries how it names the structure
@@ -66,18 +66,19 @@
   ok   and they got there by being described in place, or mirrored from the other side
   ok   all 12 thoracic vertebrae are at course level
   ok   six of them by their siblings, six named outright
-  ok   and the series pass admits nothing else but Vertebra L4
+  ok   nine ribs completed from the three the sources name
+  ok   and the series pass admits nothing beyond those, Vertebra L4 apart
   ok   all 22 segmental bronchi are folded away
   ok   the first rib, which the glossary lists, stays on its own
-       sources: 37 files name at least one structure
+       sources: 38 files name at least one structure
 — every structure resolves to something a tap can select —
   ok   every row has a unit
   ok   and every unit is course-named, a group, or one of a kind
-  ok   1686 structures resolve to 787 units
+  ok   1686 structures resolve to 796 units
   ok   the row and the unit table agree on the label
   ok   a unit never spans two layers -- the viewer keys ids by layer
   ok   no course-named structure is grouped away under another name
-  ok   619 course-named structures, 619 course units
+  ok   629 course-named structures, 629 course units
   ok   every unit knows how many rows it holds
   ok   a lone unit holds exactly one structure
   ok   only 10 structures are one of a kind
@@ -114,11 +115,12 @@
   ok   "Retropharyngeal nodes" is measured into Lymph nodes of the head and neck
   ok   "Pararectal nodes" is measured into Lymph nodes of the pelvis
   ok   "Angular gyrus" is measured into Gyri of the brain
-  ok   the 10 ribs the notes never number individually group under "Ribs"
+  ok   the 10 costal cartilages group under "Cartilages of the thorax"
+  ok   all 12 ribs are at course level, each its own unit
   ok   the 14 teeth group under "Teeth", not "Bones of the head and neck"
   ok   all 14 phalanges of the foot group under one row
   ok   and the hand keeps its own, because a phalanx is not always in the foot
-       158 groups, largest: Muscles of the head and neck (46), Ligaments of the foot (39), Ligaments of the hand (33)
+       157 groups, largest: Muscles of the head and neck (46), Ligaments of the foot (39), Ligaments of the hand (33)
 — composites point at real meshes —
   ok   Pharynx: Nasopharynx exists in the organs layer
   ok   Pharynx: Oropharynx exists in the organs layer

@@ -84,12 +84,41 @@ function docxPages(file) {
   return [unxml(text)];
 }
 
+const runs = (xml) => [...xml.matchAll(/<a:t>([\s\S]*?)<\/a:t>/g)].map((m) => unxml(m[1])).join('\n');
+const slideNo = (name) => +(name.match(/(\d+)/) || [])[1] || 0;
+
 function pptxPages(file) {
   const slides = zipEntries(file, /^ppt\/slides\/slide\d+\.xml$/)
-    .sort((a, b) => (+(a[0].match(/(\d+)/) || [])[1] || 0) - (+(b[0].match(/(\d+)/) || [])[1] || 0));
+    .sort((a, b) => slideNo(a[0]) - slideNo(b[0]));
+
+  /*
+   * The speaker notes are teaching text and belong to their slide. Reading the
+   * slides alone lost structures the lecturer named only in the notes —
+   * coracobrachialis, in the Week 11 upper-limb deck, appears in no slide at
+   * all.
+   *
+   * The mapping has to come from the relationships file, never from the
+   * numbering: in that same deck slide22 points at notesSlide12. Pairing
+   * slideN with notesSlideN would attach a note to a slide it does not belong
+   * to, and a page citation checked against it would then verify against text
+   * that is not on that page — the exact failure this library exists to make
+   * impossible.
+   */
+  const notes = new Map(zipEntries(file, /^ppt\/notesSlides\/notesSlide\d+\.xml$/));
+  const relOf = new Map();
+  for (const [name, xml] of zipEntries(file, /^ppt\/slides\/_rels\/slide\d+\.xml\.rels$/)) {
+    const target = (xml.match(/Target="[^"]*\/(notesSlide\d+\.xml)"/) || [])[1];
+    if (target) relOf.set(slideNo(name), `ppt/notesSlides/${target}`);
+  }
+
   /* A slide is a page, and its number is the page number a citation would use. */
-  return slides.map(([, xml]) =>
-    [...xml.matchAll(/<a:t>([\s\S]*?)<\/a:t>/g)].map((m) => unxml(m[1])).join('\n'));
+  return slides.map(([name, xml]) => {
+    const note = notes.get(relOf.get(slideNo(name)));
+    /* The note is appended, so every offset a slide citation already relies on
+       still falls on the same page. Text can be added to a page; it must never
+       move between pages. */
+    return note ? `${runs(xml)}\n${runs(note)}` : runs(xml);
+  });
 }
 
 /*

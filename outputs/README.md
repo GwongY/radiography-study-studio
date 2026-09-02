@@ -24,7 +24,7 @@ The workflow is the same for every subject:
 | `figures.js` | 18 published figures that replaced the hand-drawn *anatomy*, each with author/licence/source captured from the Wikimedia API and an `intro` + callout `key` so the lesson teaches from the image. |
 | `assets/figures/` | Those 18 image files. Licence-gated at download: anything not demonstrably free is refused. |
 | `assets/` | Local GLB models. Unchanged. |
-| `mesh-index.js` | **Generated.** Every named structure in every GLB layer (1,686), with the course file that names it and the study unit it resolves to (`UNITS`, 787 of them). Rebuild with `node work/build-mesh-index.mjs`; never hand-edit. |
+| `mesh-index.js` | **Generated.** Every named structure in every GLB layer (1,686), with the course file that names it and the study unit it resolves to (`UNITS`, 796 of them). Rebuild with `node work/build-mesh-index.mjs`; never hand-edit. |
 | `synonyms.js` | Query expansion (collarbone → clavicle), composites (a name with no mesh but real parts), and the three structures genuinely not modelled. |
 | `bodymap.js`, `landmarks.js`, `cavity-geom.js`, `cavity-build.js` | The spatial-overlay engine: concept metadata, the semantic landmark resolver, the overlay maths and one builder per cavity. |
 
@@ -605,15 +605,15 @@ answers, the MOOCs, every past paper, and the ten physiology lectures with their
 exercises — and asks of each structure whether the course names it. The answer, plus which file said
 so, is committed as `work/course-terms.json` and baked into `mesh-index.js`.
 
-**619 of the 1,686 are named by the course:**
+**629 of the 1,686 are named by the course:**
 
 | Evidence | Count | What it means |
 | --- | --- | --- |
 | `listed` | 261 | in `Vocabulary.pdf`, the course's own statement of which term names are examinable |
-| `named` | 244 | the exact name appears in a lecture, exercise, model answer or past paper |
+| `named` | 245 | the exact name appears in a lecture, exercise, model answer or past paper |
 | `described` | 106 | all of its words appear together in one sentence of one — the notes say "the right lung is divided into superior, middle and inferior lobes", never "Superior lobe of right lung" |
 | `mirrored` | 1 | the same structure on the other side of a body that is symmetrical about it |
-| `series` | 7 | the rest of a numbered set the sources name over and over: six thoracic vertebrae and one lumbar. The bar is three members named and a quarter of the set, which admits these two series and nothing else in the model — not the twelve ribs (two named), not the five cervical discs (one) |
+| `series` | 16 | the rest of a numbered set the sources name over and over: six thoracic vertebrae, one lumbar, and nine ribs. The bar is three members named and a quarter of the set. The ribs crossed it only once the 2017–18 exam answer key was readable at all — it is a `.txt`, which the old extractor skipped along with every `.docx`, and it is what names the second rib. Two named ribs sat below the bar; three carry all twelve. Still below it: the five cervical discs (one named) |
 
 Three things are excluded from that corpus **on purpose**, and the exclusion is the whole point:
 
@@ -657,8 +657,8 @@ their own names in the index and in search; the unit is the identity behind them
 
 | Unit kind | Count | What it is |
 | --- | --- | --- |
-| `course` | 619 | a structure the course names. Its own unit, under its own name |
-| `group` | 158 | finer structures selected together under a more general name |
+| `course` | 629 | a structure the course names. Its own unit, under its own name |
+| `group` | 157 | finer structures selected together under a more general name |
 | `lone` | 10 | one structure with nothing to group with. Stays selectable and says it is beyond the course |
 
 A row joins a unit in the order the anatomy allows:
