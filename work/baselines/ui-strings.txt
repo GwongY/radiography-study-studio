@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 730 —
-  161cc1b3067223db  WHOLE SET
+— user-facing strings in outputs/ — 738 —
+  0602e650aee17825  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -30,6 +30,7 @@
   19d374017e84dc66  " data-step="
   339e1b7085304bc2  " data-topic="
   e2d80c92ddbb5f6d  " data-vtab="
+  828626d9f204fdc0  " data-week="
   40096d512b202dd9  " data-xregion="
   33ebbb5a93b28f77  " data-xview="
   ee816f3b5b66dbf1  " loading="lazy">
@@ -41,6 +42,7 @@
   d8353d56700520ba  " target="_blank" rel="noreferrer">
   2c99b5c4dedfd5a5  " target="_blank" rel="noreferrer">Wikimedia Commons
   e272ca64fe23b521  " title="
+  7581458b6c15a3db  ">Study all
   5465451fbdda9b14  ">Study this →
   23db48b468bb0c9a  % correct overall · weaker structures are prioritised.
   1fa5a4b7dc45d675  % mastered
@@ -67,6 +69,7 @@
   1a6ab45c16783dc4  <button class="card" data-row="
   3f235ec9141a2347  <button class="conf
   125f93e4a929b76f  <button class="filter-chip
+  a0f451b43385f958  <button class="ghost readall" data-week-subject="
   7c91d479afddcabc  <button class="ghost tolesson" data-unit="
   eccfc54f8a6ac23c  <button class="ghost" id="openViewerBtn">Open in Viewer</button>
   e930ca7db13997d6  <button class="ghost" id="rssPriorLesson">Read the lesson</button>
@@ -83,6 +86,7 @@
   041bb1de3e01a00e  <button class="primary" id="rssNextItem">Next hook →</button>
   f8db73fad7b2457b  <button class="primary" id="rssNextItem">Next item →</button>
   63d4be2570536586  <button class="primary" id="rssNextQ">Next question →</button><button class="ghost" data-nav="apply">Go to apply</button>
+  1a923445c1e0f961  <button class="readpill" data-item="
   6822ad345e3c6a68  <button class="rss-mode" style="flex-direction:column;align-items:flex-start;gap:5px;min-height:104px" data-mode="
   52c2a2e072de9ed6  <button class="seg
   6dcaad6caa1d4d6e  <button class="sres" data-hit="
@@ -359,6 +363,7 @@
   01c734adb1d8dbbe  Nothing due or weak yet
   17c54ae148fd8107  Nothing has happened yet. Close this dialog and it never will.
   44a3cc778bbfd521  Nothing in progress
+  3548e52ba48a8072  Nothing in the corpus covers this week yet — your timetable teaches it, we do not.
   a272b965cae90dba  Nothing is assumed about your answer — this is the first thing recorded for the item.
   992f6502afaafa7a  Nothing is highlighted. Rotate the model and tap it. Tapping the same spot twice steps behind whatever is in front.
   db09520da1bff2bb  Nothing left on the published timetable.
@@ -392,6 +397,7 @@
   fbb2baef613596d9  Radiation science
   908b9d8d4c977990  Radioulnar joints
   b31c27474dfc22c8  Re-read the lesson
+  7d31da9f492cb941  Read before this week ·
   726a962ec689197d  Read the hook, then choose the structure it describes.
   1202164db500bf1e  Read the teaching explanation and the key facts.
   164775a7b441c383  Real upper-limb model failed, using local fallback
@@ -597,6 +603,7 @@
   c10f8a601e7ff109  float transmitted = exp(-tau);
   c99a222fc3470c4f  ghost close
   1a282eee876c39f0  ghost hidden
+  4e2653f3b7999fde  ghost readall
   8a4081dbed1f6c62  ghost tolesson
   fdb7920c327b021a  gl_FragColor = vec4(sgn * vDist * uMu, 0.0, 0.0, 1.0);
   2417f7519a9d91f5  gl_FragColor = vec4(vec3(clamp(density, 0.0, 1.0)), 1.0);
@@ -611,6 +618,7 @@
   9ea746df2b511e0a  if (!s) return '';
   92e25ebd96c6b686  in a row
   40ba1be988786a47  in line here
+  add7b337e5f6bfce  in order →
   8f4e6e661819b86b  in the examinable glossary
   77fffafaf552e5b1  in this drill ·
   c7e4e6c144bbd4f1  inside its measured box

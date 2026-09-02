@@ -18,12 +18,13 @@
 import {
   $$, GROUP_CHOICES, KINDS, SCHEDULE_SOURCES, SESSIONS, SUBJECT_ADMIN, TERM,
   describeSource, esc, fmtWeekRange, fmtWhen, getSubject, isOtherGroup,
-  itemsForUnit, sessionsWithStatus, weekOf, weekStart, STAFF, ui,
+  getItem, itemsForUnit, sessionsWithStatus, studyFor, weekOf, weekStart, STAFF, ui,
 } from './imports.js';
 import { showView } from './small-ui-helpers.js';
 import { setActiveNav } from './navigation-five-destinations.js';
 import { K, read, store, write } from './storage-versioned-keys.js';
 import { renderLearn } from './subject.js';
+import { startSession } from './session-engine.js';
 
 /* ------------------------------------------------------------------ *
  * State — attendance and the two unknown groups
@@ -141,12 +142,42 @@ function nowNextHTML(rows, now) {
   </div>`;
 }
 
+/*
+ * What to read before a week's class.
+ *
+ * 128 lessons in subject order is not a study plan. WEEK_STUDY says which
+ * of them cover the topic this week teaches, and an EMPTY list is printed
+ * as a gap rather than hidden — week 7 is Special Senses and nothing in the
+ * corpus covers it, which the student should find out from here and not in
+ * the exam.
+ */
+function readingHTML(week) {
+  const out = [];
+  for (const subject of ['HSS2011', 'ABCT2326']) {
+    const list = studyFor(subject, week);
+    if (!list) continue;
+    if (!list.length) {
+      out.push(`<div class="readgap"><span class="sesscode">${esc(subject)}</span>Nothing in the corpus covers this week yet — your timetable teaches it, we do not.</div>`);
+      continue;
+    }
+    const items = list.map(getItem).filter(Boolean);
+    const pills = items.map((it) => `<button class="readpill" data-item="${esc(it.id)}">${esc(it.title)}</button>`).join('');
+    const plural = items.length === 1 ? '' : 's';
+    out.push(`<div class="readrow">
+      <div class="readhead"><span class="sesscode">${esc(subject)}</span>Read before this week · ${items.length} lesson${plural}</div>
+      <div class="readlist">${pills}</div>
+      <button class="ghost readall" data-week-subject="${esc(subject)}" data-week="${esc(week)}">Study all ${items.length} in order →</button>
+    </div>`);
+  }
+  return out.join('');
+}
+
 function weekPanel(rows, now) {
   const wk = weekOf(now);
   if (!wk) return '<div class="emptybox">Outside the teaching term — use the full-term view.</div>';
   const mine = rows.filter((r) => r.s.week === wk);
   if (!mine.length) return '<div class="emptybox">Nothing scheduled this week.</div>';
-  return `<ul class="sesslist">${mine.map((r) => sessionRow(r, now)).join('')}</ul>`;
+  return `<ul class="sesslist">${mine.map((r) => sessionRow(r, now)).join('')}</ul>${readingHTML(wk)}`;
 }
 
 function termPanel(rows, now) {
@@ -260,6 +291,15 @@ export function renderCourse() {
   });
   $$('courseView').querySelectorAll('[data-groupset]').forEach((b) => {
     b.onclick = () => { setGroup(b.dataset.groupset, b.dataset.groupopt); renderCourse(); };
+  });
+  $$('courseView').querySelectorAll('[data-item]').forEach((b) => {
+    b.onclick = () => startSession({ mode: 'ids', ids: [b.dataset.item] });
+  });
+  $$('courseView').querySelectorAll('[data-week-subject]').forEach((b) => {
+    b.onclick = () => startSession({
+      mode: 'ids',
+      ids: studyFor(b.dataset.weekSubject, Number(b.dataset.week)) || [],
+    });
   });
   $$('courseView').querySelectorAll('[data-unit]').forEach((b) => {
     b.onclick = () => { ui.learnFilter = 'all'; ui.learnTopic = b.dataset.unit; ui.learnDrill = true; renderLearn(); };

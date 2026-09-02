@@ -109,11 +109,11 @@ export const SUBJECT_ADMIN = {
        deck breaks that 100% into three, and the Canvas schedule confirms the
        60% test and its date. Same total, three documents. */
     assessment: [
-      { name: 'Revision Exercise', weight: 8, note: 'Online, open book. Modules 1–4.', src: { ref: 'hss.w1.2026', location: 'p7 "Revision Exercise (8%)"' } },
-      { name: 'In-class activities', weight: 32, note: 'AI task allocated at random; discussion in session 1, a 3-minute presentation on 1 slide in session 2. Group assignments are set in the tutorials as case studies.', src: { ref: 'hss.w1.2026', location: 'p7 "In-class activities (32%)"' } },
-      { name: 'Final quiz', weight: 60, note: 'Individual, close book, Lectures 1–12. Sat 28 Nov 2026, 16:00–17:30.', src: { ref: 'hss.w1.2026', location: 'p7 "Final quiz (60%)"' } },
+      { name: 'Revision exercise', weight: 8, group: 'Individual', note: 'FOUR separate exercises worth 2% each, due at the end of weeks 2, 5, 8 and 10. Online, open book.', src: { ref: 'hss.sched.2026b', location: 'Important Dates & Weeks' } },
+      { name: 'Closed-book test', weight: 60, group: 'Individual', note: 'Individual, close book, Lectures 1–12. Sat 28 Nov 2026, 16:00–17:30.', src: { ref: 'hss.sched.2026b', location: 'Week 13 row' } },
+      { name: 'In-class exercise', weight: 32, group: 'Group', note: 'The group half. An AI task allocated at random; discussion in session 1, a 3-minute presentation on 1 slide in session 2. Set in the tutorials as case studies.', src: { ref: 'hss.sched.2026b', location: 'Group Assignment (Total 32%)' } },
     ],
-    assessmentNote: 'The subject description form records all of this as one line — Continuous Assessment (Group assignments & Individual written test), 100%. There is no separate examination in the exam period.',
+    assessmentNote: 'The subject states it as two halves: Individual Assignment 68% — revision exercise 8% plus closed-book test 60% — and Group Assignment 32%, the in-class exercise. The description form records the whole of it as one line, Continuous Assessment 100%. There is no separate examination in the exam period.',
     effort: [
       { what: 'Face-to-face lecture', hours: 26 },
       { what: 'Discipline-specific tutorials', hours: 10 },
@@ -229,6 +229,45 @@ export const GROUP_CHOICES = [
 
 const S = (o) => o;
 
+/* ------------------------------------------------------------------ *
+ * Which lessons cover which week
+ *
+ * APP-AUTHORED CURATION, not a source claim: the schedule names a week's
+ * topic and this says which of our items teach it. It is the answer to
+ * "what should I read before Thursday", which the corpus could not give
+ * before — 128 lessons in subject order is not a study plan.
+ *
+ * Week 7 is deliberately EMPTY. The schedule teaches Special Senses that
+ * week and nothing in the corpus covers it; an empty list is the honest
+ * output and the Course tab says so out loud.
+ *
+ * Every id here is checked by work/schedule-check.mjs.
+ * ------------------------------------------------------------------ */
+export const WEEK_STUDY = {
+  HSS2011: {
+    1: ['hss2011-subject-2026', 'hss2011-terminology-anatomical-position', 'hss2011-terminology-directional-pairs', 'hss2011-terminology-planes', 'hss2011-terminology-cavities-regions', 'hss2011-terminology-regional-systemic', 'hss2011-terminology-word-parts', 'hss2011-osteo-axial-appendicular', 'hss2011-osteo-bone-shapes', 'hss2011-osteo-long-bone-structure', 'hss2011-osteo-bone-functions', 'hss2011-msk-bone-histology', 'hss2011-msk-bone-marrow', 'hss2011-msk-tissues-of-movement', 'hss2011-msk-muscle-organisation', 'hss2011-msk-tendon-attachment', 'hss2011-msk-motor-unit-tone', 'hss2011-msk-joint-classifications', 'hss2011-joints-classification', 'hss2011-joints-synovial-structure', 'hss2011-joints-synovial-types', 'hss2011-joints-movements'],
+    2: ['hss2011-osteo-pectoral-girdle', 'hss2011-bone-clavicle', 'hss2011-bone-scapula', 'hss2011-bone-humerus', 'hss2011-osteo-forearm-carpals', 'hss2011-bone-radius', 'hss2011-bone-ulna', 'hss2011-bone-hand', 'hss2011-structures-carpals', 'hss2011-structures-rotatorCuff', 'hss2011-joints-rotator-cuff', 'hss2011-movement-shoulderAbduction', 'hss2011-movement-elbowFlexion', 'hss2011-movement-supination', 'hss2011-movement-thumbOpposition'],
+    3: ['hss2011-osteo-pelvic-girdle', 'hss2011-bone-pelvis', 'hss2011-bone-femur', 'hss2011-bone-patella', 'hss2011-osteo-leg-tarsals', 'hss2011-bone-tibia', 'hss2011-bone-fibula', 'hss2011-bone-foot', 'hss2011-structures-tarsals', 'hss2011-structures-kneeJoint'],
+    4: ['hss2011-osteo-skull-sutures', 'hss2011-bone-cranium', 'hss2011-bone-mandible', 'hss2011-structures-skullBones', 'hss2011-osteo-vertebra-parts', 'hss2011-osteo-vertebral-column', 'hss2011-osteo-c1-c2', 'hss2011-bone-cervical', 'hss2011-bone-thoracic', 'hss2011-bone-lumbar', 'hss2011-bone-sacrum', 'hss2011-bone-coccyx', 'hss2011-structures-vertebralRegions'],
+    5: ['hss2011-m2-cns-basics'],
+    6: ['hss2011-m2-brain-regions', 'hss2011-structures-brainAndCsf', 'hss2011-structures-cranialNerves'],
+    7: [],
+    8: ['hss2011-m1-heart-wall-valves'],
+    9: ['hss2011-m1-lungs-airway'],
+    10: ['hss2011-osteo-ribs-sternum', 'hss2011-bone-ribs', 'hss2011-bone-sternum'],
+    11: ['hss2011-m3-digestive'],
+    12: ['hss2011-m3-urogenital-pelvis'],
+  },
+  ABCT2326: {
+    1: ['abct2326-cells-organisation', 'abct2326-plasma-membrane', 'abct2326-organelles', 'abct2326-nucleus-genetic-code', 'abct2326-protein-synthesis', 'abct2326-cell-division', 'abct2326-epithelium-classification', 'abct2326-connective-tissue-classes', 'abct2326-muscle-neural-tissue', 'abct2326-homeostasis', 'abct2326-feedback-loops'],
+  },
+};
+
+/** The item ids to study for a subject in a given teaching week. */
+export function studyFor(subject, week) {
+  return ((WEEK_STUDY[subject] || {})[week]) || null;
+}
+
 export const SESSIONS = [
   /* ---------------- HSS2011 — week-numbered, no times published --------- */
   S({ subject: 'HSS2011', week: 1, kind: 'lecture', undated: true, title: 'Subject Orientation & Introduction + Musculoskeletal System', module: 1, unit: 'hss.subject', teacher: 'BL', dur: '2 hours' }),
@@ -255,6 +294,15 @@ export const SESSIONS = [
   S({ subject: 'HSS2011', week: 11, kind: 'activity', undated: true, title: 'In-class exercise (Module 4)', module: 4, dur: '1 hour' }),
   S({ subject: 'HSS2011', week: 12, kind: 'lecture', undated: true, title: 'Urogenital System', module: 4, unit: 'hss.m3', dur: '2 hours' }),
   S({ subject: 'HSS2011', week: 12, kind: 'activity', undated: true, title: 'In-class exercise (Module 4)', module: 4, dur: '1 hour' }),
+  /*
+   * The four 2% exercises. The 8% is not one thing due at the end — it is
+   * four deadlines, all Sunday 23:59, and they are the only hard dates
+   * HSS2011 publishes apart from the test.
+   */
+  S({ subject: 'HSS2011', week: 2, kind: 'assessment', on: [2026, 8, 13], at: [23, 59, 23, 59], title: 'Revision exercise 1 — 2%', weight: 2, note: 'Individual, online, open book. Deadline Sun 13 Sep 2026 23:59.' }),
+  S({ subject: 'HSS2011', week: 5, kind: 'assessment', on: [2026, 9, 4], at: [23, 59, 23, 59], title: 'Revision exercise 2 — 2%', weight: 2, note: 'Individual, online, open book. Deadline Sun 4 Oct 2026 23:59.' }),
+  S({ subject: 'HSS2011', week: 8, kind: 'assessment', on: [2026, 9, 25], at: [23, 59, 23, 59], title: 'Revision exercise 3 — 2%', weight: 2, note: 'Individual, online, open book. Deadline Sun 25 Oct 2026 23:59.' }),
+  S({ subject: 'HSS2011', week: 10, kind: 'assessment', on: [2026, 10, 8], at: [23, 59, 23, 59], title: 'Revision exercise 4 — 2%', weight: 2, note: 'Individual, online, open book. Deadline Sun 8 Nov 2026 23:59.' }),
   S({ subject: 'HSS2011', week: 13, kind: 'revision', undated: true, title: 'Online revision', dur: '2 hours' }),
   S({ subject: 'HSS2011', week: 13, kind: 'assessment', on: [2026, 10, 28], at: [16, 0, 17, 30], title: 'Closed-book test (individual) — 60%', weight: 60, note: 'Covers Lectures 1–12.' }),
 

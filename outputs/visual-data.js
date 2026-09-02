@@ -70,6 +70,33 @@ const m = (layer, meshes, label, caption, extra = {}) =>
 const sch = (id) => ({ kind: 'schematic', id });
 
 export const ITEM_VISUALS = {
+  /* --------------------------------------------------------------- *
+   * The 2026 items. All eighteen shipped on a generated layout — a flow
+   * or a grid drawn from their own text — which is a visual but not a
+   * PICTURE of anything. Where a published figure already on disk shows
+   * exactly what the lesson teaches, or a named mesh exists, say so.
+   * The cell-biology items keep their layouts: nothing here depicts a
+   * membrane or a Golgi apparatus, and a wrong picture is worse.
+   * --------------------------------------------------------------- */
+  'abct2326-muscle-neural-tissue': sch('muscleTypes'),
+  'abct2326-connective-tissue-classes': sch('bloodComposition'),
+  'hss2011-msk-joint-classifications': sch('synovialTypes'),
+  'hss2011-msk-bone-marrow': sch('longBone'),
+  'hss2011-msk-muscle-organisation': m('muscle',
+    ['Long head of biceps brachii', 'Short head of biceps brachii'],
+    'Biceps brachii',
+    'One muscle, whole. Every layer the lesson names is inside this: the epimysium around what you can see, then fascicles, then fibres, then myofibrils. Rotate it and find the two heads.',
+    { ghostBody: true }),
+  'hss2011-msk-tendon-attachment': m('muscle',
+    ['Long head of biceps brachii', 'Short head of biceps brachii', 'Long head of triceps brachii', 'Lateral head of triceps brachii', 'Medial head of triceps brachii'],
+    'Biceps and triceps brachii',
+    'Two muscles pulling opposite ways across the elbow. Follow either to its ends: the tapering is the tendon, and where it meets bone is the osteotendinous junction. The end that does not move is the origin.',
+    { ghostBody: true }),
+  'hss2011-msk-motor-unit-tone': m('muscle',
+    ['Lateral head of gastrocnemius', 'Medial head of gastrocnemius'],
+    'Gastrocnemius',
+    'The calf muscle the lesson counts: one motor neuron here may command around 2000 fibres, against 13 to 20 in a muscle that moves the eye. This is what a large motor unit is buying force for.',
+    { ghostBody: true }),
   /* --- HSS2011 terminology ------------------------------------------ */
   'hss2011-terminology-anatomical-position': sch('anatomicalPosition'),
   'hss2011-terminology-planes': sch('bodyPlanes'),

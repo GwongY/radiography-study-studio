@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  04c91673c32205f5    810448  ITEM_BY_ID  Map[128]
+  bfda2c909de4f381    810775  ITEM_BY_ID  Map[128]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   c529371f74fc1d2a      4250  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -18,19 +18,19 @@
   f428292239abe4d6       199  PRIOR_KNOWLEDGE  object[1]
   98a503c7f71e10a2       285  REVEAL_MODES  array[3]
   0d0b5bb6f4c96e17      1348  SOCIOLOGY_NOTICE  object[5]
-  b347cb2843f38481     22393  SOURCE_FILES  object[90]
+  8f95620238c05f77     23025  SOURCE_FILES  object[91]
   6d9f2a8b69816c8a       409  SOURCE_ROOTS  object[13]
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   57b60f7998459a29     20933  STRUCTURE_SETS  object[13]
-  added19eca9af328    806751  STUDY_ITEMS  array[128]
+  34a0e2f36838e677    807078  STUDY_ITEMS  array[128]
   732916ea01d90fc1      1165  STUDY_MODES  array[9]
   4cebdc587d48877e      3507  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  aba83952e5779e5b    855117  default  object[7]
+  efd53c5032b2a13b    856076  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -57,7 +57,7 @@
   bb157d6583e754f9      2211  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  7d3709a33f918b78  WHOLE SURFACE
+  097649acc54f4709  WHOLE SURFACE
 
 — every study item, by id — 128 items —
   2d29339c231f634a  abct2326-acquired-immunity
@@ -93,7 +93,7 @@
   52385a0ac3c55136  abct2326-nucleus-genetic-code
   fe8aeb4f98e9c764  abct2326-organelles
   001f80a08dd3d2cd  abct2326-plasma-membrane
-  8c6e84007a0d227d  abct2326-protein-synthesis
+  6272315dbf95796f  abct2326-protein-synthesis
   882027b20b1f10d2  abct2326-renal-nephron
   1565f23b9247f161  abct2326-resp-gas-transport
   567383e26e8b6ef5  abct2326-resp-pathway

@@ -57,12 +57,32 @@ export function lookupTerm(word) {
  * terminology items the text IS a list of those, and leaving them inert while
  * the app carries an 814-stem glossary was daft.
  */
-const GLOSS_RE = /([a-z]{2,12}\/[oi])|(^|[\s(])(-[a-z]{2,12})\b|\b([a-z]{2,12}-)(?=[\s,;)])|\b([A-Za-z][a-z]{5,})\b/g;
+/*
+ * FIVE-LETTER WORDS. The floor used to be six, which quietly made fossa,
+ * bursa, ramus, gyrus, crest, facet, hilum, sulci, cilia, codon, actin and
+ * exons permanently inert however good their glossary entry was — and those
+ * are anatomy's own working vocabulary. The floor is now five, but a
+ * five-letter word has to earn it: it needs a curated WHOLE-WORD glossary
+ * entry, not merely a decomposition. Without that guard "costs" underlines
+ * as the rib root cost/o, "later" as later/o (side) and "inter" as the
+ * prefix — ordinary English wearing an anatomical meaning it does not have,
+ * which is worse than leaving it plain.
+ */
+const GLOSS_RE = /([a-z]{2,12}\/[oi])|(^|[\s(])(-[a-z]{2,12})\b|\b([a-z]{2,12}-)(?=[\s,;)])|\b([A-Za-z][a-z]{4,})\b/g;
+
+/* A five-letter token is only helpable through a whole-word glossary entry
+   whose key is not itself a word part. Six and over keep the old rule. */
+function shortWordOk(token) {
+  if (token.length > 5) return true;
+  const hit = termGloss(token);
+  return !!hit && !partOf(hit.key);
+}
 
 export function glossify(escaped) {
   return String(escaped).replace(GLOSS_RE, (m, combForm, pre, sufForm, preForm, word) => {
     const token = combForm || sufForm || preForm || word;
     const lead = pre || '';
+    if (word && !shortWordOk(token)) return m;
     const hit = lookupTerm(token);
     if (!hit) return m;
     return lead + `<button type="button" class="term" data-term="${esc(token)}">${token}</button>`;
