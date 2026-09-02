@@ -1,12 +1,12 @@
 — the export surface of outputs/study-data.js — 57 exports —
   f6ce6e2d285e4eb0      3308  BONE_HOOKS  object[21]
-  9fb727099324b5b7     19258  COVERAGE  object[5]
+  53998c0ecb77b0d2     20404  COVERAGE  object[5]
   6b86b273ff34fce1         1  DATA_VERSION  number
   619d6a33617fad34         8  DAY_MS  number
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  bfda2c909de4f381    810775  ITEM_BY_ID  Map[128]
+  782e503d1db4e856    802353  ITEM_BY_ID  Map[127]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   c529371f74fc1d2a      4250  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -23,14 +23,14 @@
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   57b60f7998459a29     20933  STRUCTURE_SETS  object[13]
-  34a0e2f36838e677    807078  STUDY_ITEMS  array[128]
+  050e88bfa07a7e54    798679  STUDY_ITEMS  array[127]
   732916ea01d90fc1      1165  STUDY_MODES  array[9]
-  4cebdc587d48877e      3507  SUBJECTS  array[6]
+  ff5da1efc5d0872f      3411  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  efd53c5032b2a13b    856076  default  object[7]
+  98e3e6bbafb4b952    848727  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -57,9 +57,9 @@
   bb157d6583e754f9      2211  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  097649acc54f4709  WHOLE SURFACE
+  fd7c234986fe281e  WHOLE SURFACE
 
-— every study item, by id — 128 items —
+— every study item, by id — 127 items —
   2d29339c231f634a  abct2326-acquired-immunity
   0f85a14f65a3eba6  abct2326-blood-composition
   23f628153e36648d  abct2326-cell-division
@@ -172,7 +172,6 @@
   635b5858f84fc00f  hss2011-structures-tarsals
   468f11fb6a619b51  hss2011-structures-urinaryTract
   6371a1417417d528  hss2011-structures-vertebralRegions
-  a73389a55cfddf67  hss2011-subject-2026
   b9c0590d6faa36af  hss2011-terminology-anatomical-position
   b76c9dc0e5a935b8  hss2011-terminology-cavities-regions
   d4f9ad4ce4ce34d7  hss2011-terminology-directional-pairs

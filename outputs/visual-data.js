@@ -73,15 +73,32 @@ export const ITEM_VISUALS = {
   /* --------------------------------------------------------------- *
    * The 2026 items. All eighteen shipped on a generated layout — a flow
    * or a grid drawn from their own text — which is a visual but not a
-   * PICTURE of anything. Where a published figure already on disk shows
-   * exactly what the lesson teaches, or a named mesh exists, say so.
-   * The cell-biology items keep their layouts: nothing here depicts a
-   * membrane or a Golgi apparatus, and a wrong picture is worse.
+   * PICTURE of anything. Every one of them now has a real depiction.
+   *
+   * The cell-biology half was left on layouts once, on the grounds that
+   * nothing on disk showed a membrane or a Golgi apparatus. Nothing did;
+   * but the OpenStax Anatomy & Physiology figures are free, and OpenStax
+   * A&P 2e is the textbook the HSS2011 orientation deck names as the free
+   * reading. "Not on disk" was never the same claim as "not available",
+   * and treating it as one cost these lessons their pictures for a month.
    * --------------------------------------------------------------- */
+  'abct2326-cells-organisation': sch('levelsOfOrganisation'),
+  'abct2326-plasma-membrane': sch('plasmaMembrane'),
+  'abct2326-organelles': sch('animalCell'),
+  'abct2326-nucleus-genetic-code': sch('cellNucleus'),
+  'abct2326-protein-synthesis': sch('mrnaSplicing'),
+  'abct2326-cell-division': sch('mitosisStages'),
+  'abct2326-epithelium-classification': sch('epitheliumTypes'),
+  'abct2326-feedback-loops': sch('negativeFeedback'),
   'abct2326-muscle-neural-tissue': sch('muscleTypes'),
   'abct2326-connective-tissue-classes': sch('bloodComposition'),
   'hss2011-msk-joint-classifications': sch('synovialTypes'),
-  'hss2011-msk-bone-marrow': sch('longBone'),
+  'hss2011-msk-bone-histology': sch('boneCells'),
+  'hss2011-msk-tissues-of-movement': sch('cartilageTypes'),
+  /* The long-bone schematic showed a labelled diagram; this is a photograph
+     of a cut bone with the colour boundary actually visible, which is the
+     one thing the lesson is asking you to be able to recognise. */
+  'hss2011-msk-bone-marrow': sch('boneMarrow'),
   'hss2011-msk-muscle-organisation': m('muscle',
     ['Long head of biceps brachii', 'Short head of biceps brachii'],
     'Biceps brachii',
@@ -215,7 +232,9 @@ export const ITEM_VISUALS = {
     { ghostBody: true }),
 
   /* --- ABCT2326 physiology ------------------------------------------ */
-  'abct2326-cells-organisation': sch('cellOrganisation'),
+  /* Was sch('cellOrganisation'), a hand-drawn four-box flow. Replaced by the
+     OpenStax pyramid, which follows ONE tissue up every level instead of
+     naming four levels abstractly. Declared with the 2026 set above. */
   'abct2326-homeostasis': sch('homeostasis'),
   'abct2326-cvs-circuits': sch('circuits'),
   'abct2326-cvs-conduction': sch('conduction'),

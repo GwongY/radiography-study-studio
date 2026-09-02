@@ -19,6 +19,10 @@ export const K = {
      group the student is in — neither is derivable from the schedule. */
   attendance: STORAGE_PREFIX + 'attendance',
   groups: STORAGE_PREFIX + 'groups',
+  /* A display preference, not progress: which of the three type steps
+     the reader chose. Kept out of `store` because nothing reads it in a
+     loop — text-size.js asks for it when it applies it. */
+  textSize: STORAGE_PREFIX + 'textsize',
 };
 
 export function read(key, fallback) {

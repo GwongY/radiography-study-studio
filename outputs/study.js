@@ -30,10 +30,12 @@ import { init as init_source_dialog_js } from './study/source-dialog.js';
 import './study/coverage-report.js';
 import './study/mastery-dashboard.js';
 import { init as init_course_timetable_js } from './study/course-timetable.js';
+import { init as init_text_size_js } from './study/text-size.js';
 import { init as init_boot_js } from './study/boot.js';
 import { init as init_dialog_behaviour_applied_js } from './study/dialog-behaviour-applied.js';
 
 init_small_ui_helpers_js();
+init_text_size_js();
 init_layout_figures_js();
 init_source_dialog_js();
 init_boot_js();
