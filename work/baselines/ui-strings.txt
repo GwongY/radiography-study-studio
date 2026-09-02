@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 691 —
-  eed4b4e626bbd465  WHOLE SET
+— user-facing strings in outputs/ — 692 —
+  7ab1fd47dcec7aa5  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -510,6 +510,7 @@
   3885517f2e4fef0c  You wrote "
   94661d68cd8ce6bb  Your course material names none of these one by one, so the
   69bfb7f1b8cfd020  Your mistake log —
+  0766aba44d3ed61b  Your sources call it
   5aacae2229c04415  Z-Anatomy / BodyParts3D skeleton · 159 named structures
   942d247338ecf9f4  \u00b7 every item carries its own reference
   10c21ae68a2b089a  \u00b7 opens in Viewer

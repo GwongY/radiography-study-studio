@@ -13,7 +13,7 @@ The workflow is the same for every subject:
 | File | What it is |
 | --- | --- |
 | `radiography-study-studio.html` | The app. Subject selector, learning workflow, Memory Coach, source dialogs, coverage report, and the full osteology 3D studio embedded as the HSS2011 Osteology module. |
-| `study-data.js` | The study layer: source registry, subject registry, 110 study items, prior-knowledge registry, spaced repetition, coverage report, corpus validator. |
+| `study-data.js` | The study layer: source registry, subject registry, 127 study items, prior-knowledge registry, spaced repetition, coverage report, corpus validator. |
 | `wordparts.js` | 814 medical word parts, inverted from the HSS2011 glossary, plus the segmenter that takes a long term apart. |
 | `term-notes.js` | 89 hand-written pronunciations and plain-English readings for the terms word parts alone cannot rescue. App-authored, labelled as such. |
 | `assets/plates/` | Five public-domain anatomy plates from Gray's Anatomy (1918), licence-verified through the Wikimedia Commons API before download. |
@@ -59,8 +59,8 @@ answer used was then cross-checked against its question text.
 
 | Subject | Status | Notes |
 | --- | --- | --- |
-| ABCT2326 Human Physiology | Full | 10 system lectures, supplementary decks, the lecturer's own prose notes for the endocrine, nervous, musculoskeletal and immune units, tutorial answers, extra exercises, Martini eBook |
-| HSS2011 Human Anatomy | Full | Vocabulary, Study Manuals 1819/1920, Modules 0–4, revision exercises with model answers, and past papers back to 2003–04 |
+| ABCT2326 Human Physiology | Full | 10 system lectures, supplementary decks, the lecturer's own prose notes for the endocrine, nervous, musculoskeletal and immune units, tutorial answers, extra exercises, Martini eBook, and the 2026 copy of the Lecture 1 cell-biology deck |
+| HSS2011 Human Anatomy | Full | Vocabulary, Study Manuals 1819/1920, Modules 0–4, revision exercises with model answers, past papers back to 2003–04, and the 2026 Week 1 pair — subject orientation and the Module 1 musculoskeletal lecture |
 | HTI17103 Introduction to Medical Radiation Science | **Substitute source** | The exact HTI17103 set was not found. Built from HTI17101 Exploring Radiography, the closest available material. Not silently renamed — every source reference still shows the HTI17101 filename and folder. |
 | APSS1A08 Introduction to Sociology | **Limited source coverage** | No verified lecture syllabus found. Only student assignments and papers. No study content generated. |
 | DSAI1202 Introduction to AI and Data Analytics | **No materials** | Placeholder page. No lessons or flashcards invented. |
@@ -84,7 +84,47 @@ shared folders, source conflicts and how each was handled, plus live validator o
   answer key**; the only answers are photographs of handwritten pages. Items were therefore built only
   from questions whose answers a current HSS2011 lecture or the revision-exercise key independently
   confirms. Questions it asks that nothing on hand can verify — brachial plexus M-shape, femoral
-  triangle borders, epimysium, amphiarthroses/synarthroses, TMJ muscles — were left out.
+  triangle borders, TMJ muscles — were left out. **Two of that list have since been unblocked**:
+  the 2026 Module 1 deck names the epimysium / perimysium / endomysium layers and gives the functional
+  joint classification (synarthrosis, amphiarthrosis, diarthrosis) outright, so both are now taught
+  from a current source rather than left out.
+
+### The module numbers moved, and the folders did not
+
+The 2026 subject-orientation deck gives one slide per module and numbers them:
+
+| 2026 | Module | What every source folder on the drive calls it |
+| --- | --- | --- |
+| Module 1 | Musculoskeletal system | `Module 4 Musculoskeletal System` |
+| Module 2 | Nervous system | `Module 2 Neuroanatomy` (its files are numbered `3.x`) |
+| Module 3 | Cardiovascular and pulmonary system | `Module 1 Thorax` |
+| Module 4 | Digestive and urogenital system | `Module 3 Abdomen and Pelvis` (files numbered `2.x`) |
+
+The app now numbers by the deck, because that is the numbering on Canvas and in the assessment. It
+also **prints the old number underneath** — a lesson headed *Module 1* that cites *"Module 4.1
+answers"* looks like one of the two is wrong, and neither is.
+
+The subject has renumbered before: `hss.2.2` is a file called *3.2 Nervous System and Special Sense*
+sitting in a folder called *Module 2 Neuroanatomy*. Mismatch between a file's number, its folder's
+number and the current syllabus is the normal state of this material.
+
+The **unit keys were deliberately not renamed**. `hss.m1` … `hss.m4` still carry the folder numbers,
+because saved progress in the browser is keyed by them and renaming would orphan it. They mean "the
+unit whose sources are the old Module N folder" and nothing else; `MODULE_BY_UNIT` in
+`study/corpus/modules.js` is the single place that turns one into a module number.
+
+### A gap the coverage report was hiding
+
+Until this pass, the ABCT2326 entry listed *"Cells, four tissue types, eleven organ systems"* as
+covered and marked the subject **Full**. The unit had two items. Both were written from the back of
+the lecture — tissues, and homeostasis. Everything in front of it (the plasma membrane, the
+organelles, the nucleus, the genetic code, transcription and translation, the cell cycle, mitosis and
+meiosis) had been catalogued inside **one item's prior-knowledge sidebar** as material that goes
+beyond HKDSE Biology, and never turned into a lesson.
+
+That is how a gap becomes invisible: a topic listed as covered because a neighbouring item mentions
+it gives no later reader any reason to look again. Nine items now teach it, and the coverage lines
+were rewritten to describe **what a lesson teaches** rather than what the corpus has read.
 
 ## Item model
 
@@ -99,14 +139,14 @@ images exist in the assets folder, only `.glb` models. The label names come from
 
 ## Every lesson opens with a visual
 
-No lesson is a wall of prose. All 110 items resolve to a visual, and the resolver never invents one:
+No lesson is a wall of prose. All 127 items resolve to a visual, and the resolver never invents one:
 
 | Kind | Items | What it is |
 | --- | --- | --- |
 | **model** | 58 | The real named meshes for the structure being taught. The studio canvas is *moved into* the lesson card and focused on those meshes — still rotatable, still tappable, with a readout naming whatever you tap. One WebGL context, relocated rather than duplicated. |
 | **figure** | 16 | A published Wikimedia/OpenStax/Gray's image (`figures.js`), rendered through the schematic/labelled path when a figure exists for the id. |
 | **schematic** | 16 | A hand-authored SVG or HTML layout, for what no mesh or photograph can show — a feedback loop, the EM spectrum, a decision table. |
-| **generated** | 18 | Drawn from the item's own sourced data — a sequence item's ordered steps become a flow, a matching item's pairs become a grid. A change of form, not of content. |
+| **generated** | 35 | Drawn from the item's own sourced data — a sequence item's ordered steps become a flow, a matching item's pairs become a grid. A change of form, not of content. |
 | **labelled** | 2 | An app-authored labelling diagram from `DIAGRAMS` — the vertebra and the heart — used by the two `diagram` items. |
 
 Every model spec was checked against the actual GLB name index: **all resolve, with no dead mesh
@@ -584,7 +624,7 @@ identification and laterality questions each state a non-3D route to the answer 
 `validateCorpus()` and `validateApplications()` run on every open of the coverage report and check
 that every question has a resolvable correct answer and an explanation, every item has a teaching
 explanation and at least one practice question, and every item carries a source reference. Current
-state: **110 items, 507 questions, 82 source files registered, 0 validation failures.**
+state: **127 items, 589 questions, 85 source files registered, 0 validation failures.**
 
 ## Which structure names you are asked to know
 
