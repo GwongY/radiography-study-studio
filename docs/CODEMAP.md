@@ -44,8 +44,8 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `study-data.js` | 117 | Radiography Study Studio — study data layer. |  |
 | `sw.js` | 290 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
-| `term-gloss.js` | 781 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
-| `term-notes.js` | 313 | Term notes — say it, then mean it. |  |
+| `term-gloss.js` | 783 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
+| `term-notes.js` | 315 | Term notes — say it, then mean it. |  |
 | `visual-data.js` | 417 | visual-data.js — a visual for every study item. |  |
 | `wordparts.js` | 915 | Word parts — the medical vocabulary broken into the pieces it is built from. |  |
 

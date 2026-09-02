@@ -21,8 +21,8 @@ import { schematic } from '../schematics.js?v=2';
 import { figureFor } from '../figures.js?v=2';
 import { layoutFor } from '../layouts.js?v=1';
 import { decompose, readingOf, partOf } from '../wordparts.js?v=3';
-import { termNote } from '../term-notes.js?v=4';
-import { termGloss } from '../term-gloss.js?v=3';
+import { termNote } from '../term-notes.js?v=5';
+import { termGloss } from '../term-gloss.js?v=4';
 import { ui } from './state.js';
 
 export const $$ = (id) => document.getElementById(id);
