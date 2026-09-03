@@ -291,7 +291,7 @@ export const HSS_OSTEOLOGY = [
       'The counts are fixed and are the actual exam content: 7 cervical, 12 thoracic, 5 lumbar, then the fused sacrum (S1–S5) and coccyx (Co1–Co4). Guessing a count loses more marks than misplacing a name.',
     ],
     selfCheck: 'From a blank page: the five regions superior to inferior with their counts, which two curvatures are secondary and which way each group is concave, and the infant C-shaped spine reasoning.',
-    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p15 "Vertebral column"; L1 p16 "Curvatures"' }, { ref: 'hss.revans', location: 'Module 0, Fill-in-blanks' }],
+    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p15 "Vertebral column"; L1 p16 "Curvatures"' }, { ref: 'hss.l1.overview', location: 'p13 "(S1-S5 fused)" sacrum, coccyx Co1–Co4 fused; p14 primary curvatures concave anteriorly and "developed during embryonic stage", secondary concave posteriorly and "developed after birth"' }, { ref: 'hss.revans', location: 'Module 0, Fill-in-blanks' }],
   },
   {
     id: 'hss2011-osteo-c1-c2',
@@ -340,7 +340,7 @@ export const HSS_OSTEOLOGY = [
       'Dens and odontoid process are one peg under two names — Latin tooth and Greek tooth. The fill-in-blank accepts either, but recognising them as the same structure is what stops the two names from reading like two landmarks.',
     ],
     selfCheck: 'From a blank page: which joint nods and which shakes with the bones of each named, what the transverse ligament holds, and the can-nod-cannot-shake patient reasoning.',
-    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p28–29 cervical vertebrae, atlanto-axial joint' }, { ref: 'hss.4.2', location: 'Head and neck — cervical spine features' }, { ref: 'hss.revans', location: 'Module 0 and Module 4.2 answers' }],
+    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p28–29 cervical vertebrae, atlanto-axial joint' }, { ref: 'hss.l1.overview', location: 'p27 "The atlanto-occipital joint allows flexion and extension" while the median atlanto-axial joint allows rotation of the head; p26 the vertebral arteries pass through the transverse foramina of the cervical vertebrae' }, { ref: 'hss.4.2', location: 'Head and neck — cervical spine features' }, { ref: 'hss.revans', location: 'Module 0 and Module 4.2 answers' }],
   },
   {
     id: 'hss2011-osteo-skull-sutures',
@@ -503,7 +503,7 @@ export const HSS_OSTEOLOGY = [
       'Trapezium and trapezoid are distinguished by the thumb, not by shape: trapeziuM sits under the thuMb, trapezoid next to it.',
     ],
     selfCheck: 'From a blank page: both carpal rows in order, which bones form the radiocarpal joint, the base-of-thumb fall scenario answered with row and side, and the trapezium-versus-trapezoid M-for-thuMb check.',
-    sourceRefs: [{ ref: 'hss.4.3', location: 'Slides "Radius and Ulna" (Fig. 8-5b), "Elbow Joint" (Fig. 8-4c), "Carpal Bones"' }, { ref: 'hss.m0.1718', location: 'L1 p45 right wrist (radiocarpal) joint; L1 p47 joints of thumb and fingers' }, { ref: 'hss.revans', location: 'Module 4.3 answers' }],
+    sourceRefs: [{ ref: 'hss.4.3', location: 'Slides "Radius and Ulna" (Fig. 8-5b), "Elbow Joint" (Fig. 8-4c), "Carpal Bones"' }, { ref: 'hss.m0.1718', location: 'L1 p45 right wrist (radiocarpal) joint; L1 p47 joints of thumb and fingers' }, { ref: 'hss.l1.overview', location: 'p44 "Carpal bones (8 pieces)" — proximal row scaphoid, lunate, triquetrum, pisiform; distal row trapezium, trapezoid, capitate, hamate' }, { ref: 'hss.revans', location: 'Module 4.3 answers' }],
   },
   {
     id: 'hss2011-osteo-pelvic-girdle',

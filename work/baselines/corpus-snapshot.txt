@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  5ca17c91159e6470    803418  ITEM_BY_ID  Map[127]
+  9e8743b1abd3baf4    804769  ITEM_BY_ID  Map[127]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   c529371f74fc1d2a      4250  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -23,14 +23,14 @@
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   57b60f7998459a29     20933  STRUCTURE_SETS  object[13]
-  98c81fbdddf70757    799744  STUDY_ITEMS  array[127]
+  071f8d8a9ea63f48    801095  STUDY_ITEMS  array[127]
   732916ea01d90fc1      1165  STUDY_MODES  array[9]
   ff5da1efc5d0872f      3411  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  977f87f7d1ca8dc4    851603  default  object[7]
+  7cab0119721e9d11    852954  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -57,7 +57,7 @@
   bb157d6583e754f9      2211  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  2d70fa0f2b34e1c1  WHOLE SURFACE
+  51d37556f0053479  WHOLE SURFACE
 
 — every study item, by id — 127 items —
   2d29339c231f634a  abct2326-acquired-immunity
@@ -129,11 +129,11 @@
   ca255ecc70d81280  hss2011-joints-synovial-structure
   1484e4e65a24e8cb  hss2011-joints-synovial-types
   3a8e0d4ad5d25943  hss2011-m1-heart-wall-valves
-  6fecea20b0bec53d  hss2011-m1-lungs-airway
+  6e49509d6d713ecc  hss2011-m1-lungs-airway
   ce5dd76a2cdd9676  hss2011-m2-brain-regions
   6cbb9c9d4ba552a7  hss2011-m2-cns-basics
-  75c99bb3027e8f1c  hss2011-m3-digestive
-  b49619a70ced0bc8  hss2011-m3-urogenital-pelvis
+  99cf89aba971812c  hss2011-m3-digestive
+  8d98e535bf98c5ac  hss2011-m3-urogenital-pelvis
   165c3a03d63b1477  hss2011-movement-elbowFlexion
   da066969c9f944bd  hss2011-movement-shoulderAbduction
   b74e2cc53b6d6cba  hss2011-movement-supination
@@ -148,8 +148,8 @@
   f70cd63a09a081a9  hss2011-osteo-axial-appendicular
   2665925c63208f89  hss2011-osteo-bone-functions
   9f8ba7a6757158d1  hss2011-osteo-bone-shapes
-  4ce9fa9d3d1d0208  hss2011-osteo-c1-c2
-  b6bfa3bf7ba4f73e  hss2011-osteo-forearm-carpals
+  946be04040fb633f  hss2011-osteo-c1-c2
+  ea5fcc57e38a3f0b  hss2011-osteo-forearm-carpals
   a038bd9e79720c16  hss2011-osteo-leg-tarsals
   c1d7370a50a19183  hss2011-osteo-long-bone-structure
   d1f2d32ac60c79b5  hss2011-osteo-pectoral-girdle
@@ -157,7 +157,7 @@
   e6d8cbc299ee1c4a  hss2011-osteo-ribs-sternum
   8084a7ea089aa4f4  hss2011-osteo-skull-sutures
   5b35f59f61e6195c  hss2011-osteo-vertebra-parts
-  c35aa45c8c802036  hss2011-osteo-vertebral-column
+  3643386d0091242c  hss2011-osteo-vertebral-column
   1c5051427751bae0  hss2011-pastpaper-joints-articulations
   cd329464ddeef96b  hss2011-structures-airwayTree
   785abd81a2c84773  hss2011-structures-brainAndCsf
