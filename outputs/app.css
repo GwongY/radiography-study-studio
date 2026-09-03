@@ -10,7 +10,19 @@
      */
     *{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:'Instrument Sans',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;touch-action:manipulation}
     button,input,select,textarea,a,label,summary,[role=button],[tabindex]{touch-action:manipulation}
-    body{padding:0;overflow:hidden}.shell{height:100%;display:flex;flex-direction:column;overflow:hidden}
+    /*
+     * 100dvh, with 100% left in front of it as the fallback.
+     *
+     * height:100% resolves against the viewport iOS Safari had when the page
+     * laid out, and that viewport CHANGES: the address bar collapses, the
+     * keyboard opens, the home-indicator area comes and goes. When it grows,
+     * a shell fixed at the old height stops short of the bottom of the screen
+     * and the body background shows through underneath -- a black band under
+     * the tab bar, with the bar's own safe-area padding above it, which is the
+     * "buttons, blank, black" the phone was showing. dvh tracks the change.
+     * Old browsers ignore the second declaration and keep the first.
+     */
+    body{padding:0;overflow:hidden}.shell{height:100%;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
     .editorial{font-family:Newsreader,ui-serif,Georgia,'Times New Roman',serif;letter-spacing:-.02em}
     button,input{font:inherit}button{color:inherit;-webkit-tap-highlight-color:transparent}.topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:24px}.eyebrow,.mono{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase}.eyebrow{color:var(--teal);font-weight:700}.title{font-size:clamp(28px,4vw,48px);line-height:1.02;letter-spacing:-.045em;margin:7px 0 9px;max-width:760px}.sub{max-width:720px;color:var(--muted);font-size:15px;line-height:1.55}.top-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.ghost,.primary,.icon-btn,.mode-btn,.region-btn,.answer{border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:10px;padding:10px 13px;cursor:pointer;transition:.18s ease}@media(hover:hover){.ghost:hover,.icon-btn:hover,.mode-btn:hover,.region-btn:hover,.answer:hover{border-color:var(--teal);transform:translateY(-1px)}}.primary{background:var(--teal);border-color:var(--teal);color:#071316;font-weight:800}@media(hover:hover){.primary:hover{filter:brightness(1.08)}}
     .modebar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:13px}.mode-btn{font-size:13px;color:var(--muted);padding:10px 15px}.mode-btn.active{color:var(--teal);border-color:var(--teal);background:rgba(114,227,207,.1)}.mode-btn .level{font-size:10px;margin-left:5px;color:#6e8089}
@@ -67,6 +79,7 @@
 .stagecard{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:20px clamp(16px,2.2vw,26px);box-shadow:var(--shadow)}
 .lesson h2{margin:6px 0 12px;font-size:clamp(20px,2.6vw,29px);line-height:1.14;letter-spacing:-.03em}
 .lesson{max-width:880px;margin:0 auto}.lesson .body{font-size:15px;line-height:1.68;color:#dfe6ea}
+
 .facts{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:7px}
 .facts li{position:relative;padding-left:20px;font-size:14px;line-height:1.55;color:#d5dee3}
 .facts li::before{content:'';position:absolute;left:5px;top:9px;width:5px;height:5px;border-radius:99px;background:var(--teal)}
@@ -280,8 +293,10 @@
 .xray-img{width:100%;max-height:42vh;object-fit:contain;border-radius:12px;background:#000;border:1px solid var(--line);margin-bottom:10px;display:block}
 
 /* ---------- IA redesign: nav shell ---------- */
-.app-shell{flex:1;min-height:0;display:flex;flex-direction:column}
-.app-topbar{flex:none;display:flex;align-items:center;justify-content:space-between;padding:calc(9px + env(safe-area-inset-top)) 18px 7px;font:600 12px ui-monospace,Menlo,monospace;color:var(--muted)}
+/* The notch inset used to live on .app-topbar, which is gone -- see the note
+   in the HTML. It belongs to the shell now, so the header and the nav rail
+   both start below the status bar in standalone mode. */
+.app-shell{flex:1;min-height:0;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
 .app-body{flex:1;min-height:0;display:flex}
 .navrail{flex:none;width:86px;border-right:1px solid var(--line);background:rgba(8,16,22,.6);padding:14px 10px;display:flex;flex-direction:column;gap:6px}
 .navrail .navlabel{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);padding:0 8px 10px}
@@ -297,6 +312,19 @@
 .navhead #viewerTabs.hidden{display:none}
 /* On the viewer every header pixel is a pixel off the model, so the header
    tightens and the kicker -- which only restates the title -- goes. */
+/*
+ * The header gets out of the way while you read.
+ *
+ * Only on a screen small enough for a 74px header to be worth reclaiming --
+ * on a desktop it costs nothing and a moving header is just movement. The JS
+ * sets --tuck to the header's own measured height before it adds the class,
+ * so this never has to guess and never leaves a sliver behind.
+ */
+.navhead{transition:margin-top .2s ease,opacity .15s ease}
+@media(max-width:1100px){
+  .navhead.tucked{margin-top:calc(0px - var(--tuck,74px));opacity:0;pointer-events:none}
+}
+@media(prefers-reduced-motion:reduce){.navhead{transition:none}}
 .navhead.compact{padding:9px 16px;gap:10px}
 .navhead.compact .kicker{display:none}
 .navhead.compact .htitle{font-size:19px;margin:0}
@@ -328,8 +356,13 @@
   .navrail{display:none}
   .navmain{width:100%}
   .app-body{flex-direction:column}
-  .bottomtab{display:flex;flex:none;border-top:1px solid var(--line);background:rgba(8,16,22,.94);padding:6px 4px 22px;padding-bottom:max(22px, env(safe-area-inset-bottom))}
-  .bottomtab button{flex:1;min-height:52px;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);font:600 10.5px 'Instrument Sans',sans-serif}
+  /* The 22px floor under the buttons was there for phones with a home
+     indicator, which already get 34px from the safe-area inset -- so on those
+     it did nothing, and on a phone without one (SE, and any Android) it was
+     22px of dead bar. 8px is the gap the buttons need; the inset supplies the
+     rest where there is a rest to supply. */
+  .bottomtab{display:flex;flex:none;border-top:1px solid var(--line);background:rgba(8,16,22,.94);padding:4px 4px 8px;padding-bottom:max(8px, env(safe-area-inset-bottom))}
+  .bottomtab button{flex:1;min-height:48px;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);font:600 10.5px 'Instrument Sans',sans-serif}
   .bottomtab button .ic{font:17px ui-monospace,Menlo,monospace;line-height:1}
   .bottomtab button.active{color:var(--teal)}
   .navcontent{padding:14px 14px 20px}
@@ -771,10 +804,11 @@
  *
  * The manifest is standalone and the meta is apple-mobile-web-app-capable with
  * a BLACK-TRANSLUCENT status bar, which means iPadOS draws the clock, VPN badge
- * and battery ON TOP of the page rather than above it. .app-topbar already pads
- * itself past that inset. #sessionView does not: it is position:fixed;inset:0
- * and its .navhead starts at y=0, so the close and search buttons sat directly
- * under the status bar and could be neither read nor reliably tapped.
+ * and battery ON TOP of the page rather than above it. .app-shell already pads
+ * itself past that inset (it inherited the job from .app-topbar, which is
+ * gone). #sessionView does not: it is position:fixed;inset:0 and its .navhead
+ * starts at y=0, so the close and search buttons sat directly under the status
+ * bar and could be neither read nor reliably tapped.
  *
  * Every fixed-position surface has to pay the inset itself; being inside a
  * padded ancestor does not help when you are taken out of flow.
@@ -999,6 +1033,40 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 @media(min-width:1400px){
   .sessioncol{max-width:1000px}
   .lesson{max-width:860px}
+}
+/*
+ * ...and further than that, because the pass above was still too cautious.
+ *
+ * Two caps, and it took measuring to see which one was biting. On a 1024pt
+ * iPad the lesson came out 820px wide in a 1024px pane, and .lesson's own
+ * 820px was NOT the limiter -- .sessioncol's 820px from the coarse-pointer
+ * rule above was. Raising .lesson alone, the obvious edit, would have changed
+ * nothing at all. Measured at 1024: the reading column goes 820 -> 953 and
+ * the lesson inside it 774 -> 907, a sixth wider, all of it going to the
+ * figures and the tables.
+ *
+ * PORTRAIT gains nothing, and that is worth writing down rather than
+ * implying otherwise: at 768 the pane's own padding and scrollbar already
+ * bring the column to 709px, under the 720px default, so the cap was never
+ * reached. The rule is here so the intent is stated in one place -- on a
+ * tablet the reading column is bounded by the screen, not by a number chosen
+ * for a laptop -- and so a later change to that padding cannot quietly
+ * reintroduce the cap.
+ *
+ * The backstop is the pane: #sessionView .navcontent is capped at
+ * --content-max and padded, so "no cap" here still means the width of the
+ * screen less its margins, and the figures and tables get all of it.
+ *
+ * These must sit AFTER the min-width:1024px block. Equal specificity, so
+ * source order decides, and a media query does not change that.
+ */
+@media(min-width:701px) and (max-width:1023px){
+  .sessioncol{max-width:none}
+  .lesson{max-width:none}
+}
+@media(min-width:1024px) and (max-width:1366px) and (pointer:coarse){
+  .sessioncol{max-width:none}
+  .lesson{max-width:none}
 }
 /* iPad portrait: 768 wide, so the cap is never reached — the win there is
    the figure height and the padding, not the column. */

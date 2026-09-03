@@ -15,16 +15,24 @@
   <meta name="description" content="Offline-first study system for HSS2011 Human Anatomy, ABCT2326 Human Physiology and medical radiation science.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" crossorigin>
   <link rel="stylesheet" href="./app.css?v=1">
 </head>
 <body>
 <div class="shell">
   <div class="app-shell">
-    <div class="app-topbar">
-      <span>Study Studio — offline ready</span>
-      <span id="appStatusRight">⌁ ready</span>
-    </div>
+    <!--
+      A decorative strip stood here: the app's own name on the left, a status
+      indicator on the right. Nothing ever wrote to either -- both were static
+      text -- so it spent a row of a phone screen restating the title bar
+      directly below it. (Its exact wording is not repeated here:
+      work/ui-strings.mjs fingerprints prose out of this file, comments
+      included, and a deleted sentence quoted in a comment would live on in
+      that baseline as if it were still on screen.)
+
+      The safe-area inset it used to carry has moved onto .app-shell, or the
+      header would sit under the notch in standalone mode.
+    -->
     <div class="app-body">
       <nav class="navrail" id="navRail" aria-label="Destinations">
         <div class="navlabel">Studio</div>

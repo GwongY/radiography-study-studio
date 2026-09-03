@@ -53,6 +53,73 @@ import { syncTools } from './tools-and-capture.js';
     o.userData._bodyC=c;
     return c;
   }
+  /*
+   * The back is not a box, and this is the function that admits it.
+   *
+   * Every other region is the space its own bones occupy, and an axis-aligned
+   * box round them is a fair answer. The back is a HALF-SPACE: everything
+   * behind the vertebral column, from the base of the skull to the coccyx. A
+   * box cannot say "behind", and a single flat depth cannot either, because
+   * the column is not straight -- measured on this model it travels about a
+   * tenth of the body's height forward and back between the cervical lordosis
+   * and the sacrum, so one plane drawn at the lumbar depth cuts the neck in
+   * half and one drawn at the cervical depth puts the kidneys in the back.
+   *
+   * So the boundary is measured band by band from the column itself. Each
+   * vertebra (and the sacrum, and the coccyx) contributes its own body-frame
+   * box; the front of the back, at a given height, is the frontmost of the
+   * vertebrae that reach that height. Between and beyond them the nearest
+   * vertebra answers, which is what keeps the neck and the coccyx from
+   * falling off the ends of the profile.
+   *
+   * +z is ANTERIOR -- see the axis note in docs/TRAPS.md -- so "behind" is
+   * z <= front(y), with no padding: a region called Back that let the lungs
+   * in would be worse than no region at all.
+   *
+   * What this rule gets WRONG, measured and left alone on purpose: six deep
+   * neck muscles. The prevertebral three (longus colli, longus capitis,
+   * rectus anterior capitis), the two posterior scalenes and the posterior
+   * crico-arytenoid all sit behind the front of the cervical column, so the
+   * rule admits them, while a textbook files them under the neck. The
+   * geometry is not in dispute -- they really are posterior to that line --
+   * it is that the back is a chapter heading as well as a space, and in the
+   * neck the two do not coincide. Naming those muscles in the app to force
+   * the issue would be a claim about the course with nothing behind it; the
+   * rule stays, and work/region-probe.mjs asserts the exception list so a
+   * change to the profile is reported rather than discovered on screen.
+   *
+   * A vertex-fraction test was tried instead of the centroid ("is most of
+   * this mesh behind the line") and classified the SAME six the same way,
+   * for twice the work -- the centroid is not the problem, so it stays.
+   */
+  const COLUMN=/\bvertebra|\batlas\b|\baxis\b|\bsacrum|\bcoccyx/;
+  function columnFront(inv){
+    if(state._colFront&&state._colFront.n===state.fullMeshes.length)return state._colFront.f;
+    const THREE=state.THREE;
+    if(!THREE||!inv)return null;
+    const bands=[];
+    state.fullMeshes.forEach(o=>{
+      if(!COLUMN.test(String(o.userData.label||'').replace(/_/g,' ').toLowerCase()))return;
+      if(!o.geometry)return;
+      if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();
+      const bb=o.geometry.boundingBox;if(!bb)return;
+      const m4=new THREE.Matrix4().multiplyMatrices(inv,o.matrixWorld),v=new THREE.Vector3(),b=new THREE.Box3();
+      for(let k=0;k<8;k++){v.set(k&1?bb.max.x:bb.min.x,k&2?bb.max.y:bb.min.y,k&4?bb.max.z:bb.min.z).applyMatrix4(m4);b.expandByPoint(v)}
+      bands.push({y0:b.min.y,y1:b.max.y,z:b.max.z});
+    });
+    if(!bands.length)return null;
+    const f=(y)=>{
+      let hit=null,near=null,nearD=Infinity;
+      for(const s of bands){
+        if(y>=s.y0&&y<=s.y1){ if(hit==null||s.z>hit)hit=s.z; continue }
+        const d=y<s.y0?s.y0-y:y-s.y1;
+        if(d<nearD){nearD=d;near=s.z}
+      }
+      return hit!=null?hit:near;
+    };
+    state._colFront={f,n:state.fullMeshes.length};
+    return f;
+  }
   function regionBoxes(region){
     const THREE=state.THREE;
     if(!THREE||region==='all')return null;
@@ -143,6 +210,8 @@ import { syncTools } from './tools-and-capture.js';
      */
     {
       const boxes=regionBoxes(state.region),inv=boxes?bodyInverse():null;
+      /* 4. Depth, for the one region that needs it -- see columnFront. */
+      const front=state.region==='back'&&inv?columnFront(inv):null;
       Object.entries(state.extraModels||{}).forEach(([k,mdl])=>{
         if(state.focus&&state.focus.key===k)return;   /* focus owns this layer */
         mdl.meshes.forEach(o=>{
@@ -152,7 +221,9 @@ import { syncTools } from './tools-and-capture.js';
           if(!meshOn(o)){o.visible=false;return}
           if(!boxes){o.visible=true;return}
           const c=bodyCentreOf(o,inv);
-          o.visible=!!c&&boxes.some(b=>b.containsPoint(c));
+          if(!c||!boxes.some(b=>b.containsPoint(c))){o.visible=false;return}
+          if(front){const z=front(c.y);o.visible=z!=null&&c.z<=z;return}
+          o.visible=true;
         });
       });
     }
@@ -279,6 +350,16 @@ import { syncTools } from './tools-and-capture.js';
   const REGION_ALSO=[
     [/\bsacrum|\bcoccyx/,'pelvis'],
     [/\bvertebra l[1-5]|\bsacrum|\bhip bone|\bilium|\bischium|\bpubis|\b(seventh|eighth|ninth|tenth|eleventh|twelfth) rib|costal cartilage of (seventh|eighth|ninth|tenth) rib/,'abdomen'],
+    /*
+     * The bones of the back: the whole column, and the two scapulae that ride
+     * on it. The RIBS are deliberately not here, and they are the interesting
+     * exclusion -- their posterior thirds genuinely are the back, but a rib is
+     * one mesh and most of it is not, so including them would both draw a
+     * whole ribcage under a chip called Back and push the measured box forward
+     * to the sternum. The column and the scapulae give the box the width and
+     * depth the back actually has; the depth limit below does the rest.
+     */
+    [/\bvertebra|\batlas\b|\baxis\b|\bsacrum|\bcoccyx|\bscapula/,'back'],
   ];
   function importedRegions(raw,mapped){
     const primary=importedRegion(raw,mapped);

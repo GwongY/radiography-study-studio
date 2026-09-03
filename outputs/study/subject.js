@@ -7,7 +7,7 @@ import { $$, FLOW_CLASSES, ITEM_TYPES, LAYER_CLASSES, MESH_INDEX, RATES, SOURCE_
 import { adjScore, itemAttempted, itemScore, read } from './storage-versioned-keys.js';
 import { goTo, setActiveNav } from './navigation-five-destinations.js';
 import { leaveProjection } from './what-is-under.js';
-import { showView, toast } from './small-ui-helpers.js';
+import { scrollViewTop, showView, toast } from './small-ui-helpers.js';
 import { startSession } from './session-engine.js';
 import { studyItemWithin } from './global-search-one.js';
 
@@ -70,7 +70,9 @@ export function renderLearn() {
       <span class="topic-bar"><span style="width:${topicPct(t.items)}%"></span></span>
       <span class="small">${t.items.length} item${t.items.length === 1 ? '' : 's'}${topicHasViewer(t.items) ? ' \u00b7 3D studio' : ''}</span>
     </button>`).join('') || '<div class="empty">No topics match this filter yet.</div>';
-  $$('topicGrid').querySelectorAll('[data-topic]').forEach((b) => { b.onclick = () => { ui.learnTopic = b.dataset.topic; ui.learnDrill = true; renderLearn(); }; });
+  /* Drilling into a topic is a move, not a redraw: same view, new page, and it
+     wants the top. showView no longer scrolls on a re-render, so this asks. */
+  $$('topicGrid').querySelectorAll('[data-topic]').forEach((b) => { b.onclick = () => { ui.learnTopic = b.dataset.topic; ui.learnDrill = true; renderLearn(); scrollViewTop(); }; });
 
   const T = visible.find((t) => t.unit.id === ui.learnTopic);
   $$('topicDetailPane').innerHTML = !T ? '' : `

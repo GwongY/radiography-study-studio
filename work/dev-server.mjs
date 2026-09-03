@@ -32,7 +32,20 @@ createServer(async (req, res) => {
     if (st && st.isDirectory()) { res.writeHead(301, { Location: path + '/' }); res.end(); return; }
     if (!st) { res.writeHead(404); res.end('404'); return; }
     const body = await readFile(file);
-    res.writeHead(200, { 'Content-Type': TYPES[extname(file).toLowerCase()] || 'application/octet-stream' });
+    /*
+     * no-store, because this server exists to be checked against.
+     *
+     * It sent no cache headers at all, so the browser cached by heuristic:
+     * modules imported without a ?v= query kept loading in their old form
+     * after an edit, and a fix would appear not to work -- or worse, a broken
+     * one would appear to. docs/TRAPS.md already records that failure against
+     * the service worker; this was the same trap one layer down, and it cost a
+     * wrong diagnosis to find. Nothing here is served to a real user.
+     */
+    res.writeHead(200, {
+      'Content-Type': TYPES[extname(file).toLowerCase()] || 'application/octet-stream',
+      'Cache-Control': 'no-store, must-revalidate',
+    });
     res.end(body);
   } catch (e) {
     res.writeHead(500); res.end(String(e));

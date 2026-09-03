@@ -33,6 +33,19 @@ export const REGIONS = [
      Left in, it would have stood beside 'Pelvis' as a second defensible answer
      to "where is the hip bone", and been marked wrong. */
   { id: 'abdomen', label: 'Abdomen & pelvis', bones: false },
+  /* The second region that is a space rather than a set of bones, and the only
+     one here the course does not name: HSS2011 has a Regional Anatomy module
+     for the thorax and one for the abdomen and pelvis, and none for the back.
+     It is here because a spine film asks a question none of the other seven
+     could answer: Vertebral column shows the bones and nothing that lies on
+     them, and no filter showed the muscles that a lumbar or cervical
+     projection is actually looking through.
+     Defined, precisely, in studio/region-boxes-how.js: everything posterior to
+     the front of the vertebral column at its own height. That boundary is
+     measured from the column itself, band by band, because the column travels
+     several centimetres forward and back between the neck and the sacrum and
+     one flat depth would cut the neck in the wrong place. */
+  { id: 'back', label: 'Back', bones: false },
 ];
 
 export const ANATOMY_DATABASE = [

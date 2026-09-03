@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 416 lines
+## `outputs/radiography-study-studio.html` — 424 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–391 | markup — no banners, grep here |
-| 392–392 | importmap |
-| 393–393 | loads studio.js |
-| 394–394 | loads study.js |
-| 395–414 | classic script · preamble |
-| 415–416 | markup — no banners, grep here |
+| 1–399 | markup — no banners, grep here |
+| 400–400 | importmap |
+| 401–401 | loads studio.js |
+| 402–402 | loads study.js |
+| 403–422 | classic script · preamble |
+| 423–424 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1100 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss)
+- `outputs/app.css` — 1168 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs)
 - `outputs/studio.js` — 26 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 45 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -31,7 +31,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 | File | Lines | What it holds | Traps |
 | --- | --- | --- | --- |
-| `anatomy-data.js` | 161 | Osteology Studio — anatomy data layer |  |
+| `anatomy-data.js` | 174 | Osteology Studio — anatomy data layer | [The back is a half-space](TRAPS.md#the-back-is-a-half-space--outputsstudioregion-boxes-howjs-outputsanatomy-datajs) |
 | `bodymap.js` | 319 | Body map — search extras and spatial concepts for the 3D viewer. |  |
 | `cavity-build.js` | 732 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
 | `cavity-geom.js` | 1148 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
@@ -43,7 +43,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `schedule.js` | 562 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 117 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 296 | Radiography Study Studio — service worker |  |
+| `sw.js` | 369 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 223 | Body systems — which named system a mesh belongs to, inside its GLB layer | [Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 991 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
@@ -119,7 +119,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
 | `imports.js` | 57 | Block 0 has its own import scope -- block 1's copy is not visible here. |
 | `live-physiology.js` | 1060 | Live physiology |
-| `region-boxes-how.js` | 362 | Region boxes — how the region filter reaches the six soft-tissue layers |
+| `region-boxes-how.js` | 443 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 237 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 466 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
 | `tools-and-capture.js` | 654 | Tools — section cuts, surface ink, pinned labels, capture. |
@@ -129,7 +129,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 | File | Lines | What it holds |
 | --- | --- | --- |
-| `boot.js` | 49 | Boot |
+| `boot.js` | 51 | Boot |
 | `course-timetable.js` | 397 | Course — the syllabus and the timetable, with attendance |
 | `coverage-report.js` | 54 | Coverage report |
 | `dialog-behaviour-applied.js` | 107 | Dialog behaviour, applied to all seven at once |
@@ -148,12 +148,12 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `review-mistakes-due.js` | 58 | Review -- mistakes, due items, and the mastery map that replaced the |
 | `search-viewer-open.js` | 44 | Search -> viewer: open the model, select the part, auto-uncover, and |
 | `session-engine.js` | 230 | Session engine |
-| `small-ui-helpers.js` | 54 | Small UI helpers |
+| `small-ui-helpers.js` | 128 | Small UI helpers |
 | `source-dialog.js` | 57 | Source dialog |
 | `spatial-overlay-controls.js` | 279 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 35 | The study system's mutable UI state. |
 | `storage-versioned-keys.js` | 119 | Storage — versioned keys, one-time migration from the osteology app |
-| `subject.js` | 284 | Subject |
+| `subject.js` | 286 | Subject |
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 283 | Viewer tools — annotate, cut, layer depth, capture |
 | `what-is-under.js` | 170 | What is under the tap |
@@ -206,7 +206,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/data-index-check.mjs` | Data index check — is docs/DATA-INDEX.md what work/data-index.mjs would |  |
 | `work/data-index.mjs` | Data index generator — writes docs/DATA-INDEX.md. |  |
 | `work/dense-lessons.mjs` | Task #9 candidate scan — list the densest explanations (nested clauses, |  |
-| `work/dev-server.mjs` | Minimal static server for outputs/ — same role as `python -m http.server 8420` |  |
+| `work/dev-server.mjs` | Minimal static server for outputs/ — same role as `python -m http.server 8420` | [The dev server had no cache headers](TRAPS.md#the-dev-server-had-no-cache-headers--workdev-servermjs) |
 | `work/dump-plain-candidates.mjs` |  |  |
 | `work/fetch-figure.mjs` | fetch-figure.mjs — search Wikimedia Commons, and download a figure ONLY if |  |
 | `work/figure-key-check.mjs` | Figure key check — every published figure and plate a lesson shows carries an |  |
@@ -227,7 +227,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/syntax-check.mjs` | Syntax-checks every inline <script type="module"> block in the app HTML, plus |  |
 | `work/system-check.mjs` | Does every mesh in a split layer land in a system? |  |
 | `work/toplevel.mjs` | Which names does a module declare at TOP level? Ask Node, not the indentation. |  |
-| `work/ui-strings.mjs` | UI strings — every literal the app can put on screen, as a sorted fingerprint. |  |
+| `work/ui-strings.mjs` | UI strings — every literal the app can put on screen, as a sorted fingerprint. | [The UI-string baseline reads comments too](TRAPS.md#the-ui-string-baseline-reads-comments-too--workui-stringsmjs) |
 | `work/unread-manifest.mjs` | Write a work list of everything the corpus has not read, for handing to |  |
 | `work/verify-modules.mjs` | Task #8 verification — module mapping + corpus integrity. |  |
 | `work/verify-notes.mjs` | Check notes that came back from another reader, before any of it becomes a |  |

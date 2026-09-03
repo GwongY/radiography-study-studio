@@ -605,3 +605,92 @@ shapes** — in "The region grid and classifiers" below.
 - **Measured, filtering to Abdomen & pelvis with the organ layer on**: 22 of
   the 23 gut meshes are in (the oesophagus is the one out, correctly), 2 of 35
   airway (the lung bases, below the xiphoid), 0 of the head structures.
+
+### The back is a half-space — `outputs/studio/region-boxes-how.js`, `outputs/anatomy-data.js`
+
+Every other region filter is a box around that region's own bones. The back is
+"everything behind the vertebral column", and three things follow that are easy
+to get wrong.
+
+- **A flat depth will not do.** Measured on this model, the front of the column
+  sweeps `z −0.067 .. 0.019` between the cervical lordosis and the sacrum —
+  **34.4% of the skeleton's whole front-to-back depth**. A single plane drawn
+  at the lumbar depth cuts the neck in half; one drawn at the cervical depth
+  puts the kidneys in the back. `columnFront` therefore measures band by band,
+  one band per vertebra, and `work/region-probe.mjs` fails if that travel ever
+  drops below 8% — at which point the honest move is to DELETE the function,
+  not to keep it out of habit.
+- **The ribs are deliberately not back bones.** Their posterior thirds are, but
+  a rib is one mesh and most of it is not, so including them would draw a whole
+  ribcage under a chip called Back *and* push the measured box forward to the
+  sternum. Column + scapulae only: 28 meshes, asserted.
+- **Six deep neck muscles come along, and that is not a bug to fix in code.**
+  The prevertebral three, both posterior scalenes and the posterior
+  crico-arytenoid genuinely lie behind the front of the cervical column, so the
+  rule admits them while a textbook files them under the neck. A vertex-fraction
+  test ("is most of this mesh behind the line") was tried instead of the
+  centroid and classified **the same six the same way** for twice the work — the
+  centroid is not the problem. Naming muscles in the app to force the issue
+  would be an unsourced claim about the course; the exception list lives in
+  `region-probe.mjs` instead, asserted, so a change to the profile is reported
+  rather than found on screen.
+
+### Phone and tablet layout — `outputs/app.css`, `outputs/study/small-ui-helpers.js`
+
+- **`height:100%` is not the iOS viewport.** It resolves against the viewport
+  Safari had at layout time, and that changes: the address bar collapses, the
+  keyboard opens, the home-indicator area comes and goes. When it grows, a
+  shell fixed at the old height stops short and the body background shows
+  through under the tab bar — the reported "buttons, then blank, then black".
+  `.shell` now carries `height:100%` followed by `height:100dvh`, the second
+  winning wherever it is understood.
+- **A `min` under a safe-area inset does nothing where it matters.** The tab
+  bar's `padding-bottom:max(22px, env(safe-area-inset-bottom))` was 34px on a
+  phone with a home indicator (the inset already covers it) and 22px of dead
+  bar on one without. The floor is 8px now.
+- **Two width caps, and the obvious one is not the limiter.** On a 1024pt iPad
+  the lesson measured 820px — set by `.sessioncol`, not by `.lesson`'s own
+  820px. Raising `.lesson` alone changes nothing. Both are raised, *after* the
+  `min-width:1024px` block: equal specificity means source order decides, and
+  wrapping a rule in a media query does not change that. Measured: column
+  820 → 953, lesson 774 → 907. iPad **portrait** gains nothing — the pane's
+  padding and scrollbar already bring it to 709px, under the 720px cap.
+- **A re-render is not a navigation.** Every render function ends by calling
+  `showView(<its own id>)` and every control ends by calling its render
+  function, so `showView`'s unconditional scroll-to-top threw the reader back
+  to the top of the Course page on every tap. It now scrolls only when the
+  destination changes; the two learn drill-downs, which are the same view with
+  new content, ask by hand with `scrollViewTop()`.
+
+### A rAF throttle latches in a tab that stops painting — `outputs/study/small-ui-helpers.js`
+
+The standard shape for a scroll handler is a `queued` flag cleared inside a
+`requestAnimationFrame` callback. **It does not survive a hidden tab.** Measured
+in a backgrounded tab: `document.hidden` true, zero frames in 800 ms — the frame
+that would clear the flag never arrives and the handler is dead for the rest of
+the page's life, leaving the header stuck wherever it was. `tuckOnRead` does its
+work synchronously; the throttled work was a subtraction and a class toggle, and
+the one layout read happens on the transition into tucked, a few times a page.
+
+Related: this is also why a browser check can *look* like it is failing when it
+is not. In a hidden pane, style recalculation and transitions do not run, so
+`getComputedStyle` returns the pre-transition value and screenshots come back
+garbled. The class toggling was correct all along; the confirmation had to come
+from a real, visible Chrome window.
+
+### The dev server had no cache headers — `work/dev-server.mjs`
+
+It sent none at all, so the browser cached by heuristic and modules imported
+without a `?v=` query kept loading in their old form after an edit. A fix then
+appears not to work — or, worse, a broken one appears to. `Cache-Control:
+no-store` now. `docs/TRAPS.md` already recorded this trap one layer up, against
+the service worker; it cost a wrong diagnosis to find it again underneath.
+
+### The UI-string baseline reads comments too — `work/ui-strings.mjs`
+
+It fingerprints quoted prose out of the HTML and the JS **including comments**.
+A deleted sentence quoted in a comment that explains the deletion lives on in
+the baseline as though it were still on screen, and a comment that quotes a
+phrase adds a string the interface cannot show. Both happened here. Write the
+comment without quoting the string; the baseline is then empty of drift, which
+is what makes a real change legible when one comes.
