@@ -30,7 +30,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v78';
+const CACHE_VERSION = 'v80';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -232,8 +232,22 @@ function isModel(url) { return url.pathname.endsWith('.glb'); }
  * Without caching them the app is not genuinely offline-first: the font FILES
  * are max-age=1y, but the stylesheet declaring the @font-face rules is only
  * max-age=1d, so studying offline more than a day after the last online visit
- * loses both typefaces. Both hosts send CORS headers, so the responses are
- * non-opaque and cacheFirst works on them unchanged.
+ * loses both typefaces.
+ *
+ * Both hosts DO send `Access-Control-Allow-Origin: *`, and this comment used
+ * to conclude from that alone that cacheFirst worked on them unchanged. It did
+ * not. A <link> carrying no `crossorigin` attribute is fetched in no-cors
+ * mode, so the response is opaque whatever the server sends: `response.ok` is
+ * false, and cacheFirst's `if (response.ok)` guard below silently declined to
+ * store it. Measured in Chrome against rss-cdn-c1: both .woff2 files were
+ * cached and the stylesheet naming them was not, so an offline reader held the
+ * typefaces on disk with no @font-face rule left to reach them by, and fell
+ * back to system fonts — the exact failure this block exists to prevent.
+ *
+ * The fix is the `crossorigin` attribute on the stylesheet <link> in
+ * radiography-study-studio.html. It makes the request CORS, the response
+ * non-opaque, and this code correct as first written. Removing that attribute
+ * silently reintroduces the bug, so the two are a pair.
  */
 function isCdn(url) {
   return url.hostname === 'cdn.jsdelivr.net'
@@ -252,16 +266,69 @@ async function cacheFirst(request, cacheName) {
 }
 
 /*
- * Network-first for the shell, so edits show up without a hard reload during
- * development, with the cache as the offline fallback.
+ * Stale-while-revalidate for the shell's subresources: answer from the cache
+ * the instant there is a copy, and refresh it behind the reader for next time.
+ *
+ * This replaced a network-first shell whose stated reason was "so edits show up
+ * without a hard reload during development". That is a development affordance,
+ * and every student was paying for it: network-first AWAITS fetch() for all 82
+ * shell entries on every warm load, and reaches the cache only from its catch.
+ * A connection that is attached but not moving — a tunnel, a full carriage,
+ * hotel wifi behind a captive portal — is the worst case precisely because
+ * nothing throws. The fetch just hangs, and the app hangs with it, while a
+ * complete copy sits in the cache it has not looked at.
+ *
+ * The cost is that an edited module now lands one load later. That is already
+ * the beat this app moves on: a new service worker only takes over on the next
+ * navigation, and it is the ?v= query plus a CACHE_VERSION bump that actually
+ * publishes a change. In development, DevTools' "Bypass for network" is the
+ * switch that used to be hard-coded here for everyone.
  */
-async function networkFirst(request, cacheName) {
+async function staleWhileRevalidate(event, request, cacheName) {
   const cache = await caches.open(cacheName);
-  try {
-    const response = await fetch(request);
+  const hit = await cache.match(request);
+  const network = fetch(request).then((response) => {
     if (response && response.ok) cache.put(request, response.clone());
     return response;
+  });
+  if (!hit) return network;
+  /* Keep the worker alive for the refresh, but never fail this response over it. */
+  event.waitUntil(network.catch(() => {}));
+  return hit;
+}
+
+/*
+ * Network-first for the navigation only, and only while the network is
+ * answering. The document is the one response worth waiting for — it is what
+ * carries a new CACHE_VERSION into play — but not worth waiting for forever.
+ * After SHELL_TIMEOUT_MS we serve the cached shell and let the fetch land in
+ * the cache behind us, so lie-fi costs a stale page rather than a dead one.
+ */
+const SHELL_TIMEOUT_MS = 3000;
+const TIMED_OUT = Symbol('timed out');
+
+async function networkFirst(event, request, cacheName) {
+  const cache = await caches.open(cacheName);
+  const network = fetch(request).then((response) => {
+    if (response && response.ok) cache.put(request, response.clone());
+    return response;
+  });
+
+  let timer;
+  const expired = new Promise((resolve) => {
+    timer = setTimeout(() => resolve(TIMED_OUT), SHELL_TIMEOUT_MS);
+  });
+
+  try {
+    const first = await Promise.race([network, expired]);
+    clearTimeout(timer);
+    if (first !== TIMED_OUT) return first;
+    /* Slow, not dead: serve the cache and let the fetch land for next time. */
+    const hit = await cache.match(request);
+    if (hit) { event.waitUntil(network.catch(() => {})); return hit; }
+    return await network;
   } catch (e) {
+    clearTimeout(timer);
     const hit = await cache.match(request);
     if (hit) return hit;
     /* A navigation with nothing cached still needs to render something. */
@@ -281,7 +348,13 @@ self.addEventListener('fetch', (event) => {
   if (isCdn(url)) { event.respondWith(cacheFirst(request, CDN_CACHE)); return; }
   if (url.origin !== self.location.origin) return;  /* leave other origins alone */
   if (isModel(url)) { event.respondWith(cacheFirst(request, MODEL_CACHE)); return; }
-  event.respondWith(networkFirst(request, SHELL_CACHE));
+  /*
+   * The document gets a bounded wait; its subresources do not. A stale
+   * subresource is refreshed behind the reader, and a CACHE_VERSION bump
+   * re-precaches the whole shell on install, so staleness cannot accumulate.
+   */
+  if (request.mode === 'navigate') { event.respondWith(networkFirst(event, request, SHELL_CACHE)); return; }
+  event.respondWith(staleWhileRevalidate(event, request, SHELL_CACHE));
 });
 
 /* Lets the page report how much of the 3D set is already available offline. */

@@ -49,8 +49,8 @@
   ok   costal cartilage maps to the ribs
   ok   the thyroid cartilage has no curated bone record
 — bones that belong to more than one region —
-  ok   the sacrum is spine, pelvis AND abdomen (spine,pelvis,abdomen)
-  ok   the coccyx is spine AND pelvis (spine,pelvis)
+  ok   the sacrum is spine, pelvis, abdomen AND back (spine,pelvis,abdomen,back)
+  ok   the coccyx is spine, pelvis AND back (spine,pelvis,back)
   ok   an ordinary bone still has exactly one region
   ok   the pelvic ring shows 4 meshes, not 2 (Hip bone.l, Hip bone.r, Coccyx, Sacrum)
 
@@ -67,6 +67,40 @@
   ok   Coccyx does not
   ok   28 meshes frame the abdomen (expected 28 = 5 lumbar + sacrum + 2 hip bones + 12 lower ribs + 8 costal cartilages)
 
+— the back, and the column it is measured from —
+  ok   Atlas frames the back
+  ok   Axis frames the back
+  ok   Vertebra C7 frames the back
+  ok   Vertebra T6 frames the back
+  ok   Vertebra L3 frames the back
+  ok   Sacrum frames the back
+  ok   Coccyx frames the back
+  ok   Scapula.l frames the back
+  ok   Sternum does not
+  ok   First rib.l does not
+  ok   Femurl does not
+  ok   Cranium does not
+  ok   28 meshes frame the back (expected 28 = 24 vertebrae + sacrum + coccyx + 2 scapulae)
+  ok   26 column pieces contribute a band (need every vertebra, not a handful)
+  ok   the profile is defined at every height of the column
+  column front sweeps z -0.067 .. 0.019 — 34.4% of the body's depth
+  ok   the column travels 34.4% of body depth, so a per-height profile earns its keep (a flat plane would not)
+  ok   erector spinae (iliocostalis) is in the back
+  ok   multifidus is in the back
+  ok   splenius capitis is in the back
+  ok   semispinalis is in the back
+  ok   latissimus dorsi is in the back
+  ok   trapezius is in the back
+  ok   rhomboid major is in the back
+  ok   serratus posterior inferior is in the back
+  ok   rectus abdominis is not
+  ok   pectoralis minor is not
+  ok   sternocleidomastoid is not
+  ok   scalenus anterior is not
+  ok   omohyoid is not
+  ok   lateral crico-arytenoid is not
+  ok   the 6 known cervical inclusions are all still included — the exception list matches the code
+
 — distribution, by PRIMARY region —
   Head & neck          76
   Vertebral column     26
@@ -75,5 +109,6 @@
   Pelvis                2   (4 counting the bones it borrows)
   Lower limb           62
   Abdomen & pelvis      0   (28 counting the bones it borrows)
+  Back                  0   (28 counting the bones it borrows)
 
 ALL PASS

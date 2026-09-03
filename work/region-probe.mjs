@@ -148,8 +148,8 @@ ok(mapImportedName('Thyroid_cartilage') === null, 'the thyroid cartilage has no 
 console.log('— bones that belong to more than one region —');
 {
   const both = (raw) => importedRegions(raw, mapImportedName(raw));
-  ok(both('Sacrum').join(',') === 'spine,pelvis,abdomen', `the sacrum is spine, pelvis AND abdomen (${both('Sacrum')})`);
-  ok(both('Coccyx').join(',') === 'spine,pelvis', `the coccyx is spine AND pelvis (${both('Coccyx')})`);
+  ok(both('Sacrum').join(',') === 'spine,pelvis,abdomen,back', `the sacrum is spine, pelvis, abdomen AND back (${both('Sacrum')})`);
+  ok(both('Coccyx').join(',') === 'spine,pelvis,back', `the coccyx is spine, pelvis AND back (${both('Coccyx')})`);
   ok(both('Femurl').join(',') === 'lower_limb', 'an ordinary bone still has exactly one region');
   const pelvic = names.filter((n) => both(n).includes('pelvis'));
   ok(pelvic.length === 4, `the pelvic ring shows ${pelvic.length} meshes, not 2 (${pelvic.join(', ')})`);
@@ -180,6 +180,135 @@ console.log('\n— the abdomen, which borrows every bone it shows —');
      started matching one word too many. */
   ok(inAbdomen.length === 28,
     `${inAbdomen.length} meshes frame the abdomen (expected 28 = 5 lumbar + sacrum + 2 hip bones + 12 lower ribs + 8 costal cartilages)`);
+}
+
+/*
+ * The back, which is the one region defined by a measured surface rather than
+ * by a box, so it is the one that can be wrong in a way names alone cannot see.
+ *
+ * Two questions, and the second is the one that matters:
+ *   1. Do the right bones frame it? (Names. Same shape as the abdomen above.)
+ *   2. Is the per-height depth profile in studio/region-boxes-how.js doing any
+ *      work a single flat plane could not do? That function is thirty lines of
+ *      geometry justified entirely by the claim that the vertebral column
+ *      travels forward and back. If it turned out not to on this model, the
+ *      honest response would be to delete the function, not to keep it -- so
+ *      this measures the travel off the real GLB and fails if it is small.
+ */
+console.log('\n— the back, and the column it is measured from —');
+{
+  const inBack = names.filter((n) => importedRegions(n, mapImportedName(n)).includes('back'));
+  /* C1 and C2 are exported as Atlas and Axis, not as Vertebra C1/C2 -- which
+     is exactly why the REGION_ALSO pattern has to name them separately, and
+     why they are the two worth asserting here. */
+  for (const want of ['Atlas', 'Axis', 'Vertebra C7', 'Vertebra T6', 'Vertebra L3', 'Sacrum', 'Coccyx', 'Scapula.l'])
+    ok(inBack.some((n) => n.replace(/_/g, ' ').toLowerCase().startsWith(want.toLowerCase().replace('.l', ''))),
+      `${want} frames the back`);
+  for (const not of ['Sternum', 'First rib.l', 'Femurl', 'Cranium'])
+    ok(!inBack.some((n) => n.replace(/_/g, ' ').toLowerCase().startsWith(not.toLowerCase().replace('.l', ''))),
+      `${not} does not`);
+  /* 24 vertebrae + sacrum + coccyx + 2 scapulae. Spelled out for the same
+     reason as the abdomen's 28: a count that only has to be about right
+     cannot catch a pattern that has started matching one word too many. */
+  ok(inBack.length === 28,
+    `${inBack.length} meshes frame the back (expected 28 = 24 vertebrae + sacrum + coccyx + 2 scapulae)`);
+
+  const { loadGlbMeshes } = await import('./glb-mesh.mjs');
+  const meshes = loadGlbMeshes('assets/z-anatomy-skeleton.glb');
+  const COLUMN = /\bvertebra|\batlas\b|\baxis\b|\bsacrum|\bcoccyx/;
+  const bands = [];
+  let bodyMinY = Infinity, bodyMaxY = -Infinity, bodyMinZ = Infinity, bodyMaxZ = -Infinity;
+  for (const m of meshes) {
+    for (let i = 0; i < m.positions.length; i += 3) {
+      const y = m.positions[i + 1], z = m.positions[i + 2];
+      if (y < bodyMinY) bodyMinY = y; if (y > bodyMaxY) bodyMaxY = y;
+      if (z < bodyMinZ) bodyMinZ = z; if (z > bodyMaxZ) bodyMaxZ = z;
+    }
+    if (!COLUMN.test(m.name.replace(/_/g, ' ').toLowerCase())) continue;
+    let y0 = Infinity, y1 = -Infinity, z1 = -Infinity;
+    for (let i = 0; i < m.positions.length; i += 3) {
+      const y = m.positions[i + 1], z = m.positions[i + 2];
+      if (y < y0) y0 = y; if (y > y1) y1 = y; if (z > z1) z1 = z;
+    }
+    bands.push({ name: m.name, y0, y1, z: z1 });
+  }
+  ok(bands.length >= 26, `${bands.length} column pieces contribute a band (need every vertebra, not a handful)`);
+
+  const front = (y) => {
+    let hit = null, near = null, nearD = Infinity;
+    for (const s of bands) {
+      if (y >= s.y0 && y <= s.y1) { if (hit == null || s.z > hit) hit = s.z; continue; }
+      const d = y < s.y0 ? s.y0 - y : y - s.y1;
+      if (d < nearD) { nearD = d; near = s.z; }
+    }
+    return hit != null ? hit : near;
+  };
+  const top = Math.max(...bands.map((b) => b.y1)), bot = Math.min(...bands.map((b) => b.y0));
+  const samples = [];
+  for (let i = 0; i <= 40; i++) samples.push(front(bot + (top - bot) * (i / 40)));
+  ok(samples.every((v) => Number.isFinite(v)), 'the profile is defined at every height of the column');
+
+  const lo = Math.min(...samples), hi = Math.max(...samples);
+  const depth = bodyMaxZ - bodyMinZ;
+  const travel = (hi - lo) / depth;
+  console.log(`  column front sweeps z ${lo.toFixed(3)} .. ${hi.toFixed(3)} — ${(travel * 100).toFixed(1)}% of the body's depth`);
+  /*
+   * The threshold is the point below which a flat plane would be honest. A
+   * body's front-to-back depth is roughly a fifth of its height, so 8% of that
+   * depth is around two centimetres of travel -- more than a boundary drawn
+   * for the lumbar spine could absorb at the neck.
+   */
+  ok(travel > 0.08, `the column travels ${(travel * 100).toFixed(1)}% of body depth, so a per-height profile earns its keep (a flat plane would not)`);
+
+  /*
+   * Now run the rule over the muscles, which is where it either works or
+   * embarrasses itself. Same centroid test as applyVisibility: a mesh is in
+   * the back when its centre is at or behind the front of the column at the
+   * centre's own height. (The box test is not repeated here -- this block is
+   * about the DEPTH rule, which is the part with no precedent in the file.)
+   */
+  const muscles = loadGlbMeshes('assets/kas.glb');
+  const centreOf = (m) => { let y = 0, z = 0, n = 0;
+    for (let i = 0; i < m.positions.length; i += 3) { y += m.positions[i + 1]; z += m.positions[i + 2]; n++; }
+    return { y: y / n, z: z / n }; };
+  const inBackByDepth = (m) => { const c = centreOf(m), f = front(c.y); return f != null && c.z <= f; };
+  const one = (re) => muscles.find((m) => re.test(m.name.replace(/_/g, ' ')));
+  for (const [label, re] of [
+    ['erector spinae (iliocostalis)', /^Iliocostalis thoracis/], ['multifidus', /^Multifidus thoracis/],
+    ['splenius capitis', /^Splenius capitis/], ['semispinalis', /^Semispinalis thoracis/],
+    ['latissimus dorsi', /^Latissimus dorsi/], ['trapezius', /^Descending part of trapezius/],
+    ['rhomboid major', /^Rhomboid major/], ['serratus posterior inferior', /^Serratus posterior inferior/],
+  ]) ok(inBackByDepth(one(re)), `${label} is in the back`);
+  for (const [label, re] of [
+    ['rectus abdominis', /^Rectus abdominis/], ['pectoralis minor', /^Pectoralis minor/],
+    ['sternocleidomastoid', /^Sternocleidomastoid/], ['scalenus anterior', /^Scalenus anterior/],
+    ['omohyoid', /^Omohyoid/], ['lateral crico-arytenoid', /^Lateral crico-arytenoid/],
+  ]) ok(!inBackByDepth(one(re)), `${label} is not`);
+
+  /*
+   * Where the rule and the textbook part company, written down rather than
+   * hidden.
+   *
+   * These six sit BEHIND the front of the cervical column and so the rule
+   * admits them, but a textbook files them under the neck: the prevertebral
+   * muscles lie on the front of the bodies, the posterior scalenes take the
+   * posterior tubercles of the transverse processes, and the posterior
+   * crico-arytenoid is on the back of the cricoid a centimetre off the spine.
+   * The rule is not wrong about the geometry -- they really are posterior to
+   * that line -- it is that "the back" is a chapter heading as well as a
+   * space, and the two do not coincide in the neck.
+   *
+   * Kept as a rule with a stated exception list rather than fixed by naming
+   * muscles in the app: a hand-maintained list of what counts as back would
+   * be a claim about the course with nothing behind it, and this file exists
+   * to stop exactly that. Asserted so that a future change to the profile is
+   * reported here rather than discovered on screen.
+   */
+  const CERVICAL_STRAYS = [/^Longus colli/, /^Longus capitis/, /^Rectus anterior capitis/,
+    /^Scalenus medius/, /^Scalenus posterior/, /^Posterior crico-arytenoid/];
+  const strays = CERVICAL_STRAYS.filter((re) => inBackByDepth(one(re)));
+  ok(strays.length === CERVICAL_STRAYS.length,
+    `the ${CERVICAL_STRAYS.length} known cervical inclusions are all still included — the exception list matches the code`);
 }
 
 console.log('\n— distribution, by PRIMARY region —');

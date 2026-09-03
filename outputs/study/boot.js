@@ -9,6 +9,7 @@ import { renderLearn } from './subject.js';
 import { renderNavButtons } from './navigation-five-destinations.js';
 import { renderOverlayCard } from './spatial-overlay-controls.js';
 import { renderViewerTools } from './viewer-tools.js';
+import { scrollViewTop } from './small-ui-helpers.js';
 
 /* ------------------------------------------------------------------ *
  * Boot
@@ -45,5 +46,6 @@ export function init() {
   $$('closeSource').onclick = () => $$('sourceDialog').close();
   $$('closeCoverage').onclick = () => $$('coverageDialog').close();
   $$('closeAbout').onclick = () => $$('aboutDialog').close();
-  $$('navBackBtn').onclick = () => { ui.learnDrill = false; renderLearn(); };
+  /* ...and so does coming back out of one. */
+  $$('navBackBtn').onclick = () => { ui.learnDrill = false; renderLearn(); scrollViewTop(); };
 }
