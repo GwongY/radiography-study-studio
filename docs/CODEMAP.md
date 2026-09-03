@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 406 lines
+## `outputs/radiography-study-studio.html` — 416 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–381 | markup — no banners, grep here |
-| 382–382 | importmap |
-| 383–383 | loads studio.js |
-| 384–384 | loads study.js |
-| 385–404 | classic script · preamble |
-| 405–406 | markup — no banners, grep here |
+| 1–391 | markup — no banners, grep here |
+| 392–392 | importmap |
+| 393–393 | loads studio.js |
+| 394–394 | loads study.js |
+| 395–414 | classic script · preamble |
+| 415–416 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1084 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss)
+- `outputs/app.css` — 1093 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss)
 - `outputs/studio.js` — 26 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 45 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -36,7 +36,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `cavity-build.js` | 732 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
 | `cavity-geom.js` | 1148 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
 | `figures.js` | 604 | figures.js — the diagrams that replaced the hand-drawn ones. |  |
-| `landmarks.js` | 435 | landmarks.js -- the one place that knows how to find a named anatomical |  |
+| `landmarks.js` | 450 | landmarks.js -- the one place that knows how to find a named anatomical | [Named cut levels](TRAPS.md#named-cut-levels--outputsstudiotools-and-capturejs-outputslandmarksjs) |
 | `layouts.js` | 304 | layouts.js — the sixteen that are layouts, as layouts. |  |
 | `mesh-index.js` | 2594 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `physiology.js` | 337 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
@@ -85,8 +85,8 @@ belong in `init()`. The two keep separate import scopes and talk only through
 |  | 1021–1148 | anterior surface -- where the region grid gets painted |
 | `landmarks.js` | 1–45 | preamble |
 |  | 46–84 | Name normalisation |
-|  | 85–339 | The registry |
-|  | 340–435 | Resolution |
+|  | 85–354 | The registry |
+|  | 355–450 | Resolution |
 | `schedule.js` | 1–54 | preamble |
 |  | 55–87 | The term |
 |  | 88–102 | Who teaches |
@@ -116,11 +116,11 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `depth-picking.js` | 308 | Depth picking |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
 | `imports.js` | 48 | Block 0 has its own import scope -- block 1's copy is not visible here. |
-| `live-physiology.js` | 988 | Live physiology |
+| `live-physiology.js` | 1032 | Live physiology |
 | `region-boxes-how.js` | 314 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 232 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 466 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
-| `tools-and-capture.js` | 486 | Tools — section cuts, surface ink, pinned labels, capture. |
+| `tools-and-capture.js` | 653 | Tools — section cuts, surface ink, pinned labels, capture. |
 | `visualisation-modes.js` | 626 | Visualisation modes. |
 
 ## The study system — `outputs/study/*.js`
@@ -153,8 +153,8 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `storage-versioned-keys.js` | 119 | Storage — versioned keys, one-time migration from the osteology app |
 | `subject.js` | 272 | Subject |
 | `text-size.js` | 81 | Text size |
-| `viewer-tools.js` | 194 | Viewer tools — annotate, cut, layer depth, capture |
-| `what-is-under.js` | 166 | What is under the tap |
+| `viewer-tools.js` | 283 | Viewer tools — annotate, cut, layer depth, capture |
+| `what-is-under.js` | 171 | What is under the tap |
 
 ## The corpus — `outputs/study/corpus/*.js`
 
@@ -200,6 +200,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/codemap.mjs` | Code map generator — writes docs/CODEMAP.md. Do not edit that file by hand. |  |
 | `work/corpus-snapshot.mjs` | Corpus snapshot — a content fingerprint of everything study-data.js exports. |  |
 | `work/coverage-gap.mjs` | What of the Semester 1 material has the corpus actually been built from, and |  |
+| `work/cut-level-check.mjs` | Do the named section levels mean what they say? |  |
 | `work/data-index-check.mjs` | Data index check — is docs/DATA-INDEX.md what work/data-index.mjs would |  |
 | `work/data-index.mjs` | Data index generator — writes docs/DATA-INDEX.md. |  |
 | `work/dense-lessons.mjs` | Task #9 candidate scan — list the densest explanations (nested clauses, |  |

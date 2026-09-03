@@ -13,8 +13,9 @@
  *
  * Split out along the banner sections. See docs/CODEMAP.md.
  */
-import { $, els, state } from './imports.js';
+import { $, boundsOf, els, state } from './imports.js';
 import { bodyMetrics, calloutAt } from './spatial-concept-overlays.js';
+import { cavityContext, gridMetrics } from './cavity-geometry-derived.js';
 import { getRecord } from './region-boxes-how.js';
 import { showToast } from './visualisation-modes.js';
 import { renderXray } from './live-physiology.js';
@@ -123,9 +124,169 @@ function cutFrame(M,axis,t,flip){
   return line;
 }
 
+
+/* ------------------------------------------------------------------ *
+ * Named levels
+ *
+ * A 0-1 slider is not how sectional anatomy is taught, and it is not how it is
+ * examined. Nobody is asked for a section at 62%: they are asked for the axial
+ * section at the sternal angle, or at L1, and the whole skill is knowing what
+ * that plane passes through. So every level below is an anatomical definition,
+ * MEASURED off the loaded skeleton the same way the cavity overlays are, and
+ * carrying the course page that names it.
+ *
+ * Two rules govern this table, and both are enforced by
+ * work/cut-level-check.mjs rather than by remembering:
+ *
+ *   1. Nothing appears here that the HSS2011 / ABCT2326 material does not
+ *      name. The subcostal plane is measured elsewhere in this app -- it is
+ *      one of the nine-region grid's lines -- and is deliberately NOT offered
+ *      here, because no source in work/source-text.json calls it that. Neither
+ *      is the iliac crest / L4 level: the one handout that states it is not
+ *      among the cited sources, so the quote cannot be checked, so the claim
+ *      is not made. A level with no page behind it is exactly the "generic
+ *      textbook expansion" CLAUDE.md's first rule forbids.
+ *   2. Each level is derived from the structure it is NAMED for. The sternal
+ *      angle is the manubriosternal junction, so it is measured between the
+ *      manubrium and the body of the sternum -- not read off a vertebra, and
+ *      not eyeballed. That the junction then lands between T4 and T5, which is
+ *      what the lecture says it should, is the check that the measurement is
+ *      right; it is asserted in work/cut-level-check.mjs against the real GLB.
+ *
+ * The coronal axis has no entries on purpose. The line a coronal section is
+ * named against clinically is the mid-axillary line, and no cited source in
+ * this repo names it, so coronal stays a free slider and the card says so.
+ * ------------------------------------------------------------------ */
+
+/* body-frame bounds of one landmark key, or null when it is not loaded */
+function levelBounds(ctx,key){
+  const parts=ctx.meshesFor(key).map((m)=>m.positions).filter(Boolean);
+  if(!parts.length) return null;
+  const b=boundsOf(parts);
+  return b.empty?null:b;
+}
+/*
+ * A joint between two bones, taken as the midpoint of the gap between them.
+ * The inferior border of the manubrium and the superior border of the body of
+ * the sternum are a few millimetres apart on this model, and the junction is
+ * between the two -- taking either edge alone biases the plane onto one bone
+ * or the other by that much.
+ */
+function junctionY(ctx,upperKey,lowerKey){
+  const up=levelBounds(ctx,upperKey), lo=levelBounds(ctx,lowerKey);
+  if(!up||!lo) return null;
+  return (up.minY+lo.maxY)/2;
+}
+const centreY=(ctx,key)=>{ const b=levelBounds(ctx,key); return b?(b.minY+b.maxY)/2:null; };
+const topY=(ctx,key)=>{ const b=levelBounds(ctx,key); return b?b.maxY:null; };
+
+export const CUT_LEVELS=[
+  {id:'jugular', axis:'axial', label:'Jugular notch',
+   note:'The hollow at the top of the sternum. Measured at the superior border of the manubrium.',
+   at:(ctx)=>topY(ctx,'thorax.manubrium'),
+   refs:[{ref:'hss.1.3', location:'p4 "Jugular notch = suprasternal notch"'}]},
+
+  {id:'sternalAngle', axis:'axial', label:'Sternal angle',
+   note:'The manubriosternal junction. Vertebral level T4/T5, and the boundary between the superior and inferior mediastinum.',
+   at:(ctx)=>junctionY(ctx,'thorax.manubrium','thorax.sternumBody'),
+   refs:[{ref:'hss.1.3', location:'p5 "junction between manubrium and body of sternum"'},
+         {ref:'hss.1.3', location:'p5 "vertebral level of T4/T5"'}]},
+
+  {id:'xiphisternal', axis:'axial', label:'Xiphisternal joint',
+   note:'Where the xiphoid process meets the body of the sternum, at the anterior end of the thoracic outlet.',
+   at:(ctx)=>junctionY(ctx,'thorax.sternumBody','thorax.xiphoid'),
+   refs:[{ref:'hss.1.3', location:'p13 "xiphoid process"'}]},
+
+  {id:'transpyloric', axis:'axial', label:'Transpyloric (L1)',
+   note:'The upper horizontal line of the nine abdominopelvic regions. Measured at the body of L1.',
+   at:(ctx)=>centreY(ctx,'spine.L1'),
+   refs:[{ref:'hss.3.3', location:'p3 "L1 - transpyloric"'}]},
+
+  {id:'transtubercular', axis:'axial', label:'Transtubercular (L5)',
+   note:'The lower horizontal line of the nine abdominopelvic regions. Measured at the body of L5.',
+   at:(ctx)=>centreY(ctx,'spine.L5'),
+   refs:[{ref:'hss.3.3', location:'p3 "L5 - transtubercular"'}]},
+
+  {id:'median', axis:'sagittal', label:'Median plane',
+   note:'The mid-sagittal plane, measured from the midline structures themselves — the vertebral column and the sternum — rather than assumed to be x = 0.',
+   at:(ctx,G)=>(G&&Number.isFinite(G.medianX)?G.medianX:null),
+   refs:[{ref:'hss.vocab', location:'p9 "Mid-sagittal/Median Plane"'}]},
+
+  {id:'midclavRight', axis:'sagittal', label:'Mid-clavicular, right',
+   note:'A vertical line dropped from the midpoint of the right clavicle. One of the two verticals of the nine-region grid.',
+   at:(ctx,G)=>(G&&Number.isFinite(G.midclavicularX)?G.medianX-G.midclavicularX:null),
+   refs:[{ref:'hss.3.3', location:'p3 "Mid-clavicular lines"'}]},
+
+  {id:'midclavLeft', axis:'sagittal', label:'Mid-clavicular, left',
+   note:'A vertical line dropped from the midpoint of the left clavicle. The other vertical of the nine-region grid.',
+   at:(ctx,G)=>(G&&Number.isFinite(G.midclavicularX)?G.medianX+G.midclavicularX:null),
+   refs:[{ref:'hss.3.3', location:'p3 "Mid-clavicular lines"'}]},
+];
+
+/*
+ * A measured level, expressed as the 0..1 position setCut already takes.
+ *
+ * Going back through `t` rather than adding a second way to place a plane is
+ * deliberate: the slider, the flip and the outline all keep working unchanged,
+ * and a level becomes simply a way of ARRIVING at a position. cutPoint() is
+ * the one place that maps t onto the body, so this inverts exactly that map
+ * and the two cannot drift apart.
+ */
+function levelT(axis,M,v){
+  if(!Number.isFinite(v)) return null;
+  if(axis==='axial')    return M.H?(v-M.minY)/M.H:null;
+  if(axis==='sagittal') return M.halfX?(((v-M.cx)/M.halfX)+1)/2:null;
+  return null;
+}
+/* The grid's measurements. Only the sagittal levels need them. */
+function levelGrid(){
+  try{ return gridMetrics(); }catch(e){ return null; }
+}
+/*
+ * Which levels can be offered right now.
+ *
+ * A level whose structure is not loaded is left out of the list rather than
+ * listed and dead. The skeleton is always present, so the five axial levels
+ * are always there; the two mid-clavicular lines need the grid to have
+ * measured, and say nothing at all if it has not.
+ */
+export function cutLevels(){
+  const ctx=(()=>{ try{ return cavityContext(); }catch(e){ return null; } })();
+  if(!ctx) return [];
+  const G=levelGrid();
+  const M=bodyMetrics();
+  const live=state.cut;
+  return CUT_LEVELS.map((L)=>{
+    const t=levelT(L.axis,M,L.at(ctx,G));
+    if(t==null||t<0||t>1) return null;
+    return {id:L.id, axis:L.axis, label:L.label, note:L.note, t,
+      refs:(L.refs||[]).map((r)=>({...r})),
+      active:!!(live&&live.level===L.id)};
+  }).filter(Boolean);
+}
+/* Put the plane on a named level. The axis comes from the level, not the UI. */
+export function setCutLevel(id,flip){
+  const L=CUT_LEVELS.find((x)=>x.id===id);
+  if(!L) return false;
+  const row=cutLevels().find((r)=>r.id===id);
+  if(!row){ showToast('That level needs a structure this model has not loaded.'); return false; }
+  const on=flip==null?!!(state.cut&&state.cut.flip):!!flip;
+  if(!setCut(L.axis,row.t,on)) return false;
+  if(state.cut) state.cut.level=id;
+  return true;
+}
+
 export function setCut(axis,t,flip){
   const THREE=state.THREE;
   if(!THREE||!state.renderer){ showToast('Open the 3D model first.'); return false; }
+  /*
+   * Not while the projection is open. The x-ray pass integrates optical depth
+   * by adding front faces and subtracting back faces, which only works on
+   * CLOSED surfaces; a clipping plane opens every shell it passes through, so
+   * the beam would leave the body through a hole that was never there and the
+   * film would read densities that are simply wrong. See enterXray().
+   */
+  if(state.xray){ showToast('The projection reads through closed surfaces — section it in the 3D view.'); return false; }
   const spec=CUT_AXES.find((a)=>a.id===axis);
   if(!spec){ clearCut(); return false; }
   const M=bodyMetrics();
@@ -148,7 +309,10 @@ export function clearCut(){
   state.cut=null;
   if(state.renderer) state.renderer.clippingPlanes=[];
 }
-export function cutState(){ return state.cut?{axis:state.cut.axis,t:state.cut.t,flip:state.cut.flip}:null; }
+/* `level` is the named level the plane is currently ON, or null once the
+   slider has been dragged off it -- setCut rebuilds state.cut from scratch,
+   so the label cannot outlive the position it described. */
+export function cutState(){ return state.cut?{axis:state.cut.axis,t:state.cut.t,flip:state.cut.flip,level:state.cut.level||null}:null; }
 
 /* Body frame -> world, every frame, because the turntable never stops. */
 function syncCut(){
@@ -470,6 +634,9 @@ export function init(){
   if(typeof window==='undefined'||!window.__osteo) return;
   Object.assign(window.__osteo,{
     cutAxes:()=>CUT_AXES.map((a)=>({id:a.id,label:a.label,hint:a.hint})),
+    /* the anatomical levels that measured against THIS model, with their pages */
+    cutLevels:()=>cutLevels(),
+    setCutLevel:(id,flip)=>setCutLevel(id,flip),
     setCut:(axis,t,flip)=>setCut(axis,t,flip),
     clearCut:()=>clearCut(),
     cutState:()=>cutState(),

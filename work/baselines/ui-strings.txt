@@ -1,8 +1,9 @@
-— user-facing strings in outputs/ — 780 —
-  bb7640ba64b95d3e  WHOLE SET
+— user-facing strings in outputs/ — 811 —
+  f26f13eda29f1805  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
+  753ec4f3a305c1c3   <span class="cut-levelcite">
   87d3f6c7e5dec280   It stays in today’s queue.
   c8f303e7554a57f7   These are paired — the side is part of the answer.
   37fc3c511ef2af7e   \u00b7 3D studio
@@ -151,6 +152,9 @@
   4a0089a78242886e  <li class="sessrow
   5f0ccbf50845efd8  <option value="
   541b9a046de22b45  <p class="figkey-note">Dimmed marks are the figure’s own labels, beyond this lesson’s named set.</p>
+  0647018486120933  <p class="small cut-levelnote">No named coronal levels: a coronal section is named against the mid-axillary line, and none of this app&rsquo;s sources name it. Use the slider.</p>
+  a2ec6a726731d8d4  <p class="small">Open the 3D model to measure its levels.</p>
+  0a552549eab9f1bc  <p class="small">The section is put away while the Projection tab is open — that beam is drawn by a shader that ignores clipping planes, so a cut there would be silently ignored. It comes back exactly as you left it.</p>
   6f16f7184cae76ac  <p class="small">Turn a layer on below the model and its opacity appears here.</p>
   67bad9b6b48321f9  <path class="sk" d="
   44253459e8795ded  <section class="card sylcard" style="--acc:
@@ -186,6 +190,8 @@
   43efab18440887ca  A root — the part carrying the meaning. The /o on the end is the vowel that joins it to whatever follows.
   1a650cac2c2c4567  A sagittal slice, median at 50%. Keeps the patient's left; flip for the right.
   2dee5d201e02f95e  A transverse slice, the plane a CT slice is taken in. Keeps everything above it; flip to keep what is below.
+  c97733fde5d549af  A vertical line dropped from the midpoint of the left clavicle. The other vertical of the nine-region grid.
+  455d11e097ea6e80  A vertical line dropped from the midpoint of the right clavicle. One of the two verticals of the nine-region grid.
   11903751ff4bca8a  AI & data
   92508480855a651c  Acromial part of deltoid muscle
   077ffef3c99e0f88  All ' + qCount + ' questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.
@@ -300,6 +306,7 @@
   8ccc3126acbbefa7  It is shaped like a cuckoo beak: the tail remnant left behind.
   9d0d3e0a20bc01d4  Joint angle
   39fb4546ac87cc3a  Judge it from the landmarks in anatomical position, not from which side of the screen it is on.
+  90a8aa236c266060  Jugular notch
   bfd62f38eb7f415e  Keep hidden
   c6867b20a8fd8669  Key facts to remember
   31fb459fac2d4100  Landmark data next
@@ -334,6 +341,7 @@
   74c4823f019f3ab0  Mastery and review schedules —
   d64f4eee948af6c3  Mastery lives in this browser only, so the desktop and the iPad keep separate schedules. Export a file here and import it on the other device.
   36d4a1c821f13df1  Match every row before checking.
+  a15f12b908b57e8e  Median plane
   24510835c032ba21  Memory Coach
   074adaab2556a2ff  Memory Coach — hints revealed one stage at a time.
   d0a53277a5d4ccb7  Memory aids are written by this app. The facts they point at are the source-traced ones on the Learn card.
@@ -341,6 +349,8 @@
   055b6d2dba839774  Memory hook ·
   679aacb3f38bd649  Memory hook:
   79c644f4e1f774d0  Memory hooks
+  ff656be9917a49e2  Mid-clavicular, left
+  6906cd85608d4b0d  Mid-clavicular, right
   ac1e653bdd328c9d  Missing or limited
   caa340a3f3de98c9  Mistakes, due items, mastery
   57fe077d62f2439c  Model and images in one place
@@ -477,6 +487,7 @@
   73a408b0bf3f0f58  Start with Identify to create your first review history.
   e5424ad7564878f3  Starting with
   abf1b14dc2f90ee7  Static model
+  36d7a4f4ac12b2b4  Sternal angle
   893865becae0ba06  Still unnamed:
   e6a0a4c59cbb9600  Structures, study items, topics…
   4a085fa65d717e0d  Student work
@@ -505,6 +516,7 @@
   9b7eb2fb53d7ebf5  That file is not valid JSON.
   8f42be5eb962d271  That file was written for data version
   6a89036a1ab7f02a  That is not a Study Studio progress file.
+  c1b89966f927cd48  That level needs a structure this model has not loaded.
   e1bee8d506ebb8f0  The 3D layer could not be loaded right now.
   1a87df33818b2fb0  The 3D model is not available.
   188a07a1f493d877  The 3D models, the lessons and the source files are untouched \u2014 only your own history is.
@@ -513,6 +525,7 @@
   f44fc384994cd331  The four quadrants
   f1b6f4d1bbc67e3f  The funny-bone groove
   3932fc91ec44669c  The highlighted hotspot is the
+  bd33ae668254412b  The hollow at the top of the sternum. Measured at the superior border of the manubrium.
   751126bbdcad0ed8  The hotspots are showing. Tap the one you are asked for.
   4be07258aa5be37a  The humerus has the radial nerve spiral groove: the funny bone grooves.
   069595d801ed04e6  The idea to hang it on:
@@ -520,13 +533,17 @@
   f0d091ecd0468216  The largest sesamoid bone slides like a dish in the trochlear groove.
   c305592b8a2341d1  The lesson below is unaffected.
   f0864c68a8d121df  The longest and strongest bone angles inward from hip to knee.
+  054bcb5189d58091  The lower horizontal line of the nine abdominopelvic regions. Measured at the body of L5.
+  0022127b9bbde1a5  The manubriosternal junction. Vertebral level T4/T5, and the boundary between the superior and inferior mediastinum.
   bc8615178d30481f  The mastery record in that file is missing or malformed.
+  a7c6e6433e70b227  The mid-sagittal plane, measured from the midline structures themselves — the vertebral column and the sternum — rather than assumed to be x = 0.
   75527df298173eb8  The mistake log in that file is malformed.
   45ac6ce6220f94f4  The model is not rendering yet.
   dabc54de5c7ac201  The name is doing the work:
   c30d436bb4db379e  The nine abdominopelvic regions
   1ee065c69f618147  The only horizontal long bone: an S-shaped key between sternum and shoulder.
   f952c4467244cd99  The original osteology quiz history —
+  f8fde19067e881fa  The projection reads through closed surfaces — section it in the 3D view.
   8baacea34fdc4ab0  The radius rotates over the ulna like a wheel spoke. It is on the thumb side.
   444c5de284285e50  The sacred wedge-shaped keystone locks the pelvic ring together.
   d34c527efb66b8ea  The study tools still work. Check your connection, then retry the model layer.
@@ -534,6 +551,7 @@
   8786e514e5dee92d  The teaching term is over
   09612087f1b58b52  The term has not started yet
   dd5fd4c64fb6fb43  The thigh bone
+  cca5df84a9532446  The upper horizontal line of the nine abdominopelvic regions. Measured at the body of L1.
   51aee75534b22418  There is nothing recorded on this device yet, so there is nothing to erase.
   b5792b631250ed3a  This bone is in the database, but high-yield hotspot coordinates have not been added yet.
   948c12e38dda005e  This device holds
@@ -545,6 +563,8 @@
   8278421692e43358  Those bones are not in the loaded model.
   f3fbfcd5fea4fbe9  Timetable, syllabus, attendance
   365876067e586bde  Traced to
+  bdadc5cef1ccc303  Transpyloric (L1)
+  0a0d093315fde56b  Transtubercular (L5)
   4605d18762092f89  Try to answer out loud before revealing anything. Producing the answer is the skill the exam tests — recognising it is not the same skill.
   325a3667381bade5  Twelve vertebrae: lunch at 12, with ribs attached.
   f43e8542dedb6219  Two of those are screenshots of Canvas rather than documents, because no document copy was supplied. They cannot be text-checked the way a lecture can, so everything taken from them is written out in this repo’s timetable data module, in full, where it can be read and corrected.
@@ -569,11 +589,13 @@
   536306b242c83602  What to do now
   d3ab8637fc736ca3  What you missed — to fix before it comes back
   7efbff3832400d93  Where all of this came from
+  595c0868c16492a2  Where the xiphoid process meets the body of the sternum, at the anterior end of the thoracic outlet.
   99e5997ec6eb3f95  Which bone does this hook belong to?
   14ab8c8c07e135d1  Whole body
   a6075b915d80c000  Work it out in your own words
   2efde2e039fd8b4b  Write something first — even a rough answer. Comparing beats reading.
   a1a80fe79d9495e1  Written by this app from the content above. The facts are the sourced ones; the insight framing is study scaffolding.
+  f2737495d683165a  Xiphisternal joint
   c9d8ebfea055fc4e  Yes, I had it
   1a33ef3e9b63cd34  You named
   6072830a754d6f42  You revealed
@@ -595,6 +617,7 @@
   069d6e57d291854b  another structure
   4dafb342c48fd85e  artery = red = oxygenated
   038dbe3356c60c5f  assets/xray/ is empty \u2014 add a licence-cleared image
+  f0a2f6bcdb910bd5  axial at the sternal angle
   4c7527e58057a88f  beats and
   8db95312cb849877  bone mesh
   38787ac0dc7c1d95  boot failed
@@ -705,6 +728,13 @@
   6c72de620a530165  notice stop
   bcc38d49bd57532e  of existing progress into the new mastery record.
   051d858fae071603  of them are selected together under a name it does use. The atlas calls this one "
+  207efbf91868f3d0  p13 "xiphoid process"
+  46f0f3c188b3f5bd  p3 "L1 - transpyloric"
+  2d882335f09cd4cf  p3 "L5 - transtubercular"
+  ac7d6a6d7c8af000  p3 "Mid-clavicular lines"
+  4be7dbf90c62fb39  p4 "Jugular notch = suprasternal notch"
+  4211a7c90dfee211  p5 "junction between manubrium and body of sternum"
+  a78c340554344e5e  p5 "vertebral level of T4/T5"
   77aaf50327326363  pick up where you left off
   ccdf632a1acc3583  pickstack hidden
   40eee7f54cdcbf3f  preparing the model…
@@ -725,6 +755,7 @@
   cd3c2bcf3f5c6659  segbar hidden
   37e8cb66682dd7b0  separately selectable">
   a8970b03087f1926  sheetscrim hidden
+  5c6db2f77cfe003a  small cut-levelnote
   b06f2f1ca52fc976  soft-tissue mesh
   f004ce84a1c00cd6  soft-tissue structures travel with the bone.
   7d30607b3e9c2d7a  structures in

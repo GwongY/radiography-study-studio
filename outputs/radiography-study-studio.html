@@ -185,6 +185,7 @@
 
           <div class="tool-lab">Section cut</div>
           <div class="tool-row" id="cutButtons"></div>
+          <div class="cut-levels" id="cutLevels"></div>
           <label class="tool-slider"><span>Position</span><input type="range" id="cutSlider" min="0" max="100" value="50" aria-label="Cut position"><span class="mono" id="cutRead">no cut</span></label>
           <div class="tool-row"><button class="icon-btn" id="cutFlip">Flip side</button><button class="icon-btn" id="cutClear">Clear cut</button></div>
 
@@ -200,6 +201,15 @@
           reads as an outline rather than as tissue. The pen raycasts onto whatever surface is under the pointer and
           does not know about the cut, so draw first and section afterwards. Annotations live for this visit — nothing
           here is written to storage.</p>
+          <p class="tool-limits"><strong>Where the levels come from.</strong> Each named level is measured off this
+          model at the structure it is named for — the sternal angle at the manubriosternal junction, the
+          transpyloric line at the body of L1 — and each carries the course page that names it; tap a level to
+          read the citation. Coronal has no named levels because the line a coronal section is named against is the
+          mid-axillary line, and none of the sources this app reads name it. The section is put away while the
+          Projection tab is open. The beam there is drawn by a shader that ignores clipping planes, so a cut would
+          simply be ignored rather than shown — and a control that quietly does nothing is worse than one that says
+          it is unavailable. Your pen strokes and pins are hidden there too: the beam adds light, so ink composites
+          into the film as brightness rather than as marks. Both come back when you leave the tab.</p>
         </section>
       </div>
     </div>

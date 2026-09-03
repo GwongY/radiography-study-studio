@@ -533,6 +533,8 @@ export function enterXray(){
     layers:{...state.layers}, layerOpacity:{...(state.layerOpacity||{})},
     motion:state.motionEnabled, autoClear:state.renderer.autoClear,
     concepts:state.conceptGroup?state.conceptGroup.visible:true,
+    clip:state.renderer.clippingPlanes,
+    tools:state.toolGroup?state.toolGroup.visible:true,
     exposure:1.6, view:'pa', region:'chest',
   };
   /*
@@ -556,6 +558,45 @@ export function enterXray(){
    */
   if(state.conceptGroup)state.conceptGroup.visible=false;
   if(state.pickGroup)state.pickGroup.visible=false;
+  /*
+   * The pen strokes and pinned labels go with them, and unlike the cut this
+   * one was doing real damage. renderXray renders the WHOLE scene, and the
+   * annotation materials are never swapped for the depth material, so ink
+   * composited into an additive beam as light rather than as marks. Measured
+   * before this line existed: five pinned labels lifted the mean density of a
+   * chest PA from 19.15 to 25.86, a third brighter. The group is a scene
+   * sibling rather than a child of the body root (see
+   * studio/tools-and-capture.js), so hiding the model does not hide these --
+   * they have to be turned off by name.
+   */
+  if(state.toolGroup)state.toolGroup.visible=false;
+  /*
+   * And the section cut is SUSPENDED, explicitly.
+   *
+   * It was already inert here, which is the actual problem. xrayDepthMaterial
+   * builds a raw ShaderMaterial, and three.js only clips a material that opts
+   * into clipping -- so renderer.clippingPlanes has no effect on the beam at
+   * all. A student could set "axial at the sternal angle", switch to
+   * Projection, and be shown a whole undivided chest with nothing anywhere
+   * saying the cut had been ignored. Measured: with the cut applied and this
+   * line absent, a chest PA came back at mean density 26.210 against 26.207
+   * without it -- inside the grain, i.e. no effect whatsoever. A control that
+   * quietly does nothing is worse than one that is unavailable, so the cut is
+   * suspended here and the Tools card says so in as many words.
+   *
+   * Emptying the list rather than leaving it is what makes that suspension
+   * true rather than accidental: if anyone later gives the x-ray material
+   * clipping support, the beam would start leaving each shell through a cut
+   * face that has no back face to subtract, and the depth integral -- front
+   * faces minus back faces, which assumes closed surfaces -- would run away
+   * into densities no exposure produced. This line means that change cannot
+   * silently corrupt the film.
+   *
+   * state.cut itself is left alone, so the plane the student set comes back
+   * exactly as it was when they leave the projection -- only the renderer's
+   * list is emptied, and exitXray puts it back.
+   */
+  state.renderer.clippingPlanes=[];
   const shared=(key)=>{
     if(!state.xray.shared.has(key))state.xray.shared.set(key,xrayDepthMaterial(THREE,XRAY_MU[key]||.12));
     return state.xray.shared.get(key);
@@ -704,6 +745,9 @@ export function exitXray(){
   state.motionEnabled=x.motion;
   if(state.conceptGroup)state.conceptGroup.visible=x.concepts;
   if(state.pickGroup)state.pickGroup.visible=true;
+  if(state.toolGroup)state.toolGroup.visible=x.tools!==false;
+  /* the suspended section, put back exactly as it was */
+  state.renderer.clippingPlanes=x.clip||[];
   state.renderer.autoClear=x.autoClear;
   state.renderer.setRenderTarget(null);
   state.xray=null;

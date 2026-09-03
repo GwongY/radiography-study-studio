@@ -1074,6 +1074,15 @@ html[data-ts="xl"]{--ts:1.28}
 .toolcard .tool-count{font:11px ui-monospace,Menlo,monospace;color:var(--muted);margin-left:auto}
 .toolcard .tool-note{width:100%;margin-top:7px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:rgba(8,16,22,.7);color:var(--ink);font-size:12.5px;font-family:inherit}
 .toolcard .tool-note:focus{outline:0;border-color:rgba(114,227,207,.5)}
+/* Named section levels. One row per axis, the axis named down the left so a
+   chip never has to repeat it, and the citation for the live level underneath. */
+.toolcard .cut-levels{margin-top:8px;display:grid;gap:6px}
+.toolcard .cut-levelrow{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.toolcard .cut-levelax{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);min-width:58px}
+.toolcard .cut-levelrow .icon-btn.sm{min-height:30px;padding:0 9px;font-size:11px;border-radius:8px}
+.toolcard .cut-levelnote{margin:2px 0 0;font-size:11.5px;line-height:1.5;color:var(--muted)}
+.toolcard .cut-levelnote strong{color:#cfd8d9}
+.toolcard .cut-levelcite{display:block;margin-top:3px;font:11px ui-monospace,Menlo,monospace;color:rgba(114,227,207,.85);word-break:break-word}
 .toolcard .tool-slider{display:flex;align-items:center;gap:9px;margin-top:9px;font-size:11.5px;color:var(--muted)}
 .toolcard .tool-slider input{flex:1;min-width:80px}
 .toolcard .tool-limits{margin-top:14px;padding-top:11px;border-top:1px solid var(--line);font-size:11.5px;line-height:1.55;color:var(--muted)}

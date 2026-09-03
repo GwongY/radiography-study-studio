@@ -473,3 +473,81 @@ shapes** — in "The region grid and classifiers" below.
 - **The raycaster does not know about the clipping plane**, so with a cut open
   the pen can land on a surface the cut has removed. The card says draw first,
   section second.
+
+### Named cut levels — `outputs/studio/tools-and-capture.js`, `outputs/landmarks.js`
+
+- **A level is a source claim, and `source-check.mjs` cannot see it.** That
+  check walks `STUDY_ITEMS` only, so a citation written into viewer code is
+  outside every existing gate: the quote could drift, or name a page that never
+  said it, and the whole suite would stay green. `work/cut-level-check.mjs` is
+  the gate for these, and it uses the *same* `flat()` comparison as
+  `source-check.mjs` on purpose — a level that passes there would still pass if
+  it were later moved into the corpus.
+- **`thorax.sternum` matches all three pieces of the sternum.** Its patterns
+  are `['sternum', '^xiphoid process']`, so it catches the manubrium and the
+  body and the xiphoid together. The manubriosternal and xiphisternal junctions
+  need them apart, which is what `thorax.sternumBody` is for. Reaching for
+  `thorax.sternum` to place a level puts the plane through the middle of the
+  whole bone.
+- **A junction is the midpoint of the gap, not either edge.** The manubrium
+  ends at y 1.350 and the body of the sternum begins at 1.359 — they overlap by
+  a few millimetres rather than meeting at a point. Taking `minY` of the upper
+  bone or `maxY` of the lower biases the plane onto one of them by that much.
+- **The sternal angle is measured from bone, and CHECKED against the vertebrae.**
+  It is placed at the manubriosternal junction, which is its definition and
+  what `1.3 Regional Anatomy of the Thorax.pdf` p5 says it is. That it then
+  lands at y 1.354, inside the T4–T5 span of 1.321–1.397, is the independent
+  confirmation that the measurement is right — the lecture's "vertebral level
+  of T4/T5" and this model's geometry agreeing without either being derived
+  from the other. `cut-level-check.mjs` asserts it. Do not "simplify" the level
+  to read straight off a vertebra: that throws away the only cross-check there is.
+- **Levels are placed through `t`, not through a second plane API.** `cutPoint()`
+  is the one place that maps a 0–1 position onto the body; `levelT()` inverts
+  exactly that map, so the slider, the flip and the cut outline all keep working
+  and the two cannot drift. Add a level by giving it a measurement, never by
+  building its plane directly.
+- **`state.cut` is rebuilt from scratch by every `setCut`,** so `state.cut.level`
+  is dropped the moment the slider moves — which is correct, the label must not
+  outlive the position it described. It also means **flip has to go back through
+  `setCutLevel`**, or flipping silently un-names a level that has not moved.
+- **What is NOT offered, and why.** The subcostal plane is measured in
+  `cavity-build.js` (it is one of the nine-region grid's lines) but no cited
+  source calls it that, so it is not a level. The iliac crest / L4 level is
+  named only in a surface-anatomy handout that is not in `SOURCE_FILES`, so its
+  quote cannot be checked and the claim is not made. Coronal has no levels at
+  all: it would be named against the mid-axillary line, which no cited source
+  names. Adding any of these means adding the source first.
+
+### The projection and the tools — `outputs/studio/live-physiology.js`
+
+- **`renderer.clippingPlanes` does nothing to the x-ray pass — that is the bug,
+  not the fix.** `xrayDepthMaterial` builds a raw `ShaderMaterial`, and three.js
+  only clips a material that opts into clipping, so a section cut was *silently
+  ignored* in the projection rather than corrupting it. Measured: with a cut set
+  and no suspension, a chest PA came back at mean density 26.210 against 26.207
+  with no cut — inside the film grain. The user-facing defect was a control that
+  quietly did nothing, so the cut is now suspended explicitly and the card says
+  so. Do not "fix" this by giving the x-ray material clipping support: the depth
+  integral is front faces minus back faces and assumes closed shells, so an open
+  cut face WOULD then run the integral away. Emptying the list is what stops that
+  change from silently corrupting the film later.
+- **`state.toolGroup` leaking into the film was the real one, and it is large.**
+  `renderXray` renders the WHOLE scene, and `enterXray` swaps materials only on
+  `state.fullMeshes` and the `extraModels`, so annotation materials survive into
+  an additive beam and composite as light. Measured before the fix: five pinned
+  labels lifted a chest PA from mean density 19.15 to 25.86, a third brighter.
+  The group is a scene sibling rather than a child of the body root, so hiding
+  the model does not hide it — it has to be turned off by name. It goes off with
+  `conceptGroup` and `pickGroup`, for the reason those already were: a radiograph
+  has nothing painted on it.
+- **Measure this pair rather than reasoning about it.** Both of the above were
+  written down backwards on the first pass, from correct general three.js
+  knowledge that did not apply to these particular materials. `snapshot()`
+  renders and reads in one task, so mean pixel value over a fixed region is a
+  cheap and decisive test — but take three readings under identical conditions
+  first, because the quantum-mottle term moves the mean by about 0.02 on its
+  own and a smaller "difference" than that is noise.
+- **Anything else `enterXray` changes must be saved into `state.xray` and put
+  back in `exitXray`.** Both of the above are stored there (`clip`, `tools`)
+  rather than recomputed on the way out, because the way out has no way to know
+  what the state was on the way in.
