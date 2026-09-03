@@ -162,6 +162,9 @@ export const LANDMARKS = {
     match: ['sternum', '^xiphoid process'],
   },
   'thorax.manubrium': { label: 'Manubrium', layer: 'skeleton', match: ['^manubrium'] },
+  /* the body alone -- 'thorax.sternum' matches all three pieces, and the
+     manubriosternal and xiphisternal junctions need to tell them apart */
+  'thorax.sternumBody': { label: 'Body of sternum', layer: 'skeleton', match: ['^body of sternum'] },
   'thorax.xiphoid': { label: 'Xiphoid process', layer: 'skeleton', match: ['^xiphoid'] },
   /* the surface grid's vertical lines are dropped from the middle of these */
   'thorax.clavicle': { label: 'Clavicle', layer: 'skeleton', match: ['^clavicle'] },
@@ -169,6 +172,18 @@ export const LANDMARKS = {
   'thorax.cartilageTenth': {
     label: 'Tenth costal cartilage', layer: 'skeleton', match: ['costal cartilage of tenth rib'],
   },
+  /*
+   * Individual vertebrae, for the named section levels in
+   * studio/tools-and-capture.js. T4 and T5 are here to be CHECKED against, not
+   * to be cut at: the sternal angle is defined by the manubriosternal junction
+   * and the course material puts that at 'vertebral level of T4/T5', so
+   * work/cut-level-check.mjs measures the junction and asserts it lands in the
+   * span these two bound. The claim is then this model's own geometry agreeing
+   * with the lecture, rather than a number copied across from it.
+   */
+  'spine.T4': { label: 'T4', layer: 'skeleton', match: ['^vertebra t4'] },
+  'spine.T5': { label: 'T5', layer: 'skeleton', match: ['^vertebra t5'] },
+  'spine.L1': { label: 'L1', layer: 'skeleton', match: ['^vertebra l1'] },
   'spine.L3': { label: 'L3', layer: 'skeleton', match: ['^vertebra l3'] },
   'spine.L4': { label: 'L4', layer: 'skeleton', match: ['^vertebra l4'] },
   'spine.L5': { label: 'L5', layer: 'skeleton', match: ['^vertebra l5'] },

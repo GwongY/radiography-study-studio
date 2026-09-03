@@ -11,6 +11,7 @@ import { renderOverlayCard } from './spatial-overlay-controls.js';
 import { restoreStage } from './lesson-visuals.js';
 import { setActiveNav } from './navigation-five-destinations.js';
 import { showView } from './small-ui-helpers.js';
+import { renderViewerTools } from './viewer-tools.js';
 
 /* ------------------------------------------------------------------ *
  * What is under the tap
@@ -110,6 +111,9 @@ async function enterProjection() {
   window.__osteo.xrayView(xrayView);
   window.__osteo.xrayExposure(+$$('xrayExposure').value / 100);
   window.__osteo.resize();
+  /* The Tools card has to be told: entering the projection suspends the
+     section cut, and the card is what says so. */
+  renderViewerTools();
 }
 
 export function leaveProjection() {
@@ -117,6 +121,7 @@ export function leaveProjection() {
   window.__osteo.exitXray();
   restoreStage();
   window.__osteo.resize();
+  renderViewerTools();
 }
 async function syncLayersToRail() {
   if (!window.__osteo || !window.__osteo.setLayer) return;

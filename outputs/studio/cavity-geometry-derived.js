@@ -307,7 +307,7 @@ export function buildPlane(c,M,grp){
  * own silhouette at that height, so the set reads as lines drawn on a torso
  * rather than as a box parked in front of one.
  */
-function gridMetrics(){
+export function gridMetrics(){
   const ctx=cavityContext();
   if(!ctx) return null;
   if(state._cavGrid&&state._cavGrid.sig===ctx.sig) return state._cavGrid;

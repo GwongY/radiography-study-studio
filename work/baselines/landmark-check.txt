@@ -17,9 +17,13 @@ LANDMARK                LAYER            N  examples
  thorax.costalCartilage skeleton        20  costal cartilage of eighth ribl, costal cartilage of eighth ribr, costal carti
  thorax.sternum         skeleton         3  body of sternum, manubrium of sternum, xiphoid process
  thorax.manubrium       skeleton         1  manubrium of sternum
+ thorax.sternumBody     skeleton         1  body of sternum
  thorax.xiphoid         skeleton         1  xiphoid process
  thorax.clavicle        skeleton         2  claviclel, clavicler
  thorax.cartilageTenth  skeleton         2  costal cartilage of tenth ribl, costal cartilage of tenth ribr
+ spine.T4               skeleton         1  vertebra t4
+ spine.T5               skeleton         1  vertebra t5
+ spine.L1               skeleton         1  vertebra l1
  spine.L3               skeleton         1  vertebra l3
  spine.L4               skeleton         1  vertebra l4
  spine.L5               skeleton         1  vertebra l5
