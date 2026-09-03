@@ -66,7 +66,7 @@ export const HSS_MODULES = [
       'The left AV valve is bicuspid, not semilunar. "Two AV valves and two semilunar valves" sounds balanced and is false: the aortic and pulmonary valves are the semilunar pair, and there is one aortic valve.',
     ],
     selfCheck: 'From a blank page: the three wall layers in order, why the pericardium is not one of them, which valve has three cusps and when it closes, and which chest region sits between the two pleural cavities.',
-    sourceRefs: [{ ref: 'hss.1.2', location: 'Cardiopulmonary system and associated structures' }, { ref: 'hss.manual1920', location: 'Submodule 1.2 guiding questions, p.19' }, { ref: 'hss.revans', location: 'Module 1.2 answers' }],
+    sourceRefs: [{ ref: 'hss.1.2', location: 'Cardiopulmonary system and associated structures' }, { ref: 'hss.1.1', location: 'p12 "Myocardium is the muscular wall" of the heart forming the four chambers; p8 the fibrous pericardium as a dense collagen sac that stabilises the heart in the mediastinum' }, { ref: 'hss.manual1920', location: 'Submodule 1.2 guiding questions, p.19' }, { ref: 'hss.revans', location: 'Module 1.2 answers' }],
   },
   {
     id: 'hss2011-m1-lungs-airway',
@@ -124,7 +124,7 @@ export const HSS_MODULES = [
       'The hilum sits on the mediastinal surface because that is where the root structures enter and leave — the lung\'s plumbing faces its mediastinum, not its ribs.',
     ],
     selfCheck: 'From a blank page: which pleura covers what, where the hilum sits and why, which cell makes surfactant, the structure that keeps food out of the trachea, and why bronchial arteries exist at all.',
-    sourceRefs: [{ ref: 'hss.1.1', location: 'Cardiovascular system and lungs' }, { ref: 'hss.manual1920', location: 'Submodule 1.1 guiding questions, p.17' }, { ref: 'hss.revans', location: 'Module 1.1 answers' }],
+    sourceRefs: [{ ref: 'hss.1.1', location: 'Cardiovascular system and lungs' }, { ref: 'hss.1.2', location: 'p36 "produce oily secretory surfactant that coats the" alveolar surfaces (Type II pneumocytes); p10 the bronchial arteries branch from the thoracic aorta to supply the lung tissue' }, { ref: 'hss.manual1920', location: 'Submodule 1.1 guiding questions, p.17' }, { ref: 'hss.revans', location: 'Module 1.1 answers' }],
   },
   {
     id: 'hss2011-m2-cns-basics',
@@ -243,7 +243,7 @@ export const HSS_MODULES = [
       'Trigeminal chews, facial makes faces. A patient who cannot chew but has normal expression localises to the trigeminal nerve with the facial intact — the two functions share a face and not a nerve.',
     ],
     selfCheck: 'From a blank page: the three limbic structures plus the cortical area wrongly lumped with them, which nerve chews and which one makes faces, and where blood and CSF drain from the brain.',
-    sourceRefs: [{ ref: 'hss.2.3', location: 'Neuroanatomy lecture' }, { ref: 'hss.manual1920', location: 'Submodule 2.3 revision exercises, p.31–32' }, { ref: 'hss.revans', location: 'Module 2.3 answers' }],
+    sourceRefs: [{ ref: 'hss.2.3', location: 'Neuroanatomy lecture; p30 "CSF is absorbed into the venous circulation at the arachnoid granulations"; p42 the vagus as the longest cranial nerve' }, { ref: 'hss.manual1920', location: 'Submodule 2.3 revision exercises, p.31–32' }, { ref: 'hss.revans', location: 'Module 2.3 answers' }],
   },
   {
     id: 'hss2011-m3-digestive',
@@ -306,7 +306,7 @@ export const HSS_MODULES = [
       'The stomach\'s third, oblique muscle layer is unique to it along the tract — extra churning needs extra muscle — while the colon\'s teniae coli are its own muscle specialisation, three ribbons of longitudinal muscle. Muscle architecture marks both ends of the gut.',
     ],
     selfCheck: 'From a blank page: the longest gut segment, where gastric pits sit in the stomach wall, the stomach’s extra muscle layer, the largest salivary gland, and the vessel-by-vessel nutrient route to and from the liver.',
-    sourceRefs: [{ ref: 'hss.3.1', location: 'Digestive system lecture' }, { ref: 'hss.manual1920', location: 'Module 3.1 revision exercises, p.33; Module 3.3 p.37' }, { ref: 'hss.revans', location: 'Module 3.1 and 3.3 answers' }],
+    sourceRefs: [{ ref: 'hss.3.1', location: 'Digestive system lecture; p12 "Oblique muscle layer" — the stomach\'s third muscularis layer, over the mucosa' }, { ref: 'hss.manual1920', location: 'Module 3.1 revision exercises, p.33; Module 3.3 p.37' }, { ref: 'hss.revans', location: 'Module 3.1 and 3.3 answers' }],
   },
   {
     id: 'hss2011-m3-urogenital-pelvis',
@@ -370,7 +370,7 @@ export const HSS_MODULES = [
       'The uterine artery is the exception its list exists to hide: suprarenal, testicular and ovarian arteries all arise from the aorta, and it does not. "Every abdominal artery comes off the aorta" is the assumption the MCQ rewards for dropping.',
     ],
     selfCheck: 'From a blank page: the three sites a ureteric stone sticks and what they share, both vertebral levels, the bladder’s wall muscle, and the three muscles forming the posterior abdominal wall.',
-    sourceRefs: [{ ref: 'hss.3.2', location: 'Urogenital system lecture' }, { ref: 'hss.3.3', location: 'Regional anatomy of the abdominopelvic region' }, { ref: 'hss.revans', location: 'Module 3.2 and 3.3 answers; More exercises Module 3' }],
+    sourceRefs: [{ ref: 'hss.3.2', location: 'Urogenital system lecture; p6 "4-5 minor calyces are merged to form a" major calyx; p14 the ureters are retroperitoneal, piercing the posterior bladder wall at an oblique angle' }, { ref: 'hss.3.3', location: 'Regional anatomy of the abdominopelvic region' }, { ref: 'hss.revans', location: 'Module 3.2 and 3.3 answers; More exercises Module 3' }],
   },
   /* ------------------------------------------------------------------ *
    * The 2026 material — hss.msk.2026, Module 1 Week 1. A New source file
