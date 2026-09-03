@@ -1,0 +1,42 @@
+— every chip draws from a real GLB layer —
+  12 chips over 7 layers
+
+— organs: 137 names in ./assets/ic-organlar.glb —
+  -  "Circle" has no readable name; it follows the whole organs layer
+  -  "Mesh" has no readable name; it follows the whole organs layer
+  ok Respiratory     45 meshes
+  ok Digestive       57 meshes
+  ok Urogenital      26 meshes
+  ok Endocrine       10 meshes
+
+— circulatory: 1169 names in ./assets/dolasim.glb —
+  -  "????????" has no readable name; it follows the whole circulatory layer
+  -  "?x" has no readable name; it follows the whole circulatory layer
+  -  "?x.001" has no readable name; it follows the whole circulatory layer
+  -  "?x.l" has no readable name; it follows the whole circulatory layer
+  -  "?x.r" has no readable name; it follows the whole circulatory layer
+  -  "Mesh" has no readable name; it follows the whole circulatory layer
+  -  "Mesh.001" has no readable name; it follows the whole circulatory layer
+  -  "Mesh.002" has no readable name; it follows the whole circulatory layer
+  -  "Mesh.003" has no readable name; it follows the whole circulatory layer
+  -  "Mesh.004" has no readable name; it follows the whole circulatory layer
+  -  "Mesh.005" has no readable name; it follows the whole circulatory layer
+  -  "Mesh.006" has no readable name; it follows the whole circulatory layer
+  -  "Mesh.007" has no readable name; it follows the whole circulatory layer
+  ok Arterial       750 meshes
+  ok Venous         389 meshes
+  ok Heart           17 meshes
+
+— the systems agree with the flow classes wherever both speak —
+  ok venous           369 meshes, all in venous
+  ok pulmVein          20 meshes, all in venous
+  ok arterial         723 meshes, all in arterial
+  ok pulmArtery        27 meshes, all in arterial
+  ok heart              9 meshes, all in heart
+  ok heartAtrium        2 meshes, all in heart
+  ok heartVentricle     6 meshes, all in heart
+  ok airway            39 meshes, all in respiratory
+  ok gut               23 meshes, all in digestive
+  ok urinary            8 meshes, all in urogenital
+
+EVERY MESH IS IN A SYSTEM

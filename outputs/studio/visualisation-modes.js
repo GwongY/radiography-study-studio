@@ -3,7 +3,7 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, ANATOMY_DATABASE, BODY_CONCEPTS, FLOW_CLASSES, LANDMARK_HOTSPOTS, LAYER_NAMES, MESH_INDEX, REGIONS, conceptById, els, getAnatomy, state } from './imports.js';
+import { $, ANATOMY_DATABASE, BODY_CONCEPTS, FLOW_CLASSES, LANDMARK_HOTSPOTS, LAYER_NAMES, MESH_INDEX, REGIONS, conceptById, els, getAnatomy, layerOf, state } from './imports.js';
 import { XRAY_MU, applyLayers, clearStudyFocus, endMovement, enterXray, exitXray, focusStructures, highlightExtra, setExtraVisible, setLayer, setMovementAngle, setPhysiology, setXrayExposure, setXrayRegion, setXrayView, startMovement, xrayDepthMaterial } from './live-physiology.js';
 import { addHotspots, applyVisibility, between, boot3D, getRecord, remapHotspotsToReal, resize, showHotspots } from './region-boxes-how.js';
 import { bodyMetrics, ensureConceptGroup, showPickCallout } from './spatial-concept-overlays.js';
@@ -294,7 +294,9 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   setLayer:async(key,on,file)=>{
     if(key==='skeleton'){setLayer('skeleton',on);return true}
     if(!on){setLayer(key,false);return true}
-    try{await loadExtraModel(key,file);setLayer(key,true);return true}
+    /* One GLB can draw several chips, so the file loads under its LAYER key
+       while the CHIP is what gets switched on -- see outputs/systems.js. */
+    try{await loadExtraModel(layerOf(key),file);setLayer(key,true);return true}
     catch(e){showToast('Could not load that layer — the others are still there.');return false}
   },
   layerState:()=>({...state.layers}),
@@ -306,12 +308,26 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   /* How many meshes of each class a loaded layer turned out to hold -- the
      legend prints the real count rather than a claim about the atlas. */
   flowCounts:(key)=>key?{...(state.flow.counts[key]||{})}:JSON.parse(JSON.stringify(state.flow.counts)),
+  /*
+   * What is on screen RIGHT NOW, by flow class.
+   *
+   * flowCounts above is a property of the FILE, counted once as it loaded, and
+   * two of the files now draw several chips each. With only Venous on, a
+   * legend built from the file printed the artery swatch and a count of 723
+   * beside a screen with no arteries on it. This counts what is visible.
+   */
+  visibleFlowCounts:()=>{
+    const out={};
+    [...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes||[])]
+      .forEach(o=>{if(o.visible===false)return;const c=o.userData&&o.userData.flowClass;if(c)out[c]=(out[c]||0)+1});
+    return out;
+  },
   flowClassOf:(id)=>{
     const all=[...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)];
     const hit=all.find(m=>m.userData.canonicalId===id);
     return hit?hit.userData.flowClass||null:null;
   },
-  layerLoaded:(key)=>key==='skeleton'?!!state.fullModel:!!state.extraModels[key],
+  layerLoaded:(key)=>key==='skeleton'?!!state.fullModel:!!state.extraModels[layerOf(key)],
   setLayerOpacity:(key,v)=>{state.layerOpacity={...(state.layerOpacity||{}),[key]:v};applyLayers()},
   showSystem:async(key,file)=>{
     if(!key){setExtraVisible(null);return true}

@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 811 —
-  f26f13eda29f1805  WHOLE SET
+— user-facing strings in outputs/ — 812 —
+  3c021ca033c17c15  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -193,6 +193,7 @@
   c97733fde5d549af  A vertical line dropped from the midpoint of the left clavicle. The other vertical of the nine-region grid.
   455d11e097ea6e80  A vertical line dropped from the midpoint of the right clavicle. One of the two verticals of the nine-region grid.
   11903751ff4bca8a  AI & data
+  f425542186138bee  Abdomen & pelvis
   92508480855a651c  Acromial part of deltoid muscle
   077ffef3c99e0f88  All ' + qCount + ' questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.
   aaaadf5a23df48bd  All hints shown

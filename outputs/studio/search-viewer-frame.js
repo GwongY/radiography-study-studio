@@ -3,7 +3,7 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, els, state } from './imports.js';
+import { $, els, state, systemsIn } from './imports.js';
 import { applyLayers, clearStudyFocus, normName } from './live-physiology.js';
 import { applyVisibility, getRecord } from './region-boxes-how.js';
 import { clean, clearHighlight, courseChipHTML, pool, renderRegions, selectBone, showToast } from './visualisation-modes.js';
@@ -124,8 +124,13 @@ export async function revealStructure(spec){
         try{ layer=await loadExtraModel(p.system,p.file); }catch(e){ console.warn('layer load failed',p.system,e); layer=null; }
       }
       if(!layer) continue;
-      state.layers[p.system]=true;
-      state.layerOpacity={...(state.layerOpacity||{}),[p.system]:1};
+      /* p.system names a GLB LAYER. A search result carries no system of its
+         own, and guessing one from the mesh name here would be a second
+         classifier -- so every chip that layer draws comes on, and the result
+         is visible whichever system it turns out to belong to. */
+      const chips=systemsIn(p.system).map(s=>s.key);
+      state.layerOpacity={...(state.layerOpacity||{})};
+      chips.forEach(k=>{state.layers[k]=true;state.layerOpacity[k]=1});
       const hits=meshesFor(layer,p.mesh);
       /*
        * Widen to the whole structure.

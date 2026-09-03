@@ -18,7 +18,8 @@ import { bodyMetrics, calloutAt } from './spatial-concept-overlays.js';
 import { cavityContext, gridMetrics } from './cavity-geometry-derived.js';
 import { getRecord } from './region-boxes-how.js';
 import { showToast } from './visualisation-modes.js';
-import { renderXray } from './live-physiology.js';
+/* layerOn: a layer is on when any of the systems it draws is -- systems.js. */
+import { layerOn, renderXray } from './live-physiology.js';
 
 /* ------------------------------------------------------------------ *
  * The body frame
@@ -411,7 +412,7 @@ function pinAt(anchor,text,color){
  * ------------------------------------------------------------------ */
 function inkTargets(){
   const layers=Object.entries(state.extraModels||{})
-    .filter(([k])=>state.layers&&state.layers[k])
+    .filter(([k])=>layerOn(k))
     .flatMap(([,m])=>m.meshes||[]);
   return [...state.fullMeshes,...layers].filter((o)=>o.visible!==false);
 }

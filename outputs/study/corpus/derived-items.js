@@ -8,6 +8,7 @@
  * except its siblings.
  */
 import { ANATOMY_DATABASE, REGIONS } from '../../anatomy-data.js';
+const BONE_REGIONS = REGIONS.filter((r) => r.bones !== false);
 import { STRUCTURE_SETS, structureSet, JOINT_MOVEMENTS } from './structures.js';
 
 /* ------------------------------------------------------------------ *
@@ -61,7 +62,10 @@ function boneItem(record) {
   const practice = [
     { type: 'typed', prompt: `Which bone or bone group has these landmarks: ${record.landmarks.join(', ')}?`, accept: [record.canonicalName.toLowerCase(), ...record.aliases.map((a) => a.toLowerCase())],
       explanation: `${record.canonicalName}. Its landmarks are ${record.landmarks.join(', ')}.` },
-    { type: 'mcq', prompt: `In which region does the ${record.canonicalName.toLowerCase()} sit?`, options: REGIONS.map((r) => r.label), answer: REGIONS.findIndex((r) => r.id === record.region),
+    /* Bone regions only. 'Abdomen & pelvis' is a region of the body, not a
+       set of bones (see REGIONS), and offering it here would put a second
+       defensible answer beside 'Pelvis' for every bone of the pelvic ring. */
+    { type: 'mcq', prompt: `In which region does the ${record.canonicalName.toLowerCase()} sit?`, options: BONE_REGIONS.map((r) => r.label), answer: BONE_REGIONS.findIndex((r) => r.id === record.region),
       explanation: `${record.canonicalName} belongs to the ${regionLabel.toLowerCase()}.` },
     { type: 'matching', prompt: `Match the ${record.canonicalName.toLowerCase()} to what it articulates with.`,
       pairs: record.articulations.slice(0, 4).map((a) => [record.canonicalName, a]),

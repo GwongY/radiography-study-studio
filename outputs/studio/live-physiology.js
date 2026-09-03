@@ -3,7 +3,7 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, FLOW_ANCHORS, FLOW_CLASSES, LAYER_NAMES, MESH_INDEX, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, spikeEnvelope, state, ventricleEnvelope } from './imports.js';
+import { $, FLOW_ANCHORS, FLOW_CLASSES, LAYER_NAMES, MESH_INDEX, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, spikeEnvelope, state, systemCounts, systemsIn, ventricleEnvelope } from './imports.js';
 import { MEMORY_TIPS, answer, clean, openDetail, pool, record, regionLabel, selectBone, showToast } from './visualisation-modes.js';
 import { animate, applyVisibility, between, getRecord, tube } from './region-boxes-how.js';
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
@@ -263,15 +263,30 @@ export function stepPhysiology(t){
       :r.deform==='steady'?1 : 0;
   });
 }
-/* Named structures per layer, from the index -- the same collapsing the chips
+/*
+ * A GLB layer is on when ANY of the systems it draws is on, and a mesh is on
+ * when one of its own systems is. Two of the seven files carry several chips
+ * each -- see outputs/systems.js -- so every place that used to read
+ * state.layers[glbKey] has to ask one of these instead. A mesh no rule placed
+ * follows its layer, so an unclassified structure is never invisible.
+ */
+export function layerOn(layerKey){return systemsIn(layerKey).some(s=>!!state.layers[s.key])}
+export function meshOn(mesh){
+  const sys=mesh&&mesh.userData&&mesh.userData.systems;
+  if(!sys||!sys.length)return layerOn(mesh&&mesh.userData&&mesh.userData.layerKey);
+  return sys.some(k=>!!state.layers[k]);
+}
+/* Named structures per SYSTEM, from the index -- the same collapsing the chips
    and the search use, so all three agree. Meshes are geometry; this is anatomy. */
-const LAYER_NAMED=MESH_INDEX.reduce((a,m)=>{a[m.layer]=(a[m.layer]||0)+1;return a},{});
+const SYS_COUNT=systemCounts(MESH_INDEX,UNITS);
+const SYS_LABEL=SYSTEMS.reduce((a,s)=>{a[s.key]=s.label;return a},{});
+const LAYER_NAMED=Object.fromEntries(Object.entries(SYS_COUNT).map(([k,v])=>[k,v.total]));
 /* and, of those, how many the course material actually names */
-const LAYER_COURSE=MESH_INDEX.reduce((a,m)=>{if(m.tier===0)a[m.layer]=(a[m.layer]||0)+1;return a},{});
+const LAYER_COURSE=Object.fromEntries(Object.entries(SYS_COUNT).map(([k,v])=>[k,v.course]));
 /* and how many separate things a tap can select: every course-named structure
    plus one per group of the rest. The three numbers only agree because they
    all come out of the same index -- see UNITS in mesh-index.js. */
-const LAYER_UNITS=UNITS.reduce((a,u)=>{a[u.layer]=(a[u.layer]||0)+1;return a},{});
+const LAYER_UNITS=Object.fromEntries(Object.entries(SYS_COUNT).map(([k,v])=>[k,v.units]));
 export function updateStageMeta(){
   const on=Object.keys(state.layers).filter(k=>state.layers[k]);
   if(!on.length){els.stageMeta.textContent='No layer shown — turn one on to study it';return}
@@ -282,12 +297,12 @@ export function updateStageMeta(){
      remember?" -- see the Sources & model dialog. */
   const base=on.length===1&&on[0]==='skeleton'
     ?`Precise Z-Anatomy / BodyParts3D skeleton · ${LAYER_NAMED.skeleton} structures, ${LAYER_COURSE.skeleton} named by your course, ${LAYER_UNITS.skeleton} you can select`
-    :`${on.map(k=>LAYER_NAMES[k]||k).join(' + ')} · ${named} structures, ${course} named by your course, ${units} you can select · tap one`;
+    :`${on.map(k=>SYS_LABEL[k]||LAYER_NAMES[k]||k).join(' + ')} · ${named} structures, ${course} named by your course, ${units} you can select · tap one`;
   /* Say what the region filter did, or it looks like nothing happened. */
   if(state.region&&state.region!=='all'){
     const bones=state.fullMeshes.filter(m=>m.visible).length;
     const soft=Object.entries(state.extraModels||{})
-      .filter(([k])=>state.layers[k]).reduce((t,[,m])=>t+m.meshes.filter(o=>o.visible).length,0);
+      .filter(([k])=>layerOn(k)).reduce((t,[,m])=>t+m.meshes.filter(o=>o.visible).length,0);
     els.stageMeta.textContent=`${regionLabel(state.region)} only · ${bones} bone mesh${bones===1?'':'es'}`
       +(soft?` + ${soft} soft-tissue mesh${soft===1?'':'es'} inside its measured box`:'');
     return;
@@ -301,10 +316,17 @@ export function updateStageMeta(){
  */
 export function applyLayers(){
   Object.entries(state.extraModels).forEach(([k,m])=>{
-    m.root.visible=!!state.layers[k];
-    const op=state.layerOpacity?.[k];
-    if(op!==undefined)m.meshes.forEach(o=>{
+    m.root.visible=layerOn(k);
+    /* Opacity is per CHIP, not per file: the arteries can be solid while the
+       veins behind them are ghosted, and they share one GLB. A mesh takes the
+       opacity of whichever of its systems is on, so the split layers fade
+       independently and the unsplit ones behave exactly as they did. */
+    m.meshes.forEach(o=>{
       if(!o.material)return;
+      const sys=(o.userData.systems&&o.userData.systems.length?o.userData.systems:systemsIn(k).map(s=>s.key))
+        .filter(key=>state.layers[key]);
+      const op=sys.reduce((v,key)=>{const x=state.layerOpacity?.[key];return x===undefined?v:(v===undefined?x:Math.max(v,x))},undefined);
+      if(op===undefined)return;
       const t=op<.99;
       if(o.material.transparent!==t)o.material.needsUpdate=true;
       o.material.transparent=t;o.material.opacity=op;o.material.depthWrite=!t;
@@ -321,7 +343,7 @@ export function applyLayers(){
     if(o.material.transparent!==t)o.material.needsUpdate=true;
     o.material.transparent=t;o.material.opacity=so;o.material.depthWrite=!t;
   });
-  state.activeExtra=Object.keys(state.extraModels).filter(k=>state.layers[k]).pop()||null;
+  state.activeExtra=Object.keys(state.extraModels).filter(k=>layerOn(k)).pop()||null;
   applyVisibility();
   applyConnectiveVisibility();
   if(typeof enforceHidden==='function')enforceHidden();
@@ -377,8 +399,13 @@ export async function focusStructures(spec){
      the answer -- the caller shows a still diagram instead. */
   if(!hits.length)return {ok:false,reason:'no-match',found:0};
   Object.keys(state.layers).forEach(k=>{state.layers[k]=false});
-  state.layers[key]=true;
-  state.layerOpacity={...(state.layerOpacity||{}),[key]:1};
+  /* focusStructures is called with a GLB LAYER key, so it turns on every chip
+     that file draws -- a lesson that focuses the organ layer must not have to
+     know which of the four organ systems its structures happen to fall in. */
+  const focusChips=systemsIn(key).map(s=>s.key);
+  focusChips.forEach(k=>{state.layers[k]=true});
+  state.layerOpacity={...(state.layerOpacity||{})};
+  focusChips.forEach(k=>{state.layerOpacity[k]=1});
   if(spec.ghostBody&&key!=='skeleton'){state.layers.skeleton=true;state.layerOpacity.skeleton=.16}
   applyLayers();
   if(spec.isolate!==false){
@@ -550,7 +577,7 @@ export function enterXray(){
    * Whatever is on in the 3D tab is restored on the way out.
    */
   state.layers.skeleton=true;
-  Object.keys(state.extraModels||{}).forEach((k)=>{state.layers[k]=false});
+  SYSTEMS.forEach((s)=>{if(s.key!=='skeleton')state.layers[s.key]=false});
   /*
    * Cavities, regions and planes are teaching overlays drawn ON the anatomy.
    * A radiograph has nothing painted on it, and an additive beam would render
@@ -604,7 +631,7 @@ export function enterXray(){
   const apply=(mesh,key)=>{state.xray.mats.set(mesh,mesh.material);mesh.material=shared(key);mesh.userData.xrayKey=key};
   state.fullMeshes.forEach(m=>apply(m,'skeleton'));
   Object.entries(state.extraModels||{}).forEach(([k,l])=>l.meshes.forEach(m=>apply(m,k)));
-  Object.entries(state.extraModels||{}).forEach(([k,l])=>{l.root.visible=!!state.layers[k]});
+  Object.entries(state.extraModels||{}).forEach(([k,l])=>{l.root.visible=layerOn(k)});
   state.scene.background=null;
   state.scene.fog=null;
   /* A yaw would smear a projection that is meant to be read square on. */
@@ -761,8 +788,9 @@ export function setLayer(key,on){
   applyLayers();
 }
 export function setExtraVisible(key){
-  /* Exclusive mode, kept for the structure-set flow: show one system alone. */
-  Object.keys(state.extraModels).forEach(k=>{state.layers[k]=(k===key)});
+  /* Exclusive mode, kept for the structure-set flow: show one system alone.
+     Called with a GLB layer key, so every chip that layer draws comes on. */
+  SYSTEMS.forEach(s=>{if(s.key!=='skeleton')state.layers[s.key]=(s.layer===key)});
   state.layers.skeleton=!key;
   applyLayers();
 }
@@ -933,7 +961,7 @@ function classifySoftTissue(THREE,movingBones,fixedBones){
     fixedBox.expandByVector(pad);
   }
   Object.entries(state.extraModels||{}).forEach(([key,layer])=>{
-    if(!state.layers[key])return;
+    if(!layerOn(key))return;
     layer.meshes.forEach(mesh=>{
       const b=worldBox(THREE,mesh);
       if(!b||!b.intersectsBox(movingBox))return;
