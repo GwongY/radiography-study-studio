@@ -8,6 +8,7 @@ import { migrate } from './storage-versioned-keys.js';
 import { renderLearn } from './subject.js';
 import { renderNavButtons } from './navigation-five-destinations.js';
 import { renderOverlayCard } from './spatial-overlay-controls.js';
+import { renderViewerTools } from './viewer-tools.js';
 
 /* ------------------------------------------------------------------ *
  * Boot
@@ -26,6 +27,10 @@ $$('viewerMoreBtn').onclick = () => {
   $$('viewerSkeletonPane').classList.toggle('sheet-open', open);
   if (open) {
     renderOverlayCard();
+    /* The sheet is the only place the tools are shown, and the engine can have
+       moved underneath it — a region preset, a cut, a pin — so it is redrawn
+       from engine state on open rather than trusted to be current. */
+    renderViewerTools();
     /* Show that there IS something below, without hiding the model to do it. */
     requestAnimationFrame(() => sheet.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
   } else {
