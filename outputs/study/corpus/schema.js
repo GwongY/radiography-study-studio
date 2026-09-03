@@ -33,6 +33,10 @@ export const SOURCE_ROOTS = {
   /* Not a shared drive folder: material dropped straight into the repo as the
      semester runs. Catalogued alongside the drive by build-source-catalogue. */
   newsrc: 'New source',
+  /* Students' own shared folders, named here only for the outside-reader batch
+     sources registered below. */
+  hwater: '熊若水sourcesss',
+  y1src: 'Sources (Year1)',
 };
 
 /*
@@ -90,6 +94,19 @@ export const SOURCE_FILES = {
    */
   'hss.w1.2026': { file: 'HSS2011_Wk1__orientat_intro.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'primary', note: 'Week 1 subject orientation, Benson Lau, 18 pages. The authority for the 2026 module ordering — Module 1 Musculoskeletal, 2 Nervous, 3 Cardiovascular and pulmonary, 4 Digestive and urogenital — which is a different numbering from the "Module 1 Thorax … Module 4 Musculoskeletal System" folders every older file is filed under. Also carries the assessment weights and the body-orientation terminology.' },
   'hss.msk.2026': { file: 'W1_MusculoskeletalSystem_2026_CKK_upload.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'primary', note: 'Module 1 Week 1, Dr Alex Cheung, 39 pages. Bone histology and gross structure, marrow, the five bone types, the three joint classifications and the six synovial types, ligaments, cartilage, muscle organisation from epimysium down to myofilament, tendon and the Golgi tendon organ, origin and insertion, the fascicle arrangements, motor units and muscle tone. Its fibre-type comparison table and its movement-terminology slides are pictures, so neither extracts as text.' },
+
+  /*
+   * Outside-reader batch sources. Re-shared copies of HSS2011 lectures that
+   * carry teaching content no other registered copy holds. The claims taken
+   * from each are written out and page-verified in work/.source-text/notes/
+   * (gitignored); source-text.json carries their page text so a sourceRef
+   * quoting them is checkable with the drive unmounted, the same as any other
+   * primary source.
+   */
+  'hss.resp': { file: 'The Respiratory System.pdf', subject: 'HSS2011', root: 'hwater', folder: 'Human Anatomy/Lecture notes/Module1', kind: 'primary', note: "Dr John Yuen's standalone respiratory-system lecture (Chapter 23). Its larynx, trachea, bronchial-tree and alveolar-cell slides repeat hss.1.2; registered for the lung gross-anatomy slides hss.1.2 lacks — apex beyond the first rib, the three-layer respiratory membrane, the lobe and fissure pattern, the hilum." },
+  'hss.l1.overview': { file: 'Anat L1 Overview of Human Anatomy _ Body Movements.pdf', subject: 'HSS2011', root: 'y1src', folder: 'Anatomy/Lecture Notes', kind: 'primary', note: "Dr Josephine Lau's HSS2011 Lecture 1 overview — anatomical position and planes, the skeleton and vertebral column, joint classes, the body-movement catalogue. A fuller deck than the Module 0 handout hss.m0.1718, and paged by its own [[page]] numbering rather than the \"L1 pN\" slide footers." },
+  'hss.3.1.2019': { file: '1920_M3_L8_digestive_system student version.pdf', subject: 'HSS2011', root: 'extra', folder: 'extra source2.0/Year 1 Sem1/Anat/M3', kind: 'primary', note: "Dr Thomas Lau's 2019 HSS2011 digestive-system anatomy lecture — the four-layer gut wall, gross and microanatomy of each organ, the embryonic fore/mid/hindgut arterial supply, hepatic portal drainage. A different lecture from hss.3.1, which is McGraw-Hill based." },
+  'hss.3.3.2019': { file: '1920_M3_L7_Abdomen and Pelvis student version.pdf', subject: 'HSS2011', root: 'extra', folder: 'extra source2.0/Year 1 Sem1/Anat/M3', kind: 'primary', note: "Dr Thomas Lau's 2019 HSS2011 Regional Anatomy of the Abdomen & Pelvis lecture — surface planes, the diaphragm hiatuses, the peritoneum and its folds, GI organ gross anatomy, the posterior abdominal wall vessels. A different deck from hss.3.3." },
 
   /* ---------------- ABCT2326 Human Physiology ---------------- */
   'phys.ebook': { file: 'Fundamentals of Anatomy and Physiology_eBook.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology', kind: 'primary', note: 'Martini, Nath & Bartholomew (2015), 10th ed. — the core textbook named on the lecture-note title slides.' },
