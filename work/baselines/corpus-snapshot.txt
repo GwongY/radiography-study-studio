@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  782e503d1db4e856    802353  ITEM_BY_ID  Map[127]
+  5ca17c91159e6470    803418  ITEM_BY_ID  Map[127]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   c529371f74fc1d2a      4250  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -23,14 +23,14 @@
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   57b60f7998459a29     20933  STRUCTURE_SETS  object[13]
-  050e88bfa07a7e54    798679  STUDY_ITEMS  array[127]
+  98c81fbdddf70757    799744  STUDY_ITEMS  array[127]
   732916ea01d90fc1      1165  STUDY_MODES  array[9]
   ff5da1efc5d0872f      3411  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  98e3e6bbafb4b952    848727  default  object[7]
+  3e426f13f415e572    849792  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -57,7 +57,7 @@
   bb157d6583e754f9      2211  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  fd7c234986fe281e  WHOLE SURFACE
+  0beaedcf15abd2ad  WHOLE SURFACE
 
 — every study item, by id — 127 items —
   2d29339c231f634a  abct2326-acquired-immunity
@@ -94,9 +94,9 @@
   fe8aeb4f98e9c764  abct2326-organelles
   001f80a08dd3d2cd  abct2326-plasma-membrane
   6272315dbf95796f  abct2326-protein-synthesis
-  882027b20b1f10d2  abct2326-renal-nephron
+  d674db64ef0b2b89  abct2326-renal-nephron
   1565f23b9247f161  abct2326-resp-gas-transport
-  567383e26e8b6ef5  abct2326-resp-pathway
+  b70a323aeff65be8  abct2326-resp-pathway
   1a7643a21b266c66  abct2326-spindle-golgi
   981a724977954078  abct2326-synapse-drug-action
   2461699529bb443c  abct2326-t-cell-types
@@ -128,12 +128,12 @@
   318fd195216a9f96  hss2011-joints-rotator-cuff
   ca255ecc70d81280  hss2011-joints-synovial-structure
   1484e4e65a24e8cb  hss2011-joints-synovial-types
-  cf0593cb85f1bef8  hss2011-m1-heart-wall-valves
-  863ba0114c3b76e1  hss2011-m1-lungs-airway
-  9846833ab3371c17  hss2011-m2-brain-regions
+  3a8e0d4ad5d25943  hss2011-m1-heart-wall-valves
+  6fecea20b0bec53d  hss2011-m1-lungs-airway
+  ce5dd76a2cdd9676  hss2011-m2-brain-regions
   6cbb9c9d4ba552a7  hss2011-m2-cns-basics
-  ad3fee47a1ccab2f  hss2011-m3-digestive
-  5ffad2b50e4e1d10  hss2011-m3-urogenital-pelvis
+  75c99bb3027e8f1c  hss2011-m3-digestive
+  b49619a70ced0bc8  hss2011-m3-urogenital-pelvis
   165c3a03d63b1477  hss2011-movement-elbowFlexion
   da066969c9f944bd  hss2011-movement-shoulderAbduction
   b74e2cc53b6d6cba  hss2011-movement-supination

@@ -335,7 +335,7 @@ export const PHYS_ITEMS = [
       'The same tube is cut twice, at two different places: anatomically at the larynx (upper/lower), functionally at the terminal bronchiole (conducting/respiratory). A question that says "conducting" is asking for the second cut — and the larynx is the wrong answer to give it.',
     ],
     selfCheck: 'Cover the card and write the branching sequence; then check the boundary — terminal bronchiole ends conduction, respiratory bronchiole starts exchange.',
-    sourceRefs: [{ ref: 'phys.3', location: 'Slides 3–8 functions, organisation, the respiratory tract' }, { ref: 'hss.revans', location: 'HSS2011 Module 1.1, Fill-in-blanks 2' }],
+    sourceRefs: [{ ref: 'phys.3', location: 'Slides 3–8 functions, organisation, the respiratory tract' }, { ref: 'hss.1.2', location: 'p32 "Ends in the mediastinum at T5 level, where it" branches into the right and left primary bronchi' }, { ref: 'hss.revans', location: 'HSS2011 Module 1.1, Fill-in-blanks 2' }],
   },
   {
     id: 'abct2326-renal-nephron',
@@ -409,7 +409,7 @@ export const PHYS_ITEMS = [
       'The kidney runs two journeys that questions ask separately: the tubule journey (capsule → proximal → loop → distal → collecting duct) and the drainage journey (calyx → pelvis → ureter → bladder → urethra). Mixing the two lists — a distal tubule appearing in a drainage answer — is the classic slip.',
     ],
     selfCheck: 'Write the tubule order and the drainage path side by side from memory; the classic slip is the distal tubule before the loop of Henle — check yours against the key facts.',
-    sourceRefs: [{ ref: 'phys.5', location: 'Slides 4–17 structure of the urinary system, kidney, nephron, nephron tubules, glomerular filtration, GFR' }, { ref: 'hss.revans', location: 'HSS2011 Module 3.2 answers' }],
+    sourceRefs: [{ ref: 'phys.5', location: 'Slides 4–17 structure of the urinary system, kidney, nephron, nephron tubules, glomerular filtration, GFR' }, { ref: 'hss.3.2', location: 'p6 "4-5 minor calyces are merged to form a" major calyx, and 2–3 major calyces combine to form the renal pelvis' }, { ref: 'hss.revans', location: 'HSS2011 Module 3.2 answers' }],
   },
   {
     id: 'abct2326-digestive-pathway',
