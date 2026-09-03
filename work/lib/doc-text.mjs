@@ -22,8 +22,22 @@ import { tmpdir } from 'node:os';
  * failed", which reads exactly like a corrupt PDF -- nine of the ten documents
  * that "failed" extraction were fine, and extracted first try once copied to an
  * ASCII path. Copy only when the path needs it: some of these files are 200 MB.
+ *
+ * LENGTH is the same failure wearing different clothes, and it took longer to
+ * find. Windows still refuses a path at or past MAX_PATH (260) to a program
+ * that has not opted out, and these shared folders nest deeply enough to reach
+ * it: the Green Group copy of "New development in arc radiation therapy.pdf"
+ * sits at exactly 260 characters. The FILE is fine and extracts instantly once
+ * copied; the PATH is what cannot be passed. pdftotext reports an I/O error,
+ * unread-manifest wrote that down as "no extractable text (scanned images?)",
+ * and three perfectly readable journal articles sat in the NEEDS-OCR pile --
+ * the one pile where the work is expensive, slow and manual, so nobody goes
+ * back to re-check the diagnosis. Threshold is well under 260: the copy needs
+ * room for the temp directory too.
  */
 const NEEDS_COPY = /[^\x20-\x7e]/;
+const TOO_LONG = 220;
+const needsCopy = (f) => NEEDS_COPY.test(f) || f.length >= TOO_LONG;
 
 /* Every entry in a zip whose name matches, decompressed. The central directory
    is walked backwards from the End Of Central Directory record. */
@@ -67,7 +81,7 @@ function pdfPages(file, timeout) {
   const tmp = mkdtempSync(join(tmpdir(), 'rss-doc-'));
   try {
     let src = file;
-    if (NEEDS_COPY.test(file)) { src = join(tmp, `in${extname(file)}`); copyFileSync(file, src); }
+    if (needsCopy(file)) { src = join(tmp, `in${extname(file)}`); copyFileSync(file, src); }
     const out = join(tmp, 'out.txt');
     execFileSync('pdftotext', ['-layout', src, out], { stdio: 'ignore', timeout });
     /* pdftotext separates pages with a form feed. That IS the page boundary. */

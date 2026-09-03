@@ -386,6 +386,17 @@ shapes** — in "The region grid and classifiers" below.
   fails with a bare "Command failed", which is indistinguishable from a corrupt
   PDF — nine of ten "unreadable" documents extracted first try once copied to an
   ASCII temp path. Copy only when the path needs it; some of these are 200 MB.
+- **A path at or past 260 characters fails the same way, and hides better.**
+  Windows MAX_PATH still applies to `pdftotext`, and these folders nest deeply:
+  the Green Group copy of `New development in arc radiation therapy.pdf` sits at
+  exactly 260. The file is fine and extracts in a second once copied; the PATH
+  is what cannot be passed. `unread-manifest.mjs` recorded the failure as "no
+  extractable text (scanned images?)" and filed three readable journal articles
+  under NEEDS-OCR - the one pile where the work is expensive, slow and manual,
+  so nobody goes back to re-check the diagnosis. A wrong verdict that sends work
+  to the costly pile is worse than one that sends it to the cheap pile, because
+  only the cheap pile gets revisited. `needsCopy()` in `lib/doc-text.mjs` now
+  covers both causes; the threshold is 220, leaving room for the temp dir.
 - **An em dash inside a quoted citation is usually the citation's own
   connector.** `Slide "Fibrous joints — Sutures"` points at a slide headed
   "Fibrous joints" with "Sutures" below it — two lines apart in the extracted
