@@ -143,7 +143,7 @@ import { installLayerFlow, layerPool, setXrayView, unitBlurb, unitFor } from './
     const nearest=nearestVisibleMesh(event,rect);
     if(nearest){confirmPick(nearest,event);if(focusAfter&&state.selectionAnchor)focusSelected()}
   }
-  let pointerDown=null;function bindCanvas(){let lastTap=0;els.stage.addEventListener('pointerdown',(e)=>{pointerDown={x:e.clientX,y:e.clientY}});els.stage.addEventListener('pointerup',(e)=>{if(pointerDown&&Math.hypot(e.clientX-pointerDown.x,e.clientY-pointerDown.y)<7){const now=performance.now();const isDouble=now-lastTap<320;lastTap=now;pick(e,isDouble)}pointerDown=null})}
+  let pointerDown=null;function bindCanvas(){let lastTap=0;els.stage.addEventListener('pointerdown',(e)=>{pointerDown={x:e.clientX,y:e.clientY}});els.stage.addEventListener('pointerup',(e)=>{/* An armed tool owns the stage: a tap that pins a label must not also re-select and peel. See studio/tools-and-capture.js. */if(state.tool){pointerDown=null;return}if(pointerDown&&Math.hypot(e.clientX-pointerDown.x,e.clientY-pointerDown.y)<7){const now=performance.now();const isDouble=now-lastTap<320;lastTap=now;pick(e,isDouble)}pointerDown=null})}
   /*
    * The studio's own "Anatomy search" card is gone.
    *

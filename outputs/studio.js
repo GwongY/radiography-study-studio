@@ -16,9 +16,11 @@ import { init as init_visualisation_modes_js } from './studio/visualisation-mode
 import './studio/region-boxes-how.js';
 import { init as init_depth_picking_js } from './studio/depth-picking.js';
 import { init as init_live_physiology_js } from './studio/live-physiology.js';
+import { init as init_tools_and_capture_js } from './studio/tools-and-capture.js';
 
 init_hide_and_search_js();
 init_spatial_concept_overlays_js();
 init_visualisation_modes_js();
 init_depth_picking_js();
 init_live_physiology_js();
+init_tools_and_capture_js();
