@@ -30,7 +30,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v77';
+const CACHE_VERSION = 'v78';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -159,6 +159,7 @@ const SHELL = [
      that maps "collarbone" and "voice box" onto what the model calls them */
   './mesh-index.js?v=5',
   './synonyms.js?v=3',
+  './systems.js?v=1',
   /* the cavity engine: resolver, maths, builders. Small, and the overlays are
      part of the study system, so they belong in the offline shell. */
   './landmarks.js?v=2',

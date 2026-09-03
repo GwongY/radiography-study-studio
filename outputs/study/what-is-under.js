@@ -3,7 +3,7 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, STRUCTURE_MODELS, esc, ui } from './imports.js';
+import { $$, esc, ui } from './imports.js';
 import { BODY_LAYERS, GHOST_OPACITY, layerState, renderLayerRail } from './subject.js';
 import { read } from './storage-versioned-keys.js';
 import { renderHiddenTray } from './hidden-tray.js';
@@ -128,9 +128,8 @@ async function syncLayersToRail() {
   if (window.__osteo.clearStudyFocus) window.__osteo.clearStudyFocus();
   for (const l of BODY_LAYERS) {
     const st = layerState[l.key] || 'off';
-    const model = STRUCTURE_MODELS[l.key];
     if (st === 'off') { await window.__osteo.setLayer(l.key, false); continue; }
-    const ok = await window.__osteo.setLayer(l.key, true, model ? model.file : null);
+    const ok = await window.__osteo.setLayer(l.key, true, l.file);
     if (ok) window.__osteo.setLayerOpacity(l.key, st === 'ghost' ? GHOST_OPACITY : 1);
   }
 }

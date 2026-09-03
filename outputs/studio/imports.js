@@ -10,6 +10,9 @@
      Picking needs the index to know which meshes are sub-parts of one
      named structure. See the note in CLAUDE.md about the two scopes. */
   import { MESH_INDEX, UNITS } from '../mesh-index.js?v=5';
+  /* Which body system a mesh belongs to inside its GLB layer -- the two
+     composite layers show several chips each. See outputs/systems.js. */
+  import { SYSTEMS, isSplit, layerOf, systemCounts, systemsIn, systemsOf } from '../systems.js?v=1';
 
   export const $ = (id) => document.getElementById(id);
   export const els = { stage:$('stage'), state:$('stageState'), stateTitle:$('stateTitle'), stateCopy:$('stateCopy'), retry:$('retryBtn'), progress:$('progressBar'), stageMeta:$('stageMeta'), regionMeta:$('regionMeta'), selectedName:$('selectedName'), selectedChips:$('selectedChips'), selectedDetails:$('selectedDetails'), taskKicker:$('taskKicker'), taskTitle:$('taskTitle'), taskCopy:$('taskCopy'), answers:$('answers'), feedback:$('feedback'), next:$('nextBtn'), regions:$('regionButtons'), reviewBar:$('reviewBar'), reviewNumber:$('reviewNumber'), reviewHint:$('reviewHint'), toast:$('toast'), detailDialog:$('detailDialog'), detailTitle:$('detailTitle'), detailChips:$('detailChips'), detailBody:$('detailBody'), zoomIn:$('zoomInBtn'), zoomOut:$('zoomOutBtn'), focus:$('focusBtn'), motion:$('motionBtn') };
@@ -28,6 +31,7 @@ export {
   MESH_INDEX,
   MODEL_CATALOG,
   REGIONS,
+  SYSTEMS,
   UNITS,
   atriumEnvelope,
   boundsOf,
@@ -41,8 +45,13 @@ export {
   createResolver,
   getAnatomy,
   gridBounds,
+  isSplit,
+  layerOf,
   measureGrid,
   measureLandmarks,
   spikeEnvelope,
+  systemCounts,
+  systemsIn,
+  systemsOf,
   ventricleEnvelope,
 };

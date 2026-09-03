@@ -551,3 +551,57 @@ shapes** — in "The region grid and classifiers" below.
   back in `exitXray`.** Both of the above are stored there (`clip`, `tools`)
   rather than recomputed on the way out, because the way out has no way to know
   what the state was on the way in.
+
+### Body systems, not files — `outputs/systems.js`, `outputs/study/subject.js`, `outputs/studio/live-physiology.js`
+
+- **`state.layers` is keyed by CHIP, not by GLB.** Two of the seven files draw
+  several chips each, so `state.layers[glbKey]` is `undefined` everywhere and
+  reads as off. Every place that asks whether a layer is showing goes through
+  `layerOn(glbKey)` (any of its systems on) or `meshOn(mesh)` (one of the
+  mesh's own systems on), both exported from `live-physiology.js`. There were
+  eleven such sites; a twelfth would fail silently by hiding a whole layer.
+- **`focusStructures`, `setExtraVisible` and the search still speak in GLB
+  layers**, because a lesson or a search result names a file, not a system.
+  They turn on every chip that file draws. Do not "fix" that by classifying the
+  result's mesh name — that is a second classifier, and two classifiers drift.
+- **The colour key must count what is VISIBLE.** `flowCounts(layer)` is a
+  property of the FILE, measured once as it loaded. Turning Venous off left the
+  key printing the vein swatch and its count beside a screen with no veins in
+  it. `visibleFlowCounts()` walks the meshes instead. It reads `o.visible`, so
+  it counts a mesh under a hidden ROOT as visible — fine for the key, wrong if
+  you reuse it for anything that cares.
+- **Three meshes in the circulatory GLB have no readable name** — `????????`,
+  `?x.l`, `?x.r` — and they are not empty: 1173 and 213 vertices each. They are
+  real structures whose names were destroyed in some encoding step upstream.
+  They cannot be classified and must not be guessed at, so they follow their
+  LAYER: on whenever any vessel chip is on. `work/system-check.mjs` prints them
+  so the count is in the baseline; a fourth appearing silently would be a
+  structure on screen that no chip can turn off. `classify()` calls them
+  arteries by fallback, so the colour key lists three arteries that are not.
+- **Adding a REGIONS entry edits the corpus.** `derived-items.js` builds an
+  "In which region does the X sit?" MCQ whose options are `REGIONS.map(label)`.
+  Appending is safe (`findIndex` still lands right); inserting would silently
+  re-key 127 items' answers. `bones:false` keeps a region out of that question
+  entirely — the abdomen needs it, or "Abdomen & pelvis" sits beside "Pelvis"
+  as a second defensible answer for every bone of the pelvic ring and is
+  marked wrong.
+
+### The abdomen has no bones of its own — `outputs/studio/region-boxes-how.js`
+
+- **Every other region is a set of bones; this one is a space.** Its frame is
+  borrowed — lower ribs and costal margin above, lumbar column and sacrum
+  behind, hip bones below — so it exists only as a SECONDARY membership in
+  `REGION_ALSO`, and the primary-region distribution reports it as empty. That
+  is why `region-probe.mjs` checks it separately by name and by exact count
+  (28); the distribution table alone would have said nothing at all.
+- **Its floor and roof come from `measureGrid`, not from the bones.** A box
+  round the borrowed frame runs from the seventh rib to the ischial tuberosity
+  — most of the chest and all of the perineum. `regionBoxes` clips y to
+  `G.topY`/`G.bottomY`, the xiphoid tip and the top of the pubic symphysis, so
+  the filter selects exactly the body the nine-region grid is painted on. Take
+  those two numbers from anywhere else and the overlay and the filter stop
+  agreeing. `gridMetrics()` returns null until every measurement it needs is
+  in; the bone box then stands unclipped — too tall, but never empty.
+- **Measured, filtering to Abdomen & pelvis with the organ layer on**: 22 of
+  the 23 gut meshes are in (the oesophagus is the one out, correctly), 2 of 35
+  airway (the lung bases, below the xiphoid), 0 of the head structures.

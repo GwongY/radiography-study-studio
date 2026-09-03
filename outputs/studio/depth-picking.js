@@ -3,12 +3,12 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, ANATOMY_DATABASE, LAYER_NAMES, classify, els, getAnatomy, state } from './imports.js';
+import { $, ANATOMY_DATABASE, LAYER_NAMES, classify, els, getAnatomy, state, systemsOf } from './imports.js';
 import { answer, clean, clearHighlight, highlight, onBonePicked, pool, rebuildConcepts, record, renderRegions, renderReview, setMode, showToast, startQuestion, startQuestionFor } from './visualisation-modes.js';
 import { applyVisibility, boot3D, cameraView, confirmPick, focusSelected, getRecord, isSelfOrAncestorVisible, mapImportedName, nearestVisibleMesh, resize, toggleIsolation, zoomCamera } from './region-boxes-how.js';
 import { clearPickCallout } from './spatial-concept-overlays.js';
 import { hideMesh } from './hide-and-search.js';
-import { installLayerFlow, layerPool, setXrayView, unitBlurb, unitFor } from './live-physiology.js';
+import { installLayerFlow, layerOn, layerPool, setXrayView, unitBlurb, unitFor } from './live-physiology.js';
 
   /* ------------------------------------------------------------------ *
    * Depth picking
@@ -83,7 +83,7 @@ import { installLayerFlow, layerPool, setXrayView, unitBlurb, unitFor } from './
     state.pointer.y=-((event.clientY-rect.top)/rect.height)*2+1;
     state.raycaster.setFromCamera(state.pointer,state.camera);
     const hotspotTargets=state.mode==='landmarks'?state.hotspots:[];
-    const layerTargets=Object.entries(state.extraModels||{}).filter(([k])=>state.layers[k]).flatMap(([,m])=>m.meshes);
+    const layerTargets=Object.entries(state.extraModels||{}).filter(([k])=>layerOn(k)).flatMap(([,m])=>m.meshes);
     /* A focused lesson names only what it is teaching. The ghosted body behind
        it is context, so tapping a lymph node must not answer 'Sacrum'. */
     const targets=state.focus?layerPool(state.focus.key):[...state.meshes,...state.fullMeshes,...layerTargets,...hotspotTargets];
@@ -264,7 +264,11 @@ export async function loadExtraModel(key,file){
            radiographyImportance:unitBlurb(unit,key),
            difficulty:3,modelObjectIds:[],commonConfusions:[]});
     }
-    o.userData={...(o.userData||{}),label:raw,extraKey:key,canonicalId:id,layerKey:key,side,region:key,
+    /* Which chip draws this mesh. An unsplit layer answers with its own one
+       system; the two composite files answer with the body system the name
+       says it belongs to. [] means no rule placed it, and applyVisibility
+       shows it whenever any system of the layer is on -- see systems.js. */
+    o.userData={...(o.userData||{}),label:raw,extraKey:key,canonicalId:id,layerKey:key,systems:systemsOf(key,raw),side,region:key,
       baseScale:o.scale.toArray(),basePosition:o.position.toArray(),presentationActive:false};
     if(o.material){o.material=o.material.clone();o.material.roughness=.72;o.material.metalness=.03;o.material.transparent=false;o.material.opacity=1}
   });

@@ -17,6 +17,9 @@ import { MESH_INDEX, UNITS } from '../mesh-index.js?v=5';
 import { expandQuery, missingFor, compositeFor } from '../synonyms.js?v=3';
 import { visualFor, plateFor } from '../visual-data.js?v=4';
 import { FLOW_CLASSES, LAYER_CLASSES, RATES } from '../physiology.js?v=4';
+/* The layer rail is a rail of SYSTEMS, not of files: two of the seven GLBs
+   draw several chips each. See outputs/systems.js. */
+import { SYSTEMS, layerOf, systemCounts } from '../systems.js?v=1';
 import { schematic } from '../schematics.js?v=2';
 import { figureFor } from '../figures.js?v=2';
 import { layoutFor } from '../layouts.js?v=1';
@@ -73,6 +76,7 @@ export {
   SOURCE_ROOTS,
   STORAGE_PREFIX,
   STRUCTURE_MODELS,
+  SYSTEMS,
   STUDY_ITEMS,
   STUDY_MODES,
   SUBJECTS,
@@ -95,6 +99,7 @@ export {
   itemsForSubject,
   itemsForUnit,
   jointMovement,
+  layerOf,
   layoutFor,
   masteryScore,
   missingFor,
@@ -110,6 +115,7 @@ export {
   schematic,
   searchAnatomy,
   structureSet,
+  systemCounts,
   termGloss,
   termNote,
   tierFor,

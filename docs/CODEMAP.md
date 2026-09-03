@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1093 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss)
+- `outputs/app.css` — 1100 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss)
 - `outputs/studio.js` — 26 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 45 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -31,7 +31,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 | File | Lines | What it holds | Traps |
 | --- | --- | --- | --- |
-| `anatomy-data.js` | 145 | Osteology Studio — anatomy data layer |  |
+| `anatomy-data.js` | 161 | Osteology Studio — anatomy data layer |  |
 | `bodymap.js` | 319 | Body map — search extras and spatial concepts for the 3D viewer. |  |
 | `cavity-build.js` | 732 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
 | `cavity-geom.js` | 1148 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
@@ -43,8 +43,9 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `schedule.js` | 562 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 117 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 295 | Radiography Study Studio — service worker |  |
+| `sw.js` | 296 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
+| `systems.js` | 223 | Body systems — which named system a mesh belongs to, inside its GLB layer | [Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 991 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
 | `term-notes.js` | 354 | Term notes — say it, then mean it. |  |
 | `visual-data.js` | 463 | visual-data.js — a visual for every study item. |  |
@@ -63,6 +64,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 - `schedule.js` — `TERM`, `ymd`, `weekStart`, `weekEnd`, `weekOf`, `STAFF`, `SUBJECT_ADMIN`, `GROUP_CHOICES`, `dayOf`, `WEEK_STUDY`, `studyFor`, `SESSIONS`, `sessionSpan`, `sessionStatus`, `sessionsWithStatus`, `isOtherGroup`, `fmtDate`, `fmtTime`, `fmtWeekRange`, `fmtWhen`, `KINDS`, `SCHEDULE_SOURCES`
 - `schematics.js` — `SCHEMATICS`, `schematic`
 - `synonyms.js` — `COMPOSITES`, `NOT_MODELLED`, `SYNONYMS`, `expandQuery`, `missingFor`, `compositeFor`
+- `systems.js` — `UNREADABLE`, `SYSTEMS`, `layerOf`, `systemsIn`, `isSplit`, `systemsOf`, `systemOf`, `systemCounts`
 - `term-gloss.js` — `TERM_GLOSS`, `termGloss`, `GLOSS_COUNT`
 - `term-notes.js` — `TERM_NOTES`, `termNote`, `hasNote`, `TERM_COUNT`
 - `visual-data.js` — `LAYER_FILES`, `BONE_MESHES`, `ITEM_VISUALS`, `visualFor`, `generatedFor`, `PLATES`, `PLATE_CREDIT`, `plateFor`
@@ -113,15 +115,15 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `cavity-geometry-derived.js` | 472 | Cavity geometry, derived from the loaded anatomy. |
-| `depth-picking.js` | 308 | Depth picking |
+| `depth-picking.js` | 312 | Depth picking |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
-| `imports.js` | 48 | Block 0 has its own import scope -- block 1's copy is not visible here. |
-| `live-physiology.js` | 1032 | Live physiology |
-| `region-boxes-how.js` | 314 | Region boxes — how the region filter reaches the six soft-tissue layers |
-| `search-viewer-frame.js` | 232 | Search -> viewer: frame the part, then hide only what stands in front |
+| `imports.js` | 57 | Block 0 has its own import scope -- block 1's copy is not visible here. |
+| `live-physiology.js` | 1060 | Live physiology |
+| `region-boxes-how.js` | 362 | Region boxes — how the region filter reaches the six soft-tissue layers |
+| `search-viewer-frame.js` | 237 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 466 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
-| `tools-and-capture.js` | 653 | Tools — section cuts, surface ink, pinned labels, capture. |
-| `visualisation-modes.js` | 626 | Visualisation modes. |
+| `tools-and-capture.js` | 654 | Tools — section cuts, surface ink, pinned labels, capture. |
+| `visualisation-modes.js` | 642 | Visualisation modes. |
 
 ## The study system — `outputs/study/*.js`
 
@@ -134,7 +136,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `global-search-one.js` | 351 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
 | `home.js` | 9 | Home |
-| `imports.js` | 120 |  |
+| `imports.js` | 126 |  |
 | `layout-figures.js` | 875 | Layout figures |
 | `lesson-visuals.js` | 237 | Lesson visuals |
 | `mastery-dashboard.js` | 9 | Mastery dashboard |
@@ -151,10 +153,10 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `spatial-overlay-controls.js` | 279 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 35 | The study system's mutable UI state. |
 | `storage-versioned-keys.js` | 119 | Storage — versioned keys, one-time migration from the osteology app |
-| `subject.js` | 272 | Subject |
+| `subject.js` | 284 | Subject |
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 283 | Viewer tools — annotate, cut, layer depth, capture |
-| `what-is-under.js` | 171 | What is under the tap |
+| `what-is-under.js` | 170 | What is under the tap |
 
 ## The corpus — `outputs/study/corpus/*.js`
 
@@ -166,7 +168,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | --- | --- | --- |
 | `corpus.js` | 59 | The assembled corpus — every item array spread into one list, and the |
 | `coverage.js` | 184 | Coverage report — what the supplied sources actually cover, and what they |
-| `derived-items.js` | 338 | Items generated rather than authored: one per canonical bone record, one |
+| `derived-items.js` | 342 | Items generated rather than authored: one per canonical bone record, one |
 | `diagrams.js` | 50 | Diagrams — authored schematics, drawn inline as SVG so the app needs no |
 | `dsai-items.js` | 145 | DSAI1202, from the Week 1 overview deck. |
 | `expansion-items.js` | 564 | Expansion batch — fills gaps found in a coverage audit. |
@@ -223,6 +225,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/shell-check.mjs` | Shell check — every module the page imports is precached under the SAME |  |
 | `work/source-check.mjs` | Does every source the corpus cites actually exist on the drive? | [The source drive](TRAPS.md#the-source-drive--workbuild-source-cataloguemjs-worksource-checkmjs) |
 | `work/syntax-check.mjs` | Syntax-checks every inline <script type="module"> block in the app HTML, plus |  |
+| `work/system-check.mjs` | Does every mesh in a split layer land in a system? |  |
 | `work/toplevel.mjs` | Which names does a module declare at TOP level? Ask Node, not the indentation. |  |
 | `work/ui-strings.mjs` | UI strings — every literal the app can put on screen, as a sorted fingerprint. |  |
 | `work/unread-manifest.mjs` | Write a work list of everything the corpus has not read, for handing to |  |

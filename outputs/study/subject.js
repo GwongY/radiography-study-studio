@@ -3,7 +3,7 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, FLOW_CLASSES, ITEM_TYPES, LAYER_CLASSES, MESH_INDEX, RATES, SOURCE_FILES, SOURCE_ROOTS, STRUCTURE_MODELS, SUBJECTS, UNITS, describeSource, esc, itemsForUnit, priorOf, tierFor, ui } from './imports.js';
+import { $$, FLOW_CLASSES, ITEM_TYPES, LAYER_CLASSES, MESH_INDEX, RATES, SOURCE_FILES, SOURCE_ROOTS, STRUCTURE_MODELS, SUBJECTS, SYSTEMS, UNITS, describeSource, esc, itemsForUnit, layerOf, priorOf, systemCounts, tierFor, ui } from './imports.js';
 import { adjScore, itemAttempted, itemScore, read } from './storage-versioned-keys.js';
 import { goTo, setActiveNav } from './navigation-five-destinations.js';
 import { leaveProjection } from './what-is-under.js';
@@ -133,15 +133,25 @@ export function renderLearn() {
  * Layers load on demand. Precaching six models is ~37 MB of download for
  * someone who may only study bones tonight.
  */
-export const BODY_LAYERS = [
-  { key: 'skeleton', label: 'Skeleton' },
-  { key: 'muscle', label: 'Muscles' },
-  { key: 'joint', label: 'Ligaments' },
-  { key: 'organs', label: 'Organs' },
-  { key: 'circulatory', label: 'Vessels' },
-  { key: 'nervous', label: 'Nerves' },
-  { key: 'lymphatic', label: 'Lymphatic' },
-];
+/*
+ * The rail is a rail of SYSTEMS, and used to be a rail of FILES.
+ *
+ * Seven chips, one per GLB, meant "Vessels" stood for the arteries, the veins
+ * and the heart at once, and "Organs" for the airway, the gut, the urinary and
+ * genital organs and the endocrine glands. HSS2011 sets arterial supply and
+ * venous drainage as separate questions, so one chip was standing in front of
+ * two answers. outputs/systems.js splits those two files; the other five each
+ * still draw exactly one chip, and behave as they always did.
+ *
+ * Each entry carries the GLB layer it draws from AND that file, so nothing
+ * downstream has to map a chip back to a file in order to load it.
+ */
+export const BODY_LAYERS = SYSTEMS.map((s) => ({
+  key: s.key,
+  label: s.label,
+  layer: s.layer,
+  file: (STRUCTURE_MODELS[s.layer] || {}).file || null,
+}));
 const LAYER_CYCLE = { off: 'solid', solid: 'ghost', ghost: 'off' };
 export const GHOST_OPACITY = 0.34;
 export let layerState = { skeleton: 'solid' };
@@ -165,12 +175,7 @@ export let layerState = { skeleton: 'solid' };
  * ABCT2326 material actually names it and which file does. The chip leads with
  * that number: "Vessels 186/419" is 186 names to learn inside an atlas of 419.
  */
-const LAYER_STRUCTURES = MESH_INDEX.reduce((acc, m) => {
-  const a = acc[m.layer] || (acc[m.layer] = { total: 0, course: 0 });
-  a.total++;
-  if (m.tier === 0) a.course++;
-  return acc;
-}, {});
+const LAYER_STRUCTURES = systemCounts(MESH_INDEX, UNITS);
 function layerCount(key) {
   return (LAYER_STRUCTURES[key] || {}).total || 0;
 }
@@ -184,12 +189,8 @@ function layerCourseCount(key) {
  * vessels are modelled, 186 of them are named by the course, and a tap can
  * land on 217 things -- those 186 plus one per group of the other 233.
  */
-const LAYER_UNIT_COUNT = UNITS.reduce((acc, u) => {
-  acc[u.layer] = (acc[u.layer] || 0) + 1;
-  return acc;
-}, {});
 function layerUnitCount(key) {
-  return LAYER_UNIT_COUNT[key] || 0;
+  return (LAYER_STRUCTURES[key] || {}).units || 0;
 }
 
 const hex = (n) => '#' + Number(n).toString(16).padStart(6, '0');
@@ -203,18 +204,24 @@ const hex = (n) => '#' + Number(n).toString(16).padStart(6, '0');
  * that quietly let a student read 'artery = red = oxygenated' off a pulmonary
  * artery would be teaching the error the colours exist to prevent.
  */
+/*
+ * Counted from what is VISIBLE, not from what has loaded.
+ *
+ * The key used to add up each on layer's stored per-file counts. That was the
+ * same number whichever chips of that file were on, so turning off Venous and
+ * leaving Arterial up still printed the vein colours and their counts beside a
+ * screen with no veins in it. The studio counts the visible meshes instead;
+ * LAYER_CLASSES survives only to give the rows a stable anatomical order.
+ */
 function renderFlowKey() {
-  if (!window.__osteo || !window.__osteo.flowCounts) return '';
-  const on = Object.keys(layerState).filter((k) => layerState[k] && layerState[k] !== 'off');
+  if (!window.__osteo || !window.__osteo.visibleFlowCounts) return '';
+  const counts = window.__osteo.visibleFlowCounts() || {};
   const rows = [];
   const seen = new Set();
-  on.forEach((k) => {
-    const counts = window.__osteo.flowCounts(k) || {};
-    (LAYER_CLASSES[k] || []).forEach((cls) => {
-      if (seen.has(cls) || !counts[cls]) return;
-      seen.add(cls);
-      rows.push({ cls, n: counts[cls], spec: FLOW_CLASSES[cls] });
-    });
+  Object.values(LAYER_CLASSES).flat().forEach((cls) => {
+    if (seen.has(cls) || !counts[cls] || !FLOW_CLASSES[cls]) return;
+    seen.add(cls);
+    rows.push({ cls, n: counts[cls], spec: FLOW_CLASSES[cls] });
   });
   if (!rows.length) return '';
   const pulm = rows.some((r) => r.cls === 'pulmArtery' || r.cls === 'pulmVein');
@@ -230,9 +237,14 @@ export function renderLayerRail() {
   const live = !!(window.__osteo && window.__osteo.physiologyOn && window.__osteo.physiologyOn());
   rail.innerHTML = `<button class="livechip" id="liveChip" data-on="${live ? 1 : 0}" aria-pressed="${live}">
       <span class="pulse"></span><span>${live ? 'Live physiology' : 'Static model'}</span>
-    </button>` + BODY_LAYERS.map((l) => {
+    </button>` + BODY_LAYERS.map((l, i) => {
     const st = layerState[l.key] || 'off';
-    return `<button class="layerchip" data-layer="${esc(l.key)}" data-state="${st}" aria-pressed="${st !== 'off'}">
+    /* Chips that share one GLB are marked as a group, so twelve chips read as
+       seven models rather than twelve peers -- and so it is visible that the
+       first tap on any of the three vessel chips is the same one download. */
+    const group = BODY_LAYERS.filter((x) => x.layer === l.layer).length > 1;
+    const sub = !group ? '' : ` data-sub="${BODY_LAYERS.findIndex((x) => x.layer === l.layer) === i ? 'first' : 'more'}"`;
+    return `<button class="layerchip" data-layer="${esc(l.key)}" data-state="${st}"${sub} aria-pressed="${st !== 'off'}">
       <span class="dot"></span><span>${esc(l.label)}</span><span class="cnt" title="${layerCourseCount(l.key)} named by your course · ${layerCount(l.key)} modelled · ${layerUnitCount(l.key)} separately selectable">${layerCourseCount(l.key)}<i>/${layerCount(l.key)}</i></span>
     </button>`;
   }).join('') + '<div class="layerhint">tap to cycle · solid → ghost → off</div>' + renderFlowKey();
@@ -251,7 +263,7 @@ export function renderLayerRail() {
 async function cycleLayer(key, btn) {
   if (btn && btn.dataset.busy === '1') return;
   const next = LAYER_CYCLE[layerState[key] || 'off'];
-  const model = STRUCTURE_MODELS[key];
+  const model = STRUCTURE_MODELS[layerOf(key)];
   const needsLoad = next !== 'off' && key !== 'skeleton' && !(window.__osteo && window.__osteo.layerLoaded(key));
   if (needsLoad && btn) { btn.dataset.busy = '1'; btn.querySelector('.cnt').textContent = '···'; }
   try {

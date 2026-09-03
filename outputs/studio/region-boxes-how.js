@@ -4,11 +4,15 @@
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $, LANDMARK_HOTSPOTS, MODEL_CATALOG, els, getAnatomy, state } from './imports.js';
-import { applyConnectiveVisibility, applyLayers, renderXray, setMovementAngle, stepPhysiology, unitBlurb, unitFor, updateStageMeta } from './live-physiology.js';
+import { applyConnectiveVisibility, applyLayers, meshOn, renderXray, setMovementAngle, stepPhysiology, unitBlurb, unitFor, updateStageMeta } from './live-physiology.js';
 import { bodyMetrics, clearPickCallout, updateHudSprites } from './spatial-concept-overlays.js';
 import { clean, onBonePicked, pool, record, renderRegions, selectBone, showToast } from './visualisation-modes.js';
 import { enforceHidden } from './hide-and-search.js';
 import { loadExtraModel } from './depth-picking.js';
+/* The abdomen's box is cut to the levels the nine-region grid is drawn on --
+   see regionBoxes. Imported as a function, called only from inside one, so the
+   cycle with cavity-geometry-derived.js resolves like the others here. */
+import { gridMetrics } from './cavity-geometry-derived.js';
 import { syncTools } from './tools-and-capture.js';
 
   /* ------------------------------------------------------------------ *
@@ -91,6 +95,35 @@ import { syncTools } from './tools-and-capture.js';
       });
       if(!b.isEmpty()){b.expandByScalar(pad);boxes.push(b)}
     });
+    /*
+     * The abdomen's floor and roof are LEVELS, not bones.
+     *
+     * Every other region is the space its own bones occupy, so an axis-aligned
+     * box round them is the region. The abdomen is not: the bones that frame it
+     * belong to the thorax, the column and the pelvic girdle, and a box round
+     * them runs from the seventh rib -- most of the chest -- down to the
+     * ischial tuberosity. So x and z come from those bones, and y is cut to the
+     * span the nine-region grid is drawn on: the tip of the xiphoid process
+     * above, the top of the pubic symphysis below, both measured in
+     * cavity-build.js from the model in front of you.
+     *
+     * Taking them from measureGrid rather than measuring them again here is the
+     * point. The grid overlay and this filter are then the same two numbers,
+     * and "Abdomen & pelvis" selects exactly the body the nine regions are
+     * painted on rather than something a few centimetres taller.
+     *
+     * gridMetrics returns null until it has every measurement it needs. In that
+     * case the bone box stands, unclipped -- too tall, but never empty.
+     */
+    if(region==='abdomen'&&boxes.length){
+      const G=(()=>{try{return gridMetrics()}catch(e){return null}})();
+      if(G&&Number.isFinite(G.topY)&&Number.isFinite(G.bottomY)){
+        boxes.forEach(b=>{
+          b.min.y=Math.max(b.min.y,G.bottomY-pad);
+          b.max.y=Math.min(b.max.y,G.topY+pad);
+        });
+      }
+    }
     state._regionBoxes={region,boxes,n:state.fullMeshes.length};
     return boxes.length?boxes:null;
   }
@@ -113,6 +146,10 @@ import { syncTools } from './tools-and-capture.js';
       Object.entries(state.extraModels||{}).forEach(([k,mdl])=>{
         if(state.focus&&state.focus.key===k)return;   /* focus owns this layer */
         mdl.meshes.forEach(o=>{
+          /* 3. System. Two of the seven files draw several chips, so a mesh
+                whose own system is off goes away even though its layer is on
+                -- turning Venous off must not take the arteries with it. */
+          if(!meshOn(o)){o.visible=false;return}
           if(!boxes){o.visible=true;return}
           const c=bodyCentreOf(o,inv);
           o.visible=!!c&&boxes.some(b=>b.containsPoint(c));
@@ -231,7 +268,18 @@ import { syncTools } from './tools-and-capture.js';
    * kind of wrong the filter had before. A mesh therefore carries a LIST of
    * regions; everything else in the app still reads the single primary one.
    */
-  const REGION_ALSO=[[/\bsacrum|\bcoccyx/,'pelvis']];
+  /*
+   * The abdomen borrows its frame from three regions and owns none of it: the
+   * lower ribs and the costal margin above, the lumbar column and the sacrum
+   * behind, the hip bones below and to the sides. Those are the bones the
+   * filter shows, and what the box is measured from -- but for x and z only.
+   * Its floor and roof are levels, not bones; regionBoxes takes them from the
+   * grid.
+   */
+  const REGION_ALSO=[
+    [/\bsacrum|\bcoccyx/,'pelvis'],
+    [/\bvertebra l[1-5]|\bsacrum|\bhip bone|\bilium|\bischium|\bpubis|\b(seventh|eighth|ninth|tenth|eleventh|twelfth) rib|costal cartilage of (seventh|eighth|ninth|tenth) rib/,'abdomen'],
+  ];
   function importedRegions(raw,mapped){
     const primary=importedRegion(raw,mapped);
     const value=String(raw||'').replace(/_/g,' ').toLowerCase();

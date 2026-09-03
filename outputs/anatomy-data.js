@@ -17,6 +17,22 @@ export const REGIONS = [
   { id: 'upper_limb', label: 'Upper limb' },
   { id: 'pelvis', label: 'Pelvis' },
   { id: 'lower_limb', label: 'Lower limb' },
+  /* The one region here that is not a set of bones.
+     'Pelvis' above is the girdle -- the two hip bones -- and every other entry
+     is likewise a part of the skeleton. This one is a REGION of the body, and
+     it is here because the six bone regions could not answer "show me the
+     abdomen": its contents are the point and it has no bones of its own, only
+     a floor, a roof and a wall borrowed from three other regions.
+     Named after the module that teaches it, exactly as 'skull' is labelled
+     after Module 4.2: HSS2011 teaches the abdomen and the pelvis together, in
+     '2.3 Regional Anatomy of the Abdominopelvic.pdf', titled "Abdomen &
+     Pelvis". Its box is measured in studio/region-boxes-how.js, and spans
+     precisely what the nine-region grid is painted on.
+     bones:false keeps it out of the derived "In which region does the X sit?"
+     question, which is asked about bones and offers every region as an option.
+     Left in, it would have stood beside 'Pelvis' as a second defensible answer
+     to "where is the hip bone", and been marked wrong. */
+  { id: 'abdomen', label: 'Abdomen & pelvis', bones: false },
 ];
 
 export const ANATOMY_DATABASE = [

@@ -48,18 +48,32 @@
   ok   L2 maps to the lumbar record
   ok   costal cartilage maps to the ribs
   ok   the thyroid cartilage has no curated bone record
-— bones that belong to two regions —
-  ok   the sacrum is spine AND pelvis (spine,pelvis)
+— bones that belong to more than one region —
+  ok   the sacrum is spine, pelvis AND abdomen (spine,pelvis,abdomen)
   ok   the coccyx is spine AND pelvis (spine,pelvis)
   ok   an ordinary bone still has exactly one region
   ok   the pelvic ring shows 4 meshes, not 2 (Hip bone.l, Hip bone.r, Coccyx, Sacrum)
 
-— distribution —
+— the abdomen, which borrows every bone it shows —
+  ok   Sacrum frames the abdomen
+  ok   Hip bone.l frames the abdomen
+  ok   Twelfth rib.r frames the abdomen
+  ok   Vertebra L3 frames the abdomen
+  ok   Costal cartilage of tenth rib.l frames the abdomen
+  ok   First rib.l does not
+  ok   Costal cartilage of second rib.l does not
+  ok   Vertebra T4 does not
+  ok   Femurl does not
+  ok   Coccyx does not
+  ok   28 meshes frame the abdomen (expected 28 = 5 lumbar + sacrum + 2 hip bones + 12 lower ribs + 8 costal cartilages)
+
+— distribution, by PRIMARY region —
   Head & neck          76
   Vertebral column     26
   Thoracic cage        47
   Upper limb           64
-  Pelvis                2
+  Pelvis                2   (4 counting the bones it borrows)
   Lower limb           62
+  Abdomen & pelvis      0   (28 counting the bones it borrows)
 
 ALL PASS
