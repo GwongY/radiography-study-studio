@@ -124,7 +124,7 @@ export const HSS_MODULES = [
       'The hilum sits on the mediastinal surface because that is where the root structures enter and leave — the lung\'s plumbing faces its mediastinum, not its ribs.',
     ],
     selfCheck: 'From a blank page: which pleura covers what, where the hilum sits and why, which cell makes surfactant, the structure that keeps food out of the trachea, and why bronchial arteries exist at all.',
-    sourceRefs: [{ ref: 'hss.1.1', location: 'Cardiovascular system and lungs' }, { ref: 'hss.1.2', location: 'p36 "produce oily secretory surfactant that coats the" alveolar surfaces (Type II pneumocytes); p10 the bronchial arteries branch from the thoracic aorta to supply the lung tissue' }, { ref: 'hss.manual1920', location: 'Submodule 1.1 guiding questions, p.17' }, { ref: 'hss.revans', location: 'Module 1.1 answers' }],
+    sourceRefs: [{ ref: 'hss.1.1', location: 'Cardiovascular system and lungs' }, { ref: 'hss.1.2', location: 'p36 "produce oily secretory surfactant that coats the" alveolar surfaces (Type II pneumocytes); p10 the bronchial arteries branch from the thoracic aorta to supply the lung tissue' }, { ref: 'hss.resp', location: 'p27 "Hilum -a groove that allows the primary bronchi, pulmonary" vessels, nerves and lymphatics to reach the lung; p26 the apex of each lung extends beyond the first rib' }, { ref: 'hss.manual1920', location: 'Submodule 1.1 guiding questions, p.17' }, { ref: 'hss.revans', location: 'Module 1.1 answers' }],
   },
   {
     id: 'hss2011-m2-cns-basics',
@@ -306,7 +306,7 @@ export const HSS_MODULES = [
       'The stomach\'s third, oblique muscle layer is unique to it along the tract — extra churning needs extra muscle — while the colon\'s teniae coli are its own muscle specialisation, three ribbons of longitudinal muscle. Muscle architecture marks both ends of the gut.',
     ],
     selfCheck: 'From a blank page: the longest gut segment, where gastric pits sit in the stomach wall, the stomach’s extra muscle layer, the largest salivary gland, and the vessel-by-vessel nutrient route to and from the liver.',
-    sourceRefs: [{ ref: 'hss.3.1', location: 'Digestive system lecture; p12 "Oblique muscle layer" — the stomach\'s third muscularis layer, over the mucosa' }, { ref: 'hss.manual1920', location: 'Module 3.1 revision exercises, p.33; Module 3.3 p.37' }, { ref: 'hss.revans', location: 'Module 3.1 and 3.3 answers' }],
+    sourceRefs: [{ ref: 'hss.3.1', location: 'Digestive system lecture; p12 "Oblique muscle layer" — the stomach\'s third muscularis layer, over the mucosa' }, { ref: 'hss.3.1.2019', location: 'p28 "Muscularis externa has three thickened longitudinal bands of smooth muscle fibers" (taeniae coli, forming haustra); p30 foregut / midgut / hindgut supplied by the coeliac trunk / SMA / IMA; p31 the hepatic portal vein as a portal system' }, { ref: 'hss.manual1920', location: 'Module 3.1 revision exercises, p.33; Module 3.3 p.37' }, { ref: 'hss.revans', location: 'Module 3.1 and 3.3 answers' }],
   },
   {
     id: 'hss2011-m3-urogenital-pelvis',
@@ -370,7 +370,7 @@ export const HSS_MODULES = [
       'The uterine artery is the exception its list exists to hide: suprarenal, testicular and ovarian arteries all arise from the aorta, and it does not. "Every abdominal artery comes off the aorta" is the assumption the MCQ rewards for dropping.',
     ],
     selfCheck: 'From a blank page: the three sites a ureteric stone sticks and what they share, both vertebral levels, the bladder’s wall muscle, and the three muscles forming the posterior abdominal wall.',
-    sourceRefs: [{ ref: 'hss.3.2', location: 'Urogenital system lecture; p6 "4-5 minor calyces are merged to form a" major calyx; p14 the ureters are retroperitoneal, piercing the posterior bladder wall at an oblique angle' }, { ref: 'hss.3.3', location: 'Regional anatomy of the abdominopelvic region' }, { ref: 'hss.revans', location: 'Module 3.2 and 3.3 answers; More exercises Module 3' }],
+    sourceRefs: [{ ref: 'hss.3.2', location: 'Urogenital system lecture; p6 "4-5 minor calyces are merged to form a" major calyx; p14 the ureters are retroperitoneal, piercing the posterior bladder wall at an oblique angle' }, { ref: 'hss.3.3', location: 'Regional anatomy of the abdominopelvic region' }, { ref: 'hss.3.3.2019', location: 'p5 "Transpyloric plane (L1)" and the transtubercular plane at L5; p14 "oesophageal hiatus T10 oesophagus, vagus nerves" (caval hiatus at T8, aortic at T12)' }, { ref: 'hss.revans', location: 'Module 3.2 and 3.3 answers; More exercises Module 3' }],
   },
   /* ------------------------------------------------------------------ *
    * The 2026 material — hss.msk.2026, Module 1 Week 1. A New source file
