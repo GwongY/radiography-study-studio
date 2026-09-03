@@ -181,7 +181,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `modules.js` | 136 | Course modules — which unit belongs to which teaching module, so the app can |
 | `notices.js` | 41 | APSS1A08 — limited coverage. The notices that say so, in the app, rather |
 | `physiology-items.js` | 2502 | ABCT2326 Human Physiology — the study items. |
-| `schema.js` | 452 | Scaffolding: the source registry, the subjects and their units, the item |
+| `schema.js` | 469 | Scaffolding: the source registry, the subjects and their units, the item |
 | `structures.js` | 348 | Granular 3D targets: the structure sets a tap-to-identify item draws from, |
 | `validate.js` | 125 | Validation — every question must have a resolvable answer and every claim a |
 
