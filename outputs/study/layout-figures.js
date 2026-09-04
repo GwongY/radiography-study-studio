@@ -338,7 +338,7 @@ function questionBody(q) {
           : `<path class="sk" d="${s.d}"/>`).join('')}
         ${hotspots}
       </svg><p class="small" style="text-align:center;color:var(--muted);margin:8px 0 0">${esc(d.caption)}</p></div>
-      <div class="q-prompt" style="font-size:15px">Click the hotspot for: <strong>${esc(q.labels[target].label)}</strong></div>`;
+      <div class="q-prompt" style="font-size:calc(15px*var(--ts))">Click the hotspot for: <strong>${esc(q.labels[target].label)}</strong></div>`;
     }
     case 'movement': {
       const mv = jointMovement(q.movementId);

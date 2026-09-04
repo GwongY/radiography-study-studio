@@ -203,7 +203,7 @@ export function renderToday() {
   const cont = getContinueTarget();
   $$('continueCard').innerHTML = cont ? `
     <div class="task-kicker">Continue</div>
-    <h2 class="editorial" style="font-size:24px;margin:8px 0 0">${esc(cont.item.title)}</h2>
+    <h2 class="editorial" style="font-size:calc(24px*var(--ts));margin:8px 0 0">${esc(cont.item.title)}</h2>
     <p class="small" style="margin-top:6px">${esc(getSubject(cont.item.subject).title)} · item ${cont.index + 1} of ${cont.total} · left off at ${esc(STEPS.find((s) => s.id === cont.step).label)}</p>
     <div style="height:6px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden;margin-top:14px"><div style="height:100%;width:${Math.round(itemScore(cont.item.id) * 100)}%;border-radius:99px;background:var(--teal)"></div></div>
     <div style="display:flex;align-items:center;gap:12px;margin-top:14px">
@@ -211,7 +211,7 @@ export function renderToday() {
       <span class="small">${Math.round(itemScore(cont.item.id) * 100)}% mastered</span>
     </div>` : `
     <div class="task-kicker">Continue</div>
-    <h2 class="editorial" style="font-size:24px;margin:8px 0 0">Nothing in progress</h2>
+    <h2 class="editorial" style="font-size:calc(24px*var(--ts));margin:8px 0 0">Nothing in progress</h2>
     <p class="small" style="margin-top:6px">Start a session below to begin.</p>`;
   if (cont) $$('continueBtn').onclick = () => resumeContinue(cont);
 
@@ -272,7 +272,7 @@ export function renderToday() {
 
   $$('recentList').innerHTML = store.mistakes.slice(0, 4).map((m) => {
     const item = getItem(m.itemId);
-    return item ? `<div style="display:flex;gap:10px;align-items:baseline;font-size:12.5px"><span style="color:${m.correct ? 'var(--green)' : 'var(--red)'}">●</span><span style="flex:1">${esc(item.title)}</span><span class="small">${esc(relativeTime(m.at))}</span></div>` : '';
+    return item ? `<div style="display:flex;gap:10px;align-items:baseline;font-size:calc(12.5px*var(--ts))"><span style="color:${m.correct ? 'var(--green)' : 'var(--red)'}">●</span><span style="flex:1">${esc(item.title)}</span><span class="small">${esc(relativeTime(m.at))}</span></div>` : '';
   }).join('') || '<div class="empty">No activity yet.</div>';
 
   showView('todayView');
