@@ -9,7 +9,10 @@
  *   system — including every lesson schematic — works offline immediately
  *   after the first visit.
  *
- *   MODELS (cached on first use) — the six .glb files total ~37 MB.
+ *   MODELS (cached on first use) — the seven .glb files total ~21 MB, down
+ *   from ~37 MB when they were quantized (KHR_mesh_quantization). That is the
+ *   one thing MODEL_VERSION exists to express: m1 -> m2 replaces geometry a
+ *   reader may already hold, and is the only reason to move it.
  *   Precaching those would make installation slow and would download
  *   neuroanatomy for someone who only ever studies bones. Instead each
  *   model is cached the first time it is actually opened, so the app grows
@@ -38,7 +41,7 @@ const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
  * shell does.
  *
  * They used to be keyed to CACHE_VERSION, and `activate` deletes every rss-*
- * cache not in ALL_CACHES — so every single shell edit threw away up to 37 MB of
+ * cache not in ALL_CACHES — so every single shell edit threw away all ~21 MB of
  * downloaded anatomy and all of three.js. Eight shell bumps in one day meant
  * eight full re-downloads, which on a slow or metered connection is
  * indistinguishable from "the layers will not load".
@@ -47,7 +50,7 @@ const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
  * contents never change in place; the CDN URLs pin three.js to 0.161.0. Bump
  * MODEL_VERSION only when a .glb file is actually replaced.
  */
-const MODEL_VERSION = 'm1';
+const MODEL_VERSION = 'm2';
 const CDN_VERSION = 'c1';
 const MODEL_CACHE = `rss-models-${MODEL_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CDN_VERSION}`;

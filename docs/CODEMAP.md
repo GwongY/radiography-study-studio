@@ -43,7 +43,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `schedule.js` | 611 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 117 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 369 | Radiography Study Studio — service worker |  |
+| `sw.js` | 372 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 223 | Body systems — which named system a mesh belongs to, inside its GLB layer | [Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 991 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |

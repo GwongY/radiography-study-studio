@@ -67,13 +67,32 @@ const { mapImportedName, importedRegion, importedRegions } =
   new Function('getAnatomy', noExport(src) + '\n' + noExport(alsoSrc)
     + '\nreturn { mapImportedName, importedRegion, importedRegions };')(getAnatomy);
 
-/* Every named node in the skeleton layer, straight out of the GLB. */
+/*
+ * Every named node in the skeleton layer that OWNS geometry.
+ *
+ * Owns, not carries. Quantization moves the mesh of a node that has both a
+ * mesh and children down onto a new unnamed child, and in this layer that is
+ * Ethmoid, Frontal and Sphenoid -- three head-and-neck bones the course
+ * teaches. Counting only nodes that carry a mesh directly dropped all three,
+ * and the tally fell from 277 to 274 with nothing failing to say so: the
+ * assertion below is `> 250`, so it stayed green while the model quietly lost
+ * three skull bones. A mesh therefore counts for its nearest NAMED ancestor,
+ * which on an unquantized file is always the node itself.
+ */
 function namesIn(rel) {
   const buf = readFileSync(join(root, 'outputs', rel));
   if (buf.readUInt32LE(0) !== 0x46546c67) throw new Error(`not a glb: ${rel}`);
   const json = JSON.parse(buf.slice(20, 20 + buf.readUInt32LE(12)).toString('utf8'));
+  const nodes = json.nodes || [];
+  const parentOf = new Map();
+  nodes.forEach((n, i) => (n.children || []).forEach((c) => parentOf.set(c, i)));
   const out = new Set();
-  for (const n of json.nodes || []) if (n.name && n.mesh != null) out.add(n.name);
+  nodes.forEach((n, i) => {
+    if (n.mesh == null) return;
+    for (let k = i, guard = 0; k != null && guard < 64; k = parentOf.get(k), guard++) {
+      if (nodes[k] && nodes[k].name) { out.add(nodes[k].name); return; }
+    }
+  });
   return [...out];
 }
 
