@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1168 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs)
+- `outputs/app.css` — 1172 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs)
 - `outputs/studio.js` — 26 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 45 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -40,7 +40,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `layouts.js` | 304 | layouts.js — the sixteen that are layouts, as layouts. |  |
 | `mesh-index.js` | 2594 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `physiology.js` | 337 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
-| `schedule.js` | 562 | schedule.js — the semester itself: what the syllabus says, and when each |  |
+| `schedule.js` | 611 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 117 | Radiography Study Studio — study data layer. |  |
 | `sw.js` | 369 | Radiography Study Studio — service worker |  |
@@ -89,16 +89,16 @@ belong in `init()`. The two keep separate import scopes and talk only through
 |  | 46–84 | Name normalisation |
 |  | 85–354 | The registry |
 |  | 355–450 | Resolution |
-| `schedule.js` | 1–54 | preamble |
-|  | 55–87 | The term |
-|  | 88–102 | Who teaches |
-|  | 103–211 | The syllabus, per subject — straight off the subject description forms |
-|  | 212–234 | Groups the student belongs to but the schedule does not say |
-|  | 235–244 | Every timetabled session |
-|  | 245–292 | Weekly slots, from the university timetable |
-|  | 293–462 | Which lessons cover which week |
-|  | 463–511 | Where a session sits in time |
-|  | 512–562 | Formatting — kept here so the view has no date arithmetic in it |
+| `schedule.js` | 1–67 | preamble |
+|  | 68–100 | The term |
+|  | 101–115 | Who teaches |
+|  | 116–224 | The syllabus, per subject — straight off the subject description forms |
+|  | 225–254 | Groups the student belongs to but the schedule does not say |
+|  | 255–264 | Every timetabled session |
+|  | 265–318 | Weekly slots, from the university timetable |
+|  | 319–511 | Which lessons cover which week |
+|  | 512–560 | Where a session sits in time |
+|  | 561–611 | Formatting — kept here so the view has no date arithmetic in it |
 | `term-gloss.js` | 1–702 | preamble |
 |  | 703–788 | 2026 sweep — the cell, from the Lecture 1 items |
 |  | 789–831 | 2026 sweep — bone, muscle and the tissues of movement |
@@ -115,11 +115,11 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `cavity-geometry-derived.js` | 472 | Cavity geometry, derived from the loaded anatomy. |
-| `depth-picking.js` | 312 | Depth picking |
+| `depth-picking.js` | 337 | Depth picking |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
-| `imports.js` | 57 | Block 0 has its own import scope -- block 1's copy is not visible here. |
+| `imports.js` | 70 | Block 0 has its own import scope -- block 1's copy is not visible here. |
 | `live-physiology.js` | 1060 | Live physiology |
-| `region-boxes-how.js` | 443 | Region boxes — how the region filter reaches the six soft-tissue layers |
+| `region-boxes-how.js` | 471 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 237 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 466 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
 | `tools-and-capture.js` | 654 | Tools — section cuts, surface ink, pinned labels, capture. |
@@ -129,8 +129,8 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 | File | Lines | What it holds |
 | --- | --- | --- |
-| `boot.js` | 51 | Boot |
-| `course-timetable.js` | 397 | Course — the syllabus and the timetable, with attendance |
+| `boot.js` | 74 | Boot |
+| `course-timetable.js` | 398 | Course — the syllabus and the timetable, with attendance |
 | `coverage-report.js` | 54 | Coverage report |
 | `dialog-behaviour-applied.js` | 107 | Dialog behaviour, applied to all seven at once |
 | `global-search-one.js` | 351 | Global search -- one sheet over every destination, mixing structures, |
