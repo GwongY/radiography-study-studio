@@ -351,7 +351,7 @@ how you see where they actually run.
 
 | Layer | Meshes |
 | --- | --- |
-| Skeleton | 277 |
+| Skeleton (Axial 149 + Appendicular 128) | 277 |
 | Muscles | 683 |
 | Ligaments | 413 |
 | Organs | 120 |
@@ -372,8 +372,39 @@ It holds nodes and lymphoid organs but **no lymphatic vessels**, so the cisterna
 thoracic duct are not in it. The lesson that uses it says so in its own caption rather than letting
 you assume the drainage route is on screen.
 
-Inside a focused lesson, picking is restricted to the layer being taught. Otherwise the ghosted body
-behind it steals the tap, and tapping a lymph node answers "Sacrum".
+### The skeleton is two chips: Axial and Appendicular
+
+HSS2011 teaches the division and examines it — "the axial skeleton is the central column: the skull,
+the vertebrae, the ribs and the sternum; the appendicular skeleton is everything hanging off it" —
+and one chip called Skeleton could not answer the question the lecture actually asks. The rail is
+thirteen chips over seven files now.
+
+The classifier is in `systems.js` alongside the two that split the vessel and organ files, and it is
+run over the real GLB names by `work/system-check.mjs`: **149 axial meshes, 128 appendicular, none
+unplaced.** The girdles are matched by name, because they are the trap the lesson itself names — the
+clavicle and the scapula sit on the trunk and are appendicular anyway — and the hip bone is
+appendicular while the sacrum it joins is axial, which is the lesson's own worked example and is two
+separate meshes in the model, so it can be shown rather than asserted.
+
+The atlas also ships things the lecture's four words do not cover: the teeth, the ear ossicles, the
+laryngeal and nasal cartilages, the paranasal sinuses, the ethmoid air cells. All of them are on the
+central axis and none is appended to it, so they draw with the axial half. That is a decision about
+which chip **draws** them, not a claim that a tooth is a bone — the count under a chip says
+"structures", not "bones".
+
+### Inside a lesson, the canvas is the lesson's
+
+Picking is restricted to the layer being taught. Otherwise the ghosted body behind it steals the tap,
+and tapping a lymph node answers "Sacrum".
+
+There is one WebGL context, moved into the lesson card rather than duplicated, so whatever the Viewer
+was left in is still in force when a lesson mounts. Five pieces of that state are **suspended** while
+the lesson holds the canvas and put back exactly when it lets go: the cut (renderer clipping planes
+are global, and a coronal cut left armed sliced the lesson's carpals in half), meshes hidden by hand
+(the worst of them — a bone hidden in the Viewer stayed hidden in the lesson teaching that bone, and
+the card rendered successfully and showed nothing), the region filter, isolation, and any armed tool
+(a tap placed ink instead of naming the structure, on a card captioned "tap to name"). The Viewer is
+a workspace and the state a reader set up in it is theirs, so none of it is discarded.
 
 Tapping any mesh in any layer names it. That needed a fix beyond the loader: system-layer meshes
 previously carried no canonical id, so they could only be selected programmatically from a
@@ -535,12 +566,25 @@ lesson went from one 961-character block to five cards carrying **36 term cells,
 against the glossary now, not just as pieces of longer words — on the terminology items the text *is*
 a list of them, and leaving them inert while the app shipped an 814-stem glossary was daft.
 
-**The words.** Any term the app can genuinely help with is underlined and tappable. Tapping gives
-three things:
+**The words.** Any term the app can genuinely help with is underlined and tappable.
 
-- **How to say it** — `glo-MER-yoo-luss`, stress in capitals.
-- **What it is, in ordinary English** — "the little ball of leaky capillaries that blood is filtered through".
-- **What it is built out of** — `inter` + `ventricul` + `ar` = between + ventricle.
+### What counts as complete reading help
+
+A term panel is finished when it carries **all five** of these, in this order. Fewer than five is a
+panel with a gap in it, not a shorter panel — each one answers a question the others do not, and the
+one people skip is never the one the reader needed.
+
+| | What it answers |
+| --- | --- |
+| **Definition** | What is it, in ordinary English — "the little ball of leaky capillaries that blood is filtered through". |
+| **Chinese** | 橈尺的. A good deal of this material is already filed under its Chinese name for anyone who met the anatomy in Chinese first. |
+| **Say it** | `glo-MER-yoo-luss`, stress in capitals. A word you cannot pronounce is a word you cannot rehearse. |
+| **Built out of** | `inter` + `ventricul` + `ar` — the pieces, each with its own meaning. |
+| **Read as** | What those pieces say when you read them straight through: between + ventricle. The breakdown is the parts; this is the sentence they make. |
+
+Definition, Chinese, Say it and Built out of are rendered today. **Read as is not** — `readingOf()`
+in `wordparts.js` produces exactly this line and is currently used only by the Memory Coach, so the
+term dialog is four-fifths of the standard above rather than all of it.
 
 The breakdown is real, not decorative: `wordparts.js` holds 814 stems inverted out of
 `definition_wordparts.pdf`, and the segmenter returns **nothing at all** unless the whole word

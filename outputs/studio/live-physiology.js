@@ -271,6 +271,11 @@ export function stepPhysiology(t){
  * follows its layer, so an unclassified structure is never invisible.
  */
 export function layerOn(layerKey){return systemsIn(layerKey).some(s=>!!state.layers[s.key])}
+/* The chips of one layer, as keys. The skeleton is two of them now (Axial and
+   Appendicular), so everything that used to write state.layers.skeleton has to
+   write both -- and say so through this rather than by naming them. */
+export const chipsOf=(layerKey)=>systemsIn(layerKey).map(s=>s.key);
+export function setLayerChips(layerKey,on){chipsOf(layerKey).forEach(k=>{state.layers[k]=!!on})}
 export function meshOn(mesh){
   const sys=mesh&&mesh.userData&&mesh.userData.systems;
   if(!sys||!sys.length)return layerOn(mesh&&mesh.userData&&mesh.userData.layerKey);
@@ -295,8 +300,11 @@ export function updateStageMeta(){
   const units=on.reduce((t,k)=>t+(LAYER_UNITS[k]||0),0);
   /* The second number is the one that answers "which of these do I have to
      remember?" -- see the Sources & model dialog. */
-  const base=on.length===1&&on[0]==='skeleton'
-    ?`Precise Z-Anatomy / BodyParts3D skeleton · ${LAYER_NAMED.skeleton} structures, ${LAYER_COURSE.skeleton} named by your course, ${LAYER_UNITS.skeleton} you can select`
+  /* Both halves of the skeleton and nothing else: still "the skeleton", and
+     still worth naming the source of, which no combination of chips is. */
+  const wholeSkeleton=on.length===chipsOf('skeleton').length&&chipsOf('skeleton').every(k=>on.includes(k));
+  const base=wholeSkeleton
+    ?`Precise Z-Anatomy / BodyParts3D skeleton · ${named} structures, ${course} named by your course, ${units} you can select`
     :`${on.map(k=>SYS_LABEL[k]||LAYER_NAMES[k]||k).join(' + ')} · ${named} structures, ${course} named by your course, ${units} you can select · tap one`;
   /* Say what the region filter did, or it looks like nothing happened. */
   if(state.region&&state.region!=='all'){
@@ -334,7 +342,7 @@ export function applyLayers(){
   });
   /* The skeleton ghosts too -- seeing vessels against translucent bone is the
      whole reason to put two layers on at once. */
-  const so=state.layerOpacity?.skeleton;
+  const so=chipsOf('skeleton').reduce((v,k)=>{const x=state.layerOpacity?.[k];return x===undefined?v:(v===undefined?x:Math.max(v,x))},undefined);
   if(so!==undefined)[...state.fullMeshes,...state.meshes].forEach(o=>{
     if(!o.material)return;
     const t=so<.99;
@@ -377,15 +385,70 @@ function resolveMeshNames(key,names){
   });
   return [...out];
 }
-export function clearStudyFocus(){
-  if(!state.focus)return;
-  const {key}=state.focus;
-  layerPool(key).forEach(o=>{o.visible=true;if(o.material)o.material.emissive?.setHex(0x000000)});
+/*
+ * The lesson borrows the canvas. It must not borrow the viewer's settings.
+ *
+ * There is one WebGL context and one scene, moved into the lesson card rather
+ * than duplicated, so everything the viewer page was left in is still in force
+ * when a lesson mounts. focusStructures already handles the LAYERS -- it turns
+ * every chip off and its own back on. Five other pieces of viewer state were
+ * not handled, and each of them can silently break the thing being taught:
+ *
+ *   the cut       renderer.clippingPlanes is global. A coronal cut left armed
+ *                 in the viewer sliced the lesson's carpal bones in half.
+ *   hidden meshes focusStructures ended by calling enforceHidden(), so a bone
+ *                 hidden by hand in the viewer stayed hidden in the lesson
+ *                 teaching that bone -- the worst case in the list, because
+ *                 the card renders successfully and shows nothing.
+ *   the region    a lesson with isolate:false is subject to it, so a femur
+ *                 taught while the filter said Thorax did not appear.
+ *   isolation     same expression, same result.
+ *   an armed tool a tap on the stage places ink or a pin instead of naming
+ *                 the structure, on a card whose caption says "tap to name".
+ *
+ * They are suspended, not discarded: the viewer is a workspace and the state
+ * a reader set up in it is theirs. Everything goes back when the lesson lets
+ * the canvas go. state.cut itself is untouched -- only the planes handed to
+ * the renderer -- which is the same shape the projection view already uses.
+ */
+function suspendViewerState(){
+  if(state.studySuspended)return;
+  state.studySuspended={
+    region:state.region,isolated:state.isolated,tool:state.tool,
+    hidden:state.hidden,autoHidden:state.autoHidden,
+    clip:state.renderer?state.renderer.clippingPlanes:null,
+  };
+  state.region='all';state.isolated=false;state.tool=null;
+  state.hidden=new Set();state.autoHidden=new Set();
+  if(state.renderer)state.renderer.clippingPlanes=[];
+}
+function resumeViewerState(){
+  const was=state.studySuspended;
+  if(!was)return false;
+  state.studySuspended=null;
+  state.region=was.region;state.isolated=was.isolated;state.tool=was.tool;
+  state.hidden=was.hidden;state.autoHidden=was.autoHidden;
+  if(state.renderer&&was.clip)state.renderer.clippingPlanes=was.clip;
+  return true;
+}
+/* Just the meshes. focusStructures calls THIS on its way in -- it is replacing
+   one focus with another and must not hand the viewer's state back mid-way. */
+function releaseFocusMeshes(){
+  if(!state.focus)return false;
+  layerPool(state.focus.key).forEach(o=>{o.visible=true;if(o.material)o.material.emissive?.setHex(0x000000)});
   state.focus=null;
-  applyLayers();
+  return true;
+}
+export function clearStudyFocus(){
+  const had=releaseFocusMeshes();
+  /* Even when there was no focus to clear: a lesson whose names did not
+     resolve suspended the viewer's state on the way in and still owes it. */
+  const resumed=resumeViewerState();
+  if(had||resumed)applyLayers();
 }
 export async function focusStructures(spec){
   if(!state.scene)return {ok:false,reason:'not-booted',found:0};
+  suspendViewerState();
   const key=spec.layer||'skeleton';
   if(key!=='skeleton'){
     if(!state.extraModels[key]){
@@ -393,7 +456,7 @@ export async function focusStructures(spec){
       await loadExtraModel(key,spec.file);
     }
   }
-  clearStudyFocus();
+  releaseFocusMeshes();
   const hits=resolveMeshNames(key,spec.meshes);
   /* An unresolvable name must not silently show the whole body as if it were
      the answer -- the caller shows a still diagram instead. */
@@ -406,7 +469,7 @@ export async function focusStructures(spec){
   focusChips.forEach(k=>{state.layers[k]=true});
   state.layerOpacity={...(state.layerOpacity||{})};
   focusChips.forEach(k=>{state.layerOpacity[k]=1});
-  if(spec.ghostBody&&key!=='skeleton'){state.layers.skeleton=true;state.layerOpacity.skeleton=.16}
+  if(spec.ghostBody&&key!=='skeleton'){setLayerChips('skeleton',true);chipsOf('skeleton').forEach(k=>{state.layerOpacity[k]=.16})}
   applyLayers();
   if(spec.isolate!==false){
     const keep=new Set(hits);
@@ -576,8 +639,8 @@ export function enterXray(){
    * fog with a skeleton somewhere in it. So the beam sees bone, always, and only.
    * Whatever is on in the 3D tab is restored on the way out.
    */
-  state.layers.skeleton=true;
-  SYSTEMS.forEach((s)=>{if(s.key!=='skeleton')state.layers[s.key]=false});
+  setLayerChips('skeleton',true);
+  SYSTEMS.forEach((s)=>{if(s.layer!=='skeleton')state.layers[s.key]=false});
   /*
    * Cavities, regions and planes are teaching overlays drawn ON the anatomy.
    * A radiograph has nothing painted on it, and an additive beam would render
@@ -790,8 +853,8 @@ export function setLayer(key,on){
 export function setExtraVisible(key){
   /* Exclusive mode, kept for the structure-set flow: show one system alone.
      Called with a GLB layer key, so every chip that layer draws comes on. */
-  SYSTEMS.forEach(s=>{if(s.key!=='skeleton')state.layers[s.key]=(s.layer===key)});
-  state.layers.skeleton=!key;
+  SYSTEMS.forEach(s=>{if(s.layer!=='skeleton')state.layers[s.key]=(s.layer===key)});
+  setLayerChips('skeleton',!key);
   applyLayers();
 }
 /*

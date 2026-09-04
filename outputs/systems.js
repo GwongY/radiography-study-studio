@@ -90,7 +90,51 @@ const ORGANS = [
   ['digestive', /tongue|gingiva|palate|uvula|parotid|submandibular|sublingual|salivary|oesophag|esophag|stomach|duoden|jejun|ileum|caecum|cecum|colon|rectum|appendix|taenia|omentum|mesocolon|meso-|mesenter|liver|gallbladder|bile|pancrea|pharynx|spleen|tooth|teeth/],
 ];
 
-const RULES = { circulatory: CIRCULATORY, organs: ORGANS };
+/*
+ * The skeleton, ordered.
+ *
+ * NO TRAILING WORD BOUNDARY, per rule at the top of this file, and it bit
+ * here first: the runtime label for a rib is 'Eighth_ribl' -- the side letter
+ * is glued straight onto the word -- so a rule written as rib classified
+ * all 24 side-suffixed ribs into nothing, while work/system-check.mjs read the
+ * GLB's own node names ('Eighth rib.l'), matched them, and passed. The check
+ * now tries the glued form too.
+ *
+ * The course teaches the division and examines it: "The axial skeleton is the
+ * central column: the skull, the vertebrae, the ribs and the sternum. The
+ * appendicular skeleton is everything hanging off it: the shoulder girdle, the
+ * upper limbs, the pelvic girdle and the lower limbs." (HSS2011 osteology, the
+ * lesson id is hss2011-osteo-axial-appendicular.) One chip called "Skeleton"
+ * could not answer the question the lecture actually asks, in the same way one
+ * chip called "Vessels" could not separate arterial supply from venous
+ * drainage.
+ *
+ * APPENDICULAR IS TESTED FIRST, and that ordering is the whole classifier.
+ * The girdles are the trap the lesson itself names -- "the commonest slip is
+ * filing the clavicle and scapula as axial because they sit on the trunk" --
+ * so they are matched by name here rather than left to a trunk-shaped rule.
+ * The hip bone is appendicular and the sacrum it joins is axial, which is the
+ * lesson's own worked example, and the two are separate meshes so the model
+ * can show it.
+ *
+ * 'of hand' and 'of foot' carry the phalanges: this atlas names a toe
+ * "Distal phalanx of third finger of foot", so a rule on 'phalanx' alone would
+ * have to guess and a rule on 'finger' would take the toes with it.
+ *
+ * WHAT THE LESSON'S FOUR WORDS DO NOT COVER. The atlas ships more than the 206
+ * bones: the teeth, the ear ossicles, the laryngeal and nasal cartilages, the
+ * paranasal sinuses and the ethmoid air cells are all in this GLB. Every one
+ * of them is on the central axis and none of them is appended to it, so they
+ * go with the axial half. That is a decision about which chip DRAWS them, not
+ * a claim that a tooth is a bone -- the chip is a view of the model, and the
+ * count under it says "structures", not "bones".
+ */
+const SKELETON = [
+  ['appendicular', /clavicle|scapula|humerus|\bradius|\bulna|carpal|scaphoid|lunate|triquetrum|pisiform|trapezium|trapezoid|capitate|hamate|of hand|hip bone|ilium|ischium|pubis|pubic|acetabul|femur|patella|tibia|fibula|tarsal|calcaneus|talus|cuboid|navicular|cuneiform bone|of foot|hallux/],
+  ['axial', /cranium|skull|frontal bone|parietal|occipital|temporal bone|sphenoid|ethmoid|lacrimal|nasal|vomer|palatine|zygomat|maxilla|mandible|concha|hyoid|incus|malleus|stapes|ossicle|tooth|teeth|molar|premolar|incisor|canine|vertebra|atlas|\baxis|sacrum|sacral|coccyx|\brib|costal|sternum|manubrium|xiphoid|arytenoid|corniculate|cricoid|thyroid cartilage|epiglot|cuneiform cartilage|alar cartilage/],
+];
+
+const RULES = { circulatory: CIRCULATORY, organs: ORGANS, skeleton: SKELETON };
 
 /*
  * A structure that honestly belongs to two systems.
@@ -135,7 +179,8 @@ export const UNREADABLE = /^(mesh|circle|cube|sphere|plane|\?+x?)( |$)/;
  * under anyone who already knew where things were.
  */
 export const SYSTEMS = [
-  { key: 'skeleton', label: 'Skeleton', layer: 'skeleton' },
+  { key: 'axial', label: 'Axial', layer: 'skeleton' },
+  { key: 'appendicular', label: 'Appendicular', layer: 'skeleton' },
   { key: 'muscle', label: 'Muscles', layer: 'muscle' },
   { key: 'joint', label: 'Ligaments', layer: 'joint' },
   { key: 'respiratory', label: 'Respiratory', layer: 'organs' },

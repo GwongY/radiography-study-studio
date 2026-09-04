@@ -92,6 +92,29 @@ for (const layer of Object.keys(STRUCTURE_MODELS)) {
     (flowSeen[flow] = flowSeen[flow] || []).push({ raw, sys });
   }
   for (const raw of unplaced) fail(`${layer}: "${raw}" is placed in no system`);
+  /*
+   * The name the BROWSER classifies is not always the name in the GLB.
+   *
+   * The loader reads a mesh's own name, and for a paired structure that name
+   * carries the side letter glued straight onto the last word -- 'Eighth_ribl'
+   * where the node is called 'Eighth rib.l'. systems.js says so at the top and
+   * forbids a trailing word boundary because of it, and this check did not
+   * enforce that: an axial rule written as rib with a boundary on both sides
+   * matched every dotted node name here, passed, and left all 24 side-suffixed
+   * ribs classified into nothing in the running app. Found on screen, not by a
+   * probe, which is the failure this file exists to prevent.
+   *
+   * So every paired name is classified a second time in its glued form. It
+   * must land in exactly the same systems: a rule that needs the side letter
+   * to be a separate word is a rule that does not work in the browser.
+   */
+  for (const raw of names) {
+    const glued = String(raw).replace(/\.(l|r)$/, '$1');
+    if (glued === raw) continue;
+    const a = systemsOf(layer, raw).join('+');
+    const b = systemsOf(layer, glued).join('+');
+    if (a !== b) fail(`${layer}: "${raw}" is [${a || 'nothing'}] but the name the loader sees, "${glued}", is [${b || 'nothing'}] — see the no-trailing-boundary rule in systems.js`);
+  }
   /* Not a failure — see UNREADABLE in systems.js. Printed so the count is in
      the baseline: these meshes show on every chip of their layer, and a new
      one arriving unnoticed would quietly do the same. */

@@ -76,8 +76,22 @@ export function renderNavButtons() {
 /* The session is a full-screen overlay rather than a routed view, so it can
    cover the shell whatever destination is behind it. */
 let tabBeforeSession = 'today';
+/*
+ * The destination alone was not enough to come back to.
+ *
+ * Closing a session called goTo(), and goTo() clears ui.learnDrill because
+ * that is what pressing Learn in the tab bar should do. So leaving a lesson
+ * you had opened from inside a topic put you back at the grid of topics, one
+ * level above where you were, with the topic you were working through closed
+ * -- and the item list you had picked from was the one thing you wanted back.
+ * The drill-down is part of where you were, so it is saved and restored with
+ * the tab, and the return path renders the destination WITHOUT going through
+ * goTo's reset.
+ */
+let placeBeforeSession = null;
 export function openSessionOverlay() {
   tabBeforeSession = currentTab || 'today';
+  placeBeforeSession = { drill: ui.learnDrill, topic: ui.learnTopic, filter: ui.learnFilter };
   $$('sessionView').classList.remove('hidden');
   /* Without this the rail, tab bar and search button stay in the tab order
      behind the overlay. `inert` needs no focus-trap code. */
@@ -89,5 +103,12 @@ export function closeSessionOverlay() {
   $$('sessionView').classList.add('hidden');
   const shell = document.querySelector('.app-shell');
   if (shell) shell.inert = false;
-  goTo(tabBeforeSession);
+  if (placeBeforeSession) {
+    ui.learnDrill = placeBeforeSession.drill;
+    ui.learnTopic = placeBeforeSession.topic;
+    ui.learnFilter = placeBeforeSession.filter;
+    placeBeforeSession = null;
+  }
+  const dest = NAV_DESTS.find((d) => d[0] === tabBeforeSession);
+  if (dest) dest[3]();
 }

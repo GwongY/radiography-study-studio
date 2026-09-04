@@ -175,7 +175,10 @@ export const BODY_LAYERS = SYSTEMS.map((s) => ({
 }));
 const LAYER_CYCLE = { off: 'solid', solid: 'ghost', ghost: 'off' };
 export const GHOST_OPACITY = 0.34;
-export let layerState = { skeleton: 'solid' };
+/* Both halves of the skeleton, on, which is what the single Skeleton chip
+   meant before it was split into Axial and Appendicular. Derived from
+   SYSTEMS so a further split does not leave a chip dark at boot. */
+export let layerState = Object.fromEntries(SYSTEMS.filter((s) => s.layer === 'skeleton').map((s) => [s.key, 'solid']));
 
 /*
  * How many structures a layer contains -- not how many meshes it holds.
@@ -260,9 +263,12 @@ export function renderLayerRail() {
       <span class="pulse"></span><span>${live ? 'Live physiology' : 'Static model'}</span>
     </button>` + BODY_LAYERS.map((l, i) => {
     const st = layerState[l.key] || 'off';
-    /* Chips that share one GLB are marked as a group, so twelve chips read as
-       seven models rather than twelve peers -- and so it is visible that the
-       first tap on any of the three vessel chips is the same one download. */
+    /* Chips that share one GLB are marked as a group, so thirteen chips read
+       as seven models rather than thirteen peers -- and so it is visible that
+       the first tap on any of the three vessel chips is the same one download.
+       The skeleton's two are the exception that proves it: Axial and
+       Appendicular are grouped like the rest, and neither downloads anything,
+       because the bones are in the scene before the rail is drawn. */
     const group = BODY_LAYERS.filter((x) => x.layer === l.layer).length > 1;
     const sub = !group ? '' : ` data-sub="${BODY_LAYERS.findIndex((x) => x.layer === l.layer) === i ? 'first' : 'more'}"`;
     return `<button class="layerchip" data-layer="${esc(l.key)}" data-state="${st}"${sub} aria-pressed="${st !== 'off'}">
@@ -285,7 +291,7 @@ async function cycleLayer(key, btn) {
   if (btn && btn.dataset.busy === '1') return;
   const next = LAYER_CYCLE[layerState[key] || 'off'];
   const model = STRUCTURE_MODELS[layerOf(key)];
-  const needsLoad = next !== 'off' && key !== 'skeleton' && !(window.__osteo && window.__osteo.layerLoaded(key));
+  const needsLoad = next !== 'off' && layerOf(key) !== 'skeleton' && !(window.__osteo && window.__osteo.layerLoaded(key));
   if (needsLoad && btn) { btn.dataset.busy = '1'; btn.querySelector('.cnt').textContent = '···'; }
   try {
     if (!window.__osteo) { toast('Open the 3D model first.'); return; }

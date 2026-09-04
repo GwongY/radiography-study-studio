@@ -3,7 +3,7 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, ANATOMY_DATABASE, LAYER_NAMES, classify, els, getAnatomy, prefersStill, state, systemsOf } from './imports.js';
+import { $, ANATOMY_DATABASE, classify, els, getAnatomy, LAYER_NAMES, prefersStill, state, systemsIn, systemsOf } from './imports.js';
 import { answer, clean, clearHighlight, highlight, onBonePicked, pool, rebuildConcepts, record, renderRegions, renderReview, setMode, showToast, startQuestion, startQuestionFor } from './visualisation-modes.js';
 import { applyVisibility, boot3D, cameraView, confirmPick, focusSelected, getRecord, isSelfOrAncestorVisible, mapImportedName, nearestVisibleMesh, resize, toggleIsolation, zoomCamera } from './region-boxes-how.js';
 import { clearPickCallout } from './spatial-concept-overlays.js';
@@ -76,7 +76,7 @@ import { installLayerFlow, layerOn, layerPool, setXrayView, unitBlurb, unitFor }
     return true;
   }
 
-  export function pick(event,focusAfter=false){
+  export function pick(event){
     if(!state.renderer)return;
     const rect=state.renderer.domElement.getBoundingClientRect();
     state.pointer.x=((event.clientX-rect.left)/rect.width)*2-1;
@@ -106,32 +106,24 @@ import { installLayerFlow, layerOn, layerPool, setXrayView, unitBlurb, unitFor }
       seen.add(id);stack.push(h.object);
     });
 
-    /* Same spot as last time? Walk deeper instead of re-selecting the surface.
-       No time limit -- the old 900ms window made this feel like a glitch. */
-    const sameSpot=!focusAfter&&Math.hypot(event.clientX-state.lastPick.x,event.clientY-state.lastPick.y)<14
-      &&state.pickStack.length>1&&stack.length===state.pickStack.length
-      &&stack[0]===state.pickStack[0];
+    /* A tap selects what is on top and publishes what is under it. It used to
+       walk one deeper each time it landed in the same fourteen pixels, which
+       is a gesture nobody performs on purpose -- see bindCanvas below. Depth
+       is reached through the stack list now, by name. */
     const deepest=event.altKey||event.metaKey;
-
-    if(!sameSpot){
-      restorePeel();
-      state.pickStack=stack;
-      state.lastPick={x:event.clientX,y:event.clientY,t:performance.now(),candidates:stack,index:0};
-      state.pickCurrent=null;
-    }
+    restorePeel();
+    state.pickStack=stack;
+    state.lastPick={x:event.clientX,y:event.clientY,t:performance.now(),candidates:stack,index:0};
+    state.pickCurrent=null;
 
     if(state.pickStack.length){
-      let at;
-      if(deepest)at=state.pickStack.length-1;
-      else if(sameSpot)at=(state.pickStack.indexOf(state.pickCurrent)+1)%state.pickStack.length;
-      else at=0;
+      const at=deepest?state.pickStack.length-1:0;
       state.lastPick.index=at;
       const chosen=state.pickStack[at];
       state.pickCurrent=chosen;
       peelTo(chosen);
       confirmPick(chosen,event);
       publishStack();
-      if(focusAfter&&state.selectionAnchor)focusSelected();
       return;
     }
 
@@ -139,11 +131,29 @@ import { installLayerFlow, layerOn, layerPool, setXrayView, unitBlurb, unitFor }
        then to the nearest thing on screen, as before. */
     restorePeel();state.pickStack=[];state.pickCurrent=null;publishStack();
     const zones=state.raycaster.intersectObjects(state.fullPickables,false).filter(h=>isSelfOrAncestorVisible(h.object));
-    if(zones[0]){confirmPick(zones[0].object,event);if(focusAfter&&state.selectionAnchor)focusSelected();return}
+    if(zones[0]){confirmPick(zones[0].object,event);return}
     const nearest=nearestVisibleMesh(event,rect);
-    if(nearest){confirmPick(nearest,event);if(focusAfter&&state.selectionAnchor)focusSelected()}
+    if(nearest)confirmPick(nearest,event)
   }
-  let pointerDown=null;function bindCanvas(){let lastTap=0;els.stage.addEventListener('pointerdown',(e)=>{pointerDown={x:e.clientX,y:e.clientY}});els.stage.addEventListener('pointerup',(e)=>{/* An armed tool owns the stage: a tap that pins a label must not also re-select and peel. See studio/tools-and-capture.js. */if(state.tool){pointerDown=null;return}if(pointerDown&&Math.hypot(e.clientX-pointerDown.x,e.clientY-pointerDown.y)<7){const now=performance.now();const isDouble=now-lastTap<320;lastTap=now;pick(e,isDouble)}pointerDown=null})}
+  /*
+   * One tap, one meaning.
+   *
+   * Two gestures used to live on this canvas on top of the single tap, and
+   * both fired without being asked for. A second tap inside 320ms flew the
+   * camera to whatever had just been selected; a second tap in the same SPOT,
+   * with no time limit at all, walked one step deeper into the stack and
+   * peeled the surface structure away to get there. On a phone, where a tap
+   * lands within fourteen pixels of the last one most of the time, reading a
+   * label twice was enough to trigger either of them -- so the model zoomed,
+   * or a bone vanished, in response to what the reader thought was the same
+   * tap they had just made.
+   *
+   * Neither capability is lost. Focus is the Focus button; the depth stack is
+   * the list the tap publishes, which names every structure under the pointer
+   * and selects or hides any of them by NAME. Both are explicit, and neither
+   * can happen by accident.
+   */
+  let pointerDown=null;function bindCanvas(){els.stage.addEventListener('pointerdown',(e)=>{pointerDown={x:e.clientX,y:e.clientY}});els.stage.addEventListener('pointerup',(e)=>{/* An armed tool owns the stage: a tap that pins a label must not also re-select and peel. See studio/tools-and-capture.js. */if(state.tool){pointerDown=null;return}if(pointerDown&&Math.hypot(e.clientX-pointerDown.x,e.clientY-pointerDown.y)<7)pick(e);pointerDown=null})}
   /*
    * The studio's own "Anatomy search" card is gone.
    *
@@ -333,5 +343,7 @@ export function init() {
   if(prefersStill())els.motion.title='Your system asks for reduced motion, so the turntable starts still.';
   els.motion.onclick=()=>{state.motionEnabled=!state.motionEnabled;paintMotion()};renderRegions();renderReview();bindCanvas();setMode('explore');
   state.extraModels=state.extraModels||{};
-  state.layers=state.layers||{skeleton:true};
+  /* Both halves of the skeleton on, which is what one chip called Skeleton
+     used to mean. systemsIn keeps this honest if the split ever changes. */
+  state.layers=state.layers||Object.fromEntries(systemsIn('skeleton').map(s=>[s.key,true]));
 }
