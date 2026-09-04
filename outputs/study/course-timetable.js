@@ -22,7 +22,7 @@ import {
 } from './imports.js';
 import { showView } from './small-ui-helpers.js';
 import { setActiveNav } from './navigation-five-destinations.js';
-import { K, itemAttempted, itemScore, read, store, write } from './storage-versioned-keys.js';
+import { K, itemAttempted, itemRead, itemScore, read, store, write } from './storage-versioned-keys.js';
 import { renderLearn } from './subject.js';
 import { startSession } from './session-engine.js';
 
@@ -173,6 +173,9 @@ function readOrder(items) {
   return items.slice().sort((a, b) => {
     const aa = itemAttempted(a.id); const ba = itemAttempted(b.id);
     if (aa !== ba) return aa ? 1 : -1;
+    /* Among the untested, the ones never opened come before the ones read. */
+    const ar = itemRead(a.id); const br = itemRead(b.id);
+    if (!aa && ar !== br) return ar ? 1 : -1;
     return itemScore(a.id) - itemScore(b.id);
   });
 }
@@ -180,8 +183,10 @@ function readOrder(items) {
 function lessonRow(it) {
   const attempted = itemAttempted(it.id);
   const pc = Math.round(itemScore(it.id) * 100);
-  const state = !attempted ? 'new' : pc >= 80 ? 'strong' : pc >= 45 ? 'part' : 'weak';
-  const label = !attempted ? 'Not started' : `${pc}%`;
+  /* Read but never answered is its own state. Calling it "Not started" after
+     someone had read the whole lesson was the app forgetting them. */
+  const state = attempted ? (pc >= 80 ? 'strong' : pc >= 45 ? 'part' : 'weak') : itemRead(it.id) ? 'read' : 'new';
+  const label = attempted ? `${pc}%` : itemRead(it.id) ? 'Read' : 'Not started';
   return `<button class="readline ${state}" data-item="${esc(it.id)}">
     <span class="readdot" aria-hidden="true"></span>
     <span class="readname">${esc(it.title)}</span>
@@ -201,13 +206,14 @@ function subjectReading(subject, week) {
   if (!items.length) return '';
 
   const done = items.filter((i) => itemAttempted(i.id)).length;
+  const opened = items.filter((i) => !itemAttempted(i.id) && itemRead(i.id)).length;
   const pc = Math.round(items.reduce((n, i) => n + itemScore(i.id), 0) / items.length * 100);
   const open = !!ui.readOpen[subject];
   const shown = open ? items : items.slice(0, PREVIEW);
   const rest = items.length - shown.length;
 
   /* The one line worth reading if you read nothing else on the card. */
-  const verdict = done === 0 ? 'Not started'
+  const verdict = done === 0 ? (opened ? `${opened} of ${items.length} read, none tested` : 'Not started')
     : done < items.length ? `${done} of ${items.length} started`
       : pc >= 80 ? 'All started, and holding' : 'All started';
 

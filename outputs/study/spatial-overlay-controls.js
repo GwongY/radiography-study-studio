@@ -179,11 +179,15 @@ function getContinueTarget() {
   if (!item) return null;
   const siblings = itemsForSubject(item.subject);
   const index = siblings.findIndex((i) => i.id === item.id);
-  return { item, step: raw.step || 'learn', index: index < 0 ? 0 : index, total: siblings.length };
+  /* A resume point saved by an older build can name a step this one no longer
+     has -- Review was one -- and the card looks that step up by name to print
+     its label. Anything unrecognised opens the lesson. */
+  const step = STEPS.some((x) => x.id === raw.step) ? raw.step : 'learn';
+  return { item, step, index: index < 0 ? 0 : index, total: siblings.length };
 }
 export function saveContinue(itemId, step) { write(STORAGE_PREFIX + 'continue', { itemId, step }); }
 function resumeContinue(cont) {
-  ui.session = { opts: { mode: 'subject', subject: cont.item.subject }, mode: null, items: [cont.item], index: 0, step: cont.step, reveal: 0, qIndex: 0, answered: false, startedAt: 0, results: [], hooksOnly: false };
+  ui.session = { opts: { mode: 'subject', subject: cont.item.subject }, mode: null, items: [cont.item], index: 0, step: cont.step, qIndex: 0, answered: false, startedAt: 0, results: [], hooksOnly: false };
   openSessionOverlay();
   setStep(cont.step);
 }

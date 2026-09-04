@@ -64,7 +64,7 @@ export function dismissSessionForNav() {
 function studySingleItem(item) {
   ui.session = {
     opts: { mode: 'subject', subject: item.subject }, mode: null, items: [item], index: 0,
-    step: 'learn', reveal: 0, qIndex: 0, answered: false, startedAt: 0,
+    step: 'learn', qIndex: 0, answered: false, startedAt: 0,
     results: [], hooksOnly: false, modeLabel: 'Single item',
   };
   openSessionOverlay();
@@ -85,7 +85,7 @@ export function studyItemWithin(topic, itemId) {
   const items = [ordered[at], ...ordered.slice(0, at), ...ordered.slice(at + 1)];
   ui.session = {
     opts: { mode: 'subject', subject: topic.subject.id, unit: topic.unit.id }, mode: null, items, index: 0,
-    step: 'learn', reveal: 0, qIndex: 0, answered: false, startedAt: 0,
+    step: 'learn', qIndex: 0, answered: false, startedAt: 0,
     results: [], hooksOnly: false, modeLabel: topic.unit.label,
   };
   openSessionOverlay();

@@ -1,10 +1,9 @@
-— user-facing strings in outputs/ — 816 —
-  6803cd83b74d1725  WHOLE SET
+— user-facing strings in outputs/ — 807 —
+  669e56a167db5cac  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
   753ec4f3a305c1c3   <span class="cut-levelcite">
-  87d3f6c7e5dec280   It stays in today’s queue.
   c8f303e7554a57f7   These are paired — the side is part of the answer.
   37fc3c511ef2af7e   \u00b7 3D studio
   1f1170e574c9a100   \u2014 nearest to it
@@ -29,7 +28,6 @@
   e05adddbc8930330  " data-item="
   921e345548b45de2  " data-reveal="
   854ec856a1bc5f87  " data-rtab="
-  ab4db5fd38212e44  " data-stage="
   d73ec115ea9142c9  " data-state="
   19d374017e84dc66  " data-step="
   62d7f300f56bd1fa  " data-tool="off" aria-pressed="
@@ -60,6 +58,7 @@
   54a3a62c81a70183  /* Film latitude: the toe and shoulder of the characteristic curve. */
   90a185ba41cbc908  /* Quantum mottle. Noise rises where fewer photons arrive, as it does on film. */
   382773b522d5ceac  /* Shells that are not quite closed can integrate slightly negative. */
+  9f53939112ecf48d  /* The dots stay a mastery reading -- nothing is earned by reading --
   9a6893535657967f  1–7 go alone, 8–10 carpool, 11–12 walk free.
   315afd5b7575b942  26 bones per foot
   ac30f30602e06aa0  3003 parts
@@ -87,7 +86,6 @@
   d687e39f0de0363f  <button class="primary readall" data-week-subject="
   b93aaff64fde9120  <button class="primary" data-nav="apply">Apply it →</button>
   7a600a4fe8fc3508  <button class="primary" data-nav="practise">Test me →</button>
-  49edcf4cec189c44  <button class="primary" data-nav="review">See what was scheduled →</button>
   4a8dfeb9b037e6a4  <button class="primary" id="rssFinish">Finish session</button>
   a8fe76c9e49873c6  <button class="primary" id="rssFinish">Finish</button>
   041bb1de3e01a00e  <button class="primary" id="rssNextItem">Next hook →</button>
@@ -136,14 +134,13 @@
   cd51c79109a79fed  <div class="ohead">How to look</div>
   4008203e0b664f6f  <div class="ohead">Planes</div>
   e0871ec754d0a09c  <div class="physline" style="--tone:#
-  49be18234eff434d  <div class="reveal
+  4cf079a228188c08  <div class="reveal open" data-stage="
   dc5da9c1fabda5e9  <div class="seq-item" data-pos="
   079bd17310af1ec7  <div class="sessnote">Another group’s slot — hidden from your counts.</div>
   20a11226de7c5b9f  <div class="studyscore">no attempts yet on this device</div>
   eb7577ba3c5c592f  <div class="verdict
   c1e9dab7d597ae36  <div style="height:100%;width:
   bdf855c7c177a453  <ellipse class="sk" cx="
-  0c1dd03a4ae6869d  <em style="color:var(--muted)">Hidden — reveal only if you need it. Trying to retrieve first is what makes it stick.</em>
   798cf300248becd5  <em style="color:var(--muted)">tap to reveal</em>
   c5c104a746bff703  <h4>Derived from</h4>
   a03547db46bf9e4b  <i style="background:#
@@ -197,7 +194,6 @@
   f425542186138bee  Abdomen & pelvis
   92508480855a651c  Acromial part of deltoid muscle
   077ffef3c99e0f88  All ' + qCount + ' questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.
-  aaaadf5a23df48bd  All hints shown
   8968425df01d3da6  All regions
   63d55224203116e0  All started
   c2150c55306954e1  All started, and holding
@@ -242,7 +238,6 @@
   b1eb88b86761c850  Common confusions on this item
   20db2e0618629cd5  Compare with the model answer
   a75d43a157167800  Confirm it if that is right.
-  436776be0111d058  Confirm what was scheduled and what to fix.
   496267ccc6b01605  Continue →
   37b72d6c576f83a7  Correct — you found it in space.
   4a0c3a0072aecfa0  Could not load that layer — the others are still there.
@@ -292,7 +287,6 @@
   6fd0c5d030af33d3  Held still:
   2a7c8d2f587fec15  Hidden (
   33832e6712de5c86  Hide this
-  74e99a080c63e742  Hints come one stage at a time. Try to answer before opening the next one.
   17dd4e0e76c7a31e  How to read the type column
   65df92c8f92a9651  I can see how it moves
   ae6900e95532340c  I could not
@@ -346,7 +340,7 @@
   36d4a1c821f13df1  Match every row before checking.
   a15f12b908b57e8e  Median plane
   24510835c032ba21  Memory Coach
-  074adaab2556a2ff  Memory Coach — hints revealed one stage at a time.
+  22a244e4656783e5  Memory Coach — the hooks and the traps for this item.
   d0a53277a5d4ccb7  Memory aids are written by this app. The facts they point at are the source-traced ones on the Learn card.
   e7f85340bf6b2c31  Memory hook
   055b6d2dba839774  Memory hook ·
@@ -371,7 +365,6 @@
   884edaf6a85ff6cc  Named in your notes, on the other side
   7a7ed8508aa3a822  Named structure in the
   1072a05d6e1e212d  Nearest first. Tap any of them, or tap the model again in the same spot to step deeper.
-  2c4dad4227b99379  No answers recorded for this item in this session.
   5174f99c057c3927  No application task authored for this item.
   e15d3dda4ba3b830  No layer shown — turn one on to study it
   acb7f9d4b343d5e8  No memory aid authored for this item yet.
@@ -430,8 +423,8 @@
   045742deb50fcee2  Progress replaced from file.
   fbb2baef613596d9  Radiation science
   908b9d8d4c977990  Radioulnar joints
-  b31c27474dfc22c8  Re-read the lesson
   87584433b6ea3e63  Read before this week
+  14940b320721a5a8  Read down: the small clue first, then the hook it hangs on.
   726a962ec689197d  Read the hook, then choose the structure it describes.
   1202164db500bf1e  Read the teaching explanation and the key facts.
   164775a7b441c383  Real upper-limb model failed, using local fallback
@@ -442,7 +435,6 @@
   fc56055b48b49999  Reset progress on this device
   914423b50b0c8bb6  Reveal next hint
   ff43191f37c6e281  Review scheduled from your answers
-  0386ccda7d5b5be3  Review · scheduled
   70e713c50b354a05  Rib-count memory
   265caba7c7686645  SM-2 shaped, then modified by response time and repeat mistakes.
   226449e53de8c9e3  Saved the current view as a PNG.
@@ -480,9 +472,6 @@
   781ffed29fcefcff  Sources, coverage, settings
   8453b6ae9d67090b  Spelling was off — the exact form is "
   c58398bfd89d3d58  Spin turntable
-  59cb04a3b5eb6328  Stage 1 — small clue
-  337936b3e90d64b6  Stage 2 — memory hook
-  fea0bf83be0c98af  Stage 3 — before you move on
   d29d2b38dac7572e  Start a session below to begin.
   ed4ac7d9bce75d7f  Start due session \u2192
   b13f13a030dc286c  Start from the title and ask what category the answer belongs to.
@@ -539,6 +528,7 @@
   054bcb5189d58091  The lower horizontal line of the nine abdominopelvic regions. Measured at the body of L5.
   0022127b9bbde1a5  The manubriosternal junction. Vertebral level T4/T5, and the boundary between the superior and inferior mediastinum.
   bc8615178d30481f  The mastery record in that file is missing or malformed.
+  33a5a85a12d2cb8c  The memory hook
   a7c6e6433e70b227  The mid-sagittal plane, measured from the midline structures themselves — the vertebral column and the sternum — rather than assumed to be x = 0.
   75527df298173eb8  The mistake log in that file is malformed.
   45ac6ce6220f94f4  The model is not rendering yet.
@@ -549,6 +539,7 @@
   f8fde19067e881fa  The projection reads through closed surfaces — section it in the 3D view.
   8baacea34fdc4ab0  The radius rotates over the ulna like a wheel spoke. It is on the thumb side.
   444c5de284285e50  The sacred wedge-shaped keystone locks the pelvic ring together.
+  22bf2179a0ff259e  The small clue
   d34c527efb66b8ea  The study tools still work. Check your connection, then retry the model layer.
   0e418effcb6578f9  The supplied timetable lists all three tutorial and lab groups without saying which is yours. Pick them once and the other groups’ slots stop counting against your attendance.
   8786e514e5dee92d  The teaching term is over
@@ -568,7 +559,6 @@
   365876067e586bde  Traced to
   bdadc5cef1ccc303  Transpyloric (L1)
   0a0d093315fde56b  Transtubercular (L5)
-  4605d18762092f89  Try to answer out loud before revealing anything. Producing the answer is the skill the exam tests — recognising it is not the same skill.
   325a3667381bade5  Twelve vertebrae: lunch at 12, with ribs attached.
   f43e8542dedb6219  Two of those are screenshots of Canvas rather than documents, because no document copy was supplied. They cannot be text-checked the way a lecture can, so everything taken from them is written out in this repo’s timetable data module, in full, where it can be read and corrected.
   431c871a874df758  Type an answer first — a guess still teaches you more than skipping.
@@ -585,12 +575,10 @@
   235aff25d47f45e6  Vertebra T5
   bf5f5fb18964519a  Vessels 186/419
   dd74882d7fe5f23d  Vessels 419
-  b84226aa522fbc3d  Watch out:
   1ad371bd047f8bcf  What bone is this?
   9aa8e28faa9142cd  What the colours mean
   b4162094b978eb6b  What this lecture adds beyond
   536306b242c83602  What to do now
-  d3ab8637fc736ca3  What you missed — to fix before it comes back
   7efbff3832400d93  Where all of this came from
   595c0868c16492a2  Where the xiphoid process meets the body of the sternum, at the anterior end of the thoracic outlet.
   99e5997ec6eb3f95  Which bone does this hook belong to?
@@ -628,6 +616,7 @@
   642d69680683778d  boot on Today, then tap Viewer
   a4d8d4905749584b  border:1px solid rgba(114,227,207,.4);border-radius:16px;background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03));padding:18px
   1d647a1965983c2a  breaths a minute
+  50cb55c7afbd25b4  but a lesson you have been through should say so on its own row. */
   a4c18480ff6a58f4  card grouppick
   dee735ed000908c8  card overlaycard
   53a55ca51fe7c9ab  card sylcard
@@ -638,6 +627,7 @@
   2cbe9c9f6127a32e  const attrs = hit ?
   150b21e4e5effc2a  const hit = lookupTerm(term);
   278b6cfc619726c6  const n = itemsForSubject(s.id).length;
+  3ab5071f7a21a857  const opened = !attempted && itemRead(i.id) ? ' · read' : '';
   3d088b55d74552a6  const subject = getSubject(s.id);
   fa75afdd29c43adb  const tag = hit ? 'button' : 'span';
   bda336734237a549  correct. Reviews scheduled.
@@ -748,9 +738,11 @@
   f0197c94b5d1d341  primary readall
   777503f25750cf8f  px "Instrument Sans", system-ui, -apple-system, sans-serif
   9104b22058806e6c  rather than rotating rigidly, so swinging them would tear them off their origin.
+  3fb4f09f641fdc35  read, none tested
   9601152cce8eb58a  reads as
   c93a88684ed76c4f  real BodyParts3D upper-limb meshes
   6ab01b1dba123b71  region filter does not work
+  781cdd8431f04584  reveal open
   dce1c177b1e44a6a  s depth, less the tag
   df49128572cf09cb  s job is only to feed it those meshes in the body
   91f0e226c82016ff  s left), fz 0 the trunk
@@ -768,7 +760,6 @@
   79ea393804dc771d  tap a structure to name it
   f5f88ae39b9a5ceb  that structure
   8ef9472e82771a5b  the body frame
-  c71daba34cd7f3d9  the viewport settled
   5d2033a00068467a  to uncover
   e738706e3a65b48b  toolchip hidden
   91ca901995ca8a91  type="button" data-term="

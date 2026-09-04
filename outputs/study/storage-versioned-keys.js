@@ -91,6 +91,31 @@ export function itemScore(itemId) {
 export function itemAttempted(itemId) {
   return MASTERY_DIMENSIONS.some((d) => (getMastery(itemId, d.id) || {}).attempts > 0);
 }
+
+/*
+ * Reading a lesson is progress, and until this existed the app did not think
+ * so: mastery only moves when a question is ANSWERED, so opening an item,
+ * reading the whole lesson and leaving -- by Save & exit or by closing the
+ * app -- left it reading "Not started", exactly as it had before it was
+ * opened. There was nothing wrong with the save; there was nothing to save.
+ *
+ * It is kept apart from the mastery record on purpose. itemAttempted decides
+ * what is due, what counts as unseen and how the queue is ordered, so writing
+ * a reading into it would mean a lesson you have only looked at starts
+ * competing for revision slots and drags the accuracy figures down with
+ * attempts nobody made. Read is read; answered is answered.
+ *
+ * The one-minute floor stops paging back and forth between the steps of one
+ * item writing localStorage on every render.
+ */
+export function markRead(itemId) {
+  const rec = store.items[itemId] || {};
+  const now = Date.now();
+  if (rec.readAt && now - rec.readAt < 60000) return;
+  store.items[itemId] = { ...rec, readAt: now, reads: (rec.reads || 0) + 1 };
+  write(K.items, store.items);
+}
+export function itemRead(itemId) { return !!(store.items[itemId] || {}).readAt; }
 export function itemDue(itemId, now = Date.now()) {
   const recs = MASTERY_DIMENSIONS.map((d) => getMastery(itemId, d.id)).filter((r) => r && r.attempts);
   if (!recs.length) return true;

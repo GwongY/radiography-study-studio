@@ -329,6 +329,27 @@ shapes** — in "The region grid and classifiers" below.
   followed. Any tool that classifies lines in this file has to track backtick
   parity and dangling `/*`.
 
+### Reading is not answering — `outputs/study/storage-versioned-keys.js`, `outputs/study/session-engine.js`
+
+- **The app had no record that a lesson had been read.** Mastery only moves when
+  a question is answered, and `itemAttempted` is derived from mastery, so
+  opening an item, reading all of it and leaving — by Save & exit, by the close
+  button, by killing the app — left the row saying "Not started", exactly as it
+  had before it was opened. Nothing was failing to save; there was nothing to
+  save. `markRead` / `itemRead` keep that in `store.items` as `readAt`.
+- **Do not fold it into the mastery record.** `itemAttempted` decides what is
+  due, what counts as unseen, and how the queue is ordered. A reading written
+  in as an attempt would put lessons you have only looked at into the revision
+  queue and drag the accuracy figures down with attempts nobody made. Read is
+  read; answered is answered, and the dots on a row stay a mastery reading.
+- **`saveContinue` had exactly one caller, and it was `setStep`.** So a resume
+  point existed only if you *changed step* — open an item, read it, leave, and
+  Today's Continue card still pointed at whatever you studied last week.
+  `startSession` writes it too now.
+- **A stored step can name a step this build no longer has.** Review was one.
+  The Continue card looks the step up by name to print its label, so an
+  unrecognised one used to throw; `getContinueTarget` falls back to `learn`.
+
 ### Missing imports in a split part — `work/binding-check.mjs`
 
 - **A missing import loads clean and fails only when that code path runs.**
@@ -637,20 +658,23 @@ to get wrong.
 
 ### Phone and tablet layout — `outputs/app.css`, `outputs/study/small-ui-helpers.js`
 
-- **`height:100%` is not the iOS viewport, and neither is `100dvh`.** Both
-  resolve against the viewport the web view reports, and a standalone web view
-  can be created at one size and settle at another — the unit is then stale
-  because the *viewport* is. Measured off a phone screenshot: a 402x874pt
-  screen with the tab bar's last pixel at 812pt and 62pt of `--bg` beneath it,
-  where `--bg` was the body background propagated to the canvas, painting an
-  area the page had never laid out into. The same page in the emulator, with
-  that phone's insets simulated, produced a tab bar of exactly the same height
-  (87pt) ending correctly at 874 — which is how the layout was ruled out and
-  the viewport ruled in. `.shell` now reads `height:100%`, then `100dvh`, then
-  `var(--vh)`, the last written from `window.innerHeight` on load, resize,
-  orientationchange and pageshow. `innerHeight` and not
-  `visualViewport.height`: the visual viewport shrinks with the keyboard, and
-  the shell should not.
+- **Do not MEASURE the iOS viewport. Pin to it.** Three attempts at the height
+  of `.shell` failed the same way: `height:100%`, then `100dvh`, then a `--vh`
+  custom property written from `window.innerHeight` on load, resize,
+  orientationchange and pageshow. Every one is a number obtained from the web
+  view, and on an installed iOS web app every one came back short. Measured off
+  the phone screenshot at 3x, after the `--vh` fix had shipped: 402x874pt
+  screen, tab bar's last pixel at 813pt, 61pt of `--bg` below it — `--bg` being
+  the body background propagated to the canvas, painting an area the page had
+  never laid out into. The bar's own height was right (81pt: 44 content + 2 +
+  34 of `env(safe-area-inset-bottom)`, which also proves the web view *does*
+  reach the bottom of the screen and the band is inside the page). The fix is
+  to stop supplying a number: `.shell` is `position:fixed` with `top` and
+  `bottom` both pinned to 0, which the browser resolves against the initial
+  containing block and re-resolves when that changes. `#sessionView` had been
+  `position:fixed; inset:0` from the start and never showed the band — that was
+  the clue. Verified at 402x874 on all six destinations: shell bottom 874,
+  bar bottom 874, gap 0.
 - **A `min` under a safe-area inset does nothing where it matters.** The tab
   bar's `padding-bottom:max(22px, env(safe-area-inset-bottom))` was 34px on a
   phone with a home indicator (the inset already covers it) and 22px of dead
@@ -677,16 +701,35 @@ height at the same instant, so every line of text jumps 73px under the reader's
 thumb, and at the end of a page the scroller's maximum scrollTop shrinks and the
 content lurches a second time. **Reclaiming the space and holding the reading
 position still are the same problem**, and only one shape solves both — take the
-header out of flow, have the container reserve its height as padding, and slide
-the overlay with a transform. Measured across a tuck and an untuck afterwards:
-pane top, pane height and maxScroll all constant, in both the main view and the
-session overlay.
+header out of flow, reserve its height as padding, and slide the overlay with a
+transform. Measured across a tuck and an untuck afterwards: pane top, pane
+height and maxScroll all constant, in both the main view and the session
+overlay.
 
-Two things that fall out of it:
+**Which box carries that padding is the whole of the second half of it.** The
+first version put it on the *container*, outside the scroller. Geometry stayed
+constant, as intended — and the reserved band stayed too, so tucking the header
+swapped it for an empty black strip that scrolled with nothing in it. Reading
+past the tuck showed a hole where the header had been. The padding belongs on
+the **scroller itself** (`.navmain > .navcontent`, `#sessionView >
+.navcontent`): the first line still starts below the header, the text then
+travels up *under* it the way it does in a native app, and the moment the header
+lifts there is already page behind it. The scroller's own box is full height and
+never changes, so the tuck still moves nothing.
 
-- **`--headh` is load-bearing layout, not decoration.** The container's padding
-  is that variable. Stale by 39px on the session overlay meant the header
-  covering the first two lines of the lesson.
+Three things that fall out of it:
+
+- **Write that rule after every other `.navcontent` padding rule.** Four
+  shorthands set `padding` on it later in the file — the mobile one, the
+  viewer's `.bleed`, the session overlay's, and the iPad-landscape override —
+  and any of them silently resets the top value. The first attempt appeared to
+  do nothing for exactly that reason.
+- **`--headh` is load-bearing layout, not decoration.** The scroller's top
+  padding is that variable. Stale by 39px on the session overlay meant the
+  header covering the first two lines of the lesson; stale by 35px on the main
+  view — first paint measures the title in the fallback face, at 108px against
+  the 73px it settles to — meant a dead band above every page. `document.fonts.ready`
+  triggers a re-measure, alongside the ResizeObserver and the MutationObserver.
 - **`overscroll-behavior: contain` is not enough** on the reading panes. It
   stops the chain but keeps the scroller's own rubber band, and at the end of a
   list that bounce reads as the page coming loose. `overscroll-behavior-y: none`
