@@ -44,12 +44,25 @@
  * WHAT happens and the calendar wins on WHEN and WHERE, and the row says so.
  * The disagreements are listed on the rows themselves, not summarised here.
  *
+ * Re-checked against the calendar on 4 Sep 2026, event by event across all
+ * thirteen weeks — 118 course events against 114 dated rows, compared by
+ * subject, date and start time rather than by reading. Four rooms and two end
+ * times were wrong and are now right; three booked slots had no row at all and
+ * now do. What a re-check is FOR is the last of those: a room that moves is
+ * visible the moment you walk in, and an hour nobody told you about is not.
+ *
  * WHAT IS STILL NOT KNOWN
  *
  * ABCT2326 splits into tutorial groups A/B/C and lab groups 1/2/3 and the
  * supplied schedule does not say which the student is in. Both are carried, and
  * `GROUP_CHOICES` drives a picker; until one is chosen the UI shows all of them.
- * The calendar does not settle it either: it books the slot, not the group.
+ *
+ * The calendar half-settles it. It books a ROOM, and the tutorial rooms differ
+ * per group: every one of the thirteen tutorials is in Y306, which is Group A's
+ * room. That is a deduction from a room number rather than anything anyone
+ * published, so it is offered on the picker and not written in — see the note
+ * on `GROUP_CHOICES`. The lab groups stay genuinely unknown; all three share
+ * Y719.
  */
 
 /* ------------------------------------------------------------------ *
@@ -216,6 +229,13 @@ export const SUBJECT_ADMIN = {
 export const GROUP_CHOICES = [
   {
     id: 'physTutorial', subject: 'ABCT2326', label: 'Physiology tutorial group',
+    /* The timetable books Y306 for all thirteen tutorials, and Y306 is Group
+       A's room. Strong, but it is still an inference off a room number — so
+       it is shown as a suggestion and the student confirms it. Silently
+       ticking a box on this evidence would hide the reasoning at exactly the
+       point someone might want to check it. */
+    suggested: 'A',
+    suggestedWhy: 'Every tutorial in your timetable is booked in Y306, which is Group A’s room.',
     options: [
       { id: 'A', label: 'Group A · Y306 · Dr Clare Yan' },
       { id: 'B', label: 'Group B · PQ304 · Dr Chartia Cheung' },
@@ -277,13 +297,19 @@ const hssTut = slot(3, [12, 30, 13, 20], 'CD512');
 const S = (o) => o;
 
 /* Every week of the term in one slot. Used for the three subjects this app
-   carries no lessons for, where there is a pattern and nothing else. */
-function weekly(subject, kind, dow, at, room, title) {
+   carries no lessons for, where there is a pattern and nothing else.
+
+   `perWeek` is the escape hatch for a slot that is regular except once —
+   keyed by week number, merged over the row. A pattern with one exception is
+   still worth writing as a pattern; writing out thirteen rows to capture one
+   difference is how the other twelve drift. */
+function weekly(subject, kind, dow, at, room, title, perWeek = {}) {
   const rows = [];
   for (let week = 1; week <= TERM.weeks; week++) {
     rows.push({
       subject, week, kind, on: dayOf(week, dow), at, title, noStudy: true,
       ...(room ? { room } : {}),
+      ...(perWeek[week] || {}),
       src: { ref: 'cal.2026', location: `${subject} weekly slot` },
     });
   }
@@ -355,6 +381,11 @@ export const SESSIONS = [
   S({ subject: 'HSS2011', week: 11, kind: 'activity', ...hssTut(11), title: 'In-class exercise (Module 4)', module: 4, dur: '1 hour' }),
   S({ subject: 'HSS2011', week: 12, kind: 'lecture', ...hssLec(12), title: 'Urogenital System', module: 4, unit: 'hss.m3', dur: '2 hours' }),
   S({ subject: 'HSS2011', week: 12, kind: 'activity', ...hssTut(12), title: 'In-class exercise (Module 4)', module: 4, dur: '1 hour' }),
+  /* The Wednesday slot is booked in week 13 too, and the published schedule
+     names nothing for it — every other week it says what the hour is for.
+     Carried because a booked hour you did not know about is the expensive
+     direction to be wrong in; the title says what is known and no more. */
+  S({ subject: 'HSS2011', week: 13, kind: 'activity', ...hssTut(13), title: 'Tutorial slot booked — topic not published', dur: '1 hour', note: 'From the university timetable only. The HSS2011 schedule lists no week 13 tutorial.', src: { ref: 'cal.2026', location: 'HSS2011 TUT, Wed 25 Nov' } }),
   /*
    * The four 2% exercises. The 8% is not one thing due at the end — it is
    * four deadlines, all Sunday 23:59, and they are the only hard dates
@@ -370,45 +401,52 @@ export const SESSIONS = [
   /* ---------------- ABCT2326 — Opt & Rad Group 4 (1107 & 1111) ---------- */
   /* Lecture: Wed 13:30–15:20, V322. Tutorial: Wed 17:30–18:20. Lab: Thu 13:30–15:20, Y719. */
   S({ subject: 'ABCT2326', week: 1, kind: 'lecture', on: [2026, 8, 2], at: [13, 30, 15, 20], room: 'V322', title: 'Lecture 1 — Cell / Body', teacher: 'CC', unit: 'phys.cells' }),
-  S({ subject: 'ABCT2326', week: 1, kind: 'tutorial', on: [2026, 8, 2], at: [17, 30, 18, 20], title: 'Tutorial — Cell & Body', unit: 'phys.cells', groupOf: 'physTutorial' }),
+  S({ subject: 'ABCT2326', week: 1, kind: 'tutorial', on: [2026, 8, 2], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — Cell & Body', unit: 'phys.cells', groupOf: 'physTutorial' }),
   S({ subject: 'ABCT2326', week: 2, kind: 'lecture', on: [2026, 8, 9], at: [13, 30, 15, 20], room: 'V322', title: 'Lecture 2 — Cardiovascular System', teacher: 'CC', unit: 'phys.cvs' }),
-  S({ subject: 'ABCT2326', week: 2, kind: 'tutorial', on: [2026, 8, 9], at: [17, 30, 18, 20], title: 'Tutorial — CVS', unit: 'phys.cvs', groupOf: 'physTutorial' }),
+  S({ subject: 'ABCT2326', week: 2, kind: 'tutorial', on: [2026, 8, 9], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — CVS', unit: 'phys.cvs', groupOf: 'physTutorial' }),
   S({ subject: 'ABCT2326', week: 2, kind: 'lab', on: [2026, 8, 10], at: [13, 30, 15, 20], room: 'Y719', title: 'CVS Lab', group: '1', groupOf: 'physLab' }),
   S({ subject: 'ABCT2326', week: 3, kind: 'lecture', on: [2026, 8, 16], at: [13, 30, 15, 20], room: 'V322', title: 'Lecture 3 — Respiratory System', teacher: 'CC', unit: 'phys.resp' }),
-  S({ subject: 'ABCT2326', week: 3, kind: 'tutorial', on: [2026, 8, 16], at: [17, 30, 18, 20], title: 'Tutorial — Respiration', unit: 'phys.resp', groupOf: 'physTutorial' }),
+  S({ subject: 'ABCT2326', week: 3, kind: 'tutorial', on: [2026, 8, 16], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — Respiration', unit: 'phys.resp', groupOf: 'physTutorial' }),
   S({ subject: 'ABCT2326', week: 3, kind: 'lab', on: [2026, 8, 17], at: [13, 30, 15, 20], room: 'Y719', title: 'CVS Lab', group: '2', groupOf: 'physLab' }),
   S({ subject: 'ABCT2326', week: 4, kind: 'lecture', on: [2026, 8, 23], at: [13, 30, 15, 20], room: 'V322', title: 'Lecture 4 — Digestive System', teacher: 'CC', unit: 'phys.dig' }),
-  S({ subject: 'ABCT2326', week: 4, kind: 'tutorial', on: [2026, 8, 23], at: [17, 30, 18, 20], title: 'Tutorial — Digestion', unit: 'phys.dig', groupOf: 'physTutorial' }),
+  S({ subject: 'ABCT2326', week: 4, kind: 'tutorial', on: [2026, 8, 23], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — Digestion', unit: 'phys.dig', groupOf: 'physTutorial' }),
   S({ subject: 'ABCT2326', week: 4, kind: 'lab', on: [2026, 8, 24], at: [13, 30, 15, 20], room: 'Y719', title: 'CVS Lab', group: '3', groupOf: 'physLab' }),
   S({ subject: 'ABCT2326', week: 5, kind: 'lecture', on: [2026, 8, 30], at: [13, 30, 15, 20], room: 'V322', title: 'Lecture 5 — Renal System', teacher: 'CC', unit: 'phys.renal' }),
-  S({ subject: 'ABCT2326', week: 5, kind: 'tutorial', on: [2026, 8, 30], at: [17, 30, 18, 20], title: 'Tutorial — Renal', unit: 'phys.renal', groupOf: 'physTutorial' }),
+  S({ subject: 'ABCT2326', week: 5, kind: 'tutorial', on: [2026, 8, 30], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — Renal', unit: 'phys.renal', groupOf: 'physTutorial' }),
   /* CONFLICT. The teaching schedule cancels this lab for the holiday; the
      calendar still books Y719 at the usual time. The document decides what
      happens, so it stays cancelled here — but the room is booked, so this is
      worth checking rather than assuming. Same pattern in week 10 below. */
   S({ subject: 'ABCT2326', week: 5, kind: 'none', on: [2026, 9, 1], title: 'Holiday — no lab', note: 'The teaching schedule cancels it for National Day. The university timetable still shows the Y719 slot at 13:30 — confirm before skipping.' }),
   S({ subject: 'ABCT2326', week: 6, kind: 'assessment', on: [2026, 9, 7], at: [13, 30, 15, 20], room: 'V322', title: 'QUIZ — Lectures 1–5', teacher: 'CC', note: 'Counts towards the 35% quiz component.' }),
+  /* Same case as week 9 below: the timetable books the tutorial hour, the
+     teaching schedule names no tutorial in the quiz week. */
+  S({ subject: 'ABCT2326', week: 6, kind: 'tutorial', on: [2026, 9, 7], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — slot booked, topic not published', groupOf: 'physTutorial', note: 'From the university timetable only. The teaching schedule lists no tutorial in week 6, the quiz week.', src: { ref: 'cal.2026', location: 'ABCT2326 TUT, Wed 7 Oct' } }),
   S({ subject: 'ABCT2326', week: 6, kind: 'lab', on: [2026, 9, 8], at: [13, 30, 15, 20], room: 'Y719', title: 'Respiratory Lab', group: '1', groupOf: 'physLab' }),
   S({ subject: 'ABCT2326', week: 7, kind: 'lecture', on: [2026, 9, 14], at: [13, 30, 15, 20], room: 'V322', title: 'Lecture 6 — Reproductive System', teacher: 'CY', unit: 'phys.repro' }),
-  S({ subject: 'ABCT2326', week: 7, kind: 'tutorial', on: [2026, 9, 14], at: [17, 30, 18, 20], title: 'Tutorial — Reproduction', unit: 'phys.repro', groupOf: 'physTutorial' }),
+  S({ subject: 'ABCT2326', week: 7, kind: 'tutorial', on: [2026, 9, 14], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — Reproduction', unit: 'phys.repro', groupOf: 'physTutorial' }),
   S({ subject: 'ABCT2326', week: 7, kind: 'lab', on: [2026, 9, 15], at: [13, 30, 15, 20], room: 'Y719', title: 'Respiratory Lab', group: '2', groupOf: 'physLab' }),
   S({ subject: 'ABCT2326', week: 8, kind: 'lecture', on: [2026, 9, 21], at: [13, 30, 15, 20], room: 'V322', title: 'Lecture 7 — Endocrine System', teacher: 'CY', unit: 'phys.endo' }),
-  S({ subject: 'ABCT2326', week: 8, kind: 'tutorial', on: [2026, 9, 21], at: [17, 30, 18, 20], title: 'Tutorial — Endocrine', unit: 'phys.endo', groupOf: 'physTutorial' }),
+  S({ subject: 'ABCT2326', week: 8, kind: 'tutorial', on: [2026, 9, 21], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — Endocrine', unit: 'phys.endo', groupOf: 'physTutorial' }),
   S({ subject: 'ABCT2326', week: 8, kind: 'lab', on: [2026, 9, 22], at: [13, 30, 15, 20], room: 'Y719', title: 'Respiratory Lab', group: '3', groupOf: 'physLab' }),
   S({ subject: 'ABCT2326', week: 9, kind: 'lecture', on: [2026, 9, 28], at: [13, 30, 15, 20], room: 'V322', title: 'Lecture 8 — Nervous System', teacher: 'CY', unit: 'phys.nerv' }),
   /* Not in the teaching schedule; booked in the timetable. Listed because a
      tutorial you did not know about is the expensive direction to be wrong in. */
-  S({ subject: 'ABCT2326', week: 9, kind: 'tutorial', on: [2026, 9, 28], at: [17, 30, 18, 20], title: 'Tutorial — slot booked, topic not published', groupOf: 'physTutorial', note: 'From the university timetable only. The teaching schedule lists no tutorial in week 9.', src: { ref: 'cal.2026', location: 'ABCT2326 TUT, Wed 28 Oct' } }),
+  S({ subject: 'ABCT2326', week: 9, kind: 'tutorial', on: [2026, 9, 28], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — slot booked, topic not published', groupOf: 'physTutorial', note: 'From the university timetable only. The teaching schedule lists no tutorial in week 9.', src: { ref: 'cal.2026', location: 'ABCT2326 TUT, Wed 28 Oct' } }),
   S({ subject: 'ABCT2326', week: 9, kind: 'lab', on: [2026, 9, 29], at: [13, 30, 15, 20], room: 'Y719', title: 'Digestive Lab', group: '1', groupOf: 'physLab' }),
   S({ subject: 'ABCT2326', week: 10, kind: 'none', on: [2026, 10, 4], title: 'No class this week', note: 'CONFLICT: the teaching schedule says no class; the university timetable books the lecture (Wed 13:30 V322), the tutorial (Wed 17:30) and the lab (Thu 5 Nov 13:30 Y719) as normal. Confirm before skipping the week.' }),
   S({ subject: 'ABCT2326', week: 11, kind: 'lecture', on: [2026, 10, 11], at: [13, 30, 15, 20], room: 'V322', title: 'Lecture 9 — Nerve / Musculoskeletal', teacher: 'CY', unit: 'phys.msk' }),
-  S({ subject: 'ABCT2326', week: 11, kind: 'tutorial', on: [2026, 10, 11], at: [17, 30, 18, 20], title: 'Tutorial — Nerve', unit: 'phys.nerv', groupOf: 'physTutorial' }),
+  S({ subject: 'ABCT2326', week: 11, kind: 'tutorial', on: [2026, 10, 11], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — Nerve', unit: 'phys.nerv', groupOf: 'physTutorial' }),
   S({ subject: 'ABCT2326', week: 11, kind: 'lab', on: [2026, 10, 12], at: [13, 30, 15, 20], room: 'Y719', title: 'Digestive Lab', group: '2', groupOf: 'physLab' }),
   S({ subject: 'ABCT2326', week: 12, kind: 'lecture', on: [2026, 10, 18], at: [13, 30, 15, 20], room: 'V322', title: 'Lecture 10 — Musculoskeletal / Immune', teacher: 'CY', unit: 'phys.msk' }),
-  S({ subject: 'ABCT2326', week: 12, kind: 'tutorial', on: [2026, 10, 18], at: [17, 30, 18, 20], title: 'Tutorial — Muscle', unit: 'phys.msk', groupOf: 'physTutorial' }),
+  S({ subject: 'ABCT2326', week: 12, kind: 'tutorial', on: [2026, 10, 18], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — Muscle', unit: 'phys.msk', groupOf: 'physTutorial' }),
   S({ subject: 'ABCT2326', week: 12, kind: 'lab', on: [2026, 10, 19], at: [13, 30, 15, 20], room: 'Y719', title: 'Digestive Lab', group: '3', groupOf: 'physLab' }),
   S({ subject: 'ABCT2326', week: 13, kind: 'lecture', on: [2026, 10, 25], at: [13, 30, 15, 20], room: 'V322', title: 'Lecture 11 — Immune System', teacher: 'CY', unit: 'phys.imm' }),
-  S({ subject: 'ABCT2326', week: 13, kind: 'tutorial', on: [2026, 10, 25], at: [17, 30, 18, 20], title: 'Tutorial — Immune', unit: 'phys.imm', groupOf: 'physTutorial' }),
+  S({ subject: 'ABCT2326', week: 13, kind: 'tutorial', on: [2026, 10, 25], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — Immune', unit: 'phys.imm', groupOf: 'physTutorial' }),
+  /* A fourth lab the teaching schedule does not carry. Its rotation lists
+     three topics across groups 1/2/3 and stops; the timetable books Y719 at
+     the usual Thursday hour one more time. Whose lab group is not derivable. */
+  S({ subject: 'ABCT2326', week: 13, kind: 'lab', on: [2026, 10, 26], at: [13, 30, 15, 20], room: 'Y719', title: 'Lab — slot booked, topic not published', groupOf: 'physLab', note: 'From the university timetable only. The teaching schedule’s lab rotation ends at week 12.', src: { ref: 'cal.2026', location: 'ABCT2326 LAB, Thu 26 Nov' } }),
 
   /* ---------------- HTI17103 — the real 2026 schedule ------------------- */
   S({ subject: 'HTI17103', week: 1, kind: 'lecture', on: [2026, 7, 31], at: [9, 30, 11, 20], room: 'GH201', title: 'About this subject; Introduction — Radiographer-to-be', teacher: 'LTL', unit: 'hti.subject', note: 'The teaching schedule puts this in HJ202; the calendar books GH201. Room from the calendar, which is the booking.' }),
@@ -433,22 +471,33 @@ export const SESSIONS = [
    * marks them, and the row says it rather than leaving a reader to assume
    * the material is merely unwritten.
    *
-   * The Friday 12:30 seminar is labelled "LEI1000 SEM — LCR Subject" in the
-   * calendar, which is the generic placeholder a Language & Communication
-   * Requirement slot gets before the subject is named. It is filed here
-   * under LEI1101, the LCR subject this repo carries files for. If that
-   * turns out to be a different LCR subject, this line is where the
-   * assumption is, and it is the only thing that needs changing.
+   * The Friday 12:30 seminar used to be labelled "LEI1000 SEM — LCR Subject"
+   * in the calendar — the generic placeholder a Language & Communication
+   * Requirement slot gets before the subject is named — and filing it under
+   * LEI1101 was an assumption flagged here as one. The calendar has since
+   * been updated and now names it: "LEI1101 SEM003 — AI as a tool of
+   * learning", in QR 514. The assumption was right, and is no longer an
+   * assumption.
    * --------------------------------------------------------------------- */
   ...weekly('DSAI1202', 'lecture', 3, [8, 30, 10, 20], 'TU201', 'Lecture'),
-  ...weekly('APSS1A08', 'lecture', 5, [8, 30, 11, 30], 'SHA030', 'Introduction to Sociology'),
-  ...weekly('LEI1101', 'seminar', 5, [12, 30, 15, 20], null, 'LCR seminar'),
-  /* Four extra DSAI1202 sessions the calendar calls "Special Class", each in
-     the same four-room lab block. Not a weekly pattern, so listed. */
-  ...[[6, [2026, 9, 8]], [7, [2026, 9, 15]], [11, [2026, 10, 12]], [12, [2026, 10, 19]]].map(
-    ([week, on]) => S({
+  ...weekly('APSS1A08', 'lecture', 5, [8, 30, 11, 20], 'SHA030', 'Introduction to Sociology'),
+  /* Weeks 2–13 run to 15:30. Week 1 alone ends 15:20 — not a transcription
+     slip; the timetable really does book the first seminar ten minutes short. */
+  ...weekly('LEI1101', 'seminar', 5, [12, 30, 15, 30], 'QR 514', 'LCR seminar', {
+    1: { at: [12, 30, 15, 20] },
+  }),
+  /* Four extra DSAI1202 sessions the calendar calls "Special Class". Not a
+     weekly pattern, so listed — and not one room block either: the October
+     pair adds U301-Z3 to the three the November pair uses. */
+  ...[
+    [6, [2026, 9, 8], 'U301-Z3 / W311a / W402-Z2 / W402a'],
+    [7, [2026, 9, 15], 'U301-Z3 / W311a / W402-Z2 / W402a'],
+    [11, [2026, 10, 12], 'W311a / W402-Z2 / W402a'],
+    [12, [2026, 10, 19], 'W311a / W402-Z2 / W402a'],
+  ].map(
+    ([week, on, room]) => S({
       subject: 'DSAI1202', week, kind: 'lab', on, at: [16, 30, 18, 20],
-      room: 'W311a / W402-Z2 / W402a', title: 'Special class', noStudy: true,
+      room, title: 'Special class', noStudy: true,
       src: { ref: 'cal.2026', location: 'DSAI1202 LEC (Special Class)' },
     })),
 ];
@@ -558,5 +607,5 @@ export const SCHEDULE_SOURCES = [
      verifies that every SOURCE_FILES entry is a real file on the shared
      drive, and this one is a calendar. It is labelled here instead so the
      view can name it honestly rather than printing a bare ref. */
-  { subject: 'All six', ref: 'cal.2026', label: 'PolyU timetable, via the student’s Google Calendar', what: 'Every date, time and room — including the HSS2011 times no published schedule gives, and the three subjects this app teaches nothing for' },
+  { subject: 'All six', ref: 'cal.2026', label: 'PolyU timetable, via the student’s Google Calendar', what: 'Every date, time and room — including the HSS2011 times no published schedule gives, and the three subjects this app teaches nothing for. Re-checked event by event on 4 Sep 2026.' },
 ];
