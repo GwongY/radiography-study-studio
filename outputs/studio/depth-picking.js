@@ -3,7 +3,7 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, ANATOMY_DATABASE, LAYER_NAMES, classify, els, getAnatomy, state, systemsOf } from './imports.js';
+import { $, ANATOMY_DATABASE, LAYER_NAMES, classify, els, getAnatomy, prefersStill, state, systemsOf } from './imports.js';
 import { answer, clean, clearHighlight, highlight, onBonePicked, pool, rebuildConcepts, record, renderRegions, renderReview, setMode, showToast, startQuestion, startQuestionFor } from './visualisation-modes.js';
 import { applyVisibility, boot3D, cameraView, confirmPick, focusSelected, getRecord, isSelfOrAncestorVisible, mapImportedName, nearestVisibleMesh, resize, toggleIsolation, zoomCamera } from './region-boxes-how.js';
 import { clearPickCallout } from './spatial-concept-overlays.js';
@@ -182,9 +182,24 @@ $('reviewBtn').onclick=()=>{
 export async function loadExtraModel(key,file){
   if(state.extraModels[key])return state.extraModels[key];
   if(!state.scene)throw new Error('3D scene not ready');
-  const THREE=state.THREE||await import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js');
-  const {GLTFLoader}=await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js');
-  const gltf=await new Promise((ok,err)=>new GLTFLoader().load(file,ok,undefined,err));
+  const [THREE,{GLTFLoader}]=await Promise.all([
+    state.THREE||import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js'),
+    import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js'),
+  ]);
+  /*
+   * The third argument to load() is onProgress and it used to be undefined, so
+   * the nerve layer (7.7 MB), the muscle layer (7.7 MB) and the vessels (7.5 MB)
+   * downloaded in total silence -- the boot path drives els.progress for the
+   * 5 MB skeleton, and then the biggest downloads in the app report nothing.
+   * Same bar, same units. lengthComputable is false on a chunked response, and
+   * in that case there is honestly nothing to show, so the bar is left alone.
+   */
+  els.progress.style.width='3%';
+  const gltf=await new Promise((ok,err)=>new GLTFLoader().load(file,ok,(e)=>{
+    if(!e||!e.lengthComputable||!e.total)return;
+    els.progress.style.width=`${Math.max(3,Math.round(e.loaded/e.total*100))}%`;
+  },err));
+  els.progress.style.width='100%';
   const root=gltf.scene;
   /*
    * All six BodyParts3D / Z-Anatomy layers are exported in ONE shared source
@@ -306,7 +321,17 @@ export function init() {
   window.addEventListener('resize',resize);
   window.addEventListener('orientationchange',()=>setTimeout(resize,120));
   if(window.visualViewport)window.visualViewport.addEventListener('resize',resize);
-  els.motion.onclick=()=>{state.motionEnabled=!state.motionEnabled;els.motion.textContent=state.motionEnabled?'Pause turntable':'Spin turntable';els.motion.classList.toggle('active',state.motionEnabled)};renderRegions();renderReview();bindCanvas();setMode('explore');
+  /*
+   * The button ships reading "Pause turntable" with .active, which was true
+   * only because motionEnabled was hard-coded on. It now follows
+   * prefers-reduced-motion, so the label has to be drawn from state rather than
+   * assumed -- otherwise a reader who asked for stillness gets a still model
+   * under a button offering to pause it.
+   */
+  const paintMotion=()=>{els.motion.textContent=state.motionEnabled?'Pause turntable':'Spin turntable';els.motion.classList.toggle('active',state.motionEnabled)};
+  paintMotion();
+  if(prefersStill())els.motion.title='Your system asks for reduced motion, so the turntable starts still.';
+  els.motion.onclick=()=>{state.motionEnabled=!state.motionEnabled;paintMotion()};renderRegions();renderReview();bindCanvas();setMode('explore');
   state.extraModels=state.extraModels||{};
   state.layers=state.layers||{skeleton:true};
 }

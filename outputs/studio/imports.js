@@ -16,7 +16,20 @@
 
   export const $ = (id) => document.getElementById(id);
   export const els = { stage:$('stage'), state:$('stageState'), stateTitle:$('stateTitle'), stateCopy:$('stateCopy'), retry:$('retryBtn'), progress:$('progressBar'), stageMeta:$('stageMeta'), regionMeta:$('regionMeta'), selectedName:$('selectedName'), selectedChips:$('selectedChips'), selectedDetails:$('selectedDetails'), taskKicker:$('taskKicker'), taskTitle:$('taskTitle'), taskCopy:$('taskCopy'), answers:$('answers'), feedback:$('feedback'), next:$('nextBtn'), regions:$('regionButtons'), reviewBar:$('reviewBar'), reviewNumber:$('reviewNumber'), reviewHint:$('reviewHint'), toast:$('toast'), detailDialog:$('detailDialog'), detailTitle:$('detailTitle'), detailChips:$('detailChips'), detailBody:$('detailBody'), zoomIn:$('zoomInBtn'), zoomOut:$('zoomOutBtn'), focus:$('focusBtn'), motion:$('motionBtn') };
-  export const state = { mode:'explore', region:'all', selectedId:null, selectedSide:null, current:null, quizStarted:false, isolated:false, meshes:[], fullMeshes:[], hotspots:[], fullPickables:[], importedRecords:new Map(), selectionAnchor:null, lastPick:{x:0,y:0,t:0,candidates:[],index:-1}, lastDetailId:null, hashRestored:false, scene:null, camera:null, controls:null, renderer:null, raycaster:null, pointer:null, fullModel:null, realModel:null, realIsProcedural:false, memoryStreak:0, motionEnabled:true, motionPhase:0, stats:loadStats() };
+  /*
+   * Does this reader want stillness?
+   *
+   * Guarded rather than called bare. work/load-check.mjs evaluates this module
+   * in node with stubbed browser globals, and an unguarded matchMedia there is
+   * a load-time death of exactly the kind CLAUDE.md records as having taken the
+   * whole app down once. With no matchMedia, the honest answer is "no
+   * preference expressed", which leaves behaviour where it already was.
+   */
+  export function prefersStill(){
+    return typeof matchMedia==='function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  export const state = { mode:'explore', region:'all', selectedId:null, selectedSide:null, current:null, quizStarted:false, isolated:false, meshes:[], fullMeshes:[], hotspots:[], fullPickables:[], importedRecords:new Map(), selectionAnchor:null, lastPick:{x:0,y:0,t:0,candidates:[],index:-1}, lastDetailId:null, hashRestored:false, scene:null, camera:null, controls:null, renderer:null, raycaster:null, pointer:null, fullModel:null, realModel:null, realIsProcedural:false, memoryStreak:0, motionEnabled:!prefersStill(), motionPhase:0, stats:loadStats() };
 export const LAYER_NAMES={skeleton:'Skeleton',muscle:'Muscles',organs:'Organs',circulatory:'Vessels',nervous:'Nerves',joint:'Ligaments',lymphatic:'Lymphatic'};
 
   function loadStats(){ try{return JSON.parse(localStorage.getItem('osteology-studio-stats') || '{}')}catch{return {}} }

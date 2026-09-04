@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 812 —
-  3c021ca033c17c15  WHOLE SET
+— user-facing strings in outputs/ — 815 —
+  e3b916784ba58909  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -50,6 +50,7 @@
   5465451fbdda9b14  ">Study this →
   23db48b468bb0c9a  % correct overall · weaker structures are prioritised.
   1fa5a4b7dc45d675  % mastered
+  fce63bfb9ebaba3d  (prefers-reduced-motion: reduce)
   7ac7679148ff1f49  , and this app is on
   bfd4242c0712a338  , tap for
   eaad1c08038293ae  , unverified
@@ -240,6 +241,7 @@
   c6ffddc144cdab7e  Common confusions
   b1eb88b86761c850  Common confusions on this item
   20db2e0618629cd5  Compare with the model answer
+  a75d43a157167800  Confirm it if that is right.
   436776be0111d058  Confirm what was scheduled and what to fix.
   496267ccc6b01605  Continue →
   37b72d6c576f83a7  Correct — you found it in space.
@@ -605,6 +607,7 @@
   62375359a1826914  Your groups
   69bfb7f1b8cfd020  Your mistake log —
   0766aba44d3ed61b  Your sources call it
+  eca79e98499b2cd2  Your system asks for reduced motion, so the turntable starts still.
   5aacae2229c04415  Z-Anatomy / BodyParts3D skeleton · 159 named structures
   942d247338ecf9f4  \u00b7 every item carries its own reference
   10c21ae68a2b089a  \u00b7 opens in Viewer
