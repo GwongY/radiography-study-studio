@@ -189,10 +189,10 @@ function originHint(item) {
 /*
  * The stages are resolved together rather than independently: each one takes
  * the first of its candidates that no earlier stage has already claimed, so a
- * hint is never shown twice inside one ladder.
+ * hint is never shown twice on one card.
  */
-export const REVEAL_STAGES = [
-  { lab: 'Stage 1 — small clue',
+export const HINT_STAGES = [
+  { lab: 'The small clue',
     candidates: (item) => [
       { k: 'chunking', v: item.memory.chunking }, { k: 'wordOrigin', v: item.memory.wordOrigin },
       { k: 'location', v: item.memory.location }, { k: 'comparison', v: item.memory.comparison },
@@ -202,7 +202,7 @@ export const REVEAL_STAGES = [
       { k: 'teachBack', v: item.memory.teachBack }, { v: originHint(item) },
     ],
     fallback: 'Start from the title and ask what category the answer belongs to.' },
-  { lab: 'Stage 2 — memory hook',
+  { lab: 'The memory hook',
     candidates: (item) => [
       { v: item.lesson.hook },
       { k: 'mnemonic', v: item.memory.mnemonic }, { k: 'firstLetter', v: item.memory.firstLetter },
@@ -212,21 +212,20 @@ export const REVEAL_STAGES = [
       { k: 'location', v: item.memory.location }, { k: 'teachBack', v: item.memory.teachBack },
     ],
     fallback: 'Attach the fact to something you already know well.' },
-  { lab: 'Stage 3 — before you move on',
-    candidates: (item) => (item.commonMistakes || []).map((m) => ({ v: `Watch out: ${m}` })),
-    fallback: 'Try to answer out loud before revealing anything. Producing the answer is the skill the exam tests — recognising it is not the same skill.' },
 ];
 
 /*
- * Stage 3 is content-anchored, not generic: it shows this item's own common
- * confusions (authored in the corpus) as the trap to avoid, and only falls
- * back to a plain retrieval instruction when the item has none.
+ * There was a third stage. It showed this item's common confusions, and when
+ * the item had none it showed a paragraph of general advice about retrieval
+ * practice. The confusions have their own section below now -- named, and not
+ * behind anything -- and general advice about how to study is not what a
+ * memory hook is for.
  */
 
 const sameText = (a, b) => String(a).trim().toLowerCase().replace(/\s+/g, ' ') === String(b).trim().toLowerCase().replace(/\s+/g, ' ');
 
 function stageTexts(item) {
-  const out = new Array(REVEAL_STAGES.length).fill('');
+  const out = new Array(HINT_STAGES.length).fill('');
   const usedKeys = new Set();
   const used = [];
   const claim = (i, cand) => {
@@ -236,7 +235,7 @@ function stageTexts(item) {
     used.push(cand.v);
     return true;
   };
-  REVEAL_STAGES.forEach((s, i) => {
+  HINT_STAGES.forEach((s, i) => {
     if (!s.candidates(item).some((c) => claim(i, c))) {
       out[i] = (typeof s.fallback === 'function' ? s.fallback(item) : s.fallback) || '';
     }
@@ -244,51 +243,59 @@ function stageTexts(item) {
   return { texts: out, usedKeys, used };
 }
 
+/*
+ * Both hints, open, with the traps underneath.
+ *
+ * They used to be behind a "Reveal next hint" button, one press per stage, on
+ * the theory that a hint you had to ask for was a hint you had tried without.
+ * In use it was three presses standing between the reader and the whole point
+ * of the card, and the first press was never a decision -- nobody arrives at
+ * the Memory Coach wanting to not see the memory aids. What used to be the
+ * discipline lives in the order instead: the small clue is above the hook, so
+ * reading downwards is still reading from least given away to most.
+ */
 export function rememberHTML(item) {
   const hooks = Object.entries(item.memory || {}).filter(([, v]) => v);
   const { texts, usedKeys, used } = stageTexts(item);
-  const stack = REVEAL_STAGES.map((s, i) =>
-    `<div class="reveal ${i < ui.session.reveal ? 'open' : ''}" data-stage="${i}">
-      <div class="lab">${esc(s.lab)}</div>
-      <div class="txt">${i < ui.session.reveal ? glossify(esc(texts[i]))
-        : '<em style="color:var(--muted)">Hidden — reveal only if you need it. Trying to retrieve first is what makes it stick.</em>'}</div>
+  const stack = HINT_STAGES.map((st, i) => `<div class="reveal open" data-stage="${i}">
+      <div class="lab">${esc(st.lab)}</div>
+      <div class="txt">${glossify(esc(texts[i]))}</div>
     </div>`).join('');
   /*
-   * The coach does not list every memory aid underneath the ladder any more —
-   * that list repeated the very texts the stages reveal. Once the ladder is
-   * fully open, only the hooks the stages did not already show appear here.
-   * Hooks-only mode has no ladder, so it keeps the full list.
+   * Only the aids the two stages did not already use. The stages draw from the
+   * same pool, so without this the card says the same sentence twice.
    */
-  const moreHooks = ui.session.reveal >= REVEAL_STAGES.length
-    ? hooks.filter(([k, v]) => v && !usedKeys.has(k) && !used.some((u) => sameText(u, v)))
-    : [];
+  const moreHooks = hooks.filter(([k, v]) => v && !usedKeys.has(k) && !used.some((u) => sameText(u, v)));
   const hooksList = (list) => `${list.map(([k, v]) => `<div class="hookcard"><div class="kind">${esc(MEMORY_METHODS[k] || k)}</div><div class="txt">${esc(v)}</div></div>`).join('')}
       <p class="small" style="color:var(--muted);margin-top:10px">Memory aids are written by this app. The facts they point at are the source-traced ones on the Learn card.</p>`;
+  /*
+   * What replaced the blank-page prompt.
+   *
+   * That prompt was app-authored advice about how to revise -- write the page
+   * from memory, then check it -- shown on this card and again on the step
+   * after it. These are the mistakes people actually make on THIS item, they
+   * come out of the corpus with the rest of the lesson, and knowing the trap
+   * before you are tested is worth more than being told to try harder.
+   */
+  const traps = (item.commonMistakes || []).length
+    ? `<div class="subhead" style="margin-top:14px">Common confusions on this item</div>
+       <ul class="facts">${item.commonMistakes.map((m) => `<li>${glossify(esc(m))}</li>`).join('')}</ul>`
+    : '';
   return `<div class="lesson">
     <div class="eyebrow">Memory Coach</div>
     <h2>${esc(item.title)}</h2>
-    <p class="task-copy">${ui.session.hooksOnly ? 'Browsing memory hooks — nothing is scored in this mode.' : 'Hints come one stage at a time. Try to answer before opening the next one.'}</p>
+    <p class="task-copy">${ui.session.hooksOnly ? 'Browsing memory hooks — nothing is scored in this mode.' : 'Read down: the small clue first, then the hook it hangs on.'}</p>
     ${ui.session.hooksOnly ? '' : `<div class="reveal-stack">${stack}</div>`}
+    ${ui.session.hooksOnly ? '' : traps}
     <div class="rss-actions">
-      ${ui.session.hooksOnly ? '' : `<button class="ghost" id="rssRevealBtn">${ui.session.reveal >= REVEAL_STAGES.length ? 'All hints shown' : 'Reveal next hint'}</button>`}
       ${ui.session.hooksOnly
         ? (ui.session.index >= ui.session.items.length - 1 ? '<button class="primary" id="rssFinish">Finish</button>' : '<button class="primary" id="rssNextItem">Next hook →</button>')
         : '<button class="primary" data-nav="practise">Test me →</button>'}
     </div>
-    ${item.selfCheck ? `<div class="subhead" style="margin-top:14px">Prove it to yourself</div>
-      <div class="hookcard"><div class="kind">Blank-page check · <span class="apptag">App note</span></div><div class="txt">${glossify(esc(item.selfCheck))}</div></div>` : ''}
     ${ui.session.hooksOnly
       ? (hooks.length ? `<div class="subhead">All memory aids for this item</div>${hooksList(hooks)}` : '<div class="emptybox" style="margin-top:14px">No memory aid authored for this item yet.</div>')
       : (moreHooks.length ? `<div class="subhead" style="margin-top:14px">More hooks for this item</div>${hooksList(moreHooks)}` : '')}
   </div>`;
-}
-
-export function wireReveal(item) {
-  wireTerms($$('rssStage'));
-  const b = $$('rssRevealBtn');
-  if (!b) return;
-  b.disabled = ui.session.reveal >= REVEAL_STAGES.length;
-  b.onclick = () => { ui.session.reveal = Math.min(REVEAL_STAGES.length, ui.session.reveal + 1); renderStep(); };
 }
 
 /* ---------------- question rendering ---------------- */
@@ -768,10 +775,12 @@ export function wireApply(item) {
       }
       if (!correct) {
         logMistake({ itemId: item.id, qid: `${item.id}!app0`, type: 'scenario', prompt: a.prompt });
-        /* So the Review step's missed-question recap includes the Apply miss. */
         ui.session.results.push({ itemId: item.id, qid: `${item.id}!app0`, correct, ms });
       }
-      $$('rssApplyNav').innerHTML = '<button class="primary" data-nav="review">See what was scheduled →</button>';
+      const last = ui.session.index >= ui.session.items.length - 1;
+      $$('rssApplyNav').innerHTML = last
+        ? '<button class="primary" id="rssFinish">Finish session</button>'
+        : '<button class="primary" id="rssNextItem">Next item →</button>';
       wireStageNav(item);
       toast(!correct ? 'Recorded — this one will come back sooner.'
         : conf >= 2 ? 'Application recorded.'
@@ -782,46 +791,6 @@ export function wireApply(item) {
     $$('rssAppPart').onclick = () => grade(true, 0);
     $$('rssAppNo').onclick = () => grade(false, 0);
   };
-}
-
-export function reviewHTML(item) {
-  const mine = ui.session.results.filter((r) => r.itemId === item.id);
-  const right = mine.filter((r) => r.correct).length;
-  const recs = MASTERY_DIMENSIONS.map((d) => ({ d, rec: getMastery(item.id, d.id) })).filter((x) => x.rec && x.rec.attempts);
-  const soonest = recs.length ? Math.min(...recs.map((x) => x.rec.due)) : 0;
-  const days = soonest ? Math.max(0, Math.round((soonest - Date.now()) / 86400000)) : 0;
-  const last = ui.session.index >= ui.session.items.length - 1;
-  /*
-   * The Review step recaps what actually went wrong in this session — the
-   * exact questions missed, with their own explanations — rather than generic
-   * study advice. Clean pass falls back to the item's authored confusions.
-   */
-  const qs = questionsOf(item);
-  const appTask = (item.application || [])[0];
-  const missedQs = mine.filter((r) => !r.correct)
-    .map((r) => r.qid === `${item.id}!app0`
-      ? { prompt: appTask ? appTask.prompt : '', why: appTask ? appTask.model : '' }
-      : qs.find((q) => q.qid === r.qid))
-    .filter(Boolean);
-  const fixBlock = missedQs.length
-    ? `<div class="subhead" style="margin-top:14px">What you missed — to fix before it comes back</div>
-       <ul class="facts">${missedQs.map((q) => `<li><strong>${esc(q.prompt)}</strong><br>${esc(q.why)}</li>`).join('')}</ul>`
-    : (item.commonMistakes && item.commonMistakes.length
-      ? `<div class="subhead" style="margin-top:14px">Common confusions on this item</div><ul class="facts">${item.commonMistakes.map((m) => `<li>${esc(m)}</li>`).join('')}</ul>`
-      : '');
-  return `<div class="lesson">
-    <div class="eyebrow">Review · scheduled</div>
-    <h2>${esc(item.title)}</h2>
-    <div class="body">${mine.length ? `You answered ${right} of ${mine.length} correctly on this item.` : 'No answers recorded for this item in this session.'}
-      ${soonest ? (soonest <= Date.now() ? ' It stays in today’s queue.' : ` Next review in about ${days} day${days === 1 ? '' : 's'}.`) : ''}</div>
-    ${fixBlock}
-    ${item.selfCheck ? `<div class="subhead" style="margin-top:14px">Before it comes back</div>
-      <div class="hookcard"><div class="kind">Blank-page check · <span class="apptag">App note</span></div><div class="txt">${glossify(esc(item.selfCheck))}</div></div>` : ''}
-    <div class="rss-actions">
-      ${last ? '<button class="primary" id="rssFinish">Finish session</button>' : '<button class="primary" id="rssNextItem">Next item →</button>'}
-      <button class="ghost" data-nav="learn">Re-read the lesson</button>
-    </div>
-  </div>`;
 }
 
 export function wireStageNav(item) {

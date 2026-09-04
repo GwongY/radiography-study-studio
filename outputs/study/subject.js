@@ -4,7 +4,7 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, FLOW_CLASSES, ITEM_TYPES, LAYER_CLASSES, MESH_INDEX, RATES, SOURCE_FILES, SOURCE_ROOTS, STRUCTURE_MODELS, SUBJECTS, SYSTEMS, UNITS, describeSource, esc, itemsForUnit, layerOf, priorOf, systemCounts, tierFor, ui } from './imports.js';
-import { adjScore, itemAttempted, itemScore, read } from './storage-versioned-keys.js';
+import { adjScore, itemAttempted, itemRead, itemScore, read } from './storage-versioned-keys.js';
 import { goTo, setActiveNav } from './navigation-five-destinations.js';
 import { leaveProjection } from './what-is-under.js';
 import { scrollViewTop, showView, toast } from './small-ui-helpers.js';
@@ -94,7 +94,10 @@ export function renderLearn() {
           const tier = tierFor(adjScore(i), attempted || !!assumed);
           const color = assumed ? 'var(--dim)' : tier >= 3 ? 'var(--green)' : tier === 2 ? 'var(--orange)' : 'var(--red)';
           const sub = (ITEM_TYPES[i.type] || {}).label || i.type;
-          return `<button class="unit-row" data-item="${esc(i.id)}"><span class="grow"><b>${esc(i.title)}</b><small>${esc(sub)}${assumed ? esc(' · assumed from ' + assumed.short + ', unverified') : ''}</small></span><span class="mono" style="color:${color}">${'\u25cf'.repeat(tier)}${'\u25cb'.repeat(4 - tier)}</span></button>`;
+          /* The dots stay a mastery reading -- nothing is earned by reading --
+             but a lesson you have been through should say so on its own row. */
+          const opened = !attempted && itemRead(i.id) ? ' · read' : '';
+          return `<button class="unit-row" data-item="${esc(i.id)}"><span class="grow"><b>${esc(i.title)}</b><small>${esc(sub)}${esc(opened)}${assumed ? esc(' · assumed from ' + assumed.short + ', unverified') : ''}</small></span><span class="mono" style="color:${color}">${'\u25cf'.repeat(tier)}${'\u25cb'.repeat(4 - tier)}</span></button>`;
         }).join('')}
       </div>
       <div class="small" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line)">Sourced from <span style="color:var(--teal)">${esc(describeSource(T.items[0].sourceRefs[0]).file)}</span> \u00b7 every item carries its own reference</div>

@@ -4,8 +4,8 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, ITEM_TYPES, STUDY_ITEMS, STUDY_MODES, describeSource, entryStep, esc, getItem, priorOf, questionsOf, ui } from './imports.js';
-import { REVEAL_STAGES, applyHTML, endSession, learnHTML, practiseHTML, rememberHTML, reviewHTML, wireApply, wirePractise, wireReveal, wireStageNav } from './layout-figures.js';
-import { adjScore, itemAttempted, itemDue, itemLapses, store } from './storage-versioned-keys.js';
+import { applyHTML, endSession, learnHTML, practiseHTML, rememberHTML, wireApply, wirePractise, wireStageNav } from './layout-figures.js';
+import { adjScore, itemAttempted, itemDue, itemLapses, markRead, store } from './storage-versioned-keys.js';
 import { mountLessonVisual, releaseLessonVisual } from './lesson-visuals.js';
 import { openSessionOverlay } from './navigation-five-destinations.js';
 import { openSourceDialog } from './source-dialog.js';
@@ -19,11 +19,20 @@ import { wireTerms } from './reading-help.js';
 
 export const STEPS = [
   { id: 'learn', label: 'Learn', copy: 'Read the teaching explanation and the key facts.' },
-  { id: 'remember', label: 'Remember', copy: 'Memory Coach — hints revealed one stage at a time.' },
+  { id: 'remember', label: 'Remember', copy: 'Memory Coach — the hooks and the traps for this item.' },
   { id: 'practise', label: 'Practise', copy: 'Answer, then see why.' },
   { id: 'apply', label: 'Apply', copy: 'Use the idea on something you have not seen.' },
-  { id: 'review', label: 'Review', copy: 'Confirm what was scheduled and what to fix.' },
 ];
+
+/*
+ * There were five steps. Review was the fifth, and it was the one step that
+ * taught nothing: it recapped what the previous two had just told you, then
+ * repeated the item's confusions and its blank-page prompt underneath. The
+ * confusions now sit on Remember, where they are a hint rather than a
+ * postscript, and what the schedule did is already said by the toast and by
+ * the Review destination in the nav -- which is a different thing with the
+ * same name and is not going anywhere.
+ */
 
 
 export function pickItems(opts) {
@@ -112,14 +121,21 @@ export function startSession(opts) {
   const mode = STUDY_MODES.find((m) => m.id === opts.mode);
   const hooksOnly = opts.mode === 'hooks';
   const first = items[0];
+  const step = hooksOnly ? 'remember' : entryStep(first, itemAttempted(first.id));
   ui.session = {
-    opts, mode, items, index: 0, step: hooksOnly ? 'remember' : entryStep(first, itemAttempted(first.id)),
-    /* Hooks-only is a browsing mode, so open every hint straight away. */
-    reveal: hooksOnly ? REVEAL_STAGES.length : 0,
+    opts, mode, items, index: 0, step,
     qIndex: 0, answered: false, startedAt: 0,
     results: [], hooksOnly,
   };
   ui.session.modeLabel = mode ? mode.label : 'Study session';
+  /*
+   * The resume point is written when the session OPENS, not only when a step
+   * changes. setStep was the only writer, so opening an item, reading it and
+   * leaving saved nothing at all -- Today's Continue card still pointed at
+   * whatever you had studied before, and the lesson you had just read was not
+   * anywhere in the app's memory of you.
+   */
+  saveContinue(first.id, step);
   openSessionOverlay();
   renderStep();
 }
@@ -127,7 +143,7 @@ export function startSession(opts) {
 function currentItem() { return ui.session.items[ui.session.index]; }
 
 /*
- * Moving to the next item. The footer control and the review card's own button
+ * Moving to the next item. The footer control and the Apply card's own button
  * both land here, so where an item opens is decided once: material a previous
  * syllabus already covered opens on Practise to be verified, everything else
  * opens on Learn to be taught.
@@ -149,7 +165,6 @@ export function setStep(step) {
   if (!ui.session) return;
   ui.session.step = step;
   if (ui.session.items[ui.session.index]) saveContinue(ui.session.items[ui.session.index].id, step);
-  ui.session.reveal = ui.session.hooksOnly ? REVEAL_STAGES.length : 0;
   ui.session.answered = false;
   if (step === 'practise' || step === 'apply') ui.session.startedAt = performance.now();
   renderStep();
@@ -211,6 +226,8 @@ export function renderSessionFoot(item) {
 }
 export function renderStep() {
   const item = currentItem();
+  /* Looking at it counts, even if no question is ever answered on it. */
+  markRead(item.id);
   const stepDef = STEPS.find((x) => x.id === ui.session.step) || STEPS[0];
   $$('rssSessionKicker').textContent = stepDef.label;
   renderSteps();
@@ -218,10 +235,9 @@ export function renderStep() {
   renderSourceCard(item);
   const stage = $$('rssStage');
   if (ui.session.step === 'learn') { stage.innerHTML = learnHTML(item); mountLessonVisual(item); }
-  else if (ui.session.step === 'remember') { releaseLessonVisual(); stage.innerHTML = rememberHTML(item); wireReveal(item); }
+  else if (ui.session.step === 'remember') { releaseLessonVisual(); stage.innerHTML = rememberHTML(item); }
   else if (ui.session.step === 'practise') { releaseLessonVisual(); stage.innerHTML = practiseHTML(item); wirePractise(item); }
-  else if (ui.session.step === 'apply') { releaseLessonVisual(); stage.innerHTML = applyHTML(item); wireApply(item); }
-  else { releaseLessonVisual(); stage.innerHTML = reviewHTML(item); }
+  else { releaseLessonVisual(); stage.innerHTML = applyHTML(item); wireApply(item); }
   wireStageNav(item);
   wireTerms($$('rssStage'));
   renderSessionFoot(item);

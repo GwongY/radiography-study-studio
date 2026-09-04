@@ -96,32 +96,11 @@ function untuck() {
 }
 
 /*
- * The shell's height, measured rather than expressed as a unit.
- *
- * See the note on .shell in app.css: a standalone web view can be created at
- * one size and settle at another, and both height:100% and 100dvh report the
- * stale one, leaving the tab bar floating above the bottom of the screen with
- * the propagated body background showing under it. Re-reading innerHeight on
- * every event that could mean "the viewport settled" picks it up when it does.
- *
- * innerHeight, NOT visualViewport.height: the visual viewport shrinks when the
- * keyboard opens, and the app should not shrink with it.
- */
-function shellHeight() {
-  const set = () => document.documentElement.style.setProperty('--vh', `${window.innerHeight}px`);
-  set();
-  addEventListener('resize', set, { passive: true });
-  addEventListener('orientationchange', set, { passive: true });
-  /* Coming back from the back/forward cache re-runs no script but does fire this. */
-  addEventListener('pageshow', set, { passive: true });
-}
-
-/*
  * The header's own height, published to its container as --headh.
  *
- * The tucking header is an overlay and its container reserves that height as
- * padding, so this number IS the layout: a stale one leaves a gap above the
- * content or hides the top of it. It changes for real reasons -- the compact
+ * The tucking header is an overlay and the scroller underneath reserves that
+ * height as its own top padding, so this number IS the layout: a stale one
+ * leaves a gap above the content or hides the top of it. It changes for real reasons -- the compact
  * variant, a rotation, the Aa text-size control, a kicker wrapping to two
  * lines -- and a ResizeObserver catches all of them without anyone having to
  * remember to call anything.
@@ -165,6 +144,14 @@ function publishHeadHeight() {
   const mo = new MutationObserver(() => measureHeads());
   heads.forEach((h) => { if (h.parentElement) mo.observe(h.parentElement, { attributes: true, attributeFilter: ['class'] }); });
   addEventListener('resize', () => measureHeads(), { passive: true });
+  /*
+   * And once the web fonts arrive. The header is measured on first paint, when
+   * the title is still in the fallback face and a wider one -- measured here at
+   * 108px against the 73px it settles to, which is 35px of dead band above the
+   * first line of every page. A ResizeObserver would normally catch the swap;
+   * this promise catches it even where the observer's frame never comes.
+   */
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => measureHeads());
 }
 function tuckOnRead() {
   document.querySelectorAll('.navcontent').forEach((pane) => {
@@ -198,7 +185,6 @@ function tuckOnRead() {
 /* Runs after every part has evaluated — see the entry point. */
 export function init() {
   window.xrayFallback = xrayFallback;
-  shellHeight();
   publishHeadHeight();
   tuckOnRead();
 }
