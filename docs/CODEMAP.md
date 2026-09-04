@@ -45,7 +45,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `study-data.js` | 117 | Radiography Study Studio — study data layer. |  |
 | `sw.js` | 372 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
-| `systems.js` | 223 | Body systems — which named system a mesh belongs to, inside its GLB layer | [Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
+| `systems.js` | 268 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 991 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
 | `term-notes.js` | 354 | Term notes — say it, then mean it. |  |
 | `visual-data.js` | 463 | visual-data.js — a visual for every study item. |  |
@@ -115,15 +115,15 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `cavity-geometry-derived.js` | 472 | Cavity geometry, derived from the loaded anatomy. |
-| `depth-picking.js` | 337 | Depth picking |
+| `depth-picking.js` | 349 | Depth picking |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
 | `imports.js` | 70 | Block 0 has its own import scope -- block 1's copy is not visible here. |
-| `live-physiology.js` | 1060 | Live physiology |
-| `region-boxes-how.js` | 471 | Region boxes — how the region filter reaches the six soft-tissue layers |
+| `live-physiology.js` | 1123 | Live physiology |
+| `region-boxes-how.js` | 485 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 237 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 466 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
 | `tools-and-capture.js` | 701 | Tools — section cuts, surface ink, pinned labels, capture. |
-| `visualisation-modes.js` | 642 | Visualisation modes. |
+| `visualisation-modes.js` | 644 | Visualisation modes. |
 
 ## The study system — `outputs/study/*.js`
 
@@ -137,12 +137,12 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `hidden-tray.js` | 27 | Hidden tray |
 | `home.js` | 9 | Home |
 | `imports.js` | 126 |  |
-| `layout-figures.js` | 844 | Layout figures |
+| `layout-figures.js` | 853 | Layout figures |
 | `lesson-visuals.js` | 237 | Lesson visuals |
 | `mastery-dashboard.js` | 9 | Mastery dashboard |
 | `more-sources-coverage.js` | 9 | More -- sources, coverage, and the things demoted out of the topbar. |
 | `moving-progress-between.js` | 52 | Moving progress between devices |
-| `navigation-five-destinations.js` | 93 | Navigation -- five destinations, rendered into both the icon rail and |
+| `navigation-five-destinations.js` | 114 | Navigation -- five destinations, rendered into both the icon rail and |
 | `reading-help.js` | 315 | Reading help |
 | `reset.js` | 243 | Reset |
 | `review-mistakes-due.js` | 58 | Review -- mistakes, due items, and the mastery map that replaced the |
@@ -153,7 +153,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `spatial-overlay-controls.js` | 283 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 35 | The study system's mutable UI state. |
 | `storage-versioned-keys.js` | 144 | Storage — versioned keys, one-time migration from the osteology app |
-| `subject.js` | 305 | Subject |
+| `subject.js` | 311 | Subject |
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 283 | Viewer tools — annotate, cut, layer depth, capture |
 | `what-is-under.js` | 170 | What is under the tap |
@@ -225,7 +225,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/shell-check.mjs` | Shell check — every module the page imports is precached under the SAME |  |
 | `work/source-check.mjs` | Does every source the corpus cites actually exist on the drive? | [The source drive](TRAPS.md#the-source-drive--workbuild-source-cataloguemjs-worksource-checkmjs) |
 | `work/syntax-check.mjs` | Syntax-checks every inline <script type="module"> block in the app HTML, plus |  |
-| `work/system-check.mjs` | Does every mesh in a split layer land in a system? |  |
+| `work/system-check.mjs` | Does every mesh in a split layer land in a system? | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs) |
 | `work/text-size-check.mjs` | Does the text-size control actually move the text? | [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) |
 | `work/toplevel.mjs` | Which names does a module declare at TOP level? Ask Node, not the indentation. |  |
 | `work/ui-strings.mjs` | UI strings — every literal the app can put on screen, as a sorted fingerprint. | [The UI-string baseline reads comments too](TRAPS.md#the-ui-string-baseline-reads-comments-too--workui-stringsmjs) |

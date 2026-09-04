@@ -829,7 +829,16 @@ export function endSession() {
   meta.streak = nextStreak(meta.streak, meta.lastSessionDay, today);
   meta.lastSessionDay = today;
   store.meta = meta; write(K.meta, meta);
-  toast(total ? `Session done — ${right}/${total} correct. Reviews scheduled.` : 'Session ended.');
+  /*
+   * Nothing to report, nothing to say.
+   *
+   * Quitting a lesson you had only read raised a toast that told you the app
+   * had noticed you leaving and nothing else -- an interruption in exchange
+   * for no information, on the one action whose whole point is to get out.
+   * A session with answers in it still reports the score, because that IS
+   * information and it is the last chance to see it.
+   */
+  if (total) toast(`Session done — ${right}/${total} correct. Reviews scheduled.`);
   ui.session = null;
   /* The resume point is deliberately NOT cleared here. Ending a session still
      leaves a sensible "pick up where you left off" target; clearing it would

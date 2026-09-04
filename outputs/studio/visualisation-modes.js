@@ -292,7 +292,9 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
      showing a history whose storage has already gone. */
   resetStats:()=>{state.stats={};saveStats();renderReview()},
   setLayer:async(key,on,file)=>{
-    if(key==='skeleton'){setLayer('skeleton',on);return true}
+    /* The skeleton is already in the scene -- there is no file to fetch for
+       either of its two chips, so they switch and return. */
+    if(layerOf(key)==='skeleton'){setLayer(key,on);return true}
     if(!on){setLayer(key,false);return true}
     /* One GLB can draw several chips, so the file loads under its LAYER key
        while the CHIP is what gets switched on -- see outputs/systems.js. */
@@ -327,7 +329,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
     const hit=all.find(m=>m.userData.canonicalId===id);
     return hit?hit.userData.flowClass||null:null;
   },
-  layerLoaded:(key)=>key==='skeleton'?!!state.fullModel:!!state.extraModels[layerOf(key)],
+  layerLoaded:(key)=>layerOf(key)==='skeleton'?!!state.fullModel:!!state.extraModels[layerOf(key)],
   setLayerOpacity:(key,v)=>{state.layerOpacity={...(state.layerOpacity||{}),[key]:v};applyLayers()},
   showSystem:async(key,file)=>{
     if(!key){setExtraVisible(null);return true}

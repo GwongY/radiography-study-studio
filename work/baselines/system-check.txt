@@ -1,5 +1,9 @@
 — every chip draws from a real GLB layer —
-  12 chips over 7 layers
+  13 chips over 7 layers
+
+— skeleton: 388 names in ./assets/z-anatomy-skeleton.glb —
+  ok Axial          202 meshes
+  ok Appendicular   186 meshes
 
 — organs: 137 names in ./assets/ic-organlar.glb —
   -  "Circle" has no readable name; it follows the whole organs layer

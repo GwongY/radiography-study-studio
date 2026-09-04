@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 804 —
-  f5db3caac5800df4  WHOLE SET
+— user-facing strings in outputs/ — 805 —
+  2815cacaba08e5a9  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -446,7 +446,6 @@
   4b36a73963ed2610  Self-graded as missed.
   8eda29c62c095bb5  Self-graded as partial — the points you missed are listed above.
   b4821ec5efba32ad  Session done —
-  37c08ac1e02f263c  Session ended.
   8bbf4d2a69b0c709  Seven vertebrae: breakfast at 7. C1 Atlas holds the head; C2 Axis lets you say no.
   55d75c2270210ef6  Shell cached at install. Each 3D model caches the first time you open it, so the footprint grows to match what you study.
   b7e2eaa5cec47a39  Shoulder blade / spade
@@ -755,8 +754,10 @@
   036a99f6c882069b  structures to name. Work round them in a fixed order every time, so the order itself becomes the cue.
   4132e48b488fc684  studied, across
   79ea393804dc771d  tap a structure to name it
+  ed964bcd197f9142  tap to name
   f5f88ae39b9a5ceb  that structure
   8ef9472e82771a5b  the body frame
+  4f6a3d859e615a5a  the skeleton
   5d2033a00068467a  to uncover
   e738706e3a65b48b  toolchip hidden
   91ca901995ca8a91  type="button" data-term="

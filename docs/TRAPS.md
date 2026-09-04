@@ -350,6 +350,86 @@ shapes** — in "The region grid and classifiers" below.
   The Continue card looks the step up by name to print its label, so an
   unrecognised one used to throw; `getContinueTarget` falls back to `learn`.
 
+### A name classifier is fed a different name than the GLB holds — `outputs/systems.js`, `work/system-check.mjs`
+
+The skeleton split into Axial and Appendicular shipped with an axial rule
+written as `rib`. `work/system-check.mjs` read the GLB's own node names,
+found `Eighth rib.l`, flattened it to `eighth rib l`, matched, and passed.
+
+The browser does not see that name. `prepareFullReference` reads each mesh's
+own name, and for a paired structure the side letter is glued straight onto the
+last word: **`Eighth_ribl`**, which flattens to `eighth ribl`, where a trailing
+`` cannot match. All 24 side-suffixed ribs classified into nothing and
+followed the layer instead of their chip — found by counting visible meshes in
+a live page, not by any probe.
+
+- **systems.js has said "no trailing word boundary" at the top of the file
+  since it was written.** The rule was right and unenforced, which is the same
+  as absent. `system-check.mjs` now classifies every paired name a second time
+  in its glued form and fails if the two disagree.
+- **Leading boundaries are fine and worth keeping** — `radius` stops
+  `radius` matching inside a longer word without depending on what follows it.
+- **A checker reading a different string than the app is not a checker.** This
+  is the third time in this repo a classifier passed a probe and failed on
+  screen; the other two are the toe phalanges and the carpals, both recorded
+  above.
+
+### The viewer is a workspace, and a lesson must not inherit it — `outputs/studio/live-physiology.js`, `outputs/study/lesson-visuals.js`
+
+There is one WebGL context. The lesson card does not get a copy of the stage, it
+gets THE stage, moved into it — so every setting the Viewer page was left in is
+still in force when a lesson mounts. `focusStructures` handled the layers from
+the start and nothing else, and each of the five it missed breaks the lesson
+quietly rather than loudly:
+
+- **the cut.** `renderer.clippingPlanes` is global state on the renderer. A
+  coronal cut left armed in the Viewer sliced the lesson's carpal bones in half.
+- **hidden meshes.** `focusStructures` ended by calling `enforceHidden()`, so a
+  bone hidden by hand stayed hidden in the lesson teaching that bone. Worst of
+  the five: the card renders successfully and shows nothing.
+- **the region filter**, for a spec with `isolate:false`.
+- **isolation**, same expression, same result.
+- **an armed tool.** `bindCanvas` returns early when `state.tool` is set, so a
+  tap placed ink or a pin instead of naming the structure — on a card whose own
+  caption says "tap to name".
+
+They are **suspended, not cleared**: the Viewer is a workspace and the state a
+reader set up in it is theirs. `suspendViewerState` saves and neutralises,
+`resumeViewerState` puts it back, and `clearStudyFocus` calls resume even when
+there was no focus to clear — a lesson whose names did not resolve still
+suspended on the way in. `focusStructures` calls `releaseFocusMeshes` rather
+than `clearStudyFocus` when replacing one focus with another, or it would hand
+the Viewer's state back halfway through mounting.
+
+### Where you were is not the same as which tab you were on — `outputs/study/navigation-five-destinations.js`
+
+`closeSessionOverlay` restored the destination by calling `goTo()`, and `goTo`
+clears `ui.learnDrill` — correctly, because that is what pressing Learn in the
+tab bar should do. The result was that leaving a lesson opened from inside a
+topic put you back at the grid of topics, one level above where you were, with
+the item list you had picked from closed.
+
+The drill-down is part of where you were. `openSessionOverlay` saves
+`learnDrill`, `learnTopic` and `learnFilter` with the tab; `closeSessionOverlay`
+restores them and then renders the destination **directly**, bypassing `goTo`'s
+reset. Returning to the same view id also means `showView` does not scroll to
+top, so the list comes back where it was.
+
+### Gestures that fire without being asked for — `outputs/studio/depth-picking.js`
+
+Two lived on the stage on top of the single tap. A second tap within 320ms flew
+the camera to the selection; a second tap within fourteen PIXELS, with no time
+limit at all, walked one step deeper into the pick stack and peeled the surface
+structure away to get there. On a phone a repeat tap lands inside fourteen
+pixels most of the time, so reading a label twice was enough to trigger either
+one — the model zoomed, or a bone vanished, in response to what the reader
+thought was the tap they had just made.
+
+Both are gone, and neither capability went with them: focus is the Focus button,
+and depth is the stack list the tap publishes, which names everything under the
+pointer and selects or hides any of it **by name**. When a gesture and a control
+do the same job, the control is the one that can be found, undone and explained.
+
 ### Missing imports in a split part — `work/binding-check.mjs`
 
 - **A missing import loads clean and fails only when that code path runs.**
