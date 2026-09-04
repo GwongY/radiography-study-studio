@@ -89,15 +89,31 @@ export function renderLearn() {
         ${T.items.slice().sort((a, b) => adjScore(a) - adjScore(b)).map((i) => {
           const attempted = itemAttempted(i.id);
           const assumed = !attempted ? priorOf(i) : null;
-          /* Assumed items are ringed in the dim colour: those marks are carried
-             over from another syllabus, not earned against this one. */
-          const tier = tierFor(adjScore(i), attempted || !!assumed);
-          const color = assumed ? 'var(--dim)' : tier >= 3 ? 'var(--green)' : tier === 2 ? 'var(--orange)' : 'var(--red)';
+          const opened = !attempted && !assumed && itemRead(i.id);
+          /*
+           * The first of the four dots is reading the lesson.
+           *
+           * The ladder tierFor walks is Not started / Seen / Recognised /
+           * Recalled / Mastered, so the rung for this already existed and was
+           * simply unreachable: tierFor only leaves zero when the item has
+           * been ATTEMPTED, and until markRead existed nothing but answering a
+           * question could say otherwise. Opening the lesson and leaving --
+           * by the close button or by Save & exit, both of which end the
+           * session the same way -- now fills one dot of four.
+           *
+           * The other three stay earned. Four steps and four dots line up too
+           * neatly to be a coincidence, but they are: pressing Next twice
+           * without answering anything would light "Recognised" on an item you
+           * cannot yet recognise.
+           */
+          const tier = tierFor(adjScore(i), attempted || !!assumed || opened);
+          /* Dim, not red, for both of the tiers nobody earned here: a mark
+             carried over from another syllabus, and a lesson that has been
+             read. Red at one dot is the colour for answering badly. */
+          const color = assumed || opened ? 'var(--dim)'
+            : tier >= 3 ? 'var(--green)' : tier === 2 ? 'var(--orange)' : 'var(--red)';
           const sub = (ITEM_TYPES[i.type] || {}).label || i.type;
-          /* The dots stay a mastery reading -- nothing is earned by reading --
-             but a lesson you have been through should say so on its own row. */
-          const opened = !attempted && itemRead(i.id) ? ' · read' : '';
-          return `<button class="unit-row" data-item="${esc(i.id)}"><span class="grow"><b>${esc(i.title)}</b><small>${esc(sub)}${esc(opened)}${assumed ? esc(' · assumed from ' + assumed.short + ', unverified') : ''}</small></span><span class="mono" style="color:${color}">${'\u25cf'.repeat(tier)}${'\u25cb'.repeat(4 - tier)}</span></button>`;
+          return `<button class="unit-row" data-item="${esc(i.id)}"><span class="grow"><b>${esc(i.title)}</b><small>${esc(sub)}${opened ? esc(' · read') : ''}${assumed ? esc(' · assumed from ' + assumed.short + ', unverified') : ''}</small></span><span class="mono" style="color:${color}">${'\u25cf'.repeat(tier)}${'\u25cb'.repeat(4 - tier)}</span></button>`;
         }).join('')}
       </div>
       <div class="small" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line)">Sourced from <span style="color:var(--teal)">${esc(describeSource(T.items[0].sourceRefs[0]).file)}</span> \u00b7 every item carries its own reference</div>
