@@ -282,7 +282,8 @@ function groupPickerHTML() {
     ${GROUP_CHOICES.map((set) => `<div class="grouprow">
       <span class="grouplab">${esc(set.label)}</span>
       <span class="groupopts">${set.options.map((o) =>
-        `<button class="conf${g[set.id] === o.id ? ' on' : ''}" data-groupset="${esc(set.id)}" data-groupopt="${esc(o.id)}">${esc(o.label)}</button>`).join('')}</span>
+        `<button class="conf${g[set.id] === o.id ? ' on' : ''}${!g[set.id] && set.suggested === o.id ? ' sugg' : ''}" data-groupset="${esc(set.id)}" data-groupopt="${esc(o.id)}">${esc(o.label)}</button>`).join('')}</span>
+      ${!g[set.id] && set.suggestedWhy ? `<span class="groupwhy">${esc(set.suggestedWhy)} Confirm it if that is right.</span>` : ''}
     </div>`).join('')}
   </div>`;
 }

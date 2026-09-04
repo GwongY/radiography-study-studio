@@ -961,6 +961,10 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .grouprow{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:9px}
 .grouplab{font-size:12.5px;color:var(--muted);min-width:170px}
 .groupopts{display:flex;gap:6px;flex-wrap:wrap}
+/* A group the timetable's room booking points at, but nobody published. It is
+   a hint, not a selection — dashed, so it cannot be mistaken for `.on`. */
+.conf.sugg{border-style:dashed;border-color:var(--teal);color:var(--teal)}
+.groupwhy{flex-basis:100%;font-size:11.5px;line-height:1.5;color:var(--muted)}
 
 @media(max-width:700px){
   .sessrow{grid-template-columns:1fr;gap:7px}
