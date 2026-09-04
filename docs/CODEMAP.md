@@ -122,7 +122,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `region-boxes-how.js` | 471 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 237 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 466 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
-| `tools-and-capture.js` | 654 | Tools — section cuts, surface ink, pinned labels, capture. |
+| `tools-and-capture.js` | 701 | Tools — section cuts, surface ink, pinned labels, capture. |
 | `visualisation-modes.js` | 642 | Visualisation modes. |
 
 ## The study system — `outputs/study/*.js`

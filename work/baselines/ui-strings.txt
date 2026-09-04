@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 815 —
-  e3b916784ba58909  WHOLE SET
+— user-facing strings in outputs/ — 816 —
+  6803cd83b74d1725  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -768,6 +768,7 @@
   79ea393804dc771d  tap a structure to name it
   f5f88ae39b9a5ceb  that structure
   8ef9472e82771a5b  the body frame
+  c71daba34cd7f3d9  the viewport settled
   5d2033a00068467a  to uncover
   e738706e3a65b48b  toolchip hidden
   91ca901995ca8a91  type="button" data-term="

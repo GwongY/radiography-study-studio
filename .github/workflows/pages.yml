@@ -4,17 +4,24 @@
 # serve the repo root or /docs. This uploads outputs/ as the artifact instead,
 # so the site root is the app directory and every relative path in it — the
 # service worker scope, the manifest, ./assets/*.glb — resolves unchanged.
+#
+# Nothing was checked before deploying, and this repo's whole safety story is
+# ~40 node verifiers that nothing ran automatically. They need no npm, no
+# network and no mounted drive — the .glb files they measure are tracked in
+# git — so there is no reason for the deploy to be the one place they are
+# skipped. verify now gates deploy: a failing check leaves the live site on
+# its last good version rather than publishing over it.
 name: Deploy study studio to Pages
 
 on:
   push:
     branches: [master]
+  pull_request:
+    branches: [master]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 # Let a running deploy finish rather than cancelling it midway.
 concurrency:
@@ -22,8 +29,59 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  verify:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # The order is CLAUDE.md's "after every edit" list. Each is a separate
+      # step so a red X names the check that failed without reading a log.
+      - name: Both entry points survive evaluation
+        run: node work/load-check.mjs
+      - name: Data modules parse
+        run: node work/syntax-check.mjs
+      - name: Data module imports resolve
+        run: node work/verify-modules.mjs
+      - name: Every reachable module is precached, query and all
+        run: node work/shell-check.mjs
+      - name: Every split part imports what it references
+        run: node work/binding-check.mjs
+      - name: Search index, synonyms, tiering, study units
+        run: node work/search-probe.mjs
+      - name: Every skeleton mesh lands in the right region
+        run: node work/region-probe.mjs
+      - name: Body systems agree with the flow classes
+        run: node work/system-check.mjs
+      - name: Every figure a lesson shows has intro + key
+        run: node work/figure-key-check.mjs
+      - name: The code map matches the code
+        run: node work/codemap-check.mjs
+      - name: The data summary matches the data
+        run: node work/data-index-check.mjs
+      - name: The timetable points at real units and real items
+        run: node work/schedule-check.mjs
+      - name: Named cut levels resolve, measure and stay in order
+        run: node work/cut-level-check.mjs
+      - name: Every cited source exists and says it on the page it names
+        run: node work/source-check.mjs
+      - name: Every __osteo call the study half makes is answered
+        run: node work/bridge-check.mjs
+      - name: The probes still say what they said
+        run: node work/baseline.mjs --check
+
+  deploy:
+    # A red verify leaves the live site alone. This is the whole point of the job.
+    needs: verify
+    # Pull requests are checked but never published.
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
