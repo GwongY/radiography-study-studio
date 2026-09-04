@@ -66,7 +66,7 @@ export function renderLearn() {
   $$('topicGrid').innerHTML = visible.map((t) => `
     <button class="topic-card${t.unit.id === ui.learnTopic ? ' active' : ''}" style="--accent:${t.group.accent}" data-topic="${esc(t.unit.id)}">
       <span class="topic-tag">${esc(t.group.label)} \u00b7 ${esc(t.subject.code)}</span>
-      <span class="editorial" style="font-size:17px">${esc(t.unit.label)}</span>
+      <span class="editorial" style="font-size:calc(17px*var(--ts))">${esc(t.unit.label)}</span>
       <span class="topic-bar"><span style="width:${topicPct(t.items)}%"></span></span>
       <span class="small">${t.items.length} item${t.items.length === 1 ? '' : 's'}${topicHasViewer(t.items) ? ' \u00b7 3D studio' : ''}</span>
     </button>`).join('') || '<div class="empty">No topics match this filter yet.</div>';
@@ -78,7 +78,7 @@ export function renderLearn() {
   $$('topicDetailPane').innerHTML = !T ? '' : `
     <div class="card" style="animation:fadeUp .22s ease;--accent:${T.group.accent}">
       <span class="topic-tag">${esc(T.group.label)} \u00b7 ${esc(T.subject.code)}</span>
-      <h2 class="editorial" style="font-size:22px;margin:7px 0 0">${esc(T.unit.label)}</h2>
+      <h2 class="editorial" style="font-size:calc(22px*var(--ts));margin:7px 0 0">${esc(T.unit.label)}</h2>
       <p class="small" style="margin-top:7px">${esc(T.subject.blurb)}</p>
       <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
         <button class="primary" id="studyTopicBtn">Study this topic</button>

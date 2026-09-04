@@ -740,3 +740,38 @@ the baseline as though it were still on screen, and a comment that quotes a
 phrase adds a string the interface cannot show. Both happened here. Write the
 comment without quoting the string; the baseline is then empty of drift, which
 is what makes a real change legible when one comes.
+
+### The text-size control — `outputs/app.css`, `outputs/study/text-size.js`, `work/text-size-check.mjs`
+
+The scaling used to be opt-in: a list of selectors at the end of app.css got a
+`* var(--ts)`, everything else did not. Counted when the reader reported the
+control did nothing: **27 selectors scaled and 198 did not.** An opt-in list
+whose default is "wrong" rots by simply being left alone, and the failure is
+invisible until someone tries to read the app.
+
+It is opt-out now — every content font size carries its own multiplier, and
+what stays fixed is stated in `work/text-size-check.mjs`, which fails the build
+on a new unscaled size. Four things that only showed up by measuring:
+
+- **Inline `style="font-size:…"` in the templates is invisible to CSS.** The
+  Learn page's topic titles sat at 17px through all three settings while every
+  label around them grew — the largest text on that screen. The checker scans
+  the templates too.
+- **The checker's own parser was the next blind spot.** A line-anchored
+  `/^selector{body}$/` read 116 rules in a stylesheet that packs several per
+  line, and it stopped at the text-size block, leaving the last 108 lines
+  unchecked — a deliberately broken rule appended to the file was not reported.
+  It walks braces over the whole file now, blanks comments first (it was
+  reading prose inside them as selectors), and counts its own findings against
+  a textual count so going blind again is itself a failure.
+- **`font:` shorthand needs a separate `font-size` after it**, not a `calc()`
+  inside it. Testing for a raw px first then flags all 39 of those as broken —
+  what settles it is whether a scaled `font-size` follows.
+- **The header must not scale.** `--headh` makes its height the layout, so
+  every pixel it gains comes off the lesson. `.small` is used inside it, and at
+  Largest one wrapping line of metadata took the session header from 113px to
+  **208px — a quarter of a phone screen**. `.navhead .small` is pinned.
+
+One more, for the `ui-strings` baseline: write inline calc without spaces
+(`calc(17px*var(--ts))`). With them, the style attribute reads as a phrase and
+six style strings land in the prose fingerprint for good.

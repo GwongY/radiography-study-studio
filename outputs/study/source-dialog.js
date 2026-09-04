@@ -17,7 +17,7 @@ function sourceTableHTML(refs, heading) {
   const rows = refs.map((r) => {
     const d = describeSource(r);
     return `<tr>
-      <td class="k"><strong>${esc(d.file)}</strong>${d.note ? `<div style="color:var(--muted);font-size:11.5px;margin-top:3px">${esc(d.note)}</div>` : ''}</td>
+      <td class="k"><strong>${esc(d.file)}</strong>${d.note ? `<div style="color:var(--muted);font-size:calc(11.5px*var(--ts));margin-top:3px">${esc(d.note)}</div>` : ''}</td>
       <td>${esc(d.subject)}</td>
       <td>${esc(d.folder)}</td>
       <td>${esc(d.location || '—')}</td>
