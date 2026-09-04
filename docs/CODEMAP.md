@@ -153,7 +153,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `spatial-overlay-controls.js` | 283 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 35 | The study system's mutable UI state. |
 | `storage-versioned-keys.js` | 144 | Storage — versioned keys, one-time migration from the osteology app |
-| `subject.js` | 289 | Subject |
+| `subject.js` | 305 | Subject |
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 283 | Viewer tools — annotate, cut, layer depth, capture |
 | `what-is-under.js` | 170 | What is under the tap |

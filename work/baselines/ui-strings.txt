@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 807 —
-  669e56a167db5cac  WHOLE SET
+— user-facing strings in outputs/ — 804 —
+  f5db3caac5800df4  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -58,7 +58,6 @@
   54a3a62c81a70183  /* Film latitude: the toe and shoulder of the characteristic curve. */
   90a185ba41cbc908  /* Quantum mottle. Noise rises where fewer photons arrive, as it does on film. */
   382773b522d5ceac  /* Shells that are not quite closed can integrate slightly negative. */
-  9f53939112ecf48d  /* The dots stay a mastery reading -- nothing is earned by reading --
   9a6893535657967f  1–7 go alone, 8–10 carpool, 11–12 walk free.
   315afd5b7575b942  26 bones per foot
   ac30f30602e06aa0  3003 parts
@@ -616,7 +615,6 @@
   642d69680683778d  boot on Today, then tap Viewer
   a4d8d4905749584b  border:1px solid rgba(114,227,207,.4);border-radius:16px;background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03));padding:18px
   1d647a1965983c2a  breaths a minute
-  50cb55c7afbd25b4  but a lesson you have been through should say so on its own row. */
   a4c18480ff6a58f4  card grouppick
   dee735ed000908c8  card overlaycard
   53a55ca51fe7c9ab  card sylcard
@@ -627,7 +625,6 @@
   2cbe9c9f6127a32e  const attrs = hit ?
   150b21e4e5effc2a  const hit = lookupTerm(term);
   278b6cfc619726c6  const n = itemsForSubject(s.id).length;
-  3ab5071f7a21a857  const opened = !attempted && itemRead(i.id) ? ' · read' : '';
   3d088b55d74552a6  const subject = getSubject(s.id);
   fa75afdd29c43adb  const tag = hit ? 'button' : 'span';
   bda336734237a549  correct. Reviews scheduled.
