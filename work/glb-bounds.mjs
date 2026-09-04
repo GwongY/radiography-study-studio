@@ -74,7 +74,12 @@ export function glbBounds(relPath) {
       for (const prim of mesh?.primitives || []) {
         const acc = json.accessors?.[prim.attributes?.POSITION];
         if (!acc?.min || !acc?.max) continue;
-        const [ax, ay, az] = acc.min, [bx, by, bz] = acc.max;
+        /* A quantized file stores POSITION as a normalized integer, so min/max
+           are raw ints and the metres come back by dividing by the type's max
+           before the node transform. Non-normalized divides by 1, as before. */
+        const NORM = { 5120: 127, 5121: 255, 5122: 32767, 5123: 65535 };
+        const d = (acc.normalized && NORM[acc.componentType]) || 1;
+        const [ax, ay, az] = acc.min.map((v) => v / d), [bx, by, bz] = acc.max.map((v) => v / d);
         let e = out.get(name);
         if (!e) out.set(name, e = { min: [Infinity, Infinity, Infinity], max: [-Infinity, -Infinity, -Infinity] });
         /* a rotated node means the local bbox corners must all be transformed */

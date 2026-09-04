@@ -19,7 +19,7 @@ THORACIC CAVITY
   mid-chest ring: y 1.282 axis(0.000,0.004) rmax 0.124
   ok   chest half-width is plausible  — 0.124 m
   ok   mid-chest ring is mostly real bone  — 100% sectors covered
-  radius front 0.083  back 0.055
+  radius front 0.083  back 0.056
 
 DIAPHRAGM
   ok   diaphragm mesh present in the muscle layer

@@ -36,7 +36,7 @@ LANDMARK                LAYER            N  examples
  pelvis.floor           muscle           4  obturator internusl, obturator internusr, coccygeus musclel
  lung.left              organs           2  inferior lobe of left lung, superior lobe of left lung
  lung.right             organs           3  inferior lobe of right lung, middle lobe of right lung, superior lobe of right
- liver                  organs           9  liver, anterior lateral segment of liver (vi), anterior medial segment of live
+ liver                  organs           9  anterior lateral segment of liver (vi), anterior medial segment of liver (v), 
  stomach                organs           1  stomach
  kidneys                organs           2  kidneyl, kidneyr
  trachea                organs           3  left main bronchus, right main bronchus, trachea

@@ -55,28 +55,57 @@ export function loadGlbMeshes(relPath) {
   if (buf.readUInt32LE(0) !== 0x46546c67) throw new Error('not a glb: ' + relPath);
   const jsonLen = buf.readUInt32LE(12);
   const json = JSON.parse(buf.slice(20, 20 + jsonLen).toString('utf8'));
-  if ((json.extensionsRequired || []).length) {
-    throw new Error(`${relPath} requires extensions ${json.extensionsRequired.join(',')} — decoder does not handle these`);
+  /*
+   * KHR_mesh_quantization is understood below — readPositions decodes the
+   * normalized integer attributes it introduces. Every OTHER required
+   * extension is still a hard stop, because silently reading a buffer this
+   * decoder does not understand would produce plausible, wrong anatomy rather
+   * than an error.
+   */
+  const KNOWN_EXTENSIONS = new Set(['KHR_mesh_quantization']);
+  const unknown = (json.extensionsRequired || []).filter((e) => !KNOWN_EXTENSIONS.has(e));
+  if (unknown.length) {
+    throw new Error(`${relPath} requires extensions ${unknown.join(',')} — decoder does not handle these`);
   }
   /* chunk 1 is BIN; its header sits right after the JSON chunk */
   const binOff = 20 + jsonLen;
   const binLen = buf.readUInt32LE(binOff);
   const bin = buf.slice(binOff + 8, binOff + 8 + binLen);
 
+  /*
+   * POSITION is float in a plain file and a normalized integer in a quantized
+   * one, where the metres are recovered by dividing by the component type's
+   * maximum and then applying the node transform, which carries the scale and
+   * offset. Everything downstream works in the node's local frame exactly as
+   * before, so decoding here is the whole of the change.
+   *
+   * byteStride is honoured rather than assumed: quantized attributes are packed
+   * tighter than floats and are padded to a four-byte boundary, so a hard-coded
+   * 12 reads the wrong vertex from the second one onward.
+   */
+  const COMPONENT = {
+    5126: { size: 4, norm: 1, read: (b, o) => b.readFloatLE(o) },
+    5122: { size: 2, norm: 32767, read: (b, o) => b.readInt16LE(o) },
+    5123: { size: 2, norm: 65535, read: (b, o) => b.readUInt16LE(o) },
+    5120: { size: 1, norm: 127, read: (b, o) => b.readInt8(o) },
+    5121: { size: 1, norm: 255, read: (b, o) => b.readUInt8(o) },
+  };
   const readPositions = (accIdx) => {
     const acc = json.accessors[accIdx];
-    if (acc.componentType !== 5126 || acc.type !== 'VEC3') {
+    const c = COMPONENT[acc.componentType];
+    if (!c || acc.type !== 'VEC3') {
       throw new Error(`unexpected POSITION accessor ${acc.componentType}/${acc.type}`);
     }
+    const div = acc.normalized ? c.norm : 1;
     const bv = json.bufferViews[acc.bufferView];
     const start = (bv.byteOffset || 0) + (acc.byteOffset || 0);
-    const stride = bv.byteStride || 12;
+    const stride = bv.byteStride || c.size * 3;
     const out = new Float32Array(acc.count * 3);
     for (let i = 0; i < acc.count; i++) {
       const o = start + i * stride;
-      out[i * 3] = bin.readFloatLE(o);
-      out[i * 3 + 1] = bin.readFloatLE(o + 4);
-      out[i * 3 + 2] = bin.readFloatLE(o + 8);
+      out[i * 3] = c.read(bin, o) / div;
+      out[i * 3 + 1] = c.read(bin, o + c.size) / div;
+      out[i * 3 + 2] = c.read(bin, o + c.size * 2) / div;
     }
     return out;
   };
@@ -109,13 +138,30 @@ export function loadGlbMeshes(relPath) {
   const out = [];
   const scene = json.scenes?.[json.scene ?? 0];
   const roots = scene?.nodes ?? json.nodes.map((_, i) => i);
-  const visit = (idx, parent) => {
+  /*
+   * A mesh takes the name of the nearest NAMED node at or above it.
+   *
+   * Quantization cannot give a node its own attribute transform while that node
+   * also parents children quantized differently, so for the 36 nodes across the
+   * seven layers that carry both a mesh and children — Liver over its segments,
+   * Medulla oblongata.l over its parts, Frontal bone over its sinus — it moves
+   * the parent's own mesh down onto a new unnamed child.
+   *
+   * Falling through to mesh?.name there is what silently renamed things: the
+   * mesh record is shared and unsided, so "Medulla oblongata.l" and
+   * "Medulla oblongata.r" both came back as "medulla oblongata" and the brain
+   * landmark counted ten meshes where it had counted eleven. Inheriting the
+   * name keeps the side, and on an unquantized file every mesh-carrying node
+   * has its own name, so the inherited value is never consulted.
+   */
+  const visit = (idx, parent, inherited) => {
     const n = json.nodes[idx];
     if (!n) return;
     const world = mul(parent, nodeMatrix(n));
+    const owned = n.name || inherited;
     if (n.mesh != null) {
       const mesh = json.meshes[n.mesh];
-      const name = n.name || mesh?.name || `mesh${n.mesh}`;
+      const name = owned || mesh?.name || `mesh${n.mesh}`;
       const chunks = [], idxChunks = [];
       let base = 0;
       for (const prim of mesh?.primitives || []) {
@@ -145,9 +191,9 @@ export function loadGlbMeshes(relPath) {
         out.push({ name: sanitizeNodeName(name), rawName: name, positions: all, indices: allIdx });
       }
     }
-    for (const c of n.children || []) visit(c, world);
+    for (const c of n.children || []) visit(c, world, owned);
   };
-  for (const r of roots) visit(r, ident());
+  for (const r of roots) visit(r, ident(), null);
   return out;
 }
 

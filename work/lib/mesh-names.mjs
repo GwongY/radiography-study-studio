@@ -188,24 +188,65 @@ export function boxesIn(rel) {
   };
   roots.forEach((r) => walk(r, [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]));
 
+  /*
+   * A quantized file (KHR_mesh_quantization) says the same thing two ways.
+   *
+   * POSITION stops being float and becomes a normalized integer, so the
+   * accessor's min/max are raw ints — ±32767 for a SHORT — and the metres are
+   * recovered by dividing by the type's maximum before the node transform,
+   * which carries the scale and offset. Read raw, a femur measures 7.4 km.
+   * The divisors are the glTF normalized-integer rules; a non-normalized
+   * accessor divides by 1 and behaves exactly as it always did.
+   */
+  const NORM = { 5120: 127, 5121: 255, 5122: 32767, 5123: 65535 };
+  const divisorOf = (a) => (a.normalized && NORM[a.componentType]) || 1;
+
+  /*
+   * And a name can end up one level above its geometry.
+   *
+   * Quantization cannot put a mesh's own transform on a node that also parents
+   * children quantized differently, so for the three nodes here that carry both
+   * — Ethmoid, Frontal and Sphenoid, each with its sinus or cells as children —
+   * it moves the parent's mesh down onto a new unnamed child. The geometry is
+   * intact and three.js draws it, but a rule of "named node carrying a mesh"
+   * stops seeing three skull bones the course teaches.
+   *
+   * So a mesh is attributed to its nearest NAMED ancestor, itself included.
+   * On an unquantized file every mesh-carrying node that has a name is its own
+   * nearest named ancestor, so this is the old rule unchanged.
+   */
+  const parentOf = new Map();
+  (g.nodes || []).forEach((n, i) => (n.children || []).forEach((c) => parentOf.set(c, i)));
+  const namedAncestor = (i) => {
+    for (let k = i, guard = 0; k != null && guard < 64; k = parentOf.get(k), guard++) {
+      if (((g.nodes || [])[k] || {}).name) return k;
+    }
+    return null;
+  };
+
   const out = new Map();
   (g.nodes || []).forEach((n, i) => {
-    if (n.mesh == null || !n.name) return;
+    if (n.mesh == null) return;
+    const owner = namedAncestor(i); if (owner == null) return;
+    const name = g.nodes[owner].name;
     const m = world.get(i); if (!m) return;
-    const mn = [Infinity, Infinity, Infinity], mx = [-Infinity, -Infinity, -Infinity];
+    const prev = out.get(name);
+    const mn = prev ? prev[0].slice() : [Infinity, Infinity, Infinity];
+    const mx = prev ? prev[1].slice() : [-Infinity, -Infinity, -Infinity];
     for (const p of (g.meshes[n.mesh] || {}).primitives || []) {
       const a = g.accessors[p.attributes && p.attributes.POSITION];
       if (!a || !a.min || !a.max) continue;
+      const d = divisorOf(a);
       /* the accessor box is axis-aligned in LOCAL space, so all eight corners
          are rotated rather than the two extremes -- a rotated node otherwise
          reports a box that does not contain it */
       for (let b = 0; b < 8; b++) {
-        const w = applyM(m, [b & 1 ? a.max[0] : a.min[0], b & 2 ? a.max[1] : a.min[1], b & 4 ? a.max[2] : a.min[2]]);
+        const w = applyM(m, [(b & 1 ? a.max[0] : a.min[0]) / d, (b & 2 ? a.max[1] : a.min[1]) / d, (b & 4 ? a.max[2] : a.min[2]) / d]);
         for (let k = 0; k < 3; k++) { mn[k] = Math.min(mn[k], w[k]); mx[k] = Math.max(mx[k], w[k]); }
       }
     }
     if (!Number.isFinite(mn[0])) return;
-    out.set(n.name, [mn, mx]);
+    out.set(name, [mn, mx]);
   });
   return out;
 }
