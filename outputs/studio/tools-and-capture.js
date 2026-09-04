@@ -416,14 +416,36 @@ function inkTargets(){
     .flatMap(([,m])=>m.meshes||[]);
   return [...state.fullMeshes,...layers].filter((o)=>o.visible!==false);
 }
+/*
+ * Per-stroke invariants, computed once instead of per pointermove.
+ *
+ * inkTargets() walked every loaded layer -- an Object.entries, a filter, a
+ * flatMap and a final filter over every mesh -- and getBoundingClientRect()
+ * forced a layout read beside it, both BEFORE the raycast itself ran against as
+ * much as 436k triangles (sinir 436,608; kas 442,555; dolasim 448,731, on top of
+ * the skeleton's 320,179). All of that repeated on every single move event.
+ *
+ * Neither can change between pointerdown and pointerup: the layer set is fixed
+ * for the length of a stroke, and the canvas cannot resize under a captured
+ * pointer. So they are measured when the stroke starts and dropped when it
+ * ends. Absent a cache -- the pin and label tools, which hit once on pointerup
+ * -- surfaceHit measures exactly as it used to.
+ */
+function beginHitCache(){
+  if(!state.renderer) return;
+  state.hitCache={targets:inkTargets(),rect:state.renderer.domElement.getBoundingClientRect()};
+}
+function endHitCache(){ state.hitCache=null; }
+
 function surfaceHit(event){
   const THREE=state.THREE;
   if(!THREE||!state.renderer||!state.camera) return null;
-  const rect=state.renderer.domElement.getBoundingClientRect();
+  const cache=state.hitCache;
+  const rect=cache?cache.rect:state.renderer.domElement.getBoundingClientRect();
   state.pointer.x=((event.clientX-rect.left)/rect.width)*2-1;
   state.pointer.y=-((event.clientY-rect.top)/rect.height)*2+1;
   state.raycaster.setFromCamera(state.pointer,state.camera);
-  const hits=state.raycaster.intersectObjects(inkTargets(),true);
+  const hits=state.raycaster.intersectObjects(cache?cache.targets:inkTargets(),true);
   return hits.length?hits[0]:null;
 }
 /* World point -> body frame, the one conversion every annotation goes through. */
@@ -519,6 +541,10 @@ export const TOOLS={
 export function setTool(id){
   const next=TOOLS[id]?id:'off';
   state.tool=next==='off'?null:next;
+  /* Belt and braces: a stroke's cached targets and rect must never outlive the
+     pen and reach the pin tool. Every pointer path already ends in finish(),
+     but switching tool is the one route that does not have to touch one. */
+  endHitCache();
   /*
    * The pen takes the whole surface, orbit included.
    *
@@ -550,17 +576,38 @@ function bindStage(){
   stage.addEventListener('pointerdown',(e)=>{
     if(!state.tool) return;
     if(state.tool==='pen'){
+      beginHitCache();
       const hit=surfaceHit(e);
-      if(!hit){ showToast('Start the stroke on a structure.'); return; }
+      if(!hit){ endHitCache(); showToast('Start the stroke on a structure.'); return; }
       startStroke(hit);
     }
   });
   stage.addEventListener('pointermove',(e)=>{
     if(state.tool!=='pen'||!state.stroke) return;
-    const hit=surfaceHit(e);
-    if(hit) extendStroke(hit);
+    /*
+     * pointermove fires faster than the screen redraws -- more again on a pen
+     * or a 120Hz panel, and coalesced events arrive in bursts -- and each one
+     * used to run its own full raycast. Only the last position in a frame can
+     * change what gets drawn, so the rest are dropped rather than traced.
+     * Position is copied out because the event object is not safe to hold.
+     */
+    state.penPending={clientX:e.clientX,clientY:e.clientY};
+    if(state.penRaf) return;
+    state.penRaf=requestAnimationFrame(()=>{
+      state.penRaf=0;
+      const p=state.penPending;
+      if(!p||state.tool!=='pen'||!state.stroke) return;
+      const hit=surfaceHit(p);
+      if(hit) extendStroke(hit);
+    });
   });
-  const finish=()=>{ if(state.stroke) endStroke(); };
+  const finish=()=>{
+    /* Drop a frame that is already queued: it would extend a finished stroke. */
+    if(state.penRaf){ cancelAnimationFrame(state.penRaf); state.penRaf=0; }
+    state.penPending=null;
+    endHitCache();
+    if(state.stroke) endStroke();
+  };
   stage.addEventListener('pointerup',(e)=>{
     if(!state.tool) return;
     if(state.tool==='pen'){ finish(); return; }
