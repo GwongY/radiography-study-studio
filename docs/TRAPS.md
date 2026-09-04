@@ -637,13 +637,20 @@ to get wrong.
 
 ### Phone and tablet layout — `outputs/app.css`, `outputs/study/small-ui-helpers.js`
 
-- **`height:100%` is not the iOS viewport.** It resolves against the viewport
-  Safari had at layout time, and that changes: the address bar collapses, the
-  keyboard opens, the home-indicator area comes and goes. When it grows, a
-  shell fixed at the old height stops short and the body background shows
-  through under the tab bar — the reported "buttons, then blank, then black".
-  `.shell` now carries `height:100%` followed by `height:100dvh`, the second
-  winning wherever it is understood.
+- **`height:100%` is not the iOS viewport, and neither is `100dvh`.** Both
+  resolve against the viewport the web view reports, and a standalone web view
+  can be created at one size and settle at another — the unit is then stale
+  because the *viewport* is. Measured off a phone screenshot: a 402x874pt
+  screen with the tab bar's last pixel at 812pt and 62pt of `--bg` beneath it,
+  where `--bg` was the body background propagated to the canvas, painting an
+  area the page had never laid out into. The same page in the emulator, with
+  that phone's insets simulated, produced a tab bar of exactly the same height
+  (87pt) ending correctly at 874 — which is how the layout was ruled out and
+  the viewport ruled in. `.shell` now reads `height:100%`, then `100dvh`, then
+  `var(--vh)`, the last written from `window.innerHeight` on load, resize,
+  orientationchange and pageshow. `innerHeight` and not
+  `visualViewport.height`: the visual viewport shrinks with the keyboard, and
+  the shell should not.
 - **A `min` under a safe-area inset does nothing where it matters.** The tab
   bar's `padding-bottom:max(22px, env(safe-area-inset-bottom))` was 34px on a
   phone with a home indicator (the inset already covers it) and 22px of dead
@@ -662,15 +669,54 @@ to get wrong.
   destination changes; the two learn drill-downs, which are the same view with
   new content, ask by hand with `scrollViewTop()`.
 
-### A rAF throttle latches in a tab that stops painting — `outputs/study/small-ui-helpers.js`
+### The tucking header must not change the scroller's geometry — `outputs/app.css`, `outputs/study/small-ui-helpers.js`
 
-The standard shape for a scroll handler is a `queued` flag cleared inside a
-`requestAnimationFrame` callback. **It does not survive a hidden tab.** Measured
-in a backgrounded tab: `document.hidden` true, zero frames in 800 ms — the frame
-that would clear the flag never arrives and the handler is dead for the rest of
-the page's life, leaving the header stuck wherever it was. `tuckOnRead` does its
-work synchronously; the throttled work was a subtraction and a class toggle, and
-the one layout read happens on the transition into tucked, a few times a page.
+The first version collapsed the header with a negative margin. It reclaims the
+space and it looks wrong: the scroller's top edge moves up by the header's
+height at the same instant, so every line of text jumps 73px under the reader's
+thumb, and at the end of a page the scroller's maximum scrollTop shrinks and the
+content lurches a second time. **Reclaiming the space and holding the reading
+position still are the same problem**, and only one shape solves both — take the
+header out of flow, have the container reserve its height as padding, and slide
+the overlay with a transform. Measured across a tuck and an untuck afterwards:
+pane top, pane height and maxScroll all constant, in both the main view and the
+session overlay.
+
+Two things that fall out of it:
+
+- **`--headh` is load-bearing layout, not decoration.** The container's padding
+  is that variable. Stale by 39px on the session overlay meant the header
+  covering the first two lines of the lesson.
+- **`overscroll-behavior: contain` is not enough** on the reading panes. It
+  stops the chain but keeps the scroller's own rubber band, and at the end of a
+  list that bounce reads as the page coming loose. `overscroll-behavior-y: none`
+  on `.navcontent` and `#sessionView .navcontent`, written as a longhand AFTER
+  the existing shorthand — the shorthand would reset the x axis with it, and the
+  first attempt at this was placed *above* the shorthand and silently lost.
+
+### Anything driven by the frame loop dies in a tab that stops painting — `outputs/study/small-ui-helpers.js`
+
+This bit twice, in two different APIs, and the second one was worse.
+
+**`requestAnimationFrame`.** The standard shape for a scroll handler is a
+`queued` flag cleared inside a rAF callback. Measured in a backgrounded tab:
+`document.hidden` true, zero frames in 800 ms — the frame that would clear the
+flag never arrives and the handler is dead for the rest of the page's life,
+leaving the header stuck wherever it was. `tuckOnRead` does its work
+synchronously; what was being throttled is a subtraction and a class toggle.
+
+**`ResizeObserver`.** Its callbacks are delivered as part of the rendering
+steps, so they do not arrive either. The session overlay's header went from
+hidden to 113px tall and RO said nothing, leaving `--headh` unset and the
+header lying over the first 39px of the lesson — load-bearing layout silently
+wrong, rather than an animation stuck. `publishHeadHeight` keeps RO for the
+ordinary cases but adds a **MutationObserver** on the container's class, which
+runs on the microtask checkpoint and fires the moment the overlay loses
+`hidden`, plus an explicit call from `showView`.
+
+The rule to take from both: if a value is needed for CORRECTNESS rather than
+for animation, do not let a frame-driven API be the only thing that supplies
+it.
 
 Related: this is also why a browser check can *look* like it is failing when it
 is not. In a hidden pane, style recalculation and transitions do not run, so

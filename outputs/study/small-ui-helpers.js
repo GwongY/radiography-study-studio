@@ -51,6 +51,8 @@ export function showView(id) {
   shownView = id;
   VIEWS.forEach((v) => $$(v).classList.toggle('hidden', v !== id));
   if (moved) { scrollViewTop(); untuck(); }
+  /* A view that was hidden a moment ago now has a measurable header. */
+  measureHeads();
   if (id === 'viewerView' && window.__osteo) {
     window.__osteo.boot();
     setTimeout(() => window.__osteo.resize(), 60);
@@ -84,11 +86,85 @@ export function coveragePill(status) {
  *   - tuck at the top. Above 90px there is nothing to reclaim yet, and a
  *     header that vanishes on the first flick reads as a glitch.
  *
- * The height is measured, not assumed: --tuck is written from the element
- * before the class goes on, so a header wrapped to two lines still clears.
+ * The header is an OVERLAY on these widths (see .navhead in app.css), so this
+ * only adds and removes a class: the scroller's geometry does not change when
+ * it goes, which is what keeps the text under your thumb from jumping. The
+ * height it needs to reserve is published separately, below.
  */
 function untuck() {
   document.querySelectorAll('.navhead.tucked').forEach((h) => h.classList.remove('tucked'));
+}
+
+/*
+ * The shell's height, measured rather than expressed as a unit.
+ *
+ * See the note on .shell in app.css: a standalone web view can be created at
+ * one size and settle at another, and both height:100% and 100dvh report the
+ * stale one, leaving the tab bar floating above the bottom of the screen with
+ * the propagated body background showing under it. Re-reading innerHeight on
+ * every event that could mean "the viewport settled" picks it up when it does.
+ *
+ * innerHeight, NOT visualViewport.height: the visual viewport shrinks when the
+ * keyboard opens, and the app should not shrink with it.
+ */
+function shellHeight() {
+  const set = () => document.documentElement.style.setProperty('--vh', `${window.innerHeight}px`);
+  set();
+  addEventListener('resize', set, { passive: true });
+  addEventListener('orientationchange', set, { passive: true });
+  /* Coming back from the back/forward cache re-runs no script but does fire this. */
+  addEventListener('pageshow', set, { passive: true });
+}
+
+/*
+ * The header's own height, published to its container as --headh.
+ *
+ * The tucking header is an overlay and its container reserves that height as
+ * padding, so this number IS the layout: a stale one leaves a gap above the
+ * content or hides the top of it. It changes for real reasons -- the compact
+ * variant, a rotation, the Aa text-size control, a kicker wrapping to two
+ * lines -- and a ResizeObserver catches all of them without anyone having to
+ * remember to call anything.
+ */
+let measureHeads = () => {};
+function publishHeadHeight() {
+  const heads = [...document.querySelectorAll('.navhead')];
+  if (!heads.length) return;
+  const write = (h) => {
+    /* Tucking translates the header, it does not resize it, so offsetHeight is
+       still the full height here and there is no need to untuck to measure.
+       A header inside a hidden container measures 0; skip it and come back. */
+    if (h.parentElement && h.offsetHeight) h.parentElement.style.setProperty('--headh', `${h.offsetHeight}px`);
+  };
+  measureHeads = () => heads.forEach(write);
+  measureHeads();
+
+  /*
+   * Three ways of hearing about a change, because the obvious one is not
+   * enough on its own.
+   *
+   * A ResizeObserver is the natural fit and handles the ordinary cases -- the
+   * Aa control, a rotation, a kicker wrapping. But RO callbacks are delivered
+   * as part of the rendering steps, so in a tab that has stopped painting they
+   * never arrive: measured here, the session overlay's header went from hidden
+   * to 113px tall and RO said nothing, leaving --headh unset and the header
+   * overlapping the first 39px of the lesson. The same frozen-frame trap as
+   * the rAF throttle in tuckOnRead, and worse, because this one is load-bearing
+   * layout rather than a stuck animation.
+   *
+   * A MutationObserver on the container's class is not frame-driven -- it runs
+   * on the microtask checkpoint -- so it fires the moment the session overlay
+   * loses `hidden`, which is exactly when its header first has a height.
+   * showView calls measureHeads too, for the case where the class was already
+   * right before this ran.
+   */
+  if (typeof ResizeObserver === 'function') {
+    const ro = new ResizeObserver((entries) => entries.forEach((e) => write(e.target)));
+    heads.forEach((h) => ro.observe(h));
+  }
+  const mo = new MutationObserver(() => measureHeads());
+  heads.forEach((h) => { if (h.parentElement) mo.observe(h.parentElement, { attributes: true, attributeFilter: ['class'] }); });
+  addEventListener('resize', () => measureHeads(), { passive: true });
 }
 function tuckOnRead() {
   document.querySelectorAll('.navcontent').forEach((pane) => {
@@ -105,18 +181,16 @@ function tuckOnRead() {
      * life. Measured: in a hidden tab, document.hidden true, zero frames in
      * 800ms, and the header stuck wherever it was when the tab went away.
      *
-     * The work being throttled is a subtraction and a class toggle. offsetHeight
-     * is the only layout read, and it happens on the transition into tucked --
-     * a few times a page, not a few times a second.
+     * The work being throttled is a subtraction and a class toggle -- there is
+     * no layout read left in here at all, now that the height is published by
+     * publishHeadHeight instead of measured on the way past.
      */
     pane.addEventListener('scroll', () => {
       const y = pane.scrollTop;
       const moved = y - last;
       if (Math.abs(moved) < 8) return;
       last = y;
-      const tuck = moved > 0 && y > 90;
-      if (tuck && !head.classList.contains('tucked')) head.style.setProperty('--tuck', `${head.offsetHeight}px`);
-      head.classList.toggle('tucked', tuck);
+      head.classList.toggle('tucked', moved > 0 && y > 90);
     }, { passive: true });
   });
 }
@@ -124,5 +198,7 @@ function tuckOnRead() {
 /* Runs after every part has evaluated — see the entry point. */
 export function init() {
   window.xrayFallback = xrayFallback;
+  shellHeight();
+  publishHeadHeight();
   tuckOnRead();
 }
