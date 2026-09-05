@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 821 —
-  d306168a27d7ba06  WHOLE SET
+— user-facing strings in outputs/ — 824 —
+  efba91bc9e548660  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -526,6 +526,7 @@
   e1bee8d506ebb8f0  The 3D layer could not be loaded right now.
   1a87df33818b2fb0  The 3D model is not available.
   188a07a1f493d877  The 3D models, the lessons and the source files are untouched \u2014 only your own history is.
+  18c0bd11dc622725  The answer log in that file is malformed.
   d6811f43e25d4939  The contrast
   d216dedb9f2f1d46  The controls live with the model — the render loop only runs while the studio is on screen, so a slider here would move bones you cannot see.
   f44fc384994cd331  The four quadrants
@@ -621,6 +622,7 @@
   9200422efeb6a14b  also deficient)
   d69ed2e7567c8fed  an authored memory hook
   069d6e57d291854b  another structure
+  f53741724922c4e4  answer events this device has never recorded — added.
   4dafb342c48fd85e  artery = red = oxygenated
   038dbe3356c60c5f  assets/xray/ is empty \u2014 add a licence-cleared image
   f0a2f6bcdb910bd5  axial at the sternal angle
@@ -726,6 +728,7 @@
   ec127246ffd2352f  named landmark hotspots
   65a8e13d43e16a88  named mesh
   fb71e35554b8c081  new items,
+  66e7dd59209ea41c  no baseline
   e7b1a45f4258c96c  no engine
   3c990f97c8ed9e68  no stage
   29c0d92fb897dea2  not named in your course material

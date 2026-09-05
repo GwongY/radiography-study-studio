@@ -25,7 +25,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 - `outputs/app.css` — 1273 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
 - `outputs/studio.js` — 26 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
-- `outputs/study.js` — 45 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
+- `outputs/study.js` — 49 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
 ## Data modules — `outputs/*.js`
 
@@ -43,7 +43,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `schedule.js` | 822 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 127 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 376 | Radiography Study Studio — service worker |  |
+| `sw.js` | 377 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 268 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 1748 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
@@ -137,22 +137,23 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `hidden-tray.js` | 27 | Hidden tray |
 | `home.js` | 9 | Home |
 | `imports.js` | 141 |  |
-| `layout-figures.js` | 853 | Layout figures |
+| `layout-figures.js` | 860 | Layout figures |
 | `lesson-visuals.js` | 237 | Lesson visuals |
 | `mastery-dashboard.js` | 9 | Mastery dashboard |
 | `more-sources-coverage.js` | 9 | More -- sources, coverage, and the things demoted out of the topbar. |
-| `moving-progress-between.js` | 52 | Moving progress between devices |
+| `moving-progress-between.js` | 61 | Moving progress between devices |
 | `navigation-five-destinations.js` | 114 | Navigation -- five destinations, rendered into both the icon rail and |
+| `progress-log.js` | 358 | Progress log — the append-only record every other progress number is derived from |
 | `reading-help.js` | 330 | Reading help |
-| `reset.js` | 243 | Reset |
+| `reset.js` | 257 | Reset |
 | `review-mistakes-due.js` | 58 | Review -- mistakes, due items, and the mastery map that replaced the |
 | `search-viewer-open.js` | 44 | Search -> viewer: open the model, select the part, auto-uncover, and |
-| `session-engine.js` | 246 | Session engine |
+| `session-engine.js` | 247 | Session engine |
 | `small-ui-helpers.js` | 190 | Small UI helpers |
 | `source-dialog.js` | 59 | Source dialog |
 | `spatial-overlay-controls.js` | 283 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 35 | The study system's mutable UI state. |
-| `storage-versioned-keys.js` | 144 | Storage — versioned keys, one-time migration from the osteology app |
+| `storage-versioned-keys.js` | 149 | Storage — versioned keys, one-time migration from the osteology app |
 | `subject.js` | 311 | Subject |
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 283 | Viewer tools — annotate, cut, layer depth, capture |
@@ -224,6 +225,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/handoff-export.mjs` | Turn the unread manifest into a folder another AI can actually read. |  |
 | `work/landmark-check.mjs` | Does every landmark actually resolve against the real GLBs? |  |
 | `work/load-check.mjs` | Load-time verification for radiography-study-studio.html. |  |
+| `work/progress-log-check.mjs` | Progress log — the replay contract. | [The progress log must reproduce the record, not resemble it](TRAPS.md#the-progress-log-must-reproduce-the-record-not-resemble-it--outputsstudyprogress-logjs-workprogress-log-checkmjs) |
 | `work/query.mjs` | Ask the data a question instead of reading the file. |  |
 | `work/reading-help-priority-check.mjs` | Regression gate for the highest-impact reading-help gaps. |  |
 | `work/region-probe.mjs` | Region probe — does the region filter put every bone in the right region? |  |
