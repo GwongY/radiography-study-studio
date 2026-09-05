@@ -57,6 +57,16 @@ export {
 } from './study/corpus/notices.js';
 
 export {
+  SOURCE_MAP_VERSION,
+  Y1S1_SOURCE_MAP,
+  sourceGroupFor,
+  sourceGroupsForWeek,
+  sourceMetaFor,
+  sourceSetLabel,
+  sourceRoleLabel,
+} from './study/corpus/source-lesson-map.js';
+
+export {
   REVEAL_MODES,
   STRUCTURE_SETS,
   structureSet,
