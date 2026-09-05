@@ -6,8 +6,9 @@
  * the corpus cites a page — `L1 p4 "The anatomical position"` — so text that
  * has lost its page boundaries cannot answer the question anyone actually asks.
  *
- * No dependencies beyond `pdftotext` (poppler) on PATH. .docx and .pptx are zip
- * archives of XML, which node can open with zlib alone.
+ * PDFs prefer `pdftotext` (poppler) on PATH. If that executable is absent,
+ * RSS_PYTHON may point at a Python runtime carrying pdfplumber or pypdf. .docx
+ * and .pptx are zip archives of XML, which node can open with zlib alone.
  */
 import { readFileSync, writeFileSync, copyFileSync, mkdtempSync, rmSync, existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
@@ -38,6 +39,28 @@ import { tmpdir } from 'node:os';
 const NEEDS_COPY = /[^\x20-\x7e]/;
 const TOO_LONG = 220;
 const needsCopy = (f) => NEEDS_COPY.test(f) || f.length >= TOO_LONG;
+
+/* The desktop dependency runtime does not always bundle pdftotext even when it
+   bundles the rest of Poppler. Keep the fallback explicit through RSS_PYTHON:
+   a generator run must never guess which Python installation owns the PDF
+   packages. The form-feed join preserves the same page contract as Poppler. */
+const PYTHON_PDF = String.raw`
+import sys
+try:
+    import pdfplumber
+except ImportError:
+    pdfplumber = None
+
+if pdfplumber is not None:
+    with pdfplumber.open(sys.argv[1]) as pdf:
+        pages = [(page.extract_text() or '') for page in pdf.pages]
+else:
+    from pypdf import PdfReader
+    pages = [(page.extract_text() or '') for page in PdfReader(sys.argv[1]).pages]
+
+with open(sys.argv[2], 'w', encoding='utf-8', newline='') as out:
+    out.write('\f'.join(pages))
+`;
 
 /* Every entry in a zip whose name matches, decompressed. The central directory
    is walked backwards from the End Of Central Directory record. */
@@ -83,7 +106,12 @@ function pdfPages(file, timeout) {
     let src = file;
     if (needsCopy(file)) { src = join(tmp, `in${extname(file)}`); copyFileSync(file, src); }
     const out = join(tmp, 'out.txt');
-    execFileSync('pdftotext', ['-layout', src, out], { stdio: 'ignore', timeout });
+    try {
+      execFileSync('pdftotext', ['-layout', src, out], { stdio: 'ignore', timeout });
+    } catch (e) {
+      if (e.code !== 'ENOENT' || !process.env.RSS_PYTHON) throw e;
+      execFileSync(process.env.RSS_PYTHON, ['-c', PYTHON_PDF, src, out], { stdio: 'ignore', timeout });
+    }
     /* pdftotext separates pages with a form feed. That IS the page boundary. */
     return readFileSync(out, 'utf8').split('\f');
   } finally { rmSync(tmp, { recursive: true, force: true }); }
