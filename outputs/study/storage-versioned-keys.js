@@ -107,13 +107,18 @@ export function itemAttempted(itemId) {
  *
  * The one-minute floor stops paging back and forth between the steps of one
  * item writing localStorage on every render.
+ *
+ * Returns whether a read was actually recorded, because progress-log.js has to
+ * append exactly when this writes and never when it declines -- a log that
+ * counted the throttled calls would rebuild a different history than the one
+ * the app lived.
  */
-export function markRead(itemId) {
+export function markRead(itemId, now = Date.now()) {
   const rec = store.items[itemId] || {};
-  const now = Date.now();
-  if (rec.readAt && now - rec.readAt < 60000) return;
+  if (rec.readAt && now - rec.readAt < 60000) return false;
   store.items[itemId] = { ...rec, readAt: now, reads: (rec.reads || 0) + 1 };
   write(K.items, store.items);
+  return true;
 }
 export function itemRead(itemId) { return !!(store.items[itemId] || {}).readAt; }
 export function itemDue(itemId, now = Date.now()) {

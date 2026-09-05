@@ -3,8 +3,9 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, DIAGRAMS, MASTERY_DIMENSIONS, MEMORY_METHODS, REVEAL_MODES, STRUCTURE_MODELS, decompose, describeSource, dimensionFor, esc, getSubject, isDelayedAttempt, jointMovement, layoutFor, moduleInfo, priorOf, questionsOf, readingOf, schedule, structureSet, ui } from './imports.js';
-import { K, getMastery, itemAttempted, logMistake, read, setMastery, store, write } from './storage-versioned-keys.js';
+import { $$, DIAGRAMS, MASTERY_DIMENSIONS, MEMORY_METHODS, REVEAL_MODES, STRUCTURE_MODELS, decompose, describeSource, dimensionFor, esc, getSubject, isDelayedAttempt, jointMovement, layoutFor, moduleInfo, priorOf, questionsOf, readingOf, structureSet, ui } from './imports.js';
+import { K, getMastery, itemAttempted, logMistake, read, store, write } from './storage-versioned-keys.js';
+import { recordAttempt } from './progress-log.js';
 import { advanceItem, renderSessionFoot, renderStep, setStep, typeLabel } from './session-engine.js';
 import { closeSessionOverlay } from './navigation-five-destinations.js';
 import { glossify, lookupTerm, plateHTML, proseHTML, wireTerms } from './reading-help.js';
@@ -479,23 +480,28 @@ function finishQuestion(item, q, correct, extra, conf = 2) {
   const ms = Math.max(400, performance.now() - ui.session.startedAt);
   const dim = dimensionFor(q);
 
+  /*
+   * One timestamp for the whole answer, not three. The mastery records, the
+   * item's lastSeen and the log entries all carry it, so replaying the log
+   * reproduces this moment exactly rather than approximately — which is the
+   * property progress-log.js's verify() exists to hold us to.
+   */
+  const at = Date.now();
   const priorRec = getMastery(item.id, dim);
-  const rec = schedule(priorRec, { correct, confidence: conf, ms, expectedMs: q.type === 'explain' || q.type === 'scenario' ? 45000 : 14000 });
-  setMastery(item.id, dim, rec);
+  const qmeta = { at, qid: q.qid, qtype: q.type };
+  recordAttempt(item.id, dim, { correct, confidence: conf, ms, expectedMs: q.type === 'explain' || q.type === 'scenario' ? 45000 : 14000 }, { ...qmeta, primary: true });
   /*
    * Delayed recall is scored only when this is the first attempt after a real
    * gap — checked against the record as it stood before this attempt. Getting
    * it right three times in one sitting says nothing about surviving a night.
    */
-  if (isDelayedAttempt(priorRec)) {
-    const delayedRec = schedule(getMastery(item.id, 'delayedRecall'), { correct, confidence: conf, ms, expectedMs: 20000 });
-    setMastery(item.id, 'delayedRecall', delayedRec);
+  if (isDelayedAttempt(priorRec, at)) {
+    recordAttempt(item.id, 'delayedRecall', { correct, confidence: conf, ms, expectedMs: 20000 }, qmeta);
   }
   if ((q.type === 'typed' || q.type === 'cloze' || q.type === 'landmark')) {
-    const spellRec = schedule(getMastery(item.id, 'spelling'), { correct: correct && !extra, confidence: conf, ms, expectedMs: 14000 });
-    setMastery(item.id, 'spelling', spellRec);
+    recordAttempt(item.id, 'spelling', { correct: correct && !extra, confidence: conf, ms, expectedMs: 14000 }, qmeta);
   }
-  store.items[item.id] = { ...(store.items[item.id] || {}), status: correct ? 'review' : 'learning', seen: (store.items[item.id]?.seen || 0) + 1, lastSeen: Date.now() };
+  store.items[item.id] = { ...(store.items[item.id] || {}), status: correct ? 'review' : 'learning', seen: (store.items[item.id]?.seen || 0) + 1, lastSeen: at };
   write(K.items, store.items);
   if (!correct) logMistake({ itemId: item.id, qid: q.qid, type: q.type, prompt: q.prompt });
   ui.session.results.push({ itemId: item.id, qid: q.qid, correct, ms });
@@ -770,8 +776,9 @@ export function wireApply(item) {
      */
     const grade = (correct, conf) => {
       const ms = Math.max(800, performance.now() - ui.session.startedAt);
+      const at = Date.now();
       for (const dim of ['application', 'explanation']) {
-        setMastery(item.id, dim, schedule(getMastery(item.id, dim), { correct, confidence: conf, ms, expectedMs: 60000 }));
+        recordAttempt(item.id, dim, { correct, confidence: conf, ms, expectedMs: 60000 }, { at, qid: `${item.id}!app0`, qtype: 'scenario' });
       }
       if (!correct) {
         logMistake({ itemId: item.id, qid: `${item.id}!app0`, type: 'scenario', prompt: a.prompt });

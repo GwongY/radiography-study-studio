@@ -5,6 +5,7 @@
  */
 import { DATA_VERSION } from './imports.js';
 import { store } from './storage-versioned-keys.js';
+import { events, readBaseline } from './progress-log.js';
 
 /* ------------------------------------------------------------------ *
  * Moving progress between devices
@@ -43,10 +44,18 @@ export function buildProgressExport() {
       mastery: Object.keys(store.mastery).length,
       items: Object.keys(store.items).length,
       mistakes: store.mistakes.length,
+      log: events.length,
     },
     mastery: store.mastery,
     items: store.items,
     mistakes: store.mistakes,
     meta: store.meta,
+    /*
+     * The log travels with the file, and it is the part that merges exactly.
+     * Older exports have neither key; the importer treats both as optional, so
+     * a file written before the log existed still imports on the old rule.
+     */
+    baseline: readBaseline(),
+    log: events,
   };
 }

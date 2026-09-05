@@ -5,7 +5,8 @@
  */
 import { $$, ITEM_TYPES, STUDY_ITEMS, STUDY_MODES, describeSource, entryStep, esc, getItem, priorOf, questionsOf, ui } from './imports.js';
 import { applyHTML, endSession, learnHTML, practiseHTML, rememberHTML, wireApply, wirePractise, wireStageNav } from './layout-figures.js';
-import { adjScore, itemAttempted, itemDue, itemLapses, markRead, store } from './storage-versioned-keys.js';
+import { adjScore, itemAttempted, itemDue, itemLapses, store } from './storage-versioned-keys.js';
+import { recordRead } from './progress-log.js';
 import { mountLessonVisual, releaseLessonVisual } from './lesson-visuals.js';
 import { openSessionOverlay } from './navigation-five-destinations.js';
 import { openSourceDialog } from './source-dialog.js';
@@ -227,7 +228,7 @@ export function renderSessionFoot(item) {
 export function renderStep() {
   const item = currentItem();
   /* Looking at it counts, even if no question is ever answered on it. */
-  markRead(item.id);
+  recordRead(item.id);
   const stepDef = STEPS.find((x) => x.id === ui.session.step) || STEPS[0];
   $$('rssSessionKicker').textContent = stepDef.label;
   renderSteps();

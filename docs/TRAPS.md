@@ -350,6 +350,42 @@ shapes** — in "The region grid and classifiers" below.
   The Continue card looks the step up by name to print its label, so an
   unrecognised one used to throw; `getContinueTarget` falls back to `learn`.
 
+### The progress log must reproduce the record, not resemble it — `outputs/study/progress-log.js`, `work/progress-log-check.mjs`
+
+- **The log is only worth having if a replay is EXACT.** `rebuild()` folds
+  `schedule()` over the events of one (item, dimension); if that lands anywhere
+  other than the live record, a rebuild stops being a repair and becomes a
+  corruption, and a merge that trusts the log quietly rewrites history. That is
+  the whole contract, and `verify()` is the assertion of it.
+- **`ms` arrives as a float, and the first attempt stores it unrounded.**
+  `schedule()` sets `avgMs = outcome.ms` on the first rep and only rounds on
+  later ones, so a `performance.now()` difference like `5524.800000011921` goes
+  into the record verbatim. Rounding it on the way into the EVENT but not on
+  the way into the record made the two disagree in the twelfth decimal place —
+  invisible, permanent, and enough to fail `verify()` on the very first answer
+  ever recorded. Normalise once in `recordAttempt`, then use that one value for
+  both. Never round in only one of the two places.
+- **One timestamp per answer, passed in, not three `Date.now()` calls.**
+  `finishQuestion` schedules up to three dimensions and writes `items.lastSeen`;
+  if each read the clock separately the replay would be milliseconds out on
+  every record. The call site takes `at` once and hands it to every
+  `recordAttempt` and to `lastSeen`.
+- **`markRead` throttles, so `recordRead` must ask whether it wrote.** The
+  one-minute floor means most calls do nothing; a log that appended on every
+  call would rebuild a reads count the app never had. `markRead` returns a
+  boolean for exactly this, and nothing else uses it — do not "simplify" it
+  back to returning nothing.
+- **Erasing progress has to erase the log.** For the same reason the reset
+  banner gives about `osteology-studio-stats`: events left behind let a rebuild
+  resurrect the history the reader just deleted, and the erase looks broken.
+  `clearLog()` runs inside `resetProgress`, before the keys go.
+- **A check that builds its own events cannot see a bug in the recorder.**
+  Every property test in `progress-log-check.mjs` synthesises a log, so all of
+  them passed while the float bug shipped; the browser's `verify()` caught it.
+  The last section now drives the real `recordAttempt` with float `ms` and
+  compares against the records it wrote. Reintroduce the bug and that section
+  fails — it was confirmed by doing so.
+
 ### A name classifier is fed a different name than the GLB holds — `outputs/systems.js`, `work/system-check.mjs`
 
 The skeleton split into Axial and Appendicular shipped with an axial rule
