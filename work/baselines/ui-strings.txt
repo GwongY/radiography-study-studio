@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 805 —
-  2815cacaba08e5a9  WHOLE SET
+— user-facing strings in outputs/ — 808 —
+  3b2d6b2e764d05be  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -167,7 +167,6 @@
   0f87e484d07b041c  <span class="livenow">On now</span>
   b83f09d243f67fb8  <span class="mono" data-depthread="
   62bc3808f16130c2  <span class="mono" style="color:
-  ec2d09a1b92db43a  <span class="nostudy">No lessons here — timetable only</span>
   79494432a3df21c8  <span class="openwk">This week</span>
   1120ce038e281d16  <span class="pill
   8c0951042a96d65b  <span class="pill">App-authored aid</span>
@@ -243,6 +242,7 @@
   7405b8bbcaf9d423  Could not load that model — the skeleton is still available.
   73a069d82b0d3b67  Could not locate that structure in the model
   3e43a3e5c3ac8956  Could not set that movement up on the model.
+  650bfee8c10b708c  Current files take priority for dates, topics and assessment. Older official lectures are used only to teach a current syllabus topic when the matching 2026 lecture is absent; student coursework is never used as a factual source.
   80593d9330e238e5  Cut position
   e3c1a5d80a89f718  Day streak, per-item status and the item you were last part-way through.
   1ce89851847711af  Delete every mastery record, mistake and schedule stored in this browser. There is no server and no undo, so export a backup first if you might want it.
@@ -345,6 +345,7 @@
   055b6d2dba839774  Memory hook ·
   679aacb3f38bd649  Memory hook:
   79c644f4e1f774d0  Memory hooks
+  f1d2585d9ef5e7ee  Memory tip
   ff656be9917a49e2  Mid-clavicular, left
   6906cd85608d4b0d  Mid-clavicular, right
   ac1e653bdd328c9d  Missing or limited
@@ -366,6 +367,7 @@
   1072a05d6e1e212d  Nearest first. Tap any of them, or tap the model again in the same spot to step deeper.
   5174f99c057c3927  No application task authored for this item.
   e15d3dda4ba3b830  No layer shown — turn one on to study it
+  6a600b8957f187b2  No lesson for this administrative row
   acb7f9d4b343d5e8  No memory aid authored for this item yet.
   aea685df17960549  No memory aids found
   c6455c0a33c2de61  No mistakes logged — good
@@ -374,6 +376,7 @@
   b7cae769b9db0fc6  No radiographs bundled
   ef8c7dae7a20163c  No reference
   f6a59c0ee7b34cc0  No source materials
+  e73285aebba9de57  No source-backed lesson has been assigned to this week.
   166b0cc5ce4455c1  No structure in
   7731f34185d19140  No structure in the database has
   79575cdd56093f95  None listed.
@@ -388,7 +391,6 @@
   01c734adb1d8dbbe  Nothing due or weak yet
   17c54ae148fd8107  Nothing has happened yet. Close this dialog and it never will.
   44a3cc778bbfd521  Nothing in progress
-  3548e52ba48a8072  Nothing in the corpus covers this week yet — your timetable teaches it, we do not.
   a272b965cae90dba  Nothing is assumed about your answer — this is the first thing recorded for the item.
   992f6502afaafa7a  Nothing is highlighted. Rotate the model and tap it. Tapping the same spot twice steps behind whatever is in front.
   db09520da1bff2bb  Nothing left on the published timetable.
@@ -399,6 +401,7 @@
   91d3cc9c39ce4d97  Nothing to study
   f5de33541d146691  Nothing to study for that selection yet.
   bf9913bba7204a22  Nothing to undo.
+  2b12d09ebcacae94  Official notes missing — see weekly gap
   2efc956104ec7d7a  Offline & storage
   e1070a158b550318  Offline-first study system for HSS2011 Human Anatomy, ABCT2326 Human Physiology and medical radiation science.
   a6c061874897dabb  One learning tree
@@ -414,6 +417,7 @@
   d44f57779facfe5b  Pause turntable
   ce253ba033cf1abf  Phalanges of the hand
   032a270b28e8d32d  Plane \u00b7 separates
+  79219f35ed006231  Plural form
   6500e2302d2dac54  Practise ·
   d5ff712edaa1e542  Pre-aortic nodes
   6b6b69ac71bfe9de  Precise Z-Anatomy / BodyParts3D skeleton ·
@@ -456,6 +460,7 @@
   0595489058178b10  Show the model answer
   cab88e281cc40392  Show them
   f95f623f793c9f96  Single item
+  5b49bc3f366884d9  Singular form
   14ff2c02f1b62ffb  Skills to build
   72e816aa3b0aaa5b  Skills to build with this content
   da2e37e9592542f8  Skip to practice
@@ -483,7 +488,6 @@
   4a085fa65d717e0d  Student work
   381d54ae5dc158bf  Study Studio
   a14650cf115b1c8a  Study all
-  7934c545a704cdcc  Study effort
   7aeec7e28ab447b1  Study items
   197a9cfd7132bfb2  Study modes
   6db1fe691cb5e688  Study session
@@ -558,7 +562,6 @@
   bdadc5cef1ccc303  Transpyloric (L1)
   0a0d093315fde56b  Transtubercular (L5)
   325a3667381bade5  Twelve vertebrae: lunch at 12, with ribs attached.
-  f43e8542dedb6219  Two of those are screenshots of Canvas rather than documents, because no document copy was supplied. They cannot be text-checked the way a lecture can, so everything taken from them is written out in this repo’s timetable data module, in full, where it can be read and corrected.
   431c871a874df758  Type an answer first — a guess still teaches you more than skipping.
   41146b07110e6e0c  Type the bone name
   111ce187bae23ee4  Type the note first, then tap the structure.
@@ -713,7 +716,6 @@
   e7b1a45f4258c96c  no engine
   3c990f97c8ed9e68  no stage
   29c0d92fb897dea2  not named in your course material
-  725cc5a9c927ac38  not written yet
   639098cfaf4687c5  nothing drawn yet
   6c72de620a530165  notice stop
   bcc38d49bd57532e  of existing progress into the new mastery record.
@@ -748,6 +750,7 @@
   37e8cb66682dd7b0  separately selectable">
   a8970b03087f1926  sheetscrim hidden
   5c6db2f77cfe003a  small cut-levelnote
+  535432277ab15c02  small term-number
   b06f2f1ca52fc976  soft-tissue mesh
   f004ce84a1c00cd6  soft-tissue structures travel with the bone.
   7d30607b3e9c2d7a  structures in

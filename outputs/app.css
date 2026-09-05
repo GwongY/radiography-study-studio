@@ -126,6 +126,9 @@
 .termbody .meaning{border-left:3px solid var(--teal);background:rgba(114,227,207,.06);border-radius:0 11px 11px 0;padding:12px 15px;margin:12px 0 0}
 .termbody .meaning .en{font-size:calc(15px * var(--ts));line-height:1.6;margin:0;color:var(--text)}
 .termbody .meaning .zh{font-size:calc(21px * var(--ts));line-height:1.45;margin:7px 0 0;color:var(--teal);font-weight:700;letter-spacing:.02em}
+.termbody .memory-tip{border-left:3px solid var(--orange);background:rgba(255,178,92,.07);border-radius:0 11px 11px 0;padding:10px 15px;margin:12px 0 0}
+.termbody .memory-tip .subhead{margin-top:0;color:var(--orange)}
+.termbody .memory-tip p{font-size:calc(14px * var(--ts));line-height:1.55;margin:0;color:var(--text)}
 .termbody .credit{display:block;font-size:calc(12px * var(--ts));color:var(--dim);line-height:1.55;margin-top:18px;padding-top:11px;border-top:1px solid var(--line)}
 .termparts{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:14px 0 0}
 .termpart{border:1px solid var(--line);border-radius:9px;padding:6px 9px;background:rgba(255,255,255,.03);min-width:64px}

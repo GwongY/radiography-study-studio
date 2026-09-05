@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1263 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
+- `outputs/app.css` — 1266 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
 - `outputs/studio.js` — 26 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 45 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -40,14 +40,14 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `layouts.js` | 304 | layouts.js — the sixteen that are layouts, as layouts. |  |
 | `mesh-index.js` | 2594 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `physiology.js` | 337 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
-| `schedule.js` | 611 | schedule.js — the semester itself: what the syllabus says, and when each |  |
+| `schedule.js` | 822 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 117 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 372 | Radiography Study Studio — service worker |  |
+| `sw.js` | 375 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 268 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
-| `term-gloss.js` | 991 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
-| `term-notes.js` | 354 | Term notes — say it, then mean it. |  |
+| `term-gloss.js` | 1748 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
+| `term-notes.js` | 1491 | Term notes — say it, then mean it. |  |
 | `visual-data.js` | 463 | visual-data.js — a visual for every study item. |  |
 | `wordparts.js` | 952 | Word parts — the medical vocabulary broken into the pieces it is built from. |  |
 
@@ -61,12 +61,12 @@ belong in `init()`. The two keep separate import scopes and talk only through
 - `landmarks.js` — `normName`, `baseName`, `patternMatches`, `RIB_ORDINALS`, `LANDMARKS`, `REFERENCE_CHAINS`, `createResolver`, `LANDMARK_KEYS`
 - `layouts.js` — `LAYOUTS`, `layoutFor`, `LAYOUT_COUNT`
 - `physiology.js` — `FLOW_ANCHORS`, `FLOW_CLASSES`, `LAYER_CLASSES`, `classify`, `RATES`, `cardiacEnvelope`, `breathEnvelope`, `spikeEnvelope`, `contractEnvelope`, `ventricleEnvelope`, `atriumEnvelope`, `CLASS_COUNT`
-- `schedule.js` — `TERM`, `ymd`, `weekStart`, `weekEnd`, `weekOf`, `STAFF`, `SUBJECT_ADMIN`, `GROUP_CHOICES`, `dayOf`, `WEEK_STUDY`, `studyFor`, `SESSIONS`, `sessionSpan`, `sessionStatus`, `sessionsWithStatus`, `isOtherGroup`, `fmtDate`, `fmtTime`, `fmtWeekRange`, `fmtWhen`, `KINDS`, `SCHEDULE_SOURCES`
+- `schedule.js` — `TERM`, `ymd`, `weekStart`, `weekEnd`, `weekOf`, `STAFF`, `SUBJECT_ADMIN`, `GROUP_CHOICES`, `dayOf`, `STUDY_SUBJECTS`, `WEEK_STUDY`, `WEEK_GAPS`, `studyFor`, `gapFor`, `SESSIONS`, `sessionSpan`, `sessionStatus`, `sessionsWithStatus`, `isOtherGroup`, `fmtDate`, `fmtTime`, `fmtWeekRange`, `fmtWhen`, `KINDS`, `SCHEDULE_SOURCES`
 - `schematics.js` — `SCHEMATICS`, `schematic`
 - `synonyms.js` — `COMPOSITES`, `NOT_MODELLED`, `SYNONYMS`, `expandQuery`, `missingFor`, `compositeFor`
 - `systems.js` — `UNREADABLE`, `SYSTEMS`, `layerOf`, `systemsIn`, `isSplit`, `systemsOf`, `systemOf`, `systemCounts`
 - `term-gloss.js` — `TERM_GLOSS`, `termGloss`, `GLOSS_COUNT`
-- `term-notes.js` — `TERM_NOTES`, `termNote`, `hasNote`, `TERM_COUNT`
+- `term-notes.js` — `MEMORY_TIPS`, `memoryTip`, `TERM_NOTES`, `termNote`, `hasNote`, `TERM_COUNT`
 - `visual-data.js` — `LAYER_FILES`, `BONE_MESHES`, `ITEM_VISUALS`, `visualFor`, `generatedFor`, `PLATES`, `PLATE_CREDIT`, `plateFor`
 - `wordparts.js` — `WORD_PARTS`, `NOT_A_TERM`, `decompose`, `readingOf`, `partOf`, `looksLikePart`
 
@@ -92,17 +92,17 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `schedule.js` | 1–67 | preamble |
 |  | 68–100 | The term |
 |  | 101–115 | Who teaches |
-|  | 116–224 | The syllabus, per subject — straight off the subject description forms |
-|  | 225–254 | Groups the student belongs to but the schedule does not say |
-|  | 255–264 | Every timetabled session |
-|  | 265–318 | Weekly slots, from the university timetable |
-|  | 319–511 | Which lessons cover which week |
-|  | 512–560 | Where a session sits in time |
-|  | 561–611 | Formatting — kept here so the view has no date arithmetic in it |
+|  | 116–274 | The syllabus, per subject — straight off the subject description forms |
+|  | 275–304 | Groups the student belongs to but the schedule does not say |
+|  | 305–314 | Every timetabled session |
+|  | 315–368 | Weekly slots, from the university timetable |
+|  | 369–718 | Which lessons cover which week |
+|  | 719–767 | Where a session sits in time |
+|  | 768–822 | Formatting — kept here so the view has no date arithmetic in it |
 | `term-gloss.js` | 1–702 | preamble |
 |  | 703–788 | 2026 sweep — the cell, from the Lecture 1 items |
 |  | 789–831 | 2026 sweep — bone, muscle and the tissues of movement |
-|  | 832–991 | The vocabulary of a bony landmark |
+|  | 832–1748 | The vocabulary of a bony landmark |
 | `visual-data.js` | 1–29 | preamble |
 |  | 30–63 | Bone records -> skeleton meshes |
 |  | 64–72 | Explicit per-item visuals |
@@ -130,20 +130,20 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `boot.js` | 74 | Boot |
-| `course-timetable.js` | 404 | Course — the syllabus and the timetable, with attendance |
-| `coverage-report.js` | 54 | Coverage report |
+| `course-timetable.js` | 413 | Course — the syllabus and the timetable, with attendance |
+| `coverage-report.js` | 59 | Coverage report |
 | `dialog-behaviour-applied.js` | 107 | Dialog behaviour, applied to all seven at once |
 | `global-search-one.js` | 351 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
 | `home.js` | 9 | Home |
-| `imports.js` | 126 |  |
+| `imports.js` | 129 |  |
 | `layout-figures.js` | 853 | Layout figures |
 | `lesson-visuals.js` | 237 | Lesson visuals |
 | `mastery-dashboard.js` | 9 | Mastery dashboard |
 | `more-sources-coverage.js` | 9 | More -- sources, coverage, and the things demoted out of the topbar. |
 | `moving-progress-between.js` | 52 | Moving progress between devices |
 | `navigation-five-destinations.js` | 114 | Navigation -- five destinations, rendered into both the icon rail and |
-| `reading-help.js` | 315 | Reading help |
+| `reading-help.js` | 330 | Reading help |
 | `reset.js` | 243 | Reset |
 | `review-mistakes-due.js` | 58 | Review -- mistakes, due items, and the mastery map that replaced the |
 | `search-viewer-open.js` | 44 | Search -> viewer: open the model, select the part, auto-uncover, and |
@@ -166,22 +166,25 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 
 | File | Lines | What it holds |
 | --- | --- | --- |
-| `corpus.js` | 59 | The assembled corpus — every item array spread into one list, and the |
-| `coverage.js` | 184 | Coverage report — what the supplied sources actually cover, and what they |
+| `apss-items.js` | 130 | APSS1A08 Introduction to Sociology — Topic 01 only. |
+| `corpus.js` | 65 | The assembled corpus — every item array spread into one list, and the |
+| `coverage.js` | 212 | Coverage report — what the supplied sources actually cover, and what they |
 | `derived-items.js` | 342 | Items generated rather than authored: one per canonical bone record, one |
 | `diagrams.js` | 50 | Diagrams — authored schematics, drawn inline as SVG so the app needs no |
 | `dsai-items.js` | 145 | DSAI1202, from the Week 1 overview deck. |
 | `expansion-items.js` | 564 | Expansion batch — fills gaps found in a coverage audit. |
-| `hss-joints.js` | 222 | HSS2011 Human Anatomy — joints and the muscles that move them. |
+| `hss-joints.js` | 254 | HSS2011 Human Anatomy — joints and the muscles that move them. |
 | `hss-modules.js` | 819 | HSS2011 Human Anatomy — the per-module study items. |
 | `hss-osteology.js` | 663 | HSS2011 Human Anatomy — osteology: bone classification, the axial and |
+| `hss-special-senses.js` | 112 | HSS2011 Week 7 — Special Senses. |
 | `hss-terminology.js` | 248 | HSS2011 Human Anatomy — anatomical terminology: position, planes, movement |
 | `hti-items.js` | 489 | HTI17103, drawn from the HTI17101 Exploring Radiography set — the study |
 | `mastery.js` | 121 | Spaced repetition — the schedule, the mastery score and its dimensions, and |
 | `modules.js` | 136 | Course modules — which unit belongs to which teaching module, so the app can |
-| `notices.js` | 41 | APSS1A08 — limited coverage. The notices that say so, in the app, rather |
+| `notices.js` | 33 | Notices for subjects whose current source set is incomplete. |
 | `physiology-items.js` | 2502 | ABCT2326 Human Physiology — the study items. |
-| `schema.js` | 469 | Scaffolding: the source registry, the subjects and their units, the item |
+| `physiology-reproductive.js` | 115 | ABCT2326 Lecture 6 — Reproductive System. |
+| `schema.js` | 484 | Scaffolding: the source registry, the subjects and their units, the item |
 | `structures.js` | 348 | Granular 3D targets: the structure sets a tap-to-identify item draws from, |
 | `validate.js` | 125 | Validation — every question must have a resolvable answer and every claim a |
 
@@ -207,6 +210,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/data-index.mjs` | Data index generator — writes docs/DATA-INDEX.md. |  |
 | `work/dense-lessons.mjs` | Task #9 candidate scan — list the densest explanations (nested clauses, |  |
 | `work/dev-server.mjs` | Minimal static server for outputs/ — same role as `python -m http.server 8420` | [The dev server had no cache headers](TRAPS.md#the-dev-server-had-no-cache-headers--workdev-servermjs) |
+| `work/doc-text-check.mjs` | Regression check for PDF extraction when Poppler's pdftotext executable is |  |
 | `work/dump-plain-candidates.mjs` |  |  |
 | `work/fetch-figure.mjs` | fetch-figure.mjs — search Wikimedia Commons, and download a figure ONLY if |  |
 | `work/figure-key-check.mjs` | Figure key check — every published figure and plate a lesson shows carries an |  |
@@ -219,6 +223,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/landmark-check.mjs` | Does every landmark actually resolve against the real GLBs? |  |
 | `work/load-check.mjs` | Load-time verification for radiography-study-studio.html. |  |
 | `work/query.mjs` | Ask the data a question instead of reading the file. |  |
+| `work/reading-help-priority-check.mjs` | Regression gate for the highest-impact reading-help gaps. |  |
 | `work/region-probe.mjs` | Region probe — does the region filter put every bone in the right region? |  |
 | `work/schedule-check.mjs` | Schedule check — does the timetable point at things that exist? |  |
 | `work/search-probe.mjs` | Search probe — does typing a structure's name find it? |  |

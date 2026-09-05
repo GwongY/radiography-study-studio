@@ -24,12 +24,12 @@ import { schematic } from '../schematics.js?v=2';
 import { figureFor } from '../figures.js?v=2';
 import { layoutFor } from '../layouts.js?v=1';
 import { decompose, readingOf, partOf } from '../wordparts.js?v=3';
-import { termNote } from '../term-notes.js?v=6';
+import { memoryTip, termNote } from '../term-notes.js?v=6';
 import { termGloss } from '../term-gloss.js?v=5';
 import {
-  GROUP_CHOICES, KINDS, SCHEDULE_SOURCES, SESSIONS, STAFF, SUBJECT_ADMIN, TERM,
+  GROUP_CHOICES, KINDS, SCHEDULE_SOURCES, SESSIONS, STAFF, STUDY_SUBJECTS, SUBJECT_ADMIN, TERM,
   fmtDate, fmtTime, fmtWeekRange, fmtWhen, isOtherGroup, sessionSpan, sessionStatus,
-  sessionsWithStatus, studyFor, weekEnd, weekOf, weekStart,
+  sessionsWithStatus, gapFor, studyFor, weekEnd, weekOf, weekStart,
 } from '../schedule.js?v=1';
 import { ui } from './state.js';
 
@@ -44,6 +44,7 @@ export {
   SCHEDULE_SOURCES,
   SESSIONS,
   STAFF,
+  STUDY_SUBJECTS,
   SUBJECT_ADMIN,
   TERM,
   fmtDate,
@@ -54,6 +55,7 @@ export {
   sessionSpan,
   sessionStatus,
   sessionsWithStatus,
+  gapFor,
   weekEnd,
   weekOf,
   weekStart,
@@ -104,6 +106,7 @@ export {
   masteryScore,
   missingFor,
   moduleInfo,
+  memoryTip,
   partOf,
   plateFor,
   priorAdjustedScore,
