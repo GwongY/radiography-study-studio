@@ -10,6 +10,8 @@ import {
   validateCorpus, validateApplications,
   priorOf, priorSources, priorAdjustedScore, entryStep,
   moduleInfo,
+  SOURCE_MAP_VERSION, Y1S1_SOURCE_MAP, sourceGroupFor, sourceGroupsForWeek,
+  sourceMetaFor, sourceSetLabel, sourceRoleLabel,
 } from '../study-data.js';
 import { searchAnatomy } from '../anatomy-data.js?v=5';
 import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS, conceptById, conceptAncestors, conceptChildren } from '../bodymap.js?v=4';
@@ -74,6 +76,7 @@ export {
   RATES,
   REVEAL_MODES,
   SEARCH_EXTRAS,
+  SOURCE_MAP_VERSION,
   SOURCE_FILES,
   SOURCE_ROOTS,
   STORAGE_PREFIX,
@@ -83,6 +86,7 @@ export {
   STUDY_MODES,
   SUBJECTS,
   UNITS,
+  Y1S1_SOURCE_MAP,
   allQuestions,
   blankMastery,
   compositeFor,
@@ -117,6 +121,11 @@ export {
   schedule,
   schematic,
   searchAnatomy,
+  sourceGroupFor,
+  sourceGroupsForWeek,
+  sourceMetaFor,
+  sourceRoleLabel,
+  sourceSetLabel,
   structureSet,
   systemCounts,
   termGloss,
