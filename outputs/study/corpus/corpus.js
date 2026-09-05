@@ -11,9 +11,12 @@ import { HSS_TERMINOLOGY } from './hss-terminology.js';
 import { HSS_OSTEOLOGY } from './hss-osteology.js';
 import { HSS_JOINTS } from './hss-joints.js';
 import { HSS_MODULES } from './hss-modules.js';
+import { HSS_SPECIAL_SENSES } from './hss-special-senses.js';
 import { PHYS_ITEMS } from './physiology-items.js';
+import { PHYS_REPRODUCTIVE } from './physiology-reproductive.js';
 import { HTI_ITEMS } from './hti-items.js';
 import { DSAI_ITEMS } from './dsai-items.js';
+import { APSS_ITEMS } from './apss-items.js';
 import { EXPANSION_ITEMS } from './expansion-items.js';
 import { BONE_ITEMS, STRUCTURE_ITEMS, MOVEMENT_ITEMS } from './derived-items.js';
 
@@ -29,9 +32,12 @@ export const STUDY_ITEMS = [
   ...MOVEMENT_ITEMS,
   ...HSS_JOINTS,
   ...HSS_MODULES,
+  ...HSS_SPECIAL_SENSES,
   ...PHYS_ITEMS,
+  ...PHYS_REPRODUCTIVE,
   ...HTI_ITEMS,
   ...DSAI_ITEMS,
+  ...APSS_ITEMS,
   ...EXPANSION_ITEMS,
 ].map((item) => ({ status: 'unseen', ...item }));
 

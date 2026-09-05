@@ -370,7 +370,7 @@ export const HSS_MODULES = [
       'The uterine artery is the exception its list exists to hide: suprarenal, testicular and ovarian arteries all arise from the aorta, and it does not. "Every abdominal artery comes off the aorta" is the assumption the MCQ rewards for dropping.',
     ],
     selfCheck: 'From a blank page: the three sites a ureteric stone sticks and what they share, both vertebral levels, the bladder’s wall muscle, and the three muscles forming the posterior abdominal wall.',
-    sourceRefs: [{ ref: 'hss.3.2', location: 'Urogenital system lecture; p6 "4-5 minor calyces are merged to form a" major calyx; p14 the ureters are retroperitoneal, piercing the posterior bladder wall at an oblique angle' }, { ref: 'hss.3.3', location: 'Regional anatomy of the abdominopelvic region' }, { ref: 'hss.3.3.2019', location: 'p5 "Transpyloric plane (L1)" and the transtubercular plane at L5; p14 "oesophageal hiatus T10 oesophagus, vagus nerves" (caval hiatus at T8, aortic at T12)' }, { ref: 'hss.revans', location: 'Module 3.2 and 3.3 answers; More exercises Module 3' }],
+    sourceRefs: [{ ref: 'hss.3.2', location: 'Urogenital system lecture; p6 "4-5 minor calyces are merged to form a" major calyx; p14 the ureters are retroperitoneal, piercing the posterior bladder wall at an oblique angle' }, { ref: 'hss.3.3', location: 'Regional anatomy of the abdominopelvic region' }, { ref: 'hss.3.3.2019', location: 'p5 transpyloric plane at L1 and "Transtubercular plane (L5)"' }, { ref: 'hss.3.3.2019', location: 'p14 "oesophageal hiatus T10 oesophagus, vagus nerves"; caval hiatus T8 and aortic hiatus T12' }, { ref: 'hss.revans', location: 'Module 3.2 and 3.3 answers; More exercises Module 3' }],
   },
   /* ------------------------------------------------------------------ *
    * The 2026 material — hss.msk.2026, Module 1 Week 1. A New source file
@@ -610,7 +610,7 @@ export const HSS_MODULES = [
         src: { ref: 'hss.msk.2026', location: 'p33 "the repeating unit within muscle fibers that is responsible"' } },
       { type: 'matching', prompt: 'Match each fascicle arrangement to its description.', pairs: [['Fusiform', 'Nearly parallel to the long axis, tapering towards the tendons'], ['Convergent', 'Spread over a broad area onto a thick central tendon'], ['Circular', 'Concentric, forming a sphincter'], ['Unipennate', 'Fascicles on only one side of the tendon']],
         explanation: 'Five arrangements, with pennate subdividing into three.',
-        src: { ref: 'hss.msk.2026', location: 'p36 "Fusiform--fascicles nearly parallel to longitudinal axis"' } },
+        src: { ref: 'hss.msk.2026', location: 'p36 "Fusiform—fascicles nearly parallel to longitudinal axis"' } },
     ],
     application: [
       { type: 'scenario', prompt: 'A pennate muscle is defined by short fascicles in relation to total muscle length. What does packing short fibres in at an angle buy the muscle, and what does it cost?',
@@ -631,7 +631,7 @@ export const HSS_MODULES = [
     sourceRefs: [
       { ref: 'hss.msk.2026', location: 'p32 "Organization of muscle"' },
       { ref: 'hss.msk.2026', location: 'p33 "the repeating unit within muscle fibers that is responsible"' },
-      { ref: 'hss.msk.2026', location: 'p36 "Fusiform--fascicles nearly parallel to longitudinal axis"' },
+      { ref: 'hss.msk.2026', location: 'p36 "Fusiform—fascicles nearly parallel to longitudinal axis"' },
       { ref: 'hss.msk.2026', location: 'p31 "Generate movement"' },
     ],
   },
@@ -695,7 +695,7 @@ export const HSS_MODULES = [
     selfCheck: 'From a blank page: what tendon is made of, the two junctions and what each joins, which attachment moves, and what the Golgi tendon organ measures and where it sits.',
     sourceRefs: [
       { ref: 'hss.msk.2026', location: 'p34 "Dense regular connective tissues that is"' },
-      { ref: 'hss.msk.2026', location: 'p35 "Myotendinous junction--point at"' },
+      { ref: 'hss.msk.2026', location: 'p35 "Myotendinous junction—point at"' },
     ],
   },
   {

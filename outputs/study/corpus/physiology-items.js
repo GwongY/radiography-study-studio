@@ -2297,7 +2297,7 @@ export const PHYS_ITEMS = [
     ],
     selfCheck: 'From a blank page: the three shapes with descriptions, the two layer terms, and the endocrine/exocrine split with the feature that distinguishes them.',
     sourceRefs: [
-      { ref: 'phys.1.2026', location: 'p34 "Squamous epithelia -- thin and flat"' },
+      { ref: 'phys.1.2026', location: 'p34 "Squamous epithelia — thin and flat"' },
       { ref: 'phys.1.2026', location: 'p36 "Endocrine glands"' },
     ],
   },

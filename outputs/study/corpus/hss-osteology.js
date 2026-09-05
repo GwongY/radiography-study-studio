@@ -340,7 +340,7 @@ export const HSS_OSTEOLOGY = [
       'Dens and odontoid process are one peg under two names — Latin tooth and Greek tooth. The fill-in-blank accepts either, but recognising them as the same structure is what stops the two names from reading like two landmarks.',
     ],
     selfCheck: 'From a blank page: which joint nods and which shakes with the bones of each named, what the transverse ligament holds, and the can-nod-cannot-shake patient reasoning.',
-    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p28–29 cervical vertebrae, atlanto-axial joint' }, { ref: 'hss.l1.overview', location: 'p27 "The atlanto-occipital joint allows flexion and extension" while the median atlanto-axial joint allows rotation of the head; p26 the vertebral arteries pass through the transverse foramina of the cervical vertebrae' }, { ref: 'hss.4.2', location: 'Head and neck — cervical spine features' }, { ref: 'hss.revans', location: 'Module 0 and Module 4.2 answers' }],
+    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p28–29 cervical vertebrae, atlanto-axial joint' }, { ref: 'hss.l1.overview', location: 'p27 "atlanto-occipital joint (YES!!!)" with flexion/extension and median atlanto-axial rotation' }, { ref: 'hss.4.2', location: 'Head and neck — cervical spine features' }, { ref: 'hss.revans', location: 'Module 0 and Module 4.2 answers' }],
   },
   {
     id: 'hss2011-osteo-skull-sutures',

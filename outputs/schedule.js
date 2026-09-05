@@ -177,11 +177,11 @@ export const SUBJECT_ADMIN = {
       'Collect and interpret the data derived from scientific experimentation to address physiological question',
     ],
     assessment: [
-      { name: 'Quizzes', weight: 35, note: 'Continuous assessment. The one on the schedule covers Lectures 1–5.', src: { ref: 'phys.sched.2026', location: 'Assessment table' } },
-      { name: 'Lab report', weight: 15, note: 'Continuous assessment. Practical laboratory reports assess ILO (e).', src: { ref: 'phys.sched.2026', location: 'Assessment table' } },
-      { name: 'Written examination', weight: 50, note: 'Multiple choice and short questions, assessing ILOs (a) to (d).', src: { ref: 'phys.sdf', location: 'p3 "The examination will consist of multiple choice questions and short questions"' } },
+      { name: 'Quiz', weight: 35, note: 'One quiz. The teaching schedule places it on 7 Oct and covers Lectures 1–5.', src: { ref: 'phys.overview.2026', location: 'p3 assessment method' } },
+      { name: 'Lab reports', weight: 15, note: 'Three online reports worth 5% each: Measuring Blood Pressure, Digestion and Respiration.', src: { ref: 'phys.overview.2026', location: 'pp3 and 5 assessment method and laboratory topics' } },
+      { name: 'Final exam', weight: 50, note: 'The current overview says MCQ and fill-in-the-blanks; the detailed format remains to be confirmed.', src: { ref: 'phys.overview.2026', location: 'p3 quiz and final exam format' } },
     ],
-    assessmentNote: 'The subject description form gives only the halves — Continuous Assessment 50%, Examination 50%. The 35/15 split inside the continuous half comes from the teaching schedule for this group.',
+    assessmentNote: 'The latest Group 4 overview resolves the old ambiguity: exactly one 35% quiz, three 5% lab reports, and a 50% final exam. It supersedes the older form’s generic 50% continuous-assessment / 50% examination wording.',
     effort: [
       { what: 'Lecture', hours: 24 },
       { what: 'Tutorial', hours: 12 },
@@ -189,12 +189,11 @@ export const SUBJECT_ADMIN = {
       { what: 'Independent study and preparation for mid-term test and examination', hours: 84 },
       { what: 'Total student study effort', hours: 126, total: true },
     ],
-    teaching: 'Mass lecturing with multimedia and animations; tutorials grouped by health professional discipline, using interactive multimedia, online activities and case study; laboratory practicals on cardiovascular, pulmonary and endocrine responses to different stimuli.',
+    teaching: 'Lectures, tutorials and three laboratory practicals: Measuring Blood Pressure, Digestion and Respiration. Reports are submitted online through Turnitin; a lab coat is mandatory.',
     texts: [
-      { role: 'Textbook', cite: 'Fox SI (2010) Human Physiology, 12th edition. McGraw Hill.' },
-      { role: 'Reference textbook named on the schedule', cite: 'Martini FH, Nath JL, Bartholomew EF, Fundamentals of Anatomy & Physiology, 11th edition or latest.' },
+      { role: 'Recommended textbook', cite: 'Martini FH, Nath JL and Bartholomew EF (2015 or newer), Fundamentals of Anatomy and Physiology, 10th edition or newer. Pearson.' },
     ],
-    src: { ref: 'phys.sdf', location: 'p1 "Demonstrate a basic understanding of the different levels from cells to systems"' },
+    src: { ref: 'phys.overview.2026', location: 'pp2–3 learning outcomes, lecture topics and assessment' },
   },
 
   HTI17103: {
@@ -219,6 +218,57 @@ export const SUBJECT_ADMIN = {
     teaching: 'Five lectures, two group seminars, and a two-day clinical observation placement in Hospital Authority hospitals.',
     texts: [],
     src: { ref: 'hti.sched.2026', location: 'p1 "This is a 2-credit subject with a subtotal of 26 contact hours required"' },
+  },
+
+  APSS1A08: {
+    code: 'APSS1A08',
+    title: 'Introduction to Sociology',
+    credits: null,
+    level: '',
+    prereq: '',
+    objective: 'Help students understand how society works and how far society influences them, using everyday experience as the starting point for personal discovery.',
+    ilos: [
+      'Cultivate a linkage between sociology and real life',
+      'Describe the origin, historical development and essence of sociology',
+      'Give an educated criticism of social issues beyond commonsensical viewpoints',
+    ],
+    assessment: [
+      { name: 'Attendance and participation', weight: 10, note: 'Engagement in discussion and raising significant issues or questions. No generative-AI permission is specified because there is no take-home submission.', src: { ref: 'soc.syllabus.2026', location: 'pp4–5 assessment table and continuous assessment' } },
+      { name: 'Reflective paper', weight: 20, note: 'Generative AI is not allowed. Due Sat 17 Oct 2026 at 23:59 through Blackboard as an MS Word file.', src: { ref: 'soc.syllabus.2026', location: 'pp2 and 4 reflective-paper deadline and AI policy' } },
+      { name: 'Mini project', weight: 20, note: 'Generative AI is allowed. Due Sat 28 Nov 2026 at 23:59 through Blackboard as an MS Word file.', src: { ref: 'soc.syllabus.2026', location: 'pp2 and 4 mini-project deadline and AI policy' } },
+      { name: 'End-of-term quiz', weight: 50, note: 'Generative AI is not allowed. Held in the Week 13 class; the syllabus separately gives Sat 5 Dec 2026 at 23:59 as the quiz-paper submission deadline.', src: { ref: 'soc.syllabus.2026', location: 'pp2, 4–5 end-of-term quiz and submission deadline' } },
+    ],
+    assessmentNote: 'Blackboard is the only accepted submission route. A submission must be completed, not merely uploaded; the syllabus states a 10-mark deduction per calendar day late and allows three attempts, with the final attempt marked.',
+    effort: [],
+    teaching: 'One three-hour face-to-face class each Friday, with lecture Q&A. Notes or reference materials are posted to Blackboard before class and face-to-face lectures are recorded through Zoom.',
+    texts: [
+      { role: 'Listed under “Textbook”', cite: 'Macionis J (2024), Sociology, 16th edition. Pearson.' },
+    ],
+    textNote: 'The same current syllabus says “There is no textbook for this subject” on p3, then labels Macionis (2024) as “Textbook” on p5. Both statements are preserved here; confirm with the instructor which one governs.',
+    src: { ref: 'soc.syllabus.2026', location: 'pp1–5 objective, outcomes, schedule, administration and assessment' },
+  },
+
+  DSAI1202: {
+    code: 'DSAI1202',
+    title: 'Introduction to Artificial Intelligence and Data Analytics',
+    credits: null,
+    level: '',
+    prereq: '',
+    objective: 'Improve students’ general AI literacy through a non-programming, non-mathematical introduction that is not customised to one discipline.',
+    objectiveNote: 'The Week 1 overview supplies this aim and the assessment schedule, but no formal intended-learning-outcome list or credit value.',
+    ilos: [],
+    assessment: [
+      { name: 'AIDA e-module online test', weight: 4, note: 'Due Week 7 Saturday at 23:59. The highest attempt must reach at least 65% correct for full marks.', src: { ref: 'dsai.w1', location: 'Slides 4 and 7 assessment schedule and e-module instructions' } },
+      { name: 'Generative-AI class exercise', weight: 6, note: 'Due Week 7 Saturday at 23:59.', src: { ref: 'dsai.w1', location: 'Slide 4 assessment schedule' } },
+      { name: 'Course participation', weight: 5, note: 'IC-visit attendance and feedback, lecture participation and class exercises; IC feedback is due Week 11 Saturday at 23:59.', src: { ref: 'dsai.w1', location: 'Slide 4 assessment schedule' } },
+      { name: 'Group project', weight: 25, note: 'Group formation is due Week 3 Saturday at 23:59; final submission is due Week 11 Saturday at 23:59.', src: { ref: 'dsai.w1', location: 'Slide 4 assessment schedule' } },
+      { name: 'Final test', weight: 60, note: 'Week 13 lecture time: closed-book, paper-based and invigilated; multiple choice, multiple answer, true/false and short questions; about 40 minutes.', src: { ref: 'dsai.w1', location: 'Slides 4 and 8 assessment schedule and test format' } },
+    ],
+    assessmentNote: 'The deck also mentions a possible 2% bonus task or survey, explicitly “to be confirmed”; it is not included in the 100% total. For take-home work, this subject expects responsible generative-AI use and may require prompts, outputs and improvements to be documented.',
+    effort: [],
+    teaching: 'Lectures include hands-on labs and class activities, so students are told to bring a laptop. Two Industrial Centre visits are arranged in Weeks 5/6 and 10/11; each student attends one visit in each pair and the paired lecture content repeats.',
+    texts: [],
+    src: { ref: 'dsai.w1', location: 'Slides 3–8 and 36–47 schedule, assessment, AI policy and course scope' },
   },
 };
 
@@ -296,8 +346,8 @@ const hssTut = slot(3, [12, 30, 13, 20], 'CD512');
 
 const S = (o) => o;
 
-/* Every week of the term in one slot. Used for the three subjects this app
-   carries no lessons for, where there is a pattern and nothing else.
+/* Every week of the term in one slot. Used where the timetable has a regular
+   pattern; per-week source data can replace its title and lesson state.
 
    `perWeek` is the escape hatch for a slot that is regular except once —
    keyed by week number, merged over the row. A pattern with one exception is
@@ -322,23 +372,60 @@ function weekly(subject, kind, dow, at, room, title, perWeek = {}) {
  * APP-AUTHORED CURATION, not a source claim: the schedule names a week's
  * topic and this says which of our items teach it. It is the answer to
  * "what should I read before Thursday", which the corpus could not give
- * before — 128 lessons in subject order is not a study plan.
+ * before — a corpus in subject order is not a week-by-week study plan.
  *
- * Week 7 is deliberately EMPTY. The schedule teaches Special Senses that
- * week and nothing in the corpus covers it; an empty list is the honest
- * output and the Course tab says so out loud.
+ * Empty lists are deliberate source gaps, never placeholders hidden by the
+ * renderer. WEEK_GAPS below names the missing current teaching file.
  *
  * Every id here is checked by work/schedule-check.mjs.
  * ------------------------------------------------------------------ */
+/* Subjects with source-backed lessons. The Course tab uses this list rather
+   than maintaining a second hard-coded list of subjects that can drift. */
+export const STUDY_SUBJECTS = ['HSS2011', 'ABCT2326', 'HTI17103', 'APSS1A08', 'DSAI1202'];
+
 export const WEEK_STUDY = {
   HSS2011: {
-    1: ['hss2011-terminology-anatomical-position', 'hss2011-terminology-directional-pairs', 'hss2011-terminology-planes', 'hss2011-terminology-cavities-regions', 'hss2011-terminology-regional-systemic', 'hss2011-terminology-word-parts', 'hss2011-osteo-axial-appendicular', 'hss2011-osteo-bone-shapes', 'hss2011-osteo-long-bone-structure', 'hss2011-osteo-bone-functions', 'hss2011-msk-bone-histology', 'hss2011-msk-bone-marrow', 'hss2011-msk-tissues-of-movement', 'hss2011-msk-muscle-organisation', 'hss2011-msk-tendon-attachment', 'hss2011-msk-motor-unit-tone', 'hss2011-msk-joint-classifications', 'hss2011-joints-classification', 'hss2011-joints-synovial-structure', 'hss2011-joints-synovial-types', 'hss2011-joints-movements'],
-    2: ['hss2011-osteo-pectoral-girdle', 'hss2011-bone-clavicle', 'hss2011-bone-scapula', 'hss2011-bone-humerus', 'hss2011-osteo-forearm-carpals', 'hss2011-bone-radius', 'hss2011-bone-ulna', 'hss2011-bone-hand', 'hss2011-structures-carpals', 'hss2011-structures-rotatorCuff', 'hss2011-joints-rotator-cuff', 'hss2011-movement-shoulderAbduction', 'hss2011-movement-elbowFlexion', 'hss2011-movement-supination', 'hss2011-movement-thumbOpposition'],
-    3: ['hss2011-osteo-pelvic-girdle', 'hss2011-bone-pelvis', 'hss2011-bone-femur', 'hss2011-bone-patella', 'hss2011-osteo-leg-tarsals', 'hss2011-bone-tibia', 'hss2011-bone-fibula', 'hss2011-bone-foot', 'hss2011-structures-tarsals', 'hss2011-structures-kneeJoint'],
-    4: ['hss2011-osteo-skull-sutures', 'hss2011-bone-cranium', 'hss2011-bone-mandible', 'hss2011-structures-skullBones', 'hss2011-osteo-vertebra-parts', 'hss2011-osteo-vertebral-column', 'hss2011-osteo-c1-c2', 'hss2011-bone-cervical', 'hss2011-bone-thoracic', 'hss2011-bone-lumbar', 'hss2011-bone-sacrum', 'hss2011-bone-coccyx', 'hss2011-structures-vertebralRegions'],
+    1: [
+      'hss2011-terminology-anatomical-position', 'hss2011-terminology-directional-pairs',
+      'hss2011-terminology-planes', 'hss2011-terminology-cavities-regions',
+      'hss2011-terminology-regional-systemic', 'hss2011-terminology-word-parts',
+      'hss2011-osteo-axial-appendicular', 'hss2011-osteo-bone-shapes',
+      'hss2011-osteo-long-bone-structure', 'hss2011-osteo-bone-functions',
+      'hss2011-msk-bone-histology', 'hss2011-msk-bone-marrow',
+      'hss2011-msk-tissues-of-movement', 'hss2011-msk-muscle-organisation',
+      'hss2011-msk-tendon-attachment', 'hss2011-msk-motor-unit-tone',
+      'hss2011-msk-joint-classifications', 'hss2011-joints-classification',
+      'hss2011-joints-synovial-structure', 'hss2011-joints-synovial-types',
+      'hss2011-joints-movements', 'hss2011-pastpaper-joints-articulations',
+    ],
+    2: [
+      'hss2011-joints-movement-map-2026', 'hss2011-osteo-pectoral-girdle',
+      'hss2011-bone-clavicle', 'hss2011-bone-scapula', 'hss2011-bone-humerus',
+      'hss2011-osteo-forearm-carpals', 'hss2011-bone-radius', 'hss2011-bone-ulna',
+      'hss2011-bone-hand', 'hss2011-structures-carpals', 'hss2011-structures-rotatorCuff',
+      'hss2011-joints-rotator-cuff', 'hss2011-movement-shoulderAbduction',
+      'hss2011-movement-elbowFlexion', 'hss2011-movement-supination',
+      'hss2011-movement-thumbOpposition',
+    ],
+    3: [
+      'hss2011-osteo-pelvic-girdle', 'hss2011-bone-pelvis', 'hss2011-bone-femur',
+      'hss2011-bone-patella', 'hss2011-osteo-leg-tarsals', 'hss2011-bone-tibia',
+      'hss2011-bone-fibula', 'hss2011-bone-foot', 'hss2011-structures-tarsals',
+      'hss2011-structures-kneeJoint',
+    ],
+    4: [
+      'hss2011-osteo-skull-sutures', 'hss2011-bone-cranium', 'hss2011-bone-mandible',
+      'hss2011-structures-skullBones', 'hss2011-osteo-vertebra-parts',
+      'hss2011-osteo-vertebral-column', 'hss2011-osteo-c1-c2',
+      'hss2011-bone-cervical', 'hss2011-bone-thoracic', 'hss2011-bone-lumbar',
+      'hss2011-bone-sacrum', 'hss2011-bone-coccyx', 'hss2011-structures-vertebralRegions',
+    ],
     5: ['hss2011-m2-cns-basics'],
     6: ['hss2011-m2-brain-regions', 'hss2011-structures-brainAndCsf', 'hss2011-structures-cranialNerves'],
-    7: [],
+    7: [
+      'hss2011-m2-eye-visual-pathway', 'hss2011-m2-ear-hearing',
+      'hss2011-m2-static-dynamic-equilibrium', 'hss2011-m2-taste-smell',
+    ],
     8: ['hss2011-m1-heart-wall-valves'],
     9: ['hss2011-m1-lungs-airway'],
     10: ['hss2011-osteo-ribs-sternum', 'hss2011-bone-ribs', 'hss2011-bone-sternum'],
@@ -346,13 +433,97 @@ export const WEEK_STUDY = {
     12: ['hss2011-m3-urogenital-pelvis'],
   },
   ABCT2326: {
-    1: ['abct2326-cells-organisation', 'abct2326-plasma-membrane', 'abct2326-organelles', 'abct2326-nucleus-genetic-code', 'abct2326-protein-synthesis', 'abct2326-cell-division', 'abct2326-epithelium-classification', 'abct2326-connective-tissue-classes', 'abct2326-muscle-neural-tissue', 'abct2326-homeostasis', 'abct2326-feedback-loops'],
+    1: [
+      'abct2326-cells-organisation', 'abct2326-plasma-membrane', 'abct2326-organelles',
+      'abct2326-nucleus-genetic-code', 'abct2326-protein-synthesis', 'abct2326-cell-division',
+      'abct2326-epithelium-classification', 'abct2326-connective-tissue-classes',
+      'abct2326-muscle-neural-tissue', 'abct2326-homeostasis', 'abct2326-feedback-loops',
+    ],
+    2: [
+      'hss2011-structures-heartChambers', 'hss2011-structures-greatVessels',
+      'abct2326-cvs-circuits', 'abct2326-cvs-heart-structure', 'abct2326-blood-composition',
+      'abct2326-cvs-conduction', 'abct2326-cvs-ecg-cycle',
+    ],
+    3: ['hss2011-structures-airwayTree', 'abct2326-resp-pathway', 'abct2326-resp-gas-transport'],
+    4: ['hss2011-structures-digestiveTract', 'abct2326-digestive-pathway'],
+    5: ['hss2011-structures-urinaryTract', 'abct2326-renal-nephron'],
+    7: [
+      'abct2326-repro-male-regulation', 'abct2326-repro-ovarian-menstrual-cycle',
+      'abct2326-repro-fertilization-implantation', 'abct2326-repro-placenta-parturition',
+    ],
+    8: ['abct2326-endocrine-delivery', 'abct2326-endocrine-receptors', 'abct2326-endocrine-second-messengers'],
+    9: ['abct2326-nervous-divisions', 'abct2326-synapse-drug-action'],
+    11: ['abct2326-muscle-types', 'abct2326-muscle-action', 'abct2326-nmj-coupling'],
+    12: [
+      'abct2326-crossbridge-cycle', 'abct2326-fibre-types-fuel',
+      'abct2326-spindle-golgi', 'abct2326-msk-immune-overview',
+    ],
+    13: [
+      'abct2326-innate-adaptive', 'abct2326-complement', 'abct2326-mhc-costimulation',
+      'abct2326-innate-mechanisms', 'abct2326-inflammation-fever',
+      'abct2326-t-cell-types', 'abct2326-acquired-immunity', 'abct2326-immune-adaptive',
+    ],
+  },
+  HTI17103: {
+    1: ['hti17103-what-is-radiography', 'hti17103-subject-2026', 'hti17103-department-and-request'],
+    2: [
+      'hti17103-ionizing-vs-nonionizing', 'hti17103-modality-detail',
+      'hti17103-modality-choice', 'hti17103-modality-best-use',
+    ],
+    3: ['hti17103-radiation-therapy'],
+    4: ['hti17103-radioprotection'],
+  },
+  APSS1A08: {
+    1: [
+      'apss1a08-sociological-perspective', 'apss1a08-personal-social-education',
+      'apss1a08-global-perspective', 'apss1a08-research-to-change',
+      'apss1a08-marx-weber-change',
+    ],
+    2: [], 3: [], 4: [], 5: [], 7: [], 8: [], 10: [], 11: [],
+  },
+  DSAI1202: {
+    1: ['dsai1202-ai-in-healthcare', 'dsai1202-ai-literacy'],
+    2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: [],
+  },
+};
+
+/* A syllabus title is not a lesson. These are the weeks whose current
+   syllabus is known but whose official teaching notes have not been supplied.
+   Keeping them beside the map makes incompleteness visible and testable. */
+export const WEEK_GAPS = {
+  APSS1A08: {
+    2: 'T02A — Functionalist perspectives, social institutions and conflict perspectives: official lecture notes not supplied.',
+    3: 'T02B — Modern Contemporary Theorists: official lecture notes not supplied.',
+    4: 'T03 — Socialization: official lecture notes not supplied.',
+    5: 'T04 — Social Interaction: official lecture notes not supplied.',
+    7: 'T05 — Social Stratification and Social Class: official lecture notes not supplied.',
+    8: 'T06 — Sexuality and Society: official lecture notes not supplied.',
+    10: 'T07 — Gender Stratification: official lecture notes not supplied.',
+    11: 'T08 — Deviance: official lecture notes not supplied.',
+  },
+  DSAI1202: {
+    2: 'AI Overview: only the Week 1 overview deck is supplied; the Week 2 teaching notes are missing.',
+    3: 'Generative AI and chatbots: official Week 3 teaching notes not supplied.',
+    4: 'Generative-AI class exercise: official Week 4 teaching notes not supplied.',
+    5: 'Industrial Centre Visit 1 / Machine Learning I: official teaching notes not supplied.',
+    6: 'Industrial Centre Visit 1 / Machine Learning I: the repeated lecture’s official teaching notes are not supplied.',
+    7: 'Machine Learning II: official Week 7 teaching notes not supplied.',
+    8: 'Deep Learning: official Week 8 teaching notes not supplied.',
+    9: 'Data Analytics and Visualization: official Week 9 teaching notes not supplied.',
+    10: 'Industrial Centre Visit 2 / Societal Implications of AIDA: official teaching notes not supplied.',
+    11: 'Industrial Centre Visit 2 / Societal Implications of AIDA: the repeated lecture’s official teaching notes are not supplied.',
+    12: 'Additional Topics (TBC) and Course Review: official Week 12 teaching notes not supplied.',
   },
 };
 
 /** The item ids to study for a subject in a given teaching week. */
 export function studyFor(subject, week) {
   return ((WEEK_STUDY[subject] || {})[week]) || null;
+}
+
+/** Why a syllabus week deliberately has no source-backed lesson yet. */
+export function gapFor(subject, week) {
+  return ((WEEK_GAPS[subject] || {})[week]) || '';
 }
 
 export const SESSIONS = [
@@ -463,13 +634,11 @@ export const SESSIONS = [
   S({ subject: 'HTI17103', week: 8, kind: 'seminar', on: [2026, 9, 22], at: [9, 30, 11, 20], room: 'TU201', title: 'Seminar II — Group Presentation', teacher: 'LTL', note: '10 minutes plus 5 minutes Q&A.' }),
 
   /* ---------------- The other three subjects ---------------------------- *
-   * This app teaches three subjects and the student sits six. A timetable
-   * showing half a week is not a timetable: you cannot see a clash in it,
-   * "what is on now" is wrong whenever it is one of these, and "what have I
-   * missed" is under by three subjects. So the other three slots are here,
-   * from the calendar, carrying no lessons and claiming none — `noStudy`
-   * marks them, and the row says it rather than leaving a reader to assume
-   * the material is merely unwritten.
+   * APSS1A08 and DSAI1202 now have current source files, so their real topic
+   * titles and assessment deadlines replace the old anonymous recurring
+   * rows. Only weeks with actual supplied teaching content get a lesson link;
+   * the remaining named topics point at WEEK_GAPS above. LEI1101 still has a
+   * calendar slot only and claims no course content.
    *
    * The Friday 12:30 seminar used to be labelled "LEI1000 SEM — LCR Subject"
    * in the calendar — the generic placeholder a Language & Communication
@@ -479,8 +648,46 @@ export const SESSIONS = [
    * learning", in QR 514. The assumption was right, and is no longer an
    * assumption.
    * --------------------------------------------------------------------- */
-  ...weekly('DSAI1202', 'lecture', 3, [8, 30, 10, 20], 'TU201', 'Lecture'),
-  ...weekly('APSS1A08', 'lecture', 5, [8, 30, 11, 20], 'SHA030', 'Introduction to Sociology'),
+  ...weekly('DSAI1202', 'lecture', 3, [8, 30, 10, 20], 'TU201', 'Lecture', {
+    1: { title: 'Course Overview', unit: 'dsai.overview', noStudy: false, src: { ref: 'dsai.w1', location: 'Slide 3 Week 1' } },
+    2: { title: 'AI Overview', src: { ref: 'dsai.w1', location: 'Slide 3 Week 2' } },
+    3: { title: 'Generative AI and Chatbots', src: { ref: 'dsai.w1', location: 'Slide 3 Week 3' } },
+    4: { title: 'Generative-AI Class Exercise', src: { ref: 'dsai.w1', location: 'Slide 3 Week 4' } },
+    5: { title: 'IC Visit 1 / Machine Learning I', src: { ref: 'dsai.w1', location: 'Slides 3 and 6 Week 5' } },
+    6: { title: 'IC Visit 1 / Machine Learning I', src: { ref: 'dsai.w1', location: 'Slides 3 and 6 Week 6' } },
+    7: { title: 'Machine Learning II', src: { ref: 'dsai.w1', location: 'Slide 3 Week 7' } },
+    8: { title: 'Deep Learning', src: { ref: 'dsai.w1', location: 'Slide 3 Week 8' } },
+    9: { title: 'Data Analytics and Visualization', src: { ref: 'dsai.w1', location: 'Slide 3 Week 9' } },
+    10: { title: 'IC Visit 2 / Societal Implications of AIDA', src: { ref: 'dsai.w1', location: 'Slides 3 and 6 Week 10' } },
+    11: { title: 'IC Visit 2 / Societal Implications of AIDA', src: { ref: 'dsai.w1', location: 'Slides 3 and 6 Week 11' } },
+    12: { title: 'Additional Topics (TBC) and Course Review', src: { ref: 'dsai.w1', location: 'Slide 3 Week 12' } },
+    13: { kind: 'assessment', title: 'Final Test — 60%', note: 'Closed-book, paper-based and invigilated; about 40 minutes.', src: { ref: 'dsai.w1', location: 'Slides 3, 4 and 8 Week 13 final test' } },
+  }),
+
+  /* APSS1A08 — the current syllabus gives the whole thirteen-week sequence. */
+  S({ subject: 'APSS1A08', week: 1, kind: 'lecture', on: dayOf(1, 5), at: [8, 30, 11, 20], room: 'SHA030', title: 'Course Introduction + T01: Introduction to Sociology', unit: 'soc.t01', src: { ref: 'soc.syllabus.2026', location: 'pp1–2 Week 1' } }),
+  S({ subject: 'APSS1A08', week: 2, kind: 'lecture', on: dayOf(2, 5), at: [8, 30, 11, 20], room: 'SHA030', title: 'T02A: Functionalism, social institutions and conflict perspectives', noStudy: true, src: { ref: 'soc.syllabus.2026', location: 'p2 Week 2' } }),
+  S({ subject: 'APSS1A08', week: 3, kind: 'lecture', on: dayOf(3, 5), at: [8, 30, 11, 20], room: 'SHA030', title: 'T02B: Modern Contemporary Theorists', noStudy: true, src: { ref: 'soc.syllabus.2026', location: 'p2 Week 3' } }),
+  S({ subject: 'APSS1A08', week: 4, kind: 'lecture', on: dayOf(4, 5), at: [8, 30, 11, 20], room: 'SHA030', title: 'T03: Socialization', noStudy: true, src: { ref: 'soc.syllabus.2026', location: 'p2 Week 4' } }),
+  S({ subject: 'APSS1A08', week: 5, kind: 'lecture', on: dayOf(5, 5), at: [8, 30, 11, 20], room: 'SHA030', title: 'T04: Social Interaction', noStudy: true, src: { ref: 'soc.syllabus.2026', location: 'p2 Week 5' } }),
+  S({ subject: 'APSS1A08', week: 6, kind: 'consultation', on: dayOf(6, 5), at: [8, 30, 11, 20], room: 'SHA030', title: 'Consultation Session 1', noStudy: true, src: { ref: 'soc.syllabus.2026', location: 'p2 Week 6' } }),
+  S({ subject: 'APSS1A08', week: 7, kind: 'lecture', on: dayOf(7, 5), at: [8, 30, 11, 20], room: 'SHA030', title: 'T05: Social Stratification and Social Class', noStudy: true, src: { ref: 'soc.syllabus.2026', location: 'p2 Week 7' } }),
+  S({ subject: 'APSS1A08', week: 7, kind: 'assessment', on: [2026, 9, 17], at: [23, 59, 23, 59], title: 'Reflective Paper due — 20%', weight: 20, note: 'Submit through Blackboard as an MS Word file. Generative AI is not allowed.', noStudy: true, src: { ref: 'soc.syllabus.2026', location: 'pp2 and 4 deadline and AI policy' } }),
+  S({ subject: 'APSS1A08', week: 8, kind: 'lecture', on: dayOf(8, 5), at: [8, 30, 11, 20], room: 'SHA030', title: 'T06: Sexuality and Society', noStudy: true, src: { ref: 'soc.syllabus.2026', location: 'p2 Week 8' } }),
+  S({ subject: 'APSS1A08', week: 9, kind: 'revision', on: dayOf(9, 5), title: 'Self-study Week', noStudy: true, src: { ref: 'soc.syllabus.2026', location: 'p2 Week 9' } }),
+  S({ subject: 'APSS1A08', week: 10, kind: 'lecture', on: dayOf(10, 5), at: [8, 30, 11, 20], room: 'SHA030', title: 'T07: Gender Stratification', noStudy: true, src: { ref: 'soc.syllabus.2026', location: 'p2 Week 10' } }),
+  S({ subject: 'APSS1A08', week: 11, kind: 'lecture', on: dayOf(11, 5), at: [8, 30, 11, 20], room: 'SHA030', title: 'T08: Deviance', noStudy: true, src: { ref: 'soc.syllabus.2026', location: 'p2 Week 11' } }),
+  S({ subject: 'APSS1A08', week: 12, kind: 'consultation', on: dayOf(12, 5), at: [8, 30, 11, 20], room: 'SHA030', title: 'Consultation Session 2 — Mini Project', noStudy: true, src: { ref: 'soc.syllabus.2026', location: 'p2 Week 12' } }),
+  S({ subject: 'APSS1A08', week: 13, kind: 'assessment', on: dayOf(13, 5), at: [8, 30, 11, 20], room: 'SHA030', title: 'End-of-term Quiz — 50%', weight: 50, note: 'Generative AI is not allowed.', noStudy: true, src: { ref: 'soc.syllabus.2026', location: 'pp2 and 4 Week 13 quiz' } }),
+  S({ subject: 'APSS1A08', week: 13, kind: 'assessment', on: [2026, 10, 28], at: [23, 59, 23, 59], title: 'Mini Project due — 20%', weight: 20, note: 'Submit through Blackboard as an MS Word file. Generative AI is allowed.', noStudy: true, src: { ref: 'soc.syllabus.2026', location: 'pp2 and 4 deadline and AI policy' } }),
+  S({ subject: 'APSS1A08', week: 14, kind: 'assessment', on: [2026, 11, 5], at: [23, 59, 23, 59], title: 'Quiz paper submission deadline', note: 'The syllabus places this deadline one week after the Week 13 in-class quiz.', noStudy: true, outsideTeachingTerm: true, src: { ref: 'soc.syllabus.2026', location: 'p4 quiz paper submission deadline' } }),
+
+  /* DSAI1202 assessment deadlines stated by teaching week in the overview. */
+  S({ subject: 'DSAI1202', week: 3, kind: 'assessment', on: [2026, 8, 19], at: [23, 59, 23, 59], title: 'Group Project formation due', noStudy: true, src: { ref: 'dsai.w1', location: 'Slide 4 Week 3 Saturday deadline' } }),
+  S({ subject: 'DSAI1202', week: 7, kind: 'assessment', key: 'aida-test', on: [2026, 9, 17], at: [23, 59, 23, 59], title: 'AIDA e-module online test due — 4%', weight: 4, noStudy: true, src: { ref: 'dsai.w1', location: 'Slide 4 Week 7 Saturday deadline' } }),
+  S({ subject: 'DSAI1202', week: 7, kind: 'assessment', key: 'genai-exercise', on: [2026, 9, 17], at: [23, 59, 23, 59], title: 'Generative-AI Class Exercise due — 6%', weight: 6, noStudy: true, src: { ref: 'dsai.w1', location: 'Slide 4 Week 7 Saturday deadline' } }),
+  S({ subject: 'DSAI1202', week: 11, kind: 'assessment', key: 'group-project', on: [2026, 10, 14], at: [23, 59, 23, 59], title: 'Group Project final submission due — 25%', weight: 25, noStudy: true, src: { ref: 'dsai.w1', location: 'Slide 4 Week 11 Saturday deadline' } }),
+  S({ subject: 'DSAI1202', week: 11, kind: 'assessment', key: 'ic-feedback', on: [2026, 10, 14], at: [23, 59, 23, 59], title: 'IC Visit Feedback due', noStudy: true, src: { ref: 'dsai.w1', location: 'Slide 4 Week 11 Saturday deadline' } }),
   /* Weeks 2–13 run to 15:30. Week 1 alone ends 15:20 — not a transcription
      slip; the timetable really does book the first seminar ten minutes short. */
   ...weekly('LEI1101', 'seminar', 5, [12, 30, 15, 30], 'QR 514', 'LCR seminar', {
@@ -506,7 +713,7 @@ export const SESSIONS = [
    than written out, so a row cannot be given the same id twice by hand. */
 for (const s of SESSIONS) {
   const when = s.on ? s.on.join('-') : `w${s.week}`;
-  s.id = `${s.subject}:${when}:${s.kind}${s.group ? ':' + s.group : ''}:${s.at ? s.at[0] : 'x'}`;
+  s.id = `${s.subject}:${when}:${s.kind}${s.group ? ':' + s.group : ''}:${s.at ? s.at[0] : 'x'}${s.key ? ':' + s.key : ''}`;
 }
 
 /* ------------------------------------------------------------------ *
@@ -599,13 +806,17 @@ export const KINDS = {
 export const SCHEDULE_SOURCES = [
   { subject: 'HSS2011', ref: 'hss.sdf.2627', what: 'Subject description form 2026/27 — objective, learning outcomes, module contents, study effort, texts' },
   { subject: 'HSS2011', ref: 'hss.sched.2026', what: 'Schedule for Learning & Teaching Activities on Canvas — the thirteen weeks and the test date' },
+  { subject: 'HSS2011', ref: 'hss.sched.2026b', what: 'Schedule for Learning & Teaching Activities on Canvas — assessment split and Important Dates' },
   { subject: 'HSS2011', ref: 'hss.w1.2026', what: 'Week 1 orientation deck — the assessment weights' },
   { subject: 'ABCT2326', ref: 'phys.sdf', what: 'Subject description form — objective, learning outcomes, syllabus, study effort, textbook' },
   { subject: 'ABCT2326', ref: 'phys.sched.2026', what: 'Teaching schedule 2026, Opt & Rad Group 4 — every date, time, room, group and the 35/15 split' },
+  { subject: 'ABCT2326', ref: 'phys.overview.2026', what: 'Current Group 4 course overview — ten lecture topics, one 35% quiz, three 5% lab reports and the 50% final exam' },
   { subject: 'HTI17103', ref: 'hti.sched.2026', what: 'Teaching schedule 2026 — all eight sessions and both assessments' },
+  { subject: 'APSS1A08', ref: 'soc.syllabus.2026', what: 'Current 2026/27 syllabus — objectives, all thirteen weeks, assessments, AI permissions and deadlines' },
+  { subject: 'DSAI1202', ref: 'dsai.w1', what: 'Current Week 1 overview — tentative weekly sequence, assessment schedule, course scope and generative-AI policy' },
   /* Not a document, and deliberately not in SOURCE_FILES: source-check.mjs
      verifies that every SOURCE_FILES entry is a real file on the shared
      drive, and this one is a calendar. It is labelled here instead so the
      view can name it honestly rather than printing a bare ref. */
-  { subject: 'All six', ref: 'cal.2026', label: 'PolyU timetable, via the student’s Google Calendar', what: 'Every date, time and room — including the HSS2011 times no published schedule gives, and the three subjects this app teaches nothing for. Re-checked event by event on 4 Sep 2026.' },
+  { subject: 'All six', ref: 'cal.2026', label: 'PolyU timetable, via the student’s Google Calendar', what: 'Every date, time and room — including the HSS2011 times no published schedule gives and the LEI1101 slot whose syllabus has not been supplied. Re-checked event by event on 4 Sep 2026.' },
 ];

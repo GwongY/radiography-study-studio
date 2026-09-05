@@ -16,9 +16,9 @@
  * Split out along its banner sections. See docs/CODEMAP.md.
  */
 import {
-  $$, GROUP_CHOICES, KINDS, SCHEDULE_SOURCES, SESSIONS, SUBJECT_ADMIN, TERM,
+  $$, GROUP_CHOICES, KINDS, SCHEDULE_SOURCES, SESSIONS, STUDY_SUBJECTS, SUBJECT_ADMIN, TERM,
   describeSource, esc, fmtWeekRange, fmtWhen, getSubject, isOtherGroup,
-  getItem, itemsForUnit, sessionsWithStatus, studyFor, weekOf, weekStart, STAFF, ui,
+  gapFor, getItem, itemsForUnit, sessionsWithStatus, studyFor, weekOf, weekStart, STAFF, ui,
 } from './imports.js';
 import { showView } from './small-ui-helpers.js';
 import { setActiveNav } from './navigation-five-destinations.js';
@@ -82,7 +82,7 @@ function sessionRow(r, now) {
 
   /* Only a past teaching session asks whether you went. A cancelled week,
      a holiday or a revision slot has no attendance to record. */
-  const asks = r.status === 'past' && !['none', 'revision'].includes(s.kind) && !other;
+  const asks = r.status === 'past' && !['none', 'revision', 'assessment'].includes(s.kind) && !other;
   const marks = asks
     ? `<div class="attrow">
         <button class="attbtn${att === 'went' ? ' on' : ''}" data-att="went" data-sid="${esc(s.id)}">Went</button>
@@ -90,10 +90,12 @@ function sessionRow(r, now) {
       </div>`
     : '';
 
-  /* Three of the six subjects have no lessons in this app at all. Saying so
-     on the row beats an absent button, which reads as "not written yet". */
+  /* A row can be real while its official teaching notes are still absent.
+     Name that state instead of letting an absent button look accidental. */
+  const teachingGap = gapFor(s.subject, s.week)
+    && ['lecture', 'tutorial', 'lab', 'seminar', 'observation', 'consultation', 'activity'].includes(s.kind);
   const lessons = s.noStudy
-    ? '<span class="nostudy">No lessons here — timetable only</span>'
+    ? `<span class="nostudy">${teachingGap ? 'Official notes missing — see weekly gap' : 'No lesson for this administrative row'}</span>`
     : s.unit && itemsForUnit(s.subject, s.unit).length
       ? `<button class="ghost tolesson" data-unit="${esc(s.unit)}">Study this →</button>` : '';
 
@@ -150,11 +152,10 @@ function nowNextHTML(rows, now) {
 /*
  * What to read before a week's class.
  *
- * 128 lessons in subject order is not a study plan. WEEK_STUDY says which
+ * A long corpus in subject order is not a study plan. WEEK_STUDY says which
  * of them cover the topic this week teaches, and an EMPTY list is printed
- * as a gap rather than hidden — week 7 is Special Senses and nothing in the
- * corpus covers it, which the student should find out from here and not in
- * the exam.
+ * as a source gap rather than hidden. That keeps a named syllabus topic from
+ * disappearing merely because its lecture file has not arrived yet.
  *
  * The first version of this printed every lesson as a button. Week 1 is
  * twenty-two of them, which is a wall of identical pills: it tells you the
@@ -215,7 +216,8 @@ function subjectReading(subject, week) {
   const list = studyFor(subject, week);
   if (!list) return '';
   if (!list.length) {
-    return `<div class="readgap"><span class="sesscode">${esc(subject)}</span>Nothing in the corpus covers this week yet — your timetable teaches it, we do not.</div>`;
+    const reason = gapFor(subject, week);
+    return `<div class="readgap"><span class="sesscode">${esc(subject)}</span>${esc(reason || 'No source-backed lesson has been assigned to this week.')}</div>`;
   }
   const items = readOrder(list.map(getItem).filter(Boolean));
   if (!items.length) return '';
@@ -255,7 +257,7 @@ function subjectReading(subject, week) {
 }
 
 function readingHTML(week) {
-  return ['HSS2011', 'ABCT2326', 'HTI17103'].map((s) => subjectReading(s, week)).join('');
+  return STUDY_SUBJECTS.map((s) => subjectReading(s, week)).join('');
 }
 
 function weekPanel(rows, now) {
@@ -277,6 +279,7 @@ function termPanel(rows, now) {
     <section class="weekblock${w === here ? ' thisweek' : ''}">
       <h3 class="weekhead">Week ${w}<span>${esc(fmtWeekRange(w))}${w === here ? ' · this week' : ''}</span></h3>
       <ul class="sesslist">${byWeek.get(w).map((r) => sessionRow(r, now)).join('')}</ul>
+      ${readingHTML(w)}
     </section>`).join('');
 }
 
@@ -313,11 +316,16 @@ function syllabusPanel() {
   return Object.values(SUBJECT_ADMIN).map((a) => {
     const total = a.assessment.reduce((n, x) => n + x.weight, 0);
     const cite = (src) => (src ? `<span class="beyondcite">${esc((describeSource(src).file || src.ref) + ' · ' + src.location)}</span>` : '');
+    const meta = [
+      a.credits != null ? `${a.credits} credits` : '',
+      a.level ? `Level ${a.level}` : '',
+      a.prereq ? `Pre-requisite: ${a.prereq}` : '',
+    ].filter(Boolean).join(' · ');
     return `<section class="card sylcard" style="--acc:${esc(subjectAccent(a.code))}">
       <div class="sylhead">
         <span class="sesscode">${esc(a.code)}</span>
         <b>${esc(a.title)}</b>
-        <span class="sylmeta">${esc(a.credits)} credits · Level ${esc(a.level)} · Pre-requisite: ${esc(a.prereq)}</span>
+        ${meta ? `<span class="sylmeta">${esc(meta)}</span>` : ''}
       </div>
       <p class="sylobj">${esc(a.objective)}</p>
       ${a.objectiveNote ? `<p class="small"><span class="apptag">App note</span>${esc(a.objectiveNote)}</p>` : ''}
@@ -329,19 +337,20 @@ function syllabusPanel() {
         <span class="assn"><b>${esc(x.name)}</b>${x.note ? `<small>${esc(x.note)}</small>` : ''}${cite(x.src)}</span>
       </li>`).join('')}</ul>
       ${a.assessmentNote ? `<p class="small">${esc(a.assessmentNote)}</p>` : ''}
-      <div class="subhead">Study effort</div>
-      <ul class="efflist">${a.effort.map((e) => `<li${e.total ? ' class="tot"' : ''}><span>${esc(e.what)}</span><b>${esc(e.hours)} h</b></li>`).join('')}</ul>
+      ${a.effort.length ? `<div class="subhead">Study effort</div>
+      <ul class="efflist">${a.effort.map((e) => `<li${e.total ? ' class="tot"' : ''}><span>${esc(e.what)}</span><b>${esc(e.hours)} h</b></li>`).join('')}</ul>` : ''}
       ${a.effortNote ? `<p class="small">${esc(a.effortNote)}</p>` : ''}
       ${a.teaching ? `<div class="subhead">How it is taught</div><p class="small">${esc(a.teaching)}</p>` : ''}
       ${a.texts.length ? `<div class="subhead">Books</div>
         <ul class="txtlist">${a.texts.map((t) => `<li><span class="txtrole">${esc(t.role)}</span>${
           t.url ? `<a href="${esc(t.url)}" target="_blank" rel="noreferrer">${esc(t.cite)}</a>` : esc(t.cite)}</li>`).join('')}</ul>` : ''}
+      ${a.textNote ? `<p class="small">${esc(a.textNote)}</p>` : ''}
     </section>`;
   }).join('') + `<section class="card">
     <div class="task-kicker">Where all of this came from</div>
     <ul class="txtlist" style="margin-top:10px">${SCHEDULE_SOURCES.map((s) =>
       `<li><span class="txtrole">${esc(s.subject)}</span>${esc(s.label || describeSource({ ref: s.ref }).file || s.ref)} — ${esc(s.what)}</li>`).join('')}</ul>
-    <p class="small" style="margin-top:11px">Two of those are screenshots of Canvas rather than documents, because no document copy was supplied. They cannot be text-checked the way a lecture can, so everything taken from them is written out in this repo’s timetable data module, in full, where it can be read and corrected.</p>
+    <p class="small" style="margin-top:11px">Current files take priority for dates, topics and assessment. Older official lectures are used only to teach a current syllabus topic when the matching 2026 lecture is absent; student coursework is never used as a factual source.</p>
   </section>`;
 }
 
