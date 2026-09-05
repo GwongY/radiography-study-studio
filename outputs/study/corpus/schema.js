@@ -94,6 +94,7 @@ export const SOURCE_FILES = {
    */
   'hss.w1.2026': { file: 'HSS2011_Wk1__orientat_intro.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'primary', note: 'Week 1 subject orientation, Benson Lau, 18 pages. The authority for the 2026 module ordering — Module 1 Musculoskeletal, 2 Nervous, 3 Cardiovascular and pulmonary, 4 Digestive and urogenital — which is a different numbering from the "Module 1 Thorax … Module 4 Musculoskeletal System" folders every older file is filed under. Also carries the assessment weights and the body-orientation terminology.' },
   'hss.msk.2026': { file: 'W1_MusculoskeletalSystem_2026_CKK_upload.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'primary', note: 'Module 1 Week 1, Dr Alex Cheung, 39 pages. Bone histology and gross structure, marrow, the five bone types, the three joint classifications and the six synovial types, ligaments, cartilage, muscle organisation from epimysium down to myofilament, tendon and the Golgi tendon organ, origin and insertion, the fascicle arrangements, motor units and muscle tone. Its fibre-type comparison table and its movement-terminology slides are pictures, so neither extracts as text.' },
+  'hss.move.2026': { file: 'Self-study terminology of movements--for Week 2-4.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'primary', note: 'Current self-study deck explicitly assigned for Weeks 2–4. Ten image-led pages covering anatomical position, directional terms, regional flexion and extension, shoulder rotation, abduction and adduction, forearm rotation, ankle and foot movements, thumb movements and circumduction. OCR was checked against rendered pages before use.' },
 
   /*
    * Outside-reader batch sources. Re-shared copies of HSS2011 lectures that
@@ -105,6 +106,7 @@ export const SOURCE_FILES = {
    */
   'hss.resp': { file: 'The Respiratory System.pdf', subject: 'HSS2011', root: 'hwater', folder: 'Human Anatomy/Lecture notes/Module1', kind: 'primary', note: "Dr John Yuen's standalone respiratory-system lecture (Chapter 23). Its larynx, trachea, bronchial-tree and alveolar-cell slides repeat hss.1.2; registered for the lung gross-anatomy slides hss.1.2 lacks — apex beyond the first rib, the three-layer respiratory membrane, the lobe and fissure pattern, the hilum." },
   'hss.l1.overview': { file: 'Anat L1 Overview of Human Anatomy _ Body Movements.pdf', subject: 'HSS2011', root: 'y1src', folder: 'Anatomy/Lecture Notes', kind: 'primary', note: "Dr Josephine Lau's HSS2011 Lecture 1 overview — anatomical position and planes, the skeleton and vertebral column, joint classes, the body-movement catalogue. A fuller deck than the Module 0 handout hss.m0.1718, and paged by its own [[page]] numbering rather than the \"L1 pN\" slide footers." },
+  'hss.special.2017': { file: 'Anat L9 The special senses.pdf', subject: 'HSS2011', root: 'y1src', folder: 'Anatomy/Lecture Notes', kind: 'primary', note: 'Older official HSS2011 Special Senses lecture by Dr William Tsang. Used because the 2026 syllabus still assigns Special Senses in Week 7 and no current Week 7 lecture has been supplied. Covers the eye and visual pathway, ear and cochlea, equilibrium, and gustation; its olfaction slide is only a reading-list pointer, so olfactory anatomy is completed from the registered HSS neuroanatomy lecture.' },
   'hss.3.1.2019': { file: '1920_M3_L8_digestive_system student version.pdf', subject: 'HSS2011', root: 'extra', folder: 'extra source2.0/Year 1 Sem1/Anat/M3', kind: 'primary', note: "Dr Thomas Lau's 2019 HSS2011 digestive-system anatomy lecture — the four-layer gut wall, gross and microanatomy of each organ, the embryonic fore/mid/hindgut arterial supply, hepatic portal drainage. A different lecture from hss.3.1, which is McGraw-Hill based." },
   'hss.3.3.2019': { file: '1920_M3_L7_Abdomen and Pelvis student version.pdf', subject: 'HSS2011', root: 'extra', folder: 'extra source2.0/Year 1 Sem1/Anat/M3', kind: 'primary', note: "Dr Thomas Lau's 2019 HSS2011 Regional Anatomy of the Abdomen & Pelvis lecture — surface planes, the diaphragm hiatuses, the peritoneum and its folds, GI organ gross anatomy, the posterior abdominal wall vessels. A different deck from hss.3.3." },
 
@@ -151,6 +153,7 @@ export const SOURCE_FILES = {
   'phys.qblank': { file: 'question blank/Chapter 1–29.pdf', subject: 'ABCT2326', root: 'green', folder: 'year 1 sem 1/ABCT2326 Human Physiology', kind: 'assessment', note: '29 chapter-level question sets.' },
   'phys.sdf': { file: 'Subject Description Form.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology', kind: 'admin' },
   'phys.sched.2026': { file: 'ABCT2326_TeachingSchedule2026_OptRad_screenshot.jpg', subject: 'ABCT2326', root: 'newsrc', folder: '', kind: 'admin', note: 'The 2026 teaching schedule for Opt & Rad Group 4 (subject groups 1107 and 1111), captured as a screenshot — no document copy exists. Eleven lectures, their tutorials and the three lab rotations, with dates, times and rooms; the teaching team; the quiz on 07 Oct 2026 over Lectures 1-5; and the assessment split the subject description form does not give — quizzes 35%, lab report 15%, written exam 50%. Being an image it cannot be text-checked, so its content is also carried in outputs/schedule.js.' },
+  'phys.overview.2026': { file: 'Course Overview - Group 4.pdf', subject: 'ABCT2326', root: 'newsrc', folder: '', kind: 'admin', note: 'Current Group 4 course overview. Confirms the ten lecture topics, one quiz worth 35%, three lab reports worth 5% each, final exam worth 50%, the three lab topics, and Martini 10th edition or newer as the recommended text. OCR was checked against all six rendered pages.' },
 
   /* ---------------- HTI17101 Exploring Radiography (stand-in for HTI17103) ---------------- */
   'hti.w1a': { file: 'Week 1 About the Subject.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography/Lecture notes', kind: 'primary' },
@@ -171,6 +174,8 @@ export const SOURCE_FILES = {
   'dsai.w1': { file: '1.+Week1-Overview.pptx', subject: 'DSAI1202', root: 'newsrc', folder: '', kind: 'primary', note: 'Week 1 overview, 47 slides, Dr Xiuling Wang. Half course admin, half a tour of where AI already sits in daily life, healthcare and work. The deck states its own limits: this is an AI-literacy General University Requirement, and programming and the mathematics of AI are explicitly not included.' },
 
   /* ---------------- APSS1A08 Introduction to Sociology ---------------- */
+  'soc.syllabus.2026': { file: 'Introduction to Sociology (2026-2027 Sem.1).pdf', subject: 'APSS1A08', root: 'newsrc', folder: '', kind: 'admin', note: 'Current APSS1A08/APSS112 syllabus for Semester One 2026/27. The authority for the Friday class, all thirteen weekly topics, learning outcomes, assessment weights, AI permissions and assignment deadlines.' },
+  'soc.t01.2026': { file: 'Topic 01.pdf', subject: 'APSS1A08', root: 'newsrc', folder: '', kind: 'primary', note: 'Current Topic 01 lecture, September 2026. Defines sociology and the sociological perspective, applies it to partner selection and educational opportunity, extends it to the global perspective, and introduces Marx and Weber. This is the only APSS lecture supplied so far.' },
   'soc.a1.star': { file: 'assignment 1.docx', subject: 'APSS1A08', root: 'star', folder: 'CAR/introduction to sociology', kind: 'student' },
   'soc.a2.star': { file: 'assignment 2.docx', subject: 'APSS1A08', root: 'star', folder: 'CAR/introduction to sociology', kind: 'student' },
   'soc.fp.star': { file: 'final paper.docx', subject: 'APSS1A08', root: 'star', folder: 'CAR/introduction to sociology', kind: 'student' },
@@ -254,7 +259,7 @@ export const SUBJECTS = [
       { id: 'phys.resp', label: '3 — Respiratory system' },
       { id: 'phys.dig', label: '4 — Digestive system' },
       { id: 'phys.renal', label: '5 — Renal system' },
-      { id: 'phys.repro', label: '6 — Reproductive system', note: 'Legacy .ppt — not extractable offline' },
+      { id: 'phys.repro', label: '6 — Reproductive system', note: 'Covered from a readable older official lecture until the 2026 lecture is supplied' },
       { id: 'phys.endo', label: '7 — Endocrine system' },
       { id: 'phys.nerv', label: '8 — Nervous system' },
       { id: 'phys.msk', label: '9 — Musculoskeletal system' },
@@ -268,7 +273,7 @@ export const SUBJECTS = [
     accent: '#8ea9ff',
     coverage: 'substitute',
     substituteFor: 'HTI17101 Exploring Radiography',
-    blurb: 'Built from the HTI17101 Exploring Radiography lecture set — the closest available material. The exact HTI17103 source set was not found.',
+    blurb: 'The real 2026 HTI17103 schedule and opening lecture are supplied; later topic lessons use the older HTI17101 Exploring Radiography set whose topics the current schedule confirms.',
     units: [
       { id: 'hti.subject', label: 'About the subject & the radiographer role' },
       { id: 'hti.modalities', label: 'Medical imaging modalities & equipment' },
@@ -283,8 +288,18 @@ export const SUBJECTS = [
     title: 'Introduction to Sociology',
     accent: '#d3a0ff',
     coverage: 'limited',
-    blurb: 'Limited source coverage. Only student assignments and term papers were found — no verified lecture syllabus.',
-    units: [{ id: 'soc.files', label: 'Supplied files' }],
+    blurb: 'The current 2026/27 syllabus and Topic 01 lecture are supplied. T02A–T08 remain explicit source gaps until their lecture notes arrive.',
+    units: [
+      { id: 'soc.t01', label: 'T01 — Introduction to sociology' },
+      { id: 'soc.t02a', label: 'T02A — Functionalist and conflict perspectives' },
+      { id: 'soc.t02b', label: 'T02B — Modern contemporary theorists' },
+      { id: 'soc.t03', label: 'T03 — Socialization' },
+      { id: 'soc.t04', label: 'T04 — Social interaction' },
+      { id: 'soc.t05', label: 'T05 — Social stratification and social class' },
+      { id: 'soc.t06', label: 'T06 — Sexuality and society' },
+      { id: 'soc.t07', label: 'T07 — Gender stratification' },
+      { id: 'soc.t08', label: 'T08 — Deviance' },
+    ],
   },
   {
     id: 'DSAI1202',

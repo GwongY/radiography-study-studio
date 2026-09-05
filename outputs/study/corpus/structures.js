@@ -284,7 +284,7 @@ export const JOINT_MOVEMENTS = {
     axis: { from: { mesh: 'Radius', at: 'proximal' }, to: { mesh: 'Ulna', at: 'distal' } },
     range: [-80, 80],
     labels: { min: 'Pronated', mid: 'Neutral', max: 'Supinated' },
-    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p44 supination and pronation of the forearm' }, { ref: 'hss.revans', location: 'Module 0, Fill-in-blanks 2' }],
+    sourceRefs: [{ ref: 'hss.move.2026', location: 'p9 pronation and supination' }, { ref: 'hss.m0.1718', location: 'L1 p44 supination and pronation of the forearm' }, { ref: 'hss.revans', location: 'Module 0, Fill-in-blanks 2' }],
   },
   elbowFlexion: {
     id: 'elbowFlexion', label: 'Elbow flexion and extension', subject: 'HSS2011', unit: 'hss.joints',
@@ -298,7 +298,7 @@ export const JOINT_MOVEMENTS = {
     axis: { vector: [1, 0, 0] },
     range: [0, 140],
     labels: { min: 'Extended', mid: 'Half flexed', max: 'Flexed' },
-    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p43 flexion and extension of the forearm' }, { ref: 'hss.4.3', location: 'Slide "Elbow Joint (Anterior View)", Fig. 8-4c' }],
+    sourceRefs: [{ ref: 'hss.move.2026', location: 'p3 elbow and forearm flexion and extension' }, { ref: 'hss.m0.1718', location: 'L1 p43 flexion and extension of the forearm' }, { ref: 'hss.4.3', location: 'Slide "Elbow Joint (Anterior View)", Fig. 8-4c' }],
   },
   shoulderAbduction: {
     id: 'shoulderAbduction', label: 'Abduction of the arm', subject: 'HSS2011', unit: 'hss.joints',
@@ -317,7 +317,7 @@ export const JOINT_MOVEMENTS = {
       { at: 90, note: 'Beyond this the scapula must rotate upward — trapezius.' },
     ],
     labels: { min: 'At the side', mid: 'Mid abduction', max: '90 degrees' },
-    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p40 movement of the arm' }, { ref: 'hss.4.3', location: 'Slide "Muscles Involved in Full Abduction of the Arm"' }],
+    sourceRefs: [{ ref: 'hss.move.2026', location: 'pp3–4 shoulder movement and rotation; p8 abduction' }, { ref: 'hss.m0.1718', location: 'L1 p40 movement of the arm' }, { ref: 'hss.4.3', location: 'Slide "Muscles Involved in Full Abduction of the Arm"' }],
   },
   thumbOpposition: {
     id: 'thumbOpposition', label: 'Opposition of the thumb', subject: 'HSS2011', unit: 'hss.joints',
@@ -330,7 +330,7 @@ export const JOINT_MOVEMENTS = {
     axis: { vector: [0.4, 0.5, 0.75] },
     range: [0, 55],
     labels: { min: 'Reposition', mid: 'Mid range', max: 'Opposition' },
-    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p52 opposition of thumb; p50–51 thumb movements at the carpo-metacarpal joint' }, { ref: 'hss.revans', location: 'Module 0, Fill-in-blanks 1 and 5' }],
+    sourceRefs: [{ ref: 'hss.move.2026', location: 'p10 thumb opposition and reposition' }, { ref: 'hss.m0.1718', location: 'L1 p52 opposition of thumb; p50–51 thumb movements at the carpo-metacarpal joint' }, { ref: 'hss.revans', location: 'Module 0, Fill-in-blanks 1 and 5' }],
   },
 };
 

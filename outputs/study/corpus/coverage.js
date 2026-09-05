@@ -12,7 +12,7 @@
  * ------------------------------------------------------------------ */
 
 export const COVERAGE = {
-  generated: 'Built from a recursive scan of the 22 shared source folders reachable from the supplied drive. The first scan was capped at depth 6 and saw 8,554 files; a full-depth re-scan found 15,499 (12,810 excluding desktop.ini and Drive stubs), so roughly 45% of the corpus was invisible to the original pass. Coverage below reflects the full-depth scan.',
+  generated: 'Built from the full-depth shared-drive catalogue plus the filename-sorted New source inbox. Current 2026/27 files control the syllabus, dates and assessment; older official lectures fill a named current topic only where its 2026 teaching file is absent. Student work and duplicate copies do not supply factual claims.',
   subjects: [
     {
       id: 'HSS2011', status: 'full',
@@ -29,6 +29,8 @@ export const COVERAGE = {
         'Tap-to-identify structure sets on the 3D model with a three-state reveal: all 8 carpals, all 7 tarsals, 12 skull bones and the vertebral regions',
         'Word parts — prefixes, suffixes and roots, and how to take an unfamiliar term apart',
         'Rotator cuff and full abduction sequence',
+        'The current Weeks 2–4 movement self-study deck: regional flexion and extension, rotation, abduction and adduction, forearm rotation, ankle and foot movement, thumb movement and circumduction.',
+        'Week 7 Special Senses from an older official HSS2011 lecture: eye and visual pathway, outer/middle/inner ear and hearing, static and dynamic equilibrium, taste and the olfactory pathway.',
       'The four teaching modules, NUMBERED BY THE 2026 ORIENTATION DECK: 1 Musculoskeletal, 2 Nervous, 3 Cardiovascular and pulmonary, 4 Digestive and urogenital. Every source folder on the drive uses the older ordering (1 Thorax … 4 Musculoskeletal) and the app now prints both.',
       'What the subject is and how it is marked: the objective, the four modules, and the 8 / 32 / 60 assessment split with which parts are open book.',
         'The confirmed 2026/27 subject description form: the six intended learning outcomes, the official module titles, what each module contains, the 129-hour study effort and the set text.',
@@ -36,8 +38,8 @@ export const COVERAGE = {
       'Muscle organisation from epimysium to myofilament, the five fascicle arrangements, tendon and its two junctions, origin and insertion, the motor unit and muscle tone.',
       ],
       gaps: [
-      'The 2026 Module 1 deck has slides that carry no extractable text: the slow/fast oxidative/glycolytic comparison table and the movement-terminology slides are pictures. Those two topics are therefore NOT taught from this source — fibre types are covered on the physiology side (phys.susan9), and the movement terminology from the older HSS2011 files.',
-      'Only Week 1 of the 2026 material has been supplied. Modules 2–4 are still covered from the previous years’ files, which is why their citations carry the old module numbers.',
+      'The slow/fast oxidative/glycolytic comparison table in the 2026 Module 1 deck is an image with no extractable text; fibre types remain covered from the official older physiology notes (phys.susan9).',
+      'Current 2026 teaching files are available for Week 1 and the Weeks 2–4 movement self-study. Week 7 Special Senses and the remaining Modules 2–4 topics are covered from older official HSS2011 lectures, so their source dialogs deliberately show older dates and numbering.',
         'MOOC 1–3 arterial supply and stroke correlates are present in the folders but no study items have been generated from them yet.',
         'Detailed muscle attachments beyond those named in the revision-exercise answers were deliberately not added.',
         'No local labelled diagram images exist in the app assets, so diagram labelling uses authored schematics plus the 3D model.',
@@ -61,10 +63,11 @@ export const COVERAGE = {
         'ECG waves and intervals, cardiac cycle, stroke volume, Frank–Starling law, heart sounds, refractory period',
         'Gas exchange at the alveolus, oxyhaemoglobin and saturation, and the full control-of-respiration reflex set',
         'Inflammation, the complement pathways and the membrane attack complex, active vs passive and cell- vs antibody-mediated immunity',
+        'Reproductive physiology from the readable older official lecture: male hormonal control, ovarian and menstrual cycles, fertilisation and implantation, placenta, pregnancy and parturition.',
       ],
       gaps: [
         'BLOOD-PRESSURE REGULATION IS NOT IN THE SUPPLIED SOURCES. Neither the cardiovascular lecture deck nor its supplementary deck mentions blood-pressure regulation or baroreceptors as a cardiovascular topic. No items were written for it. (Baroreceptors do appear, but only in the respiratory lecture, as an input to the control of respiration — which is where they are covered here.)',
-        'Reproductive system: the folder-6 lecture is a legacy binary .ppt that cannot be read offline, but the same lecture exists in readable form as Lec6_Reproduction.pdf in the 2020/21 set, so this is no longer a blocker — items simply have not been written yet.',
+        'The current 2026 reproductive-system lecture has not been supplied. The Week 7 notes therefore use the readable official 2020/21 Lec6_Reproduction.pdf and say so.',
         'The 29-chapter question blank, the per-system tutorial-answer PDFs and the 2020/21 Lec1–Lec10 deck set are catalogued but not yet turned into items.',
         'Digestive-organ function and absorption is covered at pathway level only; the enzyme-by-enzyme detail in the lecture has not been mined.',
       ],
@@ -91,19 +94,24 @@ export const COVERAGE = {
     },
     {
       id: 'APSS1A08', status: 'limited',
-      covered: [],
-      gaps: [
-        'No lecture slides, subject description form, reading list or past paper found.',
-        'Only student assignments, homework and term papers, plus three photographs that cannot be read offline.',
-        'No study content generated. Concept words appearing in student coursework are listed but are explicitly unverified.',
+      covered: [
+        'The current 2026/27 subject objective, three intended learning outcomes, full thirteen-week schedule, assessment weights, generative-AI permissions and deadlines.',
+        'Topic 01: sociology and the sociological perspective, personal versus social explanations, educational opportunity, the global perspective, research-to-policy change, and Marx versus Weber on social change.',
       ],
-      files: 17,
+      gaps: [
+        'Official teaching notes are still missing for T02A Functionalism/social institutions/conflict, T02B modern contemporary theorists, T03 Socialization, T04 Social Interaction, T05 Social Stratification and Social Class, T06 Sexuality and Society, T07 Gender Stratification, and T08 Deviance. Each appears as an explicit weekly gap in the Course tab.',
+        'Older student assignments, homework and term papers were reviewed only as scope evidence and were not used for factual lessons.',
+        'The current syllabus contradicts itself on the set text: p3 says there is no textbook, while p5 labels Macionis (2024) Sociology, 16th ed., as “Textbook”. The Course tab shows both statements.',
+      ],
+      files: 19,
     },
     {
-      id: 'DSAI1202', status: 'none',
-      covered: [],
-      gaps: ['No file in any of the 22 shared folders matches DSAI1202, "data analytics" or "artificial intelligence".'],
-      files: 0,
+      id: 'DSAI1202', status: 'limited',
+      covered: [
+        'The current Week 1 overview: where AI appears in everyday life and healthcare, the definition of AI literacy, the subject’s non-programming/non-mathematical scope, its generative-AI policy, and its full tentative schedule and assessment split.',
+      ],
+      gaps: ['Only the Week 1 overview is supplied. Official teaching notes remain missing for Weeks 2–12: AI Overview; GenAI and chatbots; Machine Learning I/II; Deep Learning; Data Analytics and Visualization; the two IC-visit topic pairs; and the additional-topics/review week. Each is named as a weekly gap in the Course tab.'],
+      files: 1,
     },
     {
       id: 'LEI1101', status: 'none',
@@ -114,6 +122,26 @@ export const COVERAGE = {
       ],
       files: 0,
     },
+  ],
+  /* Sorted by the literal inbox filename before classification. A file can be
+     useful for administration without being valid teaching content; this list
+     makes that distinction visible instead of treating every upload as notes. */
+  newSourceIntake: [
+    { file: '1.+Week1-Overview.pptx', role: 'Teaching + administration', used: 'DSAI1202 Week 1 lessons, weekly topic plan, assessment and AI policy' },
+    { file: 'ABCT2326_SubjectDescriptionForm_screenshot.jpg', role: 'Administration support', used: 'Objective and subject framework; current overview controls the detailed assessment split' },
+    { file: 'ABCT2326_TeachingSchedule2026_OptRad_screenshot.jpg', role: 'Timetable', used: 'ABCT2326 Group 4 dates, rooms, teachers and lab rotation' },
+    { file: 'Course Overview - Group 4.pdf', role: 'Current administration', used: 'ABCT2326 topics, one 35% quiz, three 5% lab reports and 50% final exam' },
+    { file: 'ER_Lec1%282026%29.pdf', role: 'Current teaching', used: 'HTI17103 opening lecture and current modality-choice material' },
+    { file: 'HSS2011_Schedule_AssessmentAndDates_2026_screenshot.png', role: 'Assessment schedule', used: 'HSS2011 8% + 32% + 60% split and four revision deadlines' },
+    { file: 'HSS2011_ScheduleLearningTeaching2026_screenshot.png', role: 'Teaching schedule', used: 'HSS2011 thirteen-week topic sequence and test date' },
+    { file: 'HSS2011_Wk1__orientat_intro.pdf', role: 'Teaching + administration', used: 'Current module numbering, assessment overview and anatomical orientation' },
+    { file: 'HTI17103_TeachingSchedule2026.pdf', role: 'Current timetable', used: 'Actual subject sessions, observation days and 50% + 50% assessment' },
+    { file: 'Introduction to Sociology (2026-2027 Sem.1).pdf', role: 'Current syllabus', used: 'APSS1A08 objectives, topics, assessments, AI permissions and deadlines' },
+    { file: 'Lecture 1 - Cells and Body Organization.pdf', role: 'Current teaching', used: 'ABCT2326 Week 1 cell and tissue lessons' },
+    { file: 'SDFHSS2011_2627confirmed.pdf', role: 'Current syllabus', used: 'HSS2011 outcomes, module contents, study effort and reading list' },
+    { file: 'Self-study terminology of movements--for Week 2-4.pdf', role: 'Current teaching', used: 'HSS2011 Weeks 2–4 movement map; image-led pages checked with OCR and rendering' },
+    { file: 'Topic 01.pdf', role: 'Current teaching', used: 'All APSS1A08 Topic 01 lessons' },
+    { file: 'W1_MusculoskeletalSystem_2026_CKK_upload.pdf', role: 'Current teaching', used: 'HSS2011 Week 1 musculoskeletal lessons' },
   ],
   duplicates: [
     { what: 'HSS2011 Study Manual 1819', where: ['Year 1 Sem 1 Source / HSS2011 Human Anatomy / Study Manual 1819.pdf', 'Radiography Sources / Yr1 Sem1 Radiography / HSS2011 Human Anatomy / Human Anatomy Manual 1819.pdf', 'White group sources / Year 1 / Radiography Yr1 Sem1 / HSS2011 Human Anatomy / Human Anatomy Manual 1819.pdf'] },
