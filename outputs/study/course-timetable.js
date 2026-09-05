@@ -25,6 +25,7 @@ import { setActiveNav } from './navigation-five-destinations.js';
 import { K, itemAttempted, itemRead, itemScore, read, store, write } from './storage-versioned-keys.js';
 import { renderLearn } from './subject.js';
 import { startSession } from './session-engine.js';
+import { sourceGroupFor, sourceRoleLabel, sourceSetLabel } from './imports.js';
 
 /* ------------------------------------------------------------------ *
  * State — attendance and the two unknown groups
@@ -180,6 +181,20 @@ function readOrder(items) {
   });
 }
 
+function lessonSourceHTML(item) {
+  const group = sourceGroupFor(item.id);
+  if (!group) return '<div class="lesson-sources missing">Source map entry unavailable.</div>';
+  const rows = group.sources.map((s) => {
+    const d = describeSource({ ref: s.ref });
+    return `<li><span class="source-badge ${esc(s.set)}">${esc(sourceSetLabel(s.set))}</span>`
+      + `<span class="source-role"> · ${esc(sourceRoleLabel(s.role))}</span>`
+      + `<strong>${esc(d.file || s.ref)}</strong>${d.location ? ` · ${esc(d.location)}` : ''}</li>`;
+  }).join('');
+  return `<details class="lesson-sources"><summary>Sources for this lesson</summary>`
+    + `<ul class="source-group-list">${rows || '<li>Source gap — see the weekly gap notice.</li>'}</ul>`
+    + `${group.reasons.length ? `<p class="source-reason">${esc(group.reasons.join(' '))}</p>` : ''}</details>`;
+}
+
 function lessonRow(it) {
   const attempted = itemAttempted(it.id);
   const pc = Math.round(itemScore(it.id) * 100);
@@ -187,11 +202,11 @@ function lessonRow(it) {
      someone had read the whole lesson was the app forgetting them. */
   const state = attempted ? (pc >= 80 ? 'strong' : pc >= 45 ? 'part' : 'weak') : itemRead(it.id) ? 'read' : 'new';
   const label = attempted ? `${pc}%` : itemRead(it.id) ? 'Read' : 'Not started';
-  return `<button class="readline ${state}" data-item="${esc(it.id)}">
+  return `<div class="lesson-readrow"><button class="readline ${state}" data-item="${esc(it.id)}">
     <span class="readdot" aria-hidden="true"></span>
     <span class="readname">${esc(it.title)}</span>
     <span class="readpc">${esc(label)}</span>
-  </button>`;
+  </button>${lessonSourceHTML(it)}</div>`;
 }
 
 const PREVIEW = 3;
