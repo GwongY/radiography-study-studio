@@ -6,6 +6,9 @@ _skel-names.txt
 # the drive mounted. The CITED sources are committed, in work/source-text.json.
 work/.source-text/
 
+# Local New/old source-to-lesson audit; may contain private filenames.
+work/.source-lesson-audit/
+
 # Course source material. Copyrighted lecture decks and textbooks that are not
 # ours to publish, and this repository is public — 47 MB of them sit in
 # "New source/" alone. They are catalogued and their text is indexed
