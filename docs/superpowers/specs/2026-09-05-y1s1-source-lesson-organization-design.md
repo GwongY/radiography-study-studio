@@ -2,13 +2,19 @@
 
 ## Decision
 
-The study system will have one canonical teaching note for each current Y1S1
-lesson. Files from `New sources` and old sources are evidence attached to that
-same lesson; they are not separate lesson notes. The current Y1S1 syllabus and
-current Y1S1 schedule decide which lessons exist and how they are ordered.
-Within that scope, a verified file from `New sources` is the preferred current
-source, and an older file is supporting evidence or an explicitly labelled
-fallback.
+The study system will have one canonical lesson index for each current Y1S1
+lesson. The original source files are the teaching notes by default: they are
+grouped and opened as supplied, rather than rewritten into a second note. Files
+from `New sources` and old sources are attached to that same lesson index; they
+are not separate lesson notes. The current Y1S1 syllabus and current Y1S1
+schedule decide which lessons exist and how they are ordered. Within that
+scope, a verified file from `New sources` is the preferred current source, and
+an older file is supporting evidence or an explicitly labelled fallback.
+
+This organization layer does not require the student to provide a note for
+every lesson. It also does not automatically summarize, paraphrase, or replace
+the supplied source. Existing app-authored study aids remain available, but
+they are optional additions and are not a substitute for the source file.
 
 This is a source-organization change, not a request to move or rename files on
 the shared drive.
@@ -61,10 +67,10 @@ syllabus relationship are verified.
 Version grouping is conservative. Exact hashes and clear normalized title,
 edition, or date matches may be grouped automatically. A merely similar title
 is a candidate relationship, not proof. Where two versions materially differ,
-the canonical note remains one lesson note and receives a concise update or
-difference marker with citations to both versions. The older citation is kept
-when it still supports the teaching point; it is not copied into a second
-lesson.
+the lesson index remains one index and shows a concise version/difference marker
+with citations to both versions. The older source is kept when it still
+supports the lesson; it is not copied into a second lesson or rewritten as a
+duplicate note.
 
 Priority for a current Y1S1 lesson is:
 
@@ -90,7 +96,7 @@ the full shared-drive catalogue. Its hierarchy is:
 Each canonical lesson group contains:
 
 - the existing lesson ID, title, subject, and syllabus week;
-- the existing teaching note/content once;
+- a link or reading entry for the original source material as supplied;
 - `New sources` marked as current primary evidence;
 - old sources marked as supporting or fallback evidence;
 - assessment/practice material separated from teaching evidence;
@@ -99,8 +105,9 @@ Each canonical lesson group contains:
   out-of-Y1S1 scope, unread/OCR-required, or administrative-only.
 
 One source may appear in several lesson groups when the source genuinely covers
-several syllabus lessons. The note is still not duplicated: each group points
-to the same source record and the same canonical lesson content.
+several syllabus lessons. The source is still not duplicated: each group points
+to the same source record. A source file may therefore serve as the teaching
+note for several lessons without generating several copies of its content.
 
 The Course tab will show these groups directly under the relevant week and
 lesson. The student should be able to answer “what do I study this week?” and
@@ -132,11 +139,14 @@ corpus:
 5. render the grouped sources from the Course/Coverage tabs;
 6. run source, schedule, corpus, and source-map validation before release.
 
-The canonical study corpus remains the owner of teaching claims and
-`sourceRefs`. The new map adds organization and version metadata; it must not
-create an alternate copy of lesson claims or bypass exact page/quote
-traceability. The schedule remains authoritative for week placement even when
-a source filename uses a different topic order.
+The supplied source files and the existing verified `sourceRefs` remain the
+authority for teaching claims. The new map adds organization and version
+metadata; it must not create an alternate copy of source content or bypass
+exact page/quote traceability. Existing app-authored explanations and
+questions are left in place unless separately changed; this task does not
+require rewriting them to imitate the source. The schedule remains
+authoritative for week placement even when a source filename uses a different
+topic order.
 
 ## Validation and failure behavior
 
@@ -151,7 +161,8 @@ The source-map verifier will fail when:
   administrative, student work, unread, or not mapped — future scope;
 - a source is assigned to a subject/week that conflicts with the syllabus,
   schedule, or verified source evidence;
-- two source versions produce duplicate canonical lesson notes;
+- the organization layer creates duplicate copies of source content or
+  duplicate lesson indexes for one syllabus lesson;
 - an older fallback is shown without its older/fallback label.
 
 The existing checks remain required: corpus validation, exact source-page
