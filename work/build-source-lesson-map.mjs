@@ -196,6 +196,7 @@ for (const [ref, entry] of Object.entries(SOURCE_FILES)) {
   }
 }
 const linked = new Map(Object.entries(bySource));
+const teachingRoles = new Set(['current-primary', 'older-supporting', 'older-fallback']);
 const field = (value) => String(value ?? '').replace(/[\t\r\n]+/g, ' ').trim();
 const audit = ['sourceSet\tscope\tsubject\tkind\tclassification\tlessonIds\treadState\tidentity\treason\tname'];
 for (const doc of cat.docs) {
@@ -207,8 +208,9 @@ for (const doc of cat.docs) {
   const isNew = sourceSetFor({ file: doc.n, locations: locationsOf(doc) }, newFiles) === 'new';
   const kind = subjectEntry?.entry.kind || doc.kind || 'unregistered';
   const read = sourceText.sources && registry.some(({ ref }) => sourceText.sources[ref]) || cached[cacheKey(doc)]?.ok;
+  const teaching = references.find((source) => teachingRoles.has(source.role));
   const classification = !current ? 'not-mapped-future'
-    : references.some((source) => ['current-primary', 'older-supporting', 'older-fallback'].includes(source.role)) ? references[0].role
+    : teaching ? teaching.role
       : kind === 'primary' ? 'needs-review' : 'metadata-only';
   const evidence = newFiles.has(normaliseSourceFile(doc.n)) ? 'intake'
     : locationsOf(doc).some((path) => path.replaceAll('\\', '/').toLowerCase().split('/').includes('new source')) ? 'catalogue path'
