@@ -3,7 +3,7 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, decompose, esc, partOf, plateFor, termGloss, termNote } from './imports.js';
+import { $$, decompose, esc, memoryTip, partOf, plateFor, termGloss, termNote } from './imports.js';
 import { figureKeyHTML } from './lesson-visuals.js';
 import { openDialog } from './dialog-behaviour-applied.js';
 
@@ -37,10 +37,11 @@ export function lookupTerm(word) {
   /* The meaning and the Chinese. A word is not worth tapping for a breakdown
      alone, so this is what the dialog leads with wherever it exists. */
   const gloss = termGloss(word);
+  const tip = memoryTip(word);
   /* The glossary alone is enough to make a word tappable — the old condition
      dropped it, so words that resolve only through TERM_GLOSS (cavity, heart,
      and every adjective the fold maps to its noun) were silently inert. */
-  const found = (note || split || part || gloss) ? { word, note, split, part, gloss } : null;
+  const found = (note || split || part || gloss || tip) ? { word, note, split, part, gloss, tip } : null;
   glossCache.set(key, found);
   return found;
 }
@@ -243,6 +244,18 @@ function partsHTML(split) {
     ${reads ? `<p class="small" style="margin-top:9px">Reads as: <strong>${esc(reads)}</strong></p>` : ''}`;
 }
 
+export function numberHTML(note) {
+  if (!note || !note.number || !note.other) return '';
+  const label = note.number === 'singular' ? 'Singular form' : 'Plural form';
+  const opposite = note.number === 'singular' ? 'plural' : 'singular';
+  return `<p class="small term-number" style="margin:9px 0 0;color:var(--muted)">${label} · ${opposite}: <strong style="color:var(--ink)">${esc(note.other)}</strong></p>`;
+}
+
+export function memoryHTML(tip) {
+  if (!tip) return '';
+  return `<div class="memory-tip"><div class="subhead">Memory tip</div><p>${esc(tip)}</p></div>`;
+}
+
 /*
  * The dialog leads with what the word MEANS, in English and in Chinese.
  *
@@ -260,7 +273,7 @@ function partsHTML(split) {
 function openTermDialog(word) {
   const hit = lookupTerm(word);
   if (!hit) return;
-  const { note, split, part, gloss } = hit;
+  const { note, split, part, gloss, tip } = hit;
   /* note.plain is written for this exact word, so it wins over the glossary's
      line where both exist. The Chinese only ever comes from the glossary. */
   const plain = (note && note.plain) || (gloss && gloss.meaning) || '';
@@ -285,7 +298,9 @@ function openTermDialog(word) {
       ${meaning ? `<p class="en">${esc(meaning)}</p>` : ''}
       ${zh ? `<p class="zh" lang="zh-Hant">${esc(zh)}</p>` : ''}
     </div>` : ''}
-    ${note ? `<div class="subhead">Say it</div><p class="say">${esc(note.say)}</p>` : ''}
+    ${note && note.say ? `<div class="subhead">Say it</div><p class="say">${esc(note.say)}</p>` : ''}
+    ${numberHTML(note)}
+    ${memoryHTML(tip)}
     ${part && !split ? `<div class="subhead">Word part</div>
       <div class="termparts"><span class="termpart ${esc(part.kind)}"><b>${esc(part.forms)}</b><span>${esc(part.means)}</span></span></div>
       <p class="small" style="margin-top:9px">${part.kind === 'root'

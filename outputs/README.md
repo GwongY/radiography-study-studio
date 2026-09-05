@@ -13,9 +13,9 @@ The workflow is the same for every subject:
 | File | What it is |
 | --- | --- |
 | `radiography-study-studio.html` | The app. Subject selector, learning workflow, Memory Coach, source dialogs, coverage report, and the full osteology 3D studio embedded as the HSS2011 Osteology module. |
-| `study-data.js` | The study layer: source registry, subject registry, 128 study items, prior-knowledge registry, spaced repetition, coverage report, corpus validator. |
+| `study-data.js` | The study layer: source registry, subject registry, 141 study items, prior-knowledge registry, spaced repetition, coverage report, corpus validator. |
 | `wordparts.js` | 814 medical word parts, inverted from the HSS2011 glossary, plus the segmenter that takes a long term apart. |
-| `term-notes.js` | 89 hand-written pronunciations and plain-English readings for the terms word parts alone cannot rescue. App-authored, labelled as such. |
+| `term-notes.js` | 746 hand-written pronunciations and plain-English readings, plus 565 app-authored memory hooks, for the terms word parts alone cannot rescue. |
 | `assets/plates/` | Five public-domain anatomy plates from Gray's Anatomy (1918), licence-verified through the Wikimedia Commons API before download. |
 | `anatomy-data.js` | Unchanged. Canonical bone records, landmark hotspots and the 3D model adapter metadata. |
 | `visual-data.js` | The visual registry: which model layer and meshes each study item is about, and which items get a schematic or figure instead. Verified mesh names, not guesses. Also `PLATES` — the Gray's plate on five physiology items, each with its `intro` and callout `key`. |
@@ -60,6 +60,21 @@ page/slide/section, and labels each reference as one of:
 - **Student work** — student coursework. Used only to confirm topic scope, never as a fact source
 - **App-authored aid** — memory hooks and study framing written by this app, not a claim from the sources
 
+The Coverage report now has a **New source — filename-first intake** section. It lists all 15 inbox
+files alphabetically before classifying each as teaching, syllabus, timetable or administration.
+That distinction matters: a schedule screenshot can correct a deadline but cannot become a factual
+lesson, while older student papers remain provenance-only even when their filenames match a topic.
+
+The old-source unread manifest was also re-run after the intake. Its only real OCR remainder was
+`Lab2_Result_Resp.pdf`: a one-page completed alveolar-gas results table carrying one lab group's
+measurements, not an official teaching handout. It was visually read and deliberately excluded from
+lesson facts. The other apparent OCR remainder is a zero-content Microsoft Office `~$` lock file.
+The four low-overlap files classified as old primary material were checked too: `Ch12.1-12.3.pdf`,
+`Ch13.2-13.3.pdf` and `Ch14.pdf` are broad OpenStax nervous-system chapters that overlap or extend
+beyond the existing official HSS2011 nervous-system and special-senses lessons; using their extra
+detail would be generic textbook expansion. `L7_clinical_interest.pdf` states “Not included in
+syllabus” on its first page. None became a lesson.
+
 Answers taken from the HSS2011 revision-exercise model answers were re-extracted with PDF layout
 preserved, because the three-column answer table flattens into an ambiguous single column under
 ordinary text extraction and silently mis-assigns answers between Modules 3.3, 4.1 and 4.2. Every
@@ -69,11 +84,11 @@ answer used was then cross-checked against its question text.
 
 | Subject | Status | Notes |
 | --- | --- | --- |
-| ABCT2326 Human Physiology | Full | 10 system lectures, supplementary decks, the lecturer's own prose notes for the endocrine, nervous, musculoskeletal and immune units, tutorial answers, extra exercises, Martini eBook, and the 2026 copy of the Lecture 1 cell-biology deck |
-| HSS2011 Human Anatomy | Full | Vocabulary, Study Manuals 1819/1920, Modules 0–4, revision exercises with model answers, past papers back to 2003–04, and the 2026 Week 1 pair — subject orientation and the Module 1 musculoskeletal lecture |
-| HTI17103 Introduction to Medical Radiation Science | **Substitute source** | The exact HTI17103 set was not found. Built from HTI17101 Exploring Radiography, the closest available material. Not silently renamed — every source reference still shows the HTI17101 filename and folder. |
-| APSS1A08 Introduction to Sociology | **Limited source coverage** | No verified lecture syllabus found. Only student assignments and papers. No study content generated. |
-| DSAI1202 Introduction to AI and Data Analytics | **No materials** | Placeholder page. No lessons or flashcards invented. |
+| ABCT2326 Human Physiology | Full | The current Group 4 overview and 2026 Lecture 1 control the course shape and cells unit. Systems 2–10 use official older lectures where current files are absent; this now includes four reproductive-system lessons from the readable 2020/21 lecture. |
+| HSS2011 Human Anatomy | Full | The current SDF, schedules, Week 1 pair and Weeks 2–4 movement self-study control the syllabus and early weeks. Later topics use official older HSS2011 sources, including four Week 7 Special Senses lessons. The older source date is visible on every lesson. |
+| HTI17103 Introduction to Medical Radiation Science | **Substitute source** | The current HTI17103 schedule and opening lecture are supplied. Later teaching remains built from the official HTI17101 Exploring Radiography set, topic-matched to the current schedule and never silently renamed. |
+| APSS1A08 Introduction to Sociology | **Limited source coverage** | The current syllabus and Topic 01 lecture are verified, producing five lessons. Official T02A–T08 lecture notes are missing and appear as named weekly gaps; old student papers are not used for facts. |
+| DSAI1202 Introduction to AI and Data Analytics | **Limited source coverage** | The current Week 1 overview supplies two lessons, the full tentative topic schedule, assessment and AI policy. Weeks 2–12 remain named source gaps until their official teaching files arrive. |
 | LEI1101 AI as a Tool for Language Learning | **No materials** | Placeholder page. ELC1011/ELC1012 exist but are different subjects and were deliberately not substituted. |
 
 The in-app **Coverage report** lists covered topics, missing coverage, duplicate materials across the
@@ -173,7 +188,7 @@ meant to be, and what have I already missed*.
 
 - **Now / next.** The teaching week, whatever is running at this moment, and what follows it with a
   countdown. The clock is live — the panel re-renders every minute while it is open.
-- **This week / Full term.** Every session across all three subjects in time order. A past row dims
+- **This week / Full term.** Every session across all six subjects in time order. A past row dims
   and grows two buttons, *Went* and *Missed*; a running one is ringed; the next one carries its
   countdown. That is the whole of the "attendance" feature: it records what you say happened, and
   it only asks once the session is over.
@@ -181,14 +196,14 @@ meant to be, and what have I already missed*.
   outcomes, the assessment table with weights, study effort, and the reading list. Every weight
   carries the file and page it was read off, the same way a lesson does.
 - **What to read before each week.** The timetable names a topic; `WEEK_STUDY` in `schedule.js` says
-  which of our lessons teach it, in order, with a button that runs the whole week as one session.
-  128 lessons in subject order is not a study plan. Week 7 is deliberately **empty** — the schedule
-  teaches Special Senses and nothing in the corpus covers it, and the tab prints the gap rather than
-  hiding it.
+  which of the 141 lessons teach it, in order, with a button that runs the whole week as one session.
+  The Full-term view prints the same cards under every week. HSS2011 Special Senses is now covered
+  from an older official lecture. Empty APSS1A08 and DSAI1202 teaching weeks instead print the exact
+  syllabus topic and the official lecture file that is still missing.
 
 ### The reading list is a progress card, not a row of pills
 
-The first version printed every lesson for the week as a button. Week 1 of HSS2011 is twenty-one of
+The first version printed every lesson for the week as a button. Week 1 of HSS2011 is twenty-two of
 them: a wall of identical pills that tells you the work exists and nothing about whether you have
 done any of it. The unit is now the **week's progress** —
 
@@ -196,7 +211,7 @@ done any of it. The unit is now the **week's progress** —
   *Started* counts lessons you have attempted; the percentage is mean mastery across the whole week,
   so it can only reach 100 by getting things right, and a week of half-remembered lessons reads
   as one;
-- **three** lessons shown, not twenty-one — unstarted first, then weakest. The rest are behind
+- **three** lessons shown, not twenty-two — unstarted first, then weakest. The rest are behind
   *Show all*;
 - each row carries its own state as a dot and a number: unstarted, weak, part, holding;
 - the button says **Start** or **Continue**, and runs the week in the order the card lists it in.
@@ -231,11 +246,10 @@ documents it was not derived from is telling the truth about the fourth.
   the teaching schedule cancels a lab for National Day and calls week 10 a no-class week, and the
   timetable books both. Cancelled here, flagged there — skipping a class on our say-so is the
   expensive direction to be wrong in.
-- **The other three subjects are in the timetable now.** This app teaches three and the student sits
-  six. A timetable showing half a week cannot show a clash, gets *what is on now* wrong whenever it
-  is one of the others, and undercounts *what have I missed* by three subjects. DSAI1202, APSS1A08
-  and the LCR seminar are carried as slots, marked **No lessons here — timetable only**, claiming
-  nothing.
+- **All six subjects are in the timetable.** Five now have source-backed lessons and weekly reading
+  maps. APSS1A08 uses its current thirteen-week syllabus and DSAI1202 uses the Week 1 deck’s tentative
+  sequence; where either lacks the official lecture, the row and weekly card say so. LEI1101 remains
+  timetable-only because no matching syllabus or teaching file has been supplied.
 - **The tutorial and lab groups are unknown.** The ABCT2326 schedule lists all three of each without
   saying which is the student’s. All are carried; a picker in the tab records the answer, and the
   other groups’ slots then stop counting against attendance. They stay visible, dimmed, because the
@@ -282,14 +296,14 @@ images exist in the assets folder, only `.glb` models. The label names come from
 
 ## Every lesson opens with a visual
 
-No lesson is a wall of prose. All 127 items resolve to a visual, and the resolver never invents one:
+No lesson is a wall of prose. All 141 items resolve to a visual, and the resolver never invents one:
 
 | Kind | Items | What it is |
 | --- | --- | --- |
 | **model** | 61 | The real named meshes for the structure being taught. The studio canvas is *moved into* the lesson card and focused on those meshes — still rotatable, still tappable, with a readout naming whatever you tap. One WebGL context, relocated rather than duplicated. |
 | **figure** | 32 | A published Wikimedia/OpenStax/Gray's image (`figures.js` — **29 figures**, every one of them in use), rendered through the schematic/labelled path when a figure exists for the id. |
-| **generated** | 19 | Drawn from the item's own sourced data — a sequence item's ordered steps become a flow, a matching item's pairs become a grid. A change of form, not of content. |
-| **schematic** | 15 | A hand-authored SVG or HTML layout, for what no mesh or photograph can show — a feedback loop, the EM spectrum, a decision table. |
+| **generated** | 33 | Drawn from the item's own sourced data — a sequence item's ordered steps become a flow, a matching item's pairs become a grid. A change of form, not of content. |
+| **layout** | 15 | A hand-authored HTML layout, for what no mesh or photograph can show — a feedback loop, the EM spectrum, a decision table. |
 
 ### "Not on disk" is not the same claim as "not available"
 
@@ -831,7 +845,7 @@ identification and laterality questions each state a non-3D route to the answer 
 `validateCorpus()` and `validateApplications()` run on every open of the coverage report and check
 that every question has a resolvable correct answer and an explanation, every item has a teaching
 explanation and at least one practice question, and every item carries a source reference. Current
-state: **128 items, 595 questions, 90 source files registered, 0 validation failures.**
+state: **141 items, 628 questions, 100 source files registered, 0 validation failures.**
 
 ## Which structure names you are asked to know
 

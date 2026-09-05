@@ -33,7 +33,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v86';
+const CACHE_VERSION = 'v106';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -116,7 +116,7 @@ const SHELL = [
   /*
    * study-data.js is a barrel; these are what it re-exports. The app never
    * imports them directly, but the browser fetches every one of them, so all
-   * seventeen have to be in the shell or the study system is empty offline.
+   * twenty have to be in the shell or the study system is empty offline.
    * work/shell-check.mjs walks the import graph and will name any that is
    * missing.
    */
@@ -124,11 +124,14 @@ const SHELL = [
   './study/corpus/hss-terminology.js',
   './study/corpus/hss-osteology.js',
   './study/corpus/hss-joints.js',
+  './study/corpus/hss-special-senses.js',
   './study/corpus/modules.js',
   './study/corpus/hss-modules.js',
   './study/corpus/physiology-items.js',
+  './study/corpus/physiology-reproductive.js',
   './study/corpus/hti-items.js',
   './study/corpus/dsai-items.js',
+  './study/corpus/apss-items.js',
   './study/corpus/notices.js',
   './study/corpus/structures.js',
   './study/corpus/expansion-items.js',
