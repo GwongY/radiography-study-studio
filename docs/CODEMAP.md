@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1266 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
+- `outputs/app.css` — 1272 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
 - `outputs/studio.js` — 26 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 45 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -42,8 +42,8 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `physiology.js` | 337 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `schedule.js` | 822 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
-| `study-data.js` | 117 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 375 | Radiography Study Studio — service worker |  |
+| `study-data.js` | 127 | Radiography Study Studio — study data layer. |  |
+| `sw.js` | 376 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 268 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 1748 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
@@ -130,13 +130,13 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `boot.js` | 74 | Boot |
-| `course-timetable.js` | 413 | Course — the syllabus and the timetable, with attendance |
-| `coverage-report.js` | 59 | Coverage report |
+| `course-timetable.js` | 428 | Course — the syllabus and the timetable, with attendance |
+| `coverage-report.js` | 104 | Coverage report |
 | `dialog-behaviour-applied.js` | 107 | Dialog behaviour, applied to all seven at once |
 | `global-search-one.js` | 351 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
 | `home.js` | 9 | Home |
-| `imports.js` | 129 |  |
+| `imports.js` | 138 |  |
 | `layout-figures.js` | 853 | Layout figures |
 | `lesson-visuals.js` | 237 | Lesson visuals |
 | `mastery-dashboard.js` | 9 | Mastery dashboard |
@@ -149,7 +149,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `search-viewer-open.js` | 44 | Search -> viewer: open the model, select the part, auto-uncover, and |
 | `session-engine.js` | 246 | Session engine |
 | `small-ui-helpers.js` | 190 | Small UI helpers |
-| `source-dialog.js` | 57 | Source dialog |
+| `source-dialog.js` | 59 | Source dialog |
 | `spatial-overlay-controls.js` | 283 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 35 | The study system's mutable UI state. |
 | `storage-versioned-keys.js` | 144 | Storage — versioned keys, one-time migration from the osteology app |
@@ -185,6 +185,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `physiology-items.js` | 2502 | ABCT2326 Human Physiology — the study items. |
 | `physiology-reproductive.js` | 115 | ABCT2326 Lecture 6 — Reproductive System. |
 | `schema.js` | 484 | Scaffolding: the source registry, the subjects and their units, the item |
+| `source-lesson-map.js` | 4364 | GENERATED by work/build-source-lesson-map.mjs — do not hand-edit. |
 | `structures.js` | 348 | Granular 3D targets: the structure sets a tap-to-identify item draws from, |
 | `validate.js` | 125 | Validation — every question must have a resolvable answer and every claim a |
 
@@ -199,6 +200,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/build-course-terms.mjs` | Build work/course-terms.json — which of the model's 1,687 named structures | [Study depth and course terms](TRAPS.md#study-depth-and-course-terms--workbuild-course-termsmjs) |
 | `work/build-mesh-index.mjs` | Build outputs/mesh-index.js — the searchable name index for every mesh in | [The mesh index](TRAPS.md#the-mesh-index--workbuild-mesh-indexmjs-worklibmesh-namesmjs) |
 | `work/build-source-catalogue.mjs` | Build work/source-catalogue.json — what is on the source drive, so that no | [The source drive](TRAPS.md#the-source-drive--workbuild-source-cataloguemjs-worksource-checkmjs) |
+| `work/build-source-lesson-map.mjs` | Generate the compact public Y1S1 source-to-lesson map and its local, |  |
 | `work/build-source-text.mjs` | Build the text of the sources, so a session can answer "what does page 4 | [Source text](TRAPS.md#source-text--workbuild-source-textmjs-worklibsource-resolvemjs) |
 | `work/cavity-probe.mjs` | Numeric validation of the cavity derivation against the real GLBs. |  |
 | `work/codemap-check.mjs` | Codemap check — is docs/CODEMAP.md what work/codemap.mjs would generate |  |
@@ -229,6 +231,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/search-probe.mjs` | Search probe — does typing a structure's name find it? |  |
 | `work/shell-check.mjs` | Shell check — every module the page imports is precached under the SAME |  |
 | `work/source-check.mjs` | Does every source the corpus cites actually exist on the drive? | [The source drive](TRAPS.md#the-source-drive--workbuild-source-cataloguemjs-worksource-checkmjs) |
+| `work/source-lesson-check.mjs` |  |  |
 | `work/syntax-check.mjs` | Syntax-checks every inline <script type="module"> block in the app HTML, plus |  |
 | `work/system-check.mjs` | Does every mesh in a split layer land in a system? | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs) |
 | `work/text-size-check.mjs` | Does the text-size control actually move the text? | [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) |
