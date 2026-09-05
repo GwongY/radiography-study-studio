@@ -55,6 +55,15 @@ the supplied shared folders. Nothing came from internet research, generic textbo
 invented syllabus content. The source dialog on every item shows filename, subject, folder and
 page/slide/section, and labels each reference as one of:
 
+### Y1S1 source-map contract
+
+The original source file remains the teaching note: the source map organizes provenance and does not
+replace, rewrite or elevate it. **New** sources are current-primary; **old** sources are
+old-support-fallback (supporting or fallback only, never silently current). Only **Y1S1** material is
+lesson-mapped. Future material is retained for audit and later use, but is not syllabus-assigned until
+a newer syllabus and schedule justify it. `work/.source-lesson-audit/` is local-only and may contain
+private filenames; it is not app data or a publishable source list.
+
 - **Source-derived** — teaching material issued by the subject (lecture handouts, study manuals, decks)
 - **Assessment** — past papers, revision exercises, model answers, question banks
 - **Student work** — student coursework. Used only to confirm topic scope, never as a fact source
