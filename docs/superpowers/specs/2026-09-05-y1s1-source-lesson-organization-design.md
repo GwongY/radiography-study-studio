@@ -4,10 +4,11 @@
 
 The study system will have one canonical teaching note for each current Y1S1
 lesson. Files from `New sources` and old sources are evidence attached to that
-same lesson; they are not separate lesson notes. The current syllabus and the
-current schedule decide which lessons exist and how they are ordered. Within
-that scope, a verified file from `New sources` is the preferred current source,
-and an older file is supporting evidence or an explicitly labelled fallback.
+same lesson; they are not separate lesson notes. The current Y1S1 syllabus and
+current Y1S1 schedule decide which lessons exist and how they are ordered.
+Within that scope, a verified file from `New sources` is the preferred current
+source, and an older file is supporting evidence or an explicitly labelled
+fallback.
 
 This is a source-organization change, not a request to move or rename files on
 the shared drive.
@@ -20,12 +21,13 @@ schedule-only LEI1101 slot remains visible as a Y1S1 schedule item with an
 explicit no-teaching-source state; it must not disappear merely because no
 course notes have been supplied.
 
-The system will classify every discovered file in both source sets, but only
-Y1S1 material will be promoted into the public lesson-reading experience.
-Files currently outside Y1S1 are retained in the local audit as `future / other
-scope`, with their reason and source identity. That label describes the current
-study view, not a permanent rejection. A later syllabus update can promote the
-same source family without re-reading or reclassifying it from scratch.
+The system will lesson-map only files that can be evidenced as Y1S1 material.
+Files that cannot be placed using the current Y1S1 syllabus and schedule will
+not be assigned to a lesson or course. They may be retained in the local
+inventory as `not mapped — future scope`, with their source identity, but this
+is deliberately not a claim about their eventual syllabus placement. A later
+year's newest syllabus and schedule can promote the same source family when
+that scope is provided, without treating it as permanently rejected.
 
 The system will not publish private student work, unrelated personal files, or
 the exhaustive old-source inventory in the public app. The local audit may
@@ -34,23 +36,24 @@ folder.
 
 ## Source precedence and version policy
 
-Each source record has a stable source-family identity and these independent
-properties:
+Each Y1S1 candidate source record has a stable source-family identity and these
+independent properties:
 
 - source set: `new` or `old`;
-- lesson links: one or more current Y1S1 lesson IDs, or an explicit future /
-  unresolved state;
+- lesson links: one or more current Y1S1 lesson IDs, or an explicit `not
+  mapped — future scope` / unresolved state;
 - role: `current primary`, `older supporting`, `older fallback`, `assessment`,
-  `administration`, `duplicate`, `student work`, `future / other scope`, or
-  `needs review`;
+  `administration`, `duplicate`, `student work`, `not mapped — future scope`,
+  or `needs review`;
 - reading state: `verified`, `OCR-verified`, `unread`, or `needs OCR`;
 - version evidence: intake set, normalized title, date/edition markers, exact
   content hash, and any verified relationship to another copy.
 
 `New sources` membership is the automatic signal that a file is new. The
-generated source map will show a `NEW SOURCE` badge and will record the source
-set that caused the decision, so a newly added intake file is identified during
-the next catalogue/map refresh without asking the student to label it by hand.
+generated Y1S1 source map will show a `NEW SOURCE` badge and will record the
+source set that caused the decision, so a newly added intake file that belongs
+to Y1S1 is identified during the next catalogue/map refresh without asking the
+student to label it by hand.
 An old file that has a newer-looking filename but is not in the new intake is
 not silently promoted; it is a review candidate until its source-set and
 syllabus relationship are verified.
@@ -105,11 +108,13 @@ lesson. The student should be able to answer “what do I study this week?” an
 view will provide the corresponding Y1S1 completeness summary and the New
 source badges. It will not present a flat unlabelled list as the primary view.
 
-The local exhaustive audit will retain the complete New/old classification,
-including files excluded from the public view. Its rows will contain the
-source filename, source set, detected family, classification, linked lesson or
-future-scope reason, reading/OCR state, and verification status. This audit is
-the place to inspect unresolved files without cluttering the learning view or
+The local Y1S1 audit will retain the New/old classification for Y1S1 candidates,
+including files excluded from the public view. Its rows will contain the source
+filename, source set, detected family, classification, linked lesson or
+`not mapped — future scope` reason, reading/OCR state, and verification status.
+Files outside the supplied Y1S1 evidence boundary are not falsely lesson-mapped;
+they remain inventory entries for later work. This audit is the place to
+inspect unresolved Y1S1 candidates without cluttering the learning view or
 exposing private student material.
 
 ## Data flow and boundaries
@@ -121,7 +126,7 @@ source-to-lesson mapping layer between those authorities and the runtime
 corpus:
 
 1. refresh the catalogue and source text/OCR inputs;
-2. detect the New and old source sets and group clear versions;
+2. detect the New and old source sets and group clear Y1S1 versions;
 3. match only verified teaching evidence to current Y1S1 lesson IDs;
 4. emit the compact runtime map and the local exhaustive audit;
 5. render the grouped sources from the Course/Coverage tabs;
@@ -141,9 +146,9 @@ The source-map verifier will fail when:
   source state;
 - a source link does not resolve to a catalogue/source-file record;
 - a teaching source has no verified page/quote evidence;
-- a New-source intake file is unclassified;
+- a New-source intake file evidenced as Y1S1 is unclassified;
 - a source is promoted to current Y1S1 despite being assessment-only,
-  administrative, student work, unread, or future / other scope;
+  administrative, student work, unread, or not mapped — future scope;
 - a source is assigned to a subject/week that conflicts with the syllabus,
   schedule, or verified source evidence;
 - two source versions produce duplicate canonical lesson notes;
@@ -157,8 +162,10 @@ same-family old copy, proving that the New badge and single-note grouping are
 deterministic.
 
 If a file cannot be read, the map will say `needs OCR` or `needs review`; it
-will not infer lesson coverage from a filename alone. If a syllabus lesson has
-no verified source, the Course tab will show the gap and still preserve the
+will not infer lesson coverage from a filename alone. If a file has not been
+shown to belong to Y1S1, it remains `not mapped — future scope` rather than
+being assigned using an older or guessed syllabus. If a Y1S1 syllabus lesson
+has no verified source, the Course tab will show the gap and still preserve the
 lesson's scheduled position. If the catalogue cannot be refreshed, the last
 verified map remains readable but the audit is marked stale rather than being
 silently rebuilt from partial input.
@@ -175,4 +182,5 @@ The implementation plan will make the smallest changes needed to:
   version, and generated audit artifacts according to repository rules.
 
 No shared-drive file will be moved, deleted, or renamed. No future-year source
-will be thrown away merely because it is not in the present Y1S1 syllabus.
+will be thrown away merely because it cannot yet be mapped without that year's
+newest syllabus and schedule.
