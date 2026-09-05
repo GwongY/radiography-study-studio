@@ -1076,6 +1076,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .source-group-list{display:grid;gap:6px;padding:0 0 0 18px;overflow-wrap:anywhere}
 .source-badge{display:inline-block;border:1px solid var(--line);padding:1px 5px;white-space:nowrap}
 .source-role{display:inline-block;padding:1px 5px;white-space:nowrap}
+.source-status{color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .source-reason{display:block;border-left:2px solid var(--line);padding-left:8px;overflow-wrap:anywhere}
 /* One lesson. The dot carries the state, so the row reads at a glance and
    the percentage is there for when you want the number. */

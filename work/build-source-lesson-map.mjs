@@ -12,7 +12,14 @@ import { COVERAGE } from '../outputs/study/corpus/coverage.js';
 import { getItem } from '../outputs/study/corpus/corpus.js';
 import { SOURCE_FILES, SOURCE_ROOTS } from '../outputs/study/corpus/schema.js';
 import { STUDY_SUBJECTS, WEEK_GAPS, WEEK_STUDY } from '../outputs/schedule.js';
-import { normaliseSourceFile, sourceRoleFor, sourceSetFor } from './lib/source-lesson-map.mjs';
+import {
+  citationEvidence,
+  groupReferencesByRef,
+  lessonStatus,
+  normaliseSourceFile,
+  sourceRoleFor,
+  sourceSetFor,
+} from './lib/source-lesson-map.mjs';
 import { resolveSource } from './lib/source-resolve.mjs';
 
 const WORK = dirname(fileURLToPath(import.meta.url));
@@ -54,11 +61,6 @@ for (const lesson of expected) {
     `lesson has no explicit sourceRefs or WEEK_GAPS entry: ${lesson.id}`);
 }
 
-const flat = (value) => String(value).toLowerCase()
-  .replace(/[‘’“”]/g, "'")
-  .replace(/[‐-―]/g, '-')
-  .replace(/\s+/g, ' ').trim();
-const quoted = (reference) => (String(reference.location || '').match(/"([^"]{4,})"/) || [])[1] || '';
 const sourceKey = (doc) => `${doc.n.toLowerCase()}|${doc.b}`;
 const cacheKey = (doc) => createHash('sha1').update(sourceKey(doc)).digest('hex').slice(0, 16);
 
@@ -73,73 +75,65 @@ function cacheIndex() {
 }
 const cached = cacheIndex();
 
-function quotePasses(reference, text) {
-  const quote = quoted(reference);
-  if (!quote) return true;
-  if (!text?.pages) return false;
-  const parts = quote.split(/\s+[—–]\s+/).map(flat).filter(Boolean);
-  const hasParts = (page) => parts.every((part) => flat(page).includes(part));
-  const claimed = Number((String(reference.location || '').match(/\bp\.?\s?(\d+)/i) || [])[1]);
-  return !!(claimed && claimed <= text.pages.length && hasParts(text.pages[claimed - 1] || ''));
-}
-
 function locationsOf(doc) {
   return doc.at.map(([root, path]) => `${root < 0 ? '?' : cat.roots[root]}/${path}`);
 }
 
-function sourceRecord(reference) {
-  const entry = SOURCE_FILES[reference.ref];
-  if (!entry) return { ref: reference.ref, set: 'old', kind: 'unknown', verified: false, readState: 'unresolved', reason: 'unresolved source' };
+function setInfo(entry, resolvedLocations = []) {
+  const registryLocations = entry ? [SOURCE_ROOTS[entry.root] || '', entry.folder || ''] : [];
+  const locations = [...resolvedLocations, ...registryLocations];
+  const file = entry?.file || '';
+  const intake = newFiles.has(normaliseSourceFile(file));
+  const newPath = locations.some((path) => String(path).replaceAll('\\', '/').toLowerCase().split('/').includes('new source'));
+  return {
+    set: sourceSetFor({ file, locations }, newFiles),
+    evidence: intake ? 'intake' : newPath ? 'catalogue-path' : entry?.root ? 'registry-only' : 'catalogue',
+  };
+}
+
+function sourceRecord(ref, references) {
+  const entry = SOURCE_FILES[ref];
+  const registrySet = setInfo(entry);
+  if (!entry) return { ref, ...registrySet, kind: 'unknown', verified: false, readState: 'unresolved', reason: 'unresolved source' };
   const hit = resolveSource(entry, cat, SOURCE_ROOTS);
   if (!hit || hit.ambiguous) {
     return {
-      ref: reference.ref, set: 'old', kind: entry.kind, verified: false, readState: 'unresolved',
+      ref, ...registrySet, kind: entry.kind, verified: false, readState: 'unresolved',
       reason: hit?.ambiguous ? 'unresolved source (ambiguous catalogue identity)' : 'unresolved source', entry,
     };
   }
-  const text = sourceText.sources?.[reference.ref];
+  const text = sourceText.sources?.[ref];
   const cachedRecord = cached[cacheKey(hit.doc)];
-  const hasText = !!text || !!cachedRecord?.ok;
-  const readState = hasText ? 'read' : 'needs OCR';
   const locations = locationsOf(hit.doc);
-  const set = sourceSetFor({ file: entry.file, locations }, newFiles);
-  const evidence = newFiles.has(normaliseSourceFile(entry.file)) ? 'intake'
-    : locations.some((path) => path.replaceAll('\\', '/').toLowerCase().split('/').includes('new source')) ? 'catalogue path'
-      : 'registry-only';
+  const resolvedSet = setInfo(entry, locations);
+  const readState = text ? 'verified' : cachedRecord?.ok ? 'unread' : sourceText.failed?.[ref] ? 'needs OCR' : 'unread';
   /* The local cache can prove a document was readable, not that a public
      citation names the right page. Only the committed source-text record has
      the pages needed for that gate. */
   const identityVerified = !!text
     && normaliseSourceFile(text.file) === normaliseSourceFile(hit.doc.n)
-    && text.at === hit.where;
+    && text.at === hit.where
+    && (!text.subject || text.subject === entry.subject)
+    && (!text.kind || text.kind === entry.kind);
+  const citationChecks = references.map((reference) => citationEvidence(reference, text));
+  const citationsVerified = citationChecks.length > 0 && citationChecks.every((check) => check.ok);
+  const failedCitation = citationChecks.find((check) => !check.ok);
   return {
-    ref: reference.ref, set, kind: entry.kind, identityVerified, verified: identityVerified, readState, entry, doc: hit.doc, evidence,
-    reason: !hasText ? 'missing OCR' : (!identityVerified ? 'unresolved source identity' : ''),
+    ref, ...resolvedSet, kind: entry.kind, identityVerified,
+    verified: identityVerified && citationsVerified,
+    readState, entry, doc: hit.doc,
+    reason: !text ? (cachedRecord?.ok ? 'cache-only source text is not committed evidence' : 'missing committed source text')
+      : !identityVerified ? 'unresolved source identity'
+        : failedCitation?.reason || '',
   };
 }
-
-const unique = (references) => [...new Map(references.map((reference) => [reference.ref, reference])).values()];
-const recordsByRef = new Map();
-const recordFor = (reference) => {
-  const prior = recordsByRef.get(reference.ref);
-  if (prior) {
-    const quoteOk = quotePasses(reference, sourceText.sources?.[reference.ref]);
-    return { ...prior, verified: prior.identityVerified && quoteOk,
-      reason: prior.reason || (!quoteOk ? 'quoted citation does not pass its exact named-page check' : '') };
-  }
-  const record = sourceRecord(reference);
-  recordsByRef.set(reference.ref, record);
-  const quoteOk = quotePasses(reference, sourceText.sources?.[reference.ref]);
-  return { ...record, verified: record.identityVerified && quoteOk,
-    reason: record.reason || (!quoteOk ? 'quoted citation does not pass its exact named-page check' : '') };
-};
 
 const byLesson = {};
 for (const { id, subject, week, item } of expected) {
   /* App-authored aids carry `{ ref: null }`: they remain in the corpus's own
      source dialog, but this public map is deliberately only SOURCE_FILES keys. */
-  const refs = unique((item.sourceRefs || []).filter((reference) => reference?.ref));
-  const resolved = refs.map(recordFor);
+  const groupedRefs = groupReferencesByRef(item.sourceRefs || []);
+  const resolved = [...groupedRefs].map(([ref, references]) => sourceRecord(ref, references));
   const hasNewPrimary = resolved.some((record) => record.set === 'new' && record.kind === 'primary' && record.verified);
   const sources = resolved.map((record) => ({
     ref: record.ref, set: record.set,
@@ -152,10 +146,9 @@ for (const { id, subject, week, item } of expected) {
   if (!hasNewPrimary && resolved.some((record) => record.entry?.folder?.includes('HTI17101'))) {
     reasons.push('current-source substitution: verified HTI17101 material is retained as fallback for HTI17103.');
   }
-  const teaching = sources.filter((source) => ['current-primary', 'older-supporting', 'older-fallback'].includes(source.role));
-  const status = teaching.some((source) => source.role === 'current-primary') ? 'complete'
-    : teaching.length ? 'partial'
-      : resolved.some((record) => !record.verified) ? 'needs-review' : 'missing';
+  const primary = sources.filter((source) => source.role === 'current-primary');
+  const supporting = sources.filter((source) => ['older-supporting', 'older-fallback'].includes(source.role));
+  const status = lessonStatus({ primary, supporting, unresolved: resolved.some((record) => !record.verified), hasGap: !!gap });
   byLesson[id] = { id, subject, week, title: item.title, status, sources, reasons };
 }
 
@@ -165,9 +158,12 @@ for (const group of Object.values(byLesson)) {
   assert.deepEqual(Object.keys(group).sort(), ['id', 'reasons', 'sources', 'status', 'subject', 'title', 'week']);
 }
 
-const byWeek = {};
+const byWeek = Object.fromEntries(Object.entries(WEEK_STUDY).map(([subject, weeks]) => [
+  subject,
+  Object.fromEntries(Object.keys(weeks).map((week) => [week, []])),
+]));
 for (const group of Object.values(byLesson)) {
-  ((byWeek[group.subject] ||= {})[group.week] ||= []).push(group.id);
+  byWeek[group.subject][group.week].push(group.id);
 }
 const bySource = {};
 for (const group of Object.values(byLesson)) for (const source of group.sources) {
@@ -198,6 +194,21 @@ for (const [ref, entry] of Object.entries(SOURCE_FILES)) {
 const linked = new Map(Object.entries(bySource));
 const teachingRoles = new Set(['current-primary', 'older-supporting', 'older-fallback']);
 const field = (value) => String(value ?? '').replace(/[\t\r\n]+/g, ' ').trim();
+const sha256 = (value) => createHash('sha256').update(value).digest('hex');
+function auditIdentity(doc, registry, origin) {
+  const refs = registry.map(({ ref }) => ref).sort();
+  const textHashes = registry
+    .map(({ ref }) => sourceText.sources?.[ref])
+    .filter(Boolean)
+    .map((text) => sha256(JSON.stringify(text.pages || [])));
+  const parts = [
+    `document-sha256:${sha256(`${normaliseSourceFile(doc.n)}\0${doc.b}\0${doc.m || ''}`)}`,
+    ...[...new Set(textHashes)].map((hash) => `text-sha256:${hash}`),
+    refs.length ? `refs:${refs.join(',')}` : '',
+    `origin:${origin}`,
+  ];
+  return parts.filter(Boolean).join(';');
+}
 const audit = ['sourceSet\tscope\tsubject\tkind\tclassification\tlessonIds\treadState\tidentity\treason\tname'];
 for (const doc of cat.docs) {
   const registry = sourceRegistryByDoc.get(sourceKey(doc)) || [];
@@ -205,21 +216,24 @@ for (const doc of cat.docs) {
   const subject = subjectEntry?.entry.subject || STUDY_SUBJECTS.find((code) => locationsOf(doc).some((path) => path.includes(code))) || '';
   const current = !!subject;
   const references = registry.flatMap(({ ref }) => linked.get(ref) || []);
-  const isNew = sourceSetFor({ file: doc.n, locations: locationsOf(doc) }, newFiles) === 'new';
+  const sourceSet = setInfo({ file: doc.n }, locationsOf(doc));
+  const isNew = sourceSet.set === 'new';
   const kind = subjectEntry?.entry.kind || doc.kind || 'unregistered';
-  const read = sourceText.sources && registry.some(({ ref }) => sourceText.sources[ref]) || cached[cacheKey(doc)]?.ok;
+  const committedText = registry.some(({ ref }) => sourceText.sources?.[ref]);
+  const cacheOnly = !committedText && cached[cacheKey(doc)]?.ok;
+  const readState = committedText ? 'verified' : cacheOnly ? 'unread' : 'needs OCR';
   const teaching = references.find((source) => teachingRoles.has(source.role));
   const classification = !current ? 'not-mapped-future'
     : teaching ? teaching.role
       : kind === 'primary' ? 'needs-review' : 'metadata-only';
-  const evidence = newFiles.has(normaliseSourceFile(doc.n)) ? 'intake'
-    : locationsOf(doc).some((path) => path.replaceAll('\\', '/').toLowerCase().split('/').includes('new source')) ? 'catalogue path'
-      : registry.length ? 'registry-only' : 'catalogue path';
+  const evidence = sourceSet.evidence;
+  const identity = auditIdentity(doc, registry, evidence);
   const reason = !current ? 'not mapped to the current Y1S1 syllabus'
     : classification === 'needs-review' ? 'current-subject teaching candidate has no verified Y1S1 sourceRef'
-      : references.length ? evidence : 'registry source is not linked to a current lesson';
+      : cacheOnly ? 'cache-only text is not committed verification evidence'
+        : references.length ? evidence : 'registry source is not linked to a current lesson';
   audit.push([isNew ? 'new' : 'old', current ? 'Y1S1' : 'future', subject, kind, classification,
-    [...new Set(references.map((source) => source.lessonId))].join(','), read ? 'read' : 'needs OCR', evidence, reason, doc.n].map(field).join('\t'));
+    [...new Set(references.map((source) => source.lessonId))].join(','), readState, identity, reason, doc.n].map(field).join('\t'));
 }
 
 /* All validation precedes public output. The audit is local-only and may retain

@@ -3,7 +3,7 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, COVERAGE, SOURCE_FILES, STUDY_ITEMS, Y1S1_SOURCE_MAP, allQuestions, describeSource, esc, getSubject, itemsForSubject, sourceGroupsForWeek, sourceMetaFor, validateApplications, validateCorpus } from './imports.js';
+import { $$, COVERAGE, SOURCE_FILES, STUDY_ITEMS, STUDY_SUBJECTS, WEEK_GAPS, WEEK_STUDY, allQuestions, describeSource, esc, getSubject, itemsForSubject, sourceGroupsForWeek, sourceMetaFor, validateApplications, validateCorpus } from './imports.js';
 import { coveragePill } from './small-ui-helpers.js';
 import { openDialog } from './dialog-behaviour-applied.js';
 
@@ -18,16 +18,19 @@ function sourceMapHTML(focusSubject) {
     { label: 'Assessment/practice context', roles: ['assessment'] },
     { label: 'Source gap or review state', roles: ['administration', 'student-work', 'needs-review'] },
   ];
-  const subjectIds = Object.keys(Y1S1_SOURCE_MAP.byWeek)
+  const subjectIds = STUDY_SUBJECTS
     .filter((id) => !focusSubject || id === focusSubject);
-  if (!subjectIds.length) return '';
+  const showLEI = !focusSubject || focusSubject === 'LEI1101';
+  if (!subjectIds.length && !showLEI) return '';
 
   const sourceLine = (source, lesson) => {
     const mapMeta = sourceMetaFor(source.ref, lesson.id) || source;
     const item = STUDY_ITEMS.find((candidate) => candidate.id === lesson.id);
-    const itemSource = item?.sourceRefs?.find((entry) => entry.ref === mapMeta.ref);
-    const described = describeSource(itemSource || mapMeta);
-    return `<li><strong style="color:var(--text)">${esc(described.file)}</strong>${described.location ? `<br><span class="small">${esc(described.location)}</span>` : ''}</li>`;
+    const itemSources = (item?.sourceRefs || []).filter((entry) => entry.ref === mapMeta.ref);
+    const descriptions = (itemSources.length ? itemSources : [mapMeta]).map(describeSource);
+    const described = descriptions[0];
+    const locations = [...new Set(descriptions.map((entry) => entry.location).filter(Boolean))];
+    return `<li><strong style="color:var(--text)">${esc(described.file || mapMeta.ref)}</strong>${locations.map((location) => `<br><span class="small">${esc(location)}</span>`).join('')}</li>`;
   };
   const lessonHTML = (lesson) => {
     const sourceLists = sourceKinds.slice(0, 3).map((kind) => {
@@ -40,17 +43,27 @@ function sourceMapHTML(focusSubject) {
     const gapHTML = hasGapState
       ? `<div class="subhead" style="margin:8px 0 2px">${sourceKinds[3].label}</div><p class="small" style="margin:6px 0 0">Status: ${esc(lesson.status || 'needs-review')}${reasons.length ? ` — ${reasons.map(esc).join(' ')}` : ''}</p>${gapSources.length ? `<ul>${gapSources.map((source) => sourceLine(source, lesson)).join('')}</ul>` : ''}`
       : '';
-    return `<li><strong style="color:var(--text)">${esc(lesson.title)}</strong>${sourceLists}${gapHTML}</li>`;
+    return `<li><strong style="color:var(--text)">${esc(lesson.title)}</strong> <span class="tag">${esc(lesson.status)}</span>${sourceLists}${gapHTML}</li>`;
+  };
+  const weekHTML = (subjectId, week) => {
+    const lessons = sourceGroupsForWeek(subjectId, week);
+    const gap = WEEK_GAPS[subjectId]?.[week] || '';
+    const body = lessons.length
+      ? `<ul>${lessons.map(lessonHTML).join('')}</ul>`
+      : `<p class="small" style="margin:6px 0 0"><strong>Source gap · missing</strong>${gap ? ` — ${esc(gap)}` : ' — No source-backed lesson is assigned.'}</p>`;
+    return `<div style="margin:8px 0"><strong>Week ${week}</strong>${body}</div>`;
   };
   return `<div class="cov-sec">
     <h4>Y1S1 source map</h4>
     <p class="small">New and old files are grouped under the same Y1S1 lesson. The original source file remains the teaching note; this view only identifies which version to use. Files without a current Y1S1 syllabus placement remain retained for future work and are not assigned to another year here.</p>
     ${subjectIds.map((subjectId) => {
       const subject = getSubject(subjectId);
-      const weeks = Object.keys(Y1S1_SOURCE_MAP.byWeek[subjectId]).map(Number).sort((a, b) => a - b);
+      const weeks = Object.keys(WEEK_STUDY[subjectId] || {}).map(Number).sort((a, b) => a - b);
       return `<div class="subhead" style="margin:12px 0 2px">${esc(subject ? `${subject.code} — ${subject.title}` : subjectId)}</div>
-        ${weeks.map((week) => `<div style="margin:8px 0"><strong>Week ${week}</strong><ul>${sourceGroupsForWeek(subjectId, week).map(lessonHTML).join('')}</ul></div>`).join('')}`;
+        ${weeks.map((week) => weekHTML(subjectId, week)).join('')}`;
     }).join('')}
+    ${showLEI ? `<div class="subhead" style="margin:12px 0 2px">LEI1101 — AI as a Tool for Language Learning</div>
+      <p class="small" style="margin:6px 0 0"><strong>Schedule only · no teaching source</strong> — The timetable slot remains visible, but no verified LEI1101 syllabus or teaching file has been supplied.</p>` : ''}
   </div>`;
 }
 
