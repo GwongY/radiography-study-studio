@@ -10,6 +10,7 @@
 import './study/imports.js';
 import './study/storage-versioned-keys.js';
 import { init as init_progress_log_js } from './study/progress-log.js';
+import { init as init_gist_sync_js } from './study/gist-sync.js';
 import './study/moving-progress-between.js';
 import './study/reset.js';
 import { init as init_small_ui_helpers_js } from './study/small-ui-helpers.js';
@@ -44,6 +45,8 @@ init_boot_js();
 /* After boot: migrate() folds in the legacy history, and the log's baseline
    has to be taken with that already in it. */
 init_progress_log_js();
+/* After the log: a pull can only reconcile against a baseline that exists. */
+init_gist_sync_js();
 init_dialog_behaviour_applied_js();
 init_course_timetable_js();
 init_viewer_tools_js();

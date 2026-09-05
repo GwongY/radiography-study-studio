@@ -5,8 +5,9 @@
  */
 import { $$, DATA_VERSION, LEGACY_STATS_KEY, STORAGE_PREFIX, esc, itemsForSubject, ui } from './imports.js';
 import { K, itemAttempted, itemDue, itemScore, migrate, read, store, write } from './storage-versioned-keys.js';
-import { PROGRESS_FORMAT, buildProgressExport } from './moving-progress-between.js';
+import { applyProgressImport, buildProgressExport, planProgressMerge, validateProgressFile } from './moving-progress-between.js';
 import { absorb, clearLog, events } from './progress-log.js';
+import { disconnect, isConnected } from './gist-sync.js';
 import { closeSessionOverlay, goTo } from './navigation-five-destinations.js';
 import { openDialog } from './dialog-behaviour-applied.js';
 import { renderToday } from './spatial-overlay-controls.js';
@@ -46,6 +47,7 @@ export function openResetDialog() {
     `Your mistake log — <strong>${c.mistakes}</strong> entr${c.mistakes === 1 ? 'y' : 'ies'}, with the questions you got wrong.`,
     'Day streak, per-item status and the item you were last part-way through.',
   ];
+  if (isConnected()) rows.push('Your connection to the backup gist — <strong>disconnected</strong>, so the next sync cannot quietly restore what you just erased. The gist itself is left alone.');
   if (c.legacy) rows.push(`The original osteology quiz history — <strong>${c.legacy}</strong> bone${c.legacy === 1 ? '' : 's'}. It goes too, otherwise the next load would import it straight back.`);
   $$('resetList').innerHTML = rows.map((r) => `<li>${r}</li>`).join('');
   const go = $$('resetGo');
@@ -88,6 +90,16 @@ function resetProgress() {
   if (window.__osteo && window.__osteo.resetStats) window.__osteo.resetStats();
   /* The event log is progress too, and a rebuild could resurrect it. */
   clearLog();
+  /*
+   * And a connected gist would resurrect it from the other direction: an erased
+   * device reads as an EMPTY one, which is exactly the state that adopts the
+   * remote history wholesale. So the device is disconnected rather than left to
+   * quietly undo the erase on the next sync. The gist itself is untouched --
+   * destroying someone's only off-device backup is not what erasing THIS DEVICE
+   * asks for, and reconnecting with the same id brings it all back.
+   */
+  const wasSyncing = isConnected();
+  if (wasSyncing) disconnect();
   for (const key of [K.mastery, K.items, K.mistakes, K.meta, STORAGE_PREFIX + 'continue', LEGACY_STATS_KEY]) {
     try { localStorage.removeItem(key); } catch { /* private mode: the in-memory wipe below still holds */ }
   }
@@ -98,7 +110,7 @@ function resetProgress() {
   $$('resetDialog').close();
   /* A session still holding the erased records would keep scheduling against them. */
   if (ui.session) { ui.session = null; closeSessionOverlay(); }
-  toast(`Progress erased \u2014 ${c.dims} mastery record${c.dims === 1 ? '' : 's'} and ${c.mistakes} mistake${c.mistakes === 1 ? '' : 's'} gone.`);
+  toast(`Progress erased \u2014 ${c.dims} mastery record${c.dims === 1 ? '' : 's'} and ${c.mistakes} mistake${c.mistakes === 1 ? '' : 's'} gone.${wasSyncing ? ' Gist sync disconnected; the gist itself is untouched.' : ''}`);
   goTo('today');
 }
 
@@ -115,82 +127,6 @@ export function exportProgress() {
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 4000);
   toast(`Exported ${payload.counts.mastery} mastery records.`);
-}
-
-/* Never trust the file: it may be a different app's export, an older format, or
-   hand-edited. Anything unexpected is refused with the reason, not merged. */
-function validateProgressFile(data) {
-  if (!data || typeof data !== 'object') return 'That file is not JSON this app understands.';
-  if (data.format !== PROGRESS_FORMAT) return 'That is not a Study Studio progress file.';
-  if (data.dataVersion !== DATA_VERSION) return `That file was written for data version ${data.dataVersion}, and this app is on ${DATA_VERSION}.`;
-  if (!data.mastery || typeof data.mastery !== 'object' || Array.isArray(data.mastery)) return 'The mastery record in that file is missing or malformed.';
-  if (!data.items || typeof data.items !== 'object' || Array.isArray(data.items)) return 'The item record in that file is missing or malformed.';
-  if (data.mistakes && !Array.isArray(data.mistakes)) return 'The mistake log in that file is malformed.';
-  if (data.log && !Array.isArray(data.log)) return 'The answer log in that file is malformed.';
-  return null;
-}
-
-function planProgressMerge(data) {
-  const plan = { added: 0, replaced: 0, keptLocal: 0, itemsAdded: 0, itemsUpdated: 0, mistakesAdded: 0, eventsNew: 0 };
-  Object.entries(data.mastery).forEach(([key, rec]) => {
-    if (!rec || typeof rec !== 'object') return;
-    const mine = store.mastery[key];
-    if (!mine) plan.added += 1;
-    else if ((rec.lastSeen || 0) > (mine.lastSeen || 0)) plan.replaced += 1;
-    else plan.keptLocal += 1;
-  });
-  Object.entries(data.items).forEach(([id, rec]) => {
-    if (!rec || typeof rec !== 'object') return;
-    const mine = store.items[id];
-    if (!mine) plan.itemsAdded += 1;
-    else if ((rec.lastSeen || 0) > (mine.lastSeen || 0)) plan.itemsUpdated += 1;
-  });
-  const seen = new Set(store.mistakes.map((m) => `${m.itemId}|${m.qid}|${m.at}`));
-  (data.mistakes || []).forEach((m) => {
-    if (m && !seen.has(`${m.itemId}|${m.qid}|${m.at}`)) plan.mistakesAdded += 1;
-  });
-  const held = new Set(events.map((e) => e.id));
-  (data.log || []).forEach((e) => { if (e && e.id && !held.has(e.id)) plan.eventsNew += 1; });
-  return plan;
-}
-
-function applyProgressImport(data, mode) {
-  if (mode === 'replace') {
-    store.mastery = { ...data.mastery };
-    store.items = { ...data.items };
-    store.mistakes = Array.isArray(data.mistakes) ? data.mistakes.slice(0, 400) : [];
-  } else {
-    Object.entries(data.mastery).forEach(([key, rec]) => {
-      if (!rec || typeof rec !== 'object') return;
-      const mine = store.mastery[key];
-      if (!mine || (rec.lastSeen || 0) > (mine.lastSeen || 0)) store.mastery[key] = rec;
-    });
-    Object.entries(data.items).forEach(([id, rec]) => {
-      if (!rec || typeof rec !== 'object') return;
-      const mine = store.items[id];
-      if (!mine || (rec.lastSeen || 0) > (mine.lastSeen || 0)) store.items[id] = rec;
-    });
-    const seen = new Set(store.mistakes.map((m) => `${m.itemId}|${m.qid}|${m.at}`));
-    (data.mistakes || []).forEach((m) => {
-      if (!m || seen.has(`${m.itemId}|${m.qid}|${m.at}`)) return;
-      seen.add(`${m.itemId}|${m.qid}|${m.at}`);
-      store.mistakes.push(m);
-    });
-    store.mistakes.sort((a, b) => (b.at || 0) - (a.at || 0));
-    store.mistakes = store.mistakes.slice(0, 400);
-  }
-  /*
-   * The log is unioned whichever mode the reader chose, including replace.
-   * Events are facts about attempts that happened, not a view of state: two
-   * logs cannot contradict each other, so there is nothing for a "replace" to
-   * resolve and dropping the local half would throw away real practice.
-   */
-  if (Array.isArray(data.log)) absorb(data.log);
-  store.meta = { ...(store.meta || {}), version: DATA_VERSION, importedAt: Date.now(), importedFrom: data.origin || 'unknown' };
-  write(K.mastery, store.mastery);
-  write(K.items, store.items);
-  write(K.mistakes, store.mistakes);
-  write(K.meta, store.meta);
 }
 
 let pendingImport = null;

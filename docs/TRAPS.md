@@ -386,6 +386,48 @@ shapes** — in "The region grid and classifiers" below.
   compares against the records it wrote. Reintroduce the bug and that section
   fails — it was confirmed by doing so.
 
+### Gist sync — `outputs/study/gist-sync.js`, `work/gist-sync-check.mjs`
+
+- **The gist API truncates any file over 1 MB** and returns a stub plus a
+  `raw_url` on a host this app cannot rely on reaching. Four years of log passes
+  that inside the first year, so the log is written as one file per calendar
+  month. Month buckets are stable under both appending and merging, so a push
+  rewrites the current month and nothing else. `parseGistFiles` REFUSES a
+  truncated bucket rather than reading it partially — reading half a month and
+  pushing it back would delete the events past the cut.
+- **The token belongs in the Authorization header and nowhere else.** Not the
+  URL (proxy logs, referrers), not the body, not the gist description — the
+  gist is the reader's own backup and a credential written into it is published
+  into the thing they were protecting. `gist-sync-check.mjs` asserts this on the
+  actual bytes the request builders produce.
+- **A reset must disconnect the sync.** An erased device is indistinguishable
+  from a brand-new one, and a brand-new one ADOPTS the remote history wholesale
+  — so a reset that left the connection in place would silently undo itself on
+  the next sync. `resetProgress` disconnects; the gist itself is untouched.
+- **"Empty" has to include the log.** `reconcile` adopts the remote wholesale
+  when the device is blank, and a device holding events but no records is not
+  blank — adopting there would throw its log away. The test is
+  `!events.length && !mastery && !items`.
+- **A fresh install's baseline is 0, not `now`.** A baseline fences off history
+  the log cannot explain; an install with no history has none. Stamped `now`, it
+  would sit after every event the device was about to be handed and the replay
+  would find nothing to do — which is precisely the replacement-phone case the
+  sync exists for.
+- **`dialog-behaviour-applied.js` touches the DOM as it evaluates**, so
+  importing it makes a module unloadable in node. That is why the merge
+  functions live in `moving-progress-between.js` (DOM-free) rather than in
+  `reset.js`, and why `openSyncDialog` reaches the dialog through
+  `window.__rssOpenDialog` instead of importing `openDialog`. Import it and the
+  whole sync check stops running.
+- **Render the dialog before showing an error, never after.**
+  `renderSyncDialog()` decides the error box from the STORED config, and a
+  connect that fails before it is ever connected has nothing stored — so
+  setting the message first and re-rendering second wiped it, and a mistyped
+  token looked exactly like nothing happening.
+- **`<strong>` inside `.notice` is a block.** `.notice strong{display:block}`
+  makes the lead-in a heading, so an inline `<strong>` mid-sentence breaks the
+  line. Use `<em>`.
+
 ### A name classifier is fed a different name than the GLB holds — `outputs/systems.js`, `work/system-check.mjs`
 
 The skeleton split into Axial and Appendicular shipped with an axial rule

@@ -8,6 +8,7 @@ import { K } from './storage-versioned-keys.js';
 import { closeSearchSheet, openSearchSheet, runSearch } from './global-search-one.js';
 import { closeSessionOverlay } from './navigation-five-destinations.js';
 import { commitTransfer, exportProgress, handleTransferFile } from './reset.js';
+import { handleConnect, handleDisconnect, handleSyncNow } from './gist-sync.js';
 import { endSession } from './layout-figures.js';
 import { renderToday } from './spatial-overlay-controls.js';
 import { setStep, startSession } from './session-engine.js';
@@ -103,5 +104,9 @@ export function init() {
   $$('transferFile').onchange = (e) => handleTransferFile(e.target.files && e.target.files[0]);
   $$('transferMerge').onclick = () => commitTransfer('merge');
   $$('transferReplace').onclick = () => commitTransfer('replace');
+  $$('closeSync').onclick = () => $$('syncDialog').close();
+  $$('syncConnect').onclick = () => handleConnect();
+  $$('syncNowBtn').onclick = () => handleSyncNow();
+  $$('syncDisconnect').onclick = () => handleDisconnect();
   renderToday();
 }
