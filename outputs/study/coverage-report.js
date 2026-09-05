@@ -23,18 +23,24 @@ function sourceMapHTML(focusSubject) {
   if (!subjectIds.length) return '';
 
   const sourceLine = (source, lesson) => {
-    const meta = sourceMetaFor(source.ref, lesson.id) || source;
-    const described = describeSource({ ref: meta.ref, location: meta.location });
-    return `<li><strong style="color:var(--text)">${esc(described.file)}</strong>${described.location ? `<br><span class="small">${esc(described.location)}</span>` : ''}${described.folder ? `<br><span class="small">${esc(described.folder)}</span>` : ''}</li>`;
+    const mapMeta = sourceMetaFor(source.ref, lesson.id) || source;
+    const item = STUDY_ITEMS.find((candidate) => candidate.id === lesson.id);
+    const itemSource = item?.sourceRefs?.find((entry) => entry.ref === mapMeta.ref);
+    const described = describeSource(itemSource || mapMeta);
+    return `<li><strong style="color:var(--text)">${esc(described.file)}</strong>${described.location ? `<br><span class="small">${esc(described.location)}</span>` : ''}</li>`;
   };
   const lessonHTML = (lesson) => {
-    const sourceLists = sourceKinds.map((kind) => {
+    const sourceLists = sourceKinds.slice(0, 3).map((kind) => {
       const sources = lesson.sources.filter((source) => kind.roles.includes(source.role));
       return sources.length ? `<div class="subhead" style="margin:8px 0 2px">${kind.label}</div><ul>${sources.map((source) => sourceLine(source, lesson)).join('')}</ul>` : '';
     }).join('');
-    const reasons = lesson.reasons.length
-      ? `<p class="small" style="margin:6px 0 0">${lesson.reasons.map(esc).join(' ')}</p>` : '';
-    return `<li><strong style="color:var(--text)">${esc(lesson.title)}</strong>${sourceLists}${reasons}</li>`;
+    const gapSources = lesson.sources.filter((source) => sourceKinds[3].roles.includes(source.role));
+    const reasons = lesson.reasons || [];
+    const hasGapState = lesson.status !== 'complete' || reasons.length > 0 || gapSources.length > 0;
+    const gapHTML = hasGapState
+      ? `<div class="subhead" style="margin:8px 0 2px">${sourceKinds[3].label}</div><p class="small" style="margin:6px 0 0">Status: ${esc(lesson.status || 'needs-review')}${reasons.length ? ` — ${reasons.map(esc).join(' ')}` : ''}</p>${gapSources.length ? `<ul>${gapSources.map((source) => sourceLine(source, lesson)).join('')}</ul>` : ''}`
+      : '';
+    return `<li><strong style="color:var(--text)">${esc(lesson.title)}</strong>${sourceLists}${gapHTML}</li>`;
   };
   return `<div class="cov-sec">
     <h4>Y1S1 source map</h4>
