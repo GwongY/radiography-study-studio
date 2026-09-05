@@ -186,12 +186,15 @@ function lessonSourceHTML(item) {
   const group = sourceGroupFor(item.id);
   if (!group) return '<div class="lesson-sources missing">Source map entry unavailable.</div>';
   const rows = group.sources.map((s) => {
-    const d = describeSource({ ref: s.ref });
+    const citations = (item.sourceRefs || []).filter((reference) => reference?.ref === s.ref);
+    const descriptions = (citations.length ? citations : [{ ref: s.ref }]).map(describeSource);
+    const d = descriptions[0];
+    const locations = [...new Set(descriptions.map((description) => description.location).filter(Boolean))];
     return `<li><span class="source-badge ${esc(s.set)}">${esc(sourceSetLabel(s.set))}</span>`
       + `<span class="source-role"> · ${esc(sourceRoleLabel(s.role))}</span>`
-      + `<strong>${esc(d.file || s.ref)}</strong>${d.location ? ` · ${esc(d.location)}` : ''}</li>`;
+      + `<strong>${esc(d.file || s.ref)}</strong>${locations.map((location) => ` · ${esc(location)}`).join('')}</li>`;
   }).join('');
-  return `<details class="lesson-sources"><summary>Sources for this lesson</summary>`
+  return `<details class="lesson-sources"><summary>Sources for this lesson · <span class="source-status">${esc(group.status)}</span></summary>`
     + `<ul class="source-group-list">${rows || '<li>Source gap — see the weekly gap notice.</li>'}</ul>`
     + `${group.reasons.length ? `<p class="source-reason">${esc(group.reasons.join(' '))}</p>` : ''}</details>`;
 }

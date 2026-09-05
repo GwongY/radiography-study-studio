@@ -44,6 +44,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SOURCE_FILES, SOURCE_ROOTS } from '../outputs/study/corpus/schema.js';
+import { citationEvidence, citationPageNumbers } from './lib/source-lesson-map.mjs';
 
 const WORK = dirname(fileURLToPath(import.meta.url));
 const CATALOGUE = join(WORK, 'source-catalogue.json');
@@ -198,15 +199,6 @@ if (existsSync(TEXT)) {
   const { sources, failed: noText } = JSON.parse(readFileSync(TEXT, 'utf8'));
   const { STUDY_ITEMS } = await import('../outputs/study-data.js');
 
-  /* Compare on collapsed whitespace: pdftotext -layout pads columns out with
-     runs of spaces, so a phrase that reads as one line in the PDF is not one
-     line here. Curly quotes and dashes differ between source and transcription
-     for the same reason nobody notices them. */
-  const flat = (s) => String(s).toLowerCase()
-    .replace(/[‘’“”]/g, "'")
-    .replace(/[‐-―]/g, '-')
-    .replace(/\s+/g, ' ').trim();
-
   const checked = [], drifted = [], unverifiable = [];
   for (const item of STUDY_ITEMS) {
     for (const r of item.sourceRefs || []) {
@@ -214,20 +206,6 @@ if (existsSync(TEXT)) {
       if (!quote) continue;
       const src = sources[r.ref];
       if (!src) { unverifiable.push({ item: item.id, r, why: noText?.[r.ref] || 'no text for this source' }); continue; }
-
-      /*
-       * A spaced em dash inside a quote is the CITATION's connector, not text
-       * in the source: `Slide "Fibrous joints — Sutures"` points at a slide
-       * headed "Fibrous joints" with "Sutures" beneath it, two lines apart on
-       * page 29. Requiring the literal string called two accurate citations
-       * broken. Split on it and require every part on the same page; a quote
-       * without one is matched whole, exactly as before.
-       */
-      const parts = quote.split(/\s+[—–]\s+/).map(flat).filter(Boolean);
-      const on = (i) => {
-        const f = flat(src.pages[i] || '');
-        return parts.every((x) => f.includes(x));
-      };
 
       /*
        * If the location names a page, ask about THAT page — do not go hunting
@@ -241,15 +219,15 @@ if (existsSync(TEXT)) {
        * this phrase first appear" when the citation claims something narrower
        * and checkable: that the phrase is on the page named.
        */
-      const claimed = Number((String(r.location).match(/\bp\.?\s?(\d+)/i) || [])[1]);
-      if (claimed && claimed >= 1 && claimed <= src.pages.length && on(claimed - 1)) {
-        checked.push({ item: item.id, r, file: src.file, at: claimed, claimed, ok: true });
+      const evidence = citationEvidence(r, src);
+      const claimedPages = citationPageNumbers(r);
+      const claimed = claimedPages.length ? claimedPages.join(',') : '';
+      if (evidence.ok) {
+        checked.push({ item: item.id, r, file: src.file, at: evidence.matchedPage || claimed || '', claimed, ok: true });
         continue;
       }
-
-      const pageHit = src.pages.findIndex((_, i) => on(i));
-      if (pageHit < 0) { drifted.push({ item: item.id, r, file: src.file }); continue; }
-      checked.push({ item: item.id, r, file: src.file, at: pageHit + 1, claimed, ok: !claimed });
+      if (!evidence.foundPage) { drifted.push({ item: item.id, r, file: src.file }); continue; }
+      checked.push({ item: item.id, r, file: src.file, at: evidence.foundPage, claimed, ok: false });
     }
   }
 

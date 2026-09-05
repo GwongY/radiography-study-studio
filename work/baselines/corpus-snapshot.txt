@@ -1,36 +1,38 @@
-— the export surface of outputs/study-data.js — 57 exports —
+— the export surface of outputs/study-data.js — 64 exports —
   f6ce6e2d285e4eb0      3308  BONE_HOOKS  object[21]
-  53998c0ecb77b0d2     20404  COVERAGE  object[5]
+  6e8d0f325ce0d06d     24238  COVERAGE  object[6]
   6b86b273ff34fce1         1  DATA_VERSION  number
   619d6a33617fad34         8  DAY_MS  number
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  9e8743b1abd3baf4    804769  ITEM_BY_ID  Map[127]
+  a39aa82afeb370a5    847612  ITEM_BY_ID  Map[141]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
-  c529371f74fc1d2a      4250  JOINT_MOVEMENTS  object[4]
+  1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
   420a0e68b2bda59f       967  MASTERY_DIMENSIONS  array[9]
   365f0cf2af2e474f       281  MEMORY_METHODS  object[9]
   43616648afe49c5c      1368  MODULES  object[5]
-  657793960a26ba67      1085  PLACEHOLDER_NOTICES  object[2]
+  58b5ba15ac8b970a      1089  PLACEHOLDER_NOTICES  object[2]
   d2cbad71ff333de6         3  PRIOR_ASSUMED_SCORE  number
   f428292239abe4d6       199  PRIOR_KNOWLEDGE  object[1]
   98a503c7f71e10a2       285  REVEAL_MODES  array[3]
-  0d0b5bb6f4c96e17      1348  SOCIOLOGY_NOTICE  object[5]
-  9874faaf0e7789e8     24836  SOURCE_FILES  object[95]
+  f0a99ffb06d2f02a       740  SOCIOLOGY_NOTICE  object[5]
+  52ccf9803326a300     27024  SOURCE_FILES  object[100]
+  fcd1b035a403732f        12  SOURCE_MAP_VERSION  string
   c862a45e3ef561e7       459  SOURCE_ROOTS  object[15]
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   57b60f7998459a29     20933  STRUCTURE_SETS  object[13]
-  071f8d8a9ea63f48    801095  STUDY_ITEMS  array[127]
+  a5ba80d457abd257    843463  STUDY_ITEMS  array[141]
   732916ea01d90fc1      1165  STUDY_MODES  array[9]
-  ff5da1efc5d0872f      3411  SUBJECTS  array[6]
+  bf7682b3b2477990      4001  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
+  afc0505d8db9e955     70563  Y1S1_SOURCE_MAP  object[4]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  7cab0119721e9d11    852954  default  object[7]
+  ed7574871478a031    901934  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -50,16 +52,21 @@
   1fa771353264707c       162  priorSources  function
   fd4bc0f092703d06       156  questionsOf  function
   ab67db13c9dd65b7      2004  schedule  function
+  805f5380024c8e9c       108  sourceGroupFor  function
+  bca01f3912794c00       164  sourceGroupsForWeek  function
+  d001a349a969d42e       229  sourceMetaFor  function
   9455bac69cc918ba        78  sourceRef  function
+  37d62e8a1a641d84       350  sourceRoleLabel  function
+  dd9802a7f78a1387       104  sourceSetLabel  function
   c66385619e50da76        82  structureSet  function
   1e4bbf472267ad81       183  tierFor  function
   26fdf16524e01e89       526  validateApplications  function
   bb157d6583e754f9      2211  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  51d37556f0053479  WHOLE SURFACE
+  27f0031ba2beee6a  WHOLE SURFACE
 
-— every study item, by id — 127 items —
+— every study item, by id — 141 items —
   2d29339c231f634a  abct2326-acquired-immunity
   0f85a14f65a3eba6  abct2326-blood-composition
   23f628153e36648d  abct2326-cell-division
@@ -75,7 +82,7 @@
   e246e26a706511a4  abct2326-endocrine-delivery
   e5455303e6005d77  abct2326-endocrine-receptors
   967cad0f5cc8c074  abct2326-endocrine-second-messengers
-  6cb0dd5d62be400e  abct2326-epithelium-classification
+  c7c6f8a3c9d8e76a  abct2326-epithelium-classification
   d1cb1864b5706cf4  abct2326-feedback-loops
   199a8d54873ed8cf  abct2326-fibre-types-fuel
   cceccaadd5326b16  abct2326-homeostasis
@@ -95,11 +102,20 @@
   001f80a08dd3d2cd  abct2326-plasma-membrane
   6272315dbf95796f  abct2326-protein-synthesis
   d674db64ef0b2b89  abct2326-renal-nephron
+  91b978b6da5ee7e9  abct2326-repro-fertilization-implantation
+  db9d99b73ba1602b  abct2326-repro-male-regulation
+  074f971cfb5c5358  abct2326-repro-ovarian-menstrual-cycle
+  6c38a283ab67669b  abct2326-repro-placenta-parturition
   1565f23b9247f161  abct2326-resp-gas-transport
   b70a323aeff65be8  abct2326-resp-pathway
   1a7643a21b266c66  abct2326-spindle-golgi
   981a724977954078  abct2326-synapse-drug-action
   2461699529bb443c  abct2326-t-cell-types
+  a22da0cfff889770  apss1a08-global-perspective
+  de6cca55bdebde13  apss1a08-marx-weber-change
+  673f4a5c96e8e9aa  apss1a08-personal-social-education
+  b123cea989507eec  apss1a08-research-to-change
+  f5e7ba1a75fed32c  apss1a08-sociological-perspective
   0ebcaf129ca95338  dsai1202-ai-in-healthcare
   045448165150e1e6  dsai1202-ai-literacy
   e912b64ee121b291  hss2011-bone-cervical
@@ -124,7 +140,8 @@
   76ad7c8feef7097d  hss2011-bone-tibia
   5ac88ad8683196f7  hss2011-bone-ulna
   115c636ed053d158  hss2011-joints-classification
-  4a1c51e02a7e9b3a  hss2011-joints-movements
+  cc9e86e00b17d652  hss2011-joints-movement-map-2026
+  b2556c990ac8f36c  hss2011-joints-movements
   318fd195216a9f96  hss2011-joints-rotator-cuff
   ca255ecc70d81280  hss2011-joints-synovial-structure
   1484e4e65a24e8cb  hss2011-joints-synovial-types
@@ -132,23 +149,27 @@
   6e49509d6d713ecc  hss2011-m1-lungs-airway
   ce5dd76a2cdd9676  hss2011-m2-brain-regions
   6cbb9c9d4ba552a7  hss2011-m2-cns-basics
+  de99a84064521085  hss2011-m2-ear-hearing
+  be74df9cfdc8dff1  hss2011-m2-eye-visual-pathway
+  ba442c50719e0f1f  hss2011-m2-static-dynamic-equilibrium
+  68a24d9405efbea0  hss2011-m2-taste-smell
   99cf89aba971812c  hss2011-m3-digestive
-  8d98e535bf98c5ac  hss2011-m3-urogenital-pelvis
-  165c3a03d63b1477  hss2011-movement-elbowFlexion
-  da066969c9f944bd  hss2011-movement-shoulderAbduction
-  b74e2cc53b6d6cba  hss2011-movement-supination
-  cdcc1d7ceeaef81f  hss2011-movement-thumbOpposition
+  1657e96d4757c035  hss2011-m3-urogenital-pelvis
+  77c490d02ea70a10  hss2011-movement-elbowFlexion
+  93e0071e7248f176  hss2011-movement-shoulderAbduction
+  66d5b5707d970ae5  hss2011-movement-supination
+  726c9e29f615faad  hss2011-movement-thumbOpposition
   9c461486025067f6  hss2011-msk-bone-histology
   cf504c0a70fd785a  hss2011-msk-bone-marrow
   5c1cae6675aac583  hss2011-msk-joint-classifications
   d9a598aa3d563669  hss2011-msk-motor-unit-tone
-  0e77c6fe4d9b0925  hss2011-msk-muscle-organisation
-  b909d8cfddb9a9b2  hss2011-msk-tendon-attachment
+  3166c1b445c02a91  hss2011-msk-muscle-organisation
+  8593b57a8e922c2d  hss2011-msk-tendon-attachment
   ca423056428230fc  hss2011-msk-tissues-of-movement
   f70cd63a09a081a9  hss2011-osteo-axial-appendicular
   2665925c63208f89  hss2011-osteo-bone-functions
   9f8ba7a6757158d1  hss2011-osteo-bone-shapes
-  946be04040fb633f  hss2011-osteo-c1-c2
+  17698f5dfe1dbcd7  hss2011-osteo-c1-c2
   ea5fcc57e38a3f0b  hss2011-osteo-forearm-carpals
   a038bd9e79720c16  hss2011-osteo-leg-tarsals
   c1d7370a50a19183  hss2011-osteo-long-bone-structure

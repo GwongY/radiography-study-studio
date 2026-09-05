@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 808 —
-  3b2d6b2e764d05be  WHOLE SET
+— user-facing strings in outputs/ — 821 —
+  d306168a27d7ba06  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -14,6 +14,7 @@
   4086a0d4cd005901   showed metatarsals with no toes; choosing 
   2599c70aaa36cb29   · assumed from 
   df725abe14c48979   · this week
+  1d5a0e17407c0886   — No source-backed lesson is assigned.
   ee2ecbd9ea7a7e36   — it does not stand alone, it attaches to a root.
   f50d324d8a3b2119  " aria-label="
   b3c0b044207f0ecc  " aria-pressed="
@@ -126,6 +127,7 @@
   7aaa787059967e32  <div class="lay-note
   985853d5ea72ae92  <div class="lay-row
   81bbed0091211144  <div class="layerhint">tap to cycle · solid → ghost → off</div>
+  9b2eabb511d75c21  <div class="lesson-sources missing">Source map entry unavailable.</div>
   b72e23b04ca38453  <div class="note">Red is oxygenated, blue is not — which is why the pulmonary artery is blue-violet and the pulmonary veins are red. Vessel type does not decide the colour; what it carries does.</div>
   f7e97a446dcb1b5b  <div class="notice"><strong>Every question validates</strong>All 
   28c656ec553bbafd  <div class="nowcard
@@ -147,6 +149,7 @@
   2f476a078765d308  <input id="rssTypedInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="
   3a324e9e0d188447  <input type="range" min="8" max="100" value="
   4a0089a78242886e  <li class="sessrow
+  24f763404b10de59  <li>Source gap — see the weekly gap notice.</li>
   5f0ccbf50845efd8  <option value="
   541b9a046de22b45  <p class="figkey-note">Dimmed marks are the figure’s own labels, beyond this lesson’s named set.</p>
   0647018486120933  <p class="small cut-levelnote">No named coronal levels: a coronal section is named against the mid-axillary line, and none of this app&rsquo;s sources name it. Use the slider.</p>
@@ -171,6 +174,7 @@
   1120ce038e281d16  <span class="pill
   8c0951042a96d65b  <span class="pill">App-authored aid</span>
   4714c142e626766f  <span class="sc
+  b2d8c13db5007a72  <span class="source-badge
   c556c181d6a203e1  <span class="termpart
   a05bf7cf9eb01e77  <span class="termplus">+</span>
   a8c0e6943d65acd5  <span class="vague" title="No time published for this subject">week only</span>
@@ -205,6 +209,7 @@
   67cce00647649afd  App-authored aid
   5638e57272cc5eeb  Application recorded.
   96610ec0bf887745  Apply · scenario
+  523e9ac9420b9f08  Assessment/practice context
   46b396c85919af7d  At a glance
   98c427b530ed1f56  Attach the fact to something you already know well.
   30f9484f78fa55f8  Autosaves as you go
@@ -365,6 +370,8 @@
   884edaf6a85ff6cc  Named in your notes, on the other side
   7a7ed8508aa3a822  Named structure in the
   1072a05d6e1e212d  Nearest first. Tap any of them, or tap the model again in the same spot to step deeper.
+  53a0c7682495933c  New and old files are grouped under the same Y1S1 lesson. The original source file remains the teaching note; this view only identifies which version to use. Files without a current Y1S1 syllabus placement remain retained for future work and are not assigned to another year here.
+  dc16ec2f36f7218f  New sources — primary
   5174f99c057c3927  No application task authored for this item.
   e15d3dda4ba3b830  No layer shown — turn one on to study it
   6a600b8957f187b2  No lesson for this administrative row
@@ -404,6 +411,7 @@
   2b12d09ebcacae94  Official notes missing — see weekly gap
   2efc956104ec7d7a  Offline & storage
   e1070a158b550318  Offline-first study system for HSS2011 Human Anatomy, ABCT2326 Human Physiology and medical radiation science.
+  335056d20d010f9a  Old sources — supporting/fallback
   a6c061874897dabb  One learning tree
   2db2d8da5f89a995  One to start you off —
   4ab8e7a5acc75973  Open detail
@@ -468,10 +476,14 @@
   89d17970366ba5b3  Source files cited
   b6ade0f684ef5714  Source for the answer you just saw
   d7505a67aed74fd6  Source for this answer
+  ad7c5e1704cdd17e  Source gap or review state
+  16812f56ee19ad92  Source gap · missing
+  bfbc26c86db7ac9e  Source record not in current Y1S1 map
   5719963622aa46e1  Sourced from
   11f066152b09be80  Sources & coverage report
   da72a8dda063752a  Sources & model attribution
   824ba78711430662  Sources for the whole item
+  4670a8bd8491de85  Sources for this lesson ·
   781ffed29fcefcff  Sources, coverage, settings
   8453b6ae9d67090b  Spelling was off — the exact form is "
   c58398bfd89d3d58  Spin turntable
@@ -588,6 +600,7 @@
   2efde2e039fd8b4b  Write something first — even a rough answer. Comparing beats reading.
   a1a80fe79d9495e1  Written by this app from the content above. The facts are the sourced ones; the insight framing is study scaffolding.
   f2737495d683165a  Xiphisternal joint
+  c66f49de59b48578  Y1S1 source map
   c9d8ebfea055fc4e  Yes, I had it
   1a33ef3e9b63cd34  You named
   6072830a754d6f42  You revealed
