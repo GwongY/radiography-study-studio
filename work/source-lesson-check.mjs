@@ -60,6 +60,7 @@ if (isSelftest) {
   const { getItem } = await import('../outputs/study/corpus/corpus.js');
   const { SOURCE_FILES, SOURCE_ROOTS } = await import('../outputs/study/corpus/schema.js');
   const { STUDY_SUBJECTS, WEEK_GAPS, WEEK_STUDY } = await import('../outputs/schedule.js');
+  const { sources: SOURCE_TEXT } = JSON.parse(readFileSync(new URL('./source-text.json', import.meta.url), 'utf8'));
 
   assert.equal(SOURCE_MAP_VERSION, '2026-09-05');
   assert.equal(Y1S1_SOURCE_MAP.scope, 'Y1S1');
@@ -138,6 +139,17 @@ if (isSelftest) {
       if (source.role === 'assessment') assert.equal(kind, 'assessment');
       if (source.role === 'administration') assert.ok(kind === 'admin' || kind === 'syllabus');
       if (source.role === 'student-work') assert.equal(kind, 'student');
+      if (['current-primary', 'older-supporting', 'older-fallback'].includes(source.role)) {
+        const committedText = SOURCE_TEXT[source.ref];
+        assert.ok(committedText, `teaching source has no committed extracted/OCR text: ${lesson.id}/${source.ref}`);
+        assert.equal(normaliseSourceFile(committedText.file), normaliseSourceFile(SOURCE_FILES[source.ref].file),
+          `committed source text points at a different file: ${lesson.id}/${source.ref}`);
+        for (const reference of groupReferencesByRef(lesson.item.sourceRefs || []).get(source.ref) || []) {
+          const evidence = citationEvidence(reference, committedText);
+          assert.equal(evidence.ok, true,
+            `teaching citation is not verified against committed source text: ${lesson.id}/${source.ref}/${reference.location || 'unlocated'}`);
+        }
+      }
     }
     const hasPrimary = group.sources.some((source) => source.role === 'current-primary');
     const hasOlderTeaching = group.sources.some((source) => source.role === 'older-supporting' || source.role === 'older-fallback');

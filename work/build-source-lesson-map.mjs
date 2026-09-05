@@ -197,13 +197,13 @@ const field = (value) => String(value ?? '').replace(/[\t\r\n]+/g, ' ').trim();
 const sha256 = (value) => createHash('sha256').update(value).digest('hex');
 function auditIdentity(doc, registry, origin) {
   const refs = registry.map(({ ref }) => ref).sort();
-  const textHashes = registry
+  const contentHashes = registry
     .map(({ ref }) => sourceText.sources?.[ref])
     .filter(Boolean)
     .map((text) => sha256(JSON.stringify(text.pages || [])));
   const parts = [
-    `document-sha256:${sha256(`${normaliseSourceFile(doc.n)}\0${doc.b}\0${doc.m || ''}`)}`,
-    ...[...new Set(textHashes)].map((hash) => `text-sha256:${hash}`),
+    `metadata-fingerprint:${sha256(`${normaliseSourceFile(doc.n)}\0${doc.b}\0${doc.m || ''}`)}`,
+    ...[...new Set(contentHashes)].map((hash) => `content-sha256:${hash}`),
     refs.length ? `refs:${refs.join(',')}` : '',
     `origin:${origin}`,
   ];
