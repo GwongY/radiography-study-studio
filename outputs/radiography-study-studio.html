@@ -335,8 +335,9 @@
   <h2 class="task-title">Move progress between devices</h2>
   <p class="small" id="transferSummary"></p>
   <div class="notice" style="margin-top:12px">
-    <strong>There is no sync, and no server.</strong>
-    Mastery is stored in this browser alone. Export writes a JSON file; import reads one back on the other device.
+    <strong>A file you carry, with no server in the middle.</strong>
+    Export writes a JSON file; import reads one back on the other device. If you would rather it happened by itself,
+    connect a private gist under &ldquo;Back up to a private GitHub gist&rdquo; — same format, same merge rules.
   </div>
   <div class="rss-actions" style="margin-top:14px">
     <button class="primary" id="transferExport">Export progress file</button>
@@ -360,6 +361,45 @@
     </div>
   </div>
 </dialog>
+<dialog id="syncDialog">
+  <button class="ghost close" id="closeSync">Close</button>
+  <div class="eyebrow">Off-device backup</div>
+  <h2 class="task-title">Back up to a private GitHub gist</h2>
+  <p class="small" id="syncSummary"></p>
+  <div class="notice" style="margin-top:12px">
+    <strong>Why a gist.</strong>
+    This app is already served from GitHub, so a private gist adds nothing new that has to survive four years —
+    no server to keep running, no second account, no free tier that pauses over the summer. Your progress is
+    written there as the same JSON the export button produces, so you can read it on github.com or download and
+    import it by hand at any time.
+  </div>
+  <div class="notice stop" style="margin-top:10px">
+    <strong>The token is stored on this device.</strong>
+    Create a <em>classic</em> personal access token whose only scope is <em>gist</em>,
+    and no expiry if you want this to keep working without attention. Anyone who can unlock this device can read it
+    and reach your gists — not your repositories, not your account. That is the smallest scope GitHub offers that
+    can write a gist, and it is what having no server costs.
+  </div>
+  <div class="subhead" style="margin-top:16px">Connect</div>
+  <label class="small" for="syncToken" style="display:block;margin-top:6px">Personal access token (classic, <strong>gist</strong> scope)</label>
+  <input type="password" id="syncToken" autocomplete="off" spellcheck="false" placeholder="ghp_…" style="margin-top:5px;width:100%">
+  <label class="small" for="syncGist" style="display:block;margin-top:10px">Gist id — leave empty to create a new private gist</label>
+  <input type="text" id="syncGist" autocomplete="off" spellcheck="false" placeholder="e.g. 9f2c1a…" style="margin-top:5px;width:100%">
+  <div class="rss-actions" style="margin-top:12px">
+    <button class="primary" id="syncConnect">Connect</button>
+    <button class="ghost" id="syncNowBtn">Sync now</button>
+    <button class="ghost" id="syncDisconnect">Disconnect this device</button>
+  </div>
+  <div class="emptybox hidden" id="syncError" style="margin-top:10px;color:var(--red)"></div>
+  <div class="hidden" id="syncStatus" style="margin-top:12px"></div>
+  <div class="notice" style="margin-top:12px">
+    <strong>What a sync does.</strong>
+    It reads the gist, folds anything new into this device, and writes back what changed. Answer events merge
+    exactly — they are timestamped facts, so two devices never contradict each other and nothing is double-counted.
+    Where both devices carry history from before the log existed, the mastery records still fall back to the older
+    rule and the more recent side of a clash wins; the full event history survives either way.
+  </div>
+</dialog>
 <dialog id="resetDialog">
   <button class="ghost close" id="closeReset">Close</button>
   <div class="eyebrow">Erase</div>
@@ -367,8 +407,9 @@
   <p class="small" id="resetSummary"></p>
   <div class="notice stop" style="margin-top:12px">
     <strong>This cannot be undone.</strong>
-    There is no server and no sync, so this browser is the only place your history exists. Once it is gone
-    it is gone, unless you exported a file first.
+    Every mastery record, every mistake and the whole answer log go — on this device. Once they are gone they are
+    gone, unless you exported a file first. A connected gist is <em>disconnected</em> rather than emptied: the backup
+    itself survives untouched, and reconnecting with the same gist id would pull the whole history back.
   </div>
   <div class="subhead" style="margin-top:16px">What gets deleted</div>
   <ul class="facts" id="resetList"></ul>

@@ -6,6 +6,7 @@
 import { $$, DIAGRAMS, MASTERY_DIMENSIONS, MEMORY_METHODS, REVEAL_MODES, STRUCTURE_MODELS, decompose, describeSource, dimensionFor, esc, getSubject, isDelayedAttempt, jointMovement, layoutFor, moduleInfo, priorOf, questionsOf, readingOf, structureSet, ui } from './imports.js';
 import { K, getMastery, itemAttempted, logMistake, read, store, write } from './storage-versioned-keys.js';
 import { recordAttempt } from './progress-log.js';
+import { syncSoon } from './gist-sync.js';
 import { advanceItem, renderSessionFoot, renderStep, setStep, typeLabel } from './session-engine.js';
 import { closeSessionOverlay } from './navigation-five-destinations.js';
 import { glossify, lookupTerm, plateHTML, proseHTML, wireTerms } from './reading-help.js';
@@ -836,6 +837,10 @@ export function endSession() {
   meta.streak = nextStreak(meta.streak, meta.lastSessionDay, today);
   meta.lastSessionDay = today;
   store.meta = meta; write(K.meta, meta);
+  /* The natural moment to push: work just finished, and the reader is not
+     mid-question. Quiet and failure-tolerant — the local record is complete
+     whether or not GitHub is reachable. */
+  syncSoon();
   /*
    * Nothing to report, nothing to say.
    *

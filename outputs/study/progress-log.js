@@ -253,14 +253,30 @@ export function readBaseline() {
   return b;
 }
 
+export function writeBaseline(b) {
+  write(BASELINE_KEY, b);
+  return b;
+}
+
 /*
  * Taken once, after migrate() has folded in anything older, so the snapshot is
  * the whole of the pre-log history and no mutation falls between the two.
+ *
+ * A baseline exists to fence off history the log CANNOT explain. An install
+ * with nothing recorded has no such history, so its baseline is stamped at 0
+ * rather than at the moment of installation -- and that is what lets a
+ * replacement device rebuild its whole record from a synced log instead of
+ * inheriting a snapshot. A baseline stamped `now` on a fresh phone would sit
+ * after every event it was about to be handed, and the replay would find
+ * nothing to do.
  */
 export function ensureBaseline(now = Date.now()) {
   const existing = readBaseline();
   if (existing) return existing;
-  const b = { at: now, mastery: { ...store.mastery }, items: { ...store.items } };
+  const empty = !Object.keys(store.mastery).length && !Object.keys(store.items).length;
+  const b = empty
+    ? { at: 0, mastery: {}, items: {} }
+    : { at: now, mastery: { ...store.mastery }, items: { ...store.items } };
   write(BASELINE_KEY, b);
   return b;
 }

@@ -10,6 +10,7 @@ import { itemAttempted, itemDue, itemScore, read, store, write } from './storage
 import { openCoverage } from './coverage-report.js';
 import { openDialog } from './dialog-behaviour-applied.js';
 import { openResetDialog, openTransferDialog } from './reset.js';
+import { isConnected, openSyncDialog, syncConfig } from './gist-sync.js';
 import { renderReviewTab } from './review-mistakes-due.js';
 import { showView } from './small-ui-helpers.js';
 
@@ -133,6 +134,16 @@ function renderOverlayProvenance(set) {
  * Regions and quadrants collapse to one line: nine tags on the belly already
  * say which is which.
  */
+/* A settings row should say what the state IS, not what the feature is for. */
+function syncBadge() {
+  const c = syncConfig();
+  if (!isConnected()) return 'off';
+  if (c.lastError) return 'failing';
+  if (!c.lastPushAt) return 'connected';
+  const days = Math.floor((Date.now() - c.lastPushAt) / 86400000);
+  return days < 1 ? 'synced today' : `${days}d ago`;
+}
+
 export function renderMore() {
   setActiveNav('more');
   /* validateCorpus/validateApplications each return an ARRAY of failures. */
@@ -151,6 +162,9 @@ export function renderMore() {
       note: 'Shell cached at install. Each 3D model caches the first time you open it, so the footprint grows to match what you study.' },
     { title: 'Scheduling rules', badge: 'SM-2+', color: 'var(--muted)',
       note: 'SM-2 shaped, then modified by response time and repeat mistakes.' },
+    { title: 'Back up to a private GitHub gist', badge: syncBadge(), color: isConnected() ? 'var(--green)' : 'var(--muted)',
+      note: 'An off-device copy that happens on its own — the only thing here that survives losing this device, reinstalling the app, or the browser clearing its storage. Needs a GitHub token scoped to gists and nothing else.',
+      open: () => openSyncDialog() },
     { title: 'Move progress to another device', badge: 'JSON', color: 'var(--teal)',
       note: 'Mastery lives in this browser only, so the desktop and the iPad keep separate schedules. Export a file here and import it on the other device.',
       open: () => openTransferDialog() },

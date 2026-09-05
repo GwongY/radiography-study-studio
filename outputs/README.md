@@ -806,14 +806,44 @@ same app around meant two places to fix every bug.
 across how many items, how many logged mistakes — offers an export first, and needs the erase button
 pressed twice before it acts.
 
-It deletes all five `rss.v1.*` keys **and** `osteology-studio-stats`. That last one is not optional:
+It deletes the `rss.v1.*` keys **and** `osteology-studio-stats`. That last one is not optional:
 `migrate()` re-runs whenever the stored meta version does not match, and it imports the legacy key, so
 a reset that left it behind would resurrect your bone history on the next load and look broken. A
 completed `meta` is written immediately afterwards so the migration has nothing left to redo, and the
 embedded studio's in-memory stats are cleared through `__osteo.resetStats()` so its review meter does
 not go on showing a history whose storage is already gone.
 
-There is no server, so an export file is the only undo that exists.
+The answer log goes with them, for the same reason, and a connected gist is **disconnected** — an
+erased device reads as an empty one, which is exactly the state that adopts a remote history wholesale,
+so a reset that left the connection in place would quietly undo itself on the next sync. The gist
+itself is left alone: destroying someone's only off-device backup is not what erasing this device asks
+for, and reconnecting with the same id brings it all back.
+
+## Where your progress actually lives
+
+Three layers, and it is worth knowing which one is doing the work.
+
+**The mastery records** (`rss.v1.mastery`, `rss.v1.items`) are what the dashboard reads. They are
+counters, and a counter cannot say where it came from.
+
+**The answer log** (IndexedDB, `rss-progress`) is the source of truth underneath them. Every scheduled
+attempt is appended as an immutable event and never modified, so two devices' logs merge by set union
+— exactly, with no double-counting — and the records can be *rebuilt* from the log by replaying
+`schedule()` over it. A one-time baseline snapshots whatever existed before the log did; an install
+with no history at all takes a baseline of 0, which is what lets a replacement device reconstruct its
+whole record from a synced log rather than inherit a snapshot.
+
+**The off-device copy** is a private GitHub gist, if you connect one — the same JSON the export button
+writes, with the log split into one file per calendar month so no file approaches the API's 1 MB
+truncation limit. It is optional, it is the only layer that survives losing the device, and it is on
+GitHub because this app is already served from GitHub: a private gist adds nothing new that has to
+survive four years. The token is a classic PAT scoped to `gist` and nothing else, held in
+localStorage on the device — a real exposure, stated plainly in the dialog, and the price of having
+no server.
+
+On iOS specifically: a Home Screen web app has a storage container Safari cannot see, and deleting the
+icon destroys it. The app updates itself in place on every deploy, so re-adding the icon is never
+necessary and is the one action that can lose everything.
 
 ## Installable app (PWA)
 

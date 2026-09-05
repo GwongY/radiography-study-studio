@@ -1,9 +1,10 @@
-— user-facing strings in outputs/ — 824 —
-  efba91bc9e548660  WHOLE SET
+— user-facing strings in outputs/ — 870 —
+  c710aad2e5ba0942  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
   753ec4f3a305c1c3   <span class="cut-levelcite">
+  ecba1318e9d7541e   Gist sync disconnected; the gist itself is untouched.
   c8f303e7554a57f7   These are paired — the side is part of the answer.
   37fc3c511ef2af7e   \u00b7 3D studio
   1f1170e574c9a100   \u2014 nearest to it
@@ -50,7 +51,9 @@
   23db48b468bb0c9a  % correct overall · weaker structures are prioritised.
   1fa5a4b7dc45d675  % mastered
   fce63bfb9ebaba3d  (prefers-reduced-motion: reduce)
+  93a03cdc35a83caa  ). Nothing was lost — try again later.
   7ac7679148ff1f49  , and this app is on
+  e7d099eb305882c1  , last written
   bfd4242c0712a338  , tap for
   eaad1c08038293ae  , unverified
   dc6a7d80c9915298  , with the questions you got wrong.
@@ -149,6 +152,7 @@
   2f476a078765d308  <input id="rssTypedInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="
   3a324e9e0d188447  <input type="range" min="8" max="100" value="
   4a0089a78242886e  <li class="sessrow
+  144901117bb21081  <li>A sync is waiting for the network.</li>
   24f763404b10de59  <li>Source gap — see the weekly gap notice.</li>
   5f0ccbf50845efd8  <option value="
   541b9a046de22b45  <p class="figkey-note">Dimmed marks are the figure’s own labels, beyond this lesson’s named set.</p>
@@ -189,6 +193,8 @@
   d05095ea594f8f5a  A real part of this item is new. The background you already have is folded away at the foot of the card.
   43efab18440887ca  A root — the part carrying the meaning. The /o on the end is the vowel that joins it to whatever follows.
   1a650cac2c2c4567  A sagittal slice, median at 50%. Keeps the patient's left; flip for the right.
+  c3dc290201f7331a  A token is needed before this device can reach a gist.
+  54046378ce3a6c7b  A token is stored — type a new one to replace it
   2dee5d201e02f95e  A transverse slice, the plane a CT slice is taken in. Keeps everything above it; flip to keep what is below.
   c97733fde5d549af  A vertical line dropped from the midpoint of the left clavicle. The other vertical of the nine-region grid.
   455d11e097ea6e80  A vertical line dropped from the midpoint of the right clavicle. One of the two verticals of the nine-region grid.
@@ -200,6 +206,7 @@
   63d55224203116e0  All started
   c2150c55306954e1  All started, and holding
   aa3acf22b193a343  Already covered ·
+  c2db0f34254c9f63  An off-device copy that happens on its own — the only thing here that survives losing this device, reinstalling the app, or the browser clearing its storage. Needs a GitHub token scoped to gists and nothing else.
   5a45a945110c7b2e  Anatomy \u00b7 physiology \u00b7 radiation science \u00b7 AI
   90d82470f4817358  Anatomy first
   8e84fc2aae90b055  Anatomy search
@@ -215,6 +222,7 @@
   30f9484f78fa55f8  Autosaves as you go
   b7e50f8f4d18036a  Axillary nodes
   7a3047bbc5a1f2a4  Back to topics
+  e4cc8252f2f7fe5d  Back up to a private GitHub gist
   442808ef2fd68469  Backup exported. The erase button is still there when you are ready.
   87b238e3beba6204  Beyond your course \u2014
   182d6f9b9b115719  Body cavities
@@ -246,7 +254,9 @@
   4a0c3a0072aecfa0  Could not load that layer — the others are still there.
   7405b8bbcaf9d423  Could not load that model — the skeleton is still available.
   73a069d82b0d3b67  Could not locate that structure in the model
+  57a9734bd3bcd083  Could not reach GitHub. If you are offline, this will retry on its own.
   3e43a3e5c3ac8956  Could not set that movement up on the model.
+  a21359ed1dd0ede0  Created a private gist and wrote
   650bfee8c10b708c  Current files take priority for dates, topics and assessment. Older official lectures are used only to teach a current syllabus topic when the matching 2026 lecture is absent; student coursework is never used as a factual source.
   80593d9330e238e5  Cut position
   e3c1a5d80a89f718  Day streak, per-item status and the item you were last part-way through.
@@ -255,6 +265,7 @@
   6b4482e521d6ca2b  Described in
   f02a6b73528ef5aa  Did you cover it?
   93d539da04aaa89f  Did you get there?
+  93a3f31a9efeceef  Disconnected. The gist is untouched — reconnect with the same id to pull it back.
   6e3a2aaa642e7315  Distal phalanx of fifth finger of foot
   84aa3c799bf45058  Distal phalanx of third finger of foot
   25c830e43bff1b31  Drag on a structure to draw on it.
@@ -279,6 +290,11 @@
   3ee9379ac50332af  Full reference + fallback upper-limb meshes
   c779b95a4e70b011  Full reference failed
   edf0377d91509acb  Full term
+  da3c855a5650742b  GitHub could not process the payload (422).
+  a9d364c48ad1e195  GitHub is having trouble (
+  7a04e9078453a9ca  GitHub refused the request (403). Check the token carries the gist scope, or wait — this can also be the hourly rate limit.
+  0274933d5fd0075e  GitHub rejected the token (401). It may have been revoked, expired, or mistyped.
+  c182599da2e5bcc5  GitHub returned
   40c84cdc3af701a2  Give me the memory aids →
   831a75c9cc4213cd  Go to review →
   9f6d5644228aca65  Greek kokkyx — cuckoo
@@ -312,6 +328,8 @@
   c6867b20a8fd8669  Key facts to remember
   31fb459fac2d4100  Landmark data next
   03b26f0f8e4b2a5e  Larynx \u2014 modelled as its parts
+  e511d368519fe74a  Last merge:
+  464c44cef8d37278  Last pulled
   ffae3eb13d34cfa9  Latin cervix — neck
   5832761b1cc98797  Latin clavicula — little key
   4d04ac817195f8ab  Latin fibula — pin/buckle
@@ -386,8 +404,10 @@
   e73285aebba9de57  No source-backed lesson has been assigned to this week.
   166b0cc5ce4455c1  No structure in
   7731f34185d19140  No structure in the database has
+  71d9ec8ef4d13ffe  No token is stored on this device.
   79575cdd56093f95  None listed.
   041f683d3d9b3b9c  None of this item’s structures resolved in the model, so no 3D is shown.
+  3b3d2796168bf388  Not connected.
   24bc2b88e5e580eb  Not modelled
   8e1c1b7eb909b934  Not quite. Correct:
   e843982c79a688a1  Not right — here is why
@@ -433,6 +453,7 @@
   dbe0aa3439619d84  Progress merged.
   045742deb50fcee2  Progress replaced from file.
   fbb2baef613596d9  Radiation science
+  c91778ac1e937e43  Radiography Study Studio — study progress (private)
   908b9d8d4c977990  Radioulnar joints
   87584433b6ea3e63  Read before this week
   14940b320721a5a8  Read down: the small clue first, then the hook it hangs on.
@@ -506,6 +527,8 @@
   da5c0cb3a2f2cda1  Study this topic
   307e3df259cf7ea5  Subjects with no material
   25a2aae6c2da8872  Substitute source
+  abf3e80b5b4ceb36  Sync failed
+  98fc2d0150072bd5  Synced —
   eb81808a3bbd84cf  TIBia = TIBe weight-bearing. The medial malleolus is the inner ankle bump.
   2d7a925fbe1c1b06  Tap a structure to pin it.
   b39ae8aef682cd9b  Tap a structure to pin the name it is taught under.
@@ -521,6 +544,7 @@
   77b11fb420786198  That file is not JSON this app understands.
   9b7eb2fb53d7ebf5  That file is not valid JSON.
   8f42be5eb962d271  That file was written for data version
+  baa0b0bb4dabeb4c  That gist was not found (404). Either the id is wrong, or this token cannot see it.
   6a89036a1ab7f02a  That is not a Study Studio progress file.
   c1b89966f927cd48  That level needs a structure this model has not loaded.
   e1bee8d506ebb8f0  The 3D layer could not be loaded right now.
@@ -531,6 +555,9 @@
   d216dedb9f2f1d46  The controls live with the model — the render loop only runs while the studio is on screen, so a slider here would move bones you cannot see.
   f44fc384994cd331  The four quadrants
   f1b6f4d1bbc67e3f  The funny-bone groove
+  0b155a87d8f27dc9  The gist does not hold a progress file this app understands —
+  efdfb9f844f48df5  The gist file
+  8c4ec2a13272609e  The gist index was truncated.
   3932fc91ec44669c  The highlighted hotspot is the
   bd33ae668254412b  The hollow at the top of the sternum. Measured at the superior border of the manubrium.
   751126bbdcad0ed8  The hotspots are showing. Tap the one you are asked for.
@@ -564,6 +591,7 @@
   51aee75534b22418  There is nothing recorded on this device yet, so there is nothing to erase.
   b5792b631250ed3a  This bone is in the database, but high-yield hotspot coordinates have not been added yet.
   948c12e38dda005e  This device holds
+  c4dd0e722ec81849  This device is not connected to a gist yet.
   d424b366dd8d36ab  This fallback reference is fused. Use Upper limb for per-bone isolation.
   334addec24dbdad9  This lecture mostly re-treads it. The lines below are what it adds on top, and they are the examinable part.
   160a7acfab0d47ae  This one is best answered on the 3D skeleton
@@ -606,6 +634,7 @@
   1a33ef3e9b63cd34  You named
   6072830a754d6f42  You revealed
   3885517f2e4fef0c  You wrote "
+  c4c648151de0063d  Your connection to the backup gist — <strong>disconnected</strong>, so the next sync cannot quietly restore what you just erased. The gist itself is left alone.
   94661d68cd8ce6bb  Your course material names none of these one by one, so the
   62375359a1826914  Your groups
   69bfb7f1b8cfd020  Your mistake log —
@@ -622,7 +651,9 @@
   9200422efeb6a14b  also deficient)
   d69ed2e7567c8fed  an authored memory hook
   069d6e57d291854b  another structure
+  94143c2692614a77  answer event
   f53741724922c4e4  answer events this device has never recorded — added.
+  9b5538d17c61f0ec  are held on this device and nowhere else.
   4dafb342c48fd85e  artery = red = oxygenated
   038dbe3356c60c5f  assets/xray/ is empty \u2014 add a licence-cleared image
   f0a2f6bcdb910bd5  axial at the sternal angle
@@ -631,6 +662,7 @@
   38787ac0dc7c1d95  boot failed
   642d69680683778d  boot on Today, then tap Viewer
   a4d8d4905749584b  border:1px solid rgba(114,227,207,.4);border-radius:16px;background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03));padding:18px
+  6607a28fb29685f9  both sides were fully logged, so the records were replayed from the merged log — exact
   1d647a1965983c2a  breaths a minute
   a4c18480ff6a58f4  card grouppick
   dee735ed000908c8  card overlaycard
@@ -648,10 +680,12 @@
   8936e4bc4884d331  could not locate that structure
   d3967cf0a967dbd6  cross the joint and are ghosted and held still — muscle and vessel deform across a joint
   beaf6f881a9b75ac  day streak
+  37dad91df7b23460  days ago
   292aa52b6bc5ade8  density += n * uGrain * (0.35 + 0.65 * density);
   408b18ff04d6b1aa  density = pow(density, uLatitude);
   69bde2c73b039a19  described in
   efe8bcccea6ac349  dlg-scroll termbody
+  4f6bd1ad9fc7a4f8  does not hold valid JSON.
   9c029c43f1357a43  drawn on the abdominal wall muscles
   099aa9ffa0926efa  emptybox hidden
   aa9b42a9c9734d2f  epi- (above, upon), hypo- (below; also deficient), inter- (between)
@@ -693,6 +727,7 @@
   3e48f87cb43c928d  is missing from the markup
   63ba7e6dace7932d  is outside the current region filter
   65dfd88eb248fc0c  is the useful distinguishing landmark.
+  71423f841ff7a38a  is too large for the API to return whole. Nothing was merged; this needs a smaller bucket size.
   6aa85599ef7f853e  items \u00b7 weakest first
   27b597099a09d320  items, and
   ffffa4a4024beb37  just outside it
@@ -704,6 +739,7 @@
   685dafbd5e3df475  left and right
   689235b631da6a04  loading the layer…
   11e35ae68e488f96  logged mistakes.
+  b76e73e177286de4  logs merged in full; records fell back to newer-wins because there is pre-log history in play
   a5dc748e4551de5f  lymph node
   57126b5ca3bfa9fe  margin-top:14px;padding-top:12px;border-top:1px solid var(--line)
   bcdc5cfcf9c33fa1  mastery record
@@ -712,6 +748,7 @@
   9cb9cc72d6bb3f51  mastery records.
   b4d0b1a5df8f0d4a  measured from
   ddef735c79b2f059  median plane from the vertebral column and sternum; transumbilical plane at the L3/L4 junction
+  14433191e01ec5b1  merely re-read
   1c75c0d36de79131  midclavicular lines from the midpoint of each clavicle; subcostal plane at the tenth costal cartilage; transtubercular plane at the iliac tubercles
   f3d699287b13df92  min-height:38px;border:1px solid var(--line);border-radius:9px;background:rgba(255,186,103,.12);color:var(--orange);padding:0 12px;font-size:12px
   128ac26d1dc5e406  mistakes added to the log.
@@ -719,6 +756,7 @@
   2ecfe0945353a3ea  modebar tight
   3d293ff29b16699d  mono foothint
   91468c5437728572  mono sesscount
+  0f168de1e265af3b  month file
   f46b7e5ab634f52d  mv-note hidden
   31f204f598d94b86  mv-panel hidden
   2db7c5d825e1b1e4  named atlas structure
@@ -732,10 +770,12 @@
   e7b1a45f4258c96c  no engine
   3c990f97c8ed9e68  no stage
   29c0d92fb897dea2  not named in your course material
+  adc2f0455e58e7cf  not yet synced
   639098cfaf4687c5  nothing drawn yet
   6c72de620a530165  notice stop
   bcc38d49bd57532e  of existing progress into the new mastery record.
   051d858fae071603  of them are selected together under a name it does use. The atlas calls this one "
+  0c1c4b58250af158  on this device, across
   207efbf91868f3d0  p13 "xiphoid process"
   46f0f3c188b3f5bd  p3 "L1 - transpyloric"
   2d882335f09cd4cf  p3 "L5 - transtubercular"
@@ -750,6 +790,7 @@
   63d1b7f8646ef672  primary next
   c504c70741f08c26  primary next show
   f0197c94b5d1d341  primary readall
+  57df5f919992d6d5  pulled in,
   777503f25750cf8f  px "Instrument Sans", system-ui, -apple-system, sans-serif
   9104b22058806e6c  rather than rotating rigidly, so swinging them would tear them off their origin.
   3fb4f09f641fdc35  read, none tested
@@ -765,6 +806,7 @@
   cd3c2bcf3f5c6659  segbar hidden
   37e8cb66682dd7b0  separately selectable">
   a8970b03087f1926  sheetscrim hidden
+  29795951237abb24  should hold an array of events.
   5c6db2f77cfe003a  small cut-levelnote
   535432277ab15c02  small term-number
   b06f2f1ca52fc976  soft-tissue mesh
@@ -772,11 +814,15 @@
   7d30607b3e9c2d7a  structures in
   036a99f6c882069b  structures to name. Work round them in a fixed order every time, so the order itself becomes the cue.
   4132e48b488fc684  studied, across
+  53b5cb1fd8627dca  synced today
   79ea393804dc771d  tap a structure to name it
   ed964bcd197f9142  tap to name
   f5f88ae39b9a5ceb  that structure
   8ef9472e82771a5b  the body frame
+  d6e625da1b663266  the gist was empty, so this device seeded it
   4f6a3d859e615a5a  the skeleton
+  b34e03407b386047  the token no longer has gist access
+  aa380a202d8e6080  this device was empty, so the whole history was taken from the gist and rebuilt from the log
   5d2033a00068467a  to uncover
   e738706e3a65b48b  toolchip hidden
   91ca901995ca8a91  type="button" data-term="
