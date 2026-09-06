@@ -79,13 +79,27 @@ Three responses, graded by how badly each can end:
 - **Drop the dead inset.** Automatic, keyed off `data-inset`, written only when
   the shortfall *exceeds* the inset — the home indicator is then demonstrably
   outside the page, so its 34px protect nothing and only add to the band.
-- **Fill the strip.** Opt-in. `.shell` gets a negative bottom and extends past
-  the viewport into the strip. The strip is painted by the web view so it will
-  probably show, but nobody here can test whether taps land there — and a
-  visible, untappable tab bar is worse than a gap. Turning it on stores a
-  *trial* that `init()` clears on the next launch, so force-quitting always
-  undoes it; only reaching the "Keep it" row, which requires the buttons to
-  still work, makes it permanent.
+- **Fill the strip.** `.shell` gets a negative bottom and extends past the
+  viewport into the strip. This shipped as opt-in because nobody here could
+  test whether taps land below the viewport — they do: on the reported iPhone
+  the tab bar moved down into the strip, stayed usable, and left only the
+  screen's own rounded corner, which no page can fill. Default on where the
+  page measures short, with a switch under More to turn it off.
+
+  The offset is `--vp-shortfall`, and it is published as **zero unless the page
+  is floating**. With an opaque status bar the viewport is still 62px shorter
+  than the screen but starts 62px lower and already reaches the bottom;
+  offsetting there would drag the tab bar off the device. Publish the gap that
+  is underneath the page, never the difference between two numbers.
+
+**And the one-line lever.** `apple-mobile-web-app-status-bar-style` is now
+`black` rather than `black-translucent`. Translucent is what makes iOS paint
+from y=0, report the 62px top inset, and then size the page as though the
+status bar had been excluded. Opaque asks it to start the viewport below the
+status bar instead — same 812px, positioned 62px down, reaching the bottom.
+The cost is a plain bar at the top instead of the app's own background running
+under the clock. iOS may only re-read that meta when the app is re-added to the
+Home Screen, and the strip fill stays armed as the fallback if it ignores it.
 
 It never sets a height or any screen-derived length on ordinary layout, and it
 never fires outside the installed app, where a shorter viewport is just browser

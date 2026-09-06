@@ -9,7 +9,27 @@
   <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!--
+    OPAQUE, not black-translucent, and the reason is measured.
+
+    Under `black-translucent` the installed app reported: 874px screen, 812px
+    viewport, 62px top inset. iOS paints the page from y=0 (hence the top
+    inset) but SIZES it as though the status bar had been excluded — so the
+    page covers the clock at the top and stops 62px short at the bottom. That
+    62px band is what four previous fixes failed to reclaim, and 62 is exactly
+    the top inset.
+
+    Opaque asks iOS to start the viewport BELOW the status bar instead. Same
+    812px, but positioned 62px down, so it reaches the bottom of the screen
+    and there is no band. The cost is a plain status bar at the top rather
+    than the app's own background running under the clock.
+
+    `.app-shell` pads by `env(safe-area-inset-top)`, which iOS reports as 0 in
+    this mode, so the header closes that gap by itself with no second change.
+    outputs/study/viewport-recovery.js keeps measuring either way, and its
+    strip fill stays armed as the fallback if iOS ignores this.
+  -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Study Studio">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="description" content="Offline-first study system for HSS2011 Human Anatomy, ABCT2326 Human Physiology and medical radiation science.">

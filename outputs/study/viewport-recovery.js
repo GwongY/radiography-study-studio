@@ -289,7 +289,18 @@ function publish(d) {
      layout change with a real failure mode, so CSS keys it off the narrower
      finding rather than off "something is wrong". */
   el.dataset.inset = d.insetDead ? 'dead' : 'live';
-  el.style.setProperty('--vp-shortfall', `${d.screenShortfall}px`);
+  /*
+   * ZERO UNLESS FLOATING, and this is not a tidiness point.
+   *
+   * The strip fill gives `.shell` a bottom of `-1 * --vp-shortfall`. With an
+   * OPAQUE status bar the viewport is still 62px shorter than the screen —
+   * screenShortfall is 62 — but it starts 62px lower and already reaches the
+   * bottom. Publishing 62 there would drag the shell 62px BELOW the screen and
+   * take the tab bar with it, off the device entirely, on a configuration that
+   * had nothing wrong with it. The offset is only ever the gap that is
+   * actually underneath the page.
+   */
+  el.style.setProperty('--vp-shortfall', `${d.floating ? d.screenShortfall : 0}px`);
 }
 
 /** The last diagnosis, for the More row. */
@@ -373,7 +384,18 @@ export function viewportNote() {
  */
 const STRIP_KEY = STORAGE_PREFIX + 'stripfill';
 
-export function stripMode() { return read(STRIP_KEY, 'off') || 'off'; }
+/*
+ * 'auto' is the default now, on the strength of a reading from the device.
+ *
+ * It shipped as opt-in with a trial-and-relaunch escape hatch because nobody
+ * here could tell whether the strip accepts taps. It does: on the reported
+ * iPhone the tab bar moved down into the strip and stayed usable, leaving
+ * only the screen's own rounded corner, which no page can fill. So the guard
+ * that remains is the one that always mattered — it applies ONLY where the
+ * page has been measured floating above the screen bottom, which is the
+ * defect's own signature. 'off' is a deliberate opt-out and persists.
+ */
+export function stripMode() { return read(STRIP_KEY, 'auto') || 'auto'; }
 
 function applyStrip(mode) {
   document.documentElement.dataset.strip = mode === 'off' ? 'off' : 'on';
@@ -384,18 +406,13 @@ export function setStripMode(mode) {
   applyStrip(mode);
 }
 
-/** Tapped from More. Off → trial → off; "Keep it" is its own row. */
+/** Tapped from More. */
 export function toggleStripFill() {
-  const next = stripMode() === 'off' ? 'trial' : 'off';
+  const next = stripMode() === 'off' ? 'auto' : 'off';
   setStripMode(next);
   toast(next === 'off'
-    ? 'Bottom strip left alone.'
-    : 'Filling the bottom strip. If the tab bar is now out of reach, force-quit the app and relaunch — it reverts on its own.');
-}
-
-export function keepStripFill() {
-  setStripMode('kept');
-  toast('Bottom strip fill kept. Turn it off again from this row.');
+    ? 'Bottom strip left alone. The app stops at the edge of the viewport.'
+    : 'Filling the bottom strip wherever the page is measured short of the screen.');
 }
 
 /*
@@ -407,9 +424,10 @@ export function keepStripFill() {
  * on a return from the back-forward cache where no resize ever arrives.
  */
 export function init() {
-  /* The escape hatch: a trial never survives a launch. Whatever happened on
-     screen, relaunching is always enough to undo it. */
-  if (stripMode() === 'trial') write(STRIP_KEY, 'off');
+  /* 'trial' and 'kept' are what the opt-in version wrote. Both meant "fill
+     it", which is now the default, so they fold into 'auto' rather than
+     being left as states nothing reads. */
+  if (['trial', 'kept'].includes(stripMode())) write(STRIP_KEY, 'auto');
   applyStrip(stripMode());
   const soon = (() => {
     let t = null;

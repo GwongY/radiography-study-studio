@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 482 lines
+## `outputs/radiography-study-studio.html` — 502 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–457 | markup — no banners, grep here |
-| 458–458 | importmap |
-| 459–459 | loads studio.js |
-| 460–460 | loads study.js |
-| 461–480 | classic script · preamble |
-| 481–482 | markup — no banners, grep here |
+| 1–477 | markup — no banners, grep here |
+| 478–478 | importmap |
+| 479–479 | loads studio.js |
+| 480–480 | loads study.js |
+| 481–500 | classic script · preamble |
+| 501–502 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -153,13 +153,13 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `session-engine.js` | 247 | Session engine |
 | `small-ui-helpers.js` | 197 | Small UI helpers |
 | `source-dialog.js` | 59 | Source dialog |
-| `spatial-overlay-controls.js` | 355 | Spatial overlay controls (viewer "..." sheet) |
+| `spatial-overlay-controls.js` | 351 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 35 | The study system's mutable UI state. |
 | `storage-versioned-keys.js` | 156 | Storage — versioned keys, one-time migration from the osteology app |
 | `subject.js` | 322 | Subject |
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 283 | Viewer tools — annotate, cut, layer depth, capture |
-| `viewport-recovery.js` | 428 | The band below the tab bar — measuring it, and asking for the space back |
+| `viewport-recovery.js` | 446 | The band below the tab bar — measuring it, and asking for the space back |
 | `what-is-under.js` | 170 | What is under the tap |
 
 ## The corpus — `outputs/study/corpus/*.js`
