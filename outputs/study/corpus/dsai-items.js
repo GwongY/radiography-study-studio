@@ -19,6 +19,34 @@
 
 export const DSAI_ITEMS = [
   {
+    id: 'dsai1202-ai-everyday-autonomy',
+    subject: 'DSAI1202', unit: 'dsai.overview', type: 'comparison',
+    title: 'AI in daily life, robots and autonomous vehicles',
+    tags: ['ai', 'applications', 'high-yield'],
+    lesson: {
+      explanation: 'The Week 1 deck starts with AI systems already embedded in ordinary decisions. Recommender systems select videos, music, products and jobs; computer vision supports facial recognition, augmented or virtual reality and automatic photo tagging; natural-language processing supports spam filtering and machine translation; and generative AI creates new text, images or other media. It then distinguishes automation in software from autonomy in physical systems. Drones can inspect hazardous or inaccessible locations, collect images and measurements and reduce human exposure. Robots can repeat physical tasks in factories, hospitals and logistics. Self-driving vehicles combine sensing, perception, planning and control, but autonomy is a scale rather than an all-or-nothing label: the driver performs all tasks at the low end, assistance gradually controls steering or speed, conditional automation can drive within limits but expects a human takeover, high automation can complete a defined journey without intervention in its operating domain, and full automation removes the need for a human driver in all conditions. The practical question is therefore not merely whether AI is present, but what task the system controls, under which conditions, and who remains responsible when those conditions fail.',
+      keyFacts: [
+        'Recommenders: video, music, products and jobs.',
+        'Computer vision: facial recognition, AR/VR and automatic photo tagging.',
+        'Natural-language processing: spam detection and machine translation.',
+        'Drones extend sensing into hazardous or inaccessible locations.',
+        'Robots automate repeatable physical work; autonomous vehicles combine sensing, perception, planning and control.',
+        'Vehicle automation progresses from human control through assistance and conditional/high automation to full automation.',
+        'Always ask which task is automated, where it works and who must take over.',
+      ],
+      prerequisites: [], examples: [],
+    },
+    memory: { comparison: 'Automation does a task; autonomy decides and acts within an operating environment. Neither word guarantees every condition is covered.' },
+    practice: [
+      { type: 'matching', prompt: 'Match each AI domain to the lecture example.', pairs: [['Recommender system', 'Video, music, product and job suggestions'], ['Computer vision', 'Facial recognition and photo tagging'], ['Natural-language processing', 'Spam detection and machine translation'], ['Drone', 'Remote sensing in hazardous or inaccessible places']], explanation: 'These examples occupy the daily-life and autonomous-system sequence of the opening deck.' },
+      { type: 'explain', prompt: 'Why is “self-driving” not enough information to describe a vehicle’s capability?', model: 'Because vehicle automation exists in levels. A system may only assist steering or speed, may drive conditionally while expecting takeover, or may operate without intervention only inside a defined domain. The label must therefore be paired with the controlled task, operating conditions and remaining human responsibility.', rubric: ['States autonomy has levels', 'Names operating limits or takeover', 'Identifies remaining human responsibility'] },
+    ],
+    commonMistakes: ['Treating all assisted-driving systems as fully autonomous in every condition.'],
+    skills: ['Describe an AI application with three fields: task, operating conditions, responsible human.'],
+    selfCheck: 'Give one example each of recommendation, vision, language processing and physical autonomy, then explain conditional versus full vehicle automation.',
+    sourceRefs: [{ ref: 'dsai.w1', location: 'Slides 11–20 AI in daily life, drones, robots and levels of autonomous driving' }],
+  },
+  {
     id: 'dsai1202-ai-in-healthcare',
     subject: 'DSAI1202', unit: 'dsai.overview', type: 'definition',
     title: 'Where AI already sits in a hospital',

@@ -13,7 +13,7 @@ The workflow is the same for every subject:
 | File | What it is |
 | --- | --- |
 | `radiography-study-studio.html` | The app. Subject selector, learning workflow, Memory Coach, source dialogs, coverage report, and the full osteology 3D studio embedded as the HSS2011 Osteology module. |
-| `study-data.js` | The study layer: source registry, subject registry, 141 study items, prior-knowledge registry, spaced repetition, coverage report, corpus validator. |
+| `study-data.js` | The study layer: source registry, subject registry, 150 study items, prior-knowledge registry, spaced repetition, coverage report, corpus validator. |
 | `wordparts.js` | 814 medical word parts, inverted from the HSS2011 glossary, plus the segmenter that takes a long term apart. |
 | `term-notes.js` | 746 hand-written pronunciations and plain-English readings, plus 565 app-authored memory hooks, for the terms word parts alone cannot rescue. |
 | `assets/plates/` | Five public-domain anatomy plates from Gray's Anatomy (1918), licence-verified through the Wikimedia Commons API before download. |
@@ -93,8 +93,8 @@ answer used was then cross-checked against its question text.
 
 | Subject | Status | Notes |
 | --- | --- | --- |
-| ABCT2326 Human Physiology | Full | The current Group 4 overview and 2026 Lecture 1 control the course shape and cells unit. Systems 2–10 use official older lectures where current files are absent; this now includes four reproductive-system lessons from the readable 2020/21 lecture. |
-| HSS2011 Human Anatomy | Full | The current SDF, schedules, Week 1 pair and Weeks 2–4 movement self-study control the syllabus and early weeks. Later topics use official older HSS2011 sources, including four Week 7 Special Senses lessons. The older source date is visible on every lesson. |
+| ABCT2326 Human Physiology | **Syllabus mapped; sources audited** | The current Group 4 overview and 2026 Lecture 1 control the course shape and cells unit. Systems 2–10 use official older lectures where current files are absent. “Mapped” means every app lesson is placed in the current schedule and source-checked; it is not a claim that every historical file became a lesson. |
+| HSS2011 Human Anatomy | **Syllabus mapped; sources audited** | The current SDF, schedules, Week 1 pair and Weeks 2–4 movement self-study control the syllabus and early weeks. Later topics use official older HSS2011 sources, including four Week 7 Special Senses lessons. “Mapped” does not treat uncited duplicates, student work or future material as missing lessons. |
 | HTI17103 Introduction to Medical Radiation Science | **Substitute source** | The current HTI17103 schedule and opening lecture are supplied. Later teaching remains built from the official HTI17101 Exploring Radiography set, topic-matched to the current schedule and never silently renamed. |
 | APSS1A08 Introduction to Sociology | **Limited source coverage** | The current syllabus and Topic 01 lecture are verified, producing five lessons. Official T02A–T08 lecture notes are missing and appear as named weekly gaps; old student papers are not used for facts. |
 | DSAI1202 Introduction to AI and Data Analytics | **Limited source coverage** | The current Week 1 overview supplies two lessons, the full tentative topic schedule, assessment and AI policy. Weeks 2–12 remain named source gaps until their official teaching files arrive. |
@@ -205,7 +205,7 @@ meant to be, and what have I already missed*.
   outcomes, the assessment table with weights, study effort, and the reading list. Every weight
   carries the file and page it was read off, the same way a lesson does.
 - **What to read before each week.** The timetable names a topic; `WEEK_STUDY` in `schedule.js` says
-  which of the 141 lessons teach it, in order, with a button that runs the whole week as one session.
+  which of the 150 lessons teach it, in order, with a button that runs the whole week as one session.
   The Full-term view prints the same cards under every week. HSS2011 Special Senses is now covered
   from an older official lecture. Empty APSS1A08 and DSAI1202 teaching weeks instead print the exact
   syllabus topic and the official lecture file that is still missing.
@@ -305,7 +305,7 @@ images exist in the assets folder, only `.glb` models. The label names come from
 
 ## Every lesson opens with a visual
 
-No lesson is a wall of prose. All 141 items resolve to a visual, and the resolver never invents one:
+No lesson is a wall of prose. All 150 items resolve to a visual, and the resolver never invents one:
 
 | Kind | Items | What it is |
 | --- | --- | --- |
@@ -884,7 +884,7 @@ identification and laterality questions each state a non-3D route to the answer 
 `validateCorpus()` and `validateApplications()` run on every open of the coverage report and check
 that every question has a resolvable correct answer and an explanation, every item has a teaching
 explanation and at least one practice question, and every item carries a source reference. Current
-state: **141 items, 628 questions, 100 source files registered, 0 validation failures.**
+state: **150 items, 664 questions, 100 source files registered, 0 validation failures.**
 
 ## Which structure names you are asked to know
 

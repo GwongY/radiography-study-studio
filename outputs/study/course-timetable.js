@@ -169,17 +169,10 @@ function nowNextHTML(rows, now) {
  * getting things right, and a week of half-remembered lessons reads as such.
  */
 
-/* Lessons you have not attempted first, then weakest first. This is the
-   order "Study all" runs them in as well, so the list is the plan. */
+/* The schedule owns the order. Progress changes the status beside a lesson,
+   never where that lesson appears in the lecture sequence. */
 function readOrder(items) {
-  return items.slice().sort((a, b) => {
-    const aa = itemAttempted(a.id); const ba = itemAttempted(b.id);
-    if (aa !== ba) return aa ? 1 : -1;
-    /* Among the untested, the ones never opened come before the ones read. */
-    const ar = itemRead(a.id); const br = itemRead(b.id);
-    if (!aa && ar !== br) return ar ? 1 : -1;
-    return itemScore(a.id) - itemScore(b.id);
-  });
+  return items.slice();
 }
 
 function lessonSourceHTML(item) {
@@ -194,7 +187,8 @@ function lessonSourceHTML(item) {
       + `<span class="source-role"> · ${esc(sourceRoleLabel(s.role))}</span>`
       + `<strong>${esc(d.file || s.ref)}</strong>${locations.map((location) => ` · ${esc(location)}`).join('')}</li>`;
   }).join('');
-  return `<details class="lesson-sources"><summary>Sources for this lesson · <span class="source-status">${esc(group.status)}</span></summary>`
+  const statusLabel = { complete: 'current source verified', partial: 'current + older support', 'needs-review': 'source review needed' }[group.status] || group.status;
+  return `<details class="lesson-sources"><summary>Sources for this lesson · <span class="source-status">${esc(statusLabel)}</span></summary>`
     + `<ul class="source-group-list">${rows || '<li>Source gap — see the weekly gap notice.</li>'}</ul>`
     + `${group.reasons.length ? `<p class="source-reason">${esc(group.reasons.join(' '))}</p>` : ''}</details>`;
 }
@@ -255,7 +249,7 @@ function subjectReading(subject, week) {
     : ''}
     </div>
     ${!open && rest > 0
-    ? `<p class="readhint">Weakest first. ${rest} more behind “Show all”.</p>` : ''}
+    ? `<p class="readhint">Teaching order. ${rest} more behind “Show all”.</p>` : ''}
   </section>`;
 }
 
@@ -402,9 +396,7 @@ export function renderCourse() {
     b.onclick = () => startSession({ mode: 'ids', ids: [b.dataset.item] });
   });
   $$('courseView').querySelectorAll('[data-week-subject]').forEach((b) => {
-    /* Same order the card lists them in — unstarted first, then weakest.
-       If the button ran the declared order instead, the card would be
-       showing you one plan and the button would run a different one. */
+    /* Same teaching order the card lists. */
     b.onclick = () => startSession({
       mode: 'ids',
       ids: readOrder((studyFor(b.dataset.weekSubject, Number(b.dataset.week)) || [])

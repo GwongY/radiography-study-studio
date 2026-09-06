@@ -31,7 +31,7 @@ export const HTI_ITEMS = [
         'X-rays are produced when an electron stream strikes a target made of a mixture of tungsten and rhenium.',
       ],
       prerequisites: [],
-      examples: ['The lecture notes radiography is not confined to hospitals: airport security, customs cargo checks and industrial X-ray checks all use the same physics.'],
+      examples: ['The current lecture contrasts airport security, customs cargo checks and industrial X-ray imaging with industrial sterilisation, which uses radiation without producing an image.'],
     },
     memory: {
       wordOrigin: 'Split every job title at the hyphen. Radio-grapher writes the image. Radio-logist studies it. Radio-therapist treats with it. The suffix tells you the verb.',
@@ -60,7 +60,7 @@ export const HTI_ITEMS = [
       'Radiographer versus radiologist is the confusion pair, and the suffix separates them: -grapher writes the image, -logist studies it. All six job titles share the same "radio-" and differ only in the verb — who makes, who reads, who treats, who measures.',
     ],
     selfCheck: 'From a blank page, assign each of the six roles its one-line job, then answer the two-metal question about the X-ray tube target.',
-    sourceRefs: [{ ref: 'hti.w1b', location: 'Slides 3–9 "What is Radiography?", "Where does the radiation light come?", "Who is working with radiation in hospitals?"' }],
+    sourceRefs: [{ ref: 'hti.w1.2026', location: 'p3 "What is Radiography?"' }, { ref: 'hti.w1.2026', location: 'p5 "Electron stream strikes"' }, { ref: 'hti.w1.2026', location: 'p7 "Industrial sterilization"' }, { ref: 'hti.w1.2026', location: 'p8 "Radiology is a science of everything"' }, { ref: 'hti.w1.2026', location: 'p10 "Who are working with radiation in hospitals?"' }],
   },
   {
     id: 'hti17103-ionizing-vs-nonionizing',
@@ -68,7 +68,7 @@ export const HTI_ITEMS = [
     title: 'Ionizing vs non-ionizing modalities',
     tags: ['modalities', 'high-yield'],
     lesson: {
-      explanation: 'The Week 2 lecture sorts every imaging modality into two columns. Ionizing radiation covers general X-ray, fluoroscopy and angiography, mammography, computed tomography, and radionuclide imaging. Non-ionizing radiation covers magnetic resonance imaging and ultrasonography. Ionization is defined as the ability to free outer-shell electrons; the sources listed are high-energy ultraviolet, characteristic X-ray, electron beams and radioisotopes. The lecture explicitly addresses urban myths about microwave ovens at 2,450 MHz and cell phones at 900, 1,800 and 2,600 MHz, and notes the difference in units — W/kg and tesla for non-ionizing exposure versus J/kg, gray and sievert for ionizing dose.',
+      explanation: 'Older HTI17101 substitute for current HTI17103 Week 2. The Week 2 lecture sorts every imaging modality into two columns. Ionizing radiation covers general X-ray, fluoroscopy and angiography, mammography, computed tomography, and radionuclide imaging. Non-ionizing radiation covers magnetic resonance imaging and ultrasonography. Ionization is defined as the ability to free outer-shell electrons; the sources listed are high-energy ultraviolet, characteristic X-ray, electron beams and radioisotopes. The lecture explicitly addresses urban myths about microwave ovens at 2,450 MHz and cell phones at 900, 1,800 and 2,600 MHz, and notes the difference in units — W/kg and tesla for non-ionizing exposure versus J/kg, gray and sievert for ionizing dose.',
       keyFacts: [
         'Ionizing: general X-ray, fluoroscopy/angiography, mammography, computed tomography, radionuclide imaging.',
         'Non-ionizing: magnetic resonance imaging, ultrasonography.',
@@ -82,7 +82,7 @@ export const HTI_ITEMS = [
     },
     memory: {
       chunking: 'Five in the ionizing column, two in the non-ionizing column. Learn the short list: MRI and ultrasound are the only two that do not ionize.',
-      comparison: 'The test is not "does it use energy" but "can it free an outer-shell electron". A microwave oven carries far more power than a chest X-ray and still cannot ionize.',
+      comparison: 'The classification test is the ability to free outer-shell electrons; a modality being non-ionizing is not a statement that it has no other safety considerations.',
       mnemonic: 'The two safe-from-ionization modalities both work on something other than photons of the X-ray kind: Magnets and Mechanical waves — MRI and ultrasound.',
     },
     practice: [
@@ -106,7 +106,7 @@ export const HTI_ITEMS = [
       'Putting MRI in the ionizing column because it is a large hospital machine.',
     ],
     skills: [
-      'Power and ionizing ability are different properties, and the microwave slide proves it: 2,450 MHz delivers far more watts than a chest X-ray and cannot free a single outer-shell electron. The dividing test is electron-freeing, not energy quantity — which is also why the two regimes are measured in different units entirely (W/kg and tesla versus J/kg, gray and sievert).',
+      'Ionizing ability concerns freeing outer-shell electrons. The lecture classifies MRI and ultrasound as non-ionizing; this classification alone is not a complete safety assessment.',
       'MRI and ultrasound are the entire non-ionizing column: learn the short list and sort everything else by elimination. Machine size is not evidence — MRI is a large, expensive hospital magnet and still cannot ionize, because magnetic fields and radiofrequency waves do not free electrons.',
     ],
     selfCheck: 'Write both columns from memory, then answer the phone claim in the lecture’s own framing: the frequencies, the free-electron definition, and the two unit systems.',
@@ -151,7 +151,7 @@ export const HTI_ITEMS = [
     ],
     application: [
       { type: 'scenario', prompt: 'A hospital wants to start PET imaging. Using the SPECT/PET comparison, name two practical consequences they must plan for that SPECT would not have required.',
-        model: 'First, a cyclotron is required, because PET tracers have very short half-lives and cannot simply be shipped in. Second, robotic handling and the associated expense, since the lecture lists PET as expensive and requiring robotic handling, whereas SPECT is easier to prepare and worldwide available.',
+        model: 'In the older lecture comparison, PET is described as more quantitative, expensive, with very short half-lives, a cyclotron requirement and robotic handling. SPECT is described as less expensive and easier to prepare. These are the supplied lecture comparisons, not a claim that every PET service must have an on-site cyclotron.',
         rubric: ['Names the cyclotron requirement', 'Links it to short half-lives', 'Names cost or robotic handling'] },
     ],
     commonMistakes: [
@@ -159,7 +159,7 @@ export const HTI_ITEMS = [
       'Assuming PET is simply a better SPECT rather than a different trade-off around half-life and cost.',
     ],
     skills: [
-      'SPECT versus PET is one fact fanned out into five: half-life. A long enough half-life (technetium-99m, 6.02 hours) means the tracer can be made elsewhere and shipped, so SPECT is cheap and everywhere. Minutes-short (fluorine-18, 109.75 minutes) means the tracer dies before it arrives, so PET needs an on-site cyclotron, robotic handling, and expense. Every other difference on the comparison table is downstream of that one number.',
+      'The older lecture compares half-life, quantitation, preparation and cost. It does not establish that PET tracers cannot be transported, or that all differences arise from half-life alone.',
       'Computed and direct digital radiography differ by exactly one piece of hardware — the reader. CR keeps cassettes and needs readers; DR eliminates them, which buys speed and no physical film at the price of being the expensive option. The MCQ distractor is always the reader.',
       'A radiopharmaceutical is a taxi and a passenger: the radioisotope is what the gamma camera sees, the compound is what decides where it goes — which is how the same technetium serves a bone scan as MDP and a renal function scan as DTPA.',
     ],
@@ -172,7 +172,7 @@ export const HTI_ITEMS = [
     title: 'Radioprotective measures and dose limits',
     tags: ['radioprotection', 'high-yield'],
     lesson: {
-      explanation: 'The Week 6 lecture gives four radioprotective measures. Time: potential exposure to radiation should be as short as possible, because of the dose-rate issue. Distance: personnel should keep as far as possible from radiation sources, following the inverse square law. Shielding: without obstructing the work, personnel should be protected by shielding as comprehensively as possible. Decay: if the radioactive material cannot be removed, a certain time period should be given until its natural decay, and the relevant concept is half-life — physical, biological and effective. The governing principle is ALARA, as low as reasonably achievable. Dose limits from ICRP Publication 103 are, for radiology workers, 20 mSv per year averaged over five consecutive years with 50 mSv in any single year, and 1 mSv if pregnancy is declared; for the public the limit is 1 mSv in a year. Exposure is monitored with a thermoluminescent dosimeter, whose detection range is 0.05 mSv to 10 Sv but which is not feasible for accidental exposure. Radiation-induced damage is divided into stochastic and deterministic effects.',
+      explanation: 'Older HTI17101 substitute for current HTI17103 Week 4. Numerical dose limits and exposure proportions below report the supplied historical lecture, not current regulation or personal clinical guidance. The Week 6 lecture gives four radioprotective measures. Time: potential exposure to radiation should be as short as possible, because of the dose-rate issue. Distance: personnel should keep as far as possible from radiation sources, following the inverse square law. Shielding: without obstructing the work, personnel should be protected by shielding as comprehensively as possible. Decay: if the radioactive material cannot be removed, a certain time period should be given until its natural decay, and the relevant concept is half-life — physical, biological and effective. The governing principle is ALARA, as low as reasonably achievable. Dose limits from ICRP Publication 103 are, for radiology workers, 20 mSv per year averaged over five consecutive years with 50 mSv in any single year, and 1 mSv if pregnancy is declared; for the public the limit is 1 mSv in a year. Exposure is monitored with a thermoluminescent dosimeter, whose detection range is 0.05 mSv to 10 Sv but which is not feasible for accidental exposure. Radiation-induced damage is divided into stochastic and deterministic effects.',
       plain: 'Four ways to cut radiation exposure: spend less time near the source, stay further away, shield it, and if the material cannot be moved, wait for it to decay. The rule these all serve is ALARA — as low as reasonably achievable. The lecture also fixes the exam numbers: the dose limits for workers and the public, and the dosimeter used to measure exposure.',
       keyFacts: [
         'Four measures: time, distance, shielding, decay.',
@@ -191,14 +191,14 @@ export const HTI_ITEMS = [
     memory: {
       firstLetter: 'Time, Distance, Shielding, Decay. The first three are the classic trio; this course adds Decay as a fourth, and that is the one most likely to be missed.',
       chunking: 'Three of the four change what you do (stand back, stand behind something, stay briefly). Decay changes when you do it.',
-      mnemonic: 'Two limits worth memorising as a pair: 20 for workers averaged, 1 for the public — and 1 again for a declared pregnancy, which drops a worker to public level.',
+      mnemonic: 'Historical slide comparison: 20 averaged over five years, 50 in one year, and a separately stated 1 mSv figure. These are lecture figures, not current legal instructions.',
     },
     practice: [
       { type: 'sequence', prompt: 'List the four radioprotective measures in the order the lecture gives them.', items: ['Time', 'Distance', 'Shielding', 'Decay'],
         explanation: 'Time, distance, shielding and decay, with half-life attached to the decay measure.' },
       { type: 'typed', prompt: 'What does ALARA stand for?', accept: ['as low as reasonably achievable'],
         explanation: 'As low as reasonably achievable — the governing principle of radiation protection in the lecture.' },
-      { type: 'mcq', prompt: 'What is the dose limit for a member of the public in a year?', options: ['0.05 mSv', '1 mSv', '20 mSv', '50 mSv'], answer: 1,
+      { type: 'mcq', prompt: 'What annual public dose figure is stated in the older lecture?', options: ['0.05 mSv', '1 mSv', '20 mSv', '50 mSv'], answer: 1,
         explanation: '1 mSv in a year for the public. Radiology workers are limited to 20 mSv/year averaged over five consecutive years, with 50 mSv in any single year.' },
       { type: 'cloze', prompt: 'The dose limit for radiology workers is ______ mSv per year averaged over five consecutive years, and ______ mSv for any single year.', accept: ['20; 50', '20, 50', '20 and 50'],
         explanation: '20 mSv/year averaged over five consecutive years, 50 mSv for every single year, per ICRP Publication 103.' },
@@ -216,8 +216,8 @@ export const HTI_ITEMS = [
     ],
     skills: [
       'Decay is the measure that only applies to a source you cannot switch off: time, distance and shielding all work on an X-ray tube, but the tube does not decay — waiting changes nothing about it. The fourth measure exists for radioactive material that cannot be removed, and the fluoroscopy scenario is how the exam tests whether you know that.',
-      'The declared-pregnancy limit is the public limit: 1 mSv. A worker drops from the 20 mSv regime to the public one in a single sentence — which is why the numbers are worth holding as a pair (20 averaged / 1 public) rather than as three separate facts.',
-      'The TLD is a monitor, not an alarm: its detection range runs 0.05 mSv to 10 Sv for routine wear, and the lecture states outright that it is not feasible for accidental exposure. A wide range does not mean fast response.',
+      'The older slide lists a declared-pregnancy figure but does not explain its regulatory scope or reference period. Do not translate it into a claim that a pregnant worker has the same regulatory status as the public.',
+      'The lecture names TLD monitoring and says it is not feasible for accidental exposure. The cached slide gives no further explanation of the device response mechanism.',
     ],
     selfCheck: 'Write the four measures, both dose limits, and the monitoring device with its range — then check the one most people miss: the fourth measure, decay.',
     sourceRefs: [{ ref: 'hti.w6', location: 'Slides 3, 10–16 TLD, dose limits (ICRP Publication 103), radioprotective measures, ALARA' }],
@@ -228,7 +228,7 @@ export const HTI_ITEMS = [
     title: 'The radiation therapy pathway',
     tags: ['radiation therapy'],
     lesson: {
-      explanation: 'In Hong Kong the job title is radiation therapist, previously therapeutic radiographer; in the USA the equivalent roles are radiologic technologists, whose duties differ from those in Hong Kong, and dosimetrists, who specialise in treatment planning and dose calculation. Radiation therapy and oncology services are provided by six public hospitals — Queen Mary, Pamela Youde Nethersole Eastern, Queen Elizabeth, Princess Margaret, Prince of Wales and Tuen Mun — and six private hospitals, giving twelve RT centres in Hong Kong with around 420 registered radiation therapists. The patient pathway runs: diagnosis confirmed by doctors from various specialities, referral to clinical oncology, oncologists meeting the patient and relatives to decide an initial treatment plan, then referral for radiation therapy if that is part of the regimen. The RT planning session then proceeds step by step: determine the treatment position with personalised immobilisation devices to minimise movement, considering patient comfort, treatment accuracy, planning feasibility and reproducibility; then simulation, acquiring medical images for treatment planning and simulating the real treatment setup; then RT treatment planning.',
+      explanation: 'Older HTI17101 substitute for current HTI17103 Week 3. Service counts, job titles and staffing below describe the historical lecture context, not a current service directory. In Hong Kong the job title is radiation therapist, previously therapeutic radiographer; in the USA the equivalent roles are radiologic technologists, whose duties differ from those in Hong Kong, and dosimetrists, who specialise in treatment planning and dose calculation. Radiation therapy and oncology services are provided by six public hospitals — Queen Mary, Pamela Youde Nethersole Eastern, Queen Elizabeth, Princess Margaret, Prince of Wales and Tuen Mun — and six private hospitals, giving twelve RT centres in Hong Kong with around 420 registered radiation therapists. The patient pathway runs: diagnosis confirmed by doctors from various specialities, referral to clinical oncology, oncologists meeting the patient and relatives to decide an initial treatment plan, then referral for radiation therapy if that is part of the regimen. The RT planning session then proceeds step by step: determine the treatment position with personalised immobilisation devices to minimise movement, considering patient comfort, treatment accuracy, planning feasibility and reproducibility; then simulation, acquiring medical images for treatment planning and simulating the real treatment setup; then RT treatment planning.',
       plain: 'This is about the job and the treatment pathway, not the physics. In Hong Kong the title is radiation therapist; the USA uses different titles and different duties. Radiotherapy runs in twelve HK centres — six public, six private — with about 420 registered therapists. The pathway: diagnosis, referral to clinical oncology, an initial treatment plan agreed with the patient, then, if radiation is part of the plan, a step-by-step planning session — position, simulation, then planning.',
       keyFacts: [
         'Hong Kong title: radiation therapist (previously therapeutic radiographer).',
@@ -256,7 +256,7 @@ export const HTI_ITEMS = [
         explanation: 'Therapeutic radiographer. The current title is radiation therapist.' },
       { type: 'mcq', prompt: 'In the USA, which role specialises in treatment planning and dose calculation?', options: ['Radiologic technologist', 'Dosimetrist', 'Radiation therapist', 'Medical physicist'], answer: 1,
         explanation: 'The lecture names dosimetrists as specialists in treatment planning and dose calculation, distinguishing them from radiologic technologists.' },
-      { type: 'typed', prompt: 'How many RT centres are there in Hong Kong in total?', accept: ['12', 'twelve'],
+      { type: 'typed', prompt: 'How many Hong Kong RT centres does the older lecture report?', accept: ['12', 'twelve'],
         explanation: 'Twelve — six public hospitals and six private hospitals.' },
     ],
     application: [
@@ -281,7 +281,7 @@ export const HTI_ITEMS = [
     title: 'Inside a radiology department: staffing and the request form',
     tags: ['role extension'],
     lesson: {
-      explanation: 'The Hospital Authority is organised into 7 clusters, with 39 departments of radiology for medical imaging, 16 A&E radiology services and 6 clinical oncology centres for radiation therapy, employing about 800 diagnostic radiographers and about 180–200 radiotherapists. In one named hospital the staffing example given is 29 radiologists, 84 radiographers and 16 nurses or patient-care assistants. Team work is presented as a requirement: a pair of radiographers, one handling the patient and one controlling the panel; a patient care assistant for patient preparation; and a nurse for CT, MRI and A&E work. The lecture then walks through reading an X-ray request form, whose fields include clinical information, diagnosis, the examination requested — the worked example is "CXR (PA + Lat)" — routine, early or urgent priority, the form of transport, drug allergy and, where applicable, LMP.',
+      explanation: 'Older HTI17101 supporting material for the radiographer role and MI/RT comparison; its old Week 5 label is not the current Week 5 topic. Staffing counts below are historical examples. The Hospital Authority is organised into 7 clusters, with 39 departments of radiology for medical imaging, 16 A&E radiology services and 6 clinical oncology centres for radiation therapy, employing about 800 diagnostic radiographers and about 180–200 radiotherapists. In one named hospital the staffing example given is 29 radiologists, 84 radiographers and 16 nurses or patient-care assistants. Team work is presented as a requirement: a pair of radiographers, one handling the patient and one controlling the panel; a patient care assistant for patient preparation; and a nurse for CT, MRI and A&E work. The lecture then walks through reading an X-ray request form, whose fields include clinical information, diagnosis, the examination requested — the worked example is "CXR (PA + Lat)" — routine, early or urgent priority, the form of transport, drug allergy and, where applicable, LMP.',
       keyFacts: [
         'Hospital Authority: 7 clusters, 39 departments of radiology, 16 A&E radiology services, 6 clinical oncology centres.',
         'About 800 diagnostic radiographers; about 180–200 radiotherapists.',
@@ -299,7 +299,7 @@ export const HTI_ITEMS = [
       location: 'Read a request form the way you would read a boarding pass: who, what examination, how urgent, how they are arriving. Four questions, and the form answers all of them.',
     },
     practice: [
-      { type: 'typed', prompt: 'How many clusters is the Hospital Authority organised into?', accept: ['7', 'seven'],
+      { type: 'typed', prompt: 'How many HA clusters are reported in the older departmental example?', accept: ['7', 'seven'],
         explanation: 'Seven clusters, containing 39 departments of radiology, 16 A&E radiology services and 6 clinical oncology centres.' },
       { type: 'mcq', prompt: 'In the pair-of-radiographers model, what are the two roles?', options: ['Imaging and reporting', 'Patient handling and panel controlling', 'Preparation and archiving', 'Planning and dose calculation'], answer: 1,
         explanation: 'The lecture describes a pair of radiographers, one handling the patient and one controlling the panel.' },
@@ -316,7 +316,7 @@ export const HTI_ITEMS = [
     ],
     skills: [
       'The examination line and the clinical information answer different questions: "CXR (PA + Lat)" says which images to take; "Cough x 2/12, SOB — chest infection" says what the image is being asked to show. Reading only the examination name is the named mistake, and it loses exactly the information that guides positioning and image assessment.',
-      'The two-radiographer pair is a split of the room, not a rota: during the exposure one handles the patient and one controls the panel, and neither can swap — which is why the lecture presents teamwork as a requirement rather than a preference.',
+      'The older departmental example divides patient handling and panel control between two radiographers, with preparation support from a PCA or nurse. It does not state that team members can never exchange roles.',
     ],
     selfCheck: 'From memory: the HA cluster count, the two radiographer roles, and the worked example examination with its two projections — PA and Lat, the only projection abbreviations the supplied lectures use.',
     sourceRefs: [{ ref: 'hti.w5', location: 'Slides 3–7 Hospital Authority structure, manpower, team work, floor plan, reading the order form' }],
@@ -341,7 +341,7 @@ export const HTI_ITEMS = [
       ],
       prerequisites: ['hti17103-what-is-radiography'],
       examples: [
-        'A fat pad sign is the disease deciding the modality: it is an elbow finding read off a plain radiograph, so the cheap structural study is the correct one, not a cross-section.',
+        'The lecture lists fat pad signs, air/fluid level and tumour heterogeneity as disease-dependent considerations. It does not supply a protocol for choosing a modality for an individual patient.',
       ],
     },
     memory: {
@@ -365,9 +365,9 @@ export const HTI_ITEMS = [
       { type: 'scenario', prompt: 'MRI is the only modality the lecture puts under both structural and functional imaging. What does that tell you about the difference between the two categories?',
         model: 'That the categories describe the question being asked, not the equipment. Structural imaging is defined as indicating anatomical changes and functional imaging as indicating physiological changes — so a single scanner that can be set up to report either belongs in both. The category is a property of the study, not of the machine.',
         rubric: ['States the categories describe what the image indicates, not the hardware', 'Names anatomical versus physiological change'] },
-      { type: 'scenario', prompt: 'The lecture lists "tumour heterogeneity, air/fluid level, fat pad signs" as disease-dependent grounds for modality choice. Pick one and say what it implies about which modality to use.',
-        model: 'An air/fluid level is a boundary between two densities and shows on a plain radiograph taken with the right beam orientation, so it argues for a simple structural study rather than an expensive one. Tumour heterogeneity is the opposite case: variation in biochemical activity across a mass is what functional imaging reports, so it argues towards nuclear medicine. Either answer works provided the modality follows from what the finding actually is.',
-        rubric: ['Picks one named disease-dependent ground', 'Connects it to structural or functional imaging with a reason'] },
+      { type: 'scenario', prompt: 'What three types of information does the lecture require before a modality is chosen?',
+        model: 'Consider the structure of interest, the disease-dependent question and the patient condition together. The slide names examples of these considerations but does not establish a universal modality prescription for each sign.',
+        rubric: ['Names structure of interest', 'Names disease and patient condition', 'Avoids inventing a clinical protocol'] },
     ],
     commonMistakes: [
       'Treating structural and functional as a hardware split, then having nowhere to put MRI.',
@@ -377,8 +377,8 @@ export const HTI_ITEMS = [
     ],
     skills: [
       'MRI appearing on both lists is the tell: structural and functional describe the question the study asks — anatomical change versus physiological change — not the machine. One scanner can be set to answer either, so treating the split as a hardware divide leaves MRI homeless. That is the whole distinction, tested with one modality.',
-      'IMRT and IGRT differ by what is modulated: intensity versus image guidance. The shared "-RT" marks them as radiotherapy techniques, and the front letters name the flavour — the same reading rule as 3D-CRT (conformation) and brachytherapy (brachy = short distance).',
-      'The newest or most detailed machine is not the right machine: the choice runs structure of interest → disease → patient condition, and a fat pad sign read off a plain elbow film is the correct study precisely because it answers the actual question — capability is not a selection criterion.',
+      'IMRT means intensity-modulated radiotherapy; IGRT means image-guided radiotherapy. The current opening deck names these techniques without explaining their full delivery mechanisms.',
+      'Use all three stated selection grounds: structure of interest, disease and patient condition. The slide does not make price or a single sign sufficient to select an examination.',
     ],
     selfCheck: 'Write the two department lists from memory, six each. Then mark every diagnostic one S, F, or both — and check that only MRI carries both.',
     sourceRefs: [
@@ -387,6 +387,10 @@ export const HTI_ITEMS = [
       { ref: 'hti.w1.2026', location: 'p17 "Why is certain modality chosen?" — structure-of-interest, disease-dependent, patient condition' },
     ],
   },
+];
+
+// Retained ID for Course integration; administrative content is not a quiz lesson.
+export const HTI_COURSE_LOGISTICS = [
   {
     id: 'hti17103-subject-2026',
     subject: 'HTI17103', unit: 'hti.subject', type: 'definition',

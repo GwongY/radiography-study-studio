@@ -816,4 +816,22 @@ export const HSS_MODULES = [
       { ref: 'hss.msk.2026', location: 'p16 "Structural aspects"' },
     ],
   },
+  {
+    id: 'hss2011-msk-periosteum', subject: 'HSS2011', unit: 'hss.m4', type: 'definition',
+    title: 'Periosteum — the living covering of bone', tags: ['musculoskeletal', 'bone', 'high-yield'],
+    lesson: {
+      explanation: 'The periosteum is fibrous tissue surrounding the outer surface of bone, except at the articular sites. Its inner layer is osteogenic: its cells can differentiate into osteoblasts. It is richly furnished with capillaries and nerves. The older official musculoskeletal lecture makes the blood-supply consequence explicit: small blood vessels in the periosteum nourish bone, while large nutrient arteries enter the shaft of long bones through the nutrient foramen.',
+      keyFacts: ['Fibrous tissue surrounding the outer bone surface.', 'Absent at articular sites.', 'Inner layer is osteogenic and can differentiate into osteoblasts.', 'Richly furnished with capillaries and nerves.', 'Small periosteal vessels nourish bone; nutrient arteries enter long-bone shafts through nutrient foramina.'],
+      prerequisites: ['hss2011-msk-bone-histology'], examples: [],
+    },
+    memory: { wordOrigin: 'Peri- means around: periosteum surrounds the bone.' },
+    practice: [
+      { type: 'mcq', prompt: 'Where is periosteum normally absent?', options: ['At tendon attachments', 'Over articular surfaces', 'Over the shaft', 'Where sensory nerves enter'], answer: 1, explanation: 'Articular cartilage covers the joint surface, so periosteum does not.' },
+      { type: 'matching', prompt: 'Match each feature to the statement made in the lectures.', pairs: [['Fibrous periosteum', 'Surrounds the outer bone surface'], ['Inner osteogenic layer', 'Can differentiate into osteoblasts'], ['Small periosteal vessels', 'Nourish bone'], ['Nutrient artery', 'Enters a long-bone shaft through a nutrient foramen']], explanation: 'The current slide supplies the covering, cells, vessels and nerves; the older lecture states how bone is nourished.' },
+    ],
+    commonMistakes: ['Extending periosteum over an articular site even though the current slide explicitly excludes it.'],
+    skills: ['Place it first—around the outer bone except at a joint—then attach the osteogenic, vascular and neural facts.'],
+    selfCheck: 'State where periosteum is absent, what its inner layer can become, and the two routes by which the lecture says bone receives blood.',
+    sourceRefs: [{ ref: 'hss.msk.2026', location: 'p8 periosteum, osteogenic inner layer, capillaries and nerves' }, { ref: 'hss.4.1', location: 'pp7 and 13 periosteal vessels, nutrient arteries and long-bone periosteum' }],
+  },
 ];

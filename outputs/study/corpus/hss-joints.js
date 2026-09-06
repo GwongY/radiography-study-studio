@@ -108,7 +108,7 @@ export const HSS_JOINTS = [
       'The joint ligaments are not separate straps bolted on — they are localised thickenings of the fibrous capsule itself. Same tissue, same cuff; some parts of it just run denser.',
     ],
     selfCheck: 'From a blank page: the parts in order from the bone outward, the type of cartilage on the bone ends, the three routes that nourish it, and the reasoning for why an immobilised joint’s cartilage deteriorates.',
-    sourceRefs: [{ ref: 'hss.4.1', location: 'Slides "Synovial joints" — articular cartilage, fibrous capsule, ligaments, synovial membrane' }, { ref: 'hss.revans', location: 'Module 4.1 fill-in-blanks' }, { ref: 'hss.m0.1718', location: 'L1 p26 intervertebral disc as shock absorber' }],
+    sourceRefs: [{ ref: 'hss.msk.2026', location: 'pp17–18 current synovial-joint components, synovial fluid, articular cartilage, meniscus and bursa' }, { ref: 'hss.4.1', location: 'Slides "Synovial joints" — articular cartilage, fibrous capsule, ligaments, synovial membrane' }, { ref: 'hss.revans', location: 'Module 4.1 fill-in-blanks' }, { ref: 'hss.m0.1718', location: 'L1 p26 intervertebral disc as shock absorber' }],
   },
   {
     id: 'hss2011-joints-movements',

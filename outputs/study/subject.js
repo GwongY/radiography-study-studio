@@ -3,7 +3,7 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, FLOW_CLASSES, ITEM_TYPES, LAYER_CLASSES, MESH_INDEX, RATES, SOURCE_FILES, SOURCE_ROOTS, STRUCTURE_MODELS, SUBJECTS, SYSTEMS, UNITS, describeSource, esc, itemsForUnit, layerOf, priorOf, systemCounts, tierFor, ui } from './imports.js';
+import { $$, FLOW_CLASSES, ITEM_TYPES, LAYER_CLASSES, MESH_INDEX, RATES, SOURCE_FILES, SOURCE_ROOTS, STRUCTURE_MODELS, SUBJECTS, SYSTEMS, UNITS, describeSource, esc, getItem, teachingWeeks, layerOf, priorOf, systemCounts, tierFor, ui } from './imports.js';
 import { adjScore, itemAttempted, itemRead, itemScore, read } from './storage-versioned-keys.js';
 import { goTo, setActiveNav } from './navigation-five-destinations.js';
 import { leaveProjection } from './what-is-under.js';
@@ -23,8 +23,8 @@ function fileRowsHTML(refs) {
   }).join('')}</div>`;
 }
 
-const SUBJECT_GROUP = { HSS2011: { label: 'Anatomy', accent: '#72e3cf' }, ABCT2326: { label: 'Physiology', accent: '#ffba67' }, HTI17103: { label: 'Radiation science', accent: '#8ea9ff' }, DSAI1202: { label: 'AI & data', accent: '#7fd1a0' } };
-const LEARN_FILTERS = [['all', 'Everything'], ['Anatomy', 'Anatomy'], ['Physiology', 'Physiology'], ['Radiation science', 'Radiation science'], ['AI & data', 'AI & data'], ['3d', 'Has 3D / images']];
+const SUBJECT_GROUP = { HSS2011: { label: 'Anatomy', accent: '#72e3cf' }, ABCT2326: { label: 'Physiology', accent: '#ffba67' }, HTI17103: { label: 'Radiation science', accent: '#8ea9ff' }, APSS1A08: { label: 'Sociology', accent: '#d3a0ff' }, DSAI1202: { label: 'AI & data', accent: '#7fd1a0' }, LEI1101: { label: 'Language learning', accent: '#85b5d8' } };
+const LEARN_FILTERS = [['all', 'All Y1S1 courses'], ...Object.values(SUBJECT_GROUP).map((g) => [g.label, g.label]), ['3d', 'Has 3D / images']];
 
 /*
  * A "topic" is one subject.unit that actually has study items.
@@ -42,10 +42,12 @@ export function topicsWithContent() {
   for (const subject of SUBJECTS) {
     const group = SUBJECT_GROUP[subject.id];
     if (!group) continue;
-    for (const unit of subject.units) {
-      const items = itemsForUnit(subject.id, unit.id);
-      if (!items.length) continue;
-      list.push({ subject, unit, group, items });
+    for (const topic of teachingWeeks(subject.id)) {
+      const items = topic.ids.map(getItem).filter(Boolean);
+      list.push({ subject, unit: { id: topic.id, label: `Week ${topic.week} — ${topic.title}` }, group, items, ...topic });
+    }
+    if (subject.id === 'LEI1101') {
+      list.push({ subject, unit: { id: 'LEI1101.sources', label: 'Syllabus and teaching notes needed' }, group, items: [], related: [], gap: 'The timetable is supplied, but no latest LEI1101 syllabus or teaching notes have been supplied. No lesson content can yet be assigned.' });
     }
   }
   return list;
@@ -57,18 +59,22 @@ export function renderLearn() {
   leaveProjection();
   setActiveNav('learn');
   const visible = topicsWithContent().filter((t) => ui.learnFilter === 'all' || (ui.learnFilter === '3d' ? topicHasViewer(t.items) : t.group.label === ui.learnFilter));
-  if (!ui.learnTopic || !visible.some((t) => t.unit.id === ui.learnTopic)) ui.learnTopic = visible[0] ? visible[0].unit.id : null;
+  if (!ui.learnTopic || !visible.some((t) => t.unit.id === ui.learnTopic)) {
+    const legacy = visible.find((t) => t.items.some((i) => i.unit === ui.learnTopic));
+    ui.learnTopic = (legacy || visible[0])?.unit.id || null;
+  }
 
   $$('learnFilters').innerHTML = LEARN_FILTERS.map(([id, label]) =>
     `<button class="filter-chip${ui.learnFilter === id ? ' active' : ''}" data-filter="${esc(id)}">${esc(label)}</button>`).join('');
   $$('learnFilters').querySelectorAll('[data-filter]').forEach((b) => { b.onclick = () => { ui.learnFilter = b.dataset.filter; renderLearn(); }; });
 
-  $$('topicGrid').innerHTML = visible.map((t) => `
+  $$('topicGrid').innerHTML = visible.map((t, index) => `
+    ${index === 0 || visible[index - 1].subject.id !== t.subject.id ? `<h3 style="grid-column:1/-1">${esc(t.subject.code)} · ${esc(t.subject.title)}</h3>` : ''}
     <button class="topic-card${t.unit.id === ui.learnTopic ? ' active' : ''}" style="--accent:${t.group.accent}" data-topic="${esc(t.unit.id)}">
       <span class="topic-tag">${esc(t.group.label)} \u00b7 ${esc(t.subject.code)}</span>
       <span class="editorial" style="font-size:calc(17px*var(--ts))">${esc(t.unit.label)}</span>
       <span class="topic-bar"><span style="width:${topicPct(t.items)}%"></span></span>
-      <span class="small">${t.items.length} item${t.items.length === 1 ? '' : 's'}${topicHasViewer(t.items) ? ' \u00b7 3D studio' : ''}</span>
+      <span class="small">${t.items.length ? `${t.items.length} lesson${t.items.length === 1 ? '' : 's'} · teaching order` : 'Teaching notes missing'}${topicHasViewer(t.items) ? ' · visual study' : ''}</span>
     </button>`).join('') || '<div class="empty">No topics match this filter yet.</div>';
   /* Drilling into a topic is a move, not a redraw: same view, new page, and it
      wants the top. showView no longer scrolls on a re-render, so this asks. */
@@ -80,13 +86,14 @@ export function renderLearn() {
       <span class="topic-tag">${esc(T.group.label)} \u00b7 ${esc(T.subject.code)}</span>
       <h2 class="editorial" style="font-size:calc(22px*var(--ts));margin:7px 0 0">${esc(T.unit.label)}</h2>
       <p class="small" style="margin-top:7px">${esc(T.subject.blurb)}</p>
+      ${T.gap ? `<div class="notice">${esc(T.gap)}</div>` : ''}
       <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
-        <button class="primary" id="studyTopicBtn">Study this topic</button>
+        ${T.items.length ? '<button class="primary" id="studyTopicBtn">Study in teaching order</button>' : ''}
         ${topicHasViewer(T.items) ? '<button class="ghost" id="openViewerBtn">Open in Viewer</button>' : ''}
       </div>
-      <div class="task-kicker" style="margin:18px 0 8px">${T.items.length} items \u00b7 weakest first</div>
+      <div class="task-kicker" style="margin:18px 0 8px">${T.items.length} lesson${T.items.length === 1 ? '' : 's'} · teaching order</div>
       <div style="display:grid;gap:7px">
-        ${T.items.slice().sort((a, b) => adjScore(a) - adjScore(b)).map((i) => {
+        ${T.items.map((i) => {
           const attempted = itemAttempted(i.id);
           const assumed = !attempted ? priorOf(i) : null;
           const opened = !attempted && !assumed && itemRead(i.id);
@@ -116,9 +123,10 @@ export function renderLearn() {
           return `<button class="unit-row" data-item="${esc(i.id)}"><span class="grow"><b>${esc(i.title)}</b><small>${esc(sub)}${opened ? esc(' · read') : ''}${assumed ? esc(' · assumed from ' + assumed.short + ', unverified') : ''}</small></span><span class="mono" style="color:${color}">${'\u25cf'.repeat(tier)}${'\u25cb'.repeat(4 - tier)}</span></button>`;
         }).join('')}
       </div>
-      <div class="small" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line)">Sourced from <span style="color:var(--teal)">${esc(describeSource(T.items[0].sourceRefs[0]).file)}</span> \u00b7 every item carries its own reference</div>
+      ${T.related?.length ? `<div class="subhead">Shared visual study</div>${T.related.map(getItem).filter(Boolean).map((i) => `<button class="unit-row" data-related="${esc(i.id)}">${esc(i.title)} · ${esc(i.subject)}</button>`).join('')}` : ''}
+      ${T.items.length ? '<div class="small" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line)">Each lesson lists its original New and old source files and page references. A source reference does not by itself mean the entire lecture is covered.</div>' : ''}
     </div>`;
-  if ($$('studyTopicBtn')) $$('studyTopicBtn').onclick = () => startSession({ mode: 'subject', subject: T.subject.id, unit: T.unit.id });
+  if ($$('studyTopicBtn')) $$('studyTopicBtn').onclick = () => startSession({ mode: 'ids', ids: T.items.map((i) => i.id) });
   if ($$('openViewerBtn')) $$('openViewerBtn').onclick = () => goTo('viewer');
   /*
    * A row in the item list opens THAT item.
@@ -131,6 +139,9 @@ export function renderLearn() {
    */
   $$('topicDetailPane').querySelectorAll('[data-item]').forEach((b) => {
     b.onclick = () => studyItemWithin(T, b.dataset.item);
+  });
+  $$('topicDetailPane').querySelectorAll('[data-related]').forEach((b) => {
+    b.onclick = () => startSession({ mode: 'ids', ids: [b.dataset.related] });
   });
 
   $$('learnGrid').classList.toggle('drilled', ui.learnDrill);

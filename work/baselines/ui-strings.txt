@@ -1,12 +1,11 @@
-— user-facing strings in outputs/ — 870 —
-  c710aad2e5ba0942  WHOLE SET
+— user-facing strings in outputs/ — 878 —
+  b97bfff21e5b9a84  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
   753ec4f3a305c1c3   <span class="cut-levelcite">
   ecba1318e9d7541e   Gist sync disconnected; the gist itself is untouched.
   c8f303e7554a57f7   These are paired — the side is part of the answer.
-  37fc3c511ef2af7e   \u00b7 3D studio
   1f1170e574c9a100   \u2014 nearest to it
   a160b4379bca601e   due. Delayed recall only scores on the first attempt after a gap of a day or more.
   b76b153720aa5733   files cited. Conflicts and duplicates listed in full.
@@ -15,6 +14,7 @@
   4086a0d4cd005901   showed metatarsals with no toes; choosing 
   2599c70aaa36cb29   · assumed from 
   df725abe14c48979   · this week
+  5d2e551e2af8ca21   · visual study
   1d5a0e17407c0886   — No source-backed lesson is assigned.
   ee2ecbd9ea7a7e36   — it does not stand alone, it attaches to a root.
   f50d324d8a3b2119  " aria-label="
@@ -94,12 +94,14 @@
   041bb1de3e01a00e  <button class="primary" id="rssNextItem">Next hook →</button>
   f8db73fad7b2457b  <button class="primary" id="rssNextItem">Next item →</button>
   63d4be2570536586  <button class="primary" id="rssNextQ">Next question →</button><button class="ghost" data-nav="apply">Go to apply</button>
+  bfe8380af38f3075  <button class="primary" id="studyTopicBtn">Study in teaching order</button>
   643db43b27b7533c  <button class="readline
   6822ad345e3c6a68  <button class="rss-mode" style="flex-direction:column;align-items:flex-start;gap:5px;min-height:104px" data-mode="
   52c2a2e072de9ed6  <button class="seg
   6dcaad6caa1d4d6e  <button class="sres" data-hit="
   996524c555242052  <button class="step
   4a802c42822eaf15  <button class="topic-card
+  2b209271f1e381dc  <button class="unit-row" data-related="
   3886648a24082fe7  <button class="unit-row" data-weak="
   3b5f48665ac61ed0  <button data-down="
   4e33c3206cbfafcf  <button data-nav="
@@ -141,6 +143,7 @@
   4cf079a228188c08  <div class="reveal open" data-stage="
   dc5da9c1fabda5e9  <div class="seq-item" data-pos="
   079bd17310af1ec7  <div class="sessnote">Another group’s slot — hidden from your counts.</div>
+  b9daa6867ff1c133  <div class="small" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line)">Each lesson lists its original New and old source files and page references. A source reference does not by itself mean the entire lecture is covered.</div>
   20a11226de7c5b9f  <div class="studyscore">no attempts yet on this device</div>
   eb7577ba3c5c592f  <div class="verdict
   c1e9dab7d597ae36  <div style="height:100%;width:
@@ -202,12 +205,13 @@
   f425542186138bee  Abdomen & pelvis
   92508480855a651c  Acromial part of deltoid muscle
   077ffef3c99e0f88  All ' + qCount + ' questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.
+  dac5841c386d8add  All Y1S1 courses
+  e94d9dd5772a74c5  All Y1S1 courses \u00b7 latest schedule order
   8968425df01d3da6  All regions
   63d55224203116e0  All started
   c2150c55306954e1  All started, and holding
   aa3acf22b193a343  Already covered ·
   c2db0f34254c9f63  An off-device copy that happens on its own — the only thing here that survives losing this device, reinstalling the app, or the browser clearing its storage. Needs a GitHub token scoped to gists and nothing else.
-  5a45a945110c7b2e  Anatomy \u00b7 physiology \u00b7 radiation science \u00b7 AI
   90d82470f4817358  Anatomy first
   8e84fc2aae90b055  Anatomy search
   06f59255e2ecf0df  Answer in your own words, then check against the model answer
@@ -286,7 +290,6 @@
   8802e1925c84cdea  Five large load-bearing vertebrae: dinner at 5. Lumbar bodies are chunky.
   7e4442b59b339275  From this item
   8e8f88fe40d45d19  Frontal bone
-  4e5ee32632668b6e  Full coverage
   3ee9379ac50332af  Full reference + fallback upper-limb meshes
   c779b95a4e70b011  Full reference failed
   edf0377d91509acb  Full term
@@ -327,6 +330,7 @@
   bfd62f38eb7f415e  Keep hidden
   c6867b20a8fd8669  Key facts to remember
   31fb459fac2d4100  Landmark data next
+  cf032eb29801f8f7  Language learning
   03b26f0f8e4b2a5e  Larynx \u2014 modelled as its parts
   e511d368519fe74a  Last merge:
   464c44cef8d37278  Last pulled
@@ -500,7 +504,7 @@
   ad7c5e1704cdd17e  Source gap or review state
   16812f56ee19ad92  Source gap · missing
   bfbc26c86db7ac9e  Source record not in current Y1S1 map
-  5719963622aa46e1  Sourced from
+  f54fe982f5d3009e  Source status:
   11f066152b09be80  Sources & coverage report
   da72a8dda063752a  Sources & model attribution
   824ba78711430662  Sources for the whole item
@@ -520,13 +524,14 @@
   e6a0a4c59cbb9600  Structures, study items, topics…
   4a085fa65d717e0d  Student work
   381d54ae5dc158bf  Study Studio
-  a14650cf115b1c8a  Study all
   7aeec7e28ab447b1  Study items
   197a9cfd7132bfb2  Study modes
   6db1fe691cb5e688  Study session
   da5c0cb3a2f2cda1  Study this topic
   307e3df259cf7ea5  Subjects with no material
   25a2aae6c2da8872  Substitute source
+  dcb3fff57226c1dc  Syllabus and teaching notes needed
+  8a4f2ddb68e960e8  Syllabus mapped · audited sources
   abf3e80b5b4ceb36  Sync failed
   98fc2d0150072bd5  Synced —
   eb81808a3bbd84cf  TIBia = TIBe weight-bearing. The medial malleolus is the inner ankle bump.
@@ -536,6 +541,7 @@
   86daae5b32dfb5e1  Tap again to erase \u2014 this is final
   eb5e1fc43df87ac0  Tap any named structure. Tap the same spot again to step through whatever is behind it.
   caff82fe942e6cfe  Tarsals, metatarsals, phalanges: 7–5–14.
+  e4817959acaa3360  Teaching notes missing
   da36c0320030978c  Teaching week
   d68761cc1eb29647  Text size
   4664e02dbe3f6cd9  Text size — currently
@@ -587,6 +593,7 @@
   8786e514e5dee92d  The teaching term is over
   09612087f1b58b52  The term has not started yet
   dd5fd4c64fb6fb43  The thigh bone
+  04fe27d570edd390  The timetable is supplied, but no latest LEI1101 syllabus or teaching notes have been supplied. No lesson content can yet be assigned.
   cca5df84a9532446  The upper horizontal line of the nine abdominopelvic regions. Measured at the body of L1.
   51aee75534b22418  There is nothing recorded on this device yet, so there is nothing to erase.
   b5792b631250ed3a  This bone is in the database, but high-yield hotspot coordinates have not been added yet.
@@ -641,7 +648,6 @@
   0766aba44d3ed61b  Your sources call it
   eca79e98499b2cd2  Your system asks for reduced motion, so the turntable starts still.
   5aacae2229c04415  Z-Anatomy / BodyParts3D skeleton · 159 named structures
-  942d247338ecf9f4  \u00b7 every item carries its own reference
   10c21ae68a2b089a  \u00b7 opens in Viewer
   b90043e9bd499c60  \u00b7 via
   f1d2a707f4eba80b  a left and a right in the model
@@ -679,6 +685,8 @@
   bda336734237a549  correct. Reviews scheduled.
   8936e4bc4884d331  could not locate that structure
   d3967cf0a967dbd6  cross the joint and are ghosted and held still — muscle and vessel deform across a joint
+  d1db107277f6c3b0  current + older support
+  e62c5be9438eca6a  current source verified
   beaf6f881a9b75ac  day streak
   37dad91df7b23460  days ago
   292aa52b6bc5ade8  density += n * uGrain * (0.35 + 0.65 * density);
@@ -728,7 +736,6 @@
   63ba7e6dace7932d  is outside the current region filter
   65dfd88eb248fc0c  is the useful distinguishing landmark.
   71423f841ff7a38a  is too large for the API to return whole. Nothing was merged; this needs a smaller bucket size.
-  6aa85599ef7f853e  items \u00b7 weakest first
   27b597099a09d320  items, and
   ffffa4a4024beb37  just outside it
   b6e8823c4c7321ea  lay-note dim
@@ -741,7 +748,6 @@
   11e35ae68e488f96  logged mistakes.
   b76e73e177286de4  logs merged in full; records fell back to newer-wins because there is pre-log history in play
   a5dc748e4551de5f  lymph node
-  57126b5ca3bfa9fe  margin-top:14px;padding-top:12px;border-top:1px solid var(--line)
   bcdc5cfcf9c33fa1  mastery record
   fba43240d360273f  mastery records across
   e63085a46870e9f1  mastery records this device has never seen — added.
@@ -811,6 +817,7 @@
   535432277ab15c02  small term-number
   b06f2f1ca52fc976  soft-tissue mesh
   f004ce84a1c00cd6  soft-tissue structures travel with the bone.
+  a05d0fe6c99cd823  source review needed
   7d30607b3e9c2d7a  structures in
   036a99f6c882069b  structures to name. Work round them in a fixed order every time, so the order itself becomes the cue.
   4132e48b488fc684  studied, across
@@ -866,6 +873,7 @@
   b49836c27fde6f76  · opens all together
   0f3ebbb0ff98d5ec  · question
   dbfe3f147332dc00  · tap to name them
+  70c67477da9f1f7f  · teaching order
   2b40b61749321612  · your course names none of these one by one
   2ed64db2b62cdd4f  — coursework produced by students. Used only to confirm topic scope, never as a fact source.
   906d335588568bc2  — past papers, revision exercises, model answers and question banks.

@@ -1,12 +1,12 @@
 — the export surface of outputs/study-data.js — 64 exports —
   f6ce6e2d285e4eb0      3308  BONE_HOOKS  object[21]
-  6e8d0f325ce0d06d     24238  COVERAGE  object[6]
+  3b4cd74be6b2d4d3     24556  COVERAGE  object[6]
   6b86b273ff34fce1         1  DATA_VERSION  number
   619d6a33617fad34         8  DAY_MS  number
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  a39aa82afeb370a5    847612  ITEM_BY_ID  Map[141]
+  058cc91277ae37d0    871052  ITEM_BY_ID  Map[150]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -24,15 +24,15 @@
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   57b60f7998459a29     20933  STRUCTURE_SETS  object[13]
-  a5ba80d457abd257    843463  STUDY_ITEMS  array[141]
+  2e4f75899d6f14d3    866576  STUDY_ITEMS  array[150]
   732916ea01d90fc1      1165  STUDY_MODES  array[9]
-  bf7682b3b2477990      4001  SUBJECTS  array[6]
+  834fbc89b7e6fccf      4005  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
-  afc0505d8db9e955     70563  Y1S1_SOURCE_MAP  object[4]
+  c8927db9552a9c24     73809  Y1S1_SOURCE_MAP  object[4]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  ed7574871478a031    901934  default  object[7]
+  9121649cd08a5db6    925369  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -64,9 +64,9 @@
   bb157d6583e754f9      2211  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  27f0031ba2beee6a  WHOLE SURFACE
+  c9d6a3fc3fd60733  WHOLE SURFACE
 
-— every study item, by id — 141 items —
+— every study item, by id — 150 items —
   2d29339c231f634a  abct2326-acquired-immunity
   0f85a14f65a3eba6  abct2326-blood-composition
   23f628153e36648d  abct2326-cell-division
@@ -78,7 +78,11 @@
   6a2f36f61277e0ef  abct2326-cvs-conduction
   63b109fc10aba566  abct2326-cvs-ecg-cycle
   a436a693bf0d252a  abct2326-cvs-heart-structure
+  e64e35a0e5a9ada4  abct2326-digestive-hormones-colon
   140a16ff3a932158  abct2326-digestive-pathway
+  561b7626e5a4aa8f  abct2326-digestive-small-intestine-accessory
+  cedfd63a4df06401  abct2326-digestive-stomach-control
+  909a2fffab248643  abct2326-digestive-wall-motility
   e246e26a706511a4  abct2326-endocrine-delivery
   e5455303e6005d77  abct2326-endocrine-receptors
   967cad0f5cc8c074  abct2326-endocrine-second-messengers
@@ -106,8 +110,12 @@
   db9d99b73ba1602b  abct2326-repro-male-regulation
   074f971cfb5c5358  abct2326-repro-ovarian-menstrual-cycle
   6c38a283ab67669b  abct2326-repro-placenta-parturition
+  9121eb3c9335849f  abct2326-resp-carbon-dioxide-control
   1565f23b9247f161  abct2326-resp-gas-transport
+  3629af3d20a13f55  abct2326-resp-lung-volumes
+  8f3b759309fba00a  abct2326-resp-oxygen-transport
   b70a323aeff65be8  abct2326-resp-pathway
+  befb6542f211e514  abct2326-resp-ventilation-mechanics
   1a7643a21b266c66  abct2326-spindle-golgi
   981a724977954078  abct2326-synapse-drug-action
   2461699529bb443c  abct2326-t-cell-types
@@ -116,6 +124,7 @@
   673f4a5c96e8e9aa  apss1a08-personal-social-education
   b123cea989507eec  apss1a08-research-to-change
   f5e7ba1a75fed32c  apss1a08-sociological-perspective
+  94c44953883328d2  dsai1202-ai-everyday-autonomy
   0ebcaf129ca95338  dsai1202-ai-in-healthcare
   045448165150e1e6  dsai1202-ai-literacy
   e912b64ee121b291  hss2011-bone-cervical
@@ -143,7 +152,7 @@
   cc9e86e00b17d652  hss2011-joints-movement-map-2026
   b2556c990ac8f36c  hss2011-joints-movements
   318fd195216a9f96  hss2011-joints-rotator-cuff
-  ca255ecc70d81280  hss2011-joints-synovial-structure
+  0e7f92026968905d  hss2011-joints-synovial-structure
   1484e4e65a24e8cb  hss2011-joints-synovial-types
   3a8e0d4ad5d25943  hss2011-m1-heart-wall-valves
   6e49509d6d713ecc  hss2011-m1-lungs-airway
@@ -164,6 +173,7 @@
   5c1cae6675aac583  hss2011-msk-joint-classifications
   d9a598aa3d563669  hss2011-msk-motor-unit-tone
   3166c1b445c02a91  hss2011-msk-muscle-organisation
+  0993bc57c57103c1  hss2011-msk-periosteum
   8593b57a8e922c2d  hss2011-msk-tendon-attachment
   ca423056428230fc  hss2011-msk-tissues-of-movement
   f70cd63a09a081a9  hss2011-osteo-axial-appendicular
@@ -199,12 +209,11 @@
   10a8bac00752e4a0  hss2011-terminology-planes
   1b051a2a537a6a3c  hss2011-terminology-regional-systemic
   12d88e0afb2058da  hss2011-terminology-word-parts
-  ab555d42a9e37945  hti17103-department-and-request
-  6af880813898fb1c  hti17103-ionizing-vs-nonionizing
+  d0539671d9c72f4c  hti17103-department-and-request
+  1728e0ebc86e653f  hti17103-ionizing-vs-nonionizing
   c9bf2733ee0dda1b  hti17103-modality-best-use
-  aebfe94630b69138  hti17103-modality-choice
-  181d5bff5d562648  hti17103-modality-detail
-  993096c95b252864  hti17103-radiation-therapy
-  ddf97b7d26470687  hti17103-radioprotection
-  2cd7c02191b625a6  hti17103-subject-2026
-  34173dc524850195  hti17103-what-is-radiography
+  a3d39ace80418a6e  hti17103-modality-choice
+  d0d80ca3fd9beb0a  hti17103-modality-detail
+  2a08ec848e529402  hti17103-radiation-therapy
+  9d41bb02e7c3f5d8  hti17103-radioprotection
+  80a29a0eb0516887  hti17103-what-is-radiography

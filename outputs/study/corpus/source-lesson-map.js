@@ -232,6 +232,26 @@ export const Y1S1_SOURCE_MAP = {
       ],
       "reasons": []
     },
+    "hss2011-msk-periosteum": {
+      "id": "hss2011-msk-periosteum",
+      "subject": "HSS2011",
+      "week": 1,
+      "title": "Periosteum — the living covering of bone",
+      "status": "complete",
+      "sources": [
+        {
+          "ref": "hss.msk.2026",
+          "set": "new",
+          "role": "current-primary"
+        },
+        {
+          "ref": "hss.4.1",
+          "set": "old",
+          "role": "older-supporting"
+        }
+      ],
+      "reasons": []
+    },
     "hss2011-msk-bone-marrow": {
       "id": "hss2011-msk-bone-marrow",
       "subject": "HSS2011",
@@ -354,12 +374,17 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 1,
       "title": "Structures of a synovial joint",
-      "status": "partial",
+      "status": "complete",
       "sources": [
+        {
+          "ref": "hss.msk.2026",
+          "set": "new",
+          "role": "current-primary"
+        },
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         },
         {
           "ref": "hss.revans",
@@ -369,7 +394,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.m0.1718",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         }
       ],
       "reasons": [
@@ -1749,136 +1774,120 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "ABCT2326",
       "week": 1,
       "title": "The plasma membrane and its six kinds of protein",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
-          "role": "needs-review"
+          "role": "current-primary"
         }
       ],
-      "reasons": [
-        "unresolved source (ambiguous catalogue identity)"
-      ]
+      "reasons": []
     },
     "abct2326-organelles": {
       "id": "abct2326-organelles",
       "subject": "ABCT2326",
       "week": 1,
       "title": "The organelles, and which ones have a membrane",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
-          "role": "needs-review"
+          "role": "current-primary"
         }
       ],
-      "reasons": [
-        "unresolved source (ambiguous catalogue identity)"
-      ]
+      "reasons": []
     },
     "abct2326-nucleus-genetic-code": {
       "id": "abct2326-nucleus-genetic-code",
       "subject": "ABCT2326",
       "week": 1,
       "title": "The nucleus, and how DNA is packed and read",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
-          "role": "needs-review"
+          "role": "current-primary"
         }
       ],
-      "reasons": [
-        "unresolved source (ambiguous catalogue identity)"
-      ]
+      "reasons": []
     },
     "abct2326-protein-synthesis": {
       "id": "abct2326-protein-synthesis",
       "subject": "ABCT2326",
       "week": 1,
       "title": "Transcription and translation",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
-          "role": "needs-review"
+          "role": "current-primary"
         }
       ],
-      "reasons": [
-        "unresolved source (ambiguous catalogue identity)"
-      ]
+      "reasons": []
     },
     "abct2326-cell-division": {
       "id": "abct2326-cell-division",
       "subject": "ABCT2326",
       "week": 1,
       "title": "Mitosis and meiosis — two divisions with different jobs",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
-          "role": "needs-review"
+          "role": "current-primary"
         }
       ],
-      "reasons": [
-        "unresolved source (ambiguous catalogue identity)"
-      ]
+      "reasons": []
     },
     "abct2326-epithelium-classification": {
       "id": "abct2326-epithelium-classification",
       "subject": "ABCT2326",
       "week": 1,
       "title": "Classifying epithelia — by shape, by layers, and by gland",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
-          "role": "needs-review"
+          "role": "current-primary"
         }
       ],
-      "reasons": [
-        "unresolved source (ambiguous catalogue identity)"
-      ]
+      "reasons": []
     },
     "abct2326-connective-tissue-classes": {
       "id": "abct2326-connective-tissue-classes",
       "subject": "ABCT2326",
       "week": 1,
       "title": "Connective tissue — three classes, and why blood is one of them",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
-          "role": "needs-review"
+          "role": "current-primary"
         }
       ],
-      "reasons": [
-        "unresolved source (ambiguous catalogue identity)"
-      ]
+      "reasons": []
     },
     "abct2326-muscle-neural-tissue": {
       "id": "abct2326-muscle-neural-tissue",
       "subject": "ABCT2326",
       "week": 1,
       "title": "Muscle and neural tissue — the other two of the four",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
-          "role": "needs-review"
+          "role": "current-primary"
         }
       ],
-      "reasons": [
-        "unresolved source (ambiguous catalogue identity)"
-      ]
+      "reasons": []
     },
     "abct2326-homeostasis": {
       "id": "abct2326-homeostasis",
@@ -1905,17 +1914,15 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "ABCT2326",
       "week": 1,
       "title": "Negative and positive feedback, and the two worked examples",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
-          "role": "needs-review"
+          "role": "current-primary"
         }
       ],
-      "reasons": [
-        "unresolved source (ambiguous catalogue identity)"
-      ]
+      "reasons": []
     },
     "hss2011-structures-heartChambers": {
       "id": "hss2011-structures-heartChambers",
@@ -2092,6 +2099,66 @@ export const Y1S1_SOURCE_MAP = {
         "citation has no verifiable page or quoted section/slide"
       ]
     },
+    "abct2326-resp-ventilation-mechanics": {
+      "id": "abct2326-resp-ventilation-mechanics",
+      "subject": "ABCT2326",
+      "week": 3,
+      "title": "Ventilation mechanics, compliance and respiratory muscles",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.3",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-resp-lung-volumes": {
+      "id": "abct2326-resp-lung-volumes",
+      "subject": "ABCT2326",
+      "week": 3,
+      "title": "Respiratory rate, volumes and capacities",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.3",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-resp-oxygen-transport": {
+      "id": "abct2326-resp-oxygen-transport",
+      "subject": "ABCT2326",
+      "week": 3,
+      "title": "Partial pressures, haemoglobin and oxygen unloading",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.3",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-resp-carbon-dioxide-control": {
+      "id": "abct2326-resp-carbon-dioxide-control",
+      "subject": "ABCT2326",
+      "week": 3,
+      "title": "Carbon dioxide transport and feedback control of breathing",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.3",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
     "abct2326-resp-gas-transport": {
       "id": "abct2326-resp-gas-transport",
       "subject": "ABCT2326",
@@ -2134,6 +2201,66 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "ABCT2326",
       "week": 4,
       "title": "Digestive tract, accessory organs and the six functions",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.4",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-digestive-wall-motility": {
+      "id": "abct2326-digestive-wall-motility",
+      "subject": "ABCT2326",
+      "week": 4,
+      "title": "Digestive wall, peristalsis and neural control",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.4",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-digestive-stomach-control": {
+      "id": "abct2326-digestive-stomach-control",
+      "subject": "ABCT2326",
+      "week": 4,
+      "title": "Stomach secretions and the three phases of gastric control",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.4",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-digestive-small-intestine-accessory": {
+      "id": "abct2326-digestive-small-intestine-accessory",
+      "subject": "ABCT2326",
+      "week": 4,
+      "title": "Small intestine, pancreas, liver and bile",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.4",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-digestive-hormones-colon": {
+      "id": "abct2326-digestive-hormones-colon",
+      "subject": "ABCT2326",
+      "week": 4,
+      "title": "Duodenal hormones, large-intestinal functions and water balance",
       "status": "partial",
       "sources": [
         {
@@ -2601,29 +2728,12 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HTI17103",
       "week": 1,
       "title": "What radiography is, and who does what",
-      "status": "partial",
+      "status": "complete",
       "sources": [
         {
-          "ref": "hti.w1b",
-          "set": "old",
-          "role": "older-fallback"
-        }
-      ],
-      "reasons": [
-        "current-source substitution: verified HTI17101 material is retained as fallback for HTI17103."
-      ]
-    },
-    "hti17103-subject-2026": {
-      "id": "hti17103-subject-2026",
-      "subject": "HTI17103",
-      "week": 1,
-      "title": "The 2026 subject — eight sessions, two halves, two marks",
-      "status": "missing",
-      "sources": [
-        {
-          "ref": "hti.sched.2026",
+          "ref": "hti.w1.2026",
           "set": "new",
-          "role": "administration"
+          "role": "current-primary"
         }
       ],
       "reasons": []
@@ -2679,21 +2789,6 @@ export const Y1S1_SOURCE_MAP = {
         "current-source substitution: verified HTI17101 material is retained as fallback for HTI17103."
       ]
     },
-    "hti17103-modality-choice": {
-      "id": "hti17103-modality-choice",
-      "subject": "HTI17103",
-      "week": 2,
-      "title": "Structural against functional, and how a modality gets chosen",
-      "status": "complete",
-      "sources": [
-        {
-          "ref": "hti.w1.2026",
-          "set": "new",
-          "role": "current-primary"
-        }
-      ],
-      "reasons": []
-    },
     "hti17103-modality-best-use": {
       "id": "hti17103-modality-best-use",
       "subject": "HTI17103",
@@ -2744,6 +2839,21 @@ export const Y1S1_SOURCE_MAP = {
       "reasons": [
         "current-source substitution: verified HTI17101 material is retained as fallback for HTI17103."
       ]
+    },
+    "hti17103-modality-choice": {
+      "id": "hti17103-modality-choice",
+      "subject": "HTI17103",
+      "week": 5,
+      "title": "Structural against functional, and how a modality gets chosen",
+      "status": "complete",
+      "sources": [
+        {
+          "ref": "hti.w1.2026",
+          "set": "new",
+          "role": "current-primary"
+        }
+      ],
+      "reasons": []
     },
     "apss1a08-sociological-perspective": {
       "id": "apss1a08-sociological-perspective",
@@ -2820,6 +2930,21 @@ export const Y1S1_SOURCE_MAP = {
       ],
       "reasons": []
     },
+    "dsai1202-ai-everyday-autonomy": {
+      "id": "dsai1202-ai-everyday-autonomy",
+      "subject": "DSAI1202",
+      "week": 1,
+      "title": "AI in daily life, robots and autonomous vehicles",
+      "status": "complete",
+      "sources": [
+        {
+          "ref": "dsai.w1",
+          "set": "new",
+          "role": "current-primary"
+        }
+      ],
+      "reasons": []
+    },
     "dsai1202-ai-in-healthcare": {
       "id": "dsai1202-ai-in-healthcare",
       "subject": "DSAI1202",
@@ -2865,6 +2990,7 @@ export const Y1S1_SOURCE_MAP = {
         "hss2011-osteo-long-bone-structure",
         "hss2011-osteo-bone-functions",
         "hss2011-msk-bone-histology",
+        "hss2011-msk-periosteum",
         "hss2011-msk-bone-marrow",
         "hss2011-msk-tissues-of-movement",
         "hss2011-msk-muscle-organisation",
@@ -2980,11 +3106,19 @@ export const Y1S1_SOURCE_MAP = {
       "3": [
         "hss2011-structures-airwayTree",
         "abct2326-resp-pathway",
+        "abct2326-resp-ventilation-mechanics",
+        "abct2326-resp-lung-volumes",
+        "abct2326-resp-oxygen-transport",
+        "abct2326-resp-carbon-dioxide-control",
         "abct2326-resp-gas-transport"
       ],
       "4": [
         "hss2011-structures-digestiveTract",
-        "abct2326-digestive-pathway"
+        "abct2326-digestive-pathway",
+        "abct2326-digestive-wall-motility",
+        "abct2326-digestive-stomach-control",
+        "abct2326-digestive-small-intestine-accessory",
+        "abct2326-digestive-hormones-colon"
       ],
       "5": [
         "hss2011-structures-urinaryTract",
@@ -3030,13 +3164,11 @@ export const Y1S1_SOURCE_MAP = {
     "HTI17103": {
       "1": [
         "hti17103-what-is-radiography",
-        "hti17103-subject-2026",
         "hti17103-department-and-request"
       ],
       "2": [
         "hti17103-ionizing-vs-nonionizing",
         "hti17103-modality-detail",
-        "hti17103-modality-choice",
         "hti17103-modality-best-use"
       ],
       "3": [
@@ -3044,6 +3176,9 @@ export const Y1S1_SOURCE_MAP = {
       ],
       "4": [
         "hti17103-radioprotection"
+      ],
+      "5": [
+        "hti17103-modality-choice"
       ]
     },
     "APSS1A08": {
@@ -3065,6 +3200,7 @@ export const Y1S1_SOURCE_MAP = {
     },
     "DSAI1202": {
       "1": [
+        "dsai1202-ai-everyday-autonomy",
         "dsai1202-ai-in-healthcare",
         "dsai1202-ai-literacy"
       ],
@@ -3133,7 +3269,7 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-joints-synovial-structure",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "hss2011-joints-synovial-types",
@@ -3429,6 +3565,11 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
+        "lessonId": "hss2011-msk-periosteum",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
         "lessonId": "hss2011-joints-classification",
         "set": "old",
         "role": "older-fallback"
@@ -3436,7 +3577,7 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-joints-synovial-structure",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "hss2011-joints-synovial-types",
@@ -3648,6 +3789,11 @@ export const Y1S1_SOURCE_MAP = {
         "role": "current-primary"
       },
       {
+        "lessonId": "hss2011-msk-periosteum",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
         "lessonId": "hss2011-msk-bone-marrow",
         "set": "new",
         "role": "current-primary"
@@ -3674,6 +3820,11 @@ export const Y1S1_SOURCE_MAP = {
       },
       {
         "lessonId": "hss2011-msk-joint-classifications",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-joints-synovial-structure",
         "set": "new",
         "role": "current-primary"
       }
@@ -3941,6 +4092,26 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
+        "lessonId": "abct2326-resp-ventilation-mechanics",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-resp-lung-volumes",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-resp-oxygen-transport",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-resp-carbon-dioxide-control",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "abct2326-resp-gas-transport",
         "set": "old",
         "role": "older-fallback"
@@ -4097,47 +4268,47 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "abct2326-plasma-membrane",
         "set": "new",
-        "role": "needs-review"
+        "role": "current-primary"
       },
       {
         "lessonId": "abct2326-organelles",
         "set": "new",
-        "role": "needs-review"
+        "role": "current-primary"
       },
       {
         "lessonId": "abct2326-nucleus-genetic-code",
         "set": "new",
-        "role": "needs-review"
+        "role": "current-primary"
       },
       {
         "lessonId": "abct2326-protein-synthesis",
         "set": "new",
-        "role": "needs-review"
+        "role": "current-primary"
       },
       {
         "lessonId": "abct2326-cell-division",
         "set": "new",
-        "role": "needs-review"
+        "role": "current-primary"
       },
       {
         "lessonId": "abct2326-epithelium-classification",
         "set": "new",
-        "role": "needs-review"
+        "role": "current-primary"
       },
       {
         "lessonId": "abct2326-connective-tissue-classes",
         "set": "new",
-        "role": "needs-review"
+        "role": "current-primary"
       },
       {
         "lessonId": "abct2326-muscle-neural-tissue",
         "set": "new",
-        "role": "needs-review"
+        "role": "current-primary"
       },
       {
         "lessonId": "abct2326-feedback-loops",
         "set": "new",
-        "role": "needs-review"
+        "role": "current-primary"
       }
     ],
     "phys.5": [
@@ -4207,6 +4378,26 @@ export const Y1S1_SOURCE_MAP = {
       },
       {
         "lessonId": "abct2326-digestive-pathway",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-digestive-wall-motility",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-digestive-stomach-control",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-digestive-small-intestine-accessory",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-digestive-hormones-colon",
         "set": "old",
         "role": "older-fallback"
       }
@@ -4354,18 +4545,16 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       }
     ],
-    "hti.w1b": [
+    "hti.w1.2026": [
       {
         "lessonId": "hti17103-what-is-radiography",
-        "set": "old",
-        "role": "older-fallback"
-      }
-    ],
-    "hti.sched.2026": [
-      {
-        "lessonId": "hti17103-subject-2026",
         "set": "new",
-        "role": "administration"
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hti17103-modality-choice",
+        "set": "new",
+        "role": "current-primary"
       }
     ],
     "hti.w5": [
@@ -4390,13 +4579,6 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "hti17103-modality-best-use",
         "set": "old",
         "role": "older-fallback"
-      }
-    ],
-    "hti.w1.2026": [
-      {
-        "lessonId": "hti17103-modality-choice",
-        "set": "new",
-        "role": "current-primary"
       }
     ],
     "hti.w3": [
@@ -4441,6 +4623,11 @@ export const Y1S1_SOURCE_MAP = {
       }
     ],
     "dsai.w1": [
+      {
+        "lessonId": "dsai1202-ai-everyday-autonomy",
+        "set": "new",
+        "role": "current-primary"
+      },
       {
         "lessonId": "dsai1202-ai-in-healthcare",
         "set": "new",

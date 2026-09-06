@@ -12,6 +12,7 @@ import { openDialog } from './dialog-behaviour-applied.js';
  * ------------------------------------------------------------------ */
 
 function sourceMapHTML(focusSubject) {
+  const sourceStatusLabel = (status) => ({ complete: 'current source verified', partial: 'current + older support', 'needs-review': 'source review needed' }[status] || status || 'source review needed');
   const sourceKinds = [
     { label: 'New sources — primary', roles: ['current-primary'] },
     { label: 'Old sources — supporting/fallback', roles: ['older-supporting', 'older-fallback'] },
@@ -41,9 +42,9 @@ function sourceMapHTML(focusSubject) {
     const reasons = lesson.reasons || [];
     const hasGapState = lesson.status !== 'complete' || reasons.length > 0 || gapSources.length > 0;
     const gapHTML = hasGapState
-      ? `<div class="subhead" style="margin:8px 0 2px">${sourceKinds[3].label}</div><p class="small" style="margin:6px 0 0">Status: ${esc(lesson.status || 'needs-review')}${reasons.length ? ` — ${reasons.map(esc).join(' ')}` : ''}</p>${gapSources.length ? `<ul>${gapSources.map((source) => sourceLine(source, lesson)).join('')}</ul>` : ''}`
+      ? `<div class="subhead" style="margin:8px 0 2px">${sourceKinds[3].label}</div><p class="small" style="margin:6px 0 0">Source status: ${esc(sourceStatusLabel(lesson.status))}${reasons.length ? ` — ${reasons.map(esc).join(' ')}` : ''}</p>${gapSources.length ? `<ul>${gapSources.map((source) => sourceLine(source, lesson)).join('')}</ul>` : ''}`
       : '';
-    return `<li><strong style="color:var(--text)">${esc(lesson.title)}</strong> <span class="tag">${esc(lesson.status)}</span>${sourceLists}${gapHTML}</li>`;
+    return `<li><strong style="color:var(--text)">${esc(lesson.title)}</strong> <span class="tag">${esc(sourceStatusLabel(lesson.status))}</span>${sourceLists}${gapHTML}</li>`;
   };
   const weekHTML = (subjectId, week) => {
     const lessons = sourceGroupsForWeek(subjectId, week);

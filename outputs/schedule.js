@@ -391,7 +391,7 @@ export const WEEK_STUDY = {
       'hss2011-terminology-regional-systemic', 'hss2011-terminology-word-parts',
       'hss2011-osteo-axial-appendicular', 'hss2011-osteo-bone-shapes',
       'hss2011-osteo-long-bone-structure', 'hss2011-osteo-bone-functions',
-      'hss2011-msk-bone-histology', 'hss2011-msk-bone-marrow',
+      'hss2011-msk-bone-histology', 'hss2011-msk-periosteum', 'hss2011-msk-bone-marrow',
       'hss2011-msk-tissues-of-movement', 'hss2011-msk-muscle-organisation',
       'hss2011-msk-tendon-attachment', 'hss2011-msk-motor-unit-tone',
       'hss2011-msk-joint-classifications', 'hss2011-joints-classification',
@@ -444,8 +444,17 @@ export const WEEK_STUDY = {
       'abct2326-cvs-circuits', 'abct2326-cvs-heart-structure', 'abct2326-blood-composition',
       'abct2326-cvs-conduction', 'abct2326-cvs-ecg-cycle',
     ],
-    3: ['hss2011-structures-airwayTree', 'abct2326-resp-pathway', 'abct2326-resp-gas-transport'],
-    4: ['hss2011-structures-digestiveTract', 'abct2326-digestive-pathway'],
+    3: [
+      'hss2011-structures-airwayTree', 'abct2326-resp-pathway',
+      'abct2326-resp-ventilation-mechanics', 'abct2326-resp-lung-volumes',
+      'abct2326-resp-oxygen-transport', 'abct2326-resp-carbon-dioxide-control',
+      'abct2326-resp-gas-transport',
+    ],
+    4: [
+      'hss2011-structures-digestiveTract', 'abct2326-digestive-pathway',
+      'abct2326-digestive-wall-motility', 'abct2326-digestive-stomach-control',
+      'abct2326-digestive-small-intestine-accessory', 'abct2326-digestive-hormones-colon',
+    ],
     5: ['hss2011-structures-urinaryTract', 'abct2326-renal-nephron'],
     7: [
       'abct2326-repro-male-regulation', 'abct2326-repro-ovarian-menstrual-cycle',
@@ -465,13 +474,14 @@ export const WEEK_STUDY = {
     ],
   },
   HTI17103: {
-    1: ['hti17103-what-is-radiography', 'hti17103-subject-2026', 'hti17103-department-and-request'],
+    1: ['hti17103-what-is-radiography', 'hti17103-department-and-request'],
     2: [
       'hti17103-ionizing-vs-nonionizing', 'hti17103-modality-detail',
-      'hti17103-modality-choice', 'hti17103-modality-best-use',
+      'hti17103-modality-best-use',
     ],
     3: ['hti17103-radiation-therapy'],
     4: ['hti17103-radioprotection'],
+    5: ['hti17103-modality-choice'],
   },
   APSS1A08: {
     1: [
@@ -482,7 +492,7 @@ export const WEEK_STUDY = {
     2: [], 3: [], 4: [], 5: [], 7: [], 8: [], 10: [], 11: [],
   },
   DSAI1202: {
-    1: ['dsai1202-ai-in-healthcare', 'dsai1202-ai-literacy'],
+    1: ['dsai1202-ai-everyday-autonomy', 'dsai1202-ai-in-healthcare', 'dsai1202-ai-literacy'],
     2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: [],
   },
 };
@@ -524,6 +534,40 @@ export function studyFor(subject, week) {
 /** Why a syllabus week deliberately has no source-backed lesson yet. */
 export function gapFor(subject, week) {
   return ((WEEK_GAPS[subject] || {})[week]) || '';
+}
+
+/* Shared reading aids retain one lesson and one progress record. Their original
+   subject owns the lesson; the other course offers an explicitly related link. */
+export const WEEK_RELATED = {
+  HSS2011: {
+    8: ['hss2011-structures-heartChambers', 'hss2011-structures-greatVessels'],
+    9: ['hss2011-structures-airwayTree'],
+    11: ['hss2011-structures-digestiveTract'],
+    12: ['hss2011-structures-urinaryTract'],
+  },
+};
+
+export function relatedFor(subject, week) {
+  return WEEK_RELATED[subject]?.[week] || [];
+}
+
+export function weekTopicId(subject, week) {
+  return `${subject}.week.${week}`;
+}
+
+/** Course and Learn use the same scheduled topic and ordered reading list.
+ * These are teaching-week groups, not historical source-folder units. */
+export function teachingWeeks(subject) {
+  return Object.entries(WEEK_STUDY[subject] || {}).map(([key, ids]) => {
+    const week = Number(key);
+    const sessions = SESSIONS.filter((s) => s.subject === subject && s.week === week && s.kind === 'lecture');
+    return {
+      id: weekTopicId(subject, week), week, ids,
+      title: sessions.map((s) => s.title).join(' / ') || `Week ${week} study`,
+      modules: [...new Set(sessions.map((s) => s.module).filter(Boolean))],
+      gap: gapFor(subject, week), related: relatedFor(subject, week),
+    };
+  }).sort((a, b) => a.week - b.week);
 }
 
 export const SESSIONS = [
