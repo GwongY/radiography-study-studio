@@ -162,7 +162,7 @@ export function renderLearn() {
  * peeling is the whole point: you want the vessels solid AND the skeleton
  * ghosted behind them to see where they run.
  *
- * Layers load on demand. Precaching six models is ~37 MB of download for
+ * Layers load on demand. Precaching six models is ~12 MB of download for
  * someone who may only study bones tonight.
  */
 /*

@@ -46,7 +46,7 @@ $$('viewerMoreBtn').onclick = () => {
 /*
  * Ask the browser to keep what has been downloaded.
  *
- * The model cache holds up to 39 MB of .glb, and until this call every byte of
+ * The model cache holds up to 14 MB of .glb, and until this call every byte of
  * it sat in best-effort storage the browser may evict under pressure without
  * telling anyone -- along with the shell, and with the localStorage a student's
  * whole progress record lives in. A student who studied on the train and came

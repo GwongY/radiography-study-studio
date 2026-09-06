@@ -8,7 +8,7 @@ MEDIAN PLANE
 MIDCLAVICULAR LINES
   claviclel   sternal x=0.011  acromial x=0.154  midpoint 0.083
   clavicler   sternal x=-0.011  acromial x=-0.154  midpoint -0.083
-  lines at x = -0.083 and 0.083   (±0.083 from the midline)
+  lines at x = -0.082 and 0.082   (±0.082 from the midline)
   ok   both midclavicular lines resolved
   ok   the pair is symmetric about the median plane  — one measurement, mirrored — parallel by construction
 
@@ -27,25 +27,25 @@ HORIZONTAL PLANES
   ok   the drawing ends below the transtubercular plane
 
 BOUNDARIES — region
-  verticals   x = -0.083, 0.083
+  verticals   x = -0.082, 0.082
   horizontals y = 1.063, 0.971
   ok   region verticals are constants — straight, parallel lines
   ok   region horizontals are constants — level planes
-  silhouette half-width: 0.133 at the pubis .. 0.141 at the xiphisternum
-  ok   the outer edge follows the body, not a rectangle  — 0.141 vs 0.133
-  col 0 width per row: 0.041  0.036  0.027
+  silhouette half-width: 0.133 at the pubis .. 0.140 at the xiphisternum
+  ok   the outer edge follows the body, not a rectangle  — 0.140 vs 0.133
+  col 0 width per row: 0.041  0.037  0.028
   col 1 width per row: 0.165  0.165  0.165
-  col 2 width per row: 0.041  0.036  0.027
+  col 2 width per row: 0.041  0.037  0.028
   ok   every column between two reference lines keeps its width through all rows  — 0.000 m of variation
-  ok   no cell pinches to a point  — narrowest 0.027 m (col 0 row 2), shortest 0.092 m
+  ok   no cell pinches to a point  — narrowest 0.028 m (col 0 row 2), shortest 0.092 m
 
 BOUNDARIES — quadrant
   verticals   x = -0.000
   horizontals y = 1.029
   ok   quadrant verticals are constants — straight, parallel lines
   ok   quadrant horizontals are constants — level planes
-  silhouette half-width: 0.133 at the pubis .. 0.141 at the xiphisternum
-  ok   the outer edge follows the body, not a rectangle  — 0.141 vs 0.133
+  silhouette half-width: 0.133 at the pubis .. 0.140 at the xiphisternum
+  ok   the outer edge follows the body, not a rectangle  — 0.140 vs 0.133
   col 0 width per row: 0.119  0.110
   col 1 width per row: 0.119  0.110
   ok   every column between two reference lines keeps its width through all rows  — 0.000 m of variation
@@ -54,10 +54,10 @@ BOUNDARIES — quadrant
 ANTERIOR SURFACE
   lumbar spine reaches forward to z 0.019
   y=0.854 (49.8%)  half-w 0.133  z across: 0.021  0.054  0.062  0.054  0.021
-  y=0.971 (56.7%)  half-w 0.131  z across: 0.017  0.068  0.080  0.068  0.017
-  y=1.029 (60.1%)  half-w 0.119  z across: 0.022  0.076  0.090  0.076  0.022
-  y=1.063 (62.1%)  half-w 0.123  z across: 0.034  0.083  0.095  0.083  0.034
-  y=1.221 (71.4%)  half-w 0.141  z across: 0.047  0.103  0.117  0.103  0.047
+  y=0.971 (56.7%)  half-w 0.131  z across: 0.017  0.068  0.081  0.068  0.017
+  y=1.029 (60.1%)  half-w 0.119  z across: 0.023  0.077  0.090  0.077  0.023
+  y=1.063 (62.1%)  half-w 0.123  z across: 0.035  0.084  0.096  0.084  0.035
+  y=1.221 (71.4%)  half-w 0.140  z across: 0.047  0.103  0.117  0.103  0.047
   ok   the surface bulges at the midline — a torso, not a flat sheet  — 5/5 rows
   ok   the surface is in front of the vertebral column  — 5/5 rows
   abdominal wall: interpolated between the costal margin and the pelvis   (92% of bands had points)

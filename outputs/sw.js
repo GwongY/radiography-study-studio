@@ -33,7 +33,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v121';
+const CACHE_VERSION = 'v122';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -50,7 +50,7 @@ const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
  * contents never change in place; the CDN URLs pin three.js to 0.161.0. Bump
  * MODEL_VERSION only when a .glb file is actually replaced.
  */
-const MODEL_VERSION = 'm2';
+const MODEL_VERSION = 'm3';
 const CDN_VERSION = 'c1';
 const MODEL_CACHE = `rss-models-${MODEL_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CDN_VERSION}`;
