@@ -121,7 +121,23 @@ export function labelSprite(text,color,hud){
 /* Called every frame: keeps every tag inside its legible band. */
 export function updateHudSprites(){
   const cam=state.camera;
-  if(!cam) return;
+  /*
+   * state.THREE is set by prepareFullReference, which runs when the skeleton
+   * finishes loading -- but the frame loop starts as soon as the camera exists.
+   * So there is a window every single time the viewer opens where cam is truthy
+   * and state.THREE is not, and `new state.THREE.Vector3()` threw through all
+   * of it: thousands of uncaught TypeErrors per viewer open, invisible unless
+   * you had the console up.
+   *
+   * The cost is not the noise. This runs on the same line as
+   * state.renderer.render(), BEFORE it, so the throw pre-empted the draw --
+   * and if a model ever fails to load, state.THREE is never set, this throws
+   * on every frame forever, and the retryable fallback the About dialog
+   * promises is never reached. A dead black viewport and no way to tell why.
+   *
+   * Guard the thing actually used, not just the camera.
+   */
+  if(!cam||!state.THREE) return;
   const tan=Math.tan(cam.fov*Math.PI/360);
   const p=state._hudVec||(state._hudVec=new state.THREE.Vector3());
   const walk=(grp)=>{

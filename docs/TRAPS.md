@@ -1149,3 +1149,63 @@ six style strings land in the prose fingerprint for good.
   `new Date(y, m, d, h, min)` and there is no IANA zone anywhere in the data,
   so a UTC conversion here would be inventing an offset. `DTSTAMP` is the one
   real instant in the file and is the only thing written as UTC.
+
+### `hidden` loses to an explicit display — `outputs/app.css`, `outputs/study/exam-mode.js`
+
+Exam mode puts the study session's footer, step rail and source bar away while a
+paper is running. It set `el.hidden = true`, which is the obvious thing and did
+nothing at all: `hidden` carries `display:none` from the UA stylesheet only, and
+app.css sets `display:flex` on `.sessionfoot` and `.srcinline`. A page rule beats
+a UA rule, so the elements stayed on screen with `hidden === true`.
+
+The result was not cosmetic. The paper rendered underneath the study session's own
+**Next** and **Save & exit** buttons — controls that belong to a different flow
+and would have ended the sitting. No check could see it: the DOM said `hidden`,
+the property said `true`, and only `getComputedStyle` said `flex`.
+
+Stow with inline `display` and restore the previous value, or add a rule with
+enough specificity to win. Do not trust `hidden` on anything this stylesheet has
+given a `display` to.
+
+### The frame loop starts before the model exists — `outputs/studio/spatial-concept-overlays.js`
+
+`state.THREE` is set by `prepareFullReference`, which runs when the skeleton
+finishes loading. The frame loop starts as soon as the camera exists. So every
+time the viewer opens there is a window where `state.camera` is truthy and
+`state.THREE` is undefined, and `updateHudSprites` guarded only the camera before
+doing `new state.THREE.Vector3()`. Thousands of uncaught TypeErrors per open,
+invisible unless the console was already up.
+
+The noise was not the problem. That call sits on the same line as
+`state.renderer.render(...)` and **before** it, so the throw pre-empted the draw.
+While the model loads that is a black viewport; if a model ever fails to load,
+`state.THREE` is never set, it throws on every frame forever, and the retryable
+fallback the About dialog promises is never reached — a dead viewer with no
+way to tell why.
+
+Guard the thing you dereference, not the thing next to it.
+
+### Option E laid out before option A — `work/build-question-pack.mjs`
+
+The test-bank PDFs sometimes place the last option before the first, so the
+extracted text reads
+
+    The heart is ________ to the lungs.  E) lateral
+    A) medial   B) superior   C) inferior   D) anterior
+
+The stem is everything before `A)`, so `E) lateral` stayed glued to the question
+and vanished from the options. **185 questions carried a visible option in their
+stem, and 53 more were refused as an extraction gap when the answer WAS that
+missing option.** Neither failed loudly; both look like a slightly odd question
+until you count them.
+
+Two more habits in the same text, each of which quietly halves the yield: the
+question number is repeated in the right margin, and a page number glues onto the
+next question number, so page 12 before question 73 extracts as `1273)`. Question
+starts are therefore found by SEQUENCE — the next `N)` whose digits END with the
+number being expected — rather than by pattern.
+
+The lesson generalises: a parser over extracted PDF text fails by returning less,
+not by erroring. Always report what was dropped, per file, against what the
+document itself claims to contain — here, `Answer:` lines counted directly.
+

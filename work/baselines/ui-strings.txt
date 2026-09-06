@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1013 —
-  e0ec26f0ac2cb2a2  WHOLE SET
+— user-facing strings in outputs/ — 1014 —
+  0db9803a25d33915  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -885,6 +885,7 @@
   65a8e13d43e16a88  named mesh
   a9ff6c862d2bfd72  new Date(y, m, d, h, min)
   fb71e35554b8c081  new items,
+  ef79fc55610a0395  new state.THREE.Vector3()
   66e7dd59209ea41c  no baseline
   e7b1a45f4258c96c  no engine
   3c990f97c8ed9e68  no stage
