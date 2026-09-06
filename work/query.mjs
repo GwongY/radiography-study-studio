@@ -15,6 +15,7 @@
  *   node work/query.mjs file  <term>    which source document on the drive
  *   node work/query.mjs where <term>    which folder on the drive holds them
  *   node work/query.mjs text  <term>    what the sources SAY, with file and page
+ *   node work/query.mjs pages <ref> [N-M]  read exact cached source pages
  */
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
@@ -56,6 +57,7 @@ const usage = () => {
   file   <term>   which source document on the drive, and where its copies are
   where  <term>   which folders on the drive match, and how much is in them
   text   <term>   what the sources say, quoted with the file and page it is on
+  pages  <ref> [N-M]   full cached pages of one registered source (default: first 5)
 
 Layers: ${[...new Set(MESH_INDEX.map((r) => r.layer))].sort().join(', ')}`);
   process.exit(1);
@@ -73,6 +75,31 @@ const show = (rows, render) => {
 };
 
 switch (cmd) {
+  case 'pages': {
+    const [ref, range = '1-5'] = rest;
+    const cited = join(WORK, 'source-text.json');
+    const sources = existsSync(cited) ? JSON.parse(readFileSync(cited, 'utf8')).sources : {};
+    const source = sources[ref];
+    if (!source) {
+      console.log(`No cached source ${ref}. Matching references:`);
+      for (const [id, s] of Object.entries(sources).filter(([id, s]) => `${id} ${s.file}`.toLowerCase().includes(ref.toLowerCase()))) {
+        console.log(`${id}: ${s.file} (${s.pages.length} pages)`);
+      }
+      process.exitCode = 1;
+      break;
+    }
+    const match = range.match(/^(\d+)(?:-(\d+))?$/);
+    if (!match || Number(match[1]) < 1 || Number(match[2] || match[1]) < Number(match[1])) {
+      console.error('Page range must be N or N-M with positive page numbers.');
+      process.exitCode = 1;
+      break;
+    }
+    console.log(`${ref}: ${source.file} (${source.pages.length} pages)`);
+    for (let p = Number(match[1]); p <= Math.min(Number(match[2] || match[1]), source.pages.length); p++) {
+      console.log(`\n[[page ${p}]]\n${source.pages[p - 1]}`);
+    }
+    break;
+  }
   case 'unit': {
     const units = UNITS.filter((u) => hit(u.label));
     console.log(`${units.length} unit(s) matching "${term}"\n`);

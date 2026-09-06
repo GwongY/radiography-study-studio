@@ -13,6 +13,7 @@ import { HSS_JOINTS } from './hss-joints.js';
 import { HSS_MODULES } from './hss-modules.js';
 import { HSS_SPECIAL_SENSES } from './hss-special-senses.js';
 import { PHYS_ITEMS } from './physiology-items.js';
+import { PHYS_DEPTH_ITEMS } from './physiology-depth.js';
 import { PHYS_REPRODUCTIVE } from './physiology-reproductive.js';
 import { HTI_ITEMS } from './hti-items.js';
 import { DSAI_ITEMS } from './dsai-items.js';
@@ -34,6 +35,7 @@ export const STUDY_ITEMS = [
   ...HSS_MODULES,
   ...HSS_SPECIAL_SENSES,
   ...PHYS_ITEMS,
+  ...PHYS_DEPTH_ITEMS,
   ...PHYS_REPRODUCTIVE,
   ...HTI_ITEMS,
   ...DSAI_ITEMS,

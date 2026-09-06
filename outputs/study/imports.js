@@ -30,7 +30,7 @@ import { memoryTip, termNote } from '../term-notes.js?v=6';
 import { termGloss } from '../term-gloss.js?v=5';
 import {
   GROUP_CHOICES, KINDS, SCHEDULE_SOURCES, SESSIONS, STAFF, STUDY_SUBJECTS, SUBJECT_ADMIN, TERM,
-  WEEK_GAPS, WEEK_STUDY,
+  WEEK_GAPS, WEEK_STUDY, teachingWeeks, weekTopicId, relatedFor,
   fmtDate, fmtTime, fmtWeekRange, fmtWhen, isOtherGroup, sessionSpan, sessionStatus,
   sessionsWithStatus, gapFor, studyFor, weekEnd, weekOf, weekStart,
 } from '../schedule.js?v=1';
@@ -52,6 +52,9 @@ export {
   TERM,
   WEEK_GAPS,
   WEEK_STUDY,
+  teachingWeeks,
+  weekTopicId,
+  relatedFor,
   fmtDate,
   fmtTime,
   fmtWeekRange,

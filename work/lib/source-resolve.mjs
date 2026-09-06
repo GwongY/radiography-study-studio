@@ -51,8 +51,14 @@ export function resolveSource(entry, cat, roots) {
   if (!scored.length) return { doc: named[0], ...locations(named[0])[0], ambiguous: true };
 
   scored.sort((a, b) => b.rootMatch - a.rootMatch);
+  /* A registry root is an identity constraint, not a weak preference. The
+     New source inbox can legitimately contain a newer file with the same
+     filename as an older drive copy but different bytes. Once one or more
+     candidates match the named root, copies outside that root must not make
+     the source ambiguous. */
+  const candidates = scored[0].rootMatch ? scored.filter((s) => s.rootMatch) : scored;
   /* Several DIFFERENT documents still matching the folder means the registry
      cannot distinguish them either; say so instead of picking one. */
-  const distinct = new Set(scored.map((s) => `${s.doc.n}|${s.doc.b}`));
-  return { doc: scored[0].doc, where: scored[0].where, full: scored[0].full, ambiguous: distinct.size > 1 };
+  const distinct = new Set(candidates.map((s) => `${s.doc.n}|${s.doc.b}`));
+  return { doc: candidates[0].doc, where: candidates[0].where, full: candidates[0].full, ambiguous: distinct.size > 1 };
 }

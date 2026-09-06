@@ -225,7 +225,7 @@ export const SUBJECTS = [
     code: 'HSS2011',
     title: 'Human Anatomy',
     accent: '#5fd0c5',
-    coverage: 'full',
+    coverage: 'mapped',
     blurb: 'Four modules plus the online foundation module, taught through a flipped-classroom study manual with revision exercises and model answers.',
     units: [
       /*
@@ -251,7 +251,7 @@ export const SUBJECTS = [
     code: 'ABCT2326',
     title: 'Human Physiology',
     accent: '#ffba67',
-    coverage: 'full',
+    coverage: 'mapped',
     blurb: 'Ten system lectures with supplementary decks, tutorial answers and extra exercises, built on the Martini Fundamentals of Anatomy & Physiology eBook.',
     units: [
       { id: 'phys.cells', label: '1 — Cells & body organisation' },

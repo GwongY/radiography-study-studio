@@ -27,7 +27,7 @@ const NAV_DESTS = [
 const NAV_TITLES = { today: 'Today', learn: 'One learning tree', viewer: 'Viewer', course: 'Course', review: 'Review', more: 'More' };
 const NAV_KICKERS = {
   today: 'What to do now',
-  learn: 'Anatomy \u00b7 physiology \u00b7 radiation science \u00b7 AI',
+  learn: 'All Y1S1 courses \u00b7 latest schedule order',
   viewer: 'Model and images in one place',
   course: 'Timetable, syllabus, attendance',
   review: 'Mistakes, due items, mastery',

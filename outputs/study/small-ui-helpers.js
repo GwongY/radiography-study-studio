@@ -65,7 +65,7 @@ export function showView(id) {
 }
 
 export function coveragePill(status) {
-  const map = { full: ['full', 'Full coverage'], substitute: ['substitute', 'Substitute source'], limited: ['limited', 'Limited source coverage'], none: ['none', 'No source materials'] };
+  const map = { mapped: ['full', 'Syllabus mapped · audited sources'], full: ['full', 'Syllabus mapped · audited sources'], substitute: ['substitute', 'Substitute source'], limited: ['limited', 'Limited source coverage'], none: ['none', 'No source materials'] };
   const [cls, label] = map[status] || ['none', status];
   return `<span class="pill ${cls}">${esc(label)}</span>`;
 }

@@ -79,7 +79,7 @@ function studySingleItem(item) {
  * the weakest-first order the list on screen is already sorted by.
  */
 export function studyItemWithin(topic, itemId) {
-  const ordered = topic.items.slice().sort((a, b) => adjScore(a) - adjScore(b));
+  const ordered = topic.week ? topic.items.slice() : topic.items.slice().sort((a, b) => adjScore(a) - adjScore(b));
   const at = ordered.findIndex((i) => i.id === itemId);
   if (at < 0) return;
   const items = [ordered[at], ...ordered.slice(0, at), ...ordered.slice(at + 1)];

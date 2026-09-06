@@ -15,7 +15,7 @@ export const COVERAGE = {
   generated: 'Built from the full-depth shared-drive catalogue plus the filename-sorted New source inbox. Current 2026/27 files control the syllabus, dates and assessment; older official lectures fill a named current topic only where its 2026 teaching file is absent. Student work and duplicate copies do not supply factual claims.',
   subjects: [
     {
-      id: 'HSS2011', status: 'full',
+      id: 'HSS2011', status: 'mapped',
       covered: [
         'Anatomical position, directional terms, planes, cavities, regions and quadrants',
         'Axial and appendicular skeleton; bone shapes; long bone structure; bone functions',
@@ -47,7 +47,7 @@ export const COVERAGE = {
       files: 138,
     },
     {
-      id: 'ABCT2326', status: 'full',
+      id: 'ABCT2326', status: 'mapped',
       covered: [
       'The cell itself: plasma membrane and its six protein classes, the membranous and non-membranous organelles, the nucleus and the genetic code, transcription and translation, the cell cycle, mitosis and meiosis.',
       'Four tissue types, eleven organ systems, and each tissue in detail: epithelial classification by shape and by layers plus the glandular split, the three connective tissue classes with the blood argument, the three muscle types, neurons and neuroglia.',
@@ -62,6 +62,9 @@ export const COVERAGE = {
         'Cardiac conducting system: SA node, pacemaker potential, AV delay, bundle of His, Purkinje fibres',
         'ECG waves and intervals, cardiac cycle, stroke volume, Frank–Starling law, heart sounds, refractory period',
         'Gas exchange at the alveolus, oxyhaemoglobin and saturation, and the full control-of-respiration reflex set',
+        'Ventilation mechanics and compliance; respiratory muscles; rate, volumes and capacities; restrictive versus obstructive patterns.',
+        'Oxygen loading and unloading, curve shifts and the Bohr effect; carbon-dioxide transport, chloride shift and PCO₂ feedback.',
+        'Digestive wall and enteric reflexes; gastric cells, acid production and three control phases; small-intestinal absorption, pancreatic enzymes, bile, duodenal hormones, colon and water balance.',
         'Inflammation, the complement pathways and the membrane attack complex, active vs passive and cell- vs antibody-mediated immunity',
         'Reproductive physiology from the readable older official lecture: male hormonal control, ovarian and menstrual cycles, fertilisation and implantation, placenta, pregnancy and parturition.',
       ],
@@ -69,7 +72,6 @@ export const COVERAGE = {
         'BLOOD-PRESSURE REGULATION IS NOT IN THE SUPPLIED SOURCES. Neither the cardiovascular lecture deck nor its supplementary deck mentions blood-pressure regulation or baroreceptors as a cardiovascular topic. No items were written for it. (Baroreceptors do appear, but only in the respiratory lecture, as an input to the control of respiration — which is where they are covered here.)',
         'The current 2026 reproductive-system lecture has not been supplied. The Week 7 notes therefore use the readable official 2020/21 Lec6_Reproduction.pdf and say so.',
         'The 29-chapter question blank, the per-system tutorial-answer PDFs and the 2020/21 Lec1–Lec10 deck set are catalogued but not yet turned into items.',
-        'Digestive-organ function and absorption is covered at pathway level only; the enzyme-by-enzyme detail in the lecture has not been mined.',
       ],
       files: 191,
     },
