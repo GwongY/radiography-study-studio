@@ -380,6 +380,17 @@
  * The viewer opts out entirely: a 3D model has no measure to protect and wants
  * every pixel. See .navcontent.bleed below.
  */
+/*
+ * The safe-area insets, published as ordinary custom properties.
+ *
+ * `env()` cannot be read from JavaScript — getComputedStyle returns the
+ * unresolved function, not the pixels. Assigning them here is the only way
+ * outputs/study/viewport-recovery.js can find out how much of the screen the
+ * system has claimed, and the TOP one is what tells it whether this page is
+ * painting under the status bar or sitting below it. Those two cases produce
+ * the same short viewport and only one of them is a defect.
+ */
+:root{--sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px)}
 :root{--content-max:1180px}
 @media(min-width:1500px){:root{--content-max:1480px}}
 @media(min-width:1900px){:root{--content-max:1760px}}
@@ -405,21 +416,29 @@
   .bottomtab button.active{color:var(--teal)}
   .navcontent{padding:14px 14px 20px}
   /*
-   * When the viewport is short, the inset is reserving space twice.
+   * When the page stops short of the screen, the inset is reserving nothing.
    *
    * `env(safe-area-inset-bottom)` is 34px of room for the home indicator, and
    * the home indicator sits at the bottom of the SCREEN. Where the layout
-   * viewport ends ~60px above that (see outputs/study/viewport-recovery.js),
-   * the indicator is already outside the page and those 34px protect nothing
-   * — they simply add to the empty band the reader can see. So on a viewport
-   * this part has measured as short, the tab bar keeps its 8px gap and stops
-   * paying for a hazard that is not inside it.
+   * viewport ends ~62px above that, the indicator is entirely outside the
+   * page: those 34px protect nothing and are simply added to the empty band
+   * the reader can see. Dropping them brings the tab icons a third of the way
+   * back down, and it is the only part of this that is certain.
    *
-   * This is a reaction to a MEASUREMENT, not a device-specific offset: nothing
-   * here is sized from the screen, and on a healthy viewport the attribute is
-   * never set and the rule never applies.
+   * Keyed off data-inset rather than data-viewport, and viewport-recovery.js
+   * only writes `dead` when the measured shortfall EXCEEDS the inset — on a
+   * healthy device, or one whose status bar is opaque, it never fires and the
+   * buttons keep their clearance.
    */
-  html[data-viewport="shrunk"] .bottomtab{padding-bottom:8px}
+  html[data-inset="dead"] .bottomtab{padding-bottom:8px}
+  /*
+   * The opt-in experiment. `.shell` is fixed with `bottom:0`, so it ends at
+   * the bottom of the layout viewport; a negative bottom extends it into the
+   * strip below. Whether the strip accepts taps is the unknown, which is why
+   * this is a switch the reader throws and a relaunch undoes — see the note
+   * in outputs/study/viewport-recovery.js.
+   */
+  html[data-strip="on"] .shell{bottom:calc(-1 * var(--vp-shortfall,0px))}
 }
 /* ---------- IA redesign: session overlay ---------- */
 #sessionView{position:fixed;inset:0;z-index:10;background:var(--bg);display:flex;flex-direction:column;animation:fadeUp .2s ease}

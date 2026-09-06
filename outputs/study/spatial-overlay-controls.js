@@ -14,7 +14,7 @@ import { isConnected, openSyncDialog, syncConfig } from './gist-sync.js';
 import { renderReviewTab } from './review-mistakes-due.js';
 import { showView } from './small-ui-helpers.js';
 import { DEADLINES, SOON_MS, deadlineStats, exportCalendar, isDone, paintImminent, untilText } from './assessments-and-marks.js';
-import { recoverByHand, viewportNote, viewportReport } from './viewport-recovery.js';
+import { keepStripFill, recoverByHand, stripMode, toggleStripFill, viewportNote, viewportReport } from './viewport-recovery.js';
 
 /* The badge is the state, in one word. "shrunk" is the one worth noticing, so
    it is the only one that is not simply reassuring. */
@@ -174,6 +174,21 @@ export function renderMore() {
     { title: 'Screen fit on this device', badge: viewportBadge(), color: viewportReport().state === 'shrunk' ? 'var(--orange)' : 'var(--muted)',
       note: viewportNote() + ' Tap to ask the browser to reconfigure the viewport.',
       open: () => { recoverByHand(); renderMore(); } },
+    /* Only offered where there is a measured strip to fill. A switch that does
+       nothing on every device it appears on is a switch nobody trusts. */
+    ...(viewportReport().floating || stripMode() !== 'off' ? [{
+      title: 'Fill the bottom strip', badge: stripMode() === 'off' ? 'off' : stripMode(),
+      color: stripMode() === 'off' ? 'var(--muted)' : 'var(--orange)',
+      note: stripMode() === 'off'
+        ? 'Experimental. Extends the app past the bottom of the viewport and into the strip, so the tab bar reaches the edge of the screen. Nobody here can test whether taps land down there — if the buttons stop working, force-quit and relaunch and it undoes itself.'
+        : 'On. If the tab bar still works, this is the fix; force-quit and relaunch undoes it either way.',
+      open: () => { toggleStripFill(); renderMore(); },
+    }] : []),
+    ...(stripMode() === 'trial' ? [{
+      title: 'Keep the bottom-strip fill', badge: 'confirm', color: 'var(--teal)',
+      note: 'Reaching this row proves the buttons still work. Keeping it makes the setting survive a relaunch.',
+      open: () => { keepStripFill(); renderMore(); },
+    }] : []),
     { title: 'Scheduling rules', badge: 'SM-2+', color: 'var(--muted)',
       note: 'SM-2 shaped, then modified by response time and repeat mistakes.' },
     { title: 'Back up to a private GitHub gist', badge: syncBadge(), color: isConnected() ? 'var(--green)' : 'var(--muted)',

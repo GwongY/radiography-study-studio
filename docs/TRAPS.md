@@ -853,22 +853,50 @@ to get wrong.
   viewport meta tag and puts it straight back, which is the only lever a page
   has over a viewport it did not choose. Three things about it that are easy to
   get wrong later:
-  - **The peak must be per orientation AND persisted.** Per orientation, or a
-    rotation from 874 to 402 reads as a 472px defect and flips the viewport
-    every time the phone turns. Persisted, or a reload INSIDE an already
-    shrunken app adopts the short value as normal and reports all clear — and
-    the defect survives until the app is force-quit, so that reload is the
-    common case, not the corner one. `work/viewport-check.mjs` holds both.
+  - **A remembered peak cannot see a viewport that was NEVER right.** This is
+    how the fifth attempt shipped blind. It compared the current height
+    against the tallest this device had ever reported, which catches a
+    viewport that shrank — and the reported device reads 812 of an 874 screen
+    from first paint, every launch, so the peak IS 812 and the readout said
+    "Full height · viewport 812px". A detector whose only reference is the
+    device's own history is blind to a device that was never healthy.
+  - **The signal that works is the TOP inset, and it is not obvious.** A
+    standalone viewport shorter than the screen has two explanations that
+    produce identical numbers: an OPAQUE status bar (iOS starts the page below
+    it, reports `safe-area-inset-top: 0`, and the page still reaches the
+    bottom — nothing wrong), or a TRANSLUCENT one (the page paints from y=0,
+    reports a real top inset, and a short height therefore leaves the gap at
+    the BOTTOM). So `insetTop > 0 && screenShortfall >= floor` is the defect,
+    and the same shortfall with no top inset is not. Firing on the second
+    would drop a safe-area inset that is real and put the tab buttons under
+    the home indicator. `work/viewport-check.mjs` holds both readings side by
+    side, because they differ by one number.
+  - **62 is not a coincidence: it is the top inset.** 874 − 812 = 62, and
+    `env(safe-area-inset-top)` on a Dynamic Island iPhone is 59–62. iOS
+    appears to SIZE the viewport as though the status bar were excluded while
+    POSITIONING it as though it were included. If that is right, an opaque
+    status-bar style would trade the bottom band for a status bar at the top —
+    a design decision, not a bug fix, so it is not taken here without asking.
+  - **The peak is still kept, per orientation and persisted.** It catches the
+    other shape — a viewport that shrinks from a height this device has
+    reported — and per orientation because a rotation from 874 to 402 would
+    otherwise read as a 472px defect and flip the viewport every time the
+    phone turns.
   - **The flip needs two frames.** Setting the same attribute twice in one task
     is coalesced and WebKit never sees a change. Set the fallback, then restore
     on the next animation frame.
-  - **Do not derive a length from the peak.** It decides WHETHER to ask and it
-    prints a diagnostic; the moment it sizes something, this becomes attempt
-    three again with a worse failure mode. The one layout consequence allowed
-    is dropping the tab bar's bottom safe-area inset while `data-viewport` says
-    `shrunk`: the home indicator is outside the viewport in that state, so the
-    34px protect nothing and add to the band. That is a reaction to a
-    measurement, not a device-specific offset.
+  - **Two layout consequences, and they are graded by how badly they can end.**
+    Dropping the tab bar's bottom safe-area inset is keyed off `data-inset`,
+    written only when the measured shortfall EXCEEDS the inset — the home
+    indicator is then demonstrably outside the page, so those 34px protect
+    nothing and merely add to the band. That one is safe enough to be
+    automatic. Extending `.shell` with a negative bottom into the strip is
+    NOT: the strip is painted by the web view, so it will probably show, but
+    nobody here can test whether taps land there, and a visible untappable tab
+    bar is worse than a gap. So it is opt-in, and turning it on stores
+    `trial`, which `init()` clears on the next launch — force-quitting is
+    always enough to undo it. Only reaching the "Keep it" row, which requires
+    the buttons to still work, promotes it.
 - **A `min` under a safe-area inset does nothing where it matters.** The tab
   bar's `padding-bottom:max(22px, env(safe-area-inset-bottom))` was 34px on a
   phone with a home indicator (the inset already covers it) and 22px of dead

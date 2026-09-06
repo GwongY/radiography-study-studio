@@ -95,20 +95,69 @@ export function diagnose(r) {
   const innerH = Number(r.innerH) || 0;
   const innerW = Number(r.innerW) || 0;
   const peak = Math.max(Number(r.peakH) || 0, innerH);
-  const shortfall = Math.max(0, Math.round(peak - innerH));
+  const peakShortfall = Math.max(0, Math.round(peak - innerH));
   const landscape = innerW > innerH;
   const sw = Number(r.screenW) || 0;
   const sh = Number(r.screenH) || 0;
   const expected = sw && sh ? (landscape ? Math.min(sw, sh) : Math.max(sw, sh)) : 0;
+  const screenShortfall = expected ? Math.max(0, Math.round(expected - innerH)) : 0;
+  const insetTop = Math.round(Number(r.insetTop) || 0);
+  const insetBottom = Math.round(Number(r.insetBottom) || 0);
   const base = {
-    peak, shortfall, expected, landscape,
-    screenShortfall: expected ? Math.max(0, Math.round(expected - innerH)) : 0,
+    innerH, innerW, peak, peakShortfall, screenShortfall, expected, landscape,
+    insetTop, insetBottom,
+    shortfall: Math.max(peakShortfall, 0),
   };
   /* A browser tab's chrome is not a defect, and a keyboard that is up right
      now is not one either — both are the viewport doing its job. */
-  if (!r.standalone) return { ...base, state: 'browser' };
-  if (r.keyboard) return { ...base, state: 'keyboard' };
-  return { ...base, state: shortfall >= SHRINK_FLOOR ? 'shrunk' : 'ok' };
+  if (!r.standalone) return { ...base, state: 'browser', floating: false, insetDead: false };
+  if (r.keyboard) return { ...base, state: 'keyboard', floating: false, insetDead: false };
+
+  /*
+   * THE DISCRIMINATOR, and the whole reason the first version of this could
+   * not see the real defect.
+   *
+   * A standalone app whose viewport is shorter than the screen has two
+   * completely different explanations, and they produce the same shortfall:
+   *
+   *   OPAQUE status bar — iOS starts the viewport BELOW the status bar and
+   *   sizes it to the rest. 62px missing, no gap anywhere, nothing wrong. It
+   *   reports `safe-area-inset-top: 0`, because there is nothing above the
+   *   page to pad for.
+   *
+   *   TRANSLUCENT status bar (what this app asks for) — the page paints from
+   *   the very top of the screen, so it reports a real top inset and pads for
+   *   it. If its HEIGHT is then short as well, the missing space can only be
+   *   at the BOTTOM, because the top edge is pinned to the top of the screen.
+   *   That is the band.
+   *
+   * So: a top inset means we are covering the status bar, and only then does
+   * a short viewport mean a gap underneath. Getting this wrong in the other
+   * direction is what would put the tab bar under the home indicator on a
+   * device that was fine, which is why it is a test and not an assumption.
+   */
+  const covering = insetTop > 0;
+  const floating = covering && screenShortfall >= SHRINK_FLOOR;
+  /* The keyboard shape is still worth catching: there the viewport shrinks
+     from a height this device has previously reported. */
+  const shrunk = floating || peakShortfall >= SHRINK_FLOOR;
+  return {
+    ...base,
+    shortfall: Math.max(peakShortfall, floating ? screenShortfall : 0),
+    state: shrunk ? 'shrunk' : 'ok',
+    floating,
+    /*
+     * Is the bottom safe-area inset reserving anything real?
+     *
+     * It exists to keep controls off the home indicator, and the home
+     * indicator is at the bottom of the SCREEN. When the page stops short of
+     * the screen by more than the inset itself, the indicator is entirely
+     * outside the page: those pixels protect nothing and are simply added to
+     * the empty band the reader can see. Requiring the shortfall to EXCEED
+     * the inset is what keeps this from firing on a marginal case.
+     */
+    insetDead: floating && insetBottom > 0 && screenShortfall >= insetBottom,
+  };
 }
 
 /** The orientation key a peak is remembered under. */
@@ -123,11 +172,29 @@ export function peakKey(reading) {
 /** One line of English for the readout. Pure for the same reason. */
 export function describeViewport(d) {
   const px = (n) => `${Math.round(n)}px`;
-  const now = px(d.peak - d.shortfall);
-  if (d.state === 'browser') return `Browser tab · viewport ${now} tall. The band this watches for only appears in the installed app.`;
-  if (d.state === 'keyboard') return `Keyboard up · viewport ${now} of ${px(d.peak)}. Nothing is judged while it is.`;
-  if (d.state === 'shrunk') return `Short by ${px(d.shortfall)} · viewport ${now} where this device has reported ${px(d.peak)}. That is the band.`;
-  return `Full height · viewport ${now}, the tallest this device has reported. No band.`;
+  if (d.state === 'browser') return `Browser tab · viewport ${px(d.innerH)} of a ${px(d.expected)} screen. The band only appears in the installed app.`;
+  if (d.state === 'keyboard') return `Keyboard up · viewport ${px(d.innerH)} of ${px(d.peak)}. Nothing is judged while it is.`;
+  if (d.floating) {
+    return `Short by ${px(d.screenShortfall)} · the page covers the status bar (top inset ${px(d.insetTop)}) but its ${px(d.innerH)} stops `
+      + `${px(d.screenShortfall)} above the ${px(d.expected)} screen. That gap is the band.`;
+  }
+  if (d.state === 'shrunk') return `Shrunk by ${px(d.peakShortfall)} · viewport ${px(d.innerH)} where this device has reported ${px(d.peak)}.`;
+  if (d.screenShortfall >= SHRINK_FLOOR) {
+    return `Full height · viewport ${px(d.innerH)} of a ${px(d.expected)} screen, but with no top inset — the status bar is opaque, so the page starts below it and reaches the bottom. No band.`;
+  }
+  return `Full height · viewport ${px(d.innerH)} of a ${px(d.expected)} screen. No band.`;
+}
+
+/**
+ * Every number, unabbreviated. A sentence is what you read; this is what you
+ * paste into a bug report, and the two failed rounds before this one failed
+ * for want of exactly these five figures.
+ */
+export function detailViewport(d) {
+  return `screen ${d.expected}, viewport ${d.innerW}x${d.innerH}, `
+    + `insets top ${d.insetTop} bottom ${d.insetBottom}, `
+    + `peak ${d.peak}, short by ${d.screenShortfall} (screen) / ${d.peakShortfall} (peak), `
+    + `state ${d.state}${d.floating ? ', floating' : ''}${d.insetDead ? ', inset dead' : ''}`;
 }
 
 /* ------------------------------------------------------------------ *
@@ -170,6 +237,15 @@ function keyboardUp() {
   return editable || squeezed;
 }
 
+/* `env()` is not readable from script — getComputedStyle hands back the
+   unresolved function. app.css assigns both insets to --sat/--sab for this. */
+function inset(name) {
+  try {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name);
+    return parseFloat(v) || 0;
+  } catch { return 0; }
+}
+
 function reading() {
   const s = window.screen || {};
   return {
@@ -179,6 +255,8 @@ function reading() {
     innerH: window.innerHeight,
     screenW: s.width || 0,
     screenH: s.height || 0,
+    insetTop: inset('--sat'),
+    insetBottom: inset('--sab'),
   };
 }
 
@@ -207,7 +285,11 @@ function publish(d) {
   latest = d;
   const el = document.documentElement;
   el.dataset.viewport = d.state;
-  el.style.setProperty('--vp-shortfall', `${d.shortfall}px`);
+  /* Separate from `state` on purpose: dropping the tab bar's bottom inset is a
+     layout change with a real failure mode, so CSS keys it off the narrower
+     finding rather than off "something is wrong". */
+  el.dataset.inset = d.insetDead ? 'dead' : 'live';
+  el.style.setProperty('--vp-shortfall', `${d.screenShortfall}px`);
 }
 
 /** The last diagnosis, for the More row. */
@@ -258,7 +340,62 @@ export function recoverByHand() {
 /** The note under the More row — the numbers, in a sentence. */
 export function viewportNote() {
   const d = viewportReport();
-  return describeViewport(d);
+  return `${describeViewport(d)} (${detailViewport(d)})`;
+}
+
+/* ------------------------------------------------------------------ *
+ * Filling the strip — the one thing left to try, and it is opt-in
+ * ------------------------------------------------------------------ */
+
+/*
+ * `.shell` is `position:fixed` with `bottom:0`, so it ends at the bottom of
+ * the LAYOUT VIEWPORT — 62px above the bottom of the screen on the reported
+ * device. Giving it a negative bottom extends it into the strip.
+ *
+ * Whether anything appears there is the open question, and it is the reason
+ * this is a switch rather than a default. The strip IS painted by the web
+ * view — the earlier measurement found it filled with the body background
+ * propagated to the canvas — so a fixed element extended into it will
+ * probably be drawn. Probably. What nobody here can test is whether taps land
+ * there, and a tab bar that is visible and untappable is a worse app than one
+ * with a gap.
+ *
+ * docs/TRAPS.md says never to compensate with a negative bottom offset
+ * "without on-device evidence". This now has some: screen 874, viewport 812,
+ * top inset 62, and a band painted in --bg. That earns an experiment, not a
+ * default.
+ *
+ * THE ESCAPE HATCH is the important part. Turning it on stores 'trial', and
+ * boot clears 'trial' — so if the tab bar becomes unreachable, force-quitting
+ * and relaunching puts it back. Only "Keep it" promotes the setting to one
+ * that survives a launch, and by then the reader has demonstrably still been
+ * able to reach the control that says so.
+ */
+const STRIP_KEY = STORAGE_PREFIX + 'stripfill';
+
+export function stripMode() { return read(STRIP_KEY, 'off') || 'off'; }
+
+function applyStrip(mode) {
+  document.documentElement.dataset.strip = mode === 'off' ? 'off' : 'on';
+}
+
+export function setStripMode(mode) {
+  write(STRIP_KEY, mode);
+  applyStrip(mode);
+}
+
+/** Tapped from More. Off → trial → off; "Keep it" is its own row. */
+export function toggleStripFill() {
+  const next = stripMode() === 'off' ? 'trial' : 'off';
+  setStripMode(next);
+  toast(next === 'off'
+    ? 'Bottom strip left alone.'
+    : 'Filling the bottom strip. If the tab bar is now out of reach, force-quit the app and relaunch — it reverts on its own.');
+}
+
+export function keepStripFill() {
+  setStripMode('kept');
+  toast('Bottom strip fill kept. Turn it off again from this row.');
 }
 
 /*
@@ -270,6 +407,10 @@ export function viewportNote() {
  * on a return from the back-forward cache where no resize ever arrives.
  */
 export function init() {
+  /* The escape hatch: a trial never survives a launch. Whatever happened on
+     screen, relaunching is always enough to undo it. */
+  if (stripMode() === 'trial') write(STRIP_KEY, 'off');
+  applyStrip(stripMode());
   const soon = (() => {
     let t = null;
     return () => { clearTimeout(t); t = setTimeout(() => checkViewport(), 250); };

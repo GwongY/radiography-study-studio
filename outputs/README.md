@@ -46,29 +46,50 @@ a `--vh` property written from `window.innerHeight`, and pinning `.shell` with
 viewport the browser supplied, and on the affected device that viewport is itself
 about 60px short of the screen. There is nothing a length can do about that.
 
-`outputs/study/viewport-recovery.js` changes the approach. It **measures** — the
-tallest layout viewport this device has ever reported in this orientation, kept
-across loads, against what it is reporting now — and publishes the answer as
-`html[data-viewport]`, as `--vp-shortfall`, and as a readable line under
-**More → Screen fit on this device**. When it finds the viewport short it
-**asks for it back**, by rewriting the viewport meta tag and putting it straight
-back: the value is equivalent, and it is the change that makes WebKit re-run
-viewport configuration. Three attempts at most, then it reports and stops.
+`outputs/study/viewport-recovery.js` **measures** instead, and the first version
+of it measured the wrong thing — a lesson worth keeping. It compared the current
+viewport against the tallest this device had ever reported, which catches a
+viewport that *shrank*. The device reports 812 of an 874 screen **from first
+paint, every launch**, so the peak is 812 and the readout said "Full height".
+A detector whose only reference is the device's own history cannot see a device
+that was never healthy.
 
-Two things it deliberately does not do: it never sets a height, a bottom offset
-or any screen-derived length — a number wrong the other way puts controls off the
-bottom of the page on a device nobody here can test — and it never fires outside
-the installed app, where a shorter viewport is just browser chrome. The one
-layout change it does make is to drop the tab bar's `env(safe-area-inset-bottom)`
-while the viewport is measured as short: the home indicator is below the viewport
-in that state, so those 34px protect nothing and simply add to the visible band.
+The signal that works is the **top safe-area inset**. A standalone viewport
+shorter than the screen has two explanations that produce identical numbers:
 
-The likely cause, on the reports that describe the mechanism, is the soft
-keyboard: in a standalone web app the keyboard is a viewport resize rather than an
-overlay, and the viewport does not grow back when it closes. That is a diagnosis,
-not a proof — which is why the readout exists. `node work/viewport-check.mjs`
-drives the decision with readings this repo cannot produce on a phone, including
-the reported 402×874 / 812 case and a reload inside an already-shrunken app.
+| | top inset | means |
+| --- | --- | --- |
+| Opaque status bar | `0` | iOS starts the page below the bar; it still reaches the bottom. Nothing wrong. |
+| Translucent status bar | `62` | The page paints from y=0, so a short height leaves the gap at the **bottom**. That is the band. |
+
+So the test is `insetTop > 0 && screenShortfall ≥ 24`. Firing on the other case
+would drop a safe-area inset that is real and put the tab buttons under the home
+indicator, which is why it is a test and not an assumption — and why
+`work/viewport-check.mjs` holds both readings side by side.
+
+**62 is not a coincidence.** 874 − 812 = 62, and `env(safe-area-inset-top)` on a
+Dynamic Island iPhone is 59–62. iOS appears to *size* the viewport as though the
+status bar were excluded while *positioning* it as though it were included.
+
+Three responses, graded by how badly each can end:
+
+- **Report.** `html[data-viewport]`, `--vp-shortfall`, and a full readout under
+  **More → Screen fit on this device** — screen, viewport, both insets, both
+  shortfalls. Two rounds of guessing failed for want of exactly those numbers.
+- **Drop the dead inset.** Automatic, keyed off `data-inset`, written only when
+  the shortfall *exceeds* the inset — the home indicator is then demonstrably
+  outside the page, so its 34px protect nothing and only add to the band.
+- **Fill the strip.** Opt-in. `.shell` gets a negative bottom and extends past
+  the viewport into the strip. The strip is painted by the web view so it will
+  probably show, but nobody here can test whether taps land there — and a
+  visible, untappable tab bar is worse than a gap. Turning it on stores a
+  *trial* that `init()` clears on the next launch, so force-quitting always
+  undoes it; only reaching the "Keep it" row, which requires the buttons to
+  still work, makes it permanent.
+
+It never sets a height or any screen-derived length on ordinary layout, and it
+never fires outside the installed app, where a shorter viewport is just browser
+chrome.
 
 Serve the `outputs` folder over a local web server so ES modules resolve:
 
