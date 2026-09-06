@@ -185,6 +185,7 @@ function tuckOnRead() {
 /* Runs after every part has evaluated — see the entry point. */
 export function init() {
   window.xrayFallback = xrayFallback;
+  window.__rssToast = toast;
   const panelToggle = $$('taskPanelToggle');
   const panel = $$('taskCard');
   panelToggle.addEventListener('click', () => {

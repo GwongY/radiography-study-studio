@@ -10,7 +10,8 @@ import { closeSessionOverlay } from './navigation-five-destinations.js';
 import { commitTransfer, exportProgress, handleTransferFile } from './reset.js';
 import { handleConnect, handleDisconnect, handleSyncNow } from './gist-sync.js';
 import { endSession } from './layout-figures.js';
-import { renderToday } from './spatial-overlay-controls.js';
+import { handlePackFile, handlePackFetch, handlePackRemove, whenPackLoaded } from './question-pack.js';
+import { renderToday } from './home.js';
 import { setStep, startSession } from './session-engine.js';
 
 /* ------------------------------------------------------------------ *
@@ -108,5 +109,16 @@ export function init() {
   $$('syncConnect').onclick = () => handleConnect();
   $$('syncNowBtn').onclick = () => handleSyncNow();
   $$('syncDisconnect').onclick = () => handleDisconnect();
+  $$('closePack').onclick = () => $$('packDialog').close();
+  $$('packFileInput').onchange = (e) => handlePackFile(e.target.files && e.target.files[0]);
+  $$('packFetchBtn').onclick = () => handlePackFetch();
+  $$('packRemoveBtn').onclick = () => handlePackRemove();
+  /*
+   * The pack is read from IndexedDB after boot, deliberately without blocking
+   * it. Today's tiles count the exam pool, so they are drawn before it can
+   * arrive -- redraw once when it does, or the card understates the pool until
+   * something else happens to re-render.
+   */
+  whenPackLoaded(() => renderToday());
   renderToday();
 }

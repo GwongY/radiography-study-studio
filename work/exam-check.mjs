@@ -210,5 +210,57 @@ for (const subject of Object.keys(SUBJECT_ADMIN)) {
   else fail(`${subject}: rehearsal row is not in outputs/schedule.js`);
 }
 
+/* ------------------------------------------------------------------ *
+ * A loaded pack
+ *
+ * The pack is licensed content and exam mode is the only thing that serves it,
+ * so the join between them is checked here rather than trusted. Two shapes
+ * meet: the pack stores options as {letter, text} with a LETTER answer, the
+ * corpus stores strings with an INDEX. Getting that conversion wrong does not
+ * throw — it marks the wrong option correct, on every pack question, forever.
+ * ------------------------------------------------------------------ */
+console.log('— a loaded pack joins the pool without changing it —');
+
+const { holdPack, packAttemptId, packQuestions } = await import(pathToFileURL(join(root, 'outputs/study/question-pack.js')).href);
+
+const before = examPool().length;
+await holdPack({
+  format: 'rss.pack',
+  packId: 'check-pack',
+  questions: [
+    { qid: 'ch07-q001', chapter: 7, type: 'mcq', stem: 'Which is the odd one out?',
+      options: [{ letter: 'A', text: 'alpha' }, { letter: 'B', text: 'beta' }, { letter: 'C', text: 'gamma' }],
+      answer: 'C' },
+    /* Short-answer: model-answer prose, unmarkable, must not reach a paper. */
+    { qid: 'ch07-q002', chapter: 7, type: 'short', stem: 'Explain why.', answer: 'Because.' },
+  ],
+});
+
+const packQs = packQuestions();
+is(packQs.length, 1, 'only the markable question is offered');
+is(packQs[0].answer, 2, 'the letter answer C became index 2');
+is(packQs[0].options[2], 'gamma', 'and index 2 is the option the letter named');
+is(packQs[0].qid, packAttemptId('check-pack', 'ch07-q001'), 'the question id is the attempt id');
+
+const after = examPool().length;
+is(after, before + 1, 'the mixed pool grew by the pack question');
+is(examPool({ subject: 'ABCT2326' }).length, subjectPool.length, 'a SUBJECT pool is unchanged — the pack has no subject');
+
+/* Marked like any other question, and grouped under its own chapter rather
+   than falling into the 'unassigned' bucket with everything else. */
+const packMarked = markPaper(packQs, { [packQs[0].qid]: 2 });
+is(packMarked.correct, 1, 'the right option marks correct');
+is(markPaper(packQs, { [packQs[0].qid]: 0 }).correct, 0, 'a wrong option marks wrong');
+is(packMarked.byUnit[0].unit, 'Chapter 7', 'the breakdown groups it by chapter');
+
+/* The one property the whole design rests on: nothing that identifies the
+   question travels with the id it is recorded under. */
+const id = packQs[0].qid;
+if (!/odd one out|alpha|beta|gamma/i.test(id)) ok('the attempt id carries no stem or option text');
+else fail(`the attempt id carries question text: ${id}`);
+
+await holdPack(null);
+is(examPool().length, before, 'dropping the pack returns the pool to the corpus');
+
 console.log(failures ? `\n${failures} FAILED` : '\nALL PASS');
 process.exit(failures ? 1 : 0);

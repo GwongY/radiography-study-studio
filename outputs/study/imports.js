@@ -137,6 +137,7 @@ export {
   termGloss,
   termNote,
   tierFor,
+  TIER_LABELS,
   ui,
   validateApplications,
   validateCorpus,

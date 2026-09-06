@@ -36,6 +36,7 @@ export const COVERAGE = {
         'The confirmed 2026/27 subject description form: the six intended learning outcomes, the official module titles, what each module contains, the 129-hour study effort and the set text.',
       'Bone histology — the two matrix components and the four cell types — and red versus yellow marrow.',
       'Muscle organisation from epimysium to myofilament, the five fascicle arrangements, tendon and its two junctions, origin and insertion, the motor unit and muscle tone.',
+        'Thoracic regional anatomy: sternal angle (manubriosternal junction at T4/T5, 2nd costal cartilage, superior/inferior mediastinum boundary), carina bifurcation at T4/T5, thoracic inlet (T1, 1st rib) vs outlet (T12, 12th rib) boundaries, intercostal neurovascular bundle (VAN + lymphatics), and diaphragm innervation by phrenic nerves (C3–C5) draining to IVC.',
       ],
       gaps: [
       'The slow/fast oxidative/glycolytic comparison table in the 2026 Module 1 deck is an image with no extractable text; fibre types remain covered from the official older physiology notes (phys.susan9).',
@@ -67,6 +68,9 @@ export const COVERAGE = {
         'Digestive wall and enteric reflexes; gastric cells, acid production and three control phases; small-intestinal absorption, pancreatic enzymes, bile, duodenal hormones, colon and water balance.',
         'Inflammation, the complement pathways and the membrane attack complex, active vs passive and cell- vs antibody-mediated immunity',
         'Reproductive physiology from the readable older official lecture: male hormonal control, ovarian and menstrual cycles, fertilisation and implantation, placenta, pregnancy and parturition.',
+        'Nerve cell physiology: neuron structure and 100 billion brain count, neuroglia (astrocytes, ependymal cells, oligodendrocytes in CNS vs Schwann cells in PNS), resting membrane potential (50–70x K+ passive permeability, 3 Na+ out / 2 K+ in ATPase), action potential dynamics (+25 mV peak, all-or-none law, absolute/relative refractory periods), saltatory conduction at nodes of Ranvier (1–2 mm spacing), gap junctions, and acetylcholine synaptic transmission / EPSP.',
+        'Renal microarchitecture and quantitative dynamics: >1 million nephrons, 100–400x capillary fenestrations, GFR (115 ml/min female, 125 ml/min male, 180 L/day filtrate), 400 ml/day minimum obligate volume, 6% basal resting energy cost, 65% PCT + 20% Henle reabsorption (85% early hydration-independent), 1400 mOsm/L countercurrent multiplier gradient, RAAS axis (renin, pulmonary ACE, aldosterone), and detrusor bladder muscle.',
+        'Muscle ultrastructure, energetics and motor control: ~40% male / 32% female body mass, titin Z-disc elastic recoil, troponin complex spacing at every 7 actins, 10x larger SR Ca2+ release channels, ~20 fibres/motor unit in eye, VO2 max (12–84 ml/min/kg) and lactate threshold (50–70% VO2 max), Type I (red slow oxidative) vs Type IIX (white fast glycolytic) phenotypes, myostatin satellite cell inhibition, basal ganglia loops (Parkinson\'s dopamine loss vs Huntington\'s chorea), and osteon bone remodeling (1/5 adult skeleton/year).',
       ],
       gaps: [
         'BLOOD-PRESSURE REGULATION IS NOT IN THE SUPPLIED SOURCES. Neither the cardiovascular lecture deck nor its supplementary deck mentions blood-pressure regulation or baroreceptors as a cardiovascular topic. No items were written for it. (Baroreceptors do appear, but only in the respiratory lecture, as an input to the control of respiration — which is where they are covered here.)',
@@ -86,13 +90,17 @@ export const COVERAGE = {
         'Radiation therapy roles, HK service structure and the three planning steps',
         'Radiology department staffing and reading an X-ray request form',
         'The 2026 subject shape itself: eight sessions, the three contact-hour components, both assessments and the Observation Day.',
+        'Linear accelerator physics and treatment head components: microwave RF generation (magnetron vs klystron at ~3 GHz), accelerating waveguide, bending magnets, low-Z flattening filter and horns, and dual ionization chambers.',
+        'Linac accessories and bunker radiation protection: Cerrobend blocks (70°C melting point, 25 lbs hazard), independent jaws (<0.5% transmission), dynamic wedges (30 cm field width), multileaf collimators (3 cm/s leaf speed, 1.8% transmission), photoneutron hazards above 10 MV, and 5 m maze entrance shielding.',
+        'Linear accelerator electron therapy and RapidArc/VMAT delivery: electron scattering foils, lead/Cerrobend cut-outs, NACP energy estimation (E = 2.33 x d50), 120-leaf dynamic MLC, continuous gantry rotation (6 deg/s), variable dose rate (600 MU/s), Progressive Resolution Optimization (10 to 177 control points), and NPC treatment time reduction from 12–20 min to 3 min.',
+        'Evolution of modern radiotherapy modalities (Palma et al. 2010): 2D planar anatomy, 3D-CRT volumetric CT planning, static-field IMRT beamlets and risks (prolonged delivery up to 45 min, higher integral dose and secondary malignancy risks), and rotational arc therapy (Tomotherapy and VMAT) achieving continuous gantry rotation, monitor unit reduction, and fast delivery in minutes.',
       ],
       gaps: [
-        'PARTLY RESOLVED. The 2026 teaching schedule under the real subject code has since been supplied, and so has the 2026 opening lecture — by Liang-Ting Lin, the lecturer that schedule names. The LECTURE SET is still HTI17101 Exploring Radiography, which is why the status stays substitute; but the schedule confirms the substitution topic by topic — every session it lists has a lesson built from the HTI17101 material — and the subject’s own shape (26 contact hours, worksheet 50%, seminar 50%, the two-day hospital observation) is now sourced from the real document.',
+        'PARTLY RESOLVED. The 2026 teaching schedule under the real subject code has since been supplied, and so has the 2026 opening lecture — by Liang-Ting Lin, the lecturer that schedule names. The LECTURE SET is still HTI17101 Exploring Radiography, which is why the status stays substitute; but the schedule confirms the substitution topic by topic — every session it lists has a lesson built from the HTI17101 material — and the subject’s own shape (26 contact hours, worksheet 50%, seminar 50%, the two-day hospital observation) is now sourced from the real document. Linear accelerator physics and beam collimation accessories are now covered in unit hti.rt from Dr. Ricky Chau\'s official lecture series (Prince of Wales Hospital).',
         'Projection terminology: only "PA" and "Lat" appear anywhere in the supplied lecture set, in one worked chest X-ray request form. "AP" and "oblique" do not appear, so no items claim them.',
         'MI and RT worksheets are student submissions and were used only to confirm topic scope, not as fact sources.',
       ],
-      files: 80,
+      files: 84,
     },
     {
       id: 'APSS1A08', status: 'limited',

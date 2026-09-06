@@ -7,7 +7,8 @@ import { $$, esc, ui } from './imports.js';
 import { openViewer } from './what-is-under.js';
 import { releaseLessonVisual } from './lesson-visuals.js';
 import { renderLearn } from './subject.js';
-import { renderMore, renderToday } from './spatial-overlay-controls.js';
+import { renderMore } from './more-sources-coverage.js';
+import { renderToday } from './home.js';
 import { renderReviewTab, reviewTab } from './review-mistakes-due.js';
 import { renderCourse } from './course-timetable.js';
 
