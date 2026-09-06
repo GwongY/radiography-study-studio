@@ -127,6 +127,8 @@
       </div>
       <div class="stagenote"><span class="stagenote-row"><span id="stageMeta">z-anatomy-skeleton.glb · cached offline</span><span class="mono" id="regionMeta">All regions</span></span><span class="stage-hint">drag to rotate · pinch to zoom · tap a structure · tap the same spot again to go deeper</span></div>
       <aside class="selpanel" id="taskCard">
+        <button class="panel-toggle" id="taskPanelToggle" aria-expanded="false" aria-controls="taskPanelContent">Explore &amp; study</button>
+        <div id="taskPanelContent">
         <!--
           The study modes used to live inside the "⋯" sheet, two taps away from
           the model they quiz you on, which is most of why nobody could find
@@ -152,6 +154,7 @@
         <div class="feedback" id="feedback"></div>
         <div class="answers" id="answers"></div>
         <button class="primary next" id="nextBtn">Next question</button>
+        </div>
       </aside>
       <div class="ctrlpill"><button class="icon-btn" id="resetBtn"><span class="lbl-full">Reset view</span><span class="lbl-abbr">Reset</span></button><button class="icon-btn" id="zoomInBtn"><span class="lbl-full">Zoom in</span><span class="lbl-abbr">+</span></button><button class="icon-btn" id="zoomOutBtn"><span class="lbl-full">Zoom out</span><span class="lbl-abbr">−</span></button><button class="icon-btn" id="focusBtn"><span class="lbl-full">Focus selected</span><span class="lbl-abbr">Focus</span></button><button class="icon-btn" id="viewerMoreBtn" aria-label="More viewer controls" aria-expanded="false">⋯</button></div>
     </div>

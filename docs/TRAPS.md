@@ -832,7 +832,17 @@ to get wrong.
   containing block and re-resolves when that changes. `#sessionView` had been
   `position:fixed; inset:0` from the start and never showed the band — that was
   the clue. Verified at 402x874 on all six destinations: shell bottom 874,
-  bar bottom 874, gap 0.
+  bar bottom 874, gap 0 **in browser emulation only**.
+- **Emulation does not prove Home Screen viewport coverage.** The user's
+  2026-09-06 iPhone 17 Pro screenshot still shows a separate strip below the
+  tab bar. [WebKit 301994, comment 12](https://bugs.webkit.org/show_bug.cgi?id=301994#c12)
+  reports the same symptom on iOS 26.5.2: screen height 874, available viewport
+  812, and a system-owned 62px strip outside the DOM. The issue is reopened;
+  the user's OS version is not yet confirmed. Pinning still fills the available
+  viewport, but cannot fix that OS defect. Keep the root, manifest, theme and
+  bottom-tab backgrounds consistent as visual mitigation, not as a claim that
+  the missing space is reclaimed. Never compensate with a device-specific
+  height or negative bottom offset without on-device evidence.
 - **A `min` under a safe-area inset does nothing where it matters.** The tab
   bar's `padding-bottom:max(22px, env(safe-area-inset-bottom))` was 34px on a
   phone with a home indicator (the inset already covers it) and 22px of dead

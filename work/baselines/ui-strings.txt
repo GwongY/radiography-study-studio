@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 878 —
-  b97bfff21e5b9a84  WHOLE SET
+— user-facing strings in outputs/ — 880 —
+  a53ca706b29b3942  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -282,6 +282,7 @@
   4b18c8812e334be5  Every question validates
   49070002f587bcf4  Everything you have got wrong, most-repeated first. Each one keeps its own explanation and the confusion that caused it.
   c00d4a1a69e70add  Explain my mistakes
+  bffe96c6114e2262  Explore & study
   9f7d2428f854a82f  Fade everything except the structures that define the cavity.
   b4b9abe93d713048  FiBUla is the thin lateral pin and ends in the lower lateral malleolus.
   1a5d72ec7b07df58  Find the
@@ -309,6 +310,7 @@
   dc0798173dbd926c  Held still for reference:
   6fd0c5d030af33d3  Held still:
   2a7c8d2f587fec15  Hidden (
+  40cd6293d193b56d  Hide panel
   33832e6712de5c86  Hide this
   17dd4e0e76c7a31e  How to read the type column
   65df92c8f92a9651  I can see how it moves
