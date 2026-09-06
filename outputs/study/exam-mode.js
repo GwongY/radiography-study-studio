@@ -32,6 +32,7 @@
  */
 import { $$, SUBJECT_ADMIN, STUDY_ITEMS, dimensionFor, esc, getItem, questionsOf, ui } from './imports.js';
 import { looseMatch } from './layout-figures.js';
+import { packQuestions } from './question-pack.js';
 import { closeSessionOverlay, openSessionOverlay } from './navigation-five-destinations.js';
 import { recordAttempt } from './progress-log.js';
 import { toast } from './small-ui-helpers.js';
@@ -52,7 +53,14 @@ export const EXAM_DEFAULTS = { count: 20, minutes: 25 };
 
 export function examPool(opts = {}) {
   const items = opts.subject ? STUDY_ITEMS.filter((i) => i.subject === opts.subject) : STUDY_ITEMS;
-  return items.flatMap((i) => questionsOf(i).filter((q) => EXAM_TYPES.includes(q.type)));
+  const corpus = items.flatMap((i) => questionsOf(i).filter((q) => EXAM_TYPES.includes(q.type)));
+  /*
+   * A loaded pack adds to the pool and changes nothing else. It carries no
+   * subject, so a subject paper stays corpus-only rather than quietly mixing
+   * in questions from a bank that does not know which subject it is answering.
+   */
+  if (opts.subject || opts.corpusOnly) return corpus;
+  return [...corpus, ...packQuestions()];
 }
 
 export function buildPaper(opts = {}) {
@@ -93,12 +101,14 @@ export function markPaper(paper, answers = {}) {
   const rows = paper.map((q) => {
     const given = answers[q.qid];
     const { answered, correct } = markQuestion(q, given);
+    /* A pack question has no study item; it brings its own unit and title,
+       both of which are shown and neither of which is recorded. */
     const item = getItem(q.itemId);
     return {
       q, given, answered, correct,
-      unit: item?.unit || 'unassigned',
-      subject: item?.subject || 'unassigned',
-      title: item?.title || q.itemId,
+      unit: q.unit || item?.unit || 'unassigned',
+      subject: item?.subject || (q.packId ? 'Question pack' : 'unassigned'),
+      title: q.title || item?.title || q.itemId,
     };
   });
   const correct = rows.filter((r) => r.correct).length;

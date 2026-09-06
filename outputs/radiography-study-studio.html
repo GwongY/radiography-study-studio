@@ -441,6 +441,34 @@
     rule and the more recent side of a clash wins; the full event history survives either way.
   </div>
 </dialog>
+<dialog id="packDialog">
+  <button class="ghost close" id="closePack">Close</button>
+  <div class="eyebrow">Licensed material</div>
+  <h2 class="task-title">Question pack</h2>
+  <p class="small" id="packSummary"></p>
+  <div class="notice" style="margin-top:12px">
+    <strong>Device-only practice bank.</strong>
+    Question packs contain publisher test banks or institutional questions. They are never committed
+    to this repository and never included in public builds. A pack lives solely in IndexedDB on this device and
+    expands the practice pool for Exam Mode without touching your durable progress history.
+  </div>
+  <div class="subhead" style="margin-top:16px">Import a local pack file</div>
+  <label class="small" for="packFileInput" style="display:block;margin-top:6px">Select a question pack (.json) from this device</label>
+  <input type="file" id="packFileInput" accept="application/json,.json" style="margin-top:6px">
+  <div class="subhead" style="margin-top:18px">Or sync from a private GitHub repository</div>
+  <label class="small" for="packRepo" style="display:block;margin-top:6px">Repository (owner/repo)</label>
+  <input type="text" id="packRepo" autocomplete="off" spellcheck="false" placeholder="e.g. username/study-packs" style="margin-top:5px;width:100%">
+  <label class="small" for="packToken" style="display:block;margin-top:10px">Fine-grained personal access token (read-only Contents on this repo)</label>
+  <input type="password" id="packToken" autocomplete="off" spellcheck="false" placeholder="github_pat_…" style="margin-top:5px;width:100%">
+  <label class="small" for="packIdInput" style="display:block;margin-top:10px">Pack folder name in repository</label>
+  <input type="text" id="packIdInput" autocomplete="off" spellcheck="false" placeholder="e.g. abct2326-bank-v1" style="margin-top:5px;width:100%">
+  <div class="rss-actions" style="margin-top:14px">
+    <button class="primary" id="packFetchBtn">Fetch from repository</button>
+    <button class="ghost" id="packRemoveBtn">Forget pack on this device</button>
+  </div>
+  <div class="emptybox hidden" id="packError" style="margin-top:10px;color:var(--red)"></div>
+  <div class="hidden" id="packStatus" style="margin-top:12px"></div>
+</dialog>
 <dialog id="resetDialog">
   <button class="ghost close" id="closeReset">Close</button>
   <div class="eyebrow">Erase</div>

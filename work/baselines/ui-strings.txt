@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 976 —
-  44a73e02e65238ae  WHOLE SET
+— user-facing strings in outputs/ — 1013 —
+  e0ec26f0ac2cb2a2  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -51,6 +51,7 @@
   d8353d56700520ba  " target="_blank" rel="noreferrer">
   2c99b5c4dedfd5a5  " target="_blank" rel="noreferrer">Wikimedia Commons
   e272ca64fe23b521  " title="
+  8f75e5fcd85ad982  ". Stored in IndexedDB on this device.
   5465451fbdda9b14  ">Study this →
   fe28989274e10994  % banked from
   23db48b468bb0c9a  % correct overall · weaker structures are prioritised.
@@ -80,6 +81,7 @@
   90a185ba41cbc908  /* Quantum mottle. Noise rises where fewer photons arrive, as it does on film. */
   382773b522d5ceac  /* Shells that are not quite closed can integrate slightly negative. */
   9a6893535657967f  1–7 go alone, 8–10 carpool, 11–12 walk free.
+  d2c73992f539793a  246 questions ready
   315afd5b7575b942  26 bones per foot
   ac30f30602e06aa0  3003 parts
   7e8b92cf9af05e38  3D is unavailable right now.
@@ -132,6 +134,7 @@
   99d8a3f36624e22e  <div class="card" style="animation:fadeUp .22s ease;--accent:
   0004d45a7b738a61  <div class="empty">No activity yet.</div>
   ecb0e29a4e98fcab  <div class="empty">No mistakes recorded yet.</div>
+  5d79580d037dc02a  <div class="empty">No study items found.</div>
   933dac4c71ff915a  <div class="empty">No topics match this filter yet.</div>
   278065c2dae78674  <div class="empty">Nothing due right now.</div>
   a2faff27b66651a1  <div class="empty">Nothing studied yet — start a session to build this list.</div>
@@ -207,6 +210,7 @@
   4714c142e626766f  <span class="sc
   c556c181d6a203e1  <span class="termpart
   a05bf7cf9eb01e77  <span class="termplus">+</span>
+  5a7c38d1669fe324  <span class="tier-dot t
   a8c0e6943d65acd5  <span class="vague" title="No time published for this subject">week only</span>
   9ff1547fa8321e02  <span class="vis-arrow">→</span>
   33fbe9092c8b20e9  <span style="color:
@@ -218,9 +222,11 @@
   9b1cc7817bd82354  A layout, not a depiction \u2014 no anatomy is being drawn to scale here.
   9e9fa5f633e885ee  A mixed paper across subjects, so it does not stand in for any one assessment.
   d05095ea594f8f5a  A real part of this item is new. The background you already have is folded away at the foot of the card.
+  d68c2508d4466174  A repository, a token and a pack id are all needed.
   43efab18440887ca  A root — the part carrying the meaning. The /o on the end is the vowel that joins it to whatever follows.
   1a650cac2c2c4567  A sagittal slice, median at 50%. Keeps the patient's left; flip for the right.
   c3dc290201f7331a  A token is needed before this device can reach a gist.
+  61acb41ad0a4a17c  A token is stored — enter a new one to replace it
   54046378ce3a6c7b  A token is stored — type a new one to replace it
   2dee5d201e02f95e  A transverse slice, the plane a CT slice is taken in. Keeps everything above it; flip to keep what is below.
   c97733fde5d549af  A vertical line dropped from the midpoint of the left clavicle. The other vertical of the nine-region grid.
@@ -228,6 +234,7 @@
   11903751ff4bca8a  AI & data
   f425542186138bee  Abdomen & pelvis
   92508480855a651c  Acromial part of deltoid muscle
+  541ce2e45bea63f6  Active in Exam Mode
   077ffef3c99e0f88  All ' + qCount + ' questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.
   dac5841c386d8add  All Y1S1 courses
   e94d9dd5772a74c5  All Y1S1 courses \u00b7 latest schedule order
@@ -285,6 +292,7 @@
   57a9734bd3bcd083  Could not reach GitHub. If you are offline, this will retry on its own.
   3e43a3e5c3ac8956  Could not set that movement up on the model.
   a21359ed1dd0ede0  Created a private gist and wrote
+  03f268163766146d  Cross-subject progress across five mastery tiers, from unattempted to retained delayed recall.
   650bfee8c10b708c  Current files take priority for dates, topics and assessment. Older official lectures are used only to teach a current syllabus topic when the matching 2026 lecture is absent; student coursework is never used as a factual source.
   80593d9330e238e5  Cut position
   e3c1a5d80a89f718  Day streak, per-item status and the item you were last part-way through.
@@ -300,6 +308,7 @@
   25c830e43bff1b31  Drag on a structure to draw on it.
   def37d546eb3a08f  Drawn by this app
   892bd00331369854  Drill these 
+  29d95e88a631533a  Drill weakest 
   e3531efed93e66d7  Every factual claim on this item traces to a file below. Memory aids are written by this app and are marked separately.
   f157d75c393db061  Every item has been seen
   eb33e7f0fd9f3397  Every item has been seen at least once. Try "Review my weakest topics".
@@ -314,6 +323,8 @@
   bffe96c6114e2262  Explore & study
   b90b4a943e80fc1e  Export timetable to calendar
   9f7d2428f854a82f  Fade everything except the structures that define the cavity.
+  35049c761f675e0a  Fetch from repository
+  5cc50463f38d1ae0  Fetched pack "
   b4b9abe93d713048  FiBUla is the thin lateral pin and ends in the lower lateral malleolus.
   0b533fe7956842ac  Fill in the blank
   dd190b58a846cb67  Fill the bottom strip
@@ -333,6 +344,7 @@
   da3c855a5650742b  GitHub could not process the payload (422).
   a9d364c48ad1e195  GitHub is having trouble (
   7a04e9078453a9ca  GitHub refused the request (403). Check the token carries the gist scope, or wait — this can also be the hourly rate limit.
+  5ae981301b8388cd  GitHub refused the request (403). The token may lack Contents access to that repository.
   0274933d5fd0075e  GitHub rejected the token (401). It may have been revoked, expired, or mistyped.
   c182599da2e5bcc5  GitHub returned
   40c84cdc3af701a2  Give me the memory aids →
@@ -350,6 +362,7 @@
   2a7c8d2f587fec15  Hidden (
   40cd6293d193b56d  Hide panel
   33832e6712de5c86  Hide this
+  661c70362c780c6a  Holding pack "
   17dd4e0e76c7a31e  How to read the type column
   65df92c8f92a9651  I can see how it moves
   ae6900e95532340c  I could not
@@ -400,11 +413,15 @@
   4e0daaeb43239f40  Lift out whatever sits in front of the cavity.
   ae0fd8d06fa2440f  Limited source coverage
   86d0a64d8957c6f4  Live physiology
+  19d7f3a65f188042  Load a private question bank JSON file or sync from a private repository to expand the exam pool with thousands of chapter questions.
+  3f4169972d9430b8  Loaded question pack "
   24c4a56f525fe0d9  Loading the Z-Anatomy skeleton — 159 named structures, 80 of them named by your course material, 88 things you can select. The other six system layers load on demand.
   d9ebad5495305a37  Loading the skeleton layer
   f244cc971bb836e5  Lymph nodes of the abdomen
   a7dc140c63a71953  MANdible = MAN-chews. It is the mobile skull bone.
   4329d1c71debab86  MCQ and fill-in-the-blanks
+  b36854ba7876a6d8  MCQs in Exam Mode) from "
+  165674c787736715  MCQs in Exam Mode).
   13166033a2c30bb5  Manubrium, body, xiphoid: head, torso, sword-tip.
   47c4ca3bc141b48a  Mark handed in
   74c4823f019f3ab0  Mastery and review schedules —
@@ -449,6 +466,7 @@
   c6455c0a33c2de61  No mistakes logged — good
   f6a29e5cf126ace1  No mistakes recorded yet — nothing to explain.
   8099974808517c76  No mistakes recorded yet — starting a normal Identify drill.
+  5d2fd2351410d1ac  No question pack is currently loaded on this device.
   b7cae769b9db0fc6  No radiographs bundled
   ef8c7dae7a20163c  No reference
   f6a59c0ee7b34cc0  No source materials
@@ -457,8 +475,10 @@
   71d9ec8ef4d13ffe  No token is stored on this device.
   79575cdd56093f95  None listed.
   041f683d3d9b3b9c  None of this item’s structures resolved in the model, so no 3D is shown.
+  0c5f34541ff2a787  Not a question pack (format "
   3b3d2796168bf388  Not connected.
   81983c371fcb6aeb  Not enough exam-style questions for that selection yet.
+  e69c2226d18c2f4d  Not found (404). Check the repository name and that the token can see it.
   24bc2b88e5e580eb  Not modelled
   8e1c1b7eb909b934  Not quite. Correct:
   97354c26d5d893a2  Not right
@@ -489,7 +509,7 @@
   2efc956104ec7d7a  Offline & storage
   e1070a158b550318  Offline-first study system for HSS2011 Human Anatomy, ABCT2326 Human Physiology and medical radiation science.
   335056d20d010f9a  Old sources — supporting/fallback
-  b993045313113468  On where the page is measured short of the screen — it extends the app into the strip so the tab bar reaches the edge. What is left after that is the screen’s own rounded corner, which no page can fill.
+  1e4827dab1028aa7  On where the page is measured short of the screen — it extends the app into the strip so the tab bar reaches the edge. What is left after that is the screen\'s own rounded corner, which no page can fill.
   a6c061874897dabb  One learning tree
   2db2d8da5f89a995  One to start you off —
   4ab8e7a5acc75973  Open detail
@@ -511,6 +531,8 @@
   97bbce4ac834ffb8  Progress erased \u2014
   dbe0aa3439619d84  Progress merged.
   045742deb50fcee2  Progress replaced from file.
+  538bf15be302a521  Question pack
+  dcd12e71ad9828a9  Question pack removed from this device.
   fbb2baef613596d9  Radiation science
   c91778ac1e937e43  Radiography Study Studio — study progress (private)
   908b9d8d4c977990  Radioulnar joints
@@ -522,6 +544,7 @@
   a42518e9381f9348  Recorded — this one will come back sooner.
   7914bbadb94c3bc3  Region filter cleared \u2014 that structure is outside it
   236dba4cad011ac5  Replace wipes this device\u2019s progress and installs the file instead. There is no undo. Continue?
+  b4484cf5ac9a4334  Repository, token, and pack ID are all required.
   fc56055b48b49999  Reset progress on this device
   914423b50b0c8bb6  Reveal next hint
   ff43191f37c6e281  Review scheduled from your answers
@@ -610,15 +633,19 @@
   8ba9f9b39e0f8de0  Text size:
   e9fe8433758b6f59  That file could not be read.
   77b11fb420786198  That file is not JSON this app understands.
+  c8589e1f2d9cb168  That file is not JSON. Is the path right?
   9b7eb2fb53d7ebf5  That file is not valid JSON.
   8f42be5eb962d271  That file was written for data version
   baa0b0bb4dabeb4c  That gist was not found (404). Either the id is wrong, or this token cannot see it.
   6a89036a1ab7f02a  That is not a Study Studio progress file.
+  5e7de65014abb04a  That is not a pack file.
+  65abc2a3ffcc911e  That is not a pack index (format "
   c1b89966f927cd48  That level needs a structure this model has not loaded.
   e1bee8d506ebb8f0  The 3D layer could not be loaded right now.
   1a87df33818b2fb0  The 3D model is not available.
   188a07a1f493d877  The 3D models, the lessons and the source files are untouched \u2014 only your own history is.
   18c0bd11dc622725  The answer log in that file is malformed.
+  50dea43a7637d719  The chosen file is not valid JSON.
   d6811f43e25d4939  The contrast
   d216dedb9f2f1d46  The controls live with the model — the render loop only runs while the studio is on screen, so a slider here would move bones you cannot see.
   f44fc384994cd331  The four quadrants
@@ -646,6 +673,9 @@
   c30d436bb4db379e  The nine abdominopelvic regions
   1ee065c69f618147  The only horizontal long bone: an S-shaped key between sternum and shoulder.
   f952c4467244cd99  The original osteology quiz history —
+  4242e3b55f8dbb0a  The pack has no packId.
+  28c0a38949dbcf6c  The pack has no questions array.
+  6c73efbcf164a59b  The pack index lists no files.
   76d42016751dbca5  The projection needs the body assembled.
   f8fde19067e881fa  The projection reads through closed surfaces — section it in the 3D view.
   8baacea34fdc4ab0  The radius rotates over the ulna like a wheel spoke. It is on the thumb side.
@@ -702,7 +732,7 @@
   14ab8c8c07e135d1  Whole body
   a6075b915d80c000  Work it out in your own words
   2efde2e039fd8b4b  Write something first — even a rough answer. Comparing beats reading.
-  00bb24ff5c1aaf41  Writes every dated class, lab and deadline as a standard .ics file. Open it and your phone or laptop calendar offers to add them — after which the reminders are the calendar’s job, not this app’s.
+  a8d1f0be7354e2b9  Writes every dated class, lab and deadline as a standard .ics file. Open it and your phone or laptop calendar offers to add them — after which the reminders are the calendar\'s job, not this app\'s.
   a1a80fe79d9495e1  Written by this app from the content above. The facts are the sourced ones; the insight framing is study scaffolding.
   f2737495d683165a  Xiphisternal joint
   c66f49de59b48578  Y1S1 source map
@@ -770,6 +800,8 @@
   4f6bd1ad9fc7a4f8  does not hold valid JSON.
   9c029c43f1357a43  drawn on the abdominal wall muscles
   b01870ef39f66f92  due this week
+  95d2090b8994a8fe  e.g. abct2326-bank-v1
+  8aa164c59694512b  e.g. username/study-packs
   099aa9ffa0926efa  emptybox hidden
   aa9b42a9c9734d2f  epi- (above, upon), hypo- (below; also deficient), inter- (between)
   8983c81d3b29aff6  feedback bad show
@@ -792,6 +824,7 @@
   6a590bc9c97002da  gl_Position = projectionMatrix * mv;
   c3218bfbba24a149  half the model has gone missing
   ece337d77fd9e30f  handed in
+  ff0f82ab6a7041b2  has no questions array.
   d3626567f9a5400b  have I learnt it
   136c83226ce5507e  held so far
   801150784042ae58  hiddentray empty
@@ -809,6 +842,7 @@
   ef17d1d3acfa4f78  insets top
   c7e4e6c144bbd4f1  inside its measured box
   c8e3253dee590724  is held back by Live physiology — turn it off to see it
+  1e8d660a5dd17abe  is missing a qid, a type or a stem.
   3e48f87cb43c928d  is missing from the markup
   63ba7e6dace7932d  is outside the current region filter
   65dfd88eb248fc0c  is the useful distinguishing landmark.
@@ -877,6 +911,8 @@
   c504c70741f08c26  primary next show
   57df5f919992d6d5  pulled in,
   777503f25750cf8f  px "Instrument Sans", system-ui, -apple-system, sans-serif
+  e0c67e29f60bbf7e  questions, including
+  0ea24a7a68bdff89  questions, the index says
   9104b22058806e6c  rather than rotating rigidly, so swinging them would tear them off their origin.
   9601152cce8eb58a  reads as
   c93a88684ed76c4f  real BodyParts3D upper-limb meshes
@@ -950,6 +986,7 @@
   d1d9ae15f23c9b21  what should I study
   5fd1f8e2da61b599  what this mode needs
   9e3ac18c25c2c980  where am I meant to be
+  898aff1c0f4cdcc6  where does the token go
   c9ef209dbe30af9e  where the file is more recent — replaced.
   a27139acecaf8695  where this device has reported
   8198bdb854b9ed3d  where this device is more recent — kept as they are.

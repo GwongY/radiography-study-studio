@@ -150,8 +150,32 @@ function parseBlock(block, n) {
   const optAt = body.search(/(?:^|\s)A\)\s/);
   if (optAt < 0 || optAt > ansAt) return { skipped: { n, why: 'letter answer but no options found' } };
 
-  const stem = tidy(body.slice(0, optAt));
+  let stem = tidy(body.slice(0, optAt));
   const options = readOptions(body.slice(optAt, ansAt));
+
+  /*
+   * Habit 4, and the one that hid the longest: the PDF sometimes lays the last
+   * option out BEFORE the first, so the extracted text reads
+   *
+   *   The heart is ________ to the lungs.  E) lateral
+   *   A) medial   B) superior   C) inferior   D) anterior
+   *
+   * The stem is everything before "A)", so "E) lateral" stayed glued to the
+   * question and vanished from the options. 185 questions carried a visible
+   * option in their stem, and for 53 more the answer was that missing option —
+   * which is why they were being refused as an extraction gap. Neither failed
+   * loudly. Both look like a slightly odd question until you count them.
+   *
+   * So: a trailing "X) …" on the stem, whose letter is not already an option,
+   * is that option. Move it where it belongs and put the letters back in order.
+   */
+  const stranded = stem.match(/^([\s\S]*?)\s+([A-E])\)\s+(.+)$/);
+  if (stranded && !options.some((o) => o.letter === stranded[2])) {
+    stem = tidy(stranded[1]);
+    options.push({ letter: stranded[2], text: tidy(stranded[3]) });
+    options.sort((a, b) => a.letter.localeCompare(b.letter));
+  }
+
   if (!stem) return { skipped: { n, why: 'empty stem' } };
   if (options.length < 2) return { skipped: { n, why: `only ${options.length} option(s) parsed` } };
   /*
@@ -275,6 +299,49 @@ if (REPORT_ONLY) {
  * ------------------------------------------------------------------ */
 
 mkdirSync(dirname(OUT), { recursive: true });
+
+/*
+ * --split writes one file per chapter instead of one file for the bank.
+ *
+ * Not tidiness: GitHub's Contents API stops returning a file's content above
+ * 1 MB, and the whole bank is 1.68 MB. The same cliff the answer log already
+ * dodges by bucketing itself per calendar month, met again for the same
+ * reason, and answered the same way. The largest chapter is 85 KB.
+ *
+ * An index.json goes beside them so the app can fetch a manifest first and
+ * know what it is collecting before it collects it.
+ */
+if (argv.includes('--split')) {
+  const dir = join(root, 'work/.packs/split', PACK_ID);
+  mkdirSync(dir, { recursive: true });
+  const byChapter = new Map();
+  for (const q of questions) {
+    const key = `ch${String(q.chapter ?? 0).padStart(2, '0')}`;
+    if (!byChapter.has(key)) byChapter.set(key, []);
+    byChapter.get(key).push(q);
+  }
+  const files = [];
+  for (const [key, qs] of [...byChapter.entries()].sort()) {
+    const body = JSON.stringify({ format: 'rss.pack.part', packId: PACK_ID, part: key, questions: qs });
+    writeFileSync(join(dir, `${key}.json`), body);
+    files.push({ part: key, file: `${key}.json`, questions: qs.length, bytes: body.length });
+  }
+  const over = files.filter((f) => f.bytes > 1000000);
+  const index = {
+    format: 'rss.pack.index',
+    formatVersion: 1,
+    packId: PACK_ID,
+    builtAtISO: new Date().toISOString(),
+    counts: { mcq: totMcq, short: totShort, total: questions.length },
+    licence: 'Publisher test bank. Private study copy. Not for redistribution.',
+    files,
+  };
+  writeFileSync(join(dir, 'index.json'), JSON.stringify(index, null, 1));
+  console.log(`\nsplit into ${files.length} chapter files + index.json in ${relative(root, dir).replace(/\\/g, '/')}`);
+  console.log(`  largest ${Math.max(...files.map((f) => f.bytes)) / 1024 | 0} KB — the API limit is 1 MB`);
+  if (over.length) console.log(`  WARNING: ${over.length} file(s) exceed 1 MB and will not fetch: ${over.map((f) => f.file).join(', ')}`);
+}
+
 const pack = {
   format: 'rss.pack',
   formatVersion: 1,

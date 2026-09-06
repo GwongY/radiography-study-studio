@@ -1683,6 +1683,21 @@ export const Y1S1_SOURCE_MAP = {
         "citation has no verifiable page or quoted section/slide"
       ]
     },
+    "hss2011-thorax-regional-landmarks": {
+      "id": "hss2011-thorax-regional-landmarks",
+      "subject": "HSS2011",
+      "week": 10,
+      "title": "Thoracic regional anatomy: sternal angle, mediastinal planes, diaphragm, and boundaries",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.thorax.deck",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
     "hss2011-m3-digestive": {
       "id": "hss2011-m3-digestive",
       "subject": "HSS2011",
@@ -2320,6 +2335,21 @@ export const Y1S1_SOURCE_MAP = {
         "citation has no verifiable page or quoted section/slide"
       ]
     },
+    "abct2326-renal-filtration-countercurrent": {
+      "id": "abct2326-renal-filtration-countercurrent",
+      "subject": "ABCT2326",
+      "week": 5,
+      "title": "Renal physiology: nephron microarchitecture, glomerular filtration, countercurrent multiplication, and RAAS regulation",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.renal.deck",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
     "abct2326-repro-male-regulation": {
       "id": "abct2326-repro-male-regulation",
       "subject": "ABCT2326",
@@ -2462,6 +2492,21 @@ export const Y1S1_SOURCE_MAP = {
       ],
       "reasons": []
     },
+    "phys-nerve-cellular-action-potential": {
+      "id": "phys-nerve-cellular-action-potential",
+      "subject": "ABCT2326",
+      "week": 9,
+      "title": "Nerve cell physiology: glial cells, resting potential, action potential, and synaptic transmission",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.nerve.deck",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
     "abct2326-muscle-types": {
       "id": "abct2326-muscle-types",
       "subject": "ABCT2326",
@@ -2520,6 +2565,21 @@ export const Y1S1_SOURCE_MAP = {
       "sources": [
         {
           "ref": "phys.susan9",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-muscle-ultrastructure-energetics": {
+      "id": "abct2326-muscle-ultrastructure-energetics",
+      "subject": "ABCT2326",
+      "week": 11,
+      "title": "Muscle physiology: sarcomere ultrastructure, titin recoil, motor unit recruitment, fibre types, and neural control",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.muscle.deck",
           "set": "old",
           "role": "older-fallback"
         }
@@ -2823,6 +2883,71 @@ export const Y1S1_SOURCE_MAP = {
         "current-source substitution: verified HTI17101 material is retained as fallback for HTI17103."
       ]
     },
+    "hti17103-linac-physics-components": {
+      "id": "hti17103-linac-physics-components",
+      "subject": "HTI17103",
+      "week": 3,
+      "title": "Linear accelerator: physics, microwave RF, and treatment head",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hti.linac1",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hti.linac2",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hti17103-linac-accessories-protection": {
+      "id": "hti17103-linac-accessories-protection",
+      "subject": "HTI17103",
+      "week": 3,
+      "title": "Linac accessories: Cerrobend, wedges, MLCs, and bunker maze shielding",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hti.linac4",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hti17103-linac-electrons-rapidarc": {
+      "id": "hti17103-linac-electrons-rapidarc",
+      "subject": "HTI17103",
+      "week": 3,
+      "title": "Linac electron therapy and RapidArc volumetric modulated arc delivery",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hti.linac3",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hti17103-arc-radiation-therapy-vmat-tomo": {
+      "id": "hti17103-arc-radiation-therapy-vmat-tomo",
+      "subject": "HTI17103",
+      "week": 3,
+      "title": "Evolution of radiotherapy: 2D, 3D-CRT, static IMRT, and rotational arc therapy (VMAT & Tomotherapy)",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hti.arc.deck",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
     "hti17103-radioprotection": {
       "id": "hti17103-radioprotection",
       "subject": "HTI17103",
@@ -3071,7 +3196,8 @@ export const Y1S1_SOURCE_MAP = {
       "10": [
         "hss2011-osteo-ribs-sternum",
         "hss2011-bone-ribs",
-        "hss2011-bone-sternum"
+        "hss2011-bone-sternum",
+        "hss2011-thorax-regional-landmarks"
       ],
       "11": [
         "hss2011-m3-digestive"
@@ -3122,7 +3248,8 @@ export const Y1S1_SOURCE_MAP = {
       ],
       "5": [
         "hss2011-structures-urinaryTract",
-        "abct2326-renal-nephron"
+        "abct2326-renal-nephron",
+        "abct2326-renal-filtration-countercurrent"
       ],
       "7": [
         "abct2326-repro-male-regulation",
@@ -3137,12 +3264,14 @@ export const Y1S1_SOURCE_MAP = {
       ],
       "9": [
         "abct2326-nervous-divisions",
-        "abct2326-synapse-drug-action"
+        "abct2326-synapse-drug-action",
+        "phys-nerve-cellular-action-potential"
       ],
       "11": [
         "abct2326-muscle-types",
         "abct2326-muscle-action",
-        "abct2326-nmj-coupling"
+        "abct2326-nmj-coupling",
+        "abct2326-muscle-ultrastructure-energetics"
       ],
       "12": [
         "abct2326-crossbridge-cycle",
@@ -3172,7 +3301,11 @@ export const Y1S1_SOURCE_MAP = {
         "hti17103-modality-best-use"
       ],
       "3": [
-        "hti17103-radiation-therapy"
+        "hti17103-radiation-therapy",
+        "hti17103-linac-physics-components",
+        "hti17103-linac-accessories-protection",
+        "hti17103-linac-electrons-rapidarc",
+        "hti17103-arc-radiation-therapy-vmat-tomo"
       ],
       "4": [
         "hti17103-radioprotection"
@@ -4202,6 +4335,13 @@ export const Y1S1_SOURCE_MAP = {
         "role": "needs-review"
       }
     ],
+    "hss.thorax.deck": [
+      {
+        "lessonId": "hss2011-thorax-regional-landmarks",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
     "hss.3.1": [
       {
         "lessonId": "hss2011-m3-digestive",
@@ -4402,6 +4542,13 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       }
     ],
+    "phys.renal.deck": [
+      {
+        "lessonId": "abct2326-renal-filtration-countercurrent",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
     "phys.6.pdf": [
       {
         "lessonId": "abct2326-repro-male-regulation",
@@ -4457,6 +4604,13 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       }
     ],
+    "phys.nerve.deck": [
+      {
+        "lessonId": "phys-nerve-cellular-action-potential",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
     "phys.9": [
       {
         "lessonId": "abct2326-muscle-types",
@@ -4487,6 +4641,13 @@ export const Y1S1_SOURCE_MAP = {
       },
       {
         "lessonId": "abct2326-spindle-golgi",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
+    "phys.muscle.deck": [
+      {
+        "lessonId": "abct2326-muscle-ultrastructure-energetics",
         "set": "old",
         "role": "older-fallback"
       }
@@ -4584,6 +4745,41 @@ export const Y1S1_SOURCE_MAP = {
     "hti.w3": [
       {
         "lessonId": "hti17103-radiation-therapy",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
+    "hti.linac1": [
+      {
+        "lessonId": "hti17103-linac-physics-components",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
+    "hti.linac2": [
+      {
+        "lessonId": "hti17103-linac-physics-components",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
+    "hti.linac4": [
+      {
+        "lessonId": "hti17103-linac-accessories-protection",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
+    "hti.linac3": [
+      {
+        "lessonId": "hti17103-linac-electrons-rapidarc",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
+    "hti.arc.deck": [
+      {
+        "lessonId": "hti17103-arc-radiation-therapy-vmat-tomo",
         "set": "old",
         "role": "older-fallback"
       }

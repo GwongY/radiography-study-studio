@@ -33,7 +33,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v123';
+const CACHE_VERSION = 'v128';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -106,6 +106,7 @@ const SHELL = [
   './study/what-is-under.js',
   './study/session-engine.js',
   './study/exam-mode.js',
+  './study/question-pack.js',
   './study/lesson-visuals.js',
   './study/reading-help.js',
   './study/layout-figures.js',

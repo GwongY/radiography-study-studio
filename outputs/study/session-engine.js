@@ -11,7 +11,7 @@ import { mountLessonVisual, releaseLessonVisual } from './lesson-visuals.js';
 import { startExam } from './exam-mode.js';
 import { openSessionOverlay } from './navigation-five-destinations.js';
 import { openSourceDialog } from './source-dialog.js';
-import { saveContinue } from './spatial-overlay-controls.js';
+import { saveContinue } from './home.js';
 import { toast } from './small-ui-helpers.js';
 import { wireTerms } from './reading-help.js';
 

@@ -13,7 +13,7 @@ import { glossify, lookupTerm, plateHTML, proseHTML, wireTerms } from './reading
 import { openSourceDialog } from './source-dialog.js';
 import { openViewer } from './what-is-under.js';
 import { priorLeadHTML, visualSlotHTML } from './lesson-visuals.js';
-import { renderToday } from './spatial-overlay-controls.js';
+import { renderToday } from './home.js';
 import { showView, toast, xrayFallback } from './small-ui-helpers.js';
 
 /* ------------------------------------------------------------------ *

@@ -33,6 +33,7 @@ import { init as init_source_dialog_js } from './study/source-dialog.js';
 import './study/coverage-report.js';
 import './study/mastery-dashboard.js';
 import { init as init_assessments_and_marks_js } from './study/assessments-and-marks.js';
+import { init as init_question_pack_js } from './study/question-pack.js';
 import { init as init_exam_mode_js } from './study/exam-mode.js';
 import { init as init_course_timetable_js } from './study/course-timetable.js';
 import { init as init_text_size_js } from './study/text-size.js';
@@ -59,4 +60,6 @@ init_assessments_and_marks_js();
 init_viewer_tools_js();
 /* After dialog wiring: exam mode intercepts the session overlay's own close
    and end buttons, so those handlers have to exist before it captures them. */
+/* Before exam mode: a restored pack is part of the pool it counts. */
+init_question_pack_js();
 init_exam_mode_js();
