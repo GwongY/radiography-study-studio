@@ -434,7 +434,9 @@ export function practiseHTML(item) {
 function normalise(s) {
   return String(s).toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9;,\s]/g, ' ').replace(/\s+/g, ' ').trim();
 }
-function looseMatch(given, accepted) {
+/* Exported so exam-mode.js marks a fill-in-the-blank exactly as practice
+   does. Two matchers would be two definitions of a right answer. */
+export function looseMatch(given, accepted) {
   const g = normalise(given);
   if (!g) return false;
   return accepted.some((a) => {

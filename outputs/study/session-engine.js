@@ -8,6 +8,7 @@ import { applyHTML, endSession, learnHTML, practiseHTML, rememberHTML, wireApply
 import { adjScore, itemAttempted, itemDue, itemLapses, store } from './storage-versioned-keys.js';
 import { recordRead } from './progress-log.js';
 import { mountLessonVisual, releaseLessonVisual } from './lesson-visuals.js';
+import { startExam } from './exam-mode.js';
 import { openSessionOverlay } from './navigation-five-destinations.js';
 import { openSourceDialog } from './source-dialog.js';
 import { saveContinue } from './spatial-overlay-controls.js';
@@ -82,10 +83,11 @@ export function pickItems(opts) {
       }
       return picked.slice(0, QUICK);
     }
-    case 'exam': {
-      const examItems = pool.filter((i) => questionsOf(i).some((q) => q.src && (q.type === 'mcq' || q.type === 'cloze')));
-      return shuffle(examItems).slice(0, 10);
-    }
+    /*
+     * 'exam' is deliberately absent. startSession delegates it to exam-mode.js
+     * before it reaches here, because an exam is a paper rather than a queue of
+     * items. A case here would be unreachable code that looked authoritative.
+     */
     case 'hooks':
       return shuffle(pool.filter((i) => i.memory && Object.keys(i.memory).length)).slice(0, 12);
     case 'mistakes': {
@@ -113,6 +115,13 @@ export function pickItems(opts) {
 }
 
 export function startSession(opts) {
+  /*
+   * Exam mode is a sitting, not a step sequence, so it does not go through
+   * the session engine at all. Delegating HERE rather than at each launcher
+   * means the mode picker, the manifest shortcut and the Today card all get
+   * the paper without any of them knowing there are two kinds of session.
+   */
+  if (opts.mode === 'exam') return startExam({ subject: opts.subject });
   const items = pickItems(opts).filter(Boolean);
   if (!items.length) {
     if (opts.mode === 'mistakes') return toast('No mistakes recorded yet — nothing to explain.');

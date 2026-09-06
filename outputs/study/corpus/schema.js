@@ -476,7 +476,7 @@ export const STUDY_MODES = [
   { id: 'daily', label: 'Daily pre-study session', hint: 'A mixed warm-up: terminology, bones, one physiology sequence, one radiation-science concept.', icon: '◔' },
   { id: 'weakest', label: 'Review my weakest topics', hint: 'Lowest mastery first, weighted by repeated mistakes.', icon: '▼' },
   { id: 'quick10', label: 'Quick 10-minute session', hint: 'A short due-and-weak mix, capped at roughly ten minutes.', icon: '⏱' },
-  { id: 'exam', label: 'Exam-style recall', hint: 'MCQ and fill-in-blank items drawn from the supplied revision exercises.', icon: '⌸' },
+  { id: 'exam', label: 'Sit a timed paper', hint: 'Twenty questions, 25 minutes, no feedback until you submit — then a mark and where it went.', icon: '⌸' },
   { id: 'hooks', label: 'Memory hooks only', hint: 'Just the memory aids, no scoring.', icon: '⚓' },
   { id: 'mistakes', label: 'Explain my mistakes', hint: 'Everything you have got wrong, with the explanation and the confusion that caused it.', icon: '⚠' },
   { id: 'subject', label: 'Subject-specific study', hint: 'Stay inside one subject or one unit.', icon: '▦' },

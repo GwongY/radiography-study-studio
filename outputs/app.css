@@ -207,6 +207,9 @@
 .opts{display:grid;gap:8px}
 .opt{width:100%;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:11px;padding:12px 14px;cursor:pointer;font-size:calc(14.5px * var(--ts));line-height:1.45;transition:.14s ease}
 @media(hover:hover){.opt:hover:not(:disabled){border-color:var(--teal)}}
+/* Chosen, but not yet marked. Exam mode needs a third state: practice only
+   ever shows an option as right or wrong, and during a paper it is neither. */
+.opt.chosen{border-color:var(--teal);background:rgba(93,214,205,.12)}
 .opt.right{border-color:var(--green);background:rgba(140,226,174,.12)}
 .opt.wrong{border-color:var(--red);background:rgba(241,129,129,.12)}
 .opt:disabled{cursor:default}

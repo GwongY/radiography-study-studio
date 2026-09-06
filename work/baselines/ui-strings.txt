@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 952 —
-  98dc2da03f398731  WHOLE SET
+— user-facing strings in outputs/ — 976 —
+  44a73e02e65238ae  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -15,6 +15,7 @@
   4086a0d4cd005901   showed metatarsals with no toes; choosing 
   2599c70aaa36cb29   · assumed from 
   df725abe14c48979   · this week
+  a6eff766a2215e5d   · time almost up
   5d2e551e2af8ca21   · visual study
   1d5a0e17407c0886   — No source-backed lesson is assigned.
   ee2ecbd9ea7a7e36   — it does not stand alone, it attaches to a root.
@@ -97,6 +98,7 @@
   125f93e4a929b76f  <button class="filter-chip
   7c91d479afddcabc  <button class="ghost tolesson" data-unit="
   eccfc54f8a6ac23c  <button class="ghost" id="openViewerBtn">Open in Viewer</button>
+  8a969989b832ac09  <button class="ghost" id="rssExamPrev"
   e930ca7db13997d6  <button class="ghost" id="rssPriorLesson">Read the lesson</button>
   6d228961058fd5cf  <button class="icon-btn
   efe13358035bbef6  <button class="layerchip" data-layer="
@@ -169,6 +171,7 @@
   a03547db46bf9e4b  <i style="background:#
   6f722b80156fb8ac  <img src="
   590b1769ac58646c  <input class="markin" type="number" inputmode="decimal" min="0" max="100" step="0.1"
+  7c75e46f1b37d922  <input id="rssExamInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type your answer" value="
   2f476a078765d308  <input id="rssTypedInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="
   3a324e9e0d188447  <input type="range" min="8" max="100" value="
   65da2d38aebef408  <li class="assrow
@@ -177,6 +180,7 @@
   5f0ccbf50845efd8  <option value="
   541b9a046de22b45  <p class="figkey-note">Dimmed marks are the figure’s own labels, beyond this lesson’s named set.</p>
   0647018486120933  <p class="small cut-levelnote">No named coronal levels: a coronal section is named against the mid-axillary line, and none of this app&rsquo;s sources name it. Use the slider.</p>
+  e3eca2ac525ec10d  <p class="small">A mixed paper across subjects, so it does not stand in for any one assessment.</p>
   a2ec6a726731d8d4  <p class="small">Open the 3D model to measure its levels.</p>
   0a552549eab9f1bc  <p class="small">The section is put away while the Projection tab is open — that beam is drawn by a shader that ignores clipping planes, so a cut there would be silently ignored. It comes back exactly as you left it.</p>
   6f16f7184cae76ac  <p class="small">Turn a layer on below the model and its opacity appears here.</p>
@@ -212,6 +216,7 @@
   bd5105f51b6139f1  A flat triangle with a spine and a shallow glenoid socket: mobility over stability.
   023844eacdc79cc6  A frontal slice. Keeps the anterior half; flip for the posterior.
   9b1cc7817bd82354  A layout, not a depiction \u2014 no anatomy is being drawn to scale here.
+  9e9fa5f633e885ee  A mixed paper across subjects, so it does not stand in for any one assessment.
   d05095ea594f8f5a  A real part of this item is new. The background you already have is folded away at the foot of the card.
   43efab18440887ca  A root — the part carrying the meaning. The /o on the end is the vowel that joins it to whatever follows.
   1a650cac2c2c4567  A sagittal slice, median at 50%. Keeps the patient's left; flip for the right.
@@ -299,14 +304,18 @@
   f157d75c393db061  Every item has been seen
   eb33e7f0fd9f3397  Every item has been seen at least once. Try "Review my weakest topics".
   7588a781fa751450  Every point is answerable in the practice question.
+  a10430cc6de9b3e1  Every question
   4b18c8812e334be5  Every question validates
   f7b81d5c080156a2  Everything is marked. Final:
   49070002f587bcf4  Everything you have got wrong, most-repeated first. Each one keeps its own explanation and the confusion that caused it.
+  b30e7966d149dbe2  Exam · results
+  cc0c20dad7a077f0  Exam-style recall
   c00d4a1a69e70add  Explain my mistakes
   bffe96c6114e2262  Explore & study
   b90b4a943e80fc1e  Export timetable to calendar
   9f7d2428f854a82f  Fade everything except the structures that define the cavity.
   b4b9abe93d713048  FiBUla is the thin lateral pin and ends in the lower lateral malleolus.
+  0b533fe7956842ac  Fill in the blank
   dd190b58a846cb67  Fill the bottom strip
   2e76bfabfd9b22bc  Filling the bottom strip wherever the page is measured short of the screen.
   ca39fc5e6da394f2  Final exam
@@ -314,6 +323,7 @@
   68ed5dff9e6e0d16  Finish \u00b7 next item \u2192
   fd2f684294d47cfc  Finish session \u2192
   8802e1925c84cdea  Five large load-bearing vertebrae: dinner at 5. Lumbar bodies are chunky.
+  fb86d37ef027a4b7  Flag for review
   7e4442b59b339275  From this item
   8e8f88fe40d45d19  Frontal bone
   cb73b83197d100e5  Full height · viewport
@@ -379,6 +389,7 @@
   a280355bca83b833  Latin ulna — elbow
   19a26e702fb685e6  Latin — small pan/dish
   bf913fcad550f5eb  Layer 7, Muscular
+  53726d5c6c42f35d  Leave this paper? Nothing is recorded until it is submitted.
   929fda3beb4aa693  Left / right
   a3053906dabadf84  Level 1 · Identify
   479faebc365f0ab1  Level 1 · Your weakest
@@ -393,6 +404,7 @@
   d9ebad5495305a37  Loading the skeleton layer
   f244cc971bb836e5  Lymph nodes of the abdomen
   a7dc140c63a71953  MANdible = MAN-chews. It is the mobile skull bone.
+  4329d1c71debab86  MCQ and fill-in-the-blanks
   13166033a2c30bb5  Manubrium, body, xiphoid: head, torso, sword-tip.
   47c4ca3bc141b48a  Mark handed in
   74c4823f019f3ab0  Mastery and review schedules —
@@ -419,6 +431,7 @@
   4c67f0e5acff873f  Motion off. The anatomical colours stay.
   40bb50da160cdc21  Move down
   5cad0eb3bde4cb2b  Move progress to another device
+  79fefc32357d38fa  Multiple choice
   47bad95e45aec9ab  Muscles 345
   88f8470351458866  My mistakes
   d326e3de4eabd98d  Named atlas structure from the interactive skeleton source.
@@ -445,8 +458,10 @@
   79575cdd56093f95  None listed.
   041f683d3d9b3b9c  None of this item’s structures resolved in the model, so no 3D is shown.
   3b3d2796168bf388  Not connected.
+  81983c371fcb6aeb  Not enough exam-style questions for that selection yet.
   24bc2b88e5e580eb  Not modelled
   8e1c1b7eb909b934  Not quite. Correct:
+  97354c26d5d893a2  Not right
   e843982c79a688a1  Not right — here is why
   ba35f0c47d862763  Not started
   2ca96754a9566ca9  Not that one — try again. You tapped
@@ -485,6 +500,7 @@
   e48bafe3f0edb133  Open the studio and drive it →
   5d4ccdb9cfeecb7a  Opens in Viewer
   c5ca4a0d519c1995  Page / section
+  88ce19bc20fd3349  Paper submitted
   d44f57779facfe5b  Pause turntable
   ce253ba033cf1abf  Phalanges of the hand
   032a270b28e8d32d  Plane \u00b7 separates
@@ -573,6 +589,8 @@
   da5c0cb3a2f2cda1  Study this topic
   586b0a54a4f22b10  Study this →
   307e3df259cf7ea5  Subjects with no material
+  77c3d58e2afde361  Submit paper
+  11ecf49f73984864  Submitted ·
   25a2aae6c2da8872  Substitute source
   dcb3fff57226c1dc  Syllabus and teaching notes needed
   8a4f2ddb68e960e8  Syllabus mapped · audited sources
@@ -650,6 +668,7 @@
   8c4eef5ab2532515  This week
   2a2abf143c0b1cb9  Thoracic cage
   8278421692e43358  Those bones are not in the loaded model.
+  003b779bf4554f34  Time up · paper submitted automatically
   60fbbc864f3e78f7  Timetable to your calendar
   f3fbfcd5fea4fbe9  Timetable, syllabus, attendance
   365876067e586bde  Traced to
@@ -659,6 +678,7 @@
   431c871a874df758  Type an answer first — a guess still teaches you more than skipping.
   41146b07110e6e0c  Type the bone name
   111ce187bae23ee4  Type the note first, then tap the structure.
+  d078bf7520a710d0  Type your answer
   314528767e58f2ee  ULna = yoUr elbow side: the pinky-side stable hinge.
   132f74cac4453f6b  Unnamed structure
   cef68b40feba1c6a  Upper first molar tooth
@@ -676,6 +696,7 @@
   536306b242c83602  What to do now
   f91dc12078f83541  What you handed in and what you scored are yours, kept on this device with the rest of your progress.
   7efbff3832400d93  Where all of this came from
+  01801f7e0fdeb96f  Where it went
   595c0868c16492a2  Where the xiphoid process meets the body of the sternum, at the anterior end of the thoracic outlet.
   99e5997ec6eb3f95  Which bone does this hook belong to?
   14ab8c8c07e135d1  Whole body
@@ -689,6 +710,7 @@
   1a33ef3e9b63cd34  You named
   6072830a754d6f42  You revealed
   3885517f2e4fef0c  You wrote "
+  adceb15c665f2cad  Your answer:
   c4c648151de0063d  Your connection to the backup gist — <strong>disconnected</strong>, so the next sync cannot quietly restore what you just erased. The gist itself is left alone.
   94661d68cd8ce6bb  Your course material names none of these one by one, so the
   62375359a1826914  Your groups
@@ -799,6 +821,7 @@
   0cfd299bdbf8c9ad  layer of the BodyParts3D atlas.
   bfbe15ec0c9d325e  layer structure
   685dafbd5e3df475  left and right
+  186588eda50b133a  left blank
   689235b631da6a04  loading the layer…
   11e35ae68e488f96  logged mistakes.
   b76e73e177286de4  logs merged in full; records fell back to newer-wins because there is pre-log history in play
@@ -881,6 +904,7 @@
   f004ce84a1c00cd6  soft-tissue structures travel with the bone.
   29a944fb41484f0b  something is wrong
   a05d0fe6c99cd823  source review needed
+  c2c8014913158639  still blank. Submit anyway?
   4118e397f17372ab  still to hand in
   7d30607b3e9c2d7a  structures in
   036a99f6c882069b  structures to name. Work round them in a fixed order every time, so the order itself becomes the cue.

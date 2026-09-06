@@ -4,6 +4,7 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, SOURCE_FILES, STORAGE_PREFIX, STUDY_ITEMS, STUDY_MODES, SUBJECTS, allQuestions, conceptAncestors, conceptChildren, esc, getItem, getSubject, itemsForSubject, schedule, ui, validateApplications, validateCorpus } from './imports.js';
+import { examPool } from './exam-mode.js';
 import { STEPS, pickItems, setStep, startSession } from './session-engine.js';
 import { goTo, openSessionOverlay, setActiveNav } from './navigation-five-destinations.js';
 import { itemAttempted, itemDue, itemScore, read, store, write } from './storage-versioned-keys.js';
@@ -283,14 +284,18 @@ export function renderToday() {
     hooks: 'No memory aids found',
   };
   const tiles = STUDY_MODES.filter((m) => m.id !== 'subject').map((m) => {
-    const count = pickItems({ mode: m.id }).length;
-    return { ...m, count, color: TILE_COLOR[m.id] || 'var(--teal)' };
+    /* Exam mode builds a PAPER, so its tile counts questions rather than
+       items -- and counts them from the same pool buildPaper draws on, so the
+       number on the card cannot drift from the questions actually available. */
+    const isExam = m.id === 'exam';
+    const count = isExam ? examPool().length : pickItems({ mode: m.id }).length;
+    return { ...m, count, noun: isExam ? 'question' : 'item', color: TILE_COLOR[m.id] || 'var(--teal)' };
   });
   $$('sessionTiles').innerHTML = tiles.map((m) => `
     <button class="rss-mode" style="flex-direction:column;align-items:flex-start;gap:5px;min-height:104px" data-mode="${esc(m.id)}"${m.count ? '' : ' disabled'}>
       <span class="ic" style="font-size:17px;color:${m.color}">${m.icon}</span>
       <b>${esc(m.label)}</b><small>${esc(m.hint)}</small>
-      <span class="cnt">${m.count ? m.count + ' item' + (m.count === 1 ? '' : 's') + ' ready' : esc(EMPTY_WHY[m.id] || 'Nothing to study')}</span>
+      <span class="cnt">${m.count ? m.count + ' ' + m.noun + (m.count === 1 ? '' : 's') + ' ready' : esc(EMPTY_WHY[m.id] || 'Nothing to study')}</span>
     </button>`).join('');
   $$('sessionTiles').querySelectorAll('[data-mode]').forEach((b) => {
     if (b.disabled) return;
