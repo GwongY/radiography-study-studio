@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 468 lines
+## `outputs/radiography-study-studio.html` — 482 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–443 | markup — no banners, grep here |
-| 444–444 | importmap |
-| 445–445 | loads studio.js |
-| 446–446 | loads study.js |
-| 447–466 | classic script · preamble |
-| 467–468 | markup — no banners, grep here |
+| 1–457 | markup — no banners, grep here |
+| 458–458 | importmap |
+| 459–459 | loads studio.js |
+| 460–460 | loads study.js |
+| 461–480 | classic script · preamble |
+| 481–482 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -23,9 +23,9 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1285 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
+- `outputs/app.css` — 1312 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
 - `outputs/studio.js` — 26 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
-- `outputs/study.js` — 52 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
+- `outputs/study.js` — 58 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
 ## Data modules — `outputs/*.js`
 
@@ -43,7 +43,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `schedule.js` | 866 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 127 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 379 | Radiography Study Studio — service worker |  |
+| `sw.js` | 381 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 268 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 1748 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
@@ -129,8 +129,9 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 | File | Lines | What it holds |
 | --- | --- | --- |
+| `assessments-and-marks.js` | 480 | Course — assessments, deadlines and the running mark |
 | `boot.js` | 74 | Boot |
-| `course-timetable.js` | 423 | Course — the syllabus and the timetable, with attendance |
+| `course-timetable.js` | 320 | Course — the syllabus and the timetable, with attendance |
 | `coverage-report.js` | 118 | Coverage report |
 | `dialog-behaviour-applied.js` | 112 | Dialog behaviour, applied to all seven at once |
 | `gist-sync.js` | 474 | Gist sync — the off-device copy, on the one service this app already depends on |
@@ -152,12 +153,13 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `session-engine.js` | 247 | Session engine |
 | `small-ui-helpers.js` | 197 | Small UI helpers |
 | `source-dialog.js` | 59 | Source dialog |
-| `spatial-overlay-controls.js` | 297 | Spatial overlay controls (viewer "..." sheet) |
+| `spatial-overlay-controls.js` | 340 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 35 | The study system's mutable UI state. |
-| `storage-versioned-keys.js` | 149 | Storage — versioned keys, one-time migration from the osteology app |
+| `storage-versioned-keys.js` | 156 | Storage — versioned keys, one-time migration from the osteology app |
 | `subject.js` | 322 | Subject |
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 283 | Viewer tools — annotate, cut, layer depth, capture |
+| `viewport-recovery.js` | 287 | The band below the tab bar — measuring it, and asking for the space back |
 | `what-is-under.js` | 170 | What is under the tap |
 
 ## The corpus — `outputs/study/corpus/*.js`
@@ -196,6 +198,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 
 | Script | What it does | Traps |
 | --- | --- | --- |
+| `work/assessment-check.mjs` | Assessments, deadlines and the running mark. |  |
 | `work/baseline.mjs` | Probe baselines — capture what the verifiers say TODAY, so a later |  |
 | `work/binding-check.mjs` | Binding check — does every split part import the names it uses? | [Missing imports in a split part](TRAPS.md#missing-imports-in-a-split-part--workbinding-checkmjs) |
 | `work/bridge-check.mjs` | Does the studio actually expose everything the study system calls on it? |  |
@@ -246,4 +249,5 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/unread-manifest.mjs` | Write a work list of everything the corpus has not read, for handing to |  |
 | `work/verify-modules.mjs` | Task #8 verification — module mapping + corpus integrity. |  |
 | `work/verify-notes.mjs` | Check notes that came back from another reader, before any of it becomes a |  |
+| `work/viewport-check.mjs` | The viewport diagnosis — driven with readings no phone here can produce. |  |
 

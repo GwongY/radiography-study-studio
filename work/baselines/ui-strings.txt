@@ -1,10 +1,11 @@
-— user-facing strings in outputs/ — 880 —
-  a53ca706b29b3942  WHOLE SET
+— user-facing strings in outputs/ — 931 —
+  f2e6152ff1097f60  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
   753ec4f3a305c1c3   <span class="cut-levelcite">
   ecba1318e9d7541e   Gist sync disconnected; the gist itself is untouched.
+  33fff96676d47f8a   Tap to ask the browser to reconfigure the viewport.
   c8f303e7554a57f7   These are paired — the side is part of the answer.
   1f1170e574c9a100   \u2014 nearest to it
   a160b4379bca601e   due. Delayed recall only scores on the first attempt after a gap of a day or more.
@@ -22,12 +23,13 @@
   428d71c485304cd4  " class="dlab">
   88c26bf09f179369  " data-att="missed" data-sid="
   56dab152666c2c7c  " data-att="went" data-sid="
+  b52c5573bfa9d3bf  " data-component="
   d9f636bbe94e0ae5  " data-concept="
   8ea7e01970b3f34f  " data-depth="
+  4c962673577ace70  " data-done="
   ef15913a4f42b0cc  " data-filter="
   5265bd1a089ac9df  " data-groupopt="
   9d18b1672389d7fe  " data-groupset="
-  e05adddbc8930330  " data-item="
   921e345548b45de2  " data-reveal="
   854ec856a1bc5f87  " data-rtab="
   d73ec115ea9142c9  " data-state="
@@ -35,12 +37,13 @@
   62d7f300f56bd1fa  " data-tool="off" aria-pressed="
   339e1b7085304bc2  " data-topic="
   e2d80c92ddbb5f6d  " data-vtab="
-  828626d9f204fdc0  " data-week="
   40096d512b202dd9  " data-xregion="
   33ebbb5a93b28f77  " data-xview="
   ee816f3b5b66dbf1  " loading="lazy">
+  46d6bbe92726dad5  " placeholder="—"
   14d9928de191e4c8  " r="6" style="pointer-events:none"/>
   9496b6eb7e0374d5  " role="img" aria-label="
+  f847813600bc8f62  " role="status">
   eb82935571faaac8  " style="--acc:
   1b0741baa2d2f617  " style="--accent:
   a70a4627802e8fd1  " style="text-align:left;cursor:
@@ -48,13 +51,22 @@
   2c99b5c4dedfd5a5  " target="_blank" rel="noreferrer">Wikimedia Commons
   e272ca64fe23b521  " title="
   5465451fbdda9b14  ">Study this →
+  fe28989274e10994  % banked from
   23db48b468bb0c9a  % correct overall · weaker structures are prioritised.
+  cce4036d8e09c47c  % marked
   1fa5a4b7dc45d675  % mastered
+  1981fd63b751ccdb  % of the subject
+  b0aa62730bf81dd2  % of the weight,
+  450933f8f8e47891  % still to come. Highest still reachable:
+  fab48eab3dda333d  % you need
+  0d39dfc8843ce989  (display-mode: standalone)
   fce63bfb9ebaba3d  (prefers-reduced-motion: reduce)
   93a03cdc35a83caa  ). Nothing was lost — try again later.
   7ac7679148ff1f49  , and this app is on
+  75c7ea370d30e16f  , as a percentage"
   e7d099eb305882c1  , last written
   bfd4242c0712a338  , tap for
+  463b794c0b2cefeb  , the tallest this device has reported. No band.
   eaad1c08038293ae  , unverified
   dc6a7d80c9915298  , with the questions you got wrong.
   c0b1daed9b12da7c  -level background — the part you already have
@@ -72,6 +84,8 @@
   a7fbec4f385f22fb  3D · tap to name
   70ec40827f738641  8 carpals, 5 metacarpals, 14 phalanges
   02c400f14d7569ed  <a href="
+  bc002056a461072f  <b style="
+  fbc7f40a78126f42  <b>—</b> so far
   13afbf804d8a2068  <button class="attbtn
   a7efef6ed82b83dc  <button class="attbtn miss
   1a6ab45c16783dc4  <button class="card" data-row="
@@ -86,7 +100,6 @@
   9cf783159a7226c8  <button class="ochip" data-kind="
   1b80327a8260e72e  <button class="oitem
   346f8acb28a2cff6  <button class="omode" data-mode="
-  d687e39f0de0363f  <button class="primary readall" data-week-subject="
   b93aaff64fde9120  <button class="primary" data-nav="apply">Apply it →</button>
   7a600a4fe8fc3508  <button class="primary" data-nav="practise">Test me →</button>
   4a8dfeb9b037e6a4  <button class="primary" id="rssFinish">Finish session</button>
@@ -95,7 +108,6 @@
   f8db73fad7b2457b  <button class="primary" id="rssNextItem">Next item →</button>
   63d4be2570536586  <button class="primary" id="rssNextQ">Next question →</button><button class="ghost" data-nav="apply">Go to apply</button>
   bfe8380af38f3075  <button class="primary" id="studyTopicBtn">Study in teaching order</button>
-  643db43b27b7533c  <button class="readline
   6822ad345e3c6a68  <button class="rss-mode" style="flex-direction:column;align-items:flex-start;gap:5px;min-height:104px" data-mode="
   52c2a2e072de9ed6  <button class="seg
   6dcaad6caa1d4d6e  <button class="sres" data-hit="
@@ -132,7 +144,6 @@
   7aaa787059967e32  <div class="lay-note
   985853d5ea72ae92  <div class="lay-row
   81bbed0091211144  <div class="layerhint">tap to cycle · solid → ghost → off</div>
-  9b2eabb511d75c21  <div class="lesson-sources missing">Source map entry unavailable.</div>
   b72e23b04ca38453  <div class="note">Red is oxygenated, blue is not — which is why the pulmonary artery is blue-violet and the pulmonary veins are red. Vessel type does not decide the colour; what it carries does.</div>
   f7e97a446dcb1b5b  <div class="notice"><strong>Every question validates</strong>All 
   28c656ec553bbafd  <div class="nowcard
@@ -145,6 +156,7 @@
   079bd17310af1ec7  <div class="sessnote">Another group’s slot — hidden from your counts.</div>
   b9daa6867ff1c133  <div class="small" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line)">Each lesson lists its original New and old source files and page references. A source reference does not by itself mean the entire lecture is covered.</div>
   20a11226de7c5b9f  <div class="studyscore">no attempts yet on this device</div>
+  6634c6d53e1e4431  <div class="upnext
   eb7577ba3c5c592f  <div class="verdict
   c1e9dab7d597ae36  <div style="height:100%;width:
   bdf855c7c177a453  <ellipse class="sk" cx="
@@ -152,11 +164,12 @@
   c5c104a746bff703  <h4>Derived from</h4>
   a03547db46bf9e4b  <i style="background:#
   6f722b80156fb8ac  <img src="
+  590b1769ac58646c  <input class="markin" type="number" inputmode="decimal" min="0" max="100" step="0.1"
   2f476a078765d308  <input id="rssTypedInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="
   3a324e9e0d188447  <input type="range" min="8" max="100" value="
+  65da2d38aebef408  <li class="assrow
   4a0089a78242886e  <li class="sessrow
   144901117bb21081  <li>A sync is waiting for the network.</li>
-  24f763404b10de59  <li>Source gap — see the weekly gap notice.</li>
   5f0ccbf50845efd8  <option value="
   541b9a046de22b45  <p class="figkey-note">Dimmed marks are the figure’s own labels, beyond this lesson’s named set.</p>
   0647018486120933  <p class="small cut-levelnote">No named coronal levels: a coronal section is named against the mid-axillary line, and none of this app&rsquo;s sources name it. Use the slider.</p>
@@ -165,8 +178,9 @@
   6f16f7184cae76ac  <p class="small">Turn a layer on below the model and its opacity appears here.</p>
   67bad9b6b48321f9  <path class="sk" d="
   44253459e8795ded  <section class="card sylcard" style="--acc:
-  4b83459382be695c  <section class="readcard" style="--acc:
+  a8a2ffd086d2a88d  <section class="markcard" style="--acc:
   797b7e050cea9dbd  <section class="weekblock
+  1e9880161389bfd4  <span class="banked" style="width:
   c01f823061ea0f83  <span class="chip beyond">Beyond your course \u2014 one of a kind</span>
   7b73cadaeb914935  <span class="chip beyond">Not named in your course material</span>
   ca7957e9685c2f1b  <span class="chip learn" title="
@@ -178,10 +192,11 @@
   b83f09d243f67fb8  <span class="mono" data-depthread="
   62bc3808f16130c2  <span class="mono" style="color:
   79494432a3df21c8  <span class="openwk">This week</span>
+  24337fc436267890  <span class="pc" style="color:
+  a8bd35f3ae605d47  <span class="pending" style="width:
   1120ce038e281d16  <span class="pill
   8c0951042a96d65b  <span class="pill">App-authored aid</span>
   4714c142e626766f  <span class="sc
-  b2d8c13db5007a72  <span class="source-badge
   c556c181d6a203e1  <span class="termpart
   a05bf7cf9eb01e77  <span class="termplus">+</span>
   a8c0e6943d65acd5  <span class="vague" title="No time published for this subject">week only</span>
@@ -208,8 +223,6 @@
   dac5841c386d8add  All Y1S1 courses
   e94d9dd5772a74c5  All Y1S1 courses \u00b7 latest schedule order
   8968425df01d3da6  All regions
-  63d55224203116e0  All started
-  c2150c55306954e1  All started, and holding
   aa3acf22b193a343  Already covered ·
   c2db0f34254c9f63  An off-device copy that happens on its own — the only thing here that survives losing this device, reinstalling the app, or the browser clearing its storage. Needs a GitHub token scoped to gists and nothing else.
   90d82470f4817358  Anatomy first
@@ -233,6 +246,7 @@
   e72ca92c0272f35b  Body layers
   2cea2e3a045ac3d2  BodyParts3D / Anatomography model licensing and the candidate sources that were reviewed.
   14352d43201b3476  Bone goes translucent; the cavity reads straight through it.
+  08dec09e60523dff  Browser tab · viewport
   67914e2d1393fea9  Browsing memory hooks — nothing is scored in this mode.
   4edfab653f74507f  Browsing the
   f30ae92534e255f4  Built out of
@@ -264,6 +278,7 @@
   650bfee8c10b708c  Current files take priority for dates, topics and assessment. Older official lectures are used only to teach a current syllabus topic when the matching 2026 lecture is absent; student coursework is never used as a factual source.
   80593d9330e238e5  Cut position
   e3c1a5d80a89f718  Day streak, per-item status and the item you were last part-way through.
+  792b1ed47ceecb59  Deadlines and weights come from the subject documents on the Syllabus tab.
   1ce89851847711af  Delete every mastery record, mistake and schedule stored in this browser. There is no server and no undo, so export a backup first if you might want it.
   71eb8a08ffd768d7  Delete everything
   6b4482e521d6ca2b  Described in
@@ -280,17 +295,21 @@
   eb33e7f0fd9f3397  Every item has been seen at least once. Try "Review my weakest topics".
   7588a781fa751450  Every point is answerable in the practice question.
   4b18c8812e334be5  Every question validates
+  f7b81d5c080156a2  Everything is marked. Final:
   49070002f587bcf4  Everything you have got wrong, most-repeated first. Each one keeps its own explanation and the confusion that caused it.
   c00d4a1a69e70add  Explain my mistakes
   bffe96c6114e2262  Explore & study
+  b90b4a943e80fc1e  Export timetable to calendar
   9f7d2428f854a82f  Fade everything except the structures that define the cavity.
   b4b9abe93d713048  FiBUla is the thin lateral pin and ends in the lower lateral malleolus.
+  ca39fc5e6da394f2  Final exam
   1a5d72ec7b07df58  Find the
   68ed5dff9e6e0d16  Finish \u00b7 next item \u2192
   fd2f684294d47cfc  Finish session \u2192
   8802e1925c84cdea  Five large load-bearing vertebrae: dinner at 5. Lumbar bodies are chunky.
   7e4442b59b339275  From this item
   8e8f88fe40d45d19  Frontal bone
+  cb73b83197d100e5  Full height · viewport
   3ee9379ac50332af  Full reference + fallback upper-limb meshes
   c779b95a4e70b011  Full reference failed
   edf0377d91509acb  Full term
@@ -305,6 +324,8 @@
   6ac6a5c7f23082d7  Greek kranion — helmet/skull
   a5ae4d1e81505bca  Greek sternon — chest
   a7412a5575ad7d75  Greek thorax — chest armour
+  b70193da11b2bc6b  Handed in
+  9ce88e70377dc5ee  Handed in ✓
   805e154ea0f599bc  Has 3D / images
   318e02bf5cf6ad64  Have a go first. Applying it badly and then correcting beats reading the answer.
   dc0798173dbd926c  Held still for reference:
@@ -318,6 +339,7 @@
   bf86a7499d7d6ae8  I could not follow it
   71d0c345b3b19dfe  I could not place it
   95873b2461b45a1f  I found it / I know where it is
+  4bf4f120eac41088  I have handed this in
   8e0e442a601073a4  I identified them all
   61dbe2ea793be5ad  Identify the highlighted landmark
   faf46f11200150fe  Image not found — add it to assets/xray/ and reload.
@@ -331,6 +353,8 @@
   90a8aa236c266060  Jugular notch
   bfd62f38eb7f415e  Keep hidden
   c6867b20a8fd8669  Key facts to remember
+  2072e9484cb255ff  Keyboard up · viewport
+  5b03442d3cba299d  Lab reports
   31fb459fac2d4100  Landmark data next
   cf032eb29801f8f7  Language learning
   03b26f0f8e4b2a5e  Larynx \u2014 modelled as its parts
@@ -363,6 +387,7 @@
   f244cc971bb836e5  Lymph nodes of the abdomen
   a7dc140c63a71953  MANdible = MAN-chews. It is the mobile skull bone.
   13166033a2c30bb5  Manubrium, body, xiphoid: head, torso, sword-tip.
+  47c4ca3bc141b48a  Mark handed in
   74c4823f019f3ab0  Mastery and review schedules —
   d64f4eee948af6c3  Mastery lives in this browser only, so the desktop and the iPad keep separate schedules. Export a file here and import it on the other device.
   36d4a1c821f13df1  Match every row before checking.
@@ -407,7 +432,6 @@
   b7cae769b9db0fc6  No radiographs bundled
   ef8c7dae7a20163c  No reference
   f6a59c0ee7b34cc0  No source materials
-  e73285aebba9de57  No source-backed lesson has been assigned to this week.
   166b0cc5ce4455c1  No structure in
   7731f34185d19140  No structure in the database has
   71d9ec8ef4d13ffe  No token is stored on this device.
@@ -420,13 +444,16 @@
   ba35f0c47d862763  Not started
   2ca96754a9566ca9  Not that one — try again. You tapped
   05d0ba9bf71b048a  Note text, then tap the structure
+  f7223d935cbef77b  Nothing ahead — but something is overdue.
   be01d5e7a809719c  Nothing attempted yet
   01c734adb1d8dbbe  Nothing due or weak yet
   17c54ae148fd8107  Nothing has happened yet. Close this dialog and it never will.
   44a3cc778bbfd521  Nothing in progress
   a272b965cae90dba  Nothing is assumed about your answer — this is the first thing recorded for the item.
   992f6502afaafa7a  Nothing is highlighted. Rotate the model and tap it. Tapping the same spot twice steps behind whatever is in front.
+  9ef12bb7fdb531f5  Nothing left on the published deadlines.
   db09520da1bff2bb  Nothing left on the published timetable.
+  4197398a69b67157  Nothing marked yet — enter a mark as each piece comes back.
   e482fecba95e8c84  Nothing matches \u201c
   f8c104249eb21c8b  Nothing selected
   5f659a0f0761bf95  Nothing to ask here yet
@@ -434,6 +461,7 @@
   91d3cc9c39ce4d97  Nothing to study
   f5de33541d146691  Nothing to study for that selection yet.
   bf9913bba7204a22  Nothing to undo.
+  ad0e73f2f15963a1  Nothing under “
   2b12d09ebcacae94  Official notes missing — see weekly gap
   2efc956104ec7d7a  Offline & storage
   e1070a158b550318  Offline-first study system for HSS2011 Human Anatomy, ABCT2326 Human Physiology and medical radiation science.
@@ -461,7 +489,6 @@
   fbb2baef613596d9  Radiation science
   c91778ac1e937e43  Radiography Study Studio — study progress (private)
   908b9d8d4c977990  Radioulnar joints
-  87584433b6ea3e63  Read before this week
   14940b320721a5a8  Read down: the small clue first, then the hook it hangs on.
   726a962ec689197d  Read the hook, then choose the structure it describes.
   1202164db500bf1e  Read the teaching explanation and the key facts.
@@ -473,11 +500,14 @@
   fc56055b48b49999  Reset progress on this device
   914423b50b0c8bb6  Reveal next hint
   ff43191f37c6e281  Review scheduled from your answers
+  818f842a6df6eadc  Revision exercise
   70e713c50b354a05  Rib-count memory
+  f57aea52d9f416b4  Running mark
   265caba7c7686645  SM-2 shaped, then modified by response time and repeat mistakes.
   226449e53de8c9e3  Saved the current view as a PNG.
   557649a62d5eb1a6  Scaphoid bone.r
   c2faf1deb36d01f2  Scheduling rules
+  d4e5958084c9d6f2  Screen fit on this device
   415155739590b1f9  Search everything
   82b194198823cb4e  Select a structure
   e448874d62e27a4a  Select a structure first
@@ -487,10 +517,10 @@
   b4821ec5efba32ad  Session done —
   8bbf4d2a69b0c709  Seven vertebrae: breakfast at 7. C1 Atlas holds the head; C2 Axis lets you say no.
   55d75c2270210ef6  Shell cached at install. Each 3D model caches the first time you open it, so the footprint grows to match what you study.
+  0e96950aeb59f005  Short by
   b7e2eaa5cec47a39  Shoulder blade / spade
   2150d8df37e48957  Show all
   6eabbe9ab1e22c72  Show all in the Viewer
-  255beb6510e7827d  Show fewer
   667095c7b2d70a16  Show the lesson first
   0595489058178b10  Show the model answer
   cab88e281cc40392  Show them
@@ -510,7 +540,6 @@
   11f066152b09be80  Sources & coverage report
   da72a8dda063752a  Sources & model attribution
   824ba78711430662  Sources for the whole item
-  4670a8bd8491de85  Sources for this lesson ·
   781ffed29fcefcff  Sources, coverage, settings
   8453b6ae9d67090b  Spelling was off — the exact form is "
   c58398bfd89d3d58  Spin turntable
@@ -520,6 +549,7 @@
   bbbe87b5cafa988b  Start the stroke on a structure.
   73a408b0bf3f0f58  Start with Identify to create your first review history.
   e5424ad7564878f3  Starting with
+  44379762f7964194  Starts soon
   abf1b14dc2f90ee7  Static model
   36d7a4f4ac12b2b4  Sternal angle
   893865becae0ba06  Still unnamed:
@@ -530,6 +560,7 @@
   197a9cfd7132bfb2  Study modes
   6db1fe691cb5e688  Study session
   da5c0cb3a2f2cda1  Study this topic
+  586b0a54a4f22b10  Study this →
   307e3df259cf7ea5  Subjects with no material
   25a2aae6c2da8872  Substitute source
   dcb3fff57226c1dc  Syllabus and teaching notes needed
@@ -607,6 +638,7 @@
   8c4eef5ab2532515  This week
   2a2abf143c0b1cb9  Thoracic cage
   8278421692e43358  Those bones are not in the loaded model.
+  60fbbc864f3e78f7  Timetable to your calendar
   f3fbfcd5fea4fbe9  Timetable, syllabus, attendance
   365876067e586bde  Traced to
   bdadc5cef1ccc303  Transpyloric (L1)
@@ -630,12 +662,14 @@
   9aa8e28faa9142cd  What the colours mean
   b4162094b978eb6b  What this lecture adds beyond
   536306b242c83602  What to do now
+  f91dc12078f83541  What you handed in and what you scored are yours, kept on this device with the rest of your progress.
   7efbff3832400d93  Where all of this came from
   595c0868c16492a2  Where the xiphoid process meets the body of the sternum, at the anterior end of the thoracic outlet.
   99e5997ec6eb3f95  Which bone does this hook belong to?
   14ab8c8c07e135d1  Whole body
   a6075b915d80c000  Work it out in your own words
   2efde2e039fd8b4b  Write something first — even a rough answer. Comparing beats reading.
+  00bb24ff5c1aaf41  Writes every dated class, lab and deadline as a standard .ics file. Open it and your phone or laptop calendar offers to add them — after which the reminders are the calendar’s job, not this app’s.
   a1a80fe79d9495e1  Written by this app from the content above. The facts are the sourced ones; the insight framing is study scaffolding.
   f2737495d683165a  Xiphisternal joint
   c66f49de59b48578  Y1S1 source map
@@ -662,6 +696,7 @@
   94143c2692614a77  answer event
   f53741724922c4e4  answer events this device has never recorded — added.
   9b5538d17c61f0ec  are held on this device and nowhere else.
+  2f4b24c630bdf091  aria-label="Your mark for
   4dafb342c48fd85e  artery = red = oxygenated
   038dbe3356c60c5f  assets/xray/ is empty \u2014 add a licence-cleared image
   f0a2f6bcdb910bd5  axial at the sternal angle
@@ -672,6 +707,7 @@
   a4d8d4905749584b  border:1px solid rgba(114,227,207,.4);border-radius:16px;background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03));padding:18px
   6607a28fb29685f9  both sides were fully logged, so the records were replayed from the merged log — exact
   1d647a1965983c2a  breaths a minute
+  30f46b9b2fd19178  browser tab
   a4c18480ff6a58f4  card grouppick
   dee735ed000908c8  card overlaycard
   53a55ca51fe7c9ab  card sylcard
@@ -689,6 +725,7 @@
   d3967cf0a967dbd6  cross the joint and are ghosted and held still — muscle and vessel deform across a joint
   d1db107277f6c3b0  current + older support
   e62c5be9438eca6a  current source verified
+  a419fe7f15c0a5e3  dated sessions written to radiography-timetable.ics — open it to add them to your calendar.
   beaf6f881a9b75ac  day streak
   37dad91df7b23460  days ago
   292aa52b6bc5ade8  density += n * uGrain * (0.35 + 0.65 * density);
@@ -697,6 +734,7 @@
   efe8bcccea6ac349  dlg-scroll termbody
   4f6bd1ad9fc7a4f8  does not hold valid JSON.
   9c029c43f1357a43  drawn on the abdominal wall muscles
+  b01870ef39f66f92  due this week
   099aa9ffa0926efa  emptybox hidden
   aa9b42a9c9734d2f  epi- (above, upon), hypo- (below; also deficient), inter- (between)
   8983c81d3b29aff6  feedback bad show
@@ -710,14 +748,16 @@
   58c52e396dc3adee  float sgn = gl_FrontFacing ? -1.0 : 1.0;
   7496cb54c851ba78  float tau = max(0.0, texture2D(tTau, uv).r) * uGain;
   c10f8a601e7ff109  float transmitted = exp(-tau);
+  3c9bbf25a1365e5d  full height
   c99a222fc3470c4f  ghost close
   1a282eee876c39f0  ghost hidden
-  922742cd0fc01dbf  ghost readmore
   8a4081dbed1f6c62  ghost tolesson
   fdb7920c327b021a  gl_FragColor = vec4(sgn * vDist * uMu, 0.0, 0.0, 1.0);
   2417f7519a9d91f5  gl_FragColor = vec4(vec3(clamp(density, 0.0, 1.0)), 1.0);
   6a590bc9c97002da  gl_Position = projectionMatrix * mv;
   c3218bfbba24a149  half the model has gone missing
+  ece337d77fd9e30f  handed in
+  d3626567f9a5400b  have I learnt it
   136c83226ce5507e  held so far
   801150784042ae58  hiddentray empty
   1627ca8d8438acb8  how far does this region reach
@@ -729,7 +769,6 @@
   9ea746df2b511e0a  if (!s) return '';
   92e25ebd96c6b686  in a row
   40ba1be988786a47  in line here
-  63be856a06e4817d  in order
   8f4e6e661819b86b  in the examinable glossary
   77fffafaf552e5b1  in this drill ·
   c7e4e6c144bbd4f1  inside its measured box
@@ -773,6 +812,7 @@
   fa33373d92168af7  named in
   ec127246ffd2352f  named landmark hotspots
   65a8e13d43e16a88  named mesh
+  a9ff6c862d2bfd72  new Date(y, m, d, h, min)
   fb71e35554b8c081  new items,
   66e7dd59209ea41c  no baseline
   e7b1a45f4258c96c  no engine
@@ -782,6 +822,7 @@
   639098cfaf4687c5  nothing drawn yet
   6c72de620a530165  notice stop
   bcc38d49bd57532e  of existing progress into the new mastery record.
+  5265228587b69a1f  of the mark
   051d858fae071603  of them are selected together under a name it does use. The atlas calls this one "
   0c1c4b58250af158  on this device, across
   207efbf91868f3d0  p13 "xiphoid process"
@@ -797,11 +838,9 @@
   d2c10c79856392a6  primary detail-open
   63d1b7f8646ef672  primary next
   c504c70741f08c26  primary next show
-  f0197c94b5d1d341  primary readall
   57df5f919992d6d5  pulled in,
   777503f25750cf8f  px "Instrument Sans", system-ui, -apple-system, sans-serif
   9104b22058806e6c  rather than rotating rigidly, so swinging them would tear them off their origin.
-  3fb4f09f641fdc35  read, none tested
   9601152cce8eb58a  reads as
   c93a88684ed76c4f  real BodyParts3D upper-limb meshes
   6ab01b1dba123b71  region filter does not work
@@ -810,6 +849,7 @@
   df49128572cf09cb  s job is only to feed it those meshes in the body
   91f0e226c82016ff  s left), fz 0 the trunk
   4e01dcdc55cd6293  s own half-width put the oesophagus
+  b5b38c70aa56b8e0  segbar assfilters
   d0f660b8c5b0b50c  segbar coursetabs
   cd3c2bcf3f5c6659  segbar hidden
   37e8cb66682dd7b0  separately selectable">
@@ -817,13 +857,16 @@
   29795951237abb24  should hold an array of events.
   5c6db2f77cfe003a  small cut-levelnote
   535432277ab15c02  small term-number
+  31c5f19d08e70b45  so far' :
   b06f2f1ca52fc976  soft-tissue mesh
   f004ce84a1c00cd6  soft-tissue structures travel with the bone.
   a05d0fe6c99cd823  source review needed
+  4118e397f17372ab  still to hand in
   7d30607b3e9c2d7a  structures in
   036a99f6c882069b  structures to name. Work round them in a fixed order every time, so the order itself becomes the cue.
   4132e48b488fc684  studied, across
   53b5cb1fd8627dca  synced today
+  0f13791bd917a082  tall. The band this watches for only appears in the installed app.
   79ea393804dc771d  tap a structure to name it
   ed964bcd197f9142  tap to name
   f5f88ae39b9a5ceb  that structure
@@ -832,6 +875,9 @@
   4f6a3d859e615a5a  the skeleton
   b34e03407b386047  the token no longer has gist access
   aa380a202d8e6080  this device was empty, so the whole history was taken from the gist and rebuilt from the log
+  8a3a6bcf33fef191  this is what I got
+  7d76655e727c2c50  this week
+  e0dd37bd06a20746  to hand in
   5d2033a00068467a  to uncover
   e738706e3a65b48b  toolchip hidden
   91ca901995ca8a91  type="button" data-term="
@@ -857,9 +903,12 @@
   6a721f9bcdcf952d  view hidden
   4d3a303a1b27367f  vsheet hidden
   517a9e300094cc0d  wall interpolated between the costal margin and the pelvis (muscle layer not loaded)
+  e78e242b95628323  what is left
   d1d9ae15f23c9b21  what should I study
   5fd1f8e2da61b599  what this mode needs
+  9e3ac18c25c2c980  where am I meant to be
   c9ef209dbe30af9e  where the file is more recent — replaced.
+  a27139acecaf8695  where this device has reported
   8198bdb854b9ed3d  where this device is more recent — kept as they are.
   f15917d478d385d3  which of these is a skull bone
   a08b97ce59de6217  whole skeleton
@@ -867,6 +916,7 @@
   19453f5759aed21a  wrong transform
   a280303e42e6da2d  you can select
   0ab77651425c254f  you can select · tap one
+  d7085db92f248fb1  you need 140%
   0a070443fbd9b75b  · <a href="
   cede9d46ada8b8f1  · found under "
   220cbb8b7a5db024  · left off at
@@ -876,6 +926,7 @@
   0f3ebbb0ff98d5ec  · question
   dbfe3f147332dc00  · tap to name them
   70c67477da9f1f7f  · teaching order
+  e22653df93982092  · viewport
   2b40b61749321612  · your course names none of these one by one
   2ed64db2b62cdd4f  — coursework produced by students. Used only to confirm topic scope, never as a fact source.
   906d335588568bc2  — past papers, revision exercises, model answers and question banks.

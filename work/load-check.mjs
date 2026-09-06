@@ -80,7 +80,8 @@ for (const n of ['document', 'window', 'localStorage', 'sessionStorage', 'naviga
   'customElements', 'getComputedStyle', 'HTMLElement', 'HTMLCanvasElement', 'CanvasRenderingContext2D',
   'Worker', 'Blob', 'AudioContext', 'OfflineAudioContext', 'THREE', 'alert', 'confirm', 'prompt',
   'ResizeObserver', 'IntersectionObserver', 'MutationObserver', 'Notification', 'fetch', 'scrollTo',
-  'innerWidth', 'innerHeight', 'devicePixelRatio']) {
+  'innerWidth', 'innerHeight', 'devicePixelRatio', 'addEventListener',
+  'removeEventListener', 'screen', 'visualViewport']) {
   if (!(n in globalThis)) { try { globalThis[n] = stub(); } catch { /* const globals can't be set */ } }
 }
 

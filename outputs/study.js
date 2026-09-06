@@ -14,6 +14,7 @@ import { init as init_gist_sync_js } from './study/gist-sync.js';
 import './study/moving-progress-between.js';
 import './study/reset.js';
 import { init as init_small_ui_helpers_js } from './study/small-ui-helpers.js';
+import { init as init_viewport_recovery_js } from './study/viewport-recovery.js';
 import './study/home.js';
 import './study/navigation-five-destinations.js';
 import './study/review-mistakes-due.js';
@@ -31,6 +32,7 @@ import { init as init_layout_figures_js } from './study/layout-figures.js';
 import { init as init_source_dialog_js } from './study/source-dialog.js';
 import './study/coverage-report.js';
 import './study/mastery-dashboard.js';
+import { init as init_assessments_and_marks_js } from './study/assessments-and-marks.js';
 import { init as init_course_timetable_js } from './study/course-timetable.js';
 import { init as init_text_size_js } from './study/text-size.js';
 import { init as init_viewer_tools_js } from './study/viewer-tools.js';
@@ -38,6 +40,9 @@ import { init as init_boot_js } from './study/boot.js';
 import { init as init_dialog_behaviour_applied_js } from './study/dialog-behaviour-applied.js';
 
 init_small_ui_helpers_js();
+/* Before anything measures a header: the viewport is what every other
+   measurement in the app is taken against. */
+init_viewport_recovery_js();
 init_text_size_js();
 init_layout_figures_js();
 init_source_dialog_js();
@@ -49,4 +54,5 @@ init_progress_log_js();
 init_gist_sync_js();
 init_dialog_behaviour_applied_js();
 init_course_timetable_js();
+init_assessments_and_marks_js();
 init_viewer_tools_js();

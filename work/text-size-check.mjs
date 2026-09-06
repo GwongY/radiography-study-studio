@@ -24,9 +24,11 @@
  *   - everything drawn over the stage -- the pick stack, the hidden tray, the
  *     tool chip, the overlay card, the selection panel. They are positioned,
  *     not flowed; there is nowhere for them to grow into.
- *   - the two 16px inputs. 16px is what stops iOS zooming the page on focus.
- *     They may only ever go UP, and --ts never goes below 1, so scaling them
- *     would be safe -- they are here because they are chrome, not prose.
+ *   - the three 16px inputs. 16px is what stops iOS zooming the page on focus,
+ *     and on an installed iOS app a zoom is viewport churn -- see
+ *     outputs/study/viewport-recovery.js for what that can cost. They may only
+ *     ever go UP, and --ts never goes below 1, so scaling them would be safe;
+ *     they are here because they are chrome, not prose.
  *
  * Run: node work/text-size-check.mjs
  */
@@ -50,7 +52,7 @@ const FIXED = [
   '.xray-exp', '.lessonvis-readout', '.flowkey', '.layerchip', '.layerhint', '.livechip',
   '.physline', '.overlaycard', '.vsheet-lab', '.modebar', '.studypool', '.studyscore',
   '.struct', '.mv-read', '.mv-ends', '.lessonvis-busy', '.diagram-wrap', '.lessonvis-mount',
-  '.sheethead input', '.typed-row input', '.toast', '.nostudy', '.progress', '.stage-hint',
+  '.sheethead input', '.typed-row input', '.markin', '.toast', '.nostudy', '.progress', '.stage-hint',
   '.stage-meta', '.stage-state', '.mode-btn', '.icon-btn', '.stage-label', '.stage-controls',
 ];
 const isFixed = (sel) => {
