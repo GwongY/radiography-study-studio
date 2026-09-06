@@ -3,11 +3,9 @@
   "configurations": [
     {
       "name": "study-studio",
-      "autoPort": true,
-      "runtimeExecutable": "python",
+      "runtimeExecutable": "node",
       "runtimeArgs": [
-        "-c",
-        "import os,functools,http.server;port=int(os.environ.get('PORT','8420'));Handler=functools.partial(http.server.SimpleHTTPRequestHandler,directory='outputs');http.server.ThreadingHTTPServer.allow_reuse_address=True;http.server.ThreadingHTTPServer.daemon_threads=True;http.server.ThreadingHTTPServer(('127.0.0.1',port),Handler).serve_forever()"
+        "work/dev-server.mjs"
       ],
       "port": 8420
     }
