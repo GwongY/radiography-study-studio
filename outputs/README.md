@@ -40,10 +40,35 @@ Chrome emulation verifies the layout within the supplied viewport, not the size
 of the viewport an installed iOS app receives.
 
 A supplied iPhone 17 Pro screenshot still shows a separate bottom strip in the
-Home Screen app. This resembles [WebKit bug 301994](https://bugs.webkit.org/show_bug.cgi?id=301994#c12),
-which reports space outside the web viewport. Matching the app and tab backgrounds
-reduces the visual seam; it does not reclaim that space. Physical-device validation
-and the device's iOS version are still needed.
+Home Screen app. Four attempts at it failed the same way — `height:100%`, `100dvh`,
+a `--vh` property written from `window.innerHeight`, and pinning `.shell` with
+`position:fixed` — because none of them is wrong: they all faithfully fill the
+viewport the browser supplied, and on the affected device that viewport is itself
+about 60px short of the screen. There is nothing a length can do about that.
+
+`outputs/study/viewport-recovery.js` changes the approach. It **measures** — the
+tallest layout viewport this device has ever reported in this orientation, kept
+across loads, against what it is reporting now — and publishes the answer as
+`html[data-viewport]`, as `--vp-shortfall`, and as a readable line under
+**More → Screen fit on this device**. When it finds the viewport short it
+**asks for it back**, by rewriting the viewport meta tag and putting it straight
+back: the value is equivalent, and it is the change that makes WebKit re-run
+viewport configuration. Three attempts at most, then it reports and stops.
+
+Two things it deliberately does not do: it never sets a height, a bottom offset
+or any screen-derived length — a number wrong the other way puts controls off the
+bottom of the page on a device nobody here can test — and it never fires outside
+the installed app, where a shorter viewport is just browser chrome. The one
+layout change it does make is to drop the tab bar's `env(safe-area-inset-bottom)`
+while the viewport is measured as short: the home indicator is below the viewport
+in that state, so those 34px protect nothing and simply add to the visible band.
+
+The likely cause, on the reports that describe the mechanism, is the soft
+keyboard: in a standalone web app the keyboard is a viewport resize rather than an
+overlay, and the viewport does not grow back when it closes. That is a diagnosis,
+not a proof — which is why the readout exists. `node work/viewport-check.mjs`
+drives the decision with readings this repo cannot produce on a phone, including
+the reported 402×874 / 812 case and a reload inside an already-shrunken app.
 
 Serve the `outputs` folder over a local web server so ES modules resolve:
 
@@ -218,27 +243,31 @@ meant to be, and what have I already missed*.
 - **Syllabus.** Each subject as its description form states it — objective, intended learning
   outcomes, the assessment table with weights, study effort, and the reading list. Every weight
   carries the file and page it was read off, the same way a lesson does.
-- **What to read before each week.** The timetable names a topic; `WEEK_STUDY` in `schedule.js` says
-  which of the 150 lessons teach it, in order, with a button that runs the whole week as one session.
-  The Full-term view prints the same cards under every week. HSS2011 Special Senses is now covered
-  from an older official lecture. Empty APSS1A08 and DSAI1202 teaching weeks instead print the exact
-  syllabus topic and the official lecture file that is still missing.
+- **Assessments.** Every dated assessment across all six subjects in one list, with a countdown, a
+  *Mark handed in* toggle, and filters for what is left, what is due this week, what is overdue and
+  what is finished. Under it, one **running mark** card per subject: enter what each weighted
+  component scored and it says what is banked, what the marked work averages, the highest final mark
+  still reachable, and what the remaining weight has to average to finish on 50, 60, 70 or 80.
+  A target that is already out of reach is not printed as advice.
+- **Export to calendar.** Writes every dated class, lab, tutorial and deadline as a standard `.ics`
+  file. After that the reminders are the phone's calendar's job, which is the one thing a web page
+  with no server genuinely cannot do for itself.
+- **Twenty minutes' warning.** A class or sitting starting within twenty minutes puts one banner on
+  Today and on Course, and nothing is shown the rest of the time. It is written into a single
+  element by a one-minute tick rather than by a re-render, so it appears on the page without
+  throwing the reader back to the top of it.
 
-### The reading list is a progress card, not a row of pills
+### The per-week lesson showcase is gone
 
-The first version printed every lesson for the week as a button. Week 1 of HSS2011 is twenty-two of
-them: a wall of identical pills that tells you the work exists and nothing about whether you have
-done any of it. The unit is now the **week's progress** —
+Every week used to print one card per subject: a mastery bar, a verdict line, the first three
+lessons as buttons, *Show all*, and each lesson's sources folded underneath. It was the Learn tab
+rewritten in a second place, and the two drifted — Learn now orders, teaches and cites the lessons,
+and does all three better than a card wedged between two timetable rows.
 
-- a bar and one line: *6% mastered · 3 of 21 started*. Two different questions, both answered.
-  *Started* counts lessons you have attempted; the percentage is mean mastery across the whole week,
-  so it can only reach 100 by getting things right, and a week of half-remembered lessons reads
-  as one;
-- **three** lessons shown, not twenty-two — unstarted first, then weakest. The rest are behind
-  *Show all*;
-- each row carries its own state as a dot and a number: unstarted, weak, part, holding;
-- the button says **Start** or **Continue**, and runs the week in the order the card lists it in.
-  It used to run the declared order while the card displayed another one.
+What is kept is the one thing only the timetable can say: which unit a session teaches. That is the
+**Study this →** button on the session row itself, which hands the week's topic to Learn instead of
+restating it. The space it left is where the assessments and marks now live — the question the
+timetable was uniquely placed to answer and never did.
 
 ### The week grid is derived, and the derivation is written down
 

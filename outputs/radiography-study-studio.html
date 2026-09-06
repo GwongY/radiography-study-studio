@@ -56,6 +56,12 @@
         </header>
         <div class="navcontent" id="navContent">
           <section class="view" id="todayView">
+            <!--
+              The imminent-class banner. Empty almost all the time, and written
+              by a one-minute tick rather than by a re-render, so a class coming
+              up does not throw the reader back to the top of the page.
+            -->
+            <div id="upNextBanner"></div>
             <div class="today-grid" id="todayGrid">
               <div style="display:grid;gap:14px;min-width:0">
                 <div id="continueCard" style="border:1px solid rgba(114,227,207,.4);border-radius:16px;background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03));padding:18px"></div>
@@ -76,6 +82,14 @@
                   <div class="task-kicker">Today</div>
                   <div class="statrow" id="todayStatrow" style="margin-top:12px"></div>
                   <p class="small" style="margin-top:13px">Delayed recall is the only dimension counted here — three right answers in one sitting do not move it.</p>
+                </div>
+                <div class="card">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+                    <div class="task-kicker">Due next</div>
+                    <button class="ghost" id="allDeadlinesBtn" style="border:0;background:none;color:var(--teal);padding:6px 0">All assessments →</button>
+                  </div>
+                  <div class="statrow" id="deadlineStatrow" style="margin-top:12px"></div>
+                  <div style="display:grid;gap:7px;margin-top:11px" id="deadlineList"></div>
                 </div>
                 <div class="card">
                   <div class="task-kicker">Recent</div>

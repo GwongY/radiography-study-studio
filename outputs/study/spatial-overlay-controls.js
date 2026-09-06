@@ -13,6 +13,14 @@ import { openResetDialog, openTransferDialog } from './reset.js';
 import { isConnected, openSyncDialog, syncConfig } from './gist-sync.js';
 import { renderReviewTab } from './review-mistakes-due.js';
 import { showView } from './small-ui-helpers.js';
+import { DEADLINES, SOON_MS, deadlineStats, exportCalendar, isDone, paintImminent, untilText } from './assessments-and-marks.js';
+import { recoverByHand, viewportNote, viewportReport } from './viewport-recovery.js';
+
+/* The badge is the state, in one word. "shrunk" is the one worth noticing, so
+   it is the only one that is not simply reassuring. */
+function viewportBadge() {
+  return { shrunk: 'short', keyboard: 'keyboard', browser: 'browser tab', ok: 'full height' }[viewportReport().state] || 'unknown';
+}
 
 /* ------------------------------------------------------------------ *
  * Spatial overlay controls (viewer "..." sheet)
@@ -160,6 +168,12 @@ export function renderMore() {
       open: () => openDialog($$('aboutDialog')) },
     { title: 'Offline & storage', badge: 'PWA', color: 'var(--muted)',
       note: 'Shell cached at install. Each 3D model caches the first time you open it, so the footprint grows to match what you study.' },
+    { title: 'Timetable to your calendar', badge: 'ICS', color: 'var(--teal)',
+      note: 'Writes every dated class, lab and deadline as a standard .ics file. Open it and your phone or laptop calendar offers to add them — after which the reminders are the calendar’s job, not this app’s.',
+      open: () => exportCalendar() },
+    { title: 'Screen fit on this device', badge: viewportBadge(), color: viewportReport().state === 'shrunk' ? 'var(--orange)' : 'var(--muted)',
+      note: viewportNote() + ' Tap to ask the browser to reconfigure the viewport.',
+      open: () => { recoverByHand(); renderMore(); } },
     { title: 'Scheduling rules', badge: 'SM-2+', color: 'var(--muted)',
       note: 'SM-2 shaped, then modified by response time and repeat mistakes.' },
     { title: 'Back up to a private GitHub gist', badge: syncBadge(), color: isConnected() ? 'var(--green)' : 'var(--muted)',
@@ -288,10 +302,39 @@ export function renderToday() {
     [`${totalItems ? Math.round(attempted.reduce((n, i) => n + itemScore(i.id), 0) / totalItems * 100) : 0}%`, 'mastered'],
   ].map(([v, l], idx) => `<div class="s"><b${idx === 1 ? ' style="color:var(--orange)"' : ''}>${esc(v)}</b><small>${esc(l)}</small></div>`).join('');
 
+  /*
+   * What is due, beside what is mastered.
+   *
+   * Mastery answers "have I learnt it"; this answers "is anything about to be
+   * taken off me". They are different anxieties and the app only ever spoke to
+   * the first, which is how a 60%-weighted test can arrive as a surprise in a
+   * study app that knew its date all along.
+   */
+  const nowT = new Date();
+  const dstats = deadlineStats(nowT);
+  $$('deadlineStatrow').innerHTML = [
+    [String(dstats.open), 'to hand in', ''],
+    [String(dstats.soon), 'this week', dstats.soon ? 'var(--orange)' : ''],
+    [String(dstats.overdue), 'overdue', dstats.overdue ? 'var(--red)' : ''],
+  ].map(([v, l, colour]) => `<div class="s"><b${colour ? ` style="color:${colour}"` : ''}>${esc(v)}</b><small>${esc(l)}</small></div>`).join('');
+  const upcoming = DEADLINES
+    .filter((r) => !isDone(r.s.id) && r.to >= nowT)
+    .slice(0, 3);
+  $$('deadlineList').innerHTML = upcoming.length ? upcoming.map((r) => `
+    <div class="unit-row" style="cursor:default">
+      <span class="grow"><b>${esc(r.s.title)}</b><small>${esc(r.s.subject)}${r.s.weight ? ` · ${r.s.weight}%` : ''}</small></span>
+      <span class="pc" style="color:${r.to - nowT <= SOON_MS ? 'var(--orange)' : 'var(--muted)'}">${esc(untilText(r.to, nowT))}</span>
+    </div>`).join('')
+    : `<div class="empty">${dstats.overdue ? 'Nothing ahead — but something is overdue.' : 'Nothing left on the published deadlines.'}</div>`;
+  $$('allDeadlinesBtn').onclick = () => { ui.courseTab = 'assess'; goTo('course'); };
+
   $$('recentList').innerHTML = store.mistakes.slice(0, 4).map((m) => {
     const item = getItem(m.itemId);
     return item ? `<div style="display:flex;gap:10px;align-items:baseline;font-size:calc(12.5px*var(--ts))"><span style="color:${m.correct ? 'var(--green)' : 'var(--red)'}">●</span><span style="flex:1">${esc(item.title)}</span><span class="small">${esc(relativeTime(m.at))}</span></div>` : '';
   }).join('') || '<div class="empty">No activity yet.</div>';
 
   showView('todayView');
+  /* After showView, or the banner writes into a view still marked hidden and
+     clears itself. */
+  paintImminent(nowT);
 }

@@ -16,16 +16,15 @@
  * Split out along its banner sections. See docs/CODEMAP.md.
  */
 import {
-  $$, GROUP_CHOICES, KINDS, SCHEDULE_SOURCES, SESSIONS, STUDY_SUBJECTS, SUBJECT_ADMIN, TERM,
+  $$, GROUP_CHOICES, KINDS, SCHEDULE_SOURCES, SUBJECT_ADMIN, TERM,
   describeSource, esc, fmtWeekRange, fmtWhen, getSubject, isOtherGroup,
-  gapFor, getItem, itemsForUnit, sessionsWithStatus, studyFor, weekOf, weekStart, STAFF, ui,
+  gapFor, itemsForUnit, sessionsWithStatus, weekOf, weekStart, STAFF, ui,
 } from './imports.js';
 import { showView } from './small-ui-helpers.js';
 import { setActiveNav } from './navigation-five-destinations.js';
-import { K, itemAttempted, itemRead, itemScore, read, store, write } from './storage-versioned-keys.js';
+import { K, read, store, write } from './storage-versioned-keys.js';
 import { renderLearn } from './subject.js';
-import { startSession } from './session-engine.js';
-import { sourceGroupFor, sourceRoleLabel, sourceSetLabel } from './imports.js';
+import { assessmentsPanel, imminentHTML, wireAssessments } from './assessments-and-marks.js';
 
 /* ------------------------------------------------------------------ *
  * State — attendance and the two unknown groups
@@ -150,119 +149,25 @@ function nowNextHTML(rows, now) {
 }
 
 /*
- * What to read before a week's class.
+ * There used to be a per-week lesson showcase here.
  *
- * A long corpus in subject order is not a study plan. WEEK_STUDY says which
- * of them cover the topic this week teaches, and an EMPTY list is printed
- * as a source gap rather than hidden. That keeps a named syllabus topic from
- * disappearing merely because its lecture file has not arrived yet.
+ * Every week printed one card per subject: a mastery bar, a verdict line, the
+ * first three lessons as buttons, "Show all", and a source list folded under
+ * each lesson. It was the Learn tab rewritten in a second place, and the two
+ * drifted — Learn is now the page that teaches, orders and cites the lessons,
+ * and it does all of it better than a card wedged between two timetable rows.
  *
- * The first version of this printed every lesson as a button. Week 1 is
- * twenty-two of them, which is a wall of identical pills: it tells you the
- * work exists and nothing about whether you have done it. So the unit here
- * is the WEEK'S PROGRESS, and the individual lessons are secondary —
- * collapsed to the few you have not got to yet, with the rest one tap away.
- *
- * "Studied" and "mastered" are two different questions and both are shown.
- * Attempted counts lessons you have answered anything on; the percentage is
- * mean mastery across the whole week, so it can only reach 100 by actually
- * getting things right, and a week of half-remembered lessons reads as such.
+ * What is kept is the ONE thing the timetable is uniquely able to say: which
+ * unit a session teaches. That is the "Study this →" button on the row itself,
+ * which hands the week's topic to Learn instead of restating it here.
  */
-
-/* The schedule owns the order. Progress changes the status beside a lesson,
-   never where that lesson appears in the lecture sequence. */
-function readOrder(items) {
-  return items.slice();
-}
-
-function lessonSourceHTML(item) {
-  const group = sourceGroupFor(item.id);
-  if (!group) return '<div class="lesson-sources missing">Source map entry unavailable.</div>';
-  const rows = group.sources.map((s) => {
-    const citations = (item.sourceRefs || []).filter((reference) => reference?.ref === s.ref);
-    const descriptions = (citations.length ? citations : [{ ref: s.ref }]).map(describeSource);
-    const d = descriptions[0];
-    const locations = [...new Set(descriptions.map((description) => description.location).filter(Boolean))];
-    return `<li><span class="source-badge ${esc(s.set)}">${esc(sourceSetLabel(s.set))}</span>`
-      + `<span class="source-role"> · ${esc(sourceRoleLabel(s.role))}</span>`
-      + `<strong>${esc(d.file || s.ref)}</strong>${locations.map((location) => ` · ${esc(location)}`).join('')}</li>`;
-  }).join('');
-  const statusLabel = { complete: 'current source verified', partial: 'current + older support', 'needs-review': 'source review needed' }[group.status] || group.status;
-  return `<details class="lesson-sources"><summary>Sources for this lesson · <span class="source-status">${esc(statusLabel)}</span></summary>`
-    + `<ul class="source-group-list">${rows || '<li>Source gap — see the weekly gap notice.</li>'}</ul>`
-    + `${group.reasons.length ? `<p class="source-reason">${esc(group.reasons.join(' '))}</p>` : ''}</details>`;
-}
-
-function lessonRow(it) {
-  const attempted = itemAttempted(it.id);
-  const pc = Math.round(itemScore(it.id) * 100);
-  /* Read but never answered is its own state. Calling it "Not started" after
-     someone had read the whole lesson was the app forgetting them. */
-  const state = attempted ? (pc >= 80 ? 'strong' : pc >= 45 ? 'part' : 'weak') : itemRead(it.id) ? 'read' : 'new';
-  const label = attempted ? `${pc}%` : itemRead(it.id) ? 'Read' : 'Not started';
-  return `<div class="lesson-readrow"><button class="readline ${state}" data-item="${esc(it.id)}">
-    <span class="readdot" aria-hidden="true"></span>
-    <span class="readname">${esc(it.title)}</span>
-    <span class="readpc">${esc(label)}</span>
-  </button>${lessonSourceHTML(it)}</div>`;
-}
-
-const PREVIEW = 3;
-
-function subjectReading(subject, week) {
-  const list = studyFor(subject, week);
-  if (!list) return '';
-  if (!list.length) {
-    const reason = gapFor(subject, week);
-    return `<div class="readgap"><span class="sesscode">${esc(subject)}</span>${esc(reason || 'No source-backed lesson has been assigned to this week.')}</div>`;
-  }
-  const items = readOrder(list.map(getItem).filter(Boolean));
-  if (!items.length) return '';
-
-  const done = items.filter((i) => itemAttempted(i.id)).length;
-  const opened = items.filter((i) => !itemAttempted(i.id) && itemRead(i.id)).length;
-  const pc = Math.round(items.reduce((n, i) => n + itemScore(i.id), 0) / items.length * 100);
-  const open = !!ui.readOpen[subject];
-  const shown = open ? items : items.slice(0, PREVIEW);
-  const rest = items.length - shown.length;
-
-  /* The one line worth reading if you read nothing else on the card. */
-  const verdict = done === 0 ? (opened ? `${opened} of ${items.length} read, none tested` : 'Not started')
-    : done < items.length ? `${done} of ${items.length} started`
-      : pc >= 80 ? 'All started, and holding' : 'All started';
-
-  return `<section class="readcard" style="--acc:${esc(subjectAccent(subject))}">
-    <div class="readtop">
-      <span class="sesscode">${esc(subject)}</span>
-      <b>Read before this week</b>
-      <span class="readcount">${items.length} lesson${items.length === 1 ? '' : 's'}</span>
-    </div>
-    <div class="readbar"><span style="width:${pc}%"></span></div>
-    <div class="readstat"><b>${pc}%</b> mastered · ${esc(verdict)}</div>
-    <div class="readlines">${shown.map(lessonRow).join('')}</div>
-    <div class="readacts">
-      <button class="primary readall" data-week-subject="${esc(subject)}" data-week="${esc(week)}">${
-  done ? 'Continue' : 'Start'} — all ${items.length} in order</button>
-      ${items.length > PREVIEW
-    ? `<button class="ghost readmore" data-readtoggle="${esc(subject)}">${
-      open ? 'Show fewer' : `Show all ${items.length}`}</button>`
-    : ''}
-    </div>
-    ${!open && rest > 0
-    ? `<p class="readhint">Teaching order. ${rest} more behind “Show all”.</p>` : ''}
-  </section>`;
-}
-
-function readingHTML(week) {
-  return STUDY_SUBJECTS.map((s) => subjectReading(s, week)).join('');
-}
 
 function weekPanel(rows, now) {
   const wk = weekOf(now);
   if (!wk) return '<div class="emptybox">Outside the teaching term — use the full-term view.</div>';
   const mine = rows.filter((r) => r.s.week === wk);
   if (!mine.length) return '<div class="emptybox">Nothing scheduled this week.</div>';
-  return `<ul class="sesslist">${mine.map((r) => sessionRow(r, now)).join('')}</ul>${readingHTML(wk)}`;
+  return `<ul class="sesslist">${mine.map((r) => sessionRow(r, now)).join('')}</ul>`;
 }
 
 function termPanel(rows, now) {
@@ -276,7 +181,6 @@ function termPanel(rows, now) {
     <section class="weekblock${w === here ? ' thisweek' : ''}">
       <h3 class="weekhead">Week ${w}<span>${esc(fmtWeekRange(w))}${w === here ? ' · this week' : ''}</span></h3>
       <ul class="sesslist">${byWeek.get(w).map((r) => sessionRow(r, now)).join('')}</ul>
-      ${readingHTML(w)}
     </section>`).join('');
 }
 
@@ -355,7 +259,12 @@ function syllabusPanel() {
  * The view
  * ------------------------------------------------------------------ */
 
-const TABS = [['week', 'This week'], ['term', 'Full term'], ['syllabus', 'Syllabus']];
+const TABS = [['week', 'This week'], ['term', 'Full term'], ['assess', 'Assessments'], ['syllabus', 'Syllabus']];
+
+/* Which tabs carry a timetable, and so want the attendance line and the group
+   picker under them. Naming the two that do not, rather than testing for them
+   one by one in three places. */
+const TIMETABLE_TABS = ['week', 'term'];
 
 export function renderCourse() {
   showView('courseView');
@@ -363,45 +272,33 @@ export function renderCourse() {
   const now = new Date();
   const tab = ui.courseTab || 'week';
   const rows = sessionsWithStatus(now);
+  const timetable = TIMETABLE_TABS.includes(tab);
 
   const body = tab === 'syllabus' ? syllabusPanel()
-    : tab === 'term' ? termPanel(rows, now)
-      : weekPanel(rows, now);
+    : tab === 'assess' ? assessmentsPanel(now, ui.assessFilter || 'open')
+      : tab === 'term' ? termPanel(rows, now)
+        : weekPanel(rows, now);
 
   $$('courseView').innerHTML = `
+    ${imminentHTML(now, rows)}
     ${nowNextHTML(rows, now)}
     <div class="segbar coursetabs">${TABS.map(([id, label]) =>
     `<button class="seg${tab === id ? ' active' : ''}" data-ctab="${esc(id)}">${esc(label)}</button>`).join('')}</div>
-    ${tab === 'syllabus' ? '' : attendanceSummary(rows)}
+    ${timetable ? attendanceSummary(rows) : ''}
     <div class="coursebody">${body}</div>
-    ${tab === 'syllabus' ? '' : groupPickerHTML()}`;
+    ${timetable ? groupPickerHTML() : ''}`;
 
   $$('courseView').querySelectorAll('[data-ctab]').forEach((b) => {
     b.onclick = () => { ui.courseTab = b.dataset.ctab; renderCourse(); };
   });
-  $$('courseView').querySelectorAll('[data-readtoggle]').forEach((b) => {
-    b.onclick = () => {
-      const k = b.dataset.readtoggle;
-      ui.readOpen = { ...ui.readOpen, [k]: !ui.readOpen[k] };
-      renderCourse();
-    };
-  });
+  if (tab === 'assess') {
+    wireAssessments($$('courseView'), renderCourse, (f) => { ui.assessFilter = f; });
+  }
   $$('courseView').querySelectorAll('[data-att]').forEach((b) => {
     b.onclick = () => { setAttendance(b.dataset.sid, b.dataset.att); renderCourse(); };
   });
   $$('courseView').querySelectorAll('[data-groupset]').forEach((b) => {
     b.onclick = () => { setGroup(b.dataset.groupset, b.dataset.groupopt); renderCourse(); };
-  });
-  $$('courseView').querySelectorAll('[data-item]').forEach((b) => {
-    b.onclick = () => startSession({ mode: 'ids', ids: [b.dataset.item] });
-  });
-  $$('courseView').querySelectorAll('[data-week-subject]').forEach((b) => {
-    /* Same teaching order the card lists. */
-    b.onclick = () => startSession({
-      mode: 'ids',
-      ids: readOrder((studyFor(b.dataset.weekSubject, Number(b.dataset.week)) || [])
-        .map(getItem).filter(Boolean)).map((i) => i.id),
-    });
   });
   $$('courseView').querySelectorAll('[data-unit]').forEach((b) => {
     b.onclick = () => { ui.learnFilter = 'all'; ui.learnTopic = b.dataset.unit; ui.learnDrill = true; renderLearn(); };

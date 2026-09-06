@@ -404,6 +404,22 @@
   .bottomtab button .ic{font:17px ui-monospace,Menlo,monospace;line-height:1}
   .bottomtab button.active{color:var(--teal)}
   .navcontent{padding:14px 14px 20px}
+  /*
+   * When the viewport is short, the inset is reserving space twice.
+   *
+   * `env(safe-area-inset-bottom)` is 34px of room for the home indicator, and
+   * the home indicator sits at the bottom of the SCREEN. Where the layout
+   * viewport ends ~60px above that (see outputs/study/viewport-recovery.js),
+   * the indicator is already outside the page and those 34px protect nothing
+   * — they simply add to the empty band the reader can see. So on a viewport
+   * this part has measured as short, the tab bar keeps its 8px gap and stops
+   * paying for a hazard that is not inside it.
+   *
+   * This is a reaction to a MEASUREMENT, not a device-specific offset: nothing
+   * here is sized from the screen, and on a healthy viewport the attribute is
+   * never set and the rule never applies.
+   */
+  html[data-viewport="shrunk"] .bottomtab{padding-bottom:8px}
 }
 /* ---------- IA redesign: session overlay ---------- */
 #sessionView{position:fixed;inset:0;z-index:10;background:var(--bg);display:flex;flex-direction:column;animation:fadeUp .2s ease}
@@ -1060,57 +1076,68 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .bottomtab button .ic{font-size:16px}
 }
 
-/* The week's reading list — which lessons cover what is being taught. */
-.readgap{margin-top:12px;border:1px dashed rgba(255,186,103,.45);border-radius:12px;padding:11px 14px;font-size:calc(12.5px * var(--ts));line-height:1.55;color:var(--muted);display:flex;gap:9px;flex-wrap:wrap;align-items:baseline}
-/* .readall is still on the week button; the pill rules that used to sit
-   here are gone — see the reading-card block at the end of this file. */
-.readall{font-size:calc(12.5px * var(--ts))}
-
 /* ==================================================================
- * Course — what to read before a week's class
+ * Course — assessments, deadlines and the running mark
  *
- * Replaces a row of identical pills, one per lesson. Week 1 is twenty-two
- * of those, which is a wall: it says the work exists and nothing about
- * whether you have done it. Here the week's PROGRESS is the object, and the
- * individual lessons are a short preview of what is left, weakest first.
+ * Replaces the per-week lesson showcase that used to live here. That card
+ * restated the Learn tab beside the timetable; this answers the question
+ * only the timetable can — what is due, how far off it is, and what the
+ * marks already banked add up to.
  * ================================================================== */
-.readcard{border:1px solid var(--line);border-left:3px solid var(--acc,var(--teal));border-radius:0 14px 14px 0;background:rgba(255,255,255,.028);padding:14px 16px;margin-top:12px;display:grid;gap:10px}
-.readtop{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-.readtop b{font-size:calc(14px * var(--ts))}
-.readcount{margin-left:auto;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--dim);letter-spacing:.04em;font-size:calc(11px * var(--ts))}
-.readbar{height:7px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden}
-.readbar span{display:block;height:100%;border-radius:99px;background:var(--acc,var(--teal));transition:width .3s ease;min-width:2px}
-.readstat{font-size:calc(12.5px * var(--ts));color:var(--muted)}
-.readstat b{color:var(--text);font-size:calc(14px * var(--ts))}
-.readlines{display:grid;gap:5px}
-.lesson-readrow{display:grid;gap:5px}
-.lesson-sources{border:1px solid var(--line);padding:8px 11px}
-.source-group-list{display:grid;gap:6px;padding:0 0 0 18px;overflow-wrap:anywhere}
-.source-badge{display:inline-block;border:1px solid var(--line);padding:1px 5px;white-space:nowrap}
-.source-role{display:inline-block;padding:1px 5px;white-space:nowrap}
-.source-status{color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
-.source-reason{display:block;border-left:2px solid var(--line);padding-left:8px;overflow-wrap:anywhere}
-/* One lesson. The dot carries the state, so the row reads at a glance and
-   the percentage is there for when you want the number. */
-.readline{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.02);border-radius:10px;padding:9px 11px;cursor:pointer;font:inherit;transition:.16s ease}
-.readdot{flex:none;width:8px;height:8px;border-radius:99px;background:var(--dim)}
-.readline.new .readdot{background:transparent;box-shadow:inset 0 0 0 2px var(--dim)}
-/* Read, but nothing answered on it yet: a filled ring rather than an empty
-   one, and dimmer than any of the three mastery colours, because reading is
-   not a score. */
-.readline.read .readdot{background:var(--dim)}
-.readline.read .readpc{color:var(--dim)}
-.readline.weak .readdot{background:var(--red,#ff8f8f)}
-.readline.part .readdot{background:var(--orange)}
-.readline.strong .readdot{background:var(--teal)}
-.readname{flex:1;min-width:0;font-size:calc(13.5px * var(--ts));line-height:1.4;color:#dfe6ea}
-.readpc{flex:none;font:11.5px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);font-variant-numeric:tabular-nums;font-size:calc(11.5px * var(--ts))}
-.readline.new .readpc{color:var(--dim)}
-@media(hover:hover){.readline:hover{border-color:var(--acc,var(--teal));background:rgba(255,255,255,.05)}}
-.readacts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.readacts .primary{flex:1 1 auto;min-height:44px}
-.readacts .ghost{min-height:44px;font-size:calc(12.5px * var(--ts))}
-.readhint{margin:0;font-size:calc(11.5px * var(--ts));color:var(--dim);line-height:1.5}
+/* Four tabs do not fit a 360px phone at 15px of padding a side, and shrinking
+   the padding shrinks the tap target. The bar scrolls instead. */
+.coursetabs{display:flex;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.coursetabs::-webkit-scrollbar{display:none}
+/*
+ * The imminent-class banner. Twenty minutes' warning, and nothing the rest of
+ * the time — so it is allowed to be loud, because it is almost never up.
+ */
+.upnext{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border:1px solid rgba(255,186,103,.5);border-radius:13px;background:rgba(255,186,103,.09);padding:11px 14px;margin-bottom:12px}
+.upnext.islive{border-color:rgba(114,227,207,.55);background:rgba(114,227,207,.1)}
+.upflag{font:700 10px ui-monospace,Menlo,monospace;font-size:calc(10px * var(--ts));letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
+.upnext.islive .upflag{color:var(--teal)}
+.upnext b{font-size:calc(14px * var(--ts))}
+.upmeta{font-size:calc(12px * var(--ts));color:var(--muted)}
+.assbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.assbar .ghost{min-height:44px;font-size:calc(12.5px * var(--ts))}
+/* Five filters wrap to two rows inside the bordered bar, which reads as a
+   broken control rather than a full one. Scroll them, like the tabs above. */
+.assfilters{display:flex;gap:6px;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.assfilters::-webkit-scrollbar{display:none}
+.markcard{border:1px solid var(--line);border-left:3px solid var(--acc,var(--teal));border-radius:0 14px 14px 0;background:rgba(255,255,255,.028);padding:14px 16px;margin-top:12px;display:grid;gap:10px}
+.marktop{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.marktop b{font-size:calc(14px * var(--ts))}
+.markcount{margin-left:auto;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--dim);letter-spacing:.04em;font-size:calc(11px * var(--ts))}
+.markbar{height:7px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden;display:flex}
+.markbar span{display:block;height:100%;transition:width .3s ease}
+.markbar .banked{background:var(--acc,var(--teal))}
+.markbar .pending{background:rgba(255,255,255,.16)}
+.markstat{font-size:calc(12.5px * var(--ts));color:var(--muted)}
+.markstat b{color:var(--text);font-size:calc(14px * var(--ts))}
+.marknote{margin:0;font-size:calc(11.5px * var(--ts));color:var(--dim);line-height:1.5}
+.asslines{display:grid;gap:6px}
+/* One assessment. The left column is the countdown, because "when" is the
+   question a deadline list is opened to answer. */
+/* 92px is what "Sun 13 Sep," fits on one line at the mono size. Narrower and
+   every date wraps to four lines, which is most of the row's height spent on
+   the least of its content. */
+.assrow{display:grid;grid-template-columns:92px 1fr;gap:10px;border:1px solid var(--line);background:rgba(255,255,255,.02);border-radius:10px;padding:9px 11px}
+.assrow.overdue{border-color:rgba(255,143,143,.5)}
+.assrow.soon{border-color:rgba(255,186,103,.5)}
+.assrow.done{opacity:.62}
+.assdue{font:11.5px ui-monospace,SFMono-Regular,Menlo,monospace;font-size:calc(11.5px * var(--ts));color:var(--muted);line-height:1.45;font-variant-numeric:tabular-nums}
+.assrow.overdue .assdue{color:var(--red,#ff8f8f)}
+.assrow.soon .assdue{color:var(--orange)}
+.assname{font-size:calc(13.5px * var(--ts));line-height:1.4;color:#dfe6ea}
+.assmeta{font-size:calc(11.5px * var(--ts));color:var(--dim);line-height:1.5;margin-top:2px}
+.assacts{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.assacts .conf{min-height:36px}
+/* The mark box. 16px so iOS does not zoom the page when it takes focus —
+   and every focus of a text field in a standalone web app risks the
+   viewport bug in docs/TRAPS.md, so there is exactly one field per row. */
+.markin{width:76px;min-height:36px;border:1px solid var(--line);border-radius:9px;background:rgba(255,255,255,.03);color:var(--text);padding:0 9px;font:16px ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+.markin:focus{outline:2px solid var(--teal);outline-offset:1px}
+.marklab{font-size:calc(11.5px * var(--ts));color:var(--dim)}
 
 /* ==================================================================
  * Tablet: the lesson box was sized for a laptop
@@ -1244,8 +1271,8 @@ html[data-ts="xl"]{--ts:1.55}
 .termgrid .gt span{font-size:calc(12px * var(--ts))}
 
 /* Course tab */
-.readname{font-size:calc(13.5px * var(--ts))}
-.readstat{font-size:calc(12.5px * var(--ts))}
+.assname{font-size:calc(13.5px * var(--ts))}
+.markstat{font-size:calc(12.5px * var(--ts))}
 .sessnote{font-size:calc(12.5px * var(--ts))}
 .sylobj{font-size:calc(14px * var(--ts))}
 

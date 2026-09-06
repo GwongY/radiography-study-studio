@@ -843,6 +843,32 @@ to get wrong.
   bottom-tab backgrounds consistent as visual mitigation, not as a claim that
   the missing space is reclaimed. Never compensate with a device-specific
   height or negative bottom offset without on-device evidence.
+- **Five fixes for one band, and the fifth is not a length either.** The four
+  above all supply or pin a NUMBER, and they fail together because none of them
+  is wrong: they fill the viewport the browser gave them, and that viewport is
+  what is short. `outputs/study/viewport-recovery.js` is the fifth attempt and
+  the first that does not lay anything out — it compares the current layout
+  viewport against the tallest this device has ever reported in this
+  orientation, kept in localStorage, and when it is short it rewrites the
+  viewport meta tag and puts it straight back, which is the only lever a page
+  has over a viewport it did not choose. Three things about it that are easy to
+  get wrong later:
+  - **The peak must be per orientation AND persisted.** Per orientation, or a
+    rotation from 874 to 402 reads as a 472px defect and flips the viewport
+    every time the phone turns. Persisted, or a reload INSIDE an already
+    shrunken app adopts the short value as normal and reports all clear — and
+    the defect survives until the app is force-quit, so that reload is the
+    common case, not the corner one. `work/viewport-check.mjs` holds both.
+  - **The flip needs two frames.** Setting the same attribute twice in one task
+    is coalesced and WebKit never sees a change. Set the fallback, then restore
+    on the next animation frame.
+  - **Do not derive a length from the peak.** It decides WHETHER to ask and it
+    prints a diagnostic; the moment it sizes something, this becomes attempt
+    three again with a worse failure mode. The one layout consequence allowed
+    is dropping the tab bar's bottom safe-area inset while `data-viewport` says
+    `shrunk`: the home indicator is outside the viewport in that state, so the
+    34px protect nothing and add to the band. That is a reaction to a
+    measurement, not a device-specific offset.
 - **A `min` under a safe-area inset does nothing where it matters.** The tab
   bar's `padding-bottom:max(22px, env(safe-area-inset-bottom))` was 34px on a
   phone with a home indicator (the inset already covers it) and 22px of dead
@@ -986,3 +1012,33 @@ on a new unscaled size. Four things that only showed up by measuring:
 One more, for the `ui-strings` baseline: write inline calc without spaces
 (`calc(17px*var(--ts))`). With them, the style attribute reads as a phrase and
 six style strings land in the prose fingerprint for good.
+
+### Assessments and the running mark — `outputs/study/assessments-and-marks.js`
+
+- **Deadlines and weighted components are not the same objects, and joining
+  them produces a wrong total.** HSS2011's 8% "Revision exercise" component is
+  FOUR dated 2% deadlines; ABCT2326's 15% "Lab reports" is three reports the
+  timetable never separately dates. So a deadline row carries a handed-in flag
+  and nothing else, and the mark boxes live on the SUBJECT_ADMIN component,
+  where the weights sum to 100 and the arithmetic closes. Anything that tries
+  to put a mark box on a deadline row has to solve that join first.
+- **The average is across what is MARKED, not across the subject.** Dividing
+  banked points by 100 in week two reads as a catastrophe when 92% of the
+  weight simply has not happened yet. `computeMark` divides by the entered
+  weight and returns `null` — not 0 — when nothing is entered.
+- **An unreachable target is never printed as advice.** `needFor` will happily
+  return 175%, which is arithmetically correct and useless; the panel filters
+  to targets in (0, 100]. `work/assessment-check.mjs` asserts both the number
+  and the filtering.
+- **A mark is keyed by the component's NAME, not its index.** The syllabus data
+  is re-read whenever a subject description form is, and a mark that silently
+  moved from "Quiz" to "Final exam" because a row was inserted above it is
+  worse than one that was lost.
+- **Redraw on `change`, never on `input`.** A redraw per keystroke takes focus
+  off the field mid-number, and on iOS closing that keyboard is exactly what
+  the viewport bug above hangs off. One write when the field is left.
+- **The .ics carries floating local time on purpose.** Every date in
+  `outputs/schedule.js` is a local wall-clock time built with
+  `new Date(y, m, d, h, min)` and there is no IANA zone anywhere in the data,
+  so a UTC conversion here would be inventing an offset. `DTSTAMP` is the one
+  real instant in the file and is the only thing written as UTC.

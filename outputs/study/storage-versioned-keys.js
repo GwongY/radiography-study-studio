@@ -19,6 +19,11 @@ export const K = {
      group the student is in — neither is derivable from the schedule. */
   attendance: STORAGE_PREFIX + 'attendance',
   groups: STORAGE_PREFIX + 'groups',
+  /* Assessments: what has been handed in, and what it scored. Neither is
+     derivable from any document — the schedule knows when a thing is due and
+     what it is worth, and only the student knows the rest. */
+  assessDone: STORAGE_PREFIX + 'assessdone',
+  marks: STORAGE_PREFIX + 'marks',
   /* A display preference, not progress: which of the three type steps
      the reader chose. Kept out of `store` because nothing reads it in a
      loop — text-size.js asks for it when it applies it. */
@@ -39,6 +44,8 @@ export const store = {
   meta: read(K.meta, null),
   attendance: read(K.attendance, {}),
   groups: read(K.groups, {}),
+  assessDone: read(K.assessDone, {}),
+  marks: read(K.marks, {}),
 };
 
 export function migrate() {
