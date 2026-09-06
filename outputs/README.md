@@ -473,6 +473,37 @@ It holds nodes and lymphoid organs but **no lymphatic vessels**, so the cisterna
 thoracic duct are not in it. The lesson that uses it says so in its own caption rather than letting
 you assume the drainage route is on screen.
 
+### Separating the layers
+
+Seven files occupy one body, so by design they are inside each other. The opacity rows under
+**Layer depth** answer that by making a layer see-through; **Separate the layers** answers it by
+moving the layer out of the way instead — which is the one thing fading cannot do. A ghosted
+muscle is still drawn over the bone it covers, and a ghosted vessel tree over a ghosted muscle over
+a ghosted lung is a fog with nothing readable in it.
+
+One slider, 0–100%. The **skeleton holds still** and every other loaded layer slides out beside it,
+alternating left and right in rail order, the outermost pair last.
+
+Three decisions in it are worth writing down, because two of them were made twice:
+
+- **Sideways, not forward.** The first version fanned along +z — anterior, the meaningful axis
+  anatomically — and the stage looks straight down that axis. Captured at full spread and compared
+  against the assembled body, the two pictures were *the same body*. Sideways reads from the view
+  the app opens in, and it also stops the layout implying a depth order these layers do not have:
+  vessels and nerves each run both superficial and deep, so no one number is their depth. The order
+  is the rail's, and the panel says so rather than leaving it to be inferred.
+- **The skeleton does not move**, and that is load-bearing rather than tidy. Every cavity, region
+  box, pin and callout in the app is measured through the skeleton pivot, so holding it still means
+  all of them read identically separated and assembled.
+- **Nothing derived is ever measured off a separated body.** Changing the spread drops the vertex
+  caches and clears any overlay standing on them; building an overlay collapses the spread first;
+  and the x-ray projection refuses to open over a fan — a radiograph of a patient whose lungs are a
+  body-width beside their chest wall would look entirely confident and be entirely false.
+
+`work/separation-check.mjs` holds the arithmetic: that the offsets survive the re-application every
+layer load triggers without drifting, that they collapse back exactly, and that the slots are
+counted over the layers actually loaded rather than the fixed list.
+
 ### The skeleton is two chips: Axial and Appendicular
 
 HSS2011 teaches the division and examines it — "the axial skeleton is the central column: the skull,

@@ -653,6 +653,41 @@ do the same job, the control is the one that can be found, undone and explained.
   the pen can land on a surface the cut has removed. The card says draw first,
   section second.
 
+### Separating the layers — `outputs/studio/tools-and-capture.js`, `outputs/study/viewer-tools.js`
+
+Run `node work/separation-check.mjs` after touching any of it.
+
+- **An anterior fan is invisible, and the first version shipped one.** +z is
+  anatomically the meaningful axis and the stage looks straight down it, so
+  six layers sliding toward the camera stayed inside the same silhouette.
+  Captured at full spread and compared against the assembled body, the two
+  pictures were the same body — a slider that appeared to do nothing unless
+  you happened to orbit first. The fan is sideways for that reason, and
+  sideways also stops it implying a depth order these layers do not have.
+- **The offset goes on each layer's ROOT, never on its meshes.**
+  `clearHighlight()` restores every mesh to `userData.basePosition` on the
+  next selection, so a separation written to mesh positions survives exactly
+  until the reader taps something.
+- **The skeleton does not move, and that is load-bearing.** `cavityContext`
+  measures through the skeleton pivot's inverse and `bodyMetrics` prefers
+  `state.fullMeshes`, so holding rank 0 still is what keeps every cavity,
+  region box, pin and callout reading identically separated and assembled.
+  Give the skeleton a slot and every derived overlay in the app moves with it.
+- **A guard hung on the animate loop is a guard that stops guarding.**
+  `animate()` returns early whenever `state.stageLive === false`, so the
+  x-ray collapse — first written as a line in `syncTools()` — never ran with
+  the stage off screen. The smoke test caught it: a standing fan survived
+  `enterXray()`. Both events now do it themselves, `enterXray()` and
+  `loadExtraModel()`, and neither depends on a frame being drawn.
+- **`meshPointsLocal` caches vertices for the life of the session.** Building
+  a cavity while the layers are apart does not draw one wrong overlay, it
+  poisons that mesh's cache permanently. Hence both directions: changing the
+  spread drops `_cavPts`/`_cavCtx` and clears any overlay standing on them,
+  and every overlay build collapses the spread before it measures anything.
+- **Slots are counted over the layers actually loaded.** Counted over the
+  fixed list, muscles and lymphatic — the two ends of the rail — land in
+  slots 1 and 6 with two body-widths of nothing between them.
+
 ### Named cut levels — `outputs/studio/tools-and-capture.js`, `outputs/landmarks.js`
 
 - **A level is a source claim, and `source-check.mjs` cannot see it.** That

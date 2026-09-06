@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 502 lines
+## `outputs/radiography-study-studio.html` — 506 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–477 | markup — no banners, grep here |
-| 478–478 | importmap |
-| 479–479 | loads studio.js |
-| 480–480 | loads study.js |
-| 481–500 | classic script · preamble |
-| 501–502 | markup — no banners, grep here |
+| 1–481 | markup — no banners, grep here |
+| 482–482 | importmap |
+| 483–483 | loads studio.js |
+| 484–484 | loads study.js |
+| 485–504 | classic script · preamble |
+| 505–506 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -115,15 +115,15 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `cavity-geometry-derived.js` | 472 | Cavity geometry, derived from the loaded anatomy. |
-| `depth-picking.js` | 349 | Depth picking |
+| `depth-picking.js` | 353 | Depth picking |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
 | `imports.js` | 70 | Block 0 has its own import scope -- block 1's copy is not visible here. |
-| `live-physiology.js` | 1123 | Live physiology |
+| `live-physiology.js` | 1128 | Live physiology |
 | `region-boxes-how.js` | 485 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 237 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 466 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
-| `tools-and-capture.js` | 701 | Tools — section cuts, surface ink, pinned labels, capture. |
-| `visualisation-modes.js` | 644 | Visualisation modes. |
+| `tools-and-capture.js` | 834 | Tools — section cuts, surface ink, pinned labels, capture. |
+| `visualisation-modes.js` | 653 | Visualisation modes. |
 
 ## The study system — `outputs/study/*.js`
 
@@ -158,7 +158,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `storage-versioned-keys.js` | 156 | Storage — versioned keys, one-time migration from the osteology app |
 | `subject.js` | 322 | Subject |
 | `text-size.js` | 81 | Text size |
-| `viewer-tools.js` | 283 | Viewer tools — annotate, cut, layer depth, capture |
+| `viewer-tools.js` | 311 | Viewer tools — annotate, cut, layer depth, capture |
 | `viewport-recovery.js` | 446 | The band below the tab bar — measuring it, and asking for the space back |
 | `what-is-under.js` | 170 | What is under the tap |
 
@@ -237,6 +237,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/region-probe.mjs` | Region probe — does the region filter put every bone in the right region? |  |
 | `work/schedule-check.mjs` | Schedule check — does the timetable point at things that exist? |  |
 | `work/search-probe.mjs` | Search probe — does typing a structure's name find it? |  |
+| `work/separation-check.mjs` | Separating the layers — the arithmetic, driven without a GPU. |  |
 | `work/shell-check.mjs` | Shell check — every module the page imports is precached under the SAME |  |
 | `work/source-check.mjs` | Does every source the corpus cites actually exist on the drive? | [The source drive](TRAPS.md#the-source-drive--workbuild-source-cataloguemjs-worksource-checkmjs) |
 | `work/source-lesson-check.mjs` |  |  |

@@ -75,6 +75,7 @@ export function renderViewerTools() {
 
   renderCutLevels();
   renderLayerDepth();
+  paintSeparation();
   renderToolChip();
 }
 
@@ -199,6 +200,26 @@ function renderLayerDepth() {
 }
 
 /* ------------------------------------------------------------------ *
+ * Separating the layers
+ *
+ * The engine's own guards do the refusing — separating while the projection
+ * is up is turned down there, and building a cavity collapses the fan there —
+ * so this reads the value BACK after every write rather than assuming its own
+ * slider won. A slider showing 60% over a body that is together is worse than
+ * no slider, because it makes the reader doubt the model instead of the
+ * control.
+ * ------------------------------------------------------------------ */
+function paintSeparation() {
+  const slider = $$('sepSlider');
+  const read = $$('sepRead');
+  if (!slider) return;
+  const o = osteo();
+  const t = o && o.separation ? o.separation() : 0;
+  slider.value = String(Math.round(t * 100));
+  if (read) read.textContent = t > 0 ? `${Math.round(t * 100)}%` : 'together';
+}
+
+/* ------------------------------------------------------------------ *
  * The armed-tool badge
  *
  * The tools live in the sheet, and the sheet is usually shut while you use
@@ -243,6 +264,13 @@ export function init() {
     if (osteo() && osteo().clearCut) osteo().clearCut();
     cut.axis = null; cut.level = null;
     renderViewerTools();
+  };
+
+  const sep = $$('sepSlider');
+  if (sep) sep.oninput = () => {
+    if (!osteo() || !osteo().setSeparation) { toast('Open the 3D model first.'); return; }
+    osteo().setSeparation(Number(sep.value) / 100);
+    paintSeparation();
   };
 
   const undo = $$('toolUndo');

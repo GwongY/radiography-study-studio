@@ -9,6 +9,7 @@ import { applyVisibility, boot3D, cameraView, confirmPick, focusSelected, getRec
 import { clearPickCallout } from './spatial-concept-overlays.js';
 import { hideMesh } from './hide-and-search.js';
 import { installLayerFlow, layerOn, layerPool, setXrayView, unitBlurb, unitFor } from './live-physiology.js';
+import { applySeparation } from './tools-and-capture.js';
 
   /* ------------------------------------------------------------------ *
    * Depth picking
@@ -309,6 +310,9 @@ export async function loadExtraModel(key,file){
   pivot.add(root);
   state.scene.add(pivot);
   state.extraModels[key]={root,pivot,meshes};
+  /* A layer switched on while the layers are apart belongs in the fan, not at
+     the back of the body until the slider is next touched. */
+  applySeparation();
   /*
    * A cavity that could not be measured before this layer arrived can be now.
    *

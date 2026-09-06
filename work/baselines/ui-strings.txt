@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 950 —
-  58f14f15f5f0178e  WHOLE SET
+— user-facing strings in outputs/ — 952 —
+  98dc2da03f398731  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -523,6 +523,7 @@
   ee65719205c6c855  Self-graded as covered.
   4b36a73963ed2610  Self-graded as missed.
   8eda29c62c095bb5  Self-graded as partial — the points you missed are listed above.
+  f8f6d6d0b71fdeb6  Separate the layers
   b4821ec5efba32ad  Session done —
   8bbf4d2a69b0c709  Seven vertebrae: breakfast at 7. C1 Atlas holds the head; C2 Axis lets you say no.
   55d75c2270210ef6  Shell cached at install. Each 3D model caches the first time you open it, so the footprint grows to match what you study.
@@ -627,6 +628,7 @@
   c30d436bb4db379e  The nine abdominopelvic regions
   1ee065c69f618147  The only horizontal long bone: an S-shaped key between sternum and shoulder.
   f952c4467244cd99  The original osteology quiz history —
+  76d42016751dbca5  The projection needs the body assembled.
   f8fde19067e881fa  The projection reads through closed surfaces — section it in the 3D view.
   8baacea34fdc4ab0  The radius rotates over the ulna like a wheel spoke. It is on the thumb side.
   444c5de284285e50  The sacred wedge-shaped keystone locks the pelvic ring together.
