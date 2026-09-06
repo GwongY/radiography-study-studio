@@ -9,6 +9,7 @@ import { animate, applyVisibility, between, getRecord, tube } from './region-box
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
 import { enforceHidden } from './hide-and-search.js';
 import { showPickCallout } from './spatial-concept-overlays.js';
+import { setSeparation } from './tools-and-capture.js';
 
 /* ------------------------------------------------------------------ *
  * Live physiology
@@ -586,6 +587,10 @@ export function enterXray(){
   /* A peel in progress would be captured as the 'original' opacity by the
      material swap below and come back at 6% when the projection exits. */
   if(typeof restorePeel==='function')restorePeel();
+  /* A radiograph sums attenuation along one axis through the body. Taken over
+     a separated body it still produces a confident-looking image -- of a
+     patient whose lungs are a body-depth in front of their chest wall. */
+  if(state.separation)setSeparation(0);
   if(state.xray||!state.scene)return false;
   const THREE=state.THREE;
   const c=state.camera, ctr=state.controls;

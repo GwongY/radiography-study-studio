@@ -17,7 +17,7 @@ import { $, boundsOf, els, state } from './imports.js';
 import { bodyMetrics, calloutAt } from './spatial-concept-overlays.js';
 import { cavityContext, gridMetrics } from './cavity-geometry-derived.js';
 import { getRecord } from './region-boxes-how.js';
-import { showToast } from './visualisation-modes.js';
+import { clearConcepts, showToast } from './visualisation-modes.js';
 /* layerOn: a layer is on when any of the systems it draws is -- systems.js. */
 import { layerOn, renderXray } from './live-physiology.js';
 
@@ -661,6 +661,136 @@ export function frameRegion(){
 }
 
 /* ------------------------------------------------------------------ *
+ * Separating the layers
+ *
+ * Seven files occupy one body, so by design they are inside each other and
+ * whichever is outermost hides the rest. The opacity rows above answer that
+ * by making a layer see-through; this answers it by moving the layer out of
+ * the way instead, which is the one thing fading cannot do. A ghosted muscle
+ * is still drawn over the bone it covers, and a ghosted vessel tree over a
+ * ghosted muscle over a ghosted lung is a fog with nothing readable in it.
+ *
+ * THE SKELETON DOES NOT MOVE, and that is load-bearing rather than tidy. It
+ * is the frame everything else is measured through -- cavityContext takes the
+ * skeleton pivot's inverse, bodyMetrics prefers state.fullMeshes, and every
+ * pin and callout is stored in that frame. Holding rank 0 still means the
+ * body's metrics read exactly the same separated as assembled, so nothing
+ * already on the model drifts while the layers fan out.
+ *
+ * The order is the LAYER RAIL's order and is not a claim about depth. Vessels
+ * and nerves each run both superficial and deep, so no one number is their
+ * depth; the honest thing is to lay them out in the order the reader already
+ * scans the chips in, sideways where no depth is implied, and to say in the
+ * panel that that is what it is.
+ *
+ * The offset goes on each layer's ROOT, never on its meshes. Mesh positions
+ * belong to the highlight machinery -- clearHighlight() puts every mesh back
+ * to userData.basePosition on the next selection -- so a separation written
+ * there would survive exactly until the reader tapped something.
+ * ------------------------------------------------------------------ */
+
+/* Rail order, from outputs/systems.js. The skeleton is not in the fan. */
+export const SEPARATION_ORDER=['muscle','joint','organs','circulatory','nervous','lymphatic'];
+/*
+ * Body units per slot at full spread. The shared frame is 11.8 units tall,
+ * which puts the body at roughly 4.6 across the shoulders, so 2.4 opens the
+ * first pair just clear of the arms.
+ */
+export const SEPARATION_STEP=2.4;
+
+export function separation(){ return state.separation||0; }
+
+/*
+ * Which way, and how far, each loaded layer goes.
+ *
+ * SIDEWAYS, alternating about the midline, and that is a decision the first
+ * version got wrong: it fanned along +z, anterior, which is the meaningful
+ * axis anatomically and completely invisible from the view the app opens in.
+ * The stage looks straight at the front of the body, so six layers sliding
+ * toward the camera stayed in exactly the same silhouette -- a slider that
+ * did nothing until you thought to orbit. Captured at full spread and
+ * compared against the assembled body, the two pictures were the same body.
+ *
+ * Sideways reads from the default camera and from a lateral orbit both, it
+ * stays balanced about the midline so the still skeleton is still the middle
+ * of the picture, and it claims nothing: an anterior fan implies a depth
+ * order these layers do not have, whereas a specimen laid out on a bench
+ * beside the body is plainly a display.
+ *
+ * Slots are counted over the layers ACTUALLY LOADED, not over the fixed list.
+ * With muscles and nerves on, a fixed list gives them slots 1 and 5 and puts
+ * two body-widths of nothing between them.
+ */
+function separationSlots(){
+  const loaded=SEPARATION_ORDER.filter((k)=>state.extraModels&&state.extraModels[k]);
+  const out=new Map();
+  loaded.forEach((key,i)=>{
+    const step=Math.floor(i/2)+1;              /* 1,1,2,2,3,3 */
+    out.set(key,(i%2?-1:1)*step);              /* left, right, left, right */
+  });
+  return out;
+}
+
+/*
+ * Idempotent, and deliberately so: loadExtraModel calls it again for every
+ * layer switched on, which both re-slots the fan for its new member and puts
+ * that member straight into it rather than at the midline until the slider is
+ * touched. Each root's home x is captured before it is first moved and every
+ * write is home + offset, so re-running never accumulates.
+ *
+ * Deliberately NOT driven from the animate loop, which is where this started.
+ * animate() returns early whenever the stage is not on screen, so a guard
+ * hung there is a guard that silently stops guarding -- the smoke test caught
+ * exactly that, with the projection failing to collapse a standing fan.
+ */
+export function applySeparation(){
+  const t=state.separation||0;
+  const slots=separationSlots();
+  Object.entries(state.extraModels||{}).forEach(([key,m])=>{
+    const root=m&&m.root;
+    if(!root) return;
+    if(root.userData.homeX===undefined) root.userData.homeX=root.position.x;
+    root.position.x=root.userData.homeX+(slots.get(key)||0)*SEPARATION_STEP*t;
+  });
+}
+
+export function setSeparation(v){
+  const t=Math.max(0,Math.min(1,Number(v)||0));
+  /*
+   * The projection is a radiograph: it sums attenuation along one axis
+   * through the assembled body. Separated, it would still produce a
+   * confident-looking image, of a patient whose lungs are in front of their
+   * chest wall. Refused rather than allowed to lie.
+   */
+  if(state.xray&&t>0){ showToast('The projection needs the body assembled.'); return separation(); }
+  const was=state.separation||0;
+  state.separation=t;
+  if(t!==was){
+    /*
+     * Every derived shape in the app is measured off the assembled body, and
+     * meshPointsLocal CACHES those vertices per mesh for the life of the
+     * session. Building a cavity from a separated body would not just draw
+     * one wrong overlay -- it would poison the cache with vertices that stay
+     * wrong after the layers come back together. So the caches go, and any
+     * overlay standing on them goes with them.
+     */
+    state._cavPts=null;
+    state._cavCtx=null;
+    if(t>0) clearConcepts();
+    /*
+     * The panel is not always the one that moved this. showConcept collapses
+     * the fan to measure a cavity, and the projection collapses it from the
+     * frame loop; without this the slider keeps reading 60% over a body that
+     * is back together, which makes the reader doubt the model rather than
+     * the control.
+     */
+    publishTool();
+  }
+  applySeparation();
+  return t;
+}
+
+/* ------------------------------------------------------------------ *
  * Capture
  *
  * The canvas is not created with preserveDrawingBuffer, so the pixels are only
@@ -679,6 +809,7 @@ export function snapshot(){
 
 export function init(){
   bindStage();
+  state.separation=0;
   if(typeof window==='undefined'||!window.__osteo) return;
   Object.assign(window.__osteo,{
     cutAxes:()=>CUT_AXES.map((a)=>({id:a.id,label:a.label,hint:a.hint})),
@@ -697,5 +828,7 @@ export function init(){
     annotationCount:()=>annotationCount(),
     setToolHook:(fn)=>{state.toolHook=fn||null},
     snapshot:()=>snapshot(),
+    separation:()=>separation(),
+    setSeparation:(v)=>setSeparation(v),
   });
 }

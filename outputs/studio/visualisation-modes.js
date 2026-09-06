@@ -10,7 +10,7 @@ import { bodyMetrics, ensureConceptGroup, showPickCallout } from './spatial-conc
 import { buildCavity, buildCellGrid, buildPlane, cavityContext, cavityStyle, layerSignature } from './cavity-geometry-derived.js';
 import { hiddenRows, hideMesh, publishHidden, unhide } from './hide-and-search.js';
 import { hideFromStack, loadExtraModel, pick, publishStack, restorePeel, selectFromStack, stackEntries } from './depth-picking.js';
-import { frameRegion } from './tools-and-capture.js';
+import { frameRegion, setSeparation } from './tools-and-capture.js';
 import { revealStructure } from './search-viewer-frame.js';
 
 /* ------------------------------------------------------------------ *
@@ -163,7 +163,7 @@ export function disposeConceptObj(o){
   if(o.material){ o.material.map&&o.material.map.dispose&&o.material.map.dispose(); o.material.dispose&&o.material.dispose(); }
   o.parent&&o.parent.remove(o);
 }
-function clearConcepts(){
+export function clearConcepts(){
   if(state.conceptGroup){ [...state.conceptGroup.children].forEach(disposeConceptObj); }
   state.concepts.clear();
   state._conceptObjs&&state._conceptObjs.clear();
@@ -176,6 +176,14 @@ function showConcept(id){
   const c=conceptById(id);
   if(!c) return false;
   if(!state.scene){ window.__osteo.boot().then(()=>showConcept(id)); return true; }
+  /*
+   * Every overlay below is measured off the assembled body, through the
+   * skeleton pivot. Separated, a cavity would be built from lungs sitting a
+   * body-depth in front of the ribs that bound them -- and meshPointsLocal
+   * would cache those vertices. Collapse first; setSeparation drops the
+   * caches on the way past.
+   */
+  if(state.separation) setSeparation(0);
   /* regions/quadrants share one panel: rebuild so the emphasis follows the last pick */
   if(c.kind==='region'||c.kind==='quadrant'){
     BODY_CONCEPTS.filter(x=>x.kind===c.kind).forEach(x=>{
@@ -217,6 +225,7 @@ function toggleConcept(id){ return state.concepts.has(id)?(hideConcept(id),false
  * of it, standalone included.
  */
 function showConceptKind(kind){
+  if(state.separation) setSeparation(0);
   const ids=BODY_CONCEPTS.filter(c=>c.kind===kind&&!c.standalone).map(c=>c.id);
   const every=BODY_CONCEPTS.filter(c=>c.kind===kind).map(c=>c.id);
   if(every.some(i=>state.concepts.has(i))){ every.forEach(hideConcept); return false; }
