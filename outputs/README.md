@@ -31,6 +31,20 @@ The workflow is the same for every subject:
 
 ## Run
 
+### iPhone and iPad layout verification
+
+The iPhone viewer's Explore panel starts collapsed and opens into a bounded
+scrolling panel; iPad keeps the expanded controls. The rail layout reserves the
+bottom safe area, and landscape content reserves the left and right safe areas.
+Chrome emulation verifies the layout within the supplied viewport, not the size
+of the viewport an installed iOS app receives.
+
+A supplied iPhone 17 Pro screenshot still shows a separate bottom strip in the
+Home Screen app. This resembles [WebKit bug 301994](https://bugs.webkit.org/show_bug.cgi?id=301994#c12),
+which reports space outside the web viewport. Matching the app and tab backgrounds
+reduces the visual seam; it does not reclaim that space. Physical-device validation
+and the device's iOS version are still needed.
+
 Serve the `outputs` folder over a local web server so ES modules resolve:
 
 ```bash

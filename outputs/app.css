@@ -21,12 +21,11 @@
      * canvas, showed through underneath as a black band. Measured off a phone
      * screenshot at 3x: bar bottom at 813pt of an 874pt screen.
      *
-     * A fixed box with top and bottom both pinned is not a measurement. The
-     * browser resolves it against the initial containing block itself and
-     * re-resolves as that block changes, so there is no stale number left to
-     * be wrong. #sessionView has been position:fixed and inset to zero all
-     * along and never showed the band -- this is that mechanism, applied to
-     * the shell.
+     * Pinning fills the viewport that the browser actually supplies. It cannot
+     * reclaim a system-owned strip outside that viewport: the iPhone 17 Pro
+     * screenshot still shows one. See WebKit bug 301994, comment 12, and
+     * docs/TRAPS.md. Do not add a hard-coded screen-height or bottom offset;
+     * it would move controls outside the reachable page on affected devices.
      */
     body{padding:0;overflow:hidden}.shell{position:fixed;top:0;right:0;bottom:0;left:0;display:flex;flex-direction:column;overflow:hidden}
     .editorial{font-family:Newsreader,ui-serif,Georgia,'Times New Roman',serif;letter-spacing:-.02em}
@@ -306,7 +305,10 @@
    in the HTML. It belongs to the shell now, so the header and the nav rail
    both start below the status bar in standalone mode. */
 .app-shell{flex:1;min-height:0;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
-.app-body{flex:1;min-height:0;display:flex}
+.app-body{flex:1;min-height:0;display:flex;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+/* The rail layout has no bottom tab to protect the home indicator. Reserve
+   that inset once, outside both the scroller and the viewer controls. */
+@media(min-width:701px){.app-body{padding-bottom:env(safe-area-inset-bottom,0px)}}
 .navrail{flex:none;width:86px;border-right:1px solid var(--line);background:rgba(8,16,22,.6);padding:14px 10px;display:flex;flex-direction:column;gap:6px}
 .navrail .navlabel{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);padding:0 8px 10px}
 .navrail button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:46px;border:0;border-radius:11px;cursor:pointer;background:transparent;color:var(--muted);font:600 10.5px 'Instrument Sans',sans-serif}
@@ -394,7 +396,7 @@
      it did nothing, and on a phone without one (SE, and any Android) it was
      22px of dead bar. 8px is the gap the buttons need; the inset supplies the
      rest where there is a rest to supply. */
-  .bottomtab{display:flex;flex:none;border-top:1px solid var(--line);background:rgba(8,16,22,.94);padding:2px 4px 8px;padding-bottom:max(8px, env(safe-area-inset-bottom))}
+  .bottomtab{display:flex;flex:none;border-top:1px solid var(--line);background:var(--bg);padding:2px 4px 8px;padding-left:max(4px,env(safe-area-inset-left,0px));padding-right:max(4px,env(safe-area-inset-right,0px));padding-bottom:max(8px, env(safe-area-inset-bottom,0px))}
   /* 44px is Apple's minimum tap target and the icon-plus-label stack is 21px
      of ink, so this is as low as the row goes without either cramping the
      glyphs or shrinking the target. */
@@ -713,6 +715,7 @@
    so pinning the controls would float them over the page instead. Must come
    after the sticky rules above: same specificity, later wins. */
 .selpanel{position:absolute;top:12px;right:12px;z-index:4;width:250px;max-height:calc(100% - 96px);overflow:auto;border:1px solid var(--line);border-radius:14px;background:rgba(8,16,22,.86);backdrop-filter:blur(14px);padding:14px}
+.panel-toggle{display:none}
 /*
  * The depth stack.
  *
@@ -759,7 +762,7 @@
  */
 @media(max-width:1023px){
   .stagewrap{height:min(64vh,620px);height:min(64dvh,620px)}
-  .selpanel{top:auto;right:10px;left:10px;bottom:calc(80px + env(safe-area-inset-bottom));
+  .selpanel{top:auto;right:10px;left:10px;bottom:80px;
     width:auto;max-height:min(40%,320px);padding:12px}
   .selpanel .task-title{font-size:17px}
   /* Docked full-width the ladder is 700px across: three columns keep the
@@ -774,8 +777,17 @@
   .stagewrap{height:min(58vh,460px);height:min(58dvh,460px)}
   .ctrlpill{bottom:10px;gap:4px;padding:5px;max-width:calc(100% - 16px)}
   .ctrlpill .icon-btn{min-width:44px;padding:0 8px;font-size:11px}
-  .selpanel{bottom:calc(74px + env(safe-area-inset-bottom));max-height:min(42%,300px)}
+  .selpanel{bottom:74px;max-height:min(42%,300px)}
   .selpanel .modebar.tight{grid-template-columns:1fr 1fr}
+  /* Keep the model visible until the reader asks for the study controls.
+     The toggle stays outside the scrolling content so it is always reachable. */
+  .selpanel{padding:0;display:flex;flex-direction:column;overflow:hidden}
+  .panel-toggle{display:block;flex:none;width:100%;min-height:44px;border:0;background:#0e1820;color:var(--teal);padding:8px 12px;font-size:calc(12px * var(--ts));font-weight:700;text-align:left;cursor:pointer}
+  #taskPanelContent{display:none;min-height:0;overflow:auto;padding:12px}
+  .panel-expanded #taskPanelContent{display:block}
+  .selpanel-top{position:static}
+  .layerrail{max-height:calc(100% - 184px)}
+  .stagewrap:has(.panel-expanded) .layerrail{max-height:calc(58% - 130px)}
 }
 /* Big desktop: a 250px column beside a 3000px canvas reads as an accident. */
 @media(min-width:1500px){

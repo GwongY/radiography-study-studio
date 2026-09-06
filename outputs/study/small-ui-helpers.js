@@ -185,6 +185,13 @@ function tuckOnRead() {
 /* Runs after every part has evaluated — see the entry point. */
 export function init() {
   window.xrayFallback = xrayFallback;
+  const panelToggle = $$('taskPanelToggle');
+  const panel = $$('taskCard');
+  panelToggle.addEventListener('click', () => {
+    const expanded = panel.classList.toggle('panel-expanded');
+    panelToggle.setAttribute('aria-expanded', String(expanded));
+    panelToggle.textContent = expanded ? 'Hide panel' : 'Explore & study';
+  });
   publishHeadHeight();
   tuckOnRead();
 }
