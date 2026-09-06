@@ -885,18 +885,34 @@ to get wrong.
   - **The flip needs two frames.** Setting the same attribute twice in one task
     is coalesced and WebKit never sees a change. Set the fallback, then restore
     on the next animation frame.
-  - **Two layout consequences, and they are graded by how badly they can end.**
-    Dropping the tab bar's bottom safe-area inset is keyed off `data-inset`,
-    written only when the measured shortfall EXCEEDS the inset — the home
-    indicator is then demonstrably outside the page, so those 34px protect
-    nothing and merely add to the band. That one is safe enough to be
-    automatic. Extending `.shell` with a negative bottom into the strip is
-    NOT: the strip is painted by the web view, so it will probably show, but
-    nobody here can test whether taps land there, and a visible untappable tab
-    bar is worse than a gap. So it is opt-in, and turning it on stores
-    `trial`, which `init()` clears on the next launch — force-quitting is
-    always enough to undo it. Only reaching the "Keep it" row, which requires
-    the buttons to still work, promotes it.
+  - **Two layout consequences, and the strip fill is now CONFIRMED.** Dropping
+    the tab bar's bottom safe-area inset is keyed off `data-inset`, written
+    only when the measured shortfall EXCEEDS the inset — the home indicator is
+    then demonstrably outside the page, so those 34px protect nothing and
+    merely add to the band. Extending `.shell` with a negative bottom into the
+    strip shipped as opt-in, because nobody here could test whether taps land
+    below the viewport. They do: on the reported iPhone the tab bar moved down
+    into the strip, stayed usable, and left only the screen's own rounded
+    corner, which no page can fill. It is `auto` by default now, still gated on
+    the measurement.
+  - **`--vp-shortfall` must be ZERO unless the page is FLOATING, and this
+    nearly shipped as a disaster.** The strip fill offsets `.shell` by
+    `-1 * --vp-shortfall`. With an OPAQUE status bar the viewport is still 62px
+    shorter than the screen — `screenShortfall` is 62 — but it starts 62px
+    lower and already reaches the bottom. Publishing 62 there drags the shell,
+    and the tab bar with it, clean off the device, on a configuration that had
+    nothing wrong with it. Publish the gap that is actually UNDERNEATH the
+    page, never the difference between two numbers. `work/viewport-check.mjs`
+    has a whole section on the offset for this reason.
+  - **The status bar style is the real lever, and it is one line.**
+    `black-translucent` is what makes iOS paint from y=0, report the 62px top
+    inset, and then size the page as though the status bar had been excluded.
+    Opaque (`black`) asks it to start the viewport BELOW the status bar
+    instead: same 812px, positioned 62px down, reaching the bottom. The cost is
+    a plain bar at the top instead of the app's background under the clock.
+    `.app-shell` pads by `env(safe-area-inset-top)`, reported as 0 in that
+    mode, so the header closes its own gap with no second change. iOS may only
+    re-read the meta when the app is re-added to the Home Screen.
 - **A `min` under a safe-area inset does nothing where it matters.** The tab
   bar's `padding-bottom:max(22px, env(safe-area-inset-bottom))` was 34px on a
   phone with a home indicator (the inset already covers it) and 22px of dead

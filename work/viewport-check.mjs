@@ -106,6 +106,27 @@ if (peakKey(rotatedScreen) !== peakKey(land)) {
   fail('screen.width/height swapping on rotation starts a new peak — the key must be orientation-independent');
 } else ok('a screen that swaps its own width and height on rotation keys the same');
 
+console.log('\n— the offset the strip fill is driven by —');
+/*
+ * This is the one that would have shipped a disaster. The strip fill gives
+ * .shell a bottom of `-1 * --vp-shortfall`. With an OPAQUE status bar the
+ * viewport is STILL 62px shorter than the screen — but it starts 62px lower
+ * and already reaches the bottom, so an offset there drags the shell, and the
+ * tab bar with it, clean off the device. The offset is only ever the gap that
+ * is genuinely underneath the page, which is what `floating` means.
+ */
+const offset = (r) => { const x = diagnose(r); return x.floating ? x.screenShortfall : 0; };
+expect('translucent, floating: the strip is real, offset by it',
+  offset({ ...PHONE, innerH: 812, peakH: 812 }), 62);
+expect('OPAQUE, same 62px shortfall, page reaches the bottom: offset 0',
+  offset({ ...OPAQUE, innerH: 812, peakH: 812 }), 0);
+expect('a healthy full-height viewport: offset 0',
+  offset({ ...PHONE, innerH: 874, peakH: 874 }), 0);
+expect('a keyboard shrink is not a strip: offset 0',
+  offset({ ...OPAQUE, innerH: 812, peakH: 874 }), 0);
+expect('a browser tab is not a strip: offset 0',
+  offset({ ...PHONE, standalone: false, innerH: 730, peakH: 874 }), 0);
+
 console.log('\n— the numbers that get printed —');
 const d = diagnose({ ...PHONE, innerH: 812, peakH: 812 });
 if (d.screenShortfall !== 62) fail(`screenShortfall ${d.screenShortfall}, expected 62`); else ok('shortfall 62px, as measured off the phone');

@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 952 —
-  e357c45dca7f6ad1  WHOLE SET
+— user-facing strings in outputs/ — 950 —
+  58f14f15f5f0178e  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -250,8 +250,7 @@
   e72ca92c0272f35b  Body layers
   2cea2e3a045ac3d2  BodyParts3D / Anatomography model licensing and the candidate sources that were reviewed.
   14352d43201b3476  Bone goes translucent; the cavity reads straight through it.
-  914a8905cb556af5  Bottom strip fill kept. Turn it off again from this row.
-  7883a7f0565b3c01  Bottom strip left alone.
+  63042ab0dfb866aa  Bottom strip left alone. The app stops at the edge of the viewport.
   08dec09e60523dff  Browser tab · viewport
   67914e2d1393fea9  Browsing memory hooks — nothing is scored in this mode.
   4edfab653f74507f  Browsing the
@@ -303,14 +302,13 @@
   4b18c8812e334be5  Every question validates
   f7b81d5c080156a2  Everything is marked. Final:
   49070002f587bcf4  Everything you have got wrong, most-repeated first. Each one keeps its own explanation and the confusion that caused it.
-  77274053b68a0345  Experimental. Extends the app past the bottom of the viewport and into the strip, so the tab bar reaches the edge of the screen. Nobody here can test whether taps land down there — if the buttons stop working, force-quit and relaunch and it undoes itself.
   c00d4a1a69e70add  Explain my mistakes
   bffe96c6114e2262  Explore & study
   b90b4a943e80fc1e  Export timetable to calendar
   9f7d2428f854a82f  Fade everything except the structures that define the cavity.
   b4b9abe93d713048  FiBUla is the thin lateral pin and ends in the lower lateral malleolus.
   dd190b58a846cb67  Fill the bottom strip
-  67781aee4f06f11f  Filling the bottom strip. If the tab bar is now out of reach, force-quit the app and relaunch — it reverts on its own.
+  2e76bfabfd9b22bc  Filling the bottom strip wherever the page is measured short of the screen.
   ca39fc5e6da394f2  Final exam
   1a5d72ec7b07df58  Find the
   68ed5dff9e6e0d16  Finish \u00b7 next item \u2192
@@ -361,7 +359,6 @@
   39fb4546ac87cc3a  Judge it from the landmarks in anatomical position, not from which side of the screen it is on.
   90a8aa236c266060  Jugular notch
   bfd62f38eb7f415e  Keep hidden
-  41f12f5eeb82fbc2  Keep the bottom-strip fill
   c6867b20a8fd8669  Key facts to remember
   2072e9484cb255ff  Keyboard up · viewport
   5b03442d3cba299d  Lab reports
@@ -472,11 +469,12 @@
   f5de33541d146691  Nothing to study for that selection yet.
   bf9913bba7204a22  Nothing to undo.
   ad0e73f2f15963a1  Nothing under “
+  a6e0c34b9bca71d0  Off. The app stops at the bottom of the viewport, leaving the strip below it empty.
   2b12d09ebcacae94  Official notes missing — see weekly gap
   2efc956104ec7d7a  Offline & storage
   e1070a158b550318  Offline-first study system for HSS2011 Human Anatomy, ABCT2326 Human Physiology and medical radiation science.
   335056d20d010f9a  Old sources — supporting/fallback
-  591379126058c5e9  On. If the tab bar still works, this is the fix; force-quit and relaunch undoes it either way.
+  b993045313113468  On where the page is measured short of the screen — it extends the app into the strip so the tab bar reaches the edge. What is left after that is the screen’s own rounded corner, which no page can fill.
   a6c061874897dabb  One learning tree
   2db2d8da5f89a995  One to start you off —
   4ab8e7a5acc75973  Open detail
@@ -500,7 +498,6 @@
   fbb2baef613596d9  Radiation science
   c91778ac1e937e43  Radiography Study Studio — study progress (private)
   908b9d8d4c977990  Radioulnar joints
-  bc81216bf892b017  Reaching this row proves the buttons still work. Keeping it makes the setting survive a relaunch.
   14940b320721a5a8  Read down: the small clue first, then the hook it hangs on.
   726a962ec689197d  Read the hook, then choose the structure it describes.
   1202164db500bf1e  Read the teaching explanation and the key facts.
@@ -864,6 +861,7 @@
   df49128572cf09cb  s job is only to feed it those meshes in the body
   91f0e226c82016ff  s left), fz 0 the trunk
   4e01dcdc55cd6293  s own half-width put the oesophagus
+  ade98b80a888aed2  s own signature. 
   1946ee43aab92871  screen, but with no top inset — the status bar is opaque, so the page starts below it and reaches the bottom. No band.
   1299be2249d386cf  screen. No band.
   2ba630de2f754c51  screen. That gap is the band.
