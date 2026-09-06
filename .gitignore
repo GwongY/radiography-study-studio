@@ -15,3 +15,11 @@ work/.source-lesson-audit/
 # (work/source-catalogue.json, work/.source-text/), which is what the app needs;
 # the files themselves stay out.
 New source/
+
+# Generated question packs. A pack is a publisher test bank reshaped into JSON:
+# fine to study from on your own device, not ours to republish, and this
+# repository is public. work/build-question-pack.mjs writes here, the app
+# fetches a pack from a PRIVATE remote at runtime, and work/pack-privacy-check.mjs
+# asserts that nothing pack-shaped ever reaches outputs/, the SW SHELL, the
+# progress export or the answer log.
+work/.packs/
