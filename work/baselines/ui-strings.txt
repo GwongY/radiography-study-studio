@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 931 —
-  f2e6152ff1097f60  WHOLE SET
+— user-facing strings in outputs/ — 952 —
+  e357c45dca7f6ad1  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -61,13 +61,17 @@
   fab48eab3dda333d  % you need
   0d39dfc8843ce989  (display-mode: standalone)
   fce63bfb9ebaba3d  (prefers-reduced-motion: reduce)
+  61ba12870f23bb03  ) but its
   93a03cdc35a83caa  ). Nothing was lost — try again later.
   7ac7679148ff1f49  , and this app is on
   75c7ea370d30e16f  , as a percentage"
+  843bdca5f41b8d44  , floating
+  9a278d9bf11e90ec  , inset dead
   e7d099eb305882c1  , last written
+  0bff6b241b6ff6c2  , short by
   bfd4242c0712a338  , tap for
-  463b794c0b2cefeb  , the tallest this device has reported. No band.
   eaad1c08038293ae  , unverified
+  047d5c333d912982  , viewport
   dc6a7d80c9915298  , with the questions you got wrong.
   c0b1daed9b12da7c  -level background — the part you already have
   f6532b372c4a48d5  /* Back faces are where the ray leaves material, front faces where it enters. */
@@ -246,6 +250,8 @@
   e72ca92c0272f35b  Body layers
   2cea2e3a045ac3d2  BodyParts3D / Anatomography model licensing and the candidate sources that were reviewed.
   14352d43201b3476  Bone goes translucent; the cavity reads straight through it.
+  914a8905cb556af5  Bottom strip fill kept. Turn it off again from this row.
+  7883a7f0565b3c01  Bottom strip left alone.
   08dec09e60523dff  Browser tab · viewport
   67914e2d1393fea9  Browsing memory hooks — nothing is scored in this mode.
   4edfab653f74507f  Browsing the
@@ -297,11 +303,14 @@
   4b18c8812e334be5  Every question validates
   f7b81d5c080156a2  Everything is marked. Final:
   49070002f587bcf4  Everything you have got wrong, most-repeated first. Each one keeps its own explanation and the confusion that caused it.
+  77274053b68a0345  Experimental. Extends the app past the bottom of the viewport and into the strip, so the tab bar reaches the edge of the screen. Nobody here can test whether taps land down there — if the buttons stop working, force-quit and relaunch and it undoes itself.
   c00d4a1a69e70add  Explain my mistakes
   bffe96c6114e2262  Explore & study
   b90b4a943e80fc1e  Export timetable to calendar
   9f7d2428f854a82f  Fade everything except the structures that define the cavity.
   b4b9abe93d713048  FiBUla is the thin lateral pin and ends in the lower lateral malleolus.
+  dd190b58a846cb67  Fill the bottom strip
+  67781aee4f06f11f  Filling the bottom strip. If the tab bar is now out of reach, force-quit the app and relaunch — it reverts on its own.
   ca39fc5e6da394f2  Final exam
   1a5d72ec7b07df58  Find the
   68ed5dff9e6e0d16  Finish \u00b7 next item \u2192
@@ -352,6 +361,7 @@
   39fb4546ac87cc3a  Judge it from the landmarks in anatomical position, not from which side of the screen it is on.
   90a8aa236c266060  Jugular notch
   bfd62f38eb7f415e  Keep hidden
+  41f12f5eeb82fbc2  Keep the bottom-strip fill
   c6867b20a8fd8669  Key facts to remember
   2072e9484cb255ff  Keyboard up · viewport
   5b03442d3cba299d  Lab reports
@@ -466,6 +476,7 @@
   2efc956104ec7d7a  Offline & storage
   e1070a158b550318  Offline-first study system for HSS2011 Human Anatomy, ABCT2326 Human Physiology and medical radiation science.
   335056d20d010f9a  Old sources — supporting/fallback
+  591379126058c5e9  On. If the tab bar still works, this is the fix; force-quit and relaunch undoes it either way.
   a6c061874897dabb  One learning tree
   2db2d8da5f89a995  One to start you off —
   4ab8e7a5acc75973  Open detail
@@ -489,6 +500,7 @@
   fbb2baef613596d9  Radiation science
   c91778ac1e937e43  Radiography Study Studio — study progress (private)
   908b9d8d4c977990  Radioulnar joints
+  bc81216bf892b017  Reaching this row proves the buttons still work. Keeping it makes the setting survive a relaunch.
   14940b320721a5a8  Read down: the small clue first, then the hook it hangs on.
   726a962ec689197d  Read the hook, then choose the structure it describes.
   1202164db500bf1e  Read the teaching explanation and the key facts.
@@ -524,6 +536,7 @@
   667095c7b2d70a16  Show the lesson first
   0595489058178b10  Show the model answer
   cab88e281cc40392  Show them
+  c8e398243f5fa550  Shrunk by
   f95f623f793c9f96  Single item
   5b49bc3f366884d9  Singular form
   14ff2c02f1b62ffb  Skills to build
@@ -687,6 +700,7 @@
   10c21ae68a2b089a  \u00b7 opens in Viewer
   b90043e9bd499c60  \u00b7 via
   f1d2a707f4eba80b  a left and a right in the model
+  13a77ae510047ac8  above the
   0a48f9e432c65fab  above, upon
   cae3667040774d63  along the way.
   f6ca2bae3ef97f78  already covered this, so the session opens on the question.
@@ -771,6 +785,7 @@
   40ba1be988786a47  in line here
   8f4e6e661819b86b  in the examinable glossary
   77fffafaf552e5b1  in this drill ·
+  ef17d1d3acfa4f78  insets top
   c7e4e6c144bbd4f1  inside its measured box
   c8e3253dee590724  is held back by Live physiology — turn it off to see it
   3e48f87cb43c928d  is missing from the markup
@@ -849,6 +864,10 @@
   df49128572cf09cb  s job is only to feed it those meshes in the body
   91f0e226c82016ff  s left), fz 0 the trunk
   4e01dcdc55cd6293  s own half-width put the oesophagus
+  1946ee43aab92871  screen, but with no top inset — the status bar is opaque, so the page starts below it and reaches the bottom. No band.
+  1299be2249d386cf  screen. No band.
+  2ba630de2f754c51  screen. That gap is the band.
+  287b152b950af901  screen. The band only appears in the installed app.
   b5b38c70aa56b8e0  segbar assfilters
   d0f660b8c5b0b50c  segbar coursetabs
   cd3c2bcf3f5c6659  segbar hidden
@@ -860,13 +879,13 @@
   31c5f19d08e70b45  so far' :
   b06f2f1ca52fc976  soft-tissue mesh
   f004ce84a1c00cd6  soft-tissue structures travel with the bone.
+  29a944fb41484f0b  something is wrong
   a05d0fe6c99cd823  source review needed
   4118e397f17372ab  still to hand in
   7d30607b3e9c2d7a  structures in
   036a99f6c882069b  structures to name. Work round them in a fixed order every time, so the order itself becomes the cue.
   4132e48b488fc684  studied, across
   53b5cb1fd8627dca  synced today
-  0f13791bd917a082  tall. The band this watches for only appears in the installed app.
   79ea393804dc771d  tap a structure to name it
   ed964bcd197f9142  tap to name
   f5f88ae39b9a5ceb  that structure
@@ -913,6 +932,7 @@
   f15917d478d385d3  which of these is a skull bone
   a08b97ce59de6217  whole skeleton
   29ff11bb0c6073f7  width:100%;background:#0a141b;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 12px;outline:none
+  4319bd073a8a50ce  without on-device evidence
   19453f5759aed21a  wrong transform
   a280303e42e6da2d  you can select
   0ab77651425c254f  you can select · tap one
@@ -926,6 +946,7 @@
   0f3ebbb0ff98d5ec  · question
   dbfe3f147332dc00  · tap to name them
   70c67477da9f1f7f  · teaching order
+  98702c9246db235b  · the page covers the status bar (top inset
   e22653df93982092  · viewport
   2b40b61749321612  · your course names none of these one by one
   2ed64db2b62cdd4f  — coursework produced by students. Used only to confirm topic scope, never as a fact source.
