@@ -463,7 +463,7 @@ how you see where they actually run.
 That is 2,914 individually named, individually tappable structures in one registered body. Layers
 load on demand — turning one on fetches its GLB the first time and never again.
 
-The lymphatic layer (`lenf.glb`, 1.4 MB) was added after the other six, from the same project and the
+The lymphatic layer (`lenf.glb`, 0.74 MB) was added after the other six, from the same project and the
 same export pipeline. Registration was **measured before it was wired in**, not assumed: its x-centre
 matches the skeleton's to 0.0000 and its envelope (y 0.317–1.595) sits cleanly inside the skeleton's.
 It carries every named node group plus the spleen, both lobes of thymus and the palatine tonsils —
@@ -472,6 +472,34 @@ which is also where the organ layer's missing spleen came from.
 It holds nodes and lymphoid organs but **no lymphatic vessels**, so the cisterna chyli and the
 thoracic duct are not in it. The lesson that uses it says so in its own caption rather than letting
 you assume the drainage route is on screen.
+
+### The models are simplified, and nothing was lost doing it
+
+The seven layers were exported for a desktop viewer. The app that fetches them is a phone on hall
+wifi, so they were run once through `work/simplify-models.mjs` and the smaller files committed —
+the same kind of offline step as the `quantize` they already went through. **21.5 MB → 14.1 MB**,
+2.18 M triangles → 1.33 M, and **all 2,914 named meshes still there**.
+
+That last number is the whole difficulty. A blanket `gltf-transform simplify --error 0.002` over
+the seven files takes it to **2,902**: a small mesh simplified below three triangles is an empty
+primitive, and the CLI's cleanup pass prunes it away. The saphenous nerve was one of the twelve.
+Nothing in the app would have reported it — the nerve would simply never appear, and a question
+about it would have had no answer on screen. So the tool drives `simplifyPrimitive` one primitive
+at a time with no document-level cleanup, gives every primitive a triangle floor it may not be
+taken below, and compares the output's name set against the input's before it writes anything.
+
+The other trap was quieter. **Six millimetres of diaphragm is thirty-four millimetres of
+mediastinum.** `kas.glb` carries the diaphragm, and `cavity-build.js` samples it as the height
+field every thoracic and abdominal cavity is floored or roofed on. At 0.002 the dome came down
+about 6 mm — invisible, comfortably inside the error budget — and the mediastinum's right wall
+moved 34 mm laterally, because the builder starts its bands at the diaphragm *precisely* to stay
+above the base of the lungs, where each lung is a thin crescent whose medial edge has already swung
+far out to the side. The muscle layer therefore runs at 0.001, found by bisection with
+`build-check.mjs` as the instrument: the loosest budget at which the mediastinum comes back
+identical. Every other layer was checked the same way and moves every measured cavity by under
+2 mm.
+
+`MODEL_VERSION` goes `m2` → `m3`; `CACHE_VERSION` is a separate number for exactly this reason.
 
 ### Separating the layers
 
@@ -965,7 +993,7 @@ that downloads neuroanatomy for someone who only studies bones:
 | Cache | Contents | Strategy | When |
 | --- | --- | --- | --- |
 | `rss-shell` | HTML, the four data modules, manifest, icons (~700 KB) | network-first, cache fallback | precached at install |
-| `rss-models` | the seven `.glb` files (~39 MB) | cache-first | each cached the first time it is opened |
+| `rss-models` | the seven `.glb` files (~14 MB) | cache-first | each cached the first time it is opened |
 | `rss-cdn` | three.js, its loaders, the Draco wasm decoder | cache-first | on first 3D use |
 
 So the offline footprint grows to match what you actually study. Bump `CACHE_VERSION` in `sw.js` on

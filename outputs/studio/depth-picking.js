@@ -199,9 +199,9 @@ export async function loadExtraModel(key,file){
   ]);
   /*
    * The third argument to load() is onProgress and it used to be undefined, so
-   * the nerve layer (7.7 MB), the muscle layer (7.7 MB) and the vessels (7.5 MB)
+   * the nerve layer (2.5 MB), the muscle layer (3.3 MB) and the vessels (2.8 MB)
    * downloaded in total silence -- the boot path drives els.progress for the
-   * 5 MB skeleton, and then the biggest downloads in the app report nothing.
+   * 1.9 MB skeleton, and then the biggest downloads in the app report nothing.
    * Same bar, same units. lengthComputable is false on a chunked response, and
    * in that case there is honestly nothing to show, so the bar is left alone.
    */

@@ -239,6 +239,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/search-probe.mjs` | Search probe — does typing a structure's name find it? |  |
 | `work/separation-check.mjs` | Separating the layers — the arithmetic, driven without a GPU. |  |
 | `work/shell-check.mjs` | Shell check — every module the page imports is precached under the SAME |  |
+| `work/simplify-models.mjs` | Simplify the anatomy GLBs — run once, offline, and commit the result. | [Simplified GLBs](TRAPS.md#simplified-glbs--worksimplify-modelsmjs) |
 | `work/source-check.mjs` | Does every source the corpus cites actually exist on the drive? | [The source drive](TRAPS.md#the-source-drive--workbuild-source-cataloguemjs-worksource-checkmjs) |
 | `work/source-lesson-check.mjs` |  |  |
 | `work/source-resolve-check.mjs` | Regression checks for duplicate filenames across New and old source roots. |  |

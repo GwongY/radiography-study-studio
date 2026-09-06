@@ -653,6 +653,34 @@ do the same job, the control is the one that can be found, undone and explained.
   the pen can land on a surface the cut has removed. The card says draw first,
   section second.
 
+### Simplified GLBs — `work/simplify-models.mjs`
+
+- **Six millimetres of diaphragm is thirty-four millimetres of mediastinum.**
+  Simplifying `kas.glb` at 0.002 brought the dome down ~6 mm — invisible, well
+  inside the error budget, and it moved the mediastinum's right wall 34 mm
+  laterally. `buildMediastinum` starts its bands at the diaphragm *precisely*
+  to stay above the base of the lungs, where each lung is a thin crescent
+  whose medial edge has already swung out to the side; 6 mm lower and a band
+  catches that crescent. The muscle layer therefore runs at 0.001, found by
+  bisection with `build-check.mjs` as the instrument. **Anything that carries
+  a surface a cavity is measured against needs its own budget, checked, not
+  assumed** — the skeleton, organs, vessels, nerves, ligaments and lymphatics
+  were all checked and move every cavity under 2 mm at 0.002.
+- **A blanket `gltf-transform simplify` deletes structures.** At 0.002 across
+  the seven files the mesh total goes 2,914 → 2,902: a small mesh simplified
+  below three triangles is an empty primitive and the CLI's cleanup prunes it.
+  The saphenous nerve was one of them. Nothing in the app would have said so —
+  the nerve would simply never appear, and a question about it would have no
+  answer on screen. Hence `simplify-models.mjs` driving `simplifyPrimitive`
+  directly, with no document-level cleanup, a per-primitive triangle floor,
+  and a name-set comparison that refuses to write.
+- **Bump `MODEL_VERSION`, never `CACHE_VERSION`.** They are separate so that
+  replacing geometry does not evict the shell, and vice versa.
+- **Re-capture the baselines after any run.** `build-check`, `cavity-probe`,
+  `grid-probe` and `landmark-check` all measure real vertices, so they will
+  differ. Read the differences before accepting them: sub-2 mm everywhere is
+  the bar, and the mediastinum is the one that tells you first.
+
 ### Separating the layers — `outputs/studio/tools-and-capture.js`, `outputs/study/viewer-tools.js`
 
 Run `node work/separation-check.mjs` after touching any of it.
