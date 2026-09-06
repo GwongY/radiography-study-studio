@@ -31,7 +31,7 @@ are **generated** — never read or edit them, ask `work/query.mjs`. **Never wal
 | --- | --- |
 | `outputs/` | The app, deployed as-is — no build step. `radiography-study-studio.html` is now markup only (~360 lines); it pulls in `app.css`, then `studio.js` (3D studio) and `study.js` (study system) as two separate module scripts, in that order. They keep separate import scopes and talk only through `window.__osteo`. |
 | `outputs/*.js` | Data modules, each imported with `?v=N` (see the SW SHELL rule below). Map is below. |
-| `outputs/study/*.js` | The study system, 32 parts. `study.js` imports them in order, then calls their `init()`s — **nothing may run at module scope**, they import each other cyclically. Shared mutable UI state lives in `study/state.js` as `ui.*`; the studio's equivalent is its `state` object. |
+| `outputs/study/*.js` | The study system, 33 parts. `study.js` imports them in order, then calls their `init()`s — **nothing may run at module scope**, they import each other cyclically. Shared mutable UI state lives in `study/state.js` as `ui.*`; the studio's equivalent is its `state` object. |
 | `outputs/study/corpus/*.js` | The lesson corpus, 23 files. `study-data.js` is a barrel re-exporting them under the same 63 names, so nothing imports these directly. |
 | `outputs/studio/*.js` | The 3D studio, 10 parts, same shape as `study/`. Its top level is indented inconsistently, so no text or brace rule can tell a top-level declaration from a nested one — `node work/toplevel.mjs <file>` asks V8 instead, and is the tool to use before touching its structure. |
 | `outputs/assets/*.glb` | The seven anatomical layers (skeleton, muscles, ligaments, organs, vessels, nerves, lymphatic), ~14 MB, lazy-loaded on demand. Quantized (`KHR_mesh_quantization`), which `work/glb-mesh.mjs` and `work/lib/mesh-names.mjs` decode — re-quantize a replacement with `npx @gltf-transform/cli quantize` and bump `MODEL_VERSION`, never `CACHE_VERSION`. Simplified once, offline, by `work/simplify-models.mjs` — never below a triangle floor, and never at the cost of a named mesh. Per-layer counts: `docs/DATA-INDEX.md`. |
@@ -138,6 +138,12 @@ node work/cut-level-check.mjs   # REQUIRED for the named section levels — thei
                                  # Also measures every level off the real GLB,
                                  # asserts the axial order, and holds the sternal
                                  # angle against the T4/T5 span the lecture claims
+node work/exam-check.mjs        # REQUIRED for outputs/study/exam-mode.js — a
+                                 # paper's mark is a number a student acts
+                                 # on, and blank against wrong is the
+                                 # distinction that decides what they do
+                                 # next. The builder and the marker are pure,
+                                 # so this drives them without a browser
 node work/assessment-check.mjs  # REQUIRED for outputs/study/assessments-and-marks.js
                                  # and for the assessment rows in outputs/schedule.js
                                  # — the weighted mark is a number a student
