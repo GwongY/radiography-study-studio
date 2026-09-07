@@ -116,3 +116,37 @@ export function mottleSigma(beam) { return REF_SIGMA / Math.sqrt(fluence(beam));
  * the thing the existing pane already asks the reader to watch for.
  */
 export function magnification({ sidCm, oidCm }) { return sidCm / (sidCm - oidCm); }
+
+/*
+ * The display curve.
+ *
+ * tau is already -ln(transmission), so a LINEAR window on tau is a
+ * LOGARITHMIC window on intensity -- which is what a digital detector applies
+ * before display, and what the previous linear `1 - exp(-tau)` did not.
+ *
+ * It matters because the dynamic range is enormous. A 20 cm chest at 75 kVp
+ * transmits 3.0% through a lung field and 0.03% through the mediastinum. The
+ * old curve mapped 0.97 and 0.9997 -- indistinguishable white. Windowed on
+ * tau the same two land a third of the scale apart.
+ *
+ * THIS FORMULA EXISTS TWICE. GLSL cannot import, so XRAY_POST_FRAG in
+ * studio/live-physiology.js inlines the same clamp. The check below tests
+ * this copy, so the shader can drift from it silently. Change one, change both.
+ */
+export const DEFAULT_WINDOW = { lo: 0.5, hi: 9.0 };
+export function filmDensity(tau, win) {
+  const w = win || DEFAULT_WINDOW;
+  return Math.min(1, Math.max(0, (tau - w.lo) / (w.hi - w.lo)));
+}
+
+/*
+ * A window sized for what is actually in the beam, so a hand and an abdomen
+ * are both readable without hunting for the control. Centred on the median
+ * tau with a span either side. Used as the escape hatch when DEFAULT_WINDOW
+ * turns out wrong for a region -- see the troubleshooting note in the plan's
+ * Task 8.
+ */
+export function windowFor(tauMedian) {
+  const span = Math.max(2, tauMedian * 0.9);
+  return { lo: Math.max(0, tauMedian - span), hi: tauMedian + span };
+}
