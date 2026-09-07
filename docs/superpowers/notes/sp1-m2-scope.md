@@ -119,6 +119,15 @@ stays a short segment inside `hss2011-m2-taste-smell` rather than its own item.
    `hss2011-m2-stroke-correlates` will need the two past-paper sentences as its only
    in-scope anchor for the arterial content, or a sourced substitute deck must be found
    before that part of the lesson can be written to the source-traceability rule.
+
+   **RESOLVED (commit 83aee73):** `MOOC 2 — Arterial Supply and Venous Drainage of Neck
+   and Head, and Meninges` is now registered as `hss.mooc2` (16 pages, in
+   `source-text.json`). It teaches the whole of it: internal carotid → ACA (frontal/
+   parietal) / MCA (lateral hemispheres), vertebral → basilar, the cerebral arterial
+   circle with its communicating arteries (`hss.mooc2` p5), stroke → L/R MCA aphasia and
+   contralateral paralysis (p5), the dural venous sinuses (p8) and the three meningeal
+   layers with their spaces (p10–11). `hss2011-m2-stroke-correlates` and the meninges
+   part of `hss2011-cns-spinal-cord-meninges` now cite `hss.mooc2`.
 2. **"Central pattern generators"** (`hss.revans` FIB 2.1) — the term is a model answer
    but appears on none of the cached deck pages. The reflex/locomotion item can name it
    only if a supporting slide or past-paper stem is located; otherwise tag it an
