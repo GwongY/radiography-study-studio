@@ -618,6 +618,9 @@
 .lessonvis-busy{position:absolute;inset:0;display:grid;place-content:center;font:11px ui-monospace,Menlo,monospace;color:var(--dim);z-index:5}
 .lessonvis-fallback{padding:12px 14px;font-size:calc(12px * var(--ts));color:var(--orange)}
 .lessonvis-readout{padding:9px 14px;border-top:1px solid var(--line);font-size:13px;font-weight:700;color:var(--teal);min-height:38px;display:flex;align-items:center;gap:8px}
+.lessonvis-stack{display:contents}
+.lessonvis-stack:has(> * + *){display:block}
+.lessonvis-stack > * + *{margin-top:14px}
 .lessonvis-readout .dim{font:11px ui-monospace,Menlo,monospace;font-weight:400;color:var(--dim)}
 .xray-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:11px}
 .xray-exp{display:flex;align-items:center;gap:9px;font:10px ui-monospace,Menlo,monospace;letter-spacing:1.2;color:var(--dim);text-transform:uppercase}

@@ -17,7 +17,7 @@ import { searchAnatomy } from '../anatomy-data.js?v=5';
 import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS, conceptById, conceptAncestors, conceptChildren } from '../bodymap.js?v=4';
 import { MESH_INDEX, UNITS } from '../mesh-index.js?v=5';
 import { expandQuery, missingFor, compositeFor } from '../synonyms.js?v=3';
-import { visualFor, plateFor } from '../visual-data.js?v=4';
+import { visualFor, visualsFor, plateFor } from '../visual-data.js?v=4';
 import { FLOW_CLASSES, LAYER_CLASSES, RATES } from '../physiology.js?v=4';
 /* The layer rail is a rail of SYSTEMS, not of files: two of the seven GLBs
    draw several chips each. See outputs/systems.js. */
@@ -142,4 +142,5 @@ export {
   validateApplications,
   validateCorpus,
   visualFor,
+  visualsFor,
 };
