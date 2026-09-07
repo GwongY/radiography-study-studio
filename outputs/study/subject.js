@@ -9,6 +9,7 @@ import { goTo, setActiveNav } from './navigation-five-destinations.js';
 import { leaveProjection } from './what-is-under.js';
 import { scrollViewTop, showView, toast } from './small-ui-helpers.js';
 import { startSession } from './session-engine.js';
+import { getContinueTarget, getItemStep, resumeContinue } from './home.js';
 import { studyItemWithin } from './global-search-one.js';
 
 /* ------------------------------------------------------------------ *
@@ -97,36 +98,43 @@ export function renderLearn() {
           const attempted = itemAttempted(i.id);
           const assumed = !attempted ? priorOf(i) : null;
           const opened = !attempted && !assumed && itemRead(i.id);
+          const stepReached = getItemStep(i.id);
           /*
            * The first of the four dots is reading the lesson.
+           * Reaching Remember (step 2 of 4) fills two dots (2/4).
            *
            * The ladder tierFor walks is Not started / Seen / Recognised /
-           * Recalled / Mastered, so the rung for this already existed and was
-           * simply unreachable: tierFor only leaves zero when the item has
-           * been ATTEMPTED, and until markRead existed nothing but answering a
-           * question could say otherwise. Opening the lesson and leaving --
-           * by the close button or by Save & exit, both of which end the
-           * session the same way -- now fills one dot of four.
-           *
-           * The other three stay earned. Four steps and four dots line up too
-           * neatly to be a coincidence, but they are: pressing Next twice
-           * without answering anything would light "Recognised" on an item you
-           * cannot yet recognise.
+           * Recalled / Mastered. Opening the lesson fills one dot of four;
+           * stepping to Remember marks two of four.
            */
-          const tier = tierFor(adjScore(i), attempted || !!assumed || opened);
+          let tier = tierFor(adjScore(i), attempted || !!assumed || opened);
+          if (!attempted && !assumed && opened && stepReached === 'remember') {
+            tier = Math.max(tier, 2);
+          }
           /* Dim, not red, for both of the tiers nobody earned here: a mark
              carried over from another syllabus, and a lesson that has been
              read. Red at one dot is the colour for answering badly. */
           const color = assumed || opened ? 'var(--dim)'
             : tier >= 3 ? 'var(--green)' : tier === 2 ? 'var(--orange)' : 'var(--red)';
           const sub = (ITEM_TYPES[i.type] || {}).label || i.type;
-          return `<button class="unit-row" data-item="${esc(i.id)}"><span class="grow"><b>${esc(i.title)}</b><small>${esc(sub)}${opened ? esc(' · read') : ''}${assumed ? esc(' · assumed from ' + assumed.short + ', unverified') : ''}</small></span><span class="mono" style="color:${color}">${'\u25cf'.repeat(tier)}${'\u25cb'.repeat(4 - tier)}</span></button>`;
+          const stepTag = stepReached === 'remember' ? ' · remember (2/4)' : (opened ? ' · read' : '');
+          return `<button class="unit-row" data-item="${esc(i.id)}"><span class="grow"><b>${esc(i.title)}</b><small>${esc(sub)}${stepTag}${assumed ? esc(' · assumed from ' + assumed.short + ', unverified') : ''}</small></span><span class="mono" style="color:${color}">${'\u25cf'.repeat(tier)}${'\u25cb'.repeat(4 - tier)}</span></button>`;
         }).join('')}
       </div>
       ${T.related?.length ? `<div class="subhead">Shared visual study</div>${T.related.map(getItem).filter(Boolean).map((i) => `<button class="unit-row" data-related="${esc(i.id)}">${esc(i.title)} · ${esc(i.subject)}</button>`).join('')}` : ''}
       ${T.items.length ? '<div class="small" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line)">Each lesson lists its original New and old source files and page references. A source reference does not by itself mean the entire lecture is covered.</div>' : ''}
     </div>`;
-  if ($$('studyTopicBtn')) $$('studyTopicBtn').onclick = () => startSession({ mode: 'ids', ids: T.items.map((i) => i.id) });
+  if ($$('studyTopicBtn')) {
+    const cont = getContinueTarget();
+    const canResumeTopic = cont && cont.index > 0 && cont.itemIds && T.items.some((ti) => ti.id === cont.item.id);
+    if (canResumeTopic) {
+      $$('studyTopicBtn').textContent = `Continue (${cont.index + 1}/${cont.total}) \u2192`;
+      $$('studyTopicBtn').onclick = () => resumeContinue(cont);
+    } else {
+      $$('studyTopicBtn').textContent = 'Study in teaching order';
+      $$('studyTopicBtn').onclick = () => startSession({ mode: 'ids', ids: T.items.map((i) => i.id) });
+    }
+  }
   if ($$('openViewerBtn')) $$('openViewerBtn').onclick = () => goTo('viewer');
   /*
    * A row in the item list opens THAT item.

@@ -16,22 +16,60 @@ import { DEADLINES, SOON_MS, deadlineStats, isDone, paintImminent, untilText } f
  * Home
  * ------------------------------------------------------------------ */
 
-function getContinueTarget() {
+export function getContinueTarget() {
   const raw = read(STORAGE_PREFIX + 'continue', null);
   if (!raw || !raw.itemId) return null;
   const item = getItem(raw.itemId);
   if (!item) return null;
   const siblings = itemsForSubject(item.subject);
-  const index = siblings.findIndex((i) => i.id === item.id);
+  const subjectIndex = siblings.findIndex((i) => i.id === item.id);
   /* A resume point saved by an older build can name a step this one no longer
      has -- Review was one -- and the card looks that step up by name to print
      its label. Anything unrecognised opens the lesson. */
   const step = STEPS.some((x) => x.id === raw.step) ? raw.step : 'learn';
-  return { item, step, index: index < 0 ? 0 : index, total: siblings.length };
+  const hasSessionItems = Array.isArray(raw.itemIds) && raw.itemIds.length > 0;
+  const index = typeof raw.index === 'number' ? raw.index : (subjectIndex < 0 ? 0 : subjectIndex);
+  const total = typeof raw.total === 'number' && raw.total > 0 ? raw.total : siblings.length;
+  return {
+    item,
+    step,
+    index,
+    total,
+    itemIds: hasSessionItems ? raw.itemIds : null,
+    opts: raw.opts || null,
+    modeLabel: raw.modeLabel || null,
+  };
 }
-export function saveContinue(itemId, step) { write(STORAGE_PREFIX + 'continue', { itemId, step }); }
-function resumeContinue(cont) {
-  ui.session = { opts: { mode: 'subject', subject: cont.item.subject }, mode: null, items: [cont.item], index: 0, step: cont.step, qIndex: 0, answered: false, startedAt: 0, results: [], hooksOnly: false };
+export function saveContinue(itemId, step) {
+  const itemIds = ui.session?.items ? ui.session.items.map((i) => i.id) : null;
+  const index = typeof ui.session?.index === 'number' ? ui.session.index : 0;
+  const total = itemIds ? itemIds.length : 1;
+  const opts = ui.session?.opts || null;
+  const modeLabel = ui.session?.modeLabel || null;
+  write(STORAGE_PREFIX + 'continue', { itemId, step, itemIds, index, total, opts, modeLabel });
+  if (itemId && step) write(STORAGE_PREFIX + 'step:' + itemId, step);
+}
+export function getItemStep(itemId) {
+  return read(STORAGE_PREFIX + 'step:' + itemId, null);
+}
+export function resumeContinue(cont) {
+  const items = (cont.itemIds && cont.itemIds.length)
+    ? cont.itemIds.map(getItem).filter(Boolean)
+    : [cont.item];
+  const index = cont.index >= 0 && cont.index < items.length ? cont.index : 0;
+  ui.session = {
+    opts: cont.opts || { mode: 'ids', ids: items.map((i) => i.id) },
+    mode: null,
+    items,
+    index,
+    step: cont.step,
+    qIndex: 0,
+    answered: false,
+    startedAt: 0,
+    results: [],
+    hooksOnly: cont.step === 'remember' && !!cont.opts?.hooksOnly,
+  };
+  ui.session.modeLabel = cont.modeLabel || 'Study session';
   openSessionOverlay();
   setStep(cont.step);
 }

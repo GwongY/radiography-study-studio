@@ -11,7 +11,7 @@ import { mountLessonVisual, releaseLessonVisual } from './lesson-visuals.js';
 import { startExam } from './exam-mode.js';
 import { openSessionOverlay } from './navigation-five-destinations.js';
 import { openSourceDialog } from './source-dialog.js';
-import { saveContinue } from './home.js';
+import { getItemStep, saveContinue } from './home.js';
 import { toast } from './small-ui-helpers.js';
 import { wireTerms } from './reading-help.js';
 
@@ -131,7 +131,8 @@ export function startSession(opts) {
   const mode = STUDY_MODES.find((m) => m.id === opts.mode);
   const hooksOnly = opts.mode === 'hooks';
   const first = items[0];
-  const step = hooksOnly ? 'remember' : entryStep(first, itemAttempted(first.id));
+  const savedStep = getItemStep(first.id);
+  const step = hooksOnly ? 'remember' : (savedStep || entryStep(first, itemAttempted(first.id)));
   ui.session = {
     opts, mode, items, index: 0, step,
     qIndex: 0, answered: false, startedAt: 0,
@@ -167,7 +168,8 @@ export function advanceItem() {
     const bk = $$('mvBackToSession'); if (bk) bk.classList.add('hidden');
   }
   const next = ui.session.items[ui.session.index];
-  setStep(ui.session.hooksOnly ? 'remember' : entryStep(next, itemAttempted(next.id)));
+  const savedNext = next ? getItemStep(next.id) : null;
+  setStep(ui.session.hooksOnly ? 'remember' : (savedNext || entryStep(next, itemAttempted(next.id))));
 }
 
 export function setStep(step) {

@@ -784,6 +784,7 @@ export function enterXray(){
   state.fullMeshes.forEach(m=>apply(m,'skeleton'));
   Object.entries(state.extraModels||{}).forEach(([k,l])=>l.meshes.forEach(m=>apply(m,k)));
   Object.entries(state.extraModels||{}).forEach(([k,l])=>{l.root.visible=layerOn(k)});
+  if(state.realModel)state.realModel.visible=false;
   state.scene.background=null;
   state.scene.fog=null;
   /* A yaw would smear a projection that is meant to be read square on. */

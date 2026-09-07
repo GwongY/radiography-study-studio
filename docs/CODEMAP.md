@@ -120,7 +120,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `depth-picking.js` | 353 | Depth picking |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
 | `imports.js` | 97 | Block 0 has its own import scope -- block 1's copy is not visible here. |
-| `live-physiology.js` | 1255 | Live physiology |
+| `live-physiology.js` | 1256 | Live physiology |
 | `region-boxes-how.js` | 485 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 237 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 482 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
@@ -140,7 +140,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `gist-sync.js` | 474 | Gist sync — the off-device copy, on the one service this app already depends on |
 | `global-search-one.js` | 351 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
-| `home.js` | 160 | Home |
+| `home.js` | 198 | Home |
 | `imports.js` | 145 |  |
 | `layout-figures.js` | 867 | Layout figures |
 | `lesson-visuals.js` | 237 | Lesson visuals |
@@ -151,20 +151,20 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `progress-log.js` | 374 | Progress log — the append-only record every other progress number is derived from |
 | `question-pack.js` | 463 | Question packs — licensed questions that live on this device and nowhere else. |
 | `reading-help.js` | 330 | Reading help |
-| `reset.js` | 193 | Reset |
+| `reset.js` | 199 | Reset |
 | `review-mistakes-due.js` | 95 | Review -- mistakes, due items, and the mastery map that replaced the |
 | `search-viewer-open.js` | 44 | Search -> viewer: open the model, select the part, auto-uncover, and |
-| `session-engine.js` | 256 | Session engine |
+| `session-engine.js` | 258 | Session engine |
 | `small-ui-helpers.js` | 198 | Small UI helpers |
 | `source-dialog.js` | 59 | Source dialog |
 | `spatial-overlay-controls.js` | 120 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 35 | The study system's mutable UI state. |
 | `storage-versioned-keys.js` | 156 | Storage — versioned keys, one-time migration from the osteology app |
-| `subject.js` | 322 | Subject |
+| `subject.js` | 330 | Subject |
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 311 | Viewer tools — annotate, cut, layer depth, capture |
 | `viewport-recovery.js` | 446 | The band below the tab bar — measuring it, and asking for the space back |
-| `what-is-under.js` | 187 | What is under the tap |
+| `what-is-under.js` | 199 | What is under the tap |
 
 ## The corpus — `outputs/study/corpus/*.js`
 

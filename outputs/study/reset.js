@@ -103,6 +103,12 @@ function resetProgress() {
   for (const key of [K.mastery, K.items, K.mistakes, K.meta, STORAGE_PREFIX + 'continue', LEGACY_STATS_KEY]) {
     try { localStorage.removeItem(key); } catch { /* private mode: the in-memory wipe below still holds */ }
   }
+  try {
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith(STORAGE_PREFIX + 'step:')) localStorage.removeItem(k);
+    }
+  } catch {}
   store.mastery = {}; store.items = {}; store.mistakes = [];
   /* Write a completed meta immediately so migrate() has nothing left to import. */
   store.meta = { version: DATA_VERSION, migratedLegacy: 0, migratedAt: Date.now(), resetAt: Date.now() };
