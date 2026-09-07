@@ -13,6 +13,16 @@
   /* Which body system a mesh belongs to inside its GLB layer -- the two
      composite layers show several chips each. See outputs/systems.js. */
   import { SYSTEMS, isSplit, layerOf, systemCounts, systemsIn, systemsOf } from '../systems.js?v=1';
+  /* The projection's physics. Pure.
+     Only the STUDIO half imports this. The study half's pane reaches the
+     beam through window.__osteo and never needs a coefficient of its own --
+     which is deliberate: two importers at two different `?v=` queries would
+     need two SHELL entries, because the SW cache key is the whole URL. If a
+     lesson ever wants to teach from these numbers, import it there at this
+     SAME query and add nothing to the shell. See CLAUDE.md. */
+  import { TISSUES, CM_PER_UNIT, mu, contrastRatio, effectiveKeV, fluence,
+    mottleSigma, magnification, filmDensity, windowFor, unitsToCm,
+    DEFAULT_WINDOW, REF_MAS, REF_SID_CM } from '../radiography.js?v=1';
 
   export const $ = (id) => document.getElementById(id);
   export const els = { stage:$('stage'), state:$('stageState'), stateTitle:$('stateTitle'), stateCopy:$('stateCopy'), retry:$('retryBtn'), progress:$('progressBar'), stageMeta:$('stageMeta'), regionMeta:$('regionMeta'), selectedName:$('selectedName'), selectedChips:$('selectedChips'), selectedDetails:$('selectedDetails'), taskKicker:$('taskKicker'), taskTitle:$('taskTitle'), taskCopy:$('taskCopy'), answers:$('answers'), feedback:$('feedback'), next:$('nextBtn'), regions:$('regionButtons'), reviewBar:$('reviewBar'), reviewNumber:$('reviewNumber'), reviewHint:$('reviewHint'), toast:$('toast'), detailDialog:$('detailDialog'), detailTitle:$('detailTitle'), detailChips:$('detailChips'), detailBody:$('detailBody'), zoomIn:$('zoomInBtn'), zoomOut:$('zoomOutBtn'), focus:$('focusBtn'), motion:$('motionBtn') };
@@ -38,13 +48,18 @@ export const LAYER_NAMES={skeleton:'Skeleton',muscle:'Muscles',organs:'Organs',c
 export {
   ANATOMY_DATABASE,
   BODY_CONCEPTS,
+  CM_PER_UNIT,
+  DEFAULT_WINDOW,
   FLOW_ANCHORS,
   FLOW_CLASSES,
   LANDMARK_HOTSPOTS,
   MESH_INDEX,
   MODEL_CATALOG,
+  REF_MAS,
+  REF_SID_CM,
   REGIONS,
   SYSTEMS,
+  TISSUES,
   UNITS,
   atriumEnvelope,
   boundsOf,
@@ -55,16 +70,25 @@ export {
   conceptById,
   conceptLeaves,
   contractEnvelope,
+  contrastRatio,
   createResolver,
+  effectiveKeV,
+  filmDensity,
+  fluence,
   getAnatomy,
   gridBounds,
   isSplit,
   layerOf,
+  magnification,
   measureGrid,
   measureLandmarks,
+  mottleSigma,
+  mu,
   spikeEnvelope,
   systemCounts,
   systemsIn,
   systemsOf,
+  unitsToCm,
   ventricleEnvelope,
+  windowFor,
 };
