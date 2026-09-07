@@ -150,3 +150,34 @@ export function windowFor(tauMedian) {
   const span = Math.max(2, tauMedian * 0.9);
   return { lo: Math.max(0, tauMedian - span), hi: tauMedian + span };
 }
+
+/*
+ * Cortex and medulla.
+ *
+ * The GLB bones are single closed surfaces -- the outer cortex, with nothing
+ * inside -- so every bone read as a uniform slab and the pane said so. A real
+ * long bone is a cortical tube around a fatty medullary canal, which is why a
+ * film shows a bright rim, a darker centre, and bright edges where the ray
+ * runs down the length of the cortex rather than across it.
+ *
+ * Each surface crossing is charged for one cortical slab entered at the true
+ * incidence angle -- path through a slab is t / cos(incidence) -- over a bulk
+ * of marrow. Two crossings per bone, so a straight-through ray gets 2t of
+ * cortex and a grazing one gets much more, which is the edge brightening.
+ *
+ * LIMITATION, and it is not a small one: t is uniform, so a rib is given a
+ * femur's cortex. This is a large improvement on no cortex at all and it is
+ * not a cortical thickness model. The pane says which.
+ *
+ * MIRRORED IN GLSL. studio/live-physiology.js applies the same shell term per
+ * fragment, one crossing at a time, letting additive blending supply the
+ * count. Change one, change both -- the check below only tests this copy.
+ */
+export const CORTEX_CM = 0.2;
+export const GRAZE_CLAMP = 0.05;
+
+export function boneTau({ pathCm, cosIncidence, kvp, crossings = 2 }) {
+  const cortex = mu('bone', kvp), marrow = mu('marrow', kvp);
+  const c = Math.max(GRAZE_CLAMP, Math.abs(cosIncidence));
+  return crossings * (cortex - marrow) * (CORTEX_CM / c) + marrow * pathCm;
+}
