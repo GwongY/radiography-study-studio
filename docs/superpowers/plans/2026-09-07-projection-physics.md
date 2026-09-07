@@ -549,8 +549,14 @@ existing alphabetical order: `CM_PER_UNIT`, `DEFAULT_WINDOW`, `REF_MAS`,
 
 - [ ] **Step 2: Add the shell entry and bump the cache**
 
-In `outputs/sw.js`, change line 36 from `const CACHE_VERSION = 'v130';` to
-`const CACHE_VERSION = 'v131';`.
+In `outputs/sw.js`, change `const CACHE_VERSION` to `'v132'`.
+
+**Read the current value first, do not assume it.** The committed value is
+`v130`, but the other session's uncommitted edit has already moved the working
+copy to `v131` — so `v131` is taken and reusing it would serve a stale shell
+to anyone who already cached theirs. If the working copy reads something other
+than `v131` when you get here, take the next number above whatever it reads and
+say so in your report.
 
 Then add to the SHELL list, next to the other `outputs/*.js` data modules
 (**with the query, exactly as imported**):
