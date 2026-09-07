@@ -1,12 +1,12 @@
 — the export surface of outputs/study-data.js — 64 exports —
   f6ce6e2d285e4eb0      3308  BONE_HOOKS  object[21]
-  5bd03f5684d6055e     30709  COVERAGE  object[6]
+  5065f3471f3329a9     31894  COVERAGE  object[6]
   6b86b273ff34fce1         1  DATA_VERSION  number
   619d6a33617fad34         8  DAY_MS  number
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  4bd6b28a23a34037   1113110  ITEM_BY_ID  Map[166]
+  f552378b140cd579   1170092  ITEM_BY_ID  Map[168]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -24,7 +24,7 @@
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   5bf34d15f638931d     23568  STRUCTURE_SETS  object[13]
-  19657ab436a97aef   1107625  STUDY_ITEMS  array[166]
+  1703a1fe92de2977   1164551  STUDY_ITEMS  array[168]
   f1627657582790e7      1185  STUDY_MODES  array[9]
   834fbc89b7e6fccf      4005  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
@@ -32,7 +32,7 @@
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  2242cd71b75e7830   1181780  default  object[7]
+  ce79572d4794d182   1239891  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -64,9 +64,9 @@
   ba048d6b42696398      2356  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  53fae601f2f5d4a4  WHOLE SURFACE
+  b4fee0a6617ed6e5  WHOLE SURFACE
 
-— every study item, by id — 166 items —
+— every study item, by id — 168 items —
   2d29339c231f634a  abct2326-acquired-immunity
   0f85a14f65a3eba6  abct2326-blood-composition
   23f628153e36648d  abct2326-cell-division
@@ -158,13 +158,15 @@
   f303c029635fc53d  hss2011-m2-brain-regions
   4c417e0d669ddc14  hss2011-m2-cerebellum
   2a08f52506a1ea28  hss2011-m2-cns-basics
-  de99a84064521085  hss2011-m2-ear-hearing
-  be74df9cfdc8dff1  hss2011-m2-eye-visual-pathway
+  e6bfdcc7db4a8004  hss2011-m2-ear-hearing
+  b1d7a57581d56d20  hss2011-m2-eye-accessory
+  a191b8d7143533b7  hss2011-m2-eye-visual-pathway
+  d8ad40516d0ab32c  hss2011-m2-eyeball-anatomy
   795e696c6e82e6e3  hss2011-m2-neurons-glia
   90b46e0ee21e4840  hss2011-m2-reflex-arc
-  ba442c50719e0f1f  hss2011-m2-static-dynamic-equilibrium
+  20d228fff5295a9a  hss2011-m2-static-dynamic-equilibrium
   020b3ff95afe0ac5  hss2011-m2-stroke-correlates
-  68a24d9405efbea0  hss2011-m2-taste-smell
+  f3dd03b681d5d904  hss2011-m2-taste-smell
   99cf89aba971812c  hss2011-m3-digestive
   1657e96d4757c035  hss2011-m3-urogenital-pelvis
   9c461486025067f6  hss2011-msk-bone-histology
