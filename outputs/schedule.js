@@ -238,7 +238,7 @@ export const SUBJECT_ADMIN = {
       { name: 'Mini project', weight: 20, note: 'Generative AI is allowed. Due Sat 28 Nov 2026 at 23:59 through Blackboard as an MS Word file.', src: { ref: 'soc.syllabus.2026', location: 'pp2 and 4 mini-project deadline and AI policy' } },
       { name: 'End-of-term quiz', weight: 50, note: 'Generative AI is not allowed. Held in the Week 13 class; the syllabus separately gives Sat 5 Dec 2026 at 23:59 as the quiz-paper submission deadline.', src: { ref: 'soc.syllabus.2026', location: 'pp2, 4–5 end-of-term quiz and submission deadline' } },
     ],
-    assessmentNote: 'Blackboard is the only accepted submission route. A submission must be completed, not merely uploaded; the syllabus states a 10-mark deduction per calendar day late and allows three attempts, with the final attempt marked.',
+    assessmentNote: 'All four components are continuous assessment: the 50% end-of-term quiz is sat in the Week 13 class, not the Registry examination period, so this subject has no separate examination to revise for. Blackboard is the only accepted submission route. A submission must be completed, not merely uploaded; the syllabus states a 10-mark deduction per calendar day late and allows three attempts, with the final attempt marked.',
     effort: [],
     teaching: 'One three-hour face-to-face class each Friday, with lecture Q&A. Notes or reference materials are posted to Blackboard before class and face-to-face lectures are recorded through Zoom.',
     texts: [

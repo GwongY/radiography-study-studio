@@ -176,7 +176,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | --- | --- | --- |
 | `apss-items.js` | 130 | APSS1A08 Introduction to Sociology — Topic 01 only. |
 | `corpus.js` | 65 | The assembled corpus — every item array spread into one list, and the |
-| `coverage.js` | 228 | Coverage report — what the supplied sources actually cover, and what they |
+| `coverage.js` | 231 | Coverage report — what the supplied sources actually cover, and what they |
 | `derived-items.js` | 342 | Items generated rather than authored: one per canonical bone record, one |
 | `diagrams.js` | 50 | Diagrams — authored schematics, drawn inline as SVG so the app needs no |
 | `dsai-items.js` | 173 | DSAI1202, from the Week 1 overview deck. |
