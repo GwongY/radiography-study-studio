@@ -81,7 +81,7 @@ export function bodyMetrics(){
  */
 export function labelSprite(text,color,hud){
   const THREE=state.THREE;
-  const lines=String(text).split('\n');
+  const lines=String(text).split('\n').flatMap(line=>line.match(/.{1,30}(?:\s|$)|.{1,30}/g)||['']).map(line=>line.trim());
   const S=2;                                   /* supersample for crisp text */
   const font=30*S, lh=Math.round(font*1.16), padX=10*S, padY=7*S, chip=6*S, gap=7*S;
   const c=document.createElement('canvas'), g=c.getContext('2d');
@@ -161,6 +161,7 @@ export function updateHudSprites(){
   });
   };
   walk(state.conceptGroup);
+  walk(state.toolGroup); // Pinned annotations need the same aspect-preserving HUD sizing.
   walk(state.pickGroup);      /* the selection callout obeys the same band */
 }
 /*

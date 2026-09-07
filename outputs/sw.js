@@ -33,7 +33,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v138';
+const CACHE_VERSION = 'v141';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -57,6 +57,7 @@ const CDN_CACHE = `rss-cdn-${CDN_VERSION}`;
 const ALL_CACHES = [SHELL_CACHE, MODEL_CACHE, CDN_CACHE];
 
 const SHELL = [
+  './atlas/viewer.js','./atlas/scene.js','./atlas/anatomy.js','./atlas/explosion-layout.js','./atlas/model-download.js','./atlas/pointer-tap.js','./atlas/ATTRIBUTION.md','./THIRD-PARTY-NOTICES.txt',
   './',
   './index.html',
   './radiography-study-studio.html',
@@ -241,7 +242,7 @@ self.addEventListener('activate', (event) => {
   })());
 });
 
-function isModel(url) { return url.pathname.endsWith('.glb'); }
+function isModel(url) { return url.pathname.endsWith('.glb') || /\/atlas\/models\/(atlas\.json|body-\d+\.bin\.gz)$/.test(url.pathname); }
 /*
  * The IA redesign loads Instrument Sans and Newsreader from Google Fonts.
  * Without caching them the app is not genuinely offline-first: the font FILES

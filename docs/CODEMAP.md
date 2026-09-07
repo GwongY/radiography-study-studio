@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 554 lines
+## `outputs/radiography-study-studio.html` — 534 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–529 | markup — no banners, grep here |
-| 530–530 | importmap |
-| 531–531 | loads studio.js |
-| 532–532 | loads study.js |
-| 533–552 | classic script · preamble |
-| 553–554 | markup — no banners, grep here |
+| 1–509 | markup — no banners, grep here |
+| 510–510 | importmap |
+| 511–511 | loads studio.js |
+| 512–512 | loads study.js |
+| 513–532 | classic script · preamble |
+| 533–534 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1392 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) · [hidden loses to an explicit display](TRAPS.md#hidden-loses-to-an-explicit-display--outputsappcss-outputsstudyexam-modejs)
+- `outputs/app.css` — 1438 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) · [hidden loses to an explicit display](TRAPS.md#hidden-loses-to-an-explicit-display--outputsappcss-outputsstudyexam-modejs)
 - `outputs/studio.js` — 26 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 65 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -44,7 +44,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `schedule.js` | 906 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 127 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 384 | Radiography Study Studio — service worker |  |
+| `sw.js` | 385 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 268 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 1748 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
@@ -117,13 +117,13 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `cavity-geometry-derived.js` | 472 | Cavity geometry, derived from the loaded anatomy. |
-| `depth-picking.js` | 398 | Depth picking |
+| `depth-picking.js` | 404 | Depth picking |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
 | `imports.js` | 97 | Block 0 has its own import scope -- block 1's copy is not visible here. |
 | `live-physiology.js` | 1269 | Live physiology |
-| `region-boxes-how.js` | 486 | Region boxes — how the region filter reaches the six soft-tissue layers |
+| `region-boxes-how.js` | 498 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 237 | Search -> viewer: frame the part, then hide only what stands in front |
-| `spatial-concept-overlays.js` | 482 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
+| `spatial-concept-overlays.js` | 483 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
 | `tools-and-capture.js` | 834 | Tools — section cuts, surface ink, pinned labels, capture. |
 | `visualisation-modes.js` | 683 | Visualisation modes. |
 
@@ -132,7 +132,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `assessments-and-marks.js` | 480 | Course — assessments, deadlines and the running mark |
-| `boot.js` | 70 | Boot |
+| `boot.js` | 78 | Boot |
 | `course-timetable.js` | 320 | Course — the syllabus and the timetable, with attendance |
 | `coverage-report.js` | 118 | Coverage report |
 | `dialog-behaviour-applied.js` | 124 | Dialog behaviour, applied to all seven at once |
@@ -164,7 +164,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 311 | Viewer tools — annotate, cut, layer depth, capture |
 | `viewport-recovery.js` | 446 | The band below the tab bar — measuring it, and asking for the space back |
-| `what-is-under.js` | 225 | What is under the tap |
+| `what-is-under.js` | 233 | What is under the tap |
 
 ## The corpus — `outputs/study/corpus/*.js`
 
@@ -206,6 +206,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/baseline.mjs` | Probe baselines — capture what the verifiers say TODAY, so a later |  |
 | `work/binding-check.mjs` | Binding check — does every split part import the names it uses? | [Missing imports in a split part](TRAPS.md#missing-imports-in-a-split-part--workbinding-checkmjs) |
 | `work/bridge-check.mjs` | Does the studio actually expose everything the study system calls on it? |  |
+| `work/build-atlas-viewer.mjs` |  |  |
 | `work/build-check.mjs` | Build every cavity from the real GLBs and assert the results are anatomy. |  |
 | `work/build-course-terms.mjs` | Build work/course-terms.json — which of the model's 1,687 named structures | [Study depth and course terms](TRAPS.md#study-depth-and-course-terms--workbuild-course-termsmjs) |
 | `work/build-mesh-index.mjs` | Build outputs/mesh-index.js — the searchable name index for every mesh in | [The mesh index](TRAPS.md#the-mesh-index--workbuild-mesh-indexmjs-worklibmesh-namesmjs) |
@@ -228,6 +229,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/exam-check.mjs` | Exam mode — the paper and the mark, checked without a browser. |  |
 | `work/fetch-figure.mjs` | fetch-figure.mjs — search Wikimedia Commons, and download a figure ONLY if |  |
 | `work/figure-key-check.mjs` | Figure key check — every published figure and plate a lesson shows carries an |  |
+| `work/full-atlas-check.mjs` |  |  |
 | `work/gist-sync-check.mjs` | Gist sync — the protocol, checked without a token. | [Gist sync](TRAPS.md#gist-sync--outputsstudygist-syncjs-workgist-sync-checkmjs) |
 | `work/glb-bounds.mjs` | Per-mesh axis-aligned bounding boxes straight out of a GLB, without three.js. |  |
 | `work/glb-mesh.mjs` | Decode POSITION vertices out of an uncompressed GLB, node-side. |  |

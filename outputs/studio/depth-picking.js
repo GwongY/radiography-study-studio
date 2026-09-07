@@ -167,14 +167,25 @@ import { applySeparation } from './tools-and-capture.js';
    * and selects or hides any of them by NAME. Both are explicit, and neither
    * can happen by accident.
    */
+  // Adapted from ashemag/human-atlas app/pointer-tap.ts (MIT; see THIRD-PARTY-NOTICES.txt).
+  class PointerTap {
+    active=new Map(); blocked=false;
+    down(id,x,y){if(!this.active.size)this.blocked=false;this.active.set(id,{x,y});if(this.active.size>1)this.blocked=true}
+    move(id,x,y){const start=this.active.get(id);if(start&&Math.hypot(x-start.x,y-start.y)>=7)this.blocked=true}
+    up(id,x,y){this.move(id,x,y);const tap=this.active.has(id)&&this.active.size===1&&!this.blocked;this.active.delete(id);return tap}
+    cancel(id){this.active.delete(id);this.blocked=true}
+  }
+  const pointerTap=new PointerTap();
   let pointerDown=null;
   function bindCanvas(){
     els.stage.addEventListener('pointerdown',(e)=>{
+      pointerTap.down(e.pointerId,e.clientX,e.clientY);
       if(!e.isPrimary){pointerDown=null;return;}
       pointerDown={id:e.pointerId,x:e.clientX,y:e.clientY,moved:false,
         pan:state.xray?.postMat.uniforms.uPan.value.clone()};
     });
     els.stage.addEventListener('pointermove',(e)=>{
+      pointerTap.move(e.pointerId,e.clientX,e.clientY);
       if(!pointerDown||e.pointerId!==pointerDown.id)return;
       const dx=e.clientX-pointerDown.x,dy=e.clientY-pointerDown.y;
       if(Math.hypot(dx,dy)>=7)pointerDown.moved=true;
@@ -185,12 +196,12 @@ import { applySeparation } from './tools-and-capture.js';
         Math.max(-.9,Math.min(.9,pointerDown.pan.y-dy/rect.height)));
     });
     els.stage.addEventListener('pointerup',(e)=>{
-      if(!state.tool&&pointerDown&&e.pointerId===pointerDown.id&&!pointerDown.moved
+      if(pointerTap.up(e.pointerId,e.clientX,e.clientY)&&!state.tool&&pointerDown&&e.pointerId===pointerDown.id&&!pointerDown.moved
         &&Math.hypot(e.clientX-pointerDown.x,e.clientY-pointerDown.y)<7)pick(e);
       pointerDown=null;
     });
-    els.stage.addEventListener('pointercancel',()=>{pointerDown=null});
-    els.stage.addEventListener('pointerleave',()=>{pointerDown=null});
+    els.stage.addEventListener('pointercancel',(e)=>{pointerTap.cancel(e.pointerId);pointerDown=null});
+    els.stage.addEventListener('pointerleave',(e)=>{pointerTap.cancel(e.pointerId);pointerDown=null});
   }
   /*
    * The studio's own "Anatomy search" card is gone.
@@ -206,15 +217,10 @@ import { applySeparation } from './tools-and-capture.js';
    * the study module below.
    */
   export function clearSelection(){state.selectedId=null;state.selectedSide=null;state.selectionAnchor=null;state.isolated=false;clearPickCallout();$('isolateBtn').classList.remove('active');clearHighlight();restorePeel();state.pickStack=[];state.pickCurrent=null;publishStack();applyVisibility();els.selectedName.textContent='Nothing selected';els.selectedChips.innerHTML='';els.selectedDetails.innerHTML=''}
-  document.querySelectorAll('.mode-btn').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));$('resetBtn').onclick=()=>{if(state.xray){setXrayView(state.xray.view);return}cameraView('front');state.isolated=false;$('isolateBtn').classList.remove('active');applyVisibility()};els.zoomIn.onclick=()=>zoomCamera(.72);els.zoomOut.onclick=()=>zoomCamera(1.38);els.focus.onclick=focusSelected;$('frontBtn').onclick=()=>cameraView('front');$('lateralBtn').onclick=()=>cameraView('lateral');$('isolateBtn').onclick=toggleIsolation;$('showAllBtn').onclick=()=>{state.region='all';els.regionMeta.textContent='All regions';renderRegions();clearSelection()};els.next.onclick=()=>startQuestion();/* This button used to be a second, differently-named way to press Identify.
+  document.querySelectorAll('.mode-btn').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));$('resetBtn').onclick=()=>{if(state.xray){setXrayView(state.xray.view);return}cameraView('front');state.isolated=false;$('isolateBtn').classList.remove('active');applyVisibility()};els.focus.onclick=focusSelected;$('isolateBtn').onclick=toggleIsolation;$('showAllBtn').onclick=()=>{state.region='all';els.regionMeta.textContent='All regions';renderRegions();clearSelection()};els.next.onclick=()=>startQuestion();/* This button used to be a second, differently-named way to press Identify.
    It now does the thing its name promises: opens the drill on the structure
    you have got wrong most often, rather than a fresh weighted pick. */
-$('reviewBtn').onclick=()=>{
-  const worst=[...pool()].sort((a,b)=>((state.stats[b.id]?.incorrect||0)-(state.stats[a.id]?.incorrect||0))||((state.stats[a.id]?.attempts||0)-(state.stats[b.id]?.attempts||0)))[0];
-  setMode('identify');
-  if(worst&&(state.stats[worst.id]?.incorrect||0)>0){startQuestionFor(worst);highlight(worst.id);els.taskTitle.textContent='What bone is this?';els.taskKicker.textContent='Level 1 · Your weakest';showToast(`Starting with ${worst.canonicalName} — ${state.stats[worst.id].incorrect} missed`)}
-  else showToast('No mistakes recorded yet — starting a normal Identify drill.');
-};$('closeDetail').onclick=()=>{els.detailDialog.close();state.lastDetailId=null;history.replaceState(null,'',location.pathname+location.search)};els.retry.onclick=()=>{try{state.controls?.dispose()}catch{}if(state.renderer){state.renderer.domElement.remove();state.renderer=null;state.controls=null}state.scene=null;state.camera=null;state.fullModel=null;state.realModel=null;state.meshes=[];state.fullMeshes=[];state.hotspots=[];state.fullPickables=[];boot3D()};
+$('closeDetail').onclick=()=>{els.detailDialog.close();state.lastDetailId=null;history.replaceState(null,'',location.pathname+location.search)};els.retry.onclick=()=>{try{state.controls?.dispose()}catch{}if(state.renderer){state.renderer.domElement.remove();state.renderer=null;state.controls=null}state.scene=null;state.camera=null;state.fullModel=null;state.realModel=null;state.meshes=[];state.fullMeshes=[];state.hotspots=[];state.fullPickables=[];boot3D()};
 /* Belt and braces around the observer: iPadOS fires visualViewport resize on
    rotation and on the keyboard opening, sometimes before layout settles. */
   /* The turntable is the slow idle yaw of the whole body. It is a different

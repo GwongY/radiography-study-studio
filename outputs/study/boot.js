@@ -68,3 +68,11 @@ export function init() {
   /* ...and so does coming back out of one. */
   $$('navBackBtn').onclick = () => { ui.learnDrill = false; renderLearn(); scrollViewTop(); };
 }
+
+$$('viewerExploreBtn').onclick = () => {
+ const panel = $$('taskCard');
+ const open = !panel.classList.toggle('hidden');
+ if(open){panel.classList.add('panel-expanded');$$('taskPanelToggle').setAttribute('aria-expanded','true');}
+ $$('viewerExploreBtn').setAttribute('aria-expanded', String(open));
+ $$('viewerExploreBtn').classList.toggle('active', open);
+};

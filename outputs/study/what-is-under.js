@@ -53,6 +53,14 @@ const XRAY_REGION_LIST = [['chest', 'Chest'], ['abdo', 'Abdomen'], ['pelvis', 'P
 let xrayView = 'pa';
 let xrayRegion = 'chest';
 let projectionRequest = 0;
+let atlasModule;
+let atlasActive=false;
+export function pauseFullAtlas(){atlasActive=false;atlasModule?.setAtlasActive(false);}
+async function openFullAtlas(){
+ atlasActive=true;
+ try{atlasModule=await import('../atlas/viewer.js');if(atlasActive&&ui.viewerTab==='atlas')atlasModule.mountAtlas($$('viewerAtlasPane'));}
+ catch(error){$$('viewerAtlasPane').textContent='Full atlas could not load. Switch tabs to retry.';console.error(error);}
+}
 
 /* One subscription for the session. The viewer is booted lazily, so this is
    retried each time the tab is drawn until the module is actually there. */
@@ -64,11 +72,13 @@ function bindStackHook() {
 
 function renderViewerTabs() {
   bindStackHook();
-  $$('viewerTabs').innerHTML = [['3d', '3D anatomy'], ['xray', 'Projection']].map(([id, label]) =>
+  $$('viewerTabs').innerHTML = [['3d', 'Course model'], ['atlas', 'Full atlas'], ['xray', 'Projection']].map(([id, label]) =>
     `<button class="seg${ui.viewerTab === id ? ' active' : ''}" aria-pressed="${ui.viewerTab === id}" data-vtab="${esc(id)}">${esc(label)}</button>`).join('');
   $$('viewerTabs').querySelectorAll('[data-vtab]').forEach((b) => { b.onclick = () => { ui.viewerTab = b.dataset.vtab; renderViewerTabs(); }; });
   $$('viewerSkeletonPane').classList.toggle('hidden', ui.viewerTab !== '3d');
   $$('viewerXrayPane').classList.toggle('hidden', ui.viewerTab !== 'xray');
+  $$('viewerAtlasPane').classList.toggle('hidden', ui.viewerTab !== 'atlas');
+  if(ui.viewerTab==='atlas')openFullAtlas();else pauseFullAtlas();
   if (ui.viewerTab === 'xray') {
     enterProjection();
   } else {
@@ -219,7 +229,5 @@ export function openViewer() {
     $$('xrayKvp').oninput(); $$('xrayMas').oninput(); aec.oninput();
     display(); window.__osteo.xrayRegion(xrayRegion); window.__osteo.xrayView(xrayView);
   };
-  $$('xraySave').onclick = () => {
-    if (window.__osteo.inXray()) $$('toolShot').click();
-  };
+
 }
