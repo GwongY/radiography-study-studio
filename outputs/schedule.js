@@ -400,25 +400,17 @@ export const WEEK_STUDY = {
     ],
     2: [
       'hss2011-joints-movement-map-2026', 'hss2011-osteo-pectoral-girdle',
-      'hss2011-bone-clavicle', 'hss2011-bone-scapula', 'hss2011-bone-humerus',
-      'hss2011-osteo-forearm-carpals', 'hss2011-bone-radius', 'hss2011-bone-ulna',
-      'hss2011-bone-hand', 'hss2011-structures-carpals', 'hss2011-structures-rotatorCuff',
-      'hss2011-joints-rotator-cuff', 'hss2011-movement-shoulderAbduction',
-      'hss2011-movement-elbowFlexion', 'hss2011-movement-supination',
-      'hss2011-movement-thumbOpposition',
+      'hss2011-osteo-forearm-carpals', 'hss2011-structures-carpals',
+      'hss2011-structures-rotatorCuff', 'hss2011-joints-rotator-cuff',
     ],
     3: [
-      'hss2011-osteo-pelvic-girdle', 'hss2011-bone-pelvis', 'hss2011-bone-femur',
-      'hss2011-bone-patella', 'hss2011-osteo-leg-tarsals', 'hss2011-bone-tibia',
-      'hss2011-bone-fibula', 'hss2011-bone-foot', 'hss2011-structures-tarsals',
-      'hss2011-structures-kneeJoint',
+      'hss2011-osteo-pelvic-girdle', 'hss2011-osteo-leg-tarsals',
+      'hss2011-structures-tarsals', 'hss2011-structures-kneeJoint',
     ],
     4: [
-      'hss2011-osteo-skull-sutures', 'hss2011-bone-cranium', 'hss2011-bone-mandible',
-      'hss2011-structures-skullBones', 'hss2011-osteo-vertebra-parts',
-      'hss2011-osteo-vertebral-column', 'hss2011-osteo-c1-c2',
-      'hss2011-bone-cervical', 'hss2011-bone-thoracic', 'hss2011-bone-lumbar',
-      'hss2011-bone-sacrum', 'hss2011-bone-coccyx', 'hss2011-structures-vertebralRegions',
+      'hss2011-osteo-skull-sutures', 'hss2011-structures-skullBones',
+      'hss2011-osteo-vertebra-parts', 'hss2011-osteo-vertebral-column',
+      'hss2011-osteo-c1-c2', 'hss2011-structures-vertebralRegions',
     ],
     5: ['hss2011-m2-cns-basics'],
     6: ['hss2011-m2-brain-regions', 'hss2011-structures-brainAndCsf', 'hss2011-structures-cranialNerves'],
@@ -426,11 +418,11 @@ export const WEEK_STUDY = {
       'hss2011-m2-eye-visual-pathway', 'hss2011-m2-ear-hearing',
       'hss2011-m2-static-dynamic-equilibrium', 'hss2011-m2-taste-smell',
     ],
-    8: ['hss2011-m1-heart-wall-valves'],
-    9: ['hss2011-m1-lungs-airway'],
-    10: ['hss2011-osteo-ribs-sternum', 'hss2011-bone-ribs', 'hss2011-bone-sternum', 'hss2011-thorax-regional-landmarks'],
-    11: ['hss2011-m3-digestive'],
-    12: ['hss2011-m3-urogenital-pelvis'],
+    8: ['hss2011-m1-heart-wall-valves', 'hss2011-structures-heartChambers', 'hss2011-structures-greatVessels'],
+    9: ['hss2011-m1-lungs-airway', 'hss2011-structures-airwayTree'],
+    10: ['hss2011-osteo-ribs-sternum', 'hss2011-thorax-regional-landmarks'],
+    11: ['hss2011-m3-digestive', 'hss2011-structures-digestiveTract'],
+    12: ['hss2011-m3-urogenital-pelvis', 'hss2011-structures-urinaryTract'],
   },
   ABCT2326: {
     1: [
@@ -440,22 +432,21 @@ export const WEEK_STUDY = {
       'abct2326-muscle-neural-tissue', 'abct2326-homeostasis', 'abct2326-feedback-loops',
     ],
     2: [
-      'hss2011-structures-heartChambers', 'hss2011-structures-greatVessels',
       'abct2326-cvs-circuits', 'abct2326-cvs-heart-structure', 'abct2326-blood-composition',
       'abct2326-cvs-conduction', 'abct2326-cvs-ecg-cycle', 'abct2326-cvs-hemodynamics-tutorial',
     ],
     3: [
-      'hss2011-structures-airwayTree', 'abct2326-resp-pathway',
+      'abct2326-resp-pathway',
       'abct2326-resp-ventilation-mechanics', 'abct2326-resp-lung-volumes',
       'abct2326-resp-oxygen-transport', 'abct2326-resp-carbon-dioxide-control',
       'abct2326-resp-gas-transport', 'abct2326-resp-ventilation-chemoreceptors',
     ],
     4: [
-      'hss2011-structures-digestiveTract', 'abct2326-digestive-pathway',
+      'abct2326-digestive-pathway',
       'abct2326-digestive-wall-motility', 'abct2326-digestive-stomach-control',
       'abct2326-digestive-small-intestine-accessory', 'abct2326-digestive-hormones-colon',
     ],
-    5: ['hss2011-structures-urinaryTract', 'abct2326-renal-nephron', 'abct2326-renal-filtration-countercurrent', 'abct2326-renal-countercurrent-vasarecta', 'abct2326-renal-tubular-clearance-sympathetic'],
+    5: ['abct2326-renal-nephron', 'abct2326-renal-filtration-countercurrent', 'abct2326-renal-countercurrent-vasarecta', 'abct2326-renal-tubular-clearance-sympathetic'],
     7: [
       'abct2326-repro-male-regulation', 'abct2326-repro-ovarian-menstrual-cycle',
       'abct2326-repro-fertilization-implantation', 'abct2326-repro-placenta-parturition',
@@ -546,11 +537,11 @@ export function gapFor(subject, week) {
 /* Shared reading aids retain one lesson and one progress record. Their original
    subject owns the lesson; the other course offers an explicitly related link. */
 export const WEEK_RELATED = {
-  HSS2011: {
-    8: ['hss2011-structures-heartChambers', 'hss2011-structures-greatVessels'],
-    9: ['hss2011-structures-airwayTree'],
-    11: ['hss2011-structures-digestiveTract'],
-    12: ['hss2011-structures-urinaryTract'],
+  ABCT2326: {
+    2: ['hss2011-structures-heartChambers', 'hss2011-structures-greatVessels'],
+    3: ['hss2011-structures-airwayTree'],
+    4: ['hss2011-structures-digestiveTract'],
+    5: ['hss2011-structures-urinaryTract'],
   },
 };
 
@@ -641,9 +632,9 @@ export const SESSIONS = [
      worth checking rather than assuming. Same pattern in week 10 below. */
   S({ subject: 'ABCT2326', week: 5, kind: 'none', on: [2026, 9, 1], title: 'Holiday — no lab', note: 'The teaching schedule cancels it for National Day. The university timetable still shows the Y719 slot at 13:30 — confirm before skipping.' }),
   S({ subject: 'ABCT2326', week: 6, kind: 'assessment', on: [2026, 9, 7], at: [13, 30, 15, 20], room: 'V322', title: 'QUIZ — Lectures 1–5', teacher: 'CC', note: 'Counts towards the 35% quiz component.' }),
-  /* Same case as week 9 below: the timetable books the tutorial hour, the
-     teaching schedule names no tutorial in the quiz week. */
-  S({ subject: 'ABCT2326', week: 6, kind: 'tutorial', on: [2026, 9, 7], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — slot booked, topic not published', groupOf: 'physTutorial', note: 'From the university timetable only. The teaching schedule lists no tutorial in week 6, the quiz week.', src: { ref: 'cal.2026', location: 'ABCT2326 TUT, Wed 7 Oct' } }),
+  /* The teaching schedule explicitly designates "No Class" for tutorial during quiz week.
+     The recurring room booking remains in the university timetable. */
+  S({ subject: 'ABCT2326', week: 6, kind: 'tutorial', on: [2026, 9, 7], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — No Class (Teaching Schedule)', groupOf: 'physTutorial', note: 'The teaching schedule explicitly designates "No Class" for Tutorial in week 6 (Quiz 1 week). University timetable holds the recurring Y306 booking.', src: { ref: 'phys.sched.2026', location: 'Week 6 Tutorial: No Class' } }),
   S({ subject: 'ABCT2326', week: 6, kind: 'lab', on: [2026, 9, 8], at: [13, 30, 15, 20], room: 'Y719', title: 'Respiratory Lab', group: '1', groupOf: 'physLab' }),
   S({ subject: 'ABCT2326', week: 7, kind: 'lecture', on: [2026, 9, 14], at: [13, 30, 15, 20], room: 'V322', title: 'Lecture 6 — Reproductive System', teacher: 'CY', unit: 'phys.repro' }),
   S({ subject: 'ABCT2326', week: 7, kind: 'tutorial', on: [2026, 9, 14], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — Reproduction', unit: 'phys.repro', groupOf: 'physTutorial' }),
@@ -652,9 +643,9 @@ export const SESSIONS = [
   S({ subject: 'ABCT2326', week: 8, kind: 'tutorial', on: [2026, 9, 21], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — Endocrine', unit: 'phys.endo', groupOf: 'physTutorial' }),
   S({ subject: 'ABCT2326', week: 8, kind: 'lab', on: [2026, 9, 22], at: [13, 30, 15, 20], room: 'Y719', title: 'Respiratory Lab', group: '3', groupOf: 'physLab' }),
   S({ subject: 'ABCT2326', week: 9, kind: 'lecture', on: [2026, 9, 28], at: [13, 30, 15, 20], room: 'V322', title: 'Lecture 8 — Nervous System', teacher: 'CY', unit: 'phys.nerv' }),
-  /* Not in the teaching schedule; booked in the timetable. Listed because a
-     tutorial you did not know about is the expensive direction to be wrong in. */
-  S({ subject: 'ABCT2326', week: 9, kind: 'tutorial', on: [2026, 9, 28], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — slot booked, topic not published', groupOf: 'physTutorial', note: 'From the university timetable only. The teaching schedule lists no tutorial in week 9.', src: { ref: 'cal.2026', location: 'ABCT2326 TUT, Wed 28 Oct' } }),
+  /* The teaching schedule explicitly designates "No Class" for tutorial in week 9.
+     The recurring room booking remains in the university timetable. */
+  S({ subject: 'ABCT2326', week: 9, kind: 'tutorial', on: [2026, 9, 28], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — No Class (Teaching Schedule)', groupOf: 'physTutorial', note: 'The teaching schedule explicitly designates "No Class" for Tutorial in week 9. University timetable holds the recurring Y306 booking.', src: { ref: 'phys.sched.2026', location: 'Week 9 Tutorial: No Class' } }),
   S({ subject: 'ABCT2326', week: 9, kind: 'lab', on: [2026, 9, 29], at: [13, 30, 15, 20], room: 'Y719', title: 'Digestive Lab', group: '1', groupOf: 'physLab' }),
   S({ subject: 'ABCT2326', week: 10, kind: 'none', on: [2026, 10, 4], title: 'No class this week', note: 'CONFLICT: the teaching schedule says no class; the university timetable books the lecture (Wed 13:30 V322), the tutorial (Wed 17:30) and the lab (Thu 5 Nov 13:30 Y719) as normal. Confirm before skipping the week.' }),
   S({ subject: 'ABCT2326', week: 11, kind: 'lecture', on: [2026, 10, 11], at: [13, 30, 15, 20], room: 'V322', title: 'Lecture 9 — Nerve / Musculoskeletal', teacher: 'CY', unit: 'phys.msk' }),

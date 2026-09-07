@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1014 —
-  0db9803a25d33915  WHOLE SET
+— user-facing strings in outputs/ — 1031 —
+  3df0b1d8f5c2a2da  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -77,9 +77,12 @@
   dc6a7d80c9915298  , with the questions you got wrong.
   c0b1daed9b12da7c  -level background — the part you already have
   f6532b372c4a48d5  /* Back faces are where the ray leaves material, front faces where it enters. */
-  54a3a62c81a70183  /* Film latitude: the toe and shoulder of the characteristic curve. */
-  90a185ba41cbc908  /* Quantum mottle. Noise rises where fewer photons arrive, as it does on film. */
+  128ec36b82d62dde  /* Incidence angle of the ray on this surface, for the cortical slab. */
+  6f222f7fe2ccf697  /* One cortical slab per crossing, at the true incidence angle. Added on
+  b23e904849d93b99  /* Quantum mottle: sigma comes from mAs and SID via radiography.js. */
   382773b522d5ceac  /* Shells that are not quite closed can integrate slightly negative. */
+  ddad222bd9577f32  /* tau is -ln(transmission), so a linear window here is a LOG window on
+  5c0ca222c75b80db  1-exp(-tau) did not. MIRRORS radiography.js filmDensity(): change one,
   9a6893535657967f  1–7 go alone, 8–10 carpool, 11–12 walk free.
   d2c73992f539793a  246 questions ready
   315afd5b7575b942  26 bones per foot
@@ -142,6 +145,7 @@
   35ce3a36a607c3e6  <div class="emptybox" style="margin-top:14px">No memory aid authored for this item yet.</div>
   54769c1024f53f51  <div class="emptybox">3D is unavailable, so the projection cannot be drawn.</div>
   bb363a3bd702def4  <div class="emptybox">Diagram unavailable.</div>
+  8725745b55c87713  <div class="emptybox">Loading the beam\u2019s three tissue layers\u2026</div>
   d9c86f19c355240f  <div class="emptybox">Movement unavailable.</div>
   f9d3a9e3de82b3af  <div class="emptybox">No practice questions on this item.</div>
   eacaf6e72b6f92ef  <div class="emptybox">Nothing scheduled this week.</div>
@@ -252,8 +256,10 @@
   523e9ac9420b9f08  Assessment/practice context
   46b396c85919af7d  At a glance
   98c427b530ed1f56  Attach the fact to something you already know well.
+  e42d98d7d58c2fe2  Automatic exposure control
   30f9484f78fa55f8  Autosaves as you go
   b7e50f8f4d18036a  Axillary nodes
+  13e0765632a97ef3  BOTH faces (not signed) because entering and leaving each cross one.
   7a3047bbc5a1f2a4  Back to topics
   e4cc8252f2f7fe5d  Back up to a private GitHub gist
   442808ef2fd68469  Backup exported. The erase button is still there when you are ready.
@@ -288,6 +294,7 @@
   37b72d6c576f83a7  Correct — you found it in space.
   4a0c3a0072aecfa0  Could not load that layer — the others are still there.
   7405b8bbcaf9d423  Could not load that model — the skeleton is still available.
+  89f2d033d8a58d5f  Could not load the
   73a069d82b0d3b67  Could not locate that structure in the model
   57a9734bd3bcd083  Could not reach GitHub. If you are offline, this will retry on its own.
   3e43a3e5c3ac8956  Could not set that movement up on the model.
@@ -704,6 +711,8 @@
   365876067e586bde  Traced to
   bdadc5cef1ccc303  Transpyloric (L1)
   0a0d093315fde56b  Transtubercular (L5)
+  66f9c52ff704f03a  Tube current time product in mAs
+  f2f36bb84e6dfc7b  Tube voltage in kVp
   325a3667381bade5  Twelve vertebrae: lunch at 12, with ribs attached.
   431c871a874df758  Type an answer first — a guess still teaches you more than skipping.
   41146b07110e6e0c  Type the bone name
@@ -777,9 +786,9 @@
   dee735ed000908c8  card overlaycard
   53a55ca51fe7c9ab  card sylcard
   3498234b41cec63c  card toolcard
+  51d90b3094195356  change both, because the node check only tests that copy. */
   67e4b13874eb864a  chip beyond
   4fdb308b1fc87ab3  chip learn
-  9b6a126af19abc00  cm · simulated · tap to name
   2cbe9c9f6127a32e  const attrs = hit ?
   150b21e4e5effc2a  const hit = lookupTerm(term);
   278b6cfc619726c6  const n = itemsForSubject(s.id).length;
@@ -793,8 +802,7 @@
   a419fe7f15c0a5e3  dated sessions written to radiography-timetable.ics — open it to add them to your calendar.
   beaf6f881a9b75ac  day streak
   37dad91df7b23460  days ago
-  292aa52b6bc5ade8  density += n * uGrain * (0.35 + 0.65 * density);
-  408b18ff04d6b1aa  density = pow(density, uLatitude);
+  bbb10c71f4b6d8f3  density += n * uSigma * (0.35 + 0.65 * density);
   69bde2c73b039a19  described in
   efe8bcccea6ac349  dlg-scroll termbody
   4f6bd1ad9fc7a4f8  does not hold valid JSON.
@@ -806,20 +814,21 @@
   aa9b42a9c9734d2f  epi- (above, upon), hypo- (below; also deficient), inter- (between)
   8983c81d3b29aff6  feedback bad show
   fa671a9de2c2bd28  feedback good show
-  a4b75f1962298751  float density = 1.0 - transmitted;
+  a307b3f97587cb06  float bulk = sgn * vDist * uCmPerUnit * uMu;
+  d2e20b189c0af032  float density = clamp((tau - uWinLo) / (uWinHi - uWinLo), 0.0, 1.0);
   5ecd6cf556acd465  float n = hash(uv * 1024.0 + uSeed) - 0.5;
   84b1d2d907ea8193  float rssAlong=dot(transformed-uMCenter,uMAxis);\n
   eea76eefee8acb5d  float rssBand=1.;\n
   5f88a5c8e77785f0  float rssD=vFlowY-uOrigin;\n
   d10d90ea7a935deb  float rssSide=uWrap>.5?step(0.,rssD):(uWrap<-.5?step(rssD,0.):1.);\n
   58c52e396dc3adee  float sgn = gl_FrontFacing ? -1.0 : 1.0;
-  7496cb54c851ba78  float tau = max(0.0, texture2D(tTau, uv).r) * uGain;
-  c10f8a601e7ff109  float transmitted = exp(-tau);
+  0b509037323249e4  float shell = uShell / max(uGraze, vCos);
+  d98d17def3671391  float tau = max(0.0, texture2D(tTau, uv).r);
   3c9bbf25a1365e5d  full height
   c99a222fc3470c4f  ghost close
   1a282eee876c39f0  ghost hidden
   8a4081dbed1f6c62  ghost tolesson
-  fdb7920c327b021a  gl_FragColor = vec4(sgn * vDist * uMu, 0.0, 0.0, 1.0);
+  13738eb831c94c95  gl_FragColor = vec4(bulk + shell, 0.0, 0.0, 1.0);
   2417f7519a9d91f5  gl_FragColor = vec4(vec3(clamp(density, 0.0, 1.0)), 1.0);
   6a590bc9c97002da  gl_Position = projectionMatrix * mv;
   c3218bfbba24a149  half the model has gone missing
@@ -841,6 +850,7 @@
   77fffafaf552e5b1  in this drill ·
   ef17d1d3acfa4f78  insets top
   c7e4e6c144bbd4f1  inside its measured box
+  57d0e79a82a3c644  intensity -- which is what a detector applies, and what the previous
   c8e3253dee590724  is held back by Live physiology — turn it off to see it
   1e8d660a5dd17abe  is missing a qid, a type or a stem.
   3e48f87cb43c928d  is missing from the markup
@@ -854,6 +864,7 @@
   025e05ffcefaecc7  layer load failed
   0cfd299bdbf8c9ad  layer of the BodyParts3D atlas.
   bfbe15ec0c9d325e  layer structure
+  e9a2c565a3598a7b  layer — the beam is drawing what it has.
   685dafbd5e3df475  left and right
   186588eda50b133a  left blank
   689235b631da6a04  loading the layer…
@@ -915,6 +926,7 @@
   e0c67e29f60bbf7e  questions, including
   0ea24a7a68bdff89  questions, the index says
   9104b22058806e6c  rather than rotating rigidly, so swinging them would tear them off their origin.
+  81eec08a2d76cbcd  read as fog with a skeleton somewhere behind it
   9601152cce8eb58a  reads as
   c93a88684ed76c4f  real BodyParts3D upper-limb meshes
   6ab01b1dba123b71  region filter does not work
@@ -961,23 +973,27 @@
   5d2033a00068467a  to uncover
   e738706e3a65b48b  toolchip hidden
   91ca901995ca8a91  type="button" data-term="
+  e44871869c937cfc  uShell is zero for the soft-tissue layers. See radiography.js boneTau(). */
   e53766dcd94ffbe0  uncoverbanner hidden
   b76b61628827fa7f  under one name
   d6fe37ca2b5bb8f8  uniform float uDeform;uniform vec3 uMCenter;uniform vec3 uMAxis;uniform float uMAmt;uniform float uMode;\nuniform float uT;uniform float uSpeed;uniform float uDir;uniform float uFreq;uniform float uSharp;\n
   63f7d8ba8fb13ebf  uniform float uFreq;uniform float uSharp;uniform float uGain;\n
-  3f67153726cf1417  uniform float uGain, uLatitude, uGrain, uSeed, uFlipX;
-  f7c6dbf063900925  uniform float uMu;
+  abdffdbeb6c126c5  uniform float uMu, uCmPerUnit, uShell, uGraze;
   3d482f7345225afc  uniform float uOrigin;uniform float uWrap;uniform float uDir;uniform float uSpeed;\n
   44710d35e1fad7ee  uniform float uT;uniform float uOn;uniform float uBeat;uniform vec3 uFlowColor;\n
+  9a6541d474b851c9  uniform float uWinLo, uWinHi, uSigma, uSeed, uFlipX;
   98250706ec88a1f3  uniform sampler2D tTau;
   9d59aa851d0f5a24  unknown time
   c965a53737adbfdc  upon, above
   a7f1899a2980bf16  upper limb
   0e58ec839ddda109  use the whole skeleton
+  b33a0e0d9fc04368  vCos = abs(dot(n, normalize(-mv.xyz)));
+  84fbaea5156547f6  varying float vCos;
   a51f2aefe70c5d79  varying float vDist;
   9c46d65d8d548c7f  varying float vFlowY;\n
   18dca9f54eeb687d  varying vec2 vUv;
   a5a3ab4b74593ad7  vec2 uv = vec2(uFlipX > 0.5 ? 1.0 - vUv.x : vUv.x, vUv.y);
+  dece92bf4fa4cd18  vec3 n = normalize(normalMatrix * normal);
   48aeee7eb3f531af  vec3 rssPerp=(transformed-uMCenter)-rssAlong*uMAxis;\n
   eddc22218b2be4a2  vec4 mv = modelViewMatrix * vec4(position,1.0);
   6a721f9bcdcf952d  view hidden
@@ -1006,6 +1022,7 @@
   6b4bb99b4ebbd84c  · only these have
   b49836c27fde6f76  · opens all together
   0f3ebbb0ff98d5ec  · question
+  4b74c9a1d1103c73  · simulated · tap to name
   dbfe3f147332dc00  · tap to name them
   70c67477da9f1f7f  · teaching order
   98702c9246db235b  · the page covers the status bar (top inset

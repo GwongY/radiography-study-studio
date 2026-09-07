@@ -52,7 +52,7 @@ for (const item of STUDY_ITEMS) {
 console.log('  distribution:', JSON.stringify(dist));
 
 /* Overrides must reference real items, and no override item may be a phys/hti unit. */
-for (const id of ['hss2011-osteo-bone-shapes','hss2011-osteo-long-bone-structure','hss2011-osteo-bone-functions','hss2011-osteo-skull-sutures','hss2011-osteo-pelvic-girdle','hss2011-osteo-leg-tarsals','hss2011-osteo-ribs-sternum','hss2011-bone-cranium','hss2011-bone-mandible','hss2011-bone-pelvis','hss2011-joints-rotator-cuff','hss2011-pastpaper-joints-articulations','hss2011-structures-rotatorCuff','hss2011-structures-skullBones','hss2011-structures-tarsals']) {
+for (const id of ['hss2011-osteo-bone-shapes','hss2011-osteo-long-bone-structure','hss2011-osteo-bone-functions','hss2011-osteo-skull-sutures','hss2011-osteo-pelvic-girdle','hss2011-osteo-leg-tarsals','hss2011-osteo-ribs-sternum','hss2011-joints-rotator-cuff','hss2011-pastpaper-joints-articulations','hss2011-structures-rotatorCuff','hss2011-structures-skullBones','hss2011-structures-tarsals']) {
   const item = STUDY_ITEMS.find((i) => i.id === id);
   if (!item) { bad++; console.log(`FAIL  override id not in corpus: ${id}`); continue; }
   if (moduleOf(item) === null) { bad++; console.log(`FAIL  override id maps to null: ${id}`); }

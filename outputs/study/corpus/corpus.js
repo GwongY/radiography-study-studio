@@ -19,7 +19,7 @@ import { HTI_ITEMS } from './hti-items.js';
 import { DSAI_ITEMS } from './dsai-items.js';
 import { APSS_ITEMS } from './apss-items.js';
 import { EXPANSION_ITEMS } from './expansion-items.js';
-import { BONE_ITEMS, STRUCTURE_ITEMS, MOVEMENT_ITEMS } from './derived-items.js';
+import { STRUCTURE_ITEMS } from './derived-items.js';
 
 /* ------------------------------------------------------------------ *
  * Assembled corpus
@@ -28,9 +28,7 @@ import { BONE_ITEMS, STRUCTURE_ITEMS, MOVEMENT_ITEMS } from './derived-items.js'
 export const STUDY_ITEMS = [
   ...HSS_TERMINOLOGY,
   ...HSS_OSTEOLOGY,
-  ...BONE_ITEMS,
   ...STRUCTURE_ITEMS,
-  ...MOVEMENT_ITEMS,
   ...HSS_JOINTS,
   ...HSS_MODULES,
   ...HSS_SPECIAL_SENSES,

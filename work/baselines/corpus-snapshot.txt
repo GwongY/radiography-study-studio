@@ -1,12 +1,12 @@
 — the export surface of outputs/study-data.js — 64 exports —
   f6ce6e2d285e4eb0      3308  BONE_HOOKS  object[21]
-  b0a37d5f2209e765     30509  COVERAGE  object[6]
+  8a84f4caffe8ad98     30355  COVERAGE  object[6]
   6b86b273ff34fce1         1  DATA_VERSION  number
   619d6a33617fad34         8  DAY_MS  number
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  04b00bed378df414   1027112  ITEM_BY_ID  Map[164]
+  3c28e393a2ee0905    920472  ITEM_BY_ID  Map[139]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -23,16 +23,16 @@
   9131051cbbd87c06       539  SOURCE_ROOTS  object[18]
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
-  57b60f7998459a29     20933  STRUCTURE_SETS  object[13]
-  d3f87a70abeae34a   1022055  STUDY_ITEMS  array[164]
+  75ed97c2f90528d7     20915  STRUCTURE_SETS  object[13]
+  f2c81dee4e565b0b    916014  STUDY_ITEMS  array[139]
   f1627657582790e7      1185  STUDY_MODES  array[9]
   834fbc89b7e6fccf      4005  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
-  79e0426291ddfe0d     80529  Y1S1_SOURCE_MAP  object[4]
+  0a2fdbdd3a7e9ebd     67898  Y1S1_SOURCE_MAP  object[4]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  79d6064af32a78f5   1095506  default  object[7]
+  575ff95c5c529dab    989311  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -64,9 +64,9 @@
   bb157d6583e754f9      2211  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  fe9561ca57b35545  WHOLE SURFACE
+  6a68c12b0c02c5bb  WHOLE SURFACE
 
-— every study item, by id — 164 items —
+— every study item, by id — 139 items —
   2d29339c231f634a  abct2326-acquired-immunity
   0f85a14f65a3eba6  abct2326-blood-composition
   23f628153e36648d  abct2326-cell-division
@@ -134,27 +134,6 @@
   94c44953883328d2  dsai1202-ai-everyday-autonomy
   0ebcaf129ca95338  dsai1202-ai-in-healthcare
   045448165150e1e6  dsai1202-ai-literacy
-  e912b64ee121b291  hss2011-bone-cervical
-  76ae582e95e30406  hss2011-bone-clavicle
-  8a52a0c37c6c6960  hss2011-bone-coccyx
-  50b5942f85bd8397  hss2011-bone-cranium
-  86f72f7c6430a507  hss2011-bone-femur
-  200209203b5f7952  hss2011-bone-fibula
-  4410855eb45bc617  hss2011-bone-foot
-  2c02ed286bfb1149  hss2011-bone-hand
-  740b5f4d97ac2d92  hss2011-bone-humerus
-  eb9ae2eb5ea38621  hss2011-bone-lumbar
-  d22cdf7919ca0bf4  hss2011-bone-mandible
-  7e2a472d33308aa5  hss2011-bone-patella
-  87b77929d3601bc5  hss2011-bone-pelvis
-  122a2a7a00abe7a2  hss2011-bone-radius
-  45c65cd39f7fed1e  hss2011-bone-ribs
-  5fe986cc5a66c668  hss2011-bone-sacrum
-  fed6e2280ddac492  hss2011-bone-scapula
-  8061a6fbdfc16cee  hss2011-bone-sternum
-  886410dfb2b0f2da  hss2011-bone-thoracic
-  76ad7c8feef7097d  hss2011-bone-tibia
-  5ac88ad8683196f7  hss2011-bone-ulna
   115c636ed053d158  hss2011-joints-classification
   cc9e86e00b17d652  hss2011-joints-movement-map-2026
   b2556c990ac8f36c  hss2011-joints-movements
@@ -171,10 +150,6 @@
   68a24d9405efbea0  hss2011-m2-taste-smell
   99cf89aba971812c  hss2011-m3-digestive
   1657e96d4757c035  hss2011-m3-urogenital-pelvis
-  77c490d02ea70a10  hss2011-movement-elbowFlexion
-  93e0071e7248f176  hss2011-movement-shoulderAbduction
-  66d5b5707d970ae5  hss2011-movement-supination
-  726c9e29f615faad  hss2011-movement-thumbOpposition
   9c461486025067f6  hss2011-msk-bone-histology
   cf504c0a70fd785a  hss2011-msk-bone-marrow
   5c1cae6675aac583  hss2011-msk-joint-classifications
@@ -197,18 +172,18 @@
   5b35f59f61e6195c  hss2011-osteo-vertebra-parts
   3643386d0091242c  hss2011-osteo-vertebral-column
   1c5051427751bae0  hss2011-pastpaper-joints-articulations
-  cd329464ddeef96b  hss2011-structures-airwayTree
+  9fa9a3f579a05a4f  hss2011-structures-airwayTree
   785abd81a2c84773  hss2011-structures-brainAndCsf
   55b17ae2266d6609  hss2011-structures-carpals
   cfa0a7975375ee21  hss2011-structures-cranialNerves
-  53dc8bff28ace6fd  hss2011-structures-digestiveTract
-  4a54b9aa4df0a330  hss2011-structures-greatVessels
-  3997210cb4688e36  hss2011-structures-heartChambers
+  7122be9de839e152  hss2011-structures-digestiveTract
+  379c8dbf5e8419fc  hss2011-structures-greatVessels
+  0c9eef3937ecb9bd  hss2011-structures-heartChambers
   6909883f7284a3ce  hss2011-structures-kneeJoint
   a0ba288069d47010  hss2011-structures-rotatorCuff
   4f1643301e9e3688  hss2011-structures-skullBones
   635b5858f84fc00f  hss2011-structures-tarsals
-  468f11fb6a619b51  hss2011-structures-urinaryTract
+  99a9265f0422d2ae  hss2011-structures-urinaryTract
   6371a1417417d528  hss2011-structures-vertebralRegions
   b9c0590d6faa36af  hss2011-terminology-anatomical-position
   b76c9dc0e5a935b8  hss2011-terminology-cavities-regions

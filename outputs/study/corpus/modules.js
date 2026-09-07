@@ -99,9 +99,6 @@ const MODULE_OVERRIDES = {
   'hss2011-osteo-pelvic-girdle': 1,         /* hss.4.3 slides only */
   'hss2011-osteo-leg-tarsals': 1,           /* hss.4.3 slides only */
   'hss2011-osteo-ribs-sternum': 3,          /* hss.1.3 thorax only */
-  'hss2011-bone-cranium': 1,                /* hss.4.2 only */
-  'hss2011-bone-mandible': 1,               /* hss.4.2 only */
-  'hss2011-bone-pelvis': 1,                 /* hss.4.3 only */
   'hss2011-joints-rotator-cuff': 1,         /* hss.4.3 only */
   'hss2011-pastpaper-joints-articulations': 1, /* hss.4.x past-paper */
   'hss2011-structures-rotatorCuff': 1,      /* hss.4.3 only */
