@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1072 —
-  c2baf36adc673f6c  WHOLE SET
+— user-facing strings in outputs/ — 1077 —
+  396122e35b95cc52  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -165,6 +165,8 @@
   7aaa787059967e32  <div class="lay-note
   985853d5ea72ae92  <div class="lay-row
   81bbed0091211144  <div class="layerhint">tap to cycle · solid → ghost → off</div>
+  105fbe2f0bec337a  <div class="lessonvis-mount"
+  bac7114fe340e5d3  <div class="lessonvis-readout"
   b72e23b04ca38453  <div class="note">Red is oxygenated, blue is not — which is why the pulmonary artery is blue-violet and the pulmonary veins are red. Vessel type does not decide the colour; what it carries does.</div>
   f7e97a446dcb1b5b  <div class="notice"><strong>Every question validates</strong>All 
   28c656ec553bbafd  <div class="nowcard
@@ -182,6 +184,7 @@
   c1e9dab7d597ae36  <div style="height:100%;width:
   bdf855c7c177a453  <ellipse class="sk" cx="
   798cf300248becd5  <em style="color:var(--muted)">tap to reveal</em>
+  8df921f209075c80  <figure class="lessonvis"
   c5c104a746bff703  <h4>Derived from</h4>
   a03547db46bf9e4b  <i style="background:#
   6f722b80156fb8ac  <img src="
@@ -230,6 +233,8 @@
   33fbe9092c8b20e9  <span style="color:
   3e23d75fa4bb7dbb  <span style="width:
   9a190444c57e8ead  <svg viewBox="
+  74802ccc5efa2859  ><div class="lessonvis-busy"
+  111a78ae263ae46a  >preparing the model…
   c12c67df1fb8fe14  A basin made of ilium, ischium and pubis: I sit on my ischial tuberosity.
   bd5105f51b6139f1  A flat triangle with a spine and a shallow glenoid socket: mobility over stability.
   023844eacdc79cc6  A frontal slice. Keeps the anterior half; flip for the posterior.
@@ -951,7 +956,6 @@
   a78c340554344e5e  p5 "vertebral level of T4/T5"
   77aaf50327326363  pick up where you left off
   ccdf632a1acc3583  pickstack hidden
-  40eee7f54cdcbf3f  preparing the model…
   d2c10c79856392a6  primary detail-open
   63d1b7f8646ef672  primary next
   c504c70741f08c26  primary next show
@@ -1052,6 +1056,7 @@
   a08b97ce59de6217  whole skeleton
   29ff11bb0c6073f7  width:100%;background:#0a141b;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 12px;outline:none
   4319bd073a8a50ce  without on-device evidence
+  e4e6fe6f0a9637af  work · licence · via
   19453f5759aed21a  wrong transform
   a280303e42e6da2d  you can select
   0ab77651425c254f  you can select · tap one

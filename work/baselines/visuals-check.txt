@@ -1,0 +1,4 @@
+— every visuals[] entry resolves —
+  ok  0 items with visuals, 0 entries checked
+
+ALL PASS
