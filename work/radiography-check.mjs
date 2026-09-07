@@ -124,5 +124,21 @@ near(R.filmDensity(100, W), 1, 1e-9, 'a very long path saturates white');
 if (R.filmDensity(4, W) > R.filmDensity(3, W)) ok('density rises with tau');
 else fail('density is not monotonic in tau');
 
+console.log('- filmDensity falls back to the default window -');
+near(R.filmDensity(4.75), R.filmDensity(4.75, R.DEFAULT_WINDOW), 1e-12,
+  'an omitted window is the default window');
+near(R.filmDensity(4.75), 0.5, 1e-12, 'and the default window is 0.5 to 9.0');
+
+console.log('- windowFor sizes itself around the median -');
+const wBig = R.windowFor(10);
+near(wBig.lo, 1, 1e-12, 'a median of 10 opens the window at 1');
+near(wBig.hi, 19, 1e-12, 'and closes it at 19');
+const wSmall = R.windowFor(1);
+near(wSmall.lo, 0, 1e-12, 'a small median clamps lo at zero rather than going negative');
+near(wSmall.hi, 3, 1e-12, 'and the span floors at 2 rather than collapsing');
+if (R.windowFor(10).hi - R.windowFor(10).lo > R.windowFor(2).hi - R.windowFor(2).lo)
+  ok('a denser subject gets a wider window');
+else fail('windowFor does not widen with the median');
+
 console.log(failures ? `\n${failures} FAILED` : '\nALL PASS');
 process.exit(failures ? 1 : 0);
