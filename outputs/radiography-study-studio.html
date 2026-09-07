@@ -71,6 +71,13 @@
             here it costs none.
           -->
           <div class="segbar hidden" id="viewerTabs"></div>
+          <!--
+            Which body the one shared canvas draws. The separate Full atlas tab
+            is gone: the atlas is a source of the same 3D view now, and this
+            switch is its only remaining chrome. Hidden with the tab bar off
+            the Viewer destination and off the Projection tab.
+          -->
+          <div class="segbar hidden" id="modelSourceTabs"></div>
           <button class="icon-btn tsbtn" id="rssTextSize" data-textsize aria-label="Text size" style="min-width:44px;min-height:44px;border-radius:11px">Aa</button>
           <button class="icon-btn" id="rssSearchBtn" aria-label="Search" style="min-width:44px;min-height:44px;border-radius:11px">⌕</button>
         </header>
@@ -239,11 +246,17 @@
 
       </div>
     </div>
-</section></div>
+</section>
+        <!--
+          The Full atlas dock. Visible only while the Full atlas source is the
+          one drawing on the stage above (.source-atlas on the pane decides);
+          the studio's ctrlpill stays as the shared chrome for both bodies.
+        -->
+        <div id="viewerAtlasPane" class="atlas-dockpane" aria-label="Full BodyParts3D atlas"></div>
+</div>
 <div class="ctrlpill"><button class="icon-btn" id="resetBtn">Reset view</button><button class="icon-btn" id="focusBtn">Focus</button><button class="icon-btn" id="motionBtn">Pause turntable</button><button class="icon-btn" id="isolateBtn">Isolate selected</button><button class="icon-btn" id="showAllBtn">Show all</button><button class="icon-btn" id="viewerExploreBtn" aria-expanded="true">Explore</button><button class="icon-btn" id="viewerMoreBtn" aria-expanded="true">Tools</button><button class="ghost hidden" id="mvBackToSession">Back to the question</button></div>
     </div>
             </div>
-            <div id="viewerAtlasPane" class="atlas-workspace hidden" aria-label="Full BodyParts3D atlas"></div>
             <div id="viewerXrayPane" class="hidden">
               <div class="xray-bar">
                 <div class="segbar" id="xrayRegions"></div>

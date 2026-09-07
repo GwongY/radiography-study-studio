@@ -20,6 +20,7 @@ import { getRecord } from './region-boxes-how.js';
 import { clearConcepts, showToast } from './visualisation-modes.js';
 /* layerOn: a layer is on when any of the systems it draws is -- systems.js. */
 import { layerOn, renderXray } from './live-physiology.js';
+import { atlasPainting, atlasRenderOnce } from './atlas-source.js';
 
 /* ------------------------------------------------------------------ *
  * The body frame
@@ -802,7 +803,9 @@ export function setSeparation(v){
 export function snapshot(){
   if(!state.renderer||!state.scene||!state.camera) return null;
   try{
-    if(!renderXray()) state.renderer.render(state.scene,state.camera);
+    /* The atlas body owns the canvas while it paints it; asking it to render
+       now is what puts its pixels in the buffer this same task reads. */
+    if(!(atlasPainting()&&atlasRenderOnce()) && !renderXray()) state.renderer.render(state.scene,state.camera);
     return state.renderer.domElement.toDataURL('image/png');
   }catch(e){ return null; }
 }

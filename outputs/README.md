@@ -41,10 +41,18 @@ systems first, then packs every visible piece into non-overlapping cells. Search
 selects individual or compound concepts, and isolation fits the selected geometry.
 The Course model retains curriculum links, cuts, annotations and projection.
 
-Full-atlas geometry downloads only when that tab is opened (32,956,129 compressed
-bytes, about 33 MB) and uses the existing persistent model cache for offline reuse.
-Its renderer pauses when the tab or Viewer is hidden. Attribution is visible in
-Tools and in `atlas/ATTRIBUTION.md`; code is MIT, model data CC BY 4.0. This adult
+Since the atlas–studio merge (2026-09-07) the atlas is a SOURCE of the one 3D
+view, not a second tab: a Course body | Full atlas switch in the 3D model tab
+swaps what the shared canvas draws, and the studio's ctrlpill (Reset, Focus,
+turntable, Isolate, Show all) drives whichever body is on it. See
+`docs/superpowers/specs/2026-09-07-atlas-studio-merge.md`; the studio half of
+the swap lives in `studio/atlas-source.js`.
+
+Full-atlas geometry downloads only when that source is first opened (32,956,129
+compressed bytes, about 33 MB) and uses the existing persistent model cache for
+offline reuse. Its scene pauses whenever the course body, the projection or the
+Viewer is shown instead. Attribution is visible in Tools and in
+`atlas/ATTRIBUTION.md`; code is MIT, model data CC BY 4.0. This adult
 male reference is broader than the course model, not every human structure or variation.
 
 `work/atlas-source/` preserves the upstream TypeScript snapshot. Run
