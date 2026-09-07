@@ -18,7 +18,7 @@
   f428292239abe4d6       199  PRIOR_KNOWLEDGE  object[1]
   98a503c7f71e10a2       285  REVEAL_MODES  array[3]
   f0a99ffb06d2f02a       740  SOCIOLOGY_NOTICE  object[5]
-  59dd3073b245b8b9     35709  SOURCE_FILES  object[115]
+  643626fd5605da31     36213  SOURCE_FILES  object[116]
   fcd1b035a403732f        12  SOURCE_MAP_VERSION  string
   9131051cbbd87c06       539  SOURCE_ROOTS  object[18]
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
@@ -32,7 +32,7 @@
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  269fd1ddf2aefdf5   1103312  default  object[7]
+  229a195ed075cb6b   1103816  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -64,7 +64,7 @@
   ba048d6b42696398      2356  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  89a2bdfd846632cc  WHOLE SURFACE
+  b1c665d0485cc7ae  WHOLE SURFACE
 
 — every study item, by id — 161 items —
   2d29339c231f634a  abct2326-acquired-immunity
