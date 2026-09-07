@@ -83,3 +83,36 @@ export function mu(tissue, kvp) { return muAt(tissue, effectiveKeV(kvp)); }
 
 /* Subject contrast: the whole reason kVp is a contrast control. */
 export function contrastRatio(kvp) { return mu('bone', kvp) / mu('soft', kvp); }
+
+/*
+ * The model is 11.8 units for a 1.7 m body, which is where the 6.94 in
+ * live-physiology.js comes from. Multiplying the existing path integral by
+ * this makes tau physically real rather than arbitrary.
+ */
+export const UNITS_PER_M = 6.94;
+export const CM_PER_UNIT = 100 / UNITS_PER_M;
+export function unitsToCm(u) { return u * CM_PER_UNIT; }
+
+/*
+ * Relative photon fluence at the detector. Linear in mAs, inverse square in
+ * distance. Relative, not absolute -- no dose is implied and none is shown.
+ */
+export const REF_MAS = 10, REF_SID_CM = 100;
+export function fluence({ mAs, sidCm }) {
+  return (mAs / REF_MAS) * (REF_SID_CM / sidCm) ** 2;
+}
+
+/*
+ * Quantum mottle. Photon arrivals are Poisson, so the noise-to-signal ratio
+ * goes as 1/sqrt(N) -- underexposure is grainy for a reason, and the grain in
+ * the post shader stops being decoration.
+ */
+export const REF_SIGMA = 0.05;
+export function mottleSigma(beam) { return REF_SIGMA / Math.sqrt(fluence(beam)); }
+
+/*
+ * Magnification. SOD = SID - OID, so whatever sits further from the detector
+ * is enlarged -- which is the entire real difference between PA and AP, and
+ * the thing the existing pane already asks the reader to watch for.
+ */
+export function magnification({ sidCm, oidCm }) { return sidCm / (sidCm - oidCm); }
