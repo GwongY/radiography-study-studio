@@ -570,11 +570,11 @@
  * The "⋯" sheet opens BELOW the viewer and the pane scrolls to it. It does not
  * take a slice off the stage: opening the model controls should not shrink the
  * model. So while the sheet is open the pane stops being a fixed flex column
- * and becomes a scroller, and the stage keeps the full height it already had.
- */
-.navcontent.bleed #viewerSkeletonPane.sheet-open{display:block;overflow:auto;overscroll-behavior:contain}
-.navcontent.bleed #viewerSkeletonPane.sheet-open .stagewrap{height:100%}
-.navcontent.bleed #viewerSkeletonPane.sheet-open .vsheet{margin-bottom:14px}
+.navcontent.bleed #viewerSkeletonPane.sheet-open:not(.hidden){display:block;overflow:auto;overscroll-behavior:contain}
+.navcontent.bleed #viewerSkeletonPane.sheet-open:not(.hidden) .stagewrap{height:100%}
+.navcontent.bleed #viewerSkeletonPane.sheet-open:not(.hidden) .vsheet{margin-bottom:14px}
+.navcontent.bleed #viewerSkeletonPane.hidden,
+.navcontent.bleed #viewerXrayPane.hidden{display:none !important}
 /*
  * The projection pane is the exception: it carries the exposure controls and
  * the appearance notes BELOW the film, so it scrolls and the film keeps a real

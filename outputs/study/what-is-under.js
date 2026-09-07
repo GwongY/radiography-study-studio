@@ -68,7 +68,19 @@ function renderViewerTabs() {
   $$('viewerTabs').querySelectorAll('[data-vtab]').forEach((b) => { b.onclick = () => { ui.viewerTab = b.dataset.vtab; renderViewerTabs(); }; });
   $$('viewerSkeletonPane').classList.toggle('hidden', ui.viewerTab !== '3d');
   $$('viewerXrayPane').classList.toggle('hidden', ui.viewerTab !== 'xray');
-  if (ui.viewerTab === 'xray') enterProjection(); else leaveProjection();
+  if (ui.viewerTab === 'xray') {
+    $$('viewerSkeletonPane').classList.remove('sheet-open');
+    const sheet = $$('viewerSheet');
+    if (sheet) sheet.classList.add('hidden');
+    const moreBtn = $$('viewerMoreBtn');
+    if (moreBtn) {
+      moreBtn.classList.remove('active');
+      moreBtn.setAttribute('aria-expanded', 'false');
+    }
+    enterProjection();
+  } else {
+    leaveProjection();
+  }
 }
 
 /*

@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1031 —
-  3df0b1d8f5c2a2da  WHOLE SET
+— user-facing strings in outputs/ — 1040 —
+  2032d2dbedb53f32  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -14,6 +14,7 @@
   c82482e143ba29a6   questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.</div>
   4086a0d4cd005901   showed metatarsals with no toes; choosing 
   2599c70aaa36cb29   · assumed from 
+  6ace9c2ffa6d6d52   · remember (2/4)
   df725abe14c48979   · this week
   a6eff766a2215e5d   · time almost up
   5d2e551e2af8ca21   · visual study
@@ -77,6 +78,7 @@
   dc6a7d80c9915298  , with the questions you got wrong.
   c0b1daed9b12da7c  -level background — the part you already have
   f6532b372c4a48d5  /* Back faces are where the ray leaves material, front faces where it enters. */
+  7fcd9bd65799c327  /* Dim, not red, for both of the tiers nobody earned here: a mark
   128ec36b82d62dde  /* Incidence angle of the ray on this surface, for the cortical slab. */
   6f222f7fe2ccf697  /* One cortical slab per crossing, at the true incidence angle. Added on
   b23e904849d93b99  /* Quantum mottle: sigma comes from mAs and SID via radiography.js. */
@@ -93,6 +95,7 @@
   a69501ff8629fca7  3D skeleton
   a7fbec4f385f22fb  3D · tap to name
   70ec40827f738641  8 carpals, 5 metacarpals, 14 phalanges
+  41a2db3039bfb60a  : tier >= 3 ? 'var(--green)' : tier === 2 ? 'var(--orange)' : 'var(--red)';
   02c400f14d7569ed  <a href="
   bc002056a461072f  <b style="
   fbc7f40a78126f42  <b>—</b> so far
@@ -290,6 +293,7 @@
   b1eb88b86761c850  Common confusions on this item
   20db2e0618629cd5  Compare with the model answer
   a75d43a157167800  Confirm it if that is right.
+  0f7e8a381336fb95  Continue (
   496267ccc6b01605  Continue →
   37b72d6c576f83a7  Correct — you found it in space.
   4a0c3a0072aecfa0  Could not load that layer — the others are still there.
@@ -613,6 +617,7 @@
   e6a0a4c59cbb9600  Structures, study items, topics…
   4a085fa65d717e0d  Student work
   381d54ae5dc158bf  Study Studio
+  841a353872517255  Study in teaching order
   7aeec7e28ab447b1  Study items
   197a9cfd7132bfb2  Study modes
   6db1fe691cb5e688  Study session
@@ -786,12 +791,15 @@
   dee735ed000908c8  card overlaycard
   53a55ca51fe7c9ab  card sylcard
   3498234b41cec63c  card toolcard
+  b757250e02657ee4  carried over from another syllabus, and a lesson that has been
   51d90b3094195356  change both, because the node check only tests that copy. */
   67e4b13874eb864a  chip beyond
   4fdb308b1fc87ab3  chip learn
   2cbe9c9f6127a32e  const attrs = hit ?
+  1f1de2f7de1b9045  const color = assumed || opened ? 'var(--dim)'
   150b21e4e5effc2a  const hit = lookupTerm(term);
   278b6cfc619726c6  const n = itemsForSubject(s.id).length;
+  ca7d8b19b15e976d  const stepTag = stepReached === 'remember' ? ' · remember (2/4)' : (opened ? ' · read' : '');
   3d088b55d74552a6  const subject = getSubject(s.id);
   fa75afdd29c43adb  const tag = hit ? 'button' : 'span';
   bda336734237a549  correct. Reviews scheduled.
@@ -927,6 +935,7 @@
   0ea24a7a68bdff89  questions, the index says
   9104b22058806e6c  rather than rotating rigidly, so swinging them would tear them off their origin.
   81eec08a2d76cbcd  read as fog with a skeleton somewhere behind it
+  7d1f3fd573ef5371  read. Red at one dot is the colour for answering badly. */
   9601152cce8eb58a  reads as
   c93a88684ed76c4f  real BodyParts3D upper-limb meshes
   6ab01b1dba123b71  region filter does not work
