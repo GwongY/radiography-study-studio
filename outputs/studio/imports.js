@@ -20,9 +20,9 @@
      need two SHELL entries, because the SW cache key is the whole URL. If a
      lesson ever wants to teach from these numbers, import it there at this
      SAME query and add nothing to the shell. See CLAUDE.md. */
-  import { TISSUES, CM_PER_UNIT, mu, contrastRatio, effectiveKeV, fluence,
-    mottleSigma, magnification, filmDensity, windowFor, unitsToCm,
-    DEFAULT_WINDOW, REF_MAS, REF_SID_CM } from '../radiography.js?v=1';
+  import { TISSUES, CM_PER_UNIT, CORTEX_CM, GRAZE_CLAMP, mu, contrastRatio,
+    effectiveKeV, fluence, mottleSigma, magnification, filmDensity, windowFor,
+    unitsToCm, DEFAULT_WINDOW, REF_MAS, REF_SID_CM } from '../radiography.js?v=1';
 
   export const $ = (id) => document.getElementById(id);
   export const els = { stage:$('stage'), state:$('stageState'), stateTitle:$('stateTitle'), stateCopy:$('stateCopy'), retry:$('retryBtn'), progress:$('progressBar'), stageMeta:$('stageMeta'), regionMeta:$('regionMeta'), selectedName:$('selectedName'), selectedChips:$('selectedChips'), selectedDetails:$('selectedDetails'), taskKicker:$('taskKicker'), taskTitle:$('taskTitle'), taskCopy:$('taskCopy'), answers:$('answers'), feedback:$('feedback'), next:$('nextBtn'), regions:$('regionButtons'), reviewBar:$('reviewBar'), reviewNumber:$('reviewNumber'), reviewHint:$('reviewHint'), toast:$('toast'), detailDialog:$('detailDialog'), detailTitle:$('detailTitle'), detailChips:$('detailChips'), detailBody:$('detailBody'), zoomIn:$('zoomInBtn'), zoomOut:$('zoomOutBtn'), focus:$('focusBtn'), motion:$('motionBtn') };
@@ -49,9 +49,11 @@ export {
   ANATOMY_DATABASE,
   BODY_CONCEPTS,
   CM_PER_UNIT,
+  CORTEX_CM,
   DEFAULT_WINDOW,
   FLOW_ANCHORS,
   FLOW_CLASSES,
+  GRAZE_CLAMP,
   LANDMARK_HOTSPOTS,
   MESH_INDEX,
   MODEL_CATALOG,
