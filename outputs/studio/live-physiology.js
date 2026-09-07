@@ -3,7 +3,7 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CLASSES, GRAZE_CLAMP, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, mottleSigma, mu, spikeEnvelope, state, systemCounts, systemsIn, ventricleEnvelope } from './imports.js';
+import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CLASSES, GRAZE_CLAMP, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, mottleSigma, mu, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
 import { MEMORY_TIPS, answer, clean, openDetail, pool, record, regionLabel, selectBone, showToast } from './visualisation-modes.js';
 import { animate, applyVisibility, between, getRecord, tube } from './region-boxes-how.js';
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
@@ -539,29 +539,27 @@ export async function focusStructures(spec){
  */
 
 /*
- * Which tissue each GLB layer is made of. The COEFFICIENTS are no longer
- * here -- radiography.js holds them, from NIST, and they now depend on kVp.
- * This map is the only thing that was ever a judgement call.
+ * Which layers the beam actually LOADS.
+ *
+ * Which TISSUE each mesh is made of is no longer decided here. It used to be
+ * one entry per GLB layer, and that was wrong in a way a film shows
+ * immediately: the organ GLB carries the lungs AND the solid viscera, so the
+ * lungs were handed soft-tissue attenuation, four times too dense, and a
+ * chest PA came out with the lung fields as the BRIGHTEST thing on it.
+ * radiography.js tissueForMesh() classifies per mesh instead, where it can be
+ * run over the real GLB names outside a browser.
  *
  * circulatory, nervous and lymphatic are absent, and their absence is a fact
  * rather than a compromise: unenhanced vessels and nerves are not visible on
  * a plain film. The pane says so, because a reader who notices the aorta is
  * missing should find out why.
  *
- * joint (ligaments) is soft tissue. It used to be 0.30 -- a third of bone --
- * which is what a ligament would read as if it were made of cartilage-grade
- * mineral. It is not.
- */
-export const XRAY_TISSUE = { skeleton:'bone', muscle:'soft', organs:'soft', joint:'soft' };
-/*
- * And which of those the beam actually LOADS.
- *
- * Deliberately NOT Object.keys(XRAY_TISSUE). joint stays in the tissue map
- * above so a ligament mesh that is already in the scene is classified as soft
- * tissue rather than silently defaulted -- but it is not fetched for the film.
- * Ligaments are not distinguishable on a plain radiograph, so a fourth GLB
- * would be a download the reader waits through for no signal. Three layers,
- * and the pane that announces the load says three.
+ * joint (ligaments) is absent for the same kind of reason: ligaments are not
+ * distinguishable on a plain radiograph, so a fourth GLB would be a download
+ * the reader waits through for no signal. A ligament mesh already in the
+ * scene still classifies -- as soft tissue, which is what it is -- because
+ * tissueForMesh needs no per-layer entry to place it. Three layers, and the
+ * pane that announces the load says three.
  */
 export const XRAY_LAYERS = ['skeleton','muscle','organs'];
 /* The GLB each of those needs. The skeleton is absent because boot() has
@@ -634,17 +632,19 @@ export function xrayDepthMaterial(THREE,muCm,cmPerUnit,shell){
  * some tissues moved with the slider and some did not, which looks like a
  * rendering quirk rather than like a mistake.
  */
-function sharedFor(key){
+/* Cached per TISSUE, not per layer: two meshes in one GLB can be different
+   tissues -- a lung and a liver share the organ file -- so a layer-keyed
+   cache would hand the second one the first one's coefficient. */
+function sharedFor(tissue){
   const x=state.xray; if(!x)return null;
-  if(!x.shared.has(key)){
+  if(!x.shared.has(tissue)){
     const THREE=state.THREE;
-    const tissue=XRAY_TISSUE[key]||'soft';
     const isBone=tissue==='bone';
     const bulk=isBone?mu('marrow',x.kvp):mu(tissue,x.kvp);
     const shell=isBone?(mu('bone',x.kvp)-mu('marrow',x.kvp))*CORTEX_CM:0;
-    x.shared.set(key,xrayDepthMaterial(THREE,bulk,CM_PER_UNIT,shell));
+    x.shared.set(tissue,xrayDepthMaterial(THREE,bulk,CM_PER_UNIT,shell));
   }
-  return x.shared.get(key);
+  return x.shared.get(tissue);
 }
 
 export function enterXray(){
@@ -716,7 +716,7 @@ export function enterXray(){
    * So: skeleton, muscle, organs. Vessels, nerves and lymphatics stay off, and
    * that is a fact rather than a compromise -- unenhanced vessels are not
    * visible on a plain film. Ligaments are off for the same reason, which is
-   * why XRAY_LAYERS is three keys and not the four of XRAY_TISSUE.
+   * why XRAY_LAYERS is three GLBs and not the seven the atlas ships.
    *
    * The set is also fixed rather than inherited, which is what stopped the
    * exposure being a function of what had been browsed earlier in the session:
@@ -777,7 +777,10 @@ export function enterXray(){
    * list is emptied, and exitXray puts it back.
    */
   state.renderer.clippingPlanes=[];
-  const apply=(mesh,key)=>{state.xray.mats.set(mesh,mesh.material);mesh.material=sharedFor(key);mesh.userData.xrayKey=key};
+  /* xrayTissue is what every other reader wants -- the shared cache is keyed
+     by it, and re-deriving a tissue from the layer is the bug this whole
+     change removes. xrayKey stays: it still says which GLB the mesh is from. */
+  const apply=(mesh,key)=>{const tissue=tissueForMesh(mesh.name,key);state.xray.mats.set(mesh,mesh.material);mesh.material=sharedFor(tissue);mesh.userData.xrayKey=key;mesh.userData.xrayTissue=tissue};
   state.fullMeshes.forEach(m=>apply(m,'skeleton'));
   Object.entries(state.extraModels||{}).forEach(([k,l])=>l.meshes.forEach(m=>apply(m,k)));
   Object.entries(state.extraModels||{}).forEach(([k,l])=>{l.root.visible=layerOn(k)});
@@ -918,7 +921,7 @@ export function renderXray(){
 export function exitXray(){
   const x=state.xray; if(!x)return;
   const c=state.camera, ctr=state.controls;
-  x.mats.forEach((orig,mesh)=>{mesh.material=orig;delete mesh.userData.xrayKey});
+  x.mats.forEach((orig,mesh)=>{mesh.material=orig;delete mesh.userData.xrayKey;delete mesh.userData.xrayTissue});
   x.shared.forEach(m=>m.dispose());
   x.postMat.dispose(); x.rt.dispose();
   state.scene.background=x.bg; state.scene.fog=x.fog;
