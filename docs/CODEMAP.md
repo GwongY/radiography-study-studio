@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1438 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) · [hidden loses to an explicit display](TRAPS.md#hidden-loses-to-an-explicit-display--outputsappcss-outputsstudyexam-modejs)
+- `outputs/app.css` — 1441 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) · [hidden loses to an explicit display](TRAPS.md#hidden-loses-to-an-explicit-display--outputsappcss-outputsstudyexam-modejs)
 - `outputs/studio.js` — 26 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 65 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -35,21 +35,21 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `bodymap.js` | 319 | Body map — search extras and spatial concepts for the 3D viewer. |  |
 | `cavity-build.js` | 732 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
 | `cavity-geom.js` | 1148 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
-| `figures.js` | 604 | figures.js — the diagrams that replaced the hand-drawn ones. |  |
+| `figures.js` | 743 | figures.js — the diagrams that replaced the hand-drawn ones. |  |
 | `landmarks.js` | 450 | landmarks.js -- the one place that knows how to find a named anatomical | [Named cut levels](TRAPS.md#named-cut-levels--outputsstudiotools-and-capturejs-outputslandmarksjs) |
 | `layouts.js` | 304 | layouts.js — the sixteen that are layouts, as layouts. |  |
 | `mesh-index.js` | 2594 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `physiology.js` | 337 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
-| `schedule.js` | 906 | schedule.js — the semester itself: what the syllabus says, and when each |  |
+| `schedule.js` | 908 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 127 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 385 | Radiography Study Studio — service worker |  |
+| `sw.js` | 376 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 323 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 268 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 1748 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
 | `term-notes.js` | 1491 | Term notes — say it, then mean it. |  |
-| `visual-data.js` | 463 | visual-data.js — a visual for every study item. |  |
+| `visual-data.js` | 500 | visual-data.js — a visual for every study item. |  |
 | `wordparts.js` | 952 | Word parts — the medical vocabulary broken into the pieces it is built from. |  |
 
 ### Exported symbols
@@ -69,7 +69,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 - `systems.js` — `UNREADABLE`, `SYSTEMS`, `layerOf`, `systemsIn`, `isSplit`, `systemsOf`, `systemOf`, `systemCounts`
 - `term-gloss.js` — `TERM_GLOSS`, `termGloss`, `GLOSS_COUNT`
 - `term-notes.js` — `MEMORY_TIPS`, `memoryTip`, `TERM_NOTES`, `termNote`, `hasNote`, `TERM_COUNT`
-- `visual-data.js` — `LAYER_FILES`, `BONE_MESHES`, `ITEM_VISUALS`, `visualFor`, `generatedFor`, `PLATES`, `PLATE_CREDIT`, `plateFor`
+- `visual-data.js` — `LAYER_FILES`, `BONE_MESHES`, `ITEM_VISUALS`, `visualFor`, `generatedFor`, `PLATES`, `PLATE_CREDIT`, `plateFor`, `VISUAL_SPEC_KINDS`, `normaliseVisualSpec`, `visualsFor`
 - `wordparts.js` — `WORD_PARTS`, `NOT_A_TERM`, `decompose`, `readingOf`, `partOf`, `looksLikePart`
 
 ### Sections inside the larger modules
@@ -98,9 +98,9 @@ belong in `init()`. The two keep separate import scopes and talk only through
 |  | 275–304 | Groups the student belongs to but the schedule does not say |
 |  | 305–314 | Every timetabled session |
 |  | 315–368 | Weekly slots, from the university timetable |
-|  | 369–802 | Which lessons cover which week |
-|  | 803–851 | Where a session sits in time |
-|  | 852–906 | Formatting — kept here so the view has no date arithmetic in it |
+|  | 369–804 | Which lessons cover which week |
+|  | 805–853 | Where a session sits in time |
+|  | 854–908 | Formatting — kept here so the view has no date arithmetic in it |
 | `term-gloss.js` | 1–702 | preamble |
 |  | 703–788 | 2026 sweep — the cell, from the Lecture 1 items |
 |  | 789–831 | 2026 sweep — bone, muscle and the tissues of movement |
@@ -110,7 +110,8 @@ belong in `init()`. The two keep separate import scopes and talk only through
 |  | 64–72 | Explicit per-item visuals |
 |  | 73–281 | The 2026 items. All eighteen shipped on a generated layout — a flow |
 |  | 282–353 | Resolver |
-|  | 354–463 | Plates |
+|  | 354–464 | Plates |
+|  | 465–500 | Ordered per-item visual lists |
 
 ## The 3D studio — `outputs/studio/*.js`
 
@@ -141,9 +142,9 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `global-search-one.js` | 354 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
 | `home.js` | 201 | Home |
-| `imports.js` | 145 |  |
+| `imports.js` | 146 |  |
 | `layout-figures.js` | 867 | Layout figures |
-| `lesson-visuals.js` | 237 | Lesson visuals |
+| `lesson-visuals.js` | 286 | Lesson visuals |
 | `mastery-dashboard.js` | 9 | Mastery dashboard |
 | `more-sources-coverage.js` | 100 | More -- sources, coverage, and the things demoted out of the topbar. |
 | `moving-progress-between.js` | 153 | Moving progress between devices |
@@ -177,12 +178,12 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `apss-items.js` | 130 | APSS1A08 Introduction to Sociology — Topic 01 only. |
 | `corpus.js` | 65 | The assembled corpus — every item array spread into one list, and the |
 | `coverage.js` | 231 | Coverage report — what the supplied sources actually cover, and what they |
-| `derived-items.js` | 342 | Items generated rather than authored: one per canonical bone record, one |
+| `derived-items.js` | 344 | Items generated rather than authored: one per canonical bone record, one |
 | `diagrams.js` | 50 | Diagrams — authored schematics, drawn inline as SVG so the app needs no |
 | `dsai-items.js` | 173 | DSAI1202, from the Week 1 overview deck. |
 | `expansion-items.js` | 564 | Expansion batch — fills gaps found in a coverage audit. |
 | `hss-joints.js` | 254 | HSS2011 Human Anatomy — joints and the muscles that move them. |
-| `hss-modules.js` | 2387 | HSS2011 Human Anatomy — the per-module study items. |
+| `hss-modules.js` | 2903 | HSS2011 Human Anatomy — the per-module study items. |
 | `hss-osteology.js` | 663 | HSS2011 Human Anatomy — osteology: bone classification, the axial and |
 | `hss-special-senses.js` | 112 | HSS2011 Week 7 — Special Senses. |
 | `hss-terminology.js` | 248 | HSS2011 Human Anatomy — anatomical terminology: position, planes, movement |
@@ -193,10 +194,10 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `physiology-depth.js` | 129 | ABCT2326 depth lessons. These split the mechanism-heavy respiratory and |
 | `physiology-items.js` | 3141 | ABCT2326 Human Physiology — the study items. |
 | `physiology-reproductive.js` | 115 | ABCT2326 Lecture 6 — Reproductive System. |
-| `schema.js` | 502 | Scaffolding: the source registry, the subjects and their units, the item |
+| `schema.js` | 503 | Scaffolding: the source registry, the subjects and their units, the item |
 | `source-lesson-map.js` | 4822 | GENERATED by work/build-source-lesson-map.mjs — do not hand-edit. |
-| `structures.js` | 348 | Granular 3D targets: the structure sets a tap-to-identify item draws from, |
-| `validate.js` | 125 | Validation — every question must have a resolvable answer and every claim a |
+| `structures.js` | 360 | Granular 3D targets: the structure sets a tap-to-identify item draws from, |
+| `validate.js` | 152 | Validation — every question must have a resolvable answer and every claim a |
 
 ## Verifiers and generators — `work/*.mjs`
 
@@ -262,4 +263,5 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/verify-modules.mjs` | Task #8 verification — module mapping + corpus integrity. |  |
 | `work/verify-notes.mjs` | Check notes that came back from another reader, before any of it becomes a |  |
 | `work/viewport-check.mjs` | The viewport diagnosis — driven with readings no phone here can produce. |  |
+| `work/visuals-check.mjs` | Visuals check — every entry in every item's `visuals` list resolves to |  |
 

@@ -139,6 +139,9 @@ node work/system-check.mjs      # REQUIRED for outputs/systems.js edits — ever
                                  # the dotted one, and the split agrees with
                                  # physiology.js's flow classes where both speak
 node work/figure-key-check.mjs  # every figure/plate a lesson shows has intro + key
+node work/visuals-check.mjs      # every item.visuals[] entry resolves to a real
+                                 # figure/plate/schematic/layer; --selftest proves
+                                 # the gate still bites
 node work/codemap-check.mjs     # the map matches the code; TRAPS names real files
 node work/data-index-check.mjs  # the data summary matches the data
 node work/schedule-check.mjs    # REQUIRED for outputs/schedule.js edits — the

@@ -414,11 +414,13 @@ export const WEEK_STUDY = {
     ],
     5: [
       'hss2011-m2-cns-basics', 'hss2011-cns-spinal-cord-meninges',
-      'hss2011-cns-brainstem-reticular', 'hss2011-cns-cerebrum-cortex-basal',
-      'hss2011-cns-ventricles-csf-blood',
+      'hss2011-m2-reflex-arc', 'hss2011-m2-autonomic-nervous-system',
+      'hss2011-m2-neurons-glia', 'hss2011-m2-cerebellum',
     ],
     6: [
-      'hss2011-m2-brain-regions', 'hss2011-neuro-cranial-nerves-distribution',
+      'hss2011-cns-cerebrum-cortex-basal', 'hss2011-m2-brain-regions',
+      'hss2011-cns-brainstem-reticular', 'hss2011-cns-ventricles-csf-blood',
+      'hss2011-neuro-cranial-nerves-distribution', 'hss2011-m2-stroke-correlates',
       'hss2011-structures-brainAndCsf', 'hss2011-structures-cranialNerves',
     ],
     7: [
