@@ -46,6 +46,20 @@ for (const item of STUDY_ITEMS) {
   if (/heart/.test(item.id) && FIGURES.heart) usedFigureIds.add('heart');
 }
 
+/* Figure and plate ids named in an item's `visuals` list also get checked.
+   A {fig} or {schematic} that resolves to a FIGURES key joins usedFigureIds
+   (checked in the loop below); a {plate} id is checked after the plate loop. */
+const visualsPlateIds = new Set();
+for (const item of STUDY_ITEMS) {
+  if (!Array.isArray(item.visuals)) continue;
+  for (const e of item.visuals) {
+    if (!e || typeof e !== 'object') continue;
+    const figId = e.fig || e.schematic;
+    if (figId && FIGURES[figId]) usedFigureIds.add(figId);
+    if (e.plate) visualsPlateIds.add(e.plate);
+  }
+}
+
 /* Figures with no printed callouts at all (labels are outlined paths, or the
    image is a shape study). Intro required, key not. */
 const NO_CALLOUTS = new Set(['heart']);
@@ -85,6 +99,17 @@ for (const item of Object.keys(PLATES).sort()) {
   if (!existsSync(join(root, 'assets', 'plates', pl.file))) fail(`plate ${item}: file assets/plates/${pl.file} missing`);
 }
 ok(`${Object.keys(PLATES).length} plates checked`);
+
+/* Plate ids referenced only from a visuals list (not a PLATES key iterated
+   above). Every {plate} id today is a PLATES key, so this is a guard for a
+   future ref on a different item. */
+for (const id of [...visualsPlateIds].sort()) {
+  if (Object.prototype.hasOwnProperty.call(PLATES, id)) continue;
+  const pl = PLATES[id];
+  if (!pl) { fail(`plate ${id} (via visuals): not defined in PLATES`); continue; }
+  checkEntry(`plate ${id} (via visuals)`, pl);
+  if (!existsSync(join(root, 'assets', 'plates', pl.file))) fail(`plate ${id} (via visuals): file assets/plates/${pl.file} missing`);
+}
 
 console.log('— unused FIGURES entries (informational) —');
 for (const id of Object.keys(FIGURES)) {
