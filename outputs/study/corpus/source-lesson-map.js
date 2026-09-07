@@ -3190,7 +3190,8 @@ export const Y1S1_SOURCE_MAP = {
         "hss2011-uro-female-reproductive-pelvis",
         "hss2011-uro-tutorial-pastpaper-practice",
         "hss2011-structures-urinaryTract"
-      ]
+      ],
+      "13": []
     },
     "ABCT2326": {
       "1": [
@@ -3236,6 +3237,7 @@ export const Y1S1_SOURCE_MAP = {
         "abct2326-renal-countercurrent-vasarecta",
         "abct2326-renal-tubular-clearance-sympathetic"
       ],
+      "6": [],
       "7": [
         "abct2326-repro-male-regulation",
         "abct2326-repro-ovarian-menstrual-cycle",
@@ -3253,6 +3255,7 @@ export const Y1S1_SOURCE_MAP = {
         "phys-nerve-cellular-action-potential",
         "abct2326-nervous-synaptic-refractory-neuroglia"
       ],
+      "10": [],
       "11": [
         "abct2326-muscle-types",
         "abct2326-muscle-action",
@@ -3313,10 +3316,14 @@ export const Y1S1_SOURCE_MAP = {
       "3": [],
       "4": [],
       "5": [],
+      "6": [],
       "7": [],
       "8": [],
+      "9": [],
       "10": [],
-      "11": []
+      "11": [],
+      "12": [],
+      "13": []
     },
     "DSAI1202": {
       "1": [
@@ -3334,7 +3341,8 @@ export const Y1S1_SOURCE_MAP = {
       "9": [],
       "10": [],
       "11": [],
-      "12": []
+      "12": [],
+      "13": []
     }
   },
   "bySource": {
