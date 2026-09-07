@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  4c1453d2012d071c   1035003  ITEM_BY_ID  Map[161]
+  3d2ed6bd02834090   1077643  ITEM_BY_ID  Map[165]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -24,7 +24,7 @@
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   75ed97c2f90528d7     20915  STRUCTURE_SETS  object[13]
-  a11cb867a81ac823   1029661  STUDY_ITEMS  array[161]
+  2723735a582acb71   1072189  STUDY_ITEMS  array[165]
   f1627657582790e7      1185  STUDY_MODES  array[9]
   834fbc89b7e6fccf      4005  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
@@ -32,7 +32,7 @@
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  229a195ed075cb6b   1103816  default  object[7]
+  71d780a0c291c785   1146344  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -64,9 +64,9 @@
   ba048d6b42696398      2356  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  b1c665d0485cc7ae  WHOLE SURFACE
+  63604d3f00755f7c  WHOLE SURFACE
 
-— every study item, by id — 161 items —
+— every study item, by id — 165 items —
   2d29339c231f634a  abct2326-acquired-immunity
   0f85a14f65a3eba6  abct2326-blood-composition
   23f628153e36648d  abct2326-cell-division
@@ -136,7 +136,7 @@
   045448165150e1e6  dsai1202-ai-literacy
   6912befdf6c48b3c  hss2011-cns-brainstem-reticular
   c0e82178cd51fb42  hss2011-cns-cerebrum-cortex-basal
-  30c0b6aebec12666  hss2011-cns-spinal-cord-meninges
+  056b040eb9302a91  hss2011-cns-spinal-cord-meninges
   5badb3221714e4db  hss2011-cns-ventricles-csf-blood
   dceb4a1ff00419ec  hss2011-cvs-coronary-circulation-conduction
   d4117f8f54acb4fa  hss2011-cvs-internal-chambers-valves
@@ -154,10 +154,14 @@
   1484e4e65a24e8cb  hss2011-joints-synovial-types
   3a8e0d4ad5d25943  hss2011-m1-heart-wall-valves
   6e49509d6d713ecc  hss2011-m1-lungs-airway
+  14283d2569b5a22e  hss2011-m2-autonomic-nervous-system
   ce5dd76a2cdd9676  hss2011-m2-brain-regions
-  6cbb9c9d4ba552a7  hss2011-m2-cns-basics
+  4c417e0d669ddc14  hss2011-m2-cerebellum
+  f9ec0b9928a826be  hss2011-m2-cns-basics
   de99a84064521085  hss2011-m2-ear-hearing
   be74df9cfdc8dff1  hss2011-m2-eye-visual-pathway
+  795e696c6e82e6e3  hss2011-m2-neurons-glia
+  90b46e0ee21e4840  hss2011-m2-reflex-arc
   ba442c50719e0f1f  hss2011-m2-static-dynamic-equilibrium
   68a24d9405efbea0  hss2011-m2-taste-smell
   99cf89aba971812c  hss2011-m3-digestive
