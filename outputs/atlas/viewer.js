@@ -66,7 +66,7 @@ export function inspectAtlas(){return {...scene?.inspect(),state:{...state},conc
 export function atlasCommand(cmd){
   if(cmd==='reset'){update({explode:0,rotate:false,isolate:false,selected:[],visible:[...DEFAULT_VISIBLE],view:'three-quarter',reset:state.reset+1});el('selection').textContent='Select a structure';return true;}
   if(cmd==='turntable'){update({rotate:!state.rotate});return state.rotate?'on':'off';}
-  if(cmd==='isolate'){if(!state.selected.length){flash('Select a structure first');return true;}update({isolate:!state.isolate,rotate:false,explode:0});return true;}
+  if(cmd==='isolate'){if(!state.selected.length){flash('Select a structure first');return true;}update({isolate:!state.isolate,rotate:false,explode:0});return state.isolate?'on':'off';}
   if(cmd==='focus'){if(!state.selected.length){flash('Select a structure first');return true;}update({isolate:true,rotate:false,explode:0});return true;}
   if(cmd==='showall'){update({visible:SYSTEMS.map(s=>s.id),isolate:false});return true;}
   return false;

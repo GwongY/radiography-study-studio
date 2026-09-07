@@ -425,7 +425,11 @@ import { syncTools } from './tools-and-capture.js';
        nobody can see. Zero area is how a display:none view presents itself. */
     state.stageLive=w>=2&&h>=2;
     if(!state.stageLive)return;               /* hidden: measure again when shown */
-    state.renderer.setSize(w,h,false);
+    /* While the atlas source owns the canvas its own ResizeObserver sizes the
+       shared renderer -- setSize here would CLEAR the buffer the atlas just
+       painted, and the settled atlas loop only repaints when dirty. The
+       course camera's aspect is still kept current so exit needs no catch-up. */
+    if(!state.atlasPainting)state.renderer.setSize(w,h,false);
     state.camera.aspect=w/h;
     state.camera.updateProjectionMatrix();
     /* In device pixels, matching enterXray -- see the note there. Passing the

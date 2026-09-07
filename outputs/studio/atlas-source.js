@@ -21,7 +21,7 @@
  */
 import { els, state } from './imports.js';
 import { suspendViewerState, resumeViewerState, applyLayers } from './live-physiology.js';
-import { boot3D } from './region-boxes-how.js';
+import { boot3D, resize } from './region-boxes-how.js';
 
 let mod=null,saved=null;
 
@@ -70,6 +70,9 @@ export function exitAtlas(){
   if(state.controls)state.controls.enabled=true;
   resumeViewerState();
   applyLayers();
+  /* The canvas was the atlas's while it painted; hand the sizing back before
+     the course body's next frame, or the aspect drifts until a real resize. */
+  resize();
 }
 
 /* The shared ctrlpill, pointed at the atlas body. Returns whatever the atlas

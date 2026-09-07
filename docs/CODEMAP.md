@@ -117,13 +117,13 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 | File | Lines | What it holds |
 | --- | --- | --- |
-| `atlas-source.js` | 100 | The Full atlas as a SOURCE of the one 3D view, not a second one. |
+| `atlas-source.js` | 103 | The Full atlas as a SOURCE of the one 3D view, not a second one. |
 | `cavity-geometry-derived.js` | 472 | Cavity geometry, derived from the loaded anatomy. |
 | `depth-picking.js` | 410 | Depth picking |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
 | `imports.js` | 97 | Block 0 has its own import scope -- block 1's copy is not visible here. |
 | `live-physiology.js` | 1274 | Live physiology |
-| `region-boxes-how.js` | 502 | Region boxes — how the region filter reaches the six soft-tissue layers |
+| `region-boxes-how.js` | 506 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 239 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 483 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
 | `tools-and-capture.js` | 837 | Tools — section cuts, surface ink, pinned labels, capture. |
@@ -166,7 +166,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 311 | Viewer tools — annotate, cut, layer depth, capture |
 | `viewport-recovery.js` | 446 | The band below the tab bar — measuring it, and asking for the space back |
-| `what-is-under.js` | 247 | What is under the tap |
+| `what-is-under.js` | 253 | What is under the tap |
 
 ## The corpus — `outputs/study/corpus/*.js`
 
@@ -208,7 +208,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/baseline.mjs` | Probe baselines — capture what the verifiers say TODAY, so a later |  |
 | `work/binding-check.mjs` | Binding check — does every split part import the names it uses? | [Missing imports in a split part](TRAPS.md#missing-imports-in-a-split-part--workbinding-checkmjs) |
 | `work/bridge-check.mjs` | Does the studio actually expose everything the study system calls on it? |  |
-| `work/build-atlas-viewer.mjs` | The merged app passes the studio's renderer in: ONE WebGL context serves |  |
+| `work/build-atlas-viewer.mjs` | Normalise CRLF: a fresh checkout smudges the snapshot to CRLF (core.autocrlf), |  |
 | `work/build-check.mjs` | Build every cavity from the real GLBs and assert the results are anatomy. |  |
 | `work/build-course-terms.mjs` | Build work/course-terms.json — which of the model's 1,687 named structures | [Study depth and course terms](TRAPS.md#study-depth-and-course-terms--workbuild-course-termsmjs) |
 | `work/build-mesh-index.mjs` | Build outputs/mesh-index.js — the searchable name index for every mesh in | [The mesh index](TRAPS.md#the-mesh-index--workbuild-mesh-indexmjs-worklibmesh-namesmjs) |
