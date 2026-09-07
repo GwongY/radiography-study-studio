@@ -4,7 +4,7 @@
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $, ANATOMY_DATABASE, BODY_CONCEPTS, CM_PER_UNIT, FLOW_CLASSES, LANDMARK_HOTSPOTS, LAYER_NAMES, MESH_INDEX, REGIONS, conceptById, els, getAnatomy, layerOf, mu, state } from './imports.js';
-import { XRAY_LAYERS, XRAY_LAYER_FILES, applyLayers, clearStudyFocus, endMovement, enterXray, exitXray, focusStructures, highlightExtra, setExtraVisible, setLayer, setMovementAngle, setPhysiology, setXrayExposure, setXrayRegion, setXrayView, startMovement, xrayDepthMaterial } from './live-physiology.js';
+import { XRAY_LAYERS, XRAY_LAYER_FILES, applyLayers, clearStudyFocus, endMovement, enterXray, exitXray, focusStructures, highlightExtra, setExtraVisible, setLayer, setMovementAngle, setPhysiology, setXrayAec, setXrayKvp, setXrayMas, setXrayRegion, setXrayView, startMovement, xrayDepthMaterial } from './live-physiology.js';
 import { addHotspots, applyVisibility, between, boot3D, getRecord, remapHotspotsToReal, resize, showHotspots } from './region-boxes-how.js';
 import { bodyMetrics, ensureConceptGroup, showPickCallout } from './spatial-concept-overlays.js';
 import { buildCavity, buildCellGrid, buildPlane, cavityContext, cavityStyle, layerSignature } from './cavity-geometry-derived.js';
@@ -308,7 +308,9 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   exitXray:()=>exitXray(),
   xrayView:(v)=>setXrayView(v),
   xrayRegion:(v)=>setXrayRegion(v),
-  xrayExposure:(v)=>setXrayExposure(v),
+  xrayKvp:(v)=>setXrayKvp(v),
+  xrayMas:(v)=>setXrayMas(v),
+  xrayAec:(v)=>setXrayAec(v),
   inXray:()=>!!state.xray,
   setPickHook:(fn)=>{state.pickHook=fn||null},
   /* The panel subscribes; the viewer publishes the whole line of structures

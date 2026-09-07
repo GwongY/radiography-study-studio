@@ -133,7 +133,25 @@ export function magnification({ sidCm, oidCm }) { return sidCm / (sidCm - oidCm)
  * studio/live-physiology.js inlines the same clamp. The check below tests
  * this copy, so the shader can drift from it silently. Change one, change both.
  */
-export const DEFAULT_WINDOW = { lo: 0.5, hi: 9.0 };
+/*
+ * The window is measured against the beam that EXISTS, not the one the
+ * paragraph above idealises.
+ *
+ * That idealised 20 cm chest predicts tau 3.5 through a lung field and 8.0
+ * through the mediastinum, and lo 0.5 / hi 9.0 was the right window for it
+ * back when the beam saw the skeleton alone. With skeleton, muscle and
+ * organs in it the real tau runs a good deal higher, and at 0.5-9.0 a
+ * thorax saturated to solid white -- every soft-tissue path past the top of
+ * the window and clamped.
+ *
+ * Read off the live pane, the film comes back correct at roughly 1 to 20.
+ * The gap between that and the idealised figure is DOUBLE COUNTING: the
+ * muscle and organ GLBs are separately closed shells that still overlap in
+ * places, so some soft tissue is charged for more than once even with the
+ * beam cut to three layers. That is an honest limitation of the source
+ * meshes, stated here and in the pane, rather than a number tuned away.
+ */
+export const DEFAULT_WINDOW = { lo: 1.0, hi: 20.0 };
 export function filmDensity(tau, win) {
   const w = win || DEFAULT_WINDOW;
   return Math.min(1, Math.max(0, (tau - w.lo) / (w.hi - w.lo)));
