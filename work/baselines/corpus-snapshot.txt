@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  03b04172332fe987   1077872  ITEM_BY_ID  Map[165]
+  4bd6b28a23a34037   1113110  ITEM_BY_ID  Map[166]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -23,8 +23,8 @@
   9131051cbbd87c06       539  SOURCE_ROOTS  object[18]
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
-  75ed97c2f90528d7     20915  STRUCTURE_SETS  object[13]
-  b33ba748648e24ba   1072418  STUDY_ITEMS  array[165]
+  5bf34d15f638931d     23568  STRUCTURE_SETS  object[13]
+  19657ab436a97aef   1107625  STUDY_ITEMS  array[166]
   f1627657582790e7      1185  STUDY_MODES  array[9]
   834fbc89b7e6fccf      4005  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
@@ -32,7 +32,7 @@
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  729521bac105d967   1146573  default  object[7]
+  2242cd71b75e7830   1181780  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -64,9 +64,9 @@
   ba048d6b42696398      2356  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  39d736f122f3fc5c  WHOLE SURFACE
+  53fae601f2f5d4a4  WHOLE SURFACE
 
-— every study item, by id — 165 items —
+— every study item, by id — 166 items —
   2d29339c231f634a  abct2326-acquired-immunity
   0f85a14f65a3eba6  abct2326-blood-composition
   23f628153e36648d  abct2326-cell-division
@@ -134,10 +134,10 @@
   94c44953883328d2  dsai1202-ai-everyday-autonomy
   0ebcaf129ca95338  dsai1202-ai-in-healthcare
   045448165150e1e6  dsai1202-ai-literacy
-  6912befdf6c48b3c  hss2011-cns-brainstem-reticular
-  c0e82178cd51fb42  hss2011-cns-cerebrum-cortex-basal
+  1cc68e17c6914ee8  hss2011-cns-brainstem-reticular
+  a63cbbb6ce005c37  hss2011-cns-cerebrum-cortex-basal
   056b040eb9302a91  hss2011-cns-spinal-cord-meninges
-  5badb3221714e4db  hss2011-cns-ventricles-csf-blood
+  25c8adba9e6d3614  hss2011-cns-ventricles-csf-blood
   dceb4a1ff00419ec  hss2011-cvs-coronary-circulation-conduction
   d4117f8f54acb4fa  hss2011-cvs-internal-chambers-valves
   c64dcb249ec04405  hss2011-cvs-tutorial-pastpaper-practice
@@ -155,7 +155,7 @@
   3a8e0d4ad5d25943  hss2011-m1-heart-wall-valves
   6e49509d6d713ecc  hss2011-m1-lungs-airway
   14283d2569b5a22e  hss2011-m2-autonomic-nervous-system
-  ce5dd76a2cdd9676  hss2011-m2-brain-regions
+  f303c029635fc53d  hss2011-m2-brain-regions
   4c417e0d669ddc14  hss2011-m2-cerebellum
   2a08f52506a1ea28  hss2011-m2-cns-basics
   de99a84064521085  hss2011-m2-ear-hearing
@@ -163,6 +163,7 @@
   795e696c6e82e6e3  hss2011-m2-neurons-glia
   90b46e0ee21e4840  hss2011-m2-reflex-arc
   ba442c50719e0f1f  hss2011-m2-static-dynamic-equilibrium
+  020b3ff95afe0ac5  hss2011-m2-stroke-correlates
   68a24d9405efbea0  hss2011-m2-taste-smell
   99cf89aba971812c  hss2011-m3-digestive
   1657e96d4757c035  hss2011-m3-urogenital-pelvis
@@ -174,7 +175,7 @@
   0993bc57c57103c1  hss2011-msk-periosteum
   8593b57a8e922c2d  hss2011-msk-tendon-attachment
   ca423056428230fc  hss2011-msk-tissues-of-movement
-  aff52c198e078012  hss2011-neuro-cranial-nerves-distribution
+  0c9259bdb808ca8b  hss2011-neuro-cranial-nerves-distribution
   f70cd63a09a081a9  hss2011-osteo-axial-appendicular
   2665925c63208f89  hss2011-osteo-bone-functions
   9f8ba7a6757158d1  hss2011-osteo-bone-shapes
@@ -193,9 +194,9 @@
   7546b059f089391e  hss2011-resp-tutorial-pastpaper-practice
   bea60ecb0343ae38  hss2011-resp-upper-tract-larynx
   9fa9a3f579a05a4f  hss2011-structures-airwayTree
-  785abd81a2c84773  hss2011-structures-brainAndCsf
+  0cdf747cd5bf79e2  hss2011-structures-brainAndCsf
   55b17ae2266d6609  hss2011-structures-carpals
-  cfa0a7975375ee21  hss2011-structures-cranialNerves
+  dc96c7c911a84731  hss2011-structures-cranialNerves
   7122be9de839e152  hss2011-structures-digestiveTract
   379c8dbf5e8419fc  hss2011-structures-greatVessels
   0c9eef3937ecb9bd  hss2011-structures-heartChambers
