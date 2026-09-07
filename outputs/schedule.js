@@ -450,6 +450,7 @@ export const WEEK_STUDY = {
       'hss2011-uro-male-reproductive-anatomy', 'hss2011-uro-female-reproductive-pelvis',
       'hss2011-uro-tutorial-pastpaper-practice', 'hss2011-structures-urinaryTract',
     ],
+    13: [],
   },
   ABCT2326: {
     1: [
@@ -474,12 +475,14 @@ export const WEEK_STUDY = {
       'abct2326-digestive-small-intestine-accessory', 'abct2326-digestive-hormones-colon',
     ],
     5: ['abct2326-renal-nephron', 'abct2326-renal-filtration-countercurrent', 'abct2326-renal-countercurrent-vasarecta', 'abct2326-renal-tubular-clearance-sympathetic'],
+    6: [],
     7: [
       'abct2326-repro-male-regulation', 'abct2326-repro-ovarian-menstrual-cycle',
       'abct2326-repro-fertilization-implantation', 'abct2326-repro-placenta-parturition',
     ],
     8: ['abct2326-endocrine-delivery', 'abct2326-endocrine-receptors', 'abct2326-endocrine-second-messengers'],
     9: ['abct2326-nervous-divisions', 'abct2326-synapse-drug-action', 'phys-nerve-cellular-action-potential', 'abct2326-nervous-synaptic-refractory-neuroglia'],
+    10: [],
     11: ['abct2326-muscle-types', 'abct2326-muscle-action', 'abct2326-nmj-coupling', 'abct2326-muscle-ultrastructure-energetics'],
     12: [
       'abct2326-crossbridge-cycle', 'abct2326-fibre-types-fuel',
@@ -514,11 +517,11 @@ export const WEEK_STUDY = {
       'apss1a08-global-perspective', 'apss1a08-research-to-change',
       'apss1a08-marx-weber-change',
     ],
-    2: [], 3: [], 4: [], 5: [], 7: [], 8: [], 10: [], 11: [],
+    2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: [], 13: [],
   },
   DSAI1202: {
     1: ['dsai1202-ai-everyday-autonomy', 'dsai1202-ai-in-healthcare', 'dsai1202-ai-literacy'],
-    2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: [],
+    2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: [], 13: [],
   },
 };
 
@@ -526,15 +529,26 @@ export const WEEK_STUDY = {
    syllabus is known but whose official teaching notes have not been supplied.
    Keeping them beside the map makes incompleteness visible and testable. */
 export const WEEK_GAPS = {
+  HSS2011: {
+    13: 'Online revision and individual Closed-book test (60%).',
+  },
+  ABCT2326: {
+    6: 'Mid-term Quiz (35%) covering Lectures 1–5.',
+    10: 'Reading week — no lecture or tutorial scheduled.',
+  },
   APSS1A08: {
     2: 'T02A — Functionalist perspectives, social institutions and conflict perspectives: official lecture notes not supplied.',
     3: 'T02B — Modern Contemporary Theorists: official lecture notes not supplied.',
     4: 'T03 — Socialization: official lecture notes not supplied.',
     5: 'T04 — Social Interaction: official lecture notes not supplied.',
+    6: 'Consultation Session 1 — individual consultations on reflective paper, no lecture.',
     7: 'T05 — Social Stratification and Social Class: official lecture notes not supplied.',
     8: 'T06 — Sexuality and Society: official lecture notes not supplied.',
+    9: 'Self-study Week — mid-term reading and preparation, no lecture.',
     10: 'T07 — Gender Stratification: official lecture notes not supplied.',
     11: 'T08 — Deviance: official lecture notes not supplied.',
+    12: 'Consultation Session 2 — mini project consultation, no lecture.',
+    13: 'End-of-term Quiz (50%) and Mini Project submission deadline.',
   },
   DSAI1202: {
     2: 'AI Overview: only the Week 1 overview deck is supplied; the Week 2 teaching notes are missing.',
@@ -548,6 +562,7 @@ export const WEEK_GAPS = {
     10: 'Industrial Centre Visit 2 / Societal Implications of AIDA: official teaching notes not supplied.',
     11: 'Industrial Centre Visit 2 / Societal Implications of AIDA: the repeated lecture’s official teaching notes are not supplied.',
     12: 'Additional Topics (TBC) and Course Review: official Week 12 teaching notes not supplied.',
+    13: 'Final Test (60%) — in-class examination covering all course topics.',
   },
 };
 
