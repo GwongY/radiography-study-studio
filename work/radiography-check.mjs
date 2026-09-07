@@ -100,5 +100,29 @@ console.log('- the model is dimensioned -');
 near(R.CM_PER_UNIT, 14.409, 1e-3, 'one model unit in centimetres');
 near(R.unitsToCm(1), 14.409, 1e-3, 'a one-unit path');
 
+console.log('- the chest the spec claims, from the module constants -');
+const tauLung = R.mu('lung', 75) * 15 + R.mu('soft', 75) * 5;
+const tauMed = R.mu('soft', 75) * 20;
+near(tauLung, 3.497, 0.01, 'tau through a lung field');
+near(tauMed, 8.035, 0.01, 'tau through the mediastinum');
+near(Math.exp(-tauLung), 0.0303, 1e-3, 'lung field transmits ~3%');
+near(Math.exp(-tauMed), 0.00032, 1e-4, 'mediastinum transmits ~0.03%');
+
+console.log('- a log window separates them; a linear one does not -');
+const W = { lo: 0.5, hi: 9.0 };
+const dLung = R.filmDensity(tauLung, W);
+const dMed = R.filmDensity(tauMed, W);
+if (dMed - dLung > 0.4) ok(`log window separates lung from mediastinum (${dLung.toFixed(2)} vs ${dMed.toFixed(2)})`);
+else fail(`log window collapses them: ${dLung.toFixed(3)} vs ${dMed.toFixed(3)}`);
+const linLung = 1 - Math.exp(-tauLung), linMed = 1 - Math.exp(-tauMed);
+if (linMed - linLung < 0.05) ok(`the old linear curve collapsed them, as the spec says (${linLung.toFixed(3)} vs ${linMed.toFixed(3)})`);
+else fail('the linear curve did not collapse them — recheck the premise');
+
+console.log('- the window clamps and is monotonic -');
+near(R.filmDensity(0, W), 0, 1e-9, 'nothing in the beam is black');
+near(R.filmDensity(100, W), 1, 1e-9, 'a very long path saturates white');
+if (R.filmDensity(4, W) > R.filmDensity(3, W)) ok('density rises with tau');
+else fail('density is not monotonic in tau');
+
 console.log(failures ? `\n${failures} FAILED` : '\nALL PASS');
 process.exit(failures ? 1 : 0);
