@@ -92,11 +92,17 @@ function renderViewerTabs() {
   /* One canvas, two bodies: the class is what hides the course chrome (rail,
      tools, overlays) and shows the atlas dock -- see app.css. */
   $$('viewerSkeletonPane').classList.toggle('source-atlas', atlasSourceActive());
-  if(atlasSourceActive())openFullAtlas();else pauseFullAtlas();
+  /* Ordering matters both ways: the atlas source pauses before the projection
+     claims the stage, and the projection hands the stage back (leaveProjection)
+     BEFORE the atlas source may claim it again -- enterAtlas refuses while
+     state.xray is set, and an enter that lost that race would silently revert
+     the switch to the course body. */
   if (ui.viewerTab === 'xray') {
+    pauseFullAtlas();
     enterProjection();
   } else {
     leaveProjection();
+    if(atlasSourceActive())openFullAtlas();else pauseFullAtlas();
   }
 }
 
