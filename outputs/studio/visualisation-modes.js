@@ -4,7 +4,7 @@
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $, ANATOMY_DATABASE, BODY_CONCEPTS, CM_PER_UNIT, FLOW_CLASSES, LANDMARK_HOTSPOTS, LAYER_NAMES, MESH_INDEX, REGIONS, conceptById, els, getAnatomy, layerOf, mu, state } from './imports.js';
-import { XRAY_TISSUE, applyLayers, clearStudyFocus, endMovement, enterXray, exitXray, focusStructures, highlightExtra, setExtraVisible, setLayer, setMovementAngle, setPhysiology, setXrayExposure, setXrayRegion, setXrayView, startMovement, xrayDepthMaterial } from './live-physiology.js';
+import { XRAY_LAYERS, XRAY_LAYER_FILES, XRAY_TISSUE, applyLayers, clearStudyFocus, endMovement, enterXray, exitXray, focusStructures, highlightExtra, setExtraVisible, setLayer, setMovementAngle, setPhysiology, setXrayExposure, setXrayRegion, setXrayView, startMovement, xrayDepthMaterial } from './live-physiology.js';
 import { addHotspots, applyVisibility, between, boot3D, getRecord, remapHotspotsToReal, resize, showHotspots } from './region-boxes-how.js';
 import { bodyMetrics, ensureConceptGroup, showPickCallout } from './spatial-concept-overlays.js';
 import { buildCavity, buildCellGrid, buildPlane, cavityContext, cavityStyle, layerSignature } from './cavity-geometry-derived.js';
@@ -279,6 +279,31 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   endMovement:()=>endMovement(),
   movementState:()=>state.movement?{id:state.movement.mv.id,angle:state.movement.angle,moving:state.movement.restore.length}:null,
   focusStructures:(spec)=>focusStructures(spec),
+  /*
+   * The beam's three layers, RESIDENT, before the projection is entered.
+   *
+   * enterXray turns the chips on, and turning a chip on does not fetch a GLB:
+   * the muscle and organ files are lazy-loaded, and enterXray is synchronous.
+   * Without this the film is a chest with no lungs in it -- which is exactly
+   * the thing the layer set was widened to fix.
+   *
+   * Note the key here is a GLB LAYER key, which is what loadExtraModel takes.
+   * setLayer above takes a CHIP key and does not load anything, so it is the
+   * wrong call for this -- see outputs/systems.js for the difference.
+   *
+   * A layer that will not load is reported once and then left out; the beam
+   * draws what it has rather than refusing to draw at all.
+   */
+  ensureXrayLayers:async()=>{
+    for(const k of XRAY_LAYERS){
+      if(k==='skeleton'||state.extraModels[k])continue;
+      const file=XRAY_LAYER_FILES[k];
+      if(!file)continue;
+      try{await loadExtraModel(k,file)}
+      catch(e){showToast(`Could not load the ${LAYER_NAMES[k]||k} layer — the beam is drawing what it has.`)}
+    }
+    return XRAY_LAYERS.filter(k=>k==='skeleton'?!!state.fullModel:!!state.extraModels[k]);
+  },
   enterXray:()=>enterXray(),
   exitXray:()=>exitXray(),
   xrayView:(v)=>setXrayView(v),

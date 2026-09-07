@@ -3,7 +3,7 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CLASSES, GRAZE_CLAMP, LAYER_NAMES, MESH_INDEX, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, mottleSigma, mu, spikeEnvelope, state, systemCounts, systemsIn, ventricleEnvelope } from './imports.js';
+import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CLASSES, GRAZE_CLAMP, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, mottleSigma, mu, spikeEnvelope, state, systemCounts, systemsIn, ventricleEnvelope } from './imports.js';
 import { MEMORY_TIPS, answer, clean, openDetail, pool, record, regionLabel, selectBone, showToast } from './visualisation-modes.js';
 import { animate, applyVisibility, between, getRecord, tube } from './region-boxes-how.js';
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
@@ -553,7 +553,20 @@ export async function focusStructures(spec){
  * mineral. It is not.
  */
 export const XRAY_TISSUE = { skeleton:'bone', muscle:'soft', organs:'soft', joint:'soft' };
-export const XRAY_LAYERS = Object.keys(XRAY_TISSUE);
+/*
+ * And which of those the beam actually LOADS.
+ *
+ * Deliberately NOT Object.keys(XRAY_TISSUE). joint stays in the tissue map
+ * above so a ligament mesh that is already in the scene is classified as soft
+ * tissue rather than silently defaulted -- but it is not fetched for the film.
+ * Ligaments are not distinguishable on a plain radiograph, so a fourth GLB
+ * would be a download the reader waits through for no signal. Three layers,
+ * and the pane that announces the load says three.
+ */
+export const XRAY_LAYERS = ['skeleton','muscle','organs'];
+/* The GLB each of those needs. The skeleton is absent because boot() has
+   already put it in the scene -- there is no file to fetch for it. */
+export const XRAY_LAYER_FILES = { muscle: MODEL_CATALOG.muscleFile, organs: MODEL_CATALOG.organSystemFile };
 
 const XRAY_VERT=`
 varying float vDist;
@@ -689,19 +702,35 @@ export function enterXray(){
     view:'pa', region:'chest',
   };
   /*
-   * The projection is a skeleton film.
+   * The beam sees each volume ONCE.
    *
-   * It used to pass the beam through whatever the 3D tab happened to have
-   * loaded, which made the exposure a function of what had been browsed earlier
-   * in the session rather than of the controls: the same Chest / PA button read
-   * at mean 15.6 before the muscle layer had ever been opened and at 43.1 after,
-   * with a fifth of the pane blown out. Six soft-tissue layers at 0.10-0.30
-   * against bone at 1.00 also do not add up to a radiograph -- they add up to a
-   * fog with a skeleton somewhere in it. So the beam sees bone, always, and only.
-   * Whatever is on in the 3D tab is restored on the way out.
+   * It used to see the skeleton alone, and the note in what-is-under.js blamed
+   * the soft-tissue coefficients: six layers at 0.10-0.30 against bone at 1.00
+   * "read as fog with a skeleton somewhere behind it". The ratios were close to
+   * right -- NIST puts bone at 6.4x soft tissue at 30 keV against the 6.3x those
+   * constants implied. The fog was DOUBLE COUNTING: muscle, organs, circulatory,
+   * nervous and lymphatic are overlapping closed shells occupying the same
+   * physical volume, so one ray charged for the same soft tissue three to five
+   * times over.
+   *
+   * So: skeleton, muscle, organs. Vessels, nerves and lymphatics stay off, and
+   * that is a fact rather than a compromise -- unenhanced vessels are not
+   * visible on a plain film. Ligaments are off for the same reason, which is
+   * why XRAY_LAYERS is three keys and not the four of XRAY_TISSUE.
+   *
+   * The set is also fixed rather than inherited, which is what stopped the
+   * exposure being a function of what had been browsed earlier in the session:
+   * the same Chest / PA button once read at mean 15.6 before the muscle layer
+   * had ever been opened and at 43.1 after. Whatever is on in the 3D tab is
+   * restored on the way out.
+   *
+   * Turning a chip on does not FETCH a GLB and this function is synchronous,
+   * so the pane awaits __osteo.ensureXrayLayers() before calling us -- see
+   * study/what-is-under.js. A layer that failed to load simply is not in the
+   * beam; nothing here depends on it being there.
    */
-  setLayerChips('skeleton',true);
-  SYSTEMS.forEach((s)=>{if(s.layer!=='skeleton')state.layers[s.key]=false});
+  XRAY_LAYERS.forEach((k)=>setLayerChips(k,true));
+  SYSTEMS.forEach((s)=>{if(!XRAY_LAYERS.includes(s.layer))state.layers[s.key]=false});
   /*
    * Cavities, regions and planes are teaching overlays drawn ON the anatomy.
    * A radiograph has nothing painted on it, and an additive beam would render

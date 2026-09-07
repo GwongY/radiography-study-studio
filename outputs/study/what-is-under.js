@@ -72,16 +72,11 @@ function renderViewerTabs() {
 }
 
 /*
- * The tissue rail used to live here: one chip per layer, each carrying its
- * relative attenuation coefficient, so the beam could be sent through muscle or
- * organs as well as bone. It is gone, and so is the mixing it allowed.
- *
- * A projection is a bone film. Six soft-tissue layers at 0.10-0.30 against bone
- * at 1.00 do not read as a radiograph; they read as fog with a skeleton
- * somewhere behind it, and the exposure slider then spends its whole range
- * fighting them. enterXray now passes the beam through the skeleton alone and
- * restores the 3D tab's layers on the way out, so there is nothing here to
- * control and no way for an earlier browse to change what the film looks like.
+ * The tissue rail that used to live here is gone: the beam's layer set is not
+ * a user choice, it is skeleton + muscle + organs, chosen so that no volume is
+ * counted twice. enterXray() in studio/live-physiology.js says why -- including
+ * why the diagnosis this comment used to carry, that soft tissue read as fog
+ * because its coefficients were wrong, was itself wrong.
  */
 function renderXrayViews() {
   $$('xrayViews').innerHTML = XRAY_VIEWS.map(([id, label]) =>
@@ -103,6 +98,21 @@ async function enterProjection() {
   renderXrayViews();
   const booted = await window.__osteo.boot();
   if (!booted) { mount.innerHTML = '<div class="emptybox">3D is unavailable, so the projection cannot be drawn.</div>'; return; }
+  /*
+   * Three GLBs now, not one -- the lungs are in the organs file. Say so rather
+   * than showing a blank pane for several seconds.
+   *
+   * The placeholder goes in BEFORE the stage is appended, and the stage is
+   * appended only after it has been cleared. Setting mount.innerHTML detaches
+   * everything already in the mount, so on a second visit -- when the stage is
+   * sitting there from last time -- doing it the other way round would take the
+   * canvas out of the DOM and leave an empty projection pane. Clearing first
+   * and letting the parentElement guard below re-append is what makes both the
+   * first visit and every later one come out with a canvas in the mount.
+   */
+  mount.innerHTML = '<div class="emptybox">Loading the beam\u2019s three tissue layers\u2026</div>';
+  await window.__osteo.ensureXrayLayers();
+  mount.innerHTML = '';
   const stage = window.__osteo.stageEl();
   if (stage && stage.parentElement !== mount) mount.appendChild(stage);
   window.__osteo.resize();
