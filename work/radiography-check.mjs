@@ -76,5 +76,29 @@ for (let kvp = 50; kvp <= 125; kvp += 5) {
 if (mono) ok('contrast falls monotonically from 50 to 125 kVp');
 else fail('contrast is not monotonic in kVp — the interpolation is wrong');
 
+console.log('- the beam obeys the inverse square law -');
+near(R.fluence({ mAs: 10, sidCm: 200 }) / R.fluence({ mAs: 10, sidCm: 100 }),
+  0.25, 1e-9, 'doubling SID quarters the fluence');
+near(R.fluence({ mAs: 40, sidCm: 200 }) / R.fluence({ mAs: 10, sidCm: 100 }),
+  1.0, 1e-9, 'quadrupling mAs restores it');
+near(R.fluence({ mAs: 20, sidCm: 100 }) / R.fluence({ mAs: 10, sidCm: 100 }),
+  2.0, 1e-9, 'fluence is linear in mAs');
+
+console.log('- mottle is 1/sqrt(N), so it rises with distance -');
+const sLo = R.mottleSigma({ mAs: 10, sidCm: 100 });
+near(R.mottleSigma({ mAs: 40, sidCm: 100 }) / sLo, 0.5, 1e-9,
+  'quadrupling mAs halves the noise');
+near(R.mottleSigma({ mAs: 10, sidCm: 200 }) / sLo, 2.0, 1e-9,
+  'doubling SID doubles the noise');
+
+console.log('- magnification is SID over SOD -');
+near(R.magnification({ sidCm: 100, oidCm: 0 }), 1.0, 1e-9, 'object on the detector');
+near(R.magnification({ sidCm: 100, oidCm: 50 }), 2.0, 1e-9, 'object halfway');
+near(R.magnification({ sidCm: 180, oidCm: 18 }), 1.111, 1e-3, 'a chest heart at 180 cm');
+
+console.log('- the model is dimensioned -');
+near(R.CM_PER_UNIT, 14.409, 1e-3, 'one model unit in centimetres');
+near(R.unitsToCm(1), 14.409, 1e-3, 'a one-unit path');
+
 console.log(failures ? `\n${failures} FAILED` : '\nALL PASS');
 process.exit(failures ? 1 : 0);
