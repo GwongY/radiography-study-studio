@@ -418,10 +418,10 @@ export const WEEK_STUDY = {
       'hss2011-m2-neurons-glia', 'hss2011-m2-cerebellum',
     ],
     6: [
-      'hss2011-m2-brain-regions', 'hss2011-neuro-cranial-nerves-distribution',
+      'hss2011-cns-cerebrum-cortex-basal', 'hss2011-m2-brain-regions',
+      'hss2011-cns-brainstem-reticular', 'hss2011-cns-ventricles-csf-blood',
+      'hss2011-neuro-cranial-nerves-distribution', 'hss2011-m2-stroke-correlates',
       'hss2011-structures-brainAndCsf', 'hss2011-structures-cranialNerves',
-      'hss2011-cns-brainstem-reticular', 'hss2011-cns-cerebrum-cortex-basal',
-      'hss2011-cns-ventricles-csf-blood',
     ],
     7: [
       'hss2011-m2-eye-visual-pathway', 'hss2011-m2-ear-hearing',

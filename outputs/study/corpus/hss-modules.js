@@ -1697,6 +1697,83 @@ export const HSS_MODULES = [
   },
 
   /* ========================================================================
+   * WEEK 6: ANATOMICAL CORRELATES OF STROKE (Module 2)
+   * ======================================================================== */
+  {
+    id: 'hss2011-m2-stroke-correlates',
+    subject: 'HSS2011', unit: 'hss.m2', type: 'concept',
+    title: 'Anatomical correlates of stroke',
+    tags: ['neuroanatomy', 'stroke', 'high-yield'],
+    lesson: {
+      explanation: 'Stroke localisation is decussation plus arterial territory. Ascending sensory pathways cross the midline in their second-order neuron, and descending motor commands cross at the pyramids of the medulla oblongata, so the left cerebral cortex serves the right side of the body and vice versa; a lesion on one side of the brain therefore causes loss of function on the opposite side of the body. The primary motor cortex sits on the precentral gyrus, immediately anterior to the central sulcus. The middle cerebral artery runs out over the lateral surface of the cerebral hemispheres, which is where that motor strip and the somatosensory strip behind it lie. So an occlusion of the middle cerebral artery produces contralateral weakness and sensory loss of the face, arm and leg. In the "Mr LAW" case, a blockage of the left middle cerebral artery affected the left hemisphere: he could not move the right side of his body, particularly the upper limb, and he also had difficulty in vocalisation, because Broca’s area lies in the frontal lobe and was also damaged; a left (usually dominant) hemisphere stroke adds aphasia. The posterior circulation is separate: the two vertebral arteries, from the subclavian arteries, ascend within the transverse foramina, enter the cranium at the foramen magnum, and fuse to form the basilar artery, which ends as the posterior cerebral arteries. With the anterior and posterior communicating arteries these close the cerebral arterial circle (circle of Willis), which encircles the infundibulum of the pituitary gland and reduces the probability of an interruption of circulation. The posterior circulation supplies the brainstem and occipital lobe, and a lower-brainstem stroke is commonly fatal because the medulla holds the cardiac, vasomotor and respiratory centres.',
+      plain: 'Two rules localise a stroke. First, crossing: sensory tracts cross at their 2nd neuron and motor tracts cross at the medullary pyramids, so one side of the brain runs the opposite side of the body — a lesion on the left weakens the right. Second, territory: the middle cerebral artery covers the lateral hemisphere, including the motor strip on the precentral gyrus (just in front of the central sulcus) and the sensory strip behind it, so an MCA block gives contralateral face+arm+leg weakness and numbness; a left MCA stroke also causes aphasia because Broca’s area is nearby in the frontal lobe. The back of the brain runs on a different supply: vertebral arteries -> basilar artery -> posterior cerebral arteries, tied together with the communicating arteries into the circle of Willis around the pituitary stalk. That posterior system feeds the brainstem and occipital lobe, and a low brainstem stroke is usually fatal.',
+      keyFacts: [
+        'Sensory decussation is in the 2nd-order neuron; motor decussation is at the pyramids of the medulla oblongata.',
+        'A stroke damaging the motor centres of one side of the brain causes loss of function on the opposite side of the body.',
+        'Primary motor cortex = precentral gyrus, immediately anterior to the central sulcus.',
+        'The middle cerebral artery supplies the lateral surface of the cerebral hemispheres — the motor and sensory strips.',
+        'Left middle cerebral artery occlusion: aphasia plus right-body sensory and motor paralysis (the "Mr LAW" case; Broca’s area in the frontal lobe).',
+        'Right middle cerebral artery occlusion: left-body sensation and motor loss, and difficulty drawing or interpreting.',
+        'Vertebral arteries (from the subclavian) ascend the transverse foramina, enter at the foramen magnum, and fuse to form the basilar artery; the basilar ends as the posterior cerebral arteries.',
+        'The cerebral arterial circle (circle of Willis) encircles the infundibulum of the pituitary gland and reduces the probability of interruption of circulation.',
+        'A lower-brainstem stroke is commonly fatal (medullary cardiac, vasomotor and respiratory centres).',
+      ],
+      prerequisites: ['hss2011-m2-cns-basics', 'hss2011-cns-cerebrum-cortex-basal'],
+      examples: ['Mr LAW: occlusion of the left middle cerebral artery, left hemisphere affected, cannot move the right upper limb, and difficulty in vocalisation from Broca’s area damage in the frontal lobe.'],
+    },
+    memory: {
+      chunking: 'Localise a stroke in two moves: (1) which side of the body is weak tells you the opposite hemisphere; (2) which functions are lost (face+arm+leg, speech) tells you the MCA territory.',
+      comparison: 'Anterior circulation = internal carotid -> anterior + middle cerebral (hemisphere surfaces). Posterior circulation = vertebral -> basilar -> posterior cerebral (brainstem + occipital lobe).',
+      mnemonic: 'Left MCA: Language And Weakness on the right — "Mr LAW".',
+    },
+    practice: [
+      { type: 'mcq', prompt: 'A right-handed man has an occlusion of his left middle cerebral artery. Which combination of deficits is expected?', options: ['Left-sided weakness only', 'Right-sided weakness and sensory loss, with aphasia', 'Loss of vision only', 'No deficit — the circle of Willis compensates fully'], answer: 1,
+        explanation: 'A left MCA occlusion affects the left hemisphere: contralateral (right) motor and sensory loss, plus aphasia because Broca’s area lies in the frontal lobe within the MCA territory.',
+        src: { ref: 'hss.mooc2', location: 'p5 "Left middle cerebral artery" — "Aphasia, right body side sensory and motor paralysis"' } },
+      { type: 'cloze', prompt: 'The two vertebral arteries fuse to form the ______ artery.', accept: ['basilar', 'basilar artery'],
+        explanation: 'The vertebral arteries ascend within the transverse foramina, enter at the foramen magnum, and fuse to form the basilar artery, which supplies the posterior part of the cerebral arterial circle.',
+        src: { ref: 'hss.mooc2', location: 'p4 "2 vertebral arteries fuse to form basilar artery"' } },
+      { type: 'cloze', prompt: 'The primary motor cortex is located on the precentral gyrus, immediately ______ to the central sulcus.', accept: ['anterior'],
+        explanation: 'The precentral gyrus (primary motor cortex) is immediately anterior to the central sulcus; a lesion here from an MCA stroke affects contralateral motor function.',
+        src: { ref: 'hss.fib5yr', location: 'p13 "the primary motor cortex" — "located immediately anterior to the central" — "sulcus"' } },
+      { type: 'mcq', prompt: 'Why is a lower brainstem stroke commonly fatal?', options: ['It destroys the visual cortex', 'It interrupts the cardiac, vasomotor and respiratory centres of the medulla', 'It blocks CSF reabsorption', 'It damages Broca’s area'], answer: 1,
+        explanation: 'The medulla oblongata houses the vital autonomic centres; a lower-brainstem stroke that interrupts them stops spontaneous breathing and cardiovascular control.',
+        src: { ref: 'hss.mooc2', location: 'p5 "Lower brain stem" — "Commonly fatal"' } },
+    ],
+    application: [
+      { type: 'scenario', prompt: 'A patient has right-sided face and arm weakness with sensory loss and cannot produce fluent speech, though they follow commands. Localise the lesion to a hemisphere and an artery, and justify each step.',
+        model: 'Left hemisphere, middle cerebral artery. The right-sided motor and sensory loss localises to the left hemisphere because both the descending motor tract (crossing at the medullary pyramids) and the ascending sensory pathway (crossing in the 2nd-order neuron) mean the left cortex serves the right body. The face-and-arm pattern with preserved comprehension but impaired speech output fits the middle cerebral artery territory over the lateral surface, which carries the motor and sensory strips and Broca’s area in the frontal lobe.',
+        rubric: ['States left hemisphere and explains it via decussation', 'Names the middle cerebral artery and its lateral-surface territory', 'Attributes the speech deficit to Broca’s area in the frontal lobe'] },
+    ],
+    commonMistakes: [
+      'Localising the weakness to the same side as the brain lesion — the tracts have already crossed.',
+      'Placing the primary motor cortex behind the central sulcus — that is the sensory strip; motor is anterior.',
+      'Thinking the circle of Willis prevents all strokes — it "reduces the probability" of a circulation interruption, it does not abolish it.',
+    ],
+    skills: [
+      'Two questions localise any stroke: which side of the body (opposite hemisphere) and which functions (which artery). Face + arm + leg + speech on one side is a middle cerebral artery stroke of the other hemisphere.',
+      'Anterior vs posterior circulation is the branch point: carotid -> anterior/middle cerebral for the hemispheres; vertebral -> basilar -> posterior cerebral for the brainstem and occipital lobe. Brainstem signs (or a fatal course) point posterior.',
+      'The "Mr LAW" case is the same three facts every year: left MCA, right-body weakness (decussation), vocalisation trouble (Broca’s, frontal lobe).',
+    ],
+    selfCheck: 'From a blank page: where the sensory and motor tracts cross; why a left-brain stroke weakens the right body; the MCA territory and the deficits it produces on each side; the vertebral-to-basilar-to-posterior-cerebral route; what the circle of Willis is for.',
+    visuals: [
+      { fig: 'arteriesOfBrain' },
+      { model: { layer: 'circulatory', meshes: ['Anterior cerebral artery', 'Anterior communicating artery', 'Posterior communicating artery', 'Posterior cerebral artery', 'Basilar artery', 'Vertebral artery'], label: 'The cerebral arterial circle', caption: 'The circle of Willis on the model: anterior and posterior cerebral arteries joined by the anterior and posterior communicating arteries, fed from the front by the internal carotids and from behind by the vertebral–basilar system.' } },
+      { gen: true },
+    ],
+    sourceRefs: [
+      { ref: 'hss.mooc3', location: 'p2 "3 neurons: 1st, 2nd, 3rd neuron" — "in 2nd neuron" — "left cerebral cortex: sensory information of right body"' },
+      { ref: 'hss.mooc3', location: 'p4 "Upper Motor Neuron: in the cortex" — "Lower Motor Neuron: in the brainstem or spinal cord" — "damages the motor centers of one side of the brain will cause loss of function of the opposite side of"' },
+      { ref: 'hss.mooc3', location: 'p24 "Striate cortex (IV layer) of occipital lobe" — "9 pathways form cortex to thalamus (filtering data)"' },
+      { ref: 'hss.mooc2', location: 'p4 "Anterior cerebral artery" — "frontal and parietal lobes" — "Middle cerebral artery" — "lateral surfaces of the cerebral hemispheres" — "ascend within the transverse foramina" — "enter the cranium" — "at the foramen magnum" — "2 vertebral arteries fuse to form basilar artery"' },
+      { ref: 'hss.mooc2', location: 'p5 "encircles the infundibulum of the pituitary gland" — "reduces probability of interruption of circulation" — "Left middle cerebral artery" — "Aphasia, right body side sensory and motor paralysis" — "Right middle cerebral artery" — "Lower brain stem" — "Commonly fatal"' },
+      { ref: 'hss.2.3', location: 'p7 "Precentral gyrus (primary motor)" — "it controls the muscles & joints movements of the contralateral side"; p9 "Decussation" — "of pyramids"' },
+      { ref: 'hss.fib5yr', location: 'p13 "occlusion (blockage) in his left middle cerebral" — "He cannot move the right side of his body" — "the primary motor cortex" — "located immediately anterior to the central" — "descending tracts decussate at the pyramids of the medulla" — "difficulty in vocalization suggesting that the Broca" — "frontal lobe also has damage."' },
+      { ref: 'hss.fib5yr', location: 'p15 "Two vertebral arteries united to form the basilar artery which ascends along the" — "supplies the posterior part of the" — "cerebral arterial circle."' },
+    ],
+  },
+
+  /* ========================================================================
    * WEEK 8: CARDIOVASCULAR SYSTEM (Module 3)
    * ======================================================================== */
   {
