@@ -1,9 +1,11 @@
 # Syllabus depth and lesson visuals
 
-The user requests implementation: longer, more complete lessons for the weeks that
-are currently thin, and many more images and visualisations per lesson including on
-lessons that already exist. The concern is missing examinable material and studying
-anatomy from prose with no picture.
+The user requests implementation: a depth and visuals pass over **every lesson in the
+corpus**, not only the weeks that are currently thin. Each existing item is rewritten
+to full coverage of its sub-topic; new items are added wherever a lecture's material
+is not yet all taught; every lesson gains topic-appropriate visual density in place of
+its single figure. The concern is missing examinable material and studying anatomy
+from prose with no picture.
 
 ## What is wrong now
 
@@ -16,8 +18,9 @@ lists and how long each item's `lesson` is, nothing structural.
 Item counts per teaching week (lecture weeks only): HSS2011 W1 23, then W2–W12 run
 4–7; ABCT2326 W1 11, then 3–8; HTI17103 1–6; APSS1A08 and DSAI1202 have Week 1 only.
 Week 1 is large because every subject's foundational unit sits there and the enriched
-2026 decks are almost all Week-1 decks. Lesson bodies for the thin weeks average
-1100–2200 chars against lecture decks of 18–62 pages.
+2026 decks are almost all Week-1 decks. Lesson bodies average 1100–2200 chars corpus
+wide — the thin weeks lowest, but even the well-covered Week 1 sets (`hss.osteo` ~1120)
+sit well under the depth target — against lecture decks of 18–62 pages.
 
 Visuals: `visualSlotHTML(item)` in `outputs/study/lesson-visuals.js` renders exactly
 one `<figure>` per lesson — a 3D model view, one published figure, one schematic, one
@@ -54,17 +57,24 @@ No unit restructuring. New items reuse an existing module `unit` key and are wir
 
 ## Depth target
 
-Each 2-hour lecture resolves to 6–9 study items. Each item is a long-form treatment of
-one sub-topic (~3000–5000 chars in `lesson`), covering everything the lecture deck
-presents on that sub-topic, every factual sentence page-cited, `commonMistakes` drawn
-from past-paper distractors where they exist. Net effect on the thin weeks is roughly
-double the item count and 2–2.5× the prose volume.
+Every study item — the ~161 that exist and every one added — is a long-form treatment
+of its sub-topic (~3000–5000 chars in `lesson`), covering everything its sources
+present on that sub-topic, every factual sentence page-cited, `commonMistakes` drawn
+from past-paper distractors where they exist. Each 2-hour lecture resolves to 6–9 such
+items; a lecture currently under that count gains items until its deck is fully taught.
+
+Depth is still source-bounded. A well-covered week (HSS Week 1, ABCT Week 1) can go to
+the full target. A lesson whose only source is one short document — several APSS topics,
+the DSAI Week 1 lesson — can only go as deep as that document allows and will stay
+shorter. That is correct, not a failure; the spec does not licence inventing content to
+hit a character count.
 
 ## Visual density target
 
-Varies by topic, decided per item: structure-heavy anatomy lessons carry 4+ visuals
-(primary figure, detail views, a schematic, a 3D view), concept and physiology lessons
-2–3. Every raster figure is free-licensed and fetched through `fetch-figure.mjs`;
+Every lesson, every week. Density varies by topic, decided per item: structure-heavy
+anatomy lessons carry 4+ visuals (primary figure, detail views, a schematic, a 3D
+view), concept and physiology lessons 2–3, a lesson with genuinely little to depict
+keeps 1. Every raster figure is free-licensed and fetched through `fetch-figure.mjs`;
 schematics and generated layouts are app-authored and unlimited; 3D model views cost
 nothing new. Every figure keeps its `intro` + callout `key`, enforced across the new
 list form by `work/figure-key-check.mjs`.
@@ -100,33 +110,40 @@ SP0, so `validateCorpus()` stays at 0 and `source-check` is untouched.
 
 ## SP1 — pilot: HSS2011 Module 2, weeks 5–7
 
-Neuroanatomy (W5), brain and cranial nerves (W6), special senses (W7). 13 → ~20 items.
-Sources: `hss.2.2`, `hss.2.3`, `hss.special.2017`, `hss.mooc3`, `hss.pp1718`,
-`hss.ppans`, `hss.fib5yr` — all cached. Each item long-form and fully cited; 2–5
-visuals per item from Wikimedia / OpenStax / Gray's plus new schematics for the
-pathways (visual, auditory, vestibular, CN distribution) and 3D views from the nervous
-and organs layers. Item ids wired into `WEEK_STUDY.HSS2011[5..7]`.
-`node work/coverage-gap.mjs --list HSS2011` run afterwards; every document it lists that
-is left out is recorded in the plan with the reason.
+Neuroanatomy (W5), brain and cranial nerves (W6), special senses (W7). The 13 current
+items rewritten to the depth target, ~7 added → ~20. Sources: `hss.2.2`, `hss.2.3`,
+`hss.special.2017`, `hss.mooc3`, `hss.pp1718`, `hss.ppans`, `hss.fib5yr` — all cached.
+Each item long-form and fully cited; 2–5 visuals per item from Wikimedia / OpenStax /
+Gray's plus new schematics for the pathways (visual, auditory, vestibular, CN
+distribution) and 3D views from the nervous and organs layers. New item ids wired into
+`WEEK_STUDY.HSS2011[5..7]`. `node work/coverage-gap.mjs --list HSS2011` run afterwards;
+every document it lists that is left out is recorded in the plan with the reason.
 
-**Review gate.** The user reads the finished pilot in the app before SP2–SP6 start.
+**Review gate.** The user reads the finished pilot in the app before the rest start.
 The pilot is where the real per-lecture depth and the real achievable visual count get
 confirmed against an actual week; the targets above are provisional until then.
 
-## SP2–SP6 — rollout, each its own spec → plan → review
+## Rollout — each its own spec → plan → review
+
+Every sub-project is the same operation: rewrite that scope's existing items to the
+depth target, add items until each lecture's deck is fully taught, attach a `visuals`
+list to every lesson, wire new ids into `WEEK_STUDY`, record the `coverage-gap` residue.
 
 - SP2 HSS2011 W8–W10 — cardiovascular, respiratory, thoracic regional anatomy.
   Sources `hss.1.1`, `hss.1.2`, `hss.1.3`, `hss.resp`, `hss.thorax.deck`, `hss.1920.*`.
 - SP3 HSS2011 W11–W12 — digestive, urogenital. Sources `hss.3.1`–`hss.3.3`,
   `hss.3.1.2019`, `hss.3.3.2019`.
-- SP4 ABCT2326 W2–W5 — cardiovascular, respiratory, digestive, renal.
-- SP5 ABCT2326 W7–W9, W11–W13 — endocrine, nervous, musculoskeletal, immune.
-- SP6 HTI17103 W4–W5 — radiation protection, modality choice. Smallest.
-
-## SP7 — visual backfill
-
-HSS2011 weeks 1–4 and the retained ABCT/HTI/APSS/DSAI lessons are brought up to the
-SP0 visual density. No lesson text changes; `visuals` lists added, figures fetched.
+- SP4 HSS2011 W1–W4 — terminology, osteology, joints, skull and vertebral column. The
+  largest existing item set (~35), currently the shortest on average. Sources
+  `hss.w1.2026`, `hss.msk.2026`, `hss.move.2026`, `hss.4.1`–`hss.4.3`, `hss.manual1920`,
+  the FIB and past papers.
+- SP5 ABCT2326 W1–W5 — cell and tissue, cardiovascular, respiratory, digestive, renal.
+- SP6 ABCT2326 W7–W9, W11–W13 — endocrine, nervous, musculoskeletal, immune.
+- SP7 HTI17103 W1–W5 — deep-pass the 13 existing items, expand W4 (radioprotection)
+  and W5 (modality choice) to their decks.
+- SP8 APSS1A08 W1 + DSAI1202 W1 — deep-pass the ~8 existing items and add visuals,
+  within the single source each has. No new coverage; the later weeks stay documented
+  gaps.
 
 ## Done when
 
