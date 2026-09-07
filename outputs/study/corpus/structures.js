@@ -97,7 +97,7 @@ export const STRUCTURE_SETS = {
     sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p15 vertebral column; p21 general structure; p28–29 cervical vertebrae' }],
   },
   heartChambers: {
-    id: 'heartChambers', label: 'Heart chambers and valves', subject: 'ABCT2326', unit: 'phys.cvs',
+    id: 'heartChambers', label: 'Heart chambers and valves', subject: 'HSS2011', unit: 'hss.m1',
     model: 'circulatory', view: 'thorax', paired: false,
     anchors: ['ra', 'lv'],
     members: [
@@ -114,7 +114,7 @@ export const STRUCTURE_SETS = {
     modelGap: 'The aortic valve leaflets are not separately named in this model, and neither is the conducting system.',
   },
   greatVessels: {
-    id: 'greatVessels', label: 'Great vessels of the heart', subject: 'ABCT2326', unit: 'phys.cvs',
+    id: 'greatVessels', label: 'Great vessels of the heart', subject: 'HSS2011', unit: 'hss.m1',
     model: 'circulatory', view: 'thorax', paired: false,
     anchors: ['aorticarch'],
     members: [
@@ -130,7 +130,7 @@ export const STRUCTURE_SETS = {
     sourceRefs: [{ ref: 'phys.2', location: 'Slides 18–20 pulmonary and systemic circulations; Figure 20-1' }, { ref: 'hss.revans', location: 'HSS2011 Module 1.2 and 1.3 answers' }],
   },
   airwayTree: {
-    id: 'airwayTree', label: 'The airway and the lung lobes', subject: 'ABCT2326', unit: 'phys.resp',
+    id: 'airwayTree', label: 'The airway and the lung lobes', subject: 'HSS2011', unit: 'hss.m1',
     model: 'organs', view: 'thorax', paired: false,
     anchors: ['trachea'],
     members: [
@@ -150,7 +150,7 @@ export const STRUCTURE_SETS = {
     sourceRefs: [{ ref: 'phys.3', location: 'Slides 5–7 organisation of the respiratory system, the respiratory tract' }, { ref: 'hss.1.1', location: 'Cardiovascular system and lungs — pleura and lung surfaces' }],
   },
   urinaryTract: {
-    id: 'urinaryTract', label: 'The urinary tract', subject: 'ABCT2326', unit: 'phys.renal',
+    id: 'urinaryTract', label: 'The urinary tract', subject: 'HSS2011', unit: 'hss.m3',
     model: 'organs', view: 'abdomen', paired: false,
     anchors: ['kidney'],
     members: [
@@ -164,7 +164,7 @@ export const STRUCTURE_SETS = {
     sourceRefs: [{ ref: 'phys.5', location: 'Slides 4–5 structure of the urinary system and the kidney' }, { ref: 'hss.3.2', location: 'Urogenital system lecture' }],
   },
   digestiveTract: {
-    id: 'digestiveTract', label: 'The digestive tract and its accessory organs', subject: 'ABCT2326', unit: 'phys.dig',
+    id: 'digestiveTract', label: 'The digestive tract and its accessory organs', subject: 'HSS2011', unit: 'hss.m3',
     model: 'organs', view: 'abdomen', paired: false,
     anchors: ['stomach'],
     members: [

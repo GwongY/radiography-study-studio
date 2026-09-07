@@ -523,72 +523,6 @@ export const Y1S1_SOURCE_MAP = {
       ],
       "reasons": []
     },
-    "hss2011-bone-clavicle": {
-      "id": "hss2011-bone-clavicle",
-      "subject": "HSS2011",
-      "week": 2,
-      "title": "Clavicle",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.4.3",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-scapula": {
-      "id": "hss2011-bone-scapula",
-      "subject": "HSS2011",
-      "week": 2,
-      "title": "Scapula",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.4.3",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-humerus": {
-      "id": "hss2011-bone-humerus",
-      "subject": "HSS2011",
-      "week": 2,
-      "title": "Humerus",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.4.3",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
     "hss2011-osteo-forearm-carpals": {
       "id": "hss2011-osteo-forearm-carpals",
       "subject": "HSS2011",
@@ -615,72 +549,6 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.revans",
           "set": "old",
           "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-radius": {
-      "id": "hss2011-bone-radius",
-      "subject": "HSS2011",
-      "week": 2,
-      "title": "Radius",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.4.3",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-ulna": {
-      "id": "hss2011-bone-ulna",
-      "subject": "HSS2011",
-      "week": 2,
-      "title": "Ulna",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.4.3",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-hand": {
-      "id": "hss2011-bone-hand",
-      "subject": "HSS2011",
-      "week": 2,
-      "title": "Hand bones",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.4.3",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
         }
       ],
       "reasons": [
@@ -751,110 +619,6 @@ export const Y1S1_SOURCE_MAP = {
         "citation has no verifiable page or quoted section/slide"
       ]
     },
-    "hss2011-movement-shoulderAbduction": {
-      "id": "hss2011-movement-shoulderAbduction",
-      "subject": "HSS2011",
-      "week": 2,
-      "title": "Abduction of the arm",
-      "status": "complete",
-      "sources": [
-        {
-          "ref": "hss.move.2026",
-          "set": "new",
-          "role": "current-primary"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-supporting"
-        },
-        {
-          "ref": "hss.4.3",
-          "set": "old",
-          "role": "older-supporting"
-        }
-      ],
-      "reasons": []
-    },
-    "hss2011-movement-elbowFlexion": {
-      "id": "hss2011-movement-elbowFlexion",
-      "subject": "HSS2011",
-      "week": 2,
-      "title": "Elbow flexion and extension",
-      "status": "complete",
-      "sources": [
-        {
-          "ref": "hss.move.2026",
-          "set": "new",
-          "role": "current-primary"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-supporting"
-        },
-        {
-          "ref": "hss.4.3",
-          "set": "old",
-          "role": "older-supporting"
-        }
-      ],
-      "reasons": []
-    },
-    "hss2011-movement-supination": {
-      "id": "hss2011-movement-supination",
-      "subject": "HSS2011",
-      "week": 2,
-      "title": "Supination and pronation",
-      "status": "complete",
-      "sources": [
-        {
-          "ref": "hss.move.2026",
-          "set": "new",
-          "role": "current-primary"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-supporting"
-        },
-        {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-movement-thumbOpposition": {
-      "id": "hss2011-movement-thumbOpposition",
-      "subject": "HSS2011",
-      "week": 2,
-      "title": "Opposition of the thumb",
-      "status": "complete",
-      "sources": [
-        {
-          "ref": "hss.move.2026",
-          "set": "new",
-          "role": "current-primary"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-supporting"
-        },
-        {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
     "hss2011-osteo-pelvic-girdle": {
       "id": "hss2011-osteo-pelvic-girdle",
       "subject": "HSS2011",
@@ -877,72 +641,6 @@ export const Y1S1_SOURCE_MAP = {
         "citation has no verifiable page or quoted section/slide"
       ]
     },
-    "hss2011-bone-pelvis": {
-      "id": "hss2011-bone-pelvis",
-      "subject": "HSS2011",
-      "week": 3,
-      "title": "Hip bone",
-      "status": "needs-review",
-      "sources": [
-        {
-          "ref": "hss.4.3",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-femur": {
-      "id": "hss2011-bone-femur",
-      "subject": "HSS2011",
-      "week": 3,
-      "title": "Femur",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.4.3",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-patella": {
-      "id": "hss2011-bone-patella",
-      "subject": "HSS2011",
-      "week": 3,
-      "title": "Patella",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.4.3",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
     "hss2011-osteo-leg-tarsals": {
       "id": "hss2011-osteo-leg-tarsals",
       "subject": "HSS2011",
@@ -959,72 +657,6 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.revans",
           "set": "old",
           "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-tibia": {
-      "id": "hss2011-bone-tibia",
-      "subject": "HSS2011",
-      "week": 3,
-      "title": "Tibia",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.4.3",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-fibula": {
-      "id": "hss2011-bone-fibula",
-      "subject": "HSS2011",
-      "week": 3,
-      "title": "Fibula",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.4.3",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-foot": {
-      "id": "hss2011-bone-foot",
-      "subject": "HSS2011",
-      "week": 3,
-      "title": "Foot bones",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.4.3",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
         }
       ],
       "reasons": [
@@ -1085,50 +717,6 @@ export const Y1S1_SOURCE_MAP = {
         },
         {
           "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-cranium": {
-      "id": "hss2011-bone-cranium",
-      "subject": "HSS2011",
-      "week": 4,
-      "title": "Cranium",
-      "status": "needs-review",
-      "sources": [
-        {
-          "ref": "hss.4.2",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.vocab",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-mandible": {
-      "id": "hss2011-bone-mandible",
-      "subject": "HSS2011",
-      "week": 4,
-      "title": "Mandible",
-      "status": "needs-review",
-      "sources": [
-        {
-          "ref": "hss.4.2",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.vocab",
           "set": "old",
           "role": "needs-review"
         }
@@ -1232,116 +820,6 @@ export const Y1S1_SOURCE_MAP = {
         },
         {
           "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-cervical": {
-      "id": "hss2011-bone-cervical",
-      "subject": "HSS2011",
-      "week": 4,
-      "title": "Cervical vertebrae",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.vocab",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-thoracic": {
-      "id": "hss2011-bone-thoracic",
-      "subject": "HSS2011",
-      "week": 4,
-      "title": "Thoracic vertebrae",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.vocab",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-lumbar": {
-      "id": "hss2011-bone-lumbar",
-      "subject": "HSS2011",
-      "week": 4,
-      "title": "Lumbar vertebrae",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.vocab",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-sacrum": {
-      "id": "hss2011-bone-sacrum",
-      "subject": "HSS2011",
-      "week": 4,
-      "title": "Sacrum",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.vocab",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-coccyx": {
-      "id": "hss2011-bone-coccyx",
-      "subject": "HSS2011",
-      "week": 4,
-      "title": "Coccyx",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.vocab",
           "set": "old",
           "role": "needs-review"
         }
@@ -1575,6 +1053,50 @@ export const Y1S1_SOURCE_MAP = {
         "citation has no verifiable page or quoted section/slide"
       ]
     },
+    "hss2011-structures-heartChambers": {
+      "id": "hss2011-structures-heartChambers",
+      "subject": "HSS2011",
+      "week": 8,
+      "title": "Heart chambers and valves",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.1.2",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
+    "hss2011-structures-greatVessels": {
+      "id": "hss2011-structures-greatVessels",
+      "subject": "HSS2011",
+      "week": 8,
+      "title": "Great vessels of the heart",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
     "hss2011-m1-lungs-airway": {
       "id": "hss2011-m1-lungs-airway",
       "subject": "HSS2011",
@@ -1612,6 +1134,28 @@ export const Y1S1_SOURCE_MAP = {
         "citation has no verifiable page or quoted section/slide"
       ]
     },
+    "hss2011-structures-airwayTree": {
+      "id": "hss2011-structures-airwayTree",
+      "subject": "HSS2011",
+      "week": 9,
+      "title": "The airway and the lung lobes",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.1.1",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
     "hss2011-osteo-ribs-sternum": {
       "id": "hss2011-osteo-ribs-sternum",
       "subject": "HSS2011",
@@ -1633,50 +1177,6 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.revans",
           "set": "old",
           "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-ribs": {
-      "id": "hss2011-bone-ribs",
-      "subject": "HSS2011",
-      "week": 10,
-      "title": "Ribs",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.1.3",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-bone-sternum": {
-      "id": "hss2011-bone-sternum",
-      "subject": "HSS2011",
-      "week": 10,
-      "title": "Sternum",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.1.3",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
         }
       ],
       "reasons": [
@@ -1730,6 +1230,28 @@ export const Y1S1_SOURCE_MAP = {
         "citation has no verifiable page or quoted section/slide"
       ]
     },
+    "hss2011-structures-digestiveTract": {
+      "id": "hss2011-structures-digestiveTract",
+      "subject": "HSS2011",
+      "week": 11,
+      "title": "The digestive tract and its accessory organs",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.4",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.3.1",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
     "hss2011-m3-urogenital-pelvis": {
       "id": "hss2011-m3-urogenital-pelvis",
       "subject": "HSS2011",
@@ -1754,6 +1276,28 @@ export const Y1S1_SOURCE_MAP = {
         },
         {
           "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
+    "hss2011-structures-urinaryTract": {
+      "id": "hss2011-structures-urinaryTract",
+      "subject": "HSS2011",
+      "week": 12,
+      "title": "The urinary tract",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.5",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.3.2",
           "set": "old",
           "role": "needs-review"
         }
@@ -1939,50 +1483,6 @@ export const Y1S1_SOURCE_MAP = {
       ],
       "reasons": []
     },
-    "hss2011-structures-heartChambers": {
-      "id": "hss2011-structures-heartChambers",
-      "subject": "ABCT2326",
-      "week": 2,
-      "title": "Heart chambers and valves",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "phys.2",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.1.2",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-structures-greatVessels": {
-      "id": "hss2011-structures-greatVessels",
-      "subject": "ABCT2326",
-      "week": 2,
-      "title": "Great vessels of the heart",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "phys.2",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
     "abct2326-cvs-circuits": {
       "id": "abct2326-cvs-circuits",
       "subject": "ABCT2326",
@@ -2079,28 +1579,6 @@ export const Y1S1_SOURCE_MAP = {
         }
       ],
       "reasons": []
-    },
-    "hss2011-structures-airwayTree": {
-      "id": "hss2011-structures-airwayTree",
-      "subject": "ABCT2326",
-      "week": 3,
-      "title": "The airway and the lung lobes",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "phys.3",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.1.1",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
     },
     "abct2326-resp-pathway": {
       "id": "abct2326-resp-pathway",
@@ -2219,28 +1697,6 @@ export const Y1S1_SOURCE_MAP = {
       ],
       "reasons": []
     },
-    "hss2011-structures-digestiveTract": {
-      "id": "hss2011-structures-digestiveTract",
-      "subject": "ABCT2326",
-      "week": 4,
-      "title": "The digestive tract and its accessory organs",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "phys.4",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.3.1",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
     "abct2326-digestive-pathway": {
       "id": "abct2326-digestive-pathway",
       "subject": "ABCT2326",
@@ -2315,28 +1771,6 @@ export const Y1S1_SOURCE_MAP = {
         }
       ],
       "reasons": []
-    },
-    "hss2011-structures-urinaryTract": {
-      "id": "hss2011-structures-urinaryTract",
-      "subject": "ABCT2326",
-      "week": 5,
-      "title": "The urinary tract",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "phys.5",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.3.2",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
     },
     "abct2326-renal-nephron": {
       "id": "abct2326-renal-nephron",
@@ -3221,46 +2655,23 @@ export const Y1S1_SOURCE_MAP = {
       "2": [
         "hss2011-joints-movement-map-2026",
         "hss2011-osteo-pectoral-girdle",
-        "hss2011-bone-clavicle",
-        "hss2011-bone-scapula",
-        "hss2011-bone-humerus",
         "hss2011-osteo-forearm-carpals",
-        "hss2011-bone-radius",
-        "hss2011-bone-ulna",
-        "hss2011-bone-hand",
         "hss2011-structures-carpals",
         "hss2011-structures-rotatorCuff",
-        "hss2011-joints-rotator-cuff",
-        "hss2011-movement-shoulderAbduction",
-        "hss2011-movement-elbowFlexion",
-        "hss2011-movement-supination",
-        "hss2011-movement-thumbOpposition"
+        "hss2011-joints-rotator-cuff"
       ],
       "3": [
         "hss2011-osteo-pelvic-girdle",
-        "hss2011-bone-pelvis",
-        "hss2011-bone-femur",
-        "hss2011-bone-patella",
         "hss2011-osteo-leg-tarsals",
-        "hss2011-bone-tibia",
-        "hss2011-bone-fibula",
-        "hss2011-bone-foot",
         "hss2011-structures-tarsals",
         "hss2011-structures-kneeJoint"
       ],
       "4": [
         "hss2011-osteo-skull-sutures",
-        "hss2011-bone-cranium",
-        "hss2011-bone-mandible",
         "hss2011-structures-skullBones",
         "hss2011-osteo-vertebra-parts",
         "hss2011-osteo-vertebral-column",
         "hss2011-osteo-c1-c2",
-        "hss2011-bone-cervical",
-        "hss2011-bone-thoracic",
-        "hss2011-bone-lumbar",
-        "hss2011-bone-sacrum",
-        "hss2011-bone-coccyx",
         "hss2011-structures-vertebralRegions"
       ],
       "5": [
@@ -3278,22 +2689,25 @@ export const Y1S1_SOURCE_MAP = {
         "hss2011-m2-taste-smell"
       ],
       "8": [
-        "hss2011-m1-heart-wall-valves"
+        "hss2011-m1-heart-wall-valves",
+        "hss2011-structures-heartChambers",
+        "hss2011-structures-greatVessels"
       ],
       "9": [
-        "hss2011-m1-lungs-airway"
+        "hss2011-m1-lungs-airway",
+        "hss2011-structures-airwayTree"
       ],
       "10": [
         "hss2011-osteo-ribs-sternum",
-        "hss2011-bone-ribs",
-        "hss2011-bone-sternum",
         "hss2011-thorax-regional-landmarks"
       ],
       "11": [
-        "hss2011-m3-digestive"
+        "hss2011-m3-digestive",
+        "hss2011-structures-digestiveTract"
       ],
       "12": [
-        "hss2011-m3-urogenital-pelvis"
+        "hss2011-m3-urogenital-pelvis",
+        "hss2011-structures-urinaryTract"
       ]
     },
     "ABCT2326": {
@@ -3311,8 +2725,6 @@ export const Y1S1_SOURCE_MAP = {
         "abct2326-feedback-loops"
       ],
       "2": [
-        "hss2011-structures-heartChambers",
-        "hss2011-structures-greatVessels",
         "abct2326-cvs-circuits",
         "abct2326-cvs-heart-structure",
         "abct2326-blood-composition",
@@ -3321,7 +2733,6 @@ export const Y1S1_SOURCE_MAP = {
         "abct2326-cvs-hemodynamics-tutorial"
       ],
       "3": [
-        "hss2011-structures-airwayTree",
         "abct2326-resp-pathway",
         "abct2326-resp-ventilation-mechanics",
         "abct2326-resp-lung-volumes",
@@ -3331,7 +2742,6 @@ export const Y1S1_SOURCE_MAP = {
         "abct2326-resp-ventilation-chemoreceptors"
       ],
       "4": [
-        "hss2011-structures-digestiveTract",
         "abct2326-digestive-pathway",
         "abct2326-digestive-wall-motility",
         "abct2326-digestive-stomach-control",
@@ -3339,7 +2749,6 @@ export const Y1S1_SOURCE_MAP = {
         "abct2326-digestive-hormones-colon"
       ],
       "5": [
-        "hss2011-structures-urinaryTract",
         "abct2326-renal-nephron",
         "abct2326-renal-filtration-countercurrent",
         "abct2326-renal-countercurrent-vasarecta",
@@ -3516,87 +2925,12 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-bone-clavicle",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-scapula",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-humerus",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
         "lessonId": "hss2011-osteo-forearm-carpals",
         "set": "old",
         "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-bone-radius",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-ulna",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-hand",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
         "lessonId": "hss2011-structures-carpals",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-movement-shoulderAbduction",
-        "set": "old",
-        "role": "older-supporting"
-      },
-      {
-        "lessonId": "hss2011-movement-elbowFlexion",
-        "set": "old",
-        "role": "older-supporting"
-      },
-      {
-        "lessonId": "hss2011-movement-supination",
-        "set": "old",
-        "role": "older-supporting"
-      },
-      {
-        "lessonId": "hss2011-movement-thumbOpposition",
-        "set": "old",
-        "role": "older-supporting"
-      },
-      {
-        "lessonId": "hss2011-bone-femur",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-patella",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-tibia",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-fibula",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-foot",
         "set": "old",
         "role": "older-fallback"
       },
@@ -3621,42 +2955,7 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-bone-cervical",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-thoracic",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-lumbar",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-sacrum",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-coccyx",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
         "lessonId": "hss2011-structures-vertebralRegions",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-ribs",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-sternum",
         "set": "old",
         "role": "older-fallback"
       }
@@ -3679,41 +2978,6 @@ export const Y1S1_SOURCE_MAP = {
       },
       {
         "lessonId": "hss2011-osteo-axial-appendicular",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-cranium",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-mandible",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-cervical",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-thoracic",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-lumbar",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-sacrum",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-coccyx",
         "set": "old",
         "role": "needs-review"
       },
@@ -3871,22 +3135,7 @@ export const Y1S1_SOURCE_MAP = {
         "role": "needs-review"
       },
       {
-        "lessonId": "hss2011-movement-supination",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-movement-thumbOpposition",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
         "lessonId": "hss2011-osteo-pelvic-girdle",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-pelvis",
         "set": "old",
         "role": "needs-review"
       },
@@ -3946,6 +3195,11 @@ export const Y1S1_SOURCE_MAP = {
         "role": "needs-review"
       },
       {
+        "lessonId": "hss2011-structures-greatVessels",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
         "lessonId": "hss2011-m1-lungs-airway",
         "set": "old",
         "role": "needs-review"
@@ -3967,11 +3221,6 @@ export const Y1S1_SOURCE_MAP = {
       },
       {
         "lessonId": "abct2326-cells-organisation",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-structures-greatVessels",
         "set": "old",
         "role": "needs-review"
       },
@@ -4075,26 +3324,6 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "hss2011-joints-movement-map-2026",
         "set": "new",
         "role": "current-primary"
-      },
-      {
-        "lessonId": "hss2011-movement-shoulderAbduction",
-        "set": "new",
-        "role": "current-primary"
-      },
-      {
-        "lessonId": "hss2011-movement-elbowFlexion",
-        "set": "new",
-        "role": "current-primary"
-      },
-      {
-        "lessonId": "hss2011-movement-supination",
-        "set": "new",
-        "role": "current-primary"
-      },
-      {
-        "lessonId": "hss2011-movement-thumbOpposition",
-        "set": "new",
-        "role": "current-primary"
       }
     ],
     "hss.ga.topics": [
@@ -4116,39 +3345,9 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-bone-clavicle",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-scapula",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-humerus",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
         "lessonId": "hss2011-osteo-forearm-carpals",
         "set": "old",
         "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-radius",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-ulna",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-hand",
-        "set": "old",
-        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-carpals",
@@ -4166,54 +3365,14 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-movement-shoulderAbduction",
-        "set": "old",
-        "role": "older-supporting"
-      },
-      {
-        "lessonId": "hss2011-movement-elbowFlexion",
-        "set": "old",
-        "role": "older-supporting"
-      },
-      {
         "lessonId": "hss2011-osteo-pelvic-girdle",
         "set": "old",
         "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-bone-pelvis",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-femur",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-patella",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
         "lessonId": "hss2011-osteo-leg-tarsals",
         "set": "old",
         "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-bone-tibia",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-fibula",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-foot",
-        "set": "old",
-        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-tarsals",
@@ -4246,16 +3405,6 @@ export const Y1S1_SOURCE_MAP = {
     "hss.4.2": [
       {
         "lessonId": "hss2011-osteo-skull-sutures",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-cranium",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-mandible",
         "set": "old",
         "role": "needs-review"
       },
@@ -4375,14 +3524,14 @@ export const Y1S1_SOURCE_MAP = {
         "role": "needs-review"
       },
       {
-        "lessonId": "hss2011-m1-lungs-airway",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
         "lessonId": "hss2011-structures-heartChambers",
         "set": "old",
         "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-m1-lungs-airway",
+        "set": "old",
+        "role": "older-fallback"
       },
       {
         "lessonId": "abct2326-resp-pathway",
@@ -4407,6 +3556,48 @@ export const Y1S1_SOURCE_MAP = {
         "role": "needs-review"
       }
     ],
+    "phys.2": [
+      {
+        "lessonId": "hss2011-structures-heartChambers",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-structures-greatVessels",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-cvs-circuits",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-cvs-heart-structure",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-blood-composition",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-cvs-conduction",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-cvs-ecg-cycle",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-msk-immune-overview",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
     "hss.resp": [
       {
         "lessonId": "hss2011-m1-lungs-airway",
@@ -4417,16 +3608,6 @@ export const Y1S1_SOURCE_MAP = {
     "hss.1.3": [
       {
         "lessonId": "hss2011-osteo-ribs-sternum",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-ribs",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-bone-sternum",
         "set": "old",
         "role": "needs-review"
       }
@@ -4453,6 +3634,38 @@ export const Y1S1_SOURCE_MAP = {
     "hss.3.1.2019": [
       {
         "lessonId": "hss2011-m3-digestive",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
+    "phys.4": [
+      {
+        "lessonId": "hss2011-structures-digestiveTract",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-digestive-pathway",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-digestive-wall-motility",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-digestive-stomach-control",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-digestive-small-intestine-accessory",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-digestive-hormones-colon",
         "set": "old",
         "role": "older-fallback"
       }
@@ -4484,6 +3697,23 @@ export const Y1S1_SOURCE_MAP = {
     "hss.3.3.2019": [
       {
         "lessonId": "hss2011-m3-urogenital-pelvis",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
+    "phys.5": [
+      {
+        "lessonId": "hss2011-structures-urinaryTract",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-homeostasis",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-renal-nephron",
         "set": "old",
         "role": "older-fallback"
       }
@@ -4547,65 +3777,6 @@ export const Y1S1_SOURCE_MAP = {
         "role": "current-primary"
       }
     ],
-    "phys.5": [
-      {
-        "lessonId": "abct2326-homeostasis",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-structures-urinaryTract",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "abct2326-renal-nephron",
-        "set": "old",
-        "role": "older-fallback"
-      }
-    ],
-    "phys.2": [
-      {
-        "lessonId": "hss2011-structures-heartChambers",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-structures-greatVessels",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "abct2326-cvs-circuits",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "abct2326-cvs-heart-structure",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "abct2326-blood-composition",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "abct2326-cvs-conduction",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "abct2326-cvs-ecg-cycle",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "abct2326-msk-immune-overview",
-        "set": "old",
-        "role": "older-fallback"
-      }
-    ],
     "phys.cvs.tut": [
       {
         "lessonId": "abct2326-cvs-hemodynamics-tutorial",
@@ -4618,38 +3789,6 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "abct2326-resp-ventilation-chemoreceptors",
         "set": "old",
         "role": "assessment"
-      }
-    ],
-    "phys.4": [
-      {
-        "lessonId": "hss2011-structures-digestiveTract",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "abct2326-digestive-pathway",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "abct2326-digestive-wall-motility",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "abct2326-digestive-stomach-control",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "abct2326-digestive-small-intestine-accessory",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "abct2326-digestive-hormones-colon",
-        "set": "old",
-        "role": "older-fallback"
       }
     ],
     "phys.renal.deck": [

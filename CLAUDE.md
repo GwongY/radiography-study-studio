@@ -5,6 +5,17 @@ Settled content decisions (subject scope, source substitutions, what was deliber
 left out) live there and in the coverage report — do not re-open them without new
 source evidence.
 
+## App Mission & Guiding Principles
+
+This application is the student's **personal University study platform for HKPolyU Radiography Year 1 Semester 1**.
+
+1. **Not an Osteology Studio**: The app is no longer just a 3D bone viewer. The 3D studio is preserved as an interactive visual reference tool, NOT an engine for artificially decomposing the skeleton into micro-lessons. Do not generate isolated standalone lessons for individual bones, bony landmarks, or single joint motions.
+2. **Strict Syllabus & Timetable Alignment**: The curriculum strictly mirrors the user's university syllabus, weekly lectures, and tutorials across the 13-week teaching term for all enrolled subjects (HSS2011 Human Anatomy, ABCT2326 Human Physiology, HTI17103 Medical Radiation Science, APSS1A08 Sociology, DSAI1202 AI Literacy).
+3. **Taught and Tested Only**: Unrelated lessons or artificial curriculum filler must NOT be produced. Content must strictly teach what is delivered in lectures and tutorials, and test what appears in revision exercises, quizzes, mid-term tests, and final exam papers.
+4. **Source Precedence**:
+   - **Primary**: Current 2026/27 confirmed documents (syllabi, teaching schedules, 2026 lecture slides in `New source/`).
+   - **Support & Fallback**: Official older PolyU lecture slide decks, tutorial packets, and past examination papers on the shared drive where 2026 materials are not yet available.
+
 ## Find things here first
 
 **Read `docs/CODEMAP.md` before grepping.** Generated from the code's own banner
@@ -85,6 +96,10 @@ the last CACHE_VERSION rather than your edit.
   `source-check.mjs`. No internet research, no generic textbook expansion, no
   invented syllabus. App-authored memory aids are fine but must be tagged as such.
   `validateCorpus()` must stay at zero failures.
+- **Taught & tested syllabus scope.** Lessons must correspond strictly to real lecture topics,
+  tutorial case studies/problems, and examination scope. No synthetic micro-lessons
+  (e.g. generating individual lessons for every bone or movement) and no unverified
+  curriculum expansion.
 - **No build step, no framework, no bundler.** Plain HTML + vanilla ES modules is a
   product constraint, not an oversight.
 - **Patch `radiography-study-studio.html` directly.** Never re-run the old scratchpad

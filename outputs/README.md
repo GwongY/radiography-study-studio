@@ -1,8 +1,14 @@
 # Radiography Study Studio
 
-An offline-first personal self-learning tool built on top of the existing Osteology Studio. The 3D
-skeleton and everything around it is preserved intact and now lives inside the broader HSS2011
-Anatomy section rather than being the whole app.
+An offline-first personal University study application for HKPolyU Radiography Year 1 Semester 1.
+The curriculum strictly follows the student's 13-week syllabus, weekly lectures, tutorials, and
+assessments across all enrolled subjects (HSS2011 Human Anatomy, ABCT2326 Human Physiology,
+HTI17103 Medical Radiation Science, APSS1A08 Sociology, DSAI1202 AI Literacy).
+
+The app is **no longer an osteology studio**; 3D skeletal and organ models are preserved as interactive
+visual reference tools, but the lesson structure is governed entirely by what is **taught and tested** in the
+university course. Artificial micro-lessons (such as breaking down isolated bones and individual joint
+movements into standalone lessons) are deprecated in favour of balanced, lecture- and tutorial-aligned study units.
 
 The workflow is the same for every subject:
 

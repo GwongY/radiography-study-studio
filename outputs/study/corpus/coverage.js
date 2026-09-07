@@ -78,7 +78,7 @@ export const COVERAGE = {
         'Neuroglia functions, action potential refractory mechanics, and synaptic storage (Tut8_Nervous): astrocytes forming blood-brain barrier, phagocytic microglia, motor neurons transmitting from CNS to effectors, action potential repolarization driven by K+ efflux, absolute refractory period spanning depolarization through early repolarization due to Na+ channel inactivation, myelin sheath propagation velocity, and synaptic vesicle neurotransmitter storage.',
       ],
       gaps: [
-        'BLOOD-PRESSURE REGULATION IS NOT IN THE SUPPLIED SOURCES. Neither the cardiovascular lecture deck nor its supplementary deck mentions blood-pressure regulation or baroreceptors as a cardiovascular topic. No items were written for it. (Baroreceptors do appear, but only in the respiratory lecture, as an input to the control of respiration — which is where they are covered here.)',
+        'Blood pressure measurement is taught in Lab 1 (Measuring Blood Pressure) and hemodynamic resistance determinants are covered in Tut2_CVS; autonomic baroreceptor reflex regulation is integrated with the control of respiration.',
         'The current 2026 reproductive-system lecture has not been supplied. The Week 7 notes therefore use the readable official 2020/21 Lec6_Reproduction.pdf and say so.',
         'The 29-chapter question blank, the per-system tutorial-answer PDFs and the 2020/21 Lec1–Lec10 deck set are catalogued but not yet turned into items.',
       ],
