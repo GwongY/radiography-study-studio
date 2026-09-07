@@ -17,6 +17,10 @@ const R = await import(pathToFileURL(join(root, 'outputs/radiography.js')).href)
 let failures = 0;
 const fail = (m) => { failures += 1; console.log(`  FAIL  ${m}`); };
 const ok = (m) => console.log(`  ok    ${m}`);
+const is2 = (got, want, m) => {
+  if (got === want) ok(`${m} (${got})`);
+  else fail(`${m}: got ${got}, want ${want}`);
+};
 const near = (got, want, tol, m) => {
   if (Math.abs(got - want) <= tol) ok(`${m} (${got.toFixed(4)})`);
   else fail(`${m}: got ${got.toFixed(4)}, want ${want} +/- ${tol}`);
@@ -157,6 +161,39 @@ near(R.boneTau({ pathCm: 4, cosIncidence: 0.001, kvp: 75 }),
 near(R.boneTau({ pathCm: 4, cosIncidence: -1, kvp: 75 }),
      R.boneTau({ pathCm: 4, cosIncidence: 1, kvp: 75 }), 1e-9,
      'incidence sign does not matter, only the angle');
+
+console.log('- air-filled structures are classified as lung, not soft tissue -');
+const AIR = ['Superior lobe of left lung','Inferior lobe of left lung',
+  'Superior lobe of right lung','Middle lobe of right lung','Inferior lobe of right lung',
+  'Trachea','Bronchi of the left lung','Bronchi of the right lung','Pleura'];
+AIR.forEach((n)=>{
+  const t = R.tissueForMesh(n, 'organs');
+  if (t === 'lung') ok(`${n} -> lung`);
+  else fail(`${n} -> ${t}, expected lung`);
+});
+
+console.log('- and the solid viscera are not -');
+['Liver','Stomach','Spleen','Left kidney','Urinary bladder','Heart'].forEach((n)=>{
+  const t = R.tissueForMesh(n, 'organs');
+  if (t === 'soft') ok(`${n} -> soft`);
+  else fail(`${n} -> ${t}, expected soft`);
+});
+
+console.log('- the layer still decides where the mesh name does not -');
+is2(R.tissueForMesh('Femur', 'skeleton'), 'bone', 'a bone is bone');
+is2(R.tissueForMesh('Biceps brachii', 'muscle'), 'soft', 'a muscle is soft tissue');
+is2(R.tissueForMesh('Anything at all', 'organs'), 'soft', 'an unrecognised organ defaults to soft');
+
+console.log('- three.js name sanitising must not defeat the classifier -');
+/* three.js replaces whitespace with _ and deletes [ ] . : / on import, so the
+   loader hands over Superior_lobe_of_left_lung, never the spaced form. */
+is2(R.tissueForMesh('Superior_lobe_of_left_lung', 'organs'), 'lung', 'underscored form still classifies');
+is2(R.tissueForMesh('Bronchi_of_the_right_lung', 'organs'), 'lung', 'underscored bronchi still classify');
+
+console.log('- lung really is lucent against the tissue around it -');
+const rLung = R.muAt('soft', 30) / R.muAt('lung', 30);
+if (rLung > 3.5) ok(`soft tissue attenuates ${rLung.toFixed(1)}x an inflated lung`);
+else fail(`lung is not lucent enough: ratio ${rLung.toFixed(2)}`);
 
 console.log(failures ? `\n${failures} FAILED` : '\nALL PASS');
 process.exit(failures ? 1 : 0);

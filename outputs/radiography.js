@@ -181,3 +181,38 @@ export function boneTau({ pathCm, cosIncidence, kvp, crossings = 2 }) {
   const c = Math.max(GRAZE_CLAMP, Math.abs(cosIncidence));
   return crossings * (cortex - marrow) * (CORTEX_CM / c) + marrow * pathCm;
 }
+
+/*
+ * Which tissue a given mesh is made of.
+ *
+ * The layer is usually enough -- a skeleton mesh is bone, a muscle mesh is
+ * soft tissue -- but the organ GLB carries the lungs and the solid viscera in
+ * one file, and those are not the same thing at all. NIST gives lung and soft
+ * tissue the SAME mass attenuation coefficient; an inflated lung is lucent
+ * purely because it is a quarter as dense (0.26 against 1.06 g/cm^3). Classify
+ * the lungs as soft tissue and a chest film comes out with white lung fields,
+ * which is the exact opposite of a chest film.
+ *
+ * Matched on the mesh name because that is what the GLB actually carries.
+ * three.js sanitises node names on import -- whitespace becomes _, and the
+ * reserved set [ ] . : / is deleted -- so 'Superior lobe of left lung' reaches
+ * the runtime as 'Superior_lobe_of_left_lung'. Matching therefore runs on a
+ * lowercased form with underscores folded back to spaces, and on substrings
+ * rather than exact names, because the loader also glues side letters on.
+ *
+ * Substring matching is wide on purpose, and it costs something: the
+ * pulmonary vessels ("Superior vein of left lung") and the tracheobronchial
+ * nodes would classify as lung too. Neither is ever in the beam -- XRAY_LAYERS
+ * in studio/live-physiology.js is skeleton, muscle and organs, and the
+ * circulatory and lymphatic layers are switched off before the projection
+ * renders. If a later change puts vessels in the beam, this is the line that
+ * needs a rule, not the caller.
+ */
+export const AIR_FILLED = ['lung', 'trachea', 'bronch', 'pleura'];
+
+export function tissueForMesh(name, layerKey) {
+  if (layerKey === 'skeleton') return 'bone';
+  const n = String(name || '').replace(/_/g, ' ').toLowerCase();
+  if (AIR_FILLED.some((p) => n.includes(p))) return 'lung';
+  return 'soft';
+}
