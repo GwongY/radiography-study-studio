@@ -119,7 +119,9 @@ async function enterProjection() {
   window.__osteo.enterXray();
   window.__osteo.xrayRegion(xrayRegion);
   window.__osteo.xrayView(xrayView);
-  window.__osteo.xrayExposure(+$$('xrayExposure').value / 100);
+  window.__osteo.xrayKvp(+$$('xrayKvp').value);
+  window.__osteo.xrayMas(+$$('xrayMas').value);
+  window.__osteo.xrayAec($$('xrayAec').checked);
   window.__osteo.resize();
   /* The Tools card has to be told: entering the projection suspends the
      section cut, and the card is what says so. */
@@ -165,15 +167,20 @@ export function openViewer() {
   bindViewerExtras();
   renderHiddenTray();
   renderOverlayCard();
-  const exp = $$('xrayExposure');
-  if (exp && !exp.dataset.wired) {
-    exp.dataset.wired = '1';
-    exp.oninput = () => {
-      const v = +exp.value / 100;
-      $$('xrayExposureRead').innerHTML = v.toFixed(2) + '&times;';
-      if (window.__osteo && window.__osteo.inXray()) window.__osteo.xrayExposure(v);
+  const wire = (id, readId, fmt, call) => {
+    const el = $$(id);
+    if (!el || el.dataset.wired) return;
+    el.dataset.wired = '1';
+    const push = () => {
+      const v = el.type === 'checkbox' ? el.checked : +el.value;
+      $$(readId).textContent = fmt(v);
+      if (window.__osteo && window.__osteo.inXray()) call(v);
     };
-  }
+    el.oninput = push; el.onchange = push;
+  };
+  wire('xrayKvp', 'xrayKvpRead', (v) => `${v} kVp`, (v) => window.__osteo.xrayKvp(v));
+  wire('xrayMas', 'xrayMasRead', (v) => `${v} mAs`, (v) => window.__osteo.xrayMas(v));
+  wire('xrayAec', 'xrayAecRead', (v) => (v ? 'on' : 'off'), (v) => window.__osteo.xrayAec(v));
   /* A lesson may have left a study focus and other layers on. */
   syncLayersToRail();
   showView('viewerView');

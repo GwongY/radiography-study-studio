@@ -629,6 +629,7 @@
 .xray-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:11px}
 .xray-exp{display:flex;align-items:center;gap:9px;font:10px ui-monospace,Menlo,monospace;letter-spacing:1.2;color:var(--dim);text-transform:uppercase}
 .xray-exp input[type=range]{width:150px}
+.xray-exp input[type=checkbox]{width:16px;height:16px;accent-color:var(--teal)}
 .xray-exp .mono{font-size:11px;color:var(--muted);letter-spacing:0;text-transform:none;min-width:44px}
 .xraywrap{position:relative;height:min(calc(100vh - 190px),1400px);height:min(calc(100dvh - 190px),1400px);min-height:340px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#000}
 .xraywrap .stage{height:100%;min-height:0;border-radius:0;background:#000}

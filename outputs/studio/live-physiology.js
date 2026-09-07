@@ -3,7 +3,7 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CLASSES, GRAZE_CLAMP, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, mottleSigma, mu, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
+import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CLASSES, GRAZE_CLAMP, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, fluence, mottleSigma, mu, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
 import { MEMORY_TIPS, answer, clean, openDetail, pool, record, regionLabel, selectBone, showToast } from './visualisation-modes.js';
 import { animate, applyVisibility, between, getRecord, tube } from './region-boxes-how.js';
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
@@ -875,25 +875,53 @@ function xrayClip(){
   if(c.near!==near||c.far!==far){c.near=near;c.far=far;c.updateProjectionMatrix()}
   return d;
 }
-/*
- * TEMPORARY. The old single Exposure gain, mapped onto the new window so the
- * existing control keeps working for one commit. The next task replaces it
- * with kVp and mAs, which are the two things it was always conflating.
- * A higher gain meant a brighter film, so it narrows the window from the top.
- */
-export function setXrayExposure(v){
+/* Changing kVp changes every coefficient, so the shared materials are rebuilt. */
+export function setXrayKvp(kvp){
   const x=state.xray; if(!x)return;
-  const g=Math.max(0.2,v||1);
-  x.win={lo:DEFAULT_WINDOW.lo, hi:DEFAULT_WINDOW.lo+(DEFAULT_WINDOW.hi-DEFAULT_WINDOW.lo)/g};
-  x.postMat.uniforms.uWinLo.value=x.win.lo;
-  x.postMat.uniforms.uWinHi.value=x.win.hi;
+  x.kvp=kvp;
+  x.shared.forEach((m)=>m.dispose());
+  x.shared.clear();
+  x.mats.forEach((_orig,mesh)=>{
+    mesh.material=sharedFor(mesh.userData.xrayTissue);
+  });
+  applyBeam();
+}
+export function setXrayMas(mAs){ const x=state.xray; if(!x)return; x.mAs=mAs; applyBeam(); }
+export function setXrayAec(on){ const x=state.xray; if(!x)return; x.aec=!!on; applyBeam(); }
+
+/*
+ * mAs and SID set the fluence; the window and the mottle both follow from it.
+ * With AEC on the fluence is held at its reference value, so the film stays
+ * readable while the camera moves -- and the readout still shows what mAs the
+ * compensation is spending, because a control that silently corrects is a
+ * control that teaches nothing.
+ *
+ * The window follows the fluence in LOG units. The detector's raw signal is
+ * fluence * exp(-tau), and the film shown is a window on -ln(signal), so the
+ * window slides by ln(fluence) -- it does not scale, and the difference is the
+ * difference between exposure physics and a brightness knob. Overexpose and
+ * every path reads lower: the film goes dark, which is all "density is
+ * proportional to mAs" ever meant on a film. AEC pins fluence at 1, the slide
+ * is zero, and the film holds.
+ */
+function applyBeam(){
+  const x=state.xray; if(!x)return;
+  const sidCm=x.sidCm||REF_SID_CM;
+  const effMas=x.aec?REF_MAS*(sidCm/REF_SID_CM)**2:x.mAs;
+  x.effMas=effMas;
+  const shift=Math.log(fluence({mAs:effMas,sidCm}));
+  x.postMat.uniforms.uSigma.value=mottleSigma({mAs:effMas,sidCm});
+  x.postMat.uniforms.uWinLo.value=x.win.lo+shift;
+  x.postMat.uniforms.uWinHi.value=x.win.hi+shift;
 }
 export function renderXray(){
   const x=state.xray; if(!x)return false;
   const r=state.renderer;
   const d=xrayClip();
-  /* Dollying really is changing the source-to-image distance, so say so. */
+  /* Dollying really is changing the source-to-image distance: say so in the
+     readout, and tell the beam, because with AEC off the exposure follows it. */
   const sid=Math.round(d/XRAY_UNITS_PER_M*100);
+  if(sid!==x.sidCm){ x.sidCm=sid; applyBeam(); }
   /*
    * Orbit away from the nominal axis and this stops being the projection its
    * button claims. Saying "AP" over an oblique is exactly the kind of quiet
@@ -901,12 +929,19 @@ export function renderXray(){
    * with the angle off axis.
    */
   const off=Math.round(xrayOffAxis());
-  if(sid!==x.shownSid||off!==x.shownOff){
-    x.shownSid=sid; x.shownOff=off;
+  /*
+   * kVp and mAs move the beam line without the camera moving, so the beam
+   * string is part of the cache key -- without it the readout would sit at
+   * the last-used kVp until the next dolly refreshed it.
+   */
+  const aec=x.aec?` · AEC ${Math.round(x.effMas)} mAs`:'';
+  const beam=`${x.kvp} kVp · ${x.mAs} mAs${aec}`;
+  if(sid!==x.shownSid||off!==x.shownOff||beam!==x.shownBeam){
+    x.shownSid=sid; x.shownOff=off; x.shownBeam=beam;
     const R=XRAY_REGIONS[x.region]||XRAY_REGIONS.body;
     const names={pa:'PA',ap:'AP',lat:'Lateral'};
     const proj=off>4?`oblique · ${off}° off ${names[x.view]||x.view}`:(names[x.view]||x.view);
-    els.stageMeta.textContent=`${R.label} · ${proj} · SID ${sid} cm · simulated · tap to name`;
+    els.stageMeta.textContent=`${R.label} · ${proj} · SID ${sid} cm · ${beam} · simulated · tap to name`;
   }
   x.postMat.uniforms.uSeed.value=(performance.now()*.06)%1000;
   r.autoClear=true;

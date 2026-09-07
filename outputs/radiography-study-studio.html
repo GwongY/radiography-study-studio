@@ -267,9 +267,17 @@
               <div class="xray-bar">
                 <div class="segbar" id="xrayRegions"></div>
                 <div class="segbar" id="xrayViews"></div>
-                <label class="xray-exp"><span>Exposure</span>
-                  <input type="range" id="xrayExposure" min="40" max="260" value="160" step="5" aria-label="Exposure">
-                  <span class="mono" id="xrayExposureRead">1.60&times;</span>
+                <label class="xray-exp"><span>kVp</span>
+                  <input type="range" id="xrayKvp" min="50" max="125" value="75" step="1" aria-label="Tube voltage in kVp">
+                  <span class="mono" id="xrayKvpRead">75 kVp</span>
+                </label>
+                <label class="xray-exp"><span>mAs</span>
+                  <input type="range" id="xrayMas" min="1" max="80" value="10" step="1" aria-label="Tube current time product in mAs">
+                  <span class="mono" id="xrayMasRead">10 mAs</span>
+                </label>
+                <label class="xray-exp"><span>AEC</span>
+                  <input type="checkbox" id="xrayAec" checked aria-label="Automatic exposure control">
+                  <span class="mono" id="xrayAecRead">on</span>
                 </label>
               </div>
               <div class="xraywrap" id="xrayMount"></div>
@@ -300,19 +308,31 @@
                 under the same rule the rest of the app follows.</p>
               </div>
               <div class="xray-note">
-                <strong>Simulated projection, not a radiograph.</strong> Each ray's path length through material is
-                measured and attenuated by Beer–Lambert, with bone about ten times the coefficient of soft tissue,
-                so bone is bright because the ray spent longer in bone. The beam diverges from a point at a set
-                source-to-image distance, which is what makes <strong>PA</strong> and <strong>AP</strong> genuinely
-                differ here: whatever lies further from the detector magnifies more.
+                <strong>Simulated projection, not a radiograph.</strong> Each ray&rsquo;s path through material is
+                measured in centimetres and attenuated by Beer&ndash;Lambert, using mass attenuation coefficients
+                from the NIST tables at the effective energy your kVp implies. Bone is bright because the ray
+                spent longer in bone. The beam diverges from a point at a set source-to-image distance, which
+                is what makes <strong>PA</strong> and <strong>AP</strong> genuinely differ here.
                 <br><br>
-                <strong>What it still is not.</strong> The coefficients are relative, chosen for familiar contrast —
-                no kVp, no mAs, no dose. There is no scatter, no grid, no pathology. And the source meshes are hollow
-                surfaces, so <strong>cortex and marrow do not differ</strong>: a long bone reads as uniformly dense
-                where a real film shows a bright cortex around a darker medullary cavity.
+                <strong>kVp changes contrast; mAs changes density and noise.</strong> Cortical bone attenuates
+                8.8&times; soft tissue at 50&nbsp;kVp and 3.4&times; at 125&nbsp;kVp &mdash; that ratio is subject
+                contrast, and it is why kVp is a contrast control rather than a brightness one. mAs and distance
+                set how many photons arrive, so the grain is quantum mottle at 1/&radic;N, and moving the camera
+                really is changing your SID. AEC compensates so an accidental drag does not black out the pane;
+                switch it off to watch the inverse square law act.
                 <br><br>
-                Use it for projection anatomy — what overlaps what, and where a structure lands when the body is
-                flattened onto a detector. It will not teach you to read a film.
+                <strong>Why the lungs are dark.</strong> Not because they are made of something different &mdash;
+                NIST gives lung and soft tissue the <em>same</em> mass attenuation coefficient. An inflated lung
+                is lucent because it is a quarter as dense, 0.26 against 1.06&nbsp;g/cm&sup3;. Density alone.
+                <br><br>
+                <strong>What it still is not.</strong> A single effective energy stands in for a whole spectrum,
+                so there is no beam hardening. There is no scatter, no grid, no anode heel effect and no
+                pathology. Cortical thickness is uniform at 2&nbsp;mm, so a rib is drawn with a femur&rsquo;s cortex.
+                The muscle and organ meshes overlap in places, so some soft tissue is still counted twice.
+                Vessels and nerves are absent from the beam on purpose &mdash; a plain film cannot see them
+                without contrast.
+                <br><br>
+                <span class="xray-appa-lab">Coefficients are NIST / ICRU reference data, not your course sources</span>
                 <br><br>
                 Real images go in <code>assets/xray/</code>, which is scaffolded and empty. Drop a licence-cleared file
                 there and reference it from a question to have it render.
