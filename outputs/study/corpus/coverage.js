@@ -126,7 +126,10 @@ export const COVERAGE = {
       covered: [
         'The current Week 1 overview: where AI appears in everyday life and healthcare, the definition of AI literacy, the subject’s non-programming/non-mathematical scope, its generative-AI policy, and its full tentative schedule and assessment split.',
       ],
-      gaps: ['Only the Week 1 overview is supplied. Official teaching notes remain missing for Weeks 2–12: AI Overview; GenAI and chatbots; Machine Learning I/II; Deep Learning; Data Analytics and Visualization; the two IC-visit topic pairs; and the additional-topics/review week. Each is named as a weekly gap in the Course tab.'],
+      gaps: [
+        'DSAI1202 is newly offered in 2026/27. Unlike HSS2011 and ABCT2326, which have years of official lecture decks in the shared folders to fall back on, there is no earlier edition of this GUR subject anywhere in the 22 folders — the Week 1 overview is the only teaching material that exists, so the missing weeks cannot be substituted from an older year.',
+        'Only the Week 1 overview is supplied. Official teaching notes remain missing for Weeks 2–12: AI Overview; GenAI and chatbots; Machine Learning I/II; Deep Learning; Data Analytics and Visualization; the two IC-visit topic pairs; and the additional-topics/review week. Each is named as a weekly gap in the Course tab.',
+      ],
       files: 1,
     },
     {
