@@ -31,7 +31,7 @@
  * CC BY and CC BY-SA both require attribution; the app renders it on the figure
  * itself.
  *
- * 29 figures.
+ * 32 figures.
  */
 
 export const FIGURES = {
@@ -667,6 +667,69 @@ export const FIGURES = {
       { mark: 'fastigial nucleus', name: 'The most medial deep nucleus, near the vermis', beyond: true },
       { mark: 'emboliform nucleus', name: 'A deep nucleus between fastigial and dentate', beyond: true },
       { mark: 'globose nucleus', name: 'A deep nucleus between fastigial and dentate', beyond: true },
+    ],
+  },
+  arteriesOfBrain: {
+    file: 'arteries-of-brain.jpg', bytes: 154351,
+    title: 'Arteries at the base of the brain',
+    caption: 'Inferior view: the internal carotid and vertebral inflow meeting in the cerebral arterial circle around the pituitary stalk.',
+    author: 'OpenStax College',
+    licence: 'CC BY 3.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by/3.0',
+    commons: 'https://commons.wikimedia.org/wiki/File:2123_Arteries_of_the_Brain.jpg',
+    intro: 'The blood supply the stroke lesson turns on, seen from below with the brainstem and cerebellum at the bottom. Two inflows: the internal carotid on each side (front) gives off the anterior and middle cerebral arteries; the two vertebral arteries (bottom) fuse into the single midline basilar, which ends as the two posterior cerebral arteries. The communicating arteries close the loop into the cerebral arterial circle (circle of Willis) around the midline. The middle cerebral runs out laterally over the hemisphere — the territory of the motor and sensory strip.',
+    key: [
+      { mark: 'Vertebral', name: 'Vertebral artery — from the subclavian, ascends the transverse foramina and enters the foramen magnum; the two fuse to form the basilar' },
+      { mark: 'Basilar', name: 'Basilar artery — single midline vessel on the front of the pons, formed by the two vertebrals' },
+      { mark: 'Internal carotid', name: 'Internal carotid artery — the anterior inflow; supplies the anterior half of the brain and the eye' },
+      { mark: 'Ophthalmic', name: 'Ophthalmic artery — first branch of the internal carotid, to the eye' },
+      { mark: 'Anterior cerebral', name: 'Anterior cerebral artery — to the frontal and parietal lobes on the medial surface' },
+      { mark: 'Middle cerebral', name: 'Middle cerebral artery — over the lateral surface of the hemisphere, including the motor/sensory strip; the artery of the "Mr LAW" stroke case' },
+      { mark: 'Anterior communicating', name: 'Anterior communicating artery — joins the two anterior cerebrals across the midline' },
+      { mark: 'Posterior communicating', name: 'Posterior communicating artery — joins the carotid system to the posterior cerebral on each side' },
+      { mark: 'Posterior cerebral', name: 'Posterior cerebral artery — the terminal branches of the basilar, to the occipital lobe' },
+    ],
+  },
+  cranialNervesBase: {
+    file: 'cranial-nerves-base.svg', bytes: 175790,
+    title: 'Cranial nerves on the base of the brain',
+    caption: 'Inferior view of the brain with the twelve cranial nerve pairs emerging in sequence from front to back.',
+    author: 'Patrick J. Lynch, medical illustrator; derivative work by Beao',
+    licence: 'CC BY 2.5',
+    licenceUrl: 'https://creativecommons.org/licenses/by/2.5',
+    commons: 'https://commons.wikimedia.org/wiki/File:Brain_human_normal_inferior_view_with_labels_en.svg',
+    intro: 'The brain from below, the way cranial nerves are examined and the way the lecture slide draws them. Read front (top) to back (bottom): olfactory and optic enter the forebrain, oculomotor and trochlear leave the midbrain, the large trigeminal and then abducens/facial/vestibulocochlear cluster at the pons, and glossopharyngeal, vagus, accessory and hypoglossal come off the medulla in a row. The order down the page is the order of the numbers.',
+    key: [
+      { mark: 'Olfactory', name: 'CN I olfactory — smell; enters the forebrain (not truly from the brainstem)' },
+      { mark: 'Optic', name: 'CN II optic — vision; enters at the optic chiasm' },
+      { mark: 'Oculomotor', name: 'CN III oculomotor — most eye muscles; carries parasympathetic fibres for pupil constriction; from the midbrain' },
+      { mark: 'Trochlear', name: 'CN IV trochlear — superior oblique of the eye; from the midbrain' },
+      { mark: 'Trigeminal', name: 'CN V trigeminal — sensation of the face (V1/V2/V3) and the muscles of mastication; at the pons' },
+      { mark: 'Abducens', name: 'CN VI abducens — lateral rectus, eye abduction; pons–medulla junction' },
+      { mark: 'Facial', name: 'CN VII facial — muscles of facial expression, taste from the anterior two-thirds of the tongue, parasympathetic to lacrimal and salivary glands' },
+      { mark: 'Vestibulocochlear', name: 'CN VIII vestibulocochlear — hearing and balance; at the pons' },
+      { mark: 'Glossopharyngeal', name: 'CN IX glossopharyngeal — taste and sensation posterior third of tongue, swallowing, parotid gland; from the medulla' },
+      { mark: 'Vagus', name: 'CN X vagus — the longest cranial nerve; parasympathetic to thoracic and abdominal viscera; from the medulla' },
+      { mark: 'Cranial Accessory', name: 'CN XI accessory — sternocleidomastoid and trapezius, head and neck movement' },
+      { mark: 'Hypoglossal', name: 'CN XII hypoglossal — muscles of the tongue' },
+    ],
+  },
+  csfSystem: {
+    file: 'csf-system.png', bytes: 516639,
+    title: 'The ventricular system and CSF',
+    caption: 'Midsagittal view: the lateral, third and fourth ventricles and the CSF continuing into the subarachnoid space around the brain and cord.',
+    author: 'BruceBlaus / Blausen Medical 2014',
+    licence: 'CC BY 3.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by/3.0',
+    commons: 'https://commons.wikimedia.org/wiki/File:Blausen_0216_CerebrospinalSystem.png',
+    intro: 'The fluid spaces the lesson asks you to put in order, on a side-on cut of the head. The blue cast is CSF: the paired lateral ventricles high in the hemispheres drain forward and down to the midline third ventricle, then back through the cerebral aqueduct in the midbrain to the fourth ventricle between the cerebellum and the brainstem, and on into the thin layer of CSF wrapping the whole brain and spinal cord. Follow the blue from top to bottom and you have the circulation pathway.',
+    key: [
+      { mark: 'Lateral Ventricles', name: 'The two C-shaped ventricles in the cerebral hemispheres — where most CSF is made' },
+      { mark: 'Third Ventricle', name: 'The midline slit between the two halves of the diencephalon; reached through the interventricular foramen' },
+      { mark: 'Fourth Ventricle', name: 'Between the pons/medulla and the cerebellum; its apertures let CSF out into the subarachnoid space' },
+      { mark: 'Cerebral Spinal Fluid', name: 'CSF — the blue cast filling the ventricles and the subarachnoid space around brain and cord' },
+      { mark: 'Brain', name: 'Cerebral hemisphere, cut in the midline', beyond: true },
+      { mark: 'Skull', name: 'The cranial vault enclosing the meninges and CSF', beyond: true },
     ],
   },
 };
