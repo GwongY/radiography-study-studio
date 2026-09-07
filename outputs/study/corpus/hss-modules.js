@@ -941,68 +941,115 @@ export const HSS_MODULES = [
   {
     id: 'hss2011-cns-spinal-cord-meninges',
     subject: 'HSS2011', unit: 'hss.m2', type: 'definition',
-    title: 'Spinal cord, meninges and spinal nerves',
+    title: 'Meninges, spinal nerves, roots and rami',
     tags: ['neuroanatomy', 'cns', 'spine', 'high-yield'],
     lesson: {
-      explanation: 'The spinal cord extends from the foramen magnum of the skull down to the L1/L2 vertebral level in adults, tapering at the conus medullaris. Below this level, a collection of nerve roots called the cauda equina extends through the lumbar cistern. There are 31 pairs of spinal nerves: 8 cervical, 12 thoracic, 5 lumbar, 5 sacral, and 1 coccygeal. The central nervous system is enclosed by three protective connective tissue membranes (meninges): the dura mater (tough fibrous outer layer; epidural space sits between dura and vertebral canal), arachnoid mater (middle web-like avascular layer), and pia mater (delicate, highly vascular inner layer adhering to the surface of the spinal cord). The subarachnoid space between arachnoid and pia contains cerebrospinal fluid (CSF). Because the spinal cord ends at L1/L2, a lumbar puncture (spinal tap) is safely performed at the L3/L4 or L4/L5 intervertebral space, sampling CSF from the subarachnoid space without risking puncture of the spinal cord.',
-      plain: 'The spinal cord runs from the skull base down to L1/L2, ending in the conus medullaris, with nerve roots (the cauda equina) trailing below. Three meninges wrap it: dura (tough outer), arachnoid (middle web), and pia (delicate inner). The subarachnoid space holds CSF. Because the cord ends at L1/L2, lumbar punctures are done lower down at L3/L4 or L4/L5 to safely tap CSF without hitting the cord.',
+      explanation: 'The central nervous system is wrapped in three connective-tissue membranes, the meninges. From outside in they are the dura mater (thick, tough, and carrying a system of venous drainage), the arachnoid mater (with arachnoid trabeculae stretching across to the pia), and the pia mater (a meshwork of elastic and collagen fibres, the innermost layer, holding blood vessels against the nervous tissue). Two spaces matter: the subdural space between dura and arachnoid, and the subarachnoid space between arachnoid and pia, which is filled with cerebrospinal fluid (CSF). In the vertebral column there is also an epidural space between the spinal dura and the bone, where analgesics and anaesthesia can be given. Within the cranium the dura folds inward as partitions: the falx cerebri between the two cerebral hemispheres, and the tentorium cerebelli, which separates the occipital lobes of the cerebrum from the cerebellum. A peripheral nerve is bundled connective tissue: endoneurium around each fibre, perineurium around a fascicle of fibres, epineurium around the whole nerve. There are 31 pairs of spinal nerves. Each attaches to the cord by two roots: the dorsal (posterior) root carries sensory fibres in and bears the dorsal root ganglion, a swollen part containing the cell bodies of the sensory (peripheral) neurons; the ventral (anterior) root carries motor fibres out from the anterior horn. Beyond the point where the roots join, the nerve gives distal branches: a dorsal ramus, a ventral ramus, and a meningeal branch. A dermatome is the specific bilateral strip of skin monitored by a single pair of spinal nerves (except C1). Where ventral rami of adjacent nerves interweave into a complex network, that network is a nerve plexus: the cervical plexus (C1–C4), brachial plexus (C5–T1), lumbar plexus (T12–L4), sacral plexus (L4–S4) and coccygeal plexus.',
+      plain: 'Three membranes wrap the CNS: dura (tough outer), arachnoid (middle web), pia (delicate inner). CSF sits in the subarachnoid space, between arachnoid and pia; in the spine there is also an epidural space against the bone. The dura folds inward as the falx cerebri (between the hemispheres) and the tentorium cerebelli (cerebrum above, cerebellum below). A nerve is wrapped in three sheaths (endo-, peri-, epineurium). Each of the 31 spinal nerves has a dorsal root (sensory in, with its ganglion) and a ventral root (motor out), then splits into dorsal, ventral and meningeal branches. One skin strip per nerve pair is a dermatome; ventral rami weaving together form a plexus (cervical, brachial, lumbar, sacral, coccygeal).',
       keyFacts: [
-        'Spinal cord ends at L1/L2 (conus medullaris) in adults; cauda equina trails below.',
-        '31 pairs of spinal nerves: 8 cervical, 12 thoracic, 5 lumbar, 5 sacral, 1 coccygeal.',
-        'Three meningeal layers: dura mater (outer), arachnoid mater (middle), pia mater (inner).',
-        'CSF circulates within the subarachnoid space between arachnoid and pia mater.',
-        'Lumbar puncture is performed at L3/L4 or L4/L5 to avoid piercing the spinal cord.',
+        'Meninges outside-in: dura mater (tough, venous drainage), arachnoid mater (trabeculae), pia mater (innermost, elastic + collagen).',
+        'Subarachnoid space (arachnoid ↔ pia) holds CSF; subdural space is between dura and arachnoid; spinal epidural space is between dura and bone.',
+        'Dural partitions: falx cerebri between the cerebral hemispheres; tentorium cerebelli between the occipital lobes and the cerebellum.',
+        'Nerve connective tissue: endoneurium (one fibre) → perineurium (a fascicle) → epineurium (the whole nerve).',
+        '31 pairs of spinal nerves; each has a dorsal (sensory) root with a dorsal root ganglion and a ventral (motor) root.',
+        'The dorsal root ganglion holds the cell bodies of sensory neurons.',
+        'Distal branches of a spinal nerve: dorsal ramus, ventral ramus, meningeal branch.',
+        'A dermatome is one bilateral skin strip per spinal nerve pair, except C1.',
+        'A nerve plexus is interwoven ventral rami: cervical (C1–C4), brachial (C5–T1), lumbar (T12–L4), sacral (L4–S4), coccygeal.',
       ],
       prerequisites: ['hss2011-osteo-vertebra-parts'],
-      examples: ['Lumbar puncture targets the subarachnoid space at L3/L4 for CSF analysis in suspected meningitis.'],
+      examples: ['The denticulate ligament, extending from the pia mater to the dura mater, anchors the cord within the CSF of the subarachnoid space.'],
     },
     memory: {
-      chunking: 'Meninges from outside to inside: Dura (Durable), Arachnoid (Spiderweb), Pia (Pious/soft) — DAP.',
-      comparison: 'Epidural space is between bone and dura (holds fat and veins, used for epidural anaesthesia); subarachnoid space is between arachnoid and pia (holds CSF, used for spinal taps).',
-      firstLetter: '31 spinal nerves: C8, T12, L5, S5, Co1. Note 8 cervical nerves for 7 cervical vertebrae because C1 exits above atlas.',
+      chunking: 'Meninges outside to inside: Dura (Durable), Arachnoid (spider), Pia (delicate) — DAP.',
+      comparison: 'Subdural = dura ↔ arachnoid. Subarachnoid = arachnoid ↔ pia, and this is the one with CSF. Epidural (spine only) = dura ↔ bone, where the anaesthetist works.',
+      firstLetter: 'Plexus ladder top to bottom: Cervical, Brachial, Lumbar, Sacral, Coccygeal — "Cows Bring Large Sacks Casually".',
     },
     practice: [
       {
-        type: 'mcq',
-        prompt: 'At what vertebral level does the adult spinal cord typically terminate?',
-        options: ['T12', 'L1/L2', 'L4/L5', 'S2'],
-        answer: 1,
-        explanation: 'The adult spinal cord ends at the level of L1/L2 at the conus medullaris; below this is the cauda equina.',
-        src: { ref: 'hss.2.2', location: 'p2–p3 Spinal cord anatomy' }
-      },
-      {
-        type: 'mcq',
-        prompt: 'In which space is cerebrospinal fluid (CSF) sampled during a lumbar puncture?',
-        options: ['Epidural space', 'Subdural space', 'Subarachnoid space', 'Central canal'],
-        answer: 2,
-        explanation: 'CSF circulates in the subarachnoid space between the arachnoid mater and the pia mater.',
-        src: { ref: 'hss.2.2', location: 'p3 Spinal cord meninges' }
+        type: 'cloze',
+        prompt: 'The CSF-filled space between the arachnoid mater and the pia mater is the ______ space.',
+        accept: ['subarachnoid'],
+        explanation: 'Subarachnoid space — arachnoid above, pia below, CSF between. The subdural space is one layer more superficial.',
+        src: { ref: 'hss.fib5yr', location: 'p15 subarachnoid space' }
       },
       {
         type: 'cloze',
-        prompt: 'There are ______ pairs of cervical spinal nerves in the human body.',
-        accept: ['8', 'eight'],
-        explanation: 'There are 8 pairs of cervical spinal nerves (C1–C8), even though there are only 7 cervical vertebrae.',
-        src: { ref: 'hss.2.2', location: 'p5 Spinal Nerves' }
+        prompt: 'The dural partition that separates the occipital lobes of the cerebrum from the cerebellum is the ______ ______.',
+        accept: ['tentorium cerebelli', 'tentorium'],
+        explanation: 'Model answer: tentorium cerebelli. The falx cerebri, by contrast, sits between the two cerebral hemispheres.',
+        src: { ref: 'hss.revans', location: 'Module 2.1, Fill-in-blanks 1' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'The connective-tissue sheath that surrounds an entire peripheral nerve is the:',
+        options: ['Endoneurium', 'Perineurium', 'Epineurium', 'Periosteum'],
+        answer: 2,
+        explanation: 'Endoneurium wraps one fibre, perineurium a fascicle, epineurium the whole nerve.',
+        src: { ref: 'hss.2.2', location: 'p6 Spinal Nerves — connective tissue' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The swollen part of the dorsal root that contains the cell bodies of sensory neurons is the dorsal root ______.',
+        accept: ['ganglion'],
+        explanation: 'The dorsal root ganglion houses the somata of the primary sensory (afferent) neurons.',
+        src: { ref: 'hss.mooc3', location: 'p6 Ganglion' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'The brachial plexus is formed from the interwoven ventral rami of:',
+        options: ['C1–C4', 'C5–T1', 'T12–L4', 'L4–S4'],
+        answer: 1,
+        explanation: 'Brachial plexus = C5–T1. C1–C4 is cervical, T12–L4 lumbar, L4–S4 sacral.',
+        src: { ref: 'hss.mooc3', location: 'p7 Brachial Plexus (C5-T1)' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The bilateral strip of skin monitored by a single pair of spinal nerves is called a ______.',
+        accept: ['dermatome'],
+        explanation: 'One dermatome per spinal nerve pair, with C1 the exception (it has no cutaneous territory).',
+        src: { ref: 'hss.2.2', location: 'p8 Dermatome' }
       },
     ],
     application: [
       {
         type: 'scenario',
-        prompt: 'A patient is scheduled for a lumbar puncture to diagnose meningitis. Explain why the needle is inserted between L3 and L4 rather than between T12 and L1.',
-        model: 'The spinal cord terminates at the L1/L2 vertebral level as the conus medullaris. Inserting the needle at L3/L4 enters the lumbar cistern of the subarachnoid space where only the flexible nerve roots of the cauda equina reside, safely yielding CSF without risking damage to the solid spinal cord.',
-        rubric: ['Identifies spinal cord termination at L1/L2', 'Names L3/L4 as entering the subarachnoid space/lumbar cistern', 'Explains avoiding puncture of the spinal cord']
+        prompt: 'A needle is advanced into the vertebral canal for spinal anaesthesia and CSF appears at the hub. Which meningeal layers has the needle crossed, and which space is its tip in?',
+        model: 'It has passed through the epidural space (between bone and dura), then pierced the dura mater and the arachnoid mater. The tip now lies in the subarachnoid space, between arachnoid and pia, which is the CSF compartment — hence the fluid at the hub.',
+        rubric: ['Names the epidural space against the bone', 'States dura and arachnoid are pierced', 'Places the tip in the CSF-filled subarachnoid space']
       }
     ],
     commonMistakes: [
-      'Confusing the number of cervical vertebrae (7) with cervical spinal nerves (8).',
-      'Placing CSF in the epidural space instead of the subarachnoid space.',
+      'Putting CSF in the subdural or epidural space — CSF is in the subarachnoid space, between arachnoid and pia.',
+      'Swapping falx cerebri (between the hemispheres) and tentorium cerebelli (cerebrum vs cerebellum).',
+      'Calling the whole-nerve sheath the perineurium — perineurium wraps a fascicle; the epineurium wraps the nerve.',
+      'Assuming every spinal nerve has a dermatome — C1 typically has none.',
     ],
     skills: [
-      'Distinguish epidural anaesthesia (dura remains intact) from spinal anaesthesia / lumbar puncture (dura and arachnoid are pierced to access CSF in subarachnoid space).',
+      'Name a space by the two layers it separates: sub-DURAL is under the dura (dura ↔ arachnoid); sub-ARACHNOID is under the arachnoid (arachnoid ↔ pia) and holds the CSF. The prefix names the layer above the gap.',
+      'The three nerve sheaths nest by size: endoneurium (fibre) inside perineurium (fascicle) inside epineurium (nerve) — smallest Greek stem, smallest structure.',
+      'A plexus is only ever ventral rami. Dorsal rami stay segmental and supply the back; the limbs need rami mixed together, which is what cervical/brachial/lumbar/sacral plexuses do.',
     ],
-    selfCheck: 'From a blank page: name the three meningeal layers from outside in, state where the spinal cord ends, and explain the anatomical landmark for a lumbar puncture.',
-    sourceRefs: [{ ref: 'hss.2.2', location: 'p2–p7 Spinal Cord, Meninges, and Spinal Nerves' }],
+    selfCheck: 'From a blank page: the three meninges outside-in and the space each border makes, which two dural folds and what each separates, the three nerve sheaths by size, what each spinal-nerve root and ramus carries, and the five nerve plexuses with their spinal levels.',
+    visuals: [
+      { model: { layer: 'nervous', meshes: ['Anterior root of spinal nerve', 'Posterior root of spinal nerve', 'Spinal ganglion', 'Spinal dura'], label: 'Spinal nerve roots and the dural sleeve', caption: 'The posterior (dorsal) root carries sensory fibres in and bears the spinal (dorsal root) ganglion; the anterior (ventral) root carries motor fibres out; the spinal dura is the tough outer meningeal sleeve.' } },
+      { schematic: 'nervousDivisions' },
+      { gen: true },
+    ],
+    sourceRefs: [
+      { ref: 'hss.mooc2', location: 'p10 "Subdural space" (dura ↔ arachnoid) and "Subarachnoid space" (arachnoid ↔ pia); three membranes dura, arachnoid, pia mater' },
+      { ref: 'hss.mooc2', location: 'p11 "Subarachnoid space is filled with CSF"; dura is "thick and tough" and "provides a system of venous drainage"; epidural space between spinal dura and vertebral bone' },
+      { ref: 'hss.4.2', location: 'p24 "Separates occipital lobes of cerebral hemispheres from cerebellum" (tentorium cerebelli); "Falx Cerebri" separates the cerebral hemispheres' },
+      { ref: 'hss.4.2', location: 'p25 dura mater periosteal and meningeal layers, dural sinus, "Falx cerebri", "Falx cerebelli", arachnoid mater and "Subarachnoid space", pia mater' },
+      { ref: 'hss.2.2', location: 'p6 "Epineurium" around the nerve, "Perineurium" around a fascicle, "Endoneurium" around a fibre' },
+      { ref: 'hss.2.2', location: 'p7 "Dorsal root ganglion"; proximal branches dorsal root and ventral root, distal branches dorsal ramus, ventral ramus, meningeal branch' },
+      { ref: 'hss.2.2', location: 'p8 "The specific bilateral region of the skin surface monitored by a single pair of spinal nerves (except C1)"' },
+      { ref: 'hss.mooc3', location: 'p6 "Ganglion" is a "swollen part" that "contain somas of peripheral neurons"; dorsal root "carries sensory signals to dorsal horn"' },
+      { ref: 'hss.mooc3', location: 'p7 "31 pairs"; "Cervical Plexus (C1-C4)", "Brachial Plexus (C5-T1)", "Lumbar Plexus (T12-L4)", "Sacral Plexus (L4-S4)", "Coccygeal Plexus"' },
+      { ref: 'hss.fib5yr', location: 'p15 "is the innermost meningeal layer" (pia mater); "A complex, interwoven network of nerves is called a nerve plexus"' },
+      { ref: 'hss.fib5yr', location: 'p15 "Denticulate ligament extends from the pia mater to the dura mater"' },
+      { ref: 'hss.revans', location: 'Module 2.1 Fill-in-blanks 1 "Tentorium cerebelli" and 5 "Subarachnoid"' },
+    ],
   },
 
   {
