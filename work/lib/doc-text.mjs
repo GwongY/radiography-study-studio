@@ -46,21 +46,68 @@ const needsCopy = (f) => NEEDS_COPY.test(f) || f.length >= TOO_LONG;
    packages. The form-feed join preserves the same page contract as Poppler. */
 const PYTHON_PDF = String.raw`
 import sys
-try:
-    import pdfplumber
-except ImportError:
-    pdfplumber = None
 
-if pdfplumber is not None:
-    with pdfplumber.open(sys.argv[1]) as pdf:
-        pages = [(page.extract_text() or '') for page in pdf.pages]
-else:
+pages = None
+
+try:
+    import pymupdf as fitz
+except ImportError:
+    try:
+        import fitz
+    except ImportError:
+        fitz = None
+
+if fitz is not None:
+    try:
+        doc = fitz.open(sys.argv[1])
+        pages = []
+        for page in doc:
+            t = page.get_text()
+            t = (t.replace(chr(0x231), ' ')
+                  .replace(chr(0x207), "'")
+                  .replace(chr(0x208), '"')
+                  .replace(chr(0x390), 'µ')
+                  .replace(chr(0x12e), 'α')
+                  .replace(chr(0x386), 'β'))
+            pages.append(t)
+    except Exception:
+        pages = None
+
+if pages is None:
+    try:
+        import pdfplumber
+    except ImportError:
+        pdfplumber = None
+
+    if pdfplumber is not None:
+        try:
+            with pdfplumber.open(sys.argv[1]) as pdf:
+                pages = []
+                for page in pdf.pages:
+                    t = page.extract_text(x_tolerance=2) or ''
+                    t = t.replace('(cid:561)', ' ')
+                    pages.append(t)
+        except Exception:
+            pages = None
+
+if pages is None:
     from pypdf import PdfReader
     pages = [(page.extract_text() or '') for page in PdfReader(sys.argv[1]).pages]
 
 with open(sys.argv[2], 'w', encoding='utf-8', newline='') as out:
     out.write('\f'.join(pages))
 `;
+
+function findPython() {
+  if (process.env.RSS_PYTHON) return process.env.RSS_PYTHON;
+  for (const cmd of ['python', 'py', 'python3']) {
+    try {
+      execFileSync(cmd, ['--version'], { stdio: 'ignore' });
+      return cmd;
+    } catch {}
+  }
+  return null;
+}
 
 /* Every entry in a zip whose name matches, decompressed. The central directory
    is walked backwards from the End Of Central Directory record. */
@@ -106,11 +153,25 @@ function pdfPages(file, timeout) {
     let src = file;
     if (needsCopy(file)) { src = join(tmp, `in${extname(file)}`); copyFileSync(file, src); }
     const out = join(tmp, 'out.txt');
+    const py = findPython();
+    let ranPdftotext = false;
     try {
       execFileSync('pdftotext', ['-layout', src, out], { stdio: 'ignore', timeout });
+      ranPdftotext = true;
     } catch (e) {
-      if (e.code !== 'ENOENT' || !process.env.RSS_PYTHON) throw e;
-      execFileSync(process.env.RSS_PYTHON, ['-c', PYTHON_PDF, src, out], { stdio: 'ignore', timeout });
+      if (e.code !== 'ENOENT' && !process.env.RSS_PYTHON) throw e;
+      if (!py) throw e;
+      execFileSync(py, ['-c', PYTHON_PDF, src, out], { stdio: 'ignore', timeout });
+    }
+
+    if (ranPdftotext && py) {
+      const raw = readFileSync(out, 'utf8');
+      const sample = raw.slice(0, 4000);
+      if (/1\)\s+[A-Za-z]{25,}/.test(sample) || /[A-Za-z]{40,}/.test(sample)) {
+        try {
+          execFileSync(py, ['-c', PYTHON_PDF, src, out], { stdio: 'ignore', timeout });
+        } catch { /* keep pdftotext output if python fails */ }
+      }
     }
     /* pdftotext separates pages with a form feed. That IS the page boundary. */
     return readFileSync(out, 'utf8').split('\f');

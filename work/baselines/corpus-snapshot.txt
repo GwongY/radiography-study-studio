@@ -1,12 +1,12 @@
 — the export surface of outputs/study-data.js — 64 exports —
   f6ce6e2d285e4eb0      3308  BONE_HOOKS  object[21]
-  6505bb55b3231d7d     27803  COVERAGE  object[6]
+  b0a37d5f2209e765     30509  COVERAGE  object[6]
   6b86b273ff34fce1         1  DATA_VERSION  number
   619d6a33617fad34         8  DAY_MS  number
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  70d0e756d8e520f4    957902  ITEM_BY_ID  Map[158]
+  04b00bed378df414   1027112  ITEM_BY_ID  Map[164]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -18,21 +18,21 @@
   f428292239abe4d6       199  PRIOR_KNOWLEDGE  object[1]
   98a503c7f71e10a2       285  REVEAL_MODES  array[3]
   f0a99ffb06d2f02a       740  SOCIOLOGY_NOTICE  object[5]
-  1ee76f8858dcd5bb     31947  SOURCE_FILES  object[109]
+  59dd3073b245b8b9     35709  SOURCE_FILES  object[115]
   fcd1b035a403732f        12  SOURCE_MAP_VERSION  string
-  643fcb71c1d9acb4       515  SOURCE_ROOTS  object[17]
+  9131051cbbd87c06       539  SOURCE_ROOTS  object[18]
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   57b60f7998459a29     20933  STRUCTURE_SETS  object[13]
-  3cf4e09c14a3f42c    953109  STUDY_ITEMS  array[158]
+  d3f87a70abeae34a   1022055  STUDY_ITEMS  array[164]
   f1627657582790e7      1185  STUDY_MODES  array[9]
   834fbc89b7e6fccf      4005  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
-  696497c0823e4809     77700  Y1S1_SOURCE_MAP  object[4]
+  79e0426291ddfe0d     80529  Y1S1_SOURCE_MAP  object[4]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  561d7638c2742268   1020092  default  object[7]
+  79d6064af32a78f5   1095506  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -64,9 +64,9 @@
   bb157d6583e754f9      2211  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  95dadb319d28985c  WHOLE SURFACE
+  fe9561ca57b35545  WHOLE SURFACE
 
-— every study item, by id — 158 items —
+— every study item, by id — 164 items —
   2d29339c231f634a  abct2326-acquired-immunity
   0f85a14f65a3eba6  abct2326-blood-composition
   23f628153e36648d  abct2326-cell-division
@@ -78,6 +78,7 @@
   6a2f36f61277e0ef  abct2326-cvs-conduction
   63b109fc10aba566  abct2326-cvs-ecg-cycle
   a436a693bf0d252a  abct2326-cvs-heart-structure
+  5c0db8a30b498b53  abct2326-cvs-hemodynamics-tutorial
   e64e35a0e5a9ada4  abct2326-digestive-hormones-colon
   140a16ff3a932158  abct2326-digestive-pathway
   561b7626e5a4aa8f  abct2326-digestive-small-intestine-accessory
@@ -101,13 +102,16 @@
   75d9e0b371485183  abct2326-muscle-types
   741415ba148116ef  abct2326-muscle-ultrastructure-energetics
   333b0e851b69cd66  abct2326-nervous-divisions
+  4481e128bfbf7d8c  abct2326-nervous-synaptic-refractory-neuroglia
   e1cee3653b7d5cc1  abct2326-nmj-coupling
   52385a0ac3c55136  abct2326-nucleus-genetic-code
   fe8aeb4f98e9c764  abct2326-organelles
   001f80a08dd3d2cd  abct2326-plasma-membrane
   6272315dbf95796f  abct2326-protein-synthesis
+  d81f042150adb4ad  abct2326-renal-countercurrent-vasarecta
   c63153d07ad286e8  abct2326-renal-filtration-countercurrent
   d674db64ef0b2b89  abct2326-renal-nephron
+  4652ae1dd8d86741  abct2326-renal-tubular-clearance-sympathetic
   91b978b6da5ee7e9  abct2326-repro-fertilization-implantation
   db9d99b73ba1602b  abct2326-repro-male-regulation
   074f971cfb5c5358  abct2326-repro-ovarian-menstrual-cycle
@@ -117,6 +121,7 @@
   3629af3d20a13f55  abct2326-resp-lung-volumes
   8f3b759309fba00a  abct2326-resp-oxygen-transport
   b70a323aeff65be8  abct2326-resp-pathway
+  ef4b24c1c0492c55  abct2326-resp-ventilation-chemoreceptors
   befb6542f211e514  abct2326-resp-ventilation-mechanics
   1a7643a21b266c66  abct2326-spindle-golgi
   981a724977954078  abct2326-synapse-drug-action
@@ -223,5 +228,6 @@
   d0d80ca3fd9beb0a  hti17103-modality-detail
   2a08ec848e529402  hti17103-radiation-therapy
   9d41bb02e7c3f5d8  hti17103-radioprotection
+  d70b5a380ceb3dac  hti17103-sbrt-sirt-hepatocellular-carcinoma
   80a29a0eb0516887  hti17103-what-is-radiography
   1dfd602fa17491f8  phys-nerve-cellular-action-potential

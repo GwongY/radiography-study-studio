@@ -39,10 +39,11 @@
  *   node work/build-question-pack.mjs --folder "question blank" --pack-id abct2326-bank-v1
  */
 import { createHash } from 'node:crypto';
-import { gunzipSync } from 'node:zlib';
+import { gunzipSync, gzipSync } from 'node:zlib';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { extractText } from './lib/doc-text.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CACHE = join(root, 'work/.source-text');
@@ -56,6 +57,7 @@ const flag = (name, dflt) => {
 const REPORT_ONLY = argv.includes('--report');
 const FOLDER = new RegExp(flag('folder', 'question blank'), 'i');
 const PACK_ID = flag('pack-id', 'abct2326-bank-v1');
+const SUBJECT = flag('subject', PACK_ID.toLowerCase().startsWith('hss2011') ? 'HSS2011' : (PACK_ID.toLowerCase().startsWith('abct2326') ? 'ABCT2326' : null));
 const OUT = resolve(root, flag('out', join('work/.packs', `${PACK_ID}.json`)));
 
 /* The one refusal that matters. outputs/ is the deployed directory. */
@@ -82,17 +84,39 @@ const stripMargin = (text) => text.replace(/[ \t]{2,}\d{1,3}\)[ \t]*$/gm, '');
  * 1, 2, 3 …, so the next start is the next "N)" whose digits END with the
  * number we want. "1273)" while expecting 73 is page 12 plus question 73, and
  * slicing from the last two digits drops the page number without a special case.
+ *
+ * For single-PDF test banks (like Martini) covering multiple chapters and
+ * question sections (MCQ, Short Answer, True/False, Essay), question numbering
+ * restarts at 1) at each chapter or section heading.
  */
-function findStarts(text) {
+function findStarts(text, defaultChapter = null) {
   const starts = [];
   let expect = 1;
-  const re = /(\d{1,5})\)/g;
+  let curChapter = defaultChapter;
+  let curSection = 'Multiple Choice';
+
+  const tokenRe = /(?:^(?:Chapter\s*(\d+)[^\r\n]*|((?:Multiple\s*Choice|True\s*\/\s*False|Short\s*Answer|Essay|Matching)\s*Questions[^\r\n]*))$)|(?:(?<!\()(\d{1,5})\))/gim;
+
   let m;
-  while ((m = re.exec(text))) {
-    const want = String(expect);
-    if (m[1].endsWith(want)) {
-      starts.push({ index: m.index + m[1].length - want.length, n: expect });
-      expect += 1;
+  while ((m = tokenRe.exec(text))) {
+    if (m[1]) {
+      curChapter = Number(m[1]);
+      expect = 1;
+    } else if (m[2]) {
+      curSection = tidy(m[2]);
+      expect = 1;
+    } else if (m[3]) {
+      const digits = m[3];
+      const want = String(expect);
+      if (digits.endsWith(want)) {
+        starts.push({
+          index: m.index + digits.length - want.length,
+          chapter: curChapter,
+          section: curSection,
+          n: expect,
+        });
+        expect += 1;
+      }
     }
   }
   return starts;
@@ -137,18 +161,42 @@ function parseBlock(block, n) {
   if (ansAt < 0) return { skipped: { n, why: 'no answer' } };
 
   const answerRaw = body.slice(ansAt).replace(/^Answer:\s*/, '');
-  const letter = answerRaw.match(/^([A-E])\b/);
-
-  if (!letter) {
-    /* A short-answer question. Kept, as its own type. */
-    const stem = tidy(body.slice(0, ansAt));
-    const answer = tidy(answerRaw).replace(/\s*Diff:.*$/i, '');
-    if (!stem || !answer) return { skipped: { n, why: 'short answer, but empty' } };
-    return { question: { n, type: 'short', stem, answer } };
-  }
+  const metaSlice = body.slice(ansAt);
+  const diffM = metaSlice.match(/\bDiff:\s*(\d+)/i);
+  const diff = diffM ? Number(diffM[1]) : undefined;
+  const skillM = metaSlice.match(/\bSkill:\s*([^\r\n]+)/i);
+  const skill = skillM ? tidy(skillM[1]) : undefined;
 
   const optAt = body.search(/(?:^|\s)A\)\s/);
-  if (optAt < 0 || optAt > ansAt) return { skipped: { n, why: 'letter answer but no options found' } };
+  const hasOptions = optAt >= 0 && optAt < ansAt;
+  const letter = hasOptions ? answerRaw.match(/^([A-E])\b/) : null;
+
+  if (!letter) {
+    /* A short-answer, true/false, or matching question. Kept, as its own type. */
+    const stem = tidy(body.slice(0, ansAt));
+    const answer = tidy(answerRaw.replace(/\s*(?:Diff|Skill):[\s\S]*$/i, ''));
+    if (!stem || !answer) return { skipped: { n, why: 'short answer, but empty' } };
+
+    const tfM = answer.match(/^(TRUE|FALSE)\b/i);
+    if (tfM) {
+      const q = { n, type: 'tf', stem, answer: tfM[1].toUpperCase() };
+      if (diff !== undefined) q.diff = diff;
+      if (skill) q.skill = skill;
+      return { question: q };
+    }
+
+    if (/^Match\b/i.test(stem) || /^\d+-[A-Z]/i.test(answer)) {
+      const q = { n, type: 'matching', stem, answer };
+      if (diff !== undefined) q.diff = diff;
+      if (skill) q.skill = skill;
+      return { question: q };
+    }
+
+    const q = { n, type: 'short', stem, answer };
+    if (diff !== undefined) q.diff = diff;
+    if (skill) q.skill = skill;
+    return { question: q };
+  }
 
   let stem = tidy(body.slice(0, optAt));
   const options = readOptions(body.slice(optAt, ansAt));
@@ -196,25 +244,54 @@ function parseBlock(block, n) {
       },
     };
   }
-  return { question: { n, type: 'mcq', stem, options, answer: letter[1] } };
+  const q = { n, type: 'mcq', stem, options, answer: letter[1] };
+  if (diff !== undefined) q.diff = diff;
+  if (skill) q.skill = skill;
+  return { question: q };
 }
 
-/* ------------------------------------------------------------------ *
- * Gather
- * ------------------------------------------------------------------ */
+function dedupeDocs(docs) {
+  const byNorm = new Map();
+  for (const d of docs) {
+    const norm = d.n.toLowerCase()
+      .replace(/\.pdf$/i, '')
+      .replace(/^copy\s*(?:of\s*)?/i, '')
+      .replace(/[\s_-]*\d{4}[-_]\d{2}[-_]\d{2}.*$/i, '')
+      .replace(/[^a-z0-9]/g, '');
+    const held = byNorm.get(norm);
+    if (!held) {
+      byNorm.set(norm, d);
+    } else {
+      const dHss = d.at.some(([, p]) => /HSS2011/i.test(p));
+      const heldHss = held.at.some(([, p]) => /HSS2011/i.test(p));
+      if (dHss && !heldHss) byNorm.set(norm, d);
+    }
+  }
+  return [...byNorm.values()];
+}
+
+function resolveDocPath(d, roots) {
+  for (const [ri, p] of d.at) {
+    const full = ri < 0 ? p : join(roots[ri], p);
+    if (existsSync(full)) return full;
+  }
+  return null;
+}
 
 if (!existsSync(CATALOGUE)) {
   console.error('work/source-catalogue.json is missing — run work/build-source-catalogue.mjs');
   process.exit(2);
 }
 const catalogue = JSON.parse(readFileSync(CATALOGUE, 'utf8'));
-const docs = catalogue.docs
+const matchedDocs = catalogue.docs
   .filter((d) => d.at.some((a) => FOLDER.test(a[1])))
   .sort((a, b) => {
     const na = Number((a.n.match(/(\d+)/) || [])[1] ?? 0);
     const nb = Number((b.n.match(/(\d+)/) || [])[1] ?? 0);
     return na - nb || a.n.localeCompare(b.n);
   });
+
+const docs = dedupeDocs(matchedDocs);
 
 if (!docs.length) {
   console.error(`no documents in the catalogue match /${FOLDER.source}/i`);
@@ -228,25 +305,56 @@ const perFile = [];
 let missingText = 0;
 
 for (const d of docs) {
-  const path = join(CACHE, `${cacheKey(d)}.txt.gz`);
-  if (!existsSync(path)) {
+  const cPath = join(CACHE, `${cacheKey(d)}.txt.gz`);
+  let text = '';
+  if (existsSync(cPath)) {
+    text = gunzipSync(readFileSync(cPath)).toString('utf8');
+  }
+  /*
+   * If cached text is missing or unspaced (the pdftotext symbol font issue where
+   * character 561 was lost as space, resulting in runs of words glued together),
+   * re-extract using doc-text.mjs (PyMuPDF) and update the local cache.
+   */
+  const isUnspaced = /1\)\s+[A-Za-z]{25,}/.test(text) || /[A-Za-z]{45,}/.test(text);
+  if (!text || isUnspaced) {
+    const diskPath = resolveDocPath(d, catalogue.roots);
+    if (diskPath) {
+      const res = extractText(diskPath);
+      if (res.ok && res.pages.length) {
+        text = res.pages.join('\n\n');
+        mkdirSync(CACHE, { recursive: true });
+        writeFileSync(cPath, gzipSync(Buffer.from(text, 'utf8')));
+      }
+    }
+  }
+
+  if (!text) {
     missingText += 1;
     perFile.push({ name: d.n, mcq: 0, short: 0, skipped: 0, note: 'no cached text — run build-source-text.mjs' });
     continue;
   }
-  const text = stripMargin(gunzipSync(readFileSync(path)).toString('utf8'));
-  const chapter = Number((d.n.match(/(\d+)/) || [])[1] ?? 0) || null;
-  const slug = `ch${String(chapter ?? 0).padStart(2, '0')}`;
 
-  const starts = findStarts(text);
+  text = stripMargin(text.replace(/Page \d+\s*\n\s*Fundamentals of Anatomy & Physiology, 8e \(Martini\)/g, ''));
+  const fallbackChapter = Number((d.n.match(/(\d+)/) || [])[1] ?? 0) || null;
+
+  const starts = findStarts(text, fallbackChapter);
   let mcq = 0; let short = 0; const skipped = [];
+  const chSeq = new Map();
+
   for (let k = 0; k < starts.length; k += 1) {
     const end = k + 1 < starts.length ? starts[k + 1].index : text.length;
-    const r = parseBlock(text.slice(starts[k].index, end), starts[k].n);
+    const s = starts[k];
+    const r = parseBlock(text.slice(s.index, end), s.n);
     if (r.skipped) { skipped.push(r.skipped); continue; }
+
+    const ch = s.chapter ?? fallbackChapter ?? 0;
+    const seq = (chSeq.get(ch) || 0) + 1;
+    chSeq.set(ch, seq);
+    const slug = `ch${String(ch).padStart(2, '0')}`;
+
     questions.push({
-      qid: `${slug}-q${String(r.question.n).padStart(3, '0')}`,
-      chapter,
+      qid: `${slug}-q${String(seq).padStart(3, '0')}`,
+      chapter: ch || undefined,
       source: d.n,
       ...r.question,
     });
@@ -265,10 +373,11 @@ for (const d of docs) {
  * ------------------------------------------------------------------ */
 
 const pad = (s, n) => String(s).padStart(n);
-console.log('file                     mcq  / of   short  skipped');
+const nameCol = Math.max(24, ...perFile.map((f) => f.name.length + 1));
+console.log(`${'file'.padEnd(nameCol)} mcq  / of   short  skipped`);
 for (const f of perFile) {
-  if (f.note) { console.log(`${f.name.padEnd(24)} ${f.note}`); continue; }
-  console.log(`${f.name.padEnd(24)}${pad(f.mcq, 4)} /${pad(f.claimsLetter, 4)}  ${pad(f.short, 5)}  ${pad(f.skipped, 7)}`);
+  if (f.note) { console.log(`${f.name.padEnd(nameCol)} ${f.note}`); continue; }
+  console.log(`${f.name.padEnd(nameCol)}${pad(f.mcq, 4)} /${pad(f.claimsLetter, 4)}  ${pad(f.short, 5)}  ${pad(f.skipped, 7)}`);
 }
 
 const totMcq = perFile.reduce((a, f) => a + (f.mcq || 0), 0);
@@ -323,8 +432,9 @@ if (argv.includes('--split')) {
   const files = [];
   for (const [key, qs] of [...byChapter.entries()].sort()) {
     const body = JSON.stringify({ format: 'rss.pack.part', packId: PACK_ID, part: key, questions: qs });
-    writeFileSync(join(dir, `${key}.json`), body);
-    files.push({ part: key, file: `${key}.json`, questions: qs.length, bytes: body.length });
+    const bytes = Buffer.byteLength(body, 'utf8');
+    writeFileSync(join(dir, `${key}.json`), body, 'utf8');
+    files.push({ part: key, file: `${key}.json`, questions: qs.length, bytes });
   }
   const over = files.filter((f) => f.bytes > 1000000);
   const index = {
@@ -352,6 +462,7 @@ const pack = {
      obvious to anyone reading it that this is licensed material. */
   origin: {
     folder: FOLDER.source,
+    ...(SUBJECT ? { subject: SUBJECT } : {}),
     files: perFile.map((f) => ({ name: f.name, mcq: f.mcq || 0, short: f.short || 0 })),
     licence: 'Publisher test bank. Private study copy. Not for redistribution.',
   },
@@ -362,3 +473,4 @@ writeFileSync(OUT, JSON.stringify(pack));
 const mb = (JSON.stringify(pack).length / 1048576).toFixed(2);
 console.log(`\nwrote ${relative(root, OUT).replace(/\\/g, '/')}  —  ${questions.length} questions, ${mb} MB`);
 console.log('gitignored, and work/pack-privacy-check.mjs asserts it stays that way.');
+
