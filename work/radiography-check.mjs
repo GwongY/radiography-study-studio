@@ -140,5 +140,23 @@ if (R.windowFor(10).hi - R.windowFor(10).lo > R.windowFor(2).hi - R.windowFor(2)
   ok('a denser subject gets a wider window');
 else fail('windowFor does not widen with the median');
 
+console.log('- the cortical shell -');
+near(R.CORTEX_CM, 0.2, 1e-9, 'cortical thickness is 2 mm');
+near(R.GRAZE_CLAMP, 0.05, 1e-9, 'the grazing clamp caps the shell term at 20t');
+/* A ray straight through a 4 cm bone: 2 shell crossings plus a marrow bulk. */
+const straight = R.boneTau({ pathCm: 4, cosIncidence: 1, kvp: 75 });
+const grazing = R.boneTau({ pathCm: 4, cosIncidence: 0.2, kvp: 75 });
+if (grazing > straight) ok('a grazing ray spends longer in cortex than a normal one');
+else fail('the shell term does not rise at grazing incidence');
+const uniform = R.muAt('bone', 30) * 4;
+if (straight < uniform) ok('a hollow bone attenuates less than a solid one');
+else fail(`shell model is not lighter than solid bone: ${straight} vs ${uniform}`);
+near(R.boneTau({ pathCm: 4, cosIncidence: 0.001, kvp: 75 }),
+     R.boneTau({ pathCm: 4, cosIncidence: 0.05, kvp: 75 }), 1e-9,
+     'the clamp bounds the silhouette edge');
+near(R.boneTau({ pathCm: 4, cosIncidence: -1, kvp: 75 }),
+     R.boneTau({ pathCm: 4, cosIncidence: 1, kvp: 75 }), 1e-9,
+     'incidence sign does not matter, only the angle');
+
 console.log(failures ? `\n${failures} FAILED` : '\nALL PASS');
 process.exit(failures ? 1 : 0);
