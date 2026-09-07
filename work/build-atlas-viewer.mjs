@@ -2,7 +2,9 @@
 // Node 24 strips TypeScript; the shipped app remains plain, no-build ES modules.
 import {readFileSync,writeFileSync} from 'node:fs';
 import {stripTypeScriptTypes} from 'node:module';
-const read=name=>readFileSync(`work/atlas-source/${name}.ts`,'utf8');
+/* Normalise CRLF: a fresh checkout smudges the snapshot to CRLF (core.autocrlf),
+   and every newline-sensitive replace below must match whatever the disk holds. */
+const read=name=>readFileSync(`work/atlas-source/${name}.ts`,'utf8').replace(/\r\n/g,'\n');
 const write=(name,s)=>writeFileSync(`outputs/atlas/${name}.js`,'// Adapted from ashemag/human-atlas. MIT; see ../THIRD-PARTY-NOTICES.txt.\n'+stripTypeScriptTypes(s).replace(/[ \t]+$/gm,''));
 for(const name of ['explosion-layout','model-download','pointer-tap'])write(name,read(name));
 write('anatomy',read('anatomy').split('export const EXPLANATIONS')[0].replace(/description:'[^']*'/g,"description:''"));
