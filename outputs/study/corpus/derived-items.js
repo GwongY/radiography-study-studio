@@ -220,7 +220,8 @@ function structureItem(set) {
       explanation: `${set.label} — ${set.members.length} structures in ${groups.length} group${groups.length === 1 ? '' : 's'}: ${groups.join(', ')}. `
         + `Every one of these is a separately named mesh in the bundled skeleton, so you can rotate to it and tap it directly. `
         + `Work through the labelled view first, then the guided view with only ${set.anchors.length} anchor${set.anchors.length === 1 ? '' : 's'} left in, then the blank view where nothing is named.`
-        + (set.paired ? ' These are paired structures, so the side is always part of the answer.' : ''),
+        + (set.paired ? ' These are paired structures, so the side is always part of the answer.' : '')
+        + (set.orientation ? ` ${set.orientation}` : ''),
       keyFacts: listing,
       keyFactsGroups,
       hook: hooks.hook || null,
@@ -257,6 +258,7 @@ function structureItem(set) {
         : `Anchor logic is what holds the set together: the ${set.anchors.length} named anchor${set.anchors.length === 1 ? '' : 's'} (${set.anchors.map((a) => (set.members.find((mem) => mem.id === a) || {}).label).filter(Boolean).join(', ')}) are what every other member is reconstructed from — which is why a structure seen in isolation loses its most reliable clue, and only individual shape remains.`,
     ],
     selfCheck: `The blank view, cold: all ${set.members.length} named in group order, with the count used as the drop-check — if your list is shorter than ${set.members.length}, find which group you dropped before moving on.`,
+    ...(set.visuals ? { visuals: set.visuals } : {}),
     sourceRefs: set.sourceRefs,
   };
 }

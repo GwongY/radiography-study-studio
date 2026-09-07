@@ -216,7 +216,13 @@ export const STRUCTURE_SETS = {
       { id: 'vagus', label: 'Vagus nerve (X)', mesh: 'Vagus nerve (X)', group: 'Pharynx & viscera', order: 9, note: 'The longest cranial nerve. Carries aortic body chemoreceptor input.' },
       { id: 'hypoglossal', label: 'Hypoglossal nerve (XII)', mesh: 'Hypoglossal nerve (XII)', group: 'Tongue', order: 10 },
     ],
-    sourceRefs: [{ ref: 'hss.vocab', location: 'Glossary — the cranial nerves listed as examinable terms' }, { ref: 'hss.revans', location: 'Module 2.3 Fill-in-blanks 1 and 4; Module 4.2 Fill-in-blanks 1' }, { ref: 'phys.3', location: 'Slides 68–69 glossopharyngeal and vagus chemoreceptor input' }],
+    orientation: 'On the model, find the twelve pairs emerging in order along the base of the brain, front to back: olfactory and optic into the forebrain, oculomotor and trochlear at the midbrain, the large trigeminal with abducens, facial and vestibulocochlear at the pons, and glossopharyngeal, vagus, accessory and hypoglossal in a row off the medulla oblongata. Learn the emergence order here, and take the modality and target of each nerve from the tested item hss2011-neuro-cranial-nerves-distribution.',
+    visuals: [
+      { fig: 'cranialNervesBase' },
+      { model: { layer: 'nervous', meshes: ['Olfactory nerve (I)', 'Optic nerve (II)', 'Trigeminal nerve (V)', 'Facial nerve (VII)', 'Vestibulocochlear nerve (VIII)', 'Vagus nerve (X)', 'Hypoglossal nerve (XII)'], label: 'Cranial nerves along the brain base', caption: 'The set on the 3D model: a sample down the numbered sequence from the olfactory and optic nerves at the front to the vagus and hypoglossal leaving the medulla.' } },
+      { gen: true },
+    ],
+    sourceRefs: [{ ref: 'hss.2.3', location: 'p31 "Cranial nerves (CN) – 12 pairs" — "Olfactory bulb" — "Olfactory tract" — "Optic chiasm" — "Midbrain CN V" — "Pons CN VI"' }, { ref: 'hss.2.3', location: 'p32 "Cranial nerves (CN) – 12 pairs"' }, { ref: 'hss.vocab', location: 'Glossary — the cranial nerves listed as examinable terms' }, { ref: 'hss.revans', location: 'Module 2.3 Fill-in-blanks 1 and 4; Module 4.2 Fill-in-blanks 1' }, { ref: 'phys.3', location: 'Slides 68–69 glossopharyngeal and vagus chemoreceptor input' }],
     modelGap: 'Oculomotor (III) and accessory (XI) are in the model but are not named in the HSS2011 glossary, so they are left out of this set rather than added on assumption.',
   },
   brainAndCsf: {
@@ -236,7 +242,13 @@ export const STRUCTURE_SETS = {
       { id: 'spinaldura', label: 'Spinal dura', mesh: 'Spinal dura', group: 'Spinal cord', order: 10 },
       { id: 'caudaequina', label: 'Cauda equina', mesh: 'Cauda equina', group: 'Spinal cord', order: 11, note: 'Below L1–L2, where the cord itself has ended.' },
     ],
-    sourceRefs: [{ ref: 'hss.2.3', location: 'Neuroanatomy lecture' }, { ref: 'hss.revans', location: 'Module 2.1 and 2.3 answers' }],
+    orientation: 'Orient on a midline view. The brainstem is the vertical stalk: midbrain at the top, then pons, then medulla oblongata at the bottom, with the cerebellum behind the pons. The ventricles run down the core: the lateral ventricle in the hemisphere drains through the interventricular foramen to the third ventricle, then through the aqueduct of the midbrain to the fourth ventricle behind the pons. The corpus callosum and thalamus cap it above; the spinal dura and cauda equina trail below, where the cord itself has ended. This set is the visual backing for the tested items hss2011-cns-brainstem-reticular and hss2011-cns-ventricles-csf-blood.',
+    visuals: [
+      { fig: 'csfSystem' },
+      { model: { layer: 'nervous', meshes: ['Midbrain', 'Pons', 'Medulla oblongata', 'Lateral ventricle', 'Third ventricle', 'Aqueduct of midbrain', 'Fourth ventricle', 'Corpus callosum'], label: 'Brainstem, ventricles and forebrain cap', caption: 'The three brainstem parts as a column, the ventricular system threaded through the midline, and the corpus callosum arching over it.' } },
+      { gen: true },
+    ],
+    sourceRefs: [{ ref: 'hss.2.3', location: 'p12 "Corpus callosum" — "Thalamus" — "Midbrain" — "Pons" — "Medulla" — "Brainstem"' }, { ref: 'hss.2.3', location: 'p21 "Brainstem" — "Midbrain" — "Pons" — "Medulla" — "oblongata"' }, { ref: 'hss.2.3', location: 'p27 "Ventricular system of the brain" — "Interventricular" — "foramen" — "Third ventricle" — "Cerebral aqueduct" — "Fourth ventricle"' }, { ref: 'hss.revans', location: 'Module 2.1 and 2.3 answers' }],
   },
   kneeJoint: {
     id: 'kneeJoint', label: 'Inside the knee — a synovial joint', subject: 'HSS2011', unit: 'hss.joints',
