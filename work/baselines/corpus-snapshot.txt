@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  3d2ed6bd02834090   1077643  ITEM_BY_ID  Map[165]
+  03b04172332fe987   1077872  ITEM_BY_ID  Map[165]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -24,7 +24,7 @@
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   75ed97c2f90528d7     20915  STRUCTURE_SETS  object[13]
-  2723735a582acb71   1072189  STUDY_ITEMS  array[165]
+  b33ba748648e24ba   1072418  STUDY_ITEMS  array[165]
   f1627657582790e7      1185  STUDY_MODES  array[9]
   834fbc89b7e6fccf      4005  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
@@ -32,7 +32,7 @@
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  71d780a0c291c785   1146344  default  object[7]
+  729521bac105d967   1146573  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -64,7 +64,7 @@
   ba048d6b42696398      2356  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  63604d3f00755f7c  WHOLE SURFACE
+  39d736f122f3fc5c  WHOLE SURFACE
 
 — every study item, by id — 165 items —
   2d29339c231f634a  abct2326-acquired-immunity
@@ -157,7 +157,7 @@
   14283d2569b5a22e  hss2011-m2-autonomic-nervous-system
   ce5dd76a2cdd9676  hss2011-m2-brain-regions
   4c417e0d669ddc14  hss2011-m2-cerebellum
-  f9ec0b9928a826be  hss2011-m2-cns-basics
+  2a08f52506a1ea28  hss2011-m2-cns-basics
   de99a84064521085  hss2011-m2-ear-hearing
   be74df9cfdc8dff1  hss2011-m2-eye-visual-pathway
   795e696c6e82e6e3  hss2011-m2-neurons-glia
