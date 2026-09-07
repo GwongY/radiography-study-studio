@@ -19,13 +19,13 @@ The workflow is the same for every subject:
 ### Viewer workspace and projection (September 2026)
 
 Explore and Tools share a dock inside the viewer. Each panel scrolls independently;
-Tools includes cuts, opacity, separation, annotations and capture. Layers can be
-collapsed to clear the model, and starts collapsed at tablet widths.
+Tools includes cuts, opacity, separation and annotations. Explore and Tools collapse
+independently; model controls sit in the bottom bar. Layers start collapsed at tablet widths.
 
 Projection includes the Heart system from the circulatory file. Mesh-relative
 entry/exit integration limits artefacts from open surfaces; the source meshes still
 overlap and are not CT volumes. PA picking follows the mirrored image. Pan and
-display zoom preserve SID; Window/Level, reset and PNG export are separate controls.
+display zoom preserve SID; Window/Level and reset are separate controls.
 Leaving a pending projection cancels its claim to the shared canvas. Returning to
 3D restores camera, visibility, materials, tool, cuts and system switches.
 
@@ -33,7 +33,24 @@ Leaving a pending projection cancels its claim to the shared canvas. Returning t
 tab on the dev server. It covers the GPU path, all 15 region/view combinations,
 tab races, exposure and restoration. `work/radiography-check.mjs` checks the physics
 helpers. The viewer interaction reference was [Human Atlas](https://github.com/ashemag/human-atlas);
-the implementation retains this app's vanilla modules and existing anatomy assets.
+the implementation retains this app's vanilla modules.
+
+**Full atlas** adds the Human Atlas BodyParts3D 4.0 adult male reference: 2,234
+selectable meshes, 3,432 named concepts and 15 systems. Its Spread slider opens
+systems first, then packs every visible piece into non-overlapping cells. Search
+selects individual or compound concepts, and isolation fits the selected geometry.
+The Course model retains curriculum links, cuts, annotations and projection.
+
+Full-atlas geometry downloads only when that tab is opened (32,956,129 compressed
+bytes, about 33 MB) and uses the existing persistent model cache for offline reuse.
+Its renderer pauses when the tab or Viewer is hidden. Attribution is visible in
+Tools and in `atlas/ATTRIBUTION.md`; code is MIT, model data CC BY 4.0. This adult
+male reference is broader than the course model, not every human structure or variation.
+
+`work/atlas-source/` preserves the upstream TypeScript snapshot. Run
+`node work/build-atlas-viewer.mjs` on Node 24 to reproduce the adapted vanilla
+renderer; no build is needed to serve the app. `node work/full-atlas-check.mjs`
+validates all geometry chunks, concept membership, indices and nine packed layouts.
 
 | File | What it is |
 | --- | --- |

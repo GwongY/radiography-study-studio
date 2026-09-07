@@ -147,7 +147,7 @@
         <div class="stage-state" id="stageState"><h2 id="stateTitle">Preparing the 3D study model</h2><p id="stateCopy">The anatomy database and quiz remain available while the interactive layer starts.</p><button class="primary" id="retryBtn">Retry 3D model</button></div>
         <div class="progress"><span id="progressBar"></span></div>
       </div>
-      <div class="layerrail" id="layerRail" aria-label="Body layers"></div>
+      <button class="layer-rail-toggle" id="layerRailToggle" aria-expanded="true" aria-controls="layerRail">Layers</button><div class="layerrail" id="layerRail" aria-label="Body layers"></div>
       <div class="uncoverbanner hidden" id="uncoverBanner" role="status"></div>
       <!--
         The tools live in the "..." sheet, and the sheet is usually shut while
@@ -160,8 +160,8 @@
         <div class="hlist" id="hiddenList"></div>
       </div>
       <div class="stagenote"><span class="stagenote-row"><span id="stageMeta">z-anatomy-skeleton.glb · cached offline</span><span class="mono" id="regionMeta">All regions</span></span><span class="stage-hint">drag to rotate · pinch to zoom · tap a structure · tap the same spot again to go deeper</span></div>
-      <aside class="selpanel" id="taskCard">
-        <button class="panel-toggle" id="taskPanelToggle" aria-expanded="false" aria-controls="taskPanelContent">Explore &amp; study</button>
+<div class="viewer-dock" id="viewerDock">      <aside class="selpanel panel-expanded" id="taskCard">
+        <button class="panel-toggle" id="taskPanelToggle" aria-expanded="true" aria-controls="taskPanelContent">Explore &amp; study</button>
         <div id="taskPanelContent">
         <!--
           The study modes used to live inside the "⋯" sheet, two taps away from
@@ -190,38 +190,12 @@
         <button class="primary next" id="nextBtn">Next question</button>
         </div>
       </aside>
-      <div class="ctrlpill"><button class="icon-btn" id="resetBtn"><span class="lbl-full">Reset view</span><span class="lbl-abbr">Reset</span></button><button class="icon-btn" id="zoomInBtn"><span class="lbl-full">Zoom in</span><span class="lbl-abbr">+</span></button><button class="icon-btn" id="zoomOutBtn"><span class="lbl-full">Zoom out</span><span class="lbl-abbr">−</span></button><button class="icon-btn" id="focusBtn"><span class="lbl-full">Focus selected</span><span class="lbl-abbr">Focus</span></button><button class="icon-btn" id="viewerMoreBtn" aria-label="More viewer controls" aria-expanded="false">⋯</button></div>
-    </div>
-    <div class="vsheet hidden" id="viewerSheet">
-      <div class="vsheet-lab">Model controls</div>
-      <div class="vsheet-row"><button class="icon-btn active" id="motionBtn">Pause turntable</button><button class="icon-btn" id="isolateBtn">Isolate selected</button><button class="icon-btn" id="showAllBtn">Show all</button><button class="icon-btn" id="frontBtn">AP view</button><button class="icon-btn" id="lateralBtn">Lateral view</button><button class="ghost" id="reviewBtn">Start review</button><button class="ghost hidden" id="mvBackToSession">← Back to the question</button></div>
-      <div class="vsheet-grid">
-        <section class="card"><div class="task-kicker">Region filter</div><h2 class="task-title">Study one area</h2><p class="task-copy">Filtering changes the model and the quiz pool without changing the underlying records.</p><div class="region-row" id="regionButtons"></div><p class="small" style="margin-top:15px">Level path: major bones → side → landmarks → spatial finding → radiographic resources.</p></section>
-        <section class="card">
-        <div class="task-kicker">Smart review</div>
-        <h2 class="task-title" id="reviewTitle">Build weak spots</h2>
-        <p class="task-copy">Attempts and response time stay on this device. Missed structures are weighted into the next session.</p>
-        <div class="review-meter"><div class="meter"><span id="reviewBar"></span></div><div class="review-number" id="reviewNumber">0 / 20 reviewed</div></div>
-        <p class="small" id="reviewHint">Start with Identify to create your first review history.</p>
-      </section>
-        <section class="card overlaycard">
-          <div class="task-kicker">Spatial overlays</div>
-          <h2 class="task-title">Cavities, regions, planes</h2>
-          <p class="task-copy">Spaces and reference lines rather than structures. The cavities are measured from the meshes already loaded; the regions and quadrants are the named planes a clinician draws, taken from the clavicles, the tenth costal cartilage and the iliac tubercles. Either way it sits where this body puts it. Tap a group for the whole set, or search a single one.</p>
-          <div class="ogroups" id="overlayGroups"></div>
-          <div class="olist" id="overlayItems"></div>
-          <div class="omodes" id="overlayModes"></div>
-          <div class="oprov" id="overlayProv"></div>
-        </section>
-        <!--
-          Tools. The four things you DO to the model rather than look at:
-          section it, mark it, name it, keep the picture. Grouped in the order
-          you reach for them.
-        -->
-        <section class="card toolcard">
+<section class="viewer-tools-panel" id="viewerToolsPanel"><button id="toolsPanelToggle" aria-expanded="true" aria-controls="viewerSheet">Tools</button>    <div class="vsheet" id="viewerSheet">
+
+      <div class="vsheet-grid">        <section class="card toolcard">
           <div class="task-kicker">Tools</div>
-          <h2 class="task-title">Cut, annotate, capture</h2>
-          <p class="task-copy">Everything here is stored on the body, not on the screen — a cut, a pen stroke and a pinned name all turn with the model and survive a zoom, a view change and a layer switch.</p>
+
+
 
           <div class="tool-lab">Annotate</div>
           <div class="tool-row" id="toolButtons"></div>
@@ -239,30 +213,37 @@
 
           <div class="tool-lab">Separate the layers</div>
           <label class="tool-slider"><span>Spread</span><input type="range" id="sepSlider" min="0" max="100" value="0" aria-label="Separate the layers"><span class="mono" id="sepRead">together</span></label>
-          <p class="small" id="sepNote">The skeleton holds still and every other loaded layer slides out beside it, alternating left and right in the order of the chips below the model. Laid out sideways on purpose: that order is the rail's, not a claim about which layer lies deeper.</p>
 
-          <div class="tool-lab">Capture</div>
-          <div class="tool-row"><button class="icon-btn" id="toolShot">Save screen (PNG)</button></div>
 
-          <p class="tool-limits"><strong>What the cut is, and is not.</strong> It is a real clipping plane, so a
-          vertebra sectioned at mid-body shows its own cross-section the way a CT slice does — the geometry is cut,
-          not hidden. It is not a reconstruction: there is no internal texture behind the surface, so the cut face
-          reads as an outline rather than as tissue. The pen raycasts onto whatever surface is under the pointer and
-          does not know about the cut, so draw first and section afterwards. Annotations live for this visit — nothing
-          here is written to storage.</p>
-          <p class="tool-limits"><strong>Where the levels come from.</strong> Each named level is measured off this
-          model at the structure it is named for — the sternal angle at the manubriosternal junction, the
-          transpyloric line at the body of L1 — and each carries the course page that names it; tap a level to
-          read the citation. Coronal has no named levels because the line a coronal section is named against is the
-          mid-axillary line, and none of the sources this app reads name it. The section is put away while the
-          Projection tab is open. The beam there is drawn by a shader that ignores clipping planes, so a cut would
-          simply be ignored rather than shown — and a control that quietly does nothing is worse than one that says
-          it is unavailable. Your pen strokes and pins are hidden there too: the beam adds light, so ink composites
-          into the film as brightness rather than as marks. Both come back when you leave the tab.</p>
+
+
+
+
         </section>
+        <section class="card"><div class="task-kicker">Region filter</div><h2 class="task-title">Study one area</h2><div class="region-row" id="regionButtons"></div></section>
+
+        <section class="card overlaycard">
+          <div class="task-kicker">Spatial overlays</div>
+          <h2 class="task-title">Cavities, regions, planes</h2>
+
+          <div class="ogroups" id="overlayGroups"></div>
+          <div class="olist" id="overlayItems"></div>
+          <div class="omodes" id="overlayModes"></div>
+          <div class="oprov" id="overlayProv"></div>
+        </section>
+        <!--
+          Tools. The four things you DO to the model rather than look at:
+          section it, mark it, name it, keep the picture. Grouped in the order
+          you reach for them.
+        -->
+
       </div>
     </div>
+</section></div>
+<div class="ctrlpill"><button class="icon-btn" id="resetBtn">Reset view</button><button class="icon-btn" id="focusBtn">Focus</button><button class="icon-btn" id="motionBtn">Pause turntable</button><button class="icon-btn" id="isolateBtn">Isolate selected</button><button class="icon-btn" id="showAllBtn">Show all</button><button class="icon-btn" id="viewerExploreBtn" aria-expanded="true">Explore</button><button class="icon-btn" id="viewerMoreBtn" aria-expanded="true">Tools</button><button class="ghost hidden" id="mvBackToSession">Back to the question</button></div>
+    </div>
             </div>
+            <div id="viewerAtlasPane" class="atlas-workspace hidden" aria-label="Full BodyParts3D atlas"></div>
             <div id="viewerXrayPane" class="hidden">
               <div class="xray-bar">
                 <div class="segbar" id="xrayRegions"></div>
@@ -280,7 +261,7 @@
                   <span class="mono" id="xrayAecRead">on</span>
                 </label>
               </div>
-              <div class="xraywrap" id="xrayMount"></div>
+              <div class="xray-display-controls"><label>Zoom<input id="xrayZoom" type="range" min=".5" max="3" step=".1" value="1"><output id="xrayZoomRead">1</output></label><label>Window<input id="xrayWindow" type="range" min="2" max="40" step=".5" value="19"><output id="xrayWindowRead">19</output></label><label>Level<input id="xrayLevel" type="range" min="0" max="25" step=".5" value="10.5"><output id="xrayLevelRead">10.5</output></label><button class="icon-btn" id="xrayReset">Reset projection</button></div><div id="xrayStatus" class="xray-status" role="status"></div><div class="xraywrap" id="xrayMount"></div><div id="xraySelection" class="xray-selection" aria-live="polite">Tap a structure to identify it.</div>
               <div class="xray-appa">
                 <div class="xray-appa-lab">AP and PA — written by this app, not from your sources</div>
                 <p><strong>The name is the direction the beam travels through the patient.</strong>
@@ -317,9 +298,8 @@
                 <strong>kVp changes contrast; mAs changes density and noise.</strong> Cortical bone attenuates
                 8.8&times; soft tissue at 50&nbsp;kVp and 3.4&times; at 125&nbsp;kVp &mdash; that ratio is subject
                 contrast, and it is why kVp is a contrast control rather than a brightness one. mAs and distance
-                set how many photons arrive, so the grain is quantum mottle at 1/&radic;N, and moving the camera
-                really is changing your SID. AEC compensates so an accidental drag does not black out the pane;
-                switch it off to watch the inverse square law act.
+                set how many photons arrive, so the grain is quantum mottle at 1/&radic;N, while image pan and zoom keep SID fixed. AEC holds detector fluence steady;
+                switch it off to compare manual exposures.
                 <br><br>
                 <strong>Why the lungs are dark.</strong> Not because they are made of something different &mdash;
                 NIST gives lung and soft tissue the <em>same</em> mass attenuation coefficient. An inflated lung

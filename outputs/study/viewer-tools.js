@@ -122,7 +122,7 @@ function renderCutLevels() {
     </div>`).join('')
     /* Coronal is absent by decision, not by accident, so the panel says so
        rather than leaving a student to wonder which button they are missing. */
-    + '<p class="small cut-levelnote">No named coronal levels: a coronal section is named against the mid-axillary line, and none of this app&rsquo;s sources name it. Use the slider.</p>'
+
     + (active ? `<p class="small cut-levelnote"><strong>${esc(active.label)}.</strong> ${esc(active.note)}${citationHTML(active)}</p>` : '');
 
   host.querySelectorAll('[data-level]').forEach((b) => {
@@ -176,7 +176,7 @@ function renderLayerDepth() {
   const o = osteo();
   const loaded = BODY_LAYERS.filter((l) => o && o.layerLoaded && o.layerLoaded(l.key) && (layerState[l.key] || 'off') !== 'off');
   if (!loaded.length) {
-    host.innerHTML = '<p class="small">Turn a layer on below the model and its opacity appears here.</p>';
+    host.innerHTML = '<p class="small">Enable a layer to adjust opacity.</p>';
     return;
   }
   host.innerHTML = loaded.map((l) => {

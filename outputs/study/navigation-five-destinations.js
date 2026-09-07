@@ -5,7 +5,7 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, esc, ui } from './imports.js';
-import { openViewer, leaveProjection } from './what-is-under.js';
+import { openViewer, leaveProjection, pauseFullAtlas } from './what-is-under.js';
 import { releaseLessonVisual } from './lesson-visuals.js';
 import { renderLearn } from './subject.js';
 import { renderMore } from './more-sources-coverage.js';
@@ -38,7 +38,7 @@ const NAV_KICKERS = {
 let currentTab = 'today';
 
 export function setActiveNav(id) {
-  if (id !== 'viewer') leaveProjection();
+  if (id !== 'viewer') {leaveProjection();pauseFullAtlas();}
   $$('navTitle').textContent = NAV_TITLES[id] || 'Study Studio';
   if (id !== 'learn') $$('navBackBtn').classList.add('hidden');
   $$('navKicker').textContent = NAV_KICKERS[id] || '';
