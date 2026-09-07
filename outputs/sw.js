@@ -33,7 +33,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v141';
+const CACHE_VERSION = 'v142';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -54,7 +54,17 @@ const MODEL_VERSION = 'm3';
 const CDN_VERSION = 'c1';
 const MODEL_CACHE = `rss-models-${MODEL_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CDN_VERSION}`;
-const ALL_CACHES = [SHELL_CACHE, MODEL_CACHE, CDN_CACHE];
+
+/*
+ * Published figures. There are going to be a lot of them, and a first install
+ * cannot pay for all of them. They live in their OWN versioned cache, filled
+ * networkFirst the first time a lesson shows one, so a figure is offline after
+ * one online view. Bump FIGURES_VERSION only to force a re-fetch of every
+ * figure (e.g. a mass re-encode) — never on a shell change.
+ */
+const FIGURES_VERSION = 'f1';
+const FIGURES_CACHE = `rss-figures-${FIGURES_VERSION}`;
+const ALL_CACHES = [SHELL_CACHE, MODEL_CACHE, CDN_CACHE, FIGURES_CACHE];
 
 const SHELL = [
   './atlas/viewer.js','./atlas/scene.js','./atlas/anatomy.js','./atlas/explosion-layout.js','./atlas/model-download.js','./atlas/pointer-tap.js','./atlas/ATTRIBUTION.md','./THIRD-PARTY-NOTICES.txt',
@@ -195,27 +205,6 @@ const SHELL = [
   './assets/plates/pancreas-duodenum.png',
   './assets/plates/aortic-valve-cusps.png',
   './assets/plates/heart-and-lungs.png',
-  /*
-   * Replacement figures. The small ones ship in the shell; the larger ones
-   * (body-cavities.png, body-movements.jpg, muscle-tissue-types.jpg, synovial-joints.jpg)
-   * are left out on purpose so a first install stays lean -- networkFirst caches
-   * them into this same shell cache the first time a lesson shows them, so they
-   * end up available offline either way.
-   */
-  './assets/figures/anatomy-planes.svg',
-  './assets/figures/blood-components.jpg',
-  './assets/figures/cardiac-conduction.svg',
-  './assets/figures/ecg-sinus-rhythm.svg',
-  './assets/figures/em-spectrum.svg',
-  './assets/figures/heart-diagram.svg',
-  './assets/figures/heart-interior.svg',
-  './assets/figures/long-bone.jpg',
-  './assets/figures/nephron-blood-flow.jpg',
-  './assets/figures/nervous-system-overview.jpg',
-  './assets/figures/respiratory-system.svg',
-  './assets/figures/respiratory-zone.jpg',
-  './assets/figures/synovial-joint-types.jpg',
-  './assets/figures/vertebra-parts.jpg',
 ];
 
 self.addEventListener('install', (event) => {
@@ -243,6 +232,7 @@ self.addEventListener('activate', (event) => {
 });
 
 function isModel(url) { return url.pathname.endsWith('.glb') || /\/atlas\/models\/(atlas\.json|body-\d+\.bin\.gz)$/.test(url.pathname); }
+const isFigure = (url) => url.pathname.includes('/assets/figures/');
 /*
  * The IA redesign loads Instrument Sans and Newsreader from Google Fonts.
  * Without caching them the app is not genuinely offline-first: the font FILES
@@ -364,6 +354,7 @@ self.addEventListener('fetch', (event) => {
   if (isCdn(url)) { event.respondWith(cacheFirst(request, CDN_CACHE)); return; }
   if (url.origin !== self.location.origin) return;  /* leave other origins alone */
   if (isModel(url)) { event.respondWith(cacheFirst(request, MODEL_CACHE)); return; }
+  if (isFigure(url)) { event.respondWith(networkFirst(event, request, FIGURES_CACHE)); return; }
   /*
    * The document gets a bounded wait; its subresources do not. A stale
    * subresource is refreshed behind the reader, and a CACHE_VERSION bump

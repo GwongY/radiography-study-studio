@@ -461,3 +461,40 @@ export function plateFor(item) {
   const p = PLATES[item && item.id];
   return p ? { ...p, ...PLATE_CREDIT, src: 'assets/plates/' + p.file } : null;
 }
+
+/* ------------------------------------------------------------------ *
+ * Ordered per-item visual lists
+ *
+ * An item MAY carry `visuals: [...]`, an ordered list of specs, when one
+ * picture is not enough. Each entry is one of:
+ *   { fig: 'id' }                       a FIGURES entry
+ *   { plate: 'id' }                     a PLATES entry (its own id, not the item's)
+ *   { schematic: 'id' }                 a SCHEMATICS / layout id
+ *   { model: { layer, meshes, label, caption, ghostBody? } }
+ *   { gen: true }                       the generated-from-own-data visual
+ * At most one { model } per list — there is one WebGL context.
+ *
+ * visualsFor() returns a normalised array of the same {kind,...} specs
+ * visualFor() has always returned, so the renderer sees one shape. An item
+ * with no `visuals` returns exactly [visualFor(item)] — unchanged behaviour.
+ */
+export const VISUAL_SPEC_KINDS = ['fig', 'plate', 'schematic', 'model', 'gen'];
+
+export function normaliseVisualSpec(entry, item) {
+  if (!entry || typeof entry !== 'object') return null;
+  if (entry.fig) return { kind: 'schematic', id: entry.fig };      /* figureFor() resolves it in the renderer */
+  if (entry.schematic) return { kind: 'schematic', id: entry.schematic };
+  if (entry.plate) return { kind: 'plateRef', id: entry.plate };
+  if (entry.model) return withFile({ kind: 'model', ...entry.model });
+  if (entry.gen) return generatedFor(item);
+  return null;
+}
+
+export function visualsFor(item) {
+  if (!item) return [];
+  if (Array.isArray(item.visuals) && item.visuals.length) {
+    return item.visuals.map((e) => normaliseVisualSpec(e, item)).filter(Boolean);
+  }
+  const one = visualFor(item);
+  return one ? [one] : [];
+}

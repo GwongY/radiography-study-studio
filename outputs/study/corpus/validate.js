@@ -76,6 +76,31 @@ export function validateQuestion(q) {
   return problems;
 }
 
+/* An item's optional `visuals` list: shape only. Whether a fig id resolves to
+   a real FIGURES entry with a file on disk is work/visuals-check.mjs's job —
+   it can touch the filesystem and this cannot. */
+export function validateVisuals(item) {
+  const v = item.visuals;
+  if (v === undefined) return [];
+  const problems = [];
+  if (!Array.isArray(v) || !v.length) { problems.push('visuals is present but not a non-empty array'); return problems; }
+  let models = 0;
+  v.forEach((e, i) => {
+    if (!e || typeof e !== 'object') { problems.push(`visuals[${i}] is not an object`); return; }
+    const keys = ['fig', 'plate', 'schematic', 'model', 'gen'].filter((k) => k in e);
+    if (keys.length !== 1) { problems.push(`visuals[${i}] must have exactly one of fig|plate|schematic|model|gen`); return; }
+    if (e.model) {
+      models++;
+      if (!e.model.layer || !Array.isArray(e.model.meshes) || !e.model.meshes.length) problems.push(`visuals[${i}].model needs layer and a non-empty meshes array`);
+      if (!e.model.label || !e.model.caption) problems.push(`visuals[${i}].model needs label and caption`);
+    }
+    if ((e.fig || e.plate || e.schematic) && typeof (e.fig || e.plate || e.schematic) !== 'string') problems.push(`visuals[${i}] id must be a string`);
+    if ('gen' in e && e.gen !== true) problems.push(`visuals[${i}].gen must be true`);
+  });
+  if (models > 1) problems.push(`visuals has ${models} model entries; at most one is allowed`);
+  return problems;
+}
+
 export function validateCorpus() {
   const failures = [];
   for (const item of STUDY_ITEMS) {
@@ -101,6 +126,8 @@ export function validateCorpus() {
       }
       if (problems.length) failures.push({ itemId: item.id, qid: null, problems });
     }
+    const visProblems = validateVisuals(item);
+    if (visProblems.length) failures.push({ itemId: item.id, qid: null, problems: visProblems });
     for (const q of questionsOf(item)) {
       const problems = validateQuestion(q);
       if (problems.length) failures.push({ itemId: item.id, qid: q.qid, problems });

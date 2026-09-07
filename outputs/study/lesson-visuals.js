@@ -3,7 +3,7 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, DIAGRAMS, describeSource, esc, figureFor, schematic, visualFor } from './imports.js';
+import { $$, DIAGRAMS, describeSource, esc, figureFor, plateFor, schematic, visualsFor } from './imports.js';
 import { glossify, plateHTML } from './reading-help.js';
 import { layoutHTML } from './layout-figures.js';
 import { read } from './storage-versioned-keys.js';
@@ -52,16 +52,47 @@ function figureBlockHTML(fig) {
   </figure>`;
 }
 
-export function visualSlotHTML(item) {
-  const spec = visualFor(item);
+/*
+ * A published plate (PLATES entry) rendered with the same figure-with-key
+ * apparatus as figureBlockHTML. Plates carry no `commons`/`licenceUrl`, so the
+ * credit line follows plateHTML's shape (`work · licence · via`) rather than
+ * inventing a Wikimedia link.
+ */
+function plateBlockHTML(pl) {
+  return `<figure class="lessonvis" data-kind="figure">
+    <div class="lessonvis-head"><span class="lessonvis-kick">Figure</span><span class="lessonvis-title">${esc(pl.title)}</span></div>
+    ${pl.intro ? `<p class="figintro">${glossify(esc(pl.intro))}</p>` : ''}
+    <div class="lessonvis-fig"><img src="${esc(pl.src)}" alt="${esc(pl.title)}" loading="lazy"></div>
+    <figcaption class="lessonvis-cap">${esc(pl.caption)}
+      <span class="figcredit">${esc(pl.work)} · ${esc(pl.licence)} · via ${esc(pl.via)}</span>
+      <span class="figcredit">${esc(pl.note)}</span>
+    </figcaption>
+    ${figureKeyHTML(pl)}
+  </figure>`;
+}
+
+/*
+ * Render one already-resolved visual spec. `isPrimary` is true only for the
+ * single model entry that gets the shared WebGL mount: only then does the model
+ * block carry the `lessonVis*` ids, which must stay unique on the page.
+ */
+export function renderOneVisual(spec, item, { isPrimary } = {}) {
   if (!spec) return '';
   if (spec.kind === 'model') {
-    return `<figure class="lessonvis" id="lessonVis" data-kind="model">
+    const ids = isPrimary
+      ? { fig: ' id="lessonVis"', mount: ' id="lessonVisMount"', busy: ' id="lessonVisBusy"', readout: ' id="lessonVisReadout"' }
+      : { fig: '', mount: '', busy: '', readout: '' };
+    return `<figure class="lessonvis"${ids.fig} data-kind="model">
       <div class="lessonvis-head"><span class="lessonvis-kick">3D · tap to name</span><span class="lessonvis-title">${esc(spec.label || item.title)}</span></div>
-      <div class="lessonvis-mount" id="lessonVisMount"><div class="lessonvis-busy" id="lessonVisBusy">preparing the model…</div></div>
-      <div class="lessonvis-readout" id="lessonVisReadout"><span class="dim">tap a structure to name it</span></div>
+      <div class="lessonvis-mount"${ids.mount}><div class="lessonvis-busy"${ids.busy}>preparing the model…</div></div>
+      <div class="lessonvis-readout"${ids.readout}><span class="dim">tap a structure to name it</span></div>
       <figcaption class="lessonvis-cap">${esc(spec.caption || '')}</figcaption>
     </figure>`;
+  }
+  if (spec.kind === 'plateRef') {
+    const pl = plateFor({ id: spec.id });
+    if (!pl) return '';
+    return plateBlockHTML(pl);
   }
   if (spec.kind === 'schematic') {
     /*
@@ -115,6 +146,24 @@ export function visualSlotHTML(item) {
 }
 
 /*
+ * The item's visuals list, rendered in order. With one entry the wrapper is
+ * `display:contents` (see app.css) so it is invisible to layout and the output
+ * is identical to the single-visual card that shipped before. The 3D mount goes
+ * to the one model entry, if any.
+ */
+export function visualStackHTML(item) {
+  const specs = visualsFor(item);
+  if (!specs.length) return '';
+  const modelIdx = specs.findIndex((s) => s && s.kind === 'model');
+  return `<div class="lessonvis-stack">${specs.map((s, i) =>
+    renderOneVisual(s, item, { isPrimary: i === modelIdx })).join('')}</div>`;
+}
+
+export function visualSlotHTML(item) {
+  return visualStackHTML(item);
+}
+
+/*
  * Generated visuals draw the item's own sourced data. Nothing new is asserted
  * here — the same steps, pairs and facts the lesson already lists, laid out so
  * that the shape of the answer is visible instead of buried in a paragraph.
@@ -151,7 +200,7 @@ function generatedVisualHTML(spec) {
 export async function mountLessonVisual(item) {
   const mount = $$('lessonVisMount');
   if (!mount) { releaseLessonVisual(); return; }
-  const spec = visualFor(item);
+  const spec = visualsFor(item).find((s) => s && s.kind === 'model') || null;
   if (!spec || spec.kind !== 'model') { releaseLessonVisual(); return; }
   const busy = $$('lessonVisBusy');
   try {
