@@ -1,5 +1,4 @@
 // Adapted from ashemag/human-atlas. MIT; see ../THIRD-PARTY-NOTICES.txt.
-import {useEffect,useRef} from 'react';
 import * as T from 'three';
 import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js';
 import {RoomEnvironment} from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/environments/RoomEnvironment.js';
