@@ -60,11 +60,11 @@ Blender duplicate suffixes. Row shape:
 
 ## `outputs/study-data.js` — the lesson corpus
 
-139 study items across 6 subjects.
+161 study items across 6 subjects.
 
 | Subject | Units | Items |
 | --- | --- | --- |
-| HSS2011 | 7 | 58 |
+| HSS2011 | 7 | 80 |
 | ABCT2326 | 10 | 60 |
 | HTI17103 | 5 | 13 |
 | APSS1A08 | 9 | 5 |
@@ -76,13 +76,13 @@ practice, application, commonMistakes, skills, selfCheck, sourceRefs }`.
 
 | Item type | Count |
 | --- | --- |
-| definition | 49 |
+| definition | 65 |
 | sequence | 24 |
 | comparison | 23 |
 | concept | 14 |
 | structure | 13 |
-| matching | 11 |
+| matching | 12 |
+| cloze | 6 |
 | diagram | 2 |
 | explain | 2 |
-| cloze | 1 |
 

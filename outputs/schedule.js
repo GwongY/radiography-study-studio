@@ -412,17 +412,44 @@ export const WEEK_STUDY = {
       'hss2011-osteo-vertebra-parts', 'hss2011-osteo-vertebral-column',
       'hss2011-osteo-c1-c2', 'hss2011-structures-vertebralRegions',
     ],
-    5: ['hss2011-m2-cns-basics'],
-    6: ['hss2011-m2-brain-regions', 'hss2011-structures-brainAndCsf', 'hss2011-structures-cranialNerves'],
+    5: [
+      'hss2011-m2-cns-basics', 'hss2011-cns-spinal-cord-meninges',
+      'hss2011-cns-brainstem-reticular', 'hss2011-cns-cerebrum-cortex-basal',
+      'hss2011-cns-ventricles-csf-blood',
+    ],
+    6: [
+      'hss2011-m2-brain-regions', 'hss2011-neuro-cranial-nerves-distribution',
+      'hss2011-structures-brainAndCsf', 'hss2011-structures-cranialNerves',
+    ],
     7: [
       'hss2011-m2-eye-visual-pathway', 'hss2011-m2-ear-hearing',
       'hss2011-m2-static-dynamic-equilibrium', 'hss2011-m2-taste-smell',
     ],
-    8: ['hss2011-m1-heart-wall-valves', 'hss2011-structures-heartChambers', 'hss2011-structures-greatVessels'],
-    9: ['hss2011-m1-lungs-airway', 'hss2011-structures-airwayTree'],
-    10: ['hss2011-osteo-ribs-sternum', 'hss2011-thorax-regional-landmarks'],
-    11: ['hss2011-m3-digestive', 'hss2011-structures-digestiveTract'],
-    12: ['hss2011-m3-urogenital-pelvis', 'hss2011-structures-urinaryTract'],
+    8: [
+      'hss2011-m1-heart-wall-valves', 'hss2011-cvs-internal-chambers-valves',
+      'hss2011-cvs-coronary-circulation-conduction', 'hss2011-cvs-tutorial-pastpaper-practice',
+      'hss2011-structures-heartChambers', 'hss2011-structures-greatVessels',
+    ],
+    9: [
+      'hss2011-m1-lungs-airway', 'hss2011-resp-upper-tract-larynx',
+      'hss2011-resp-pleura-lungs-gross', 'hss2011-resp-tutorial-pastpaper-practice',
+      'hss2011-structures-airwayTree',
+    ],
+    10: [
+      'hss2011-osteo-ribs-sternum', 'hss2011-thorax-regional-landmarks',
+      'hss2011-thorax-intercostal-diaphragm', 'hss2011-thorax-tutorial-pastpaper-practice',
+    ],
+    11: [
+      'hss2011-m3-digestive', 'hss2011-digestive-tract-upper',
+      'hss2011-digestive-tract-small-large-bowel', 'hss2011-digestive-accessory-liver-pancreas',
+      'hss2011-digestive-peritoneum-portal-circulation', 'hss2011-digestive-tutorial-pastpaper-practice',
+      'hss2011-structures-digestiveTract',
+    ],
+    12: [
+      'hss2011-m3-urogenital-pelvis', 'hss2011-uro-kidneys-urinary-tract',
+      'hss2011-uro-male-reproductive-anatomy', 'hss2011-uro-female-reproductive-pelvis',
+      'hss2011-uro-tutorial-pastpaper-practice', 'hss2011-structures-urinaryTract',
+    ],
   },
   ABCT2326: {
     1: [
