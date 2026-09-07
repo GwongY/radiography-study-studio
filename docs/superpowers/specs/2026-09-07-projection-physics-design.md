@@ -78,12 +78,18 @@ integral already produces path length in model units; multiplying by that
 constant makes τ physically real instead of arbitrary.
 
 Linear attenuation is μ = (μ/ρ) · ρ, with μ/ρ from the NIST X-Ray Mass
-Attenuation Coefficient tables and ρ from ICRU-44:
+Attenuation Coefficient tables and ρ from ICRU-44 — **except lung**, which needs
+care. NIST's ICRU-44 lung entry is the parenchyma *material*, ρ 1.05. An
+inflated lung in a living chest is ρ **0.26** (ICRU-46), and that is the number a
+radiograph is made of. The μ/ρ column is ICRU-44's; the density is ICRU-46's, and
+mixing them silently is exactly the sort of error this module exists to prevent,
+so the module names the source per value.
 
 | tissue | ρ (g/cm³) | μ at 20 keV | at 30 keV | at 50 keV |
 |---|---|---|---|---|
 | cortical bone | 1.92 | 7.68 | 2.556 | 0.814 |
 | soft tissue | 1.06 | 0.872 | 0.402 | 0.240 |
+| adipose (marrow) | 0.95 | 0.539 | 0.291 | 0.202 |
 | lung, inflated | 0.26 | 0.216 | 0.099 | 0.059 |
 | **bone : soft** | | **8.8×** | **6.4×** | **3.4×** |
 
