@@ -183,7 +183,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `dsai-items.js` | 173 | DSAI1202, from the Week 1 overview deck. |
 | `expansion-items.js` | 564 | Expansion batch — fills gaps found in a coverage audit. |
 | `hss-joints.js` | 254 | HSS2011 Human Anatomy — joints and the muscles that move them. |
-| `hss-modules.js` | 2749 | HSS2011 Human Anatomy — the per-module study items. |
+| `hss-modules.js` | 2750 | HSS2011 Human Anatomy — the per-module study items. |
 | `hss-osteology.js` | 663 | HSS2011 Human Anatomy — osteology: bone classification, the axial and |
 | `hss-special-senses.js` | 112 | HSS2011 Week 7 — Special Senses. |
 | `hss-terminology.js` | 248 | HSS2011 Human Anatomy — anatomical terminology: position, planes, movement |
