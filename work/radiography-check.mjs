@@ -61,5 +61,20 @@ near(R.massAtten('lung', 30) / R.massAtten('soft', 30), 1.0, 0.02,
 if (R.TISSUES.lung.rho < 0.3) ok('inflated lung density is the in-vivo value');
 else fail(`inflated lung density is ${R.TISSUES.lung.rho}, expected ~0.26 (ICRU-46)`);
 
+console.log('- kVp is a contrast control -');
+near(R.effectiveKeV(75), 30, 1e-9, '75 kVp gives a 30 keV effective energy');
+near(R.contrastRatio(50), 8.806, 0.02, 'bone:soft at 50 kVp (20 keV)');
+near(R.contrastRatio(75), 6.361, 0.02, 'bone:soft at 75 kVp (30 keV)');
+near(R.contrastRatio(125), 3.394, 0.02, 'bone:soft at 125 kVp (50 keV)');
+
+let prev = Infinity, mono = true;
+for (let kvp = 50; kvp <= 125; kvp += 5) {
+  const c = R.contrastRatio(kvp);
+  if (c >= prev) mono = false;
+  prev = c;
+}
+if (mono) ok('contrast falls monotonically from 50 to 125 kVp');
+else fail('contrast is not monotonic in kVp — the interpolation is wrong');
+
 console.log(failures ? `\n${failures} FAILED` : '\nALL PASS');
 process.exit(failures ? 1 : 0);
