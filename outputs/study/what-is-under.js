@@ -52,6 +52,7 @@ const XRAY_VIEWS = [['pa', 'PA'], ['ap', 'AP'], ['lat', 'Lateral']];
 const XRAY_REGION_LIST = [['chest', 'Chest'], ['abdo', 'Abdomen'], ['pelvis', 'Pelvis'], ['hand', 'Hand'], ['body', 'Whole body']];
 let xrayView = 'pa';
 let xrayRegion = 'chest';
+let projectionRequest = 0;
 
 /* One subscription for the session. The viewer is booted lazily, so this is
    retried each time the tab is drawn until the module is actually there. */
@@ -63,20 +64,12 @@ function bindStackHook() {
 
 function renderViewerTabs() {
   bindStackHook();
-  $$('viewerTabs').innerHTML = [['3d', '3D skeleton'], ['xray', 'Projection']].map(([id, label]) =>
-    `<button class="seg${ui.viewerTab === id ? ' active' : ''}" data-vtab="${esc(id)}">${esc(label)}</button>`).join('');
+  $$('viewerTabs').innerHTML = [['3d', '3D anatomy'], ['xray', 'Projection']].map(([id, label]) =>
+    `<button class="seg${ui.viewerTab === id ? ' active' : ''}" aria-pressed="${ui.viewerTab === id}" data-vtab="${esc(id)}">${esc(label)}</button>`).join('');
   $$('viewerTabs').querySelectorAll('[data-vtab]').forEach((b) => { b.onclick = () => { ui.viewerTab = b.dataset.vtab; renderViewerTabs(); }; });
   $$('viewerSkeletonPane').classList.toggle('hidden', ui.viewerTab !== '3d');
   $$('viewerXrayPane').classList.toggle('hidden', ui.viewerTab !== 'xray');
   if (ui.viewerTab === 'xray') {
-    $$('viewerSkeletonPane').classList.remove('sheet-open');
-    const sheet = $$('viewerSheet');
-    if (sheet) sheet.classList.add('hidden');
-    const moreBtn = $$('viewerMoreBtn');
-    if (moreBtn) {
-      moreBtn.classList.remove('active');
-      moreBtn.setAttribute('aria-expanded', 'false');
-    }
     enterProjection();
   } else {
     leaveProjection();
@@ -107,23 +100,19 @@ function renderXrayViews() {
 async function enterProjection() {
   const mount = $$('xrayMount');
   if (!mount || !window.__osteo) return;
+  const request = ++projectionRequest;
+  const current = () => request === projectionRequest && ui.viewerTab === 'xray';
+  if (window.__osteo.inXray()) return;
   renderXrayViews();
+  $$('xrayStatus').textContent = 'Loading skeleton, muscle, organs and heart…';
+  mount.setAttribute('aria-busy', 'true');
+  try {
   const booted = await window.__osteo.boot();
-  if (!booted) { mount.innerHTML = '<div class="emptybox">3D is unavailable, so the projection cannot be drawn.</div>'; return; }
-  /*
-   * Three GLBs now, not one -- the lungs are in the organs file. Say so rather
-   * than showing a blank pane for several seconds.
-   *
-   * The placeholder goes in BEFORE the stage is appended, and the stage is
-   * appended only after it has been cleared. Setting mount.innerHTML detaches
-   * everything already in the mount, so on a second visit -- when the stage is
-   * sitting there from last time -- doing it the other way round would take the
-   * canvas out of the DOM and leave an empty projection pane. Clearing first
-   * and letting the parentElement guard below re-append is what makes both the
-   * first visit and every later one come out with a canvas in the mount.
-   */
-  mount.innerHTML = '<div class="emptybox">Loading the beam\u2019s three tissue layers\u2026</div>';
-  await window.__osteo.ensureXrayLayers();
+  if (!current()) return;
+  if (!booted) throw new Error('3D is unavailable, so the projection cannot be drawn.');
+  // Only the winning request may move the shared stage after loading finishes.
+  const loaded = await window.__osteo.ensureXrayLayers();
+  if (!current()) return;
   mount.innerHTML = '';
   const stage = window.__osteo.stageEl();
   if (stage && stage.parentElement !== mount) mount.appendChild(stage);
@@ -134,13 +123,28 @@ async function enterProjection() {
   window.__osteo.xrayKvp(+$$('xrayKvp').value);
   window.__osteo.xrayMas(+$$('xrayMas').value);
   window.__osteo.xrayAec($$('xrayAec').checked);
+  window.__osteo.xrayWindow(+$$('xrayWindow').value, +$$('xrayLevel').value);
+  window.__osteo.xrayZoom(+$$('xrayZoom').value);
   window.__osteo.resize();
+  $$('xraySelection').textContent = loaded.length < 4
+    ? 'Some tissue layers could not load. This is an incomplete projection; reopen this tab to retry.'
+    : 'Tap the image to name a structure. Drag to pan; use Zoom to enlarge the image.';
   /* The Tools card has to be told: entering the projection suspends the
      section cut, and the card is what says so. */
   renderViewerTools();
+  } catch (error) {
+    if (!current()) return;
+    if (window.__osteo.inXray()) window.__osteo.exitXray();
+    restoreStage();
+    $$('xrayStatus').textContent = error.message || 'Projection could not load. Reopen this tab to retry.';
+  } finally {
+    if (current()) mount.setAttribute('aria-busy', 'false');
+  }
 }
 
 export function leaveProjection() {
+  projectionRequest += 1;
+  $$('xrayMount')?.setAttribute('aria-busy', 'false');
   if (!window.__osteo || !window.__osteo.inXray || !window.__osteo.inXray()) { restoreStage(); return; }
   window.__osteo.exitXray();
   restoreStage();
@@ -151,6 +155,7 @@ async function syncLayersToRail() {
   if (!window.__osteo || !window.__osteo.setLayer) return;
   if (window.__osteo.clearStudyFocus) window.__osteo.clearStudyFocus();
   for (const l of BODY_LAYERS) {
+    if (ui.viewerTab !== '3d') return;
     const st = layerState[l.key] || 'off';
     if (st === 'off') { await window.__osteo.setLayer(l.key, false); continue; }
     const ok = await window.__osteo.setLayer(l.key, true, l.file);
@@ -186,6 +191,7 @@ export function openViewer() {
     const push = () => {
       const v = el.type === 'checkbox' ? el.checked : +el.value;
       $$(readId).textContent = fmt(v);
+      if (id === 'xrayAec') $$('xrayMas').disabled = el.checked;
       if (window.__osteo && window.__osteo.inXray()) call(v);
     };
     el.oninput = push; el.onchange = push;
@@ -194,6 +200,26 @@ export function openViewer() {
   wire('xrayMas', 'xrayMasRead', (v) => `${v} mAs`, (v) => window.__osteo.xrayMas(v));
   wire('xrayAec', 'xrayAecRead', (v) => (v ? 'on' : 'off'), (v) => window.__osteo.xrayAec(v));
   /* A lesson may have left a study focus and other layers on. */
-  syncLayersToRail();
+  if (ui.viewerTab === '3d') syncLayersToRail();
   showView('viewerView');
+  const windowInput = $$('xrayWindow'), levelInput = $$('xrayLevel'), zoomInput = $$('xrayZoom');
+  const display = () => {
+    $$('xrayWindowRead').textContent = windowInput.value;
+    $$('xrayLevelRead').textContent = levelInput.value;
+    $$('xrayZoomRead').textContent = `${zoomInput.value}×`;
+    window.__osteo.xrayWindow(+windowInput.value, +levelInput.value);
+    window.__osteo.xrayZoom(+zoomInput.value);
+  };
+  windowInput.oninput = levelInput.oninput = zoomInput.oninput = display;
+  const aec = $$('xrayAec');
+  $$('xrayMas').disabled = aec.checked;
+  $$('xrayReset').onclick = () => {
+    windowInput.value = '19'; levelInput.value = '10.5'; zoomInput.value = '1';
+    $$('xrayKvp').value = '75'; $$('xrayMas').value = '10'; aec.checked = true;
+    $$('xrayKvp').oninput(); $$('xrayMas').oninput(); aec.oninput();
+    display(); window.__osteo.xrayRegion(xrayRegion); window.__osteo.xrayView(xrayView);
+  };
+  $$('xraySave').onclick = () => {
+    if (window.__osteo.inXray()) $$('toolShot').click();
+  };
 }

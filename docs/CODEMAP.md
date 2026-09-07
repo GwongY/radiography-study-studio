@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1349 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) · [hidden loses to an explicit display](TRAPS.md#hidden-loses-to-an-explicit-display--outputsappcss-outputsstudyexam-modejs)
+- `outputs/app.css` — 1392 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) · [hidden loses to an explicit display](TRAPS.md#hidden-loses-to-an-explicit-display--outputsappcss-outputsstudyexam-modejs)
 - `outputs/studio.js` — 26 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 65 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -117,42 +117,42 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `cavity-geometry-derived.js` | 472 | Cavity geometry, derived from the loaded anatomy. |
-| `depth-picking.js` | 353 | Depth picking |
+| `depth-picking.js` | 398 | Depth picking |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
 | `imports.js` | 97 | Block 0 has its own import scope -- block 1's copy is not visible here. |
-| `live-physiology.js` | 1256 | Live physiology |
-| `region-boxes-how.js` | 485 | Region boxes — how the region filter reaches the six soft-tissue layers |
+| `live-physiology.js` | 1269 | Live physiology |
+| `region-boxes-how.js` | 486 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 237 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 482 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
 | `tools-and-capture.js` | 834 | Tools — section cuts, surface ink, pinned labels, capture. |
-| `visualisation-modes.js` | 680 | Visualisation modes. |
+| `visualisation-modes.js` | 683 | Visualisation modes. |
 
 ## The study system — `outputs/study/*.js`
 
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `assessments-and-marks.js` | 480 | Course — assessments, deadlines and the running mark |
-| `boot.js` | 74 | Boot |
+| `boot.js` | 70 | Boot |
 | `course-timetable.js` | 320 | Course — the syllabus and the timetable, with attendance |
 | `coverage-report.js` | 118 | Coverage report |
 | `dialog-behaviour-applied.js` | 124 | Dialog behaviour, applied to all seven at once |
 | `exam-mode.js` | 429 | Exam mode — a sitting, not a drill. |
 | `gist-sync.js` | 474 | Gist sync — the off-device copy, on the one service this app already depends on |
-| `global-search-one.js` | 351 | Global search -- one sheet over every destination, mixing structures, |
+| `global-search-one.js` | 354 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
-| `home.js` | 198 | Home |
+| `home.js` | 201 | Home |
 | `imports.js` | 145 |  |
 | `layout-figures.js` | 867 | Layout figures |
 | `lesson-visuals.js` | 237 | Lesson visuals |
 | `mastery-dashboard.js` | 9 | Mastery dashboard |
 | `more-sources-coverage.js` | 100 | More -- sources, coverage, and the things demoted out of the topbar. |
 | `moving-progress-between.js` | 153 | Moving progress between devices |
-| `navigation-five-destinations.js` | 115 | Navigation -- five destinations, rendered into both the icon rail and |
+| `navigation-five-destinations.js` | 116 | Navigation -- five destinations, rendered into both the icon rail and |
 | `progress-log.js` | 374 | Progress log — the append-only record every other progress number is derived from |
 | `question-pack.js` | 463 | Question packs — licensed questions that live on this device and nowhere else. |
 | `reading-help.js` | 330 | Reading help |
 | `reset.js` | 199 | Reset |
-| `review-mistakes-due.js` | 95 | Review -- mistakes, due items, and the mastery map that replaced the |
+| `review-mistakes-due.js` | 189 | Exam — past papers, timed practice, mistakes, due items, and the mastery map. |
 | `search-viewer-open.js` | 44 | Search -> viewer: open the model, select the part, auto-uncover, and |
 | `session-engine.js` | 258 | Session engine |
 | `small-ui-helpers.js` | 198 | Small UI helpers |
@@ -164,7 +164,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 311 | Viewer tools — annotate, cut, layer depth, capture |
 | `viewport-recovery.js` | 446 | The band below the tab bar — measuring it, and asking for the space back |
-| `what-is-under.js` | 199 | What is under the tap |
+| `what-is-under.js` | 225 | What is under the tap |
 
 ## The corpus — `outputs/study/corpus/*.js`
 

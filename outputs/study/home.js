@@ -8,7 +8,7 @@ import { examPool } from './exam-mode.js';
 import { STEPS, pickItems, setStep, startSession } from './session-engine.js';
 import { goTo, openSessionOverlay, setActiveNav } from './navigation-five-destinations.js';
 import { itemAttempted, itemDue, itemScore, read, store, write } from './storage-versioned-keys.js';
-import { renderReviewTab } from './review-mistakes-due.js';
+import { renderExamTab } from './review-mistakes-due.js';
 import { showView } from './small-ui-helpers.js';
 import { DEADLINES, SOON_MS, deadlineStats, isDone, paintImminent, untilText } from './assessments-and-marks.js';
 
@@ -47,10 +47,13 @@ export function saveContinue(itemId, step) {
   const opts = ui.session?.opts || null;
   const modeLabel = ui.session?.modeLabel || null;
   write(STORAGE_PREFIX + 'continue', { itemId, step, itemIds, index, total, opts, modeLabel });
-  if (itemId && step) write(STORAGE_PREFIX + 'step:' + itemId, step);
+  if (itemId && step) {
+    write('rss-step:' + itemId, step);
+    write(STORAGE_PREFIX + 'step:' + itemId, step);
+  }
 }
 export function getItemStep(itemId) {
-  return read(STORAGE_PREFIX + 'step:' + itemId, null);
+  return read('rss-step:' + itemId, null) || read(STORAGE_PREFIX + 'step:' + itemId, null);
 }
 export function resumeContinue(cont) {
   const items = (cont.itemIds && cont.itemIds.length)
@@ -151,8 +154,8 @@ export function renderToday() {
       <span class="meter"><span style="width:${Math.round(itemScore(i.id) * 100)}%;background:var(--orange)"></span></span>
       <span class="pc">${Math.round(itemScore(i.id) * 100)}%</span>
     </button>`).join('') : '<div class="empty">Nothing studied yet — start a session to build this list.</div>';
-  $$('weakestList').querySelectorAll('[data-weak]').forEach((b) => { b.onclick = () => renderReviewTab('mistakes'); });
-  $$('allWeakBtn').onclick = () => goTo('review');
+  $$('weakestList').querySelectorAll('[data-weak]').forEach((b) => { b.onclick = () => renderExamTab('mistakes'); });
+  $$('allWeakBtn').onclick = () => goTo('exam');
 
   const streak = (store.meta && store.meta.streak) || 0;
   $$('todayStatrow').innerHTML = [

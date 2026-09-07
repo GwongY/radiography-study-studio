@@ -4,7 +4,7 @@
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $, LANDMARK_HOTSPOTS, MODEL_CATALOG, els, getAnatomy, prefersStill, state, systemsOf } from './imports.js';
-import { applyConnectiveVisibility, applyLayers, layerOn, meshOn, renderXray, setMovementAngle, stepPhysiology, unitBlurb, unitFor, updateStageMeta } from './live-physiology.js';
+import { applyConnectiveVisibility, applyLayers, layerOn, meshOn, renderXray, resizeXray, setMovementAngle, stepPhysiology, unitBlurb, unitFor, updateStageMeta } from './live-physiology.js';
 import { bodyMetrics, clearPickCallout, updateHudSprites } from './spatial-concept-overlays.js';
 import { clean, onBonePicked, pool, record, renderRegions, selectBone, showToast } from './visualisation-modes.js';
 import { enforceHidden } from './hide-and-search.js';
@@ -204,7 +204,7 @@ import { syncTools } from './tools-and-capture.js';
    * case for the skeleton beyond stamping userData.systems in
    * prepareFullReference.
    */
-  export function applyVisibility(){const skelOn=state.layers?layerOn('skeleton'):true;/* 'upper_limb' is now an ordinary region filter on the full skeleton. The   separate five-bone set is never drawn -- the skeleton already names those   five -- but its group stays visible so the landmark hotspots parented to   it can show. */if(state.fullModel)state.fullModel.visible=skelOn;if(state.realModel)state.realModel.visible=true;state.fullPickables.forEach(m=>m.visible=skelOn);state.fullMeshes.forEach(m=>{const inRegion=state.region==='all'||(m.userData.regions||[m.userData.region]).includes(state.region);const isolated=!state.isolated||!state.selectedId||m.userData.canonicalId===state.selectedId;m.visible=(state.layers?meshOn(m):true)&&inRegion&&isolated});state.meshes.forEach(m=>{m.visible=false});state.hotspots.forEach(h=>h.visible=skelOn&&state.mode==='landmarks'&&(!state.selectedId||h.userData.parentId===state.selectedId));
+  export function applyVisibility(){if(state.xray)return;const skelOn=state.layers?layerOn('skeleton'):true;/* 'upper_limb' is now an ordinary region filter on the full skeleton. The   separate five-bone set is never drawn -- the skeleton already names those   five -- but its group stays visible so the landmark hotspots parented to   it can show. */if(state.fullModel)state.fullModel.visible=skelOn;if(state.realModel)state.realModel.visible=true;state.fullPickables.forEach(m=>m.visible=skelOn);state.fullMeshes.forEach(m=>{const inRegion=state.region==='all'||(m.userData.regions||[m.userData.region]).includes(state.region);const isolated=!state.isolated||!state.selectedId||m.userData.canonicalId===state.selectedId;m.visible=(state.layers?meshOn(m):true)&&inRegion&&isolated});state.meshes.forEach(m=>{m.visible=false});state.hotspots.forEach(h=>h.visible=skelOn&&state.mode==='landmarks'&&(!state.selectedId||h.userData.parentId===state.selectedId));
     /*
      * The six system layers.
      *
@@ -431,6 +431,7 @@ import { syncTools } from './tools-and-capture.js';
     /* In device pixels, matching enterXray -- see the note there. Passing the
        CSS size here would undo that fix on the first resize. */
     if(state.xray&&state.xray.rt){
+      resizeXray();
       const pr=state.renderer.getPixelRatio();
       state.xray.rt.setSize(Math.max(2,Math.floor(w*pr)),Math.max(2,Math.floor(h*pr)));
     }

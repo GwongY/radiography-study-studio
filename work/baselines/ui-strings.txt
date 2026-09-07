@@ -1,8 +1,9 @@
-— user-facing strings in outputs/ — 1040 —
-  2032d2dbedb53f32  WHOLE SET
+— user-facing strings in outputs/ — 1072 —
+  c2baf36adc673f6c  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
+  9048dae570bdced5   (corpus only)
   753ec4f3a305c1c3   <span class="cut-levelcite">
   ecba1318e9d7541e   Gist sync disconnected; the gist itself is untouched.
   33fff96676d47f8a   Tap to ask the browser to reconfigure the viewport.
@@ -29,11 +30,11 @@
   d9f636bbe94e0ae5  " data-concept="
   8ea7e01970b3f34f  " data-depth="
   4c962673577ace70  " data-done="
+  ae8ca477f78c9e53  " data-etab="
   ef15913a4f42b0cc  " data-filter="
   5265bd1a089ac9df  " data-groupopt="
   9d18b1672389d7fe  " data-groupset="
   921e345548b45de2  " data-reveal="
-  854ec856a1bc5f87  " data-rtab="
   d73ec115ea9142c9  " data-state="
   19d374017e84dc66  " data-step="
   62d7f300f56bd1fa  " data-tool="off" aria-pressed="
@@ -48,7 +49,9 @@
   f847813600bc8f62  " role="status">
   eb82935571faaac8  " style="--acc:
   1b0741baa2d2f617  " style="--accent:
+  64e063eaa6244b35  " style="margin-left:8px">Start →
   a70a4627802e8fd1  " style="text-align:left;cursor:
+  8582de8f630e53c2  " style="width:100%;margin-top:4px">
   d8353d56700520ba  " target="_blank" rel="noreferrer">
   2c99b5c4dedfd5a5  " target="_blank" rel="noreferrer">Wikimedia Commons
   e272ca64fe23b521  " title="
@@ -84,15 +87,18 @@
   b23e904849d93b99  /* Quantum mottle: sigma comes from mAs and SID via radiography.js. */
   382773b522d5ceac  /* Shells that are not quite closed can integrate slightly negative. */
   ddad222bd9577f32  /* tau is -ln(transmission), so a linear window here is a LOG window on
+  05630a5f60a116a9  // Perspective interpolation gives the surface point. Correct the axial
+  449780ec8ee9a31e  // depth to distance along this ray; subtract the same plane at both crossings.
   5c0ca222c75b80db  1-exp(-tau) did not. MIRRORS radiography.js filmDensity(): change one,
   9a6893535657967f  1–7 go alone, 8–10 carpool, 11–12 walk free.
   d2c73992f539793a  246 questions ready
   315afd5b7575b942  26 bones per foot
   ac30f30602e06aa0  3003 parts
+  06de8ba8967d7f93  3D anatomy
   7e8b92cf9af05e38  3D is unavailable right now.
+  5bc27994a6e1afa3  3D is unavailable, so the projection cannot be drawn.
   58982e92cc27e4fa  3D model unavailable
   69ea32698864c4c1  3D scene not ready
-  a69501ff8629fca7  3D skeleton
   a7fbec4f385f22fb  3D · tap to name
   70ec40827f738641  8 carpals, 5 metacarpals, 14 phalanges
   41a2db3039bfb60a  : tier >= 3 ? 'var(--green)' : tier === 2 ? 'var(--orange)' : 'var(--red)';
@@ -105,6 +111,7 @@
   3f235ec9141a2347  <button class="conf
   125f93e4a929b76f  <button class="filter-chip
   7c91d479afddcabc  <button class="ghost tolesson" data-unit="
+  c4fc3c3169677b57  <button class="ghost" data-exam-subject="
   eccfc54f8a6ac23c  <button class="ghost" id="openViewerBtn">Open in Viewer</button>
   8a969989b832ac09  <button class="ghost" id="rssExamPrev"
   e930ca7db13997d6  <button class="ghost" id="rssPriorLesson">Read the lesson</button>
@@ -146,9 +153,7 @@
   a2faff27b66651a1  <div class="empty">Nothing studied yet — start a session to build this list.</div>
   94ca8e2b60e2f26b  <div class="empty">Search structures, study items and topics. Press Esc to close.</div>
   35ce3a36a607c3e6  <div class="emptybox" style="margin-top:14px">No memory aid authored for this item yet.</div>
-  54769c1024f53f51  <div class="emptybox">3D is unavailable, so the projection cannot be drawn.</div>
   bb363a3bd702def4  <div class="emptybox">Diagram unavailable.</div>
-  8725745b55c87713  <div class="emptybox">Loading the beam\u2019s three tissue layers\u2026</div>
   d9c86f19c355240f  <div class="emptybox">Movement unavailable.</div>
   f9d3a9e3de82b3af  <div class="emptybox">No practice questions on this item.</div>
   eacaf6e72b6f92ef  <div class="emptybox">Nothing scheduled this week.</div>
@@ -183,6 +188,8 @@
   590b1769ac58646c  <input class="markin" type="number" inputmode="decimal" min="0" max="100" step="0.1"
   7c75e46f1b37d922  <input id="rssExamInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type your answer" value="
   2f476a078765d308  <input id="rssTypedInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="
+  166a9b9081e89b18  <input type="range" id="examCountSlider" min="5" max="50" step="5" value="
+  248d7a1f23802ad0  <input type="range" id="examTimeSlider" min="10" max="90" step="5" value="
   3a324e9e0d188447  <input type="range" min="8" max="100" value="
   65da2d38aebef408  <li class="assrow
   4a0089a78242886e  <li class="sessrow
@@ -277,6 +284,7 @@
   4edfab653f74507f  Browsing the
   f30ae92534e255f4  Built out of
   955687714a9cf383  Built out of: a-, near + b/o, thing
+  a7ac53f16f45ee2e  By subject
   2863d4882fc93b85  CRANium is the cap that holds the brain.
   d72271896337e29f  Carried over as known, but missed — worth reading the lesson on this one.
   f4bfeb743bb75d23  Cavities behind the anatomy, correctly occluded.
@@ -305,6 +313,7 @@
   a21359ed1dd0ede0  Created a private gist and wrote
   03f268163766146d  Cross-subject progress across five mastery tiers, from unattempted to retained delayed recall.
   650bfee8c10b708c  Current files take priority for dates, topics and assessment. Older official lectures are used only to teach a current syllabus topic when the matching 2026 lecture is absent; student coursework is never used as a factual source.
+  0d2b823fa1b5d4d8  Custom length / time →
   80593d9330e238e5  Cut position
   e3c1a5d80a89f718  Day streak, per-item status and the item you were last part-way through.
   792b1ed47ceecb59  Deadlines and weights come from the subject documents on the Syllabus tab.
@@ -328,6 +337,7 @@
   4b18c8812e334be5  Every question validates
   f7b81d5c080156a2  Everything is marked. Final:
   49070002f587bcf4  Everything you have got wrong, most-repeated first. Each one keeps its own explanation and the confusion that caused it.
+  59a04ec55c686184  Exam papers
   b30e7966d149dbe2  Exam · results
   cc0c20dad7a077f0  Exam-style recall
   c00d4a1a69e70add  Explain my mistakes
@@ -415,6 +425,7 @@
   bf913fcad550f5eb  Layer 7, Muscular
   53726d5c6c42f35d  Leave this paper? Nothing is recorded until it is submitted.
   929fda3beb4aa693  Left / right
+  5ca5b8e793bee30e  Left hand
   a3053906dabadf84  Level 1 · Identify
   479faebc365f0ab1  Level 1 · Your weakest
   617be6645af4d311  Level 2 · Left or right
@@ -426,6 +437,7 @@
   86d0a64d8957c6f4  Live physiology
   19d7f3a65f188042  Load a private question bank JSON file or sync from a private repository to expand the exam pool with thousands of chapter questions.
   3f4169972d9430b8  Loaded question pack "
+  ccc3f0daa040bf01  Loading skeleton, muscle, organs and heart…
   24c4a56f525fe0d9  Loading the Z-Anatomy skeleton — 159 named structures, 80 of them named by your course material, 88 things you can select. The other six system layers load on demand.
   d9ebad5495305a37  Loading the skeleton layer
   f244cc971bb836e5  Lymph nodes of the abdomen
@@ -450,12 +462,13 @@
   ff656be9917a49e2  Mid-clavicular, left
   6906cd85608d4b0d  Mid-clavicular, right
   ac1e653bdd328c9d  Missing or limited
-  caa340a3f3de98c9  Mistakes, due items, mastery
+  b7381c3ddaaa2bf1  Mixed paper (all subjects) →
   57fe077d62f2439c  Model and images in one place
   073c6093b8588908  Model answer
   5eece731d84439fc  Modelled in the
   16ad3d834f99b1f1  Module 1 Thorax/Previous Years/1.1 Cardiovascular System and Lungs (17-18)
   a309612d6e1bb379  More viewer controls
+  71ee53804046e06a  More → Question pack
   4c67f0e5acff873f  Motion off. The anatomical colours stay.
   40bb50da160cdc21  Move down
   5cad0eb3bde4cb2b  Move progress to another device
@@ -477,7 +490,9 @@
   c6455c0a33c2de61  No mistakes logged — good
   f6a29e5cf126ace1  No mistakes recorded yet — nothing to explain.
   8099974808517c76  No mistakes recorded yet — starting a normal Identify drill.
+  7b133c89847929de  No named structure here.
   5d2fd2351410d1ac  No question pack is currently loaded on this device.
+  23ebb87a96f2c8f9  No question pack loaded. Open
   b7cae769b9db0fc6  No radiographs bundled
   ef8c7dae7a20163c  No reference
   f6a59c0ee7b34cc0  No source materials
@@ -532,17 +547,21 @@
   5d4ccdb9cfeecb7a  Opens in Viewer
   c5ca4a0d519c1995  Page / section
   88ce19bc20fd3349  Paper submitted
+  998f59ec6907c1a6  Past papers, timed practice, mastery
   d44f57779facfe5b  Pause turntable
   ce253ba033cf1abf  Phalanges of the hand
   032a270b28e8d32d  Plane \u00b7 separates
   79219f35ed006231  Plural form
+  b1fa06dcff9ea3f6  Practice paper
   6500e2302d2dac54  Practise ·
   d5ff712edaa1e542  Pre-aortic nodes
   6b6b69ac71bfe9de  Precise Z-Anatomy / BodyParts3D skeleton ·
   97bbce4ac834ffb8  Progress erased \u2014
   dbe0aa3439619d84  Progress merged.
   045742deb50fcee2  Progress replaced from file.
+  6322bc723f755180  Projection could not load. Reopen this tab to retry.
   538bf15be302a521  Question pack
+  acf90758fc65377b  Question pack loaded:
   dcd12e71ad9828a9  Question pack removed from this device.
   fbb2baef613596d9  Radiation science
   c91778ac1e937e43  Radiography Study Studio — study progress (private)
@@ -591,6 +610,7 @@
   72e816aa3b0aaa5b  Skills to build with this content
   da2e37e9592542f8  Skip to practice
   0eb673542101b71b  Slides behind the "beyond DSE Biology" lines
+  1bfa470c34403319  Some tissue layers could not load. This is an incomplete projection; reopen this tab to retry.
   89d17970366ba5b3  Source files cited
   b6ade0f684ef5714  Source for the answer you just saw
   d7505a67aed74fd6  Source for this answer
@@ -607,6 +627,7 @@
   d29d2b38dac7572e  Start a session below to begin.
   ed4ac7d9bce75d7f  Start due session \u2192
   b13f13a030dc286c  Start from the title and ask what category the answer belongs to.
+  a1fd34564fe28dfc  Start paper →
   bbbe87b5cafa988b  Start the stroke on a structure.
   73a408b0bf3f0f58  Start with Identify to create your first review history.
   e5424ad7564878f3  Starting with
@@ -636,7 +657,8 @@
   b39ae8aef682cd9b  Tap a structure to pin the name it is taught under.
   527fcabced0fccfb  Tap a structure to pin your own text to it.
   86daae5b32dfb5e1  Tap again to erase \u2014 this is final
-  eb5e1fc43df87ac0  Tap any named structure. Tap the same spot again to step through whatever is behind it.
+  a323b59e9840d5a0  Tap any named structure. Choose a deeper structure from the selection list.
+  102e94ebbb429ab6  Tap the image to name a structure. Drag to pan; use Zoom to enlarge the image.
   caff82fe942e6cfe  Tarsals, metatarsals, phalanges: 7–5–14.
   e4817959acaa3360  Teaching notes missing
   da36c0320030978c  Teaching week
@@ -702,6 +724,7 @@
   cca5df84a9532446  The upper horizontal line of the nine abdominopelvic regions. Measured at the body of L1.
   51aee75534b22418  There is nothing recorded on this device yet, so there is nothing to erase.
   b5792b631250ed3a  This bone is in the database, but high-yield hotspot coordinates have not been added yet.
+  0593a567427cea70  This device cannot render the floating-point projection. The 3D viewer is still available.
   948c12e38dda005e  This device holds
   c4dd0e722ec81849  This device is not connected to a gist yet.
   d424b366dd8d36ab  This fallback reference is fused. Use Upper limb for per-bone isolation.
@@ -710,6 +733,7 @@
   8c4eef5ab2532515  This week
   2a2abf143c0b1cb9  Thoracic cage
   8278421692e43358  Those bones are not in the loaded model.
+  e592a9cae0957d20  Time limit
   003b779bf4554f34  Time up · paper submitted automatically
   60fbbc864f3e78f7  Timetable to your calendar
   f3fbfcd5fea4fbe9  Timetable, syllabus, attendance
@@ -767,6 +791,7 @@
   f1d2a707f4eba80b  a left and a right in the model
   13a77ae510047ac8  above the
   0a48f9e432c65fab  above, upon
+  9518dd5999469663  additional questions available in mixed papers. Subject papers use corpus questions only.
   cae3667040774d63  along the way.
   f6ca2bae3ef97f78  already covered this, so the session opens on the question.
   9200422efeb6a14b  also deficient)
@@ -796,7 +821,7 @@
   67e4b13874eb864a  chip beyond
   4fdb308b1fc87ab3  chip learn
   2cbe9c9f6127a32e  const attrs = hit ?
-  1f1de2f7de1b9045  const color = assumed || opened ? 'var(--dim)'
+  30282f0866f30a82  const color = assumed || opened || stepReached === 'remember' ? 'var(--dim)'
   150b21e4e5effc2a  const hit = lookupTerm(term);
   278b6cfc619726c6  const n = itemsForSubject(s.id).length;
   ca7d8b19b15e976d  const stepTag = stepReached === 'remember' ? ' · remember (2/4)' : (opened ? ' · read' : '');
@@ -822,9 +847,10 @@
   aa9b42a9c9734d2f  epi- (above, upon), hypo- (below; also deficient), inter- (between)
   8983c81d3b29aff6  feedback bad show
   fa671a9de2c2bd28  feedback good show
-  a307b3f97587cb06  float bulk = sgn * vDist * uCmPerUnit * uMu;
+  f3b824b884a50db2  float bulk = sgn * (-vPosition.z - vCenterDepth) / rayCos * uCmPerUnit * uMu;
   d2e20b189c0af032  float density = clamp((tau - uWinLo) / (uWinHi - uWinLo), 0.0, 1.0);
   5ecd6cf556acd465  float n = hash(uv * 1024.0 + uSeed) - 0.5;
+  fed1a79cc78ae011  float rayCos = max(0.01, -normalize(vPosition).z);
   84b1d2d907ea8193  float rssAlong=dot(transformed-uMCenter,uMAxis);\n
   eea76eefee8acb5d  float rssBand=1.;\n
   5f88a5c8e77785f0  float rssD=vFlowY-uOrigin;\n
@@ -934,7 +960,6 @@
   e0c67e29f60bbf7e  questions, including
   0ea24a7a68bdff89  questions, the index says
   9104b22058806e6c  rather than rotating rigidly, so swinging them would tear them off their origin.
-  81eec08a2d76cbcd  read as fog with a skeleton somewhere behind it
   7d1f3fd573ef5371  read. Red at one dot is the colour for answering badly. */
   9601152cce8eb58a  reads as
   c93a88684ed76c4f  real BodyParts3D upper-limb meshes
@@ -978,6 +1003,7 @@
   aa380a202d8e6080  this device was empty, so the whole history was taken from the gist and rebuilt from the log
   8a3a6bcf33fef191  this is what I got
   7d76655e727c2c50  this week
+  a1af653b71796a91  to add your private question bank (past papers, publisher test bank).
   e0dd37bd06a20746  to hand in
   5d2033a00068467a  to uncover
   e738706e3a65b48b  toolchip hidden
@@ -992,16 +1018,22 @@
   44710d35e1fad7ee  uniform float uT;uniform float uOn;uniform float uBeat;uniform vec3 uFlowColor;\n
   9a6541d474b851c9  uniform float uWinLo, uWinHi, uSigma, uSeed, uFlipX;
   98250706ec88a1f3  uniform sampler2D tTau;
+  81d45d9b45873d73  uniform vec2 uPan;
+  567591d501c8163d  uniform vec3 uCenter;
   9d59aa851d0f5a24  unknown time
   c965a53737adbfdc  upon, above
   a7f1899a2980bf16  upper limb
   0e58ec839ddda109  use the whole skeleton
+  0fcb2cf14e540c07  vCenterDepth = -(modelViewMatrix * vec4(uCenter,1.0)).z;
   b33a0e0d9fc04368  vCos = abs(dot(n, normalize(-mv.xyz)));
+  9530daa7ca0f593d  vPosition = mv.xyz;
+  35cf5b7cf14017b9  varying float vCenterDepth;
   84fbaea5156547f6  varying float vCos;
-  a51f2aefe70c5d79  varying float vDist;
   9c46d65d8d548c7f  varying float vFlowY;\n
   18dca9f54eeb687d  varying vec2 vUv;
-  a5a3ab4b74593ad7  vec2 uv = vec2(uFlipX > 0.5 ? 1.0 - vUv.x : vUv.x, vUv.y);
+  535038c502c1ec8e  varying vec3 vPosition;
+  54f60ba690743752  vec2 displayed = vUv - uPan;
+  d08c328390068b9c  vec2 uv = vec2(uFlipX > 0.5 ? 1.0 - displayed.x : displayed.x, displayed.y);
   dece92bf4fa4cd18  vec3 n = normalize(normalMatrix * normal);
   48aeee7eb3f531af  vec3 rssPerp=(transformed-uMCenter)-rssAlong*uMAxis;\n
   eddc22218b2be4a2  vec4 mv = modelViewMatrix * vec4(position,1.0);

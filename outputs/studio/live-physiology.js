@@ -9,7 +9,7 @@ import { animate, applyVisibility, between, getRecord, tube } from './region-box
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
 import { enforceHidden } from './hide-and-search.js';
 import { showPickCallout } from './spatial-concept-overlays.js';
-import { setSeparation } from './tools-and-capture.js';
+import { setSeparation, setTool } from './tools-and-capture.js';
 
 /* ------------------------------------------------------------------ *
  * Live physiology
@@ -324,6 +324,7 @@ export function updateStageMeta(){
  * relationship, so any combination can be on at once.
  */
 export function applyLayers(){
+  if(state.xray)return;
   Object.entries(state.extraModels).forEach(([k,m])=>{
     m.root.visible=layerOn(k);
     /* Opacity is per CHIP, not per file: the arteries can be solid while the
@@ -497,81 +498,24 @@ export async function focusStructures(spec){
 }
 
 /*
- * Projection view.
- *
- * A radiograph is an accumulation of attenuation along a ray, so the honest
- * cheap analogue is additive blending with depth-write off: every surface the
- * ray crosses adds a little brightness, and thick or overlapping bone comes out
- * bright while soft tissue is a haze. Bone carries roughly ten times the weight
- * of muscle here, which is the right order for the effect, not a dose figure.
- *
- * The camera is a very narrow field of view pulled a long way back, which is a
- * near-parallel projection. That is also this view's honest limit: a parallel
- * projection CANNOT distinguish PA from AP. The difference between them is beam
- * direction, object-to-detector distance and the resulting magnification -- none
- * of which geometry alone reproduces. The pane says so.
+ * Projection integrates signed entry/exit distances through the source meshes.
+ * Measure relative to each mesh centre: on a closed surface this cancels
+ * exactly; on an open source mesh it avoids charging the entire source distance
+ * for a missing face. Open surfaces remain an approximation, not CT volumes.
+ * The heart lives in the circulatory GLB; only its Heart system enters the beam.
  */
-
-/*
- * Projection view.
- *
- * The first version accumulated surfaces: every polygon the ray crossed added a
- * fixed amount of brightness. That is wrong in a way worth spelling out. These
- * meshes are hollow shells, so a femur contributed the same two crossings as a
- * sheet of bone one millimetre thick, and everything came out looking like
- * outlines rather than solid bone.
- *
- * This version measures the path length THROUGH material and applies
- * Beer-Lambert. Each fragment writes its own distance from the camera, signed
- * by facing: back faces add, front faces subtract. Summed over a ray with
- * additive blending, sum(exits) - sum(entries) is exactly the distance spent
- * inside solid material, and it stays correct for any number of separate
- * objects stacked along the ray. Converted to centimetres and scaled by a
- * per-tissue LINEAR attenuation coefficient, that sum is a real optical
- * depth, and the film is a window on it.
- *
- * So bone is bright because the ray spent longer in bone, not because it
- * crossed more polygons. The shells are still hollow, but that no longer
- * means cortex and marrow read alike: each crossing is charged for one
- * cortical slab at the true incidence angle over a marrow bulk -- see
- * radiography.js boneTau(). One thickness serves every bone, so a rib is
- * given a femur's cortex, and the pane says which part of that is a model.
- */
-
-/*
- * Which layers the beam actually LOADS.
- *
- * Which TISSUE each mesh is made of is no longer decided here. It used to be
- * one entry per GLB layer, and that was wrong in a way a film shows
- * immediately: the organ GLB carries the lungs AND the solid viscera, so the
- * lungs were handed soft-tissue attenuation, four times too dense, and a
- * chest PA came out with the lung fields as the BRIGHTEST thing on it.
- * radiography.js tissueForMesh() classifies per mesh instead, where it can be
- * run over the real GLB names outside a browser.
- *
- * circulatory, nervous and lymphatic are absent, and their absence is a fact
- * rather than a compromise: unenhanced vessels and nerves are not visible on
- * a plain film. The pane says so, because a reader who notices the aorta is
- * missing should find out why.
- *
- * joint (ligaments) is absent for the same kind of reason: ligaments are not
- * distinguishable on a plain radiograph, so a fourth GLB would be a download
- * the reader waits through for no signal. A ligament mesh already in the
- * scene still classifies -- as soft tissue, which is what it is -- because
- * tissueForMesh needs no per-layer entry to place it. Three layers, and the
- * pane that announces the load says three.
- */
-export const XRAY_LAYERS = ['skeleton','muscle','organs'];
-/* The GLB each of those needs. The skeleton is absent because boot() has
-   already put it in the scene -- there is no file to fetch for it. */
-export const XRAY_LAYER_FILES = { muscle: MODEL_CATALOG.muscleFile, organs: MODEL_CATALOG.organSystemFile };
+export const XRAY_LAYERS = ['skeleton','muscle','organs','circulatory'];
+export const XRAY_LAYER_FILES = { muscle: MODEL_CATALOG.muscleFile, organs: MODEL_CATALOG.organSystemFile, circulatory: MODEL_CATALOG.circulatoryFile };
 
 const XRAY_VERT=`
-varying float vDist;
+uniform vec3 uCenter;
+varying vec3 vPosition;
+varying float vCenterDepth;
 varying float vCos;
 void main(){
   vec4 mv = modelViewMatrix * vec4(position,1.0);
-  vDist = -mv.z;
+  vPosition = mv.xyz;
+  vCenterDepth = -(modelViewMatrix * vec4(uCenter,1.0)).z;
   /* Incidence angle of the ray on this surface, for the cortical slab. */
   vec3 n = normalize(normalMatrix * normal);
   vCos = abs(dot(n, normalize(-mv.xyz)));
@@ -579,12 +523,16 @@ void main(){
 }`;
 const XRAY_FRAG=`
 uniform float uMu, uCmPerUnit, uShell, uGraze;
-varying float vDist;
+varying vec3 vPosition;
+varying float vCenterDepth;
 varying float vCos;
 void main(){
   /* Back faces are where the ray leaves material, front faces where it enters. */
   float sgn = gl_FrontFacing ? -1.0 : 1.0;
-  float bulk = sgn * vDist * uCmPerUnit * uMu;
+  // Perspective interpolation gives the surface point. Correct the axial
+  // depth to distance along this ray; subtract the same plane at both crossings.
+  float rayCos = max(0.01, -normalize(vPosition).z);
+  float bulk = sgn * (-vPosition.z - vCenterDepth) / rayCos * uCmPerUnit * uMu;
   /* One cortical slab per crossing, at the true incidence angle. Added on
      BOTH faces (not signed) because entering and leaving each cross one.
      uShell is zero for the soft-tissue layers. See radiography.js boneTau(). */
@@ -594,11 +542,14 @@ void main(){
 const XRAY_POST_FRAG=`
 uniform sampler2D tTau;
 uniform float uWinLo, uWinHi, uSigma, uSeed, uFlipX;
+uniform vec2 uPan;
 varying vec2 vUv;
 float hash(vec2 p){ return fract(sin(dot(p, vec2(12.9898,78.233))) * 43758.5453); }
 void main(){
   /* Shells that are not quite closed can integrate slightly negative. */
-  vec2 uv = vec2(uFlipX > 0.5 ? 1.0 - vUv.x : vUv.x, vUv.y);
+  vec2 displayed = vUv - uPan;
+  if(any(lessThan(displayed,vec2(0.0)))||any(greaterThan(displayed,vec2(1.0)))){gl_FragColor=vec4(0.0,0.0,0.0,1.0);return;}
+  vec2 uv = vec2(uFlipX > 0.5 ? 1.0 - displayed.x : displayed.x, displayed.y);
   float tau = max(0.0, texture2D(tTau, uv).r);
   /* tau is -ln(transmission), so a linear window here is a LOG window on
      intensity -- which is what a detector applies, and what the previous
@@ -613,10 +564,10 @@ void main(){
 
 export function xrayDepthMaterial(THREE,muCm,cmPerUnit,shell){
   return new THREE.ShaderMaterial({
-    uniforms:{uMu:{value:muCm}, uCmPerUnit:{value:cmPerUnit},
+    uniforms:{uCenter:{value:new THREE.Vector3()},uMu:{value:muCm}, uCmPerUnit:{value:cmPerUnit},
       uShell:{value:shell||0}, uGraze:{value:GRAZE_CLAMP}},
     vertexShader:XRAY_VERT, fragmentShader:XRAY_FRAG,
-    side:THREE.DoubleSide, depthTest:false, depthWrite:false,
+    side:THREE.DoubleSide, depthTest:false, depthWrite:false, forceSinglePass:true, toneMapped:false,
     blending:THREE.CustomBlending, blendEquation:THREE.AddEquation,
     blendSrc:THREE.OneFactor, blendDst:THREE.OneFactor,
   });
@@ -656,6 +607,10 @@ export function enterXray(){
      patient whose lungs are a body-depth in front of their chest wall. */
   if(state.separation)setSeparation(0);
   if(state.xray||!state.scene)return false;
+  if(state.movement)endMovement();
+  if(!state.renderer.extensions.has('EXT_color_buffer_float') && !state.renderer.extensions.has('EXT_color_buffer_half_float')) {
+    throw new Error('This device cannot render the floating-point projection. The 3D viewer is still available.');
+  }
   const THREE=state.THREE;
   const c=state.camera, ctr=state.controls;
   /*
@@ -671,8 +626,9 @@ export function enterXray(){
   const size=new THREE.Vector2();
   state.renderer.getDrawingBufferSize(size);
   const rt=new THREE.WebGLRenderTarget(Math.max(2,size.x),Math.max(2,size.y),{
-    type:THREE.FloatType, format:THREE.RedFormat,
-    minFilter:THREE.LinearFilter, magFilter:THREE.LinearFilter, depthBuffer:false,
+    type:state.renderer.extensions.has('EXT_float_blend')?THREE.FloatType:THREE.HalfFloatType,
+    format:THREE.RGBAFormat,
+    minFilter:THREE.NearestFilter, magFilter:THREE.NearestFilter, depthBuffer:false,
   });
   const post=new THREE.Scene();
   const postCam=new THREE.OrthographicCamera(-1,1,1,-1,0,1);
@@ -680,7 +636,7 @@ export function enterXray(){
     uniforms:{tTau:{value:rt.texture},uWinLo:{value:DEFAULT_WINDOW.lo},
       uWinHi:{value:DEFAULT_WINDOW.hi},
       uSigma:{value:mottleSigma({mAs:REF_MAS,sidCm:REF_SID_CM})},
-      uSeed:{value:0},uFlipX:{value:0}},
+      uSeed:{value:0},uFlipX:{value:0},uPan:{value:new THREE.Vector2()}},
     vertexShader:'varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.0,1.0); }',
     fragmentShader:XRAY_POST_FRAG, depthTest:false, depthWrite:false,
   });
@@ -689,7 +645,10 @@ export function enterXray(){
   state.xray={
     mats:new Map(), shared:new Map(), rt, post, postCam, postMat,
     bg:state.scene.background, fog:state.scene.fog,
-    fov:c.fov, near:c.near, far:c.far,
+    fov:c.fov, near:c.near, far:c.far, zoom:c.zoom,
+    controls:{enabled:ctr.enabled,enableRotate:ctr.enableRotate,enableZoom:ctr.enableZoom,enablePan:ctr.enablePan,enableDamping:ctr.enableDamping,mouseButtons:{...ctr.mouseButtons},touches:{...ctr.touches}},
+    tool:state.tool, visibility:new Map(), hooks:new Map(), rotations:new Map(),
+    clearColor:state.renderer.getClearColor(new THREE.Color()), clearAlpha:state.renderer.getClearAlpha(),
     minD:ctr.minDistance, maxD:ctr.maxDistance,
     pos:c.position.clone(), target:ctr.target.clone(),
     layers:{...state.layers}, layerOpacity:{...(state.layerOpacity||{})},
@@ -701,35 +660,23 @@ export function enterXray(){
     win:{...DEFAULT_WINDOW},
     view:'pa', region:'chest',
   };
-  /*
-   * The beam sees each volume ONCE.
-   *
-   * It used to see the skeleton alone, and the note in what-is-under.js blamed
-   * the soft-tissue coefficients: six layers at 0.10-0.30 against bone at 1.00
-   * "read as fog with a skeleton somewhere behind it". The ratios were close to
-   * right -- NIST puts bone at 6.4x soft tissue at 30 keV against the 6.3x those
-   * constants implied. The fog was DOUBLE COUNTING: muscle, organs, circulatory,
-   * nervous and lymphatic are overlapping closed shells occupying the same
-   * physical volume, so one ray charged for the same soft tissue three to five
-   * times over.
-   *
-   * So: skeleton, muscle, organs. Vessels, nerves and lymphatics stay off, and
-   * that is a fact rather than a compromise -- unenhanced vessels are not
-   * visible on a plain film. Ligaments are off for the same reason, which is
-   * why XRAY_LAYERS is three GLBs and not the seven the atlas ships.
-   *
-   * The set is also fixed rather than inherited, which is what stopped the
-   * exposure being a function of what had been browsed earlier in the session:
-   * the same Chest / PA button once read at mean 15.6 before the muscle layer
-   * had ever been opened and at 43.1 after. Whatever is on in the 3D tab is
-   * restored on the way out.
-   *
-   * Turning a chip on does not FETCH a GLB and this function is synchronous,
-   * so the pane awaits __osteo.ensureXrayLayers() before calling us -- see
-   * study/what-is-under.js. A layer that failed to load simply is not in the
-   * beam; nothing here depends on it being there.
-   */
+  /* Projection has a fixed tissue set, independent of the 3D layer switches,
+   * opacity, isolation and hidden meshes. The source GLBs still overlap in
+   * places: selecting fewer systems does not make them disjoint CT volumes.
+   * The UI awaits ensureXrayLayers before this synchronous material swap. */
   XRAY_LAYERS.forEach((k)=>setLayerChips(k,true));
+  state.layers.arterial=false;state.layers.venous=false;state.layers.heart=true;
+  setTool('off');
+  // Drain orbit damping before choosing a fixed beam direction.
+  ctr.enableDamping=false;ctr.update();
+  ctr.enabled=true;ctr.enableRotate=false;ctr.enableZoom=false;ctr.enablePan=false;
+  ctr.mouseButtons={LEFT:THREE.MOUSE.PAN,MIDDLE:THREE.MOUSE.PAN,RIGHT:THREE.MOUSE.PAN};
+  ctr.touches={ONE:THREE.TOUCH.PAN,TWO:THREE.TOUCH.DOLLY_PAN};
+  c.zoom=1;
+  state.scene.traverse(o=>state.xray.visibility.set(o,o.visible));
+  state.fullModel.visible=true;
+  state.fullPickables.forEach(o=>o.visible=false);
+  state.hotspots.forEach(o=>o.visible=false);
   SYSTEMS.forEach((s)=>{if(!XRAY_LAYERS.includes(s.layer))state.layers[s.key]=false});
   /*
    * Cavities, regions and planes are teaching overlays drawn ON the anatomy.
@@ -780,7 +727,20 @@ export function enterXray(){
   /* xrayTissue is what every other reader wants -- the shared cache is keyed
      by it, and re-deriving a tissue from the layer is the bug this whole
      change removes. xrayKey stays: it still says which GLB the mesh is from. */
-  const apply=(mesh,key)=>{const tissue=tissueForMesh(mesh.name,key);state.xray.mats.set(mesh,mesh.material);mesh.material=sharedFor(tissue);mesh.userData.xrayKey=key;mesh.userData.xrayTissue=tissue};
+  const apply=(mesh,key)=>{
+    const x=state.xray;
+    const tissue=key==='circulatory'?'soft':tissueForMesh(mesh.name,key);
+    x.mats.set(mesh,mesh.material);x.hooks.set(mesh,mesh.onBeforeRender);
+    mesh.material=sharedFor(tissue);mesh.userData.xrayKey=key;mesh.userData.xrayTissue=tissue;
+    mesh.visible=XRAY_LAYERS.includes(key)&&(key!=='circulatory'||mesh.userData.systems?.includes('heart'))
+      &&!(key==='muscle'&&['tendon','bursa'].includes(mesh.userData.flowClass));
+    if(!mesh.geometry.boundingBox)mesh.geometry.computeBoundingBox();
+    const center=mesh.geometry.boundingBox.getCenter(new THREE.Vector3());
+    mesh.onBeforeRender=(_r,_s,_c,_g,mat)=>{
+      mat.uniforms.uCenter.value.copy(center);
+      mat.uniformsNeedUpdate=true;
+    };
+  };
   state.fullMeshes.forEach(m=>apply(m,'skeleton'));
   Object.entries(state.extraModels||{}).forEach(([k,l])=>l.meshes.forEach(m=>apply(m,k)));
   Object.entries(state.extraModels||{}).forEach(([k,l])=>{l.root.visible=layerOn(k)});
@@ -790,7 +750,8 @@ export function enterXray(){
   /* A yaw would smear a projection that is meant to be read square on. */
   state.motionEnabled=false;
   [state.fullModel,state.realModel,...Object.values(state.extraModels||{}).map(m=>m.pivot)]
-    .forEach(r=>{if(r)r.rotation.y=0});
+    .forEach(r=>{if(r){state.xray.rotations.set(r,r.rotation.clone());r.rotation.y=0}});
+  state.scene.updateMatrixWorld(true);
   ctr.minDistance=.5; ctr.maxDistance=900;
   setXrayRegion('chest');
   return true;
@@ -815,35 +776,63 @@ const XRAY_REGIONS={
   chest: {label:'Chest',      c:[0,3.80,0], half:1.95, sid:1.80},
   abdo:  {label:'Abdomen',    c:[0,2.30,0], half:1.95, sid:1.00},
   pelvis:{label:'Pelvis',     c:[0,1.33,0], half:1.15, sid:1.00},
-  hand:  {label:'Hand',       c:[2.10,0.47,0], half:0.78, sid:1.00},
+  hand:  {label:'Left hand',  c:[2.10,0.47,0], half:0.78, sid:1.00},
   body:  {label:'Whole body', c:[0,1.00,0], half:6.10, sid:4.00},
 };
 export function setXrayRegion(key){
   if(!state.xray)return;
+  if(!XRAY_REGIONS[key])return;
   state.xray.region=key;
+  // Without this field selection a lateral hand ray also crosses the pelvis
+  // and opposite hand in the atlas's anatomical position.
+  state.xray.mats.forEach((_material,m)=>{
+    const eligible=XRAY_LAYERS.includes(m.userData.xrayKey)
+      &&(m.userData.xrayKey!=='circulatory'||m.userData.systems?.includes('heart'))
+      &&!(m.userData.xrayKey==='muscle'&&['tendon','bursa'].includes(m.userData.flowClass));
+    m.visible=eligible;
+    if(eligible&&key==='hand'){
+      const b=new state.THREE.Box3().setFromObject(m),R=XRAY_REGIONS.hand;
+      m.visible=b.max.x>=R.c[0]-R.half&&b.min.x<=R.c[0]+R.half
+        &&b.max.y>=R.c[1]-R.half&&b.min.y<=R.c[1]+R.half;
+    }
+  });
+  state.xray.postMat.uniforms.uPan.value.set(0,0);
   applyXrayCamera();
 }
 export function setXrayView(view){
   if(!state.xray)return;
+  if(!['pa','ap','lat'].includes(view))return;
   state.xray.view=view;
+  state.xray.postMat.uniforms.uPan.value.set(0,0);
   applyXrayCamera();
 }
 function applyXrayCamera(){
   const x=state.xray; if(!x)return;
   const THREE=state.THREE, c=state.camera, ctr=state.controls;
   const R=XRAY_REGIONS[x.region]||XRAY_REGIONS.body;
-  const dist=R.sid*XRAY_UNITS_PER_M;
-  c.fov=2*Math.atan(R.half/dist)*180/Math.PI;
+  const sid=R.sid*XRAY_UNITS_PER_M;
+  const dir=x.view==='lat'?new THREE.Vector3(1,0,0):new THREE.Vector3(0,0,x.view==='ap'?1:-1);
+  const center=new THREE.Vector3(...R.c);
+  state.scene.updateMatrixWorld(true);
+  // Detector lies just beyond the regional anatomy, not at its centre.
+  let detectorDepth=0;
+  x.mats.forEach((_mat,m)=>{
+    if(!m.visible)return;
+    const box=new THREE.Box3().setFromObject(m);
+    if(box.max.y<center.y-R.half||box.min.y>center.y+R.half)return;
+    if(x.region==='hand'&&(box.max.x<center.x-R.half||box.min.x>center.x+R.half))return;
+    const depth=x.view==='lat'?center.x-box.min.x:x.view==='ap'?center.z-box.min.z:box.max.z-center.z;
+    detectorDepth=Math.max(detectorDepth,depth);
+  });
+  const dist=Math.max(sid*.5,sid-detectorDepth-.05);
+  // Fit the region on the shorter screen dimension as well as in height.
+  resizeXray();
+  ctr.target.copy(center);
+  c.position.copy(center).add(dir.multiplyScalar(dist));
+  x.sidCm=R.sid*100;
   c.updateProjectionMatrix();
   xrayClip();
-  ctr.target.set(R.c[0],R.c[1],R.c[2]);
-  /*
-   * +z is anterior on this model -- the face looks that way. PA puts the source
-   * behind the patient, AP in front.
-   */
-  const dir=x.view==='lat'?new THREE.Vector3(1,0,0)
-    :new THREE.Vector3(0,0,x.view==='ap'?1:-1);
-  c.position.copy(ctr.target).add(dir.multiplyScalar(dist));
+  applyBeam();
   c.up.set(0,1,0);
   ctr.update();
   /*
@@ -854,11 +843,15 @@ function applyXrayCamera(){
   x.postMat.uniforms.uFlipX.value=x.view==='pa'?1:0;
   x.shownSid=null; x.shownOff=null;
 }
+export function resizeXray(){
+  const x=state.xray;if(!x)return;
+  const R=XRAY_REGIONS[x.region]||XRAY_REGIONS.body;
+  state.camera.fov=2*Math.atan(R.half/Math.min(1,state.camera.aspect)/(R.sid*XRAY_UNITS_PER_M))*180/Math.PI;
+  state.camera.updateProjectionMatrix();
+}
 /*
- * The clip planes have to follow the dolly. Pinning them to the distance the
- * region was set up at meant zooming out pushed the body past the far plane and
- * the whole pane went black. Depth precision is irrelevant here -- the depth
- * test is off -- so the span can be generous enough to always contain the body.
+ * Keep every closed surface inside the clip span. A clipped entry or exit
+ * would invalidate the signed path integral. Image zoom leaves this span alone.
  */
 function xrayOffAxis(){
   const x=state.xray; if(!x)return 0;
@@ -879,7 +872,7 @@ function xrayClip(){
 /* Changing kVp changes every coefficient, so the shared materials are rebuilt. */
 export function setXrayKvp(kvp){
   const x=state.xray; if(!x)return;
-  x.kvp=kvp;
+  x.kvp=Math.max(50,Math.min(125,Number(kvp)||75));
   x.shared.forEach((m)=>m.dispose());
   x.shared.clear();
   x.mats.forEach((_orig,mesh)=>{
@@ -887,8 +880,20 @@ export function setXrayKvp(kvp){
   });
   applyBeam();
 }
-export function setXrayMas(mAs){ const x=state.xray; if(!x)return; x.mAs=mAs; applyBeam(); }
+export function setXrayMas(mAs){ const x=state.xray; if(!x)return; x.mAs=Math.max(1,Math.min(80,Number(mAs)||10)); applyBeam(); }
 export function setXrayAec(on){ const x=state.xray; if(!x)return; x.aec=!!on; applyBeam(); }
+
+export function setXrayWindow(width,level){
+  const x=state.xray;if(!x)return;
+  const w=Math.max(2,Math.min(40,Number(width)||19));
+  const l=Math.max(0,Math.min(25,Number(level)||0));
+  x.win={lo:l-w/2,hi:l+w/2};applyBeam();
+}
+export function setXrayZoom(value){
+  if(!state.xray)return;
+  state.camera.zoom=Math.max(.5,Math.min(3,Number(value)||1));
+  state.camera.updateProjectionMatrix();
+}
 
 /*
  * mAs and SID set the fluence; the window and the mottle both follow from it.
@@ -918,11 +923,8 @@ function applyBeam(){
 export function renderXray(){
   const x=state.xray; if(!x)return false;
   const r=state.renderer;
-  const d=xrayClip();
-  /* Dollying really is changing the source-to-image distance: say so in the
-     readout, and tell the beam, because with AEC off the exposure follows it. */
-  const sid=Math.round(d/XRAY_UNITS_PER_M*100);
-  if(sid!==x.sidCm){ x.sidCm=sid; applyBeam(); }
+  xrayClip();
+  const sid=Math.round(x.sidCm);
   /*
    * Orbit away from the nominal axis and this stops being the projection its
    * button claims. Saying "AP" over an oblique is exactly the kind of quiet
@@ -943,8 +945,10 @@ export function renderXray(){
     const names={pa:'PA',ap:'AP',lat:'Lateral'};
     const proj=off>4?`oblique · ${off}° off ${names[x.view]||x.view}`:(names[x.view]||x.view);
     els.stageMeta.textContent=`${R.label} · ${proj} · SID ${sid} cm · ${beam} · simulated · tap to name`;
+    const status=$('xrayStatus');if(status)status.textContent=els.stageMeta.textContent;
   }
-  x.postMat.uniforms.uSeed.value=(performance.now()*.06)%1000;
+  // A projection is one exposure; grain must not flicker every animation frame.
+  x.postMat.uniforms.uSeed.value=17;
   r.autoClear=true;
   r.setRenderTarget(x.rt);
   r.setClearColor(0x000000,1);
@@ -957,11 +961,12 @@ export function renderXray(){
 export function exitXray(){
   const x=state.xray; if(!x)return;
   const c=state.camera, ctr=state.controls;
-  x.mats.forEach((orig,mesh)=>{mesh.material=orig;delete mesh.userData.xrayKey;delete mesh.userData.xrayTissue});
+  x.mats.forEach((orig,mesh)=>{if(mesh.userData.xrayHot){mesh.material.dispose();delete mesh.userData.xrayHot}mesh.material=orig;mesh.onBeforeRender=x.hooks.get(mesh);delete mesh.userData.xrayKey;delete mesh.userData.xrayTissue});
   x.shared.forEach(m=>m.dispose());
+  x.post.children.forEach(o=>o.geometry?.dispose());
   x.postMat.dispose(); x.rt.dispose();
   state.scene.background=x.bg; state.scene.fog=x.fog;
-  c.fov=x.fov;c.near=x.near;c.far=x.far;c.updateProjectionMatrix();
+  c.zoom=x.zoom;c.fov=x.fov;c.near=x.near;c.far=x.far;c.updateProjectionMatrix();
   ctr.minDistance=x.minD;ctr.maxDistance=x.maxD;
   c.position.copy(x.pos);ctr.target.copy(x.target);ctr.update();
   state.layers=x.layers;state.layerOpacity=x.layerOpacity;
@@ -973,10 +978,18 @@ export function exitXray(){
   state.renderer.clippingPlanes=x.clip||[];
   state.renderer.autoClear=x.autoClear;
   state.renderer.setRenderTarget(null);
+  state.renderer.setClearColor(x.clearColor,x.clearAlpha);
   state.xray=null;
+  Object.assign(ctr,x.controls);
+  setTool(x.tool||'off');
+  ctr.enabled=x.controls.enabled;
   applyLayers();
+  x.visibility.forEach((v,o)=>{o.visible=v});
+  x.rotations.forEach((rot,o)=>o.rotation.copy(rot));
+  state.scene.updateMatrixWorld(true);
 }
 export function setLayer(key,on){
+  if(state.xray)return;
   /* Meshes carried by a movement live under the pivot group, not their layer
      root, so a toggle mid-movement could not hide them. End it first. */
   if(state.movement)endMovement();

@@ -108,13 +108,13 @@ export function renderLearn() {
            * stepping to Remember marks two of four.
            */
           let tier = tierFor(adjScore(i), attempted || !!assumed || opened);
-          if (!attempted && !assumed && opened && stepReached === 'remember') {
+          if (!attempted && !assumed && stepReached === 'remember') {
             tier = Math.max(tier, 2);
           }
           /* Dim, not red, for both of the tiers nobody earned here: a mark
              carried over from another syllabus, and a lesson that has been
              read. Red at one dot is the colour for answering badly. */
-          const color = assumed || opened ? 'var(--dim)'
+          const color = assumed || opened || stepReached === 'remember' ? 'var(--dim)'
             : tier >= 3 ? 'var(--green)' : tier === 2 ? 'var(--orange)' : 'var(--red)';
           const sub = (ITEM_TYPES[i.type] || {}).label || i.type;
           const stepTag = stepReached === 'remember' ? ' · remember (2/4)' : (opened ? ' · read' : '');
@@ -126,7 +126,7 @@ export function renderLearn() {
     </div>`;
   if ($$('studyTopicBtn')) {
     const cont = getContinueTarget();
-    const canResumeTopic = cont && cont.index > 0 && cont.itemIds && T.items.some((ti) => ti.id === cont.item.id);
+    const canResumeTopic = cont && cont.itemIds && T.items.some((ti) => ti.id === cont.item.id);
     if (canResumeTopic) {
       $$('studyTopicBtn').textContent = `Continue (${cont.index + 1}/${cont.total}) \u2192`;
       $$('studyTopicBtn').onclick = () => resumeContinue(cont);

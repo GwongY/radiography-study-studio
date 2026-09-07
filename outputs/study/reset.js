@@ -106,7 +106,7 @@ function resetProgress() {
   try {
     for (let i = localStorage.length - 1; i >= 0; i--) {
       const k = localStorage.key(i);
-      if (k && k.startsWith(STORAGE_PREFIX + 'step:')) localStorage.removeItem(k);
+      if (k && (k.startsWith('rss-step:') || k.startsWith(STORAGE_PREFIX + 'step:'))) localStorage.removeItem(k);
     }
   } catch {}
   store.mastery = {}; store.items = {}; store.mistakes = [];

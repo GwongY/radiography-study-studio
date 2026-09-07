@@ -42,7 +42,7 @@ export function renderViewerTools() {
   if (axes) {
     const live = o && o.cutState ? o.cutState() : null;
     if (live) { cut.axis = live.axis; cut.t = live.t; cut.flip = live.flip; cut.level = live.level; }
-    else cut.level = null;
+    else { cut.axis = null; cut.level = null; }
     const specs = o && o.cutAxes ? o.cutAxes() : [];
     axes.innerHTML = specs.map((a) => `<button class="icon-btn${cut.axis === a.id ? ' active' : ''}"
         data-cut="${esc(a.id)}" title="${esc(a.hint)}" aria-pressed="${cut.axis === a.id}">${esc(a.label)}</button>`).join('');
@@ -180,7 +180,7 @@ function renderLayerDepth() {
     return;
   }
   host.innerHTML = loaded.map((l) => {
-    const pct = Math.round((layerState[l.key] === 'ghost' ? GHOST_OPACITY : 1) * 100);
+    const pct = Math.round((o.layerOpacity?.()[l.key] ?? (layerState[l.key] === 'ghost' ? GHOST_OPACITY : 1)) * 100);
     return `<label class="depthrow"><span>${esc(l.label)}</span>
       <input type="range" min="8" max="100" value="${pct}" data-depth="${esc(l.key)}" aria-label="${esc(l.label)} opacity">
       <span class="mono" data-depthread="${esc(l.key)}">${pct}%</span></label>`;
