@@ -913,4 +913,1475 @@ export const HSS_MODULES = [
       { ref: 'hss.thorax.deck', location: 'p29 "Axillary vein (mainly)"' },
     ],
   },
+
+/* ========================================================================
+   * WEEK 5: CENTRAL NERVOUS SYSTEM (Module 2)
+   * ======================================================================== */
+  {
+    id: 'hss2011-cns-spinal-cord-meninges',
+    subject: 'HSS2011', unit: 'hss.m2', type: 'definition',
+    title: 'Spinal cord, meninges and spinal nerves',
+    tags: ['neuroanatomy', 'cns', 'spine', 'high-yield'],
+    lesson: {
+      explanation: 'The spinal cord extends from the foramen magnum of the skull down to the L1/L2 vertebral level in adults, tapering at the conus medullaris. Below this level, a collection of nerve roots called the cauda equina extends through the lumbar cistern. There are 31 pairs of spinal nerves: 8 cervical, 12 thoracic, 5 lumbar, 5 sacral, and 1 coccygeal. The central nervous system is enclosed by three protective connective tissue membranes (meninges): the dura mater (tough fibrous outer layer; epidural space sits between dura and vertebral canal), arachnoid mater (middle web-like avascular layer), and pia mater (delicate, highly vascular inner layer adhering to the surface of the spinal cord). The subarachnoid space between arachnoid and pia contains cerebrospinal fluid (CSF). Because the spinal cord ends at L1/L2, a lumbar puncture (spinal tap) is safely performed at the L3/L4 or L4/L5 intervertebral space, sampling CSF from the subarachnoid space without risking puncture of the spinal cord.',
+      plain: 'The spinal cord runs from the skull base down to L1/L2, ending in the conus medullaris, with nerve roots (the cauda equina) trailing below. Three meninges wrap it: dura (tough outer), arachnoid (middle web), and pia (delicate inner). The subarachnoid space holds CSF. Because the cord ends at L1/L2, lumbar punctures are done lower down at L3/L4 or L4/L5 to safely tap CSF without hitting the cord.',
+      keyFacts: [
+        'Spinal cord ends at L1/L2 (conus medullaris) in adults; cauda equina trails below.',
+        '31 pairs of spinal nerves: 8 cervical, 12 thoracic, 5 lumbar, 5 sacral, 1 coccygeal.',
+        'Three meningeal layers: dura mater (outer), arachnoid mater (middle), pia mater (inner).',
+        'CSF circulates within the subarachnoid space between arachnoid and pia mater.',
+        'Lumbar puncture is performed at L3/L4 or L4/L5 to avoid piercing the spinal cord.',
+      ],
+      prerequisites: ['hss2011-osteo-vertebra-parts'],
+      examples: ['Lumbar puncture targets the subarachnoid space at L3/L4 for CSF analysis in suspected meningitis.'],
+    },
+    memory: {
+      chunking: 'Meninges from outside to inside: Dura (Durable), Arachnoid (Spiderweb), Pia (Pious/soft) — DAP.',
+      comparison: 'Epidural space is between bone and dura (holds fat and veins, used for epidural anaesthesia); subarachnoid space is between arachnoid and pia (holds CSF, used for spinal taps).',
+      firstLetter: '31 spinal nerves: C8, T12, L5, S5, Co1. Note 8 cervical nerves for 7 cervical vertebrae because C1 exits above atlas.',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'At what vertebral level does the adult spinal cord typically terminate?',
+        options: ['T12', 'L1/L2', 'L4/L5', 'S2'],
+        answer: 1,
+        explanation: 'The adult spinal cord ends at the level of L1/L2 at the conus medullaris; below this is the cauda equina.',
+        src: { ref: 'hss.2.2', location: 'p2–p3 Spinal cord anatomy' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'In which space is cerebrospinal fluid (CSF) sampled during a lumbar puncture?',
+        options: ['Epidural space', 'Subdural space', 'Subarachnoid space', 'Central canal'],
+        answer: 2,
+        explanation: 'CSF circulates in the subarachnoid space between the arachnoid mater and the pia mater.',
+        src: { ref: 'hss.2.2', location: 'p3 Spinal cord meninges' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'There are ______ pairs of cervical spinal nerves in the human body.',
+        accept: ['8', 'eight'],
+        explanation: 'There are 8 pairs of cervical spinal nerves (C1–C8), even though there are only 7 cervical vertebrae.',
+        src: { ref: 'hss.2.2', location: 'p5 Spinal Nerves' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A patient is scheduled for a lumbar puncture to diagnose meningitis. Explain why the needle is inserted between L3 and L4 rather than between T12 and L1.',
+        model: 'The spinal cord terminates at the L1/L2 vertebral level as the conus medullaris. Inserting the needle at L3/L4 enters the lumbar cistern of the subarachnoid space where only the flexible nerve roots of the cauda equina reside, safely yielding CSF without risking damage to the solid spinal cord.',
+        rubric: ['Identifies spinal cord termination at L1/L2', 'Names L3/L4 as entering the subarachnoid space/lumbar cistern', 'Explains avoiding puncture of the spinal cord']
+      }
+    ],
+    commonMistakes: [
+      'Confusing the number of cervical vertebrae (7) with cervical spinal nerves (8).',
+      'Placing CSF in the epidural space instead of the subarachnoid space.',
+    ],
+    skills: [
+      'Distinguish epidural anaesthesia (dura remains intact) from spinal anaesthesia / lumbar puncture (dura and arachnoid are pierced to access CSF in subarachnoid space).',
+    ],
+    selfCheck: 'From a blank page: name the three meningeal layers from outside in, state where the spinal cord ends, and explain the anatomical landmark for a lumbar puncture.',
+    sourceRefs: [{ ref: 'hss.2.2', location: 'p2–p7 Spinal Cord, Meninges, and Spinal Nerves' }],
+  },
+
+  {
+    id: 'hss2011-cns-brainstem-reticular',
+    subject: 'HSS2011', unit: 'hss.m2', type: 'definition',
+    title: 'Brainstem — medulla, pons, midbrain and reticular formation',
+    tags: ['neuroanatomy', 'cns', 'brainstem', 'high-yield'],
+    lesson: {
+      explanation: 'The brainstem connects the spinal cord to the higher brain centres and consists of three structures: the medulla oblongata, pons, and midbrain. The medulla oblongata is the most inferior portion; on its anterior surface are the pyramids, where the descending corticospinal motor tracts cross (decussation of pyramids), establishing contralateral motor control. The medulla houses vital autonomic reflex centres: the cardiac centre (regulates heart rate and force), the vasomotor centre (controls blood pressure via vessel diameter), and respiratory rhythmicity centres. The pons lies superior to the medulla and contains transverse tracts connecting the cerebrum to the cerebellum, as well as the apneustic and pneumotaxic respiratory centres that modulate breathing rhythm. The midbrain (mesencephalon) is the most superior part, containing cerebral peduncles (descending motor fibers) and the posterior tectum with the corpora quadrigemina: two superior colliculi (visual reflex centres) and two inferior colliculi (auditory reflex centres). The reticular formation is a diffuse network of grey matter running vertically through the entire brainstem, containing the reticular activating system (RAS) essential for maintaining consciousness and alertness.',
+      plain: 'The brainstem has three parts: medulla oblongata at the bottom (houses pyramids where motor tracts cross, plus vital cardiac, vasomotor, and breathing centres); pons in the middle (bridges to the cerebellum); and midbrain at the top (cerebral peduncles and corpora quadrigemina for visual and auditory reflexes). Running through the entire core of the brainstem is the reticular formation, which keeps you conscious and alert.',
+      keyFacts: [
+        'Brainstem consists of medulla oblongata, pons, and midbrain.',
+        'Medulla oblongata houses the decussation of pyramids and vital centres (cardiac, vasomotor, respiratory).',
+        'Midbrain tectum has 4 colliculi (corpora quadrigemina): superior = visual reflexes, inferior = auditory reflexes.',
+        'Pons contains tracts linking the cerebrum and cerebellum, plus respiratory rhythm modulators.',
+        'Reticular formation runs vertically through all levels of the brainstem to maintain consciousness (RAS).',
+      ],
+      prerequisites: ['hss2011-cns-spinal-cord-meninges'],
+      examples: ['A blow to the back of the head affecting the reticular activating system can cause immediate loss of consciousness.'],
+    },
+    memory: {
+      chunking: 'Brainstem top to bottom: Midbrain, Pons, Medulla (M-P-M).',
+      comparison: 'Superior colliculus is for visual reflexes (eyes are above ears); Inferior colliculus is for auditory reflexes (ears are below eyes).',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'Where does the decussation of the corticospinal pyramids occur?',
+        options: ['Midbrain', 'Pons', 'Medulla oblongata', 'Spinal cord'],
+        answer: 2,
+        explanation: 'The pyramids decussate (cross over) in the lower medulla oblongata, which is why the left motor cortex controls the right side of the body.',
+        src: { ref: 'hss.2.3', location: 'p20–p23 Brainstem' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'Which structure in the midbrain tectum is responsible for visual reflex responses?',
+        options: ['Inferior colliculi', 'Superior colliculi', 'Cerebral peduncles', 'Substantia nigra'],
+        answer: 1,
+        explanation: 'The superior colliculi process visual reflexes; the inferior colliculi process auditory reflexes.',
+        src: { ref: 'hss.2.3', location: 'p21 Posteriolateral view of brainstem' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The diffuse network of grey matter running vertically through all levels of the brainstem is the ______ ______.',
+        accept: ['reticular formation', 'the reticular formation'],
+        explanation: 'The reticular formation runs vertically through the entire brainstem, maintaining wakefulness and consciousness.',
+        src: { ref: 'hss.2.3', location: 'p24 Functional brain system' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'Why is an acute lesion or herniation compressing the medulla oblongata rapidly fatal?',
+        model: 'The medulla oblongata houses the primary autonomic reflex centres vital for life: the cardiac centre, the vasomotor centre controlling blood pressure, and the respiratory rhythmicity centres. Compression causes immediate failure of spontaneous respiration and cardiac function.',
+        rubric: ['Identifies cardiac centre', 'Identifies respiratory rhythmicity centres', 'Concludes failure of autonomic vital functions causes death']
+      }
+    ],
+    commonMistakes: [
+      'Swapping the reflex jobs of the superior and inferior colliculi.',
+      'Placing the vital cardiac and vasomotor centres in the pons rather than the medulla.',
+    ],
+    skills: [
+      'Localise brainstem levels: cranial nerves III & IV exit the midbrain; V, VI, VII, VIII associate with the pons; IX, X, XI, XII associate with the medulla.',
+    ],
+    selfCheck: 'From a blank page: list the three divisions of the brainstem, the structures forming the corpora quadrigemina, and the three vital reflex centres in the medulla.',
+    sourceRefs: [{ ref: 'hss.2.3', location: 'p20–p24 Brainstem and functional brain systems' }],
+  },
+
+  {
+    id: 'hss2011-cns-cerebrum-cortex-basal',
+    subject: 'HSS2011', unit: 'hss.m2', type: 'definition',
+    title: 'Cerebrum, functional cortical areas and basal nuclei',
+    tags: ['neuroanatomy', 'cns', 'cortex', 'high-yield'],
+    lesson: {
+      explanation: 'The cerebrum consists of two hemispheres separated by the longitudinal fissure and joined by commissural tracts, principally the corpus callosum. The cerebral cortex is divided into four main lobes: 1) Frontal lobe contains the precentral gyrus (primary motor cortex, executing voluntary motor commands) and Broca’s area (motor speech production in dominant hemisphere); 2) Parietal lobe contains the postcentral gyrus (primary somatosensory cortex, receiving touch, pressure, pain, and temperature); 3) Occipital lobe contains the primary visual cortex; 4) Temporal lobe contains the primary auditory cortex and Wernicke’s area (language comprehension). Subcortical basal nuclei (caudate nucleus, putamen, globus pallidus) coordinate subconscious voluntary motor tone and movement patterns. The limbic system (hippocampus, cingulate gyrus, amygdala) manages emotions, drives, and memory consolidation; Wernicke’s area is cortical language cortex, not limbic.',
+      plain: 'The cerebrum has two hemispheres connected by the corpus callosum. The frontal lobe executes voluntary movement (precentral gyrus) and speech (Broca’s); the parietal lobe senses touch and pain (postcentral gyrus); the occipital lobe processes sight; the temporal lobe processes hearing and language comprehension (Wernicke’s). Deep inside, basal nuclei regulate muscle tone, while the limbic system (hippocampus, amygdala, cingulate gyrus) drives emotion and memory.',
+      keyFacts: [
+        'Precentral gyrus (frontal lobe) = primary motor cortex.',
+        'Postcentral gyrus (parietal lobe) = primary somatosensory cortex.',
+        'Corpus callosum = principal commissural tract joining the two cerebral hemispheres.',
+        'Wernicke’s area (temporal lobe) comprehends language; Broca’s area (frontal lobe) coordinates motor speech.',
+        'Limbic system includes hippocampus, amygdala, and cingulate gyrus (Wernicke’s is not part of it).',
+        'Basal nuclei (caudate, putamen, globus pallidus) modulate subconscious motor control.',
+      ],
+      prerequisites: ['hss2011-cns-brainstem-reticular'],
+      examples: ['A stroke in the left precentral gyrus produces contralateral (right-sided) voluntary paralysis.'],
+    },
+    memory: {
+      comparison: 'Precentral = Motor (front of central sulcus); Postcentral = Sensory (behind central sulcus). Pre-Motor, Post-Sensory.',
+      firstLetter: 'Limbic trio: Hippocampus, Amygdala, Cingulate gyrus (HAC). Wernicke’s area is language cortex, not limbic.',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'The primary somatosensory cortex is located on the:',
+        options: ['Precentral gyrus', 'Postcentral gyrus', 'Superior temporal gyrus', 'Cingulate gyrus'],
+        answer: 1,
+        explanation: 'The primary somatosensory cortex is located on the postcentral gyrus of the parietal lobe; the precentral gyrus is primary motor.',
+        src: { ref: 'hss.2.3', location: 'p5 Postcentral gyrus' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'All of the following are structures of the limbic system EXCEPT:',
+        options: ['Hippocampus', 'Cingulate gyrus', 'Wernicke’s area', 'Amygdala'],
+        answer: 2,
+        explanation: 'Wernicke’s area is a language comprehension area of the cerebral cortex, not part of the limbic system.',
+        src: { ref: 'hss.revans', location: 'Module 2.3, MCQ 5' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The principal commissural tract connecting the left and right cerebral hemispheres is the ______ ______.',
+        accept: ['corpus callosum'],
+        explanation: 'The corpus callosum contains hundreds of millions of axons crossing between the two hemispheres.',
+        src: { ref: 'hss.2.3', location: 'p8 Association and commissural fibers' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A stroke patient understands spoken commands perfectly and knows what they wish to say, but struggles to articulate words. Which cortical speech area is affected?',
+        model: 'Broca’s area (motor speech area), located in the frontal lobe of the dominant hemisphere. It coordinates the motor commands required for vocalisation. Wernicke’s area is intact because language comprehension is preserved.',
+        rubric: ['Identifies Broca’s area', 'Places it in the frontal lobe', 'Distinguishes motor speech from Wernicke’s comprehension']
+      }
+    ],
+    commonMistakes: [
+      'Swapping precentral gyrus (motor) and postcentral gyrus (sensory).',
+      'Lumping Wernicke’s area into the limbic system because of anatomical-sounding terminology.',
+    ],
+    skills: [
+      'Separate Broca’s expressive aphasia (intact comprehension, impaired speech motor execution) from Wernicke’s receptive aphasia (fluent nonsense, impaired comprehension).',
+    ],
+    selfCheck: 'From memory: map the precentral and postcentral gyri to their respective lobes and functions, and list the components of the limbic system.',
+    sourceRefs: [{ ref: 'hss.2.3', location: 'p3–p19 Cerebral cortex, basal nuclei, and limbic system' }, { ref: 'hss.revans', location: 'Module 2.3 answers' }],
+  },
+
+  {
+    id: 'hss2011-cns-ventricles-csf-blood',
+    subject: 'HSS2011', unit: 'hss.m2', type: 'definition',
+    title: 'Ventricular system, CSF circulation and cerebral arterial circle',
+    tags: ['neuroanatomy', 'cns', 'ventricles', 'csf', 'high-yield'],
+    lesson: {
+      explanation: 'The brain contains four interconnected ventricles filled with cerebrospinal fluid (CSF): two C-shaped lateral ventricles in the cerebral hemispheres, a narrow third ventricle in the diencephalon, and a fourth ventricle between the cerebellum and the pons/medulla. CSF is produced continuously by ependymal cells of the choroid plexus located in all four ventricles. Circulation pathway: Lateral ventricles → interventricular foramen (foramen of Monro) → third ventricle → cerebral aqueduct (aqueduct of Sylvius through midbrain) → fourth ventricle → through median aperture (foramen of Magendie) and lateral apertures (foramina of Luschka) into the subarachnoid space. From the subarachnoid space, CSF flows over the brain and spinal cord, providing physical cushioning and buoyancy. Reabsorption occurs into venous blood through arachnoid villi / granulations projecting into the superior sagittal dural venous sinus. Arterial blood supply to the brain is delivered by internal carotid arteries and vertebral arteries, which join at the base of the brain to form the cerebral arterial circle (Circle of Willis), providing vital collateral circulation.',
+      plain: 'CSF is made by the choroid plexus in four brain ventricles: lateral ventricles → interventricular foramen → third ventricle → cerebral aqueduct → fourth ventricle → into the subarachnoid space via median and lateral apertures. It cushions the brain and drains back into venous blood through arachnoid granulations into the superior sagittal sinus. Blood arrives via internal carotid and vertebral arteries, uniting in the Circle of Willis.',
+      keyFacts: [
+        'Four ventricles: two lateral, one third (diencephalon), one fourth (hindbrain).',
+        'CSF is produced by ependymal cells of the choroid plexus.',
+        'Interventricular foramen connects lateral ventricles to the third ventricle.',
+        'Cerebral aqueduct connects the third ventricle to the fourth ventricle.',
+        'CSF drains into the venous system via arachnoid granulations into dural venous sinuses.',
+        'Circle of Willis links carotid and vertebrobasilar systems at the skull base.',
+      ],
+      prerequisites: ['hss2011-cns-cerebrum-cortex-basal'],
+      examples: ['Blockage of the cerebral aqueduct prevents CSF outflow from the 3rd to 4th ventricle, causing non-communicating hydrocephalus.'],
+    },
+    memory: {
+      chunking: 'CSF pathway in order: Lateral → Monro → Third → Aqueduct → Fourth → Apertures → Subarachnoid space → Arachnoid villi → Dural sinuses.',
+      comparison: 'Choroid plexus makes CSF; arachnoid granulations absorb it back into blood.',
+    },
+    practice: [
+      {
+        type: 'cloze',
+        prompt: 'The ______ ______ connects the lateral ventricle to the third ventricle.',
+        accept: ['interventricular foramen', 'foramen of monro'],
+        explanation: 'The interventricular foramen (foramen of Monro) connects each lateral ventricle to the midline third ventricle.',
+        src: { ref: 'hss.revans', location: 'Module 2.3, Fill-in-blanks 2' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'Blood and cerebrospinal fluid drain from the cranial cavity into the general circulation through the:',
+        options: ['Ventricles', 'Subarachnoid space', 'Dural sinuses', 'Epidural space'],
+        answer: 2,
+        explanation: 'Arachnoid granulations project into the dural venous sinuses (e.g. superior sagittal sinus) to return CSF to the venous blood.',
+        src: { ref: 'hss.revans', location: 'Module 2.3, MCQ 1' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The narrow canal passing through the midbrain that connects the third and fourth ventricles is the ______ ______.',
+        accept: ['cerebral aqueduct', 'aqueduct of sylvius'],
+        explanation: 'The cerebral aqueduct (aqueduct of Sylvius) runs through the midbrain between the third and fourth ventricles.',
+        src: { ref: 'hss.2.3', location: 'p26–p28 Ventricular system of the brain' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A brain MRI reveals severe dilation of both lateral ventricles and the third ventricle, while the fourth ventricle is normal in size. Where is the obstruction located?',
+        model: 'The obstruction is in the cerebral aqueduct (aqueduct of Sylvius). Because CSF flows from the lateral ventricles through the third ventricle and then through the cerebral aqueduct into the fourth ventricle, a block at the aqueduct causes upstream dilation of the lateral and third ventricles while leaving the fourth ventricle normal.',
+        rubric: ['Identifies cerebral aqueduct as site of obstruction', 'Explains upstream dilation of lateral and third ventricles', 'Notes fourth ventricle remains normal downstream']
+      }
+    ],
+    commonMistakes: [
+      'Confusing the interventricular foramen (between lateral and third) with the cerebral aqueduct (between third and fourth).',
+      'Believing CSF is absorbed into lymphatic vessels rather than dural venous sinuses.',
+    ],
+    skills: [
+      'Trace CSF flow continuously from lateral ventricles down to arachnoid villi on diagnostic CT or MRI brain scans.',
+    ],
+    selfCheck: 'From memory: write down the step-by-step pathway of CSF circulation from production to venous reabsorption.',
+    sourceRefs: [{ ref: 'hss.2.3', location: 'p26–p29 Ventricular system and CSF circulation' }, { ref: 'hss.revans', location: 'Module 2.3 answers' }],
+  },
+
+  /* ========================================================================
+   * WEEK 6: CRANIAL NERVES (Module 2)
+   * ======================================================================== */
+  {
+    id: 'hss2011-neuro-cranial-nerves-distribution',
+    subject: 'HSS2011', unit: 'hss.m2', type: 'matching',
+    title: 'Cranial nerves CN I–XII — functional modalities and targets',
+    tags: ['neuroanatomy', 'cranial-nerves', 'high-yield'],
+    lesson: {
+      explanation: 'Twelve pairs of cranial nerves originate from the brain and brainstem, designated CN I through CN XII: CN I (Olfactory - sensory, smell), CN II (Optic - sensory, vision), CN III (Oculomotor - motor to superior/inferior/medial rectus, inferior oblique; parasympathetic pupil constriction), CN IV (Trochlear - motor to superior oblique), CN V (Trigeminal - mixed; sensory to face/scalp/teeth via V1 ophthalmic, V2 maxillary, V3 mandibular; motor to muscles of mastication via V3), CN VI (Abducens - motor to lateral rectus for eye abduction), CN VII (Facial - mixed; motor to muscles of facial expression, taste from anterior 2/3 of tongue, parasympathetic to salivary/lacrimal glands), CN VIII (Vestibulocochlear - sensory, hearing and balance), CN IX (Glossopharyngeal - mixed; sensory from posterior 1/3 tongue/pharynx, taste posterior 1/3, parotid gland salivation), CN X (Vagus - mixed; longest cranial nerve, parasympathetic innervation to thoracic and abdominal viscera down to splenic flexure), CN XI (Accessory - motor to trapezius and sternocleidomastoid), CN XII (Hypoglossal - motor to intrinsic and extrinsic tongue muscles). Clinical distinction: chewing is controlled by CN V (trigeminal), while facial expression is controlled by CN VII (facial).',
+      plain: '12 cranial nerves: I (smell), II (vision), III/IV/VI (move eyes; IV turns eye down/in, VI abducts), V (chews and feels face), VII (facial expressions and anterior taste), VIII (hearing and balance), IX (pharynx and posterior taste), X (vagus: longest nerve, autonomic to chest and abdomen), XI (shrugs shoulders: trapezius/SCM), XII (moves tongue). Critical clinical contrast: trigeminal chews, facial makes faces.',
+      keyFacts: [
+        'CN V (Trigeminal) controls muscles of mastication and provides sensory innervation to the face.',
+        'CN VII (Facial) controls muscles of facial expression and taste to anterior 2/3 of tongue.',
+        'CN X (Vagus) is the longest cranial nerve, supplying thoracic and abdominal viscera.',
+        'Eye movements: CN III moves most; CN IV supplies superior oblique; CN VI supplies lateral rectus (LR6SO4).',
+        'CN XI supplies sternocleidomastoid and trapezius.',
+        'CN XII supplies muscles of the tongue.',
+      ],
+      prerequisites: ['hss2011-cns-brainstem-reticular'],
+      examples: ['A patient with Bell’s palsy loses facial expression on one side (CN VII) but retains sensation and chewing (CN V).'],
+    },
+    memory: {
+      mnemonic: 'Eye muscles: LR6SO4 — Lateral Rectus is CN VI (abducens), Superior Oblique is CN IV (trochlear), all other extrinsic eye muscles are CN III.',
+      comparison: 'Trigeminal (CN V) chews; Facial (CN VII) makes faces. A patient who cannot chew but has normal facial expression localises to CN V with CN VII intact.',
+    },
+    practice: [
+      {
+        type: 'cloze',
+        prompt: 'The ______ nerve controls movement of the muscles of mastication.',
+        accept: ['trigeminal nerve', 'trigeminal', 'cn v', 'cranial nerve v'],
+        explanation: 'The mandibular division (V3) of the trigeminal nerve (CN V) innervates the muscles of mastication (masseter, temporalis, medial and lateral pterygoids).',
+        src: { ref: 'hss.revans', location: 'Module 2.3, Fill-in-blanks 4' }
+      },
+      {
+        type: 'matching',
+        prompt: 'Match each cranial nerve to its primary function.',
+        pairs: [
+          ['CN I Olfactory', 'Smell'],
+          ['CN II Optic', 'Vision'],
+          ['CN VIII Vestibulocochlear', 'Hearing and balance'],
+          ['CN XII Hypoglossal', 'Tongue movement']
+        ],
+        explanation: 'These are the classic functional modalities of the cranial nerves.',
+        src: { ref: 'hss.2.3', location: 'p30–p42 Cranial nerves' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'Which cranial nerve is the longest, extending into the thorax and abdomen to provide parasympathetic innervation to viscera?',
+        options: ['Trigeminal nerve (CN V)', 'Facial nerve (CN VII)', 'Vagus nerve (CN X)', 'Hypoglossal nerve (CN XII)'],
+        answer: 2,
+        explanation: 'The vagus nerve (CN X) is the longest cranial nerve, providing extensive autonomic parasympathetic regulation to the heart, lungs, and gut.',
+        src: { ref: 'hss.2.3', location: 'p41 Vagus nerve' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A patient presents with weakness in clenching their jaw, but their smile and eyebrow movements are entirely normal. Which cranial nerve is affected, and which is spared?',
+        model: 'The trigeminal nerve (CN V) is affected, because its mandibular branch (V3) innervates the muscles of mastication. The facial nerve (CN VII) is spared, because it controls the muscles of facial expression (frontalis, orbicularis oris, zygomaticus).',
+        rubric: ['Identifies trigeminal nerve (CN V) for mastication', 'Identifies facial nerve (CN VII) for facial expression', 'Explains normal expression means CN VII is intact']
+      }
+    ],
+    commonMistakes: [
+      'Mixing up the trigeminal nerve (chewing) and the facial nerve (facial expression).',
+      'Assigning eye abduction to CN III instead of CN VI (abducens).',
+    ],
+    skills: [
+      'Evaluate cranial nerve exams: smile/frown = CN VII, jaw clench = CN V, tongue protrusion = CN XII, shoulder shrug = CN XI.',
+    ],
+    selfCheck: 'From a blank page: list the cranial nerves responsible for chewing, facial expression, tongue movement, and parasympathetic control to the gut.',
+    sourceRefs: [{ ref: 'hss.2.3', location: 'p30–p43 Cranial nerves CN I–XII' }, { ref: 'hss.revans', location: 'Module 2.3 answers' }],
+  },
+
+  /* ========================================================================
+   * WEEK 8: CARDIOVASCULAR SYSTEM (Module 3)
+   * ======================================================================== */
+  {
+    id: 'hss2011-cvs-internal-chambers-valves',
+    subject: 'HSS2011', unit: 'hss.m1', type: 'definition',
+    title: 'Heart chambers internal anatomy, fibrous skeleton and valve mechanics',
+    tags: ['thorax', 'cardiovascular', 'heart', 'valves', 'high-yield'],
+    lesson: {
+      explanation: 'The heart contains four internal chambers: right atrium, right ventricle, left atrium, and left ventricle. The right atrium receives deoxygenated blood from the superior vena cava (SVC), inferior vena cava (IVC), and coronary sinus; its anterior wall features muscular ridges called pectinate muscles, and the interatrial septum carries the fossa ovalis (remnant of the fetal foramen ovale). Blood flows from right atrium through the tricuspid (right AV) valve into the right ventricle. The right ventricle features muscular ridges called trabeculae carneae, cone-shaped papillary muscles, and tendon-like chordae tendineae that tether the tricuspid valve cusps to prevent eversion into the atrium during systole. Blood exits the right ventricle via the pulmonary semilunar valve into the pulmonary trunk. Oxygenated blood from the lungs enters the left atrium via four pulmonary veins. It passes through the bicuspid (mitral / left AV) valve into the left ventricle. The left ventricle has a myocardium three times thicker than the right ventricle to generate systemic arterial pressures, pumping blood across the aortic semilunar valve into the ascending aorta. The fibrous skeleton of the heart consists of dense connective tissue rings anchoring all four valves and electrically insulating the atria from the ventricles.',
+      plain: 'The right atrium receives venous blood from SVC, IVC, and coronary sinus, featuring pectinate muscles and the fossa ovalis. Blood crosses the tricuspid valve into the right ventricle, which pumps it past the pulmonary valve to the lungs. Papillary muscles and chordae tendineae anchor AV valves to stop backflow. Left atrium receives 4 pulmonary veins; blood crosses the bicuspid (mitral) valve into the left ventricle, which has walls 3x thicker to pump across the aortic valve to the body. The fibrous skeleton anchors valves and insulates atria from ventricles.',
+      keyFacts: [
+        'Right atrium receives SVC, IVC, and coronary sinus; features fossa ovalis and pectinate muscles.',
+        'Tricuspid valve has 3 cusps; bicuspid (mitral) valve has 2 cusps.',
+        'Chordae tendineae connect papillary muscles to AV valve cusps, preventing valve prolapse during ventricular systole.',
+        'Left ventricular myocardium is ~3 times thicker than right ventricular myocardium.',
+        'Semilunar valves (pulmonary and aortic) have 3 pocket-like cusps and lack chordae tendineae.',
+        'Fibrous skeleton provides valve anchorage and electrical insulation between atria and ventricles.',
+      ],
+      prerequisites: ['hss2011-m1-heart-wall-valves'],
+      examples: ['Rupture of chordae tendineae leads to acute mitral regurgitation and severe pulmonary edema.'],
+    },
+    memory: {
+      comparison: 'Tricuspid on the right (3 cusps), Bicuspid/Mitral on the left (2 cusps) — "R-T, L-B" (Right-Tricuspid, Left-Bicuspid). LAB RAT: Left Atrium Bicuspid, Right Atrium Tricuspid.',
+      visualCue: 'Chordae tendineae look like parachute cords holding the valve cusps down against the rushing blood.',
+    },
+    practice: [
+      {
+        type: 'cloze',
+        prompt: 'The fibrous cords connecting the papillary muscles to the cusps of the atrioventricular valves are the ______ ______.',
+        accept: ['chordae tendineae', 'chordae tendinae'],
+        explanation: 'Chordae tendineae anchor the AV valve leaflets to papillary muscles, preventing eversion during ventricular contraction.',
+        src: { ref: 'hss.1.1', location: 'p13 Sectional anatomy of the heart' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'Why is the muscular wall of the left ventricle significantly thicker than that of the right ventricle?',
+        options: ['It pumps a larger volume of blood', 'It pumps blood against much higher systemic resistance', 'It holds more coronary blood vessels', 'It contains the sinoatrial node'],
+        answer: 1,
+        explanation: 'Both ventricles pump the exact same volume of blood, but the left ventricle must generate enough pressure to overcome high systemic vascular resistance.',
+        src: { ref: 'hss.1.1', location: 'p11 The heart wall' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'The oval depression on the interatrial septum that marks the site of the fetal foramen ovale is the:',
+        options: ['Crista terminalis', 'Fossa ovalis', 'Conus arteriosus', 'Coronary sinus'],
+        answer: 1,
+        explanation: 'The fossa ovalis on the interatrial septum is the remnant of the fetal foramen ovale.',
+        src: { ref: 'hss.1.1', location: 'p13 Sectional anatomy of the heart' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A patient has an incompetent mitral valve. During which phase of the cardiac cycle will regurgitation occur, and into which chamber will blood leak?',
+        model: 'Regurgitation will occur during ventricular systole (contraction). The mitral (bicuspid) valve normally closes during ventricular contraction to prevent blood from flowing backwards from the left ventricle into the left atrium; incompetence causes blood to leak back into the left atrium.',
+        rubric: ['Identifies ventricular systole/contraction', 'Identifies leakage into the left atrium', 'Explains normal function is preventing backward flow from left ventricle']
+      }
+    ],
+    commonMistakes: [
+      'Believing the left ventricle pumps more volume than the right ventricle (stroke volume is equal; pressure is what differs).',
+      'Thinking semilunar valves have chordae tendineae (only AV valves have them).',
+    ],
+    skills: [
+      'Identify chamber thickness and valve structures on cross-sectional chest CT and echocardiography.',
+    ],
+    selfCheck: 'From a blank page: sketch the 4 chambers, 4 valves, their cusps, and the chordae tendineae/papillary muscle arrangements.',
+    sourceRefs: [{ ref: 'hss.1.1', location: 'p3–p14 Anatomy of the heart and sectional anatomy' }, { ref: 'hss.manual1920', location: 'Module 1.2 Study guide' }],
+  },
+
+  {
+    id: 'hss2011-cvs-coronary-circulation-conduction',
+    subject: 'HSS2011', unit: 'hss.m1', type: 'definition',
+    title: 'Coronary circulation and cardiac conduction system pathways',
+    tags: ['thorax', 'cardiovascular', 'coronary', 'conduction', 'high-yield'],
+    lesson: {
+      explanation: 'The myocardium requires its own arterial blood supply, provided by the right and left coronary arteries which arise from the base of the ascending aorta just superior to the aortic valve. The Right Coronary Artery (RCA) courses in the coronary sulcus, supplying the right atrium, parts of both ventricles, and the conduction system (SA and AV nodes in most people); its branches include the marginal artery and posterior interventricular artery. The Left Coronary Artery (LCA) branches into the Anterior Interventricular Artery (Left Anterior Descending / LAD, known clinically as the "widow maker"), which supplies the anterior ventricular walls and anterior two-thirds of the interventricular septum, and the Circumflex Artery, which curves around the left coronary sulcus to supply the left atrium and posterior left ventricle. Venous blood from the myocardium collects in the great, middle, and small cardiac veins, which all empty into the coronary sinus on the posterior surface of the heart, draining into the right atrium. The intrinsic cardiac conduction system coordinates cardiac contraction: the Sinoatrial (SA) node (pacemaker) in the superior wall of the right atrium near the SVC initiates the impulse → internodal pathways → Atrioventricular (AV) node in the interatrial septum (delays impulse ~0.1 s) → Atrioventricular (AV) bundle (Bundle of His) passing through the fibrous skeleton → right and left bundle branches in the interventricular septum → subendocardial Purkinje fibres distributed to the ventricular myocardium.',
+      plain: 'The heart is fed by two coronary arteries from the aorta base: the Right Coronary Artery (marginal and posterior interventricular branches; feeds SA/AV nodes) and Left Coronary Artery (LAD / anterior interventricular "widow maker" and circumflex). Deoxygenated heart blood collects in cardiac veins into the coronary sinus, emptying into the right atrium. The conduction pathway runs: SA node (pacemaker) → AV node (delay) → Bundle of His → right/left bundle branches → Purkinje fibres.',
+      keyFacts: [
+        'Coronary arteries arise from aortic sinuses at the base of the ascending aorta.',
+        'LAD (anterior interventricular artery) supplies anterior ventricles and interventricular septum.',
+        'Coronary sinus lies in posterior coronary sulcus and drains into the right atrium.',
+        'SA node (pacemaker) is located in the posterior wall of the right atrium near SVC opening.',
+        'AV node delays the impulse to allow ventricular filling before ventricular contraction.',
+        'Bundle of His is the only electrical connection through the fibrous skeleton between atria and ventricles.',
+      ],
+      prerequisites: ['hss2011-cvs-internal-chambers-valves'],
+      examples: ['Occlusion of the LAD causes massive anterior wall myocardial infarction, frequently fatal without stenting.'],
+    },
+    memory: {
+      chunking: 'Conduction sequence: SA node → AV node → Bundle of His → Bundle Branches → Purkinje fibres (Save A Bitch Both Places).',
+      comparison: 'Coronary sinus drains myocardial venous blood into the right atrium, alongside SVC and IVC.',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'Which coronary artery branch runs in the anterior interventricular sulcus and is clinically dubbed the "widow maker"?',
+        options: ['Circumflex artery', 'Right marginal artery', 'Anterior interventricular artery (LAD)', 'Posterior interventricular artery'],
+        answer: 2,
+        explanation: 'The anterior interventricular artery (left anterior descending / LAD) runs in the anterior interventricular sulcus and supplies the anterior ventricles and septum.',
+        src: { ref: 'hss.1.1', location: 'p10 Coronary circulation' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'Venous blood from the heart wall drains into the right atrium primarily via the ______ ______.',
+        accept: ['coronary sinus'],
+        explanation: 'The coronary sinus is the large venous channel on the posterior aspect of the heart draining cardiac veins into the right atrium.',
+        src: { ref: 'hss.1.1', location: 'p10 Coronary circulation' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'The natural pacemaker of the heart is the:',
+        options: ['Atrioventricular node', 'Sinoatrial node', 'Bundle of His', 'Purkinje network'],
+        answer: 1,
+        explanation: 'The sinoatrial (SA) node in the right atrium initiates the electrical impulse at the fastest intrinsic rate (~70–80 bpm).',
+        src: { ref: 'hss.1.2', location: 'p5–p8 Conducting system' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'Why is the ~0.1 second delay at the atrioventricular (AV) node functionally critical for cardiac pumping efficiency?',
+        model: 'The AV nodal delay allows the atria to finish contracting and completely pump their blood into the ventricles before the ventricles begin contracting. Without this delay, atria and ventricles would contract simultaneously, preventing proper ventricular filling.',
+        rubric: ['Explains allowing atria to finish contraction', 'Explains complete filling of ventricles', 'Notes prevents simultaneous contraction']
+      }
+    ],
+    commonMistakes: [
+      'Assuming the coronary arteries fill during ventricular systole (they actually fill during ventricular diastole when aortic valve cusps relax).',
+      'Thinking the coronary sinus drains into the left atrium (it drains into the right atrium with all systemic venous blood).',
+    ],
+    skills: [
+      'Trace the coronary arterial tree on coronary angiograms and identify the SA and AV nodal locations.',
+    ],
+    selfCheck: 'From memory: name the branches of the right and left coronary arteries and write the 5-step sequence of cardiac conduction.',
+    sourceRefs: [{ ref: 'hss.1.1', location: 'p10 Coronary circulation' }, { ref: 'hss.1.2', location: 'p5–p8 Conducting system' }],
+  },
+
+  {
+    id: 'hss2011-cvs-tutorial-pastpaper-practice',
+    subject: 'HSS2011', unit: 'hss.m1', type: 'cloze',
+    title: 'Cardiovascular anatomy tutorial & past paper practice',
+    tags: ['thorax', 'cardiovascular', 'assessment', 'tutorial', 'high-yield'],
+    lesson: {
+      explanation: 'Official Module 1 revision questions test key cardiovascular discriminations: the heart wall consists of epicardium, myocardium, and endocardium, while the pericardium is the external fibrous/serous sac; cardiac muscle cells are linked by intercalated discs with desmosomes and gap junctions; the right atrioventricular valve has three cusps (tricuspid) and closes upon right ventricular contraction; the left AV valve has two cusps (bicuspid / mitral); the mediastinum is the space between the pleural cavities housing the heart and great vessels; and the cisterna chyli is the expanded sac-like chamber at the base of the thoracic duct.',
+      plain: 'Review of high-yield cardiovascular exam questions: pericardium vs heart wall, tricuspid vs bicuspid valve actions, intercalated discs connecting cardiac cells, and the mediastinum as the interpleural compartment.',
+      keyFacts: [
+        'Pericardium surrounds the heart but does not form part of the heart wall.',
+        'Right AV valve = tricuspid; Left AV valve = bicuspid / mitral.',
+        'Intercalated discs link cardiac muscle cells physically and electrically.',
+        'Mediastinum is the central thoracic space between the two pleural cavities.',
+      ],
+      prerequisites: ['hss2011-m1-heart-wall-valves', 'hss2011-cvs-internal-chambers-valves'],
+      examples: ['Exam past paper question: "Which layer is NOT part of the heart wall? Answer: Pericardium."'],
+    },
+    memory: {
+      teachBack: 'Explain to a study partner why the pericardium is a sac around the heart and not a layer of the heart wall.',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'Which of the following structures does NOT form part of the heart wall?',
+        options: ['Epicardium', 'Pericardium', 'Myocardium', 'Endocardium'],
+        answer: 1,
+        explanation: 'Model answer B. Epicardium, myocardium, and endocardium form the wall. Pericardium is the separate fibroserous sac.',
+        src: { ref: 'hss.revans', location: 'Module 1.2, MCQ 1' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The ______ valve consists of three cusps and closes when the right ventricle contracts, preventing backflow into the right atrium.',
+        accept: ['tricuspid', 'right av', 'right atrioventricular'],
+        explanation: 'Model answer: Right AV / tricuspid valve.',
+        src: { ref: 'hss.revans', location: 'Module 1.2, Fill-in-blanks 3' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The region of the chest situated between the two pleural cavities is called the ______.',
+        accept: ['mediastinum'],
+        explanation: 'Model answer: mediastinum.',
+        src: { ref: 'hss.revans', location: 'Module 1.2, Fill-in-blanks 4' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A patient has cardiac tamponade from fluid accumulation in the pericardial cavity. Between which two layers has this fluid collected?',
+        model: 'Between the parietal layer of the serous pericardium and the visceral layer of the serous pericardium (epicardium). This space is the pericardial cavity, normally containing only a small lubricating film of serous fluid.',
+        rubric: ['Identifies pericardial cavity', 'Names parietal serous pericardium', 'Names visceral serous pericardium / epicardium']
+      }
+    ],
+    commonMistakes: [
+      'Placing pericardial effusion inside the myocardium.',
+    ],
+    skills: [
+      'Recognise normal mediastinal contours and cardiothoracic ratio (<50%) on PA chest radiographs.',
+    ],
+    selfCheck: 'From a blank page: answer all 3 revision questions cold without checking notes.',
+    sourceRefs: [{ ref: 'hss.revans', location: 'Module 1.2 answers' }, { ref: 'hss.manual1920', location: 'Module 1.2 Revision exercise' }],
+  },
+
+{
+    id: 'hss2011-resp-upper-tract-larynx',
+    subject: 'HSS2011', unit: 'hss.m1', type: 'definition',
+    title: 'Upper respiratory tract, paranasal sinuses and larynx',
+    tags: ['thorax', 'respiratory', 'larynx', 'high-yield'],
+    lesson: {
+      explanation: 'The respiratory system is divided into upper and lower tracts. The upper tract comprises the nose, nasal cavity, paranasal sinuses (frontal, maxillary, sphenoidal, ethmoidal), and pharynx. The nasal cavity is divided by the nasal septum (formed by the perpendicular plate of the ethmoid, the vomer, and septal cartilage). Its lateral walls feature three bony projections: superior, middle, and inferior nasal conchae (turbinates), which create turbulent airflow to warm, humidify, and filter incoming air. The pharynx is divided into nasopharynx (posterior to nasal cavity, contains pharyngeal tonsil / adenoids and openings of auditory/Eustachian tubes), oropharynx (posterior to oral cavity, containing palatine and lingual tonsils), and laryngopharynx (posterior to larynx, continuous with oesophagus). The larynx (voice box) extends from C3/C4 to C6, connecting the laryngopharynx to the trachea. Its framework consists of 9 cartilages: 3 large unpaired cartilages (thyroid cartilage with laryngeal prominence / Adam\'s apple, cricoid cartilage signet-ring shape forming a complete ring, and epiglottis elastic cartilage leaf guarding the glottis during swallowing) and 3 pairs of small cartilages (arytenoid, corniculate, cuneiform). Arytenoid cartilages pivot to adjust tension on the vocal folds (true vocal cords), controlling pitch.',
+      plain: 'The upper respiratory tract includes the nasal cavity (divided by vomer, ethmoid, and septal cartilage; lined by 3 conchae), paranasal sinuses, and the pharynx (naso-, oro-, and laryngo-pharynx). The larynx has 9 cartilages: 3 single (thyroid with Adam\'s apple, cricoid forming a complete signet ring, and epiglottis guarding the glottis) and 3 paired (arytenoids pivot the true vocal cords to adjust pitch).',
+      keyFacts: [
+        'Nasal septum is formed by perpendicular plate of ethmoid, vomer, and septal cartilage.',
+        'Superior, middle, and inferior conchae warm, humidify, and filter air.',
+        'Larynx has 9 cartilages: 3 unpaired (thyroid, cricoid, epiglottis) and 3 paired (arytenoid, corniculate, cuneiform).',
+        'Cricoid cartilage is the only complete cartilaginous ring around the airway.',
+        'Epiglottis closes over the glottis during swallowing to prevent food entering trachea.',
+        'Arytenoid cartilages pivot to vary tension on vocal folds (true vocal cords).',
+      ],
+      prerequisites: ['hss2011-m1-lungs-airway'],
+      examples: ['Emergency cricothyroidotomy pierces the cricothyroid membrane between the thyroid and cricoid cartilages.'],
+    },
+    memory: {
+      chunking: 'Three unpaired cartilages: Thyroid, Cricoid, Epiglottis (TCE). Three paired: Arytenoid, Corniculate, Cuneiform (ACC).',
+      comparison: 'Cricoid is a complete ring (signet ring); thyroid is open posteriorly (shield-like).',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'Which cartilage of the larynx forms a complete ring around the airway?',
+        options: ['Thyroid cartilage', 'Cricoid cartilage', 'Epiglottis', 'Arytenoid cartilage'],
+        answer: 1,
+        explanation: 'The cricoid cartilage is the only laryngeal cartilage that forms a complete circle (signet-ring shape) around the respiratory tract.',
+        src: { ref: 'hss.resp', location: 'p5–p12 Upper tract and larynx' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The leaf-shaped elastic cartilage that folds down over the glottis during swallowing is the ______.',
+        accept: ['epiglottis'],
+        explanation: 'The epiglottis prevents ingested liquid and food from entering the lower respiratory tract.',
+        src: { ref: 'hss.resp', location: 'p10 Epiglottis and glottis' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'Which paired laryngeal cartilages pivot to adjust the tension and position of the true vocal folds?',
+        options: ['Cuneiform cartilages', 'Corniculate cartilages', 'Arytenoid cartilages', 'Thyroid cartilages'],
+        answer: 2,
+        explanation: 'The pyramid-shaped arytenoid cartilages anchor the vocal ligaments; their rotation and gliding changes pitch.',
+        src: { ref: 'hss.1.2', location: 'p14–p18 Larynx and trachea' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'In acute upper airway obstruction where intubation fails, emergency airway access is established via cricothyroidotomy. Between which two laryngeal cartilages is this incision made?',
+        model: 'Between the thyroid cartilage and the cricoid cartilage, through the cricothyroid ligament/membrane. This site is palpable just below the laryngeal prominence and is superficial, providing rapid airway access below the vocal cords.',
+        rubric: ['Identifies thyroid cartilage', 'Identifies cricoid cartilage', 'Names cricothyroid ligament/membrane']
+      }
+    ],
+    commonMistakes: [
+      'Thinking the thyroid cartilage forms a complete ring (only the cricoid is complete).',
+      'Confusing true vocal cords (vocal folds) with false vocal cords (vestibular folds).',
+    ],
+    skills: [
+      'Locate the laryngeal prominence (Adam\'s apple) and cricoid cartilage by surface palpation on neck examination.',
+    ],
+    selfCheck: 'From memory: list the 3 single and 3 paired laryngeal cartilages and identify the one complete ring.',
+    sourceRefs: [{ ref: 'hss.resp', location: 'p5–p12 Upper tract and larynx' }, { ref: 'hss.1.2', location: 'p14–p18 Larynx and trachea' }],
+  },
+
+  {
+    id: 'hss2011-resp-pleura-lungs-gross',
+    subject: 'HSS2011', unit: 'hss.m1', type: 'definition',
+    title: 'Pleural cavities, gross pulmonary lobes, surfaces and hilum',
+    tags: ['thorax', 'respiratory', 'lungs', 'pleura', 'high-yield'],
+    lesson: {
+      explanation: 'The lungs occupy the left and right pleural cavities of the thorax, separated by the mediastinum. Each lung is enclosed by a double-layered serous membrane called pleura: parietal pleura lines the inner thoracic wall, superior surface of diaphragm, and mediastinum; visceral pleura adheres intimately to the outer surface of each lung and dips into its fissures. The potential space between them is the pleural cavity, containing a small amount of lubricating pleural fluid that reduces friction during respiration. The apex of each lung extends superiorly into the root of the neck, above the first rib and clavicle; the concave base rests on the dome of the diaphragm. The Right Lung is larger and divided into three lobes (superior, middle, inferior) by two fissures: the horizontal fissure and the oblique fissure. The Left Lung is smaller to accommodate the cardiac notch and lingula, and is divided into two lobes (superior and inferior) by a single oblique fissure. On the mediastinal surface of each lung is the hilum, the wedge-shaped indentation where pulmonary vessels, primary bronchi, bronchial vessels, lymphatics, and nerves enter and exit to form the root of the lung. At the hilum, the primary bronchus typically lies posterior, the pulmonary artery superior, and the pulmonary veins anterior and inferior.',
+      plain: 'Each lung sits in a pleural cavity wrapped by parietal (outer) and visceral (inner) pleura. The right lung has 3 lobes (superior, middle, inferior) separated by horizontal and oblique fissures. The left lung has 2 lobes separated by an oblique fissure, featuring the cardiac notch. The lung apex extends above the 1st rib into the neck. At the medial hilum, bronchi and vessels enter/exit to form the root of the lung.',
+      keyFacts: [
+        'Right lung has 3 lobes and 2 fissures (horizontal and oblique).',
+        'Left lung has 2 lobes and 1 fissure (oblique), featuring the cardiac notch and lingula.',
+        'Parietal pleura lines thoracic wall; visceral pleura adheres to the lung surface.',
+        'Lung apex projects superiorly beyond the 1st rib into the root of the neck.',
+        'Hilum is the medial surface opening where vessels, nerves, and bronchi form the root of the lung.',
+      ],
+      prerequisites: ['hss2011-m1-lungs-airway'],
+      examples: ['Pneumothorax occurs when air enters the pleural cavity, breaking pleural surface tension and causing lung collapse.'],
+    },
+    memory: {
+      comparison: 'Right lung = 3 lobes, 2 fissures; Left lung = 2 lobes, 1 fissure. The left lung is smaller because the heart tilts to the left.',
+      chunking: 'Hilum arrangement: Bronchus is posterior, Pulmonary artery is superior, Pulmonary veins are anterior/inferior.',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'How many lobes and fissures are present in the normal right lung?',
+        options: ['2 lobes and 1 fissure', '3 lobes and 2 fissures', '3 lobes and 1 fissure', '4 lobes and 2 fissures'],
+        answer: 1,
+        explanation: 'The right lung has three lobes (superior, middle, inferior) separated by the horizontal and oblique fissures.',
+        src: { ref: 'hss.resp', location: 'p15–p24 Lung gross anatomy and pleura' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The wedge-shaped depression on the mediastinal surface of each lung through which bronchi and vessels pass is the ______.',
+        accept: ['hilum', 'hilus'],
+        explanation: 'The hilum transmits the structures comprising the root of the lung.',
+        src: { ref: 'hss.resp', location: 'p18 Lung hilum' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'The prominent concavity on the anterior border of the left lung that accommodates the heart is the:',
+        options: ['Costal groove', 'Lingula', 'Cardiac notch', 'Azygos impression'],
+        answer: 2,
+        explanation: 'The cardiac notch accommodates the apex and pericardial bulk of the heart.',
+        src: { ref: 'hss.1.1', location: 'p24–p28 Pleura and lung surfaces' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A stab wound just above the medial third of the right clavicle causes acute shortness of breath. Which part of the lung has been punctured?',
+        model: 'The apex of the right lung (cervical pleura). The lung apex and cupola of parietal pleura extend approximately 2–3 cm superior to the medial third of the clavicle and first rib into the root of the neck, making it vulnerable to supraclavicular trauma.',
+        rubric: ['Identifies the apex of the lung', 'Explains apex extends above 1st rib / clavicle', 'Notes supraclavicular vulnerability']
+      }
+    ],
+    commonMistakes: [
+      'Thinking the lung apex stays entirely below the first rib (it extends 2–3 cm above it into the neck).',
+      'Assigning a middle lobe to the left lung (only the right lung has a middle lobe).',
+    ],
+    skills: [
+      'Identify lung lobes, fissures, and costophrenic angles on PA and lateral chest radiographs.',
+    ],
+    selfCheck: 'From a blank page: sketch both lungs, labelling lobes, fissures, cardiac notch, apex, and the structures passing through the hilum.',
+    sourceRefs: [{ ref: 'hss.resp', location: 'p15–p24 Lung gross anatomy and pleura' }, { ref: 'hss.1.1', location: 'p24–p28 Pleura and lung surfaces' }],
+  },
+
+  {
+    id: 'hss2011-resp-tutorial-pastpaper-practice',
+    subject: 'HSS2011', unit: 'hss.m1', type: 'cloze',
+    title: 'Respiratory anatomy tutorial & past paper practice',
+    tags: ['thorax', 'respiratory', 'assessment', 'tutorial', 'high-yield'],
+    lesson: {
+      explanation: 'Official Module 1 revision questions test key pulmonary concepts: the trachea bifurcates at the carina into right and left primary bronchi at the level of the sternal angle (T4/T5 disc); the right primary bronchus is wider, shorter, and more vertically oriented than the left, making it the most common destination for aspirated foreign bodies; each lung is divided into 10 bronchopulmonary segments supplied by tertiary (segmental) bronchi; respiratory bronchioles mark the transition where alveoli first appear and gas exchange begins; and sympathetic activation induces bronchodilation, whereas parasympathetic vagal innervation causes bronchoconstriction and glandular mucus secretion.',
+      plain: 'High-yield exam review: trachea branches at the carina (T4/T5), right main bronchus catches foreign objects (wider, steeper), gas exchange starts at respiratory bronchioles, and 10 bronchopulmonary segments per lung.',
+      keyFacts: [
+        'Trachea branches into primary bronchi at the carina (T4/T5).',
+        'Right primary bronchus is wider, shorter, and more vertical — primary site for aspirated foreign bodies.',
+        'Gas exchange first occurs at respiratory bronchioles.',
+        'Each lung contains 10 bronchopulmonary segments.',
+      ],
+      prerequisites: ['hss2011-m1-lungs-airway', 'hss2011-resp-upper-tract-larynx'],
+      examples: ['Exam past paper question: "Which bronchus is a foreign body most likely to enter? Answer: Right primary bronchus."'],
+    },
+    memory: {
+      teachBack: 'Explain why an aspirated peanut almost always enters the right lung rather than the left lung.',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'An aspirated foreign object is most likely to lodge in which part of the bronchial tree?',
+        options: ['Left primary bronchus', 'Right primary bronchus', 'Left secondary bronchus', 'Tracheal bifurcation'],
+        answer: 1,
+        explanation: 'The right primary bronchus is wider, shorter, and more vertically aligned with the trachea, so aspirated objects preferentially enter the right lung.',
+        src: { ref: 'hss.1.2', location: 'p16 Trachea and primary bronchi' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The internal ridge at the bifurcation of the trachea into the primary bronchi is the ______.',
+        accept: ['carina'],
+        explanation: 'The carina sits at the T4/T5 vertebral level, covered by sensitive mucosa that triggers a violent cough reflex.',
+        src: { ref: 'hss.revans', location: 'Module 1.1 answers' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'Gas exchange first becomes possible at which microscopic division of the respiratory tree?',
+        options: ['Terminal bronchioles', 'Tertiary bronchi', 'Respiratory bronchioles', 'Trachea'],
+        answer: 2,
+        explanation: 'Respiratory bronchioles have scattered alveoli budding from their walls, making them the beginning of the respiratory zone.',
+        src: { ref: 'hss.resp', location: 'p20 Microscopic bronchial tree' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A toddler accidentally inhales a small plastic bead while playing. Chest X-ray reveals atelectasis of the right lower lobe. Explain the anatomical basis for this localization.',
+        model: 'The right primary bronchus is wider, shorter, and more vertically aligned with the trachea than the left primary bronchus. Gravity and airflow guide aspirated foreign bodies preferentially into the right bronchial tree and downward into the right lower lobe bronchus.',
+        rubric: ['Identifies right primary bronchus', 'Notes wider, shorter, more vertical course', 'Concludes gravity directs foreign body into right lower lobe']
+      }
+    ],
+    commonMistakes: [
+      'Choosing left primary bronchus for foreign body aspiration.',
+      'Thinking terminal bronchioles participate in gas exchange (they belong to the conducting zone; respiratory bronchioles start the respiratory zone).',
+    ],
+    skills: [
+      'Identify the carina and endotracheal tube tip position (normally 3–5 cm above carina) on mobile chest radiographs.',
+    ],
+    selfCheck: 'From memory: explain the 3 anatomical differences between right and left main bronchi.',
+    sourceRefs: [{ ref: 'hss.1.2', location: 'p16 Trachea and primary bronchi' }, { ref: 'hss.revans', location: 'Module 1.1 answers' }],
+  },
+
+  /* ========================================================================
+   * WEEK 10: THORACIC CAGE & REGIONAL ANATOMY (Module 3)
+   * ======================================================================== */
+  {
+    id: 'hss2011-thorax-intercostal-diaphragm',
+    subject: 'HSS2011', unit: 'hss.m1', type: 'definition',
+    title: 'Intercostal spaces, neurovascular bundle and the thoracic diaphragm',
+    tags: ['thorax', 'diaphragm', 'intercostal', 'high-yield'],
+    lesson: {
+      explanation: 'The thoracic wall contains 11 intercostal spaces bounded by 12 pairs of ribs. Each space is occupied by three layers of intercostal muscles: external intercostals (fibers run inferomedially "hands in pockets", active in inspiration by elevating ribs), internal intercostals (fibers run inferolaterally, active in forced expiration by depressing ribs), and innermost intercostals. The intercostal neurovascular bundle runs along the costal groove on the inferior border of each rib, protected by the rib flange; its components are arranged from superior to inferior as: Vein, Artery, Nerve (VAN), plus lymphatics. To avoid injuring the neurovascular bundle, invasive pleural procedures (thoracocentesis, chest tube insertion) are always performed by inserting the needle or tube over the superior border of the lower rib. The diaphragm is the principal muscle of inspiration, separating the thoracic cavity from the abdominal cavity. It attaches to the xiphoid process, lower 6 costal cartilages, and lumbar vertebrae (via right and left crura). It features three major apertures: 1) Caval hiatus (level of T8, transmits IVC and right phrenic nerve); 2) Oesophageal hiatus (level of T10, transmits oesophagus and vagus nerves CN X); 3) Aortic hiatus (level of T12, transmits descending aorta, thoracic duct, and azygos vein). Motor innervation to the entire diaphragm is supplied exclusively by the phrenic nerves (arising from cervical spinal roots C3, C4, C5: "C3, 4, 5 keeps the diaphragm alive").',
+      plain: 'Intercostal spaces have 3 muscle layers (external breathes in, internal breathes out). The costal groove along the lower edge of each rib shelters the neurovascular bundle: Vein, Artery, Nerve (VAN). Needles are inserted over the top of the lower rib to avoid VAN. The diaphragm is the main breathing muscle; its 3 openings are T8 (caval/IVC), T10 (oesophagus), and T12 (aorta). Motor nerve: phrenic nerve (C3, C4, C5).',
+      keyFacts: [
+        'Intercostal neurovascular bundle order in costal groove: Vein, Artery, Nerve (VAN) superior to inferior.',
+        'Thoracocentesis needles are inserted immediately above the upper border of a rib to avoid the VAN bundle.',
+        'Diaphragm apertures: T8 (IVC / caval hiatus), T10 (oesophagus), T12 (aorta / aortic hiatus).',
+        'Phrenic nerve (C3, C4, C5) provides sole motor innervation to the diaphragm.',
+        'External intercostals elevate ribs (inspiration); internal intercostals depress ribs (forced expiration).',
+      ],
+      prerequisites: ['hss2011-osteo-ribs-sternum', 'hss2011-thorax-regional-landmarks'],
+      examples: ['Chest drain insertion for pneumothorax at the 5th intercostal space, midaxillary line, above the 6th rib.'],
+    },
+    memory: {
+      mnemonic: 'Diaphragm hiatuses: "I8 10 Eggs At 12" — I (IVC) at 8, Eggs (Oesophagus) at 10, At (Aorta) at 12.',
+      chunking: 'Neurovascular bundle: VAN (Vein, Artery, Nerve) from top to bottom.',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'In what order are structures arranged in the costal groove of a rib from superior to inferior?',
+        options: ['Nerve, Artery, Vein', 'Artery, Vein, Nerve', 'Vein, Artery, Nerve', 'Vein, Nerve, Artery'],
+        answer: 2,
+        explanation: 'The intercostal neurovascular bundle is arranged Vein, Artery, Nerve (VAN) from superior to inferior.',
+        src: { ref: 'hss.1.3', location: 'p6–p18 Intercostal space' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'At which vertebral level does the oesophagus pass through the diaphragm?',
+        options: ['T8', 'T10', 'T12', 'L1'],
+        answer: 1,
+        explanation: 'The oesophageal hiatus is at T10. T8 is caval hiatus (IVC); T12 is aortic hiatus.',
+        src: { ref: 'hss.thorax.deck', location: 'Slides 8–18 Diaphragm apertures' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'Sole motor innervation to the thoracic diaphragm is provided by the ______ nerves (cervical roots C3–C5).',
+        accept: ['phrenic', 'phrenic nerve', 'phrenic nerves'],
+        explanation: 'Phrenic nerves arise from C3–C5 and descend through the mediastinum to innervate the diaphragm.',
+        src: { ref: 'hss.thorax.deck', location: 'Slides 14–16 Diaphragm innervation' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A physician performs a thoracocentesis to drain pleural effusion. Where should the needle be placed relative to the rib, and why?',
+        model: 'The needle must be inserted directly over the superior border of the lower rib. The costal groove on the inferior border of the upper rib shelters the intercostal vein, artery, and nerve (VAN); passing over the superior border of the lower rib avoids puncturing these vessels and nerve.',
+        rubric: ['Specifies superior border of the lower rib', 'Names the intercostal vein, artery, nerve (VAN)', 'Explains avoiding the costal groove on the inferior border']
+      }
+    ],
+    commonMistakes: [
+      'Inserting needles below a rib (punctures the intercostal VAN bundle).',
+      'Confusing the vertebral levels of diaphragm hiatuses (remember: IVC=8, Oesophagus=10, Aorta=12).',
+    ],
+    skills: [
+      'Identify the right and left hemidiaphragms on chest radiographs, noting the right dome is normally 1–2 cm higher due to the liver.',
+    ],
+    selfCheck: 'From memory: write the VAN sequence and the three diaphragmatic hiatuses with their vertebral levels and transmitted structures.',
+    sourceRefs: [{ ref: 'hss.1.3', location: 'p6–p18 Intercostal space and diaphragm' }, { ref: 'hss.thorax.deck', location: 'Slides 8–18 Diaphragm apertures' }],
+  },
+
+  {
+    id: 'hss2011-thorax-tutorial-pastpaper-practice',
+    subject: 'HSS2011', unit: 'hss.m1', type: 'cloze',
+    title: 'Thorax regional anatomy tutorial & past paper practice',
+    tags: ['thorax', 'assessment', 'tutorial', 'high-yield'],
+    lesson: {
+      explanation: 'Official Module 1.3 revision questions focus on regional thoracic anatomy: the sternal angle (manubriosternal junction / angle of Louis) is located at the T4/T5 intervertebral disc level; it marks the attachment of the 2nd costal cartilage, the bifurcation of the trachea into primary bronchi (carina), the boundary between superior and inferior mediastinum, and the beginning/end of the aortic arch; ribs 1–7 are true (vertebrosternal) ribs, 8–10 are false (vertebrochondral) ribs, and 11–12 are floating (vertebral) ribs; the superior thoracic aperture (thoracic inlet) is bounded by T1, 1st rib pair, and manubrium; the inferior thoracic aperture (thoracic outlet) is bounded by T12, 12th rib pair, costal margins, and xiphisternal joint, closed by the diaphragm.',
+      plain: 'Core thorax exam facts: sternal angle at T4/T5 aligns with 2nd rib, carina, and aortic arch. Ribs 1–7 true, 8–10 false, 11–12 floating. Sternal angle plane separates superior from inferior mediastinum.',
+      keyFacts: [
+        'Sternal angle is at T4/T5 disc level, marking 2nd costal cartilage, carina, and mediastinal plane.',
+        'Ribs 1–7 true; 8–10 false; 11–12 floating.',
+        'Middle mediastinum contains the pericardium, heart, and roots of great vessels.',
+        'Superior thoracic aperture transmits trachea, oesophagus, and great vessels to the neck.',
+      ],
+      prerequisites: ['hss2011-osteo-ribs-sternum', 'hss2011-thorax-regional-landmarks'],
+      examples: ['Exam past paper question: "The sternal angle lies opposite which intervertebral disc? Answer: T4/T5."'],
+    },
+    memory: {
+      teachBack: 'List five major anatomical structures or events that occur at the horizontal plane of the sternal angle (T4/T5).',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'The sternal angle (angle of Louis) lies opposite which intervertebral disc?',
+        options: ['T2/T3', 'T3/T4', 'T4/T5', 'T5/T6'],
+        answer: 2,
+        explanation: 'Model answer C. The sternal angle is at the level of the T4/T5 intervertebral disc.',
+        src: { ref: 'hss.revans', location: 'Module 1.3, MCQ 1' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The horizontal plane dividing the superior mediastinum from the inferior mediastinum passes through the ______ ______ anteriorly and the T4/T5 disc posteriorly.',
+        accept: ['sternal angle', 'manubriosternal joint', 'angle of louis'],
+        explanation: 'The sternal angle marks the boundary between superior and inferior mediastinum.',
+        src: { ref: 'hss.revans', location: 'Module 1.3 answers' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'Which ribs attach directly to the sternum via their own individual costal cartilages?',
+        options: ['Ribs 1–5', 'Ribs 1–7', 'Ribs 1–10', 'Ribs 1–12'],
+        answer: 1,
+        explanation: 'Ribs 1–7 are true ribs (vertebrosternal) because their costal cartilages connect directly to the sternum.',
+        src: { ref: 'hss.1.3', location: 'p4 Thoracic cage ribs' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A clinician palpates the sternal angle to count ribs on a patient. Which rib cartilage attaches immediately adjacent to this landmark?',
+        model: 'The second costal cartilage. The sternal angle (manubriosternal junction) provides the primary clinical reference landmark for counting ribs because the second costal cartilage articulates directly at this joint; the first rib lies deep to the clavicle and cannot be reliably palpated.',
+        rubric: ['Identifies 2nd costal cartilage / 2nd rib', 'Names sternal angle as clinical counting landmark', 'Notes 1st rib is hidden under clavicle']
+      }
+    ],
+    commonMistakes: [
+      'Calling rib 8 a true rib (ribs 8–10 merge their cartilages into cartilage 7, so they are false ribs).',
+      'Placing the sternal angle at T2 or T3.',
+    ],
+    skills: [
+      'Locate the sternal angle on lateral chest radiographs to verify T4/T5 level and carina position.',
+    ],
+    selfCheck: 'From memory: answer the 3 revision questions on sternal angle, ribs, and mediastinum boundaries.',
+    sourceRefs: [{ ref: 'hss.revans', location: 'Module 1.3 answers' }, { ref: 'hss.manual1920', location: 'Module 1.3 Revision exercise' }],
+  },
+
+{
+    id: 'hss2011-digestive-tract-upper',
+    subject: 'HSS2011', unit: 'hss.m3', type: 'definition',
+    title: 'Upper gastrointestinal tract — oral cavity, oesophagus and stomach',
+    tags: ['abdomen', 'digestive', 'stomach', 'high-yield'],
+    lesson: {
+      explanation: 'The digestive tract begins at the oral cavity. Three pairs of extrinsic salivary glands secrete saliva: parotid glands (largest, situated anterior and inferior to ear, secretes serous fluid with salivary amylase via Stensen\'s duct piercing the buccinator opposite upper 2nd molar), submandibular glands (beneath base of tongue in submandibular fossa, Wharton\'s duct opens at lingual frenulum), and sublingual glands (floor of mouth, multiple small ducts of Rivinus). The oesophagus is a 25 cm muscular tube extending from the laryngopharynx (C6) through the posterior mediastinum, piercing the diaphragm at the oesophageal hiatus (T10) to join the stomach at the cardiac orifice (T11). Its muscularis externa changes from skeletal muscle in upper 1/3, to mixed in middle 1/3, and smooth muscle in lower 1/3. The stomach is a J-shaped muscular pouch in the LUQ: cardia (surrounding cardiac orifice), fundus (dome superior to cardia), body (central large portion), and pyloric part (antrum, pyloric canal, and pyloric sphincter at L1 transpyloric plane). Mucosa forms longitudinal folds (rugae) allowing marked distension. The muscularis externa uniquely contains three layers of smooth muscle: outer longitudinal, middle circular, and inner oblique layer, enabling powerful mechanical churning of food into chyme.',
+      plain: 'The upper digestive tract includes 3 salivary glands (parotid is largest; duct opens opposite upper 2nd molar). The oesophagus pierces the diaphragm at T10. The stomach has 4 parts: cardia, fundus, body, and pylorus (sphincter at L1). Its mucosa forms rugae when empty. Uniquely, the stomach wall has three smooth muscle layers (longitudinal, circular, and inner oblique) for mechanical churning.',
+      keyFacts: [
+        'Parotid gland is the largest salivary gland; duct opens opposite the upper 2nd molar.',
+        'Oesophagus passes through the diaphragm at T10 and enters stomach at cardiac orifice.',
+        'Stomach has 4 regions: cardia, fundus, body, pyloric part.',
+        'Pyloric sphincter controls gastric emptying at the L1 transpyloric plane.',
+        'Stomach uniquely features three muscular layers: longitudinal, circular, and inner oblique.',
+        'Gastric rugae are prominent mucosal folds that flatten as the stomach fills.',
+      ],
+      prerequisites: ['hss2011-m3-digestive'],
+      examples: ['Pyloric stenosis in infants causes projectile vomiting due to hypertrophy of the pyloric sphincter muscle.'],
+    },
+    memory: {
+      chunking: 'Stomach parts from entry to exit: Cardia → Fundus → Body → Pylorus (Can Frank Bite Pylorus).',
+      comparison: 'Entire GI tract has 2 muscle layers (circular, longitudinal); stomach uniquely has 3 (adds inner oblique).',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'Which muscle layer is uniquely present in the muscularis externa of the stomach wall?',
+        options: ['Longitudinal layer', 'Circular layer', 'Oblique layer', 'Transverse layer'],
+        answer: 2,
+        explanation: 'The stomach uniquely has an inner oblique layer of smooth muscle in addition to circular and longitudinal layers.',
+        src: { ref: 'hss.3.1', location: 'p12 Stomach wall anatomy' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'Which is the largest of the three pairs of extrinsic salivary glands?',
+        options: ['Submandibular gland', 'Sublingual gland', 'Parotid gland', 'Buccal gland'],
+        answer: 2,
+        explanation: 'The parotid gland is the largest salivary gland, located anterior and inferior to the ear.',
+        src: { ref: 'hss.revans', location: 'Module 3.1 answers' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The junction between the oesophagus and the stomach is called the ______ orifice.',
+        accept: ['cardiac', 'cardiac orifice'],
+        explanation: 'The cardiac orifice is where the oesophagus empties into the stomach at the T11 level.',
+        src: { ref: 'hss.3.1', location: 'p10 Stomach gross anatomy' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A patient experiences severe gastro-oesophageal reflux disease (GERD). Which anatomical sphincter and diaphragmatic opening are involved?',
+        model: 'The lower oesophageal sphincter (physiological gastro-oesophageal sphincter) and the oesophageal hiatus of the diaphragm (at T10). Incompetence of the sphincter or herniation of the stomach through the hiatus (hiatus hernia) permits acid to flow back into the oesophagus.',
+        rubric: ['Identifies lower oesophageal sphincter', 'Identifies oesophageal hiatus at T10', 'Explains acid reflux into oesophagus']
+      }
+    ],
+    commonMistakes: [
+      'Believing the stomach has only two muscle layers like the intestines.',
+      'Placing the parotid duct inside the floor of the mouth (that is the submandibular/sublingual location).',
+    ],
+    skills: [
+      'Identify the gastric fundus air bubble and rugal fold patterns on erect abdominal radiographs and barium swallow exams.',
+    ],
+    selfCheck: 'From memory: name the 3 salivary glands, 4 regions of the stomach, and 3 stomach wall muscle layers.',
+    sourceRefs: [{ ref: 'hss.3.1', location: 'p4–p18 Upper digestive tract and stomach' }, { ref: 'hss.revans', location: 'Module 3.1 answers' }],
+  },
+
+  {
+    id: 'hss2011-digestive-tract-small-large-bowel',
+    subject: 'HSS2011', unit: 'hss.m3', type: 'definition',
+    title: 'Lower gastrointestinal tract — small and large intestine architecture',
+    tags: ['abdomen', 'digestive', 'intestine', 'colon', 'high-yield'],
+    lesson: {
+      explanation: 'The small intestine spans ~6 meters and carries out nutrient digestion and absorption. It consists of three parts: 1) Duodenum (25 cm C-shaped loop wrapping head of pancreas; 2nd descending part receives bile and pancreatic ducts at major duodenal papilla; ends at duodenojejunal flexure at L2 supported by ligament of Treitz); 2) Jejunum (upper 2/5, wider lumen, thick wall, prominent permanent mucosal folds called plicae circulares, tall villi, primary site of absorption); 3) Ileum (lower 3/5, longest portion of gut, thinner wall, fewer plicae circulares, aggregated lymphoid nodules called Peyer\'s patches in mucosa, terminates at ileocaecal valve in RLQ). The large intestine (colon) frames the small intestine, absorbing water and electrolytes (~1.5 m): Caecum with vermiform appendix (attached at posteromedial wall, surface landmark McBurney\'s point 1/3 from ASIS to umbilicus), Ascending colon, Right colic (hepatic) flexure, Transverse colon (suspended by transverse mesocolon), Left colic (splenic) flexure (higher than hepatic flexure), Descending colon, Sigmoid colon (S-shaped, pelvic cavity), Rectum, and Anal canal. Three distinctive anatomical features differentiate the colon from small bowel: 1) Teniae coli (three bands of longitudinal smooth muscle); 2) Haustra (series of pouches puckered by teniae coli); 3) Epiploic appendages (fat-filled peritoneal tags along colon).',
+      plain: 'Small intestine: duodenum (C-loop around pancreas head; 2nd part has major duodenal papilla), jejunum (upper 2/5, thick wall, deep circular folds), and ileum (lower 3/5, longest segment, Peyer\'s patches, ends at ileocaecal valve). Large intestine: caecum & appendix in RLQ, ascending, transverse, descending, sigmoid colon, rectum. Colon has 3 unique features: teniae coli (3 muscle ribbons), haustra (pouches), and epiploic appendages (fat tags).',
+      keyFacts: [
+        'Small intestine regions: Duodenum (shortest, C-loop), Jejunum (upper 2/5), Ileum (longest, lower 3/5).',
+        'Major duodenal papilla is in the 2nd (descending) part of the duodenum.',
+        'Ileum is the longest segment of the gut and contains Peyer\'s patches.',
+        'Colon features 3 unique structures: teniae coli, haustra, and epiploic appendages.',
+        'Splenic (left colic) flexure sits higher and deeper than hepatic (right colic) flexure.',
+      ],
+      prerequisites: ['hss2011-digestive-tract-upper'],
+      examples: ['Acute appendicitis causes focal tenderness at McBurney\'s point in the right lower quadrant.'],
+    },
+    memory: {
+      chunking: 'Small bowel order: Duodenum, Jejunum, Ileum (Dow Jones Index: D-J-I).',
+      firstLetter: 'Colon unique triad: THE — Teniae coli, Haustra, Epiploic appendages.',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'Which segment of the human gastrointestinal tract is the longest overall?',
+        options: ['Duodenum', 'Jejunum', 'Ileum', 'Transverse colon'],
+        answer: 2,
+        explanation: 'The ileum forms the distal three-fifths of the small intestine and is the longest individual segment of the gut.',
+        src: { ref: 'hss.revans', location: 'Module 3.1 answers' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The three longitudinal ribbons of smooth muscle running along the outer surface of the colon are called ______ ______.',
+        accept: ['teniae coli', 'taeniae coli', 'taenia coli', 'tenia coli'],
+        explanation: 'Teniae coli are the 3 bands of outer longitudinal muscle whose tone pulls the colon into pouches (haustra).',
+        src: { ref: 'hss.3.1', location: 'p28 Large intestine' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'The common bile duct and main pancreatic duct empty into which part of the duodenum?',
+        options: ['Superior (1st) part', 'Descending (2nd) part', 'Horizontal (3rd) part', 'Ascending (4th) part'],
+        answer: 1,
+        explanation: 'The ducts join and open at the major duodenal papilla located in the descending (second) part of the duodenum.',
+        src: { ref: 'hss.3.1', location: 'p22 Duodenum' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'On an abdominal X-ray of suspected bowel obstruction, how can you differentiate dilated loops of small intestine from dilated large intestine?',
+        model: 'Small intestine loops lie centrally and display valvulae conniventes (plicae circulares) that cross the entire luminal diameter from wall to wall. Large intestine loops lie peripherally and show haustral indentations that only partially cross the lumen, separated by teniae coli.',
+        rubric: ['Names small bowel as central with plicae circulares crossing complete width', 'Names large bowel as peripheral with haustra crossing partially', 'Notes distinctive teniae coli']
+      }
+    ],
+    commonMistakes: [
+      'Confusing the jejunum as being longer than the ileum (ileum is 3/5, jejunum is 2/5).',
+      'Thinking haustra extend completely across the bowel lumen like plicae circulares.',
+    ],
+    skills: [
+      'Differentiate small and large bowel gas patterns on plain abdominal radiographs.',
+    ],
+    selfCheck: 'From memory: list the 3 parts of the small intestine, the 4 parts of the colon, and the 3 distinct anatomical features of the large intestine.',
+    sourceRefs: [{ ref: 'hss.3.1', location: 'p20–p32 Small and large intestine' }, { ref: 'hss.revans', location: 'Module 3.1 answers' }],
+  },
+
+  {
+    id: 'hss2011-digestive-accessory-liver-pancreas',
+    subject: 'HSS2011', unit: 'hss.m3', type: 'definition',
+    title: 'Accessory digestive organs — liver, biliary tree and pancreas',
+    tags: ['abdomen', 'digestive', 'liver', 'pancreas', 'biliary', 'high-yield'],
+    lesson: {
+      explanation: 'The accessory digestive organs produce and deliver digestive enzymes and buffers into the duodenum. The Liver is the largest internal organ (RUQ): divided into 4 lobes: right lobe (largest), left lobe, quadrate lobe (inferior, adjacent to gallbladder), and caudate lobe (posterior, adjacent to IVC). Falciform ligament attaches liver to anterior wall; free margin contains ligamentum teres (round ligament, remnant of umbilical vein). The porta hepatis (hilum of liver) transmits the portal triad: hepatic portal vein (posterior), hepatic artery proper (anterior-left), and common hepatic duct (anterior-right). Gallbladder: pear-shaped muscular sac on visceral liver surface; stores and concentrates bile; cystic duct unites with common hepatic duct to form common bile duct. Pancreas: retroperitoneal gland lying transversely across posterior abdominal wall behind stomach; Head (nestled in duodenal C-loop, with uncinate process extending behind superior mesenteric vessels), Neck, Body, and Tail (contacts spleen). Exocrine secretions drain via main pancreatic duct (duct of Wirsung), which joins common bile duct to form hepatopancreatic ampulla (ampulla of Vater), opening at major duodenal papilla controlled by sphincter of Oddi; accessory pancreatic duct (duct of Santorini) opens 2 cm superiorly at minor duodenal papilla.',
+      plain: 'The liver (RUQ) has 4 lobes (right, left, quadrate, caudate). The porta hepatis carries the portal triad: hepatic portal vein, hepatic artery proper, and common hepatic duct. The gallbladder stores bile; its cystic duct joins the common hepatic duct to form the common bile duct. The pancreas lies retroperitoneally; its main duct joins the common bile duct at the ampulla of Vater (sphincter of Oddi) in the 2nd part of the duodenum.',
+      keyFacts: [
+        'Liver has 4 lobes: right, left, quadrate, and caudate.',
+        'Porta hepatis contains portal triad: portal vein, hepatic artery proper, common hepatic duct.',
+        'Common bile duct = cystic duct + common hepatic duct.',
+        'Pancreas has head, uncinate process, neck, body, and tail (touches spleen).',
+        'Main pancreatic duct joins common bile duct at the ampulla of Vater (major duodenal papilla).',
+        'Hepatic lobules are hexagonal cylinders with portal triads at their corners.',
+      ],
+      prerequisites: ['hss2011-digestive-tract-small-large-bowel'],
+      examples: ['A gallstone lodged in the ampulla of Vater blocks both bile and pancreatic drainage, triggering acute gallstone pancreatitis.'],
+    },
+    memory: {
+      chunking: 'Biliary tree: Right + Left Hepatic → Common Hepatic; Common Hepatic + Cystic → Common Bile Duct (CBD).',
+      comparison: 'Quadrate lobe is inferior (next to Gallbladder); Caudate lobe is superior/posterior (next to IVC).',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'The common bile duct is formed by the junction of the common hepatic duct and the:',
+        options: ['Main pancreatic duct', 'Cystic duct', 'Right hepatic duct', 'Accessory pancreatic duct'],
+        answer: 1,
+        explanation: 'The cystic duct from the gallbladder merges with the common hepatic duct to form the common bile duct.',
+        src: { ref: 'hss.3.1', location: 'p36 Biliary tract' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The hilum of the liver where the portal vein, hepatic artery, and bile duct enter and exit is the ______ ______.',
+        accept: ['porta hepatis'],
+        explanation: 'The porta hepatis is the deep transverse fissure on the visceral surface of the liver transmitting the portal triad.',
+        src: { ref: 'hss.3.1', location: 'p34 Liver anatomy' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'The head of the pancreas lies nestled within the C-shaped curve of which organ?',
+        options: ['Stomach', 'Duodenum', 'Transverse colon', 'Jejunum'],
+        answer: 1,
+        explanation: 'The head of the pancreas is cradled by the four parts of the C-shaped duodenum.',
+        src: { ref: 'hss.3.1', location: 'p40 Pancreas' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A patient with carcinoma of the head of the pancreas develops obstructive jaundice (yellow skin and sclera). Explain the anatomical relationship causing this presentation.',
+        model: 'The common bile duct passes through or immediately posterior to the head of the pancreas on its way to empty into the duodenum. An expanding tumor in the pancreatic head compresses the common bile duct, blocking bile outflow from the liver and gallbladder into the duodenum.',
+        rubric: ['Names the common bile duct passing through/behind pancreatic head', 'Explains tumor compresses common bile duct', 'Concludes obstruction stops bile drainage causing jaundice']
+      }
+    ],
+    commonMistakes: [
+      'Thinking the liver produces digestive enzymes (liver produces bile; pancreas produces digestive enzymes).',
+      'Confusing the hepatic veins (drain liver into IVC) with the hepatic portal vein (brings gut blood into liver).',
+    ],
+    skills: [
+      'Trace the biliary ducts on ultrasound, magnetic resonance cholangiopancreatography (MRCP), and ERCP scans.',
+    ],
+    selfCheck: 'From memory: draw the biliary duct system from right/left hepatic ducts to the duodenum and label the gallbladder, cystic duct, CBD, and pancreatic duct.',
+    sourceRefs: [{ ref: 'hss.3.1', location: 'p34–p42 Liver, gallbladder, and pancreas' }, { ref: 'hss.revans', location: 'Module 3.1 answers' }],
+  },
+
+  {
+    id: 'hss2011-digestive-peritoneum-portal-circulation',
+    subject: 'HSS2011', unit: 'hss.m3', type: 'definition',
+    title: 'Peritoneal reflections, mesenteries and the hepatic portal system',
+    tags: ['abdomen', 'peritoneum', 'portal-vein', 'high-yield'],
+    lesson: {
+      explanation: 'The peritoneum is an extensive serous membrane lining the abdominopelvic cavity (parietal peritoneum) and invaginating to cover abdominal organs (visceral peritoneum). Intraperitoneal organs are completely wrapped by visceral peritoneum and suspended by mesenteries (stomach, liver, spleen, jejunum, ileum, transverse colon, sigmoid colon); Retroperitoneal organs lie against the posterior abdominal wall covered by peritoneum only on their anterior surface (kidneys, adrenal glands, pancreas, duodenum parts 2–4, ascending and descending colon, abdominal aorta, IVC — mnemonic SAD PUCKER). Peritoneal folds: 1) Greater omentum: prominent 4-layered fatty apron hanging from greater curvature of stomach over transverse colon and small intestines; 2) Lesser omentum: double layer connecting visceral liver surface to lesser curvature of stomach (hepatogastric ligament) and 1st part of duodenum (hepatoduodenal ligament enclosing portal triad); 3) Mesentery proper: fan-shaped fold anchoring jejunum and ileum to posterior wall, carrying superior mesenteric vessels. Hepatic Portal System: drains venous blood from the capillary beds of the abdominal GI tract, pancreas, gallbladder, and spleen into the liver sinusoids before blood reaches the IVC. The hepatic portal vein is formed behind the neck of the pancreas by the confluence of the Superior Mesenteric Vein (SMV) and the Splenic Vein (which receives the Inferior Mesenteric Vein / IMV).',
+      plain: 'Intraperitoneal organs (stomach, liver, small bowel, transverse colon) are suspended in peritoneal folds; retroperitoneal organs (kidneys, pancreas, ascending/descending colon, aorta, IVC) sit against the back wall. The greater omentum hangs like a fatty apron from the stomach\'s greater curve; the lesser omentum connects liver to stomach. Venous blood from gut, spleen, and pancreas collects into the Hepatic Portal Vein (formed by SMV + Splenic vein) and goes to the liver before returning to the IVC.',
+      keyFacts: [
+        'Intraperitoneal organs are mobile, suspended by mesenteries; retroperitoneal organs lie behind the peritoneum.',
+        'Greater omentum hangs from greater curvature of stomach; lesser omentum links liver to lesser curvature.',
+        'Mesentery proper suspends jejunum and ileum, carrying superior mesenteric blood vessels.',
+        'Hepatic portal vein is formed by the union of Superior Mesenteric Vein and Splenic Vein.',
+        'Blood passes through two capillary beds: gut capillaries → portal vein → liver sinusoids → hepatic veins → IVC.',
+      ],
+      prerequisites: ['hss2011-digestive-accessory-liver-pancreas'],
+      examples: ['Cirrhosis causing portal hypertension produces portosystemic collateral dilation (oesophageal varices, caput medusae).'],
+    },
+    memory: {
+      mnemonic: 'Retroperitoneal organs: SAD PUCKER — Suprarenal glands, Aorta/IVC, Duodenum (parts 2–4), Pancreas, Ureters, Colon (ascending/descending), Kidneys, Esophagus, Rectum.',
+      chunking: 'Portal vein recipe: Superior Mesenteric Vein + Splenic Vein behind the pancreatic neck.',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'The hepatic portal vein is formed behind the neck of the pancreas by the junction of which two veins?',
+        options: ['Inferior mesenteric vein and renal vein', 'Superior mesenteric vein and splenic vein', 'Hepatic vein and celiac vein', 'Left gastric vein and superior vena cava'],
+        answer: 1,
+        explanation: 'The Superior Mesenteric Vein (SMV) and Splenic Vein unite behind the neck of the pancreas to form the hepatic portal vein.',
+        src: { ref: 'hss.3.3', location: 'p16 Hepatic portal system' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The large, fatty peritoneal fold that hangs like an apron from the greater curvature of the stomach over the intestines is the ______ ______.',
+        accept: ['greater omentum'],
+        explanation: 'The greater omentum hangs down from the stomach over the transverse colon and small bowel coils.',
+        src: { ref: 'hss.3.3', location: 'p10 Greater omentum' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'Which of the following organs is retroperitoneal in the adult human body?',
+        options: ['Stomach', 'Spleen', 'Kidney', 'Jejunum'],
+        answer: 2,
+        explanation: 'The kidneys lie behind the parietal peritoneum on the posterior abdominal wall (retroperitoneal).',
+        src: { ref: 'hss.3.3.2019', location: 'p14 Retroperitoneal organs' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'Why does blood carrying glucose and amino acids absorbed from a meal pass to the liver before circulating to the rest of the body?',
+        model: 'Nutrients absorbed from the stomach and intestines drain into the hepatic portal system. The hepatic portal vein carries this blood directly to the liver sinusoids, allowing hepatocytes to process nutrients, synthesize glycogen and plasma proteins, and detoxify absorbed substances before the blood empties into the systemic circulation via the hepatic veins and IVC.',
+        rubric: ['Identifies hepatic portal system / portal vein', 'Explains liver processes nutrients/metabolites first', 'Notes blood exits via hepatic veins to systemic IVC']
+      }
+    ],
+    commonMistakes: [
+      'Confusing the hepatic portal vein (brings nutrient blood to liver) with the hepatic veins (drain blood from liver to IVC).',
+      'Thinking the kidneys are intraperitoneal organs suspended in mesentery.',
+    ],
+    skills: [
+      'Identify peritoneal fluid collections in the subphrenic spaces and hepatorenal recess (Morison\'s pouch) on abdominal ultrasound (FAST exam).',
+    ],
+    selfCheck: 'From memory: list 3 intraperitoneal and 3 retroperitoneal organs, and state the two veins that form the hepatic portal vein.',
+    sourceRefs: [{ ref: 'hss.3.3', location: 'p6–p20 Peritoneum and portal system' }, { ref: 'hss.3.3.2019', location: 'p8–p24 Peritoneal cavity and omenta' }],
+  },
+
+  {
+    id: 'hss2011-digestive-tutorial-pastpaper-practice',
+    subject: 'HSS2011', unit: 'hss.m3', type: 'cloze',
+    title: 'Digestive anatomy collaborative tutorial & revision practice',
+    tags: ['abdomen', 'digestive', 'assessment', 'tutorial', 'high-yield'],
+    lesson: {
+      explanation: 'Official Module 3 revision questions test key digestive discriminations: the longest portion of the gut is the ileum; teniae coli are three bands of longitudinal smooth muscle found in the colon wall; the parotid gland is the largest salivary gland; the cardiac orifice is the opening of the oesophagus into the stomach; gastric pits reside in the gastric mucosa; hepatic lobules typically contain six portal triads around their periphery; simple columnar epithelium lines the majority of the gastrointestinal tract (stomach through rectum) for secretion and absorption, whereas stratified squamous epithelium lines the oesophagus and anal canal for protection; and absorbed nutrients travel to the liver via the hepatic portal vein.',
+      plain: 'Core digestive exam review: ileum is the longest segment, colon has teniae coli, parotid is the largest salivary gland, and nutrients travel to the liver through the hepatic portal vein.',
+      keyFacts: [
+        'Longest part of the gut is the ileum.',
+        'Teniae coli are 3 longitudinal smooth muscle bands in the colon.',
+        'Parotid gland is the largest salivary gland.',
+        'Hepatic portal vein conveys absorbed gut nutrients to the liver.',
+      ],
+      prerequisites: ['hss2011-m3-digestive', 'hss2011-digestive-tract-upper'],
+      examples: ['Exam past paper question: "Which organ features teniae coli? Answer: Colon."'],
+    },
+    memory: {
+      teachBack: 'Explain why the stomach has three muscle layers while the colon has three teniae coli.',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'The longest part of the entire human gastrointestinal tract is the:',
+        options: ['Duodenum', 'Jejunum', 'Ileum', 'Colon'],
+        answer: 2,
+        explanation: 'Model answer C. The ileum is the longest portion of the gut.',
+        src: { ref: 'hss.revans', location: 'Module 3.1, MCQ 1' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'Teniae coli are bands of smooth muscle found in the wall of the ______.',
+        accept: ['colon', 'large intestine'],
+        explanation: 'Model answer: colon.',
+        src: { ref: 'hss.revans', location: 'Module 3.1, Fill-in-blanks 3' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The largest salivary gland is the ______ gland.',
+        accept: ['parotid', 'parotid gland'],
+        explanation: 'Model answer: parotid.',
+        src: { ref: 'hss.revans', location: 'Module 3.1, Fill-in-blanks 4' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A biopsy of the intestinal mucosa reveals prominent patches of aggregated lymphoid follicles in the submucosa. Which specific region of the bowel was sampled?',
+        model: 'The ileum. Aggregated lymphoid nodules (Peyer\'s patches) are the histological hallmark of the ileum, functioning as part of the mucosal immune system to monitor intestinal bacterial populations.',
+        rubric: ['Identifies the ileum', 'Names Peyer\'s patches / aggregated lymphoid nodules', 'Notes immune surveillance role']
+      }
+    ],
+    commonMistakes: [
+      'Assigning teniae coli to the small intestine (they exist only on the large intestine).',
+    ],
+    skills: [
+      'Identify small vs large bowel features on contrast barium enema studies.',
+    ],
+    selfCheck: 'From memory: answer the 3 revision questions on longest part of gut, teniae coli, and largest salivary gland.',
+    sourceRefs: [{ ref: 'hss.revans', location: 'Module 3.1 answers' }, { ref: 'hss.manual1920', location: 'Module 3.1 Revision exercise' }],
+  },
+
+  /* ========================================================================
+   * WEEK 12: UROGENITAL SYSTEM & PELVIS (Module 4)
+   * ======================================================================== */
+  {
+    id: 'hss2011-uro-kidneys-urinary-tract',
+    subject: 'HSS2011', unit: 'hss.m3', type: 'definition',
+    title: 'Kidney gross architecture, nephron collecting system and urinary tract',
+    tags: ['pelvis', 'urogenital', 'kidney', 'urinary', 'high-yield'],
+    lesson: {
+      explanation: 'The kidneys are paired retroperitoneal bean-shaped organs lying against the posterior abdominal wall at T12–L3 vertebral levels; the right kidney sits 1–2 cm lower than the left due to the liver. Each kidney is encased by three layers: innermost fibrous renal capsule, middle perirenal fat capsule, and outer renal fascia. Coronal section reveals an outer reddish-brown renal cortex and an inner renal medulla consisting of 8–18 conical renal pyramids. The bases of pyramids face the cortex; their apices (renal papillae) project medially toward the renal sinus. Between pyramids run extensions of cortical tissue called renal columns (of Bertin). Urine formed by >1 million nephrons in the cortex/medulla drains: renal papilla → minor calyx (8–18) → major calyx (2–3) → renal pelvis (funnel-shaped upper expansion of ureter) → ureter at the ureteropelvic junction (UPJ). Ureters: 25 cm retroperitoneal muscular tubes lined by transitional epithelium (urothelium); descend over psoas major, cross the pelvic brim at bifurcation of common iliac vessels, and enter posterior bladder wall obliquely (creating a physiological valve preventing backflow). Urinary Bladder: hollow muscular organ behind pubic symphysis (in pelvic cavity when empty, ascends into abdominal cavity when distended); wall consists of thick detrusor muscle (3 interlacing smooth muscle layers); interior base has the trigone, a smooth triangular region between the two ureteric orifices and the internal urethral orifice (clinically prone to persistent infection). Urethra: transports urine from bladder to exterior; guarded by involuntary internal urethral sphincter (smooth muscle at bladder neck) and voluntary external urethral sphincter (skeletal muscle in urogenital diaphragm); female urethra is short (4 cm), predisposing females to ascending UTIs; male urethra is long (20 cm) with three divisions: prostatic, membranous, and spongy (penile) urethra.',
+      plain: 'The kidneys lie retroperitoneally at T12–L3 (right is lower). Urine flows from renal pyramids → renal papillae → minor calyces → major calyces → renal pelvis → ureters. Ureters enter the bladder obliquely to prevent reflux. The bladder wall is formed by the detrusor muscle; its smooth floor has the trigone (between 2 ureter openings and urethra). Female urethra is short (4 cm); male urethra has 3 parts (prostatic, membranous, spongy).',
+      keyFacts: [
+        'Kidneys lie retroperitoneally at T12–L3; right kidney sits lower due to liver bulk.',
+        'Urine flow: renal papilla → minor calyx → major calyx → renal pelvis → ureter.',
+        'Renal columns (of Bertin) separate adjacent conical renal pyramids.',
+        'Urinary bladder wall is formed by the thick detrusor muscle.',
+        'Trigone is the smooth triangular area between the two ureteric orifices and internal urethral orifice.',
+        'Urethral sphincters: internal (involuntary smooth muscle) and external (voluntary skeletal muscle).',
+      ],
+      prerequisites: ['hss2011-m3-urogenital-pelvis'],
+      examples: ['A kidney stone (nephrolithiasis) commonly impacts at the UPJ, the pelvic brim crossing, or the ureterovesical junction (UVJ).'],
+    },
+    memory: {
+      chunking: 'Urine drainage sequence: Papilla → Minor calyx → Major calyx → Pelvis → Ureter → Bladder → Urethra.',
+      comparison: 'Internal sphincter = involuntary smooth muscle (ANS); External sphincter = voluntary skeletal muscle (pudendal nerve).',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'In what sequence does urine flow from the renal pyramids to the ureter?',
+        options: [
+          'Major calyx → minor calyx → renal papilla → renal pelvis',
+          'Renal papilla → minor calyx → major calyx → renal pelvis',
+          'Renal column → renal pelvis → major calyx → minor calyx',
+          'Renal sinus → renal pyramid → minor calyx → renal pelvis'
+        ],
+        answer: 1,
+        explanation: 'Urine flows from the apex of the pyramid (renal papilla) into minor calyces, which unite into major calyces, emptying into the funnel-shaped renal pelvis.',
+        src: { ref: 'hss.3.2', location: 'p8 Kidney internal architecture' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The smooth, triangular area on the internal floor of the urinary bladder is called the ______.',
+        accept: ['trigone', 'urinary trigone', 'bladder trigone'],
+        explanation: 'The trigone is bounded by the two ureteric orifices and the single internal urethral orifice.',
+        src: { ref: 'hss.3.2', location: 'p14 Urinary bladder' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'Which muscle forms the primary muscular wall of the urinary bladder and contracts during micturition?',
+        options: ['Dartos muscle', 'Detrusor muscle', 'Cremaster muscle', 'Levator ani'],
+        answer: 1,
+        explanation: 'The detrusor muscle forms the three-layered muscular coat of the urinary bladder.',
+        src: { ref: 'hss.3.2', location: 'p14 Urinary bladder' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'Why are females anatomically much more prone to ascending urinary tract infections (UTIs) than males?',
+        model: 'The female urethra is significantly shorter (~4 cm) compared to the male urethra (~20 cm), and its external urethral orifice is situated in close proximity to the vagina and anus, allowing bacteria to migrate easily into the bladder.',
+        rubric: ['Identifies short female urethra (~4 cm)', 'Contrasts with male urethra (~20 cm)', 'Explains shorter distance for bacterial ascent into bladder']
+      }
+    ],
+    commonMistakes: [
+      'Reversing the order of minor and major calyces.',
+      'Assuming the internal urethral sphincter is under voluntary control (it is involuntary autonomic smooth muscle).',
+    ],
+    skills: [
+      'Trace the urinary tract and detect hydronephrosis / calculus obstruction on intravenous urogram (IVU) or CT KUB.',
+    ],
+    selfCheck: 'From memory: trace urine flow through the kidney and describe the boundaries of the bladder trigone.',
+    sourceRefs: [{ ref: 'hss.3.2', location: 'p4–p16 Kidney and urinary system' }, { ref: 'hss.revans', location: 'Module 3.2 answers' }],
+  },
+
+  {
+    id: 'hss2011-uro-male-reproductive-anatomy',
+    subject: 'HSS2011', unit: 'hss.m3', type: 'definition',
+    title: 'Male reproductive tract, accessory glands and spermatic cord',
+    tags: ['pelvis', 'urogenital', 'male-reproductive', 'high-yield'],
+    lesson: {
+      explanation: 'The male reproductive system comprises the testes, epididymides, ductus deferentia, ejaculatory ducts, urethra, accessory glands, and penis. Testes: paired gonads in the scrotum, maintaining temperature 2–3°C below core body temperature essential for spermatogenesis; tunica albuginea fibrous capsule divides testis into lobules containing seminiferous tubules (spermatogenesis), draining to rete testis and efferent ductules. Epididymis: comma-shaped structure on posterolateral testis (head, body, tail), site where sperm mature and gain motility (stored up to months). Ductus (vas) deferens: 45 cm muscular tube; ascends within the spermatic cord through the superficial inguinal ring, inguinal canal, and deep inguinal ring into pelvic cavity, passes over ureter, dilates as ampulla, and joins duct of seminal vesicle to form the ejaculatory duct (which enters prostatic urethra). Spermatic cord components: ductus deferens, testicular artery, pampiniform venous plexus (countercurrent heat exchange), genital branch of genitofemoral nerve, lymphatics, and cremaster muscle (elevates testes). Male Accessory Glands: 1) Seminal vesicles (paired glands posterior to bladder; produce 60% of semen volume, alkaline fluid rich in fructose, prostaglandins, clotting proteins); 2) Prostate gland (single walnut-sized gland inferior to bladder surrounding prostatic urethra; produces 30% of semen volume, milky slightly acidic fluid containing citrate, prostate-specific antigen / PSA, and enzymes); 3) Bulbourethral (Cowper\'s) glands (paired pea-sized glands in urogenital diaphragm; secrete clear alkaline mucus during sexual arousal into spongy urethra to neutralize residual acidic urine). Penis: contains three cylindrical erectile bodies: paired dorsolateral corpora cavernosa and single midventral corpus spongiosum (enclosing spongy urethra and expanding distally into glans penis).',
+      plain: 'The male reproductive tract runs: testis (seminiferous tubules make sperm) → epididymis (mature and store) → ductus deferens (travels in spermatic cord via inguinal canal) → joins seminal vesicle to form ejaculatory duct → prostatic urethra. The spermatic cord has the pampiniform plexus for cooling. Three accessory glands: seminal vesicles (60% volume, fructose-rich), prostate (30% volume, surrounds urethra), and bulbourethral glands (pre-ejaculatory lubricating mucus). Penis has 3 erectile bodies: 2 corpora cavernosa and 1 corpus spongiosum.',
+      keyFacts: [
+        'Seminiferous tubules are the site of spermatogenesis; epididymis is the site of sperm maturation and storage.',
+        'Spermatic cord contains ductus deferens, testicular artery, pampiniform plexus, and cremaster muscle.',
+        'Ejaculatory duct is formed by the union of ductus deferens and seminal vesicle duct.',
+        'Seminal vesicles produce ~60% of semen volume (alkaline, fructose-rich).',
+        'Prostate gland surrounds the prostatic urethra immediately below the bladder neck.',
+        'Penis erectile tissue: 2 corpora cavernosa (dorsal) and 1 corpus spongiosum (ventral, surrounds urethra).',
+      ],
+      prerequisites: ['hss2011-uro-kidneys-urinary-tract'],
+      examples: ['Benign Prostatic Hyperplasia (BPH) compresses the prostatic urethra, causing urinary hesitancy and weak stream.'],
+    },
+    memory: {
+      chunking: 'Sperm pathway: SEVEN UP — Seminiferous tubules, Epididymis, Vas deferens, Ejaculatory duct, (Nothing), Urethra, Penis.',
+      comparison: 'Corpora cavernosa = 2 dorsolateral cylinders (erection rigidity); Corpus spongiosum = 1 ventral cylinder (keeps urethra open).',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'The ejaculatory duct is formed by the union of the ductus deferens with the duct of the:',
+        options: ['Bulbourethral gland', 'Seminal vesicle', 'Prostate gland', 'Epididymis'],
+        answer: 1,
+        explanation: 'The ductus deferens ampulla merges with the seminal vesicle duct to form the ejaculatory duct within the prostate.',
+        src: { ref: 'hss.3.2', location: 'p22 Ductus deferens and ejaculatory duct' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'Which male accessory sex gland surrounds the proximal part of the urethra immediately inferior to the urinary bladder?',
+        options: ['Bulbourethral gland', 'Prostate gland', 'Seminal vesicle', 'Testis'],
+        answer: 1,
+        explanation: 'The prostate gland surrounds the prostatic urethra directly beneath the bladder neck.',
+        src: { ref: 'hss.3.2', location: 'p24 Male accessory glands' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The extensive venous network within the spermatic cord that cools incoming arterial blood via countercurrent heat exchange is the ______ plexus.',
+        accept: ['pampiniform', 'pampiniform plexus'],
+        explanation: 'The pampiniform plexus surrounds the testicular artery to cool arterial blood heading to the testes.',
+        src: { ref: 'hss.3.2', location: 'p20 Spermatic cord' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A 72-year-old man presents with progressive difficulty urinating and nocturia. Digital rectal exam reveals an enlarged prostate. Explain the anatomical basis of his urinary symptoms.',
+        model: 'The prostate gland encircles the prostatic urethra immediately inferior to the urinary bladder neck. Benign or malignant enlargement of the transitional zone of the prostate compresses the prostatic urethra, impeding the outflow of urine from the bladder.',
+        rubric: ['Identifies prostate encircling prostatic urethra', 'Notes location immediately below bladder neck', 'Explains prostatic enlargement compresses urethra and obstructs urine flow']
+      }
+    ],
+    commonMistakes: [
+      'Believing the prostate produces the majority of semen volume (seminal vesicles produce ~60%, prostate produces ~30%).',
+      'Confusing the corpora cavernosa with the corpus spongiosum (the urethra passes through the spongiosum).',
+    ],
+    skills: [
+      'Recognise the prostate gland, seminal vesicles, and bladder base on pelvic MRI and transrectal ultrasound.',
+    ],
+    selfCheck: 'From memory: write the SEVEN UP sequence of sperm passage and list the 3 male accessory glands with their contributions.',
+    sourceRefs: [{ ref: 'hss.3.2', location: 'p18–p28 Male reproductive system' }, { ref: 'hss.manual1920', location: 'Module 3.2 Study guide' }],
+  },
+
+  {
+    id: 'hss2011-uro-female-reproductive-pelvis',
+    subject: 'HSS2011', unit: 'hss.m3', type: 'definition',
+    title: 'Female reproductive tract, uterine anatomy and pelvic peritoneal pouches',
+    tags: ['pelvis', 'urogenital', 'female-reproductive', 'uterus', 'high-yield'],
+    lesson: {
+      explanation: 'The female reproductive system comprises the ovaries, uterine tubes, uterus, vagina, external genitalia, and mammary glands. Ovaries: paired gonads in ovarian fossae of lateral pelvic walls; produce oocytes, estrogens, and progesterone; anchored by ovarian ligament (to uterus), suspensory ligament (to pelvic wall, transmitting ovarian vessels and nerves), and mesovarium (peritoneal fold). Uterine (fallopian) tubes / oviducts: 10 cm muscular tubes extending laterally from uterus: 1) Infundibulum: funnel-shaped distal end with mobile finger-like fimbriae draping over ovary to capture ovulated oocyte; 2) Ampulla: wide, curved middle portion, the normal site of fertilization; 3) Isthmus: narrow, thick-walled medial segment adjoining uterus; 4) Uterine part: pierces uterine wall. Uterus: hollow pear-shaped muscular organ between bladder and rectum; normally anteverted (tipped forward relative to vagina) and anteflexed (curved forward over bladder); anatomical regions include dome-shaped Fundus, Body, and inferior Cervix (neck projecting into upper vagina via external os). Uterine wall has 3 layers: Perimetrium (outer serosa), Myometrium (thick middle layer of interlacing smooth muscle), and Endometrium (mucosal lining; inner stratum functionalis shed during menstruation, deep stratum basalis regenerates functional layer). Vagina: 8–10 cm distensible fibromuscular canal extending from cervix to vestibule; recess surrounding cervix forms anterior, posterior, and lateral fornices (posterior fornix is deepest, immediately adjacent to rectouterine pouch). Pelvic Peritoneal Pouches: peritoneal reflections create two blind-ended pouches in female pelvis: 1) Rectouterine pouch (Pouch of Douglas): between rectum and posterior uterus/vagina; lowest anatomical point of female peritoneal cavity where inflammatory fluid, pus, or blood readily accumulates; 2) Vesicouterine pouch: between urinary bladder and anterior uterine surface.',
+      plain: 'The female reproductive tract includes: ovaries (anchored by ovarian and suspensory ligaments), uterine tubes (infundibulum with fimbriae, ampulla where fertilization occurs, isthmus), uterus (fundus, body, cervix; wall has perimetrium, thick myometrium, and endometrium whose functional layer sheds), and vagina. In the pelvis, peritoneum dips down to form the Rectouterine pouch (Pouch of Douglas) between uterus and rectum — the lowest point of the female peritoneal cavity.',
+      keyFacts: [
+        'Uterine tube regions: Infundibulum (with fimbriae), Ampulla (fertilization site), Isthmus, Uterine part.',
+        'Fertilization normally occurs in the ampulla of the uterine tube.',
+        'Normal uterine position is anteverted (tipped forward on vagina) and anteflexed (curved over bladder).',
+        'Endometrium stratum functionalis is shed during menstruation; stratum basalis regenerates it.',
+        'Rectouterine pouch (Pouch of Douglas) is the lowest anatomical space in the female peritoneal cavity.',
+        'Suspensory ligament of the ovary transmits the ovarian artery, vein, and nerves.',
+      ],
+      prerequisites: ['hss2011-uro-male-reproductive-anatomy'],
+      examples: ['Ectopic pregnancy most frequently implants in the ampulla of the uterine tube.'],
+    },
+    memory: {
+      chunking: 'Tube parts outside in: Fimbriae → Infundibulum → Ampulla → Isthmus (FIAI).',
+      comparison: 'Pouch of Douglas is behind the uterus (rectouterine); Vesicouterine pouch is in front of the uterus (vesicouterine).',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'Where in the female reproductive tract does fertilization of the ovulated secondary oocyte typically occur?',
+        options: ['Infundibulum of uterine tube', 'Ampulla of uterine tube', 'Uterine cavity', 'Ovarian surface'],
+        answer: 1,
+        explanation: 'Fertilization normally occurs in the ampulla, the widest and longest portion of the uterine tube.',
+        src: { ref: 'hss.3.2', location: 'p32 Uterine tube' }
+      },
+      {
+        type: 'mcq',
+        prompt: 'The lowest anatomical recess of the peritoneal cavity in the female pelvis is the:',
+        options: ['Vesicouterine pouch', 'Rectouterine pouch (Pouch of Douglas)', 'Ischioanal fossa', 'Retropubic space'],
+        answer: 1,
+        explanation: 'The rectouterine pouch (Pouch of Douglas) is the most dependent part of the female abdominopelvic peritoneal cavity.',
+        src: { ref: 'hss.revans', location: 'Module 3.2 answers' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The layer of the uterine wall consisting of thick, interlacing smooth muscle that contracts during childbirth is the ______.',
+        accept: ['myometrium'],
+        explanation: 'The myometrium forms the massive muscular bulk of the uterine wall.',
+        src: { ref: 'hss.3.2', location: 'p34 Uterus anatomy' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A female patient with a ruptured ectopic pregnancy presents with acute pelvic pain and signs of internal hemorrhage. Into which peritoneal recess will blood primarily accumulate when she is upright or semi-recumbent?',
+        model: 'The rectouterine pouch (Pouch of Douglas). It lies between the rectum and the posterior wall of the uterus, forming the most dependent (lowest) recess of the peritoneal cavity in females where intraperitoneal fluid, blood, or pus gravity-pools.',
+        rubric: ['Identifies rectouterine pouch / Pouch of Douglas', 'Explains location between rectum and posterior uterus', 'Notes it is the most dependent/lowest point of peritoneal cavity']
+      }
+    ],
+    commonMistakes: [
+      'Placing fertilization in the uterine cavity (implantation occurs in the uterus; fertilization occurs in the ampulla).',
+      'Confusing the rectouterine pouch with the vesicouterine pouch.',
+    ],
+    skills: [
+      'Identify free pelvic fluid in the Pouch of Douglas on transvaginal ultrasound or pelvic CT scans.',
+    ],
+    selfCheck: 'From memory: list the 4 parts of the fallopian tube, the 3 layers of the uterine wall, and the two pelvic peritoneal pouches.',
+    sourceRefs: [{ ref: 'hss.3.2', location: 'p30–p40 Female reproductive system' }, { ref: 'hss.revans', location: 'Module 3.2 answers' }],
+  },
+
+  {
+    id: 'hss2011-uro-tutorial-pastpaper-practice',
+    subject: 'HSS2011', unit: 'hss.m3', type: 'cloze',
+    title: 'Urogenital anatomy collaborative tutorial & revision practice',
+    tags: ['pelvis', 'urogenital', 'assessment', 'tutorial', 'high-yield'],
+    lesson: {
+      explanation: 'Official Module 3 revision questions reinforce key urogenital concepts: the kidneys lie retroperitoneally at T12–L3; the renal cortex contains renal corpuscles and proximal/distal convoluted tubules; the renal pyramids in the medulla contain collecting ducts and nephron loops; the detrusor muscle forms the contractile coat of the bladder; the prostate gland surrounds the first part of the male urethra immediately below the bladder neck; the ampulla of the fallopian tube is the normal site of fertilization; the rectouterine pouch (of Douglas) is the lowest peritoneal reflection in females; and the suprarenal gland sits atop each kidney but belongs to the endocrine system.',
+      plain: 'Core urogenital exam review: urine drainage path, detrusor bladder muscle, prostate surrounding the urethra, ampulla as fertilization site, and rectouterine pouch as lowest peritoneal space.',
+      keyFacts: [
+        'Kidneys lie retroperitoneally between T12 and L3.',
+        'Detrusor muscle forms the muscular wall of the bladder.',
+        'Ampulla of fallopian tube is the normal site of fertilization.',
+        'Prostate gland surrounds the male urethra directly below the bladder.',
+      ],
+      prerequisites: ['hss2011-m3-urogenital-pelvis', 'hss2011-uro-kidneys-urinary-tract'],
+      examples: ['Exam past paper question: "Where does fertilization normally take place? Answer: Ampulla of uterine tube."'],
+    },
+    memory: {
+      teachBack: 'Explain why the suprarenal gland is examined with the endocrine system rather than the urinary tract.',
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'Which endocrine organ caps the superior pole of each kidney?',
+        options: ['Pancreas', 'Suprarenal gland', 'Parathyroid gland', 'Thymus'],
+        answer: 1,
+        explanation: 'Model answer B. The suprarenal (adrenal) gland caps the superior pole of each kidney but is endocrine in function.',
+        src: { ref: 'hss.revans', location: 'Module 3.2, MCQ 1' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The normal anatomical site of human fertilization is the ______ of the uterine tube.',
+        accept: ['ampulla'],
+        explanation: 'Model answer: ampulla.',
+        src: { ref: 'hss.revans', location: 'Module 3.2, Fill-in-blanks 2' }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The muscular coat of the urinary bladder is formed by the ______ muscle.',
+        accept: ['detrusor'],
+        explanation: 'Model answer: detrusor muscle.',
+        src: { ref: 'hss.revans', location: 'Module 3.2, Fill-in-blanks 4' }
+      },
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A patient has a calculus lodged at the junction between the renal pelvis and the ureter. What is the clinical anatomical term for this junction?',
+        model: 'The ureteropelvic junction (UPJ). It is the first of three normal physiological constrictions of the ureter (the other two being the crossing of the external iliac vessels at the pelvic brim, and the ureterovesical junction / UVJ entering the bladder wall).',
+        rubric: ['Identifies ureteropelvic junction / UPJ', 'Explains transition from funnel-shaped pelvis to ureter', 'Notes it is a common site of stone impaction']
+      }
+    ],
+    commonMistakes: [
+      'Confusing the ureteropelvic junction (UPJ) at the kidney with the ureterovesical junction (UVJ) at the bladder.',
+    ],
+    skills: [
+      'Identify the three physiological constrictions of the ureters on intravenous urogram (IVU) and CT KUB.',
+    ],
+    selfCheck: 'From memory: answer the 3 revision questions on suprarenal gland, fertilization site, and detrusor muscle.',
+    sourceRefs: [{ ref: 'hss.revans', location: 'Module 3.2 answers' }, { ref: 'hss.manual1920', location: 'Module 3.2 Revision exercise' }],
+  }
 ];

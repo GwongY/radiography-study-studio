@@ -870,6 +870,80 @@ export const Y1S1_SOURCE_MAP = {
         "citation has no verifiable page or quoted section/slide"
       ]
     },
+    "hss2011-cns-spinal-cord-meninges": {
+      "id": "hss2011-cns-spinal-cord-meninges",
+      "subject": "HSS2011",
+      "week": 5,
+      "title": "Spinal cord, meninges and spinal nerves",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.2.2",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-cns-brainstem-reticular": {
+      "id": "hss2011-cns-brainstem-reticular",
+      "subject": "HSS2011",
+      "week": 5,
+      "title": "Brainstem — medulla, pons, midbrain and reticular formation",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.2.3",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-cns-cerebrum-cortex-basal": {
+      "id": "hss2011-cns-cerebrum-cortex-basal",
+      "subject": "HSS2011",
+      "week": 5,
+      "title": "Cerebrum, functional cortical areas and basal nuclei",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.2.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
+    "hss2011-cns-ventricles-csf-blood": {
+      "id": "hss2011-cns-ventricles-csf-blood",
+      "subject": "HSS2011",
+      "week": 5,
+      "title": "Ventricular system, CSF circulation and cerebral arterial circle",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.2.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
     "hss2011-m2-brain-regions": {
       "id": "hss2011-m2-brain-regions",
       "subject": "HSS2011",
@@ -884,6 +958,28 @@ export const Y1S1_SOURCE_MAP = {
         },
         {
           "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
+    "hss2011-neuro-cranial-nerves-distribution": {
+      "id": "hss2011-neuro-cranial-nerves-distribution",
+      "subject": "HSS2011",
+      "week": 6,
+      "title": "Cranial nerves CN I–XII — functional modalities and targets",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.2.3",
           "set": "old",
           "role": "older-fallback"
         },
@@ -1053,6 +1149,70 @@ export const Y1S1_SOURCE_MAP = {
         "citation has no verifiable page or quoted section/slide"
       ]
     },
+    "hss2011-cvs-internal-chambers-valves": {
+      "id": "hss2011-cvs-internal-chambers-valves",
+      "subject": "HSS2011",
+      "week": 8,
+      "title": "Heart chambers internal anatomy, fibrous skeleton and valve mechanics",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.1.1",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
+    "hss2011-cvs-coronary-circulation-conduction": {
+      "id": "hss2011-cvs-coronary-circulation-conduction",
+      "subject": "HSS2011",
+      "week": 8,
+      "title": "Coronary circulation and cardiac conduction system pathways",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.1.1",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.1.2",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-cvs-tutorial-pastpaper-practice": {
+      "id": "hss2011-cvs-tutorial-pastpaper-practice",
+      "subject": "HSS2011",
+      "week": 8,
+      "title": "Cardiovascular anatomy tutorial & past paper practice",
+      "status": "needs-review",
+      "sources": [
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
     "hss2011-structures-heartChambers": {
       "id": "hss2011-structures-heartChambers",
       "subject": "HSS2011",
@@ -1134,6 +1294,68 @@ export const Y1S1_SOURCE_MAP = {
         "citation has no verifiable page or quoted section/slide"
       ]
     },
+    "hss2011-resp-upper-tract-larynx": {
+      "id": "hss2011-resp-upper-tract-larynx",
+      "subject": "HSS2011",
+      "week": 9,
+      "title": "Upper respiratory tract, paranasal sinuses and larynx",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.resp",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.1.2",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-resp-pleura-lungs-gross": {
+      "id": "hss2011-resp-pleura-lungs-gross",
+      "subject": "HSS2011",
+      "week": 9,
+      "title": "Pleural cavities, gross pulmonary lobes, surfaces and hilum",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.resp",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.1.1",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-resp-tutorial-pastpaper-practice": {
+      "id": "hss2011-resp-tutorial-pastpaper-practice",
+      "subject": "HSS2011",
+      "week": 9,
+      "title": "Respiratory anatomy tutorial & past paper practice",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.1.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
     "hss2011-structures-airwayTree": {
       "id": "hss2011-structures-airwayTree",
       "subject": "HSS2011",
@@ -1198,6 +1420,48 @@ export const Y1S1_SOURCE_MAP = {
       ],
       "reasons": []
     },
+    "hss2011-thorax-intercostal-diaphragm": {
+      "id": "hss2011-thorax-intercostal-diaphragm",
+      "subject": "HSS2011",
+      "week": 10,
+      "title": "Intercostal spaces, neurovascular bundle and the thoracic diaphragm",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.1.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.thorax.deck",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-thorax-tutorial-pastpaper-practice": {
+      "id": "hss2011-thorax-tutorial-pastpaper-practice",
+      "subject": "HSS2011",
+      "week": 10,
+      "title": "Thorax regional anatomy tutorial & past paper practice",
+      "status": "needs-review",
+      "sources": [
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
     "hss2011-m3-digestive": {
       "id": "hss2011-m3-digestive",
       "subject": "HSS2011",
@@ -1222,6 +1486,114 @@ export const Y1S1_SOURCE_MAP = {
         },
         {
           "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
+    "hss2011-digestive-tract-upper": {
+      "id": "hss2011-digestive-tract-upper",
+      "subject": "HSS2011",
+      "week": 11,
+      "title": "Upper gastrointestinal tract — oral cavity, oesophagus and stomach",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.3.1",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
+    "hss2011-digestive-tract-small-large-bowel": {
+      "id": "hss2011-digestive-tract-small-large-bowel",
+      "subject": "HSS2011",
+      "week": 11,
+      "title": "Lower gastrointestinal tract — small and large intestine architecture",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.3.1",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
+    "hss2011-digestive-accessory-liver-pancreas": {
+      "id": "hss2011-digestive-accessory-liver-pancreas",
+      "subject": "HSS2011",
+      "week": 11,
+      "title": "Accessory digestive organs — liver, biliary tree and pancreas",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.3.1",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
+    "hss2011-digestive-peritoneum-portal-circulation": {
+      "id": "hss2011-digestive-peritoneum-portal-circulation",
+      "subject": "HSS2011",
+      "week": 11,
+      "title": "Peritoneal reflections, mesenteries and the hepatic portal system",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.3.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.3.3.2019",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-digestive-tutorial-pastpaper-practice": {
+      "id": "hss2011-digestive-tutorial-pastpaper-practice",
+      "subject": "HSS2011",
+      "week": 11,
+      "title": "Digestive anatomy collaborative tutorial & revision practice",
+      "status": "needs-review",
+      "sources": [
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        },
+        {
+          "ref": "hss.manual1920",
           "set": "old",
           "role": "needs-review"
         }
@@ -1276,6 +1648,94 @@ export const Y1S1_SOURCE_MAP = {
         },
         {
           "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
+    "hss2011-uro-kidneys-urinary-tract": {
+      "id": "hss2011-uro-kidneys-urinary-tract",
+      "subject": "HSS2011",
+      "week": 12,
+      "title": "Kidney gross architecture, nephron collecting system and urinary tract",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.3.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
+    "hss2011-uro-male-reproductive-anatomy": {
+      "id": "hss2011-uro-male-reproductive-anatomy",
+      "subject": "HSS2011",
+      "week": 12,
+      "title": "Male reproductive tract, accessory glands and spermatic cord",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.3.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
+    "hss2011-uro-female-reproductive-pelvis": {
+      "id": "hss2011-uro-female-reproductive-pelvis",
+      "subject": "HSS2011",
+      "week": 12,
+      "title": "Female reproductive tract, uterine anatomy and pelvic peritoneal pouches",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.3.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "citation has no verifiable page or quoted section/slide"
+      ]
+    },
+    "hss2011-uro-tutorial-pastpaper-practice": {
+      "id": "hss2011-uro-tutorial-pastpaper-practice",
+      "subject": "HSS2011",
+      "week": 12,
+      "title": "Urogenital anatomy collaborative tutorial & revision practice",
+      "status": "needs-review",
+      "sources": [
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "needs-review"
+        },
+        {
+          "ref": "hss.manual1920",
           "set": "old",
           "role": "needs-review"
         }
@@ -2675,10 +3135,15 @@ export const Y1S1_SOURCE_MAP = {
         "hss2011-structures-vertebralRegions"
       ],
       "5": [
-        "hss2011-m2-cns-basics"
+        "hss2011-m2-cns-basics",
+        "hss2011-cns-spinal-cord-meninges",
+        "hss2011-cns-brainstem-reticular",
+        "hss2011-cns-cerebrum-cortex-basal",
+        "hss2011-cns-ventricles-csf-blood"
       ],
       "6": [
         "hss2011-m2-brain-regions",
+        "hss2011-neuro-cranial-nerves-distribution",
         "hss2011-structures-brainAndCsf",
         "hss2011-structures-cranialNerves"
       ],
@@ -2690,23 +3155,40 @@ export const Y1S1_SOURCE_MAP = {
       ],
       "8": [
         "hss2011-m1-heart-wall-valves",
+        "hss2011-cvs-internal-chambers-valves",
+        "hss2011-cvs-coronary-circulation-conduction",
+        "hss2011-cvs-tutorial-pastpaper-practice",
         "hss2011-structures-heartChambers",
         "hss2011-structures-greatVessels"
       ],
       "9": [
         "hss2011-m1-lungs-airway",
+        "hss2011-resp-upper-tract-larynx",
+        "hss2011-resp-pleura-lungs-gross",
+        "hss2011-resp-tutorial-pastpaper-practice",
         "hss2011-structures-airwayTree"
       ],
       "10": [
         "hss2011-osteo-ribs-sternum",
-        "hss2011-thorax-regional-landmarks"
+        "hss2011-thorax-regional-landmarks",
+        "hss2011-thorax-intercostal-diaphragm",
+        "hss2011-thorax-tutorial-pastpaper-practice"
       ],
       "11": [
         "hss2011-m3-digestive",
+        "hss2011-digestive-tract-upper",
+        "hss2011-digestive-tract-small-large-bowel",
+        "hss2011-digestive-accessory-liver-pancreas",
+        "hss2011-digestive-peritoneum-portal-circulation",
+        "hss2011-digestive-tutorial-pastpaper-practice",
         "hss2011-structures-digestiveTract"
       ],
       "12": [
         "hss2011-m3-urogenital-pelvis",
+        "hss2011-uro-kidneys-urinary-tract",
+        "hss2011-uro-male-reproductive-anatomy",
+        "hss2011-uro-female-reproductive-pelvis",
+        "hss2011-uro-tutorial-pastpaper-practice",
         "hss2011-structures-urinaryTract"
       ]
     },
@@ -3014,6 +3496,16 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
+        "lessonId": "hss2011-cvs-internal-chambers-valves",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-cvs-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
         "lessonId": "hss2011-m1-lungs-airway",
         "set": "old",
         "role": "older-fallback"
@@ -3024,9 +3516,29 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
+        "lessonId": "hss2011-thorax-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
         "lessonId": "hss2011-m3-digestive",
         "set": "old",
         "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-digestive-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-uro-male-reproductive-anatomy",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-uro-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "needs-review"
       }
     ],
     "hss.wordparts": [
@@ -3175,7 +3687,22 @@ export const Y1S1_SOURCE_MAP = {
         "role": "needs-review"
       },
       {
+        "lessonId": "hss2011-cns-cerebrum-cortex-basal",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-cns-ventricles-csf-blood",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
         "lessonId": "hss2011-m2-brain-regions",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-neuro-cranial-nerves-distribution",
         "set": "old",
         "role": "needs-review"
       },
@@ -3195,6 +3722,11 @@ export const Y1S1_SOURCE_MAP = {
         "role": "needs-review"
       },
       {
+        "lessonId": "hss2011-cvs-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
         "lessonId": "hss2011-structures-greatVessels",
         "set": "old",
         "role": "needs-review"
@@ -3205,7 +3737,17 @@ export const Y1S1_SOURCE_MAP = {
         "role": "needs-review"
       },
       {
+        "lessonId": "hss2011-resp-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
         "lessonId": "hss2011-osteo-ribs-sternum",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-thorax-tutorial-pastpaper-practice",
         "set": "old",
         "role": "needs-review"
       },
@@ -3215,7 +3757,42 @@ export const Y1S1_SOURCE_MAP = {
         "role": "needs-review"
       },
       {
+        "lessonId": "hss2011-digestive-tract-upper",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-digestive-tract-small-large-bowel",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-digestive-accessory-liver-pancreas",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-digestive-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
         "lessonId": "hss2011-m3-urogenital-pelvis",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-uro-kidneys-urinary-tract",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-uro-female-reproductive-pelvis",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-uro-tutorial-pastpaper-practice",
         "set": "old",
         "role": "needs-review"
       },
@@ -3426,6 +4003,11 @@ export const Y1S1_SOURCE_MAP = {
         "role": "needs-review"
       },
       {
+        "lessonId": "hss2011-cns-spinal-cord-meninges",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "hss2011-m2-ear-hearing",
         "set": "old",
         "role": "older-fallback"
@@ -3438,7 +4020,27 @@ export const Y1S1_SOURCE_MAP = {
     ],
     "hss.2.3": [
       {
+        "lessonId": "hss2011-cns-brainstem-reticular",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-cns-cerebrum-cortex-basal",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-cns-ventricles-csf-blood",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "hss2011-m2-brain-regions",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-neuro-cranial-nerves-distribution",
         "set": "old",
         "role": "older-fallback"
       },
@@ -3524,12 +4126,27 @@ export const Y1S1_SOURCE_MAP = {
         "role": "needs-review"
       },
       {
+        "lessonId": "hss2011-cvs-coronary-circulation-conduction",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "hss2011-structures-heartChambers",
         "set": "old",
         "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m1-lungs-airway",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-resp-upper-tract-larynx",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-resp-tutorial-pastpaper-practice",
         "set": "old",
         "role": "older-fallback"
       },
@@ -3546,9 +4163,24 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
+        "lessonId": "hss2011-cvs-internal-chambers-valves",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-cvs-coronary-circulation-conduction",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "hss2011-m1-lungs-airway",
         "set": "old",
         "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-resp-pleura-lungs-gross",
+        "set": "old",
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-structures-airwayTree",
@@ -3603,6 +4235,16 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "hss2011-m1-lungs-airway",
         "set": "old",
         "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-resp-upper-tract-larynx",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-resp-pleura-lungs-gross",
+        "set": "old",
+        "role": "older-fallback"
       }
     ],
     "hss.1.3": [
@@ -3610,6 +4252,11 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "hss2011-osteo-ribs-sternum",
         "set": "old",
         "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-thorax-intercostal-diaphragm",
+        "set": "old",
+        "role": "older-fallback"
       }
     ],
     "hss.thorax.deck": [
@@ -3617,11 +4264,31 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "hss2011-thorax-regional-landmarks",
         "set": "old",
         "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-thorax-intercostal-diaphragm",
+        "set": "old",
+        "role": "older-fallback"
       }
     ],
     "hss.3.1": [
       {
         "lessonId": "hss2011-m3-digestive",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-digestive-tract-upper",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-digestive-tract-small-large-bowel",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-digestive-accessory-liver-pancreas",
         "set": "old",
         "role": "older-fallback"
       },
@@ -3634,6 +4301,30 @@ export const Y1S1_SOURCE_MAP = {
     "hss.3.1.2019": [
       {
         "lessonId": "hss2011-m3-digestive",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
+    "hss.3.3": [
+      {
+        "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m3-urogenital-pelvis",
+        "set": "old",
+        "role": "needs-review"
+      }
+    ],
+    "hss.3.3.2019": [
+      {
+        "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m3-urogenital-pelvis",
         "set": "old",
         "role": "older-fallback"
       }
@@ -3677,26 +4368,27 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
+        "lessonId": "hss2011-uro-kidneys-urinary-tract",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-uro-male-reproductive-anatomy",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-uro-female-reproductive-pelvis",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "hss2011-structures-urinaryTract",
         "set": "old",
         "role": "needs-review"
       },
       {
         "lessonId": "abct2326-renal-nephron",
-        "set": "old",
-        "role": "older-fallback"
-      }
-    ],
-    "hss.3.3": [
-      {
-        "lessonId": "hss2011-m3-urogenital-pelvis",
-        "set": "old",
-        "role": "needs-review"
-      }
-    ],
-    "hss.3.3.2019": [
-      {
-        "lessonId": "hss2011-m3-urogenital-pelvis",
         "set": "old",
         "role": "older-fallback"
       }

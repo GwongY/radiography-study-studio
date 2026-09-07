@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  3c28e393a2ee0905    920472  ITEM_BY_ID  Map[139]
+  4c1453d2012d071c   1035003  ITEM_BY_ID  Map[161]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -24,15 +24,15 @@
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   75ed97c2f90528d7     20915  STRUCTURE_SETS  object[13]
-  f2c81dee4e565b0b    916014  STUDY_ITEMS  array[139]
+  a11cb867a81ac823   1029661  STUDY_ITEMS  array[161]
   f1627657582790e7      1185  STUDY_MODES  array[9]
   834fbc89b7e6fccf      4005  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
-  0a2fdbdd3a7e9ebd     67898  Y1S1_SOURCE_MAP  object[4]
+  35ea68ce33a7ac78     80804  Y1S1_SOURCE_MAP  object[4]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  575ff95c5c529dab    989311  default  object[7]
+  d1aab1cb061525e5   1102958  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -64,9 +64,9 @@
   bb157d6583e754f9      2211  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  6a68c12b0c02c5bb  WHOLE SURFACE
+  9bf2ea37ec37b69d  WHOLE SURFACE
 
-— every study item, by id — 139 items —
+— every study item, by id — 161 items —
   2d29339c231f634a  abct2326-acquired-immunity
   0f85a14f65a3eba6  abct2326-blood-composition
   23f628153e36648d  abct2326-cell-division
@@ -134,6 +134,18 @@
   94c44953883328d2  dsai1202-ai-everyday-autonomy
   0ebcaf129ca95338  dsai1202-ai-in-healthcare
   045448165150e1e6  dsai1202-ai-literacy
+  6912befdf6c48b3c  hss2011-cns-brainstem-reticular
+  c0e82178cd51fb42  hss2011-cns-cerebrum-cortex-basal
+  30c0b6aebec12666  hss2011-cns-spinal-cord-meninges
+  5badb3221714e4db  hss2011-cns-ventricles-csf-blood
+  dceb4a1ff00419ec  hss2011-cvs-coronary-circulation-conduction
+  d4117f8f54acb4fa  hss2011-cvs-internal-chambers-valves
+  c64dcb249ec04405  hss2011-cvs-tutorial-pastpaper-practice
+  ddf466533f9fce92  hss2011-digestive-accessory-liver-pancreas
+  d2f660b5cd46b044  hss2011-digestive-peritoneum-portal-circulation
+  a2e7687c289b6d61  hss2011-digestive-tract-small-large-bowel
+  8bb58b7a9eb0e0d2  hss2011-digestive-tract-upper
+  8fa1c2f0962a7f1f  hss2011-digestive-tutorial-pastpaper-practice
   115c636ed053d158  hss2011-joints-classification
   cc9e86e00b17d652  hss2011-joints-movement-map-2026
   b2556c990ac8f36c  hss2011-joints-movements
@@ -158,6 +170,7 @@
   0993bc57c57103c1  hss2011-msk-periosteum
   8593b57a8e922c2d  hss2011-msk-tendon-attachment
   ca423056428230fc  hss2011-msk-tissues-of-movement
+  aff52c198e078012  hss2011-neuro-cranial-nerves-distribution
   f70cd63a09a081a9  hss2011-osteo-axial-appendicular
   2665925c63208f89  hss2011-osteo-bone-functions
   9f8ba7a6757158d1  hss2011-osteo-bone-shapes
@@ -172,6 +185,9 @@
   5b35f59f61e6195c  hss2011-osteo-vertebra-parts
   3643386d0091242c  hss2011-osteo-vertebral-column
   1c5051427751bae0  hss2011-pastpaper-joints-articulations
+  f15c1a0c350d6dbe  hss2011-resp-pleura-lungs-gross
+  7546b059f089391e  hss2011-resp-tutorial-pastpaper-practice
+  bea60ecb0343ae38  hss2011-resp-upper-tract-larynx
   9fa9a3f579a05a4f  hss2011-structures-airwayTree
   785abd81a2c84773  hss2011-structures-brainAndCsf
   55b17ae2266d6609  hss2011-structures-carpals
@@ -191,7 +207,13 @@
   10a8bac00752e4a0  hss2011-terminology-planes
   1b051a2a537a6a3c  hss2011-terminology-regional-systemic
   12d88e0afb2058da  hss2011-terminology-word-parts
+  a31b27f0239e56ec  hss2011-thorax-intercostal-diaphragm
   7595c1f73ba6a2ef  hss2011-thorax-regional-landmarks
+  73982d275192372d  hss2011-thorax-tutorial-pastpaper-practice
+  62093197e10a7918  hss2011-uro-female-reproductive-pelvis
+  a132b6ac13e01c3d  hss2011-uro-kidneys-urinary-tract
+  1abdb971c8ddc90d  hss2011-uro-male-reproductive-anatomy
+  602015504ee073b1  hss2011-uro-tutorial-pastpaper-practice
   83635a110b79a7ae  hti17103-arc-radiation-therapy-vmat-tomo
   d0539671d9c72f4c  hti17103-department-and-request
   1728e0ebc86e653f  hti17103-ionizing-vs-nonionizing
