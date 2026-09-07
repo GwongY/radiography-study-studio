@@ -593,6 +593,27 @@ do the same job, the control is the one that can be found, undone and explained.
 
 ### The projection's film — `outputs/studio/live-physiology.js`, `outputs/studio/region-boxes-how.js`
 
+- **Open mesh faces must not contribute the source distance.** Integrating raw
+  camera depth produced black/white spots at uncapped bronchi. Subtract the
+  mesh-centre depth and correct for ray angle. The subtracted term cancels on a
+  closed shell; on an open shell it bounds the error to the structure, rather
+  than the source distance. Per-mesh `onBeforeRender` updates the shared shader's
+  centre with `uniformsNeedUpdate`; restore the original hook on exit.
+- **The Heart chip is inside the circulatory GLB.** Loading only skeleton,
+  muscles and organs omits the heart. Load the circulatory file too, but include
+  only its Heart system in the projection.
+- **A pending projection can outlive its tab.** Check a request generation after
+  every await before moving the shared stage. Navigation away also invalidates
+  it. Deduplicate concurrent loads by GLB key to avoid orphaned duplicate pivots.
+- **Display pan and zoom do not change SID.** PA mirrors the film horizontally;
+  undo display pan and that mirror before raycasting. Naming a projected mesh
+  must not peel it or replace its attenuation material with a highlight.
+- **The floating-point target needs blending support.** Prefer 32-bit when
+  `EXT_float_blend` exists, use 16-bit otherwise, and reject unsupported render
+  targets with a visible message. Nearest sampling avoids a float-linear extension
+  dependency. Both target types use RGBA. The half-float fallback was exercised
+  in Chrome; that is not physical-iPad verification.
+
 - **The offscreen target must be sized in DEVICE pixels.** `renderer.getSize()`
   returns CSS pixels; the canvas the post pass blits onto is `pixelRatio` times
   that (capped at 1.7 in `boot3D`). Sizing the target from `getSize` rendered

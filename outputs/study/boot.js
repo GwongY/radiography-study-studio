@@ -19,28 +19,24 @@ import { scrollViewTop } from './small-ui-helpers.js';
 /* The viewer keeps four primary controls on the canvas; everything the old
    studio showed at once now sits behind this one toggle. */
 $$('viewerMoreBtn').onclick = () => {
-  const sheet = $$('viewerSheet');
-  const open = sheet.classList.toggle('hidden') === false;
+  const panel = $$('viewerToolsPanel');
+  const open = !panel.classList.toggle('tools-collapsed');
+  $$('toolsPanelToggle').setAttribute('aria-expanded', String(open));
   $$('viewerMoreBtn').classList.toggle('active', open);
-  $$('viewerMoreBtn').setAttribute('aria-expanded', open ? 'true' : 'false');
-  /* Opening the model controls must not shrink the model: the pane becomes a
-     scroller and the sheet sits below a full-height stage. */
-  $$('viewerSkeletonPane').classList.toggle('sheet-open', open);
-  if (open) {
-    renderOverlayCard();
-    /* The sheet is the only place the tools are shown, and the engine can have
-       moved underneath it — a region preset, a cut, a pin — so it is redrawn
-       from engine state on open rather than trusted to be current. */
-    renderViewerTools();
-    /* Show that there IS something below, without hiding the model to do it. */
-    /* Smooth only if the reader has not asked for stillness — this is a real
-       animation and prefers-reduced-motion covers scrolling too. */
-    const still = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-    requestAnimationFrame(() => sheet.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'nearest' }));
-  } else {
-    $$('viewerSkeletonPane').scrollTop = 0;
-  }
+  $$('viewerMoreBtn').setAttribute('aria-expanded', String(open));
+  if (open) { renderOverlayCard(); renderViewerTools(); }
 };
+$$('toolsPanelToggle').onclick = () => $$('viewerMoreBtn').click();
+$$('layerRailToggle').onclick = () => {
+  const open = getComputedStyle($$('layerRail')).display === 'none';
+  $$('stageHome').classList.toggle('layers-open', open);
+  $$('stageHome').classList.toggle('layers-closed', !open);
+  $$('layerRailToggle').setAttribute('aria-expanded', String(open));
+};
+$$('layerRailToggle').setAttribute('aria-expanded', String(!matchMedia('(max-width:1023px)').matches));
+matchMedia('(max-width:1023px)').addEventListener('change', () => {
+  $$('layerRailToggle').setAttribute('aria-expanded', String(getComputedStyle($$('layerRail')).display !== 'none'));
+});
 
 /* Runs after every part has evaluated — see the entry point. */
 /*

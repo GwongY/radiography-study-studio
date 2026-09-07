@@ -11,6 +11,7 @@ import { releaseLessonVisual } from './lesson-visuals.js';
 import { renderLearn, topicsWithContent } from './subject.js';
 import { setStep } from './session-engine.js';
 import { showView } from './small-ui-helpers.js';
+import { getItemStep } from './home.js';
 
 /* ------------------------------------------------------------------ *
  * Global search -- one sheet over every destination, mixing structures,
@@ -83,13 +84,15 @@ export function studyItemWithin(topic, itemId) {
   const at = ordered.findIndex((i) => i.id === itemId);
   if (at < 0) return;
   const items = [ordered[at], ...ordered.slice(0, at), ...ordered.slice(at + 1)];
+  const savedStep = getItemStep(items[0].id);
+  const step = savedStep || entryStep(items[0], itemAttempted(items[0].id));
   ui.session = {
-    opts: { mode: 'subject', subject: topic.subject.id, unit: topic.unit.id }, mode: null, items, index: 0,
-    step: 'learn', qIndex: 0, answered: false, startedAt: 0,
-    results: [], hooksOnly: false, modeLabel: topic.unit.label,
+    opts: { mode: 'subject', subject: topic.subject?.id || topic.id, unit: topic.unit?.id || topic.id }, mode: null, items, index: 0,
+    step, qIndex: 0, answered: false, startedAt: 0,
+    results: [], hooksOnly: false, modeLabel: topic.unit?.label || topic.title,
   };
   openSessionOverlay();
-  setStep(entryStep(items[0], itemAttempted(items[0].id)));
+  setStep(step);
 }
 
 /*

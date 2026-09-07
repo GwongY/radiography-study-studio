@@ -131,7 +131,9 @@ else fail('density is not monotonic in tau');
 console.log('- filmDensity falls back to the default window -');
 near(R.filmDensity(4.75), R.filmDensity(4.75, R.DEFAULT_WINDOW), 1e-12,
   'an omitted window is the default window');
-near(R.filmDensity(4.75), 0.5, 1e-12, 'and the default window is 0.5 to 9.0');
+near(R.filmDensity(1), 0, 1e-12, 'the default window starts at 1');
+near(R.filmDensity(10.5), 0.5, 1e-12, 'the default window midpoint is 10.5');
+near(R.filmDensity(20), 1, 1e-12, 'the default window ends at 20');
 
 console.log('- windowFor sizes itself around the median -');
 const wBig = R.windowFor(10);

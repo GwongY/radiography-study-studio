@@ -45,6 +45,7 @@ import { applySeparation } from './tools-and-capture.js';
      Hiding whole layers would take the context away with the obstruction. */
   function peelTo(obj){
     restorePeel();
+    if(state.xray)return 0;
     const at=state.pickStack.indexOf(obj);
     if(at<=0)return 0;
     state.pickStack.slice(0,at).forEach(m=>{
@@ -82,6 +83,12 @@ import { applySeparation } from './tools-and-capture.js';
     const rect=state.renderer.domElement.getBoundingClientRect();
     state.pointer.x=((event.clientX-rect.left)/rect.width)*2-1;
     state.pointer.y=-((event.clientY-rect.top)/rect.height)*2+1;
+    if(state.xray){
+      const pan=state.xray.postMat.uniforms.uPan.value;
+      state.pointer.x-=pan.x*2;state.pointer.y-=pan.y*2;
+      if(Math.abs(state.pointer.x)>1||Math.abs(state.pointer.y)>1)return;
+      if(state.xray.view==='pa')state.pointer.x*=-1;
+    }
     state.raycaster.setFromCamera(state.pointer,state.camera);
     const hotspotTargets=state.mode==='landmarks'?state.hotspots:[];
     const layerTargets=Object.entries(state.extraModels||{}).filter(([k])=>layerOn(k)).flatMap(([,m])=>m.meshes);
@@ -122,6 +129,11 @@ import { applySeparation } from './tools-and-capture.js';
       state.lastPick.index=at;
       const chosen=state.pickStack[at];
       state.pickCurrent=chosen;
+      if(state.xray){
+        const label=getRecord(chosen.userData.canonicalId)?.canonicalName||chosen.userData.label||chosen.name;
+        const out=$('xraySelection');if(out)out.textContent=label;
+        return;
+      }
       peelTo(chosen);
       confirmPick(chosen,event);
       publishStack();
@@ -130,6 +142,7 @@ import { applySeparation } from './tools-and-capture.js';
 
     /* Nothing named under the pointer: fall back to the coarse click zones and
        then to the nearest thing on screen, as before. */
+    if(state.xray){const out=$('xraySelection');if(out)out.textContent='No named structure here.';return;}
     restorePeel();state.pickStack=[];state.pickCurrent=null;publishStack();
     const zones=state.raycaster.intersectObjects(state.fullPickables,false).filter(h=>isSelfOrAncestorVisible(h.object));
     if(zones[0]){confirmPick(zones[0].object,event);return}
@@ -154,7 +167,31 @@ import { applySeparation } from './tools-and-capture.js';
    * and selects or hides any of them by NAME. Both are explicit, and neither
    * can happen by accident.
    */
-  let pointerDown=null;function bindCanvas(){els.stage.addEventListener('pointerdown',(e)=>{pointerDown={x:e.clientX,y:e.clientY}});els.stage.addEventListener('pointerup',(e)=>{/* An armed tool owns the stage: a tap that pins a label must not also re-select and peel. See studio/tools-and-capture.js. */if(state.tool){pointerDown=null;return}if(pointerDown&&Math.hypot(e.clientX-pointerDown.x,e.clientY-pointerDown.y)<7)pick(e);pointerDown=null})}
+  let pointerDown=null;
+  function bindCanvas(){
+    els.stage.addEventListener('pointerdown',(e)=>{
+      if(!e.isPrimary){pointerDown=null;return;}
+      pointerDown={id:e.pointerId,x:e.clientX,y:e.clientY,moved:false,
+        pan:state.xray?.postMat.uniforms.uPan.value.clone()};
+    });
+    els.stage.addEventListener('pointermove',(e)=>{
+      if(!pointerDown||e.pointerId!==pointerDown.id)return;
+      const dx=e.clientX-pointerDown.x,dy=e.clientY-pointerDown.y;
+      if(Math.hypot(dx,dy)>=7)pointerDown.moved=true;
+      if(!state.xray||!pointerDown.pan||!pointerDown.moved)return;
+      const rect=els.stage.getBoundingClientRect();
+      state.xray.postMat.uniforms.uPan.value.set(
+        Math.max(-.9,Math.min(.9,pointerDown.pan.x+dx/rect.width)),
+        Math.max(-.9,Math.min(.9,pointerDown.pan.y-dy/rect.height)));
+    });
+    els.stage.addEventListener('pointerup',(e)=>{
+      if(!state.tool&&pointerDown&&e.pointerId===pointerDown.id&&!pointerDown.moved
+        &&Math.hypot(e.clientX-pointerDown.x,e.clientY-pointerDown.y)<7)pick(e);
+      pointerDown=null;
+    });
+    els.stage.addEventListener('pointercancel',()=>{pointerDown=null});
+    els.stage.addEventListener('pointerleave',()=>{pointerDown=null});
+  }
   /*
    * The studio's own "Anatomy search" card is gone.
    *
@@ -190,7 +227,15 @@ $('reviewBtn').onclick=()=>{
  * captures and are not spatially registered to each other, so overlaying them
  * would place organs in the wrong place relative to bone.
  */
+const pendingLayers=new Map();
 export async function loadExtraModel(key,file){
+  if(state.extraModels[key])return state.extraModels[key];
+  if(pendingLayers.has(key))return pendingLayers.get(key);
+  const pending=loadExtraModelUncached(key,file);
+  pendingLayers.set(key,pending);
+  try{return await pending}finally{pendingLayers.delete(key)}
+}
+async function loadExtraModelUncached(key,file){
   if(state.extraModels[key])return state.extraModels[key];
   if(!state.scene)throw new Error('3D scene not ready');
   const [THREE,{GLTFLoader}]=await Promise.all([

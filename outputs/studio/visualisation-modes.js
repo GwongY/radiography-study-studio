@@ -4,7 +4,7 @@
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $, ANATOMY_DATABASE, BODY_CONCEPTS, CM_PER_UNIT, FLOW_CLASSES, LANDMARK_HOTSPOTS, LAYER_NAMES, MESH_INDEX, REGIONS, conceptById, els, getAnatomy, layerOf, mu, state } from './imports.js';
-import { XRAY_LAYERS, XRAY_LAYER_FILES, applyLayers, clearStudyFocus, endMovement, enterXray, exitXray, focusStructures, highlightExtra, setExtraVisible, setLayer, setMovementAngle, setPhysiology, setXrayAec, setXrayKvp, setXrayMas, setXrayRegion, setXrayView, startMovement, xrayDepthMaterial } from './live-physiology.js';
+import { XRAY_LAYERS, XRAY_LAYER_FILES, applyLayers, clearStudyFocus, endMovement, enterXray, exitXray, focusStructures, highlightExtra, setExtraVisible, setLayer, setMovementAngle, setPhysiology, setXrayAec, setXrayKvp, setXrayMas, setXrayRegion, setXrayView, setXrayWindow, setXrayZoom, startMovement, xrayDepthMaterial } from './live-physiology.js';
 import { addHotspots, applyVisibility, between, boot3D, getRecord, remapHotspotsToReal, resize, showHotspots } from './region-boxes-how.js';
 import { bodyMetrics, ensureConceptGroup, showPickCallout } from './spatial-concept-overlays.js';
 import { buildCavity, buildCellGrid, buildPlane, cavityContext, cavityStyle, layerSignature } from './cavity-geometry-derived.js';
@@ -280,7 +280,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   movementState:()=>state.movement?{id:state.movement.mv.id,angle:state.movement.angle,moving:state.movement.restore.length}:null,
   focusStructures:(spec)=>focusStructures(spec),
   /*
-   * The beam's three layers, RESIDENT, before the projection is entered.
+   * The beam's tissue layers, RESIDENT, before the projection is entered.
    *
    * enterXray turns the chips on, and turning a chip on does not fetch a GLB:
    * the muscle and organ files are lazy-loaded, and enterXray is synchronous.
@@ -311,6 +311,9 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   xrayKvp:(v)=>setXrayKvp(v),
   xrayMas:(v)=>setXrayMas(v),
   xrayAec:(v)=>setXrayAec(v),
+  xrayWindow:(w,l)=>setXrayWindow(w,l),
+  xrayZoom:(v)=>setXrayZoom(v),
+  layerOpacity:()=>({...state.layerOpacity}),
   inXray:()=>!!state.xray,
   setPickHook:(fn)=>{state.pickHook=fn||null},
   /* The panel subscribes; the viewer publishes the whole line of structures
@@ -554,7 +557,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
     if(mode==='explore'){
       els.taskKicker.textContent='Explore';
       els.taskTitle.textContent='Select a structure';
-      els.taskCopy.textContent='Tap any named structure. Tap the same spot again to step through whatever is behind it.';
+      els.taskCopy.textContent='Tap any named structure. Choose a deeper structure from the selection list.';
       els.answers.innerHTML='';
       els.next.classList.remove('show');
       if(state.selectedId)renderSelected(getRecord(state.selectedId),state.selectedSide);

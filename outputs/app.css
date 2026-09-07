@@ -566,13 +566,6 @@
 .navcontent.bleed #viewerSkeletonPane:not(.hidden),
 .navcontent.bleed #viewerXrayPane:not(.hidden){flex:1;min-height:0;display:flex;flex-direction:column}
 .navcontent.bleed .stagewrap{flex:1;min-height:220px;height:auto}
-/*
- * The "⋯" sheet opens BELOW the viewer and the pane scrolls to it. It does not
- * take a slice off the stage: opening the model controls should not shrink the
- * model. So while the sheet is open the pane stops being a fixed flex column
-.navcontent.bleed #viewerSkeletonPane.sheet-open:not(.hidden){display:block;overflow:auto;overscroll-behavior:contain}
-.navcontent.bleed #viewerSkeletonPane.sheet-open:not(.hidden) .stagewrap{height:100%}
-.navcontent.bleed #viewerSkeletonPane.sheet-open:not(.hidden) .vsheet{margin-bottom:14px}
 .navcontent.bleed #viewerSkeletonPane.hidden,
 .navcontent.bleed #viewerXrayPane.hidden{display:none !important}
 /*
@@ -1347,3 +1340,53 @@ html[data-ts="xl"]{--ts:1.55}
 .depthrow{display:flex;align-items:center;gap:9px;font-size:calc(11.5px * var(--ts));color:var(--muted)}
 .depthrow span:first-child{min-width:74px}
 .depthrow input{flex:1;min-width:70px}
+
+/* Viewer workspace: both panels stay on the model, with their own scrolling. */
+.viewer-dock{position:absolute;top:12px;right:12px;bottom:76px;width:310px;z-index:6;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.viewer-dock>*{pointer-events:auto;min-height:0;border:1px solid var(--line);border-radius:14px;background:rgba(8,16,22,.96)}
+.viewer-dock .selpanel{position:static;width:auto;max-height:42%;flex:0 1 auto;overflow:hidden;padding:0;display:flex;flex-direction:column}
+.viewer-dock .panel-toggle{display:block;flex:none;width:100%;min-height:44px;border:0;background:transparent;color:var(--teal);padding:10px 12px;font-size:calc(13px * var(--ts));font-weight:700;text-align:left;cursor:pointer}
+.viewer-dock #taskPanelContent{display:none;overflow:auto;min-height:0;padding:0 12px 12px;overscroll-behavior:contain}
+.viewer-dock .panel-expanded #taskPanelContent{display:block}
+.viewer-dock .selpanel-top{position:static}
+.viewer-tools-panel{display:flex;flex-direction:column;overflow:hidden;flex:1}
+.viewer-tools-panel.tools-collapsed{flex:0 0 auto}
+.viewer-tools-panel>#toolsPanelToggle{padding:12px;color:var(--teal);font-size:calc(13px * var(--ts));font-weight:700;cursor:pointer;min-height:44px}
+.viewer-tools-panel>#toolsPanelToggle span{font-weight:400;color:var(--muted);font-size:calc(11px * var(--ts));margin-left:8px}
+.viewer-tools-panel .vsheet{margin:0;padding:0 12px 12px;border:0;border-radius:0;background:transparent;overflow:auto;min-height:0;overscroll-behavior:contain;animation:none}
+.viewer-tools-panel:not(.tools-collapsed)>.vsheet{display:block;flex:1}
+.viewer-tools-panel .vsheet-grid{grid-template-columns:minmax(0,1fr)}
+.viewer-tools-panel .card{padding:12px 0;border:0;border-bottom:1px solid var(--line);background:transparent;box-shadow:none}
+.viewer-tools-panel .toolcard>.task-kicker,.viewer-tools-panel .toolcard>.task-title,.viewer-tools-panel .toolcard>.task-copy{display:none}
+.viewer-tools-panel .tool-lab:first-of-type{margin-top:0}
+.viewer-tools-panel .tool-slider{flex-wrap:wrap}
+.viewer-tools-panel .tool-limits{font-size:calc(11px * var(--ts))}
+#stageHome>.stage{width:calc(100% - 334px)}
+#stageHome .ctrlpill{left:calc((100% - 334px)/2);max-width:calc(100% - 355px)}
+#stageHome .layerrail{max-height:calc(100% - 180px);max-width:160px}
+#stageHome .stagenote{max-width:calc(100% - 355px)}
+.xray-bar{position:sticky;top:0;z-index:3;background:var(--bg,#080f15);padding:8px 0;margin-bottom:0}
+.xray-display-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding:8px 0}
+.xray-display-controls label{display:flex;align-items:center;gap:8px;font-size:calc(12px * var(--ts));color:var(--muted)}
+.xray-display-controls input{width:110px}
+.xray-display-controls output{min-width:28px}
+.xray-status,.xray-selection{font-size:calc(12px * var(--ts));line-height:1.5;color:var(--muted);padding:8px 12px;background:rgba(114,227,207,.05);border:1px solid var(--line);border-radius:10px;margin-bottom:8px}
+.xray-selection{margin-top:8px}
+.xraywrap .progress{display:none}
+.navcontent.bleed .xraywrap{height:calc(100vh - 280px);height:calc(100dvh - 280px);min-height:340px}
+@media(min-width:1500px){.viewer-dock{width:350px}#stageHome>.stage{width:calc(100% - 374px)}#stageHome .ctrlpill{left:calc((100% - 374px)/2);max-width:calc(100% - 395px)}#stageHome .stagenote{max-width:calc(100% - 395px)}}
+@media(min-width:701px) and (max-width:1023px){.viewer-dock{width:270px}#stageHome>.stage{width:calc(100% - 294px)}#stageHome .ctrlpill{left:calc((100% - 294px)/2);max-width:calc(100% - 306px)}#stageHome .stagenote{max-width:calc(100% - 306px)}#stageHome .layerrail{max-width:110px}.viewer-dock .modebar.tight{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.viewer-dock{top:auto;left:8px;right:8px;bottom:66px;width:auto;max-height:45%}.viewer-dock .selpanel{max-height:45%}.viewer-dock .viewer-tools-panel{min-height:44px}#stageHome>.stage{width:100%}#stageHome .ctrlpill{left:50%;max-width:calc(100% - 16px)}#stageHome .stagenote{display:none}#stageHome .layerrail{max-height:calc(55% - 65px);max-width:110px}}
+
+.viewer-tools-panel>#toolsPanelToggle{flex:none;text-align:left;border:0;background:transparent}
+.viewer-tools-panel.tools-collapsed>.vsheet{display:none}
+.viewer-tools-panel .depthlist{grid-template-columns:minmax(0,1fr)}
+.viewer-tools-panel .depthrow{min-width:0}
+.viewer-tools-panel .depthrow input,.viewer-tools-panel .tool-slider input{width:0}
+.layer-rail-toggle{position:absolute;top:58px;left:14px;z-index:6;border:1px solid var(--line);border-radius:9px;background:#0e1820;color:var(--teal);font-size:calc(12px * var(--ts));min-height:36px;padding:6px 12px}
+#stageHome .layerrail{top:102px;max-height:calc(100% - 220px)}
+#stageHome.layers-closed .layerrail{display:none}
+#stageHome .stagenote-row{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+#stageHome #stageMeta{display:inline}
+#stageHome .stage-hint{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+@media(max-width:1023px){#stageHome:not(.layers-open) .layerrail{display:none}#stageHome .layerrail{max-width:160px;background:rgba(8,16,22,.97);padding:8px;border:1px solid var(--line);border-radius:12px}}

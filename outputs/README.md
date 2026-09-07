@@ -16,6 +16,25 @@ The workflow is the same for every subject:
 
 ## Files
 
+### Viewer workspace and projection (September 2026)
+
+Explore and Tools share a dock inside the viewer. Each panel scrolls independently;
+Tools includes cuts, opacity, separation, annotations and capture. Layers can be
+collapsed to clear the model, and starts collapsed at tablet widths.
+
+Projection includes the Heart system from the circulatory file. Mesh-relative
+entry/exit integration limits artefacts from open surfaces; the source meshes still
+overlap and are not CT volumes. PA picking follows the mirrored image. Pan and
+display zoom preserve SID; Window/Level, reset and PNG export are separate controls.
+Leaving a pending projection cancels its claim to the shared canvas. Returning to
+3D restores camera, visibility, materials, tool, cuts and system switches.
+
+`work/viewer-browser-check.js` is an async function to evaluate in a fresh browser
+tab on the dev server. It covers the GPU path, all 15 region/view combinations,
+tab races, exposure and restoration. `work/radiography-check.mjs` checks the physics
+helpers. The viewer interaction reference was [Human Atlas](https://github.com/ashemag/human-atlas);
+the implementation retains this app's vanilla modules and existing anatomy assets.
+
 | File | What it is |
 | --- | --- |
 | `radiography-study-studio.html` | The app. Subject selector, learning workflow, Memory Coach, source dialogs, coverage report, and the full osteology 3D studio embedded as the HSS2011 Osteology module. |

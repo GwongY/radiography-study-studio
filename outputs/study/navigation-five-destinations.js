@@ -1,15 +1,16 @@
 /*
  * Navigation -- five destinations, rendered into both the icon rail and
+ * the phone tab bar from one definition.
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, esc, ui } from './imports.js';
-import { openViewer } from './what-is-under.js';
+import { openViewer, leaveProjection } from './what-is-under.js';
 import { releaseLessonVisual } from './lesson-visuals.js';
 import { renderLearn } from './subject.js';
 import { renderMore } from './more-sources-coverage.js';
 import { renderToday } from './home.js';
-import { renderReviewTab, reviewTab } from './review-mistakes-due.js';
+import { renderExamTab, examTab } from './review-mistakes-due.js';
 import { renderCourse } from './course-timetable.js';
 
 /* ------------------------------------------------------------------ *
@@ -22,22 +23,22 @@ const NAV_DESTS = [
   ['learn', 'Learn', '\u25a6', () => renderLearn()],
   ['viewer', 'Viewer', '\u25c9', () => openViewer()],
   ['course', 'Course', '\u25f3', () => renderCourse()],
-  ['review', 'Review', '\u21bb', () => renderReviewTab(reviewTab)],
+  ['exam', 'Exam', '\u2707', () => renderExamTab(examTab)],
   ['more', 'More', '\u22ef', () => renderMore()],
 ];
-const NAV_TITLES = { today: 'Today', learn: 'One learning tree', viewer: 'Viewer', course: 'Course', review: 'Review', more: 'More' };
+const NAV_TITLES = { today: 'Today', learn: 'One learning tree', viewer: 'Viewer', course: 'Course', exam: 'Exam', more: 'More' };
 const NAV_KICKERS = {
   today: 'What to do now',
   learn: 'All Y1S1 courses \u00b7 latest schedule order',
   viewer: 'Model and images in one place',
   course: 'Timetable, syllabus, attendance',
-  review: 'Mistakes, due items, mastery',
+  exam: 'Past papers, timed practice, mastery',
   more: 'Sources, coverage, settings',
 };
 let currentTab = 'today';
 
 export function setActiveNav(id) {
-  currentTab = id;
+  if (id !== 'viewer') leaveProjection();
   $$('navTitle').textContent = NAV_TITLES[id] || 'Study Studio';
   if (id !== 'learn') $$('navBackBtn').classList.add('hidden');
   $$('navKicker').textContent = NAV_KICKERS[id] || '';
