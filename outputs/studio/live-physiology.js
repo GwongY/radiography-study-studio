@@ -3,7 +3,7 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, FLOW_ANCHORS, FLOW_CLASSES, LAYER_NAMES, MESH_INDEX, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, spikeEnvelope, state, systemCounts, systemsIn, ventricleEnvelope } from './imports.js';
+import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CLASSES, GRAZE_CLAMP, LAYER_NAMES, MESH_INDEX, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, mottleSigma, mu, spikeEnvelope, state, systemCounts, systemsIn, ventricleEnvelope } from './imports.js';
 import { MEMORY_TIPS, answer, clean, openDetail, pool, record, regionLabel, selectBone, showToast } from './visualisation-modes.js';
 import { animate, applyVisibility, between, getRecord, tube } from './region-boxes-how.js';
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
@@ -526,61 +526,112 @@ export async function focusStructures(spec){
  * by facing: back faces add, front faces subtract. Summed over a ray with
  * additive blending, sum(exits) - sum(entries) is exactly the distance spent
  * inside solid material, and it stays correct for any number of separate
- * objects stacked along the ray. Scaled by a per-tissue attenuation
- * coefficient, that sum is optical depth, and the film reads 1 - exp(-tau).
+ * objects stacked along the ray. Converted to centimetres and scaled by a
+ * per-tissue LINEAR attenuation coefficient, that sum is a real optical
+ * depth, and the film is a window on it.
  *
  * So bone is bright because the ray spent longer in bone, not because it
- * crossed more polygons. Cortex and marrow still do not differ -- the source
- * meshes are surfaces with nothing inside them -- and the pane says so.
- *
- * mu values below are relative, chosen so bone/soft-tissue contrast lands in
- * the familiar range. They are not tabulated linear attenuation coefficients
- * and no dose or kVp is implied.
+ * crossed more polygons. The shells are still hollow, but that no longer
+ * means cortex and marrow read alike: each crossing is charged for one
+ * cortical slab at the true incidence angle over a marrow bulk -- see
+ * radiography.js boneTau(). One thickness serves every bone, so a rib is
+ * given a femur's cortex, and the pane says which part of that is a model.
  */
-export const XRAY_MU={skeleton:1.0,joint:.30,organs:.16,muscle:.10,circulatory:.13,nervous:.10,lymphatic:.12};
+
+/*
+ * Which tissue each GLB layer is made of. The COEFFICIENTS are no longer
+ * here -- radiography.js holds them, from NIST, and they now depend on kVp.
+ * This map is the only thing that was ever a judgement call.
+ *
+ * circulatory, nervous and lymphatic are absent, and their absence is a fact
+ * rather than a compromise: unenhanced vessels and nerves are not visible on
+ * a plain film. The pane says so, because a reader who notices the aorta is
+ * missing should find out why.
+ *
+ * joint (ligaments) is soft tissue. It used to be 0.30 -- a third of bone --
+ * which is what a ligament would read as if it were made of cartilage-grade
+ * mineral. It is not.
+ */
+export const XRAY_TISSUE = { skeleton:'bone', muscle:'soft', organs:'soft', joint:'soft' };
+export const XRAY_LAYERS = Object.keys(XRAY_TISSUE);
 
 const XRAY_VERT=`
 varying float vDist;
+varying float vCos;
 void main(){
   vec4 mv = modelViewMatrix * vec4(position,1.0);
   vDist = -mv.z;
+  /* Incidence angle of the ray on this surface, for the cortical slab. */
+  vec3 n = normalize(normalMatrix * normal);
+  vCos = abs(dot(n, normalize(-mv.xyz)));
   gl_Position = projectionMatrix * mv;
 }`;
 const XRAY_FRAG=`
-uniform float uMu;
+uniform float uMu, uCmPerUnit, uShell, uGraze;
 varying float vDist;
+varying float vCos;
 void main(){
   /* Back faces are where the ray leaves material, front faces where it enters. */
   float sgn = gl_FrontFacing ? -1.0 : 1.0;
-  gl_FragColor = vec4(sgn * vDist * uMu, 0.0, 0.0, 1.0);
+  float bulk = sgn * vDist * uCmPerUnit * uMu;
+  /* One cortical slab per crossing, at the true incidence angle. Added on
+     BOTH faces (not signed) because entering and leaving each cross one.
+     uShell is zero for the soft-tissue layers. See radiography.js boneTau(). */
+  float shell = uShell / max(uGraze, vCos);
+  gl_FragColor = vec4(bulk + shell, 0.0, 0.0, 1.0);
 }`;
 const XRAY_POST_FRAG=`
 uniform sampler2D tTau;
-uniform float uGain, uLatitude, uGrain, uSeed, uFlipX;
+uniform float uWinLo, uWinHi, uSigma, uSeed, uFlipX;
 varying vec2 vUv;
 float hash(vec2 p){ return fract(sin(dot(p, vec2(12.9898,78.233))) * 43758.5453); }
 void main(){
   /* Shells that are not quite closed can integrate slightly negative. */
   vec2 uv = vec2(uFlipX > 0.5 ? 1.0 - vUv.x : vUv.x, vUv.y);
-  float tau = max(0.0, texture2D(tTau, uv).r) * uGain;
-  float transmitted = exp(-tau);
-  float density = 1.0 - transmitted;
-  /* Film latitude: the toe and shoulder of the characteristic curve. */
-  density = pow(density, uLatitude);
-  /* Quantum mottle. Noise rises where fewer photons arrive, as it does on film. */
+  float tau = max(0.0, texture2D(tTau, uv).r);
+  /* tau is -ln(transmission), so a linear window here is a LOG window on
+     intensity -- which is what a detector applies, and what the previous
+     1-exp(-tau) did not. MIRRORS radiography.js filmDensity(): change one,
+     change both, because the node check only tests that copy. */
+  float density = clamp((tau - uWinLo) / (uWinHi - uWinLo), 0.0, 1.0);
+  /* Quantum mottle: sigma comes from mAs and SID via radiography.js. */
   float n = hash(uv * 1024.0 + uSeed) - 0.5;
-  density += n * uGrain * (0.35 + 0.65 * density);
+  density += n * uSigma * (0.35 + 0.65 * density);
   gl_FragColor = vec4(vec3(clamp(density, 0.0, 1.0)), 1.0);
 }`;
 
-export function xrayDepthMaterial(THREE,mu){
+export function xrayDepthMaterial(THREE,muCm,cmPerUnit,shell){
   return new THREE.ShaderMaterial({
-    uniforms:{uMu:{value:mu}},
+    uniforms:{uMu:{value:muCm}, uCmPerUnit:{value:cmPerUnit},
+      uShell:{value:shell||0}, uGraze:{value:GRAZE_CLAMP}},
     vertexShader:XRAY_VERT, fragmentShader:XRAY_FRAG,
     side:THREE.DoubleSide, depthTest:false, depthWrite:false,
     blending:THREE.CustomBlending, blendEquation:THREE.AddEquation,
     blendSrc:THREE.OneFactor, blendDst:THREE.OneFactor,
   });
+}
+
+/*
+ * The material for one layer, at the CURRENT kVp.
+ *
+ * Module-level rather than a closure inside enterXray because setXrayKvp has
+ * to rebuild every one of these: mu depends on kVp, so a cache built at 75
+ * is wrong at 110. Mutating uMu on the materials you happen to hold and
+ * leaving the rest is the bug this shape prevents -- it produces a film where
+ * some tissues moved with the slider and some did not, which looks like a
+ * rendering quirk rather than like a mistake.
+ */
+function sharedFor(key){
+  const x=state.xray; if(!x)return null;
+  if(!x.shared.has(key)){
+    const THREE=state.THREE;
+    const tissue=XRAY_TISSUE[key]||'soft';
+    const isBone=tissue==='bone';
+    const bulk=isBone?mu('marrow',x.kvp):mu(tissue,x.kvp);
+    const shell=isBone?(mu('bone',x.kvp)-mu('marrow',x.kvp))*CORTEX_CM:0;
+    x.shared.set(key,xrayDepthMaterial(THREE,bulk,CM_PER_UNIT,shell));
+  }
+  return x.shared.get(key);
 }
 
 export function enterXray(){
@@ -613,7 +664,10 @@ export function enterXray(){
   const post=new THREE.Scene();
   const postCam=new THREE.OrthographicCamera(-1,1,1,-1,0,1);
   const postMat=new THREE.ShaderMaterial({
-    uniforms:{tTau:{value:rt.texture},uGain:{value:1.6},uLatitude:{value:.78},uGrain:{value:.05},uSeed:{value:0},uFlipX:{value:0}},
+    uniforms:{tTau:{value:rt.texture},uWinLo:{value:DEFAULT_WINDOW.lo},
+      uWinHi:{value:DEFAULT_WINDOW.hi},
+      uSigma:{value:mottleSigma({mAs:REF_MAS,sidCm:REF_SID_CM})},
+      uSeed:{value:0},uFlipX:{value:0}},
     vertexShader:'varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.0,1.0); }',
     fragmentShader:XRAY_POST_FRAG, depthTest:false, depthWrite:false,
   });
@@ -630,7 +684,9 @@ export function enterXray(){
     concepts:state.conceptGroup?state.conceptGroup.visible:true,
     clip:state.renderer.clippingPlanes,
     tools:state.toolGroup?state.toolGroup.visible:true,
-    exposure:1.6, view:'pa', region:'chest',
+    kvp:75, mAs:10, aec:true, sidCm:REF_SID_CM, effMas:REF_MAS,
+    win:{...DEFAULT_WINDOW},
+    view:'pa', region:'chest',
   };
   /*
    * The projection is a skeleton film.
@@ -692,11 +748,7 @@ export function enterXray(){
    * list is emptied, and exitXray puts it back.
    */
   state.renderer.clippingPlanes=[];
-  const shared=(key)=>{
-    if(!state.xray.shared.has(key))state.xray.shared.set(key,xrayDepthMaterial(THREE,XRAY_MU[key]||.12));
-    return state.xray.shared.get(key);
-  };
-  const apply=(mesh,key)=>{state.xray.mats.set(mesh,mesh.material);mesh.material=shared(key);mesh.userData.xrayKey=key};
+  const apply=(mesh,key)=>{state.xray.mats.set(mesh,mesh.material);mesh.material=sharedFor(key);mesh.userData.xrayKey=key};
   state.fullMeshes.forEach(m=>apply(m,'skeleton'));
   Object.entries(state.extraModels||{}).forEach(([k,l])=>l.meshes.forEach(m=>apply(m,k)));
   Object.entries(state.extraModels||{}).forEach(([k,l])=>{l.root.visible=layerOn(k)});
@@ -791,10 +843,18 @@ function xrayClip(){
   if(c.near!==near||c.far!==far){c.near=near;c.far=far;c.updateProjectionMatrix()}
   return d;
 }
+/*
+ * TEMPORARY. The old single Exposure gain, mapped onto the new window so the
+ * existing control keeps working for one commit. The next task replaces it
+ * with kVp and mAs, which are the two things it was always conflating.
+ * A higher gain meant a brighter film, so it narrows the window from the top.
+ */
 export function setXrayExposure(v){
-  if(!state.xray)return;
-  state.xray.exposure=v;
-  state.xray.postMat.uniforms.uGain.value=v;
+  const x=state.xray; if(!x)return;
+  const g=Math.max(0.2,v||1);
+  x.win={lo:DEFAULT_WINDOW.lo, hi:DEFAULT_WINDOW.lo+(DEFAULT_WINDOW.hi-DEFAULT_WINDOW.lo)/g};
+  x.postMat.uniforms.uWinLo.value=x.win.lo;
+  x.postMat.uniforms.uWinHi.value=x.win.hi;
 }
 export function renderXray(){
   const x=state.xray; if(!x)return false;
