@@ -424,6 +424,7 @@ export const WEEK_STUDY = {
       'hss2011-structures-brainAndCsf', 'hss2011-structures-cranialNerves',
     ],
     7: [
+      'hss2011-m2-eye-accessory', 'hss2011-m2-eyeball-anatomy',
       'hss2011-m2-eye-visual-pathway', 'hss2011-m2-ear-hearing',
       'hss2011-m2-static-dynamic-equilibrium', 'hss2011-m2-taste-smell',
     ],
