@@ -35,13 +35,13 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `bodymap.js` | 319 | Body map — search extras and spatial concepts for the 3D viewer. |  |
 | `cavity-build.js` | 732 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
 | `cavity-geom.js` | 1148 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
-| `figures.js` | 743 | figures.js — the diagrams that replaced the hand-drawn ones. |  |
+| `figures.js` | 996 | figures.js — the diagrams that replaced the hand-drawn ones. |  |
 | `landmarks.js` | 450 | landmarks.js -- the one place that knows how to find a named anatomical | [Named cut levels](TRAPS.md#named-cut-levels--outputsstudiotools-and-capturejs-outputslandmarksjs) |
 | `layouts.js` | 304 | layouts.js — the sixteen that are layouts, as layouts. |  |
 | `mesh-index.js` | 2594 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `physiology.js` | 337 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
-| `schedule.js` | 908 | schedule.js — the semester itself: what the syllabus says, and when each |  |
+| `schedule.js` | 909 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `study-data.js` | 127 | Radiography Study Studio — study data layer. |  |
 | `sw.js` | 376 | Radiography Study Studio — service worker |  |
@@ -98,9 +98,9 @@ belong in `init()`. The two keep separate import scopes and talk only through
 |  | 275–304 | Groups the student belongs to but the schedule does not say |
 |  | 305–314 | Every timetabled session |
 |  | 315–368 | Weekly slots, from the university timetable |
-|  | 369–804 | Which lessons cover which week |
-|  | 805–853 | Where a session sits in time |
-|  | 854–908 | Formatting — kept here so the view has no date arithmetic in it |
+|  | 369–805 | Which lessons cover which week |
+|  | 806–854 | Where a session sits in time |
+|  | 855–909 | Formatting — kept here so the view has no date arithmetic in it |
 | `term-gloss.js` | 1–702 | preamble |
 |  | 703–788 | 2026 sweep — the cell, from the Lecture 1 items |
 |  | 789–831 | 2026 sweep — bone, muscle and the tissues of movement |
@@ -177,7 +177,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | --- | --- | --- |
 | `apss-items.js` | 130 | APSS1A08 Introduction to Sociology — Topic 01 only. |
 | `corpus.js` | 65 | The assembled corpus — every item array spread into one list, and the |
-| `coverage.js` | 231 | Coverage report — what the supplied sources actually cover, and what they |
+| `coverage.js` | 232 | Coverage report — what the supplied sources actually cover, and what they |
 | `derived-items.js` | 344 | Items generated rather than authored: one per canonical bone record, one |
 | `diagrams.js` | 50 | Diagrams — authored schematics, drawn inline as SVG so the app needs no |
 | `dsai-items.js` | 173 | DSAI1202, from the Week 1 overview deck. |
@@ -185,7 +185,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `hss-joints.js` | 254 | HSS2011 Human Anatomy — joints and the muscles that move them. |
 | `hss-modules.js` | 2903 | HSS2011 Human Anatomy — the per-module study items. |
 | `hss-osteology.js` | 663 | HSS2011 Human Anatomy — osteology: bone classification, the axial and |
-| `hss-special-senses.js` | 112 | HSS2011 Week 7 — Special Senses. |
+| `hss-special-senses.js` | 511 | HSS2011 Week 7 — Special Senses. |
 | `hss-terminology.js` | 248 | HSS2011 Human Anatomy — anatomical terminology: position, planes, movement |
 | `hti-items.js` | 872 | HTI17103, drawn from the HTI17101 Exploring Radiography set — the study |
 | `mastery.js` | 121 | Spaced repetition — the schedule, the mastery score and its dimensions, and |
