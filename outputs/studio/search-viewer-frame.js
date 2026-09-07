@@ -10,6 +10,7 @@ import { clean, clearHighlight, courseChipHTML, pool, renderRegions, selectBone,
 import { enforceHidden, hiddenName, publishHidden } from './hide-and-search.js';
 import { loadExtraModel, pick } from './depth-picking.js';
 import { showPickCallout } from './spatial-concept-overlays.js';
+import { exitAtlas } from './atlas-source.js';
 
 /* ------------------------------------------------------------------ *
  * Search -> viewer: frame the part, then hide only what stands in front
@@ -85,6 +86,7 @@ export function meshesFor(layer,name){
   return hits;
 }
 export async function revealStructure(spec){
+  if(state.atlasPainting)exitAtlas();
   if(!state.scene){ await window.__osteo.boot(); }
   if(!state.scene) return {ok:false,found:0,covered:[]};
   state.autoHidden.clear();

@@ -8,6 +8,7 @@ import { MEMORY_TIPS, answer, clean, openDetail, pool, record, regionLabel, sele
 import { animate, applyVisibility, between, getRecord, tube } from './region-boxes-how.js';
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
 import { enforceHidden } from './hide-and-search.js';
+import { exitAtlas } from './atlas-source.js';
 import { showPickCallout } from './spatial-concept-overlays.js';
 import { setSeparation, setTool } from './tools-and-capture.js';
 
@@ -413,7 +414,7 @@ function resolveMeshNames(key,names){
  * the canvas go. state.cut itself is untouched -- only the planes handed to
  * the renderer -- which is the same shape the projection view already uses.
  */
-function suspendViewerState(){
+export function suspendViewerState(){
   if(state.studySuspended)return;
   state.studySuspended={
     region:state.region,isolated:state.isolated,tool:state.tool,
@@ -424,7 +425,7 @@ function suspendViewerState(){
   state.hidden=new Set();state.autoHidden=new Set();
   if(state.renderer)state.renderer.clippingPlanes=[];
 }
-function resumeViewerState(){
+export function resumeViewerState(){
   const was=state.studySuspended;
   if(!was)return false;
   state.studySuspended=null;
@@ -449,6 +450,9 @@ export function clearStudyFocus(){
   if(had||resumed)applyLayers();
 }
 export async function focusStructures(spec){
+  /* A lesson always gets the course body: the atlas source force-exits on
+     the way in, the same discipline that suspends the cut and the peels. */
+  if(state.atlasPainting)exitAtlas();
   if(!state.scene)return {ok:false,reason:'not-booted',found:0};
   suspendViewerState();
   const key=spec.layer||'skeleton';
@@ -1181,6 +1185,7 @@ function classifySoftTissue(THREE,movingBones,fixedBones){
   return {carried,held};
 }
 export function startMovement(mv){
+  if(state.atlasPainting)exitAtlas();
   const THREE=state.THREE;
   if(!THREE||!state.fullModel){showToast('Open the 3D model first.');return false}
   endMovement();

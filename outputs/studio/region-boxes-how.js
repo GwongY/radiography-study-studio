@@ -462,6 +462,10 @@ import { syncTools } from './tools-and-capture.js';
    */
   export function animate(){if(!state.renderer)return;requestAnimationFrame(animate);
   if(state.stageLive===false)return;
+  /* The atlas source paints the same canvas from its own loop; a course
+     render here would overwrite it every frame. Its controls are disabled
+     and its state suspended, so the course work is skipped entirely. */
+  if(state.atlasPainting)return;
   if(state.movement&&state.movement.playing){
     const mv=state.movement.mv, step=(mv.range[1]-mv.range[0])/90;
     let a=state.movement.angle+step*state.movement.dir;

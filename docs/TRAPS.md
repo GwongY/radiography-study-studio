@@ -479,6 +479,32 @@ suspended on the way in. `focusStructures` calls `releaseFocusMeshes` rather
 than `clearStudyFocus` when replacing one focus with another, or it would hand
 the Viewer's state back halfway through mounting.
 
+### Two bodies, one renderer — `outputs/studio/atlas-source.js`, `outputs/atlas/scene.js`
+
+The Full atlas draws on THE studio canvas through THE studio renderer
+(`studio/atlas-source.js` hands both to `atlas/viewer.js`; the scene module is
+GENERATED — change `work/build-atlas-viewer.mjs`, never the shipped file alone,
+or the next regeneration silently reverts the merge). Three things bite:
+
+- **Renderer-global state outlives a scene.** Tone mapping, exposure and clear
+  colour belong to the renderer, not to either body's scene. `enterAtlas` swaps
+  in the atlas pair and `exitAtlas` restores the course pair; the atlas scene
+  paints its backdrop as a `scene.background` rather than a clear colour,
+  because a clear colour set for the atlas would still be set for the course.
+  Adding a third source means adding its swap to the same enter/exit pair.
+- **Both loops would paint.** The studio's `animate()` and the atlas scene's
+  own loop share one canvas; while the atlas source is active the studio loop
+  must skip its render (`state.atlasPainting`), exactly as it defers to
+  `renderXray()`. The atlas loop keeps its own `active` gate, so pausing is
+  `setAtlasActive(false)` and NOT a full teardown — the 33 MB of GPU buffers
+  survive the switch.
+- **The stage is the atlas's canvas too.** `atlas/viewer.js` must never
+  `replaceChildren()` the stage (that would delete the studio's canvas), the
+  studio's pointer handlers and `pick()` must ignore taps while the atlas owns
+  the pointer, and a lesson (`focusStructures`, `revealStructure`,
+  `startMovement`) force-exits the atlas source before mounting — a lesson card
+  gets the course body, always.
+
 ### Where you were is not the same as which tab you were on — `outputs/study/navigation-five-destinations.js`
 
 `closeSessionOverlay` restored the destination by calling `goTo()`, and `goTo`

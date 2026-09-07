@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1075 —
-  f55f458b4fb07201  WHOLE SET
+— user-facing strings in outputs/ — 1076 —
+  2d6232d08f66aabc  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -35,6 +35,7 @@
   5265bd1a089ac9df  " data-groupopt="
   9d18b1672389d7fe  " data-groupset="
   921e345548b45de2  " data-reveal="
+  e4897c0442487c7f  " data-source="
   d73ec115ea9142c9  " data-state="
   19d374017e84dc66  " data-step="
   62d7f300f56bd1fa  " data-tool="off" aria-pressed="
@@ -96,6 +97,7 @@
   ac30f30602e06aa0  3003 parts
   7e8b92cf9af05e38  3D is unavailable right now.
   5bc27994a6e1afa3  3D is unavailable, so the projection cannot be drawn.
+  f7dedb5c2e10569e  3D model
   58982e92cc27e4fa  3D model unavailable
   69ea32698864c4c1  3D scene not ready
   a7fbec4f385f22fb  3D · tap to name
@@ -313,7 +315,7 @@
   73a069d82b0d3b67  Could not locate that structure in the model
   57a9734bd3bcd083  Could not reach GitHub. If you are offline, this will retry on its own.
   3e43a3e5c3ac8956  Could not set that movement up on the model.
-  26f184a47151de18  Course model
+  1aad18ebde0cbd8d  Course body
   a21359ed1dd0ede0  Created a private gist and wrote
   03f268163766146d  Cross-subject progress across five mastery tiers, from unattempted to retained delayed recall.
   650bfee8c10b708c  Current files take priority for dates, topics and assessment. Older official lectures are used only to teach a current syllabus topic when the matching 2026 lecture is absent; student coursework is never used as a factual source.
@@ -364,7 +366,6 @@
   8e8f88fe40d45d19  Frontal bone
   905e040eadbdb220  Full BodyParts3D atlas
   4bfc2f6673a01a74  Full atlas
-  159c136cccfbce9a  Full atlas could not load. Switch tabs to retry.
   cb73b83197d100e5  Full height · viewport
   3ee9379ac50332af  Full reference + fallback upper-limb meshes
   c779b95a4e70b011  Full reference failed
@@ -725,6 +726,7 @@
   dd5fd4c64fb6fb43  The thigh bone
   04fe27d570edd390  The timetable is supplied, but no latest LEI1101 syllabus or teaching notes have been supplied. No lesson content can yet be assigned.
   cca5df84a9532446  The upper horizontal line of the nine abdominopelvic regions. Measured at the body of L1.
+  b7d95149cf4b696c  The viewer is a workspace
   51aee75534b22418  There is nothing recorded on this device yet, so there is nothing to erase.
   b5792b631250ed3a  This bone is in the database, but high-yield hotspot coordinates have not been added yet.
   0593a567427cea70  This device cannot render the floating-point projection. The 3D viewer is still available.
@@ -806,7 +808,6 @@
   2f4b24c630bdf091  aria-label="Your mark for
   4dafb342c48fd85e  artery = red = oxygenated
   038dbe3356c60c5f  assets/xray/ is empty \u2014 add a licence-cleared image
-  d90d2c2c847a6dbc  atlas-workspace hidden
   f0a2f6bcdb910bd5  axial at the sternal angle
   4c7527e58057a88f  beats and
   8db95312cb849877  bone mesh

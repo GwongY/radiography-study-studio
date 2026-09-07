@@ -9,7 +9,19 @@ write('anatomy',read('anatomy').split('export const EXPLANATIONS')[0].replace(/d
 let s=read('scene');
 s=s.replace("import {useEffect,useRef} from 'react';\n",'');
 const start=s.indexOf('interface Props'),end=s.indexOf('let disposed=false',start);
-s=s.slice(0,start)+'export function createAtlasScene(el:HTMLElement,atlas:Atlas,state:SceneState,onSelect:(id:string)=>void,onProgress:(n:number)=>void,onError:(s:string)=>void){\n const latest={current:state},select={current:onSelect};let active=true;\n '+s.slice(end);
+s=s.slice(0,start)+'export function createAtlasScene(el:HTMLElement,atlas:Atlas,state:SceneState,onSelect:(id:string)=>void,onProgress:(n:number)=>void,onError:(s:string)=>void,shared?:T.WebGLRenderer){\n const latest={current:state},select={current:onSelect};let active=true;\n '+s.slice(end);
+/* The merged app passes the studio's renderer in: ONE WebGL context serves
+   both bodies. Shared mode never appends a second canvas, never disposes the
+   borrowed renderer, and paints its backdrop as a scene background because a
+   renderer-global clear colour would outlive the atlas source. */
+s=s.replace('try{renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:\'high-performance\'});}','try{renderer=shared??new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:\'high-performance\'});}');
+s=s.replace("renderer.setClearColor('#f2f3f3');","if(!shared)renderer.setClearColor('#f2f3f3');");
+s=s.replace('const scene=new T.Scene(),camera=new T.PerspectiveCamera(34,1,.005,100),controls=new OrbitControls(camera,renderer.domElement);','const scene=new T.Scene(),camera=new T.PerspectiveCamera(34,1,.005,100),controls=new OrbitControls(camera,renderer.domElement);if(shared)scene.background=new T.Color(\'#f2f3f3\');');
+s=s.replace('el.appendChild(renderer.domElement);','if(!shared)el.appendChild(renderer.domElement);');
+s=s.replace('const down=(e:PointerEvent)=>{hover.hidden=true;','const down=(e:PointerEvent)=>{if(!active)return;hover.hidden=true;');
+s=s.replace('const move=(e:PointerEvent)=>{tap.move(','const move=(e:PointerEvent)=>{if(!active)return;tap.move(');
+s=s.replace(/const up=\(e:PointerEvent\)=>\{\r?\n   const validTap/,'const up=(e:PointerEvent)=>{\n   if(!active)return;const validTap');
+s=s.replace('hover.remove();renderer.dispose();renderer.domElement.remove();};','hover.remove();if(!shared){renderer.dispose();renderer.domElement.remove();}};');
 s=s.replaceAll("'three/examples/jsm/","'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/");
 s=s.replace('const materials:T.Material[]=[]','const batches:{mesh:T.Mesh;system:string}[]=[];const materials:T.Material[]=[]');
 s=s.replace('mesh.frustumCulled=false;scene.add(mesh);','mesh.frustumCulled=false;scene.add(mesh);batches.push({mesh,system});');
@@ -29,5 +41,5 @@ const isoStart=s.indexOf('const w=el.clientWidth,h=el.clientHeight'),isoEnd=s.in
 s=s.slice(0,isoStart)+"const distance=Math.max(.07,Math.max(size.y,size.x/camera.aspect,size.z)/(2*Math.tan(T.MathUtils.degToRad(camera.fov/2)))*1.25);"+s.slice(isoEnd);
 s=s.replace('  return()=>{disposed=true;','  const dispose=()=>{disposed=true;');
 const tail=s.indexOf(' },[atlas]);');
-s=s.slice(0,tail)+` return {dispose,update(next:SceneState){latest.current=next;},setActive(value:boolean){active=value;if(value){resize();dirty=true;}},inspect(){return {ready,active,renderedFrames:renderer.info.render.frame,target:targets[0],amount,parts:pickers.filter(Boolean).length,drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,packingWidth,packingHeight};}};\n}\n`;
+s=s.slice(0,tail)+` return {dispose,update(next:SceneState){latest.current=next;},setActive(value:boolean){active=value;if(value){resize();dirty=true;}},renderOnce(){renderer.render(scene,camera);dirty=false;},inspect(){return {ready,active,renderedFrames:renderer.info.render.frame,target:targets[0],amount,parts:pickers.filter(Boolean).length,drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,packingWidth,packingHeight};}};\n}\n`;
 write('scene',s);
