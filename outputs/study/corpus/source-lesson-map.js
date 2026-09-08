@@ -2078,7 +2078,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-m3-digestive",
       "subject": "HSS2011",
       "week": 11,
-      "title": "Digestive tract — regions, layers and the portal route",
+      "title": "The digestive system: the tract, the accessory organs, and the four-layer wall",
       "status": "partial",
       "sources": [
         {
@@ -2099,18 +2099,16 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-digestive-tract-upper": {
       "id": "hss2011-digestive-tract-upper",
       "subject": "HSS2011",
       "week": 11,
-      "title": "Upper gastrointestinal tract — oral cavity, oesophagus and stomach",
+      "title": "Upper digestive tract: oral cavity, salivary glands, pharynx, oesophagus, stomach",
       "status": "partial",
       "sources": [
         {
@@ -2119,20 +2117,28 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
+          "ref": "hss.3.1.2019",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-digestive-tract-small-large-bowel": {
       "id": "hss2011-digestive-tract-small-large-bowel",
       "subject": "HSS2011",
       "week": 11,
-      "title": "Lower gastrointestinal tract — small and large intestine architecture",
+      "title": "Small and large intestine: segments, surface amplification, colon features, anal canal",
       "status": "partial",
       "sources": [
         {
@@ -2141,20 +2147,28 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
-          "ref": "hss.revans",
+          "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-digestive-accessory-liver-pancreas": {
       "id": "hss2011-digestive-accessory-liver-pancreas",
       "subject": "HSS2011",
       "week": 11,
-      "title": "Accessory digestive organs — liver, biliary tree and pancreas",
+      "title": "Accessory organs: salivary glands, liver and its lobules, gallbladder and biliary tree, pancreas",
       "status": "partial",
       "sources": [
         {
@@ -2163,24 +2177,7 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-digestive-peritoneum-portal-circulation": {
-      "id": "hss2011-digestive-peritoneum-portal-circulation",
-      "subject": "HSS2011",
-      "week": 11,
-      "title": "Peritoneal reflections, mesenteries and the hepatic portal system",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.3.3",
+          "ref": "hss.3.1.2019",
           "set": "old",
           "role": "older-fallback"
         },
@@ -2188,6 +2185,56 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.3.3.2019",
           "set": "old",
           "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-digestive-peritoneum-portal-circulation": {
+      "id": "hss2011-digestive-peritoneum-portal-circulation",
+      "subject": "HSS2011",
+      "week": 11,
+      "title": "Peritoneum, mesenteries and omenta; the three gut arteries and the hepatic portal system",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.3.1",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.3.1.2019",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.3.3.2019",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -2196,23 +2243,26 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-digestive-tutorial-pastpaper-practice",
       "subject": "HSS2011",
       "week": 11,
-      "title": "Digestive anatomy collaborative tutorial & revision practice",
-      "status": "needs-review",
+      "title": "Digestive system: worked revision exercises and past-paper practice (Module 3.1)",
+      "status": "partial",
       "sources": [
         {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         },
         {
           "ref": "hss.manual1920",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-structures-digestiveTract": {
       "id": "hss2011-structures-digestiveTract",
@@ -2240,18 +2290,13 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-m3-urogenital-pelvis",
       "subject": "HSS2011",
       "week": 12,
-      "title": "Urinary tract, pelvis and abdominal landmarks",
+      "title": "Regional anatomy of the abdomen and pelvis: quadrants, regions, walls, hiatuses, pelvic floor and perineum",
       "status": "partial",
       "sources": [
         {
-          "ref": "hss.3.2",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
           "ref": "hss.3.3",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
           "ref": "hss.3.3.2019",
@@ -2261,18 +2306,31 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.pp1718",
+          "set": "old",
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-uro-kidneys-urinary-tract": {
       "id": "hss2011-uro-kidneys-urinary-tract",
       "subject": "HSS2011",
       "week": 12,
-      "title": "Kidney gross architecture, nephron collecting system and urinary tract",
+      "title": "Kidneys and the urinary tract: gross anatomy, ureters, bladder, urethra, urothelium",
       "status": "partial",
       "sources": [
         {
@@ -2281,20 +2339,58 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
+          "ref": "hss.3.3.2019",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
+    },
+    "hss2011-uro-nephron-renal-microanatomy": {
+      "id": "hss2011-uro-nephron-renal-microanatomy",
+      "subject": "HSS2011",
+      "week": 12,
+      "title": "Renal microanatomy: the kidney lobe, the two nephrons, the renal corpuscle and the tubule segments",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.3.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
+        }
+      ],
+      "reasons": []
     },
     "hss2011-uro-male-reproductive-anatomy": {
       "id": "hss2011-uro-male-reproductive-anatomy",
       "subject": "HSS2011",
       "week": 12,
-      "title": "Male reproductive tract, accessory glands and spermatic cord",
+      "title": "Male reproductive anatomy: scrotum, spermatic cord, testis, duct system, glands and penis",
       "status": "partial",
       "sources": [
         {
@@ -2303,20 +2399,33 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
+          "ref": "hss.3.3.2019",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
           "ref": "hss.manual1920",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-uro-female-reproductive-pelvis": {
       "id": "hss2011-uro-female-reproductive-pelvis",
       "subject": "HSS2011",
       "week": 12,
-      "title": "Female reproductive tract, uterine anatomy and pelvic peritoneal pouches",
+      "title": "Female reproductive anatomy: ovary, uterine tubes, uterus and wall, vagina, vulva and pelvic position",
       "status": "partial",
       "sources": [
         {
@@ -2325,36 +2434,57 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
+          "ref": "hss.3.3.2019",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-uro-tutorial-pastpaper-practice": {
       "id": "hss2011-uro-tutorial-pastpaper-practice",
       "subject": "HSS2011",
       "week": 12,
-      "title": "Urogenital anatomy collaborative tutorial & revision practice",
-      "status": "needs-review",
+      "title": "Urogenital system: worked revision exercises and past-paper practice (Modules 3.2 and 3.3)",
+      "status": "partial",
       "sources": [
         {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         },
         {
           "ref": "hss.manual1920",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.pp1718",
+          "set": "old",
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-structures-urinaryTract": {
       "id": "hss2011-structures-urinaryTract",
@@ -2947,7 +3077,37 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-repro-male-regulation",
       "subject": "ABCT2326",
       "week": 7,
-      "title": "Spermatogenesis, hormonal control and sperm transport",
+      "title": "Spermatogenesis, hormonal control and testosterone",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.6.pdf",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-repro-male-tract-accessory": {
+      "id": "abct2326-repro-male-tract-accessory",
+      "subject": "ABCT2326",
+      "week": 7,
+      "title": "Sperm transport, the epididymis and the accessory sex organs",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.6.pdf",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-repro-female-tract-follicles": {
+      "id": "abct2326-repro-female-tract-follicles",
+      "subject": "ABCT2326",
+      "week": 7,
+      "title": "The female tract, the oocyte reserve and follicle development",
       "status": "partial",
       "sources": [
         {
@@ -2962,7 +3122,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-repro-ovarian-menstrual-cycle",
       "subject": "ABCT2326",
       "week": 7,
-      "title": "Ovarian cycle and menstrual regulation",
+      "title": "The ovarian cycle, the LH surge and the menstrual phase",
       "status": "partial",
       "sources": [
         {
@@ -2977,7 +3137,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-repro-fertilization-implantation",
       "subject": "ABCT2326",
       "week": 7,
-      "title": "Fertilization, cleavage and implantation",
+      "title": "Capacitation, fertilization, cleavage and implantation",
       "status": "partial",
       "sources": [
         {
@@ -2992,7 +3152,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-repro-placenta-parturition",
       "subject": "ABCT2326",
       "week": 7,
-      "title": "Placental exchange and the three stages of birth",
+      "title": "Placental exchange, the foetal edge, and the three stages of birth",
       "status": "partial",
       "sources": [
         {
@@ -3007,11 +3167,16 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-endocrine-delivery",
       "subject": "ABCT2326",
       "week": 8,
-      "title": "Hormones and the four modes of delivery",
+      "title": "Hormones: definition, functions, delivery classes and chemical classes",
       "status": "partial",
       "sources": [
         {
           "ref": "phys.7",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "phys.hormech",
           "set": "old",
           "role": "older-fallback"
         }
@@ -3029,6 +3194,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.hormech",
           "set": "old",
           "role": "older-fallback"
+        },
+        {
+          "ref": "phys.7",
+          "set": "old",
+          "role": "older-fallback"
         }
       ],
       "reasons": []
@@ -3042,6 +3212,56 @@ export const Y1S1_SOURCE_MAP = {
       "sources": [
         {
           "ref": "phys.hormech",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "phys.7",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-endocrine-pituitary-axes": {
+      "id": "abct2326-endocrine-pituitary-axes",
+      "subject": "ABCT2326",
+      "week": 8,
+      "title": "The pituitary gland: anterior trophic hormones, posterior storage, hypothalamic control",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.7",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-endocrine-adrenal-thyroid": {
+      "id": "abct2326-endocrine-adrenal-thyroid",
+      "subject": "ABCT2326",
+      "week": 8,
+      "title": "Adrenal cortex and medulla; thyroid, parathyroid and calcium control",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.7",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-endocrine-pancreas-misc": {
+      "id": "abct2326-endocrine-pancreas-misc",
+      "subject": "ABCT2326",
+      "week": 8,
+      "title": "Pancreatic islets, pineal gland, gonadal and placental hormones",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.7",
           "set": "old",
           "role": "older-fallback"
         }
@@ -3061,6 +3281,11 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
+          "ref": "phys.nerv.tut",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
           "ref": "hss.revans",
           "set": "old",
           "role": "needs-review"
@@ -3070,17 +3295,17 @@ export const Y1S1_SOURCE_MAP = {
         "citation has no verifiable page or quoted section/slide"
       ]
     },
-    "abct2326-synapse-drug-action": {
-      "id": "abct2326-synapse-drug-action",
+    "abct2326-nervous-synaptic-refractory-neuroglia": {
+      "id": "abct2326-nervous-synaptic-refractory-neuroglia",
       "subject": "ABCT2326",
       "week": 9,
-      "title": "Where a drug can interfere with a synapse",
-      "status": "partial",
+      "title": "Neuroglia functions, action potential refractory periods, and synaptic storage",
+      "status": "missing",
       "sources": [
         {
-          "ref": "phys.susan8",
+          "ref": "phys.nerv.tut",
           "set": "old",
-          "role": "older-fallback"
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -3100,17 +3325,42 @@ export const Y1S1_SOURCE_MAP = {
       ],
       "reasons": []
     },
-    "abct2326-nervous-synaptic-refractory-neuroglia": {
-      "id": "abct2326-nervous-synaptic-refractory-neuroglia",
+    "abct2326-nervous-synapse-types-nt": {
+      "id": "abct2326-nervous-synapse-types-nt",
       "subject": "ABCT2326",
       "week": 9,
-      "title": "Neuroglia functions, action potential refractory periods, and synaptic storage",
-      "status": "missing",
+      "title": "Electrical vs chemical synapses, acetylcholine, and the autonomic receptors",
+      "status": "partial",
       "sources": [
+        {
+          "ref": "phys.nerve.deck",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "phys.8",
+          "set": "old",
+          "role": "older-fallback"
+        },
         {
           "ref": "phys.nerv.tut",
           "set": "old",
           "role": "assessment"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-synapse-drug-action": {
+      "id": "abct2326-synapse-drug-action",
+      "subject": "ABCT2326",
+      "week": 9,
+      "title": "Where a drug can interfere with a synapse",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.susan8",
+          "set": "old",
+          "role": "older-fallback"
         }
       ],
       "reasons": []
@@ -3188,6 +3438,21 @@ export const Y1S1_SOURCE_MAP = {
       "sources": [
         {
           "ref": "phys.muscle.deck",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-msk-bone-structure-remodeling": {
+      "id": "abct2326-msk-bone-structure-remodeling",
+      "subject": "ABCT2326",
+      "week": 11,
+      "title": "Compact vs spongy bone, bone cells, remodelling and calcium balance",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.9",
           "set": "old",
           "role": "older-fallback"
         }
@@ -3381,6 +3646,21 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "ABCT2326",
       "week": 13,
       "title": "Inflammation, complement and adaptive immunity",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "phys.10",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "abct2326-antibody-structure-classes": {
+      "id": "abct2326-antibody-structure-classes",
+      "subject": "ABCT2326",
+      "week": 13,
+      "title": "Antibody structure, five immunoglobulin classes and defence against bacteria",
       "status": "partial",
       "sources": [
         {
@@ -3852,6 +4132,7 @@ export const Y1S1_SOURCE_MAP = {
       "12": [
         "hss2011-m3-urogenital-pelvis",
         "hss2011-uro-kidneys-urinary-tract",
+        "hss2011-uro-nephron-renal-microanatomy",
         "hss2011-uro-male-reproductive-anatomy",
         "hss2011-uro-female-reproductive-pelvis",
         "hss2011-uro-tutorial-pastpaper-practice",
@@ -3906,6 +4187,8 @@ export const Y1S1_SOURCE_MAP = {
       "6": [],
       "7": [
         "abct2326-repro-male-regulation",
+        "abct2326-repro-male-tract-accessory",
+        "abct2326-repro-female-tract-follicles",
         "abct2326-repro-ovarian-menstrual-cycle",
         "abct2326-repro-fertilization-implantation",
         "abct2326-repro-placenta-parturition"
@@ -3913,20 +4196,25 @@ export const Y1S1_SOURCE_MAP = {
       "8": [
         "abct2326-endocrine-delivery",
         "abct2326-endocrine-receptors",
-        "abct2326-endocrine-second-messengers"
+        "abct2326-endocrine-second-messengers",
+        "abct2326-endocrine-pituitary-axes",
+        "abct2326-endocrine-adrenal-thyroid",
+        "abct2326-endocrine-pancreas-misc"
       ],
       "9": [
         "abct2326-nervous-divisions",
-        "abct2326-synapse-drug-action",
+        "abct2326-nervous-synaptic-refractory-neuroglia",
         "phys-nerve-cellular-action-potential",
-        "abct2326-nervous-synaptic-refractory-neuroglia"
+        "abct2326-nervous-synapse-types-nt",
+        "abct2326-synapse-drug-action"
       ],
       "10": [],
       "11": [
         "abct2326-muscle-types",
         "abct2326-muscle-action",
         "abct2326-nmj-coupling",
-        "abct2326-muscle-ultrastructure-energetics"
+        "abct2326-muscle-ultrastructure-energetics",
+        "abct2326-msk-bone-structure-remodeling"
       ],
       "12": [
         "abct2326-crossbridge-cycle",
@@ -3942,7 +4230,8 @@ export const Y1S1_SOURCE_MAP = {
         "abct2326-inflammation-fever",
         "abct2326-t-cell-types",
         "abct2326-acquired-immunity",
-        "abct2326-immune-adaptive"
+        "abct2326-immune-adaptive",
+        "abct2326-antibody-structure-classes"
       ]
     },
     "HTI17103": {
@@ -4237,47 +4526,57 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-m3-digestive",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-digestive-tract-upper",
         "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-digestive-tract-small-large-bowel",
-        "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-digestive-accessory-liver-pancreas",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
+        "set": "old",
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-digestive-tutorial-pastpaper-practice",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-m3-urogenital-pelvis",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-uro-kidneys-urinary-tract",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-uro-nephron-renal-microanatomy",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-uro-male-reproductive-anatomy",
+        "set": "old",
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-uro-female-reproductive-pelvis",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-uro-tutorial-pastpaper-practice",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "abct2326-nervous-divisions",
@@ -4649,19 +4948,54 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
+        "lessonId": "hss2011-digestive-tract-upper",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-digestive-tract-small-large-bowel",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-digestive-accessory-liver-pancreas",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "hss2011-digestive-tutorial-pastpaper-practice",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m3-urogenital-pelvis",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-uro-nephron-renal-microanatomy",
+        "set": "old",
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-uro-male-reproductive-anatomy",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-uro-female-reproductive-pelvis",
+        "set": "old",
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-uro-tutorial-pastpaper-practice",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       }
     ],
     "hss.l1.overview": [
@@ -4779,6 +5113,51 @@ export const Y1S1_SOURCE_MAP = {
       },
       {
         "lessonId": "hss2011-thorax-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-digestive-tract-small-large-bowel",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-digestive-accessory-liver-pancreas",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-digestive-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-m3-urogenital-pelvis",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-uro-kidneys-urinary-tract",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-uro-nephron-renal-microanatomy",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-uro-male-reproductive-anatomy",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-uro-female-reproductive-pelvis",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-uro-tutorial-pastpaper-practice",
         "set": "old",
         "role": "assessment"
       }
@@ -4909,12 +5288,32 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
+        "lessonId": "hss2011-digestive-accessory-liver-pancreas",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
         "set": "old",
         "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-m3-urogenital-pelvis",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-uro-kidneys-urinary-tract",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-uro-male-reproductive-anatomy",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-uro-female-reproductive-pelvis",
         "set": "old",
         "role": "older-fallback"
       }
@@ -4933,14 +5332,9 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
         "lessonId": "hss2011-m3-urogenital-pelvis",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       }
     ],
     "hss.4.2": [
@@ -5407,6 +5801,16 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "hss2011-thorax-tutorial-pastpaper-practice",
         "set": "old",
         "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-m3-urogenital-pelvis",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-uro-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "assessment"
       }
     ],
     "hss.3.1": [
@@ -5431,6 +5835,11 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
+        "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "hss2011-structures-digestiveTract",
         "set": "old",
         "role": "needs-review"
@@ -5439,6 +5848,26 @@ export const Y1S1_SOURCE_MAP = {
     "hss.3.1.2019": [
       {
         "lessonId": "hss2011-m3-digestive",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-digestive-tract-upper",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-digestive-tract-small-large-bowel",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-digestive-accessory-liver-pancreas",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
         "set": "old",
         "role": "older-fallback"
       }
@@ -5477,12 +5906,12 @@ export const Y1S1_SOURCE_MAP = {
     ],
     "hss.3.2": [
       {
-        "lessonId": "hss2011-m3-urogenital-pelvis",
+        "lessonId": "hss2011-uro-kidneys-urinary-tract",
         "set": "old",
         "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-uro-kidneys-urinary-tract",
+        "lessonId": "hss2011-uro-nephron-renal-microanatomy",
         "set": "old",
         "role": "older-fallback"
       },
@@ -5685,6 +6114,16 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
+        "lessonId": "abct2326-repro-male-tract-accessory",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-repro-female-tract-follicles",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "abct2326-repro-ovarian-menstrual-cycle",
         "set": "old",
         "role": "older-fallback"
@@ -5705,9 +6144,39 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "abct2326-endocrine-delivery",
         "set": "old",
         "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-endocrine-receptors",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-endocrine-second-messengers",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-endocrine-pituitary-axes",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-endocrine-adrenal-thyroid",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-endocrine-pancreas-misc",
+        "set": "old",
+        "role": "older-fallback"
       }
     ],
     "phys.hormech": [
+      {
+        "lessonId": "abct2326-endocrine-delivery",
+        "set": "old",
+        "role": "older-fallback"
+      },
       {
         "lessonId": "abct2326-endocrine-receptors",
         "set": "old",
@@ -5724,13 +6193,28 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "abct2326-nervous-divisions",
         "set": "old",
         "role": "older-fallback"
-      }
-    ],
-    "phys.susan8": [
+      },
       {
-        "lessonId": "abct2326-synapse-drug-action",
+        "lessonId": "abct2326-nervous-synapse-types-nt",
         "set": "old",
         "role": "older-fallback"
+      }
+    ],
+    "phys.nerv.tut": [
+      {
+        "lessonId": "abct2326-nervous-divisions",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-nervous-synaptic-refractory-neuroglia",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-nervous-synapse-types-nt",
+        "set": "old",
+        "role": "assessment"
       }
     ],
     "phys.nerve.deck": [
@@ -5738,13 +6222,18 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "phys-nerve-cellular-action-potential",
         "set": "old",
         "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-nervous-synapse-types-nt",
+        "set": "old",
+        "role": "older-fallback"
       }
     ],
-    "phys.nerv.tut": [
+    "phys.susan8": [
       {
-        "lessonId": "abct2326-nervous-synaptic-refractory-neuroglia",
+        "lessonId": "abct2326-synapse-drug-action",
         "set": "old",
-        "role": "assessment"
+        "role": "older-fallback"
       }
     ],
     "phys.9": [
@@ -5755,6 +6244,11 @@ export const Y1S1_SOURCE_MAP = {
       },
       {
         "lessonId": "abct2326-muscle-action",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-msk-bone-structure-remodeling",
         "set": "old",
         "role": "older-fallback"
       }
@@ -5806,6 +6300,11 @@ export const Y1S1_SOURCE_MAP = {
       },
       {
         "lessonId": "abct2326-immune-adaptive",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-antibody-structure-classes",
         "set": "old",
         "role": "older-fallback"
       }

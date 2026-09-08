@@ -1,17 +1,7 @@
 — every figure a lesson shows has intro (+ key) —
-  ok  106 figures checked
+  ok  146 figures checked
 — every plate has intro + key —
   ok  5 plates checked
 — unused FIGURES entries (informational) —
-  note  FIGURES.spermatogenesis is defined but no lesson renders it
-  note  FIGURES.spermStructure is defined but no lesson renders it
-  note  FIGURES.maleReproductiveSystem is defined but no lesson renders it
-  note  FIGURES.femaleReproductiveSystem is defined but no lesson renders it
-  note  FIGURES.follicleDevelopment is defined but no lesson renders it
-  note  FIGURES.ovarianCyclePhases is defined but no lesson renders it
-  note  FIGURES.menstrualCycle is defined but no lesson renders it
-  note  FIGURES.acrosomeReaction is defined but no lesson renders it
-  note  FIGURES.blastocystImplantation is defined but no lesson renders it
-  note  FIGURES.fetalCirculation is defined but no lesson renders it
 
 ALL PASS
