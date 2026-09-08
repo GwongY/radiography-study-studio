@@ -1863,6 +1863,22 @@ export const FIGURES = {
       { mark: 'Intercalated cell acid-base transport', name: 'Type A intercalated cells actively secrete H+ via H+-ATPase and reabsorb HCO3- to counter systemic acidosis' },
     ],
   },
+  xrayTubeAnatomy: {
+    file: 'xrayTubeAnatomy.jpg', bytes: 185112,
+    title: 'Rotating anode X-ray tube internal anatomy',
+    caption: 'Evacuated glass envelope containing the heated tungsten cathode filament, rotating tungsten-rhenium anode disc, and induction rotor bearings.',
+    author: 'Daniel W. Rickey',
+    licence: 'CC BY-SA 3.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by-sa/3.0',
+    commons: 'https://commons.wikimedia.org/wiki/File:Rotating_anode_x-ray_tube_(labeled).jpg',
+    intro: 'Internal construction of a modern medical diagnostic X-ray tube. High-voltage potential accelerates an electron stream from the heated cathode filament across the evacuated glass envelope to bombard the beveled target track of the rapidly spinning rotating anode (composed of tungsten and rhenium), producing bremsstrahlung and characteristic X-rays.',
+    key: [
+      { mark: 'glass envelope', name: 'Evacuated heat-resistant enclosure maintaining high vacuum so electrons cross without colliding with air molecules' },
+      { mark: 'cathode', name: 'Heated filament assembly supplying focused stream of thermionically emitted electrons driven toward the positive target' },
+      { mark: 'rotating anode', name: 'Beveled target disc spinning to spread focal track heat loading across an expanded circumference during electron bombardment' },
+      { mark: 'bearings', name: 'Precision rotor bearings allowing high-speed anode rotation driven by external electromagnetic stator coils' },
+    ],
+  },
 };
 
 export function figureFor(id) {

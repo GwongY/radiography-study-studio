@@ -13,54 +13,228 @@
 
 export const HTI_ITEMS = [
   {
-    id: 'hti17103-what-is-radiography',
-    subject: 'HTI17103', unit: 'hti.subject', type: 'definition',
-    title: 'What radiography is, and who does what',
-    tags: ['profession', 'high-yield'],
-    lesson: {
-      explanation: 'Radio- derives from the Latin radius, meaning a radial spread-out of energy, that is, radiation. The suffix -graphy means a snapshot or photo. Combined, radiography is taking photos using ionizing radiation: the art and science of using ionizing radiation to create images of the body and its inner structures, and those images aid in the diagnosis of disease and pathology. The lecture then separates the roles: the radiographer takes the radiographs; the radiotherapist plans and switches on the beam for treatments; the radiation chemist or pharmacist prepares the radiopharmaceuticals; the radiologist interprets radiographic images; the radio-oncologist diagnoses and plans therapy for cancer patients; and the medical physicist calibrates and measures the radiation dose of instruments.',
-      keyFacts: [
-        'Radio- = radial spread-out of energy (radiation); -graphy = snapshot, photo.',
-        'Radiography: the art and science of using ionizing radiation to create images of the body and inner structures.',
-        'Radiographer — takes the radiographs.',
-        'Radiotherapist — plans and switches on the beam for treatments.',
-        'Radiation chemist / pharmacist — prepares radiopharmaceuticals.',
-        'Radiologist — interprets radiographic images.',
-        'Radio-oncologist — diagnoses and plans therapy for cancer patients.',
-        'Medical physicist — calibrates and measures the radiation dose of instruments.',
-        'X-rays are produced when an electron stream strikes a target made of a mixture of tungsten and rhenium.',
+    "id": "hti17103-what-is-radiography",
+    "subject": "HTI17103",
+    "unit": "hti.subject",
+    "type": "definition",
+    "title": "What radiography is, and who does what",
+    "tags": [
+      "profession",
+      "high-yield"
+    ],
+    "lesson": {
+      "explanation": "Radiography is rooted in classical etymology: the prefix \"radio-\" derives from the Latin \"radius\", denoting a ray, a spoke, or the radial divergence and spread-out of energy in all directions, which forms the physical concept of radiation. The suffix \"-graphy\" designates the physical process of recording, capturing, or producing a snapshot or photograph. Synthesized into professional medical terminology, radiography is defined as the art and science of utilizing ionizing radiation to create diagnostic images of the human body and its internal anatomical structures, providing essential visual evidence to detect, characterize, and manage human disease and injury. The lecture emphasizes that radiation imaging is not magic but rigorous physics: high-energy X-radiation is produced inside an evacuated X-ray tube when an energetic stream of high-velocity electrons, thermionically emitted from a heated cathode filament, is accelerated across a high-voltage potential to strike a solid metal target. This target is specifically engineered from a specialized refractory mixture of tungsten and rhenium; bombarding this target decelerates electrons rapidly (bremsstrahlung) and ejects inner-shell orbital electrons, generating characteristic X-rays. In hospital practice, working with ionizing radiation requires strict division of labor among six specialized healthcare professionals: (1) The Radiographer (diagnostic radiographer), who positions the patient, sets exposure parameters, and takes the diagnostic radiographs; (2) The Radiotherapist (radiation therapist), who plans treatment geometries and switches on the high-energy megavoltage beam for cancer radiotherapy; (3) The Radiation Chemist / Pharmacist, who formulates, synthesizes, quality-checks, and dispenses radioactive tracers and radiopharmaceuticals for diagnostic imaging and targeted therapy; (4) The Radiologist, a licensed specialist medical doctor who interprets radiographic images, formulates differential diagnoses, and performs image-guided interventional procedures; (5) The Radio-oncologist (clinical/radiation oncologist), a specialist medical doctor who diagnoses malignancies, prescribes radiation dosages, and oversees comprehensive oncological care; and (6) The Medical Physicist, who calibrates output, monitors quality assurance, performs dosimetric calculations, and measures the radiation dose of clinical instruments. Beyond clinical medicine, radiation serves society in airport security luggage screening, customs cargo container inspection, and industrial non-destructive material testing—which contrast sharply with industrial sterilization, where radiation is applied solely to destroy microorganisms without creating any image. The lecture famously characterizes radiology as \"a science of everything,\" interweaving anatomy (where to aim and what structures are expected), physics (how X-rays form and how to protect against ionizing damage), physiology (how living organs move and function), chemistry (how radiotracers and contrast agents behave), and biology (how radiation impacts cellular DNA).",
+      "plain": "Radiography literally means \"ray-writing\" or taking pictures using radiation. High-energy X-rays are made when a speeding stream of electrons slams into a spinning metal target made of tungsten and rhenium. In hospitals, six different professionals work with radiation: the radiographer takes the pictures; the radiotherapist delivers the cancer treatment beam; the radiation pharmacist makes the radioactive drugs; the radiologist (a doctor) reads the images; the radio-oncologist (a doctor) prescribes the cancer radiation; and the medical physicist calibrates the machines and measures radiation doses. Radiology is a \"science of everything\" because it combines anatomy, physics, physiology, chemistry, and biology.",
+      "keyFacts": [
+        "Etymology: \"radio-\" means radial spread-out of energy (radiation); \"-graphy\" means snapshot or process of recording.",
+        "Definition: radiography is the art and science of using ionizing radiation to create images of the body and inner structures for disease diagnosis.",
+        "X-ray production: high-speed electron stream strikes a metal target made of a mixture of tungsten and rhenium.",
+        "Radiographer: positions patients, optimizes exposure factors, and takes the diagnostic radiographs.",
+        "Radiotherapist: plans beam delivery and switches the beam on for cancer treatments.",
+        "Radiation chemist / pharmacist: prepares nuclear medicine radiopharmaceuticals for diagnosis and therapy.",
+        "Radiologist: medical doctor who interprets radiographic images and issues diagnostic reports.",
+        "Radio-oncologist: medical doctor who diagnoses cancer and establishes radiation therapy prescriptions.",
+        "Medical physicist: calibrates equipment, verifies beam output, and measures radiation doses of clinical instruments.",
+        "Radiology is a \"science of everything\" combining anatomy (where/what to see), physics (protection/formation), physiology, chemistry, and biology."
       ],
-      prerequisites: [],
-      examples: ['The current lecture contrasts airport security, customs cargo checks and industrial X-ray imaging with industrial sterilisation, which uses radiation without producing an image.'],
+      "prerequisites": [],
+      "examples": [
+        "Airport security scanners and customs cargo inspection use transmission X-rays to generate diagnostic projection images, whereas industrial food and medical equipment sterilization bombards items with high-dose gamma rays to kill bacteria without producing any photographic image.",
+        "In an emergency trauma case, a radiographer executes urgent portable CXR and pelvis radiographs, a medical physicist ensures the mobile unit is properly calibrated, and a radiologist immediately interprets the acquired digital images for hemothorax or pelvic fractures."
+      ]
     },
-    memory: {
-      wordOrigin: 'Split every job title at the hyphen. Radio-grapher writes the image. Radio-logist studies it. Radio-therapist treats with it. The suffix tells you the verb.',
-      comparison: 'Radiographer and radiologist are the pair most often confused: one acquires the image, the other reads it.',
-      chunking: 'Six roles, three groups: two who operate the beam (radiographer, radiotherapist), two who interpret and prescribe (radiologist, radio-oncologist), two who prepare and measure (radiation pharmacist, medical physicist).',
+    "memory": {
+      "wordOrigin": "Split every title at the root: Radio-grapher writes/takes the image; Radio-logist studies/interprets it; Radio-therapist treats disease with it; Radio-oncologist directs cancer care with it; Medical Physicist measures its physical dose.",
+      "comparison": "Radiographer vs Radiologist: the radiographer operates the technology and captures the radiograph; the radiologist is a physician who diagnoses pathology from that radiograph.",
+      "chunking": "Six hospital roles in 3 pairs: The operators (radiographer, radiotherapist), the doctors (radiologist, radio-oncologist), and the scientists (medical physicist, radiation pharmacist)."
     },
-    practice: [
-      { type: 'matching', prompt: 'Match each professional to their role as defined in the lecture.',
-        pairs: [['Radiographer', 'Takes the radiographs'], ['Radiologist', 'Interprets radiographic images'], ['Medical physicist', 'Calibrates and measures the radiation dose of instruments'], ['Radiation chemist / pharmacist', 'Prepares the radiopharmaceuticals']],
-        explanation: 'These are the exact role definitions on the "Who is working with radiation in hospitals?" slide.' },
-      { type: 'mcq', prompt: 'Which professional plans and switches on the beam for treatments?', options: ['Radiologist', 'Radiographer', 'Radiotherapist', 'Medical physicist'], answer: 2,
-        explanation: 'The radiotherapist plans and switches on the treatment beam. The radiographer takes diagnostic radiographs.' },
-      { type: 'typed', prompt: 'The X-ray tube target is made of a mixture of which two metals?', accept: ['tungsten and rhenium', 'tungsten, rhenium', 'rhenium and tungsten'],
-        explanation: 'The target is made of a mixture of tungsten and rhenium; the electron stream striking it emits characteristic rays, i.e. X-rays.' },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each hospital radiation professional to their official defined duty.",
+        "pairs": [
+          [
+            "Radiographer",
+            "Takes the radiographs"
+          ],
+          [
+            "Radiotherapist",
+            "Plans and switches the beam on for treatments"
+          ],
+          [
+            "Radiologist",
+            "Interprets radiographic images (medical doctor)"
+          ],
+          [
+            "Medical Physicist",
+            "Calibrates and measures the radiation dose of instruments"
+          ],
+          [
+            "Radiation chemist / pharmacist",
+            "Prepares the nuclear medicine (radiopharmaceuticals)"
+          ],
+          [
+            "Radio-oncologist",
+            "Diagnoses and addresses therapeutic planning for cancer patients"
+          ]
+        ],
+        "explanation": "These are the six distinct professional roles defined in the opening lecture on hospital radiation staff.",
+        "src": {
+          "ref": "hti.w1.2026",
+          "location": "p10 \"Who are working with radiation in hospitals?\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "The X-ray tube anode target is engineered from a refractory mixture of which two metals?",
+        "options": [
+          "Copper and aluminium",
+          "Tungsten and rhenium",
+          "Lead and bismuth",
+          "Titanium and molybdenum"
+        ],
+        "answer": 1,
+        "explanation": "The electron stream strikes a target composed of a mixture of tungsten and rhenium, providing thermal durability and characteristic X-ray emission.",
+        "src": {
+          "ref": "hti.w1.2026",
+          "location": "p5 \"Target is made of a mixture of Tungsten and Rhenium\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which application uses ionizing radiation purely for biological decontamination WITHOUT generating any image?",
+        "options": [
+          "Airport baggage screening",
+          "Industrial customs cargo inspection",
+          "Industrial sterilization",
+          "Fluoroscopic swallow examination"
+        ],
+        "answer": 2,
+        "explanation": "Industrial sterilization uses ionizing radiation to kill microbes without producing an image; security, cargo, and fluoroscopy all produce images.",
+        "src": {
+          "ref": "hti.w1.2026",
+          "location": "p7 \"Industrial sterilization\""
+        }
+      },
+      {
+        "type": "typed",
+        "prompt": "Which hospital specialist is primarily tasked with calibrating and measuring the radiation dose delivered by clinical instruments?",
+        "accept": [
+          "medical physicist",
+          "Medical physicist",
+          "Medical Physicist",
+          "physicist"
+        ],
+        "explanation": "The medical physicist is responsible for dose calibration, machine output verification, and radiation measurement.",
+        "src": {
+          "ref": "hti.w1.2026",
+          "location": "p10 \"Medical Physicist – who calibrates and measures the radiation dose\""
+        }
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'The lecture calls radiology "a science of everything" and lists physiology, anatomy, biology, chemistry and physics. Pick two of those and say what question each answers for a radiographer.',
-        model: 'Anatomy answers "where to apply" the beam and "what is expected to see" on the image. Physics answers "how to protect from ionizing radiation" and underlies image formation. The lecture pairs the disciplines with exactly those practical questions.',
-        rubric: ['Picks two named disciplines', 'Attaches a practical question to each, drawn from the lecture list'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A first-year student asks why radiographers must study both human anatomy and radiation physics if modern digital equipment operates with preset exposure buttons. Using the lecture’s \"science of everything\" framework, explain the essential practical questions each subject answers in the clinical imaging room.",
+        "model": "The lecture explains that radiography is not merely pushing buttons but a \"science of everything.\" Anatomy answers the fundamental clinical questions of \"where to apply\" the radiation beam and \"what is expected to see\" on the resulting image—allowing the radiographer to accurately align central rays to anatomical landmarks, position the patient, and evaluate image quality. Physics answers \"how to protect from ionizing radiation\" (applying ALARA, collimation, and shielding) and explains the mechanism of image formation (electron acceleration, tungsten-rhenium target bombardment, and differential tissue attenuation). Without anatomy, positioning fails; without physics, radiation safety and technical image optimization cannot be maintained.",
+        "rubric": [
+          "Connects anatomy to \"where to apply\" beam alignment and \"what is expected to see\" on radiographs",
+          "Connects physics to radiation protection mechanisms and X-ray beam formation",
+          "Explicitly refutes the \"just pushing buttons\" fallacy using the lecture framework"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Using radiographer and radiologist as synonyms.',
-      'Assuming radiography only happens in hospitals — the lecture lists security, customs and industrial uses.',
+    "commonMistakes": [
+      "Treating radiographer and radiologist as interchangeable terms: radiographers acquire radiographs; radiologists are specialist medical physicians who interpret them.",
+      "Assuming all ionizing radiation applications produce images: industrial sterilization uses radiation without producing any image.",
+      "Believing pure tungsten is used for all X-ray targets: the lecture explicitly specifies a mixture of tungsten and rhenium."
     ],
-    skills: [
-      'Radiographer versus radiologist is the confusion pair, and the suffix separates them: -grapher writes the image, -logist studies it. All six job titles share the same "radio-" and differ only in the verb — who makes, who reads, who treats, who measures.',
+    "skills": [
+      "Differentiate the six hospital radiation professions based on verb and scope of practice (operating, prescribing, formulating, interpreting, calibrating).",
+      "Explain the physical mechanism of diagnostic X-ray generation at the tungsten-rhenium target to patients or colleagues."
     ],
-    selfCheck: 'From a blank page, assign each of the six roles its one-line job, then answer the two-metal question about the X-ray tube target.',
-    sourceRefs: [{ ref: 'hti.w1.2026', location: 'p3 "What is Radiography?"' }, { ref: 'hti.w1.2026', location: 'p5 "Electron stream strikes"' }, { ref: 'hti.w1.2026', location: 'p7 "Industrial sterilization"' }, { ref: 'hti.w1.2026', location: 'p8 "Radiology is a science of everything"' }, { ref: 'hti.w1.2026', location: 'p10 "Who are working with radiation in hospitals?"' }],
+    "selfCheck": "From memory, write down the Latin origins of radio- and -graphy, name all six radiation professions with their core duty, and state the two metals composing the X-ray target.",
+    "visuals": [
+      {
+        "fig": "xrayTubeAnatomy"
+      },
+      {
+        "schematic": "radiographyRoles"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hti.w1.2026",
+        "location": "p3 \"What is Radiography?\""
+      },
+      {
+        "ref": "hti.w1.2026",
+        "location": "p5 \"Electron stream strikes the “target” that emits characteristic rays\""
+      },
+      {
+        "ref": "hti.w1.2026",
+        "location": "p5 \"Target is made of a mixture of Tungsten and Rhenium\""
+      },
+      {
+        "ref": "hti.w1.2026",
+        "location": "p6 \"When will a radiographic image be needed?\""
+      },
+      {
+        "ref": "hti.w1.2026",
+        "location": "p7 \"Industrial sterilization\""
+      },
+      {
+        "ref": "hti.w1.2026",
+        "location": "p8 \"Radiology is a science of everything\""
+      },
+      {
+        "ref": "hti.w1.2026",
+        "location": "p10 \"Who are working with radiation in hospitals?\""
+      },
+      {
+        "ref": "hti.w1.2026",
+        "location": "p10 \"Radiographer – who takes the radiographs\""
+      },
+      {
+        "ref": "hti.w1.2026",
+        "location": "p10 \"Radiotherapist – who plans and switches the beam on for treatments\""
+      },
+      {
+        "ref": "hti.w1.2026",
+        "location": "p10 \"Medical Physicist – who calibrates and measures the radiation dose\""
+      },
+      {
+        "ref": "hti.w1.2026",
+        "location": "p10 \"Radiation chemist/pharmacist – who prepares the nuclear medicine\""
+      },
+      {
+        "ref": "hti.w1.2026",
+        "location": "p10 \"Radiologist – who interprets radiographic images\""
+      },
+      {
+        "ref": "hti.w1.2026",
+        "location": "p10 \"Radio-oncologist – who diagnoses and address the therapeutic\""
+      },
+      {
+        "ref": "hti.w1b",
+        "location": "p3 \"What is Radiography?\""
+      },
+      {
+        "ref": "hti.w1b",
+        "location": "p5 \"Electron stream strikes the “target” that emits characteristic rays\""
+      },
+      {
+        "ref": "hti.w1b",
+        "location": "p8 \"Radiology is a science of everything\""
+      },
+      {
+        "ref": "hti.w1b",
+        "location": "p9 \"Who is working with radiation in hospitals?\""
+      }
+    ]
   },
   {
     id: 'hti17103-ionizing-vs-nonionizing',
@@ -276,50 +450,237 @@ export const HTI_ITEMS = [
     sourceRefs: [{ ref: 'hti.w3', location: 'Slides 2–15 job titles, RT services in HK, patient pathway, planning session steps 1–3' }],
   },
   {
-    id: 'hti17103-department-and-request',
-    subject: 'HTI17103', unit: 'hti.roleext', type: 'definition',
-    title: 'Inside a radiology department: staffing and the request form',
-    tags: ['role extension'],
-    lesson: {
-      explanation: 'Older HTI17101 supporting material for the radiographer role and MI/RT comparison; its old Week 5 label is not the current Week 5 topic. Staffing counts below are historical examples. The Hospital Authority is organised into 7 clusters, with 39 departments of radiology for medical imaging, 16 A&E radiology services and 6 clinical oncology centres for radiation therapy, employing about 800 diagnostic radiographers and about 180–200 radiotherapists. In one named hospital the staffing example given is 29 radiologists, 84 radiographers and 16 nurses or patient-care assistants. Team work is presented as a requirement: a pair of radiographers, one handling the patient and one controlling the panel; a patient care assistant for patient preparation; and a nurse for CT, MRI and A&E work. The lecture then walks through reading an X-ray request form, whose fields include clinical information, diagnosis, the examination requested — the worked example is "CXR (PA + Lat)" — routine, early or urgent priority, the form of transport, drug allergy and, where applicable, LMP.',
-      keyFacts: [
-        'Hospital Authority: 7 clusters, 39 departments of radiology, 16 A&E radiology services, 6 clinical oncology centres.',
-        'About 800 diagnostic radiographers; about 180–200 radiotherapists.',
-        'Staffing example: 29 radiologists, 84 radiographers, 16 nurses / patient-care assistants.',
-        'A pair of radiographers: one for patient handling, one for panel controlling.',
-        'Patient care assistant prepares the patient; a nurse is involved in CT, MRI and A&E.',
-        'Request form fields include clinical information, diagnosis, examination requested, priority, transport, drug allergy and LMP.',
-        'The worked request example is a chest X-ray specified as PA + Lat.',
+    "id": "hti17103-department-and-request",
+    "subject": "HTI17103",
+    "unit": "hti.roleext",
+    "type": "definition",
+    "title": "Inside a radiology department: staffing and the request form",
+    "tags": [
+      "role extension",
+      "clinical-practice",
+      "high-yield"
+    ],
+    "lesson": {
+      "explanation": "Operating a clinical medical imaging or oncology service requires complex institutional infrastructure, coordinated clinical staffing, and rigorous administrative communication. Within the Hong Kong public healthcare system, the Hospital Authority (HA) is geographically organized into 7 hospital clusters that govern 39 Departments of Radiology delivering diagnostic medical imaging (MI), 16 Accident & Emergency (A&E) radiology services providing immediate acute trauma assessment, and 6 Clinical Oncology Centers delivering specialized radiation therapy (RT). To staff this network, the Hospital Authority employs approximately 800 diagnostic radiographers and about 180–200 radiation therapists. At an acute tertiary hospital such as the Prince of Wales Hospital (PWH), a representative departmental workforce comprises 29 radiologists, 84 radiographers, and 16 nurses and patient-care assistants (PCAs). Within the diagnostic X-ray suite, clinical safe practice mandates close teamwork: general radiography rooms are typically staffed by a pair of radiographers who divide operational tasks—one dedicated to direct patient handling (confirming patient identity, explaining the procedure, assisting onto the examination table, and positioning anatomy), while the second operates the control panel (setting kilovoltage [kVp], tube current-time product [mAs], collimator shutters, and triggering beam exposure behind the lead-glass barrier). Support personnel are integral: patient-care assistants assist with changing, gowning, and physical transfers, while registered nurses manage intravenous cannulation and contrast administration in computed tomography (CT), magnetic resonance imaging (MRI), and A&E suites. Every imaging examination begins with an official medical request form (order form), which serves as a legal prescription and clinical communication tool. A qualified radiographer must thoroughly scrutinize the request form across eight essential fields: (1) Patient demographics (full name, Hong Kong Identity Card [HKID] number, hospital number, ward, bed, age, sex, and Chinese name); (2) Drug allergy history (e.g. \"No Known Drug Allergy\" vs contrast allergies); (3) Priority category (Routine, Early, or Urgent); (4) Form of transport (Walk, Wheelchair, or Stretcher); (5) Clinical information—the presenting signs, symptoms, and duration (e.g. the worked lecture example \"Cough x 2/12. SOB\", indicating a 2-month history of persistent cough and shortness of breath); (6) Provisional clinical diagnosis (e.g. \"Chest infection\"); (7) Examination requested (e.g. \"CXR (PA + Lat)\", requesting a chest X-ray in both posteroanterior and lateral projections); and (8) Last Menstrual Period (LMP), mandatory in females of childbearing age to uphold the 10-day or 28-day radiation protection rule and prevent inadvertent irradiation of an early unsuspected pregnancy.",
+      "plain": "A hospital radiology department is a highly organized team. In Hong Kong, the Hospital Authority has 7 hospital clusters with 39 radiology departments, 16 emergency radiology units, and 6 cancer radiation centres, employing around 800 diagnostic radiographers and 180–200 radiotherapists. In the X-ray room, radiographers work in pairs: one positions and handles the patient while the other sets the exposure on the control console. Before taking an image, the radiographer reads the request form, checking patient identity, allergies, urgency, transport, symptoms, diagnosis, the exact views requested (like CXR PA + Lat), and last menstrual period (LMP) to protect pregnant patients from radiation.",
+      "keyFacts": [
+        "Hospital Authority structure: 7 hospital clusters, 39 Departments of Radiology (MI), 16 A&E radiology services, 6 Clinical Oncology Centers (RT).",
+        "Public manpower: approximately 800 diagnostic radiographers and 180–200 radiation therapists across Hong Kong.",
+        "PWH departmental staffing example: 29 radiologists, 84 radiographers, and 16 nurses/patient-care assistants.",
+        "Pair of radiographers: one dedicated to patient handling/positioning, the second dedicated to panel control/exposure triggering.",
+        "Patient-care assistants prepare and transfer patients; nurses support CT, MRI, and A&E emergency contrast suites.",
+        "Eight vital request form fields: patient ID, drug allergy, priority, transport, clinical history, diagnosis, examination, LMP.",
+        "Worked request example: CXR (PA + Lat) = chest X-ray in posteroanterior and lateral projections.",
+        "Clinical information example: \"Cough x 2/12. SOB\" = cough lasting 2 months with shortness of breath; diagnosis = \"Chest infection\".",
+        "LMP verification is mandatory for females of childbearing potential to protect against fetal radiation exposure.",
+        "Transport categories determine patient handling needs: walking (ambulant), wheelchair, or stretcher."
       ],
-      prerequisites: ['hti17103-what-is-radiography'],
-      examples: [],
+      "prerequisites": [
+        "hti17103-what-is-radiography"
+      ],
+      "examples": [
+        "A patient arrives from A&E on a stretcher with an urgent request form stating \"RTA (road traffic accident), severe dyspnea, suspected pneumothorax; CXR (PA)\". The panel radiographer prepares a mobile digital plate while the patient-handling radiographer carefully verifies identity and immobilizes the patient.",
+        "A 28-year-old female presents for lumbar spine radiography. Because the lumbar spine directly exposes the ovaries and uterus to the primary X-ray beam, the radiographer must check the LMP field on the request form and verbally verify menstrual dates with the patient before making an exposure."
+      ]
     },
-    memory: {
-      chunking: 'Two radiographers, two jobs: one on the patient, one on the panel. Everything else in the room supports one of those two.',
-      location: 'Read a request form the way you would read a boarding pass: who, what examination, how urgent, how they are arriving. Four questions, and the form answers all of them.',
+    "memory": {
+      "chunking": "HA network: 7 clusters -> 39 MI depts -> 16 A&E services -> 6 RT centres. Manpower ratio: 800 diagnostic to 200 therapy (4:1 ratio).",
+      "comparison": "Patient handler vs Panel controller: The handler works in front of the lead shield touching the patient; the controller works behind the lead screen triggering radiation.",
+      "checklist": "Request form 5-finger check: Who (patient ID), Why (symptoms/diagnosis), What (exam requested), When/Safety (LMP & allergy), How (transport mode)."
     },
-    practice: [
-      { type: 'typed', prompt: 'How many HA clusters are reported in the older departmental example?', accept: ['7', 'seven'],
-        explanation: 'Seven clusters, containing 39 departments of radiology, 16 A&E radiology services and 6 clinical oncology centres.' },
-      { type: 'mcq', prompt: 'In the pair-of-radiographers model, what are the two roles?', options: ['Imaging and reporting', 'Patient handling and panel controlling', 'Preparation and archiving', 'Planning and dose calculation'], answer: 1,
-        explanation: 'The lecture describes a pair of radiographers, one handling the patient and one controlling the panel.' },
-      { type: 'typed', prompt: 'In the worked request form example, which examination was requested and in which two projections?', accept: ['cxr pa and lat', 'chest x-ray pa and lateral', 'cxr (pa + lat)', 'cxr pa + lat', 'chest x-ray, pa and lat'],
-        explanation: 'CXR (PA + Lat) — a chest X-ray in the posteroanterior and lateral projections. These are the only projection abbreviations that appear in the supplied Exploring Radiography lecture set.' },
+    "practice": [
+      {
+        "type": "mcq",
+        "prompt": "Across the Hospital Authority in Hong Kong, how many Clinical Oncology Centers provide radiation therapy services?",
+        "options": [
+          "4",
+          "6",
+          "12",
+          "16"
+        ],
+        "answer": 1,
+        "explanation": "There are 6 Clinical Oncology Centers (RT) in public HA hospitals, alongside 39 Departments of Radiology and 16 A&E services.",
+        "src": {
+          "ref": "hti.w5",
+          "location": "p3 \"6 Clinical Oncology Centers (RT)\""
+        }
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each hospital radiology team member to their designated primary responsibility.",
+        "pairs": [
+          [
+            "First radiographer",
+            "Patient handling and anatomical positioning"
+          ],
+          [
+            "Second radiographer",
+            "Panel controlling and triggering beam exposure"
+          ],
+          [
+            "Patient care assistant (PCA)",
+            "Patient preparation and changing/gowning"
+          ],
+          [
+            "Departmental nurse",
+            "Support for CT, MRI, and A&E interventional care"
+          ]
+        ],
+        "explanation": "Teamwork in radiology delegates specific duties between paired radiographers, PCAs, and nursing staff.",
+        "src": {
+          "ref": "hti.w5",
+          "location": "p5 \"Team work is a must\""
+        }
+      },
+      {
+        "type": "typed",
+        "prompt": "In the lecture worked example of an X-ray request form, what specific examination and projections were requested?",
+        "accept": [
+          "CXR (PA + Lat)",
+          "CXR PA + Lat",
+          "CXR PA and Lat",
+          "chest x-ray pa and lateral",
+          "chest x-ray (pa + lat)"
+        ],
+        "explanation": "The order form requested CXR (PA + Lat), representing a chest X-ray in posteroanterior and lateral projections.",
+        "src": {
+          "ref": "hti.w5",
+          "location": "p7 \"CXR (PA + Lat)\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Why must the radiographer verify the \"LMP\" field on the order form for female patients of reproductive age prior to pelvic or abdominal radiography?",
+        "options": [
+          "To calculate the necessary intravenous contrast agent dose",
+          "To ensure the patient has maintained proper dietary fasting",
+          "To avoid irradiating an early unsuspected pregnancy during organogenesis",
+          "To determine whether direct digital radiography can be utilized"
+        ],
+        "answer": 2,
+        "explanation": "LMP (Last Menstrual Period) verification is required to avoid fetal irradiation in pregnant patients, fulfilling radiation safety requirements.",
+        "src": {
+          "ref": "hti.w5",
+          "location": "p7 \"Read the order form\""
+        }
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'A request form gives clinical information "Cough x 2/12. SOB" and diagnosis "Chest infection". Why does the radiographer need those two fields rather than just the examination name?',
-        model: 'They tell the radiographer what the image is being asked to answer, which is what the "what is expected to see" question in the Week 1 lecture is about. The examination name says which images to take; the clinical information and diagnosis say what the referrer is looking for, which affects positioning and image assessment.',
-        rubric: ['Distinguishes the examination requested from the clinical question', 'Links clinical information to what the image needs to show'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A junior radiographer receives an order form that lists only \"CXR\" under Examination Requested, leaving the Clinical Information, Diagnosis, and LMP fields completely blank. Explain why the radiographer must pause and obtain this missing information before taking the exposure.",
+        "model": "A radiographic request form is not just an equipment requisition; it is a clinical and legal consultation document. First, clinical information and provisional diagnosis (\"what is expected to see\") determine the appropriate projections (e.g. an erect PA view for pneumothorax/fluid levels vs an AP supine view if the patient is bedbound) and assist the radiographer in judging whether the pathology is adequately demonstrated. Second, without clinical history, transport requirements cannot be anticipated safely. Third, and most critically, omitting the LMP in a female of childbearing age violates radiation safety protocols, risking unintended irradiation of a conceptus. The radiographer must contact the referring doctor to obtain clinical history and confirm pregnancy status before exposing.",
+        "rubric": [
+          "Explains how clinical information/diagnosis dictates projection selection and image critique",
+          "Highlights the radiation protection risk of omitted LMP verification for early pregnancy",
+          "Recognizes the order form as a legal medical document that requires completion before irradiation"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Reading only the "Examination Requested" line and ignoring the clinical information, diagnosis and LMP fields.',
+    "commonMistakes": [
+      "Reading only the \"Examination Requested\" line while completely ignoring clinical notes, diagnosis, and allergy status.",
+      "Assuming all 39 radiology departments in HA provide cancer radiation therapy (only 6 Clinical Oncology Centers provide radiotherapy; the 39 departments provide diagnostic medical imaging).",
+      "Failing to verify LMP verbally with female patients before abdominal or lumbar spine imaging."
     ],
-    skills: [
-      'The examination line and the clinical information answer different questions: "CXR (PA + Lat)" says which images to take; "Cough x 2/12, SOB — chest infection" says what the image is being asked to show. Reading only the examination name is the named mistake, and it loses exactly the information that guides positioning and image assessment.',
-      'The older departmental example divides patient handling and panel control between two radiographers, with preparation support from a PCA or nurse. It does not state that team members can never exchange roles.',
+    "skills": [
+      "Deconstruct clinical abbreviations on radiology order forms (e.g. CXR, PA, Lat, SOB, LMP, RTA, #).",
+      "Coordinate duties within a two-radiographer room team to ensure fast patient throughput and zero radiation positioning errors."
     ],
-    selfCheck: 'From memory: the HA cluster count, the two radiographer roles, and the worked example examination with its two projections — PA and Lat, the only projection abbreviations the supplied lectures use.',
-    sourceRefs: [{ ref: 'hti.w5', location: 'Slides 3–7 Hospital Authority structure, manpower, team work, floor plan, reading the order form' }],
+    "selfCheck": "From memory, state the numbers of HA clusters, radiology departments, and RT centres; explain the two roles of the paired radiographers; and list 6 essential fields on an X-ray request form.",
+    "visuals": [
+      {
+        "schematic": "requestForm"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hti.w5",
+        "location": "p3 \"Hospital authority\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p3 \"7 Clusters\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p3 \"39 Department of Radiology (MI)\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p3 \"16 A&E Radiology Service\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p3 \"6 Clinical Oncology Centers (RT)\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p3 \"About 800 diagnostic radiographers\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p3 \"About 180-200 Radiotherapists\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p4 \"General manpower arrangement in hospitals\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p4 \"29 radiologists\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p4 \"84 radiographers\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p4 \"16 nurses / patient-care assistants\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p5 \"Team work is a must\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p5 \"A pair of radiographer\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p5 \"Patient handling\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p5 \"Panel controlling\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p5 \"Patient care assistant (PCA)\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p5 \"Nurse (CT, MRI, and A&E)\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p7 \"Read the order form\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p7 \"CXR (PA + Lat)\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p7 \"Cough x 2/12. SOB\""
+      },
+      {
+        "ref": "hti.w5",
+        "location": "p7 \"Chest infection\""
+      }
+    ]
   },
   {
     id: 'hti17103-modality-choice',
