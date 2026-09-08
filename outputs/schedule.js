@@ -496,7 +496,7 @@ export const WEEK_STUDY = {
     8: ['abct2326-endocrine-delivery', 'abct2326-endocrine-receptors', 'abct2326-endocrine-second-messengers', 'abct2326-endocrine-pituitary-axes', 'abct2326-endocrine-adrenal-thyroid', 'abct2326-endocrine-pancreas-misc'],
     9: ['abct2326-nervous-divisions', 'abct2326-nervous-synaptic-refractory-neuroglia', 'phys-nerve-cellular-action-potential', 'abct2326-nervous-synapse-types-nt', 'abct2326-synapse-drug-action'],
     10: [],
-    11: ['abct2326-muscle-types', 'abct2326-muscle-action', 'abct2326-nmj-coupling', 'abct2326-muscle-ultrastructure-energetics'],
+    11: ['abct2326-muscle-types', 'abct2326-muscle-action', 'abct2326-nmj-coupling', 'abct2326-muscle-ultrastructure-energetics', 'abct2326-msk-bone-structure-remodeling'],
     12: [
       'abct2326-crossbridge-cycle', 'abct2326-fibre-types-fuel',
       'abct2326-spindle-golgi', 'abct2326-msk-immune-overview',
