@@ -951,51 +951,999 @@ export const PHYS_DEPTH_ITEMS = [
     ]
   },
   {
-    id: 'abct2326-digestive-wall-motility', subject: 'ABCT2326', unit: 'phys.dig', type: 'sequence',
-    title: 'Digestive wall, peristalsis and neural control', tags: ['digestive', 'motility', 'mechanism', 'high-yield'],
-    lesson: {
-      explanation: 'Most of the digestive tract has four layers. The mucosa contacts the lumen and contains epithelium, lamina propria and muscularis mucosae. The submucosa contains connective tissue, vessels, glands and the submucosal plexus. The muscularis externa usually has inner circular and outer longitudinal smooth muscle with the myenteric plexus between them. The serosa is the outer covering. Peristalsis moves a bolus by contraction of circular muscle behind it and relaxation ahead, while longitudinal muscle shortens the segment. Local enteric reflexes can coordinate secretion and movement without the CNS: sensory receptors feed interneurons in the plexuses, which activate motor neurons to smooth muscle or glands. Long reflexes pass through the CNS; parasympathetic input generally prepares and stimulates digestion, whereas sympathetic input inhibits gastrointestinal activity.',
-      keyFacts: ['Layers inward to outward: mucosa, submucosa, muscularis externa, serosa.', 'Submucosal plexus chiefly regulates secretion and local conditions.', 'Myenteric plexus lies in muscularis externa and chiefly regulates motility.', 'Peristalsis contracts behind and relaxes ahead of the bolus.', 'Short reflexes stay within the enteric nervous system; long reflexes involve the CNS.', 'Parasympathetic activity promotes digestion; sympathetic activity inhibits it.'], prerequisites: ['abct2326-digestive-pathway'], examples: [],
+  "id": "abct2326-digestive-wall-motility",
+  "subject": "ABCT2326",
+  "unit": "phys.dig",
+  "type": "sequence",
+  "title": "Digestive wall layers, peristalsis, and neural regulation",
+  "tags": [
+    "digestive",
+    "motility",
+    "mechanism",
+    "high-yield",
+    "peristalsis",
+    "enteric-nervous-system"
+  ],
+  "priorKnowledge": {
+    "level": "dse-bio",
+    "covers": "part",
+    "dsePart": "core",
+    "syllabusRef": {
+      "ref": "edb.bio",
+      "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": peristalsis and general structure of the digestive tract."
     },
-    memory: { location: 'Submucosal plexus sits by glands; myenteric plexus sits by muscle.' },
-    practice: [{ type: 'sequence', prompt: 'Order the digestive tract wall from the lumen outward.', items: ['Mucosa', 'Submucosa', 'Muscularis externa', 'Serosa'], explanation: 'This four-layer plan repeats through most of the tract.' }, { type: 'explain', prompt: 'How does peristalsis move a bolus forward?', model: 'Circular muscle contracts behind the bolus and relaxes ahead while longitudinal muscle shortens the receiving segment, creating a moving pressure wave.', rubric: ['Contraction behind', 'Relaxation ahead', 'Mentions longitudinal shortening or pressure wave'] }],
-    commonMistakes: ['Swapping the submucosal and myenteric plexuses.'], skills: ['Locate the plexus beside the function it controls.'], selfCheck: 'Draw the four wall layers and place both plexuses, then narrate one peristaltic wave.',
-    sourceRefs: [{ ref: 'phys.4', location: 'Slides 7–19 digestive wall layers, peristalsis, short and long reflexes' }],
+    "beyond": [
+      {
+        "t": "The mucosa is the inner lining of the digestive tract, folded to increase surface area for absorption.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p10 \"Is the inner lining of digestive tract\""
+        }
+      },
+      {
+        "t": "The submucosa is a layer of dense irregular connective tissue surrounding muscularis mucosae with blood/lymphatic vessels.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p11 \"Is a layer of dense irregular connective tissue\""
+        }
+      },
+      {
+        "t": "The muscularis externa is dominated by smooth muscle cells involved in mechanical processing and movement.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p12 \"Is dominated by smooth muscle cells\""
+        }
+      },
+      {
+        "t": "The serosa is the outer binding and protective serous membrane layer covering the muscularis externa.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p12 \"Outer binding and protective layer\""
+        }
+      },
+      {
+        "t": "Movement of digestive materials occurs by muscular layers of digestive tract via peristalsis and segmentation.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p13 \"Movement of Digestive Materials\""
+        }
+      },
+      {
+        "t": "Local factors including pH, volume, and chemical composition directly trigger digestive actions.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p15 \"Local Factors\""
+        }
+      },
+      {
+        "t": "Neural mechanisms control digestive functions through sensory, motor, and interneuronal pathways.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p16 \"Neural Mechanisms\""
+        }
+      },
+      {
+        "t": "Short reflexes are coordinated entirely within the enteric nervous system without central nervous system involvement.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p17 \"Short reflexes\""
+        }
+      },
+      {
+        "t": "Hormonal mechanisms involve peptide hormones produced by enteroendocrine cells modulating gut motility and secretion.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p18 \"Hormonal Mechanisms\""
+        }
+      }
+    ]
   },
+  "lesson": {
+    "explanation": "The histological organization of the gastrointestinal wall reflects a conserved four-layered architecture from the esophagus through the large intestine, uniquely adapted for secretion, absorption, and propulsion. From the lumen outward, the four concentric tunics are: (1) Mucosa: the innermost mucous membrane lining. It consists of an absorptive and secretory mucosal epithelium (stratified squamous in high-abrasion zones like oral cavity, pharynx, esophagus, and anus; simple columnar in stomach and intestines), an underlying lamina propria of loose areolar connective tissue containing capillary beds, sensory nerve endings, and mucosal-associated lymphoid tissue (MALT), and a thin double-layer of smooth muscle called the muscularis mucosae, which alters the local folds and ridges of the luminal surface. (2) Submucosa: a sturdy layer of dense irregular connective tissue containing large blood and lymphatic vessels that receive absorbed nutrients, exocrine glands that secrete buffers and enzymes, and the submucosal (Meissner's) nerve plexus. The submucosal plexus innervates the mucosa and submucosa, chiefly regulating local glandular secretions and submucosal blood flow. (3) Muscularis externa: a thick tunic dominated by smooth muscle cells arranged typically in two perpendicular layers—an inner circular layer and an outer longitudinal layer. Nested between these two muscular strata is the myenteric (Auerbach's) nerve plexus. The myenteric plexus provides autonomic motor innervation and coordinated interneuronal signaling that governs gastrointestinal motility. (4) Serosa (adventitia): the outermost protective sheath. In intraperitoneal segments, it consists of a visceral peritoneum (mesothelium over areolar tissue); in retroperitoneal or non-peritoneal regions (pharynx, esophagus, rectum), it is replaced by a fibrous adventitia that firmly anchors the tube to surrounding structures. Motility along the tract relies on two primary mechanical patterns: peristalsis and segmentation. Peristalsis is a coordinated, unidirectional wave of muscular contraction that propels a bolus forward: circular smooth muscle fibers contract immediately behind the bolus while circular fibers ahead of the bolus relax, while outer longitudinal muscles contract ahead to shorten the receiving segment, driving the bolus forward. In contrast, segmentation consists of rhythmic, non-propulsive alternating circular contractions in the small and large intestines that churn, fragment, and mix chyme with digestive enzymes without net forward displacement. Gastrointestinal regulation operates through three integrated tiers: local factors (primary stimulus, including luminal stretch, osmolarity, and pH changes detected by mucosal chemoreceptors and mechanoreceptors); neural mechanisms (short reflexes mediated entirely within the enteric nervous system [ENS], allowing sensory neurons to synapse via interneurons onto motor neurons in the myenteric/submucosal plexuses without CNS input, versus long reflexes where sensory information travels via the vagus or pelvic nerves to the CNS, allowing parasympathetic stimulation to enhance motility/secretion and sympathetic stimulation to inhibit them); and hormonal mechanisms (at least 18 peptide hormones released by enteroendocrine cells into the bloodstream to coordinate distant segments).",
+    "plain": "The wall of the digestive tract has four concentric layers from inside out: (1) mucosa (the inner lining of epithelial cells and areolar tissue that absorbs nutrients and secretes mucus), (2) submucosa (tough connective tissue packed with blood vessels and the submucosal nerve plexus that controls glands), (3) muscularis externa (inner circular and outer longitudinal smooth muscle with the myenteric nerve plexus between them that controls muscle contractions), and (4) serosa (the outer protective membrane). Movement happens via peristalsis (circular muscles squeeze behind food and relax ahead, pushing it forward like squeezing toothpaste from a tube) and segmentation (pinching back and forth to mix food with enzymes). The gut is regulated locally by stretch and chemistry, by short nerve reflexes entirely inside the gut wall (the enteric nervous system), by long reflexes connected to the brain (parasympathetic turns digestion ON, sympathetic turns it OFF), and by hormones.",
+    "keyFacts": [
+      "The digestive tract wall possesses four concentric tunics: mucosa, submucosa, muscularis externa, and serosa.",
+      "The mucosa contains epithelial lining, vascular lamina propria (areolar tissue), and muscularis mucosae.",
+      "The submucosa is dense irregular connective tissue containing major blood vessels and the submucosal plexus.",
+      "The submucosal (Meissner's) plexus primarily regulates mucosal glandular secretions and local blood flow.",
+      "The muscularis externa contains inner circular and outer longitudinal smooth muscle layers.",
+      "The myenteric (Auerbach's) plexus lies between circular and longitudinal muscles and controls motility.",
+      "Peristalsis propels a bolus forward via contraction of circular muscle behind and relaxation ahead of the bolus.",
+      "Segmentation produces non-propulsive churning and mixing contractions in the small and large intestines.",
+      "Short enteric reflexes are processed entirely within the enteric nervous system without central nervous system involvement.",
+      "Parasympathetic signaling stimulates gut motility and secretion; sympathetic signaling inhibits gastrointestinal function."
+    ],
+    "prerequisites": [
+      "abct2326-digestive-pathway"
+    ],
+    "examples": [
+      "In Hirschsprung disease (congenital aganglionic megacolon), parasympathetic neural crest cells fail to migrate into the distal colon during embryonic development; the absence of both myenteric and submucosal plexuses leaves the distal colon in a state of uncoordinated tonus without peristalsis, causing severe bowel obstruction and massive dilation of the proximal colon.",
+      "During extreme acute stress or vigorous exercise ('fight-or-flight' activation), high sympathetic outflow stimulates vascular alpha-1 adrenergic receptors, shunting blood flow away from the mesenteric circulation to skeletal muscle while profoundly inhibiting myenteric peristalsis and mucosal secretions."
+    ]
+  },
+  "memory": {
+    "firstLetter": "Wall Layers Lumen-to-Out: M-S-M-S ('Must Stop Mixing Soup' = Mucosa, Submucosa, Muscularis externa, Serosa).",
+    "chunking": "Plexus Alignment: SubMucosal plexus = Mucosal Secretion (both start with S/M); Myenteric plexus = Motility (both start with M).",
+    "comparison": "Peristalsis vs Segmentation: Peristalsis is unidirectional forward transport (one-way conveyor belt); segmentation is stationary back-and-forth mixing (washing machine agitator).",
+    "teachBack": "Draw the four layers of the gut wall, place the submucosal and myenteric plexuses in their exact layers, and explain how a short enteric reflex coordinates peristalsis behind a stretched bolus."
+  },
+  "practice": [
+    {
+      "type": "sequence",
+      "prompt": "Order the concentric tissue layers of the gastrointestinal tract wall from the luminal surface outward to the peritoneal cavity.",
+      "items": [
+        "Mucosa (epithelium, lamina propria, muscularis mucosae)",
+        "Submucosa (dense irregular connective tissue)",
+        "Muscularis externa (circular and longitudinal smooth muscle)",
+        "Serosa (visceral peritoneum)"
+      ],
+      "explanation": "From deep (luminal) to superficial: Mucosa contacts the lumen, followed by the vascular Submucosa, the contractile Muscularis externa, and the outer protective Serosa."
+    },
+    {
+      "type": "matching",
+      "prompt": "Match each gastrointestinal plexus or regulatory mechanism with its anatomical location and primary physiological role.",
+      "pairs": [
+        [
+          "Submucosal (Meissner’s) plexus",
+          "Situated in submucosa; regulates glandular secretion and submucosal blood flow"
+        ],
+        [
+          "Myenteric (Auerbach’s) plexus",
+          "Situated between circular and longitudinal muscle layers; coordinates gastrointestinal motility"
+        ],
+        [
+          "Short enteric reflexes",
+          "Sensory-to-motor loops processed entirely within ENS without central nervous system input"
+        ],
+        [
+          "Long autonomic reflexes",
+          "Afferent signals relayed to CNS with parasympathetic outflow stimulating gut activity"
+        ]
+      ],
+      "explanation": "Submucosal plexus controls secretions; myenteric plexus controls motility; short reflexes are purely ENS; long reflexes route through the CNS."
+    },
+    {
+      "type": "mcq",
+      "prompt": "Which pattern of muscular contraction moves a digestive bolus forward along the esophagus and intestine by contracting circular smooth muscle behind the bolus while relaxing circular muscle ahead of it?",
+      "options": [
+        "Peristalsis",
+        "Segmentation",
+        "Haustral churning",
+        "Mass movement"
+      ],
+      "answer": 0,
+      "explanation": "Peristalsis is the propulsive wave created by circular contraction behind the bolus coupled with receptive relaxation and longitudinal shortening ahead."
+    },
+    {
+      "type": "typed",
+      "prompt": "Between which two specific smooth muscle layers of the muscularis externa does the myenteric (Auerbach’s) nerve plexus reside?",
+      "accept": [
+        "circular and longitudinal",
+        "circular and longitudinal muscle",
+        "circular and longitudinal smooth muscle",
+        "inner circular and outer longitudinal",
+        "inner circular and outer longitudinal muscle"
+      ],
+      "explanation": "The myenteric plexus is sandwiched between the inner circular and outer longitudinal layers of the muscularis externa."
+    }
+  ],
+  "application": [
+    {
+      "type": "scenario",
+      "prompt": "A 24-year-old male with severe cervical spinal cord transection at level C5 is stabilized in the neuro-intensive care unit. Despite complete interruption of somatic motor pathways and somatic sensation below the neck, his gastrointestinal tract continues to exhibit coordinated peristaltic contractions, digest enteral feedings, and propel chyme through his small intestine. Explain the neuroanatomical basis for autonomous gut motility in the absence of spinal communication, and distinguish between short and long digestive reflexes.",
+      "model": "The gastrointestinal tract possesses an intrinsic, autonomous nervous network known as the enteric nervous system (ENS), which contains over 100 million neurons organized into the submucosal (Meissner’s) and myenteric (Auerbach’s) plexuses. The ENS can operate as an independent local integration center via short reflexes. In a short reflex, sensory chemoreceptors and mechanoreceptors in the gut mucosa detect luminal distension and chemical composition; their afferent signals synapse directly onto enteric interneurons, which subsequently activate motor neurons within the myenteric plexus to contract circular muscle behind the bolus and relax muscle ahead. Because short reflexes are entirely self-contained within the gut wall and require no synaptic relay through the spinal cord or brain, peristalsis and baseline secretion continue normally despite complete cervical cord transection. In contrast, long reflexes involve visceral afferents ascending to the CNS (chiefly via the vagus nerve and spinal cord) and autonomic efferents modulating digestive rate; while spinal transection impairs voluntary defecation and sacral parasympathetic reflexes, baseline mesenteric peristalsis remains intact.",
+      "rubric": [
+        "Identifies the intrinsic Enteric Nervous System (ENS) and its myenteric/submucosal plexuses as the autonomous driver of motility",
+        "Explains that short reflexes operate entirely within the gut wall without requiring spinal cord or CNS connectivity",
+        "Contrasts short local reflexes with long CNS-mediated reflexes, noting that cord transection spares intrinsic peristalsis"
+      ]
+    }
+  ],
+  "commonMistakes": [
+    "Confusing the submucosal plexus (secretory/glandular control) with the myenteric plexus (muscular motility control).",
+    "Believing segmentation moves chyme forward along the intestine, when segmentation is purely stationary mixing and churning.",
+    "Assuming the gastrointestinal tract is completely paralyzed after spinal cord injury, overlooking the independent motor capabilities of the enteric nervous system."
+  ],
+  "skills": [
+    "Locate and differentiate the four concentric tunics and two nerve plexuses on histological cross-sections of the gut wall.",
+    "Explain the directional biophysics of circular and longitudinal smooth muscle activation during propulsive peristalsis."
+  ],
+  "selfCheck": "From memory: name the four layers of the digestive wall from inside out, identify where each plexus sits, and contrast short enteric reflexes with long autonomic reflexes.",
+  "visuals": [
+    {
+      "fig": "digestiveWallLayers"
+    },
+    {
+      "fig": "digestiveSystemOverview"
+    },
+    {
+      "gen": true
+    }
+  ],
+  "sourceRefs": [
+    {
+      "ref": "phys.4",
+      "location": "p10 \"Is the inner lining of digestive tract\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p11 \"Is a layer of dense irregular connective tissue\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p12 \"Is dominated by smooth muscle cells\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p12 \"Outer binding and protective layer\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p13 \"Movement of Digestive Materials\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p15 \"Local Factors\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p16 \"Neural Mechanisms\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p17 \"Short reflexes\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p18 \"Hormonal Mechanisms\""
+    }
+  ]
+},
   {
-    id: 'abct2326-digestive-stomach-control', subject: 'ABCT2326', unit: 'phys.dig', type: 'sequence',
-    title: 'Stomach secretions and the three phases of gastric control', tags: ['digestive', 'stomach', 'mechanism', 'high-yield'],
-    lesson: {
-      explanation: 'Gastric glands contain mucous cells, parietal cells, chief cells and enteroendocrine cells. Parietal cells secrete hydrochloric acid and intrinsic factor. Chief cells release inactive pepsinogen, which HCl converts to proteolytic pepsin in the lumen. G cells release gastrin, while D cells release somatostatin that inhibits gastrin. Acid is generated when carbonic anhydrase forms carbonic acid inside the parietal cell; H⁺ is pumped into the gland lumen, bicarbonate exits to blood in exchange for chloride—the post-meal alkaline tide—and chloride then diffuses into the lumen to form HCl. Gastric activity has three phases. The cephalic phase begins with sight, smell, taste or thought of food through vagal stimulation. The gastric phase begins with stomach distension, higher pH and peptides, driving local reflexes and gastrin. The intestinal phase begins when chyme enters the duodenum; low pH, lipids and carbohydrates trigger the enterogastric reflex plus secretin, CCK and GIP to inhibit gastric secretion and emptying.',
-      keyFacts: ['Parietal: HCl and intrinsic factor.', 'Chief: pepsinogen; HCl activates it to pepsin.', 'G cell: gastrin; D cell: somatostatin inhibits gastrin.', 'Bicarbonate leaves the parietal cell for blood as the alkaline tide while chloride enters.', 'Cephalic phase anticipates food; gastric phase responds to food in stomach; intestinal phase slows the stomach when chyme reaches duodenum.', 'The stomach begins protein digestion but absorbs little nutrient.'], prerequisites: ['abct2326-digestive-wall-motility'], examples: [],
+  "id": "abct2326-digestive-stomach-control",
+  "subject": "ABCT2326",
+  "unit": "phys.dig",
+  "type": "sequence",
+  "title": "Gastric histology, acid secretion, and the three phases of gastric control",
+  "tags": [
+    "digestive",
+    "stomach",
+    "mechanism",
+    "high-yield",
+    "gastric-acid",
+    "parietal-cells",
+    "phases-of-secretion"
+  ],
+  "priorKnowledge": {
+    "level": "dse-bio",
+    "covers": "part",
+    "dsePart": "core",
+    "syllabusRef": {
+      "ref": "edb.bio",
+      "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": digestion in the stomach, roles of gastric juice and hydrochloric acid."
     },
-    memory: { sequence: 'Think it, fill it, brake it: cephalic, gastric, intestinal.' },
-    practice: [{ type: 'matching', prompt: 'Match each gastric cell to its secretion.', pairs: [['Parietal cell', 'HCl and intrinsic factor'], ['Chief cell', 'Pepsinogen'], ['G cell', 'Gastrin'], ['D cell', 'Somatostatin']], explanation: 'The cell names identify the control map for gastric secretion.' }, { type: 'sequence', prompt: 'Order the phases of gastric control.', items: ['Cephalic phase', 'Gastric phase', 'Intestinal phase'], explanation: 'Anticipation precedes stomach filling; duodenal feedback follows.' }],
-    commonMistakes: ['Saying chief cells secrete active pepsin; they secrete inactive pepsinogen.'], skills: ['Link each phase to the compartment currently sensing food.'], selfCheck: 'Name four gastric cell types and trace HCl production and the three control phases.',
-    sourceRefs: [{ ref: 'phys.4', location: 'Slides 20–34 oral processing, stomach cells, HCl production and three phases of gastric control' }],
+    "beyond": [
+      {
+        "t": "Major functions of the stomach: bulk storage, mechanical breakdown, chemical digestion, and intrinsic factor production.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p22 \"Major Functions of the\""
+        }
+      },
+      {
+        "t": "Gastric glands in fundus and body contain specialized secretory cell types.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p24 \"Gastric Glands\""
+        }
+      },
+      {
+        "t": "Parietal cells secrete intrinsic factor and hydrochloric acid (HCl).",
+        "src": {
+          "ref": "phys.4",
+          "location": "p27 \"Parietal Cells\""
+        }
+      },
+      {
+        "t": "Stomach performs preliminary digestion of proteins by pepsin.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p28 \"Stomach performs preliminary digestion of proteins by pepsin\""
+        }
+      },
+      {
+        "t": "Production of acid and enzymes by gastric mucosa is controlled by cephalic, gastric, and intestinal phases.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p31 \"Production of acid and enzymes by the gastric mucosa can be:\""
+        }
+      },
+      {
+        "t": "Gastric phase: distension, elevated pH, and peptides stimulate submucosal plexus, G cells, and parietal secretion.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p33 \"GASTRIC PHASE\""
+        }
+      },
+      {
+        "t": "Intestinal phase: chyme entering duodenum activates enterogastric reflex and duodenal hormones that inhibit gastric activity.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p34 \"INTESTINAL PHASE\""
+        }
+      }
+    ]
   },
+  "lesson": {
+    "explanation": "The stomach is an expandable muscular pouch that performs four vital functions: (1) short-term storage of ingested food; (2) mechanical breakdown of food into a viscous acidic soup termed chyme via three smooth muscle layers (longitudinal, circular, and an inner oblique layer); (3) chemical digestion of protein peptide bonds via the proteolytic enzyme pepsin; and (4) production of intrinsic factor, an indispensable glycoprotein required for vitamin B12 absorption in the terminal ileum. The stomach mucosa contains deep tubular gastric glands opening into shallow surface indentations called gastric pits. Gastric glands in the gastric fundus and body harbor four distinct epithelial cell lineages: (1) Mucous neck cells, which secrete an alkaline, bicarbonate-rich mucus that coats the luminal epithelium, shielding it from enzymatic self-digestion and harsh luminal acid; (2) Parietal (oxyntic) cells, highly specialized pyramidal cells that secrete hydrochloric acid (HCl) and intrinsic factor; (3) Chief (peptogenic) cells, abundant basophilic cells at the base of glands that synthesize and exocytose the zymogen pepsinogen (as well as gastric lipase in infants); and (4) Enteroendocrine cells, notably G cells (which secrete the peptide hormone gastrin into blood capillaries) and D cells (which secrete somatostatin to inhibit gastrin and acid secretion). Hydrochloric acid secretion by parietal cells occurs through a coordinated biochemical pathway: intracellular carbonic anhydrase converts metabolic CO2 and H2O into carbonic acid (H2CO3), which rapidly dissociates into H+ and HCO3-. An apical H+/K+ ATPase proton pump actively transports H+ into the gastric lumen in exchange for K+, while a basolateral anion antiporter pumps HCO3- into the interstitial capillary blood in exchange for Cl-. This influx of bicarbonate into gastric venules creates a transient postprandial increase in systemic blood pH known as the 'alkaline tide'. Meanwhile, Cl- diffuses out across apical chloride channels into the lumen, joining H+ to form hydrochloric acid (maintaining a luminal pH of 1.5–2.0). Luminal acidity denatures globular dietary proteins, kills ingested microorganisms, breaks down plant cell walls, and cleaves inactive pepsinogen into active, proteolytic pepsin (optimal pH 1.5–2.0). Gastric secretory and motor activity is tightly regulated across three chronological phases: (1) Cephalic phase: initiated before food enters the stomach by the sight, smell, taste, or cognitive anticipation of food. Sensory inputs converge on the hypothalamus and medulla, triggering vagal parasympathetic postganglionic fibers (CN X) to release acetylcholine (ACh), which stimulates parietal cells, chief cells, and G cells, priming the stomach for arriving food. (2) Gastric phase: begins when food actually reaches the stomach lumen. Mechanical stretch (distension) activates mechanoreceptors, peptides and amino acids activate chemoreceptors, and rising pH (due to food buffering) disinhibits G cells to release abundant gastrin. Gastrin strongly enhances parietal acid secretion and triggers vigorous mixing waves. (3) Intestinal phase: begins when acidic chyme first enters the duodenum. The arrival of acid (pH < 4.5), hypertonic fluid, and fatty breakdown products triggers the neural enterogastric reflex (inhibiting vagal motor nuclei and local myenteric reflexes) and stimulates duodenal enteroendocrine cells to release secretin, cholecystokinin (CCK), and gastric inhibitory peptide (GIP). These combined signals act as a powerful brake, slowing gastric emptying and halting acid secretion to ensure the duodenum is not overwhelmed.",
+    "plain": "The stomach has four jobs: storing food, churning it mechanically with three muscle layers, starting protein digestion with pepsin, and making intrinsic factor (essential for absorbing vitamin B12). The stomach wall is packed with gastric glands containing four cell types: (1) mucous neck cells (make protective alkaline mucus), (2) parietal cells (pump out stomach acid [HCl] and intrinsic factor), (3) chief cells (make inactive pepsinogen, which acid turns into active pepsin to digest proteins), and (4) G cells (release the hormone gastrin to ramp up acid production). When parietal cells make acid, they pump H+ into the stomach while dumping bicarbonate into the blood, creating a temporary rise in blood pH called the 'alkaline tide'. Gastric activity runs in three phases: (1) Cephalic phase ('think it'—seeing or smelling food stimulates the vagus nerve to prep the stomach), (2) Gastric phase ('fill it'—food stretches the stomach and stimulates gastrin to produce lots of acid and churning), and (3) Intestinal phase ('brake it'—acidic chyme entering the duodenum triggers reflexes and hormones that slow down the stomach).",
+    "keyFacts": [
+      "The stomach performs bulk storage, mechanical churning, preliminary protein digestion, and intrinsic factor production.",
+      "The gastric muscularis externa contains three layers: outer longitudinal, middle circular, and inner oblique.",
+      "Parietal cells secrete hydrochloric acid (HCl) and intrinsic factor.",
+      "Intrinsic factor is a glycoprotein required for the absorption of vitamin B12 in the terminal ileum.",
+      "Chief cells secrete pepsinogen, an inactive zymogen converted by luminal HCl into proteolytic pepsin.",
+      "G cells secrete the peptide hormone gastrin, which stimulates parietal cell acid production and gastric motility.",
+      "Parietal acid secretion pumps HCO3- into the bloodstream, creating the postprandial 'alkaline tide'.",
+      "The cephalic phase anticipates food through vagal (CN X) parasympathetic stimulation.",
+      "The gastric phase is triggered by stomach distension, peptides, and elevated pH, driving gastrin and acid release.",
+      "The intestinal phase brakes gastric secretion and emptying via the enterogastric reflex, secretin, and CCK."
+    ],
+    "prerequisites": [
+      "abct2326-digestive-wall-motility"
+    ],
+    "examples": [
+      "In autoimmune atrophic gastritis (pernicious anemia), autoantibodies destroy gastric parietal cells; loss of parietal cells eliminates intrinsic factor production, preventing vitamin B12 absorption in the ileum and leading to megaloblastic anemia and severe demyelinating neurological deficits.",
+      "Proton pump inhibitors (such as omeprazole) covalently bind and irreversibly inactivate the apical H+/K+ ATPase in parietal cells, profoundly suppressing gastric acid secretion and allowing healing of peptic ulcers and gastroesophageal reflux disease (GERD)."
+    ]
+  },
+  "memory": {
+    "firstLetter": "Phases of Gastric Control: C-G-I ('Can Gastric Inhibit?' = Cephalic [brain/vagus], Gastric [stomach filling], Intestinal [duodenal brake]).",
+    "chunking": "Secretory Cell Pairs: Parietal = Proton & Protector (HCl and Intrinsic factor); Chief = Cleaver (Pepsinogen for protein cleavage).",
+    "comparison": "Cephalic vs Intestinal Phase: Cephalic is feed-forward acceleration (starts before food arrives via vagus nerve); Intestinal is negative-feedback brake (slows stomach down when chyme reaches duodenum).",
+    "teachBack": "Explain the biochemical origin of the alkaline tide in a parietal cell, and walk through how the arrival of acidic chyme in the duodenum shuts off stomach acid secretion."
+  },
+  "practice": [
+    {
+      "type": "sequence",
+      "prompt": "Order the three chronological phases of gastric activity from the sensory perception of food through to duodenal emptying.",
+      "items": [
+        "Cephalic phase (vagal parasympathetic stimulation anticipating food)",
+        "Gastric phase (distension and gastrin release driving acid and churning)",
+        "Intestinal phase (enterogastric reflex and duodenal hormones braking the stomach)"
+      ],
+      "explanation": "Cephalic precedes ingestion; gastric responds to gastric filling; intestinal provides negative feedback as chyme leaves for the duodenum."
+    },
+    {
+      "type": "matching",
+      "prompt": "Match each gastric gland cell type with its primary secretion and physiological role.",
+      "pairs": [
+        [
+          "Parietal cell",
+          "Secretes hydrochloric acid (HCl) for protein denaturation and intrinsic factor for B12 uptake"
+        ],
+        [
+          "Chief cell",
+          "Secretes inactive pepsinogen zymogen converted by acid into proteolytic pepsin"
+        ],
+        [
+          "G cell",
+          "Enteroendocrine cell releasing gastrin to stimulate acid secretion and gastric motility"
+        ],
+        [
+          "Mucous neck cell",
+          "Secretes alkaline bicarbonate-rich mucus shielding mucosal lining from autodigestion"
+        ]
+      ],
+      "explanation": "Parietal cells secrete HCl and intrinsic factor; chief cells secrete pepsinogen; G cells secrete gastrin; mucous neck cells protect the epithelium."
+    },
+    {
+      "type": "mcq",
+      "prompt": "What physiological phenomenon accounts for the transient increase in systemic venous blood pH (the \"alkaline tide\") observed shortly after consuming a large meal?",
+      "options": [
+        "Basolateral exchange of bicarbonate ions into the bloodstream as parietal cells pump hydrogen ions into the lumen",
+        "Massive exocytosis of bicarbonate buffers by duodenal Brunner glands into the abdominal aorta",
+        "Hyperventilation triggered by gastric distension blowing off excess arterial carbon dioxide",
+        "Inhibition of renal tubular proton excretion caused by circulating gastrin"
+      ],
+      "answer": 0,
+      "explanation": "During gastric acid production, for every H+ pumped into the stomach lumen by the H+/K+ ATPase, a HCO3- ion is transported across the basolateral membrane into the capillary blood, elevating systemic venous pH."
+    },
+    {
+      "type": "typed",
+      "prompt": "Which indispensable glycoprotein secreted by gastric parietal cells is required for the intestinal absorption of dietary vitamin B12 in the ileum?",
+      "accept": [
+        "intrinsic factor",
+        "Intrinsic factor",
+        "Intrinsic Factor"
+      ],
+      "explanation": "Intrinsic factor binds cobalamin (vitamin B12) in the intestine, allowing receptor-mediated endocytosis in the terminal ileum."
+    }
+  ],
+  "application": [
+    {
+      "type": "scenario",
+      "prompt": "A 55-year-old female presents with severe fatigue, burning tongue (glossitis), lower extremity paresthesias, and unsteady gait. Complete blood count shows macrocytic (megaloblastic) anemia, and anti-intrinsic factor autoantibodies are detected. Endoscopy demonstrates diffuse mucosal atrophy of the gastric fundus and body. Diagnose the disease, identify which gastric cell type has been depleted, and explain the pathophysiological cascade linking stomach histology to her neurological symptoms.",
+      "model": "The patient has pernicious anemia secondary to autoimmune atrophic gastritis. The autoimmune process selectively targets and destroys gastric parietal (oxyntic) cells in the fundus and body of the stomach. Parietal cells synthesize and secrete intrinsic factor, an indispensable transport glycoprotein. Without intrinsic factor, dietary vitamin B12 (cobalamin) cannot form the protective B12-intrinsic factor complex required for receptor-mediated endocytosis by cubilin receptors in the terminal ileum. Vitamin B12 is an essential cofactor for two vital enzymatic reactions: methionine synthase (converting homocysteine to methionine, required for thymidine and DNA synthesis) and methylmalonyl-CoA mutase (converting methylmalonyl-CoA to succinyl-CoA). Impaired DNA synthesis arrests erythroblast maturation, causing macrocytic megaloblastic anemia. Furthermore, defective succinyl-CoA synthesis leads to the accumulation of abnormal fatty acids that become incorporated into neuronal membranes, causing subacute combined degeneration of the spinal cord (posterior and lateral columns), manifesting as peripheral neuropathy, paresthesias, and sensory ataxia.",
+      "rubric": [
+        "Diagnoses pernicious anemia / autoimmune atrophic gastritis causing destruction of gastric parietal cells",
+        "Explains the loss of intrinsic factor resulting in failure of vitamin B12 absorption in the terminal ileum",
+        "Connects B12 deficiency to megaloblastic anemia (impaired DNA synthesis) and neurological symptoms (demyelination/spinal cord degeneration)"
+      ]
+    }
+  ],
+  "commonMistakes": [
+    "Believing chief cells secrete active pepsin directly; chief cells synthesize inactive pepsinogen, which requires acidic cleavage to become active pepsin.",
+    "Assuming the stomach absorbs most ingested nutrients; the stomach absorbs virtually no carbohydrates or amino acids, performing preliminary digestion while absorption is left to the small intestine.",
+    "Thinking the intestinal phase speeds up stomach emptying, when it actually acts as an essential inhibitory brake to prevent duodenal acid overload."
+  ],
+  "skills": [
+    "Trace the intracellular enzymatic and transport steps of hydrochloric acid production in parietal cells.",
+    "Differentiate the trigger, neural/hormonal mediators, and primary effects of the three phases of gastric regulation."
+  ],
+  "selfCheck": "From memory: describe the four cell types in a gastric gland, diagram how parietal cells generate HCl and the alkaline tide, and contrast the cephalic and intestinal phases.",
+  "visuals": [
+    {
+      "fig": "stomachWallGlands"
+    },
+    {
+      "fig": "digestiveWallLayers"
+    },
+    {
+      "gen": true
+    }
+  ],
+  "sourceRefs": [
+    {
+      "ref": "phys.4",
+      "location": "p22 \"Major Functions of the\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p24 \"Gastric Glands\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p27 \"Parietal Cells\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p28 \"Stomach performs preliminary digestion of proteins by pepsin\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p31 \"Production of acid and enzymes by the gastric mucosa can be:\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p33 \"GASTRIC PHASE\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p34 \"INTESTINAL PHASE\""
+    }
+  ]
+},
   {
-    id: 'abct2326-digestive-small-intestine-accessory', subject: 'ABCT2326', unit: 'phys.dig', type: 'matching',
-    title: 'Small intestine, pancreas, liver and bile', tags: ['digestive', 'absorption', 'mechanism', 'high-yield'],
-    lesson: {
-      explanation: 'About 90% of nutrient absorption occurs in the small intestine. The duodenum receives acidic chyme plus pancreatic and hepatic secretions and neutralises the acid; the jejunum performs most chemical digestion and nutrient absorption; the ileum ends at the ileocaecal valve. Villi contain blood capillaries for water-soluble nutrients and a central lacteal for absorbed lipids. Brush-border enzymes sit on microvilli; enteropeptidase activates pancreatic trypsinogen. Pancreatic acini and ducts are exocrine and provide juice containing amylase, lipase, nucleases and proteolytic proenzymes; pancreatic islets are endocrine and release insulin and glucagon to blood. The liver regulates blood composition, nutrients, wastes, storage and drug inactivation and produces bile. Bile salts emulsify large lipid droplets into smaller droplets, increasing surface area for pancreatic lipase; bile does not enzymatically digest fat. The gallbladder stores and concentrates bile. Duodenal CCK contracts the gallbladder and relaxes the hepatopancreatic sphincter so bile enters the duodenum.',
-      keyFacts: ['Duodenum receives and neutralises; jejunum digests and absorbs; ileum ends at ileocaecal valve.', 'Villus capillaries receive water-soluble nutrients; lacteals receive lipids.', 'Enteropeptidase activates trypsinogen.', 'Pancreatic acini are exocrine; islets are endocrine.', 'Bile emulsifies fat, increasing lipase-accessible surface area; it is not an enzyme.', 'Gallbladder stores/concentrates bile; CCK contracts it and relaxes the hepatopancreatic sphincter.'], prerequisites: ['abct2326-digestive-stomach-control'], examples: [],
+  "id": "abct2326-digestive-small-intestine-accessory",
+  "subject": "ABCT2326",
+  "unit": "phys.dig",
+  "type": "matching",
+  "title": "Small intestinal segments, pancreatic enzymes, liver lobules, and bile",
+  "tags": [
+    "digestive",
+    "absorption",
+    "mechanism",
+    "high-yield",
+    "small-intestine",
+    "pancreas",
+    "liver",
+    "bile"
+  ],
+  "priorKnowledge": {
+    "level": "dse-bio",
+    "covers": "part",
+    "dsePart": "core",
+    "syllabusRef": {
+      "ref": "edb.bio",
+      "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": digestion in small intestine, functions of liver and pancreas, absorption in villi."
     },
-    memory: { comparison: 'Bile makes droplets smaller; lipase makes molecules smaller.' },
-    practice: [{ type: 'matching', prompt: 'Match each small-intestinal segment to its main lecture role.', pairs: [['Duodenum', 'Receives chyme and neutralises acid'], ['Jejunum', 'Most chemical digestion and nutrient absorption'], ['Ileum', 'Ends at the ileocaecal valve']], explanation: 'The three segments divide reception, absorption and final delivery.' }, { type: 'explain', prompt: 'Why does emulsification improve fat digestion if bile is not an enzyme?', model: 'Bile salts divide large lipid drops into many small droplets, greatly increasing surface area exposed to pancreatic lipase, which performs the chemical hydrolysis.', rubric: ['Smaller droplets', 'Greater surface area', 'Lipase performs digestion'] }],
-    commonMistakes: ['Calling bile a lipase or digestive enzyme.'], skills: ['Separate mechanical preparation by bile from chemical bond-breaking by lipase.'], selfCheck: 'Trace chyme through the three small-intestinal segments and explain how pancreas, liver and gallbladder assist.',
-    sourceRefs: [{ ref: 'phys.4', location: 'Slides 35–52 small intestine, villi, pancreatic enzymes, liver, bile and gallbladder control' }],
+    "beyond": [
+      {
+        "t": "The small intestine plays a key role in digestion and absorption of 90% of dietary nutrients.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p35 \"Plays key role in digestion and absorption of nutrients\""
+        }
+      },
+      {
+        "t": "The duodenum is the closest segment to the stomach acting as a mixing bowl to neutralize acids.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p37 \"The segment of small intestine closest to stomach\""
+        }
+      },
+      {
+        "t": "The jejunum is the middle segment where most chemical digestion and nutrient absorption occur.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p38 \"Is the middle segment of small intestine\""
+        }
+      },
+      {
+        "t": "The ileum is the final segment ending at the ileocecal valve.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p38 \"The final segment of small intestine\""
+        }
+      },
+      {
+        "t": "Brush border enzymes are integral membrane proteins on microvilli that execute terminal digestion.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p39 \"Brush border enzymes\""
+        }
+      },
+      {
+        "t": "Enteropeptidase on duodenal brush border activates pancreatic trypsinogen to initiate protease cascade.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p40 \"Enteropeptidase\""
+        }
+      },
+      {
+        "t": "Pancreatic exocrine acinar cells secrete digestive enzymes and alkaline buffers.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p42 \"Pancreatic\""
+        }
+      },
+      {
+        "t": "Pancreatic alpha-amylase is a carbohydrase that hydrolyzes starches into oligosaccharides.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p44 \"Pancreatic Alpha-Amylase\""
+        }
+      },
+      {
+        "t": "The liver performs essential metabolic, synthetic, and regulatory functions and produces bile.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p45 \"Performs essential metabolic and synthetic functions\""
+        }
+      },
+      {
+        "t": "Dietary lipids are not water-soluble; bile salts emulsify lipid drops into micro-droplets.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p48 \"Dietary lipids are not water soluble\""
+        }
+      },
+      {
+        "t": "Gallbladder stores and concentrates bile and releases it under cholecystokinin (CCK) stimulation.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p51 \"Releases bile into duodenum, but only under stimulation of intestinal hormone cholecystokinin\""
+        }
+      }
+    ]
   },
+  "lesson": {
+    "explanation": "Approximately 90% of all chemical digestion and nutrient absorption in the human body takes place across the specialized epithelium of the small intestine, with the remaining 10% occurring in the stomach and large intestine. The small intestine averages 6 meters in length and is divided into three consecutive anatomical segments: (1) Duodenum (first 25 cm): the C-shaped 'mixing bowl' nestled around the head of the pancreas. It receives acidic chyme from the pylorus and blends it with alkaline digestive secretions from the liver (bile) and pancreas (pancreatic juice), neutralizing gastric acid before it can ulcerate the absorptive mucosa. (2) Jejunum (middle ~2.5 meters): characterized by prominent circular mucosal folds (plicae circulares) and tall villi; this is the primary anatomical site where the vast majority of chemical digestion and nutrient absorption occurs. (3) Ileum (terminal ~3.5 meters): ends at the ileocecal valve, a muscular sphincter guarding the transit of contents into the cecum; the ileum absorbs bile salts, vitamin B12, and houses dense clusters of lymphoid follicles known as Peyer's patches. To maximize absorptive surface area (~200 square meters, roughly the size of a tennis court), the small intestine utilizes a three-tier anatomical hierarchy: plicae circulares (permanent transverse mucosal ridges), intestinal villi (finger-like mucosal projections), and microvilli (the microscopic 'brush border' on the apical surface of simple columnar enterocytes). Each intestinal villus contains a dense subepithelial capillary network that absorbs water-soluble monomers (monosaccharides, amino acids, water-soluble vitamins) directly into the hepatic portal system, alongside a central lymphatic blind-ended capillary called a lacteal, which absorbs large lipid-protein complexes (chylomicrons) into the thoracic duct. Anchored in the microvillar plasma membrane are brush-border enzymes that perform terminal contact digestion: disaccharidases (maltase, sucrase, lactase), peptidases (dipeptidases, aminopeptidases), and enteropeptidase (enterokinase). Enteropeptidase is the master activation switch for pancreatic proteolysis: it cleaves pancreatic trypsinogen into active trypsin, which then autocatalytically activates chymotrypsinogen, procarboxypeptidase, and proelastase. The exocrine pancreas contributes approximately 1,000 mL of pancreatic juice daily via pancreatic acinar cells and ductal epithelium. Pancreatic juice contains high concentrations of sodium bicarbonate (neutralizing chyme to pH 7.5–8.0) and four major classes of digestive enzymes: pancreatic alpha-amylase (cleaves starches into disaccharides and trisaccharides), pancreatic lipase (hydrolyzes triglycerides into monoglycerides and free fatty acids), nucleases (ribonuclease and deoxyribonuclease), and proteolytic enzymes. The liver, the body's largest metabolic and synthetic gland, is organized structurally into roughly 100,000 hexagonal liver lobules. At each of the six corners of a lobule sits a portal triad comprising an interlobular vein (branch of hepatic portal vein delivering nutrient-rich blood from the gut), an interlobular artery (branch of hepatic artery delivering oxygenated systemic blood), and an interlobular bile duct. Blood flows through fenestrated hepatic sinusoids lined by phagocytic Kupffer cells (stellate macrophages) past plates of hepatocytes toward the central vein. Hepatocytes continuously synthesize bile, which is secreted into tiny bile canaliculi, flows outward to bile ducts, and enters the common hepatic duct. Because dietary triglycerides are insoluble in water, they form large lipid globules that shield interior ester bonds from water-soluble pancreatic lipase. Bile contains bile salts (conjugated steroid derivatives such as glycocholate and taurocholate) that act as biological detergents: their amphipathic molecules insert into large fat drops and tear them into tiny microscopic emulsion droplets. Emulsification creates an enormous surface area for pancreatic lipase attack. Between meals, the hepatopancreatic sphincter (sphincter of Oddi) remains constricted, forcing hepatic bile to back up through the cystic duct into the gallbladder, which stores and concentrates bile up to tenfold. When fatty chyme enters the duodenum, enteroendocrine cells release cholecystokinin (CCK), which causes powerful contraction of the gallbladder muscular wall and relaxation of the hepatopancreatic sphincter, ejecting concentrated bile into the duodenal lumen.",
+    "plain": "Ninety percent of nutrient absorption happens in the small intestine, which has three parts: duodenum (receives acidic chyme and neutralizes it with alkaline juices), jejunum (where most digestion and absorption happen), and ileum (the longest segment, ending at the ileocecal valve, which absorbs vitamin B12 and bile salts). The small intestine boosts its surface area to the size of a tennis court using three levels of folds: circular folds, villi (finger-like projections), and microvilli (the brush border). Inside every villus, blood capillaries absorb water-soluble sugars and amino acids, while a central lymphatic lacteal absorbs fats. The pancreas makes digestive enzymes (pancreatic amylase for starch, pancreatic lipase for fat, and proteases for proteins) plus bicarbonate to neutralize acid. Pancreatic proteases are kept safe as inactive forms until duodenal enteropeptidase activates trypsin, which activates the rest. The liver is organized into hexagonal lobules with portal triads; hepatocytes make bile, which contains bile salts. Because fats don't dissolve in water, bile salts emulsify big fat drops into tiny droplets so pancreatic lipase can digest them. The gallbladder stores and concentrates bile until the hormone CCK tells it to squeeze bile into the duodenum.",
+    "keyFacts": [
+      "Approximately 90% of chemical digestion and nutrient absorption occurs in the small intestine.",
+      "The duodenum receives chyme, pancreatic juice, and bile, neutralizing stomach acid to pH 7.5–8.0.",
+      "The jejunum contains prominent villi and plicae and is the primary site of nutrient absorption.",
+      "The ileum is the longest segment, absorbs bile salts and vitamin B12, and terminates at the ileocecal valve.",
+      "Villi contain blood capillaries for water-soluble nutrients and central lacteals for absorbed lipid chylomicrons.",
+      "Brush-border enteropeptidase activates pancreatic trypsinogen into active trypsin, initiating the protease cascade.",
+      "Pancreatic acini secrete pancreatic alpha-amylase, pancreatic lipase, nucleases, and proenzymes into the duodenum.",
+      "The liver is organized into hexagonal lobules with portal triads (hepatic artery, portal vein, bile duct) at their vertices.",
+      "Bile salts do not enzymatically digest fat; they act as biological detergents that emulsify large lipid drops into small droplets.",
+      "Cholecystokinin (CCK) stimulates gallbladder contraction and relaxes the hepatopancreatic sphincter to eject bile."
+    ],
+    "prerequisites": [
+      "abct2326-digestive-stomach-control"
+    ],
+    "examples": [
+      "In celiac disease, ingestion of dietary gluten triggers an autoimmune T-cell-mediated destruction of intestinal villi (villous blunting and atrophy) in the duodenum and jejunum; the catastrophic loss of absorptive surface area produces severe malabsorption of iron, calcium, carbohydrates, and fat, leading to anemia, steatorrhea, and profound weight loss.",
+      "In acute gallstone pancreatitis, a migrating gallstone becomes impacted at the hepatopancreatic ampulla (ampulla of Vater), blocking both the common bile duct and pancreatic duct; backup of bile and pancreatic secretions triggers premature intra-acinar activation of trypsinogen to trypsin, initiating explosive enzymatic autodigestion of the pancreas."
+    ]
+  },
+  "memory": {
+    "firstLetter": "Small Intestine Segments: D-J-I ('Dow Jones Industrial' = Duodenum, Jejunum, Ileum).",
+    "chunking": "Portal Triad: 2 Vessels in, 1 Duct out (Hepatic artery brings oxygen, Portal vein brings gut nutrients, Bile duct carries bile away).",
+    "comparison": "Bile vs Lipase: Bile is the physical emulsifier (detergent tearing grease into droplets); Lipase is the chemical scissors (enzyme hydrolyzing ester bonds). Bile has ZERO enzymes.",
+    "teachBack": "Trace a molecule of dietary fat from the stomach into a lacteal, explaining the exact physical role of bile salts, the activation of pancreatic enzymes, and why lacteals are used instead of blood capillaries."
+  },
+  "practice": [
+    {
+      "type": "matching",
+      "prompt": "Match each small intestinal segment with its primary anatomical and physiological role.",
+      "pairs": [
+        [
+          "Duodenum",
+          "C-shaped segment receiving chyme and neutralizing gastric acid with alkaline secretions"
+        ],
+        [
+          "Jejunum",
+          "Middle segment with tall villi where the vast majority of nutrient absorption occurs"
+        ],
+        [
+          "Ileum",
+          "Distal segment absorbing bile salts and vitamin B12, ending at the ileocecal valve"
+        ],
+        [
+          "Central lacteal",
+          "Blind-ended lymphatic capillary within a villus absorbing large lipid chylomicrons"
+        ]
+      ],
+      "explanation": "Duodenum neutralizes acid; jejunum executes bulk absorption; ileum absorbs bile salts/B12; lacteals absorb chylomicrons."
+    },
+    {
+      "type": "sequence",
+      "prompt": "Order the activation cascade of pancreatic proteolytic enzymes initiated by duodenal brush border enteropeptidase.",
+      "items": [
+        "Enteropeptidase on duodenal brush border encounters pancreatic juice",
+        "Trypsinogen is cleaved into active trypsin",
+        "Active trypsin cleaves chymotrypsinogen into active chymotrypsin",
+        "Active trypsin cleaves procarboxypeptidase into active carboxypeptidase"
+      ],
+      "explanation": "Enteropeptidase triggers the entire proteolytic cascade by first activating trypsinogen to trypsin, which subsequently cleaves all other pancreatic proenzymes."
+    },
+    {
+      "type": "mcq",
+      "prompt": "What is the precise biophysical mechanism by which bile salts enhance dietary lipid digestion in the small intestine?",
+      "options": [
+        "They chemically hydrolyze triglyceride ester bonds into glycerol and free fatty acids.",
+        "They act as amphipathic detergents that emulsify large lipid droplets into micro-droplets, expanding accessible surface area.",
+        "They activate procarboxypeptidase within the duodenal lumen into active carboxypeptidase.",
+        "They lower luminal pH to 2.0 to activate lingual and gastric lipases."
+      ],
+      "answer": 1,
+      "explanation": "Bile salts contain no digestive enzymes; their amphipathic properties allow them to emulsify large lipid globules into tiny emulsion droplets, increasing surface area for pancreatic lipase."
+    },
+    {
+      "type": "typed",
+      "prompt": "Which brush-border enzyme anchored to the duodenal microvilli is responsible for cleaving inactive pancreatic trypsinogen into active trypsin?",
+      "accept": [
+        "enteropeptidase",
+        "Enteropeptidase",
+        "enterokinase",
+        "Enterokinase"
+      ],
+      "explanation": "Enteropeptidase (formerly enterokinase) is the brush-border enzyme that activates trypsinogen."
+    }
+  ],
+  "application": [
+    {
+      "type": "scenario",
+      "prompt": "A 42-year-old female presents to the emergency room with severe, epigastric pain that radiates to her back, accompanied by persistent vomiting. Serum amylase and lipase levels are elevated fivefold above the upper reference limit. Right upper quadrant ultrasound demonstrates multiple gallstones in the gallbladder, with one stone wedged firmly in the hepatopancreatic ampulla (ampulla of Vater). Explain how an impacted gallstone causes acute pancreatitis, identify the specific enzyme cascade that becomes prematurely activated, and analyze why pancreatic autodigestion ensues.",
+      "model": "The hepatopancreatic ampulla (ampulla of Vater) is the shared anatomical confluence where the common bile duct and the main pancreatic duct merge before emptying into the duodenum through the hepatopancreatic sphincter. When a gallstone lodges within this common channel, it obstructs outflow from the pancreatic duct. Exocrine pancreatic acinar cells continue to synthesize digestive proenzymes and bicarbonate, causing severe ductal hypertension and backpressure. Elevated ductal pressure disrupts acinar cell zymogen granules, causing intracellular colocalization of digestive proenzymes with lysosomal hydrolases (such as cathepsin B). Cathepsin B cleaves trypsinogen into active trypsin within the pancreatic parenchyma. Once formed inside acinar cells, active trypsin overwhelms local endogenous protease inhibitors (pancreatic secretory trypsin inhibitor, SPINK1) and autocatalytically activates other zymogens (chymotrypsinogen, proelastase, procarboxypeptidase, and phospholipase A2). These active enzymes break down cellular proteins, elastase dissolves vascular walls causing hemorrhage, and lipase/phospholipase digest surrounding adipose tissue (enzymatic fat necrosis), resulting in acute necrotizing pancreatitis.",
+      "rubric": [
+        "Identifies that a stone in the hepatopancreatic ampulla obstructs the main pancreatic duct and causes outflow failure",
+        "Explains that ductal hypertension causes premature intracellular activation of trypsinogen to trypsin",
+        "Describes how active trypsin triggers an enzymatic cascade (elastase, phospholipase) that autodigests pancreatic parenchyma and vessels"
+      ]
+    }
+  ],
+  "commonMistakes": [
+    "Calling bile an enzyme or assuming bile digests fat chemically, when bile salts are amphipathic emulsifiers that break fat down only mechanically/physically.",
+    "Assuming absorbed fats enter the mesenteric veins alongside sugars and amino acids; long-chain fats are packaged into chylomicrons and enter central lacteals of the lymphatic system.",
+    "Thinking trypsin is secreted in its active form by the pancreas; it is secreted as inactive trypsinogen and requires brush border enteropeptidase to become active."
+  ],
+  "skills": [
+    "Diagram the structural hierarchy of plicae circulares, villi, and microvilli and trace the capillary versus lacteal absorption pathways.",
+    "Detail the structure of a liver lobule, identifying blood flow through sinusoids from the portal triad to the central vein."
+  ],
+  "selfCheck": "From memory: contrast the roles of the three small intestinal segments, explain how enteropeptidase activates pancreatic juice, and explain the difference between emulsification by bile and chemical cleavage by lipase.",
+  "visuals": [
+    {
+      "fig": "smallIntestineVillus"
+    },
+    {
+      "fig": "liverLobuleAnatomy"
+    },
+    {
+      "gen": true
+    }
+  ],
+  "sourceRefs": [
+    {
+      "ref": "phys.4",
+      "location": "p35 \"Plays key role in digestion and absorption of nutrients\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p37 \"The segment of small intestine closest to stomach\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p38 \"Is the middle segment of small intestine\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p38 \"The final segment of small intestine\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p39 \"Brush border enzymes\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p40 \"Enteropeptidase\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p42 \"Pancreatic\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p44 \"Pancreatic Alpha-Amylase\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p45 \"Performs essential metabolic and synthetic functions\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p48 \"Dietary lipids are not water soluble\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p51 \"Releases bile into duodenum, but only under stimulation of intestinal hormone cholecystokinin\""
+    }
+  ]
+},
   {
-    id: 'abct2326-digestive-hormones-colon', subject: 'ABCT2326', unit: 'phys.dig', type: 'matching',
-    title: 'Duodenal hormones, large-intestinal functions and water balance', tags: ['digestive', 'hormones', 'absorption', 'high-yield'],
-    lesson: {
-      explanation: 'Duodenal hormones coordinate secretion and absorption. Gastrin responds to incompletely digested proteins and increases stomach motility, acid and enzyme production. Secretin responds when chyme reaches the duodenum, especially acid, and increases bile and bicarbonate-rich buffer secretion by liver and pancreas. GIP is released when fats and carbohydrates enter the small intestine and promotes insulin release while inhibiting gastric activity. CCK responds to lipids and partly digested proteins, increases pancreatic enzyme secretion, contracts the gallbladder and relaxes the hepatopancreatic sphincter. VIP increases intestinal gland secretion, dilates local capillaries and inhibits gastric acid; enterocrinin stimulates duodenal mucin. The large intestine reabsorbs water and bile salts, absorbs bacterial vitamins K, biotin and B5, compacts and stores faeces. Water itself is not actively transported; it follows osmotic gradients created chiefly by solute movement. Of roughly 9 L entering the tract daily from intake and secretions, about 7.8 L is reclaimed in small intestine, 1.25 L in colon and about 150 mL is lost in faeces.',
-      keyFacts: ['Gastrin stimulates stomach motility, acid and enzymes.', 'Secretin stimulates bile and bicarbonate buffers.', 'GIP responds to fat/carbohydrate and promotes insulin while inhibiting stomach activity.', 'CCK stimulates pancreatic enzymes and bile ejection.', 'VIP increases intestinal secretion and blood flow while inhibiting gastric acid.', 'Colon: water/bile-salt reabsorption, bacterial vitamins, compaction and storage.', 'Water follows osmotic gradients; about 9 L enters daily and about 150 mL leaves in faeces.'], prerequisites: ['abct2326-digestive-small-intestine-accessory'], examples: [],
+  "id": "abct2326-digestive-hormones-colon",
+  "subject": "ABCT2326",
+  "unit": "phys.dig",
+  "type": "matching",
+  "title": "Duodenal hormones, large intestinal physiology, and fluid balance",
+  "tags": [
+    "digestive",
+    "hormones",
+    "absorption",
+    "high-yield",
+    "large-intestine",
+    "fluid-balance",
+    "water-absorption"
+  ],
+  "priorKnowledge": {
+    "level": "dse-bio",
+    "covers": "part",
+    "dsePart": "core",
+    "syllabusRef": {
+      "ref": "edb.bio",
+      "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": absorption of water, role of the large intestine, egestion."
     },
-    memory: { comparison: 'Secretin handles acid with buffer; CCK handles fat with enzymes and bile.' },
-    practice: [{ type: 'matching', prompt: 'Match each duodenal hormone to its leading action.', pairs: [['Secretin', 'Increase bile and bicarbonate-rich buffers'], ['CCK', 'Pancreatic enzymes plus gallbladder contraction'], ['GIP', 'Insulin release and gastric inhibition'], ['VIP', 'Intestinal secretion and capillary dilation']], explanation: 'Each hormone coordinates the next organ needed for the arriving chyme.' }, { type: 'typed', prompt: 'Approximately how much water is lost in faeces each day in the lecture balance diagram?', accept: ['150 ml', '150 mL/day', '0.15 l', '150 millilitres'], explanation: 'About 150 mL, after small intestine and colon reclaim most of the roughly 9 L entering the tract.' }],
-    commonMistakes: ['Saying water is actively pumped across the gut wall; solutes are transported and water follows osmotically.'], skills: ['Use the arriving nutrient to predict the hormone and organ response.'], selfCheck: 'Match the six intestinal hormones to triggers/actions and explain the 9 L water balance.',
-    sourceRefs: [{ ref: 'phys.4', location: 'Slides 53–69 neural and hormonal coordination, large intestine, digestion and water reabsorption' }],
+    "beyond": [
+      {
+        "t": "Coordinate activities of digestive glands through neural and hormonal regulatory mechanisms centering around the duodenum.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p53 \"Coordinate activities of digestive glands\""
+        }
+      },
+      {
+        "t": "The intestinal tract secretes peptide hormones with multiple physiological actions on digestive organs.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p55 \"Intestinal tract secretes peptide hormones with multiple effects\""
+        }
+      },
+      {
+        "t": "Hormones of duodenal enteroendocrine cells coordinate secretion and absorption.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p56 \"Hormones of Duodenal\""
+        }
+      },
+      {
+        "t": "Gastrin is secreted by G cells in duodenum and stomach to stimulate gastric acid and motility.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p57 \"Is secreted by G cells in duodenum\""
+        }
+      },
+      {
+        "t": "Gastric Inhibitory Peptide (GIP) is secreted when fats and carbohydrates enter the small intestine.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p58 \"Gastric Inhibitory Peptide (GIP)\""
+        }
+      },
+      {
+        "t": "Vasoactive Intestinal Peptide (VIP) stimulates intestinal secretion and dilates regional capillaries.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p59 \"Vasoactive Intestinal Peptide (VIP)\""
+        }
+      },
+      {
+        "t": "Four regions of the colon: ascending colon, transverse colon, descending colon, and sigmoid colon.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p61 \"Four Regions of the Colon\""
+        }
+      },
+      {
+        "t": "The rectum forms the last part of the digestive tract as an expandable organ for fecal storage.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p63 \"Forms last part of digestive tract\""
+        }
+      },
+      {
+        "t": "Reabsorption of water, bile salts, and vitamins K, biotin, and B5 occurs in the large intestine.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p64 \"Reabsorption of water\""
+        }
+      }
+    ]
   },
+  "lesson": {
+    "explanation": "Coordination of gastrointestinal secretion, motility, and nutrient processing relies on a network of peptide hormones secreted by enteroendocrine cells embedded in the duodenal and jejunal mucosa. The duodenum acts as the endocrine control center of the digestive tract, releasing five major regulatory hormones in response to specific luminal stimuli: (1) Secretin: released by S cells in response to acidic chyme (pH < 4.5) entering from the stomach; secretin stimulates the pancreas and liver to secrete large volumes of bicarbonate-rich, alkaline fluid that neutralizes gastric acid, while inhibiting gastric parietal acid secretion and motility. (2) Cholecystokinin (CCK): secreted by I cells in response to chyme rich in lipids and partially digested proteins; CCK triggers contraction of the gallbladder, relaxation of the hepatopancreatic sphincter (ejecting concentrated bile), and accelerates exocytosis of pancreatic digestive proenzymes from acinar cells, while simultaneously inducing satiety in the hypothalamus. (3) Gastric Inhibitory Peptide (GIP, also known as glucose-dependent insulinotropic peptide): released by K cells when chyme containing glucose and fats enters the duodenum; GIP stimulates pancreatic beta cells to secrete insulin in anticipation of absorbed blood glucose (the incretin effect) while inhibiting gastric acid secretion and motility. (4) Vasoactive Intestinal Peptide (VIP): stimulates active secretion of intestinal electrolytes and alkaline fluid, dilates mesenteric capillaries to enhance nutrient transport, and inhibits gastric hydrochloric acid secretion. (5) Gastrin: secreted by duodenal and gastric G cells in response to incompletely digested proteins, stimulating gastric acid production and churning motility. Distal to the ileocecal valve lies the large intestine (averaging 1.5 meters in length), comprising the cecum (with the vermiform appendix), the colon, rectum, and anal canal. The colon is partitioned into four sequential anatomical regions: the ascending colon (ascending along the right abdominal wall to the right colic [hepatic] flexure), the transverse colon (crossing the abdomen to the left colic [splenic] flexure), the descending colon (descending along the left abdominal wall), and the S-shaped sigmoid colon (which curves into the midline pelvis). The wall of the colon is distinguished by three bands of longitudinal smooth muscle called teniae coli, whose muscle tone gathers the colon into characteristic pouch-like sacculations termed haustra. The large intestine performs three primary physiological functions: (1) reabsorption of water and compaction of indigestible intestinal contents into feces; (2) reabsorption of important bile salts and electrolytes (chiefly sodium and chloride); and (3) absorption of vital vitamins synthesized by commensal colonic bacteria, notably vitamin K (essential for hepatic synthesis of clotting factors II, VII, IX, and X), biotin (vitamin B7, essential for carboxylation reactions), and pantothenic acid (vitamin B5, required for coenzyme A synthesis). Fluid balance throughout the gastrointestinal tract demonstrates remarkable physiological efficiency: approximately 9,000 mL (9 liters) of fluid enters the digestive tract each day, comprising 2,000 mL from oral dietary intake and 7,000 mL from internal glandular secretions (1,500 mL saliva, 1,500 mL gastric juice, 1,000 mL bile, 1,000 mL pancreatic juice, and 2,000 mL intestinal secretions). Because intestinal epithelial cells cannot actively transport water molecules directly, all water movement across the digestive tract is entirely passive, following osmotic gradients generated by the active secondary transport of sodium, chloride, and absorbed nutrients. Of this 9-liter fluid load, approximately 8,000 mL is reabsorbed across the small intestine, approximately 1,200 mL is reabsorbed by the colon, and only approximately 100 to 150 mL is excreted in normal solid feces daily.",
+    "plain": "The duodenum coordinates digestion using five key hormones: (1) Secretin (released when acid arrives; tells pancreas and liver to release bicarbonate buffer to neutralize acid), (2) CCK (released when fat arrives; tells gallbladder to squeeze out bile and pancreas to release enzymes), (3) GIP (released when glucose and fat arrive; triggers insulin release to prepare for rising blood sugar and slows the stomach), (4) VIP (dilates gut blood vessels and boosts intestinal secretions), and (5) Gastrin (increases stomach acid and churning). The large intestine consists of the cecum (with appendix), colon (ascending, transverse, descending, and sigmoid parts), rectum (which stores feces), and anal canal. The colon has muscle bands called teniae coli that bunch it into pouches called haustra. The colon reabsorbs water, recovers bile salts, and absorbs vitamins K, biotin, and B5 made by gut bacteria. Every day, 9 liters of fluid enter the gut (2 L from drinking/eating, 7 L from saliva, stomach acid, bile, and juices). The gut absorbs almost all of it—8 L in the small intestine and 1.2 L in the colon—leaving only about 150 mL in feces. Water is never pumped actively; it simply follows the active movement of salts!",
+    "keyFacts": [
+      "The duodenum coordinates gastrointestinal secretion and absorption via peptide hormones.",
+      "Secretin is stimulated by acidic chyme and drives bicarbonate buffer release from pancreas and liver.",
+      "Cholecystokinin (CCK) stimulates gallbladder contraction, pancreatic enzyme secretion, and sphincter of Oddi relaxation.",
+      "Gastric Inhibitory Peptide (GIP) stimulates insulin release (incretin effect) and inhibits gastric motility/acid.",
+      "Vasoactive Intestinal Peptide (VIP) dilates mesenteric capillaries and stimulates intestinal fluid secretion.",
+      "The four regions of the colon are ascending, transverse, descending, and sigmoid colon.",
+      "Teniae coli are longitudinal muscle bands that bunch the colon wall into sacculations called haustra.",
+      "The large intestine absorbs bacterial vitamins: vitamin K (clotting factors), biotin (B7), and pantothenic acid (B5).",
+      "Of ~9,000 mL of fluid entering the tract daily, small intestine reabsorbs ~8,000 mL, colon reabsorbs ~1,200 mL, and feces retains ~150 mL.",
+      "Water is never actively transported across digestive epithelium; it moves strictly by osmosis following active solute transport."
+    ],
+    "prerequisites": [
+      "abct2326-digestive-small-intestine-accessory"
+    ],
+    "examples": [
+      "In severe Vibrio cholerae infection, cholera enterotoxin permanently locks the G-alpha-s subunit in an active GTP-bound state within crypt enterocytes, triggering constitutive adenylate cyclase activation and massive cAMP-driven cystic fibrosis transmembrane conductance regulator (CFTR) chloride secretion; water follows chloride osmotically, exceeding the 1.2 L daily absorptive capacity of the colon and producing voluminous 'rice-water' secretory diarrhea of up to 10–20 liters per day.",
+      "Prolonged broad-spectrum antibiotic therapy eradicates normal commensal anaerobic gut microbiota in the colon; the loss of bacteria eliminates endogenous synthesis of vitamin K, leading to coagulopathy and prolonged prothrombin time (elevated INR) due to deficient gamma-carboxylation of clotting factors II, VII, IX, and X in the liver."
+    ]
+  },
+  "memory": {
+    "firstLetter": "Duodenal Hormones: S-C-G-V ('Stop Chyme Gaining Velocity' = Secretin, CCK, GIP, VIP).",
+    "chunking": "Fluid Balance Numbers: 9 L enters daily → 8 L small intestine → 1.2 L colon → 0.15 L (150 mL) in feces.",
+    "comparison": "Secretin vs CCK: Secretin handles ACID by releasing Bicarbonate buffer; CCK handles FAT by releasing Bile and digestive Enzymes.",
+    "teachBack": "Name the five duodenal hormones and their triggers, list the four parts of the colon, and explain the daily 9-liter fluid budget from intake to stool."
+  },
+  "practice": [
+    {
+      "type": "matching",
+      "prompt": "Match each duodenal peptide hormone with its primary trigger and physiological action.",
+      "pairs": [
+        [
+          "Secretin",
+          "Triggered by acidic chyme; stimulates pancreatic and biliary bicarbonate secretion"
+        ],
+        [
+          "Cholecystokinin (CCK)",
+          "Triggered by lipids and proteins; stimulates gallbladder contraction and pancreatic enzymes"
+        ],
+        [
+          "Gastric Inhibitory Peptide (GIP)",
+          "Triggered by glucose and lipids; stimulates beta-cell insulin release and slows stomach"
+        ],
+        [
+          "Vasoactive Intestinal Peptide (VIP)",
+          "Stimulates intestinal fluid secretion, dilates regional capillaries, and inhibits gastric acid"
+        ]
+      ],
+      "explanation": "Secretin drives bicarbonate; CCK drives enzymes and bile ejection; GIP drives insulin; VIP dilates capillaries and boosts intestinal secretion."
+    },
+    {
+      "type": "sequence",
+      "prompt": "Order the four anatomical regions of the colon through which fecal material travels from the cecum to the rectum.",
+      "items": [
+        "Ascending colon",
+        "Transverse colon",
+        "Descending colon",
+        "Sigmoid colon"
+      ],
+      "explanation": "Contents move superiorly through the ascending colon, horizontally across the transverse colon, inferiorly down the descending colon, and through the S-shaped sigmoid colon to the rectum."
+    },
+    {
+      "type": "mcq",
+      "prompt": "Which vitamin essential for the hepatic synthesis of blood clotting factors (II, VII, IX, and X) is produced by commensal bacteria in the large intestine and absorbed across the colonic mucosa?",
+      "options": [
+        "Vitamin K",
+        "Vitamin C",
+        "Vitamin D",
+        "Vitamin B12"
+      ],
+      "answer": 0,
+      "explanation": "Colonic bacteria synthesize vitamin K, which is absorbed across the large intestinal epithelium and utilized by the liver for clotting factor synthesis."
+    },
+    {
+      "type": "typed",
+      "prompt": "Approximately how many milliliters of water are normally eliminated in solid feces each day out of the 9,000 mL entering the digestive tract?",
+      "accept": [
+        "150",
+        "150 mL",
+        "150 ml",
+        "150 milliliters",
+        "150 millilitres"
+      ],
+      "explanation": "Approximately 150 mL of water is lost in feces each day, with the remaining 8,850 mL reabsorbed by the small and large intestines."
+    }
+  ],
+  "application": [
+    {
+      "type": "scenario",
+      "prompt": "A 28-year-old traveler returns from an endemic region with explosive, watery, odorless diarrhea (\"rice-water stools\") producing up to 1 liter of fluid loss per hour, accompanied by profound dehydration, hypokalemia, and metabolic acidosis. Stool culture confirms Vibrio cholerae. Analyze the cellular mechanism of cholera toxin on enterocyte transport, explain why the large intestine fails to prevent diarrhea, and explain the physiological rationale for treating him with an oral rehydration solution (ORS) containing glucose and sodium.",
+      "model": "Vibrio cholerae produces cholera toxin, an A-B subunit enterotoxin. The A1 subunit catalyzes the ADP-ribosylation of the G-alpha-s regulatory protein in small intestinal crypt enterocytes, locking G-alpha-s in an irreversibly active state. This causes persistent activation of adenylate cyclase and an uncontrolled elevation of intracellular cyclic AMP (cAMP). Elevated cAMP phosphorylates and opens the cystic fibrosis transmembrane conductance regulator (CFTR) apical chloride channels, causing massive active efflux of Cl- into the intestinal lumen. Sodium and water follow passively along the electrical and osmotic gradients. While the colon possesses substantial fluid absorptive capacity (~1,200 mL to a maximum of 4–5 liters per day), the small intestine pours out 10 to 20 liters of fluid daily, completely overwhelming colonic reabsorptive capacity and resulting in life-threatening watery diarrhea. Oral Rehydration Solution (ORS) is effective because it exploits the intact sodium-glucose cotransporter 1 (SGLT-1) on villus enterocytes, which operates independently of cAMP. Ingesting an equimolar solution of glucose and sodium drives secondary active cotransport of Na+ and glucose into enterocytes; the resulting transcellular osmotic gradient draws water out of the intestinal lumen back into circulation, effectively arresting dehydration.",
+      "rubric": [
+        "Describes cholera toxin-induced ADP-ribosylation of G-alpha-s, constitutive cAMP generation, and massive CFTR chloride/water secretion",
+        "Explains that small intestinal secretion (10–20 L/day) vastly exceeds the maximum fluid reabsorptive capacity of the colon",
+        "Explains that ORS utilizes the cAMP-independent SGLT-1 cotransporter to restore sodium, glucose, and osmotic water absorption"
+      ]
+    }
+  ],
+  "commonMistakes": [
+    "Believing water is actively pumped across the intestinal epithelium; water transport is completely passive, moving along osmotic gradients established by ion transport.",
+    "Assuming the colon is responsible for absorbing the majority of dietary water; the small intestine reabsorbs ~8,000 mL while the colon reabsorbs ~1,200 mL.",
+    "Confusing Secretin (triggered by acid, stimulates bicarbonate) with CCK (triggered by fat/protein, stimulates enzymes and bile)."
+  ],
+  "skills": [
+    "Construct a comprehensive fluid balance table tracking the 9,000 mL daily gastrointestinal fluid intake, secretions, and reabsorptive sites.",
+    "Predict the endocrine and motor response of the digestive tract to specific meal compositions (high-fat, acidic, high-carbohydrate)."
+  ],
+  "selfCheck": "From memory: list the five duodenal hormones and their triggers, trace the 9 L fluid budget of the digestive tract, and name the three vitamins produced by gut flora.",
+  "visuals": [
+    {
+      "fig": "digestiveSystemOverview"
+    },
+    {
+      "fig": "smallIntestineVillus"
+    },
+    {
+      "gen": true
+    }
+  ],
+  "sourceRefs": [
+    {
+      "ref": "phys.4",
+      "location": "p53 \"Coordinate activities of digestive glands\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p55 \"Intestinal tract secretes peptide hormones with multiple effects\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p56 \"Hormones of Duodenal\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p57 \"Is secreted by G cells in duodenum\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p58 \"Gastric Inhibitory Peptide (GIP)\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p59 \"Vasoactive Intestinal Peptide (VIP)\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p61 \"Four Regions of the Colon\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p63 \"Forms last part of digestive tract\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p64 \"Reabsorption of water\""
+    }
+  ]
+},
 ];
