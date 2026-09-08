@@ -2557,6 +2557,38 @@ export const FIGURES = {
       { mark: 'M', name: 'M line — structural proteins anchoring the thick filaments together', beyond: true },
     ],
   },
+  muscleSpindle: {
+    file: 'muscleSpindle.png', bytes: 32482,
+    title: 'A muscle spindle, unlabelled',
+    caption: 'The length detector: a thin intrafusal fibre with its sensory endings wound round the middle.',
+    author: 'Satrebil100 (Wikimedia)',
+    licence: 'Public domain',
+    licenceUrl: '',
+    commons: 'https://commons.wikimedia.org/wiki/File:Fuso_neuromuscolare.png',
+    intro: 'A shape study of the spindle apparatus, and reading it is the lecture\'s mechanism. The red spindle is the bundle of thin intrafusal muscle cells lying in parallel with the ordinary fibres; the orange coils wrapped around its middle are the primary (annulospiral) sensory endings; the fine lines running off it are the nerve fibres. When the muscle is stretched, the spindle stretches with it, the coils are pulled taut and fire — the length report that starts the stretch reflex.',
+    key: [
+      { mark: 'Red spindle', name: 'The intrafusal fibres — thin muscle cells that sense length rather than produce force' },
+      { mark: 'Orange coils', name: 'Primary (annulospiral) sensory endings, wound round the central region' },
+      { mark: 'Fine nerve fibres', name: 'The afferent axons carrying the length report to the spinal cord, and the motor supply to the spindle', beyond: true },
+    ],
+  },
+  lymphaticSystem: {
+    file: 'lymphaticSystem.svg', bytes: 101637,
+    title: 'The lymphatic system',
+    caption: 'Vessels and nodes throughout the body, with the tonsils, thymus and spleen marked.',
+    author: 'Unknown (TE diagram, Wikimedia, CC BY 3.0)',
+    licence: 'CC BY 3.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by/3.0',
+    commons: 'https://commons.wikimedia.org/wiki/File:TE-Lymphatic_system_diagram.svg',
+    intro: 'The drainage map the overview item summarizes: a body-wide network of lymphatic vessels and lymph nodes returning filtered fluid to the veins, with the lymphoid organs parked along the route — tonsils at the throat, thymus in the chest, spleen on the left. The nodes clustered along the vessels are the filters; the organs are where lymphocytes live and mature.',
+    key: [
+      { mark: 'Lymphatic vessels', name: 'The one-way drainage network carrying lymph back toward the veins' },
+      { mark: 'Lymph Nodes', name: 'The filters — immune surveillance stations along every route' },
+      { mark: 'Thymus Gland', name: 'Where T lymphocytes mature — a primary lymphoid organ' },
+      { mark: 'Spleen', name: 'Blood filter and lymphoid organ of the circulation' },
+      { mark: 'Tonsil', name: 'MALT at the entrance to the pharynx — lymphoid nodules in the mucosa' },
+    ],
+  },
 };
 
 export function figureFor(id) {
