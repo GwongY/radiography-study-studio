@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  f552378b140cd579   1170092  ITEM_BY_ID  Map[168]
+  060b496e74a5a034   1441729  ITEM_BY_ID  Map[177]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -23,16 +23,16 @@
   9131051cbbd87c06       539  SOURCE_ROOTS  object[18]
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
-  5bf34d15f638931d     23568  STRUCTURE_SETS  object[13]
-  1703a1fe92de2977   1164551  STUDY_ITEMS  array[168]
+  bc435d5b474be2a9     26969  STRUCTURE_SETS  object[13]
+  d954cabc76024093   1435825  STUDY_ITEMS  array[177]
   983b09221060f435       570  STUDY_MODES  array[4]
   834fbc89b7e6fccf      4005  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
-  349a5c3ecd726c37     80865  Y1S1_SOURCE_MAP  object[4]
+  5847e394922c29c1     94323  Y1S1_SOURCE_MAP  object[4]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  e121a2be3148401c   1239276  default  object[7]
+  06c6082a1100c4f5   1510550  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -64,9 +64,9 @@
   ba048d6b42696398      2356  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  b5599134112d6d4c  WHOLE SURFACE
+  a0e25e3b59964806  WHOLE SURFACE
 
-— every study item, by id — 168 items —
+— every study item, by id — 177 items —
   2d29339c231f634a  abct2326-acquired-immunity
   0f85a14f65a3eba6  abct2326-blood-composition
   23f628153e36648d  abct2326-cell-division
@@ -146,12 +146,18 @@
   a2e7687c289b6d61  hss2011-digestive-tract-small-large-bowel
   8bb58b7a9eb0e0d2  hss2011-digestive-tract-upper
   8fa1c2f0962a7f1f  hss2011-digestive-tutorial-pastpaper-practice
-  115c636ed053d158  hss2011-joints-classification
-  cc9e86e00b17d652  hss2011-joints-movement-map-2026
-  b2556c990ac8f36c  hss2011-joints-movements
-  318fd195216a9f96  hss2011-joints-rotator-cuff
-  0e7f92026968905d  hss2011-joints-synovial-structure
-  1484e4e65a24e8cb  hss2011-joints-synovial-types
+  285f277d0886341d  hss2011-head-cranial-cavities-sinuses
+  1528f8401c1e2be2  hss2011-head-facial-expression-muscles
+  89078c779986618d  hss2011-head-mastication-neck-muscles
+  050413d6b19bed1c  hss2011-joints-classification
+  7f66c57f3e8ec383  hss2011-joints-movement-map-2026
+  18b63011a4598680  hss2011-joints-movements
+  610eedb773ad0fea  hss2011-joints-rotator-cuff
+  64633a73e3aac6ac  hss2011-joints-synovial-structure
+  fd5befbacdf6f13e  hss2011-joints-synovial-types
+  73aaddc99dd22290  hss2011-lower-femoral-triangle-vessels-nerves
+  e435c825861098f9  hss2011-lower-leg-foot-muscles-arches
+  2f9f9094af6c424f  hss2011-lower-thigh-gluteal-muscles
   3a8e0d4ad5d25943  hss2011-m1-heart-wall-valves
   6e49509d6d713ecc  hss2011-m1-lungs-airway
   14283d2569b5a22e  hss2011-m2-autonomic-nervous-system
@@ -169,54 +175,57 @@
   f3dd03b681d5d904  hss2011-m2-taste-smell
   99cf89aba971812c  hss2011-m3-digestive
   1657e96d4757c035  hss2011-m3-urogenital-pelvis
-  9c461486025067f6  hss2011-msk-bone-histology
-  cf504c0a70fd785a  hss2011-msk-bone-marrow
-  5c1cae6675aac583  hss2011-msk-joint-classifications
-  d9a598aa3d563669  hss2011-msk-motor-unit-tone
-  3166c1b445c02a91  hss2011-msk-muscle-organisation
-  0993bc57c57103c1  hss2011-msk-periosteum
-  8593b57a8e922c2d  hss2011-msk-tendon-attachment
-  ca423056428230fc  hss2011-msk-tissues-of-movement
+  2a2f72f2dd4f201f  hss2011-msk-bone-histology
+  37a0718c3d258e36  hss2011-msk-bone-marrow
+  82def8430aec9823  hss2011-msk-joint-classifications
+  b5ed638fa701ff05  hss2011-msk-motor-unit-tone
+  fd91dc09f8fe900e  hss2011-msk-muscle-organisation
+  c9aaaaafae0c4482  hss2011-msk-periosteum
+  8e26e05d62a4fd69  hss2011-msk-tendon-attachment
+  f0310182627e0295  hss2011-msk-tissues-of-movement
   0c9259bdb808ca8b  hss2011-neuro-cranial-nerves-distribution
-  f70cd63a09a081a9  hss2011-osteo-axial-appendicular
-  2665925c63208f89  hss2011-osteo-bone-functions
-  9f8ba7a6757158d1  hss2011-osteo-bone-shapes
-  17698f5dfe1dbcd7  hss2011-osteo-c1-c2
-  ea5fcc57e38a3f0b  hss2011-osteo-forearm-carpals
-  a038bd9e79720c16  hss2011-osteo-leg-tarsals
-  c1d7370a50a19183  hss2011-osteo-long-bone-structure
-  d1f2d32ac60c79b5  hss2011-osteo-pectoral-girdle
-  1b03fb8e6d047671  hss2011-osteo-pelvic-girdle
+  497bb5a3f06f06de  hss2011-osteo-axial-appendicular
+  3670ba3dc97a0e47  hss2011-osteo-bone-functions
+  6dc49010e2481509  hss2011-osteo-bone-shapes
+  30a17a70c0de4543  hss2011-osteo-c1-c2
+  ad5cecbabfecc7ee  hss2011-osteo-forearm-carpals
+  4806f465db62c670  hss2011-osteo-leg-tarsals
+  4ad742a15119eabe  hss2011-osteo-long-bone-structure
+  d8e9e6092274aaee  hss2011-osteo-pectoral-girdle
+  211b1e262dc0fbbc  hss2011-osteo-pelvic-girdle
   e6d8cbc299ee1c4a  hss2011-osteo-ribs-sternum
-  8084a7ea089aa4f4  hss2011-osteo-skull-sutures
-  5b35f59f61e6195c  hss2011-osteo-vertebra-parts
-  3643386d0091242c  hss2011-osteo-vertebral-column
-  1c5051427751bae0  hss2011-pastpaper-joints-articulations
+  98defa9890fd7ad5  hss2011-osteo-skull-sutures
+  9da55e92e09de3f0  hss2011-osteo-vertebra-parts
+  ce53954662a58c5e  hss2011-osteo-vertebral-column
+  cec8517437f61685  hss2011-pastpaper-joints-articulations
   f15c1a0c350d6dbe  hss2011-resp-pleura-lungs-gross
   7546b059f089391e  hss2011-resp-tutorial-pastpaper-practice
   bea60ecb0343ae38  hss2011-resp-upper-tract-larynx
   9fa9a3f579a05a4f  hss2011-structures-airwayTree
   0cdf747cd5bf79e2  hss2011-structures-brainAndCsf
-  55b17ae2266d6609  hss2011-structures-carpals
+  e0c59de14b6d64d4  hss2011-structures-carpals
   dc96c7c911a84731  hss2011-structures-cranialNerves
   7122be9de839e152  hss2011-structures-digestiveTract
   379c8dbf5e8419fc  hss2011-structures-greatVessels
   0c9eef3937ecb9bd  hss2011-structures-heartChambers
-  6909883f7284a3ce  hss2011-structures-kneeJoint
-  a0ba288069d47010  hss2011-structures-rotatorCuff
-  4f1643301e9e3688  hss2011-structures-skullBones
-  635b5858f84fc00f  hss2011-structures-tarsals
+  650f65abcf6f2246  hss2011-structures-kneeJoint
+  4357fdd9815f937d  hss2011-structures-rotatorCuff
+  065d3552f7bd82c1  hss2011-structures-skullBones
+  d4e6a3bdee1099f7  hss2011-structures-tarsals
   99a9265f0422d2ae  hss2011-structures-urinaryTract
-  6371a1417417d528  hss2011-structures-vertebralRegions
-  b9c0590d6faa36af  hss2011-terminology-anatomical-position
-  b76c9dc0e5a935b8  hss2011-terminology-cavities-regions
-  d4f9ad4ce4ce34d7  hss2011-terminology-directional-pairs
-  10a8bac00752e4a0  hss2011-terminology-planes
-  1b051a2a537a6a3c  hss2011-terminology-regional-systemic
-  12d88e0afb2058da  hss2011-terminology-word-parts
+  21943fcd8b8ee129  hss2011-structures-vertebralRegions
+  ee2bab37f51daba0  hss2011-terminology-anatomical-position
+  40b01d90b8a7f495  hss2011-terminology-cavities-regions
+  b788e9ea70590b04  hss2011-terminology-directional-pairs
+  4d64cacdce9d88c2  hss2011-terminology-planes
+  0895b9c96e5c8f02  hss2011-terminology-regional-systemic
+  1d37808b53a09936  hss2011-terminology-word-parts
   a31b27f0239e56ec  hss2011-thorax-intercostal-diaphragm
   7595c1f73ba6a2ef  hss2011-thorax-regional-landmarks
   73982d275192372d  hss2011-thorax-tutorial-pastpaper-practice
+  ffb837198aea492a  hss2011-upper-brachial-plexus-nerves
+  b08426ccafb91520  hss2011-upper-limb-blood-vessels
+  2448e0d86f7b47f7  hss2011-upper-limb-muscles-compartments
   62093197e10a7918  hss2011-uro-female-reproductive-pelvis
   a132b6ac13e01c3d  hss2011-uro-kidneys-urinary-tract
   1abdb971c8ddc90d  hss2011-uro-male-reproductive-anatomy
