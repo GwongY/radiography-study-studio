@@ -1786,6 +1786,801 @@ export const HSS_MODULES = [
     ]
   },
   {
+    id: 'hss2011-lower-thigh-gluteal-muscles',
+    subject: 'HSS2011',
+    unit: 'hss.m4',
+    type: 'definition',
+    title: 'Thigh and gluteal muscles: hip and knee motor control and sciatic innervation',
+    tags: [
+      'musculoskeletal',
+      'lower limb',
+      'muscles',
+      'high-yield',
+      'foundation'
+    ],
+    lesson: {
+      explanation: 'The massive musculature of the pelvic girdle, gluteal region, and thigh is specialized for bipedal weight-bearing, posture maintenance, and dynamic locomotion. Unlike the upper limb, which prioritizes mobility and fine dexterous manipulation, the lower limb musculature develops immense force across the hip and knee joints. Movements at the hip joint are controlled by four major functional muscle groups: 1. Major Hip Flexors: The primary and most powerful flexor of the hip is the Iliopsoas, which consists of two muscles converging to insert onto the lesser trochanter of the femur: the iliacus, arising from the iliac fossa and innervated by the femoral nerve, and the psoas major, arising from the lumbar vertebrae (T12–L5) and innervated by the anterior rami of L2–L4 spinal nerves. Together, they powerfully advance the limb during gait and flex the trunk. 2. Major Hip Extensors: The primary and most powerful extensor of the hip is the Gluteus maximus, a massive superficial muscle forming the bulk of the buttock, innervated by the Inferior gluteal nerve. Gluteus maximus generates immense torque to extend the thigh against resistance, such as during stair climbing, running, or standing up from a chair. 3. Major Hip Abductors: The key hip abductor and lateral pelvic stabilizer is the Gluteus medius, situated deep and superior to gluteus maximus on the lateral ilium, innervated by the Superior gluteal nerve. During unipedal weight-bearing in normal walking, gluteus medius abducts the hip and prevents the contralateral pelvis from dropping downward. 4. Major Hip Adductors: The medial compartment of the thigh is dominated by adductor muscles, primarily the massive Adductor magnus, innervated by the Obturator nerve (with its hamstring part supplied by the sciatic nerve), drawing the thigh medially toward the midline. Movements at the knee joint are governed by two antagonistic compartmental groups: 1. Major Knee Extensors: The anterior compartment of the thigh is occupied by the Quadriceps femoris, the powerful four-headed extensor of the leg. It is composed of Rectus femoris (arising from the AIIS, crossing both hip and knee), Vastus medialis, Vastus lateralis, and Vastus intermedius (lying deep to rectus femoris). All four heads converge into the common quadriceps tendon, encase the patella, and continue as the Patellar ligament to insert onto the tibial tuberosity. All 4 muscles of the quadriceps femoris are innervated by the Femoral nerve. 2. Major Knee Flexors: The posterior compartment of the thigh contains the Hamstrings, a group of three long muscles crossing both hip and knee joints: medially lie the Semitendinosus and Semimembranosus, and laterally lies the Biceps femoris (comprising a long head and a short head). All three hamstring muscles are innervated by the Sciatic nerve. The hamstrings powerfully flex the leg at the knee while extending the thigh at the hip. The Sciatic nerve, arising from the Lumbosacral plexus, is the thickest nerve in the body, traversing the posterior thigh deep to the hamstrings before bifurcating into the Tibial nerve and Common fibular (peroneal) nerve.',
+      plain: 'The hip and thigh muscles power standing and walking. The hip flexor is iliopsoas (iliacus via femoral nerve + psoas major via L2–L4 rami). The hip extensor is gluteus maximus (inferior gluteal nerve), the hip abductor is gluteus medius (superior gluteal nerve, stops pelvis sagging), and the hip adductor is adductor magnus (obturator nerve). At the knee, the front compartment is the quadriceps femoris (rectus femoris, vastus lateralis, vastus medialis, vastus intermedius) — all 4 innervated by the femoral nerve, extending the knee via the patellar ligament. The back compartment is the hamstrings (biceps femoris, semitendinosus, semimembranosus) — all 3 innervated by the sciatic nerve, flexing the knee.',
+      keyFacts: [
+        'Major hip flexor: Iliopsoas (iliacus via femoral nerve; psoas major via anterior rami of L2–L4).',
+        'Major hip extensor: Gluteus maximus (innervated by inferior gluteal nerve).',
+        'Major hip abductor: Gluteus medius (innervated by superior gluteal nerve; prevents pelvic drop).',
+        'Major hip adductor: Adductor magnus (innervated by obturator nerve).',
+        'Major knee extensors: Quadriceps femoris (rectus femoris, vastus medialis, vastus lateralis, vastus intermedius).',
+        'All 4 quadriceps muscles are innervated by the femoral nerve and insert via the patellar ligament.',
+        'Major knee flexors: Hamstrings (biceps femoris, semitendinosus, semimembranosus).',
+        'All 3 hamstring muscles are innervated by the sciatic nerve.',
+        'The sciatic nerve originates from the lumbosacral plexus and branches into tibial and common fibular nerves.'
+      ],
+      prerequisites: [
+        'hss2011-osteo-pelvic-girdle',
+        'hss2011-joints-synovial-types'
+      ],
+      examples: [
+        'Superior gluteal nerve injury paralyses the gluteus medius, causing the pelvis to drop toward the unsupported swing leg during gait (positive Trendelenburg sign).',
+        'A sudden deceleration or overstriding during sprinting causes an acute hamstring strain (avulsion or tear), most frequently at the myotendinous junction of the biceps femoris long head.'
+      ]
+    },
+    memory: {
+      mnemonic: 'Gluteal nerve pairing: Superior gluteal = Medius (higher on the hip, abducts); Inferior gluteal = Maximus (lower bulk, extends).',
+      comparison: 'Quad vs Hamstring: Quadriceps (anterior, 4 heads, femoral nerve, extends knee); Hamstrings (posterior, 3 muscles, sciatic nerve, flexes knee).',
+      visualCue: 'The patellar tendon lever: all four vasti/rectus heads funnel into the patella and shoot straight down the patellar ligament onto the tibial tuberosity.',
+      teachBack: 'Name the four primary muscles acting on the hip and their respective nerves, then contrast the anterior knee extensors with the posterior knee flexors.'
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'Which nerve innervates the gluteus medius muscle, the primary abductor of the hip?',
+        options: [
+          'Superior gluteal nerve',
+          'Inferior gluteal nerve',
+          'Femoral nerve',
+          'Obturator nerve',
+          'Sciatic nerve'
+        ],
+        answer: 0,
+        explanation: 'Gluteus medius is innervated by the superior gluteal nerve. Gluteus maximus is innervated by the inferior gluteal nerve.',
+        src: {
+          ref: 'hss.4.3',
+          location: 'p50 "Superior gluteal nerve"'
+        }
+      },
+      {
+        type: 'cloze',
+        prompt: 'All four heads of the quadriceps femoris muscle are innervated by the ______ nerve.',
+        accept: [
+          'femoral',
+          'Femoral',
+          'femoral nerve',
+          'Femoral nerve'
+        ],
+        explanation: 'The femoral nerve innervates all four quadriceps heads (rectus femoris, vastus lateralis, vastus medialis, vastus intermedius).',
+        src: {
+          ref: 'hss.4.3',
+          location: 'p52 "All 4 muscles innervated by:" — "Femoral nerve"'
+        }
+      },
+      {
+        type: 'matching',
+        prompt: 'Match each major hip or knee movement to its verified primary agonist muscle.',
+        pairs: [
+          [
+            'Major Hip Flexors',
+            'Iliopsoas'
+          ],
+          [
+            'Major Hip Extensors',
+            'Gluteus maximus'
+          ],
+          [
+            'Major Hip Abductors',
+            'Gluteus medius'
+          ],
+          [
+            'Major Knee Flexors',
+            'Hamstrings'
+          ],
+          [
+            'Major Knee Extensors',
+            'Quadriceps femoris'
+          ]
+        ],
+        explanation: 'Verified muscle actions from HSS2011 Module 4.3 slide 46.'
+      },
+      {
+        type: 'mcq',
+        prompt: 'The hamstring muscles, which flex the knee joint and extend the hip, are all innervated by which major peripheral nerve?',
+        options: [
+          'Sciatic nerve',
+          'Femoral nerve',
+          'Obturator nerve',
+          'Superior gluteal nerve',
+          'Tibial nerve'
+        ],
+        answer: 0,
+        explanation: 'All three hamstring muscles (semitendinosus, semimembranosus, biceps femoris) are innervated by the sciatic nerve.',
+        src: {
+          ref: 'hss.4.3',
+          location: 'p53 "Major Knee Flexors: Hamstrings" — "All 3 muscles innervated by:" — "Sciatic nerve"'
+        }
+      }
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'During physical examination of a patient with chronic lumbar disc herniation, the clinician notes profound weakness when testing active knee extension against resistance, along with an absent patellar tendon reflex. Identify the muscle group affected, the peripheral nerve involved, and trace the anatomical insertion transmitting its force onto the skeleton.',
+        model: 'The muscle group affected is the quadriceps femoris (rectus femoris, vastus lateralis, vastus medialis, vastus intermedius), which is innervated by the femoral nerve (L2–L4). All four muscular bellies converge into the common quadriceps tendon, which encloses the sesamoid patella and continues inferiorly as the patellar ligament to insert onto the tibial tuberosity of the tibia.',
+        rubric: [
+          'Identifies the quadriceps femoris as the paralyzed knee extensor',
+          'Names the femoral nerve as the responsible innervation',
+          'Traces force transmission through the patellar ligament onto the tibial tuberosity'
+        ]
+      }
+    ],
+    commonMistakes: [
+      'Confusing superior and inferior gluteal nerve distributions: superior gluteal innervates gluteus medius/minimus; inferior gluteal innervates gluteus maximus.',
+      'Assuming the hamstrings are innervated by the femoral nerve; hamstrings are in the posterior compartment, innervated by the sciatic nerve.',
+      'Thinking iliopsoas is a single muscle with one nerve; it is composed of iliacus (femoral nerve) and psoas major (anterior rami of L2–L4).'
+    ],
+    skills: [
+      'Categorize thigh compartments by nerve: Anterior compartment = Femoral nerve (quadriceps, knee extensors); Medial compartment = Obturator nerve (adductors); Posterior compartment = Sciatic nerve (hamstrings, knee flexors).',
+      'Diagnose Trendelenburg gait immediately: weakness of the stance-leg gluteus medius causes the opposite pelvic side to sag downward.',
+      'Link the patellar reflex to its neural pathway: tapping the patellar ligament tests the femoral nerve and L2–L4 spinal segments driving quadriceps contraction.'
+    ],
+    selfCheck: 'From memory: name the agonists for hip flexion, extension, abduction, and adduction with nerves, list the four quadriceps heads and three hamstrings with innervations, and state where the patellar ligament inserts.',
+    visuals: [
+      {
+        fig: 'glutealThighMuscles'
+      },
+      {
+        model: {
+          layer: 'muscle',
+          meshes: [
+            'Gluteus maximus muscle',
+            'Gluteus medius muscle',
+            'Rectus femoris muscle',
+            'Long head of biceps femoris'
+          ],
+          label: 'Thigh and gluteal musculature',
+          caption: 'Gluteus maximus (extensor) and gluteus medius (abductor) overlying the hip; rectus femoris anteriorly (knee extensor) and biceps femoris posteriorly (knee flexor).'
+        }
+      },
+      {
+        gen: true
+      }
+    ],
+    sourceRefs: [
+      {
+        ref: 'hss.4.3',
+        location: 'p46 "Lumbosacral plexus"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p46 "Sciatic nerve"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p46 "Tibial nerve"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p46 "Common fibular (peroneal) nerve"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p47 "Major Hip Flexors:"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p47 "Iliopsoas"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p47 "Major Hip Extensors:"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p47 "Gluteus maximus"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p47 "Major Hip Abductors:"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p47 "Gluteus medius"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p47 "Major Hip Adductors:"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p47 "Adductor magnus"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p47 "Major Knee Flexors:"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p47 "Hamstrings"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p47 "Major Knee Extensors:"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p47 "Quadriceps femoris"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p49 "Iliopsoas:"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p49 "- Iliacus"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p49 "- Psoas major"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p49 "femoral nerve"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p49 "anterior rami of L2-L4"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p50 "Superior gluteal nerve"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p50 "Inferior gluteal nerve"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p51 "Hip Adductor: Adductor Magnus"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p51 "Adductor magnus"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p51 "Obturator nerve"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p52 "Major Knee Extensors: Quadriceps Femoris"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p52 "All 4 muscles innervated by:"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p52 "Femoral nerve"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p52 "Rectus femoris"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p52 "Vastus medialis"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p52 "Vastus lateralis"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p52 "Vastus intermedius"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p52 "Patellar ligament"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p53 "Major Knee Flexors: Hamstrings"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p53 "- Semimembranosus"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p53 "- Semitendinosus"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p53 "Biceps femoris:"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p53 "All 3 muscles innervated by:"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p53 "Sciatic nerve"'
+      },
+      {
+        ref: 'hss.manual1920',
+        location: 'p46 "15. Can you identify and locate the muscles that control hip, knee and ankle movement?"'
+      },
+      {
+        ref: 'hss.manual1920',
+        location: 'p47 "10. Which of the following muscle is a hip abductor?"'
+      },
+      {
+        ref: 'hss.manual1920',
+        location: 'p47 "A. Gluteus medius"'
+      }
+    ]
+  },
+  {
+    id: 'hss2011-lower-leg-foot-muscles-arches',
+    subject: 'HSS2011',
+    unit: 'hss.m4',
+    type: 'definition',
+    title: 'Leg compartments, ankle and foot muscles, and the three foot arches',
+    tags: [
+      'musculoskeletal',
+      'lower limb',
+      'muscles',
+      'high-yield',
+      'foundation'
+    ],
+    lesson: {
+      explanation: 'The lower leg musculature is organized by fascial septa, the tibia, the fibula, and the interosseous membrane into three functional compartments that govern movements of the ankle joint and toes: 1. Anterior Compartment (Major Ankle Dorsiflexors): The primary dorsiflexor of the ankle is the Tibialis anterior, situated in the anterior compartment alongside extensor digitorum longus and extensor hallucis longus. Originating from the upper lateral surface of the tibia and the interosseous membrane, its tendon crosses the anterior ankle to insert into the medial cuneiform and first metatarsal. All muscles of the anterior compartment are innervated by the Deep fibular nerve (a branch of the common fibular nerve). Tibialis anterior lifts the foot upward in dorsiflexion and inverts the foot at the subtalar joint; paralysis of this nerve causes loss of dorsiflexion, presenting clinically as "foot drop". 2. Superficial Posterior Compartment (Major Ankle Plantarflexors): The posterior compartment is divided into superficial and deep groups. The superficial group is dominated by the Gastrocnemius, a powerful two-headed calf muscle originating from the posterior femur via a Medial head and a Lateral head. Deep to gastrocnemius lies the broad, multipennate soleus muscle. The gastrocnemius and soleus heads unite distally into the massive calcaneal tendon (Achilles tendon), which inserts into the posterior surface of the calcaneus. The gastrocnemius and soleus, as well as the plantaris and deep flexors (tibialis posterior, flexor digitorum longus, flexor hallucis longus), are innervated by the Tibial nerve. Contraction of the gastrocnemius and soleus powerfully plantarflexes the foot (pointing the toes downward), providing the primary forward propulsive thrust during the "toe-off" phase of bipedal walking and jumping. 3. Lateral Compartment: The lateral compartment contains fibularis (peroneus) longus and fibularis brevis, innervated by the superficial fibular nerve, which primarily evert the foot (turning the sole outward). Architecture of the Foot Arches: When standing, the human foot does not rest completely flat on the floor; only specific bony contact areas (principally the posterior tuberosity of the calcaneus and the anterior metatarsal heads) touch the ground. The intervening bones form three architectural arches that absorb shock, distribute body weight, and protect underlying plantar neurovascular bundles: (a) Medial Longitudinal Arch (9 bones): The highest, most elastic arch, comprising 9 bones: Calcaneus (1), Talus (1, the keystone of the arch), Navicular (1), Medial, Intermediate (immediate), and Lateral cuneiforms (3), and Metatarsals I, II, and III (3). (b) Lateral Longitudinal Arch (4 bones): A flatter, more rigid arch adapted for weight-bearing stability, formed by 4 bones: Calcaneus (1), Cuboid (1, the keystone), and Metatarsals IV and V (2). (c) Transverse Arch (9 bones): Runs transversely across the midfoot and forefoot, formed by 9 bones: Metatarsals I, II, III, IV, and V (5), the Medial, Intermediate, and Lateral cuneiforms (3), and the Cuboid (1).',
+      plain: 'The lower leg muscles control the foot and ankle through three compartments. The front compartment contains tibialis anterior (innervated by the deep fibular nerve), which dorsiflexes the ankle (lifts toes up; damage causes "foot drop"). The back calf contains gastrocnemius (medial and lateral heads) and soleus, which unite into the Achilles tendon on the calcaneus (innervated by the tibial nerve) to plantarflex (point toes down for push-off). The foot bones form three arches so the foot does not rest flat: the high medial longitudinal arch (9 bones: calcaneus, talus, navicular, 3 cuneiforms, metatarsals 1–3), the flatter lateral longitudinal arch (4 bones: calcaneus, cuboid, metatarsals 4–5), and the transverse arch (9 bones: all 5 metatarsals, 3 cuneiforms, cuboid).',
+      keyFacts: [
+        'Major ankle dorsiflexor: Tibialis anterior (anterior compartment, innervated by deep fibular nerve).',
+        'Major ankle plantarflexor: Gastrocnemius (medial and lateral heads, superficial posterior compartment, innervated by tibial nerve).',
+        'Gastrocnemius and soleus merge into the calcaneal (Achilles) tendon inserting onto the calcaneus.',
+        'Deep fibular nerve injury causes loss of dorsiflexion, resulting in clinical foot drop and high-stepping gait.',
+        'Foot arches distribute body weight, absorb locomotive shocks, and protect plantar vessels.',
+        'Medial longitudinal arch (9 bones): calcaneus, talus, navicular, 3 cuneiforms, metatarsals I–III.',
+        'Lateral longitudinal arch (4 bones): calcaneus, cuboid, metatarsals IV–V.',
+        'Transverse arch (9 bones): metatarsals I–V, 3 cuneiforms, cuboid.'
+      ],
+      prerequisites: [
+        'hss2011-osteo-leg-tarsals',
+        'hss2011-structures-tarsals'
+      ],
+      examples: [
+        'Common fibular nerve trauma at the fibular neck paralyses tibialis anterior via its deep branch, causing acute foot drop where the patient drags their toes unless they adopt a high-stepping gait.',
+        'Rupture of the calcaneal (Achilles) tendon completely disrupts gastrocnemius/soleus plantarflexion, preventing the patient from standing on their tiptoes.'
+      ]
+    },
+    memory: {
+      mnemonic: 'Ankle action pairs: Dorsiflexion = Deep fibular (Tibialis anterior); Plantarflexion = Posterior tibial nerve (Gastrocnemius).',
+      comparison: 'Medial vs Lateral arch bones: Medial has 9 bones (highest, talus is keystone); Lateral has 4 bones (flat, cuboid is keystone).',
+      visualCue: 'The Achilles bowstring: gastrocnemius two heads above the knee pulling the calcaneus heel upward to plant the toes down.',
+      teachBack: 'Explain why damage to the common fibular nerve causes foot drop, and list the exact bones forming the medial versus lateral longitudinal foot arches.'
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'Which muscle is the major ankle dorsiflexor and which nerve provides its motor innervation?',
+        options: [
+          'Tibialis anterior; deep fibular nerve',
+          'Gastrocnemius; tibial nerve',
+          'Soleus; common fibular nerve',
+          'Fibularis longus; superficial fibular nerve',
+          'Tibialis posterior; obturator nerve'
+        ],
+        answer: 0,
+        explanation: 'Tibialis anterior is the primary ankle dorsiflexor, innervated by the deep fibular nerve in the anterior leg compartment.',
+        src: {
+          ref: 'hss.4.3',
+          location: 'p48 "• Tibialis anterior" — p55 "Tibialis anterior" — "Deep fibular nerve"'
+        }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The gastrocnemius muscle has a medial head and lateral head, and is innervated by the ______ nerve.',
+        accept: [
+          'tibial',
+          'Tibial',
+          'tibial nerve',
+          'Tibial nerve'
+        ],
+        explanation: 'Gastrocnemius is innervated by the tibial nerve and acts as a powerful ankle plantarflexor.',
+        src: {
+          ref: 'hss.4.3',
+          location: 'p55 "Gastrocnemius:" — "- Medial head" — "- Lateral head" — "Tibial nerve"'
+        }
+      },
+      {
+        type: 'matching',
+        prompt: 'Match each foot arch to its verified constituent bone count and structure.',
+        pairs: [
+          [
+            'Medial longitudinal arch',
+            '9 bones (Calcaneus, Talus, Navicular, 3 Cuneiforms, Metatarsals I–III)'
+          ],
+          [
+            'Lateral longitudinal arch',
+            '4 bones (Calcaneus, Cuboid, Metatarsals IV–V)'
+          ],
+          [
+            'Transverse arch',
+            '9 bones (Metatarsals I–V, 3 Cuneiforms, Cuboid)'
+          ]
+        ],
+        explanation: 'Foot arch bone classifications from HSS2011 Module 4.3 slides 43 and 44.'
+      },
+      {
+        type: 'mcq',
+        prompt: 'How many bones form the lateral longitudinal arch of the foot?',
+        options: [
+          '4 bones',
+          '9 bones',
+          '7 bones',
+          '5 bones'
+        ],
+        answer: 0,
+        explanation: 'The lateral longitudinal arch consists of exactly 4 bones: calcaneus, cuboid, and metatarsals IV and V.',
+        src: {
+          ref: 'hss.4.3',
+          location: 'p44 "Lateral longitudinal arch (4 bones):"'
+        }
+      }
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A patient presents following a direct blow to the lateral aspect of the knee below the fibular head. They are unable to dorsiflex or evert the foot and catch their toes on the ground while walking. Identify the injured nerve, the specific muscle responsible for the lost dorsiflexion, and the resulting clinical gait pattern.',
+        model: 'The patient has sustained an injury to the common fibular (peroneal) nerve as it winds around the neck of the fibula, paralyzing its deep fibular branch. The specific muscle responsible for the lost dorsiflexion is the tibialis anterior (assisted by extensor digitorum longus and extensor hallucis longus). This motor deficit produces "foot drop", requiring the patient to excessively flex the hip and knee during walking in a characteristic high-stepping (steppage) gait to clear the toes from the ground.',
+        rubric: [
+          'Identifies common fibular nerve injury at the fibular neck',
+          'Names tibialis anterior as the primary paralyzed dorsiflexor',
+          'Describes foot drop and high-stepping / steppage gait compensation'
+        ]
+      }
+    ],
+    commonMistakes: [
+      'Confusing dorsiflexion (raising toes toward shin) with plantarflexion (pointing toes toward floor).',
+      'Attributing gastrocnemius innervation to the fibular nerve; gastrocnemius is posterior and innervated by the tibial nerve.',
+      'Forgetting that the talus is the keystone of the medial arch, but is entirely absent from the lateral longitudinal arch.'
+    ],
+    skills: [
+      'Distinguish foot movements and their neural drivers: Dorsiflexion = Anterior compartment / Deep fibular nerve; Plantarflexion = Posterior compartment / Tibial nerve; Eversion = Lateral compartment / Superficial fibular nerve.',
+      'Remember arch composition: Medial = 9 bones (tall and springy); Lateral = 4 bones (low and weight-bearing); Transverse = 9 bones (coronal bridge).',
+      'Recognize clinical gait signatures: Foot drop = deep fibular / common fibular lesion; Inability to push off / toe walk = tibial nerve / Achilles tendon rupture.'
+    ],
+    selfCheck: 'From memory: name the major ankle dorsiflexor and plantarflexor with their nerve supplies, state the three lower leg compartments, and list the exact bone counts and bones of the medial, lateral, and transverse foot arches.',
+    visuals: [
+      {
+        fig: 'legMusclesCompartments'
+      },
+      {
+        fig: 'bonesOfTheFoot'
+      },
+      {
+        model: {
+          layer: 'muscle',
+          meshes: [
+            'Tibialis anterior muscle',
+            'Lateral head of gastrocnemius',
+            'Medial head of gastrocnemius',
+            'Soleus muscle'
+          ],
+          label: 'Leg compartment musculature',
+          caption: 'Tibialis anterior anteriorly (dorsiflexion via deep fibular nerve) and gastrocnemius with soleus posteriorly (plantarflexion via tibial nerve).'
+        }
+      },
+      {
+        gen: true
+      }
+    ],
+    sourceRefs: [
+      {
+        ref: 'hss.4.3',
+        location: 'p48 "Muscle Action (Ankle)"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p48 "• Tibialis anterior"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p48 "• Gastrocnemius"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p55 "Ankle Dorsiflexor: Tibialis Anterior"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p55 "Tibialis anterior"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p55 "Deep fibular nerve"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p55 "Gastrocnemius:"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p55 "- Medial head"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p55 "- Lateral head"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p55 "Tibial nerve"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p43 "Foot Arches"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p43 "When the foot is resting on the floor, only some of the foot bones are touching the floor, what are the bones?"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p44 "Medial longitudinal arch (9 bones):"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p44 "Lateral longitudinal arch (4 bones):"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p44 "Metatarsal I, II, III (3)"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p44 "Metatarsal IV & V (2)"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p45 "Transverse Arch (9 bones):"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p45 "Metatasal I, II, III, IV & V (5)"'
+      },
+      {
+        ref: 'hss.manual1920',
+        location: 'p46 "15. Can you identify and locate the muscles that control hip, knee and ankle movement?"'
+      }
+    ]
+  },
+  {
+    id: 'hss2011-lower-femoral-triangle-vessels-nerves',
+    subject: 'HSS2011',
+    unit: 'hss.m4',
+    type: 'definition',
+    title: 'Femoral triangle boundaries, neurovascular contents, and lower limb vessels',
+    tags: [
+      'musculoskeletal',
+      'lower limb',
+      'circulatory',
+      'nervous',
+      'high-yield',
+      'foundation'
+    ],
+    lesson: {
+      explanation: 'The femoral triangle is a subfascial wedge-shaped depression situated at the anterior and superior aspect of the thigh, immediately inferior to the inguinal skin crease. It serves as the major neurovascular gateway through which key nerves, arteries, veins, and lymphatics transition between the abdominopelvic cavity and the lower appendicular limb. Anatomical Boundaries of the Femoral Triangle: The triangle is defined by three precise anatomical borders: 1. Superior Boundary (Base): The Inguinal ligament, which stretches horizontally from the anterior superior iliac spine (ASIS) of the ilium to the pubic tubercle of the pubis. 2. Medial Boundary: The medial margin of the Adductor longus muscle. 3. Lateral Boundary: The medial margin of the Sartorius muscle (the longest strap muscle in the body, which courses obliquely across the anterior thigh). The floor of the femoral triangle is muscular and trough-like, formed laterally by the iliopsoas and medially by the pectineus and adductor longus muscles. The roof is formed by the fascia lata, cribriform fascia, subcutaneous tissue, and skin. Neurovascular Contents (The NAVEL Sequence): Within the femoral triangle, the major structures are arranged from lateral to medial in a strict, high-yield anatomical sequence remembered by the mnemonic NAVEL: 1. N — Femoral Nerve: The lateral-most major structure in the triangle. Emerging from the lumbar plexus (L2–L4), it enters the thigh beneath the inguinal ligament outside (lateral to) the femoral sheath. In the triangle, it rapidly branches into anterior cutaneous and muscular branches that supply the quadriceps femoris, sartorius, and pectineus, as well as the saphenous nerve. 2. A — Femoral Artery: The primary arterial conduit of the lower limb, which is the direct continuation of the external iliac artery once it crosses deep to the midpoint of the inguinal ligament. Enclosed within the intermediate compartment of the femoral sheath, it descends through the apex of the triangle and gives off the profunda femoris artery (deep femoral artery). 3. V — Femoral Vein: Positioned immediately medial to the femoral artery inside the femoral sheath. It receives the profunda femoris vein and the great saphenous vein, which pierces the cribriform fascia at the saphenous opening. Proximally beneath the inguinal ligament, the femoral vein continues as the External iliac vein draining into the inferior vena cava. 4. E — Empty space (Femoral Canal): The medial compartment of the femoral sheath, containing loose connective tissue and deep inguinal lymphatics. It allows the femoral vein to expand during increased venous return; however, it represents a point of potential weakness through which abdominal contents can herniate (Femoral Hernia, common in women due to a wider pelvis). 5. L — Lymphatics: Deep inguinal lymph nodes (Cloquet’s node) draining toward external iliac lymph nodes. Distal Vascular Continuations: Leaving the apex of the femoral triangle, the femoral artery and vein traverse the adductor canal and pass through the adductor hiatus in adductor magnus into the popliteal fossa behind the knee, becoming the Popliteal artery and Popliteal vein. Distal to the popliteal fossa, the popliteal artery bifurcates into the Anterior tibial artery (which continues onto the dorsum of the foot as the clinically vital Dorsalis pedis artery) and the Posterior tibial artery (which passes behind the medial malleolus to supply the plantar arches of the foot). Superficial venous return is mediated by the Great saphenous vein medially (longest vein in the body, draining into the femoral vein) and the Small saphenous vein laterally/posteriorly (draining into the popliteal vein).',
+      plain: 'The femoral triangle is the high-yield anatomical triangle in the upper front thigh. It is bounded by the inguinal ligament at the top, the sartorius muscle on the outside (lateral), and the adductor longus muscle on the inside (medial). Going from lateral to medial (remember NAVEL), its contents are: Femoral Nerve, Femoral Artery, Femoral Vein, Empty space (femoral canal), and Lymphatics. The femoral artery is the main artery to the leg (continuation of the external iliac artery), which continues behind the knee as the popliteal artery and into the foot as the dorsalis pedis artery. The great saphenous vein ascends the inside of the leg and empties into the femoral vein right in the triangle.',
+      keyFacts: [
+        'Location: anterior and superior aspect of the thigh.',
+        'Superior boundary: Inguinal ligament (stretches from ASIS to pubic tubercle).',
+        'Medial boundary: medial border of adductor longus muscle.',
+        'Lateral boundary: medial border of sartorius muscle.',
+        'Contents from lateral to medial (NAVEL): Femoral Nerve, Femoral Artery, Femoral Vein, Empty space, Lymphatics.',
+        'The femoral nerve lies lateral and outside the femoral sheath.',
+        'The femoral artery continues from the external iliac artery beneath the inguinal ligament.',
+        'The femoral vein receives the great saphenous vein and becomes the external iliac vein.',
+        'Femoral canal is the medial compartment of the sheath; site of femoral hernias.',
+        'Distal arterial tree: Femoral artery → Popliteal artery → Anterior tibial (Dorsalis pedis) & Posterior tibial arteries.'
+      ],
+      prerequisites: [
+        'hss2011-osteo-pelvic-girdle',
+        'hss2011-lower-thigh-gluteal-muscles'
+      ],
+      examples: [
+        'Interventional radiologists perform femoral arterial catheterization for coronary or cerebral angiography by palpating the femoral pulse at the midinguinal point within the femoral triangle.',
+        'A femoral hernia presents as a tender lump inferolateral to the pubic tubercle, protruding through the femoral canal medial to the femoral vein, with high risk of strangulation.'
+      ]
+    },
+    memory: {
+      mnemonic: 'NAVEL from lateral to medial: Nerve, Artery, Vein, Empty space, Lymphatics (travels from outer hip toward navel).',
+      comparison: 'Boundaries mnemonic: "Sailors Inguinal Adductor" — Sartorius laterally, Inguinal ligament superiorly, Adductor longus medially.',
+      visualCue: 'The subinguinal triangle: Inguinal ligament is the roof beam; Sartorius and Adductor longus converge like the sides of a funnel aiming down the thigh.',
+      teachBack: 'List the three boundaries of the femoral triangle, explain the NAVEL sequence from lateral to medial, and state why the femoral canal is clinically significant.'
+    },
+    practice: [
+      {
+        type: 'sequence',
+        prompt: 'Order the neurovascular contents of the femoral triangle from lateral to medial.',
+        items: [
+          'Femoral nerve',
+          'Femoral artery',
+          'Femoral vein',
+          'Femoral canal (empty space)',
+          'Deep inguinal lymphatics'
+        ],
+        explanation: 'From lateral to medial, the structures follow the NAVEL mnemonic: Nerve, Artery, Vein, Empty space, Lymphatics.',
+        src: {
+          ref: 'hss.4.3',
+          location: 'p54 "Femoral Triangle" — "Contents:" — "•Femoral nerve" — "•Femoral artery" — "•Femoral vein"'
+        }
+      },
+      {
+        type: 'matching',
+        prompt: 'Match each boundary of the femoral triangle to its verified anatomical structure.',
+        pairs: [
+          [
+            'Superior boundary',
+            'Inguinal ligament'
+          ],
+          [
+            'Medial boundary',
+            'Adductor longus muscle'
+          ],
+          [
+            'Lateral boundary',
+            'Sartorius muscle'
+          ]
+        ],
+        explanation: 'Boundaries from past exam papers and HSS2011 Module 4.3 slide 53.',
+        src: {
+          ref: 'hss.fib5yr',
+          location: 'p19 "The femoral triangle is located at the anterior and superior aspect of the thigh" — "a. superiorly: [66] inguinal ligament" — "b. medially: adductor longus muscle" — "c. laterally: sartorius muscle"'
+        }
+      },
+      {
+        type: 'mcq',
+        prompt: 'The femoral artery is the direct continuation of which major blood vessel after it passes beneath the inguinal ligament?',
+        options: [
+          'External iliac artery',
+          'Internal iliac artery',
+          'Common iliac artery',
+          'Abdominal aorta',
+          'Deep femoral artery'
+        ],
+        answer: 0,
+        explanation: 'The external iliac artery becomes the femoral artery as it passes deep to the midpoint of the inguinal ligament.',
+        src: {
+          ref: 'hss.3.3',
+          location: 'p38 "External iliac veins"'
+        }
+      },
+      {
+        type: 'typed',
+        prompt: 'Which longest superficial vein of the lower limb ascends the medial thigh to pierce the cribriform fascia and drain into the femoral vein?',
+        accept: [
+          'great saphenous',
+          'great saphenous vein',
+          'Great saphenous',
+          'Great saphenous vein'
+        ],
+        explanation: 'The great saphenous vein ascends along the medial aspect of the limb and empties into the femoral vein within the femoral triangle.',
+        src: {
+          ref: 'hss.3.3',
+          location: 'p38 "External iliac veins"'
+        }
+      }
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'An interventional radiologist is performing an arterial puncture to introduce a catheter for lower limb angiographic intervention. They palpate the femoral pulse immediately inferior to the inguinal ligament. Explain how the radiologist utilizes surface anatomy and the NAVEL sequence to avoid injuring the femoral vein or femoral nerve.',
+        model: 'The radiologist palpates the maximal arterial pulsation at the midinguinal point (halfway between the anterior superior iliac spine and pubic symphysis). Remembering the lateral-to-medial NAVEL sequence (Nerve, Artery, Vein, Empty space, Lymphatics), the clinician knows that the femoral artery lies immediately medial to the femoral nerve and lateral to the femoral vein. By inserting the needle directly into the palpable pulse and avoiding medial or lateral deviation, they safely cannulate the artery without piercing the femoral vein medially or the femoral nerve laterally.',
+        rubric: [
+          'Locates the femoral artery pulse at the midinguinal point below the inguinal ligament',
+          'Applies the NAVEL sequence (Nerve lateral, Artery intermediate, Vein medial)',
+          'Explains that puncture must hit the arterial pulse to avoid nerve laterally and vein medially'
+        ]
+      }
+    ],
+    commonMistakes: [
+      'Reversing the NAVEL sequence (e.g. putting the vein lateral to the artery).',
+      'Thinking the femoral nerve is inside the femoral sheath; the femoral nerve lies lateral to and outside the sheath.',
+      'Confusing the boundaries: sartorius is lateral and adductor longus is medial (not vice versa).'
+    ],
+    skills: [
+      'Memorize NAVEL from outside in: Lateral to medial = Nerve, Artery, Vein, Empty space (canal), Lymphatics.',
+      'Differentiate femoral and inguinal hernia locations: femoral hernias emerge through the femoral ring below and lateral to the pubic tubercle; inguinal hernias emerge above and medial to it.',
+      'Trace lower limb arterial pulses: Femoral pulse below inguinal ligament; Popliteal pulse deep in popliteal fossa; Posterior tibial pulse behind medial malleolus; Dorsalis pedis pulse on dorsum of foot.'
+    ],
+    selfCheck: 'From memory: state the three boundaries of the femoral triangle, list the NAVEL sequence from lateral to medial, explain which structure lies outside the femoral sheath, and trace the femoral artery continuations down to the foot.',
+    visuals: [
+      {
+        fig: 'femoralTriangle'
+      },
+      {
+        model: {
+          layer: 'circulatory',
+          meshes: [
+            'Femoral artery',
+            'Femoral vein',
+            'Great saphenous vein',
+            'Popliteal artery'
+          ],
+          label: 'Femoral vessels and lower limb vascular tree',
+          caption: 'The femoral artery and vein traversing the femoral triangle, continuing into the popliteal fossa.'
+        }
+      },
+      {
+        gen: true
+      }
+    ],
+    sourceRefs: [
+      {
+        ref: 'hss.4.3',
+        location: 'p54 "Femoral Triangle"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p54 "Contents:"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p54 "•Femoral nerve"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p54 "•Femoral artery"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p54 "•Femoral vein"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p54 "Boundary:"'
+      },
+      {
+        ref: 'hss.fib5yr',
+        location: 'p19 "The femoral triangle is located at the anterior and superior aspect of the thigh"'
+      },
+      {
+        ref: 'hss.fib5yr',
+        location: 'p19 "femoral nerve, femoral artery and vein inside."'
+      },
+      {
+        ref: 'hss.fib5yr',
+        location: 'p19 "a. superiorly: [66] inguinal ligament"'
+      },
+      {
+        ref: 'hss.fib5yr',
+        location: 'p19 "b. medially: adductor longus muscle"'
+      },
+      {
+        ref: 'hss.fib5yr',
+        location: 'p19 "c. laterally: sartorius muscle"'
+      },
+      {
+        ref: 'hss.ppans',
+        location: 'p22 "The femoral triangle is located at the anterior and superior aspect of the thigh"'
+      },
+      {
+        ref: 'hss.ppans',
+        location: 'p22 "femoral nerve, femoral artery and vein inside."'
+      },
+      {
+        ref: 'hss.3.3',
+        location: 'p38 "External iliac veins"'
+      }
+    ]
+  },
+  {
     id: 'hss2011-thorax-regional-landmarks',
     subject: 'HSS2011', unit: 'hss.m1', type: 'concept',
     title: 'Thoracic regional anatomy: sternal angle, mediastinal planes, diaphragm, and boundaries',

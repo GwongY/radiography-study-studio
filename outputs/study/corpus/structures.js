@@ -69,7 +69,20 @@ export const STRUCTURE_SETS = {
       { id: 'intermediate-cuneiform', label: 'Intermediate cuneiform', mesh: 'Intermediate cuneiform bone', group: 'Distal', order: 6 },
       { id: 'lateral-cuneiform', label: 'Lateral cuneiform', mesh: 'Lateral cuneiform bone', group: 'Distal', order: 7 },
     ],
-    sourceRefs: [{ ref: 'hss.4.3', location: 'Slide "Ankle & Foot" — tarsal bones' }],
+    visuals: [
+      { fig: 'bonesOfTheFoot' },
+      { model: { layer: 'skeleton', meshes: ['Talus', 'Calcaneus', 'Navicular bone', 'Cuboid bone', 'Medial cuneiform bone', 'Intermediate cuneiform bone', 'Lateral cuneiform bone'], label: 'The seven tarsal bones in 3D', caption: 'Proximal group (talus, calcaneus), intermediate group (navicular), and distal group (cuboid, medial, intermediate, lateral cuneiforms).' } },
+      { gen: true },
+    ],
+    sourceRefs: [
+      { ref: 'hss.4.3', location: 'p42 "Ankle & Foot"' },
+      { ref: 'hss.4.3', location: 'p42 "Key to Tarsal Bones"' },
+      { ref: 'hss.4.3', location: 'p42 "Distal group"' },
+      { ref: 'hss.4.3', location: 'p42 "Talus"' },
+      { ref: 'hss.4.3', location: 'p42 "Calcaneus"' },
+      { ref: 'hss.manual1920', location: 'p47 "6. What is the collective name for wrist bones?"' },
+      { ref: 'hss.manual1920', location: 'p47 "B. Tarsal bones"' },
+    ],
   },
   skullBones: {
     id: 'skullBones', label: 'Bones of the skull', subject: 'HSS2011', unit: 'hss.osteo',
@@ -282,7 +295,19 @@ export const STRUCTURE_SETS = {
       { id: 'latmen', label: 'Lateral meniscus', mesh: 'Lateral meniscus', group: 'Menisci', order: 5 },
       { id: 'hipcapsule', label: 'Articular capsule of hip joint', mesh: 'Articular capsule of hip joint', group: 'Compare', order: 6, note: 'The hip capsule, for comparison — deep socket, far more stable.' },
     ],
-    sourceRefs: [{ ref: 'hss.4.1', location: 'Slides 37–42 synovial joints — articular cartilage, fibrous capsule, ligaments' }, { ref: 'hss.m0.1718', location: 'L1 p26 intervertebral disc as shock absorber; p56 right knee joint' }],
+    visuals: [
+      { fig: 'kneeJointAnatomy' },
+      { model: { layer: 'joint', meshes: ['Articular capsule of knee joint', 'Anterior cruciate ligament', 'Posterior cruciate ligament', 'Medial meniscus', 'Lateral meniscus', 'Articular capsule of hip joint'], label: 'Internal structures of the knee joint', caption: 'Intracapsular cruciate ligaments crossing within the joint capsule alongside the medial and lateral fibrocartilaginous menisci.' } },
+      { gen: true },
+    ],
+    sourceRefs: [
+      { ref: 'hss.4.1', location: 'p37 "Synovial joints"' },
+      { ref: 'hss.4.1', location: 'p38 "Articular cartilage"' },
+      { ref: 'hss.4.1', location: 'p39 "Fibrous capsule"' },
+      { ref: 'hss.4.1', location: 'p42 "bursa: reduces friction"' },
+      { ref: 'hss.4.3', location: 'p52 "Patellar ligament"' },
+      { ref: 'hss.m0.1718', location: 'p56 "Right knee joint"' },
+    ],
     modelGap: 'The synovial membrane and joint cavity are not separate meshes, so the layered structure still comes from the lecture diagram.',
   },
 };

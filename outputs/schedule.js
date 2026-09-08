@@ -408,6 +408,8 @@ export const WEEK_STUDY = {
     3: [
       'hss2011-osteo-pelvic-girdle', 'hss2011-osteo-leg-tarsals',
       'hss2011-structures-tarsals', 'hss2011-structures-kneeJoint',
+      'hss2011-lower-thigh-gluteal-muscles', 'hss2011-lower-leg-foot-muscles-arches',
+      'hss2011-lower-femoral-triangle-vessels-nerves',
     ],
     4: [
       'hss2011-osteo-skull-sutures', 'hss2011-structures-skullBones',

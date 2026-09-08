@@ -950,6 +950,934 @@ export const HSS_OSTEOLOGY = [
   {
     id: 'hss2011-osteo-pelvic-girdle',
     subject: 'HSS2011', unit: 'hss.osteo', type: 'definition',
+    title: 'Pelvic girdle, hip joint, and the proximal and distal femur',
+    tags: ['osteology', 'lower limb', 'high-yield', 'foundation'],
+    boneRefs: ['pelvis', 'femur', 'sacrum'],
+    lesson: {
+      explanation: 'The appendicular pelvic girdle connects the axial vertebral column to the lower appendicular skeleton, transmitting upper body weight to the lower extremities during standing and ambulation. The bony pelvis is formed by the right and left hip bones (os coxae), which articulate posteriorly with the sacrum at the sacroiliac joints and anteriorly with each other at the fibrocartilaginous pubic symphysis. Each adult hip bone is formed by the fusion of three separate embryological bones: the ilium superiorly, the ischium posteroinferiorly, and the pubis anteroinferiorly. The ilium is the largest component, featuring the broad iliac crest, anterior superior iliac spine (ASIS), anterior inferior iliac spine (AIIS), and the large shallow iliac fossa. The ischium forms the robust inferior-posterior section, characterized by the ischial tuberosity (the primary weight-bearing bony prominence when sitting), the ischial spine, and the greater and lesser sciatic notches. The pubis forms the anterior part, comprising superior and inferior pubic rami meeting at the pubic body; between the ischium and pubis lies the large obturator foramen. The ilium, ischium, and pubis converge and fuse solidly within the acetabulum, a deep, cup-shaped hemispherical socket on the lateral aspect of the hip bone. The head of the femur articulates with the acetabulum of the hip bone to form the hip joint, an exceptionally stable, weight-bearing ball-and-socket synovial joint that prioritizes stability over extreme mobility. Proximally, the femur features a rounded articular head directed medially and superiorly, connected to the shaft by an elongated neck that angles inferolaterally at a critical angle of inclination with the shaft (normally ~125° in adults). At the junction of the neck and shaft sit two prominent muscle attachment sites: the large, lateral Greater trochanter (inserting gluteus medius and minimus) and the smaller, posteromedial Lesser trochanter (inserting iliopsoas). Distally, the femoral shaft expands into two massive articular condyles: the Medial condyle and Lateral condyle, which articulate with the tibial plateau and patella at the knee joint. The plane of the pelvic inlet is defined by the sacral promontory, the pelvic brim, and the superior margin of the pubic symphysis, while the pelvic outlet is bounded by the tip of the coccyx and the inferior margin of the pubic symphysis. Sexual dimorphism in the bony pelvis is marked: the male pelvis is narrower, rougher, and more robust with a heart-shaped inlet, narrow outlet, vertical ilium, and an acute pubic angle under 90°; the female pelvis is broader, smoother, and lighter with an open circular inlet, enlarged outlet, shallower iliac fossa, and a wide pubic angle of 100° or more adapted for childbirth.',
+      plain: 'The hip bone is built from three fused bones: ilium (the hip crest you rest hands on), ischium (the sit-bone you sit on), and pubis (the front joint). All three meet in the acetabulum, the deep socket that receives the round head of the femur to make the stable ball-and-socket hip joint. The femur has a neck, greater and lesser trochanters for muscle attachment, and medial and lateral condyles at the knee. The female pelvis is wider, smoother, and lighter with a broad pubic angle (100°+) and circular inlet for childbirth; the male pelvis is narrower and heavier with an acute pubic angle (<90°).',
+      keyFacts: [
+        'Three bones form each hip bone: ilium, ischium, and pubis; they meet and fuse in the acetabulum.',
+        'The head of the femur articulates with the acetabulum of the hip bone to form the hip joint.',
+        'Proximal femur landmarks: head, neck, greater trochanter (lateral), lesser trochanter (medial), angle of inclination (~125°).',
+        'Distal femur landmarks: medial condyle and lateral condyle (articulate with tibia and patella).',
+        'Pelvic inlet boundaries: sacral promontory, pelvic brim, and superior margin of the pubic symphysis.',
+        'Pelvic outlet boundaries: tip of coccyx and inferior margin of the pubic symphysis.',
+        'Female pelvis: broader, smoother, lighter, circular inlet, enlarged outlet, pubic angle 100° or more.',
+        'Male pelvis: narrower, rougher, heavier, heart-shaped inlet, narrow outlet, pubic angle under 90°.',
+        'Gluteus medius is a key hip abductor inserting onto the greater trochanter (superior gluteal nerve).'
+      ],
+      prerequisites: ['hss2011-osteo-axial-appendicular', 'hss2011-joints-classification'],
+      examples: [
+        'A subcapital neck-of-femur fracture in an elderly patient disrupts retinacular blood vessels supplying the femoral head, risking avascular necrosis because the neck lies inside the hip joint capsule.',
+        'Forensic skeletal identification determines biological sex by inspecting the subpubic angle (>100° in females vs <90° in males) and the shape of the pelvic inlet (circular vs heart-shaped).'
+      ]
+    },
+    memory: {
+      firstLetter: 'Three hip bones: Ilium, Ischium, Pubis — "I, I, P" (top, back-bottom, front-bottom).',
+      comparison: 'Hip vs Shoulder socket: Acetabulum is deep and enclosed for weight-bearing stability; glenoid cavity is shallow for maximum mobility.',
+      location: 'Rest your hands on your hips = iliac crest; sit in a chair = ischial tuberosity; front midline join = pubic symphysis.',
+      teachBack: 'Explain why the angle of inclination of the femoral neck is clinically critical, and contrast four structural differences between male and female pelvises.'
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'The head of the femur articulates with which anatomical socket?',
+        options: [
+          'Acetabulum',
+          'Glenoid cavity',
+          'Acromion',
+          'Greater trochanter',
+          'Medial condyle'
+        ],
+        answer: 0,
+        explanation: 'The head of femur articulates with the acetabulum of the hip bone. The glenoid cavity is the shoulder socket.',
+        src: {
+          ref: 'hss.manual1920',
+          location: 'p46 "9. The head of femur articulates with" — "A. Acetabulum"'
+        }
+      },
+      {
+        type: 'cloze',
+        prompt: 'The three bones that fuse to form the hip bone are the ______, ______ and ______.',
+        accept: [
+          'ilium, ischium, pubis',
+          'ilium; ischium; pubis',
+          'ilium ischium pubis'
+        ],
+        explanation: 'The three bones forming the hip bone are ilium, ischium, and pubis, converging in the acetabulum.',
+        src: {
+          ref: 'hss.fib5yr',
+          location: 'p25 "There are three bones forming the hip bone, including ilium,"'
+        }
+      },
+      {
+        type: 'mcq',
+        prompt: 'Which of the following muscles is a major hip abductor?',
+        options: [
+          'Gluteus medius',
+          'Tibialis anterior',
+          'Adductor magnus',
+          'Gastrocnemius',
+          'Rectus femoris'
+        ],
+        answer: 0,
+        explanation: 'Gluteus medius is a powerful hip abductor innervated by the superior gluteal nerve.',
+        src: {
+          ref: 'hss.manual1920',
+          location: 'p46 "10. Which of the following muscle is a hip abductor?" — "A. Gluteus medius"'
+        }
+      },
+      {
+        type: 'matching',
+        prompt: 'Match each pelvic feature to its verified sexual dimorphism characteristics.',
+        pairs: [
+          [
+            'General appearance of female pelvis',
+            'Broader, smoother, less robust'
+          ],
+          [
+            'General appearance of male pelvis',
+            'Narrower, rougher, more robust'
+          ],
+          [
+            'Female pubic angle',
+            '100º or more'
+          ],
+          [
+            'Male pubic angle',
+            'Under 90º'
+          ]
+        ],
+        explanation: 'Verified sex differences in the bony pelvis from HSS2011 Module 2.3 slide 43.'
+      }
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'An emergency AP pelvis radiograph of an elderly fall victim reveals a displaced fracture across the femoral neck. Describe the anatomical relationship between the fracture site, the femoral head, and the greater and lesser trochanters, and explain the joint stability consequences.',
+        model: 'The neck of the femur is the constricted pyramidal bar of bone connecting the spherical femoral head to the shaft, situated medial and superior to the greater trochanter and superior to the lesser trochanter. Because the head is anchored deep inside the acetabulum by the acetabular labrum and joint capsule, a displaced neck fracture completely disconnects the weight-bearing femoral head from the shaft, causing characteristic external rotation and shortening of the injured lower limb.',
+        rubric: [
+          'Correctly positions the femoral neck between the head and the trochanters',
+          'Identifies the head seating inside the acetabulum of the hip bone',
+          'Explains the consequence of separating the articulating head from the shaft'
+        ]
+      }
+    ],
+    commonMistakes: [
+      'Confusing the acetabulum (hip socket) with the glenoid cavity (shoulder socket).',
+      'Listing the sacrum as one of the three bones forming the hip bone; the sacrum is an axial bone articulating at the sacroiliac joint, not a part of the hip bone itself.',
+      'Swapping male and female pubic angles: females have a wide arch (100° or more); males have an acute V-shape (under 90°).'
+    ],
+    skills: [
+      'Distinguish hip versus shoulder ball-and-socket joints: acetabulum is deep and bony for load transmission; glenoid is shallow and dependent on rotator cuff tendons for mobility.',
+      'Remember the three hip bone components by everyday touch: ilium is the hands-on-hips crest, ischium is the sit-bone tuberosity, pubis is the front midline joint.',
+      'Assess pelvic sex dimorphism rapidly by pubic angle: spread thumb and index finger wide (>100°) = female; make an acute V (<90°) = male.'
+    ],
+    selfCheck: 'From memory: name the three bones forming the hip bone, the socket for the femoral head, four proximal femoral landmarks, boundaries of pelvic inlet and outlet, and four sexual dimorphic differences.',
+    visuals: [
+      {
+        fig: 'maleFemalePelvis'
+      },
+      {
+        model: {
+          layer: 'skeleton',
+          meshes: [
+            'Hip bone',
+            'Sacrum',
+            'Coccyx',
+            'Femur'
+          ],
+          label: 'Pelvis and proximal femur',
+          caption: 'The two hip bones meeting anteriorly at the pubic symphysis and articulating posteriorly with the sacrum; the femoral head seats deep in the acetabulum.'
+        }
+      },
+      {
+        gen: true
+      }
+    ],
+    sourceRefs: [
+      {
+        ref: 'hss.4.3',
+        location: 'p37 "Pelvic Girdle"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p38 "Femur (Right)"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p38 "Greater trochanter"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p38 "Neck"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p38 "Lesser trochanter"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p38 "Medial condyle"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p38 "Lateral condyle"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p39 "Proximal End of Femur"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p39 "Angle of inclination"'
+      },
+      {
+        ref: 'hss.3.3.2019',
+        location: 'p17 "The plane of Pelvic inlet is defined by the sacral promontory"'
+      },
+      {
+        ref: 'hss.3.3.2019',
+        location: 'p17 "The plane of Pelvic outlet is defined by the tip of coccyx and inferior margin of pubic symphysis."'
+      },
+      {
+        ref: 'hss.3.3.2019',
+        location: 'p44 "Sex differences in the Bony Pelvis"'
+      },
+      {
+        ref: 'hss.3.3.2019',
+        location: 'p44 "Narrower, rougher, more robust General Appearance Broader, smoother, less robust"'
+      },
+      {
+        ref: 'hss.3.3.2019',
+        location: 'p44 "Under 90º Pubic angle 100º or more"'
+      },
+      {
+        ref: 'hss.fib5yr',
+        location: 'p26 "There are three bones forming the hip bone, including ilium,"'
+      },
+      {
+        ref: 'hss.fib5yr',
+        location: 'p26 "The head of femur articulates with the"'
+      },
+      {
+        ref: 'hss.manual1920',
+        location: 'p47 "9. The head of femur articulates with"'
+      },
+      {
+        ref: 'hss.manual1920',
+        location: 'p47 "A. Acetabulum"'
+      }
+    ]
+  },
+  {
+    id: 'hss2011-osteo-leg-tarsals',
+    subject: 'HSS2011', unit: 'hss.osteo', type: 'definition',
+    title: 'Leg bones (tibia and fibula), the patella, and the tarsal bones',
+    tags: ['osteology', 'lower limb', 'foundation', 'high-yield'],
+    boneRefs: ['tibia', 'fibula', 'foot', 'patella'],
+    lesson: {
+      explanation: 'The skeleton of the leg consists of two parallel long bones: the medial tibia and the lateral fibula. The tibia is the massive, medial, primary weight-bearing bone of the lower leg. Its proximal end expands into medial and lateral condyles that articulate with the femoral condyles at the bicondylar synovial knee joint. Just below the condyles on the anterior surface lies the prominent tibial tuberosity, which anchors the patellar ligament. The sharp anterior border of the tibial shaft forms the subcutaneous shin. Distally, the tibia terminates medially as the robust Medial malleolus, forming the medial wall of the ankle mortise. In contrast, the fibula is a slender, lateral non-weight-bearing strut that serves primarily for muscle attachments; its distal expansion forms the prominent Lateral malleolus, which extends farther inferiorly than the medial malleolus to stabilize the ankle laterally. The tibia and fibula are connected throughout their shafts by a strong fibrous interosseous membrane. They articulate at two distinct joints: the proximal tibiofibular joint, a plane synovial joint allowing minor gliding, and the distal tibiofibular joint, a fibrous syndesmosis united by a dense interosseous ligament that holds the ankle mortise firmly around the talus. The patella (kneecap) is the largest sesamoid bone in the body; sesamoid bones are nodules of bone that develop within certain tendons to alter the direction of pull of a tendon and increase mechanical leverage. The patella has a broad superior Base of patella receiving the quadriceps tendon, and a pointed inferior Apex of patella anchoring the patellar ligament. The tarsus comprises seven tarsal bones organized into proximal, intermediate, and distal groups. The proximal group consists of the Talus and Calcaneus: the talus bears the pulley-shaped trochlea that articulates with the tibia and fibula at the ankle mortise, receiving the entire weight of the body; the calcaneus (heel bone) is the largest tarsal, transmitting body weight to the ground and providing insertion for the Achilles tendon. The intermediate group contains the boat-shaped Navicular bone interposed between the talar head and the cuneiforms. The distal group comprises the lateral Cuboid bone (articulating with the calcaneus and metatarsals IV–V) and three wedge-shaped cuneiforms: Medial cuneiform, Intermediate cuneiform (recorded as Immediate cuneiform in lecture), and Lateral cuneiform. Anterior to the tarsus lie the five metatarsals and the fourteen phalanges of the toes.',
+      plain: 'The lower leg has the thick, weight-bearing tibia on the inside (medial) and the slender fibula on the outside (lateral), tied together by an interosseous membrane. The tibia ends in the medial malleolus (inner ankle bump); the fibula ends in the lateral malleolus (outer ankle bump). The patella is a sesamoid bone inside the quadriceps tendon that acts as a pulley lever across the knee. The ankle and heel have 7 tarsal bones: talus (takes leg weight into the foot), calcaneus (heel bone), navicular, cuboid, and three cuneiforms (medial, intermediate, lateral).',
+      keyFacts: [
+        'Tibia is medial and bears the body weight; fibula is lateral and non-weight-bearing.',
+        'Medial malleolus is the distal end of the tibia; lateral malleolus is the distal end of the fibula.',
+        'Tibia and fibula are joined by an interosseous membrane, a proximal plane synovial joint, and a distal syndesmosis.',
+        'Patella is a sesamoid bone developing in the quadriceps tendon; base is superior, apex is inferior.',
+        'Primary function of sesamoid bones: alter the direction of pull of a tendon to increase leverage.',
+        'Seven tarsal bones: talus, calcaneus (proximal); navicular (intermediate); cuboid, medial, intermediate, lateral cuneiforms (distal).',
+        'Talus articulates with the tibia and fibula at the talocrural ankle mortise to transmit the body weight.',
+        'Calcaneus is the heel bone, the largest tarsal, receiving the calcaneal (Achilles) tendon.'
+      ],
+      prerequisites: ['hss2011-osteo-pelvic-girdle', 'hss2011-joints-classification'],
+      examples: [
+        'An inversion ankle sprain violently stretches or tears the anterior talofibular ligament bridging the lateral malleolus of the fibula to the talus.',
+        "Patellar tendinitis (jumper's knee) causes localized pain and inflammation at the inferior apex of the patella where the patellar ligament originates."
+      ]
+    },
+    memory: {
+      mnemonic: 'TIBia = Thick, Inner, Bears weight. FIBula = Fine, Outer, Lateral.',
+      comparison: 'Malleoli pairing: Medial malleolus = Tibia; Lateral malleolus = Fibula (F and L are both outer consonants).',
+      location: 'The talus sits atop the calcaneus like a rider on a horse, receiving the load of the leg and passing it backward into the heel and forward into the navicular.',
+      teachBack: 'Explain why the tibia is the weight-bearing bone of the leg while the fibula is not, and list all seven tarsals from proximal to distal.'
+    },
+    practice: [
+      {
+        type: 'mcq',
+        prompt: 'Which bone carries the lateral malleolus at the ankle?',
+        options: [
+          'Fibula',
+          'Tibia',
+          'Talus',
+          'Calcaneus',
+          'Femur'
+        ],
+        answer: 0,
+        explanation: 'The lateral malleolus is the expanded distal end of the fibula. The tibia carries the medial malleolus.',
+        src: {
+          ref: 'hss.4.3',
+          location: 'p41 "Tibia and Fibula (Right)" — "Lateral malleolus"'
+        }
+      },
+      {
+        type: 'mcq',
+        prompt: 'What is the collective anatomical name for the ankle and heel bones?',
+        options: [
+          'Tarsal bones',
+          'Carpal bones',
+          'Phalangeal bones',
+          'Metacarpal bones',
+          'Sesamoid bones'
+        ],
+        answer: 0,
+        explanation: 'The ankle and heel bones are the tarsal bones (7 per foot). Carpal bones are in the wrist (8 per hand).',
+        src: {
+          ref: 'hss.manual1920',
+          location: 'p47 "6. What is the collective name for wrist bones?" — "B. Tarsal bones"'
+        }
+      },
+      {
+        type: 'mcq',
+        prompt: 'Sesamoid bones like the patella develop within tendons to perform which primary mechanical function?',
+        options: [
+          'Alter the direction of pull of a tendon and increase leverage',
+          'Store red bone marrow for hematopoiesis',
+          'Provide articular shock absorption like fibrocartilaginous discs',
+          'Form fibrous syndesmoses between parallel long bones'
+        ],
+        answer: 0,
+        explanation: 'Sesamoid bones develop in certain tendons to alter the direction of pull of a tendon, boosting its mechanical advantage.',
+        src: {
+          ref: 'hss.4.1',
+          location: 'p22 "Sesamoid bones" — "nodules of bone that" — "alter the direction of pull of a tendon e.g. patella"'
+        }
+      },
+      {
+        type: 'matching',
+        prompt: 'Match each tarsal bone to its verified group and anatomical role.',
+        pairs: [
+          [
+            'Talus',
+            'Proximal tarsal articulating with tibia and fibula at the ankle mortise'
+          ],
+          [
+            'Calcaneus',
+            'Heel bone; largest tarsal anchoring the calcaneal tendon'
+          ],
+          [
+            'Navicular',
+            'Intermediate boat-shaped tarsal anterior to the talus'
+          ],
+          [
+            'Medial cuneiform',
+            'Distal wedge-shaped tarsal articulating with first metatarsal'
+          ]
+        ],
+        explanation: 'Classification of tarsal bones from HSS2011 Module 4.3 slide 41.'
+      }
+    ],
+    application: [
+      {
+        type: 'scenario',
+        prompt: 'A footballer sustains a severe twisting injury to the lower leg. Radiography reveals a fracture of the distal fibular shaft and tearing of the inferior tibiofibular syndesmosis with widening of the ankle mortise. Explain the anatomical role of the distal syndesmosis and how its disruption destabilizes the ankle.',
+        model: 'The distal tibiofibular joint is a fibrous syndesmosis where the tibia and fibula are tightly bound by an interosseous ligament and inferior tibiofibular ligaments. This syndesmosis holds the medial malleolus of the tibia and lateral malleolus of the fibula tightly against the trochlea of the talus, forming the stable mortise of the talocrural joint. Disruption of this syndesmosis allows the mortise to widen, permitting pathological shifting of the talus and severe ankle instability.',
+        rubric: [
+          'Identifies the distal tibiofibular joint as a fibrous syndesmosis',
+          'Describes the ankle mortise formed by the two malleoli around the talus',
+          'Explains that syndesmotic tearing widens the mortise and destabilizes talar articulation'
+        ]
+      }
+    ],
+    commonMistakes: [
+      'Confusing carpals (wrist, 8) with tarsals (ankle/foot, 7).',
+      'Assigning the medial malleolus to the fibula; medial malleolus belongs to the tibia.',
+      'Assuming the fibula bears significant body weight; weight is transmitted entirely through the femur and tibia into the talus.'
+    ],
+    skills: [
+      'Differentiate tibia and fibula function: tibia is the primary weight-bearer articulating with both femur and talus; fibula acts as a muscular lateral stabilizer.',
+      'Remember the patellar orientation: broad flat base faces superiorly (taking quadriceps pull); pointed apex faces inferiorly (anchoring the patellar ligament).',
+      'Track weight transmission down the limb: Femur → Tibial condyles → Tibial shaft → Talus → Calcaneus & Metatarsal heads.'
+    ],
+    selfCheck: 'From memory: state which bone carries each malleolus, describe the two tibiofibular joints, define a sesamoid bone with its functional purpose, and name all seven tarsals by row.',
+    visuals: [
+      {
+        fig: 'bonesOfTheFoot'
+      },
+      {
+        model: {
+          layer: 'skeleton',
+          meshes: [
+            'Patella',
+            'Tibia',
+            'Fibula',
+            'Talus',
+            'Calcaneus'
+          ],
+          label: 'Leg and ankle skeleton',
+          caption: 'Tibia (medial weight-bearing) and fibula (lateral stabilizer) connected by the interosseous membrane; their distal malleoli form the mortise enclosing the talus.'
+        }
+      },
+      {
+        gen: true
+      }
+    ],
+    sourceRefs: [
+      {
+        ref: 'hss.4.1',
+        location: 'p22 "Sesamoid bones"'
+      },
+      {
+        ref: 'hss.4.1',
+        location: 'p22 "nodules of bone that"'
+      },
+      {
+        ref: 'hss.4.1',
+        location: 'p31 "Syndesmosis"'
+      },
+      {
+        ref: 'hss.4.1',
+        location: 'p53 "superior tibiofibular"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p40 "Patella (Right)"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p40 "Base of patella"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p40 "Apex of patella"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p41 "Tibia and Fibula (Right)"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p41 "tibiofibular joint"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p42 "Ankle & Foot"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p42 "Key to Tarsal Bones"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p42 "Talus"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p42 "Calcaneus"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p42 "Navicular"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p42 "Cuboid"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p42 "Medial cuneiform"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p42 "Immediate cuneiform"'
+      },
+      {
+        ref: 'hss.4.3',
+        location: 'p42 "Lateral cuneiform"'
+      },
+      {
+        ref: 'hss.manual1920',
+        location: 'p47 "6. What is the collective name for wrist bones?"'
+      },
+      {
+        ref: 'hss.manual1920',
+        location: 'p47 "B. Tarsal bones"'
+      }
+    ]
+  },
+  {
+    id: 'hss2011-osteo-skull-sutures',
+    subject: 'HSS2011', unit: 'hss.osteo', type: 'definition',
+    title: 'Skull bones and the four sutures',
+    tags: ['osteology', 'skull', 'high-yield'], boneRefs: ['cranium', 'mandible'],
+    lesson: {
+      explanation: 'Sutures are fibrous joints of the skull, articulating by process and indentation, with the bones bound by fibrous connective tissue. Four are named in the module: the coronal suture binds the frontal and parietal bones; the sagittal suture runs between the two parietal bones; the lambdoid suture lies between parietal and occipital; and the squamous suture joins the parietal bone to the temporal bone. The Module 4 labelling answers also name the squamous part of the temporal bone, the external acoustic meatus, the mastoid process, the sphenoid, the nasal bone, the lacrimal bone, the ethmoid, the maxilla and the zygomatic bone. The mandible is the only movable bone in the skull.',
+      keyFacts: [
+        'Coronal suture — frontal to parietal.',
+        'Sagittal suture — parietal to parietal.',
+        'Lambdoid suture — parietal to occipital.',
+        'Squamous suture — parietal to temporal.',
+        'Sutures are fibrous joints: articulation by process and indentation, bound by fibrous connective tissue.',
+        'The mandible is the only movable bone in the skull.',
+        'Named facial and cranial bones in the labelling answers: sphenoid, nasal, lacrimal, ethmoid, maxilla, zygomatic, temporal (squamous part), plus the external acoustic meatus and mastoid process.',
+      ],
+      prerequisites: ['hss2011-osteo-axial-appendicular'],
+      examples: [],
+    },
+    memory: {
+      location: 'Put a crown on your head: the coronal suture is exactly where the band sits, frontal in front, parietal behind. Then an arrow (sagittal) down the midline between the parietals. Lambdoid is the Greek letter lambda at the back of the skull. Squamous is the scaly overlap low on the side, where the temporal bone slides under the parietal.',
+      firstLetter: 'Going front to back along the top: Coronal, Sagittal, Lambdoid. C-S-L. Squamous is the odd one out because it is on the side, not the top.',
+      comparison: 'Squamous vs sagittal is the classic distractor pair. Sagittal is on top between two parietals; squamous is on the side between parietal and temporal.',
+    },
+    practice: [
+      { type: 'mcq', prompt: 'Which suture joins the parietal bone and the temporal bone together?', options: ['Squamous suture', 'Coronal suture', 'Lambdoid suture', 'Sagittal suture'], answer: 0,
+        explanation: 'Model answer A. The squamous suture is the scale-like overlap on the side of the skull between parietal and temporal. Sagittal is the midline joint between the two parietals.',
+        src: { ref: 'hss.revans', location: 'Module 4.2, MCQ 2' } },
+      { type: 'cloze', prompt: 'The joint between the frontal and parietal bones is correctly called the ______ suture.', accept: ['coronal'],
+        explanation: 'Model answer: coronal. The lecture uses this exact example when defining sutures as fibrous joints.',
+        src: { ref: 'hss.revans', location: 'Module 4.2, Fill-in-blanks 4' } },
+      { type: 'cloze', prompt: 'The ______ bone is the only movable bone in the skull.', accept: ['mandible', 'mandibular'],
+        explanation: 'Model answer: mandible. It articulates with the temporal bones at the temporomandibular joints.',
+        src: { ref: 'hss.revans', location: 'Module 4.2, Fill-in-blanks 2' } },
+      { type: 'matching', prompt: 'Match each suture to the bones it joins.',
+        pairs: [['Coronal', 'Frontal – parietal'], ['Sagittal', 'Parietal – parietal'], ['Lambdoid', 'Parietal – occipital'], ['Squamous', 'Parietal – temporal']],
+        explanation: 'These are the four sutures the module asks you to locate on the skull.' },
+    ],
+    application: [
+      { type: 'scenario', prompt: 'Sutures are classed as fibrous joints. What does that classification tell you about how much they move, and why is a suture a useful example of that class?',
+        model: 'Fibrous joints allow very limited movement because the bones are connected by fibrous tissue rather than by a cavity and cartilage. A suture is the clearest example: the bones interlock by process and indentation and are bound by fibrous connective tissue, so the skull vault is effectively rigid.',
+        rubric: ['States fibrous joints allow very limited movement', 'Describes the process-and-indentation interlock', 'Names fibrous connective tissue as the binding'] },
+    ],
+    commonMistakes: [
+      'Answering sagittal when asked about parietal-to-temporal. Sagittal is parietal-to-parietal on the midline.',
+      'Forgetting the mandible when asked which skull bone moves.',
+    ],
+    skills: [
+      'Sagittal and squamous differ by one letter and one whole location: sagittal is the midline joint between the two parietals; squamous is the low side-joint where the temporal slides under the parietal. Both touch a parietal, so "involves the parietal bone" identifies neither — the second bone is the answer.',
+      'Each suture\'s name is its own map reference: coronal runs where a crown sits (frontal to parietal), sagittal along the arrow\'s flight down the midline, lambdoid draws a Greek lambda at the back, and squamous — "scale-like" — is the overlap on the side. Read the name, get the position.',
+      'A suture is fibrous — bones interlocked by process and indentation, bound by fibrous tissue — which is why the skull vault barely moves at all, and why the mandible\'s status as the only movable skull bone is definitional rather than incidental.',
+    ],
+    selfCheck: 'From a blank page: the four sutures with their bone pairs, why a suture permits the least movement of the listed joints (fibrous tissue, process-and-indentation interlock), and the only movable skull bone.',
+    sourceRefs: [{ ref: 'hss.4.2', location: 'Head and neck — skull, sutures' }, { ref: 'hss.4.1', location: 'Slide "Fibrous joints — Sutures"' }, { ref: 'hss.revans', location: 'Module 4.2 answers; More exercises Module 4, labels A1–A12' }],
+  },
+  {
+    "id": "hss2011-osteo-pectoral-girdle",
+    "subject": "HSS2011",
+    "unit": "hss.osteo",
+    "type": "definition",
+    "title": "The pectoral girdle and shoulder joint",
+    "tags": [
+      "osteology",
+      "upper limb",
+      "high-yield",
+      "foundation"
+    ],
+    "lesson": {
+      "explanation": "The pectoral (shoulder) girdle forms the skeletal foundation connecting the upper appendicular limb to the axial skeleton. On each side of the body, the pectoral girdle consists of two bones: the anterior, subcutaneous S-shaped clavicle (collarbone) and the posterior, flat triangular scapula (shoulder blade). A fundamental anatomical principle of the human shoulder is that it possesses only a single bony joint linking the entire upper limb to the axial frame: the sternoclavicular joint, formed by the articulation of the medial (sternal) end of the clavicle with the clavicular notch of the manubrium of the sternum and the first costal cartilage. This articulation is a saddle-type synovial joint containing an intervening fibrocartilaginous articular disc that functions as a shock absorber. The lateral (acromial) end of the clavicle articulates with the acromion of the scapula at the plane-type acromioclavicular (AC) joint, reinforced by the powerful coracoclavicular ligament. Crucially, the scapula itself has no direct bony articulation with the axial skeleton; instead, it is suspended against the posterior thoracic cage across a physiological muscular interface (the scapulothoracic joint) by muscular slings including the trapezius, serratus anterior, levator scapulae, and rhomboids. This lack of rigid bony anchoring grants the scapula immense mobility, allowing it to elevate, depress, protract, retract, and rotate upwardly and downwardly. The lateral angle of the scapula is expanded into the glenoid cavity (glenoid fossa), a shallow, pear-shaped articular depression that articulates with the large, smooth hemispherical head of the humerus to form the glenohumeral (shoulder) joint. The glenohumeral articulation is a classic polyaxial ball-and-socket synovial joint. Because the shallow glenoid fossa accommodates only approximately one-third of the humeral head, the shoulder joint deliberately trades osseous stability in exchange for the greatest range of multi-planar movement of any joint in the human body (permitting flexion, extension, abduction, adduction, medial rotation, lateral rotation, and circumduction). Dynamic joint stability is provided by the rotator cuff muscles (supraspinatus, infraspinatus, teres minor, subscapularis) whose tendons blend directly with the joint capsule, supported by the fibrous glenoid labrum that deepens the socket rim. Major shoulder-girdle motors include the deltoid, pectoralis major, and latissimus dorsi.",
+      "plain": "The pectoral girdle anchors your arm to your body using two bones: the collarbone (clavicle) in front and the shoulder blade (scapula) behind. Amazingly, the entire arm is connected to your skeleton by just one single bony joint: the sternoclavicular joint where the clavicle joins the breastbone (sternum). The other end of the clavicle meets the scapula at the acromioclavicular joint. The scapula has no bones connecting it to your spine or ribs—it floats on a bed of muscles, giving your shoulder massive range of motion. At the side of the scapula sits the shallow glenoid socket, which meets the round ball of the humerus to form the ball-and-socket shoulder joint. Because the socket is shallow, the shoulder is the most mobile joint in your body, relying on the four rotator cuff muscles to keep the ball from popping out.",
+      "keyFacts": [
+        "Pectoral girdle bones: anterior clavicle and posterior scapula.",
+        "Single bony axial bridge: sternoclavicular joint (medial clavicle meets sternum manubrium).",
+        "Acromioclavicular (AC) joint: lateral clavicle articulates with acromion of scapula.",
+        "Scapulothoracic articulation: dynamic muscular sling; no direct bony attachment to ribs or spine.",
+        "Glenohumeral joint: polyaxial ball-and-socket joint between shallow glenoid fossa and humeral head.",
+        "Mobility vs stability trade-off: shallow glenoid accommodates ~1/3 of humeral head; greatest mobility in the body.",
+        "Dynamic stabilizers: rotator cuff muscles (SITS) and glenoid labrum fibrocartilage rim.",
+        "Major shoulder girdle muscles: pectoralis major, latissimus dorsi, and deltoid."
+      ],
+      "prerequisites": [
+        "hss2011-osteo-axial-appendicular",
+        "hss2011-joints-classification"
+      ],
+      "examples": [
+        "When falling onto an outstretched hand (FOOSH), compressive mechanical shock is transmitted up the radius, humerus, scapula, and clavicle to the sternum; because the sternoclavicular ligaments are exceptionally strong, fracture occurs at the junction of the middle and lateral thirds of the clavicle rather than joint dislocation.",
+        "Shoulder anterior dislocation is common because the glenoid cavity is shallow and the inferior-anterior capsule lacks rotator cuff tendon reinforcement."
+      ]
+    },
+    "memory": {
+      "chunking": "Three joints around the shoulder: Sternoclavicular (axial bridge), Acromioclavicular (strut joint), Glenohumeral (ball-and-socket).",
+      "comparison": "Glenoid vs Acetabulum: the glenoid fossa is shallow (built for maximum mobility, prone to dislocation); the hip acetabulum is deep (built for weight-bearing stability).",
+      "visualCue": "Picture the clavicle as a rigid architectural crane strut holding the scapula and arm away from the thorax so the arm can swing freely.",
+      "teachBack": "Explain why the human shoulder has only one bony connection to the axial skeleton and how this design enables overhead arm elevation."
+    },
+    "practice": [
+      {
+        "type": "cloze",
+        "prompt": "The medial end of the clavicle articulates with the sternum to form the ______ joint, which represents the sole bony articulation between the upper limb and the axial skeleton.",
+        "accept": [
+          "sternoclavicular",
+          "sternoclavicular joint"
+        ],
+        "explanation": "The sternoclavicular joint is the only skeletal bridge connecting the pectoral girdle and upper limb to the axial trunk.",
+        "src": {
+          "ref": "hss.4.3",
+          "location": "p8 \"Sternoclavicualr joint\""
+        }
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each shoulder region joint to its verified articulating components.",
+        "pairs": [
+          [
+            "Sternoclavicular joint",
+            "Medial clavicle and manubrium of sternum"
+          ],
+          [
+            "Acromioclavicular joint",
+            "Lateral clavicle and acromion of scapula"
+          ],
+          [
+            "Glenohumeral joint",
+            "Glenoid cavity of scapula and head of humerus"
+          ]
+        ],
+        "explanation": "The three anatomical joints around the shoulder region illustrated on HSS2011 slide 8."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which anatomical feature explains why the glenohumeral joint possesses the greatest range of movement of all joints in the human body?",
+        "options": [
+          "The deep bony acetabular rim",
+          "The shallow glenoid cavity enclosing only about one-third of the humeral head",
+          "The absence of a synovial membrane",
+          "Rigid bony fusion to the thoracic cage"
+        ],
+        "answer": 1,
+        "explanation": "The shallow glenoid fossa allows extraordinary multi-planar mobility because it does not physically lock the humeral head, relying on soft tissue cuffs for stability."
+      }
+    ],
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A patient presents with a severe fracture of the clavicle shaft. What primary mechanical function of the pectoral girdle is lost, and what happens to the position of the shoulder on the affected side?",
+        "model": "The clavicle acts as a mechanical strut that holds the scapula and glenohumeral joint laterally away from the thoracic wall, allowing the upper limb maximum freedom of movement. When the clavicle fractures, the strut collapses: the weight of the upper limb pulls the shoulder downward, forward, and inward (medially) under the unopposed pull of gravity and the pectoralis major and latissimus dorsi muscles.",
+        "rubric": [
+          "Identifies the clavicle as a rigid mechanical strut holding the shoulder away from the chest",
+          "Explains that fracture causes the shoulder to collapse downward and medially",
+          "Recognizes that the sternoclavicular joint is the only bony axial support"
+        ]
+      }
+    ],
+    "commonMistakes": [
+      "Believing the scapula forms a direct synovial joint with the ribs or spine; it is attached purely by muscular slings.",
+      "Confusing the sternoclavicular joint (medial) with the acromioclavicular joint (lateral).",
+      "Assuming the shoulder joint is structurally stable because of bone shape; its stability is almost purely muscular and ligamentous."
+    ],
+    "skills": [
+      "Trace the axial force transmission pathway: hand → radius → humerus → glenoid cavity → scapula → acromioclavicular joint → clavicle → sternoclavicular joint → sternum.",
+      "Recognize on thoracic radiographs that the medial end of the clavicle normally aligns with the manubrium at the sternoclavicular joint."
+    ],
+    "selfCheck": "From memory: name the two bones of the pectoral girdle, identify the three joints around the shoulder region, and explain the mobility-stability trade-off of the glenoid fossa.",
+    "visuals": [
+      {
+        "model": {
+          "layer": "skeleton",
+          "meshes": [
+            "Clavicle",
+            "Scapula",
+            "Humerus"
+          ],
+          "label": "Pectoral girdle and shoulder joint",
+          "caption": "The clavicle articulates medially with the manubrium of the sternum (sternoclavicular joint) and laterally with the acromion of the scapula (acromioclavicular joint); the shallow glenoid cavity articulates with the head of the humerus."
+        }
+      },
+      {
+        "fig": "rotatorCuffMuscles"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hss.4.3",
+        "location": "p4 \"Outline: Upper Limb\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p4 \"Pectoral girdle\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p6 \"Pectoral Girdle\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p8 \"Fig. 8-2\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p8 \"Joints Around Shoulder Region\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p8 \"Acromioclavicular joint\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p8 \"Sternoclavicualr joint\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p8 \"Glenohumeral joint\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p16 \"Major Muscles Around\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p16 \"Shoulder Girdle:\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p16 \"Pectoralis major\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p16 \"Latissimus dorsi\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p19 \"Axillary nerve\""
+      }
+    ]
+  },
+  {
+    "id": "hss2011-osteo-forearm-carpals",
+    "subject": "HSS2011",
+    "unit": "hss.osteo",
+    "type": "definition",
+    "title": "Bones of the forearm, wrist and hand",
+    "tags": [
+      "osteology",
+      "upper limb",
+      "high-yield",
+      "foundation"
+    ],
+    "lesson": {
+      "explanation": "The distal upper limb skeleton comprises the bones of the forearm (antebrachium), wrist (carpus), palm (metacarpus), and fingers (phalanges). The forearm contains two parallel long bones: the lateral radius (aligned with the thumb) and the medial ulna (aligned with the little finger). Proximally, the ulna features a prominent hook-like olecranon process and an anterior coronoid process that bound the deep, C-shaped trochlear notch; this notch articulates tightly with the spool-like trochlea of the humerus to form the uniaxial humero-ulnar hinge joint of the elbow. On the lateral aspect of the coronoid process, the radial notch of the ulna articulates with the circular head of the radius to form the proximal radioulnar pivot joint, allowing rotary supination and pronation. Distally, the expanded radius articulates with the ulnar head at the distal radioulnar joint. At the wrist, the distal radius forms the primary articulating surface of the condylar radiocarpal (wrist) joint, articulating with the proximal carpal row (scaphoid and lunate); the distal ulna is excluded from direct carpal articulation by a fibrocartilaginous articular disc. The wrist contains eight carpal bones arranged in two transverse rows of four. The proximal row (from lateral/radial to medial/ulnar) comprises: 1. Scaphoid (boat-shaped; the most frequently fractured carpal, susceptible to avascular necrosis), 2. Lunate (crescent-shaped; the most frequently dislocated carpal), 3. Triquetrum (pyramidal), and 4. Pisiform (a small pea-shaped sesamoid bone sitting on the palmar surface of the triquetrum within the flexor carpi ulnaris tendon). The distal row (lateral to medial) comprises: 5. Trapezium (features a saddle-shaped articular surface for the first metacarpal of the thumb; \"trapezi-UM under the th-UMB\"), 6. Trapezoid (wedge-shaped), 7. Capitate (the largest carpal bone, occupying the central position), and 8. Hamate (characterized by a prominent curved palmar projection called the hook of hamate). These carpal bones form an anteriorly concave osseous arch spanned by the tough flexor retinaculum, creating the enclosed carpal tunnel. Passing through the carpal tunnel are the median nerve and nine flexor tendons (four tendons of flexor digitorum superficialis, four of flexor digitorum profundus, and one of flexor pollicis longus). Carpal Tunnel Syndrome (CTS) is a painful disabling condition caused by compression of the median nerve travelling through this tunnel. Distal to the carpus are five metacarpal bones (I to V) and 14 phalanges (two in the thumb: proximal and distal; three in digits II–V: proximal, middle, distal).",
+      "plain": "The forearm consists of two bones: the radius on the thumb side and the ulna on the little-finger side. The ulna has a large C-shaped scoop called the trochlear notch that hinges around the humerus at the elbow. The wrist contains eight carpal bones arranged in two neat rows of four. Proximal row (thumb to little finger): Scaphoid, Lunate, Triquetrum, Pisiform. Distal row: Trapezium (under the thumb), Trapezoid, Capitate (the biggest), and Hamate (with a hook). The carpal bones curve into a U-shaped trough covered by a tight ligament roof (the flexor retinaculum), forming the carpal tunnel. The median nerve passes through this tunnel; if it gets pinched, it causes numbness and weakness called Carpal Tunnel Syndrome. Distal to the wrist are the 5 metacarpals of the palm and the 14 finger phalanges.",
+      "keyFacts": [
+        "Forearm bones: lateral radius (thumb side) and medial ulna (little finger side).",
+        "Trochlear notch of ulna: articulates with the trochlea of the humerus to form the elbow hinge.",
+        "Proximal and distal radioulnar joints: uniaxial pivot joints allowing pronation and supination.",
+        "Radiocarpal (wrist) joint: distal radius articulates with scaphoid and lunate carpal bones.",
+        "Eight carpal bones in two rows of four.",
+        "Proximal row (lateral to medial): Scaphoid, Lunate, Triquetrum, Pisiform.",
+        "Distal row (lateral to medial): Trapezium, Trapezoid, Capitate, Hamate.",
+        "Capitate: largest carpal bone; Pisiform: sesamoid carpal; Trapezium: articulates with thumb metacarpal.",
+        "Carpal tunnel: formed by carpal arch and flexor retinaculum; transmits median nerve and 9 flexor tendons.",
+        "Carpal Tunnel Syndrome (CTS): compression of the median nerve within the carpal tunnel.",
+        "Hand skeleton: 8 carpals, 5 metacarpals (I–V), 14 phalanges (thumb has 2; digits II–V have 3)."
+      ],
+      "prerequisites": [
+        "hss2011-osteo-long-bone-structure",
+        "hss2011-joints-classification"
+      ],
+      "examples": [
+        "A fall onto an extended wrist frequently fractures the scaphoid across its waist; because retrograde arterial blood enters from the distal pole, non-union and avascular necrosis of the proximal scaphoid fragment are serious complications.",
+        "Repetitive typing or wrist strain causes tenosynovitis of flexor tendons within the inextensible carpal tunnel, compressing the median nerve and producing sensory tingling in the thumb, index, and middle fingers."
+      ]
+    },
+    "memory": {
+      "firstLetter": "Proximal row then distal row, lateral to medial: Scaphoid, Lunate, Triquetrum, Pisiform, Trapezium, Trapezoid, Capitate, Hamate (mnemonic: \"Some Lovers Try Positions That They Cannot Handle\").",
+      "mnemonic": "Trapezi-UM articulates with the th-UMB. Capitate is the CAPTAIN (largest bone in the center).",
+      "comparison": "Radius vs Ulna at the wrist: the radius expands distally to articulate directly with carpals; the ulna shrinks distally into a small head separated from carpals by a disc.",
+      "teachBack": "Recite all eight carpal bones in row order from lateral to medial, point to your own wrist to demonstrate the carpal tunnel, and explain why median nerve compression spares the little finger."
+    },
+    "practice": [
+      {
+        "type": "cloze",
+        "prompt": "The deep C-shaped articular depression of the proximal ulna that articulates with the trochlea of the humerus is the ______.",
+        "accept": [
+          "trochlear notch",
+          "Trochlear notch"
+        ],
+        "explanation": "Model answer from past exam papers: Trochlear notch.",
+        "src": {
+          "ref": "hss.revans",
+          "location": "p3 \"4. Trochlear notch\""
+        }
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each carpal bone to its verified anatomical characteristic.",
+        "pairs": [
+          [
+            "Scaphoid",
+            "Boat-shaped lateral proximal carpal; most commonly fractured"
+          ],
+          [
+            "Pisiform",
+            "Pea-shaped sesamoid bone resting on triquetrum"
+          ],
+          [
+            "Trapezium",
+            "Distal carpal articulating with first metacarpal of thumb"
+          ],
+          [
+            "Capitate",
+            "Largest carpal bone occupying the central position"
+          ],
+          [
+            "Hamate",
+            "Distal carpal characterized by a prominent anterior hook"
+          ]
+        ],
+        "explanation": "Verified carpal bone features from HSS2011 Module 4.3 slides 11 and 32."
+      },
+      {
+        "type": "sequence",
+        "prompt": "Arrange the carpal bones of the proximal row from lateral (radial / thumb side) to medial (ulnar side).",
+        "items": [
+          "Scaphoid",
+          "Lunate",
+          "Triquetrum",
+          "Pisiform"
+        ],
+        "explanation": "Standard anatomical sequence of the proximal carpal row."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Carpal Tunnel Syndrome (CTS) is caused by compression of which structure travelling beneath the flexor retinaculum?",
+        "options": [
+          "Radial nerve",
+          "Ulnar nerve",
+          "Median nerve",
+          "Musculocutaneous nerve"
+        ],
+        "answer": 2,
+        "explanation": "The median nerve traverses the carpal tunnel beneath the flexor retinaculum; compression leads to CTS.",
+        "src": {
+          "ref": "hss.4.3",
+          "location": "p32 \"Carpal Tunnel Syndrome (CTS) is associated by\""
+        }
+      }
+    ],
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A computer programmer complains of burning numbness and tingling in the palmar aspect of the right thumb, index, and middle fingers, accompanied by weakness in thumb gripping. Sensation in the little finger is completely normal. Identify the syndrome, the compressed nerve, the anatomical boundary creating the compression, and why the little finger is spared.",
+        "model": "The patient has Carpal Tunnel Syndrome (CTS), caused by compression of the median nerve beneath the flexor retinaculum within the carpal tunnel. The median nerve supplies cutaneous sensation to the palmar surface of the lateral three and a half digits (thumb, index, middle, and half of ring finger) and motor innervation to the thenar muscles. The little finger is completely spared because its sensation and hypothenar motor control are supplied by the ulnar nerve, which travels outside the carpal tunnel (superficial to the flexor retinaculum in Guyon's canal).",
+        "rubric": [
+          "Diagnoses Carpal Tunnel Syndrome (CTS)",
+          "Identifies the median nerve and flexor retinaculum",
+          "Explains that the little finger is innervated by the ulnar nerve outside the carpal tunnel"
+        ]
+      }
+    ],
+    "commonMistakes": [
+      "Assuming the ulnar nerve passes through the carpal tunnel; the ulnar nerve passes superficial to the flexor retinaculum.",
+      "Swapping the positions of trapezium and trapezoid; remember trapezi-UM is by the th-UMB.",
+      "Counting the pisiform in the distal row; it sits in the proximal row on the triquetrum."
+    ],
+    "skills": [
+      "Identify all eight carpal bones on a PA wrist radiograph by systematically following proximal row (scaphoid → lunate → triquetrum → pisiform) then distal row (trapezium → trapezoid → capitate → hamate).",
+      "Assess radiocarpal joint symmetry: smooth parabolic curves (Gilula’s carpal lines) on wrist radiographs confirm normal alignment."
+    ],
+    "selfCheck": "From memory: list the eight carpal bones in proximal and distal rows, name the nerve and tendons traversing the carpal tunnel, and identify which bone forms the trochlear notch.",
+    "visuals": [
+      {
+        "fig": "carpalBones"
+      },
+      {
+        "model": {
+          "layer": "skeleton",
+          "meshes": [
+            "Radius",
+            "Ulna",
+            "Scaphoid bone",
+            "Lunate bone",
+            "Triquetrum bone",
+            "Pisiform bone",
+            "Trapezium bone",
+            "Trapezoid bone",
+            "Capitate bone",
+            "Hamate bone"
+          ],
+          "label": "Forearm and carpal bones",
+          "caption": "Radius and ulna articulating with proximal carpal row (scaphoid, lunate, triquetrum) at the radiocarpal wrist joint."
+        }
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Carpal Bones\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Capitate\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Hamate\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Trapezoid\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Triquetrum\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Trapezium\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Pisiform\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Scaphoid\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Lunate\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p25 \"Triceps brachii is an extensor of the forearm.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p32 \"Wrist Region: Carpal Tunnel\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p32 \"Median nerve\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p32 \"Radial artery\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p32 \"Ulnar artery\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p32 \"Flexor Retinaculum\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p32 \"Carpal Tunnel Syndrome (CTS) is associated by\""
+      },
+      {
+        "ref": "hss.revans",
+        "location": "p3 \"4. Trochlear notch\""
+      }
+    ]
+  },
+  {
+    id: 'hss2011-osteo-pelvic-girdle',
+    subject: 'HSS2011', unit: 'hss.osteo', type: 'definition',
     title: 'Pelvic girdle and the hip joint',
     tags: ['osteology', 'lower limb', 'high-yield'], boneRefs: ['pelvis', 'femur', 'sacrum'],
     lesson: {
