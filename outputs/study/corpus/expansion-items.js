@@ -1569,61 +1569,273 @@ export const EXPANSION_ITEMS = [
     sourceRefs: [{ ref: 'phys.10', location: 'Slides 27–35 complement system and pathways, inflammation, products of inflammation, forms of immunity; learning outcomes slide 2' }],
   },
   {
-    id: 'hti17103-modality-best-use',
-    subject: 'HTI17103', unit: 'hti.modalities', type: 'matching',
-    title: 'What each modality is best used for',
-    tags: ['modalities', 'high-yield'],
-    lesson: {
-      explanation: 'Each modality in the Week 2 lecture is introduced with the job it is suited to. Fluoroscopy provides real-time monitoring and is applicable intraoperatively, which is what makes it the choice for angiography, stent installation, bone cement work and function imaging of the digestive system. Mammography is presented as an extreme of resolution. Computed tomography exists because radiologists normally need two views and CT offers a 360-degree view; modern spiral CT adds multiplanar reconstruction and 3D angiographic reconstruction, up to a simulated heart model. Radionuclide imaging gives the non-invasive visualisation of bio-distribution, using a radiopharmaceutical made of a radioisotope plus a specific compound — the compound decides where it goes. MRI is summarised as giving good soft-tissue contrast, being compatible with function imaging and 3D/4D reconstruction, and being non-ionising. General X-ray, in its direct digital form, is the time-saving workhorse with no readers and no physical film.',
-      keyFacts: [
-        'Fluoroscopy — real-time, intraoperative: angiography, stent installation, bone cement, digestive function imaging.',
-        'Mammography — an extreme of resolution.',
-        'CT — a 360-degree view where two projections are not enough; multiplanar and 3D angiographic reconstruction.',
-        'Radionuclide imaging — non-invasive visualisation of bio-distribution.',
-        'MRI — good soft-tissue contrast, function imaging, 3D/4D, non-ionising.',
-        'Direct digital radiography — no readers, time-saving, no physical films, but expensive.',
-        'Contrast agents extend fluoroscopy: oral barium sulfate, or intravenous ionic vs non-ionic agents.',
+    "id": "hti17103-modality-best-use",
+    "subject": "HTI17103",
+    "unit": "hti.modalities",
+    "type": "matching",
+    "title": "What each modality is best used for",
+    "tags": [
+      "modalities",
+      "high-yield"
+    ],
+    "lesson": {
+      "explanation": "In clinical medical practice, diagnostic imaging modalities are selected not on abstract technical prestige, but on the precise physiological, structural, and procedural requirements of the patient presentation. Fluoroscopy delivers continuous real-time dynamic monitoring and intraoperative visualization, making it uniquely suited for dynamic and interventional procedures where instruments or fluids must be tracked in motion: catheter angiography, percutaneous stent installation, orthopaedic bone cement injection, and functional motility studies of the digestive system (e.g. barium swallow and gastric bypass assessment). Mammography represents an extreme of spatial resolution dedicated to detecting microcalcifications and subtle architectural distortions in delicate breast glandular tissue. Computed Tomography (CT) resolves anatomical overlap: where projection radiography superimposes structures and demands at least two orthogonal projections, CT provides complete 360-degree volumetric cross-sectional attenuation data, accelerated by spiral acquisition to enable multiplanar reconstruction (MPR), 3D angiographic reconstruction, and realistic cardiac simulation models. Radionuclide Imaging (RNI) provides the non-invasive visualization of biological tissue function and in vivo bio-distribution rather than passive anatomy: engineered radiopharmaceuticals combine a radioactive emitter with an organ-targeting biochemical compound, allowing gamma cameras and SPECT to map bone turnover (99mTc-MDP), myocardial perfusion (201Tl), and renal excretion (99mTc-DTPA), while PET measures metabolic glucose utilization using short-lived positron emitters (18F-FDG). Magnetic Resonance Imaging (MRI) delivers exceptional soft-tissue contrast, compatibility with functional imaging (fMRI) and 3D/4D kinematic reconstruction, completely free of ionizing radiation; its signals derive from the nuclear resonance of abundant water (hydrogen) molecules excited by radiofrequency pulses (6–340 MHz) within strong static magnetic fields. Ultrasonography (US), introduced into medicine in the 1960s from SONAR technology, uses high-frequency acoustic waves (2–15 MHz) to provide safe, non-invasive, non-ionizing, cost-effective, real-time monitoring of fetal development and pelvic genital organs, alongside Doppler hemodynamic flow assessment; however, its clinical utility is fundamentally limited by body habitus dependency, operator dependency, low tissue penetration, and total sound reflection at air-filled organs and bone interfaces.",
+      "plain": "Every imaging machine has a job it does best: Fluoroscopy is the live video camera of radiology, used to watch stents being placed, bone cement injected, or barium swallowed in real time. Mammography is pushed to the extreme of fine resolution to spot tiny breast microcalcifications. CT spins 360 degrees to peel apart overlapping organs into 3D slices and blood vessel models. Nuclear medicine (SPECT and PET) injects radioactive tracers to reveal how organs are functioning and metabolizing inside. MRI produces stunning soft-tissue detail of the brain, spinal cord, and joints without any radiation by tuning into hydrogen atoms. Ultrasound sends out safe sound waves (2–15 MHz) like submarine SONAR to monitor pregnant mothers, pelvic organs, and blood flow, though sound cannot see through gas or bone.",
+      "keyFacts": [
+        "Fluoroscopy best use: real-time monitoring and intraoperative guidance (stent deployment, bone cement, angiography, barium swallows).",
+        "Mammography best use: dedicated high-spatial-resolution screening to detect delicate microcalcifications in breast tissue.",
+        "CT best use: 360-degree volumetric cross-sectional imaging overcoming 2D superimposition, with rapid multiplanar and 3D vascular reconstruction.",
+        "Radionuclide imaging best use: non-invasive functional visualization of metabolic bio-distribution using targeted radiopharmaceuticals.",
+        "MRI best use: superior soft-tissue contrast (brain, spinal cord, ligaments) and functional 3D/4D imaging with zero ionizing radiation.",
+        "Ultrasound introduction: clinical medical use introduced since the 1960s based on SONAR principles.",
+        "Ultrasound operating frequency: medical diagnostic probes operate in the 2–15 MHz frequency range.",
+        "Ultrasound primary clinical benefits: non-invasive, non-ionizing radiation (ideal for fetus and genital organs), cheaper, real-time monitoring.",
+        "Ultrasound physical limitations: body habitus dependent, operator-dependent, low penetration, poor visualization through gas or bone.",
+        "Doppler ultrasound: specialized clinical application measuring dynamic vascular blood flow and velocity."
       ],
-      prerequisites: ['hti17103-ionizing-vs-nonionizing'],
-      examples: [],
+      "prerequisites": [
+        "hti17103-ionizing-vs-nonionizing"
+      ],
+      "examples": [
+        "An obstetrician uses 2–15 MHz pelvic ultrasonography to safely assess fetal gestational growth and cardiac motion without exposing the developing embryo to ionizing radiation.",
+        "An interventional radiologist performs percutaneous vertebroplasty, injecting liquid polymethylmethacrylate bone cement into a fractured vertebral body under continuous fluoroscopic visualization to prevent cement extravasation into the spinal canal."
+      ]
     },
-    memory: {
-      chunking: 'Sort by what the modality gives you that others cannot: time (fluoroscopy), resolution (mammography), a third dimension (CT), function and distribution (RNI), soft tissue without ionising radiation (MRI).',
-      comparison: 'CT and MRI both give cross-sections. CT is fast and ionising; MRI has better soft-tissue contrast and no ionising radiation. If the question is about soft tissue, it is MRI.',
-      mnemonic: 'Fluoroscopy is the only one that shows you *change over time*. Anything described as real-time or intraoperative is pointing at it.',
+    "memory": {
+      "chunking": "Match the modality to its unique clinical superpower: Fluoroscopy = Real-time motion; Mammography = Extreme resolution; CT = 360° 3D cross-sections; RNI = Functional bio-distribution; MRI = Soft-tissue contrast without radiation; Ultrasound = Safe sound waves (2-15 MHz).",
+      "comparison": "Ultrasound Advantages vs Limitations: Advantages = Non-ionizing, safe for fetus/pelvis, real-time, inexpensive; Limitations = Blocked by air/bone, operator-dependent, body-habitus dependent.",
+      "mnemonic": "US = Ultrasound = Ultrasonic Soundwaves (2-15 MHz) from SONAR (1960s)."
     },
-    practice: [
-      { type: 'matching', prompt: 'Match each modality to the capability the lecture highlights.',
-        pairs: [['Fluoroscopy', 'Real-time monitoring, applicable intraoperatively'], ['Computed tomography', 'A 360-degree view with multiplanar reconstruction'], ['Magnetic resonance imaging', 'Good soft-tissue contrast, non-ionising'], ['Radionuclide imaging', 'Non-invasive visualisation of bio-distribution']],
-        explanation: 'These are the defining capabilities each modality is introduced with in the Week 2 lecture.' },
-      { type: 'mcq', prompt: 'A stent is being installed and the operator needs to watch it move into position. Which modality does the lecture point to?', options: ['Computed tomography', 'Fluoroscopy', 'Mammography', 'Magnetic resonance imaging'], answer: 1,
-        explanation: 'Fluoroscopy — real-time monitoring, intraoperatively applicable, and stent installation is one of the listed applications.' },
-      { type: 'typed', prompt: 'Which modality does the lecture describe as "an extreme of resolution"?', accept: ['mammography', 'mammogram'],
-        explanation: 'Mammography.' },
-      { type: 'comparison', prompt: 'CT and MRI both produce cross-sectional images. Which difference matters most when choosing between them?',
-        options: [
-          'MRI gives better soft-tissue contrast and uses no ionising radiation, while CT is an ionising modality',
-          'CT cannot produce 3D reconstructions',
-          'MRI is an ionising modality and CT is not',
-          'They produce identical images by different means',
-        ], answer: 0,
-        explanation: 'Both give cross-sections, but the lecture puts CT in the ionising column and MRI in the non-ionising column, and summarises MRI as giving good soft-tissue contrast. Both can reconstruct in 3D.' },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each clinical imaging modality to its defining clinical capability highlighted in the lecture.",
+        "pairs": [
+          [
+            "Fluoroscopy",
+            "Real-time monitoring, applicable intraoperatively (stent, bone cement)"
+          ],
+          [
+            "Mammography",
+            "An extreme of resolution for delicate soft-tissue structures"
+          ],
+          [
+            "Computed Tomography (CT)",
+            "A 360-degree view overcoming superimposition with 3D reconstruction"
+          ],
+          [
+            "Ultrasonography (US)",
+            "Non-ionizing acoustic imaging (2-15 MHz) ideal for fetus and genital organs"
+          ]
+        ],
+        "explanation": "These are the defining clinical roles emphasized across the Week 2 modalities overview.",
+        "src": {
+          "ref": "hti.w2",
+          "location": "p18 \"Real-time monitoring\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "In which decade was diagnostic medical ultrasound imaging introduced, and what frequency range does it employ?",
+        "options": [
+          "Introduced since 1960s; frequency ranged from 2–15 MHz",
+          "Introduced since 1980s; frequency ranged from 900–1,800 MHz",
+          "Introduced in 1896; frequency ranged from 6–340 MHz",
+          "Introduced in 1901; frequency ranged from 50–100 kHz"
+        ],
+        "answer": 0,
+        "explanation": "The lecture states ultrasound imaging was introduced since the 1960s (derived from SONAR) with frequencies from 2–15 MHz.",
+        "src": {
+          "ref": "hti.w2",
+          "location": "p52 \"Ultrasound (US) imaging\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "According to the lecture, which of the following is a recognized limitation of diagnostic ultrasonography?",
+        "options": [
+          "It delivers excessive ionizing radiation dose to the patient",
+          "It is not ideal for structures containing gas or bones and is operator-dependent",
+          "It cannot be operated in real time at the bedside",
+          "It requires an on-site nuclear reactor or cyclotron"
+        ],
+        "answer": 1,
+        "explanation": "Ultrasound limitations include being operator-dependent, body-habitus dependent, and unsuitable for structures containing gas or bone.",
+        "src": {
+          "ref": "hti.w2",
+          "location": "p53 \"Ultrasonography - characteristics\""
+        }
+      },
+      {
+        "type": "typed",
+        "prompt": "Which specialized ultrasound technique is named in the lecture for evaluating blood flow hemodynamics?",
+        "accept": [
+          "doppler ultrasonography",
+          "doppler ultrasound",
+          "Doppler ultrasonography",
+          "Doppler ultrasound"
+        ],
+        "explanation": "Doppler ultrasonography is the named technique for vascular blood flow evaluation.",
+        "src": {
+          "ref": "hti.w2",
+          "location": "p55 \"Doppler ultrasonography\""
+        }
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'A radiopharmaceutical is described as a radioisotope combined with a specific compound. Which half decides what you can image, and why does that make radionuclide imaging different from CT?',
-        model: 'The specific compound decides where the agent goes in the body, so it determines what you can image; the radioisotope only makes that distribution visible. That is what the lecture means by non-invasive visualisation of bio-distribution — RNI images function and where a substance travels, whereas CT images structure.',
-        rubric: ['Identifies the compound as determining distribution', 'Identifies the isotope as providing the signal', 'Contrasts function/distribution with structure'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A pregnant patient in her first trimester presents with suspected acute cholecystitis (gallbladder inflammation). Explain why the clinical team orders abdominal ultrasonography rather than an abdominal CT or nuclear medicine scan.",
+        "model": "Ultrasound uses mechanical sound waves (2–15 MHz) and is completely non-ionizing, making it safe for the developing fetus and reproductive organs. In contrast, abdominal CT delivers ionizing X-rays and nuclear medicine involves circulating radioisotopes that cross into fetal circulation. Ultrasound also provides real-time gallbladder visualization without contrast-agent toxicity.",
+        "rubric": [
+          "Identifies ultrasound as non-ionizing radiation safe for the fetus/pelvic organs",
+          "Contrasts with CT and nuclear medicine as delivering ionizing radiation hazard",
+          "Cites real-time diagnostic capability of ultrasound"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Choosing CT whenever cross-sections are wanted, without weighing the ionising-radiation difference against MRI.',
-      'Forgetting that fluoroscopy is defined by being real-time, not by being an X-ray technique.',
+    "commonMistakes": [
+      "Ordering CT as the primary investigation for pregnant patients with acute pelvic symptoms, overlooking ultrasound as the non-ionizing standard.",
+      "Assuming ultrasound can easily visualize structures behind lung tissue or intact bone, ignoring that acoustic waves reflect completely at gas/bone boundaries.",
+      "Believing that ultrasound is an objective, automated imaging test, when the lecture stresses it is highly operator-dependent."
     ],
-    skills: [
-      'Each modality owns exactly one capability the others lack — time (fluoroscopy), resolution (mammography), a third dimension (CT), function and distribution (radionuclide imaging), soft tissue without ionising radiation (MRI) — and the exam wording names the owner: "real-time" or "intraoperative" points at fluoroscopy, because being real-time, not being an X-ray technique, is its definition.',
-      'CT and MRI are both cross-sectional, so the deciding difference is not the image shape but the column each sits in: CT is ionising, MRI gives better soft-tissue contrast without ionising radiation — and both reconstruct in 3D, so "cannot do 3D" is the false discriminator.',
-      'A radiopharmaceutical is taxi and passenger: the specific compound decides where the agent goes and therefore what you can image; the radioisotope only makes that distribution visible — which is why radionuclide imaging reports function and bio-distribution where CT reports structure.',
+    "skills": [
+      "Select the optimal modality for specific patient populations (e.g. pregnant mothers, pediatric cases, intraoperative surgeries) based on safety profile and diagnostic strengths.",
+      "Recognize clinical acoustic windows and acoustic shadowing artifacts caused by bone and bowel gas during sonography."
     ],
-    selfCheck: 'From a blank page: the matching of all four highlighted capabilities, the CT-versus-MRI decision with the ionising-radiation reason, and the stent scenario answered with the real-time modality.',
-    sourceRefs: [{ ref: 'hti.w2', location: 'Slides 12–49 general X-ray cassettes, fluoroscopy and contrast enhancement, mammography, computed tomography, radiopharmaceuticals, RNI, MRI summary' }],
+    "selfCheck": "From memory, state the best-use indication for each of the 6 modalities, recite the ultrasound decade of origin and MHz range, and list its 4 benefits and 4 limitations.",
+    "visuals": [
+      {
+        "schematic": "modalityBestUse"
+      },
+      {
+        "fig": "fluoroscopyRoomSetup"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hti.w2",
+        "location": "p18 \"Fluoroscopy and contrast enhancement\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p18 \"Real-time monitoring\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p18 \"Intraoperative applicable\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p18 \"Angiography\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p18 \"Stent installation\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p18 \"Bone cement\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p18 \"Function imaging\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p18 \"Digestive system\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p26 \"Mammography – an extreme of resolution\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p28 \"Computed Tomography\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p28 \"Radiologists always need 2 views, how about a 360⁰-view?\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p32 \"Multiplaner reconstruction 3D angiographic reconstruction\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p35 \"The non-invasive visualization of bio-distribution\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p49 \"MRI - summary\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p49 \"Good soft tissue contrast\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p49 \"Function imaging compatible\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p49 \"3D/4D reconstruction\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p49 \"Non-ionizing radiation\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p52 \"Ultrasound (US) imaging\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p52 \"Introduced since 1960s\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p52 \"Frequency ranged from 2-15 MHz\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p52 \"SONAR\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p53 \"Ultrasonography - characteristics\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p53 \"Benefits Limitations\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p53 \"Non-invasive • Body habitus dependent\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p53 \"Non-ionizing radiation • Not ideal for structures\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p53 \"(Fetus and genital organs) containing gas or bones\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p53 \"Cheaper • Low penetration\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p53 \"Real-time monitoring • Operator-dependent\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p55 \"Doppler ultrasonography\""
+      }
+    ]
   },
 ];

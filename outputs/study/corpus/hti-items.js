@@ -237,108 +237,596 @@ export const HTI_ITEMS = [
     ]
   },
   {
-    id: 'hti17103-ionizing-vs-nonionizing',
-    subject: 'HTI17103', unit: 'hti.modalities', type: 'comparison',
-    title: 'Ionizing vs non-ionizing modalities',
-    tags: ['modalities', 'high-yield'],
-    lesson: {
-      explanation: 'Older HTI17101 substitute for current HTI17103 Week 2. The Week 2 lecture sorts every imaging modality into two columns. Ionizing radiation covers general X-ray, fluoroscopy and angiography, mammography, computed tomography, and radionuclide imaging. Non-ionizing radiation covers magnetic resonance imaging and ultrasonography. Ionization is defined as the ability to free outer-shell electrons; the sources listed are high-energy ultraviolet, characteristic X-ray, electron beams and radioisotopes. The lecture explicitly addresses urban myths about microwave ovens at 2,450 MHz and cell phones at 900, 1,800 and 2,600 MHz, and notes the difference in units — W/kg and tesla for non-ionizing exposure versus J/kg, gray and sievert for ionizing dose.',
-      keyFacts: [
-        'Ionizing: general X-ray, fluoroscopy/angiography, mammography, computed tomography, radionuclide imaging.',
-        'Non-ionizing: magnetic resonance imaging, ultrasonography.',
-        'Ionization = the ability to free outer-shell electrons.',
-        'Ionizing sources listed: high-energy ultraviolet, characteristic X-ray, electron beams, radioisotopes.',
-        'Units differ: W/kg and tesla for non-ionizing; J/kg, gray and sievert for ionizing dose.',
-        'MRI uses a magnetic field (permanent or superconductor magnet) and radiofrequency at 6–340 MHz, exploiting water (hydrogen) resonance; it gives good soft-tissue contrast and is non-ionizing.',
+    "id": "hti17103-ionizing-vs-nonionizing",
+    "subject": "HTI17103",
+    "unit": "hti.modalities",
+    "type": "comparison",
+    "title": "Ionizing vs non-ionizing modalities",
+    "tags": [
+      "modalities",
+      "high-yield"
+    ],
+    "lesson": {
+      "explanation": "Medical imaging modalities are fundamentally bifurcated by the physical mechanism through which electromagnetic and acoustic energy interacts with human biological tissue: ionizing radiation versus non-ionizing radiation. By formal physical definition, ionization represents the process and quantum capacity to impart sufficient localized energy to completely liberate or free outer-shell bound orbital electrons from electrically neutral atoms or molecules, thereby generating highly reactive chemical ions and free radicals capable of inducing direct or indirect double-strand deoxyribonucleic acid (DNA) damage. The syllabus classifies diagnostic imaging into two rigid operational columns: (1) Ionizing modalities encompass General (routine) X-ray projection radiography, Fluoroscopy and interventional angiography, Mammography (characterized by specialized low-kVp high-resolution breast imaging), Computed Tomography (CT), and Radionuclide Imaging (encompassing planar gamma scintigraphy, Single Photon Emission Computed Tomography [SPECT], and Positron Emission Tomography [PET]); (2) Non-ionizing modalities comprise Magnetic Resonance Imaging (MRI) and Ultrasonography (US). Physical sources capable of biological ionization enumerated in the curriculum comprise high-energy ultraviolet (UV) radiation at the short-wavelength boundary, characteristic X-rays emitted via atomic inner-shell transitions, high-energy electron beams, and particulate or gamma-ray emissions originating from unstable radioisotopes. The lecture rigorously dispels persistent public \"urban myths\" regarding consumer electromagnetic appliances: household microwave ovens operate at an ultra-high frequency of 2,450 MHz (corresponding to a physical wavelength of 12.2 cm), and commercial mobile cellular phones operate across radiofrequency carrier channels of 900 MHz, 1,800 MHz, and 2,600 MHz; neither possesses photon energy remotely approaching the electron-binding threshold needed to ionize matter, regardless of macroscopic electrical wattage. Furthermore, the two domains are governed by completely different international measurement units: non-ionizing exposure is quantified by the Specific Absorption Rate (SAR in Watts per kilogram, W/kg) and static magnetic flux density in Tesla (T), whereas ionizing radiation is strictly quantified in absorbed energy dose (Joules per kilogram, J/kg, designated as the gray, Gy) and biologically equivalent / effective human dose (sieverts, Sv). For magnetic resonance imaging, non-ionizing radiofrequency fields operate across 6–340 MHz in tandem with strong static magnetic fields produced by permanent or superconducting magnets, exploiting the quantum magnetic moment and nuclear resonance effect of abundant water (hydrogen) molecules to yield exquisite soft-tissue anatomical contrast without ionizing hazard.",
+      "plain": "Medical imaging splits into two camps: machines that use ionizing radiation and machines that do not. Ionizing radiation has enough energy to knock outer-shell electrons off atoms, which can damage cell DNA. Ionizing machines include general X-rays, fluoroscopy, mammography, CT scans, and nuclear medicine. Non-ionizing machines are MRI and ultrasound. The lecture busts common myths: microwaves (at 2,450 MHz) and mobile phones (at 900, 1,800, and 2,600 MHz) cannot ionize anything because their waves are far too low in energy. They also use completely different safety units: W/kg and Tesla for non-ionizing waves, versus grays (Gy) and sieverts (Sv) for ionizing radiation doses.",
+      "keyFacts": [
+        "Ionization definition: the physical capacity to free outer-shell electrons from atoms or molecules.",
+        "Ionizing modalities: general X-ray, fluoroscopy/angiography, mammography, computed tomography (CT), radionuclide imaging (RNI).",
+        "Non-ionizing modalities: magnetic resonance imaging (MRI) and ultrasonography (US).",
+        "Physical ionizing sources: high-energy ultraviolet (UV), characteristic X-rays, electron beams, and radioisotopes.",
+        "Urban myth frequency — microwave oven: operates at 2,450 MHz (12.2 cm wavelength).",
+        "Urban myth frequencies — cell phones: operate at 900 MHz, 1,800 MHz, and 2,600 MHz.",
+        "Measurement units: non-ionizing uses W/kg (SAR) and Tesla (T); ionizing uses J/kg, gray (Gy), and sievert (Sv).",
+        "MRI physical mechanism: uses static magnetic fields (permanent or superconducting) and radiofrequency at 6–340 MHz.",
+        "MRI tissue contrast: exploits resonance of water (hydrogen) molecules to yield superior soft-tissue delineation.",
+        "Core classification rule: modality safety categorization depends on photon quantum energy, not total equipment electrical wattage."
       ],
-      prerequisites: ['hti17103-what-is-radiography'],
-      examples: [],
+      "prerequisites": [
+        "hti17103-what-is-radiography"
+      ],
+      "examples": [
+        "A patient undergoing a lumbar spine CT scan receives ionizing radiation (measured in mGy and mSv) requiring ALARA protection, whereas the same patient undergoing a lumbar spine MRI is exposed to non-ionizing radiofrequency pulses (SAR in W/kg) inside a 1.5 T or 3.0 T static magnetic field.",
+        "Public concern over 5G/4G cellular mobile towers operating at 900–2,600 MHz conflates signal power with ionizing potential; because RF photons lack quantum energy to free outer-shell orbital electrons, they cannot cause DNA strand breaks."
+      ]
     },
-    memory: {
-      chunking: 'Five in the ionizing column, two in the non-ionizing column. Learn the short list: MRI and ultrasound are the only two that do not ionize.',
-      comparison: 'The classification test is the ability to free outer-shell electrons; a modality being non-ionizing is not a statement that it has no other safety considerations.',
-      mnemonic: 'The two safe-from-ionization modalities both work on something other than photons of the X-ray kind: Magnets and Mechanical waves — MRI and ultrasound.',
+    "memory": {
+      "chunking": "Five ionizing modalities (General X-ray, Fluoroscopy, Mammography, CT, Radionuclide) versus two non-ionizing modalities (MRI, Ultrasound). Remember \"M & U\" are non-ionizing.",
+      "comparison": "Ionizing vs Non-ionizing Units: Ionizing uses Gy (absorbed dose) and Sv (equivalent dose); Non-ionizing uses W/kg (RF power deposition) and Tesla (magnetic flux).",
+      "firstLetter": "Four ionizing sources from lecture: U-X-E-R — Ultraviolet, (characteristic) X-ray, Electron beams, Radioisotopes."
     },
-    practice: [
-      { type: 'mcq', prompt: 'Which of these is classed as a non-ionizing modality?', options: ['Computed tomography', 'Mammography', 'Ultrasonography', 'Radionuclide imaging'], answer: 2,
-        explanation: 'Ultrasonography sits in the non-ionizing column alongside MRI. CT, mammography and radionuclide imaging are all in the ionizing column.' },
-      { type: 'typed', prompt: 'Ionizing radiation is defined by what ability?', accept: ['free outer shell electrons', 'to free outer-shell electrons', 'freeing outer shell electrons', 'free electrons'],
-        explanation: 'The ability to free outer-shell electrons. That is the whole definition the lecture gives.' },
-      { type: 'matching', prompt: 'Sort each modality into its column.',
-        pairs: [['General X-ray', 'Ionizing'], ['Computed tomography', 'Ionizing'], ['Magnetic resonance imaging', 'Non-ionizing'], ['Ultrasonography', 'Non-ionizing']],
-        explanation: 'This is the two-column table repeated throughout the Week 2 lecture.' },
-      { type: 'mcq', prompt: 'MRI produces its signal by exploiting the resonance of which molecule?', options: ['Sodium', 'Water (hydrogen)', 'Calcium', 'Oxygen'], answer: 1,
-        explanation: 'The MRI summary slide names water (hydrogen) molecule resonance, driven by radiofrequency at 6–340 MHz within the magnetic field.' },
+    "practice": [
+      {
+        "type": "mcq",
+        "prompt": "By physical definition in the lecture, what specific atomic event distinguishes ionizing from non-ionizing radiation?",
+        "options": [
+          "The capacity to free outer-shell electrons from atoms",
+          "The emission of audible acoustic vibrations through tissue",
+          "The mechanical heating of cellular water molecules",
+          "The deflection of magnetic dipoles in an external field"
+        ],
+        "answer": 0,
+        "explanation": "Ionization is strictly defined in the lecture as the physical ability to free outer-shell electrons from neutral atoms.",
+        "src": {
+          "ref": "hti.w2",
+          "location": "p5 \"The ability to free outer shell electrons\""
+        }
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each diagnostic modality to its syllabus radiation classification.",
+        "pairs": [
+          [
+            "Computed Tomography (CT)",
+            "Ionizing Radiation"
+          ],
+          [
+            "Mammography",
+            "Ionizing Radiation"
+          ],
+          [
+            "Magnetic Resonance Imaging (MRI)",
+            "Non-ionizing Radiation"
+          ],
+          [
+            "Ultrasonography (US)",
+            "Non-ionizing Radiation"
+          ]
+        ],
+        "explanation": "CT and mammography use ionizing X-radiation; MRI (RF/magnetic) and ultrasound (mechanical sound waves) are non-ionizing.",
+        "src": {
+          "ref": "hti.w2",
+          "location": "p3 \"Imaging Modalities\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which radiofrequency operating parameter is cited in the lecture as an urban myth regarding microwave ovens?",
+        "options": [
+          "2,450 MHz (12.2 cm wavelength)",
+          "900 MHz (33.3 cm wavelength)",
+          "1,800 MHz (16.6 cm wavelength)",
+          "2,600 MHz (11.5 cm wavelength)"
+        ],
+        "answer": 0,
+        "explanation": "The lecture explicitly identifies microwave ovens operating at 2,450 MHz (12.2 cm wavelength) as a non-ionizing urban myth.",
+        "src": {
+          "ref": "hti.w2",
+          "location": "p5 \"Microwave oven: 2,450 MHz (12.2 cm in wavelength)\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "Non-ionizing electromagnetic exposure is quantified in units such as ______ and Tesla, whereas ionizing absorbed and equivalent doses are measured in ______, gray (Gy), and sievert (Sv).",
+        "accept": [
+          "W/kg; J/kg",
+          "W/kg, J/kg",
+          "W/kg and J/kg",
+          "watts per kilogram; joules per kilogram"
+        ],
+        "explanation": "The lecture contrasts non-ionizing units (W/kg; Tesla) with ionizing units (J/kg, Gy, Sv).",
+        "src": {
+          "ref": "hti.w2",
+          "location": "p5 \"The difference in units (W/kg; Tesla vs. J/kg, Gy, Sv)\""
+        }
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'Someone claims their phone is dangerous because it "emits radiation". Answer them using the lecture’s own framing.',
-        model: 'Cell phones operate at 900, 1,800 and 2,600 MHz, which is non-ionizing — it cannot free outer-shell electrons, which is the defining ability of ionizing radiation. The lecture flags this exact claim as an urban myth, and notes that the two are even measured in different units: W/kg for non-ionizing exposure versus J/kg, gray and sievert for ionizing dose.',
-        rubric: ['Applies the free-an-electron test', 'Cites the frequency range as non-ionizing', 'Mentions the different unit systems'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A patient expresses anxiety that an upcoming MRI brain examination will expose them to dangerous radiation like a microwave oven or cell phone. How should the radiographer clarify the physics using the lecture framework?",
+        "model": "The radiographer explains that MRI, microwave ovens (2,450 MHz), and cell phones (900/1800/2600 MHz) all operate in the non-ionizing electromagnetic spectrum, lacking the physical capacity to free outer-shell electrons or damage DNA. Furthermore, MRI uses non-ionizing radiofrequency (6–340 MHz) and magnetic fields (measured in Tesla) rather than ionizing X-ray doses (measured in gray and sievert).",
+        "rubric": [
+          "Applies the definition of non-ionizing radiation (inability to free outer-shell electrons)",
+          "Identifies cell phones and microwaves as non-ionizing radiofrequency sources from the lecture",
+          "Contrasts MRI magnetic/RF units (Tesla, W/kg) with ionizing radiation dose units (Gy, Sv)"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Assuming higher power means ionizing — power and ionizing ability are different properties.',
-      'Putting MRI in the ionizing column because it is a large hospital machine.',
+    "commonMistakes": [
+      "Assuming that high macroscopic electrical wattage or large equipment size equates to ionizing capability.",
+      "Classifying MRI or ultrasound under ionizing radiation simply because they are housed within hospital radiology departments.",
+      "Confusing the units of radiofrequency specific absorption rate (W/kg) with absorbed ionizing radiation dose (Gy = J/kg)."
     ],
-    skills: [
-      'Ionizing ability concerns freeing outer-shell electrons. The lecture classifies MRI and ultrasound as non-ionizing; this classification alone is not a complete safety assessment.',
-      'MRI and ultrasound are the entire non-ionizing column: learn the short list and sort everything else by elimination. Machine size is not evidence — MRI is a large, expensive hospital magnet and still cannot ionize, because magnetic fields and radiofrequency waves do not free electrons.',
+    "skills": [
+      "Categorize any medical imaging examination immediately into ionizing versus non-ionizing workflows to apply statutory ALARA precautions.",
+      "Differentiate physical electromagnetic spectrum bands and counter lay misconceptions regarding consumer telecommunications safety."
     ],
-    selfCheck: 'Write both columns from memory, then answer the phone claim in the lecture’s own framing: the frequencies, the free-electron definition, and the two unit systems.',
-    sourceRefs: [{ ref: 'hti.w2', location: 'Slides 3, 5 "Imaging Modalities", "Ionizing vs. non-ionizing Radiation"; slide 49 "MRI - summary"' }],
+    "selfCheck": "From memory, state the atomic definition of ionization, list the 5 ionizing and 2 non-ionizing modalities, recite the 3 cell phone frequencies, and state the respective units for both categories.",
+    "visuals": [
+      {
+        "fig": "emSpectrum"
+      },
+      {
+        "schematic": "modalities"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hti.w2",
+        "location": "p3 \"Imaging Modalities\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p3 \"Ionizing Radiation Non-ionizing Radiation\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p3 \"• General X-ray • Magnetic\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p3 \"• Fluoroscopy/Angiography Resonance Imaging\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p3 \"• Mammography • Ultrasonography\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p3 \"• Computed Tomography\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p3 \"• Radionuclide Imaging\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p5 \"Ionizing vs. non-ionizing Radiation\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p5 \"The ability to free outer shell electrons\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p5 \"Ultraviolet (high energy)\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p5 \"(Characteristic) X-ray\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p5 \"Electron Beams\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p5 \"Radioisotopes\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p5 \"Microwave oven: 2,450 MHz (12.2 cm in wavelength)\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p5 \"Cell phones: 900, 1,800, and 2,600 MHz\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p5 \"The difference in units (W/kg; Tesla vs. J/kg, Gy, Sv)\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p49 \"MRI - summary\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p49 \"Water (hydrogen) molecules\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p49 \"Non-ionizing radiation\""
+      }
+    ]
   },
   {
-    id: 'hti17103-modality-detail',
-    subject: 'HTI17103', unit: 'hti.modalities', type: 'definition',
-    title: 'Modality detail — X-ray, fluoroscopy, CT and nuclear medicine',
-    tags: ['modalities'],
-    lesson: {
-      explanation: 'X-rays were discovered by Wilhelm Conrad Roentgen in 1895 and earned the first Nobel Prize in 1901; Thomas Edison invented X-ray fluoroscopy in 1896. General X-ray moved from film — developing, fixation, washing, drying in a darkroom — to computed radiography from the 1980s, which needs readers but is compatible with PACS, and then to direct digital radiography, which needs no readers, saves time and uses no physical film but is expensive. Fluoroscopy offers real-time monitoring and is applicable intraoperatively, with contrast agents taken orally as barium sulfate solution or injected intravenously as ionic or non-ionic contrast agents. CT was developed because radiologists normally need two views and CT offers a 360-degree view; modern spiral CT gives multiplanar reconstruction and 3D angiographic reconstruction. Radionuclide imaging uses a radiopharmaceutical — a radioisotope combined with a specific compound — to visualise bio-distribution non-invasively; the gamma camera images agents such as technetium-99m MDP for bone scans, thallium-201 for cardiac scans and technetium-99m DTPA for renal function scans.',
-      keyFacts: [
-        'Roentgen discovered X-rays in 1895; first Nobel Prize 1901. Edison invented X-ray fluoroscopy in 1896.',
-        'Film processing sequence: developing → fixation → washing → drying.',
-        'Computed radiography: since the 1980s, needs readers, compatible with PACS (picture archiving and communication system).',
-        'Direct digital radiography: no readers, time-saving, no physical films, expensive.',
-        'Fluoroscopy: real-time, intraoperative, used for angiography, stent installation, bone cement, digestive-system function imaging.',
-        'Contrast agents: oral barium sulfate solution; intravenous ionic vs non-ionic agents.',
-        'Radiopharmaceutical = a radioisotope plus a specific compound.',
-        'SPECT agents are gamma emitters with longer half-lives, less expensive and widely available; PET agents are positron emitters with very short half-lives, more quantitative, expensive and cyclotron-dependent.',
-        'Technetium-99m: 6.02 hours, gamma, SPECT. Fluorine-18: 109.75 minutes, positron, PET.',
+    "id": "hti17103-modality-detail",
+    "subject": "HTI17103",
+    "unit": "hti.modalities",
+    "type": "definition",
+    "title": "Modality detail — X-ray, fluoroscopy, CT and nuclear medicine",
+    "tags": [
+      "modalities"
+    ],
+    "lesson": {
+      "explanation": "Diagnostic radiology was founded upon Wilhelm Conrad Roentgen’s discovery of X-radiation in 1895 (for which he was awarded the inaugural Nobel Prize in Physics in 1901), achieved by applying high-voltage electricity across an evacuated vacuum tube containing a cathode and an anode, famously producing a transmission radiograph of his wife’s hand. In 1896, Thomas Edison invented dynamic X-ray fluoroscopy. Projection radiography hardware evolved through three major historical generations: (1) Traditional photographic film/screen cassettes, which required wet chemical darkroom processing through a mandatory four-stage sequence — Developing -> Fixation -> Washing -> Drying — which was time-consuming, space-consuming, and prone to archiving degradation; (2) Computed Radiography (CR), introduced in the 1980s, which utilizes photostimulable phosphor storage cassettes requiring dedicated digital plate readers, maintaining instrument independence and digital compatibility with Picture Archiving and Communication Systems (PACS); and (3) Direct Digital Radiography (DDR), which incorporates integrated flat-panel active matrix detectors eliminating cassette handling and external readers, providing rapid time-saving workflow and filmless operation at higher capital expense. Fluoroscopy provides continuous real-time dynamic monitoring and intraoperative visualization, proving essential for vascular catheter angiography (often utilizing bi-plane dual imaging kits), percutaneous stent installation, orthopaedic bone cement injection, and functional tract evaluation (such as barium swallow examinations and post-gastric bypass integrity checks). To visualize radiolucent luminal organs, oral contrast agents such as flavored barium sulfate (BaSO4) suspension are ingested, while vascular and urinary tract interventions utilize intravenous injection of ionic versus non-ionic water-soluble iodinated contrast agents. Computed Tomography (CT) overcame the fundamental limitation of projection radiography (where superimposed 3D anatomical structures collapse into a single 2D shadow requiring at least two orthogonal projections) by rotating an X-ray source and opposing detector array 360 degrees around the patient. Modern spiral (helical) CT accelerates clinical throughput and computational volume scanning, supporting multiplanar reconstruction (MPR), 3D angiographic reconstruction, and dynamic simulated cardiac models. Radionuclide Imaging (RNI) provides the non-invasive visualization of physiological bio-distribution by administering a radiopharmaceutical — an engineered compound pairing a radioactive isotope (\"the siren\" or beacon) with an organ-seeking chemical vector. Planar gamma cameras image emitted gamma photons, exemplified by Technetium-99m labeled with methylene diphosphonate (99mTc-MDP) for skeletal osteoblastic bone scans, Thallium-201 (201Tl) for myocardial perfusion cardiac scans, and 99mTc-DTPA for renal clearance evaluation. Nuclear medicine further bifurcates into Single Photon Emission Computed Tomography (SPECT) and Positron Emission Tomography (PET): SPECT agents emit single gamma rays from heavier interstitial isotopes (e.g. 99mTc with a half-life of 6.02 hours, Iodine-123 with a half-life of 13 hours) and are less expensive, less energy-emitting, easier to prepare, and globally accessible; conversely, PET utilizes short-lived positron-emitting essential biological isotopes (e.g. Fluorine-18 with a half-life of 109.75 minutes, Carbon-11 with a half-life of 20.33 minutes, Nitrogen-13 with 9.97 minutes, Oxygen-15 with 2.04 minutes), requiring on-site medical cyclotrons and automated robotic radiochemistry to achieve highly quantitative metabolic and molecular tumor imaging, frequently co-registered with helical CT for precise attenuation correction.",
+      "plain": "X-rays were discovered in 1895 by Roentgen (winning the first Nobel Prize in 1901), and Edison invented fluoroscopy in 1896. X-ray technology evolved from darkroom wet chemical film (Developing -> Fixation -> Washing -> Drying), to 1980s Computed Radiography (CR, which uses phosphor cassettes and digital readers), to modern Direct Digital Radiography (DDR, which needs no readers and has no physical film, but costs more). Fluoroscopy shows live real-time motion for stent placement, bone cement, and angiography, using oral barium sulfate drinks or IV iodine contrast. CT spins 360 degrees around the patient to create 3D multiplanar slices and blood vessel models. Nuclear medicine uses \"radiopharmaceuticals\" (a radioactive isotope attached to a carrier molecule) to show organ function. A gamma camera detects gamma rays from agents like 99mTc-MDP for bone scans. SPECT uses longer-lived gamma emitters like Technetium-99m (6.02 h half-life) that are cheaper and widely available; PET uses very short-lived positron emitters like Fluorine-18 (109.75 min) that need an on-site cyclotron and robotic handling for precise quantitative cancer scanning.",
+      "keyFacts": [
+        "Wilhelm Conrad Roentgen discovered X-rays in 1895; awarded 1st Nobel Prize in Physics (1901).",
+        "Thomas Edison invented dynamic X-ray fluoroscopy in 1896.",
+        "Traditional film processing mandatory chemical order: Developing -> Fixation -> Washing -> Drying.",
+        "Computed Radiography (CR): applied since 1980s; uses cassettes; requires plate readers; compatible with PACS.",
+        "Direct Digital Radiography (DDR): flat-panel detectors; no readers; time-saving; no physical films; expensive.",
+        "Fluoroscopy key features: real-time dynamic monitoring, intraoperative guidance, angiography, stent installation, bone cement.",
+        "Contrast agents: oral barium sulfate (BaSO4) suspension for gut; intravenous ionic vs non-ionic agents.",
+        "Computed Tomography principle: overcomes 2-view projection limit with 360-degree rotation and multiplanar / 3D reconstruction.",
+        "Radiopharmaceutical structure: composed of a radioisotope (\"the siren\") coupled to a specific chemical targeting compound.",
+        "SPECT vs PET: SPECT uses gamma emitters (e.g. 99mTc, t1/2 = 6.02 h); PET uses positron emitters (e.g. 18F, t1/2 = 109.75 min) requiring cyclotrons and robotic synthesis."
       ],
-      prerequisites: ['hti17103-ionizing-vs-nonionizing'],
-      examples: [],
+      "prerequisites": [
+        "hti17103-ionizing-vs-nonionizing"
+      ],
+      "examples": [
+        "A cardiac catheterization laboratory uses dynamic fluoroscopy and intravenous iodinated contrast to guide real-time coronary angioplasty and deploy a vascular stent under continuous visual feedback.",
+        "In oncology staging, a patient receives an intravenous injection of 18F-FDG (PET tracer), which accumulates in glucose-avid neoplastic lesions and is imaged on an integrated PET-CT scanner to calculate standardized uptake values and map anatomical tumor borders."
+      ]
     },
-    memory: {
-      sequence: 'Film processing is a fixed order: develop, fix, wash, dry. Anything out of order ruins the film, which is why the sequence is worth owning.',
-      comparison: 'SPECT versus PET: longer half-life, cheaper, everywhere versus very short half-life, quantitative, needs a cyclotron on site. Half-life is the fact that drives every other difference.',
-      wordOrigin: 'Radiopharmaceutical is literally radiation plus drug — the lecture calls the isotope "the siren" and the compound the part that decides where it goes.',
+    "memory": {
+      "sequence": "Darkroom film chemistry: D-F-W-D — Developing -> Fixation -> Washing -> Drying.",
+      "comparison": "CR vs DDR: CR keeps cassettes and requires an external reader; DDR has flat panels, needs no reader, and is instant but expensive.",
+      "chunking": "Nuclear medicine radionuclides: SPECT uses Technetium-99m (6.02 h) and Iodine-123 (13 h); PET uses Carbon-11 (20.33 min), Nitrogen-13 (9.97 min), Oxygen-15 (2.04 min), and Fluorine-18 (109.75 min)."
     },
-    practice: [
-      { type: 'sequence', prompt: 'Order the traditional film processing steps.', items: ['Developing', 'Fixation', 'Washing', 'Drying'],
-        explanation: 'The Week 2 slide gives this exact sequence for the old film workflow.' },
-      { type: 'mcq', prompt: 'Which of these is a stated disadvantage of direct digital radiography compared with computed radiography?', options: ['It needs readers', 'It uses physical films', 'It is expensive', 'It is not PACS compatible'], answer: 2,
-        explanation: 'The lecture lists direct digital radiography as needing no readers, being time-saving and using no physical films — but expensive.' },
-      { type: 'typed', prompt: 'What does PACS stand for?', accept: ['picture archiving and communication system', 'picture archiving & communication system'],
-        explanation: 'Picture archiving and communication system, named on the computed radiography slide.' },
-      { type: 'matching', prompt: 'Match each radionuclide to its imaging technique as tabulated in the lecture.',
-        pairs: [['Technetium-99m', 'Gamma, SPECT'], ['Fluorine-18', 'Positron, PET'], ['Iodine-123', 'Gamma, SPECT'], ['Carbon-11', 'Positron, PET']],
-        explanation: 'From the "Commonly Used Radionuclides for Imaging and Therapy" table reproduced in the lecture.' },
+    "practice": [
+      {
+        "type": "sequence",
+        "prompt": "Arrange the traditional photographic film darkroom processing steps in their verified historical order.",
+        "items": [
+          "Developing",
+          "Fixation",
+          "Washing",
+          "Drying"
+        ],
+        "explanation": "The lecture specifies the mandatory sequence: Developing -> Fixation -> Washing -> Drying.",
+        "src": {
+          "ref": "hti.w2",
+          "location": "p10 \"Developing -> Fixation -> Washing -> Drying\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which technological advancement distinguishes Direct Digital Radiography (DDR) from Computed Radiography (CR)?",
+        "options": [
+          "DDR uses flat-panel detectors requiring no external cassette readers",
+          "DDR relies on chemical darkroom wet-tank processing",
+          "DDR requires mechanical phosphor plate digitizers",
+          "DDR cannot connect to hospital PACS networks"
+        ],
+        "answer": 0,
+        "explanation": "The lecture highlights that DDR requires no readers, saves time, and uses no physical films, though it is expensive.",
+        "src": {
+          "ref": "hti.w2",
+          "location": "p13 \"No readers, time-saving, no physical films\""
+        }
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each diagnostic radionuclide to its physical emission and nuclear imaging technique from the lecture syllabus.",
+        "pairs": [
+          [
+            "Technetium-99m (6.02 h)",
+            "Gamma emitter, SPECT"
+          ],
+          [
+            "Fluorine-18 (109.75 min)",
+            "Positron emitter, PET"
+          ],
+          [
+            "Iodine-123 (13 h)",
+            "Gamma emitter, SPECT"
+          ],
+          [
+            "Carbon-11 (20.33 min)",
+            "Positron emitter, PET"
+          ]
+        ],
+        "explanation": "From the lecture table: 99mTc and 123I emit gamma rays for SPECT; 18F and 11C emit positrons for PET.",
+        "src": {
+          "ref": "hti.w2",
+          "location": "p36 \"Commonly Used Radionuclides for Imaging and Therapy\""
+        }
+      },
+      {
+        "type": "typed",
+        "prompt": "What full clinical system name does the abbreviation PACS stand for?",
+        "accept": [
+          "picture archiving and communication system",
+          "picture archiving & communication system",
+          "Picture Archiving and Communication System"
+        ],
+        "explanation": "PACS stands for Picture Archiving and Communication System, introduced with digital radiography.",
+        "src": {
+          "ref": "hti.w2",
+          "location": "p12 \"Compatible to PACS\""
+        }
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'A hospital wants to start PET imaging. Using the SPECT/PET comparison, name two practical consequences they must plan for that SPECT would not have required.',
-        model: 'In the older lecture comparison, PET is described as more quantitative, expensive, with very short half-lives, a cyclotron requirement and robotic handling. SPECT is described as less expensive and easier to prepare. These are the supplied lecture comparisons, not a claim that every PET service must have an on-site cyclotron.',
-        rubric: ['Names the cyclotron requirement', 'Links it to short half-lives', 'Names cost or robotic handling'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A hospital radiology service is planning to upgrade its diagnostic infrastructure. Explain why the department would choose a combination of CT and PET (PET-CT) rather than a standalone planar gamma camera for complex cancer staging.",
+        "model": "PET provides highly quantitative molecular imaging of metabolic bio-distribution using essential positron-emitting tracers (such as 18F-FDG), while CT provides rapid 360-degree anatomical cross-sections with multiplanar reconstruction. Combining them in a PET-CT scanner allows simultaneous metabolic detection and precise anatomical localization, along with essential CT-based attenuation calculation and reconstruction, surpassing the 2D spatial resolution and semi-quantitative limits of a planar gamma camera.",
+        "rubric": [
+          "Identifies PET as quantitative molecular/metabolic imaging using positron emitters",
+          "Identifies CT as providing 360-degree multiplanar anatomical slices",
+          "Explains that hybrid PET-CT enables anatomical localization and attenuation calculation/reconstruction"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Confusing computed radiography (cassettes plus readers) with direct digital radiography (no readers).',
-      'Assuming PET is simply a better SPECT rather than a different trade-off around half-life and cost.',
+    "commonMistakes": [
+      "Confusing Computed Radiography (CR, which still uses physical cassettes and readers) with Direct Digital Radiography (DDR, which uses no readers).",
+      "Assuming that PET and SPECT use identical radioisotopes, overlooking that PET requires positron emitters with very short half-lives and medical cyclotrons.",
+      "Reversing the order of wet darkroom processing stages (e.g. putting fixation before developing)."
     ],
-    skills: [
-      'The older lecture compares half-life, quantitation, preparation and cost. It does not establish that PET tracers cannot be transported, or that all differences arise from half-life alone.',
-      'Computed and direct digital radiography differ by exactly one piece of hardware — the reader. CR keeps cassettes and needs readers; DR eliminates them, which buys speed and no physical film at the price of being the expensive option. The MCQ distractor is always the reader.',
-      'A radiopharmaceutical is a taxi and a passenger: the radioisotope is what the gamma camera sees, the compound is what decides where it goes — which is how the same technetium serves a bone scan as MDP and a renal function scan as DTPA.',
+    "skills": [
+      "Differentiate projection radiography, fluoroscopy, CT, and nuclear medicine instrumentation based on clinical workflow and acquisition geometry.",
+      "Interpret radionuclide half-lives and decay characteristics to evaluate hospital radiopharmacy preparation and imaging feasibility."
     ],
-    selfCheck: 'From memory: the four film steps in order, CR versus DR (which one needs readers), and the two named radionuclides with their imaging techniques.',
-    sourceRefs: [{ ref: 'hti.w2', location: 'Slides 6–41 discovery of X-ray, general X-ray, cassettes, fluoroscopy, CT, radiopharmaceuticals, RNI, SPECT/PET' }],
+    "selfCheck": "From memory, state Roentgen and Edison discoveries with dates, list the 4 film darkroom steps in order, define PACS, and compare SPECT vs PET across 4 parameters (half-life, emitter type, cost, cyclotron requirement).",
+    "visuals": [
+      {
+        "fig": "ctScannerGeometry"
+      },
+      {
+        "fig": "fluoroscopyRoomSetup"
+      },
+      {
+        "fig": "petCtScanner"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hti.w2",
+        "location": "p6 \"Discovery of X-ray\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p6 \"Discovered by Wilheim Conrad Roentgen in 1895.\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p6 \"The 1st Nobel Prize\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p7 \"Thomas Edison (1847-1931)\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p7 \"Invented X-ray fluoroscopy in 1896\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p9 \"General (routine) X-ray\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p9 \"Moveable X-ray tube\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p9 \"Standing Bucky\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p9 \"Patient couch/bed\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p10 \"General (routine) X-ray – the films\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p10 \"Developing -> Fixation -> Washing -> Drying\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p11 \"General (routine) X-ray – the old ways\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p12 \"General X-ray – the cassettes\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p12 \"Computed Radiography\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p12 \"Been applied since 1980s\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p12 \"Need readers\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p12 \"Compatible to PACS\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p13 \"Direct Digital Radiography\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p13 \"No readers, time-saving, no physical films\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p13 \"Expensive\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p18 \"Fluoroscopy and contrast enhancement\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p18 \"Real-time monitoring\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p18 \"Intraoperative applicable\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p18 \"Angiography\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p18 \"Stent installation\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p18 \"Bone cement\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p20 \"Fluoroscopy – contrast agents\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p20 \"Barium sulfate (BaSO ) solution\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p20 \"Ionic contrast agents vs. non-ionic contrast agents\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p28 \"Computed Tomography\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p28 \"Radiologists always need 2 views, how about a 360⁰-view?\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p30 \"Computed Tomography – the spiral accelerates\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p32 \"Multiplaner reconstruction 3D angiographic reconstruction\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p33 \"From slices to reconstructed angiography and eventually a simulated heart model\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p35 \"Radiopharmaceuticals – the bait\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p35 \"A radioisotope (the siren)\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p35 \"The non-invasive visualization of bio-distribution\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p36 \"Commonly Used Radionuclides for Imaging and Therapy\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p36 \"Carbon-11 20.33 min positron PET\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p36 \"Nitrogen-13 9.97 min positron PET\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p36 \"Oxygen-15 2.04 min positron PET\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p36 \"Fluorine-18 109.75 min positron PET\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p36 \"Technetium-99m 6.02 hours gamma SPECT\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p36 \"Iodine-123 13 hours gamma SPECT\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p37 \"99mTc-MDP (Bone scan)\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p38 \"201Tl (Cardiac scan) 99mTc-DTPA (Renal function scan)\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p40 \"Positron Emission Tomography (PET)\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p40 \"Mostly combined with CT – attenuation calculation and\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p41 \"PET or SPECT?\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p41 \"Less quantitative • More quantitative\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p41 \"Longer half-lives • Very short half-lives\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p41 \"Less expensive • Expensive\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p41 \"Cyclotron required\""
+      },
+      {
+        "ref": "hti.w2",
+        "location": "p41 \"Robotic handling\""
+      }
+    ]
   },
   {
     id: 'hti17103-radioprotection',
