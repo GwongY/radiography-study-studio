@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1080 —
-  8dbb82387a8c386d  WHOLE SET
+— user-facing strings in outputs/ — 1077 —
+  7568896664949eca  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -128,6 +128,7 @@
   6a5b2a7c9f7e2a0b  <button class="rss-mode" style="flex-direction:column;align-items:flex-start;gap:4px;min-height:78px" data-mode="
   52c2a2e072de9ed6  <button class="seg
   6dcaad6caa1d4d6e  <button class="sres" data-hit="
+  104dbe0e4864608b  <button class="sres" data-recent="
   996524c555242052  <button class="step
   4a802c42822eaf15  <button class="topic-card
   2b209271f1e381dc  <button class="unit-row" data-related="
@@ -143,6 +144,7 @@
   ecb0e29a4e98fcab  <div class="empty">No mistakes recorded yet.</div>
   5d79580d037dc02a  <div class="empty">No study items found.</div>
   933dac4c71ff915a  <div class="empty">No topics match this filter yet.</div>
+  6b5b6a25a2f50ee3  <div class="empty">Recent searches — tap to run again</div>
   94ca8e2b60e2f26b  <div class="empty">Search structures, study items and topics. Press Esc to close.</div>
   35ce3a36a607c3e6  <div class="emptybox" style="margin-top:14px">No memory aid authored for this item yet.</div>
   bb363a3bd702def4  <div class="emptybox">Diagram unavailable.</div>
@@ -248,7 +250,6 @@
   dac5841c386d8add  All Y1S1 courses
   e94d9dd5772a74c5  All Y1S1 courses \u00b7 latest schedule order
   8968425df01d3da6  All regions
-  09fae25379bfd547  All systems
   aa3acf22b193a343  Already covered ·
   c2db0f34254c9f63  An off-device copy that happens on its own — the only thing here that survives losing this device, reinstalling the app, or the browser clearing its storage. Needs a GitHub token scoped to gists and nothing else.
   90d82470f4817358  Anatomy first
@@ -290,7 +291,6 @@
   59b5b25c3f1225bb  Check answer
   df8077d81115769e  Check matches
   b731b58ee17f6202  Check order
-  63204f7e8e315ce0  Choose systems…
   1fd0e2b073997f0d  Click the hotspot for:
   55656b5e434f4c06  Close search
   e503367c41c06b12  Close session
@@ -380,7 +380,6 @@
   dc0798173dbd926c  Held still for reference:
   6fd0c5d030af33d3  Held still:
   2a7c8d2f587fec15  Hidden (
-  6bad68f02fab3316  Hide all
   40cd6293d193b56d  Hide panel
   33832e6712de5c86  Hide this
   661c70362c780c6a  Holding pack "
@@ -607,7 +606,6 @@
   72e816aa3b0aaa5b  Skills to build with this content
   da2e37e9592542f8  Skip to practice
   0eb673542101b71b  Slides behind the "beyond DSE Biology" lines
-  21663a4d17044727  Some systems could not load. Choose the preset to retry.
   1bfa470c34403319  Some tissue layers could not load. This is an incomplete projection; reopen this tab to retry.
   89d17970366ba5b3  Source files cited
   b6ade0f684ef5714  Source for the answer you just saw
@@ -651,7 +649,6 @@
   8a4f2ddb68e960e8  Syllabus mapped · audited sources
   abf3e80b5b4ceb36  Sync failed
   98fc2d0150072bd5  Synced —
-  d997deb1ee2930b5  System preset
   eb81808a3bbd84cf  TIBia = TIBe weight-bearing. The medial malleolus is the inner ankle bump.
   2d7a925fbe1c1b06  Tap a structure to pin it.
   b39ae8aef682cd9b  Tap a structure to pin the name it is taught under.

@@ -38,7 +38,6 @@ the implementation retains this app's vanilla modules.
 **Course body only.** Viewer has Course body and Projection tabs. Packed piece-level
 Spread lays out the visible course meshes in non-overlapping frontal cells at 100%;
 the Layers mode retains the previous layer fan. This is a display layout, not anatomy.
-System presets use the existing thirteen chips and lazily load only course GLBs.
 Search, isolation, turntable, cuts, annotations and curriculum links stay on this body.
 There is no alternate viewer, source switch or extra model download. Upstream MIT
 notices for the retained packed layout and pointer handling remain in
