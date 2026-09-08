@@ -489,7 +489,8 @@ export const WEEK_STUDY = {
     5: ['abct2326-renal-nephron', 'abct2326-renal-filtration-countercurrent', 'abct2326-renal-countercurrent-vasarecta', 'abct2326-renal-tubular-clearance-sympathetic'],
     6: [],
     7: [
-      'abct2326-repro-male-regulation', 'abct2326-repro-ovarian-menstrual-cycle',
+      'abct2326-repro-male-regulation', 'abct2326-repro-male-tract-accessory',
+      'abct2326-repro-female-tract-follicles', 'abct2326-repro-ovarian-menstrual-cycle',
       'abct2326-repro-fertilization-implantation', 'abct2326-repro-placenta-parturition',
     ],
     8: ['abct2326-endocrine-delivery', 'abct2326-endocrine-receptors', 'abct2326-endocrine-second-messengers'],
