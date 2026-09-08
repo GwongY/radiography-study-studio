@@ -2143,6 +2143,11 @@ export const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.imm', type: 'comparison',
     title: 'Innate vs adaptive immunity and the seven innate categories',
     tags: ['immune', 'high-yield'],
+    visuals: [
+      { fig: 'innateAdaptiveCooperation' },
+      { schematic: 'innateAdaptive' },
+      { gen: true },
+    ],
     priorKnowledge: {
       level: 'dse-bio', covers: 'part', dsePart: 'core',
       syllabusRef: { ref: 'edb.bio', location: 'Compulsory IV(c) "Body defence mechanisms" — non-specific defence is listed as skin, mucus, cilia, phagocytes, blood clotting and inflammatory responses. Interferons, complement and NK cells are not in the syllabus.' },
@@ -3093,6 +3098,10 @@ export const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.imm', type: 'sequence',
     title: 'Complement: two pathways to the same hole in the wall',
     tags: ['immune', 'high-yield'],
+    visuals: [
+      { fig: 'complementCascade' },
+      { gen: true },
+    ],
     lesson: {
       explanation: 'Complement is a system of circulating proteins that assists antibodies in destroying pathogens — special C proteins in the blood plasma, named for the way the system complements antibody action. The two documents disagree about how many: these notes say eleven, and the Week 10 slide deck says thirty. Nothing in either source settles it — the app carries both rather than choosing, and an exam answer is safest naming the cascade rather than a count. They interact in sequence, and the sequence can be entered by two routes. The classical pathway is quick and effective. Antibodies attach to the foreign cell; C1 binds two of those antibodies and becomes an activated enzyme; C1 then cleaves other complement proteins in a fixed order — hydrolysing C2 into C2a and C2b and cleaving C4 into C4a and C4b. C2a and C4b together form an active enzyme, C3 convertase, which splits C3 into C3a and C3b, and C3b attaches to the membrane. From there C3b helps assemble C5, C6, C7, C8 and C9 into a membrane attack complex on the bacterial cell wall — a large pore that kills the cell by osmotic influx of water. The crucial point about roles: it is the complement proteins that kill the cell, not the antibodies. The antibodies serve only as the activator. The fragments that were split off are not waste. C3a and C5a stimulate mast cells to release histamine, and C5a also acts as a chemokine attracting neutrophils and monocytes to arrive and phagocytose; histamine increases capillary permeability and produces vasodilation at the infected area, letting more white cells through. The alternative pathway is slower and less effective, and needs no antibody at all — it is activated directly by foreign material such as a bacterial capsule, using proteins including properdin (factor P), factor B and factor D, and arriving at the same activated C3b attached to the bacterial cell wall. From that point it follows the classical pathway, and the three effects are the same: pore formation, enhanced phagocytosis, and histamine release. So the two pathways differ only in how they start; they converge on C3b and end identically.',
       keyFacts: [
@@ -3165,6 +3174,11 @@ export const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.imm', type: 'comparison',
     title: 'MHC, CD markers and costimulation: how a T cell is allowed to act',
     tags: ['immune', 'high-yield'],
+    visuals: [
+      { fig: 'antigenPresentation' },
+      { fig: 'clonalSelection' },
+      { gen: true },
+    ],
     lesson: {
       explanation: 'The immune system recognises the body\'s own membrane glycoproteins and glycolipids as self rather than foreign, and that recognition is what stops it attacking its own cells. When a pathogen enters a tissue there is no immediate response, because a T cell cannot see a free antigen: the antigen must first be bound to glycoproteins in another cell\'s plasma membrane. Those glycoproteins are genetically determined, coded on one region of chromosome 6 called the major histocompatibility complex, and the proteins themselves are MHC proteins, also known as human leukocyte antigens. Their amino acid sequences and shapes differ between individuals, and each molecule has a narrow central groove; an antigen that fits the groove is held there by hydrogen bonding. There are two classes and they carry different messages. An antigen on a Class I MHC protein flags the cell itself as abnormal and to be destroyed. An antigen on a Class II MHC protein says the antigen is dangerous and should be got rid of. Class I proteins sit in the plasma membranes of all nucleated cells; they are made at the Golgi apparatus, carry small peptides from the cytoplasm out to the membrane, and if those peptides are normal the T cells ignore them — but abnormal peptides or viral proteins are recognised as foreign and the cell is destroyed. That mechanism is also why donated organs are rejected: even after cross-matching, the recipient\'s T cells still read the transplanted tissue as foreign. Class II proteins appear only on lymphocytes and antigen presenting cells — the phagocytic cells of the monocyte–macrophage group, free and fixed macrophages, Kupffer cells of the liver, microglia in the CNS, and dendritic cells of skin, lymph nodes and spleen. An APC engulfs and breaks down a pathogen, binds the fragments to Class II MHC and inserts them into its membrane, where they appear only while the cell is processing antigen. Which T cell responds is decided by CD markers, membrane proteins of which more than seventy types exist. CD8 is carried by cytotoxic and suppressor T cells, which respond to Class I. CD4 is carried by helper T cells, which respond to Class II. Recognition alone does not activate anything: the T cell must also bind the stimulating cell at a second site, which is costimulation. The source calls it the safety on a gun — a cell displaying an unusual antigen but not the "I am an active phagocyte" or "I am infected" signal will not activate a T cell. Once costimulation has occurred the safety is off, and the T cell attacks any cell carrying the target antigen. The same caution governs B cells. A B cell carries its own antibody on its membrane; when the matching antigen binds, the B cell takes it in by endocytosis and re-presents it on Class II MHC. It then waits on standby until a helper T cell binds that MHC protein and releases cytokines — only then does it divide, forming plasma cells that release antibodies at around 100 million an hour, and memory B cells held in reserve.',
       keyFacts: [
@@ -3245,6 +3259,10 @@ export const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.imm', type: 'comparison',
     title: 'Inside three innate defences: phagocytes, NK cells, interferons',
     tags: ['immune', 'high-yield'],
+    visuals: [
+      { fig: 'innateAdaptiveCooperation' },
+      { gen: true },
+    ],
     lesson: {
       explanation: 'Three of the seven innate defences are cellular or chemical, and the detail is what separates them. Phagocytes come in two classes. Microphages are the neutrophils and eosinophils that normally circulate in blood and can leave it to enter injured or infected tissue; eosinophils are the less abundant of the two and target things already coated with antibody. A neutrophil is expendable by design — most die once they have engulfed more than 25 bacteria, and during an infection one may attack that many in an hour. Macrophages are the large ones, derived from circulating monocytes, and they come fixed (unable to move) or free. A free macrophage crosses a capillary wall by squeezing between the endothelial cells, which is diapedesis, and it is steered by chemicals in the surrounding fluid that attract or repel it, which is chemotaxis. Immunological surveillance is the second: natural killer cells destroying abnormal cells in peripheral tissues. They are less selective than lymphocytes but much faster, because T and B cells need a complex and time-consuming sequence of events first. An abnormal cell carries antigens normal membranes do not; the NK cell recognises them, adheres, and swings its Golgi apparatus round to face the target — the source likens it to rotating a tank turret. The Golgi makes secretory vesicles of perforin, which leave by exocytosis, diffuse across, and assemble into a network of pores wide enough to let ions and proteins pass freely, so the cell lyses. Perforin does not harm the NK cell itself, possibly because a second protein, protectin, binds and inactivates it. Some cancer cells escape anyway — by lacking antigens, by being covered, or by destroying the NK cell — and that is immunological escape. Viruses hide inside cells where antibody cannot reach, but an infected cell displays viral antigens on its membrane, and NK cells read those as abnormal. Interferons are the third: chemical messengers coordinating the defence against viral infection, released by lymphocytes, macrophages or virus-infected tissue. An interferon binds a surface receptor on a normal cell and, through second messengers, triggers antiviral proteins in that cell\'s cytoplasm which interfere with viral replication. They also stimulate macrophages and NK cells. Three types exist — alpha, beta and gamma — and most cells other than lymphocytes and macrophages answer a viral infection with beta-interferon. Interferons are one example of a cytokine, the general name for a chemical messenger a tissue cell releases to coordinate local activity.',
       keyFacts: [
@@ -3319,6 +3337,10 @@ export const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.imm', type: 'definition',
     title: 'What drives inflammation, and what a fever is for',
     tags: ['immune'],
+    visuals: [
+      { fig: 'inflammatoryProcess' },
+      { gen: true },
+    ],
     lesson: {
       explanation: 'Inflammation is described elsewhere by its signs; this is what produces them. Mast cells release histamine, heparin, prostaglandins and other chemicals into the interstitial fluid. Histamine makes capillaries more permeable, so more blood flows through the area. The chemicals mast cells release also stimulate local sensory neurons to produce pain — which is useful rather than incidental, because the person then reacts to limit the damage, removing a splinter or cleaning a wound. The increased blood flow reddens the area and raises its local temperature, and each of those has a job: the changes increase enzyme reaction rates, accelerate phagocyte activity and denature foreign proteins. Because the vessels are now more permeable, clotting factors and complement proteins can leave the bloodstream and enter the injured tissue — which is how the plasma systems reach an injury at all. Neutrophils are attracted in, destroy what they engulf, and secrete cytokines that attract further neutrophils and macrophages. As this continues, debris, fluid and dead and dying cells accumulate; that viscous mixture is pus, and pus enclosed in a tissue space is an abscess. Fever is the seventh innate defence and works at the level of the whole body: the maintenance of a body temperature greater than 37.2 °C. The thermostat is the temperature-regulating centre in the preoptic area of the hypothalamus, and circulating proteins called pyrogens reset it upwards. Pyrogens come from two directions — a pathogen can act as one itself, or an active macrophage can release one, the endogenous pyrogen also known as interleukin-1. Within limits a fever helps. High temperature may inhibit some viruses and bacteria, but the likeliest benefit is metabolic: for each 1 °C rise, metabolic rate increases by about 10 per cent. Cells move faster and enzyme reactions run more quickly, so tissue defences mobilise sooner and repair speeds up.',
       keyFacts: [
@@ -3389,6 +3411,10 @@ export const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.imm', type: 'comparison',
     title: 'Four kinds of T cell, and what each is for',
     tags: ['immune', 'high-yield'],
+    visuals: [
+      { fig: 'antigenPresentation' },
+      { gen: true },
+    ],
     lesson: {
       explanation: 'T cells are not one thing. Four types do four different jobs, and the differences are worth holding separately because two of them explain clinical facts. Cytotoxic T cells are responsible for cell-mediated immunity: they enter peripheral tissues and attack antigens physically and chemically. Finding a target bound to a Class I MHC protein, a cytotoxic T cell destroys it in one of three ways — releasing perforin, secreting a poisonous lymphotoxin, or activating the genes in the target cell\'s own nucleus that make it die, which is apoptosis. This takes about two days or more before it is effective, so an infection can spread in the meantime. Memory T cells are the answer to that delay: they respond to antigens already encountered by cloning more lymphocytes, so on a second exposure the cytotoxic response is prompt and effective before the infection worsens. Helper T cells stimulate both T cells and B cells, and the source calls them absolutely vital — because they must activate B cells before those B cells can produce any antibody at all. That single dependency is why AIDS patients, who lose a great many helper T cells, have reduced immunity across the board rather than only in one arm of it. Suppressor T cells inhibit T cell and B cell activity and moderate the immune response, releasing inhibitory cytokines called suppression factors. They take longer to activate than the other types, and most CD8 T cells become cytotoxic rather than suppressor cells, so suppressors act after the initial response rather than during it — limiting how far the immune system escalates from a single stimulus. The CD markers sort them: CD8 sits on cytotoxic and suppressor T cells, CD4 on helper T cells.',
       keyFacts: [
@@ -3459,6 +3485,10 @@ export const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.imm', type: 'comparison',
     title: 'Four ways to become immune: active or passive, natural or artificial',
     tags: ['immune', 'high-yield'],
+    visuals: [
+      { fig: 'innateAdaptiveCooperation' },
+      { gen: true },
+    ],
     lesson: {
       explanation: 'Adaptive immunity is not something you are born with. You develop it when you meet a specific antigen, and only for that antigen. How you come to have it divides two ways at once, which is why there are four routes rather than two. The first division is who made the antibody. In active immunity the body responds to an antigen and makes its own; in passive immunity antibodies are transferred from another source and your own cells make nothing. The second division is how the exposure happened — naturally, by living in the world, or artificially, by deliberate intervention. Cross them and the four routes fall out. Naturally acquired active immunity: you meet the antigen by ordinary environmental exposure and your body makes antibody in response. Artificially induced active immunity: immunisation, a vaccine containing a dead or inactivated pathogen, or antigens derived from it, so your body makes the antibody without the disease. Naturally acquired passive immunity: a baby receives antibodies across the placenta from the mother, or through breast milk. Artificially induced passive immunity: a person is given antibodies to fight an infection or prevent a disease — the source\'s example is someone bitten by a rabid animal, injected with antibodies against the rabies virus. Underneath sits the other division of adaptive immunity, the one about which cells do the work. T cells give cell-mediated, or cellular, immunity, which defends against abnormal cells and pathogens inside cells. B cells give antibody-mediated, or humoral, immunity, which defends against antigens and pathogens in body fluids. Both matter because they cover different situations: an activated T cell defends against pathogens inside cells and does not respond to antigen in solution, while antibodies cannot cross plasma membranes and so cannot reach anything hiding inside one. The two arms are joined by the helper T cell, which is part of cell-mediated immunity and yet stimulates the B cells that produce antibody.',
       keyFacts: [
@@ -3523,6 +3553,73 @@ export const PHYS_ITEMS = [
       { ref: 'phys.susan10', location: 'p8 naturally acquired passive immunity — "a baby can acquire this by receiving antibodies by crossing the placenta" from the mother, or through breast milk' },
       { ref: 'phys.susan10', location: 'p8 artificially induced passive immunity — "someone who was bitten by a rabid animal gets injections containing antibodies"' },
       { ref: 'phys.susan10', location: 'p8 "antibodies (produced by activated B cells) that cannot cross plasma membranes"' },
+    ],
+  },
+  {
+    id: 'abct2326-antibody-structure-classes',
+    subject: 'ABCT2326', unit: 'phys.imm', type: 'structure',
+    title: 'Antibody structure, five immunoglobulin classes and defence against bacteria',
+    tags: ['immune', 'high-yield'],
+    visuals: [
+      { fig: 'antibodyStructure' },
+      { fig: 'clonalSelection' },
+      { gen: true },
+    ],
+    lesson: {
+      explanation: 'An antibody, or immunoglobulin, is a Y-shaped soluble protein built of two parallel pairs of polypeptide chains: one pair of heavy chains and one pair of light chains, held together by disulfide bonds. Each chain contains two distinct regions: constant segments and variable segments. The constant segments of the heavy chains form the base and stem of the Y (the Fc portion) and determine the immunoglobulin class and its mechanism of secretion and distribution. B cells produce only five types of constant segments, which classify all antibodies into five distinct classes: IgM, IgA, IgD, IgE, or IgG. The variable segments sit at the tips of the Y arms (within the Fab portion) and form the antigen-binding sites, which fold into unique configurations that specifically bind corresponding antigenic determinants on pathogens. In the defence against bacteria, antibodies execute several cooperative mechanisms: they bind free bacteria or toxins to form antigen-antibody complexes, neutralize bacterial toxins, prevent pathogen adhesion to host cells, and trigger the classical complement cascade via C1 binding to cause cell lysis. Crucially, antibodies and complement proteins act as opsonins: opsonization coats the bacterial surface, which dramatically increases the effectiveness of phagocytosis by macrophages and neutrophils, attracting more phagocytes to the infection site. When adaptive defenses fail completely at the genetic level, severe pathology results: in severe combined immunodeficiency disease (SCID), also known as "bubble boy" disease, B cells and T cells of the adaptive immune system are impaired due to a defect in one of several possible genes, leaving patients vulnerable to fatal infections in non-sterile environments; clinical management includes transplants of bone marrow or fetal thymus to reconstitute functional lymphocyte lineages.',
+      keyFacts: [
+        'An antibody consists of two parallel pairs of polypeptide chains: one pair of heavy chains and one pair of light chains.',
+        'Each chain contains constant segments (class identity, base) and variable segments (antigen-binding sites at tips).',
+        'Five immunoglobulin classes based on heavy chain constant segments: IgM, IgA, IgD, IgE, and IgG.',
+        'Antigen-antibody complexes bind and neutralize bacterial toxins and facilitate cell lysis via complement.',
+        'Opsonization: antibodies and complement proteins coat bacteria, dramatically increasing the effectiveness of phagocytosis.',
+        'SCID ("bubble boy" disease): genetic defect impairing both B and T cells of the adaptive immune system; treated with bone marrow or fetal thymus transplants.',
+      ],
+      prerequisites: ['abct2326-mhc-costimulation'],
+      examples: [
+        'Opsonization acts like handles on a slippery object: macrophages have receptors for antibody Fc stems and C3b, allowing them to firmly grasp and engulf encapsulated bacteria.',
+        'David Vetter lived in a sterile plastic isolator ("bubble boy") because SCID left him with neither functional T cells nor functional B cell antibody responses.',
+      ],
+    },
+    memory: {
+      mnemonic: 'The five immunoglobulin classes spell MADGE: IgM, IgA, IgD, IgE, IgG.',
+      chunking: 'Structure has two pairs (heavy + light) and two segments (constant + variable). Constant = Class base; Variable = Variety of binding tips.',
+      wordOrigin: 'Opsonization is from Greek opsonion (to season or prepare food) — antibodies "season" the bacterium to make it tasty for phagocytes.',
+    },
+    practice: [
+      { type: 'mcq', prompt: 'What are the two pairs of polypeptide chains forming the basic antibody monomer?', options: ['One pair of heavy chains and one pair of light chains', 'Two pairs of identical heavy chains', 'Alpha and beta globin chains', 'Active and passive chains'], answer: 0,
+        explanation: 'An antibody is composed of two parallel pairs of polypeptide chains: one pair of heavy chains and one pair of light chains.' },
+      { type: 'matching', prompt: 'Match each structural segment of an antibody to its primary role.',
+        pairs: [['Variable segments', 'Form antigen-binding sites that specifically recognize determinants'], ['Constant segments', 'Determine the immunoglobulin class (IgM, IgA, IgD, IgE, IgG) and effector function'], ['Heavy chains', 'Longer polypeptide chains spanning both stem and arms of Y'], ['Light chains', 'Shorter polypeptide chains located along the outer arms of Y']],
+        explanation: 'Variable segments bind antigen; constant segments identify the class and govern downstream effector actions.' },
+      { type: 'typed', prompt: 'What term describes the coating of pathogens with antibodies and complement to increase phagocytosis effectiveness?', accept: ['opsonization', 'opsonisation'],
+        explanation: 'Opsonization is the process where antibodies and complement proteins coat foreign particles, increasing phagocytosis effectiveness.' },
+      { type: 'mcq', prompt: 'Which cells are impaired in Severe Combined Immunodeficiency Disease (SCID)?', options: ['Both B cells and T cells of the adaptive immune system', 'Only red blood cells', 'Only platelets and megakaryocytes', 'Only neutrophils of the innate system'], answer: 0,
+        explanation: 'SCID is a genetic disease where both B cells and T cells of the adaptive immune system are impaired, leaving victims vulnerable to infections.' },
+    ],
+    application: [
+      { type: 'scenario', prompt: 'Explain why a patient with SCID fails to mount either a humoral or cell-mediated immune response, and describe how bone marrow transplantation can treat it.',
+        model: 'SCID is caused by a defect in one of several possible genes that impairs the development and function of both B cells and T cells of the adaptive immune system. Because T cells are defective, cell-mediated immunity is absent; because B cells and helper T cells are defective, antibody production and humoral immunity are also absent. A bone marrow transplant provides healthy hematopoietic stem cells capable of differentiating into normal lymphoid progenitors, reconstituting functional T and B lymphocyte populations.',
+        rubric: ['Identifies genetic impairment of both B and T cells', 'Connects T cell loss to lack of cell-mediated response and B cell loss to lack of antibodies', 'Explains bone marrow transplant provides functional lymphocyte stem cells'] },
+    ],
+    commonMistakes: [
+      'Assuming variable segments are located at the base of the antibody — they are at the tips of the Y arms where antigen binds.',
+      'Thinking antibodies themselves directly kill bacteria — antibodies neutralize, opsonize, and activate complement, which executes the lysis.',
+    ],
+    skills: [
+      'Look at the Y shape: the stem (Fc) carries the constant domains that determine the class (IgM, IgA, IgD, IgE, IgG), while the two branch tips (Fab) carry the variable domains tailored to specific epitopes.',
+      'Remember opsonization: antibodies do not simply float around; when they attach to bacteria, they create docking flags for complement and phagocytes.',
+    ],
+    selfCheck: 'Sketch an antibody: label heavy and light chains, constant and variable segments, and state the definition and importance of opsonization.',
+    sourceRefs: [
+      { ref: 'phys.10', location: 'p61 "plasma cells" and "antigen-antibody" complexes' },
+      { ref: 'phys.10', location: 'p61 "Opsonization" — "increases the effectiveness of phagocytosis"' },
+      { ref: 'phys.10', location: 'p61 "Destruction of bacteria"' },
+      { ref: 'phys.10', location: 'p64 "Antibody Structure" — "Two parallel pairs of polypeptide chains", "heavy chains", "light chains"' },
+      { ref: 'phys.10', location: 'p64 "Constant segments" and "Variable segments"' },
+      { ref: 'phys.10', location: 'p64 "classifies them as" IgM, IgA, IgD, IgE or IgG' },
+      { ref: 'phys.10', location: 'p67 "SCID - B cells and T cells of the adaptive immune system are impaired due to a defect in one of several possible genes"' },
+      { ref: 'phys.10', location: 'p67 "Bubble boy" disease, "David Vetter", and "transplants of bone marrow or fetal thymus"' },
     ],
   },
   /* ------------------------------------------------------------------ *
