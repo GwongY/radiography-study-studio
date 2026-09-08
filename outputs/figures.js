@@ -1970,6 +1970,21 @@ export const FIGURES = {
       { mark: 'Patient treatment couch', name: 'Robotic positioning table coordinating with real-time stereoscopic X-ray target tracking' },
     ],
   },
+  tldBadge: {
+    file: 'tldBadge.jpg', bytes: 19405,
+    title: 'Thermoluminescent Dosimeter (TLD) personnel monitoring badge',
+    caption: 'Wearable personal dosimeter badge containing thermoluminescent phosphor crystals for occupational radiation monitoring.',
+    author: 'Thedavesullivan',
+    licence: 'CC BY-SA 4.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+    commons: 'https://commons.wikimedia.org/wiki/File:TLD_Dosimeter.jpg',
+    intro: 'Thermoluminescent dosimeter (TLD) badge worn by healthcare personnel in high-risk radiation areas (radiographers, radiation therapists, and interventional radiologists). The badge holds lithium fluoride (LiF) or calcium sulphate phosphor crystals that trap electrons in crystal lattice defects when exposed to ionizing radiation. During laboratory processing, heat releases the trapped energy as visible light proportional to cumulative radiation dose, measuring occupational exposures across a sensitive range of 0.05 mSv to 10 Sv.',
+    key: [
+      { mark: 'Personal identification badge', name: 'Wearable clip-on holder labeled with worker identity and monitoring wear period' },
+      { mark: 'TLD crystal holder', name: 'Internal cassette securing thermoluminescent detector chips behind metallic energy-discriminating filters' },
+      { mark: 'Filter window', name: 'Differential filtration elements distinguishing penetrating deep dose (Hp(10)) from superficial skin dose (Hp(0.07))' },
+    ],
+  },
 };
 
 export function figureFor(id) {
