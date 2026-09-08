@@ -2581,6 +2581,616 @@ export const HSS_MODULES = [
     ]
   },
   {
+    id: "hss2011-head-cranial-cavities-sinuses",
+    subject: "HSS2011",
+    unit: "hss.m4",
+    type: "definition",
+    title: "Cranial fossae, paranasal sinuses, orbital complexes, and foramen magnum",
+    tags: [
+      "head and neck",
+      "cranial cavity",
+      "sinuses",
+      "orbits",
+      "foramen magnum",
+      "high-yield"
+    ],
+    boneRefs: [
+      "cranium"
+    ],
+    lesson: {
+      explanation: "The internal floor of the cranial cavity is divided into three stepped depressions termed cranial fossae: (1) Anterior cranial fossa, formed by the orbital plates of the frontal bone, the cribriform plate and crista galli of the ethmoid, and the lesser wings of the sphenoid, cradling the frontal lobes of the cerebrum. The cribriform plate is perforated by olfactory nerve (CN I) filaments passing from the nasal mucosa to the olfactory bulbs. (2) Middle cranial fossa, butterfly-shaped and deeper, formed centrally by the sphenoid body (bearing the sella turcica with its hypophyseal fossa housing the pituitary gland) and laterally by the greater wings of the sphenoid and the anterior surface of the petrous temporal bones, accommodating the temporal lobes. Crucial neurovascular openings perforate this fossa: the optic canal (CN II, ophthalmic artery), superior orbital fissure (CN III, IV, V1, VI, superior ophthalmic vein), foramen rotundum (CN V2 maxillary nerve), foramen ovale (CN V3 mandibular nerve), foramen spinosum (middle meningeal artery), and carotid canal (internal carotid artery). (3) Posterior cranial fossa, the largest and deepest fossa, formed predominantly by the occipital bone and posterior surfaces of the petrous and mastoid temporal bones, housing the cerebellum, pons, and medulla oblongata. At the center of the posterior fossa lies the foramen magnum, the massive aperture through which the brainstem transitions into the cervical spinal cord. Critical structures traversing the foramen magnum include: the medulla oblongata, the paired ascending vertebral arteries (uniting to form the basilar artery), the spinal accessory nerves (CN XI ascending into the skull before exiting via the jugular foramen), and the anterior and posterior spinal arteries. Surrounding the nasal cavity are four paired air-filled paranasal sinuses: frontal, ethmoidal air cells, sphenoidal, and maxillary sinuses. The maxillary sinuses (largest of all) sit within each maxilla lateral to the nasal cavity; their superiorly positioned ostium drains into the middle nasal meatus, rendering drainage inefficient in the upright posture. The orbital complexes (eye sockets) are each built from 7 articulating bones: frontal, zygomatic, maxilla, lacrimal, ethmoid, sphenoid, and palatine bones.",
+      plain: "The skull floor has three steps: the anterior cranial fossa in front (frontal lobes), the middle cranial fossa (pituitary gland and temporal lobes with nerve holes), and the deep posterior cranial fossa in back (cerebellum and brainstem). The huge hole in the posterior fossa is the foramen magnum, transmitting the medulla, vertebral arteries, and CN XI. The face has 7 bones making each eye orbit and 4 pairs of hollow air spaces called paranasal sinuses: frontal, ethmoid, sphenoid, and the huge maxillary sinuses that drain into the nose.",
+      keyFacts: [
+        "The internal skull base contains three stepped fossae: anterior, middle, and posterior cranial fossae.",
+        "Anterior cranial fossa: formed by frontal, ethmoid (cribriform plate for CN I), and lesser wings of sphenoid; supports frontal lobes.",
+        "Middle cranial fossa: formed by sphenoid body (sella turcica housing pituitary gland), greater wings, and petrous temporal; supports temporal lobes.",
+        "Posterior cranial fossa: deepest fossa formed by occipital and petrous temporal; houses cerebellum, pons, and medulla oblongata.",
+        "Foramen magnum contents: medulla oblongata, bilateral vertebral arteries, spinal accessory nerve (CN XI), and spinal arteries.",
+        "Orbital complexes: each cone-shaped orbit is composed of 7 bones (frontal, zygomatic, maxilla, lacrimal, ethmoid, sphenoid, palatine).",
+        "Paranasal sinuses: four pairs of mucus-lined air cavities (frontal, ethmoid air cells, sphenoid, maxillary sinuses).",
+        "Maxillary sinus: largest sinus; located in maxilla; ostium is located high on medial wall draining into middle nasal meatus."
+      ],
+      prerequisites: [
+        "hss2011-osteo-skull-sutures"
+      ],
+      examples: [
+        "A fracture of the cribriform plate of the ethmoid bone in the anterior cranial fossa lacerates olfactory nerve filaments and the overlying dura mater, producing anosmia (loss of smell) and clear CSF rhinorrhea (cerebrospinal fluid dripping from the nose).",
+        "Acute maxillary sinusitis presents with facial fullness, toothache (due to shared innervation of upper dentition and maxillary sinus mucosa by the superior alveolar branches of CN V2), and worsening pain when bending forward because the high ostium cannot drain by gravity."
+      ]
+    },
+    memory: {
+      firstLetter: "Four paranasal sinuses: Frontal, Ethmoid, Sphenoid, Maxillary — \"F-E-S-M\" (Forehead, Eyes, Skull base, Mid-face).",
+      location: "Foramen magnum contents: \"Make Vitamins And Cereals\" — Medulla oblongata, Vertebral arteries, Accessory nerve (CN XI), Cerebrospinal fluid / spinal arteries.",
+      comparison: "Maxillary sinus drainage: Unlike the frontal and sphenoid sinuses which drain downward with gravity, the maxillary ostium is at the top of the cavity, like a drain located near the ceiling of a room.",
+      teachBack: "Walk through the three cranial fossae from anterior to posterior, list the structures passing through the foramen magnum, name all 4 paranasal sinuses, and explain why maxillary sinusitis causes maxillary tooth pain."
+    },
+    practice: [
+      {
+        type: "mcq",
+        prompt: "Which of the following structures passes through the foramen magnum?",
+        options: [
+          "Vertebral arteries",
+          "Internal carotid artery",
+          "Middle meningeal artery",
+          "Facial nerve (CN VII)",
+          "Maxillary nerve (CN V2)"
+        ],
+        answer: 0,
+        explanation: "The vertebral arteries ascend through the foramen magnum into the posterior cranial fossa to form the basilar artery.",
+        src: {
+          ref: "hss.4.2",
+          location: "p22 \"Contents of\" — \"Vertebral arteries\""
+        }
+      },
+      {
+        type: "mcq",
+        prompt: "Which paranasal sinus is the largest and drains high on its medial wall into the middle nasal meatus?",
+        options: [
+          "Maxillary sinus",
+          "Frontal sinus",
+          "Sphenoidal sinus",
+          "Ethmoidal air cells",
+          "Mastoid air cells"
+        ],
+        answer: 0,
+        explanation: "The maxillary sinus (antrum of Highmore) is the largest paranasal sinus, occupying the body of the maxilla.",
+        src: {
+          ref: "hss.4.2",
+          location: "p19 \"The Nasal Complex\" — \"Paranasal Sinuses\""
+        }
+      },
+      {
+        type: "matching",
+        prompt: "Match each cranial fossa to its primary neural contents and key landmarks.",
+        pairs: [
+          [
+            "Anterior cranial fossa",
+            "Frontal lobes and cribriform plate (CN I)"
+          ],
+          [
+            "Middle cranial fossa",
+            "Temporal lobes and sella turcica (pituitary gland)"
+          ],
+          [
+            "Posterior cranial fossa",
+            "Cerebellum, brainstem, and foramen magnum"
+          ],
+          [
+            "Orbital complex",
+            "Seven articulating craniofacial bones housing eyeball"
+          ]
+        ],
+        explanation: "Organization of internal cranial floor and orbital architecture from HSS2011 Module 4.2."
+      }
+    ],
+    application: [
+      {
+        type: "scenario",
+        prompt: "A trauma patient following a high-speed vehicle impact presents with periorbital ecchymosis (\"raccoon eyes\"), clear fluid dripping from the right nostril, and loss of smell. A coronal head CT demonstrates a displaced fracture through the floor of the anterior cranial fossa. Identify the specific bone fractured, the torn neural structures, and the source of the nasal fluid.",
+        model: "The patient has sustained a basilar skull fracture involving the cribriform plate of the ethmoid bone in the floor of the anterior cranial fossa. Fracturing this delicate perforated horizontal plate lacerates the fragile olfactory nerve rootlets (CN I) passing through from the olfactory epithelium, producing anosmia. Tearing of the tightly adherent overlying dura mater and arachnoid mater creates a fistulous communication between the subarachnoid space and the nasal cavity, producing cerebrospinal fluid (CSF) rhinorrhea.",
+        rubric: [
+          "Identifies fracture of the cribriform plate of the ethmoid bone",
+          "Identifies transection / damage to the olfactory nerve (CN I) causing anosmia",
+          "Identifies the fluid as cerebrospinal fluid (CSF) leaking from torn meninges (CSF rhinorrhea)"
+        ]
+      }
+    ],
+    commonMistakes: [
+      "Thinking the internal carotid artery traverses the foramen magnum; it enters through the carotid canal in the petrous temporal bone.",
+      "Listing 6 bones for the orbit instead of 7 (often forgetting the small palatine bone in the orbital floor).",
+      "Assuming paranasal sinuses drain freely in the upright position; the maxillary sinus ostium is near its roof."
+    ],
+    skills: [
+      "Inspect paranasal sinus Waters (occipitomental) and Caldwell radiographs for air-fluid levels, mucosal thickening, and opacification characteristic of acute bacterial sinusitis.",
+      "Differentiate CSF rhinorrhea from allergic rhinitis by testing fluid for beta-2 transferrin or glucose.",
+      "Trace cranial nerves exiting the skull base: CN I through cribriform plate, CN II through optic canal, CN III/IV/V1/VI through superior orbital fissure, CN XI entering foramen magnum and exiting jugular foramen."
+    ],
+    selfCheck: "From memory: name the bones forming each of the three cranial fossae, state four vital contents of the foramen magnum, list all 4 paranasal sinuses, and recall the 7 bones of the orbital complex.",
+    visuals: [
+      {
+        fig: "paranasalSinuses"
+      },
+      {
+        fig: "skullLateralView"
+      },
+      {
+        model: {
+          layer: "skeleton",
+          meshes: [
+            "Frontal bone",
+            "Sphenoid bone",
+            "Ethmoid bone",
+            "Maxilla",
+            "Occipital bone",
+            "Temporal bone"
+          ],
+          label: "Cranial fossae and paranasal complex",
+          caption: "Internal skull base illustrating anterior, middle, and posterior cranial fossae with the central foramen magnum and surrounding paranasal sinus cavities."
+        }
+      },
+      {
+        gen: true
+      }
+    ],
+    sourceRefs: [
+      {
+        ref: "hss.4.2",
+        location: "p16 \"Cranial Fossae\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p17 \"The Eye Sockets (Orbits)\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p19 \"The Nasal Complex\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p19 \"Paranasal Sinuses\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p20 \"Frontal sinuses\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p20 \"Sphenoidal\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p22 \"Contents of\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p22 \"Medulla Oblongata\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p22 \"Vertebral arteries\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p22 \"CN XI\""
+      }
+    ]
+  },
+  {
+    id: "hss2011-head-facial-expression-muscles",
+    subject: "HSS2011",
+    unit: "hss.m4",
+    type: "definition",
+    title: "Muscles of facial expression, the SCALP layers, and cranial nerve VII",
+    tags: [
+      "head and neck",
+      "facial muscles",
+      "scalp",
+      "facial nerve",
+      "high-yield"
+    ],
+    boneRefs: [
+      "cranium",
+      "mandible"
+    ],
+    lesson: {
+      explanation: "The scalp covers the calvarial vault from the supraorbital margins anteriorly to the superior nuchal lines posteriorly, constructed of five distinct histological layers remembered by the acronym SCALP: (1) S - Skin: thick hair-bearing cutaneous layer rich in sebaceous glands and sensory nerve terminals. (2) C - Connective tissue (subcutaneous): dense, inelastic fibrofatty layer containing abundant arteries (supraorbital, supratrochlear, superficial temporal, posterior auricular, occipital); because vascular walls are held firmly open by dense collagenous septa when severed, scalp lacerations bleed profusely and require direct suture compression to achieve hemostasis. (3) A - Aponeurosis (epicranial aponeurosis / galea aponeurotica): tough fibrous tendon sheet uniting the frontal and occipital bellies of the occipitofrontalis muscle. (4) L - Loose areolar tissue: the \"danger area of the scalp\", providing a natural sliding plane allowing layers 1–3 to glide freely over the underlying skull; this layer contains valveless emissary veins that traverse calvarial apertures to connect scalp veins directly with intracranial dural venous sinuses (e.g. superior sagittal sinus), providing an unobstructed pathway through which scalp infections can spread into the cranial vault to cause meningitis or cavernous sinus thrombosis. (5) P - Pericranium: dense external periosteum of the calvarial bones, easily separated from bone except at suture lines where it dips down to fuse with sutural ligaments and endosteum. The muscles of facial expression are unique subcutaneous skeletal muscles originating from craniofacial bones or fascia and inserting into the dermis of facial skin. Key muscles include: frontalis (occipitofrontalis frontal belly), which elevates the eyebrows and wrinkles the forehead skin horizontally in surprise or attention; orbicularis oculi, a circular sphincter surrounding the eye socket that closes the eye gently during blinking (palpebral portion) or tightly during crying/squinting (orbital portion); orbicularis oris, the circular sphincter of the mouth that closes, compresses, and protrudes the lips during kissing and whistling; zygomaticus major, which draws the angle of the mouth upward and laterally in laughing and smiling; depressor anguli oris, which draws the angle of the mouth laterally and downward in frowning or expressing sorrow; buccinator, the deep muscular wall of the cheek that compresses the cheek against molar teeth to keep food between dental occlusal tables during mastication and forcefully expels air when blowing; and platysma, a broad sheet in the superficial cervical fascia that draws the lower lip and angle of the mouth downward in expressions of surprise or terror. All muscles of facial expression are innervated by the 7th cranial nerve (CN VII, facial nerve). After emerging from the stylomastoid foramen, CN VII enters the parotid gland and divides into 5 terminal motor branches: Temporal, Zygomatic, Buccal, Marginal mandibular, and Cervical branches (\"Two Zebras Bit My Cheek\").",
+      plain: "The scalp has five layers spelled SCALP: Skin, dense Connective tissue (bleeds profusely), Aponeurosis (tough sheet linking frontalis to occipitalis), Loose areolar tissue (the danger zone where infections can spread inside the skull via emissary veins), and Pericranium (bone lining). Muscles of facial expression insert right into facial skin so you can make faces: frontalis lifts your eyebrows, orbicularis oculi closes your eyes, orbicularis oris purses your lips, zygomaticus major smiles, and depressor anguli oris frowns. Every facial expression muscle is powered by the facial nerve (CN VII).",
+      keyFacts: [
+        "The scalp consists of 5 layers: Skin, Connective tissue (dense vascular), Aponeurosis (epicranial), Loose areolar tissue (\"danger area\"), and Pericranium.",
+        "Loose areolar tissue (Layer 4) contains emissary veins communicating with intracranial dural venous sinuses, risking intracranial spread of infection.",
+        "Muscles of facial expression originate from bone/fascia and insert into facial skin/dermis.",
+        "Frontalis (occipitofrontalis frontal belly): elevates eyebrows and wrinkles skin of forehead horizontally.",
+        "Orbicularis oculi: concentric sphincter surrounding the palpebral fissure; closes the eye.",
+        "Orbicularis oris: concentric oral sphincter; closes and compresses/purses the lips.",
+        "Zygomaticus major: draws angle of mouth upward and laterally as in smiling/laughing.",
+        "Depressor anguli oris: draws the angle of mouth laterally and downward as in frowning.",
+        "Buccinator: deep cheek muscle compressing cheek against teeth during chewing and blowing.",
+        "Platysma: superficial cervical sheet drawing lower lip and angle of mouth downward in surprise/grimace.",
+        "All muscles of facial expression are innervated by the 7th cranial nerve (CN VII, facial nerve).",
+        "The 5 terminal motor branches of CN VII: Temporal, Zygomatic, Buccal, Marginal mandibular, and Cervical branches."
+      ],
+      prerequisites: [
+        "hss2011-osteo-skull-sutures"
+      ],
+      examples: [
+        "A laceration through the first 3 layers of the scalp bleeds massively because the dense connective tissue prevents the cut arteries from retracting and clamping off, requiring deep suturing through the epicranial aponeurosis.",
+        "Bell’s palsy (acute idiopathic facial nerve inflammation at the stylomastoid foramen) paralyzes all ipsilateral facial muscles: the patient cannot wrinkle their forehead, close their eye (lagophthalmos), or smile, leading to corneal drying and drooling."
+      ]
+    },
+    memory: {
+      firstLetter: "Five scalp layers: Skin, Connective tissue, Aponeurosis, Loose areolar tissue, Pericranium — spells \"S-C-A-L-P\".",
+      mnemonic: "Branches of facial nerve (CN VII): \"To Zanzibar By Motor Car\" — Temporal, Zygomatic, Buccal, Marginal mandibular, Cervical.",
+      comparison: "Facial nerve (CN VII) vs Trigeminal nerve (CN V): CN VII moves the facial muscles (MOTOR to face); CN V feels the touch, pain, and temperature (SENSORY to face) plus motor to mastication.",
+      teachBack: "List the 5 layers of the scalp and explain why layer 4 is the danger space, name 5 key muscles of facial expression with their actions, and recite the 5 motor branches of CN VII."
+    },
+    practice: [
+      {
+        type: "mcq",
+        prompt: "Which cranial nerve innervates the muscles of facial expression including frontalis, orbicularis oculi, and orbicularis oris?",
+        options: [
+          "7th cranial nerve (CN VII, Facial nerve)",
+          "5th cranial nerve (CN V, Trigeminal nerve)",
+          "3rd cranial nerve (CN III, Oculomotor nerve)",
+          "11th cranial nerve (CN XI, Accessory nerve)",
+          "12th cranial nerve (CN XII, Hypoglossal nerve)"
+        ],
+        answer: 0,
+        explanation: "All muscles of facial expression and the scalp are innervated by the 7th cranial nerve (CN VII, facial nerve).",
+        src: {
+          ref: "hss.4.2",
+          location: "p33 \"7th cranial nerve (CN VII): Facial nerve\""
+        }
+      },
+      {
+        type: "matching",
+        prompt: "Match each muscle of facial expression to its verified anatomical action.",
+        pairs: [
+          [
+            "Frontalis (Occipito-frontalis)",
+            "Elevates eyebrows; wrinkles skin of forehead"
+          ],
+          [
+            "Orbicularis oculi",
+            "Closes eye"
+          ],
+          [
+            "Orbicularis oris",
+            "Closes lips; compresses / purses lips"
+          ],
+          [
+            "Zygomaticus major",
+            "Draws angle of mouth upward & laterally as in laughing"
+          ]
+        ],
+        explanation: "Actions of facial muscles verbatim from HSS2011 Module 4.2 slide 32 summary."
+      },
+      {
+        type: "cloze",
+        prompt: "In the scalp, layer 4 consists of ______ tissue, which is clinically known as the danger area due to emissary veins.",
+        accept: [
+          "loose areolar",
+          "loose areolar tissue",
+          "loose connective",
+          "loose connective tissue"
+        ],
+        explanation: "Layer 4 of the scalp is loose areolar tissue, permitting easy spread of fluid and infections into the intracranial dural venous sinuses.",
+        src: {
+          ref: "hss.4.2",
+          location: "p28 \"Scalp is composed of 5 layers:\" — \"4. Loose areolar tissue\""
+        }
+      },
+      {
+        type: "mcq",
+        prompt: "Which muscle of the neck draws the lower lip and angle of the mouth downward as in an expression of surprise?",
+        options: [
+          "Platysma",
+          "Sternocleidomastoid",
+          "Trapezius",
+          "Masseter",
+          "Digastric"
+        ],
+        answer: 0,
+        explanation: "Platysma is the superficial sheet muscle of the neck that draws the lower lip and angle of the mouth downward.",
+        src: {
+          ref: "hss.4.2",
+          location: "p52 \"Draws lower lip and angle of mouth downward\""
+        }
+      }
+    ],
+    application: [
+      {
+        type: "scenario",
+        prompt: "A 45-year-old patient suddenly wakes up with inability to close the right eye, smooth unwrinkled right forehead, flattening of the right nasolabial fold, and sagging of the right mouth corner with liquid drooling when drinking. Sensation across the entire face is normal. Identify the damaged cranial nerve, the clinical condition, and explain why the forehead cannot wrinkle while facial sensation is preserved.",
+        model: "The patient has Bell’s palsy, an acute lower motor neuron lesion of the right facial nerve (CN VII). The inability to close the eye is due to paralysis of orbicularis oculi; the mouth drooping and drooling result from paralysis of orbicularis oris and zygomaticus major; and the inability to wrinkle the right forehead is due to paralysis of the frontal belly of occipitofrontalis, all innervated by CN VII. Facial sensation is completely preserved because cutaneous sensation of the face is supplied by the trigeminal nerve (CN V: V1 ophthalmic, V2 maxillary, V3 mandibular), which is undamaged.",
+        rubric: [
+          "Identifies lesion of the facial nerve (CN VII) / Bell’s palsy",
+          "Names frontalis, orbicularis oculi, and orbicularis oris as paralyzed muscles",
+          "Explains that cutaneous facial sensation is mediated by the trigeminal nerve (CN V), which is intact"
+        ]
+      }
+    ],
+    commonMistakes: [
+      "Confusing CN VII (motor to face expression) with CN V (sensory to face skin).",
+      "Mixing orbicularis oculi (eye sphincter, CN VII) with orbicularis oris (mouth sphincter, CN VII).",
+      "Thinking the scalp aponeurosis is layer 2; it is layer 3 (A in SCALP)."
+    ],
+    skills: [
+      "Perform a rapid clinical examination of CN VII: ask the patient to raise their eyebrows (frontalis), close eyes tightly against resistance (orbicularis oculi), puff cheeks (buccinator), show teeth (zygomaticus major), and purse lips (orbicularis oris).",
+      "Recognize subgaleal hematoma on pediatric head CT: blood in the loose areolar space (Layer 4) can spread across the entire calvaria beneath the aponeurosis, limited only by the attachment of pericranium at suture lines.",
+      "Differentiate upper motor neuron (stroke: forehead spared due to bilateral cortical innervation) from lower motor neuron (Bell's palsy: entire half of face including forehead paralyzed)."
+    ],
+    selfCheck: "From memory: list the 5 layers of the SCALP, state the actions of frontalis, orbicularis oculi, orbicularis oris, and zygomaticus major, list the 5 branches of CN VII, and explain the difference between CN V and CN VII functions in the face.",
+    visuals: [
+      {
+        fig: "facialExpressionMuscles"
+      },
+      {
+        gen: true
+      }
+    ],
+    sourceRefs: [
+      {
+        ref: "hss.4.2",
+        location: "p28 \"Scalp is composed of 5 layers:\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p28 \"1. Skin\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p28 \"2. Connective tissue\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p28 \"3. Aponeurosis\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p28 \"4. Loose areolar tissue\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p28 \"5. Pericranium\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p32 \"Frontalis (Occipito-frontalis): elevates eyebrows; wrinkles\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p32 \"Orbicularis oculi: closes eye\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p32 \"Orbicularis oris: closes lips\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p32 \"Zygomaticus major: draws angle of mouth upward &\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p32 \"Depressor Anguli Oris: draws the angle of moth laterally and\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p33 \"7th cranial nerve (CN VII): Facial nerve\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p52 \"Draws lower lip and angle of mouth downward\""
+      }
+    ]
+  },
+  {
+    id: "hss2011-head-mastication-neck-muscles",
+    subject: "HSS2011",
+    unit: "hss.m4",
+    type: "definition",
+    title: "Muscles of mastication, the temporomandibular joint, and neck flexors/extensors",
+    tags: [
+      "head and neck",
+      "mastication",
+      "TMJ",
+      "neck muscles",
+      "trigeminal nerve",
+      "accessory nerve",
+      "high-yield"
+    ],
+    boneRefs: [
+      "cranium",
+      "mandible",
+      "cervical"
+    ],
+    lesson: {
+      explanation: "Mastication (chewing) involves the rhythmic movement of the mandible at the bilateral temporomandibular joints (TMJ), powered by four paired muscles of mastication: masseter, temporalis, medial pterygoid, and lateral pterygoid. The TMJ is a modified synovial hinge and gliding joint formed by the articulation between the mandibular condyle (head) and the mandibular fossa and articular tubercle of the temporal bone. A biconcave fibrocartilaginous articular disc divides the joint cavity into superior and inferior compartments: the inferior compartment permits hinge-like rotational elevation and depression, while the superior compartment permits translational gliding (protrusion, retrusion, and lateral excursion). The actions of the masticatory muscles are specialized: (1) Masseter: the strongest jaw muscle; powerful rectangular muscle originating from the zygomatic arch and inserting onto the lateral surface of the mandibular ramus and angle; powerfully elevates the mandible to close the mouth and crush food. (2) Temporalis: broad fan-shaped muscle originating from the temporal fossa and inserting onto the coronoid process of the mandible; vertical anterior fibers elevate the mandible to close the mouth, while horizontal posterior fibers retract the mandible (retrusion / retrude chin). (3) Medial pterygoid: deep muscle originating from the pterygoid fossa and inserting onto the medial surface of the mandibular angle, mirroring the masseter to form a powerful sling that elevates and protracts the mandible. (4) Lateral pterygoid: two-headed horizontal muscle originating from the infratemporal crest and lateral pterygoid plate, inserting into the pterygoid fovea on the mandibular neck and TMJ disc; contraction depresses the mandible (opens the mouth) and protracts the chin. Unilateral alternate contractions of the pterygoids produce side-to-side lateral grinding movements. All four muscles of mastication are innervated by the mandibular branch of the trigeminal nerve (CN V3). In the neck, major postural and head movements are driven by two massive muscles: (1) Sternocleidomastoid (SCM): originates by two heads from the sternal manubrium and medial clavicle, inserting into the mastoid process of the temporal bone; bilateral contraction produces neck flexion (bending chin toward chest); unilateral contraction rotates the head to the opposite side and laterally flexes the neck to the same side; innervated by the spinal accessory nerve (CN XI). (2) Trapezius: large diamond-shaped muscle originating from superior nuchal line, ligamentum nuchae, and spinous processes of C7–T12, inserting into lateral clavicle, acromion, and spine of scapula; bilateral contraction produces neck extension (tilting head backward); also innervated by CN XI.",
+      plain: "Four chewing muscles move the jaw at the TMJ: masseter (the strongest, closes mouth), temporalis (lifts and pulls jaw back), medial pterygoid (helps masseter close mouth), and lateral pterygoid (the ONLY chewing muscle that opens the mouth and pushes the chin forward). All four are innervated by the mandibular division of the trigeminal nerve (CN V3). In the neck, sternocleidomastoid (SCM) flexes the neck forward and turns your head, while trapezius extends the head backward; both neck muscles are wired by the accessory nerve (CN XI).",
+      keyFacts: [
+        "Four muscles of mastication: Masseter, Temporalis, Medial pterygoid, Lateral pterygoid.",
+        "Masseter: the strongest jaw muscle; elevates the mandible (closes mouth).",
+        "Temporalis: fan-shaped muscle; elevates the mandible and retrudes (retracts) the chin.",
+        "Medial pterygoid: elevates and protracts the mandible; forms a muscular sling with masseter.",
+        "Lateral pterygoid: depresses the mandible (opens mouth) and protrudes the chin; assists grinding.",
+        "All four masticatory muscles are innervated by the mandibular branch of the trigeminal nerve (CN V3).",
+        "Temporomandibular joint (TMJ): modified synovial hinge/condylar joint with a fibrocartilaginous articular disc.",
+        "Sternocleidomastoid (SCM): bilateral contraction produces neck flexion; unilateral produces contralateral rotation and ipsilateral tilt; innervated by CN XI.",
+        "Trapezius: bilateral contraction produces neck extension; innervated by spinal accessory nerve (CN XI).",
+        "SCM divides the neck into anterior and posterior triangles."
+      ],
+      prerequisites: [
+        "hss2011-osteo-skull-sutures"
+      ],
+      examples: [
+        "Anterior dislocation of the TMJ occurs when the mandibular condyles slide too far anteriorly over the articular tubercles during wide yawning or dental extraction, locking the jaw open because masseter and temporalis muscle spasm traps the condyles anterior to the tubercles.",
+        "Torticollis (\"wry neck\") is a painful spasmodic contraction or congenital shortening of the sternocleidomastoid muscle, producing head tilt toward the affected muscle and chin rotation toward the opposite side."
+      ]
+    },
+    memory: {
+      firstLetter: "Four chewing muscles: Masseter, Temporalis, Medial pterygoid, Lateral pterygoid — \"M-T-M-L\".",
+      mnemonic: "Lateral Lowers the jaw: Lateral pterygoid = Lowers (depresses / opens mouth); all other three elevate (close mouth).",
+      comparison: "Mastication vs Facial expression nerves: Chewing = Trigeminal (CN V3: V looks like two jaws biting); Facial expression = Facial nerve (CN VII: 7 looks like an eyebrow arch).",
+      teachBack: "Name the 4 muscles of mastication, distinguish which one depresses the jaw versus elevates it, name their shared nerve supply, and contrast the bilateral action of SCM versus trapezius on head posture."
+    },
+    practice: [
+      {
+        type: "mcq",
+        prompt: "Which muscle of mastication is responsible for depressing the mandible to open the mouth?",
+        options: [
+          "Lateral pterygoid",
+          "Masseter",
+          "Temporalis",
+          "Medial pterygoid",
+          "Buccinator"
+        ],
+        answer: 0,
+        explanation: "The lateral pterygoid is the only muscle of mastication that depresses the mandible (opens the mouth) and protrudes the chin.",
+        src: {
+          ref: "hss.4.2",
+          location: "p36 \"Depression (open mouth)\" — \"Lateral pterygoid\""
+        }
+      },
+      {
+        type: "mcq",
+        prompt: "Temporalis, masseter, medial and lateral pterygoids are all innervated by which nerve?",
+        options: [
+          "Mandibular branch of trigeminal nerve (CN V)",
+          "Facial nerve (CN VII)",
+          "Hypoglossal nerve (CN XII)",
+          "Accessory nerve (CN XI)",
+          "Maxillary branch of trigeminal nerve (CN V)"
+        ],
+        answer: 0,
+        explanation: "All four muscles of mastication are innervated by the mandibular division of the trigeminal nerve (CN V3).",
+        src: {
+          ref: "hss.4.2",
+          location: "p36 \"Temporalis, masseter, medial and lateral pterygoids are innervated by\" — \"mandibular branch of trigeminal nerve (CN V)\""
+        }
+      },
+      {
+        type: "cloze",
+        prompt: "The strongest jaw muscle, which elevates the mandible to close the mouth, is the ______.",
+        accept: [
+          "masseter",
+          "Masseter",
+          "masseter muscle"
+        ],
+        explanation: "The masseter is the strongest jaw muscle, originating from the zygomatic arch and inserting into the mandibular ramus.",
+        src: {
+          ref: "hss.4.2",
+          location: "p37 \"Masseter: The strongest jaw muscle\""
+        }
+      },
+      {
+        type: "matching",
+        prompt: "Match each neck muscle to its bilateral action and motor innervation.",
+        pairs: [
+          [
+            "Sternocleidomastoid (bilateral)",
+            "Neck flexion; accessory nerve (CN XI)"
+          ],
+          [
+            "Trapezius (bilateral)",
+            "Neck extension; accessory nerve (CN XI)"
+          ],
+          [
+            "Masseter",
+            "Jaw elevation (closing mouth); mandibular nerve (CN V3)"
+          ],
+          [
+            "Lateral pterygoid",
+            "Jaw depression (opening mouth); mandibular nerve (CN V3)"
+          ]
+        ],
+        explanation: "Actions and motor nerve supply of neck and chewing muscles from HSS2011 Module 4.2."
+      }
+    ],
+    application: [
+      {
+        type: "scenario",
+        prompt: "A patient is brought to the clinic unable to close their mouth after an extreme yawn, complaining of severe bilateral preauricular pain and an empty space palpable beneath the zygomatic arches. Identify the joint involved, the anatomical mechanism of the open lock, which chewing muscle initiated the forward displacement, and how the elevating muscles prevent reduction.",
+        model: "The patient has sustained an acute bilateral anterior temporomandibular joint (TMJ) dislocation. During extreme jaw opening, the lateral pterygoid muscles excessively contracted, pulling the mandibular condyles (heads) and articular discs forward over the summit of the articular tubercles into the infratemporal fossa. Once displaced anterior to the articular tubercles, the powerful elevating muscles of mastication (masseter, temporalis, and medial pterygoid) undergo reactive protective spasm, locking the mandibular condyles superiorly and anteriorly against the tubercles, preventing the patient from depressing or retracting the jaw to close the mouth.",
+        rubric: [
+          "Identifies anterior dislocation of the temporomandibular joint (TMJ)",
+          "Names the lateral pterygoid as the muscle pulling the condyle and disc over the articular tubercle",
+          "Explains how masseter, temporalis, and medial pterygoid spasm locks the mandible open"
+        ]
+      }
+    ],
+    commonMistakes: [
+      "Assuming masseter depresses the jaw because it is big; masseter ELEVATES (closes) the jaw with tremendous crushing force.",
+      "Thinking the facial nerve (CN VII) innervates mastication muscles; CN VII does facial expression; mandibular nerve (CN V3) does mastication.",
+      "Confusing neck flexion (SCM bilaterally) with neck extension (trapezius bilaterally)."
+    ],
+    skills: [
+      "Palpate the TMJ: place fingers directly anterior to the external acoustic meatus and feel the condyle rotate and translate forward during mouth opening.",
+      "Palpate masseter and temporalis: clench teeth firmly to feel masseter bulge on the mandibular angle and temporalis tense in the temporal fossa.",
+      "Test spinal accessory nerve (CN XI): resist patient shoulder shrug (trapezius) and resisted head rotation to opposite side (SCM)."
+    ],
+    selfCheck: "From memory: list the 4 masticatory muscles, state the action of lateral pterygoid versus the other three, name their shared nerve supply, and describe the action and nerve of SCM and trapezius.",
+    visuals: [
+      {
+        fig: "masticationMuscles"
+      },
+      {
+        fig: "skullLateralView"
+      },
+      {
+        gen: true
+      }
+    ],
+    sourceRefs: [
+      {
+        ref: "hss.4.2",
+        location: "p35 \"Muscles Acting on Temporo-mandibular Joint (TMJ)\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p36 \"Elevation (close mouth)\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p36 \"Depression (open mouth)\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p36 \"Lateral pterygoid\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p36 \"Temporalis, masseter, medial and lateral pterygoids are innervated by\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p36 \"mandibular branch of trigeminal nerve (CN V)\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p37 \"Masseter: The strongest jaw muscle\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p37 \"Temporalis: Helps lift the mandible\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p54 \"Sternocleidomastoid Bilaterally: neck flexion\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p56 \"Trapezius Bilaterally: neck extension\""
+      },
+      {
+        ref: "hss.manual1920",
+        location: "p75 \"5. Temporalis; masseter\""
+      },
+      {
+        ref: "hss.fib5yr",
+        location: "p18 \"Masseter Elevates the mandible [62] Mandibular branch of\""
+      }
+    ]
+  },
+  {
     id: 'hss2011-thorax-regional-landmarks',
     subject: 'HSS2011', unit: 'hss.m1', type: 'concept',
     title: 'Thoracic regional anatomy: sternal angle, mediastinal planes, diaphragm, and boundaries',
