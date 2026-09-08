@@ -166,7 +166,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `subject.js` | 358 | Subject |
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 316 | Viewer tools — annotate, cut, layer depth, capture |
-| `viewport-recovery.js` | 446 | The band below the tab bar — measuring it, and asking for the space back |
+| `viewport-recovery.js` | 485 | The band below the tab bar — measuring it, and asking for the space back |
 | `what-is-under.js` | 223 | What is under the tap |
 
 ## The corpus — `outputs/study/corpus/*.js`

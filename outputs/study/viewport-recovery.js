@@ -348,10 +348,49 @@ export function recoverByHand() {
   setTimeout(() => toast(describeViewport(checkViewport(false))), 700);
 }
 
+/**
+ * What the page ENDED UP with, as opposed to what was measured.
+ *
+ * Every number in detailViewport() is a reading taken before any rule runs.
+ * They were enough to diagnose the iPhone and they were not enough for the
+ * iPad: an 11" iPad Pro reported `floating` with the strip fill on, and the
+ * band did not move — which the readings alone cannot explain, because they
+ * say nothing about whether the rule keyed off them actually applied, or what
+ * it computed to if it did.
+ *
+ * `802 + 32 = 834` on that device: the viewport plus the TOP inset is exactly
+ * the screen. That is the opaque-status-bar shape, where the page starts below
+ * the bar and already reaches the bottom — so there may be no gap under the
+ * shell at all, and the visible band may be the 25px bottom inset padding
+ * INSIDE the page. This function is what tells those two apart, because it
+ * reports the resolved custom property and the computed box, not an intent.
+ *
+ * Read-only, wrapped, and safe on a page mid-assembly: it is a diagnostic on a
+ * settings row, and it must never be the thing that throws.
+ */
+export function appliedNote() {
+  try {
+    const html = document.documentElement;
+    const cs = (sel) => { const el = document.querySelector(sel); return el ? getComputedStyle(el) : null; };
+    const h = Math.round((document.querySelector('.shell')?.getBoundingClientRect().height) || 0);
+    const shell = cs('.shell');
+    const appBody = cs('.app-body');
+    const tab = cs('.bottomtab');
+    const shortfall = getComputedStyle(html).getPropertyValue('--vp-shortfall').trim() || '(unset)';
+    return `applied: strip=${html.dataset.strip || '?'} inset=${html.dataset.inset || '?'} `
+      + `state=${html.dataset.viewport || '?'} --vp-shortfall=${shortfall}, `
+      + `shell position=${shell?.position || '?'} bottom=${shell?.bottom || '?'} height=${h}, `
+      + `app-body padding-bottom=${appBody?.paddingBottom || '?'}, `
+      + `bottomtab display=${tab?.display || '?'}`;
+  } catch {
+    return 'applied: unreadable';
+  }
+}
+
 /** The note under the More row — the numbers, in a sentence. */
 export function viewportNote() {
   const d = viewportReport();
-  return `${describeViewport(d)} (${detailViewport(d)})`;
+  return `${describeViewport(d)} (${detailViewport(d)}) [${appliedNote()}]`;
 }
 
 /* ------------------------------------------------------------------ *

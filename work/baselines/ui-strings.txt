@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1077 —
-  e41c662d32c501bc  WHOLE SET
+— user-facing strings in outputs/ — 1080 —
+  8dbb82387a8c386d  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -801,6 +801,7 @@
   069d6e57d291854b  another structure
   94143c2692614a77  answer event
   f53741724922c4e4  answer events this device has never recorded — added.
+  41ea005f14d7fd15  app-body padding-bottom=
   9b5538d17c61f0ec  are held on this device and nowhere else.
   2f4b24c630bdf091  aria-label="Your mark for
   4dafb342c48fd85e  artery = red = oxygenated
@@ -812,6 +813,7 @@
   642d69680683778d  boot on Today, then tap Viewer
   a4d8d4905749584b  border:1px solid rgba(114,227,207,.4);border-radius:16px;background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03));padding:18px
   6607a28fb29685f9  both sides were fully logged, so the records were replayed from the merged log — exact
+  53afa6849ec5c20b  bottomtab display=
   1d647a1965983c2a  breaths a minute
   30f46b9b2fd19178  browser tab
   a4c18480ff6a58f4  card grouppick
@@ -981,6 +983,7 @@
   a89caa772a070b67  selpanel panel-expanded
   37e8cb66682dd7b0  separately selectable">
   a8970b03087f1926  sheetscrim hidden
+  607a6bbd50b8e2a7  shell position=
   e5b00fa86931ed23  short-answer questions in this pack.
   8758d8b826c9ddb8  short-answer under Exam → Short answer. Stored in IndexedDB on this device.
   29795951237abb24  should hold an array of events.
