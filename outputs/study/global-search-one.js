@@ -4,7 +4,7 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, ITEM_TYPES, MESH_INDEX, SEARCH_EXTRAS, STRUCTURE_MODELS, STUDY_ITEMS, UNITS, compositeFor, entryStep, esc, expandQuery, getSubject, missingFor, searchAnatomy, ui } from './imports.js';
-import { adjScore, itemAttempted } from './storage-versioned-keys.js';
+import { adjScore, itemAttempted, K, read, write } from './storage-versioned-keys.js';
 import { goTo, openSessionOverlay } from './navigation-five-destinations.js';
 import { openStructureInViewer } from './search-viewer-open.js';
 import { releaseLessonVisual } from './lesson-visuals.js';
@@ -19,6 +19,58 @@ import { getItemStep } from './home.js';
  * ------------------------------------------------------------------ */
 
 let searchReturnFocus = null;
+let searchActiveHit = -1;
+let searchLastQuery = '';
+
+/* Where the query landed, marked. The matcher is literal `includes` over the
+   typed query and its synonyms (see makeMatcher), so the first term that
+   occurs in the title marks the same spot the match was made on; a title
+   matched by no term of its own — a unit found only via a member row —
+   renders unmarked rather than marking something it does not say. */
+function markHit(text, terms) {
+  const hay = String(text).toLowerCase();
+  for (const t of terms) {
+    if (t && hay.includes(t)) {
+      const at = hay.indexOf(t);
+      return esc(text.slice(0, at)) + '<mark>' + esc(text.slice(at, at + t.length)) + '</mark>' + esc(text.slice(at + t.length));
+    }
+  }
+  return esc(text);
+}
+
+/* Recent searches — the queries this device acted on a result for, newest
+   first. A display convenience, so its own versioned key, never the progress
+   export. */
+function recentSearches() { return read(K.recentSearches, []); }
+function rememberSearch(q) {
+  const term = String(q).trim();
+  if (term.length < 2) return;
+  const rest = recentSearches().filter((s) => s.toLowerCase() !== term.toLowerCase());
+  write(K.recentSearches, [term, ...rest].slice(0, 8));
+}
+
+/* Arrow keys walk the results while the input keeps focus; Enter opens the
+   one under the caret, defaulting to the first result. Rows render as real
+   buttons, so Tab and the existing hover/focus styles still work. */
+export function searchKeydown(e) {
+  if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'Enter') return;
+  const box = $$('searchResultsSheet');
+  const rows = box ? box.querySelectorAll('[data-hit]') : [];
+  if (!rows.length) return;
+  e.preventDefault();
+  if (e.key === 'Enter') {
+    const n = searchActiveHit >= 0 ? searchActiveHit : 0;
+    const row = box.querySelector(`[data-hit="${n}"]`);
+    if (row) row.click();
+    return;
+  }
+  searchActiveHit = e.key === 'ArrowDown'
+    ? (searchActiveHit + 1) % rows.length
+    : (searchActiveHit - 1 + rows.length) % rows.length;
+  rows.forEach((b) => b.classList.toggle('active', +b.dataset.hit === searchActiveHit));
+  const el = box.querySelector(`[data-hit="${searchActiveHit}"]`);
+  if (el) el.scrollIntoView({ block: 'nearest' });
+}
 
 export function openSearchSheet() {
   searchReturnFocus = document.activeElement;
@@ -339,16 +391,38 @@ function searchHits(q) {
 
 export function runSearch(q) {
   const box = $$('searchResultsSheet');
+  searchLastQuery = q;
+  searchActiveHit = -1;
   const hits = searchHits(q);
   if (!q.trim()) {
-    box.innerHTML = '<div class="empty">Search structures, study items and topics. Press Esc to close.</div>';
+    /* An empty box is not nothing: the queries this device acted on, run
+       again with a tap, beat a blank hint every time a student comes back
+       to look up the same structure. */
+    const recents = recentSearches();
+    if (!recents.length) {
+      box.innerHTML = '<div class="empty">Search structures, study items and topics. Press Esc to close.</div>';
+      return;
+    }
+    box.innerHTML = '<div class="empty">Recent searches — tap to run again</div>'
+      + recents.map((r, n) =>
+        `<button class="sres" data-recent="${n}"><span class="grow"><b>${esc(r)}</b></span><span class="kind">Recent</span></button>`).join('');
+    box.querySelectorAll('[data-recent]').forEach((b) => {
+      b.onclick = () => {
+        const again = recentSearches()[+b.dataset.recent];
+        const input = $$('globalSearch');
+        input.value = again;
+        runSearch(again);
+        input.focus();
+      };
+    });
     return;
   }
   if (!hits.length) {
     box.innerHTML = `<div class="empty">Nothing matches \u201c${esc(q.trim())}\u201d.</div>`;
     return;
   }
+  const terms = expandQuery(q.trim().toLowerCase());
   box.innerHTML = hits.slice(0, 30).map((h, n) =>
-    `<button class="sres" data-hit="${n}"><span class="grow"><b>${esc(h.title)}</b><small>${esc(h.note)}</small></span><span class="kind">${esc(h.kind)}</span></button>`).join('');
-  box.querySelectorAll('[data-hit]').forEach((b) => { b.onclick = () => hits[+b.dataset.hit].go(); });
+    `<button class="sres" data-hit="${n}"><span class="grow"><b>${markHit(h.title, terms)}</b><small>${esc(h.note)}</small></span><span class="kind">${esc(h.kind)}</span></button>`).join('');
+  box.querySelectorAll('[data-hit]').forEach((b) => { b.onclick = () => { rememberSearch(searchLastQuery); hits[+b.dataset.hit].go(); }; });
 }

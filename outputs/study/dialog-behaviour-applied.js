@@ -5,7 +5,7 @@
  */
 import { $$, STUDY_MODES, ui } from './imports.js';
 import { K } from './storage-versioned-keys.js';
-import { closeSearchSheet, openSearchSheet, runSearch } from './global-search-one.js';
+import { closeSearchSheet, openSearchSheet, runSearch, searchKeydown } from './global-search-one.js';
 import { closeSessionOverlay } from './navigation-five-destinations.js';
 import { commitTransfer, exportProgress, handleTransferFile } from './reset.js';
 import { handleConnect, handleDisconnect, handleSyncNow } from './gist-sync.js';
@@ -98,6 +98,7 @@ export function init() {
   $$('searchClose').onclick = closeSearchSheet;
   $$('searchScrim').onclick = (e) => { if (e.target === $$('searchScrim')) closeSearchSheet(); };
   $$('globalSearch').oninput = (e) => runSearch(e.target.value);
+  $$('globalSearch').addEventListener('keydown', searchKeydown);
   $$('rssSessionClose').onclick = () => { if (ui.session) endSession(); else closeSessionOverlay(); };
   $$('rssEndBtn').onclick = () => { if (ui.session) endSession(); else closeSessionOverlay(); };
   $$('closeTransfer').onclick = () => $$('transferDialog').close();

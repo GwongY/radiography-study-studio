@@ -28,6 +28,9 @@ export const K = {
      the reader chose. Kept out of `store` because nothing reads it in a
      loop — text-size.js asks for it when it applies it. */
   textSize: STORAGE_PREFIX + 'textsize',
+  /* Recent search queries — a display convenience, not progress; the search
+     sheet lists them when it opens on an empty box. */
+  recentSearches: STORAGE_PREFIX + 'recentsearches',
 };
 
 export function read(key, fallback) {
