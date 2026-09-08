@@ -76,13 +76,13 @@ practice, application, commonMistakes, skills, selfCheck, sourceRefs }`.
 
 | Item type | Count |
 | --- | --- |
-| definition | 76 |
-| sequence | 25 |
-| comparison | 24 |
-| concept | 15 |
-| matching | 14 |
+| definition | 73 |
+| sequence | 26 |
+| comparison | 23 |
+| concept | 21 |
 | structure | 13 |
+| matching | 12 |
 | cloze | 6 |
 | diagram | 2 |
-| explain | 2 |
+| explain | 1 |
 
