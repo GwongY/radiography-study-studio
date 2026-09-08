@@ -19,8 +19,8 @@ import { cavityContext, gridMetrics } from './cavity-geometry-derived.js';
 import { getRecord } from './region-boxes-how.js';
 import { clearConcepts, showToast } from './visualisation-modes.js';
 /* layerOn: a layer is on when any of the systems it draws is -- systems.js. */
-import { layerOn, renderXray } from './live-physiology.js';
-import { atlasPainting, atlasRenderOnce } from './atlas-source.js';
+import { endMovement, layerOn, renderXray } from './live-physiology.js';
+import { applyPackedSpread, endPackedSpread, restorePackedSpread } from './packed-spread.js';
 
 /* ------------------------------------------------------------------ *
  * The body frame
@@ -279,6 +279,7 @@ export function setCutLevel(id,flip){
 }
 
 export function setCut(axis,t,flip){
+  if(state.separation)setSeparation(0);
   const THREE=state.THREE;
   if(!THREE||!state.renderer){ showToast('Open the 3D model first.'); return false; }
   /*
@@ -540,6 +541,7 @@ export const TOOLS={
   note:{label:'Note',hint:'Tap a structure to pin your own text to it.'},
 };
 export function setTool(id){
+  if(id!=='off'&&state.separation)setSeparation(0);
   const next=TOOLS[id]?id:'off';
   state.tool=next==='off'?null:next;
   /* Belt and braces: a stroke's cached targets and rect must never outlive the
@@ -746,6 +748,10 @@ function separationSlots(){
  */
 export function applySeparation(){
   const t=state.separation||0;
+  if(state.spreadMode==='pieces'){
+    if(t>0)applyPackedSpread(t);else endPackedSpread();
+    return;
+  }
   const slots=separationSlots();
   Object.entries(state.extraModels||{}).forEach(([key,m])=>{
     const root=m&&m.root;
@@ -764,7 +770,9 @@ export function setSeparation(v){
    * chest wall. Refused rather than allowed to lie.
    */
   if(state.xray&&t>0){ showToast('The projection needs the body assembled.'); return separation(); }
+  if(t>0&&state.movement)endMovement();
   const was=state.separation||0;
+  if(t>0&&was===0){clearCut();setTool('off');}
   state.separation=t;
   if(t!==was){
     /*
@@ -785,10 +793,18 @@ export function setSeparation(v){
      * is back together, which makes the reader doubt the model rather than
      * the control.
      */
-    publishTool();
   }
   applySeparation();
+  if(t!==was)publishTool();
   return t;
+}
+
+export function setSpreadMode(mode){
+  if(!['pieces','layers'].includes(mode))return;
+  setSeparation(0);
+  restorePackedSpread();
+  state.spreadMode=mode;
+  publishTool();
 }
 
 /* ------------------------------------------------------------------ *
@@ -803,9 +819,7 @@ export function setSeparation(v){
 export function snapshot(){
   if(!state.renderer||!state.scene||!state.camera) return null;
   try{
-    /* The atlas body owns the canvas while it paints it; asking it to render
-       now is what puts its pixels in the buffer this same task reads. */
-    if(!(atlasPainting()&&atlasRenderOnce()) && !renderXray()) state.renderer.render(state.scene,state.camera);
+    if(!renderXray()) state.renderer.render(state.scene,state.camera);
     return state.renderer.domElement.toDataURL('image/png');
   }catch(e){ return null; }
 }
@@ -813,6 +827,7 @@ export function snapshot(){
 export function init(){
   bindStage();
   state.separation=0;
+  state.spreadMode='pieces';
   if(typeof window==='undefined'||!window.__osteo) return;
   Object.assign(window.__osteo,{
     cutAxes:()=>CUT_AXES.map((a)=>({id:a.id,label:a.label,hint:a.hint})),
@@ -833,5 +848,7 @@ export function init(){
     snapshot:()=>snapshot(),
     separation:()=>separation(),
     setSeparation:(v)=>setSeparation(v),
+    setSpreadMode:(mode)=>setSpreadMode(mode),
+    spreadMode:()=>state.spreadMode||'pieces',
   });
 }

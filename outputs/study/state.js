@@ -28,11 +28,6 @@ export const ui = {
 
   /* Viewer: '3d' or the projection tab. */
   viewerTab: '3d',
-  /* Viewer → 3D model: which body the one shared canvas is drawing.
-     'course' (the 7-layer studio) or 'atlas' (the full BodyParts3D 4.0
-     reference). The studio half owns what the switch does; this only
-     remembers which source was asked for. */
-  modelSource: 'course',
 
   /* The session in progress, or null. Written by Reset, Global search, the
      spatial overlay controls, Layout figures and the session engine itself. */

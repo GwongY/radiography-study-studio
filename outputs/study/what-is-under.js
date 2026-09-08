@@ -53,25 +53,6 @@ const XRAY_REGION_LIST = [['chest', 'Chest'], ['abdo', 'Abdomen'], ['pelvis', 'P
 let xrayView = 'pa';
 let xrayRegion = 'chest';
 let projectionRequest = 0;
-/* Pausing the atlas source is now a studio-side exit -- it restores the
-   renderer globals and the controls the atlas borrowed -- so this half only
-   asks. See studio/atlas-source.js. */
-export function pauseFullAtlas(){ if (window.__osteo && window.__osteo.exitAtlas) window.__osteo.exitAtlas(); }
-function atlasSourceActive(){ return ui.viewerTab === '3d' && ui.modelSource === 'atlas'; }
-async function openFullAtlas(){
-  const dock = $$('viewerAtlasPane');
-  if (!dock || !window.__osteo || !window.__osteo.enterAtlas) return;
-  const ok = await window.__osteo.enterAtlas(dock);
-  if (!ok) { ui.modelSource = 'course'; renderSourceSwitch(); }
-}
-function renderSourceSwitch() {
-  const bar = $$('modelSourceTabs');
-  if (!bar) return;
-  bar.classList.toggle('hidden', ui.viewerTab !== '3d');
-  bar.innerHTML = [['course', 'Course body'], ['atlas', 'Full atlas']].map(([id, label]) =>
-    `<button class="seg${ui.modelSource === id ? ' active' : ''}" aria-pressed="${ui.modelSource === id}" data-source="${esc(id)}">${esc(label)}</button>`).join('');
-  bar.querySelectorAll('[data-source]').forEach((b) => { b.onclick = () => { ui.modelSource = b.dataset.source; renderViewerTabs(); }; });
-}
 
 /* One subscription for the session. The viewer is booted lazily, so this is
    retried each time the tab is drawn until the module is actually there. */
@@ -83,26 +64,15 @@ function bindStackHook() {
 
 function renderViewerTabs() {
   bindStackHook();
-  $$('viewerTabs').innerHTML = [['3d', '3D model'], ['xray', 'Projection']].map(([id, label]) =>
+  $$('viewerTabs').innerHTML = [['3d', 'Course body'], ['xray', 'Projection']].map(([id, label]) =>
     `<button class="seg${ui.viewerTab === id ? ' active' : ''}" aria-pressed="${ui.viewerTab === id}" data-vtab="${esc(id)}">${esc(label)}</button>`).join('');
   $$('viewerTabs').querySelectorAll('[data-vtab]').forEach((b) => { b.onclick = () => { ui.viewerTab = b.dataset.vtab; renderViewerTabs(); }; });
   $$('viewerSkeletonPane').classList.toggle('hidden', ui.viewerTab !== '3d');
   $$('viewerXrayPane').classList.toggle('hidden', ui.viewerTab !== 'xray');
-  renderSourceSwitch();
-  /* One canvas, two bodies: the class is what hides the course chrome (rail,
-     tools, overlays) and shows the atlas dock -- see app.css. */
-  $$('viewerSkeletonPane').classList.toggle('source-atlas', atlasSourceActive());
-  /* Ordering matters both ways: the atlas source pauses before the projection
-     claims the stage, and the projection hands the stage back (leaveProjection)
-     BEFORE the atlas source may claim it again -- enterAtlas refuses while
-     state.xray is set, and an enter that lost that race would silently revert
-     the switch to the course body. */
   if (ui.viewerTab === 'xray') {
-    pauseFullAtlas();
     enterProjection();
   } else {
     leaveProjection();
-    if(atlasSourceActive())openFullAtlas();else pauseFullAtlas();
   }
 }
 

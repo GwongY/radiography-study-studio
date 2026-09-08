@@ -33,7 +33,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v143';
+const CACHE_VERSION = 'v144';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -67,7 +67,6 @@ const FIGURES_CACHE = `rss-figures-${FIGURES_VERSION}`;
 const ALL_CACHES = [SHELL_CACHE, MODEL_CACHE, CDN_CACHE, FIGURES_CACHE];
 
 const SHELL = [
-  './atlas/viewer.js','./atlas/scene.js','./atlas/anatomy.js','./atlas/explosion-layout.js','./atlas/model-download.js','./atlas/pointer-tap.js','./atlas/ATTRIBUTION.md','./THIRD-PARTY-NOTICES.txt',
   './',
   './index.html',
   './radiography-study-studio.html',
@@ -91,7 +90,7 @@ const SHELL = [
   './studio/depth-picking.js',
   './studio/live-physiology.js',
   './studio/tools-and-capture.js',
-  './studio/atlas-source.js',
+  './studio/packed-spread.js','./studio/explosion-layout.js','./THIRD-PARTY-NOTICES.txt',
   /*
    * study.js is an entry point that imports these and then calls their init()s.
    * Every one has to be in the shell or the study system is blank offline.
@@ -228,11 +227,16 @@ self.addEventListener('activate', (event) => {
     const keys = await caches.keys();
     await Promise.all(keys.filter((k) => k.startsWith('rss-') && !ALL_CACHES.includes(k))
       .map((k) => caches.delete(k)));
+    const models=await caches.open(MODEL_CACHE);
+    await Promise.all((await models.keys()).filter(request=>{
+      const url=new URL(request.url);
+      return url.origin===self.location.origin&&url.pathname.includes('/atlas/models/');
+    }).map(request=>models.delete(request)));
     await self.clients.claim();
   })());
 });
 
-function isModel(url) { return url.pathname.endsWith('.glb') || /\/atlas\/models\/(atlas\.json|body-\d+\.bin\.gz)$/.test(url.pathname); }
+function isModel(url) { return url.pathname.endsWith('.glb'); }
 const isFigure = (url) => url.pathname.includes('/assets/figures/');
 /*
  * The IA redesign loads Instrument Sans and Newsreader from Google Fonts.
