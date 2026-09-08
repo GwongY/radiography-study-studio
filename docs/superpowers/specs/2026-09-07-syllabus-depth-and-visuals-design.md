@@ -141,9 +141,15 @@ list to every lesson, wire new ids into `WEEK_STUDY`, record the `coverage-gap` 
 - SP6 ABCT2326 W7–W9, W11–W13 — endocrine, nervous, musculoskeletal, immune.
 - SP7 HTI17103 W1–W5 — deep-pass the 13 existing items, expand W4 (radioprotection)
   and W5 (modality choice) to their decks.
-- SP8 APSS1A08 W1 + DSAI1202 W1 — deep-pass the ~8 existing items and add visuals,
-  within the single source each has. No new coverage; the later weeks stay documented
-  gaps.
+- ~~SP8 APSS1A08 W1 + DSAI1202 W1~~ — **not required. Closed 2026-09-08 by the user.**
+  Both subjects have exactly one teaching document each (`soc.t01.2026`, `dsai.w1`) and
+  `outputs/study/corpus/coverage.js` already records why no more can exist: APSS's later
+  topics have no official notes in any of the 22 shared folders, and DSAI1202 is new in
+  2026/27 with no earlier edition anywhere to fall back on. The eight existing items
+  already say everything their single source supports, so a depth pass has nothing to
+  add and there is no free-licensed figure that would teach sociology or AI-literacy
+  prose better than the generated layout already does. The later weeks stay documented
+  gaps in the Course tab.
 
 ## Done when
 
