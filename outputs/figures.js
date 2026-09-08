@@ -2539,6 +2539,24 @@ export const FIGURES = {
       { mark: 'Post-synaptic density', name: 'The receptor-packed postsynaptic zone', beyond: true },
     ],
   },
+  sarcomere: {
+    file: 'sarcomere.jpg', bytes: 29399,
+    title: 'The sarcomere, banded and measured',
+    caption: 'A, I and H bands with the Z lines and M line — the whole sliding-filament vocabulary on one fibre.',
+    author: 'Unknown (Wikimedia, CC BY 2.5)',
+    licence: 'CC BY 2.5',
+    licenceUrl: 'https://creativecommons.org/licenses/by/2.5',
+    commons: 'https://commons.wikimedia.org/wiki/File:Sarcomere.jpg',
+    intro: 'The banding pattern the lecture defines, drawn as a stained myofibril looks. The dark A band is the length of the thick (myosin) filaments; the lighter I bands between them hold thin (actin) filaments and are bisected by the Z lines; the paler H zone at the A band\'s centre is where actin and myosin do not overlap, with the M line anchoring the thick filaments down its middle. One sarcomere runs Z line to Z line — the S bracket on the drawing.',
+    key: [
+      { mark: 'S', name: 'The sarcomere — one contractile unit, Z line to Z line' },
+      { mark: 'Z', name: 'Z lines (Z discs) — where the actins of neighbouring sarcomeres attach' },
+      { mark: 'A', name: 'A band — dark; the length of the thick (myosin) filaments; does NOT shorten in contraction' },
+      { mark: 'I', name: 'I band — light; thin (actin) filaments only; shortens as sarcomeres contract' },
+      { mark: 'H', name: 'H zone — the middle of the A band where actin and myosin do not overlap; shortens in contraction' },
+      { mark: 'M', name: 'M line — structural proteins anchoring the thick filaments together', beyond: true },
+    ],
+  },
 };
 
 export function figureFor(id) {

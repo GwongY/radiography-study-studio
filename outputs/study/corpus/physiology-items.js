@@ -1999,6 +1999,11 @@ export const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.msk', type: 'comparison',
     title: 'Three muscle tissue types and the four properties',
     tags: ['musculoskeletal', 'high-yield'],
+    visuals: [
+      { schematic: 'muscleTypes' },
+      { fig: 'muscleOrganization' },
+      { gen: true },
+    ],
     priorKnowledge: {
       level: 'dse-bio', covers: 'part', dsePart: 'core',
       syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(d) "Coordination and response" — "Movement in humans" lists skeleton, muscles, joints, tendons and ligaments and the action of opposing muscle pairs. No histology, and no muscle tissue types.' },
@@ -2066,6 +2071,10 @@ export const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.msk', type: 'definition',
     title: 'Origin, insertion, agonist and antagonist',
     tags: ['musculoskeletal'],
+    visuals: [
+      { schematic: 'muscleAction' },
+      { gen: true },
+    ],
     priorKnowledge: {
       level: 'dse-bio', covers: 'part', dsePart: 'core',
       syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(d) "Coordination and response" — "Action of opposing muscle pairs" and the neuromuscular junction. Origin, insertion and the motor unit are not in the syllabus.' },
@@ -2844,6 +2853,10 @@ export const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.msk', type: 'sequence',
     title: 'From nerve to sarcomere: the junction, the motor unit and coupling',
     tags: ['musculoskeletal', 'nervous', 'high-yield'],
+    visuals: [
+      { fig: 'synapseIllustration' },
+      { gen: true },
+    ],
     lesson: {
       explanation: 'The motor neurons that drive skeletal muscle have cell bodies in the brainstem or spinal cord, and their axons are myelinated and the largest diameter in the body, so action potentials reach the muscle fast. Once at the muscle the axon branches, each branch making a single junction with one muscle fibre — so one neuron commands many fibres. That neuron plus every fibre it supplies is a motor unit, and the fibres need not be adjacent; they can be scattered through the muscle. When the neuron fires, every fibre in its unit contracts. The myelin stops near the muscle surface, and the axon\'s end portion lying on the fibre membrane is the motor end plate; the junction as a whole is the neuromuscular junction. The sequence there: the action potential depolarises the terminal, opening voltage-sensitive calcium channels; calcium enters and binds a protein that lets acetylcholine vesicles release; acetylcholine crosses and binds nicotinic receptors on the end plate; sodium channels open and the membrane depolarises. That depolarisation is the end-plate potential, the muscle\'s counterpart to an EPSP at a neural synapse — but far larger, because more acetylcholine is released over a larger area, and one EPP is enough to depolarise the muscle membrane. There are no inhibitory potentials in human skeletal muscle: every neuromuscular junction is excitatory. Acetylcholinesterase in the end plate breaks the transmitter down, returning it to rest. Then comes the coupling problem. The action potential in the muscle membrane lasts 1–2 ms and is over before any mechanical activity starts, yet the mechanical activity following it may last 100 ms or more. The electrical event does not act on the contractile proteins at all — it raises cytosolic calcium, and calcium keeps the contractile apparatus running long after the electricity has stopped. That is excitation–contraction coupling: sodium entry at the sarcolemma, then voltage-gated calcium channels in the transverse tubules changing shape, and that conformational change opening the calcium release channels — the ryanodine receptors — in the sarcoplasmic reticulum. These release channels are about ten times larger than the voltage-gated calcium channels in nerves, so calcium floods the sarcoplasm fast. Contraction needs cytoplasmic calcium above 10⁻⁶ molar; relaxation needs it below, and is produced by actively transporting calcium back into the sarcoplasmic reticulum, where most of it is stored in the terminal cisternae.',
       keyFacts: [
@@ -5746,6 +5759,11 @@ export const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.msk', type: 'concept',
     title: 'Muscle physiology: sarcomere ultrastructure, titin recoil, motor unit recruitment, fibre types, and neural control',
     tags: ['muscle', 'sarcomere', 'titin', 'motor-unit', 'vo2max', 'high-yield'],
+    visuals: [
+      { fig: 'sarcomere' },
+      { fig: 'muscleOrganization' },
+      { gen: true },
+    ],
     lesson: {
       explanation: 'Skeletal muscle comprises approximately 40% of body mass in males and about 32% of females. The primary physiological property of muscle tissue is contractility, defined as the ability of a muscle to shorten with force. At the ultrastructural level, myofibrils are organized into sarcomeres. In addition to actin and myosin filaments, titin is elastic protein attaching myosin to Z disc that contributes to elastic recoil during passive stretch. Along thin filaments, regulatory troponin complexes are spaced at regular intervals of every 7 actins, binding Ca2+ to displace tropomyosin. During excitation-contraction coupling, action potentials traveling down transverse tubules trigger sarcoplasmic reticulum (SR) Ca2+ release; these SR release channels are 10X larger than voltage-gated Ca2+ channels, permitting explosive cytosolic Ca2+ flooding. Motor control precision depends on motor unit size: large postural muscles have hundreds of fibres per motor neuron, whereas the eye muscles may have ~20 muscle fibers/motor units for ultrafine tracking. Aerobic capacity is quantified by maximal oxygen uptake (VO2 max), which ranges from 12 ml O2/minute/kg body weight to 84 ml O2/minute/kg in elite endurance athletes. During progressive exercise, blood lactate concentration abruptly rises at the lactate threshold, which occurs at about 50-70% VO2 max. Skeletal muscle fibres divide into distinct phenotypes: Type I fibers are also called red slow oxidative fibers (rich in myoglobin and mitochondria, fatigue-resistant), whereas Type IIX fibers also called white fast glycolytic fibers (high glycogen and rapid ATP consumption). Endurance training alters phenotypic expression, leading to a decreased number of type IIX (fast glycolytic) fibers; increased number of intermediate Type IIA oxidative-glycolytic fibres. Dystrophin serves as vital muscle fiber scaffolding: linking the internal actin cytoskeleton to the extracellular matrix. At the paracrine level, myostatin is a paracrine regulator that inhibits satellite cells and halts muscle hyperplasia/hypertrophy. Central motor coordination involves basal ganglia loops: degeneration of dopamine-secreting substantia nigra neurons produces most of the symptoms of Parkinson\'s disease, treated with l-dopa (the precursor of dopamine) or dopamine agonists, whereas degeneration of GABAergic striatal neurons produces chorea--a hyperkinetic disorder characterized by uncontrollable flinging movements in Huntington\'s disease. Bone tissue remodeling couples tightly with musculoskeletal dynamics: the basic functional unit: osteon (or called Haversian system), and through constant osteoclastic and osteoblastic turnover, roughly 1/5 of adult skeleton is demolished and rebuilt annually.',
       plain: 'Muscle mass accounts for ~40% male / 32% female weight. Titin anchors myosin to the Z disc for elastic recoil; troponin repeats every 7 actins. SR Ca2+ release channels are 10x larger than voltage-gated channels. Eye motor units have ~20 fibres. VO2 max spans 12–84 ml/min/kg, with lactate threshold at 50–70% VO2 max. Type I (red slow oxidative) resists fatigue; Type IIX (white fast glycolytic) powers bursts. Myostatin inhibits satellite cells; basal ganglia lesions cause Parkinson\'s (loss of dopamine) or chorea (loss of striatal GABA); 1/5 of adult bone remodels annually.',
@@ -5825,6 +5843,85 @@ export const PHYS_ITEMS = [
       { ref: 'phys.muscle.deck', location: 'p65 "produces chorea--a hyperkinetic disorder characterized"' },
       { ref: 'phys.muscle.deck', location: 'p67 "basic functional unit: osteon (or called Haversian"' },
       { ref: 'phys.muscle.deck', location: 'p72 "1/5 of adult skeleton is demolished and"' },
+    ],
+  },
+  {
+    id: 'abct2326-msk-bone-structure-remodeling',
+    subject: 'ABCT2326', unit: 'phys.msk', type: 'comparison',
+    title: 'Compact vs spongy bone, bone cells, remodelling and calcium balance',
+    tags: ['bone', 'msk', 'high-yield'],
+    visuals: [
+      { fig: 'compactBone' },
+      { fig: 'longBone' },
+      { fig: 'boneCells' },
+      { schematic: 'boneFunctions' },
+      { gen: true },
+    ],
+    lesson: {
+      explanation: 'The muscle deck closes on the other half of the musculoskeletal system, and it starts with a two-tissue rule: a typical bone contains both compact bone and spongy bone. Compact bone is dense and solid, and its basic functional unit is the osteon, also called the Haversian system — a directional arrangement of osteons is what makes the bone strong along its load lines. Spongy bone is less dense, an open network characterised by bone plates called trabeculae; it has no blood vessels and no osteons, and its osteocytes obtain nutrients via diffusion from the canaliculi of the compact bone around it. The two tissues split the work: compact bone withstands stresses along its osteon direction, while spongy bone\'s functions are to withstand stresses from many directions, to reduce the weight of the skeleton — easier for muscular movement — and to support the cells in the bone marrow. Four cell types run the tissue. Osteocytes are the embedded maintenance cells in their lacunae; osteoblasts form new bone matrix; osteoclasts demolish it; and the balance of their activities remodels the skeleton continuously — the organic and mineral components of bone matrix are recycled and renewed throughout life, and each year about 1/5 of the adult skeleton is demolished and rebuilt. That turnover is not free-floating: it is harnessed to calcium homeostasis. Calcium balance depends on hormonal actions — parathyroid hormone from the parathyroid gland, calcitonin from the thyroid gland, and calcitriol from the kidney, the active form of vitamin D made from its natural precursor. PTH raises blood calcium by stimulating osteoclasts; calcitonin lowers it by signalling excretion and storage in bones — the see-saw the endocrine item teaches, here seen from the bone\'s side of the leash. Every radiograph of a lytic or sclerotic lesion is this remodelling system, viewed from outside.',
+      keyFacts: [
+        'A typical bone contains both compact bone and spongy bone.',
+        'Compact bone: dense and solid; basic functional unit = osteon (Haversian system); directional osteon arrangement gives strength.',
+        'Spongy bone: less dense, an open network of plates called trabeculae; no blood vessels, no osteons.',
+        'Spongy osteocytes get nutrients by diffusion from the canaliculi of compact bone.',
+        'Spongy bone functions: withstand stresses from many directions; reduce skeleton weight; support bone-marrow cells.',
+        'Remodelling: osteocytes, osteoblasts and osteoclasts recycle the matrix continuously.',
+        'Each year about 1/5 of the adult skeleton is demolished and rebuilt.',
+        'Ca2+ balance is hormonal: parathyroid hormone, calcitonin, calcitriol (active vitamin D).',
+        'PTH raises blood Ca2+ (osteoclast-driven); calcitonin signals Ca2+ excretion and storage in bone.',
+      ],
+      prerequisites: ['abct2326-muscle-types', 'abct2326-endocrine-adrenal-thyroid'], examples: [
+        'Osteoporosis is remodelling running out of balance: osteoclast demolition outpacing osteoblast rebuilding, thinning trabeculae first — which is why vertebral bodies fracture early.',
+        'A technetium bone scan lights up wherever osteoblasts are actively rebuilding — the remodelling rate, imaged.',
+      ],
+    },
+    memory: {
+      comparison: 'Compact versus spongy: solid osteon vs open trabeculae; has vessels vs none; strength along load lines vs multi-directional stress + weight saving. A typical bone carries both.',
+      chunking: 'Cells by job: -blast BUILDS, -clast CRASHES (resorbs), -cyte MAINTAINS. Remodelling is the balance; 1/5 of the skeleton per year.',
+      number: '1/5 of adult skeleton rebuilt yearly · 2 bone tissues · 4 parathyroid glands behind the balance · PTH up, calcitonin down.',
+      wordOrigin: 'Haversian system is named for Clopton Havers, who described the canals in 1691. Osteoclast: klastes = breaker. Trabecula is Latin for a little beam.',
+    },
+    practice: [
+      { type: 'matching', prompt: 'Match each bone tissue or structure to its feature.',
+        pairs: [['Compact bone', 'Dense and solid; unit is the osteon (Haversian system)'], ['Spongy bone', 'Open network of plates called trabeculae; no vessels or osteons'], ['Osteon', 'Directional arrangement gives compact bone its strength'], ['Canaliculi', 'Route by which spongy osteocytes obtain nutrients from compact bone']],
+        explanation: 'The two-tissue comparison and its features come straight from the deck\'s compact/spongy table.' },
+      { type: 'mcq', prompt: 'How much of the adult skeleton is demolished and rebuilt each year?', options: ['About 1/20', 'About 1/10', 'About 1/5', 'About 1/2'], answer: 2,
+        explanation: 'Through the balanced activities of osteocytes, osteoblasts and osteoclasts, about 1/5 of the adult skeleton is demolished and rebuilt each year.' },
+      { type: 'mcq', prompt: 'Which hormone LOWERS blood calcium by signalling its excretion and storage in bone?', options: ['Parathyroid hormone', 'Calcitonin', 'Calcitriol', 'Aldosterone'], answer: 1,
+        explanation: 'Calcitonin, from the thyroid, is released when Ca2+ is too high and signals excretion and storage in bones. PTH does the opposite.' },
+      { type: 'cloze', prompt: 'Spongy bone has no blood vessels and no osteons; its osteocytes obtain nutrients via ______ from the canaliculi of compact bone.', accept: ['diffusion'], explanation: 'Diffusion from compact bone\'s canaliculi is how the spongy osteocytes are fed.' },
+    ],
+    application: [
+      { type: 'scenario', prompt: 'A patient\'s parathyroids are accidentally removed during thyroid surgery. Using the deck\'s calcium-balance map, predict the direction of blood calcium and what happens to the remodelling balance.', model: 'Parathyroid hormone is the bone\'s calcium-mobilising signal: with the parathyroids gone, PTH falls, so osteoclast stimulation is withdrawn and osteoblast inhibition is lifted — the remodelling balance tips toward bone formation and blood Ca2+ drops (hypocalcaemia, with its neuromuscular irritability). Calcitonin\'s braking is then unopposed, favouring Ca2+ excretion and storage in bone, deepening the fall. The renal and gut arms that PTH and calcitriol drive also lose their signal, removing dietary absorption and renal reabsorption of calcium. The fix is the missing hormone by another route: calcium and active vitamin D supplementation.', rubric: ['Predicts falling blood Ca2+ after PTH loss', 'Describes remodelling tipping toward deposition (osteoclasts unstimulated, osteoblasts disinhibited)', 'Names the renal/gut arms losing calcitriol-driven support'] },
+    ],
+    commonMistakes: [
+      'Treating compact and spongy bone as alternatives. A typical bone contains BOTH.',
+      'Saying spongy bone has osteons. It has no osteons and no vessels — nutrients arrive by diffusion from compact bone\'s canaliculi.',
+      'Reversing -blast and -clast. Osteoblasts BUILD matrix; osteoclasts demolish it.',
+      'Calling remodelling a growth-phase event. It runs throughout life — a fifth of the skeleton turns over every year.',
+    ],
+    skills: [
+      'Two tissues, one bone: compact for directed strength, spongy for multi-directional stress, low weight and marrow support — the trade-off explains why the architecture sits where it does in a long bone.',
+      'The remodelling number is the anchor: 1/5 per year. It is why bone heals, why bone scans show turnover, and why imbalance (osteoporosis) is a rate problem, not a content problem.',
+      'Calcium balance is hormonal from the bone\'s side too: PTH pulls calcium out, calcitonin pushes it in, and calcitriol controls what the gut adds — the same see-saw as the endocrine item, viewed from the tissue.',
+    ],
+    selfCheck: 'From blank: tabulate compact vs spongy (density, unit, vessels, functions); name the three bone cells and the annual remodelling fraction; then write the three calcium hormones with their directions.',
+    sourceRefs: [
+      { ref: 'phys.9', location: 'p80 "Two types"' },
+      { ref: 'phys.9', location: 'p81 "Dense"' },
+      { ref: 'phys.9', location: 'p81 "osteon"' },
+      { ref: 'phys.9', location: 'p81 "Less dense"' },
+      { ref: 'phys.9', location: 'p81 "trabeculae"' },
+      { ref: 'phys.9', location: 'p81 "No blood vessels and"' },
+      { ref: 'phys.9', location: 'p81 "obtain nutrients"' },
+      { ref: 'phys.9', location: 'p81 "To withstand stresses"' },
+      { ref: 'phys.9', location: 'p81 "To reduce weight"' },
+      { ref: 'phys.9', location: 'p81 "supports the cells"' },
+      { ref: 'phys.9', location: 'p85 "continuously being recycled and renewed"' },
+      { ref: 'phys.9', location: 'p85 "1/5 of adult skeleton"' },
+      { ref: 'phys.9', location: 'p85 "parathyroid hormone"' },
+      { ref: 'phys.9', location: 'p88 "Active Vitamin D"' },
+      { ref: 'phys.9', location: 'p89 "Balance of Ca"' },
     ],
   },
         {
