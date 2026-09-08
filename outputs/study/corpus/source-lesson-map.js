@@ -2254,23 +2254,21 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-cells-organisation",
       "subject": "ABCT2326",
       "week": 1,
-      "title": "Cell → tissue → organ → system",
-      "status": "partial",
+      "title": "Levels of organization: cell to organ systems",
+      "status": "complete",
       "sources": [
+        {
+          "ref": "phys.1.2026",
+          "set": "new",
+          "role": "current-primary"
+        },
         {
           "ref": "phys.1",
           "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
+          "role": "older-supporting"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "abct2326-plasma-membrane": {
       "id": "abct2326-plasma-membrane",
@@ -2283,6 +2281,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.1.2026",
           "set": "new",
           "role": "current-primary"
+        },
+        {
+          "ref": "phys.1",
+          "set": "old",
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -2291,13 +2294,18 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-organelles",
       "subject": "ABCT2326",
       "week": 1,
-      "title": "The organelles, and which ones have a membrane",
+      "title": "Organelles: nonmembranous vs membranous",
       "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
           "role": "current-primary"
+        },
+        {
+          "ref": "phys.1",
+          "set": "old",
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -2306,13 +2314,18 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-nucleus-genetic-code",
       "subject": "ABCT2326",
       "week": 1,
-      "title": "The nucleus, and how DNA is packed and read",
+      "title": "The cell nucleus, chromatin structure, and the genetic code",
       "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
           "role": "current-primary"
+        },
+        {
+          "ref": "phys.1",
+          "set": "old",
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -2321,13 +2334,18 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-protein-synthesis",
       "subject": "ABCT2326",
       "week": 1,
-      "title": "Transcription and translation",
+      "title": "Protein synthesis: gene activation, transcription, and translation",
       "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
           "role": "current-primary"
+        },
+        {
+          "ref": "phys.1",
+          "set": "old",
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -2336,28 +2354,40 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-cell-division",
       "subject": "ABCT2326",
       "week": 1,
-      "title": "Mitosis and meiosis — two divisions with different jobs",
-      "status": "complete",
+      "title": "The cell life cycle, stages of mitosis, and meiosis comparison",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
-          "role": "current-primary"
+          "role": "needs-review"
+        },
+        {
+          "ref": "phys.1",
+          "set": "old",
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "quoted citation is on a different page"
+      ]
     },
     "abct2326-epithelium-classification": {
       "id": "abct2326-epithelium-classification",
       "subject": "ABCT2326",
       "week": 1,
-      "title": "Classifying epithelia — by shape, by layers, and by gland",
+      "title": "Epithelial tissue: characteristics, structural classification, and glandular types",
       "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
           "role": "current-primary"
+        },
+        {
+          "ref": "phys.1",
+          "set": "old",
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -2366,13 +2396,18 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-connective-tissue-classes",
       "subject": "ABCT2326",
       "week": 1,
-      "title": "Connective tissue — three classes, and why blood is one of them",
+      "title": "Connective tissue: matrix components and the three primary classes",
       "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
           "role": "current-primary"
+        },
+        {
+          "ref": "phys.1",
+          "set": "old",
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -2381,13 +2416,18 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-muscle-neural-tissue",
       "subject": "ABCT2326",
       "week": 1,
-      "title": "Muscle and neural tissue — the other two of the four",
+      "title": "Muscle and neural tissues: the three muscle types and neuron-neuroglia functional roles",
       "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
           "role": "current-primary"
+        },
+        {
+          "ref": "phys.1",
+          "set": "old",
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -2396,18 +2436,18 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-homeostasis",
       "subject": "ABCT2326",
       "week": 1,
-      "title": "Homeostasis and the feedback loop",
-      "status": "partial",
+      "title": "Homeostasis: dynamic equilibrium, autoregulation, extrinsic regulation, and loop components",
+      "status": "complete",
       "sources": [
+        {
+          "ref": "phys.1.2026",
+          "set": "new",
+          "role": "current-primary"
+        },
         {
           "ref": "phys.1",
           "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "phys.5",
-          "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -2416,13 +2456,18 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-feedback-loops",
       "subject": "ABCT2326",
       "week": 1,
-      "title": "Negative and positive feedback, and the two worked examples",
+      "title": "Feedback mechanisms: negative versus positive feedback with thermoregulation and clotting worked examples",
       "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
           "role": "current-primary"
+        },
+        {
+          "ref": "phys.1",
+          "set": "old",
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -2468,16 +2513,9 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.2",
           "set": "old",
           "role": "older-fallback"
-        },
-        {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "abct2326-cvs-conduction": {
       "id": "abct2326-cvs-conduction",
@@ -2488,6 +2526,11 @@ export const Y1S1_SOURCE_MAP = {
       "sources": [
         {
           "ref": "phys.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "phys.2.supp",
           "set": "old",
           "role": "older-fallback"
         }
@@ -2535,21 +2578,9 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.3",
           "set": "old",
           "role": "older-fallback"
-        },
-        {
-          "ref": "hss.1.2",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "abct2326-resp-ventilation-mechanics": {
       "id": "abct2326-resp-ventilation-mechanics",
@@ -2660,7 +2691,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-digestive-wall-motility",
       "subject": "ABCT2326",
       "week": 4,
-      "title": "Digestive wall, peristalsis and neural control",
+      "title": "Digestive wall layers, peristalsis, and neural regulation",
       "status": "partial",
       "sources": [
         {
@@ -2675,7 +2706,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-digestive-stomach-control",
       "subject": "ABCT2326",
       "week": 4,
-      "title": "Stomach secretions and the three phases of gastric control",
+      "title": "Gastric histology, acid secretion, and the three phases of gastric control",
       "status": "partial",
       "sources": [
         {
@@ -2690,7 +2721,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-digestive-small-intestine-accessory",
       "subject": "ABCT2326",
       "week": 4,
-      "title": "Small intestine, pancreas, liver and bile",
+      "title": "Small intestinal segments, pancreatic enzymes, liver lobules, and bile",
       "status": "partial",
       "sources": [
         {
@@ -2705,7 +2736,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-digestive-hormones-colon",
       "subject": "ABCT2326",
       "week": 4,
-      "title": "Duodenal hormones, large-intestinal functions and water balance",
+      "title": "Duodenal hormones, large intestinal physiology, and fluid balance",
       "status": "partial",
       "sources": [
         {
@@ -2720,38 +2751,26 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-renal-nephron",
       "subject": "ABCT2326",
       "week": 5,
-      "title": "Nephron tubule and the urine pathway",
+      "title": "Gross renal architecture, nephron tubule sequence, and urine pathway",
       "status": "partial",
       "sources": [
         {
           "ref": "phys.5",
           "set": "old",
           "role": "older-fallback"
-        },
-        {
-          "ref": "hss.3.2",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "abct2326-renal-filtration-countercurrent": {
       "id": "abct2326-renal-filtration-countercurrent",
       "subject": "ABCT2326",
       "week": 5,
-      "title": "Renal physiology: nephron microarchitecture, glomerular filtration, countercurrent multiplication, and RAAS regulation",
+      "title": "Glomerular ultrafiltration dynamics, GFR regulation, and obligatory water loss",
       "status": "partial",
       "sources": [
         {
-          "ref": "phys.renal.deck",
+          "ref": "phys.5",
           "set": "old",
           "role": "older-fallback"
         }
@@ -2762,9 +2781,14 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-renal-countercurrent-vasarecta",
       "subject": "ABCT2326",
       "week": 5,
-      "title": "Renal countercurrent multiplication, medullary hyperosmolality, and vasa recta exchange",
+      "title": "Countercurrent multiplication, medullary hyperosmolality, and vasa recta exchange",
       "status": "partial",
       "sources": [
+        {
+          "ref": "phys.5",
+          "set": "old",
+          "role": "older-fallback"
+        },
         {
           "ref": "phys.renal.supp",
           "set": "old",
@@ -2777,9 +2801,14 @@ export const Y1S1_SOURCE_MAP = {
       "id": "abct2326-renal-tubular-clearance-sympathetic",
       "subject": "ABCT2326",
       "week": 5,
-      "title": "Renal tubular transport, sympathetic regulation, and micturition control",
-      "status": "missing",
+      "title": "Renal clearance, sympathetic hemodynamics, tubular transport, and micturition",
+      "status": "partial",
       "sources": [
+        {
+          "ref": "phys.5",
+          "set": "old",
+          "role": "older-fallback"
+        },
         {
           "ref": "phys.renal.tut",
           "set": "old",
@@ -4134,26 +4163,6 @@ export const Y1S1_SOURCE_MAP = {
         "role": "needs-review"
       },
       {
-        "lessonId": "abct2326-cells-organisation",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "abct2326-blood-composition",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "abct2326-resp-pathway",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "abct2326-renal-nephron",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
         "lessonId": "abct2326-nervous-divisions",
         "set": "old",
         "role": "needs-review"
@@ -5096,11 +5105,6 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "hss2011-resp-tutorial-pastpaper-practice",
         "set": "old",
         "role": "older-fallback"
-      },
-      {
-        "lessonId": "abct2326-resp-pathway",
-        "set": "old",
-        "role": "older-fallback"
       }
     ],
     "phys.2": [
@@ -5277,11 +5281,6 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "hss2011-structures-urinaryTract",
         "set": "old",
         "role": "needs-review"
-      },
-      {
-        "lessonId": "abct2326-renal-nephron",
-        "set": "old",
-        "role": "older-fallback"
       }
     ],
     "phys.5": [
@@ -5291,29 +5290,32 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
-        "lessonId": "abct2326-homeostasis",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
         "lessonId": "abct2326-renal-nephron",
         "set": "old",
         "role": "older-fallback"
-      }
-    ],
-    "phys.1": [
+      },
       {
-        "lessonId": "abct2326-cells-organisation",
+        "lessonId": "abct2326-renal-filtration-countercurrent",
         "set": "old",
         "role": "older-fallback"
       },
       {
-        "lessonId": "abct2326-homeostasis",
+        "lessonId": "abct2326-renal-countercurrent-vasarecta",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "abct2326-renal-tubular-clearance-sympathetic",
         "set": "old",
         "role": "older-fallback"
       }
     ],
     "phys.1.2026": [
+      {
+        "lessonId": "abct2326-cells-organisation",
+        "set": "new",
+        "role": "current-primary"
+      },
       {
         "lessonId": "abct2326-plasma-membrane",
         "set": "new",
@@ -5337,7 +5339,7 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "abct2326-cell-division",
         "set": "new",
-        "role": "current-primary"
+        "role": "needs-review"
       },
       {
         "lessonId": "abct2326-epithelium-classification",
@@ -5355,9 +5357,78 @@ export const Y1S1_SOURCE_MAP = {
         "role": "current-primary"
       },
       {
+        "lessonId": "abct2326-homeostasis",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
         "lessonId": "abct2326-feedback-loops",
         "set": "new",
         "role": "current-primary"
+      }
+    ],
+    "phys.1": [
+      {
+        "lessonId": "abct2326-cells-organisation",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "abct2326-plasma-membrane",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "abct2326-organelles",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "abct2326-nucleus-genetic-code",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "abct2326-protein-synthesis",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "abct2326-cell-division",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "abct2326-epithelium-classification",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "abct2326-connective-tissue-classes",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "abct2326-muscle-neural-tissue",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "abct2326-homeostasis",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "abct2326-feedback-loops",
+        "set": "old",
+        "role": "older-supporting"
+      }
+    ],
+    "phys.2.supp": [
+      {
+        "lessonId": "abct2326-cvs-conduction",
+        "set": "old",
+        "role": "older-fallback"
       }
     ],
     "phys.cvs.tut": [
@@ -5372,13 +5443,6 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "abct2326-resp-ventilation-chemoreceptors",
         "set": "old",
         "role": "assessment"
-      }
-    ],
-    "phys.renal.deck": [
-      {
-        "lessonId": "abct2326-renal-filtration-countercurrent",
-        "set": "old",
-        "role": "older-fallback"
       }
     ],
     "phys.renal.supp": [
