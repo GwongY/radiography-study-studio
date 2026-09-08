@@ -278,7 +278,8 @@ export function renderLayerRail() {
   const rail = $$('layerRail');
   if (!rail) return;
   const live = !!(window.__osteo && window.__osteo.physiologyOn && window.__osteo.physiologyOn());
-  rail.innerHTML = `<button class="livechip" id="liveChip" data-on="${live ? 1 : 0}" aria-pressed="${live}">
+  const presets=[['all','All systems'],['skeleton','Skeleton'],['organs','Organs'],['none','Hide all'],...BODY_LAYERS.map(l=>[l.key,l.label])];
+  rail.innerHTML = `<label class="small">System preset <select id="systemPreset" aria-label="System preset"><option value="">Choose systems…</option>${presets.map(([id,label])=>`<option value="${esc(id)}">${esc(label)}</option>`).join('')}</select></label><button class="livechip" id="liveChip" data-on="${live ? 1 : 0}" aria-pressed="${live}">
       <span class="pulse"></span><span>${live ? 'Live physiology' : 'Static model'}</span>
     </button>` + BODY_LAYERS.map((l, i) => {
     const st = layerState[l.key] || 'off';
@@ -295,6 +296,8 @@ export function renderLayerRail() {
     </button>`;
   }).join('') + '<div class="layerhint">tap to cycle · solid → ghost → off</div>' + renderFlowKey();
   rail.querySelectorAll('[data-layer]').forEach((b) => { b.onclick = () => cycleLayer(b.dataset.layer, b); });
+  const preset=$$('systemPreset');
+  if(preset)preset.onchange=()=>applySystemPreset(preset.value);
   const chip = $$('liveChip');
   if (chip) chip.onclick = () => {
     if (!window.__osteo || !window.__osteo.setPhysiology) { toast('Open the 3D model first.'); return; }
@@ -304,6 +307,31 @@ export function renderLayerRail() {
       : 'Motion off. The anatomical colours stay.');
     renderLayerRail();
   };
+  if(presetBusy)rail.querySelectorAll('button,select').forEach(b=>{b.disabled=true;});
+}
+
+let presetBusy=false;
+async function applySystemPreset(id){
+  if(!id||presetBusy)return;
+  const o=window.__osteo;
+  if(!o){toast('Open the 3D model first.');return;}
+  presetBusy=true;
+  $$('layerRail').querySelectorAll('button,select').forEach(b=>{b.disabled=true;});
+  const wanted=BODY_LAYERS.filter(l=>id==='all'||(id==='skeleton'?l.layer==='skeleton':id==='organs'?l.layer==='organs':l.key===id));
+  let failed=false;
+  try{
+    for(const l of BODY_LAYERS){
+      const on=wanted.some(w=>w.key===l.key);
+      const ok=await o.setLayer(l.key,on,l.file);
+      if(on&&!ok){failed=true;continue;}
+      if(on)o.setLayerOpacity(l.key,1);
+      layerState[l.key]=on?'solid':'off';
+    }
+  }catch(error){failed=true;console.error(error);}
+  finally{
+    presetBusy=false;renderLayerRail();o.refreshStudyPool?.();
+    if(failed)toast('Some systems could not load. Choose the preset to retry.');
+  }
 }
 
 async function cycleLayer(key, btn) {

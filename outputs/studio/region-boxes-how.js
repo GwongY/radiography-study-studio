@@ -13,7 +13,8 @@ import { loadExtraModel } from './depth-picking.js';
    see regionBoxes. Imported as a function, called only from inside one, so the
    cycle with cavity-geometry-derived.js resolves like the others here. */
 import { gridMetrics } from './cavity-geometry-derived.js';
-import { syncTools } from './tools-and-capture.js';
+import { syncTools, applySeparation } from './tools-and-capture.js';
+import { restorePackedSpread } from './packed-spread.js';
 
   /* ------------------------------------------------------------------ *
    * Region boxes — how the region filter reaches the six soft-tissue layers
@@ -204,7 +205,7 @@ import { syncTools } from './tools-and-capture.js';
    * case for the skeleton beyond stamping userData.systems in
    * prepareFullReference.
    */
-  export function applyVisibility(){if(state.xray)return;const skelOn=state.layers?layerOn('skeleton'):true;/* 'upper_limb' is now an ordinary region filter on the full skeleton. The   separate five-bone set is never drawn -- the skeleton already names those   five -- but its group stays visible so the landmark hotspots parented to   it can show. */if(state.fullModel)state.fullModel.visible=skelOn;if(state.realModel)state.realModel.visible=true;state.fullPickables.forEach(m=>m.visible=skelOn);state.fullMeshes.forEach(m=>{const inRegion=state.region==='all'||(m.userData.regions||[m.userData.region]).includes(state.region);const isolated=!state.isolated||!state.selectedId||m.userData.canonicalId===state.selectedId;m.visible=(state.layers?meshOn(m):true)&&inRegion&&isolated});state.meshes.forEach(m=>{m.visible=false});state.hotspots.forEach(h=>h.visible=skelOn&&state.mode==='landmarks'&&(!state.selectedId||h.userData.parentId===state.selectedId));
+  export function applyVisibility(){if(state.xray)return;if(state.spreadMode==='pieces'&&state.separation)restorePackedSpread();const skelOn=state.layers?layerOn('skeleton'):true;/* 'upper_limb' is now an ordinary region filter on the full skeleton. The   separate five-bone set is never drawn -- the skeleton already names those   five -- but its group stays visible so the landmark hotspots parented to   it can show. */if(state.fullModel)state.fullModel.visible=skelOn;if(state.realModel)state.realModel.visible=true;state.fullPickables.forEach(m=>m.visible=skelOn);state.fullMeshes.forEach(m=>{const inRegion=state.region==='all'||(m.userData.regions||[m.userData.region]).includes(state.region);const isolated=!state.isolated||!state.selectedId||m.userData.canonicalId===state.selectedId;m.visible=(state.layers?meshOn(m):true)&&inRegion&&isolated});state.meshes.forEach(m=>{m.visible=false});state.hotspots.forEach(h=>h.visible=skelOn&&state.mode==='landmarks'&&(!state.selectedId||h.userData.parentId===state.selectedId));
     /*
      * The six system layers.
      *
@@ -248,7 +249,7 @@ import { syncTools } from './tools-and-capture.js';
      * or hidden away, the callout goes with it.
      */
     if(state.selectionAnchor&&state.selectionAnchor.visible===false
-      &&typeof clearPickCallout==='function')clearPickCallout();if(state.fullMeshes.length&&typeof updateStageMeta==='function')updateStageMeta()}
+      &&typeof clearPickCallout==='function')clearPickCallout();if(state.fullMeshes.length&&typeof updateStageMeta==='function')updateStageMeta();if(state.spreadMode==='pieces'&&state.separation)applySeparation()}
   function addMesh(THREE,group,geometry,position,canonicalId,region,side=null,scale=[1,1,1],label=''){const mat=new THREE.MeshStandardMaterial({color:0xd9d1bc,roughness:.74,metalness:.03});const mesh=new THREE.Mesh(geometry,mat);mesh.position.set(...position);mesh.scale.set(...scale);mesh.userData={canonicalId,region,side,baseScale:[...scale],basePosition:[...position],presentationActive:false,label};group.add(mesh);state.meshes.push(mesh);return mesh}
   export function between(THREE,group,a,b,r,id,region,side=null){const dir=new THREE.Vector3(...b).sub(new THREE.Vector3(...a));const mesh=addMesh(THREE,group,new THREE.CylinderGeometry(r,r*.9,dir.length(),10),new THREE.Vector3(...a).add(new THREE.Vector3(...b)).multiplyScalar(.5).toArray(),id,region,side);mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.normalize());return mesh}
   export function tube(THREE,group,points,r,id,region,side=null){const curve=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));return addMesh(THREE,group,new THREE.TubeGeometry(curve,14,r,6,false),[0,0,0],id,region,side)}
