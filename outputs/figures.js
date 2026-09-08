@@ -1879,6 +1879,51 @@ export const FIGURES = {
       { mark: 'bearings', name: 'Precision rotor bearings allowing high-speed anode rotation driven by external electromagnetic stator coils' },
     ],
   },
+  ctScannerGeometry: {
+    file: 'ctScannerGeometry.png', bytes: 54597,
+    title: 'Helical CT scanner geometry and beam projection',
+    caption: 'Continuous slip-ring gantry rotation with synchronized patient couch translation generating a helical scan path.',
+    author: 'Torsten Brandmüller',
+    licence: 'CC BY-SA 3.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by-sa/3.0',
+    commons: 'https://commons.wikimedia.org/wiki/File:Helical_CT.png',
+    intro: 'Geometry of a helical computed tomography (CT) acquisition. As the patient couch advances continuously through the circular gantry bore, the opposing X-ray tube and detector array rotate continuously 360 degrees around the patient, acquiring attenuation profiles that high-throughput computers reconstruct into volumetric multiplanar slices and 3D angiographic models.',
+    key: [
+      { mark: 'X-ray source', name: 'Rotating X-ray tube emitting fan-beam radiation through the patient slice volume' },
+      { mark: 'Detector array', name: 'Opposing multichannel detector arc measuring transmitted attenuation profiles' },
+      { mark: 'Helical scan trajectory', name: 'Spiral volumetric acquisition path produced by synchronized couch translation during 360-degree rotation' },
+    ],
+  },
+  fluoroscopyRoomSetup: {
+    file: 'fluoroscopyRoomSetup.jpg', bytes: 316256,
+    title: 'Fluoroscopy suite and shielded operator control console',
+    caption: 'Fluoroscopy examination room with mobile patient couch, overhead C-arm suspension, and protective lead glass barrier.',
+    author: 'Mikael Häggström, M.D. Author info - Reusing images- Conflicts of interest: None Mikael Häggström, M.D.',
+    licence: 'CC0',
+    licenceUrl: 'http://creativecommons.org/publicdomain/zero/1.0/deed.en',
+    commons: 'https://commons.wikimedia.org/wiki/File:Fluoroscopy_room_with_control_space.jpg',
+    intro: 'Clinical fluoroscopy examination suite demonstrating real-time dynamic imaging facilities. The patient table and mobile C-arm are located inside the procedure room for real-time monitoring and intraoperative interventions (e.g. barium swallows, catheter angiography, stent installation), while the operator control console is shielded behind heavy lead acrylic/glass windows for staff radioprotection.',
+    key: [
+      { mark: 'Examination couch and C-arm', name: 'Procedure table with motorized X-ray tube and dynamic image intensifier / flat-panel detector' },
+      { mark: 'Lead-glass observation window', name: 'Attenuating barrier allowing visual patient observation while blocking primary and scattered X-rays' },
+      { mark: 'Control panel console', name: 'Remote operator workstation for triggering exposure, setting kVp/mA parameters, and recording cine loops' },
+    ],
+  },
+  petCtScanner: {
+    file: 'petCtScanner.jpg', bytes: 205693,
+    title: 'Integrated PET-CT hybrid scanner system',
+    caption: 'Dual-modality hybrid PET-CT scanner combining PET detector crystal rings with diagnostic helical CT gantry.',
+    author: 'Brudersohn',
+    licence: 'CC BY-SA 3.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by-sa/3.0',
+    commons: 'https://commons.wikimedia.org/wiki/File:PET-CT_Siemens_Biograph01.jpg',
+    intro: 'Hybrid Positron Emission Tomography / Computed Tomography (PET-CT) scanner. Co-axial gantry housing pairs PET scintillation crystal detector rings with a multidetector CT system, simultaneously capturing functional radiopharmaceutical metabolic bio-distribution (PET) and fine anatomical localization with attenuation correction (CT).',
+    key: [
+      { mark: 'Gantry aperture bore', name: 'Tandem circular tunnel through which the motorized patient couch travels during sequential CT and PET acquisitions' },
+      { mark: 'Motorized patient couch', name: 'Precision table translating the patient seamlessly between CT and PET detector rings' },
+      { mark: 'Gantry housing', name: 'Enclosure protecting the high-speed rotating CT tube/detector and stationary PET scintillation crystal detector rings' },
+    ],
+  },
 };
 
 export function figureFor(id) {
