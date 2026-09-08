@@ -1932,6 +1932,10 @@ export const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.nerv', type: 'definition',
     title: 'Divisions of the nervous system and classes of neuron',
     tags: ['nervous', 'high-yield'],
+    visuals: [
+      { schematic: 'nervousDivisions' },
+      { gen: true },
+    ],
     priorKnowledge: {
       level: 'dse-bio', covers: 'most', dsePart: 'core',
       syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(d) "Coordination and response" — "Nervous coordination in humans" already names the CNS, the brain parts, the spinal cord, sensory / interneurone / motor neurones, the synapse and the reflex arc.' },
@@ -1988,7 +1992,7 @@ export const PHYS_ITEMS = [
       'Somatic versus autonomic motor neurons differ by level of control, not by tissue type in general: somatic reaches skeletal muscle for reflexes and voluntary command, autonomic reaches smooth muscle, cardiac muscle and glands — the same output side of the CNS, two different bosses.',
     ],
     selfCheck: 'From memory, name the three neuron classes with their directions, then say which motor class reaches skeletal muscle and which reaches smooth muscle, cardiac muscle and glands.',
-    sourceRefs: [{ ref: 'phys.8', location: 'Slides 2–8 what the nervous system is, its divisions, classification of neurons, PNS' }, { ref: 'hss.revans', location: 'HSS2011 Module 2.1, Fill-in-blanks 4' }],
+    sourceRefs: [{ ref: 'phys.8', location: 'Slides 2–8 what the nervous system is, its divisions, classification of neurons, PNS' }, { ref: 'phys.nerv.tut', location: 'p2 "Which division of the nervous system innervates involuntary effectors", "The central communication conduit between the brain and the rest of the body" and "Motor neurons convey signals from the CNS to effector cells." — tutorial MCQs 6, 8 and 9' }, { ref: 'hss.revans', location: 'HSS2011 Module 2.1, Fill-in-blanks 4' }],
   },
   {
     id: 'abct2326-muscle-types',
@@ -2621,6 +2625,10 @@ export const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.nerv', type: 'sequence',
     title: 'Where a drug can interfere with a synapse',
     tags: ['nervous', 'pharmacology', 'high-yield'],
+    visuals: [
+      { fig: 'synapseIllustration' },
+      { gen: true },
+    ],
     lesson: {
       explanation: 'A synapse is not one event but a chain of them, and the source\'s point is that a drug can be built to attack any single link. Read along the chain: the transmitter is synthesised, loaded into the cytoplasm, packaged and released into the gap, crosses to the receptor, binds it, triggers a second messenger, and is then cleared — either taken back up into the pre-synaptic cell or broken down by an enzyme. The note lists eight classes of drug, one per link: those that increase release of neurotransmitter into the cytoplasm; those that increase neurotransmitter reaching the synaptic gap; those that block its release; those that inhibit its synthesis; those that block its reuptake; those that block the enzyme that breaks it down; those that act as antagonists, blocking the receptor, or as agonists, mimicking the transmitter; and those that inhibit or facilitate second-messenger activity. Two of those raise transmitter by adding, two by stopping removal, two by cutting supply, and the last two act after the transmitter has done its job — the same outcome reached from opposite directions. Nerve disease, the note says, can be a matter of too little neurotransmitter or too much, so the target is the level in the gap rather than the molecule itself. The caveat matters as much as the list: long-term effects resist prediction, because the imbalance a drug creates is counteracted by the feedback mechanism that normally regulates the process. Block the synthesis of an enzyme and the neuron may answer by pushing more of that enzyme\'s precursors into the axon terminals. The worked example is depression: antidepressants raise transmitters linked to mood such as serotonin and noradrenaline, and the most widely prescribed class, the selective serotonin reuptake inhibitors, works at link five — blocking reuptake, so serotonin cannot be reabsorbed into the pre-synaptic cell and keeps binding its receptor.',
       keyFacts: [
@@ -2676,6 +2684,82 @@ export const PHYS_ITEMS = [
       { ref: 'phys.susan8', location: 'p1 "Drugs that act as Antagonists to block the receptor from binding"' },
       { ref: 'phys.susan8', location: 'p1 "the long term effects are difficult to predict because the imbalances are counteracted by the feedback mechanism"' },
       { ref: 'phys.susan8', location: 'p1 "Selective serotonin reuptake inhibitors (SSRIs)"' },
+    ],
+  },
+  {
+    id: 'abct2326-nervous-synapse-types-nt',
+    subject: 'ABCT2326', unit: 'phys.nerv', type: 'comparison',
+    title: 'Electrical vs chemical synapses, acetylcholine, and the autonomic receptors',
+    tags: ['nervous', 'synapse', 'high-yield'],
+    visuals: [
+      { fig: 'synapseIllustration' },
+      { gen: true },
+    ],
+    lesson: {
+      explanation: 'There are 2 types of synapses, and the difference between them is a difference in carrier. At an electrical synapse the cells are joined by gap junctions — cytoplasm-to-cytoplasm channels that pass ionic current directly; electrical synapses occur in smooth muscle and cardiac muscle, between some neurons of the brain, and between glial cells. They are fast and bidirectional, but they cannot modulate. At a chemical synapse — most synapses — the signal crosses a gap by molecular courier: the release of a chemical called a neurotransmitter from the axon\'s terminal boutons, diffusion across the cleft, and binding of postsynaptic receptors. The lecture\'s worked transmitter is acetylcholine (ACh), a neurotransmitter that directly opens ion channels when it binds to its receptor — which makes it fast — and ACh can be excitatory or inhibitory depending on which ion channels are open: it is excitatory in some areas of the CNS, in some autonomic motor neurons, and in all somatic motor neurons, and inhibitory in some autonomic motor neurons. The receptor decides. At nicotinic receptors ACh opens the channel directly. At muscarinic receptors the same transmitter produces different effects in different tissues, through G-protein pathways: in the heart, ACh binds the M2 receptor, K+ channels are opened, creating IPSPs (hyperpolarization) that slow the heart rate; in the smooth muscles of the stomach, ACh binds the M1 receptor, K+ channels are closed, producing EPSPs (depolarization) and the contraction of these muscles. On the sympathetic side, norepinephrine (NE) can bind any of the adrenergic receptors — alpha-1, alpha-2, beta-1, beta-2 — again with tissue-specific effects, the same receptor-family logic the endocrine item meets with adrenaline. What the postsynaptic binding actually does electrically is graded, not all-or-none: opening Na+ or Ca2+ channels results in a graded depolarization called an excitatory postsynaptic potential (EPSP); opening K+ or Cl− channels results in a graded hyperpolarization called an inhibitory postsynaptic potential (IPSP). EPSPs move the membrane potential closer to threshold, IPSPs farther from it — and neither alone decides. Summation of EPSPs and IPSPs determines whether an action potential occurs: several neurons\' EPSPs may be needed to reach threshold at the axon hillock, and IPSPs can counter EPSPs from other neurons. The tutorial makes this the tested core: name two types of synapses and their general properties, and list the events of a cholinergic synapse — AP arrives, Ca2+ enters, vesicles fuse, ACh crosses, receptors bind, channels open, transmitter cleared.',
+      keyFacts: [
+        'Two synapse types: electrical (gap junctions) and chemical (neurotransmitter across a cleft).',
+        'Electrical synapses: smooth muscle, cardiac muscle, some brain neurons, glial cells — fast, direct ionic current.',
+        'Most synapses are chemical: transmitter released from the axon\'s terminal boutons.',
+        'ACh directly opens ion channels when it binds its receptor; excitatory or inhibitory depending on which ion channels open.',
+        'ACh: excitatory in some CNS areas, some autonomic motor neurons, ALL somatic motor neurons; inhibitory in some autonomic motor neurons.',
+        'Nicotinic receptors: ACh opens the channel directly.',
+        'Muscarinic M2 (heart): K+ channels open → IPSPs → slowed heart rate. Muscarinic M1 (stomach smooth muscle): K+ channels closed → EPSPs → contraction.',
+        'Sympathetic: norepinephrine binds adrenergic receptors α1, α2, β1, β2 — tissue-specific effects.',
+        'EPSP = graded depolarization (Na+ or Ca2+ channels open); IPSP = graded hyperpolarization (K+ or Cl− channels open).',
+        'EPSPs move the membrane closer to threshold; IPSPs farther away; summation of both determines whether an action potential occurs.',
+      ],
+      prerequisites: ['phys-nerve-cellular-action-potential'], examples: [
+        'The vagus slowing the heart is ACh at M2 receptors: K+ leaves, the membrane hyperpolarizes, the SA node takes longer to reach threshold — parasympathetic braking you can feel as a slow pulse after a big meal.',
+        'A nicotinic blocker at the neuromuscular junction stops ACh\'s direct channel opening — the muscle cannot be driven at all, which is the pharmacology behind curare.',
+      ],
+    },
+    memory: {
+      chunking: 'Sort synapses by carrier: gap junctions carry current, chemicals carry messages. Sort ACh effects by receptor: nicotinic = direct and always the channel; muscarinic = indirect (G protein) and tissue-specific.',
+      comparison: 'M2 heart versus M1 stomach is the cleanest contrast in the topic: the SAME transmitter, and in one tissue opening K+ channels SLOWS the heart, in the other closing them CONTRACTS the stomach — the receptor and tissue decide, not the transmitter.',
+      wordOrigin: 'Nicotinic = named for nicotine, which also binds it; muscarinic = named for muscarine, the fly-agaric toxin. Both are drug names before they are receptor names.',
+      story: 'EPSP and IPSP are votes, not decisions: each graded potential nudges the membrane toward or away from threshold, and the action potential happens only when the yes-votes sum past −45 mV before the no-votes cancel them.',
+    },
+    practice: [
+      { type: 'mcq', prompt: 'Electrical synapses pass current directly. Where does the lecture place them?', options: ['Only at the neuromuscular junction', 'Smooth muscle, cardiac muscle, some brain neurons and glial cells', 'All somatic motor neurons', 'Only in the autonomic ganglia'], answer: 1,
+        explanation: 'Electrical synapses occur in smooth muscle and cardiac muscle, between some neurons of the brain, and between glial cells — the cells joined by gap junctions.' },
+      { type: 'mcq', prompt: 'In the heart, ACh at M2 receptors slows the heart rate. What is the membrane mechanism?', options: ['Na+ channels open, depolarizing the SA node', 'K+ channels open, creating IPSPs (hyperpolarization)', 'Ca2+ channels close, shortening the plateau', 'Cl− channels open, depolarizing the atria'], answer: 1,
+        explanation: 'In the heart, K+ channels are opened, creating IPSPs — hyperpolarization — which slows the heart rate. Contrast the stomach\'s M1 receptors, where K+ channels are closed, producing EPSPs and contraction.' },
+      { type: 'matching', prompt: 'Match each synaptic event to its graded potential.',
+        pairs: [['Opening Na+ or Ca2+ channels', 'EPSP — graded depolarization'], ['Opening K+ or Cl− channels', 'IPSP — graded hyperpolarization'], ['EPSPs', 'Move the membrane potential closer to threshold'], ['Summation of EPSPs and IPSPs', 'Determines whether an action potential occurs']],
+        explanation: 'Neither EPSP nor IPSP decides alone — the summation at the axon hillock does.' },
+      { type: 'sequence', prompt: 'List the events of a cholinergic synapse in order.', items: ['Action potential arrives at the axon terminal', 'Voltage-gated Ca2+ channels open and Ca2+ enters', 'Synaptic vesicles fuse and release acetylcholine into the cleft', 'ACh binds nicotinic or muscarinic receptors on the postsynaptic membrane', 'Ion channels open, producing EPSPs or IPSPs', 'ACh is cleared — by acetylcholinesterase or diffusion'], explanation: 'This is the tutorial\'s tested list — the events involved in the functioning of a cholinergic synapse — with the clearing step from the AChE slide.' },
+      { type: 'typed', prompt: 'On which receptors is ACh inhibitory — in some autonomic motor neurons — and what ion channel change produces the inhibition?', accept: ['muscarinic', 'muscarinic receptors, k+ channels open', 'muscarinic, potassium'], explanation: 'ACh is inhibitory at muscarinic receptors in some autonomic motor neurons: K+ channels open and the membrane hyperpolarizes.' },
+    ],
+    application: [
+      { type: 'scenario', prompt: 'A patient receives a drug that blocks muscarinic receptors everywhere. Predict the effects on heart rate and on gastric motility, and explain why both effects follow from the same receptor blockade.', model: 'At the heart\'s M2 receptors, ACh normally opens K+ channels and produces IPSPs that slow the heart rate; block the receptor and that parasympathetic braking is lost, so the heart rate rises. At the stomach\'s M1 receptors, ACh normally CLOSES K+ channels, producing EPSPs and contraction of the smooth muscle; block the receptor and the stomach\'s parasympathetic drive is lost, so gastric motility falls. Both effects — fast heart, quiet gut — come from one mechanism: removing ACh\'s muscarinic effect, whose direction depends entirely on which ion channel the receptor pathway controls in that tissue. The same logic explains anticholinergic side-effects generally: dry mouth, fast pulse, constipation are all one receptor family silenced.', rubric: ['Predicts tachycardia from losing M2-mediated K+ opening', 'Predicts reduced gastric motility from losing M1-mediated K+ closure', 'States the direction of ACh\'s effect is tissue- and receptor-dependent'] },
+    ],
+    commonMistakes: [
+      'Assuming a transmitter is inherently excitatory or inhibitory. ACh is BOTH — the ion channel the receptor opens decides, which is why the lecture says excitatory or inhibitory depending on which ion channels are open.',
+      'Saying ACh slows the heart everywhere. It slows the heart at M2 receptors specifically; in stomach smooth muscle the same transmitter CONTRACTS.',
+      'Calling EPSPs action potentials in miniature. EPSPs are graded and can summate; the action potential is all-or-none and fires only if summation crosses threshold.',
+      'Placing nicotinic and muscarinic receptors on the same signalling logic. Nicotinic opens the channel directly; muscarinic works through G proteins — different speeds, different drug targets.',
+    ],
+    skills: [
+      'Sort synapses by their carrier and their consequence: gap junctions pass current and cannot modulate; chemical synapses pass molecules and can be excitatory, inhibitory, amplified or drug-blocked. Nearly every interesting pharmacology lives on the chemical side.',
+      'The tissue decides: one transmitter, two muscarinic outcomes — K+ channels OPENED in the heart (slower) and CLOSED in the stomach (contraction). Any answer that treats a transmitter as uniformly excitatory or inhibitory is wrong.',
+      'Summation is the decision rule of the neuron: EPSPs vote yes, IPSPs vote no, threshold is −45 mV, and the axon hillock is where the votes are counted.',
+    ],
+    selfCheck: 'From blank: draw an electrical and a chemical synapse side by side; then the two muscarinic outcomes (heart vs stomach) with their ion channels; then write the cholinergic-synapse event list in order.',
+    sourceRefs: [
+      { ref: 'phys.nerve.deck', location: 'p45 "2 types of Synapses"' },
+      { ref: 'phys.nerve.deck', location: 'p46 "Cells are joined by gap junctions"' },
+      { ref: 'phys.nerve.deck', location: 'p47 "release of a chemical called a neurotransmitter"' },
+      { ref: 'phys.nerve.deck', location: 'p49 "ACh is a neurotransmitter that directly opens ion"' },
+      { ref: 'phys.nerve.deck', location: 'p49 "Excitatory in some areas of the CNS, in some"' },
+      { ref: 'phys.nerve.deck', location: 'p51 "Nicotinic Receptors"' },
+      { ref: 'phys.nerve.deck', location: 'p52 "In the heart, K+ channels are opened,"' },
+      { ref: 'phys.nerve.deck', location: 'p52 "In the smooth muscles"' },
+      { ref: 'phys.8', location: 'p57 "Adrenergic Receptors (sympathetic)"' },
+      { ref: 'phys.nerve.deck', location: 'p54 "Graded potentials are"' },
+      { ref: 'phys.nerve.deck', location: 'p56 "EPSPs move the membrane potential closer to"'},
+      { ref: 'phys.nerv.tut', location: 'p1 "Name two types of synapses and briefly describe the general properties of each."' },
+      { ref: 'phys.nerv.tut', location: 'p1 "List the events involved in the functioning of a cholinergic synapse."' },
     ],
   },
   {
@@ -5344,6 +5428,11 @@ export const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.nerv', type: 'concept',
     title: 'Nerve cell physiology: glial cells, resting potential, action potential, and synaptic transmission',
     tags: ['physiology', 'nervous', 'action-potential', 'synapse', 'high-yield'],
+    visuals: [
+      { fig: 'actionPotential' },
+      { fig: 'myelinSheath' },
+      { gen: true },
+    ],
     lesson: {
       explanation: 'The human nervous system coordinates rapid communication via approximately 100 billion neurons supported by diverse neuroglial cells. In the central nervous system (CNS), astrocytes form the most abundant glial cell type, regulating the extracellular microenvironment, while ependymal cells line the brain ventricles and secrete cerebrospinal fluid. Myelination is anatomically segregated: in the CNS, the myelin sheath is produced by oligodendrocytes; in the peripheral nervous system (PNS), the myelin sheath is produced by Schwann Cells. The resting membrane potential (typically -70 mV) is established primarily because the resting axonal membrane possesses 50–70 times more K+ passive channels than Na+ channels, allowing potassium to leak out along its concentration gradient. The sodium-potassium pump (Na+/K+ ATPase) maintains long-term ionic gradients by actively transporting 3 Na+ ions out of the cell for every 2 K+ pumped in. When stimulation depolarizes the axon to threshold (~-55 mV), voltage-gated Na+ channels rapidly open, generating an action potential that reaches a peak of +25mV and then drops as Na+ channels inactivate and voltage-gated K+ channels open. Under the all-or-none law, once threshold has been reached, action potentials fire at uniform amplitude regardless of stimulus strength. During the absolute refractory period, Na+ channels cannot reopen; during the subsequent relative refractory period (when K+ channels are still open), a supranormal stimulus is required to fire. In myelinated axons, myelin insulates internodes, forcing Na+ and K+ to cross the membrane every 1–2 mm at the unmyelinated nodes of Ranvier. This is called saltatory conduction, which dramatically increases conduction velocity while conserving ATP. At synapses, communication is either electrical or chemical: at electrical synapses, cells are joined by gap junctions allowing direct ionic current flow; at chemical synapses, neurotransmitters mediate transmission. For example, ACh is a neurotransmitter that directly opens ion channels upon binding nicotinic receptors; in contrast, in the heart, K+ channels are opened through muscarinic G-protein pathways, causing hyperpolarization and slowing the heart rate. At postsynaptic membranes, opening Na+ or Ca2+ channels results in a graded depolarization termed an excitatory postsynaptic potential (EPSP).',
       plain: 'The brain contains 100 billion neurons supported by astrocytes (most abundant), ependymal cells (CSF), oligodendrocytes (CNS myelin), and Schwann cells (PNS myelin). Resting potential (-70 mV) is set by 50-70x more K+ leak channels and the 3 Na+ out / 2 K+ in pump. Reaching threshold triggers an all-or-none action potential peaking at +25 mV. Myelin forces ions to jump every 1-2 mm at nodes of Ranvier (saltatory conduction). Synapses communicate via gap junctions (electrical) or transmitters like ACh (chemical).',
@@ -6754,6 +6843,11 @@ export const PHYS_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.nerv', type: 'concept',
     title: 'Neuroglia functions, action potential refractory periods, and synaptic storage',
     tags: ['nervous', 'neuroglia', 'action-potential', 'refractory-period', 'high-yield'],
+    visuals: [
+      { fig: 'neuronDiagram' },
+      { fig: 'myelinSheath' },
+      { gen: true },
+    ],
     lesson: {
       explanation: 'The nervous system coordinates cellular signaling via polarized neurons and specialized neuroglia. Within the central nervous system, four glial cell classes provide essential support: astrocytes are positioned between neurons and capillaries to form part of the blood-brain barrier and regulate interstitial ions; oligodendrocytes form myelin sheaths; ependymal cells line ventricles and circulate cerebrospinal fluid; and microglia serve as specialized resident phagocytes that engulf cellular debris and pathogens. In peripheral motor control, motor neurons transmit impulses from the CNS to effectors (muscles and glands), whereas sensory neurons convey inputs from receptors to the CNS. The transmembrane potential reflects the electrical separation of charges across the membrane (-70 mV resting potential). When an action potential fires, rapid depolarization via voltage-gated Na+ channels is followed by the repolarization phase, during which the primary activity is K+ ions flowing out of the cell down their electrochemical gradient. The absolute refractory period of a neuron occurs during depolarization and the first part of the repolarization phase, during which voltage-gated Na+ channels are either actively open or locked in an inactivated conformation, making it biophysically impossible to generate another action potential regardless of stimulus strength. Down the axon, the speed of impulse conduction along an axon may be increased by a myelin sheath through saltatory conduction at nodes of Ranvier. At terminal chemical synapses, synaptic vesicles store neurotransmitter molecules, which are released into the synaptic cleft upon calcium influx to bind post-synaptic receptors.',
       plain: 'Astrocytes form part of the blood-brain barrier; microglia are phagocytic; oligodendrocytes myelinate the CNS. Motor neurons transmit impulses from the CNS to effectors. Action potential repolarization is driven by K+ efflux. The absolute refractory period spans depolarization and the first part of repolarization due to Na+ channel inactivation. Myelin sheaths increase conduction speed via saltatory conduction; synaptic vesicles store neurotransmitter.',
