@@ -195,152 +195,179 @@ export const HSS_MODULES = [
     "subject": "HSS2011",
     "unit": "hss.m1",
     "type": "definition",
-    "title": "Pleura, lung surfaces and the upper airway",
+    "title": "Trachea and the bronchial tree: branching, cartilage and airway calibre",
     "tags": [
-      "thorax"
+      "thorax",
+      "respiratory",
+      "trachea",
+      "bronchi",
+      "high-yield"
+    ],
+    "visuals": [
+      {
+        "fig": "respiratoryTractAnatomy"
+      },
+      {
+        "fig": "lungsGrossAnatomy"
+      },
+      {
+        "gen": true
+      }
     ],
     "lesson": {
-      "explanation": "The visceral pleura covers the surface of the lungs; the parietal pleura lines the thoracic cavity. The hilum of the lung is on the mediastinal surface. Type II pneumocytes produce pulmonary surfactant in the alveoli. Among the laryngeal cartilages, the thyroid cartilage is the largest, and the epiglottis is the structure most important in keeping food out of the trachea. Bronchial arteries supply oxygenated blood to the lungs and bronchi themselves.",
+      "explanation": "TRACHEA (windpipe). A tough, flexible tube about 2.5 cm in diameter and 11 cm long. It begins anterior to vertebra C6, attached by ligament to the cricoid cartilage, and ends in the mediastinum at the T5 level, where it branches into the right and left primary bronchi. Its wall contains 15–20 C-shaped tracheal (hyaline) cartilages, incomplete posteriorly; the trachealis muscle (smooth muscle) connects the open ends of each ring. The C-shape serves two purposes at once: the rigid anterior arc holds the airway permanently open against the negative intrathoracic pressure of inspiration, while the soft posterior gap allows the oesophagus — which lies directly behind the trachea — to bulge forward as a food bolus passes. During coughing, trachealis contracts, narrowing the lumen and raising the linear velocity of the expelled air so that mucus and debris are sheared off the wall. The internal ridge at the bifurcation is the carina; it is richly innervated and is the most sensitive cough-trigger point in the airway, used as the orientation landmark at bronchoscopy (T5 / sternal angle level).\n\nBRONCHIAL TREE. Air passes through a system that branches roughly 23 times. Primary (main) bronchi are extrapulmonary — they run outside the lung to reach the hilum — and their walls, like the trachea, contain C-shaped cartilage. The right primary bronchus is larger in diameter, shorter (about 2.5 cm), and descends at a steeper, more vertical angle (roughly 25° from the midline) than the left; inhaled foreign bodies and a misplaced endotracheal tube therefore enter the right side preferentially. The left primary bronchus is longer (about 5 cm), narrower and more horizontal (roughly 45°) because the heart and the arch of the aorta displace it and it must pass anterior to the oesophagus and thoracic aorta.\n\nSecondary (lobar) bronchi are intrapulmonary, one per lobe: three on the right (superior, middle, inferior) and two on the left (superior, inferior). Their walls hold irregular cartilage plates rather than complete rings. Tertiary (segmental) bronchi follow, each supplying a single bronchopulmonary segment — about 10 in the right lung and 8–10 in the left. A bronchopulmonary segment is a pyramidal, functionally and surgically independent unit with its own segmental (tertiary) bronchus and its own segmental branch of the pulmonary artery entering at its apex, while the segmental veins run in the connective-tissue planes between segments; this is why a diseased segment can be resected without devascularising its neighbours.\n\nCARTILAGE-TO-MUSCLE GRADIENT. The walls of primary, secondary and tertiary bronchi contain progressively less cartilage and more smooth muscle as they narrow. Bronchioles (under about 1 mm) have no cartilage plates at all and are dominated by smooth muscle; changes in their diameter control resistance to airflow and the distribution of air within the lungs. The autonomic nervous system sets that diameter — sympathetic stimulation (and circulating adrenaline) dilates the bronchioles, parasympathetic (vagal) stimulation constricts them — which is the basis of bronchodilator and anticholinergic inhaler therapy.\n\nCONDUCTING vs RESPIRATORY. Each tertiary bronchus branches into bronchioles, which branch into terminal bronchioles — the end of the conducting division, the point beyond which no gas exchange has yet occurred (this air is dead space). Terminal bronchioles then give rise to respiratory bronchioles, where the first alveoli stud the wall and gas exchange begins; respiratory bronchioles lead into alveolar ducts and alveolar sacs.",
+      "plain": "The windpipe (trachea) is about 11 cm long and 2.5 cm wide, running from C6 down to T5 where it splits at the carina into the right and left main bronchi. Its wall has 15–20 C-shaped cartilage rings, open at the back so the gullet can bulge forward when you swallow; the trachealis muscle bridges the gap. The right main bronchus is wider, shorter and steeper, so inhaled objects usually go down the right. Below that the airway keeps dividing: lobar bronchi (3 right, 2 left) → segmental bronchi (about 10 right, 8–10 left) → bronchioles. As the tubes get smaller they lose cartilage and gain smooth muscle, so the tiniest bronchioles have no cartilage and use muscle tone to control how much air reaches each part of the lung. Terminal bronchioles end the conducting zone; respiratory bronchioles begin gas exchange.",
       "keyFacts": [
-        "Visceral pleura covers the lung surface; parietal pleura lines the thoracic cavity.",
-        "The hilum of the lung is on the mediastinal surface.",
-        "Type II pneumocytes produce pulmonary surfactant.",
-        "Thyroid cartilage is the largest laryngeal cartilage.",
-        "The epiglottis is most important in keeping food out of the trachea.",
-        "Bronchial arteries supply the lung tissue itself.",
-        "The main muscles of forced expiration include the diaphragm and external intercostal muscles."
+        "The trachea is about 2.5 cm in diameter and 11 cm long.",
+        "It begins anterior to vertebra C6 and ends at the T5 level, branching into the right and left primary bronchi.",
+        "The tracheal wall contains 15–20 C-shaped cartilages, incomplete posteriorly, joined by the trachealis smooth muscle.",
+        "The right primary bronchus is larger in diameter, shorter and more vertical than the left, so aspirated objects lodge on the right.",
+        "Primary bronchi are extrapulmonary; secondary (lobar) and tertiary (segmental) bronchi are intrapulmonary.",
+        "Lobar bronchi: three on the right (superior, middle, inferior), two on the left (superior, inferior).",
+        "Segmental (tertiary) bronchi each supply one bronchopulmonary segment — about 10 on the right, 8–10 on the left.",
+        "From primary to tertiary bronchi the wall loses cartilage and gains smooth muscle.",
+        "Bronchioles have no cartilage, are dominated by smooth muscle, and their calibre (set by the autonomic nervous system) controls airway resistance and air distribution.",
+        "Terminal bronchioles end the conducting division; respiratory bronchioles begin the respiratory division where gas exchange occurs."
       ],
       "prerequisites": [
-        "hss2011-m1-heart-wall-valves"
+        "hss2011-resp-upper-tract-larynx"
       ],
-      "examples": []
+      "examples": [
+        "Aspiration pneumonia: a patient who aspirates gastric contents while supine most often develops consolidation in the posterior segment of the right upper lobe or the superior segment of the right lower lobe, matching right-bronchus geometry.",
+        "Segmentectomy: because each bronchopulmonary segment has its own bronchus and artery, a small peripheral tumour can be removed by resecting one segment rather than a whole lobe."
+      ]
     },
     "memory": {
-      "wordOrigin": "Viscus means an internal organ, so visceral pleura is the layer stuck to the organ. Paries means a wall, so parietal pleura lines the wall.",
-      "comparison": "Bronchial arteries feed the lung tissue; pulmonary arteries bring blood to be oxygenated. One is plumbing for the organ, the other is cargo passing through.",
-      "visualCue": "Picture pushing your fist into a balloon: your fist is the lung, the layer touching it is visceral, the outer layer is parietal, and the thin gap between is the pleural cavity."
+      "chunking": "Trachea numbers: 2.5 cm wide, 11 cm long, 15–20 C-rings, C6 to T5.",
+      "comparison": "Right main bronchus = wider, shorter, more vertical → the \"aspiration highway\"; left = narrower, longer, more horizontal.",
+      "chunkingLobar": "Lobar bronchi 3R / 2L; segmental bronchi about 10R / 8–10L."
     },
     "practice": [
       {
         "type": "mcq",
-        "prompt": "Visceral pleura can be found ____________.",
+        "prompt": "An inhaled peanut is most likely to lodge in which bronchus, and why?",
         "options": [
-          "Lining the surface of the thoracic cavity",
-          "Covering the surface of the lungs",
-          "Attached to the diaphragm",
-          "None of the above"
+          "Left primary bronchus — it is wider and more vertical",
+          "Right primary bronchus — it is larger in diameter and descends more steeply",
+          "Left primary bronchus — it is shorter",
+          "Either equally — the bronchi are symmetrical"
         ],
         "answer": 1,
-        "explanation": "Model answer B. Visceral pleura covers the lung; the parietal layer lines the cavity and covers the diaphragm.",
+        "explanation": "The right primary bronchus is larger in diameter than the left and descends at a steeper angle into the lung, so aspirated material preferentially enters it.",
         "src": {
-          "ref": "hss.revans",
-          "location": "Module 1.1, MCQ 1"
-        }
-      },
-      {
-        "type": "mcq",
-        "prompt": "The cells that produce pulmonary surfactant in the alveoli are the:",
-        "options": [
-          "Alveolar macrophages",
-          "Squamous epithelial cells",
-          "Type II pneumocytes",
-          "Goblet cells"
-        ],
-        "answer": 2,
-        "explanation": "Model answer C. Alveolar macrophages clear debris; type II pneumocytes make surfactant.",
-        "src": {
-          "ref": "hss.revans",
-          "location": "Module 1.1, MCQ 2"
-        }
-      },
-      {
-        "type": "mcq",
-        "prompt": "The hilum of the lung is located on the ___________.",
-        "options": [
-          "Cardiac notch",
-          "Mediastinal surface",
-          "Costal surface",
-          "Base of the lung"
-        ],
-        "answer": 1,
-        "explanation": "Model answer B. The hilum faces the mediastinum, which is where the root structures enter and leave.",
-        "src": {
-          "ref": "hss.revans",
-          "location": "Module 1.1, MCQ 3"
-        }
-      },
-      {
-        "type": "mcq",
-        "prompt": "Which of the following is most important in keeping food out of the trachea?",
-        "options": [
-          "Extrinsic muscles of the larynx",
-          "Glottis",
-          "Epiglottis",
-          "Soft palate"
-        ],
-        "answer": 2,
-        "explanation": "Model answer C. The epiglottis folds over the laryngeal inlet during swallowing.",
-        "src": {
-          "ref": "hss.revans",
-          "location": "Module 1.1, MCQ 5"
+          "ref": "hss.resp",
+          "location": "p20 \"Right primary\""
         }
       },
       {
         "type": "cloze",
-        "prompt": "The artery that supplies oxygenated blood to the lungs and bronchi is called the ______.",
+        "prompt": "The trachea contains 15–20 C-shaped ______ cartilages.",
         "accept": [
-          "bronchial artery",
-          "bronchial arteries",
-          "bronchial"
+          "tracheal",
+          "hyaline"
         ],
-        "explanation": "Model answer: bronchial arteries. They nourish lung tissue, unlike the pulmonary arteries which carry blood for gas exchange.",
+        "explanation": "The tracheal rings are C-shaped hyaline cartilage, open posteriorly.",
         "src": {
-          "ref": "hss.revans",
-          "location": "Module 1.1, Fill-in-blanks 5"
+          "ref": "hss.resp",
+          "location": "p19 \"Contains 15-20 C-shaped tracheal cartilages\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The trachea begins anterior to vertebra C6 and ends in the mediastinum at the ______ level.",
+        "accept": [
+          "T5",
+          "t5"
+        ],
+        "explanation": "The trachea ends at T5, the sternal angle level, where the carina marks the bifurcation.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p19 \"Ends in the mediastinum at T5 level\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which statement about the bronchial tree is correct?",
+        "options": [
+          "Primary bronchi are intrapulmonary",
+          "Bronchioles contain more cartilage than tertiary bronchi",
+          "From primary to tertiary bronchi the walls contain progressively less cartilage and more smooth muscle",
+          "Each secondary bronchus supplies a single bronchopulmonary segment"
+        ],
+        "answer": 2,
+        "explanation": "Cartilage decreases and smooth muscle increases from primary to tertiary bronchi; bronchioles have none. Segmental (tertiary) bronchi, not secondary, supply individual bronchopulmonary segments.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p22 \"progressively less cartilage and\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The conducting division of the airway ends at the ______ bronchiole; the respiratory division begins at the respiratory bronchiole.",
+        "accept": [
+          "terminal"
+        ],
+        "explanation": "Terminal bronchioles are the last purely conducting airways; respiratory bronchioles carry the first alveoli.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p22 \"End of conducting division\""
         }
       }
     ],
     "application": [
       {
         "type": "scenario",
-        "prompt": "Why does the lung need bronchial arteries at all when it already receives the entire output of the right ventricle?",
-        "model": "The pulmonary arteries carry deoxygenated blood that is passing through the lung to be oxygenated — that blood is cargo, not supply. The lung tissue itself, including the bronchial walls, needs its own oxygenated supply, and that is what the bronchial arteries provide.",
+        "prompt": "A radiographer reviews a chest film of an intubated patient and notes the endotracheal tube tip has advanced past the carina into a main bronchus, with collapse of the opposite lung. State which bronchus the tube has almost certainly entered, justify this from bronchial geometry, and name the lobe most at risk of also collapsing.",
+        "model": "The tube has almost certainly entered the right primary bronchus, because it is larger in diameter and descends at a steeper, more vertical angle from the trachea than the left, so a tube advanced too far follows the straighter path to the right. The left lung is no longer ventilated and collapses (absorption atelectasis). Because the right upper lobe bronchus arises very close to the carina, the tube tip often lies beyond it, so the right upper lobe may also collapse while ventilation is delivered mainly to the right middle and lower lobes.",
         "rubric": [
-          "Distinguishes blood passing through from blood supplying the tissue",
-          "Names the bronchial arteries as the tissue supply"
+          "Identifies the right primary bronchus as the one entered, citing its larger diameter and steeper angle",
+          "Explains contralateral (left) lung collapse from loss of ventilation",
+          "Notes the right upper lobe is at risk because its bronchus leaves close to the carina"
         ]
       }
     ],
     "commonMistakes": [
-      "Swapping visceral and parietal pleura.",
-      "Assuming the pulmonary arteries nourish the lung tissue."
+      "Swapping the numbers: the trachea is 2.5 cm in diameter and 11 cm long, not the reverse.",
+      "Saying tracheal rings are complete — they are C-shaped and open posteriorly, bridged by trachealis muscle.",
+      "Attributing bronchopulmonary segments to secondary bronchi — each segment is supplied by a tertiary (segmental) bronchus."
     ],
     "skills": [
-      "Visceral versus parietal is cling-versus-line, and the prefixes say so: viscus means internal organ (visceral pleura is stuck to the lung), paries means wall (parietal pleura lines the cavity and the diaphragm). The word carries the answer before the options are read.",
-      "The lung runs two blood supplies for two jobs: pulmonary arteries bring deoxygenated cargo for gas exchange, bronchial arteries feed the lung tissue itself. That is why receiving the entire right-ventricle output does not spare the lung needing its own supply — the blood flowing through an organ is not the blood nourishing it.",
-      "The hilum sits on the mediastinal surface because that is where the root structures enter and leave — the lung's plumbing faces its mediastinum, not its ribs."
+      "Identify the carina, right and left main bronchi and lobar bronchi on a coronal CT.",
+      "Count the bronchopulmonary segments on a segmental bronchus diagram (about 10 right, 8–10 left)."
     ],
-    "selfCheck": "From a blank page: which pleura covers what, where the hilum sits and why, which cell makes surfactant, the structure that keeps food out of the trachea, and why bronchial arteries exist at all.",
+    "selfCheck": "From memory: give the trachea’s length, diameter, ring number and vertebral extent; contrast the right and left main bronchi; and list the branching order down to the respiratory bronchiole.",
     "sourceRefs": [
       {
-        "ref": "hss.1.1",
-        "location": "Cardiovascular system and lungs"
-      },
-      {
-        "ref": "hss.1.2",
-        "location": "p36 \"produce oily secretory surfactant that coats the\" alveolar surfaces (Type II pneumocytes); p10 the bronchial arteries branch from the thoracic aorta to supply the lung tissue"
+        "ref": "hss.resp",
+        "location": "p19 \"2.5 cm diameter & 11 cm\""
       },
       {
         "ref": "hss.resp",
-        "location": "p27 \"Hilum -a groove that allows the primary bronchi, pulmonary\" vessels, nerves and lymphatics to reach the lung; p26 the apex of each lung extends beyond the first rib"
+        "location": "p19 \"Begins anterior to vertebra C6\""
       },
       {
-        "ref": "hss.manual1920",
-        "location": "Submodule 1.1 guiding questions, p.17"
+        "ref": "hss.resp",
+        "location": "p19 \"Contains 15-20 C-shaped tracheal cartilages\""
       },
       {
-        "ref": "hss.revans",
-        "location": "Module 1.1 answers"
+        "ref": "hss.resp",
+        "location": "p20 \"Right primary\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p22 \"Primary bronchi - extrapulmonary\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p22 \"progressively less cartilage and\""
+      },
+      {
+        "ref": "hss.1.2",
+        "location": "p32 \"branches to form the right and left primary\""
+      },
+      {
+        "ref": "hss.1.2",
+        "location": "p33 \"Each segmental bronchus supplies air to a single\""
       }
     ]
   },
@@ -7767,109 +7794,202 @@ export const HSS_MODULES = [
     "subject": "HSS2011",
     "unit": "hss.m1",
     "type": "definition",
-    "title": "Upper respiratory tract, paranasal sinuses and larynx",
+    "title": "Upper respiratory tract, paranasal sinuses, pharynx and the laryngeal cartilages",
     "tags": [
       "thorax",
       "respiratory",
+      "upper-airway",
       "larynx",
       "high-yield"
     ],
+    "visuals": [
+      {
+        "fig": "larynxAnatomy"
+      },
+      {
+        "fig": "respiratoryTractAnatomy"
+      },
+      {
+        "gen": true
+      }
+    ],
     "lesson": {
-      "explanation": "The respiratory system is divided into upper and lower tracts. The upper tract comprises the nose, nasal cavity, paranasal sinuses (frontal, maxillary, sphenoidal, ethmoidal), and pharynx. The nasal cavity is divided by the nasal septum (formed by the perpendicular plate of the ethmoid, the vomer, and septal cartilage). Its lateral walls feature three bony projections: superior, middle, and inferior nasal conchae (turbinates), which create turbulent airflow to warm, humidify, and filter incoming air. The pharynx is divided into nasopharynx (posterior to nasal cavity, contains pharyngeal tonsil / adenoids and openings of auditory/Eustachian tubes), oropharynx (posterior to oral cavity, containing palatine and lingual tonsils), and laryngopharynx (posterior to larynx, continuous with oesophagus). The larynx (voice box) extends from C3/C4 to C6, connecting the laryngopharynx to the trachea. Its framework consists of 9 cartilages: 3 large unpaired cartilages (thyroid cartilage with laryngeal prominence / Adam's apple, cricoid cartilage signet-ring shape forming a complete ring, and epiglottis elastic cartilage leaf guarding the glottis during swallowing) and 3 pairs of small cartilages (arytenoid, corniculate, cuneiform). Arytenoid cartilages pivot to adjust tension on the vocal folds (true vocal cords), controlling pitch.",
-      "plain": "The upper respiratory tract includes the nasal cavity (divided by vomer, ethmoid, and septal cartilage; lined by 3 conchae), paranasal sinuses, and the pharynx (naso-, oro-, and laryngo-pharynx). The larynx has 9 cartilages: 3 single (thyroid with Adam's apple, cricoid forming a complete signet ring, and epiglottis guarding the glottis) and 3 paired (arytenoids pivot the true vocal cords to adjust pitch).",
+      "explanation": "The respiratory system is divided into an upper respiratory tract (nose, nasal cavity, paranasal sinuses and pharynx) and a lower respiratory tract (larynx, trachea, bronchi, bronchioles and alveoli). Functionally it also splits into a conducting division, which warms, moistens, filters and delivers air, and a respiratory division, where gas exchange occurs.\n\nNASAL COMPLEX. The bridge of the nose is supported by the maxillae and the nasal bones. The roof is formed by the frontal bone, sphenoid and ethmoid; the lateral walls by the maxillae, the lacrimal bones and the three nasal conchae; the floor (hard palate) by the palatine process of the maxilla and the horizontal plate of the palatine bone. The nasal septum divides the cavity into right and left halves and is built from the perpendicular plate of the ethmoid superiorly, the vomer inferiorly and the hyaline (septal) cartilage anteriorly. The external and internal nares are the anterior and posterior openings.\n\nPARANASAL SINUSES. The sphenoid, ethmoid, frontal bone and maxillae contain four paired, mucosa-lined, air-filled spaces that surround the nasal cavity. They lighten the skull bones, act as resonating chambers for the voice, and release mucus into the nasal cavity.\n\nCONCHAE AND MEATUSES. The superior and middle nasal conchae are parts of the ethmoid; the inferior nasal concha is a separate bone. Each concha overlies a corresponding meatus (superior, middle, inferior). These constricted passageways produce air turbulence that warms and humidifies incoming air, traps particles in mucus, and carries olfactory stimuli up to the olfactory receptors. The soft palate is a moveable, non-bony muscular flap that closes off the nasal passages during swallowing.\n\nPHARYNX. A funnel-shaped fibromuscular tube shared by the digestive and respiratory systems, in three parts. The nasopharynx (superior) is separated from the oral cavity by the soft palate, is lined by pseudostratified ciliated columnar epithelium, and contains the pharyngeal tonsil and the nasopharyngeal meatus (the opening of the auditory tube). The oropharynx (middle) and laryngopharynx (inferior) both carry food as well as air and are lined by protective stratified squamous epithelium.\n\nLARYNX. A cartilaginous cylinder with incomplete walls stabilised by ligaments and skeletal muscles, beginning at vertebral level C4 or C5 and ending at C6. It has three large unpaired cartilages and three pairs of smaller hyaline cartilages. (1) Thyroid cartilage: the largest laryngeal cartilage, shield-shaped, made of hyaline cartilage; its anterior surface forms the laryngeal prominence (Adam’s apple); its superior surface bears ligaments to the hyoid bone; its inferior surface articulates with the cricoid cartilage. (2) Cricoid cartilage: hyaline, a complete ring; attached by ligaments to the first tracheal cartilage; its superior surface articulates with the arytenoid cartilages. (3) Epiglottis: composed of elastic cartilage; ligaments attach it to the thyroid cartilage and hyoid bone; it projects superior to the glottis and forms a lid over it, swinging down to keep food out of the airway during swallowing. The three paired hyaline cartilages are the arytenoid, corniculate and cuneiform cartilages. Three named ligaments bind the framework: the thyrohyoid ligament (thyroid to hyoid), the cricothyroid ligament (thyroid to cricoid) and the cricotracheal ligament (cricoid to trachea).\n\nGLOTTIS. The opening into the airway where inhaled air enters the larynx, made up of the vocal folds; it acts as the voice box for sound production. Intrinsic laryngeal muscles dilate or constrict the opening, and the size of the glottis helps determine an individual’s voice. Movement of the arytenoids opens the glottis by drawing the folds apart, reducing resistance to airflow; during swallowing they move to close the vocal cords and epiglottis.",
+      "plain": "Air enters through the nose, where three curled shelves (conchae) make it swirl so it is warmed, moistened and filtered. Hollow air spaces in the skull bones (paranasal sinuses) drain into the nose and add resonance to the voice. Behind the nose and mouth is the throat (pharynx) in three floors: nasopharynx (air only, respiratory lining), oropharynx and laryngopharynx (air and food, tough squamous lining). The voice box (larynx) runs from about C4/C5 to C6 and is built from nine cartilages: three big single ones — the shield-shaped thyroid (Adam’s apple), the complete ring-shaped cricoid, and the elastic trapdoor epiglottis — plus three small pairs (arytenoid, corniculate, cuneiform). The vocal folds and the slit between them form the glottis; the tiny arytenoids swivel to open the folds for breathing and close them for swallowing and speech.",
       "keyFacts": [
-        "Nasal septum is formed by perpendicular plate of ethmoid, vomer, and septal cartilage.",
-        "Superior, middle, and inferior conchae warm, humidify, and filter air.",
-        "Larynx has 9 cartilages: 3 unpaired (thyroid, cricoid, epiglottis) and 3 paired (arytenoid, corniculate, cuneiform).",
-        "Cricoid cartilage is the only complete cartilaginous ring around the airway.",
-        "Epiglottis closes over the glottis during swallowing to prevent food entering trachea.",
-        "Arytenoid cartilages pivot to vary tension on vocal folds (true vocal cords)."
+        "Upper respiratory tract = nose, nasal cavity, paranasal sinuses and pharynx; lower tract = larynx, trachea, bronchi, bronchioles and alveoli.",
+        "The nasal septum is formed by the perpendicular plate of the ethmoid (superior), the vomer (inferior) and hyaline septal cartilage (anterior).",
+        "Four paired paranasal sinuses (frontal, ethmoidal, sphenoidal, maxillary) lighten the skull, add vocal resonance and drain mucus into the nasal cavity.",
+        "Superior and middle conchae belong to the ethmoid; the inferior concha is a separate bone; each concha overlies a meatus that creates warming, humidifying and filtering turbulence.",
+        "The pharynx has three parts: nasopharynx (pseudostratified ciliated columnar, pharyngeal tonsil, auditory tube opening), oropharynx and laryngopharynx (both stratified squamous).",
+        "The larynx begins at vertebra C4 or C5 and ends at C6, where it becomes the trachea.",
+        "Three large unpaired laryngeal cartilages: thyroid (hyaline, largest, Adam’s apple), cricoid (hyaline, complete ring), epiglottis (elastic cartilage lid).",
+        "Three paired small hyaline cartilages: arytenoid, corniculate and cuneiform.",
+        "Laryngeal ligaments: thyrohyoid (thyroid–hyoid), cricothyroid (thyroid–cricoid), cricotracheal (cricoid–trachea).",
+        "The glottis is the vocal folds plus the opening between them; arytenoid movement opens the folds for airflow and closes them for swallowing and phonation."
       ],
       "prerequisites": [
-        "hss2011-m1-lungs-airway"
+        "hss2011-osteo-skull-sutures"
       ],
       "examples": [
-        "Emergency cricothyroidotomy pierces the cricothyroid membrane between the thyroid and cricoid cartilages."
+        "Cricothyrotomy: in a can’t-intubate emergency the airway is opened through the cricothyroid ligament, which lies subcutaneously in the midline between the thyroid and cricoid cartilages.",
+        "Otitis media in children: the more horizontal auditory tube opening in the nasopharyngeal meatus lets nasopharyngeal organisms pass easily to the middle ear."
       ]
     },
     "memory": {
-      "chunking": "Three unpaired cartilages: Thyroid, Cricoid, Epiglottis (TCE). Three paired: Arytenoid, Corniculate, Cuneiform (ACC).",
-      "comparison": "Cricoid is a complete ring (signet ring); thyroid is open posteriorly (shield-like)."
+      "chunking": "Nine cartilages = 3 unpaired (Thyroid, Cricoid, Epiglottis) + 3 paired (Arytenoid, Corniculate, Cuneiform).",
+      "comparison": "Nasopharynx keeps the respiratory lining (pseudostratified ciliated columnar) because only air passes; oropharynx and laryngopharynx are stratified squamous because abrasive food passes too.",
+      "visualCue": "Cricoid = a signet ring (complete band, wide at the back); thyroid = a shield held in front; epiglottis = a spoon-shaped lid."
     },
     "practice": [
       {
         "type": "mcq",
-        "prompt": "Which cartilage of the larynx forms a complete ring around the airway?",
+        "prompt": "Which laryngeal cartilage is made of elastic cartilage and forms a lid over the glottis?",
         "options": [
           "Thyroid cartilage",
           "Cricoid cartilage",
           "Epiglottis",
           "Arytenoid cartilage"
         ],
-        "answer": 1,
-        "explanation": "The cricoid cartilage is the only laryngeal cartilage that forms a complete circle (signet-ring shape) around the respiratory tract.",
+        "answer": 2,
+        "explanation": "The epiglottis is composed of elastic cartilage and projects superior to the glottis, forming a lid that closes the airway during swallowing.",
         "src": {
           "ref": "hss.resp",
-          "location": "p5–p12 Upper tract and larynx"
-        }
-      },
-      {
-        "type": "cloze",
-        "prompt": "The leaf-shaped elastic cartilage that folds down over the glottis during swallowing is the ______.",
-        "accept": [
-          "epiglottis"
-        ],
-        "explanation": "The epiglottis prevents ingested liquid and food from entering the lower respiratory tract.",
-        "src": {
-          "ref": "hss.resp",
-          "location": "p10 Epiglottis and glottis"
+          "location": "p16 \"Composed of elastic\""
         }
       },
       {
         "type": "mcq",
-        "prompt": "Which paired laryngeal cartilages pivot to adjust the tension and position of the true vocal folds?",
+        "prompt": "The largest laryngeal cartilage, shield-shaped and forming the laryngeal prominence, is the:",
         "options": [
-          "Cuneiform cartilages",
-          "Corniculate cartilages",
-          "Arytenoid cartilages",
-          "Thyroid cartilages"
+          "Cricoid cartilage",
+          "Thyroid cartilage",
+          "Corniculate cartilage",
+          "Epiglottis"
         ],
-        "answer": 2,
-        "explanation": "The pyramid-shaped arytenoid cartilages anchor the vocal ligaments; their rotation and gliding changes pitch.",
+        "answer": 1,
+        "explanation": "The thyroid cartilage is the largest laryngeal cartilage, shield-shaped, made of hyaline cartilage, and its anterior surface forms the laryngeal prominence (Adam’s apple).",
         "src": {
-          "ref": "hss.1.2",
-          "location": "p14–p18 Larynx and trachea"
+          "ref": "hss.resp",
+          "location": "p16 \"The largest laryngeal cartilage\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The three components of the nasal septum are the perpendicular plate of the ethmoid, the ______, and the hyaline septal cartilage.",
+        "accept": [
+          "vomer"
+        ],
+        "explanation": "The vomer forms the inferior part of the bony nasal septum.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p10 \"vomer (inferior), and hyaline (septal)\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which epithelium lines the nasopharynx?",
+        "options": [
+          "Stratified squamous epithelium",
+          "Pseudostratified ciliated columnar epithelium",
+          "Simple cuboidal epithelium",
+          "Transitional epithelium"
+        ],
+        "answer": 1,
+        "explanation": "The nasopharynx conveys only air, so it keeps the respiratory lining — pseudostratified ciliated columnar epithelium; the oropharynx and laryngopharynx switch to stratified squamous.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p14 \"Pseudostratified ciliated columnar epithelium\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The larynx begins at vertebral level C4 or C5 and ends at level ______.",
+        "accept": [
+          "C6",
+          "c6"
+        ],
+        "explanation": "The larynx ends at C6, where it is continuous with the trachea.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p15 \"and ends\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The ligament binding the thyroid cartilage to the hyoid bone is the ______ ligament.",
+        "accept": [
+          "thyrohyoid"
+        ],
+        "explanation": "The thyrohyoid ligament binds the thyroid cartilage to the hyoid bone; the cricothyroid and cricotracheal ligaments bind the other framework elements.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p17 \"Thyrohyoid ligament\""
         }
       }
     ],
     "application": [
       {
         "type": "scenario",
-        "prompt": "In acute upper airway obstruction where intubation fails, emergency airway access is established via cricothyroidotomy. Between which two laryngeal cartilages is this incision made?",
-        "model": "Between the thyroid cartilage and the cricoid cartilage, through the cricothyroid ligament/membrane. This site is palpable just below the laryngeal prominence and is superficial, providing rapid airway access below the vocal cords.",
+        "prompt": "A 3-year-old child aspirates a small plastic bead while eating and develops sudden stridor. The emergency team cannot intubate and cannot ventilate. Explain the anatomy of the cricothyroid membrane, why it is chosen for emergency airway access, and which cartilage lies immediately below the incision.",
+        "model": "The cricothyroid ligament (membrane) spans the midline gap between the inferior border of the thyroid cartilage and the superior border of the arch of the cricoid cartilage. It lies immediately subcutaneously with only skin, fascia and a thin muscle layer over it, is relatively avascular in the midline, and is easily palpated in the notch below the laryngeal prominence, so it can be opened rapidly without deep dissection or risk to the thyroid gland isthmus and anterior jugular veins. Immediately inferior to the incision is the cricoid cartilage — the only complete cartilaginous ring in the airway — which keeps the lumen patent.",
         "rubric": [
-          "Identifies thyroid cartilage",
-          "Identifies cricoid cartilage",
-          "Names cricothyroid ligament/membrane"
+          "Locates the cricothyroid membrane between the thyroid and cricoid cartilages in the anterior midline",
+          "Explains it is subcutaneous, midline-avascular and easily palpable, allowing rapid access",
+          "Identifies the cricoid cartilage as the complete ring lying just below the incision"
         ]
       }
     ],
     "commonMistakes": [
-      "Thinking the thyroid cartilage forms a complete ring (only the cricoid is complete).",
-      "Confusing true vocal cords (vocal folds) with false vocal cords (vestibular folds)."
+      "Calling the cricoid cartilage C-shaped like the tracheal rings — the cricoid is a complete ring, widest posteriorly.",
+      "Saying the epiglottis is hyaline cartilage — it is elastic cartilage; the thyroid and cricoid are hyaline.",
+      "Assuming the whole pharynx is stratified squamous — the nasopharynx keeps the respiratory pseudostratified ciliated columnar lining."
     ],
     "skills": [
-      "Locate the laryngeal prominence (Adam's apple) and cricoid cartilage by surface palpation on neck examination."
+      "Palpate the laryngeal prominence, the cricothyroid notch and the cricoid arch in the living neck.",
+      "On a model, name the three unpaired and three paired laryngeal cartilages and the three named ligaments."
     ],
-    "selfCheck": "From memory: list the 3 single and 3 paired laryngeal cartilages and identify the one complete ring.",
+    "selfCheck": "From memory: name the three parts of the nasal septum, the three parts of the pharynx with their epithelia, and the nine laryngeal cartilages with the tissue type of each unpaired one.",
     "sourceRefs": [
       {
         "ref": "hss.resp",
-        "location": "p5–p12 Upper tract and larynx"
+        "location": "p10 \"Bridge of the nose supported by the maxillae and nasal bone\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p11 \"Paranasal\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p12 \"Nasal conchae (turbinates)\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p14 \"Divided into three parts\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p15 \"3 Large, Unpaired\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p16 \"The largest laryngeal cartilage\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p17 \"Cricothyroid ligament\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p18 \"Made up of the vocal folds\""
       },
       {
         "ref": "hss.1.2",
-        "location": "p14–p18 Larynx and trachea"
+        "location": "p27 \"Nasopharynx\""
+      },
+      {
+        "ref": "hss.1.2",
+        "location": "p28 \"3 Large, Unpaired Cartilage\""
       }
     ]
   },
@@ -7878,7 +7998,7 @@ export const HSS_MODULES = [
     "subject": "HSS2011",
     "unit": "hss.m1",
     "type": "definition",
-    "title": "Pleural cavities, gross pulmonary lobes, surfaces and hilum",
+    "title": "Gross anatomy of the lungs, the hilum, the pleura and the dual blood supply",
     "tags": [
       "thorax",
       "respiratory",
@@ -7886,102 +8006,173 @@ export const HSS_MODULES = [
       "pleura",
       "high-yield"
     ],
+    "visuals": [
+      {
+        "fig": "lungsGrossAnatomy"
+      },
+      {
+        "fig": "respiratoryTractAnatomy"
+      },
+      {
+        "gen": true
+      }
+    ],
     "lesson": {
-      "explanation": "The lungs occupy the left and right pleural cavities of the thorax, separated by the mediastinum. Each lung is enclosed by a double-layered serous membrane called pleura: parietal pleura lines the inner thoracic wall, superior surface of diaphragm, and mediastinum; visceral pleura adheres intimately to the outer surface of each lung and dips into its fissures. The potential space between them is the pleural cavity, containing a small amount of lubricating pleural fluid that reduces friction during respiration. The apex of each lung extends superiorly into the root of the neck, above the first rib and clavicle; the concave base rests on the dome of the diaphragm. The Right Lung is larger and divided into three lobes (superior, middle, inferior) by two fissures: the horizontal fissure and the oblique fissure. The Left Lung is smaller to accommodate the cardiac notch and lingula, and is divided into two lobes (superior and inferior) by a single oblique fissure. On the mediastinal surface of each lung is the hilum, the wedge-shaped indentation where pulmonary vessels, primary bronchi, bronchial vessels, lymphatics, and nerves enter and exit to form the root of the lung. At the hilum, the primary bronchus typically lies posterior, the pulmonary artery superior, and the pulmonary veins anterior and inferior.",
-      "plain": "Each lung sits in a pleural cavity wrapped by parietal (outer) and visceral (inner) pleura. The right lung has 3 lobes (superior, middle, inferior) separated by horizontal and oblique fissures. The left lung has 2 lobes separated by an oblique fissure, featuring the cardiac notch. The lung apex extends above the 1st rib into the neck. At the medial hilum, bronchi and vessels enter/exit to form the root of the lung.",
+      "explanation": "APEX AND BASE. The apex of each lung extends beyond (superior to) the first rib, projecting about 2.5–3 cm above the medial third of the clavicle into the root of the neck — so a stab wound at the base of the neck can enter the pleural cavity. The base is the concave diaphragmatic surface that sits on the dome of the diaphragm; the costal surface faces the ribs and the mediastinal surface faces the midline.\n\nLOBES AND FISSURES. Lungs have lobes separated by deep fissures lined by visceral pleura. The right lung is wider and heavier than the left and is pushed upward by the liver; it has three lobes — superior, middle and inferior — separated by a horizontal fissure (running along the line of the 4th rib) and an oblique fissure (running from about the T3 spinous process to the 6th costal cartilage). The left lung has two lobes, superior and inferior, separated by a single oblique fissure; it is longer and narrower than the right and is displaced leftward by the heart, which forms an impression called the cardiac notch in its anterior medial margin, with the tongue-like lingula projecting below it.\n\nHILUM AND ROOT. The medial surface carries the hilum — a groove that lets the primary bronchi, pulmonary vessels, nerves and lymphatics enter and leave the lung; the structures passing through it, wrapped in a sleeve of pleura, form the root of the lung. Within the hilum the pulmonary artery lies superiorly, the pulmonary veins inferiorly and anteriorly, and the main bronchus posteriorly (mnemonic RALS: on the Right the artery is Anterior to the bronchus, on the Left it is Superior). The left lung’s medial surface also shows a groove for the arch and descending aorta.\n\nPLEURA. Each lung is surrounded by a double serous membrane, the pleura. The parietal pleura lines the thoracic wall, diaphragm and mediastinum and is sensitive to pain, temperature and touch via the phrenic and intercostal nerves; the visceral pleura is firmly adherent to the lung surface, dips into the fissures, and carries only autonomic fibres, so it is insensitive to somatic pain. The pleural cavity between the two layers is a potential space holding only about 10–15 mL of serous pleural fluid, which lubricates the sliding surfaces and, through its surface tension plus a sub-atmospheric (negative) intrapleural pressure, couples the lung to the chest wall so that the lung expands when the thorax does. If air enters this space (pneumothorax) the coupling is lost and the lung recoils and collapses. The two pleural cavities are separated by the mediastinum. Where costal pleura meets diaphragmatic pleura below the inferior lung border a costodiaphragmatic recess is left, deepest in the mid-axillary line; behind the sternum a costomediastinal recess lies where costal meets mediastinal pleura. The lung does not fill these recesses even in deep inspiration, so they are the dependent sites where pleural effusions and blood collect and the safe target for thoracentesis.\n\nDUAL BLOOD SUPPLY. The lungs have two circulations. The pulmonary arteries carry deoxygenated blood from the right ventricle to the alveoli for gas exchange and return oxygenated blood in the pulmonary veins. The bronchial arteries, mainly branched from the thoracic aorta, carry oxygenated systemic blood to nourish the bronchial tree, the connective tissue of the lung and the visceral pleura; they travel with and branch with the bronchi, ending at about the level of the respiratory bronchioles where they anastomose with branches of the pulmonary arteries. Much of the blood delivered by the bronchial arteries is returned via the pulmonary veins; the remainder drains through the bronchial veins into the azygos vein on the right and the hemiazygos (accessory hemiazygos) vein on the left.",
+      "plain": "Each lung has a pointed apex poking above the first rib and a curved base sitting on the diaphragm. The right lung has 3 lobes (horizontal + oblique fissures); the left has 2 (one oblique fissure) plus a scooped-out cardiac notch for the heart. On the inner surface, the hilum is the doorway where the bronchus, arteries, veins and nerves enter — artery on top, veins low and front, bronchus at the back. Each lung sits in its own bag: the visceral pleura is glued to the lung, the parietal pleura lines the chest wall, and a film of pleural fluid between them lets the lung slide and holds it expanded. The gaps at the bottom (costodiaphragmatic recesses) are where fluid pools in disease. The lung has two blood supplies: pulmonary arteries bring dark blood to be oxygenated; bronchial arteries from the aorta feed the lung’s own tissue.",
       "keyFacts": [
-        "Right lung has 3 lobes and 2 fissures (horizontal and oblique).",
-        "Left lung has 2 lobes and 1 fissure (oblique), featuring the cardiac notch and lingula.",
-        "Parietal pleura lines thoracic wall; visceral pleura adheres to the lung surface.",
-        "Lung apex projects superiorly beyond the 1st rib into the root of the neck.",
-        "Hilum is the medial surface opening where vessels, nerves, and bronchi form the root of the lung."
+        "The apex of each lung extends beyond the first rib; the base rests on the diaphragm.",
+        "The right lung has three lobes (superior, middle, inferior) separated by horizontal and oblique fissures.",
+        "The left lung has two lobes (superior, inferior) separated by one oblique fissure, plus a cardiac notch and lingula for the heart.",
+        "The right lung is wider (liver pushes it up); the left lung is longer and displaced leftward by the heart.",
+        "The hilum transmits the primary bronchi, pulmonary vessels, nerves and lymphatics; these form the root of the lung.",
+        "In the hilum the pulmonary artery is superior, the pulmonary veins inferior/anterior, and the main bronchus posterior.",
+        "Parietal pleura lines the chest wall, diaphragm and mediastinum; visceral pleura covers the lung and enters the fissures.",
+        "Pleural fluid in the pleural cavity reduces friction and holds the lung expanded; the two pleural cavities are separated by the mediastinum.",
+        "The costodiaphragmatic and costomediastinal recesses are potential spaces where pleural effusions accumulate.",
+        "Dual blood supply: pulmonary arteries (deoxygenated blood for gas exchange) and bronchial arteries from the thoracic aorta (oxygenated blood for lung tissue and visceral pleura); bronchial veins drain to the azygos and hemiazygos veins."
       ],
       "prerequisites": [
-        "hss2011-m1-lungs-airway"
+        "hss2011-resp-respiratory-epithelium-alveoli"
       ],
       "examples": [
-        "Pneumothorax occurs when air enters the pleural cavity, breaking pleural surface tension and causing lung collapse."
+        "Pleural effusion: fluid tracks to the costodiaphragmatic recess, blunting the costophrenic angle on an erect chest film; thoracentesis is performed low in the mid-axillary line, above a rib.",
+        "Pneumonia of the right middle lobe: because the horizontal fissure bounds it, consolidation produces a sharply demarcated shadow on the frontal film with loss of the right heart border silhouette."
       ]
     },
     "memory": {
-      "comparison": "Right lung = 3 lobes, 2 fissures; Left lung = 2 lobes, 1 fissure. The left lung is smaller because the heart tilts to the left.",
-      "chunking": "Hilum arrangement: Bronchus is posterior, Pulmonary artery is superior, Pulmonary veins are anterior/inferior."
+      "chunking": "Right lung 3 lobes / 2 fissures; left lung 2 lobes / 1 fissure + cardiac notch.",
+      "comparison": "Pulmonary arteries carry deoxygenated blood (gas exchange); bronchial arteries from the aorta carry oxygenated blood (feed the lung tissue).",
+      "visualCue": "Hilum layout front-to-back and top-to-bottom: artery up, veins down-and-front, bronchus at the back."
     },
     "practice": [
       {
         "type": "mcq",
-        "prompt": "How many lobes and fissures are present in the normal right lung?",
+        "prompt": "Which fissures separate the lobes of the right lung?",
         "options": [
-          "2 lobes and 1 fissure",
-          "3 lobes and 2 fissures",
-          "3 lobes and 1 fissure",
-          "4 lobes and 2 fissures"
+          "A single oblique fissure only",
+          "Horizontal and oblique fissures",
+          "Two horizontal fissures",
+          "A transverse and a coronal fissure"
         ],
         "answer": 1,
-        "explanation": "The right lung has three lobes (superior, middle, inferior) separated by the horizontal and oblique fissures.",
+        "explanation": "The right lung has three lobes separated by a horizontal fissure and an oblique fissure; the left lung has only an oblique fissure.",
         "src": {
           "ref": "hss.resp",
-          "location": "p15–p24 Lung gross anatomy and pleura"
+          "location": "p28 \"separated by horizontal and oblique fissures\""
         }
       },
       {
         "type": "cloze",
-        "prompt": "The wedge-shaped depression on the mediastinal surface of each lung through which bronchi and vessels pass is the ______.",
+        "prompt": "The left lung is displaced by the heart, forming an impression in its medial margin called the ______.",
         "accept": [
-          "hilum",
-          "hilus"
+          "cardiac notch"
         ],
-        "explanation": "The hilum transmits the structures comprising the root of the lung.",
+        "explanation": "The cardiac notch is the impression in the anterior medial margin of the left lung; the lingula lies just below it.",
         "src": {
-          "ref": "hss.resp",
-          "location": "p18 Lung hilum"
+          "ref": "hss.fib5yr",
+          "location": "p6 \"cardiac notch\""
         }
       },
       {
         "type": "mcq",
-        "prompt": "The prominent concavity on the anterior border of the left lung that accommodates the heart is the:",
+        "prompt": "The bronchial arteries that nourish the lung tissue and visceral pleura arise mainly from the:",
         "options": [
-          "Costal groove",
-          "Lingula",
-          "Cardiac notch",
-          "Azygos impression"
+          "Pulmonary trunk",
+          "Thoracic aorta",
+          "Internal thoracic artery",
+          "Coronary arteries"
+        ],
+        "answer": 1,
+        "explanation": "The bronchial arteries are mainly branched from the thoracic aorta and supply the bronchial tree, lung connective tissue and visceral pleura.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p30 \"The bronchial arteries, mainly branched from the thoracic aorta\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The membrane firmly adherent to the lung surface and dipping into the fissures is the ______ pleura.",
+        "accept": [
+          "visceral"
+        ],
+        "explanation": "Visceral pleura covers the lung and enters the fissures; parietal pleura lines the thoracic wall, diaphragm and mediastinum.",
+        "src": {
+          "ref": "hss.fib5yr",
+          "location": "p6 \"parietal + visceral pleura\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which structure lies most posteriorly in the pulmonary hilum?",
+        "options": [
+          "Pulmonary artery",
+          "Pulmonary veins",
+          "Main bronchus",
+          "Phrenic nerve"
         ],
         "answer": 2,
-        "explanation": "The cardiac notch accommodates the apex and pericardial bulk of the heart.",
+        "explanation": "In the hilum the main bronchus lies posteriorly, the pulmonary artery superiorly, and the pulmonary veins inferiorly and anteriorly.",
         "src": {
-          "ref": "hss.1.1",
-          "location": "p24–p28 Pleura and lung surfaces"
+          "ref": "hss.resp",
+          "location": "p27 \"Hilum\""
         }
       }
     ],
     "application": [
       {
         "type": "scenario",
-        "prompt": "A stab wound just above the medial third of the right clavicle causes acute shortness of breath. Which part of the lung has been punctured?",
-        "model": "The apex of the right lung (cervical pleura). The lung apex and cupola of parietal pleura extend approximately 2–3 cm superior to the medial third of the clavicle and first rib into the root of the neck, making it vulnerable to supraclavicular trauma.",
+        "prompt": "A patient with left-sided heart failure develops a large left pleural effusion. Explain where the fluid accumulates within the pleural cavity, why the lower lung border and the pleural reflection do not coincide, and the anatomical rule for safe needle drainage.",
+        "model": "Pleural fluid collects by gravity in the most dependent part of the pleural cavity, the costodiaphragmatic recess, the slit where costal pleura meets diaphragmatic pleura below the inferior border of the lung. The lung does not fill this recess even in full inspiration, so the pleural reflection extends about two ribs lower than the lung border (for example, lung at rib 6 but pleura at rib 8 in the mid-clavicular line). A drainage needle is therefore placed into the recess below the lung base but still within the pleural cavity, and it is passed immediately above a rib (over its upper border) to avoid the intercostal vein, artery and nerve running in the costal groove on the rib’s inferior border.",
         "rubric": [
-          "Identifies the apex of the lung",
-          "Explains apex extends above 1st rib / clavicle",
-          "Notes supraclavicular vulnerability"
+          "Identifies the costodiaphragmatic recess as the dependent site of fluid collection",
+          "Explains the pleural reflection lies about two ribs below the lung border, creating a safe target below the lung",
+          "States the needle is inserted immediately above a rib to avoid the intercostal neurovascular bundle"
         ]
       }
     ],
     "commonMistakes": [
-      "Thinking the lung apex stays entirely below the first rib (it extends 2–3 cm above it into the neck).",
-      "Assigning a middle lobe to the left lung (only the right lung has a middle lobe)."
+      "Giving the left lung three lobes — it has two; the middle-lobe equivalent tissue is the lingula.",
+      "Thinking the pulmonary arteries nourish the lung tissue — they carry deoxygenated blood for gas exchange; the bronchial arteries feed the tissue.",
+      "Placing the effusion needle below a rib — it goes above a rib to spare the neurovascular bundle in the costal groove."
     ],
     "skills": [
-      "Identify lung lobes, fissures, and costophrenic angles on PA and lateral chest radiographs."
+      "Identify the lobes, fissures, hilum and cardiac notch on a lung specimen or CT.",
+      "Locate the costophrenic angle on an erect chest radiograph and recognise blunting."
     ],
-    "selfCheck": "From a blank page: sketch both lungs, labelling lobes, fissures, cardiac notch, apex, and the structures passing through the hilum.",
+    "selfCheck": "From memory: give the lobes and fissures of each lung, the arrangement of structures in the hilum, the difference between parietal and visceral pleura, and the two blood supplies of the lung.",
     "sourceRefs": [
       {
         "ref": "hss.resp",
-        "location": "p15–p24 Lung gross anatomy and pleura"
+        "location": "p26 \"The apex of each lung extends beyond\""
       },
       {
-        "ref": "hss.1.1",
-        "location": "p24–p28 Pleura and lung surfaces"
+        "ref": "hss.resp",
+        "location": "p27 \"Hilum\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p28 \"separated by horizontal and oblique fissures\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p29 \"double membrane\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p30 \"The bronchial arteries, mainly branched from the thoracic aorta\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p74 \"Superior; middle\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p74 \"Bronchial arteries\""
+      },
+      {
+        "ref": "hss.fib5yr",
+        "location": "p6 \"cardiac notch\""
       }
     ]
   },
@@ -7989,109 +8180,544 @@ export const HSS_MODULES = [
     "id": "hss2011-resp-tutorial-pastpaper-practice",
     "subject": "HSS2011",
     "unit": "hss.m1",
-    "type": "cloze",
-    "title": "Respiratory anatomy tutorial & past paper practice",
+    "type": "practice",
+    "title": "Respiratory system — past-paper and revision-exercise synthesis",
     "tags": [
       "thorax",
       "respiratory",
-      "assessment",
-      "tutorial",
+      "past-paper",
+      "revision",
       "high-yield"
     ],
+    "visuals": [
+      {
+        "fig": "respiratoryTractAnatomy"
+      },
+      {
+        "fig": "respiratoryExchange"
+      },
+      {
+        "gen": true
+      }
+    ],
     "lesson": {
-      "explanation": "Official Module 1 revision questions test key pulmonary concepts: the trachea bifurcates at the carina into right and left primary bronchi at the level of the sternal angle (T4/T5 disc); the right primary bronchus is wider, shorter, and more vertically oriented than the left, making it the most common destination for aspirated foreign bodies; each lung is divided into 10 bronchopulmonary segments supplied by tertiary (segmental) bronchi; respiratory bronchioles mark the transition where alveoli first appear and gas exchange begins; and sympathetic activation induces bronchodilation, whereas parasympathetic vagal innervation causes bronchoconstriction and glandular mucus secretion.",
-      "plain": "High-yield exam review: trachea branches at the carina (T4/T5), right main bronchus catches foreign objects (wider, steeper), gas exchange starts at respiratory bronchioles, and 10 bronchopulmonary segments per lung.",
+      "explanation": "This item consolidates the respiratory anatomy that HKPolyU HSS2011 has actually tested in revision-exercise fill-in-the-blanks and past papers, so revision can be aimed at the marked points rather than the whole deck. Each block below is anchored to a fill-in-the-blank answer or an examiner answer key.\n\nAIRFLOW PATHWAY. The Module 1.1 fill-in-the-blank answer gives the conducting sequence as nostrils, then pharynx, larynx, trachea and bronchial tree, ending at the alveoli. Candidates are expected to reproduce this order and to name the boundary between the conducting division (down to the terminal bronchiole; this volume is anatomical dead space that never exchanges gas) and the respiratory division (respiratory bronchiole, alveolar duct, alveolar sac, alveolus).\n\nLARYNX AND TRACHEA. Recurring points: the larynx runs from C4/C5 to C6; the three unpaired cartilages are the thyroid (largest, hyaline, Adam’s apple), cricoid (hyaline, complete ring) and epiglottis (elastic cartilage); the trachea is about 2.5 cm wide and 11 cm long with 15–20 C-shaped cartilages and runs from C6 to the carina at T5.\n\nEPITHELIUM. The tested answer for the lining of the conducting airway is pseudostratified ciliated columnar epithelium with goblet cells; the nasal vestibule just inside the nostril is the exception — stratified squamous epithelium. Alveoli are simple squamous, formed by type I alveolar cells (the diffusion surface); type II alveolar cells secrete surfactant and alveolar macrophages (dust cells) remove debris. The respiratory membrane has three layers: alveolar squamous cell, capillary endothelial cell, and the fused basement membranes between them.\n\nLUNG LOBES AND BLOOD SUPPLY. The Module 1.1 blanks name the horizontal fissure as separating the superior and middle lobes of the right lung, and the bronchial arteries (from the thoracic aorta) as the vessels that nourish the bronchial tree, lung stroma and visceral pleura, with bronchial venous blood draining to the azygos and hemiazygos veins. The membrane covering the external lung surface is the visceral pleura; the left lung accommodates the heart at the cardiac notch and has only two lobes.\n\nRESPIRATORY MUSCLES. The tested primary muscles of inspiration are the diaphragm (phrenic nerve, C3–C5) and the external intercostal muscles; quiet expiration is passive elastic recoil. Candidates should separate primary from accessory muscles (sternocleidomastoid, scalenes, pectoralis minor for forced inspiration; internal intercostals and abdominal muscles for forced expiration) and quiet from forced breathing.\n\nBRONCHIAL GEOMETRY. Past questions probe why an aspirated object enters the right main bronchus — it is larger in diameter, shorter and more vertical than the left.",
+      "plain": "A revision sheet built from what HSS2011 has actually asked about the respiratory system. Know the airflow order (nostrils → pharynx → larynx → trachea → bronchial tree → alveoli); the linings (ciliated columnar in the conducting airway, stratified squamous in the nasal vestibule, simple squamous in alveoli); the right-lung horizontal fissure separating superior and middle lobes; the bronchial arteries from the aorta feeding lung tissue and visceral pleura; the visceral pleura on the lung surface; the cardiac notch of the left lung; the primary inspiratory muscles (diaphragm + external intercostals) with passive quiet expiration; and why aspiration favours the right main bronchus.",
       "keyFacts": [
-        "Trachea branches into primary bronchi at the carina (T4/T5).",
-        "Right primary bronchus is wider, shorter, and more vertical — primary site for aspirated foreign bodies.",
-        "Gas exchange first occurs at respiratory bronchioles.",
-        "Each lung contains 10 bronchopulmonary segments."
+        "Tested airflow pathway: nostrils → pharynx → larynx → trachea → bronchial tree → alveoli.",
+        "Conducting airway lining (tested answer): pseudostratified ciliated columnar epithelium.",
+        "Nasal vestibule lining (tested answer): stratified squamous epithelium.",
+        "Alveolar lining: simple squamous (type I cells); type II cells make surfactant; dust-cell macrophages clear debris.",
+        "Horizontal fissure of the right lung separates the superior and middle lobes.",
+        "Bronchial arteries (from the thoracic aorta) nourish the bronchial tree, lung stroma and visceral pleura.",
+        "The membrane on the external lung surface is the visceral pleura.",
+        "The left lung has a cardiac notch for the heart.",
+        "Primary inspiratory muscles: diaphragm and external intercostal muscles; quiet expiration is passive.",
+        "Aspirated objects enter the right main bronchus because it is larger, shorter and more vertical."
       ],
       "prerequisites": [
-        "hss2011-m1-lungs-airway",
-        "hss2011-resp-upper-tract-larynx"
+        "hss2011-resp-mechanics-muscles-breathing"
       ],
       "examples": [
-        "Exam past paper question: \"Which bronchus is a foreign body most likely to enter? Answer: Right primary bronchus.\""
+        "A fill-in-the-blank asks for the epithelium lining the trachea — the mark is for \"pseudostratified ciliated columnar epithelium\".",
+        "A fill-in-the-blank asks which fissure separates the superior and middle lobes of the right lung — the mark is for the \"horizontal\" fissure."
       ]
     },
     "memory": {
-      "teachBack": "Explain why an aspirated peanut almost always enters the right lung rather than the left lung."
+      "chunking": "Five tested blocks: pathway, epithelium, lobes/fissures, blood supply, respiratory muscles.",
+      "firstLetter": "Airflow: \"Never Piss Long Toward Bathroom Alleys\" — Nostrils, Pharynx, Larynx, Trachea, Bronchial tree, Alveoli.",
+      "comparison": "Nasal vestibule = stratified squamous (skin-like, at the entrance); rest of conducting airway = pseudostratified ciliated columnar."
     },
     "practice": [
       {
-        "type": "mcq",
-        "prompt": "An aspirated foreign object is most likely to lodge in which part of the bronchial tree?",
-        "options": [
-          "Left primary bronchus",
-          "Right primary bronchus",
-          "Left secondary bronchus",
-          "Tracheal bifurcation"
+        "type": "cloze",
+        "prompt": "Fill in the respiratory pathway after the nasal cavity: nostrils; pharynx; larynx; trachea; ______.",
+        "accept": [
+          "bronchial tree",
+          "bronchi",
+          "bronchial tree; alveoli"
         ],
-        "answer": 1,
-        "explanation": "The right primary bronchus is wider, shorter, and more vertically aligned with the trachea, so aspirated objects preferentially enter the right lung.",
+        "explanation": "The Module 1.1 answer gives the pathway as nostrils; pharynx; larynx; trachea; bronchial tree.",
         "src": {
-          "ref": "hss.1.2",
-          "location": "p16 Trachea and primary bronchi"
+          "ref": "hss.manual1920",
+          "location": "p74 \"Nostrils; pharynx; larynx; trachea; bronchial tree\""
         }
       },
       {
         "type": "cloze",
-        "prompt": "The internal ridge at the bifurcation of the trachea into the primary bronchi is the ______.",
+        "prompt": "The epithelium lining the conducting portion of the respiratory tract is ______ epithelium.",
         "accept": [
-          "carina"
+          "pseudostratified ciliated columnar",
+          "pseudostratified ciliated columnar epithelium"
         ],
-        "explanation": "The carina sits at the T4/T5 vertebral level, covered by sensitive mucosa that triggers a violent cough reflex.",
+        "explanation": "The tested Module 1.1 answer is pseudostratified ciliated columnar epithelium.",
         "src": {
-          "ref": "hss.revans",
-          "location": "Module 1.1 answers"
+          "ref": "hss.manual1920",
+          "location": "p74 \"Pseudostratified ciliated columnar epithelium\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The two primary muscles of inspiration are the diaphragm and the ______ muscles.",
+        "accept": [
+          "external intercostal",
+          "external intercostal muscles",
+          "external intercostals"
+        ],
+        "explanation": "The Module 1.1 answer names the diaphragm and external intercostal muscles as the primary respiratory muscles.",
+        "src": {
+          "ref": "hss.manual1920",
+          "location": "p74 \"Diaphragm; external intercostal muscles\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The horizontal fissure of the right lung separates the ______ and middle lobes.",
+        "accept": [
+          "superior"
+        ],
+        "explanation": "The Module 1.1 answer is \"superior; middle\" — the horizontal fissure separates the superior and middle lobes of the right lung.",
+        "src": {
+          "ref": "hss.manual1920",
+          "location": "p74 \"Superior; middle\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The vessels that nourish the bronchial tree, lung connective tissue and visceral pleura are the ______ arteries.",
+        "accept": [
+          "bronchial"
+        ],
+        "explanation": "The Module 1.1 answer is \"bronchial arteries\" — they branch mainly from the thoracic aorta.",
+        "src": {
+          "ref": "hss.manual1920",
+          "location": "p74 \"Bronchial arteries\""
         }
       },
       {
         "type": "mcq",
-        "prompt": "Gas exchange first becomes possible at which microscopic division of the respiratory tree?",
+        "prompt": "Which epithelium lines the nasal vestibule (just inside the nostril)?",
         "options": [
-          "Terminal bronchioles",
-          "Tertiary bronchi",
-          "Respiratory bronchioles",
-          "Trachea"
+          "Pseudostratified ciliated columnar",
+          "Stratified squamous",
+          "Simple squamous",
+          "Simple columnar"
         ],
-        "answer": 2,
-        "explanation": "Respiratory bronchioles have scattered alveoli budding from their walls, making them the beginning of the respiratory zone.",
+        "answer": 1,
+        "explanation": "The past-paper answer key lists the nasal vestibule as stratified squamous epithelium, unlike the rest of the conducting airway.",
         "src": {
-          "ref": "hss.resp",
-          "location": "p20 Microscopic bronchial tree"
+          "ref": "hss.fib5yr",
+          "location": "p6 \"nasal vestibule: Stratified squamous epithelium\""
         }
       }
     ],
     "application": [
       {
         "type": "scenario",
-        "prompt": "A toddler accidentally inhales a small plastic bead while playing. Chest X-ray reveals atelectasis of the right lower lobe. Explain the anatomical basis for this localization.",
-        "model": "The right primary bronchus is wider, shorter, and more vertically aligned with the trachea than the left primary bronchus. Gravity and airflow guide aspirated foreign bodies preferentially into the right bronchial tree and downward into the right lower lobe bronchus.",
+        "prompt": "A past-paper stem describes a 60-year-old who inhaled a tooth fragment during a dental extraction while lying back; a follow-up film shows collapse of a lower-lobe segment. Work through the expected answer: which main bronchus received the fragment, which lung region is affected in a supine patient, and what lining that bronchus has.",
+        "model": "The fragment entered the right main bronchus because it is larger in diameter, shorter and more vertical than the left. In a supine patient the most dependent segments are the superior segment of the right lower lobe and the posterior segment of the right upper lobe, so a lower-lobe collapse fits the superior segment of the right lower lobe. The bronchus is lined by pseudostratified ciliated columnar epithelium with goblet cells; the mucus escalator normally clears such material, but a solid fragment obstructs the lumen and air distal to it is absorbed, collapsing the segment.",
         "rubric": [
-          "Identifies right primary bronchus",
-          "Notes wider, shorter, more vertical course",
-          "Concludes gravity directs foreign body into right lower lobe"
+          "Names the right main bronchus and justifies it by larger diameter, shorter length and more vertical angle",
+          "Identifies a dependent right-lower-lobe (superior) segment as the site in a supine patient",
+          "States the bronchial lining is pseudostratified ciliated columnar epithelium and links obstruction to absorption collapse"
         ]
       }
     ],
     "commonMistakes": [
-      "Choosing left primary bronchus for foreign body aspiration.",
-      "Thinking terminal bronchioles participate in gas exchange (they belong to the conducting zone; respiratory bronchioles start the respiratory zone)."
+      "Writing \"simple ciliated columnar\" — the tested term is pseudostratified ciliated columnar epithelium.",
+      "Saying the oblique fissure separates the superior and middle lobes — it is the horizontal fissure.",
+      "Naming the pulmonary arteries as the lung’s nutritive supply — the tested answer is the bronchial arteries."
     ],
     "skills": [
-      "Identify the carina and endotracheal tube tip position (normally 3–5 cm above carina) on mobile chest radiographs."
+      "Reproduce the respiratory pathway and epithelial map from memory under timed conditions.",
+      "Match each Module 1.1 fill-in-the-blank prompt to its one-line marked answer."
     ],
-    "selfCheck": "From memory: explain the 3 anatomical differences between right and left main bronchi.",
+    "selfCheck": "From memory: write the airflow pathway, the epithelium of the conducting airway and the nasal vestibule, the fissure separating the right superior and middle lobes, the lung’s nutritive artery, and the two primary inspiratory muscles.",
     "sourceRefs": [
       {
-        "ref": "hss.1.2",
-        "location": "p16 Trachea and primary bronchi"
+        "ref": "hss.manual1920",
+        "location": "p74 \"Nostrils; pharynx; larynx; trachea; bronchial tree\""
       },
       {
-        "ref": "hss.revans",
-        "location": "Module 1.1 answers"
+        "ref": "hss.manual1920",
+        "location": "p74 \"Pseudostratified ciliated columnar epithelium\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p74 \"Diaphragm; external intercostal muscles\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p74 \"Superior; middle\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p74 \"Bronchial arteries\""
+      },
+      {
+        "ref": "hss.fib5yr",
+        "location": "p6 \"nasal vestibule: Stratified squamous epithelium\""
+      }
+    ]
+  },
+  {
+    "id": "hss2011-resp-respiratory-epithelium-alveoli",
+    "subject": "HSS2011",
+    "unit": "hss.m1",
+    "type": "concept",
+    "title": "Respiratory epithelium, the mucus escalator, alveolar cells and the respiratory membrane",
+    "tags": [
+      "thorax",
+      "respiratory",
+      "histology",
+      "alveoli",
+      "high-yield"
+    ],
+    "visuals": [
+      {
+        "fig": "respiratoryExchange"
+      },
+      {
+        "fig": "alveolarMicroarchitecture"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "lesson": {
+      "explanation": "EPITHELIAL TRANSITIONS. The lining epithelium changes along the respiratory tract to match local mechanical and functional demands. The nasal cavity and the superior portion of the pharynx are lined by pseudostratified ciliated columnar epithelium with numerous mucous (goblet) cells. The middle and inferior portions of the pharynx switch to stratified squamous epithelium, similar to the oral cavity, because they carry abrasive food. The superior portion of the lower respiratory system (larynx, trachea, bronchi) returns to pseudostratified ciliated columnar epithelium with goblet cells. In the smaller bronchioles this thins to cuboidal epithelium with scattered cilia, and in the alveoli it becomes simple squamous epithelium for gas diffusion.\n\nMUCUS ESCALATOR. Inhaled air carries dust, pathogens and insects. Filtration in the nasal cavity removes large particles (over about 10 micrometres). Mucous cells and mucous glands produce mucus that bathes the exposed surfaces and traps smaller particles. Cilia in the lower respiratory system then sweep the debris-laden mucus toward the pharynx — the mucus escalator — where it is swallowed and exposed to the acids and enzymes of the stomach. Smoking paralyses and destroys cilia, which is why smokers develop a productive morning cough.\n\nPULMONARY LOBULE. Each terminal bronchiole delivers air to a single pulmonary lobule, supplied by pulmonary arteries and veins. Each terminal bronchiole branches into several respiratory bronchioles, where gas exchange begins; these connect to alveoli along alveolar ducts, which end in alveolar sacs — common chambers opening into many individual alveoli. Every alveolus has an extensive capillary network and is wrapped in elastic fibres that drive passive recoil during expiration.\n\nALVEOLAR EPITHELIUM. The alveolar wall is simple squamous epithelium made of: Type I pneumocytes (type I alveolar cells) — the thin squamous cells that form the diffusion surface and cover most of the alveolar area; Type II pneumocytes (type II alveolar cells) — rounded cells that produce surfactant, an oily secretion that coats the alveolar surfaces and reduces surface tension, preventing alveolar collapse; and alveolar macrophages (dust cells) — free cells that patrol the alveolar surface and remove debris that reaches this depth.\n\nRESPIRATORY MEMBRANE (blood–air barrier). The site of gas exchange, made of three layers: (1) the squamous epithelial cells of the alveolus (type I pneumocytes), (2) the endothelial cells lining an adjacent capillary, and (3) the fused basement membranes between the alveolar and endothelial cells. The membrane is extremely thin, so oxygen and carbon dioxide diffuse rapidly down their partial-pressure gradients; thickening of this membrane (pulmonary oedema, fibrosis) impairs gas transfer.",
+      "plain": "The lining of the airway changes as you go deeper. Nose and upper throat: pseudostratified ciliated columnar with goblet cells (makes and moves mucus). Lower throat: tough stratified squamous, because food scrapes past. Voice box, windpipe and bronchi: back to ciliated columnar with goblet cells. Tiny bronchioles: cuboidal with a few cilia. Alveoli: a single flat layer for gas to cross. The \"mucus escalator\" is the defence line — goblet cells trap dust in sticky mucus and cilia sweep it up to the throat to be swallowed. Deep in the lung, alveoli are lined by flat Type I cells (where gas crosses), rounded Type II cells (make surfactant so alveoli don’t collapse), and roaming dust-cell macrophages. Gas crosses the respiratory membrane: alveolar cell + fused basement membrane + capillary endothelial cell.",
+      "keyFacts": [
+        "Nasal cavity and superior pharynx: pseudostratified ciliated columnar epithelium with goblet cells.",
+        "Middle and inferior pharynx: stratified squamous epithelium (similar to the oral cavity), for abrasion resistance.",
+        "Superior lower respiratory tract (larynx, trachea, bronchi): pseudostratified ciliated columnar with goblet cells.",
+        "Smaller bronchioles: cuboidal epithelium with scattered cilia.",
+        "Alveoli: simple squamous epithelium.",
+        "Nasal filtration removes particles larger than about 10 micrometres; cilia sweep trapped mucus toward the pharynx (the mucus escalator) to be swallowed.",
+        "Each terminal bronchiole supplies one pulmonary lobule; respiratory bronchioles are where gas exchange begins, leading to alveolar ducts and alveolar sacs.",
+        "Type I pneumocytes are the thin squamous diffusion cells covering most of the alveolar surface.",
+        "Type II pneumocytes produce surfactant, which reduces alveolar surface tension and prevents collapse; alveolar macrophages (dust cells) remove debris.",
+        "The respiratory membrane has three layers: alveolar squamous epithelium, capillary endothelium, and the fused basement membranes between them."
+      ],
+      "prerequisites": [
+        "hss2011-m1-lungs-airway"
+      ],
+      "examples": [
+        "Neonatal respiratory distress syndrome: a premature infant with too few functioning type II pneumocytes lacks surfactant, so surface tension collapses the alveoli at end-expiration and the work of breathing rises sharply.",
+        "Pulmonary oedema: fluid in the interstitium widens the respiratory membrane, lengthening the diffusion path and dropping arterial oxygen despite a normal airway."
+      ]
+    },
+    "memory": {
+      "chunking": "Epithelium down the tract: ciliated columnar → (mid/lower pharynx) squamous → ciliated columnar → (bronchioles) cuboidal → (alveoli) simple squamous.",
+      "comparison": "Type I pneumocyte = thin, wide, for diffusion; Type II pneumocyte = plump, secretory, for surfactant; macrophage = mobile, phagocytic, for clean-up.",
+      "firstLetter": "Respiratory membrane = \"A–B–C\": Alveolar cell, Basement membranes (fused), Capillary endothelial cell."
+    },
+    "practice": [
+      {
+        "type": "mcq",
+        "prompt": "Which cells produce pulmonary surfactant?",
+        "options": [
+          "Type I pneumocytes",
+          "Type II pneumocytes",
+          "Alveolar macrophages",
+          "Goblet cells"
+        ],
+        "answer": 1,
+        "explanation": "Type II pneumocytes (type II alveolar cells) produce surfactant, an oily secretion that coats the alveolar surfaces and reduces surface tension.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p24 \"Type II pneumocytes (type II alveolar cells) produce surfactant\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "The respiratory membrane consists of three layers. Which set is correct?",
+        "options": [
+          "Alveolar squamous epithelium, surfactant film, goblet cell layer",
+          "Squamous epithelial cells of the alveolus, endothelial cells of an adjacent capillary, and the fused basement membranes between them",
+          "Type II pneumocytes, smooth muscle, cartilage",
+          "Cuboidal epithelium, elastic fibres, pleura"
+        ],
+        "answer": 1,
+        "explanation": "The three layers are the alveolar squamous epithelium (type I cells), the capillary endothelium, and the fused basement membranes between the two.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p25 \"Fused basement\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The lining of the smaller bronchioles is ______ epithelium with scattered cilia.",
+        "accept": [
+          "cuboidal"
+        ],
+        "explanation": "Smaller bronchioles are lined by cuboidal epithelium with scattered cilia; alveoli are simple squamous.",
+        "src": {
+          "ref": "hss.1.2",
+          "location": "p36 \"Cuboidal epithelium with scattered cilia\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "Nasal filtration removes inhaled particles larger than about ______ micrometres before cilia clear the rest.",
+        "accept": [
+          "10",
+          "ten"
+        ],
+        "explanation": "The scope deck states filtration in the nasal cavity removes large particles (over 10 micrometres); the mucus escalator then clears smaller trapped particles.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p7 \"Filtration in nasal cavity\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the fate of debris trapped by the mucus escalator?",
+        "options": [
+          "It is coughed out through the nose only",
+          "Cilia sweep it toward the pharynx and it is swallowed and exposed to stomach acid and enzymes",
+          "It is absorbed into the pulmonary capillaries",
+          "It is stored permanently in the bronchial walls"
+        ],
+        "answer": 1,
+        "explanation": "Cilia in the lower respiratory system sweep debris trapped in mucus toward the pharynx, where it is swallowed and exposed to the acids and enzymes of the stomach.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p7 \"sweep debris trapped\""
+        }
+      }
+    ],
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A long-term smoker presents with a chronic productive cough and recurrent chest infections. Using the histology of the airway lining, explain why cigarette smoke both increases mucus production and impairs its clearance, and predict the epithelial change seen on a bronchial biopsy.",
+        "model": "The normal bronchial lining is pseudostratified ciliated columnar epithelium with goblet cells: goblet cells and mucous glands make mucus that traps particles, and the cilia form the mucus escalator that sweeps it toward the pharynx. Chronic smoke exposure causes goblet cell hyperplasia and mucous gland hypertrophy (more mucus) while paralysing and destroying cilia (less clearance), so mucus pools in the airway, is only cleared by forceful coughing, and stagnant mucus predisposes to infection. With sustained injury the epithelium undergoes squamous metaplasia — the ciliated columnar lining is replaced by stratified squamous epithelium that has no cilia and no goblet cells, worsening clearance further and being a step toward dysplasia.",
+        "rubric": [
+          "States the normal lining is pseudostratified ciliated columnar with goblet cells and describes the mucus escalator",
+          "Explains smoke increases mucus (goblet/gland hyperplasia) while destroying cilia, so clearance fails and infection follows",
+          "Predicts squamous metaplasia on biopsy — loss of cilia and goblet cells"
+        ]
+      }
+    ],
+    "commonMistakes": [
+      "Saying alveoli are lined by cuboidal epithelium — alveoli are simple squamous; the small bronchioles are cuboidal.",
+      "Reversing the pneumocytes — Type I is the thin gas-diffusion cell, Type II makes surfactant.",
+      "Listing the respiratory membrane as two layers — there are three, including the fused basement membranes."
+    ],
+    "skills": [
+      "On a histology slide, distinguish pseudostratified ciliated columnar from stratified squamous airway epithelium.",
+      "Trace the path of an inhaled dust particle from nasal filtration through the mucus escalator to the stomach, or through to an alveolar macrophage."
+    ],
+    "selfCheck": "From memory: list the epithelium of each airway region from nasal cavity to alveolus, name the three alveolar cell types with their jobs, and state the three layers of the respiratory membrane.",
+    "sourceRefs": [
+      {
+        "ref": "hss.resp",
+        "location": "p6 \"The structure of the epithelium changes along the respiratory\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p7 \"The mucus escalator as a defense mechanism\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p23 \"Each terminal bronchiole delivers air\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p24 \"Type II pneumocytes (type II alveolar cells) produce surfactant\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p25 \"Three layers\""
+      },
+      {
+        "ref": "hss.1.2",
+        "location": "p36 \"Cuboidal epithelium with scattered cilia\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p74 \"Pseudostratified ciliated columnar epithelium\""
+      }
+    ]
+  },
+  {
+    "id": "hss2011-resp-mechanics-muscles-breathing",
+    "subject": "HSS2011",
+    "unit": "hss.m1",
+    "type": "concept",
+    "title": "Mechanics of ventilation: the diaphragm, intercostals and accessory muscles",
+    "tags": [
+      "thorax",
+      "respiratory",
+      "ventilation",
+      "diaphragm",
+      "high-yield"
+    ],
+    "visuals": [
+      {
+        "fig": "thoracicDiaphragm"
+      },
+      {
+        "fig": "spirometryLungVolumes"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "lesson": {
+      "explanation": "PRESSURE AND VOLUME. Air moves because of Boyle’s law: at constant temperature, gas pressure is inversely proportional to volume. The lung is held against the chest wall by a sub-atmospheric intrapleural pressure; the difference between the pressure inside the alveoli (intrapulmonary pressure) and the intrapleural pressure is the transpulmonary pressure that keeps the alveoli open. When the respiratory muscles enlarge the thoracic cavity, intrapleural pressure falls further, the lungs are pulled open, intrapulmonary pressure drops below atmospheric, and air flows in until the two equalise. Reducing thoracic volume reverses every step and air flows out.\n\nQUIET INSPIRATION (active). The primary respiratory muscles do the work. The diaphragm contracts and its domes descend by 1–2 cm, increasing the vertical dimension of the thoracic cavity; it is the chief muscle of quiet breathing, accounting for roughly two-thirds of the tidal volume, and is innervated by the left and right phrenic nerves (C3, C4, C5 — “C3, 4, 5 keep the diaphragm alive”). The external intercostal muscles contract and lift the ribs upward and outward: because the ribs slope downward and articulate at two points behind, raising them swings the shaft laterally (increasing the transverse diameter — the “bucket-handle” movement) and pushes the sternum forward (increasing the anteroposterior diameter — the “pump-handle” movement).\n\nQUIET EXPIRATION (passive). No muscular effort is needed. The diaphragm and external intercostals simply relax, and the stored elastic recoil of the stretched lungs, the chest wall and the compressed abdominal contents returns the thorax to its resting volume, raising intrapulmonary pressure above atmospheric and driving air out.\n\nFORCED (LABOURED) BREATHING. Accessory respiratory muscles are activated only when respiration increases significantly, for example in exercise, coughing, sneezing or airway disease. Inhalation is always active; exhalation can be active (forced breathing) or passive (quiet breathing). Accessory muscles of forced inspiration include the sternocleidomastoid (elevates the sternum), the scalene muscles (elevate the 1st and 2nd ribs) and the pectoralis minor and serratus anterior (elevate the ribs when the shoulder girdle is fixed by gripping a support). Muscles of forced expiration include the internal intercostal muscles and transversus thoracis, which depress the ribs, and the anterolateral abdominal wall muscles — rectus abdominis, external oblique and internal oblique — which raise intra-abdominal pressure and push the relaxed diaphragm upward, rapidly and forcefully emptying the lungs. The same abdominal contraction against a closed glottis is the Valsalva manoeuvre used in coughing, defaecation and lifting.\n\nCLINICAL LINK. Because the phrenic nerve arises from C3–C5, a complete spinal cord injury above C3 abolishes diaphragmatic breathing and requires permanent ventilatory support, an injury between C3 and C5 leaves partial diaphragm function, and an injury below C5 spares the diaphragm but denervates the intercostal and abdominal muscles, crippling the cough.",
+      "plain": "Breathing is a pressure game (Boyle’s law): make the chest bigger and air rushes in; make it smaller and air is pushed out. Quiet breathing in is active — the diaphragm drops (driven by the phrenic nerve, C3–5) and the external intercostals swing the ribs up and out like a bucket handle and a pump handle. Quiet breathing out is passive — everything just springs back. When you need more air (exercise, coughing), accessory muscles join in: neck muscles (sternocleidomastoid, scalenes) and chest muscles pull the ribs up harder for a big breath in; the internal intercostals and the abdominal muscles squeeze the ribs down and shove the diaphragm up for a forceful breath out. Inhaling is always active work; exhaling is only active when forced.",
+      "keyFacts": [
+        "Airflow follows Boyle’s law: pressure is inversely proportional to volume.",
+        "The diaphragm is the primary muscle of quiet inspiration; contraction lowers its domes and increases the vertical dimension of the thorax.",
+        "The diaphragm is innervated by the left and right phrenic nerves from spinal levels C3, C4 and C5.",
+        "The external intercostal muscles are the other primary inspiratory muscles, raising the ribs (bucket-handle and pump-handle motions).",
+        "Quiet expiration is passive — elastic recoil of the lungs and chest wall with no muscular effort.",
+        "Inhalation is always active; exhalation can be active (forced breathing) or passive (quiet breathing).",
+        "Accessory muscles are recruited only when respiration increases significantly.",
+        "Accessory inspiratory muscles: sternocleidomastoid, scalene muscles, pectoralis minor and serratus anterior.",
+        "Accessory expiratory muscles: internal intercostal muscles, transversus thoracis, and the abdominal wall muscles (rectus abdominis, external and internal oblique).",
+        "A cord injury above C3 abolishes phrenic drive and diaphragmatic breathing; below C5 the diaphragm is spared."
+      ],
+      "prerequisites": [
+        "hss2011-resp-pleura-lungs-gross"
+      ],
+      "examples": [
+        "COPD exacerbation: a breathless patient sits forward with hands on knees, fixing the shoulder girdle so pectoralis minor and serratus anterior can pull on the ribs — visible use of accessory muscles signals severe airflow limitation.",
+        "Phrenic nerve palsy after cardiac surgery: one hemidiaphragm is paralysed and rises paradoxically on inspiration, seen as an elevated dome on the chest film and worse breathlessness when supine."
+      ]
+    },
+    "memory": {
+      "firstLetter": "Phrenic nerve roots: \"C3, 4, 5 keep the diaphragm alive.\"",
+      "comparison": "Quiet inspiration = active (diaphragm + external intercostals); quiet expiration = passive (recoil). Forced adds accessory muscles at both ends.",
+      "chunking": "Accessory inspiration: neck and shoulder pull ribs UP (SCM, scalenes, pec minor, serratus anterior). Accessory expiration: chest and belly push ribs and diaphragm to squeeze air OUT (internal intercostals, transversus thoracis, abdominals)."
+    },
+    "practice": [
+      {
+        "type": "mcq",
+        "prompt": "Which nerve supplies the diaphragm, and from which spinal levels does it arise?",
+        "options": [
+          "Vagus nerve, from the medulla",
+          "Phrenic nerve, from C3–C5",
+          "Intercostal nerves, from T1–T11",
+          "Long thoracic nerve, from C5–C7"
+        ],
+        "answer": 1,
+        "explanation": "The diaphragm is innervated by the left and right phrenic nerves, which arise from spinal levels C3, C4 and C5.",
+        "src": {
+          "ref": "hss.1.3",
+          "location": "p15 \"innervated by the\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "During quiet, restful breathing, expiration is:",
+        "options": [
+          "Active, driven by the internal intercostals and abdominal muscles",
+          "Passive, produced by elastic recoil of the lungs and chest wall",
+          "Active, driven by the diaphragm",
+          "Impossible without accessory muscles"
+        ],
+        "answer": 1,
+        "explanation": "Quiet expiration is passive: the inspiratory muscles relax and elastic recoil returns the thorax to its resting volume. Inhalation is always active; exhalation is active only when forced.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p31 \"Inhalation is always active\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The primary respiratory muscles are the diaphragm and the ______ intercostal muscles.",
+        "accept": [
+          "external"
+        ],
+        "explanation": "The external intercostal muscles and the diaphragm are the primary respiratory muscles; the internal intercostals are accessory expiratory muscles.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p31 \"External intercostal\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which muscle is an accessory muscle of forced inspiration?",
+        "options": [
+          "Rectus abdominis",
+          "Internal intercostal muscle",
+          "Sternocleidomastoid",
+          "Transversus thoracis"
+        ],
+        "answer": 2,
+        "explanation": "Sternocleidomastoid, scalenes, pectoralis minor and serratus anterior are accessory inspiratory muscles; internal intercostals, transversus thoracis and the abdominal muscles are accessory expiratory muscles.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p31 \"Sternocleidomastoid\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "Gas moves in and out of the lungs according to ______ law: pressure is inversely proportional to volume.",
+        "accept": [
+          "Boyle's",
+          "Boyle",
+          "Boyles"
+        ],
+        "explanation": "Boyle’s law underlies pulmonary ventilation — increasing thoracic volume lowers intrapulmonary pressure and draws air in.",
+        "src": {
+          "ref": "hss.resp",
+          "location": "p31 \"Inhalation is always active\""
+        }
+      }
+    ],
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A patient sustains a traumatic spinal cord transection at the C6 level. Predict the effect on the diaphragm, on the intercostal muscles, and on the patient’s ability to cough, and explain the anatomical basis.",
+        "model": "The phrenic nerve arises from C3, C4 and C5, all of which are above the C6 lesion, so the diaphragm is spared and the patient can breathe. The intercostal muscles are supplied by thoracic intercostal nerves (T1–T11), which are below the lesion, so the external and internal intercostals are paralysed; the abdominal wall muscles are also denervated. The patient therefore has diaphragmatic breathing but cannot expand the rib cage for a deep breath and cannot generate a forceful expiration, so coughing and airway clearance are severely impaired — a major cause of retained secretions and pneumonia in high spinal injury.",
+        "rubric": [
+          "States the phrenic nerve (C3–C5) is above the C6 lesion, so the diaphragm still works",
+          "States the intercostal (T1–T11) and abdominal muscles are below the lesion and are paralysed",
+          "Concludes cough and forced expiration are lost, risking retained secretions and pneumonia"
+        ]
+      }
+    ],
+    "commonMistakes": [
+      "Calling quiet expiration active — at rest it is entirely passive elastic recoil.",
+      "Putting the phrenic nerve roots at C5–C7 — they are C3, C4, C5.",
+      "Listing the internal intercostals as inspiratory — they are accessory expiratory muscles; the external intercostals are inspiratory."
+    ],
+    "skills": [
+      "Observe a breathless patient for accessory muscle use (sternocleidomastoid, tripod posture) as a marker of severity.",
+      "Relate a spinal cord injury level to expected diaphragm, intercostal and abdominal muscle function."
+    ],
+    "selfCheck": "From memory: state Boyle’s law, the primary muscles of inspiration and their nerve supply, why quiet expiration needs no muscle, and the accessory muscles of forced inspiration and expiration.",
+    "sourceRefs": [
+      {
+        "ref": "hss.resp",
+        "location": "p31 \"The Respiratory Muscles\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p31 \"Inhalation is always active\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p31 \"External intercostal\""
+      },
+      {
+        "ref": "hss.resp",
+        "location": "p31 \"Sternocleidomastoid\""
+      },
+      {
+        "ref": "hss.1.3",
+        "location": "p15 \"innervated by the\""
+      },
+      {
+        "ref": "hss.1.3",
+        "location": "p15 \"central tendon\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p74 \"Diaphragm; external intercostal muscles\""
       }
     ]
   },
