@@ -1,6 +1,6 @@
 — the export surface of outputs/study-data.js — 64 exports —
   f6ce6e2d285e4eb0      3308  BONE_HOOKS  object[21]
-  5065f3471f3329a9     31894  COVERAGE  object[6]
+  2fac5edaebcf94b2     34761  COVERAGE  object[6]
   6b86b273ff34fce1         1  DATA_VERSION  number
   619d6a33617fad34         8  DAY_MS  number
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
@@ -32,7 +32,7 @@
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  06c6082a1100c4f5   1510550  default  object[7]
+  a733d45d17bde9d0   1513417  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -64,7 +64,7 @@
   ba048d6b42696398      2356  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  a0e25e3b59964806  WHOLE SURFACE
+  420f72c6366a431d  WHOLE SURFACE
 
 — every study item, by id — 177 items —
   2d29339c231f634a  abct2326-acquired-immunity
