@@ -493,7 +493,7 @@ export const WEEK_STUDY = {
       'abct2326-repro-female-tract-follicles', 'abct2326-repro-ovarian-menstrual-cycle',
       'abct2326-repro-fertilization-implantation', 'abct2326-repro-placenta-parturition',
     ],
-    8: ['abct2326-endocrine-delivery', 'abct2326-endocrine-receptors', 'abct2326-endocrine-second-messengers'],
+    8: ['abct2326-endocrine-delivery', 'abct2326-endocrine-receptors', 'abct2326-endocrine-second-messengers', 'abct2326-endocrine-pituitary-axes', 'abct2326-endocrine-adrenal-thyroid', 'abct2326-endocrine-pancreas-misc'],
     9: ['abct2326-nervous-divisions', 'abct2326-synapse-drug-action', 'phys-nerve-cellular-action-potential', 'abct2326-nervous-synaptic-refractory-neuroglia'],
     10: [],
     11: ['abct2326-muscle-types', 'abct2326-muscle-action', 'abct2326-nmj-coupling', 'abct2326-muscle-ultrastructure-energetics'],
