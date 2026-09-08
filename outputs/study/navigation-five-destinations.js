@@ -5,7 +5,7 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, esc, ui } from './imports.js';
-import { openViewer, leaveProjection, pauseFullAtlas } from './what-is-under.js';
+import { openViewer, leaveProjection } from './what-is-under.js';
 import { releaseLessonVisual } from './lesson-visuals.js';
 import { renderLearn } from './subject.js';
 import { renderMore } from './more-sources-coverage.js';
@@ -38,7 +38,7 @@ const NAV_KICKERS = {
 let currentTab = 'today';
 
 export function setActiveNav(id) {
-  if (id !== 'viewer') {leaveProjection();pauseFullAtlas();}
+  if (id !== 'viewer') {leaveProjection();}
   $$('navTitle').textContent = NAV_TITLES[id] || 'Study Studio';
   if (id !== 'learn') $$('navBackBtn').classList.add('hidden');
   $$('navKicker').textContent = NAV_KICKERS[id] || '';
@@ -51,7 +51,6 @@ export function setActiveNav(id) {
   $$('navContent').classList.toggle('bleed', viewer);
   document.querySelector('.navmain > .navhead').classList.toggle('compact', viewer);
   $$('viewerTabs').classList.toggle('hidden', !viewer);
-  $$('modelSourceTabs').classList.toggle('hidden', !viewer || ui.viewerTab !== '3d');
   /* The canvas box changed size; tell the renderer before the next frame. */
   if (viewer && window.__osteo && window.__osteo.resize) requestAnimationFrame(() => window.__osteo.resize());
   document.querySelectorAll('.navrail [data-nav], .bottomtab [data-nav]').forEach((b) => {

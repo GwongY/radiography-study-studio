@@ -8,7 +8,6 @@ import { MEMORY_TIPS, answer, clean, openDetail, pool, record, regionLabel, sele
 import { animate, applyVisibility, between, getRecord, tube } from './region-boxes-how.js';
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
 import { enforceHidden } from './hide-and-search.js';
-import { exitAtlas } from './atlas-source.js';
 import { showPickCallout } from './spatial-concept-overlays.js';
 import { setSeparation, setTool } from './tools-and-capture.js';
 
@@ -450,9 +449,7 @@ export function clearStudyFocus(){
   if(had||resumed)applyLayers();
 }
 export async function focusStructures(spec){
-  /* A lesson always gets the course body: the atlas source force-exits on
-     the way in, the same discipline that suspends the cut and the peels. */
-  if(state.atlasPainting)exitAtlas();
+  if(state.separation)setSeparation(0);
   if(!state.scene)return {ok:false,reason:'not-booted',found:0};
   suspendViewerState();
   const key=spec.layer||'skeleton';
@@ -1185,7 +1182,7 @@ function classifySoftTissue(THREE,movingBones,fixedBones){
   return {carried,held};
 }
 export function startMovement(mv){
-  if(state.atlasPainting)exitAtlas();
+  if(state.separation)setSeparation(0);
   const THREE=state.THREE;
   if(!THREE||!state.fullModel){showToast('Open the 3D model first.');return false}
   endMovement();

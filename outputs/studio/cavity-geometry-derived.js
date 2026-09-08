@@ -8,6 +8,7 @@ import { answer } from './visualisation-modes.js';
 import { between } from './region-boxes-how.js';
 import { calloutAt, labelSprite } from './spatial-concept-overlays.js';
 import { meshesFor } from './search-viewer-frame.js';
+import { anatomicalMatrix } from './packed-spread.js';
 
 /* ------------------------------------------------------------------ *
  * Cavity geometry, derived from the loaded anatomy.
@@ -34,7 +35,7 @@ function meshPointsLocal(o,inv){
   const THREE=state.THREE;
   const g=o.geometry, src=g&&g.attributes&&g.attributes.position;
   if(!src) return null;
-  const m=new THREE.Matrix4().multiplyMatrices(inv,o.matrixWorld);
+  const m=new THREE.Matrix4().multiplyMatrices(inv,anatomicalMatrix(o));
   const positions=new Float32Array(src.count*3);
   const v=new THREE.Vector3();
   for(let i=0;i<src.count;i++){

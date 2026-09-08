@@ -1399,44 +1399,6 @@ html[data-ts="xl"]{--ts:1.55}
 #stageHome .ctrlpill button{font-size:calc(12px * var(--ts));padding:8px 10px}
 .viewer-dock{bottom:100px}
 
-/*
- * The Full atlas is a SOURCE of the one 3D view now, not a second workspace.
- * There is no atlas canvas: the atlas scene draws on the studio's stage, and
- * this block styles only the dock cards that sit in the viewer-dock column
- * while the atlas source is active. `.source-atlas` on #viewerSkeletonPane
- * is what swaps the course chrome out and the dock in.
- */
-#viewerAtlasPane{display:none;flex-direction:column;gap:10px;min-height:0}
-#viewerSkeletonPane.source-atlas #viewerAtlasPane{display:flex}
-#viewerSkeletonPane.source-atlas :is(#taskCard,#viewerToolsPanel,#layerRail,#layerRailToggle,.stagenote,#mvBar,#hiddenTray){display:none !important}
-.atlas-status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:calc(12px * var(--ts))}
-.atlas-dock{display:flex;flex-direction:column;gap:10px;min-height:0;flex:1}
-.atlas-dock section{display:flex;flex-direction:column;min-height:0;background:#101b23;color:var(--text);border:1px solid var(--line);border-radius:14px;padding:12px}
-.atlas-dock section[hidden]{display:none}
-.atlas-dock section:first-child{flex:0 1 38%}
-.atlas-dock section:last-child{flex:1}
-.atlas-dock h2{font-size:calc(14px * var(--ts));color:var(--teal);margin:0 0 10px}
-.atlas-dock input[type=search]{width:100%;min-height:40px;border:1px solid var(--line);border-radius:8px;background:#071016;color:var(--text);padding:8px;font-size:calc(12px * var(--ts))}
-.atlas-results,.atlas-tools-scroll{overflow:auto;min-height:0;overscroll-behavior:contain}
-.atlas-results{margin-top:8px}
-.atlas-results button{display:flex;justify-content:space-between;gap:10px;width:100%;text-align:left;padding:9px 4px;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--text);font-size:calc(12px * var(--ts));cursor:pointer}
-.atlas-results small{flex-shrink:0;color:var(--muted)}
-.atlas-selection{display:flex;flex-direction:column;gap:5px;margin-top:10px;font-size:calc(13px * var(--ts))}
-.atlas-selection span{color:var(--muted);font-size:calc(11px * var(--ts))}
-.atlas-selection button{align-self:flex-start;min-height:32px;border:1px solid var(--line);border-radius:8px;background:#14232c;color:#e6eeee;padding:4px 10px;font-size:calc(11px * var(--ts));cursor:pointer}
-.atlas-selection button:disabled{opacity:.4;cursor:default}
-.atlas-spread{display:flex;flex-wrap:wrap;justify-content:space-between;font-size:calc(13px * var(--ts));gap:8px}
-.atlas-spread input{width:100%;accent-color:var(--teal)}
-.atlas-endpoints{display:flex;justify-content:space-between;color:var(--muted);font-size:calc(11px * var(--ts))}
-.atlas-presets{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0}
-.atlas-presets button,.atlas-status button{min-height:38px;border:1px solid var(--line);border-radius:8px;background:#14232c;color:#e6eeee;padding:6px 10px;font-size:calc(12px * var(--ts));cursor:pointer}
-.atlas-systems label{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:40px;border-bottom:1px solid var(--line);font-size:calc(12px * var(--ts))}
-.atlas-systems label span{border-left:4px solid var(--system-color);padding-left:8px}
-.atlas-systems small{color:var(--muted);padding-left:5px}
-.atlas-systems input{width:18px;height:18px;accent-color:var(--teal)}
-.atlas-tools-scroll>a,.atlas-tools-scroll>small,.atlas-tools-scroll>[data-atlas=count]{display:block;margin-top:10px;font-size:calc(11px * var(--ts));line-height:1.4}
-.atlas-tools-scroll>a{color:var(--teal)}
-.atlas-hint{color:var(--muted);text-align:center;font-size:calc(11px * var(--ts))}
-/* The hover name is appended to the stage the atlas now draws into. */
-.part-hover{position:absolute;z-index:5;pointer-events:none;background:#102129;color:#fff;padding:8px 12px;border-radius:8px;max-width:260px;font-size:calc(12px * var(--ts))}
-@media(max-width:700px){.atlas-dock section:first-child{flex:0 1 55%}}
+
+#systemPreset,#spreadMode{min-height:36px;max-width:100%;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);padding:6px 8px;font-size:calc(12px * var(--ts))}
+#layerRail>label{display:flex;flex-direction:column;gap:5px;margin-bottom:6px}
