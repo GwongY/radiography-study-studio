@@ -1494,6 +1494,11 @@ export const EXPANSION_ITEMS = [
     subject: 'ABCT2326', unit: 'phys.imm', type: 'comparison',
     title: 'Inflammation, complement and adaptive immunity',
     tags: ['immune', 'high-yield'],
+    visuals: [
+      { fig: 'innateAdaptiveCooperation' },
+      { schematic: 'immuneAdaptive' },
+      { gen: true },
+    ],
     priorKnowledge: {
       level: 'dse-bio', covers: 'part', dsePart: 'core',
       syllabusRef: { ref: 'edb.bio', location: 'Compulsory IV(c) "Body defence mechanisms" — specific defence: immune response, antigen and antibody, B and T lymphocytes, primary and secondary responses, active and passive immunity. Complement and MHC are not in it.' },
