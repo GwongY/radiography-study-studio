@@ -82,39 +82,39 @@
               up does not throw the reader back to the top of the page.
             -->
             <div id="upNextBanner"></div>
+            <!--
+              THREE ELEMENTS, and the count is the point.
+
+              This was six boxes across two columns: Continue, an eight-tile
+              session grid, Weakest, a Today stat row, Due next, and Recent.
+              Read as a whole it answered six questions at once and led with
+              none of them, which on the first screen of the app is the same
+              as answering none.
+
+              What is left answers one question each: where was I, what shall
+              I do, and what is coming. Weakest and Recent both restated the
+              mistakes list that "Explain my mistakes" opens; the Today row
+              led with a day streak, which measures attendance rather than
+              learning. The streak is still computed into store.meta -- the
+              progress log and the gist sync are untouched -- it is simply no
+              longer the first number on the page.
+
+              One column, not two: with three elements a second column makes
+              a short page wide instead of making a long page short.
+            -->
             <div class="today-grid" id="todayGrid">
-              <div style="display:grid;gap:14px;min-width:0">
-                <div id="continueCard" style="border:1px solid rgba(114,227,207,.4);border-radius:16px;background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03));padding:18px"></div>
-                <div>
-                  <div class="task-kicker" style="margin-bottom:9px">Start a session</div>
-                  <div class="session-tiles" id="sessionTiles"></div>
-                </div>
-                <div class="card">
-                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
-                    <div class="task-kicker" style="color:var(--orange)">Weakest right now</div>
-                    <button class="ghost" id="allWeakBtn" style="border:0;background:none;color:var(--teal);padding:6px 0">All weak spots →</button>
-                  </div>
-                  <div style="display:grid;gap:7px;margin-top:11px" id="weakestList"></div>
-                </div>
+              <div id="continueCard" style="border:1px solid rgba(114,227,207,.4);border-radius:16px;background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03));padding:18px"></div>
+              <div>
+                <div class="task-kicker" style="margin-bottom:9px">Start a session</div>
+                <div class="session-row" id="sessionTiles"></div>
               </div>
-              <div style="display:grid;gap:14px;min-width:0">
-                <div class="card">
-                  <div class="task-kicker">Today</div>
-                  <div class="statrow" id="todayStatrow" style="margin-top:12px"></div>
-                  <p class="small" style="margin-top:13px">Delayed recall is the only dimension counted here — three right answers in one sitting do not move it.</p>
+              <div class="card">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+                  <div class="task-kicker">Due next</div>
+                  <button class="ghost" id="allDeadlinesBtn" style="border:0;background:none;color:var(--teal);padding:6px 0">All assessments →</button>
                 </div>
-                <div class="card">
-                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
-                    <div class="task-kicker">Due next</div>
-                    <button class="ghost" id="allDeadlinesBtn" style="border:0;background:none;color:var(--teal);padding:6px 0">All assessments →</button>
-                  </div>
-                  <div class="statrow" id="deadlineStatrow" style="margin-top:12px"></div>
-                  <div style="display:grid;gap:7px;margin-top:11px" id="deadlineList"></div>
-                </div>
-                <div class="card">
-                  <div class="task-kicker">Recent</div>
-                  <div style="display:grid;gap:9px;margin-top:11px" id="recentList"></div>
-                </div>
+                <div class="statrow" id="deadlineStatrow" style="margin-top:12px"></div>
+                <div style="display:grid;gap:7px;margin-top:11px" id="deadlineList"></div>
               </div>
             </div>
           </section>

@@ -145,10 +145,27 @@ export function packCounts() {
 }
 
 /*
+ * The label a pack question is grouped and titled by.
+ *
+ * A single-bank pack has only chapter numbers, so "Chapter 7" is unambiguous.
+ * A merged pack (see --merge in work/build-question-pack.mjs) carries the
+ * subject each question came from, and without it two different Chapter 7s
+ * collapse into one row of the exam breakdown.
+ *
+ * On-screen only. Nothing this returns is written to the log, the export or
+ * the gist -- work/pack-privacy-check.mjs is what holds that.
+ */
+export function packUnitLabel(q) {
+  const chapter = `Chapter ${q.chapter ?? '?'}`;
+  return q.subject ? `${q.subject} ${chapter}` : chapter;
+}
+
+/*
  * The pack's questions in the shape the corpus uses, so exam-mode.js does not
  * have to know a pack exists. Only mcq: `short` questions are model-answer
  * prose and cannot be marked, so serving them in a timed paper would produce
- * a mark that is quietly wrong.
+ * a mark that is quietly wrong. They are not discarded — packShortQuestions()
+ * below serves them to the untimed self-marked drill under Exam → Short answer.
  *
  * The pack stores options as {letter, text} and the answer as a LETTER; the
  * corpus stores options as strings and the answer as an INDEX. Converting here
@@ -172,9 +189,54 @@ export function packQuestions() {
       itemId: id,
       packId: held.packId,
       /* What the breakdown groups by, and what the review list titles a row.
-         Both are on-screen only; neither is written anywhere. */
-      unit: `Chapter ${q.chapter ?? '?'}`,
-      title: `Chapter ${q.chapter ?? '?'} · question ${q.qid}`,
+         Both are on-screen only; neither is written anywhere.
+
+         A merged pack carries `subject`, and it has to appear here: with two
+         banks in one pack "Chapter 1" names an anatomy chapter AND a
+         physiology one, so a per-unit breakdown would add two unrelated
+         chapters into a single row and report a mark for neither. */
+      unit: packUnitLabel(q),
+      title: `${packUnitLabel(q)} · question ${q.qid}`,
+    });
+  }
+  return out;
+}
+
+/*
+ * The other half of the bank: everything packQuestions() refuses.
+ *
+ * `short`, `tf` and `matching` are ~1,150 questions the app held and never
+ * showed, because a timed paper cannot mark prose and a mark that is quietly
+ * wrong is worse than no mark. That reasoning is about the PAPER, not about
+ * the questions — the genuine PolyU past paper for HSS2011 is short-answer,
+ * so these are the closest thing in the bank to the real thing.
+ *
+ * So they get an untimed surface where the reader marks themselves: read,
+ * reveal the model answer, say whether you had it. Self-rating is honest here
+ * in a way looseMatch() could never be, because the reader is comparing
+ * meaning and the matcher would be comparing strings.
+ *
+ * Same privacy shape as packQuestions(): `qid`/`itemId` are ids and nothing
+ * else, and `unit`/`title` are built from the chapter number, so nothing that
+ * reaches the log, the export or the gist carries a word of the question.
+ */
+export function packShortQuestions() {
+  if (!held) return [];
+  const out = [];
+  for (const q of held.questions) {
+    if (q.type === 'mcq') continue;
+    if (!q.stem || !q.answer) continue;
+    const id = packAttemptId(held.packId, q.qid);
+    out.push({
+      type: q.type,
+      prompt: q.stem,
+      answer: String(q.answer),
+      qid: id,
+      itemId: id,
+      packId: held.packId,
+      chapter: q.chapter ?? null,
+      unit: packUnitLabel(q),
+      title: `${packUnitLabel(q)} · question ${q.qid}`,
     });
   }
   return out;

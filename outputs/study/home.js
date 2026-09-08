@@ -3,12 +3,11 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, STORAGE_PREFIX, STUDY_ITEMS, STUDY_MODES, esc, getItem, getSubject, itemsForSubject, ui } from './imports.js';
+import { $$, STORAGE_PREFIX, STUDY_MODES, esc, getItem, getSubject, itemsForSubject, ui } from './imports.js';
 import { examPool } from './exam-mode.js';
 import { STEPS, pickItems, setStep, startSession } from './session-engine.js';
 import { goTo, openSessionOverlay, setActiveNav } from './navigation-five-destinations.js';
-import { itemAttempted, itemDue, itemScore, read, store, write } from './storage-versioned-keys.js';
-import { renderExamTab } from './review-mistakes-due.js';
+import { itemScore, read, write } from './storage-versioned-keys.js';
 import { showView } from './small-ui-helpers.js';
 import { DEADLINES, SOON_MS, deadlineStats, isDone, paintImminent, untilText } from './assessments-and-marks.js';
 
@@ -76,18 +75,22 @@ export function resumeContinue(cont) {
   openSessionOverlay();
   setStep(cont.step);
 }
-function relativeTime(ts) {
-  const mins = Math.round((Date.now() - ts) / 60000);
-  if (mins < 60) return `${mins}m`;
-  if (mins < 1440) return `${Math.round(mins / 60)}h`;
-  return `${Math.round(mins / 1440)}d`;
-}
-
+/*
+ * THREE ELEMENTS: where was I, what shall I do, what is coming.
+ *
+ * Weakest, the Today stat row and Recent were all removed together, and for
+ * one reason between them: each restated something another element already
+ * said. Weakest and Recent are both views of the mistakes list that "Explain
+ * my mistakes" opens and explains; the stat row led with a day streak, which
+ * measures showing up rather than knowing anything.
+ *
+ * The streak is still WRITTEN -- endSession keeps folding it into store.meta,
+ * so the append-only log, the export and the gist sync are all untouched and
+ * work/progress-log-check.mjs is unaffected. It is only no longer the first
+ * number on the first screen.
+ */
 export function renderToday() {
   setActiveNav('today');
-  const totalItems = STUDY_ITEMS.length;
-  const attempted = STUDY_ITEMS.filter((i) => itemAttempted(i.id));
-  const due = attempted.filter((i) => itemDue(i.id));
 
   const cont = getContinueTarget();
   $$('continueCard').innerHTML = cont ? `
@@ -101,33 +104,33 @@ export function renderToday() {
     </div>` : `
     <div class="task-kicker">Continue</div>
     <h2 class="editorial" style="font-size:calc(24px*var(--ts));margin:8px 0 0">Nothing in progress</h2>
-    <p class="small" style="margin-top:6px">Start a session below to begin.</p>`;
+    <p class="small" style="margin-top:6px">Pick up the daily warm-up, or choose another session below.</p>
+    <div style="margin-top:14px"><button class="primary" id="startDailyBtn">Start today's session →</button></div>`;
+  /*
+   * The empty state used to be a sentence pointing at the tiles underneath it.
+   * With the page down to three elements it is the largest thing on screen and
+   * saying nothing, so it carries the default action instead of describing it.
+   */
   if (cont) $$('continueBtn').onclick = () => resumeContinue(cont);
+  else $$('startDailyBtn').onclick = () => startSession({ mode: 'daily' });
 
   /*
-   * Every mode that pickItems() implements gets a tile.
+   * One row, three buttons, and the hint is gone.
    *
-   * Six of the nine were built and then never given a way in -- including
-   * "Explain my mistakes", which is the one a learner wants most in the week
-   * before an exam. 'subject' is the exception: it is reached by choosing a
-   * topic in Learn, so a tile for it would be a second door onto the same room
-   * with no topic chosen.
+   * There were eight tiles here, each carrying a glyph, a label, a sentence of
+   * hint and a count, at a 104px floor -- roughly two phone screens of chooser
+   * before the reader reached anything to do. Five of the modes were cut in
+   * schema.js; what is left is short enough to sit in a single row, so the
+   * hint sentence goes too. It survives as the title attribute, which is where
+   * an explanation belongs once the label is doing its job.
    *
-   * The count under each tile is the real thing, taken by running the picker
-   * rather than by a separate estimate that could drift from it, and a mode
-   * with nothing to offer is disabled and says why instead of opening an empty
-   * session and toasting an apology.
+   * The count is still the real thing, taken by running the picker rather than
+   * by an estimate that could drift from it, and a mode with nothing to offer
+   * is still disabled and still says why rather than opening an empty session
+   * and toasting an apology.
    */
-  const TILE_COLOR = { new: 'var(--green)', daily: 'var(--teal)', weakest: 'var(--orange)',
-    quick10: 'var(--teal)', exam: 'var(--blue)', hooks: 'var(--blue)',
-    mistakes: 'var(--red)', mixed: 'var(--muted)' };
-  const EMPTY_WHY = {
-    new: 'Every item has been seen',
-    weakest: 'Nothing attempted yet',
-    quick10: 'Nothing due or weak yet',
-    mistakes: 'No mistakes logged — good',
-    hooks: 'No memory aids found',
-  };
+  const TILE_COLOR = { daily: 'var(--teal)', exam: 'var(--blue)', mistakes: 'var(--red)' };
+  const EMPTY_WHY = { mistakes: 'None logged — good', daily: 'Nothing to warm up on', exam: 'No questions yet' };
   const tiles = STUDY_MODES.filter((m) => m.id !== 'subject').map((m) => {
     /* Exam mode builds a PAPER, so its tile counts questions rather than
        items -- and counts them from the same pool buildPaper draws on, so the
@@ -137,31 +140,15 @@ export function renderToday() {
     return { ...m, count, noun: isExam ? 'question' : 'item', color: TILE_COLOR[m.id] || 'var(--teal)' };
   });
   $$('sessionTiles').innerHTML = tiles.map((m) => `
-    <button class="rss-mode" style="flex-direction:column;align-items:flex-start;gap:5px;min-height:104px" data-mode="${esc(m.id)}"${m.count ? '' : ' disabled'}>
-      <span class="ic" style="font-size:17px;color:${m.color}">${m.icon}</span>
-      <b>${esc(m.label)}</b><small>${esc(m.hint)}</small>
-      <span class="cnt">${m.count ? m.count + ' ' + m.noun + (m.count === 1 ? '' : 's') + ' ready' : esc(EMPTY_WHY[m.id] || 'Nothing to study')}</span>
+    <button class="rss-mode" style="flex-direction:column;align-items:flex-start;gap:4px;min-height:78px" data-mode="${esc(m.id)}" title="${esc(m.hint)}"${m.count ? '' : ' disabled'}>
+      <span class="ic" style="font-size:16px;color:${m.color}">${m.icon}</span>
+      <b>${esc(m.label)}</b>
+      <span class="cnt">${m.count ? m.count.toLocaleString() + ' ' + m.noun + (m.count === 1 ? '' : 's') : esc(EMPTY_WHY[m.id] || 'Nothing to study')}</span>
     </button>`).join('');
   $$('sessionTiles').querySelectorAll('[data-mode]').forEach((b) => {
     if (b.disabled) return;
     b.onclick = () => startSession({ mode: b.dataset.mode });
   });
-
-  const weakest = attempted.slice().sort((a, b) => itemScore(a.id) - itemScore(b.id)).slice(0, 3);
-  $$('weakestList').innerHTML = weakest.length ? weakest.map((i) => `
-    <button class="unit-row" data-weak="${esc(i.id)}">
-      <span class="grow"><b>${esc(i.title)}</b><small>${esc(getSubject(i.subject).title)}</small></span>
-      <span class="meter"><span style="width:${Math.round(itemScore(i.id) * 100)}%;background:var(--orange)"></span></span>
-      <span class="pc">${Math.round(itemScore(i.id) * 100)}%</span>
-    </button>`).join('') : '<div class="empty">Nothing studied yet — start a session to build this list.</div>';
-  $$('weakestList').querySelectorAll('[data-weak]').forEach((b) => { b.onclick = () => renderExamTab('mistakes'); });
-  $$('allWeakBtn').onclick = () => goTo('exam');
-
-  const streak = (store.meta && store.meta.streak) || 0;
-  $$('todayStatrow').innerHTML = [
-    [String(streak), 'day streak'], [String(due.length), 'due now'],
-    [`${totalItems ? Math.round(attempted.reduce((n, i) => n + itemScore(i.id), 0) / totalItems * 100) : 0}%`, 'mastered'],
-  ].map(([v, l], idx) => `<div class="s"><b${idx === 1 ? ' style="color:var(--orange)"' : ''}>${esc(v)}</b><small>${esc(l)}</small></div>`).join('');
 
   /*
    * What is due, beside what is mastered.
@@ -188,11 +175,6 @@ export function renderToday() {
     </div>`).join('')
     : `<div class="empty">${dstats.overdue ? 'Nothing ahead — but something is overdue.' : 'Nothing left on the published deadlines.'}</div>`;
   $$('allDeadlinesBtn').onclick = () => { ui.courseTab = 'assess'; goTo('course'); };
-
-  $$('recentList').innerHTML = store.mistakes.slice(0, 4).map((m) => {
-    const item = getItem(m.itemId);
-    return item ? `<div style="display:flex;gap:10px;align-items:baseline;font-size:calc(12.5px*var(--ts))"><span style="color:${m.correct ? 'var(--green)' : 'var(--red)'}">●</span><span style="flex:1">${esc(item.title)}</span><span class="small">${esc(relativeTime(m.at))}</span></div>` : '';
-  }).join('') || '<div class="empty">No activity yet.</div>';
 
   showView('todayView');
   /* After showView, or the banner writes into a view still marked hidden and

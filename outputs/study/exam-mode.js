@@ -21,12 +21,18 @@
  *
  * WHAT IT RUNS ON
  *
- * The corpus, always: 246 mcq and cloze questions across the five Semester 1
- * subjects. A question pack, if one is loaded, adds to that pool and changes
- * nothing else here — which is the point of keeping the pack behind its own
- * module. Exam mode has no opinion about where a question came from, so the
- * feature works for anyone who clones this repository and merely works with
- * more questions for whoever holds a pack.
+ * The corpus, always: 374 mcq and cloze questions across the five Semester 1
+ * subjects, of 698 in total — the other 324 are typed, matching, sequence,
+ * explain, structure and comparison, which the real paper does not use.
+ * A question pack, if one is loaded, adds to that pool and changes nothing
+ * else here — which is the point of keeping the pack behind its own module.
+ * Exam mode has no opinion about where a question came from, so the feature
+ * works for anyone who clones this repository and merely works with more
+ * questions for whoever holds a pack.
+ *
+ * The pack contributes its MULTIPLE-CHOICE questions only. Its short-answer,
+ * true/false and matching questions go to Exam → Short answer instead, where
+ * the reader marks themselves — see packShortQuestions() in question-pack.js.
  *
  * Split out per docs/CODEMAP.md. Nothing runs at module scope.
  */

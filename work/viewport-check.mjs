@@ -127,6 +127,47 @@ expect('a keyboard shrink is not a strip: offset 0',
 expect('a browser tab is not a strip: offset 0',
   offset({ ...PHONE, standalone: false, innerH: 730, peakH: 874 }), 0);
 
+console.log('\n— the 11" iPad Pro, landscape: a real reading off the device —');
+/*
+ * Taken from the affected iPad, pasted verbatim out of the More readout:
+ *
+ *   screen 834, viewport 1210x802, insets top 32 bottom 25, peak 834,
+ *   short by 32 (screen) / 32 (peak), state shrunk, floating, inset dead
+ *
+ * The diagnosis was never the problem here — every one of these assertions
+ * ALREADY passed before the fix. The band survived because both CSS rules
+ * that consume the finding were written inside `@media(max-width:700px)`, and
+ * this viewport is 1210 wide. So the value of this case is narrow and exact:
+ * it pins the numbers a non-phone device produces, so that if anyone ever
+ * retunes SHRINK_FLOOR or the `covering` discriminator for a phone, the iPad
+ * stops being collateral damage nobody measures.
+ *
+ * Note it is LANDSCAPE (1210 > 802) and that `expected` is therefore the
+ * SHORTER screen dimension. A tablet used sideways is the ordinary case, and
+ * it is the one where an orientation-blind peak does the most damage.
+ */
+const IPAD11 = {
+  screenW: 834, screenH: 1210, innerW: 1210, innerH: 802,
+  standalone: true, keyboard: false, insetTop: 32, insetBottom: 25,
+};
+const ipad = diagnose({ ...IPAD11, peakH: 834 });
+expect('iPad 11" landscape state', ipad.state, 'shrunk');
+expect('iPad 11" is floating (top inset 32 → the gap is underneath)', ipad.floating, true);
+expect('iPad 11" screen shortfall', ipad.screenShortfall, 32);
+expect('iPad 11" published --vp-shortfall', ipad.shortfall, 32);
+expect('iPad 11" strip offset', offset({ ...IPAD11, peakH: 834 }), 32);
+/* 25px of home-indicator inset against a 32px gap: the indicator is outside
+   the page entirely, so the padding is protecting nothing. */
+expect('iPad 11" bottom inset is dead', ipad.insetDead, true);
+/* The same tablet with an opaque status bar is NOT a defect, at any width —
+   the discriminator has to hold above 700px exactly as it does below it. */
+expect('iPad 11", opaque status bar: no band, offset 0',
+  offset({ ...IPAD11, insetTop: 0, peakH: 834 }), 0);
+/* A healthy iPad must publish 0, or the new width-independent rule would drag
+   the shell off the bottom of every tablet that was fine. */
+expect('iPad 11" at full height: offset 0',
+  offset({ ...IPAD11, innerH: 834, peakH: 834 }), 0);
+
 console.log('\n— the numbers that get printed —');
 const d = diagnose({ ...PHONE, innerH: 812, peakH: 812 });
 if (d.screenShortfall !== 62) fail(`screenShortfall ${d.screenShortfall}, expected 62`); else ok('shortfall 62px, as measured off the phone');

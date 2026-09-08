@@ -434,14 +434,40 @@
    * buttons keep their clearance.
    */
   html[data-inset="dead"] .bottomtab{padding-bottom:8px}
-  /*
-   * The opt-in experiment. `.shell` is fixed with `bottom:0`, so it ends at
-   * the bottom of the layout viewport; a negative bottom extends it into the
-   * strip below. Whether the strip accepts taps is the unknown, which is why
-   * this is a switch the reader throws and a relaunch undoes — see the note
-   * in outputs/study/viewport-recovery.js.
-   */
-  html[data-strip="on"] .shell{bottom:calc(-1 * var(--vp-shortfall,0px))}
+}
+/*
+ * THE BAND, AND WHY IT SURVIVED ON THE iPAD
+ *
+ * `.shell` is fixed with `bottom:0`, so it ends at the bottom of the LAYOUT
+ * VIEWPORT; a negative bottom extends it into the strip below. That rule, and
+ * the dead-inset rule above it, both used to live inside `max-width:700px`.
+ *
+ * viewport-recovery.js measures and publishes at every width, so on an 11"
+ * iPad Pro in landscape it was correctly reporting the defect and nothing was
+ * listening: viewport 1210x802 of an 834 screen, top inset 32, bottom inset
+ * 25, `state shrunk, floating, inset dead`, `--vp-shortfall: 32px`. 1210 is
+ * not under 700, so neither rule matched and the reader got the full 32px
+ * band with 25px of dead home-indicator padding stacked on top of it.
+ *
+ * Nothing here is width-specific — `.shell` is fixed at every size and the
+ * shortfall is a measurement, not a guess. So the rules move out to where the
+ * geometry they describe actually holds.
+ *
+ * Safe by construction on a healthy device: publish() writes --vp-shortfall
+ * as 0 unless `floating`, so this computes to `bottom:0` — exactly today's
+ * behaviour — on desktop, on a browser tab, and on an iPad that is not short.
+ */
+html[data-strip="on"] .shell{bottom:calc(-1 * var(--vp-shortfall,0px))}
+/*
+ * The tablet/desktop half of the dead-inset rule.
+ *
+ * Below 700px the wasted inset is on `.bottomtab`; at 701px and up the tab bar
+ * is `display:none` and it is `.app-body` that reserves the space (see the
+ * min-width:701px rule beside .navrail). Same finding, same reasoning, the
+ * element that actually carries the padding at this width.
+ */
+@media(min-width:701px){
+  html[data-inset="dead"] .app-body{padding-bottom:8px}
 }
 /* ---------- IA redesign: session overlay ---------- */
 #sessionView{position:fixed;inset:0;z-index:10;background:var(--bg);display:flex;flex-direction:column;animation:fadeUp .2s ease}
@@ -500,31 +526,42 @@
 @media(min-width:701px){#navBackBtn{display:none}}
 
 /* ---------- Responsive view grids (migrated from inline styles so tiers apply) ---------- */
-.today-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,.7fr);gap:14px;align-items:start}
-.session-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+/*
+ * ONE COLUMN, at every width, and capped.
+ *
+ * The two-column split here — plus the four breakpoints that retuned it —
+ * described a Today view of six boxes. It is three now, and a sidebar holding
+ * one of three makes a short page wide rather than making a long page short.
+ * The cap stops the three from stretching to 2000px on a desktop, which is
+ * how a decluttered page turns back into a sparse one.
+ */
+.today-grid{display:grid;grid-template-columns:1fr;gap:16px;align-items:start;max-width:780px}
+/*
+ * "Start a session" is one row of three, not a grid of eight.
+ *
+ * Three fits side by side even at phone width, which is the whole point of
+ * cutting to three: no wrap, no sheet, no second tap. See STUDY_MODES in
+ * outputs/study/corpus/schema.js for which three, and why.
+ */
+.session-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
 .learn-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.9fr);gap:14px;align-items:start}
 #topicGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:10px}
 @media(max-width:700px){
-  .today-grid{grid-template-columns:1fr}
-  .session-tiles{grid-template-columns:1fr}
   .learn-grid{grid-template-columns:1fr}
+  /* Three tiles across a 360px phone leaves ~110px each: enough for the glyph,
+     a two-word label and the count, all of which wrap rather than clip. */
+  .session-row{gap:7px}
 }
 /* iPad portrait (768-1023): the rail is still there but two reading columns
    plus a 320px sidebar do not fit. One column, wider cards. */
 @media(min-width:701px) and (max-width:1023px){
-  .today-grid{grid-template-columns:1fr}
   .learn-grid{grid-template-columns:1fr}
   #topicGrid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
 }
 /* Wide desktop: spend the width on columns, not on longer lines. */
 @media(min-width:1500px){
-  .today-grid{grid-template-columns:minmax(0,1.5fr) minmax(320px,.75fr)}
   #topicGrid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
   .learn-grid{grid-template-columns:minmax(0,1fr) minmax(380px,.85fr)}
-}
-@media(min-width:2000px){
-  .today-grid{grid-template-columns:minmax(0,1.35fr) minmax(360px,.8fr)}
-  .session-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 /* Review rows: one column on a phone, as many as fit on a desktop. */
 .reviewrows{display:grid;gap:8px;margin-top:13px;grid-template-columns:repeat(auto-fill,minmax(340px,1fr))}

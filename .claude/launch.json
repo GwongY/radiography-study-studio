@@ -7,7 +7,8 @@
       "runtimeArgs": [
         "work/dev-server.mjs"
       ],
-      "port": 8420
+      "port": 8420,
+      "autoPort": true
     }
   ]
 }
