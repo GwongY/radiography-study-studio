@@ -61,12 +61,11 @@ export function examPool(opts = {}) {
   const items = opts.subject ? STUDY_ITEMS.filter((i) => i.subject === opts.subject) : STUDY_ITEMS;
   const corpus = items.flatMap((i) => questionsOf(i).filter((q) => EXAM_TYPES.includes(q.type)));
   /*
-   * A loaded pack adds to the pool and changes nothing else. It carries no
-   * subject, so a subject paper stays corpus-only rather than quietly mixing
-   * in questions from a bank that does not know which subject it is answering.
+   * Match the subject metadata preserved by the pack adapter. Legacy questions
+   * with no known subject remain available in mixed papers.
    */
-  if (opts.subject || opts.corpusOnly) return corpus;
-  return [...corpus, ...packQuestions()];
+  if (opts.corpusOnly) return corpus;
+  return [...corpus, ...packQuestions().filter((q) => !opts.subject || q.subject === opts.subject)];
 }
 
 export function buildPaper(opts = {}) {
@@ -113,7 +112,7 @@ export function markPaper(paper, answers = {}) {
     return {
       q, given, answered, correct,
       unit: q.unit || item?.unit || 'unassigned',
-      subject: item?.subject || (q.packId ? 'Question pack' : 'unassigned'),
+      subject: item?.subject || q.subject || (q.packId ? 'Question pack' : 'unassigned'),
       title: q.title || item?.title || q.itemId,
     };
   });

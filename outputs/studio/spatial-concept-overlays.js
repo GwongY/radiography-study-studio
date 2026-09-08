@@ -139,11 +139,19 @@ export function updateHudSprites(){
    * Guard the thing actually used, not just the camera.
    */
   if(!cam||!state.THREE) return;
+  state.scene?.updateMatrixWorld(true);
   const tan=Math.tan(cam.fov*Math.PI/360);
   const p=state._hudVec||(state._hudVec=new state.THREE.Vector3());
   const walk=(grp)=>{
   if(!grp||!grp.children.length) return;
   grp.traverse((o)=>{
+    const attachment=o.userData?.meshAttachment;
+    if(attachment){
+      const {mesh,local,origin,base,root}=attachment;
+      const point=local.clone().applyMatrix4(mesh.matrixWorld);
+      if(root) point.applyMatrix4(new state.THREE.Matrix4().copy(root.matrixWorld).invert());
+      o.position.copy(base).add(point.sub(origin));
+    }
     const h=o.userData&&o.userData.hud;
     if(!h) return;
     o.getWorldPosition(p);
@@ -389,6 +397,16 @@ function nearestSurfacePoint(list,target,inv){
  * (see the animate loop), so a world-space anchor would be rotated twice and
  * the leader would point somewhere the structure used to be.
  */
+export function attachCalloutToMesh(objects,mesh,anchor){
+  if(!mesh||!state.THREE) return;
+  const root=state.fullModel||state.realModel||(Object.values(state.extraModels||{})[0]||{}).pivot;
+  state.scene.updateMatrixWorld(true);
+  const world=anchor.clone();
+  if(root)world.applyMatrix4(root.matrixWorld);
+  const local=mesh.worldToLocal(world);
+  objects.forEach(o=>{o.userData.meshAttachment={mesh,local,origin:anchor.clone(),base:o.position.clone(),root};});
+}
+
 export function showPickCallout(obj,text){
   if(!state.scene||!state.THREE||!obj||!text) return;
   const list=Array.isArray(obj)?obj.filter(Boolean):[obj];
@@ -457,8 +475,12 @@ export function showPickCallout(obj,text){
     const ht=Math.min(Math.max(M.H*0.030,0.023*span),0.052*span);
     maxReach=Math.max(0,span*cam.aspect/2-ht*6.2-M.H*0.02);
   }
-  calloutAt(anchor,text,0x72e3cf,M,{size:0.030,leaderOpacity:0.6,clear,maxReach})
-    .forEach((o)=>grp.add(o));
+  const objects=calloutAt(anchor,text,0x72e3cf,M,{size:0.030,leaderOpacity:0.6,clear,maxReach});
+  objects.forEach((o)=>grp.add(o));
+  const world=anchor.clone();
+  if(root)world.applyMatrix4(root.matrixWorld);
+  const mesh=list.slice().sort((a,b)=>new THREE.Box3().setFromObject(a).distanceToPoint(world)-new THREE.Box3().setFromObject(b).distanceToPoint(world))[0];
+  attachCalloutToMesh(objects,mesh,anchor);
   syncOverlayYaw(grp);
   grp.visible=!state.xray;
 }

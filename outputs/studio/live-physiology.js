@@ -10,6 +10,8 @@ import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js'
 import { enforceHidden } from './hide-and-search.js';
 import { showPickCallout } from './spatial-concept-overlays.js';
 import { setSeparation, setTool } from './tools-and-capture.js';
+import { advancePhysiology } from '../physiology.js?v=4';
+import { MOTOR_ROUTES, motorRoute, motorSequence, transmissionField } from '../physiology-mechanics.js';
 
 /* ------------------------------------------------------------------ *
  * Live physiology
@@ -84,7 +86,7 @@ function classUniforms(cls){
        class can deform on its own envelope: lungs ride the breath, muscle the
        squeeze, peristalsis runs steady. */
     uDeform:{value:0},
-    uMode:{value:r.mode==='inflate'?2:r.mode==='peristalsis'?3:1},
+    uMode:{value:r.mode==='pump'?5:r.mode==='descend'?4:r.mode==='inflate'?2:r.mode==='peristalsis'?3:1},
   };
   return state.flow.classes[cls];
 }
@@ -101,6 +103,22 @@ function installFlow(mesh,cls){
   const spec=FLOW_CLASSES[cls]; if(!spec||!mesh.material) return;
   const mat=mesh.material;
   if(mat.color) mat.color.setHex(spec.color);
+  const route=motorRoute(mesh.userData.layerKey,mesh.userData.label||mesh.name);
+  // Mixed sensory/motor nerves and unrelated muscles do not all fire together.
+  if((cls==='nerve'||cls==='muscle')&&!route)return;
+  let motor=null;
+  if(route){
+    state.flow.motors=state.flow.motors||{};
+    motor=state.flow.motors[route.id]||(state.flow.motors[route.id]={uMotorClock:{value:0},uDeform:{value:0},uBeat:{value:0}});
+    if(cls==='nerve'){
+      mesh.updateWorldMatrix(true,false);
+      const p=mesh.geometry.attributes.position,vertices=[];
+      let top=-Infinity,seed=[0,0,0];
+      const v=new state.THREE.Vector3();
+      for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i).applyMatrix4(mesh.matrixWorld);vertices.push(v.x,v.y,v.z);if(v.y>top){top=v.y;seed=v.toArray();}}
+      mesh.geometry.setAttribute('aTransmission',new state.THREE.BufferAttribute(transmissionField(vertices,mesh.geometry.index?.array,seed),1));
+    }
+  }
   if(!spec.rule) return;                    /* coloured, but nothing to animate */
   const uni=classUniforms(cls);
   const rule=spec.rule;
@@ -109,16 +127,22 @@ function installFlow(mesh,cls){
      match are coloured but otherwise static. */
   const deform=!!rule && (rule.contract || rule.mode)
     && (!rule.match || rule.match.test(mesh.userData.label||mesh.name||''));
-  let mCenter=null,mAxis=null,mAmt=0;
+  let mCenter=null,mAxis=null,mAmt=0,mLength=1;
   if(deform){
     const g=mesh.geometry;
     if(!g.boundingBox) g.computeBoundingBox();
     const bb=g.boundingBox;
     const size=[bb.max.x-bb.min.x,bb.max.y-bb.min.y,bb.max.z-bb.min.z];
     const longest=size.indexOf(Math.max(...size));
+    mLength=Math.max(size[longest],1e-6);
     mCenter=new state.THREE.Vector3((bb.min.x+bb.max.x)/2,(bb.min.y+bb.max.y)/2,(bb.min.z+bb.max.z)/2);
+    if(mesh.userData.flowCenter)mCenter.copy(mesh.userData.flowCenter);
     const mode=rule.mode;
-    if(mode==='inflate'){
+    if(mode==='descend'){
+      mAxis=new state.THREE.Vector3(0,1,0).transformDirection(new state.THREE.Matrix4().copy(mesh.matrixWorld).invert());
+      mLength=Math.abs(mAxis.x)*size[0]+Math.abs(mAxis.y)*size[1]+Math.abs(mAxis.z)*size[2];
+      mAmt=mLength*.08;
+    }else if(mode==='inflate'){
       /* A lung expands evenly from its own centre; the contract squash would
          read as the lung being squeezed, not breathing. */
       mAxis=new state.THREE.Vector3(0,1,0);
@@ -144,36 +168,54 @@ function installFlow(mesh,cls){
   /* The deformed and colour-only meshes of a class compile to different
      programs, so the cache key has to name the variant or the first to compile
      is silently reused for every mesh of the class. */
-  mat.customProgramCacheKey=()=>'rssflow:'+cls+(deform?':d':':c');
+  mat.customProgramCacheKey=()=>'rssflow-mechanics:'+cls+(deform?':d':':c')+(route?':motor':'');
   mat.onBeforeCompile=(sh)=>{
     sh.uniforms.uT=state.flow.uT;
     sh.uniforms.uOn=state.flow.uOn;
     Object.assign(sh.uniforms,uni);
+    if(motor){sh.uniforms.uMotorClock=motor.uMotorClock;if(deform){sh.uniforms.uDeform=motor.uDeform;sh.uniforms.uBeat=motor.uBeat;}}
+    if(cls==='nerve'&&route){
+      const branch=/muscular branches/i.test((mesh.userData.label||mesh.name).replace(/_/g,' '));
+      sh.uniforms.uArrivalStart={value:branch?.40:.10};
+      sh.uniforms.uArrivalSpan={value:branch?.15:route.id==='deltoid'?.30:.45};
+    }
     if(deform){
       sh.uniforms.uMCenter={value:mCenter};
       sh.uniforms.uMAxis={value:mAxis};
       sh.uniforms.uMAmt={value:mAmt};
+      sh.uniforms.uMLength={value:mLength};
     }
-    sh.vertexShader='varying float vFlowY;\n'
-      +(deform?'uniform float uDeform;uniform vec3 uMCenter;uniform vec3 uMAxis;uniform float uMAmt;uniform float uMode;\nuniform float uT;uniform float uSpeed;uniform float uDir;uniform float uFreq;uniform float uSharp;\n':'')
+    sh.vertexShader=(cls==='nerve'&&route?'attribute float aTransmission;varying float vTransmission;\n':'')+'varying float vFlowY;\n'
+      +(deform?'uniform float uDeform;uniform vec3 uMCenter;uniform vec3 uMAxis;uniform float uMAmt;uniform float uMLength;uniform float uMode;\nuniform float uT;uniform float uSpeed;uniform float uDir;uniform float uFreq;uniform float uSharp;\n':'')
       +sh.vertexShader.replace('#include <begin_vertex>',
         '#include <begin_vertex>\n'
         +(deform
           ?'float rssAlong=dot(transformed-uMCenter,uMAxis);\n'
            +'vec3 rssPerp=(transformed-uMCenter)-rssAlong*uMAxis;\n'
-           +'if(uMode>2.5){/* peristalsis: a ring of constriction travelling along the tube */\n'
-           +'  float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n'
+           +'if(uMode>4.5){/* chamber contraction reduces enclosed volume */\n'
+           +'  transformed-=uDeform*uMAmt*(rssPerp+.55*rssAlong*uMAxis);\n'
+           +'}else if(uMode>3.5){/* diaphragm: central dome descends; peripheral rim is tethered */\n'
+           +'  float dome=smoothstep(-.2,.45,rssAlong/uMLength);transformed-=uMAxis*uMAmt*uDeform*dome;\n'
+           +'}else if(uMode>2.5){/* peristalsis: a ring of constriction travelling along the tube */\n'
+           +'  float rssW=(rssAlong/uMLength)*2.-uT*uSpeed*uDir;\n'
            +'  float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n'
            +'  transformed-=rssPerp*rssRip*uMAmt*uDeform;\n'
            +'}else if(uMode>1.5){/* inflate: even expansion away from the centre */\n'
            +'  transformed+=(transformed-uMCenter)*uDeform*uMAmt;\n'
            +'}else{/* contract: shorten along the axis, thicken across it */\n'
-           +'  transformed-=uMAxis*rssAlong*uDeform*uMAmt;\n'
-           +'  transformed+=rssPerp*uDeform*uMAmt*.55;\n'
+           +(cls==='muscle'?'  float tether=pow(max(0.,1.-pow(2.*rssAlong/uMLength,2.)),2.);\n':'  float tether=1.;\n')
+           +'  transformed-=uMAxis*rssAlong*uDeform*uMAmt*tether;\n'
+           +'  transformed+=rssPerp*(inversesqrt(max(.1,1.-uDeform*uMAmt*tether))-1.);\n'
            +'}\n'
           :'')
+        +(cls==='nerve'&&route?'vTransmission=aTransmission;\n':'')
         +'vFlowY=(modelMatrix*vec4(transformed,1.0)).y;');
-    sh.fragmentShader='varying float vFlowY;\n'
+    if(deform)sh.vertexShader=sh.vertexShader.replace('#include <beginnormal_vertex>',
+      '#include <beginnormal_vertex>\n'
+      +'if(uMode>4.5){vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(na/max(.1,1.-.55*uDeform*uMAmt)+(objectNormal-na)/max(.1,1.-uDeform*uMAmt));}\n'
+      +'if(uMode<1.5){float k=max(.1,1.-uDeform*uMAmt);vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(na/k+(objectNormal-na)*sqrt(k));}\n'
+      +'else if(uMode>2.5&&uMode<3.5){float along=dot(position-uMCenter,uMAxis);vec3 radial=position-uMCenter-along*uMAxis;float phase=(along/uMLength*2.-uT*uSpeed*uDir)*6.2831853;float wave=max(0.,.5+.5*sin(phase));float k=max(.1,1.-pow(wave,uSharp)*uMAmt*uDeform);float dk=-uMAmt*uDeform*uSharp*pow(wave,max(0.,uSharp-1.))*.5*cos(phase)*12.5663706/uMLength;float na=dot(objectNormal,uMAxis);vec3 nr=objectNormal-na*uMAxis;objectNormal=normalize(nr/k+uMAxis*(na-dk*dot(radial,nr)/k));}\n');
+    sh.fragmentShader=(cls==='nerve'&&route?'varying float vTransmission;uniform float uMotorClock;uniform float uArrivalStart;uniform float uArrivalSpan;\n':'')+'varying float vFlowY;\n'
       +'uniform float uT;uniform float uOn;uniform float uBeat;uniform vec3 uFlowColor;\n'
       +'uniform float uOrigin;uniform float uWrap;uniform float uDir;uniform float uSpeed;\n'
       +'uniform float uFreq;uniform float uSharp;uniform float uGain;\n'
@@ -186,7 +228,8 @@ function installFlow(mesh,cls){
         +'float rssBand=1.;\n'
         +'if(uFreq>0.){float w=abs(rssD)*uFreq-uT*uSpeed*uDir*uFreq;\n'
         +'rssBand=pow(max(0.,.5+.5*sin(w*6.2831853)),uSharp);}\n'
-        +'totalEmissiveRadiance+=uFlowColor*rssBand*rssSide*uGain*uBeat*uOn;');
+        +(cls==='nerve'&&route?'float arrival=uArrivalStart+vTransmission*uArrivalSpan;float age=uMotorClock-arrival;rssBand=smoothstep(0.,.025,age)*(1.-smoothstep(.05,.10,age));rssSide=1.;\n':'')
+        +'float rssGlow=rssBand*rssSide*uGain*uBeat*uOn;totalEmissiveRadiance+=uFlowColor*(rssGlow/(1.+rssGlow*.65));');
   };
   mat.needsUpdate=true;
 }
@@ -194,6 +237,19 @@ function installFlow(mesh,cls){
 /* Classify and colour a whole layer as it lands. */
 export function installLayerFlow(key,meshes){
   const counts={};
+  meshes.forEach(m=>m.updateWorldMatrix(true,false));
+  // A lung's lobes breathe around one shared centre, keeping their seams joined.
+  if(key==='organs'&&state.THREE){
+    state.scene?.updateMatrixWorld(true);
+    for(const side of ['left','right']){
+      const lobes=meshes.filter(m=>new RegExp('lobe.*'+side+'.*lung','i').test(m.userData.label||m.name));
+      const box=new state.THREE.Box3();lobes.forEach(m=>box.expandByObject(m));
+      if(!box.isEmpty()){
+        const centre=box.getCenter(new state.THREE.Vector3());
+        lobes.forEach(m=>{m.userData.flowCenter=m.worldToLocal(centre.clone());});
+      }
+    }
+  }
   meshes.forEach(o=>{
     const cls=classify(key,o.userData.label||o.name);
     o.userData.flowClass=cls;
@@ -224,30 +280,42 @@ export function applyConnectiveVisibility(){
   if(!state.flow||!state.flow.connective) return;
   const show=!state.flow.on;
   state.flow.connective.forEach(m=>{ m.visible=show; });
+  if(state.focus?.keep){
+    Object.values(state.extraModels).forEach(layer=>layer.meshes.forEach(m=>{if(!state.focus.keep.has(m))m.visible=false;}));
+  }
 }
 export function setPhysiology(on){
   state.flow.on=!!on;
-  state.flow.uOn.value=on?1:0;
-  /* stepPhysiology only writes these while live is on, so turning it off mid-
-     cycle would leave uDeform frozen at the last value -- a muscle stuck at
-     full bulge or a lung held half-swollen under the restored structures. Zero
-     them so every mesh returns to its rest shape. */
-  if(!on){
-    state.flow.uT.value=0;
-    Object.values(state.flow.classes).forEach(u=>{ if(u.uDeform) u.uDeform.value=0; });
+  // Spread needs an undeformed model immediately for its layout measurements.
+  if(!on&&state.separation){
+    state.flow.blend=0;
+    state.flow.uOn.value=0;
+    Object.values(state.flow.classes).forEach(u=>{if(u.uDeform)u.uDeform.value=0;});
+    Object.values(state.flow.motors||{}).forEach(u=>{u.uDeform.value=0;});
   }
   applyConnectiveVisibility();
   return state.flow.on;
 }
 
-/* Called every frame. A dozen float writes drive every mesh in the body. */
+/* The live/static transition eases to the rest shape without a material swap. */
 export function stepPhysiology(t){
-  if(!state.flow.on) return;
+  Object.assign(state.flow,advancePhysiology(state.flow,t,state.flow.on));
+  const blend=state.flow.blend;
+  state.flow.uOn.value=blend;
+  t=state.flow.elapsed;
   state.flow.uT.value=t;
+  for(const route of MOTOR_ROUTES){
+    const u=state.flow.motors?.[route.id];if(!u)continue;
+    const seq=motorSequence(t,route.offset);
+    u.uMotorClock.value=seq.clock;u.uDeform.value=seq.tension*blend;
+    u.uBeat.value=seq.activation;
+  }
   const beat=cardiacEnvelope(t),spike=spikeEnvelope(t),breath=breathEnvelope(t),squeeze=contractEnvelope(t),atrial=atriumEnvelope(t),ventricular=ventricleEnvelope(t);
   Object.entries(state.flow.classes).forEach(([cls,u])=>{
     const r=(FLOW_CLASSES[cls]||{}).rule; if(!r) return;
-    u.uBeat.value=r.beat==='cardiac'?.25+.75*beat
+    u.uBeat.value=r.deform==='atrial'?.2+.8*atrial
+      :r.deform==='ventricular'?.2+.8*ventricular
+      :r.beat==='cardiac'?.25+.75*beat
       :r.beat==='spike'?.1+.9*spike
       :r.beat==='breath'?.3+.7*breath
       :r.beat==='contract'?.2+.8*squeeze
@@ -262,6 +330,7 @@ export function stepPhysiology(t){
       :r.deform==='atrial'?atrial
       :r.deform==='ventricular'?ventricular
       :r.deform==='steady'?1 : 0;
+    u.uDeform.value*=blend;
   });
 }
 /*
@@ -437,7 +506,7 @@ export function resumeViewerState(){
    one focus with another and must not hand the viewer's state back mid-way. */
 function releaseFocusMeshes(){
   if(!state.focus)return false;
-  layerPool(state.focus.key).forEach(o=>{o.visible=true;if(o.material)o.material.emissive?.setHex(0x000000)});
+  (state.focus.keys||[state.focus.key]).flatMap(layerPool).forEach(o=>{o.visible=true;if(o.material)o.material.emissive?.setHex(0x000000)});
   state.focus=null;
   return true;
 }
@@ -447,6 +516,27 @@ export function clearStudyFocus(){
      resolve suspended the viewer's state on the way in and still owes it. */
   const resumed=resumeViewerState();
   if(had||resumed)applyLayers();
+}
+/* A focused mechanism keeps the actual participating structures in view. */
+export function focusPhysiologyExample(kind){
+  if(!['breathing','motor'].includes(kind)||!state.THREE)return false;
+  if(state.separation)setSeparation(0);
+  clearStudyFocus();clearSelection();suspendViewerState();
+  const keys=kind==='breathing'?['organs','muscle']:['nervous','muscle'];
+  const hits=keys.flatMap(key=>layerPool(key).filter(m=>kind==='breathing'
+    ?m.userData.flowClass==='diaphragm'||(key==='organs'&&/lobe.*lung/i.test(m.userData.label||m.name))
+    :!!motorRoute(key,m.userData.label||m.name)));
+  if(!hits.length){resumeViewerState();return false;}
+  state.focus={key:keys[0],keys,keep:new Set(hits),count:hits.length};
+  setPhysiology(true);applyLayers();
+  const box=new state.THREE.Box3();hits.forEach(m=>box.expandByObject(m));
+  const centre=box.getCenter(new state.THREE.Vector3()),size=box.getSize(new state.THREE.Vector3());
+  const dir=state.camera.position.clone().sub(state.controls.target).normalize();
+  state.controls.target.copy(centre);
+  state.camera.position.copy(centre).addScaledVector(dir,Math.max(size.x,size.y,size.z,.4)*2.6);
+  state.controls.update();
+  els.stageMeta.textContent=kind==='breathing'?'Breathing · diaphragm and lungs':'Motor transmission · deltoid, biceps and quadriceps · slowed';
+  return true;
 }
 export async function focusStructures(spec){
   if(state.separation)setSeparation(0);
@@ -991,6 +1081,7 @@ export function exitXray(){
 }
 export function setLayer(key,on){
   if(state.xray)return;
+  if(state.focus?.keep)clearStudyFocus();
   /* Meshes carried by a movement live under the pivot group, not their layer
      root, so a toggle mid-movement could not hide them. End it first. */
   if(state.movement)endMovement();
@@ -1264,7 +1355,7 @@ export function endMovement(){
 
 /* Runs after every part has evaluated — see the entry point. */
 export function init() {
-  state.flow = { on:true, uT:{value:0}, uOn:{value:1}, classes:{}, counts:{}, connective:[] };
+  state.flow = { on:true, blend:1, uT:{value:0}, uOn:{value:1}, classes:{}, counts:{}, connective:[] };
   state.focus=null;
   state.xray=null;
   state.movement=null;

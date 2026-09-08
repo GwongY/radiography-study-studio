@@ -10,6 +10,7 @@ import { clearPickCallout } from './spatial-concept-overlays.js';
 import { hideMesh } from './hide-and-search.js';
 import { installLayerFlow, layerOn, layerPool, setXrayView, unitBlurb, unitFor } from './live-physiology.js';
 import { applySeparation } from './tools-and-capture.js';
+import { namedSide } from '../search-name.js';
 
   /* ------------------------------------------------------------------ *
    * Depth picking
@@ -308,7 +309,7 @@ async function loadExtraModelUncached(key,file){
       const twin=(stem+(m[2].toLowerCase()==='l'?'r':'l')).toLowerCase();
       if(flat.has(twin))return {label:stem,side:m[2].toLowerCase()==='l'?'left':'right'};
     }
-    return {label:clean,side:'bilateral'};
+    return {label:clean,side:namedSide(clean)||'bilateral'};
   };
   meshes.forEach((o,i)=>{
     const raw=raws[i];

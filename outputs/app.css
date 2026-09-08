@@ -356,6 +356,8 @@
  * changes; the fallback is only for the frame before the first measurement.
  */
 .navhead{transition:transform .22s ease,opacity .16s ease}
+#rssSearchBtn,#rssSessionSearch{position:fixed;right:max(12px,env(safe-area-inset-right));top:max(12px,env(safe-area-inset-top));z-index:20;background:var(--bg)}
+.app-shell .navmain>.navhead,#sessionView>.navhead{padding-right:68px}
 @media(max-width:1100px){
   .navmain,#sessionView{position:relative}
   .navmain>.navhead,#sessionView>.navhead{position:absolute;top:0;left:0;right:0;z-index:6;background:var(--bg)}

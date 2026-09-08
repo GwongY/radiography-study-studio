@@ -74,6 +74,10 @@ const GROUPS = [
   ['hip bone', 'innominate bone', 'os coxae', 'coxal bone', 'pelvic bone'],
   ['vertebral column', 'spine', 'backbone', 'spinal column'],
   ['costa', 'rib'],
+  ['triquetrum bone', 'triquetral bone', 'triquetrum'],
+  ['navicular bone', 'navicular'],
+  ['calcaneus', 'heel bone'],
+  ['talus', 'astragalus'],
   ['hyoid bone', 'lingual bone'],
   ['occipital bone', 'back of the skull'],
   ['nasal septum', 'septum of the nose'],
@@ -164,8 +168,8 @@ const GROUPS = [
   ['cubital fossa', 'elbow pit'],
   ['popliteal fossa', 'knee pit'],
   ['umbilicus', 'navel', 'belly button'],
-  ['carpus', 'wrist'],
-  ['tarsus', 'ankle'],
+  ['carpus', 'carpal bones', 'carpals', 'wrist bones'],
+  ['tarsus', 'tarsal bones', 'tarsals', 'ankle bones'],
   ['digit', 'finger', 'toe', 'phalanx'],
   ['pollex', 'thumb'],
   ['hallux', 'big toe', 'great toe'],
@@ -189,6 +193,28 @@ const GROUPS = [
  * quietly pointing at nothing.
  */
 export const COMPOSITES = [
+  ...['metacarpal','metatarsal'].map((bone)=>({term:bone==='metacarpal'?'metacarpus':'metatarsus',
+    also:[bone+'s',bone+' bones'],name:bone==='metacarpal'?'Metacarpals':'Metatarsals',
+    note:'The five named bones, shown together.',
+    parts:['First','Second','Third','Fourth','Fifth'].map(n=>['skeleton',n+' '+bone+' bone'])})),
+  {term:'rotator cuff',also:['sits','rotator cuff muscles'],name:'Rotator cuff',note:'The four muscles, shown together.',
+    parts:['Supraspinatus muscle','Infraspinatus muscle','Teres minor muscle','Subscapularis muscle'].map(n=>['muscle',n])},
+  {term:'quadriceps',also:['quads','quadriceps femoris'],name:'Quadriceps',note:'The four muscles, shown together.',
+    parts:['Rectus femoris muscle','Vastus lateralis muscle','Vastus medialis muscle','Vastus intermedius muscle'].map(n=>['muscle',n])},
+  {term:'hamstrings',also:['hamstring muscles'],name:'Hamstrings',note:'The hamstring muscles, shown together.',
+    parts:['Long head of biceps femoris','Semitendinosus muscle','Semimembranosus muscle'].map(n=>['muscle',n])},
+  {term:'biceps femoris',also:['biceps femoris muscle'],name:'Biceps femoris',note:'Both heads, shown together.',
+    parts:['Long head of biceps femoris','Short head of biceps femoris'].map(n=>['muscle',n])},
+  {term:'lung',also:['lungs'],name:'Lungs',note:'The five lobes, shown together.',
+    parts:['Superior lobe of left lung','Inferior lobe of left lung','Superior lobe of right lung','Middle lobe of right lung','Inferior lobe of right lung'].map(n=>['organs',n])},
+  {term:'colon',also:['colon segments'],name:'Colon',note:'The four named segments, shown together.',
+    parts:['Ascending colon','Transverse colon','Descending colon','Sigmoid colon'].map(n=>['organs',n])},
+  { term: 'carpus', also: ['carpals', 'carpal bones', 'wrist bones'], name: 'Carpus',
+    note: 'The carpal bones, shown together.',
+    parts: ['Scaphoid bone', 'Lunate bone', 'Triquetrum bone', 'Pisiform bone', 'Trapezium bone', 'Trapezoid bone', 'Capitate bone', 'Hamate bone'].map((name) => ['skeleton', name]) },
+  { term: 'tarsus', also: ['tarsals', 'tarsal bones', 'ankle bones'], name: 'Tarsus',
+    note: 'The tarsal bones, shown together.',
+    parts: ['Talus', 'Calcaneus', 'Navicular bone', 'Cuboid bone', 'Medial cuneiform bone', 'Intermediate cuneiform bone', 'Lateral cuneiform bone'].map((name) => ['skeleton', name]) },
   /*
    * The pharynx is modelled ONLY as its three parts.
    *
@@ -249,6 +275,11 @@ export const NOT_MODELLED = [
     why: 'There is no skin mesh — muscle is the outermost layer the model carries. Anything drawn on the body surface is measured from the muscle layer instead.' },
 ];
 
+for(const [i,roman] of ['i','ii','iii','iv','v','vi','vii','viii','ix','x','xi','xii'].entries()){
+  const group=GROUPS.find(g=>g.includes('cn '+roman));
+  if(group)group.push('cn '+(i+1),'cranial nerve '+(i+1));
+}
+
 /* term -> Set of every other term in its group, closed symmetrically. */
 const MAP = new Map();
 for (const group of GROUPS) {
@@ -264,7 +295,7 @@ for (const group of GROUPS) {
    additionally pull in their own part names, so "larynx" reaches the cricoid
    cartilage even though the two words share no letters. */
 for (const row of [...NOT_MODELLED, ...COMPOSITES]) {
-  const names = [row.term, ...row.also, ...(row.parts || []).map(([, mesh]) => mesh.toLowerCase())];
+  const names = [row.term, ...row.also];
   for (const term of names) {
     const key = term.toLowerCase();
     let set = MAP.get(key);
@@ -302,6 +333,8 @@ export function expandQuery(q) {
       set.forEach((t) => out.add(t));
     }
   }
+  const composite = COMPOSITES.find((row) => [row.term, ...row.also].includes(needle));
+  if (composite) composite.parts.forEach(([, name]) => out.add(name.toLowerCase()));
   return [...out];
 }
 

@@ -122,6 +122,53 @@
   ok   and the hand keeps its own, because a phalanx is not always in the foot
        157 groups, largest: Muscles of the head and neck (46), Ligaments of the foot (39), Ligaments of the hand (33)
 — composites point at real meshes —
+  ok   Metacarpals: First metacarpal bone exists in the skeleton layer
+  ok   Metacarpals: Second metacarpal bone exists in the skeleton layer
+  ok   Metacarpals: Third metacarpal bone exists in the skeleton layer
+  ok   Metacarpals: Fourth metacarpal bone exists in the skeleton layer
+  ok   Metacarpals: Fifth metacarpal bone exists in the skeleton layer
+  ok   Metatarsals: First metatarsal bone exists in the skeleton layer
+  ok   Metatarsals: Second metatarsal bone exists in the skeleton layer
+  ok   Metatarsals: Third metatarsal bone exists in the skeleton layer
+  ok   Metatarsals: Fourth metatarsal bone exists in the skeleton layer
+  ok   Metatarsals: Fifth metatarsal bone exists in the skeleton layer
+  ok   Rotator cuff: Supraspinatus muscle exists in the muscle layer
+  ok   Rotator cuff: Infraspinatus muscle exists in the muscle layer
+  ok   Rotator cuff: Teres minor muscle exists in the muscle layer
+  ok   Rotator cuff: Subscapularis muscle exists in the muscle layer
+  ok   Quadriceps: Rectus femoris muscle exists in the muscle layer
+  ok   Quadriceps: Vastus lateralis muscle exists in the muscle layer
+  ok   Quadriceps: Vastus medialis muscle exists in the muscle layer
+  ok   Quadriceps: Vastus intermedius muscle exists in the muscle layer
+  ok   Hamstrings: Long head of biceps femoris exists in the muscle layer
+  ok   Hamstrings: Semitendinosus muscle exists in the muscle layer
+  ok   Hamstrings: Semimembranosus muscle exists in the muscle layer
+  ok   Biceps femoris: Long head of biceps femoris exists in the muscle layer
+  ok   Biceps femoris: Short head of biceps femoris exists in the muscle layer
+  ok   Lungs: Superior lobe of left lung exists in the organs layer
+  ok   Lungs: Inferior lobe of left lung exists in the organs layer
+  ok   Lungs: Superior lobe of right lung exists in the organs layer
+  ok   Lungs: Middle lobe of right lung exists in the organs layer
+  ok   Lungs: Inferior lobe of right lung exists in the organs layer
+  ok   Colon: Ascending colon exists in the organs layer
+  ok   Colon: Transverse colon exists in the organs layer
+  ok   Colon: Descending colon exists in the organs layer
+  ok   Colon: Sigmoid colon exists in the organs layer
+  ok   Carpus: Scaphoid bone exists in the skeleton layer
+  ok   Carpus: Lunate bone exists in the skeleton layer
+  ok   Carpus: Triquetrum bone exists in the skeleton layer
+  ok   Carpus: Pisiform bone exists in the skeleton layer
+  ok   Carpus: Trapezium bone exists in the skeleton layer
+  ok   Carpus: Trapezoid bone exists in the skeleton layer
+  ok   Carpus: Capitate bone exists in the skeleton layer
+  ok   Carpus: Hamate bone exists in the skeleton layer
+  ok   Tarsus: Talus exists in the skeleton layer
+  ok   Tarsus: Calcaneus exists in the skeleton layer
+  ok   Tarsus: Navicular bone exists in the skeleton layer
+  ok   Tarsus: Cuboid bone exists in the skeleton layer
+  ok   Tarsus: Medial cuneiform bone exists in the skeleton layer
+  ok   Tarsus: Intermediate cuneiform bone exists in the skeleton layer
+  ok   Tarsus: Lateral cuneiform bone exists in the skeleton layer
   ok   Pharynx: Nasopharynx exists in the organs layer
   ok   Pharynx: Oropharynx exists in the organs layer
   ok   Pharynx: Laryngopharynx exists in the organs layer

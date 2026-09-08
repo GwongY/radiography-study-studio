@@ -10,6 +10,7 @@ import { clean, clearHighlight, courseChipHTML, pool, renderRegions, selectBone,
 import { enforceHidden, hiddenName, publishHidden } from './hide-and-search.js';
 import { loadExtraModel, pick } from './depth-picking.js';
 import { showPickCallout } from './spatial-concept-overlays.js';
+import { modelSearchNames, namedSide } from '../search-name.js';
 
 /* ------------------------------------------------------------------ *
  * Search -> viewer: frame the part, then hide only what stands in front
@@ -74,6 +75,8 @@ function occludersOf(targets,frame){
  * APPENDED, never stripped, so Femur and Vomer survive (see CLAUDE.md).
  */
 export function meshesFor(layer,name){
+  const names=modelSearchNames(name);
+  if(names.length!==1||names[0]!==name)return [...new Set(names.flatMap(n=>meshesFor(layer,n)))];
   const tight=(s)=>normName(s).replace(/[^a-z0-9]/g,'');
   const want=normName(name), wantT=tight(name);
   const nameOf=(o)=>o.userData.label||o.name;
@@ -88,6 +91,8 @@ export async function revealStructure(spec){
   if(!state.scene){ await window.__osteo.boot(); }
   if(!state.scene) return {ok:false,found:0,covered:[]};
   state.autoHidden.clear();
+  if(state.isolated){state.isolated=false;$('isolateBtn')?.classList.remove('active');}
+  state.scene.updateMatrixWorld(true);
   clearStudyFocus && clearStudyFocus();
   let targets=[];
   if(spec.id){
@@ -119,7 +124,7 @@ export async function revealStructure(spec){
      */
     const parts=spec.parts||[{system:spec.system,mesh:spec.mesh,file:spec.file}];
     for(const p of parts){
-      let layer=state.extraModels[p.system];
+      let layer=p.system==='skeleton'&&state.fullMeshes.length ? {meshes:state.fullMeshes} : state.extraModels[p.system];
       if(!layer&&p.file){
         try{ layer=await loadExtraModel(p.system,p.file); }catch(e){ console.warn('layer load failed',p.system,e); layer=null; }
       }
@@ -141,7 +146,7 @@ export async function revealStructure(spec){
        * -- two routes to the same muscle disagreeing about what it is.
        */
       const ids=new Set(hits.map(o=>o.userData.canonicalId).filter(Boolean));
-      targets=targets.concat(ids.size
+      targets=targets.concat(!spec.exact&&ids.size
         ?layer.meshes.filter(o=>ids.has(o.userData.canonicalId))
         :hits);
     }
@@ -154,6 +159,12 @@ export async function revealStructure(spec){
       if(id) selectBone(id, targets[0].userData.side||null);
     }
   }
+  if(spec.side)targets=targets.filter(m=>{
+    const side=namedSide(m.userData.label||m.name)||m.userData.side;
+    const name=String(m.userData.label||m.name).toLowerCase();
+    return side&&side!=='bilateral' ? side===spec.side||side===spec.side[0] : !name.includes(spec.side==='left'?'right':'left');
+  });
+  targets.forEach(m=>state.hidden.delete(m));
   if(!targets.length){ showToast('Could not locate that structure in the model'); return {ok:false,found:0,covered:[]}; }
   /*
    * A region filter must not silently swallow what you just searched for.
@@ -223,6 +234,7 @@ export async function revealStructure(spec){
     /* Anchor on what was actually selected and lit, not on every mesh the
        name matched. A bilateral result frames and lights ONE side, so
        anchoring over both put the vagus nerve's dot on the opposite nerve. */
+    state.selectionAnchor=primary;
     showPickCallout(frameTargets,spec.name);
     els.selectedName.textContent=spec.name;
     /* selectBone already rendered the card; overwriting the chips here dropped

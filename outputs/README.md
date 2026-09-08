@@ -16,6 +16,49 @@ The workflow is the same for every subject:
 
 ## Files
 
+### Lesson progress and viewer return (September 2026)
+
+Lesson dots record the highest stage reached: Learn 1/4, Remember 2/4,
+Practise 3/4, Apply 4/4. Revisiting an earlier stage preserves that high-water
+mark; mastery remains a separate score. Search stays in the upper-right corner
+while reading. Searching a structure suspends the lesson; Quit viewer restores
+the same question state and scroll position.
+
+Subject papers include matching private-pack MCQs, including older questions
+whose subject is encoded in their bank ID. Other pack formats have a subject
+picker in Short answer. Pack contents remain private and are never bundled.
+
+Search checks every one of the 1,686 model names, including left/right names,
+ordinal digits and plurals. Exact searches select the named mesh rather than
+silently substituting its teaching group. Carpus, tarsus, metacarpals,
+metatarsals, rotator cuff, quadriceps, hamstrings, lung lobes and colon segments
+select their specific parts. Composite expansion goes
+from a group to its members without treating sibling structures as synonyms.
+Selection labels and pinned annotations track their mesh through Spread.
+Live physiology has no speed control. Atrial contraction precedes an AV interval
+and ventricular contraction; chamber deformation reduces volume. The diaphragm
+descends with inspiration and each lung's lobes expand around one common centre.
+Selected axillary/deltoid, musculocutaneous/biceps and femoral/quadriceps examples
+show a travelling nerve impulse, excitation, contraction and relaxation. Nerve
+distance follows connected mesh edges around curves; separate axillary branches
+activate after the main nerve. Muscle bellies thicken with tethered ends.
+The Breathing and Motor nerve → muscle presets isolate these participants.
+Quintic easing, corrected deformation normals and frame-rate-independent blending
+smooth the motion and the live/static transition; hidden-tab gaps pause the clock.
+
+Mechanism sources are listed in the viewer and `physiology-mechanics.js`:
+`phys.2` pp.43–52 (cardiac conduction), `phys.muscle.deck` pp.27–35
+(neuromuscular excitation and relaxation), `phys.3` pp.21–24 (breathing),
+`hss.4.3` pp.19/24 and `hss.ppans` p.27 (motor innervation).
+These are illustrative surface deformations, not a fibre/valve/haemodynamic
+simulation. Motor display timing is deliberately slowed; mesh-edge distances
+approximate the route, not measured axon trajectories or conduction velocity.
+
+Checks: `node work/progress-pack-check.mjs [private-pack-path]` and the function
+in `work/progress-viewer-browser-check.js`, evaluated on a fresh dev-server tab.
+Further checks: `work/search-accuracy-check.mjs`,
+`work/physiology-mechanics-check.mjs` and `work/physiology-browser-check.js`.
+
 ### Viewer workspace and projection (September 2026)
 
 Explore and Tools share a dock inside the viewer. Each panel scrolls independently;

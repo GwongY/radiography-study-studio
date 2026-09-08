@@ -155,6 +155,11 @@ export function packCounts() {
  * On-screen only. Nothing this returns is written to the log, the export or
  * the gist -- work/pack-privacy-check.mjs is what holds that.
  */
+export function packSubject(q) {
+  const raw = q.subject || q.bank || held?.subject || held?.origin?.subject || held?.packId || '';
+  return String(raw).toUpperCase().match(/HSS2011|ABCT2326|HTI17103|APSS1A08|DSAI1202/)?.[0] || null;
+}
+
 export function packUnitLabel(q) {
   const chapter = `Chapter ${q.chapter ?? '?'}`;
   return q.subject ? `${q.subject} ${chapter}` : chapter;
@@ -188,6 +193,7 @@ export function packQuestions() {
       qid: id,
       itemId: id,
       packId: held.packId,
+      subject: packSubject(q),
       /* What the breakdown groups by, and what the review list titles a row.
          Both are on-screen only; neither is written anywhere.
 
@@ -234,6 +240,7 @@ export function packShortQuestions() {
       qid: id,
       itemId: id,
       packId: held.packId,
+      subject: packSubject(q),
       chapter: q.chapter ?? null,
       unit: packUnitLabel(q),
       title: `${packUnitLabel(q)} · question ${q.qid}`,

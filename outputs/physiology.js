@@ -78,32 +78,32 @@ export const FLOW_CLASSES = {
   heart: {
     label: 'Heart', short: 'Heart',
     color: 0x9e2f2f, flow: 0xff7a63,
-    says: 'Valves, septa and conducting tissue. They do not contract themselves — they open, close and fire as the chambers around them pump.',
-    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 1.35, beat: 'cardiac' },
+    says: 'Supporting heart structures are held still in this display. Valve opening and the internal conducting pathways are not resolved by these surface meshes.',
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0, beat: null },
   },
   heartAtrium: {
     label: 'Atrium', short: 'Atrium',
     color: 0x9e2f2f, flow: 0xff7a63,
     says: 'The primer. Both atria contract first, topping the ventricles up just before they fire.',
-    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 1.15, beat: 'cardiac', mode: 'contract', deform: 'atrial', contract: 0.09 },
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 1.15, beat: 'cardiac', mode: 'pump', deform: 'atrial', contract: 0.09 },
   },
   heartVentricle: {
     label: 'Ventricle', short: 'Ventricle',
     color: 0x9e2f2f, flow: 0xff7a63,
     says: 'The main pump. Both ventricles contract together in systole — right to the lungs, left to the body. The papillary muscles shorten with them.',
-    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 1.35, beat: 'cardiac', mode: 'contract', deform: 'ventricular', contract: 0.14 },
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 1.35, beat: 'cardiac', mode: 'pump', deform: 'ventricular', contract: 0.14 },
   },
   nerve: {
     label: 'Peripheral nerve', short: 'Nerve',
     color: 0xd8c65e, flow: 0xfffbc9,
-    says: 'Impulses travel outward from the cord in fast volleys — far faster than blood moves.',
-    rule: { from: 'cord', wrap: 'mirror', dir: 1, speed: 3.4, freq: 3.2, sharp: 9, gain: 1.9, beat: 'spike' },
+    says: 'Selected motor examples show an impulse travelling along the nerve before its target muscle contracts. Transmission is slowed for visibility; mixed nerves also carry sensory traffic, which is not animated here.',
+    rule: { from: 'cord', wrap: 'mirror', dir: 1, speed: 3.4, freq: 3.2, sharp: 9, gain: 1.4, beat: null },
   },
   cns: {
     label: 'Brain and spinal cord', short: 'CNS',
     color: 0xbfc6a8, flow: 0xf2f6d8,
-    says: 'Where the volleys start. It flickers with each one rather than carrying a travelling crest.',
-    rule: { from: 'cord', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0.75, beat: 'spike' },
+    says: 'Central nervous tissue remains still; the model does not resolve its active neural circuits.',
+    rule: { from: 'cord', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0, beat: null },
   },
   /*
    * A note on what is actually in the file.
@@ -135,10 +135,13 @@ export const FLOW_CLASSES = {
     says: 'Thymus and spleen — where lymphocytes are trained, and where blood itself gets filtered.',
     rule: { from: 'venousAngle', wrap: 'mirror', dir: -1, speed: 0, freq: 0, sharp: 1, gain: 0.45, beat: null },
   },
+  diaphragm: {label:'Diaphragm',short:'Diaphragm',color:0xa8443c,flow:0xff9b7a,
+    says:'The dome descends during inspiration and recoils during expiration.',
+    rule:{mode:'descend',deform:'breath',gain:0}},
   muscle: {
     label: 'Skeletal muscle', short: 'Muscle',
     color: 0xa8443c, flow: 0xff9b7a,
-    says: 'Contracting: it shortens along its own long axis and thickens across it, then relaxes.',
+    says: 'The mapped deltoid, biceps and quadriceps examples activate after their motor impulse, then relax. The belly deforms with tethered ends in this fixed-pose demonstration.',
     /* gain 0: the contraction is shown purely as deformation, so the muscle
        does not glow and dim with each beat. */
     rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0, beat: 'contract', mode: 'contract', deform: 'contract' },
@@ -171,7 +174,7 @@ export const FLOW_CLASSES = {
     label: 'Airway or lung', short: 'Lung',
     color: 0x86b4c9, flow: 0xd6f0ff,
     says: 'Where the gas exchange the whole circulation exists to serve actually happens. Watch it swell with each breath in and settle as you breathe out.',
-    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0.3, beat: 'breath', mode: 'inflate', deform: 'breath', inflate: 0.05 },
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0.3, beat: 'breath', mode: 'inflate', deform: 'breath', inflate: 0.05, match: /lung/i },
   },
   gut: {
     label: 'Digestive organ', short: 'Gut',
@@ -195,7 +198,7 @@ export const LAYER_CLASSES = {
   circulatory: ['arterial', 'venous', 'pulmArtery', 'pulmVein', 'heart', 'heartAtrium', 'heartVentricle'],
   nervous: ['cns', 'nerve'],
   lymphatic: ['lymphVessel', 'lymphNode', 'lymphOrgan'],
-  muscle: ['muscle', 'tendon', 'bursa'],
+  muscle: ['diaphragm', 'muscle', 'tendon', 'bursa'],
   joint: ['ligament', 'cartilage'],
   organs: ['airway', 'gut', 'urinary', 'gland', 'organ'],
   skeleton: ['bone'],
@@ -247,6 +250,7 @@ export function classify(layerKey, rawName) {
   }
 
   if (layerKey === 'muscle') {
+    if(/^diaphragm$/.test(n))return 'diaphragm';
     /* A bursa is named after the muscle it cushions -- 'Subtendinous bursa of
        sartorius muscle' -- so it matches 'muscle' and would be animated as one
        if it were not caught first. Bursae do not contract; they are the reason
@@ -284,54 +288,38 @@ export function classify(layerKey, rawName) {
  */
 export const RATES = { heartBpm: 72, breathsPerMin: 14, nerveVolleyHz: 2.2, contractionsPerMin: 30 };
 
-/* A crude but readable cardiac envelope: a sharp systolic rise, a slower fall,
-   then the quiet of diastole taking up most of the cycle. */
-export function cardiacEnvelope(t) {
-  const p = (t * RATES.heartBpm / 60) % 1;
-  if (p < 0.12) return Math.sin((p / 0.12) * Math.PI * 0.5);          /* systolic upstroke */
-  if (p < 0.42) return Math.cos(((p - 0.12) / 0.30) * Math.PI * 0.5); /* ejection and fall */
-  return 0.06;                                                        /* diastole */
+/* Eased phase curves have zero velocity at their joins, so the loop does
+   not snap at contraction, relaxation, or the return to the next cycle. */
+function ease(p) { const x=Math.max(0,Math.min(1,p));return Math.max(0,Math.min(1,x*x*x*(x*(x*6-15)+10))); }
+function phase(t,rate) { return ((t*rate/60)%1+1)%1; }
+function pulse(p,start,peak,end) {
+  if(p<start||p>=end)return 0;
+  return p<peak?ease((p-start)/(peak-start)):1-ease((p-peak)/(end-peak));
 }
-
+export function cardiacEnvelope(t) { return .04+.96*pulse(phase(t,RATES.heartBpm),.34,.46,.78); }
 export function breathEnvelope(t) {
-  const p = (t * RATES.breathsPerMin / 60) % 1;
-  return p < 0.4 ? Math.sin((p / 0.4) * Math.PI * 0.5) : Math.cos(((p - 0.4) / 0.6) * Math.PI * 0.5) * 0.9;
+  const p=phase(t,RATES.breathsPerMin);
+  return p<.4?ease(p/.4):1-ease((p-.4)/.6);
 }
-
-/* Nerve traffic is not a smooth wave. It is quiet, then a volley. */
-export function spikeEnvelope(t) {
-  const p = (t * RATES.nerveVolleyHz) % 1;
-  return p < 0.16 ? Math.pow(Math.sin((p / 0.16) * Math.PI), 1.4) : 0.04;
-}
-
-/* Contract, hold briefly, release slower than you contracted. */
+export function spikeEnvelope(t) { return .04+.96*pulse(phase(t,RATES.nerveVolleyHz*60),0,.07,.20); }
 export function contractEnvelope(t) {
-  const p = (t * RATES.contractionsPerMin / 60) % 1;
-  if (p < 0.22) return Math.pow(p / 0.22, 0.8);
-  if (p < 0.42) return 1;
-  if (p < 0.72) return 1 - Math.pow((p - 0.42) / 0.30, 1.3);
-  return 0;
+  const p=phase(t,RATES.contractionsPerMin);
+  if(p<.22)return ease(p/.22);
+  if(p<.42)return 1;
+  return p<.76?1-ease((p-.42)/.34):0;
 }
+export function ventricleEnvelope(t) { return pulse(phase(t,RATES.heartBpm),.26,.42,.68); }
+export function atriumEnvelope(t) { return pulse(phase(t,RATES.heartBpm),.04,.12,.22); }
 
-/* The pump has two phases, and the chambers must move at the right moment:
-   the atria fire at the end of diastole to top the ventricles up, then the
-   ventricles do the real squeeze through systole. 'p' is the fraction of one
-   cardiac cycle; it wraps at the ventricular upstroke. */
-export function ventricleEnvelope(t) {
-  const p = (t * RATES.heartBpm / 60) % 1;
-  if (p < 0.12) return Math.sin((p / 0.12) * Math.PI * 0.5);          /* rapid systolic squeeze */
-  if (p < 0.45) return Math.cos(((p - 0.12) / 0.33) * Math.PI * 0.5); /* relax through ejection */
-  return 0;                                                           /* diastole, refilling */
-}
-
-export function atriumEnvelope(t) {
-  const p = (t * RATES.heartBpm / 60) % 1;
-  if (p < 0.78) return 0;                              /* quiet through most of diastole */
-  const q = (p - 0.78) / 0.20;                         /* 0..1 across the last fifth */
-  if (q < 0.45) return Math.sin((q / 0.45) * Math.PI * 0.5);   /* contract */
-  /* Clamp the fall at zero: past the end of the window cos would go negative,
-     which would stretch the chamber instead of just letting it go. */
-  return Math.max(0, Math.cos(((q - 0.45) / 0.55) * Math.PI * 0.5)); /* let go before the ventricles fire */
+/* One clock at the display rate. Hidden-tab gaps pause the clock instead of
+   jumping through a cycle; exponential blending is independent of frame rate. */
+export function advancePhysiology(clock,now,on) {
+  const gap=now-(clock.lastTime??now);
+  const dt=gap>=0&&gap<=.25?gap:0;
+  const target=on?1:0;
+  let blend=target+((clock.blend??target)-target)*Math.exp(-dt*12);
+  if(Math.abs(blend-target)<.001)blend=target;
+  return {lastTime:now,blend,elapsed:(clock.elapsed||0)+((on||blend>0)?dt:0)};
 }
 
 export const CLASS_COUNT = Object.keys(FLOW_CLASSES).length;

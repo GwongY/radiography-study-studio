@@ -1,8 +1,11 @@
-— user-facing strings in outputs/ — 1077 —
-  7568896664949eca  WHOLE SET
+— user-facing strings in outputs/ — 1088 —
+  7d1645ea88f65872  WHOLE SET
 
+  e4dbe27708ee07f1   float dome=smoothstep(-.2,.45,rssAlong/uMLength);transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
-  0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
+  adb95f69067c7f3b   float rssW=(rssAlong/uMLength)*2.-uT*uSpeed*uDir;\n
+  3dadac29f00bea08   float tether=1.;\n
+  cc70c3b519043ee6   float tether=pow(max(0.,1.-pow(2.*rssAlong/uMLength,2.)),2.);\n
   9048dae570bdced5   (corpus only)
   753ec4f3a305c1c3   <span class="cut-levelcite">
   ecba1318e9d7541e   Gist sync disconnected; the gist itself is untouched.
@@ -250,6 +253,7 @@
   dac5841c386d8add  All Y1S1 courses
   e94d9dd5772a74c5  All Y1S1 courses \u00b7 latest schedule order
   8968425df01d3da6  All regions
+  23971def3f4d07de  All subjects
   aa3acf22b193a343  Already covered ·
   c2db0f34254c9f63  An off-device copy that happens on its own — the only thing here that survives losing this device, reinstalling the app, or the browser clearing its storage. Needs a GitHub token scoped to gists and nothing else.
   90d82470f4817358  Anatomy first
@@ -276,6 +280,7 @@
   2cea2e3a045ac3d2  BodyParts3D / Anatomography model licensing and the candidate sources that were reviewed.
   14352d43201b3476  Bone goes translucent; the cavity reads straight through it.
   63042ab0dfb866aa  Bottom strip left alone. The app stops at the edge of the viewport.
+  53c88dc6b8160b72  Breathing · diaphragm and lungs
   08dec09e60523dff  Browser tab · viewport
   67914e2d1393fea9  Browsing memory hooks — nothing is scored in this mode.
   4edfab653f74507f  Browsing the
@@ -466,6 +471,7 @@
   16ad3d834f99b1f1  Module 1 Thorax/Previous Years/1.1 Cardiovascular System and Lungs (17-18)
   71ee53804046e06a  More → Question pack
   4c67f0e5acff873f  Motion off. The anatomical colours stay.
+  7d7e2aaf6139362e  Motor transmission · deltoid, biceps and quadriceps · slowed
   40bb50da160cdc21  Move down
   5cad0eb3bde4cb2b  Move progress to another device
   79fefc32357d38fa  Multiple choice
@@ -572,6 +578,7 @@
   236dba4cad011ac5  Replace wipes this device\u2019s progress and installs the file instead. There is no undo. Continue?
   b4484cf5ac9a4334  Repository, token, and pack ID are all required.
   fc56055b48b49999  Reset progress on this device
+  b508cb314f3f74c3  Return to the same lesson page
   914423b50b0c8bb6  Reveal next hint
   ff43191f37c6e281  Review scheduled from your answers
   818f842a6df6eadc  Revision exercise
@@ -790,7 +797,7 @@
   f1d2a707f4eba80b  a left and a right in the model
   13a77ae510047ac8  above the
   0a48f9e432c65fab  above, upon
-  9518dd5999469663  additional questions available in mixed papers. Subject papers use corpus questions only.
+  7def0e94fb88b5e9  additional MCQs available in mixed and matching subject papers. Other formats are in Short answer.
   cae3667040774d63  along the way.
   f6ca2bae3ef97f78  already covered this, so the session opens on the question.
   9200422efeb6a14b  also deficient)
@@ -803,6 +810,7 @@
   2f4b24c630bdf091  aria-label="Your mark for
   4dafb342c48fd85e  artery = red = oxygenated
   038dbe3356c60c5f  assets/xray/ is empty \u2014 add a licence-cleared image
+  4614ba5f56364133  attribute float aTransmission;varying float vTransmission;\n
   f0a2f6bcdb910bd5  axial at the sternal angle
   4c7527e58057a88f  beats and
   8db95312cb849877  bone mesh
@@ -847,6 +855,7 @@
   aa9b42a9c9734d2f  epi- (above, upon), hypo- (below; also deficient), inter- (between)
   8983c81d3b29aff6  feedback bad show
   fa671a9de2c2bd28  feedback good show
+  070670bfc41d233f  float arrival=uArrivalStart+vTransmission*uArrivalSpan;float age=uMotorClock-arrival;rssBand=smoothstep(0.,.025,age)*(1.-smoothstep(.05,.10,age));rssSide=1.;\n
   f3b824b884a50db2  float bulk = sgn * (-vPosition.z - vCenterDepth) / rayCos * uCmPerUnit * uMu;
   d2e20b189c0af032  float density = clamp((tau - uWinLo) / (uWinHi - uWinLo), 0.0, 1.0);
   5ecd6cf556acd465  float n = hash(uv * 1024.0 + uSeed) - 0.5;
@@ -854,6 +863,7 @@
   84b1d2d907ea8193  float rssAlong=dot(transformed-uMCenter,uMAxis);\n
   eea76eefee8acb5d  float rssBand=1.;\n
   5f88a5c8e77785f0  float rssD=vFlowY-uOrigin;\n
+  07c912077e70ec12  float rssGlow=rssBand*rssSide*uGain*uBeat*uOn;totalEmissiveRadiance+=uFlowColor*(rssGlow/(1.+rssGlow*.65));
   d10d90ea7a935deb  float rssSide=uWrap>.5?step(0.,rssD):(uWrap<-.5?step(rssD,0.):1.);\n
   58c52e396dc3adee  float sgn = gl_FrontFacing ? -1.0 : 1.0;
   0b509037323249e4  float shell = uShell / max(uGraze, vCos);
@@ -1016,7 +1026,7 @@
   e44871869c937cfc  uShell is zero for the soft-tissue layers. See radiography.js boneTau(). */
   e53766dcd94ffbe0  uncoverbanner hidden
   b76b61628827fa7f  under one name
-  d6fe37ca2b5bb8f8  uniform float uDeform;uniform vec3 uMCenter;uniform vec3 uMAxis;uniform float uMAmt;uniform float uMode;\nuniform float uT;uniform float uSpeed;uniform float uDir;uniform float uFreq;uniform float uSharp;\n
+  3b5666d93e60ff87  uniform float uDeform;uniform vec3 uMCenter;uniform vec3 uMAxis;uniform float uMAmt;uniform float uMLength;uniform float uMode;\nuniform float uT;uniform float uSpeed;uniform float uDir;uniform float uFreq;uniform float uSharp;\n
   63f7d8ba8fb13ebf  uniform float uFreq;uniform float uSharp;uniform float uGain;\n
   abdffdbeb6c126c5  uniform float uMu, uCmPerUnit, uShell, uGraze;
   3d482f7345225afc  uniform float uOrigin;uniform float uWrap;uniform float uDir;uniform float uSpeed;\n
@@ -1035,6 +1045,7 @@
   35cf5b7cf14017b9  varying float vCenterDepth;
   84fbaea5156547f6  varying float vCos;
   9c46d65d8d548c7f  varying float vFlowY;\n
+  039fd8000316dbde  varying float vTransmission;uniform float uMotorClock;uniform float uArrivalStart;uniform float uArrivalSpan;\n
   18dca9f54eeb687d  varying vec2 vUv;
   535038c502c1ec8e  varying vec3 vPosition;
   54f60ba690743752  vec2 displayed = vUv - uPan;

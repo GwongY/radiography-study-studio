@@ -4,7 +4,7 @@
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $, ANATOMY_DATABASE, BODY_CONCEPTS, CM_PER_UNIT, FLOW_CLASSES, LANDMARK_HOTSPOTS, LAYER_NAMES, MESH_INDEX, REGIONS, conceptById, els, getAnatomy, layerOf, mu, state } from './imports.js';
-import { XRAY_LAYERS, XRAY_LAYER_FILES, applyLayers, clearStudyFocus, endMovement, enterXray, exitXray, focusStructures, highlightExtra, setExtraVisible, setLayer, setMovementAngle, setPhysiology, setXrayAec, setXrayKvp, setXrayMas, setXrayRegion, setXrayView, setXrayWindow, setXrayZoom, startMovement, xrayDepthMaterial } from './live-physiology.js';
+import { XRAY_LAYERS, XRAY_LAYER_FILES, applyLayers, clearStudyFocus, endMovement, enterXray, exitXray, focusPhysiologyExample, focusStructures, highlightExtra, setExtraVisible, setLayer, setMovementAngle, setPhysiology, setXrayAec, setXrayKvp, setXrayMas, setXrayRegion, setXrayView, setXrayWindow, setXrayZoom, startMovement, xrayDepthMaterial } from './live-physiology.js';
 import { addHotspots, applyVisibility, between, boot3D, getRecord, remapHotspotsToReal, resize, showHotspots } from './region-boxes-how.js';
 import { bodyMetrics, ensureConceptGroup, showPickCallout } from './spatial-concept-overlays.js';
 import { buildCavity, buildCellGrid, buildPlane, cavityContext, cavityStyle, layerSignature } from './cavity-geometry-derived.js';
@@ -279,6 +279,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   endMovement:()=>endMovement(),
   movementState:()=>state.movement?{id:state.movement.mv.id,angle:state.movement.angle,moving:state.movement.restore.length}:null,
   focusStructures:(spec)=>focusStructures(spec),
+  focusPhysiologyExample:(kind)=>focusPhysiologyExample(kind),
   /*
    * The beam's tissue layers, RESIDENT, before the projection is entered.
    *
