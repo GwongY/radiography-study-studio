@@ -818,88 +818,501 @@ export const HSS_JOINTS = [
     ]
   },
   {
-    id: 'hss2011-joints-movement-map-2026',
-    subject: 'HSS2011', unit: 'hss.joints', type: 'matching',
-    title: 'Current movement map for Weeks 2–4',
-    tags: ['joints', 'movements', 'upper limb', 'lower limb', 'head and neck', 'high-yield'],
-    lesson: {
-      explanation: 'The current self-study deck applies the same movement words region by region. Flexion decreases an angle and extension increases it at the elbow, shoulder, wrist, fingers, hip, knee, spine and neck; moving past the anatomical position is hyperextension where the deck shows it. At the shoulder, lateral or external rotation turns the arm away from the midline and medial or internal rotation turns it towards the midline. Abduction moves a limb or digit away from its reference line and adduction returns it; the middle digit is the reference for fingers. Pronation and supination rotate the forearm. At the ankle, dorsiflexion brings the dorsum of the foot towards the leg and plantarflexion points the foot away; inversion turns the sole medially and eversion laterally. The thumb has flexion, extension, abduction, adduction, opposition and reposition, and circumduction combines movements into a circular path.',
-      keyFacts: [
-        'Flexion decreases a joint angle; extension increases it; hyperextension continues beyond the anatomical position.',
-        'Shoulder lateral/external rotation turns away from the midline; medial/internal rotation turns towards it.',
-        'Abduction moves away from the reference line; adduction returns towards it.',
-        'Finger abduction and adduction use the middle digit as the reference.',
-        'Pronation and supination rotate the forearm.',
-        'Dorsiflexion brings the foot towards the leg; plantarflexion points it away.',
-        'Inversion turns the sole medially; eversion turns it laterally.',
-        'Thumb opposition brings the thumb towards the fingertips; reposition reverses it.',
-        'Circumduction draws a circular path by combining several angular movements.',
+    "id": "hss2011-joints-movement-map-2026",
+    "subject": "HSS2011",
+    "unit": "hss.joints",
+    "type": "matching",
+    "title": "Current movement map for Weeks 2–4",
+    "tags": [
+      "joints",
+      "movements",
+      "upper limb",
+      "lower limb",
+      "head and neck",
+      "high-yield"
+    ],
+    "lesson": {
+      "explanation": "The current self-study movement terminology deck applies standard biomechanical movement descriptors across each region of the human body. In the upper limb, angular and rotational movements are anchored to specific joints. At the glenohumeral (shoulder) joint, movements in the sagittal plane comprise flexion (anterior movement of the arm) and extension (posterior movement returning to anatomical position, continuing beyond as hyperextension). In the coronal plane, abduction moves the upper limb laterally away from the body midline, while adduction draws the limb medially towards the midline. In the transverse plane, lateral (external) rotation of the shoulder turns the humerus away from the midline, whereas medial (internal) rotation turns the humerus towards the midline. Circumduction combines flexion, abduction, extension, and adduction into a smooth cone of motion. At the elbow joint, flexion decreases the angle between the arm and forearm, while extension increases it. In the forearm, rotational actions occur at the superior and inferior radioulnar joints: pronation rotates the radius over the ulna so that the palm faces downwards (or posteriorly), whereas supination rotates the radius laterally so that the palm faces upwards (or anteriorly) and the forearm bones lie parallel. At the wrist (radiocarpal) joint, deviation toward the radial side is abduction (radial flexion) and toward the ulnar side is adduction (ulnar flexion). The thumb possesses a unique multi-axial repertoire at its carpometacarpal (CMC) saddle joint, where the palm of the hand serves as the fixed reference plane: thumb flexion curls across the palm, extension moves away in the plane of the palm, abduction moves anteriorly away at 90 degrees to the palm, adduction returns to the index finger, and opposition brings the tip of the thumb into contact with any of the fingertips, reversed by reposition. For the fingers (digits II–V), abduction spreads digits away from the longitudinal reference axis through the third (middle) digit, and adduction draws them back. In the lower limb, the hip joint exhibits triaxial flexion, extension, abduction, adduction, and rotation. At the ankle and foot, movements split anatomically: dorsiflexion (moving the top of the foot / dorsum upwards toward the leg) and plantarflexion (moving the sole / plantar surface downwards) take place at the ankle (talocrural) joint; inversion (tilting the sole of the foot inward / medially) and eversion (tilting the sole of the foot outward / laterally) take place at the intertarsal joints.",
+      "plain": "The movement deck applies standard movement terms across the body: shoulder flexion moves the arm forward, extension backward; abduction lifts it away from the midline, adduction brings it back; medial rotation turns the arm in, lateral rotation turns it out. Forearm pronation turns the palm down (crossing radius over ulna), while supination turns the palm up. The wrist flexes, extends, and deviates side to side. The thumb is referenced to the palm: opposition touches the thumb tip to any finger, and reposition returns it. Finger abduction is measured from the middle finger. At the foot, dorsiflexion lifts the top of the foot up and plantarflexion pushes the sole down at the ankle joint; inversion turns the sole inward and eversion turns it outward at the intertarsal joints.",
+      "keyFacts": [
+        "Shoulder flexion/extension occurs in the sagittal plane; abduction/adduction in the coronal plane.",
+        "Shoulder rotation: lateral (external) rotation turns away from midline; medial (internal) rotation turns towards midline.",
+        "Circumduction: sequential combination of flexion, abduction, extension, and adduction in a cone.",
+        "Forearm pronation (palm facing downwards) and supination (palm facing upwards): take place at radioulnar joints.",
+        "Pronation causes the distal radius to cross anterior to the ulna; supination restores parallel bone alignment.",
+        "Finger abduction and adduction use the middle digit (digit III) as the invariant reference line.",
+        "Thumb movements (flexion, extension, abduction, adduction, opposition, reposition): referenced to the palm.",
+        "Opposition: tip-to-tip attachment of thumb with any finger; reverse movement is reposition.",
+        "Ankle dorsiflexion (dorsum upwards) and plantarflexion (sole downwards): take place at the talocrural joint.",
+        "Foot inversion (sole medially) and eversion (sole laterally): take place at the intertarsal joints."
       ],
-      prerequisites: ['hss2011-terminology-anatomical-position'],
-      examples: ['The deck applies flexion and extension separately to upper limb, lower limb, spine and neck so the movement name is learned with its body region.'],
+      "prerequisites": [
+        "hss2011-terminology-anatomical-position",
+        "hss2011-joints-movements"
+      ],
+      "examples": [
+        "Turning a key clockwise in a right-hand door lock involves forearm supination at the radioulnar joints and shoulder lateral rotation.",
+        "Grasping a needle between the thumb and little finger tests thumb opposition at the first carpometacarpal joint."
+      ]
     },
-    practice: [
-      { type: 'matching', prompt: 'Match each movement pair to the action shown in the current deck.', pairs: [['Dorsiflexion / plantarflexion', 'Foot towards the leg / foot pointed away'], ['Inversion / eversion', 'Sole medially / sole laterally'], ['Lateral / medial rotation', 'Turn away from / towards the midline'], ['Abduction / adduction', 'Away from / towards the reference line']], explanation: 'These are the paired movement terms on pages 4, 8 and 9.' },
-      { type: 'mcq', prompt: 'Which reference line is used for abduction and adduction of the fingers?', options: ['The thumb', 'The middle digit', 'The little finger', 'The wrist crease'], answer: 1, explanation: 'The movement deck measures finger abduction and adduction from the middle digit.' },
-      { type: 'mcq', prompt: 'Which movement turns the sole of the foot medially?', options: ['Eversion', 'Inversion', 'Dorsiflexion', 'Plantarflexion'], answer: 1, explanation: 'Inversion turns the sole medially; eversion turns it laterally.' },
-      { type: 'typed', prompt: 'What is the reverse of thumb opposition?', accept: ['reposition'], explanation: 'Reposition returns the thumb from opposition.' },
+    "memory": {
+      "chunking": "Sort movements by joint axis: Sagittal = Flexion/Extension; Coronal = Abduction/Adduction; Transverse = Medial/Lateral Rotation and Pronation/Supination; Composite = Circumduction.",
+      "comparison": "Thumb vs Fingers reference line: Fingers abduct away from the middle finger (digit III); thumb abducts away from the palm at 90 degrees.",
+      "visualCue": "Picture walking on heels (dorsiflexion at ankle) vs walking on tiptoes (plantarflexion at ankle) vs twisting your ankle on a curb (inversion at intertarsal joints).",
+      "teachBack": "Demonstrate each movement of the upper and lower limb out loud, stating the precise anatomical plane and joint responsible."
+    },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each movement pair to the action demonstrated in the current lecture deck.",
+        "pairs": [
+          [
+            "Dorsiflexion / plantarflexion",
+            "Moving top of foot upwards / moving sole downwards"
+          ],
+          [
+            "Inversion / eversion",
+            "Tilting sole inward (medially) / tilting sole outward (laterally)"
+          ],
+          [
+            "Lateral / medial rotation",
+            "Turning humerus away from midline / towards midline"
+          ],
+          [
+            "Abduction / adduction",
+            "Body parts moving away from midline / towards midline"
+          ],
+          [
+            "Pronation / supination",
+            "Palm facing downwards / palm facing upwards"
+          ]
+        ],
+        "explanation": "Paired movement definitions from HSS2011 current self-study movement deck pages 4, 8, and 9."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which reference line is used for abduction and adduction of the fingers?",
+        "options": [
+          "The thumb (digit I)",
+          "The middle digit (digit III)",
+          "The little finger (digit V)",
+          "The wrist crease"
+        ],
+        "answer": 1,
+        "explanation": "Finger abduction and adduction are defined relative to the longitudinal axis running through the third (middle) digit."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which movement tilts the sole of the foot inward (facing medially)?",
+        "options": [
+          "Eversion",
+          "Inversion",
+          "Dorsiflexion",
+          "Plantarflexion"
+        ],
+        "answer": 1,
+        "explanation": "Inversion tilts the sole inward medially; eversion tilts the sole outward laterally."
+      },
+      {
+        "type": "typed",
+        "prompt": "What anatomical term describes the restoring movement that reverses thumb opposition?",
+        "accept": [
+          "reposition",
+          "Reposition"
+        ],
+        "explanation": "Reposition returns the thumb from opposition back to the anatomical position."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'A patient lifts the front of the foot towards the shin, then rolls the sole inward. Name both movements in order.', model: 'The first movement is dorsiflexion. Rolling the sole medially is inversion.', rubric: ['Names dorsiflexion first', 'Names inversion second'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A dancer lands awkwardly from a jump. The clinical examiner notes that the ankle joint is intact, but pain is elicited when the sole of the foot is tilted medially, indicating a sprain of the lateral collateral ligaments of the ankle. Name the exact movement that caused the injury and specify which joint level produces this tilting.",
+        "model": "The movement that caused the injury is inversion (tilting the sole medially). Inversion and eversion take place at the intertarsal (subtalar and transverse tarsal) joints, not at the hinge talocrural joint (which produces only dorsiflexion and plantarflexion). Severe inversion stresses the anterior talofibular and calcaneofibular lateral ligaments.",
+        "rubric": [
+          "Identifies the movement as inversion",
+          "Identifies the intertarsal / subtalar joints as the anatomical location of inversion",
+          "Distinguishes intertarsal motion from talocrural dorsiflexion/plantarflexion"
+        ]
+      }
     ],
-    sourceRefs: [{ ref: 'hss.move.2026', location: 'pp3–10 flexion/extension, rotation, abduction/adduction, forearm, ankle, foot, thumb and circumduction' }],
+    "commonMistakes": [
+      "Assuming the wrist rotates when the palm turns over; rotation occurs purely at the proximal and distal radioulnar joints.",
+      "Confusing ankle dorsiflexion/plantarflexion (talocrural joint) with foot inversion/eversion (intertarsal joints).",
+      "Using the thumb as the reference axis for finger abduction instead of the middle finger (digit III)."
+    ],
+    "skills": [
+      "Identify movement vectors on clinical motion analysis: classify every action into its anatomical plane (sagittal, coronal, transverse) and name the exact articulating surface.",
+      "Differentiate digit reference rules: digits II, IV, and V move relative to digit III; the thumb moves in planes perpendicular to the palm."
+    ],
+    "selfCheck": "From memory: define flexion, extension, abduction, adduction, pronation, supination, dorsiflexion, plantarflexion, inversion, eversion, opposition, and reposition with their respective joints.",
+    "visuals": [
+      {
+        "fig": "jointMovements"
+      },
+      {
+        "schematic": "jointMovements"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hss.move.2026",
+        "location": "p1 \"Anatomical positions\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p1 \"Terminology of movements\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p4 \"Lateral/External Rotation of Shoulder\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p4 \"Medial/Internal Rotation of Shoulder\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p4 \"(i.e. lateral rotation of the humerus)\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p4 \"(i.e. medial rotation of the humerus)\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p6 \"Move\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p6 \"anteriorly\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p7 \"Angle between\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p7 \"the segmental\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p7 \"vertebrae\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p7 \"decreases\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p8 \"Abduction – body parts moving away from midline\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p8 \"Adduction – body parts moving towards the midline\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p9 \"Pronation – palm facing downwards\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p9 \"Moving the top of your\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p9 \"foot (the dorsum) upwards\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p9 \"Moving the sole of your foot (the\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p9 \"plantar surface) downward\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p9 \"Supination – palm facing upwards\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p9 \"Tilting the sole of the foot\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p9 \"outward (facing laterally)\""
+      },
+      {
+        "ref": "hss.move.2026",
+        "location": "p9 \"inward (facing medially)\""
+      },
+      {
+        "ref": "hss.revans",
+        "location": "p2 \"1. Opposition\""
+      },
+      {
+        "ref": "hss.revans",
+        "location": "p2 \"2. Supination\""
+      },
+      {
+        "ref": "hss.revans",
+        "location": "p2 \"5. Carpo-metacarpal joint\""
+      }
+    ]
   },
   {
-    id: 'hss2011-joints-rotator-cuff',
-    subject: 'HSS2011', unit: 'hss.joints', type: 'definition',
-    title: 'Rotator cuff and full abduction of the arm',
-    tags: ['joints', 'upper limb', 'high-yield'],
-    lesson: {
-      explanation: 'The rotator cuff is four muscles: supraspinatus, infraspinatus, teres minor and subscapularis. Supraspinatus initiates the first 15 degrees of abduction; infraspinatus and teres minor laterally rotate the humerus; subscapularis medially rotates it. Full abduction of the arm is a four-part sequence: supraspinatus initiates, deltoid abducts, infraspinatus and teres minor laterally rotate, and trapezius upwardly rotates the scapula. The major shoulder-girdle muscles are pectoralis major, latissimus dorsi and deltoid.',
-      keyFacts: [
-        'Rotator cuff: supraspinatus, infraspinatus, teres minor, subscapularis.',
-        'Supraspinatus initiates the first 15 degrees of abduction (suprascapular nerve).',
-        'Infraspinatus (suprascapular nerve) and teres minor (axillary nerve) laterally rotate the humerus.',
-        'Subscapularis medially rotates the humerus (subscapular nerve).',
-        'Deltoid is a powerful abductor of the arm (axillary nerve).',
-        'Full abduction: supraspinatus initiates → deltoid abducts → infraspinatus and teres minor laterally rotate → trapezius upwardly rotates the scapula.',
+    "id": "hss2011-joints-rotator-cuff",
+    "subject": "HSS2011",
+    "unit": "hss.joints",
+    "type": "definition",
+    "title": "Rotator cuff and full abduction of the arm",
+    "tags": [
+      "joints",
+      "upper limb",
+      "high-yield",
+      "foundation"
+    ],
+    "lesson": {
+      "explanation": "The rotator cuff (musculotendinous cuff) is a critical functional collar formed by the blended tendons of four intrinsic scapulohumeral muscles that encircle and intimately reinforce the fibrous capsule of the glenohumeral (shoulder) joint. The four muscles are remembered by the classic medical mnemonic SITS: Supraspinatus, Infraspinatus, Teres minor, and Subscapularis. 1. Supraspinatus originates from the supraspinous fossa on the posterior surface of the scapula, passes beneath the acromion, and inserts onto the superior facet of the greater tubercle of the humerus; it initiates the first 15 degrees of abduction and is innervated by the suprascapular nerve. 2. Infraspinatus occupies the extensive infraspinous fossa inferior to the scapular spine, inserting onto the middle facet of the greater tubercle; it acts as a powerful lateral (external) rotator of the humerus and is innervated by the suprascapular nerve. 3. Teres minor is a slender muscle arising from the lateral border of the scapula and inserting onto the inferior facet of the greater tubercle; it works synergistically with infraspinatus to produce lateral rotation of the humerus and is innervated by the axillary nerve. 4. Subscapularis is a large, triangular muscle occupying the subscapular fossa on the anterior (costal) surface of the scapula; its tendon crosses the anterior aspect of the joint capsule to insert onto the lesser tubercle of the humerus. Subscapularis is the sole anterior rotator cuff muscle and serves as the primary medial (internal) rotator of the humerus, innervated by the subscapular nerve. Full abduction of the arm through its complete 180-degree physiological arc is not executed by a single muscle, but is an orchestrated four-stage neuromuscular sequence: Stage 1: Supraspinatus initiates abduction through the first 15 degrees. Stage 2: Deltoid (acromial part) acts as the primary powerful abductor from 15 to 90 degrees (innervated by the axillary nerve). Stage 3: Infraspinatus and Teres minor laterally rotate the humerus, clearing the greater tubercle from impinging against the coracoacromial arch. Stage 4: Trapezius and serratus anterior upwardly rotate the scapula, turning the glenoid cavity upward to allow full overhead elevation up to 180 degrees. Major shoulder-girdle muscles surrounding the cuff include pectoralis major (responsible for flexion, adduction, and medial rotation of the shoulder joint; innervated by pectoral nerves) and latissimus dorsi (responsible for adduction, extension, and medial rotation; innervated by the thoracodorsal nerve).",
+      "plain": "The rotator cuff consists of four muscles that wrap around the shoulder joint like a cuff to keep the humeral ball snug inside the shallow glenoid socket: Supraspinatus, Infraspinatus, Teres minor, and Subscapularis (mnemonic: SITS). Supraspinatus starts the first 15 degrees of arm lift (abduction). Deltoid is the heavyweight lifter that abducts from 15 to 90 degrees. Infraspinatus and teres minor rotate the arm outward (lateral rotation) so the bone does not bump into the shoulder roof. Finally, trapezius and serratus anterior tilt the shoulder blade up so your arm can reach straight overhead. Subscapularis is the only muscle in front, and it rotates the arm inward (medial rotation).",
+      "keyFacts": [
+        "Rotator cuff muscles (SITS): Supraspinatus, Infraspinatus, Teres minor, Subscapularis.",
+        "Supraspinatus (suprascapular n.): initiates the first 15 degrees of abduction.",
+        "Infraspinatus (suprascapular n.) & Teres minor (axillary n.): lateral rotation of humerus.",
+        "Subscapularis (subscapular n.): medial rotation of humerus; only anterior cuff muscle.",
+        "Deltoid (axillary n.): powerful abductor of the arm from 15° to 90° (not part of rotator cuff).",
+        "Four-stage full abduction sequence: Supraspinatus initiates → Deltoid abducts → Infraspinatus/Teres minor laterally rotate → Trapezius/serratus anterior upwardly rotate scapula.",
+        "Pectoralis major (pectoral nerves): flexion, adduction, and medial rotation of shoulder.",
+        "Latissimus dorsi (thoracodorsal nerve): adduction, extension, and medial rotation of shoulder.",
+        "Greater tubercle receives three cuff tendons (supraspinatus, infraspinatus, teres minor); lesser tubercle receives subscapularis."
       ],
-      prerequisites: ['hss2011-osteo-pectoral-girdle'],
-      examples: [],
+      "prerequisites": [
+        "hss2011-osteo-pectoral-girdle",
+        "hss2011-joints-classification"
+      ],
+      "examples": [
+        "A patient with a torn supraspinatus tendon cannot initiate lifting their arm away from their side; however, once an examiner lifts the arm past 15 degrees, the deltoid takes over and easily abducts to 90 degrees.",
+        "Painful arc syndrome occurs during abduction between 60° and 120° when an inflamed supraspinatus tendon is pinched beneath the acromion."
+      ]
     },
-    memory: {
-      firstLetter: 'SITS — Supraspinatus, Infraspinatus, Teres minor, Subscapularis. The cuff SITS on the shoulder.',
-      sequence: 'Abduction has a running order, not a single muscle: start, lift, rotate, tilt the scapula. Supraspinatus is only the starter.',
-      comparison: 'Three of the four cuff muscles are on the back of the scapula and rotate laterally or start abduction. Subscapularis is the only one in front, and it is the only medial rotator — front means in, back means out.',
+    "memory": {
+      "firstLetter": "SITS on the shoulder: Supraspinatus, Infraspinatus, Teres minor, Subscapularis.",
+      "comparison": "Three back, one front: Supraspinatus, Infraspinatus, and Teres minor sit on the dorsal scapula and insert on the greater tubercle (external rotators / abductor). Subscapularis sits on the anterior scapula and inserts on the lesser tubercle (internal rotator).",
+      "sequence": "Abduction relay: Start (Supraspinatus) → Lift (Deltoid) → Clear (Infraspinatus/Teres minor) → Overhead Tilt (Trapezius).",
+      "teachBack": "Explain why a patient who can hold their arm out horizontally might still have a torn rotator cuff that prevents them starting the movement from their thigh."
     },
-    practice: [
-      { type: 'cloze', prompt: 'The rotator cuff consists of four muscles: ______, ______, ______ and ______.',
-        accept: ['supraspinatus; infraspinatus; teres minor; subscapularis', 'supraspinatus, infraspinatus, teres minor, subscapularis'],
-        explanation: 'Model answer: supraspinatus, infraspinatus, teres minor, subscapularis.',
-        src: { ref: 'hss.revans', location: 'Module 4.3, Fill-in-blanks 3' } },
-      { type: 'typed', prompt: 'Which rotator cuff muscle initiates the first 15 degrees of abduction?', accept: ['supraspinatus'],
-        explanation: 'Supraspinatus. Deltoid then takes over as the powerful abductor.' },
-      { type: 'sequence', prompt: 'Order the muscle roles in full abduction of the arm.', items: ['Supraspinatus — initiation of abduction', 'Deltoid — abduction', 'Infraspinatus & teres minor — lateral rotation', 'Trapezius — upward rotation of scapula'],
-        explanation: 'This is the order given on the "Muscles Involved in Full Abduction of the Arm" slide.' },
-      { type: 'matching', prompt: 'Match each muscle to its innervation as given in the lecture.',
-        pairs: [['Deltoid', 'Axillary nerve'], ['Supraspinatus', 'Suprascapular nerve'], ['Subscapularis', 'Subscapular nerve'], ['Triceps brachii', 'Radial nerve']],
-        explanation: 'Each limb-muscle slide states the innervation directly beneath the action.' },
+    "practice": [
+      {
+        "type": "cloze",
+        "prompt": "The rotator cuff consists of four muscles: ______, ______, ______ and ______.",
+        "accept": [
+          "supraspinatus; infraspinatus; teres minor; subscapularis",
+          "supraspinatus, infraspinatus, teres minor, subscapularis",
+          "Supraspinatus, Infraspinatus, Teres minor, Subscapularis"
+        ],
+        "explanation": "Model answer from past exams: supraspinatus, infraspinatus, teres minor, subscapularis.",
+        "src": {
+          "ref": "hss.revans",
+          "location": "p3 \"3. Supraspinatus; infraspinatus; teres minor; subscapularis\""
+        }
+      },
+      {
+        "type": "typed",
+        "prompt": "Which rotator cuff muscle initiates the first 15 degrees of abduction of the arm?",
+        "accept": [
+          "supraspinatus",
+          "Supraspinatus"
+        ],
+        "explanation": "Supraspinatus initiates the first 15 degrees of abduction, after which deltoid abducts the arm to 90 degrees.",
+        "src": {
+          "ref": "hss.4.3",
+          "location": "p22 \"Action: initiates the first 15 degrees of abduction.\""
+        }
+      },
+      {
+        "type": "sequence",
+        "prompt": "Arrange the muscle actions in the correct sequential order for full 180-degree abduction of the arm.",
+        "items": [
+          "Supraspinatus: Initiation of abduction (0°–15°)",
+          "Deltoid: Powerful abduction (15°–90°)",
+          "Infraspinatus & Teres minor: Lateral rotation of humerus",
+          "Trapezius & Serratus anterior: Upward rotation of scapula (90°–180°)"
+        ],
+        "explanation": "The verified four-step sequence from HSS2011 Module 4.3 slide 26."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each shoulder muscle to its verified innervation from lecture slides.",
+        "pairs": [
+          [
+            "Deltoid",
+            "Axillary nerve"
+          ],
+          [
+            "Supraspinatus",
+            "Suprascapular nerve"
+          ],
+          [
+            "Infraspinatus",
+            "Suprascapular nerve"
+          ],
+          [
+            "Teres minor",
+            "Axillary nerve"
+          ],
+          [
+            "Subscapularis",
+            "Subscapular nerve"
+          ],
+          [
+            "Latissimus dorsi",
+            "Thoracodorsal nerve"
+          ]
+        ],
+        "explanation": "Innervations explicitly detailed across HSS2011 upper limb slides 18–23."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'A patient can hold their arm out to the side once you lift it there, but cannot start the lift themselves. Which muscle would you suspect and why?',
-        model: 'Supraspinatus. It initiates the first 15 degrees of abduction; deltoid is the powerful abductor beyond that. If deltoid works but the movement cannot be started, the initiator is the problem.',
-        rubric: ['Names supraspinatus', 'States it initiates the first 15 degrees', 'Distinguishes its role from deltoid'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A 55-year-old tennis player reports acute right shoulder pain. Physical examination reveals that they cannot initiate arm abduction while standing upright; they must lean their torso laterally to allow the arm to swing outward before lifting it. However, if the examiner elevates their arm to 30 degrees, they can hold and complete the lift to 90 degrees without assistance. Identify the damaged muscle, its nerve supply, and the anatomical rationale for these findings.",
+        "model": "The injured muscle is the supraspinatus, innervated by the suprascapular nerve. Supraspinatus is uniquely responsible for initiating the first 15 degrees of abduction. Once the arm passes 15 degrees, the deltoid (innervated by the axillary nerve) takes over as the primary powerful abductor. By leaning the torso, gravity passively displaces the arm past 15 degrees, allowing the intact deltoid to take over.",
+        "rubric": [
+          "Identifies supraspinatus as the damaged muscle",
+          "Identifies the suprascapular nerve as its innervation",
+          "Explains the functional hand-off: supraspinatus initiates first 15°, deltoid abducts thereafter"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Including deltoid in the rotator cuff — it is a shoulder-girdle muscle, not a cuff muscle.',
-      'Answering "deltoid" for the initiation of abduction.',
+    "commonMistakes": [
+      "Including the deltoid in the rotator cuff; deltoid is a major shoulder girdle abductor, not a cuff muscle.",
+      "Assuming supraspinatus abducts the arm all the way to 90 degrees; it only initiates the first 15 degrees.",
+      "Thinking subscapularis sits on the posterior scapula; it occupies the anterior subscapular fossa and medially rotates."
     ],
-    skills: [
-      'Deltoid is the strongest abductor at the shoulder and still not in the cuff: the cuff is the four muscles that cluster round the humeral head (supraspinatus, infraspinatus, teres minor, subscapularis), and deltoid is a shoulder-girdle muscle outside that set. Strength and membership are different questions.',
-      'Start and lift are different jobs: supraspinatus initiates the first 15 degrees, deltoid does the powerful work beyond that. A patient who can hold the arm out once it is lifted but cannot start the lift has a supraspinatus problem — the starter, not the lifter.',
-      'Position on the scapula predicts rotation direction: the three posterior cuff muscles start abduction or rotate the humerus laterally; subscapularis, the only one in front, is the only medial rotator. Front means in, back means out.',
+    "skills": [
+      "Break abduction into its four relays: Starter (Supraspinatus) → Main Motor (Deltoid) → Rotator (Infraspinatus/Teres Minor) → Scapular Tilter (Trapezius/Serratus Anterior).",
+      "Distinguish cuff insertions: Greater tubercle receives S-I-T (Supraspinatus, Infraspinatus, Teres minor); Lesser tubercle receives S (Subscapularis)."
     ],
-    selfCheck: 'From a blank page: the four cuff muscles with actions, the four-part full-abduction sequence in order, and which muscle you suspect when a patient can hold the arm out but cannot start the lift.',
-    sourceRefs: [{ ref: 'hss.4.3', location: 'Slides "Rotator Cuff Muscles", "Muscle of Upper Arm: Deltoid", "Muscles Involved in Full Abduction of the Arm"' }, { ref: 'hss.revans', location: 'Module 4.3, Fill-in-blanks 3' }],
-  },
+    "selfCheck": "From memory: list the four rotator cuff muscles (SITS) with their actions and innervations, write down the 4-step abduction relay in order, and state which tubercle each muscle inserts upon.",
+    "visuals": [
+      {
+        "fig": "rotatorCuffMuscles"
+      },
+      {
+        "schematic": "muscleAction"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hss.4.3",
+        "location": "p16 \"Rotator Cuff Muscles:\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p16 \"Supraspinatus\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p16 \"Infraspinatus\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p17 \"Pectoralis major is responsible for the:\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p17 \"Flexion, Adduction & Medial Rotation\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p17 \"Innervated by: Pectoral nerve\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p18 \"Latissimus Dorsi is responsible for the:\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p18 \"Adduction & Medial rotation of humerus.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p18 \"Innervated by: Thoracodorsal nerve\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p19 \"Deltoid is a powerful abductor of the arm.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p19 \"Innervated by: Axillary nerve\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p20 \"Rotator Cuff Muscles\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p21 \"Action: medial rotation of humerus\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p21 \"Innervated by: Subscapular nerve\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p22 \"Action: initiates the first 15 degrees of abduction.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p22 \"Innervated by: Suprascapular\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p23 \"Rotator Cuff Muscles: Infraspinatus & Teres Minor\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p23 \"Action: lateral rotation of humerus\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p23 \"Infraspinatus: Suprascapular nerve\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p23 \"Teres minor: Axillary nerve\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p26 \"Muscles Involved in Full Abduction of the Arm\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p26 \"Supraspinatus: Initiation of abduction\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p26 \"Deltoid: Abduction\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p26 \"Infraspinatus &Teres Minor: Lateral rotation\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p26 \"Trapezius: Upward rotation of scapula\""
+      },
+      {
+        "ref": "hss.revans",
+        "location": "p3 \"3. Supraspinatus; infraspinatus; teres minor; subscapularis\""
+      }
+    ]
+  }
 ];

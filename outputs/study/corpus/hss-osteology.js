@@ -533,112 +533,419 @@ export const HSS_OSTEOLOGY = [
     sourceRefs: [{ ref: 'hss.4.2', location: 'Head and neck — skull, sutures' }, { ref: 'hss.4.1', location: 'Slide "Fibrous joints — Sutures"' }, { ref: 'hss.revans', location: 'Module 4.2 answers; More exercises Module 4, labels A1–A12' }],
   },
   {
-    id: 'hss2011-osteo-pectoral-girdle',
-    subject: 'HSS2011', unit: 'hss.osteo', type: 'definition',
-    title: 'Pectoral girdle and the shoulder joints',
-    tags: ['osteology', 'upper limb', 'high-yield'], boneRefs: ['clavicle', 'scapula', 'humerus'],
-    lesson: {
-      explanation: 'The pectoral girdle consists of the clavicle and the scapula. Three joints sit around the shoulder region: the sternoclavicular joint, the acromioclavicular joint, and the glenohumeral joint, where the head of the humerus articulates with the glenoid fossa of the scapula. The scapula itself moves in six ways: elevation, depression, retraction, protraction, lateral rotation and medial rotation.',
-      keyFacts: [
-        'Pectoral girdle = clavicle + scapula.',
-        'Joints around the shoulder: sternoclavicular, acromioclavicular, glenohumeral.',
-        'Glenohumeral joint = head of humerus in the glenoid fossa of the scapula.',
-        'Six scapular movements: elevation, depression, retraction, protraction, lateral rotation, medial rotation.',
+    "id": "hss2011-osteo-pectoral-girdle",
+    "subject": "HSS2011",
+    "unit": "hss.osteo",
+    "type": "definition",
+    "title": "The pectoral girdle and shoulder joint",
+    "tags": [
+      "osteology",
+      "upper limb",
+      "high-yield",
+      "foundation"
+    ],
+    "lesson": {
+      "explanation": "The pectoral (shoulder) girdle forms the skeletal foundation connecting the upper appendicular limb to the axial skeleton. On each side of the body, the pectoral girdle consists of two bones: the anterior, subcutaneous S-shaped clavicle (collarbone) and the posterior, flat triangular scapula (shoulder blade). A fundamental anatomical principle of the human shoulder is that it possesses only a single bony joint linking the entire upper limb to the axial frame: the sternoclavicular joint, formed by the articulation of the medial (sternal) end of the clavicle with the clavicular notch of the manubrium of the sternum and the first costal cartilage. This articulation is a saddle-type synovial joint containing an intervening fibrocartilaginous articular disc that functions as a shock absorber. The lateral (acromial) end of the clavicle articulates with the acromion of the scapula at the plane-type acromioclavicular (AC) joint, reinforced by the powerful coracoclavicular ligament. Crucially, the scapula itself has no direct bony articulation with the axial skeleton; instead, it is suspended against the posterior thoracic cage across a physiological muscular interface (the scapulothoracic joint) by muscular slings including the trapezius, serratus anterior, levator scapulae, and rhomboids. This lack of rigid bony anchoring grants the scapula immense mobility, allowing it to elevate, depress, protract, retract, and rotate upwardly and downwardly. The lateral angle of the scapula is expanded into the glenoid cavity (glenoid fossa), a shallow, pear-shaped articular depression that articulates with the large, smooth hemispherical head of the humerus to form the glenohumeral (shoulder) joint. The glenohumeral articulation is a classic polyaxial ball-and-socket synovial joint. Because the shallow glenoid fossa accommodates only approximately one-third of the humeral head, the shoulder joint deliberately trades osseous stability in exchange for the greatest range of multi-planar movement of any joint in the human body (permitting flexion, extension, abduction, adduction, medial rotation, lateral rotation, and circumduction). Dynamic joint stability is provided by the rotator cuff muscles (supraspinatus, infraspinatus, teres minor, subscapularis) whose tendons blend directly with the joint capsule, supported by the fibrous glenoid labrum that deepens the socket rim. Major shoulder-girdle motors include the deltoid, pectoralis major, and latissimus dorsi.",
+      "plain": "The pectoral girdle anchors your arm to your body using two bones: the collarbone (clavicle) in front and the shoulder blade (scapula) behind. Amazingly, the entire arm is connected to your skeleton by just one single bony joint: the sternoclavicular joint where the clavicle joins the breastbone (sternum). The other end of the clavicle meets the scapula at the acromioclavicular joint. The scapula has no bones connecting it to your spine or ribs—it floats on a bed of muscles, giving your shoulder massive range of motion. At the side of the scapula sits the shallow glenoid socket, which meets the round ball of the humerus to form the ball-and-socket shoulder joint. Because the socket is shallow, the shoulder is the most mobile joint in your body, relying on the four rotator cuff muscles to keep the ball from popping out.",
+      "keyFacts": [
+        "Pectoral girdle bones: anterior clavicle and posterior scapula.",
+        "Single bony axial bridge: sternoclavicular joint (medial clavicle meets sternum manubrium).",
+        "Acromioclavicular (AC) joint: lateral clavicle articulates with acromion of scapula.",
+        "Scapulothoracic articulation: dynamic muscular sling; no direct bony attachment to ribs or spine.",
+        "Glenohumeral joint: polyaxial ball-and-socket joint between shallow glenoid fossa and humeral head.",
+        "Mobility vs stability trade-off: shallow glenoid accommodates ~1/3 of humeral head; greatest mobility in the body.",
+        "Dynamic stabilizers: rotator cuff muscles (SITS) and glenoid labrum fibrocartilage rim.",
+        "Major shoulder girdle muscles: pectoralis major, latissimus dorsi, and deltoid."
       ],
-      prerequisites: ['hss2011-osteo-axial-appendicular'],
-      examples: [],
+      "prerequisites": [
+        "hss2011-osteo-axial-appendicular",
+        "hss2011-joints-classification"
+      ],
+      "examples": [
+        "When falling onto an outstretched hand (FOOSH), compressive mechanical shock is transmitted up the radius, humerus, scapula, and clavicle to the sternum; because the sternoclavicular ligaments are exceptionally strong, fracture occurs at the junction of the middle and lateral thirds of the clavicle rather than joint dislocation.",
+        "Shoulder anterior dislocation is common because the glenoid cavity is shallow and the inferior-anterior capsule lacks rotator cuff tendon reinforcement."
+      ]
     },
-    memory: {
-      chunking: 'Two bones, three joints. Follow the chain inward from the arm: glenohumeral, acromioclavicular, sternoclavicular — the only bony link back to the axial skeleton is at the sternum.',
-      mnemonic: 'Retraction pulls the shoulders back — think of squaring up for a photograph. Protraction pushes them forward, like reaching for something.',
-      visualCue: 'The scapula is a flat triangle sliding on the back of the ribcage; its six movements are just the ways a plate can slide and tilt on a curved surface.',
+    "memory": {
+      "chunking": "Three joints around the shoulder: Sternoclavicular (axial bridge), Acromioclavicular (strut joint), Glenohumeral (ball-and-socket).",
+      "comparison": "Glenoid vs Acetabulum: the glenoid fossa is shallow (built for maximum mobility, prone to dislocation); the hip acetabulum is deep (built for weight-bearing stability).",
+      "visualCue": "Picture the clavicle as a rigid architectural crane strut holding the scapula and arm away from the thorax so the arm can swing freely.",
+      "teachBack": "Explain why the human shoulder has only one bony connection to the axial skeleton and how this design enables overhead arm elevation."
     },
-    practice: [
-      { type: 'cloze', prompt: 'The pectoral girdle consists of the clavicle and the ______.', accept: ['scapula'],
-        explanation: 'Model answer: scapula. Only two bones make up the pectoral girdle on each side.',
-        src: { ref: 'hss.revans', location: 'Module 0, Fill-in-blanks 4' } },
-      { type: 'mcq', prompt: 'Pulling your shoulders back, or squaring them, involves which motion of the scapula?', options: ['Retraction', 'Opposition', 'Pronation', 'Abduction'], answer: 0,
-        explanation: 'Model answer A. Retraction draws the scapula back toward the midline; protraction is the opposite. Opposition and pronation are not scapular movements at all.',
-        src: { ref: 'hss.revans', location: 'Module 0, MCQ 4' } },
-      { type: 'typed', prompt: 'The head of the humerus articulates with which part of the scapula?', accept: ['glenoid fossa', 'glenoid cavity', 'glenoid'],
-        explanation: 'The glenoid fossa (glenoid cavity) of the scapula, forming the glenohumeral joint.' },
+    "practice": [
+      {
+        "type": "cloze",
+        "prompt": "The medial end of the clavicle articulates with the sternum to form the ______ joint, which represents the sole bony articulation between the upper limb and the axial skeleton.",
+        "accept": [
+          "sternoclavicular",
+          "sternoclavicular joint"
+        ],
+        "explanation": "The sternoclavicular joint is the only skeletal bridge connecting the pectoral girdle and upper limb to the axial trunk.",
+        "src": {
+          "ref": "hss.4.3",
+          "location": "p8 \"Sternoclavicualr joint\""
+        }
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each shoulder region joint to its verified articulating components.",
+        "pairs": [
+          [
+            "Sternoclavicular joint",
+            "Medial clavicle and manubrium of sternum"
+          ],
+          [
+            "Acromioclavicular joint",
+            "Lateral clavicle and acromion of scapula"
+          ],
+          [
+            "Glenohumeral joint",
+            "Glenoid cavity of scapula and head of humerus"
+          ]
+        ],
+        "explanation": "The three anatomical joints around the shoulder region illustrated on HSS2011 slide 8."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which anatomical feature explains why the glenohumeral joint possesses the greatest range of movement of all joints in the human body?",
+        "options": [
+          "The deep bony acetabular rim",
+          "The shallow glenoid cavity enclosing only about one-third of the humeral head",
+          "The absence of a synovial membrane",
+          "Rigid bony fusion to the thoracic cage"
+        ],
+        "answer": 1,
+        "explanation": "The shallow glenoid fossa allows extraordinary multi-planar mobility because it does not physically lock the humeral head, relying on soft tissue cuffs for stability."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'Name the three joints that must move for you to raise your arm fully overhead, working from the humerus inward.',
-        model: 'Glenohumeral first, where the humeral head moves on the glenoid fossa; then acromioclavicular, as the scapula rotates on the clavicle; then sternoclavicular, the only bony joint back to the axial skeleton, at the sternum.',
-        rubric: ['Names all three joints', 'Orders them from lateral to medial', 'Identifies the sternoclavicular joint as the axial link'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A patient presents with a severe fracture of the clavicle shaft. What primary mechanical function of the pectoral girdle is lost, and what happens to the position of the shoulder on the affected side?",
+        "model": "The clavicle acts as a mechanical strut that holds the scapula and glenohumeral joint laterally away from the thoracic wall, allowing the upper limb maximum freedom of movement. When the clavicle fractures, the strut collapses: the weight of the upper limb pulls the shoulder downward, forward, and inward (medially) under the unopposed pull of gravity and the pectoralis major and latissimus dorsi muscles.",
+        "rubric": [
+          "Identifies the clavicle as a rigid mechanical strut holding the shoulder away from the chest",
+          "Explains that fracture causes the shoulder to collapse downward and medially",
+          "Recognizes that the sternoclavicular joint is the only bony axial support"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Adding the humerus to the pectoral girdle. The girdle is clavicle and scapula only; the humerus is the limb it carries.',
-      'Confusing retraction and protraction; retraction is backwards.',
+    "commonMistakes": [
+      "Believing the scapula forms a direct synovial joint with the ribs or spine; it is attached purely by muscular slings.",
+      "Confusing the sternoclavicular joint (medial) with the acromioclavicular joint (lateral).",
+      "Assuming the shoulder joint is structurally stable because of bone shape; its stability is almost purely muscular and ligamentous."
     ],
-    skills: [
-      'The girdle stops at the clavicle and scapula; the humerus is the cargo, not the girdle. The same criterion that put the girdles in the appendicular division — existing to carry a limb — is what keeps the limb itself out of the girdle.',
-      'The entire upper limb meets the axial skeleton at exactly one bony joint: the sternoclavicular. The acromioclavicular and glenohumeral joints are both limb-internal, which is why "name the joints that move when you raise your arm" is a chain question, answered from the humerus inward.',
-      'Retraction and protraction are one motion read from two directions: retraction pulls the scapula back toward the midline (squaring the shoulders), protraction pushes it forward (reaching). Everything else the scapula does — elevation/depression, lateral/medial rotation — comes in the same opposed pairs.',
+    "skills": [
+      "Trace the axial force transmission pathway: hand → radius → humerus → glenoid cavity → scapula → acromioclavicular joint → clavicle → sternoclavicular joint → sternum.",
+      "Recognize on thoracic radiographs that the medial end of the clavicle normally aligns with the manubrium at the sternoclavicular joint."
     ],
-    selfCheck: 'From a blank page: the two girdle bones, the three shoulder joints in chain order, where the humeral head articulates, and the six scapular movements including which one squaring your shoulders is.',
-    sourceRefs: [{ ref: 'hss.4.3', location: 'Slides "Pectoral Girdle", "Joints Around Shoulder Region" (Fig. 8-2)' }, { ref: 'hss.m0.1718', location: 'L1 p36 movements of the scapula; L1 p39 shoulder joint' }],
+    "selfCheck": "From memory: name the two bones of the pectoral girdle, identify the three joints around the shoulder region, and explain the mobility-stability trade-off of the glenoid fossa.",
+    "visuals": [
+      {
+        "model": {
+          "layer": "skeleton",
+          "meshes": [
+            "Clavicle",
+            "Scapula",
+            "Humerus"
+          ],
+          "label": "Pectoral girdle and shoulder joint",
+          "caption": "The clavicle articulates medially with the manubrium of the sternum (sternoclavicular joint) and laterally with the acromion of the scapula (acromioclavicular joint); the shallow glenoid cavity articulates with the head of the humerus."
+        }
+      },
+      {
+        "fig": "rotatorCuffMuscles"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hss.4.3",
+        "location": "p4 \"Outline: Upper Limb\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p4 \"Pectoral girdle\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p6 \"Pectoral Girdle\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p8 \"Fig. 8-2\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p8 \"Joints Around Shoulder Region\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p8 \"Acromioclavicular joint\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p8 \"Sternoclavicualr joint\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p8 \"Glenohumeral joint\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p16 \"Major Muscles Around\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p16 \"Shoulder Girdle:\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p16 \"Pectoralis major\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p16 \"Latissimus dorsi\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p19 \"Axillary nerve\""
+      }
+    ]
   },
   {
-    id: 'hss2011-osteo-forearm-carpals',
-    subject: 'HSS2011', unit: 'hss.osteo', type: 'definition',
-    title: 'Forearm bones, wrist and the carpal bones',
-    tags: ['osteology', 'upper limb', 'high-yield'], boneRefs: ['radius', 'ulna', 'hand', 'humerus'],
-    lesson: {
-      explanation: 'The forearm has two bones, the radius laterally and the ulna medially, joined by an interosseous membrane and meeting at the proximal and distal radioulnar joints. At the elbow, the trochlea of the humerus meets the trochlear notch of the ulna and the capitulum meets the head of the radius. The wrist (radiocarpal) joint is formed by the radius with the scaphoid, lunate and triquetrum. The eight carpal bones sit in two rows: the proximal row is scaphoid, lunate, triquetrum and pisiform; the distal row is trapezium, trapezoid, capitate and hamate. The scaphoid is lateral to the lunate.',
-      keyFacts: [
-        'Radius is lateral (thumb side); ulna is medial (little-finger side).',
-        'Elbow: humeral trochlea to the trochlear notch of the ulna; humeral capitulum to the head of the radius.',
-        'Radiocarpal joint articular bones: radius, scaphoid, lunate, triquetrum.',
-        'Proximal carpal row: scaphoid, lunate, triquetrum, pisiform.',
-        'Distal carpal row: trapezium, trapezoid, capitate, hamate.',
-        'The scaphoid is lateral to the lunate.',
-        'The major extensor of the elbow is triceps brachii; the trochlear notch is the ulnar feature that receives the humerus.',
+    "id": "hss2011-osteo-forearm-carpals",
+    "subject": "HSS2011",
+    "unit": "hss.osteo",
+    "type": "definition",
+    "title": "Bones of the forearm, wrist and hand",
+    "tags": [
+      "osteology",
+      "upper limb",
+      "high-yield",
+      "foundation"
+    ],
+    "lesson": {
+      "explanation": "The distal upper limb skeleton comprises the bones of the forearm (antebrachium), wrist (carpus), palm (metacarpus), and fingers (phalanges). The forearm contains two parallel long bones: the lateral radius (aligned with the thumb) and the medial ulna (aligned with the little finger). Proximally, the ulna features a prominent hook-like olecranon process and an anterior coronoid process that bound the deep, C-shaped trochlear notch; this notch articulates tightly with the spool-like trochlea of the humerus to form the uniaxial humero-ulnar hinge joint of the elbow. On the lateral aspect of the coronoid process, the radial notch of the ulna articulates with the circular head of the radius to form the proximal radioulnar pivot joint, allowing rotary supination and pronation. Distally, the expanded radius articulates with the ulnar head at the distal radioulnar joint. At the wrist, the distal radius forms the primary articulating surface of the condylar radiocarpal (wrist) joint, articulating with the proximal carpal row (scaphoid and lunate); the distal ulna is excluded from direct carpal articulation by a fibrocartilaginous articular disc. The wrist contains eight carpal bones arranged in two transverse rows of four. The proximal row (from lateral/radial to medial/ulnar) comprises: 1. Scaphoid (boat-shaped; the most frequently fractured carpal, susceptible to avascular necrosis), 2. Lunate (crescent-shaped; the most frequently dislocated carpal), 3. Triquetrum (pyramidal), and 4. Pisiform (a small pea-shaped sesamoid bone sitting on the palmar surface of the triquetrum within the flexor carpi ulnaris tendon). The distal row (lateral to medial) comprises: 5. Trapezium (features a saddle-shaped articular surface for the first metacarpal of the thumb; \"trapezi-UM under the th-UMB\"), 6. Trapezoid (wedge-shaped), 7. Capitate (the largest carpal bone, occupying the central position), and 8. Hamate (characterized by a prominent curved palmar projection called the hook of hamate). These carpal bones form an anteriorly concave osseous arch spanned by the tough flexor retinaculum, creating the enclosed carpal tunnel. Passing through the carpal tunnel are the median nerve and nine flexor tendons (four tendons of flexor digitorum superficialis, four of flexor digitorum profundus, and one of flexor pollicis longus). Carpal Tunnel Syndrome (CTS) is a painful disabling condition caused by compression of the median nerve travelling through this tunnel. Distal to the carpus are five metacarpal bones (I to V) and 14 phalanges (two in the thumb: proximal and distal; three in digits II–V: proximal, middle, distal).",
+      "plain": "The forearm consists of two bones: the radius on the thumb side and the ulna on the little-finger side. The ulna has a large C-shaped scoop called the trochlear notch that hinges around the humerus at the elbow. The wrist contains eight carpal bones arranged in two neat rows of four. Proximal row (thumb to little finger): Scaphoid, Lunate, Triquetrum, Pisiform. Distal row: Trapezium (under the thumb), Trapezoid, Capitate (the biggest), and Hamate (with a hook). The carpal bones curve into a U-shaped trough covered by a tight ligament roof (the flexor retinaculum), forming the carpal tunnel. The median nerve passes through this tunnel; if it gets pinched, it causes numbness and weakness called Carpal Tunnel Syndrome. Distal to the wrist are the 5 metacarpals of the palm and the 14 finger phalanges.",
+      "keyFacts": [
+        "Forearm bones: lateral radius (thumb side) and medial ulna (little finger side).",
+        "Trochlear notch of ulna: articulates with the trochlea of the humerus to form the elbow hinge.",
+        "Proximal and distal radioulnar joints: uniaxial pivot joints allowing pronation and supination.",
+        "Radiocarpal (wrist) joint: distal radius articulates with scaphoid and lunate carpal bones.",
+        "Eight carpal bones in two rows of four.",
+        "Proximal row (lateral to medial): Scaphoid, Lunate, Triquetrum, Pisiform.",
+        "Distal row (lateral to medial): Trapezium, Trapezoid, Capitate, Hamate.",
+        "Capitate: largest carpal bone; Pisiform: sesamoid carpal; Trapezium: articulates with thumb metacarpal.",
+        "Carpal tunnel: formed by carpal arch and flexor retinaculum; transmits median nerve and 9 flexor tendons.",
+        "Carpal Tunnel Syndrome (CTS): compression of the median nerve within the carpal tunnel.",
+        "Hand skeleton: 8 carpals, 5 metacarpals (I–V), 14 phalanges (thumb has 2; digits II–V have 3)."
       ],
-      prerequisites: ['hss2011-osteo-pectoral-girdle'],
-      examples: [],
+      "prerequisites": [
+        "hss2011-osteo-long-bone-structure",
+        "hss2011-joints-classification"
+      ],
+      "examples": [
+        "A fall onto an extended wrist frequently fractures the scaphoid across its waist; because retrograde arterial blood enters from the distal pole, non-union and avascular necrosis of the proximal scaphoid fragment are serious complications.",
+        "Repetitive typing or wrist strain causes tenosynovitis of flexor tendons within the inextensible carpal tunnel, compressing the median nerve and producing sensory tingling in the thumb, index, and middle fingers."
+      ]
     },
-    memory: {
-      mnemonic: 'Radius is on the same side as your Ring — no: radius is on the thumb side, and the thumb points to the RADIO you are tuning. Ulna is the side you rest on the desk, the same side as your little finger.',
-      firstLetter: 'Carpals, proximal row then distal row, lateral to medial: Scaphoid, Lunate, Triquetrum, Pisiform, Trapezium, Trapezoid, Capitate, Hamate.',
-      chunking: 'Four and four, two rows. Learn the rows as units; almost every carpal question is really asking which row a bone is in.',
-      comparison: 'Trapezium sits under the thumb; trapezoid is next to it. Trapezium has an "M" for thuMb.',
+    "memory": {
+      "firstLetter": "Proximal row then distal row, lateral to medial: Scaphoid, Lunate, Triquetrum, Pisiform, Trapezium, Trapezoid, Capitate, Hamate (mnemonic: \"Some Lovers Try Positions That They Cannot Handle\").",
+      "mnemonic": "Trapezi-UM articulates with the th-UMB. Capitate is the CAPTAIN (largest bone in the center).",
+      "comparison": "Radius vs Ulna at the wrist: the radius expands distally to articulate directly with carpals; the ulna shrinks distally into a small head separated from carpals by a disc.",
+      "teachBack": "Recite all eight carpal bones in row order from lateral to medial, point to your own wrist to demonstrate the carpal tunnel, and explain why median nerve compression spares the little finger."
     },
-    practice: [
-      { type: 'mcq', prompt: 'What is the collective name for wrist bones?', options: ['Carpal bones', 'Tarsal bones', 'Phalangeal bones', 'Lumbar bones', 'Radial bones'], answer: 0,
-        explanation: 'Model answer A. Carpal bones are in the wrist; tarsal bones are the equivalent group in the ankle.',
-        src: { ref: 'hss.revans', location: 'Module 4.3, MCQ 1' } },
-      { type: 'mcq', prompt: 'The scaphoid bone is ________ to the lunate.', options: ['Superior', 'Inferior', 'Lateral', 'Medial', 'Anterior'], answer: 2,
-        explanation: 'Model answer C. In the anatomical position the palms face forward, putting the scaphoid on the thumb (radial) side — lateral to the lunate.',
-        src: { ref: 'hss.revans', location: 'Module 4.3, MCQ 2' } },
-      { type: 'cloze', prompt: 'The arrow points to the ______ of the ulna — the notch that receives the trochlea of the humerus.', accept: ['trochlear notch'],
-        explanation: 'Model answer: trochlear notch. It is the C-shaped hollow on the proximal ulna gripping the humeral trochlea.',
-        src: { ref: 'hss.revans', location: 'Module 4.3, Fill-in-blanks 4' } },
-      { type: 'sequence', prompt: 'Order the proximal carpal row from lateral (thumb side) to medial.', items: ['Scaphoid', 'Lunate', 'Triquetrum', 'Pisiform'],
-        explanation: 'The proximal row runs scaphoid, lunate, triquetrum, pisiform from the thumb side across.' },
-      { type: 'cloze', prompt: 'The major extensor of the elbow is the ______ muscle.', accept: ['triceps brachii', 'triceps'],
-        explanation: 'Model answer: triceps brachii, innervated by the radial nerve.',
-        src: { ref: 'hss.revans', location: 'Module 4.3, Fill-in-blanks 2' } },
+    "practice": [
+      {
+        "type": "cloze",
+        "prompt": "The deep C-shaped articular depression of the proximal ulna that articulates with the trochlea of the humerus is the ______.",
+        "accept": [
+          "trochlear notch",
+          "Trochlear notch"
+        ],
+        "explanation": "Model answer from past exam papers: Trochlear notch.",
+        "src": {
+          "ref": "hss.revans",
+          "location": "p3 \"4. Trochlear notch\""
+        }
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each carpal bone to its verified anatomical characteristic.",
+        "pairs": [
+          [
+            "Scaphoid",
+            "Boat-shaped lateral proximal carpal; most commonly fractured"
+          ],
+          [
+            "Pisiform",
+            "Pea-shaped sesamoid bone resting on triquetrum"
+          ],
+          [
+            "Trapezium",
+            "Distal carpal articulating with first metacarpal of thumb"
+          ],
+          [
+            "Capitate",
+            "Largest carpal bone occupying the central position"
+          ],
+          [
+            "Hamate",
+            "Distal carpal characterized by a prominent anterior hook"
+          ]
+        ],
+        "explanation": "Verified carpal bone features from HSS2011 Module 4.3 slides 11 and 32."
+      },
+      {
+        "type": "sequence",
+        "prompt": "Arrange the carpal bones of the proximal row from lateral (radial / thumb side) to medial (ulnar side).",
+        "items": [
+          "Scaphoid",
+          "Lunate",
+          "Triquetrum",
+          "Pisiform"
+        ],
+        "explanation": "Standard anatomical sequence of the proximal carpal row."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Carpal Tunnel Syndrome (CTS) is caused by compression of which structure travelling beneath the flexor retinaculum?",
+        "options": [
+          "Radial nerve",
+          "Ulnar nerve",
+          "Median nerve",
+          "Musculocutaneous nerve"
+        ],
+        "answer": 2,
+        "explanation": "The median nerve traverses the carpal tunnel beneath the flexor retinaculum; compression leads to CTS.",
+        "src": {
+          "ref": "hss.4.3",
+          "location": "p32 \"Carpal Tunnel Syndrome (CTS) is associated by\""
+        }
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'A patient has pain at the base of the thumb after falling on an outstretched hand. Which carpal bone is the first one to think about, which row is it in, and which forearm bone does it sit against?',
-        model: 'The scaphoid. It is in the proximal carpal row and it is the most lateral bone of that row, so it sits against the radius and forms part of the radiocarpal joint along with the lunate and triquetrum.',
-        rubric: ['Names the scaphoid', 'Places it in the proximal row', 'Links it to the radius / radiocarpal joint'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A computer programmer complains of burning numbness and tingling in the palmar aspect of the right thumb, index, and middle fingers, accompanied by weakness in thumb gripping. Sensation in the little finger is completely normal. Identify the syndrome, the compressed nerve, the anatomical boundary creating the compression, and why the little finger is spared.",
+        "model": "The patient has Carpal Tunnel Syndrome (CTS), caused by compression of the median nerve beneath the flexor retinaculum within the carpal tunnel. The median nerve supplies cutaneous sensation to the palmar surface of the lateral three and a half digits (thumb, index, middle, and half of ring finger) and motor innervation to the thenar muscles. The little finger is completely spared because its sensation and hypothenar motor control are supplied by the ulnar nerve, which travels outside the carpal tunnel (superficial to the flexor retinaculum in Guyon's canal).",
+        "rubric": [
+          "Diagnoses Carpal Tunnel Syndrome (CTS)",
+          "Identifies the median nerve and flexor retinaculum",
+          "Explains that the little finger is innervated by the ulnar nerve outside the carpal tunnel"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Putting the radius on the medial side. Palms forward means the radius is lateral.',
-      'Mixing trapezium and trapezoid; trapeziuM is under the thuMb.',
-      'Calling wrist bones tarsals — tarsals are in the ankle.',
+    "commonMistakes": [
+      "Assuming the ulnar nerve passes through the carpal tunnel; the ulnar nerve passes superficial to the flexor retinaculum.",
+      "Swapping the positions of trapezium and trapezoid; remember trapezi-UM is by the th-UMB.",
+      "Counting the pisiform in the distal row; it sits in the proximal row on the triquetrum."
     ],
-    skills: [
-      'The wrist joint is built on the radius side: radiocarpal means radius plus scaphoid, lunate and triquetrum — the ulna never joins it. That is also why thumb-side pain after a fall on an outstretched hand points at the scaphoid first: it is the most lateral proximal carpal, sitting directly against the radius.',
-      'The radius reads as lateral only in the anatomical position — palms forward put it on the thumb side. It is the same palms-forward switch as the thumb question: rotate the forearms and the radius crosses over the ulna.',
-      'The elbow has two matched surfaces, one per forearm bone: the humeral trochlea fits the ulna\'s trochlear notch, the humeral capitulum sits on the head of the radius. Notch means ulna; ball-like capitulum means radius.',
-      'Trapezium and trapezoid are distinguished by the thumb, not by shape: trapeziuM sits under the thuMb, trapezoid next to it.',
+    "skills": [
+      "Identify all eight carpal bones on a PA wrist radiograph by systematically following proximal row (scaphoid → lunate → triquetrum → pisiform) then distal row (trapezium → trapezoid → capitate → hamate).",
+      "Assess radiocarpal joint symmetry: smooth parabolic curves (Gilula’s carpal lines) on wrist radiographs confirm normal alignment."
     ],
-    selfCheck: 'From a blank page: both carpal rows in order, which bones form the radiocarpal joint, the base-of-thumb fall scenario answered with row and side, and the trapezium-versus-trapezoid M-for-thuMb check.',
-    sourceRefs: [{ ref: 'hss.4.3', location: 'Slides "Radius and Ulna" (Fig. 8-5b), "Elbow Joint" (Fig. 8-4c), "Carpal Bones"' }, { ref: 'hss.m0.1718', location: 'L1 p45 right wrist (radiocarpal) joint; L1 p47 joints of thumb and fingers' }, { ref: 'hss.l1.overview', location: 'p44 "Carpal bones (8 pieces)" — proximal row scaphoid, lunate, triquetrum, pisiform; distal row trapezium, trapezoid, capitate, hamate' }, { ref: 'hss.revans', location: 'Module 4.3 answers' }],
+    "selfCheck": "From memory: list the eight carpal bones in proximal and distal rows, name the nerve and tendons traversing the carpal tunnel, and identify which bone forms the trochlear notch.",
+    "visuals": [
+      {
+        "fig": "carpalBones"
+      },
+      {
+        "model": {
+          "layer": "skeleton",
+          "meshes": [
+            "Radius",
+            "Ulna",
+            "Scaphoid bone",
+            "Lunate bone",
+            "Triquetrum bone",
+            "Pisiform bone",
+            "Trapezium bone",
+            "Trapezoid bone",
+            "Capitate bone",
+            "Hamate bone"
+          ],
+          "label": "Forearm and carpal bones",
+          "caption": "Radius and ulna articulating with proximal carpal row (scaphoid, lunate, triquetrum) at the radiocarpal wrist joint."
+        }
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Carpal Bones\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Capitate\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Hamate\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Trapezoid\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Triquetrum\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Trapezium\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Pisiform\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Scaphoid\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p11 \"Lunate\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p25 \"Triceps brachii is an extensor of the forearm.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p32 \"Wrist Region: Carpal Tunnel\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p32 \"Median nerve\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p32 \"Radial artery\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p32 \"Ulnar artery\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p32 \"Flexor Retinaculum\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p32 \"Carpal Tunnel Syndrome (CTS) is associated by\""
+      },
+      {
+        "ref": "hss.revans",
+        "location": "p3 \"4. Trochlear notch\""
+      }
+    ]
   },
   {
     id: 'hss2011-osteo-pelvic-girdle',
