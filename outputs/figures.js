@@ -1,4 +1,4 @@
-/*
+﻿/*
  * figures.js — the diagrams that replaced the hand-drawn ones.
  *
  * The schematics in schematics.js were plotted by hand from SVG coordinates,
@@ -2589,7 +2589,109 @@ export const FIGURES = {
       { mark: 'Tonsil', name: 'MALT at the entrance to the pharynx — lymphoid nodules in the mucosa' },
     ],
   },
-};
+  antibodyStructure: {
+    file: 'antibodyStructure.svg', bytes: 17839,
+    title: 'The basic structure of an antibody',
+    caption: 'Two parallel pairs of polypeptide chains (heavy and light), constant and variable segments, antigen-binding sites, and hinge region.',
+    author: 'Y_tambe',
+    licence: 'CC BY-SA 3.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    commons: 'https://commons.wikimedia.org/wiki/File:Immunoglobulin_basic_unit.svg',
+    intro: 'The Y-shaped immunoglobulin monomer: two identical heavy chains (dark/royal blue) paired with two shorter light chains (green/light blue), bound together by disulfide (-S-S-) bonds. Each chain carries constant segments that dictate the immunoglobulin class and effector mechanism, and variable segments at the tips that form the antigen-binding sites.',
+    key: [
+      { mark: '1', name: 'Fab region — antigen-binding fragment including variable and CH1/CL segments' },
+      { mark: '2', name: 'Fc region — crystallizable fragment formed by heavy chain constant domains (CH2, CH3)' },
+      { mark: '3', name: 'Heavy chain — two identical longer polypeptide chains' },
+      { mark: '4', name: 'Light chain — two identical shorter polypeptide chains' },
+      { mark: '5', name: 'Antigen-binding site — formed by variable segments (VH and VL) at N-terminus' },
+      { mark: '6', name: 'Hinge region — flexible segment held by disulfide bonds allowing angle change' },
+    ],
+  },
+  complementCascade: {
+    file: 'complement-cascade.jpg', bytes: 386335,
+    title: 'Complement cascade and function',
+    caption: 'Classical and alternative pathways converging on C3 convertase, C3b deposition, and membrane attack complex assembly.',
+    author: 'OpenStax College',
+    licence: 'CC BY 3.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by/3.0',
+    commons: 'https://commons.wikimedia.org/wiki/File:2212_Complement_Cascade_and_Function.jpg',
+    intro: 'The complement activation cascade: classical pathway triggered by antibody-antigen complexes binding C1, and alternative pathway triggered spontaneously by foreign surface molecules. Both converge to activate C3 into C3a and C3b; C3b triggers assembly of C5b through C9 to form the membrane attack complex that lyses the target cell.',
+    key: [
+      { mark: 'Classical pathway', name: 'Rapid pathway initiated by C1 binding antigen-antibody complexes' },
+      { mark: 'Alternative pathway', name: 'Slower pathway initiated directly by foreign surface molecules without antibody' },
+      { mark: 'C3 convertase', name: 'Enzyme complex cleaving C3 into fragments C3a and C3b' },
+      { mark: 'Membrane attack complex', name: 'C5b-C9 pore structure inserted into pathogen membrane to cause osmotic lysis' },
+      { mark: 'Opsonization', name: 'C3b coating the pathogen surface to enhance phagocyte recognition' },
+      { mark: 'Inflammation', name: 'C3a and C5a fragments stimulating histamine release and phagocyte chemotaxis' },
+    ],
+  },
+  inflammatoryProcess: {
+    file: 'inflammatory-process.jpg', bytes: 789252,
+    title: 'The inflammatory process',
+    caption: 'Tissue injury, mast cell activation, vasodilation, increased permeability, and phagocyte emigration.',
+    author: 'OpenStax College',
+    licence: 'CC BY 3.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by/3.0',
+    commons: 'https://commons.wikimedia.org/wiki/File:2213_Inflammatory_Process.jpg',
+    intro: 'The cellular sequence of acute inflammation: tissue injury and mast cell degranulation release histamine, heparin, and prostaglandins. This increases local blood flow (rubor, calor) and capillary permeability (tumor), while stimulating sensory neurons (dolor). Neutrophils marginate, emigrate by diapedesis, and phagocytose debris and bacteria.',
+    key: [
+      { mark: 'Tissue injury', name: 'Chemical, physical, or pathogen stimulus damaging tissue cells' },
+      { mark: 'Mast cell', name: 'Releases histamine, heparin, prostaglandins, and leukotrienes' },
+      { mark: 'Vasodilation', name: 'Arteriolar widening increasing local blood flow and heat' },
+      { mark: 'Increased permeability', name: 'Endothelial gaps allowing fluid, clotting factors, and complement into interstitial space' },
+      { mark: 'Phagocyte emigration', name: 'Neutrophils and monocytes squeezing through capillary wall (diapedesis)' },
+    ],
+  },
+  antigenPresentation: {
+    file: 'antigen-presentation.jpg', bytes: 538623,
+    title: 'Antigen processing and presentation',
+    caption: 'Endocytosis, lysosomal breakdown, peptide loading onto MHC Class II, and display on APC surface.',
+    author: 'OpenStax College',
+    licence: 'CC BY 3.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by/3.0',
+    commons: 'https://commons.wikimedia.org/wiki/File:2216_Antigen_Processing_and_Presentation.jpg',
+    intro: 'Processing and presentation of extracellular antigen by an APC: foreign pathogen is engulfed by endocytosis, digested in phagolysosomes, and antigenic peptides are loaded onto Class II MHC molecules in the ER/vesicles before insertion into the plasma membrane for recognition by CD4 helper T cells.',
+    key: [
+      { mark: 'Phagocytosis', name: 'Engulfment of extracellular pathogen by the antigen-presenting cell' },
+      { mark: 'Lysosome digestion', name: 'Pathogen degraded into peptide fragments within phagolysosome' },
+      { mark: 'MHC Class II', name: 'Glycoprotein molecule binding antigenic peptide in vesicle' },
+      { mark: 'Antigen presentation', name: 'MHC II-peptide complex displayed on APC plasma membrane surface' },
+      { mark: 'T cell receptor', name: 'Receptor on helper T cell recognizing the specific presented peptide' },
+    ],
+  },
+  clonalSelection: {
+    file: 'clonal-selection-b-cells.jpg', bytes: 551694,
+    title: 'Clonal selection and expansion of B cells',
+    caption: 'Antigen binding, helper T cell costimulation, proliferation into plasma cells and memory B cells.',
+    author: 'OpenStax College',
+    licence: 'CC BY 3.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by/3.0',
+    commons: 'https://commons.wikimedia.org/wiki/File:2222_Clonal_Selection_of_B_Cells.jpg',
+    intro: 'Clonal selection of B lymphocytes: a B cell whose membrane antibodies match an invading antigen binds it, undergoes sensitization and helper T cell costimulation, and divides repeatedly into an expanded clone consisting of antibody-secreting plasma cells and long-lived memory B cells.',
+    key: [
+      { mark: 'Antigen binding', name: 'Specific foreign antigen binds surface immunoglobulin on matching B cell' },
+      { mark: 'Sensitized B cell', name: 'Processes antigen and presents it on Class II MHC for T helper costimulation' },
+      { mark: 'Clonal proliferation', name: 'Activated B cell divides repeatedly to produce an identical clone' },
+      { mark: 'Plasma cells', name: 'Effector B cells actively secreting up to 100 million antibodies per hour' },
+      { mark: 'Memory B cells', name: 'Inactive cells remaining in reserve for rapid response to future exposure' },
+    ],
+  },
+  innateAdaptiveCooperation: {
+    file: 'innate-adaptive-cooperation.jpg', bytes: 465227,
+    title: 'Cooperation between innate and adaptive immunity',
+    caption: 'Overview of innate defences clearing or presenting antigen to activate cell-mediated and humoral adaptive immunity.',
+    author: 'OpenStax College',
+    licence: 'CC BY 3.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by/3.0',
+    commons: 'https://commons.wikimedia.org/wiki/File:2211_Cooperation_Between_Innate_and_Immune_Responses.jpg',
+    intro: 'The coordinated defence architecture: physical barriers and innate phagocytes, NK cells, and complement provide immediate nonspecific resistance, while antigen-presenting cells activate cell-mediated (T cell) and humoral (B cell) adaptive responses with memory.',
+    key: [
+      { mark: 'Innate immunity', name: 'Nonspecific barriers, phagocytes, NK surveillance, complement, inflammation, fever' },
+      { mark: 'Antigen-presenting cell', name: 'Macrophage or dendritic cell linking innate capture to adaptive stimulation' },
+      { mark: 'Cell-mediated immunity', name: 'T lymphocytes directly attacking infected cells and releasing cytokines' },
+      { mark: 'Humoral immunity', name: 'B lymphocytes differentiating into plasma cells producing circulating antibodies' },
+    ],
+  },};
 
 export function figureFor(id) {
   const f = FIGURES[id];

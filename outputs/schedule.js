@@ -505,6 +505,7 @@ export const WEEK_STUDY = {
       'abct2326-innate-adaptive', 'abct2326-complement', 'abct2326-mhc-costimulation',
       'abct2326-innate-mechanisms', 'abct2326-inflammation-fever',
       'abct2326-t-cell-types', 'abct2326-acquired-immunity', 'abct2326-immune-adaptive',
+      'abct2326-antibody-structure-classes',
     ],
   },
   HTI17103: {
