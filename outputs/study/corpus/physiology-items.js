@@ -12,134 +12,423 @@
 
 export const PHYS_ITEMS = [
   {
-    id: 'abct2326-cells-organisation',
-    subject: 'ABCT2326', unit: 'phys.cells', type: 'sequence',
-    title: 'Cell → tissue → organ → system',
-    tags: ['foundation', 'high-yield'],
-    priorKnowledge: {
-      level: 'dse-bio', covers: 'part', dsePart: 'core',
-      syllabusRef: { ref: 'edb.bio', location: 'Compulsory I "Cells and Molecules of Life" — cell structure, organelles and membrane transport only. The syllabus never groups tissues into types, and its "levels of organisation" are the ecological ones (species → population → community), not cell → tissue → organ.' },
-      beyond: [
-        { t: 'The four tissue types as a classification — epithelial, connective, muscle, neural. DSE stops at the cell and never groups them this way.',
-          src: { ref: 'phys.1', location: 'Slide 33 "An Introduction to Tissues"' } },
-        { t: 'The eleven organ systems the slide names: integumentary, nervous, endocrine, skeletal, muscular, circulatory, immune, respiratory, urinary, digestive, reproductive.',
-          src: { ref: 'phys.1', location: 'Slide 33 "An Introduction to Tissues"' } },
-        { t: 'Five characteristics of epithelium — cellularity, polarity, attachment to a basement membrane, avascularity, regeneration — and its four functions.',
-          src: { ref: 'phys.1', location: 'Slide 34 "1. Epithelial Tissue"' } },
-        { t: 'Epithelia classified twice over: by shape (squamous, cuboidal, columnar) and by layers (simple, stratified).',
-          src: { ref: 'phys.1', location: 'Slide 35 "Classification of Epithelia"' } },
-        { t: 'Glandular epithelia split by route — endocrine glands ductless into interstitial fluid, exocrine glands onto surfaces through ducts.',
-          src: { ref: 'phys.1', location: 'Slide 37 "Classification of Epithelia (cont’d)"' } },
-        { t: 'Connective tissue defined by its matrix — specialised cells, protein fibres, ground substance — in three classes: proper, fluid, supporting.',
-          src: { ref: 'phys.1', location: 'Slides 38–40 "2. Connective Tissue"' } },
+    "id": "abct2326-cells-organisation",
+    "subject": "ABCT2326",
+    "unit": "phys.cells",
+    "type": "sequence",
+    "title": "Levels of organization: cell to organ systems",
+    "tags": [
+      "foundation",
+      "high-yield",
+      "cells",
+      "tissues",
+      "organ systems"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "part",
+      "dsePart": "core",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Compulsory I \"Cells and Molecules of Life\" — cell structure, organelles and membrane transport."
+      },
+      "beyond": [
+        {
+          "t": "The four tissue types as a classification — epithelial, connective, muscle, neural. DSE stops at the cell and never groups them this way.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p32 \"An Introduction to Tissues\""
+          }
+        },
+        {
+          "t": "The eleven organ systems the slide names: integumentary, nervous, endocrine, skeletal, muscular, circulatory, immune, respiratory, urinary, digestive, reproductive.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p32 \"An Introduction to Tissues\""
+          }
+        },
+        {
+          "t": "Five characteristics of epithelium — cellularity, polarity, attachment to a basement membrane, avascularity, regeneration — and its four functions.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p33 \"1. Epithelial Tissue\""
+          }
+        },
+        {
+          "t": "Epithelia classified twice over: by shape (squamous, cuboidal, columnar) and by layers (simple, stratified).",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p34 \"Classification of Epithelia\""
+          }
+        },
+        {
+          "t": "Glandular epithelia split by route — endocrine glands ductless into interstitial fluid, exocrine glands onto surfaces through ducts.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p36 \"Classification of Epithelia (cont’d)\""
+          }
+        },
+        {
+          "t": "Connective tissue defined by its matrix — specialised cells, protein fibres, ground substance — in three classes: proper, fluid, supporting.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p37–40 \"2. Connective Tissue\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "Human physiology is organized into a nested structural hierarchy spanning six distinct levels: chemical (atoms combining into macromolecules), cellular (organelles interacting within the basic functional unit of life), tissue (specialized cells working in concert), organ (two or more tissues functioning together), organ system (groups of organs cooperating to achieve systemic homeostatic tasks), and the complete organism. At the cellular level, human cells divide fundamentally into somatic cells—which comprise all diploid vegetative and structural cells of the body—and sex cells (germ cells), consisting exclusively of haploid spermatozoa in males and oocytes in females dedicated to genetic reproduction. Groups of similar cells and their extracellular products coalesce into tissues, which exhibit discrete structural and functional properties. Human tissues are categorized into four primary types: (1) Epithelial tissue, which covers exposed surfaces, lines internal cavities, and forms glands; (2) Connective tissue, which fills internal spaces, provides structural support, and transports nutrients; (3) Muscle tissue, specialized for active mechanical contraction and force generation; and (4) Neural (nervous) tissue, dedicated to conducting electrical impulses and processing information. Two or more distinct tissue types combine anatomically to form an organ (such as the heart, liver, or stomach), with each tissue contributing specific physiological capabilities to the organ's collective function. Organs are coordinated within eleven distinct organ systems: the integumentary system (dermatological protection and thermoregulation), skeletal system (support, mineral storage, hematopoiesis), muscular system (locomotion and heat production), nervous system (rapid electrical communication and integration), endocrine system (long-term metabolic regulation via hormones), cardiovascular/circulatory system (systemic transport of respiratory gases, nutrients, and waste products), lymphatic/immune system (fluid return and host pathogen defense), respiratory system (pulmonary gas exchange and sound generation), digestive system (processing and absorption of nutrients), urinary system (filtration of blood and regulation of volume, electrolyte balance, and pH), and reproductive system (production of gametes and reproductive hormones). Maintaining homeostatic equilibrium across the organism requires constant, synchronized integration across all eleven systems.",
+      "plain": "The human body is structured like a Russian nesting doll: chemicals form cells, cells form tissues, tissues form organs, organs form organ systems, and organ systems create the organism. Body cells divide into somatic cells (all normal body cells) and sex cells (sperm and egg). There are only four primary tissue types in the body: epithelial, connective, muscle, and neural. When different tissues combine, they create an organ like the heart or stomach. The body coordinates eleven organ systems to keep you alive and maintain balance.",
+      "keyFacts": [
+        "The six structural levels: chemical, cellular, tissue, organ, organ system, and organism.",
+        "Somatic cells comprise all body cells; sex (germ) cells are restricted to sperm and oocytes.",
+        "The four fundamental tissue types are epithelial, connective, muscle, and neural tissue.",
+        "An organ is composed of two or more distinct tissue types serving specialized functions.",
+        "The eleven organ systems: integumentary, skeletal, muscular, nervous, endocrine, cardiovascular, lymphatic/immune, respiratory, digestive, urinary, and reproductive.",
+        "Epithelial tissue covers external surfaces and lines internal hollow organs and passageways.",
+        "Connective tissue is defined by specialized cells widely dispersed in an extracellular matrix.",
+        "Muscle tissue is uniquely specialized for contraction and mechanical force generation.",
+        "Neural tissue specializes in rapid conduction of electrical impulses and information processing.",
+        "All eleven organ systems must integrate their activities to sustain physiological homeostasis."
       ],
+      "prerequisites": [],
+      "examples": [
+        "The stomach is an organ containing all four tissue types: simple columnar epithelium lining the lumen, loose and dense irregular connective tissue in the submucosa, smooth muscle in the muscularis externa, and neural tissue in the myenteric plexus.",
+        "Severe hypovolemic shock triggers compensatory responses across multiple organ systems: nervous (sympathetic activation), endocrine (ADH and aldosterone release), cardiovascular (tachycardia and vasoconstriction), and urinary (oliguria)."
+      ]
     },
-    lesson: {
-      explanation: 'Tissues are structures with discrete structural and functional properties. Tissues in combination form organs such as the heart or the liver, and organs can be grouped into eleven organ systems: integumentary, nervous, endocrine, skeletal, muscular, circulatory, immune, respiratory, urinary, digestive and reproductive. There are four types of tissue: epithelial, connective, muscle and neural. Cells themselves split into somatic cells — all body cells — and sex or germ cells, the sperm and the oocyte.',
-      keyFacts: [
-        'Four tissue types: epithelial, connective, muscle, neural.',
-        'Eleven organ systems: integumentary, nervous, endocrine, skeletal, muscular, circulatory, immune, respiratory, urinary, digestive, reproductive.',
-        'Somatic cells are all body cells; sex (germ) cells are sperm and oocyte.',
-        'Epithelial characteristics: cellularity, polarity, attachment to a basement membrane, avascularity, regeneration.',
-        'Epithelial functions: physical protection, control permeability, provide sensation, produce specialised secretions.',
-        'Blood is a connective tissue.',
-      ],
-      prerequisites: [],
-      examples: [],
+    "memory": {
+      "chunking": "Hierarchy ladder: Chemical → Cellular → Tissue → Organ → System → Organism (C-C-T-O-S-O).",
+      "comparison": "Somatic vs Germ: Somatic cells carry 46 chromosomes (diploid) and perform vegetative work; germ cells carry 23 chromosomes (haploid) and serve reproduction.",
+      "visualCue": "Picture the stomach wall: epithelial lining on the inside, connective cushion behind it, muscular coat wrapping it, and nerve mesh regulating its contractions.",
+      "teachBack": "Walk through the four tissue types and eleven organ systems out loud, naming one primary function for each system."
     },
-    memory: {
-      sequence: 'Four levels, each one built from the level below: cell → tissue → organ → system. Never skip a rung when you answer.',
-      firstLetter: 'Four tissues: Epithelial, Connective, Muscle, Neural — E-C-M-N.',
-      comparison: 'Blood catches people out. It is connective tissue, not muscle and not epithelial, because connective tissue is defined by cells scattered in a matrix — and plasma is the matrix.',
-    },
-    practice: [
-      { type: 'sequence', prompt: 'Order the levels of body organisation from smallest to largest.', items: ['Cell', 'Tissue', 'Organ', 'Organ system'],
-        explanation: 'Tissues have discrete structural and functional properties, tissues in combination form organs, and organs are grouped into the eleven organ systems.' },
-      { type: 'mcq', prompt: 'Blood is an example of which of the following tissue categories?', options: ['Muscle', 'Nervous', 'Connective', 'Epithelial'], answer: 2,
-        explanation: 'Model answer C from the HSS2011 Module 0 revision exercise. Connective tissue is cells within a matrix, and in blood the matrix is plasma.',
-        src: { ref: 'hss.revans', location: 'Module 0, MCQ 3' } },
-      { type: 'typed', prompt: 'How many organ systems does the lecture group organs into?', accept: ['11', 'eleven'],
-        explanation: 'Eleven: integumentary, nervous, endocrine, skeletal, muscular, circulatory, immune, respiratory, urinary, digestive and reproductive.' },
-      { type: 'cloze', prompt: 'The four types of tissue are ______, ______, ______ and ______.', accept: ['epithelial; connective; muscle; neural', 'epithelial, connective, muscle, neural', 'epithelial connective muscle nervous'],
-        explanation: 'Epithelial, connective, muscle and neural tissue.' },
+    "practice": [
+      {
+        "type": "sequence",
+        "prompt": "Arrange the levels of biological organization from smallest to most complex.",
+        "items": [
+          "Chemical level",
+          "Cellular level",
+          "Tissue level",
+          "Organ level",
+          "Organ system level",
+          "Organismal level"
+        ],
+        "explanation": "The organizational hierarchy progresses from atoms and molecules up through cells, tissues, organs, organ systems, to the organism."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each primary tissue type with its fundamental physiological role.",
+        "pairs": [
+          [
+            "Epithelial tissue",
+            "Covers exposed surfaces and lines internal cavities"
+          ],
+          [
+            "Connective tissue",
+            "Fills internal spaces and provides structural support"
+          ],
+          [
+            "Muscle tissue",
+            "Specialized for contraction and mechanical force generation"
+          ],
+          [
+            "Neural tissue",
+            "Conducts electrical impulses and processes information"
+          ]
+        ],
+        "explanation": "The four primary tissue types perform specialized roles that combine to form organs."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which of the following cell types is classified as a sex (germ) cell rather than a somatic cell?",
+        "options": [
+          "Erythrocyte",
+          "Spermatozoon",
+          "Osteocyte",
+          "Hepatocyte"
+        ],
+        "answer": 1,
+        "explanation": "Sex cells (germ cells) comprise sperm in males and oocytes in females; all other cells in the human body are somatic cells."
+      },
+      {
+        "type": "typed",
+        "prompt": "How many distinct organ systems are recognized in human physiological organization?",
+        "accept": [
+          "11",
+          "eleven",
+          "Eleven"
+        ],
+        "explanation": "Human anatomy and physiology divides organ functions into eleven interconnected systems."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'Epithelium is described as avascular. Given that, how does it get oxygen, and what does that imply about how thick an epithelium can be?',
-        model: 'Because epithelia have no blood vessels of their own, they depend on diffusion from the vascular connective tissue beneath the basement membrane. That limits how thick a living epithelial layer can be — anything beyond diffusion distance cannot be supported.',
-        rubric: ['States avascularity means no own vessels', 'Names diffusion from underlying tissue', 'Draws the thickness consequence'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A patient presents with acute generalized peritonitis following a perforated peptic ulcer. Explain how the infection and inflammation breach the structural hierarchy of the stomach wall and describe which organ systems must coordinate to survive this insult.",
+        "model": "A peptic ulcer begins by eroding the simple columnar epithelial barrier of the gastric mucosa, penetrates the lamina propria and submucosal connective tissue, destroys the smooth muscle layers of the muscularis externa, and perforates through the serosa into the peritoneal cavity. Surviving this insult requires multi-system integration: the immune system mounts massive phagocytic defense; the nervous system drives intense sympathetic outflow and pain reflexes; the cardiovascular system adjusts perfusion; the endocrine system releases stress corticosteroids; the respiratory system compensates for metabolic acidosis with hyperventilation; and the urinary system conserves fluid while excreting hydrogen ions.",
+        "rubric": [
+          "Identifies the tissue layers of the stomach wall breached by perforation",
+          "Explains the transition from local tissue destruction to peritoneal organ involvement",
+          "Names at least three coordinating organ systems responding to systemic sepsis/peritonitis"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Calling blood a muscle or an epithelial tissue.',
-      'Listing organ systems from memory of another course; this lecture names eleven specific ones.',
+    "commonMistakes": [
+      "Confusing an organ with a tissue: for example, considering a whole femur as bone tissue, when a bone is an organ containing osseous tissue, cartilage, adipose tissue, and blood vessels.",
+      "Assuming all cells in the human body are somatic cells, forgetting that spermatozoa and oocytes form the distinct germ cell lineage.",
+      "Classifying blood as an independent fifth tissue type rather than as a specialized fluid connective tissue."
     ],
-    skills: [
-      'Blood is the trap in the tissue list: it is classified as connective tissue not because it connects anything, but because it is cells scattered in a matrix (plasma) — the categories are defined by structure, not by what the tissue appears to do.',
-      'Avascular epithelium is a classification fact that doubles as a mechanism: with no vessels of its own, an epithelium is fed by diffusion from the tissue beneath the basement membrane — which is what sets a maximum thickness on any living epithelial layer.',
+    "skills": [
+      "Classify any anatomical structure into its precise structural hierarchy level.",
+      "Delineate the interdependent contributions of multiple organ systems to overall systemic homeostasis."
     ],
-    selfCheck: 'From a blank page: the four tissue types, the eleven organ systems, and why blood lands in connective tissue rather than anywhere else.',
-    sourceRefs: [{ ref: 'phys.1', location: 'Slides 33–35 "An Introduction to Tissues", "Epithelial Tissue"' }, { ref: 'hss.revans', location: 'HSS2011 Module 0, MCQ 3' }],
+    "selfCheck": "From memory: recite the six structural levels, the four tissue types, and all eleven organ systems.",
+    "visuals": [
+      {
+        "fig": "cellAnatomy"
+      },
+      {
+        "schematic": "cellOrganisation"
+      },
+      {
+        "fig": "epithelialTissues"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "phys.1.2026",
+        "location": "p3 \"Outline\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p4 \"Sex Cells (Germ Cells)\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p32 \"An Introduction to Tissues\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p56 \"Organs and Systems\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p4 \"Outline\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p5 \"Sex Cells\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p33 \"An Introduction to Tissues\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p57 \"Organs\""
+      }
+    ]
   },
   {
-    id: 'abct2326-homeostasis',
-    subject: 'ABCT2326', unit: 'phys.cells', type: 'explain',
-    title: 'Homeostasis and the feedback loop',
-    tags: ['foundation', 'high-yield'],
-    priorKnowledge: {
-      level: 'dse-bio', covers: 'most', dsePart: 'core',
-      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(e) "Homeostasis" — concept, importance, feedback mechanism, and regulation of blood glucose; plus Elective V(b) "Regulation of body temperature".' },
-      beyond: [
-        { t: 'Autoregulation (intrinsic) against extrinsic regulation by the nervous and endocrine systems, as two named mechanisms. DSE teaches the loop without ever splitting it this way.',
-          src: { ref: 'phys.1', location: 'Slide 59 "Mechanisms of Regulation"' } },
-        { t: 'The middle box is renamed. DSE says stimulus → receptor → coordination system → effector → response; this lecture says receptor → control centre → effector, and "control centre" is the wording to answer with here.',
-          src: { ref: 'phys.1', location: 'Slide 59 "Mechanisms of Regulation"' } },
-        { t: 'Positive feedback stated as moving the body away from homeostasis and losing the normal range — used to speed a process up, not an error state.',
-          src: { ref: 'phys.1', location: 'Slide 60 "Negative and Positive Feedback"' } },
-        { t: 'The thermostat with numbers on it: a 37 °C set point, held between 36.7 °C and 37.2 °C.',
-          src: { ref: 'phys.1', location: 'Slide 61 "Negative Feedback — Control of Body Temperature"' } },
-        { t: 'Homeostasis as dynamic equilibrium — continual adaptation rather than a fixed point — with failure ending in disease or death.',
-          src: { ref: 'phys.1', location: 'Slide 63 "Systems Integration"' } },
+    "id": "abct2326-homeostasis",
+    "subject": "ABCT2326",
+    "unit": "phys.cells",
+    "type": "concept",
+    "title": "Homeostasis: dynamic equilibrium, autoregulation, extrinsic regulation, and loop components",
+    "tags": [
+      "foundation",
+      "high-yield",
+      "homeostasis",
+      "regulation",
+      "systems"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "most",
+      "dsePart": "core",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Compulsory III \"Homeostasis\" — concept of internal environment stability."
+      },
+      "beyond": [
+        {
+          "t": "Homeostasis defined as all body systems working together to maintain a stable internal environment in dynamic equilibrium, where opposing forces are balanced.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p57 \"Homeostasis\""
+          }
+        },
+        {
+          "t": "The two mechanisms of physiological regulation: Autoregulation (intrinsic local cell/tissue response) versus Extrinsic regulation (nervous and endocrine systemic control).",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p58 \"Mechanisms of Regulation\""
+          }
+        },
+        {
+          "t": "The three mandatory structural components of every homeostatic control loop: Receptor (sensor), Control Centre (integration processor), and Effector (responsive cell/organ).",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p58 \"Mechanisms of Regulation\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "Homeostasis is the central unifying principle of human physiology, representing the capacity of the organism to maintain a relatively stable, life-sustaining internal chemical and physical environment despite profound fluctuations in the external surroundings. Homeostasis is not a static or unchanging state; rather, it represents a dynamic equilibrium—a continuous, finely tuned state of balance where opposing physiological forces and metabolic reactions are continuously monitored and adjusted to preserve variables within strict, viable limits (the normal range) around an optimal set point. When homeostatic regulatory mechanisms function effectively, the body remains in health; when homeostatic control fails or becomes overwhelmed, cellular dysfunction arises, culminating in disease or death. Physiological systems execute homeostatic regulation through two distinct mechanistic modalities: (1) Autoregulation (intrinsic regulation): an automatic, local adjustment made by a cell, tissue, or organ directly in response to an environmental change without the intervention of systemic nervous or hormonal signaling (for example, when working skeletal muscle consumes local oxygen, the resulting hypoxia and carbon dioxide accumulation cause immediate local relaxation of precapillary smooth muscle sphincters, dilating local arterioles to increase microvascular blood perfusion directly to the needy myocytes); and (2) Extrinsic regulation: systemic homeostatic adjustments coordinated across the whole body by the nervous system and endocrine system. The nervous system executes rapid, highly localized, short-term crisis adjustments through high-speed electrical nerve impulses (e.g. pulling a hand away from a hot stove or triggering acute cardiac acceleration in startle reflexes), whereas the endocrine system orchestrates slower, broader, long-term metabolic adaptations through chemical hormones secreted into the bloodstream (e.g. regulating mineral balance, blood glucose, and growth over hours, days, or months). Regardless of whether regulation is intrinsic or extrinsic, every homeostatic control system consists of three indispensable structural components: (1) Receptor (sensor): a specialized sensory receptor or cell that detects a specific physical or chemical parameter (stimulus) and measures deviations from the set point; (2) Control Centre (integration centre): an anatomical processing centre (such as a nucleus in the brain, spinal cord, or an endocrine gland) that receives afferent sensory data from the receptor, compares the incoming information against the desired set point, and determines the appropriate physiological response; and (3) Effector: a responsive cell, tissue, or organ (such as a muscle fiber or secretory gland) whose activity responds to efferent commands from the control centre, altering its functional output to either negate or reinforce the original stimulus.",
+      "plain": "Homeostasis is the body's autopilot that keeps your internal environment stable and alive, even when the world outside is freezing, boiling, or starving. It is not frozen still—it is a dynamic equilibrium, like a tightrope walker constantly making micro-adjustments with a balance pole. The body regulates itself in two ways: autoregulation (local tissues fixing their own problems on the spot, like a tired muscle opening its own blood vessels) and extrinsic regulation (the big bosses stepping in: the nervous system for fast electrical emergency responses, and the endocrine system for slow, lasting hormone adjustments). Every homeostatic loop needs three players: a receptor (the thermometer that senses a change), a control centre (the thermostat brain that decides what to do), and an effector (the furnace or air conditioner that does the actual work).",
+      "keyFacts": [
+        "Homeostasis is the maintenance of a stable internal environment through dynamic equilibrium.",
+        "Dynamic equilibrium means variables continuously oscillate within a healthy normal range around a set point.",
+        "Failure of homeostatic compensation leads to cellular dysfunction, clinical disease, or death.",
+        "Autoregulation (intrinsic regulation) occurs locally within a tissue without neural or hormonal commands.",
+        "Extrinsic regulation is coordinated systemically by the nervous and endocrine systems.",
+        "The nervous system provides rapid, short-term responses via electrical impulses.",
+        "The endocrine system provides slower, sustained, long-term regulation via circulating hormones.",
+        "The three loop components: Receptor (sensor), Control Centre (integrator), and Effector (responder).",
+        "The receptor monitors the environment and detects changes (stimuli).",
+        "The effector carries out the commands of the control centre to alter the internal variable."
       ],
-    },
-    lesson: {
-      explanation: 'Homeostasis is all body systems working together to maintain a stable internal environment; systems respond to external and internal changes so the body functions within a normal range, for example body temperature and fluid balance. Regulation happens two ways: autoregulation, an intrinsic and automatic response within a cell, tissue or organ to an environmental change; and extrinsic regulation, controlled by the nervous and endocrine systems. Any homeostatic loop has three parts — a receptor that receives the stimulus, a control centre that processes the signal and sends instructions, and an effector that carries out the instructions. Negative and positive feedback are the two forms this regulation takes.',
-      keyFacts: [
-        'Homeostasis = all systems working together to keep a stable internal environment within a normal range.',
-        'Autoregulation (intrinsic): automatic response within a cell, tissue or organ.',
-        'Extrinsic regulation: controlled by nervous and endocrine systems.',
-        'Loop components: receptor → control centre → effector.',
-        'Negative and positive feedback are both involved in homeostatic regulation.',
+      "prerequisites": [
+        "abct2326-cells-organisation"
       ],
-      prerequisites: ['abct2326-cells-organisation'],
-      examples: ['Body temperature and fluid balance are the two examples the lecture names.'],
+      "examples": [
+        "Local exercise hyperemia is an example of autoregulation: accumulating lactic acid, adenosine, and CO2 in active skeletal muscle directly dilate local arteriolar precapillary sphincters, boosting muscle perfusion tenfold without sympathetic nerve involvement.",
+        "Blood pressure maintenance involves extrinsic regulation: carotid sinus baroreceptors detect hypotension and send afferent impulses via CN IX to the medullary cardiovascular control centre, which stimulates sympathetic effectors to increase heart rate and vasoconstrict arterioles."
+      ]
     },
-    memory: {
-      sequence: 'Receptor, control centre, effector. Sense it, decide it, do it. Three words in that order answers most homeostasis questions.',
-      chunking: 'Two kinds of control: the organ sorting itself out (intrinsic) or being told what to do by nerves and hormones (extrinsic).',
-      teachBack: 'Explain a thermostat out loud using receptor / control centre / effector, then swap in the body’s own words. If the analogy breaks anywhere, that is the bit you have not learned.',
+    "memory": {
+      "chunking": "Homeostasis Trio: Receptor (Senses) → Control Centre (Decides) → Effector (Acts). Regulatory split: Auto (Local) vs Extrinsic (Nervous/Endocrine).",
+      "comparison": "Nervous vs Endocrine Regulation: Nervous = electrical wire, millisecond speed, short duration, specific target; Endocrine = postal mail in blood, minutes-to-days speed, prolonged duration, widespread targets.",
+      "visualCue": "Picture a home heating system: thermometer on the wall (receptor), digital thermostat processor (control centre), and furnace in the basement (effector).",
+      "teachBack": "Define dynamic equilibrium, contrast autoregulation with extrinsic regulation, and name the three components of a homeostatic control loop."
     },
-    practice: [
-      { type: 'sequence', prompt: 'Order the three components of a homeostatic regulation loop.', items: ['Receptor — receives the stimulus', 'Control centre — processes the signal and sends instructions', 'Effector — carries out instructions'],
-        explanation: 'This is the order given on the homeostasis slide.' },
-      { type: 'mcq', prompt: 'An automatic response within a single organ to a local environmental change, with no involvement of nerves or hormones, is:', options: ['Extrinsic regulation', 'Autoregulation', 'Positive feedback', 'Effector activity'], answer: 1,
-        explanation: 'Autoregulation is defined as the intrinsic, automatic response in a cell, tissue or organ. Extrinsic regulation is the one that involves the nervous and endocrine systems.' },
-      { type: 'typed', prompt: 'Which two body systems carry out extrinsic regulation?', accept: ['nervous and endocrine', 'nervous, endocrine', 'endocrine and nervous'],
-        explanation: 'The nervous and endocrine systems.' },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each homeostatic loop component with its defining functional role.",
+        "pairs": [
+          [
+            "Receptor",
+            "Sensory structure that detects an environmental change or stimulus"
+          ],
+          [
+            "Control Centre",
+            "Integration processor that compares input to set point and issues commands"
+          ],
+          [
+            "Effector",
+            "Cell or organ whose response alters the condition back toward normal"
+          ]
+        ],
+        "explanation": "Every homeostatic reflex loop requires a sensor to measure, a control centre to integrate, and an effector to act.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p58 \"Mechanisms of Regulation\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "How does autoregulation (intrinsic regulation) differ fundamentally from extrinsic regulation?",
+        "options": [
+          "Autoregulation is mediated exclusively by the central nervous system",
+          "Autoregulation occurs locally at the tissue level without neural or endocrine input",
+          "Autoregulation relies entirely on anterior pituitary hormones",
+          "Autoregulation only operates during positive feedback loops"
+        ],
+        "answer": 1,
+        "explanation": "Autoregulation is an automatic internal adjustment made directly by cells or tissues to local environmental changes without systemic neural or hormonal signaling.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p58 \"Mechanisms of Regulation\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which physiological characteristic distinguishes nervous systemic regulation from endocrine regulation?",
+        "options": [
+          "The nervous system produces slow, long-term systemic metabolic adaptations",
+          "The nervous system directs rapid, short-term crisis responses via electrical impulses",
+          "The nervous system transports regulatory signals via the bloodstream",
+          "The nervous system only regulates skeletal muscle and ignores visceral organs"
+        ],
+        "answer": 1,
+        "explanation": "Nervous regulation provides rapid, specific, short-term adjustments through electrical action potentials, whereas endocrine regulation provides slower, sustained hormonal control.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p58 \"Mechanisms of Regulation\""
+        }
+      },
+      {
+        "type": "typed",
+        "prompt": "What physiological term describes the state of balance in which opposing forces are continuously adjusted to maintain internal stability?",
+        "accept": [
+          "dynamic equilibrium",
+          "Dynamic equilibrium",
+          "homeostasis",
+          "Homeostasis"
+        ],
+        "explanation": "Dynamic equilibrium describes the continuous, opposing adaptations that keep physiological variables within normal ranges.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p57 \"Homeostasis\""
+        }
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'The renal lecture says sympathetic activity constricts the afferent arteriole to help maintain blood pressure. Is that autoregulation or extrinsic regulation, and how do you know?',
-        model: 'Extrinsic regulation. Sympathetic activity is nervous-system control coming from outside the kidney, and extrinsic regulation is defined as responses controlled by the nervous and endocrine systems. The kidney’s own intrinsic autoregulation is a separate mechanism named alongside it in the same lecture.',
-        rubric: ['Chooses extrinsic', 'Names the nervous system as the controller', 'Contrasts with intrinsic autoregulation'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A diabetic patient experiences severe hypoglycemia (blood glucose 2.1 mmol/L; normal 4.0–6.0 mmol/L) after an accidental overdose of insulin. Map this disturbance onto the three components of a homeostatic regulatory loop and explain why failure to restore the set point threatens brain viability.",
+        "model": "In this homeostatic loop: (1) Receptors are the glucose-sensing alpha cells in the pancreatic islets of Langerhans and hypothalamic glucose sensors; (2) The Control Centre is the pancreatic endocrine islet tissue and hypothalamic neuroendocrine centres, which integrate the low glucose signal; (3) Effectors are pancreatic alpha cells (secreting glucagon) and adrenal medullary chromaffin cells (secreting epinephrine), which act on hepatocytes to stimulate glycogenolysis and gluconeogenesis, releasing glucose into the blood. Neurons in the central nervous system cannot synthesize or store glycogen and lack insulin-independent alternative fuel transport under acute conditions; prolonged failure of glucose homeostasis deprives neurons of ATP, precipitating neuroglycopenia, seizures, coma, and irreversible encephalopathy.",
+        "rubric": [
+          "Correctly identifies the receptor, control centre, and effector components in glucose regulation",
+          "Explains the compensatory release of glucagon/epinephrine to stimulate hepatic glucose output",
+          "Identifies that cerebral neurons depend on continuous blood glucose for ATP generation, explaining neuroglycopenic risk"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Treating homeostasis as "keeping things constant" — the lecture says within a normal range, not at a fixed point.',
-      'Forgetting that positive feedback is also part of homeostatic regulation, not an error state.',
+    "commonMistakes": [
+      "Describing homeostasis as a rigid, static fixed number: homeostatic variables constantly oscillate within a dynamic normal range around a set point.",
+      "Confusing the receptor with the control centre: the receptor merely detects the physical stimulus; the control centre processes the information and issues commands.",
+      "Thinking autoregulation requires brain involvement: autoregulation is strictly local within the organ or tissue itself."
     ],
-    skills: [
-      'The kidney lecture\'s sympathetic example is both a control story and a classification test: sympathetic constriction of the afferent arteriole is extrinsic regulation because the controller sits outside the kidney — intrinsic versus extrinsic rides on where the controller is, not on which organ is affected.',
-      '"Constant" is the wrong word for homeostasis, and the thermostat slide gives the numbers: a 37 °C set point held between 36.7 and 37.2 — a normal range, not a fixed point. And positive feedback is regulation too, deliberately moving the body away from the set point to speed a process, not an error state.',
+    "skills": [
+      "Map any physiological feedback loop into its three constituent elements: receptor, control centre, and effector.",
+      "Differentiate clinical manifestations of acute nervous regulatory failure versus chronic endocrine failure."
     ],
-    selfCheck: 'Take body temperature and write the loop using this lecture’s three component names (not the DSE wording), then say what positive feedback does differently from negative.',
-    sourceRefs: [{ ref: 'phys.1', location: 'Slides 58–59 "Homeostasis", "Mechanisms of Regulation"; learning outcomes 4-3 and 4-4' }, { ref: 'phys.5', location: 'Slides 18–19 regulation of GFR — worked example of intrinsic vs extrinsic' }],
+    "selfCheck": "Define homeostasis and dynamic equilibrium, and identify the receptor, control centre, and effector in blood glucose regulation.",
+    "visuals": [
+      {
+        "schematic": "homeostasis"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "phys.1.2026",
+        "location": "p57 \"Homeostasis\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p58 \"Mechanisms of Regulation\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p58 \"Homeostasis\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p59 \"Mechanisms of Regulation\""
+      }
+    ]
   },
   {
     id: 'abct2326-cvs-circuits',
@@ -1888,616 +2177,1918 @@ export const PHYS_ITEMS = [
    * course-admin slide at the front).
    * ------------------------------------------------------------------ */
   {
-    id: 'abct2326-plasma-membrane',
-    subject: 'ABCT2326', unit: 'phys.cells', type: 'definition',
-    title: 'The plasma membrane and its six kinds of protein',
-    tags: ['foundation', 'high-yield'],
-    priorKnowledge: {
-      level: 'dse-bio', covers: 'most', dsePart: 'core',
-      syllabusRef: { ref: 'edb.bio', location: 'Compulsory I "Cells and Molecules of Life" — cell membrane structure and membrane transport.' },
-      beyond: [
-        { t: 'Membrane proteins split into six named classes — anchoring, recognition, enzymes, receptor, carrier, channel — as a list to reproduce rather than a general "proteins do jobs".',
-          src: { ref: 'phys.1.2026', location: 'p10 "Anchoring proteins (stabilizers)"' } },
-        { t: 'The composition of cytosol given as four contrasts: high potassium / low sodium, high protein, high carbohydrate / low amino acid and fat.',
-          src: { ref: 'phys.1.2026', location: 'p8 "High potassium/low sodium"' } },
-        { t: 'What is actually IN the membrane besides phospholipid: glycolipids of the glycocalyx, cholesterol between the tails, integral proteins spanning it, integral glycoproteins, peripheral proteins on one face, and gated channels — with the bilayer measured at 2 nm.',
-          src: { ref: 'phys.1.2026', location: 'p9 "Glycolipids"' } },
-        { t: 'The two fluid compartments named and separated: cytosol inside, and extracellular or interstitial fluid — a watery medium that surrounds a cell — outside.',
-          src: { ref: 'phys.1.2026', location: 'p8 "A watery medium that surrounds a cell"' } },
-        { t: 'Primary versus motile cilia — a primary cilium acts as a sensor, motile cilia move materials over cell surfaces.',
-          src: { ref: 'phys.1.2026', location: 'p11 "A primary cilium acts as a"' } },
+    "id": "abct2326-plasma-membrane",
+    "subject": "ABCT2326",
+    "unit": "phys.cells",
+    "type": "definition",
+    "title": "The plasma membrane and its six kinds of protein",
+    "tags": [
+      "foundation",
+      "high-yield",
+      "plasma membrane",
+      "proteins",
+      "transport"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "most",
+      "dsePart": "core",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Compulsory I \"Cells and Molecules of Life\" — cell membrane structure and membrane transport."
+      },
+      "beyond": [
+        {
+          "t": "Membrane proteins split into six named classes — anchoring, recognition, enzymes, receptor, carrier, channel — as a list to reproduce rather than a general \"proteins do jobs\".",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p10 \"1. Anchoring proteins (stabilizers)\""
+          }
+        },
+        {
+          "t": "The composition of cytosol given as four contrasts: high potassium / low sodium, high protein, high carbohydrate / low amino acid and fat.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p8 \"High potassium/low sodium\""
+          }
+        },
+        {
+          "t": "What is actually IN the membrane besides phospholipid: glycolipids of the glycocalyx, cholesterol between the tails, integral proteins spanning it, integral glycoproteins, peripheral proteins on one face, and gated channels — with the bilayer measured at 2 nm.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p9 \"The Plasma Membrane\""
+          }
+        },
+        {
+          "t": "The two fluid compartments named and separated: cytosol inside, and extracellular or interstitial fluid — a watery medium that surrounds a cell — outside.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p8 \"Plasma Membrane (Cont’d)\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "The plasma membrane is an exquisitely selective barrier (~6–10 nm thick overall, with its core phospholipid bilayer measuring 2 nm) that physically isolates the intracellular living contents of the cell from its surrounding extracellular fluid. The membrane performs four essential general functions: physical isolation from the extracellular environment, regulation of molecular exchange with surroundings, sensitivity to external environmental changes, and structural support through cytoskeletal and extracellular anchoring. Its architecture conforms to the fluid mosaic model, consisting of an amphipathic phospholipid bilayer where hydrophilic phosphate heads orient outwards toward the watery extracellular fluid and intracellular cytosol, while hydrophobic fatty acid tails face inward away from water to form a nonpolar core. Cholesterol molecules interspersed among the hydrophobic tails buffer membrane fluidity across varying temperatures, preventing packing at cold temperatures and excessive fluidity at body heat. Glycolipids and glycoproteins project branched oligosaccharide chains into the extracellular space to form the glycocalyx, an outer sugar coating vital for lubrication, cellular anchoring, receptor binding, and immunological self-recognition. The membrane maintains distinct chemical compositions between the cytosol and extracellular fluid: cytosol features high potassium (K+) and low sodium (Na+), high concentrations of dissolved proteins (imparting a negative resting potential), and substantial carbohydrate reserves, whereas extracellular fluid contains high sodium, low potassium, and low protein. Suspended in or attached to the bilayer are membrane proteins, categorized structurally into integral proteins (which span the membrane as transmembrane proteins) and peripheral proteins (bound to inner or outer surfaces). Functionally, membrane proteins comprise six discrete classes: (1) Anchoring proteins (stabilizers), which attach the membrane to the internal cytoskeleton or external protein fibres to stabilize cellular architecture; (2) Recognition proteins (identifiers), typically glycoproteins that tag the cell as 'self' to avert immune destruction; (3) Enzymes, which catalyze specific metabolic reactions on the extracellular or intracellular membrane surface; (4) Receptor proteins, possessing specific binding sites for extracellular ligands (such as hormones and neurotransmitters) that trigger intracellular signaling cascades; (5) Carrier proteins, which bind specific solutes (e.g. glucose, amino acids) and undergo conformational changes to transport them across the membrane; and (6) Channel proteins, central water-filled pores that facilitate passive diffusion of ions or water down their electrochemical gradients, split into open leak channels and gated channels (voltage-, ligand-, or mechanically gated).",
+      "plain": "The plasma membrane is the protective outer envelope of the cell. It consists of a double layer of phospholipids with hydrophilic heads facing the water inside and outside, and oily hydrophobic tails hiding inside. Cholesterol keeps it flexible, while sugar chains form the glycocalyx ID tag. Crucially, the membrane is packed with six kinds of proteins: anchoring proteins (hold it in place), recognition proteins (ID tags), enzymes (speed up reactions), receptors (catch chemical signals like hormones), carrier proteins (escort specific molecules across), and channels (tunnels that let ions and water pass through).",
+      "keyFacts": [
+        "The core phospholipid bilayer is an amphipathic barrier ~2 nm thick.",
+        "Hydrophilic phosphate heads face watery fluids; hydrophobic fatty acid tails form the nonpolar interior.",
+        "Cholesterol molecules intercalate between fatty acid tails to modulate membrane fluidity and stability.",
+        "The glycocalyx consists of carbohydrate chains from glycoproteins and glycolipids providing cell recognition.",
+        "Cytosol has high K+, low Na+, high dissolved proteins, and carbohydrate storage compared to extracellular fluid.",
+        "Anchoring proteins stabilize cell position by binding cytoskeleton internally or extracellular fibers externally.",
+        "Recognition proteins are cell-surface identifiers (glycoproteins) preventing autoimmune destruction.",
+        "Enzymes catalyze chemical reactions at the inner or outer surface of the plasma membrane.",
+        "Receptor proteins bind specific extracellular ligands to initiate intracellular regulatory responses.",
+        "Carrier proteins transport specific solutes via conformational changes, whereas channels form water-filled pores."
       ],
-    },
-    lesson: {
-      explanation: 'The plasma membrane separates the living cell from its surroundings. It is a lipid bilayer containing phospholipids, steroids, proteins and carbohydrates, and its functions are isolation, protection, sensitivity, support, and controlling the entry and exit of materials. The phospholipids are arranged with their hydrophilic heads toward the watery environment on both sides and their hydrophobic fatty-acid tails inside the membrane, which makes it a barrier to ions and water-soluble compounds. It is described as a fluid mosaic structure: fluid because the molecules making it up can move with respect to one another, and a mosaic because of the diversity of proteins in it. Six classes of membrane protein are named. Anchoring proteins are stabilizers that attach to inside or outside structures. Recognition proteins are identifiers that label cells as normal or abnormal. Enzymes catalyse reactions. Receptor proteins bind and respond to ligands such as ions and hormones. Carrier proteins transport specific solutes through the membrane. Channels regulate the flow of water and solutes through it. Beyond the nucleus, the cytoplasm is everything inside the cell; the cytosol, or intracellular fluid, is high in potassium and low in sodium, high in protein, and high in carbohydrate but low in amino acid and fat. Outside the cell is extracellular or interstitial fluid. The membrane can be extended: microvilli are extensions containing microfilaments that increase surface area to facilitate absorption, and cilia are longer extensions containing microtubules, in two types — a primary cilium acts as a sensor, while motile cilia move materials over cell surfaces.',
-      plain: 'Two ideas do most of the work here. First, the tails hate water and the heads love it, which is why the bilayer forms at all and why anything water-soluble cannot simply cross it. Second, "fluid mosaic" is two separate claims — fluid because things drift sideways, mosaic because of the sheer variety of proteins embedded in it. The six protein classes are the list to be able to write out; notice that carrier and channel are both transport but only one of them actually binds and moves its cargo.',
-      keyFacts: [
-        'Lipid bilayer of phospholipids, steroids, proteins and carbohydrates.',
-        'Functions: isolation, protection, sensitivity, support, controlling entry and exit of materials.',
-        'Hydrophilic heads face the watery environment on both sides; hydrophobic tails are inside.',
-        'This makes it a barrier to ions and water-soluble compounds.',
-        'Fluid mosaic: FLUID because molecules move relative to one another, MOSAIC because of the diversity of proteins.',
-        'Six protein classes: anchoring (stabilizers), recognition (identifiers), enzymes, receptor, carrier, channel.',
-        'Cytosol: high potassium / low sodium, high protein, high carbohydrate / low amino acid and fat.',
-        'Microvilli contain microfilaments and increase surface area for absorption.',
-        'Cilia contain microtubules; primary cilia sense, motile cilia move materials over the surface.',
+      "prerequisites": [
+        "abct2326-cells-organisation"
       ],
-      prerequisites: [],
-      examples: ['Receptor proteins bind ligands such as ions and hormones — the lecture’s own example.'],
+      "examples": [
+        "Insulin receptors are receptor proteins spanning pancreatic target cell membranes; insulin binding triggers glucose carrier (GLUT4) insertion to facilitate cellular glucose uptake.",
+        "Cardiac action potentials rely on specialized voltage-gated sodium channels and L-type calcium channels to initiate myocyte contraction."
+      ]
     },
-    memory: {
-      firstLetter: 'Six proteins: Anchoring, Recognition, Enzymes, Receptor, Carrier, Channel — A-R-E-R-C-C.',
-      comparison: 'Carrier versus channel is the pair that gets tested. A carrier binds a specific solute and moves it; a channel is a pore that regulates flow. Both transport, only one binds.',
-      wordOrigin: 'Hydrophilic — water-loving; hydrophobic — water-fearing. The heads want the water and the tails hide from it, which is the entire reason a bilayer exists.',
+    "memory": {
+      "chunking": "Six protein classes acronym: A-R-E-R-C-C (Anchoring, Recognition, Enzyme, Receptor, Carrier, Channel).",
+      "comparison": "Carrier vs Channel: Channels are open water-filled pores through which ions diffuse continuously when open; carriers physically bind solute and flip conformation one cycle at a time.",
+      "visualCue": "Picture a secure border wall: phospholipid bricks, cholesterol mortar, antenna ID tags (glycocalyx), guard receptors checking passports, and tunnel gates (channels).",
+      "teachBack": "Explain the four differences between cytosol and extracellular fluid, then name and describe all six membrane protein classes."
     },
-    practice: [
-      { type: 'mcq', prompt: 'Which class of membrane protein labels cells as normal or abnormal?', options: ['Anchoring proteins', 'Recognition proteins', 'Carrier proteins', 'Receptor proteins'], answer: 1,
-        explanation: 'Recognition proteins, described as identifiers. Anchoring proteins are stabilizers; receptor proteins bind ligands.',
-        src: { ref: 'phys.1.2026', location: 'p10 "Recognition proteins (identifiers)"' } },
-      { type: 'mcq', prompt: 'The plasma membrane is called a fluid mosaic. What does "mosaic" refer to?', options: ['The movement of lipids sideways', 'The diversity of proteins in the membrane', 'The two layers of phospholipid', 'The carbohydrate coat outside'], answer: 1,
-        explanation: 'Mosaic refers to the diversity of proteins. Fluid is the part that refers to molecules moving with respect to one another.',
-        src: { ref: 'phys.1.2026', location: 'p8 "The plasma membrane is a fluid mosaic structure"' } },
-      { type: 'cloze', prompt: 'The phospholipid ______ heads face the watery environment on both sides, while the ______ fatty-acid tails sit inside the membrane.', accept: ['hydrophilic; hydrophobic', 'hydrophilic, hydrophobic', 'hydrophilic and hydrophobic'],
-        explanation: 'Hydrophilic heads outward, hydrophobic tails inward — which is why the membrane is a barrier to ions and water-soluble compounds.',
-        src: { ref: 'phys.1.2026', location: 'p7 "Hydrophilic heads"' } },
-      { type: 'typed', prompt: 'Name all six classes of membrane protein.', accept: ['anchoring, recognition, enzymes, receptor, carrier, channels', 'anchoring recognition enzymes receptor carrier channel', 'anchoring, recognition, enzyme, receptor, carrier, channel'],
-        explanation: 'Anchoring (stabilizers), recognition (identifiers), enzymes, receptor, carrier, channels.',
-        src: { ref: 'phys.1.2026', location: 'p10 "Carrier proteins"' } },
-      { type: 'mcq', prompt: 'Microvilli increase surface area. What are they made of internally?', options: ['Microtubules', 'Microfilaments', 'Intermediate filaments', 'Centrioles'], answer: 1,
-        explanation: 'Microvilli contain microfilaments. Cilia are the ones containing microtubules.',
-        src: { ref: 'phys.1.2026', location: 'p11 "Microvilli are extensions of the plasma"' } },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each membrane protein category with its precise physiological action.",
+        "pairs": [
+          [
+            "Anchoring protein",
+            "Attaches membrane to internal cytoskeleton or extracellular fibers"
+          ],
+          [
+            "Recognition protein",
+            "Acts as an immunological identifier to recognize self versus foreign cells"
+          ],
+          [
+            "Receptor protein",
+            "Binds specific extracellular chemical ligands to trigger cellular signaling"
+          ],
+          [
+            "Channel protein",
+            "Forms a central water-filled pore for selective passive ion diffusion"
+          ],
+          [
+            "Carrier protein",
+            "Binds specific solutes and changes shape to transport them across the bilayer"
+          ]
+        ],
+        "explanation": "Membrane proteins are divided into six functional classes according to whether they anchor, identify, catalyze, signal, or transport."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which chemical contrast correctly describes the difference between cytosol and extracellular fluid?",
+        "options": [
+          "Cytosol has high Na+ and low K+ compared to extracellular fluid",
+          "Cytosol has high K+ and low Na+ compared to extracellular fluid",
+          "Cytosol has lower protein concentration than extracellular fluid",
+          "Cytosol contains no dissolved carbohydrates or enzymes"
+        ],
+        "answer": 1,
+        "explanation": "Cytosol is characterized by high potassium (K+) and low sodium (Na+), maintained by the active Na+/K+ ATPase pump."
+      },
+      {
+        "type": "typed",
+        "prompt": "What carbohydrate-rich outer cellular coating is formed by membrane glycoproteins and glycolipids?",
+        "accept": [
+          "glycocalyx",
+          "Glycocalyx"
+        ],
+        "explanation": "The glycocalyx is the external carbohydrate-rich zone that protects the cell and enables intercellular recognition."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'A drug is water-soluble and must reach a target inside the cell. From the structure of the membrane, what is the obstacle, and which two protein classes could get it across?',
-        model: 'The obstacle is the hydrophobic interior. The fatty-acid tails sit inside the bilayer, which makes the membrane a barrier to ions and water-soluble compounds, so the drug cannot simply dissolve through. It would have to use a protein: a carrier protein, which transports specific solutes through the membrane, or a channel, which regulates the flow of water and solutes through it. Which one depends on whether the drug is recognised specifically enough to be carried or is small enough to pass a pore.',
-        rubric: ['Identifies the hydrophobic tails as the barrier', 'Names carrier and/or channel proteins', 'Ties the choice to specificity or size'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "Digitalis (digoxin) is administered to a patient in congestive heart failure. It partially inhibits the sodium-potassium ATPase carrier protein in cardiac myocytes. Describe how altering this transport protein affects intracellular ion gradients and myocyte contraction.",
+        "model": "Inhibiting the Na+/K+ ATPase pump reduces the active extrusion of Na+ from the cytosol, causing intracellular Na+ concentration to rise. This diminished transmembrane Na+ gradient slows the secondary active Na+/Ca2+ exchanger, reducing Ca2+ efflux from the cardiac myocyte. The resulting elevation of intracellular Ca2+ increases sarcoplasmic reticulum Ca2+ loading, producing a more forceful ventricular contraction (positive inotropy) to support cardiac output.",
+        "rubric": [
+          "Identifies the Na+/K+ ATPase as a carrier transport protein",
+          "Explains the rise in intracellular sodium due to reduced active extrusion",
+          "Links impaired Na+/Ca2+ exchange to elevated intracellular calcium and increased contractility"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Explaining "fluid mosaic" as one idea; it is two, and an exam can ask for either half.',
-      'Listing five protein classes and forgetting enzymes, which is the one that does not sound like a transport or signalling job.',
-      'Giving microvilli microtubules — those belong to cilia.',
+    "commonMistakes": [
+      "Confusing channel proteins with carrier proteins: channels form aqueous pores for diffusion without gross conformation flipping, while carriers bind solute and change shape.",
+      "Reversing the sodium and potassium gradients: sodium is high outside (ECF) and low inside; potassium is high inside (cytosol) and low outside.",
+      "Assuming the plasma membrane is a static rigid wall rather than a dynamic, fluid mosaic of moving lipids and floating proteins."
     ],
-    skills: [
-      'The bilayer’s selectivity is not a separate fact to memorise: it follows from the tails being hydrophobic. Anything ionic or water-soluble needs a protein, and that single deduction answers most membrane-transport questions without a transport list.',
-      'Carrier and channel are both transport proteins doing different things — a carrier binds and moves a specific solute, a channel regulates flow through a pore. The exam pairs them precisely because they sound interchangeable.',
-      'Microvilli and cilia differ in filament AND in job: microfilaments for absorption by surface area, microtubules for sensing or moving material. Naming the filament gives you the function for free.',
+    "skills": [
+      "Distinguish between integral and peripheral membrane proteins based on structural membrane interaction.",
+      "Predict how altering specific membrane transport proteins alters intracellular fluid composition and resting potential."
     ],
-    selfCheck: 'From a blank page: the two halves of "fluid mosaic", all six protein classes with one word each, why the membrane blocks ions, and the difference between microvilli and cilia.',
-    sourceRefs: [
-      { ref: 'phys.1.2026', location: 'p7 "Hydrophilic heads"' },
-      { ref: 'phys.1.2026', location: 'p8 "The plasma membrane is a fluid mosaic structure"' },
-      { ref: 'phys.1.2026', location: 'p10 "Anchoring proteins (stabilizers)"' },
-      { ref: 'phys.1.2026', location: 'p11 "Microvilli are extensions of the plasma"' },
+    "selfCheck": "Recite all six classes of membrane proteins and explain the difference between a channel and a carrier.",
+    "visuals": [
+      {
+        "fig": "plasmaMembrane"
+      },
+      {
+        "fig": "cellAnatomy"
+      },
+      {
+        "gen": true
+      }
     ],
+    "sourceRefs": [
+      {
+        "ref": "phys.1.2026",
+        "location": "p7 \"Plasma Membrane\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p8 \"Plasma Membrane (Cont’d)\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p9 \"The Plasma Membrane.\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p10 \"1. Anchoring proteins (stabilizers)\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p8 \"Membrane Lipids\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p9 \"Plasma Membrane (Cont’d)\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p10 \"The Plasma Membrane.\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p11 \"Anchoring proteins\""
+      }
+    ]
   },
   {
-    id: 'abct2326-organelles',
-    subject: 'ABCT2326', unit: 'phys.cells', type: 'matching',
-    title: 'The organelles, and which ones have a membrane',
-    tags: ['foundation'],
-    priorKnowledge: {
-      level: 'dse-bio', covers: 'part', dsePart: 'core',
-      syllabusRef: { ref: 'edb.bio', location: 'Compulsory I "Cells and Molecules of Life" — cell structure and organelles.' },
-      beyond: [
-        { t: 'The membranous / non-membranous split used as the organising principle, colour-coded through every "Anatomy of a Model Cell" slide.',
-          src: { ref: 'phys.1.2026', location: 'p5 "Essential for"' } },
-        { t: 'The cytoskeleton as a named organelle with a composition and a job: proteins organised into fine filaments or slender tubes, giving strength and support and moving cellular structures and materials.',
-          src: { ref: 'phys.1.2026', location: 'p6 "Proteins organized in"' } },
-        { t: 'The centriole given an internal structure — nine microtubule triplets in a 9 + 0 array, two centrioles at right angles — and a second job beyond mitosis: organising the microtubules of the cytoskeleton.',
-          src: { ref: 'phys.1.2026', location: 'p5 "9 microtubule triplets in a 9 + 0 array"' } },
-        { t: 'The Golgi apparatus described structurally as stacks of flattened membranes called cisternae, and given a job DSE does not mention: packaging LYSOSOMAL ENZYMES as well as secretory products.',
-          src: { ref: 'phys.1.2026', location: 'p16 "Stacks of flattened membranes"' } },
-        { t: 'Rough and smooth ER split by cargo rather than by appearance — rough modifies and packages newly synthesised proteins, smooth synthesises lipids.',
-          src: { ref: 'phys.1.2026', location: 'p16 "Smooth ER"' } },
-        { t: 'Peroxisomes named separately from lysosomes, with their own job: catabolism of fats and other organic compounds, and neutralising the toxic compounds generated in the process.',
-          src: { ref: 'phys.1.2026', location: 'p20 "Vesicles containing"' } },
+    "id": "abct2326-organelles",
+    "subject": "ABCT2326",
+    "unit": "phys.cells",
+    "type": "concept",
+    "title": "Organelles: nonmembranous vs membranous",
+    "tags": [
+      "foundation",
+      "high-yield",
+      "organelles",
+      "cytoskeleton",
+      "mitochondria"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "most",
+      "dsePart": "core",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Compulsory I \"Cells and Molecules of Life\" — cell organelles and their functions."
+      },
+      "beyond": [
+        {
+          "t": "Organelles classified strictly into non-membranous (no membrane, in direct cytosol contact) versus membranous (surrounded by lipid membranes, isolated compartments).",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p6 \"Anatomy of a Model Cell (Part 2)\""
+          }
+        },
+        {
+          "t": "Primary cilia acting as solitary environmental sensors distinguished from motile cilia that beat in coordinated waves.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p11 \"Microvilli & Cilia\""
+          }
+        },
+        {
+          "t": "Proteasomes explicitly classified as nonmembranous organelles dedicated to hydrolyzing ubiquitin-tagged damaged proteins.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p6 \"Anatomy of a Model Cell (Part 2)\""
+          }
+        },
+        {
+          "t": "The three destination paths of Golgi products: secretory vesicles, membrane renewal vesicles, and lysosomes.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p20 \"Products of Golgi Apparatus\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "Eukaryotic cellular functions are compartmentalized within intracellular structures called organelles, which are systematically divided into non-membranous and membranous classes based on their physical relationship with the cytosol. Non-membranous organelles lack a surrounding lipid membrane and remain in direct, continuous physical contact with the cytoplasm: (1) Cytoskeleton: an internal protein framework consisting of thin microfilaments (composed of actin, 7 nm diameter, forming the terminal web and driving cellular motility), intermediate filaments (insoluble protein fibres, 8–12 nm, providing tensile strength and stabilizing organelle positions), and microtubules (hollow cylinders of tubulin, 25 nm, acting as monorail transport tracks, forming centrioles and the mitotic spindle); (2) Microvilli: small, non-motile finger-like membrane extensions packed with actin filaments that amplify cell surface area for intestinal and renal absorption; (3) Centrosome and Centrioles: the microtubule organizing center containing two perpendicular cylindrical centrioles (nine microtubule triplets) that orchestrate chromosome movement during mitosis; (4) Cilia: microtubule-based surface projections split into primary cilia (solitary sensory antennas on most cells detecting flow and chemical signals) and motile cilia (containing a 9+2 doublet array that beat rhythmically to sweep mucus and fluids across respiratory and oviduct surfaces); (5) Ribosomes: dense ribonucleoprotein complexes (small and large subunits) that translate mRNA into polypeptide chains, occurring as free ribosomes in cytosol (synthesizing intracellular proteins) or fixed ribosomes bound to the rough endoplasmic reticulum (synthesizing secretory, membrane, and lysosomal proteins); and (6) Proteasomes: cylindrical protein-degrading complexes containing proteases that rapidly disassemble ubiquitin-tagged damaged, abnormal, or short-lived regulatory proteins. In contrast, Membranous organelles are completely enclosed within phospholipid bilayer membranes that isolate their internal biochemical microenvironments from the cytosol: (1) Endoplasmic Reticulum (ER): an extensive network of folded cisternae and tubules divided into Rough ER (studded with fixed ribosomes, responsible for folding and chemical modification of newly synthesized proteins) and Smooth ER (lacking ribosomes, synthesizing lipids, phospholipids, cholesterol, steroid hormones, glycogen, and storing calcium ions); (2) Golgi Apparatus: stacks of 5–6 flattened membranous discs (cisternae) functioning as the cell's post office, which receives transport vesicles from the ER at its cis face, modifies glycoproteins, and sorts them at its trans face into three major product pathways: secretory vesicles for exocytosis, membrane renewal vesicles that fuse with the plasma membrane, and hydrolytic transport vesicles that become lysosomes; (3) Lysosomes: digestive vesicles containing acidic hydrolases that degrade engulfed pathogens, recycle damaged organelles (autophagy), and execute autolysis during apoptosis; (4) Peroxisomes: enzymatic vesicles containing oxidases and catalase that neutralize metabolic toxins, break down fatty acids via beta-oxidation, and decompose hazardous hydrogen peroxide (H2O2); and (5) Mitochondria: double-membrane powerhouses with outer smooth membranes and deeply folded inner cristae enclosing a dense enzymatic matrix, generating over 95% of cellular ATP through the citric acid cycle and oxidative phosphorylation.",
+      "plain": "Organelles are the cell's internal organs. They are grouped into non-membranous (naked to the cytoplasm) and membranous (wrapped in their own protective lipid envelopes). Non-membranous ones include the cytoskeleton framework, microvilli for absorption, centrioles for cell division, cilia for sensing or sweeping, ribosomes for building proteins, and proteasomes for shredding old proteins. Membranous ones include the rough ER (protein workshop), smooth ER (lipid factory), Golgi apparatus (sorting and packaging postal center), lysosomes (acidic recycling centers), peroxisomes (detox units), and mitochondria (the ATP power plants).",
+      "keyFacts": [
+        "Non-membranous organelles lack lipid envelopes and sit directly in contact with the cytosol.",
+        "Membranous organelles are enclosed by phospholipid bilayers that isolate their internal biochemical reactions.",
+        "The cytoskeleton consists of actin microfilaments, intermediate filaments, and tubulin microtubules.",
+        "Microvilli increase absorptive surface area, while motile cilia sweep fluids across epithelial surfaces.",
+        "Ribosomes translate mRNA into proteins; free ribosomes make cytosolic proteins, fixed ribosomes make secretory proteins.",
+        "Proteasomes degrade abnormal or unneeded proteins tagged with ubiquitin.",
+        "Rough ER modifies and folds proteins; Smooth ER synthesizes lipids, steroids, and stores calcium.",
+        "Golgi apparatus modifies and packages products into secretory vesicles, membrane renewal vesicles, or lysosomes.",
+        "Lysosomes contain acidic hydrolases for intracellular digestion; peroxisomes neutralize toxins and H2O2.",
+        "Mitochondria possess double membranes with cristae and generate >95% of cellular ATP via aerobic respiration."
       ],
-    },
-    lesson: {
-      explanation: 'The lecture sorts cell structures three ways: the plasma membrane, the non-membranous organelles and the membranous organelles. Among the non-membranous, the centrosome contains two centrioles at right angles, each composed of nine microtubule triplets in a 9 + 0 array; they are essential for the movement of chromosomes during cell division and for organising the microtubules of the cytoskeleton. The cytoskeleton itself is proteins organised into fine filaments or slender tubes — microfilaments and microtubules — giving strength and support and moving cellular structures and materials. Ribosomes may be free in the cytosol. Among the membranous organelles, the rough endoplasmic reticulum modifies and packages newly synthesised proteins while the smooth endoplasmic reticulum synthesises lipids. The Golgi apparatus is stacks of flattened membranes called cisternae containing chambers, and it stores, alters and packages secretory products and lysosomal enzymes. Lysosomes are vesicles containing digestive enzymes. Peroxisomes are vesicles containing degradative enzymes whose function is the catabolism of fats and other organic compounds and the neutralisation of the toxic compounds generated in that process. Mitochondria and secretory vesicles complete the set.',
-      plain: 'The useful division is not "big and small" but "wrapped in membrane or not", because that is how the lecture colour-codes every diagram. The pair worth separating carefully is lysosome and peroxisome: both are vesicles of enzymes, but one digests and the other breaks down fats and then cleans up the toxic by-products of doing so.',
-      keyFacts: [
-        'Three categories: plasma membrane, non-membranous organelles, membranous organelles.',
-        'Centrosome holds two centrioles at right angles; each centriole is nine microtubule triplets in a 9 + 0 array.',
-        'Centrioles move chromosomes during cell division and organise the cytoskeleton’s microtubules.',
-        'Cytoskeleton: proteins in fine filaments or slender tubes; strength, support, movement of structures and materials.',
-        'Rough ER modifies and packages newly synthesised proteins.',
-        'Smooth ER synthesises lipids.',
-        'Golgi apparatus: stacks of flattened membranes (cisternae); stores, alters and packages secretory products and lysosomal enzymes.',
-        'Lysosomes: vesicles of digestive enzymes.',
-        'Peroxisomes: vesicles of degradative enzymes — catabolism of fats and other organic compounds, and neutralising the toxins that produces.',
+      "prerequisites": [
+        "abct2326-cells-organisation",
+        "abct2326-plasma-membrane"
       ],
-      prerequisites: ['abct2326-plasma-membrane'],
-      examples: [],
+      "examples": [
+        "Hepatocytes (liver cells) contain abundant smooth endoplasmic reticulum dedicated to drug detoxification and extensive peroxisomes to neutralize metabolic hydrogen peroxide.",
+        "Macrophage phagocytosis culminates in phagosome-lysosome fusion, where lysosomal acid hydrolases digest engulfed bacteria."
+      ]
     },
-    memory: {
-      comparison: 'Rough ER has ribosomes, so it handles proteins. Smooth ER has none, so it handles lipids. The texture tells you the cargo.',
-      chunking: 'Nine triplets, 9 + 0. The zero is the point: a centriole has no central pair, unlike a motile cilium.',
-      visualCue: 'The Golgi is the post office the lecture calls it — things arrive, get sorted, get labelled, get sent out.',
+    "memory": {
+      "chunking": "Split by membrane: Non-membranous = Cytoskeleton, Microvilli, Centrosome, Cilia, Ribosomes, Proteasomes (6). Membranous = ER, Golgi, Lysosomes, Peroxisomes, Mitochondria (5).",
+      "comparison": "Lysosome vs Peroxisome: Lysosomes contain acid hydrolases produced by Golgi for digestion; peroxisomes contain oxidases/catalase from free ribosomes for peroxide detox.",
+      "visualCue": "Picture a factory: raw cytoskeleton girders, ribosome assembly workers, rough ER packaging line, Golgi shipping department, and furnace mitochondria.",
+      "teachBack": "List the six non-membranous organelles and explain how the Golgi apparatus routes its three final vesicle destinations."
     },
-    practice: [
-      { type: 'matching', prompt: 'Match each organelle to its function.', pairs: [['Rough ER', 'Modifies and packages newly synthesised proteins'], ['Smooth ER', 'Synthesises lipids'], ['Golgi apparatus', 'Stores, alters and packages secretory products'], ['Lysosome', 'Vesicle containing digestive enzymes'], ['Peroxisome', 'Catabolism of fats, neutralising the toxins produced']],
-        explanation: 'The two ERs split by cargo, and the two vesicle types split by what their enzymes do.',
-        src: { ref: 'phys.1.2026', location: 'p16 "Smooth ER"' } },
-      { type: 'mcq', prompt: 'Each centriole is composed of:', options: ['Nine microtubule doublets plus a central pair', 'Nine microtubule triplets in a 9 + 0 array', 'Nine microfilaments in a ring', 'Two microtubules at right angles'], answer: 1,
-        explanation: 'Nine microtubule triplets in a 9 + 0 array, and the cytoplasm contains two centrioles at right angles to each other.',
-        src: { ref: 'phys.1.2026', location: 'p5 "Essential for"' } },
-      { type: 'mcq', prompt: 'Which organelle neutralises the toxic compounds generated while breaking down fats?', options: ['Lysosome', 'Peroxisome', 'Golgi apparatus', 'Smooth ER'], answer: 1,
-        explanation: 'Peroxisomes. Lysosomes carry digestive enzymes but the fat catabolism and its detoxification is the peroxisome’s stated job.',
-        src: { ref: 'phys.1.2026', location: 'p20 "Vesicles containing"' } },
-      { type: 'cloze', prompt: 'The Golgi apparatus is made of stacks of flattened membranes called ______.', accept: ['cisternae', 'cisterna'],
-        explanation: 'Cisternae, containing chambers.',
-        src: { ref: 'phys.1.2026', location: 'p16 "Smooth ER"' } },
-      { type: 'explain', prompt: 'Why does it make sense that the Golgi packages lysosomal enzymes rather than the lysosome making its own?',
-        model: 'Lysosomal enzymes are digestive, so a cell that made them loose in its own cytoplasm would digest itself. Producing them through the rough ER and then having the Golgi store, alter and package them means they are enclosed in membrane from the moment they exist, and are delivered already sealed inside a vesicle. The packaging step is what keeps a destructive product safely separated from the cell that made it.',
-        rubric: ['Identifies the danger of free digestive enzymes', 'Names the Golgi’s packaging role', 'Concludes the enzymes are membrane-bound throughout'] },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Classify each organelle as non-membranous or membranous.",
+        "pairs": [
+          [
+            "Ribosome",
+            "Non-membranous organelle"
+          ],
+          [
+            "Golgi apparatus",
+            "Membranous organelle"
+          ],
+          [
+            "Proteasome",
+            "Non-membranous organelle"
+          ],
+          [
+            "Mitochondrion",
+            "Membranous organelle"
+          ],
+          [
+            "Centrosome",
+            "Non-membranous organelle"
+          ]
+        ],
+        "explanation": "Organelles in direct contact with cytosol are non-membranous; those enclosed in phospholipid membranes are membranous."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which organelle is responsible for synthesizing steroid hormones, phospholipids, and storing intracellular calcium?",
+        "options": [
+          "Rough endoplasmic reticulum",
+          "Smooth endoplasmic reticulum",
+          "Golgi apparatus",
+          "Lysosome"
+        ],
+        "answer": 1,
+        "explanation": "The smooth endoplasmic reticulum synthesizes lipids, carbohydrates, and steroid hormones, and sequesters calcium ions."
+      },
+      {
+        "type": "typed",
+        "prompt": "What cylindrical non-membranous organelle digests abnormal or damaged proteins tagged with ubiquitin?",
+        "accept": [
+          "proteasome",
+          "Proteasome",
+          "proteasomes",
+          "Proteasomes"
+        ],
+        "explanation": "Proteasomes are specialized non-membranous protease complexes that catabolize targeted proteins."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'A cell specialises in secreting a protein hormone. Which organelles would you expect it to have in unusual abundance, and in what order does the product pass through them?',
-        model: 'Rough ER and Golgi apparatus, with plenty of secretory vesicles. The protein is synthesised on ribosomes of the rough ER, which modifies and packages newly synthesised proteins; it then passes to the Golgi, whose job is storage, alteration and packaging of secretory products; from there it leaves in secretory vesicles. Smooth ER would not be especially prominent, because that synthesises lipids rather than handling proteins.',
-        rubric: ['Names rough ER and Golgi', 'Gives the order ER then Golgi then vesicle', 'Excludes smooth ER with a reason'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A newborn is diagnosed with Zellweger syndrome, a rare genetic disorder characterized by a complete failure to assemble functional peroxisomes. Explain the cellular metabolic consequences of absent peroxisomes and contrast this with lysosomal storage disorders.",
+        "model": "Without functional peroxisomes, cells cannot execute beta-oxidation of very long-chain fatty acids (VLCFAs) and cannot neutralize toxic hydrogen peroxide (H2O2) due to absent catalase. This results in progressive VLCFA neurotoxicity, demyelination, and hepatic failure. In contrast, lysosomal storage disorders (such as Gaucher or Tay-Sachs) result from defective acid hydrolases within lysosomes, causing undigested glycolipids or mucopolysaccharides to accumulate within vesicular inclusions rather than causing a failure of oxidative detox.",
+        "rubric": [
+          "Identifies peroxisomes as organelles responsible for VLCFA oxidation and hydrogen peroxide breakdown",
+          "Explains the biochemical failure to neutralize H2O2 or catabolize long-chain lipids",
+          "Contrasts peroxisomal deficiency with lysosomal accumulation of undigested complex molecules"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Treating lysosome and peroxisome as the same thing.',
-      'Giving smooth ER a protein job because both are called ER.',
-      'Describing centrioles as 9 + 2; that is the motile cilium arrangement, not the centriole.',
+    "commonMistakes": [
+      "Classifying ribosomes or proteasomes as membranous organelles; neither is enclosed by a lipid membrane.",
+      "Confusing lysosomes with peroxisomes: lysosomes digest organic polymers with acid hydrolases; peroxisomes oxidize fatty acids and neutralize H2O2.",
+      "Assuming smooth ER makes proteins: protein synthesis occurs exclusively at ribosomes (rough ER or free ribosomes); smooth ER makes lipids and steroids."
     ],
-    skills: [
-      'Membranous versus non-membranous is the organising question, not a label: anything that must keep its contents away from the cytosol — digestive enzymes, degradative enzymes, secretory product — is in the membranous group, and that is why it is there.',
-      'Rough versus smooth ER is answered from the ribosomes: ribosomes make protein, so the rough one handles protein and the smooth one is left with lipid. One observed feature, both functions.',
-      'The secretory pathway is a sequence, and questions about a secretory cell are really asking you to name it in order: rough ER, Golgi, vesicle, out.',
+    "skills": [
+      "Distinguish between membranous and non-membranous organelles based on histological and ultrastructural features.",
+      "Trace vesicle trafficking from rough endoplasmic reticulum through the Golgi apparatus to final destinations."
     ],
-    selfCheck: 'From a blank page: which organelles are membranous, the two ER jobs, what the Golgi does, and how a lysosome differs from a peroxisome.',
-    sourceRefs: [
-      { ref: 'phys.1.2026', location: 'p5 "Essential for"' },
-      { ref: 'phys.1.2026', location: 'p16 "Smooth ER"' },
-      { ref: 'phys.1.2026', location: 'p20 "Vesicles containing"' },
+    "selfCheck": "Categorize the eleven organelles into membranous versus non-membranous and describe the three products of the Golgi apparatus.",
+    "visuals": [
+      {
+        "fig": "cellAnatomy"
+      },
+      {
+        "fig": "plasmaMembrane"
+      },
+      {
+        "gen": true
+      }
     ],
+    "sourceRefs": [
+      {
+        "ref": "phys.1.2026",
+        "location": "p6 \"Anatomy of a Model Cell (Part 2)\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p11 \"Microvilli\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p16 \"Anatomy of a Model Cell (Part 5)\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p17 \"Endoplasmic Reticulum (ER)\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p18 \"Golgi Apparatus (post‑office)\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p20 \"Products of Golgi Apparatus\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p7 \"Anatomy of a Model Cell (Part 2)\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p12 \"Microvilli\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p17 \"Anatomy of a Model Cell (Part 5)\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p18 \"Endoplasmic Reticulum (ER)\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p19 \"Golgi Apparatus (post-office)\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p21 \"Products of Golgi Apparatus\""
+      }
+    ]
   },
   {
-    id: 'abct2326-nucleus-genetic-code',
-    subject: 'ABCT2326', unit: 'phys.cells', type: 'definition',
-    title: 'The nucleus, and how DNA is packed and read',
-    tags: ['foundation', 'high-yield'],
-    lesson: {
-      explanation: 'The nucleus is the largest organelle and the cell’s control centre. It is bounded by a nuclear envelope, a double membrane, pierced by nuclear pores that act as communication passages. Inside sits DNA, which carries all the information to build and run the organism; nucleoplasm, the fluid containing ions, enzymes, nucleotides and some RNA; and nucleoli, which are made of RNA, enzymes and histones and which synthesise rRNA and ribosomal subunits. DNA is packaged by coiling around histones to form nucleosomes. The functions of the nucleus are control of metabolism, storage and processing of genetic information, and control of protein synthesis. The packaging has stages: in a non-dividing cell the DNA double helix is present as chromatin in the nucleus; in a cell prepared for division it supercoils into a visible chromosome, with sister chromatids joined at the centromere and a kinetochore on it. As information, DNA holds the instructions for every protein in the body; a gene is the DNA instruction for one protein; the genetic code is the chemical language of those instructions, written as a sequence of the bases A, T, C and G; and the code is a triplet code, in which three bases — a codon — specify one amino acid.',
-      plain: 'Two separate stories share this slide set. One is architecture: a double membrane with pores, a fluid inside, and a nucleolus whose only job is to build ribosome parts. The other is information: DNA is the whole instruction set, a gene is one protein’s worth of it, and the reading frame is three bases to an amino acid. Chromatin and chromosome are the same material at different tightness — loose when the cell is working, supercoiled when it is about to divide.',
-      keyFacts: [
-        'Largest organelle; the cell’s control centre.',
-        'Nuclear envelope is a double membrane; nuclear pores are communication passages.',
-        'Nucleoplasm: ions, enzymes, nucleotides and some RNA.',
-        'Nucleoli are made of RNA, enzymes and histones, and synthesise rRNA and ribosomal subunits.',
-        'Nucleosome = DNA coiled around histones.',
-        'Nuclear functions: control of metabolism, storage and processing of genetic information, control of protein synthesis.',
-        'Non-dividing cell: chromatin. Cell prepared for division: supercoiled visible chromosome, sister chromatids, centromere, kinetochore.',
-        'DNA = instructions for every protein. Gene = instructions for ONE protein.',
-        'Genetic code = the chemical language, a sequence of bases A, T, C, G.',
-        'Triplet code: 3 bases (a codon) = 1 amino acid.',
+    "id": "abct2326-nucleus-genetic-code",
+    "subject": "ABCT2326",
+    "unit": "phys.cells",
+    "type": "concept",
+    "title": "The cell nucleus, chromatin structure, and the genetic code",
+    "tags": [
+      "foundation",
+      "high-yield",
+      "nucleus",
+      "dna",
+      "genetics"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "most",
+      "dsePart": "core",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Compulsory I \"Cells and Molecules of Life\" — DNA structure and function; Compulsory IV \"Applied Ecology and Genetics\"."
+      },
+      "beyond": [
+        {
+          "t": "The nuclear envelope described specifically as a double membrane enclosing a perinuclear space, perforated by nuclear pores regulated by transport proteins.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p12 \"Nuclear envelope\""
+          }
+        },
+        {
+          "t": "Nucleoli defined as transient dense nuclear bodies that synthesize ribosomal RNA (rRNA) and assemble ribosomal subunit complexes.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p11 \"Nucleoli\""
+          }
+        },
+        {
+          "t": "The structural distinction between chromatin (uncoiled nucleosome chains wrapped around histones in non-dividing cells) and chromosomes (supercoiled pairs of sister chromatids during M phase).",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p14 \"Organization of DNA\""
+          }
+        },
+        {
+          "t": "The genetic code specified strictly as triplets of nitrogenous bases on DNA that determine the sequence of codons and amino acids in a polypeptide chain.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p15 \"Triplet code\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "The cell nucleus is the largest intracellular organelle and serves as the command center for cellular homeostasis, housing over 99% of the cell's genetic blueprint. It is bounded by the nuclear envelope, a specialized double-membrane barrier consisting of an inner and outer lipid bilayer separated by a narrow perinuclear space; the outer membrane remains anatomically continuous with the rough endoplasmic reticulum. Transport between the nucleoplasm (the fluid, enzyme-, ion-, and nucleic acid-filled internal nuclear matrix) and the surrounding cytoplasm is strictly mediated by approximately 3,000 to 4,000 nuclear pores—large multi-protein channel complexes that permit passive diffusion of small water-soluble ions while demanding active, energy-dependent escort for macromolecules such as newly transcribed RNA and nuclear proteins. Within the nucleoplasm, one or more prominent dark-staining bodies called nucleoli assemble without surrounding membranes; nucleoli are specialized enzymatic factories composed of RNA, histones, and enzymes that transcribe ribosomal RNA (rRNA) and assemble the large and small subunits of ribosomes. The nuclear genetic material itself is organized structurally as deoxyribonucleic acid (DNA). In resting, non-dividing cells, DNA strands wrap tightly around alkaline protein spools called histones to form repeated bead-like complexes termed nucleosomes; this loose, diffuse filamentous network is known as chromatin. Only during cell division (mitosis) does chromatin undergo dense supercoiling and hypercondensation into visible, distinct chromosomes consisting of paired sister chromatids linked at a central centromere. The fundamental functional unit of heredity stored within DNA is the gene, which contains all triplet codes required to produce a specific protein. The genetic code is a triplet code: a linear sequence of three consecutive nitrogenous DNA bases (adenine [A], thymine [T], cytosine [C], and guanine [G]) represents a single triplet that specifies one corresponding amino acid in a polypeptide sequence.",
+      "plain": "The nucleus is the cell's master archive and headquarters. It is shielded by a double-layered nuclear envelope with guarded gateways called nuclear pores that monitor all traffic in and out. Inside the watery nucleoplasm sits the nucleolus, a factory that churns out ribosome parts. The master blueprint is DNA: in normal working cells, it is loosely wound around histone proteins like thread around spools, forming chromatin. During cell division, this thread winds tightly into visible chromosomes. The genetic code uses three-letter words called triplets—combinations of A, T, C, and G—to encode each amino acid in every protein the body builds.",
+      "keyFacts": [
+        "The nucleus is enclosed by a double-layered nuclear envelope separated by a perinuclear space.",
+        "Nuclear pores are large multi-protein complexes regulating macromolecular exchange between nucleus and cytoplasm.",
+        "Nucleoplasm is the fluid matrix containing ions, enzymes, RNA, nucleotides, and DNA.",
+        "Nucleoli are dense non-membranous nuclear bodies dedicated to synthesizing rRNA and assembling ribosome subunits.",
+        "In non-dividing cells, DNA is wound around histone proteins as loosely coiled chromatin.",
+        "During mitosis, chromatin supercoils into visible X-shaped chromosomes composed of sister chromatids.",
+        "A gene is a functional DNA sequence containing the complete code for synthesizing a specific polypeptide.",
+        "The genetic code is organized into base triplets: three consecutive DNA nucleotides code for one amino acid.",
+        "Complementary base pairing governs DNA: Adenine pairs with Thymine, and Cytosine pairs with Guanine.",
+        "The nucleus directs long-term metabolic homeostasis by dictating which enzymes and proteins are synthesized."
       ],
-      prerequisites: ['abct2326-organelles'],
-      examples: [],
+      "prerequisites": [
+        "abct2326-cells-organisation",
+        "abct2326-organelles"
+      ],
+      "examples": [
+        "Mature human red blood cells (erythrocytes) extrude their nuclei during maturation to maximize hemoglobin packaging and gas transport capacity, but as a consequence cannot synthesize new proteins and survive only ~120 days.",
+        "Skeletal muscle fibers are multinucleated syncytia resulting from the fusion of embryonic myoblasts, allowing regional nuclear control over vast cytoplasmic volumes."
+      ]
     },
-    memory: {
-      chunking: 'Three levels of packing: helix → nucleosome (round histones) → chromatin → supercoiled chromosome. Each one is tighter than the last.',
-      wordOrigin: 'Nucleolus is the little nucleus — a body inside the nucleus, and the only thing it makes is ribosome parts.',
-      comparison: 'DNA is the whole manual, a gene is one page, a codon is one word, and one word means one amino acid.',
+    "memory": {
+      "chunking": "Nuclear architecture: Envelope (double barrier) → Pores (checkpoints) → Nucleoli (ribosome builders) → Chromatin/Chromosomes (data archive).",
+      "comparison": "Chromatin vs Chromosome: Chromatin is open, accessible, uncoiled DNA for active daily transcription; chromosomes are tightly packed, supercoiled shipping crates used only during cell division.",
+      "visualCue": "Picture a secure vault: double blast doors (envelope) with biometric security gates (nuclear pores), an on-site machine shop (nucleolus), and library filing cabinets (chromatin spools).",
+      "teachBack": "Explain the difference between chromatin and chromosomes, and demonstrate how a DNA base triplet encodes genetic information."
     },
-    practice: [
-      { type: 'cloze', prompt: 'In the triplet code, ______ bases — called a ______ — specify one amino acid.', accept: ['3; codon', 'three; codon', '3, codon', 'three, codon'],
-        explanation: '3 bases (a codon) = 1 amino acid.',
-        src: { ref: 'phys.1.2026', location: 'p15 "3 bases (a codon) = 1 amino acid"' } },
-      { type: 'mcq', prompt: 'What does the nucleolus synthesise?', options: ['mRNA and tRNA', 'rRNA and ribosomal subunits', 'Histones and nucleosomes', 'Nuclear pores'], answer: 1,
-        explanation: 'rRNA and ribosomal subunits. It is itself made of RNA, enzymes and histones.',
-        src: { ref: 'phys.1.2026', location: 'p12 "Synthesize rRNA and ribosomal subunits"' } },
-      { type: 'cloze', prompt: 'A ______ is DNA coiled around histones.', accept: ['nucleosome'],
-        explanation: 'Nucleosome — the first level of packaging.',
-        src: { ref: 'phys.1.2026', location: 'p12 "DNA coiled around histones"' } },
-      { type: 'mcq', prompt: 'Which statement matches the lecture’s definition of a gene?', options: ['All the DNA in a cell', 'The DNA instructions for one protein', 'Three bases specifying an amino acid', 'DNA coiled around histones'], answer: 1,
-        explanation: 'A gene is the DNA instruction for one protein. All the DNA is the instructions for every protein; three bases is a codon; DNA round histones is a nucleosome.',
-        src: { ref: 'phys.1.2026', location: 'p15 "DNA instructions for one protein"' } },
-      { type: 'sequence', prompt: 'Order these by increasing degree of packing.', items: ['DNA double helix', 'Nucleosome', 'Chromatin in the nucleus', 'Supercoiled visible chromosome'],
-        explanation: 'The non-dividing cell holds chromatin; a cell prepared for division supercoils it into a visible chromosome.',
-        src: { ref: 'phys.1.2026', location: 'p14 "nondividing"' } },
+    "practice": [
+      {
+        "type": "mcq",
+        "prompt": "What is the primary function of the nucleolus within the cell nucleus?",
+        "options": [
+          "Synthesizing adenosine triphosphate (ATP)",
+          "Synthesizing ribosomal RNA (rRNA) and assembling ribosomal subunits",
+          "Executing beta-oxidation of very long-chain fatty acids",
+          "Duplicating centrioles prior to mitotic spindle formation"
+        ],
+        "answer": 1,
+        "explanation": "Nucleoli are dark-staining nuclear structures that transcribe rRNA and combine it with proteins to construct ribosomal subunits.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p11 \"Nucleoli\""
+        }
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each nuclear structural element with its defining description.",
+        "pairs": [
+          [
+            "Nuclear envelope",
+            "Double membrane enclosing perinuclear space continuous with rough ER"
+          ],
+          [
+            "Nuclear pore",
+            "Protein channel complex regulating nucleocytoplasmic transport"
+          ],
+          [
+            "Histone",
+            "Alkaline spool protein around which DNA wraps to form nucleosomes"
+          ],
+          [
+            "Chromatin",
+            "Diffuse, uncoiled DNA-protein network found in non-dividing cells"
+          ]
+        ],
+        "explanation": "Each nuclear structure fulfills an essential role in isolating, protecting, and organizing the genetic code.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p12 \"Nuclear envelope\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "How many consecutive nitrogenous bases in a DNA strand constitute a triplet encoding one amino acid?",
+        "options": [
+          "Two bases",
+          "Three bases",
+          "Four bases",
+          "Six bases"
+        ],
+        "answer": 1,
+        "explanation": "The genetic code is a triplet code in which three consecutive nitrogenous bases specify a single amino acid.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p15 \"Triplet code\""
+        }
+      },
+      {
+        "type": "typed",
+        "prompt": "What term describes the supercoiled, condensed form of DNA visible under light microscopy exclusively during cell division?",
+        "accept": [
+          "chromosome",
+          "chromosomes",
+          "Chromosome",
+          "Chromosomes"
+        ],
+        "explanation": "Chromatin condenses and supercoils into visible chromosomes during the M phase of the cell cycle.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p14 \"Organization of DNA\""
+        }
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'The nuclear envelope is a double membrane with pores. Given that mRNA is made in the nucleus and read in the cytoplasm, what would happen to protein synthesis if the pores were blocked?',
-        model: 'It would stop. Transcription copies the instructions from DNA to mRNA inside the nucleus, and the mRNA then leaves the nucleus to the cytoplasm through the nuclear pores to be read by a ribosome. The pores are the communication passages through an otherwise closed double membrane, so blocking them traps the message where it was written. The DNA and the transcription machinery would be intact and the ribosomes would be intact, and no protein would be made from new transcripts.',
-        rubric: ['Identifies the pores as the exit route for mRNA', 'Separates transcription in the nucleus from translation in the cytoplasm', 'Concludes new protein synthesis halts'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A patient with progeria (Hutchinson-Gilford progeria syndrome) exhibits a point mutation in the LMNA gene, producing an abnormal truncated nuclear lamin protein termed progerin that accumulates in the inner nuclear membrane. Explain the mechanical and genetic consequences of nuclear lamina failure on cell survival and tissue regeneration.",
+        "model": "Nuclear lamins provide structural scaffolding for the inner nuclear membrane and anchor peripheral heterochromatin. Accumulation of abnormal progerin causes marked morphological distortion, blebbing of the nuclear envelope, and disruption of nuclear pore complexes. Consequently, nucleocytoplasmic transport of transcription factors and mRNA becomes dysregulated, heterochromatin anchoring is lost, and DNA damage accumulation triggers premature cellular senescence and stem cell exhaustion. Highly proliferative tissues (such as vascular endothelium and skin fibroblasts) fail to regenerate, accelerating cardiovascular pathology and organismal aging.",
+        "rubric": [
+          "Identifies the nuclear envelope and lamina as structural scaffolds maintaining nuclear morphology",
+          "Explains how envelope disruption impairs nuclear pore transport and chromatin stability",
+          "Links genomic instability and premature senescence to regenerative failure in proliferative tissues"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Calling the nucleolus a site of DNA storage; it makes rRNA and ribosomal subunits.',
-      'Using "chromatin" and "chromosome" as if they were different substances rather than different degrees of coiling.',
-      'Defining a gene as all the DNA rather than the instructions for one protein.',
+    "commonMistakes": [
+      "Assuming chromatin and chromosomes are chemically different molecules; they are identical DNA-protein complexes differing only in compaction and supercoiling.",
+      "Believing the nuclear envelope is a single continuous membrane; it is a double lipid bilayer separated by a perinuclear space.",
+      "Confusing a DNA base triplet with an mRNA codon: triplets exist on DNA, whereas codons exist on mRNA transcripts."
     ],
-    skills: [
-      'Chromatin and chromosome are one material at two tensions, and the cell’s state tells you which word to use: working cell, chromatin; about to divide, supercoiled chromosome. The question is really asking what the cell is doing.',
-      'The information hierarchy scales cleanly — genome, gene, codon, amino acid — and almost every definition question in this section is asking which rung you are on.',
-      'The nucleus being a closed double membrane with pores is what forces transcription and translation into different compartments; that separation is the reason mRNA has to exist at all.',
+    "skills": [
+      "Contrast the structural state and functional accessibility of DNA in chromatin versus metaphase chromosomes.",
+      "Trace the path of macromolecular import and export across the nuclear pore complex."
     ],
-    selfCheck: 'From a blank page: the parts of the nucleus and what each does, what a nucleosome is, and the four-term chain from DNA down to amino acid.',
-    sourceRefs: [
-      { ref: 'phys.1.2026', location: 'p12 "Largest organelle; The cell\'s control center"' },
-      { ref: 'phys.1.2026', location: 'p14 "nondividing"' },
-      { ref: 'phys.1.2026', location: 'p15 "3 bases (a codon) = 1 amino acid"' },
+    "selfCheck": "Define the four structural components of the nucleus and explain why DNA is packaged as chromatin in interphase but chromosomes in mitosis.",
+    "visuals": [
+      {
+        "fig": "cellAnatomy"
+      },
+      {
+        "fig": "mitosisPhases"
+      },
+      {
+        "gen": true
+      }
     ],
+    "sourceRefs": [
+      {
+        "ref": "phys.1.2026",
+        "location": "p12 \"Cell Nucleus\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p12 \"Nuclear envelope\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p14 \"Organization of DNA\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p15 \"Triplet code\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p13 \"Cell Nucleus\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p13 \"Nuclear envelope\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p15 \"Organization of DNA\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p16 \"Triplet code\""
+      }
+    ]
   },
   {
-    id: 'abct2326-protein-synthesis',
-    subject: 'ABCT2326', unit: 'phys.cells', type: 'sequence',
-    title: 'Transcription and translation',
-    tags: ['foundation', 'high-yield'],
-    lesson: {
-      explanation: 'Protein synthesis starts with gene activation — uncoiling the DNA so it can be used. Transcription then copies the instructions from DNA to mRNA, inside the nucleus. RNA polymerase produces the messenger RNA: it binds to the promoter region on the template strand and works along it. The transcript is then processed — introns are removed and exons are spliced together — and the mRNA leaves the nucleus for the cytoplasm through the nuclear pores. Translation follows: a ribosome, on the rough ER, reads the code from the mRNA in the cytoplasm.',
-      plain: 'Two steps in two places, and the place is half the answer. Transcription happens in the nucleus because that is where the DNA is; translation happens in the cytoplasm because that is where the ribosomes are; and the mRNA exists precisely to carry the message between them, out through a nuclear pore. Between the two steps the transcript is edited. A gene is not one continuous instruction: it comes in pieces, and only some of them are the recipe. The pieces that ARE kept are called exons — remember it as exons EXit the nucleus — and the ones cut out and discarded are introns, which stay IN. Splicing is the joining of the kept pieces end to end, so what leaves the nucleus is shorter than what was copied.',
-      keyFacts: [
-        'Gene activation = uncoiling DNA so it can be used.',
-        'Transcription copies instructions from DNA to mRNA, in the nucleus.',
-        'RNA polymerase produces the mRNA and binds to the promoter region on the template strand.',
-        'RNA processing: introns are removed, exons are spliced together.',
-        'mRNA leaves the nucleus to the cytoplasm through the nuclear pores.',
-        'Translation: a ribosome, on the rough ER, reads the code from the mRNA in the cytoplasm.',
+    "id": "abct2326-protein-synthesis",
+    "subject": "ABCT2326",
+    "unit": "phys.cells",
+    "type": "sequence",
+    "title": "Protein synthesis: gene activation, transcription, and translation",
+    "tags": [
+      "foundation",
+      "high-yield",
+      "protein-synthesis",
+      "transcription",
+      "translation"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "most",
+      "dsePart": "core",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Compulsory I \"Cells and Molecules of Life\" — protein synthesis, transcription and translation."
+      },
+      "beyond": [
+        {
+          "t": "Gene activation defined as the initial physical uncoiling of chromatin and removal of histones at the promoter region by gene-activating factors.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p21 \"Gene Activation\""
+          }
+        },
+        {
+          "t": "Transcription explained with the template strand read by RNA polymerase to generate complementary pre-mRNA containing codons.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p22 \"Transcription\""
+          }
+        },
+        {
+          "t": "Translation detailed at ribosomal P and A sites: small subunit binding AUG start codon, tRNA anticodon pairing, peptide bond formation, and stop codon release.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p21 \"Translation\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "Protein synthesis is the central molecular pathway through which genomic information encoded in nuclear DNA directs the assembly of structural and functional cellular proteins. The process operates in three coordinated stages: gene activation, transcription, and translation. (1) Gene Activation: In resting chromatin, genes are locked by tight histone winding. Synthesis begins when specific transcription factors bind to a control region called the promoter, located at the beginning of each gene. This uncoils the DNA double helix, temporarily removes protective histones, and separates the complementary DNA strands into a template strand (reading strand) and a coding strand. (2) Transcription: Inside the nucleus, the enzyme RNA polymerase binds to the exposed promoter of the template strand and traverses it in the 3' to 5' direction. As it proceeds, RNA polymerase reads the DNA triplets and synthesizes a complementary pre-messenger RNA (pre-mRNA) transcript in the 5' to 3' direction, matching adenine (A) on DNA with uracil (U) on RNA, thymine (T) with adenine (A), and cytosine (C) with guanine (G). Each corresponding three-nucleotide sequence on the mRNA transcript is termed a codon. Prior to nuclear exit, pre-mRNA undergoes processing where non-coding intervening sequences (introns) are excised by spliceosomes, and coding segments (exons) are spliced together into mature mRNA. The mature mRNA transcript then passes through a nuclear pore into the cytoplasm. (3) Translation: The translation phase occurs on ribosomes in the cytoplasm. It commences when a small ribosomal subunit binds to the 5' end of the mRNA strand and scans until it encounters the start codon (AUG). An initiator transfer RNA (tRNA) possessing a complementary anticodon (UAC) and carrying the amino acid methionine binds to the start codon at the ribosomal peptidyl (P) site. The large ribosomal subunit then docks to complete the functional ribosome. During elongation, the next mRNA codon sits exposed at the aminoacyl (A) site; a matching tRNA carrying its specific amino acid docks into the A site. Ribosomal peptidyl transferase catalyzes a peptide bond between the adjacent amino acids. The ribosome then translocates downstream by exactly one codon: the uncharged tRNA exits via the E site, the growing polypeptide chain shifts into the P site, and the next empty codon enters the A site. This iterative cycle repeats until a stop codon (UAA, UAG, or UGA) is reached. No tRNA recognizes stop codons; instead, a protein release factor binds, prompting immediate hydrolysis and release of the completed polypeptide chain, followed by ribosomal subunit dissociation.",
+      "plain": "Building a protein is like copying an ancient recipe from a reference library and baking it in the kitchen. First, gene activation unlocks the master recipe book by peeling away histone covers at the promoter. Second, transcription happens in the nucleus: RNA polymerase reads the DNA template strand and writes a working copy called messenger RNA (mRNA), replacing thymine with uracil; the mRNA copy is trimmed and leaves through a nuclear pore. Third, translation happens at ribosomes in the cytoplasm: the ribosome reads three-letter mRNA codons, matching each one with transfer RNA (tRNA) carrying the correct amino acid. The ribosome links the amino acids with peptide bonds into a growing chain until a stop codon says the dish is done.",
+      "keyFacts": [
+        "Gene activation starts at the promoter, uncoiling chromatin and exposing the template strand.",
+        "RNA polymerase reads the DNA template strand in the 3' to 5' direction.",
+        "Transcription synthesizes mRNA in the 5' to 3' direction using complementary base pairing (A-U, T-A, C-G).",
+        "A codon is a three-nucleotide sequence on mRNA specifying a single amino acid.",
+        "Pre-mRNA undergoes processing where introns are spliced out and exons are joined into mature mRNA.",
+        "Mature mRNA migrates from the nucleoplasm to the cytoplasm via nuclear pores.",
+        "Translation begins at the start codon (AUG), which codes for methionine.",
+        "tRNA molecules carry specific amino acids and dock using complementary three-base anticodons.",
+        "Ribosomes form peptide bonds between adjacent amino acids and translocate one codon at a time.",
+        "Translation terminates when the ribosome encounters a stop codon (UAA, UAG, or UGA), releasing the polypeptide."
       ],
-      prerequisites: ['abct2326-nucleus-genetic-code'],
-      examples: [],
+      "prerequisites": [
+        "abct2326-nucleus-genetic-code",
+        "abct2326-organelles"
+      ],
+      "examples": [
+        "Pancreatic beta cells respond to hyperglycemia by activating transcription of the insulin gene, translating preproinsulin on rough ER ribosomes, and packaging active insulin into secretory granules for exocytosis.",
+        "Duchenne muscular dystrophy is frequently caused by frameshift mutations (deletions or insertions of 1–2 bases) that alter downstream triplet codon reading, generating premature stop codons and truncated, nonfunctional dystrophin proteins."
+      ]
     },
-    memory: {
-      wordOrigin: 'Transcription is writing the same language again (DNA to RNA, both nucleic acids). Translation is changing language (nucleic acid to protein). The words are exact.',
-      sequence: 'Uncoil, copy, edit, export, read. Five verbs, and the third and fourth are the ones people forget.',
-      comparison: 'Exons EXit the nucleus and are EXpressed; introns stay IN and are cut out. Two words, one letter each doing the work.',
+    "memory": {
+      "chunking": "Three-step dogma: Unlock gene (Activation) → Transcribe message in nucleus (Transcription) → Translate into protein at ribosome (Translation).",
+      "comparison": "Codon vs Anticodon: The codon is the 3-base sequence on messenger RNA; the anticodon is the complementary 3-base sequence on transfer RNA that brings the correct amino acid.",
+      "visualCue": "Picture a scriptwriter (DNA) dictating a script to a messenger (mRNA) who runs out the door to a factory assembly line (ribosome) where worker tRNAs clip parts together in order.",
+      "teachBack": "Walk through transcription in the nucleus and translation at the ribosome, explaining how base pairing ensures accurate sequence fidelity at each stage."
     },
-    practice: [
-      { type: 'sequence', prompt: 'Order the steps of protein synthesis.', items: ['Gene activation — uncoiling DNA', 'RNA polymerase binds the promoter and produces mRNA', 'Introns removed, exons spliced together', 'mRNA leaves through the nuclear pores', 'Ribosome reads the mRNA in the cytoplasm'],
-        explanation: 'Transcription and its processing happen in the nucleus; translation happens in the cytoplasm after export.',
-        src: { ref: 'phys.1.2026', location: 'p21 "Copies instructions from DNA to mRNA (in nucleus)"' } },
-      { type: 'cloze', prompt: 'During RNA processing, ______ are removed and ______ are spliced together.', accept: ['introns; exons', 'introns, exons', 'introns and exons'],
-        explanation: 'Introns out, exons joined.',
-        src: { ref: 'phys.1.2026', location: 'p21 "introns will be removed and exons will be spliced"' } },
-      { type: 'mcq', prompt: 'Where does RNA polymerase bind to begin transcription?', options: ['The centromere', 'The promoter region on the template strand', 'The nuclear pore', 'The ribosome'], answer: 1,
-        explanation: 'The promoter region on the template strand.',
-        src: { ref: 'phys.1.2026', location: 'p21 "RNA polymerase binds to"' } },
-      { type: 'mcq', prompt: 'Where does translation take place?', options: ['In the nucleus', 'In the nucleolus', 'In the cytoplasm, at a ribosome on the rough ER', 'In the Golgi apparatus'], answer: 2,
-        explanation: 'A ribosome, on the rough ER, reads the code from the mRNA in the cytoplasm.',
-        src: { ref: 'phys.1.2026', location: 'p21 "Ribosome (on Rough ER) reads code from mRNA (in cytoplasm)"' } },
+    "practice": [
+      {
+        "type": "sequence",
+        "prompt": "Arrange the sequence of protein synthesis events in correct chronological order.",
+        "items": [
+          "Transcription factor binds promoter and uncoils DNA",
+          "RNA polymerase synthesizes pre-mRNA from template strand",
+          "Introns are excised and mature mRNA exits through nuclear pore",
+          "Small ribosomal subunit binds mRNA at AUG start codon",
+          "tRNA anticodons deliver amino acids to form peptide bonds",
+          "Stop codon binds release factor and frees polypeptide chain"
+        ],
+        "explanation": "Protein synthesis follows an invariant sequence from nuclear gene activation and transcription to cytoplasmic translation and termination.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p21 \"Gene Activation\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "If a DNA template strand triplet reads 3'-TAC-5', what is the complementary mRNA codon synthesized by RNA polymerase?",
+        "options": [
+          "5'-AUG-3'",
+          "5'-UAC-3'",
+          "5'-ATG-3'",
+          "5'-CAU-3'"
+        ],
+        "answer": 0,
+        "explanation": "During transcription, adenine (A) on DNA pairs with uracil (U), thymine (T) pairs with adenine (A), and cytosine (C) pairs with guanine (G), generating 5'-AUG-3'.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p22 \"Transcription\""
+        }
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each molecule involved in protein synthesis with its specific functional role.",
+        "pairs": [
+          [
+            "RNA polymerase",
+            "Transcribes DNA template into pre-mRNA transcript"
+          ],
+          [
+            "mRNA codon",
+            "Three-base sequence specifying one amino acid"
+          ],
+          [
+            "tRNA anticodon",
+            "Three-base sequence pairing with codon to position amino acid"
+          ],
+          [
+            "Ribosomal peptidyl transferase",
+            "Catalyzes covalent peptide bond formation between amino acids"
+          ]
+        ],
+        "explanation": "Each molecular component coordinates precise information transfer from nucleotide sequence to amino acid polymer.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p21 \"Translation\""
+        }
+      },
+      {
+        "type": "typed",
+        "prompt": "What universal three-nucleotide mRNA codon serves as the start signal for protein translation?",
+        "accept": [
+          "AUG",
+          "aug"
+        ],
+        "explanation": "AUG is the universal start codon on mRNA, coding for methionine and establishing the reading frame.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p21 \"Translation\""
+        }
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'Rough ER was defined earlier as the organelle that modifies and packages newly synthesised proteins. Connect that to where translation happens, and explain why the two facts belong together.',
-        model: 'Translation happens at a ribosome on the rough ER — the ribosomes are what make it rough. So the protein is produced at the surface of the very organelle whose job is to modify and package newly synthesised proteins, and it can enter that organelle as it is made rather than being released into the cytosol and collected afterwards. Synthesis and processing are physically adjacent, which is why a cell that secretes protein heavily is full of rough ER.',
-        rubric: ['States translation occurs at ribosomes on the rough ER', 'Connects it to the rough ER’s packaging function', 'Draws the adjacency conclusion'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "Ricin is a potent ribosomal inactivating plant toxin that enzymatically depurinates a specific adenine residue in the 28S ribosomal RNA of the large ribosomal subunit. Explain how this biochemical lesion halts translation and predict its physiological impact on cells with high secretory demands (such as pancreatic acinar cells).",
+        "model": "Depurination of the 28S rRNA by ricin permanently impairs ribosomal binding of elongation factor 2 (eEF-2), preventing the ribosome from executing translocation and catalyzing peptide bond formation. As a consequence, ongoing polypeptide elongation immediately arrests, halting all de novo protein synthesis. In cells with intense secretory workloads—such as pancreatic acinar cells producing digestive enzymes—the rapid depletion of structural proteins, membrane transport pumps, and secretory zymogens causes rapid organelle breakdown, cellular autolysis, and necrotic tissue destruction.",
+        "rubric": [
+          "Identifies the large ribosomal subunit as the site of peptide bond synthesis and translocation",
+          "Explains how failure of elongation arrests protein synthesis",
+          "Predicts rapid necrosis in highly metabolically active secretory tissues deprived of essential proteins"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Placing translation in the nucleus.',
-      'Reversing introns and exons.',
-      'Forgetting RNA processing entirely and going straight from polymerase to ribosome.',
+    "commonMistakes": [
+      "Confusing the DNA template strand with the coding strand: RNA polymerase reads the template strand (3' to 5') to make an mRNA identical in sequence to the coding strand (except U replaces T).",
+      "Thinking tRNA molecules bind directly to DNA: tRNA binds exclusively to mRNA codons during translation on the ribosome in the cytoplasm.",
+      "Assuming that all DNA triplets are transcribed: introns and non-coding regulatory sequences are either untranscribed or spliced out before translation."
     ],
-    skills: [
-      'Location is the spine of this whole process: nucleus for transcription because the DNA is there, cytoplasm for translation because the ribosomes are there, and a pore in between. Fix the compartments and the order cannot come out wrong.',
-      'The names are literal — transcription rewrites in the same alphabet, translation converts to a different one. Any question asking which step is which is answered from the word rather than from the diagram.',
+    "skills": [
+      "Translate any given DNA template triplet sequence into its corresponding mRNA codon and tRNA anticodon.",
+      "Differentiate the intracellular compartments and catalytic enzymes of transcription versus translation."
     ],
-    selfCheck: 'From a blank page: the five steps in order, which compartment each happens in, what the promoter is for, and which of introns and exons survives.',
-    sourceRefs: [{ ref: 'phys.1.2026', location: 'p21 "Copies instructions from DNA to mRNA (in nucleus)"' }],
+    "selfCheck": "Outline the sequential events of protein synthesis from promoter binding to release factor termination, identifying where each occurs in the cell.",
+    "visuals": [
+      {
+        "fig": "cellAnatomy"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "phys.1.2026",
+        "location": "p21 \"Gene Activation\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p22 \"Transcription\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p21 \"Translation\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p22 \"Gene Activation\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p23 \"Transcription\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p22 \"Translation\""
+      }
+    ]
   },
   {
-    id: 'abct2326-cell-division',
-    subject: 'ABCT2326', unit: 'phys.cells', type: 'comparison',
-    title: 'Mitosis and meiosis — two divisions with different jobs',
-    tags: ['foundation'],
-    lesson: {
-      explanation: 'Most of a cell’s life is spent in a non-dividing state called interphase. Body, or somatic, cells divide in three stages: DNA replication duplicates the genetic material exactly, mitosis divides the genetic material equally, and cytokinesis divides the cytoplasm and organelles into two daughter cells. Meiosis is a different process — one in which two cell-division steps produce gametes, the ova and sperm — and it occurs only in the gonads, the ovaries and testes, in the germ cells there. Cells themselves divide into two populations to match: sex cells or germ cells are the reproductive cells, the male sperm and the female oocyte, which is a cell that develops into an egg; somatic cells, from soma meaning body, are all body cells except the sex cells.',
-      plain: 'Two divisions for two purposes. Mitosis is copying — replicate, split the genetic material equally, then split the cell — and every body cell does it. Meiosis happens only in the ovaries and testes, takes two division steps rather than one, and its product is gametes rather than more body cells. The vocabulary follows the same split: somatic cells are everything that is not a sex cell.',
-      keyFacts: [
-        'Most of a cell’s life is interphase, a non-dividing state.',
-        'Somatic cell division has three stages: DNA replication, mitosis, cytokinesis.',
-        'DNA replication duplicates the genetic material exactly.',
-        'Mitosis divides the genetic material equally.',
-        'Cytokinesis divides the cytoplasm and organelles into two daughter cells.',
-        'Meiosis: two cell-division steps producing gametes (ova and sperm).',
-        'Meiosis occurs ONLY in the gonads — ovaries and testes.',
-        'Sex (germ) cells: sperm and oocyte. Somatic cells (soma = body): all body cells except sex cells.',
+    "id": "abct2326-cell-division",
+    "subject": "ABCT2326",
+    "unit": "phys.cells",
+    "type": "sequence",
+    "title": "The cell life cycle, stages of mitosis, and meiosis comparison",
+    "tags": [
+      "foundation",
+      "high-yield",
+      "mitosis",
+      "cell-cycle",
+      "meiosis"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "most",
+      "dsePart": "core",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Compulsory I \"Cells and Molecules of Life\" — cell cycle, mitosis and meiosis."
+      },
+      "beyond": [
+        {
+          "t": "Interphase phases defined specifically: G0 (specialized quiescence), G1 (organelle replication), S phase (semiconservative DNA duplication), and G2 (protein synthesis & centriole completion).",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p24 \"Cell Life Cycle\""
+          }
+        },
+        {
+          "t": "The four continuous phases of mitosis — Prophase, Metaphase, Anaphase, Telophase — described by spindle attachment, kinetochores, and chromatid migration.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p25 \"Mitosis\""
+          }
+        },
+        {
+          "t": "Comparison of Mitosis (one division producing two identical diploid somatic cells) with Meiosis (two divisions yielding four genetically distinct haploid gametes with crossing over).",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p27 \"Meiosis\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "The cell life cycle encompasses the orderly sequence of developmental events between a cell's mitotic formation and its subsequent division into two daughter cells. The cycle is partitioned into two major intervals: Interphase and M Phase (Mitosis and Cytokinesis). During Interphase, which occupies approximately 90% or more of the cycle duration, the cell is metabolically active and performs its differentiated physiological tasks. Interphase comprises four distinct sub-phases: (1) G0 (quiescence): a non-dividing state where specialized cells (such as mature neurons and skeletal muscle fibres) carry out mature functions indefinitely without preparing for replication; (2) G1 phase (first gap): the cell experiences vigorous protein synthesis, metabolic growth, and duplicates its cytoplasmic organelles and centriole precursors; (3) S phase (synthetic phase): the cell replicates its entire nuclear genome through semiconservative DNA duplication via DNA polymerase, synthesizing identical sister chromatids linked at centromeres and duplicating histones; and (4) G2 phase (second gap): a brief checkpoint interval characterized by intense enzymatic and structural protein synthesis (especially tubulin for the mitotic spindle) and completion of centriole replication. Following interphase, the cell enters M Phase. Mitosis accomplishes nuclear division in somatic cells, preserving chromosome number to produce two genetically identical diploid (2n = 46) nuclei across four successive stages: (1) Prophase: chromatin condenses into distinct microscopically visible chromosomes composed of paired sister chromatids joined at a centromere with proteinaceous kinetochores; nucleoli disappear; the nuclear envelope fragments into vesicles; and two centrosomes migrate toward opposite cellular poles, polymerizing microtubules to establish the mitotic spindle; (2) Metaphase: spindle microtubules attach to kinetochores and align all chromosomes along the central equatorial plane, forming the metaphase plate; (3) Anaphase: the centromere connecting each pair of sister chromatids cleaves simultaneously, separating them into individual daughter chromosomes that are pulled by motor proteins along shortening kinetochore microtubules toward opposite poles, while polar microtubules elongate the cell; and (4) Telophase: daughter chromosomes reach the poles and uncoil back into diffuse chromatin; new nuclear envelopes assemble around each chromosomal cluster from ER fragments; and nucleoli reappear within the newly established daughter nuclei. Cytokinesis usually overlaps late anaphase and telophase: an actin and myosin contractile ring constricts the plasma membrane at the equatorial plane, deepening a cleavage furrow that pinches the cytoplasm into two completely independent daughter cells. Mitosis is contrasted with Meiosis, a specialized two-step reductive cell division occurring exclusively in germline cells within the gonads (testes and ovaries); meiosis features homologous chromosome pairing (synapsis) and genetic crossing-over in Prophase I, followed by two successive division rounds without intervening DNA replication, generating four genetically unique haploid (1n = 23) gametes (spermatozoa or oocytes).",
+      "plain": "The cell cycle is the life story of a cell. Most of its life is spent in interphase getting ready: G1 grows organelles, S phase copies all DNA so each chromosome has a twin sister chromatid, and G2 finishes building the division machinery. When it is time to divide, somatic cells run mitosis in four steps (PMAT): Prophase packs DNA into visible chromosomes and builds the spindle; Metaphase lines them up along the middle; Anaphase pulls sister chromatids apart to opposite ends; and Telophase builds two new nuclear houses around them. Cytokinesis pinches the cell in half with a microscopic belt. Mitosis makes two identical diploid clones (normal body cells); meiosis makes four genetically unique haploid sperm or egg cells.",
+      "keyFacts": [
+        "Interphase occupies ~90% of the cell cycle: divided into G0, G1, S, and G2 phases.",
+        "G0 represents specialized metabolic quiescence where mature cells do not divide.",
+        "S phase accomplishes semiconservative DNA replication, producing identical sister chromatids.",
+        "G2 phase completes final protein synthesis and centriole replication before mitosis.",
+        "Mitosis consists of four sequential stages: Prophase, Metaphase, Anaphase, and Telophase (PMAT).",
+        "Prophase: chromatin condenses into visible chromosomes, envelope breaks down, spindle forms.",
+        "Metaphase: chromosomes align along the central equatorial metaphase plate.",
+        "Anaphase: centromeres split and sister chromatids are pulled to opposite cellular poles.",
+        "Telophase: nuclear envelopes reassemble around daughter chromosomes as they uncoil into chromatin.",
+        "Cytokinesis pinches cytoplasm via an actin-myosin contractile ring forming a cleavage furrow."
       ],
-      prerequisites: ['abct2326-nucleus-genetic-code'],
-      examples: [],
+      "prerequisites": [
+        "abct2326-nucleus-genetic-code"
+      ],
+      "examples": [
+        "Skin epidermal basal cells and gastrointestinal epithelial cells constantly cycle through mitosis to replace shed surface cells every few days, rendering them highly sensitive to chemotherapy drugs that target mitotic spindle assembly.",
+        "Mature adult cardiac myocytes and central nervous system neurons permanently arrest in the G0 phase, explaining why infarcted myocardium and transected spinal cord tracts cannot regenerate functional muscle or nervous tissue."
+      ]
     },
-    memory: {
-      comparison: 'Mitosis: one division, two identical body cells, anywhere. Meiosis: two divisions, gametes, gonads only.',
-      wordOrigin: 'Soma is body, so somatic is every cell that is not reproductive. Gamete comes from the Greek for spouse — the cell that pairs with another.',
-      chunking: 'Three stages for somatic division and they are in obvious order: copy it, split it, split the cell. Replication, mitosis, cytokinesis.',
+    "memory": {
+      "chunking": "Cycle phases: Interphase (G0 → G1 → S → G2) followed by Mitosis (P-M-A-T) and Cytokinesis.",
+      "comparison": "Mitosis vs Meiosis: Mitosis = 1 division, 2 identical diploid (2n) daughter somatic cells, for growth/repair; Meiosis = 2 divisions, 4 diverse haploid (1n) gametes, for reproduction.",
+      "visualCue": "Picture PMAT: P = Pack chromosomes, M = Middle lineup, A = Apart pulling, T = Two new nuclei.",
+      "teachBack": "Recite the four sub-phases of interphase and walk through the mechanical events of Prophase, Metaphase, Anaphase, and Telophase out loud."
     },
-    practice: [
-      { type: 'comparison', prompt: 'Which is TRUE of meiosis but not of mitosis?', options: ['It divides genetic material equally', 'It occurs only in the gonads', 'It is followed by cytokinesis', 'It requires DNA replication first'], answer: 1,
-        explanation: 'Meiosis occurs only in the gonads — the ovaries and testes. Mitosis happens throughout the body.',
-        src: { ref: 'phys.1.2026', location: 'p27 "Only occurs in the gonads (ovaries and testes)"' } },
-      { type: 'sequence', prompt: 'Order the three stages of somatic cell division.', items: ['DNA replication', 'Mitosis', 'Cytokinesis'],
-        explanation: 'Replication duplicates the material exactly, mitosis divides it equally, cytokinesis divides the cytoplasm and organelles into two daughter cells.',
-        src: { ref: 'phys.1.2026', location: 'p24 "Mitosis divides genetic material equally"' } },
-      { type: 'cloze', prompt: 'The stage that divides the cytoplasm and organelles into two daughter cells is ______.', accept: ['cytokinesis'],
-        explanation: 'Cytokinesis. Mitosis divides only the genetic material.',
-        src: { ref: 'phys.1.2026', location: 'p24 "Cytokinesis divides cytoplasm and organelles into two"' } },
-      { type: 'mcq', prompt: 'What is an oocyte?', options: ['A mature egg', 'A cell that develops into an egg', 'A somatic cell in the ovary', 'A gamete-producing gland'], answer: 1,
-        explanation: 'The lecture defines the oocyte as a cell that develops into an egg.',
-        src: { ref: 'phys.1.2026', location: 'p4 "Female oocyte"' } },
-      { type: 'typed', prompt: 'What is the non-dividing state a cell spends most of its life in called?', accept: ['interphase'],
-        explanation: 'Interphase.',
-        src: { ref: 'phys.1.2026', location: 'p24 "nondividing"' } },
+    "practice": [
+      {
+        "type": "sequence",
+        "prompt": "Arrange the phases of the somatic cell cycle in sequential order starting from cell birth.",
+        "items": [
+          "G1 phase (organelle duplication and growth)",
+          "S phase (semiconservative DNA replication)",
+          "G2 phase (protein synthesis and centriole completion)",
+          "Prophase (chromatin condensation and spindle formation)",
+          "Metaphase (alignment at equatorial plate)",
+          "Anaphase (centromere cleavage and chromatid separation)",
+          "Telophase and cytokinesis (nuclear reform and cleavage furrow)"
+        ],
+        "explanation": "The somatic cell cycle follows an invariant progression through interphase growth and replication into mitotic nuclear and cytoplasmic division.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p24 \"Cell Life Cycle\""
+        }
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each mitotic stage with its hallmark microscopic event.",
+        "pairs": [
+          [
+            "Prophase",
+            "Chromatin condenses into visible paired chromatids; spindle forms"
+          ],
+          [
+            "Metaphase",
+            "Chromosomes align single-file along the equatorial plate"
+          ],
+          [
+            "Anaphase",
+            "Sister chromatids separate into daughter chromosomes moving to poles"
+          ],
+          [
+            "Telophase",
+            "Nuclear envelopes reassemble around uncoiling chromatin at each pole"
+          ]
+        ],
+        "explanation": "The four phases of mitosis achieve precise, equal distribution of duplicated genetic material.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p25 \"Mitosis\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "In which phase of interphase does semiconservative replication of the nuclear genome take place?",
+        "options": [
+          "G0 phase",
+          "G1 phase",
+          "S phase",
+          "G2 phase"
+        ],
+        "answer": 2,
+        "explanation": "DNA replication occurs exclusively during the S (synthesis) phase of interphase.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p24 \"Cell Life Cycle\""
+        }
+      },
+      {
+        "type": "typed",
+        "prompt": "What physical process divides the cytoplasm and organelles into two daughter cells following mitosis?",
+        "accept": [
+          "cytokinesis",
+          "Cytokinesis"
+        ],
+        "explanation": "Cytokinesis is the physical division of the cytoplasm and organelles into two daughter cells.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p24 \"Cell Life Cycle\""
+        }
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'Mitosis is described as dividing the genetic material equally, and cytokinesis as dividing the cytoplasm and organelles. What would result from mitosis occurring without cytokinesis?',
-        model: 'A single cell containing two complete sets of genetic material — two nuclei — rather than two cells. Mitosis only divides the genetic material; it is cytokinesis that separates the cytoplasm and organelles into two daughter cells. Without that second step the nuclear division has happened but the cell has not been split, so nothing has been produced except a binucleate cell.',
-        rubric: ['States mitosis divides genetic material only', 'Identifies cytokinesis as the step that splits the cell', 'Concludes one cell with two nuclei'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A patient receiving paclitaxel (Taxol) chemotherapy for breast cancer experiences peripheral neuropathy and hair loss. Paclitaxel binds to and hyper-stabilizes microtubules, preventing their normal depolymerization. Explain how this drug arrests cancer cell division and why rapidly renewing tissues suffer toxic collateral damage.",
+        "model": "During normal mitosis, dynamic polymerization and depolymerization of spindle microtubules are mandatory: microtubules must shorten during anaphase to pull sister chromatids to opposite poles. By stabilizing microtubule polymers against disassembly, paclitaxel freezes the mitotic spindle, triggering the spindle assembly checkpoint and arresting cells in metaphase. Unable to proceed to anaphase, dividing cancer cells undergo apoptotic cell death. Normal rapidly dividing tissues—such as hair follicle matrix cells and hematopoietic bone marrow precursors—frequently cycle through mitosis and are arrested in identical fashion, producing alopecia and myelosuppression.",
+        "rubric": [
+          "Identifies microtubule disassembly as essential for anaphase chromatid separation",
+          "Explains how failure of spindle dynamics arrests the cell cycle at the metaphase-anaphase transition",
+          "Connects mitotic disruption to death of rapidly cycling non-cancerous cells (hair follicles, marrow)"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Using "mitosis" to mean the whole of cell division; it is one of three stages.',
-      'Thinking meiosis happens wherever gametes are needed rather than only in the gonads.',
-      'Calling the oocyte an egg — it is the cell that develops into one.',
+    "commonMistakes": [
+      "Believing interphase is a \"resting\" phase: it is the metabolically busiest period of the cell lifecycle, synthesizing all cellular macromolecules and replicating the genome.",
+      "Confusing sister chromatids with homologous chromosomes: sister chromatids are identical copies produced during S phase joined at a centromere; homologous chromosomes are maternal/paternal chromosome pairs.",
+      "Assuming cytokinesis and mitosis are identical: mitosis is nuclear karyokinesis; cytokinesis is cytoplasmic division."
     ],
-    skills: [
-      'Mitosis and cytokinesis are separate stages doing separate jobs — genetic material and cytoplasm — and every question of the form "what if only one happened" is answered from that separation.',
-      'Which division a cell undergoes follows from what it is: somatic cells copy themselves by mitosis, germ cells in the gonads make gametes by meiosis. Naming the cell type answers the process question.',
+    "skills": [
+      "Identify the distinct stages of mitosis from histological photomicrographs or schematic diagrams.",
+      "Predict how pharmacologic or genetic disruption of specific cell cycle checkpoints affects tissue growth."
     ],
-    selfCheck: 'From a blank page: the three stages of somatic division with one job each, what meiosis produces and where it happens, and the difference between a somatic and a germ cell.',
-    sourceRefs: [
-      { ref: 'phys.1.2026', location: 'p24 "Mitosis divides genetic material equally"' },
-      { ref: 'phys.1.2026', location: 'p27 "Only occurs in the gonads (ovaries and testes)"' },
+    "selfCheck": "Walk through PMAT step-by-step from memory, stating what happens to the nuclear envelope, chromosomes, and mitotic spindle in each phase.",
+    "visuals": [
+      {
+        "fig": "mitosisPhases"
+      },
+      {
+        "fig": "cellAnatomy"
+      },
+      {
+        "gen": true
+      }
     ],
+    "sourceRefs": [
+      {
+        "ref": "phys.1.2026",
+        "location": "p24 \"Cell Life Cycle\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p25 \"Mitosis\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p27 \"Meiosis\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p25 \"Cell Life Cycle\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p26 \"Mitosis\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p28 \"Meiosis\""
+      }
+    ]
   },
   {
-    id: 'abct2326-epithelium-classification',
-    subject: 'ABCT2326', unit: 'phys.cells', type: 'matching',
-    title: 'Classifying epithelia — by shape, by layers, and by gland',
-    tags: ['high-yield'],
-    lesson: {
-      explanation: 'Epithelia are classified twice over, and both classifications apply to the same tissue at once. By shape: squamous epithelia are thin and flat, cuboidal epithelia are square shaped, and columnar epithelia are tall, slender rectangles. By layers: a simple epithelium is a single layer of cells, a stratified epithelium is several layers. Any named epithelium therefore carries one term from each list. Glandular epithelia are classified a third way, by where the secretion goes: endocrine glands release hormones into interstitial fluid and have no ducts, while exocrine glands produce secretions onto epithelial surfaces through ducts. Note the number: singular is epithelium, plural is epithelia.',
-      plain: 'Two questions, asked every time: what shape are the cells, and how many layers of them are there. Answer both and you have named the tissue — "simple squamous" is one layer of thin flat cells. The gland split is separate and simpler: if it has a duct it is exocrine and the secretion goes onto a surface; if it has no duct it is endocrine and the secretion goes into the fluid around it, which is how a hormone reaches the blood.',
-      keyFacts: [
-        'By shape: squamous (thin and flat), cuboidal (square shaped), columnar (tall, slender rectangles).',
-        'By layers: simple (single layer), stratified (several layers).',
-        'Every named epithelium takes one term from each classification.',
-        'Endocrine glands: release hormones into interstitial fluid, NO ducts.',
-        'Exocrine glands: produce secretions onto epithelial surfaces THROUGH ducts.',
-        'Singular epithelium, plural epithelia.',
+    "id": "abct2326-epithelium-classification",
+    "subject": "ABCT2326",
+    "unit": "phys.cells",
+    "type": "concept",
+    "title": "Epithelial tissue: characteristics, structural classification, and glandular types",
+    "tags": [
+      "foundation",
+      "high-yield",
+      "epithelium",
+      "tissues",
+      "histology"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "part",
+      "dsePart": "core",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Compulsory I \"Cells and Molecules of Life\" — human tissues."
+      },
+      "beyond": [
+        {
+          "t": "The five defining hallmarks of epithelia: cellularity, polarity (apical vs basal), basement membrane attachment, avascularity, and ongoing regeneration.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p33 \"Characteristics of Epithelia\""
+          }
+        },
+        {
+          "t": "The two-dimensional classification matrix: cell layer count (simple vs stratified) crossed with cell cross-sectional shape (squamous, cuboidal, columnar).",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p34 \"Classification of Epithelia\""
+          }
+        },
+        {
+          "t": "Glandular epithelia split strictly by discharge route: endocrine glands (ductless, releasing hormones into interstitial fluid and blood) versus exocrine glands (secreting via ducts onto surfaces).",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p36 \"Glandular Epithelia\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "Epithelial tissue comprises continuous sheets of specialized cells that cover all exposed external body surfaces, line internal cavities and passageways, and form secretory glands. Epithelia are defined by five fundamental histological characteristics: (1) Cellularity: cells are bound tightly together with minimal intervening extracellular space via specialized cell junctions (tight junctions, desmosomes, and gap junctions); (2) Polarity: epithelial cells possess distinct structural and functional polarity, presenting an exposed apical surface facing the external environment or internal lumen (frequently adorned with microvilli or motile cilia) and an attached basal surface resting on underlying structures; (3) Attachment: the basal surface firmly anchors to a specialized non-cellular basement membrane (basal lamina) synthesized jointly by the epithelial cells and adjacent connective tissue; (4) Avascularity: epithelia completely lack blood vessels, acquiring essential oxygen and nutrients entirely by diffusion across the basement membrane from capillaries in underlying vascular connective tissue; and (5) Regeneration: continuous stem cell division in the basal layer rapidly replaces damaged or sloughed surface cells. Epithelia execute four vital physiological functions: physical protection against abrasion and pathogens, regulation of barrier permeability, sensory reception via neuroepithelia, and specialized secretion. Anatomists classify covering and lining epithelia using a two-variable histological matrix based on cell layer number and apical cell shape. By layer number, epithelia are either Simple (a single layer of cells resting on the basement membrane, optimized for rapid diffusion, filtration, absorption, or secretion) or Stratified (multiple cell layers stacked atop the basement membrane, engineered for mechanical protection and abrasion resistance). By cell shape, epithelia are Squamous (flat, thin, plate-like cells with flattened disc-like nuclei), Cuboidal (cube-shaped, box-like cells with spherical central nuclei), or Columnar (tall, slender rectangular prisms with elongated oval nuclei positioned near the basal lamina). Combining these yields six primary types: simple squamous (lining alveoli and vascular endothelium), simple cuboidal (kidney tubules), simple columnar (gastric and intestinal lining), stratified squamous (keratinized on skin epidermis, non-keratinized in oral cavity and esophagus), stratified cuboidal (rare sweat and mammary ducts), and stratified columnar (rare pharyngeal/urethral zones). Two specialized variants expand this framework: Pseudostratified ciliated columnar epithelium, which appears stratified because cell nuclei reside at varying heights, though every individual cell maintains direct attachment to the basement membrane (characteristic of nasal cavities, trachea, and bronchi); and Transitional epithelium (urothelium), a stratified epithelium capable of significant stretching and mechanical recoil without cellular detachment, lining the renal pelves, ureters, and urinary bladder. Glandular epithelia specialize in fluid secretion and divide strictly by delivery route: Endocrine glands are ductless glands that secrete chemical messengers (hormones) directly into interstitial fluid for systemic uptake into the bloodstream; Exocrine glands discharge secretions onto external or internal epithelial surfaces through tubular epithelial ducts (e.g. sweat glands, salivary glands, and pancreatic exocrine acini).",
+      "plain": "Epithelial tissue is the body's wrapping paper and lining. It has five golden rules: packed tight with almost no gaps (cellularity), distinct top and bottom (polarity), glued down to a basement membrane (attachment), has zero blood vessels of its own (avascularity), and repairs itself lightning fast (regeneration). We classify them like a grid: by how many layers they have (simple = 1 layer for easy soaking or breathing; stratified = many layers for tough armor) and what shape the top cells are (squamous = flat like fried eggs; cuboidal = neat cubes; columnar = tall pillars). Two special types are pseudostratified (looks layered but every cell touches the bottom; lines airways) and transitional (stretches like a balloon; lines the bladder). Glands split into endocrine (ductless, puts hormones straight into blood) and exocrine (uses pipes to squirt sweat or saliva onto surfaces).",
+      "keyFacts": [
+        "The five hallmarks of epithelia: cellularity, polarity, basement membrane attachment, avascularity, and regeneration.",
+        "Epithelial tissues are completely avascular; all nutrients must diffuse from underlying vascular connective tissue.",
+        "Simple epithelia consist of a single layer, optimized for diffusion, filtration, absorption, and secretion.",
+        "Stratified epithelia consist of multiple layers, specialized for mechanical protection against abrasion.",
+        "Squamous cells are thin and flat; cuboidal cells are boxy cubes; columnar cells are tall rectangular columns.",
+        "Simple squamous epithelium lines pulmonary alveoli and blood vessel lumens (endothelium).",
+        "Simple columnar epithelium lines the stomach, small intestine, and colon with absorptive microvilli.",
+        "Pseudostratified ciliated columnar epithelium lines the trachea and bronchi; all cells touch the basement membrane.",
+        "Transitional epithelium (urothelium) lines the urinary bladder and ureters, stretching without losing integrity.",
+        "Endocrine glands are ductless and secrete hormones into blood; exocrine glands secrete onto surfaces through ducts."
       ],
-      prerequisites: ['abct2326-cells-organisation'],
-      examples: [],
+      "prerequisites": [
+        "abct2326-cells-organisation"
+      ],
+      "examples": [
+        "In cigarette smokers, chronic irritant exposure causes respiratory pseudostratified ciliated columnar epithelium to undergo squamous metaplasia into stratified squamous epithelium, losing motile cilia and crippling the mucus escalator.",
+        "Pemphigus vulgaris is an autoimmune blistering dermatosis where autoantibodies target desmoglein proteins in desmosomes, destroying epithelial cellularity and causing massive epidermal detachment."
+      ]
     },
-    memory: {
-      wordOrigin: 'Squamous is from squama, a scale — thin and flat like a fish scale. Columnar is a column: tall and narrow. Stratified is in strata, layers.',
-      comparison: 'Endo- inward, exo- outward. Endocrine secretes inward into the fluid, exocrine outward onto a surface. The duct is the giveaway.',
-      chunking: 'Shape then layers, always in that order when you write the name: simple squamous, stratified columnar.',
+    "memory": {
+      "chunking": "Five hallmarks: C-P-A-A-R (Cellularity, Polarity, Attachment, Avascular, Regeneration). Classification grid: 2 layers (Simple/Stratified) × 3 shapes (Squamous/Cuboidal/Columnar) + 2 specials (Pseudostratified/Transitional).",
+      "comparison": "Endocrine vs Exocrine: Endocrine is 'in' (ductless into internal blood); Exocrine is 'exit' (tubular ducts squirt onto surface).",
+      "visualCue": "Picture floor tiles: simple squamous is single thin paper tiles; stratified squamous is a thick stack of cardboard; transitional is a stretchy rubber mat.",
+      "teachBack": "Recite the five hallmarks of epithelium, draw the classification grid, and explain why simple squamous is ideal for alveoli while stratified squamous covers the skin."
     },
-    practice: [
-      { type: 'matching', prompt: 'Match each epithelial shape to its description.', pairs: [['Squamous', 'Thin and flat'], ['Cuboidal', 'Square shaped'], ['Columnar', 'Tall, slender rectangles']],
-        explanation: 'The three shapes; the layer count is a separate question asked of the same tissue.',
-        src: { ref: 'phys.1.2026', location: 'p34 "Columnar epithelia -- tall, slender rectangles"' } },
-      { type: 'mcq', prompt: 'A stratified epithelium is one that:', options: ['Has cells of mixed shape', 'Consists of several layers of cells', 'Is attached to a basement membrane', 'Contains glands'], answer: 1,
-        explanation: 'Stratified = several layers. Simple = a single layer.',
-        src: { ref: 'phys.1.2026', location: 'p34 "Stratified epithelium -- several layers of cells"' } },
-      { type: 'mcq', prompt: 'Which is TRUE of endocrine glands?', options: ['They secrete through ducts onto surfaces', 'They release hormones into interstitial fluid and have no ducts', 'They are a type of connective tissue', 'They are always stratified'], answer: 1,
-        explanation: 'Endocrine glands are ductless and release hormones into interstitial fluid; exocrine glands use ducts onto epithelial surfaces.',
-        src: { ref: 'phys.1.2026', location: 'p36 "Endocrine glands"' } },
-      { type: 'cloze', prompt: 'The singular of "epithelia" is ______.', accept: ['epithelium'],
-        explanation: 'Singular epithelium, plural epithelia — the lecture states it explicitly.',
-        src: { ref: 'phys.1.2026', location: 'p34 "Singular = Epithelium; Plural = Epithelia"' } },
-      { type: 'explain', prompt: 'Why does an epithelium need two classifications rather than one?',
-        model: 'Because shape and layer count vary independently and each one carries different information. The shape of the cells is about what the tissue does — thin flat cells suit exchange, tall columnar cells suit absorption and secretion — while the number of layers is about how much wear it has to take, a single layer being efficient and several layers protective. A one-term name would lose one of those two facts, so both are always given.',
-        rubric: ['States the two classifications are independent', 'Links shape to function', 'Links layers to protection or wear'] },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each epithelial tissue type with its representative anatomical location and function.",
+        "pairs": [
+          [
+            "Simple squamous epithelium",
+            "Alveolar air sacs and vascular endothelium for rapid gas diffusion"
+          ],
+          [
+            "Simple columnar epithelium",
+            "Gastric and intestinal lining for nutrient absorption and secretion"
+          ],
+          [
+            "Pseudostratified ciliated columnar",
+            "Tracheal and bronchial lining for mucus clearance via cilia"
+          ],
+          [
+            "Transitional epithelium",
+            "Urinary bladder and ureters for accommodating fluctuating volume"
+          ]
+        ],
+        "explanation": "Epithelial tissue architecture directly dictates its physiological suitability for diffusion, secretion, or mechanical stretching.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p34 \"Classification of Epithelia\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which of the following is NOT one of the five defining characteristics of epithelial tissue?",
+        "options": [
+          "High vascularity with extensive capillary networks within the epithelium",
+          "Basement membrane attachment at the basal surface",
+          "Structural and functional polarity (apical versus basal surfaces)",
+          "Rapid stem cell regeneration"
+        ],
+        "answer": 0,
+        "explanation": "Epithelia are completely avascular; they contain no blood vessels and rely entirely on diffusion from underlying vascular connective tissue.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p33 \"Characteristics of Epithelia\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "How are endocrine glands fundamentally distinguished from exocrine glands?",
+        "options": [
+          "Endocrine glands are multicellular, whereas exocrine glands are always unicellular",
+          "Endocrine glands are ductless and release hormones into interstitial fluid, whereas exocrine glands secrete through ducts onto surfaces",
+          "Endocrine glands originate from mesoderm, whereas exocrine glands originate from ectoderm",
+          "Endocrine glands produce mucous secretions, whereas exocrine glands produce only serous secretions"
+        ],
+        "answer": 1,
+        "explanation": "Endocrine glands lack ducts and release hormones into interstitial fluid and the bloodstream; exocrine glands discharge via epithelial ducts.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p36 \"Glandular Epithelia\""
+        }
+      },
+      {
+        "type": "typed",
+        "prompt": "What specialized stratified epithelial tissue lines the urinary bladder and ureters, capable of repeated stretching and distension?",
+        "accept": [
+          "transitional epithelium",
+          "Transitional epithelium",
+          "transitional",
+          "urothelium",
+          "Urothelium"
+        ],
+        "explanation": "Transitional epithelium (urothelium) is uniquely adapted to stretch and recoil as the urinary bladder fills and empties.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p34 \"Classification of Epithelia\""
+        }
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'A tissue must allow rapid diffusion across it and takes almost no mechanical wear. Predict its epithelial classification on both axes, and justify each half.',
-        model: 'Simple squamous. Simple because a single layer of cells is the shortest possible diffusion distance, and any extra layer would slow exchange without being needed where there is no wear. Squamous because those cells are thin and flat, again minimising the distance a substance has to cross. Both halves of the name follow from the same requirement — the least material between the two sides.',
-        rubric: ['Names simple and justifies it by diffusion distance', 'Names squamous and justifies it by thinness', 'Ties both to the absence of mechanical wear'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A patient with gastroesophageal reflux disease (GERD) undergoes an upper endoscopy. Biopsy reveals that the normal stratified squamous epithelium of the lower esophagus has been replaced by simple columnar epithelium containing goblet cells (Barrett esophagus). Explain why the body undergoes this metaplastic shift and analyze the physiological trade-off.",
+        "model": "The lower esophagus is normally lined by non-keratinized stratified squamous epithelium, designed to withstand the physical abrasion of swallowed food boluses but poorly equipped to neutralize gastric acid. Chronic exposure to refluxed hydrochloric acid and pepsin damages squamous epithelial junctions. In response to recurrent acid injury, basal stem cells undergo metaplasia, differentiating into simple columnar epithelium with mucus-secreting goblet cells (resembling intestinal mucosa). While this columnar sheet secretes protective alkaline mucus and resists acid degradation, it offers significantly less physical abrasion resistance and markedly elevates the long-term risk of esophageal adenocarcinoma.",
+        "rubric": [
+          "Contrasts the normal stratified squamous esophageal lining with the metaplastic simple columnar epithelium",
+          "Explains the adaptive advantage of columnar mucus secretion against gastric acid",
+          "Identifies the physiological trade-off: reduced abrasion resistance and increased malignant transformation risk"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Giving only one half of the name — "squamous" without saying simple or stratified.',
-      'Reversing endocrine and exocrine; the duct is the test.',
-      'Writing "epitheliums".',
+    "commonMistakes": [
+      "Believing epithelia contain their own blood capillaries: all epithelial sheets are strictly avascular and depend entirely on underlying connective tissue vascularity.",
+      "Assuming pseudostratified epithelium is genuinely stratified: all cells remain in physical contact with the basement membrane despite nuclei appearing at different depths.",
+      "Confusing simple columnar epithelium with stratified columnar: simple columnar lines the majority of the gastrointestinal tract; stratified columnar is extremely rare in humans."
     ],
-    skills: [
-      'Two independent axes means the name is always two words, and each word answers a different question: shape for what the tissue does, layers for how much wear it takes. A one-word answer is an incomplete answer.',
-      'Endocrine versus exocrine is settled by one observation — is there a duct — and everything else follows: no duct means the secretion enters interstitial fluid and therefore the bloodstream, which is exactly what makes a hormone a hormone.',
-      'Shape predicts function well enough to reason from: flat for exchange, cuboidal for secretion and absorption in small volumes, columnar where there is a lot of absorbing or secreting to do.',
+    "skills": [
+      "Classify any epithelial photomicrograph by layer count (simple/stratified) and surface cell shape (squamous/cuboidal/columnar).",
+      "Explain how epithelial modifications (microvilli, cilia, keratinization) support regional organ functions."
     ],
-    selfCheck: 'From a blank page: the three shapes with descriptions, the two layer terms, and the endocrine/exocrine split with the feature that distinguishes them.',
-    sourceRefs: [
-      { ref: 'phys.1.2026', location: 'p34 "Squamous epithelia — thin and flat"' },
-      { ref: 'phys.1.2026', location: 'p36 "Endocrine glands"' },
+    "selfCheck": "Name the five hallmarks of epithelial tissue and classify the epithelia lining pulmonary alveoli, trachea, intestine, and urinary bladder.",
+    "visuals": [
+      {
+        "fig": "epithelialTissues"
+      },
+      {
+        "schematic": "cellOrganisation"
+      },
+      {
+        "gen": true
+      }
     ],
+    "sourceRefs": [
+      {
+        "ref": "phys.1.2026",
+        "location": "p33 \"Characteristics of Epithelia\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p34 \"Classification of Epithelia\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p36 \"Glandular Epithelia\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p34 \"Characteristics of Epithelia\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p35 \"Classification of Epithelia\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p37 \"Glandular Epithelia\""
+      }
+    ]
   },
   {
-    id: 'abct2326-connective-tissue-classes',
-    subject: 'ABCT2326', unit: 'phys.cells', type: 'definition',
-    title: 'Connective tissue — three classes, and why blood is one of them',
-    tags: ['high-yield'],
-    lesson: {
-      explanation: 'Connective tissue is defined by three characteristics: specialised cells, solid extracellular protein fibres, and fluid extracellular ground substance. The fibres and ground substance together make up the matrix, which is the majority of the tissue volume and which determines the tissue’s specialised function. Its functions are establishing a structural framework for the body, transporting fluids and dissolved materials, protecting delicate organs, supporting, surrounding and interconnecting other types of tissue, storing energy reserves especially as triglycerides, and defending the body from invading microorganisms. There are three classes. Connective tissue proper connects and protects, and divides into loose connective tissue — more ground substance, fewer fibres, such as areolar tissue and adipose tissue — and dense connective tissue, with more fibres and less ground substance, such as tendons. Fluid connective tissues transport: these are blood and lymph, with a watery matrix of dissolved proteins carrying specific cell types called formed elements. The formed elements of blood are red blood cells (erythrocytes), which transport oxygen and to a lesser degree carbon dioxide; white blood cells (leukocytes), which help defend the body from infection and disease; and platelets, membrane-enclosed packets of cytoplasm that function in blood clotting. Lymph is extracellular fluid collected from the interstitial space, monitored by the immune system, transported by the lymphatic system and returned to the venous system. Supporting connective tissues support soft tissues and body weight: cartilage, with a gel-type ground substance for shock absorption and protection, and bone, calcified by calcium salts and minerals for weight support. In bone, osteocytes are arranged around central canals within the matrix and small channels called canaliculi give access to the blood supply, and the periosteum covering the bone surface has a fibrous layer and a cellular layer.',
-      plain: 'The definition is the key to the whole category: connective tissue is cells scattered in a matrix, and the matrix is most of it. That is why blood counts — plasma is a matrix and the blood cells are scattered in it — and it is the single fact this section exists to test. After that the three classes sort by job: proper connects and protects, fluid transports, supporting bears weight.',
-      keyFacts: [
-        'Three characteristics: specialised cells, solid extracellular protein fibres, fluid extracellular ground substance.',
-        'Fibres + ground substance = matrix, the majority of tissue volume, determining specialised function.',
-        'Class A — connective tissue proper: connect and protect.',
-        'Loose connective tissue: more ground substance, fewer fibres — areolar, adipose.',
-        'Dense connective tissue: more fibres, less ground substance — tendons.',
-        'Class B — fluid connective tissues: blood and lymph, watery matrix of dissolved proteins, carrying formed elements.',
-        'Formed elements: erythrocytes (oxygen transport), leukocytes (defence), platelets (clotting).',
-        'Lymph: interstitial fluid, monitored by the immune system, transported by the lymphatic system, returned to the venous system.',
-        'Class C — supporting connective tissues: cartilage (gel ground substance, shock absorption) and bone (calcified, weight support).',
-        'In bone: osteocytes around central canals, canaliculi accessing blood supply, periosteum with a fibrous and a cellular layer.',
+    "id": "abct2326-connective-tissue-classes",
+    "subject": "ABCT2326",
+    "unit": "phys.cells",
+    "type": "concept",
+    "title": "Connective tissue: matrix components and the three primary classes",
+    "tags": [
+      "foundation",
+      "high-yield",
+      "connective-tissue",
+      "tissues",
+      "histology"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "part",
+      "dsePart": "core",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Compulsory I \"Cells and Molecules of Life\" — human tissues."
+      },
+      "beyond": [
+        {
+          "t": "Connective tissue defined strictly by its tripartite composition: specialized cells, extracellular protein fibres, and clear ground substance (fibres + ground substance = extracellular matrix).",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p37 \"Characteristics of Connective Tissue\""
+          }
+        },
+        {
+          "t": "Classification into three primary classes: Connective Tissue Proper, Fluid Connective Tissues, and Supporting Connective Tissues.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p39 \"Classification of Connective Tissues\""
+          }
+        },
+        {
+          "t": "CT Proper subdivisions: Loose (areolar, adipose, reticular) versus Dense (regular, irregular, elastic).",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p40 \"Connective Tissue Proper\""
+          }
+        },
+        {
+          "t": "Supporting CT matrix differences: avascular cartilage with chondrocytes in lacunae versus calcified vascular bone with osteocytes in osteons.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p39 \"Supporting Connective Tissues\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "Connective tissue is the most abundant, structurally diverse, and widely distributed tissue class in the human body. Unlike epithelia—which consist of densely packed cellular sheets—connective tissues are characterized by specialized cells widely dispersed within an extensive non-cellular extracellular matrix. The tissue is universally composed of three fundamental elements: (1) Specialized cells (such as fibroblasts, adipocytes, chondrocytes, and osteocytes); (2) Extracellular protein fibres (collagen fibres providing tensile strength, reticular fibres forming delicate branching networks, and elastic fibres enabling stretch and elastic recoil); and (3) Ground substance, a clear, viscous, hydrophilic fluid containing proteoglycans and hyaluronic acid that fills all spaces between cells and fibres. Together, extracellular fibres and ground substance constitute the extracellular matrix, which accounts for the overwhelming majority of connective tissue volume and determines its mechanical properties. Connective tissues perform six systemic roles: structural framework creation, fluid and solute transport, physical organ protection, tissue interconnection, energy storage (triglycerides), and pathogen defense. Histologists divide connective tissues into three major classes: (1) Connective Tissue Proper: containing varied cell populations within a syrupy ground substance. This class subdivides into Loose connective tissue—which features an open structural framework with abundant ground substance that cushions organs and absorbs shock, comprising Areolar tissue (the universal packing material beneath epithelia), Adipose tissue (specialized for lipid storage, insulation, and metabolic cushioning), and Reticular tissue (a delicate 3D stroma supporting parenchymal cells in the spleen, liver, and lymph nodes); and Dense connective tissue—dominated by densely packed collagen fibres, comprising Dense Regular connective tissue (cables of tightly packed parallel collagen fibres resisting unidirectional tension in tendons and aponeuroses), Dense Irregular connective tissue (an interwoven, multi-directional meshwork resisting tension from varied vectors in the dermis, periosteum, and organ capsules), and Elastic tissue (springy elastic fibres in arterial walls and vertebral ligaments). (2) Fluid Connective Tissues: featuring distinctive aqueous matrices without insoluble structural fibres under resting conditions: Blood—containing watery plasma (water, electrolytes, plasma proteins) and suspended formed elements (erythrocytes for gas transport, leukocytes for immune defense, thrombocytes for hemostasis); and Lymph—interstitial fluid collected by lymphatic vessels and returned to the venous circulation. (3) Supporting Connective Tissues: possessing a dense, highly specialized matrix that provides a weight-bearing framework for the entire body: Cartilage—a firm, gel-like avascular matrix rich in chondroitin sulfate, where chondrocytes reside isolated within tiny cavities called lacunae; cartilage occurs in three varieties: Hyaline cartilage (glassy, smooth collagen matrix covering synovial joints, costal cartilages, and respiratory passages), Elastic cartilage (flexible elastic fibre mesh in the external ear and epiglottis), and Fibrocartilage (dense bundles of durable collagen fibres resisting extreme compression and shearing in intervertebral discs, the pubic symphysis, and menisci); and Bone (Osseous tissue)—a rigid, mineralized matrix containing calcium phosphate crystals (hydroxyapatite) deposited upon collagen scaffolding, where osteocytes reside in lacunae interconnected by microscopic canaliculi, organized around central blood vessels into cylindrical structural units called osteons (Haversian systems).",
+      "plain": "Connective tissue is the body's scaffolding, glue, and plumbing. Unlike skin cells packed shoulder-to-shoulder, connective tissue consists of scattered cells floating in a vast extracellular matrix made of protein fibres (collagen for strength, elastin for stretch) and watery jelly called ground substance. It divides into three big families: (1) Connective Tissue Proper, which splits into Loose (areolar packing cushion, fatty adipose, reticular organ webs) and Dense (regular tendons pulled in one direction, irregular dermis pulled in many directions, elastic artery walls); (2) Fluid Connective Tissues, which are liquid highways with no solid fibres (blood carrying red/white cells and platelets, and clear lymph); and (3) Supporting Connective Tissues, which bear heavy loads (avascular cartilage with chondrocytes in lacunae, and rock-hard calcified bone packed with osteocytes and blood vessels).",
+      "keyFacts": [
+        "Connective tissue is defined by three components: specialized cells, extracellular protein fibres, and ground substance.",
+        "The extracellular matrix (protein fibres + ground substance) accounts for the bulk of connective tissue volume.",
+        "The three primary classes: Connective Tissue Proper, Fluid Connective Tissues, and Supporting Connective Tissues.",
+        "Loose connective tissue comprises areolar, adipose, and reticular tissues, serving as cushioning packing material.",
+        "Dense regular connective tissue features parallel collagen fibres resisting pull along a single axis (tendons, ligaments).",
+        "Dense irregular connective tissue features an interwoven collagen mesh resisting stress from multiple directions (dermis).",
+        "Fluid connective tissues consist of blood (plasma and formed elements) and lymph.",
+        "Cartilage is completely avascular; chondrocytes reside in lacunae within a chondroitin sulfate gel matrix.",
+        "The three cartilage types: hyaline (joint surfaces), elastic (external ear), and fibrocartilage (intervertebral discs).",
+        "Bone possesses a rigid mineralized matrix of calcium phosphate crystals and collagen organized into osteons."
       ],
-      prerequisites: ['abct2326-cells-organisation'],
-      examples: ['Areolar and adipose for loose; tendon for dense.'],
+      "prerequisites": [
+        "abct2326-cells-organisation"
+      ],
+      "examples": [
+        "Scurvy results from vitamin C deficiency, which cripples the enzyme prolyl hydroxylase required for collagen cross-linking; defective collagen causes blood vessel fragility, poor wound healing, and loss of teeth as periodontal ligaments fail.",
+        "Osteoarthritis involves the progressive mechanical wear, enzymatic breakdown, and loss of articular hyaline cartilage capping long bones, causing bone-on-bone friction, severe joint pain, and stiffness."
+      ]
     },
-    memory: {
-      chunking: 'Three classes, three verbs: proper CONNECTS, fluid TRANSPORTS, supporting HOLDS UP.',
-      comparison: 'Loose has more ground substance and fewer fibres; dense is the reverse. The word describes the fibre density, not the toughness of the feel.',
-      teachBack: 'Say out loud why blood is connective tissue without using the word "connect". If you can only justify it by the name, you have not got the definition.',
+    "memory": {
+      "chunking": "Three CT Classes: Proper (Loose & Dense) → Fluid (Blood & Lymph) → Supporting (Cartilage & Bone).",
+      "comparison": "Regular vs Irregular Dense CT: Regular aligns fibres in parallel for single-direction pull (tendons); Irregular weaves fibres randomly to resist multidirectional stretching (skin dermis).",
+      "visualCue": "Picture packaging: loose bubble wrap (areolar/adipose), tough nylon straps (dense tendons), water pipes (blood/lymph), stiff rubber pads (cartilage), and steel girders (bone).",
+      "teachBack": "List the three core components of any connective tissue, then contrast cartilage and bone in matrix composition and vascularity."
     },
-    practice: [
-      { type: 'mcq', prompt: 'Which three features define connective tissue?', options: ['Cellularity, polarity, avascularity', 'Specialised cells, solid extracellular protein fibres, fluid extracellular ground substance', 'Fibres, ducts and a basement membrane', 'Contractility, excitability, extensibility'], answer: 1,
-        explanation: 'The first option is the epithelial characteristics; the last is a muscle property list.',
-        src: { ref: 'phys.1.2026', location: 'p37 "Solid extracellular protein fibers"' } },
-      { type: 'matching', prompt: 'Match each connective tissue class to what it does.', pairs: [['Connective tissue proper', 'Connect and protect'], ['Fluid connective tissues', 'Transport'], ['Supporting connective tissues', 'Structural strength']],
-        explanation: 'Three classes, three jobs — the lecture gives exactly these words.',
-        src: { ref: 'phys.1.2026', location: 'p39 "A. Connective tissue proper"' } },
-      { type: 'mcq', prompt: 'Loose connective tissue is characterised by:', options: ['More fibres, less ground substance', 'More ground substance, fewer fibres', 'A calcified matrix', 'A watery matrix of dissolved proteins'], answer: 1,
-        explanation: 'More ground substance and fewer fibres — areolar and adipose tissue. Dense is the reverse and gives you tendon.',
-        src: { ref: 'phys.1.2026', location: 'p40 "Loose connective tissue"' } },
-      { type: 'typed', prompt: 'Name the three formed elements of blood.', accept: ['red blood cells, white blood cells, platelets', 'erythrocytes, leukocytes, platelets', 'rbc wbc platelets', 'red cells white cells platelets'],
-        explanation: 'Erythrocytes, leukocytes and platelets, carried in the watery matrix of dissolved proteins.',
-        src: { ref: 'phys.1.2026', location: 'p43 "Watery matrix of dissolved proteins"' } },
-      { type: 'explain', prompt: 'Blood is classified as connective tissue. Justify that from the definition rather than from the name.',
-        model: 'Connective tissue is defined as specialised cells in an extracellular matrix, where the matrix makes up the majority of the tissue volume and determines its specialised function. Blood fits exactly: the formed elements — erythrocytes, leukocytes and platelets — are the specialised cells, and plasma is the matrix, described as a watery matrix of dissolved proteins. It is placed in the fluid connective tissue class alongside lymph because that matrix is liquid, and the function that follows from a liquid matrix is transport.',
-        rubric: ['States the cells-in-a-matrix definition', 'Identifies plasma as the matrix and formed elements as the cells', 'Names the fluid class and transport as its function'] },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each specific connective tissue variety with its characteristic functional anatomical role.",
+        "pairs": [
+          [
+            "Areolar tissue",
+            "Universal loose packing cushion beneath epithelia and surrounding organs"
+          ],
+          [
+            "Dense regular connective tissue",
+            "Parallel collagen cables resisting unidirectional tension in tendons"
+          ],
+          [
+            "Hyaline cartilage",
+            "Smooth, glassy low-friction articular surface covering synovial joints"
+          ],
+          [
+            "Fibrocartilage",
+            "Durable shock-absorbing collagen pads in intervertebral discs and menisci"
+          ]
+        ],
+        "explanation": "The physical arrangement of fibres and ground substance in the extracellular matrix dictates the mechanical capability of each connective tissue.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p39 \"Classification of Connective Tissues\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which anatomical feature fundamentally distinguishes cartilage from osseous (bone) tissue?",
+        "options": [
+          "Cartilage possesses osteons, whereas bone contains chondroitin sulfate",
+          "Cartilage is completely avascular and relies on diffusion, whereas bone is highly vascularized",
+          "Cartilage contains formed elements, whereas bone contains only ground substance",
+          "Cartilage contains calcium phosphate hydroxyapatite, whereas bone contains only elastin"
+        ],
+        "answer": 1,
+        "explanation": "Cartilage is strictly avascular, acquiring nutrients by slow diffusion through the matrix; in contrast, bone is richly vascularized with osteonic blood supplies.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p39 \"Supporting Connective Tissues\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "What constitutes the extracellular matrix (ECM) of connective tissue?",
+        "options": [
+          "Specialized cells and intracellular organelles",
+          "Extracellular protein fibres and ground substance",
+          "Cytoskeleton microfilaments and intermediate filaments",
+          "Formed elements and cytoplasmic enzymes"
+        ],
+        "answer": 1,
+        "explanation": "The extracellular matrix is defined specifically as the extracellular protein fibres combined with the clear ground substance.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p37 \"Characteristics of Connective Tissue\""
+        }
+      },
+      {
+        "type": "typed",
+        "prompt": "What tiny chambers or cavities house mature chondrocytes within cartilage and osteocytes within bone matrix?",
+        "accept": [
+          "lacunae",
+          "Lacunae",
+          "lacuna",
+          "Lacuna"
+        ],
+        "explanation": "Lacunae are the small physical cavities within the extracellular matrix in which chondrocytes and osteocytes reside.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p39 \"Supporting Connective Tissues\""
+        }
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'Cartilage and bone are both supporting connective tissues, yet one absorbs shock and the other bears weight. Explain the difference from their matrices.',
-        model: 'The matrix determines the specialised function, and theirs differ. Cartilage has a gel-type ground substance, which deforms under load and returns, so it absorbs shock and protects. Bone is calcified — made rigid by calcium salts and minerals — so it does not deform and instead transmits and supports weight. Same class and same role of holding the body up, but the physical state of the matrix decides whether the tissue cushions or carries.',
-        rubric: ['Names cartilage’s gel ground substance', 'Names bone’s calcification', 'Links each matrix property to its function'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "An athlete suffers a complete tear of the anterior cruciate ligament (ACL) and a lateral meniscal tear in the knee. The orthopedist explains that while muscle and bone heal rapidly, torn ligaments and menisci heal exceedingly slowly and often require surgical reconstruction. Explain the physiological and histological reasons for this stark disparity in healing capacity.",
+        "model": "Tissue repair velocity is directly governed by regional vascular perfusion and metabolic turnover. Bone is a highly vascular supporting connective tissue with continuous Haversian canal blood flow, osteoclast remodeling, and rich osteoblast progenitor supply, allowing robust osteogenesis within weeks. In contrast, ligaments are composed of dense regular connective tissue with sparse fibroblasts and poor vascular supply, yielding limited collagen synthesis. The meniscus is made of fibrocartilage, which is predominantly avascular (especially in its inner two-thirds), requiring chondrocytes to obtain nutrition via slow diffusion from synovial fluid. This lack of direct microvascular capillary ingress prevents an effective inflammatory response and granulation tissue formation, resulting in minimal or absent spontaneous repair.",
+        "rubric": [
+          "Contrasts the rich vascularity of bone with the poor vascularity of dense regular CT (ligaments)",
+          "Identifies fibrocartilage as predominantly avascular, relying on slow synovial diffusion",
+          "Links absent direct capillary perfusion to failed inflammatory and proliferative healing phases"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Justifying blood as connective tissue by saying it connects things; the reason is the matrix.',
-      'Swapping loose and dense — loose has MORE ground substance.',
-      'Forgetting lymph as the second fluid connective tissue.',
+    "commonMistakes": [
+      "Assuming blood is an epithelial fluid: blood is classified strictly as a fluid connective tissue because it possesses specialized cells suspended in an extracellular matrix (plasma).",
+      "Confusing dense regular with dense irregular connective tissue: dense regular has parallel fibres for one-axis tension (tendons); dense irregular has interwoven fibres for multi-axis stress (dermis).",
+      "Believing cartilage contains blood vessels: cartilage is completely avascular, which is why cartilage injuries heal very slowly or not at all."
     ],
-    skills: [
-      'The matrix is the whole idea: it is most of the tissue by volume and it determines the specialised function, so every question about a connective tissue — including why blood is one — is answered by describing its matrix rather than its cells.',
-      'The three classes map onto three jobs, and the matrix state predicts which: fibrous matrix connects, liquid matrix transports, rigid or gel matrix supports. Given a matrix you can place the tissue without recalling the list.',
-      'Loose and dense are named for fibre content, not for how they feel. Tendon being dense follows from its needing many parallel fibres to carry tension — the density is functional.',
+    "skills": [
+      "Differentiate connective tissue proper, fluid CT, and supporting CT based on matrix physical state and cellular distribution.",
+      "Correlate the orientation of collagen fibres in dense regular versus dense irregular connective tissue with the mechanical forces encountered by the tissue."
     ],
-    selfCheck: 'From a blank page: the three defining characteristics, the three classes with a job and an example each, the three formed elements, and the blood argument in full.',
-    sourceRefs: [
-      { ref: 'phys.1.2026', location: 'p37 "Solid extracellular protein fibers"' },
-      { ref: 'phys.1.2026', location: 'p39 "A. Connective tissue proper"' },
-      { ref: 'phys.1.2026', location: 'p43 "Watery matrix of dissolved proteins"' },
+    "selfCheck": "Recite the three components of all connective tissues, name the three primary classes, and distinguish the three varieties of cartilage.",
+    "visuals": [
+      {
+        "fig": "connectiveTissues"
+      },
+      {
+        "gen": true
+      }
     ],
+    "sourceRefs": [
+      {
+        "ref": "phys.1.2026",
+        "location": "p37 \"Characteristics of Connective Tissue\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p39 \"Classification of Connective Tissues\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p40 \"Connective Tissue Proper\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p39 \"Fluid Connective Tissues\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p39 \"Supporting Connective Tissues\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p38 \"Characteristics of Connective Tissue\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p40 \"Classification of Connective Tissues\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p41 \"Connective Tissue Proper\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p40 \"Fluid Connective Tissues\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p40 \"Supporting Connective Tissues\""
+      }
+    ]
   },
   {
-    id: 'abct2326-muscle-neural-tissue',
-    subject: 'ABCT2326', unit: 'phys.cells', type: 'definition',
-    title: 'Muscle and neural tissue — the other two of the four',
-    tags: ['foundation'],
-    lesson: {
-      explanation: 'Muscle tissue is specialised for contraction and produces all body movement. There are three types: skeletal muscle tissue, the large body muscles responsible for movement; cardiac muscle tissue, found only in the heart; and smooth muscle tissue, found in the walls of hollow, contracting organs — blood vessels, the urinary bladder, and the respiratory, digestive and reproductive tracts. Neural tissue, also called nervous or nerve tissue, is specialised for conducting electrical impulses; it rapidly senses the internal or external environment, processes information and controls responses, and it is concentrated in the central nervous system, the brain and the spinal cord. It contains two types of cell. Neurons are the nerve cells and perform electrical communication. Neuroglia are the supporting cells, which repair and supply nutrients to neurons and maintain the physical structure of the tissue. A neuron has a cell body containing the nucleus and nucleolus, dendrites — short branches extending from the cell body that receive incoming signals — and an axon, or nerve fibre, a long thin extension of the cell body that carries outgoing electrical signals to their destination. Above the tissues, an organ is composed of two or more tissues serving different functions, and organs performing related functions are grouped into systems. The skin is the largest organ in the body, and it contains all four primary tissues: epithelial, connective, muscular and nervous.',
-      plain: 'Muscle sorts by where it is: skeletal moves you, cardiac is only in the heart, smooth is in the wall of anything hollow that squeezes. Neural sorts by which cell: neurons do the signalling, neuroglia keep them alive and supported. And the direction rule for a neuron is worth fixing now because it recurs all year — dendrites in, axon out.',
-      keyFacts: [
-        'Muscle tissue is specialised for contraction and produces all body movement.',
-        'Skeletal: the large body muscles responsible for movement.',
-        'Cardiac: found ONLY in the heart.',
-        'Smooth: walls of hollow contracting organs — blood vessels, bladder, respiratory, digestive and reproductive tracts.',
-        'Neural tissue conducts electrical impulses, senses, processes information and controls responses.',
-        'It is concentrated in the CNS: brain and spinal cord.',
-        'Neurons perform electrical communication; neuroglia are supporting cells that repair and supply nutrients.',
-        'Neuron parts: cell body (nucleus and nucleolus), dendrites (short, receive incoming), axon / nerve fibre (long, carries outgoing signals).',
-        'An organ is two or more tissues serving different functions; related organs form systems.',
-        'The skin is the largest organ, and has all four primary tissues.',
+    "id": "abct2326-muscle-neural-tissue",
+    "subject": "ABCT2326",
+    "unit": "phys.cells",
+    "type": "concept",
+    "title": "Muscle and neural tissues: the three muscle types and neuron-neuroglia functional roles",
+    "tags": [
+      "foundation",
+      "high-yield",
+      "muscle",
+      "nervous",
+      "tissues",
+      "neurons"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "most",
+      "dsePart": "core",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Compulsory I \"Cells and Molecules of Life\" — animal tissues; Compulsory III \"Nervous coordination\"."
+      },
+      "beyond": [
+        {
+          "t": "The three muscle types compared across striation, nuclei per cell, voluntary/involuntary control, and unique histology (intercalated discs in cardiac muscle).",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p51 \"Found only in the heart\""
+          }
+        },
+        {
+          "t": "Neural tissue split into two discrete cell populations: neurons (electrically excitable transmission units) and neuroglia (supportive cells repairing and nourishing neurons).",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p53 \"Neural Tissue\""
+          }
+        },
+        {
+          "t": "The invariant directional rule of neuron architecture: signal reception at branching dendrites, integration in cell body, and outgoing signal conduction along the single axon.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p54 \"Neuroglia\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "Muscle and neural tissues represent the body's excitable tissues, specialized for generating physical force and transmitting rapid electrical signals. Muscle tissue is dedicated to active contraction and mechanical tension generation, utilizing interactions between internal actin and myosin protein microfilaments to produce all bodily movements. Muscle tissue is categorized into three structurally and functionally distinct types: (1) Skeletal muscle: composed of very large, elongated cylindrical cells termed muscle fibers (up to 30 cm long); fibers are multinucleated with multiple peripheral nuclei lying immediately beneath the sarcolemma (resulting from embryonic myoblast fusion); fibers display prominent transverse striations due to precisely aligned sarcomeric arrangements of actin and myosin; skeletal muscle operates under voluntary somatic motor nervous system control, anchoring to skeleton via tendons to execute skeletal movement, maintain posture, and generate body heat; (2) Cardiac muscle: located strictly and exclusively within the muscular wall of the heart (myocardium); cells (cardiocytes) are shorter, branched, and typically possess a single central nucleus (occasionally two); cardiocytes are striated and contract involuntarily under the regulation of intrinsic pacemaker cells and autonomic nerve fibers; adjacent cardiocytes join end-to-end at specialized junctional complexes called intercalated discs, which combine desmosomes (anchoring intermediate filaments to withstand high systolic pressures) and gap junctions (low-resistance electrical channels allowing rapid ionic flow and synchronized contraction of the cardiac syncytium); and (3) Smooth muscle: non-striated, involuntary muscle located within the walls of hollow contracting visceral organs, blood vessels, respiratory airways, digestive tracts, the urinary bladder, and reproductive ducts; cells are small, spindle-shaped (fusiform) with a single central oval nucleus; smooth muscle lacks organized sarcomeres (actin and myosin disperse diagonally throughout cytoplasm), allowing contraction over extensive stretch ranges to regulate lumen diameter, propel food via peristalsis, and empty organs. Neural (nervous) tissue comprises the body's rapid communication network, specialized for detecting sensory stimuli, processing information, and conducting electrical nerve impulses. Approximately 98% of all neural tissue resides within the central nervous system (brain and spinal cord). Neural tissue consists of two distinct cell populations: (1) Neurons: the functional, electrically excitable cells responsible for processing and transmitting electrical impulses. A typical multipolar neuron comprises three principal anatomical regions: Cell body (soma), containing the large nucleus, prominent nucleolus, and intense protein-synthesizing machinery (Nissl bodies / rough ER); Dendrites, multiple short, highly branched cytoplasmic extensions projecting from the soma that act as antenna-like receptors receiving incoming synaptic inputs from other neurons or sensory receptors; and a single Axon (nerve fiber), an elongated cylindrical process originating at the axon hillock that propagates outgoing action potentials away from the cell body toward target synaptic terminals, where neurotransmitter release communicates with adjacent neurons, muscle fibers, or glands. Electrical signal transmission follows an invariant directional vector: incoming signals enter through branching dendrites, undergo spatial and temporal integration at the soma and axon hillock, and exit along the axon. (2) Neuroglia (glial cells): non-excitable supporting cells that outnumber neurons, maintaining homeostatic interstitial fluid composition, providing mechanical scaffolding, defending against pathogens, repairing injured tissue, and synthesizing the insulating myelin sheaths that accelerate nerve conduction velocity.",
+      "plain": "Muscle tissue moves you; neural tissue controls you. Muscle comes in three distinct flavors: Skeletal (long striped voluntary muscle tied to bones, packed with multiple nuclei); Cardiac (striped involuntary heart muscle with branched cells locked together by intercalated discs so the whole heart beats as one); and Smooth (unstriped involuntary spindle-shaped muscle in the walls of hollow organs and blood vessels). Neural tissue is divided between the rock stars (neurons, which carry electrical signals) and the road crew (neuroglia, which keep neurons alive, fed, and insulated). Every neuron has a strict one-way traffic rule: dendrites receive incoming messages, the cell body thinks and decides, and the long axon fires the message out.",
+      "keyFacts": [
+        "Muscle tissue is specialized for contraction, containing actin and myosin contractile filaments.",
+        "Skeletal muscle fibers are elongated, striated, multinucleated, and under voluntary somatic control.",
+        "Cardiac muscle cells are branched, striated, single-nucleated, involuntary, and found exclusively in the heart.",
+        "Intercalated discs connect cardiac myocytes via desmosomes for mechanical strength and gap junctions for electrical synchrony.",
+        "Smooth muscle cells are spindle-shaped, non-striated, single-nucleated, and involuntary within hollow organ walls.",
+        "Neural tissue specializes in conducting electrical impulses; ~98% is concentrated in the brain and spinal cord.",
+        "Neurons perform electrical communication; neuroglia provide metabolic and structural support.",
+        "Neuron anatomy: branching dendrites receive inputs; cell body (soma) integrates; single axon carries outgoing signals.",
+        "The direction of electrical signaling in a neuron is strictly dendrites → soma → axon.",
+        "The skin is the body's largest organ, containing all four primary tissue classes (epithelial, connective, muscle, neural)."
       ],
-      prerequisites: ['abct2326-cells-organisation'],
-      examples: [],
+      "prerequisites": [
+        "abct2326-cells-organisation"
+      ],
+      "examples": [
+        "Myasthenia gravis is an autoimmune neuromuscular disorder where autoantibodies block nicotinic acetylcholine receptors at skeletal muscle motor end plates, producing progressive skeletal muscle weakness while sparing cardiac and smooth muscle.",
+        "Multiple sclerosis is a chronic demyelinating disease of the central nervous system where autoimmune destruction of oligodendrocytes (neuroglia) impairs action potential propagation along CNS axons, producing motor weakness, sensory loss, and visual deficits."
+      ]
     },
-    memory: {
-      comparison: 'Dendrites receive, axon transmits. Dendrite is a tree with many branches taking things in; there is one axon and it goes out.',
-      chunking: 'Three muscles by location: skeleton, heart, hollow tube. Nothing else to remember.',
-      wordOrigin: 'Glia is Greek for glue. Neuroglia were named as the stuff holding neurons together, and supporting them is still the definition.',
+    "memory": {
+      "chunking": "Three Muscles by where they live: Skeleton (bones), Heart (myocardium), Hollow tubes (viscera). Neuron flow: Dendrites IN → Soma DECIDES → Axon OUT.",
+      "comparison": "Skeletal vs Cardiac vs Smooth: Skeletal = striped, voluntary, multi-nuclei; Cardiac = striped, involuntary, intercalated discs; Smooth = plain, involuntary, spindle-shaped.",
+      "visualCue": "Picture a neuron like a tree: branches (dendrites) catch falling rain, the trunk (soma) holds the weight, and the long taproot (axon) sends sap deep into the earth.",
+      "teachBack": "Compare the three muscle types across four criteria (striation, control, nucleus count, and location), then draw a neuron and label the signal flow direction."
     },
-    practice: [
-      { type: 'mcq', prompt: 'Which muscle tissue is found only in the heart?', options: ['Skeletal', 'Smooth', 'Cardiac', 'All three are found there'], answer: 2,
-        explanation: 'Cardiac muscle tissue, stated as found only in the heart.',
-        src: { ref: 'phys.1.2026', location: 'p51 "Found only in the heart"' } },
-      { type: 'matching', prompt: 'Match each neuron part to its job.', pairs: [['Cell body', 'Contains the nucleus and nucleolus'], ['Dendrites', 'Short branches receiving incoming signals'], ['Axon', 'Long extension carrying outgoing signals']],
-        explanation: 'In through the dendrites, out along the axon.',
-        src: { ref: 'phys.1.2026', location: 'p54 "Carries outgoing electrical signals"' } },
-      { type: 'mcq', prompt: 'What do neuroglia do?', options: ['Perform electrical communication', 'Repair and supply nutrients to neurons', 'Store the genetic code', 'Contract to produce movement'], answer: 1,
-        explanation: 'Neuroglia are supporting cells: they repair and supply nutrients to neurons. Electrical communication is the neuron’s job.',
-        src: { ref: 'phys.1.2026', location: 'p54 "Repair and supply nutrients to neurons"' } },
-      { type: 'cloze', prompt: 'The ______ is the largest organ in the body, and contains all four primary tissues.', accept: ['skin'],
-        explanation: 'The skin — epithelial, connective, muscular and nervous tissue all present.',
-        src: { ref: 'phys.1.2026', location: 'p56 "The skin is the largest organ in the body"' } },
-      { type: 'typed', prompt: 'Name the three types of muscle tissue.', accept: ['skeletal, cardiac, smooth', 'skeletal cardiac smooth', 'cardiac, skeletal, smooth'],
-        explanation: 'Skeletal, cardiac and smooth.',
-        src: { ref: 'phys.1.2026', location: 'p51 "Skeletal muscle tissue"' } },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each muscle tissue type with its defining structural and physiological characteristics.",
+        "pairs": [
+          [
+            "Skeletal muscle",
+            "Striated, multinucleated, long cylindrical fibers under voluntary somatic control"
+          ],
+          [
+            "Cardiac muscle",
+            "Striated, branched cells joined by intercalated discs, found only in the heart"
+          ],
+          [
+            "Smooth muscle",
+            "Non-striated, spindle-shaped cells with single central nucleus in hollow organ walls"
+          ]
+        ],
+        "explanation": "Each muscle tissue type is structurally tailored for locomotion, syncytial pumping, or visceral lumen regulation.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p51 \"Found only in the heart\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which specialized junctional structures join adjacent cardiac myocytes to permit mechanical anchoring and rapid ionic electrical coupling?",
+        "options": [
+          "Neuromuscular junctions",
+          "Intercalated discs",
+          "Tight junctions (zonula occludens)",
+          "Basement membranes"
+        ],
+        "answer": 1,
+        "explanation": "Intercalated discs contain desmosomes for physical adherence and gap junctions for instantaneous electrical ionic transmission across the heart wall.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p51 \"Found only in the heart\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the invariant anatomical direction of electrical signal transmission through a multipolar neuron?",
+        "options": [
+          "Axon terminal → Axon → Cell body → Dendrites",
+          "Dendrites → Cell body (soma) → Axon → Synaptic terminals",
+          "Cell body → Dendrites → Axon → Myelin sheath",
+          "Axon → Cell body → Dendrites → Neuroglia"
+        ],
+        "answer": 1,
+        "explanation": "Dendrites receive incoming synaptic inputs, conduct graded potentials into the soma, and the axon propagates outgoing action potentials away from the soma.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p53 \"Neural Tissue\""
+        }
+      },
+      {
+        "type": "typed",
+        "prompt": "What collective term designates the non-excitable supporting cells of neural tissue that nourish, protect, and insulate neurons?",
+        "accept": [
+          "neuroglia",
+          "Neuroglia",
+          "glial cells",
+          "Glial cells",
+          "glia",
+          "Glia"
+        ],
+        "explanation": "Neuroglia (glial cells) outnumber neurons and provide critical structural, metabolic, and myelinating support.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p54 \"Neuroglia\""
+        }
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'An organ is defined as two or more tissues serving different functions. Use the skin to show why that definition needs the word "different".',
-        model: 'The skin contains all four primary tissues and each does something the others cannot: epithelial tissue forms the covering and controls what crosses it, connective tissue gives the structural framework beneath, muscular tissue moves structures within it, and nervous tissue senses the environment. If the definition only required two or more tissues, a sheet of one tissue in two layers would qualify. It is the difference in function that makes the combination an organ rather than just more tissue.',
-        rubric: ['Names several skin tissues with distinct roles', 'Explains that identical tissues would not make an organ', 'Ties back to the definition'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A patient experiences acute myocardial infarction due to occlusion of the left anterior descending coronary artery, resulting in ischemic necrosis of left ventricular cardiac muscle. Why cannot the surrounding cardiac myocytes undergo mitosis to regenerate the lost wall, and what type of tissue replaces the infarcted myocardium?",
+        "model": "Mature adult cardiac myocytes are terminally differentiated cells permanently arrested in the G0 phase of the cell cycle; they lack functional centrioles capable of mitotic spindle formation and cannot undergo proliferative division to replace dead tissue. Instead, dead cardiocytes release inflammatory damage signals that activate local fibroblasts. These fibroblasts migrate into the necrotic zone and synthesize dense irregular collagen fibres, forming dense fibrous scar tissue (non-contractile connective tissue). While this collagen scar prevents ventricular wall rupture, it lacks contractile actin-myosin machinery and electrical intercalated discs, permanently reducing stroke volume and predisposing the ventricle to conduction re-entry arrhythmias.",
+        "rubric": [
+          "Identifies mature cardiocytes as arrested in G0 and incapable of mitotic division",
+          "Explains that infarcted myocardium is replaced by fibrous scar tissue (dense connective tissue) produced by fibroblasts",
+          "Explains the functional consequence: non-contractile collagen lacks contractile force and electrical conduction"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Reversing dendrite and axon.',
-      'Placing smooth muscle in the heart; that is cardiac, and smooth muscle is in hollow organ walls.',
-      'Forgetting neuroglia entirely and describing neural tissue as neurons only.',
+    "commonMistakes": [
+      "Assuming cardiac muscle and smooth muscle are voluntary: both are strictly involuntary, regulated by pacemaker cells and autonomic innervation.",
+      "Confusing the roles of neurons and neuroglia: neurons carry electrical impulses; neuroglia do not fire action potentials but provide vital metabolic, immune, and structural support.",
+      "Reversing the signal direction in a neuron: signals enter through dendrites and travel out along the axon, never the reverse under normal physiological conditions."
     ],
-    skills: [
-      'Muscle type is answered from location every time — skeleton, heart, or the wall of something hollow — so a question naming an organ has already told you the tissue.',
-      'Direction is the neuron’s whole architecture: many short dendrites in, one long axon out, cell body in between. It recurs in the nervous-system lectures, so fixing it here saves it being relearned.',
-      'The definition of an organ carries a hidden condition — the tissues must serve DIFFERENT functions — and the skin is the example that shows why the condition is there.',
+    "skills": [
+      "Distinguish skeletal, cardiac, and smooth muscle under light microscopy based on striations, nuclei count/position, and intercalated discs.",
+      "Trace the flow of electrical information from dendrites through the soma to the axon terminal."
     ],
-    selfCheck: 'From a blank page: the three muscle types with their locations, the two neural cell types with their jobs, the three neuron parts, and what makes something an organ.',
-    sourceRefs: [
-      { ref: 'phys.1.2026', location: 'p51 "Found only in the heart"' },
-      { ref: 'phys.1.2026', location: 'p54 "Perform electrical communication"' },
-      { ref: 'phys.1.2026', location: 'p56 "The skin is the largest organ in the body"' },
+    "selfCheck": "Compare skeletal, cardiac, and smooth muscle across four histological features, and state the directional signaling rule of a neuron.",
+    "visuals": [
+      {
+        "schematic": "muscleTypes"
+      },
+      {
+        "fig": "connectiveTissues"
+      },
+      {
+        "gen": true
+      }
     ],
+    "sourceRefs": [
+      {
+        "ref": "phys.1.2026",
+        "location": "p51 \"Found only in the heart\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p53 \"Neural Tissue\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p54 \"Neuroglia\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p56 \"Organs and Systems\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p52 \"Found only in the heart\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p54 \"Neural Tissue\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p55 \"Neuroglia\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p57 \"Organs and Systems\""
+      }
+    ]
   },
   {
-    id: 'abct2326-feedback-loops',
-    subject: 'ABCT2326', unit: 'phys.cells', type: 'comparison',
-    title: 'Negative and positive feedback, and the two worked examples',
-    tags: ['foundation', 'high-yield'],
-    lesson: {
-      explanation: 'The two forms of feedback are distinguished by what the effector’s response does to the stimulus. In negative feedback the response of the effector negates the stimulus, and the body is brought back into homeostasis so the normal range is achieved. In positive feedback the response of the effector increases the change of the stimulus, and the body is moved away from homeostasis so the normal range is lost; it is used to speed up processes. The lecture works each one through an example. For negative feedback it is the control of body temperature: temperature sensors in the skin and hypothalamus act as the receptors, the thermoregulatory centre in the brain is the control centre, and the stimulus is body temperature rising. For positive feedback it is blood clotting: damaged cells in the blood vessel wall release chemicals, those chemicals start a chain reaction, clotting accelerates in a positive feedback loop, and the escalating process ends in a blood clot. Above both, systems integration means systems work together to maintain homeostasis; homeostasis is a state of equilibrium in which opposing forces are in balance, and it is a dynamic equilibrium — continual adaptation rather than a fixed point. Physiological systems work to restore balance, and failure results in disease or death.',
-      plain: 'One question separates them: does the response cancel the stimulus or amplify it? Negative feedback cancels, which is what keeps you in range and is most of physiology. Positive feedback amplifies, which loses the normal range on purpose because some things need to finish fast — clotting being the example. Positive feedback is not a fault; it is a tool used where speed matters more than stability.',
-      keyFacts: [
-        'Negative feedback: the effector’s response NEGATES the stimulus; the body returns to homeostasis and the normal range is achieved.',
-        'Positive feedback: the effector’s response INCREASES the change of the stimulus; the body moves away from homeostasis and the normal range is lost.',
-        'Positive feedback is used to speed up processes.',
-        'Negative example — body temperature: receptors are temperature sensors in the skin and hypothalamus; the control centre is the thermoregulatory centre in the brain.',
-        'Positive example — blood clotting: damaged cells release chemicals, the chemicals start a chain, clotting accelerates, a clot forms.',
-        'Homeostasis is a state of equilibrium where opposing forces are in balance.',
-        'It is a DYNAMIC equilibrium — continual adaptation.',
-        'Failure of the restoring systems results in disease or death.',
+    "id": "abct2326-feedback-loops",
+    "subject": "ABCT2326",
+    "unit": "phys.cells",
+    "type": "comparison",
+    "title": "Feedback mechanisms: negative versus positive feedback with thermoregulation and clotting worked examples",
+    "tags": [
+      "foundation",
+      "high-yield",
+      "feedback-loops",
+      "thermoregulation",
+      "hemostasis"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "most",
+      "dsePart": "core",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Compulsory III \"Homeostasis\" — negative feedback mechanism."
+      },
+      "beyond": [
+        {
+          "t": "The defining functional distinction: negative feedback negates/opposes the stimulus to restore normal range, while positive feedback amplifies/reinforces the change to accelerate a process.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p59 \"Positive Feedback\""
+          }
+        },
+        {
+          "t": "Thermoregulation worked example detailed: receptors in skin and hypothalamus, thermoregulatory centre in brain as control centre, sweat glands and cutaneous vessels as effectors.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p60 \"Control of Body Temperature\""
+          }
+        },
+        {
+          "t": "Positive feedback detailed with blood clotting: vessel damage chemical release, platelet activation cascade, and escalating thrombus formation ending when the clot seals the breach.",
+          "src": {
+            "ref": "phys.1.2026",
+            "location": "p61 \"Positive Feedback\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "Physiological feedback loops govern the interaction between an effector's response and the initial initiating stimulus, categorizing into two diametrically opposed mechanisms: Negative Feedback and Positive Feedback. (1) Negative Feedback: the primary, predominant mechanism of homeostatic control throughout the human body. In a negative feedback loop, the physiological response generated by the effector negates, counteracts, or opposes the original stimulus, reversing the direction of change. By continually dampening deviations, negative feedback brings the internal variable back into homeostasis so that the normal range and set point are successfully maintained. The classical worked physiological example is the Control of Body Temperature (thermoregulation): when environmental heat or physical exertion causes core body temperature to rise above the 37°C (98.6°F) set point (the stimulus), two sets of sensory receptors—temperature sensors in the skin and thermosensitive neurons in the anterior hypothalamus—detect the thermal elevation. Afferent signals travel to the control centre: the thermoregulatory centre in the brain (hypothalamus). The thermoregulatory centre integrates the data and dispatches efferent commands to two principal effectors: (a) cutaneous blood vessels, which undergo smooth muscle vasodilation to increase skin blood flow and radiate excess heat into the ambient air, and (b) sweat glands, which accelerate secretion of watery sweat to dissipate thermal energy via evaporative cooling. As heat loss accelerates, body temperature declines toward the set point; once temperature normalizes, the thermal stimulus ceases, and the effector response automatically shuts down. Conversely, when body temperature drops below normal, cutaneous vasoconstriction minimizes heat loss while skeletal muscle effectors trigger involuntary shivering to generate heat. (2) Positive Feedback: a specialized, less common regulatory mechanism where the response of the effector increases, reinforces, or amplifies the initial change of the stimulus, driving the variable further away from the starting set point. In positive feedback, the normal homeostatic range is intentionally lost temporarily; the body utilizes positive feedback not for routine stability, but to accelerate a critical, potentially life-saving or explosive process to rapid completion. The lecture details the worked example of Blood Clotting (hemostasis): damage to a blood vessel wall exposes subendothelial collagen and causes injured vascular cells to release clotting factors and tissue thromboplastin (the stimulus). Circulating platelets adhere to the damaged site and release chemical mediators (such as ADP, thromboxane A2, and serotonin). These chemicals activate and recruit additional circulating platelets, which in turn secrete even more activating chemicals in an accelerating positive feedback cascade. Simultaneously, the chemical cascade rapidly accelerates the enzymatic conversion of prothrombin into thrombin, which cleaves soluble fibrinogen into insoluble, sticky fibrin polymer threads. The fibrin mesh traps erythrocytes and platelets, forming a solid blood clot (thrombus) that physically seals the vascular rupture. The positive feedback loop ceases once the physical clot has completely sealed the breach and isolated the damaged tissue, removing the chemical stimulus. A second classic positive feedback loop operates during childbirth (labor): fetal head pressure stretches the uterine cervix, stimulating oxytocin release from the posterior pituitary, which triggers more powerful myometrial contractions, driving the fetal head harder against the cervix until delivery terminates the loop. Systems integration dictates that all eleven organ systems interact harmoniously; failure of homeostatic loops leads directly to pathophysiology.",
+      "plain": "Feedback loops ask one crucial question: does the response cancel the change or blow it up? In negative feedback, the body cancels (negates) the change to bring you back to normal—like sweating when you are hot to cool down, or shivering when you are cold to warm up. That is 99% of physiology and keeps you alive. In positive feedback, the body deliberately amplifies the change to get something done fast—like a snowball rolling downhill. The prime example is blood clotting: a cut releases chemicals, which call platelets, which release more chemicals, which call a stampede of platelets until a solid plug seals the leak. Positive feedback is not an error; it is a turbo-button for emergencies that shuts off once the job is finished.",
+      "keyFacts": [
+        "Negative feedback: the effector's response NEGATES the stimulus, restoring the normal range and homeostasis.",
+        "Positive feedback: the effector's response INCREASES the change, moving variables away from the normal range.",
+        "Negative feedback is the primary mechanism of homeostatic stability in the human body.",
+        "Positive feedback is used deliberately to speed up critical processes to rapid completion.",
+        "In thermoregulation (negative feedback): receptors are in skin and hypothalamus; control centre is the hypothalamic thermoregulatory centre.",
+        "Thermoregulatory effectors for hyperthermia: cutaneous vasodilation and sweat gland evaporation.",
+        "Thermoregulatory effectors for hypothermia: cutaneous vasoconstriction and skeletal muscle shivering.",
+        "In blood clotting (positive feedback): damaged cells release chemicals, initiating an accelerating platelet cascade.",
+        "Positive feedback loops require an external stopping event (e.g. clot completion or child delivery) to terminate.",
+        "Homeostasis operates as dynamic equilibrium; failure of feedback control causes disease or death."
       ],
-      prerequisites: ['abct2326-homeostasis'],
-      examples: ['Body temperature for negative feedback; blood clotting for positive feedback.'],
+      "prerequisites": [
+        "abct2326-homeostasis"
+      ],
+      "examples": [
+        "During severe hemorrhage, blood loss exceeding ~2 liters can precipitate irreversible shock: falling cardiac output reduces coronary perfusion, weakening myocardial pumping, which further drops cardiac output in a lethal, pathological positive feedback death spiral.",
+        "Parturition (labor) is an endocrine positive feedback loop: cervical stretch triggers posterior pituitary oxytocin release, stimulating uterine contractions that force the fetus harder against the cervix, escalating until delivery."
+      ]
     },
-    memory: {
-      comparison: 'Negative negates, positive amplifies. Say the definition with the verb in it and the two cannot be swapped.',
-      visualCue: 'Positive feedback is a microphone next to its own speaker: the output feeds the input and it runs away. That is a fault in a PA system and a feature in clotting.',
-      teachBack: 'Explain clotting as a loop out loud, naming the stimulus, what the effector does, and why moving AWAY from the starting state is the correct behaviour here.',
+    "memory": {
+      "chunking": "Feedback rule: Negative = Negates (stability, normal range, 99% of physiology). Positive = Promotes/Power-up (speed, clotting/labor, needs external brake).",
+      "comparison": "Thermoregulation vs Clotting: Thermoregulation cancels the temperature spike to stay at 37°C; Clotting amplifies the chemical signal until a physical plug forms.",
+      "visualCue": "Negative feedback is cruise control on a car (taps brakes uphill/downhill to hold 60 mph); Positive feedback is a roaring bonfire (more heat dries out more wood, making bigger flames).",
+      "teachBack": "Walk through the negative feedback loop of cooling a hot body, then explain why blood clotting must use positive feedback instead of negative feedback."
     },
-    practice: [
-      { type: 'comparison', prompt: 'Which statement describes positive feedback?', options: ['The response of the effector negates the stimulus', 'The response of the effector increases the change of the stimulus', 'The body is brought back into homeostasis', 'The normal range is achieved'], answer: 1,
-        explanation: 'Positive feedback increases the change of the stimulus and the normal range is lost. The other three all describe negative feedback.',
-        src: { ref: 'phys.1.2026', location: 'p59 "The response of the effector increases change of the"' } },
-      { type: 'mcq', prompt: 'Why is positive feedback used at all, given that it loses the normal range?', options: ['It is always pathological', 'To speed up processes', 'To reduce energy use', 'To replace the control centre'], answer: 1,
-        explanation: 'The lecture states it is used to speed up processes.',
-        src: { ref: 'phys.1.2026', location: 'p59 "Used to speed up processes"' } },
-      { type: 'mcq', prompt: 'In the temperature example, which structures act as the receptors?', options: ['The thermoregulatory centre in the brain', 'Temperature sensors in the skin and hypothalamus', 'Sweat glands and skin blood vessels', 'The thyroid gland'], answer: 1,
-        explanation: 'Receptors are the temperature sensors in skin and hypothalamus; the thermoregulatory centre in the brain is the control centre.',
-        src: { ref: 'phys.1.2026', location: 'p60 "Negative Feedback - Control of Body Temperature"' } },
-      { type: 'sequence', prompt: 'Order the blood-clotting positive feedback loop.', items: ['Damaged cells in the blood vessel wall release chemicals', 'The chemicals start a chain reaction', 'Clotting accelerates in a positive feedback loop', 'A blood clot forms'],
-        explanation: 'Each step increases the stimulus for the next — the escalation is the mechanism, not a failure of it.',
-        src: { ref: 'phys.1.2026', location: 'p61 "Positive Feedback - Blood Clotting"' } },
-      { type: 'cloze', prompt: 'Homeostasis is described as a ______ equilibrium — continual adaptation rather than a fixed point.', accept: ['dynamic'],
-        explanation: 'Dynamic equilibrium: opposing forces in balance, continually adapting.',
-        src: { ref: 'phys.1.2026', location: 'p62 "Dynamic equilibrium"' } },
+    "practice": [
+      {
+        "type": "comparison",
+        "prompt": "Which statement accurately describes positive feedback in human physiology?",
+        "options": [
+          "The response of the effector negates the original stimulus to maintain dynamic equilibrium",
+          "The response of the effector increases or reinforces the change produced by the stimulus",
+          "The body is immediately returned to its resting set point",
+          "It is the predominant regulatory mechanism maintaining baseline organ perfusion"
+        ],
+        "answer": 1,
+        "explanation": "In positive feedback, the effector response amplifies the stimulus, driving the condition further away from normal to accelerate a process.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p59 \"Positive Feedback\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "In the negative feedback control of body temperature, which anatomical structures serve as the sensory receptors?",
+        "options": [
+          "The thermoregulatory centre in the hypothalamus",
+          "Sweat glands and cutaneous arterioles",
+          "Temperature sensors in the skin and hypothalamus",
+          "Skeletal muscle motor units"
+        ],
+        "answer": 2,
+        "explanation": "Temperature sensors in the skin and anterior hypothalamus act as the receptors detecting core and surface temperature deviations.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p60 \"Control of Body Temperature\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Why does human physiology employ positive feedback during blood clotting rather than negative feedback?",
+        "options": [
+          "To prevent unnecessary energy expenditure by platelets",
+          "To rapidly accelerate clot formation and seal vascular breaches before fatal hemorrhage occurs",
+          "To prevent fibrin polymer formation",
+          "To permanently lower blood pressure throughout the vascular tree"
+        ],
+        "answer": 1,
+        "explanation": "Positive feedback is utilized to speed up critical processes to rapid completion; clotting must escalate exponentially to seal damaged vessels swiftly.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p59 \"Positive Feedback\""
+        }
+      },
+      {
+        "type": "typed",
+        "prompt": "What physiological term defines an opposing feedback mechanism wherein the effector response directly counteracts and cancels the initiating stimulus?",
+        "accept": [
+          "negative feedback",
+          "Negative feedback",
+          "negative feedback loop",
+          "Negative feedback loop"
+        ],
+        "explanation": "Negative feedback is the primary homeostatic mechanism that negates the stimulus and restores variables to their normal range.",
+        "src": {
+          "ref": "phys.1.2026",
+          "location": "p59 \"Positive Feedback\""
+        }
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'A positive feedback loop by definition drives the body away from homeostasis. What must be true of any safe positive feedback loop in the body, and what does clotting show about it?',
-        model: 'It must have an end point, because an escalating loop with nothing to stop it would run until the system failed. Clotting shows the pattern: the loop accelerates precisely because the process needs to finish quickly, and it terminates when the clot is formed and the damaged vessel wall is no longer releasing the chemicals that started it. The stimulus is removed by the loop’s own success, so the escalation is self-limiting rather than endless — which is why moving away from homeostasis is safe here.',
-        rubric: ['States an unbounded loop would be dangerous', 'Identifies clot formation as the end point', 'Explains the stimulus is removed by the outcome'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A marathon runner collapses on a hot, humid afternoon with exertional heat stroke. Core body temperature is 41.5°C (106.7°F), the skin is hot and dry (anhidrosis), and the patient is confused. Explain how the physiological thermoregulatory negative feedback loop failed, why sweating ceased, and how this state can degenerate into a fatal positive feedback spiral.",
+        "model": "Under extreme heat strain with severe dehydration, prolonged maximal sweating depletes circulating plasma volume (hypovolemia). When hypovolemia threatens cardiac output and cerebral perfusion, the sympathetic nervous system activates a protective vasoconstrictor reflex that shuts down cutaneous blood flow and halts sweat gland secretion to conserve central blood pressure. This shuts off evaporative heat dissipation, terminating the negative feedback loop. Core body temperature surges uncontrolled above 41°C, directly damaging hypothalamic thermoregulatory neurons and denaturing metabolic enzymes. As cellular metabolism accelerates exponentially with rising heat (Q10 temperature effect), internal heat production escalates, converting physiology into a fatal hyperthermic positive feedback spiral leading to multi-organ failure and cardiovascular collapse.",
+        "rubric": [
+          "Identifies dehydration and hypovolemia as the cause of compensatory cutaneous vasoconstriction and sweat cessation",
+          "Explains the breakdown of the negative feedback thermoregulatory mechanism",
+          "Explains how hyperthermia escalates metabolic heat generation in a lethal positive feedback spiral"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Treating positive feedback as an error state rather than a mechanism used deliberately for speed.',
-      'Naming the hypothalamus as the control centre in the temperature loop; the slide has temperature sensors in skin AND hypothalamus as receptors, with the thermoregulatory centre as the control centre.',
-      'Describing homeostasis as a fixed value rather than a dynamic equilibrium.',
+    "commonMistakes": [
+      "Believing positive feedback is always abnormal or pathological: positive feedback is a vital physiological tool used deliberately for speed in blood clotting and labor.",
+      "Naming the hypothalamus as the effector in thermoregulation: the hypothalamus is the control centre; sweat glands, blood vessels, and skeletal muscles are the effectors.",
+      "Assuming negative feedback creates an absolutely flat, unvarying value: it maintains dynamic equilibrium, allowing slight oscillations within normal limits."
     ],
-    skills: [
-      'One verb separates the two loops — negate or increase — and building the definition around that verb makes them impossible to swap under exam pressure.',
-      'Positive feedback is safe when its own outcome removes the stimulus, which is exactly what a completed clot does. That test tells you whether a runaway loop is physiology or pathology.',
-      'Dynamic equilibrium is a claim about method, not about the number: the value is held by continual opposing adjustment, which is why homeostatic variables oscillate within a range instead of sitting still.',
+    "skills": [
+      "Differentiate negative from positive feedback loops based on whether the effector opposes or reinforces the initiating stimulus.",
+      "Predict how specific pharmacological interventions (e.g. antipyretics, anticoagulants) modify homeostatic loop dynamics."
     ],
-    selfCheck: 'From a blank page: both definitions using the verb, why positive feedback exists, the receptor and control centre in the temperature loop, and the four steps of clotting.',
-    sourceRefs: [
-      { ref: 'phys.1.2026', location: 'p59 "The response of the effector negates the stimulus"' },
-      { ref: 'phys.1.2026', location: 'p62 "Dynamic equilibrium"' },
+    "selfCheck": "Compare negative and positive feedback using their core defining verbs, and walk through the thermoregulation and clotting loops step-by-step.",
+    "visuals": [
+      {
+        "schematic": "homeostasis"
+      },
+      {
+        "gen": true
+      }
     ],
+    "sourceRefs": [
+      {
+        "ref": "phys.1.2026",
+        "location": "p59 \"Positive Feedback\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p60 \"Control of Body Temperature\""
+      },
+      {
+        "ref": "phys.1.2026",
+        "location": "p62 \"Dynamic equilibrium\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p60 \"Positive Feedback\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p61 \"Control of Body Temperature\""
+      },
+      {
+        "ref": "phys.1",
+        "location": "p60 \"Negative and Positive Feedback\""
+      }
+    ]
   },
   {
     id: 'phys-nerve-cellular-action-potential',
