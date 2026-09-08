@@ -447,8 +447,9 @@ export const WEEK_STUDY = {
       'hss2011-structures-airwayTree',
     ],
     10: [
-      'hss2011-osteo-ribs-sternum', 'hss2011-thorax-regional-landmarks',
-      'hss2011-thorax-intercostal-diaphragm', 'hss2011-thorax-tutorial-pastpaper-practice',
+      'hss2011-osteo-ribs-sternum', 'hss2011-thorax-intercostal-diaphragm',
+      'hss2011-thorax-mediastinum-divisions-contents', 'hss2011-thorax-regional-landmarks',
+      'hss2011-thorax-breast-axillary-lymphatics', 'hss2011-thorax-tutorial-pastpaper-practice',
     ],
     11: [
       'hss2011-m3-digestive', 'hss2011-digestive-tract-upper',

@@ -4789,220 +4789,173 @@ export const HSS_MODULES = [
     "subject": "HSS2011",
     "unit": "hss.m1",
     "type": "concept",
-    "title": "Thoracic regional anatomy: sternal angle, mediastinal planes, diaphragm, and boundaries",
+    "title": "Surface anatomy of the thorax: heart-valve auscultation and lung vs pleura projections",
     "tags": [
-      "anatomy",
       "thorax",
-      "mediastinum",
-      "sternal-angle",
+      "surface-anatomy",
+      "auscultation",
       "high-yield"
     ],
+    "visuals": [
+      {
+        "fig": "heartInternalAnatomy"
+      },
+      {
+        "fig": "lungsGrossAnatomy"
+      },
+      {
+        "gen": true
+      }
+    ],
     "lesson": {
-      "explanation": "The thoracic wall and cavity are defined by precise bony landmarks and fascial compartments essential for chest radiography and physical examination. The foremost anterior landmark is the sternal angle (angle of Louis), which represents the junction between manubrium and body of the sternum. Palpable as a transverse ridge, it articulates with the costal cartilage of 2nd rib, providing the reliable clinical anchor for counting ribs and intercostal spaces. Projected posteriorly, the sternal angle corresponds precisely to the vertebral level of T4/T5. This transverse thoracic plane serves as the critical boundary of superior & inferior mediastinum. Multiple vital structures transition at this level: the aortic arch begins and ends, the pulmonary trunk bifurcates, and the carina (= bifurcation of bronchi) branches into the left and right principal bronchi at the @ T4/T5 vertebral level. The thoracic cavity is bounded superiorly by the thoracic inlet (superior thoracic aperture), demarcated by the superior border of the manubrium, the 1st ribs, and the 1st thoracic vertebra (T1). Inferiorly, the thoracic outlet is closed by the muscular diaphragm, bounded by the xiphisternal joint, costal margins, 12th ribs, and the 12th thoracic vertebra (T12). The diaphragm is innervated motor and sensory by the phrenic nerve (L & R) (roots C3, C4, C5), converging upon a central aponeurotic tendon (central tendon (green)), and its venous drainage is conducted as phrenic veins drain into the IVC. Running along the costal groove under the inferior border of each rib is the intercostal neurovascular bundle, arranged in descending superior-to-inferior order as vein, artery, nerve, accompanied by intercostal nerves & lymphatics. Venous blood from the thoracic chest wall and breast drains predominantly into the axillary system, with the breast draining venously to the Axillary vein (mainly) alongside internal thoracic and intercostal tributaries.",
-      "plain": "The sternal angle (manubrium-body junction) marks the 2nd costal cartilage, vertebral level T4/T5, and the boundary between superior and inferior mediastinum. The trachea bifurcates at the carina at T4/T5. The thoracic inlet is bounded by T1 and 1st ribs; the outlet by T12 and the diaphragm. The diaphragm is innervated by phrenic nerves (C3-C5), has a central tendon, and its veins drain to the IVC. Intercostal spaces carry vein, artery, nerve and lymphatics. Breast venous drainage is mainly to the axillary vein.",
+      "explanation": "HEART SURFACES. The heart has an anterior (sternocostal) surface formed mainly by the right atrium and the right and left ventricles, a posterior surface (base) formed mainly by the left atrium, and an inferior (diaphragmatic) surface formed by both ventricles and resting on the diaphragm — hence the revision answer that the inferior surface of the heart is supported by the diaphragm.\n\nCARDIAC BORDERS ON A FRONTAL FILM. The right border is the right atrium; the left border is the left ventricle and the auricle of the left atrium; the inferior border is mainly the right ventricle; and the superior border is formed by the great vessels. The apex of the heart normally lies in the 5th left intercostal space in the mid-clavicular line, where the apex beat (point of maximum impulse) is palpated; it is displaced laterally by left ventricular enlargement and by a tension pneumothorax pushing the mediastinum.\n\nVALVE AUSCULTATION POSITIONS. The valve sounds are best heard not over the valve itself but “downstream” where the blood carries the sound: the aortic area is the 2nd intercostal space at the right sternal border; the pulmonary area is the 2nd intercostal space at the left sternal border; the tricuspid area is the lower left sternal border (4th–5th space); and the mitral area is the 5th intercostal space in the left mid-clavicular line, over the cardiac apex. A common mnemonic for the order from the 2nd right space around to the apex is “All Patients Take Meds” (Aortic, Pulmonary, Tricuspid, Mitral).\n\nLUNG AND PLEURA — ANTERIOR PROJECTIONS. Anteriorly the two lungs and pleurae meet in the midline behind the sternal angle (rib 2) and stay together to about the 4th costal cartilage; below that the left pleura and lung sweep laterally to leave the cardiac notch, so a needle in the left 5th–6th space near the sternum can reach the pericardium without traversing lung.\n\nLUNG vs PLEURAL REFLECTIONS INFERIORLY. The inferior border of the lung and the inferior reflection of the parietal pleura do not coincide — the pleura extends about two ribs lower, and the lung slides into that space only on deep inspiration. Using standard vertical lines: at the mid-clavicular line the lung reaches rib 6 and the pleura rib 8; at the mid-axillary line the lung reaches rib 8 and the pleura rib 10; at the paravertebral (scapular) line the lung reaches rib 10 and the pleura rib 12 — the “6-8, 8-10, 10-12” rule.\n\nCOSTODIAPHRAGMATIC RECESS AND THORACENTESIS. The slit between the costal and diaphragmatic pleura below the lung border is the costodiaphragmatic recess, the dependent space where a pleural effusion collects and the first place a small effusion blunts the costophrenic angle on an erect film. A drainage needle is placed into this recess below the lung but within the pleural cavity, classically within the “safe triangle” bordered by the lateral edge of pectoralis major, the anterior edge of latissimus dorsi and a line along the 5th intercostal space, and is passed immediately above a rib so it clears the intercostal vein, artery and nerve that run in the costal groove on the lower border of the rib above.",
+      "plain": "The front of the heart is mostly right atrium and both ventricles; the bottom of the heart sits on the diaphragm (a tested point). You listen for each valve where its blood flow carries the sound: aortic = upper right of the breastbone (2nd space), pulmonary = upper left (2nd space), tricuspid = lower left breastbone edge, mitral = over the apex in the 5th space at the mid-collarbone line (\"All Patients Take Meds\"). The bottom of the lung and the bottom of its pleural bag are not level — the pleura goes about two ribs lower: lung 6 / pleura 8 at the mid-collarbone line, 8 / 10 at the mid-armpit line, 10 / 12 at the spine line. That lower slice of empty pleura (the costodiaphragmatic recess) is where fluid pools and where a drain is placed — always just above a rib.",
       "keyFacts": [
-        "The sternal angle is the palpable junction between the manubrium and sternal body.",
-        "The sternal angle lies at the level of the costal cartilage of the 2nd rib and corresponds to vertebral level T4/T5.",
-        "The transverse thoracic plane at T4/T5 marks the boundary between superior and inferior mediastinum.",
-        "The carina (= bifurcation of bronchi) into primary bronchi is situated at the T4/T5 vertebral level.",
-        "The superior thoracic aperture (inlet) is bounded by the manubrium, first ribs, and the 1st thoracic vertebra.",
-        "The inferior thoracic aperture (outlet) is bounded by the costal margin, 12th ribs, and the 12th thoracic vertebra.",
-        "The diaphragm is innervated by the left and right phrenic nerves (C3–C5) and features a central tendon; phrenic veins drain into the IVC.",
-        "The intercostal neurovascular bundle in the subcostal groove comprises intercostal vein, artery, nerve, and lymphatics.",
-        "Breast venous return drains primarily into the axillary vein."
+        "The anterior (sternocostal) surface of the heart is formed mainly by the right atrium and the right and left ventricles.",
+        "The inferior (diaphragmatic) surface of the heart rests on and is supported by the diaphragm.",
+        "The posterior surface (base) of the heart is formed mainly by the left atrium.",
+        "Aortic auscultation area: 2nd intercostal space, right sternal border.",
+        "Pulmonary auscultation area: 2nd intercostal space, left sternal border.",
+        "Tricuspid auscultation area: lower left sternal border (4th–5th intercostal space).",
+        "Mitral auscultation area: 5th intercostal space, left mid-clavicular line, at the cardiac apex.",
+        "Lung inferior border: rib 6 mid-clavicular, rib 8 mid-axillary, rib 10 paravertebral.",
+        "Pleural inferior reflection: rib 8 mid-clavicular, rib 10 mid-axillary, rib 12 paravertebral — about two ribs below the lung.",
+        "The costodiaphragmatic recess is the dependent site of pleural effusion; a drain is inserted there, immediately above a rib, to avoid the costal-groove neurovascular bundle."
       ],
       "prerequisites": [
-        "hss2011-m1-heart-wall-valves"
+        "hss2011-thorax-mediastinum-divisions-contents"
       ],
       "examples": [
-        "On a PA chest radiograph, the carina is identified at the T4/T5 level beneath the aortic knob, guiding endotracheal tube tip placement 3–5 cm superiorly."
+        "Aortic stenosis produces an ejection systolic murmur loudest in the 2nd right intercostal space that radiates to the carotids, matching the aortic auscultation area and downstream flow.",
+        "A small pleural effusion first blunts the costophrenic angle on an erect chest film because fluid settles in the costodiaphragmatic recess."
       ]
     },
     "memory": {
-      "chunking": "Landmarks: Sternal angle = Manubrium + Body = 2nd rib = T4/T5 = Sup/Inf mediastinum plane = Carina (bifurcation of bronchi). Boundaries: Inlet = T1 + 1st rib; Outlet = T12 + 12th rib + Diaphragm (Phrenic L/R, IVC drainage). Neurovascular: VAN + lymphatics under rib groove. Drainage: Breast -> Axillary vein (mainly).",
-      "comparison": "Thoracic inlet vs outlet: Inlet is small, rigid, bounded by T1, 1st rib and manubrium; outlet is large, bounded by T12 and 12th ribs, sealed by the dome-shaped diaphragm.",
-      "number": "2nd rib (sternal angle) · T4/T5 (sternal angle & carina) · T1 (inlet) · T12 (outlet) · VAN (vein, artery, nerve)."
+      "firstLetter": "Valve areas from top-right to apex: \"All Patients Take Meds\" — Aortic, Pulmonary, Tricuspid, Mitral.",
+      "number": "Lung vs pleura inferior limits: 6-8 (mid-clavicular), 8-10 (mid-axillary), 10-12 (paravertebral) — pleura always 2 ribs lower.",
+      "comparison": "Sound is heard downstream of the valve, not over it: aortic sound travels up-and-right, mitral sound to the apex."
     },
     "practice": [
       {
         "type": "mcq",
-        "prompt": "Which costal cartilage articulates with the sternum at the level of the sternal angle?",
+        "prompt": "Which surface of the heart is supported by the diaphragm?",
         "options": [
-          "1st costal cartilage",
-          "2nd costal cartilage",
-          "4th costal cartilage",
-          "7th costal cartilage"
+          "Sternocostal (anterior)",
+          "Posterior",
+          "Superior",
+          "Inferior"
         ],
-        "answer": 1,
-        "explanation": "The sternal angle articulates directly with the costal cartilage of the 2nd rib, serving as the landmark for counting ribs.",
+        "answer": 3,
+        "explanation": "The inferior (diaphragmatic) surface of the heart, formed by both ventricles, rests on the diaphragm — the revision-exercise answer is D.",
         "src": {
-          "ref": "hss.thorax.deck",
-          "location": "p5 \"costal cartilage of 2nd rib\""
+          "ref": "hss.manual1920",
+          "location": "p24 \"surface of the heart is supported by the diaphragm\""
         }
       },
       {
         "type": "mcq",
-        "prompt": "At which vertebral level does the transverse plane passing through the sternal angle lie?",
+        "prompt": "The mitral (bicuspid) valve is best auscultated at:",
         "options": [
-          "T2/T3",
-          "T4/T5",
-          "T7/T8",
-          "T12/L1"
+          "2nd intercostal space, right sternal border",
+          "2nd intercostal space, left sternal border",
+          "Lower left sternal border",
+          "5th intercostal space, left mid-clavicular line (apex)"
         ],
-        "answer": 1,
-        "explanation": "The sternal angle projects posteriorly to the intervertebral disc between T4 and T5 (T4/T5 vertebral level).",
+        "answer": 3,
+        "explanation": "The mitral area is over the cardiac apex, in the 5th left intercostal space at the mid-clavicular line, where mitral flow carries the sound.",
         "src": {
-          "ref": "hss.thorax.deck",
-          "location": "p5 \"vertebral level of T4/T5\""
+          "ref": "hss.1.3",
+          "location": "p26 \"Auscultation positions for heart valves\""
         }
       },
       {
-        "type": "mcq",
-        "prompt": "What key tracheobronchial landmark is situated at the T4/T5 vertebral level?",
-        "options": [
-          "Cricoid cartilage",
-          "Carina (bifurcation of bronchi)",
-          "Epiglottis",
-          "Terminal bronchiole"
-        ],
-        "answer": 1,
-        "explanation": "The carina, marking the tracheal bifurcation into left and right main bronchi, sits at the T4/T5 vertebral level.",
-        "src": {
-          "ref": "hss.thorax.deck",
-          "location": "p22 \"= bifurcation of bronchi\""
-        }
-      },
-      {
-        "type": "typed",
-        "prompt": "Which major vein receives the primary venous drainage of the breast tissue?",
+        "type": "cloze",
+        "prompt": "The aortic valve is auscultated in the 2nd intercostal space at the ______ sternal border.",
         "accept": [
-          "Axillary vein",
-          "axillary vein",
-          "Axillary",
-          "axillary"
+          "right"
         ],
-        "explanation": "Venous drainage from the breast empties mainly into the axillary vein.",
+        "explanation": "The aortic area is the 2nd right intercostal space; the pulmonary area is the 2nd left intercostal space.",
         "src": {
-          "ref": "hss.thorax.deck",
-          "location": "p29 \"Axillary vein (mainly)\""
+          "ref": "hss.1.3",
+          "location": "p25 \"Surface anatomy of the heart\""
         }
       },
       {
-        "type": "matching",
-        "prompt": "Match each thoracic anatomical landmark to its associated structure or level.",
-        "pairs": [
-          [
-            "Sternal angle",
-            "Vertebral level T4/T5"
-          ],
-          [
-            "Carina",
-            "Bifurcation of primary bronchi"
-          ],
-          [
-            "Thoracic inlet",
-            "Bounded posteriorly by 1st thoracic vertebra"
-          ],
-          [
-            "Thoracic outlet",
-            "Bounded posteriorly by 12th thoracic vertebra"
-          ]
+        "type": "mcq",
+        "prompt": "At the mid-axillary line, the inferior border of the lung and the inferior reflection of the pleura cross which ribs?",
+        "options": [
+          "Lung rib 6, pleura rib 8",
+          "Lung rib 8, pleura rib 10",
+          "Lung rib 10, pleura rib 12",
+          "Lung and pleura both rib 8"
         ],
-        "explanation": "These define the core regional relationships and boundaries of the thorax.",
+        "answer": 1,
+        "explanation": "The lung reaches rib 8 and the pleura rib 10 in the mid-axillary line; the pleura is about two ribs lower than the lung at every line.",
         "src": {
-          "ref": "hss.thorax.deck",
-          "location": "p12 \"1st thoracic vertebra\""
+          "ref": "hss.1.3",
+          "location": "p27 \"Lower limit of lung\""
         }
       },
       {
-        "type": "sequence",
-        "prompt": "Order the anatomical structures encountered in an intercostal space from superior to inferior within the subcostal groove.",
-        "items": [
-          "Intercostal vein",
-          "Intercostal artery",
-          "Intercostal nerve",
-          "Collateral branches"
+        "type": "cloze",
+        "prompt": "A pleural effusion collects in the dependent ______ recess, which is why a needle is placed below the lung border but within the pleural cavity.",
+        "accept": [
+          "costodiaphragmatic",
+          "costophrenic"
         ],
-        "explanation": "The neurovascular bundle runs in the order VAN (Vein, Artery, Nerve) from superior to inferior under the costal margin.",
+        "explanation": "The costodiaphragmatic recess between costal and diaphragmatic pleura is the dependent space where effusions collect.",
         "src": {
-          "ref": "hss.thorax.deck",
-          "location": "p7 \"nerves & lymphatics\""
+          "ref": "hss.1.3",
+          "location": "p27 \"Lower limit of pleura\""
         }
       }
     ],
     "application": [
       {
         "type": "scenario",
-        "prompt": "A radiographer reviews a chest radiograph and notes the position of an endotracheal tube relative to the carina. Describe the anatomical location of the carina, the landmark dividing the mediastinum, and explain why the 2nd rib is counted from the sternal angle.",
-        "model": "The carina marks the bifurcation of the trachea into primary bronchi and is located at the T4/T5 vertebral level. This corresponds anteriorly to the transverse thoracic plane passing through the sternal angle (manubriosternal junction). The sternal angle is palpable beneath the skin and marks the attachment of the 2nd costal cartilage; because the 1st rib lies tucked beneath the clavicle and is difficult to palpate directly, the 2nd costal cartilage at the sternal angle serves as the reliable reference point to count ribs and intercostal spaces downwards. The plane at T4/T5 also anatomically separates the superior mediastinum from the inferior mediastinum.",
+        "prompt": "A clinician needs to drain a right pleural effusion. Explain where, relative to the lung and to a rib, the needle is placed and why, using the lung and pleural surface projections and the anatomy of the costal groove.",
+        "model": "The effusion collects in the costodiaphragmatic recess, the slit where costal pleura meets diaphragmatic pleura below the inferior border of the lung. Because the pleural reflection lies about two ribs below the lung border (rib 8 vs rib 6 in the mid-clavicular line, rib 10 vs rib 8 in the mid-axillary line), there is a zone below the lung that is still inside the pleural cavity: this is the safe target. The needle is inserted in the mid-axillary line, around the 8th–9th intercostal space, and is passed immediately above the lower rib of the space — over its upper border — so that it avoids the intercostal vein, artery and nerve which run in the costal groove along the inferior border of the rib above.",
         "rubric": [
-          "Identifies carina at T4/T5 vertebral level as the bifurcation of bronchi",
-          "Explains sternal angle as the 2nd costal cartilage landmark for rib counting",
-          "Identifies the T4/T5 plane as the boundary between superior and inferior mediastinum"
+          "Locates the target in the costodiaphragmatic recess, below the lung but within the pleural cavity",
+          "Uses the lung-vs-pleura two-rib difference to justify a safe zone below the lung",
+          "States the needle passes immediately above a rib to avoid the costal-groove neurovascular bundle"
         ]
       }
     ],
     "commonMistakes": [
-      "Confusing the 1st costal cartilage with the 2nd costal cartilage at the sternal angle (the 1st rib articulates with the manubrium; the 2nd articulates at the sternal angle).",
-      "Thinking the carina is at the thoracic inlet (it is at the T4/T5 level in the inferior plane of the superior mediastinum).",
-      "Assuming the diaphragm phrenic veins drain into the hepatic portal vein (they drain directly into the IVC)."
+      "Auscultating each valve directly over its anatomical position — the sound is heard downstream where the blood flow carries it.",
+      "Assuming the lung fills the pleural cavity to its lowest point — the pleura extends about two ribs below the lung.",
+      "Inserting a chest drain below a rib — it goes above a rib to spare the intercostal vessels and nerve."
     ],
     "skills": [
-      "Identifying thoracic boundaries, palpating the sternal angle to locate the 2nd rib, mapping the T4/T5 plane (carina and mediastinal boundary), and detailing neurovascular bundles and diaphragmatic innervation."
+      "Mark the four valve auscultation areas on a chest and relate each to an intercostal space and vertical line.",
+      "Draw the lung and pleural inferior reflections in the mid-clavicular, mid-axillary and paravertebral lines."
     ],
-    "selfCheck": "State the rib articulating at the sternal angle, the vertebral level of the sternal angle and carina, the boundaries of thoracic inlet vs outlet, and the nerve innervating the diaphragm.",
+    "selfCheck": "From memory: the three named surfaces of the heart, the four valve auscultation areas, the lung and pleural rib levels at the three vertical lines, and the safe technique for pleural aspiration.",
     "sourceRefs": [
       {
-        "ref": "hss.thorax.deck",
-        "location": "p5 \"junction between manubrium and\""
+        "ref": "hss.1.3",
+        "location": "p20 \"Anterior (sternocostal) surface\""
       },
       {
-        "ref": "hss.thorax.deck",
-        "location": "p5 \"costal cartilage of 2nd rib\""
+        "ref": "hss.1.3",
+        "location": "p25 \"Surface anatomy of the heart\""
       },
       {
-        "ref": "hss.thorax.deck",
-        "location": "p5 \"vertebral level of T4/T5\""
+        "ref": "hss.1.3",
+        "location": "p26 \"Auscultation positions for heart valves\""
       },
       {
-        "ref": "hss.thorax.deck",
-        "location": "p5 \"boundary of superior & inferior\""
+        "ref": "hss.1.3",
+        "location": "p27 \"Lower limit of lung\""
       },
       {
-        "ref": "hss.thorax.deck",
-        "location": "p7 \"nerves & lymphatics\""
+        "ref": "hss.1.3",
+        "location": "p27 \"Lower limit of pleura\""
       },
       {
-        "ref": "hss.thorax.deck",
-        "location": "p12 \"1st thoracic vertebra\""
-      },
-      {
-        "ref": "hss.thorax.deck",
-        "location": "p13 \"12th thoracic vertebra\""
-      },
-      {
-        "ref": "hss.thorax.deck",
-        "location": "p15 \"phrenic nerve (L & R)\""
-      },
-      {
-        "ref": "hss.thorax.deck",
-        "location": "p15 \"central tendon (green)\""
-      },
-      {
-        "ref": "hss.thorax.deck",
-        "location": "p16 \"Phrenic veins drain into the IVC\""
-      },
-      {
-        "ref": "hss.thorax.deck",
-        "location": "p19 \"@ T4/T5 vertebral level\""
-      },
-      {
-        "ref": "hss.thorax.deck",
-        "location": "p22 \"= bifurcation of bronchi\""
-      },
-      {
-        "ref": "hss.thorax.deck",
-        "location": "p29 \"Axillary vein (mainly)\""
+        "ref": "hss.manual1920",
+        "location": "p24 \"surface of the heart is supported by the diaphragm\""
       }
     ]
   },
@@ -8726,111 +8679,179 @@ export const HSS_MODULES = [
     "subject": "HSS2011",
     "unit": "hss.m1",
     "type": "definition",
-    "title": "Intercostal spaces, neurovascular bundle and the thoracic diaphragm",
+    "title": "Thoracic boundaries, the diaphragm and its three apertures",
     "tags": [
       "thorax",
       "diaphragm",
-      "intercostal",
+      "boundaries",
       "high-yield"
     ],
+    "visuals": [
+      {
+        "fig": "thoracicDiaphragm"
+      },
+      {
+        "fig": "thoracicCageAnatomy"
+      },
+      {
+        "gen": true
+      }
+    ],
     "lesson": {
-      "explanation": "The thoracic wall contains 11 intercostal spaces bounded by 12 pairs of ribs. Each space is occupied by three layers of intercostal muscles: external intercostals (fibers run inferomedially \"hands in pockets\", active in inspiration by elevating ribs), internal intercostals (fibers run inferolaterally, active in forced expiration by depressing ribs), and innermost intercostals. The intercostal neurovascular bundle runs along the costal groove on the inferior border of each rib, protected by the rib flange; its components are arranged from superior to inferior as: Vein, Artery, Nerve (VAN), plus lymphatics. To avoid injuring the neurovascular bundle, invasive pleural procedures (thoracocentesis, chest tube insertion) are always performed by inserting the needle or tube over the superior border of the lower rib. The diaphragm is the principal muscle of inspiration, separating the thoracic cavity from the abdominal cavity. It attaches to the xiphoid process, lower 6 costal cartilages, and lumbar vertebrae (via right and left crura). It features three major apertures: 1) Caval hiatus (level of T8, transmits IVC and right phrenic nerve); 2) Oesophageal hiatus (level of T10, transmits oesophagus and vagus nerves CN X); 3) Aortic hiatus (level of T12, transmits descending aorta, thoracic duct, and azygos vein). Motor innervation to the entire diaphragm is supplied exclusively by the phrenic nerves (arising from cervical spinal roots C3, C4, C5: \"C3, 4, 5 keeps the diaphragm alive\").",
-      "plain": "Intercostal spaces have 3 muscle layers (external breathes in, internal breathes out). The costal groove along the lower edge of each rib shelters the neurovascular bundle: Vein, Artery, Nerve (VAN). Needles are inserted over the top of the lower rib to avoid VAN. The diaphragm is the main breathing muscle; its 3 openings are T8 (caval/IVC), T10 (oesophagus), and T12 (aorta). Motor nerve: phrenic nerve (C3, C4, C5).",
+      "explanation": "BOUNDARIES OF THE THORAX. The anterior chest wall is the sternum and costal cartilages; the lateral wall is the ribs and the intercostal muscles; the posterior wall is the thoracic vertebrae and the posterior parts of the ribs.\n\nINTERCOSTAL SPACES. Each space holds three flat muscle layers: the external intercostal (fibres running downward and forward, aiding inspiration), the internal intercostal (fibres downward and backward, aiding forced expiration) and the innermost intercostal. The intercostal nerve and vessels run in the neurovascular plane between the internal and innermost layers, in the costal groove of the rib above the space, in the order vein–artery–nerve. The intercostal nerves are the anterior rami of T1–T11 (T12 is subcostal); they supply the intercostal muscles and the overlying skin and, for the lower spaces, continue onto the abdominal wall.\n\nTHORACIC INLET (superior thoracic aperture). A small, rigid, kidney-shaped ring bounded by the manubrium of the sternum anteriorly, the first pair of ribs and their costal cartilages laterally, and the body of the first thoracic vertebra posteriorly. The revision exercises stress that the clavicle, the scapula and the C7 vertebra are not part of the inlet. Structures passing through it include the trachea, oesophagus, apices of the lungs and pleura, the great vessels, the vagus and phrenic nerves and the thoracic duct.\n\nTHORACIC OUTLET (inferior thoracic aperture). Much larger and “not a flat plane”: bounded by the xiphoid process anteriorly, the curving costal margin (cartilages of ribs 7–10) anterolaterally, the 11th and 12th ribs posterolaterally, and the body of the 12th thoracic vertebra posteriorly. It is closed by the diaphragm.\n\nTHE DIAPHRAGM. A dome-shaped musculotendinous sheet separating the thoracic and abdominal cavities, with the right dome sitting higher than the left because of the liver. Its peripheral muscle fibres arise from three sets of attachments — a sternal part (from the back of the xiphoid), a costal part (from the inner surfaces of the lower six costal cartilages) and a lumbar part — and all converge on a trefoil-shaped central tendon. The lumbar part forms the right crus (longer, arising from the bodies of L1–L3, and splitting to encircle the oesophagus) and the left crus (L1–L2), together with the median, medial and lateral arcuate ligaments. The diaphragm is the chief muscle of quiet respiration, contracting and descending on inspiration. It is innervated for both motor and central-tendon sensory supply by the left and right phrenic nerves (C3, C4, C5); the peripheral rim takes sensory fibres from the lower intercostal nerves. Its venous drainage is by the phrenic veins, which drain into the inferior vena cava.\n\nTHREE APERTURES. (1) The caval opening lies in the central tendon at the T8 level and transmits the inferior vena cava and branches of the right phrenic nerve; because it is in the tendon, it is pulled open during inspiration to aid venous return. (2) The oesophageal hiatus lies in the muscle of the right crus at the T10 level and transmits the oesophagus with the anterior and posterior vagal trunks and the oesophageal branches of the left gastric vessels; crural contraction pinches it during inspiration, resisting reflux. (3) The aortic hiatus lies behind the median arcuate ligament at the T12 level and transmits the descending aorta, the thoracic duct and the azygos vein; because it is behind the ligament, aortic flow is unaffected by diaphragmatic contraction. A common mnemonic is “I ate ten eggs at twelve” — IVC T8, oEsophagus T10, Aorta T12.\n\nCLINICAL LINK. The phrenic nerve carries sensation from the central diaphragm to spinal segments C3–C5, which also supply the skin over the shoulder tip; subphrenic blood, an abscess or gas after laparoscopy is therefore felt as shoulder-tip pain. A persistent hiccup is a repeated involuntary spasm of the diaphragm.",
+      "plain": "The chest wall is breastbone and cartilage in front, ribs and muscle at the sides, vertebrae and ribs behind. The way in at the top (thoracic inlet) is a tight ring: manubrium in front, first ribs at the sides, T1 behind — the collarbone and shoulder blade are NOT part of it. The way out at the bottom (thoracic outlet) is bigger and uneven — xiphoid, costal margin, ribs 11–12, T12 — and it is sealed by the diaphragm. The diaphragm is a domed muscle with a central tendon and two pillars (crura) from the lumbar spine; the phrenic nerve (C3, 4, 5) drives it. Three things pass through it at three levels: the IVC at T8 (in the tendon), the oesophagus at T10 (in the right crus), and the aorta at T12 (behind a ligament). Mnemonic: I-8 (IVC), 10-EGGs (oEsophagus), A-orta-12.",
       "keyFacts": [
-        "Intercostal neurovascular bundle order in costal groove: Vein, Artery, Nerve (VAN) superior to inferior.",
-        "Thoracocentesis needles are inserted immediately above the upper border of a rib to avoid the VAN bundle.",
-        "Diaphragm apertures: T8 (IVC / caval hiatus), T10 (oesophagus), T12 (aorta / aortic hiatus).",
-        "Phrenic nerve (C3, C4, C5) provides sole motor innervation to the diaphragm.",
-        "External intercostals elevate ribs (inspiration); internal intercostals depress ribs (forced expiration)."
+        "Thoracic wall: sternum and costal cartilages (anterior), ribs and intercostal muscles (lateral), thoracic vertebrae and ribs (posterior).",
+        "Thoracic inlet is bounded by the manubrium, the 1st pair of ribs and the body of T1; the clavicle, scapula and C7 are NOT part of it.",
+        "Thoracic outlet is bounded by the xiphoid process, the costal margin, the 11th and 12th ribs and the body of T12, and is closed by the diaphragm.",
+        "The diaphragm’s peripheral muscle fibres converge on a central tendon; the lumbar part forms the right and left crura.",
+        "The diaphragm is innervated by the left and right phrenic nerves (C3, C4, C5).",
+        "Phrenic veins drain the diaphragm into the inferior vena cava.",
+        "Caval opening: T8, in the central tendon, transmits the inferior vena cava.",
+        "Oesophageal hiatus: T10, in the right crus, transmits the oesophagus and vagal trunks.",
+        "Aortic hiatus: T12, behind the median arcuate ligament, transmits the aorta, thoracic duct and azygos vein.",
+        "Diaphragmatic pain is referred to the C3–C5 dermatomes at the shoulder tip via the phrenic nerve."
       ],
       "prerequisites": [
-        "hss2011-osteo-ribs-sternum",
-        "hss2011-thorax-regional-landmarks"
+        "hss2011-osteo-ribs-sternum"
       ],
       "examples": [
-        "Chest drain insertion for pneumothorax at the 5th intercostal space, midaxillary line, above the 6th rib."
+        "A sliding hiatus hernia occurs when the gastro-oesophageal junction slides up through a lax oesophageal hiatus (T10) into the thorax, weakening the antireflux mechanism.",
+        "Referred shoulder-tip pain after laparoscopic surgery is caused by residual gas irritating the diaphragm, carried by the phrenic nerve to C3–C5."
       ]
     },
     "memory": {
-      "mnemonic": "Diaphragm hiatuses: \"I8 10 Eggs At 12\" — I (IVC) at 8, Eggs (Oesophagus) at 10, At (Aorta) at 12.",
-      "chunking": "Neurovascular bundle: VAN (Vein, Artery, Nerve) from top to bottom."
+      "firstLetter": "Apertures: \"I 8 10 EGGs At 12\" — IVC T8, oEsophagus T10, Aorta T12.",
+      "comparison": "Caval opening is in the tendon (opens on inspiration, aids venous return); oesophageal hiatus is in muscle (pinches on inspiration, resists reflux); aortic hiatus is behind a ligament (aortic flow unaffected).",
+      "chunking": "Inlet = small, rigid, 3 bones (manubrium, 1st ribs, T1). Outlet = large, irregular, sealed by diaphragm."
     },
     "practice": [
       {
         "type": "mcq",
-        "prompt": "In what order are structures arranged in the costal groove of a rib from superior to inferior?",
+        "prompt": "Which structure is NOT part of the thoracic inlet? (choose the best single answer)",
         "options": [
-          "Nerve, Artery, Vein",
-          "Artery, Vein, Nerve",
-          "Vein, Artery, Nerve",
-          "Vein, Nerve, Artery"
+          "Manubrium of the sternum",
+          "First pair of ribs",
+          "Clavicle",
+          "Body of the first thoracic vertebra"
         ],
         "answer": 2,
-        "explanation": "The intercostal neurovascular bundle is arranged Vein, Artery, Nerve (VAN) from superior to inferior.",
+        "explanation": "The thoracic inlet is bounded by the manubrium, the 1st ribs and the body of T1. The revision-exercise answer lists the clavicle, scapula and C7 as NOT part of it.",
         "src": {
-          "ref": "hss.1.3",
-          "location": "p6–p18 Intercostal space"
+          "ref": "hss.manual1920",
+          "location": "p24 \"Which of the following is NOT part of the thoracic inlet\""
         }
       },
       {
         "type": "mcq",
-        "prompt": "At which vertebral level does the oesophagus pass through the diaphragm?",
+        "prompt": "The inferior vena cava passes through the diaphragm at which vertebral level?",
         "options": [
           "T8",
           "T10",
           "T12",
           "L1"
         ],
-        "answer": 1,
-        "explanation": "The oesophageal hiatus is at T10. T8 is caval hiatus (IVC); T12 is aortic hiatus.",
+        "answer": 0,
+        "explanation": "The caval opening lies in the central tendon at T8; the oesophageal hiatus is at T10 and the aortic hiatus at T12.",
         "src": {
-          "ref": "hss.thorax.deck",
-          "location": "Slides 8–18 Diaphragm apertures"
+          "ref": "hss.1.3",
+          "location": "p15 \"central tendon\""
         }
       },
       {
         "type": "cloze",
-        "prompt": "Sole motor innervation to the thoracic diaphragm is provided by the ______ nerves (cervical roots C3–C5).",
+        "prompt": "The diaphragm is innervated by the left and right ______ nerves.",
         "accept": [
-          "phrenic",
-          "phrenic nerve",
-          "phrenic nerves"
+          "phrenic"
         ],
-        "explanation": "Phrenic nerves arise from C3–C5 and descend through the mediastinum to innervate the diaphragm.",
+        "explanation": "The phrenic nerves (C3, C4, C5) provide the sole motor supply to the diaphragm.",
         "src": {
-          "ref": "hss.thorax.deck",
-          "location": "Slides 14–16 Diaphragm innervation"
+          "ref": "hss.1.3",
+          "location": "p15 \"phrenic nerve\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "Venous blood from the diaphragm is carried by the phrenic veins, which drain into the ______.",
+        "accept": [
+          "IVC",
+          "inferior vena cava"
+        ],
+        "explanation": "The phrenic veins drain into the inferior vena cava.",
+        "src": {
+          "ref": "hss.1.3",
+          "location": "p16 \"Phrenic veins drain into the IVC\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The thoracic outlet is bounded anteriorly by the xiphoid process, laterally by the costal margin and the ______ ribs, and posteriorly by T12.",
+        "accept": [
+          "12th",
+          "11th and 12th",
+          "11th & 12th"
+        ],
+        "explanation": "The outlet is bounded by the xiphoid process, the curving costal margin, the 12th (and 11th) ribs and the body of T12.",
+        "src": {
+          "ref": "hss.1.3",
+          "location": "p13 \"12th ribs\""
         }
       }
     ],
     "application": [
       {
         "type": "scenario",
-        "prompt": "A physician performs a thoracocentesis to drain pleural effusion. Where should the needle be placed relative to the rib, and why?",
-        "model": "The needle must be inserted directly over the superior border of the lower rib. The costal groove on the inferior border of the upper rib shelters the intercostal vein, artery, and nerve (VAN); passing over the superior border of the lower rib avoids puncturing these vessels and nerve.",
+        "prompt": "A trauma CT shows the tip of a stab wound reaching the central tendon of the diaphragm at the T8 level, just to the right of the midline. Name the structure most at risk at that exact site, contrast the two other diaphragmatic apertures by level and content, and explain why the patient also complains of right shoulder pain.",
+        "model": "At the T8 level in the central tendon is the caval opening, which transmits the inferior vena cava together with branches of the right phrenic nerve, so the IVC is the structure most at risk — injury here causes rapid, difficult-to-control venous haemorrhage. The other two apertures are the oesophageal hiatus at T10 (in the muscular right crus, transmitting the oesophagus and vagal trunks) and the aortic hiatus at T12 (behind the median arcuate ligament, transmitting the aorta, thoracic duct and azygos vein). The right shoulder pain is referred: the phrenic nerve carries sensation from the central diaphragm to spinal segments C3–C5, which also supply the skin over the shoulder tip, so diaphragmatic irritation is felt there.",
         "rubric": [
-          "Specifies superior border of the lower rib",
-          "Names the intercostal vein, artery, nerve (VAN)",
-          "Explains avoiding the costal groove on the inferior border"
+          "Identifies the caval opening (T8, central tendon) transmitting the IVC as the structure at risk",
+          "Correctly places the oesophageal hiatus (T10, right crus) and aortic hiatus (T12, behind median arcuate ligament) with their contents",
+          "Explains phrenic (C3–C5) referral of diaphragmatic pain to the shoulder tip"
         ]
       }
     ],
     "commonMistakes": [
-      "Inserting needles below a rib (punctures the intercostal VAN bundle).",
-      "Confusing the vertebral levels of diaphragm hiatuses (remember: IVC=8, Oesophagus=10, Aorta=12)."
+      "Including the clavicle or scapula in the thoracic inlet — the boundary is manubrium, 1st ribs and T1 only.",
+      "Swapping the aperture levels — IVC T8, oesophagus T10, aorta T12.",
+      "Saying the aorta pierces the diaphragm muscle — it passes behind the median arcuate ligament, so its flow is not squeezed by contraction."
     ],
     "skills": [
-      "Identify the right and left hemidiaphragms on chest radiographs, noting the right dome is normally 1–2 cm higher due to the liver."
+      "Trace the thoracic inlet ring and the costal margin on a skeleton or living subject.",
+      "Match each diaphragmatic aperture to its vertebral level and its transmitted structures."
     ],
-    "selfCheck": "From memory: write the VAN sequence and the three diaphragmatic hiatuses with their vertebral levels and transmitted structures.",
+    "selfCheck": "From memory: the boundaries of the thoracic inlet and outlet, the origin and nerve supply of the diaphragm, and the level and contents of each of the three apertures.",
     "sourceRefs": [
       {
         "ref": "hss.1.3",
-        "location": "p6–p18 Intercostal space and diaphragm"
+        "location": "p3 \"Anterior chest wall\""
       },
       {
-        "ref": "hss.thorax.deck",
-        "location": "Slides 8–18 Diaphragm apertures"
+        "ref": "hss.1.3",
+        "location": "p12 \"1st thoracic vertebra\""
+      },
+      {
+        "ref": "hss.1.3",
+        "location": "p13 \"xiphoid process\""
+      },
+      {
+        "ref": "hss.1.3",
+        "location": "p13 \"bounded by the\""
+      },
+      {
+        "ref": "hss.1.3",
+        "location": "p15 \"central tendon\""
+      },
+      {
+        "ref": "hss.1.3",
+        "location": "p15 \"phrenic nerve\""
+      },
+      {
+        "ref": "hss.1.3",
+        "location": "p16 \"Phrenic veins drain into the IVC\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p24 \"Which of the following is NOT part of the thoracic inlet\""
       }
     ]
   },
@@ -8838,110 +8859,560 @@ export const HSS_MODULES = [
     "id": "hss2011-thorax-tutorial-pastpaper-practice",
     "subject": "HSS2011",
     "unit": "hss.m1",
-    "type": "cloze",
-    "title": "Thorax regional anatomy tutorial & past paper practice",
+    "type": "practice",
+    "title": "Regional anatomy of the thorax — past-paper and revision-exercise synthesis",
     "tags": [
       "thorax",
-      "assessment",
-      "tutorial",
+      "past-paper",
+      "revision",
       "high-yield"
     ],
+    "visuals": [
+      {
+        "fig": "mediastinumDivisions"
+      },
+      {
+        "fig": "thoracicDiaphragm"
+      },
+      {
+        "gen": true
+      }
+    ],
     "lesson": {
-      "explanation": "Official Module 1.3 revision questions focus on regional thoracic anatomy: the sternal angle (manubriosternal junction / angle of Louis) is located at the T4/T5 intervertebral disc level; it marks the attachment of the 2nd costal cartilage, the bifurcation of the trachea into primary bronchi (carina), the boundary between superior and inferior mediastinum, and the beginning/end of the aortic arch; ribs 1–7 are true (vertebrosternal) ribs, 8–10 are false (vertebrochondral) ribs, and 11–12 are floating (vertebral) ribs; the superior thoracic aperture (thoracic inlet) is bounded by T1, 1st rib pair, and manubrium; the inferior thoracic aperture (thoracic outlet) is bounded by T12, 12th rib pair, costal margins, and xiphisternal joint, closed by the diaphragm.",
-      "plain": "Core thorax exam facts: sternal angle at T4/T5 aligns with 2nd rib, carina, and aortic arch. Ribs 1–7 true, 8–10 false, 11–12 floating. Sternal angle plane separates superior from inferior mediastinum.",
+      "explanation": "This item gathers the thorax points that HKPolyU HSS2011 has actually tested — the Module 1.3 revision-exercise MCQs and fill-in-the-blanks and the 2017/18 final paper — so revision can be aimed at the marked points. Each block below is anchored to a specific tested item.\n\nTHORACIC INLET. “Which of the following is NOT part of the thoracic inlet?” takes multiple answers — the clavicle, the scapula and the C7 vertebra are all outside it; the inlet is the manubrium, the 1st ribs and the body of T1, and the fill-in-blank answer for the outlet is the xiphoid process, costal margin, 12th ribs and T12.\n\nRIBS AND JOINTS. Recurring points: ribs 1–7 true, 8–10 false, 11–12 floating; a typical rib articulates with the spine at the capitular (costovertebral) and costotransverse joints; the costal groove carries the vein, artery and nerve (VAN); the sternal angle marks the 2nd costal cartilage at T4/T5.\n\nMEDIASTINUM AND OESOPHAGUS. The oesophagus descends along the superior and posterior mediastinum. The arch of the aorta lies in the superior mediastinum. The transverse thoracic plane (sternal angle / T4/T5) also passes through the carina and the azygos–SVC junction.\n\nHEART. The inferior surface of the heart is supported by the diaphragm. The four valve auscultation areas are aortic (2nd right space), pulmonary (2nd left space), tricuspid (lower left sternal border) and mitral (apex, 5th left space mid-clavicular line).\n\nLYMPHATIC DRAINAGE. “Lymph from which organ does NOT drain into the left lymphatic duct?” — the answer is the structure in the right upper quadrant (e.g. the right eye), because the right lymphatic duct, not the thoracic (left) duct, drains the right side of the head and neck, the right upper limb and the right thorax. Lymph inferior to the diaphragm is collected by the cisterna chyli, which drains into the thoracic duct.\n\nBREAST. The tail of the mammary gland extends into the axilla. The medial breast is supplied by the internal thoracic artery; venous drainage is mainly to the axillary vein.\n\nDIAPHRAGM AND VESSELS. The diaphragm is supplied by the superior and inferior phrenic arteries and its muscle is innervated by the phrenic nerve (C3–C5); its three apertures are the caval opening (T8), the oesophageal hiatus (T10) and the aortic hiatus (T12). The azygos vein drains blood from the posterior thoracic wall into the superior vena cava at the level of T4. At the T4/T5 junction the 2nd costal cartilage articulates with the sternum and the descending aorta begins. The horizontal fissure separates the superior and middle lobes of the right lung.",
+      "plain": "A revision sheet of exactly what the thorax exam has asked. Thoracic inlet = manubrium + 1st ribs + T1 (clavicle, scapula, C7 are NOT in it). Oesophagus runs through the superior and posterior mediastinum; the aortic arch is in the superior mediastinum. The bottom of the heart sits on the diaphragm. The right lymphatic duct (not the thoracic duct) drains the right upper quarter of the body — so lymph from the right eye does NOT enter the thoracic/left duct; lymph from below the diaphragm is gathered by the cisterna chyli. The breast tail goes into the axilla and the internal thoracic artery feeds the medial breast. The diaphragm gets superior and inferior phrenic arteries and the phrenic nerve; the azygos vein empties into the SVC at T4; the horizontal fissure separates the right superior and middle lobes.",
       "keyFacts": [
-        "Sternal angle is at T4/T5 disc level, marking 2nd costal cartilage, carina, and mediastinal plane.",
-        "Ribs 1–7 true; 8–10 false; 11–12 floating.",
-        "Middle mediastinum contains the pericardium, heart, and roots of great vessels.",
-        "Superior thoracic aperture transmits trachea, oesophagus, and great vessels to the neck."
+        "Thoracic inlet: manubrium + 1st ribs + body of T1; clavicle, scapula and C7 are NOT part of it.",
+        "The oesophagus descends along the superior and posterior mediastinum.",
+        "The arch of the aorta lies in the superior mediastinum.",
+        "The inferior (diaphragmatic) surface of the heart is supported by the diaphragm.",
+        "The right lymphatic duct drains the right head/neck, right upper limb and right thorax; the right eye does NOT drain into the thoracic (left) duct.",
+        "Lymph from below the diaphragm is collected by the cisterna chyli.",
+        "The tail of the mammary gland extends into the axilla; the medial breast is supplied by the internal thoracic artery.",
+        "The diaphragm is supplied by the superior and inferior phrenic arteries and innervated by the phrenic nerve.",
+        "The azygos vein drains the posterior thoracic wall into the superior vena cava at the level of T4.",
+        "The horizontal fissure separates the superior and middle lobes of the right lung."
       ],
       "prerequisites": [
-        "hss2011-osteo-ribs-sternum",
-        "hss2011-thorax-regional-landmarks"
+        "hss2011-thorax-breast-axillary-lymphatics"
       ],
       "examples": [
-        "Exam past paper question: \"The sternal angle lies opposite which intervertebral disc? Answer: T4/T5.\""
+        "A fill-in-the-blank: \"The ______ drains blood from the posterior thoracic wall into the ______ at the level of T4\" — azygos vein; superior vena cava.",
+        "An MCQ: \"Lymph from which organ does NOT drain into the left lymphatic duct?\" — the right eye (a right-upper-quadrant structure)."
       ]
     },
     "memory": {
-      "teachBack": "List five major anatomical structures or events that occur at the horizontal plane of the sternal angle (T4/T5)."
+      "chunking": "Tested blocks: inlet exclusions, mediastinum + oesophagus, heart inferior surface, right-vs-left lymphatic duct, breast, diaphragm vessels/nerve, azygos at T4.",
+      "comparison": "Thoracic (left) duct = most of the body; right lymphatic duct = right head/neck + right arm + right thorax only.",
+      "number": "T4 recurs: azygos into SVC, sternal angle, aortic arch, carina — all at the T4/T5 plane."
     },
     "practice": [
       {
         "type": "mcq",
-        "prompt": "The sternal angle (angle of Louis) lies opposite which intervertebral disc?",
+        "prompt": "Which of the following is NOT part of the thoracic inlet?",
         "options": [
-          "T2/T3",
-          "T3/T4",
-          "T4/T5",
-          "T5/T6"
+          "Manubrium of the sternum",
+          "First pair of ribs",
+          "Scapula",
+          "Body of T1"
         ],
         "answer": 2,
-        "explanation": "Model answer C. The sternal angle is at the level of the T4/T5 intervertebral disc.",
+        "explanation": "The inlet is the manubrium, the 1st ribs and the body of T1. The revision answer marks the clavicle, scapula and C7 as NOT part of it.",
         "src": {
-          "ref": "hss.revans",
-          "location": "Module 1.3, MCQ 1"
-        }
-      },
-      {
-        "type": "cloze",
-        "prompt": "The horizontal plane dividing the superior mediastinum from the inferior mediastinum passes through the ______ ______ anteriorly and the T4/T5 disc posteriorly.",
-        "accept": [
-          "sternal angle",
-          "manubriosternal joint",
-          "angle of louis"
-        ],
-        "explanation": "The sternal angle marks the boundary between superior and inferior mediastinum.",
-        "src": {
-          "ref": "hss.revans",
-          "location": "Module 1.3 answers"
+          "ref": "hss.manual1920",
+          "location": "p24 \"Which of the following is NOT part of the thoracic inlet\""
         }
       },
       {
         "type": "mcq",
-        "prompt": "Which ribs attach directly to the sternum via their own individual costal cartilages?",
+        "prompt": "The oesophagus descends along the ______ mediastinum.",
         "options": [
-          "Ribs 1–5",
-          "Ribs 1–7",
-          "Ribs 1–10",
-          "Ribs 1–12"
+          "anterior and middle",
+          "anterior and superior",
+          "superior and middle",
+          "superior and posterior"
+        ],
+        "answer": 3,
+        "explanation": "The tested answer is superior and posterior — the oesophagus passes through the superior mediastinum then the posterior mediastinum.",
+        "src": {
+          "ref": "hss.manual1920",
+          "location": "p24 \"The oesophagus descends along the\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Lymph from which of the following does NOT drain into the left (thoracic) lymphatic duct?",
+        "options": [
+          "The left hand",
+          "The right eye",
+          "The left foot",
+          "The right foot"
         ],
         "answer": 1,
-        "explanation": "Ribs 1–7 are true ribs (vertebrosternal) because their costal cartilages connect directly to the sternum.",
+        "explanation": "The right lymphatic duct drains the right side of the head and neck, the right upper limb and the right thorax, so lymph from the right eye does not reach the thoracic duct.",
         "src": {
-          "ref": "hss.1.3",
-          "location": "p4 Thoracic cage ribs"
+          "ref": "hss.manual1920",
+          "location": "p24 \"Lymph from which of the following organ does NOT drain into the left lymphatic duct\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The azygos vein drains blood from the posterior thoracic wall into the superior vena cava at the level of ______.",
+        "accept": [
+          "T4",
+          "t4"
+        ],
+        "explanation": "The past paper and revision answers state the azygos vein enters the superior vena cava at T4.",
+        "src": {
+          "ref": "hss.fib5yr",
+          "location": "p2 \"azygos vein drains blood into the superior vena cava at the level of T4\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The ______ fissure separates the superior and middle lobes of the right lung.",
+        "accept": [
+          "horizontal"
+        ],
+        "explanation": "The 2017/18 paper asks for the fissure separating the superior and middle lobes of the right lung — the horizontal fissure.",
+        "src": {
+          "ref": "hss.pp1718",
+          "location": "p2 \"separates the superior and middle lobes of the right lung\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The medial part of the breast is supplied by the ______ artery.",
+        "accept": [
+          "internal thoracic",
+          "internal mammary"
+        ],
+        "explanation": "The Module 1.3 fill-in-blank answer is the internal thoracic artery.",
+        "src": {
+          "ref": "hss.manual1920",
+          "location": "p74 \"Internal thoracic artery\""
         }
       }
     ],
     "application": [
       {
         "type": "scenario",
-        "prompt": "A clinician palpates the sternal angle to count ribs on a patient. Which rib cartilage attaches immediately adjacent to this landmark?",
-        "model": "The second costal cartilage. The sternal angle (manubriosternal junction) provides the primary clinical reference landmark for counting ribs because the second costal cartilage articulates directly at this joint; the first rib lies deep to the clavicle and cannot be reliably palpated.",
+        "prompt": "Work through this past-paper stem: \"At the level of the junction of the fourth and fifth thoracic vertebrae, the [ ] cartilage of the [ ] articulates with the sternum, and the [ ] aorta begins.\" Give the answers and explain what else lies in this plane.",
+        "model": "At the T4/T5 junction (the plane of the sternal angle), the 2nd costal cartilage articulates with the sternum, and the descending (thoracic) aorta begins as the arch ends. The same transverse thoracic plane also passes through the bifurcation of the trachea at the carina, the beginning and end of the arch of the aorta, the point where the azygos vein arches over the right lung root to enter the superior vena cava, and the boundary between the superior and inferior mediastinum. This is why \"T4/T5\" and \"sternal angle\" recur throughout the thorax paper.",
         "rubric": [
-          "Identifies 2nd costal cartilage / 2nd rib",
-          "Names sternal angle as clinical counting landmark",
-          "Notes 1st rib is hidden under clavicle"
+          "Answers: 2nd costal cartilage; descending (thoracic) aorta begins",
+          "Names the sternal angle / transverse thoracic plane as the T4/T5 landmark",
+          "Lists other structures in the plane: carina, aortic arch ends, azygos into SVC, superior/inferior mediastinal boundary"
         ]
       }
     ],
     "commonMistakes": [
-      "Calling rib 8 a true rib (ribs 8–10 merge their cartilages into cartilage 7, so they are false ribs).",
-      "Placing the sternal angle at T2 or T3."
+      "Including the clavicle in the thoracic inlet — it, the scapula and C7 are all excluded.",
+      "Saying the right lymphatic duct drains the whole right side of the body — it drains only the right head/neck, right upper limb and right thorax; the right lower limb drains to the thoracic duct.",
+      "Placing the azygos termination at T8 — it enters the superior vena cava at T4."
     ],
     "skills": [
-      "Locate the sternal angle on lateral chest radiographs to verify T4/T5 level and carina position."
+      "Reproduce the Module 1.3 MCQ answers and fill-in-the-blanks from memory under timed conditions.",
+      "List every structure that lies in the transverse thoracic (T4/T5) plane."
     ],
-    "selfCheck": "From memory: answer the 3 revision questions on sternal angle, ribs, and mediastinum boundaries.",
+    "selfCheck": "From memory: the inlet exclusions, the mediastinum the oesophagus runs in, the right-vs-left lymphatic duct territories, the breast tail and its arterial supply, and everything that lies at the T4/T5 plane.",
     "sourceRefs": [
       {
-        "ref": "hss.revans",
-        "location": "Module 1.3 answers"
+        "ref": "hss.manual1920",
+        "location": "p24 \"Which of the following is NOT part of the thoracic inlet\""
       },
       {
         "ref": "hss.manual1920",
-        "location": "Module 1.3 Revision exercise"
+        "location": "p24 \"The oesophagus descends along the\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p24 \"Lymph from which of the following organ does NOT drain into the left lymphatic duct\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p24 \"The tail of the mammary gland extends into the\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p74 \"Internal thoracic artery\""
+      },
+      {
+        "ref": "hss.fib5yr",
+        "location": "p2 \"azygos vein drains blood into the superior vena cava at the level of T4\""
+      },
+      {
+        "ref": "hss.pp1718",
+        "location": "p2 \"separates the superior and middle lobes of the right lung\""
+      },
+      {
+        "ref": "hss.pp1718",
+        "location": "p2 \"drains blood from the posterior thoracic wall\""
+      }
+    ]
+  },
+  {
+    "id": "hss2011-thorax-mediastinum-divisions-contents",
+    "subject": "HSS2011",
+    "unit": "hss.m1",
+    "type": "concept",
+    "title": "The mediastinum: boundaries, the T4/T5 plane, and the four compartments",
+    "tags": [
+      "thorax",
+      "mediastinum",
+      "regional-anatomy",
+      "high-yield"
+    ],
+    "visuals": [
+      {
+        "fig": "mediastinumDivisions"
+      },
+      {
+        "fig": "heartInternalAnatomy"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "lesson": {
+      "explanation": "DEFINITION AND BOUNDARIES. The mediastinum is the central partition of the thoracic cavity, lying between the two pleural cavities — the left and right pulmonary chambers are enclosed by the pleural cavities and the mediastinum is the region in between, running from the sternum to the vertebral column. It is bounded superiorly by the thoracic inlet, inferiorly by the diaphragm, anteriorly by the sternum, posteriorly by the bodies of the thoracic vertebrae, and on each side by the mediastinal parietal pleura, which separates the mediastinum from the pleural cavity. It contains the heart and pericardium, the great vessels, the trachea and oesophagus, the thymus, the thoracic duct, lymph nodes and the phrenic and vagus nerves — everything in the thorax that is not lung. It is mobile, deformable and, in the child, dominated by the thymus, which involutes after puberty.\n\nTHE DIVIDING PLANE. A horizontal plane passing through the sternal angle anteriorly and the T4/T5 intervertebral disc posteriorly — the transverse thoracic plane — divides the mediastinum into a superior mediastinum above and an inferior mediastinum below. The carina, the start and end of the aortic arch, the ligamentum arteriosum and the entry of the azygos vein into the superior vena cava all lie in this plane.\n\nSUPERIOR MEDIASTINUM. Between the manubrium and the upper four thoracic vertebrae. From front to back it contains the remnants of the thymus; the right and left brachiocephalic veins uniting to form the superior vena cava; the arch of the aorta with its three branches (brachiocephalic trunk, left common carotid, left subclavian artery); the trachea; the oesophagus; and the thoracic duct, together with the phrenic nerves (running anterior to the lung root), the vagus nerves (running posterior to the lung root) and the left recurrent laryngeal nerve, which hooks under the arch beside the ligamentum arteriosum before ascending to the larynx — so an aortic arch aneurysm or a left hilar tumour can cause a hoarse voice.\n\nINFERIOR MEDIASTINUM. Divided by the pericardial sac into three parts. (1) Anterior mediastinum — the narrow space between the body of the sternum and the pericardium; contains thymic remnants, fat, sternopericardial ligaments, connective tissue and a few parasternal lymph nodes. (2) Middle mediastinum — the pericardium and the heart it encloses, the ascending aorta, the pulmonary trunk and its bifurcation, the lower half of the superior vena cava with the arch of the azygos vein, the terminal part of the inferior vena cava, the main bronchi, and the phrenic nerves with the pericardiacophrenic vessels running on the fibrous pericardium. (3) Posterior mediastinum — between the pericardium and the bodies of the lower eight thoracic vertebrae; contains the oesophagus with its nerve plexus, the descending thoracic aorta and its branches, the azygos and hemiazygos veins, the thoracic duct and the sympathetic trunks with the thoracic splanchnic nerves. The oesophagus therefore descends through the superior and then the posterior mediastinum, a point the revision exercises test directly.\n\nCLINICAL LINK. An anterior mediastinal mass in an adult is classically one of the “four Ts” — thymoma, teratoma, (terrible) lymphoma, thyroid — because of what normally occupies that compartment. Obstruction of the superior vena cava in the superior mediastinum (SVC syndrome) causes facial and upper-limb swelling and distended neck veins.",
+      "plain": "The mediastinum is the middle of the chest between the two lungs — the box that holds the heart, big vessels, windpipe and gullet. Its walls are: breastbone in front, spine behind, diaphragm below, neck opening above, lung-lining pleura on each side. A flat line through the sternal angle (level T4/T5) cuts it into a superior part and an inferior part. The superior part holds the aortic arch and its branches, the great veins joining to form the SVC, the trachea, the oesophagus and the thoracic duct. The inferior part is split by the heart’s sac into three: anterior (just fat and thymus scraps in front of the heart), middle (the heart and pericardium themselves plus the phrenic nerves), and posterior (oesophagus, descending aorta, azygos vein, thoracic duct behind the heart). The gullet runs through both the superior and the posterior parts.",
+      "keyFacts": [
+        "The mediastinum is the region between the two pleural cavities; the pulmonary chambers are enclosed by pleura and the mediastinum lies in between.",
+        "Boundaries: thoracic inlet (superior), diaphragm (inferior), sternum (anterior), thoracic vertebral bodies (posterior), mediastinal pleura (lateral).",
+        "The transverse thoracic plane through the sternal angle / T4/T5 disc separates the superior from the inferior mediastinum.",
+        "Superior mediastinum contents: thymus, brachiocephalic veins and superior vena cava, arch of the aorta and its 3 branches, trachea, oesophagus, thoracic duct, phrenic and vagus nerves.",
+        "The inferior mediastinum is divided by the pericardium into anterior, middle and posterior parts.",
+        "Anterior mediastinum: thymic remnants, fat, connective tissue and parasternal lymph nodes.",
+        "Middle mediastinum: the pericardium and heart, roots of the great vessels, and the phrenic nerves.",
+        "Posterior mediastinum: oesophagus, descending thoracic aorta, azygos and hemiazygos veins, thoracic duct, sympathetic trunks.",
+        "The oesophagus descends through the superior and the posterior mediastinum.",
+        "The arch of the aorta lies in the superior mediastinum."
+      ],
+      "prerequisites": [
+        "hss2011-thorax-intercostal-diaphragm"
+      ],
+      "examples": [
+        "A widened superior mediastinum on a trauma chest film raises concern for aortic arch injury, because the arch and great vessels occupy that compartment.",
+        "Achalasia and oesophageal carcinoma present with mediastinal signs because the oesophagus runs the length of the superior and posterior mediastinum, close to the airway and aorta."
+      ]
+    },
+    "memory": {
+      "chunking": "Inferior mediastinum, front to back: Anterior (fat + thymus), Middle (heart + pericardium), Posterior (oesophagus, aorta, azygos, thoracic duct).",
+      "firstLetter": "Anterior mediastinal mass = the 4 Ts: Thymoma, Teratoma, Terrible lymphoma, Thyroid.",
+      "location": "Dividing plane = sternal angle in front = T4/T5 disc behind = same plane as the carina and the ends of the aortic arch."
+    },
+    "practice": [
+      {
+        "type": "mcq",
+        "prompt": "The oesophagus descends through which parts of the mediastinum?",
+        "options": [
+          "Anterior and middle",
+          "Anterior and superior",
+          "Superior and middle",
+          "Superior and posterior"
+        ],
+        "answer": 3,
+        "explanation": "The oesophagus passes through the superior mediastinum and then the posterior mediastinum on its way to the oesophageal hiatus.",
+        "src": {
+          "ref": "hss.manual1920",
+          "location": "p24 \"The oesophagus descends along the\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "The plane that separates the superior from the inferior mediastinum passes through:",
+        "options": [
+          "The jugular notch and T1",
+          "The sternal angle and the T4/T5 disc",
+          "The xiphisternal joint and T9",
+          "The mid-manubrium and T3"
+        ],
+        "answer": 1,
+        "explanation": "The transverse thoracic plane runs through the sternal angle anteriorly and the T4/T5 intervertebral disc posteriorly.",
+        "src": {
+          "ref": "hss.1.3",
+          "location": "p19 \"@ T4/T5 vertebral level\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The inferior mediastinum is divided by the ______ into anterior, middle and posterior parts.",
+        "accept": [
+          "pericardium",
+          "pericardial sac",
+          "heart and pericardium"
+        ],
+        "explanation": "The pericardial sac (with the heart) occupies the middle mediastinum and separates the anterior from the posterior compartment.",
+        "src": {
+          "ref": "hss.1.3",
+          "location": "p19 \"Inferior mediastinum\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which set of structures lies in the posterior mediastinum?",
+        "options": [
+          "Thymus, brachiocephalic veins, aortic arch",
+          "Pericardium, heart, roots of the great vessels",
+          "Oesophagus, descending thoracic aorta, azygos vein, thoracic duct",
+          "Trachea, main bronchi, hilar lymph nodes"
+        ],
+        "answer": 2,
+        "explanation": "The posterior mediastinum lies behind the pericardium and contains the oesophagus, descending thoracic aorta, azygos and hemiazygos veins, thoracic duct and sympathetic trunks.",
+        "src": {
+          "ref": "hss.1.3",
+          "location": "p19 \"Posterior\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The arch of the aorta lies in the ______ mediastinum.",
+        "accept": [
+          "superior"
+        ],
+        "explanation": "The revision-exercise answer places the arch of the aorta in the superior mediastinum.",
+        "src": {
+          "ref": "hss.1.3",
+          "location": "p19 \"Superior mediastinum\""
+        }
+      }
+    ],
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A CT report describes a mass posterior to the pericardium at the T7 level, displacing the oesophagus and abutting the descending aorta and azygos vein. State which mediastinal compartment the mass is in, list the normal contents of that compartment, and explain why a mass here can cause difficulty swallowing and back pain but rarely affects the heart directly.",
+        "model": "The mass is in the posterior mediastinum — the part of the inferior mediastinum behind the pericardium and in front of the lower thoracic vertebrae. Its normal contents are the oesophagus, the descending thoracic aorta and its branches, the azygos and hemiazygos veins, the thoracic duct, the vagus nerves and the sympathetic trunks with the splanchnic nerves. A mass here compresses the oesophagus, producing dysphagia, and can erode or press on the vertebral bodies and posterior chest wall, causing back pain, and may involve the sympathetic chain. The heart is shielded from the mass by the fibrous pericardium and lies in the separate middle mediastinum, so cardiac function is usually spared until the mass is very large.",
+        "rubric": [
+          "Identifies the posterior mediastinum and its boundaries (behind pericardium, in front of lower thoracic vertebrae)",
+          "Lists oesophagus, descending aorta, azygos/hemiazygos veins, thoracic duct and sympathetic trunks",
+          "Explains dysphagia and back pain from local compression while the pericardium shields the heart in the middle mediastinum"
+        ]
+      }
+    ],
+    "commonMistakes": [
+      "Putting the aortic arch in the posterior mediastinum — the arch is in the superior mediastinum; only the descending aorta is posterior.",
+      "Saying the oesophagus is only in the posterior mediastinum — it runs through the superior mediastinum first.",
+      "Forgetting the middle mediastinum is defined by the pericardium and heart, not just a space."
+    ],
+    "skills": [
+      "On an axial CT at the sternal angle, identify the boundary between superior and inferior mediastinum.",
+      "Assign a mediastinal mass to anterior, middle or posterior compartment from its relation to the pericardium."
+    ],
+    "selfCheck": "From memory: the boundaries of the mediastinum, the dividing plane, the contents of the superior mediastinum, and the three parts of the inferior mediastinum with a key content of each.",
+    "sourceRefs": [
+      {
+        "ref": "hss.1.3",
+        "location": "p18 \"Mediastinum\""
+      },
+      {
+        "ref": "hss.1.3",
+        "location": "p19 \"Superior mediastinum\""
+      },
+      {
+        "ref": "hss.1.3",
+        "location": "p19 \"@ T4/T5 vertebral level\""
+      },
+      {
+        "ref": "hss.1.3",
+        "location": "p19 \"Inferior mediastinum\""
+      },
+      {
+        "ref": "hss.1.3",
+        "location": "p19 \"Posterior\""
+      },
+      {
+        "ref": "hss.1.3",
+        "location": "p24 \"thymus\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p24 \"The oesophagus descends along the\""
+      },
+      {
+        "ref": "hss.1920.m1.thorax",
+        "location": "p22 \"Parietal Pleura separates the pleural cavity from the mediastinum\""
+      }
+    ]
+  },
+  {
+    "id": "hss2011-thorax-breast-axillary-lymphatics",
+    "subject": "HSS2011",
+    "unit": "hss.m1",
+    "type": "concept",
+    "title": "The mammary gland: structure, blood supply and axillary lymphatic drainage",
+    "tags": [
+      "thorax",
+      "breast",
+      "lymphatics",
+      "clinical",
+      "high-yield"
+    ],
+    "visuals": [
+      {
+        "fig": "mammaryGlandAnatomy"
+      },
+      {
+        "fig": "lymphNodeStructure"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "lesson": {
+      "explanation": "POSITION. The mammary gland is a modified apocrine skin gland lying in the superficial fascia of the anterior chest wall, separated from the deep pectoral fascia over pectoralis major (and, laterally, serratus anterior) by a loose retromammary space that lets it move over the muscle. It extends roughly from the 2nd to the 6th rib vertically and from the lateral border of the sternum to the mid-axillary line; it develops along the embryonic milk line. A superolateral tongue of breast tissue, the axillary tail (tail of Spence), passes through an opening in the deep fascia to enter the axilla — the revision-exercise answer to “the tail of the mammary gland extends into the ______” is the axilla. For description the breast is divided into four quadrants plus the axillary tail; the upper outer quadrant holds the most glandular tissue and is the commonest site of carcinoma. The nipple, at about the 4th intercostal space in a young woman, is surrounded by the pigmented areola, which carries the sebaceous glands (of Montgomery) that lubricate it during lactation.\n\nINTERNAL STRUCTURE. Each breast contains 15–20 glandular lobes arranged radially around the nipple, each drained by a single lactiferous duct that widens to a lactiferous sinus (ampulla) just deep to the areola before opening on the nipple; the lobes are separated by adipose tissue and fibrous septa. These septa, the suspensory ligaments of Cooper, run from the deep fascia to the dermis and support the gland against gravity; when a tumour invades and shortens them the overlying skin is tethered and dimples, and blockage of the subareolar lymphatics with dermal oedema produces the orange-peel (peau d’orange) appearance.\n\nBLOOD SUPPLY. The breast is supplied medially by perforating branches of the internal thoracic (internal mammary) artery through the 2nd–4th intercostal spaces, laterally by the lateral thoracic and thoraco-acromial arteries (branches of the axillary artery), and by lateral mammary branches of the 2nd–4th posterior intercostal arteries. Venous blood drains mainly to the axillary vein, with a medial route to the internal thoracic vein and a posterior route to the intercostal veins; the intercostal route communicates with the vertebral venous plexus, a path for blood-borne spread to the vertebrae, skull and lungs.\n\nLYMPHATIC DRAINAGE — the clinically critical point. About three-quarters of breast lymph, and most of that from the lateral quadrants, drains to the axillary lymph nodes, passing in sequence through the pectoral (anterior) group, then the central and apical groups (levels I, II and III relative to pectoralis minor), and on to the supraclavicular nodes and the subclavian lymph trunk. The remainder drains medially through the intercostal spaces to the parasternal (internal thoracic) nodes; because the parasternal chains of the two sides communicate across the midline, a medial-quadrant cancer can spread to the opposite breast, and the same route reaches the mediastinum and, inferiorly, the subdiaphragmatic and hepatic lymphatics. Because the first involved node is nearly always axillary, sentinel node biopsy and axillary assessment are central to breast cancer staging.",
+      "plain": "The breast is a modified skin gland sitting on the fascia over pectoralis major, from about the 2nd to the 6th rib and out to the mid-armpit line. A tongue of it (the axillary tail) reaches into the armpit. Inside are 15–20 lobes draining by lactiferous ducts that widen into sinuses under the nipple, held up by fibrous Cooper’s ligaments — which a cancer can pull on to dimple the skin. Blood comes from the internal thoracic artery (medially), the lateral thoracic artery (laterally) and the intercostal arteries. The key exam point is lymph drainage: about three-quarters goes to the armpit (axillary) nodes and then up to the neck; the rest goes medially to the parasternal nodes beside the breastbone (a route to the other side). That is why breast cancer surgery always checks the axillary nodes.",
+      "keyFacts": [
+        "The mammary gland lies in the superficial fascia over pectoralis major and serratus anterior, from about the 2nd to the 6th rib.",
+        "The axillary tail (tail of Spence) is a superolateral extension of breast tissue into the axilla.",
+        "Each breast has 15–20 glandular lobes, each drained by a lactiferous duct that widens to a lactiferous sinus before opening on the nipple.",
+        "The suspensory ligaments of Cooper connect the deep fascia to the skin; tumour tethering of these ligaments causes skin dimpling.",
+        "Arterial supply: internal thoracic (internal mammary) artery medially; lateral thoracic and thoraco-acromial arteries laterally; posterior intercostal arteries.",
+        "Venous drainage is mainly to the axillary vein, with routes to the internal thoracic and intercostal veins.",
+        "About three-quarters of breast lymph drains to the axillary lymph nodes (pectoral → central → apical → supraclavicular / subclavian trunk).",
+        "The remainder drains medially to the parasternal (internal thoracic) nodes, a route for contralateral and abdominal spread.",
+        "Axillary lymph node status is central to breast cancer staging and management.",
+        "The tail of the mammary gland extends into the axilla (tested revision answer)."
+      ],
+      "prerequisites": [
+        "hss2011-cvs-lymphatic-system"
+      ],
+      "examples": [
+        "Peau d’orange: lymphatic obstruction by tumour causes dermal oedema tethered at the sweat-gland openings and Cooper’s ligaments, giving an orange-peel skin texture.",
+        "Sentinel lymph node biopsy: dye or tracer injected around the tumour drains first to the sentinel axillary node, which is removed and examined to decide whether a full axillary clearance is needed."
+      ]
+    },
+    "memory": {
+      "number": "Breast lymph: ~75% to axillary nodes, ~25% (the rest) medially to parasternal (internal thoracic) nodes.",
+      "chunking": "Axillary node chain order: pectoral → central → apical → supraclavicular / subclavian trunk.",
+      "comparison": "Lateral quadrants → axilla; medial quadrants → parasternal nodes (and possibly the other breast)."
+    },
+    "practice": [
+      {
+        "type": "mcq",
+        "prompt": "The tail of the mammary gland (axillary tail of Spence) extends into the:",
+        "options": [
+          "Supraclavicular fossa",
+          "Anterior abdominal wall",
+          "Axilla",
+          "Body of the sternum"
+        ],
+        "answer": 2,
+        "explanation": "The axillary tail is a superolateral extension of breast tissue that pierces the deep fascia to enter the axilla — the tested revision answer is C.",
+        "src": {
+          "ref": "hss.manual1920",
+          "location": "p24 \"The tail of the mammary gland extends into the\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Most of the lymph from the breast drains first to which group of nodes?",
+        "options": [
+          "Parasternal (internal thoracic) nodes",
+          "Axillary lymph nodes",
+          "Supraclavicular nodes",
+          "Coeliac nodes"
+        ],
+        "answer": 1,
+        "explanation": "About three-quarters of breast lymph drains laterally to the axillary lymph nodes before continuing to the apical and supraclavicular groups.",
+        "src": {
+          "ref": "hss.1.3",
+          "location": "p29 \"lymphatic drainage\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "Venous blood from the breast drains mainly into the ______ vein.",
+        "accept": [
+          "axillary"
+        ],
+        "explanation": "The deck states venous drainage of the breast is mainly to the axillary vein.",
+        "src": {
+          "ref": "hss.1.3",
+          "location": "p29 \"Axillary vein (mainly)\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The medial part of the breast is supplied by perforating branches of the ______ artery.",
+        "accept": [
+          "internal thoracic",
+          "internal mammary",
+          "internal thoracic artery"
+        ],
+        "explanation": "The internal thoracic (internal mammary) artery supplies the medial breast; the revision exercises name the internal thoracic artery as the mammary supply.",
+        "src": {
+          "ref": "hss.manual1920",
+          "location": "p74 \"Internal thoracic artery\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Skin dimpling over a breast lump is caused by tumour involvement of which structures?",
+        "options": [
+          "Lactiferous sinuses",
+          "Suspensory ligaments of Cooper",
+          "The axillary vein",
+          "The pectoralis minor"
+        ],
+        "answer": 1,
+        "explanation": "Tumour infiltration shortens the suspensory ligaments of Cooper, which run from the deep fascia to the skin, tethering and dimpling the overlying skin.",
+        "src": {
+          "ref": "hss.manual1920",
+          "location": "p64 \"Lactiferous Duct\""
+        }
+      }
+    ],
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A woman has a carcinoma in the upper outer quadrant of the left breast with a palpable left axillary node. Explain the lymphatic pathway that node lies on, why the upper outer quadrant is a common site, and how a cancer in the medial breast could reach the opposite side.",
+        "model": "About three-quarters of the lymph from the breast — and most of that from the lateral quadrants — drains to the axillary lymph nodes, passing from the pectoral (anterior) group to the central and apical groups and then to the supraclavicular nodes and the subclavian lymph trunk. The upper outer quadrant contains the largest volume of glandular tissue and the axillary tail, so it is the commonest site of breast cancer and its nodes are the first to be involved. A cancer in a medial quadrant drains instead through the chest wall to the parasternal (internal thoracic) nodes; because these communicate across the midline with the parasternal chain of the other side, a medial tumour can seed the contralateral breast, and the same route also reaches the mediastinum and, inferiorly, the subdiaphragmatic lymphatics.",
+        "rubric": [
+          "Traces the axillary chain: pectoral → central → apical → supraclavicular / subclavian trunk, carrying ~75% of breast lymph",
+          "Explains the upper outer quadrant has the most tissue and the axillary tail, so is the commonest cancer site",
+          "Explains medial drainage to parasternal (internal thoracic) nodes as the route to the contralateral breast"
+        ]
+      }
+    ],
+    "commonMistakes": [
+      "Saying all breast lymph goes to the axilla — about a quarter drains medially to the parasternal nodes.",
+      "Confusing the lactiferous sinus (a widening of the duct near the nipple) with the lobule (the secretory unit).",
+      "Attributing skin dimpling to the lactiferous ducts — it is caused by tethering of the suspensory ligaments of Cooper."
+    ],
+    "skills": [
+      "On a sagittal breast diagram, identify the lobes, lactiferous ducts and sinuses, Cooper’s ligaments and the retromammary space.",
+      "Describe the axillary node groups in the order lymph passes through them."
+    ],
+    "selfCheck": "From memory: the extent of the breast on the chest wall, where the axillary tail goes, the internal structure (lobes, ducts, sinuses, Cooper’s ligaments), the arterial supply, and the two main lymphatic routes with their approximate shares.",
+    "sourceRefs": [
+      {
+        "ref": "hss.1.3",
+        "location": "p28 \"The mammary glands (Breast)\""
+      },
+      {
+        "ref": "hss.1.3",
+        "location": "p28 \"Where is the tail of\""
+      },
+      {
+        "ref": "hss.1.3",
+        "location": "p29 \"lymphatic drainage\""
+      },
+      {
+        "ref": "hss.1.3",
+        "location": "p29 \"Axillary vein (mainly)\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p24 \"The tail of the mammary gland extends into the\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p74 \"Internal thoracic artery\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p64 \"Lactiferous Duct\""
       }
     ]
   },
