@@ -3274,6 +3274,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hti.w1.2026",
           "set": "new",
           "role": "current-primary"
+        },
+        {
+          "ref": "hti.w1b",
+          "set": "old",
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -5631,6 +5636,13 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "hti17103-modality-choice",
         "set": "new",
         "role": "current-primary"
+      }
+    ],
+    "hti.w1b": [
+      {
+        "lessonId": "hti17103-what-is-radiography",
+        "set": "old",
+        "role": "older-supporting"
       }
     ],
     "hti.w5": [
