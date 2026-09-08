@@ -1924,6 +1924,52 @@ export const FIGURES = {
       { mark: 'Gantry housing', name: 'Enclosure protecting the high-speed rotating CT tube/detector and stationary PET scintillation crystal detector rings' },
     ],
   },
+  linacTreatmentHead: {
+    file: 'linacTreatmentHead.svg', bytes: 449449,
+    title: 'Medical linear accelerator (Linac) treatment head and beamline',
+    caption: 'Schematic cross-section of linac gantry showing electron gun, accelerating waveguide, 270° bending magnet, target, and collimation.',
+    author: 'Ajzh2074',
+    licence: 'CC BY-SA 4.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+    commons: 'https://commons.wikimedia.org/wiki/File:Medical_Linac.svg',
+    intro: 'Internal beam path of a clinical megavoltage medical linear accelerator. High-frequency microwaves from a magnetron or klystron accelerate electrons through an evacuated copper waveguide. A 270-degree achromatic bending magnet directs the high-energy electron beam toward the treatment head, where it either strikes a metal target to emit bremsstrahlung X-rays or passes through a scattering foil for electron therapy.',
+    key: [
+      { mark: 'Electron gun and waveguide', name: 'Injects pulsed electrons and accelerates them to relativistic megavoltage energies using microwave power' },
+      { mark: 'Bending magnet', name: 'Achromatic 270-degree magnetic dipole system steering the electron stream down toward the patient isocenter' },
+      { mark: 'Target and flattening filter', name: 'Heavy metal target converting electrons to bremsstrahlung X-rays, paired with conical flattening filter to homogenize beam intensity' },
+      { mark: 'Collimation system', name: 'Primary collimators and adjustable secondary jaws defining the clinical radiation field size' },
+    ],
+  },
+  multileafCollimator: {
+    file: 'multileafCollimator.jpg', bytes: 307891,
+    title: 'Multileaf Collimator (MLC) tertiary beam shaping aperture',
+    caption: 'Interdigitating tungsten leaf pairs dynamically shaping the megavoltage radiation beam to conform to tumour boundaries.',
+    author: 'Al*from*Lig',
+    licence: 'CC BY-SA 4.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+    commons: 'https://commons.wikimedia.org/wiki/File:Collimatore_multilama.jpg',
+    intro: 'Modern linac treatment head equipped with a multileaf collimator (MLC). Opposing banks of motor-driven, high-density tungsten leaves independently extend and retract into the radiation beam, shielding adjacent organs at risk and shaping conformal apertures that modulate dose fluence during 3D-CRT, IMRT, and VMAT delivery.',
+    key: [
+      { mark: 'Tungsten leaf banks', name: 'Individual motorized heavy alloy leaves moving independently across the radiation field' },
+      { mark: 'Conformal aperture opening', name: 'Custom irregular field boundary matching the planned clinical target volume' },
+      { mark: 'Collimator carriage housing', name: 'Motorized framework supporting rapid leaf repositioning during dynamic arc rotation' },
+    ],
+  },
+  cyberKnifeRobotic: {
+    file: 'cyberKnifeRobotic.png', bytes: 78736,
+    title: 'CyberKnife robotic radiosurgery system schematic',
+    caption: 'Compact 6 MV X-band linear accelerator mounted on an articulated 6-axis industrial robotic manipulator.',
+    author: 'Steven3045 at English Wikipedia',
+    licence: 'Public domain',
+    licenceUrl: '',
+    commons: 'https://commons.wikimedia.org/wiki/File:CyberKnifeSchematic2.png',
+    intro: 'Schematic architecture of the CyberKnife robotic stereotactic radiosurgery (SRS/SBRT) platform. A miniature 6 MV linear accelerator is mounted on a multi-jointed robotic arm, delivering hundreds of non-coplanar radiation beams with sub-millimeter precision under continuous real-time diagnostic X-ray image tracking.',
+    key: [
+      { mark: 'Articulated robotic arm', name: 'High-precision 6-axis manipulator positioning the treatment head at non-coplanar angles around the patient' },
+      { mark: 'Compact linac head', name: 'Miniaturized lightweight X-band accelerator producing high-dose-rate 6 MV photons' },
+      { mark: 'Patient treatment couch', name: 'Robotic positioning table coordinating with real-time stereoscopic X-ray target tracking' },
+    ],
+  },
 };
 
 export function figureFor(id) {
