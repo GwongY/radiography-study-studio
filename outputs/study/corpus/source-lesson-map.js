@@ -8,17 +8,22 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 1,
       "title": "Anatomical position",
-      "status": "partial",
+      "status": "complete",
       "sources": [
+        {
+          "ref": "hss.w1.2026",
+          "set": "new",
+          "role": "current-primary"
+        },
+        {
+          "ref": "hss.move.2026",
+          "set": "new",
+          "role": "current-primary"
+        },
         {
           "ref": "hss.orientation",
           "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -28,127 +33,132 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 1,
       "title": "The ten directional terms",
-      "status": "partial",
+      "status": "complete",
       "sources": [
+        {
+          "ref": "hss.w1.2026",
+          "set": "new",
+          "role": "current-primary"
+        },
         {
           "ref": "hss.orientation",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         },
         {
-          "ref": "hss.vocab",
+          "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-terminology-planes": {
       "id": "hss2011-terminology-planes",
       "subject": "HSS2011",
       "week": 1,
       "title": "Body planes and what each one separates",
-      "status": "partial",
+      "status": "complete",
       "sources": [
         {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
+          "ref": "hss.w1.2026",
+          "set": "new",
+          "role": "current-primary"
         },
         {
           "ref": "hss.vocab",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-supporting"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-terminology-cavities-regions": {
       "id": "hss2011-terminology-cavities-regions",
       "subject": "HSS2011",
       "week": 1,
       "title": "Body cavities, regions and quadrants",
-      "status": "partial",
+      "status": "complete",
       "sources": [
         {
-          "ref": "hss.m0.1718",
+          "ref": "hss.w1.2026",
+          "set": "new",
+          "role": "current-primary"
+        },
+        {
+          "ref": "hss.m0",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         },
         {
           "ref": "hss.vocab",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-supporting"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-terminology-regional-systemic": {
       "id": "hss2011-terminology-regional-systemic",
       "subject": "HSS2011",
       "week": 1,
       "title": "Regional vs systemic anatomy",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
+        {
+          "ref": "hss.w1.2026",
+          "set": "new",
+          "role": "current-primary"
+        },
         {
           "ref": "hss.orientation",
           "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.manual1920",
-          "set": "old",
-          "role": "needs-review"
+          "role": "older-supporting"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-terminology-word-parts": {
       "id": "hss2011-terminology-word-parts",
       "subject": "HSS2011",
       "week": 1,
       "title": "Word parts — prefixes, suffixes and roots",
-      "status": "needs-review",
+      "status": "partial",
       "sources": [
         {
           "ref": "hss.wordparts",
           "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.orientation",
-          "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-osteo-axial-appendicular": {
       "id": "hss2011-osteo-axial-appendicular",
       "subject": "HSS2011",
       "week": 1,
       "title": "Axial and appendicular skeleton",
-      "status": "partial",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
+        },
+        {
+          "ref": "hss.msk.2026",
+          "set": "new",
+          "role": "current-primary"
         },
         {
           "ref": "hss.m0.1718",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         },
         {
           "ref": "hss.vocab",
@@ -165,12 +175,22 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 1,
       "title": "Classification of bones by shape",
-      "status": "partial",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
+        },
+        {
+          "ref": "hss.msk.2026",
+          "set": "new",
+          "role": "current-primary"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -180,39 +200,47 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 1,
       "title": "Structure of a long bone",
-      "status": "partial",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
+        },
+        {
+          "ref": "hss.msk.2026",
+          "set": "new",
+          "role": "current-primary"
         },
         {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-osteo-bone-functions": {
       "id": "hss2011-osteo-bone-functions",
       "subject": "HSS2011",
       "week": 1,
       "title": "Functions of bone",
-      "status": "partial",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
+        },
+        {
+          "ref": "hss.msk.2026",
+          "set": "new",
+          "role": "current-primary"
         },
         {
           "ref": "hss.manual1920",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -221,13 +249,18 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-msk-bone-histology",
       "subject": "HSS2011",
       "week": 1,
-      "title": "What bone is made of — matrix and the four cell types",
+      "title": "Bone histology: matrix composition and the four bone cell types",
       "status": "complete",
       "sources": [
         {
           "ref": "hss.msk.2026",
           "set": "new",
           "role": "current-primary"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -236,7 +269,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-msk-periosteum",
       "subject": "HSS2011",
       "week": 1,
-      "title": "Periosteum — the living covering of bone",
+      "title": "Periosteum: bilayered histology, osteogenic role, vascular supply, and innervation",
       "status": "complete",
       "sources": [
         {
@@ -256,13 +289,18 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-msk-bone-marrow",
       "subject": "HSS2011",
       "week": 1,
-      "title": "Red and yellow bone marrow",
+      "title": "Red and yellow bone marrow: histology, distribution, and clinical significance",
       "status": "complete",
       "sources": [
         {
           "ref": "hss.msk.2026",
           "set": "new",
           "role": "current-primary"
+        },
+        {
+          "ref": "hss.4.1",
+          "set": "old",
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -271,7 +309,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-msk-tissues-of-movement",
       "subject": "HSS2011",
       "week": 1,
-      "title": "The five tissues movement needs — and how many of each",
+      "title": "The five movement tissues: structural roles, counts, and classifications",
       "status": "complete",
       "sources": [
         {
@@ -286,7 +324,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-msk-muscle-organisation",
       "subject": "HSS2011",
       "week": 1,
-      "title": "Inside a skeletal muscle — from epimysium down to actin",
+      "title": "Skeletal muscle organization: connective tissue wrappings, myofibrils, and fascicle architecture",
       "status": "complete",
       "sources": [
         {
@@ -301,7 +339,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-msk-tendon-attachment",
       "subject": "HSS2011",
       "week": 1,
-      "title": "Tendon, and the two ends of a muscle",
+      "title": "Tendon structure, Golgi tendon organ, and muscle attachment sites (origin and insertion)",
       "status": "complete",
       "sources": [
         {
@@ -316,7 +354,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-msk-motor-unit-tone",
       "subject": "HSS2011",
       "week": 1,
-      "title": "The motor unit, and why a resting muscle is not switched off",
+      "title": "The motor unit and muscle tone: innervation ratios, recruitment, and resting tension",
       "status": "complete",
       "sources": [
         {
@@ -331,7 +369,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-msk-joint-classifications",
       "subject": "HSS2011",
       "week": 1,
-      "title": "Three ways to classify the same joint",
+      "title": "Joint classifications: anatomical, functional, and structural axes",
       "status": "complete",
       "sources": [
         {
@@ -355,19 +393,12 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-joints-synovial-structure": {
       "id": "hss2011-joints-synovial-structure",
@@ -377,56 +408,47 @@ export const Y1S1_SOURCE_MAP = {
       "status": "complete",
       "sources": [
         {
-          "ref": "hss.msk.2026",
-          "set": "new",
-          "role": "current-primary"
-        },
-        {
           "ref": "hss.4.1",
           "set": "old",
           "role": "older-supporting"
         },
         {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
+          "ref": "hss.msk.2026",
+          "set": "new",
+          "role": "current-primary"
         },
         {
-          "ref": "hss.m0.1718",
+          "ref": "hss.revans",
           "set": "old",
-          "role": "older-supporting"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-joints-synovial-types": {
       "id": "hss2011-joints-synovial-types",
       "subject": "HSS2011",
       "week": 1,
       "title": "The six synovial joint types, with examples",
-      "status": "partial",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         },
         {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
+          "ref": "hss.msk.2026",
+          "set": "new",
+          "role": "current-primary"
         },
         {
-          "ref": "hss.1516.lec11",
+          "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-joints-movements": {
       "id": "hss2011-joints-movements",
@@ -436,57 +458,42 @@ export const Y1S1_SOURCE_MAP = {
       "status": "complete",
       "sources": [
         {
+          "ref": "hss.l1.overview",
+          "set": "old",
+          "role": "older-supporting"
+        },
+        {
           "ref": "hss.move.2026",
           "set": "new",
           "role": "current-primary"
         },
         {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-supporting"
-        },
-        {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-pastpaper-joints-articulations": {
       "id": "hss2011-pastpaper-joints-articulations",
       "subject": "HSS2011",
       "week": 1,
       "title": "Past-paper drill — joints and articulations",
-      "status": "needs-review",
+      "status": "partial",
       "sources": [
         {
-          "ref": "hss.ga.topics",
+          "ref": "hss.fib5yr",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         },
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.4.3",
-          "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         }
       ],
-      "reasons": [
-        "unresolved source",
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-joints-movement-map-2026": {
       "id": "hss2011-joints-movement-map-2026",
@@ -499,6 +506,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.move.2026",
           "set": "new",
           "role": "current-primary"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -507,16 +519,11 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-osteo-pectoral-girdle",
       "subject": "HSS2011",
       "week": 2,
-      "title": "Pectoral girdle and the shoulder joints",
+      "title": "The pectoral girdle and shoulder joint",
       "status": "partial",
       "sources": [
         {
           "ref": "hss.4.3",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.m0.1718",
           "set": "old",
           "role": "older-fallback"
         }
@@ -527,7 +534,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-osteo-forearm-carpals",
       "subject": "HSS2011",
       "week": 2,
-      "title": "Forearm bones, wrist and the carpal bones",
+      "title": "Bones of the forearm, wrist and hand",
       "status": "partial",
       "sources": [
         {
@@ -536,24 +543,12 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
-          "ref": "hss.m0.1718",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.l1.overview",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-structures-carpals": {
       "id": "hss2011-structures-carpals",
@@ -590,12 +585,10 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-joints-rotator-cuff": {
       "id": "hss2011-joints-rotator-cuff",
@@ -612,18 +605,71 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
+    },
+    "hss2011-upper-brachial-plexus-nerves": {
+      "id": "hss2011-upper-brachial-plexus-nerves",
+      "subject": "HSS2011",
+      "week": 2,
+      "title": "Brachial plexus and major peripheral nerves of the upper limb",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.4.3",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-upper-limb-muscles-compartments": {
+      "id": "hss2011-upper-limb-muscles-compartments",
+      "subject": "HSS2011",
+      "week": 2,
+      "title": "Muscles and fascial compartments of the arm and forearm",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.4.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-upper-limb-blood-vessels": {
+      "id": "hss2011-upper-limb-blood-vessels",
+      "subject": "HSS2011",
+      "week": 2,
+      "title": "Arterial supply and venous drainage of the upper limb",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.4.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.1.1",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
     },
     "hss2011-osteo-pelvic-girdle": {
       "id": "hss2011-osteo-pelvic-girdle",
       "subject": "HSS2011",
       "week": 3,
-      "title": "Pelvic girdle and the hip joint",
+      "title": "Pelvic girdle, hip joint, and the proximal and distal femur",
       "status": "partial",
       "sources": [
         {
@@ -632,36 +678,47 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
-          "ref": "hss.revans",
+          "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-osteo-leg-tarsals": {
       "id": "hss2011-osteo-leg-tarsals",
       "subject": "HSS2011",
       "week": 3,
-      "title": "Leg bones, ankle and the tarsal bones",
+      "title": "Leg bones (tibia and fibula), the patella, and the tarsal bones",
       "status": "partial",
       "sources": [
+        {
+          "ref": "hss.4.1",
+          "set": "old",
+          "role": "older-fallback"
+        },
         {
           "ref": "hss.4.3",
           "set": "old",
           "role": "older-fallback"
         },
         {
-          "ref": "hss.revans",
+          "ref": "hss.manual1920",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-structures-tarsals": {
       "id": "hss2011-structures-tarsals",
@@ -672,6 +729,11 @@ export const Y1S1_SOURCE_MAP = {
       "sources": [
         {
           "ref": "hss.4.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
           "set": "old",
           "role": "older-fallback"
         }
@@ -691,7 +753,82 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
+          "ref": "hss.4.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
           "ref": "hss.m0.1718",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-lower-thigh-gluteal-muscles": {
+      "id": "hss2011-lower-thigh-gluteal-muscles",
+      "subject": "HSS2011",
+      "week": 3,
+      "title": "Thigh and gluteal muscles: hip and knee motor control and sciatic innervation",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.4.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-lower-leg-foot-muscles-arches": {
+      "id": "hss2011-lower-leg-foot-muscles-arches",
+      "subject": "HSS2011",
+      "week": 3,
+      "title": "Leg compartments, ankle and foot muscles, and the three foot arches",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.4.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-lower-femoral-triangle-vessels-nerves": {
+      "id": "hss2011-lower-femoral-triangle-vessels-nerves",
+      "subject": "HSS2011",
+      "week": 3,
+      "title": "Femoral triangle boundaries, neurovascular contents, and lower limb vessels",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.4.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.ppans",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.3.3",
           "set": "old",
           "role": "older-fallback"
         }
@@ -702,78 +839,77 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-osteo-skull-sutures",
       "subject": "HSS2011",
       "week": 4,
-      "title": "Skull bones and the four sutures",
+      "title": "Skull bones, cranial sutures, and anthropological landmarks",
       "status": "partial",
       "sources": [
         {
           "ref": "hss.4.2",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
-          "ref": "hss.4.1",
+          "ref": "hss.manual1920",
           "set": "old",
           "role": "older-fallback"
         },
         {
-          "ref": "hss.revans",
+          "ref": "hss.fib5yr",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-structures-skullBones": {
       "id": "hss2011-structures-skullBones",
       "subject": "HSS2011",
       "week": 4,
       "title": "Bones of the skull",
-      "status": "needs-review",
+      "status": "partial",
       "sources": [
         {
           "ref": "hss.4.2",
           "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-osteo-vertebra-parts": {
       "id": "hss2011-osteo-vertebra-parts",
       "subject": "HSS2011",
       "week": 4,
-      "title": "General structure of a vertebra",
+      "title": "General anatomical structure of a typical vertebra",
       "status": "partial",
       "sources": [
+        {
+          "ref": "hss.4.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
         {
           "ref": "hss.m0.1718",
           "set": "old",
           "role": "older-fallback"
         },
         {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-osteo-vertebral-column": {
       "id": "hss2011-osteo-vertebral-column",
       "subject": "HSS2011",
       "week": 4,
-      "title": "Vertebral column — regions and curvatures",
+      "title": "Vertebral column regions and physiological curvatures",
       "status": "partial",
       "sources": [
         {
@@ -782,51 +918,42 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
-          "ref": "hss.l1.overview",
+          "ref": "hss.manual1920",
           "set": "old",
           "role": "older-fallback"
-        },
-        {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-osteo-c1-c2": {
       "id": "hss2011-osteo-c1-c2",
       "subject": "HSS2011",
       "week": 4,
-      "title": "Atlas, axis and the two head movements",
+      "title": "Atlas (C1), axis (C2), and craniovertebral joint biomechanics",
       "status": "partial",
       "sources": [
+        {
+          "ref": "hss.4.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
         {
           "ref": "hss.m0.1718",
           "set": "old",
           "role": "older-fallback"
         },
         {
-          "ref": "hss.l1.overview",
+          "ref": "hss.manual1920",
           "set": "old",
           "role": "older-fallback"
         },
         {
-          "ref": "hss.4.2",
+          "ref": "hss.fib5yr",
           "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-structures-vertebralRegions": {
       "id": "hss2011-structures-vertebralRegions",
@@ -839,6 +966,66 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.m0.1718",
           "set": "old",
           "role": "older-fallback"
+        },
+        {
+          "ref": "hss.4.2",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-head-cranial-cavities-sinuses": {
+      "id": "hss2011-head-cranial-cavities-sinuses",
+      "subject": "HSS2011",
+      "week": 4,
+      "title": "Cranial fossae, paranasal sinuses, orbital complexes, and foramen magnum",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.4.2",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-head-facial-expression-muscles": {
+      "id": "hss2011-head-facial-expression-muscles",
+      "subject": "HSS2011",
+      "week": 4,
+      "title": "Muscles of facial expression, the SCALP layers, and cranial nerve VII",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.4.2",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-head-mastication-neck-muscles": {
+      "id": "hss2011-head-mastication-neck-muscles",
+      "subject": "HSS2011",
+      "week": 4,
+      "title": "Muscles of mastication, the temporomandibular joint, and neck flexors/extensors",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.4.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -847,18 +1034,138 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-m2-cns-basics",
       "subject": "HSS2011",
       "week": 5,
-      "title": "Spinal cord, roots and cortical surface",
+      "title": "The spinal cord: grey matter, white matter and the tracts",
       "status": "partial",
       "sources": [
         {
           "ref": "hss.2.2",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
-          "ref": "hss.manual1920",
+          "ref": "hss.mooc3",
           "set": "old",
           "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-cns-spinal-cord-meninges": {
+      "id": "hss2011-cns-spinal-cord-meninges",
+      "subject": "HSS2011",
+      "week": 5,
+      "title": "Meninges, spinal nerves, roots and rami",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.mooc2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.4.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.2.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.mooc3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-m2-reflex-arc": {
+      "id": "hss2011-m2-reflex-arc",
+      "subject": "HSS2011",
+      "week": 5,
+      "title": "The reflex arc: somatic, visceral, monosynaptic and polysynaptic",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.mooc3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.2.2",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-m2-autonomic-nervous-system": {
+      "id": "hss2011-m2-autonomic-nervous-system",
+      "subject": "HSS2011",
+      "week": 5,
+      "title": "The autonomic nervous system: sympathetic vs parasympathetic",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.2.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-m2-neurons-glia": {
+      "id": "hss2011-m2-neurons-glia",
+      "subject": "HSS2011",
+      "week": 5,
+      "title": "Neurons and the six glial cell types",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.mooc3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.2.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
         },
         {
           "ref": "hss.revans",
@@ -870,32 +1177,27 @@ export const Y1S1_SOURCE_MAP = {
         "citation has no verifiable page or quoted section/slide"
       ]
     },
-    "hss2011-cns-spinal-cord-meninges": {
-      "id": "hss2011-cns-spinal-cord-meninges",
+    "hss2011-m2-cerebellum": {
+      "id": "hss2011-m2-cerebellum",
       "subject": "HSS2011",
       "week": 5,
-      "title": "Spinal cord, meninges and spinal nerves",
+      "title": "The cerebellum: vermis, folia, arbor vitae and Purkinje cells",
       "status": "partial",
       "sources": [
         {
           "ref": "hss.2.2",
           "set": "old",
           "role": "older-fallback"
-        }
-      ],
-      "reasons": []
-    },
-    "hss2011-cns-brainstem-reticular": {
-      "id": "hss2011-cns-brainstem-reticular",
-      "subject": "HSS2011",
-      "week": 5,
-      "title": "Brainstem — medulla, pons, midbrain and reticular formation",
-      "status": "partial",
-      "sources": [
+        },
         {
-          "ref": "hss.2.3",
+          "ref": "hss.4.2",
           "set": "old",
           "role": "older-fallback"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -903,7 +1205,7 @@ export const Y1S1_SOURCE_MAP = {
     "hss2011-cns-cerebrum-cortex-basal": {
       "id": "hss2011-cns-cerebrum-cortex-basal",
       "subject": "HSS2011",
-      "week": 5,
+      "week": 6,
       "title": "Cerebrum, functional cortical areas and basal nuclei",
       "status": "partial",
       "sources": [
@@ -913,42 +1215,43 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-cns-ventricles-csf-blood": {
-      "id": "hss2011-cns-ventricles-csf-blood",
-      "subject": "HSS2011",
-      "week": 5,
-      "title": "Ventricular system, CSF circulation and cerebral arterial circle",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.2.3",
+          "ref": "hss.2.2",
           "set": "old",
           "role": "older-fallback"
         },
         {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-m2-brain-regions": {
       "id": "hss2011-m2-brain-regions",
       "subject": "HSS2011",
       "week": 6,
-      "title": "Brain regions, glia and CSF drainage",
+      "title": "Diencephalon and the limbic system",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.2.3",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-cns-brainstem-reticular": {
+      "id": "hss2011-cns-brainstem-reticular",
+      "subject": "HSS2011",
+      "week": 6,
+      "title": "Brainstem: midbrain, pons, medulla and the reticular formation",
       "status": "partial",
       "sources": [
         {
@@ -957,25 +1260,53 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
-          "ref": "hss.manual1920",
+          "ref": "hss.2.2",
           "set": "old",
           "role": "older-fallback"
         },
         {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
+    },
+    "hss2011-cns-ventricles-csf-blood": {
+      "id": "hss2011-cns-ventricles-csf-blood",
+      "subject": "HSS2011",
+      "week": 6,
+      "title": "The ventricular system and cerebrospinal fluid",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.2.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
+        }
+      ],
+      "reasons": []
     },
     "hss2011-neuro-cranial-nerves-distribution": {
       "id": "hss2011-neuro-cranial-nerves-distribution",
       "subject": "HSS2011",
       "week": 6,
-      "title": "Cranial nerves CN I–XII — functional modalities and targets",
+      "title": "Cranial nerves CN I to XII: modalities and targets",
       "status": "partial",
       "sources": [
         {
@@ -984,26 +1315,59 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
+          "ref": "hss.2.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
+    },
+    "hss2011-m2-stroke-correlates": {
+      "id": "hss2011-m2-stroke-correlates",
+      "subject": "HSS2011",
+      "week": 6,
+      "title": "Anatomical correlates of stroke",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.mooc3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.mooc2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.2.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        }
+      ],
+      "reasons": []
     },
     "hss2011-structures-brainAndCsf": {
       "id": "hss2011-structures-brainAndCsf",
       "subject": "HSS2011",
       "week": 6,
       "title": "Brainstem, ventricles and the spinal cord",
-      "status": "needs-review",
+      "status": "partial",
       "sources": [
         {
           "ref": "hss.2.3",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
           "ref": "hss.revans",
@@ -1022,6 +1386,11 @@ export const Y1S1_SOURCE_MAP = {
       "title": "Cranial nerves",
       "status": "partial",
       "sources": [
+        {
+          "ref": "hss.2.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
         {
           "ref": "hss.vocab",
           "set": "old",
@@ -1042,66 +1411,11 @@ export const Y1S1_SOURCE_MAP = {
         "citation has no verifiable page or quoted section/slide"
       ]
     },
-    "hss2011-m2-eye-visual-pathway": {
-      "id": "hss2011-m2-eye-visual-pathway",
+    "hss2011-m2-eye-accessory": {
+      "id": "hss2011-m2-eye-accessory",
       "subject": "HSS2011",
       "week": 7,
-      "title": "Eye layers, landmarks and the visual pathway",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.special.2017",
-          "set": "old",
-          "role": "older-fallback"
-        }
-      ],
-      "reasons": []
-    },
-    "hss2011-m2-ear-hearing": {
-      "id": "hss2011-m2-ear-hearing",
-      "subject": "HSS2011",
-      "week": 7,
-      "title": "Outer, middle and inner ear; cochlea and hearing",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.special.2017",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.2.2",
-          "set": "old",
-          "role": "older-fallback"
-        }
-      ],
-      "reasons": []
-    },
-    "hss2011-m2-static-dynamic-equilibrium": {
-      "id": "hss2011-m2-static-dynamic-equilibrium",
-      "subject": "HSS2011",
-      "week": 7,
-      "title": "Static and dynamic equilibrium",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.special.2017",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.2.2",
-          "set": "old",
-          "role": "older-fallback"
-        }
-      ],
-      "reasons": []
-    },
-    "hss2011-m2-taste-smell": {
-      "id": "hss2011-m2-taste-smell",
-      "subject": "HSS2011",
-      "week": 7,
-      "title": "Taste receptors, tongue innervation and smell pathway",
+      "title": "Accessory structures of the eye: eyelids, lacrimal apparatus and the extrinsic muscles",
       "status": "partial",
       "sources": [
         {
@@ -1113,6 +1427,176 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.2.3",
           "set": "old",
           "role": "older-fallback"
+        },
+        {
+          "ref": "hss.mooc3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-m2-eyeball-anatomy": {
+      "id": "hss2011-m2-eyeball-anatomy",
+      "subject": "HSS2011",
+      "week": 7,
+      "title": "The eyeball: three tunics, optical media and the retinal landmarks",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.special.2017",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.mooc3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-m2-eye-visual-pathway": {
+      "id": "hss2011-m2-eye-visual-pathway",
+      "subject": "HSS2011",
+      "week": 7,
+      "title": "The visual projection pathway: chiasm, thalamus and visual cortex",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.special.2017",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.2.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.mooc3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-m2-ear-hearing": {
+      "id": "hss2011-m2-ear-hearing",
+      "subject": "HSS2011",
+      "week": 7,
+      "title": "Outer, middle and inner ear; the cochlea and the auditory pathway",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.special.2017",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.2.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.mooc3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-m2-static-dynamic-equilibrium": {
+      "id": "hss2011-m2-static-dynamic-equilibrium",
+      "subject": "HSS2011",
+      "week": 7,
+      "title": "Static and dynamic equilibrium: maculae, otoliths and the semicircular ducts",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.special.2017",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.2.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.mooc3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.2.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-m2-taste-smell": {
+      "id": "hss2011-m2-taste-smell",
+      "subject": "HSS2011",
+      "week": 7,
+      "title": "Taste receptors, tongue innervation and the olfactory pathway",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.special.2017",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.2.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.2.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -3118,13 +3602,19 @@ export const Y1S1_SOURCE_MAP = {
         "hss2011-osteo-forearm-carpals",
         "hss2011-structures-carpals",
         "hss2011-structures-rotatorCuff",
-        "hss2011-joints-rotator-cuff"
+        "hss2011-joints-rotator-cuff",
+        "hss2011-upper-brachial-plexus-nerves",
+        "hss2011-upper-limb-muscles-compartments",
+        "hss2011-upper-limb-blood-vessels"
       ],
       "3": [
         "hss2011-osteo-pelvic-girdle",
         "hss2011-osteo-leg-tarsals",
         "hss2011-structures-tarsals",
-        "hss2011-structures-kneeJoint"
+        "hss2011-structures-kneeJoint",
+        "hss2011-lower-thigh-gluteal-muscles",
+        "hss2011-lower-leg-foot-muscles-arches",
+        "hss2011-lower-femoral-triangle-vessels-nerves"
       ],
       "4": [
         "hss2011-osteo-skull-sutures",
@@ -3132,22 +3622,32 @@ export const Y1S1_SOURCE_MAP = {
         "hss2011-osteo-vertebra-parts",
         "hss2011-osteo-vertebral-column",
         "hss2011-osteo-c1-c2",
-        "hss2011-structures-vertebralRegions"
+        "hss2011-structures-vertebralRegions",
+        "hss2011-head-cranial-cavities-sinuses",
+        "hss2011-head-facial-expression-muscles",
+        "hss2011-head-mastication-neck-muscles"
       ],
       "5": [
         "hss2011-m2-cns-basics",
         "hss2011-cns-spinal-cord-meninges",
-        "hss2011-cns-brainstem-reticular",
-        "hss2011-cns-cerebrum-cortex-basal",
-        "hss2011-cns-ventricles-csf-blood"
+        "hss2011-m2-reflex-arc",
+        "hss2011-m2-autonomic-nervous-system",
+        "hss2011-m2-neurons-glia",
+        "hss2011-m2-cerebellum"
       ],
       "6": [
+        "hss2011-cns-cerebrum-cortex-basal",
         "hss2011-m2-brain-regions",
+        "hss2011-cns-brainstem-reticular",
+        "hss2011-cns-ventricles-csf-blood",
         "hss2011-neuro-cranial-nerves-distribution",
+        "hss2011-m2-stroke-correlates",
         "hss2011-structures-brainAndCsf",
         "hss2011-structures-cranialNerves"
       ],
       "7": [
+        "hss2011-m2-eye-accessory",
+        "hss2011-m2-eyeball-anatomy",
         "hss2011-m2-eye-visual-pathway",
         "hss2011-m2-ear-hearing",
         "hss2011-m2-static-dynamic-equilibrium",
@@ -3346,373 +3846,187 @@ export const Y1S1_SOURCE_MAP = {
     }
   },
   "bySource": {
+    "hss.w1.2026": [
+      {
+        "lessonId": "hss2011-terminology-anatomical-position",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-terminology-directional-pairs",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-terminology-planes",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-terminology-cavities-regions",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-terminology-regional-systemic",
+        "set": "new",
+        "role": "current-primary"
+      }
+    ],
+    "hss.move.2026": [
+      {
+        "lessonId": "hss2011-terminology-anatomical-position",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-joints-movements",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-joints-movement-map-2026",
+        "set": "new",
+        "role": "current-primary"
+      }
+    ],
     "hss.orientation": [
       {
         "lessonId": "hss2011-terminology-anatomical-position",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "hss2011-terminology-directional-pairs",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "hss2011-terminology-regional-systemic",
         "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-terminology-word-parts",
-        "set": "old",
-        "role": "needs-review"
-      }
-    ],
-    "hss.m0.1718": [
-      {
-        "lessonId": "hss2011-terminology-anatomical-position",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-terminology-planes",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-terminology-cavities-regions",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-osteo-axial-appendicular",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-joints-classification",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-joints-synovial-structure",
-        "set": "old",
         "role": "older-supporting"
-      },
-      {
-        "lessonId": "hss2011-joints-synovial-types",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-joints-movements",
-        "set": "old",
-        "role": "older-supporting"
-      },
-      {
-        "lessonId": "hss2011-osteo-pectoral-girdle",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-osteo-forearm-carpals",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-structures-carpals",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-structures-kneeJoint",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-osteo-vertebra-parts",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-osteo-vertebral-column",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-osteo-c1-c2",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-structures-vertebralRegions",
-        "set": "old",
-        "role": "older-fallback"
-      }
-    ],
-    "hss.vocab": [
-      {
-        "lessonId": "hss2011-terminology-directional-pairs",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-terminology-planes",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-terminology-cavities-regions",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-osteo-axial-appendicular",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-structures-cranialNerves",
-        "set": "old",
-        "role": "needs-review"
-      }
-    ],
-    "hss.manual1920": [
-      {
-        "lessonId": "hss2011-terminology-regional-systemic",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-osteo-bone-functions",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-m2-cns-basics",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-m2-brain-regions",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-m1-heart-wall-valves",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-cvs-internal-chambers-valves",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-cvs-tutorial-pastpaper-practice",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-m1-lungs-airway",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-osteo-ribs-sternum",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-thorax-tutorial-pastpaper-practice",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-m3-digestive",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-digestive-tutorial-pastpaper-practice",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-uro-male-reproductive-anatomy",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-uro-tutorial-pastpaper-practice",
-        "set": "old",
-        "role": "needs-review"
-      }
-    ],
-    "hss.wordparts": [
-      {
-        "lessonId": "hss2011-terminology-word-parts",
-        "set": "old",
-        "role": "needs-review"
-      }
-    ],
-    "hss.4.1": [
-      {
-        "lessonId": "hss2011-osteo-axial-appendicular",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-osteo-bone-shapes",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-osteo-long-bone-structure",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-osteo-bone-functions",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-msk-periosteum",
-        "set": "old",
-        "role": "older-supporting"
-      },
-      {
-        "lessonId": "hss2011-joints-classification",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-joints-synovial-structure",
-        "set": "old",
-        "role": "older-supporting"
-      },
-      {
-        "lessonId": "hss2011-joints-synovial-types",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-pastpaper-joints-articulations",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-structures-kneeJoint",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-osteo-skull-sutures",
-        "set": "old",
-        "role": "older-fallback"
       }
     ],
     "hss.revans": [
       {
+        "lessonId": "hss2011-terminology-directional-pairs",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-terminology-cavities-regions",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-osteo-bone-shapes",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
         "lessonId": "hss2011-osteo-long-bone-structure",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-msk-bone-histology",
+        "set": "old",
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-joints-classification",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-joints-synovial-structure",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-joints-synovial-types",
+        "set": "old",
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-joints-movements",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
-        "lessonId": "hss2011-pastpaper-joints-articulations",
+        "lessonId": "hss2011-joints-movement-map-2026",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-osteo-forearm-carpals",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-structures-rotatorCuff",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-joints-rotator-cuff",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
-        "lessonId": "hss2011-osteo-pelvic-girdle",
+        "lessonId": "hss2011-upper-limb-muscles-compartments",
         "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-osteo-leg-tarsals",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-osteo-skull-sutures",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-structures-skullBones",
-        "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-osteo-vertebra-parts",
         "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-osteo-vertebral-column",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-osteo-c1-c2",
-        "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-m2-cns-basics",
         "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-cns-spinal-cord-meninges",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-m2-autonomic-nervous-system",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-m2-neurons-glia",
+        "set": "old",
         "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-m2-cerebellum",
+        "set": "old",
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-cns-cerebrum-cortex-basal",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-cns-brainstem-reticular",
+        "set": "old",
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-cns-ventricles-csf-blood",
         "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-m2-brain-regions",
-        "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-neuro-cranial-nerves-distribution",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-structures-brainAndCsf",
@@ -3723,6 +4037,21 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "hss2011-structures-cranialNerves",
         "set": "old",
         "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-m2-eyeball-anatomy",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-m2-ear-hearing",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-m2-taste-smell",
+        "set": "old",
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-m1-heart-wall-valves",
@@ -3845,7 +4174,125 @@ export const Y1S1_SOURCE_MAP = {
         "role": "needs-review"
       }
     ],
+    "hss.vocab": [
+      {
+        "lessonId": "hss2011-terminology-planes",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "hss2011-terminology-cavities-regions",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "hss2011-osteo-axial-appendicular",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-structures-cranialNerves",
+        "set": "old",
+        "role": "needs-review"
+      }
+    ],
+    "hss.m0": [
+      {
+        "lessonId": "hss2011-terminology-cavities-regions",
+        "set": "old",
+        "role": "older-supporting"
+      }
+    ],
+    "hss.wordparts": [
+      {
+        "lessonId": "hss2011-terminology-word-parts",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
+    "hss.4.1": [
+      {
+        "lessonId": "hss2011-osteo-axial-appendicular",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "hss2011-osteo-bone-shapes",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "hss2011-osteo-long-bone-structure",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "hss2011-osteo-bone-functions",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "hss2011-msk-periosteum",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "hss2011-msk-bone-marrow",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "hss2011-joints-classification",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-joints-synovial-structure",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "hss2011-joints-synovial-types",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "hss2011-pastpaper-joints-articulations",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-osteo-leg-tarsals",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-structures-kneeJoint",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
     "hss.msk.2026": [
+      {
+        "lessonId": "hss2011-osteo-axial-appendicular",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-osteo-bone-shapes",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-osteo-long-bone-structure",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-osteo-bone-functions",
+        "set": "new",
+        "role": "current-primary"
+      },
       {
         "lessonId": "hss2011-msk-bone-histology",
         "set": "new",
@@ -3890,40 +4337,262 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "hss2011-joints-synovial-structure",
         "set": "new",
         "role": "current-primary"
-      }
-    ],
-    "hss.1516.lec11": [
+      },
       {
         "lessonId": "hss2011-joints-synovial-types",
+        "set": "new",
+        "role": "current-primary"
+      }
+    ],
+    "hss.m0.1718": [
+      {
+        "lessonId": "hss2011-osteo-axial-appendicular",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "hss2011-structures-carpals",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-structures-kneeJoint",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-osteo-vertebra-parts",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-osteo-vertebral-column",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-osteo-c1-c2",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-structures-vertebralRegions",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
+    "hss.manual1920": [
+      {
+        "lessonId": "hss2011-osteo-bone-functions",
+        "set": "old",
+        "role": "older-supporting"
+      },
+      {
+        "lessonId": "hss2011-osteo-pelvic-girdle",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-osteo-leg-tarsals",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-structures-tarsals",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-lower-thigh-gluteal-muscles",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-lower-leg-foot-muscles-arches",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-osteo-skull-sutures",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-osteo-vertebra-parts",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-osteo-vertebral-column",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-osteo-c1-c2",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-head-mastication-neck-muscles",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m1-heart-wall-valves",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-cvs-internal-chambers-valves",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-cvs-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-m1-lungs-airway",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-osteo-ribs-sternum",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-thorax-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-m3-digestive",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-digestive-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-uro-male-reproductive-anatomy",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-uro-tutorial-pastpaper-practice",
         "set": "old",
         "role": "needs-review"
       }
     ],
-    "hss.move.2026": [
+    "hss.l1.overview": [
       {
         "lessonId": "hss2011-joints-movements",
-        "set": "new",
-        "role": "current-primary"
-      },
-      {
-        "lessonId": "hss2011-joints-movement-map-2026",
-        "set": "new",
-        "role": "current-primary"
+        "set": "old",
+        "role": "older-supporting"
       }
     ],
-    "hss.ga.topics": [
+    "hss.fib5yr": [
       {
         "lessonId": "hss2011-pastpaper-joints-articulations",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-osteo-pelvic-girdle",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-lower-femoral-triangle-vessels-nerves",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-osteo-skull-sutures",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-osteo-c1-c2",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-head-mastication-neck-muscles",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-m2-cns-basics",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-cns-spinal-cord-meninges",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-m2-autonomic-nervous-system",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-m2-neurons-glia",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-cns-cerebrum-cortex-basal",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-cns-brainstem-reticular",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-cns-ventricles-csf-blood",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-m2-stroke-correlates",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-m2-eye-accessory",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-m2-eyeball-anatomy",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-m2-eye-visual-pathway",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-m2-ear-hearing",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-m2-static-dynamic-equilibrium",
+        "set": "old",
+        "role": "assessment"
       }
     ],
     "hss.4.3": [
-      {
-        "lessonId": "hss2011-pastpaper-joints-articulations",
-        "set": "old",
-        "role": "needs-review"
-      },
       {
         "lessonId": "hss2011-osteo-pectoral-girdle",
         "set": "old",
@@ -3950,6 +4619,21 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
+        "lessonId": "hss2011-upper-brachial-plexus-nerves",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-upper-limb-muscles-compartments",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-upper-limb-blood-vessels",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "hss2011-osteo-pelvic-girdle",
         "set": "old",
         "role": "older-fallback"
@@ -3965,53 +4649,256 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
+        "lessonId": "hss2011-structures-kneeJoint",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-lower-thigh-gluteal-muscles",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-lower-leg-foot-muscles-arches",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-lower-femoral-triangle-vessels-nerves",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "abct2326-muscle-action",
         "set": "old",
         "role": "needs-review"
       }
     ],
-    "hss.l1.overview": [
+    "hss.1.1": [
       {
-        "lessonId": "hss2011-osteo-forearm-carpals",
+        "lessonId": "hss2011-upper-limb-blood-vessels",
         "set": "old",
         "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-osteo-vertebral-column",
+        "lessonId": "hss2011-m1-heart-wall-valves",
         "set": "old",
         "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-osteo-c1-c2",
+        "lessonId": "hss2011-cvs-internal-chambers-valves",
         "set": "old",
         "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-cvs-coronary-circulation-conduction",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m1-lungs-airway",
+        "set": "old",
+        "role": "needs-review"
+      },
+      {
+        "lessonId": "hss2011-resp-pleura-lungs-gross",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-structures-airwayTree",
+        "set": "old",
+        "role": "needs-review"
+      }
+    ],
+    "hss.3.3.2019": [
+      {
+        "lessonId": "hss2011-osteo-pelvic-girdle",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m3-urogenital-pelvis",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
+    "hss.ppans": [
+      {
+        "lessonId": "hss2011-lower-femoral-triangle-vessels-nerves",
+        "set": "old",
+        "role": "assessment"
+      }
+    ],
+    "hss.3.3": [
+      {
+        "lessonId": "hss2011-lower-femoral-triangle-vessels-nerves",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m3-urogenital-pelvis",
+        "set": "old",
+        "role": "needs-review"
       }
     ],
     "hss.4.2": [
       {
         "lessonId": "hss2011-osteo-skull-sutures",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-structures-skullBones",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-osteo-vertebra-parts",
+        "set": "old",
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-osteo-c1-c2",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-structures-vertebralRegions",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-head-cranial-cavities-sinuses",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-head-facial-expression-muscles",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-head-mastication-neck-muscles",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-cns-spinal-cord-meninges",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-cerebellum",
+        "set": "old",
+        "role": "older-fallback"
       }
     ],
     "hss.2.2": [
       {
         "lessonId": "hss2011-m2-cns-basics",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-cns-spinal-cord-meninges",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-reflex-arc",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-autonomic-nervous-system",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-cerebellum",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-cns-cerebrum-cortex-basal",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-cns-brainstem-reticular",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-neuro-cranial-nerves-distribution",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-ear-hearing",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-static-dynamic-equilibrium",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-taste-smell",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
+    "hss.mooc3": [
+      {
+        "lessonId": "hss2011-m2-cns-basics",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-cns-spinal-cord-meninges",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-reflex-arc",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-neurons-glia",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-stroke-correlates",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-eye-accessory",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-eyeball-anatomy",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-eye-visual-pathway",
         "set": "old",
         "role": "older-fallback"
       },
@@ -4026,9 +4913,21 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       }
     ],
+    "hss.mooc2": [
+      {
+        "lessonId": "hss2011-cns-spinal-cord-meninges",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-stroke-correlates",
+        "set": "old",
+        "role": "older-fallback"
+      }
+    ],
     "hss.2.3": [
       {
-        "lessonId": "hss2011-cns-brainstem-reticular",
+        "lessonId": "hss2011-m2-neurons-glia",
         "set": "old",
         "role": "older-fallback"
       },
@@ -4038,12 +4937,17 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-cns-ventricles-csf-blood",
+        "lessonId": "hss2011-m2-brain-regions",
         "set": "old",
         "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-m2-brain-regions",
+        "lessonId": "hss2011-cns-brainstem-reticular",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-cns-ventricles-csf-blood",
         "set": "old",
         "role": "older-fallback"
       },
@@ -4053,9 +4957,34 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
+        "lessonId": "hss2011-m2-stroke-correlates",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "hss2011-structures-brainAndCsf",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-structures-cranialNerves",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-eye-accessory",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-eye-visual-pathway",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-static-dynamic-equilibrium",
+        "set": "old",
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-m2-taste-smell",
@@ -4106,6 +5035,16 @@ export const Y1S1_SOURCE_MAP = {
       }
     ],
     "hss.special.2017": [
+      {
+        "lessonId": "hss2011-m2-eye-accessory",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-m2-eyeball-anatomy",
+        "set": "old",
+        "role": "older-fallback"
+      },
       {
         "lessonId": "hss2011-m2-eye-visual-pathway",
         "set": "old",
@@ -4162,38 +5101,6 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "abct2326-resp-pathway",
         "set": "old",
         "role": "older-fallback"
-      }
-    ],
-    "hss.1.1": [
-      {
-        "lessonId": "hss2011-m1-heart-wall-valves",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-cvs-internal-chambers-valves",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-cvs-coronary-circulation-conduction",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-m1-lungs-airway",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-resp-pleura-lungs-gross",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-structures-airwayTree",
-        "set": "old",
-        "role": "needs-review"
       }
     ],
     "phys.2": [
@@ -4309,30 +5216,6 @@ export const Y1S1_SOURCE_MAP = {
     "hss.3.1.2019": [
       {
         "lessonId": "hss2011-m3-digestive",
-        "set": "old",
-        "role": "older-fallback"
-      }
-    ],
-    "hss.3.3": [
-      {
-        "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-m3-urogenital-pelvis",
-        "set": "old",
-        "role": "needs-review"
-      }
-    ],
-    "hss.3.3.2019": [
-      {
-        "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
-        "set": "old",
-        "role": "older-fallback"
-      },
-      {
-        "lessonId": "hss2011-m3-urogenital-pelvis",
         "set": "old",
         "role": "older-fallback"
       }
