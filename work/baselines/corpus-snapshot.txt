@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  9cd2dae23d7c56bb   1689776  ITEM_BY_ID  Map[177]
+  526a8efbc742ead3   1748818  ITEM_BY_ID  Map[177]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -24,15 +24,15 @@
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   bc435d5b474be2a9     26969  STRUCTURE_SETS  object[13]
-  495c61ddfe0d80c4   1683872  STUDY_ITEMS  array[177]
+  c22e6572810ea11f   1742914  STUDY_ITEMS  array[177]
   983b09221060f435       570  STUDY_MODES  array[4]
   834fbc89b7e6fccf      4005  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
-  4bf17a7057d05de1     95398  Y1S1_SOURCE_MAP  object[4]
+  3a1febdee0f78345     95548  Y1S1_SOURCE_MAP  object[4]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  a4e2de96bd5d8f9f   1762511  default  object[7]
+  928378d7dabf1031   1821553  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -64,7 +64,7 @@
   ba048d6b42696398      2356  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  268f0cccd33d400e  WHOLE SURFACE
+  1dd9b6bf2a541154  WHOLE SURFACE
 
 — every study item, by id — 177 items —
   2d29339c231f634a  abct2326-acquired-immunity
@@ -230,17 +230,17 @@
   a132b6ac13e01c3d  hss2011-uro-kidneys-urinary-tract
   1abdb971c8ddc90d  hss2011-uro-male-reproductive-anatomy
   602015504ee073b1  hss2011-uro-tutorial-pastpaper-practice
-  83635a110b79a7ae  hti17103-arc-radiation-therapy-vmat-tomo
-  d0539671d9c72f4c  hti17103-department-and-request
-  1728e0ebc86e653f  hti17103-ionizing-vs-nonionizing
-  ffea6910cb368fa4  hti17103-linac-accessories-protection
-  882d6addab8598f9  hti17103-linac-electrons-rapidarc
-  4a04b6235e2a2338  hti17103-linac-physics-components
-  c9bf2733ee0dda1b  hti17103-modality-best-use
-  a3d39ace80418a6e  hti17103-modality-choice
-  d0d80ca3fd9beb0a  hti17103-modality-detail
-  2a08ec848e529402  hti17103-radiation-therapy
-  9d41bb02e7c3f5d8  hti17103-radioprotection
-  d70b5a380ceb3dac  hti17103-sbrt-sirt-hepatocellular-carcinoma
-  80a29a0eb0516887  hti17103-what-is-radiography
+  8eba8c642de36c71  hti17103-arc-radiation-therapy-vmat-tomo
+  053c84d4abc3c946  hti17103-department-and-request
+  8ae2928530f65729  hti17103-ionizing-vs-nonionizing
+  1446b02d1b35a3b3  hti17103-linac-accessories-protection
+  aeb76011a1d6d49f  hti17103-linac-electrons-rapidarc
+  c20fe3431c311236  hti17103-linac-physics-components
+  129bfbdbeb16985c  hti17103-modality-best-use
+  4f46e307809be642  hti17103-modality-choice
+  17c2f32141128298  hti17103-modality-detail
+  841417dd9de5d5ee  hti17103-radiation-therapy
+  adcacb5ccc36f3ce  hti17103-radioprotection
+  cebbb287421987b1  hti17103-sbrt-sirt-hepatocellular-carcinoma
+  c90dd15fabd5a0ae  hti17103-what-is-radiography
   1dfd602fa17491f8  phys-nerve-cellular-action-potential
