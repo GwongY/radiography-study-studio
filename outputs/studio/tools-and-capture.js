@@ -14,7 +14,7 @@
  * Split out along the banner sections. See docs/CODEMAP.md.
  */
 import { $, boundsOf, els, state } from './imports.js';
-import { bodyMetrics, calloutAt } from './spatial-concept-overlays.js';
+import { attachCalloutToMesh, bodyMetrics, calloutAt } from './spatial-concept-overlays.js';
 import { cavityContext, gridMetrics } from './cavity-geometry-derived.js';
 import { getRecord } from './region-boxes-how.js';
 import { clearConcepts, showToast } from './visualisation-modes.js';
@@ -386,7 +386,7 @@ export function annotationCount(){ return annots().length; }
  * to the point it names, how to pick a side, and how to stack tags without
  * overlapping. A pin is one of those, kept.
  * ------------------------------------------------------------------ */
-function pinAt(anchor,text,color){
+function pinAt(anchor,text,color,mesh){
   const g=ensureToolGroup();
   if(!g) return false;
   const M=bodyMetrics();
@@ -396,6 +396,7 @@ function pinAt(anchor,text,color){
      stay inside a framed close-up, which is what maxReach is for. */
   const objs=calloutAt(anchor,text,color,M,{clear:M.halfX*0.95,maxReach:M.halfX*1.55,taken,size:0.026});
   objs.forEach((o)=>g.add(o));
+  attachCalloutToMesh(objs,mesh,anchor);
   annots().push({kind:'pin',objs,band:taken.length>before?taken[taken.length-1]:null});
   return true;
 }
@@ -622,11 +623,11 @@ function bindStage(){
       const id=hit.object.userData&&hit.object.userData.canonicalId;
       const rec=id?getRecord(id):null;
       const name=(rec&&rec.canonicalName)||(hit.object.userData&&hit.object.userData.label)||'Unnamed structure';
-      pinAt(anchor,String(name).replace(/_/g,' '),0x72e3cf);
+      pinAt(anchor,String(name).replace(/_/g,' '),0x72e3cf,hit.object);
     }else{
       const text=state.noteText;
       if(!text){ showToast('Type the note first, then tap the structure.'); return; }
-      pinAt(anchor,text,0xffba67);
+      pinAt(anchor,text,0xffba67,hit.object);
     }
     publishTool();
   });

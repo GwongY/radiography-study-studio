@@ -42,7 +42,7 @@ function examPapersHTML() {
   const packTotal = pack.length;
   const total = corpus.length + packTotal;
   const subjectRows = Object.keys(SUBJECT_ADMIN).map((code) => {
-    const n = examPool({ subject: code, corpusOnly: true }).length;
+    const n = examPool({ subject: code }).length;
     if (!n) return '';
     const admin = SUBJECT_ADMIN[code];
     const examish = (admin.assessment || []).filter((a) => /exam|test|quiz/i.test(a.name));
@@ -57,7 +57,7 @@ function examPapersHTML() {
   }).filter(Boolean).join('');
 
   const packNote = packTotal > 0
-    ? `<div class="notice" style="margin-top:10px"><strong>Question pack loaded:</strong> ${packTotal.toLocaleString()} additional questions available in mixed papers. Subject papers use corpus questions only.</div>`
+    ? `<div class="notice" style="margin-top:10px"><strong>Question pack loaded:</strong> ${packTotal.toLocaleString()} additional MCQs available in mixed and matching subject papers. Other formats are in Short answer.</div>`
     : `<div class="notice" style="margin-top:10px">No question pack loaded. Open <strong>More → Question pack</strong> to add your private question bank (past papers, publisher test bank).</div>`;
 
   return `
@@ -135,6 +135,7 @@ function wireCustom(body) {
  * questions by the birthday problem alone, which reads as a broken shuffle.
  * ------------------------------------------------------------------ */
 
+let shortSubject = '';
 let shortDeck = [];
 let shortAt = 0;
 let shortRevealed = false;
@@ -151,7 +152,7 @@ function shortDeckEnsure(pool) {
 }
 
 function shortAnswerHTML() {
-  const pool = packShortQuestions();
+  const pool = packShortQuestions().filter((q) => !shortSubject || q.subject === shortSubject);
   if (!pool.length) {
     return `<p class="small">Short-answer, true/false and matching questions from a loaded question pack appear here — the formats a timed paper cannot mark, which includes the format the real HSS2011 paper uses.</p>
       <div class="notice" style="margin-top:10px">No question pack is loaded on this device. Open <strong>More → Question pack</strong> to fetch one.</div>`;
@@ -164,6 +165,7 @@ function shortAnswerHTML() {
   const q = shortDeck[shortAt];
   const kind = { tf: 'True / false', matching: 'Matching' }[q.type] || 'Short answer';
   return `
+    <label class="small">Subject <select id="shortSubject"><option value="">All subjects</option>${Object.keys(SUBJECT_ADMIN).filter((code) => packShortQuestions().some((q) => q.subject === code)).map((code) => `<option value="${code}"${shortSubject === code ? ' selected' : ''}>${code} (${packShortQuestions().filter((q) => q.subject === code).length})</option>`).join('')}</select></label>
     <div style="display:flex;gap:10px;align-items:baseline;justify-content:space-between">
       <p class="small" style="margin:0">${esc(kind)} · ${esc(q.unit)}</p>
       <span class="mono" style="color:var(--dim)">${shortAt + 1} / ${shortDeck.length.toLocaleString()}</span>
@@ -189,6 +191,8 @@ function shortAnswerHTML() {
 }
 
 function wireShortAnswer(body) {
+  const subject = body.querySelector('#shortSubject');
+  if (subject) subject.onchange = () => { shortSubject = subject.value; shortDeckFor = -1; renderExamTab('short'); };
   const restart = body.querySelector('#shortRestart');
   if (restart) restart.onclick = () => { shortDeckFor = -1; renderExamTab('short'); };
 

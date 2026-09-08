@@ -6,7 +6,7 @@
  */
 import { $$, esc, ui } from './imports.js';
 import { openViewer, leaveProjection } from './what-is-under.js';
-import { releaseLessonVisual } from './lesson-visuals.js';
+import { releaseLessonVisual, mountLessonVisual } from './lesson-visuals.js';
 import { renderLearn } from './subject.js';
 import { renderMore } from './more-sources-coverage.js';
 import { renderToday } from './home.js';
@@ -73,6 +73,11 @@ export function setActiveNav(id) {
   });
 }
 export function goTo(id) {
+  if (id !== 'viewer' && viewerLesson) {
+    viewerLesson = null;
+    ui.session = null;
+    $$('viewerLessonQuit').classList.add('hidden');
+  }
   ui.learnDrill = false;
   const dest = NAV_DESTS.find((d) => d[0] === id);
   if (dest) dest[3]();
@@ -104,6 +109,8 @@ let tabBeforeSession = 'today';
  */
 let placeBeforeSession = null;
 export function openSessionOverlay() {
+  viewerLesson = null;
+  $$('viewerLessonQuit').classList.add('hidden');
   tabBeforeSession = currentTab || 'today';
   placeBeforeSession = { drill: ui.learnDrill, topic: ui.learnTopic, filter: ui.learnFilter };
   $$('sessionView').classList.remove('hidden');
@@ -112,6 +119,32 @@ export function openSessionOverlay() {
   const shell = document.querySelector('.app-shell');
   if (shell) shell.inert = true;
 }
+let viewerLesson = null;
+export function suspendSessionForViewer() {
+  const session = $$('sessionView');
+  if (!ui.session || session.classList.contains('hidden')) return false;
+  viewerLesson = { session: ui.session, scroll: session.querySelector('.navcontent').scrollTop, at: performance.now() };
+  releaseLessonVisual();
+  session.classList.add('hidden');
+  session.inert = false;
+  document.querySelector('.app-shell').inert = false;
+  const back = $$('viewerLessonQuit');
+  back.classList.remove('hidden');
+  back.onclick = () => {
+    if (!viewerLesson) return;
+    leaveProjection();
+    ui.session = viewerLesson.session;
+    if (ui.session.startedAt) ui.session.startedAt += performance.now() - viewerLesson.at;
+    session.classList.remove('hidden');
+    document.querySelector('.app-shell').inert = true;
+    if (ui.session.step === 'learn') mountLessonVisual(ui.session.items[ui.session.index]);
+    session.querySelector('.navcontent').scrollTop = viewerLesson.scroll;
+    viewerLesson = null;
+    back.classList.add('hidden');
+  };
+  return true;
+}
+
 export function closeSessionOverlay() {
   releaseLessonVisual();
   $$('sessionView').classList.add('hidden');

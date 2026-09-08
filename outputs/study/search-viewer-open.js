@@ -3,9 +3,9 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, esc } from './imports.js';
+import { $$, esc, ui } from './imports.js';
 import { closeSearchSheet, dismissSessionForNav } from './global-search-one.js';
-import { goTo } from './navigation-five-destinations.js';
+import { goTo, suspendSessionForViewer } from './navigation-five-destinations.js';
 
 /* ------------------------------------------------------------------ *
  * Search -> viewer: open the model, select the part, auto-uncover, and
@@ -13,7 +13,8 @@ import { goTo } from './navigation-five-destinations.js';
  * ------------------------------------------------------------------ */
 export function openStructureInViewer(spec) {
   closeSearchSheet();
-  dismissSessionForNav();
+  if (!suspendSessionForViewer()) dismissSessionForNav();
+  ui.viewerTab = '3d';
   goTo('viewer');
   setTimeout(async () => {
     if (!window.__osteo || !window.__osteo.revealStructure) return;

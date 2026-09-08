@@ -12,6 +12,7 @@ import { renderLearn, topicsWithContent } from './subject.js';
 import { setStep } from './session-engine.js';
 import { showView } from './small-ui-helpers.js';
 import { getItemStep } from './home.js';
+import { exactSearch, matchesSearch, modelSearchNames } from '../search-name.js';
 
 /* ------------------------------------------------------------------ *
  * Global search -- one sheet over every destination, mixing structures,
@@ -156,7 +157,7 @@ export function studyItemWithin(topic, itemId) {
  */
 function makeMatcher(needle) {
   const terms = expandQuery(needle);
-  return (hay) => terms.some((t) => hay.includes(t));
+  return (hay) => terms.some((t) => matchesSearch(hay,t));
 }
 
 /*
@@ -205,11 +206,14 @@ MESH_INDEX.forEach((m) => {
   if (m.isUnit) UNIT_HEAD.set(m.unitId, m);
 });
 
-function searchHits(q) {
+export function searchHits(q) {
   const needle = q.trim().toLowerCase();
   if (!needle) return [];
   const hits = [];
-  const matches = makeMatcher(needle);
+  const side = /^(left|right)\s/.exec(needle)?.[1] || null;
+  const structureNeedle = side ? needle.slice(side.length).trim() : needle;
+  const matches = makeMatcher(structureNeedle);
+  const openStructure = (spec) => openStructureInViewer({...spec, side});
 
   topicsWithContent().forEach((t) => {
     if (t.unit.label.toLowerCase().includes(needle) || t.subject.code.toLowerCase().includes(needle)) {
@@ -238,24 +242,25 @@ function searchHits(q) {
   const claim = (name) => seen.add('n:' + String(name).toLowerCase());
   const taken = (name) => seen.has('n:' + String(name).toLowerCase());
 
-  expandQuery(needle).forEach((t) => searchAnatomy(t).forEach((r) => {
+  expandQuery(structureNeedle).forEach((t) => searchAnatomy(t).filter((r) => [r.canonicalName,...r.aliases].some((n) => matchesSearch(n,t))).forEach((r) => {
     if (seen.has('db:' + r.id)) return;
     seen.add('db:' + r.id);
     claim(r.canonicalName);
     hits.push({ kind: 'Structure', title: r.canonicalName, note: `${r.region} \u00b7 opens in Viewer`,
-      go: () => openStructureInViewer({ id: r.id }) });
+      go: () => openStructure({ id: r.id }) });
   }));
 
   /* Curated extras \u2014 structures that live in a system layer (muscles, heart
      chambers, brain, organs). These carry a teaching blurb, so they outrank the
      bare index entry for the same mesh. */
   SEARCH_EXTRAS.forEach((x) => {
+    if(side&&x.name.toLowerCase().includes(side==='left'?'right':'left'))return;
     const hay = (x.name + ' ' + (x.aliases || []).join(' ') + ' ' + x.system).toLowerCase();
     if (!matches(hay) || taken(x.name)) return;
     claim(x.name);
     hits.push({ kind: 'Structure', title: x.name,
       note: `${STRUCTURE_MODELS[x.system] ? STRUCTURE_MODELS[x.system].label : x.system} \u00b7 ${x.blurb}`,
-      go: () => openStructureInViewer({ system: x.system, mesh: x.mesh,
+      go: () => openStructure({ system: x.system, mesh: x.mesh,
         file: STRUCTURE_MODELS[x.system] && STRUCTURE_MODELS[x.system].file, name: x.name }) });
   });
 
@@ -278,12 +283,28 @@ function searchHits(q) {
    * "ligament" return two hundred names out of no lecture, and offered a
    * selection the viewer no longer makes.
    */
+  // Exact names remain individually reachable even when their teaching unit
+  // groups many finer structures. Search must never silently substitute a group.
+  const exactTerms = [...new Set([...expandQuery(structureNeedle),needle])];
+  const sideFits = (m) => !side || (m.sides === 'b' || m.sides === side[0]
+    || (!m.sides && !m.name.toLowerCase().includes(side === 'left' ? 'right' : 'left')));
+  MESH_INDEX.filter(m=>sideFits(m)&&exactTerms.some(t=>exactSearch(m.name,t))).forEach(m=>{
+    // Replace a broader curated entry carrying the same name with its exact mesh.
+    const existing=hits.findIndex(h=>exactSearch(h.title,m.name));
+    if(existing>=0)hits.splice(existing,1);
+    claim(m.name);
+    const mesh=m.sides==='b'?m.mesh.replace(/\.[lr]$/i,''):m.mesh;
+    hits.push({kind:'Structure',title:m.name,note:`${m.layer} · ${sourceNote(m)}`,
+      go:()=>openStructure({system:m.layer,mesh,file:STRUCTURE_MODELS[m.layer]?.file,name:m.name,exact:true,
+        ...(modelSearchNames(mesh).length>1?{parts:modelSearchNames(mesh).map(n=>({system:m.layer,mesh:n,file:STRUCTURE_MODELS[m.layer]?.file}))}:{})})});
+  });
   const idxHits = [];
   const found = new Map();             /* unit id -> what matched inside it */
   MESH_INDEX.forEach((m) => {
     /* the unit's own name counts too, or "lymph node" finds nothing: the rows
        are called "Axillary nodes" and "Pre-aortic nodes", and the thing the
        viewer actually selects is "Lymph nodes of the abdomen" */
+    if(!sideFits(m))return;
     const byName = matches(m.name.toLowerCase());
     if (!byName && !matches(m.unit.toLowerCase())) return;
     const g = found.get(m.unitId) || { rows: [], named: [] };
@@ -301,7 +322,7 @@ function searchHits(q) {
     /* opens the WHOLE unit, not only the rows that matched */
     const parts = (UNIT_ROWS.get(unitId) || rows).map((m) => ({ system: m.layer, mesh: m.mesh,
       file: model && model.file }));
-    const go = () => openStructureInViewer({ parts, name: label });
+    const go = () => openStructure({ parts, name: label });
     const hay = label.toLowerCase();
     const rank = hay === needle ? 0 : hay.startsWith(needle) ? 1 : hay.includes(needle) ? 2 : 3;
     /* matched on a name the unit is not called by: say which one, or the row
@@ -336,7 +357,7 @@ function searchHits(q) {
    * intrinsic muscles. Leading with "Larynx \u2014 modelled as its parts" answers
    * what was asked; the parts themselves follow from the index below.
    */
-  const comp = compositeFor(needle);
+  const comp = compositeFor(structureNeedle);
   if (comp) {
     /* Every part, in whatever layer it lives \u2014 the larynx spans the skeleton
        and organs layers, so opening only the first lit one cartilage and left
@@ -345,7 +366,7 @@ function searchHits(q) {
       system: layer, mesh, file: STRUCTURE_MODELS[layer] && STRUCTURE_MODELS[layer].file }));
     hits.unshift({ kind: 'Composite', title: `${comp.name} \u2014 ${comp.parts.length} parts`,
       note: comp.note,
-      go: () => openStructureInViewer({ parts, name: comp.name }) });
+      go: () => openStructure({ parts, name: comp.name, exact:true }) });
   }
 
   /*
@@ -361,7 +382,7 @@ function searchHits(q) {
     const model = STRUCTURE_MODELS[gap.layer];
     hits.unshift({ kind: 'Not modelled', title: gap.near + ' \u2014 nearest to it',
       note: gap.why,
-      go: () => openStructureInViewer({ system: gap.layer, mesh: gap.near,
+      go: () => openStructure({ system: gap.layer, mesh: gap.near,
         file: model && model.file, name: gap.near }) });
   }
 
@@ -386,7 +407,10 @@ function searchHits(q) {
       note: 'assets/xray/ is empty \u2014 add a licence-cleared image',
       go: () => { closeSearchSheet(); goTo('viewer'); } });
   }
-  return hits;
+  const rank = (h) => h.kind === 'Composite' ? -1
+    : exactTerms.some(t=>exactSearch(h.title,t)) ? 0
+    : h.title.toLowerCase().startsWith(needle) ? 1 : 2;
+  return hits.sort((a, b) => rank(a) - rank(b));
 }
 
 export function runSearch(q) {

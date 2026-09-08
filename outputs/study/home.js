@@ -47,12 +47,18 @@ export function saveContinue(itemId, step) {
   const modeLabel = ui.session?.modeLabel || null;
   write(STORAGE_PREFIX + 'continue', { itemId, step, itemIds, index, total, opts, modeLabel });
   if (itemId && step) {
-    write('rss-step:' + itemId, step);
-    write(STORAGE_PREFIX + 'step:' + itemId, step);
+    const order = STEPS.map((s) => s.id);
+    const highest = order[Math.max(order.indexOf(getItemStep(itemId)), order.indexOf(step))];
+    if (highest) {
+      write('rss-step:' + itemId, highest);
+      write(STORAGE_PREFIX + 'step:' + itemId, highest);
+    }
   }
 }
 export function getItemStep(itemId) {
-  return read('rss-step:' + itemId, null) || read(STORAGE_PREFIX + 'step:' + itemId, null);
+  const order = STEPS.map((s) => s.id);
+  const saved = [read('rss-step:' + itemId, null), read(STORAGE_PREFIX + 'step:' + itemId, null)];
+  return order[Math.max(...saved.map((s) => s === 'review' ? 3 : order.indexOf(s)))] || null;
 }
 export function resumeContinue(cont) {
   const items = (cont.itemIds && cont.itemIds.length)
