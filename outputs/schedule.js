@@ -489,13 +489,14 @@ export const WEEK_STUDY = {
     5: ['abct2326-renal-nephron', 'abct2326-renal-filtration-countercurrent', 'abct2326-renal-countercurrent-vasarecta', 'abct2326-renal-tubular-clearance-sympathetic'],
     6: [],
     7: [
-      'abct2326-repro-male-regulation', 'abct2326-repro-ovarian-menstrual-cycle',
+      'abct2326-repro-male-regulation', 'abct2326-repro-male-tract-accessory',
+      'abct2326-repro-female-tract-follicles', 'abct2326-repro-ovarian-menstrual-cycle',
       'abct2326-repro-fertilization-implantation', 'abct2326-repro-placenta-parturition',
     ],
-    8: ['abct2326-endocrine-delivery', 'abct2326-endocrine-receptors', 'abct2326-endocrine-second-messengers'],
-    9: ['abct2326-nervous-divisions', 'abct2326-synapse-drug-action', 'phys-nerve-cellular-action-potential', 'abct2326-nervous-synaptic-refractory-neuroglia'],
+    8: ['abct2326-endocrine-delivery', 'abct2326-endocrine-receptors', 'abct2326-endocrine-second-messengers', 'abct2326-endocrine-pituitary-axes', 'abct2326-endocrine-adrenal-thyroid', 'abct2326-endocrine-pancreas-misc'],
+    9: ['abct2326-nervous-divisions', 'abct2326-nervous-synaptic-refractory-neuroglia', 'phys-nerve-cellular-action-potential', 'abct2326-nervous-synapse-types-nt', 'abct2326-synapse-drug-action'],
     10: [],
-    11: ['abct2326-muscle-types', 'abct2326-muscle-action', 'abct2326-nmj-coupling', 'abct2326-muscle-ultrastructure-energetics'],
+    11: ['abct2326-muscle-types', 'abct2326-muscle-action', 'abct2326-nmj-coupling', 'abct2326-muscle-ultrastructure-energetics', 'abct2326-msk-bone-structure-remodeling'],
     12: [
       'abct2326-crossbridge-cycle', 'abct2326-fibre-types-fuel',
       'abct2326-spindle-golgi', 'abct2326-msk-immune-overview',
@@ -504,6 +505,7 @@ export const WEEK_STUDY = {
       'abct2326-innate-adaptive', 'abct2326-complement', 'abct2326-mhc-costimulation',
       'abct2326-innate-mechanisms', 'abct2326-inflammation-fever',
       'abct2326-t-cell-types', 'abct2326-acquired-immunity', 'abct2326-immune-adaptive',
+      'abct2326-antibody-structure-classes',
     ],
   },
   HTI17103: {
