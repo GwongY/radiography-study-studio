@@ -735,151 +735,504 @@ export const EXPANSION_ITEMS = [
       }
     ]
   },
-  {
-    id: 'abct2326-cvs-conduction',
-    subject: 'ABCT2326', unit: 'phys.cvs', type: 'sequence',
-    title: 'The cardiac conducting system',
-    tags: ['cardiovascular', 'high-yield'],
-    priorKnowledge: {
-      level: 'dse-bio', covers: 'part', dsePart: 'elective-hp',
-      syllabusRef: { ref: 'edb.bio', location: 'Elective V(c) "Regulation of gas content in blood" — "Control of cardiac output: heart rate and stroke volume, Pacemaker and cardiac cycle". The elective names the pacemaker; it does not go inside it.' },
-      beyond: [
-        { t: 'The route as five named stops: SA node → AV node → AV bundle (bundle of His) → left and right bundle branches → Purkinje fibres.',
-          src: { ref: 'phys.2', location: 'Slides 43–52 "The Conducting System"' } },
-        { t: 'Inside the pacemaker: the prepotential drifting from about −60 mV to a −40 mV threshold on Na⁺ through an HCN channel, then voltage-gated Ca²⁺ channels for the upstroke.',
-          src: { ref: 'phys.2', location: 'Slides 47–48 "Pacemaker potential"' } },
-        { t: 'Why a special route exists at all — the fibrous cardiac skeleton does not conduct, so the impulse cannot simply spread from atria to ventricles.',
-          src: { ref: 'phys.2', location: 'Slide 49 "From SA node to AV node"' } },
-        { t: 'The AV node as a deliberate delay rather than a relay, which is what lets the atria finish emptying first.',
-          src: { ref: 'phys.2', location: 'Slide 50 "The Conducting System – AV Node"' } },
-        { t: 'Myocardial cells resting at −90 mV with a 200–300 ms plateau from balanced Ca²⁺ influx and K⁺ efflux.',
-          src: { ref: 'phys.2', location: 'Slide 53 "Myocardial Action Potentials"' } },
+        {
+    "id": "abct2326-cvs-conduction",
+    "subject": "ABCT2326",
+    "unit": "phys.cvs",
+    "type": "sequence",
+    "title": "The cardiac conducting system",
+    "tags": [
+      "cardiovascular",
+      "high-yield",
+      "conduction",
+      "pacemaker",
+      "action-potential",
+      "sa-node",
+      "av-node"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "part",
+      "dsePart": "elective-hp",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Elective V(c) \"Regulation of gas content in blood\" — \"Control of cardiac output: heart rate and stroke volume, Pacemaker and cardiac cycle\". The elective names the pacemaker; it does not go inside it."
+      },
+      "beyond": [
+        {
+          "t": "Two functional cell classes in cardiac tissue: specialized conducting system cells that initiate and distribute impulses, and contractile cells that produce mechanical force.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p41 \"Two types of cardiac muscle cells\""
+          }
+        },
+        {
+          "t": "Structures of the conducting system: SA node in right atrial wall, AV node at atrioventricular junction, and conducting cells throughout myocardium.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p43 \"Structures of the Conducting System\""
+          }
+        },
+        {
+          "t": "Internodal pathways distribute impulses through atria; AV bundle, bundle branches, and Purkinje fibers distribute through ventricles.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p44 \"Conducting Cells\""
+          }
+        },
+        {
+          "t": "Sinoatrial (SA) node in posterior wall of right atrium contains autorhythmic pacemaker cells that initiate atrial activation.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p45 \"In posterior wall of right atrium\""
+          }
+        },
+        {
+          "t": "The pacemaker prepotential: resting potential spontaneously depolarizes toward threshold driven by HCN channels admitting inward current while outward K+ drops.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p47 \"Prepotential\""
+          },
+          "supp": {
+            "ref": "phys.2.supp",
+            "location": "p5 \"HCN channels open\""
+          }
+        },
+        {
+          "t": "The fibrous cardiac skeleton does not conduct electricity, requiring impulses to funnel strictly through the AV node and AV bundle (bundle of His).",
+          "src": {
+            "ref": "phys.2",
+            "location": "p49 \"From SA node to AV node\""
+          }
+        },
+        {
+          "t": "The AV node in the floor of the right atrium introduces a deliberate 100 ms conduction delay, allowing atrial contraction to complete before ventricular systole.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p50 \"Delays impulse\""
+          }
+        },
+        {
+          "t": "The AV bundle branches into left and right bundle branches, conducts to Purkinje fibers, and sends impulses via the moderator band to papillary muscles.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p51 \"The AV Bundle\""
+          }
+        },
+        {
+          "t": "Purkinje fibers rapidly distribute depolarization upward from the cardiac apex through ventricular myocardium.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p52 \"Purkinje Fibers\""
+          }
+        },
+        {
+          "t": "Contractile myocardial cells have a resting potential of -90 mV, upstroke via fast voltage-gated Na+ channels, and a 200-300 ms plateau balanced by Ca2+ influx and K+ efflux.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p53 \"resting membrane potential\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "Cardiac muscle tissue is functionally partitioned into two distinct cell populations: the specialized conducting system cells (~1% of myocardium), which spontaneously initiate and coordinate electrical impulses, and contractile cells (~99%), which generate the mechanical pumping force to propel blood. Normal cardiac excitation originates in the sinoatrial (SA) node, situated in the superior posterior wall of the right atrium near the entrance of the superior vena cava. As the primary cardiac pacemaker, the SA node exhibits autorhythmicity, discharging spontaneous action potentials at an intrinsic resting rate of 60–100 beats per minute (bpm). Unlike skeletal muscle and neural axons that hold a static resting membrane potential, SA nodal pacemaker cells possess an unstable resting potential termed the prepotential (or pacemaker potential). Following repolarization to approximately -60 mV, hyperpolarization-activated cyclic nucleotide-gated (HCN) channels open to admit an inward 'funny' sodium current (I_f). In concert with a gradual reduction in outward potassium (K+) efflux, this net inward positive charge slowly and steadily depolarizes the membrane potential upward from -60 mV to reach the action potential threshold of roughly -40 mV. Once threshold is reached, voltage-gated calcium channels open, allowing rapid calcium (Ca2+) influx that generates the depolarizing upstroke of the nodal action potential; subsequently, voltage-gated potassium channels open, driving K+ efflux that repolarizes the membrane back to -60 mV, which re-opens HCN channels to initiate the next cycle. From the SA node, action potentials propagate across the right and left atria via internodal pathways and cell-to-cell gap junctions (Step 1), triggering atrial systole. Because the dense collagenous cardiac fibrous skeleton is a complete electrical insulator, the impulse cannot cross directly from atria into ventricles at the atrioventricular margin; instead, the wavefront converges exclusively upon the atrioventricular (AV) node, located in the floor of the right atrium along the interatrial septum (Step 2). At the AV node, impulse transmission slows dramatically, introducing a vital physiological delay of approximately 100 milliseconds (Step 3). This intentional delay is essential because it allows the atria to complete mechanical contraction and empty their remaining blood volume into the ventricles before ventricular contraction begins. After traversing the AV node, the impulse enters the atrioventricular bundle (AV bundle, or bundle of His), the sole electrical conduit penetrating through the fibrous skeleton into the superior interventricular septum. The AV bundle divides into left and right bundle branches (Step 4), which descend subendocardially within the septum toward the cardiac apex. A specialized muscular bundle, the moderator band (trabecula septomarginalis), branches from the right bundle to the anterior papillary muscle, depolarizing papillary muscles slightly before the ventricular myocardium to pre-tension the chordae tendineae and prevent AV valve eversion. At the apex, the bundle branches arborize into extensive networks of Purkinje fibers (Step 5)—very large, specialized conducting cells with sparse myofibrils, abundant gap junctions, and rapid conduction velocities (~4 m/s). Purkinje fibers rapidly distribute depolarization upward from the apex through the free ventricular walls, causing the ventricles to contract sequentially from the apex toward the base, wringing blood upward toward the great arterial outlets. In contrast to pacemaker cells, working ventricular contractile myocytes maintain a stable resting potential of -90 mV. When excited, they exhibit a unique action potential: a rapid Phase 0 depolarization upstroke driven by fast voltage-gated Na+ channels, followed by a prolonged Phase 2 plateau lasting 200–300 milliseconds. The plateau is sustained by a delicate balance between slow inward Ca2+ influx through L-type calcium channels and outward K+ efflux through delayed rectifier potassium channels; opening of additional K+ channels completes Phase 3 repolarization.",
+      "plain": "The heart's electrical system has two cell types: pacemaker/conducting cells that create and spread signals, and contractile cells that pump blood. The heartbeat starts at the sinoatrial (SA) node in the right atrium. SA node cells have an unstable resting potential (prepotential) that slowly drifts upward from -60 mV to -40 mV threshold because HCN channels let Na+ leak in. At threshold, Ca2+ rushes in to create the action potential. Signals spread across the atria to the atrioventricular (AV) node, where they are paused for about 100 milliseconds so the atria can finish squeezing blood into the ventricles. Because the fibrous skeleton blocks electrical signals, the impulse must pass through the AV bundle (bundle of His) down the septum, branching into left and right bundle branches and into high-speed Purkinje fibers. Purkinje fibers spread the signal from the apex upward so the ventricles squeeze blood out through the aorta and pulmonary trunk. Ventricular muscle cells have a long 200–300 ms plateau phase caused by slow Ca2+ influx balancing K+ efflux.",
+      "keyFacts": [
+        "Specialized conducting system cells initiate and distribute impulses; contractile cells produce mechanical pumping force.",
+        "The sinoatrial (SA) node in the posterior wall of the right atrium is the primary cardiac pacemaker (60–100 bpm).",
+        "Pacemaker autorhythmicity is driven by an unstable prepotential: HCN channels admit an inward Na+ current from -60 mV to -40 mV threshold.",
+        "The upstroke of the SA nodal action potential is driven by Ca2+ influx through voltage-gated calcium channels.",
+        "Internodal pathways propagate depolarization through atrial myocardium, initiating atrial contraction.",
+        "The atrioventricular (AV) node in the right atrial floor delays the impulse by ~100 ms to allow complete ventricular filling.",
+        "The non-conducting fibrous skeleton prevents direct atrial-to-ventricular electrical spread, routing impulses strictly through the AV bundle.",
+        "The AV bundle (bundle of His) divides into left and right bundle branches descending the interventricular septum.",
+        "Purkinje fibers conduct impulses rapidly (~4 m/s) from the cardiac apex upward through the ventricular walls.",
+        "Ventricular contractile cells rest at -90 mV and feature a 200–300 ms plateau sustained by balanced Ca2+ influx and K+ efflux."
       ],
+      "prerequisites": [],
+      "examples": [
+        "In complete (third-degree) atrioventricular block, pathological damage to the AV node or bundle of His completely severs electrical communication between atria and ventricles; the atria continue beating at the SA rate (~75 bpm) while the ventricles beat at a dangerously slow Purkinje escape rhythm (~30 bpm), resulting in AV dissociation and severe fatigue.",
+        "Beta-blockers (such as metoprolol) bind to beta-1 adrenergic receptors on SA nodal cells, decreasing intracellular cAMP, which reduces HCN channel open probability, decreases the slope of the pacemaker prepotential, and slows resting heart rate."
+      ]
     },
-    lesson: {
-      explanation: 'The heart holds two types of cardiac muscle cell: the conducting system, which initiates and distributes the electrical impulses that stimulate contraction and so controls and coordinates the heartbeat, and the contractile cells, which produce the contractions that propel blood. The cardiac cycle begins with an action potential at the sinoatrial node, which is transmitted through the conducting system and produces action potentials in the contractile cells. The SA node sits in the posterior wall of the right atrium, contains pacemaker cells and begins atrial activation. Its prepotential, or pacemaker potential, drifts spontaneously from about −60 mV toward a −40 mV threshold — the drift is caused by Na⁺ flowing through an HCN channel that opens when the cell is hyperpolarised — and at threshold voltage-gated Ca²⁺ channels open to produce the upstroke. Because the SA node depolarises first, it sets the heart rate. The impulse spreads through the atrial myocardium via gap junctions, but needs a special route to the ventricles because the fibrous cardiac skeleton does not conduct. It reaches the AV node in the floor of the right atrium, which delays it while atrial contraction begins, then passes to the AV bundle (bundle of His) in the septum, out to the left and right bundle branches, and finally to the Purkinje fibres, which distribute it through the ventricles so ventricular contraction begins.',
-      keyFacts: [
-        'Two cell types: conducting system (initiates and distributes) and contractile cells (propel blood).',
-        'SA node — posterior wall of right atrium, holds pacemaker cells, sets heart rate.',
-        'Pacemaker potential drifts from about −60 mV to a −40 mV threshold via an HCN Na⁺ channel; Ca²⁺ channels then open for the upstroke.',
-        'AV node — floor of the right atrium; receives, then delays the impulse.',
-        'AV bundle (bundle of His) in the septum → left and right bundle branches → Purkinje fibres.',
-        'The moderator band conducts to the papillary muscles.',
-        'The fibrous cardiac skeleton is why a special conducting route to the ventricles is needed at all.',
-        'Myocardial cells rest at −90 mV and have a 200–300 ms plateau from balanced Ca²⁺ influx and K⁺ efflux.',
-      ],
-      prerequisites: ['abct2326-cvs-heart-structure'],
-      examples: [],
+    "memory": {
+      "chunking": "Five-Stop Electrical Highway: SA Node (Pacemaker) → Internodal Atrial Delay → AV Node (100 ms pause) → AV Bundle & Branches (Septal descent) → Purkinje Fibers (Apex-to-base spread).",
+      "comparison": "Pacemaker AP vs Ventricular Myocyte AP: Pacemaker has NO stable resting potential, -60 mV to -40 mV prepotential on HCN Na+, upstroke on Ca2+; Ventricular myocyte rests stably at -90 mV, upstroke on fast Na+, 200-300 ms plateau on Ca2+.",
+      "visualCue": "Picture water flowing through a funnel: wide open at the atria, squeezed through a narrow spout (100 ms delay at AV node) because the surrounding rock (fibrous skeleton) is waterproof, then exploding into spray at the bottom (Purkinje fibers).",
+      "teachBack": "Walk through all five steps of the cardiac conducting system in order and explain why the 100 ms AV nodal delay is essential for life."
     },
-    memory: {
-      sequence: 'SA → AV → bundle of His → bundle branches → Purkinje. Five stops, top to bottom, right to left. Say it as a route, not a list.',
-      location: 'Both nodes are in the right atrium — SA in the posterior wall, AV in the floor. If you can remember they are neighbours, you only have to remember which is higher.',
-      chunking: 'The AV node’s job is a pause, not a relay. That delay is what lets the atria finish emptying before the ventricles squeeze.',
-      wordOrigin: 'Sino-atrial names its location: the sinus of the atrium. Atrio-ventricular names the border it sits on.',
-    },
-    practice: [
-      { type: 'sequence', prompt: 'Order the structures of the conducting system as the impulse travels.',
-        items: ['Sinoatrial (SA) node', 'Internodal pathways / atrial myocardium', 'Atrioventricular (AV) node', 'AV bundle (bundle of His)', 'Left and right bundle branches', 'Purkinje fibres'],
-        explanation: 'This is the five-step route given across the conducting-system slides, from atrial activation to ventricular contraction.' },
-      { type: 'typed', prompt: 'Where in the heart is the SA node located?', accept: ['posterior wall of the right atrium', 'right atrium', 'posterior wall of right atrium', 'wall of the right atrium'],
-        explanation: 'The posterior wall of the right atrium. The AV node is lower, in the floor of the same chamber.' },
-      { type: 'mcq', prompt: 'What is the functional point of the delay at the AV node?', options: ['To slow the overall heart rate', 'To let atrial contraction complete before the ventricles contract', 'To protect the Purkinje fibres', 'To recharge the SA node'], answer: 1,
-        explanation: 'The AV node delays the impulse while atrial contraction begins, so the atria finish emptying into the ventricles before ventricular contraction starts.' },
-      { type: 'cloze', prompt: 'The SA node sets the heart rate because its ______ depolarises spontaneously and reaches threshold first.', accept: ['prepotential', 'pacemaker potential', 'prepotential (pacemaker potential)'],
-        explanation: 'The prepotential, also called the pacemaker potential — the resting potential of conducting cells, which drifts toward threshold on its own.' },
-      { type: 'explain', prompt: 'Why does the impulse need the AV node and bundle of His at all, rather than simply spreading from atria to ventricles?',
-        model: 'Because the fibrous cardiac skeleton between the atria and ventricles does not conduct. Atrial impulses spread through the atrial myocardium via gap junctions but cannot cross that insulating layer, so the AV node and AV bundle provide the only electrical route through to the ventricles.',
-        rubric: ['Names the fibrous cardiac skeleton as non-conducting', 'States it separates atria from ventricles electrically', 'Identifies the AV node/bundle as the only route through'] },
+    "practice": [
+      {
+        "type": "sequence",
+        "prompt": "Order the anatomical structures of the cardiac conducting system through which an action potential travels during a single normal heartbeat.",
+        "items": [
+          "Sinoatrial (SA) node",
+          "Internodal atrial pathways",
+          "Atrioventricular (AV) node",
+          "AV bundle (bundle of His)",
+          "Left and right bundle branches",
+          "Purkinje fibers"
+        ],
+        "explanation": "Depolarization begins at the SA node, traverses internodal pathways, pauses at the AV node, travels through the AV bundle and bundle branches, and terminates in Purkinje fibers."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each electrophysiological component with its distinct underlying ion channel mechanism.",
+        "pairs": [
+          [
+            "SA nodal prepotential",
+            "Inward funny Na+ current through HCN channels drifting from -60 mV to -40 mV"
+          ],
+          [
+            "SA nodal depolarization upstroke",
+            "Ca2+ influx through voltage-gated calcium channels upon reaching -40 mV threshold"
+          ],
+          [
+            "Ventricular myocyte Phase 0 upstroke",
+            "Rapid Na+ influx through fast voltage-gated sodium channels"
+          ],
+          [
+            "Ventricular myocyte Phase 2 plateau",
+            "Balance between inward slow Ca2+ influx and outward K+ efflux for 200–300 ms"
+          ]
+        ],
+        "explanation": "HCN channels drive the nodal prepotential; Ca2+ drives nodal upstroke; fast Na+ drives ventricular Phase 0; Ca2+/K+ balance sustains the plateau."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the primary physiological purpose of the ~100-millisecond delay introduced at the atrioventricular (AV) node?",
+        "options": [
+          "It permits atrial systole to complete and top off ventricular filling before ventricular contraction begins.",
+          "It allows time for the pulmonary semilunar valve to close during ventricular diastole.",
+          "It prevents action potentials from spreading into the Purkinje fiber network.",
+          "It enables the sympathetic nervous system to override parasympathetic vagal tone."
+        ],
+        "answer": 0,
+        "explanation": "The 100 ms AV nodal delay ensures that atrial systole has completely finished transferring blood into the ventricles (providing the end-diastolic atrial kick) before the ventricles are stimulated to contract."
+      },
+      {
+        "type": "typed",
+        "prompt": "What membrane channels open in SA nodal cells upon hyperpolarization to generate the spontaneous prepotential drift toward threshold?",
+        "accept": [
+          "HCN channels",
+          "HCN channel",
+          "HCN",
+          "funny channels",
+          "funny channel"
+        ],
+        "explanation": "Hyperpolarization-activated cyclic nucleotide-gated (HCN) channels open at negative membrane potentials (-60 mV) to generate the inward pacemaker funny current (I_f)."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'If the SA node stopped firing but the AV node kept working, what would happen to the heart rate, and why does any beat survive at all?',
-        model: 'A beat survives because pacemaker cells are not unique to the SA node — the conducting system as a whole has cells whose prepotential depolarises spontaneously. The SA node normally sets the rate only because it reaches threshold first. With it silent, a slower downstream pacemaker takes over, so the heart keeps beating but more slowly.',
-        rubric: ['States the SA node leads because it depolarises fastest', 'Recognises other conducting cells also have a prepotential', 'Predicts a slower rate rather than arrest'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A 68-year-old male with an acute inferior myocardial infarction develops severe bradycardia (heart rate 34 bpm) and dizziness. The ECG reveals sinus P waves occurring regularly at 78 bpm, completely dissociated from regular, wide QRS complexes occurring at 34 bpm. Coronary angiography confirms occlusion of the right coronary artery, which supplies the AV node. Explain the physiological mechanism underlying this patient arrhythmia and analyze why the ventricular rate is 34 bpm.",
+        "model": "The patient has developed complete (third-degree) atrioventricular (AV) block secondary to AV nodal ischemia caused by right coronary artery occlusion. In complete AV block: (1) The SA node continues to discharge normally at its intrinsic rate of 78 bpm, generating regular P waves that depolarize the atria. (2) However, ischemic necrosis/stunning of the AV node completely blocks conduction across the non-conducting fibrous skeleton into the bundle of His; none of the atrial impulses reach the ventricles. (3) Deprived of supraventricular pacing, a distal latent autorhythmic pacemaker in the bundle branches or Purkinje fibers undergoes spontaneous prepotential depolarization to rescue the ventricles (an idioventricular escape rhythm). Because the intrinsic firing rate of Purkinje fibers is very slow (20–40 bpm), the ventricles contract at only 34 bpm. Wide QRS complexes result because the impulse propagates slowly through regular ventricular myocardium rather than through the normal rapid conduction tree.",
+        "rubric": [
+          "Identifies complete (third-degree) AV block and explains the failure of conduction through the ischemic AV node",
+          "Explains the origin of the 34 bpm rhythm as a latent Purkinje / idioventricular escape pacemaker",
+          "Explains why the P waves and QRS complexes are completely dissociated (AV dissociation)"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Treating the AV node as a simple relay — its defining contribution is the delay.',
-      'Placing the bundle of His in the atria; it is in the interventricular septum.',
+    "commonMistakes": [
+      "Assuming the SA node action potential upstroke is mediated by fast voltage-gated Na+ channels like neurons and skeletal muscle, whereas nodal upstroke is mediated by voltage-gated Ca2+ channels.",
+      "Believing the impulse can jump directly across the fibrous skeleton from atria to ventricles, forgetting that the AV bundle is the sole normal electrical conduit between them.",
+      "Confusing the AV nodal delay with heart block, unaware that a 100 ms delay is a normal and vital feature of cardiac synchronization."
     ],
-    skills: [
-      'The conducting system exists because of a wall, not for speed: the fibrous cardiac skeleton does not conduct, so atrial impulses spreading through gap junctions stop dead at it — the AV node and AV bundle are the only electrical route into the ventricles, which is also why the bundle of His sits in the interventricular septum, not the atria.',
-      'The AV node\'s defining contribution is the pause, not the relay: it delays the impulse so the atria finish emptying before the ventricles squeeze. Both nodes are neighbours in the right atrium — SA in the posterior wall, AV in the floor — so the delay is built into the architecture, not bolted on.',
-      'The SA node is the leader, not the only pacemaker: every conducting cell carries a spontaneous prepotential, and the SA node sets the rate only because its drift (−60 mV toward the −40 mV threshold on Na⁺ through an HCN channel, then voltage-gated Ca²⁺ for the upstroke) gets there first. SA failure means a slower downstream pacemaker takes over — a slower beat, not arrest.',
+    "skills": [
+      "Trace the complete chronological sequence of cardiac electrical conduction from SA nodal generation to Purkinje activation.",
+      "Compare and contrast the ion channel dynamics of pacemaker action potentials versus ventricular contractile cell action potentials."
     ],
-    selfCheck: 'From a blank page: the full route with locations, why the fibrous cardiac skeleton forces this route to exist, what the AV node’s delay buys, and the SA-node-fails prediction — a slower beat, not arrest.',
-    sourceRefs: [{ ref: 'phys.2', location: 'Slides 40–53 the conducting system, SA node, pacemaker potential, AV node, AV bundle, Purkinje fibres, myocardial action potentials' }],
+    "selfCheck": "From memory: name the five anatomical waypoints of the conducting system, identify the ion channel that drives the pacemaker prepotential, and explain why the AV nodal delay is physiologically necessary.",
+    "visuals": [
+      {
+        "fig": "cardiacConductingSystem"
+      },
+      {
+        "schematic": "conduction"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "phys.2",
+        "location": "p41 \"Two types of cardiac muscle cells\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p43 \"Structures of the Conducting System\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p44 \"Conducting Cells\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p45 \"In posterior wall of right atrium\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p47 \"Prepotential\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p49 \"From SA node to AV node\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p50 \"Delays impulse\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p51 \"The AV Bundle\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p52 \"Purkinje Fibers\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p53 \"resting membrane potential\""
+      },
+      {
+        "ref": "phys.2.supp",
+        "location": "p4 \"SA node (pacemaker) Action Potential\""
+      },
+      {
+        "ref": "phys.2.supp",
+        "location": "p5 \"HCN channels open\""
+      }
+    ]
   },
-  {
-    id: 'abct2326-cvs-ecg-cycle',
-    subject: 'ABCT2326', unit: 'phys.cvs', type: 'definition',
-    title: 'ECG waves, the cardiac cycle and heart sounds',
-    tags: ['cardiovascular', 'high-yield'],
-    priorKnowledge: {
-      level: 'dse-bio', covers: 'part', dsePart: 'elective-hp',
-      syllabusRef: { ref: 'edb.bio', location: 'Elective V(c) — "Outline the major events during the cardiac cycle" and cardiac output as heart rate × stroke volume. The ECG trace itself is not in the syllabus at all.' },
-      beyond: [
-        { t: 'The ECG as three named features — P wave atrial depolarisation, QRS ventricular depolarisation, T wave ventricular repolarisation — plus the P–R and Q–T intervals.',
-          src: { ref: 'phys.2', location: 'Slides 57–59 "Electrocardiogram (ECG or EKG)"' } },
-        { t: 'Three volumes that subtract: end-diastolic volume minus stroke volume leaves end-systolic volume.',
-          src: { ref: 'phys.2', location: 'Slides 60–62 "Cardiac Cycle"' } },
-        { t: 'The Frank–Starling law — stroke volume rises with end-diastolic volume because the stretch increases the force of contraction.',
-          src: { ref: 'phys.2', location: 'Slides 62–63 "Cardiac Cycle continued"' } },
-        { t: 'S1 from the AV valves and S2 from the semilunar valves, so the two sounds are doors closing in order.',
-          src: { ref: 'phys.2', location: 'Slide 64 "Heart Sounds"' } },
-        { t: 'A ventricular action potential of 250–300 ms — about thirty times a skeletal muscle fibre — whose long refractory period is what prevents summation and tetany in the heart.',
-          src: { ref: 'phys.2', location: 'Slide 55 "Refractory Periods"' } },
+        {
+    "id": "abct2326-cvs-ecg-cycle",
+    "subject": "ABCT2326",
+    "unit": "phys.cvs",
+    "type": "definition",
+    "title": "ECG waves, the cardiac cycle and heart sounds",
+    "tags": [
+      "cardiovascular",
+      "high-yield",
+      "ecg",
+      "cardiac-cycle",
+      "heart-sounds",
+      "hemodynamics",
+      "refractory-period"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "part",
+      "dsePart": "elective-hp",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Elective V(c) — \"Outline the major events during the cardiac cycle\" and cardiac output as heart rate × stroke volume. The ECG trace itself is not in the syllabus at all."
+      },
+      "beyond": [
+        {
+          "t": "Ventricular action potential duration of 250–300 ms (30x longer than skeletal muscle) produces a long refractory period preventing summation and tetany.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p55 \"Refractory Periods\""
+          }
+        },
+        {
+          "t": "Electrocardiogram (ECG or EKG) as a surface recording of myocardial electrical events used to diagnose cardiac pathology.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p57 \"A recording of electrical events in the heart\""
+          }
+        },
+        {
+          "t": "ECG features: P wave atrial depolarisation, QRS complex ventricular depolarisation, T wave ventricular repolarisation, with P-R and Q-T intervals.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p58 \"Features of an ECG\""
+          }
+        },
+        {
+          "t": "Cardiac cycle: repeating pattern of contraction (systole) and relaxation (diastole), with ventricles contracting 0.1-0.2 sec after atria.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p61 \"Cardiac Cycle\""
+          }
+        },
+        {
+          "t": "Three cardiodynamic volumes: End-diastolic volume (EDV) minus Stroke volume (SV) equals End-systolic volume (ESV); Frank-Starling Law matches SV to EDV.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p62 \"End-diastolic volume\""
+          }
+        },
+        {
+          "t": "Heart sounds: S1 from closure of AV valves, S2 from closure of semilunar valves.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p63 \"Heart Sounds\""
+          }
+        },
+        {
+          "t": "The temporal relationship between heart sounds (lubb-dupp), chamber pressures, and valve opening/closure across the cardiac cycle.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p64 \"Figure 20-18b Heart Sounds.\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "The mechanical pumping activity of the heart is driven by synchronized electrical depolarization and protected by specialized electrophysiological properties. In ventricular contractile myocytes, the action potential lasts 250 to 300 milliseconds—approximately 30 times longer than in a skeletal muscle fiber. This extended duration confers a remarkably long absolute refractory period, during which the cell is completely inexcitable because voltage-gated sodium channels remain inactivated. Consequently, cardiac muscle cannot undergo wave summation or tetanic contraction; the heart is compelled to relax between beats, guaranteeing a mandatory diastolic phase during which ventricular chambers can refill with blood. The composite electrical currents generated by millions of depolarizing and repolarizing cardiac myocytes conduct through extracellular fluids to the body surface, where they are recorded as the electrocardiogram (ECG or EKG). A standard surface ECG displays three distinct wave deflections and intervening intervals: (1) The P wave represents atrial depolarization spreading from the SA node across atrial myocardium. (2) The P–R interval, measured from the beginning of the P wave to the beginning of the QRS complex (normally 120–200 ms), reflects the time required for electrical impulses to travel from the SA node through the atria, internodal tracts, and AV node into the AV bundle, directly quantifying AV nodal conduction delay. (3) The QRS complex represents rapid ventricular depolarization; because ventricular muscle mass is vastly greater than atrial mass, the QRS complex is much larger than the P wave; atrial repolarization occurs simultaneously during this phase but its electrical signature is completely masked by the massive ventricular vector. (4) The T wave represents ventricular repolarization as myocytes restore their resting membrane potential. (5) The Q–T interval, spanning from the start of the QRS complex to the end of the T wave (normally 360–440 ms), represents the total duration of ventricular electrical systole (depolarization and repolarization). The mechanical cardiac cycle coordinates the repeating pattern of contraction (systole) and relaxation (diastole) of each chamber. In a resting subject beating at 75 bpm, each cardiac cycle lasts roughly 800 ms. Both atria contract simultaneously during atrial systole (~100 ms), topping off ventricular filling; approximately 0.1 to 0.2 seconds later, ventricular systole begins (~300 ms), during which ventricles forcefully eject blood into the arterial tree, followed by ventricular diastole (~400 ms). Three quantitative volume parameters define ventricular cardiodynamics: (1) End-diastolic volume (EDV), the total volume of blood in a ventricle at the end of diastole following filling (~130 mL); (2) Stroke volume (SV), the volume of blood ejected during ventricular systole (~70–80 mL); and (3) End-systolic volume (ESV), the residual blood volume remaining in the ventricle at the end of systole (~50 mL). These parameters are governed by the subtraction relationship: EDV - SV = ESV (or SV = EDV - ESV). Under the Frank-Starling Law of the heart, stroke volume increases in direct proportion to end-diastolic volume: increased venous return stretches ventricular myocardial fibers toward their optimal sarcomere length, dramatically increasing actin-myosin overlap and force of contraction to eject the added volume. The cardiac cycle generates two distinct auscultatory heart sounds produced by turbulent blood flow vibrating surrounding tissues as valves snap shut: The first heart sound (S1, 'lubb') marks the onset of ventricular systole and is produced by the closure of the atrioventricular (AV) valves (tricuspid and mitral) during early isovolumetric ventricular contraction. The second heart sound (S2, 'dupp') marks the onset of ventricular diastole and is produced by the closure of the semilunar valves (aortic and pulmonary) during early isovolumetric ventricular relaxation as arterial pressure exceeds falling ventricular pressure.",
+      "plain": "Ventricular heart muscle cells have a very long action potential (250–300 ms, 30 times longer than skeletal muscle), creating a long refractory period that makes muscle spasms or tetany impossible—ensuring the heart always relaxes to refill with blood. An ECG records this electrical activity: the P wave is atrial depolarization; the P–R interval measures the delay through the AV node; the QRS complex is ventricular depolarization (which masks atrial repolarization); and the T wave is ventricular repolarization. The mechanical cardiac cycle alternates between systole (contraction) and diastole (relaxation). End-diastolic volume (EDV ~130 mL) minus stroke volume (SV ~70–80 mL ejected) leaves end-systolic volume (ESV ~50 mL). The Frank-Starling Law states that greater venous return stretches the heart muscle, increasing the force of contraction and boosting stroke volume. Heart sounds are valve doors snapping shut: S1 ('lubb') is the AV valves closing at the start of systole; S2 ('dupp') is the semilunar valves closing at the start of diastole.",
+      "keyFacts": [
+        "Ventricular action potentials last 250–300 ms (30x longer than skeletal muscle), creating a long refractory period that prevents tetany.",
+        "An electrocardiogram (ECG) is a body-surface recording of the electrical events of the myocardium.",
+        "The P wave represents atrial depolarization.",
+        "The P–R interval reflects the conduction time from SA node through atria and the AV node delay.",
+        "The QRS complex represents ventricular depolarization; atrial repolarization occurs simultaneously but is masked.",
+        "The T wave represents ventricular repolarization.",
+        "The cardiac cycle consists of alternating phases of contraction (systole) and relaxation (diastole).",
+        "End-diastolic volume (EDV) minus Stroke volume (SV) equals End-systolic volume (ESV): EDV - SV = ESV.",
+        "The Frank-Starling Law states that increasing EDV stretches myocardial walls, increasing contractile force and stroke volume.",
+        "Heart sound S1 ('lubb') is caused by AV valve closure; heart sound S2 ('dupp') is caused by semilunar valve closure."
       ],
+      "prerequisites": [],
+      "examples": [
+        "In first-degree AV block, delayed conduction through an inflamed or fibrotic AV node prolongs the P–R interval beyond the upper normal limit of 200 milliseconds (>0.20 s), but every P wave is still followed by a QRS complex.",
+        "During vigorous exercise, increased skeletal muscle pump activity enhances venous return, raising EDV from 130 mL to 160 mL; by the Frank-Starling mechanism, the stretched myocardium contracts more forcefully, raising stroke volume from 75 mL to 110 mL."
+      ]
     },
-    lesson: {
-      explanation: 'An electrocardiogram is a recording of the electrical events in the heart, obtained by electrodes at specific body locations, and abnormal patterns are used to diagnose damage. It has three features: the P wave, atrial depolarisation; the QRS complex, ventricular depolarisation; and the T wave, ventricular repolarisation. The P–R interval runs from the start of atrial depolarisation to the start of the QRS complex, and the Q–T interval from ventricular depolarisation to ventricular repolarisation. The cardiac cycle itself is the repeating pattern of contraction and relaxation: systole is the contraction phase, diastole the relaxation phase, and both atria contract simultaneously with the ventricles following 0.1–0.2 seconds later. End-diastolic volume is the blood in the ventricles at the end of diastole, stroke volume is the amount ejected during systole, and end-systolic volume is what is left afterwards. The Frank–Starling law states that stroke volume increases as end-diastolic volume increases, because the increased blood volume stretches the ventricular wall and the force of contraction rises. Two loud heart sounds mark the cycle: S1 is produced by the AV valves and S2 by the semilunar valves. Cardiac muscle also has a long absolute refractory period — the ventricular action potential lasts 250–300 ms, about thirty times longer than a skeletal muscle fibre — which prevents summation and tetany.',
-      plain: 'An ECG is a trace of the heart’s electrical activity, read as three waves: P (the atria squeezing), QRS (the ventricles squeezing) and T (the ventricles relaxing). The cardiac cycle is the repeating squeeze-and-relax pattern — systole squeezes, diastole relaxes. The Frank–Starling law says more blood in the ventricle before a beat makes the next squeeze stronger. Two heart sounds mark the cycle: S1 from the AV valves and S2 from the semilunar valves.',
-      keyFacts: [
-        'P wave — atria depolarise. QRS complex — ventricles depolarise. T wave — ventricles repolarise.',
-        'P–R interval: start of atrial depolarisation to start of QRS. Q–T interval: ventricular depolarisation to repolarisation.',
-        'Systole = contraction; diastole = relaxation. Ventricles follow the atria by 0.1–0.2 s.',
-        'End-diastolic volume → stroke volume ejected → end-systolic volume left behind.',
-        'Frank–Starling law: stroke volume rises as end-diastolic volume rises, because stretch increases force of contraction.',
-        'S1 is produced by the AV valves; S2 by the semilunar valves.',
-        'Ventricular action potential lasts 250–300 ms — about 30× a skeletal muscle fibre — and the long refractory period prevents summation and tetany.',
-      ],
-      prerequisites: ['abct2326-cvs-conduction'],
-      examples: [],
+    "memory": {
+      "chunking": "ECG Sequence: P (Atrial Depol) → P-R (AV Delay) → QRS (Ventricular Depol) → T (Ventricular Repol). Sounds: S1 = AV valves snap shut ('lubb'), S2 = Semilunar valves snap shut ('dupp').",
+      "comparison": "S1 vs S2: S1 occurs at start of systole (mitral/tricuspid close, ventricular pressure rises); S2 occurs at start of diastole (aortic/pulmonary close, ventricular pressure drops).",
+      "visualCue": "Picture a syringe: pull the plunger back to EDV (130 mL), push it down to eject Stroke Volume (80 mL), leaving ESV (50 mL) at the bottom. EDV - SV = ESV.",
+      "teachBack": "Draw an ECG trace, label the P wave, QRS complex, T wave, and P-R interval, and state exactly where S1 and S2 occur in relation to these waveforms."
     },
-    memory: {
-      mnemonic: 'P before QRS before T, in the order the heart actually fires: atria depolarise, ventricles depolarise, ventricles recover. There is no wave for atrial repolarisation because the QRS buries it.',
-      chunking: 'Three volumes, one subtraction: end-diastolic minus stroke volume equals end-systolic. If you know two you can derive the third.',
-      visualCue: 'S1 "lubb" is the AV valves shutting as the ventricles start to squeeze; S2 "dupp" is the semilunar valves shutting as they finish. The sounds are doors closing, in order.',
-      comparison: 'Systole and diastole are easy to swap under pressure. SyStole = Squeeze.',
-    },
-    practice: [
-      { type: 'matching', prompt: 'Match each ECG feature to the electrical event it represents.',
-        pairs: [['P wave', 'Atria depolarise'], ['QRS complex', 'Ventricles depolarise'], ['T wave', 'Ventricles repolarise'], ['P–R interval', 'Start of atrial depolarisation to start of QRS']],
-        explanation: 'These are the ECG features listed on the electrocardiogram slide.' },
-      { type: 'mcq', prompt: 'Which valves produce the first heart sound, S1?', options: ['The semilunar valves', 'The AV valves', 'The aortic valve alone', 'The pulmonary valve alone'], answer: 1,
-        explanation: 'S1 is produced by the AV valves and S2 by the semilunar valves.' },
-      { type: 'typed', prompt: 'What is the name of the law stating that stroke volume increases as end-diastolic volume increases?', accept: ['frank-starling', 'frank starling', 'frank-starling law', 'starling'],
-        explanation: 'The Frank–Starling law. Increased blood volume stretches the ventricular wall, and the force of contraction rises.' },
-      { type: 'cloze', prompt: 'The contraction phase of the cardiac cycle is called ______ and the relaxation phase ______.', accept: ['systole; diastole', 'systole, diastole', 'systole and diastole'],
-        explanation: 'Systole is contraction, diastole is relaxation.' },
-      { type: 'explain', prompt: 'Why does the long refractory period of cardiac muscle matter?',
-        model: 'The ventricular action potential lasts 250–300 ms, roughly thirty times a skeletal muscle fibre. That long absolute refractory period means the cell cannot respond to a second stimulus during it, so cardiac muscle cannot summate or go into tetany — it has to relax and refill between beats.',
-        rubric: ['Gives the 250–300 ms duration or the 30× comparison', 'States it prevents summation and tetany', 'Connects that to the need to refill'] },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each electrocardiographic or acoustic landmark with its precise physiological event.",
+        "pairs": [
+          [
+            "P wave",
+            "Depolarization of atrial myocardium"
+          ],
+          [
+            "QRS complex",
+            "Depolarization of ventricular myocardium (masks atrial repolarization)"
+          ],
+          [
+            "First heart sound (S1)",
+            "Closure of atrioventricular (tricuspid and mitral) valves at onset of systole"
+          ],
+          [
+            "Second heart sound (S2)",
+            "Closure of semilunar (aortic and pulmonary) valves at onset of diastole"
+          ]
+        ],
+        "explanation": "P wave reflects atrial depolarization; QRS reflects ventricular depolarization; S1 is AV valve closure; S2 is semilunar valve closure."
+      },
+      {
+        "type": "sequence",
+        "prompt": "Order the mechanical and acoustic phases of the left ventricle during a single cardiac cycle, starting from the end of diastole.",
+        "items": [
+          "Atrial systole tops off ventricular End-Diastolic Volume (EDV)",
+          "Isovolumetric ventricular contraction begins; AV valves close producing S1 (\"lubb\")",
+          "Ventricular ejection: intraventricular pressure exceeds aortic pressure and aortic valve opens",
+          "Isovolumetric ventricular relaxation begins; semilunar valves close producing S2 (\"dupp\")",
+          "Ventricular filling: AV valves open as ventricular pressure falls below atrial pressure"
+        ],
+        "explanation": "The cycle progresses: atrial systole → isovolumetric contraction (S1) → ejection → isovolumetric relaxation (S2) → passive filling."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A patient has an End-Diastolic Volume (EDV) of 135 mL and an End-Systolic Volume (ESV) of 55 mL. What is this patient stroke volume (SV)?",
+        "options": [
+          "80 mL",
+          "190 mL",
+          "55 mL",
+          "135 mL"
+        ],
+        "answer": 0,
+        "explanation": "Stroke volume is calculated as EDV minus ESV: 135 mL - 55 mL = 80 mL."
+      },
+      {
+        "type": "typed",
+        "prompt": "Why is it physiologically impossible for healthy cardiac muscle to undergo tetanic contraction or wave summation?",
+        "accept": [
+          "long refractory period",
+          "long absolute refractory period",
+          "prolonged refractory period",
+          "prolonged absolute refractory period"
+        ],
+        "explanation": "The extended 250–300 ms cardiac action potential creates a long absolute refractory period that lasts almost as long as the mechanical twitch, preventing summation and tetany."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'A patient’s end-diastolic volume rises after a fluid infusion. Using the Frank–Starling law, predict what happens to stroke volume and say why.',
-        model: 'Stroke volume increases. The extra blood volume stretches the ventricular wall further at the end of diastole, and the force of contraction rises with that stretch, so more blood is ejected during systole.',
-        rubric: ['Predicts an increase in stroke volume', 'Names ventricular wall stretch as the mechanism', 'Links stretch to force of contraction'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "During auscultation of a 22-year-old athlete, the physician detects a loud S1 followed immediately by a sharp systolic ejection murmur heard loudest at the right second intercostal space, followed by a soft S2. Echocardiography demonstrates calcific aortic stenosis. Correlate the auscultatory findings with valve mechanics across the cardiac cycle, and explain what happens to ventricular pressure and End-Systolic Volume (ESV) when the aortic valve orifice is narrowed.",
+        "model": "In the cardiac cycle, S1 marks the closure of AV valves as ventricular pressure spikes above atrial pressure. Ventricular ejection then requires intraventricular pressure to exceed aortic pressure (~80 mmHg). In aortic stenosis, the narrowed aortic orifice creates severe outflow resistance. The left ventricle must generate excessively high systolic pressures (often >200 mmHg) to force blood through the stenotic opening, generating high-velocity turbulent flow that produces the harsh systolic ejection murmur heard between S1 and S2. Because of this high afterload, the ventricle cannot eject its normal stroke volume during the ejection period, leaving an elevated residual volume in the chamber at the end of systole; thus, End-Systolic Volume (ESV) is significantly increased.",
+        "rubric": [
+          "Correlates S1 with AV valve closure and explains that the systolic murmur occurs during ventricular ejection",
+          "Explains that stenotic narrowing forces the left ventricle to generate abnormally elevated systolic pressures to overcome outflow resistance",
+          "Identifies that high afterload impairs ejection, resulting in an increased End-Systolic Volume (ESV)"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Looking for a wave representing atrial repolarisation — the lecture lists only P, QRS and T.',
-      'Swapping S1 and S2. S1 is the AV valves, at the start of ventricular contraction.',
+    "commonMistakes": [
+      "Believing heart sounds are caused by the sound of valves slapping open, when heart sounds are produced by turbulent deceleration of blood as valves snap closed.",
+      "Assuming atrial repolarization does not occur because it is not labeled on an ECG, forgetting that it happens simultaneously with ventricular depolarization and is buried under the massive QRS complex.",
+      "Confusing the relationship between volumes, thinking stroke volume is added to EDV rather than subtracted from EDV to yield ESV."
     ],
-    skills: [
-      'The missing wave is the lesson, not an omission: atrial repolarisation happens, but the QRS complex buries it — which is why the ECG carries exactly three features, and why "find the wave for atrial repolarisation" is the trap the lecture pre-empts.',
-      'The heart sounds are two valves closing in order, not one valve clapping twice: S1 is the AV valves shutting as ventricular systole begins, S2 the semilunar valves as it ends — and swapping them silently reverses the timeline of the whole cycle.',
-      'The refractory period is why the heart cannot be tetanised: a ventricular action potential lasts 250–300 ms, about thirty times a skeletal muscle fibre, so no second stimulus can summate within it — the cycle must finish and the ventricle must refill. The Frank–Starling law rides on the same geometry: more end-diastolic filling means more wall stretch, more force, and EDV − SV = ESV is the subtraction that holds it.',
+    "skills": [
+      "Interpret normal ECG tracings and correlate electrical waveforms (P, QRS, T) with mechanical cardiac cycle phases.",
+      "Calculate Stroke Volume, Ejection Fraction, and Cardiac Output from quantitative ventricular volumetric data."
     ],
-    selfCheck: 'From a blank page: the labelled cycle sketch, the Frank–Starling infusion prediction with the stretch mechanism, and the 250–300 ms refractory-period consequence — no summation, no tetany, the heart must refill.',
-    sourceRefs: [{ ref: 'phys.2', location: 'Slides 55–64 refractory periods, electrocardiogram, cardiac cycle, heart sounds; Figure 20-18b' }],
+    "selfCheck": "From memory: recite the formula connecting EDV, SV, and ESV; state the electrical meaning of the P wave, QRS complex, and T wave; and identify which valves close to produce S1 and S2.",
+    "visuals": [
+      {
+        "fig": "cardiacCyclePhases"
+      },
+      {
+        "schematic": "ecgCycle"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "phys.2",
+        "location": "p55 \"Refractory Periods\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p57 \"A recording of electrical events in the heart\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p58 \"Features of an ECG\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p61 \"Cardiac Cycle\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p62 \"End-diastolic volume\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p63 \"Heart Sounds\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p64 \"Figure 20-18b Heart Sounds.\""
+      }
+    ]
   },
   {
     id: 'abct2326-resp-gas-transport',

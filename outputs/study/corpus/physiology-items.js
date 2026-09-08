@@ -430,136 +430,459 @@ export const PHYS_ITEMS = [
       }
     ]
   },
-  {
-    id: 'abct2326-cvs-circuits',
-    subject: 'ABCT2326', unit: 'phys.cvs', type: 'sequence',
-    title: 'Pulmonary and systemic circuits',
-    tags: ['cardiovascular', 'high-yield'],
-    priorKnowledge: {
-      level: 'dse-bio', covers: 'most', dsePart: 'core',
-      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(b) "Essential life processes in animals" — "General plan of the circulatory system and lymphatic system".' },
-      beyond: [
-        { t: 'Flow through the systemic circuit equals flow through the pulmonary circuit, because the two run in series.',
-          src: { ref: 'phys.2', location: 'Slide 18 "An Introduction to the Cardiovascular System"' } },
-        { t: 'The whole route named as one recitable sequence, vena cavae through to aorta.',
-          src: { ref: 'phys.2', location: 'Slide 20 "Pulmonary and Systemic Circulations"' } },
-        { t: 'The right ventricle wall is thinner and develops less pressure; the right ventricle is pouch-shaped, the left round.',
-          src: { ref: 'phys.2', location: 'Slide 31 "Structural Differences between the Left and Right Ventricles"' } },
+        {
+    "id": "abct2326-cvs-circuits",
+    "subject": "ABCT2326",
+    "unit": "phys.cvs",
+    "type": "sequence",
+    "title": "Pulmonary and systemic circuits",
+    "tags": [
+      "cardiovascular",
+      "high-yield",
+      "circuits",
+      "blood vessels",
+      "hemodynamics"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "most",
+      "dsePart": "core",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Compulsory III(b) \"Essential life processes in animals\" — \"General plan of the circulatory system and lymphatic system\"."
+      },
+      "beyond": [
+        {
+          "t": "Flow through the systemic circuit equals flow through the pulmonary circuit, because the two run in series.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p18 \"An Introduction to the Cardiovascular System\""
+          }
+        },
+        {
+          "t": "The whole route named as one recitable sequence, vena cavae through to aorta.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p20 \"Pulmonary and Systemic Circulations\""
+          }
+        },
+        {
+          "t": "Three vessel wall tunics: tunica intima with endothelium, tunica media with smooth muscle, tunica externa with connective tissue.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p11 \"Structure of Blood Vessels\""
+          }
+        },
+        {
+          "t": "Small arteries and arterioles provide the primary peripheral resistance in the circulatory system.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p13 \"Arteries\""
+          }
+        },
+        {
+          "t": "Continuous versus fenestrated capillaries and their tissue distribution.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p16 \"Types of Capillaries\""
+          }
+        },
+        {
+          "t": "Veins function as high-capacitance reservoirs operating at very low pressure (~2 mmHg), requiring skeletal muscle pump and one-way valves.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p17 \"Veins\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "The human cardiovascular system is a closed, dual-circuit circulatory network driven by a four-chambered muscular pump, the heart. The two distinct vascular loops—the pulmonary circulation and the systemic circulation—are functionally arranged in series. A foundational physiological principle of this architecture is that the volume rate of blood flow through the systemic circulation must equal the flow rate through the pulmonary circuit at steady state (~5 L/min at rest). If either side ejected more volume than the other over time, blood would rapidly and catastrophically pool either in the pulmonary vasculature (leading to fatal pulmonary edema) or in systemic venous beds. Blood travels in an unbroken, unidirectional sequence: deoxygenated systemic venous return enters the right atrium via the superior and inferior vena cavae (and coronary sinus); passes through the right atrioventricular (tricuspid) valve into the right ventricle; is pumped across the pulmonary semilunar valve into the pulmonary trunk and pulmonary arteries to the pulmonary capillaries of the lungs where CO2 is released and O2 is absorbed; oxygenated blood returns via four pulmonary veins to the left atrium; flows across the left atrioventricular (bicuspid/mitral) valve into the left ventricle; and is forcefully ejected across the aortic semilunar valve into the ascending aorta to supply all systemic organs and peripheral tissues before returning via systemic veins. Blood vessels are organized histologically into three concentric tunics: the tunica interna (intima), featuring a non-thrombogenic simple squamous endothelium, basement membrane, and internal elastic membrane; the tunica media, composed predominantly of concentric smooth muscle layers and elastic fibers; and the tunica externa (adventitia), a tough connective tissue sheath anchoring the vessel. Arteries carry blood away from the heart under high, pulsating pressure; large elastic arteries expand during ventricular systole and elastically recoil during diastole to smooth arterial pressure oscillations. Muscular arteries branch into small arterioles, which possess abundant smooth muscle and provide the primary site of peripheral vascular resistance in the circulatory system, regulating blood pressure and downstream microvascular perfusion. Capillaries consist exclusively of an endothelial cylinder resting on a basal lamina, lacking tunica media or externa to minimize diffusion distance. Capillary flow is modulated by precapillary sphincters at arteriole junctions. Continuous capillaries have tightly joined endothelial cells with narrow intercellular clefts (found in skeletal muscle, lungs, skin, and adipose tissue), whereas fenestrated capillaries feature pores or 'windows' allowing rapid exchange of water and small solutes (located in endocrine glands, intestinal villi, and renal glomeruli). Capillaries drain into venules and systemic veins that return blood to the heart. Veins have thinner walls, larger lumens, and high compliance, acting as a low-pressure (~2 mmHg) capacitance reservoir containing the majority of the body's blood volume. Because central venous pressure is insufficient on its own to drive venous return against gravity, blood is propelled toward the heart by the rhythmic contraction of surrounding skeletal muscles (the skeletal muscle pump), assisted by thoracoabdominal pressure gradients during ventilation and prevented from backward pooling by one-way bicuspid venous valves.",
+      "plain": "The circulatory system consists of two loops connected in series: the pulmonary circuit (carrying deoxygenated blood from the right ventricle to the lungs and back to the left atrium) and the systemic circuit (carrying oxygenated blood from the left ventricle to all body organs and back to the right atrium). Because the two circuits are in series, the rate of blood flow through both circuits must be exactly equal. Arteries carry blood away from the heart under high pressure; small arterioles provide most of the vascular resistance. Capillaries are single-cell-thick exchange tubes (continuous in muscles and lungs, fenestrated in kidneys and intestines). Veins hold most of the body's blood volume at very low pressure (~2 mmHg) and rely on one-way valves and skeletal muscle contractions to return blood to the heart.",
+      "keyFacts": [
+        "The pulmonary and systemic circuits are connected in series; their steady-state flow rates must be exactly equal (~5 L/min).",
+        "Deoxygenated blood returns from tissues via the superior and inferior vena cavae into the right atrium.",
+        "The right ventricle pumps deoxygenated blood through pulmonary arteries into the pulmonary capillary beds.",
+        "Four pulmonary veins return oxygenated blood from the lungs into the left atrium.",
+        "The left ventricle pumps oxygenated blood through the aorta into the high-pressure systemic arterial tree.",
+        "Blood vessel walls share three tunics: tunica interna (endothelium), tunica media (smooth muscle), and tunica externa (connective tissue).",
+        "Small arteries and arterioles provide the primary peripheral vascular resistance in the systemic circulation.",
+        "Capillaries consist solely of endothelium and basement membrane to maximize rapid diffusion and exchange.",
+        "Continuous capillaries are tightly sealed (muscles, lungs); fenestrated capillaries possess pores for rapid solute exchange (kidneys, intestines).",
+        "Veins are high-compliance capacitance vessels containing the majority of total blood volume at low pressure (~2 mmHg)."
       ],
+      "prerequisites": [],
+      "examples": [
+        "In left ventricular heart failure, the left ventricle fails to match the output of the right ventricle, causing blood to back up into the pulmonary veins and capillaries, raising hydrostatic pressure and precipitating acute pulmonary edema.",
+        "Standing motionless on parade for extended periods deprives lower extremity veins of the skeletal muscle pump, causing blood to pool in dependent capacitance veins, reducing venous return, cardiac output, and cerebral perfusion, resulting in orthostatic syncope."
+      ]
     },
-    lesson: {
-      explanation: 'The pulmonary circulation is the path of blood from the right ventricle through the lungs and back to the heart. The systemic circulation is the path from the left ventricle to the body and back. Blood coming from the tissues enters the superior and inferior vena cavae, which empty into the right atrium, then the right ventricle, which pumps it through the pulmonary arteries to the lungs. Oxygenated blood returns from the lungs through the pulmonary veins to the left atrium, then the left ventricle, which pumps it through the aorta to the body. The rate of flow through the systemic circulation equals the flow rate through the pulmonary circuit.',
-      keyFacts: [
-        'Pulmonary circuit: right ventricle → lungs → back to the heart.',
-        'Systemic circuit: left ventricle → body → back to the heart.',
-        'Full loop: vena cavae → right atrium → right ventricle → pulmonary arteries → lungs → pulmonary veins → left atrium → left ventricle → aorta.',
-        'Flow through the systemic circuit equals flow through the pulmonary circuit.',
-        'Right ventricle wall is thinner and pouch-shaped; the left ventricle is round and develops more pressure.',
-      ],
-      prerequisites: ['abct2326-cells-organisation'],
-      examples: [],
+    "memory": {
+      "chunking": "Series Circuit Route: Vena Cavae → Right Atrium → Tricuspid → Right Ventricle → Pulmonary Valve → Lungs → Pulmonary Veins → Left Atrium → Bicuspid → Left Ventricle → Aortic Valve → Aorta.",
+      "comparison": "Arteries vs Veins: Arteries have thick muscular media and high pressure, carrying blood away; veins have wide lumens, thin walls, valves, and low pressure (~2 mmHg), carrying blood back and storing 60-70% of volume.",
+      "visualCue": "Picture a figure-8 loop where the top loop is the pulmonary circuit and the bottom loop is the systemic circuit; squeezing one side faster than the other will immediately cause fluid to back up at the junction.",
+      "teachBack": "Trace a drop of blood from the superior vena cava all the way to the aorta without looking, naming each chamber, valve, and major vessel along the route."
     },
-    memory: {
-      sequence: 'Right side handles the short trip to the lungs, left side handles the long trip to the body. Thin wall for the short trip, thick wall for the long one — the structure follows the distance.',
-      mnemonic: 'Pulmonary arteries are the only arteries carrying deoxygenated blood, and pulmonary veins the only veins carrying oxygenated blood. Artery means "away from the heart", not "oxygen-rich".',
-      visualCue: 'Draw a figure of eight with the heart at the crossing point. Top loop is the lungs, bottom loop is the body.',
-    },
-    practice: [
-      { type: 'sequence', prompt: 'Order the full circuit starting from blood returning from the tissues.',
-        items: ['Superior and inferior vena cavae', 'Right atrium', 'Right ventricle', 'Pulmonary arteries → lungs', 'Pulmonary veins', 'Left atrium', 'Left ventricle', 'Aorta → body'],
-        explanation: 'This is the sequence given on the "Pulmonary and Systemic Circulations" slide.' },
-      { type: 'mcq', prompt: 'Which vessel carries deoxygenated blood away from the heart?', options: ['Aorta', 'Pulmonary vein', 'Pulmonary artery', 'Superior vena cava'], answer: 2,
-        explanation: 'The pulmonary artery carries blood from the right ventricle to the lungs to be oxygenated. It is an artery because it leaves the heart, not because of what it carries.' },
-      { type: 'explain', prompt: 'Why is the left ventricle wall thicker than the right?',
-        model: 'The right ventricle pumps only to the lungs and develops less pressure, so its wall is thinner and pouch-shaped. The left ventricle pumps into the systemic circuit against much higher resistance, so it is round and thick-walled.',
-        rubric: ['Links the right ventricle to the short pulmonary circuit', 'Links the left ventricle to the systemic circuit and higher pressure'] },
+    "practice": [
+      {
+        "type": "sequence",
+        "prompt": "Order the anatomical structures through which a red blood cell travels from systemic venous return to systemic arterial delivery.",
+        "items": [
+          "Venae cavae",
+          "Right ventricle",
+          "Pulmonary trunk and arteries",
+          "Pulmonary capillaries",
+          "Pulmonary veins",
+          "Left atrium",
+          "Left ventricle",
+          "Aorta"
+        ],
+        "explanation": "Blood flows sequentially through the right heart into the pulmonary circuit, returns via pulmonary veins to the left heart, and is ejected into the systemic aorta."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each blood vessel category with its primary histological or physiological hallmark.",
+        "pairs": [
+          [
+            "Arterioles",
+            "Primary source of peripheral vascular resistance"
+          ],
+          [
+            "Continuous capillaries",
+            "Endothelial cells tightly joined with narrow intercellular clefts in muscles and lungs"
+          ],
+          [
+            "Fenestrated capillaries",
+            "Endothelial pores enabling rapid water and solute exchange in kidneys and intestines"
+          ],
+          [
+            "Systemic veins",
+            "High-capacitance low-pressure reservoir containing majority of blood volume"
+          ]
+        ],
+        "explanation": "Arterioles regulate vascular resistance; continuous and fenestrated capillaries permit differing degrees of microvascular filtration; systemic veins act as capacitance reservoirs."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which statement correctly characterizes the relationship between the pulmonary and systemic circulations in a healthy resting adult?",
+        "options": [
+          "Blood flow rate through the systemic circulation equals the flow rate through the pulmonary circuit.",
+          "Blood pressure in the pulmonary circuit is identical to blood pressure in the systemic circuit.",
+          "The right ventricle wall is substantially thicker than the left ventricle wall.",
+          "Systemic arteries carry deoxygenated blood while pulmonary arteries carry oxygenated blood."
+        ],
+        "answer": 0,
+        "explanation": "Because the pulmonary and systemic circuits are arranged in series, their volume flow rates must be equal (~5 L/min at rest), even though systemic pressures (~120/80 mmHg) greatly exceed pulmonary pressures (~25/10 mmHg)."
+      },
+      {
+        "type": "typed",
+        "prompt": "What is the approximate normal resting blood pressure (in mm Hg) found within systemic veins?",
+        "accept": [
+          "2",
+          "2 mm Hg",
+          "2 mmHg",
+          "about 2 mm Hg",
+          "about 2 mmHg",
+          "~2 mm Hg",
+          "~2 mmHg"
+        ],
+        "explanation": "Systemic veins operate at an extremely low resting pressure of approximately 2 mm Hg, necessitating one-way valves and the skeletal muscle pump to return blood."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'If the systemic and pulmonary flow rates must be equal, what would happen over a few minutes if the right ventricle consistently pumped slightly more than the left?',
-        model: 'Blood would accumulate in the pulmonary circuit, because more is entering the lungs than is leaving them for the systemic side. The lecture states the two rates are equal precisely because the circuits are in series — any mismatch builds up on one side.',
-        rubric: ['Identifies accumulation in the pulmonary circuit', 'Explains the circuits are in series'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A patient with severe deep vein thrombosis (DVT) in the left femoral vein develops an incompetent venous valve and significant distal edema while standing. Explain the biomechanical mechanisms responsible for normal venous return and describe how valve failure leads to dependent peripheral edema.",
+        "model": "Normal venous return from the lower limbs relies on the skeletal muscle pump and bicuspid venous valves. Because venous pressure is only ~2 mmHg, muscle contraction compresses thin-walled veins, driving blood upward while one-way valves prevent retrograde pooling. When a venous valve becomes incompetent (valvular insufficiency), blood pools gravitationally in dependent venules and veins during upright standing. This increases microvascular venous hydrostatic pressure, transmitting backward pressure to the capillary bed. Elevated capillary hydrostatic pressure exceeds blood colloid osmotic pressure, driving excessive net filtration of fluid into the interstitial space, producing dependent peripheral edema.",
+        "rubric": [
+          "Explains the normal low-pressure venous return mechanism (skeletal muscle pump + one-way valves)",
+          "Identifies that valve incompetence permits retrograde pooling and elevated venous hydrostatic pressure",
+          "Connects increased capillary hydrostatic pressure to excessive fluid transudation into interstitial tissue"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Assuming arteries always carry oxygenated blood — the pulmonary artery is the exception.',
-      'Reversing the two circuits by starting from the left ventricle when asked about pulmonary flow.',
+    "commonMistakes": [
+      "Assuming that because systemic blood pressure is 5-6 times higher than pulmonary pressure, systemic cardiac output must also be 5-6 times higher (forgetting the two circuits are in series and must have equal flow rates).",
+      "Confusing the definition of arteries and veins based on oxygenation rather than flow direction (arteries always carry blood away from the heart, even though pulmonary arteries carry deoxygenated blood).",
+      "Believing large elastic arteries like the aorta provide the highest resistance to flow, whereas small muscular arteries and arterioles provide the vast majority of vascular resistance."
     ],
-    skills: [
-      'Artery and vein name direction, not oxygen content: the pulmonary artery carries deoxygenated blood because it leaves the heart, and the pulmonary veins carry oxygenated blood because they arrive. "Red means artery" is the assumption the entire pulmonary loop is built to break.',
-      'The two ventricles are not mirror images: a thin, pouch-shaped right wall for the short low-pressure trip to the lungs, a round thick-walled left for driving blood through the whole systemic circuit. Wall thickness is a record of the pressure each side has to develop.',
-      'The circuits run in series, which is why their flow rates must be equal: everything the lungs receive, the body must eventually get. So a ventricle that consistently overpumps does not speed the whole loop — it piles blood up in one circuit.',
+    "skills": [
+      "Trace the complete anatomical sequence of blood flow through both pulmonary and systemic circuits without omission.",
+      "Differentiate continuous, fenestrated, and sinusoid capillaries by histological structure, permeability, and organ locations."
     ],
-    selfCheck: 'Draw the figure-of-eight from the visual cue, place all nine stops on it in order, and mark which ventricle has the thinner wall and why.',
-    sourceRefs: [{ ref: 'phys.2', location: 'Slides 18–20 "An Introduction to the Cardiovascular System", "Pulmonary and Systemic Circulations"; Figure 20-1' }],
+    "selfCheck": "From memory: name the three tunics of a blood vessel, state the flow rate relationship between systemic and pulmonary circuits, and explain why venous return needs a skeletal muscle pump.",
+    "visuals": [
+      {
+        "fig": "bloodVesselStructure"
+      },
+      {
+        "schematic": "circuits"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "phys.2",
+        "location": "p4 \"Circulatory System\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p11 \"Structure of Blood Vessels\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p13 \"Arteries\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p14 \"Capillaries\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p16 \"Types of Capillaries\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p17 \"Veins\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p18 \"An Introduction to the Cardiovascular System\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p20 \"Pulmonary and Systemic Circulations\""
+      }
+    ]
   },
-  {
-    id: 'abct2326-cvs-heart-structure',
-    subject: 'ABCT2326', unit: 'phys.cvs', type: 'diagram',
-    title: 'Heart chambers, valves and the cardiac skeleton',
-    tags: ['cardiovascular', 'high-yield'],
-    priorKnowledge: {
-      level: 'dse-bio', covers: 'part', dsePart: 'core',
-      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(b) "Essential life processes in animals" — the circulatory system in general plan only; the syllabus gets to heart structure through a pig-heart dissection, not through named histology.' },
-      beyond: [
-        { t: 'The cardiac (fibrous) skeleton: dense connective tissue encircling the valves and the bases of the pulmonary trunk and aorta, separating atria from ventricles structurally, functionally and electrically.',
-          src: { ref: 'phys.2', location: 'Slide 30 "Structure of Heart continued"' } },
-        { t: 'Three heart wall layers — epicardium (visceral pericardium), myocardium in concentric layers, endocardium of simple squamous epithelium.',
-          src: { ref: 'phys.2', location: 'Slide 22 "Structure of the Heart — Heart Wall"' } },
-        { t: 'Intercalated discs secured by desmosomes and linked by gap junctions, doing two jobs: conveying the force of contraction and propagating action potentials.',
-          src: { ref: 'phys.2', location: 'Slide 24 "Structure of the Heart — Cardiac Muscle Tissue"' } },
-        { t: 'Cardiac muscle cells characterised as small, single central nucleus, branching interconnections.',
-          src: { ref: 'phys.2', location: 'Slide 27 "Characteristics of Cardiac Muscle Cells"' } },
-        { t: 'Papillary muscles contracting through the chordae tendineae as what stops ventricular pressure everting the AV valves.',
-          src: { ref: 'phys.2', location: 'Slide 35 "Functions of the valves"' } },
+        {
+    "id": "abct2326-cvs-heart-structure",
+    "subject": "ABCT2326",
+    "unit": "phys.cvs",
+    "type": "diagram",
+    "title": "Heart chambers, valves and the cardiac skeleton",
+    "tags": [
+      "cardiovascular",
+      "high-yield",
+      "heart",
+      "anatomy",
+      "valves",
+      "histology"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "part",
+      "dsePart": "core",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Compulsory III(b) \"Essential life processes in animals\" — the circulatory system in general plan only; the syllabus gets to heart structure through a pig-heart dissection, not through named histology."
+      },
+      "beyond": [
+        {
+          "t": "The cardiac (fibrous) skeleton: dense connective tissue encircling the valves and the bases of the pulmonary trunk and aorta, separating atria from ventricles structurally, functionally and electrically.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p30 \"cardiac (fibrous) skeleton\""
+          }
+        },
+        {
+          "t": "Three heart wall layers — epicardium (visceral pericardium), myocardium in concentric layers, endocardium of simple squamous epithelium.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p22 \"Structure of the Heart\""
+          }
+        },
+        {
+          "t": "Intercalated discs secured by desmosomes and linked by gap junctions, conveying the force of contraction and propagating action potentials.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p24 \"Intercalated discs\""
+          }
+        },
+        {
+          "t": "Characteristics of cardiac muscle cells: small size, single central nucleus, branching interconnections, and intercalated discs.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p27 \"Characteristics of Cardiac Muscle Cells\""
+          }
+        },
+        {
+          "t": "Structural differences between ventricles: right ventricle is pouch-shaped and thin-walled; left ventricle is thick-walled, round, and develops high pressure.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p31 \"Structural Differences between the Left and Right Ventricles\""
+          }
+        },
+        {
+          "t": "Papillary muscles contracting through chordae tendineae to prevent ventricular pressure everting the AV valves.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p35 \"Functions of the valves\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "The human heart is a conical muscular pump situated within the middle mediastinum, structured into four interior chambers: two superior receiving chambers (the right and left atria) that collect venous blood, and two inferior pumping chambers (the right and left ventricles) that forcefully eject blood into the great arterial trunks. The right and left sides of the heart operate as two anatomically and hemodynamically distinct pumps separated by an impermeable interatrial septum and thick interventricular septum. The heart wall comprises three distinct tissue layers: (1) the epicardium (visceral pericardium), a smooth, serous outer mesothelial and fibroelastic layer covering the cardiac exterior; (2) the myocardium, the middle muscular tunic composed of concentric, spiraling layers of cardiac muscle tissue configured to wring blood out of the ventricular cavities during systole; and (3) the endocardium, the innermost lining consisting of a continuous sheet of simple squamous epithelium resting on delicate connective tissue, directly continuous with the vascular endothelium of the great vessels. Cardiac muscle cells (cardiomyocytes) exhibit specialized histological characteristics that distinguish them from skeletal muscle: they are relatively small, typically contain a single centrally placed nucleus, show branching interconnections, and join end-to-end at specialized junctional complexes called intercalated discs. Intercalated discs perform two vital, non-negotiable physiological tasks: their mechanical component, consisting of fascia adherens and desmosomes, mechanically anchors adjacent myocytes to convey tensile force without cell separation during vigorous contraction; their electrical component, consisting of low-resistance gap junctions, permits the direct, rapid cytoplasmic passage of ions and action potentials between cells, causing the entire myocardium to function as a unified functional syncytium. Encircling the four valve orifices and the bases of the aorta and pulmonary trunk lies the cardiac (fibrous) skeleton, a robust framework of dense collagenous connective tissue. The cardiac skeleton fulfills three critical functions: it anchors the valve leaflets firmly against hemodynamic stress; it prevents excessive dilation of the valve openings under elevated systolic pressure; and it acts as a non-conductive electrical insulator completely separating atrial myocardium from ventricular myocardium, ensuring that action potentials cannot pass haphazardly across the atrioventricular boundary and can only reach the ventricles via the specialized atrioventricular conduction pathway. The two ventricles display profound morphological asymmetry matching their pressure workloads: the right ventricle develops relatively low pressure (~25 mmHg systolic) to perfuse the short, low-resistance pulmonary circuit, possessing a thin wall that wraps around the left ventricle in a crescent or pouch-like configuration; conversely, the left ventricle must generate high pressure (~120 mmHg systolic) to overcome systemic vascular resistance, possessing a wall roughly three times thicker that forms a thick, circular cylinder reaching the cardiac apex. Directional blood flow is enforced by four one-way valves that open and close passively in response to pressure gradients. The atrioventricular (AV) valves—the tricuspid valve on the right and the bicuspid (mitral) valve on the left—permit diastolic inflow from atria to ventricles. To withstand the violent upward pressure generated during ventricular systole without everting into the atria, the free edges of the AV valve cusps are tethered by fibrous chordae tendineae (tendinous cords) to muscular papillary muscles projecting from the ventricular wall; during ventricular systole, papillary muscles contract synchronously with the myocardium, exerting downward tension on the chordae tendineae to anchor the valve cusps firmly closed. The semilunar valves—the pulmonary semilunar valve guarding the pulmonary trunk and the aortic semilunar valve guarding the ascending aorta—consist of three pocket-like crescentic cusps that flatten against arterial walls during ventricular ejection and snap shut as arterial pressure exceeds falling ventricular pressure during diastole, preventing arterial regurgitation.",
+      "plain": "The heart has four chambers: right and left atria that receive venous blood, and right and left ventricles that pump blood into arteries. The heart wall has three layers: outer epicardium, thick muscular myocardium, and inner endocardium made of simple squamous epithelium. Cardiac muscle cells have a single central nucleus, branch, and connect at intercalated discs—desmosomes hold them together mechanically, while gap junctions allow electrical signals to spread instantly. A dense fibrous skeleton anchors the valves and electrically insulates the atria from the ventricles. The left ventricle is round, thick-walled, and generates high pressure (~120 mmHg), while the right ventricle is pouch-shaped, thin-walled, and works at low pressure (~25 mmHg). Atrioventricular valves (tricuspid and bicuspid/mitral) are tethered by chordae tendineae to papillary muscles to prevent back-inversion during systole; semilunar valves (pulmonary and aortic) prevent backflow during diastole.",
+      "keyFacts": [
+        "The heart contains four chambers: two atria that receive blood from veins, and two ventricles that pump blood into arteries.",
+        "The heart wall has three layers: epicardium (outer serous layer), myocardium (muscular middle layer), and endocardium (inner simple squamous epithelium).",
+        "Cardiac muscle cells are small, branched, have a single central nucleus, and are joined at intercalated discs.",
+        "Intercalated discs contain desmosomes (to convey mechanical force) and gap junctions (to propagate action potentials).",
+        "The dense cardiac (fibrous) skeleton anchors the valves and electrically insulates atria from ventricles.",
+        "The left ventricle is thick-walled, cylindrical, and generates ~120 mmHg pressure; the right ventricle is thin-walled, pouch-shaped, and generates ~25 mmHg.",
+        "The tricuspid valve separates the right atrium and ventricle; the bicuspid (mitral) valve separates the left atrium and ventricle.",
+        "Papillary muscles contract during ventricular systole, pulling on chordae tendineae to prevent AV valve cusp eversion.",
+        "The pulmonary and aortic semilunar valves prevent backflow of blood from arterial trunks into ventricles during diastole.",
+        "Cardiac valves open and close passively, driven entirely by transvalvular fluid pressure gradients."
       ],
+      "prerequisites": [],
+      "examples": [
+        "In acute myocardial infarction involving the posterior descending artery, necrosis of the posterior papillary muscle can cause chordae tendineae rupture, leading to acute severe mitral valve prolapse and regurgitation, precipitating pulmonary edema and cardiogenic shock.",
+        "Arrhythmias such as Wolff-Parkinson-White syndrome occur when an abnormal congenital muscular bypass tract (bundle of Kent) breaches the insulating fibrous cardiac skeleton, allowing electrical impulses to short-circuit between atria and ventricles."
+      ]
     },
-    lesson: {
-      explanation: 'The heart has four chambers: two atria receive blood from the venous system and two ventricles pump blood to the arteries, with the two sides separated by a muscular septum. Blood flows from atria into ventricles through the one-way atrioventricular valves — the tricuspid on the right, the bicuspid or mitral on the left. The semilunar valves, pulmonary and aortic, prevent backflow from the pulmonary arteries and the aorta into the right and left ventricles. Valve opening and closing results from pressure differences. The AV valves are stopped from everting by the papillary muscles, which connect to them by the chordae tendineae. Between atria and ventricles sits the cardiac (fibrous) skeleton, a layer of dense connective tissue that encircles the heart valves and the bases of the pulmonary trunk and aorta; it separates the ventricles from the atria both structurally and electrically.',
-      keyFacts: [
-        'Four chambers: two atria receive, two ventricles pump.',
-        'Right AV valve = tricuspid. Left AV valve = bicuspid / mitral.',
-        'Semilunar valves = pulmonary and aortic.',
-        'Papillary muscles hold the AV valves via chordae tendineae.',
-        'Cardiac (fibrous) skeleton encircles the valves and electrically insulates the ventricular cells from the atrial cells.',
-        'Heart wall layers: epicardium (visceral pericardium), myocardium, endocardium.',
-        'Intercalated discs join cardiac muscle cells, secured by desmosomes and linked by gap junctions.',
-      ],
-      prerequisites: ['abct2326-cvs-circuits'],
-      examples: [],
+    "memory": {
+      "chunking": "Valves & Chambers: Right = Tricuspid & Pulmonary (low-pressure pouch); Left = Bicuspid/Mitral & Aortic (high-pressure cylinder). RAT-LAM (Right Atrium Tricuspid, Left Atrium Mitral).",
+      "comparison": "LV vs RV: Left Ventricle has 3x thicker myocardium, circular cross-section, reaches apex, pumps ~120 mmHg; Right Ventricle has thin wall, crescent/pouch cross-section, pumps ~25 mmHg.",
+      "visualCue": "Picture a parachute: the valve cusp is the canopy, the chordae tendineae are the suspension lines, and the papillary muscle is the parachutist holding tight against the upward wind of systolic pressure.",
+      "teachBack": "Describe the three microscopic components of an intercalated disc and explain why the fibrous skeleton must be an electrical insulator."
     },
-    memory: {
-      mnemonic: 'TRI before you BI — Tricuspid is on the Right, Bicuspid on the Left. Say it as "tri-right".',
-      visualCue: 'Chordae tendineae are the guy-ropes of a tent; the papillary muscles are the pegs. Pressure tries to blow the valve inside out and the ropes hold.',
-      chunking: 'Two valve families: AV valves between atrium and ventricle, semilunar valves at the exits. Every valve question is really asking which family.',
-    },
-    practice: [
-      { type: 'matching', prompt: 'Match each chamber to what the lecture says about it.',
-        pairs: [['Right atrium', 'Receives blood from the venae cavae'], ['Right ventricle', 'Thinner, pouch-shaped wall; pumps to the lungs'], ['Left atrium', 'Receives the pulmonary veins'], ['Left ventricle', 'Round and thick-walled; develops more pressure']],
-        explanation: 'The two ventricles are not mirror images. The right is pouch-shaped and develops less pressure because it only has to reach the lungs; the left is round and thick because it drives the systemic circuit. To place them in space rather than name them, use the Heart chambers and valves structure set, which runs on the real circulatory meshes.' },
-      { type: 'typed', prompt: 'What structure electrically insulates the ventricular muscle cells from the atrial muscle cells?', accept: ['cardiac skeleton', 'fibrous skeleton', 'cardiac (fibrous) skeleton', 'fibrous cardiac skeleton'],
-        explanation: 'The cardiac (fibrous) skeleton — a layer of dense connective tissue that separates the ventricles and atria structurally and electrically.' },
-      { type: 'matching', prompt: 'Match each valve to its position.',
-        pairs: [['Tricuspid valve', 'Right atrium to right ventricle'], ['Bicuspid (mitral) valve', 'Left atrium to left ventricle'], ['Pulmonary valve', 'Right ventricle to pulmonary arteries'], ['Aortic valve', 'Left ventricle to aorta']],
-        explanation: 'AV valves sit between atrium and ventricle; semilunar valves sit at the two ventricular exits.' },
-      { type: 'explain', prompt: 'What stops the AV valves turning inside out when the ventricles contract hard?',
-        model: 'The papillary muscles contract and hold the valve cusps through the chordae tendineae. The high pressure of ventricular contraction is prevented from everting the AV valves by that arrangement.',
-        rubric: ['Names papillary muscles', 'Names chordae tendineae', 'Links to ventricular contraction pressure'] },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each cardiac anatomical structure with its specific functional role.",
+        "pairs": [
+          [
+            "Cardiac fibrous skeleton",
+            "Electrically insulates ventricular myocardium from atrial myocardium and anchors valves"
+          ],
+          [
+            "Intercalated discs",
+            "Contains desmosomes for mechanical force transfer and gap junctions for electrical conduction"
+          ],
+          [
+            "Papillary muscles and chordae tendineae",
+            "Exerts downward tension on AV valve cusps during ventricular systole to prevent eversion"
+          ],
+          [
+            "Endocardium",
+            "Lines internal cardiac chambers with simple squamous epithelium continuous with vascular endothelium"
+          ]
+        ],
+        "explanation": "The fibrous skeleton provides electrical insulation; intercalated discs link cardiomyocytes mechanically and electrically; papillary muscles/chordae anchor AV cusps; endocardium lines the chambers."
+      },
+      {
+        "type": "sequence",
+        "prompt": "Order the layers of the cardiac wall from outermost to innermost luminal surface.",
+        "items": [
+          "Epicardium (visceral pericardium)",
+          "Myocardium",
+          "Endocardium"
+        ],
+        "explanation": "The cardiac wall progresses from the superficial epicardium, through the muscular myocardium, to the luminal endocardium."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What accounts for the distinct crescent (pouch-like) shape and thinner wall of the right ventricle compared to the cylindrical, thick-walled left ventricle?",
+        "options": [
+          "The right ventricle pumps blood into the low-resistance, low-pressure pulmonary circuit (~25 mmHg), requiring less myocardial force.",
+          "The right ventricle pumps a significantly lower volume of blood per minute than the left ventricle.",
+          "The right ventricle lacks an inner endocardial lining.",
+          "The right ventricle is completely devoid of intercalated discs."
+        ],
+        "answer": 0,
+        "explanation": "The right ventricle generates much lower pressure (~25 mmHg vs ~120 mmHg) because the pulmonary circuit offers far less vascular resistance than the systemic circuit; both ventricles must pump equal stroke volumes."
+      },
+      {
+        "type": "typed",
+        "prompt": "What specialized intercellular junctions within intercalated discs permit the direct passage of ions and action potentials between adjacent cardiac muscle cells?",
+        "accept": [
+          "gap junctions",
+          "gap junction",
+          "Gap junctions",
+          "Gap junction"
+        ],
+        "explanation": "Gap junctions form low-resistance electrical channels between cardiomyocytes, allowing action potentials to spread rapidly across the syncytium."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'Why does the heart need the cardiac skeleton to be electrically insulating, given that gap junctions elsewhere are there to spread the signal?',
-        model: 'Gap junctions in the intercalated discs let an action potential spread through a mass of cardiac muscle so it contracts together. But atria and ventricles must contract in sequence, not simultaneously, so the cardiac skeleton blocks direct spread between them and forces the signal through the conducting system instead.',
-        rubric: ['Notes gap junctions spread signals within a mass', 'States atria and ventricles must fire in sequence', 'Names the cardiac skeleton as the block'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "During echocardiographic evaluation of a patient with a new systolic murmur, the cardiologist observes that the mitral valve cusps balloon backward (evert) into the left atrium during ventricular systole. Biopsy reveals fibroelastic degeneration of the chordae tendineae. Explain the normal mechanism that prevents AV valve regurgitation and analyze how chordae failure disrupts cardiac function.",
+        "model": "Normally, as intraventricular pressure spikes during ventricular systole, blood pushes upward against the ventricular surfaces of the AV valve cusps. To prevent these cusps from prolapsing or everting into the low-pressure atrium, the ventricular papillary muscles contract synchronously with the myocardium. Papillary muscle contraction pulls tightly on the non-elastic chordae tendineae, anchoring the cusp margins securely together at the plane of closure. If the chordae tendineae degenerate or rupture, papillary tension cannot reach the leaflets. High systolic ventricular pressure forces the cusps backward into the left atrium (mitral regurgitation). This causes a fraction of the stroke volume to leak retrograde into the atrium during systole, reducing forward systemic cardiac output and elevating left atrial and pulmonary venous pressures, ultimately leading to pulmonary venous congestion.",
+        "rubric": [
+          "Identifies that papillary muscle contraction exerts tension through chordae tendineae to anchor AV leaflets",
+          "Explains that chordae failure allows ventricular systolic pressure to blow cusps backward into the atrium",
+          "Describes the hemodynamic consequences: retrograde systolic regurgitation, decreased forward cardiac output, and increased pulmonary venous pressure"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Putting the bicuspid valve on the right. Tricuspid is right.',
-      'Calling the chordae tendineae muscles — they are cords; the papillary muscles are the muscular part.',
+    "commonMistakes": [
+      "Believing that contraction of papillary muscles actively pulls AV valves open, when in reality valves open passively during diastole and papillary muscles contract during systole to prevent valve eversion.",
+      "Assuming the cardiac fibrous skeleton conducts action potentials from the SA node to the ventricles, when it is actually an electrical insulator that blocks non-specific conduction.",
+      "Thinking the right ventricle has a smaller stroke volume than the left ventricle because its wall is thinner, forgetting that cardiac output on both sides is identical."
     ],
-    skills: [
-      'The cardiac skeleton does the opposite of the intercalated discs, on purpose: gap junctions spread an action potential through one muscle mass so it contracts together, while the fibrous skeleton blocks that spread between atria and ventricles — so the two can only fire in sequence, through the conducting system. Both structures exist because timing matters.',
-      'The chordae tendineae are cords, not muscles: the papillary muscles contract and hold the AV valve cusps through them, so the pressure that would blow the valve inside out is caught by guy-ropes anchored to pegs. The muscle is in the wall; the rope crosses the cavity.',
-      'Valve family before valve name: AV valves sit between atrium and ventricle, semilunar valves at the two exits (pulmonary, aortic). Any valve-position question is a family question first — and the tricuspid goes on the right with no mechanism to derive it, which is why it is pure pairing memory.',
+    "skills": [
+      "Identify all four cardiac chambers, valves, wall layers, and fibrous structures on histological and anatomical sections.",
+      "Explain the electrical and mechanical functions of intercalated discs and the cardiac fibrous skeleton in synchronizing myocardial function."
     ],
-    selfCheck: 'Cover the card and draw the four chambers with all four valves placed; label each valve AV or semilunar, and put tricuspid on the correct side.',
-    sourceRefs: [{ ref: 'phys.2', location: 'Slides 21–36 heart structure, AV valves, semilunar valves, functions of the valves; Figures 20-4, 20-5, 20-8' }],
+    "selfCheck": "From memory: list the three layers of the heart wall, state the structural and electrical roles of intercalated discs, and explain how papillary muscles protect AV valves during systole.",
+    "visuals": [
+      {
+        "fig": "heartInternalAnatomy"
+      },
+      {
+        "fig": "heart"
+      },
+      {
+        "schematic": "circuits"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "phys.2",
+        "location": "p22 \"Structure of the Heart\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p24 \"Intercalated discs\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p27 \"Characteristics of Cardiac Muscle Cells\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p28 \"Heart has 4 chambers\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p30 \"cardiac (fibrous) skeleton\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p31 \"Structural Differences between the Left and Right Ventricles\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p33 \"Atrioventricular Valves\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p34 \"Semilunar Valves\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p35 \"Functions of the valves\""
+      }
+    ]
   },
   {
     id: 'abct2326-resp-pathway',
@@ -833,79 +1156,206 @@ export const PHYS_ITEMS = [
     selfCheck: 'Write the four delivery classes with a one-line route for each, then answer the target-cell question: why a hormone in the blood reaches every cell but acts on few.',
     sourceRefs: [{ ref: 'phys.7', location: 'Slides 3–7 "What is a Hormone?", "Hormone Function", "Classes of Hormone Delivery", "Endocrine Glands"' }],
   },
-  {
-    id: 'abct2326-blood-composition',
-    subject: 'ABCT2326', unit: 'phys.cvs', type: 'definition',
-    title: 'Blood composition and the vessel wall',
-    tags: ['cardiovascular'],
-    priorKnowledge: {
-      level: 'dse-bio', covers: 'part', dsePart: 'core',
-      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(b) "Essential life processes in animals" — "Composition and functions of blood, tissue fluid and lymph". The syllabus wants the components and what they do; it never quantifies them or dissects a vessel wall.' },
-      beyond: [
-        { t: 'Haematocrit as a named measurement with ranges: 36–46% in women, 41–53% in men.',
-          src: { ref: 'phys.2', location: 'Slide 6 "Composition of Blood"' } },
-        { t: 'Three plasma protein classes and their jobs — albumin at 60–80% creating colloid osmotic pressure, globulins carrying lipids with gamma globulins as antibodies, fibrinogen converting to fibrin.',
-          src: { ref: 'phys.2', location: 'Slide 7 "Plasma"' } },
-        { t: 'Vessel wall layers — tunica externa, media, interna — with capillaries as endothelium alone.',
-          src: { ref: 'phys.2', location: 'Slide 11 "Structure of Blood Vessels"' } },
-        { t: 'Small arteries and arterioles, not the large ones, providing most of the resistance in the circulatory system.',
-          src: { ref: 'phys.2', location: 'Slide 13 "Arteries"' } },
-        { t: 'Continuous against fenestrated capillaries, and which tissues each is found in.',
-          src: { ref: 'phys.2', location: 'Slide 16 "Types of Capillaries"' } },
-        { t: 'Veins as the capacitance side: they hold most of the blood at about 2 mmHg, too little to return it, so the skeletal muscle pump, the pressure drop in the chest during breathing and one-way valves do the work.',
-          src: { ref: 'phys.2', location: 'Slide 17 "Veins"' } },
+        {
+    "id": "abct2326-blood-composition",
+    "subject": "ABCT2326",
+    "unit": "phys.cvs",
+    "type": "definition",
+    "title": "Blood composition and the vessel wall",
+    "tags": [
+      "cardiovascular",
+      "blood",
+      "hematology",
+      "plasma",
+      "formed elements",
+      "histology"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "part",
+      "dsePart": "core",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Composition and functions of blood, tissue fluid and lymph\". The syllabus wants the components and what they do; it never quantifies them or dissects a vessel wall."
+      },
+      "beyond": [
+        {
+          "t": "Haematocrit as a named measurement with ranges: 36–46% in women, 41–53% in men.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p6 \"Composition of Blood\""
+          }
+        },
+        {
+          "t": "Three plasma protein classes and their jobs — albumin at 60–80% creating colloid osmotic pressure, globulins carrying lipids with gamma globulins as antibodies, fibrinogen converting to fibrin.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p7 \"Plasma\""
+          }
+        },
+        {
+          "t": "Formed elements: erythrocytes as biconcave enucleated discs containing 280 million hemoglobin molecules each; daily production of 300 billion RBCs.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p8 \"Formed Elements\""
+          }
+        },
+        {
+          "t": "Platelets as enucleated fragments of bone marrow megakaryocytes surviving 5–9 days.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p9 \"Platelets (thrombocytes)\""
+          }
+        },
+        {
+          "t": "Vessel wall architecture: tunica interna, media, externa, with capillaries consisting of endothelium alone.",
+          "src": {
+            "ref": "phys.2",
+            "location": "p11 \"Structure of Blood Vessels\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "Blood is a specialized fluid connective tissue circulating through the cardiovascular system, comprising roughly 8% of total body weight with an average resting volume of approximately 5 liters in adults. Centrifugation of an anticoagulated blood specimen physically separates whole blood into two primary phases: the formed elements (cellular components) packed into the bottom of the tube, and the supernatant fluid phase known as plasma. The percentage of total blood volume occupied by erythrocytes (red blood cells) in a centrifuged sample defines the hematocrit (packed cell volume, PCV). Normal physiological hematocrit exhibits sexual dimorphism, measuring 36%–46% in adult females and 41%–53% in adult males, driven by androgen-stimulated erythropoietin production. Plasma constitutes ~55% of total blood volume and is a straw-colored aqueous solution consisting of roughly 91%–92% water and 7%–9% dissolved solutes, predominantly plasma proteins, electrolytes, nutrients, respiratory gases, and metabolic wastes. Plasma proteins are categorized into three major functional classes: (1) Albumins, the smallest and most abundant class (accounting for 60%–80% of all plasma proteins), synthesized exclusively by hepatocytes; albumin is the primary contributor to blood colloid osmotic (oncotic) pressure (~25 mmHg), which exerts the crucial inward osmotic pull that opposes capillary hydrostatic filtration and retains fluid within the vascular compartment, while also serving as a nonspecific carrier for hydrophobic ligands (such as free fatty acids, bilirubin, and lipophilic drugs). (2) Globulins (accounting for ~36% of plasma proteins), divided into alpha and beta globulins (which transport lipids, fat-soluble vitamins, and metal cations) and gamma globulins (immunoglobulins/antibodies, secreted by plasma cells to execute adaptive humoral immunity). (3) Fibrinogen (roughly 4% of plasma proteins), a soluble high-molecular-weight clotting factor that is cleaved by thrombin into insoluble fibrin strands during coagulation to form the fibrous mesh of a blood clot. When whole blood is allowed to clot before centrifugation, the resulting fluid supernatant—depleted of fibrinogen and consumed clotting factors—is termed serum (serum = plasma minus clotting factors). The formed elements comprise three discrete lineages: erythrocytes, leukocytes (white blood cells), and platelets (thrombocytes). Erythrocytes (RBCs) constitute >99% of formed elements; mature human RBCs are highly specialized flattened biconcave discs (~7.8 µm diameter, ~2 µm edge thickness) that lack nuclei, mitochondria, and ribosomes. This biconcave geometry provides an exceptionally high surface-area-to-volume ratio that accelerates rapid gas diffusion and confers remarkable mechanical deformability to squeeze through 4–5 µm capillary lumens. Each single erythrocyte contains approximately 280 million hemoglobin molecules, each capable of binding four oxygen molecules. To replace aged, senescent erythrocytes degraded by splenic macrophages after their 120-day lifespan, bone marrow hematopoiesis produces approximately 300 billion new erythrocytes each day. Leukocytes execute host defense and immune surveillance. Platelets are not true cells but small, enucleated membrane-bound cytoplasmic fragments (2–4 µm) shed into the sinusoidal circulation by giant polyploid megakaryocytes in the bone marrow; surviving approximately 5 to 9 days in the bloodstream, platelets contain secretory granules rich in clotting mediators, adhering to exposed subendothelial collagen to form the primary hemostatic plug that initiates coagulation. Histologically, blood is contained within vessels lined by simple squamous endothelium, resting on a basement membrane in capillaries, and wrapped by muscular (tunica media) and connective (tunica externa) coats in larger vessels.",
+      "plain": "Blood is a fluid connective tissue made of liquid plasma (~55%) and formed elements (~45%). Total blood volume is about 5 liters. Centrifuging blood yields the hematocrit (the percentage of red blood cells: 36–46% in women, 41–53% in men). Plasma is 90%+ water and 7–9% proteins: albumin (60–80%, which creates colloid osmotic pressure to keep fluid inside blood vessels), globulins (transport lipids; gamma globulins are antibodies), and fibrinogen (clotting protein converted to fibrin). Serum is plasma without clotting factors. Formed elements include red blood cells (flattened biconcave discs lacking nuclei and mitochondria, with 280 million hemoglobin molecules each; 300 billion made daily), white blood cells (immune defense), and platelets (enucleated fragments of bone marrow megakaryocytes that live 5–9 days and form blood clots).",
+      "keyFacts": [
+        "Total blood volume in a healthy adult is approximately 5 liters (~8% of total body weight).",
+        "Hematocrit is the volume percentage of red blood cells: 36–46% in women and 41–53% in men.",
+        "Plasma comprises water, dissolved electrolytes, metabolites, and 7–9% plasma proteins.",
+        "Albumin makes up 60–80% of plasma proteins, creating colloid osmotic pressure to maintain blood volume and pressure.",
+        "Globulins transport lipids; gamma globulins are antibodies produced by plasma cells.",
+        "Fibrinogen is a soluble clotting factor converted to insoluble fibrin strands during blood coagulation.",
+        "Serum is the remaining fluid phase after blood has clotted (plasma minus clotting factors).",
+        "Erythrocytes are enucleated biconcave discs; each carries ~280 million hemoglobin molecules.",
+        "The body produces approximately 300 billion new red blood cells every day via erythropoiesis.",
+        "Platelets are enucleated fragments of bone marrow megakaryocytes that survive 5–9 days and mediate clotting."
       ],
+      "prerequisites": [],
+      "examples": [
+        "In severe hepatic cirrhosis, impaired liver synthesis of albumin leads to profound hypoalbuminemia; reduced plasma colloid osmotic pressure allows excessive fluid filtration into peritoneal and tissue spaces, presenting clinically as ascites and generalized pitting edema.",
+        "In polycythemia vera or severe dehydration, an abnormally elevated hematocrit (>55%) drastically increases blood viscosity, raising systemic vascular resistance and the cardiac workload while predisposing the patient to venous and arterial thrombosis."
+      ]
     },
-    lesson: {
-      explanation: 'Total blood volume is about 5 L, made of formed elements and plasma. Red blood cells make up most of the formed elements; the percentage of RBCs in a centrifuged sample is the haematocrit, 36–46% in women and 41–53% in men. Plasma is a straw-coloured liquid of water and dissolved solutes. Plasma proteins are 7–9% of plasma and come in three types: albumins, which are 60–80% and create the colloid osmotic pressure maintaining blood volume and pressure; globulins, which carry lipids and include the gamma globulins that are antibodies; and fibrinogen, the clotting factor converted to fibrin. Serum is the fluid left when blood clots. Every vessel has endothelium as its innermost layer; capillaries are made of endothelial cells alone, while arteries and veins have three layers — tunica externa (connective tissue), media (mostly smooth muscle) and interna (endothelium, basement membrane and elastin).',
-      keyFacts: [
-        'Total blood volume about 5 L.',
-        'Haematocrit: 36–46% in women, 41–53% in men.',
-        'Three plasma protein types: albumins (60–80%), globulins, fibrinogen.',
-        'Albumin creates colloid osmotic pressure maintaining blood volume and pressure.',
-        'Gamma globulins are antibodies; fibrinogen converts to fibrin.',
-        'Serum is the fluid left when blood clots.',
-        'RBCs are biconcave discs lacking nuclei and mitochondria; about 300 billion produced each day.',
-        'Platelets are fragments of megakaryocytes, survive 5–9 days, and are not true cells.',
-        'Vessel layers: tunica externa, media, interna; capillaries are endothelium only.',
-        'Small arteries and arterioles provide most of the resistance in the circulatory system.',
-      ],
-      prerequisites: ['abct2326-cvs-circuits'],
-      examples: [],
+    "memory": {
+      "chunking": "Plasma Proteins 3-Fold: Albumin (60-80% Osmotic/Volume) → Globulins (Lipids/Antibodies) → Fibrinogen (Clotting/Fibrin).",
+      "comparison": "Plasma vs Serum: Plasma contains all clotting factors and fibrinogen (fluid from anticoagulated blood); Serum is the liquid remaining AFTER blood clots (Serum = Plasma - Fibrinogen).",
+      "visualCue": "Picture a centrifuged capillary tube: clear yellow plasma on top (55%), a thin white buffy coat of leukocytes and platelets in the middle (<1%), and dark packed red cells at the bottom (hematocrit ~45%).",
+      "teachBack": "Explain why red blood cells lack mitochondria and how that relates to their primary function of oxygen transport."
     },
-    memory: {
-      comparison: 'Plasma versus serum: serum is plasma minus the clotting factors, because they were used up making the clot. If fibrinogen is present, you are looking at plasma.',
-      chunking: 'Three plasma proteins, three jobs: albumin holds water in, globulin carries and defends, fibrinogen clots.',
-      visualCue: 'Three vessel layers from the outside in: externa is the coat, media is the muscle, interna is the lining. A capillary is just the lining with the coat and muscle stripped away.',
-    },
-    practice: [
-      { type: 'mcq', prompt: 'Which type of artery contains the most resilient vessel wall?', options: ['Arteriole', 'Muscular artery', 'Elastic artery', 'None of the above'], answer: 2,
-        explanation: 'Model answer C. Large elastic arteries contain a great deal of elastin, expanding during systole and recoiling during diastole.',
-        src: { ref: 'hss.revans', location: 'HSS2011 Module 1.2, MCQ 4' } },
-      { type: 'typed', prompt: 'What is the fluid left when blood clots called?', accept: ['serum'],
-        explanation: 'Serum — plasma with the clotting factors consumed.' },
-      { type: 'matching', prompt: 'Match each plasma protein to its role.',
-        pairs: [['Albumin', 'Creates colloid osmotic pressure maintaining blood volume'], ['Gamma globulin', 'Acts as an antibody'], ['Globulin', 'Carries lipids'], ['Fibrinogen', 'Clotting factor converted to fibrin']],
-        explanation: 'These are the three plasma protein types and their functions from the plasma slide.' },
-      { type: 'cloze', prompt: 'The innermost layer of every blood vessel is the ______.', accept: ['endothelium'],
-        explanation: 'The endothelium. Capillaries are made of endothelial cells alone.' },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each blood component with its specific quantitative parameter or physiological role.",
+        "pairs": [
+          [
+            "Albumin",
+            "Accounts for 60–80% of plasma proteins; maintains colloid osmotic pressure"
+          ],
+          [
+            "Hematocrit in healthy males",
+            "Normal physiological range of 41% to 53%"
+          ],
+          [
+            "Erythrocyte structure",
+            "Enucleated biconcave disc containing ~280 million hemoglobin molecules"
+          ],
+          [
+            "Platelets (thrombocytes)",
+            "Enucleated megakaryocyte fragments surviving 5 to 9 days; initiate hemostatic plug"
+          ]
+        ],
+        "explanation": "Albumin generates oncotic pressure; normal male hematocrit is 41–53%; erythrocytes are enucleated biconcave discs; platelets are megakaryocyte fragments surviving 5–9 days."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the fundamental compositional distinction between blood plasma and blood serum?",
+        "options": [
+          "Serum is the fluid phase remaining after blood has clotted, lacking fibrinogen and consumed clotting factors.",
+          "Plasma contains no dissolved electrolytes, whereas serum contains abundant sodium and potassium.",
+          "Serum contains formed elements and red blood cells, whereas plasma contains only liquid.",
+          "Plasma lacks albumin, whereas serum consists of 100% albumin."
+        ],
+        "answer": 0,
+        "explanation": "Serum is defibrinated plasma: when whole blood clots, fibrinogen is converted into insoluble fibrin and clotting factors are consumed, leaving serum as the remaining fluid."
+      },
+      {
+        "type": "typed",
+        "prompt": "Approximately how many hemoglobin molecules are packed inside each mature human erythrocyte?",
+        "accept": [
+          "280 million",
+          "280,000,000",
+          "280000000",
+          "about 280 million"
+        ],
+        "explanation": "Each mature red blood cell contains approximately 280 million hemoglobin molecules, allowing each RBC to carry over one billion oxygen molecules."
+      },
+      {
+        "type": "sequence",
+        "prompt": "Order the major plasma protein groups from greatest abundance in plasma to least abundance.",
+        "items": [
+          "Albumins (60–80%)",
+          "Globulins (~36%)",
+          "Fibrinogen (~4%)"
+        ],
+        "explanation": "Albumins are most abundant (60–80%), followed by globulins (~36%), and fibrinogen (~4%)."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'Why does a fall in plasma albumin cause fluid to leave the bloodstream?',
-        model: 'Albumin creates the colloid osmotic pressure that maintains blood volume and pressure. With less albumin, that inward osmotic pull weakens, so fluid filtered out at the capillaries is not drawn back in as effectively.',
-        rubric: ['Names colloid osmotic pressure', 'Attributes it to albumin', 'Links the loss to fluid leaving the circulation'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A 54-year-old patient with end-stage liver disease presents with severe abdominal distension (ascites), bilateral pedal edema, and easy bruising with mucosal bleeding. Laboratory tests show serum albumin of 18 g/L (reference 35–50 g/L) and an elevated international normalized ratio (INR/prothrombin time). Explain the physiological mechanisms connecting the patient liver failure to the edema and the bleeding diathesis.",
+        "model": "The liver is the exclusive site of synthesis for albumins and key coagulation proteins (including fibrinogen and prothrombin). In chronic hepatic failure: (1) Severe hypoalbuminemia dramatically reduces blood colloid osmotic (oncotic) pressure. Capillary hydrostatic pressure now heavily overwhelms the diminished inward osmotic pull, causing excessive net transudation of fluid into interstitial tissues (pedal edema) and the peritoneal space (ascites). (2) Reduced hepatic synthesis of fibrinogen and clotting factors disrupts secondary hemostasis; with deficient fibrinogen, thrombin cannot form adequate insoluble fibrin networks to stabilize platelet plugs, resulting in easy bruising and spontaneous mucosal bleeding.",
+        "rubric": [
+          "Identifies that liver failure causes hypoalbuminemia, reducing plasma colloid osmotic pressure",
+          "Explains how reduced oncotic pressure shifts Starling forces, causing fluid extravasation and edema/ascites",
+          "Explains how deficient hepatic synthesis of fibrinogen and clotting factors leads to coagulopathy and bleeding"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Using plasma and serum interchangeably.',
-      'Assuming large arteries provide most of the resistance — the lecture says small arteries and arterioles do.',
+    "commonMistakes": [
+      "Confusing plasma with serum, incorrectly assuming they are identical or that serum contains clotting factors.",
+      "Assuming red blood cells produce ATP via aerobic respiration in mitochondria, forgetting that mature human RBCs completely lack mitochondria (relying exclusively on anaerobic glycolysis so they do not consume the oxygen they transport).",
+      "Believing platelets are intact nucleated cells rather than cytoplasmic fragments derived from bone marrow megakaryocytes."
     ],
-    skills: [
-      'Serum is plasma minus the clotting factors because they were spent making the clot — the difference is a history, not an ingredient. If fibrinogen is still present, you are looking at plasma.',
-      'Most of the circulatory resistance lives in the small arteries and arterioles, not the thick-walled large ones: wall thickness and resistance are different properties, and the intuition that "big pipe, big resistance" runs backwards.',
-      'Albumin\'s 60–80% share of plasma protein is the mechanism behind a clinical picture: lose albumin and you lose the colloid osmotic pressure that pulls fluid back into the bloodstream, so the fluid leaves.',
+    "skills": [
+      "Interpret a centrifuged hematocrit tube and calculate red cell, buffy coat, and plasma fractions.",
+      "Explain the Starling equilibrium at the capillary bed and evaluate how changes in plasma protein concentration alter fluid distribution."
     ],
-    selfCheck: 'From memory, answer three things: what is missing from serum and why, the haematocrit ranges for women and men, and which size of vessel provides most of the resistance.',
-    sourceRefs: [{ ref: 'phys.2', location: 'Slides 6–17 composition of blood, plasma, formed elements, structure of blood vessels, arteries, capillaries, veins' }, { ref: 'hss.revans', location: 'HSS2011 Module 1.2, MCQ 4' }],
+    "selfCheck": "From memory: state the normal hematocrit ranges for males and females, name the three plasma protein classes with their functions, and distinguish plasma from serum.",
+    "visuals": [
+      {
+        "fig": "bloodVesselStructure"
+      },
+      {
+        "schematic": "bloodComposition"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "phys.2",
+        "location": "p6 \"Composition of Blood\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p7 \"Plasma\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p8 \"Formed Elements\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p9 \"Platelets (thrombocytes)\""
+      },
+      {
+        "ref": "phys.2",
+        "location": "p11 \"Structure of Blood Vessels\""
+      }
+    ]
   },
   {
     id: 'abct2326-msk-immune-overview',
@@ -4344,83 +4794,240 @@ export const PHYS_ITEMS = [
       { ref: 'phys.muscle.deck', location: 'p72 "1/5 of adult skeleton is demolished and"' },
     ],
   },
-  {
-    id: 'abct2326-cvs-hemodynamics-tutorial',
-    subject: 'ABCT2326', unit: 'phys.cvs', type: 'concept',
-    title: 'Cardiovascular hemodynamics, nodal conduction pathway, and vascular resistance determinants',
-    tags: ['cardiovascular', 'hemodynamics', 'conduction', 'tutorial', 'high-yield'],
-    lesson: {
-      explanation: 'In cardiovascular physiology, blood flow and blood pressure are governed by the physical principles of hemodynamics and the intrinsic electrophysiology of the cardiac conduction system. Vascular resistance is related to vessel length (longer vessels create greater friction), blood viscosity (higher hematocrit increases resistance), vessel diameter (resistance varies inversely with the fourth power of radius, R ∝ 1/r⁴), and the nature of the blood flow (turbulent vs laminar). Crucially, vascular resistance is independent of the osmolarity of interstitial fluids. Across the systemic circulation, the normal blood volume of the venous system accounts for the majority of total blood volume (~64%), serving as a low-resistance, high-capacitance blood reservoir that can be venoconstricted during sympathetic activation to augment venous return and end-diastolic volume. Blood colloid osmotic pressure (oncotic pressure) is determined primarily by the concentration of plasma proteins, predominantly albumin, which prevents edema by drawing interstitial fluid back into capillaries at the venous end. The pulmonary circuit comprises the pulmonary arteries and pulmonary veins, routing deoxygenated blood to alveolar capillaries and returning oxygenated blood to the left atrium. Cardiac electrical activity is initiated by the sinoatrial (SA) node, the primary pacemaker of the heart with an intrinsic rate of 70–80 action potentials per minute. Electrical excitation spreads through internodal atrial pathways to the atrioventricular (AV) node, the AV bundle (bundle of His), bundle branches, and terminal Purkinje fibers. Notably, the tendinous cords (TC) and papillary muscles anchor the atrioventricular valves to prevent ventricular prolapse and regurgitation during systole, but are not part of the cardiac conduction system. If the sinoatrial (SA) node is damaged, the AV node takes over pacemaker function with a slower backup intrinsic rhythm of 40 to 50 bpm.',
-      plain: 'Vascular resistance depends on vessel diameter, length, viscosity, and flow nature, but NOT on interstitial osmolarity. The venous system holds the greater volume of circulating blood (~64%), acting as a capacitance reservoir. Plasma proteins (albumin) determine blood colloid osmotic pressure to balance capillary filtration. The sinoatrial (SA) node initiates each heartbeat; tendinous cords anchor valves and are not part of the conduction system; if the SA node fails, the AV node beats as backup at 40 to 50 bpm.',
-      keyFacts: [
-        'Vascular resistance is determined by vessel diameter, vessel length, blood viscosity, and flow nature, but NOT interstitial fluid osmolarity.',
-        'The venous system holds the greater volume of circulating blood, acting as the primary capacitance reservoir.',
-        'Blood colloid osmotic pressure is most affected by changes in the concentration of plasma proteins.',
-        'The pulmonary circuit consists of the pulmonary arteries and pulmonary veins.',
-        'The sinoatrial (SA) node is the primary pacemaker that initiates each heartbeat.',
-        'The tendinous cords (TC) anchor atrioventricular valves and are NOT part of the cardiac conduction system.',
-        'If the SA node is damaged, the AV node serves as a backup pacemaker beating at 40 to 50 bpm.',
+        {
+    "id": "abct2326-cvs-hemodynamics-tutorial",
+    "subject": "ABCT2326",
+    "unit": "phys.cvs",
+    "type": "concept",
+    "title": "Cardiovascular hemodynamics, nodal conduction pathway, and vascular resistance determinants",
+    "tags": [
+      "cardiovascular",
+      "hemodynamics",
+      "conduction",
+      "tutorial",
+      "high-yield",
+      "resistance",
+      "pacemaker"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "part",
+      "dsePart": "elective-hp",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Elective V(c) \"Regulation of gas content in blood\" — cardiovascular control and hemodynamics."
+      },
+      "beyond": [
+        {
+          "t": "Poiseuille relationship for vascular resistance: resistance is directly proportional to vessel length and blood viscosity, and inversely proportional to the fourth power of vessel radius.",
+          "src": {
+            "ref": "phys.cvs.tut",
+            "location": "p1 \"Vascular resistance is related to all of the following, except the\""
+          }
+        },
+        {
+          "t": "Vascular resistance is independent of the osmolarity of interstitial fluids.",
+          "src": {
+            "ref": "phys.cvs.tut",
+            "location": "p1 \"osmolarity of interstitial fluids.\""
+          }
+        },
+        {
+          "t": "The venous system holds the greater volume of blood (60–70% capacitance reservoir).",
+          "src": {
+            "ref": "phys.cvs.tut",
+            "location": "p2 \"The normal blood volume of the venous system.\""
+          }
+        },
+        {
+          "t": "Blood colloid osmotic pressure is most affected by plasma protein concentration.",
+          "src": {
+            "ref": "phys.cvs.tut",
+            "location": "p2 \"concentration of plasma proteins.\""
+          }
+        },
+        {
+          "t": "Pulmonary circuit components include pulmonary arteries and pulmonary veins.",
+          "src": {
+            "ref": "phys.cvs.tut",
+            "location": "p2 \"Pulmonary arteries and pulmonary veins\""
+          }
+        },
+        {
+          "t": "The sinoatrial (SA) node is the intrinsic primary pacemaker initiating heartbeats.",
+          "src": {
+            "ref": "phys.cvs.tut",
+            "location": "p2 \"sinoatrial (SA) node\""
+          }
+        },
+        {
+          "t": "Tendinous cords are structural valve anchors, not part of the electrical conduction system.",
+          "src": {
+            "ref": "phys.cvs.tut",
+            "location": "p2 \"the tendinous cords (TC)\""
+          }
+        },
+        {
+          "t": "When the SA node is damaged, the AV node assumes pacing at an intrinsic backup rate of 40 to 50 bpm.",
+          "src": {
+            "ref": "phys.cvs.tut",
+            "location": "p2 \"40 to 50 bpm.\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "Cardiovascular hemodynamics integrates the physical laws governing blood pressure, blood flow, and vascular resistance with the intrinsic electrophysiological hierarchy of the heart. Vascular resistance (R)—the friction blood encounters as it traverses the vasculature—is governed by Poiseuille's law: resistance is directly proportional to blood vessel length (L) and blood viscosity (η), and inversely proportional to the fourth power of the luminal radius (r⁴), expressed as R ∝ (η · L) / r⁴. Vascular resistance is also influenced by the laminar versus turbulent nature of blood flow. Crucially, vascular resistance is determined strictly by intravascular physical parameters and is entirely independent of the osmolarity of surrounding interstitial fluids. Because of the fourth-power radius dependence, tiny changes in arteriolar caliber produce dramatic alterations in resistance: halving a vessel radius increases its vascular resistance sixteen-fold (2⁴ = 16), making arteriolar smooth muscle contraction the primary regulatory mechanism for systemic peripheral resistance and arterial blood pressure. In the vascular circuits, blood volume is unevenly distributed: the venous system contains the greater volume of blood (~60%–70% of total blood volume at rest), acting as a high-capacitance, compliant reservoir, whereas the arterial system functions as a low-compliance, high-pressure distribution system (~15% of volume). At the microvascular interface, fluid exchange between capillaries and tissue spaces is governed by Starling forces, where blood colloid osmotic pressure (oncotic pressure) is overwhelmingly determined by the concentration of plasma proteins, specifically albumin; changes in plasma protein concentration directly alter fluid reabsorption across the capillary wall. Within the dual circuits, the pulmonary circuit consists strictly of the pulmonary trunk, right and left pulmonary arteries, pulmonary capillary beds, and four pulmonary veins. Electrical activation of the heart originates in the sinoatrial (SA) node, located in the superior posterior wall of the right atrium near the entrance of the superior vena cava, which serves as the primary cardiac pacemaker by spontaneously generating action potentials at a baseline intrinsic rate of 60–100 bpm. From the SA node, depolarization sweeps across atrial myocardium to the atrioventricular (AV) node, travels down the atrioventricular bundle (bundle of His), divides into the right and left bundle branches in the interventricular septum, and distributes via terminal Purkinje fibers to ventricular myocytes. Structures like the tendinous cords (chordae tendineae) and papillary muscles serve strictly mechanical roles in tethering atrioventricular valve leaflets during systole and are not part of the electrical conduction system. The cardiac conduction system exhibits a clear physiological hierarchy: the SA node has the fastest spontaneous firing rate and therefore suppresses slower downstream latent pacemakers (overdrive suppression); however, if the SA node is damaged or rendered non-functional (such as by sinoatrial nodal artery ischemia or sick sinus syndrome), the atrioventricular (AV) node assumes control as the secondary cardiac pacemaker, driving the ventricles at its intrinsic nodal pacemaker rate of 40 to 50 bpm.",
+      "plain": "Vascular resistance depends on blood vessel radius (to the 4th power), vessel length, and blood viscosity—halving vessel radius increases resistance 16 times! Resistance does NOT depend on the osmolarity of interstitial fluid. The venous system is a high-capacity reservoir holding 60–70% of total blood volume. Blood osmotic pressure is driven primarily by plasma proteins (especially albumin). The pulmonary circuit includes the pulmonary arteries and pulmonary veins. The heart's electrical rhythm is normally initiated by the sinoatrial (SA) node at 60–100 bpm. The conduction path travels SA node → AV node → bundle of His → bundle branches → Purkinje fibers. Tendinous cords (chordae tendineae) are mechanical valve anchors, not conduction tissue. If the SA node is destroyed, the AV node takes over as backup pacemaker at an intrinsic rate of 40 to 50 bpm.",
+      "keyFacts": [
+        "Vascular resistance is directly proportional to vessel length and blood viscosity, and inversely proportional to the 4th power of radius.",
+        "Vascular resistance is strictly an intravascular property and is unrelated to interstitial fluid osmolarity.",
+        "Halving a vessel radius increases its vascular resistance by a factor of sixteen (2⁴ = 16).",
+        "The venous system serves as a high-capacitance blood reservoir holding 60%–70% of total blood volume.",
+        "Blood colloid osmotic pressure is governed primarily by the concentration of plasma proteins (albumin).",
+        "The pulmonary circuit comprises the pulmonary trunk, pulmonary arteries, alveolar capillaries, and pulmonary veins.",
+        "The sinoatrial (SA) node in the right atrium is the primary cardiac pacemaker initiating each heartbeat.",
+        "The specialized conduction pathway comprises SA node → AV node → AV bundle (bundle of His) → bundle branches → Purkinje fibers.",
+        "Tendinous cords (chordae tendineae) provide mechanical valve support and are not part of the electrical conduction system.",
+        "When the SA node is damaged or blocked, the AV node takes over pacing at an intrinsic backup rhythm of 40 to 50 bpm."
       ],
-      prerequisites: ['phys-nerve-cellular-action-potential'],
-      examples: ['During intense physical exercise, sympathetic venoconstriction mobilizes blood from the venous reservoir back to the heart to dramatically elevate cardiac output.'],
+      "prerequisites": [],
+      "examples": [
+        "In essential hypertension, chronic sympathetic hyperactivity and circulating angiotensin II induce arteriolar vasoconstriction; a mere 10% reduction in average arteriolar radius increases vascular resistance by approximately 52% ([1/0.9]⁴ ≈ 1.52), driving mean arterial pressure upward.",
+        "In complete sinoatrial arrest, the ECG shows an absence of P waves, but the heart continues beating with regular, narrow QRS complexes at 45 bpm, reflecting an AV junctional escape rhythm generated by the AV node's intrinsic 40–50 bpm pacemaker."
+      ]
     },
-    memory: {
-      chunking: 'Hemodynamics (diameter, length, viscosity, flow nature; NOT interstitial osmolarity) · Capacitance (venous system > arterial) · Colloid Osmotic Pressure (plasma proteins) · Conduction (SA node 70-80 -> AV node 40-50 bpm backup; tendinous cords anchor valves, NOT conduction).',
-      comparison: 'Arterial vs Venous System: Arteries are high-pressure resistance/distribution conduits; veins are low-pressure, high-capacitance volume reservoirs containing the majority of blood volume.',
-      number: '40 to 50 bpm (AV node backup rate if SA damaged) · 1/r⁴ (Poiseuille resistance diameter dependence) · ~64% (venous reservoir volume fraction).',
+    "memory": {
+      "chunking": "Hemodynamics Core Trio: Poiseuille (Resistance ∝ 1/r⁴) → Venous Reservoir (holds 60-70% of volume) → Nodal Hierarchy (SA node 60-100 bpm, AV backup 40-50 bpm).",
+      "comparison": "SA Node vs AV Node: SA node is the primary pacemaker (60-100 bpm, initiates beat); AV node introduces a 100 ms delay and acts as the secondary backup pacemaker (40-50 bpm if SA fails).",
+      "visualCue": "Picture a garden hose nozzle: narrowing the exit radius slightly causes pressure behind the nozzle to skyrocket because resistance scales with the fourth power.",
+      "teachBack": "State the four physiological factors that determine vascular resistance, name the one factor it is independent of, and explain what happens to heart rate when the SA node is damaged."
     },
-    practice: [
-      { type: 'mcq', prompt: 'According to cardiovascular hemodynamics, vascular resistance is related to all of the following EXCEPT:', options: ['Length of a blood vessel', 'Osmolarity of interstitial fluids', 'Viscosity of the blood', 'Diameter of a blood vessel'], answer: 1,
-        explanation: 'Vascular resistance depends on vessel geometry (diameter, length), blood viscosity, and flow turbulence, but is independent of interstitial fluid osmolarity.',
-        src: { ref: 'phys.cvs.tut', location: 'p1 "osmolarity of interstitial fluids."' } },
-      { type: 'mcq', prompt: 'Which vascular division normally contains the greater volume of blood in the human cardiovascular system?', options: ['The arterial system', 'The normal blood volume of the venous system', 'The capillary beds', 'The lymphatic vessels'], answer: 1,
-        explanation: 'The venous system acts as a high-capacitance reservoir holding the vast majority of systemic blood volume (~64%).',
-        src: { ref: 'phys.cvs.tut', location: 'p2 "The normal blood volume of the venous system."' } },
-      { type: 'mcq', prompt: 'Which of the following structures is NOT part of the cardiac electrical conduction system?', options: ['The sinoatrial (SA) node', 'The tendinous cords (TC)', 'The atrioventricular (AV) node', 'The Purkinje fibers'], answer: 1,
-        explanation: 'Tendinous cords (chordae tendineae) anchor the tricuspid and bicuspid AV valves to papillary muscles to prevent valve eversion during ventricular systole; they do not conduct action potentials.',
-        src: { ref: 'phys.cvs.tut', location: 'p2 "the tendinous cords (TC)"' } },
-      { type: 'mcq', prompt: 'If the sinoatrial (SA) node is damaged or fails to fire, at what intrinsic rate will the heart most likely beat under atrioventricular (AV) nodal rhythm?', options: ['Less than 10 bpm', '20 to 40 bpm', '40 to 50 bpm', '70 to 80 bpm'], answer: 2,
-        explanation: 'The AV node acts as the secondary pacemaker with an inherent backup pacemaker rate of 40 to 50 bpm.',
-        src: { ref: 'phys.cvs.tut', location: 'p2 "40 to 50 bpm."' } },
-      { type: 'typed', prompt: 'Blood colloid osmotic (oncotic) pressure is most affected by changes in the plasma concentration of which macromolecule?', accept: ['plasma proteins', 'proteins', 'protein', 'plasma protein', 'albumin'],
-        explanation: 'Colloid osmotic pressure in the blood is maintained primarily by plasma proteins (especially albumin).',
-        src: { ref: 'phys.cvs.tut', location: 'p2 "concentration of plasma proteins."' } },
-      { type: 'matching', prompt: 'Match each cardiovascular structure to its physiological role.',
-        pairs: [['Sinoatrial (SA) node', 'pacemaker that initiates each heart beat'], ['Tendinous cords (TC)', 'anchor atrioventricular valve cusps (not conduction)'], ['Venous system', 'contains the greater volume of blood'], ['Pulmonary circuit', 'Pulmonary arteries and pulmonary veins']],
-        explanation: 'These pairings connect cardiac anatomical components to their precise physiological roles.',
-        src: { ref: 'phys.cvs.tut', location: 'p2 "sinoatrial (SA) node"' } },
-      { type: 'sequence', prompt: 'Trace the normal pathway of an electrical impulse through the cardiac conduction system.',
-        items: ['Sinoatrial (SA) node initiation', 'Atrioventricular (AV) node delay', 'Atrioventricular bundle (bundle of His)', 'Left and right bundle branches', 'Purkinje fibers distributing to ventricular myocardium'],
-        explanation: 'Action potentials originate at the SA node, travel to the AV node, pass through the bundle of His and bundle branches, and terminate in Purkinje fibers.',
-        src: { ref: 'phys.cvs.tut', location: 'p2 "sinoatrial (SA) node"' } },
+    "practice": [
+      {
+        "type": "mcq",
+        "prompt": "Vascular resistance to blood flow through the systemic circulation is governed by all of the following physiological factors EXCEPT the:",
+        "options": [
+          "Osmolarity of surrounding interstitial fluids",
+          "Internal diameter (radius) of the blood vessel",
+          "Overall length of the blood vessel",
+          "Viscosity of the circulating blood"
+        ],
+        "answer": 0,
+        "explanation": "According to Poiseuille’s law, vascular resistance depends on vessel radius, vessel length, and blood viscosity, as well as the nature of flow (laminar vs turbulent); it is completely independent of interstitial fluid osmolarity."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which compartment of the cardiovascular system normally contains the greatest fraction of total blood volume in a resting adult?",
+        "options": [
+          "The venous system (capacitance vessels)",
+          "The arterial system (resistance and elastic vessels)",
+          "The capillary microcirculation",
+          "The four chambers of the heart"
+        ],
+        "answer": 0,
+        "explanation": "The venous system acts as a high-capacitance blood reservoir, containing approximately 60% to 70% of the body’s total blood volume at rest."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each cardiac structure or concept from the tutorial with its definitive physiological characteristic.",
+        "pairs": [
+          [
+            "Sinoatrial (SA) node",
+            "Primary cardiac pacemaker initiating normal rhythmic depolarization"
+          ],
+          [
+            "Atrioventricular (AV) node backup rate",
+            "Intrinsic secondary pacing rhythm of 40 to 50 bpm upon SA node failure"
+          ],
+          [
+            "Tendinous cords (chordae tendineae)",
+            "Mechanical valve tether; NOT a component of the electrical conduction system"
+          ],
+          [
+            "Blood colloid osmotic pressure",
+            "Most strongly determined by the concentration of plasma proteins"
+          ]
+        ],
+        "explanation": "The SA node initiates rhythm; AV node backs up at 40–50 bpm; tendinous cords are mechanical struts; plasma proteins determine oncotic pressure."
+      },
+      {
+        "type": "typed",
+        "prompt": "If the sinoatrial (SA) node is damaged or destroyed, at what intrinsic rate (in beats per minute, bpm) will the AV node pace the heart?",
+        "accept": [
+          "40 to 50 bpm",
+          "40-50 bpm",
+          "40 to 50",
+          "40-50",
+          "40–50 bpm",
+          "40–50"
+        ],
+        "explanation": "Upon loss of SA nodal pacemaking, the atrioventricular (AV) node establishes a junctional escape rhythm at its intrinsic rate of 40 to 50 bpm."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'Explain the hemodynamic adjustments that occur when severe hypovolemic shock drops arterial blood pressure, discussing the roles of vascular resistance determinants, the venous capacitance reservoir, and plasma oncotic pressure.',
-        model: 'In hypovolemic shock, reduced circulating volume decreases venous return, end-diastolic volume, and mean arterial pressure. In response, sympathetic baroreceptor reflexes trigger intense arteriolar vasoconstriction: decreasing vessel diameter dramatically elevates systemic vascular resistance (since R ∝ 1/r⁴). Simultaneously, sympathetic venoconstriction mobilizes blood stored within the high-capacitance venous reservoir, translocating blood into the central circulation to restore cardiac output. Furthermore, decreased hydrostatic pressure in capillary beds shifts Starling forces, allowing plasma proteins to exert colloid osmotic pressure that pulls interstitial fluid into capillaries to defend intravascular volume.',
-        rubric: ['Discusses vascular resistance determinants with emphasis on vessel diameter (R ∝ 1/r⁴)', 'Identifies the venous system as the capacitance reservoir mobilized during hypovolemia', 'Explains capillary fluid reabsorption driven by plasma protein oncotic pressure'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "An 82-year-old female experiences recurrent syncopal episodes. Holter monitoring demonstrates sick sinus syndrome with prolonged sinus pauses (>4 seconds) where the SA node fails to fire. When ventricular beats appear during pauses, they occur at a steady rate of 44 bpm with normal QRS duration. Explain the physiological mechanism that rescues ventricular contraction during SA arrest, name the pacemaker responsible, and state its expected intrinsic rate.",
+        "model": "Under normal physiological conditions, the SA node fires faster (60–100 bpm) than latent pacemakers and continuously suppresses them via overdrive suppression. When sinus arrest occurs and the SA node fails to depolarize, overdrive suppression is eliminated. The secondary pacemaker of the heart—the atrioventricular (AV) node (or AV junction)—undergoes spontaneous prepotential depolarization to threshold. The AV node assumes pacemaking responsibility, generating a junctional escape rhythm at its intrinsic autorhythmic rate of 40 to 50 bpm (here 44 bpm). Because the impulse originates above the bifurcation of the bundle of His, it travels normally through bundle branches and Purkinje fibers, producing normal narrow QRS complexes that maintain life-sustaining cardiac output.",
+        "rubric": [
+          "Identifies the AV node / AV junction as the secondary latent pacemaker that rescues ventricular contraction",
+          "Explains the elimination of overdrive suppression following SA arrest",
+          "States the intrinsic autorhythmic firing rate of the AV node as 40 to 50 bpm"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Believing interstitial fluid osmolarity directly determines vascular resistance (resistance is determined by vessel diameter, length, blood viscosity, and turbulence).',
-      'Confusing tendinous cords with the conduction system (tendinous cords are collagenous cords anchoring AV valve cusps, not electrical tissue).',
-      'Assuming the arterial tree holds more blood than the venous tree (the venous system holds ~64% of total blood volume).',
+    "commonMistakes": [
+      "Assuming the tendinous cords (chordae tendineae) conduct electrical impulses from the bundle of His to the papillary muscles, when they are entirely non-conductive fibrous collagen strings.",
+      "Thinking vascular resistance increases when interstitial osmolarity rises, when resistance is strictly governed by vessel caliber, length, and blood viscosity.",
+      "Assuming that if the SA node fails the heart immediately ceases beating entirely, forgetting that the AV node provides a reliable intrinsic backup rhythm at 40–50 bpm."
     ],
-    skills: [
-      'Analyzing vascular resistance determinants (diameter, length, viscosity, turbulence), detailing venous capacitance hemodynamics, tracing the cardiac conduction pathway, recognizing AV nodal backup intrinsic rhythm (40–50 bpm), and evaluating capillary fluid balance governed by plasma protein oncotic pressure.',
+    "skills": [
+      "Apply Poiseuille’s equation to predict changes in vascular resistance and blood pressure from alterations in vessel radius.",
+      "Delineate the hierarchy of cardiac autorhythmic pacemakers and identify escape rhythms on diagnostic records."
     ],
-    selfCheck: 'Name the four determinants of vascular resistance, state which vascular division holds the greater blood volume, identify the backup firing rate of the AV node, and state why tendinous cords are not part of the conduction system.',
-    sourceRefs: [
-      { ref: 'phys.cvs.tut', location: 'p1 "Vascular resistance is related to all of the following, except the"' },
-      { ref: 'phys.cvs.tut', location: 'p1 "osmolarity of interstitial fluids."' },
-      { ref: 'phys.cvs.tut', location: 'p1 "length of a blood vessel."' },
-      { ref: 'phys.cvs.tut', location: 'p1 "viscosity of the blood."' },
-      { ref: 'phys.cvs.tut', location: 'p1 "diameter of a blood vessel."' },
-      { ref: 'phys.cvs.tut', location: 'p2 "The normal blood volume of the venous system."' },
-      { ref: 'phys.cvs.tut', location: 'p2 "concentration of plasma proteins."' },
-      { ref: 'phys.cvs.tut', location: 'p2 "Pulmonary arteries and pulmonary veins"' },
-      { ref: 'phys.cvs.tut', location: 'p2 "sinoatrial (SA) node"' },
-      { ref: 'phys.cvs.tut', location: 'p2 "the tendinous cords (TC)"' },
-      { ref: 'phys.cvs.tut', location: 'p2 "40 to 50 bpm."' },
+    "selfCheck": "From memory: recite Poiseuille determinants of resistance, identify the blood volume reservoir of the body, and state the backup firing rate of the AV node.",
+    "visuals": [
+      {
+        "fig": "bloodVesselStructure"
+      },
+      {
+        "schematic": "circuits"
+      },
+      {
+        "gen": true
+      }
     ],
+    "sourceRefs": [
+      {
+        "ref": "phys.cvs.tut",
+        "location": "p1 \"Vascular resistance is related to all of the following, except the\""
+      },
+      {
+        "ref": "phys.cvs.tut",
+        "location": "p1 \"osmolarity of interstitial fluids.\""
+      },
+      {
+        "ref": "phys.cvs.tut",
+        "location": "p2 \"The normal blood volume of the venous system.\""
+      },
+      {
+        "ref": "phys.cvs.tut",
+        "location": "p2 \"concentration of plasma proteins.\""
+      },
+      {
+        "ref": "phys.cvs.tut",
+        "location": "p2 \"Pulmonary arteries and pulmonary veins\""
+      },
+      {
+        "ref": "phys.cvs.tut",
+        "location": "p2 \"sinoatrial (SA) node\""
+      },
+      {
+        "ref": "phys.cvs.tut",
+        "location": "p2 \"40 to 50 bpm.\""
+      }
+    ]
   },
   {
     id: 'abct2326-renal-countercurrent-vasarecta',
