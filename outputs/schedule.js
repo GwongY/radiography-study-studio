@@ -203,7 +203,7 @@ export const SUBJECT_ADMIN = {
     level: '1',
     prereq: 'Nil',
     objective: 'Introduce medical radiation science through the two professional streams — medical imaging and radiotherapy — and a period of clinical observation in Hospital Authority hospitals.',
-    objectiveNote: 'App-authored summary of the schedule, not a quoted objective: the 2026 schedule is the only HTI17103 document supplied, and it carries no objectives section.',
+    objectiveNote: 'App-authored summary of the schedule, not a quoted objective: the 2026 timetable schedule carries no separate objectives section.',
     ilos: [],
     assessment: [
       { name: 'Worksheet', weight: 50, note: 'Submitted via the designated portal before the deadline.', src: { ref: 'hti.sched.2026', location: 'p1 "Worksheet"' } },
