@@ -12,195 +12,728 @@
 
 export const EXPANSION_ITEMS = [
   {
-    id: 'hss2011-terminology-word-parts',
-    subject: 'HSS2011', unit: 'hss.term', type: 'matching',
-    title: 'Word parts — prefixes, suffixes and roots',
-    tags: ['terminology', 'foundation', 'high-yield'],
-    lesson: {
-      explanation: 'Anatomical terms are built from roots, prefixes and suffixes. The root usually names an organ, tissue or condition; the prefix or suffix describes it. Once you can take a term apart, you can read one you have never met. The subject supplies a word-part list prepared by the Module 0 lecturer: prefixes of position such as epi- (above, upon), hypo- (below; also deficient), inter- (between), peri- and circum- (around), pre- (before, in front of), post- (behind, after), retro- (backward), ab- (away from), para- (near, beside; also abnormal); roots of place such as cardi/o (heart), oste/o (bone), arthr/o (joint), my/o (muscle), neur/o (nerve), nephr/o and ren/o (kidney), pulmon/o (lung), crani/o (skull), cost/o (rib), later/o (side), medi/o (middle), anter/o (front), poster/o and dors/o (back), ventr/o (belly side), proxim/o (near), infer/o (downward); and suffixes of process such as -graphy (process of recording), -graph (instrument to record), -scopy (process of viewing), -tomy (incision, cutting), -stomy (new opening), -itis (inflammation), -algia and -dynia (pain), -megaly (enlargement), -osis (abnormal condition), -emia (blood condition), -pathy (disease process).',
-      plain: 'Anatomical words are built from roots, prefixes and suffixes, like building blocks. The root names the thing — heart (cardi/o), bone (oste/o), joint (arthr/o) — and a prefix or suffix changes the meaning, e.g. peri- means around and -itis means inflammation. Learn the parts and you can read a term you have never met. The course gives you a word-part list organised as prefixes of position, roots of place and suffixes of process.',
-      keyFacts: [
-        'Root = organ, tissue or condition. Prefix/suffix = describes the root.',
-        'epi- above/upon · hypo- below or deficient · inter- between · circum- around · pre- before · post- after · retro- backward · ab- away from.',
-        'cardi/o heart · oste/o bone · arthr/o joint · my/o muscle · neur/o nerve · nephr/o and ren/o kidney · crani/o skull · cost/o rib.',
-        'later/o side · medi/o middle · anter/o front · poster/o and dors/o back · ventr/o belly side · proxim/o near · infer/o downward.',
-        '-graphy process of recording · -graph the instrument · -scopy process of viewing · -itis inflammation · -algia pain · -megaly enlargement · -osis abnormal condition · -emia blood condition.',
-        'hypertension = hyper- (high/over) + tension (pressure) = abnormally high blood pressure.',
+    "id": "hss2011-terminology-word-parts",
+    "subject": "HSS2011",
+    "unit": "hss.term",
+    "type": "matching",
+    "title": "Word parts — prefixes, suffixes and roots",
+    "tags": [
+      "terminology",
+      "foundation",
+      "high-yield"
+    ],
+    "lesson": {
+      "explanation": "Anatomical and medical terminology is constructed systematically from Latin and Greek building blocks consisting of word roots, prefixes, and suffixes. The word root forms the core semantic foundation of the term, typically designating an anatomical structure, organ, tissue, or physiological condition (e.g., cardi/o for heart, oste/o for bone, arthr/o for joint, my/o for muscle, neur/o for nerve, chondr/o for cartilage, nephr/o for kidney, crani/o for skull, cost/o for rib). Prefixes attach before the root to modify its spatial position, direction, timing, or quantity. Key spatial and directional prefixes include epi- (above, upon), hypo- (below, under; or deficient), inter- (between), peri- and circum- (around), pre- (before, in front of), post- (behind, after), retro- (backward, behind), and ab- (away from). Suffixes attach to the terminal end of the root to indicate a clinical diagnostic state, pathology, surgical procedure, or analytical process. Diagnostic and pathological suffixes include -itis (inflammation), -algia or -dynia (pain), -megaly (enlargement), -osis (abnormal condition), -emia (blood condition), and -pathy (disease process). Procedural and investigative suffixes form an essential triad in medical imaging: -graphy designates the actual process of recording or imaging (e.g., radiography, angiography), -graph denotes the physical instrument or machine utilized to record (e.g., electrocardiograph, radiograph equipment), and -gram signifies the resultant image or written recording produced (e.g., angiogram, radiograph). In surgical interventions, -tomy signifies an incision or cutting into an organ, whereas -stomy designates the surgical creation of a new, permanent artificial opening (e.g., tracheostomy, colostomy). Once students master these fundamental word parts, complex polysyllabic clinical terms can be decoded logically from left to right without rote memorization.",
+      "plain": "Medical terminology is built like Lego from three types of blocks: roots, prefixes, and suffixes. The root tells you what organ or tissue is involved (like oste/o for bone or chondr/o for cartilage). A prefix comes at the start to tell you where or how much (like epi- for above, hypo- for below or deficient, or inter- for between). A suffix comes at the end to describe what is happening (like -itis for inflammation, -osis for abnormal condition, or -emia for a blood condition). In radiology, remember the three-way tool rule: -graphy is the imaging process (radiography), -graph is the machine, and -gram is the picture you get.",
+      "keyFacts": [
+        "Three morphological building blocks: root (organ/tissue), prefix (position/quantity), suffix (condition/procedure).",
+        "Prefixes of position: epi- (above, upon), hypo- (below; deficient), inter- (between), retro- (backward, behind).",
+        "Temporal and directional prefixes: pre- (before, in front of), post- (behind, after), ab- (away from), peri- (around).",
+        "Core organ roots: oste/o (bone), chondr/o (cartilage), arthr/o (joint), my/o (muscle), neur/o (nerve), nephr/o (kidney).",
+        "Directional roots: anter/o (front), poster/o and dors/o (back), medi/o (middle), later/o (side), proxim/o (near).",
+        "Clinical suffixes: -itis (inflammation), -algia (pain), -megaly (enlargement), -osis (abnormal condition), -emia (blood condition).",
+        "Procedural imaging suffixes: -graphy (process of recording), -graph (instrument to record), -gram (record/image produced).",
+        "Surgical suffixes: -tomy (incision/cutting), -stomy (creation of a new opening), -scopy (process of visual examination).",
+        "Double meaning alert: hypo- means both below in anatomical position AND deficient in quantity (e.g., hypoglycemia)."
       ],
-      prerequisites: ['hss2011-terminology-directional-pairs'],
-      examples: ['Radiography itself is a word part exercise: radio- (radiation) + -graphy (process of recording).'],
+      "prerequisites": [
+        "hss2011-terminology-directional-pairs"
+      ],
+      "examples": [
+        "Costochondritis breaks down into cost/o (rib) + chondr/o (cartilage) + -itis (inflammation) = inflammation of the cartilage linking the ribs to the sternum.",
+        "Radiography breaks down into radio- (radiation / rays) + -graphy (process of recording) = the process of capturing internal bodily structures using penetrating radiation.",
+        "Retroperitoneal breaks down into retro- (behind, backward) + peritone/o (peritoneum) + -al (pertaining to) = situated behind the peritoneal membrane."
+      ]
     },
-    memory: {
-      chunking: 'Three slots, always in the same order: prefix (where/how much) → root (what) → suffix (what is happening to it). Read any term left to right in those slots.',
-      wordOrigin: 'The directional roots are the Latin words behind the directional terms you already know — proxim/o is proximal, later/o is lateral, medi/o is medial. You have half of this list already.',
-      comparison: '-graphy is the process, -graph is the machine, -gram is the result. Radiography is what you do, the radiograph is what you get.',
-      teachBack: 'Take a term you have never seen — say "costochondritis" — and split it out loud: cost/o rib + chondr/o cartilage + -itis inflammation. If you can do that cold, you have the skill.',
+    "memory": {
+      "chunking": "Three-slot formula: [Prefix = Where / How much] + [Root = What organ] + [Suffix = What is happening or being done].",
+      "comparison": "-graphy vs -graph vs -gram: -graphy is the action you do (radiography), -graph is the hardware camera (radiograph unit), -gram is the photograph you inspect on the monitor (radiogram).",
+      "wordOrigin": "Hypo- is the double agent: it means physically lower (hypogastric = below stomach) AND quantitatively low (hypokalemia = deficient potassium).",
+      "teachBack": "Decode the word \"choledochoduodenostomy\" step-by-step using only roots, prefixes, and suffixes to show how parts unlock complex surgical terms."
     },
-    practice: [
-      { type: 'matching', prompt: 'Match each prefix to its meaning.',
-        pairs: [['epi-', 'Above, upon'], ['hypo-', 'Below; deficient'], ['inter-', 'Between'], ['retro-', 'Backward']],
-        explanation: 'These are the meanings given in the subject word-part list.' },
-      { type: 'matching', prompt: 'Match each suffix to its meaning.',
-        pairs: [['-itis', 'Inflammation'], ['-algia', 'Pain'], ['-megaly', 'Enlargement'], ['-graphy', 'Process of recording']],
-        explanation: 'Note -graphy is the process; -graph is the instrument that records.' },
-      { type: 'typed', prompt: 'Which root means bone?', accept: ['oste/o', 'osteo', 'oste', 'oss/i', 'osse/o'],
-        explanation: 'oste/o (also oss/i, osse/o). It is the root inside "osteology", the study of bones.' },
-      { type: 'typed', prompt: 'Split the word "radiography" into its two parts and give the meaning of each.', accept: ['radio- radiation, -graphy process of recording', 'radio radiation graphy recording', 'radio = radiation, graphy = process of recording'],
-        explanation: 'radio- is the radial spread-out of energy, i.e. radiation; -graphy is the process of recording. The HTI17103 lecture makes exactly this split.' },
-      { type: 'mcq', prompt: 'A term ending in -ostomy describes what?', options: ['An incision', 'A new opening', 'An instrument to view', 'An abnormal condition'], answer: 1,
-        explanation: '-stomy is a new opening. -tomy is incision or cutting, -scope is the instrument to view, -osis is an abnormal condition.' },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each medical prefix to its verified syllabus meaning.",
+        "pairs": [
+          [
+            "epi-",
+            "Above, upon"
+          ],
+          [
+            "hypo-",
+            "Below; deficient"
+          ],
+          [
+            "inter-",
+            "Between"
+          ],
+          [
+            "retro-",
+            "Backward, behind"
+          ],
+          [
+            "pre-",
+            "Before, in front of"
+          ],
+          [
+            "post-",
+            "Behind, after"
+          ]
+        ],
+        "explanation": "Sourced from the HSS2011 Module 0 word parts reference document prepared by Josephine Lau."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each diagnostic or surgical suffix to its correct definition.",
+        "pairs": [
+          [
+            "-itis",
+            "Inflammation"
+          ],
+          [
+            "-osis",
+            "Abnormal condition"
+          ],
+          [
+            "-emia",
+            "Blood condition"
+          ],
+          [
+            "-tomy",
+            "Incision, cutting"
+          ],
+          [
+            "-stomy",
+            "New opening"
+          ],
+          [
+            "-graphy",
+            "Process of recording"
+          ]
+        ],
+        "explanation": "Official medical suffix definitions from HSS2011 foundational glossary."
+      },
+      {
+        "type": "typed",
+        "prompt": "Which root refers to cartilage in medical terminology?",
+        "accept": [
+          "chondr/o",
+          "chondro",
+          "cartilag/o",
+          "chondr"
+        ],
+        "explanation": "chondr/o (and cartilag/o) refers to cartilage, as in chondrocyte, synchondrosis, and costochondritis."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A diagnostic imaging procedure ending in \"-graphy\" designates which of the following?",
+        "options": [
+          "The process of recording an image",
+          "The physical instrument utilized to record",
+          "The finished radiograph film or image record",
+          "A surgical incision into a blood vessel"
+        ],
+        "answer": 0,
+        "explanation": "-graphy is the active process of recording (e.g., radiography, computed tomography). -graph is the recording instrument, -gram is the recorded image, and -tomy is incision."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'You meet the term "pericarditis" for the first time in a report. Work out what it means from its parts, and say which structure from your thorax study it involves.',
-        model: 'peri- (around) + cardi/o (heart) + -itis (inflammation) — inflammation of the structure around the heart, which is the pericardium. That is the sac you already distinguish from the epicardium, which is the heart wall’s own outer layer.',
-        rubric: ['Splits the term into all three parts', 'Gives the meaning of each part', 'Identifies the pericardium and separates it from the epicardium'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "In a medical emergency handover, a clinician reports that a trauma patient presents with \"acute hemopericardium and bilateral retroperitoneal hematomas\". Deconstruct the anatomical and pathological terms into their roots, prefixes, and suffixes, and explain the physical locations of the bleeding.",
+        "model": "1. Hemopericardium: hemo- (blood) + peri- (around) + cardi/o (heart) + -um (tissue/structure). This indicates blood accumulating within the pericardial sac surrounding the heart wall.\n2. Retroperitoneal: retro- (behind/backward) + peritone/o (peritoneum) + -al (pertaining to). This indicates bleeding located behind the posterior parietal peritoneum (where the kidneys, abdominal aorta, and IVC lie).\n3. Hematoma: hemat/o (blood) + -oma (mass/tumor). A localized collection of extravasated blood.",
+        "rubric": [
+          "Deconstructs hemopericardium into blood within the pericardial sac",
+          "Deconstructs retroperitoneal into posterior to the peritoneal membrane",
+          "Identifies the exact physical structures and bleeding compartments"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Confusing -graphy (the process), -graph (the instrument) and -gram (the record produced).',
-      'Reading hypo- only as "below in position" — the list also gives it as "deficient, below, under", which is how it is used in words like hypoglycaemia.',
+    "commonMistakes": [
+      "Confusing -tomy (surgical incision / cutting into) with -stomy (creation of a new permanent artificial opening).",
+      "Confusing -graphy (the imaging examination process) with -gram (the actual picture or report generated).",
+      "Reading hypo- purely as spatial \"below\"; in biochemical terms it indicates numerical deficiency (e.g., hypocalcemia)."
     ],
-    skills: [
-      'hypo- is the word-part list\'s double agent: the same prefix means below in position AND deficient in amount — the deficiency sense is the one inside hypoglycaemia, and reading hypo- only as "below" loses half its uses. Most prefixes in the list carry one meaning; this one carries two, which is what makes it the trap.',
-      '-graphy, -graph and -gram are one suffix in three grammatical roles — the process, the instrument, the record produced — not interchangeable spellings of one word. The same one-letter discipline separates -tomy (incision) from -stomy (new opening): in this terminology a single letter can carry a whole meaning.',
-      'A correct split does anatomical work, not just translation: pericarditis parses to inflammation of the structure around the heart — the pericardium — which is exactly the sac the thorax material separates from the epicardium, the heart wall\'s own outer layer. Read the word parts as anatomy, not as a translation exercise.',
+    "skills": [
+      "Break unfamiliar clinical pathology terms into root, prefix, and suffix: medical jargon is almost entirely modular and decodable without guessing.",
+      "Maintain rigorous precision with one-letter variations: -tomy vs -stomy vs -ectomy (cutting into vs making a mouth/opening vs total surgical excision)."
     ],
-    selfCheck: 'Split costochondritis and pericarditis cold into all three parts with meanings, and correctly classify all three of -graphy, -graph and -gram.',
-    sourceRefs: [{ ref: 'hss.wordparts', location: 'Full word-part list, prepared by Josephine Lau (HTI)' }, { ref: 'hss.orientation', location: 'Opening paragraph on roots, prefixes and suffixes' }],
+    "selfCheck": "From memory: list four prefixes of position with meanings, explain the difference between -graphy, -graph, and -gram, and deconstruct \"costochondritis\" and \"retroperitoneal\".",
+    "visuals": [
+      {
+        "schematic": "wordParts"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hss.wordparts",
+        "location": "p1 \"above, upon epi-\""
+      },
+      {
+        "ref": "hss.wordparts",
+        "location": "p1 \"abnormal condition -osis\""
+      },
+      {
+        "ref": "hss.wordparts",
+        "location": "p2 \"blood condition -emia\""
+      },
+      {
+        "ref": "hss.wordparts",
+        "location": "p2 \"below hypo-\""
+      },
+      {
+        "ref": "hss.wordparts",
+        "location": "p2 \"between inter-\""
+      },
+      {
+        "ref": "hss.wordparts",
+        "location": "p2 \"before, in front of pre-\""
+      },
+      {
+        "ref": "hss.wordparts",
+        "location": "p2 \"behind, after post-\""
+      },
+      {
+        "ref": "hss.wordparts",
+        "location": "p2 \"backward retro-\""
+      },
+      {
+        "ref": "hss.wordparts",
+        "location": "p3 \"cartilage cartilag/o, chondr/o\""
+      }
+    ]
   },
   {
-    id: 'hss2011-pastpaper-joints-articulations',
-    subject: 'HSS2011', unit: 'hss.joints', type: 'cloze',
-    title: 'Past-paper drill — joints and articulations',
-    tags: ['joints', 'exam', 'high-yield'],
-    lesson: {
-      explanation: 'These are fill-in-the-blank questions taken from the topic-sorted past-paper bank, kept only where the answer is independently confirmed by a current HSS2011 lecture or the revision-exercise answer key. They are worth drilling because they show how the same handful of facts — joint classification, which bones meet where, and the names of the resulting joints — get asked year after year in slightly different wording.',
-      keyFacts: [
-        'The humerus articulates with the ulna and radius to form the elbow joint.',
-        'The intervertebral disc is a cartilaginous joint, between the vertebral bodies of two adjacent vertebrae.',
-        'A sutural joint of the skull is a fibrous joint.',
-        'The medial end of the clavicle meets the sternum at the sternoclavicular joint.',
-        'The glenoid fossa articulates with the head of the humerus to form the shoulder joint.',
-        'The carpal bones articulate with the radius to form the radiocarpal (wrist) joint.',
-        'The femoral and tibial condyles are the articular parts of the knee joint.',
-        'The patella is the largest sesamoid bone in the body.',
+    "id": "hss2011-joints-synovial-types",
+    "subject": "HSS2011",
+    "unit": "hss.joints",
+    "type": "comparison",
+    "title": "The six synovial joint types, with examples",
+    "tags": [
+      "joints",
+      "high-yield",
+      "foundation"
+    ],
+    "lesson": {
+      "explanation": "Synovial joints represent the most numerous and functionally versatile articulations in the human skeleton. Anatomists classify synovial joints into six distinct structural types based on the geometric shape of their articulating bony surfaces and the corresponding number of axes of angular motion they permit: uniaxial (monoaxial) joints that move in only one axis or plane, biaxial joints that move in two distinct planes, and polyaxial (multiaxial/triaxial) joints that move freely across all three spatial axes. 1. Hinge joints are uniaxial joints in which a convex cylinder on one bone fits into a corresponding concave trough on another, allowing angular movement in one direction and in one plane, specifically flexion and extension; prime anatomical examples include the humero-ulnar (elbow) joint, knee joint, and interphalangeal joints. 2. Pivot joints are uniaxial joints where a rounded or pointed bone process fits into a ring formed partly by bone and partly by a ligament, allowing rotary movement in one axis; key examples include the proximal radioulnar joint (permitting forearm pronation and supination) and the median atlantoaxial (C1–C2) joint (permitting head rotation). 3. Condylar (ellipsoid) joints are biaxial joints featuring an oval-shaped convex head articulating within a complementary elliptical cavity; they permit angular movement in two directions, encompassing flexion/extension, abduction/adduction, and circumduction, but no axial rotation; verified examples include the radiocarpal (wrist) joint and metacarpophalangeal (MCP) joints of the fingers. 4. Saddle joints are biaxial joints where the articular surface of each articulating bone is concave in one direction and convex in another, fitting together like a rider seated in a saddle; they allow angular movement across two orthogonal planes plus the unique human action of opposition; the quintessential example is the carpometacarpal (CMC) joint of the thumb (between trapezium and first metacarpal). 5. Plane joints (gliding joints) feature flat or gently curved articulating surfaces that permit gliding movement only without significant angular rotation; typically small joints, examples include intercarpal and intertarsal joints, the acromioclavicular joint, and the facet (zygapophyseal) joints of the spine. 6. Ball-and-socket joints are polyaxial joints in which a spherical or hemispherical bone head fits into a cuplike socket, allowing angular movement in all directions (flexion, extension, abduction, adduction, circumduction) plus rotational pivot movement about a central axis; the only two true examples in the body are the glenohumeral (shoulder) joint and the hip (acetabulofemoral) joint.",
+      "plain": "Synovial joints are grouped into six types depending on the shape of their bone surfaces and how many planes they move in. 1. Hinge joints (like the humero-ulnar elbow joint) move like a door hinge in one plane: flexion and extension. 2. Pivot joints (like the proximal radioulnar joint) spin in one axis to rotate: supination and pronation. 3. Condylar joints (like the radiocarpal wrist joint) feature an oval head in an elliptical cup for two planes: flexion/extension and abduction/adduction. 4. Saddle joints (like the thumb carpometacarpal joint) have complementary saddle shapes allowing two planes plus thumb opposition. 5. Plane joints (like intercarpal and spinal facet joints) have flat surfaces that slide and glide. 6. Ball-and-socket joints (the shoulder and hip) have a round ball in a deep or shallow cup and can move in all three planes plus full rotation.",
+      "keyFacts": [
+        "Six synovial joint types: hinge, pivot, condylar, saddle, plane, ball-and-socket.",
+        "Uniaxial (1 plane): hinge (flexion/extension) and pivot (rotation about one axis).",
+        "Biaxial (2 planes): condylar (oval head, elliptical cavity) and saddle (concave/convex reciprocal surfaces).",
+        "Polyaxial (3 planes): ball-and-socket (spherical head in cuplike socket; moves in all directions plus rotation).",
+        "Plane (gliding): flat surfaces permitting gliding translation (e.g., intercarpal, spinal facets).",
+        "Hinge example: humero-ulnar joint (elbow) and interphalangeal joints.",
+        "Pivot example: proximal radioulnar joint (supination/pronation) and median atlantoaxial (C1–C2) joint.",
+        "Condylar example: radiocarpal joint (wrist) and metacarpophalangeal joints.",
+        "Saddle example: carpometacarpal joint of the thumb (enables opposition).",
+        "Ball-and-socket example: glenohumeral (shoulder) joint and hip joint.",
+        "Shoulder vs hip trade-off: shallow glenoid fossa maximizes mobility; deep acetabulum maximizes stability."
       ],
-      prerequisites: ['hss2011-joints-classification'],
-      examples: [],
+      "prerequisites": [
+        "hss2011-joints-classification",
+        "hss2011-joints-synovial-structure"
+      ],
+      "examples": [
+        "At the elbow region, two different synovial joint types sit within a single capsule: the humero-ulnar articulation is a hinge joint, while the adjacent proximal radioulnar articulation is a pivot joint.",
+        "The radiocarpal wrist joint is condylar, which is why you can flex/extend your wrist and wave it side-to-side (radial/ulnar deviation), but you cannot axially twist your wrist without rotating your forearm."
+      ]
     },
-    memory: {
-      chunking: 'Almost every one of these is the same question in disguise: name the two bones, then name the joint. Answer in that order and the wording stops mattering.',
-      comparison: 'Three joint classes, three giveaway words in the question. "Suture" means fibrous. "Disc" means cartilaginous. Anything with a named cavity or free movement means synovial.',
-      teachBack: 'Take any joint in your own body, say which two bones form it and which class it belongs to, out loud. If you can do ten in a row you have covered most of what this bank asks.',
+    "memory": {
+      "chunking": "Group by plane count first: 1-plane = Hinge & Pivot; 2-planes = Condylar & Saddle; 3-planes = Ball-and-socket; Non-axial sliding = Plane (gliding).",
+      "comparison": "Glenohumeral vs Hip: both are triaxial ball-and-socket joints, but the glenoid fossa is shallow (built for maximum mobility, prone to dislocation), whereas the acetabulum is deep (built for weight-bearing stability).",
+      "visualCue": "Saddle joint = horse saddle: each surface is convex in one curve and concave in the other. That unique geometry is the exact reason the thumb can oppose to every fingertip.",
+      "teachBack": "Explain why the wrist is classified as a condylar joint rather than a hinge joint, and name the four movements it can perform."
     },
-    practice: [
-      { type: 'cloze', prompt: 'The ______ is a long bone of the arm. It articulates with the ulna and radius to form the ______ joint.', accept: ['humerus; elbow', 'humerus, elbow', 'humerus and elbow'],
-        explanation: 'Humerus, elbow. The lecture shows the humeral trochlea meeting the trochlear notch of the ulna and the capitulum meeting the head of the radius.',
-        src: { ref: 'hss.4.3', location: 'Slide "Elbow Joint (Anterior View)", Fig. 8-4c' } },
-      { type: 'cloze', prompt: 'The intervertebral disc is typed as a ______ joint, located between the vertebral ______ of two adjacent vertebrae.', accept: ['cartilaginous; bodies', 'cartilaginous, bodies', 'cartilaginous and bodies', 'symphysis; bodies'],
-        explanation: 'Cartilaginous, bodies. The lecture names the inter-body joints of the spine as symphyses — secondary cartilaginous joints where two bones are joined by fibrocartilage.',
-        src: { ref: 'hss.4.1', location: 'Slide "Cartilaginous joints — Symphyses"' } },
-      { type: 'cloze', prompt: 'The sutural joint of the skull is typed as a ______ joint.', accept: ['fibrous'],
-        explanation: 'Fibrous. Sutures articulate by process and indentation with the bones bound by fibrous connective tissue, which is why they permit the least movement of any joint.',
-        src: { ref: 'hss.4.1', location: 'Slide "Fibrous joints — Sutures"' } },
-      { type: 'cloze', prompt: 'The medial end of the clavicle articulates with the sternum to form the ______ joint.', accept: ['sternoclavicular', 'sternoclavicular joint'],
-        explanation: 'Sternoclavicular — and it is the only bony joint linking the upper limb back to the axial skeleton.',
-        src: { ref: 'hss.4.3', location: 'Slide "Joints Around Shoulder Region", Fig. 8-2' } },
-      { type: 'cloze', prompt: 'The carpal bones articulate with the radius to form the ______ joint.', accept: ['radiocarpal', 'wrist', 'radiocarpal (wrist)', 'wrist joint', 'radiocarpal joint'],
-        explanation: 'The radiocarpal, or wrist, joint. Its articular bones are the radius with the scaphoid, lunate and triquetrum.',
-        src: { ref: 'hss.m0.1718', location: 'L1 p45 right wrist (radiocarpal) joint' } },
-      { type: 'cloze', prompt: 'The largest sesamoid bone in the human body is the ______.', accept: ['patella', 'kneecap'],
-        explanation: 'The patella. A sesamoid bone develops within a tendon and alters the direction of its pull.',
-        src: { ref: 'hss.4.1', location: 'Slide "Sesamoid bones"' } },
-      { type: 'cloze', prompt: 'The outer surfaces and walls of bones are composed of ______ bone.', accept: ['compact'],
-        explanation: 'Compact bone — a dense solid mass forming the outer surface layer of all bones. Cancellous (spongy) bone lies internally.',
-        src: { ref: 'hss.revans', location: 'Module 4.1, Fill-in-blanks 1' } },
-      { type: 'cloze', prompt: 'Tip-to-tip attachment of the thumb with any one of the fingers is called ______.', accept: ['opposition'],
-        explanation: 'Opposition — and its opposite is reposition. Both happen at the carpo-metacarpal joint of the thumb. This question appears in the past-paper bank in almost the same words as the Module 0 slide.',
-        src: { ref: 'hss.revans', location: 'Module 0, Fill-in-blanks 1' } },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each of the six synovial joint types to its verified textbook example.",
+        "pairs": [
+          [
+            "Hinge joint",
+            "Humero-ulnar joint (elbow)"
+          ],
+          [
+            "Pivot joint",
+            "Proximal radioulnar joint"
+          ],
+          [
+            "Condylar joint",
+            "Radiocarpal joint (wrist)"
+          ],
+          [
+            "Saddle joint",
+            "Carpometacarpal joint of thumb"
+          ],
+          [
+            "Plane joint",
+            "Inter-carpal joints and spinal facet joints"
+          ],
+          [
+            "Ball-and-socket joint",
+            "Glenohumeral (shoulder) and hip joints"
+          ]
+        ],
+        "explanation": "Standard classification from HSS2011 Module 4.1 slide deck."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In monoaxial articulation,",
+        "options": [
+          "Movement can occur in only one plane.",
+          "Movement can occur in two planes.",
+          "Movement can occur in all three planes.",
+          "Only circumduction is possible"
+        ],
+        "answer": 0,
+        "explanation": "Model answer A. Monoaxial (uniaxial) joints allow movement in one plane only (e.g., hinge and pivot joints).",
+        "src": {
+          "ref": "hss.revans",
+          "location": "Module 4.1, MCQ 3 \"3. A\""
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which synovial joint type uniquely features articulating surfaces that are reciprocally concave in one direction and convex in another, permitting opposition?",
+        "options": [
+          "Condylar joint",
+          "Saddle joint",
+          "Pivot joint",
+          "Plane joint"
+        ],
+        "answer": 1,
+        "explanation": "A saddle joint (specifically the first CMC joint of the thumb) features reciprocally concave-convex surfaces that enable thumb opposition."
+      },
+      {
+        "type": "sequence",
+        "prompt": "Arrange these synovial joint types by increasing degrees of freedom (number of angular planes allowed).",
+        "items": [
+          "Hinge joint (uniaxial / monoaxial: 1 plane)",
+          "Condylar joint (biaxial: 2 planes)",
+          "Ball-and-socket joint (polyaxial / multiaxial: 3 planes)"
+        ],
+        "explanation": "Hinge allows 1 plane (flexion/extension); condylar allows 2 planes; ball-and-socket allows 3 planes plus rotation."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'The same bank asks, in different years, for "the joint formed by the carpal bones and the radius" and for "the articular bones of the right wrist joint". What single piece of knowledge answers both, and what does that tell you about how to revise this topic?',
-        model: 'Knowing that the radiocarpal joint is formed by the radius with the scaphoid, lunate and triquetrum answers both — one asks for the joint name, the other for its components. The lesson is to learn each joint as a small package (name, the bones, the class, the movements) rather than as an isolated fact, because the examiner can enter that package from any side.',
-        rubric: ['Identifies the radiocarpal joint and its articular bones', 'Notes the two questions probe the same package from different directions', 'Draws the revision conclusion'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A student claims that the elbow region contains only one joint type because it simply bends and straightens. Refute this claim using the precise functional anatomy of the elbow and radioulnar articulations.",
+        "model": "The anatomical elbow region actually houses two structurally distinct synovial joints that share an articular capsule: (1) The humero-ulnar joint, which is a uniaxial hinge joint allowing angular flexion and extension in the sagittal plane; and (2) The proximal radioulnar joint, which is a uniaxial pivot joint allowing axial rotation (pronation and supination) as the radial head spins within the radial notch of the ulna. Thus, two distinct joint types operate side by side at the elbow.",
+        "rubric": [
+          "Identifies the humero-ulnar articulation as a hinge joint performing flexion/extension",
+          "Identifies the proximal radioulnar articulation as a pivot joint performing rotation (pronation/supination)",
+          "Concludes that two distinct functional joint types share the elbow region"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Answering "cartilage" when the question asks for the joint TYPE — the answer wanted is cartilaginous, or more precisely a symphysis.',
-      'Giving the acromioclavicular joint for the medial end of the clavicle; medial means the sternal end, so it is the sternoclavicular joint.',
+    "commonMistakes": [
+      "Calling the wrist a hinge joint; it is condylar (biaxial) because it abducts/adducts in addition to flexing/extending.",
+      "Believing pivot joints allow angular flexion; pivot joints only allow rotation around a central longitudinal axis.",
+      "Assuming the knee is a simple ball-and-socket; it is a modified hinge joint."
     ],
-    skills: [
-      '"Cartilage" is the trap answer on the intervertebral disc question: the disc is typed as a cartilaginous joint — a symphysis between the vertebral bodies — and naming the tissue instead of the joint class drops the mark. The class words end in -ous (fibrous, cartilaginous, synovial); the tissue name does not.',
-      'The giveaway word settles the joint class before any recall does: suture means fibrous, disc means cartilaginous, and a named cavity or free movement means synovial. Medial is the same kind of deciding word on the clavicle question — the medial end meets the sternum at the sternoclavicular joint, the upper limb\'s only bony joint with the axial skeleton, while the acromioclavicular hangs off the lateral end.',
-      'The bank asks one fact through several doors: "the joint formed by the carpal bones and the radius" and "the articular bones of the right wrist joint" are the same radiocarpal package — name, bones, class, movements — entered from different sides, which is why the package, not the wording, is the thing to own.',
+    "skills": [
+      "Classify any unfamiliar synovial joint by counting planes: 1 plane = hinge/pivot; 2 planes = condylar/saddle; 3 planes = ball-and-socket.",
+      "Compare articular congruency: the deep acetabular socket of the hip joint prioritizes bony stability for load-bearing, whereas the shallow glenoid fossa of the shoulder joint prioritizes multi-planar mobility at the expense of dislocation risk."
     ],
-    selfCheck: 'Run the eight cloze prompts of this item from a blank page, then take ten joints of your own body and state each one’s two bones and class out loud without a miss.',
-    sourceRefs: [
-      { ref: 'hss.ga.topics', location: 'Skeletal Joint and Muscular systems; Upper Limbs and Lower Limbs — questions 2006-07 to 2011-12' },
-      { ref: 'hss.4.1', location: 'Joint classification and bone structure slides' },
-      { ref: 'hss.4.3', location: 'Upper and lower limb bones and joints' },
-      { ref: 'hss.revans', location: 'Module 0 and Module 4.1 answer keys — used to verify every answer above' },
+    "selfCheck": "From memory: list the six synovial joint types, classify each by axes of motion (uni-, bi-, polyaxial), provide one anatomical example for each, and state why the wrist is condylar rather than hinge.",
+    "visuals": [
+      {
+        "fig": "synovialTypes"
+      },
+      {
+        "schematic": "synovialTypes"
+      },
+      {
+        "gen": true
+      }
     ],
+    "sourceRefs": [
+      {
+        "ref": "hss.4.1",
+        "location": "p36 \"hinge\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p36 \"pivot\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p36 \"condylar\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p36 \"saddle\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p36 \"plane\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p36 \"ball-and-socket\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p47 \"allow angular\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p47 \"movement in one\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p47 \"direction and in one\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p47 \"plane e.g. flexion and\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p47 \"extension\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p47 \"humero-ulnar joint\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p48 \"allow rotary movement\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p48 \"in one axis\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p48 \"proximal radioulnar\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p49 \"angular movement in\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p49 \"two directions\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p49 \"oval shaped head,\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p49 \"elliptical cavity\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p49 \"wrist joint\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p51 \"articular surface of\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p51 \"each articular bones is\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p51 \"concave in one\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p51 \"direction and convex in\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p51 \"another\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p51 \"carpo-metacarpal\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p53 \"permit gliding\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p53 \"movement only\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p53 \"inter-carpal joints\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p54 \"allows angular\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p54 \"movement in all\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p54 \"directions and a pivot\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p54 \"movement\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p54 \"hip joint, gleno-\""
+      },
+      {
+        "ref": "hss.msk.2026",
+        "location": "p21 \"Elbow joints\""
+      },
+      {
+        "ref": "hss.msk.2026",
+        "location": "p23 \"Radiocarpal joint\""
+      },
+      {
+        "ref": "hss.revans",
+        "location": "p1 \"3. A\""
+      }
+    ]
   },
   {
-    id: 'hss2011-joints-synovial-types',
-    subject: 'HSS2011', unit: 'hss.joints', type: 'comparison',
-    title: 'The six synovial joint types, with examples',
-    tags: ['joints', 'high-yield'],
-    lesson: {
-      explanation: 'Synovial joints are the most common in the body and come in six types, classified by the shape of the articulating surfaces and by how many axes of movement they allow. Hinge joints move in one plane only — the elbow, where the humeral trochlea sits in the trochlear notch of the ulna, and the interphalangeal joints. Pivot joints allow rotation about a single axis — the median atlanto-axial joint, where the atlas turns on the dens of the axis, and the proximal radioulnar joint that carries supination and pronation. Condylar joints allow movement in two planes — the radiocarpal (wrist) joint and the metacarpophalangeal joints. Saddle joints also allow two planes plus opposition — the carpo-metacarpal joint of the thumb. Plane joints allow gliding — the apophyseal (facet) joints of the vertebral column and the acromioclavicular joint. Ball-and-socket joints allow movement in all three planes — the glenohumeral joint, where the humeral head sits in the shallow glenoid fossa, and the hip joint, where the femoral head sits in the deep acetabulum.',
-      plain: 'Most movable joints are synovial joints, and they come in six types classified by the shape of the meeting surfaces and how many axes (directions) of movement they allow: hinge moves in one plane, pivot rotates about one axis, condylar moves in two planes, saddle also moves in two planes plus opposition, plane glides, and ball-and-socket moves in all three. Each type comes with examples — the memorisation target.',
-      keyFacts: [
-        'Hinge — one plane. Elbow; interphalangeal joints.',
-        'Pivot — rotation about one axis. Median atlanto-axial joint; proximal radioulnar joint.',
-        'Condylar — two planes. Radiocarpal (wrist); metacarpophalangeal joints.',
-        'Saddle — two planes plus opposition. Carpo-metacarpal joint of the thumb.',
-        'Plane — gliding. Apophyseal (facet) joints; acromioclavicular joint.',
-        'Ball-and-socket — all three planes. Glenohumeral; hip.',
-        'Monoaxial means movement in one plane only.',
+    "id": "hss2011-pastpaper-joints-articulations",
+    "subject": "HSS2011",
+    "unit": "hss.joints",
+    "type": "cloze",
+    "title": "Past-paper drill — joints and articulations",
+    "tags": [
+      "joints",
+      "exam",
+      "high-yield",
+      "foundation"
+    ],
+    "lesson": {
+      "explanation": "Success on HSS2011 past-paper assessments requires rapid, accurate identification of skeletal articulations, joint classifications, and neuromuscular functional relationships. In the past-paper bank across 2006–2026, exam questions consistently test a recurring core of high-yield anatomical facts. First, regarding joint structures, the fibrous capsule is composed of a thick layer of dense connective tissue that encloses the joint cavity, while a ligament of a joint is defined specifically as a cord or band of tough collagenous tissue binding one bone to another. Articular surfaces are capped by hyaline articular cartilage that acts as a wear-resistant shock absorber. Second, regarding functional classifications: skull sutures articulate by interlocking processes and indentations bound by fibrous tissue, making sutures the least movable of all joints. The intervertebral disc is a secondary cartilaginous joint (symphysis) situated between the vertebral bodies of adjacent vertebrae, where a fibrocartilaginous disc absorbs compressive axial loads. At the shoulder girdle, the medial (sternal) end of the clavicle articulates with the manubrium of the sternum to form the sternoclavicular joint—the single bony articulation anchoring the entire upper appendicular skeleton to the axial frame. The head of the humerus articulates with the shallow glenoid fossa of the scapula to form the polyaxial glenohumeral joint, while the distal humerus meets the radius and ulna at the elbow joint. Carpal bones articulate with the distal radius to form the condylar radiocarpal (wrist) joint. In the lower limb, the femoral and tibial condyles form the bicondylar hinge of the knee joint, while the patella is the largest sesamoid bone in the human body, developing within the quadriceps tendon to optimize mechanical leverage. Third, in functional myology, movements require coordinated muscle group interactions: an agonist (prime mover) is a muscle whose contraction is mostly responsible for producing a specific movement, while an antagonist is a muscle whose action opposes that of a prime mover. When agonists contract, antagonists must relax. A synergist is a muscle that assists a prime mover in performing its primary actions, preventing unwanted motions; when an agonist muscle crosses more than one joint, synergists and fixators contract to stabilize intervening joints. A fixator is a specialized muscle that stabilizes the origin of the prime mover so that force is directed cleanly to the insertion.",
+      "plain": "This past-paper drill tests the recurring exam questions on joints and muscle coordination that appear year after year. 1. The fibrous capsule is a tough dense connective tissue sleeve, and a ligament is a collagenous band binding one bone to another. 2. Skull sutures are immovable fibrous joints. Intervertebral discs are cartilaginous symphyses between vertebral bodies. The medial clavicle forms the sternoclavicular joint—the upper limb’s only bony link to the axial skeleton. 3. Muscles work in coordinated functional teams: the agonist (prime mover) powers the movement, the antagonist relaxes and opposes it, synergists help the prime mover and steady nearby joints, and fixators anchor the origin of the prime mover.",
+      "keyFacts": [
+        "Fibrous capsule: thick layer of dense connective tissue surrounding the synovial joint cavity.",
+        "Ligament: cord or band of tough collagenous tissue binding one bone to another.",
+        "Suture: fibrous joint interlocking skull bones; least movable articulation in the body.",
+        "Intervertebral disc: cartilaginous symphysis located between adjacent vertebral bodies; functions as a shock absorber.",
+        "Sternoclavicular joint: formed by the medial end of the clavicle and the sternum; sole bony upper limb link to axial skeleton.",
+        "Radiocarpal joint: formed by the distal radius articulating with scaphoid, lunate, and triquetrum carpal bones.",
+        "Patella: largest sesamoid bone in the human body; embedded within the quadriceps femoris tendon.",
+        "Agonist (prime mover): muscle whose contraction is primarily responsible for producing a specific movement.",
+        "Antagonist: muscle whose action opposes that of a prime mover; relaxes as agonist contracts.",
+        "Synergist: muscle that assists the prime mover in performing its primary actions and stabilizes intervening joints.",
+        "Fixator: muscle that stabilizes the origin of the prime mover so work is focused at the insertion."
       ],
-      prerequisites: ['hss2011-joints-classification'],
-      examples: [],
+      "prerequisites": [
+        "hss2011-joints-classification",
+        "hss2011-joints-synovial-structure"
+      ],
+      "examples": [
+        "In elbow flexion, the biceps brachii and brachialis act as agonists, while the triceps brachii acts as the antagonist that must relax; rotator cuff muscles act as fixators to stabilize the shoulder origin.",
+        "During wrist extension when clenching a fist, extensor carpi radialis longus/brevis and extensor carpi ulnaris act as synergists to stabilize the wrist so finger flexors can produce maximum grip force."
+      ]
     },
-    memory: {
-      chunking: 'Sort by how many planes first, then name the shape. One plane: hinge and pivot. Two planes: condylar and saddle. Three planes: ball-and-socket. Gliding sits outside the count.',
-      comparison: 'Glenohumeral and hip are both ball-and-socket, and both let you move in three planes — but the glenoid fossa is shallow and the acetabulum is deep. Same class, opposite trade-off between mobility and stability.',
-      visualCue: 'A saddle joint really is a saddle: two surfaces each curved one way and hollow the other, sitting across each other. That is why the thumb can oppose and the wrist cannot.',
-      mnemonic: 'The thumb is the saddle. If a question mentions opposition, it is the carpo-metacarpal joint of the thumb every time.',
+    "memory": {
+      "chunking": "Four muscle roles on every movement: Prime Mover / Agonist (does the lift), Antagonist (relaxes / brakes), Synergist (helps & steadies intervening joints), Fixator (anchors the origin bone).",
+      "comparison": "Fibrous vs Cartilaginous in exam stems: \"Suture\" is always fibrous. \"Disc\" between vertebral bodies is always cartilaginous (symphysis).",
+      "firstLetter": "A-A-S-F muscle team: Agonist, Antagonist, Synergist, Fixator.",
+      "teachBack": "Walk through a push-up or bicep curl, identifying which specific muscle performs each of the four roles (agonist, antagonist, synergist, fixator)."
     },
-    practice: [
-      { type: 'matching', prompt: 'Match each synovial joint type to its example.',
-        pairs: [['Hinge', 'Elbow joint'], ['Pivot', 'Median atlanto-axial joint'], ['Saddle', 'Carpo-metacarpal joint of the thumb'], ['Ball-and-socket', 'Glenohumeral joint']],
-        explanation: 'These are the worked examples used across the Module 0 and Module 4 material.' },
-      { type: 'mcq', prompt: 'Which joint type allows movement in all three planes?', options: ['Hinge', 'Pivot', 'Plane', 'Ball-and-socket'], answer: 3,
-        explanation: 'Ball-and-socket is the triaxial type — the glenohumeral and hip joints. A hinge is monoaxial, moving in one plane only.' },
-      { type: 'comparison', prompt: 'Both the glenohumeral and hip joints are ball-and-socket. What is the anatomical difference that changes their behaviour?',
-        options: [
-          'The glenoid fossa is shallow while the acetabulum is deep, so the shoulder trades stability for mobility',
-          'The hip has no articular cartilage',
-          'The shoulder is a fibrous joint',
-          'The hip allows movement in only two planes',
-        ], answer: 0,
-        explanation: 'Both are ball-and-socket and both are triaxial. The difference is socket depth: the shallow glenoid fossa allows a much wider range but far less bony stability than the deep acetabulum.' },
-      { type: 'typed', prompt: 'Which synovial joint type carries supination and pronation of the forearm?', accept: ['pivot', 'pivot joint'],
-        explanation: 'A pivot joint — the radioulnar joints, where the radius rotates against the ulna.' },
-      { type: 'sequence', prompt: 'Order these synovial joint types by how many planes of movement they allow, fewest first.', items: ['Hinge — one plane', 'Condylar — two planes', 'Ball-and-socket — three planes'],
-        explanation: 'Monoaxial hinge, then biaxial condylar, then triaxial ball-and-socket.' },
+    "practice": [
+      {
+        "type": "cloze",
+        "prompt": "A(n) ______ (prime mover) is a muscle whose contraction is mostly responsible for producing a specific movement, whereas a(n) ______ is a muscle whose action opposes that of a prime mover. A(n) ______ is a muscle that assists a prime mover in performing its primary actions, and a(n) ______ is a muscle that stabilizes the origin of the prime mover.",
+        "accept": [
+          "agonist; antagonist; synergist; fixator",
+          "agonist, antagonist, synergist, fixator",
+          "agonist and antagonist and synergist and fixator"
+        ],
+        "explanation": "Model answer from past exam fill-in-the-blanks: agonist, antagonist, synergist, fixator.",
+        "src": {
+          "ref": "hss.fib5yr",
+          "location": "p24 \"agonist (prime mover) whose contraction is mostly responsible for producing a specific movement.\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The intervertebral disc is typed as a ______ joint, located between the vertebral ______ of two adjacent vertebrae.",
+        "accept": [
+          "cartilaginous; bodies",
+          "cartilaginous, bodies",
+          "symphysis; bodies",
+          "cartilaginous and bodies"
+        ],
+        "explanation": "Cartilaginous (symphysis), bodies. Inter-body spinal joints are secondary cartilaginous joints.",
+        "src": {
+          "ref": "hss.4.1",
+          "location": "Slide \"Cartilaginous joints — Symphyses\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The medial end of the clavicle articulates with the sternum to form the ______ joint.",
+        "accept": [
+          "sternoclavicular",
+          "sternoclavicular joint"
+        ],
+        "explanation": "Sternoclavicular joint — the only bony joint linking the upper appendicular limb to the axial skeleton.",
+        "src": {
+          "ref": "hss.4.3",
+          "location": "Slide \"Joints Around Shoulder Region\", Fig. 8-2"
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The carpal bones articulate with the radius to form the ______ joint.",
+        "accept": [
+          "radiocarpal",
+          "wrist",
+          "radiocarpal (wrist)",
+          "radiocarpal joint",
+          "wrist joint"
+        ],
+        "explanation": "Radiocarpal (wrist) joint. The articular surfaces are the radius and the proximal carpal row (scaphoid, lunate, triquetrum).",
+        "src": {
+          "ref": "hss.m0.1718",
+          "location": "L1 p45 right wrist (radiocarpal) joint"
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "The largest sesamoid bone in the human body is the ______.",
+        "accept": [
+          "patella",
+          "kneecap"
+        ],
+        "explanation": "The patella. Sesamoid bones develop inside tendons to protect the tendon from excessive wear and improve leverage.",
+        "src": {
+          "ref": "hss.4.1",
+          "location": "Slide \"Sesamoid bones\""
+        }
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each past-paper term to its exact verified definition.",
+        "pairs": [
+          [
+            "Agonist",
+            "Contraction is mostly responsible for producing a specific movement"
+          ],
+          [
+            "Antagonist",
+            "Action opposes that of a prime mover"
+          ],
+          [
+            "Synergist",
+            "Assists prime mover and stabilises intervening joints"
+          ],
+          [
+            "Fixator",
+            "Stabilises the origin of the prime mover"
+          ],
+          [
+            "Ligament",
+            "Tough collagenous tissue binding one bone to another"
+          ],
+          [
+            "Fibrous capsule",
+            "Thick layer of dense connective tissue around joint"
+          ]
+        ],
+        "explanation": "Definitions directly transcribed from verified 5-year exam paper keys."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'A joint allows you to flex, extend, abduct, adduct and oppose. Which type is it, where is it, and which single movement rules out the alternatives?',
-        model: 'A saddle joint — the carpo-metacarpal joint of the thumb. Opposition is the deciding movement: a condylar joint gives you two planes but cannot oppose, and only the thumb’s saddle joint carries opposition among the types listed.',
-        rubric: ['Names saddle', 'Locates it at the thumb CMC joint', 'Uses opposition as the discriminator'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "During powerful flexion of the fingers to grasp an object, the wrist joint must be held firmly in slight extension. Explain how agonists, antagonists, synergists, and fixators operate together to make effective hand grip possible.",
+        "model": "In finger flexion, the flexor digitorum superficialis and profundus act as agonists (prime movers). The extensor digitorum acts as the antagonist and must relax to permit finger curling. Because the finger flexors cross both the wrist and finger joints, their contraction would also flex the wrist into a weak, collapsed position. To prevent this, the wrist extensors (extensor carpi radialis longus/brevis and extensor carpi ulnaris) contract as synergists to stabilize the intervening wrist joint in extension, maintaining an optimal sarcomere length-tension relationship. Meanwhile, scapular and shoulder muscles act as fixators to anchor the arm and forearm origins.",
+        "rubric": [
+          "Identifies finger flexors as agonists and finger extensors as antagonists",
+          "Identifies wrist extensors as synergists stabilizing the intervening wrist joint",
+          "Identifies shoulder/scapular muscles as fixators stabilizing the muscle origins"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Calling the wrist a hinge. It is condylar — it abducts and adducts as well as flexing and extending.',
-      'Forgetting that both the elbow and the proximal radioulnar joint sit at the elbow region but are different joint types doing different jobs.',
+    "commonMistakes": [
+      "Answering \"cartilage\" when asked for the joint type of an intervertebral disc; the question asks for the joint class (cartilaginous or symphysis).",
+      "Confusing synergists (assist prime mover and stabilize intervening joints) with fixators (specifically stabilize the origin bone of the prime mover).",
+      "Naming the acromioclavicular joint for the medial clavicle; medial is sternal (sternoclavicular joint)."
     ],
-    skills: [
-      'Plane count, not appearance, is the classification axis — and it is what exposes the wrist: it flexes AND abducts and adducts, so it is condylar (two planes), however hinge-like it looks. One plane: hinge and pivot. Two: condylar and saddle. Three: ball-and-socket.',
-      'Two ball-and-socket joints are not two copies of one joint: the shallow glenoid fossa buys the shoulder range at the price of stability, the deep acetabulum buys the hip stability at the price of range. Same class, opposite trade-off — socket depth is the whole comparison.',
-      'Opposition belongs to exactly one type — the thumb\'s saddle carpo-metacarpal joint — and one location can hold two types: at the elbow region a hinge and the proximal radioulnar pivot sit side by side doing different jobs, so where a joint sits never tells you what type it is.',
+    "skills": [
+      "Break past-paper cloze prompts into key structural keywords: \"cord binding bone to bone\" = ligament; \"dense connective tissue cuff\" = fibrous capsule; \"stabilizes the origin\" = fixator; \"stabilizes intervening joints\" = synergist.",
+      "Remember that the sternoclavicular joint is the sole skeletal bridge connecting the pectoral girdle and upper limb back to the axial trunk."
     ],
-    selfCheck: 'From a blank page: all six types each with its example, why the wrist is condylar and not hinge, and the flex-extend-abduct-adduct-oppose scenario solved by naming the deciding movement.',
-    sourceRefs: [{ ref: 'hss.4.1', location: 'Slides "Classification of Joints — Synovial joints", "Synovial joints"' }, { ref: 'hss.m0.1718', location: 'L1 p18 joint types; p29 atlanto-axial; p43–51 elbow, radioulnar, wrist and thumb movements' }, { ref: 'hss.1516.lec11', location: 'Skeletal, joint and muscular system lecture' }],
+    "selfCheck": "From memory: write down the definitions of agonist, antagonist, synergist, fixator, ligament, and fibrous capsule, and name the bones forming the sternoclavicular and radiocarpal joints.",
+    "visuals": [
+      {
+        "fig": "synovialJoint"
+      },
+      {
+        "schematic": "muscleAction"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hss.fib5yr",
+        "location": "p24 \"agonist (prime mover) whose contraction is mostly responsible for producing a specific movement.\""
+      },
+      {
+        "ref": "hss.fib5yr",
+        "location": "p24 \"antagonist is a muscle whose action opposes that of a prime mover.\""
+      },
+      {
+        "ref": "hss.fib5yr",
+        "location": "p24 \"synergist is a muscle that assists a prime mover in performing its primary actions.\""
+      },
+      {
+        "ref": "hss.fib5yr",
+        "location": "p24 \"fixator is a muscle that stabilizes the origin of the prime mover.\""
+      },
+      {
+        "ref": "hss.fib5yr",
+        "location": "p24 \"fibrous capsule composed of a thick layer of dense connective tissue.\""
+      },
+      {
+        "ref": "hss.fib5yr",
+        "location": "p24 \"ligament of a joint is a cord or band of tough collagenous tissue binding one bone to another.\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p66 \"Agonists contract\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p66 \"Antagonists relax\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p67 \"when an agonist mm cross over more\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p67 \"than one joint\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p67 \"other muscles stabilise\""
+      },
+      {
+        "ref": "hss.4.1",
+        "location": "p67 \"intervening joints\""
+      }
+    ]
   },
   {
     id: 'abct2326-cvs-conduction',
