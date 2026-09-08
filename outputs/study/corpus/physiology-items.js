@@ -884,70 +884,252 @@ export const PHYS_ITEMS = [
       }
     ]
   },
-  {
-    id: 'abct2326-resp-pathway',
-    subject: 'ABCT2326', unit: 'phys.resp', type: 'sequence',
-    title: 'The respiratory pathway and its two zones',
-    tags: ['respiratory', 'high-yield'],
-    priorKnowledge: {
-      level: 'dse-bio', covers: 'most', dsePart: 'core',
-      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(b) "Essential life processes in animals" — "General plan of the breathing system", gas exchange in air sacs, and the mechanism of ventilation.' },
-      beyond: [
-        { t: 'A second cut through the same tube: conducting portion from the nasal cavity to the terminal bronchioles, respiratory portion from the respiratory bronchioles on.',
-          src: { ref: 'phys.3', location: 'Slide 6 "The respiratory tract"' } },
-        { t: 'The full branching order, trachea through to the alveoli of a pulmonary lobule, drawn with the conducting/respiratory boundary marked on it.',
-          src: { ref: 'phys.3', location: 'Slide 7 (labelled airway diagram)' } },
-        { t: 'Five functions, sound production and the olfactory sense included alongside gas exchange.',
-          src: { ref: 'phys.3', location: 'Slide 3 "Five functions of the respiratory system"' } },
-        { t: 'Respiratory bronchioles wrapped in smooth muscle that changes the diameter of those airways.',
-          src: { ref: 'phys.3', location: 'Slide 8 "Alveolus"' } },
+    {
+    "id": "abct2326-resp-pathway",
+    "subject": "ABCT2326",
+    "unit": "phys.resp",
+    "type": "sequence",
+    "title": "The respiratory pathway and its two zones",
+    "tags": [
+      "respiratory",
+      "high-yield",
+      "pathway",
+      "alveoli",
+      "surfactant",
+      "histology"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "part",
+      "dsePart": "core",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Gas exchange in humans: structure of the respiratory system\"."
+      },
+      "beyond": [
+        {
+          "t": "The five functions of the respiratory system: gas exchange surface, moving air, protecting exchange surfaces, sound production, and olfactory sensation.",
+          "src": {
+            "ref": "phys.3",
+            "location": "p3 \"Five functions of the\""
+          }
+        },
+        {
+          "t": "Structural split into upper respiratory system (above larynx) and lower respiratory system (larynx and below).",
+          "src": {
+            "ref": "phys.3",
+            "location": "p4 \"Organization of the respiratory system\""
+          }
+        },
+        {
+          "t": "Functional split into conducting portion (conditioning air from nasal cavity to terminal bronchioles) and respiratory portion (gas exchange).",
+          "src": {
+            "ref": "phys.3",
+            "location": "p6 \"conducting portion\""
+          }
+        },
+        {
+          "t": "Trachea branching into primary, secondary (lobar), and tertiary (segmental) bronchi.",
+          "src": {
+            "ref": "phys.3",
+            "location": "p7 \"Trachea\""
+          }
+        },
+        {
+          "t": "Respiratory zone architecture: respiratory bronchioles leading into alveolar ducts, alveolar sacs, and alveoli.",
+          "src": {
+            "ref": "phys.3",
+            "location": "p8 \"Alveolus\""
+          }
+        },
+        {
+          "t": "Alveoli as air-filled pockets providing an immense surface area (~70–100 m²) for rapid gas diffusion.",
+          "src": {
+            "ref": "phys.3",
+            "location": "p9 \"Alveoli\""
+          }
+        },
+        {
+          "t": "Type I pneumocytes forming a simple squamous diffusion epithelium versus Type II pneumocytes producing surfactant.",
+          "src": {
+            "ref": "phys.3",
+            "location": "p10 \"type I pneumocytes\""
+          },
+          "supp": {
+            "ref": "phys.3",
+            "location": "p12 \"Type II\""
+          }
+        },
+        {
+          "t": "Pulmonary surfactant: an oily phospholipid-protein secretion that coats alveolar surfaces and reduces surface tension to prevent collapse.",
+          "src": {
+            "ref": "phys.3",
+            "location": "p13 \"Surfactant\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "The human respiratory system fulfills five essential physiological functions: (1) providing an extensive gas exchange surface area between inhaled air and circulating pulmonary blood; (2) moving air to and from the gas exchange surfaces of the lungs (pulmonary ventilation); (3) protecting delicate respiratory surfaces from dehydration, temperature fluctuations, and environmental pathogens via the respiratory defense system; (4) producing sound vibrations for verbal communication (phonation); and (5) facilitating olfactory sensation via specialized olfactory neuroepithelium in the superior nasal cavity. Anatomically, the system is organized into the upper respiratory system (comprising the nasal cavity, paranasal sinuses, and pharynx, situated above the larynx) and the lower respiratory system (comprising the larynx, trachea, bronchi, bronchioles, and alveoli within the thoracic cavity). Functionally, the airway is partitioned into two distinct physiological divisions: the conducting portion and the respiratory portion. The conducting portion spans from the external nares to the terminal bronchioles; its specialized pseudostratified ciliated columnar epithelium, rich in goblet cells and mucous glands, conditions incoming air by filtering particulate debris, warming air to core body temperature (37°C), and humidifying it to 100% saturation. The airway progresses from the nasal cavity through the pharynx (nasopharynx, oropharynx, laryngopharynx), past the larynx and epiglottis, into the trachea. The trachea is reinforced by 15–20 C-shaped hyaline cartilage rings that prevent airway collapse during subatmospheric inspiratory pressures while accommodating esophageal distension during swallowing. At the carina (mediastinal level T5), the trachea bifurcates into the right and left primary (main) bronchi; the right primary bronchus is wider, shorter, and more vertically oriented than the left, making it the preferential pathway for aspirated foreign bodies. Within the lungs, primary bronchi branch into secondary (lobar) bronchi (three in the right lung, two in the left), tertiary (segmental) bronchi, smaller bronchioles, and non-gas-exchanging terminal bronchioles. The respiratory portion begins where terminal bronchioles branch into microscopic respiratory bronchioles, which feature scattered alveoli in their walls and open into alveolar ducts, alveolar sacs, and roughly 300 million alveoli. Alveoli are air-filled micro-cavities that provide an immense total surface area of approximately 70 to 100 square meters for gas diffusion. The alveolar epithelium is composed of two primary cell populations: (1) Type I pneumocytes (Type I alveolar cells), exceptionally thin simple squamous epithelial cells covering roughly 95% of the alveolar surface area, through which O2 and CO2 rapidly diffuse across a shared basement membrane into abutting pulmonary endothelial cells (forming an ultrathin 0.5 µm blood-air barrier); and (2) Type II pneumocytes (septal cells), scattered cuboidal cells that synthesize and secrete pulmonary surfactant. Surfactant is an oily complex of phospholipids (predominantly dipalmitoylphosphatidylcholine) and specific apoproteins that forms a monomolecular film over the moist alveolar lining, disrupting hydrogen bonding between water molecules and dramatically lowering alveolar surface tension. By lowering surface tension, surfactant prevents alveolar collapse (atelectasis) at end-expiration and equalizes collapsing pressures between smaller and larger alveoli in accordance with the Law of Laplace (P = 2T/r). Patrolling the alveolar lumen are roaming alveolar macrophages ('dust cells') that phagocytose inhaled particulate matter, pathogens, and degraded surfactant, preserving sterility at the blood-air barrier.",
+      "plain": "The respiratory system performs five jobs: gas exchange, moving air, protecting airway linings, making sounds, and smelling. It divides anatomically into the upper tract (nasal cavity to pharynx) and lower tract (larynx, trachea, and lungs). Functionally, it divides into the conducting zone (which warms, filters, and humidifies air down to terminal bronchioles) and the respiratory zone (where gas exchange actually occurs in alveoli). The trachea is kept open by C-shaped cartilage rings and divides into right and left main bronchi. In the lungs, airway tubes branch down to roughly 300 million tiny air pockets called alveoli, creating a massive surface area (~70–100 m²). Alveoli contain Type I pneumocytes (paper-thin cells that form the blood-air barrier for gas diffusion) and Type II pneumocytes (which secrete surfactant, an oily substance that reduces water surface tension and stops lungs from collapsing when you exhale).",
+      "keyFacts": [
+        "The respiratory system provides gas exchange, air conduction, epithelial protection, phonation, and olfaction.",
+        "The upper respiratory tract sits above the larynx; the lower respiratory tract includes the larynx, trachea, and lungs.",
+        "The conducting zone filters, warms, and humidifies air; the respiratory zone executes alveolar gas exchange.",
+        "The trachea is reinforced by 15–20 C-shaped hyaline cartilage rings that prevent airway collapse during inhalation.",
+        "The right primary bronchus is shorter, wider, and more vertical than the left primary bronchus.",
+        "The respiratory zone begins at respiratory bronchioles and terminates in alveolar sacs and alveoli.",
+        "Roughly 300 million alveoli provide a massive gas exchange surface area of 70 to 100 square meters.",
+        "Type I pneumocytes are simple squamous cells forming 95% of the alveolar blood-air diffusion barrier.",
+        "Type II pneumocytes are cuboidal secretory cells that produce pulmonary surfactant.",
+        "Pulmonary surfactant reduces alveolar surface tension, preventing end-expiratory alveolar collapse (atelectasis)."
       ],
+      "prerequisites": [],
+      "examples": [
+        "In Infant Respiratory Distress Syndrome (IRDS), premature neonates born before 28–32 weeks of gestation lack mature Type II pneumocytes and cannot produce sufficient surfactant; elevated alveolar surface tension causes widespread alveolar collapse (atelectasis) and severe hypoxemia, requiring exogenous surfactant administration and positive airway pressure.",
+        "Because the right primary bronchus is wider, shorter, and descends more vertically than the left, a foreign object (such as a peanut) aspirated by a toddler almost always lodges in the right bronchial tree rather than the left."
+      ]
     },
-    lesson: {
-      explanation: 'The respiratory system is divided at the larynx: the upper respiratory system is above it — nose, nasal cavity, sinuses and pharynx — and the lower respiratory system is below it — larynx, trachea, bronchus, bronchioles, smallest bronchioles and alveoli. The tract also divides functionally: the conducting portion runs from the nasal cavity to the terminal bronchioles, and the respiratory portion is the respiratory bronchioles and alveoli. The lecture gives five functions: providing an extensive gas-exchange surface between air and circulating blood, moving air to and from those surfaces, protecting the respiratory surfaces from the outside environment, producing sounds, and participating in the olfactory sense.',
-      keyFacts: [
-        'Split at the larynx: upper (nose, nasal cavity, sinuses, pharynx) vs lower (larynx, trachea, bronchi, bronchioles, alveoli).',
-        'Conducting portion: nasal cavity → terminal bronchioles.',
-        'Respiratory portion: respiratory bronchioles and alveoli.',
-        'Airway branching: trachea → left/right primary bronchus → secondary bronchus → tertiary bronchi → smaller bronchi → bronchioles → terminal bronchiole → respiratory bronchiole → alveoli.',
-        'Five functions: gas exchange surface, air movement, protection, sound production, olfaction.',
-      ],
-      prerequisites: ['abct2326-cvs-circuits'],
-      examples: [],
+    "memory": {
+      "chunking": "Airway Tree Sequence: Nasal Cavity → Pharynx → Larynx → Trachea → Primary Bronchi → Lobar Bronchi → Segmental Bronchi → Bronchioles → Terminal Bronchioles [END OF CONDUCTING] → Respiratory Bronchioles → Alveolar Ducts → Alveolar Sacs [RESPIRATORY ZONE].",
+      "comparison": "Type I vs Type II Pneumocytes: Type I are thin, flat squamous cells covering 95% of area for Gas Exchange; Type II are cuboidal factories producing Surfactant to reduce surface tension.",
+      "visualCue": "Picture a cluster of soap bubbles: without surfactant, small bubbles generate high inward pressure and collapse into big bubbles; surfactant lines the inner water film like microscopic Teflon, keeping every tiny bubble open.",
+      "teachBack": "Trace the path of an oxygen molecule from the nostril to the alveolar capillary, naming where the conducting zone ends and the respiratory zone begins, and identifying the two alveolar cell types."
     },
-    memory: {
-      sequence: 'Two ways to cut the same tube. Anatomically at the larynx, functionally at the terminal bronchiole. If a question says "conducting", it wants the second cut.',
-      chunking: 'Terminal bronchiole is the last stop of the conducting zone; respiratory bronchiole is the first stop of the respiratory zone. The word "respiratory" in the name is the signal that gas exchange has started.',
-      firstLetter: 'Five functions: Exchange, Move, Protect, Sound, Smell.',
-    },
-    practice: [
-      { type: 'sequence', prompt: 'Order the airway from the trachea down to the gas-exchange surface.',
-        items: ['Trachea', 'Primary bronchus', 'Secondary bronchus', 'Tertiary bronchi', 'Bronchioles', 'Terminal bronchiole', 'Respiratory bronchiole', 'Alveoli'],
-        explanation: 'This is the branching order given on the conducting/respiratory portion slide.' },
-      { type: 'mcq', prompt: 'The conducting portion of the respiratory tract ends at the:', options: ['Alveoli', 'Respiratory bronchiole', 'Terminal bronchiole', 'Tertiary bronchus'], answer: 2,
-        explanation: 'The conducting portion runs from the nasal cavity to the terminal bronchioles. The respiratory bronchiole is the first part of the respiratory portion.' },
-      { type: 'typed', prompt: 'Which structure divides the upper from the lower respiratory system?', accept: ['larynx', 'the larynx'],
-        explanation: 'The upper respiratory system is above the larynx and the lower respiratory system is below it.' },
-      { type: 'cloze', prompt: 'List the parts of the respiratory system that belong to the conducting zone: ______.', accept: ['nostrils; pharynx; larynx; trachea; bronchial tree', 'nostrils, pharynx, larynx, trachea, bronchial tree'],
-        explanation: 'Model answer from the HSS2011 revision key: nostrils; pharynx; larynx; trachea; bronchial tree.',
-        src: { ref: 'hss.revans', location: 'Module 1.1, Fill-in-blanks 2' } },
+    "practice": [
+      {
+        "type": "sequence",
+        "prompt": "Order the anatomical airway divisions traversed by inhaled air from the larynx to the site of alveolar gas diffusion.",
+        "items": [
+          "Larynx",
+          "Trachea",
+          "Primary (main) bronchi",
+          "Secondary (lobar) bronchi",
+          "Tertiary (segmental) bronchi",
+          "Terminal bronchioles",
+          "Respiratory bronchioles",
+          "Alveolar sacs and alveoli"
+        ],
+        "explanation": "Air passes from the larynx through the trachea, branching bronchial tree, terminal bronchioles, and enters the respiratory zone at respiratory bronchioles and alveoli."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each respiratory cell or structure with its distinct anatomical or physiological characteristic.",
+        "pairs": [
+          [
+            "Type I pneumocyte",
+            "Thin squamous epithelial cell forming the primary blood-air diffusion barrier"
+          ],
+          [
+            "Type II pneumocyte",
+            "Cuboidal septal cell synthesizing and secreting pulmonary surfactant"
+          ],
+          [
+            "C-shaped tracheal rings",
+            "Hyaline cartilage struts preventing airway collapse during subatmospheric inhalation"
+          ],
+          [
+            "Conducting zone",
+            "Conditions air by filtering, warming to 37°C, and humidifying to 100% saturation"
+          ]
+        ],
+        "explanation": "Type I cells form the barrier; Type II secrete surfactant; C-rings prevent tracheal collapse; conducting zone conditions air."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Why does a deficiency of pulmonary surfactant cause alveolar collapse (atelectasis) in premature infants?",
+        "options": [
+          "High water surface tension generates excessive collapsing inward pressure in small alveoli according to Laplace’s law.",
+          "Type I pneumocytes proliferate abnormally and obstruct the alveolar ducts.",
+          "Atmospheric pressure inside the trachea exceeds intrapleural pressure.",
+          "The C-shaped hyaline cartilage rings in the bronchioles undergo necrosis."
+        ],
+        "answer": 0,
+        "explanation": "Water molecules lining the moist alveolus exert high surface tension that tends to collapse the sphere; by disrupting water-water hydrogen bonding, surfactant lowers surface tension and prevents collapse."
+      },
+      {
+        "type": "typed",
+        "prompt": "At which specific airway structure does the conducting zone terminate and the respiratory zone begin?",
+        "accept": [
+          "respiratory bronchioles",
+          "respiratory bronchiole",
+          "Respiratory bronchioles",
+          "Respiratory bronchiole"
+        ],
+        "explanation": "The conducting zone ends at terminal bronchioles; the respiratory zone begins where respiratory bronchioles first sprout outpocketed alveoli."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'A structure is named "respiratory bronchiole". What does the word "respiratory" in its name tell you about its wall, compared to a terminal bronchiole?',
-        model: 'It tells you gas exchange happens there, so its wall must include alveoli. The terminal bronchiole is the last purely conducting segment and has no gas-exchange surface; the respiratory bronchiole is where the respiratory portion begins.',
-        rubric: ['Links the name to gas exchange', 'Contrasts with the purely conducting terminal bronchiole'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A male infant is delivered prematurely at 29 weeks of gestation. Within thirty minutes of birth, he exhibits tachypnea, grunting, intercostal retractions, and cyanosis. Chest radiography reveals diffuse bilateral microatelectasis and a \"ground-glass\" reticulogranular appearance. Diagnose the underlying condition, identify the cellular defect, and explain the biophysical mechanism causing respiratory failure.",
+        "model": "The infant has Neonatal/Infant Respiratory Distress Syndrome (NRDS/IRDS). The cellular defect is developmental immaturity of Type II pneumocytes (septal cells) in the alveolar epithelium, which normally begin producing adequate surfactant between 32 and 35 weeks of gestation. Without surfactant, the aqueous film lining the alveoli exhibits high surface tension. According to the Law of Laplace (P = 2T/r), high surface tension (T) generates enormous inward collapsing pressure (P), particularly in small-radius (r) alveoli. The alveoli collapse at end-expiration (microatelectasis), severely decreasing lung compliance. The infant must exert massive muscular effort to reopen collapsed alveoli with each breath, leading to rapid muscle exhaustion, progressive hypoventilation, ventilation-perfusion mismatch, and hypoxemic respiratory failure.",
+        "rubric": [
+          "Diagnoses Neonatal/Infant Respiratory Distress Syndrome (NRDS/IRDS) secondary to immature Type II pneumocytes",
+          "Explains the lack of surfactant and the resulting elevated alveolar surface tension",
+          "Applies Laplace’s law to explain end-expiratory alveolar collapse (atelectasis) and decreased lung compliance"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Ending the conducting zone at the respiratory bronchiole instead of the terminal bronchiole.',
-      'Placing the larynx in the upper respiratory system; the split is above the larynx.',
+    "commonMistakes": [
+      "Believing gas exchange occurs in terminal bronchioles, forgetting that terminal bronchioles are the last segment of the conducting zone and possess no alveoli.",
+      "Assuming bronchioles contain cartilage rings like the trachea and bronchi, unaware that bronchioles lack cartilage and are dominated by smooth muscle regulated by autonomic tone.",
+      "Thinking Type II pneumocytes are responsible for gas diffusion, when their primary job is surfactant synthesis while Type I cells execute diffusion."
     ],
-    skills: [
-      'The larynx is the door, not the upstairs: the upper respiratory system is everything above the larynx, so the larynx itself lands in the lower system. Feeling throat-level is the misdirection the MCQ exploits.',
-      'Terminal versus respiratory bronchiole is one branch, not a region: the terminal bronchiole is the last purely conducting stop, and the word "respiratory" in a structure\'s name is the signal that gas exchange has begun there.',
-      'The same tube is cut twice, at two different places: anatomically at the larynx (upper/lower), functionally at the terminal bronchiole (conducting/respiratory). A question that says "conducting" is asking for the second cut — and the larynx is the wrong answer to give it.',
+    "skills": [
+      "Delineate the precise histological and functional boundary between the conducting and respiratory zones of the human airway.",
+      "Explain the biophysical role of pulmonary surfactant in alveolar stability using Laplace’s relationship."
     ],
-    selfCheck: 'Cover the card and write the branching sequence; then check the boundary — terminal bronchiole ends conduction, respiratory bronchiole starts exchange.',
-    sourceRefs: [{ ref: 'phys.3', location: 'Slides 3–8 functions, organisation, the respiratory tract' }, { ref: 'hss.1.2', location: 'p32 "Ends in the mediastinum at T5 level, where it" branches into the right and left primary bronchi' }, { ref: 'hss.revans', location: 'HSS2011 Module 1.1, Fill-in-blanks 2' }],
+    "selfCheck": "From memory: recite the complete airway branching sequence from trachea to alveoli, contrast Type I and Type II pneumocytes, and explain why the right primary bronchus is prone to aspiration.",
+    "visuals": [
+      {
+        "fig": "respiratoryTractAnatomy"
+      },
+      {
+        "fig": "alveolarMicroarchitecture"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "phys.3",
+        "location": "p3 \"Five functions of the\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p4 \"Organization of the respiratory system\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p6 \"conducting portion\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p7 \"Trachea\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p8 \"Alveolus\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p9 \"Alveoli\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p10 \"type I pneumocytes\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p12 \"Type II\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p13 \"Surfactant\""
+      }
+    ]
   },
   {
     id: 'abct2326-renal-nephron',
@@ -5103,78 +5285,268 @@ export const PHYS_ITEMS = [
       { ref: 'phys.renal.supp', location: 'p4 "Aquaporins"' },
     ],
   },
-  {
-    id: 'abct2326-resp-ventilation-chemoreceptors',
-    subject: 'ABCT2326', unit: 'phys.resp', type: 'concept',
-    title: 'Respiratory mechanics, vital capacity, and medullary chemoreceptor control',
-    tags: ['respiratory', 'chemoreceptors', 'ventilation', 'tutorial', 'high-yield'],
-    lesson: {
-      explanation: 'Respiratory physiology encompasses pulmonary ventilation, external respiration (gas diffusion between alveoli and pulmonary capillary blood), and internal respiration (gas exchange between systemic capillaries and metabolizing tissues). Air entering the body is filtered, warmed, and humidified by the upper respiratory tract before reaching delicate exchange surfaces. The maximum amount of air that can be expired after a maximum inspiration is the vital capacity (VC = TV + IRV + ERV). In blood gas transport, arterial PO2 reflects solely the dissolved oxygen in plasma (not hemoglobin-bound oxygen): therefore, if the blood lacked red blood cells but the lungs were functioning normally, the arterial PO2 would be normal (~100 mmHg), even though total blood oxygen content would be catastrophically depressed. Because systemic tissues continuously consume oxygen and produce metabolic carbon dioxide, the partial pressure of carbon dioxide is higher in the systemic veins than in the systemic arteries (typically 45 mmHg in mixed venous blood vs 40 mmHg in arterial blood). The rhythmic control of breathing is produced by the activity of inspiratory and expiratory neurons in the medulla oblongata (specifically the dorsal and ventral respiratory groups). Respiratory centers receive regulatory sensory inputs from three primary sources: central chemoreceptors in the medulla, peripheral chemoreceptors in the carotid and aortic bodies, and mechanoreceptors in the lungs (Hering-Breuer reflex). Crucially, the chemoreceptors in the medulla are directly stimulated by H+ in cerebrospinal fluid that is derived from blood CO2: while arterial H+ cannot penetrate the blood-brain barrier, lipophilic CO2 readily diffuses into CSF where carbonic anhydrase generates carbonic acid, dissociating into H+ and HCO3- to trigger medullary hyperventilation.',
-      plain: 'The upper respiratory tract warms, filters, and humidifies air. Vital capacity is the maximal volume expired after maximal inspiration. Arterial PO2 measures dissolved oxygen, so without red blood cells arterial PO2 remains normal while oxygen content plunges. PCO2 is higher in systemic veins (45 mmHg) than arteries (40 mmHg). Central chemoreceptors in the medulla oblongata are stimulated by H+ in CSF derived from blood CO2, driving rhythmic breathing.',
-      keyFacts: [
-        'Air entering the body is filtered, warmed, and humidified by the upper respiratory tract.',
-        'Vital capacity is the maximum amount of air that can be expired after a maximum inspiration.',
-        'If blood lacked red blood cells but ventilation were normal, arterial PO2 would be normal (reflecting dissolved O2).',
-        'Partial pressure of carbon dioxide is higher in systemic veins (~45 mmHg) than in systemic arteries (~40 mmHg).',
-        'Rhythmic breathing is controlled by inspiratory and expiratory neurons in the medulla oblongata.',
-        'Central chemoreceptors in the medulla are directly stimulated by H+ in cerebrospinal fluid derived from blood CO2.',
+    {
+    "id": "abct2326-resp-ventilation-chemoreceptors",
+    "subject": "ABCT2326",
+    "unit": "phys.resp",
+    "type": "concept",
+    "title": "Respiratory mechanics, vital capacity, and medullary chemoreceptor control",
+    "tags": [
+      "respiratory",
+      "chemoreceptors",
+      "ventilation",
+      "tutorial",
+      "high-yield",
+      "control-of-breathing",
+      "vital-capacity"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "part",
+      "dsePart": "elective-hp",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Elective V(c) \"Regulation of gas content in blood\" — respiratory control centers and chemoreceptor regulation."
+      },
+      "beyond": [
+        {
+          "t": "External respiration (gas exchange between alveolar air and blood) versus internal respiration (gas exchange between blood and interstitial fluid).",
+          "src": {
+            "ref": "phys.resp.tut",
+            "location": "p1 \"define and compare the processes of external respiration and internal respiration\""
+          }
+        },
+        {
+          "t": "Three chemoreceptor input sources: central medullary chemoreceptors, carotid bodies, and aortic bodies.",
+          "src": {
+            "ref": "phys.resp.tut",
+            "location": "p1 \"THREE different sources of chemoreceptor input that can influence the respiratory\""
+          }
+        },
+        {
+          "t": "Air entering the body is filtered, warmed, and humidified by the upper conducting airway.",
+          "src": {
+            "ref": "phys.resp.tut",
+            "location": "p2 \"Air entering the body is filtered, warmed, and humidified by the\""
+          }
+        },
+        {
+          "t": "Vital capacity represents the maximum volume of air that can be exhaled following maximal inhalation.",
+          "src": {
+            "ref": "phys.resp.tut",
+            "location": "p2 \"the vital capacity.\""
+          }
+        },
+        {
+          "t": "Arterial PO2 reflects dissolved oxygen in physical solution; if blood lacked RBCs, arterial PO2 would be normal while oxygen content is severely reduced.",
+          "src": {
+            "ref": "phys.resp.tut",
+            "location": "p2 \"If the blood lacked red blood cells but the lungs were functioning normally,\""
+          },
+          "supp": {
+            "ref": "phys.resp.tut",
+            "location": "p2 \"the arterial PO2 would be normal.\""
+          }
+        },
+        {
+          "t": "Central chemoreceptors on the ventrolateral medulla are directly stimulated by H+ ions in cerebrospinal fluid derived from blood CO2 crossing the blood-brain barrier.",
+          "src": {
+            "ref": "phys.resp.tut",
+            "location": "p2 \"chemoreceptors in the medulla are directly stimulated by\""
+          },
+          "supp": {
+            "ref": "phys.resp.tut",
+            "location": "p2 \"H+ in cerebrospinal fluid that is derived from blood CO2.\""
+          }
+        },
+        {
+          "t": "Rhythmic control of breathing is generated by inspiratory and expiratory neuronal networks in the medulla oblongata.",
+          "src": {
+            "ref": "phys.resp.tut",
+            "location": "p2 \"rhythmic control of breathing is produced by the activity of inspiratory and expiratory neurons\""
+          },
+          "supp": {
+            "ref": "phys.resp.tut",
+            "location": "p2 \"the medulla oblongata.\""
+          }
+        },
+        {
+          "t": "Systemic veins have higher PCO2 (45 mmHg) than systemic arteries (40 mmHg) due to tissue metabolic CO2 production.",
+          "src": {
+            "ref": "phys.resp.tut",
+            "location": "p2 \"higher in the systemic veins than in the systemic arteries.\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "Respiratory physiology integrates the physical processes of gas exchange with sophisticated neural and chemical feedback control mechanisms. Respiration is divided into two distinct biological phases: external respiration, which encompasses all physiological processes involved in the exchange of O2 and CO2 between the external atmospheric environment and circulating blood in pulmonary capillaries; and internal respiration (cellular respiration), which involves the absorption of O2 and release of CO2 by peripheral tissue cells from systemic capillaries. As atmospheric air enters the body through the external nares, it is filtered, warmed to 37°C, and humidified to 100% relative humidity by the mucosal lining of the upper conducting airway before reaching the gas exchange surfaces. In pulmonary diagnostic spirometry, the maximum volume of air that an individual can forcefully expel from the lungs after taking the deepest possible maximal inspiration is termed the vital capacity (VC = TV + IRV + ERV). A fundamental diagnostic principle in blood gas physiology is the critical distinction between arterial partial pressure of oxygen (PaO2) and total blood oxygen content: PaO2 measures strictly the concentration of unbound oxygen gas dissolved physically in blood plasma (~0.3 mL O2/100 mL blood at 100 mmHg), which equilibrates across the alveolar-capillary membrane according to Henry's law. In contrast, >98.5% of total blood oxygen is carried chemically bound to hemoglobin inside red blood cells. Consequently, if a patient were completely devoid of red blood cells (or suffered from severe normovolemic anemia) while lung ventilation and alveolar diffusion were completely normal, the arterial PO2 would be entirely normal (~100 mmHg), even though the total oxygen-carrying capacity and content of the blood would be catastrophically depressed. Chemical regulation of pulmonary ventilation is executed by three distinct chemoreceptor populations: (1) central chemoreceptors located on the ventrolateral surface of the medulla oblongata; (2) peripheral carotid bodies located at the bifurcation of common carotid arteries (innervated by the glossopharyngeal nerve, CN IX); and (3) peripheral aortic bodies located along the aortic arch (innervated by the vagus nerve, CN X). Crucially, central chemoreceptors in the medulla are not directly stimulated by arterial pH or systemic H+ ions, because hydrogen ions cannot cross the lipophilic blood-brain barrier. Instead, carbon dioxide (CO2) is lipid-soluble and diffuses rapidly across the blood-brain barrier into the cerebrospinal fluid (CSF). Inside the CSF, CO2 hydrates with water under the catalysis of carbonic anhydrase to form carbonic acid, which dissociates into hydrogen ions and bicarbonate (CO2 + H2O ⇌ H2CO3 ⇌ H+ + HCO3-). Because CSF has very low protein concentration and lacks hemoglobin, it has virtually no buffering capacity; thus, the newly formed H+ ions cause an immediate, sharp drop in CSF pH, which directly stimulates the central medullary chemoreceptors. Central chemoreceptors provide roughly 75% to 85% of the resting ventilatory drive. Automatic, rhythmic control of breathing is generated by the cyclical activity of inspiratory and expiratory neuronal networks situated within the medulla oblongata—specifically the dorsal respiratory group (DRG), which sets the basic rhythm of quiet inspiration, and the ventral respiratory group (VRG), which coordinates accessory muscles during forced breathing. Under steady-state conditions, cellular metabolism generates CO2, so the partial pressure of carbon dioxide (PCO2) is always higher in systemic veins (~45 mmHg) returning to the right heart than in systemic arteries (~40 mmHg) leaving the left heart.",
+      "plain": "External respiration is gas exchange between outside air and blood in the lungs; internal respiration is gas exchange between blood and body cells. As air enters the nose, it is filtered, warmed, and humidified. Vital capacity is the maximum amount of air you can blow out after taking the biggest possible breath. A critical concept: arterial PO2 measures only the oxygen dissolved in liquid plasma, NOT the oxygen bound to red blood cells—so if someone had zero red blood cells, their arterial PO2 would still be normal (~100 mmHg), but their blood could carry almost no oxygen! Breathing is controlled by rhythm-generating neurons in the medulla oblongata. Central chemoreceptors on the medulla are directly stimulated by H+ ions in cerebrospinal fluid created when blood CO2 diffuses across the blood-brain barrier. Because body tissues produce CO2 as waste, PCO2 is always higher in veins (~45 mmHg) than in arteries (~40 mmHg).",
+      "keyFacts": [
+        "External respiration exchanges gases between air and blood; internal respiration exchanges gases between blood and tissues.",
+        "Inhaled air is filtered, warmed, and humidified by the mucosal lining of the upper conducting airway.",
+        "Vital capacity is the maximum volume of air that can be exhaled following maximal inspiration (VC = TV + IRV + ERV).",
+        "Arterial PO2 measures dissolved oxygen in plasma; without RBCs, arterial PO2 is normal while oxygen content is severely depleted.",
+        "Chemoreceptor inputs originate from three sources: central medullary chemoreceptors, carotid bodies, and aortic bodies.",
+        "Central chemoreceptors are directly stimulated by H+ ions in cerebrospinal fluid derived from blood CO2 crossing the blood-brain barrier.",
+        "Systemic H+ ions cannot cross the blood-brain barrier; CO2 diffuses freely into CSF and hydrates to yield H+.",
+        "Rhythmic control of breathing is generated by inspiratory (DRG) and expiratory (VRG) neuronal networks in the medulla oblongata.",
+        "PCO2 is normally higher in systemic veins (~45 mmHg) than in systemic arteries (~40 mmHg) due to tissue metabolism.",
+        "Central chemoreceptors provide the dominant (75–85%) chemical drive for resting pulmonary ventilation."
       ],
-      prerequisites: ['abct2326-resp-ventilation-mechanics', 'abct2326-resp-oxygen-transport'],
-      examples: ['In acute carbon monoxide poisoning or severe anemia, pulse oximetry and arterial PO2 remain normal while systemic tissue oxygen delivery fails.'],
+      "prerequisites": [],
+      "examples": [
+        "In severe carbon monoxide (CO) poisoning, CO binds tightly to hemoglobin with 200-fold higher affinity than oxygen, displacing O2 and crippling oxygen delivery to tissues; however, because dissolved oxygen in plasma is unaffected, routine arterial blood gas (ABG) analysis shows a deceptively normal PaO2 (~100 mmHg), masking lethal tissue hypoxia.",
+        "Voluntary hyperventilation blows off arterial CO2 (hypocapnia, PaCO2 dropping from 40 to 20 mmHg); reduced blood CO2 decreases CSF [H+], removing the stimulation of central chemoreceptors and producing a prolonged post-hyperventilation apnea until metabolic CO2 accumulates back to normal."
+      ]
     },
-    memory: {
-      chunking: 'Vital Capacity (maximal expiration after maximal inspiration) · PO2 vs O2 Content (dissolved vs RBC-bound) · PCO2 Gradient (veins 45 > arteries 40 mmHg) · Medullary Rhythmicity (inspiratory/expiratory neurons) · Central Chemoreceptors (stimulated by CSF H+ from blood CO2).',
-      comparison: 'Central vs Peripheral Chemoreceptors: Central chemoreceptors respond to CSF H+ derived from blood CO2; peripheral chemoreceptors in carotid/aortic bodies respond to arterial H+, elevated PCO2, and severe hypoxia (PO2 < 60 mmHg).',
-      number: 'Vital Capacity = TV + IRV + ERV · PCO2 45 mmHg (systemic veins) vs 40 mmHg (systemic arteries) · 3 sources of chemosensory input.',
+    "memory": {
+      "chunking": "Tutorial Triad: Oxygen Illusion (PaO2 is dissolved plasma O2, normal even without RBCs) → Chemosensory Driver (CO2 crosses BBB, makes H+ in CSF to trigger medulla) → Rhythm Generator (Medulla DRG/VRG).",
+      "comparison": "Arterial PO2 vs Total Oxygen Content: PaO2 is the partial pressure of dissolved gas (~0.3 mL/100 mL, 1.5% of total); Total O2 content includes the 98.5% bound to hemoglobin (~20 mL/100 mL).",
+      "visualCue": "Picture CO2 as a ghost slipping effortlessly through the stone wall of the blood-brain barrier, then turning into acid (H+) in the clear water of the CSF to ring the fire alarm on the medulla floor.",
+      "teachBack": "Explain why central chemoreceptors respond to blood PCO2 rather than blood H+, and describe what happens to arterial PO2 in a patient with zero red blood cells."
     },
-    practice: [
-      { type: 'mcq', prompt: 'If a patient severely lacked red blood cells (severe anemia) but their lungs and alveolar ventilation were functioning normally, how would their arterial PO2 be affected?', options: ['The arterial PO2 would be zero', 'The arterial PO2 would be normal', 'The arterial PO2 would be doubled', 'The arterial PO2 would fall by 50%'], answer: 1,
-        explanation: 'Arterial PO2 reflects the dissolved oxygen tension in plasma equilibrating across alveoli, which remains normal (~100 mmHg) despite reduced red blood cells and oxygen content.',
-        src: { ref: 'phys.resp.tut', location: 'p2 "the arterial PO2 would be normal."' } },
-      { type: 'mcq', prompt: 'What directly stimulates the central chemoreceptors located in the medulla oblongata to regulate breathing depth and rate?', options: ['CO2 from the blood directly binding neurons', 'Arterial H+ ions from systemic metabolic acids', 'H+ in cerebrospinal fluid that is derived from blood CO2', 'Decreased arterial PO2 below 100 mmHg'], answer: 2,
-        explanation: 'Blood-borne CO2 crosses the blood-brain barrier into CSF, where it forms H+ ions that directly stimulate central chemoreceptors.',
-        src: { ref: 'phys.resp.tut', location: 'p2 "H+ in cerebrospinal fluid that is derived from blood CO2."' } },
-      { type: 'mcq', prompt: 'What is the physiological definition of the vital capacity of the respiratory system?', options: ['The volume of air inhaled during quiet resting breathing', 'The maximum amount of air that can be expired after a maximum inspiration', 'The volume of gas remaining in lungs after maximal exhalation', 'The total anatomical dead space volume'], answer: 1,
-        explanation: 'Vital capacity represents the maximum volume of gas that can be voluntarily expired following a maximal inspiratory effort.',
-        src: { ref: 'phys.resp.tut', location: 'p2 "the vital capacity."' } },
-      { type: 'mcq', prompt: 'In which portion of the circulation is the partial pressure of carbon dioxide (PCO2) normally higher under resting conditions?', options: ['Higher in the alveoli than in pulmonary arteries', 'Higher in the systemic arteries than in tissues', 'Higher in the systemic veins than in the systemic arteries', 'Higher in pulmonary veins than in pulmonary arteries'], answer: 2,
-        explanation: 'PCO2 is ~45 mmHg in systemic venous blood returning from metabolically active tissues, compared to ~40 mmHg in systemic arterial blood.',
-        src: { ref: 'phys.resp.tut', location: 'p2 "higher in the systemic veins than in the systemic arteries."' } },
-      { type: 'typed', prompt: 'In which brainstem structure are the inspiratory and expiratory neurons located that produce the rhythmic control of breathing?', accept: ['medulla oblongata', 'medulla', 'the medulla oblongata', 'the medulla'],
-        explanation: 'The respiratory rhythmicity center resides in the medulla oblongata.',
-        src: { ref: 'phys.resp.tut', location: 'p2 "the medulla oblongata."' } },
-      { type: 'matching', prompt: 'Match each respiratory concept to its physiological characteristic.',
-        pairs: [['Upper respiratory tract', 'Air entering the body is filtered, warmed, and humidified by the'], ['Vital capacity', 'maximum amount of air that can be expired after a maximum inspiration is'], ['Medullary chemoreceptors', 'H+ in cerebrospinal fluid that is derived from blood CO2.'], ['Venous PCO2', 'higher in the systemic veins than in the systemic arteries.']],
-        explanation: 'These pairings connect respiratory structures and gas parameters to their defining functions.',
-        src: { ref: 'phys.resp.tut', location: 'p2 "Air entering the body is filtered, warmed, and humidified by the"' } },
+    "practice": [
+      {
+        "type": "mcq",
+        "prompt": "If a patient experienced an experimental condition where all red blood cells were removed from their circulation while the lungs continued to ventilate normally with room air, what would happen to the arterial PO2 (PaO2)?",
+        "options": [
+          "The arterial PO2 would remain normal (~100 mmHg).",
+          "The arterial PO2 would drop to zero.",
+          "The arterial PO2 would drop by roughly 50%.",
+          "The arterial PO2 would increase above 200 mmHg."
+        ],
+        "answer": 0,
+        "explanation": "Arterial PO2 measures the partial pressure of unbound oxygen physically dissolved in blood plasma, which is determined solely by alveolar ventilation and diffusion; oxygen bound to hemoglobin does not contribute to PO2."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each respiratory concept from the tutorial with its definitive physiological characteristic.",
+        "pairs": [
+          [
+            "Central chemoreceptors",
+            "Directly stimulated by H+ ions in cerebrospinal fluid derived from diffusing blood CO2"
+          ],
+          [
+            "Vital capacity",
+            "Maximum volume of air that can be forcibly exhaled after maximal inhalation"
+          ],
+          [
+            "PCO2 in systemic circulation",
+            "Higher in systemic veins (~45 mmHg) than in systemic arteries (~40 mmHg)"
+          ],
+          [
+            "Medulla oblongata",
+            "Houses inspiratory and expiratory neuronal networks generating rhythmic breathing"
+          ]
+        ],
+        "explanation": "Central chemoreceptors sense CSF H+; vital capacity is maximum exhaled volume; systemic veins have higher PCO2; medulla generates respiratory rhythm."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Why are central chemoreceptors on the ventrolateral medulla sensitive to changes in arterial PCO2 but relatively insensitive to acute changes in arterial blood pH caused by systemic lactic acidosis?",
+        "options": [
+          "CO2 diffuses rapidly across the lipophilic blood-brain barrier into CSF to form H+, whereas systemic H+ ions cannot readily cross the blood-brain barrier.",
+          "Central chemoreceptors lack hydrogen ion receptor proteins on their cell membranes.",
+          "Cerebrospinal fluid contains immense concentrations of albumin that neutralize systemic lactic acid.",
+          "The medulla oblongata receives blood supply exclusively from the venous system."
+        ],
+        "answer": 0,
+        "explanation": "The tight junctions of the blood-brain barrier prevent charged hydrophilic hydrogen ions (H+) from penetrating into the brain parenchyma, whereas uncharged lipophilic CO2 diffuses across instantly and hydrates to generate local H+ in unbuffered CSF."
+      },
+      {
+        "type": "typed",
+        "prompt": "What specific ion in cerebrospinal fluid directly stimulates central chemoreceptors to accelerate ventilation?",
+        "accept": [
+          "H+",
+          "H+ ion",
+          "hydrogen ion",
+          "hydrogen ions",
+          "proton",
+          "protons"
+        ],
+        "explanation": "Hydrogen ions (H+) in the cerebrospinal fluid directly bind and stimulate central chemoreceptors on the ventrolateral medulla."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'A person hyperventilates voluntarily for 60 seconds before swimming underwater. Explain why this maneuver is hazardous, detailing the effects on arterial PCO2, CSF H+ concentration, and medullary respiratory drive.',
-        model: 'Hyperventilation excessively blows off arterial carbon dioxide, causing marked hypocapnia (PCO2 dropping below 40 mmHg). Because CO2 diffuses out of CSF, CSF H+ concentration drops (respiratory alkalosis). Central chemoreceptors in the medulla oblongata, which rely on CSF H+ for rhythmic respiratory stimulation, lose their primary chemical drive to breathe. While underwater, oxygen is continuously consumed by tissues, but the diminished PCO2 fails to trigger the urge to breathe. Consequently, arterial PO2 can plunge to critically hypoxic levels before hypercapnia triggers breathing, resulting in sudden hypoxic syncope (shallow water blackout) and drowning.',
-        rubric: ['Identifies arterial hypocapnia resulting from hyperventilation', 'Explains subsequent decline in CSF H+ and loss of central chemoreceptor respiratory drive', 'Connects delayed breathing urge to lethal hypoxic blackout'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A 64-year-old male with severe end-stage chronic obstructive pulmonary disease (COPD) and chronic hypercapnia (baseline PaCO2 58 mmHg, PaO2 52 mmHg) is admitted with pneumonia. An intern places him on 100% high-flow oxygen via a non-rebreather mask, raising his PaO2 to 140 mmHg. Over the next hour, the patient becomes progressively somnolent, bradypneic, and slips into respiratory acidosis and coma. Explain the physiological control of respiration in this patient, why central chemoreceptors failed to prevent hypoventilation, and why high-flow oxygen suppressed his breathing (hypoxic drive blunting).",
+        "model": "In chronic COPD with longstanding hypercapnia, chronic elevation of arterial PCO2 leads to renal retention of bicarbonate (HCO3-). Bicarbonate slowly crosses the blood-brain barrier into the CSF, buffering the excess H+ ions and restoring CSF pH toward normal (~7.35). As a result, central medullary chemoreceptors adapt to chronic hypercapnia and become relatively desensitized to high PCO2. In this compensated state, the patient primary ventilatory stimulus shifts to the \"hypoxic drive,\" mediated by peripheral chemoreceptors in the carotid and aortic bodies responding to arterial hypoxemia (PaO2 < 60 mmHg). When 100% high-flow oxygen is administered, arterial PaO2 surges from 52 mmHg to 140 mmHg. This abruptly eliminates peripheral chemoreceptor firing, removing the patient sole remaining respiratory drive. The patient hypoventilates, PaCO2 escalates to lethal narcotic levels (CO2 narcosis), producing respiratory coma.",
+        "rubric": [
+          "Explains how chronic hypercapnia leads to central chemoreceptor adaptation/desensitization via CSF bicarbonate buffering",
+          "Identifies that resting ventilation becomes dependent on peripheral chemoreceptor hypoxic drive (PaO2 < 60 mmHg)",
+          "Explains that administering high-flow oxygen abolishes the hypoxic drive, precipitating severe hypoventilation, CO2 narcosis, and coma"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Believing arterial H+ directly stimulates medullary chemoreceptors (H+ cannot cross the blood-brain barrier; lipophilic CO2 crosses and forms H+ in CSF).',
-      'Confusing arterial PO2 with oxygen content (anemia slashes oxygen content, but arterial PO2 remains normal).',
-      'Assuming vital capacity includes residual volume (total lung capacity includes RV; vital capacity is TV + IRV + ERV).',
+    "commonMistakes": [
+      "Assuming arterial PO2 measures total oxygen in blood, failing to understand that PO2 reflects only dissolved oxygen in plasma (~1.5%) while hemoglobin carries the rest (~98.5%).",
+      "Believing central chemoreceptors sense oxygen levels; central chemoreceptors respond strictly to H+ (derived from CO2) and are completely blind to PO2.",
+      "Assuming that systemic arterial blood contains more CO2 than venous blood, forgetting that peripheral tissues continuously produce CO2 so venous PCO2 is higher."
     ],
-    skills: [
-      'Differentiating arterial PO2 from total oxygen content in anemia, tracing central chemoreceptor activation by CSF H+ derived from blood CO2, calculating vital capacity components, and evaluating medullary rhythmicity and venous-arterial PCO2 gradients.',
+    "skills": [
+      "Distinguish arterial oxygen partial pressure (PaO2) from oxygen saturation (SaO2) and total oxygen content in clinical arterial blood gases.",
+      "Explain the negative feedback loop by which arterial PCO2 regulates pulmonary ventilation via central and peripheral chemoreceptors."
     ],
-    selfCheck: 'Define vital capacity, explain why arterial PO2 is normal in severe anemia, state where rhythmic breathing neurons reside, and name the chemical trigger that directly excites central chemoreceptors.',
-    sourceRefs: [
-      { ref: 'phys.resp.tut', location: 'p1 "define and compare the processes of external respiration and internal respiration"' },
-      { ref: 'phys.resp.tut', location: 'p1 "THREE different sources of chemoreceptor input that can influence the respiratory"' },
-      { ref: 'phys.resp.tut', location: 'p2 "Air entering the body is filtered, warmed, and humidified by the"' },
-      { ref: 'phys.resp.tut', location: 'p2 "the vital capacity."' },
-      { ref: 'phys.resp.tut', location: 'p2 "If the blood lacked red blood cells but the lungs were functioning normally,"' },
-      { ref: 'phys.resp.tut', location: 'p2 "the arterial PO2 would be normal."' },
-      { ref: 'phys.resp.tut', location: 'p2 "chemoreceptors in the medulla are directly stimulated by"' },
-      { ref: 'phys.resp.tut', location: 'p2 "H+ in cerebrospinal fluid that is derived from blood CO2."' },
-      { ref: 'phys.resp.tut', location: 'p2 "rhythmic control of breathing is produced by the activity of inspiratory and expiratory neurons"' },
-      { ref: 'phys.resp.tut', location: 'p2 "the medulla oblongata."' },
-      { ref: 'phys.resp.tut', location: 'p2 "higher in the systemic veins than in the systemic arteries."' },
+    "selfCheck": "From memory: explain why arterial PO2 would be normal in an animal with zero red blood cells, state which ion directly stimulates the medulla, and identify why systemic H+ cannot stimulate central chemoreceptors directly.",
+    "visuals": [
+      {
+        "fig": "ventilationMechanics"
+      },
+      {
+        "fig": "spirometryLungVolumes"
+      },
+      {
+        "gen": true
+      }
     ],
+    "sourceRefs": [
+      {
+        "ref": "phys.resp.tut",
+        "location": "p1 \"define and compare the processes of external respiration and internal respiration\""
+      },
+      {
+        "ref": "phys.resp.tut",
+        "location": "p1 \"THREE different sources of chemoreceptor input that can influence the respiratory\""
+      },
+      {
+        "ref": "phys.resp.tut",
+        "location": "p2 \"Air entering the body is filtered, warmed, and humidified by the\""
+      },
+      {
+        "ref": "phys.resp.tut",
+        "location": "p2 \"the vital capacity.\""
+      },
+      {
+        "ref": "phys.resp.tut",
+        "location": "p2 \"If the blood lacked red blood cells but the lungs were functioning normally,\""
+      },
+      {
+        "ref": "phys.resp.tut",
+        "location": "p2 \"the arterial PO2 would be normal.\""
+      },
+      {
+        "ref": "phys.resp.tut",
+        "location": "p2 \"chemoreceptors in the medulla are directly stimulated by\""
+      },
+      {
+        "ref": "phys.resp.tut",
+        "location": "p2 \"H+ in cerebrospinal fluid that is derived from blood CO2.\""
+      },
+      {
+        "ref": "phys.resp.tut",
+        "location": "p2 \"rhythmic control of breathing is produced by the activity of inspiratory and expiratory neurons\""
+      },
+      {
+        "ref": "phys.resp.tut",
+        "location": "p2 \"the medulla oblongata.\""
+      },
+      {
+        "ref": "phys.resp.tut",
+        "location": "p2 \"higher in the systemic veins than in the systemic arteries.\""
+      }
+    ]
   },
   {
     id: 'abct2326-renal-tubular-clearance-sympathetic',

@@ -1234,81 +1234,260 @@ export const EXPANSION_ITEMS = [
       }
     ]
   },
-  {
-    id: 'abct2326-resp-gas-transport',
-    subject: 'ABCT2326', unit: 'phys.resp', type: 'definition',
-    title: 'Gas exchange, oxygen transport and the control of respiration',
-    tags: ['respiratory', 'high-yield'],
-    priorKnowledge: {
-      level: 'dse-bio', covers: 'part', dsePart: 'elective-hp',
-      syllabusRef: { ref: 'edb.bio', location: 'Elective V(c) "Regulation of gas content in blood" — control of the rate and depth of breathing, the respiratory centre and chemoreceptors, and the effect of blood CO₂. Alveolar histology is not in the syllabus.' },
-      beyond: [
-        { t: 'Alveolar histology: simple squamous epithelium of thin type I pneumocytes where most exchange happens, type II pneumocytes (septal cells) making surfactant, alveolar macrophages as dust cells.',
-          src: { ref: 'phys.3', location: 'Slide 10 "Alveolar epithelium"' } },
-        { t: 'What surfactant is for — an oily phospholipid and protein secretion that lowers surface tension and stops the lung collapsing.',
-          src: { ref: 'phys.3', location: 'Slide 13 "Surfactant"' } },
-        { t: 'The oxygen–haemoglobin saturation curve shifted by pH (normal blood 7.35–7.45) and by temperature (normal 38 °C).',
-          src: { ref: 'phys.3', location: 'Slides 47–54 "Oxygen–hemoglobin saturation curve", "Hemoglobin and pH", "Hemoglobin and temperature"' } },
-        { t: 'Carbon dioxide carried three ways: converted to carbonic acid, bound to haemoglobin inside red cells, dissolved in plasma.',
-          src: { ref: 'phys.3', location: 'Slide 55 "Carbon dioxide gas transport"' } },
-        { t: 'The respiratory centre resolved into parts — dorsal and ventral respiratory groups in the medulla, modified by the apneustic and pneumotaxic centres of the pons.',
-          src: { ref: 'phys.3', location: 'Slides 59–64 "The respiratory centers of the brain"' } },
-        { t: 'Chemoreceptor reflexes routed by named nerves — glossopharyngeal (N IX) from the carotid bodies, vagus (N X) from the aortic bodies — with central chemoreceptors on the ventrolateral medulla reading CSF.',
-          src: { ref: 'phys.3', location: 'Slides 68–71 "Chemoreceptor reflexes"' } },
+    {
+    "id": "abct2326-resp-gas-transport",
+    "subject": "ABCT2326",
+    "unit": "phys.resp",
+    "type": "definition",
+    "title": "Gas exchange, oxygen transport and the control of respiration",
+    "tags": [
+      "respiratory",
+      "high-yield",
+      "gas-exchange",
+      "oxygen-transport",
+      "hemoglobin",
+      "chemoreceptors",
+      "bohr-effect"
+    ],
+    "priorKnowledge": {
+      "level": "dse-bio",
+      "covers": "part",
+      "dsePart": "elective-hp",
+      "syllabusRef": {
+        "ref": "edb.bio",
+        "location": "Elective V(c) \"Regulation of gas content in blood\" — oxygen and carbon dioxide transport mechanisms."
+      },
+      "beyond": [
+        {
+          "t": "Alveolar epithelium and respiratory membrane structure: Type I pneumocytes, shared basement membrane, and capillary endothelium forming a 0.5 µm barrier.",
+          "src": {
+            "ref": "phys.3",
+            "location": "p10 \"Alveolar epithelium\""
+          }
+        },
+        {
+          "t": "Surfactant coating alveolar surfaces and reducing surface tension to stabilize micro-alveoli.",
+          "src": {
+            "ref": "phys.3",
+            "location": "p13 \"Coats alveolar surfaces and reduces surface tension\""
+          }
+        },
+        {
+          "t": "Gas exchange across the respiratory membrane driven by partial pressure gradients between alveolar air and capillary blood.",
+          "src": {
+            "ref": "phys.3",
+            "location": "p40 \"Across the respiratory membrane\""
+          }
+        },
+        {
+          "t": "Partial pressures: alveolar air PO2 100 mmHg / PCO2 40 mmHg; arriving deoxygenated blood PO2 40 mmHg / PCO2 45 mmHg.",
+          "src": {
+            "ref": "phys.3",
+            "location": "p41 \"Partial pressures in alveolar air and alveolar capillaries\""
+          }
+        },
+        {
+          "t": "Oxygen transport: 98.5% bound to iron in hemoglobin heme units; only 1.5% physically dissolved in plasma.",
+          "src": {
+            "ref": "phys.3",
+            "location": "p45 \"Oxygen transport\""
+          }
+        },
+        {
+          "t": "Hemoglobin saturation curve is sigmoidal due to positive cooperativity; flat plateau above 60 mmHg ensures arterial loading, steep slope facilitates tissue unloading.",
+          "src": {
+            "ref": "phys.3",
+            "location": "p47 \"Oxygen–hemoglobin saturation curve\""
+          }
+        },
+        {
+          "t": "Bohr effect: decreased pH (increased H+) and elevated PCO2 shift the saturation curve to the right, promoting O2 release in metabolically active tissues.",
+          "src": {
+            "ref": "phys.3",
+            "location": "p50 \"Bohr effect\""
+          }
+        },
+        {
+          "t": "Carbon dioxide transport: 70% as bicarbonate (HCO3-), 23% as carbaminohemoglobin, 7% dissolved in plasma.",
+          "src": {
+            "ref": "phys.3",
+            "location": "p56 \"70 percent is transported as carbonic acid\""
+          }
+        },
+        {
+          "t": "Chemoreceptor reflexes in carotid bodies, aortic bodies, and medulla oblongata modulating respiratory center output.",
+          "src": {
+            "ref": "phys.3",
+            "location": "p68 \"Chemoreceptor reflexes\""
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "explanation": "Gas exchange between atmospheric air and metabolizing tissues relies on the principles of partial pressure gradients, specialized molecular transport proteins, and precise neurochemical feedback loops. External respiration occurs across the ultrathin respiratory membrane (~0.5 µm thickness) separating alveolar gas from pulmonary capillary blood. The rate of diffusion across this membrane is governed by Fick's Law of diffusion: it is directly proportional to the surface area of the membrane (~70–100 m² across 300 million alveoli) and the partial pressure gradient of the diffusing gas, and inversely proportional to membrane thickness. In ambient alveolar air, the partial pressure of oxygen (PO2) is approximately 100 mmHg and the partial pressure of carbon dioxide (PCO2) is 40 mmHg. Deoxygenated blood arriving at the pulmonary capillaries via pulmonary arteries has a low PO2 of 40 mmHg and an elevated PCO2 of 45 mmHg. Because of the steep 60 mmHg oxygen gradient (100 mmHg vs 40 mmHg), oxygen rapidly diffuses across the blood-air barrier into capillary blood, reaching equilibrium in less than 0.25 seconds (a third of the erythrocyte's ~0.75-second capillary transit time at rest). Conversely, carbon dioxide diffuses from blood into alveoli down a 5 mmHg gradient (45 mmHg vs 40 mmHg); despite this smaller pressure gradient, CO2 equilibrates with equal speed because its solubility in water and lipid membranes is roughly 20 times higher than that of oxygen. In circulating blood, oxygen is transported in two forms: a negligible 1.5% is physically dissolved in plasma solution (~0.3 mL O2/100 mL blood), while the remaining 98.5% is carried chemically bound to hemoglobin (Hb) inside erythrocytes. Each tetrameric hemoglobin molecule contains four globular polypeptide subunits, each bearing an iron-containing heme moiety capable of reversibly binding one O2 molecule (Hb + 4 O2 ⇌ Hb(O2)4). Hemoglobin demonstrates positive allosteric cooperativity: binding of the first oxygen molecule alters the quaternary conformation of the hemoglobin tetramer from a low-affinity 'tense' (T) state to a high-affinity 'relaxed' (R) state, significantly increasing the affinity of the remaining heme sites for subsequent O2 molecules. This cooperativity imparts a characteristic sigmoidal (S-shaped) geometry to the oxygen-hemoglobin dissociation curve. The curve features an upper plateau between 60 and 100 mmHg: in this range, hemoglobin remains 90%–98% saturated, providing a robust physiological safety margin ensuring excellent arterial oxygenation even at high altitudes or with mild pulmonary disease. Between 20 and 40 mmHg, the curve becomes exceptionally steep: in resting systemic capillary beds where tissue PO2 is ~40 mmHg, hemoglobin saturation drops to ~75%, unloading ~22%–25% of its bound oxygen while preserving a large venous oxygen reserve. In intensely exercising muscle, where PO2 drops to 15–20 mmHg, the steep slope triggers the immediate unloading of an additional 50%–60% of bound oxygen. The position of the saturation curve is dynamically modulated by local tissue conditions. Under the Bohr effect, elevated PCO2 and increased hydrogen ion concentration (decreased pH), as well as elevated temperature and increased 2,3-bisphosphoglycerate (2,3-BPG), alter hemoglobin conformation to shift the curve to the right; a rightward shift decreases hemoglobin's affinity for oxygen, promoting greater oxygen unloading at any given PO2. Conversely, in cold, alkalotic, or hypocapnic pulmonary capillaries, the curve shifts to the left, enhancing oxygen uptake. Carbon dioxide is transported simultaneously via three distinct routes: 7% dissolved in plasma, 23% bound to amino terminals of hemoglobin as carbaminohemoglobin, and 70% converted into bicarbonate ions (HCO3-) by erythrocyte carbonic anhydrase. Ventilation rate and depth are continually adjusted by respiratory centers in the medulla oblongata (DRG and VRG) and pons, integrating inputs from central medullary chemoreceptors (sensing CSF [H+] from arterial PCO2) and peripheral carotid and aortic chemoreceptors (sensing arterial PO2 < 60 mmHg, PCO2, and pH) to maintain arterial blood gas homeostasis.",
+      "plain": "Gas exchange in the lungs happens across the tiny blood-air barrier (~0.5 µm thick) between alveolar air and red blood cells. Oxygen moves from alveoli (PO2 100 mmHg) into blood (PO2 40 mmHg) down a steep gradient, while CO2 moves the other way (45 mmHg in blood down to 40 mmHg in alveoli). Over 98.5% of oxygen in blood is carried by hemoglobin inside red blood cells; only 1.5% is dissolved in plasma. Because hemoglobin binding is cooperative (each oxygen that binds makes the next bind easier), the oxygen-hemoglobin curve is S-shaped. The top is flat (so blood easily saturates to 98% in lungs), while the middle is steep (so tissues can easily pull oxygen off when active). Under the Bohr effect, active muscles produce acid, CO2, and heat, shifting the curve to the right so hemoglobin releases even more oxygen right where it is needed. CO2 is carried mostly as bicarbonate (70%), bound to hemoglobin (23%), and dissolved in plasma (7%). Medullary and peripheral chemoreceptors monitor CO2, pH, and oxygen to adjust your breathing rhythm.",
+      "keyFacts": [
+        "External respiration occurs across an ultrathin 0.5 µm respiratory membrane providing 70–100 m² of surface area.",
+        "Alveolar PO2 is ~100 mmHg and PCO2 is ~40 mmHg; arriving deoxygenated blood has PO2 of ~40 mmHg and PCO2 of ~45 mmHg.",
+        "CO2 is ~20 times more soluble in water than O2, allowing rapid equilibration despite a small 5 mmHg pressure gradient.",
+        "Over 98.5% of blood oxygen is bound to hemoglobin (Hb); only 1.5% is physically dissolved in plasma.",
+        "Hemoglobin displays positive cooperativity, creating a sigmoidal oxygen-hemoglobin saturation curve.",
+        "The flat plateau of the curve (PO2 > 60 mmHg) ensures high arterial loading (>90% saturation).",
+        "The steep slope (PO2 20–40 mmHg) facilitates large oxygen releases in active peripheral tissues.",
+        "The Bohr effect: increased PCO2, decreased pH, and elevated temperature shift the curve rightward to enhance oxygen unloading.",
+        "CO2 is transported 70% as bicarbonate (HCO3-), 23% as carbaminohemoglobin, and 7% dissolved in plasma.",
+        "Central and peripheral chemoreceptor reflexes continually modulate brainstem respiratory centers to maintain gas homeostasis."
       ],
+      "prerequisites": [],
+      "examples": [
+        "In vigorously exercising skeletal muscle, local lactic acid accumulation drops tissue pH to 7.2, PCO2 rises to 60 mmHg, and temperature climbs to 39°C. These metabolic changes trigger a profound rightward shift of the oxygen-hemoglobin curve (Bohr effect), increasing oxygen unloading from 25% to over 75% to power working muscle fibers.",
+        "At high altitude (such as 3,000 meters above sea level), barometric pressure drops, reducing alveolar PO2 to ~60 mmHg. Because this value still sits on the flat plateau of the sigmoidal oxygen-hemoglobin curve, arterial hemoglobin remains approximately 90% saturated, preventing immediate hypoxemic collapse."
+      ]
     },
-    lesson: {
-      explanation: 'Gas exchange happens across the alveolar epithelium, which is simple squamous epithelium made of thin type I pneumocytes patrolled by alveolar macrophages, or dust cells, alongside type II pneumocytes that produce surfactant. The majority of gas exchange occurs across the type I pneumocytes, and a single capillary may exchange with several alveoli at once. Gases move down partial-pressure gradients between alveolar air and the alveolar capillaries. Oxygen binds to the iron ions in haemoglobin molecules to form oxyhaemoglobin; haemoglobin saturation is the percentage of heme units carrying bound oxygen, and the oxygen–haemoglobin saturation curve relates that saturation to the partial pressure of oxygen. Respiration is controlled by respiratory centres whose ventral and dorsal respiratory groups establish the basic pace and depth, modified by the pneumotaxic centre. Reflex input comes from chemoreceptors sensitive to PCO₂, PO₂ or pH of blood or cerebrospinal fluid; baroreceptors in the aortic or carotid sinuses sensitive to blood pressure; stretch receptors responding to lung volume; and irritant, pain, temperature and visceral sensations. Peripheral chemoreceptor input arrives by the glossopharyngeal nerve from the carotid bodies and the vagus nerve from the aortic bodies, while central chemoreceptors on the ventrolateral surface of the medulla oblongata respond to the PCO₂ and pH of cerebrospinal fluid. Chemoreceptor stimulation increases the depth and rate of respiration, and is subject to adaptation — sensitivity falls under chronic stimulation.',
-      plain: 'Gas exchange happens across the very thin walls of the alveoli (the air sacs), where oxygen binds to iron in haemoglobin to make oxyhaemoglobin; how much oxygen is carried depends on its partial pressure — that relationship is the saturation curve. Breathing itself is set by respiratory centres in the brain and tuned by reflex inputs: chemoreceptors that sense carbon dioxide, oxygen or pH, baroreceptors that sense blood pressure, stretch receptors that sense lung volume, and others.',
-      keyFacts: [
-        'Type I pneumocytes — thin, where the majority of gas exchange occurs. Type II pneumocytes — produce surfactant. Alveolar macrophages — dust cells.',
-        'Oxygen binds the iron ions of haemoglobin to form oxyhaemoglobin.',
-        'Haemoglobin saturation = the percentage of heme units carrying bound oxygen.',
-        'Respiratory centres: ventral and dorsal respiratory groups set pace and depth; the pneumotaxic centre modifies the pace.',
-        'Chemoreceptors respond to PCO₂, PO₂ or pH of blood or CSF.',
-        'Glossopharyngeal nerve (CN IX) from the carotid bodies; vagus nerve (CN X) from the aortic bodies.',
-        'Central chemoreceptors sit on the ventrolateral surface of the medulla oblongata and monitor CSF.',
-        'Chemoreceptor stimulation raises depth and rate, and adapts under chronic stimulation.',
-      ],
-      prerequisites: ['abct2326-resp-pathway'],
-      examples: [],
+    "memory": {
+      "chunking": "Gas Transport Triplets: Oxygen (98.5% Hb, 1.5% Dissolved) → CO2 (70% HCO3-, 23% Carbamino, 7% Dissolved) → Bohr Effect Shift (Right = Release O2 with ↑CO2, ↑Acid/H+, ↑Temp, ↑2,3-BPG: CADET, face right!).",
+      "comparison": "Plateau vs Steep Slope of Curve: Plateau (60-100 mmHg) is for pulmonary LOADING (safety margin); Steep slope (20-40 mmHg) is for tissue UNLOADING (maximum efficiency).",
+      "visualCue": "CADET, face Right: CO2, Acid (H+), 2,3-DPG/BPG, Exercise, Temperature all shift the curve to the RIGHT, releasing oxygen to the tissues.",
+      "teachBack": "Sketch the sigmoidal oxygen-hemoglobin curve, identify the plateau and steep slope regions, and explain how the Bohr effect benefits working skeletal muscle."
     },
-    memory: {
-      comparison: 'Type I is thin so gas crosses it; type II is secretory so it makes surfactant. One roman numeral, one job: I for interchange, II for the substance.',
-      location: 'Two peripheral sensing sites, two nerves, and each nerve serves the body part it is named near: glossopharyngeal from the carotid bodies in the neck, vagus from the aortic bodies in the chest.',
-      chunking: 'Control has three layers: a rhythm generator (VRG/DRG), a modifier (pneumotaxic centre), and sensors feeding back (chemo-, baro-, stretch).',
-      wordOrigin: 'Oxyhaemoglobin is simply oxygen + haem + globin — the carrier named after what it is carrying.',
-    },
-    practice: [
-      { type: 'mcq', prompt: 'Across which cell type does the majority of gas exchange occur?', options: ['Type II pneumocytes', 'Alveolar macrophages', 'Type I pneumocytes', 'Goblet cells'], answer: 2,
-        explanation: 'Type I pneumocytes are the thin, delicate cells of the alveolar epithelium and the majority of gas exchange occurs across them. Type II pneumocytes make surfactant.' },
-      { type: 'typed', prompt: 'Oxygen binds to which part of the haemoglobin molecule?', accept: ['iron ions', 'iron', 'the iron ions', 'heme iron'],
-        explanation: 'The iron ions in haemoglobin. The result is called oxyhaemoglobin.' },
-      { type: 'matching', prompt: 'Match each receptor site to the nerve carrying its input.',
-        pairs: [['Carotid bodies', 'Glossopharyngeal nerve (CN IX)'], ['Aortic bodies', 'Vagus nerve (CN X)'], ['Cerebrospinal fluid', 'Central chemoreceptors on the medulla oblongata'], ['Aortic and carotid sinuses', 'Baroreceptors sensitive to blood pressure']],
-        explanation: 'These are the chemoreceptor and baroreceptor routes given in the control-of-respiration slides.' },
-      { type: 'cloze', prompt: 'Haemoglobin ______ is the percentage of heme units in a haemoglobin molecule that contain bound oxygen.', accept: ['saturation'],
-        explanation: 'Saturation. The oxygen–haemoglobin saturation curve plots it against the partial pressure of oxygen.' },
-      { type: 'explain', prompt: 'What does it mean that chemoreceptor stimulation "is subject to adaptation"?',
-        model: 'Sensitivity falls under chronic stimulation. A chemoreceptor that is being stimulated continuously stops driving the same increase in depth and rate that the same signal would produce acutely, so a long-standing abnormality provokes less of a response than a sudden one.',
-        rubric: ['States sensitivity decreases with chronic stimulation', 'Contrasts acute with chronic response'] },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each transport route of respiratory gases with its approximate percentage contribution in blood.",
+        "pairs": [
+          [
+            "Bicarbonate ion (HCO3-) in plasma",
+            "70% of total carbon dioxide transport"
+          ],
+          [
+            "Carbaminohemoglobin",
+            "23% of total carbon dioxide transport"
+          ],
+          [
+            "Oxyhemoglobin in erythrocytes",
+            "98.5% of total oxygen transport"
+          ],
+          [
+            "Dissolved in physical solution in plasma",
+            "1.5% of oxygen and 7% of carbon dioxide transport"
+          ]
+        ],
+        "explanation": "Bicarbonate accounts for 70% of CO2; carbaminohemoglobin accounts for 23%; hemoglobin carries 98.5% of O2; dissolved gases make up 1.5% of O2 and 7% of CO2."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which physiological change will shift the oxygen-hemoglobin dissociation curve to the RIGHT, thereby facilitating oxygen unloading in peripheral tissues?",
+        "options": [
+          "A decrease in blood pH (increased hydrogen ion concentration / acidosis)",
+          "A decrease in tissue temperature (hypothermia)",
+          "A decrease in arterial partial pressure of carbon dioxide (hypocapnia)",
+          "A decrease in erythrocyte 2,3-bisphosphoglycerate (2,3-BPG)"
+        ],
+        "answer": 0,
+        "explanation": "According to the Bohr effect, an increase in H+ ions (lower pH), elevated PCO2, increased temperature, or higher 2,3-BPG decreases hemoglobin’s affinity for oxygen, shifting the curve to the right."
+      },
+      {
+        "type": "typed",
+        "prompt": "What percentage of total carbon dioxide transported in the blood is converted into bicarbonate ions (HCO3-)?",
+        "accept": [
+          "70%",
+          "70 percent",
+          "70",
+          "about 70%"
+        ],
+        "explanation": "Approximately 70% of carbon dioxide is hydrated by carbonic anhydrase into carbonic acid and transported as bicarbonate ions in plasma."
+      },
+      {
+        "type": "sequence",
+        "prompt": "Order the physiological events occurring in an erythrocyte within a systemic tissue capillary as it delivers oxygen and collects CO2.",
+        "items": [
+          "Tissue CO2 diffuses across capillary endothelium into the erythrocyte",
+          "Carbonic anhydrase converts CO2 and H2O into H2CO3, which dissociates into H+ and HCO3-",
+          "Hydrogen ions (H+) bind to hemoglobin, triggering the Bohr effect to release O2 to the tissue",
+          "Bicarbonate (HCO3-) exits the erythrocyte into plasma in exchange for chloride (chloride shift)"
+        ],
+        "explanation": "CO2 diffuses in, is converted to H+ and bicarbonate, H+ promotes oxygen unloading via the Bohr effect, and bicarbonate leaves via the chloride shift."
+      }
     ],
-    application: [
-      { type: 'scenario', prompt: 'Your respiratory rate rises sharply during exercise. Name two different receptor types from this lecture that could be contributing, and say what each is responding to.',
-        model: 'Chemoreceptors responding to rising PCO₂, falling PO₂ or falling pH in blood or cerebrospinal fluid; and stretch receptors responding to the changes in lung volume as breathing deepens. Baroreceptors in the aortic and carotid sinuses could also contribute, since they respond to the blood-pressure changes exercise produces.',
-        rubric: ['Names at least two receptor types from the lecture list', 'States correctly what each responds to'] },
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A 28-year-old mountaineer rapidly ascends to an altitude where atmospheric pressure drops by 35%, lowering inspired PO2. Over the first 48 hours at base camp, her ventilation increases. Arterial blood gases demonstrate PaO2 54 mmHg, PaCO2 28 mmHg, and arterial pH 7.50 (respiratory alkalosis). Erythrocyte analysis shows an adaptive increase in 2,3-bisphosphoglycerate (2,3-BPG). Analyze how respiratory alkalosis initially alters oxygen affinity in the lungs, and explain the adaptive physiological role of increased 2,3-BPG in tissue oxygen delivery.",
+        "model": "At high altitude, acute hypoxemia stimulates peripheral chemoreceptors to drive hyperventilation. Hyperventilation excessively blows off carbon dioxide, causing acute respiratory alkalosis (PaCO2 28 mmHg, pH 7.50). In the pulmonary capillaries, alkalosis and hypocapnia shift the oxygen-hemoglobin dissociation curve to the left (Bohr effect in reverse). A leftward shift increases hemoglobin affinity for oxygen, which is beneficial in the hypoxic lung because it allows hemoglobin to achieve higher saturation despite reduced alveolar PO2 (54 mmHg). However, an uncompensated leftward shift would impair oxygen release in systemic tissues. To counterbalance this, erythrocytes adapt over 24–48 hours by upregulating glycolysis and producing elevated levels of 2,3-bisphosphoglycerate (2,3-BPG). 2,3-BPG binds specifically to the central cavity of deoxygenated hemoglobin, stabilizing the tense (T) state and shifting the dissociation curve back to the right. This rightward shift restores and enhances oxygen unloading to hypoxic peripheral tissues.",
+        "rubric": [
+          "Explains that hyperventilation causes hypocapnia and respiratory alkalosis, shifting the curve to the left and aiding pulmonary loading",
+          "Explains that an uncompensated left shift would excessively impair peripheral tissue oxygen unloading",
+          "Describes how erythrocyte 2,3-BPG elevation shifts the curve back to the right, facilitating vital oxygen delivery to systemic tissues"
+        ]
+      }
     ],
-    commonMistakes: [
-      'Attributing surfactant production to type I pneumocytes — that is type II.',
-      'Assuming central chemoreceptors sense blood; they monitor cerebrospinal fluid.',
+    "commonMistakes": [
+      "Confusing the effect of pH on the curve: higher pH (alkalosis) shifts the curve left (tighter binding), whereas lower pH (acidosis) shifts the curve right (easier release).",
+      "Assuming that because the CO2 pressure gradient (5 mmHg) is much smaller than the O2 gradient (60 mmHg), CO2 diffuses much more slowly; CO2 diffuses equally fast because of its 20-fold higher solubility.",
+      "Thinking bicarbonate is formed in plasma, forgetting that carbonic anhydrase is located inside red blood cells, so CO2 must enter the erythrocyte before bicarbonate is produced and shifted into plasma."
     ],
-    skills: [
-      'The roman numerals are job descriptions, not a numbering: type I is the thin wall that interchange crosses, type II is the secretory cell that makes surfactant — attributing surfactant to type I is the named mistake — and the dust cells (alveolar macrophages) are the third resident of the alveolus, carrying no numeral at all.',
-      '"Chemoreceptor" splits on which fluid is read: the peripheral carotid bodies (via the glossopharyngeal nerve, CN IX) and aortic bodies (via the vagus, CN X) sample blood, while the central chemoreceptors on the ventrolateral medulla monitor cerebrospinal fluid — assuming the central ones read blood is the named mistake.',
-      'Control is layered, and the layers do different jobs: the ventral and dorsal respiratory groups generate rhythm and depth, the pneumotaxic centre modifies pace, and the sensors — chemo-, baro-, stretch — feed back. The sensors themselves adapt: chronic stimulation lowers sensitivity, so a long-standing abnormality provokes less response than a sudden one.',
+    "skills": [
+      "Interpret oxygen-hemoglobin dissociation curves, predicting the physiological effect of alterations in pH, PCO2, temperature, and 2,3-BPG.",
+      "Trace the chemical equations of the carbonic anhydrase system and explain the erythrocyte chloride shift during systemic gas exchange."
     ],
-    selfCheck: 'From a blank page: the three alveolar cell types with their jobs, both chemoreceptor-to-nerve pairs plus the central route, and the exercise scenario naming two receptor types with what each responds to.',
-    sourceRefs: [{ ref: 'phys.3', location: 'Slides 10–12 alveolar epithelium; 66–74 control of respiration, respiratory and chemoreceptor reflexes, homeostasis of arterial PCO₂; partial pressure and oxygen–haemoglobin saturation slides' }],
+    "selfCheck": "From memory: state the percentages of O2 and CO2 transported by each method, define the Bohr effect, and recite the mnemonic CADET face Right.",
+    "visuals": [
+      {
+        "fig": "oxyhemoglobinCurve"
+      },
+      {
+        "fig": "alveolarMicroarchitecture"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "phys.3",
+        "location": "p10 \"Alveolar epithelium\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p13 \"Coats alveolar surfaces and reduces surface tension\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p40 \"Across the respiratory membrane\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p41 \"Partial pressures in alveolar air and alveolar capillaries\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p45 \"Oxygen transport\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p46 \"Hemoglobin saturation\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p47 \"Oxygen–hemoglobin saturation curve\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p50 \"Bohr effect\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p55 \"Carbon dioxide gas transport\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p56 \"70 percent is transported as carbonic acid\""
+      },
+      {
+        "ref": "phys.3",
+        "location": "p68 \"Chemoreceptor reflexes\""
+      }
+    ]
   },
   {
     id: 'abct2326-immune-adaptive',
