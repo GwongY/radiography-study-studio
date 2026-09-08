@@ -1132,79 +1132,243 @@ export const PHYS_ITEMS = [
     ]
   },
   {
-    id: 'abct2326-renal-nephron',
-    subject: 'ABCT2326', unit: 'phys.renal', type: 'sequence',
-    title: 'Nephron tubule and the urine pathway',
-    tags: ['renal', 'high-yield'],
-    priorKnowledge: {
-      level: 'dse-bio', covers: 'part', dsePart: 'elective-hp',
-      syllabusRef: { ref: 'edb.bio', location: 'Elective V(a) "Regulation of water content (osmoregulation)" — general plan of the urinary system, nephron structure and function, ultrafiltration, reabsorption and ADH. Not in the compulsory part at all.' },
-      beyond: [
-        { t: 'The kidney’s internal architecture: cortex holding capillaries and outer nephrons, medulla of renal pyramids separated by renal columns, minor calyces uniting into a major calyx.',
-          src: { ref: 'phys.5', location: 'Slide 5 "Structure of Kidney"' } },
-        { t: 'The vascular route running alongside the tubular one — interlobular artery → afferent arteriole → glomerulus → efferent arteriole → peritubular capillaries (vasa recta) → interlobular vein.',
-          src: { ref: 'phys.5', location: 'Slide 9 "Renal Blood Vessels"' } },
-        { t: 'GFR as a figure: 115 ml/min in women, 125 ml/min in men, about 180 L a day, so most filtered water must be reabsorbed.',
-          src: { ref: 'phys.5', location: 'Slide 17 "Glomerular Filtration Rate (GFR)"' } },
-        { t: 'The countercurrent multiplier: salt pumping in the thick ascending limb builds medullary osmolality until it settles at 1400.',
-          src: { ref: 'phys.5', location: 'Slide 27 "Countercurrent Multiplier System"' } },
-        { t: 'The renin–angiotensin–aldosterone system, with ACE doing the angiotensin I → II conversion in the lungs.',
-          src: { ref: 'phys.5', location: 'Slide 40 "Renin-Angiotensin-Aldosterone System"' } },
-      ],
+  "id": "abct2326-renal-nephron",
+  "subject": "ABCT2326",
+  "unit": "phys.renal",
+  "type": "sequence",
+  "title": "Gross renal architecture, nephron tubule sequence, and urine pathway",
+  "tags": [
+    "renal",
+    "high-yield",
+    "pathway",
+    "nephron",
+    "microvasculature",
+    "histology"
+  ],
+  "priorKnowledge": {
+    "level": "dse-bio",
+    "covers": "part",
+    "dsePart": "elective-hp",
+    "syllabusRef": {
+      "ref": "edb.bio",
+      "location": "Elective V(a) \"Regulation of water content (osmoregulation)\" — general plan of the urinary system, nephron structure and function, ultrafiltration, reabsorption and ADH."
     },
-    lesson: {
-      explanation: 'The nephron is the functional unit of the kidney, responsible for forming urine, with more than one million per kidney. The tubular part begins with the glomerular capsule, transitions into the proximal convoluted tubule, then the descending and ascending limbs of the loop of Henle, then the distal convoluted tubule, and ends where it empties into a collecting duct. The glomerular capsule surrounds the glomerulus and together they form the renal corpuscle, where glomerular filtration occurs. Beyond the nephron, urine flows from the kidneys into the ureters, which empty into the bladder, and the urethra drains urine from the bladder. Inside the kidney, the cortex contains many capillaries and the outer parts of nephrons, the medulla consists of renal pyramids separated by renal columns, and a pyramid contains minor calyces which unite to form a major calyx.',
-      plain: 'The nephron is the kidney’s work unit — more than a million per kidney — and it makes urine. Follow the fluid through it: glomerular capsule, proximal tubule, down and up the loop of Henle, distal tubule, then out into a collecting duct. The capsule plus the glomerulus is the renal corpuscle, where filtration happens. Beyond the nephron, urine travels ureters → bladder → urethra.',
-      keyFacts: [
-        'Nephron = functional unit of the kidney; >1 million per kidney.',
-        'Tubule order: glomerular capsule → proximal convoluted tubule → descending limb → ascending limb → distal convoluted tubule → collecting duct.',
-        'Renal corpuscle = glomerulus + glomerular (Bowman’s) capsule; the site of glomerular filtration.',
-        'Gross path: kidney → ureter → bladder → urethra.',
-        'Cortex holds capillaries and outer nephron parts; medulla holds renal pyramids separated by renal columns.',
-        'Minor calyces unite to form a major calyx.',
-        'GFR averages 115 ml/min in women and 125 ml/min in men — about 180 L/day, of which only 1–2 L is excreted.',
-        'The bladder wall smooth muscle is the detrusor muscle.',
-      ],
-      prerequisites: ['abct2326-homeostasis'],
-      examples: [],
-    },
-    memory: {
-      sequence: 'Capsule, proximal, down, up, distal, collect. Six stops — say them as a rhythm rather than a list.',
-      chunking: 'Two journeys, not one. The tubule journey is inside the nephron; the drainage journey is calyx → pelvis → ureter → bladder → urethra. Questions usually want one or the other, rarely both.',
-      wordOrigin: 'Calyx is Greek for the cup of a flower — cup-shaped drains catching urine from the papilla.',
-      visualCue: '180 litres filtered, 1–2 litres out. Picture ninety two-litre bottles going in and one coming out; that is why reabsorption is most of what the tubule does.',
-    },
-    practice: [
-      { type: 'sequence', prompt: 'Order the nephron tubule from the filtration site to the collecting duct.',
-        items: ['Glomerular (Bowman’s) capsule', 'Proximal convoluted tubule', 'Descending limb of the loop of Henle', 'Ascending limb of the loop of Henle', 'Distal convoluted tubule', 'Collecting duct'],
-        explanation: 'This is the order given on the "Nephron Tubules" slide.' },
-      { type: 'sequence', prompt: 'Order the urine drainage pathway out of the body.', items: ['Kidney', 'Ureter', 'Urinary bladder', 'Urethra'],
-        explanation: 'Urine flows from the kidneys into the ureters, which empty into the bladder; the urethra drains urine from the bladder.' },
-      { type: 'typed', prompt: 'What is the functional unit of the kidney?', accept: ['nephron', 'the nephron'],
-        explanation: 'The nephron — responsible for forming urine, with more than a million per kidney.' },
-      { type: 'cloze', prompt: 'The glomerulus and the glomerular capsule together form the ______.', accept: ['renal corpuscle'],
-        explanation: 'The renal corpuscle, where glomerular filtration occurs.' },
-      { type: 'cloze', prompt: 'The powerful muscle in the muscularis layer of the bladder wall is called the ______.', accept: ['detrusor', 'detrusor muscle'],
-        explanation: 'Model answer: detrusor.',
-        src: { ref: 'hss.revans', location: 'HSS2011 Module 3.2, Fill-in-blanks 2' } },
-    ],
-    application: [
-      { type: 'scenario', prompt: 'About 180 L of filtrate is produced per day but only 1–2 L of urine is excreted. What does that ratio tell you about the main job of the tubule?',
-        model: 'Almost all of the filtered water and solute has to be reabsorbed, so the tubule’s dominant job is reabsorption rather than filtration. The lecture makes the same point directly: most filtered water must be reabsorbed or death would follow from water lost through urination.',
-        rubric: ['Calculates or states that nearly all filtrate is reabsorbed', 'Names reabsorption as the dominant tubular function'] },
-    ],
-    commonMistakes: [
-      'Putting the distal convoluted tubule before the loop of Henle.',
-      'Treating the glomerulus alone as the renal corpuscle — the corpuscle is glomerulus plus capsule.',
-    ],
-    skills: [
-      'The renal corpuscle is glomerulus plus capsule — the capsule is half the name and half the structure. Filing "glomerulus = renal corpuscle" loses the compartment that actually catches the filtrate, and that is the exact wording of the common-mistake entry.',
-      '180 litres filtered per day, 1–2 litres excreted: the ratio is itself the argument that the tubule\'s dominant job is reabsorption, not filtration. Filtration is the cheap part; keeping the water is the work.',
-      'The kidney runs two journeys that questions ask separately: the tubule journey (capsule → proximal → loop → distal → collecting duct) and the drainage journey (calyx → pelvis → ureter → bladder → urethra). Mixing the two lists — a distal tubule appearing in a drainage answer — is the classic slip.',
-    ],
-    selfCheck: 'Write the tubule order and the drainage path side by side from memory; the classic slip is the distal tubule before the loop of Henle — check yours against the key facts.',
-    sourceRefs: [{ ref: 'phys.5', location: 'Slides 4–17 structure of the urinary system, kidney, nephron, nephron tubules, glomerular filtration, GFR' }, { ref: 'hss.3.2', location: 'p6 "4-5 minor calyces are merged to form a" major calyx, and 2–3 major calyces combine to form the renal pelvis' }, { ref: 'hss.revans', location: 'HSS2011 Module 3.2 answers' }],
+    "beyond": [
+      {
+        "t": "Kidney function regulates plasma and interstitial fluid through urine formation: volume, waste excretion, and electrolytes.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p2 \"Is to regulate plasma and interstitial fluid by formation of\""
+        }
+      },
+      {
+        "t": "Gross structure of the urinary system: paired kidneys on either side of vertebral column.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p4 \"Paired kidneys are on either side of vertebral\""
+        }
+      },
+      {
+        "t": "Renal cortex contains many capillaries and outer parts of nephrons; renal medulla contains renal pyramids.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p5 \"contains many capillaries and outer parts of neph\""
+        }
+      },
+      {
+        "t": "The nephron is the functional unit of the kidney, with more than 1 million per kidney.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p8 \"Is functional unit of kidney; responsible for forming urine\""
+        }
+      },
+      {
+        "t": "Renal blood vessels: interlobular arteries give rise to afferent arterioles, glomeruli, and efferent arterioles.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p9 \"Interlobular arteries give rise to\""
+        }
+      },
+      {
+        "t": "Nephron tubules begin with the glomerular capsule, transitioning into the proximal convoluted tubule and loop.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p10 \"Tubular part of nephron begins with\""
+        }
+      },
+      {
+        "t": "Glomerular capsule surrounds the glomerulus; together they form the renal corpuscle.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p11 \"Together they form\""
+        }
+      },
+      {
+        "t": "Proximal convoluted tubule walls consist of a single layer of cuboidal cells with dense microvilli.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p12 \"Walls consist of single layer of cuboidal cells with\""
+        }
+      }
+    ]
   },
+  "lesson": {
+    "explanation": "The primary physiological function of the human kidneys is the homeostatic regulation of blood plasma and interstitial fluid through the continuous formation of urine. Through precise tubular filtration, reabsorption, and secretion, the kidneys tightly regulate total extracellular fluid volume, systemic arterial blood pressure, plasma osmolarity, electrolyte concentrations (notably Na+, K+, Ca2+, and HCO3-), plasma pH, and the clearance of nitrogenous metabolic end-products (urea, uric acid, and creatinine). Anatomically, the paired kidneys are bean-shaped retroperitoneal organs positioned on either side of the vertebral column between levels T12 and L3, capped superiorly by the adrenal glands. A coronal cross-section reveals two primary functional parenchymal regions: (1) an outer, reddish-brown granular renal cortex containing abundant capillary beds, all renal corpuscles, and the proximal and distal convoluted tubules; and (2) an inner, darker renal medulla organized into 6 to 18 conical, radially striated renal pyramids separated by extensions of cortical tissue termed renal columns (columns of Bertin). The apex of each renal pyramid forms a renal papilla that projects into a minor calyx. Four to five minor calyces merge to form a major calyx, and two to three major calyces unite to form the funnel-shaped renal pelvis, which exits the renal hilum to continue as the muscular ureter. Urine propelled down the ureters by peristaltic smooth muscle contractions collects in the urinary bladder, a hollow, distensible pelvic storage organ whose thick wall features specialized smooth muscle called the detrusor muscle, before being discharged through the urethra. The functional and structural work unit of the kidney is the nephron, with over 1,000,000 nephrons densely packed within each kidney. Each nephron consists of two major structural components: a vascular component (the glomerulus and associated microvasculature) and an epithelial tubular component. The tubular pathway begins at the renal corpuscle, situated within the renal cortex. The renal corpuscle comprises the glomerulus (a high-pressure tuft of fenestrated capillaries) enclosed within a double-walled cup termed the glomerular (Bowman's) capsule. The outer parietal layer of Bowman's capsule is simple squamous epithelium, while the inner visceral layer consists of specialized, interdigitating epithelial cells called podocytes that envelop the glomerular capillaries. As primary ultrafiltrate is forced across the filtration barrier into the capsular space, it flows into the proximal convoluted tubule (PCT). The PCT is lined by a single layer of simple cuboidal epithelial cells packed with mitochondria and featuring an exceptionally dense apical microvillar brush border that expands absorptive surface area. From the PCT, fluid enters the loop of Henle (nephron loop), which dips from the cortex into the medulla: the thin descending limb (highly permeable to water, impermeable to solutes) connects via a hairpin turn to the ascending limb, which transitions from a thin lower segment into a thick ascending limb (dominated by cuboidal cells actively transporting NaCl and completely impermeable to water). Emerging back into the cortex, the thick ascending limb transitions into the distal convoluted tubule (DCT), which passes in close proximity to its parent glomerulus to form the juxtaglomerular complex. The DCT conducts tubular fluid into the collecting duct system, where multiple nephrons empty into a shared cortical collecting duct that descends through the medullary pyramid as a papillary duct (duct of Bellini), delivering mature urine through the cribriform area of the renal papilla into a minor calyx. Running parallel to this tubular tree is a specialized portal-like microvascular network: renal artery → segmental arteries → interlobar arteries (ascending within renal columns) → arcuate arteries (arching over pyramid bases at the corticomedullary junction) → interlobular (cortical radiate) arteries → afferent arterioles → glomerular capillary tufts → efferent arterioles → peritubular capillaries (intertwining around cortical tubules) and hairpin vasa recta (paralleling medullary loops of Henle) → interlobular veins → arcuate veins → interlobar veins → renal vein.",
+    "plain": "The kidneys regulate blood volume, pressure, and chemistry by filtering blood to make urine. Paired kidneys sit behind the abdominal lining on either side of the spine. Inside, the kidney has an outer cortex and an inner medulla made of triangular renal pyramids. Urine made in each pyramid drips from its tip (papilla) into a minor calyx; several minor calyces merge into a major calyx, which empties into the renal pelvis, down the ureter, into the bladder (lined by detrusor muscle), and out through the urethra. Each kidney contains over a million microscopic filters called nephrons. Fluid enters Bowman's capsule around a knot of capillaries called the glomerulus (together called the renal corpuscle), then flows through the proximal convoluted tubule (packed with microvilli), down and up the hairpin loop of Henle, through the distal convoluted tubule, and out into a collecting duct.",
+    "keyFacts": [
+      "The kidneys regulate plasma and interstitial fluid volume, electrolyte balance, blood pressure, and waste excretion.",
+      "The kidney divides into an outer renal cortex and an inner medulla containing striated renal pyramids.",
+      "Renal pyramids empty urine via papillae into minor calyces, which unite into major calyces and the renal pelvis.",
+      "The urinary tract pathway: kidneys → ureters → urinary bladder (detrusor muscle) → urethra.",
+      "Each kidney contains >1 million nephrons, the fundamental functional units of urine production.",
+      "The renal corpuscle comprises the glomerulus (capillary tuft) and Bowman's capsule (filtration envelope).",
+      "The tubular path: Bowman's capsule → proximal convoluted tubule → descending loop → ascending loop → distal tubule → collecting duct.",
+      "Proximal convoluted tubule cells possess a dense apical brush border of microvilli for mass solute reabsorption.",
+      "Renal microvascular portal flow: interlobular artery → afferent arteriole → glomerulus → efferent arteriole → peritubular capillaries/vasa recta.",
+      "Cortical nephrons have short loops mostly in the cortex; juxtamedullary nephrons have long loops extending deep into the medulla."
+    ],
+    "prerequisites": [
+      "abct2326-homeostasis"
+    ],
+    "examples": [
+      "In polycystic kidney disease (PKD), genetic mutations cause fluid-filled cysts to proliferate along the nephron tubules, destroying normal renal cortex and medullary pyramids, compressing interlobar vessels, and culminating in end-stage renal disease.",
+      "A renal calculus (kidney stone) formed by precipitated calcium oxalate in a minor calyx can migrate into the narrow ureteropelvic junction, causing severe colicky flank pain, hematuria, and hydronephrosis due to backpressure in the renal pelvis."
+    ]
+  },
+  "memory": {
+    "firstLetter": "Tubule Flow: B-P-D-A-D-C ('Bowman's Proximal Descends, Ascends, Distally Collects' = Bowman's capsule, Proximal tubule, Descending loop, Ascending loop, Distal tubule, Collecting duct).",
+    "chunking": "Two Drainage Chains: Tubular Journey (capsule → PCT → loop → DCT → collecting duct) vs Gross Drainage (papilla → minor calyx → major calyx → pelvis → ureter → bladder → urethra).",
+    "comparison": "Afferent vs Efferent Arteriole: Afferent arrives at the glomerulus with high hydrostatic pressure; Efferent exits the glomerulus to supply the peritubular capillary and vasa recta network.",
+    "teachBack": "Walk through the path of fluid from the abdominal aorta into a glomerular capillary, through all tubular segments into the bladder, and name the epithelial specializations at each stop."
+  },
+  "practice": [
+    {
+      "type": "sequence",
+      "prompt": "Order the sequential segments of the renal tubular pathway traversed by filtrate from the site of plasma filtration to the renal papilla.",
+      "items": [
+        "Glomerular (Bowman’s) capsule",
+        "Proximal convoluted tubule",
+        "Descending limb of the loop of Henle",
+        "Ascending limb of the loop of Henle",
+        "Distal convoluted tubule",
+        "Collecting duct"
+      ],
+      "explanation": "Filtrate enters Bowman’s capsule, travels through the proximal tubule, down and up the loop of Henle, through the distal tubule, and into the collecting duct."
+    },
+    {
+      "type": "matching",
+      "prompt": "Match each gross renal or urinary tract structure with its defining anatomical characteristic.",
+      "pairs": [
+        [
+          "Renal cortex",
+          "Outer granular zone containing glomeruli, convoluted tubules, and cortical nephrons"
+        ],
+        [
+          "Renal medulla",
+          "Inner zone composed of triangular striated renal pyramids separated by columns"
+        ],
+        [
+          "Renal pelvis",
+          "Funnel-shaped basin collecting urine from major calyces and leading into the ureter"
+        ],
+        [
+          "Detrusor muscle",
+          "Thick smooth muscle layer of the urinary bladder wall that contracts during micturition"
+        ]
+      ],
+      "explanation": "Cortex houses corpuscles; medulla holds pyramids; pelvis funnels urine to ureters; detrusor muscle forms the bladder wall."
+    },
+    {
+      "type": "mcq",
+      "prompt": "Which vessel directly conveys blood away from the glomerular capillary tuft to supply peritubular capillaries and the vasa recta?",
+      "options": [
+        "Efferent arteriole",
+        "Afferent arteriole",
+        "Interlobular artery",
+        "Arcuate vein"
+      ],
+      "answer": 0,
+      "explanation": "Blood leaves the glomerular capillaries through the efferent arteriole, which subsequently subdivides into peritubular capillaries or vasa recta."
+    },
+    {
+      "type": "typed",
+      "prompt": "What anatomical structure is formed by the anatomical union of the glomerular capillary tuft and the surrounding Bowman’s capsule?",
+      "accept": [
+        "renal corpuscle",
+        "Renal corpuscle",
+        "Renal Corpuscle"
+      ],
+      "explanation": "The glomerulus and Bowman’s capsule together form the renal corpuscle, the site of glomerular ultrafiltration."
+    }
+  ],
+  "application": [
+    {
+      "type": "scenario",
+      "prompt": "A 52-year-old male with long-standing poorly controlled hypertension presents with progressive azotemia and bilateral flank fullness. Renal ultrasound reveals severe bilateral hydronephrosis with marked dilation of both renal pelves and calyces, accompanied by bladder distension. Contrast CT identifies a large obstructing transitional cell carcinoma at the bladder trigone occluding both ureteral orifices. Trace the backpressure sequence from the trigone back to the glomerulus, and explain why urinary tract obstruction leads to an immediate collapse in glomerular filtration rate (GFR).",
+      "model": "The tumor at the bladder trigone obstructs both ureteral orifices, preventing urine from entering the bladder lumen. Urine continues to be produced upstream, causing progressive fluid accumulation and rising hydrostatic pressure. This hydrostatic pressure wave backs up retrograde through the ureters into the renal pelvis, expanding it (hydronephrosis) and backing into the major and minor calyces, through the renal papillae, and into the collecting ducts. Fluid retention transmits backpressure into the distal convoluted tubules, loops of Henle, proximal convoluted tubules, and ultimately into the capsular space of Bowman’s capsule. Normally, Glomerular Filtration Rate is determined by net filtration pressure: NFP = P_GC - P_BS - pi_GC (where P_GC is glomerular capillary hydrostatic pressure ~55 mmHg, P_BS is Bowman’s space hydrostatic pressure ~15 mmHg, and pi_GC is oncotic pressure ~30 mmHg). As obstruction elevates Bowman’s space hydrostatic pressure (P_BS) from 15 mmHg toward 40–50 mmHg, net filtration pressure drops precipitously toward zero. Without the hydrostatic gradient to drive plasma across the filtration membrane, ultrafiltration ceases, causing acute post-renal renal failure and oliguria.",
+      "rubric": [
+        "Traces retrograde backpressure from ureters through renal pelvis, calyces, collecting ducts, and into Bowman’s capsule",
+        "Applies Starling forces equation (NFP = P_GC - P_BS - pi_GC) to show that elevated P_BS opposes filtration",
+        "Explains that collapsing net filtration pressure arrests glomerular ultrafiltration, causing acute renal failure"
+      ]
+    }
+  ],
+  "commonMistakes": [
+    "Placing the distal convoluted tubule before the loop of Henle; the loop of Henle connects the proximal and distal tubules.",
+    "Assuming the renal corpuscle is just the glomerulus; the renal corpuscle is the glomerulus PLUS Bowman’s capsule.",
+    "Confusing the ureters (carrying urine from kidneys to bladder) with the urethra (carrying urine from bladder out of the body)."
+  ],
+  "skills": [
+    "Delineate the microvascular portal flow from the renal artery down to the peritubular capillaries and vasa recta.",
+    "Map the sequential epithelial transitions along the nephron tubule and correlate histology with transport function."
+  ],
+  "selfCheck": "From memory: recite the complete nephron tubule sequence from Bowman’s capsule to the urethra, state the two components of the renal corpuscle, and describe the microvascular portal circuit.",
+  "visuals": [
+    {
+      "fig": "kidneyGrossAnatomy"
+    },
+    {
+      "fig": "nephronVascularMicroanatomy"
+    },
+    {
+      "gen": true
+    }
+  ],
+  "sourceRefs": [
+    {
+      "ref": "phys.5",
+      "location": "p2 \"Is to regulate plasma and interstitial fluid by formation of\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p4 \"Paired kidneys are on either side of vertebral\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p5 \"contains many capillaries and outer parts of neph\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p8 \"Is functional unit of kidney; responsible for forming urine\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p9 \"Interlobular arteries give rise to\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p10 \"Tubular part of nephron begins with\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p11 \"Together they form\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p12 \"Walls consist of single layer of cuboidal cells with\""
+    }
+  ]
+},
   {
   "id": "abct2326-digestive-pathway",
   "subject": "ABCT2326",
@@ -4955,89 +5119,234 @@ export const PHYS_ITEMS = [
     ],
   },
   {
-    id: 'abct2326-renal-filtration-countercurrent',
-    subject: 'ABCT2326', unit: 'phys.renal', type: 'concept',
-    title: 'Renal physiology: nephron microarchitecture, glomerular filtration, countercurrent multiplication, and RAAS regulation',
-    tags: ['renal', 'gfr', 'countercurrent', 'raas', 'high-yield'],
-    lesson: {
-      explanation: 'The human urinary system is anchored by paired kidneys containing >1 million nephrons/kidney. Urine drains through renal pyramids containing minor calyces which unite to form a major calyx, emptying through ureters into the urinary bladder, whose wall features specialized smooth muscle called the detrusor muscle. In the nephron, capillary endothelial fenestrations in the glomerulus make them 100-400 times more permeable than typical systemic capillaries. Glomerular filtration rate (GFR) averages 115 ml/min in women; 125 ml/min in men, producing totals about 180L/day of ultrafiltrate. Excreting metabolic wastes requires a minimum of 400 ml/day urine necessary to clear solute load (obligatory water loss). Epithelial reabsorption along the nephron is thermodynamically demanding: energy cost is 6% of calories consumed at rest. In the proximal convoluted tubule (PCT), ~65% Na+, Cl-, and H2O is reabsorbed in PCT and returned to bloodstream. An additional 20% is reabsorbed in descending loop of Henle. Thus 85% of filtered H2O and salt are reabsorbed early in tubule in an unregulated, hydration-independent manner. The remaining loop of Henle establishes hypertonic medullary interstitium via countercurrent multiplication, where maximum osmolality at the tip of the loop of Henle is 1400 mOsm/L. Downstream in the distal convoluted tubule and collecting duct, hormonal fine-tuning occurs: 90% filtered Na+ and K+ reabsorbed before distal tubule. In the absence of aldosterone, 80% of remaining Na+ is reabsorbed, while aldosterone drives active reabsorption of the final 20% of distal Na+ in exchange for K+ or H+ secretion. Systemic perfusion and low blood pressure trigger the renin-angiotensin-aldosterone system (RAAS): juxtaglomerular cells secrete renin; renin converts angiotensinogen to angiotensin I, which is cleaved by angiotensin-converting enzyme (ACE) in lungs into vasoconstrictive angiotensin II. Acid-base homeostasis in the collecting system regulates H+ secretion and bicarbonate reabsorption, but the nephron cannot produce urine with pH < 4.5, requiring urinary phosphate and ammonia buffers.',
-      plain: 'Each kidney holds >1 million nephrons, filtering 180 L/day (GFR: 115 ml/min women, 125 ml/min men) with a 400 ml/day obligate urine volume. Reabsorption consumes 6% basal resting energy: 65% in PCT + 20% in loop of Henle (85% early total). The loop creates a 1400 mOsm/L medullary gradient. Aldosterone reabsorbs remaining distal Na+; RAAS converts angiotensinogen via renin and pulmonary ACE; detrusor muscle lines the bladder.',
-      keyFacts: [
-        'Each human kidney contains >1 million nephrons, and pyramids empty via minor calyces into major calyces.',
-        'Glomerular capillaries possess fenestrations making them 100-400 times more permeable than continuous capillaries.',
-        'Normal GFR averages 115 ml/min in women and 125 ml/min in men, generating approximately 180 L/day of filtrate.',
-        'A minimum of 400 ml/day urine is obligatory to excrete metabolic wastes.',
-        'Renal tubular active reabsorption consumes 6% of the body calories consumed at rest.',
-        'The PCT reabsorbs ~65% and the loop of Henle reabsorbs an additional 20%, ensuring 85% of filtered water and salt is reabsorbed before the distal tubule.',
-        'Medullary countercurrent multiplication generates a maximum interstitial osmotic gradient of 1400 mOsm/L.',
-        'Over 90% of filtered Na+ and K+ is reabsorbed before the distal nephron; aldosterone controls the remaining distal Na+ reabsorption.',
-        'Juxtaglomerular renin cleaves liver angiotensinogen into angiotensin I; converting enzyme (ACE) in lungs yields angiotensin II.',
-        'The nephron cannot produce urine with pH < 4.5, limiting unbuffered free proton excretion.',
-      ],
-      prerequisites: ['phys-cell-membrane-transport', 'hss2011-renal-urinary-tract-anatomy'],
-      examples: ['Severe dehydration triggers high ADH and maximal aldosterone, concentrating urine up to 1400 mOsm/L while preserving minimum obligatory volume (~400 ml/day).'],
+  "id": "abct2326-renal-filtration-countercurrent",
+  "subject": "ABCT2326",
+  "unit": "phys.renal",
+  "type": "concept",
+  "title": "Glomerular ultrafiltration dynamics, GFR regulation, and obligatory water loss",
+  "tags": [
+    "renal",
+    "gfr",
+    "countercurrent",
+    "raas",
+    "high-yield",
+    "ultrafiltration",
+    "starling-forces"
+  ],
+  "priorKnowledge": {
+    "level": "dse-bio",
+    "covers": "part",
+    "dsePart": "elective-hp",
+    "syllabusRef": {
+      "ref": "edb.bio",
+      "location": "Elective V(a) \"Regulation of water content (osmoregulation)\" — ultrafiltration in Bowman’s capsule, hydrostatic pressure and composition of filtrate."
     },
-    memory: {
-      chunking: 'Architecture (>1M nephrons, fenestrations 100-400x, detrusor) -> Filtration (GFR 115/125 ml/min, 180 L/day, 400 ml obligate, 6% basal cal) -> Reabsorption (65% PCT + 20% Henle = 85% early, 1400 mOsm/L gradient) -> Regulation (90% pre-distal, Aldosterone remaining 20%, Renin -> ACE lungs -> Ang II, pH >= 4.5).',
-      comparison: 'Obligate vs Facultative Reabsorption: 85% of water and salt is reabsorbed in PCT (65%) and Henle (20%) regardless of hydration; the final 15% is facultative, regulated by ADH and aldosterone in DCT/collecting duct.',
-      number: '>1 million nephrons · 100-400x fenestrations · 115 vs 125 ml/min GFR · 180 L/day · 400 ml/day obligate · 6% resting calories · 65% + 20% = 85% · 1400 mOsm/L · 90% pre-distal · pH >= 4.5.',
-    },
-    practice: [
-      { type: 'mcq', prompt: 'What are the average glomerular filtration rates (GFR) in adult females and males?', options: ['75 ml/min in women; 90 ml/min in men', '115 ml/min in women; 125 ml/min in men', '150 ml/min in women; 175 ml/min in men', '180 ml/min in women; 200 ml/min in men'], answer: 1,
-        explanation: 'GFR averages 115 ml/min in women and 125 ml/min in men, producing about 180 L of filtrate daily.',
-        src: { ref: 'phys.renal.deck', location: 'p17 "Averages 115 ml/min in women; 125 ml/min in men"' } },
-      { type: 'mcq', prompt: 'What percentage of filtered water and salt is reabsorbed early in the nephron (PCT and descending loop of Henle) prior to distal hormonal control?', options: ['25%', '50%', '85%', '99%'], answer: 2,
-        explanation: 'The PCT reabsorbs ~65% and descending Henle reabsorbs 20%, so 85% is reabsorbed early in an unregulated manner.',
-        src: { ref: 'phys.renal.deck', location: 'p26 "Thus 85% of filtered H2O and salt are reabsorbed early in tubule"' } },
-      { type: 'mcq', prompt: 'What is the maximum osmolality established in the deep renal medulla by countercurrent multiplication?', options: ['300 mOsm/L', '600 mOsm/L', '1000 mOsm/L', '1400 mOsm/L'], answer: 3,
-        explanation: 'The countercurrent multiplier system achieves a maximum interstitial osmotic concentration of 1400 mOsm/L at the loop tip.',
-        src: { ref: 'phys.renal.deck', location: 'p27 "is 1400 mOsm/L"' } },
-      { type: 'typed', prompt: 'What is the minimum volume of daily urine output (in ml/day) necessary to excrete metabolic wastes?', accept: ['400', '400 ml', '400 ml/day', '400ml/day'],
-        explanation: 'A minimum obligatory urine volume of 400 ml/day is necessary to clear solute wastes.',
-        src: { ref: 'phys.renal.deck', location: 'p21 "Minimum of 400 ml/day urine necessary to"' } },
-      { type: 'matching', prompt: 'Match each renal parameter to its quantitative physiological value.',
-        pairs: [['Basal energy cost of reabsorption', '6% of calories consumed at rest'], ['Glomerular fenestration permeability', '100-400 times more permeable'], ['Daily filtrate volume', 'Totals about 180L/day'], ['Minimum urinary pH limit', 'Nephron cannot produce urine with pH < 4.5']],
-        explanation: 'These quantitative benchmarks govern renal tubular transport and acid-base limits.',
-        src: { ref: 'phys.renal.deck', location: 'p26 "Energy cost is 6% of calories consumed at rest"' } },
-      { type: 'sequence', prompt: 'Arrange the sequence of the renin-angiotensin-aldosterone axis from initiation to hormone generation.',
-        items: ['Perfusion pressure drops in renal afferent arteriole', 'Juxtaglomerular cells secrete renin', 'Renin converts angiotensinogen to angiotensin I', 'Converting enzyme (ACE) in lungs produces angiotensin II', 'Adrenal cortex releases aldosterone'],
-        explanation: 'The cascade begins with renal renin release, hepatic angiotensinogen conversion, pulmonary ACE cleavage, and adrenal aldosterone stimulation.',
-        src: { ref: 'phys.renal.deck', location: 'p40 "Renin converts angiotensinogen to angiotensin I"' } },
-    ],
-    application: [
-      { type: 'scenario', prompt: 'A patient presents with severe oliguria (<200 ml/day). Explain the physiological significance of the 400 ml/day minimum obligatory urine volume, how the countercurrent multiplier concentrates urine to 1400 mOsm/L, and why renal reabsorption requires 6% of resting energy.',
-        model: 'The body must eliminate approximately 600 mOsm of non-volatile metabolic waste solutes daily. Because the maximum urinary concentration achievable by the medullary countercurrent multiplier is 1400 mOsm/L (driven by active NaCl extrusion in the thick ascending limb and urea recycling), the absolute minimum water required to excrete these solutes is ~400-440 ml/day (obligatory volume). Urine output below 400 ml/day results in toxic solute retention (azotemia). Active solute reclamation, primarily by Na+/K+ ATPase pumps in the PCT and thick ascending limb, demands high metabolic energy, consuming approximately 6% of all body calories at rest.',
-        rubric: ['Defines minimum obligatory urine volume (400 ml/day) required to eliminate daily solute load', 'Explains countercurrent multiplier achieving 1400 mOsm/L in medullary interstitium', 'Notes active tubular transport consuming 6% of basal resting calories'] },
-    ],
-    commonMistakes: [
-      'Assuming all water reabsorption is regulated by ADH (85% is obligate and reabsorbed in PCT and loop before ADH acts).',
-      'Confusing renin with an enzyme that acts directly on aldosterone (renin cleaves angiotensinogen to angiotensin I; ACE in lungs yields angiotensin II).',
-      'Thinking urine can be acidified to pH 1.0 or 2.0 (the renal tubular limit is pH 4.5).',
-    ],
-    skills: [
-      'Quantifying renal filtration and reabsorption dynamics (GFR, 180 L/day, 85% obligate reabsorption, 6% caloric cost), mapping countercurrent multiplier gradients (1400 mOsm/L), and tracing the RAAS hormonal axis.',
-    ],
-    selfCheck: 'State male and female average GFR, the percentage of early obligate reabsorption, the maximum medullary osmolality, the minimum urinary pH limit, and the organ where ACE is located.',
-    sourceRefs: [
-      { ref: 'phys.renal.deck', location: 'p5 "Pyramid contains minor calyces which unite to form a major calyx"' },
-      { ref: 'phys.renal.deck', location: 'p6 "smooth muscle wall called the detrusor muscle"' },
-      { ref: 'phys.renal.deck', location: 'p8 ">1 million nephrons/kidney"' },
-      { ref: 'phys.renal.deck', location: 'p14 "100-400 times more"' },
-      { ref: 'phys.renal.deck', location: 'p17 "Averages 115 ml/min in women; 125 ml/min in men"' },
-      { ref: 'phys.renal.deck', location: 'p17 "Totals about 180L/day"' },
-      { ref: 'phys.renal.deck', location: 'p21 "Minimum of 400 ml/day urine necessary to"' },
-      { ref: 'phys.renal.deck', location: 'p26 "~65% Na+, Cl-, and H2O is reabsorbed in PCT and returned to bloodstream"' },
-      { ref: 'phys.renal.deck', location: 'p26 "An additional 20% is reabsorbed in descending loop of Henle"' },
-      { ref: 'phys.renal.deck', location: 'p26 "Thus 85% of filtered H2O and salt are reabsorbed early in tubule"' },
-      { ref: 'phys.renal.deck', location: 'p26 "Energy cost is 6% of calories consumed at rest"' },
-      { ref: 'phys.renal.deck', location: 'p27 "is 1400 mOsm/L"' },
-      { ref: 'phys.renal.deck', location: 'p37 "90% filtered Na+ and K+ reabsorbed before distal tubule"' },
-      { ref: 'phys.renal.deck', location: 'p37 "In the absence of aldosterone, 80% of remaining Na+ is"' },
-      { ref: 'phys.renal.deck', location: 'p40 "Renin converts angiotensinogen to angiotensin I"' },
-      { ref: 'phys.renal.deck', location: 'p40 "converting enzyme (ACE) in lungs"' },
-      { ref: 'phys.renal.deck', location: 'p44 "Nephron cannot produce urine with pH < 4.5"' },
-    ],
+    "beyond": [
+      {
+        "t": "Glomerular capillary endothelial fenestrations make them 100 to 400 times more permeable than continuous capillaries.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p14 \"Glomerular Filtration\""
+        }
+      },
+      {
+        "t": "Normal Glomerular Filtration Rate (GFR) averages 115 ml/min in women and 125 ml/min in men, producing 180 L/day.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p17 \"Glomerular Filtration Rate (GFR)\""
+        }
+      },
+      {
+        "t": "A minimum of 400 ml/day of urine is obligatory to excrete metabolic wastes.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p21 \"Obligatory Water Loss\""
+        }
+      },
+      {
+        "t": "Proximal tubule reabsorption reclaims ~65% of Na+, Cl-, and H2O, consuming 6% of resting calories.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p26 \"Significance of\""
+        }
+      },
+      {
+        "t": "Countercurrent multiplier system builds a hyperosmolar medullary gradient reaching 1400 mOsm/L.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p27 \"Countercurrent Multiplier System\""
+        }
+      },
+      {
+        "t": "Aldosterone controls distal sodium reabsorption and potassium secretion; RAAS is activated by renin.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p40 \"Renin-Angiotensin-Aldosterone System\""
+        }
+      },
+      {
+        "t": "The nephron cannot produce urine with a pH below 4.5, requiring urinary phosphate and ammonia buffers.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p44 \"Nephron cannot produce urine with pH < 4.5\""
+        }
+      }
+    ]
   },
+  "lesson": {
+    "explanation": "Glomerular ultrafiltration is the initial, non-selective physical process by which a portion of circulating blood plasma is forced across a specialized filtration barrier into the capsular space of Bowman's capsule. The glomerular filtration barrier comprises three concentric structural layers: (1) Fenestrated capillary endothelium: penetrated by circular pores (fenestrations) 70 to 100 nm in diameter that render glomerular capillaries 100 to 400 times more permeable to water and small solutes than standard continuous systemic capillaries, while retaining cellular blood elements (erythrocytes, leukocytes, platelets); (2) Acellular glomerular basement membrane (GBM): an extracellular gel matrix composed of type IV collagen and polyanionic heparan sulfate proteoglycans, which restricts macromolecules based on physical size and repels negatively charged proteins; and (3) Visceral podocyte layer: specialized epithelial cells projecting interdigitating pedicels (foot processes) around the capillaries, separated by narrow filtration slits (4 to 14 nm wide) bridged by nephrin-based slit diaphragms. Because albumin and plasma globulins possess negative surface charges and molecular weights >68,000 Da, they are repelled by the GBM and filtration slits, ensuring that normal glomerular ultrafiltrate is virtually protein-free. Glomerular Filtration Rate (GFR) represents the total volume of ultrafiltrate formed by both kidneys per unit time. GFR averages 115 mL/min in healthy adult females and 125 mL/min in healthy adult males, yielding an astonishing total of approximately 180 liters of filtrate every 24 hours. Because the average human plasma volume is only ~3 liters, the entire circulatory plasma volume is filtered, inspected, and processed by the kidneys approximately 60 times each day! Driving this massive filtration is Net Filtration Pressure (NFP), governed by Starling forces: NFP = P_GC - P_BS - pi_GC (where glomerular capillary hydrostatic pressure P_GC ~55 mmHg favors filtration, while Bowman's space hydrostatic pressure P_BS ~15 mmHg and glomerular plasma colloid osmotic pressure pi_GC ~30 mmHg oppose filtration, yielding an NFP of ~10 mmHg). To prevent lethal dehydration, tubular epithelial transport must reabsorb over 99% of this filtered volume, returning 178 to 179 liters per day back into systemic peritubular capillaries. Active tubular transport is thermodynamically demanding, consuming roughly 6% of total basal caloric expenditure at rest. In the proximal convoluted tubule (PCT), approximately 65% of filtered Na+, Cl-, HCO3-, and water is reabsorbed alongside 100% of filtered glucose and amino acids. An additional 20% of filtered water is reclaimed in the descending limb of the loop of Henle, meaning that 85% of filtered water and salt is reabsorbed early along the nephron in an obligate, unregulated manner. To eliminate the daily non-volatile metabolic waste solute load (~600 mOsm/day of urea, uric acid, creatinine, and sulfates), the human kidney requires a strict minimum volume of urine output: termed obligatory water loss, this volume averages 400 to 440 mL/day. If urine output drops below 400 mL/day (severe oliguria or anuria), metabolic wastes accumulate in blood plasma, producing life-threatening azotemia and uremic encephalopathy. The remaining tubular segments establish a vertical osmotic gradient via countercurrent multiplication, reaching up to 1400 mOsm/L in the deep renal papilla, allowing urine to be concentrated up to four times plasma osmolarity under antidiuretic hormone (ADH) control. The nephron cannot acidify urine below a luminal pH of 4.5; to excrete excess metabolic protons (H+), the kidney secretes H+ bound to urinary buffers, predominantly dibasic phosphate (HPO4^2-) and ammonia (NH3).",
+    "plain": "Glomerular filtration is how the kidneys filter liquid out of blood. The filter has three layers: fenestrated capillaries (100–400 times leakier than normal capillaries), a negatively charged basement membrane, and podocyte foot processes with tiny slit gaps. This filter stops red blood cells and large proteins like albumin from escaping into urine, but lets water, salts, and glucose pass freely. Every day, both kidneys filter 180 liters of fluid (GFR = 115 ml/min in women, 125 ml/min in men)—filtering your entire plasma volume 60 times a day! Since you only pee 1 to 2 liters a day, 99% of that fluid must be reabsorbed, which takes 6% of your body's resting energy. Early in the tubule (PCT and loop of Henle), 85% of water and salt is reabsorbed automatically. To flush out toxic daily waste, the body must produce at least 400 ml of urine each day (obligatory water loss). The kidney can concentrate urine up to 1400 mOsm/L, but cannot drop urine pH below 4.5 without phosphate and ammonia buffers.",
+    "keyFacts": [
+      "The glomerular filtration barrier comprises fenestrated endothelium, basement membrane, and podocyte filtration slits.",
+      "Endothelial fenestrations make glomerular capillaries 100 to 400 times more permeable than continuous capillaries.",
+      "Normal GFR averages 115 mL/min in women and 125 mL/min in men, producing ~180 L of filtrate per day.",
+      "The entire blood plasma volume (~3 L) is filtered and cleared by the kidneys approximately 60 times each day.",
+      "Tubular active reabsorption consumes approximately 6% of total basal resting caloric energy expenditure.",
+      "The PCT reabsorbs ~65% and the loop of Henle reabsorbs 20%, achieving 85% early, unregulated fluid reclamation.",
+      "A minimum of 400 mL/day of urine output is obligatory to eliminate daily metabolic solute wastes.",
+      "Countercurrent multiplication establishes a deep medullary hyperosmolar gradient reaching 1400 mOsm/L.",
+      "Aldosterone regulates distal nephron Na+ reabsorption and K+ secretion via the RAAS axis.",
+      "The nephron cannot produce urine with a pH below 4.5, requiring phosphate and ammonia buffering for proton clearance."
+    ],
+    "prerequisites": [
+      "abct2326-renal-nephron"
+    ],
+    "examples": [
+      "In nephrotic syndrome, autoimmune disruption or loss of negative charge on the glomerular basement membrane allows massive leakage of serum albumin into Bowman's space; profound proteinuria (>3.5 g/day) drops plasma oncotic pressure, producing generalized edema and ascites.",
+      "A patient stranded in the desert without water produces the minimum obligatory urine volume of ~400 mL/day; maximal ADH secretion concentrates this urine to 1400 mOsm/L, but fluid loss cannot be reduced further without causing toxic solute retention."
+    ]
+  },
+  "memory": {
+    "firstLetter": "Filtration Barrier Layers: E-B-P ('Every Blood Particle' = Endothelium [fenestrated], Basement membrane [polyanionic], Podocytes [pedicels/slits]).",
+    "chunking": "Quantitative Benchmarks: GFR 115/125 mL/min → 180 L/day filtrate → 85% early reabsorbed (65% PCT + 20% Henle) → 6% resting calories → 400 mL/day obligate urine → 1400 mOsm/L max gradient → pH >= 4.5.",
+    "comparison": "Obligate vs Facultative Water Loss: Obligate water loss (400 mL/day) is the absolute physiological minimum volume needed to dissolve 600 mOsm of daily wastes; Facultative water loss is variable volume adjusted by ADH in response to hydration.",
+    "teachBack": "State the quantitative values for male/female GFR, 24-hour filtrate, obligatory urine volume, early reabsorption percentage, and explain why urine pH cannot fall below 4.5."
+  },
+  "practice": [
+    {
+      "type": "mcq",
+      "prompt": "What are the normal average Glomerular Filtration Rates (GFR) measured in healthy adult females and males?",
+      "options": [
+        "75 mL/min in females; 90 mL/min in males",
+        "115 mL/min in females; 125 mL/min in males",
+        "150 mL/min in females; 175 mL/min in males",
+        "180 mL/min in females; 200 mL/min in males"
+      ],
+      "answer": 1,
+      "explanation": "GFR averages 115 mL/min in women and 125 mL/min in men, producing roughly 180 liters of ultrafiltrate daily."
+    },
+    {
+      "type": "matching",
+      "prompt": "Match each quantitative renal parameter with its precise physiological value or limit.",
+      "pairs": [
+        [
+          "Daily glomerular ultrafiltrate volume",
+          "Approximately 180 liters per day"
+        ],
+        [
+          "Minimum obligatory urine volume",
+          "400 mL per day to clear solute waste load"
+        ],
+        [
+          "Early unregulated water and salt reabsorption",
+          "85% reabsorbed in PCT (65%) and descending loop (20%)"
+        ],
+        [
+          "Minimum renal tubular urinary pH limit",
+          "Nephron cannot acidify urine below pH 4.5"
+        ]
+      ],
+      "explanation": "180 L/day filtered; 400 mL/day minimum obligatory output; 85% early reabsorbed; pH 4.5 is the absolute acidity limit."
+    },
+    {
+      "type": "mcq",
+      "prompt": "What percentage of total basal caloric energy consumed by the human body at rest is dedicated to driving renal tubular active solute reabsorption?",
+      "options": [
+        "6% of resting calories",
+        "1% of resting calories",
+        "15% of resting calories",
+        "25% of resting calories"
+      ],
+      "answer": 0,
+      "explanation": "Active primary transport (principally Na+/K+ ATPase pumps along the nephron) consumes approximately 6% of all calories expended by the body at rest."
+    },
+    {
+      "type": "typed",
+      "prompt": "What is the minimum volume (in mL/day) of obligatory daily urine output required by the human kidneys to excrete non-volatile metabolic wastes?",
+      "accept": [
+        "400",
+        "400 mL",
+        "400 ml",
+        "400 mL/day",
+        "400 ml/day"
+      ],
+      "explanation": "An obligatory urine loss of at least 400 mL/day is essential to prevent azotemia and retain solute clearance."
+    }
+  ],
+  "application": [
+    {
+      "type": "scenario",
+      "prompt": "A 68-year-old male with septic shock has a mean arterial pressure (MAP) of 50 mmHg and severe oliguria, producing only 120 mL of urine over the past 24 hours. Laboratory results show BUN of 68 mg/dL and serum creatinine of 4.2 mg/dL. Analyze the relationship between his systemic hypotension and the collapse of GFR, explain why his 120 mL/day urine output is clinically dangerous, and calculate how his failure to hit the 400 mL/day threshold affects metabolic solute clearance.",
+      "model": "Glomerular filtration depends on glomerular capillary hydrostatic pressure (P_GC), which is normally maintained around 50–55 mmHg by renal autoregulation when MAP is between 80 and 180 mmHg. In septic shock with MAP dropping to 50 mmHg, severe systemic arterial hypotension overwhelms myogenic autoregulation and triggers intense sympathetic vasoconstriction of renal afferent arterioles. P_GC collapses toward 35 mmHg. Starling forces opposing filtration (P_BS ~15 mmHg and pi_GC ~30 mmHg) total 45 mmHg; because opposing pressures exceed P_GC, net filtration pressure drops to zero, producing acute tubular ischemia and an abrupt collapse of GFR. The human body generates approximately 600 mOsm of non-volatile metabolic waste solutes (urea, creatinine, uric acid, protons) each day. Because maximal medullary countercurrent concentration cannot exceed 1400 mOsm/L, the absolute minimum volume of water required to excrete 600 mOsm of solute is: 600 mOsm / 1.4 mOsm/mL = ~428 mL/day (the 400 mL/day obligatory water loss). At only 120 mL/day, the patient cannot physically dissolve and excrete his daily solute burden, even at maximal urine concentration (120 mL x 1.4 mOsm/mL = only 168 mOsm cleared). Over 430 mOsm of toxic nitrogenous wastes are retained in the bloodstream, resulting in rapidly escalating azotemia, uremia, and metabolic acidosis.",
+      "rubric": [
+        "Explains that hypotension (MAP 50 mmHg) drops P_GC below opposing Starling pressures, reducing NFP and GFR to near zero",
+        "Identifies that 600 mOsm daily solute load divided by max concentration (1400 mOsm/L) requires ~400 mL/day minimum obligatory water",
+        "Demonstrates that 120 mL/day output is mathematically incapable of clearing daily solute wastes, resulting in uremic azotemia"
+      ]
+    }
+  ],
+  "commonMistakes": [
+    "Assuming all water reabsorption is regulated by ADH; 85% of water is reabsorbed obligatorily in the PCT and loop of Henle regardless of ADH.",
+    "Believing urine can reach extreme acidity like gastric juice (pH 1.5–2.0); the nephron’s lowest tubular limit is pH 4.5.",
+    "Confusing GFR volume (~180 L/day) with urine output (1–2 L/day), forgetting that >99% of filtrate is reabsorbed."
+  ],
+  "skills": [
+    "Calculate net filtration pressure using Starling force parameters across glomerular capillaries.",
+    "Differentiate between obligatory water loss (400 mL/day) and facultative water reabsorption regulated by ADH."
+  ],
+  "selfCheck": "From memory: recite male/female GFR values, total daily filtrate volume, basal energy cost of reabsorption, minimum obligatory urine volume, and the minimum urinary pH limit.",
+  "visuals": [
+    {
+      "fig": "glomerularFiltrationMembrane"
+    },
+    {
+      "fig": "nephronVascularMicroanatomy"
+    },
+    {
+      "gen": true
+    }
+  ],
+  "sourceRefs": [
+    {
+      "ref": "phys.5",
+      "location": "p14 \"Glomerular Filtration\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p17 \"Glomerular Filtration Rate (GFR)\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p21 \"Obligatory Water Loss\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p26 \"Significance of\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p27 \"Countercurrent Multiplier System\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p40 \"Renin-Angiotensin-Aldosterone System\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p44 \"Nephron cannot produce urine with pH < 4.5\""
+    }
+  ]
+},
   {
     id: 'abct2326-muscle-ultrastructure-energetics',
     subject: 'ABCT2326', unit: 'phys.msk', type: 'concept',
@@ -5360,79 +5669,245 @@ export const PHYS_ITEMS = [
     ]
   },
   {
-    id: 'abct2326-renal-countercurrent-vasarecta',
-    subject: 'ABCT2326', unit: 'phys.renal', type: 'concept',
-    title: 'Renal countercurrent multiplication, medullary hyperosmolality, and vasa recta exchange',
-    tags: ['renal', 'countercurrent', 'vasa-recta', 'loop-of-henle', 'high-yield'],
-    lesson: {
-      explanation: 'The countercurrent multiplier system of the nephron and the countercurrent exchanger of the vasa recta function in exact coordination to establish and preserve the vertical medullary osmotic gradient required for water conservation. The multiplier mechanism operates in six sequential physiological steps: (1) NaCl (salt) is pumped out from thick ascending limb via active Na+/K+/2Cl- cotransporters into the renal medullary interstitium (the thick ascending limb is impermeable to water); (2) This extruded NaCl increases osmolality of interstitial fluid surrounding the loop of Henle, creating a hyperosmolar medullary gradient; (3) Water diffuses out from descending limb to interstitial fluid by osmosis, because the osmolality of interstitial fluid is higher than descending limb tubular fluid (the thin descending limb is permeable to water via aquaporins but impermeable to solutes); (4) There is net water diffusion into vasa recta, because plasma proteins in vasa recta draw water inward via high colloid osmotic pressure; (5) NaCl diffuses into descending vasa recta and diffuses out of ascending vasa recta due to differences in osmolality and salt concentration gradients, acting as a passive countercurrent exchanger; (6) NaCl therefore is always trapped in interstitial fluid and vasa recta. The essential biological purpose of this arrangement is to keep the surrounding environment of descending limb always high osmolality (high solute concentration) so that water can be drawn out efficiently and reabsorbed into the general circulation without dissipating the medullary gradient.',
-      plain: 'Active transport pumps NaCl out of the thick ascending limb, raising interstitial osmolality. Water diffuses out of the descending limb by osmosis into the hyperosmolar interstitium and is carried away by vasa recta capillaries, where plasma proteins draw water inward. NaCl diffuses into and out of hairpin vasa recta capillaries, trapping solute in the medulla so the descending limb always faces high osmolality, enabling efficient water recovery through aquaporins.',
-      keyFacts: [
-        'NaCl is actively pumped out from the thick ascending limb into the medullary interstitium.',
-        'Active NaCl extrusion increases the osmolality of interstitial fluid surrounding the loop of Henle.',
-        'Water diffuses out from the descending limb to interstitial fluid driven by interstitial hyperosmolality.',
-        'Net water diffuses into the vasa recta because plasma proteins in the vasa recta exert high oncotic pressure.',
-        'NaCl diffuses into and out of the vasa recta according to concentration gradients, acting as a passive exchanger.',
-        'NaCl is always trapped in interstitial fluid and vasa recta, preserving high medullary osmolality for efficient water extraction.',
-        'Facilitated diffusion of water across tubular membranes occurs via specialized water channels called Aquaporins.',
-      ],
-      prerequisites: ['abct2326-renal-filtration-countercurrent'],
-      examples: ['In states of dehydration, elevated ADH inserts additional aquaporins into collecting ducts, drawing water into the 1200–1400 mOsm/L hyperosmolar medullary interstitium established by countercurrent multiplication.'],
+  "id": "abct2326-renal-countercurrent-vasarecta",
+  "subject": "ABCT2326",
+  "unit": "phys.renal",
+  "type": "concept",
+  "title": "Countercurrent multiplication, medullary hyperosmolality, and vasa recta exchange",
+  "tags": [
+    "renal",
+    "countercurrent",
+    "vasa-recta",
+    "loop-of-henle",
+    "high-yield",
+    "aquaporins",
+    "medullary-gradient"
+  ],
+  "priorKnowledge": {
+    "level": "dse-bio",
+    "covers": "part",
+    "dsePart": "elective-hp",
+    "syllabusRef": {
+      "ref": "edb.bio",
+      "location": "Elective V(a) \"Regulation of water content (osmoregulation)\" — hairpin loop of Henle and creation of osmotic gradients."
     },
-    memory: {
-      chunking: '6 Steps: 1. NaCl pumped out from thick ascending limb -> 2. Interstitial osmolality rises -> 3. Water diffuses out from descending limb -> 4. Net water into vasa recta (plasma proteins draw water) -> 5. NaCl diffuses in/out of vasa recta -> 6. NaCl trapped in interstitium/vasa recta to preserve gradient.',
-      comparison: 'Multiplier vs Exchanger: Loop of Henle is an active multiplier (requires ATP to pump NaCl in thick ascending limb); Vasa recta is a passive exchanger (capillary hairpin loop preserves gradient and removes recovered water).',
-      number: '6 coordinated steps · 1400 mOsm/L (deep medullary tip osmolality) · Aquaporins (water channels enabling facilitated water osmosis).',
-    },
-    practice: [
-      { type: 'mcq', prompt: 'In the renal countercurrent multiplier system, what initiates the hyperosmolality of the medullary interstitial fluid?', options: ['Water being actively pumped into the collecting duct', 'NaCl (salt) is pumped out from thick ascending limb', 'Urea being actively destroyed in the glomerulus', 'Plasma proteins leaking into the Bowman space'], answer: 1,
-        explanation: 'Active pumping of NaCl out of the thick ascending limb into the interstitium initiates the hyperosmolar medullary gradient.',
-        src: { ref: 'phys.renal.supp', location: 'p1 "NaCl (salt) is pumped out from thick ascending limb."' } },
-      { type: 'mcq', prompt: 'Why does water diffuse out from the descending limb of the loop of Henle into the surrounding interstitium?', options: ['Because active aquaporin pumps hydrolyze ATP', 'Reason: Osmolality of interstitial fluid is higher than descending limb', 'Because sodium is impermeable across the entire nephron', 'Due to high hydrostatic pressure in the peritubular space'], answer: 1,
-        explanation: 'Water moves passively by osmosis out of the descending limb because interstitial fluid osmolality is elevated by ascending limb NaCl pumping.',
-        src: { ref: 'phys.renal.supp', location: 'p1 "Reason: Osmolality of interstitial fluid is higher than descending limb."' } },
-      { type: 'mcq', prompt: 'What provides the primary physical driving force for net water diffusion into the vasa recta capillaries from the medullary interstitium?', options: ['Reason: Plasma proteins in vasa recta draw water', 'Active sodium co-transport across endothelial tight junctions', 'Low medullary capillary hydrostatic pressure below 0 mmHg', 'Negative charge on hemoglobin molecules'], answer: 0,
-        explanation: 'Colloid osmotic pressure exerted by plasma proteins within the vasa recta capillaries draws extracted water into the bloodstream.',
-        src: { ref: 'phys.renal.supp', location: 'p1 "Reason: Plasma proteins in vasa recta draw water."' } },
-      { type: 'mcq', prompt: 'What is the primary physiological purpose of trapping NaCl in the medullary interstitial fluid and vasa recta?', options: ['To cause systemic hypertension', 'To keep the surrounding environment of descending limb always high osmolality so water can be drawn out efficiently', 'To prevent potassium reabsorption in the proximal tubule', 'To convert tubular glucose into glycogen'], answer: 1,
-        explanation: 'Trapping NaCl in the medulla maintains high interstitial osmolality, driving efficient water reabsorption from the descending limb and collecting duct.',
-        src: { ref: 'phys.renal.supp', location: 'p1 "NaCl therefore is always trapped in interstitial fluid and vasa recta."' } },
-      { type: 'typed', prompt: 'What specialized transmembrane protein channels facilitate the passive diffusion of water across tubular cell membranes?', accept: ['Aquaporins', 'aquaporin', 'Aquaporin', 'aquaporins'],
-        explanation: 'Aquaporins are integral membrane channel proteins that facilitate the rapid passive osmosis of water molecules.',
-        src: { ref: 'phys.renal.supp', location: 'p4 "Aquaporins"' } },
-      { type: 'matching', prompt: 'Match each component of the renal countercurrent mechanism to its defining physiological role.',
-        pairs: [['Thick ascending limb', 'NaCl (salt) is pumped out from thick ascending limb.'], ['Descending limb', 'Water diffuses out from descending limb to interstitial fluid.'], ['Vasa recta plasma proteins', 'Reason: Plasma proteins in vasa recta draw water.'], ['Aquaporins', 'facilitate diffusion of water']],
-        explanation: 'These pairings define the coordinated steps of countercurrent multiplication and exchange.',
-        src: { ref: 'phys.renal.supp', location: 'p1 "NaCl (salt) is pumped out from thick ascending limb."' } },
-      { type: 'sequence', prompt: 'Order the physiological sequence of countercurrent multiplication and exchange in the renal medulla.',
-        items: ['NaCl (salt) is pumped out from thick ascending limb', 'NaCl increases osmolality of interstitial fluid surrounding the loop of Henle', 'Water diffuses out from descending limb to interstitial fluid', 'Net water diffusion into vasa recta drawn by plasma proteins', 'NaCl diffuses into and out of vasa recta, remaining trapped in medullary interstitium'],
-        explanation: 'The sequence begins with ascending limb active NaCl pumping, followed by interstitial solute accumulation, descending limb water extraction, vasa recta water uptake, and passive solute trapping.',
-        src: { ref: 'phys.renal.supp', location: 'p1 "NaCl (salt) is pumped out from thick ascending limb."' } },
-    ],
-    application: [
-      { type: 'scenario', prompt: 'Trace how loop diuretics (such as furosemide, which inhibit the Na+/K+/2Cl- cotransporter in the thick ascending limb) impair the countercurrent multiplier system, detailing what happens to interstitial osmolality, descending limb water extraction, and final urine volume.',
-        model: 'Loop diuretics block active NaCl transport out of the thick ascending limb into the medullary interstitium. Without active NaCl extrusion, the interstitial fluid surrounding the loop of Henle fails to develop its normal hyperosmolality. Because the osmotic gradient between the tubular lumen and interstitium is abolished, water cannot diffuse out from the descending limb. Consequently, tubular fluid remains dilute as it enters the distal nephron and collecting duct. Even in the presence of ADH, the lack of a hyperosmolar medullary gradient prevents water reabsorption through aquaporins, producing profound diuresis and a high volume of dilute urine.',
-        rubric: ['Identifies inhibition of thick ascending limb active NaCl extrusion', 'Explains subsequent collapse of medullary interstitial hyperosmolality', 'Links the loss of osmotic gradient to failure of descending limb and collecting duct water extraction'] },
-    ],
-    commonMistakes: [
-      'Believing the descending limb actively pumps salt (the descending limb is water-permeable and solute-impermeable; the thick ascending limb actively pumps NaCl).',
-      'Thinking the vasa recta uses active transport to concentrate urine (the vasa recta is a purely passive countercurrent exchanger driven by oncotic and concentration gradients).',
-      'Confusing simple diffusion with facilitated diffusion via aquaporins (aquaporins are selective transmembrane water channels).',
-    ],
-    skills: [
-      'Tracing the 6-step nephron countercurrent multiplier system, explaining thick ascending limb active NaCl transport and descending limb water osmosis, detailing vasa recta passive countercurrent exchange and plasma oncotic water recovery, and analyzing pharmacological disruption by loop diuretics.',
-    ],
-    selfCheck: 'State which limb actively pumps NaCl, why water diffuses out of the descending limb, why water enters the vasa recta, and the function of aquaporins.',
-    sourceRefs: [
-      { ref: 'phys.renal.supp', location: 'p1 "NaCl (salt) is pumped out from thick ascending limb."' },
-      { ref: 'phys.renal.supp', location: 'p1 "NaCl increases osmolality of interstitial fluid surrounding the loop of"' },
-      { ref: 'phys.renal.supp', location: 'p1 "Water diffuses out from descending limb to interstitial fluid."' },
-      { ref: 'phys.renal.supp', location: 'p1 "Net water diffusion into vasa recta."' },
-      { ref: 'phys.renal.supp', location: 'p1 "Reason: Plasma proteins in vasa recta draw water."' },
-      { ref: 'phys.renal.supp', location: 'p1 "NaCl therefore is always trapped in interstitial fluid and vasa recta."' },
-      { ref: 'phys.renal.supp', location: 'p4 "Aquaporins"' },
-    ],
+    "beyond": [
+      {
+        "t": "The countercurrent multiplier system relies on countercurrent flow and proximity of descending and ascending limbs.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p27 \"Countercurrent Multiplier System\""
+        }
+      },
+      {
+        "t": "Countercurrent exchange in the vasa recta preserves the hyperosmolar medullary gradient while recovering water.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p30 \"Countercurrent Exchange in\""
+        }
+      },
+      {
+        "t": "Homeostasis of plasma concentration is maintained by ADH modulating collecting duct permeability.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p31 \"Homeostasis of\""
+        }
+      },
+      {
+        "t": "Active NaCl extrusion in the thick ascending limb raises medullary interstitial osmolality to 1400 mOsm/L.",
+        "src": {
+          "ref": "phys.renal.supp",
+          "location": "p1 \"NaCl (salt) is pumped out from thick ascending limb.\""
+        }
+      },
+      {
+        "t": "Water diffuses out of the descending limb by osmosis because interstitial osmolality exceeds tubular fluid.",
+        "src": {
+          "ref": "phys.renal.supp",
+          "location": "p1 \"Water diffuses out from descending limb to interstitial fluid.\""
+        }
+      },
+      {
+        "t": "Net water diffuses into the vasa recta because plasma proteins exert high colloid osmotic pressure.",
+        "src": {
+          "ref": "phys.renal.supp",
+          "location": "p1 \"Reason: Plasma proteins in vasa recta draw water.\""
+        }
+      },
+      {
+        "t": "NaCl is trapped in interstitial fluid and vasa recta, preserving high medullary osmolality for water recovery.",
+        "src": {
+          "ref": "phys.renal.supp",
+          "location": "p1 \"NaCl therefore is always trapped in interstitial fluid and vasa recta.\""
+        }
+      },
+      {
+        "t": "Facilitated diffusion of water across tubular membranes occurs via specialized water channels called Aquaporins.",
+        "src": {
+          "ref": "phys.renal.supp",
+          "location": "p4 \"Aquaporins\""
+        }
+      }
+    ]
   },
+  "lesson": {
+    "explanation": "The countercurrent multiplier system of the loop of Henle and the countercurrent exchanger of the vasa recta operate in exquisite coordination within the renal medulla to generate and maintain a vertical hyperosmolar interstitial gradient. This gradient increases progressively from 300 mOsm/L at the corticomedullary junction to approximately 1200–1400 mOsm/L at the deep renal papilla, providing the essential osmotic driving force for urinary water conservation under the control of antidiuretic hormone (ADH/vasopressin). The countercurrent multiplier operates through six coordinated physiological steps: (1) Active NaCl pumping: epithelial cells in the thick ascending limb actively transport Na+, K+, and 2Cl- from the tubular lumen into the medullary interstitium via apical Na+/K+/2Cl- cotransporters (NKCC2) and basolateral Na+/K+ ATPases. Crucially, the thick ascending limb is completely impermeable to water due to tight junctions and an absence of aquaporins. (2) Interstitial hyperosmolality: the active accumulation of extruded NaCl in the medullary interstitium raises interstitial osmolality, establishing a transverse osmotic gradient between the interstitium and adjacent tubular limbs. (3) Descending limb water extraction: in contrast to the ascending limb, the thin descending limb of the loop of Henle possesses high water permeability (dense constitutive aquaporin-1 channels) but is virtually impermeable to solutes (NaCl and urea). Because the osmolality of the surrounding medullary interstitial fluid is higher than that of descending tubular fluid, water rapidly diffuses out of the descending limb into the interstitium by osmosis. As water leaves, the remaining luminal solute is concentrated, raising tubular fluid osmolality progressively from 300 mOsm/L at the top to 1200–1400 mOsm/L at the hairpin turn. (4) Vasa recta water recovery: the water extracted from the descending limb does not dilute or dissipate the medullary interstitial gradient because it is immediately absorbed into the vasa recta capillaries. Blood entering the descending vasa recta has high plasma protein concentration (colloid osmotic pressure ~30–35 mmHg) and sluggish blood flow, which exerts an oncotic pulling force that draws extracted water directly into the capillary lumen. (5) Passive solute exchange: the vasa recta are long, hairpin-looped capillaries that parallel the loop of Henle. As blood flows down the descending vasa recta into the hyperosmolar medulla, NaCl and urea diffuse in while water diffuses out; as blood loops back up the ascending vasa recta toward the cortex, NaCl and urea diffuse back out into the interstitium while water diffuses back in. This passive countercurrent exchange prevents blood from washing away medullary solutes. (6) Trapping of NaCl and urea: because the loop turn is located in the deep medulla, NaCl and recycled urea remain trapped within the medullary interstitium and capillary loops. As tubular fluid ascends the thick limb and salt is pumped out without water, the fluid becomes progressively dilute, entering the distal convoluted tubule at a hypotonic ~100 mOsm/L. Downstream, when ADH binds to V2 receptors on principal cells of the medullary collecting duct, aquaporin-2 water channels are inserted into apical membranes; the fluid traverses the 1400 mOsm/L medullary gradient, driving maximal osmotic water reabsorption into peritubular capillaries and producing concentrated, low-volume urine.",
+    "plain": "The kidney concentrates urine by building a super-salty zone deep in the medulla (reaching 1400 mOsm/L compared to 300 mOsm/L in blood). It works in six steps: (1) The thick ascending limb pumps out salt (NaCl) but is completely waterproof. (2) This pumped salt makes the surrounding tissue fluid salty (hyperosmolar). (3) The thin descending limb is permeable to water via aquaporins but waterproof to salt—so water rushes out by osmosis, concentrating the fluid inside the tube down to 1400 mOsm/L. (4) Vasa recta capillaries suck this water right back into the blood because plasma proteins pull water inward. (5) Hairpin vasa recta capillaries act as passive exchangers, swapping salt in on the way down and out on the way up, trapping salt in the medulla so it never washes away. (6) When ADH is present, collecting ducts open aquaporins, allowing water to be sucked out into the 1400 mOsm/L salty medulla, creating concentrated urine.",
+    "keyFacts": [
+      "The countercurrent multiplier system establishes a vertical osmotic gradient from 300 to 1400 mOsm/L in the renal medulla.",
+      "The thick ascending limb actively pumps NaCl into the interstitium via Na+/K+/2Cl- (NKCC2) cotransporters.",
+      "The thick ascending limb is completely impermeable to water, rendering tubular fluid hypotonic (~100 mOsm/L).",
+      "The thin descending limb is highly permeable to water via aquaporins but impermeable to solutes.",
+      "Water diffuses out of the descending limb by osmosis, concentrating tubular fluid up to 1400 mOsm/L at the loop hairpin.",
+      "Plasma proteins in the vasa recta exert high oncotic pressure, drawing extracted water into the bloodstream.",
+      "Hairpin vasa recta capillaries act as passive countercurrent exchangers, preventing medullary solute washout.",
+      "NaCl and recycled urea are continuously trapped within the medullary interstitium and vasa recta.",
+      "Antidiuretic hormone (ADH) inserts aquaporin-2 channels into collecting ducts to exploit this 1400 mOsm/L gradient.",
+      "Aquaporins are specialized transmembrane water channels that enable rapid facilitated diffusion of water."
+    ],
+    "prerequisites": [
+      "abct2326-renal-filtration-countercurrent"
+    ],
+    "examples": [
+      "Loop diuretics (such as furosemide/Lasix) reversibly inhibit the apical Na+/K+/2Cl- (NKCC2) cotransporter in the thick ascending limb; blocking active NaCl extrusion abolishes the medullary hyperosmolar gradient, preventing water reabsorption in both the descending limb and collecting duct and producing massive diuresis.",
+      "In central diabetes insipidus, damage to the posterior pituitary eliminates ADH secretion; without ADH, collecting duct apical membranes remain impermeable to water despite a normal 1400 mOsm/L medullary gradient, causing polyuria of 15–20 L/day of dilute urine (~50–100 mOsm/L)."
+    ]
+  },
+  "memory": {
+    "firstLetter": "Multiplier 6 Steps: P-O-W-V-S-T ('Pumping Osmolality Water Vasa Solute Trapped' = Pump NaCl, Osmolality rises, Water exits, Vasa recta absorbs, Solute exchanged, Trapped gradient).",
+    "chunking": "Multiplier vs Exchanger: Loop of Henle is the active Multiplier (burns ATP to pump NaCl); Vasa Recta is the passive Exchanger (hairpin capillary loop preserves salt while removing water).",
+    "comparison": "Ascending vs Descending Limb: Descending = Water permeable, Salt impermeable (fluid gets concentrated); Ascending = Salt permeable/pumped, Water impermeable (fluid gets diluted).",
+    "teachBack": "Diagram the hairpin loop of Henle side by side with the vasa recta, trace the 6 steps of countercurrent multiplication, and explain why loop diuretics cause massive dilute urination."
+  },
+  "practice": [
+    {
+      "type": "sequence",
+      "prompt": "Order the six physiological steps of the renal medullary countercurrent multiplication and exchange mechanism.",
+      "items": [
+        "NaCl is actively pumped out from the thick ascending limb into medullary interstitium",
+        "Extruded NaCl increases the osmolality of medullary interstitial fluid surrounding the loop",
+        "Water diffuses out from the descending limb by osmosis, concentrating luminal fluid",
+        "Net water diffuses into vasa recta capillaries drawn by plasma protein colloid osmotic pressure",
+        "Hairpin vasa recta passively exchange NaCl, trapping solute in medullary interstitium",
+        "Deep medullary 1400 mOsm/L hypertonicity is preserved for ADH-driven water reclamation"
+      ],
+      "explanation": "Active ascending limb salt extrusion initiates the cascade, elevating interstitial osmolality, extracting descending water, recovering fluid via vasa recta oncotic pull, and trapping solutes."
+    },
+    {
+      "type": "matching",
+      "prompt": "Match each segment of the renal countercurrent apparatus with its unique permeability and transport characteristics.",
+      "pairs": [
+        [
+          "Thick ascending limb",
+          "Actively pumps NaCl via NKCC2; completely impermeable to water"
+        ],
+        [
+          "Thin descending limb",
+          "Highly permeable to water via aquaporins; impermeable to solutes"
+        ],
+        [
+          "Vasa recta",
+          "Hairpin capillary loop serving as passive countercurrent exchanger"
+        ],
+        [
+          "Medullary collecting duct",
+          "Variable water permeability regulated by ADH-induced aquaporin insertion"
+        ]
+      ],
+      "explanation": "Ascending pumps salt/blocks water; descending lets water exit; vasa recta is the exchanger; collecting duct responds to ADH."
+    },
+    {
+      "type": "mcq",
+      "prompt": "What physical driving force prevents the water extracted from the descending limb from diluting and washing away the hyperosmolar medullary gradient?",
+      "options": [
+        "High colloid osmotic pressure exerted by plasma proteins within the vasa recta drawing water inward",
+        "Active ATP-dependent sodium pumping by descending vasa recta endothelial cells",
+        "Extremely high hydrostatic pressure inside the renal papilla pushing water into the ureter",
+        "Complete closure of fenestrations within medullary peritubular capillaries"
+      ],
+      "answer": 0,
+      "explanation": "Colloid osmotic pressure of plasma proteins in the vasa recta exerts a continuous oncotic pull that draws recovered interstitial water into the bloodstream."
+    },
+    {
+      "type": "typed",
+      "prompt": "What specific transmembrane channel proteins facilitate the rapid passive osmosis of water across the descending limb and collecting duct epithelial membranes?",
+      "accept": [
+        "aquaporins",
+        "Aquaporins",
+        "aquaporin",
+        "Aquaporin"
+      ],
+      "explanation": "Aquaporins are selective water channels that mediate transcellular water diffusion."
+    }
+  ],
+  "application": [
+    {
+      "type": "scenario",
+      "prompt": "A 64-year-old male with congestive heart failure and bilateral pulmonary edema is administered an intravenous bolus of the loop diuretic furosemide (Lasix). Within 30 minutes, he experiences brisk diuresis, excreting 2.5 liters of dilute urine over the subsequent 3 hours, with rapid resolution of his dyspnea. Explain the cellular mechanism of furosemide on the thick ascending limb, detail its step-by-step impact on the countercurrent multiplier system, and explain why both descending limb and collecting duct water extraction fail.",
+      "model": "Furosemide is a loop diuretic that binds to and reversibly inhibits the apical Na+/K+/2Cl- (NKCC2) cotransporter in epithelial cells of the thick ascending limb of the loop of Henle. Under normal conditions, step 1 of the countercurrent multiplier relies on NKCC2 actively pumping NaCl out of the thick ascending limb to generate medullary hyperosmolality (step 2). By blocking NKCC2, furosemide stops active NaCl extrusion into the medullary interstitium. Without salt accumulation, the vertical medullary osmotic gradient collapses from 1400 mOsm/L down toward isotonic levels (~300 mOsm/L). In the thin descending limb, because the surrounding interstitium is no longer hyperosmolar, the osmotic gradient driving water extraction through aquaporins is eliminated (step 3 fails). Highly voluminous, isotonic tubular fluid enters the distal nephron. Finally, when this fluid reaches the medullary collecting duct, even if high endogenous circulating ADH is present to insert apical aquaporin-2 channels, water cannot exit the collecting duct because there is no hyperosmolar medullary gradient to draw it out by osmosis. As a result, massive volumes of un-reabsorbed water and electrolytes are excreted in the urine, achieving rapid intravascular volume depletion and resolving pulmonary edema.",
+      "rubric": [
+        "Identifies furosemide inhibition of the apical Na+/K+/2Cl- (NKCC2) cotransporter in the thick ascending limb",
+        "Explains the collapse of the vertical medullary osmotic gradient from 1400 mOsm/L toward isotonic levels",
+        "Details how loss of interstitial hyperosmolality abolishes the osmotic driving force for water extraction in both the descending limb and collecting duct"
+      ]
+    }
+  ],
+  "commonMistakes": [
+    "Believing the descending limb actively pumps salt; the descending limb is purely passive and solute-impermeable, while the thick ascending limb actively pumps salt.",
+    "Thinking the vasa recta acts as an active multiplier; the vasa recta is a passive countercurrent exchanger that requires no ATP.",
+    "Assuming furosemide works primarily on the collecting duct; it acts on the thick ascending limb, but indirectly cripples collecting duct water reabsorption by destroying the medullary gradient."
+  ],
+  "skills": [
+    "Diagram the 6-step loop of Henle countercurrent multiplier system and vasa recta countercurrent exchange.",
+    "Analyze pharmacological and pathological disruptions of the medullary gradient (loop diuretics, diabetes insipidus)."
+  ],
+  "selfCheck": "From memory: recite the 6 steps of countercurrent multiplication, contrast the permeabilities of the ascending and descending limbs, and explain why plasma proteins in the vasa recta are critical.",
+  "visuals": [
+    {
+      "fig": "countercurrentMultiplierMechanism"
+    },
+    {
+      "fig": "nephronVascularMicroanatomy"
+    },
+    {
+      "gen": true
+    }
+  ],
+  "sourceRefs": [
+    {
+      "ref": "phys.5",
+      "location": "p27 \"Countercurrent Multiplier System\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p30 \"Countercurrent Exchange in\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p31 \"Homeostasis of\""
+    },
+    {
+      "ref": "phys.renal.supp",
+      "location": "p1 \"NaCl (salt) is pumped out from thick ascending limb.\""
+    },
+    {
+      "ref": "phys.renal.supp",
+      "location": "p1 \"Water diffuses out from descending limb to interstitial fluid.\""
+    },
+    {
+      "ref": "phys.renal.supp",
+      "location": "p1 \"Reason: Plasma proteins in vasa recta draw water.\""
+    },
+    {
+      "ref": "phys.renal.supp",
+      "location": "p1 \"NaCl therefore is always trapped in interstitial fluid and vasa recta.\""
+    },
+    {
+      "ref": "phys.renal.supp",
+      "location": "p4 \"Aquaporins\""
+    }
+  ]
+},
     {
     "id": "abct2326-resp-ventilation-chemoreceptors",
     "subject": "ABCT2326",
@@ -5697,84 +6172,278 @@ export const PHYS_ITEMS = [
     ]
   },
   {
-    id: 'abct2326-renal-tubular-clearance-sympathetic',
-    subject: 'ABCT2326', unit: 'phys.renal', type: 'concept',
-    title: 'Renal tubular transport, sympathetic regulation, and micturition control',
-    tags: ['renal', 'tubular-transport', 'micturition', 'aldosterone', 'high-yield'],
-    lesson: {
-      explanation: 'Renal regulation coordinates tubular reabsorption, sympathetic neural inputs, and voluntary urinary elimination. The nephron population divides into two distinct anatomical classes: cortical nephrons (~85%, situated almost entirely in the cortex with short nephron loops) and juxtamedullary nephrons (~15%, extending deep medullary loops into hyperosmolar interstitial zones to concentrate urine). Evolutionary adaptation directly reflects this design: beavers have relatively little need to conserve water and could therefore be expected to have shorter nephron loops than humans, whereas desert mammals possess elongated juxtamedullary loops. Along the nephron, the primary function of the proximal convoluted tubule is the mass absorption of ions, organic molecules, vitamins, and water (~65% of filtrate volume). Furthermore, urea is passively reabsorbed in the proximal convoluted tubule (recovering ~50% along the osmotic water gradient). Under circulatory stress or exercise, sympathetic activation of nerve fibers in the nephron causes the regulation of glomerular blood flow and pressure (via afferent arteriolar vasoconstriction), the stimulation of renin release from the juxtaglomerular complex, and the direct stimulation of water and Na+ reabsorption to preserve blood pressure and volume. In the distal convoluted tubule and cortical collecting duct, sodium reabsorption is accelerated by the secretion of aldosterone, while when ADH levels rise, the amount of water reabsorbed increases dramatically via aquaporin insertion. Finally, while bladder distension triggers the involuntary autonomic micturition reflex, voluntary continence is maintained because the external uretheral sphincter can be controlled voluntarily via somatic motor innervation (pudendal nerve).',
-      plain: 'Cortical nephrons have short loops while juxtamedullary nephrons have long loops; beavers have shorter loops due to ample water. The PCT absorbs ions, organic nutrients, vitamins, water, and passively reabsorbs ~50% of urea. Sympathetic renal nerve stimulation constricts vessels, stimulates renin release, and promotes Na+/water reabsorption. Aldosterone accelerates DCT sodium uptake; ADH increases water reabsorption; voluntary micturition control is mediated by the external urethral sphincter.',
-      keyFacts: [
-        'The primary function of the proximal convoluted tubule is absorption of ions, organic molecules, vitamins, and water.',
-        'Urea is passively reabsorbed in the proximal convoluted tubule along the water reabsorption gradient.',
-        'Beavers have relatively little need to conserve water and therefore have shorter nephron loops than humans.',
-        'Sympathetic renal nerve stimulation regulates glomerular hemodynamics, stimulates renin release, and stimulates water and Na+ reabsorption.',
-        'Aldosterone accelerates sodium reabsorption in the DCT and cortical collecting duct.',
-        'Elevated ADH increases the amount of water reabsorbed across the collecting system.',
-        'Voluntary control over urination is maintained because the external urethral sphincter can be controlled voluntarily.',
-      ],
-      prerequisites: ['abct2326-renal-nephron', 'abct2326-renal-countercurrent-vasarecta'],
-      examples: ['After a vigorous 1000-meter race, intense sympathetic tone and elevated aldosterone and ADH produce a small volume of highly concentrated urine.'],
+  "id": "abct2326-renal-tubular-clearance-sympathetic",
+  "subject": "ABCT2326",
+  "unit": "phys.renal",
+  "type": "concept",
+  "title": "Renal clearance, sympathetic hemodynamics, tubular transport, and micturition",
+  "tags": [
+    "renal",
+    "tubular-transport",
+    "micturition",
+    "aldosterone",
+    "high-yield",
+    "renal-clearance",
+    "sympathetic-control"
+  ],
+  "priorKnowledge": {
+    "level": "dse-bio",
+    "covers": "part",
+    "dsePart": "elective-hp",
+    "syllabusRef": {
+      "ref": "edb.bio",
+      "location": "Elective V(a) \"Regulation of water content (osmoregulation)\" — osmoreceptors, hormonal control by ADH, and voluntary versus involuntary urination."
     },
-    memory: {
-      chunking: 'Nephron Classes (cortical short loop vs juxtamedullary long loop; beaver short loops) · PCT (bulk reabsorption of nutrients/ions/water + passive urea) · Sympathetic (renin release, GFR regulation, Na+/water retention) · Endocrine (aldosterone = Na+; ADH = water) · Continence (external urethral sphincter = voluntary somatic).',
-      comparison: 'External vs Internal Urethral Sphincter: Internal sphincter is smooth muscle under involuntary autonomic control; external sphincter is skeletal muscle under voluntary somatic control.',
-      number: '85% cortical vs 15% juxtamedullary nephrons · ~50% urea passively reabsorbed in PCT · External urethral sphincter = voluntary control.',
-    },
-    practice: [
-      { type: 'mcq', prompt: 'Why can humans consciously postpone urination when bladder wall stretching initiates the micturition reflex?', options: ['The production of urine can be suspended voluntarily', 'The external uretheral sphincter can be controlled voluntarily', 'The internal uretheral sphincter can be controlled voluntarily', 'Smooth muscle in the detrusor is under somatic motor control'], answer: 1,
-        explanation: 'Voluntary continence is mediated by somatic motor control over the skeletal muscle external urethral sphincter.',
-        src: { ref: 'phys.renal.tut', location: 'p1 "The external uretheral sphincter can be controlled voluntarily."' } },
-      { type: 'mcq', prompt: 'What is the primary physiological function of the proximal convoluted tubule (PCT)?', options: ['Filtration of plasma proteins', 'absorption of ions, organic molecules, vitamins, and water', 'Secretion of excess glucose and lipoproteins', 'Establishing hyperosmolality in the medullary tip'], answer: 1,
-        explanation: 'The PCT performs bulk non-regulated reabsorption of approximately 65% of water, ions, and virtually all filtered organic nutrients.',
-        src: { ref: 'phys.renal.tut', location: 'p1 "absorption of ions, organic molecules, vitamins, and water."' } },
-      { type: 'mcq', prompt: 'How is filtered urea handled in the proximal convoluted tubule (PCT)?', options: ['Actively secreted by ATP-dependent pumps', 'Completely eliminated without any reabsorption', 'passively reabsorbed in the proximal convoluted tubule', 'Converted enzymatically into ammonia'], answer: 2,
-        explanation: 'As water is reabsorbed in the PCT, luminal urea concentration rises, driving passive reabsorption of approximately 50% of filtered urea.',
-        src: { ref: 'phys.renal.tut', location: 'p2 "passively reabsorbed in the proximal convoluted tubule."' } },
-      { type: 'mcq', prompt: 'Which anatomical adaptation in nephron loop length would be expected in semi-aquatic animals such as beavers compared to humans?', options: ['Fewer total nephrons', 'shorter nephron loops', 'Longer collecting ducts', 'Absence of convoluted tubules'], answer: 1,
-        explanation: 'Because beavers inhabit freshwater environments with little need to conserve water, they possess predominantly cortical nephrons with shorter nephron loops.',
-        src: { ref: 'phys.renal.tut', location: 'p2 "shorter nephron loops"' } },
-      { type: 'mcq', prompt: 'Sympathetic nerve stimulation to the kidney results in which combination of physiological actions?', options: ['Inhibition of renin and massive natriuresis', 'Regulation of glomerular blood flow, renin stimulation, and direct stimulation of water and Na+ reabsorption', 'Complete cessation of tubular transport', 'Vasodilation of afferent arterioles and diuresis'], answer: 1,
-        explanation: 'Sympathetic activation constricts renal arterioles, stimulates renin release from juxtaglomerular cells, and directly enhances tubular Na+ and water reabsorption.',
-        src: { ref: 'phys.renal.tut', location: 'p2 "the regulation of glomerular blood flow and pressure."' } },
-      { type: 'typed', prompt: 'Sodium reabsorption in the DCT and cortical collecting duct is accelerated by the secretion of which adrenal corticosteroid hormone?', accept: ['aldosterone', 'Aldosterone'],
-        explanation: 'Aldosterone accelerates Na+ reabsorption and K+ secretion in the distal tubule and cortical collecting duct.',
-        src: { ref: 'phys.renal.tut', location: 'p2 "aldosterone."' } },
-      { type: 'matching', prompt: 'Match each renal regulatory component to its physiological outcome.',
-        pairs: [['External urethral sphincter', 'can be controlled voluntarily'], ['Proximal convoluted tubule', 'absorption of ions, organic molecules, vitamins, and water.'], ['Juxtaglomerular complex', 'stimulation of renin release'], ['Elevated ADH', 'the amount of water reabsorbed increases.']],
-        explanation: 'These pairings connect renal anatomical structures to their specific transport and regulatory functions.',
-        src: { ref: 'phys.renal.tut', location: 'p1 "The external uretheral sphincter can be controlled voluntarily."' } },
-    ],
-    application: [
-      { type: 'scenario', prompt: 'Describe the hormonal, neural, and tubular mechanisms that alter urine concentration and volume after an athlete completes an intense 1000-meter race in hot conditions.',
-        model: 'Intense exercise and sweat-induced dehydration cause fluid loss, lowering blood volume and raising plasma osmolality. Sympathetic renal nerve activation constricts renal arterioles (reducing GFR) and triggers renin secretion from the juxtaglomerular complex. Renin produces angiotensin II, which stimulates aldosterone release to accelerate Na+ reabsorption in the DCT and collecting system. Concurrently, hyperosmolality stimulates hypothalamic osmoreceptors to secrete ADH, which inserts aquaporins into collecting ducts to maximally reabsorb water into the hyperosmolar medullary interstitium. Together, these mechanisms produce a markedly decreased volume of highly concentrated, dark urine.',
-        rubric: ['Identifies sympathetic vasoconstriction and renin stimulation', 'Explains aldosterone-accelerated Na+ reabsorption in the DCT', 'Details ADH-mediated water recovery producing low-volume, concentrated urine'] },
-    ],
-    commonMistakes: [
-      'Believing urea is completely excreted (about 50% of filtered urea is passively reabsorbed in the PCT).',
-      'Confusing the internal and external urethral sphincters (the internal sphincter is involuntary smooth muscle; the external is voluntary skeletal muscle).',
-      'Thinking beavers need long loops of Henle (beavers live in water and have shorter loops; desert animals have long loops).',
-    ],
-    skills: [
-      'Differentiating cortical and juxtamedullary nephron loops, detailing PCT nutrient reabsorption and passive urea recycling, analyzing sympathetic regulation of GFR and renin release, explaining aldosterone and ADH actions, and identifying voluntary micturition mechanics.',
-    ],
-    selfCheck: 'State which urethral sphincter is voluntary, what proportion of urea is reabsorbed in the PCT, why beavers have shorter loops of Henle, and what three actions sympathetic renal nerves cause.',
-    sourceRefs: [
-      { ref: 'phys.renal.tut', location: 'p1 "The external uretheral sphincter can be controlled voluntarily."' },
-      { ref: 'phys.renal.tut', location: 'p1 "primary function of the proximal convoluted tubule is:"' },
-      { ref: 'phys.renal.tut', location: 'p1 "absorption of ions, organic molecules, vitamins, and water."' },
-      { ref: 'phys.renal.tut', location: 'p1 "Identify the two classes of nephrons and briefly describe the characteristics of each."' },
-      { ref: 'phys.renal.tut', location: 'p2 "passively reabsorbed in the proximal convoluted tubule."' },
-      { ref: 'phys.renal.tut', location: 'p2 "Beavers have relatively little need to conserve water and could therefore be"' },
-      { ref: 'phys.renal.tut', location: 'p2 "shorter nephron loops"' },
-      { ref: 'phys.renal.tut', location: 'p2 "Sympathetic activation of nerve fibers in the nephron causes"' },
-      { ref: 'phys.renal.tut', location: 'p2 "the regulation of glomerular blood flow and pressure."' },
-      { ref: 'phys.renal.tut', location: 'p2 "the stimulation of renin release from the juxtaglomerular complex."' },
-      { ref: 'phys.renal.tut', location: 'p2 "aldosterone."' },
-      { ref: 'phys.renal.tut', location: 'p2 "When ADH levels rise,"' },
-      { ref: 'phys.renal.tut', location: 'p2 "the amount of water reabsorbed increases."' },
-    ],
+    "beyond": [
+      {
+        "t": "Sympathetic activity constricts afferent arterioles, preserving blood volume and regulating GFR.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p19 \"Sympathetic activity constricts afferent arteriole\""
+        }
+      },
+      {
+        "t": "Renal clearance is the active transport and excretion of substances from peritubular capillaries into tubular fluid.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p34 \"The active transport of substances from the\""
+        }
+      },
+      {
+        "t": "Aldosterone promotes sodium retention and potassium excretion in the distal tubule and collecting duct.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p37 \"Role of Aldosterone in Na\""
+        }
+      },
+      {
+        "t": "Juxtaglomerular complex: macula densa and juxtaglomerular cells regulate renin secretion and GFR.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p39 \"Is specialized region in each\""
+        }
+      },
+      {
+        "t": "Renin-angiotensin-aldosterone system (RAAS) is activated by renin release responding to low perfusion pressure.",
+        "src": {
+          "ref": "phys.5",
+          "location": "p40 \"Is activated by release of\""
+        }
+      },
+      {
+        "t": "The external urethral sphincter is composed of skeletal muscle and is under voluntary somatic motor control.",
+        "src": {
+          "ref": "phys.renal.tut",
+          "location": "p1 \"The external uretheral sphincter can be controlled voluntarily.\""
+        }
+      },
+      {
+        "t": "Primary function of the proximal convoluted tubule is bulk absorption of ions, organic molecules, vitamins, and water.",
+        "src": {
+          "ref": "phys.renal.tut",
+          "location": "p1 \"absorption of ions, organic molecules, vitamins, and water.\""
+        }
+      },
+      {
+        "t": "Filtered urea is passively reabsorbed in the proximal convoluted tubule (~50%) along the water osmotic gradient.",
+        "src": {
+          "ref": "phys.renal.tut",
+          "location": "p2 \"passively reabsorbed in the proximal convoluted tubule.\""
+        }
+      },
+      {
+        "t": "Beavers have little need to conserve water and therefore possess shorter nephron loops than humans.",
+        "src": {
+          "ref": "phys.renal.tut",
+          "location": "p2 \"shorter nephron loops\""
+        }
+      },
+      {
+        "t": "Sympathetic nerve stimulation regulates glomerular hemodynamics, stimulates renin, and stimulates Na+/water reabsorption.",
+        "src": {
+          "ref": "phys.renal.tut",
+          "location": "p2 \"the regulation of glomerular blood flow and pressure.\""
+        }
+      },
+      {
+        "t": "When ADH levels rise, the amount of water reabsorbed increases dramatically across collecting ducts.",
+        "src": {
+          "ref": "phys.renal.tut",
+          "location": "p2 \"the amount of water reabsorbed increases.\""
+        }
+      }
+    ]
   },
+  "lesson": {
+    "explanation": "Renal physiology integrates tubular transport mechanisms, autonomic neural control, endocrine feedback, and neural micturition pathways to maintain systemic homeostasis. Anatomically, the mammalian nephron population comprises two distinct classes: cortical nephrons (~85% in humans), situated almost entirely within the renal cortex with short loops of Henle that barely penetrate the outer medulla, primarily executing bulk reabsorption and filtration; and juxtamedullary nephrons (~15%), whose renal corpuscles lie adjacent to the corticomedullary junction with exceptionally long loops of Henle and associated vasa recta dipping deep into the renal papilla. Juxtamedullary nephrons are the sole engines responsible for establishing the hyperosmolar medullary gradient. Evolutionary morphology directly demonstrates this functional divergence: semi-aquatic animals like beavers, possessing constant access to fresh water and minimal need to conserve fluid, have predominantly cortical nephrons with shorter nephron loops, whereas desert rodents (e.g., kangaroo rats) have almost exclusively juxtamedullary nephrons with elongated loops producing urine up to 10,000 mOsm/L. Tubular handling along the nephron divides into bulk non-regulated transport and hormone-regulated fine-tuning. The primary physiological function of the proximal convoluted tubule (PCT) is the massive, non-regulated reabsorption of ions (Na+, K+, Cl-, HCO3-), organic nutrient molecules (100% of filtered glucose and amino acids via secondary active sodium symporters), vitamins, and water (~65% of filtrate volume). Furthermore, as water is reabsorbed across PCT enterocytes, luminal urea concentration rises, driving passive reabsorption of approximately 50% of filtered urea along its transcellular concentration gradient. Under acute circulatory stress, physical exertion, or severe hemorrhage, sympathetic innervation of the kidney (via postganglionic fibers from the celiac plexus and splanchnic nerves) executes three coordinated homeostatic actions: (1) marked vasoconstriction of renal afferent arterioles via alpha-1 adrenergic receptors, which reduces glomerular capillary hydrostatic pressure, lowering GFR to minimize fluid loss and divert blood flow to vital organs; (2) direct stimulation of beta-1 adrenergic receptors on juxtaglomerular (granular) cells of the afferent arteriole, triggering exocytosis of the proteolytic enzyme renin; and (3) direct stimulation of alpha-1 receptors on tubular epithelial cells, enhancing active Na+ and water reabsorption. Secreted renin cleaves hepatic angiotensinogen into angiotensin I, which is converted in pulmonary capillaries by angiotensin-converting enzyme (ACE) into angiotensin II. Angiotensin II triggers widespread systemic vasoconstriction and stimulates the adrenal cortex (zona glomerulosa) to synthesize and secrete aldosterone. In the distal convoluted tubule and cortical collecting duct, aldosterone accelerates Na+ reabsorption by upregulating apical epithelial sodium channels (ENaC) and basolateral Na+/K+ ATPases, coupled with accelerated secretion of K+ or H+ into the lumen. Concurrently, elevated plasma osmolarity or hypovolemia triggers hypothalamic neurosecretory cells to release antidiuretic hormone (ADH/vasopressin) from the posterior pituitary; when ADH levels rise, apical aquaporin-2 insertion increases the amount of water reabsorbed into medullary capillaries. Finally, as urine accumulates in the urinary bladder (typically 200–400 mL), progressive wall distension triggers visceral sensory afferents that activate the involuntary parasympathetic micturition reflex in the sacral spinal cord (S2–S4), contracting the detrusor muscle and relaxing the internal urethral sphincter (involuntary smooth muscle). However, voluntary continence is maintained because the external urethral sphincter, located at the urogenital diaphragm, is composed of somatic skeletal muscle innervated by the pudendal nerve, allowing conscious postponement of urination until socially appropriate.",
+    "plain": "The kidney balances blood pressure and fluids through nerves, hormones, and tubules. Nephrons divide into cortical nephrons (85%, short loops for general filtering) and juxtamedullary nephrons (15%, long loops that build the salty medullary gradient). Animals that live in water, like beavers, have short loops because they don't need to save water! The proximal tubule (PCT) does the heavy lifting: it reabsorbs 65% of water, all glucose/amino acids, and passively takes back 50% of filtered urea. During stress or exercise, sympathetic nerves kick in: they constrict kidney arteries to save blood, trigger renin release to activate the RAAS hormone system, and directly save salt and water. Aldosterone tells the distal tubule to save sodium and dump potassium; ADH opens water channels to save water. When your bladder gets full, an involuntary reflex squeezes the detrusor muscle, but you don't wet yourself because your external urethral sphincter is skeletal muscle under your voluntary conscious control!",
+    "keyFacts": [
+      "Cortical nephrons (~85%) have short loops; juxtamedullary nephrons (~15%) have long loops that concentrate urine.",
+      "Beavers have little need to conserve water and therefore possess shorter nephron loops than humans.",
+      "The proximal convoluted tubule reabsorbs ~65% of water, all glucose and amino acids, and passively reabsorbs ~50% of urea.",
+      "Sympathetic stimulation constricts afferent arterioles, triggers renin release, and stimulates tubular Na+/water reabsorption.",
+      "Renal clearance measures the removal of substances from blood plasma via filtration and secretion into urine.",
+      "Renin from juxtaglomerular cells converts angiotensinogen to angiotensin I; pulmonary ACE produces angiotensin II.",
+      "Angiotensin II stimulates aldosterone secretion from the adrenal cortex to accelerate distal sodium reabsorption.",
+      "Elevated antidiuretic hormone (ADH) increases collecting duct water reabsorption via aquaporin insertion.",
+      "The bladder detrusor muscle and internal urethral sphincter are controlled by involuntary autonomic pathways.",
+      "Voluntary control over urination is maintained because the external urethral sphincter is somatic skeletal muscle."
+    ],
+    "prerequisites": [
+      "abct2326-renal-countercurrent-vasarecta"
+    ],
+    "examples": [
+      "During intense marathon running in extreme heat, heavy sweating activates high sympathetic renal nerve tone and triggers maximal RAAS and ADH release; renal blood flow drops by 70%, GFR is reduced, and nearly all filtered sodium and water are reclaimed, producing a scanty, highly concentrated urine sample.",
+      "A patient who suffers a complete transection of the spinal cord above the sacral level initially experiences urinary retention; subsequently, an automatic neurogenic bladder develops where bladder distension triggers involuntary detrusor contraction and emptying, because voluntary control of the external urethral sphincter via the pudendal nerve is severed from higher cortical centers."
+    ]
+  },
+  "memory": {
+    "firstLetter": "Sympathetic Renal Triad: G-R-T ('Guard Renal Treasure' = Glomerular flow reduction, Renin release, Tubular Na+/water reabsorption).",
+    "chunking": "Sphincter Control: Internal Urethral Sphincter = Involuntary smooth muscle (Autonomic); External Urethral Sphincter = Voluntary skeletal muscle (Somatic pudendal nerve).",
+    "comparison": "Cortical vs Juxtamedullary Nephrons: Cortical (85%) = short loops in cortex, handles bulk day-to-day filtration; Juxtamedullary (15%) = long deep medullary loops, builds osmotic gradient for water conservation.",
+    "teachBack": "Explain why beavers have shorter loops of Henle than humans, list the three effects of sympathetic renal nerve firing, and explain how humans voluntarily hold their urine."
+  },
+  "practice": [
+    {
+      "type": "mcq",
+      "prompt": "Why can humans consciously postpone urination when bladder distension initiates the visceral micturition reflex?",
+      "options": [
+        "The production of glomerular ultrafiltrate can be voluntarily halted by renal nerves.",
+        "The external urethral sphincter is composed of skeletal muscle under voluntary somatic motor control.",
+        "The internal urethral sphincter is composed of striated muscle innervated by the vagus nerve.",
+        "The detrusor muscle of the bladder wall is under conscious pyramidal motor control."
+      ],
+      "answer": 1,
+      "explanation": "Voluntary continence is maintained by somatic motor innervation (via the pudendal nerve) to the striated external urethral sphincter."
+    },
+    {
+      "type": "matching",
+      "prompt": "Match each renal regulatory mechanism or anatomical feature with its primary physiological characteristic.",
+      "pairs": [
+        [
+          "Proximal convoluted tubule",
+          "Reabsorbs ~65% of water/ions, 100% of glucose, and passively reabsorbs ~50% of urea"
+        ],
+        [
+          "Sympathetic renal stimulation",
+          "Constricts afferent arterioles, triggers renin release, and stimulates Na+/water reabsorption"
+        ],
+        [
+          "Juxtamedullary nephron",
+          "Possesses long loop of Henle dipping into deep medulla to establish hyperosmolar gradient"
+        ],
+        [
+          "Aldosterone",
+          "Steroid hormone accelerating Na+ reabsorption and K+ secretion in the distal nephron"
+        ]
+      ],
+      "explanation": "PCT reabsorbs bulk solutes and 50% urea; sympathetic nerves conserve volume and trigger renin; juxtamedullary nephrons concentrate urine; aldosterone retains sodium."
+    },
+    {
+      "type": "mcq",
+      "prompt": "Which anatomical adaptation in nephron architecture would be expected in semi-aquatic mammals such as beavers compared to humans or desert animals?",
+      "options": [
+        "A complete absence of glomeruli and proximal convoluted tubules",
+        "Shorter nephron loops due to minimal evolutionary need for water conservation",
+        "A vastly higher proportion of long juxtamedullary loops of Henle",
+        "Replacement of the loop of Henle with branching vascular sinusoids"
+      ],
+      "answer": 1,
+      "explanation": "Because beavers inhabit freshwater aquatic environments with abundant water intake, they have little need to conserve water and possess shorter nephron loops."
+    },
+    {
+      "type": "typed",
+      "prompt": "What proportion of filtered urea is passively reabsorbed in the proximal convoluted tubule alongside the osmotic reabsorption of water?",
+      "accept": [
+        "50%",
+        "50 percent",
+        "half",
+        "approximately 50%",
+        "50"
+      ],
+      "explanation": "Approximately 50% of filtered urea is passively reabsorbed in the proximal tubule along the transcellular concentration gradient created by water reabsorption."
+    }
+  ],
+  "application": [
+    {
+      "type": "scenario",
+      "prompt": "A 32-year-old soldier sustains severe trauma with acute hemorrhage, losing 1,200 mL of blood in combat. His blood pressure falls to 85/55 mmHg, heart rate rises to 125 bpm, and urine output plummets to 8 mL/hour. Detail the neuroendocrine response of the kidneys to severe hypovolemic shock, detailing the actions of sympathetic renal nerves, the RAAS cascade, and ADH, and explain how these systems prioritize systemic perfusion over urine excretion.",
+      "model": "Severe hemorrhage causes acute hypovolemia, unloading carotid sinus and aortic arch baroreceptors. The medullary vasomotor center mounts a massive sympathetic reflex outflow to the kidneys. Sympathetic postganglionic fibers stimulate alpha-1 receptors on renal afferent arterioles, causing intense vasoconstriction that reduces renal blood flow and drops GFR, directly conserving intravascular volume. Concurrently, sympathetic stimulation of beta-1 receptors on juxtaglomerular cells—amplified by reduced renal perfusion pressure and diminished NaCl delivery to the macula densa—triggers rapid, massive secretion of renin. Renin cleaves circulating angiotensinogen into angiotensin I, which pulmonary ACE cleaves into angiotensin II. Angiotensin II exerts potent systemic arteriolar vasoconstriction (raising total peripheral resistance to support coronary and cerebral perfusion), constricts efferent arterioles to preserve minimal residual filtration, and stimulates the adrenal cortex to release aldosterone. Aldosterone acts on distal tubule principal cells to maximally reclaim Na+ via ENaC channels in exchange for K+. Concurrently, high sympathetic tone and low blood volume activate hypothalamic osmoreceptors and baroreceptors, triggering copious release of antidiuretic hormone (ADH) from the posterior pituitary. ADH inserts aquaporin-2 channels into collecting ducts, driving near-total water reabsorption into the hyperosmolar medullary interstitium. Together, these systems reduce urine production to a profound oliguric trickle (<10 mL/hr) to defend arterial blood pressure and preserve vital organ perfusion.",
+      "rubric": [
+        "Details sympathetic afferent arteriolar vasoconstriction reducing GFR and conserving intravascular volume",
+        "Traces the RAAS activation cascade from renin release to angiotensin II vasoconstriction and aldosterone-mediated Na+ reclamation",
+        "Explains ADH-driven collecting duct aquaporin insertion maximizing water reabsorption and producing severe oliguria"
+      ]
+    }
+  ],
+  "commonMistakes": [
+    "Believing urea is a 100% waste product that is entirely excreted; roughly 50% is passively reabsorbed in the PCT to assist in medullary osmotic cycling.",
+    "Assuming the internal and external urethral sphincters are both involuntary; the internal is involuntary smooth muscle, while the external is voluntary skeletal muscle.",
+    "Thinking sympathetic stimulation increases kidney filtration; sympathetic activation constricts afferent arterioles and suppresses GFR to preserve blood volume."
+  ],
+  "skills": [
+    "Correlate comparative mammalian nephron morphology (beaver vs human vs desert rodent) with ecological water conservation needs.",
+    "Detail the neural pathways of the micturition reflex and differentiate autonomic vs somatic control over urinary continence."
+  ],
+  "selfCheck": "From memory: describe the differences between cortical and juxtamedullary nephrons, list the three actions of sympathetic renal stimulation, state how much urea is reabsorbed in the PCT, and name the muscle of the voluntary urethral sphincter.",
+  "visuals": [
+    {
+      "fig": "nephronSecretionReabsorption"
+    },
+    {
+      "fig": "kidneyGrossAnatomy"
+    },
+    {
+      "gen": true
+    }
+  ],
+  "sourceRefs": [
+    {
+      "ref": "phys.5",
+      "location": "p19 \"Sympathetic activity constricts afferent arteriole\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p34 \"The active transport of substances from the\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p37 \"Role of Aldosterone in Na\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p39 \"Is specialized region in each\""
+    },
+    {
+      "ref": "phys.5",
+      "location": "p40 \"Is activated by release of\""
+    },
+    {
+      "ref": "phys.renal.tut",
+      "location": "p1 \"The external uretheral sphincter can be controlled voluntarily.\""
+    },
+    {
+      "ref": "phys.renal.tut",
+      "location": "p1 \"absorption of ions, organic molecules, vitamins, and water.\""
+    },
+    {
+      "ref": "phys.renal.tut",
+      "location": "p2 \"passively reabsorbed in the proximal convoluted tubule.\""
+    },
+    {
+      "ref": "phys.renal.tut",
+      "location": "p2 \"shorter nephron loops\""
+    },
+    {
+      "ref": "phys.renal.tut",
+      "location": "p2 \"the regulation of glomerular blood flow and pressure.\""
+    },
+    {
+      "ref": "phys.renal.tut",
+      "location": "p2 \"the amount of water reabsorbed increases.\""
+    }
+  ]
+},
   {
     id: 'abct2326-nervous-synaptic-refractory-neuroglia',
     subject: 'ABCT2326', unit: 'phys.nerv', type: 'concept',
