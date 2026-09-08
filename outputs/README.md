@@ -35,22 +35,14 @@ tab races, exposure and restoration. `work/radiography-check.mjs` checks the phy
 helpers. The viewer interaction reference was [Human Atlas](https://github.com/ashemag/human-atlas);
 the implementation retains this app's vanilla modules.
 
-**Full atlas** adds the Human Atlas BodyParts3D 4.0 adult male reference: 2,234
-selectable meshes, 3,432 named concepts and 15 systems. Its Spread slider opens
-systems first, then packs every visible piece into non-overlapping cells. Search
-selects individual or compound concepts, and isolation fits the selected geometry.
-The Course model retains curriculum links, cuts, annotations and projection.
-
-Full-atlas geometry downloads only when that tab is opened (32,956,129 compressed
-bytes, about 33 MB) and uses the existing persistent model cache for offline reuse.
-Its renderer pauses when the tab or Viewer is hidden. Attribution is visible in
-Tools and in `atlas/ATTRIBUTION.md`; code is MIT, model data CC BY 4.0. This adult
-male reference is broader than the course model, not every human structure or variation.
-
-`work/atlas-source/` preserves the upstream TypeScript snapshot. Run
-`node work/build-atlas-viewer.mjs` on Node 24 to reproduce the adapted vanilla
-renderer; no build is needed to serve the app. `node work/full-atlas-check.mjs`
-validates all geometry chunks, concept membership, indices and nine packed layouts.
+**Course body only.** Viewer has Course body and Projection tabs. Packed piece-level
+Spread lays out the visible course meshes in non-overlapping frontal cells at 100%;
+the Layers mode retains the previous layer fan. This is a display layout, not anatomy.
+System presets use the existing thirteen chips and lazily load only course GLBs.
+Search, isolation, turntable, cuts, annotations and curriculum links stay on this body.
+There is no alternate viewer, source switch or extra model download. Upstream MIT
+notices for the retained packed layout and pointer handling remain in
+THIRD-PARTY-NOTICES.txt; the course model's existing attribution is unchanged.
 
 | File | What it is |
 | --- | --- |

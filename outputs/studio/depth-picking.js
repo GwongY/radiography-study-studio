@@ -144,6 +144,8 @@ import { applySeparation } from './tools-and-capture.js';
        then to the nearest thing on screen, as before. */
     if(state.xray){const out=$('xraySelection');if(out)out.textContent='No named structure here.';return;}
     restorePeel();state.pickStack=[];state.pickCurrent=null;publishStack();
+    // A missed lesson tap must not fall through to skeleton click zones.
+    if(state.focus)return;
     const zones=state.raycaster.intersectObjects(state.fullPickables,false).filter(h=>isSelfOrAncestorVisible(h.object));
     if(zones[0]){confirmPick(zones[0].object,event);return}
     const nearest=nearestVisibleMesh(event,rect);
@@ -196,6 +198,9 @@ import { applySeparation } from './tools-and-capture.js';
         Math.max(-.9,Math.min(.9,pointerDown.pan.y-dy/rect.height)));
     });
     els.stage.addEventListener('pointerup',(e)=>{
+      /* The atlas body owns the tap while it is the one on the canvas: its
+         own handlers sit on the same element, and a pick here would name a
+         structure from the course scene nobody can see. */
       if(pointerTap.up(e.pointerId,e.clientX,e.clientY)&&!state.tool&&pointerDown&&e.pointerId===pointerDown.id&&!pointerDown.moved
         &&Math.hypot(e.clientX-pointerDown.x,e.clientY-pointerDown.y)<7)pick(e);
       pointerDown=null;
@@ -217,7 +222,7 @@ import { applySeparation } from './tools-and-capture.js';
    * the study module below.
    */
   export function clearSelection(){state.selectedId=null;state.selectedSide=null;state.selectionAnchor=null;state.isolated=false;clearPickCallout();$('isolateBtn').classList.remove('active');clearHighlight();restorePeel();state.pickStack=[];state.pickCurrent=null;publishStack();applyVisibility();els.selectedName.textContent='Nothing selected';els.selectedChips.innerHTML='';els.selectedDetails.innerHTML=''}
-  document.querySelectorAll('.mode-btn').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));$('resetBtn').onclick=()=>{if(state.xray){setXrayView(state.xray.view);return}cameraView('front');state.isolated=false;$('isolateBtn').classList.remove('active');applyVisibility()};els.focus.onclick=focusSelected;$('isolateBtn').onclick=toggleIsolation;$('showAllBtn').onclick=()=>{state.region='all';els.regionMeta.textContent='All regions';renderRegions();clearSelection()};els.next.onclick=()=>startQuestion();/* This button used to be a second, differently-named way to press Identify.
+  document.querySelectorAll('.mode-btn').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));$('resetBtn').onclick=()=>{if(state.xray){setXrayView(state.xray.view);return}cameraView('front');state.isolated=false;$('isolateBtn').classList.remove('active');applyVisibility()};els.focus.onclick=()=>{focusSelected()};$('isolateBtn').onclick=()=>{toggleIsolation()};$('showAllBtn').onclick=()=>{state.region='all';els.regionMeta.textContent='All regions';renderRegions();clearSelection()};els.next.onclick=()=>startQuestion();/* This button used to be a second, differently-named way to press Identify.
    It now does the thing its name promises: opens the drill on the structure
    you have got wrong most often, rather than a fresh weighted pick. */
 $('closeDetail').onclick=()=>{els.detailDialog.close();state.lastDetailId=null;history.replaceState(null,'',location.pathname+location.search)};els.retry.onclick=()=>{try{state.controls?.dispose()}catch{}if(state.renderer){state.renderer.domElement.remove();state.renderer=null;state.controls=null}state.scene=null;state.camera=null;state.fullModel=null;state.realModel=null;state.meshes=[];state.fullMeshes=[];state.hotspots=[];state.fullPickables=[];boot3D()};
@@ -396,6 +401,8 @@ export function init() {
   const paintMotion=()=>{els.motion.textContent=state.motionEnabled?'Pause turntable':'Spin turntable';els.motion.classList.toggle('active',state.motionEnabled)};
   paintMotion();
   if(prefersStill())els.motion.title='Your system asks for reduced motion, so the turntable starts still.';
+  /* The turntable command routes to the atlas body while it owns the canvas;
+     it answers 'on'/'off' so the label can be painted from the atlas state. */
   els.motion.onclick=()=>{state.motionEnabled=!state.motionEnabled;paintMotion()};renderRegions();renderReview();bindCanvas();setMode('explore');
   state.extraModels=state.extraModels||{};
   /* Both halves of the skeleton on, which is what one chip called Skeleton

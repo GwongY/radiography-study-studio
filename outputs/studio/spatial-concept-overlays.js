@@ -3,6 +3,7 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
+import { anatomicalMatrix } from './packed-spread.js';
 import { $, state } from './imports.js';
 import { animate, between, tube } from './region-boxes-how.js';
 import { answer, clean, disposeConceptObj, pool } from './visualisation-modes.js';
@@ -43,7 +44,7 @@ export function bodyMetrics(){
       if(o.visible===false||!o.geometry) return;
       if(!o.geometry.boundingBox) o.geometry.computeBoundingBox();
       const bb=o.geometry.boundingBox; if(!bb) return;
-      m4.multiplyMatrices(inv,o.matrixWorld);
+      m4.multiplyMatrices(inv,anatomicalMatrix(o));
       for(let i=0;i<8;i++){
         v.set(i&1?bb.max.x:bb.min.x,i&2?bb.max.y:bb.min.y,i&4?bb.max.z:bb.min.z).applyMatrix4(m4);
         box.expandByPoint(v);

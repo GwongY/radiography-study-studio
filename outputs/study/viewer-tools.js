@@ -214,9 +214,12 @@ function paintSeparation() {
   const read = $$('sepRead');
   if (!slider) return;
   const o = osteo();
+  const mode=$$('spreadMode');
+  if(mode)mode.value=o?.spreadMode?.()||'pieces';
   const t = o && o.separation ? o.separation() : 0;
   slider.value = String(Math.round(t * 100));
   if (read) read.textContent = t > 0 ? `${Math.round(t * 100)}%` : 'together';
+  renderLayerRail();
 }
 
 /* ------------------------------------------------------------------ *
@@ -238,6 +241,8 @@ function renderToolChip() {
 }
 
 export function init() {
+  const mode=$$('spreadMode');
+  if(mode)mode.onchange=()=>{osteo()?.setSpreadMode?.(mode.value);paintSeparation();};
   const note = $$('toolNote');
   if (note) note.oninput = () => { if (osteo() && osteo().setNoteText) osteo().setNoteText(note.value); };
 

@@ -24,3 +24,6 @@ init_visualisation_modes_js();
 init_depth_picking_js();
 init_live_physiology_js();
 init_tools_and_capture_js();
+/* Last: its __osteo surface must exist by the time the study half's viewer
+   page asks for it, and the ctrlpill routing it reads was wired by
+   depth-picking's init above. */

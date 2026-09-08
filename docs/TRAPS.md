@@ -479,6 +479,16 @@ suspended on the way in. `focusStructures` calls `releaseFocusMeshes` rather
 than `clearStudyFocus` when replacing one focus with another, or it would hand
 the Viewer's state back halfway through mounting.
 
+### Packed course pieces — `outputs/studio/packed-spread.js`
+
+The spread parent owns only presentation translation. Never write packed offsets into
+mesh.position or basePosition: highlighting resets them. Measurement uses anatomicalMatrix
+in cavity-geometry-derived.js and bodyMetrics to exclude the presentation parent, including
+lazy vertex reads after a layer arrives mid-spread. Visibility filters temporarily restore
+parents before region tests and repack afterwards. Projection, lessons, cuts and annotation
+entry assemble the body. Keep exact zero restoration and repeated application tested.
+
+
 ### Where you were is not the same as which tab you were on — `outputs/study/navigation-five-destinations.js`
 
 `closeSessionOverlay` restored the destination by calling `goTo()`, and `goTo`
