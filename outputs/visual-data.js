@@ -176,6 +176,7 @@ export const ITEM_VISUALS = {
   'hss2011-joints-synovial-structure': sch('synovialJoint'),
   'hss2011-joints-synovial-types': sch('synovialTypes'),
   'hss2011-joints-movements': sch('jointMovements'),
+  'hss2011-joints-movement-map-2026': sch('jointMovements'),
   'hss2011-joints-rotator-cuff': m('muscle',
     ['Supraspinatus muscle', 'Infraspinatus muscle', 'Teres minor muscle', 'Subscapularis muscle',
       'Acromial part of deltoid muscle', 'Clavicular part of deltoid muscle', 'Scapular spinal part of deltoid muscle'],

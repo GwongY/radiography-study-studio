@@ -49,7 +49,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `systems.js` | 268 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 1748 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
 | `term-notes.js` | 1491 | Term notes — say it, then mean it. |  |
-| `visual-data.js` | 500 | visual-data.js — a visual for every study item. |  |
+| `visual-data.js` | 501 | visual-data.js — a visual for every study item. |  |
 | `wordparts.js` | 952 | Word parts — the medical vocabulary broken into the pieces it is built from. |  |
 
 ### Exported symbols
@@ -108,10 +108,10 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `visual-data.js` | 1–29 | preamble |
 |  | 30–63 | Bone records -> skeleton meshes |
 |  | 64–72 | Explicit per-item visuals |
-|  | 73–281 | The 2026 items. All eighteen shipped on a generated layout — a flow |
-|  | 282–353 | Resolver |
-|  | 354–464 | Plates |
-|  | 465–500 | Ordered per-item visual lists |
+|  | 73–282 | The 2026 items. All eighteen shipped on a generated layout — a flow |
+|  | 283–354 | Resolver |
+|  | 355–465 | Plates |
+|  | 466–501 | Ordered per-item visual lists |
 
 ## The 3D studio — `outputs/studio/*.js`
 
@@ -179,7 +179,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | --- | --- | --- |
 | `apss-items.js` | 130 | APSS1A08 Introduction to Sociology — Topic 01 only. |
 | `corpus.js` | 65 | The assembled corpus — every item array spread into one list, and the |
-| `coverage.js` | 232 | Coverage report — what the supplied sources actually cover, and what they |
+| `coverage.js` | 237 | Coverage report — what the supplied sources actually cover, and what they |
 | `derived-items.js` | 344 | Items generated rather than authored: one per canonical bone record, one |
 | `diagrams.js` | 50 | Diagrams — authored schematics, drawn inline as SVG so the app needs no |
 | `dsai-items.js` | 173 | DSAI1202, from the Week 1 overview deck. |
