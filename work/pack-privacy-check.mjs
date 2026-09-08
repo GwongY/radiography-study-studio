@@ -208,5 +208,78 @@ if (pack && transfer && typeof pack.holdPack === 'function') {
   fail('question-pack.js does not export holdPack — cannot prove the export stays clean');
 }
 
+/* ------------------------------------------------------------------ *
+ * 4d. The ids the app ACTUALLY records — not the ones packAttemptId returns
+ *     in isolation.
+ *
+ * WHY THIS SECTION EXISTS. 4b proves packAttemptId is clean and then hands
+ * its own return value to recordAttempt. Nothing in it goes through
+ * packQuestions(), which is the function that really builds the id every
+ * answered pack question is logged under. That gap was found by mutation:
+ * appending `+ ':' + q.stem` to the id inside packQuestions() leaks the whole
+ * stem into the append-only log, the export and the gist — and every
+ * assertion above stayed green, because none of them ever called it.
+ *
+ * So this drives the two real emitters and reads what comes OUT of them.
+ * packShortQuestions() is included for the same reason it was written: it
+ * serves the short-answer drill, its ids reach recordAttempt exactly as the
+ * multiple-choice ones do, and a guard that only knows about MCQs would have
+ * left the larger, prose-heavy half of the bank unwatched.
+ * ------------------------------------------------------------------ */
+console.log('— the ids packQuestions/packShortQuestions really emit —');
+if (pack && log && typeof pack.holdPack === 'function' && typeof pack.packQuestions === 'function') {
+  const SHORT_STEM = 'Describe the pathway of a nerve impulse across a chemical synapse.';
+  const SHORT_ANSWER = 'Depolarisation opens voltage-gated calcium channels, vesicles fuse and release transmitter.';
+  pack.holdPack({
+    format: 'rss.pack',
+    packId: PACK_ID,
+    questions: [
+      { qid: QID, type: 'mcq', chapter: 7, stem: STEM, options: OPTIONS.map((t, i) => ({ letter: 'ABCDE'[i], text: t })), answer: 'B' },
+      { qid: 'ch07-q099', type: 'short', chapter: 7, stem: SHORT_STEM, answer: SHORT_ANSWER },
+    ],
+  });
+
+  const secrets = [STEM, ...OPTIONS, SHORT_STEM, SHORT_ANSWER];
+  const emitted = [
+    ...pack.packQuestions(),
+    ...(typeof pack.packShortQuestions === 'function' ? pack.packShortQuestions() : []),
+  ];
+  if (!emitted.length) fail('neither emitter returned a question — the fixture no longer matches their filters');
+  else ok(`${emitted.length} question(s) emitted for inspection`);
+
+  /* The ids, and only the ids. `prompt`, `options` and `answer` are meant to
+     carry the question — they are what gets drawn on screen — so they are
+     deliberately not checked here. What must stay clean is anything that can
+     be WRITTEN: qid and itemId are the two fields recordAttempt receives. */
+  const idLeaks = [];
+  for (const q of emitted) {
+    for (const field of ['qid', 'itemId']) {
+      const v = String(q[field] ?? '');
+      for (const s of secrets) {
+        if (v.includes(s) || (s.length > 20 && v.includes(s.slice(0, 20)))) {
+          idLeaks.push(`${field} carries question text: ${v.slice(0, 80)}`);
+        }
+      }
+      if (/\s/.test(v)) idLeaks.push(`${field} contains whitespace, so it is prose not an id: ${v.slice(0, 80)}`);
+    }
+  }
+  if (!idLeaks.length) ok('every emitted qid and itemId is an id, carrying no question text');
+  else fail(idLeaks[0]);
+
+  /* And end to end: record one of each through the real recorder and read the
+     log back, which is the assertion that survives a refactor of either. */
+  const before = log.events.length;
+  for (const q of emitted) {
+    log.recordAttempt(q.itemId, 'typedRecall', { correct: true, confidence: 2, ms: 3000, expectedMs: 20000 },
+      { qid: q.qid, qtype: q.type, primary: true });
+  }
+  const written = JSON.stringify(log.events.slice(before));
+  const logLeaks = secrets.filter((s) => written.includes(s));
+  if (!logLeaks.length) ok('recording every emitted question leaves the log free of question text');
+  else fail(`the log contains question text after recording: ${logLeaks[0].slice(0, 60)}`);
+} else {
+  fail('question-pack.js does not export holdPack/packQuestions — the real emitters cannot be driven');
+}
+
 console.log(failures ? `\n${failures} FAILED` : '\nALL PASS');
 process.exit(failures ? 1 : 0);

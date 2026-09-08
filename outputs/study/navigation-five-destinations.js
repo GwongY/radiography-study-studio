@@ -38,6 +38,16 @@ const NAV_KICKERS = {
 let currentTab = 'today';
 
 export function setActiveNav(id) {
+  /*
+   * The one assignment that makes `currentTab` mean anything.
+   *
+   * It was declared, defaulted to 'today', and read by openSessionOverlay --
+   * and never written. So `tabBeforeSession` was 'today' whatever destination
+   * you were on, and quitting a lesson opened from Learn put you on Home
+   * every time. The drill-down restore below it was already correct and was
+   * being handed the wrong tab to restore INTO.
+   */
+  currentTab = id;
   if (id !== 'viewer') {leaveProjection();pauseFullAtlas();}
   $$('navTitle').textContent = NAV_TITLES[id] || 'Study Studio';
   if (id !== 'learn') $$('navBackBtn').classList.add('hidden');

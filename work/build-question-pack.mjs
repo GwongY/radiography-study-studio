@@ -67,6 +67,113 @@ if (!relative(join(root, 'outputs'), OUT).startsWith('..')) {
   process.exit(2);
 }
 
+/* ------------------------------------------------------------------ *
+ * --merge: one pack out of the banks already built
+ *
+ * WHY THIS EXISTS. The app holds ONE pack at a time — `held` is a single
+ * object and the config stores a single packId — so two banks meant choosing
+ * which half of the bank Exam Mode could see, and re-choosing it on every
+ * device. Merging is the cheaper of the two fixes: it is a build-time
+ * concatenation here rather than a change to the shape of held state,
+ * IndexedDB and the config on every device that has already fetched.
+ *
+ * WHY THE qids ARE REWRITTEN, and this is the part that would corrupt data if
+ * it were skipped. Every bank numbers its own chapters from ch01-q001, so
+ * `abct2326-bank-v1/ch01-q001` and `hss2011-bank-v1/ch01-q001` are different
+ * questions with identical ids. Concatenated under one packId they would
+ * produce one `pack:all-banks-v1:ch01-q001` for both — a single mastery
+ * record fed by two unrelated questions, in an append-only log that cannot be
+ * un-merged afterwards. The bank prefix is not tidiness; it is the thing that
+ * keeps the ids distinct.
+ *
+ * The prefix is the leading alphabetic run of the source packId, so it is
+ * derived rather than configured and cannot drift from the bank it names.
+ *
+ * COST, stated plainly: ids change, so attempts already logged against
+ * `pack:abct2326-bank-v1:*` no longer resolve. The corpus records are
+ * untouched — only pack questions are affected.
+ * ------------------------------------------------------------------ */
+if (argv.includes('--merge')) {
+  const packsDir = join(root, 'work/.packs');
+  const mergedId = flag('pack-id', 'all-banks-v1');
+  const sources = argv.includes('--from')
+    ? flag('from', '').split(',').map((s) => s.trim()).filter(Boolean)
+    : ['abct2326-bank-v1', 'hss2011-bank-v1'];
+
+  const merged = [];
+  const banks = [];
+  for (const id of sources) {
+    const file = join(packsDir, `${id}.json`);
+    if (!existsSync(file)) {
+      console.error(`missing ${relative(root, file).replace(/\\/g, '/')} — build that bank first`);
+      process.exit(2);
+    }
+    const bank = JSON.parse(readFileSync(file, 'utf8'));
+    const prefix = (id.match(/^[a-z]+/i) || ['bank'])[0].toLowerCase();
+    if (banks.some((b) => b.prefix === prefix)) {
+      console.error(`two banks derive the prefix "${prefix}" — their qids would collide, refusing`);
+      process.exit(2);
+    }
+    const subject = bank.origin?.subject || null;
+    for (const q of bank.questions) {
+      merged.push({ ...q, qid: `${prefix}-${q.qid}`, bank: id, ...(subject ? { subject } : {}) });
+    }
+    banks.push({ id, prefix, subject, questions: bank.questions.length });
+    console.log(`  ${id.padEnd(22)} ${String(bank.questions.length).padStart(5)} questions → prefix "${prefix}"`);
+  }
+
+  /* The assertion the whole rewrite exists for. Cheap, and the only thing
+     standing between a collision and a silently shared mastery record. */
+  const ids = new Set(merged.map((q) => q.qid));
+  if (ids.size !== merged.length) {
+    console.error(`qid collision: ${merged.length} questions, ${ids.size} distinct ids. Refusing to write.`);
+    process.exit(2);
+  }
+
+  const mMcq = merged.filter((q) => q.type === 'mcq').length;
+  const dir = join(packsDir, 'split', mergedId);
+  mkdirSync(dir, { recursive: true });
+
+  /* Split by BANK and chapter, not chapter alone — two banks both have a
+     ch01, and one file per chapter number would overwrite half the pack. */
+  const byPart = new Map();
+  for (const q of merged) {
+    const key = `${(q.bank.match(/^[a-z]+/i) || ['bank'])[0].toLowerCase()}-ch${String(q.chapter ?? 0).padStart(2, '0')}`;
+    if (!byPart.has(key)) byPart.set(key, []);
+    byPart.get(key).push(q);
+  }
+  const files = [];
+  for (const [key, qs] of [...byPart.entries()].sort()) {
+    const body = JSON.stringify({ format: 'rss.pack.part', packId: mergedId, part: key, questions: qs });
+    writeFileSync(join(dir, `${key}.json`), body, 'utf8');
+    files.push({ part: key, file: `${key}.json`, questions: qs.length, bytes: Buffer.byteLength(body, 'utf8') });
+  }
+  const index = {
+    format: 'rss.pack.index',
+    formatVersion: 1,
+    packId: mergedId,
+    builtAtISO: new Date().toISOString(),
+    counts: { mcq: mMcq, short: merged.length - mMcq, total: merged.length },
+    banks,
+    licence: 'Publisher test bank. Private study copy. Not for redistribution.',
+    files,
+  };
+  writeFileSync(join(dir, 'index.json'), JSON.stringify(index, null, 1));
+  writeFileSync(join(packsDir, `${mergedId}.json`), JSON.stringify({
+    format: 'rss.pack', formatVersion: 1, packId: mergedId,
+    builtAt: Date.now(), builtAtISO: index.builtAtISO,
+    origin: { merged: banks, licence: index.licence },
+    counts: index.counts, questions: merged,
+  }));
+
+  const over = files.filter((f) => f.bytes > 1000000);
+  console.log(`\n  ${merged.length} questions — ${mMcq} multiple-choice, ${merged.length - mMcq} short/tf/matching`);
+  console.log(`  ${files.length} part files + index.json in ${relative(root, dir).replace(/\\/g, '/')}`);
+  console.log(`  largest ${Math.max(...files.map((f) => f.bytes)) / 1024 | 0} KB — the Contents API limit is 1 MB`);
+  if (over.length) console.log(`  WARNING: ${over.length} file(s) exceed 1 MB and will not fetch: ${over.map((f) => f.file).join(', ')}`);
+  process.exit(0);
+}
+
 /* Same key build-source-text.mjs writes under: name (lowercased) and size. */
 const cacheKey = (d) => createHash('sha1').update(`${d.n.toLowerCase()}|${d.b}`).digest('hex').slice(0, 16);
 

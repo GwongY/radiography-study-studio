@@ -6,7 +6,14 @@ import { join, extname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(fileURLToPath(import.meta.url), '..', '..', 'outputs');
-const PORT = 8420;
+/*
+ * 8420 by default, and overridable, because this repo is worked on in more
+ * than one checkout at a time (.claude/worktrees/). With the port hardcoded
+ * the second server silently loses the bind and the browser keeps being
+ * served the FIRST checkout's outputs/ — which looks exactly like an edit
+ * that did not take, and costs an hour before anyone suspects the port.
+ */
+const PORT = Number(process.env.PORT) || 8420;
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',

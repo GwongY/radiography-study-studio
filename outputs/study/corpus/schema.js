@@ -490,14 +490,38 @@ export function entryStep(item, attempted) {
  * Study modes
  * ------------------------------------------------------------------ */
 
+/*
+ * The modes Home offers, and the reason there are now three of them.
+ *
+ * There were eight tiles here, built on the principle that every mode
+ * pickItems() implements should have a way in. That principle was right about
+ * the bug it fixed -- six modes existed with no door at all -- and wrong about
+ * the remedy, because a door for each produced a wall of eight boxes on the
+ * first screen of the app, three of which duplicated another:
+ *
+ *   'weakest'  is 'mistakes' sorted differently. The mistakes list is the one
+ *              a reader acts on, because it says WHY.
+ *   'mixed'    is 'daily' without the syllabus shape that makes daily useful.
+ *   'new'      is Learn. Learn is where topics get chosen, and it is the way
+ *              in this reader actually uses.
+ *   'quick10'  and 'hooks' were cut on the reader's own report: neither gets
+ *              opened, and a tile nobody taps costs the same screen space as
+ *              one everybody does.
+ *
+ * `subject` is not a tile and never was -- it is what choosing a topic in
+ * Learn opens. It stays in the list because startSession and the manifest
+ * shortcut look modes up here by id.
+ *
+ * WHAT THIS DOES NOT DO is remove the matching cases from pickItems(). A
+ * resume point saved by an earlier build can still name 'quick10', and
+ * session-engine.js's `default` walks the pool weakest-first for anything it
+ * does not recognise, so an in-flight session survives the upgrade either way.
+ * Both lookup sites (session-engine.js, dialog-behaviour-applied.js) already
+ * handle `find` returning undefined.
+ */
 export const STUDY_MODES = [
-  { id: 'new', label: 'Teach me something new', hint: 'Unseen items, taught before they are tested.', icon: '✦' },
-  { id: 'daily', label: 'Daily pre-study session', hint: 'A mixed warm-up: terminology, bones, one physiology sequence, one radiation-science concept.', icon: '◔' },
-  { id: 'weakest', label: 'Review my weakest topics', hint: 'Lowest mastery first, weighted by repeated mistakes.', icon: '▼' },
-  { id: 'quick10', label: 'Quick 10-minute session', hint: 'A short due-and-weak mix, capped at roughly ten minutes.', icon: '⏱' },
+  { id: 'daily', label: 'Daily pre-study', hint: 'A mixed warm-up: terminology, bones, one physiology sequence, one radiation-science concept.', icon: '◔' },
   { id: 'exam', label: 'Sit a timed paper', hint: 'Twenty questions, 25 minutes, no feedback until you submit — then a mark and where it went.', icon: '⌸' },
-  { id: 'hooks', label: 'Memory hooks only', hint: 'Just the memory aids, no scoring.', icon: '⚓' },
   { id: 'mistakes', label: 'Explain my mistakes', hint: 'Everything you have got wrong, with the explanation and the confusion that caused it.', icon: '⚠' },
   { id: 'subject', label: 'Subject-specific study', hint: 'Stay inside one subject or one unit.', icon: '▦' },
-  { id: 'mixed', label: 'Mixed Semester 1 review', hint: 'Everything across HSS2011, ABCT2326, the radiation-science set and DSAI1202.', icon: '⇄' },
 ];

@@ -1,5 +1,5 @@
 — user-facing strings in outputs/ — 1075 —
-  f55f458b4fb07201  WHOLE SET
+  bdfa0c2cce40373a  WHOLE SET
 
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   0661e4a100a58cbc   float rssW=rssAlong*uFreq-uT*uSpeed*uDir*uFreq;\n
@@ -9,9 +9,7 @@
   33fff96676d47f8a   Tap to ask the browser to reconfigure the viewport.
   c8f303e7554a57f7   These are paired — the side is part of the answer.
   1f1170e574c9a100   \u2014 nearest to it
-  a160b4379bca601e   due. Delayed recall only scores on the first attempt after a gap of a day or more.
   b76b153720aa5733   files cited. Conflicts and duplicates listed in full.
-  a6ea15bb7e35bc0f   have no verified sources, so they are hidden from Learn rather than shown as empty shelves.
   c82482e143ba29a6   questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.</div>
   4086a0d4cd005901   showed metatarsals with no toes; choosing 
   2599c70aaa36cb29   · assumed from 
@@ -55,7 +53,6 @@
   d8353d56700520ba  " target="_blank" rel="noreferrer">
   2c99b5c4dedfd5a5  " target="_blank" rel="noreferrer">Wikimedia Commons
   e272ca64fe23b521  " title="
-  8f75e5fcd85ad982  ". Stored in IndexedDB on this device.
   5465451fbdda9b14  ">Study this →
   fe28989274e10994  % banked from
   23db48b468bb0c9a  % correct overall · weaker structures are prioritised.
@@ -128,13 +125,12 @@
   f8db73fad7b2457b  <button class="primary" id="rssNextItem">Next item →</button>
   63d4be2570536586  <button class="primary" id="rssNextQ">Next question →</button><button class="ghost" data-nav="apply">Go to apply</button>
   bfe8380af38f3075  <button class="primary" id="studyTopicBtn">Study in teaching order</button>
-  6822ad345e3c6a68  <button class="rss-mode" style="flex-direction:column;align-items:flex-start;gap:5px;min-height:104px" data-mode="
+  6a5b2a7c9f7e2a0b  <button class="rss-mode" style="flex-direction:column;align-items:flex-start;gap:4px;min-height:78px" data-mode="
   52c2a2e072de9ed6  <button class="seg
   6dcaad6caa1d4d6e  <button class="sres" data-hit="
   996524c555242052  <button class="step
   4a802c42822eaf15  <button class="topic-card
   2b209271f1e381dc  <button class="unit-row" data-related="
-  3886648a24082fe7  <button class="unit-row" data-weak="
   3b5f48665ac61ed0  <button data-down="
   4e33c3206cbfafcf  <button data-nav="
   a92d150b6b9eeea2  <button data-show="
@@ -144,12 +140,9 @@
   19fcd2a46cd8e679  <circle class="hot" data-hot="
   ae442e0069cfe5fb  <circle class="sk" cx="
   99d8a3f36624e22e  <div class="card" style="animation:fadeUp .22s ease;--accent:
-  0004d45a7b738a61  <div class="empty">No activity yet.</div>
   ecb0e29a4e98fcab  <div class="empty">No mistakes recorded yet.</div>
   5d79580d037dc02a  <div class="empty">No study items found.</div>
   933dac4c71ff915a  <div class="empty">No topics match this filter yet.</div>
-  278065c2dae78674  <div class="empty">Nothing due right now.</div>
-  a2faff27b66651a1  <div class="empty">Nothing studied yet — start a session to build this list.</div>
   94ca8e2b60e2f26b  <div class="empty">Search structures, study items and topics. Press Esc to close.</div>
   35ce3a36a607c3e6  <div class="emptybox" style="margin-top:14px">No memory aid authored for this item yet.</div>
   bb363a3bd702def4  <div class="emptybox">Diagram unavailable.</div>
@@ -212,7 +205,7 @@
   ca7957e9685c2f1b  <span class="chip learn" title="
   87a837b4b8e9abcd  <span class="cnt" title="
   8bfd7adceef1345f  <span class="hy">auto</span>
-  8d6062a22cc4af23  <span class="ic" style="font-size:17px;color:
+  50fa398b0c1af21a  <span class="ic" style="font-size:16px;color:
   b2aa118a497b3f4e  <span class="lay-arrow">\u2192</span>
   0f87e484d07b041c  <span class="livenow">On now</span>
   b83f09d243f67fb8  <span class="mono" data-depthread="
@@ -228,7 +221,6 @@
   5a7c38d1669fe324  <span class="tier-dot t
   a8c0e6943d65acd5  <span class="vague" title="No time published for this subject">week only</span>
   9ff1547fa8321e02  <span class="vis-arrow">→</span>
-  33fbe9092c8b20e9  <span style="color:
   3e23d75fa4bb7dbb  <span style="width:
   9a190444c57e8ead  <svg viewBox="
   74802ccc5efa2859  ><div class="lessonvis-busy"
@@ -292,6 +284,8 @@
   d72271896337e29f  Carried over as known, but missed — worth reading the lesson on this one.
   f4bfeb743bb75d23  Cavities behind the anatomy, correctly occluded.
   9cd4f2c0c016002f  Cavities drop back to a hint so the structures lead.
+  3178a647e0f2bcd2  Chapter 1
+  fbb63c1265c0066c  Chapter 7
   59b5b25c3f1225bb  Check answer
   df8077d81115769e  Check matches
   b731b58ee17f6202  Check order
@@ -334,7 +328,6 @@
   892bd00331369854  Drill these 
   29d95e88a631533a  Drill weakest 
   e3531efed93e66d7  Every factual claim on this item traces to a file below. Memory aids are written by this app and are marked separately.
-  f157d75c393db061  Every item has been seen
   eb33e7f0fd9f3397  Every item has been seen at least once. Try "Review my weakest topics".
   7588a781fa751450  Every point is answerable in the practice question.
   a10430cc6de9b3e1  Every question
@@ -449,7 +442,6 @@
   f244cc971bb836e5  Lymph nodes of the abdomen
   a7dc140c63a71953  MANdible = MAN-chews. It is the mobile skull bone.
   4329d1c71debab86  MCQ and fill-in-the-blanks
-  b36854ba7876a6d8  MCQs in Exam Mode) from "
   165674c787736715  MCQs in Exam Mode).
   13166033a2c30bb5  Manubrium, body, xiphoid: head, torso, sword-tip.
   47c4ca3bc141b48a  Mark handed in
@@ -491,12 +483,12 @@
   e15d3dda4ba3b830  No layer shown — turn one on to study it
   6a600b8957f187b2  No lesson for this administrative row
   acb7f9d4b343d5e8  No memory aid authored for this item yet.
-  aea685df17960549  No memory aids found
-  c6455c0a33c2de61  No mistakes logged — good
   f6a29e5cf126ace1  No mistakes recorded yet — nothing to explain.
   7b133c89847929de  No named structure here.
   5d2fd2351410d1ac  No question pack is currently loaded on this device.
+  3a08d256416009cb  No question pack is loaded on this device. Open
   23ebb87a96f2c8f9  No question pack loaded. Open
+  43ba4c6744b168bf  No questions yet
   b7cae769b9db0fc6  No radiographs bundled
   ef8c7dae7a20163c  No reference
   f6a59c0ee7b34cc0  No source materials
@@ -504,6 +496,7 @@
   7731f34185d19140  No structure in the database has
   71d9ec8ef4d13ffe  No token is stored on this device.
   79575cdd56093f95  None listed.
+  95cf3b788a21623d  None logged — good
   041f683d3d9b3b9c  None of this item’s structures resolved in the model, so no 3D is shown.
   0c5f34541ff2a787  Not a question pack (format "
   3b3d2796168bf388  Not connected.
@@ -517,8 +510,6 @@
   2ca96754a9566ca9  Not that one — try again. You tapped
   05d0ba9bf71b048a  Note text, then tap the structure
   f7223d935cbef77b  Nothing ahead — but something is overdue.
-  be01d5e7a809719c  Nothing attempted yet
-  01c734adb1d8dbbe  Nothing due or weak yet
   17c54ae148fd8107  Nothing has happened yet. Close this dialog and it never will.
   44a3cc778bbfd521  Nothing in progress
   a272b965cae90dba  Nothing is assumed about your answer — this is the first thing recorded for the item.
@@ -533,6 +524,7 @@
   91d3cc9c39ce4d97  Nothing to study
   f5de33541d146691  Nothing to study for that selection yet.
   bf9913bba7204a22  Nothing to undo.
+  6e02efea589c745e  Nothing to warm up on
   ad0e73f2f15963a1  Nothing under “
   a6e0c34b9bca71d0  Off. The app stops at the bottom of the viewport, leaving the strip below it empty.
   2b12d09ebcacae94  Official notes missing — see weekly gap
@@ -554,6 +546,7 @@
   998f59ec6907c1a6  Past papers, timed practice, mastery
   d44f57779facfe5b  Pause turntable
   ce253ba033cf1abf  Phalanges of the hand
+  64d834855c4320e7  Pick up the daily warm-up, or choose another session below.
   032a270b28e8d32d  Plane \u00b7 separates
   79219f35ed006231  Plural form
   b1fa06dcff9ea3f6  Practice paper
@@ -585,7 +578,6 @@
   818f842a6df6eadc  Revision exercise
   70e713c50b354a05  Rib-count memory
   f57aea52d9f416b4  Running mark
-  265caba7c7686645  SM-2 shaped, then modified by response time and repeat mistakes.
   226449e53de8c9e3  Saved the current view as a PNG.
   557649a62d5eb1a6  Scaphoid bone.r
   c2faf1deb36d01f2  Scheduling rules
@@ -599,8 +591,9 @@
   f8f6d6d0b71fdeb6  Separate the layers
   b4821ec5efba32ad  Session done —
   8bbf4d2a69b0c709  Seven vertebrae: breakfast at 7. C1 Atlas holds the head; C2 Axis lets you say no.
-  55d75c2270210ef6  Shell cached at install. Each 3D model caches the first time you open it, so the footprint grows to match what you study.
+  40f6ba6b7d426214  Short answer
   0e96950aeb59f005  Short by
+  ad42975bf4cbec57  Short-answer, true/false and matching questions from a loaded question pack appear here — the formats a timed paper cannot mark, which includes the format the real HSS2011 paper uses.
   b7e2eaa5cec47a39  Shoulder blade / spade
   2150d8df37e48957  Show all
   6eabbe9ab1e22c72  Show all in the Viewer
@@ -608,6 +601,7 @@
   0595489058178b10  Show the model answer
   cab88e281cc40392  Show them
   c8e398243f5fa550  Shrunk by
+  7e8a98a62cfebe39  Shuffle and go again →
   f95f623f793c9f96  Single item
   5b49bc3f366884d9  Singular form
   14ff2c02f1b62ffb  Skills to build
@@ -628,11 +622,11 @@
   781ffed29fcefcff  Sources, coverage, settings
   8453b6ae9d67090b  Spelling was off — the exact form is "
   c58398bfd89d3d58  Spin turntable
-  d29d2b38dac7572e  Start a session below to begin.
-  ed4ac7d9bce75d7f  Start due session \u2192
+  c0601cc0e1e9ad8c  Start due session
   b13f13a030dc286c  Start from the title and ask what category the answer belongs to.
   a1fd34564fe28dfc  Start paper →
   bbbe87b5cafa988b  Start the stroke on a structure.
+  ad00307047df0c32  Start today's session →
   73a408b0bf3f0f58  Start with Identify to create your first review history.
   44379762f7964194  Starts soon
   abf1b14dc2f90ee7  Static model
@@ -743,6 +737,7 @@
   365876067e586bde  Traced to
   bdadc5cef1ccc303  Transpyloric (L1)
   0a0d093315fde56b  Transtubercular (L5)
+  3c3544bc08702ae8  True / false
   66f9c52ff704f03a  Tube current time product in mAs
   f2f36bb84e6dfc7b  Tube voltage in kVp
   325a3667381bade5  Twelve vertebrae: lunch at 12, with ribs attached.
@@ -778,6 +773,7 @@
   f2737495d683165a  Xiphisternal joint
   c66f49de59b48578  Y1S1 source map
   c9d8ebfea055fc4e  Yes, I had it
+  2d1a2c63f913f3af  You have been through all
   1a33ef3e9b63cd34  You named
   6072830a754d6f42  You revealed
   3885517f2e4fef0c  You wrote "
@@ -837,7 +833,6 @@
   d1db107277f6c3b0  current + older support
   e62c5be9438eca6a  current source verified
   a419fe7f15c0a5e3  dated sessions written to radiography-timetable.ics — open it to add them to your calendar.
-  beaf6f881a9b75ac  day streak
   37dad91df7b23460  days ago
   bbb10c71f4b6d8f3  density += n * uSigma * (0.35 + 0.65 * density);
   69bde2c73b039a19  described in
@@ -923,6 +918,7 @@
   3d293ff29b16699d  mono foothint
   91468c5437728572  mono sesscount
   0f168de1e265af3b  month file
+  83be7b03931fc161  multiple-choice in timed papers,
   f46b7e5ab634f52d  mv-note hidden
   31f204f598d94b86  mv-panel hidden
   2db7c5d825e1b1e4  named atlas structure
@@ -959,6 +955,7 @@
   c504c70741f08c26  primary next show
   57df5f919992d6d5  pulled in,
   777503f25750cf8f  px "Instrument Sans", system-ui, -apple-system, sans-serif
+  cee00d5056341f6c  questions from "
   e0c67e29f60bbf7e  questions, including
   0ea24a7a68bdff89  questions, the index says
   9104b22058806e6c  rather than rotating rigidly, so swinging them would tear them off their origin.
@@ -982,6 +979,8 @@
   a89caa772a070b67  selpanel panel-expanded
   37e8cb66682dd7b0  separately selectable">
   a8970b03087f1926  sheetscrim hidden
+  e5b00fa86931ed23  short-answer questions in this pack.
+  8758d8b826c9ddb8  short-answer under Exam → Short answer. Stored in IndexedDB on this device.
   29795951237abb24  should hold an array of events.
   5c6db2f77cfe003a  small cut-levelnote
   535432277ab15c02  small term-number
@@ -1007,6 +1006,7 @@
   8a3a6bcf33fef191  this is what I got
   7d76655e727c2c50  this week
   a1af653b71796a91  to add your private question bank (past papers, publisher test bank).
+  055ad9b667bf5424  to fetch one.
   e0dd37bd06a20746  to hand in
   5d2033a00068467a  to uncover
   e738706e3a65b48b  toolchip hidden

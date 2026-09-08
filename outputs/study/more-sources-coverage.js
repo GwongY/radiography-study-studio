@@ -3,7 +3,7 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, SOURCE_FILES, STUDY_ITEMS, SUBJECTS, allQuestions, esc, itemsForSubject, validateApplications, validateCorpus } from './imports.js';
+import { $$, SOURCE_FILES, STUDY_ITEMS, allQuestions, esc, validateApplications, validateCorpus } from './imports.js';
 import { setActiveNav } from './navigation-five-destinations.js';
 import { openCoverage } from './coverage-report.js';
 import { openDialog } from './dialog-behaviour-applied.js';
@@ -39,18 +39,23 @@ export function renderMore() {
   setActiveNav('more');
   /* validateCorpus/validateApplications each return an ARRAY of failures. */
   const failures = validateCorpus().length + validateApplications().length;
-  const hidden = SUBJECTS.filter((x) => !itemsForSubject(x.id).length);
   const rows = [
     { title: 'Sources & coverage report', badge: failures + ' failures', color: failures ? 'var(--red)' : 'var(--green)',
       note: STUDY_ITEMS.length + ' items, ' + allQuestions().length + ' questions, ' + Object.keys(SOURCE_FILES).length
         + ' files cited. Conflicts and duplicates listed in full.', open: () => openCoverage(null) },
-    { title: 'Subjects with no material', badge: hidden.length + ' hidden', color: 'var(--muted)',
-      note: hidden.map((x) => x.code).join(' and ') + ' have no verified sources, so they are hidden from Learn rather than shown as empty shelves.' },
+    /*
+     * Three rows were removed here, and they had one thing in common: no
+     * `open`. "Subjects with no material", "Offline & storage" and
+     * "Scheduling rules" were paragraphs formatted as buttons -- they
+     * explained a design decision, could not be acted on, and were read once.
+     * Everything left either opens something or reports a live state.
+     *
+     * This row is NOT one of them and must stay: BodyParts3D is CC BY-SA and
+     * the attribution is a licence condition, not a courtesy.
+     */
     { title: 'Sources & model attribution', badge: 'CC BY-SA', color: 'var(--muted)',
       note: 'BodyParts3D / Anatomography model licensing and the candidate sources that were reviewed.',
       open: () => openDialog($$('aboutDialog')) },
-    { title: 'Offline & storage', badge: 'PWA', color: 'var(--muted)',
-      note: 'Shell cached at install. Each 3D model caches the first time you open it, so the footprint grows to match what you study.' },
     { title: 'Timetable to your calendar', badge: 'ICS', color: 'var(--teal)',
       note: 'Writes every dated class, lab and deadline as a standard .ics file. Open it and your phone or laptop calendar offers to add them — after which the reminders are the calendar\'s job, not this app\'s.',
       open: () => exportCalendar() },
@@ -68,12 +73,10 @@ export function renderMore() {
         : 'On where the page is measured short of the screen — it extends the app into the strip so the tab bar reaches the edge. What is left after that is the screen\'s own rounded corner, which no page can fill.',
       open: () => { toggleStripFill(); renderMore(); },
     }] : []),
-    { title: 'Scheduling rules', badge: 'SM-2+', color: 'var(--muted)',
-      note: 'SM-2 shaped, then modified by response time and repeat mistakes.' },
-    { title: 'Question pack', badge: loadedPack() ? `${packCounts().total} loaded` : (isPackConnected() ? 'connected' : 'off'),
+    { title: 'Question pack', badge: loadedPack() ? `${packCounts().total.toLocaleString()} loaded` : (isPackConnected() ? 'connected' : 'off'),
       color: loadedPack() ? 'var(--teal)' : 'var(--muted)',
       note: loadedPack()
-        ? `Holding ${packCounts().total} questions (${packCounts().mcq} MCQs in Exam Mode) from "${loadedPack().packId}". Stored in IndexedDB on this device.`
+        ? `Holding ${packCounts().total.toLocaleString()} questions from "${loadedPack().packId}" — ${packCounts().mcq.toLocaleString()} multiple-choice in timed papers, ${packCounts().short.toLocaleString()} short-answer under Exam → Short answer. Stored in IndexedDB on this device.`
         : 'Load a private question bank JSON file or sync from a private repository to expand the exam pool with thousands of chapter questions.',
       open: () => openPackDialog() },
     { title: 'Back up to a private GitHub gist', badge: syncBadge(), color: isConnected() ? 'var(--green)' : 'var(--muted)',

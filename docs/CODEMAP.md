@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1441 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) · [hidden loses to an explicit display](TRAPS.md#hidden-loses-to-an-explicit-display--outputsappcss-outputsstudyexam-modejs)
+- `outputs/app.css` — 1478 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) · [hidden loses to an explicit display](TRAPS.md#hidden-loses-to-an-explicit-display--outputsappcss-outputsstudyexam-modejs)
 - `outputs/studio.js` — 26 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 65 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -137,23 +137,23 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `course-timetable.js` | 320 | Course — the syllabus and the timetable, with attendance |
 | `coverage-report.js` | 118 | Coverage report |
 | `dialog-behaviour-applied.js` | 124 | Dialog behaviour, applied to all seven at once |
-| `exam-mode.js` | 429 | Exam mode — a sitting, not a drill. |
+| `exam-mode.js` | 435 | Exam mode — a sitting, not a drill. |
 | `gist-sync.js` | 474 | Gist sync — the off-device copy, on the one service this app already depends on |
 | `global-search-one.js` | 354 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
-| `home.js` | 201 | Home |
+| `home.js` | 183 | Home |
 | `imports.js` | 146 |  |
 | `layout-figures.js` | 867 | Layout figures |
 | `lesson-visuals.js` | 286 | Lesson visuals |
 | `mastery-dashboard.js` | 9 | Mastery dashboard |
-| `more-sources-coverage.js` | 100 | More -- sources, coverage, and the things demoted out of the topbar. |
+| `more-sources-coverage.js` | 103 | More -- sources, coverage, and the things demoted out of the topbar. |
 | `moving-progress-between.js` | 153 | Moving progress between devices |
-| `navigation-five-destinations.js` | 116 | Navigation -- five destinations, rendered into both the icon rail and |
+| `navigation-five-destinations.js` | 126 | Navigation -- five destinations, rendered into both the icon rail and |
 | `progress-log.js` | 374 | Progress log — the append-only record every other progress number is derived from |
-| `question-pack.js` | 463 | Question packs — licensed questions that live on this device and nowhere else. |
+| `question-pack.js` | 525 | Question packs — licensed questions that live on this device and nowhere else. |
 | `reading-help.js` | 330 | Reading help |
 | `reset.js` | 199 | Reset |
-| `review-mistakes-due.js` | 189 | Exam — past papers, timed practice, mistakes, due items, and the mastery map. |
+| `review-mistakes-due.js` | 313 | Exam — past papers, timed practice, mistakes, short answer, and the mastery map. |
 | `search-viewer-open.js` | 44 | Search -> viewer: open the model, select the part, auto-uncover, and |
 | `session-engine.js` | 258 | Session engine |
 | `small-ui-helpers.js` | 198 | Small UI helpers |
@@ -194,7 +194,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `physiology-depth.js` | 129 | ABCT2326 depth lessons. These split the mechanism-heavy respiratory and |
 | `physiology-items.js` | 3141 | ABCT2326 Human Physiology — the study items. |
 | `physiology-reproductive.js` | 115 | ABCT2326 Lecture 6 — Reproductive System. |
-| `schema.js` | 503 | Scaffolding: the source registry, the subjects and their units, the item |
+| `schema.js` | 527 | Scaffolding: the source registry, the subjects and their units, the item |
 | `source-lesson-map.js` | 4822 | GENERATED by work/build-source-lesson-map.mjs — do not hand-edit. |
 | `structures.js` | 360 | Granular 3D targets: the structure sets a tap-to-identify item draws from, |
 | `validate.js` | 152 | Validation — every question must have a resolvable answer and every claim a |
