@@ -2355,22 +2355,20 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "ABCT2326",
       "week": 1,
       "title": "The cell life cycle, stages of mitosis, and meiosis comparison",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "phys.1.2026",
           "set": "new",
-          "role": "needs-review"
+          "role": "current-primary"
         },
         {
           "ref": "phys.1",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-supporting"
         }
       ],
-      "reasons": [
-        "quoted citation is on a different page"
-      ]
+      "reasons": []
     },
     "abct2326-epithelium-classification": {
       "id": "abct2326-epithelium-classification",
@@ -5339,7 +5337,7 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "abct2326-cell-division",
         "set": "new",
-        "role": "needs-review"
+        "role": "current-primary"
       },
       {
         "lessonId": "abct2326-epithelium-classification",
@@ -5396,7 +5394,7 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "abct2326-cell-division",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-supporting"
       },
       {
         "lessonId": "abct2326-epithelium-classification",

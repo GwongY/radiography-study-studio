@@ -4003,7 +4003,7 @@ export const PHYS_ITEMS = [
           "t": "The four continuous phases of mitosis — Prophase, Metaphase, Anaphase, Telophase — described by spindle attachment, kinetochores, and chromatid migration.",
           "src": {
             "ref": "phys.1.2026",
-            "location": "p25 \"Mitosis\""
+            "location": "p24 \"Mitosis divides genetic material equally\""
           }
         },
         {
@@ -4160,7 +4160,7 @@ export const PHYS_ITEMS = [
       },
       {
         "ref": "phys.1.2026",
-        "location": "p25 \"Mitosis\""
+        "location": "p24 \"Mitosis divides genetic material equally\""
       },
       {
         "ref": "phys.1.2026",
@@ -4172,7 +4172,7 @@ export const PHYS_ITEMS = [
       },
       {
         "ref": "phys.1",
-        "location": "p26 \"Mitosis\""
+        "location": "p25 \"Mitosis divides genetic material equally\""
       },
       {
         "ref": "phys.1",
