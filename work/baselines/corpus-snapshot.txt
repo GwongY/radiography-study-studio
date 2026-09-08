@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  7e1ff2f380ea36b5   1689677  ITEM_BY_ID  Map[177]
+  9cd2dae23d7c56bb   1689776  ITEM_BY_ID  Map[177]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -24,15 +24,15 @@
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   bc435d5b474be2a9     26969  STRUCTURE_SETS  object[13]
-  d38a40d24051b818   1683773  STUDY_ITEMS  array[177]
+  495c61ddfe0d80c4   1683872  STUDY_ITEMS  array[177]
   983b09221060f435       570  STUDY_MODES  array[4]
   834fbc89b7e6fccf      4005  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
-  ee8f3a586d13cecc     95428  Y1S1_SOURCE_MAP  object[4]
+  4bf17a7057d05de1     95398  Y1S1_SOURCE_MAP  object[4]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  e67f2338d6e32227   1762412  default  object[7]
+  a4e2de96bd5d8f9f   1762511  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -64,12 +64,12 @@
   ba048d6b42696398      2356  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  af7b0163ace31caa  WHOLE SURFACE
+  268f0cccd33d400e  WHOLE SURFACE
 
 — every study item, by id — 177 items —
   2d29339c231f634a  abct2326-acquired-immunity
   7833107c7bbbeb9d  abct2326-blood-composition
-  6de723058c55b658  abct2326-cell-division
+  7d5d08aeb27ff298  abct2326-cell-division
   a156690f2ae21df4  abct2326-cells-organisation
   0e79a157bae77569  abct2326-complement
   bbe84cf3bdad8e95  abct2326-connective-tissue-classes
