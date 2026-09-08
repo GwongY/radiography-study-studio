@@ -436,7 +436,8 @@ export const WEEK_STUDY = {
     ],
     8: [
       'hss2011-m1-heart-wall-valves', 'hss2011-cvs-internal-chambers-valves',
-      'hss2011-cvs-coronary-circulation-conduction', 'hss2011-cvs-tutorial-pastpaper-practice',
+      'hss2011-cvs-coronary-circulation-conduction', 'hss2011-cvs-blood-vessel-circuits',
+      'hss2011-cvs-lymphatic-system', 'hss2011-cvs-tutorial-pastpaper-practice',
       'hss2011-structures-heartChambers', 'hss2011-structures-greatVessels',
     ],
     9: [
