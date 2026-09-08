@@ -459,6 +459,27 @@
  */
 html[data-strip="on"] .shell{bottom:calc(-1 * var(--vp-shortfall,0px))}
 /*
+ * Hardening, NOT a fix for the band -- and the distinction is the point.
+ *
+ * `.shell` was transparent, as are `.app-shell`, `.app-body`, `.navmain` and
+ * `.navcontent`; in this whole column only `.navrail` and `.bottomtab` carry a
+ * background. So a fixed element covering the window was relying on the body
+ * showing through it, which is worth closing on its own.
+ *
+ * It does NOT explain the iPad band, and the measurement says so: `body` is
+ * `var(--bg)` too, so the pixels under the old shell were already this exact
+ * colour. Painting the shell the same value cannot change what anyone sees.
+ * That reasoning was tried and is recorded here so it is not tried again.
+ *
+ * What IS established, off the device's own applied readings:
+ *   shell bottom=-32px height=834 on an 834px screen -- the shell reaches the
+ *   bottom of the display, app-body with it, rail and content to 826, the
+ *   remaining 8px being the deliberate padding. The geometry is correct and
+ *   the reader still reports an unchanged band, so the cause is something
+ *   these numbers do not describe. It needs a screenshot, not another guess.
+ */
+.shell{background:var(--bg)}
+/*
  * The tablet/desktop half of the dead-inset rule.
  *
  * Below 700px the wasted inset is on `.bottomtab`; at 701px and up the tab bar
