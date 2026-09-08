@@ -415,6 +415,8 @@ export const WEEK_STUDY = {
       'hss2011-osteo-skull-sutures', 'hss2011-structures-skullBones',
       'hss2011-osteo-vertebra-parts', 'hss2011-osteo-vertebral-column',
       'hss2011-osteo-c1-c2', 'hss2011-structures-vertebralRegions',
+      'hss2011-head-cranial-cavities-sinuses', 'hss2011-head-facial-expression-muscles',
+      'hss2011-head-mastication-neck-muscles',
     ],
     5: [
       'hss2011-m2-cns-basics', 'hss2011-cns-spinal-cord-meninges',

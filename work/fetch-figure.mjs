@@ -43,9 +43,17 @@ const strip = (html) => String(html || '').replace(/<[^>]*>/g, '').replace(/\s+/
 
 async function api(params) {
   const url = `${API}?${new URLSearchParams({ format: 'json', origin: '*', ...params })}`;
-  const res = await fetch(url, { headers: { 'User-Agent': UA } });
-  if (!res.ok) throw new Error(`Commons API ${res.status}`);
-  return res.json();
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const res = await fetch(url, { headers: { 'User-Agent': UA } });
+    if (res.status === 429) {
+      const wait = (attempt + 1) * 3000;
+      await new Promise(r => setTimeout(r, wait));
+      continue;
+    }
+    if (!res.ok) throw new Error(`Commons API ${res.status}`);
+    return res.json();
+  }
+  throw new Error('Commons API 429: Rate limit exceeded after retries');
 }
 
 async function search(query) {

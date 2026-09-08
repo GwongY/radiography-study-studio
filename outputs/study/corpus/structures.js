@@ -102,7 +102,24 @@ export const STRUCTURE_SETS = {
       { id: 'vomer', label: 'Vomer', mesh: 'Vomer', group: 'Facial', order: 11 },
       { id: 'mandible', label: 'Mandible', mesh: 'Mandible', group: 'Facial', order: 12, note: 'The only movable bone in the skull.' },
     ],
-    sourceRefs: [{ ref: 'hss.4.2', location: 'Head and neck — bones of the skull' }, { ref: 'hss.revans', location: 'More exercises Module 4, labels A4–A12' }],
+    visuals: [
+      { fig: 'skullLateralView' },
+      { fig: 'paranasalSinuses' },
+      {
+        model: {
+          layer: 'skeleton',
+          meshes: ['Frontal bone', 'Parietal bone', 'Temporal bone', 'Occipital bone', 'Sphenoid bone', 'Ethmoid bone', 'Maxilla', 'Mandible', 'Zygomatic bone'],
+          label: 'Bones of the skull',
+          caption: 'Neurocranium enclosing the cranial cavity and viscerocranium forming facial architecture.',
+        },
+      },
+    ],
+    sourceRefs: [
+      { ref: 'hss.4.2', location: 'p5 "The skull is composed of"' },
+      { ref: 'hss.4.2', location: 'p5 "8 cranial bones +"' },
+      { ref: 'hss.4.2', location: 'p5 "14 facial bones."' },
+      { ref: 'hss.4.2', location: 'p8 "22 bones joined by Sutures"' },
+    ],
   },
   vertebralRegions: {
     id: 'vertebralRegions', label: 'Regions of the vertebral column', subject: 'HSS2011', unit: 'hss.osteo',
@@ -117,7 +134,26 @@ export const STRUCTURE_SETS = {
       { id: 'sacrum', label: 'Sacrum', mesh: 'Sacrum', group: 'Sacral', order: 6, note: 'S1–S5 fused.' },
       { id: 'coccyx', label: 'Coccyx', mesh: 'Coccyx', group: 'Coccygeal', order: 7, note: 'Co1–Co4 fused.' },
     ],
-    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p15 vertebral column; p21 general structure; p28–29 cervical vertebrae' }],
+    visuals: [
+      { fig: 'cervicalVertebrae' },
+      {
+        model: {
+          layer: 'skeleton',
+          meshes: ['Atlas (C1)', 'Axis (C2)', 'Vertebra C5', 'Vertebra T6', 'Vertebra L3', 'Sacrum', 'Coccyx'],
+          label: 'Vertebral column regions',
+          caption: 'Articulated spine demonstrating cervical, thoracic, lumbar, sacral, and coccygeal divisions.',
+        },
+      },
+    ],
+    sourceRefs: [
+      { ref: 'hss.m0.1718', location: 'p15 "Vertebral column"' },
+      { ref: 'hss.m0.1718', location: 'p15 "Cervical vertebrae"' },
+      { ref: 'hss.m0.1718', location: 'p15 "Thoracic vertebrae"' },
+      { ref: 'hss.m0.1718', location: 'p15 "Lumbar vertebrae"' },
+      { ref: 'hss.m0.1718', location: 'p15 "Sacrum"' },
+      { ref: 'hss.m0.1718', location: 'p15 "(Co1 – Co4 fused)"' },
+      { ref: 'hss.4.2', location: 'p42 "7 vertebrae in cervical region"' },
+    ],
   },
   heartChambers: {
     id: 'heartChambers', label: 'Heart chambers and valves', subject: 'HSS2011', unit: 'hss.m1',

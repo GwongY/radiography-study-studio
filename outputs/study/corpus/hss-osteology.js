@@ -333,617 +333,800 @@ export const HSS_OSTEOLOGY = [
     ],
   },
   {
-    id: 'hss2011-osteo-vertebra-parts',
-    subject: 'HSS2011', unit: 'hss.osteo', type: 'diagram',
-    title: 'General structure of a vertebra',
-    tags: ['osteology', 'high-yield'], boneRefs: ['cervical', 'thoracic', 'lumbar'],
-    lesson: {
-      explanation: 'Every typical vertebra shares the same parts. The vertebral body sits anteriorly and is the primary weight-bearing component of the spine. Behind it the vertebral arch, built from the pedicles and the laminae, encloses the vertebral foramen — a hole that forms the vertebral canal for the passage of the spinal cord. Projecting from the arch are the spinous process posteriorly, the transverse processes laterally, and the superior and inferior articular processes.',
-      keyFacts: [
-        'Vertebral body — anterior, primary weight-bearing component.',
-        'Vertebral foramen — forms the vertebral canal for the spinal cord.',
-        'Vertebral arch = pedicle + lamina.',
-        'Spinous process — posterior projection.',
-        'Transverse process — lateral projection.',
-        'Superior and inferior articular processes form the facet joints.',
-      ],
-      prerequisites: ['hss2011-osteo-axial-appendicular'],
-      examples: [],
-    },
-    memory: {
-      location: 'Walk the ring: body in front, pedicle out from the body, lamina closing the back, spinous process sticking out where you can feel it through the skin.',
-      chunking: 'Pedicle then lamina, front to back. Pedicle is the stalk, lamina is the plate — a stalk always comes before the plate it carries.',
-      comparison: 'Vertebral foramen is the hole for the spinal cord; the intervertebral foramen between two vertebrae is where a spinal nerve exits. Different hole, different traffic.',
-    },
-    practice: [
-      { type: 'matching', prompt: 'Match each part of a vertebra to what it is.',
-        pairs: [['Vertebral body', 'The weight-bearing block at the front'], ['Vertebral foramen', 'The opening the spinal cord passes through'], ['Pedicle', 'The short bridge running back from the body'], ['Lamina', 'The flat plate closing the arch behind'], ['Transverse process', 'The side projection, one on each side'], ['Spinous process', 'The single backward projection you can feel through the skin']],
-        explanation: 'The body is anterior and bears weight; the arch behind it encloses the foramen the cord runs in, pedicle then lamina front to back. These are the parts the Module 4 labelling answers name: B1 vertebral foramen, B2 pedicle, B3 transverse process, B4 spinous process, B5 lamina, B6 superior articular facet.',
-        src: { ref: 'hss.revans', location: 'More exercises, Module 4, labels B1–B6' } },
-      { type: 'typed', prompt: 'Which part of a vertebra is the primary weight-bearing component?', accept: ['vertebral body', 'body'],
-        explanation: 'The vertebral body, described on the slide as serving as the primary weight-bearing component of the spine.' },
-      { type: 'mcq', prompt: 'The vertebral foramen exists to allow passage of what?', options: ['The spinal nerve root', 'The vertebral artery', 'The spinal cord', 'The intervertebral disc'], answer: 2,
-        explanation: 'The vertebral foramen forms the vertebral canal for the passage of the spinal cord. The vertebral artery runs in the transverse foramina of the cervical vertebrae, which is a different opening.' },
-    ],
-    application: [
-      { type: 'scenario', prompt: 'A cervical vertebra has an extra pair of holes that a lumbar vertebra does not. What are they for?',
-        model: 'They are the transverse foramina, and the vertebral arteries pass through them. That is a cervical-only feature; the lumbar transverse processes have no such opening.',
-        rubric: ['Names the transverse foramina', 'States the vertebral arteries pass through them', 'Identifies it as cervical-specific'] },
-    ],
-    commonMistakes: [
-      'Swapping pedicle and lamina — the pedicle is the stalk from the body, the lamina is the plate closing the arch behind.',
-      'Confusing the vertebral foramen (spinal cord) with the intervertebral foramen (spinal nerve) and the transverse foramen (vertebral artery).',
-    ],
-    skills: [
-      'Three holes, three kinds of traffic: the vertebral foramen carries the spinal cord, an intervertebral foramen lets one spinal nerve out, and the cervical transverse foramina carry the vertebral arteries. Mixing them up is mixing up three different passengers, not three names for one hole.',
-      'Pedicle then lamina, front to back, is forced by what each one is: the pedicle is the stalk leaving the body, the lamina is the plate that closes the arch, and the spinous process sits exactly where the two laminae meet — which is why it is the one part you can feel through the skin.',
-    ],
-    selfCheck: 'From a blank page: the six labelled parts from the More-exercises answers, the weight-bearing component named with its position, and the cervical transverse-foramina scenario answered with the artery named.',
-    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p21 "General structures of a vertebra"; L1 p28 cervical vertebrae' }, { ref: 'hss.revans', location: 'More exercises, Module 4, labels B1–B6' }],
-  },
-  {
-    id: 'hss2011-osteo-vertebral-column',
-    subject: 'HSS2011', unit: 'hss.osteo', type: 'sequence',
-    title: 'Vertebral column — regions and curvatures',
-    tags: ['osteology', 'high-yield'], boneRefs: ['cervical', 'thoracic', 'lumbar', 'sacrum', 'coccyx'],
-    lesson: {
-      explanation: 'The vertebral column runs cervical C1–C7, thoracic T1–T12, lumbar L1–L5, then the sacrum (S1–S5 fused) and the coccyx (Co1–Co4 fused). It carries four curvatures. The primary curvatures — thoracic and pelvic — are concave anteriorly and develop during the embryonic stage. The secondary curvatures — cervical and lumbar — are concave posteriorly and develop after birth.',
-      keyFacts: [
-        'C1–C7 cervical, T1–T12 thoracic, L1–L5 lumbar.',
-        'Sacrum: S1–S5 fused. Coccyx: Co1–Co4 fused.',
-        'Primary curvatures (thoracic, pelvic) — concave anteriorly, present from the embryonic stage.',
-        'Secondary curvatures (cervical, lumbar) — concave posteriorly, developed after birth.',
-      ],
-      prerequisites: ['hss2011-osteo-vertebra-parts'],
-      examples: [],
-    },
-    memory: {
-      mnemonic: 'Breakfast at 7, lunch at 12, dinner at 5 — cervical 7, thoracic 12, lumbar 5.',
-      chunking: 'Primary curves are the ones you were born with and they stay concave anteriorly. Secondary curves arrive with lifting your head and with walking, and they curve the other way.',
-      comparison: 'Primary vs secondary is not about importance, it is about timing: embryonic versus after birth.',
-    },
-    practice: [
-      { type: 'sequence', prompt: 'Order the regions of the vertebral column from superior to inferior.', items: ['Cervical (C1–C7)', 'Thoracic (T1–T12)', 'Lumbar (L1–L5)', 'Sacrum (S1–S5 fused)', 'Coccyx (Co1–Co4 fused)'],
-        explanation: 'This is the order and the segment counts given on the Module 0 vertebral column slide.' },
-      { type: 'mcq', prompt: 'Which pair are the secondary curvatures?', options: ['Thoracic and pelvic', 'Cervical and lumbar', 'Cervical and thoracic', 'Lumbar and pelvic'], answer: 1,
-        explanation: 'The cervical and lumbar curvatures are secondary — concave posteriorly and developed after birth. The thoracic and pelvic curves are primary, concave anteriorly, from the embryonic stage.' },
-      { type: 'cloze', prompt: '______ articulates with the inferior apex of the sacrum.', accept: ['coccyx', 'the coccyx'],
-        explanation: 'Model answer: Coccyx. It is the fused Co1–Co4 remnant sitting below the sacrum.',
-        src: { ref: 'hss.revans', location: 'Module 0, Fill-in-blanks 3' } },
-    ],
-    application: [
-      { type: 'scenario', prompt: 'An infant’s spine looks like a single C-shaped curve. Which curvatures are present, and which are missing?',
-        model: 'Only the primary curvatures — thoracic and pelvic — are present, because those develop during the embryonic stage and are concave anteriorly. The secondary cervical and lumbar curves develop after birth, so they are missing at that point.',
-        rubric: ['Names thoracic and pelvic as present', 'Names cervical and lumbar as later', 'Links the difference to embryonic vs after birth'] },
-    ],
-    commonMistakes: [
-      'Guessing the segment counts. They are fixed: 7, 12, 5.',
-      'Assuming "primary" means larger or more important rather than earlier.',
-    ],
-    skills: [
-      '"Primary" and "secondary" are about timing, not size or importance: primary curves (thoracic, pelvic) are the embryonic ones you are born with; secondary curves (cervical, lumbar) arrive after birth with lifting the head and standing. An infant\'s C-shaped spine is therefore not a deformity — it is the primary set alone.',
-      'The direction of each curve is derivable once you know the timing: the primary curves are concave anteriorly, and the secondary ones develop the opposite way — concave posteriorly. Timing gives you direction, so the two facts are really one.',
-      'The counts are fixed and are the actual exam content: 7 cervical, 12 thoracic, 5 lumbar, then the fused sacrum (S1–S5) and coccyx (Co1–Co4). Guessing a count loses more marks than misplacing a name.',
-    ],
-    selfCheck: 'From a blank page: the five regions superior to inferior with their counts, which two curvatures are secondary and which way each group is concave, and the infant C-shaped spine reasoning.',
-    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p15 "Vertebral column"; L1 p16 "Curvatures"' }, { ref: 'hss.l1.overview', location: 'p13 "(S1-S5 fused)" sacrum, coccyx Co1–Co4 fused; p14 primary curvatures concave anteriorly and "developed during embryonic stage", secondary concave posteriorly and "developed after birth"' }, { ref: 'hss.revans', location: 'Module 0, Fill-in-blanks' }],
-  },
-  {
-    id: 'hss2011-osteo-c1-c2',
-    subject: 'HSS2011', unit: 'hss.osteo', type: 'comparison',
-    title: 'Atlas, axis and the two head movements',
-    tags: ['osteology', 'high-yield'], boneRefs: ['cervical', 'cranium'],
-    lesson: {
-      explanation: 'The top two cervical vertebrae are specialised and each one carries a different head movement. The atlanto-occipital joint, between the occipital condyles of the skull and the lateral masses of the atlas (C1), allows flexion and extension — the "yes" nod. The median atlanto-axial joint, between C1 and the dens of the axis (C2), allows rotation of the head — the "no" shake. The transverse ligament holds the atlas and the dens of the axis in place.',
-      keyFacts: [
-        'Atlanto-occipital joint (occipital condyles onto C1 lateral masses) → flexion and extension, the nod.',
-        'Median atlanto-axial joint (C1 on the dens of C2) → rotation, the shake.',
-        'The transverse ligament holds the atlas and the dens (odontoid process) of the axis in place.',
-        'Cervical vertebrae also carry transverse foramina through which the vertebral arteries pass, and a bifid spinous process.',
-      ],
-      prerequisites: ['hss2011-osteo-vertebral-column'],
-      examples: [],
-    },
-    memory: {
-      mnemonic: 'Atlas held up the world on his shoulders — C1 holds up the head, and nodding is what a tired Atlas does. The axis is the pin you turn around, so C2 gives you the shake.',
-      comparison: 'YES at the atlanto-occipital joint, NO at the atlanto-axial joint. If you only remember one, remember that the dens is the pivot pin and pins mean rotation.',
-      wordOrigin: 'Dens is Latin for tooth; the odontoid process gets its name from the same idea, odont- meaning tooth.',
-    },
-    practice: [
-      { type: 'mcq', prompt: 'The lateral mass of the atlas, which articulates with the occipital condyle of the skull, is the articular facet where ________ motion of the skull takes place.', options: ['Nodding', 'Shaking', 'Lateral flexion', 'Rotational'], answer: 0,
-        explanation: 'Model answer A. The atlanto-occipital joint allows flexion and extension — the nod. Rotation happens one level lower, at the median atlanto-axial joint.',
-        src: { ref: 'hss.revans', location: 'Module 4.2, MCQ 3' } },
-      { type: 'mcq', prompt: 'Which bone articulates with the dens?', options: ['Temporal', 'Atlas', 'Occipital', 'Mandible'], answer: 1,
-        explanation: 'Model answer B. The dens of the axis (C2) projects up into the ring of the atlas (C1), forming the median atlanto-axial joint.',
-        src: { ref: 'hss.revans', location: 'Module 0, MCQ 5' } },
-      { type: 'cloze', prompt: 'The transverse ligament holds the atlas and the ______ of the axis in place.', accept: ['dens', 'odontoid process', 'odontoid process (dens)', 'odontoid'],
-        explanation: 'Model answer: odontoid process (dens). Both names are accepted for the same peg.',
-        src: { ref: 'hss.revans', location: 'Module 4.2, Fill-in-blanks 3' } },
-    ],
-    application: [
-      { type: 'scenario', prompt: 'A patient can nod but cannot shake their head. Which joint is most likely affected, and which bones form it?',
-        model: 'The median atlanto-axial joint, between the atlas (C1) and the dens of the axis (C2). Nodding is preserved because that happens at the atlanto-occipital joint one level above, which is unaffected.',
-        rubric: ['Names the atlanto-axial joint', 'Names C1 and C2 / the dens', 'Explains why nodding is spared'] },
-    ],
-    commonMistakes: [
-      'Swapping the two joints — the nod is higher (skull on C1), the shake is lower (C1 on C2).',
-      'Not recognising "odontoid process" and "dens" as the same structure under two names.',
-    ],
-    skills: [
-      'The nod sits above the shake. Flexion and extension happen where the skull rides on C1 (atlanto-occipital); rotation happens one level lower, where C1 turns on the dens of C2 (median atlanto-axial). A patient who can nod but not shake localises the problem to the atlanto-axial joint without any imaging at all.',
-      'The dens is the pivot pin, and pins mean rotation — that is the whole mechanism connecting C2\'s shape to the "no" movement. The transverse ligament is what holds C1 against that pin, which is why the peg can rotate inside the ring without leaving it.',
-      'Dens and odontoid process are one peg under two names — Latin tooth and Greek tooth. The fill-in-blank accepts either, but recognising them as the same structure is what stops the two names from reading like two landmarks.',
-    ],
-    selfCheck: 'From a blank page: which joint nods and which shakes with the bones of each named, what the transverse ligament holds, and the can-nod-cannot-shake patient reasoning.',
-    sourceRefs: [{ ref: 'hss.m0.1718', location: 'L1 p28–29 cervical vertebrae, atlanto-axial joint' }, { ref: 'hss.l1.overview', location: 'p27 "atlanto-occipital joint (YES!!!)" with flexion/extension and median atlanto-axial rotation' }, { ref: 'hss.4.2', location: 'Head and neck — cervical spine features' }, { ref: 'hss.revans', location: 'Module 0 and Module 4.2 answers' }],
-  },
-  {
-    id: 'hss2011-osteo-skull-sutures',
-    subject: 'HSS2011', unit: 'hss.osteo', type: 'definition',
-    title: 'Skull bones and the four sutures',
-    tags: ['osteology', 'skull', 'high-yield'], boneRefs: ['cranium', 'mandible'],
-    lesson: {
-      explanation: 'Sutures are fibrous joints of the skull, articulating by process and indentation, with the bones bound by fibrous connective tissue. Four are named in the module: the coronal suture binds the frontal and parietal bones; the sagittal suture runs between the two parietal bones; the lambdoid suture lies between parietal and occipital; and the squamous suture joins the parietal bone to the temporal bone. The Module 4 labelling answers also name the squamous part of the temporal bone, the external acoustic meatus, the mastoid process, the sphenoid, the nasal bone, the lacrimal bone, the ethmoid, the maxilla and the zygomatic bone. The mandible is the only movable bone in the skull.',
-      keyFacts: [
-        'Coronal suture — frontal to parietal.',
-        'Sagittal suture — parietal to parietal.',
-        'Lambdoid suture — parietal to occipital.',
-        'Squamous suture — parietal to temporal.',
-        'Sutures are fibrous joints: articulation by process and indentation, bound by fibrous connective tissue.',
-        'The mandible is the only movable bone in the skull.',
-        'Named facial and cranial bones in the labelling answers: sphenoid, nasal, lacrimal, ethmoid, maxilla, zygomatic, temporal (squamous part), plus the external acoustic meatus and mastoid process.',
-      ],
-      prerequisites: ['hss2011-osteo-axial-appendicular'],
-      examples: [],
-    },
-    memory: {
-      location: 'Put a crown on your head: the coronal suture is exactly where the band sits, frontal in front, parietal behind. Then an arrow (sagittal) down the midline between the parietals. Lambdoid is the Greek letter lambda at the back of the skull. Squamous is the scaly overlap low on the side, where the temporal bone slides under the parietal.',
-      firstLetter: 'Going front to back along the top: Coronal, Sagittal, Lambdoid. C-S-L. Squamous is the odd one out because it is on the side, not the top.',
-      comparison: 'Squamous vs sagittal is the classic distractor pair. Sagittal is on top between two parietals; squamous is on the side between parietal and temporal.',
-    },
-    practice: [
-      { type: 'mcq', prompt: 'Which suture joins the parietal bone and the temporal bone together?', options: ['Squamous suture', 'Coronal suture', 'Lambdoid suture', 'Sagittal suture'], answer: 0,
-        explanation: 'Model answer A. The squamous suture is the scale-like overlap on the side of the skull between parietal and temporal. Sagittal is the midline joint between the two parietals.',
-        src: { ref: 'hss.revans', location: 'Module 4.2, MCQ 2' } },
-      { type: 'cloze', prompt: 'The joint between the frontal and parietal bones is correctly called the ______ suture.', accept: ['coronal'],
-        explanation: 'Model answer: coronal. The lecture uses this exact example when defining sutures as fibrous joints.',
-        src: { ref: 'hss.revans', location: 'Module 4.2, Fill-in-blanks 4' } },
-      { type: 'cloze', prompt: 'The ______ bone is the only movable bone in the skull.', accept: ['mandible', 'mandibular'],
-        explanation: 'Model answer: mandible. It articulates with the temporal bones at the temporomandibular joints.',
-        src: { ref: 'hss.revans', location: 'Module 4.2, Fill-in-blanks 2' } },
-      { type: 'matching', prompt: 'Match each suture to the bones it joins.',
-        pairs: [['Coronal', 'Frontal – parietal'], ['Sagittal', 'Parietal – parietal'], ['Lambdoid', 'Parietal – occipital'], ['Squamous', 'Parietal – temporal']],
-        explanation: 'These are the four sutures the module asks you to locate on the skull.' },
-    ],
-    application: [
-      { type: 'scenario', prompt: 'Sutures are classed as fibrous joints. What does that classification tell you about how much they move, and why is a suture a useful example of that class?',
-        model: 'Fibrous joints allow very limited movement because the bones are connected by fibrous tissue rather than by a cavity and cartilage. A suture is the clearest example: the bones interlock by process and indentation and are bound by fibrous connective tissue, so the skull vault is effectively rigid.',
-        rubric: ['States fibrous joints allow very limited movement', 'Describes the process-and-indentation interlock', 'Names fibrous connective tissue as the binding'] },
-    ],
-    commonMistakes: [
-      'Answering sagittal when asked about parietal-to-temporal. Sagittal is parietal-to-parietal on the midline.',
-      'Forgetting the mandible when asked which skull bone moves.',
-    ],
-    skills: [
-      'Sagittal and squamous differ by one letter and one whole location: sagittal is the midline joint between the two parietals; squamous is the low side-joint where the temporal slides under the parietal. Both touch a parietal, so "involves the parietal bone" identifies neither — the second bone is the answer.',
-      'Each suture\'s name is its own map reference: coronal runs where a crown sits (frontal to parietal), sagittal along the arrow\'s flight down the midline, lambdoid draws a Greek lambda at the back, and squamous — "scale-like" — is the overlap on the side. Read the name, get the position.',
-      'A suture is fibrous — bones interlocked by process and indentation, bound by fibrous tissue — which is why the skull vault barely moves at all, and why the mandible\'s status as the only movable skull bone is definitional rather than incidental.',
-    ],
-    selfCheck: 'From a blank page: the four sutures with their bone pairs, why a suture permits the least movement of the listed joints (fibrous tissue, process-and-indentation interlock), and the only movable skull bone.',
-    sourceRefs: [{ ref: 'hss.4.2', location: 'Head and neck — skull, sutures' }, { ref: 'hss.4.1', location: 'Slide "Fibrous joints — Sutures"' }, { ref: 'hss.revans', location: 'Module 4.2 answers; More exercises Module 4, labels A1–A12' }],
-  },
-  {
-    "id": "hss2011-osteo-pectoral-girdle",
-    "subject": "HSS2011",
-    "unit": "hss.osteo",
-    "type": "definition",
-    "title": "The pectoral girdle and shoulder joint",
-    "tags": [
+    id: "hss2011-osteo-vertebra-parts",
+    subject: "HSS2011",
+    unit: "hss.osteo",
+    type: "diagram",
+    title: "General anatomical structure of a typical vertebra",
+    tags: [
       "osteology",
-      "upper limb",
-      "high-yield",
-      "foundation"
+      "high-yield"
     ],
-    "lesson": {
-      "explanation": "The pectoral (shoulder) girdle forms the skeletal foundation connecting the upper appendicular limb to the axial skeleton. On each side of the body, the pectoral girdle consists of two bones: the anterior, subcutaneous S-shaped clavicle (collarbone) and the posterior, flat triangular scapula (shoulder blade). A fundamental anatomical principle of the human shoulder is that it possesses only a single bony joint linking the entire upper limb to the axial frame: the sternoclavicular joint, formed by the articulation of the medial (sternal) end of the clavicle with the clavicular notch of the manubrium of the sternum and the first costal cartilage. This articulation is a saddle-type synovial joint containing an intervening fibrocartilaginous articular disc that functions as a shock absorber. The lateral (acromial) end of the clavicle articulates with the acromion of the scapula at the plane-type acromioclavicular (AC) joint, reinforced by the powerful coracoclavicular ligament. Crucially, the scapula itself has no direct bony articulation with the axial skeleton; instead, it is suspended against the posterior thoracic cage across a physiological muscular interface (the scapulothoracic joint) by muscular slings including the trapezius, serratus anterior, levator scapulae, and rhomboids. This lack of rigid bony anchoring grants the scapula immense mobility, allowing it to elevate, depress, protract, retract, and rotate upwardly and downwardly. The lateral angle of the scapula is expanded into the glenoid cavity (glenoid fossa), a shallow, pear-shaped articular depression that articulates with the large, smooth hemispherical head of the humerus to form the glenohumeral (shoulder) joint. The glenohumeral articulation is a classic polyaxial ball-and-socket synovial joint. Because the shallow glenoid fossa accommodates only approximately one-third of the humeral head, the shoulder joint deliberately trades osseous stability in exchange for the greatest range of multi-planar movement of any joint in the human body (permitting flexion, extension, abduction, adduction, medial rotation, lateral rotation, and circumduction). Dynamic joint stability is provided by the rotator cuff muscles (supraspinatus, infraspinatus, teres minor, subscapularis) whose tendons blend directly with the joint capsule, supported by the fibrous glenoid labrum that deepens the socket rim. Major shoulder-girdle motors include the deltoid, pectoralis major, and latissimus dorsi.",
-      "plain": "The pectoral girdle anchors your arm to your body using two bones: the collarbone (clavicle) in front and the shoulder blade (scapula) behind. Amazingly, the entire arm is connected to your skeleton by just one single bony joint: the sternoclavicular joint where the clavicle joins the breastbone (sternum). The other end of the clavicle meets the scapula at the acromioclavicular joint. The scapula has no bones connecting it to your spine or ribs—it floats on a bed of muscles, giving your shoulder massive range of motion. At the side of the scapula sits the shallow glenoid socket, which meets the round ball of the humerus to form the ball-and-socket shoulder joint. Because the socket is shallow, the shoulder is the most mobile joint in your body, relying on the four rotator cuff muscles to keep the ball from popping out.",
-      "keyFacts": [
-        "Pectoral girdle bones: anterior clavicle and posterior scapula.",
-        "Single bony axial bridge: sternoclavicular joint (medial clavicle meets sternum manubrium).",
-        "Acromioclavicular (AC) joint: lateral clavicle articulates with acromion of scapula.",
-        "Scapulothoracic articulation: dynamic muscular sling; no direct bony attachment to ribs or spine.",
-        "Glenohumeral joint: polyaxial ball-and-socket joint between shallow glenoid fossa and humeral head.",
-        "Mobility vs stability trade-off: shallow glenoid accommodates ~1/3 of humeral head; greatest mobility in the body.",
-        "Dynamic stabilizers: rotator cuff muscles (SITS) and glenoid labrum fibrocartilage rim.",
-        "Major shoulder girdle muscles: pectoralis major, latissimus dorsi, and deltoid."
+    boneRefs: [
+      "cervical",
+      "thoracic",
+      "lumbar"
+    ],
+    lesson: {
+      explanation: "Every typical vertebra throughout the cervical, thoracic, and lumbar spine shares a unified architectural blueprint consisting of three fundamental components: an anterior vertebral body, a posterior vertebral arch, and seven projections or processes. The vertebral body (centrum) is a thick, drum-shaped anterior mass of cancellous bone bounded by thin cortical plates that serves as the primary weight-bearing component of the spine. Successive bodies are separated and cushioned by fibrocartilaginous intervertebral discs. Projecting posteriorly from the body is the vertebral arch, constructed on each side by a rounded pedicle (forming the lateral walls and notched superiorly and inferiorly to create intervertebral foramina for exiting spinal nerves) and a flattened lamina (forming the posterior roof). Together, the posterior surface of the body and the vertebral arch completely encircle the vertebral foramen. When articulated, successive vertebral foramina align to form the continuous vertebral canal (spinal canal) transmitting and protecting the spinal cord, its meninges, and vessels. Seven distinct processes arise from the vertebral arch for muscle attachment and joint articulation: (1) a single midline spinous process extending posteriorly and inferiorly from the junction of the two laminae; (2) paired transverse processes projecting laterally from the junction of the pedicles and laminae, providing leverage for deep back muscles and, in the thorax, articulating with ribs; and (3) two superior and two inferior articular processes (zygapophyses) bearing hyaline cartilage-lined articular facets. The inferior articular facets of a superior vertebra articulate with the superior articular facets of the inferior vertebra to form bilateral synovial plane facet (zygapophysial) joints, directing and constraining the direction of spinal movement.",
+      plain: "A typical vertebra has three main parts: a heavy vertebral body in front that carries body weight, a protective vertebral arch behind built from two pedicles and two laminae, and the hole in the middle called the vertebral foramen. Seven spikes stick out from the arch: one spinous process pointing straight back, two transverse processes pointing out to the sides, and four articular processes with facets that click together to form facet joints with the vertebrae above and below.",
+      keyFacts: [
+        "Vertebral body: thick anterior cylindrical mass serving as the primary weight-bearing structure of the spine.",
+        "Vertebral arch: posterior bony arch built from paired pedicles and laminae enclosing the vertebral foramen.",
+        "Pedicles: stout bilateral bars projecting posteriorly from the body to form the lateral walls of the arch.",
+        "Laminae: flattened plates extending posteromedially from the pedicles to complete the arch roof in the posterior midline.",
+        "Vertebral foramen: central aperture bounded by body and arch; articulated vertebrae form the spinal canal enclosing the spinal cord.",
+        "Intervertebral foramina: lateral openings formed by superior and inferior pedicle notches transmitting spinal nerves and vessels.",
+        "Spinous process: single posterior projection from lamina junction for muscle and ligament attachments.",
+        "Transverse processes: paired lateral projections from pedicle-lamina junctions.",
+        "Articular processes: four per vertebra (2 superior, 2 inferior) forming bilateral synovial facet (zygapophysial) joints."
       ],
-      "prerequisites": [
-        "hss2011-osteo-axial-appendicular",
-        "hss2011-joints-classification"
+      prerequisites: [
+        "hss2011-osteo-axial-appendicular"
       ],
-      "examples": [
-        "When falling onto an outstretched hand (FOOSH), compressive mechanical shock is transmitted up the radius, humerus, scapula, and clavicle to the sternum; because the sternoclavicular ligaments are exceptionally strong, fracture occurs at the junction of the middle and lateral thirds of the clavicle rather than joint dislocation.",
-        "Shoulder anterior dislocation is common because the glenoid cavity is shallow and the inferior-anterior capsule lacks rotator cuff tendon reinforcement."
+      examples: [
+        "Degenerative osteoarthritis of lumbar zygapophysial (facet) joints causes osteophyte (bone spur) formation encroaching on the intervertebral foramen, compressing the exiting L5 spinal nerve root and producing sciatica.",
+        "Spondylolysis involves a fatigue stress fracture of the pars interarticularis—the narrow bony neck between the superior and inferior articular processes of lumbar vertebrae, most frequently L5."
       ]
     },
-    "memory": {
-      "chunking": "Three joints around the shoulder: Sternoclavicular (axial bridge), Acromioclavicular (strut joint), Glenohumeral (ball-and-socket).",
-      "comparison": "Glenoid vs Acetabulum: the glenoid fossa is shallow (built for maximum mobility, prone to dislocation); the hip acetabulum is deep (built for weight-bearing stability).",
-      "visualCue": "Picture the clavicle as a rigid architectural crane strut holding the scapula and arm away from the thorax so the arm can swing freely.",
-      "teachBack": "Explain why the human shoulder has only one bony connection to the axial skeleton and how this design enables overhead arm elevation."
+    memory: {
+      firstLetter: "A vertebra has 3 parts: Body, Arch, Processes — \"B-A-P\" (Bearer, Armor, Projections).",
+      mnemonic: "Pedicles Pinch the sides, Laminae Lay the roof, Spinous Sticks straight back.",
+      location: "Body is anterior (front); vertebral foramen is in the middle; spinous process is the bump you feel along your spine in back.",
+      teachBack: "Draw a superior cross-sectional view of a typical vertebra, identify and label the body, pedicles, laminae, vertebral foramen, spinous process, transverse processes, and articular facets, and trace where the spinal cord travels."
     },
-    "practice": [
+    practice: [
       {
-        "type": "cloze",
-        "prompt": "The medial end of the clavicle articulates with the sternum to form the ______ joint, which represents the sole bony articulation between the upper limb and the axial skeleton.",
-        "accept": [
-          "sternoclavicular",
-          "sternoclavicular joint"
+        type: "cloze",
+        prompt: "The vertebral body serves as the primary ______ component of the spine.",
+        accept: [
+          "weight-bearing",
+          "weight bearing"
         ],
-        "explanation": "The sternoclavicular joint is the only skeletal bridge connecting the pectoral girdle and upper limb to the axial trunk.",
-        "src": {
-          "ref": "hss.4.3",
-          "location": "p8 \"Sternoclavicualr joint\""
+        explanation: "The vertebral body is the thick anterior cylindrical mass responsible for load-bearing and body weight transmission.",
+        src: {
+          ref: "hss.m0.1718",
+          location: "p21 \"(serves as the primary\" — \"weight-bearing\""
         }
       },
       {
-        "type": "matching",
-        "prompt": "Match each shoulder region joint to its verified articulating components.",
-        "pairs": [
-          [
-            "Sternoclavicular joint",
-            "Medial clavicle and manubrium of sternum"
-          ],
-          [
-            "Acromioclavicular joint",
-            "Lateral clavicle and acromion of scapula"
-          ],
-          [
-            "Glenohumeral joint",
-            "Glenoid cavity of scapula and head of humerus"
-          ]
+        type: "mcq",
+        prompt: "The vertebral arch is formed on each side by which two bony components?",
+        options: [
+          "Pedicle and lamina",
+          "Spinous process and transverse process",
+          "Centrum and facet",
+          "Odontoid process and arch",
+          "Transverse foramen and lamina"
         ],
-        "explanation": "The three anatomical joints around the shoulder region illustrated on HSS2011 slide 8."
+        answer: 0,
+        explanation: "The vertebral arch is built bilaterally by the anterior pedicle and the posterior lamina.",
+        src: {
+          ref: "hss.manual1920",
+          location: "p77 \"B1. Vertebral foramen B2. Pedicle\""
+        }
       },
       {
-        "type": "mcq",
-        "prompt": "Which anatomical feature explains why the glenohumeral joint possesses the greatest range of movement of all joints in the human body?",
-        "options": [
-          "The deep bony acetabular rim",
-          "The shallow glenoid cavity enclosing only about one-third of the humeral head",
-          "The absence of a synovial membrane",
-          "Rigid bony fusion to the thoracic cage"
+        type: "matching",
+        prompt: "Match each part of a typical vertebra to its primary structural role.",
+        pairs: [
+          [
+            "Vertebral body",
+            "Primary weight-bearing component anteriorly"
+          ],
+          [
+            "Vertebral foramen",
+            "Passage and protection of the spinal cord"
+          ],
+          [
+            "Pedicle",
+            "Connects vertebral body to lamina forming lateral arch wall"
+          ],
+          [
+            "Spinous process",
+            "Posterior projection for ligament and muscle attachment"
+          ]
         ],
-        "answer": 1,
-        "explanation": "The shallow glenoid fossa allows extraordinary multi-planar mobility because it does not physically lock the humeral head, relying on soft tissue cuffs for stability."
+        explanation: "Core anatomical roles of vertebra components from HSS2011 Module 0."
       }
     ],
-    "application": [
+    application: [
       {
-        "type": "scenario",
-        "prompt": "A patient presents with a severe fracture of the clavicle shaft. What primary mechanical function of the pectoral girdle is lost, and what happens to the position of the shoulder on the affected side?",
-        "model": "The clavicle acts as a mechanical strut that holds the scapula and glenohumeral joint laterally away from the thoracic wall, allowing the upper limb maximum freedom of movement. When the clavicle fractures, the strut collapses: the weight of the upper limb pulls the shoulder downward, forward, and inward (medially) under the unopposed pull of gravity and the pectoralis major and latissimus dorsi muscles.",
-        "rubric": [
-          "Identifies the clavicle as a rigid mechanical strut holding the shoulder away from the chest",
-          "Explains that fracture causes the shoulder to collapse downward and medially",
-          "Recognizes that the sternoclavicular joint is the only bony axial support"
+        type: "scenario",
+        prompt: "An axial lumbar CT shows marked hypertrophy of the ligamentum flavum and facet osteophytes significantly narrowing the central vertebral foramen. Explain the anatomical boundary of this space and the neurological consequences of this central stenosis.",
+        model: "The central vertebral foramen is bounded anteriorly by the posterior aspect of the vertebral body and intervertebral disc, laterally by the pedicles, and posteriorly by the laminae and ligamentum flavum. Severe narrowing (stenosis) of this canal compresses the cauda equina nerve roots traveling within the dural sac, resulting in neurogenic claudication characterized by bilateral buttock and lower extremity pain, heaviness, and numbness exacerbated by lumbar extension.",
+        rubric: [
+          "States the anatomical boundaries of the vertebral foramen",
+          "Identifies the content as the spinal canal / cauda equina / spinal cord",
+          "Explains how compression of these structures results in neurological deficits"
         ]
       }
     ],
-    "commonMistakes": [
-      "Believing the scapula forms a direct synovial joint with the ribs or spine; it is attached purely by muscular slings.",
-      "Confusing the sternoclavicular joint (medial) with the acromioclavicular joint (lateral).",
-      "Assuming the shoulder joint is structurally stable because of bone shape; its stability is almost purely muscular and ligamentous."
+    commonMistakes: [
+      "Confusing pedicle (anterior, connects body to processes) with lamina (posterior, connects processes to midline spinous process).",
+      "Believing the spinal cord passes through the intervertebral foramen; the spinal cord passes through the central vertebral canal, while spinal nerves exit through the intervertebral foramina.",
+      "Counting 5 processes instead of 7 (1 spinous + 2 transverse + 4 articular = 7 total)."
     ],
-    "skills": [
-      "Trace the axial force transmission pathway: hand → radius → humerus → glenoid cavity → scapula → acromioclavicular joint → clavicle → sternoclavicular joint → sternum.",
-      "Recognize on thoracic radiographs that the medial end of the clavicle normally aligns with the manubrium at the sternoclavicular joint."
+    skills: [
+      "Identify vertebral pedicles on AP spine radiographs (\"pedicle sign\"): absence of a pedicle (\"winking owl\" sign) indicates osteolytic metastatic cancer.",
+      "Recognize facet joint orientation on oblique radiographs: cervical facets slope at 45° in transverse plane; thoracic facets lie coronally; lumbar facets face sagittal plane.",
+      "Differentiate vertebral foramen (single central canal opening) from intervertebral foramina (paired bilateral nerve exit channels)."
     ],
-    "selfCheck": "From memory: name the two bones of the pectoral girdle, identify the three joints around the shoulder region, and explain the mobility-stability trade-off of the glenoid fossa.",
-    "visuals": [
+    selfCheck: "From memory: name the 3 components of a vertebra, 2 parts of the vertebral arch, 7 processes, and explain how facet joints are formed.",
+    visuals: [
       {
-        "model": {
-          "layer": "skeleton",
-          "meshes": [
-            "Clavicle",
-            "Scapula",
-            "Humerus"
+        fig: "cervicalVertebrae"
+      },
+      {
+        model: {
+          layer: "skeleton",
+          meshes: [
+            "Vertebra C5",
+            "Vertebra T6",
+            "Vertebra L3"
           ],
-          "label": "Pectoral girdle and shoulder joint",
-          "caption": "The clavicle articulates medially with the manubrium of the sternum (sternoclavicular joint) and laterally with the acromion of the scapula (acromioclavicular joint); the shallow glenoid cavity articulates with the head of the humerus."
+          label: "Vertebra architecture across regions",
+          caption: "Vertebral body anteriorly, vertebral arch posteriorly formed by pedicles and laminae, bounding the vertebral foramen."
         }
       },
       {
-        "fig": "rotatorCuffMuscles"
-      },
-      {
-        "gen": true
+        gen: true
       }
     ],
-    "sourceRefs": [
+    sourceRefs: [
       {
-        "ref": "hss.4.3",
-        "location": "p4 \"Outline: Upper Limb\""
+        ref: "hss.4.2",
+        location: "p44 \"Vertebral\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p4 \"Pectoral girdle\""
+        ref: "hss.m0.1718",
+        location: "p21 \"General structures of a vertebra\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p6 \"Pectoral Girdle\""
+        ref: "hss.m0.1718",
+        location: "p21 \"Spinous process\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p8 \"Fig. 8-2\""
+        ref: "hss.m0.1718",
+        location: "p21 \"Articular\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p8 \"Joints Around Shoulder Region\""
+        ref: "hss.m0.1718",
+        location: "p21 \"Transverse process\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p8 \"Acromioclavicular joint\""
+        ref: "hss.m0.1718",
+        location: "p21 \"Vertebral arch\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p8 \"Sternoclavicualr joint\""
+        ref: "hss.m0.1718",
+        location: "p21 \"Vertebral foramen\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p8 \"Glenohumeral joint\""
+        ref: "hss.m0.1718",
+        location: "p21 \"(serves as the primary\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p16 \"Major Muscles Around\""
+        ref: "hss.manual1920",
+        location: "p77 \"B1. Vertebral foramen B2. Pedicle\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p16 \"Shoulder Girdle:\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p16 \"Pectoralis major\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p16 \"Latissimus dorsi\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p19 \"Axillary nerve\""
+        ref: "hss.revans",
+        location: "p5 \"B1. Vertebral foramen B2. Pedicle\""
       }
     ]
   },
   {
-    "id": "hss2011-osteo-forearm-carpals",
-    "subject": "HSS2011",
-    "unit": "hss.osteo",
-    "type": "definition",
-    "title": "Bones of the forearm, wrist and hand",
-    "tags": [
+    id: "hss2011-osteo-vertebral-column",
+    subject: "HSS2011",
+    unit: "hss.osteo",
+    type: "sequence",
+    title: "Vertebral column regions and physiological curvatures",
+    tags: [
       "osteology",
-      "upper limb",
-      "high-yield",
-      "foundation"
+      "high-yield"
     ],
-    "lesson": {
-      "explanation": "The distal upper limb skeleton comprises the bones of the forearm (antebrachium), wrist (carpus), palm (metacarpus), and fingers (phalanges). The forearm contains two parallel long bones: the lateral radius (aligned with the thumb) and the medial ulna (aligned with the little finger). Proximally, the ulna features a prominent hook-like olecranon process and an anterior coronoid process that bound the deep, C-shaped trochlear notch; this notch articulates tightly with the spool-like trochlea of the humerus to form the uniaxial humero-ulnar hinge joint of the elbow. On the lateral aspect of the coronoid process, the radial notch of the ulna articulates with the circular head of the radius to form the proximal radioulnar pivot joint, allowing rotary supination and pronation. Distally, the expanded radius articulates with the ulnar head at the distal radioulnar joint. At the wrist, the distal radius forms the primary articulating surface of the condylar radiocarpal (wrist) joint, articulating with the proximal carpal row (scaphoid and lunate); the distal ulna is excluded from direct carpal articulation by a fibrocartilaginous articular disc. The wrist contains eight carpal bones arranged in two transverse rows of four. The proximal row (from lateral/radial to medial/ulnar) comprises: 1. Scaphoid (boat-shaped; the most frequently fractured carpal, susceptible to avascular necrosis), 2. Lunate (crescent-shaped; the most frequently dislocated carpal), 3. Triquetrum (pyramidal), and 4. Pisiform (a small pea-shaped sesamoid bone sitting on the palmar surface of the triquetrum within the flexor carpi ulnaris tendon). The distal row (lateral to medial) comprises: 5. Trapezium (features a saddle-shaped articular surface for the first metacarpal of the thumb; \"trapezi-UM under the th-UMB\"), 6. Trapezoid (wedge-shaped), 7. Capitate (the largest carpal bone, occupying the central position), and 8. Hamate (characterized by a prominent curved palmar projection called the hook of hamate). These carpal bones form an anteriorly concave osseous arch spanned by the tough flexor retinaculum, creating the enclosed carpal tunnel. Passing through the carpal tunnel are the median nerve and nine flexor tendons (four tendons of flexor digitorum superficialis, four of flexor digitorum profundus, and one of flexor pollicis longus). Carpal Tunnel Syndrome (CTS) is a painful disabling condition caused by compression of the median nerve travelling through this tunnel. Distal to the carpus are five metacarpal bones (I to V) and 14 phalanges (two in the thumb: proximal and distal; three in digits II–V: proximal, middle, distal).",
-      "plain": "The forearm consists of two bones: the radius on the thumb side and the ulna on the little-finger side. The ulna has a large C-shaped scoop called the trochlear notch that hinges around the humerus at the elbow. The wrist contains eight carpal bones arranged in two neat rows of four. Proximal row (thumb to little finger): Scaphoid, Lunate, Triquetrum, Pisiform. Distal row: Trapezium (under the thumb), Trapezoid, Capitate (the biggest), and Hamate (with a hook). The carpal bones curve into a U-shaped trough covered by a tight ligament roof (the flexor retinaculum), forming the carpal tunnel. The median nerve passes through this tunnel; if it gets pinched, it causes numbness and weakness called Carpal Tunnel Syndrome. Distal to the wrist are the 5 metacarpals of the palm and the 14 finger phalanges.",
-      "keyFacts": [
-        "Forearm bones: lateral radius (thumb side) and medial ulna (little finger side).",
-        "Trochlear notch of ulna: articulates with the trochlea of the humerus to form the elbow hinge.",
-        "Proximal and distal radioulnar joints: uniaxial pivot joints allowing pronation and supination.",
-        "Radiocarpal (wrist) joint: distal radius articulates with scaphoid and lunate carpal bones.",
-        "Eight carpal bones in two rows of four.",
-        "Proximal row (lateral to medial): Scaphoid, Lunate, Triquetrum, Pisiform.",
-        "Distal row (lateral to medial): Trapezium, Trapezoid, Capitate, Hamate.",
-        "Capitate: largest carpal bone; Pisiform: sesamoid carpal; Trapezium: articulates with thumb metacarpal.",
-        "Carpal tunnel: formed by carpal arch and flexor retinaculum; transmits median nerve and 9 flexor tendons.",
-        "Carpal Tunnel Syndrome (CTS): compression of the median nerve within the carpal tunnel.",
-        "Hand skeleton: 8 carpals, 5 metacarpals (I–V), 14 phalanges (thumb has 2; digits II–V have 3)."
+    boneRefs: [
+      "cervical",
+      "thoracic",
+      "lumbar",
+      "sacrum",
+      "coccyx"
+    ],
+    lesson: {
+      explanation: "The adult human vertebral column (spine) is a flexible, multi-segmented osseous pillar composed of 26 individual bones organized into five distinct anatomical regions: 7 cervical vertebrae (C1–C7) supporting the head and neck; 12 thoracic vertebrae (T1–T12) articulating with the ribs of the thoracic cage; 5 robust lumbar vertebrae (L1–L5) supporting the lower torso and abdominal weight; the sacrum (formed by 5 fused sacral vertebrae, S1–S5) anchoring the spine to the pelvic girdle at the sacroiliac joints; and the coccyx (tailbone, formed by 3–5, typically 4 fused coccygeal vertebrae, Co1–Co4). In the sagittal plane, the adult column exhibits four natural physiological curvatures essential for shock absorption, balance, and upright bipedal posture. These curves are categorized embryologically into primary and secondary curvatures: (1) Primary curvatures (thoracic curvature and pelvic/sacral curvature) are concave anteriorly (kyphotic). They develop during the embryonic and fetal periods to accommodate the developing thoracic and abdominopelvic viscera. (2) Secondary curvatures (cervical curvature and lumbar curvature) are concave posteriorly (lordotic). They develop compensation after birth: the cervical lordosis develops around 3–4 months when the infant begins to hold its head upright; the lumbar lordosis develops around 12–18 months when the infant begins standing, balancing, and walking upright. Pathological exaggerations of these curves include hyperkyphosis (\"humpback\", excess thoracic curve), hyperlordosis (\"swayback\", excess lumbar curve), and scoliosis (abnormal lateral curvature with vertebral rotation).",
+      plain: "The adult spine has 26 bones split into five regions: 7 cervical in the neck, 12 thoracic in the chest, 5 lumbar in the lower back, 1 sacrum (5 fused bones), and 1 coccyx (4 fused bones). From the side, it has four curves: primary curves (thoracic and sacral) curve forward like a fetal C-shape; secondary curves (cervical and lumbar) curve backward, forming after birth when babies learn to hold their heads up and walk.",
+      keyFacts: [
+        "The adult vertebral column comprises 26 bones: 7 cervical, 12 thoracic, 5 lumbar, 1 sacrum (5 fused), and 1 coccyx (4 fused).",
+        "Cervical region: 7 vertebrae (C1–C7); smallest bodies; transverse foramina for vertebral arteries.",
+        "Thoracic region: 12 vertebrae (T1–T12); heart-shaped bodies; costal facets for rib articulations.",
+        "Lumbar region: 5 vertebrae (L1–L5); largest, massive kidney-shaped bodies for weight-bearing.",
+        "Sacrum: 5 fused vertebrae (S1–S5) forming a triangular wedge between the ilia.",
+        "Coccyx: 4 fused rudimentary vertebrae (Co1–Co4) forming the terminal tailpiece.",
+        "Primary curvatures: thoracic and pelvic (sacral) curves; concave anteriorly; present from the embryonic stage.",
+        "Secondary curvatures: cervical and lumbar curves; concave posteriorly (lordotic); develop postnatally with upright posture.",
+        "Cervical curve develops at ~3 months when holding head erect; lumbar curve develops at ~12 months with standing and walking."
       ],
-      "prerequisites": [
-        "hss2011-osteo-long-bone-structure",
-        "hss2011-joints-classification"
+      prerequisites: [
+        "hss2011-osteo-vertebra-parts"
       ],
-      "examples": [
-        "A fall onto an extended wrist frequently fractures the scaphoid across its waist; because retrograde arterial blood enters from the distal pole, non-union and avascular necrosis of the proximal scaphoid fragment are serious complications.",
-        "Repetitive typing or wrist strain causes tenosynovitis of flexor tendons within the inextensible carpal tunnel, compressing the median nerve and producing sensory tingling in the thumb, index, and middle fingers."
+      examples: [
+        "Osteoporotic wedge compression fractures of mid-thoracic vertebral bodies accentuate the normal thoracic kyphosis, leading to senile hyperkyphosis (\"dowager’s hump\") and compromised respiratory lung volumes.",
+        "Late pregnancy increases anterior abdominal mass, causing compensatory hyperlordosis of the lumbar spine to maintain the center of gravity over the feet, frequently producing lower back muscle strain."
       ]
     },
-    "memory": {
-      "firstLetter": "Proximal row then distal row, lateral to medial: Scaphoid, Lunate, Triquetrum, Pisiform, Trapezium, Trapezoid, Capitate, Hamate (mnemonic: \"Some Lovers Try Positions That They Cannot Handle\").",
-      "mnemonic": "Trapezi-UM articulates with the th-UMB. Capitate is the CAPTAIN (largest bone in the center).",
-      "comparison": "Radius vs Ulna at the wrist: the radius expands distally to articulate directly with carpals; the ulna shrinks distally into a small head separated from carpals by a disc.",
-      "teachBack": "Recite all eight carpal bones in row order from lateral to medial, point to your own wrist to demonstrate the carpal tunnel, and explain why median nerve compression spares the little finger."
+    memory: {
+      firstLetter: "Five vertebral regions: Cervical, Thoracic, Lumbar, Sacrum, Coccyx — \"Can The Lady Stand Calmly\".",
+      mnemonic: "Meal times for vertebrae counts: Breakfast at 7 AM (Cervical 7), Lunch at 12 PM (Thoracic 12), Dinner at 5 PM (Lumbar 5).",
+      comparison: "Primary vs Secondary curves: Primary is Present at birth (Thoracic/Sacral = fetus in C-shape); Secondary develops Second (Cervical lifts head, Lumbar stands up).",
+      teachBack: "State the vertebra counts for each of the five regions, sketch the lateral spine profile showing all four curvatures, and classify each curve as primary or secondary with its developmental timing."
     },
-    "practice": [
+    practice: [
       {
-        "type": "cloze",
-        "prompt": "The deep C-shaped articular depression of the proximal ulna that articulates with the trochlea of the humerus is the ______.",
-        "accept": [
-          "trochlear notch",
-          "Trochlear notch"
+        type: "mcq",
+        prompt: "Which of the following vertebral curvatures is a primary curvature present from the embryonic stage?",
+        options: [
+          "Thoracic curvature",
+          "Cervical curvature",
+          "Lumbar curvature",
+          "Cervicothoracic curvature",
+          "Lumbosacral lordosis"
         ],
-        "explanation": "Model answer from past exam papers: Trochlear notch.",
-        "src": {
-          "ref": "hss.revans",
-          "location": "p3 \"4. Trochlear notch\""
+        answer: 0,
+        explanation: "The thoracic and pelvic/sacral curvatures are primary curves, concave anteriorly and present during embryonic life.",
+        src: {
+          ref: "hss.m0.1718",
+          location: "p16 \"Thoracic curvature\" — \"(primary curve)\""
         }
       },
       {
-        "type": "matching",
-        "prompt": "Match each carpal bone to its verified anatomical characteristic.",
-        "pairs": [
-          [
-            "Scaphoid",
-            "Boat-shaped lateral proximal carpal; most commonly fractured"
-          ],
-          [
-            "Pisiform",
-            "Pea-shaped sesamoid bone resting on triquetrum"
-          ],
-          [
-            "Trapezium",
-            "Distal carpal articulating with first metacarpal of thumb"
-          ],
-          [
-            "Capitate",
-            "Largest carpal bone occupying the central position"
-          ],
-          [
-            "Hamate",
-            "Distal carpal characterized by a prominent anterior hook"
-          ]
+        type: "sequence",
+        prompt: "Arrange the regions of the vertebral column in craniocaudal order (superior to inferior).",
+        items: [
+          "Cervical vertebrae (C1–C7)",
+          "Thoracic vertebrae (T1–T12)",
+          "Lumbar vertebrae (L1–L5)",
+          "Sacrum (S1–S5 fused)",
+          "Coccyx (Co1–Co4 fused)"
         ],
-        "explanation": "Verified carpal bone features from HSS2011 Module 4.3 slides 11 and 32."
+        explanation: "Anatomical craniocaudal sequence of vertebral column regions from HSS2011 Module 0."
       },
       {
-        "type": "sequence",
-        "prompt": "Arrange the carpal bones of the proximal row from lateral (radial / thumb side) to medial (ulnar side).",
-        "items": [
-          "Scaphoid",
-          "Lunate",
-          "Triquetrum",
-          "Pisiform"
+        type: "typed",
+        prompt: "How many individual vertebrae fuse together to form the adult sacrum?",
+        accept: [
+          "5",
+          "five"
         ],
-        "explanation": "Standard anatomical sequence of the proximal carpal row."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Carpal Tunnel Syndrome (CTS) is caused by compression of which structure travelling beneath the flexor retinaculum?",
-        "options": [
-          "Radial nerve",
-          "Ulnar nerve",
-          "Median nerve",
-          "Musculocutaneous nerve"
-        ],
-        "answer": 2,
-        "explanation": "The median nerve traverses the carpal tunnel beneath the flexor retinaculum; compression leads to CTS.",
-        "src": {
-          "ref": "hss.4.3",
-          "location": "p32 \"Carpal Tunnel Syndrome (CTS) is associated by\""
+        explanation: "The sacrum is formed by the fusion of 5 sacral vertebrae (S1–S5).",
+        src: {
+          ref: "hss.m0.1718",
+          location: "p15 \"Sacrum\" — \"(S1-S5 fused)\""
         }
       }
     ],
-    "application": [
+    application: [
       {
-        "type": "scenario",
-        "prompt": "A computer programmer complains of burning numbness and tingling in the palmar aspect of the right thumb, index, and middle fingers, accompanied by weakness in thumb gripping. Sensation in the little finger is completely normal. Identify the syndrome, the compressed nerve, the anatomical boundary creating the compression, and why the little finger is spared.",
-        "model": "The patient has Carpal Tunnel Syndrome (CTS), caused by compression of the median nerve beneath the flexor retinaculum within the carpal tunnel. The median nerve supplies cutaneous sensation to the palmar surface of the lateral three and a half digits (thumb, index, middle, and half of ring finger) and motor innervation to the thenar muscles. The little finger is completely spared because its sensation and hypothenar motor control are supplied by the ulnar nerve, which travels outside the carpal tunnel (superficial to the flexor retinaculum in Guyon's canal).",
-        "rubric": [
-          "Diagnoses Carpal Tunnel Syndrome (CTS)",
-          "Identifies the median nerve and flexor retinaculum",
-          "Explains that the little finger is innervated by the ulnar nerve outside the carpal tunnel"
+        type: "scenario",
+        prompt: "A lateral full-spine radiograph of an adolescent with back pain demonstrates abnormal posterior convexity of 65° in the thoracic spine (normal: 20°–40°) and excessive anterior convexity in the lumbar spine. Name the primary and secondary curvatures involved, classify each curve embryologically, and identify the deformities.",
+        model: "The thoracic spine demonstrates hyperkyphosis, which is an excessive exaggeration of the normal primary thoracic curvature (concave anteriorly / convex posteriorly, developed embryologically). The lumbar spine demonstrates compensatory hyperlordosis, which is an accentuation of the secondary lumbar curvature (concave posteriorly / convex anteriorly, developed postnatally with walking). The compensatory lumbar lordosis serves to keep the head aligned vertically over the pelvis despite the severe thoracic kyphosis.",
+        rubric: [
+          "Identifies thoracic curvature as a primary curvature",
+          "Identifies lumbar curvature as a secondary curvature",
+          "Correctly describes kyphosis and lordosis directions and developmental timing"
         ]
       }
     ],
-    "commonMistakes": [
-      "Assuming the ulnar nerve passes through the carpal tunnel; the ulnar nerve passes superficial to the flexor retinaculum.",
-      "Swapping the positions of trapezium and trapezoid; remember trapezi-UM is by the th-UMB.",
-      "Counting the pisiform in the distal row; it sits in the proximal row on the triquetrum."
+    commonMistakes: [
+      "Confusing primary (anteriorly concave, thoracic & sacral) with secondary (posteriorly concave, cervical & lumbar).",
+      "Counting 33 separate bones in an adult column instead of 26 (due to fusion of sacrum and coccyx).",
+      "Mixing thoracic (12) and cervical (7) vertebrae counts; use the mealtime mnemonic 7, 12, 5."
     ],
-    "skills": [
-      "Identify all eight carpal bones on a PA wrist radiograph by systematically following proximal row (scaphoid → lunate → triquetrum → pisiform) then distal row (trapezium → trapezoid → capitate → hamate).",
-      "Assess radiocarpal joint symmetry: smooth parabolic curves (Gilula’s carpal lines) on wrist radiographs confirm normal alignment."
+    skills: [
+      "Count and identify vertebral levels on spine radiographs: C7 has the longest spinous process, T12 articulates with the last rib, L5 sits atop the sacral promontory.",
+      "Evaluate spinal alignment on lateral radiographs using the Cobb angle method to quantify degrees of lordosis and kyphosis.",
+      "Recognize developmental milestones reflected in the spine: head control produces cervical lordosis, weight-bearing bipedal walking produces lumbar lordosis."
     ],
-    "selfCheck": "From memory: list the eight carpal bones in proximal and distal rows, name the nerve and tendons traversing the carpal tunnel, and identify which bone forms the trochlear notch.",
-    "visuals": [
+    selfCheck: "From memory: list the bone count for all 5 regions, state which curves are primary vs secondary, give the direction of concavity for each, and explain why the adult column has 26 bones.",
+    visuals: [
       {
-        "fig": "carpalBones"
+        fig: "cervicalVertebrae"
       },
       {
-        "model": {
-          "layer": "skeleton",
-          "meshes": [
-            "Radius",
-            "Ulna",
-            "Scaphoid bone",
-            "Lunate bone",
-            "Triquetrum bone",
-            "Pisiform bone",
-            "Trapezium bone",
-            "Trapezoid bone",
-            "Capitate bone",
-            "Hamate bone"
+        model: {
+          layer: "skeleton",
+          meshes: [
+            "Atlas (C1)",
+            "Axis (C2)",
+            "Vertebra C5",
+            "Vertebra T6",
+            "Vertebra L3",
+            "Sacrum",
+            "Coccyx"
           ],
-          "label": "Forearm and carpal bones",
-          "caption": "Radius and ulna articulating with proximal carpal row (scaphoid, lunate, triquetrum) at the radiocarpal wrist joint."
+          label: "Articulated vertebral column",
+          caption: "The 26 vertebral column bones demonstrating alternating lordotic (secondary) and kyphotic (primary) curvatures."
         }
       },
       {
-        "gen": true
+        gen: true
       }
     ],
-    "sourceRefs": [
+    sourceRefs: [
       {
-        "ref": "hss.4.3",
-        "location": "p11 \"Carpal Bones\""
+        ref: "hss.m0.1718",
+        location: "p15 \"Vertebral column\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p11 \"Capitate\""
+        ref: "hss.m0.1718",
+        location: "p15 \"Cervical vertebrae\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p11 \"Hamate\""
+        ref: "hss.m0.1718",
+        location: "p15 \"Thoracic vertebrae\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p11 \"Trapezoid\""
+        ref: "hss.m0.1718",
+        location: "p15 \"Lumbar vertebrae\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p11 \"Triquetrum\""
+        ref: "hss.m0.1718",
+        location: "p15 \"Sacrum\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p11 \"Trapezium\""
+        ref: "hss.m0.1718",
+        location: "p15 \"(Co1 – Co4 fused)\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p11 \"Pisiform\""
+        ref: "hss.m0.1718",
+        location: "p16 \"Primary curvature\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p11 \"Scaphoid\""
+        ref: "hss.m0.1718",
+        location: "p16 \"- concave anteriorly\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p11 \"Lunate\""
+        ref: "hss.m0.1718",
+        location: "p16 \"- developed during embryonic stage\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p25 \"Triceps brachii is an extensor of the forearm.\""
+        ref: "hss.m0.1718",
+        location: "p16 \"Secondary curvature\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p32 \"Wrist Region: Carpal Tunnel\""
+        ref: "hss.m0.1718",
+        location: "p16 \"- concave posteriorly\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p32 \"Median nerve\""
+        ref: "hss.m0.1718",
+        location: "p16 \"- developed after birth\""
       },
       {
-        "ref": "hss.4.3",
-        "location": "p32 \"Radial artery\""
+        ref: "hss.manual1920",
+        location: "p59 \"Cervical Curvature\""
+      }
+    ]
+  },
+  {
+    id: "hss2011-osteo-c1-c2",
+    subject: "HSS2011",
+    unit: "hss.osteo",
+    type: "comparison",
+    title: "Atlas (C1), axis (C2), and craniovertebral joint biomechanics",
+    tags: [
+      "osteology",
+      "high-yield"
+    ],
+    boneRefs: [
+      "cervical",
+      "cranium"
+    ],
+    lesson: {
+      explanation: "The upper cervical spine possesses unique specialized adaptations designed to support the cranium while permitting wide-ranging head mobility. Among the 7 cervical vertebrae, three are classified as atypical: C1 (atlas), C2 (axis), and C7 (vertebra prominens with a long non-bifid spinous process). Typical cervical vertebrae (C3–C6) feature small transverse bodies, bifid spinous processes, and bilateral transverse foramina (foramina transversaria) through which the vertebral arteries and veins ascend to enter the skull via the foramen magnum. The atlas (C1) is unique because it completely lacks a vertebral body and a spinous process; instead, it forms an osseous ring composed of a delicate anterior arch (bearing an anterior tubercle), a wider posterior arch (bearing a posterior tubercle and a groove for the vertebral artery), and two bulky lateral masses. The superior articular facets of the lateral masses are elongated, concave, and kidney-shaped, articulating with the convex occipital condyles at the bilateral atlanto-occipital joints. These synovial condylar joints allow flexion and extension of the head—the nodding movement meaning \"YES\". The axis (C2) acts as the rotational axis for the head, characterized by the dens (odontoid process)—a robust tooth-like peg projecting superiorly from its vertebral body that embryologically represents the missing centrum of C1. The dens articulates anteriorly with the facet on the posterior surface of C1’s anterior arch, and is secured firmly posteriorly against the atlas by the transverse ligament of the atlas, a strong collagenous band stretching between tubercles on the medial surfaces of the lateral masses. This arrangement forms the median atlantoaxial joint, a synovial pivot joint that, combined with the paired lateral atlantoaxial plane joints, allows rotational movement of the head—the shaking movement meaning \"NO\". The transverse ligament is clinically vital: if torn by trauma or eroded by rheumatoid arthritis, the dens displaces posteriorly into the vertebral canal, compressing the upper cervical spinal cord or medulla oblongata with fatal consequences.",
+      plain: "The top two neck bones are built for head movement. C1 (Atlas) is a ring with no body or spinous process; its bowl-shaped facets cradle the skull at the atlanto-occipital joint, letting you nod \"YES\". C2 (Axis) has an upright tooth called the dens (odontoid process) that sticks up into the C1 ring. C1 spins around the dens like a wheel on an axle at the atlantoaxial joint, letting you shake your head \"NO\". The heavy transverse ligament holds the dens in place so it cannot smash backwards into the spinal cord.",
+      keyFacts: [
+        "The cervical spine contains 7 vertebrae (C1–C7); 3 are atypical: C1 (atlas), C2 (axis), and C7 (vertebra prominens).",
+        "All cervical vertebrae feature transverse foramina transmitting vertebral arteries (C1–C6) and veins.",
+        "Atlas (C1) lacks a vertebral body and spinous process, consisting of anterior arch, posterior arch, and lateral masses.",
+        "Atlanto-occipital joint: between superior articular facets of C1 and occipital condyles; condylar synovial joint allowing flexion/extension (nodding \"YES\").",
+        "Axis (C2): carries the dens (odontoid process), representing the fused centrum of C1.",
+        "Median atlantoaxial joint: pivot synovial joint between dens and anterior arch of C1; permits rotation of the head (shaking \"NO\").",
+        "Transverse ligament of atlas: strong ligament spanning C1 lateral masses that keeps dens seated and protects the cervical spinal cord.",
+        "Typical cervical vertebrae (C2–C6) possess bifid spinous processes.",
+        "C7 (vertebra prominens) features a long, prominent, non-bifid spinous process that is easily palpable at the base of the neck."
+      ],
+      prerequisites: [
+        "hss2011-osteo-vertebral-column"
+      ],
+      examples: [
+        "An open-mouth \"peg\" (odontoid) radiograph is routinely obtained in trauma cases to visualize the dens between the lateral masses of C1, checking for type I, II, or III odontoid peg fractures.",
+        "In severe rheumatoid arthritis, chronic synovial inflammation of the atlantoaxial joint weakens the transverse ligament of the atlas, causing atlantoaxial subluxation and progressive cervical myelopathy during head flexion."
+      ]
+    },
+    memory: {
+      firstLetter: "C1 and C2 names: Atlas carries the globe (like Titan Atlas); Axis is the spindle it spins around.",
+      comparison: "Joint movements: Atlanto-Occipital = \"YES\" (nodding / flexion); Atlanto-Axial = \"NO\" (shaking / rotation). \"O\" in Occipital looks like an approving nod \"O-K\".",
+      location: "C1 is the highest bone in your neck directly under your ears; C7 is the big knobby bone at the base of your neck that sticks out when you bend your chin to your chest.",
+      teachBack: "Explain why C1 has no body, identify what the dens represents embryologically, name the ligament holding the dens, and contrast the exact movements allowed at the atlanto-occipital versus atlantoaxial joints."
+    },
+    practice: [
+      {
+        type: "cloze",
+        prompt: "The transverse ligament holds the atlas and the ______ of the axis in place.",
+        accept: [
+          "odontoid process",
+          "dens",
+          "odontoid process (dens)",
+          "dens (odontoid process)"
+        ],
+        explanation: "The transverse ligament of the atlas binds the dens (odontoid process) of C2 firmly against the anterior arch of C1.",
+        src: {
+          ref: "hss.manual1920",
+          location: "p48 \"3. The transverse ligament holds the atlas and the ______ of the axis in place.\""
+        }
       },
       {
-        "ref": "hss.4.3",
-        "location": "p32 \"Ulnar artery\""
+        type: "mcq",
+        prompt: "The atlanto-occipital joint between the occipital condyles and C1 allows which primary head movement?",
+        options: [
+          "Flexion and extension (nodding \"yes\")",
+          "Axial rotation (shaking \"no\")",
+          "Lateral gliding",
+          "Circumduction only",
+          "Lateral abduction only"
+        ],
+        answer: 0,
+        explanation: "The atlanto-occipital joint allows sagittal flexion and extension of the head (nodding \"YES\").",
+        src: {
+          ref: "hss.m0.1718",
+          location: "p29 \"The atlanto-occipital joint allows flexion and extension. (YES!!!)\""
+        }
       },
       {
-        "ref": "hss.4.3",
-        "location": "p32 \"Flexor Retinaculum\""
+        type: "cloze",
+        prompt: "The articulation between the first cervical vertebra (C1) and second cervical vertebra (C2) is called the ______ joint.",
+        accept: [
+          "atlantoaxial",
+          "atlantoaxial joint",
+          "atlanto-axial",
+          "atlanto-axial joint"
+        ],
+        explanation: "The articulation between C1 (atlas) and C2 (axis) is the atlantoaxial joint.",
+        src: {
+          ref: "hss.fib5yr",
+          location: "p24 \"The articulation between the between the first cervical vertebra and second cervical\" — \"atlantoaxial joint.\""
+        }
       },
       {
-        "ref": "hss.4.3",
-        "location": "p32 \"Carpal Tunnel Syndrome (CTS) is associated by\""
+        type: "matching",
+        prompt: "Match each specialized cervical vertebra or feature to its unique characteristic.",
+        pairs: [
+          [
+            "Atlas (C1)",
+            "Lacks vertebral body and spinous process; carries lateral masses"
+          ],
+          [
+            "Axis (C2)",
+            "Possesses dens (odontoid process) as rotational pivot"
+          ],
+          [
+            "Transverse foramen",
+            "Passage for vertebral arteries in C1–C6"
+          ],
+          [
+            "Vertebra prominens (C7)",
+            "Long, non-bifid palpable spinous process"
+          ]
+        ],
+        explanation: "Key structural specializations of the cervical vertebrae from HSS2011 Module 4.2."
+      }
+    ],
+    application: [
+      {
+        type: "scenario",
+        prompt: "A motor vehicle collision victim suffers a hyperflexion cervical spine injury. A lateral cervical radiograph demonstrates an anterior atlanto-dens interval (AADI) of 6 mm (normal adult: <3 mm). Identify the damaged stabilizing structure, the mechanism, and why this is life-threatening.",
+        model: "An AADI greater than 3 mm indicates rupture or severe disruption of the transverse ligament of the atlas. This ligament normally secures the odontoid process (dens) of C2 firmly against the anterior arch of C1. When the transverse ligament is torn, the atlas slides anteriorly relative to the axis during neck flexion, causing the rigid dens to displace posteriorly into the anterior vertebral canal, where it directly compresses the upper cervical spinal cord or medulla oblongata, risking quadriplegia or fatal respiratory arrest from phrenic nerve impairment.",
+        rubric: [
+          "Identifies rupture of the transverse ligament of the atlas",
+          "Explains the displacement of the dens / atlas relative to each other",
+          "States the risk of spinal cord / brainstem compression resulting in paralysis or death"
+        ]
+      }
+    ],
+    commonMistakes: [
+      "Attributing head rotation (\"no\") to the atlanto-occipital joint instead of the atlantoaxial joint.",
+      "Thinking the atlas (C1) has a prominent spinous process; C1 has NO spinous process and NO body.",
+      "Forgetting that vertebral arteries ascend through transverse foramina of C1–C6 before entering the foramen magnum."
+    ],
+    skills: [
+      "Assess the atlanto-dens interval (ADI) on lateral cervical spine radiographs: normal is <3 mm in adults (<5 mm in children).",
+      "Evaluate the open-mouth peg radiograph: verify equal bilateral spaces between the dens and the lateral masses of C1.",
+      "Palpate surface anatomy: identify C7 vertebra prominens as the most prominent spinous process at the cervicothoracic junction."
+    ],
+    selfCheck: "From memory: describe how C1 and C2 differ from typical vertebrae, name the joint and movement for nodding vs shaking the head, and state the function of the transverse ligament.",
+    visuals: [
+      {
+        fig: "cervicalVertebrae"
       },
       {
-        "ref": "hss.revans",
-        "location": "p3 \"4. Trochlear notch\""
+        model: {
+          layer: "skeleton",
+          meshes: [
+            "Atlas (C1)",
+            "Axis (C2)",
+            "Vertebra C5"
+          ],
+          label: "Upper cervical craniovertebral complex",
+          caption: "Atlas (C1) ring pivoting on the odontoid process (dens) of axis (C2), secured by the transverse ligament."
+        }
+      },
+      {
+        gen: true
+      }
+    ],
+    sourceRefs: [
+      {
+        ref: "hss.4.2",
+        location: "p42 \"7 vertebrae in cervical region\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p42 \"3 atypical (C1, C2, and C7)\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p43 \"Atlantoaxial Joint\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p43 \"Dens (Odontoid process)\""
+      },
+      {
+        ref: "hss.m0.1718",
+        location: "p28 \"The vertebral arteries pass through the transverse foramina\""
+      },
+      {
+        ref: "hss.m0.1718",
+        location: "p28 \"Bifid spinous\""
+      },
+      {
+        ref: "hss.m0.1718",
+        location: "p29 \"The atlanto-occipital joint allows flexion and extension. (YES!!!)\""
+      },
+      {
+        ref: "hss.m0.1718",
+        location: "p29 \"The median atlanto-axial joint allows rotation of the head. (NO!!!)\""
+      },
+      {
+        ref: "hss.manual1920",
+        location: "p48 \"3. The transverse ligament holds the atlas and the ______ of the axis in place.\""
+      },
+      {
+        ref: "hss.manual1920",
+        location: "p75 \"3. Odontoid process (dens)\""
+      },
+      {
+        ref: "hss.fib5yr",
+        location: "p24 \"The articulation between the between the first cervical vertebra and second cervical\""
+      },
+      {
+        ref: "hss.fib5yr",
+        location: "p24 \"atlantoaxial joint.\""
+      }
+    ]
+  },
+  {
+    id: "hss2011-osteo-skull-sutures",
+    subject: "HSS2011",
+    unit: "hss.osteo",
+    type: "definition",
+    title: "Skull bones, cranial sutures, and anthropological landmarks",
+    tags: [
+      "osteology",
+      "skull",
+      "high-yield"
+    ],
+    boneRefs: [
+      "cranium",
+      "mandible"
+    ],
+    lesson: {
+      explanation: "The human skull is a complex skeletal structure composed of 22 bones (8 cranial bones and 14 facial bones) joined together by immovable fibrous joints called sutures, along with 7 associated bones (6 auditory ossicles and 1 hyoid bone). The 8 cranial bones (neurocranium)—occipital, frontal, sphenoid, ethmoid, and paired parietal and temporal bones—enclose the cranial cavity housing the brain, meninges, and proximal cranial nerves. The 14 facial bones (viscerocranium)—maxillae, palatines, nasals, inferior nasal conchae, zygomatics, lacrimals (all paired), and unpaired vomer and mandible—form the anterior architectural framework for the face, orbits, nasal cavities, and mastication. Sutures articulate by interlocking interdigitating processes bound by dense fibrous connective tissue. Four prominent calvarial sutures are tested: (1) the coronal suture between the frontal bone anteriorly and the paired parietal bones posteriorly; (2) the sagittal suture along the superior midline between the two parietal bones; (3) the lambdoid suture posteriorly between the parietal bones and the occipital bone; and (4) the squamous suture bilaterally between the lower border of each parietal bone and the squamous part of the temporal bone. Anthropological and craniometric junction points mark where sutures converge: bregma marks the anterior midline junction of the coronal and sagittal sutures (site of the infant anterior fontanelle, closing at ~18–24 months); lambda marks the posterior midline junction of the sagittal and lambdoid sutures (site of the posterior fontanelle, closing at ~2–3 months); and pterion marks the critical H-shaped junction of frontal, parietal, greater wing of sphenoid, and temporal bones in the temporal fossa, directly overlying the anterior division of the middle meningeal artery.",
+      plain: "The skull has 22 bones joined by immovable interlocking seams called sutures: 8 cranial bones forming the brain box and 14 facial bones building the face. The four main sutures are the coronal (front-to-back across the top), sagittal (down the middle), lambdoid (arched across the back like a Greek lambda), and squamous (scaly overlap on the sides). Bregma is where coronal meets sagittal in front, lambda is where sagittal meets lambdoid at the back, and pterion is the thin temple junction over the middle meningeal artery.",
+      keyFacts: [
+        "The skull consists of 22 bones: 8 cranial bones (neurocranium) + 14 facial bones (viscerocranium), plus 7 associated bones (hyoid and 6 ossicles).",
+        "The 8 cranial bones: frontal, occipital, sphenoid, ethmoid (unpaired), and parietal and temporal (paired).",
+        "The 14 facial bones: maxilla, zygomatic, nasal, lacrimal, palatine, inferior nasal concha (paired), and vomer and mandible (unpaired).",
+        "The mandible is the only movable bone of the adult skull, articulating at the bilateral temporomandibular joints (TMJ).",
+        "Coronal suture: joins frontal bone anteriorly with the two parietal bones posteriorly.",
+        "Sagittal suture: runs in the sagittal midline uniting the two parietal bones.",
+        "Lambdoid suture: arches across the posterior calvaria uniting the parietal bones with the occipital bone.",
+        "Squamous suture: beveled joint uniting the inferior margin of the parietal bone with the squamous temporal bone.",
+        "Bregma: intersection of the coronal suture and sagittal suture (site of anterior fontanelle).",
+        "Lambda: intersection of the sagittal suture and lambdoid suture (site of posterior fontanelle).",
+        "Pterion: H-shaped craniometric junction of frontal, parietal, temporal, and sphenoid bones over the anterior branch of the middle meningeal artery."
+      ],
+      prerequisites: [
+        "hss2011-osteo-axial-appendicular"
+      ],
+      examples: [
+        "A blunt blow to the pterion from a baseball bat fractures the thin temporal bone squama and lacerates the underlying anterior branch of the middle meningeal artery, causing an acute epidural (extradural) hematoma that presents with a lucid interval followed by rapid uncal herniation.",
+        "Pediatric cranial ultrasound evaluates ventricular dilation by transmitting acoustic waves through the acoustic window of the open anterior fontanelle at the bregma prior to suture closure."
+      ]
+    },
+    memory: {
+      firstLetter: "Four major sutures: Coronal, Sagittal, Lambdoid, Squamous — \"Crown, Straight, Lambda, Side\".",
+      location: "Put a crown on your head: the coronal suture is where the front of the crown sits; the sagittal suture runs straight back like an arrow; lambdoid arches across the back of your head; squamous is the scaly side seam above each ear.",
+      comparison: "Bregma vs Lambda: Bregma is in front (like Brain / Brow / Big fontanelle); Lambda is in the back (resembles Greek letter \\u039b and posterior fontanelle).",
+      teachBack: "Sketch the top and lateral views of the skull, draw and label the coronal, sagittal, lambdoid, and squamous sutures, mark bregma, lambda, and pterion, and explain the lethal consequence of trauma to the pterion."
+    },
+    practice: [
+      {
+        type: "mcq",
+        prompt: "Which suture joins the parietal bone and temporal bone together?",
+        options: [
+          "Squamous suture",
+          "Coronal suture",
+          "Lambdoid suture",
+          "Sagittal suture",
+          "Frontonasal suture"
+        ],
+        answer: 0,
+        explanation: "The squamous suture joins the lower beveled edge of the parietal bone with the squamous portion of the temporal bone.",
+        src: {
+          ref: "hss.manual1920",
+          location: "p46 \"2. Which suture joint the parietal bone and temporal together?\" — \"A. Squamous suture\""
+        }
+      },
+      {
+        type: "cloze",
+        prompt: "The junction between the coronal suture and sagittal suture is called the ______.",
+        accept: [
+          "bregma",
+          "Bregma"
+        ],
+        explanation: "Bregma is the craniometric landmark where the coronal and sagittal sutures intersect.",
+        src: {
+          ref: "hss.fib5yr",
+          location: "p18 \"bregma.\""
+        }
+      },
+      {
+        type: "mcq",
+        prompt: "The adult human skull is composed of how many cranial and facial bones?",
+        options: [
+          "8 cranial bones and 14 facial bones",
+          "14 cranial bones and 8 facial bones",
+          "6 cranial bones and 16 facial bones",
+          "10 cranial bones and 12 facial bones",
+          "12 cranial bones and 10 facial bones"
+        ],
+        answer: 0,
+        explanation: "The skull consists of 8 cranial bones enclosing the brain and 14 facial bones forming the facial skeleton (22 bones total).",
+        src: {
+          ref: "hss.4.2",
+          location: "p5 \"8 cranial bones +\" — \"14 facial bones.\""
+        }
+      },
+      {
+        type: "matching",
+        prompt: "Match each cranial suture and anthropological landmark to its articulating bones or boundaries.",
+        pairs: [
+          [
+            "Coronal suture",
+            "Frontal bone and paired parietal bones"
+          ],
+          [
+            "Sagittal suture",
+            "Two paired parietal bones along superior midline"
+          ],
+          [
+            "Lambdoid suture",
+            "Parietal bones and occipital bone"
+          ],
+          [
+            "Squamous suture",
+            "Parietal bone and squamous part of temporal bone"
+          ]
+        ],
+        explanation: "Verified suture articulations from HSS2011 Module 4.2 slides 8–10."
+      }
+    ],
+    application: [
+      {
+        type: "scenario",
+        prompt: "An emergency CT scan of a patient struck on the temple demonstrates a biconvex (lens-shaped) hyperdense extra-axial collection beneath the pterion. Name the landmark, the four articulating bones meeting there, and the specific blood vessel damaged.",
+        model: "The landmark is the pterion, an H-shaped suture junction in the temporal fossa where four bones articulate: the frontal bone, parietal bone, squamous part of the temporal bone, and greater wing of the sphenoid bone. Trauma to this thin region lacerates the anterior division of the middle meningeal artery running in an osseous groove on the internal cranial table, producing an arterial epidural hematoma that classically assumes a biconvex lentiform shape because it is bounded by suture attachments of the dura mater.",
+        rubric: [
+          "Identifies the landmark as pterion",
+          "Lists the 4 articulating bones: frontal, parietal, temporal, and sphenoid",
+          "Identifies the anterior branch of the middle meningeal artery and epidural hematoma"
+        ]
+      }
+    ],
+    commonMistakes: [
+      "Confusing bregma (coronal + sagittal, anterior) with lambda (sagittal + lambdoid, posterior).",
+      "Listing the mandible as immovable; it is the only freely movable bone in the adult skull (at the TMJ).",
+      "Mixing cranial and facial bone counts: cranium has 8 bones; face has 14 bones."
+    ],
+    skills: [
+      "Identify cranial sutures on skull radiographs (lateral, AP, and Towne projections) to avoid mistaking normal serrate suture lines for linear skull fractures.",
+      "Palpate the calvarial landmarks: coronal seam behind forehead, sagittal crest in midline, lambda above external occipital protuberance.",
+      "Remember the clinical vulnerability of the pterion: thin skull bone over a high-pressure meningeal artery."
+    ],
+    selfCheck: "From memory: list all 8 cranial bones and 14 facial bones, describe the exact course of the four sutures, define bregma and lambda, and explain the pterion and middle meningeal artery.",
+    visuals: [
+      {
+        fig: "skullLateralView"
+      },
+      {
+        model: {
+          layer: "skeleton",
+          meshes: [
+            "Frontal bone",
+            "Parietal bone",
+            "Temporal bone",
+            "Occipital bone",
+            "Sphenoid bone",
+            "Zygomatic bone",
+            "Mandible"
+          ],
+          label: "Lateral skull architecture",
+          caption: "Calvarial plates meeting at the coronal, squamous, and lambdoid sutures, with pterion at the sphenoparietal junction."
+        }
+      },
+      {
+        gen: true
+      }
+    ],
+    sourceRefs: [
+      {
+        ref: "hss.4.2",
+        location: "p5 \"The skull is composed of\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p5 \"8 cranial bones +\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p5 \"14 facial bones.\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p8 \"22 bones joined by Sutures\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p9 \"Major Sutures and Anthropological Points\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p9 \"Bregma\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p9 \"Lambda\""
+      },
+      {
+        ref: "hss.4.2",
+        location: "p10 \"Squamous suture\""
+      },
+      {
+        ref: "hss.manual1920",
+        location: "p46 \"2. Which suture joint the parietal bone and temporal together?\""
+      },
+      {
+        ref: "hss.manual1920",
+        location: "p46 \"A. Squamous suture\""
+      },
+      {
+        ref: "hss.fib5yr",
+        location: "p18 \"The [56] squamous suture joins the parietal bone and the temporal bone of the skull\""
+      },
+      {
+        ref: "hss.fib5yr",
+        location: "p18 \"bregma.\""
       }
     ]
   },
@@ -1404,577 +1587,6 @@ export const HSS_OSTEOLOGY = [
         location: 'p47 "B. Tarsal bones"'
       }
     ]
-  },
-  {
-    id: 'hss2011-osteo-skull-sutures',
-    subject: 'HSS2011', unit: 'hss.osteo', type: 'definition',
-    title: 'Skull bones and the four sutures',
-    tags: ['osteology', 'skull', 'high-yield'], boneRefs: ['cranium', 'mandible'],
-    lesson: {
-      explanation: 'Sutures are fibrous joints of the skull, articulating by process and indentation, with the bones bound by fibrous connective tissue. Four are named in the module: the coronal suture binds the frontal and parietal bones; the sagittal suture runs between the two parietal bones; the lambdoid suture lies between parietal and occipital; and the squamous suture joins the parietal bone to the temporal bone. The Module 4 labelling answers also name the squamous part of the temporal bone, the external acoustic meatus, the mastoid process, the sphenoid, the nasal bone, the lacrimal bone, the ethmoid, the maxilla and the zygomatic bone. The mandible is the only movable bone in the skull.',
-      keyFacts: [
-        'Coronal suture — frontal to parietal.',
-        'Sagittal suture — parietal to parietal.',
-        'Lambdoid suture — parietal to occipital.',
-        'Squamous suture — parietal to temporal.',
-        'Sutures are fibrous joints: articulation by process and indentation, bound by fibrous connective tissue.',
-        'The mandible is the only movable bone in the skull.',
-        'Named facial and cranial bones in the labelling answers: sphenoid, nasal, lacrimal, ethmoid, maxilla, zygomatic, temporal (squamous part), plus the external acoustic meatus and mastoid process.',
-      ],
-      prerequisites: ['hss2011-osteo-axial-appendicular'],
-      examples: [],
-    },
-    memory: {
-      location: 'Put a crown on your head: the coronal suture is exactly where the band sits, frontal in front, parietal behind. Then an arrow (sagittal) down the midline between the parietals. Lambdoid is the Greek letter lambda at the back of the skull. Squamous is the scaly overlap low on the side, where the temporal bone slides under the parietal.',
-      firstLetter: 'Going front to back along the top: Coronal, Sagittal, Lambdoid. C-S-L. Squamous is the odd one out because it is on the side, not the top.',
-      comparison: 'Squamous vs sagittal is the classic distractor pair. Sagittal is on top between two parietals; squamous is on the side between parietal and temporal.',
-    },
-    practice: [
-      { type: 'mcq', prompt: 'Which suture joins the parietal bone and the temporal bone together?', options: ['Squamous suture', 'Coronal suture', 'Lambdoid suture', 'Sagittal suture'], answer: 0,
-        explanation: 'Model answer A. The squamous suture is the scale-like overlap on the side of the skull between parietal and temporal. Sagittal is the midline joint between the two parietals.',
-        src: { ref: 'hss.revans', location: 'Module 4.2, MCQ 2' } },
-      { type: 'cloze', prompt: 'The joint between the frontal and parietal bones is correctly called the ______ suture.', accept: ['coronal'],
-        explanation: 'Model answer: coronal. The lecture uses this exact example when defining sutures as fibrous joints.',
-        src: { ref: 'hss.revans', location: 'Module 4.2, Fill-in-blanks 4' } },
-      { type: 'cloze', prompt: 'The ______ bone is the only movable bone in the skull.', accept: ['mandible', 'mandibular'],
-        explanation: 'Model answer: mandible. It articulates with the temporal bones at the temporomandibular joints.',
-        src: { ref: 'hss.revans', location: 'Module 4.2, Fill-in-blanks 2' } },
-      { type: 'matching', prompt: 'Match each suture to the bones it joins.',
-        pairs: [['Coronal', 'Frontal – parietal'], ['Sagittal', 'Parietal – parietal'], ['Lambdoid', 'Parietal – occipital'], ['Squamous', 'Parietal – temporal']],
-        explanation: 'These are the four sutures the module asks you to locate on the skull.' },
-    ],
-    application: [
-      { type: 'scenario', prompt: 'Sutures are classed as fibrous joints. What does that classification tell you about how much they move, and why is a suture a useful example of that class?',
-        model: 'Fibrous joints allow very limited movement because the bones are connected by fibrous tissue rather than by a cavity and cartilage. A suture is the clearest example: the bones interlock by process and indentation and are bound by fibrous connective tissue, so the skull vault is effectively rigid.',
-        rubric: ['States fibrous joints allow very limited movement', 'Describes the process-and-indentation interlock', 'Names fibrous connective tissue as the binding'] },
-    ],
-    commonMistakes: [
-      'Answering sagittal when asked about parietal-to-temporal. Sagittal is parietal-to-parietal on the midline.',
-      'Forgetting the mandible when asked which skull bone moves.',
-    ],
-    skills: [
-      'Sagittal and squamous differ by one letter and one whole location: sagittal is the midline joint between the two parietals; squamous is the low side-joint where the temporal slides under the parietal. Both touch a parietal, so "involves the parietal bone" identifies neither — the second bone is the answer.',
-      'Each suture\'s name is its own map reference: coronal runs where a crown sits (frontal to parietal), sagittal along the arrow\'s flight down the midline, lambdoid draws a Greek lambda at the back, and squamous — "scale-like" — is the overlap on the side. Read the name, get the position.',
-      'A suture is fibrous — bones interlocked by process and indentation, bound by fibrous tissue — which is why the skull vault barely moves at all, and why the mandible\'s status as the only movable skull bone is definitional rather than incidental.',
-    ],
-    selfCheck: 'From a blank page: the four sutures with their bone pairs, why a suture permits the least movement of the listed joints (fibrous tissue, process-and-indentation interlock), and the only movable skull bone.',
-    sourceRefs: [{ ref: 'hss.4.2', location: 'Head and neck — skull, sutures' }, { ref: 'hss.4.1', location: 'Slide "Fibrous joints — Sutures"' }, { ref: 'hss.revans', location: 'Module 4.2 answers; More exercises Module 4, labels A1–A12' }],
-  },
-  {
-    "id": "hss2011-osteo-pectoral-girdle",
-    "subject": "HSS2011",
-    "unit": "hss.osteo",
-    "type": "definition",
-    "title": "The pectoral girdle and shoulder joint",
-    "tags": [
-      "osteology",
-      "upper limb",
-      "high-yield",
-      "foundation"
-    ],
-    "lesson": {
-      "explanation": "The pectoral (shoulder) girdle forms the skeletal foundation connecting the upper appendicular limb to the axial skeleton. On each side of the body, the pectoral girdle consists of two bones: the anterior, subcutaneous S-shaped clavicle (collarbone) and the posterior, flat triangular scapula (shoulder blade). A fundamental anatomical principle of the human shoulder is that it possesses only a single bony joint linking the entire upper limb to the axial frame: the sternoclavicular joint, formed by the articulation of the medial (sternal) end of the clavicle with the clavicular notch of the manubrium of the sternum and the first costal cartilage. This articulation is a saddle-type synovial joint containing an intervening fibrocartilaginous articular disc that functions as a shock absorber. The lateral (acromial) end of the clavicle articulates with the acromion of the scapula at the plane-type acromioclavicular (AC) joint, reinforced by the powerful coracoclavicular ligament. Crucially, the scapula itself has no direct bony articulation with the axial skeleton; instead, it is suspended against the posterior thoracic cage across a physiological muscular interface (the scapulothoracic joint) by muscular slings including the trapezius, serratus anterior, levator scapulae, and rhomboids. This lack of rigid bony anchoring grants the scapula immense mobility, allowing it to elevate, depress, protract, retract, and rotate upwardly and downwardly. The lateral angle of the scapula is expanded into the glenoid cavity (glenoid fossa), a shallow, pear-shaped articular depression that articulates with the large, smooth hemispherical head of the humerus to form the glenohumeral (shoulder) joint. The glenohumeral articulation is a classic polyaxial ball-and-socket synovial joint. Because the shallow glenoid fossa accommodates only approximately one-third of the humeral head, the shoulder joint deliberately trades osseous stability in exchange for the greatest range of multi-planar movement of any joint in the human body (permitting flexion, extension, abduction, adduction, medial rotation, lateral rotation, and circumduction). Dynamic joint stability is provided by the rotator cuff muscles (supraspinatus, infraspinatus, teres minor, subscapularis) whose tendons blend directly with the joint capsule, supported by the fibrous glenoid labrum that deepens the socket rim. Major shoulder-girdle motors include the deltoid, pectoralis major, and latissimus dorsi.",
-      "plain": "The pectoral girdle anchors your arm to your body using two bones: the collarbone (clavicle) in front and the shoulder blade (scapula) behind. Amazingly, the entire arm is connected to your skeleton by just one single bony joint: the sternoclavicular joint where the clavicle joins the breastbone (sternum). The other end of the clavicle meets the scapula at the acromioclavicular joint. The scapula has no bones connecting it to your spine or ribs—it floats on a bed of muscles, giving your shoulder massive range of motion. At the side of the scapula sits the shallow glenoid socket, which meets the round ball of the humerus to form the ball-and-socket shoulder joint. Because the socket is shallow, the shoulder is the most mobile joint in your body, relying on the four rotator cuff muscles to keep the ball from popping out.",
-      "keyFacts": [
-        "Pectoral girdle bones: anterior clavicle and posterior scapula.",
-        "Single bony axial bridge: sternoclavicular joint (medial clavicle meets sternum manubrium).",
-        "Acromioclavicular (AC) joint: lateral clavicle articulates with acromion of scapula.",
-        "Scapulothoracic articulation: dynamic muscular sling; no direct bony attachment to ribs or spine.",
-        "Glenohumeral joint: polyaxial ball-and-socket joint between shallow glenoid fossa and humeral head.",
-        "Mobility vs stability trade-off: shallow glenoid accommodates ~1/3 of humeral head; greatest mobility in the body.",
-        "Dynamic stabilizers: rotator cuff muscles (SITS) and glenoid labrum fibrocartilage rim.",
-        "Major shoulder girdle muscles: pectoralis major, latissimus dorsi, and deltoid."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-axial-appendicular",
-        "hss2011-joints-classification"
-      ],
-      "examples": [
-        "When falling onto an outstretched hand (FOOSH), compressive mechanical shock is transmitted up the radius, humerus, scapula, and clavicle to the sternum; because the sternoclavicular ligaments are exceptionally strong, fracture occurs at the junction of the middle and lateral thirds of the clavicle rather than joint dislocation.",
-        "Shoulder anterior dislocation is common because the glenoid cavity is shallow and the inferior-anterior capsule lacks rotator cuff tendon reinforcement."
-      ]
-    },
-    "memory": {
-      "chunking": "Three joints around the shoulder: Sternoclavicular (axial bridge), Acromioclavicular (strut joint), Glenohumeral (ball-and-socket).",
-      "comparison": "Glenoid vs Acetabulum: the glenoid fossa is shallow (built for maximum mobility, prone to dislocation); the hip acetabulum is deep (built for weight-bearing stability).",
-      "visualCue": "Picture the clavicle as a rigid architectural crane strut holding the scapula and arm away from the thorax so the arm can swing freely.",
-      "teachBack": "Explain why the human shoulder has only one bony connection to the axial skeleton and how this design enables overhead arm elevation."
-    },
-    "practice": [
-      {
-        "type": "cloze",
-        "prompt": "The medial end of the clavicle articulates with the sternum to form the ______ joint, which represents the sole bony articulation between the upper limb and the axial skeleton.",
-        "accept": [
-          "sternoclavicular",
-          "sternoclavicular joint"
-        ],
-        "explanation": "The sternoclavicular joint is the only skeletal bridge connecting the pectoral girdle and upper limb to the axial trunk.",
-        "src": {
-          "ref": "hss.4.3",
-          "location": "p8 \"Sternoclavicualr joint\""
-        }
-      },
-      {
-        "type": "matching",
-        "prompt": "Match each shoulder region joint to its verified articulating components.",
-        "pairs": [
-          [
-            "Sternoclavicular joint",
-            "Medial clavicle and manubrium of sternum"
-          ],
-          [
-            "Acromioclavicular joint",
-            "Lateral clavicle and acromion of scapula"
-          ],
-          [
-            "Glenohumeral joint",
-            "Glenoid cavity of scapula and head of humerus"
-          ]
-        ],
-        "explanation": "The three anatomical joints around the shoulder region illustrated on HSS2011 slide 8."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Which anatomical feature explains why the glenohumeral joint possesses the greatest range of movement of all joints in the human body?",
-        "options": [
-          "The deep bony acetabular rim",
-          "The shallow glenoid cavity enclosing only about one-third of the humeral head",
-          "The absence of a synovial membrane",
-          "Rigid bony fusion to the thoracic cage"
-        ],
-        "answer": 1,
-        "explanation": "The shallow glenoid fossa allows extraordinary multi-planar mobility because it does not physically lock the humeral head, relying on soft tissue cuffs for stability."
-      }
-    ],
-    "application": [
-      {
-        "type": "scenario",
-        "prompt": "A patient presents with a severe fracture of the clavicle shaft. What primary mechanical function of the pectoral girdle is lost, and what happens to the position of the shoulder on the affected side?",
-        "model": "The clavicle acts as a mechanical strut that holds the scapula and glenohumeral joint laterally away from the thoracic wall, allowing the upper limb maximum freedom of movement. When the clavicle fractures, the strut collapses: the weight of the upper limb pulls the shoulder downward, forward, and inward (medially) under the unopposed pull of gravity and the pectoralis major and latissimus dorsi muscles.",
-        "rubric": [
-          "Identifies the clavicle as a rigid mechanical strut holding the shoulder away from the chest",
-          "Explains that fracture causes the shoulder to collapse downward and medially",
-          "Recognizes that the sternoclavicular joint is the only bony axial support"
-        ]
-      }
-    ],
-    "commonMistakes": [
-      "Believing the scapula forms a direct synovial joint with the ribs or spine; it is attached purely by muscular slings.",
-      "Confusing the sternoclavicular joint (medial) with the acromioclavicular joint (lateral).",
-      "Assuming the shoulder joint is structurally stable because of bone shape; its stability is almost purely muscular and ligamentous."
-    ],
-    "skills": [
-      "Trace the axial force transmission pathway: hand → radius → humerus → glenoid cavity → scapula → acromioclavicular joint → clavicle → sternoclavicular joint → sternum.",
-      "Recognize on thoracic radiographs that the medial end of the clavicle normally aligns with the manubrium at the sternoclavicular joint."
-    ],
-    "selfCheck": "From memory: name the two bones of the pectoral girdle, identify the three joints around the shoulder region, and explain the mobility-stability trade-off of the glenoid fossa.",
-    "visuals": [
-      {
-        "model": {
-          "layer": "skeleton",
-          "meshes": [
-            "Clavicle",
-            "Scapula",
-            "Humerus"
-          ],
-          "label": "Pectoral girdle and shoulder joint",
-          "caption": "The clavicle articulates medially with the manubrium of the sternum (sternoclavicular joint) and laterally with the acromion of the scapula (acromioclavicular joint); the shallow glenoid cavity articulates with the head of the humerus."
-        }
-      },
-      {
-        "fig": "rotatorCuffMuscles"
-      },
-      {
-        "gen": true
-      }
-    ],
-    "sourceRefs": [
-      {
-        "ref": "hss.4.3",
-        "location": "p4 \"Outline: Upper Limb\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p4 \"Pectoral girdle\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p6 \"Pectoral Girdle\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p8 \"Fig. 8-2\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p8 \"Joints Around Shoulder Region\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p8 \"Acromioclavicular joint\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p8 \"Sternoclavicualr joint\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p8 \"Glenohumeral joint\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p16 \"Major Muscles Around\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p16 \"Shoulder Girdle:\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p16 \"Pectoralis major\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p16 \"Latissimus dorsi\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p19 \"Axillary nerve\""
-      }
-    ]
-  },
-  {
-    "id": "hss2011-osteo-forearm-carpals",
-    "subject": "HSS2011",
-    "unit": "hss.osteo",
-    "type": "definition",
-    "title": "Bones of the forearm, wrist and hand",
-    "tags": [
-      "osteology",
-      "upper limb",
-      "high-yield",
-      "foundation"
-    ],
-    "lesson": {
-      "explanation": "The distal upper limb skeleton comprises the bones of the forearm (antebrachium), wrist (carpus), palm (metacarpus), and fingers (phalanges). The forearm contains two parallel long bones: the lateral radius (aligned with the thumb) and the medial ulna (aligned with the little finger). Proximally, the ulna features a prominent hook-like olecranon process and an anterior coronoid process that bound the deep, C-shaped trochlear notch; this notch articulates tightly with the spool-like trochlea of the humerus to form the uniaxial humero-ulnar hinge joint of the elbow. On the lateral aspect of the coronoid process, the radial notch of the ulna articulates with the circular head of the radius to form the proximal radioulnar pivot joint, allowing rotary supination and pronation. Distally, the expanded radius articulates with the ulnar head at the distal radioulnar joint. At the wrist, the distal radius forms the primary articulating surface of the condylar radiocarpal (wrist) joint, articulating with the proximal carpal row (scaphoid and lunate); the distal ulna is excluded from direct carpal articulation by a fibrocartilaginous articular disc. The wrist contains eight carpal bones arranged in two transverse rows of four. The proximal row (from lateral/radial to medial/ulnar) comprises: 1. Scaphoid (boat-shaped; the most frequently fractured carpal, susceptible to avascular necrosis), 2. Lunate (crescent-shaped; the most frequently dislocated carpal), 3. Triquetrum (pyramidal), and 4. Pisiform (a small pea-shaped sesamoid bone sitting on the palmar surface of the triquetrum within the flexor carpi ulnaris tendon). The distal row (lateral to medial) comprises: 5. Trapezium (features a saddle-shaped articular surface for the first metacarpal of the thumb; \"trapezi-UM under the th-UMB\"), 6. Trapezoid (wedge-shaped), 7. Capitate (the largest carpal bone, occupying the central position), and 8. Hamate (characterized by a prominent curved palmar projection called the hook of hamate). These carpal bones form an anteriorly concave osseous arch spanned by the tough flexor retinaculum, creating the enclosed carpal tunnel. Passing through the carpal tunnel are the median nerve and nine flexor tendons (four tendons of flexor digitorum superficialis, four of flexor digitorum profundus, and one of flexor pollicis longus). Carpal Tunnel Syndrome (CTS) is a painful disabling condition caused by compression of the median nerve travelling through this tunnel. Distal to the carpus are five metacarpal bones (I to V) and 14 phalanges (two in the thumb: proximal and distal; three in digits II–V: proximal, middle, distal).",
-      "plain": "The forearm consists of two bones: the radius on the thumb side and the ulna on the little-finger side. The ulna has a large C-shaped scoop called the trochlear notch that hinges around the humerus at the elbow. The wrist contains eight carpal bones arranged in two neat rows of four. Proximal row (thumb to little finger): Scaphoid, Lunate, Triquetrum, Pisiform. Distal row: Trapezium (under the thumb), Trapezoid, Capitate (the biggest), and Hamate (with a hook). The carpal bones curve into a U-shaped trough covered by a tight ligament roof (the flexor retinaculum), forming the carpal tunnel. The median nerve passes through this tunnel; if it gets pinched, it causes numbness and weakness called Carpal Tunnel Syndrome. Distal to the wrist are the 5 metacarpals of the palm and the 14 finger phalanges.",
-      "keyFacts": [
-        "Forearm bones: lateral radius (thumb side) and medial ulna (little finger side).",
-        "Trochlear notch of ulna: articulates with the trochlea of the humerus to form the elbow hinge.",
-        "Proximal and distal radioulnar joints: uniaxial pivot joints allowing pronation and supination.",
-        "Radiocarpal (wrist) joint: distal radius articulates with scaphoid and lunate carpal bones.",
-        "Eight carpal bones in two rows of four.",
-        "Proximal row (lateral to medial): Scaphoid, Lunate, Triquetrum, Pisiform.",
-        "Distal row (lateral to medial): Trapezium, Trapezoid, Capitate, Hamate.",
-        "Capitate: largest carpal bone; Pisiform: sesamoid carpal; Trapezium: articulates with thumb metacarpal.",
-        "Carpal tunnel: formed by carpal arch and flexor retinaculum; transmits median nerve and 9 flexor tendons.",
-        "Carpal Tunnel Syndrome (CTS): compression of the median nerve within the carpal tunnel.",
-        "Hand skeleton: 8 carpals, 5 metacarpals (I–V), 14 phalanges (thumb has 2; digits II–V have 3)."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-long-bone-structure",
-        "hss2011-joints-classification"
-      ],
-      "examples": [
-        "A fall onto an extended wrist frequently fractures the scaphoid across its waist; because retrograde arterial blood enters from the distal pole, non-union and avascular necrosis of the proximal scaphoid fragment are serious complications.",
-        "Repetitive typing or wrist strain causes tenosynovitis of flexor tendons within the inextensible carpal tunnel, compressing the median nerve and producing sensory tingling in the thumb, index, and middle fingers."
-      ]
-    },
-    "memory": {
-      "firstLetter": "Proximal row then distal row, lateral to medial: Scaphoid, Lunate, Triquetrum, Pisiform, Trapezium, Trapezoid, Capitate, Hamate (mnemonic: \"Some Lovers Try Positions That They Cannot Handle\").",
-      "mnemonic": "Trapezi-UM articulates with the th-UMB. Capitate is the CAPTAIN (largest bone in the center).",
-      "comparison": "Radius vs Ulna at the wrist: the radius expands distally to articulate directly with carpals; the ulna shrinks distally into a small head separated from carpals by a disc.",
-      "teachBack": "Recite all eight carpal bones in row order from lateral to medial, point to your own wrist to demonstrate the carpal tunnel, and explain why median nerve compression spares the little finger."
-    },
-    "practice": [
-      {
-        "type": "cloze",
-        "prompt": "The deep C-shaped articular depression of the proximal ulna that articulates with the trochlea of the humerus is the ______.",
-        "accept": [
-          "trochlear notch",
-          "Trochlear notch"
-        ],
-        "explanation": "Model answer from past exam papers: Trochlear notch.",
-        "src": {
-          "ref": "hss.revans",
-          "location": "p3 \"4. Trochlear notch\""
-        }
-      },
-      {
-        "type": "matching",
-        "prompt": "Match each carpal bone to its verified anatomical characteristic.",
-        "pairs": [
-          [
-            "Scaphoid",
-            "Boat-shaped lateral proximal carpal; most commonly fractured"
-          ],
-          [
-            "Pisiform",
-            "Pea-shaped sesamoid bone resting on triquetrum"
-          ],
-          [
-            "Trapezium",
-            "Distal carpal articulating with first metacarpal of thumb"
-          ],
-          [
-            "Capitate",
-            "Largest carpal bone occupying the central position"
-          ],
-          [
-            "Hamate",
-            "Distal carpal characterized by a prominent anterior hook"
-          ]
-        ],
-        "explanation": "Verified carpal bone features from HSS2011 Module 4.3 slides 11 and 32."
-      },
-      {
-        "type": "sequence",
-        "prompt": "Arrange the carpal bones of the proximal row from lateral (radial / thumb side) to medial (ulnar side).",
-        "items": [
-          "Scaphoid",
-          "Lunate",
-          "Triquetrum",
-          "Pisiform"
-        ],
-        "explanation": "Standard anatomical sequence of the proximal carpal row."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Carpal Tunnel Syndrome (CTS) is caused by compression of which structure travelling beneath the flexor retinaculum?",
-        "options": [
-          "Radial nerve",
-          "Ulnar nerve",
-          "Median nerve",
-          "Musculocutaneous nerve"
-        ],
-        "answer": 2,
-        "explanation": "The median nerve traverses the carpal tunnel beneath the flexor retinaculum; compression leads to CTS.",
-        "src": {
-          "ref": "hss.4.3",
-          "location": "p32 \"Carpal Tunnel Syndrome (CTS) is associated by\""
-        }
-      }
-    ],
-    "application": [
-      {
-        "type": "scenario",
-        "prompt": "A computer programmer complains of burning numbness and tingling in the palmar aspect of the right thumb, index, and middle fingers, accompanied by weakness in thumb gripping. Sensation in the little finger is completely normal. Identify the syndrome, the compressed nerve, the anatomical boundary creating the compression, and why the little finger is spared.",
-        "model": "The patient has Carpal Tunnel Syndrome (CTS), caused by compression of the median nerve beneath the flexor retinaculum within the carpal tunnel. The median nerve supplies cutaneous sensation to the palmar surface of the lateral three and a half digits (thumb, index, middle, and half of ring finger) and motor innervation to the thenar muscles. The little finger is completely spared because its sensation and hypothenar motor control are supplied by the ulnar nerve, which travels outside the carpal tunnel (superficial to the flexor retinaculum in Guyon's canal).",
-        "rubric": [
-          "Diagnoses Carpal Tunnel Syndrome (CTS)",
-          "Identifies the median nerve and flexor retinaculum",
-          "Explains that the little finger is innervated by the ulnar nerve outside the carpal tunnel"
-        ]
-      }
-    ],
-    "commonMistakes": [
-      "Assuming the ulnar nerve passes through the carpal tunnel; the ulnar nerve passes superficial to the flexor retinaculum.",
-      "Swapping the positions of trapezium and trapezoid; remember trapezi-UM is by the th-UMB.",
-      "Counting the pisiform in the distal row; it sits in the proximal row on the triquetrum."
-    ],
-    "skills": [
-      "Identify all eight carpal bones on a PA wrist radiograph by systematically following proximal row (scaphoid → lunate → triquetrum → pisiform) then distal row (trapezium → trapezoid → capitate → hamate).",
-      "Assess radiocarpal joint symmetry: smooth parabolic curves (Gilula’s carpal lines) on wrist radiographs confirm normal alignment."
-    ],
-    "selfCheck": "From memory: list the eight carpal bones in proximal and distal rows, name the nerve and tendons traversing the carpal tunnel, and identify which bone forms the trochlear notch.",
-    "visuals": [
-      {
-        "fig": "carpalBones"
-      },
-      {
-        "model": {
-          "layer": "skeleton",
-          "meshes": [
-            "Radius",
-            "Ulna",
-            "Scaphoid bone",
-            "Lunate bone",
-            "Triquetrum bone",
-            "Pisiform bone",
-            "Trapezium bone",
-            "Trapezoid bone",
-            "Capitate bone",
-            "Hamate bone"
-          ],
-          "label": "Forearm and carpal bones",
-          "caption": "Radius and ulna articulating with proximal carpal row (scaphoid, lunate, triquetrum) at the radiocarpal wrist joint."
-        }
-      },
-      {
-        "gen": true
-      }
-    ],
-    "sourceRefs": [
-      {
-        "ref": "hss.4.3",
-        "location": "p11 \"Carpal Bones\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p11 \"Capitate\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p11 \"Hamate\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p11 \"Trapezoid\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p11 \"Triquetrum\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p11 \"Trapezium\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p11 \"Pisiform\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p11 \"Scaphoid\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p11 \"Lunate\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p25 \"Triceps brachii is an extensor of the forearm.\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p32 \"Wrist Region: Carpal Tunnel\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p32 \"Median nerve\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p32 \"Radial artery\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p32 \"Ulnar artery\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p32 \"Flexor Retinaculum\""
-      },
-      {
-        "ref": "hss.4.3",
-        "location": "p32 \"Carpal Tunnel Syndrome (CTS) is associated by\""
-      },
-      {
-        "ref": "hss.revans",
-        "location": "p3 \"4. Trochlear notch\""
-      }
-    ]
-  },
-  {
-    id: 'hss2011-osteo-pelvic-girdle',
-    subject: 'HSS2011', unit: 'hss.osteo', type: 'definition',
-    title: 'Pelvic girdle and the hip joint',
-    tags: ['osteology', 'lower limb', 'high-yield'], boneRefs: ['pelvis', 'femur', 'sacrum'],
-    lesson: {
-      explanation: 'Each hip bone is formed from three bones: the ilium, the ischium and the pubis. The head of the femur articulates with the acetabulum, the socket where those three meet. The proximal femur carries the head, the neck, the greater trochanter and the lesser trochanter, and the shaft angles inward to the medial and lateral condyles at the knee.',
-      keyFacts: [
-        'The three bones forming the hip bone: ilium, ischium, pubis.',
-        'Head of femur articulates with the acetabulum.',
-        'Proximal femur landmarks: head, neck, greater trochanter, lesser trochanter, angle of inclination.',
-        'Distal femur landmarks: medial condyle, lateral condyle.',
-        'Gluteus medius is a hip abductor.',
-      ],
-      prerequisites: ['hss2011-osteo-axial-appendicular'],
-      examples: [],
-    },
-    memory: {
-      firstLetter: 'Ilium, Ischium, Pubis — I, I, P. Top, bottom-back, bottom-front.',
-      location: 'Rest your hands on your hips and you are on the ilium. Sit down and you are on the ischium — I Sit on my ischial tuberosity. The pubis is the front join.',
-      comparison: 'Acetabulum takes the femoral head; glenoid cavity takes the humeral head. Deep socket versus shallow one — that is why the hip is stable and the shoulder is mobile.',
-    },
-    practice: [
-      { type: 'mcq', prompt: 'The head of the femur articulates with _______.', options: ['Acetabulum', 'Glenoid cavity', 'Acromion', 'Greater trochanter', 'Medial condyle'], answer: 0,
-        explanation: 'Model answer A. The acetabulum is the hip socket. The glenoid cavity is the shoulder socket and the acromion is a scapular process.',
-        src: { ref: 'hss.revans', location: 'Module 4.3, MCQ 4' } },
-      { type: 'cloze', prompt: 'The three bones forming the hip bone are ______, ______ and ______.', accept: ['ilium; ischium; pubis', 'ilium, ischium, pubis', 'ilium ischium pubis'],
-        explanation: 'Model answer: ilium, ischium, pubis. They meet at the acetabulum.',
-        src: { ref: 'hss.revans', location: 'Module 4.3, Fill-in-blanks 1' } },
-      { type: 'mcq', prompt: 'Which of the following muscles is a hip abductor?', options: ['Gluteus medius', 'Tibialis anterior', 'Adductor magnus', 'Gastrocnemius', 'Rectus femoris'], answer: 0,
-        explanation: 'Model answer A. Gluteus medius abducts the hip. Adductor magnus does the opposite, and the other three act at the knee or ankle.',
-        src: { ref: 'hss.revans', location: 'Module 4.3, MCQ 5' } },
-    ],
-    application: [
-      { type: 'scenario', prompt: 'A fracture is described as being at the "neck of femur". Using the proximal femoral landmarks, say where that is relative to the greater trochanter and why the site matters for the joint.',
-        model: 'The neck is the narrow segment between the head and the trochanters, so it lies medial and superior to the greater trochanter. It matters because the head sits inside the acetabulum, so a break across the neck separates the articulating head from the shaft.',
-        rubric: ['Places the neck between head and trochanters', 'Relates the head to the acetabulum'] },
-    ],
-    commonMistakes: [
-      'Answering glenoid cavity for the femoral head — that is the shoulder socket.',
-      'Listing the sacrum as one of the three bones of the hip bone; it is axial and articulates with the ilium, but it is not part of it.',
-    ],
-    skills: [
-      'The hip and shoulder sockets are the same solution at two depths: the deep acetabulum trades mobility for stability, the shallow glenoid the other way round. Socket questions offering both are testing exactly this pairing — acetabulum takes the femoral head, glenoid the humeral.',
-      'The hip bone is three bones — ilium, ischium, pubis — meeting in the acetabulum. The sacrum is not a fourth member: it is an axial vertebra-derived bone that merely articulates with the ilium. The mistake is reading the sacro-iliac joint as a joint inside one bone.',
-      'The three hip-bone names anchor to what you do with them: hands on hips is ilium, sitting down is ischium (the tuberosity you sit on), the front join is pubis. The positions are the definitions.',
-    ],
-    selfCheck: 'From a blank page: the three hip-bone names, the femoral head’s socket, the proximal femoral landmarks in order from head to condyles, and the neck-of-femur reasoning — between head and trochanters, separating head from shaft.',
-    sourceRefs: [{ ref: 'hss.4.3', location: 'Slides "Hip & Gluteal Region: Pelvic Girdle", "Femur (Right)" (Fig. 8-11), "Proximal End of Femur"' }, { ref: 'hss.revans', location: 'Module 4.3 answers' }],
-  },
-  {
-    id: 'hss2011-osteo-leg-tarsals',
-    subject: 'HSS2011', unit: 'hss.osteo', type: 'definition',
-    title: 'Leg bones, ankle and the tarsal bones',
-    tags: ['osteology', 'lower limb'], boneRefs: ['tibia', 'fibula', 'foot', 'patella'],
-    lesson: {
-      explanation: 'The leg has the tibia medially and the fibula laterally, joined by an interosseous membrane and meeting at the proximal and distal tibiofibular joints. The tibia ends in the medial malleolus and the fibula in the lateral malleolus. The patella has a base superiorly and an apex inferiorly. The tarsal bones named in the lecture are the talus, calcaneus, navicular, cuboid, and the medial, intermediate and lateral cuneiforms. The foot has three arches: medial longitudinal, lateral longitudinal and transverse.',
-      keyFacts: [
-        'Tibia medial, fibula lateral.',
-        'Medial malleolus belongs to the tibia; lateral malleolus belongs to the fibula.',
-        'Proximal and distal tibiofibular joints, with an interosseous membrane between.',
-        'Patella: base superiorly, apex inferiorly.',
-        'Tarsals: talus, calcaneus, navicular, cuboid, medial / intermediate / lateral cuneiforms.',
-        'Three arches of the foot: medial longitudinal, lateral longitudinal, transverse.',
-        'Gastrocnemius, the ankle plantarflexor, is innervated by the tibial nerve.',
-      ],
-      prerequisites: ['hss2011-osteo-pelvic-girdle'],
-      examples: [],
-    },
-    memory: {
-      mnemonic: 'Tibia = TIB takes the weight, and it is the one you can feel as your shin. Fibula = fine, thin pin on the outside.',
-      comparison: 'Malleolus pairs: Medial with tibia, Lateral with fibula. Both pairs share their first letter with the side they are on, except the tibia — so learn lateral–fibula and derive the other.',
-      location: 'The talus sits on top of the calcaneus and takes the whole leg’s load into the foot. Everything else in the tarsus fans forward from those two.',
-    },
-    practice: [
-      { type: 'typed', prompt: 'Which bone carries the lateral malleolus?', accept: ['fibula'],
-        explanation: 'The fibula ends distally in the lateral malleolus; the tibia ends in the medial malleolus.' },
-      { type: 'cloze', prompt: 'The gastrocnemius muscle (ankle plantarflexor) is innervated by the ______ nerve.', accept: ['tibial'],
-        explanation: 'Model answer: tibial.',
-        src: { ref: 'hss.revans', location: 'Module 4.3, Fill-in-blanks 5' } },
-      { type: 'matching', prompt: 'Match each tarsal bone group to its description from the lecture.',
-        pairs: [['Talus', 'Sits at the ankle joint, above the calcaneus'], ['Calcaneus', 'The heel bone'], ['Cuneiforms', 'Medial, intermediate and lateral — three of them'], ['Navicular', 'Lies between the talus and the cuneiforms']],
-        explanation: 'These are the tarsal bones named on the "Ankle & Foot" slide.' },
-    ],
-    application: [
-      { type: 'scenario', prompt: 'A swelling is described over the lateral malleolus. Which bone is involved, and which of the two leg bones bears most of the body weight?',
-        model: 'The lateral malleolus is the distal end of the fibula. The tibia is the weight-bearing bone of the leg; the fibula is the slender lateral bone, so a lateral malleolar problem is not primarily a weight-bearing one.',
-        rubric: ['Identifies the fibula', 'Names the tibia as weight-bearing'] },
-    ],
-    commonMistakes: [
-      'Assigning the medial malleolus to the fibula. Medial goes with tibia.',
-      'Calling tarsals "carpals" — carpals are in the wrist.',
-    ],
-    skills: [
-      'The leg\'s two bones split the work unequally: the tibia is the weight-bearing shin you can feel, the fibula a slender lateral strut. So a swelling over the lateral malleolus is a fibular problem and not primarily a weight-bearing one — the body\'s load reaches the foot through the talus, never through the fibula.',
-      'The malleolus name already carries the side (medial, lateral); the fact to learn is which bone goes with which: lateral malleolus is the fibula\'s distal end, which forces medial to be the tibia\'s. One fact answers both questions.',
-      'Carpals and tarsals are the wrist/ankle trap pair — carpal for the wrist, tarsal for the ankle — and the tarsus builds from the back: talus riding on the calcaneus taking the leg\'s load, with navicular, cuboid and the three cuneiforms fanning forward from those two.',
-    ],
-    selfCheck: 'From a blank page: which bone carries which malleolus, the seven named tarsals, which leg bone is weight-bearing, and the lateral-malleolus swelling scenario answered with both facts.',
-    sourceRefs: [{ ref: 'hss.4.3', location: 'Slides "Patella (Right)" (Fig. 8-12), "Tibia and Fibula (Right)" (Fig. 8-13), "Ankle & Foot"' }, { ref: 'hss.revans', location: 'Module 4.3, Fill-in-blanks 5' }],
   },
   {
     id: 'hss2011-osteo-ribs-sternum',
