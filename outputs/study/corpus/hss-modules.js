@@ -1045,6 +1045,747 @@ export const HSS_MODULES = [
     ],
   },
   {
+    "id": "hss2011-upper-brachial-plexus-nerves",
+    "subject": "HSS2011",
+    "unit": "hss.m4",
+    "type": "definition",
+    "title": "Brachial plexus and major peripheral nerves of the upper limb",
+    "tags": [
+      "musculoskeletal",
+      "upper limb",
+      "nervous",
+      "high-yield",
+      "foundation"
+    ],
+    "lesson": {
+      "explanation": "The brachial plexus is the complex somatic neural network responsible for complete motor and sensory innervation of the pectoral girdle and upper appendicular limb. Formed by the anterior (ventral) rami of spinal nerves arising from spinal cord segments C5 through T1 (with variable contributions from C4 or T2), the plexus originates in the posterior triangle of the neck and courses through the cervicoaxillary canal posterior to the clavicle and over the first rib into the axilla. Structurally, the brachial plexus is organized from proximal to distal into five distinct anatomical zones (remembered by the mnemonic \"Roots, Trunks, Divisions, Cords, Branches\"): 1. Roots (5): The anterior rami of spinal nerves C5, C6, C7, C8, and T1 emerge in the neck between the anterior scalene and middle scalene muscles. 2. Trunks (3): In the lower neck, roots unite into three primary trunks: C5 and C6 merge to form the Superior trunk; C7 continues independently as the Middle trunk; C8 and T1 unite to form the Inferior trunk. 3. Divisions (6): As the trunks pass posterior to the clavicle over the first rib, each trunk divides into an anterior division and a posterior division. The three anterior divisions supply the anterior (flexor) compartments of the upper limb, while the three posterior divisions supply the posterior (extensor) compartments. 4. Cords (3): In the axilla, the divisions regroup into three large cords named strictly according to their spatial orientation relative to the second part of the axillary artery: the Lateral cord (formed by the anterior divisions of the superior and middle trunks), the Posterior cord (formed by the union of all three posterior divisions, containing C5–T1 fibers), and the Medial cord (formed as the direct continuation of the anterior division of the inferior trunk, containing C8–T1 fibers). 5. Terminal Branches: The cords terminate as five major peripheral nerves: (a) The Musculocutaneous nerve (C5–C7, from the lateral cord) pierces the coracobrachialis muscle, innervates all three muscles of the anterior arm flexor compartment (biceps brachii, brachialis, coracobrachialis), and terminates as the lateral cutaneous nerve of the forearm. (b) The Axillary nerve (C5–C6, from the posterior cord) passes through the quadrangular space, winds around the surgical neck of the humerus, and innervates the deltoid and teres minor muscles while providing sensation to the skin over the lower deltoid (\"regimental badge\" area). (c) The Radial nerve (C5–T1, the largest terminal branch from the posterior cord) spirals down the posterior humerus in the radial groove, innervates the triceps brachii in the arm, all extensor muscles of the forearm, and supplies cutaneous sensation to the posterior arm, posterior forearm, and dorsolateral hand. Midshaft humeral fractures frequently injure the radial nerve, causing motor paralysis of wrist and finger extensors resulting in clinical wrist drop. (d) The Median nerve (C5–T1, formed by converging roots from both lateral and medial cords) descends the medial arm alongside the brachial artery, crosses the cubital fossa, innervates almost all anterior forearm flexor and pronator muscles (except flexor carpi ulnaris and medial flexor digitorum profundus), passes beneath the flexor retinaculum through the carpal tunnel, and supplies the three thenar muscles and lateral two lumbricals; compression within the carpal tunnel causes Carpal Tunnel Syndrome (CTS). (e) The Ulnar nerve (C8–T1, from the medial cord) descends medially, passes behind the medial epicondyle of the humerus (in the cubital tunnel, where it is vulnerable to trauma as the \"funny bone\"), innervates flexor carpi ulnaris, the medial half of flexor digitorum profundus, and the majority of intrinsic hand muscles (hypothenar muscles, all interossei, medial two lumbricals, and adductor pollicis), providing cutaneous sensation to the medial 1.5 digits; severe injury causes claw hand deformity.",
+      "plain": "The brachial plexus is the nerve superhighway supplying the entire arm, formed by spinal nerves C5, C6, C7, C8, and T1. As it travels from the neck into the armpit (axilla), it divides and reconnects through five stages: Roots, Trunks, Divisions, Cords, and Branches. The five major terminal nerves it creates are: 1. Musculocutaneous nerve (powers the biceps and arm flexors); 2. Axillary nerve (winds around the humerus neck to power the deltoid shoulder muscle); 3. Radial nerve (travels down the back of the arm to power all triceps and wrist extensors; damage causes \"wrist drop\"); 4. Median nerve (runs through the carpal tunnel to power thumb and forearm flexors; pinched in Carpal Tunnel Syndrome); 5. Ulnar nerve (runs behind the elbow \"funny bone\" to power fine finger muscles; damage causes \"claw hand\").",
+      "keyFacts": [
+        "Spinal nerve roots: anterior rami of C5, C6, C7, C8, and T1.",
+        "Five anatomical zones: Roots (5) → Trunks (3) → Divisions (6) → Cords (3) → Branches (5).",
+        "Three trunks: Superior (C5+C6), Middle (C7), Inferior (C8+T1).",
+        "Divisions: 3 anterior (flexor compartments) and 3 posterior (extensor compartments).",
+        "Three cords (relative to axillary artery): Lateral, Posterior (all 3 posterior divisions), Medial.",
+        "Musculocutaneous nerve (lateral cord): innervates anterior arm flexors (biceps brachii, brachialis, coracobrachialis).",
+        "Axillary nerve (posterior cord): winds around surgical neck of humerus; innervates deltoid and teres minor.",
+        "Radial nerve (posterior cord): innervates triceps brachii and all forearm extensors; injury causes wrist drop.",
+        "Median nerve (lateral + medial cords): traverses carpal tunnel; innervates forearm flexors and thenar muscles; compressed in CTS.",
+        "Ulnar nerve (medial cord): passes behind medial epicondyle; innervates intrinsic hand muscles; injury causes claw hand."
+      ],
+      "prerequisites": [
+        "hss2011-joints-classification",
+        "hss2011-osteo-pectoral-girdle"
+      ],
+      "examples": [
+        "A midshaft humeral fracture injures the radial nerve traversing the radial groove, causing acute inability to extend the wrist and fingers (wrist drop).",
+        "Trauma to the surgical neck of the humerus injures the axillary nerve, resulting in paralysis and wasting of the deltoid muscle with loss of sensation over the lateral shoulder."
+      ]
+    },
+    "memory": {
+      "firstLetter": "Five zones in order: Roots, Trunks, Divisions, Cords, Branches (\"Remember To Drink Cold Beer\").",
+      "comparison": "Radial vs Median vs Ulnar motor domains: Radial = ALL extensors (triceps + dorsal forearm); Median = MOST flexors + thumb thenar; Ulnar = intrinsic hand fine-motor (all interossei + hypothenar).",
+      "visualCue": "The M-shaped bridge: in the axilla, the lateral cord, median nerve, and medial cord form a distinct capital \"M\" over the front of the axillary artery.",
+      "teachBack": "Trace each of the five terminal branches from its cord origin to its primary muscle compartment, and explain the characteristic clinical deformity when each is damaged."
+    },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each major terminal nerve of the brachial plexus to its primary motor target.",
+        "pairs": [
+          [
+            "Musculocutaneous nerve",
+            "Biceps brachii and anterior arm flexors"
+          ],
+          [
+            "Axillary nerve",
+            "Deltoid and teres minor"
+          ],
+          [
+            "Radial nerve",
+            "Triceps brachii and forearm extensor compartment"
+          ],
+          [
+            "Median nerve",
+            "Forearm flexors and thenar muscles of the thumb"
+          ],
+          [
+            "Ulnar nerve",
+            "Intrinsic hand muscles (interossei and hypothenar)"
+          ]
+        ],
+        "explanation": "The five primary terminal motor distributions of the brachial plexus."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which spinal cord segments contribute their anterior rami to form the brachial plexus?",
+        "options": [
+          "C1 – C4",
+          "C3 – C5",
+          "C5 – T1",
+          "T1 – T12"
+        ],
+        "answer": 2,
+        "explanation": "The brachial plexus is formed by the anterior rami of spinal nerves from segments C5 – T1.",
+        "src": {
+          "ref": "hss.4.3",
+          "location": "p13 \"C5 – T1\""
+        }
+      },
+      {
+        "type": "cloze",
+        "prompt": "Carpal Tunnel Syndrome (CTS) is caused by compression of the ______ nerve travelling through the wrist beneath the flexor retinaculum.",
+        "accept": [
+          "median",
+          "median nerve",
+          "Median",
+          "Median nerve"
+        ],
+        "explanation": "The median nerve traverses the carpal tunnel and is compressed in Carpal Tunnel Syndrome.",
+        "src": {
+          "ref": "hss.4.3",
+          "location": "p32 \"Carpal Tunnel Syndrome (CTS) is associated by\""
+        }
+      },
+      {
+        "type": "typed",
+        "prompt": "Fracture of the midshaft of the humerus damages which nerve in the radial groove, causing wrist drop?",
+        "accept": [
+          "radial",
+          "radial nerve",
+          "Radial",
+          "Radial nerve"
+        ],
+        "explanation": "The radial nerve spirals down the posterior humerus in the radial groove; damage denervates the forearm extensors."
+      }
+    ],
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A patient involved in a motorcycle accident suffers a severe traction injury to the right shoulder and arm. Clinical evaluation demonstrates loss of elbow flexion and supination power, with absent cutaneous sensation over the lateral forearm. Identify the specific peripheral nerve injured, its cord of origin in the brachial plexus, and the paralyzed muscles.",
+        "model": "The injured nerve is the musculocutaneous nerve, which arises from the lateral cord of the brachial plexus (C5–C7). It innervates the muscles of the anterior flexor compartment of the arm: the biceps brachii (the powerful elbow flexor and supinator), brachialis (primary elbow flexor), and coracobrachialis. Its sensory continuation is the lateral cutaneous nerve of the forearm, explaining the lateral forearm numbness.",
+        "rubric": [
+          "Identifies the musculocutaneous nerve",
+          "Identifies the lateral cord of the brachial plexus",
+          "Identifies biceps brachii and brachialis as the paralyzed muscles"
+        ]
+      }
+    ],
+    "commonMistakes": [
+      "Confusing the radial nerve (all extensors) with the median nerve (most flexors).",
+      "Believing the brachial plexus arises from posterior rami; it is strictly formed by anterior (ventral) rami.",
+      "Thinking the ulnar nerve supplies the thenar muscles; the thenar muscles are supplied by the recurrent branch of the median nerve."
+    ],
+    "skills": [
+      "Locate peripheral nerve injuries by functional deficit: wrist drop = radial nerve; ape thumb / thenar wasting = median nerve; claw hand = ulnar nerve; loss of arm abduction = axillary nerve.",
+      "Recognize that anterior divisions supply flexor compartments, while posterior divisions supply extensor compartments."
+    ],
+    "selfCheck": "From memory: list the spinal roots of the brachial plexus, name the five zones (R-T-D-C-B), and identify the five terminal nerves with their compartment targets.",
+    "visuals": [
+      {
+        "fig": "brachialPlexus"
+      },
+      {
+        "schematic": "nervousDivisions"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hss.4.3",
+        "location": "p4 \"Brachial plexus\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p13 \"Peripheral Nerves Joining to Form Nerve Plexus\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p13 \"The anterior rami\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p13 \"Brachial Plexus.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p13 \"C5 – T1\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p14 \"Brachial Plexus\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p14 \"First Rib\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p15 \"The Right Brachial Plexus\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p19 \"Innervated by: Axillary nerve\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p24 \"Biceps brachii muscle is a powerful\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p24 \"flexor and supinator of the forearm.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p24 \"Innervated by: Musculocutaneous nerve\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p25 \"Triceps brachii is an extensor of the forearm.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p25 \"Innervated by: Radial nerve\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p27 \"Transverse section of forearm\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p27 \"Flexor Compartment:\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p27 \"Median Nerve and\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p27 \"Ulnar Nerve.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p27 \"Extensor Compartment:\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p27 \"Muscles are innervated\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p27 \"by the Radial Nerve.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p32 \"Carpal Tunnel Syndrome (CTS) is associated by\""
+      }
+    ]
+  },
+  {
+    "id": "hss2011-upper-limb-muscles-compartments",
+    "subject": "HSS2011",
+    "unit": "hss.m4",
+    "type": "definition",
+    "title": "Muscles and fascial compartments of the arm and forearm",
+    "tags": [
+      "musculoskeletal",
+      "upper limb",
+      "high-yield",
+      "foundation"
+    ],
+    "lesson": {
+      "explanation": "The skeletal muscles of the upper limb are organized into distinct functional fascial compartments separated by tough intermuscular septa and deep fascia, each compartment grouping muscles with common mechanical actions and shared innervation. 1. Muscles of the Arm (Brachium): The arm is divided by lateral and medial intermuscular septa into an anterior (flexor) and a posterior (extensor) compartment. In the anterior compartment, the primary muscle is the biceps brachii, featuring two heads: a short head originating from the coracoid process of the scapula and a long head originating from the supraglenoid tubercle (passing through the shoulder joint cavity inside the intertubercular groove); the muscle inserts via a tendon onto the radial tuberosity and through the bicipital aponeurosis into the deep fascia of the medial forearm. The biceps brachii muscle is a powerful flexor and supinator of the forearm (functioning most powerfully in rapid supination against resistance when the elbow is flexed at 90 degrees). Lying deep to biceps is brachialis, the pure workhorse flexor of the elbow. All anterior arm muscles are innervated by the musculocutaneous nerve. In the posterior compartment sits the triceps brachii, possessing three distinct origins: a long head originating from the infraglenoid tubercle of the scapula, and lateral and medial heads originating from the posterior shaft of the humerus above and below the radial groove. All three heads unite into a massive common tendon inserting onto the olecranon process of the ulna. Triceps brachii is the sole extensor of the forearm at the elbow joint and is innervated by the radial nerve. 2. Muscles of the Forearm (Antebrachium): The antebrachium is divided into an anterior flexor compartment and a posterior extensor compartment. Muscles of the flexor compartment originate primarily from a common flexor tendon attached to the medial epicondyle of the humerus; they act to flex the wrist and fingers and pronate the forearm. These muscles (including flexor digitorum superficialis and flexor digitorum profundus) are innervated by the Median Nerve and Ulnar Nerve. Muscles of the extensor compartment originate from a common extensor tendon attached to the lateral epicondyle of the humerus; they include the extensor digitorum, extensor pollicis longus, and wrist extensors, acting to extend the wrist, digits, and thumb, and supinate the forearm. All muscles of the extensor compartment are innervated by the Radial Nerve. 3. Major Shoulder Girdle Movers: Operating the shoulder girdle are powerful extrinsic motors: the deltoid, a powerful abductor of the arm innervated by the axillary nerve; pectoralis major, responsible for flexion, adduction, and medial rotation of the humerus (innervated by pectoral nerves); and latissimus dorsi, responsible for adduction, extension, and medial rotation of the humerus (innervated by the thoracodorsal nerve).",
+      "plain": "Muscles in the arm and forearm live in separate muscular rooms called compartments. In the upper arm, the front room houses the biceps brachii (a powerful flexor that bends the elbow and supinates the forearm to turn your palm up, powered by the musculocutaneous nerve). The back room houses the triceps brachii (which attaches to the olecranon elbow tip to straighten the arm, powered by the radial nerve). In the forearm, all the flexor muscles that curl your wrist and fingers attach to a common flexor tendon on the inside elbow bump (medial epicondyle) and are controlled by the median and ulnar nerves. All the extensor muscles that straighten your wrist and fingers attach to a common extensor tendon on the outside elbow bump (lateral epicondyle) and are controlled by the radial nerve. Around the shoulder, the deltoid lifts the arm up, while pectoralis major and latissimus dorsi pull it down and rotate it in.",
+      "keyFacts": [
+        "Anterior arm compartment: biceps brachii, brachialis, coracobrachialis (innervated by musculocutaneous nerve).",
+        "Biceps brachii: two heads (short from coracoid, long from supraglenoid tubercle); powerful flexor and supinator of forearm.",
+        "Posterior arm compartment: triceps brachii with three heads (long, lateral, medial) inserting onto olecranon of ulna.",
+        "Triceps brachii: sole extensor of forearm; innervated by radial nerve.",
+        "Forearm flexor compartment: common flexor tendon at medial epicondyle of humerus; innervated by median and ulnar nerves.",
+        "Forearm extensor compartment: common extensor tendon at lateral epicondyle of humerus; innervated by radial nerve.",
+        "Deltoid: powerful abductor of the arm; innervated by axillary nerve.",
+        "Pectoralis major: responsible for flexion, adduction, and medial rotation of humerus; innervated by pectoral nerves.",
+        "Latissimus dorsi: responsible for adduction, extension, and medial rotation of humerus; innervated by thoracodorsal nerve.",
+        "Medial epicondylitis (\"golfer’s elbow\") affects flexor origin; lateral epicondylitis (\"tennis elbow\") affects extensor origin."
+      ],
+      "prerequisites": [
+        "hss2011-joints-movements",
+        "hss2011-osteo-pectoral-girdle"
+      ],
+      "examples": [
+        "Inflammation of the common extensor tendon origin at the lateral epicondyle from repetitive backhand wrist extension produces lateral epicondylitis (tennis elbow).",
+        "Lifting a heavy grocery bag involves isometric contraction of the biceps brachii and brachialis in the anterior arm compartment, powered by the musculocutaneous nerve."
+      ]
+    },
+    "memory": {
+      "location": "Elbow epicondyle rule: Medial epicondyle = Flexors (curl palm inward toward body); Lateral epicondyle = Extensors (open fingers outward away from body).",
+      "comparison": "Biceps vs Triceps: Biceps is front, bends (flexes), turns palm up (supinates), and uses musculocutaneous n. Triceps is back, straightens (extends), and uses radial n.",
+      "chunking": "Big shoulder three: Deltoid abducts (axillary n.); Pec Major flexes and adducts (pectoral n.); Latissimus extends and adducts (thoracodorsal n.).",
+      "teachBack": "Palpate your own medial and lateral epicondyles while alternately making a tight fist and extending your fingers to feel the common flexor and extensor origins fire."
+    },
+    "practice": [
+      {
+        "type": "cloze",
+        "prompt": "The ______ muscle is an extensor of the forearm that inserts onto the olecranon process of the ulna and is innervated by the radial nerve.",
+        "accept": [
+          "triceps brachii",
+          "Triceps brachii",
+          "triceps",
+          "Triceps"
+        ],
+        "explanation": "Model answer from past exam papers: Triceps brachii.",
+        "src": {
+          "ref": "hss.revans",
+          "location": "p3 \"2. Triceps brachii\""
+        }
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each forearm muscle compartment to its verified common tendon origin and primary innervation.",
+        "pairs": [
+          [
+            "Flexor compartment of forearm",
+            "Common flexor tendon at medial epicondyle (Median and Ulnar nerves)"
+          ],
+          [
+            "Extensor compartment of forearm",
+            "Common extensor tendon at lateral epicondyle (Radial nerve)"
+          ],
+          [
+            "Anterior compartment of arm",
+            "Musculocutaneous nerve"
+          ],
+          [
+            "Posterior compartment of arm",
+            "Radial nerve"
+          ]
+        ],
+        "explanation": "Compartmental boundaries and nerve supplies from HSS2011 slides 24, 25, 27, 29, and 30."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which muscle functions as both a powerful flexor and a powerful supinator of the forearm?",
+        "options": [
+          "Brachialis",
+          "Biceps brachii",
+          "Triceps brachii",
+          "Pronator teres"
+        ],
+        "answer": 1,
+        "explanation": "Biceps brachii inserts on the radial tuberosity, allowing it to act as both a powerful flexor and powerful supinator of the forearm.",
+        "src": {
+          "ref": "hss.4.3",
+          "location": "p24 \"Biceps brachii muscle is a powerful\""
+        }
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each major shoulder-girdle muscle to its verified action and innervation.",
+        "pairs": [
+          [
+            "Pectoralis major",
+            "Flexion, adduction & medial rotation (Pectoral nerves)"
+          ],
+          [
+            "Latissimus dorsi",
+            "Adduction, extension & medial rotation (Thoracodorsal nerve)"
+          ],
+          [
+            "Deltoid",
+            "Powerful abduction of arm (Axillary nerve)"
+          ]
+        ],
+        "explanation": "Sourced directly from HSS2011 Module 4.3 slides 17, 18, and 19."
+      }
+    ],
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A patient presents with acute localized tenderness over the lateral epicondyle of the humerus, with sharp pain provoked whenever they actively extend the wrist against manual resistance. Identify the condition, the muscle compartment involved, the common tendon affected, and its nerve supply.",
+        "model": "The patient has lateral epicondylitis (tennis elbow), an overuse tendinopathy affecting the extensor compartment of the forearm. The lesion involves the common extensor tendon origin at the lateral epicondyle of the humerus (primarily involving extensor carpi radialis brevis and extensor digitorum). This extensor compartment is innervated by the radial nerve.",
+        "rubric": [
+          "Identifies lateral epicondylitis / tennis elbow",
+          "Identifies the extensor compartment and common extensor tendon at lateral epicondyle",
+          "Identifies the radial nerve as the responsible innervation"
+        ]
+      }
+    ],
+    "commonMistakes": [
+      "Thinking brachialis supinates; only biceps brachii supinates because it inserts on the radius. Brachialis inserts on the ulna and can only flex.",
+      "Assigning the ulnar nerve to the posterior extensor compartment; the posterior compartment is entirely radial nerve.",
+      "Confusing the common flexor origin (medial epicondyle) with the common extensor origin (lateral epicondyle)."
+    ],
+    "skills": [
+      "Locate forearm epicondylitis clinically: pain on resisted wrist flexion localized to medial epicondyle = golfer's elbow; pain on resisted wrist extension at lateral epicondyle = tennis elbow.",
+      "Remember that muscles crossing the anterior side of the elbow flex, while those crossing the posterior side extend."
+    ],
+    "selfCheck": "From memory: state the innervations and actions of biceps brachii and triceps brachii, and compare the common flexor and extensor origins of the forearm.",
+    "visuals": [
+      {
+        "fig": "muscleOrganization"
+      },
+      {
+        "model": {
+          "layer": "muscle",
+          "meshes": [
+            "Sternocostal head of pectoralis major muscle",
+            "Acromial part of deltoid muscle",
+            "Latissimus dorsi muscle"
+          ],
+          "label": "Upper limb muscle compartments",
+          "caption": "Anterior and posterior compartments of the arm and shoulder girdle."
+        }
+      },
+      {
+        "schematic": "muscleAction"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hss.4.3",
+        "location": "p16 \"Major Muscles Around\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p16 \"Shoulder Girdle:\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p17 \"Pectoralis major is responsible for the:\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p17 \"Flexion, Adduction & Medial Rotation\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p17 \"Innervated by: Pectoral nerve\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p18 \"Latissimus Dorsi is responsible for the:\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p18 \"Adduction & Medial rotation of humerus.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p18 \"Innervated by: Thoracodorsal nerve\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p19 \"Deltoid is a powerful abductor of the arm.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p24 \"Biceps brachii muscle is a powerful\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p24 \"flexor and supinator of the forearm.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p24 \"Innervated by: Musculocutaneous nerve\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p25 \"Triceps brachii is an extensor of the forearm.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p25 \"Innervated by: Radial nerve\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p27 \"Transverse section of forearm\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p27 \"Flexor Compartment:\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p27 \"Median Nerve and\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p27 \"Ulnar Nerve.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p27 \"Extensor Compartment:\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p27 \"Muscles are innervated\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p27 \"by the Radial Nerve.\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p29 \"Common flexor tendon\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p29 \"at medial epicondyle of\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p29 \"Flexor digitorum superficialis\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p29 \"Flexor digitorum profundus\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p30 \"Common extensor tendon\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p30 \"at lateral epicondyle of humerus\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p30 \"Extensor digitorum\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p31 \"Extensor Tendons of the Thumb\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p31 \"Extensor pollicis longus\""
+      },
+      {
+        "ref": "hss.revans",
+        "location": "p3 \"2. Triceps brachii\""
+      }
+    ]
+  },
+  {
+    "id": "hss2011-upper-limb-blood-vessels",
+    "subject": "HSS2011",
+    "unit": "hss.m4",
+    "type": "definition",
+    "title": "Arterial supply and venous drainage of the upper limb",
+    "tags": [
+      "cardiovascular",
+      "upper limb",
+      "high-yield",
+      "foundation"
+    ],
+    "lesson": {
+      "explanation": "The vascular system of the upper limb provides a continuous arterial perfusion tree from the aortic arch to the fingertips and returns venous blood through paired deep and prominent superficial venous pathways. 1. Arterial Conduit: Arterial supply to the upper limb begins with the subclavian artery, which arises directly from the aortic arch on the left side and from the brachiocephalic trunk on the right side. The subclavian artery arches laterally across the root of the neck, passes posterior to the clavicle, and transitions into the axillary artery as it leaves the thoracic cavity and crosses the outer border of the first rib. The axillary artery traverses the axilla enclosed within the axillary sheath; at the inferior border of the teres major muscle, it continues into the arm as the brachial artery. The brachial artery descends along the medial aspect of the arm in the medial bicipital groove accompanied by the median nerve; it supplies the anterior arm flexors and gives off the profunda brachii (deep brachial) artery, which accompanies the radial nerve in the radial groove to supply triceps brachii. In the cubital fossa anterior to the elbow joint, the brachial artery bifurcates into two major terminal vessels: the lateral Radial Artery and the medial Ulnar Artery. The radial artery courses along the lateral forearm under cover of brachioradialis, passes over the radial styloid process into the anatomical snuffbox (where the radial pulse is routinely palpated against the distal radius), and enters the palm to form the deep palmar arch. The ulnar artery courses along the medial forearm, enters the hand superficial to the flexor retinaculum with the ulnar nerve, and forms the superficial palmar arch, which gives off digital arteries to supply the fingers. 2. Venous Drainage: Venous return is organized into deep and superficial systems. Deep veins accompany all arteries as paired venae comitantes within tight neurovascular sheaths, using arterial pulsations to promote venous return; they drain into the axillary vein and subclavian vein. Superficial veins reside in the subcutaneous superficial fascia and represent essential clinical access routes: the Cephalic vein arises on the lateral (radial) dorsal venous arch of the hand, ascends the lateral forearm and arm, courses through the deltopectoral groove, and pierces the clavipectoral fascia to drain into the axillary vein. The Basilic vein ascends along the medial forearm and arm, pierces the deep fascia, and joins the brachial veins to form the axillary vein. In the roof of the cubital fossa anterior to the elbow, the prominent Median cubital vein runs obliquely from the cephalic vein to the basilic vein. Because it is large, superficial, easily anchored, and separated from the underlying brachial artery and median nerve by the fibrous bicipital aponeurosis, the median cubital vein is the premier anatomical site for clinical venipuncture, routine blood sampling, and intravenous administration of radiopaque contrast media in diagnostic radiography.",
+      "plain": "Blood flows down the arm through one main arterial pipe that changes its name as it passes anatomical checkpoints: Subclavian artery (in the neck) becomes the Axillary artery at the 1st rib, which becomes the Brachial artery in the upper arm, which splits at the elbow crease (cubital fossa) into the Radial artery (thumb side, where you feel your wrist pulse) and Ulnar artery (pinky side). Both arteries form loops in the palm to feed the fingers. Venous blood travels back through two networks: deep veins running right beside the arteries, and large superficial veins just under the skin. The Cephalic vein runs up the outside of the arm, the Basilic vein runs up the inside, and they are connected in the elbow crease by the Median cubital vein—the universal vein used for blood tests and IV radiocontrast injections.",
+      "keyFacts": [
+        "Arterial progression: Subclavian → Axillary (at 1st rib) → Brachial (at teres major) → Radial & Ulnar (at cubital fossa).",
+        "Right subclavian arises from brachiocephalic trunk; left subclavian arises directly from aortic arch.",
+        "Brachial artery bifurcation occurs in the cubital fossa into radial and ulnar arteries.",
+        "Radial pulse: palpated against distal radius in the anatomical snuffbox and lateral wrist.",
+        "Palmar arches: superficial palmar arch (primarily ulnar a.) and deep palmar arch (primarily radial a.).",
+        "Deep veins: paired venae comitantes accompanying corresponding arteries.",
+        "Cephalic vein (superficial): lateral forearm and arm, travels in deltopectoral groove, drains into axillary vein.",
+        "Basilic vein (superficial): medial forearm and arm, joins brachial veins to form axillary vein.",
+        "Median cubital vein: oblique superficial communication in cubital fossa connecting cephalic and basilic veins.",
+        "Clinical venipuncture site: median cubital vein is protected from underlying brachial artery by bicipital aponeurosis."
+      ],
+      "prerequisites": [
+        "hss2011-osteo-pectoral-girdle",
+        "hss2011-osteo-forearm-carpals"
+      ],
+      "examples": [
+        "During routine CT angiography of the chest, high-pressure iodinated contrast media is injected through a wide-bore cannula placed into the median cubital vein in the cubital fossa.",
+        "When taking blood pressure with a stethoscope and cuff, the brachial pulse is auscultated over the brachial artery just medial to the biceps brachii tendon in the cubital fossa."
+      ]
+    },
+    "memory": {
+      "sequence": "Name changes at checkpoints: Subclavian (passes 1st rib) → Axillary (passes teres major) → Brachial (passes elbow crease) → Radial + Ulnar.",
+      "comparison": "Cephalic vs Basilic: Cephalic is lateral/outer (points toward the head/ceiling); Basilic is medial/inner (runs by the base of the body).",
+      "visualCue": "The cubital fossa \"H\" or \"M\": Cephalic on the outside, Basilic on the inside, and Median Cubital as the diagonal bridge crossing between them.",
+      "teachBack": "Trace a drop of blood from the left ventricle through the upper limb arteries down to the thumb and back through the superficial veins to the superior vena cava."
+    },
+    "practice": [
+      {
+        "type": "sequence",
+        "prompt": "Order the main arterial segments of the upper limb in order of blood flow from proximal to distal.",
+        "items": [
+          "Subclavian artery",
+          "Axillary artery",
+          "Brachial artery",
+          "Radial and Ulnar arteries",
+          "Superficial and Deep palmar arches"
+        ],
+        "explanation": "The sequential arterial conduit of the upper limb from thoracic exit to the palm.",
+        "src": {
+          "ref": "hss.4.3",
+          "location": "p12 \"Blood Supply to Upper Limb\""
+        }
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each upper limb vessel to its verified anatomical characteristic.",
+        "pairs": [
+          [
+            "Axillary artery",
+            "Subclavian continuation after crossing the first rib border"
+          ],
+          [
+            "Brachial artery",
+            "Bifurcates in the cubital fossa into radial and ulnar arteries"
+          ],
+          [
+            "Radial artery",
+            "Palpated at the lateral wrist against the distal radius"
+          ],
+          [
+            "Median cubital vein",
+            "Superficial vein in cubital fossa used for venipuncture"
+          ],
+          [
+            "Cephalic vein",
+            "Superficial vein ascending lateral aspect of arm in deltopectoral groove"
+          ]
+        ],
+        "explanation": "Key vascular landmarks from HSS2011 Module 1.1 and Module 4.3."
+      },
+      {
+        "type": "mcq",
+        "prompt": "The axillary artery begins at which anatomical landmark?",
+        "options": [
+          "The lateral border of the first rib",
+          "The sternoclavicular joint",
+          "The inferior border of teres major",
+          "The cubital fossa"
+        ],
+        "answer": 0,
+        "explanation": "The subclavian artery becomes the axillary artery after leaving the thoracic cavity and crossing the border of the first rib.",
+        "src": {
+          "ref": "hss.1.1",
+          "location": "p20 \"Right axillary artery, which is the subclavian after leaving the thoracic cavity and passing across the border of the first rib\""
+        }
+      },
+      {
+        "type": "typed",
+        "prompt": "Which superficial vein running across the cubital fossa is the premier site for clinical venipuncture and radiopaque contrast injection?",
+        "accept": [
+          "median cubital",
+          "median cubital vein",
+          "Median cubital",
+          "Median cubital vein"
+        ],
+        "explanation": "The median cubital vein connects cephalic and basilic veins in the roof of the cubital fossa.",
+        "src": {
+          "ref": "hss.1.1",
+          "location": "p23 \"Median cubital\""
+        }
+      }
+    ],
+    "application": [
+      {
+        "type": "scenario",
+        "prompt": "A radiography student is preparing to perform an intravenous injection of radiopaque iodinated contrast for a CT examination. They select the median cubital vein. Explain the anatomical advantages of choosing this specific vein and name the deep fibrous structure that protects underlying major neurovascular structures during needle insertion.",
+        "model": "The median cubital vein is preferred because it is large, superficial, easily visualized and palpated, relatively immobile (anchored by subcutaneous connective tissue), and easily accessible in the antecubital fossa. Crucially, the bicipital aponeurosis (a broad fibrous expansion of the biceps tendon) lies directly deep to the median cubital vein, acting as an anatomical shield that prevents an inadvertently deep needle puncture from penetrating the underlying brachial artery and median nerve.",
+        "rubric": [
+          "Identifies accessibility, large caliber, and immobility of the median cubital vein",
+          "Identifies the bicipital aponeurosis as the protective fibrous shield",
+          "Identifies the brachial artery and median nerve as the vulnerable deep structures"
+        ]
+      }
+    ],
+    "commonMistakes": [
+      "Assuming the cephalic vein drains into the brachial vein; the cephalic vein drains into the axillary vein.",
+      "Confusing the landmark for the start of the axillary artery (1st rib) with the start of the brachial artery (teres major).",
+      "Believing the radial pulse is taken over the ulna; the radial pulse is taken over the distal radius."
+    ],
+    "skills": [
+      "Locate upper limb pulse points: brachial pulse medial to biceps tendon in cubital fossa; radial pulse lateral to flexor carpi radialis tendon over distal radius.",
+      "Identify superficial veins on venipuncture: cephalic laterally, basilic medially, and median cubital bridging between them in the antecubital fossa."
+    ],
+    "selfCheck": "From memory: trace arterial flow from subclavian artery to palmar arches with anatomical boundaries, distinguish cephalic and basilic veins, and state why the median cubital vein is ideal for IV cannulation.",
+    "visuals": [
+      {
+        "fig": "upperLimbArteries"
+      },
+      {
+        "schematic": "circuits"
+      },
+      {
+        "gen": true
+      }
+    ],
+    "sourceRefs": [
+      {
+        "ref": "hss.4.3",
+        "location": "p12 \"Blood Supply to Upper Limb\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p12 \"Subclavian Artery\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p12 \"Axillary Artery\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p12 \"Brachial Artery\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p12 \"Radial Artery\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p12 \"Ulnar Artery\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p32 \"Radial artery\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p32 \"Ulnar artery\""
+      },
+      {
+        "ref": "hss.1.1",
+        "location": "p19 \"Major Systemic Arteries\""
+      },
+      {
+        "ref": "hss.1.1",
+        "location": "p19 \"Right subclavian\""
+      },
+      {
+        "ref": "hss.1.1",
+        "location": "p20 \"Right axillary artery, which is the subclavian after leaving the thoracic cavity and passing across the border of the first rib\""
+      },
+      {
+        "ref": "hss.1.1",
+        "location": "p23 \"Major Systemic Veins\""
+      },
+      {
+        "ref": "hss.1.1",
+        "location": "p23 \"Cephalic\""
+      },
+      {
+        "ref": "hss.1.1",
+        "location": "p23 \"Basilic\""
+      },
+      {
+        "ref": "hss.1.1",
+        "location": "p23 \"Median cubital\""
+      }
+    ]
+  },
+  {
     id: 'hss2011-thorax-regional-landmarks',
     subject: 'HSS2011', unit: 'hss.m1', type: 'concept',
     title: 'Thoracic regional anatomy: sternal angle, mediastinal planes, diaphragm, and boundaries',

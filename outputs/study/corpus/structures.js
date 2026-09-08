@@ -44,7 +44,17 @@ export const STRUCTURE_SETS = {
       { id: 'capitate', label: 'Capitate', mesh: 'Capitate bone', group: 'Distal row', order: 7, note: 'The largest carpal.' },
       { id: 'hamate', label: 'Hamate', mesh: 'Hamate bone', group: 'Distal row', order: 8 },
     ],
-    sourceRefs: [{ ref: 'hss.4.3', location: 'Slide "Carpal Bones" — proximal and distal row key' }, { ref: 'hss.m0.1718', location: 'L1 p45 right wrist (radiocarpal) joint' }],
+    visuals: [
+      { fig: 'carpalBones' },
+      { model: { layer: 'skeleton', meshes: ['Scaphoid bone', 'Lunate bone', 'Triquetrum bone', 'Pisiform bone', 'Trapezium bone', 'Trapezoid bone', 'Capitate bone', 'Hamate bone'], label: 'Carpal bones in 3D', caption: 'Proximal row (scaphoid, lunate, triquetrum, pisiform) and distal row (trapezium, trapezoid, capitate, hamate).' } },
+      { gen: true },
+    ],
+    sourceRefs: [
+      { ref: 'hss.4.3', location: 'p11 "Carpal Bones"' },
+      { ref: 'hss.4.3', location: 'p11 "Capitate"' },
+      { ref: 'hss.4.3', location: 'p11 "Hamate"' },
+      { ref: 'hss.m0.1718', location: 'L1 p45 right wrist (radiocarpal) joint' },
+    ],
   },
   tarsals: {
     id: 'tarsals', label: 'The seven tarsal bones', subject: 'HSS2011', unit: 'hss.osteo',
@@ -197,7 +207,17 @@ export const STRUCTURE_SETS = {
       { id: 'latissimus', label: 'Latissimus dorsi', mesh: 'Latissimus dorsi muscle', group: 'Shoulder girdle', order: 7, note: 'Adduction and medial rotation. Thoracodorsal nerve.' },
       { id: 'pec-major', label: 'Pectoralis major (sternocostal head)', mesh: 'Sternocostal head of pectoralis major muscle', group: 'Shoulder girdle', order: 8, note: 'Flexion, adduction and medial rotation. Pectoral nerve.' },
     ],
-    sourceRefs: [{ ref: 'hss.4.3', location: 'Slides 16–26 shoulder girdle muscles, rotator cuff, muscles involved in full abduction of the arm' }, { ref: 'hss.revans', location: 'Module 4.3, Fill-in-blanks 3' }],
+    visuals: [
+      { fig: 'rotatorCuffMuscles' },
+      { model: { layer: 'muscle', meshes: ['Supraspinatus muscle', 'Infraspinatus muscle', 'Teres minor muscle', 'Subscapularis muscle', 'Acromial part of deltoid muscle'], label: 'Rotator cuff and abductors', caption: 'The four cuff muscles clustering around the humeral head: supraspinatus, infraspinatus, teres minor, and subscapularis, with deltoid acting as primary abductor.' } },
+      { gen: true },
+    ],
+    sourceRefs: [
+      { ref: 'hss.4.3', location: 'p16 "Rotator Cuff Muscles:"' },
+      { ref: 'hss.4.3', location: 'p20 "Rotator Cuff Muscles"' },
+      { ref: 'hss.4.3', location: 'p26 "Muscles Involved in Full Abduction of the Arm"' },
+      { ref: 'hss.revans', location: 'p3 "3. Supraspinatus; infraspinatus; teres minor; subscapularis"' },
+    ],
     modelGap: 'Deltoid, pectoralis major and trapezius are split into named parts in this model, so one representative part is used for each.',
   },
   cranialNerves: {

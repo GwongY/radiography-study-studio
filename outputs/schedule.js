@@ -402,6 +402,8 @@ export const WEEK_STUDY = {
       'hss2011-joints-movement-map-2026', 'hss2011-osteo-pectoral-girdle',
       'hss2011-osteo-forearm-carpals', 'hss2011-structures-carpals',
       'hss2011-structures-rotatorCuff', 'hss2011-joints-rotator-cuff',
+      'hss2011-upper-brachial-plexus-nerves', 'hss2011-upper-limb-muscles-compartments',
+      'hss2011-upper-limb-blood-vessels',
     ],
     3: [
       'hss2011-osteo-pelvic-girdle', 'hss2011-osteo-leg-tarsals',
