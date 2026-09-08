@@ -1206,73 +1206,221 @@ export const PHYS_ITEMS = [
     sourceRefs: [{ ref: 'phys.5', location: 'Slides 4–17 structure of the urinary system, kidney, nephron, nephron tubules, glomerular filtration, GFR' }, { ref: 'hss.3.2', location: 'p6 "4-5 minor calyces are merged to form a" major calyx, and 2–3 major calyces combine to form the renal pelvis' }, { ref: 'hss.revans', location: 'HSS2011 Module 3.2 answers' }],
   },
   {
-    id: 'abct2326-digestive-pathway',
-    subject: 'ABCT2326', unit: 'phys.dig', type: 'sequence',
-    title: 'Digestive tract, accessory organs and the six functions',
-    tags: ['digestive', 'high-yield'],
-    priorKnowledge: {
-      level: 'dse-bio', covers: 'most', dsePart: 'core',
-      syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(b) "Essential life processes in animals" — "Nutrition in humans": general plan of the digestive system, digestion in each part of the alimentary canal, absorption, the role of the liver and egestion.' },
-      beyond: [
-        { t: 'The six named functions with the lecture’s own definitions — ingestion, mechanical processing, digestion, secretion, absorption, excretion.',
-          src: { ref: 'phys.4', location: 'Slides 4–6 "The Digestive Tract"' } },
-        { t: 'Four histological layers of the tract: mucosa, submucosa, muscularis externa, serosa.',
-          src: { ref: 'phys.4', location: 'Slide 7 "Digestive Tract Layers"' } },
-        { t: 'Accessory organs listed with the job each one does, none of them part of the tube food passes through.',
-          src: { ref: 'phys.4', location: 'Slide 3 "Accessory Organs of the Digestive System"' } },
-        { t: 'Digestive enzymes classed by target: carbohydrases, proteases, lipases, and brush border enzymes on nucleotides.',
-          src: { ref: 'phys.4', location: 'Slides 66–67 "Digestion — Digestive Enzymes"' } },
-        { t: 'Water is never actively absorbed — it follows osmotic gradients; ions are what active transport moves.',
-          src: { ref: 'phys.4', location: 'Slide 68 "Water Absorption / Ion Absorption"' } },
-      ],
+  "id": "abct2326-digestive-pathway",
+  "subject": "ABCT2326",
+  "unit": "phys.dig",
+  "type": "sequence",
+  "title": "Digestive tract, accessory organs and the six functions",
+  "tags": [
+    "digestive",
+    "high-yield",
+    "pathway",
+    "accessory-organs",
+    "epithelium",
+    "enzymes"
+  ],
+  "priorKnowledge": {
+    "level": "dse-bio",
+    "covers": "part",
+    "dsePart": "core",
+    "syllabusRef": {
+      "ref": "edb.bio",
+      "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": general plan of the digestive system, digestion in each part of the alimentary canal, absorption, the role of the liver and egestion."
     },
-    lesson: {
-      explanation: 'The major organs of the digestive tract in order are the oral cavity, pharynx, oesophagus, stomach, small intestine, large intestine and anus. The oral cavity handles ingestion, mechanical processing with the teeth and tongue, moistening and mixing with salivary secretions; the pharynx propels material into the oesophagus; the oesophagus transports it to the stomach; the stomach breaks material down chemically with acid and enzymes and mechanically through muscular contraction; the small intestine performs enzymatic digestion and absorption of water, organic substrates, vitamins and ions; the large intestine dehydrates and compacts indigestible material for elimination. The accessory organs are the teeth, tongue, salivary glands, liver, gallbladder and pancreas. The six functions of the digestive system are ingestion, mechanical processing, digestion, secretion, absorption and excretion.',
-      keyFacts: [
-        'Tract order: oral cavity → pharynx → oesophagus → stomach → small intestine → large intestine → anus.',
-        'Accessory organs: teeth, tongue, salivary glands, liver, gallbladder, pancreas.',
-        'Six functions: ingestion, mechanical processing, digestion, secretion, absorption, excretion.',
-        'Liver secretes bile, important for lipid digestion; the gallbladder stores and concentrates bile.',
-        'Pancreas: exocrine cells secrete buffers and digestive enzymes, endocrine cells secrete hormones.',
-        'Absorption is movement across the digestive epithelium into the interstitial fluid of the tract.',
-      ],
-      prerequisites: ['abct2326-cells-organisation'],
-      examples: [],
-    },
-    memory: {
-      firstLetter: 'Six functions: Ingestion, Mechanical processing, Digestion, Secretion, Absorption, Excretion — I-M-D-S-A-E, roughly the order food actually experiences them.',
-      comparison: 'Accessory organs are not part of the tube. Food never passes through the liver, gallbladder or pancreas — they deliver into the tube instead. That distinction is the usual exam hinge.',
-      chunking: 'Tube first, then the three glands that feed into it. Six tube stations, six accessory organs.',
-    },
-    practice: [
-      { type: 'sequence', prompt: 'Order the major organs of the digestive tract.',
-        items: ['Oral cavity', 'Pharynx', 'Oesophagus', 'Stomach', 'Small intestine', 'Large intestine', 'Anus'],
-        explanation: 'This is the order given on the "Major Organs of the Digestive Tract" slide.' },
-      { type: 'mcq', prompt: 'Which of these is an accessory organ rather than part of the digestive tract itself?', options: ['Stomach', 'Pancreas', 'Small intestine', 'Pharynx'], answer: 1,
-        explanation: 'The pancreas is listed among the accessory organs of the digestive system. Food does not pass through it; it secretes buffers and enzymes into the tract.' },
-      { type: 'matching', prompt: 'Match each accessory organ to the role the lecture gives it.',
-        pairs: [['Liver', 'Secretion of bile, important for lipid digestion'], ['Gallbladder', 'Storage and concentration of bile'], ['Salivary glands', 'Lubricating fluid with enzymes that break down carbohydrates'], ['Pancreas', 'Exocrine buffers and enzymes; endocrine hormones']],
-        explanation: 'These are the descriptions on the "Accessory Organs of the Digestive System" slide.' },
-      { type: 'typed', prompt: 'Which digestive function is defined as the movement of organic substrates, electrolytes, vitamins and water across the digestive epithelium?', accept: ['absorption'],
-        explanation: 'Absorption — across the epithelium into the interstitial fluid of the digestive tract.' },
-    ],
-    application: [
-      { type: 'scenario', prompt: 'The large intestine is described as dehydrating and compacting indigestible material. What would you expect to happen if material passed through it too quickly?',
-        model: 'It would not be dehydrated or compacted properly, so what is eliminated would still contain the water the large intestine normally reclaims. The lecture defines that reclamation as the large intestine’s specific job, distinct from the small intestine’s absorption of nutrients.',
-        rubric: ['Names dehydration/compaction as the large intestine’s role', 'Predicts retained water in the eliminated material'] },
-    ],
-    commonMistakes: [
-      'Counting the liver or pancreas as part of the tract.',
-      'Attributing nutrient absorption to the large intestine; that is the small intestine’s role.',
-    ],
-    skills: [
-      'Accessory means food never passes through: the teeth, tongue, salivary glands, liver, gallbladder and pancreas all act on the tube from outside it. The exam hinge is not what an organ does but whether it is on the route or beside it.',
-      'Absorption splits by what is absorbed, not by the word: the small intestine absorbs nutrients and most water; the large intestine\'s job is dehydration and compaction of what is left. "Absorption happens in the intestine" is true everywhere and specific nowhere.',
-      'Water is never actively absorbed anywhere in the tract — it follows osmotic gradients, which is why the active transport of ions is the real work: move the salts and the water follows them.',
-    ],
-    selfCheck: 'From a blank page: tract order, the six accessory organs, and the six functions. The exam hinge is which organs food never passes through.',
-    sourceRefs: [{ ref: 'phys.4', location: 'Slides 2–6 major organs, accessory organs, six functions of the digestive system' }],
+    "beyond": [
+      {
+        "t": "Muscular propulsion of materials into the esophagus and transport of materials to the stomach.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p2 \"Muscular propulsion of materials into\""
+        }
+      },
+      {
+        "t": "Accessory organs of the digestive system: teeth, tongue, salivary glands, liver, gallbladder, and pancreas.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p3 \"Accessory Organs of\""
+        }
+      },
+      {
+        "t": "The six fundamental functions of the digestive system: ingestion, mechanical processing, digestion, secretion, absorption, and excretion.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p4 \"Six Functions of the\""
+        }
+      },
+      {
+        "t": "Ingestion occurs when conscious food materials enter the digestive tract via the mouth.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p5 \"Ingestion\""
+        }
+      },
+      {
+        "t": "Secretion involves the release of water, acids, enzymes, buffers, and salts by epithelium and glandular organs.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p6 \"Secretion\""
+        }
+      },
+      {
+        "t": "Four major histological layers forming the digestive tract wall: mucosa, submucosa, muscularis externa, and serosa.",
+        "src": {
+          "ref": "phys.4",
+          "location": "p7 \"Four major layers of the digestive tract\""
+        }
+      }
+    ]
   },
+  "lesson": {
+    "explanation": "The human digestive system is organized into two continuous anatomical and functional components: the gastrointestinal (digestive) tract (alimentary canal) and the accessory digestive organs. The digestive tract forms an unbroken muscular tube spanning from the oral cavity to the anus, traversing the thoracic, abdominal, and pelvic cavities. The sequence of organs traversed by ingested materials consists of: (1) Oral cavity (mouth), which initiates ingestion, sensory analysis, mechanical processing via teeth and tongue, and lubrication with salivary secretions containing salivary amylase; (2) Pharynx (oropharynx and laryngopharynx), which coordinates the complex involuntary swallowing reflex (deglutition) and facilitates muscular propulsion of materials into the esophagus; (3) Esophagus, a hollow muscular tube extending posterior to the trachea through the mediastinum and esophageal hiatus of the diaphragm, responsible for rapid transport of materials to the stomach via coordinated peristaltic contractions; (4) Stomach, an expandable J-shaped organ that stores ingested food, executes vigorous mechanical breakdown via three smooth muscle layers, and performs preliminary chemical digestion of proteins using hydrochloric acid (HCl) and pepsin; (5) Small intestine (duodenum, jejunum, and ileum), the primary anatomical site where 90% of chemical digestion and nutrient absorption occurs; (6) Large intestine (cecum, ascending colon, transverse colon, descending colon, sigmoid colon, and rectum), which reabsorbs water, compacts indigestible residue into feces, and absorbs vital B-complex vitamins and vitamin K synthesized by commensal gut microbiota; and (7) Anus (anal canal), which regulates the expulsion of fecal waste via internal and external anal sphincters. Operating in close coordination with the alimentary canal are six accessory digestive organs: teeth and tongue (mechanical processing and mastication), salivary glands (parotid, submandibular, and sublingual glands producing lubricating saliva and amylase), liver (synthesizing bile, processing absorbed nutrients, and metabolizing xenobiotics), gallbladder (storing and concentrating bile until stimulated by cholecystokinin), and pancreas (exocrine acinar cells producing pancreatic juice containing digestive enzymes and bicarbonate buffers, alongside endocrine islets regulating blood glucose). The entire digestive system executes six essential physiological functions: (1) Ingestion, occurring when active solid or liquid nutrients enter the digestive tract via the oral cavity; (2) Mechanical processing, the physical crushing, tearing, and churning of ingested food by teeth, tongue, and muscular contractions to increase surface area for enzymatic attack; (3) Digestion, the enzymatic and chemical hydrolysis of complex carbohydrates, proteins, lipids, and nucleic acids into small absorbable monomer units; (4) Secretion, the active release of approximately 7 liters of water, hydrochloric acid, digestive enzymes, buffers, and bile salts by the mucosal epithelium and glandular accessory organs; (5) Absorption, the movement of organic substrates, electrolytes, vitamins, and water across the digestive epithelium into interstitial fluid, mesenteric capillaries, and central lacteals; and (6) Excretion (defecation), the progressive dehydration, compaction, and elimination of indigestible metabolic wastes and unabsorbed residues from the body.",
+    "plain": "The digestive system is made of a continuous muscular tube (the digestive tract) and several helper organs (accessory organs). Ingested food follows an exact route: mouth → pharynx → esophagus → stomach → small intestine → large intestine → anus. Along the way, accessory organs—teeth, tongue, salivary glands, liver, gallbladder, and pancreas—add saliva, bile, and digestive juices without ever having food pass directly through them. The system carries out six core jobs: ingestion (putting food in the mouth), mechanical processing (chewing and churning), digestion (chemical breakdown of molecules by enzymes), secretion (releasing water, acids, and buffers), absorption (moving nutrients into the blood and lymph), and excretion (eliminating leftover solid waste as feces).",
+    "keyFacts": [
+      "The digestive tract route: oral cavity → pharynx → esophagus → stomach → small intestine → large intestine → anus.",
+      "The six accessory digestive organs are teeth, tongue, salivary glands, liver, gallbladder, and pancreas.",
+      "Accessory organs deliver secretions into the digestive tract; food never passes through their internal structures.",
+      "The six core functions are ingestion, mechanical processing, digestion, secretion, absorption, and excretion.",
+      "Ingestion occurs exclusively when food and liquids enter the digestive tract via the mouth.",
+      "Mechanical processing crushes and shears food, increasing the surface area accessible to digestive enzymes.",
+      "Digestion is the chemical and enzymatic cleavage of complex polymers into absorbable organic monomers.",
+      "Secretion delivers water, acids, buffers, enzymes, and salts from epithelial glands and accessory organs.",
+      "Absorption moves organic nutrients, electrolytes, vitamins, and water across the gut lining into blood or lymph.",
+      "Excretion is the compaction and elimination of indigestible waste materials (feces) via defecation."
+    ],
+    "prerequisites": [
+      "abct2326-cells-organisation"
+    ],
+    "examples": [
+      "In severe acute pancreatitis, gallstones or alcohol abuse obstruct the hepatopancreatic ampulla; digestive proenzymes within the pancreatic acini become prematurely activated, leading to enzymatic autodigestion of pancreatic parenchyma and severe retroperitoneal inflammation.",
+      "Surgical removal of the gallbladder (cholecystectomy) eliminates bile storage and concentration, meaning bile trickles continuously from the liver into the duodenum; patients must avoid high-fat meals to prevent steatorrhea (fatty diarrhea) due to reduced lipid emulsification efficiency."
+    ]
+  },
+  "memory": {
+    "firstLetter": "Tract Sequence: M-P-E-S-S-L-A ('Mouth Pleases Every Stomach Small and Large Always' = Mouth, Pharynx, Esophagus, Stomach, Small Intestine, Large Intestine, Anus).",
+    "chunking": "Six Functions in Transit: Ingestion (at mouth) → Mechanical & Secretion (mouth to stomach) → Digestion & Absorption (small intestine) → Excretion (large intestine to anus).",
+    "comparison": "Tract Organs vs Accessory Organs: Tract organs form the continuous lumen where food travels; accessory organs are external glands or tools that deliver secretions (saliva, bile, pancreatic juice) into the tube.",
+    "teachBack": "Walk through the six functions in chronological order from a bite of food to excretion, explaining which accessory organs contribute at each station."
+  },
+  "practice": [
+    {
+      "type": "sequence",
+      "prompt": "Order the anatomical segments of the human digestive tract traversed by an ingested food bolus from entry to defecation.",
+      "items": [
+        "Oral cavity",
+        "Pharynx",
+        "Esophagus",
+        "Stomach",
+        "Small intestine",
+        "Large intestine",
+        "Anal canal"
+      ],
+      "explanation": "Food enters the mouth, passes through the pharynx and esophagus into the stomach, proceeds through the small intestine for digestion/absorption, enters the large intestine for compaction, and exits via the anal canal."
+    },
+    {
+      "type": "matching",
+      "prompt": "Match each accessory digestive organ with its primary physiological secretion or function.",
+      "pairs": [
+        [
+          "Salivary glands",
+          "Lubricating fluid containing salivary amylase for initial carbohydrate digestion"
+        ],
+        [
+          "Liver",
+          "Synthesis and secretion of bile essential for dietary lipid emulsification"
+        ],
+        [
+          "Gallbladder",
+          "Storage and concentration of bile prior to duodenal ejection"
+        ],
+        [
+          "Exocrine pancreas",
+          "Secretion of bicarbonate buffers and digestive enzymes (amylase, lipase, proteases)"
+        ]
+      ],
+      "explanation": "Salivary glands secrete amylase; liver synthesizes bile; gallbladder stores/concentrates bile; exocrine pancreas secretes enzymes and alkaline buffers."
+    },
+    {
+      "type": "mcq",
+      "prompt": "Which of the following is classified as an accessory organ of the digestive system rather than a segment of the digestive tract?",
+      "options": [
+        "Pancreas",
+        "Esophagus",
+        "Duodenum",
+        "Cecum"
+      ],
+      "answer": 0,
+      "explanation": "The pancreas is an accessory glandular organ that secretes digestive enzymes into the duodenum; food never passes through the pancreas itself."
+    },
+    {
+      "type": "typed",
+      "prompt": "Which of the six digestive functions is defined as the active movement of organic substrates, electrolytes, vitamins, and water across the digestive epithelium into interstitial fluid and circulation?",
+      "accept": [
+        "absorption",
+        "Absorption"
+      ],
+      "explanation": "Absorption is the uptake of digestive products across the epithelial mucosa into capillaries and lacteals."
+    }
+  ],
+  "application": [
+    {
+      "type": "scenario",
+      "prompt": "A 48-year-old male with chronic gallstone disease undergoes an elective cholecystectomy (surgical removal of the gallbladder). Following surgery, he consumes a large deep-fried meal and experiences significant cramping, bloating, and greasy, foul-smelling diarrhea (steatorrhea). Explain the normal physiological role of the gallbladder in bile delivery, and analyze why lipid digestion was impaired despite his liver remaining completely intact.",
+      "model": "The gallbladder does not synthesize bile; rather, it stores and concentrates hepatic bile between meals. Under fasting conditions, the hepatopancreatic sphincter is closed, forcing bile back into the cystic duct and gallbladder. When fatty chyme enters the duodenum, duodenal enteroendocrine cells release cholecystokinin (CCK), which triggers powerful gallbladder contraction and relaxation of the hepatopancreatic sphincter, delivering a concentrated bolus of bile salts to rapidly emulsify dietary lipids. Following cholecystectomy, the patient lacks this storage and concentrating reservoir. Bile produced by the liver now trickles slowly and continuously into the duodenum in dilute form. When the patient ingests a large bolus of dietary fat, the dilute, continuous trickle of hepatic bile is insufficient to emulsify the heavy lipid load. Pancreatic lipase cannot access un-emulsified fat droplets, leaving large quantities of undigested triglycerides in the intestinal lumen, causing osmotic water retention and steatorrhea.",
+      "rubric": [
+        "Identifies that the gallbladder stores and concentrates bile and delivers it in response to CCK",
+        "Explains that without the gallbladder, hepatic bile enters the duodenum as a continuous dilute trickle",
+        "Links inadequate bile concentration during high-fat meals to defective lipid emulsification, lipase failure, and steatorrhea"
+      ]
+    }
+  ],
+  "commonMistakes": [
+    "Believing the gallbladder produces bile, when bile is synthesized exclusively by hepatocytes in the liver and only stored/concentrated in the gallbladder.",
+    "Counting the liver, gallbladder, or pancreas as parts of the alimentary tract, forgetting that food never passes through accessory organs.",
+    "Confusing digestion with absorption: digestion is the chemical/mechanical cleavage of polymers, while absorption is the translocation of monomers across the gut epithelium into blood/lymph."
+  ],
+  "skills": [
+    "Differentiate between digestive tract organs and accessory organs based on whether food traverses their lumen.",
+    "Trace the physiological contribution of each digestive secretion (saliva, gastric juice, bile, pancreatic juice) along the tract."
+  ],
+  "selfCheck": "From memory: write down the seven organs of the alimentary tract in order, list the six accessory organs, and explain why the pancreas is both an endocrine and exocrine organ.",
+  "visuals": [
+    {
+      "fig": "digestiveSystemOverview"
+    },
+    {
+      "fig": "digestiveWallLayers"
+    },
+    {
+      "gen": true
+    }
+  ],
+  "sourceRefs": [
+    {
+      "ref": "phys.4",
+      "location": "p2 \"Muscular propulsion of materials into\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p3 \"Accessory Organs of\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p4 \"Six Functions of the\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p5 \"Ingestion\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p6 \"Secretion\""
+    },
+    {
+      "ref": "phys.4",
+      "location": "p7 \"Four major layers of the digestive tract\""
+    }
+  ]
+},
   {
     id: 'abct2326-endocrine-delivery',
     subject: 'ABCT2326', unit: 'phys.endo', type: 'comparison',
