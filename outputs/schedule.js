@@ -459,6 +459,7 @@ export const WEEK_STUDY = {
     ],
     12: [
       'hss2011-m3-urogenital-pelvis', 'hss2011-uro-kidneys-urinary-tract',
+      'hss2011-uro-nephron-renal-microanatomy',
       'hss2011-uro-male-reproductive-anatomy', 'hss2011-uro-female-reproductive-pelvis',
       'hss2011-uro-tutorial-pastpaper-practice', 'hss2011-structures-urinaryTract',
     ],
