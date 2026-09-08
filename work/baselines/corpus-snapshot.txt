@@ -1,12 +1,12 @@
 — the export surface of outputs/study-data.js — 64 exports —
   f6ce6e2d285e4eb0      3308  BONE_HOOKS  object[21]
-  dc6f2b4fa3f07c17     35808  COVERAGE  object[6]
+  b9d4f86fac01d4b1     40131  COVERAGE  object[6]
   6b86b273ff34fce1         1  DATA_VERSION  number
   619d6a33617fad34         8  DAY_MS  number
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  526a8efbc742ead3   1748818  ITEM_BY_ID  Map[177]
+  c94b17022c213bd9   1908412  ITEM_BY_ID  Map[183]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -24,15 +24,15 @@
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   bc435d5b474be2a9     26969  STRUCTURE_SETS  object[13]
-  c22e6572810ea11f   1742914  STUDY_ITEMS  array[177]
+  047565690b8f9b2e   1902260  STUDY_ITEMS  array[183]
   983b09221060f435       570  STUDY_MODES  array[4]
   834fbc89b7e6fccf      4005  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
-  3a1febdee0f78345     95548  Y1S1_SOURCE_MAP  object[4]
+  fe3765aff0d94ab4     99542  Y1S1_SOURCE_MAP  object[4]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  928378d7dabf1031   1821553  default  object[7]
+  8009373975852a42   1985222  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -64,9 +64,9 @@
   ba048d6b42696398      2356  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  1dd9b6bf2a541154  WHOLE SURFACE
+  b056a980289d0e60  WHOLE SURFACE
 
-— every study item, by id — 177 items —
+— every study item, by id — 183 items —
   2d29339c231f634a  abct2326-acquired-immunity
   7833107c7bbbeb9d  abct2326-blood-composition
   7d5d08aeb27ff298  abct2326-cell-division
@@ -138,9 +138,11 @@
   a63cbbb6ce005c37  hss2011-cns-cerebrum-cortex-basal
   056b040eb9302a91  hss2011-cns-spinal-cord-meninges
   25c8adba9e6d3614  hss2011-cns-ventricles-csf-blood
-  dceb4a1ff00419ec  hss2011-cvs-coronary-circulation-conduction
-  d4117f8f54acb4fa  hss2011-cvs-internal-chambers-valves
-  c64dcb249ec04405  hss2011-cvs-tutorial-pastpaper-practice
+  06611c95646e2806  hss2011-cvs-blood-vessel-circuits
+  c96065dad4aab5e5  hss2011-cvs-coronary-circulation-conduction
+  5a5328ba459b15ed  hss2011-cvs-internal-chambers-valves
+  7405fece471c3edc  hss2011-cvs-lymphatic-system
+  47842d82a2da018d  hss2011-cvs-tutorial-pastpaper-practice
   ddf466533f9fce92  hss2011-digestive-accessory-liver-pancreas
   d2f660b5cd46b044  hss2011-digestive-peritoneum-portal-circulation
   a2e7687c289b6d61  hss2011-digestive-tract-small-large-bowel
@@ -158,8 +160,8 @@
   73aaddc99dd22290  hss2011-lower-femoral-triangle-vessels-nerves
   e435c825861098f9  hss2011-lower-leg-foot-muscles-arches
   2f9f9094af6c424f  hss2011-lower-thigh-gluteal-muscles
-  3a8e0d4ad5d25943  hss2011-m1-heart-wall-valves
-  6e49509d6d713ecc  hss2011-m1-lungs-airway
+  a92adae3c8585592  hss2011-m1-heart-wall-valves
+  5019f24b2c2d0707  hss2011-m1-lungs-airway
   14283d2569b5a22e  hss2011-m2-autonomic-nervous-system
   f303c029635fc53d  hss2011-m2-brain-regions
   4c417e0d669ddc14  hss2011-m2-cerebellum
@@ -193,14 +195,16 @@
   4ad742a15119eabe  hss2011-osteo-long-bone-structure
   d8e9e6092274aaee  hss2011-osteo-pectoral-girdle
   211b1e262dc0fbbc  hss2011-osteo-pelvic-girdle
-  e6d8cbc299ee1c4a  hss2011-osteo-ribs-sternum
+  aae3e31b04ad6a73  hss2011-osteo-ribs-sternum
   98defa9890fd7ad5  hss2011-osteo-skull-sutures
   9da55e92e09de3f0  hss2011-osteo-vertebra-parts
   ce53954662a58c5e  hss2011-osteo-vertebral-column
   cec8517437f61685  hss2011-pastpaper-joints-articulations
-  f15c1a0c350d6dbe  hss2011-resp-pleura-lungs-gross
-  7546b059f089391e  hss2011-resp-tutorial-pastpaper-practice
-  bea60ecb0343ae38  hss2011-resp-upper-tract-larynx
+  daf3c83a7415e66c  hss2011-resp-mechanics-muscles-breathing
+  3b7a51801cd6cc1d  hss2011-resp-pleura-lungs-gross
+  3df778aa239f6e42  hss2011-resp-respiratory-epithelium-alveoli
+  a99d7259437bfbe0  hss2011-resp-tutorial-pastpaper-practice
+  0d0ca149e2a3ce38  hss2011-resp-upper-tract-larynx
   9fa9a3f579a05a4f  hss2011-structures-airwayTree
   0cdf747cd5bf79e2  hss2011-structures-brainAndCsf
   e0c59de14b6d64d4  hss2011-structures-carpals
@@ -220,9 +224,11 @@
   4d64cacdce9d88c2  hss2011-terminology-planes
   0895b9c96e5c8f02  hss2011-terminology-regional-systemic
   1d37808b53a09936  hss2011-terminology-word-parts
-  a31b27f0239e56ec  hss2011-thorax-intercostal-diaphragm
-  7595c1f73ba6a2ef  hss2011-thorax-regional-landmarks
-  73982d275192372d  hss2011-thorax-tutorial-pastpaper-practice
+  b0f942a8e10d6c53  hss2011-thorax-breast-axillary-lymphatics
+  4c582f7f70b6a495  hss2011-thorax-intercostal-diaphragm
+  a8d1b47da8035321  hss2011-thorax-mediastinum-divisions-contents
+  8b6c3b4fa4f092e1  hss2011-thorax-regional-landmarks
+  26637ad898bfddec  hss2011-thorax-tutorial-pastpaper-practice
   ffb837198aea492a  hss2011-upper-brachial-plexus-nerves
   b08426ccafb91520  hss2011-upper-limb-blood-vessels
   2448e0d86f7b47f7  hss2011-upper-limb-muscles-compartments

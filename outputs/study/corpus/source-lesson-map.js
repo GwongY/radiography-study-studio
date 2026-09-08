@@ -1605,16 +1605,16 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-m1-heart-wall-valves",
       "subject": "HSS2011",
       "week": 8,
-      "title": "Heart wall, valves and the great vessels",
+      "title": "Heart wall layers, pericardial sac and cardiac muscle histology",
       "status": "partial",
       "sources": [
         {
-          "ref": "hss.1.2",
+          "ref": "hss.1.1",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
-          "ref": "hss.1.1",
+          "ref": "hss.1.2",
           "set": "old",
           "role": "older-fallback"
         },
@@ -1626,12 +1626,10 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.revans",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-cvs-internal-chambers-valves": {
       "id": "hss2011-cvs-internal-chambers-valves",
@@ -1648,12 +1646,10 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.manual1920",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-cvs-coronary-circulation-conduction": {
       "id": "hss2011-cvs-coronary-circulation-conduction",
@@ -1671,6 +1667,56 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.1.2",
           "set": "old",
           "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-cvs-blood-vessel-circuits": {
+      "id": "hss2011-cvs-blood-vessel-circuits",
+      "subject": "HSS2011",
+      "week": 8,
+      "title": "Blood vessel histology, arterial classes, capillary beds and venous return",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.1.1",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.1.2",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-cvs-lymphatic-system": {
+      "id": "hss2011-cvs-lymphatic-system",
+      "subject": "HSS2011",
+      "week": 8,
+      "title": "Lymphatic system anatomy, major ducts, drainage patterns and lymph node histology",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.1.1",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
         }
       ],
       "reasons": []
@@ -1680,22 +1726,20 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 8,
       "title": "Cardiovascular anatomy tutorial & past paper practice",
-      "status": "needs-review",
+      "status": "partial",
       "sources": [
-        {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
-        },
         {
           "ref": "hss.manual1920",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.revans",
+          "set": "old",
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-structures-heartChambers": {
       "id": "hss2011-structures-heartChambers",
@@ -1745,19 +1789,74 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-m1-lungs-airway",
       "subject": "HSS2011",
       "week": 9,
-      "title": "Pleura, lung surfaces and the upper airway",
+      "title": "Trachea and the bronchial tree: branching, cartilage and airway calibre",
       "status": "partial",
       "sources": [
         {
-          "ref": "hss.1.1",
+          "ref": "hss.resp",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.1.2",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-resp-upper-tract-larynx": {
+      "id": "hss2011-resp-upper-tract-larynx",
+      "subject": "HSS2011",
+      "week": 9,
+      "title": "Upper respiratory tract, paranasal sinuses, pharynx and the laryngeal cartilages",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.resp",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.1.2",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-resp-respiratory-epithelium-alveoli": {
+      "id": "hss2011-resp-respiratory-epithelium-alveoli",
+      "subject": "HSS2011",
+      "week": 9,
+      "title": "Respiratory epithelium, the mucus escalator, alveolar cells and the respiratory membrane",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.resp",
+          "set": "old",
+          "role": "older-fallback"
         },
         {
           "ref": "hss.1.2",
           "set": "old",
           "role": "older-fallback"
         },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-resp-pleura-lungs-gross": {
+      "id": "hss2011-resp-pleura-lungs-gross",
+      "subject": "HSS2011",
+      "week": 9,
+      "title": "Gross anatomy of the lungs, the hilum, the pleura and the dual blood supply",
+      "status": "partial",
+      "sources": [
         {
           "ref": "hss.resp",
           "set": "old",
@@ -1769,40 +1868,18 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
-          "ref": "hss.revans",
+          "ref": "hss.fib5yr",
           "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-resp-upper-tract-larynx": {
-      "id": "hss2011-resp-upper-tract-larynx",
-      "subject": "HSS2011",
-      "week": 9,
-      "title": "Upper respiratory tract, paranasal sinuses and larynx",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.resp",
-          "set": "old",
-          "role": "older-fallback"
-        },
-        {
-          "ref": "hss.1.2",
-          "set": "old",
-          "role": "older-fallback"
+          "role": "assessment"
         }
       ],
       "reasons": []
     },
-    "hss2011-resp-pleura-lungs-gross": {
-      "id": "hss2011-resp-pleura-lungs-gross",
+    "hss2011-resp-mechanics-muscles-breathing": {
+      "id": "hss2011-resp-mechanics-muscles-breathing",
       "subject": "HSS2011",
       "week": 9,
-      "title": "Pleural cavities, gross pulmonary lobes, surfaces and hilum",
+      "title": "Mechanics of ventilation: the diaphragm, intercostals and accessory muscles",
       "status": "partial",
       "sources": [
         {
@@ -1811,7 +1888,12 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
-          "ref": "hss.1.1",
+          "ref": "hss.1.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
           "set": "old",
           "role": "older-fallback"
         }
@@ -1822,23 +1904,21 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-resp-tutorial-pastpaper-practice",
       "subject": "HSS2011",
       "week": 9,
-      "title": "Respiratory anatomy tutorial & past paper practice",
+      "title": "Respiratory system — past-paper and revision-exercise synthesis",
       "status": "partial",
       "sources": [
         {
-          "ref": "hss.1.2",
+          "ref": "hss.manual1920",
           "set": "old",
           "role": "older-fallback"
         },
         {
-          "ref": "hss.revans",
+          "ref": "hss.fib5yr",
           "set": "old",
-          "role": "needs-review"
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-structures-airwayTree": {
       "id": "hss2011-structures-airwayTree",
@@ -1866,38 +1946,16 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-osteo-ribs-sternum",
       "subject": "HSS2011",
       "week": 10,
-      "title": "Thoracic cage — ribs, sternum and the thoracic inlet",
+      "title": "The thoracic cage: sternum, sternal angle, rib classification and a typical rib",
       "status": "partial",
       "sources": [
         {
           "ref": "hss.1.3",
           "set": "old",
-          "role": "needs-review"
-        },
-        {
-          "ref": "hss.manual1920",
-          "set": "old",
           "role": "older-fallback"
         },
         {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
-        }
-      ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
-    },
-    "hss2011-thorax-regional-landmarks": {
-      "id": "hss2011-thorax-regional-landmarks",
-      "subject": "HSS2011",
-      "week": 10,
-      "title": "Thoracic regional anatomy: sternal angle, mediastinal planes, diaphragm, and boundaries",
-      "status": "partial",
-      "sources": [
-        {
-          "ref": "hss.thorax.deck",
+          "ref": "hss.manual1920",
           "set": "old",
           "role": "older-fallback"
         }
@@ -1908,7 +1966,7 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-thorax-intercostal-diaphragm",
       "subject": "HSS2011",
       "week": 10,
-      "title": "Intercostal spaces, neurovascular bundle and the thoracic diaphragm",
+      "title": "Thoracic boundaries, the diaphragm and its three apertures",
       "status": "partial",
       "sources": [
         {
@@ -1917,7 +1975,74 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         },
         {
-          "ref": "hss.thorax.deck",
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-thorax-mediastinum-divisions-contents": {
+      "id": "hss2011-thorax-mediastinum-divisions-contents",
+      "subject": "HSS2011",
+      "week": 10,
+      "title": "The mediastinum: boundaries, the T4/T5 plane, and the four compartments",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.1.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.1920.m1.thorax",
+          "set": "old",
+          "role": "needs-review"
+        }
+      ],
+      "reasons": [
+        "unresolved source (ambiguous catalogue identity)"
+      ]
+    },
+    "hss2011-thorax-regional-landmarks": {
+      "id": "hss2011-thorax-regional-landmarks",
+      "subject": "HSS2011",
+      "week": 10,
+      "title": "Surface anatomy of the thorax: heart-valve auscultation and lung vs pleura projections",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.1.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
+        }
+      ],
+      "reasons": []
+    },
+    "hss2011-thorax-breast-axillary-lymphatics": {
+      "id": "hss2011-thorax-breast-axillary-lymphatics",
+      "subject": "HSS2011",
+      "week": 10,
+      "title": "The mammary gland: structure, blood supply and axillary lymphatic drainage",
+      "status": "partial",
+      "sources": [
+        {
+          "ref": "hss.1.3",
+          "set": "old",
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.manual1920",
           "set": "old",
           "role": "older-fallback"
         }
@@ -1928,23 +2053,26 @@ export const Y1S1_SOURCE_MAP = {
       "id": "hss2011-thorax-tutorial-pastpaper-practice",
       "subject": "HSS2011",
       "week": 10,
-      "title": "Thorax regional anatomy tutorial & past paper practice",
-      "status": "needs-review",
+      "title": "Regional anatomy of the thorax — past-paper and revision-exercise synthesis",
+      "status": "partial",
       "sources": [
-        {
-          "ref": "hss.revans",
-          "set": "old",
-          "role": "needs-review"
-        },
         {
           "ref": "hss.manual1920",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
+        },
+        {
+          "ref": "hss.fib5yr",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "hss.pp1718",
+          "set": "old",
+          "role": "assessment"
         }
       ],
-      "reasons": [
-        "citation has no verifiable page or quoted section/slide"
-      ]
+      "reasons": []
     },
     "hss2011-m3-digestive": {
       "id": "hss2011-m3-digestive",
@@ -3689,6 +3817,8 @@ export const Y1S1_SOURCE_MAP = {
         "hss2011-m1-heart-wall-valves",
         "hss2011-cvs-internal-chambers-valves",
         "hss2011-cvs-coronary-circulation-conduction",
+        "hss2011-cvs-blood-vessel-circuits",
+        "hss2011-cvs-lymphatic-system",
         "hss2011-cvs-tutorial-pastpaper-practice",
         "hss2011-structures-heartChambers",
         "hss2011-structures-greatVessels"
@@ -3696,14 +3826,18 @@ export const Y1S1_SOURCE_MAP = {
       "9": [
         "hss2011-m1-lungs-airway",
         "hss2011-resp-upper-tract-larynx",
+        "hss2011-resp-respiratory-epithelium-alveoli",
         "hss2011-resp-pleura-lungs-gross",
+        "hss2011-resp-mechanics-muscles-breathing",
         "hss2011-resp-tutorial-pastpaper-practice",
         "hss2011-structures-airwayTree"
       ],
       "10": [
         "hss2011-osteo-ribs-sternum",
-        "hss2011-thorax-regional-landmarks",
         "hss2011-thorax-intercostal-diaphragm",
+        "hss2011-thorax-mediastinum-divisions-contents",
+        "hss2011-thorax-regional-landmarks",
+        "hss2011-thorax-breast-axillary-lymphatics",
         "hss2011-thorax-tutorial-pastpaper-practice"
       ],
       "11": [
@@ -4088,35 +4222,15 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-m1-heart-wall-valves",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-cvs-tutorial-pastpaper-practice",
         "set": "old",
-        "role": "needs-review"
+        "role": "assessment"
       },
       {
         "lessonId": "hss2011-structures-greatVessels",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-m1-lungs-airway",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-resp-tutorial-pastpaper-practice",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-osteo-ribs-sternum",
-        "set": "old",
-        "role": "needs-review"
-      },
-      {
-        "lessonId": "hss2011-thorax-tutorial-pastpaper-practice",
         "set": "old",
         "role": "needs-review"
       },
@@ -4457,15 +4571,45 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-cvs-internal-chambers-valves",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-cvs-coronary-circulation-conduction",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-cvs-blood-vessel-circuits",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-cvs-lymphatic-system",
+        "set": "old",
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-cvs-tutorial-pastpaper-practice",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-m1-lungs-airway",
+        "lessonId": "hss2011-resp-respiratory-epithelium-alveoli",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-resp-pleura-lungs-gross",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-resp-mechanics-muscles-breathing",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-resp-tutorial-pastpaper-practice",
         "set": "old",
         "role": "older-fallback"
       },
@@ -4475,9 +4619,29 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
+        "lessonId": "hss2011-thorax-intercostal-diaphragm",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-thorax-mediastinum-divisions-contents",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-thorax-regional-landmarks",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-thorax-breast-axillary-lymphatics",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "hss2011-thorax-tutorial-pastpaper-practice",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-m3-digestive",
@@ -4602,6 +4766,21 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "hss2011-m2-static-dynamic-equilibrium",
         "set": "old",
         "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-resp-pleura-lungs-gross",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-resp-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "hss2011-thorax-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "assessment"
       }
     ],
     "hss.4.3": [
@@ -4708,12 +4887,12 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-m1-lungs-airway",
+        "lessonId": "hss2011-cvs-blood-vessel-circuits",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-resp-pleura-lungs-gross",
+        "lessonId": "hss2011-cvs-lymphatic-system",
         "set": "old",
         "role": "older-fallback"
       },
@@ -5082,10 +5261,15 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-m1-heart-wall-valves",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-cvs-coronary-circulation-conduction",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-cvs-blood-vessel-circuits",
         "set": "old",
         "role": "older-fallback"
       },
@@ -5105,7 +5289,7 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-resp-tutorial-pastpaper-practice",
+        "lessonId": "hss2011-resp-respiratory-epithelium-alveoli",
         "set": "old",
         "role": "older-fallback"
       }
@@ -5164,33 +5348,65 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       },
       {
+        "lessonId": "hss2011-resp-respiratory-epithelium-alveoli",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "hss2011-resp-pleura-lungs-gross",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-resp-mechanics-muscles-breathing",
         "set": "old",
         "role": "older-fallback"
       }
     ],
     "hss.1.3": [
       {
+        "lessonId": "hss2011-resp-mechanics-muscles-breathing",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
         "lessonId": "hss2011-osteo-ribs-sternum",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-thorax-intercostal-diaphragm",
         "set": "old",
         "role": "older-fallback"
-      }
-    ],
-    "hss.thorax.deck": [
+      },
+      {
+        "lessonId": "hss2011-thorax-mediastinum-divisions-contents",
+        "set": "old",
+        "role": "older-fallback"
+      },
       {
         "lessonId": "hss2011-thorax-regional-landmarks",
         "set": "old",
         "role": "older-fallback"
       },
       {
-        "lessonId": "hss2011-thorax-intercostal-diaphragm",
+        "lessonId": "hss2011-thorax-breast-axillary-lymphatics",
         "set": "old",
         "role": "older-fallback"
+      }
+    ],
+    "hss.1920.m1.thorax": [
+      {
+        "lessonId": "hss2011-thorax-mediastinum-divisions-contents",
+        "set": "old",
+        "role": "needs-review"
+      }
+    ],
+    "hss.pp1718": [
+      {
+        "lessonId": "hss2011-thorax-tutorial-pastpaper-practice",
+        "set": "old",
+        "role": "assessment"
       }
     ],
     "hss.3.1": [
