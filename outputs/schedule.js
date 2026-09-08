@@ -442,7 +442,8 @@ export const WEEK_STUDY = {
     ],
     9: [
       'hss2011-m1-lungs-airway', 'hss2011-resp-upper-tract-larynx',
-      'hss2011-resp-pleura-lungs-gross', 'hss2011-resp-tutorial-pastpaper-practice',
+      'hss2011-resp-respiratory-epithelium-alveoli', 'hss2011-resp-pleura-lungs-gross',
+      'hss2011-resp-mechanics-muscles-breathing', 'hss2011-resp-tutorial-pastpaper-practice',
       'hss2011-structures-airwayTree',
     ],
     10: [
