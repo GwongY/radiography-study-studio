@@ -18,6 +18,11 @@ The workflow is the same for every subject:
 
 ### Lesson progress and viewer return (September 2026)
 
+New lessons start on Learn (1/4), including prior-knowledge lessons. Prior syllabus
+coverage cannot skip stages or mark Practise as visited. Saved per-lesson stages
+still restore normally. `work/new-lesson-progress-browser-check.js` covers direct,
+topic/search and next-item entry, plus saved Practise/Apply restoration.
+
 Lesson dots record the highest stage reached: Learn 1/4, Remember 2/4,
 Practise 3/4, Apply 4/4. Revisiting an earlier stage preserves that high-water
 mark; mastery remains a separate score. Lesson rows display all four saved
@@ -37,13 +42,29 @@ metatarsals, rotator cuff, quadriceps, hamstrings, lung lobes and colon segments
 select their specific parts. Composite expansion goes
 from a group to its members without treating sibling structures as synonyms.
 Selection labels and pinned annotations track their mesh through Spread.
+Live physiology honours reduced motion at startup and when the OS preference changes.
+The Live button remains an explicit opt-in for the current page; returning to
+no preference does not restart motion. Check with `node work/physiology-motion-preference-check.mjs`.
 Live physiology has no speed control. Atrial contraction precedes an AV interval
-and ventricular contraction; chamber deformation reduces volume. The diaphragm
-descends with inspiration and each lung's lobes expand around one common centre.
+and ventricular contraction; chamber deformation reduces volume. The four named
+papillary-muscle meshes share their own ventricle's contraction field, rather than
+shrinking around unrelated centres. Valve opening remains unresolved.
+`work/physiology-papillary-browser-check.js` checks the named pairs over a cycle. The diaphragm
+descends with inspiration; its normals follow the dome deformation. Each lung's
+lobes share one superior geometric reference, expanding outward and downward
+with the same directional field. This is not a measured hilum constraint.
+Run `node work/physiology-breathing-check.mjs` and the shape browser check in
+`breathing` mode for displacement/normal verification.
 Selected axillary/deltoid, musculocutaneous/biceps and femoral/quadriceps examples
 show a travelling nerve impulse, excitation, contraction and relaxation. Nerve
 distance follows connected mesh edges around curves; separate axillary branches
-activate after the main nerve. Muscle bellies thicken with tethered ends.
+activate after the main nerve. Muscle bellies thicken with tethered ends. Their surface normals follow the full
+weighted deformation, and radial expansion follows local axial shortening.
+Sartorius and the long/short biceps heads use surface-area-weighted principal axes;
+other muscle shapes retain their existing axes. These axes and end constraints
+are illustrative geometry, not measured fibres or anatomical attachments.
+Run `node work/physiology-muscle-check.mjs`; the shape browser check in `muscle`
+mode compares actual GPU positions/normals with the reference map.
 The Breathing and Motor nerve → muscle presets isolate these participants.
 Quintic easing, corrected deformation normals and frame-rate-independent blending
 smooth the motion and the live/static transition; hidden-tab gaps pause the clock.
@@ -67,6 +88,14 @@ Further checks: `work/search-accuracy-check.mjs`,
 `work/physiology-mechanics-check.mjs` and `work/physiology-browser-check.js`.
 `work/reported-regressions-browser-check.js` checks the displayed lesson stages,
 exit/reopen, search alignment, selection labels and restored animation coverage.
+
+The rest-space shape derivation is isolated in `physiology-shape.js`. This first
+extraction preserves the existing bbox-based motion and injected GLSL. Run
+`node work/physiology-shape-check.mjs` for real-model parameter parity. The
+`physiology-shape-browser-check.js` function captures/compares actual shader
+positions and normals through WebGL2 transform feedback on the same browser.
+Path cost evidence and the future offline-payload contract are in
+`docs/superpowers/notes/2026-09-09-physiology-path-contract.md`.
 
 ### Viewer workspace and projection (September 2026)
 
@@ -843,12 +872,11 @@ same rule the memory aids follow.
 ## Prior knowledge — what not to teach from zero
 
 Fifteen of the twenty-three ABCT2326 Human Physiology items cover material HKDSE Biology already
-taught. Teaching those from zero wastes the session and buries the two or three things the PolyU
-lecture actually adds on top, so they carry a `priorKnowledge` field and are **verified rather than
-taught**:
+taught. They carry a `priorKnowledge` field so the lesson can distinguish familiar
+background from what the PolyU lecture adds:
 
-- The session opens them on **Practise**, not Learn, with a banner saying why and a "Show the lesson
-  first" button for when the answer does not come.
+- New lessons open on **Learn**. Prior coverage affects teaching context and queue
+  ordering, but never counts as a stage the learner has visited.
 - Their **Learn card leads with "What this lecture adds beyond DSE Bio"** — the named lists, the
   terminology and the specific numbers from the lecture slides. The full explanation is not deleted;
   it drops into a fold at the foot of the card labelled as background you already have.

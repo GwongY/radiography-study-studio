@@ -155,9 +155,7 @@ function currentItem() { return ui.session.items[ui.session.index]; }
 
 /*
  * Moving to the next item. The footer control and the Apply card's own button
- * both land here, so where an item opens is decided once: material a previous
- * syllabus already covered opens on Practise to be verified, everything else
- * opens on Learn to be taught.
+ * both land here: restore this item's saved stage, or start a new item on Learn.
  */
 export function advanceItem() {
   ui.session.index += 1; ui.session.qIndex = 0; ui.session.seqOrder = null; ui.session.matchRights = null;
