@@ -1,4 +1,4 @@
-﻿/*
+/*
  * figures.js — the diagrams that replaced the hand-drawn ones.
  *
  * The schematics in schematics.js were plotted by hand from SVG coordinates,
@@ -2728,7 +2728,7 @@ export const FIGURES = {
     licence: 'CC BY-SA 3.0',
     licenceUrl: 'http://creativecommons.org/licenses/by-sa/3.0/',
     commons: 'https://commons.wikimedia.org/wiki/File:Synapse_Illustration2_tweaked.svg',
-    intro: 'The chemical synapse the lecture walks through. An action potential arrives at the axon terminal, opens the voltage-gated Ca2+ channel, vesicles fuse and dump neurotransmitters into the synaptic cleft, and the molecules bind receptors on the postsynaptic side — after which the reuptake pump clears them back into the terminal. Every stage of that chain is a potential drug target, which is why this diagram sits on both the synapse lessons.',
+    intro: 'The chemical synapse the lecture walks through. An action potential arrives at the axon terminal, opens the voltage-gated Ca2+ channel, vesicles fuse and dump neurotransmitters into the synaptic cleft, and the molecules bind receptors on the postsynaptic side — after which the reuptake pump clears them back into the terminal. Every stage of that chain is a potential target for pharmacological intervention or neuromuscular transmission.',
     key: [
       { mark: 'Axon terminal', name: 'The presynaptic ending — where the impulse becomes a chemical signal' },
       { mark: 'Voltage-gated Ca++ channel', name: 'Opens on the arriving action potential; the Ca2+ entry triggers vesicle fusion' },
