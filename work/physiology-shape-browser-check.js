@@ -1,6 +1,7 @@
 // Evaluate in an isolated dev-server Chrome tab: mode='capture', then 'compare'
 // after reloading the edited app. Exercises the actual injected vertex GLSL.
 async function physiologyShapeBrowserCheck(mode='compare') {
+  const {deformMuscle}=await import('/physiology-shape.js');
   const {goTo}=await import('/study/navigation-five-destinations.js');
   const {loadExtraModel}=await import('/studio/depth-picking.js');
   const {STRUCTURE_MODELS}=await import('/study-data.js');
@@ -13,7 +14,7 @@ async function physiologyShapeBrowserCheck(mode='compare') {
   const hash=async bytes=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),x=>x.toString(16).padStart(2,'0')).join('');
   const compile=(type,source)=>{const sh=gl.createShader(type);gl.shaderSource(sh,source);gl.compileShader(sh);if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(sh));return sh;};
   const programs=new Map(),rows=[],gpu=[],modes=new Set();
-  let vertices=0,maxRestPositionError=0,maxRestNormalError=0;
+  let vertices=0,maxRestPositionError=0,maxRestNormalError=0,muscleSamples=0,maxMusclePositionError=0,maxMuscleNormalError=0;
   const fragment=compile(gl.FRAGMENT_SHADER,'#version 300 es\nprecision highp float;out vec4 color;void main(){color=vec4(1.);}');
   const sample=(a,n=64)=>{const count=Math.min(n,a.count),out=new Float32Array(count*3);for(let i=0;i<count;i++){const j=Math.floor(i*(a.count-1)/Math.max(1,count-1));out.set([a.getX(j),a.getY(j),a.getZ(j)],i*3);}return out;};
   try {
@@ -39,11 +40,19 @@ async function physiologyShapeBrowserCheck(mode='compare') {
       gl.uniform1f(gl.getUniformLocation(program,'uT'),.37);
       const shape={key,name:mesh.name,centre:sh.uniforms.uMCenter.value.toArray(),axis:sh.uniforms.uMAxis.value.toArray(),length:sh.uniforms.uMLength.value,amount:sh.uniforms.uMAmt.value,mode:sh.uniforms.uMode.value};rows.push(shape);modes.add(shape.mode);
       const target=gl.createBuffer();gl.bindBuffer(gl.TRANSFORM_FEEDBACK_BUFFER,target);gl.bufferData(gl.TRANSFORM_FEEDBACK_BUFFER,p.length*2*4,gl.DYNAMIC_READ);gl.bindBufferBase(gl.TRANSFORM_FEEDBACK_BUFFER,0,target);
-      for(const amplitude of [0,.35,.8]){
+      for(const amplitude of (mode==='muscle'?[0,.2,.5,.8,1]:[0,.35,.8])){
         gl.uniform1f(gl.getUniformLocation(program,'uDeform'),amplitude);gl.enable(gl.RASTERIZER_DISCARD);gl.beginTransformFeedback(gl.POINTS);gl.drawArrays(gl.POINTS,0,p.length/3);gl.endTransformFeedback();gl.disable(gl.RASTERIZER_DISCARD);
         const out=new Float32Array(p.length*2);gl.getBufferSubData(gl.TRANSFORM_FEEDBACK_BUFFER,0,out);
         if(!out.every(Number.isFinite))throw Error('Nonfinite shader output: '+mesh.name);
         if(!amplitude)for(let i=0;i<p.length/3;i++)for(let j=0;j<3;j++){maxRestPositionError=Math.max(maxRestPositionError,Math.abs(out[i*6+j]-p[i*3+j]));maxRestNormalError=Math.max(maxRestNormalError,Math.abs(out[i*6+j+3]-n[i*3+j]));}
+        if(mode==='muscle'&&mesh.userData.flowClass==='muscle')for(let i=0;i<p.length/3;i++){
+          const expected=deformMuscle(Array.from(p.slice(i*3,i*3+3)),Array.from(n.slice(i*3,i*3+3)),shape,amplitude);
+          for(let j=0;j<3;j++){
+            maxMusclePositionError=Math.max(maxMusclePositionError,Math.abs(expected.position[j]-out[i*6+j])/Math.max(shape.length,1e-6));
+            maxMuscleNormalError=Math.max(maxMuscleNormalError,Math.abs(expected.normal[j]-out[i*6+j+3]));
+          }
+          muscleSamples++;
+        }
         gpu.push(out);vertices+=p.length/3;
       }
       if(!originalPosition.every((v,i)=>Object.is(v,mesh.geometry.attributes.position.array[i]))||!originalNormal.every((v,i)=>Object.is(v,mesh.geometry.attributes.normal.array[i]))||!mesh.geometry.boundingBox.equals(bounds)||!matrix.every((v,i)=>v===mesh.matrix.elements[i]))throw Error('Rest geometry mutated: '+mesh.name);
@@ -55,6 +64,7 @@ async function physiologyShapeBrowserCheck(mode='compare') {
     // Quantized input normals are not exactly unit length. The legacy shader
     // normalizes even at rest in modes 1/3/5; preserve this measured behaviour.
     if(maxRestPositionError!==0||maxRestNormalError>.002)throw Error('Unexpected legacy rest deviation '+JSON.stringify(result));
+    if(mode==='muscle'){if(muscleSamples<1000||maxMusclePositionError>2e-5||maxMuscleNormalError>2e-4)throw Error(JSON.stringify({muscleSamples,maxMusclePositionError,maxMuscleNormalError}));return {pass:true,...result,muscleSamples,maxMusclePositionError,maxMuscleNormalError};}
     if(mode==='capture')localStorage.setItem('physiology-shape-baseline',JSON.stringify(result));
     else {const before=JSON.parse(localStorage.getItem('physiology-shape-baseline')||'null');if(!before)throw Error('Capture the unchanged app first');if(JSON.stringify(before)!==JSON.stringify(result))throw Error('Characterisation mismatch '+JSON.stringify({before,after:result}));}
     return {pass:true,mode,...result};

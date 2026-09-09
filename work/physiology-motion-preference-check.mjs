@@ -20,6 +20,7 @@ for(const api of ['modern','legacy','absent'])for(const reduced of [false,true])
   set(true);assert.equal(state.flow.on,api==='absent'||!reduced,'preset cannot bypass initial reduce');
   set(true,true);assert.equal(state.flow.on,true,'explicit Live works');
   set(false,true);assert.equal(state.flow.on,false);
+  set(true);assert.equal(state.flow.on,false,'preset must preserve explicit Static');
   if(api!=='absent'){
     const change=matches=>{media.matches=matches;for(const f of listeners)f({matches});};
     change(false);assert.equal(state.flow.on,false,'no automatic restart');

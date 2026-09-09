@@ -46,7 +46,13 @@ descends with inspiration and each lung's lobes expand around one common centre.
 Selected axillary/deltoid, musculocutaneous/biceps and femoral/quadriceps examples
 show a travelling nerve impulse, excitation, contraction and relaxation. Nerve
 distance follows connected mesh edges around curves; separate axillary branches
-activate after the main nerve. Muscle bellies thicken with tethered ends.
+activate after the main nerve. Muscle bellies thicken with tethered ends. Their surface normals follow the full
+weighted deformation, and radial expansion follows local axial shortening.
+Sartorius and the long/short biceps heads use surface-area-weighted principal axes;
+other muscle shapes retain their existing axes. These axes and end constraints
+are illustrative geometry, not measured fibres or anatomical attachments.
+Run `node work/physiology-muscle-check.mjs`; the shape browser check in `muscle`
+mode compares actual GPU positions/normals with the reference map.
 The Breathing and Motor nerve → muscle presets isolate these participants.
 Quintic easing, corrected deformation normals and frame-rate-independent blending
 smooth the motion and the live/static transition; hidden-tab gaps pause the clock.
