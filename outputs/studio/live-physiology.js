@@ -12,7 +12,7 @@ import { showPickCallout } from './spatial-concept-overlays.js';
 import { setSeparation, setTool } from './tools-and-capture.js';
 import { advancePhysiology } from '../physiology.js?v=4';
 import { MOTOR_ROUTES, motorRoute, motorSequence, transmissionField } from '../physiology-mechanics.js';
-import { deriveShape } from '../physiology-shape.js';
+import { deriveShape, deriveMuscleShape, MUSCLE_SHAPE_GLSL } from '../physiology-shape.js';
 
 /* ------------------------------------------------------------------ *
  * Live physiology
@@ -46,8 +46,8 @@ import { deriveShape } from '../physiology-shape.js';
  * viewer says so.
  * ------------------------------------------------------------------ */
 
-/* On by default. A body that does not move is the thing this exists to fix,
-   and with only the skeleton loaded there is nothing with a rule, so it costs
+/* On by default unless reduced motion is requested.
+   With only the skeleton loaded there is nothing with a rule, so it costs
    nothing until a system layer is actually on. */
 
 /* World Y of the top and bottom of the body, so anchors can be fractions. */
@@ -143,7 +143,17 @@ function installFlow(mesh,cls){
     const context={sharedCentre:mesh.userData.flowCenter?.toArray()};
     if(rule.mode==='descend')context.anatomicalUp=new state.THREE.Vector3(0,1,0)
       .transformDirection(new state.THREE.Matrix4().copy(mesh.matrixWorld).invert()).toArray();
-    const shape=deriveShape({bounds:{min:bb.min.toArray(),max:bb.max.toArray()},rule,context});
+    const input={bounds:{min:bb.min.toArray(),max:bb.max.toArray()},rule,context};
+    if(cls==='muscle'){
+      const p=g.attributes.position;
+      input.positions=new Float32Array(p.count*3);
+      for(let i=0;i<p.count;i++)input.positions.set([p.getX(i),p.getY(i),p.getZ(i)],i*3);
+      input.indices=g.index?.array;
+      context.name=mesh.name;
+      const scale=new state.THREE.Vector3().setFromMatrixScale(mesh.matrixWorld).toArray();
+      context.uniformMetric=Math.max(...scale)<=Math.min(...scale)*(1+1e-5);
+    }
+    const shape=cls==='muscle'?deriveMuscleShape(input):deriveShape(input);
     mCenter=new state.THREE.Vector3(...shape.centre);
     mAxis=new state.THREE.Vector3(...shape.axis);
     mLength=shape.length;mAmt=shape.amount;
@@ -151,7 +161,7 @@ function installFlow(mesh,cls){
   /* The deformed and colour-only meshes of a class compile to different
      programs, so the cache key has to name the variant or the first to compile
      is silently reused for every mesh of the class. */
-  mat.customProgramCacheKey=()=>'rssflow-mechanics:'+cls+(deform?':d':':c')+(route?':motor':'');
+  mat.customProgramCacheKey=()=>'rssflow-muscle-jacobian:'+cls+(deform?':d':':c')+(route?':motor':'');
   mat.onBeforeCompile=(sh)=>{
     sh.uniforms.uT=state.flow.uT;
     sh.uniforms.uOn=state.flow.uOn;
@@ -171,6 +181,7 @@ function installFlow(mesh,cls){
     }
     sh.vertexShader=(cls==='nerve'&&route?'attribute float aTransmission;varying float vTransmission;\n':'')+'varying float vFlowY;\n'
       +(deform?'uniform float uDeform;uniform vec3 uMCenter;uniform vec3 uMAxis;uniform float uMAmt;uniform float uMLength;uniform float uMode;\nuniform float uT;uniform float uSpeed;uniform float uDir;uniform float uFreq;uniform float uSharp;\n':'')
+      +(deform&&cls==='muscle'?MUSCLE_SHAPE_GLSL:'')
       +sh.vertexShader.replace('#include <begin_vertex>',
         '#include <begin_vertex>\n'
         +(deform
@@ -187,9 +198,9 @@ function installFlow(mesh,cls){
            +'}else if(uMode>1.5){/* inflate: even expansion away from the centre */\n'
            +'  transformed+=(transformed-uMCenter)*uDeform*uMAmt;\n'
            +'}else{/* contract: shorten along the axis, thicken across it */\n'
-           +(cls==='muscle'?'  float tether=pow(max(0.,1.-pow(2.*rssAlong/uMLength,2.)),2.);\n':'  float tether=1.;\n')
-           +'  transformed-=uMAxis*rssAlong*uDeform*uMAmt*tether;\n'
-           +'  transformed+=rssPerp*(inversesqrt(max(.1,1.-uDeform*uMAmt*tether))-1.);\n'
+           +(cls==='muscle'
+             ?'  vec4 profile=rssMuscleProfile(rssAlong);if(uDeform*uMAmt>0.&&abs(2.*rssAlong/uMLength)<1.)transformed=uMCenter+uMAxis*profile.x+rssPerp*profile.z;\n'
+             :'  transformed-=uMAxis*rssAlong*uDeform*uMAmt;transformed+=rssPerp*(inversesqrt(max(.1,1.-uDeform*uMAmt))-1.);\n')
            +'}\n'
           :'')
         +(cls==='nerve'&&route?'vTransmission=aTransmission;\n':'')
@@ -197,7 +208,9 @@ function installFlow(mesh,cls){
     if(deform)sh.vertexShader=sh.vertexShader.replace('#include <beginnormal_vertex>',
       '#include <beginnormal_vertex>\n'
       +'if(uMode>4.5){vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(na/max(.1,1.-.55*uDeform*uMAmt)+(objectNormal-na)/max(.1,1.-uDeform*uMAmt));}\n'
-      +'if(uMode<1.5){float k=max(.1,1.-uDeform*uMAmt);vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(na/k+(objectNormal-na)*sqrt(k));}\n'
+      +(cls==='muscle'
+        ?'if(uMode<1.5&&uDeform*uMAmt>0.){float along=dot(position-uMCenter,uMAxis);if(abs(2.*along/uMLength)<1.){vec3 radial=position-uMCenter-along*uMAxis;vec4 profile=rssMuscleProfile(along);float na=dot(objectNormal,uMAxis);vec3 nr=objectNormal-na*uMAxis;objectNormal=normalize(nr/profile.z+uMAxis*(na-profile.w*dot(radial,nr)/profile.z)/profile.y);}}\n'
+        :'if(uMode<1.5){float k=max(.1,1.-uDeform*uMAmt);vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(na/k+(objectNormal-na)*sqrt(k));}\n')
       +'else if(uMode>2.5&&uMode<3.5){float along=dot(position-uMCenter,uMAxis);vec3 radial=position-uMCenter-along*uMAxis;float phase=(along/uMLength*2.-uT*uSpeed*uDir)*6.2831853;float wave=max(0.,.5+.5*sin(phase));float k=max(.1,1.-pow(wave,uSharp)*uMAmt*uDeform);float dk=-uMAmt*uDeform*uSharp*pow(wave,max(0.,uSharp-1.))*.5*cos(phase)*12.5663706/uMLength;float na=dot(objectNormal,uMAxis);vec3 nr=objectNormal-na*uMAxis;objectNormal=normalize(nr/k+uMAxis*(na-dk*dot(radial,nr)/k));}\n');
     sh.fragmentShader=(cls==='nerve'&&route?'varying float vTransmission;uniform float uMotorClock;uniform float uArrivalStart;uniform float uArrivalSpan;\n':'')+'varying float vFlowY;\n'
       +'uniform float uT;uniform float uOn;uniform float uBeat;uniform vec3 uFlowColor;\n'
@@ -269,8 +282,8 @@ export function applyConnectiveVisibility(){
   }
 }
 export function setPhysiology(on, explicit=false){
-  if(explicit)state.flow.motionOptIn=!!on;
-  on=!!on && (!state.flow.reducedMotion || state.flow.motionOptIn);
+  if(explicit){state.flow.motionOptIn=!!on;state.flow.motionChoice=!!on;}
+  on=!!on && state.flow.motionChoice!==false && (!state.flow.reducedMotion || state.flow.motionOptIn);
   state.flow.on=on;
   // Spread needs an undeformed model immediately for its layout measurements.
   if(!on&&(state.separation||state.flow.reducedMotion)){
@@ -1350,13 +1363,13 @@ export function endMovement(){
 export function init() {
   state.flow?.disposeMotionPreference?.();
   const reducedMotion=prefersStill();
-  state.flow = { on:!reducedMotion, blend:reducedMotion?0:1, reducedMotion, motionOptIn:false,
+  state.flow = { on:!reducedMotion, blend:reducedMotion?0:1, reducedMotion, motionOptIn:false, motionChoice:null,
     uT:{value:0}, uOn:{value:reducedMotion?0:1}, classes:{}, counts:{}, connective:[] };
   if(typeof matchMedia==='function'){
     const preference=matchMedia('(prefers-reduced-motion: reduce)');
     const change=event=>{
       state.flow.reducedMotion=event.matches;
-      if(event.matches){state.flow.motionOptIn=false;setPhysiology(false);}
+      if(event.matches){state.flow.motionOptIn=false;state.flow.motionChoice=false;setPhysiology(false);}
     };
     if(preference.addEventListener){
       preference.addEventListener('change',change);
