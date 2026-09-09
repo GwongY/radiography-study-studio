@@ -1706,7 +1706,11 @@ export const EXPANSION_ITEMS = [
         "schematic": "modalityBestUse"
       },
       {
-        "fig": "fluoroscopyRoomSetup"
+        "fig": "fluoroscopyRoomSetup",
+        "focus": [
+          "Examination couch and C-arm",
+          "Control panel console"
+        ]
       },
       {
         "gen": true

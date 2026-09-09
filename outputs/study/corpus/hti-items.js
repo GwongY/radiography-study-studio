@@ -981,7 +981,7 @@ export const HTI_ITEMS = [
     title: 'The radiation therapy pathway',
     tags: ['radiation-therapy', 'clinical-pathway', 'high-yield'],
     visuals: [
-      { fig: 'linacTreatmentHead' },
+      { fig: 'linacTreatmentHead', focus: ['Target and flattening filter', 'Collimation system'] },
       { schematic: 'radiotherapyPath' },
       { gen: true },
     ],
@@ -1367,7 +1367,7 @@ export const HTI_ITEMS = [
     title: 'Structural against functional, and how a modality gets chosen',
     tags: ['modalities', 'structural-vs-functional', 'clinical-selection', 'high-yield'],
     visuals: [
-      { fig: 'petCtScanner' },
+      { fig: 'petCtScanner', focus: ['Gantry aperture bore', 'Motorized patient couch'] },
       { schematic: 'modalities' },
       { gen: true },
     ],
@@ -1695,7 +1695,7 @@ export const HTI_ITEMS = [
     title: 'Linac electron therapy and RapidArc volumetric modulated arc delivery',
     tags: ['radiation-therapy', 'linac', 'electrons', 'rapidarc', 'high-yield'],
     visuals: [
-      { fig: 'multileafCollimator' },
+      { fig: 'multileafCollimator', focus: ['Tungsten leaf banks', 'Conformal aperture opening'] },
       { gen: true },
     ],
     lesson: {
@@ -1781,7 +1781,7 @@ export const HTI_ITEMS = [
     title: 'Evolution of radiotherapy: 2D, 3D-CRT, static IMRT, and rotational arc therapy (VMAT & Tomotherapy)',
     tags: ['radiation-therapy', 'vmat', 'tomotherapy', 'imrt', 'high-yield'],
     visuals: [
-      { fig: 'multileafCollimator' },
+      { fig: 'multileafCollimator', focus: ['Tungsten leaf banks', 'Conformal aperture opening'] },
       { gen: true },
     ],
     lesson: {
