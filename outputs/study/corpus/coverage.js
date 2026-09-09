@@ -179,6 +179,8 @@ export const COVERAGE = {
     { file: 'Self-study terminology of movements--for Week 2-4.pdf', role: 'Current teaching', used: 'HSS2011 Weeks 2–4 movement map; image-led pages checked with OCR and rendering' },
     { file: 'Topic 01.pdf', role: 'Current teaching', used: 'All APSS1A08 Topic 01 lessons' },
     { file: 'W1_MusculoskeletalSystem_2026_CKK_upload.pdf', role: 'Current teaching', used: 'HSS2011 Week 1 musculoskeletal lessons' },
+    { file: 'Week 2_LL _2026_CKK_upload.pdf', role: 'Current teaching', used: 'HSS2011 Week 3 pelvic girdle and lower limb lessons (filename labeled Week 2; mapped by content to Week 3)' },
+    { file: 'Week 3_UL_2026_CKK_upload.pdf', role: 'Current teaching', used: 'HSS2011 Week 2 pectoral girdle and upper limb lessons (filename labeled Week 3; mapped by content to Week 2)' },
   ],
   duplicates: [
     { what: 'HSS2011 Study Manual 1819', where: ['Year 1 Sem 1 Source / HSS2011 Human Anatomy / Study Manual 1819.pdf', 'Radiography Sources / Yr1 Sem1 Radiography / HSS2011 Human Anatomy / Human Anatomy Manual 1819.pdf', 'White group sources / Year 1 / Radiography Yr1 Sem1 / HSS2011 Human Anatomy / Human Anatomy Manual 1819.pdf'] },

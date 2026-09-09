@@ -88,7 +88,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.m0",
           "set": "old",
-          "role": "older-supporting"
+          "role": "needs-review"
         },
         {
           "ref": "hss.vocab",
@@ -101,7 +101,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-terminology-regional-systemic": {
       "id": "hss2011-terminology-regional-systemic",
@@ -148,7 +150,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-supporting"
+          "role": "needs-review"
         },
         {
           "ref": "hss.msk.2026",
@@ -158,7 +160,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.m0.1718",
           "set": "old",
-          "role": "older-supporting"
+          "role": "needs-review"
         },
         {
           "ref": "hss.vocab",
@@ -167,6 +169,7 @@ export const Y1S1_SOURCE_MAP = {
         }
       ],
       "reasons": [
+        "unresolved source identity",
         "citation has no verifiable page or quoted section/slide"
       ]
     },
@@ -180,7 +183,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-supporting"
+          "role": "needs-review"
         },
         {
           "ref": "hss.msk.2026",
@@ -193,7 +196,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-osteo-long-bone-structure": {
       "id": "hss2011-osteo-long-bone-structure",
@@ -205,7 +210,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-supporting"
+          "role": "needs-review"
         },
         {
           "ref": "hss.msk.2026",
@@ -218,7 +223,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-osteo-bone-functions": {
       "id": "hss2011-osteo-bone-functions",
@@ -230,7 +237,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-supporting"
+          "role": "needs-review"
         },
         {
           "ref": "hss.msk.2026",
@@ -243,7 +250,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-supporting"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-msk-bone-histology": {
       "id": "hss2011-msk-bone-histology",
@@ -280,10 +289,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-supporting"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-msk-bone-marrow": {
       "id": "hss2011-msk-bone-marrow",
@@ -300,10 +311,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-supporting"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-msk-tissues-of-movement": {
       "id": "hss2011-msk-tissues-of-movement",
@@ -385,12 +398,12 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 1,
       "title": "Classification of joints",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.revans",
@@ -398,7 +411,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-joints-synovial-structure": {
       "id": "hss2011-joints-synovial-structure",
@@ -410,7 +425,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-supporting"
+          "role": "needs-review"
         },
         {
           "ref": "hss.msk.2026",
@@ -423,7 +438,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-joints-synovial-types": {
       "id": "hss2011-joints-synovial-types",
@@ -435,7 +452,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-supporting"
+          "role": "needs-review"
         },
         {
           "ref": "hss.msk.2026",
@@ -448,7 +465,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-joints-movements": {
       "id": "hss2011-joints-movements",
@@ -480,7 +499,7 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 1,
       "title": "Past-paper drill — joints and articulations",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.fib5yr",
@@ -490,10 +509,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-joints-movement-map-2026": {
       "id": "hss2011-joints-movement-map-2026",
@@ -520,27 +541,29 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 2,
       "title": "The pectoral girdle and shoulder joint",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.4.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-osteo-forearm-carpals": {
       "id": "hss2011-osteo-forearm-carpals",
       "subject": "HSS2011",
       "week": 2,
       "title": "Bones of the forearm, wrist and hand",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.4.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.revans",
@@ -548,39 +571,43 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-structures-carpals": {
       "id": "hss2011-structures-carpals",
       "subject": "HSS2011",
       "week": 2,
       "title": "The eight carpal bones",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.4.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.m0.1718",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-structures-rotatorCuff": {
       "id": "hss2011-structures-rotatorCuff",
       "subject": "HSS2011",
       "week": 2,
       "title": "Rotator cuff and the abduction muscles",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.4.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.revans",
@@ -588,19 +615,21 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-joints-rotator-cuff": {
       "id": "hss2011-joints-rotator-cuff",
       "subject": "HSS2011",
       "week": 2,
       "title": "Rotator cuff and full abduction of the arm",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.4.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.revans",
@@ -608,34 +637,38 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-upper-brachial-plexus-nerves": {
       "id": "hss2011-upper-brachial-plexus-nerves",
       "subject": "HSS2011",
       "week": 2,
       "title": "Brachial plexus and major peripheral nerves of the upper limb",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.4.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-upper-limb-muscles-compartments": {
       "id": "hss2011-upper-limb-muscles-compartments",
       "subject": "HSS2011",
       "week": 2,
       "title": "Muscles and fascial compartments of the arm and forearm",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.4.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.revans",
@@ -643,27 +676,31 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-upper-limb-blood-vessels": {
       "id": "hss2011-upper-limb-blood-vessels",
       "subject": "HSS2011",
       "week": 2,
       "title": "Arterial supply and venous drainage of the upper limb",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.4.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.1.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-osteo-pelvic-girdle": {
       "id": "hss2011-osteo-pelvic-girdle",
@@ -675,12 +712,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -693,7 +730,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-osteo-leg-tarsals": {
       "id": "hss2011-osteo-leg-tarsals",
@@ -705,12 +744,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.4.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -718,7 +757,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-structures-tarsals": {
       "id": "hss2011-structures-tarsals",
@@ -730,7 +771,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -738,32 +779,36 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-structures-kneeJoint": {
       "id": "hss2011-structures-kneeJoint",
       "subject": "HSS2011",
       "week": 3,
       "title": "Inside the knee — a synovial joint",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.4.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.4.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.m0.1718",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-lower-thigh-gluteal-muscles": {
       "id": "hss2011-lower-thigh-gluteal-muscles",
@@ -775,7 +820,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -783,7 +828,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-lower-leg-foot-muscles-arches": {
       "id": "hss2011-lower-leg-foot-muscles-arches",
@@ -795,7 +842,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -803,19 +850,21 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-lower-femoral-triangle-vessels-nerves": {
       "id": "hss2011-lower-femoral-triangle-vessels-nerves",
       "subject": "HSS2011",
       "week": 3,
       "title": "Femoral triangle boundaries, neurovascular contents, and lower limb vessels",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.4.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -830,10 +879,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-osteo-skull-sutures": {
       "id": "hss2011-osteo-skull-sutures",
@@ -845,7 +896,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -858,22 +909,26 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-structures-skullBones": {
       "id": "hss2011-structures-skullBones",
       "subject": "HSS2011",
       "week": 4,
       "title": "Bones of the skull",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.4.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-osteo-vertebra-parts": {
       "id": "hss2011-osteo-vertebra-parts",
@@ -885,12 +940,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.m0.1718",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -903,7 +958,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-osteo-vertebral-column": {
       "id": "hss2011-osteo-vertebral-column",
@@ -915,7 +972,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.m0.1718",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -923,7 +980,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-osteo-c1-c2": {
       "id": "hss2011-osteo-c1-c2",
@@ -935,12 +994,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.m0.1718",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -953,57 +1012,65 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-structures-vertebralRegions": {
       "id": "hss2011-structures-vertebralRegions",
       "subject": "HSS2011",
       "week": 4,
       "title": "Regions of the vertebral column",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.m0.1718",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.4.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-head-cranial-cavities-sinuses": {
       "id": "hss2011-head-cranial-cavities-sinuses",
       "subject": "HSS2011",
       "week": 4,
       "title": "Cranial fossae, paranasal sinuses, orbital complexes, and foramen magnum",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.4.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-head-facial-expression-muscles": {
       "id": "hss2011-head-facial-expression-muscles",
       "subject": "HSS2011",
       "week": 4,
       "title": "Muscles of facial expression, the SCALP layers, and cranial nerve VII",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.4.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-head-mastication-neck-muscles": {
       "id": "hss2011-head-mastication-neck-muscles",
@@ -1015,7 +1082,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -1028,7 +1095,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-m2-cns-basics": {
       "id": "hss2011-m2-cns-basics",
@@ -1040,7 +1109,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.2.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.mooc3",
@@ -1058,7 +1127,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-cns-spinal-cord-meninges": {
       "id": "hss2011-cns-spinal-cord-meninges",
@@ -1075,12 +1146,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.4.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.2.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.mooc3",
@@ -1098,7 +1169,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-m2-reflex-arc": {
       "id": "hss2011-m2-reflex-arc",
@@ -1115,22 +1188,24 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.2.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-m2-autonomic-nervous-system": {
       "id": "hss2011-m2-autonomic-nervous-system",
       "subject": "HSS2011",
       "week": 5,
       "title": "The autonomic nervous system: sympathetic vs parasympathetic",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.2.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -1143,7 +1218,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-m2-neurons-glia": {
       "id": "hss2011-m2-neurons-glia",
@@ -1160,7 +1237,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.2.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -1174,6 +1251,7 @@ export const Y1S1_SOURCE_MAP = {
         }
       ],
       "reasons": [
+        "unresolved source identity",
         "citation has no verifiable page or quoted section/slide"
       ]
     },
@@ -1182,17 +1260,17 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 5,
       "title": "The cerebellum: vermis, folia, arbor vitae and Purkinje cells",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.2.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.4.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.revans",
@@ -1200,24 +1278,26 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-cns-cerebrum-cortex-basal": {
       "id": "hss2011-cns-cerebrum-cortex-basal",
       "subject": "HSS2011",
       "week": 6,
       "title": "Cerebrum, functional cortical areas and basal nuclei",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.2.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.2.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -1230,39 +1310,43 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-m2-brain-regions": {
       "id": "hss2011-m2-brain-regions",
       "subject": "HSS2011",
       "week": 6,
       "title": "Diencephalon and the limbic system",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.2.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-cns-brainstem-reticular": {
       "id": "hss2011-cns-brainstem-reticular",
       "subject": "HSS2011",
       "week": 6,
       "title": "Brainstem: midbrain, pons, medulla and the reticular formation",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.2.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.2.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -1275,19 +1359,21 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-cns-ventricles-csf-blood": {
       "id": "hss2011-cns-ventricles-csf-blood",
       "subject": "HSS2011",
       "week": 6,
       "title": "The ventricular system and cerebrospinal fluid",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.2.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -1300,24 +1386,26 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-neuro-cranial-nerves-distribution": {
       "id": "hss2011-neuro-cranial-nerves-distribution",
       "subject": "HSS2011",
       "week": 6,
       "title": "Cranial nerves CN I to XII: modalities and targets",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.2.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.2.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.revans",
@@ -1325,7 +1413,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-m2-stroke-correlates": {
       "id": "hss2011-m2-stroke-correlates",
@@ -1347,7 +1437,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.2.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -1355,19 +1445,21 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-structures-brainAndCsf": {
       "id": "hss2011-structures-brainAndCsf",
       "subject": "HSS2011",
       "week": 6,
       "title": "Brainstem, ventricles and the spinal cord",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.2.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.revans",
@@ -1376,6 +1468,7 @@ export const Y1S1_SOURCE_MAP = {
         }
       ],
       "reasons": [
+        "unresolved source identity",
         "citation has no verifiable page or quoted section/slide"
       ]
     },
@@ -1389,7 +1482,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.2.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.vocab",
@@ -1408,6 +1501,7 @@ export const Y1S1_SOURCE_MAP = {
         }
       ],
       "reasons": [
+        "unresolved source identity",
         "citation has no verifiable page or quoted section/slide"
       ]
     },
@@ -1426,7 +1520,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.2.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.mooc3",
@@ -1439,7 +1533,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-m2-eyeball-anatomy": {
       "id": "hss2011-m2-eyeball-anatomy",
@@ -1486,7 +1582,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.2.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.mooc3",
@@ -1499,7 +1595,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-m2-ear-hearing": {
       "id": "hss2011-m2-ear-hearing",
@@ -1516,7 +1614,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.2.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.mooc3",
@@ -1534,7 +1632,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-m2-static-dynamic-equilibrium": {
       "id": "hss2011-m2-static-dynamic-equilibrium",
@@ -1551,7 +1651,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.2.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.mooc3",
@@ -1561,7 +1661,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.2.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -1569,7 +1669,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-m2-taste-smell": {
       "id": "hss2011-m2-taste-smell",
@@ -1586,12 +1688,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.2.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.2.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.revans",
@@ -1599,7 +1701,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-m1-heart-wall-valves": {
       "id": "hss2011-m1-heart-wall-valves",
@@ -1611,12 +1715,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.1.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.1.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -1629,7 +1733,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-cvs-internal-chambers-valves": {
       "id": "hss2011-cvs-internal-chambers-valves",
@@ -1641,7 +1747,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.1.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -1649,7 +1755,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-cvs-coronary-circulation-conduction": {
       "id": "hss2011-cvs-coronary-circulation-conduction",
@@ -1661,12 +1769,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.1.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.1.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -1674,7 +1782,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-cvs-blood-vessel-circuits": {
       "id": "hss2011-cvs-blood-vessel-circuits",
@@ -1686,12 +1796,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.1.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.1.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -1699,7 +1809,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-cvs-lymphatic-system": {
       "id": "hss2011-cvs-lymphatic-system",
@@ -1711,7 +1823,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.1.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -1719,7 +1831,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-cvs-tutorial-pastpaper-practice": {
       "id": "hss2011-cvs-tutorial-pastpaper-practice",
@@ -1760,7 +1874,7 @@ export const Y1S1_SOURCE_MAP = {
         }
       ],
       "reasons": [
-        "citation has no verifiable page or quoted section/slide"
+        "unresolved source identity"
       ]
     },
     "hss2011-structures-greatVessels": {
@@ -1800,10 +1914,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.1.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-resp-upper-tract-larynx": {
       "id": "hss2011-resp-upper-tract-larynx",
@@ -1820,10 +1936,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.1.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-resp-respiratory-epithelium-alveoli": {
       "id": "hss2011-resp-respiratory-epithelium-alveoli",
@@ -1840,7 +1958,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.1.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -1848,7 +1966,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-resp-pleura-lungs-gross": {
       "id": "hss2011-resp-pleura-lungs-gross",
@@ -1890,7 +2010,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.1.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -1898,7 +2018,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-resp-tutorial-pastpaper-practice": {
       "id": "hss2011-resp-tutorial-pastpaper-practice",
@@ -1939,7 +2061,7 @@ export const Y1S1_SOURCE_MAP = {
         }
       ],
       "reasons": [
-        "citation has no verifiable page or quoted section/slide"
+        "unresolved source identity"
       ]
     },
     "hss2011-osteo-ribs-sternum": {
@@ -1952,7 +2074,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.1.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -1960,7 +2082,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-thorax-intercostal-diaphragm": {
       "id": "hss2011-thorax-intercostal-diaphragm",
@@ -1972,7 +2096,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.1.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -1980,7 +2104,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-thorax-mediastinum-divisions-contents": {
       "id": "hss2011-thorax-mediastinum-divisions-contents",
@@ -1992,7 +2118,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.1.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -2006,6 +2132,7 @@ export const Y1S1_SOURCE_MAP = {
         }
       ],
       "reasons": [
+        "unresolved source identity",
         "unresolved source (ambiguous catalogue identity)"
       ]
     },
@@ -2019,7 +2146,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.1.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -2027,7 +2154,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-thorax-breast-axillary-lymphatics": {
       "id": "hss2011-thorax-breast-axillary-lymphatics",
@@ -2039,7 +2168,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.1.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -2047,7 +2176,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-thorax-tutorial-pastpaper-practice": {
       "id": "hss2011-thorax-tutorial-pastpaper-practice",
@@ -2069,10 +2200,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.pp1718",
           "set": "old",
-          "role": "assessment"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-m3-digestive": {
       "id": "hss2011-m3-digestive",
@@ -2084,12 +2217,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -2102,7 +2235,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-digestive-tract-upper": {
       "id": "hss2011-digestive-tract-upper",
@@ -2114,12 +2249,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -2132,7 +2267,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-digestive-tract-small-large-bowel": {
       "id": "hss2011-digestive-tract-small-large-bowel",
@@ -2144,12 +2281,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -2162,7 +2299,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-digestive-accessory-liver-pancreas": {
       "id": "hss2011-digestive-accessory-liver-pancreas",
@@ -2174,17 +2313,17 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -2202,7 +2341,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-digestive-peritoneum-portal-circulation": {
       "id": "hss2011-digestive-peritoneum-portal-circulation",
@@ -2214,17 +2355,17 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.1",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -2237,7 +2378,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-digestive-tutorial-pastpaper-practice": {
       "id": "hss2011-digestive-tutorial-pastpaper-practice",
@@ -2283,7 +2426,7 @@ export const Y1S1_SOURCE_MAP = {
         }
       ],
       "reasons": [
-        "citation has no verifiable page or quoted section/slide"
+        "unresolved source identity"
       ]
     },
     "hss2011-m3-urogenital-pelvis": {
@@ -2296,12 +2439,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.3",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.revans",
@@ -2321,27 +2464,29 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.pp1718",
           "set": "old",
-          "role": "assessment"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-uro-kidneys-urinary-tract": {
       "id": "hss2011-uro-kidneys-urinary-tract",
       "subject": "HSS2011",
       "week": 12,
       "title": "Kidneys and the urinary tract: gross anatomy, ureters, bladder, urethra, urothelium",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.3.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -2354,7 +2499,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-uro-nephron-renal-microanatomy": {
       "id": "hss2011-uro-nephron-renal-microanatomy",
@@ -2366,7 +2513,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -2384,7 +2531,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "assessment"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-uro-male-reproductive-anatomy": {
       "id": "hss2011-uro-male-reproductive-anatomy",
@@ -2396,12 +2545,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -2419,7 +2568,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-uro-female-reproductive-pelvis": {
       "id": "hss2011-uro-female-reproductive-pelvis",
@@ -2431,12 +2582,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -2454,7 +2605,9 @@ export const Y1S1_SOURCE_MAP = {
           "role": "older-fallback"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-uro-tutorial-pastpaper-practice": {
       "id": "hss2011-uro-tutorial-pastpaper-practice",
@@ -2481,10 +2634,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.pp1718",
           "set": "old",
-          "role": "assessment"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "hss2011-structures-urinaryTract": {
       "id": "hss2011-structures-urinaryTract",
@@ -2505,7 +2660,7 @@ export const Y1S1_SOURCE_MAP = {
         }
       ],
       "reasons": [
-        "citation has no verifiable page or quoted section/slide"
+        "unresolved source identity"
       ]
     },
     "abct2326-cells-organisation": {
@@ -2788,10 +2943,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "phys.2.supp",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source identity"
+      ]
     },
     "abct2326-cvs-ecg-cycle": {
       "id": "abct2326-cvs-ecg-cycle",
@@ -3411,6 +3568,7 @@ export const Y1S1_SOURCE_MAP = {
         }
       ],
       "reasons": [
+        "unresolved source identity",
         "citation has no verifiable page or quoted section/slide"
       ]
     },
@@ -4625,7 +4783,7 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-terminology-cavities-regions",
         "set": "old",
-        "role": "older-supporting"
+        "role": "needs-review"
       }
     ],
     "hss.wordparts": [
@@ -4639,62 +4797,62 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-osteo-axial-appendicular",
         "set": "old",
-        "role": "older-supporting"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-osteo-bone-shapes",
         "set": "old",
-        "role": "older-supporting"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-osteo-long-bone-structure",
         "set": "old",
-        "role": "older-supporting"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-osteo-bone-functions",
         "set": "old",
-        "role": "older-supporting"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-msk-periosteum",
         "set": "old",
-        "role": "older-supporting"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-msk-bone-marrow",
         "set": "old",
-        "role": "older-supporting"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-joints-classification",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-joints-synovial-structure",
         "set": "old",
-        "role": "older-supporting"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-joints-synovial-types",
         "set": "old",
-        "role": "older-supporting"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-pastpaper-joints-articulations",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-osteo-leg-tarsals",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-kneeJoint",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       }
     ],
     "hss.msk.2026": [
@@ -4773,37 +4931,37 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-osteo-axial-appendicular",
         "set": "old",
-        "role": "older-supporting"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-carpals",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-kneeJoint",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-osteo-vertebra-parts",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-osteo-vertebral-column",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-osteo-c1-c2",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-vertebralRegions",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       }
     ],
     "hss.manual1920": [
@@ -5166,77 +5324,77 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-osteo-pectoral-girdle",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-osteo-forearm-carpals",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-carpals",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-rotatorCuff",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-joints-rotator-cuff",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-upper-brachial-plexus-nerves",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-upper-limb-muscles-compartments",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-upper-limb-blood-vessels",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-osteo-pelvic-girdle",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-osteo-leg-tarsals",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-tarsals",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-kneeJoint",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-lower-thigh-gluteal-muscles",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-lower-leg-foot-muscles-arches",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-lower-femoral-triangle-vessels-nerves",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "abct2326-muscle-action",
@@ -5248,32 +5406,32 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-upper-limb-blood-vessels",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m1-heart-wall-valves",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-cvs-internal-chambers-valves",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-cvs-coronary-circulation-conduction",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-cvs-blood-vessel-circuits",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-cvs-lymphatic-system",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-airwayTree",
@@ -5285,37 +5443,37 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-osteo-pelvic-girdle",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-accessory-liver-pancreas",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m3-urogenital-pelvis",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-uro-kidneys-urinary-tract",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-uro-male-reproductive-anatomy",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-uro-female-reproductive-pelvis",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       }
     ],
     "hss.ppans": [
@@ -5329,121 +5487,121 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-lower-femoral-triangle-vessels-nerves",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m3-urogenital-pelvis",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       }
     ],
     "hss.4.2": [
       {
         "lessonId": "hss2011-osteo-skull-sutures",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-skullBones",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-osteo-vertebra-parts",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-osteo-c1-c2",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-vertebralRegions",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-head-cranial-cavities-sinuses",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-head-facial-expression-muscles",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-head-mastication-neck-muscles",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-cns-spinal-cord-meninges",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m2-cerebellum",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       }
     ],
     "hss.2.2": [
       {
         "lessonId": "hss2011-m2-cns-basics",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-cns-spinal-cord-meninges",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m2-reflex-arc",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m2-autonomic-nervous-system",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m2-cerebellum",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-cns-cerebrum-cortex-basal",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-cns-brainstem-reticular",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-neuro-cranial-nerves-distribution",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m2-ear-hearing",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m2-static-dynamic-equilibrium",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m2-taste-smell",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       }
     ],
     "hss.mooc3": [
@@ -5514,67 +5672,67 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-m2-neurons-glia",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-cns-cerebrum-cortex-basal",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m2-brain-regions",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-cns-brainstem-reticular",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-cns-ventricles-csf-blood",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-neuro-cranial-nerves-distribution",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m2-stroke-correlates",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-brainAndCsf",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-cranialNerves",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m2-eye-accessory",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m2-eye-visual-pathway",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m2-static-dynamic-equilibrium",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m2-taste-smell",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       }
     ],
     "phys.3": [
@@ -5655,17 +5813,17 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-m1-heart-wall-valves",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-cvs-coronary-circulation-conduction",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-cvs-blood-vessel-circuits",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-heartChambers",
@@ -5675,17 +5833,17 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-m1-lungs-airway",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-resp-upper-tract-larynx",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-resp-respiratory-epithelium-alveoli",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       }
     ],
     "phys.2": [
@@ -5761,32 +5919,32 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-resp-mechanics-muscles-breathing",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-osteo-ribs-sternum",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-thorax-intercostal-diaphragm",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-thorax-mediastinum-divisions-contents",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-thorax-regional-landmarks",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-thorax-breast-axillary-lymphatics",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       }
     ],
     "hss.1920.m1.thorax": [
@@ -5800,44 +5958,44 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-thorax-tutorial-pastpaper-practice",
         "set": "old",
-        "role": "assessment"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m3-urogenital-pelvis",
         "set": "old",
-        "role": "assessment"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-uro-tutorial-pastpaper-practice",
         "set": "old",
-        "role": "assessment"
+        "role": "needs-review"
       }
     ],
     "hss.3.1": [
       {
         "lessonId": "hss2011-m3-digestive",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-tract-upper",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-tract-small-large-bowel",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-accessory-liver-pancreas",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-digestiveTract",
@@ -5849,27 +6007,27 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-m3-digestive",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-tract-upper",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-tract-small-large-bowel",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-accessory-liver-pancreas",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       }
     ],
     "phys.4": [
@@ -5908,22 +6066,22 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-uro-kidneys-urinary-tract",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-uro-nephron-renal-microanatomy",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-uro-male-reproductive-anatomy",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-uro-female-reproductive-pelvis",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-structures-urinaryTract",
@@ -6076,7 +6234,7 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "abct2326-cvs-conduction",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       }
     ],
     "phys.cvs.tut": [

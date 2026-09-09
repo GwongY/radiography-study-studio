@@ -127,6 +127,7 @@ for (const d of cat.docs) {
 }
 
 function buildCited() {
+  const existing = existsSync(CITED_OUT) ? JSON.parse(readFileSync(CITED_OUT, 'utf8')) : { sources: {}, failed: {} };
   const sources = {}, failed = {};
   let pages = 0, chars = 0, n = 0;
   const entries = Object.entries(SOURCE_FILES);
@@ -141,6 +142,13 @@ function buildCited() {
       continue;
     }
     if (hit.ambiguous) ambiguous++;
+    if (existing.sources?.[id] && existing.sources[id].pages?.length && !argv.includes('--force')) {
+      const prev = existing.sources[id];
+      sources[id] = prev;
+      pages += prev.pages.length;
+      chars += prev.pages.reduce((a, p) => a + p.length, 0);
+      continue;
+    }
     process.stdout.write(`\r  ${++n}/${entries.length}  ${d.n.slice(0, 50).padEnd(50)}`);
     /* hit.full, not fullPath(d) — the resolved COPY, not the first one listed. */
     const r = extractText(hit.full);
@@ -149,9 +157,12 @@ function buildCited() {
     pages += r.pages.length;
     chars += r.pages.reduce((a, p) => a + p.length, 0);
   }
+  for (const [k, v] of Object.entries(existing.failed || {})) {
+    if (!sources[k] && !failed[k]) failed[k] = v;
+  }
   process.stdout.write('\r'.padEnd(72) + '\r');
 
-  writeFileSync(CITED_OUT, JSON.stringify({ sources, failed }, null, 0), 'utf8');
+  writeFileSync(CITED_OUT, JSON.stringify({ sources, failed }, null, 2) + '\n', 'utf8');
   console.log(`cited sources: ${Object.keys(sources).length} extracted, ${Object.keys(failed).length} not`);
   if (ambiguous) console.log(`  ${ambiguous} resolved to a copy the registry's folder could not fully separate`);
   console.log(`  ${pages} pages, ${(chars / 1048576).toFixed(1)} MB of text`);
