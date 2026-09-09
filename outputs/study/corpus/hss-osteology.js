@@ -334,9 +334,7 @@ export const HSS_OSTEOLOGY = [
           "caption": "The five representative shapes: femur (long bone lever), capitate (short cubical bone), parietal bone (flat protective sandwich), L3 vertebra (irregular mixed shape), and patella (sesamoid bone inside a tendon)."
         }
       },
-      {
-        "fig": "compactBone"
-      },
+      { fig: 'compactBone', focus: ["Osteon","Spongy bone","Periosteum","Endosteum"] },
       {
         "gen": true
       }
@@ -750,9 +748,7 @@ export const HSS_OSTEOLOGY = [
     ],
     "selfCheck": "Recite from memory: all five bone functions, the composition of bone matrix (2/3 calcium hydroxyapatite, 1/3 collagen), the difference between red and yellow bone marrow, and three distinct visceral cavities that protect internal organs.",
     "visuals": [
-      {
-        "fig": "boneMarrow"
-      },
+      { fig: 'boneMarrow', focus: ["Red marrow","Yellow marrow","Outer surface of bone"] },
       {
         "schematic": "boneFunctions"
       },
@@ -964,9 +960,7 @@ export const HSS_OSTEOLOGY = [
           "caption": "The clavicle articulates medially with the manubrium of the sternum (sternoclavicular joint) and laterally with the acromion of the scapula (acromioclavicular joint); the shallow glenoid cavity articulates with the head of the humerus."
         }
       },
-      {
-        "fig": "rotatorCuffMuscles"
-      },
+      { fig: 'rotatorCuffMuscles', focus: ["Supraspinatus","Infraspinatus","Subscapularis","Teres minor","Acromion"] },
       {
         "gen": true
       }
@@ -1413,9 +1407,7 @@ export const HSS_OSTEOLOGY = [
     ],
     "selfCheck": "From memory: name the 3 components of a vertebra, 2 parts of the vertebral arch, 7 processes, and explain how facet joints are formed.",
     "visuals": [
-      {
-        "fig": "cervicalVertebrae"
-      },
+      { fig: 'cervicalVertebrae', focus: ["Transverse foramen (foramen transversarium)","Bifid spinous process","Atlas (C1)","Axis (C2)"] },
       {
         "model": {
           "layer": "skeleton",
@@ -1588,9 +1580,7 @@ export const HSS_OSTEOLOGY = [
     ],
     "selfCheck": "From memory: list the bone count for all 5 regions, state which curves are primary vs secondary, give the direction of concavity for each, and explain why the adult column has 26 bones.",
     "visuals": [
-      {
-        "fig": "cervicalVertebrae"
-      },
+      { fig: 'cervicalVertebrae', focus: ["Atlas (C1)","Axis (C2)","Vertebra prominens (C7)","Transverse foramen (foramen transversarium)","Bifid spinous process"] },
       {
         "model": {
           "layer": "skeleton",

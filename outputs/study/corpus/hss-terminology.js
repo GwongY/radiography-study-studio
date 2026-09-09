@@ -96,7 +96,7 @@ export const HSS_TERMINOLOGY = [
     ],
     selfCheck: 'From memory, describe the five posture requirements of the anatomical position, explain the mechanical reason for forearm supination, and deduce whether a prone patient’s anterior knee faces the couch or ceiling.',
     visuals: [
-      { fig: 'directionalTerms' },
+      { fig: 'directionalTerms', focus: ["Superior","Inferior","Anterior","Posterior","Medial","Lateral"] },
       { gen: true },
     ],
     sourceRefs: [
