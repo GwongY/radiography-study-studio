@@ -4,6 +4,6 @@
   ok  5 plates checked
 — unused FIGURES entries (informational) —
 — every visuals[].focus entry resolves to a real figure mark —
-  ok  0 focus specifications checked
+  ok  111 focus specifications checked
 
 ALL PASS
