@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1466 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) · [hidden loses to an explicit display](TRAPS.md#hidden-loses-to-an-explicit-display--outputsappcss-outputsstudyexam-modejs)
+- `outputs/app.css` — 1470 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) · [hidden loses to an explicit display](TRAPS.md#hidden-loses-to-an-explicit-display--outputsappcss-outputsstudyexam-modejs)
 - `outputs/studio.js` — 29 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 65 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -52,7 +52,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `systems.js` | 268 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 1748 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
 | `term-notes.js` | 1491 | Term notes — say it, then mean it. |  |
-| `visual-data.js` | 501 | visual-data.js — a visual for every study item. |  |
+| `visual-data.js` | 524 | visual-data.js — a visual for every study item. |  |
 | `wordparts.js` | 952 | Word parts — the medical vocabulary broken into the pieces it is built from. |  |
 
 ### Exported symbols
@@ -115,9 +115,9 @@ belong in `init()`. The two keep separate import scopes and talk only through
 |  | 30–63 | Bone records -> skeleton meshes |
 |  | 64–72 | Explicit per-item visuals |
 |  | 73–282 | The 2026 items. All eighteen shipped on a generated layout — a flow |
-|  | 283–354 | Resolver |
-|  | 355–465 | Plates |
-|  | 466–501 | Ordered per-item visual lists |
+|  | 283–353 | Resolver |
+|  | 354–464 | Plates |
+|  | 465–524 | Ordered per-item visual lists |
 
 ## The 3D studio — `outputs/studio/*.js`
 
@@ -152,7 +152,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `home.js` | 189 | Home |
 | `imports.js` | 146 |  |
 | `layout-figures.js` | 867 | Layout figures |
-| `lesson-visuals.js` | 286 | Lesson visuals |
+| `lesson-visuals.js` | 321 | Lesson visuals |
 | `mastery-dashboard.js` | 9 | Mastery dashboard |
 | `more-sources-coverage.js` | 103 | More -- sources, coverage, and the things demoted out of the topbar. |
 | `moving-progress-between.js` | 153 | Moving progress between devices |

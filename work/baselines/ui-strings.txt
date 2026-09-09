@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1083 —
-  c0bba07779582625  WHOLE SET
+— user-facing strings in outputs/ — 1084 —
+  f97e3e9eb8ebba25  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -544,6 +544,7 @@
   dcac248f8a2e0ec7  Open the Osteology studio to find it on the model. If 3D is unavailable, answer from the landmark list instead — the explanation below covers both routes.
   e48bafe3f0edb133  Open the studio and drive it →
   5d4ccdb9cfeecb7a  Opens in Viewer
+  c9a8d09845fef502  Other labels on this figure (
   c5ca4a0d519c1995  Page / section
   88ce19bc20fd3349  Paper submitted
   998f59ec6907c1a6  Past papers, timed practice, mastery

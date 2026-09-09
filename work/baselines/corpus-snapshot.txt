@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  9dd7e5ecb20fe43e   2143226  ITEM_BY_ID  Map[192]
+  79e76f67111ad202   2143944  ITEM_BY_ID  Map[192]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -24,7 +24,7 @@
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   0099801ccdbb14b4     27670  STRUCTURE_SETS  object[13]
-  307c00ff7ff20776   2136732  STUDY_ITEMS  array[192]
+  8139df10b712872b   2137450  STUDY_ITEMS  array[192]
   983b09221060f435       570  STUDY_MODES  array[4]
   834fbc89b7e6fccf      4005  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
@@ -32,7 +32,7 @@
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  b03e8878316cceac   2228970  default  object[7]
+  30b5ede1169943cd   2229688  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   f8f5dd7feb96caac        72  entryStep  function
@@ -64,7 +64,7 @@
   ba048d6b42696398      2356  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  2dc4a711c66e0e3b  WHOLE SURFACE
+  13a443d19cbcb469  WHOLE SURFACE
 
 — every study item, by id — 192 items —
   da4a8e4ebeeb81b6  abct2326-acquired-immunity
@@ -73,7 +73,7 @@
   7d5d08aeb27ff298  abct2326-cell-division
   a156690f2ae21df4  abct2326-cells-organisation
   34d40827a14ad722  abct2326-complement
-  bbe84cf3bdad8e95  abct2326-connective-tissue-classes
+  eef8ccac5a06900c  abct2326-connective-tissue-classes
   73162528828ad665  abct2326-crossbridge-cycle
   05807da07bfda597  abct2326-cvs-circuits
   41bf41309ae98cc4  abct2326-cvs-conduction
@@ -91,8 +91,8 @@
   7d1c4928debac5c0  abct2326-endocrine-pituitary-axes
   7d1e8cbd44d9e550  abct2326-endocrine-receptors
   0b0a981e0b7054ae  abct2326-endocrine-second-messengers
-  1ddd876d8ee9d4ca  abct2326-epithelium-classification
-  ce0643598ca9f302  abct2326-feedback-loops
+  398aad6656149bfa  abct2326-epithelium-classification
+  b3d8c00d2d4a97ca  abct2326-feedback-loops
   fc670aa09f418929  abct2326-fibre-types-fuel
   f1dc77f7c34e94e8  abct2326-homeostasis
   cff363026d5f818a  abct2326-immune-adaptive
@@ -103,7 +103,7 @@
   0d0cc5354b5cc2fc  abct2326-msk-bone-structure-remodeling
   3d593558c69fdcd2  abct2326-msk-immune-overview
   f7433878b9755efd  abct2326-muscle-action
-  80cda8309170a64a  abct2326-muscle-neural-tissue
+  94a0f61466de057d  abct2326-muscle-neural-tissue
   242f78fcb1e1e007  abct2326-muscle-types
   6b111bc24103e1a6  abct2326-muscle-ultrastructure-energetics
   f3e696060532e4ae  abct2326-nervous-divisions
@@ -113,7 +113,7 @@
   162ed704d169deac  abct2326-nucleus-genetic-code
   fbcce091989c55b4  abct2326-organelles
   2778591486662eb1  abct2326-plasma-membrane
-  07f579f77cdd1ffd  abct2326-protein-synthesis
+  44a731c8c11d15db  abct2326-protein-synthesis
   2b91f9dc80a1466c  abct2326-renal-countercurrent-vasarecta
   fc7d13ec92f62e14  abct2326-renal-filtration-countercurrent
   36b997a4eaee1a21  abct2326-renal-nephron
