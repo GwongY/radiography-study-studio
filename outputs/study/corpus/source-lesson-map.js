@@ -757,7 +757,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-supporting"
         },
         {
           "ref": "hss.fib5yr",
@@ -2302,7 +2302,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
           "ref": "hss.manual1920",
@@ -2334,7 +2334,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
           "ref": "hss.manual1920",
@@ -2366,7 +2366,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
           "ref": "hss.manual1920",
@@ -2398,12 +2398,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
           "ref": "hss.manual1920",
@@ -2440,12 +2440,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
           "ref": "hss.manual1920",
@@ -2524,7 +2524,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
           "ref": "hss.revans",
@@ -2556,7 +2556,7 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 12,
       "title": "Kidneys and the urinary tract: gross anatomy, ureters, bladder, urethra, urothelium",
-      "status": "needs-review",
+      "status": "partial",
       "sources": [
         {
           "ref": "hss.3.2",
@@ -2566,7 +2566,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
           "ref": "hss.fib5yr",
@@ -2630,7 +2630,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
           "ref": "hss.fib5yr",
@@ -2667,7 +2667,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "needs-review"
+          "role": "older-fallback"
         },
         {
           "ref": "hss.fib5yr",
@@ -2759,6 +2759,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.1",
           "set": "old",
           "role": "older-supporting"
+        },
+        {
+          "ref": "phys.cells.tut",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -2779,6 +2784,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.1",
           "set": "old",
           "role": "older-supporting"
+        },
+        {
+          "ref": "phys.cells.tut",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -2799,6 +2809,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.1",
           "set": "old",
           "role": "older-supporting"
+        },
+        {
+          "ref": "phys.cells.tut",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -2819,6 +2834,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.1",
           "set": "old",
           "role": "older-supporting"
+        },
+        {
+          "ref": "phys.cells.tut",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -2839,6 +2859,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.1",
           "set": "old",
           "role": "older-supporting"
+        },
+        {
+          "ref": "phys.cells.tut",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -2859,6 +2884,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.1",
           "set": "old",
           "role": "older-supporting"
+        },
+        {
+          "ref": "phys.cells.tut",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -2879,6 +2909,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.1",
           "set": "old",
           "role": "older-supporting"
+        },
+        {
+          "ref": "phys.cells.tut",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -2899,9 +2934,21 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.1",
           "set": "old",
           "role": "older-supporting"
+        },
+        {
+          "ref": "phys.cells.tut",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "phys.tut",
+          "set": "old",
+          "role": "needs-review"
         }
       ],
-      "reasons": []
+      "reasons": [
+        "unresolved source (ambiguous catalogue identity)"
+      ]
     },
     "abct2326-muscle-neural-tissue": {
       "id": "abct2326-muscle-neural-tissue",
@@ -2919,6 +2966,16 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.1",
           "set": "old",
           "role": "older-supporting"
+        },
+        {
+          "ref": "phys.cells.tut",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "phys.cvs.tut",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -2959,6 +3016,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.1",
           "set": "old",
           "role": "older-supporting"
+        },
+        {
+          "ref": "phys.cells.tut",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -2974,6 +3036,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.2",
           "set": "old",
           "role": "older-fallback"
+        },
+        {
+          "ref": "phys.cvs.tut",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -2989,6 +3056,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "phys.2",
           "set": "old",
           "role": "older-fallback"
+        },
+        {
+          "ref": "phys.cvs.tut",
+          "set": "old",
+          "role": "assessment"
         }
       ],
       "reasons": []
@@ -3013,17 +3085,27 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "ABCT2326",
       "week": 2,
       "title": "The cardiac conducting system",
-      "status": "partial",
+      "status": "complete",
       "sources": [
         {
           "ref": "phys.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         },
         {
           "ref": "phys.2.supp",
           "set": "old",
           "role": "needs-review"
+        },
+        {
+          "ref": "phys.cvs.tut",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "phys.cvs.slides.2026",
+          "set": "new",
+          "role": "current-primary"
         }
       ],
       "reasons": [
@@ -3035,12 +3117,22 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "ABCT2326",
       "week": 2,
       "title": "ECG waves, the cardiac cycle and heart sounds",
-      "status": "partial",
+      "status": "complete",
       "sources": [
         {
           "ref": "phys.2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
+        },
+        {
+          "ref": "phys.cvs.tut",
+          "set": "old",
+          "role": "assessment"
+        },
+        {
+          "ref": "phys.cvs.slides.2026",
+          "set": "new",
+          "role": "current-primary"
         }
       ],
       "reasons": []
@@ -5607,37 +5699,37 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-osteo-pelvic-girdle",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-supporting"
       },
       {
         "lessonId": "hss2011-digestive-accessory-liver-pancreas",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-m3-urogenital-pelvis",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-uro-kidneys-urinary-tract",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-uro-male-reproductive-anatomy",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-uro-female-reproductive-pelvis",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       }
     ],
     "hss.ppans": [
@@ -6039,12 +6131,12 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "abct2326-cvs-conduction",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "abct2326-cvs-ecg-cycle",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "abct2326-msk-immune-overview",
@@ -6171,27 +6263,27 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-m3-digestive",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-digestive-tract-upper",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-digestive-tract-small-large-bowel",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-digestive-accessory-liver-pancreas",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       },
       {
         "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
         "set": "old",
-        "role": "needs-review"
+        "role": "older-fallback"
       }
     ],
     "phys.4": [
@@ -6394,6 +6486,97 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-supporting"
       }
     ],
+    "phys.cells.tut": [
+      {
+        "lessonId": "abct2326-cells-organisation",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-plasma-membrane",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-organelles",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-nucleus-genetic-code",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-protein-synthesis",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-cell-division",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-epithelium-classification",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-connective-tissue-classes",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-muscle-neural-tissue",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-feedback-loops",
+        "set": "old",
+        "role": "assessment"
+      }
+    ],
+    "phys.tut": [
+      {
+        "lessonId": "abct2326-connective-tissue-classes",
+        "set": "old",
+        "role": "needs-review"
+      }
+    ],
+    "phys.cvs.tut": [
+      {
+        "lessonId": "abct2326-muscle-neural-tissue",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-cvs-circuits",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-cvs-heart-structure",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-cvs-conduction",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-cvs-ecg-cycle",
+        "set": "old",
+        "role": "assessment"
+      },
+      {
+        "lessonId": "abct2326-cvs-hemodynamics-tutorial",
+        "set": "old",
+        "role": "assessment"
+      }
+    ],
     "phys.2.supp": [
       {
         "lessonId": "abct2326-cvs-conduction",
@@ -6401,11 +6584,16 @@ export const Y1S1_SOURCE_MAP = {
         "role": "needs-review"
       }
     ],
-    "phys.cvs.tut": [
+    "phys.cvs.slides.2026": [
       {
-        "lessonId": "abct2326-cvs-hemodynamics-tutorial",
-        "set": "old",
-        "role": "assessment"
+        "lessonId": "abct2326-cvs-conduction",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "abct2326-cvs-ecg-cycle",
+        "set": "new",
+        "role": "current-primary"
       }
     ],
     "phys.resp.tut": [

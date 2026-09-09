@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  d6bd042342df65c1   2153841  ITEM_BY_ID  Map[192]
+  fc3842e890eb5c4f   2160699  ITEM_BY_ID  Map[192]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -18,21 +18,21 @@
   f428292239abe4d6       199  PRIOR_KNOWLEDGE  object[1]
   98a503c7f71e10a2       285  REVEAL_MODES  array[3]
   f0a99ffb06d2f02a       740  SOCIOLOGY_NOTICE  object[5]
-  8de899bae39cf6ab     38613  SOURCE_FILES  object[118]
+  0b6cc509a9740cff     40124  SOURCE_FILES  object[121]
   fcd1b035a403732f        12  SOURCE_MAP_VERSION  string
   9131051cbbd87c06       539  SOURCE_ROOTS  object[18]
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   7a5c6765f6be6bb5     28619  STRUCTURE_SETS  object[13]
-  178c97265056f030   2147347  STUDY_ITEMS  array[192]
+  2131349d43e14c80   2154205  STUDY_ITEMS  array[192]
   983b09221060f435       570  STUDY_MODES  array[4]
   834fbc89b7e6fccf      4005  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
-  4415274a86fd3c08    112013  Y1S1_SOURCE_MAP  object[4]
+  b43b02ed19c5d01f    114556  Y1S1_SOURCE_MAP  object[4]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  c7ca3de1b8e8905a   2239585  default  object[7]
+  b59fec91979295ed   2247954  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   f8f5dd7feb96caac        72  entryStep  function
@@ -64,21 +64,21 @@
   ba048d6b42696398      2356  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  2212f9d6e9c35645  WHOLE SURFACE
+  294069a5af7bebe9  WHOLE SURFACE
 
 — every study item, by id — 192 items —
   0bb7587086de601d  abct2326-acquired-immunity
   a7df69d33cb970f5  abct2326-antibody-structure-classes
   085a7a5af9bcd9aa  abct2326-blood-composition
-  d61e47d105b1ecc7  abct2326-cell-division
-  960d1bbcbb80eade  abct2326-cells-organisation
+  1d675e219ed57d74  abct2326-cell-division
+  e87f4c90b5a7dbdc  abct2326-cells-organisation
   34d40827a14ad722  abct2326-complement
-  eef8ccac5a06900c  abct2326-connective-tissue-classes
+  e24f4273a5dca7de  abct2326-connective-tissue-classes
   73162528828ad665  abct2326-crossbridge-cycle
-  f5ed26e7b8271285  abct2326-cvs-circuits
-  41bf41309ae98cc4  abct2326-cvs-conduction
-  e96892d6e7a1ac95  abct2326-cvs-ecg-cycle
-  e023340f6d1c693b  abct2326-cvs-heart-structure
+  1aec934b04865fe5  abct2326-cvs-circuits
+  6b2bb19792d07409  abct2326-cvs-conduction
+  359b27aba1b8b88e  abct2326-cvs-ecg-cycle
+  80f08efbb136565c  abct2326-cvs-heart-structure
   1276099ec16c83c4  abct2326-cvs-hemodynamics-tutorial
   ab8ef950d1311e41  abct2326-digestive-hormones-colon
   d1826f0c7f85f387  abct2326-digestive-pathway
@@ -91,8 +91,8 @@
   7d1c4928debac5c0  abct2326-endocrine-pituitary-axes
   7d1e8cbd44d9e550  abct2326-endocrine-receptors
   0b0a981e0b7054ae  abct2326-endocrine-second-messengers
-  398aad6656149bfa  abct2326-epithelium-classification
-  b3d8c00d2d4a97ca  abct2326-feedback-loops
+  8becf3ff0c3f6567  abct2326-epithelium-classification
+  917b799465ec2a6f  abct2326-feedback-loops
   9d723b8f25fd19a2  abct2326-fibre-types-fuel
   f1dc77f7c34e94e8  abct2326-homeostasis
   b9521257e97e93a6  abct2326-immune-adaptive
@@ -103,17 +103,17 @@
   cbf961f5432383f5  abct2326-msk-bone-structure-remodeling
   3d593558c69fdcd2  abct2326-msk-immune-overview
   f7433878b9755efd  abct2326-muscle-action
-  531d91eb272eccbb  abct2326-muscle-neural-tissue
+  f4070a4776152dd8  abct2326-muscle-neural-tissue
   9c23a3846a63f995  abct2326-muscle-types
   7047a5693e1ec39a  abct2326-muscle-ultrastructure-energetics
   f3e696060532e4ae  abct2326-nervous-divisions
   320e0e626b0f42c8  abct2326-nervous-synapse-types-nt
   8bfcb7f5003816c6  abct2326-nervous-synaptic-refractory-neuroglia
   4cbfda9b6b7dbd06  abct2326-nmj-coupling
-  61ea7bc21cb6eee1  abct2326-nucleus-genetic-code
-  af24964e2a470d8f  abct2326-organelles
-  cd026452913c9738  abct2326-plasma-membrane
-  49de586639f61d67  abct2326-protein-synthesis
+  94eaa136fee84f32  abct2326-nucleus-genetic-code
+  34747c1c8e9dd731  abct2326-organelles
+  9282ef33ca882359  abct2326-plasma-membrane
+  1e644ac21fae0b84  abct2326-protein-synthesis
   6b897c242d3ba750  abct2326-renal-countercurrent-vasarecta
   35394df4165af76b  abct2326-renal-filtration-countercurrent
   02757833d3e3b9d5  abct2326-renal-nephron
