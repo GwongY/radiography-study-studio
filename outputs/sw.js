@@ -33,7 +33,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v157';
+const CACHE_VERSION = 'v158';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -179,6 +179,7 @@ const SHELL = [
   './term-gloss.js?v=5',
   './physiology.js?v=4',
   './physiology-mechanics.js',
+  './physiology-shape.js',
   './radiography.js?v=1',
   './schedule.js?v=1',
   './bodymap.js?v=4',
