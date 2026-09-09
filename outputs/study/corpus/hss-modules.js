@@ -3115,6 +3115,22 @@ export const HSS_MODULES = [
       {
         "ref": "hss.4.3",
         "location": "p32 \"Carpal Tunnel Syndrome (CTS) is associated by\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p15 \"A network of intersecting nerves originated\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p15 \"from ventral rami (C5-T1) that branches\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p15 \"into nerves supplying the upper limbs\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p27 \"All extensors are innervated by radial nerve (r n.)\""
       }
     ]
   },
@@ -4535,6 +4551,10 @@ export const HSS_MODULES = [
       {
         "ref": "hss.manual1920",
         "location": "p77 \"G6. Anterior tibial\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p33 \"Femoral n.: Hip flexor Knee extensor\""
       }
     ]
   },

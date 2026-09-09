@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  4bff4ff1fc2b5565   2142800  ITEM_BY_ID  Map[192]
+  9dd7e5ecb20fe43e   2143226  ITEM_BY_ID  Map[192]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -24,15 +24,15 @@
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   0099801ccdbb14b4     27670  STRUCTURE_SETS  object[13]
-  60e4642ad517dcbe   2136306  STUDY_ITEMS  array[192]
+  307c00ff7ff20776   2136732  STUDY_ITEMS  array[192]
   983b09221060f435       570  STUDY_MODES  array[4]
   834fbc89b7e6fccf      4005  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
-  16816f2d6099d1d9    111707  Y1S1_SOURCE_MAP  object[4]
+  4415274a86fd3c08    112013  Y1S1_SOURCE_MAP  object[4]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  64340e64bbff86d2   2228544  default  object[7]
+  b03e8878316cceac   2228970  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   ecbf07ccb87a7a5c       115  entryStep  function
@@ -64,7 +64,7 @@
   ba048d6b42696398      2356  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  caaf03d5fcf1b63f  WHOLE SURFACE
+  6c907fa3512f66c3  WHOLE SURFACE
 
 — every study item, by id — 192 items —
   da4a8e4ebeeb81b6  abct2326-acquired-immunity
@@ -165,7 +165,7 @@
   a34e4c68050eb7e6  hss2011-joints-rotator-cuff
   64633a73e3aac6ac  hss2011-joints-synovial-structure
   fd5befbacdf6f13e  hss2011-joints-synovial-types
-  926b688aec8bfa12  hss2011-lower-femoral-triangle-vessels-nerves
+  f80294506e82993a  hss2011-lower-femoral-triangle-vessels-nerves
   d9077d52ff817e4e  hss2011-lower-leg-foot-muscles-arches
   056542bffd9f8bde  hss2011-lower-thigh-gluteal-muscles
   a92adae3c8585592  hss2011-m1-heart-wall-valves
@@ -237,7 +237,7 @@
   a8d1b47da8035321  hss2011-thorax-mediastinum-divisions-contents
   8b6c3b4fa4f092e1  hss2011-thorax-regional-landmarks
   26637ad898bfddec  hss2011-thorax-tutorial-pastpaper-practice
-  389b0d0720a28d18  hss2011-upper-brachial-plexus-nerves
+  780220b79cbf1a9a  hss2011-upper-brachial-plexus-nerves
   b08426ccafb91520  hss2011-upper-limb-blood-vessels
   54068f1a9c71f74f  hss2011-upper-limb-muscles-compartments
   e9e46945bae2d1c0  hss2011-uro-female-reproductive-pelvis
