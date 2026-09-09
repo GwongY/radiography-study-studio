@@ -1312,6 +1312,18 @@ export const HSS_JOINTS = [
       {
         "ref": "hss.revans",
         "location": "p3 \"3. Supraspinatus; infraspinatus; teres minor; subscapularis\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p19 \"Rotator Cuff Muscle: stabilize shoulder joint\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p19 \"Supraspinatus\" — \"Infraspinatus\" — \"Subscapularis\" — \"Teres minor\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p20 \"Action\" — \"Main muscles involved\""
       }
     ]
   }

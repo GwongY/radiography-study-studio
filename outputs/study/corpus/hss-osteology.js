@@ -205,6 +205,10 @@ export const HSS_OSTEOLOGY = [
       {
         "ref": "hss.vocab",
         "location": "Glossary: Axial Skeleton; Appendicular Skeleton"
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p2 \"Appendicular skeleton (126)\" — \"Axial skeleton (80)\""
       }
     ]
   },
@@ -1019,6 +1023,14 @@ export const HSS_OSTEOLOGY = [
       {
         "ref": "hss.4.3",
         "location": "p19 \"Axillary nerve\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p2 \"Pectoral girdle\" — \"Bones (clavicle and scapula) in the appendicular skeleton that\" — \"connect the arm (humerus) to the axial skeleton (manubrium)\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p7 \"Glenohumeral Joint\" — \"(Ball & socket joint)\" — \"Head of humerus articulates\" — \"with the glenoid cavity of\" — \"the scapula\""
       }
     ]
   },
@@ -1251,6 +1263,26 @@ export const HSS_OSTEOLOGY = [
       {
         "ref": "hss.revans",
         "location": "p3 \"4. Trochlear notch\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p8 \"Radius—thumb side\" — \"Ulna—little finger side\" — \"Interosseous membrane\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p9 \"Elbow joint—hinge movement\" — \"(humeroulnar & humeroradial joint)\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p10 \"Elbow joint— rotational movement\" — \"(radioulnar joint)\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p11 \"Sam Likes To Push The Toy Car Hard\" — \"Wrist bones and wrist joints\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p12 \"Wrist (radiocarpal) joint\" — \"Condyloid joint\" — \"Intercarpal joint is a gliding joint\""
       }
     ]
   },
@@ -2287,6 +2319,18 @@ export const HSS_OSTEOLOGY = [
       {
         "ref": "hss.manual1920",
         "location": "p47 \"A. Acetabulum\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p4 \"The Pelvic girdle\" — \"Consists of a paired of hip bones that connect the lower limb to the axial skeleton\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p6 \"Sacroiliac joint (pelvic joint)\" — \"Hip bone (Ilium + Ischium + Pubis) joins with sacrum and coccyx to form bony pelvis\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p7 \"Epicondyle: for muscle attachment\" — \"Condyle: (for joint articulation\""
       }
     ]
   },
@@ -2536,6 +2580,18 @@ export const HSS_OSTEOLOGY = [
       {
         "ref": "hss.manual1920",
         "location": "p47 \"B. Tarsal bones\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p10 \"Tibia & Fibula (Right)\" — \"Proximal tibiofibular joint\" — \"Distal tibiofibular joint\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p12 \"Ankle joint (talocrural joint)—talus joining with:\" — \"Hinge joint\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p13 \"Subtalar joint (plane)—talus joining with calcaneus:\""
       }
     ]
   },
