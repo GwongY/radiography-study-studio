@@ -18,6 +18,11 @@ The workflow is the same for every subject:
 
 ### Lesson progress and viewer return (September 2026)
 
+New lessons start on Learn (1/4), including prior-knowledge lessons. Prior syllabus
+coverage cannot skip stages or mark Practise as visited. Saved per-lesson stages
+still restore normally. `work/new-lesson-progress-browser-check.js` covers direct,
+topic/search and next-item entry, plus saved Practise/Apply restoration.
+
 Lesson dots record the highest stage reached: Learn 1/4, Remember 2/4,
 Practise 3/4, Apply 4/4. Revisiting an earlier stage preserves that high-water
 mark; mastery remains a separate score. Lesson rows display all four saved
@@ -864,12 +869,11 @@ same rule the memory aids follow.
 ## Prior knowledge — what not to teach from zero
 
 Fifteen of the twenty-three ABCT2326 Human Physiology items cover material HKDSE Biology already
-taught. Teaching those from zero wastes the session and buries the two or three things the PolyU
-lecture actually adds on top, so they carry a `priorKnowledge` field and are **verified rather than
-taught**:
+taught. They carry a `priorKnowledge` field so the lesson can distinguish familiar
+background from what the PolyU lecture adds:
 
-- The session opens them on **Practise**, not Learn, with a banner saying why and a "Show the lesson
-  first" button for when the answer does not come.
+- New lessons open on **Learn**. Prior coverage affects teaching context and queue
+  ordering, but never counts as a stage the learner has visited.
 - Their **Learn card leads with "What this lecture adds beyond DSE Bio"** — the named lists, the
   terminology and the specific numbers from the lecture slides. The full explanation is not deleted;
   it drops into a fold at the foot of the card labelled as background you already have.
