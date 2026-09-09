@@ -128,7 +128,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `explosion-layout.js` | 16 | Pack only visible source meshes. Every projected bounding box gets its own cell. |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
 | `imports.js` | 97 | Block 0 has its own import scope -- block 1's copy is not visible here. |
-| `live-physiology.js` | 1352 | Live physiology |
+| `live-physiology.js` | 1372 | Live physiology |
 | `packed-spread.js` | 93 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
 | `region-boxes-how.js` | 499 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 249 | Search -> viewer: frame the part, then hide only what stands in front |
@@ -141,7 +141,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `assessments-and-marks.js` | 480 | Course — assessments, deadlines and the running mark |
-| `boot.js` | 78 | Boot |
+| `boot.js` | 79 | Boot |
 | `course-timetable.js` | 320 | Course — the syllabus and the timetable, with attendance |
 | `coverage-report.js` | 118 | Coverage report |
 | `dialog-behaviour-applied.js` | 125 | Dialog behaviour, applied to all seven at once |
@@ -253,6 +253,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/load-check.mjs` | Load-time verification for radiography-study-studio.html. |  |
 | `work/pack-privacy-check.mjs` | Question packs — the guard that the licensed half never leaves the device. |  |
 | `work/physiology-mechanics-check.mjs` |  |  |
+| `work/physiology-motion-preference-check.mjs` |  |  |
 | `work/physiology-path-profile.mjs` | Offline engineering profile, not an anatomical route generator. |  |
 | `work/physiology-shape-check.mjs` |  |  |
 | `work/progress-log-check.mjs` | Progress log — the replay contract. | [The progress log must reproduce the record, not resemble it](TRAPS.md#the-progress-log-must-reproduce-the-record-not-resemble-it--outputsstudyprogress-logjs-workprogress-log-checkmjs) |

@@ -37,6 +37,9 @@ metatarsals, rotator cuff, quadriceps, hamstrings, lung lobes and colon segments
 select their specific parts. Composite expansion goes
 from a group to its members without treating sibling structures as synonyms.
 Selection labels and pinned annotations track their mesh through Spread.
+Live physiology honours reduced motion at startup and when the OS preference changes.
+The Live button remains an explicit opt-in for the current page; returning to
+no preference does not restart motion. Check with `node work/physiology-motion-preference-check.mjs`.
 Live physiology has no speed control. Atrial contraction precedes an AV interval
 and ventricular contraction; chamber deformation reduces volume. The diaphragm
 descends with inspiration and each lung's lobes expand around one common centre.

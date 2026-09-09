@@ -5,7 +5,7 @@
  */
 import { $$, ui } from './imports.js';
 import { migrate } from './storage-versioned-keys.js';
-import { renderLearn } from './subject.js';
+import { renderLayerRail, renderLearn } from './subject.js';
 import { renderNavButtons } from './navigation-five-destinations.js';
 import { renderOverlayCard } from './spatial-overlay-controls.js';
 import { renderViewerTools } from './viewer-tools.js';
@@ -59,6 +59,7 @@ function askForPersistence() {
 }
 
 export function init() {
+  window.addEventListener('rss:physiologychange',renderLayerRail);
   askForPersistence();
   migrate();
   renderNavButtons();

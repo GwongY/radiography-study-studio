@@ -3,7 +3,7 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CLASSES, GRAZE_CLAMP, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, fluence, mottleSigma, mu, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
+import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CLASSES, GRAZE_CLAMP, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, fluence, mottleSigma, mu, prefersStill, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
 import { MEMORY_TIPS, answer, clean, openDetail, pool, record, regionLabel, selectBone, showToast } from './visualisation-modes.js';
 import { animate, applyVisibility, between, getRecord, tube } from './region-boxes-how.js';
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
@@ -268,10 +268,12 @@ export function applyConnectiveVisibility(){
     Object.values(state.extraModels).forEach(layer=>layer.meshes.forEach(m=>{if(!state.focus.keep.has(m))m.visible=false;}));
   }
 }
-export function setPhysiology(on){
-  state.flow.on=!!on;
+export function setPhysiology(on, explicit=false){
+  if(explicit)state.flow.motionOptIn=!!on;
+  on=!!on && (!state.flow.reducedMotion || state.flow.motionOptIn);
+  state.flow.on=on;
   // Spread needs an undeformed model immediately for its layout measurements.
-  if(!on&&state.separation){
+  if(!on&&(state.separation||state.flow.reducedMotion)){
     state.flow.blend=0;
     state.flow.uOn.value=0;
     Object.values(state.flow.classes).forEach(u=>{if(u.uDeform)u.uDeform.value=0;});
@@ -279,6 +281,7 @@ export function setPhysiology(on){
     (state.flow.activity||[]).forEach(u=>{u.uDeform.value=0;});
   }
   applyConnectiveVisibility();
+  window.dispatchEvent(new CustomEvent('rss:physiologychange'));
   return state.flow.on;
 }
 
@@ -1345,7 +1348,24 @@ export function endMovement(){
 
 /* Runs after every part has evaluated — see the entry point. */
 export function init() {
-  state.flow = { on:true, blend:1, uT:{value:0}, uOn:{value:1}, classes:{}, counts:{}, connective:[] };
+  state.flow?.disposeMotionPreference?.();
+  const reducedMotion=prefersStill();
+  state.flow = { on:!reducedMotion, blend:reducedMotion?0:1, reducedMotion, motionOptIn:false,
+    uT:{value:0}, uOn:{value:reducedMotion?0:1}, classes:{}, counts:{}, connective:[] };
+  if(typeof matchMedia==='function'){
+    const preference=matchMedia('(prefers-reduced-motion: reduce)');
+    const change=event=>{
+      state.flow.reducedMotion=event.matches;
+      if(event.matches){state.flow.motionOptIn=false;setPhysiology(false);}
+    };
+    if(preference.addEventListener){
+      preference.addEventListener('change',change);
+      state.flow.disposeMotionPreference=()=>preference.removeEventListener('change',change);
+    }else if(preference.addListener){
+      preference.addListener(change);
+      state.flow.disposeMotionPreference=()=>preference.removeListener(change);
+    }
+  }
   state.focus=null;
   state.xray=null;
   state.movement=null;
