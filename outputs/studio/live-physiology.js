@@ -12,6 +12,7 @@ import { showPickCallout } from './spatial-concept-overlays.js';
 import { setSeparation, setTool } from './tools-and-capture.js';
 import { advancePhysiology } from '../physiology.js?v=4';
 import { MOTOR_ROUTES, motorRoute, motorSequence, transmissionField } from '../physiology-mechanics.js';
+import { deriveShape } from '../physiology-shape.js';
 
 /* ------------------------------------------------------------------ *
  * Live physiology
@@ -139,38 +140,13 @@ function installFlow(mesh,cls){
     const g=mesh.geometry;
     if(!g.boundingBox) g.computeBoundingBox();
     const bb=g.boundingBox;
-    const size=[bb.max.x-bb.min.x,bb.max.y-bb.min.y,bb.max.z-bb.min.z];
-    const longest=size.indexOf(Math.max(...size));
-    mLength=Math.max(size[longest],1e-6);
-    mCenter=new state.THREE.Vector3((bb.min.x+bb.max.x)/2,(bb.min.y+bb.max.y)/2,(bb.min.z+bb.max.z)/2);
-    if(mesh.userData.flowCenter)mCenter.copy(mesh.userData.flowCenter);
-    const mode=rule.mode;
-    if(mode==='descend'){
-      mAxis=new state.THREE.Vector3(0,1,0).transformDirection(new state.THREE.Matrix4().copy(mesh.matrixWorld).invert());
-      mLength=Math.abs(mAxis.x)*size[0]+Math.abs(mAxis.y)*size[1]+Math.abs(mAxis.z)*size[2];
-      mAmt=mLength*.08;
-    }else if(mode==='inflate'){
-      /* A lung expands evenly from its own centre; the contract squash would
-         read as the lung being squeezed, not breathing. */
-      mAxis=new state.THREE.Vector3(0,1,0);
-      mAmt=rule.inflate||.05;
-    }else if(mode==='peristalsis'){
-      /* The tube direction is taken as the mesh's longest axis, and a narrow
-         band of constriction travels along it, pinching perpendicular at the
-         front. */
-      mAxis=new state.THREE.Vector3(longest===0?1:0,longest===1?1:0,longest===2?1:0);
-      mAmt=rule.pinch||.18;
-    }else{
-      mAxis=new state.THREE.Vector3(longest===0?1:0,longest===1?1:0,longest===2?1:0);
-      /* A long strap muscle shortens visibly; a short stubby one barely moves in
-         life either, so the amount tracks how elongated the mesh actually is --
-         unless the rule sets its own squeeze ('contract: 0.14'), as the heart
-         chambers do. */
-      const ratio=Math.max(...size)/(Math.min(...size)||1e-4);
-      mAmt=(typeof rule.contract==='number'&&rule.contract>0)
-        ?rule.contract
-        :Math.min(.11,.03+.014*Math.min(6,ratio));
-    }
+    const context={sharedCentre:mesh.userData.flowCenter?.toArray()};
+    if(rule.mode==='descend')context.anatomicalUp=new state.THREE.Vector3(0,1,0)
+      .transformDirection(new state.THREE.Matrix4().copy(mesh.matrixWorld).invert()).toArray();
+    const shape=deriveShape({bounds:{min:bb.min.toArray(),max:bb.max.toArray()},rule,context});
+    mCenter=new state.THREE.Vector3(...shape.centre);
+    mAxis=new state.THREE.Vector3(...shape.axis);
+    mLength=shape.length;mAmt=shape.amount;
   }
   /* The deformed and colour-only meshes of a class compile to different
      programs, so the cache key has to name the variant or the first to compile

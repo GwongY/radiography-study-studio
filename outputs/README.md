@@ -68,6 +68,14 @@ Further checks: `work/search-accuracy-check.mjs`,
 `work/reported-regressions-browser-check.js` checks the displayed lesson stages,
 exit/reopen, search alignment, selection labels and restored animation coverage.
 
+The rest-space shape derivation is isolated in `physiology-shape.js`. This first
+extraction preserves the existing bbox-based motion and injected GLSL. Run
+`node work/physiology-shape-check.mjs` for real-model parameter parity. The
+`physiology-shape-browser-check.js` function captures/compares actual shader
+positions and normals through WebGL2 transform feedback on the same browser.
+Path cost evidence and the future offline-payload contract are in
+`docs/superpowers/notes/2026-09-09-physiology-path-contract.md`.
+
 ### Viewer workspace and projection (September 2026)
 
 Explore and Tools share a dock inside the viewer. Each panel scrolls independently;
