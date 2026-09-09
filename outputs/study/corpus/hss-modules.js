@@ -2912,34 +2912,31 @@ export const HSS_MODULES = [
       "foundation"
     ],
     "lesson": {
-      "explanation": "The brachial plexus is the complex somatic neural network responsible for complete motor and sensory innervation of the pectoral girdle and upper appendicular limb. Formed by the anterior (ventral) rami of spinal nerves arising from spinal cord segments C5 through T1 (with variable contributions from C4 or T2), the plexus originates in the posterior triangle of the neck and courses through the cervicoaxillary canal posterior to the clavicle and over the first rib into the axilla. Structurally, the brachial plexus is organized from proximal to distal into five distinct anatomical zones (remembered by the mnemonic \"Roots, Trunks, Divisions, Cords, Branches\"): 1. Roots (5): The anterior rami of spinal nerves C5, C6, C7, C8, and T1 emerge in the neck between the anterior scalene and middle scalene muscles. 2. Trunks (3): In the lower neck, roots unite into three primary trunks: C5 and C6 merge to form the Superior trunk; C7 continues independently as the Middle trunk; C8 and T1 unite to form the Inferior trunk. 3. Divisions (6): As the trunks pass posterior to the clavicle over the first rib, each trunk divides into an anterior division and a posterior division. The three anterior divisions supply the anterior (flexor) compartments of the upper limb, while the three posterior divisions supply the posterior (extensor) compartments. 4. Cords (3): In the axilla, the divisions regroup into three large cords named strictly according to their spatial orientation relative to the second part of the axillary artery: the Lateral cord (formed by the anterior divisions of the superior and middle trunks), the Posterior cord (formed by the union of all three posterior divisions, containing C5–T1 fibers), and the Medial cord (formed as the direct continuation of the anterior division of the inferior trunk, containing C8–T1 fibers). 5. Terminal Branches: The cords terminate as five major peripheral nerves: (a) The Musculocutaneous nerve (C5–C7, from the lateral cord) pierces the coracobrachialis muscle, innervates all three muscles of the anterior arm flexor compartment (biceps brachii, brachialis, coracobrachialis), and terminates as the lateral cutaneous nerve of the forearm. (b) The Axillary nerve (C5–C6, from the posterior cord) passes through the quadrangular space, winds around the surgical neck of the humerus, and innervates the deltoid and teres minor muscles while providing sensation to the skin over the lower deltoid (\"regimental badge\" area). (c) The Radial nerve (C5–T1, the largest terminal branch from the posterior cord) spirals down the posterior humerus in the radial groove, innervates the triceps brachii in the arm, all extensor muscles of the forearm, and supplies cutaneous sensation to the posterior arm, posterior forearm, and dorsolateral hand. Midshaft humeral fractures frequently injure the radial nerve, causing motor paralysis of wrist and finger extensors resulting in clinical wrist drop. (d) The Median nerve (C5–T1, formed by converging roots from both lateral and medial cords) descends the medial arm alongside the brachial artery, crosses the cubital fossa, innervates almost all anterior forearm flexor and pronator muscles (except flexor carpi ulnaris and medial flexor digitorum profundus), passes beneath the flexor retinaculum through the carpal tunnel, and supplies the three thenar muscles and lateral two lumbricals; compression within the carpal tunnel causes Carpal Tunnel Syndrome (CTS). (e) The Ulnar nerve (C8–T1, from the medial cord) descends medially, passes behind the medial epicondyle of the humerus (in the cubital tunnel, where it is vulnerable to trauma as the \"funny bone\"), innervates flexor carpi ulnaris, the medial half of flexor digitorum profundus, and the majority of intrinsic hand muscles (hypothenar muscles, all interossei, medial two lumbricals, and adductor pollicis), providing cutaneous sensation to the medial 1.5 digits; severe injury causes claw hand deformity.",
-      "plain": "The brachial plexus is the nerve superhighway supplying the entire arm, formed by spinal nerves C5, C6, C7, C8, and T1. As it travels from the neck into the armpit (axilla), it divides and reconnects through five stages: Roots, Trunks, Divisions, Cords, and Branches. The five major terminal nerves it creates are: 1. Musculocutaneous nerve (powers the biceps and arm flexors); 2. Axillary nerve (winds around the humerus neck to power the deltoid shoulder muscle); 3. Radial nerve (travels down the back of the arm to power all triceps and wrist extensors; damage causes \"wrist drop\"); 4. Median nerve (runs through the carpal tunnel to power thumb and forearm flexors; pinched in Carpal Tunnel Syndrome); 5. Ulnar nerve (runs behind the elbow \"funny bone\" to power fine finger muscles; damage causes \"claw hand\").",
+      "explanation": "The brachial plexus is a network of intersecting nerves originated from ventral (anterior) rami of spinal nerves C5 through T1 that branches into nerves supplying the upper limbs. The anterior rami emerge from the spinal cord segments C5–T1 in the neck and cross over the first rib posterior to the clavicle to enter the axilla. From these roots, trunks converge (superior, middle, and inferior trunks) and ultimately divide into the five major terminal peripheral nerves that provide motor and sensory innervation to the pectoral girdle and upper limb: 1. Musculocutaneous nerve: Arises to innervate the muscles of the anterior arm flexor compartment, specifically the biceps brachii (a powerful flexor and supinator of the forearm) and brachialis (the primary elbow flexor). 2. Axillary nerve: Innervates the deltoid muscle, which functions as the primary abductor of the arm at the shoulder joint. 3. Radial nerve: Supplies the posterior compartments of the upper limb, innervating the triceps brachii (sole extensor of the forearm at the elbow) and all extensor muscles in the extensor compartment of the forearm (extending the wrist, digits, and thumb). 4. Median nerve: Descends into the upper limb to innervate muscles in the flexor compartment of the forearm (including flexor carpi radialis, flexor digitorum superficialis, flexor pollicis longus, pronator quadratus, and lateral flexor digitorum profundus) and thenar muscles of the thumb; the median nerve traverses the wrist through the carpal tunnel, and its compression beneath the flexor retinaculum produces Carpal Tunnel Syndrome (CTS). 5. Ulnar nerve: Travels along the medial aspect of the limb, supplying the flexor carpi ulnaris, the medial half of the flexor digitorum profundus in the forearm flexor compartment, and the majority of the intrinsic muscles of the hand (including the hypothenar muscles, all interossei, and medial lumbricals). In the axilla, branches of the brachial plexus take the shape of the letter M across the axillary vessels, formed by the musculocutaneous nerve laterally, the median nerve in the middle, and the ulnar nerve medially.",
+      "plain": "The brachial plexus is the nerve network supplying the upper limb, formed by the ventral rami of spinal nerves C5 to T1. As it travels over the first rib into the armpit, it gives rise to five major terminal nerves: 1. Musculocutaneous nerve (powers the biceps and arm flexors); 2. Axillary nerve (powers the deltoid to abduct the arm); 3. Radial nerve (powers the triceps and all forearm wrist and finger extensors); 4. Median nerve (powers forearm flexors and passes through the carpal tunnel; compressed in Carpal Tunnel Syndrome); 5. Ulnar nerve (powers forearm flexor carpi ulnaris and fine intrinsic hand muscles).",
       "keyFacts": [
-        "Spinal nerve roots: anterior rami of C5, C6, C7, C8, and T1.",
-        "Five anatomical zones: Roots (5) → Trunks (3) → Divisions (6) → Cords (3) → Branches (5).",
-        "Three trunks: Superior (C5+C6), Middle (C7), Inferior (C8+T1).",
-        "Divisions: 3 anterior (flexor compartments) and 3 posterior (extensor compartments).",
-        "Three cords (relative to axillary artery): Lateral, Posterior (all 3 posterior divisions), Medial.",
-        "Musculocutaneous nerve (lateral cord): innervates anterior arm flexors (biceps brachii, brachialis, coracobrachialis).",
-        "Axillary nerve (posterior cord): winds around surgical neck of humerus; innervates deltoid and teres minor.",
-        "Radial nerve (posterior cord): innervates triceps brachii and all forearm extensors; injury causes wrist drop.",
-        "Median nerve (lateral + medial cords): traverses carpal tunnel; innervates forearm flexors and thenar muscles; compressed in CTS.",
-        "Ulnar nerve (medial cord): passes behind medial epicondyle; innervates intrinsic hand muscles; injury causes claw hand."
+        "Spinal nerve roots: anterior (ventral) rami of C5, C6, C7, C8, and T1.",
+        "Course: emerges from spinal segments C5–T1 and passes over the first rib behind the clavicle into the axilla.",
+        "Musculocutaneous nerve: innervates anterior arm flexors (biceps brachii, brachialis).",
+        "Axillary nerve: innervates the deltoid muscle (abductor of the arm).",
+        "Radial nerve: innervates triceps brachii and all muscles of the forearm extensor compartment.",
+        "Median nerve: innervates forearm flexors and thenar muscles; traverses the carpal tunnel (compressed in CTS).",
+        "Ulnar nerve: innervates flexor carpi ulnaris and intrinsic muscles of the hand.",
+        "M-shaped configuration: musculocutaneous nerve runs laterally, median nerve runs in the middle, and ulnar nerve runs medially."
       ],
       "prerequisites": [
         "hss2011-joints-classification",
         "hss2011-osteo-pectoral-girdle"
       ],
       "examples": [
-        "A midshaft humeral fracture injures the radial nerve traversing the radial groove, causing acute inability to extend the wrist and fingers (wrist drop).",
-        "Trauma to the surgical neck of the humerus injures the axillary nerve, resulting in paralysis and wasting of the deltoid muscle with loss of sensation over the lateral shoulder."
+        "Trauma to the upper limb disrupting the radial nerve denervates the triceps brachii and the posterior forearm compartment, disabling wrist and finger extension.",
+        "Increased intracarpal pressure beneath the flexor retinaculum compresses the median nerve within the carpal tunnel, producing numbness and pain in Carpal Tunnel Syndrome."
       ]
     },
     "memory": {
-      "firstLetter": "Five zones in order: Roots, Trunks, Divisions, Cords, Branches (\"Remember To Drink Cold Beer\").",
-      "comparison": "Radial vs Median vs Ulnar motor domains: Radial = ALL extensors (triceps + dorsal forearm); Median = MOST flexors + thumb thenar; Ulnar = intrinsic hand fine-motor (all interossei + hypothenar).",
-      "visualCue": "The M-shaped bridge: in the axilla, the lateral cord, median nerve, and medial cord form a distinct capital \"M\" over the front of the axillary artery.",
-      "teachBack": "Trace each of the five terminal branches from its cord origin to its primary muscle compartment, and explain the characteristic clinical deformity when each is damaged."
+      "comparison": "Three main arm/forearm nerve domains: Radial nerve = ALL extensors (triceps + dorsal forearm); Median nerve = MOST forearm flexors + thenar thumb; Ulnar nerve = FCU + intrinsic hand fine-motor muscles.",
+      "visualCue": "The letter 'M': Three branches form an 'M' in the axilla: Musculocutaneous laterally, Median in the middle, Ulnar medially.",
+      "teachBack": "State which spinal nerve roots form the brachial plexus (C5–T1), trace its passage over the first rib, and match the 5 terminal nerves to their primary muscle compartments."
     },
     "practice": [
       {
@@ -2952,7 +2949,7 @@ export const HSS_MODULES = [
           ],
           [
             "Axillary nerve",
-            "Deltoid and teres minor"
+            "Deltoid and arm abduction"
           ],
           [
             "Radial nerve",
@@ -2964,7 +2961,7 @@ export const HSS_MODULES = [
           ],
           [
             "Ulnar nerve",
-            "Intrinsic hand muscles (interossei and hypothenar)"
+            "Intrinsic hand muscles and flexor carpi ulnaris"
           ]
         ],
         "explanation": "The five primary terminal motor distributions of the brachial plexus."
@@ -2987,7 +2984,7 @@ export const HSS_MODULES = [
       },
       {
         "type": "cloze",
-        "prompt": "Carpal Tunnel Syndrome (CTS) is caused by compression of the ______ nerve travelling through the wrist beneath the flexor retinaculum.",
+        "prompt": "Carpal Tunnel Syndrome (CTS) is associated by signs and symptoms that are caused by the compression of the ______ nerve travelling through the wrist.",
         "accept": [
           "median",
           "median nerve",
@@ -2999,41 +2996,30 @@ export const HSS_MODULES = [
           "ref": "hss.4.3",
           "location": "p32 \"Carpal Tunnel Syndrome (CTS) is associated by\""
         }
-      },
-      {
-        "type": "typed",
-        "prompt": "Fracture of the midshaft of the humerus damages which nerve in the radial groove, causing wrist drop?",
-        "accept": [
-          "radial",
-          "radial nerve",
-          "Radial",
-          "Radial nerve"
-        ],
-        "explanation": "The radial nerve spirals down the posterior humerus in the radial groove; damage denervates the forearm extensors."
       }
     ],
     "application": [
       {
         "type": "scenario",
-        "prompt": "A patient involved in a motorcycle accident suffers a severe traction injury to the right shoulder and arm. Clinical evaluation demonstrates loss of elbow flexion and supination power, with absent cutaneous sensation over the lateral forearm. Identify the specific peripheral nerve injured, its cord of origin in the brachial plexus, and the paralyzed muscles.",
-        "model": "The injured nerve is the musculocutaneous nerve, which arises from the lateral cord of the brachial plexus (C5–C7). It innervates the muscles of the anterior flexor compartment of the arm: the biceps brachii (the powerful elbow flexor and supinator), brachialis (primary elbow flexor), and coracobrachialis. Its sensory continuation is the lateral cutaneous nerve of the forearm, explaining the lateral forearm numbness.",
+        "prompt": "A patient experiences a severe traction injury to the upper limb resulting in damage to the musculocutaneous nerve. Clinical evaluation demonstrates marked weakness in elbow flexion and forearm supination. Identify the anatomical compartment and the specific muscles affected by this nerve injury.",
+        "model": "The musculocutaneous nerve innervates the muscles of the anterior flexor compartment of the arm, primarily the biceps brachii (a powerful flexor and supinator of the forearm) and the brachialis (the primary elbow flexor). Denervation results in profound loss of elbow flexion strength and impaired supination.",
         "rubric": [
           "Identifies the musculocutaneous nerve",
-          "Identifies the lateral cord of the brachial plexus",
-          "Identifies biceps brachii and brachialis as the paralyzed muscles"
+          "Identifies the anterior flexor compartment of the arm",
+          "Identifies biceps brachii and brachialis as the affected muscles"
         ]
       }
     ],
     "commonMistakes": [
-      "Confusing the radial nerve (all extensors) with the median nerve (most flexors).",
-      "Believing the brachial plexus arises from posterior rami; it is strictly formed by anterior (ventral) rami.",
-      "Thinking the ulnar nerve supplies the thenar muscles; the thenar muscles are supplied by the recurrent branch of the median nerve."
+      "Confusing the radial nerve (all extensors) with the median nerve (forearm flexors).",
+      "Believing the brachial plexus arises from posterior rami; it is strictly formed by anterior (ventral) rami (C5–T1).",
+      "Forgetting that the flexor compartment of the forearm is shared between the median nerve (majority) and ulnar nerve (FCU and medial FDP)."
     ],
     "skills": [
-      "Locate peripheral nerve injuries by functional deficit: wrist drop = radial nerve; ape thumb / thenar wasting = median nerve; claw hand = ulnar nerve; loss of arm abduction = axillary nerve.",
-      "Recognize that anterior divisions supply flexor compartments, while posterior divisions supply extensor compartments."
+      "Recall the roots of the brachial plexus as anterior rami of C5–T1.",
+      "Assign the 5 major terminal branches to their muscle compartments: axillary to deltoid, musculocutaneous to anterior arm, radial to all extensors, median to forearm flexors/carpal tunnel, and ulnar to FCU and intrinsic hand muscles."
     ],
-    "selfCheck": "From memory: list the spinal roots of the brachial plexus, name the five zones (R-T-D-C-B), and identify the five terminal nerves with their compartment targets.",
+    "selfCheck": "From memory: list the spinal roots of the brachial plexus (C5–T1), name the path over the first rib, and match the five terminal nerves to their target muscle compartments.",
     "visuals": [
       {
         "fig": "brachialPlexus"
@@ -3104,10 +3090,6 @@ export const HSS_MODULES = [
       },
       {
         "ref": "hss.4.3",
-        "location": "p27 \"Transverse section of forearm\""
-      },
-      {
-        "ref": "hss.4.3",
         "location": "p27 \"Flexor Compartment:\""
       },
       {
@@ -3136,6 +3118,7 @@ export const HSS_MODULES = [
       }
     ]
   },
+
   {
     "id": "hss2011-upper-limb-muscles-compartments",
     "subject": "HSS2011",
@@ -3149,8 +3132,8 @@ export const HSS_MODULES = [
       "foundation"
     ],
     "lesson": {
-      "explanation": "The skeletal muscles of the upper limb are organized into distinct functional fascial compartments separated by tough intermuscular septa and deep fascia, each compartment grouping muscles with common mechanical actions and shared innervation. 1. Muscles of the Arm (Brachium): The arm is divided by lateral and medial intermuscular septa into an anterior (flexor) and a posterior (extensor) compartment. In the anterior compartment, the primary muscle is the biceps brachii, featuring two heads: a short head originating from the coracoid process of the scapula and a long head originating from the supraglenoid tubercle (passing through the shoulder joint cavity inside the intertubercular groove); the muscle inserts via a tendon onto the radial tuberosity and through the bicipital aponeurosis into the deep fascia of the medial forearm. The biceps brachii muscle is a powerful flexor and supinator of the forearm (functioning most powerfully in rapid supination against resistance when the elbow is flexed at 90 degrees). Lying deep to biceps is brachialis, the pure workhorse flexor of the elbow. All anterior arm muscles are innervated by the musculocutaneous nerve. In the posterior compartment sits the triceps brachii, possessing three distinct origins: a long head originating from the infraglenoid tubercle of the scapula, and lateral and medial heads originating from the posterior shaft of the humerus above and below the radial groove. All three heads unite into a massive common tendon inserting onto the olecranon process of the ulna. Triceps brachii is the sole extensor of the forearm at the elbow joint and is innervated by the radial nerve. 2. Muscles of the Forearm (Antebrachium): The antebrachium is divided into an anterior flexor compartment and a posterior extensor compartment. Muscles of the flexor compartment originate primarily from a common flexor tendon attached to the medial epicondyle of the humerus; they act to flex the wrist and fingers and pronate the forearm. These muscles (including flexor digitorum superficialis and flexor digitorum profundus) are innervated by the Median Nerve and Ulnar Nerve. Muscles of the extensor compartment originate from a common extensor tendon attached to the lateral epicondyle of the humerus; they include the extensor digitorum, extensor pollicis longus, and wrist extensors, acting to extend the wrist, digits, and thumb, and supinate the forearm. All muscles of the extensor compartment are innervated by the Radial Nerve. 3. Major Shoulder Girdle Movers: Operating the shoulder girdle are powerful extrinsic motors: the deltoid, a powerful abductor of the arm innervated by the axillary nerve; pectoralis major, responsible for flexion, adduction, and medial rotation of the humerus (innervated by pectoral nerves); and latissimus dorsi, responsible for adduction, extension, and medial rotation of the humerus (innervated by the thoracodorsal nerve).",
-      "plain": "Muscles in the arm and forearm live in separate muscular rooms called compartments. In the upper arm, the front room houses the biceps brachii (a powerful flexor that bends the elbow and supinates the forearm to turn your palm up, powered by the musculocutaneous nerve). The back room houses the triceps brachii (which attaches to the olecranon elbow tip to straighten the arm, powered by the radial nerve). In the forearm, all the flexor muscles that curl your wrist and fingers attach to a common flexor tendon on the inside elbow bump (medial epicondyle) and are controlled by the median and ulnar nerves. All the extensor muscles that straighten your wrist and fingers attach to a common extensor tendon on the outside elbow bump (lateral epicondyle) and are controlled by the radial nerve. Around the shoulder, the deltoid lifts the arm up, while pectoralis major and latissimus dorsi pull it down and rotate it in.",
+      "explanation": "The skeletal muscles of the upper limb are organized into distinct functional fascial compartments separated by tough intermuscular septa and deep fascia, each compartment grouping muscles with common mechanical actions and shared innervation. 1. Muscles of the Arm (Brachium): The arm is divided by lateral and medial intermuscular septa into an anterior (flexor) and a posterior (extensor) compartment. In the anterior compartment, the primary muscle is the biceps brachii, featuring two heads: a short head originating from the coracoid process of the scapula and a long head originating from the supraglenoid tubercle (passing through the shoulder joint cavity inside the intertubercular groove); the muscle inserts via a tendon onto the radial tuberosity and through the bicipital aponeurosis into the deep fascia of the medial forearm. The biceps brachii muscle is a powerful flexor and supinator of the forearm (functioning most powerfully in rapid supination against resistance when the elbow is flexed at 90 degrees). Lying deep to biceps is brachialis, the pure workhorse flexor of the elbow. All anterior arm muscles are innervated by the musculocutaneous nerve. In the posterior compartment sits the triceps brachii, possessing three distinct origins: a long head originating from the infraglenoid tubercle of the scapula, and lateral and medial heads originating from the posterior shaft of the humerus above and below the radial groove. All three heads unite into a massive common tendon inserting onto the olecranon process of the ulna. Triceps brachii is the sole extensor of the forearm at the elbow joint and is innervated by the radial nerve. 2. Muscles of the Forearm (Antebrachium): The antebrachium is divided into an anterior flexor compartment and a posterior extensor compartment. Muscles of the flexor compartment originate primarily from a common flexor tendon attached to the medial epicondyle of the humerus; they act to flex the wrist and fingers and pronate the forearm. These muscles (including flexor digitorum superficialis and flexor digitorum profundus) are innervated by the Median Nerve and Ulnar Nerve. Muscles of the extensor compartment originate from a common extensor tendon attached to the lateral epicondyle of the humerus; they include the extensor digitorum, extensor pollicis longus, and wrist extensors, acting to extend the wrist, digits, and thumb, and supinate the forearm. All muscles of the extensor compartment are innervated by the Radial Nerve. 3. Major Shoulder and Arm Movers: Operating the arm across the glenohumeral joint are powerful extrinsic motors: the deltoid (abducts arm; anterior part flexes/medially rotates, posterior part extends/laterally rotates; axillary nerve); pectoralis major (flexes, adducts, and medially rotates arm; pectoral nerves); latissimus dorsi (extends, adducts, and medially rotates arm, pulling it down, back, and inward; thoracodorsal nerve); and teres major (extends, adducts, and medially rotates the arm, synergistically pulling the arm down, back, and inward). 4. Muscles That Move the Pectoral Girdle (Scapular Movers): Suspension and precise positioning of the scapula are performed by muscular slings: (a) Trapezius: elevates, retracts, depresses, and assists upward scapular rotation (turning the glenoid cavity upward to enable full arm elevation); (b) Levator scapulae: elevates and assists downward scapular rotation; (c) Rhomboid major and minor: retract, assist elevation, and assist downward scapular rotation; (d) Serratus anterior: protracts and rotates the scapula upward; (e) Pectoralis minor: depresses, protracts, and assists downward scapular rotation. 5. Intrinsic Muscles of the Hand (5 Compartments): Intrinsic hand muscles are grouped into 5 compartments: (a) Thenar compartment at the lateral thumb base; (b) Hypothenar compartment at the medial digit 5 base; (c) Adductor compartment containing adductor pollicis; (d) Central compartment containing the lumbricals (each lumbrical arises from a tendon of flexor digitorum profundus [FDP]; they flex metacarpophalangeal joints and extend interphalangeal joints); (e) Interosseous compartments containing palmar interossei (which adduct the 2nd, 4th, and 5th digits toward the middle digit) and dorsal interossei (which abduct the 2nd to 4th digits away from the middle digit).",
+      "plain": "Muscles in the arm and forearm live in separate muscular rooms called compartments. In the upper arm, the front room houses the biceps brachii (a powerful flexor that bends the elbow and supinates the forearm to turn your palm up, powered by the musculocutaneous nerve). The back room houses the triceps brachii (which attaches to the olecranon elbow tip to straighten the arm, powered by the radial nerve). In the forearm, flexor muscles curl your wrist and fingers from the medial epicondyle (median and ulnar nerves), while extensor muscles straighten your wrist and fingers from the lateral epicondyle (radial nerve). Scapular movers position the shoulder blade: trapezius (elevates, retracts, depresses, upwardly rotates), serratus anterior (protracts, upwardly rotates), levator scapulae (elevates, downwardly rotates), rhomboids (retract, downwardly rotate), and pectoralis minor (depresses, protracts). Teres major extends, adducts, and medially rotates the arm alongside latissimus dorsi. In the hand, intrinsic muscles occupy 5 compartments: thenar, hypothenar, adductor, central (lumbricals originating from FDP tendons), and interosseous (palmar interossei adduct digits; dorsal interossei abduct digits).",
       "keyFacts": [
         "Anterior arm compartment: biceps brachii, brachialis, coracobrachialis (innervated by musculocutaneous nerve).",
         "Biceps brachii: two heads (short from coracoid, long from supraglenoid tubercle); powerful flexor and supinator of forearm.",
@@ -3161,6 +3144,9 @@ export const HSS_MODULES = [
         "Deltoid: powerful abductor of the arm; innervated by axillary nerve.",
         "Pectoralis major: responsible for flexion, adduction, and medial rotation of humerus; innervated by pectoral nerves.",
         "Latissimus dorsi: responsible for adduction, extension, and medial rotation of humerus; innervated by thoracodorsal nerve.",
+        "Teres major: extends, adducts, and medially rotates the arm (pulls arm down, back, and inward).",
+        "Scapular movers: Trapezius (elevate, retract, depress, upward rotation), Serratus anterior (protract, upward rotation), Levator scapulae (elevate, downward rotation), Rhomboids (retract, downward rotation), Pectoralis minor (depress, protract, downward rotation).",
+        "Hand intrinsic compartments (5): thenar, hypothenar, adductor, central (lumbricals arise from FDP tendons), interosseous (palmar interossei adduct digits; dorsal interossei abduct digits).",
         "Medial epicondylitis (\"golfer’s elbow\") affects flexor origin; lateral epicondylitis (\"tennis elbow\") affects extensor origin."
       ],
       "prerequisites": [
@@ -3422,6 +3408,34 @@ export const HSS_MODULES = [
       {
         "ref": "hss.revans",
         "location": "p3 \"2. Triceps brachii\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p16 \"Muscles that move the pectoral girdle\" — \"Trapezius: elevate, retract, depress, assist scapular rotation (upward)\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p16 \"Levator scapulae: elevate, assist scapular rotation (downward)\" — \"Serratus anterior: protract, rotate (upward) scapula\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p16 \"Rhomboid major and minor: retract, assist elevation and scapular rotation (downward)\" — \"Pectoralis minor: depress, protract, assist scapular rotation (downward)\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p18 \"Muscles that move the arm\" — \"Teres major\" — \"(extend, adduct, and medially rotate the arm)\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p25 \"5 compartments of intrinsic hand muscles\" — \"Thenar Compartment\" — \"Hypothenar Compartment\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p26 \"Central Compartments\" — \"Each Lumbricals Arises from a tendon of FDP\""
+      },
+      {
+        "ref": "hss.ul.2026",
+        "location": "p26 \"Interosseous Compartments\" — \"Palmar Interossei\" — \"Adduct 2nd,4th,5th digits\" — \"Dorsal Interossei\" — \"Abduct 2nd-4th digits\""
       }
     ]
   },
@@ -3653,12 +3667,15 @@ export const HSS_MODULES = [
       "foundation"
     ],
     "lesson": {
-      "explanation": "The massive musculature of the pelvic girdle, gluteal region, and thigh is specialized for bipedal weight-bearing, posture maintenance, and dynamic locomotion. Unlike the upper limb, which prioritizes mobility and fine dexterous manipulation, the lower limb musculature develops immense force across the hip and knee joints. Movements at the hip joint are controlled by four major functional muscle groups: 1. Major Hip Flexors: The primary and most powerful flexor of the hip is the Iliopsoas, which consists of two muscles converging to insert onto the lesser trochanter of the femur: the iliacus, arising from the iliac fossa and innervated by the femoral nerve, and the psoas major, arising from the lumbar vertebrae (T12–L5) and innervated by the anterior rami of L2–L4 spinal nerves. Together, they powerfully advance the limb during gait and flex the trunk. 2. Major Hip Extensors: The primary and most powerful extensor of the hip is the Gluteus maximus, a massive superficial muscle forming the bulk of the buttock, innervated by the Inferior gluteal nerve. Gluteus maximus generates immense torque to extend the thigh against resistance, such as during stair climbing, running, or standing up from a chair. 3. Major Hip Abductors: The key hip abductor and lateral pelvic stabilizer is the Gluteus medius, situated deep and superior to gluteus maximus on the lateral ilium, innervated by the Superior gluteal nerve. During unipedal weight-bearing in normal walking, gluteus medius abducts the hip and prevents the contralateral pelvis from dropping downward. 4. Major Hip Adductors: The medial compartment of the thigh is dominated by adductor muscles, primarily the massive Adductor magnus, innervated by the Obturator nerve (with its hamstring part supplied by the sciatic nerve), drawing the thigh medially toward the midline. Movements at the knee joint are governed by two antagonistic compartmental groups: 1. Major Knee Extensors: The anterior compartment of the thigh is occupied by the Quadriceps femoris, the powerful four-headed extensor of the leg. It is composed of Rectus femoris (arising from the AIIS, crossing both hip and knee), Vastus medialis, Vastus lateralis, and Vastus intermedius (lying deep to rectus femoris). All four heads converge into the common quadriceps tendon, encase the patella, and continue as the Patellar ligament to insert onto the tibial tuberosity. All 4 muscles of the quadriceps femoris are innervated by the Femoral nerve. 2. Major Knee Flexors: The posterior compartment of the thigh contains the Hamstrings, a group of three long muscles crossing both hip and knee joints: medially lie the Semitendinosus and Semimembranosus, and laterally lies the Biceps femoris (comprising a long head and a short head). All three hamstring muscles are innervated by the Sciatic nerve. The hamstrings powerfully flex the leg at the knee while extending the thigh at the hip. The Sciatic nerve, arising from the Lumbosacral plexus, is the thickest nerve in the body, traversing the posterior thigh deep to the hamstrings before bifurcating into the Tibial nerve and Common fibular (peroneal) nerve.",
-      "plain": "The hip and thigh muscles power standing and walking. The hip flexor is iliopsoas (iliacus via femoral nerve + psoas major via L2–L4 rami). The hip extensor is gluteus maximus (inferior gluteal nerve), the hip abductor is gluteus medius (superior gluteal nerve, stops pelvis sagging), and the hip adductor is adductor magnus (obturator nerve). At the knee, the front compartment is the quadriceps femoris (rectus femoris, vastus lateralis, vastus medialis, vastus intermedius) — all 4 innervated by the femoral nerve, extending the knee via the patellar ligament. The back compartment is the hamstrings (biceps femoris, semitendinosus, semimembranosus) — all 3 innervated by the sciatic nerve, flexing the knee.",
+      "explanation": "The massive musculature of the pelvic girdle, gluteal region, and thigh is specialized for bipedal weight-bearing, posture maintenance, and dynamic locomotion. Unlike the upper limb, which prioritizes mobility and fine dexterous manipulation, the lower limb musculature develops immense force across the hip and knee joints. Movements at the hip joint are controlled by major functional muscle groups: 1. Major Hip Flexors: The primary and most powerful flexor of the hip is the Iliopsoas, which consists of two muscles converging to insert onto the lesser trochanter of the femur: the iliacus, arising from the iliac fossa and innervated by the femoral nerve, and the psoas major, arising from the lumbar vertebrae (T12–L5) and innervated by the anterior rami of L2–L4 spinal nerves. Iliopsoas alone can perform pure hip flexion. Anterior thigh muscles assisting flexion include the sartorius (which flexes, abducts, and laterally rotates the thigh at the hip, and flexes the knee) and pectineus (which adducts with adductors, flexes the thigh with iliopsoas, and assists in medial rotation). 2. Major Hip Extensors: The primary and most powerful extensor of the hip is the Gluteus maximus, a massive superficial muscle forming the bulk of the buttock, innervated by the Inferior gluteal nerve. Gluteus maximus is also the chief lateral rotator, generating immense torque to extend and externally rotate the thigh against resistance (e.g. standing from a chair, stair climbing, running). 3. Major Hip Abductors & Medial Rotators: The key hip abductor and lateral pelvic stabilizer is the Gluteus medius, situated deep and superior to gluteus maximus on the lateral ilium, innervated by the Superior gluteal nerve. During unipedal weight-bearing in normal walking, gluteus medius abducts the hip and prevents the contralateral pelvis from dropping downward. Gluteus medius, gluteus minimus, and Tensor fasciae latae (TFL) together serve as the main hip medial rotators. 4. Major Hip Adductors: The medial compartment of the thigh is dominated by adductor muscles, primarily the massive Adductor magnus, innervated by the Obturator nerve (with its hamstring part supplied by the sciatic nerve), drawing the thigh medially toward the midline. 5. Deep Lateral Rotator Group: Lying deep to the gluteus maximus at the posterior gluteal region is the deep lateral rotator group of 6 muscles: Piriformis, Superior gemellus, Obturator internus, Inferior gemellus, Quadratus femoris, and Obturator externus. Together, these muscles rotate the head of the femur laterally (external rotation) while gluteus maximus acts as the chief lateral rotator. Movements at the knee joint are governed by two antagonistic compartmental groups: 1. Major Knee Extensors: The anterior compartment of the thigh is occupied by the Quadriceps femoris, the powerful four-headed extensor of the leg. It is composed of Rectus femoris (arising from the AIIS, crossing both hip and knee), Vastus medialis, Vastus lateralis, and Vastus intermedius (lying deep to rectus femoris). All four heads converge into the common quadriceps tendon, encase the patella, and continue as the Patellar ligament to insert onto the tibial tuberosity. All 4 muscles of the quadriceps femoris are innervated by the Femoral nerve. 2. Major Knee Flexors: The posterior compartment of the thigh contains the Hamstrings, a group of three long muscles crossing both hip and knee joints: medially lie the Semitendinosus and Semimembranosus, and laterally lies the Biceps femoris (comprising a long head and a short head). All three hamstring muscles are innervated by the Sciatic nerve. The hamstrings powerfully flex the leg at the knee while extending the thigh at the hip. The Sciatic nerve, arising from the Lumbosacral plexus, is the thickest nerve in the body, traversing the posterior thigh deep to the hamstrings before bifurcating into the Tibial nerve and Common fibular (peroneal) nerve.",
+      "plain": "The hip and thigh muscles power standing and walking. The hip flexor is iliopsoas (iliacus via femoral nerve + psoas major via L2–L4 rami; iliopsoas alone performs pure hip flexion). The hip extensor is gluteus maximus (inferior gluteal nerve), which is also the chief lateral rotator. Deep to gluteus maximus sits the deep lateral rotator group (piriformis, superior and inferior gemelli, obturator internus and externus, quadratus femoris) which rotates the head of the femur externally. Gluteus medius, gluteus minimus, and TFL are the main hip medial rotators. Pectineus adducts, flexes, and assists medial rotation; sartorius flexes and abducts the hip. The hip adductor is adductor magnus (obturator nerve). At the knee, the front compartment is the quadriceps femoris (rectus femoris, vastus lateralis, vastus medialis, vastus intermedius) — all 4 innervated by the femoral nerve, extending the knee via the patellar ligament. The back compartment is the hamstrings (biceps femoris, semitendinosus, semimembranosus) — all 3 innervated by the sciatic nerve, flexing the knee.",
       "keyFacts": [
-        "Major hip flexor: Iliopsoas (iliacus via femoral nerve; psoas major via anterior rami of L2–L4).",
-        "Major hip extensor: Gluteus maximus (innervated by inferior gluteal nerve).",
+        "Major hip flexor: Iliopsoas (iliacus via femoral nerve; psoas major via anterior rami of L2–L4); iliopsoas alone performs pure hip flexion.",
+        "Major hip extensor & chief lateral rotator: Gluteus maximus (innervated by inferior gluteal nerve).",
+        "Deep lateral rotator group (6 muscles deep to gluteus maximus): Piriformis, Superior gemellus, Obturator internus, Inferior gemellus, Quadratus femoris, Obturator externus; together rotate femur head laterally.",
         "Major hip abductor: Gluteus medius (innervated by superior gluteal nerve; prevents pelvic drop).",
+        "Main hip medial rotators: Gluteus medius, gluteus minimus, and Tensor fasciae latae (TFL).",
+        "Pectineus adducts, flexes thigh, and assists medial rotation; Sartorius flexes and abducts hip and flexes knee.",
         "Major hip adductor: Adductor magnus (innervated by obturator nerve).",
         "Major knee extensors: Quadriceps femoris (rectus femoris, vastus medialis, vastus lateralis, vastus intermedius).",
         "All 4 quadriceps muscles are innervated by the femoral nerve and insert via the patellar ligament.",
@@ -3975,6 +3992,34 @@ export const HSS_MODULES = [
       {
         "ref": "hss.manual1920",
         "location": "p47 \"A. Gluteus medius\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p16 \"Muscles of the gluteal region (Deep lateral rotator group)\" — \"Piriformis\" — \"Superior gemellus\" — \"Obturator internus\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p16 \"Inferior gemellus\" — \"Quadratus femoris\" — \"Obturator externus\" — \"Together rotate the head of femur laterally\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p17 \"The lateral rotator muscle groups are deep to the gluteus maximus at the posterior gluteal region.\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p17 \"Gluteus maximus is the chief lateral rotator, while the lateral rotator group contracts and also rotates the head of the femur externally\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p20 \"Iliopsoas alone can perform pure hip flexion\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p20 \"Gluteus medius, gluteus minimus, and TFL are main hip medial rotator\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p20 \"Pectineus adducts (with adductors) and flexes thigh (with iliopsoas), and assists in medial rotation (with Glut med/min, & TFL)\""
       }
     ]
   },
@@ -3992,12 +4037,15 @@ export const HSS_MODULES = [
       "foundation"
     ],
     "lesson": {
-      "explanation": "The lower leg musculature is organized by fascial septa, the tibia, the fibula, and the interosseous membrane into three functional compartments that govern movements of the ankle joint and toes: 1. Anterior Compartment (Major Ankle Dorsiflexors): The primary dorsiflexor of the ankle is the Tibialis anterior, situated in the anterior compartment alongside extensor digitorum longus and extensor hallucis longus. Originating from the upper lateral surface of the tibia and the interosseous membrane, its tendon crosses the anterior ankle to insert into the medial cuneiform and first metatarsal. All muscles of the anterior compartment are innervated by the Deep fibular nerve (a branch of the common fibular nerve). Tibialis anterior lifts the foot upward in dorsiflexion and inverts the foot at the subtalar joint; paralysis of this nerve causes loss of dorsiflexion, presenting clinically as \"foot drop\". 2. Superficial Posterior Compartment (Major Ankle Plantarflexors): The posterior compartment is divided into superficial and deep groups. The superficial group is dominated by the Gastrocnemius, a powerful two-headed calf muscle originating from the posterior femur via a Medial head and a Lateral head. Deep to gastrocnemius lies the broad, multipennate soleus muscle. The gastrocnemius and soleus heads unite distally into the massive calcaneal tendon (Achilles tendon), which inserts into the posterior surface of the calcaneus. The gastrocnemius and soleus, as well as the plantaris and deep flexors (tibialis posterior, flexor digitorum longus, flexor hallucis longus), are innervated by the Tibial nerve. Contraction of the gastrocnemius and soleus powerfully plantarflexes the foot (pointing the toes downward), providing the primary forward propulsive thrust during the \"toe-off\" phase of bipedal walking and jumping. 3. Lateral Compartment: The lateral compartment contains fibularis (peroneus) longus and fibularis brevis, innervated by the superficial fibular nerve, which primarily evert the foot (turning the sole outward). Architecture of the Foot Arches: When standing, the human foot does not rest completely flat on the floor; only specific bony contact areas (principally the posterior tuberosity of the calcaneus and the anterior metatarsal heads) touch the ground. The intervening bones form three architectural arches that absorb shock, distribute body weight, and protect underlying plantar neurovascular bundles: (a) Medial Longitudinal Arch (9 bones): The highest, most elastic arch, comprising 9 bones: Calcaneus (1), Talus (1, the keystone of the arch), Navicular (1), Medial, Intermediate (immediate), and Lateral cuneiforms (3), and Metatarsals I, II, and III (3). (b) Lateral Longitudinal Arch (4 bones): A flatter, more rigid arch adapted for weight-bearing stability, formed by 4 bones: Calcaneus (1), Cuboid (1, the keystone), and Metatarsals IV and V (2). (c) Transverse Arch (9 bones): Runs transversely across the midfoot and forefoot, formed by 9 bones: Metatarsals I, II, III, IV, and V (5), the Medial, Intermediate, and Lateral cuneiforms (3), and the Cuboid (1).",
-      "plain": "The lower leg muscles control the foot and ankle through three compartments. The front compartment contains tibialis anterior (innervated by the deep fibular nerve), which dorsiflexes the ankle (lifts toes up; damage causes \"foot drop\"). The back calf contains gastrocnemius (medial and lateral heads) and soleus, which unite into the Achilles tendon on the calcaneus (innervated by the tibial nerve) to plantarflex (point toes down for push-off). The foot bones form three arches so the foot does not rest flat: the high medial longitudinal arch (9 bones: calcaneus, talus, navicular, 3 cuneiforms, metatarsals 1–3), the flatter lateral longitudinal arch (4 bones: calcaneus, cuboid, metatarsals 4–5), and the transverse arch (9 bones: all 5 metatarsals, 3 cuneiforms, cuboid).",
+      "explanation": "The lower leg musculature is organized by fascial septa, the tibia, the fibula, and the interosseous membrane into four functional compartments that govern movements of the ankle joint and toes: 1. Anterior Compartment (Major Ankle Dorsiflexors): Dominated by Tibialis anterior (TA), accompanied by Extensor digitorum longus (EDL, digit extensor) and Extensor hallucis longus (EHL, big toe extensor). Originating from the lateral surface of the tibia and interosseous membrane, their tendons cross the anterior ankle. All anterior compartment muscles are innervated by the Deep fibular nerve. TA lifts the foot in dorsiflexion and inverts the foot; paralysis causes loss of dorsiflexion (\"foot drop\"). 2. Lateral Compartment (Plantarflexion & Foot Eversion): Contains Fibularis (peroneus) longus and Fibularis brevis, innervated by the Superficial fibular nerve; they primarily evert the foot (turning the sole outward) and assist plantarflexion. 3. Superficial Posterior Compartment (Major Ankle Plantarflexors): Dominated by the two-headed Gastrocnemius (medial and lateral heads originating from the posterior femur), Soleus (broad multipennate muscle deep to gastrocnemius), and Plantaris. Gastrocnemius and soleus unite into the massive calcaneal tendon (Achilles tendon) inserting onto the calcaneus. Innervated by the Tibial nerve, they powerfully plantarflex the foot, driving forward propulsion during walking and jumping. 4. Deep Posterior Compartment (Plantarflexion & Inversion): Contains Flexor hallucis longus (FHL, flexes big toe), Flexor digitorum longus (FDL, flexes digits 2–5), and Tibialis posterior (TP). Tibialis posterior acts as an essential lower leg stabilizer, supports the medial longitudinal arch, and (working with TA) serves as the primary inverter of the foot. Deep posterior muscles are innervated by the Tibial nerve. Functional Foot Action Summary: Dorsiflexion is executed mainly by anterior compartment muscles (TA assisted by EHL & EDL); Plantarflexion by superficial posterior muscles (Gastrocnemius & Soleus); Inversion mainly by TA and TP; Eversion mainly by FL and FB; Toe flexion by FHL and FDL; Toe extension by EHL and EDL. Intrinsic Muscles of the Foot: The intrinsic muscles are organized into three anatomical domains: (a) Superficial plantar: Abductor hallucis (AbH, abducts great toe), Abductor digiti minimi (AbDM, abducts lateral digit 5), Flexor digiti brevis (FDB, flexes toes 2–5); (b) Deep plantar: Quadratus plantae (QP, assists FDL to flex toes 2–5), Lumbricals (LB, flex proximal digits 2–5), Flexor hallucis brevis (FHB, flexes great toe), Flexor digiti minimi brevis (FDMB, flexes toe 5), Adductor hallucis (AdH, adducts toes), Plantar interossei (PI, adduct toes 3–5), Dorsal interossei (DI, abduct toes 2–4); (c) Dorsum: Extensor hallucis brevis (EHB) and Extensor digiti brevis (EDB, extend digits). Architecture of the Foot Arches: When standing, only specific contact areas (posterior calcaneus tuberosity and anterior metatarsal heads) touch the ground, supported by three arches: (a) Medial Longitudinal Arch (9 bones): Calcaneus (1), Talus (1, keystone), Navicular (1), Medial, Intermediate, and Lateral cuneiforms (3), Metatarsals I, II, III (3); (b) Lateral Longitudinal Arch (4 bones): Calcaneus (1), Cuboid (1, keystone), Metatarsals IV, V (2); (c) Transverse Arch (9 bones): Metatarsals I–V (5), 3 cuneiforms (3), Cuboid (1).",
+      "plain": "The lower leg is organized into four compartments: anterior (tibialis anterior, EDL, EHL for dorsiflexion; deep fibular nerve), lateral (fibularis longus and brevis for eversion and plantarflexion; superficial fibular nerve), superficial posterior (gastrocnemius, soleus, plantaris for plantarflexion via the Achilles tendon; tibial nerve), and deep posterior (flexor hallucis longus, flexor digitorum longus, and tibialis posterior for plantarflexion and inversion; tibial nerve). Tibialis posterior also stabilizes the lower leg and dynamically supports the medial foot arch. The foot contains intrinsic muscles on the dorsum (EHB, EDB) and sole: superficial plantar (AbH, AbDM, FDB) and deep plantar (QP, lumbricals, FHB, FDMB, AdH, plantar and dorsal interossei). The foot bones form three arches: medial longitudinal (9 bones, highest, talus keystone), lateral longitudinal (4 bones, flatter, cuboid keystone), and transverse (9 bones).",
       "keyFacts": [
+        "Four lower leg compartments: Anterior (dorsiflexion: TA, EDL, EHL), Lateral (eversion: FL, FB), Superficial posterior (plantarflexion: gastrocnemius, soleus, plantaris), Deep posterior (plantarflexion & inversion: TP, FDL, FHL).",
         "Major ankle dorsiflexor: Tibialis anterior (anterior compartment, innervated by deep fibular nerve).",
-        "Major ankle plantarflexor: Gastrocnemius (medial and lateral heads, superficial posterior compartment, innervated by tibial nerve).",
-        "Gastrocnemius and soleus merge into the calcaneal (Achilles) tendon inserting onto the calcaneus.",
+        "Major ankle plantarflexors: Gastrocnemius and soleus (superficial posterior compartment, innervated by tibial nerve; merge into Achilles tendon).",
+        "Inversion is driven mainly by tibialis anterior and tibialis posterior; eversion is driven mainly by fibularis longus and brevis.",
+        "Tibialis posterior stabilizes the lower leg and dynamically supports the medial longitudinal arch.",
+        "Intrinsic foot muscles: Superficial plantar (AbH, AbDM, FDB), Deep plantar (QP, lumbricals, FHB, FDMB, AdH, plantar/dorsal interossei), and Dorsum (EHB, EDB).",
         "Deep fibular nerve injury causes loss of dorsiflexion, resulting in clinical foot drop and high-stepping gait.",
         "Foot arches distribute body weight, absorb locomotive shocks, and protect plantar vessels.",
         "Medial longitudinal arch (9 bones): calcaneus, talus, navicular, 3 cuneiforms, metatarsals I–III.",
@@ -4211,6 +4259,46 @@ export const HSS_MODULES = [
       {
         "ref": "hss.manual1920",
         "location": "p46 \"15. Can you identify and locate the muscles that control hip, knee and ankle movement?\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p27 \"Compartment in lower leg (right)\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p28 \"Anterior compartment (dorsiflexion)\" — \"Tibialis anterior\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p29 \"Lateral compartment (plantar flexion, foot eversion)\" — \"Fibularis longus\" — \"Fibularis brevis\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p30 \"Deep posterior compartment (plantar flexion, inversion)\" — \"Tibialis posterior\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p31 \"Superficial posterior compartment (plantar flexion)\" — \"Gastrocnemius\" — \"Soleus\" — \"Plantaris\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p32 \"Actions of foot contributed by lower leg muscles\" — \"Dorsiflexion\" — \"Plantarflexion\" — \"Inversion\" — \"Eversion\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p34 \"Superficial plantar\" — \"Deep plantar\" — \"Dorsum\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p34 \"AbH—Abductor hallucis\" — \"AbDM—Abductor digiti minimi\" — \"FDB—Flexor digiti brevis\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p34 \"Qp—Quadratus plantae\" — \"LB—Lumbricals\" — \"FHB—Flexor hallucis brevis\""
+      },
+      {
+        "ref": "hss.ll.2026",
+        "location": "p34 \"PI—Plantar interossei\" — \"DI—Dorsal interossei\" — \"EHB—Extensor halluces brevis\" — \"EDB—Extensor digiti brevis\""
       }
     ]
   },
@@ -4229,34 +4317,33 @@ export const HSS_MODULES = [
       "foundation"
     ],
     "lesson": {
-      "explanation": "The femoral triangle is a subfascial wedge-shaped depression situated at the anterior and superior aspect of the thigh, immediately inferior to the inguinal skin crease. It serves as the major neurovascular gateway through which key nerves, arteries, veins, and lymphatics transition between the abdominopelvic cavity and the lower appendicular limb. Anatomical Boundaries of the Femoral Triangle: The triangle is defined by three precise anatomical borders: 1. Superior Boundary (Base): The Inguinal ligament, which stretches horizontally from the anterior superior iliac spine (ASIS) of the ilium to the pubic tubercle of the pubis. 2. Medial Boundary: The medial margin of the Adductor longus muscle. 3. Lateral Boundary: The medial margin of the Sartorius muscle (the longest strap muscle in the body, which courses obliquely across the anterior thigh). The floor of the femoral triangle is muscular and trough-like, formed laterally by the iliopsoas and medially by the pectineus and adductor longus muscles. The roof is formed by the fascia lata, cribriform fascia, subcutaneous tissue, and skin. Neurovascular Contents (The NAVEL Sequence): Within the femoral triangle, the major structures are arranged from lateral to medial in a strict, high-yield anatomical sequence remembered by the mnemonic NAVEL: 1. N — Femoral Nerve: The lateral-most major structure in the triangle. Emerging from the lumbar plexus (L2–L4), it enters the thigh beneath the inguinal ligament outside (lateral to) the femoral sheath. In the triangle, it rapidly branches into anterior cutaneous and muscular branches that supply the quadriceps femoris, sartorius, and pectineus, as well as the saphenous nerve. 2. A — Femoral Artery: The primary arterial conduit of the lower limb, which is the direct continuation of the external iliac artery once it crosses deep to the midpoint of the inguinal ligament. Enclosed within the intermediate compartment of the femoral sheath, it descends through the apex of the triangle and gives off the profunda femoris artery (deep femoral artery). 3. V — Femoral Vein: Positioned immediately medial to the femoral artery inside the femoral sheath. It receives the profunda femoris vein and the great saphenous vein, which pierces the cribriform fascia at the saphenous opening. Proximally beneath the inguinal ligament, the femoral vein continues as the External iliac vein draining into the inferior vena cava. 4. E — Empty space (Femoral Canal): The medial compartment of the femoral sheath, containing loose connective tissue and deep inguinal lymphatics. It allows the femoral vein to expand during increased venous return; however, it represents a point of potential weakness through which abdominal contents can herniate (Femoral Hernia, common in women due to a wider pelvis). 5. L — Lymphatics: Deep inguinal lymph nodes (Cloquet’s node) draining toward external iliac lymph nodes. Distal Vascular Continuations: Leaving the apex of the femoral triangle, the femoral artery and vein traverse the adductor canal and pass through the adductor hiatus in adductor magnus into the popliteal fossa behind the knee, becoming the Popliteal artery and Popliteal vein. Distal to the popliteal fossa, the popliteal artery bifurcates into the Anterior tibial artery (which continues onto the dorsum of the foot as the clinically vital Dorsalis pedis artery) and the Posterior tibial artery (which passes behind the medial malleolus to supply the plantar arches of the foot). Superficial venous return is mediated by the Great saphenous vein medially (longest vein in the body, draining into the femoral vein) and the Small saphenous vein laterally/posteriorly (draining into the popliteal vein).",
-      "plain": "The femoral triangle is the high-yield anatomical triangle in the upper front thigh. It is bounded by the inguinal ligament at the top, the sartorius muscle on the outside (lateral), and the adductor longus muscle on the inside (medial). Going from lateral to medial (remember NAVEL), its contents are: Femoral Nerve, Femoral Artery, Femoral Vein, Empty space (femoral canal), and Lymphatics. The femoral artery is the main artery to the leg (continuation of the external iliac artery), which continues behind the knee as the popliteal artery and into the foot as the dorsalis pedis artery. The great saphenous vein ascends the inside of the leg and empties into the femoral vein right in the triangle.",
+      "explanation": "The femoral triangle is an important anatomical region located at the anterior and superior aspect of the thigh, immediately inferior to the inguinal ligament. It serves as the primary neurovascular pathway through which major nerves and blood vessels pass between the abdominopelvic cavity and the lower limb. 1. Anatomical Boundaries of the Femoral Triangle: The triangle is defined by three distinct anatomical borders: (a) Superior Boundary: The inguinal ligament, stretching horizontally across the groin from the anterior superior iliac spine (ASIS) to the pubic tubercle. (b) Medial Boundary: The adductor longus muscle. (c) Lateral Boundary: The sartorius muscle, which courses obliquely across the anterior thigh. 2. Neurovascular Contents: Within the femoral triangle lie three primary neurovascular structures, arranged in order from lateral to medial (remembered as NAV): (a) Femoral Nerve (lateral): The lateral-most major structure in the triangle. It innervates anterior thigh muscles, specifically all four heads of the quadriceps femoris (the major knee extensor) and the sartorius muscle. (b) Femoral Artery (intermediate): Positioned medial to the femoral nerve. The femoral artery is the primary arterial conduit supplying the lower limb and represents the direct continuation of the external iliac artery once it passes deep to the midpoint of the inguinal ligament. (c) Femoral Vein (medial): Positioned medial to the femoral artery. The femoral vein receives blood from the lower limb—including venous return from the great saphenous vein—and continues deep to the inguinal ligament as the external iliac vein, draining ultimately into the inferior vena cava. 3. Lower Limb Vascular Continuity: Distal to the femoral triangle, the femoral artery and vein course down the thigh and pass behind the knee joint into the popliteal fossa, becoming the popliteal artery and popliteal vein. Distally, the popliteal artery continues into the leg to form the anterior tibial artery and posterior tibial artery, which supply the leg and foot. Deep veins accompany these arteries, while the great saphenous vein serves as the major superficial vein along the medial side of the limb.",
+      "plain": "The femoral triangle is the high-yield anatomical region in the upper front thigh. It is bounded superiorly by the inguinal ligament, medially by the adductor longus muscle, and laterally by the sartorius muscle. From lateral to medial, its neurovascular contents are: Femoral Nerve, Femoral Artery, and Femoral Vein (remember NAV). The femoral artery continues from the external iliac artery to supply the leg, continuing behind the knee as the popliteal artery and dividing into anterior and posterior tibial arteries. The great saphenous vein ascends along the inside of the leg and empties into the femoral vein within the triangle.",
       "keyFacts": [
         "Location: anterior and superior aspect of the thigh.",
-        "Superior boundary: Inguinal ligament (stretches from ASIS to pubic tubercle).",
-        "Medial boundary: medial border of adductor longus muscle.",
-        "Lateral boundary: medial border of sartorius muscle.",
-        "Contents from lateral to medial (NAVEL): Femoral Nerve, Femoral Artery, Femoral Vein, Empty space, Lymphatics.",
-        "The femoral nerve lies lateral and outside the femoral sheath.",
-        "The femoral artery continues from the external iliac artery beneath the inguinal ligament.",
-        "The femoral vein receives the great saphenous vein and becomes the external iliac vein.",
-        "Femoral canal is the medial compartment of the sheath; site of femoral hernias.",
-        "Distal arterial tree: Femoral artery → Popliteal artery → Anterior tibial (Dorsalis pedis) & Posterior tibial arteries."
+        "Superior boundary: Inguinal ligament (stretching from ASIS to pubic tubercle).",
+        "Medial boundary: adductor longus muscle.",
+        "Lateral boundary: sartorius muscle.",
+        "Contents from lateral to medial (NAV): Femoral nerve, Femoral artery, Femoral vein.",
+        "Femoral nerve innervates quadriceps femoris (knee extensor) and sartorius.",
+        "Femoral artery is the direct continuation of the external iliac artery beneath the inguinal ligament.",
+        "Femoral vein receives the great saphenous vein and continues as the external iliac vein.",
+        "Distal arterial tree: Femoral artery → Popliteal artery → Anterior tibial & Posterior tibial arteries."
       ],
       "prerequisites": [
         "hss2011-osteo-pelvic-girdle",
         "hss2011-lower-thigh-gluteal-muscles"
       ],
       "examples": [
-        "Interventional radiologists perform femoral arterial catheterization for coronary or cerebral angiography by palpating the femoral pulse at the midinguinal point within the femoral triangle.",
-        "A femoral hernia presents as a tender lump inferolateral to the pubic tubercle, protruding through the femoral canal medial to the femoral vein, with high risk of strangulation."
+        "Clinicians and interventional radiologists palpate the femoral artery pulse at the midinguinal point immediately inferior to the inguinal ligament within the femoral triangle.",
+        "When performing femoral arterial cannulation, clinicians use the lateral-to-medial NAV relation to ensure the needle enters the artery without penetrating the femoral nerve laterally or the femoral vein medially."
       ]
     },
     "memory": {
-      "mnemonic": "NAVEL from lateral to medial: Nerve, Artery, Vein, Empty space, Lymphatics (travels from outer hip toward navel).",
-      "comparison": "Boundaries mnemonic: \"Sailors Inguinal Adductor\" — Sartorius laterally, Inguinal ligament superiorly, Adductor longus medially.",
-      "visualCue": "The subinguinal triangle: Inguinal ligament is the roof beam; Sartorius and Adductor longus converge like the sides of a funnel aiming down the thigh.",
-      "teachBack": "List the three boundaries of the femoral triangle, explain the NAVEL sequence from lateral to medial, and state why the femoral canal is clinically significant."
+      "mnemonic": "NAV from lateral to medial: Nerve, Artery, Vein.",
+      "comparison": "Boundaries: Sartorius laterally, Inguinal ligament superiorly, Adductor longus medially.",
+      "visualCue": "Funnel shape: Inguinal ligament is the roof; Sartorius and Adductor longus converge downward to form the apex.",
+      "teachBack": "State the three boundaries of the femoral triangle, list the NAV contents from lateral to medial, and trace the femoral artery down to the tibial arteries."
     },
     "practice": [
       {
@@ -4265,11 +4352,9 @@ export const HSS_MODULES = [
         "items": [
           "Femoral nerve",
           "Femoral artery",
-          "Femoral vein",
-          "Femoral canal (empty space)",
-          "Deep inguinal lymphatics"
+          "Femoral vein"
         ],
-        "explanation": "From lateral to medial, the structures follow the NAVEL mnemonic: Nerve, Artery, Vein, Empty space, Lymphatics.",
+        "explanation": "From lateral to medial, the three neurovascular contents are the Femoral nerve, Femoral artery, and Femoral vein (NAV).",
         "src": {
           "ref": "hss.4.3",
           "location": "p54 \"Femoral Triangle\" — \"Contents:\" — \"•Femoral nerve\" — \"•Femoral artery\" — \"•Femoral vein\""
@@ -4292,7 +4377,7 @@ export const HSS_MODULES = [
             "Sartorius muscle"
           ]
         ],
-        "explanation": "Boundaries from past exam papers and HSS2011 Module 4.3 slide 53.",
+        "explanation": "Boundaries from past exam papers and HSS2011 Module 4.3 slide 54.",
         "src": {
           "ref": "hss.fib5yr",
           "location": "p19 \"The femoral triangle is located at the anterior and superior aspect of the thigh\" — \"a. superiorly: [66] inguinal ligament\" — \"b. medially: adductor longus muscle\" — \"c. laterally: sartorius muscle\""
@@ -4317,7 +4402,7 @@ export const HSS_MODULES = [
       },
       {
         "type": "typed",
-        "prompt": "Which longest superficial vein of the lower limb ascends the medial thigh to pierce the cribriform fascia and drain into the femoral vein?",
+        "prompt": "Which longest superficial vein of the lower limb ascends the medial thigh to drain into the femoral vein?",
         "accept": [
           "great saphenous",
           "great saphenous vein",
@@ -4334,26 +4419,25 @@ export const HSS_MODULES = [
     "application": [
       {
         "type": "scenario",
-        "prompt": "An interventional radiologist is performing an arterial puncture to introduce a catheter for lower limb angiographic intervention. They palpate the femoral pulse immediately inferior to the inguinal ligament. Explain how the radiologist utilizes surface anatomy and the NAVEL sequence to avoid injuring the femoral vein or femoral nerve.",
-        "model": "The radiologist palpates the maximal arterial pulsation at the midinguinal point (halfway between the anterior superior iliac spine and pubic symphysis). Remembering the lateral-to-medial NAVEL sequence (Nerve, Artery, Vein, Empty space, Lymphatics), the clinician knows that the femoral artery lies immediately medial to the femoral nerve and lateral to the femoral vein. By inserting the needle directly into the palpable pulse and avoiding medial or lateral deviation, they safely cannulate the artery without piercing the femoral vein medially or the femoral nerve laterally.",
+        "prompt": "An interventional radiologist is performing an arterial puncture to introduce a catheter for lower limb angiographic intervention. They palpate the femoral pulse immediately inferior to the inguinal ligament. Explain how the radiologist utilizes surface anatomy and the lateral-to-medial relationship of contents to avoid injuring the femoral vein or femoral nerve.",
+        "model": "The radiologist palpates the maximal arterial pulsation of the femoral artery below the inguinal ligament. Remembering the lateral-to-medial sequence of contents (Femoral Nerve, Femoral Artery, Femoral Vein), the clinician knows that the femoral artery lies medial to the femoral nerve and lateral to the femoral vein. By inserting the needle directly into the palpable arterial pulse, they safely cannulate the artery without piercing the femoral vein medially or the femoral nerve laterally.",
         "rubric": [
-          "Locates the femoral artery pulse at the midinguinal point below the inguinal ligament",
-          "Applies the NAVEL sequence (Nerve lateral, Artery intermediate, Vein medial)",
-          "Explains that puncture must hit the arterial pulse to avoid nerve laterally and vein medially"
+          "Locates the femoral artery pulse below the inguinal ligament",
+          "Applies the lateral-to-medial relation (Nerve lateral, Artery intermediate, Vein medial)",
+          "Explains that puncture must enter the arterial pulse directly to avoid nerve laterally and vein medially"
         ]
       }
     ],
     "commonMistakes": [
-      "Reversing the NAVEL sequence (e.g. putting the vein lateral to the artery).",
-      "Thinking the femoral nerve is inside the femoral sheath; the femoral nerve lies lateral to and outside the sheath.",
-      "Confusing the boundaries: sartorius is lateral and adductor longus is medial (not vice versa)."
+      "Reversing the lateral-to-medial sequence (vein is medial, nerve is lateral, artery is intermediate).",
+      "Confusing the boundaries: sartorius is lateral and adductor longus is medial."
     ],
     "skills": [
-      "Memorize NAVEL from outside in: Lateral to medial = Nerve, Artery, Vein, Empty space (canal), Lymphatics.",
-      "Differentiate femoral and inguinal hernia locations: femoral hernias emerge through the femoral ring below and lateral to the pubic tubercle; inguinal hernias emerge above and medial to it.",
-      "Trace lower limb arterial pulses: Femoral pulse below inguinal ligament; Popliteal pulse deep in popliteal fossa; Posterior tibial pulse behind medial malleolus; Dorsalis pedis pulse on dorsum of foot."
+      "Recall the lateral-to-medial sequence: Nerve, Artery, Vein (NAV).",
+      "Identify the three boundaries forming the femoral triangle: inguinal ligament superiorly, adductor longus medially, sartorius laterally.",
+      "Trace lower limb arterial continuity: External iliac → Femoral → Popliteal → Anterior & Posterior tibial arteries."
     ],
-    "selfCheck": "From memory: state the three boundaries of the femoral triangle, list the NAVEL sequence from lateral to medial, explain which structure lies outside the femoral sheath, and trace the femoral artery continuations down to the foot.",
+    "selfCheck": "From memory: state the three boundaries of the femoral triangle, list the NAV contents from lateral to medial, and trace the femoral artery continuations down to the foot.",
     "visuals": [
       {
         "fig": "femoralTriangle"
@@ -4376,6 +4460,14 @@ export const HSS_MODULES = [
       }
     ],
     "sourceRefs": [
+      {
+        "ref": "hss.4.3",
+        "location": "p52 \"All 4 muscles innervated by:\""
+      },
+      {
+        "ref": "hss.4.3",
+        "location": "p52 \"Femoral nerve\""
+      },
       {
         "ref": "hss.4.3",
         "location": "p54 \"Femoral Triangle\""
@@ -4431,9 +4523,22 @@ export const HSS_MODULES = [
       {
         "ref": "hss.3.3",
         "location": "p38 \"External iliac veins\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p77 \"G1. Popliteal G2. Femoral\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p77 \"G4. Posterior tibial\""
+      },
+      {
+        "ref": "hss.manual1920",
+        "location": "p77 \"G6. Anterior tibial\""
       }
     ]
   },
+
   {
     "id": "hss2011-head-cranial-cavities-sinuses",
     "subject": "HSS2011",
