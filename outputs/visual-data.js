@@ -343,7 +343,6 @@ export function generatedFor(item) {
   if (item.type === 'comparison' && item.memory && item.memory.comparison) {
     return { kind: 'generated', form: 'contrast', text: item.memory.comparison, facts: facts.slice(0, 6), label: item.title };
   }
-  if (facts.length) return { kind: 'generated', form: 'facts', facts: facts.slice(0, 8), label: item.title };
   return null;
 }
 
