@@ -50,6 +50,7 @@ if (process.argv.includes('--selftest')) {
   console.log('— selftest: known-bad entries must all be caught —');
   const cases = [
     ['unknown fig', { fig: 'definitely-not-a-figure' }],
+    ['unknown fig with focus', { fig: 'definitely-not-a-figure', focus: ['Plasma membrane'] }],
     ['unknown plate', { plate: 'definitely-not-a-plate' }],
     ['unknown schematic', { schematic: 'definitely-not-a-schematic' }],
     ['unknown layer', { model: { layer: 'notALayer' } }],
@@ -60,6 +61,9 @@ if (process.argv.includes('--selftest')) {
     if (!p.length) fail(`selftest "${name}" was NOT caught`);
     else ok(`selftest "${name}" caught: ${p[0]}`);
   }
+  const scopedValid = resolveEntry('selftest valid scoped entry', { fig: 'cellAnatomy', focus: ['Plasma membrane'] });
+  if (scopedValid.length) fail(`selftest valid scoped entry failed: ${scopedValid.join('; ')}`);
+  else ok('selftest valid scoped entry resolves cleanly');
   console.log(bad === 0 ? '\nSELFTEST OK' : `\n${bad} SELFTEST FAILURES`);
   process.exit(bad === 0 ? 0 : 1);
 }

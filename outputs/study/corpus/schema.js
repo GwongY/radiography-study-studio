@@ -483,9 +483,10 @@ export function priorAdjustedScore(item, score, attempted) {
   return priorOf(item) ? PRIOR_ASSUMED_SCORE : 0;
 }
 
-/* Where a session opens an item: verify what is already known, teach what is not. */
+/* New lessons start at Learn. Prior syllabus coverage is not saved progress.
+ * Callers restore a lesson-specific saved stage before using this default. */
 export function entryStep(item, attempted) {
-  return !attempted && priorOf(item) ? 'practise' : 'learn';
+  return 'learn';
 }
 
 /* ------------------------------------------------------------------ *

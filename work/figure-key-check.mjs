@@ -64,6 +64,68 @@ for (const item of STUDY_ITEMS) {
    image is a shape study). Intro required, key not. */
 const NO_CALLOUTS = new Set(['heart']);
 
+export function checkFocus(where, e, figMap = FIGURES) {
+  const problems = [];
+  if (!e || typeof e !== 'object' || !('focus' in e)) return problems;
+  const figId = e.fig || e.schematic;
+  const fig = figId && figMap[figId];
+  if (!fig) {
+    problems.push(`${where}: focus specified on entry that does not resolve to a FIGURES key (${figId || 'no fig'})`);
+    return problems;
+  }
+  if (!Array.isArray(e.focus) || !e.focus.length) {
+    problems.push(`${where}: focus must be a non-empty array of marks`);
+    return problems;
+  }
+  const markSet = new Set();
+  if (Array.isArray(fig.key)) {
+    for (const r of fig.key) {
+      if (r && typeof r.mark === 'string') markSet.add(r.mark.trim().toLowerCase());
+    }
+  }
+  const seen = new Set();
+  e.focus.forEach((f, idx) => {
+    if (typeof f !== 'string' || !f.trim()) {
+      problems.push(`${where}: focus[${idx}] is not a non-empty string`);
+      return;
+    }
+    const lower = f.trim().toLowerCase();
+    if (seen.has(lower)) {
+      problems.push(`${where}: duplicate focus mark "${f}"`);
+    }
+    seen.add(lower);
+    if (!markSet.has(lower)) {
+      problems.push(`${where}: focus mark "${f}" does not resolve to any key row mark in figure ${figId}`);
+    }
+  });
+  return problems;
+}
+
+if (process.argv.includes('--selftest')) {
+  console.log('— selftest: bad focus cases must all be caught —');
+  const mockFigures = {
+    testFig: {
+      intro: 'Test intro',
+      key: [{ mark: 'A', name: 'Alpha' }, { mark: 'B', name: 'Beta' }],
+    },
+  };
+  const cases = [
+    ['focus on non-figure', { schematic: 'notAFig', focus: ['A'] }],
+    ['focus with no fig/schematic', { focus: ['A'] }],
+    ['empty focus array', { fig: 'testFig', focus: [] }],
+    ['non-array focus', { fig: 'testFig', focus: 'A' }],
+    ['duplicate focus mark', { fig: 'testFig', focus: ['A', 'a'] }],
+    ['unknown mark in focus', { fig: 'testFig', focus: ['C'] }],
+  ];
+  for (const [name, entry] of cases) {
+    const probs = checkFocus(`selftest ${name}`, entry, mockFigures);
+    if (!probs.length) fail(`selftest "${name}" was NOT caught`);
+    else ok(`selftest "${name}" caught: ${probs[0]}`);
+  }
+  console.log(bad === 0 ? '\nSELFTEST OK' : `\n${bad} SELFTEST FAILURES`);
+  process.exit(bad === 0 ? 0 : 1);
+}
+
 function checkEntry(label, e, { keyRequired = true } = {}) {
   if (typeof e.intro !== 'string' || !e.intro.trim()) fail(`${label}: no intro`);
   const hasKey = Array.isArray(e.key) && e.key.length > 0;
@@ -119,6 +181,19 @@ for (const id of Object.keys(FIGURES)) {
 /* figureFor() shape sanity */
 const f = figureFor('bodyCavities');
 if (!f || !f.src.startsWith('assets/figures/')) fail('figureFor() did not resolve a src path');
+
+console.log('— every visuals[].focus entry resolves to a real figure mark —');
+let checkedFocusCount = 0;
+for (const item of STUDY_ITEMS) {
+  if (!Array.isArray(item.visuals)) continue;
+  item.visuals.forEach((e, i) => {
+    if (e && 'focus' in e) {
+      checkedFocusCount++;
+      for (const prob of checkFocus(`${item.id} visuals[${i}]`, e)) fail(prob);
+    }
+  });
+}
+ok(`${checkedFocusCount} focus specifications checked`);
 
 console.log(bad === 0 ? '\nALL PASS' : `\n${bad} FAILURES`);
 process.exit(bad === 0 ? 0 : 1);

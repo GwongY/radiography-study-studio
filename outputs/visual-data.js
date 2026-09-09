@@ -483,8 +483,18 @@ export const VISUAL_SPEC_KINDS = ['fig', 'plate', 'schematic', 'model', 'gen'];
 
 export function normaliseVisualSpec(entry, item) {
   if (!entry || typeof entry !== 'object') return null;
-  if (entry.fig) return { kind: 'schematic', id: entry.fig };      /* figureFor() resolves it in the renderer */
-  if (entry.schematic) return { kind: 'schematic', id: entry.schematic };
+  if (entry.fig) {
+    const s = { kind: 'schematic', id: entry.fig };
+    if (entry.focus) s.focus = entry.focus;
+    if (entry.intro) s.intro = entry.intro;
+    return s;
+  }
+  if (entry.schematic) {
+    const s = { kind: 'schematic', id: entry.schematic };
+    if (entry.focus) s.focus = entry.focus;
+    if (entry.intro) s.intro = entry.intro;
+    return s;
+  }
   if (entry.plate) return { kind: 'plateRef', id: entry.plate };
   if (entry.model) return withFile({ kind: 'model', ...entry.model });
   if (entry.gen) return generatedFor(item);

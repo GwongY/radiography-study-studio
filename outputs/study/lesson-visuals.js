@@ -28,27 +28,62 @@ let visMounted = null;   /* the spec currently occupying the shared canvas */
  * cited, attributed source. Those are dimmed, sorted last, and trigger the note.
  * Shared by the schematic->figure and labelled->figure paths and by plateHTML.
  */
-export function figureKeyHTML(spec) {
+export function figureKeyHTML(spec, focus) {
   if (!Array.isArray(spec.key) || !spec.key.length) return '';
-  const rows = [...spec.key].sort((a, b) => (a.beyond ? 1 : 0) - (b.beyond ? 1 : 0));
-  const anyBeyond = rows.some((r) => r.beyond);
-  return `<dl class="figkey">${rows.map((r) =>
-    `<div${r.beyond ? ' class="beyond"' : ''}><dt>${esc(r.mark)}</dt><dd>${glossify(esc(r.name))}</dd></div>`).join('')}</dl>`
-    + (anyBeyond ? '<p class="figkey-note">Dimmed marks are the figure’s own labels, beyond this lesson’s named set.</p>' : '');
+  const renderRows = (list) => list.map((r) =>
+    `<div${r.beyond ? ' class="beyond"' : ''}><dt>${esc(r.mark)}</dt><dd>${glossify(esc(r.name))}</dd></div>`).join('');
+
+  if (!Array.isArray(focus) || !focus.length) {
+    const rows = [...spec.key].sort((a, b) => (a.beyond ? 1 : 0) - (b.beyond ? 1 : 0));
+    const anyBeyond = rows.some((r) => r.beyond);
+    return `<dl class="figkey">${renderRows(rows)}</dl>`
+      + (anyBeyond ? '<p class="figkey-note">Dimmed marks are the figure’s own labels, beyond this lesson’s named set.</p>' : '');
+  }
+
+  const norm = (s) => (s || '').trim().toLowerCase();
+  const rowByMark = new Map();
+  for (const r of spec.key) {
+    if (r && r.mark) rowByMark.set(norm(r.mark), r);
+  }
+
+  const focusedMatched = [];
+  const seenMarks = new Set();
+  for (const f of focus) {
+    const key = norm(f);
+    if (seenMarks.has(key)) continue;
+    seenMarks.add(key);
+    const r = rowByMark.get(key);
+    if (r) focusedMatched.push(r);
+  }
+
+  const restRows = spec.key.filter((r) => r && r.mark && !seenMarks.has(norm(r.mark)));
+  const focusedSorted = [...focusedMatched].sort((a, b) => (a.beyond ? 1 : 0) - (b.beyond ? 1 : 0));
+  const restSorted = [...restRows].sort((a, b) => (a.beyond ? 1 : 0) - (b.beyond ? 1 : 0));
+  const anyBeyond = spec.key.some((r) => r.beyond);
+
+  let out = `<dl class="figkey">${renderRows(focusedSorted)}</dl>`;
+  if (restSorted.length > 0) {
+    out += `<details class="figkey-more"><summary>Other labels on this figure (${restSorted.length})</summary><dl class="figkey">${renderRows(restSorted)}</dl></details>`;
+  }
+  if (anyBeyond) {
+    out += '<p class="figkey-note">Dimmed marks are the figure’s own labels, beyond this lesson’s named set.</p>';
+  }
+  return out;
 }
 
-function figureBlockHTML(fig) {
+function figureBlockHTML(fig, entry = {}) {
   const lic = fig.licenceUrl
     ? `<a href="${esc(fig.licenceUrl)}" target="_blank" rel="noreferrer">${esc(fig.licence)}</a>`
     : esc(fig.licence);
+  const intro = (entry && entry.intro) || fig.intro;
   return `<figure class="lessonvis" data-kind="figure">
     <div class="lessonvis-head"><span class="lessonvis-kick">Figure</span><span class="lessonvis-title">${esc(fig.title)}</span></div>
-    ${fig.intro ? `<p class="figintro">${glossify(esc(fig.intro))}</p>` : ''}
+    ${intro ? `<p class="figintro">${glossify(esc(intro))}</p>` : ''}
     <div class="lessonvis-fig"><img src="${esc(fig.src)}" alt="${esc(fig.title)}" loading="lazy"></div>
     <figcaption class="lessonvis-cap">${esc(fig.caption)}
       <span class="figcredit">${esc(fig.author)} · ${lic} · <a href="${esc(fig.commons)}" target="_blank" rel="noreferrer">Wikimedia Commons</a></span>
     </figcaption>
-    ${figureKeyHTML(fig)}
+    ${figureKeyHTML(fig, entry && entry.focus)}
   </figure>`;
 }
 
@@ -102,7 +137,7 @@ export function renderOneVisual(spec, item, { isPrimary } = {}) {
      * numbers happened to be. Where a real one exists it is used instead.
      */
     const fig = figureFor(spec.id);
-    if (fig) return figureBlockHTML(fig);
+    if (fig) return figureBlockHTML(fig, spec);
     const sc = schematic(spec.id);
     if (!sc) return '';
     /* HTML where the content has been rebuilt as a layout; the plotted SVG only
@@ -125,7 +160,7 @@ export function renderOneVisual(spec, item, { isPrimary } = {}) {
      * the left is round and thick. A real figure replaces it where one exists.
      */
     const fig = figureFor(spec.id);
-    if (fig) return figureBlockHTML(fig);
+    if (fig) return figureBlockHTML(fig, spec);
     const d = DIAGRAMS[spec.id];
     if (!d) return '';
     const shapes = d.shapes.map((x) => x.kind === 'ellipse' ? `<ellipse class="sk" cx="${x.cx}" cy="${x.cy}" rx="${x.rx}" ry="${x.ry}"/>`

@@ -1,0 +1,624 @@
+{
+  "schemaVersion": 1,
+  "modelVersion": "m3",
+  "generatorHash": "9fba5d6b3ced300d4454e757fa9083225e47f2110363bdb96a4a439814d3e21a",
+  "decoderHash": "1b5931f7d1ef3eade23233e0804722daf150a0c738d3cdb319d327864760da36",
+  "routeDefinitionHash": "b9084a6a4cafd662f22de351be51b3e3f30033a0f8aef9d0d81b3c682840e95c",
+  "note": "Decoded world-space merged node arrays; NOT runtime primitive-layout payload. Timings are local Node observations, not phone performance. Tube/vessel fields use highest-world-Y seed for cost measurement only, not approved routes.",
+  "layers": [
+    {
+      "layer": "organs",
+      "path": "assets/ic-organlar.glb",
+      "glbHash": "258dea0fae448c8b65555419bbe41737f6176fb9dcc842dc5de815e6ff29b8b3",
+      "primitiveLayoutHash": "b5d7f8e7bbf43e2ceb0a9d5d1dfd8855318474529a02ec5afad1113daf17f6cd"
+    },
+    {
+      "layer": "circulatory",
+      "path": "assets/dolasim.glb",
+      "glbHash": "3f83aa56a148147ecf2b40cfebc155550bf18101adc4d5821b23f8e45c47b141",
+      "primitiveLayoutHash": "55fdf07df5f5a5e9c0962ffdf1dce0f6f72a4f2b31b79f1933fc1863d1b6218d"
+    },
+    {
+      "layer": "nervous",
+      "path": "assets/sinir.glb",
+      "glbHash": "5d59b5ae9f0fad77cebd4ef1516390ced941af7a6794bc9acc7d08927ea62fee",
+      "primitiveLayoutHash": "2b7a1b41eca78d6845fd89230a4eca9b60a6c45687039b58086c6da6e4095bbe"
+    }
+  ],
+  "rows": [
+    {
+      "layer": "organs",
+      "name": "Oesophagus",
+      "routeId": null,
+      "vertices": 203,
+      "triangles": 406,
+      "weldedVertices": 203,
+      "edges": 609,
+      "components": 1,
+      "componentSizes": [
+        203
+      ],
+      "decodedGeometryHash": "f11ff1015f899a3c55bb0255d0f2a28960bb95d6a3aa3531457053bafee9a372",
+      "fieldHash": "a45543aea51c0d1331179d6c4e2512061fcf39456fdfaf863fb7687ab8cc5452",
+      "transmissionMs": [
+        1.734,
+        0.769,
+        0.477
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 812,
+        "tubeFloat32Estimate": 8120
+      },
+      "seed": [
+        -0.003203819040209055,
+        1.4755377769470215,
+        -0.0005287521635182202
+      ]
+    },
+    {
+      "layer": "organs",
+      "name": "Jejunum",
+      "routeId": null,
+      "vertices": 4219,
+      "triangles": 8414,
+      "weldedVertices": 4219,
+      "edges": 12633,
+      "components": 1,
+      "componentSizes": [
+        4219
+      ],
+      "decodedGeometryHash": "a07670c448ab7dd18d01b7ac8a2e33bd94cd827a7c65d33393e3f74f9f524a70",
+      "fieldHash": "6771ce4d89597666e14da6e5dcc17ef1ca256e22b30ed5cdd720dbd543b5eb29",
+      "transmissionMs": [
+        14.2,
+        15.964,
+        10.234
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 16876,
+        "tubeFloat32Estimate": 168760
+      },
+      "seed": [
+        0.08362104743719101,
+        1.0896912813186646,
+        0.03334473446011543
+      ]
+    },
+    {
+      "layer": "organs",
+      "name": "Ureterl",
+      "routeId": null,
+      "vertices": 142,
+      "triangles": 267,
+      "weldedVertices": 142,
+      "edges": 409,
+      "components": 1,
+      "componentSizes": [
+        142
+      ],
+      "decodedGeometryHash": "9d0105fa3ee1567ba4085ee60afb4ee00a3c6306d37676062426dc2cb14def04",
+      "fieldHash": "7fd83e7702b5ac5cfdadad4f02dc207dac00892204e4fa897910d7987f1215d2",
+      "transmissionMs": [
+        0.917,
+        1.124,
+        0.581
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 568,
+        "tubeFloat32Estimate": 5680
+      },
+      "seed": [
+        0.03737189993262291,
+        1.1105148792266846,
+        -0.012230752035975456
+      ]
+    },
+    {
+      "layer": "organs",
+      "name": "Ureterr",
+      "routeId": null,
+      "vertices": 147,
+      "triangles": 276,
+      "weldedVertices": 147,
+      "edges": 423,
+      "components": 1,
+      "componentSizes": [
+        147
+      ],
+      "decodedGeometryHash": "4e486c6038f44b1de8f39cd4c954dab33c3e42820cde17f41636b2ecf3dc16ce",
+      "fieldHash": "73d92689594954e1ca526dbe7b3dbb45eabd2c2360153a3cbf0d0b7f8b5d3295",
+      "transmissionMs": [
+        0.515,
+        0.355,
+        0.295
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 588,
+        "tubeFloat32Estimate": 5880
+      },
+      "seed": [
+        -0.030415518209338188,
+        1.0923136472702026,
+        -0.003316493472084403
+      ]
+    },
+    {
+      "layer": "organs",
+      "name": "Ascending_colon",
+      "routeId": null,
+      "vertices": 1978,
+      "triangles": 3952,
+      "weldedVertices": 1978,
+      "edges": 5928,
+      "components": 1,
+      "componentSizes": [
+        1978
+      ],
+      "decodedGeometryHash": "c2364981ef73d9deb56083c14a24347cf55b27fd05c8c0538b653433d95a0b7d",
+      "fieldHash": "0a911f203ca99803bea3154b5a8cb5cddca976f0be13328f58c85a8952587846",
+      "transmissionMs": [
+        7.986,
+        5.987,
+        4.203
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 7912,
+        "tubeFloat32Estimate": 79120
+      },
+      "seed": [
+        -0.07626543939113617,
+        1.1145646572113037,
+        0.0262883473187685
+      ]
+    },
+    {
+      "layer": "organs",
+      "name": "Descending_colon",
+      "routeId": null,
+      "vertices": 2050,
+      "triangles": 4100,
+      "weldedVertices": 2050,
+      "edges": 6150,
+      "components": 1,
+      "componentSizes": [
+        2050
+      ],
+      "decodedGeometryHash": "f7974073e14bcf6815143ee71f3cfe4a6d30e01820d73f3c81d01c63040133a0",
+      "fieldHash": "87af3891c6c095d97de0713e8bcd11232386d8af8a55d056ca42c27661d512b7",
+      "transmissionMs": [
+        3.356,
+        2.849,
+        2.587
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 8200,
+        "tubeFloat32Estimate": 82000
+      },
+      "seed": [
+        0.08975701779127121,
+        1.1345160007476807,
+        0.012078146450221539
+      ]
+    },
+    {
+      "layer": "organs",
+      "name": "Sigmoid_colon",
+      "routeId": null,
+      "vertices": 611,
+      "triangles": 1222,
+      "weldedVertices": 611,
+      "edges": 1833,
+      "components": 1,
+      "componentSizes": [
+        611
+      ],
+      "decodedGeometryHash": "a49c2ea3ed45fffaae2fe9ce7ec880e96609372e58198438ffe5f26a5602d391",
+      "fieldHash": "3469bc49475873e8f5cf838e63e9cbce7dbfd831662381fc340e7a792b253395",
+      "transmissionMs": [
+        0.891,
+        0.727,
+        0.798
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 2444,
+        "tubeFloat32Estimate": 24440
+      },
+      "seed": [
+        0.009631593711674213,
+        0.9264383912086487,
+        -0.034125491976737976
+      ]
+    },
+    {
+      "layer": "organs",
+      "name": "Transverse_colon",
+      "routeId": null,
+      "vertices": 1686,
+      "triangles": 3372,
+      "weldedVertices": 1686,
+      "edges": 5058,
+      "components": 1,
+      "componentSizes": [
+        1686
+      ],
+      "decodedGeometryHash": "4d4dee799059546240b209192e7d78a2648ef98007a4530f4eb4ea35947c79a4",
+      "fieldHash": "065edb8aa7d80316e0f5189177fd3c0909f3809a096403b7c35c1f4c82e49ce6",
+      "transmissionMs": [
+        2.212,
+        2.298,
+        2.873
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 6744,
+        "tubeFloat32Estimate": 67440
+      },
+      "seed": [
+        0.08381572365760803,
+        1.1351360082626343,
+        0.01755143515765667
+      ]
+    },
+    {
+      "layer": "circulatory",
+      "name": "Thoracic_aorta",
+      "routeId": null,
+      "vertices": 55,
+      "triangles": 93,
+      "weldedVertices": 55,
+      "edges": 148,
+      "components": 1,
+      "componentSizes": [
+        55
+      ],
+      "decodedGeometryHash": "28232e8d0f04eeddf1e4e60bbc054d6276cc9e97ae7afac0f56ef6b4727a28f8",
+      "fieldHash": "6ddc912b9fe05a1cd9427468427ffaf712c134c7da38f12efd2acd9fc2e10214",
+      "transmissionMs": [
+        0.184,
+        0.054,
+        0.046
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 220,
+        "tubeFloat32Estimate": 2200
+      },
+      "seed": [
+        0.01682167686522007,
+        1.3655054569244385,
+        -0.043220099061727524
+      ]
+    },
+    {
+      "layer": "circulatory",
+      "name": "Abdominal_aorta",
+      "routeId": null,
+      "vertices": 116,
+      "triangles": 208,
+      "weldedVertices": 116,
+      "edges": 324,
+      "components": 1,
+      "componentSizes": [
+        116
+      ],
+      "decodedGeometryHash": "e4f7e074b4384191cc0e33a0a9c9140e7071cf575aed0759a418feacd841a115",
+      "fieldHash": "3fa3869298ded57fbd02566344ea3c697285fe0bc7af416598ca988d8cc27446",
+      "transmissionMs": [
+        0.131,
+        0.115,
+        0.101
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 464,
+        "tubeFloat32Estimate": 4640
+      },
+      "seed": [
+        0.007906115613877773,
+        1.2105350494384766,
+        -0.0012254707980901003
+      ]
+    },
+    {
+      "layer": "circulatory",
+      "name": "Ascending_aorta",
+      "routeId": null,
+      "vertices": 153,
+      "triangles": 282,
+      "weldedVertices": 153,
+      "edges": 435,
+      "components": 1,
+      "componentSizes": [
+        153
+      ],
+      "decodedGeometryHash": "cbb312317f3ad74911bf1c9a0abd4a98d75e6de1df23edcc53153b3cf06cd154",
+      "fieldHash": "e3aaa9bac39e6991ea136e5b256c1a1e91750a385bd1715a93f02f1b945c9cfb",
+      "transmissionMs": [
+        0.315,
+        0.234,
+        0.231
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 612,
+        "tubeFloat32Estimate": 6120
+      },
+      "seed": [
+        0.0018971927929669619,
+        1.3635563850402832,
+        0.041590265929698944
+      ]
+    },
+    {
+      "layer": "circulatory",
+      "name": "Superior_vena_cava",
+      "routeId": null,
+      "vertices": 68,
+      "triangles": 112,
+      "weldedVertices": 68,
+      "edges": 180,
+      "components": 1,
+      "componentSizes": [
+        68
+      ],
+      "decodedGeometryHash": "5001d85c0619d3079a50fa5ac12bb81a620ef0614b846a5cc8f448d37964ac9b",
+      "fieldHash": "e63e4c2a0f4e1dcecff8390f88acd119c7bd7e6572b14e970dfbd6445a9ccac5",
+      "transmissionMs": [
+        0.111,
+        0.135,
+        0.554
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 272,
+        "tubeFloat32Estimate": 2720
+      },
+      "seed": [
+        -0.012045426294207573,
+        1.3776836395263672,
+        0.013395305722951889
+      ]
+    },
+    {
+      "layer": "nervous",
+      "name": "Axillary_nerver",
+      "routeId": "deltoid",
+      "vertices": 99,
+      "triangles": 185,
+      "weldedVertices": 99,
+      "edges": 284,
+      "components": 1,
+      "componentSizes": [
+        99
+      ],
+      "decodedGeometryHash": "0cf7418bef6d218a0ec0bd4b40dfe6471cb1687373b3f33214c45a276195936d",
+      "fieldHash": "c6e7f2e4df069d95fbbe4d19abfbbf6a34851dc11e45c8d0664afe6493a1d12b",
+      "transmissionMs": [
+        0.227,
+        0.113,
+        0.13
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 396,
+        "tubeFloat32Estimate": 3960
+      },
+      "seed": [
+        -0.11086255311965942,
+        1.4002258777618408,
+        -0.014390665106475353
+      ]
+    },
+    {
+      "layer": "nervous",
+      "name": "Axillary_nervel",
+      "routeId": "deltoid",
+      "vertices": 99,
+      "triangles": 185,
+      "weldedVertices": 99,
+      "edges": 284,
+      "components": 1,
+      "componentSizes": [
+        99
+      ],
+      "decodedGeometryHash": "6a4183e0319a39f14cae7008e0442fb57fdc9af66720f61beb52fb460d31cb66",
+      "fieldHash": "7ffb68d5ac130aabcce781b7361ae078926862036a5f81ed16610a5c74625817",
+      "transmissionMs": [
+        0.12,
+        0.106,
+        0.087
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 396,
+        "tubeFloat32Estimate": 3960
+      },
+      "seed": [
+        0.11086252331733704,
+        1.4002258777618408,
+        -0.014390667900443077
+      ]
+    },
+    {
+      "layer": "nervous",
+      "name": "Musculocutaneous_nerver",
+      "routeId": "biceps",
+      "vertices": 60,
+      "triangles": 110,
+      "weldedVertices": 60,
+      "edges": 170,
+      "components": 1,
+      "componentSizes": [
+        60
+      ],
+      "decodedGeometryHash": "b5ab0b0ee368f91eb5185962018f60fea0a937a73aa07d1080ca3ccd3a5ab321",
+      "fieldHash": "e03e9d9f2825e4fbb44d6e361aa6ccd8e74ecdbfe85412b09b291760535ccc9a",
+      "transmissionMs": [
+        0.068,
+        0.052,
+        0.05
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 240,
+        "tubeFloat32Estimate": 2400
+      },
+      "seed": [
+        -0.17617499828338623,
+        1.3108890056610107,
+        -0.00905173271894455
+      ]
+    },
+    {
+      "layer": "nervous",
+      "name": "Musculocutaneous_nervel",
+      "routeId": "biceps",
+      "vertices": 60,
+      "triangles": 110,
+      "weldedVertices": 60,
+      "edges": 170,
+      "components": 1,
+      "componentSizes": [
+        60
+      ],
+      "decodedGeometryHash": "0aee6fe5697298117b952c2cdadfa8b93e6d05ac0f5d87be8f69386f7ebf9714",
+      "fieldHash": "88d40e49c76065c1069e6b4f6f78d8b38d95f92efd13c603073033e39a3256ce",
+      "transmissionMs": [
+        0.056,
+        0.049,
+        0.048
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 240,
+        "tubeFloat32Estimate": 2400
+      },
+      "seed": [
+        0.17617498338222504,
+        1.3108890056610107,
+        -0.009051774628460407
+      ]
+    },
+    {
+      "layer": "nervous",
+      "name": "Muscular_branches_of_axillary_nerver",
+      "routeId": "deltoid",
+      "vertices": 102,
+      "triangles": 191,
+      "weldedVertices": 102,
+      "edges": 293,
+      "components": 1,
+      "componentSizes": [
+        102
+      ],
+      "decodedGeometryHash": "a2bab970f1f0bd582e302492a8659e0b9435ce765e7a90f26914831704ac034f",
+      "fieldHash": "aa1eb9de178339970c2dd1817e370d02b7978ddc1a0c7cfccbae94560cdb2339",
+      "transmissionMs": [
+        0.115,
+        0.092,
+        0.087
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 408,
+        "tubeFloat32Estimate": 4080
+      },
+      "seed": [
+        -0.19536899030208588,
+        1.369899034500122,
+        -0.019167257472872734
+      ]
+    },
+    {
+      "layer": "nervous",
+      "name": "Muscular_branches_of_axillary_nervel",
+      "routeId": "deltoid",
+      "vertices": 102,
+      "triangles": 191,
+      "weldedVertices": 102,
+      "edges": 293,
+      "components": 1,
+      "componentSizes": [
+        102
+      ],
+      "decodedGeometryHash": "db8d3f64e8a502124733fe080e1c56c71c76d838830064b45fab6eeef3174a45",
+      "fieldHash": "131ee4e4432b99a336365761305fc9ef03e2a0e3d6ed3de40e68128672e6e8e3",
+      "transmissionMs": [
+        0.097,
+        0.084,
+        0.507
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 408,
+        "tubeFloat32Estimate": 4080
+      },
+      "seed": [
+        0.1953689604997635,
+        1.369899034500122,
+        -0.01916726492345333
+      ]
+    },
+    {
+      "layer": "nervous",
+      "name": "Femoral_nerver",
+      "routeId": "quadriceps",
+      "vertices": 56,
+      "triangles": 88,
+      "weldedVertices": 56,
+      "edges": 129,
+      "components": 4,
+      "componentSizes": [
+        38,
+        11,
+        4,
+        3
+      ],
+      "decodedGeometryHash": "9fd3e18121063daa0de2f649f8b7a0efe41ebaf36fbc6cf22e3f7ceebdb621fa",
+      "fieldHash": "323e32e9833f987e6c8a245a691b2846d956ee36be5c24f7bd7baaf76e8f8376",
+      "transmissionMs": [
+        0.055,
+        0.273,
+        0.054
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 224,
+        "tubeFloat32Estimate": 2240
+      },
+      "seed": [
+        -0.011703534051775932,
+        1.100524663925171,
+        -0.02933737076818943
+      ]
+    },
+    {
+      "layer": "nervous",
+      "name": "Femoral_nervel",
+      "routeId": "quadriceps",
+      "vertices": 56,
+      "triangles": 88,
+      "weldedVertices": 56,
+      "edges": 129,
+      "components": 4,
+      "componentSizes": [
+        38,
+        11,
+        4,
+        3
+      ],
+      "decodedGeometryHash": "c8eec53e8373dbd04466a9247c31374b8dc0e3d75edee9180745580ca728320f",
+      "fieldHash": "8f39a8d4a7d8b9bd878211c1939073cc2dbb6df6f7cab6b01a1aee882cf469fc",
+      "transmissionMs": [
+        0.061,
+        0.044,
+        0.043
+      ],
+      "payloadBytes": {
+        "scalarFloat32": 224,
+        "tubeFloat32Estimate": 2240
+      },
+      "seed": [
+        0.011703526601195335,
+        1.1005245447158813,
+        -0.029337406158447266
+      ]
+    }
+  ],
+  "totals": {
+    "meshes": 20,
+    "vertices": 12062,
+    "edges": 35882,
+    "components": 26,
+    "scalarBytes": 48248,
+    "tubeBytes": 482480
+  }
+}

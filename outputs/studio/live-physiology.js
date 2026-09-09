@@ -3,7 +3,7 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CLASSES, GRAZE_CLAMP, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, fluence, mottleSigma, mu, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
+import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CLASSES, GRAZE_CLAMP, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, fluence, mottleSigma, mu, prefersStill, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
 import { MEMORY_TIPS, answer, clean, openDetail, pool, record, regionLabel, selectBone, showToast } from './visualisation-modes.js';
 import { animate, applyVisibility, between, getRecord, tube } from './region-boxes-how.js';
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
@@ -12,6 +12,7 @@ import { showPickCallout } from './spatial-concept-overlays.js';
 import { setSeparation, setTool } from './tools-and-capture.js';
 import { advancePhysiology } from '../physiology.js?v=4';
 import { MOTOR_ROUTES, motorRoute, motorSequence, transmissionField } from '../physiology-mechanics.js';
+import { deriveShape, deriveMuscleShape, deriveBreathingShape, MUSCLE_SHAPE_GLSL } from '../physiology-shape.js';
 
 /* ------------------------------------------------------------------ *
  * Live physiology
@@ -45,8 +46,8 @@ import { MOTOR_ROUTES, motorRoute, motorSequence, transmissionField } from '../p
  * viewer says so.
  * ------------------------------------------------------------------ */
 
-/* On by default. A body that does not move is the thing this exists to fix,
-   and with only the skeleton loaded there is nothing with a rule, so it costs
+/* On by default unless reduced motion is requested.
+   With only the skeleton loaded there is nothing with a rule, so it costs
    nothing until a system layer is actually on. */
 
 /* World Y of the top and bottom of the body, so anchors can be fractions. */
@@ -139,43 +140,30 @@ function installFlow(mesh,cls){
     const g=mesh.geometry;
     if(!g.boundingBox) g.computeBoundingBox();
     const bb=g.boundingBox;
-    const size=[bb.max.x-bb.min.x,bb.max.y-bb.min.y,bb.max.z-bb.min.z];
-    const longest=size.indexOf(Math.max(...size));
-    mLength=Math.max(size[longest],1e-6);
-    mCenter=new state.THREE.Vector3((bb.min.x+bb.max.x)/2,(bb.min.y+bb.max.y)/2,(bb.min.z+bb.max.z)/2);
-    if(mesh.userData.flowCenter)mCenter.copy(mesh.userData.flowCenter);
-    const mode=rule.mode;
-    if(mode==='descend'){
-      mAxis=new state.THREE.Vector3(0,1,0).transformDirection(new state.THREE.Matrix4().copy(mesh.matrixWorld).invert());
-      mLength=Math.abs(mAxis.x)*size[0]+Math.abs(mAxis.y)*size[1]+Math.abs(mAxis.z)*size[2];
-      mAmt=mLength*.08;
-    }else if(mode==='inflate'){
-      /* A lung expands evenly from its own centre; the contract squash would
-         read as the lung being squeezed, not breathing. */
-      mAxis=new state.THREE.Vector3(0,1,0);
-      mAmt=rule.inflate||.05;
-    }else if(mode==='peristalsis'){
-      /* The tube direction is taken as the mesh's longest axis, and a narrow
-         band of constriction travels along it, pinching perpendicular at the
-         front. */
-      mAxis=new state.THREE.Vector3(longest===0?1:0,longest===1?1:0,longest===2?1:0);
-      mAmt=rule.pinch||.18;
-    }else{
-      mAxis=new state.THREE.Vector3(longest===0?1:0,longest===1?1:0,longest===2?1:0);
-      /* A long strap muscle shortens visibly; a short stubby one barely moves in
-         life either, so the amount tracks how elongated the mesh actually is --
-         unless the rule sets its own squeeze ('contract: 0.14'), as the heart
-         chambers do. */
-      const ratio=Math.max(...size)/(Math.min(...size)||1e-4);
-      mAmt=(typeof rule.contract==='number'&&rule.contract>0)
-        ?rule.contract
-        :Math.min(.11,.03+.014*Math.min(6,ratio));
+    const context={sharedCentre:mesh.userData.flowCenter?.toArray()};
+    if(rule.mode==='descend'||cls==='airway')context.anatomicalUp=new state.THREE.Vector3(0,1,0)
+      .transformDirection(new state.THREE.Matrix4().copy(mesh.matrixWorld).invert()).toArray();
+    context.lung=cls==='airway'&&rule.mode==='inflate';
+    const input={bounds:{min:bb.min.toArray(),max:bb.max.toArray()},rule,context};
+    if(cls==='muscle'){
+      const p=g.attributes.position;
+      input.positions=new Float32Array(p.count*3);
+      for(let i=0;i<p.count;i++)input.positions.set([p.getX(i),p.getY(i),p.getZ(i)],i*3);
+      input.indices=g.index?.array;
+      context.name=mesh.name;
+      const scale=new state.THREE.Vector3().setFromMatrixScale(mesh.matrixWorld).toArray();
+      context.uniformMetric=Math.max(...scale)<=Math.min(...scale)*(1+1e-5);
     }
+    const shape=cls==='muscle'?deriveMuscleShape(input):context.lung?deriveBreathingShape(input):deriveShape(input);
+    if(cls==='heartVentricle'&&mesh.userData.flowPumpShape)Object.assign(shape,mesh.userData.flowPumpShape);
+    mCenter=new state.THREE.Vector3(...shape.centre);
+    mAxis=new state.THREE.Vector3(...shape.axis);
+    mLength=shape.length;mAmt=shape.amount;
   }
   /* The deformed and colour-only meshes of a class compile to different
      programs, so the cache key has to name the variant or the first to compile
      is silently reused for every mesh of the class. */
-  mat.customProgramCacheKey=()=>'rssflow-mechanics:'+cls+(deform?':d':':c')+(route?':motor':'');
+  mat.customProgramCacheKey=()=>'rssflow-breathing-jacobian:'+cls+(deform?':d':':c')+(route?':motor':'');
   mat.onBeforeCompile=(sh)=>{
     sh.uniforms.uT=state.flow.uT;
     sh.uniforms.uOn=state.flow.uOn;
@@ -195,6 +183,7 @@ function installFlow(mesh,cls){
     }
     sh.vertexShader=(cls==='nerve'&&route?'attribute float aTransmission;varying float vTransmission;\n':'')+'varying float vFlowY;\n'
       +(deform?'uniform float uDeform;uniform vec3 uMCenter;uniform vec3 uMAxis;uniform float uMAmt;uniform float uMLength;uniform float uMode;\nuniform float uT;uniform float uSpeed;uniform float uDir;uniform float uFreq;uniform float uSharp;\n':'')
+      +(deform&&cls==='muscle'?MUSCLE_SHAPE_GLSL:'')
       +sh.vertexShader.replace('#include <begin_vertex>',
         '#include <begin_vertex>\n'
         +(deform
@@ -203,17 +192,17 @@ function installFlow(mesh,cls){
            +'if(uMode>4.5){/* chamber contraction reduces enclosed volume */\n'
            +'  transformed-=uDeform*uMAmt*(rssPerp+.55*rssAlong*uMAxis);\n'
            +'}else if(uMode>3.5){/* diaphragm: central dome descends; peripheral rim is tethered */\n'
-           +'  float dome=smoothstep(-.2,.45,rssAlong/uMLength);transformed-=uMAxis*uMAmt*uDeform*dome;\n'
+           +'  float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n'
            +'}else if(uMode>2.5){/* peristalsis: a ring of constriction travelling along the tube */\n'
            +'  float rssW=(rssAlong/uMLength)*2.-uT*uSpeed*uDir;\n'
            +'  float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n'
            +'  transformed-=rssPerp*rssRip*uMAmt*uDeform;\n'
            +'}else if(uMode>1.5){/* inflate: even expansion away from the centre */\n'
-           +'  transformed+=(transformed-uMCenter)*uDeform*uMAmt;\n'
+           +(cls==='airway'?'  transformed+=rssPerp*(.65*uDeform*uMAmt)+uMAxis*rssAlong*(1.4*uDeform*uMAmt);\n':'  transformed+=(transformed-uMCenter)*uDeform*uMAmt;\n')
            +'}else{/* contract: shorten along the axis, thicken across it */\n'
-           +(cls==='muscle'?'  float tether=pow(max(0.,1.-pow(2.*rssAlong/uMLength,2.)),2.);\n':'  float tether=1.;\n')
-           +'  transformed-=uMAxis*rssAlong*uDeform*uMAmt*tether;\n'
-           +'  transformed+=rssPerp*(inversesqrt(max(.1,1.-uDeform*uMAmt*tether))-1.);\n'
+           +(cls==='muscle'
+             ?'  vec4 profile=rssMuscleProfile(rssAlong);if(uDeform*uMAmt>0.&&abs(2.*rssAlong/uMLength)<1.)transformed=uMCenter+uMAxis*profile.x+rssPerp*profile.z;\n'
+             :'  transformed-=uMAxis*rssAlong*uDeform*uMAmt;transformed+=rssPerp*(inversesqrt(max(.1,1.-uDeform*uMAmt))-1.);\n')
            +'}\n'
           :'')
         +(cls==='nerve'&&route?'vTransmission=aTransmission;\n':'')
@@ -221,7 +210,11 @@ function installFlow(mesh,cls){
     if(deform)sh.vertexShader=sh.vertexShader.replace('#include <beginnormal_vertex>',
       '#include <beginnormal_vertex>\n'
       +'if(uMode>4.5){vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(na/max(.1,1.-.55*uDeform*uMAmt)+(objectNormal-na)/max(.1,1.-uDeform*uMAmt));}\n'
-      +'if(uMode<1.5){float k=max(.1,1.-uDeform*uMAmt);vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(na/k+(objectNormal-na)*sqrt(k));}\n'
+      +'if(uMode>3.5&&uMode<4.5&&uDeform>0.&&uMAmt>0.){float z=dot(position-uMCenter,uMAxis)/max(uMLength,.000001);float t=clamp((z+.2)/.65,0.,1.);float k=1.-uMAmt*uDeform*6.*t*(1.-t)/(.65*max(uMLength,.000001));vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(objectNormal-na+na/k); }\n'
+      +(cls==='airway'?'if(uMode>1.5&&uMode<2.5&&uDeform>0.){vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize((objectNormal-na)/(1.+.65*uMAmt*uDeform)+na/(1.+1.4*uMAmt*uDeform));}\n':'')
+      +(cls==='muscle'
+        ?'if(uMode<1.5&&uDeform*uMAmt>0.){float along=dot(position-uMCenter,uMAxis);if(abs(2.*along/uMLength)<1.){vec3 radial=position-uMCenter-along*uMAxis;vec4 profile=rssMuscleProfile(along);float na=dot(objectNormal,uMAxis);vec3 nr=objectNormal-na*uMAxis;objectNormal=normalize(nr/profile.z+uMAxis*(na-profile.w*dot(radial,nr)/profile.z)/profile.y);}}\n'
+        :'if(uMode<1.5){float k=max(.1,1.-uDeform*uMAmt);vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(na/k+(objectNormal-na)*sqrt(k));}\n')
       +'else if(uMode>2.5&&uMode<3.5){float along=dot(position-uMCenter,uMAxis);vec3 radial=position-uMCenter-along*uMAxis;float phase=(along/uMLength*2.-uT*uSpeed*uDir)*6.2831853;float wave=max(0.,.5+.5*sin(phase));float k=max(.1,1.-pow(wave,uSharp)*uMAmt*uDeform);float dk=-uMAmt*uDeform*uSharp*pow(wave,max(0.,uSharp-1.))*.5*cos(phase)*12.5663706/uMLength;float na=dot(objectNormal,uMAxis);vec3 nr=objectNormal-na*uMAxis;objectNormal=normalize(nr/k+uMAxis*(na-dk*dot(radial,nr)/k));}\n');
     sh.fragmentShader=(cls==='nerve'&&route?'varying float vTransmission;uniform float uMotorClock;uniform float uArrivalStart;uniform float uArrivalSpan;\n':'')+'varying float vFlowY;\n'
       +'uniform float uT;uniform float uOn;uniform float uBeat;uniform vec3 uFlowColor;\n'
@@ -246,14 +239,38 @@ function installFlow(mesh,cls){
 export function installLayerFlow(key,meshes){
   const counts={};
   meshes.forEach(m=>m.updateWorldMatrix(true,false));
-  // A lung's lobes breathe around one shared centre, keeping their seams joined.
+  // Named papillary muscles follow their own ventricle's affine field.
+  // Sharing a field preserves existing attachment offsets; it does not infer
+  // valve motion or assign contraction to the pericardium.
+  if(key==='circulatory'&&state.THREE){
+    meshes.forEach(m=>{delete m.userData.flowPumpShape;});
+    const T=state.THREE;
+    for(const side of ['Left','Right']){
+      const chamber=meshes.find(m=>new RegExp('^'+side+'_ventricle(?:_\\d+)?$').test(m.name));
+      if(!chamber)continue;
+      if(!chamber.geometry.boundingBox)chamber.geometry.computeBoundingBox();
+      const bb=chamber.geometry.boundingBox;
+      const shape=deriveShape({bounds:{min:bb.min.toArray(),max:bb.max.toArray()},rule:FLOW_CLASSES.heartVentricle.rule});
+      const centre=chamber.localToWorld(new T.Vector3(...shape.centre));
+      const axis=new T.Vector3(...shape.axis).transformDirection(chamber.matrixWorld);
+      for(const m of meshes.filter(m=>new RegExp('papillary.*'+side+'_ventricle$','i').test(m.name))){
+        const scale=new T.Vector3().setFromMatrixScale(m.matrixWorld).toArray();
+        const parentScale=new T.Vector3().setFromMatrixScale(chamber.matrixWorld).toArray();
+        if([scale,parentScale].some(v=>Math.max(...v)>Math.min(...v)*(1+1e-5)))continue;
+        m.userData.flowPumpShape={centre:m.worldToLocal(centre.clone()).toArray(),
+          axis:axis.clone().transformDirection(new T.Matrix4().copy(m.matrixWorld).invert()).toArray(),amount:shape.amount};
+      }
+    }
+  }
+  // Every lobe uses one superior geometric reference and world-up field.
+  // This is an illustrative apex reference, not a measured hilum attachment.
   if(key==='organs'&&state.THREE){
     state.scene?.updateMatrixWorld(true);
     for(const side of ['left','right']){
       const lobes=meshes.filter(m=>new RegExp('lobe.*'+side+'.*lung','i').test(m.userData.label||m.name));
       const box=new state.THREE.Box3();lobes.forEach(m=>box.expandByObject(m));
       if(!box.isEmpty()){
-        const centre=box.getCenter(new state.THREE.Vector3());
+        const centre=box.getCenter(new state.THREE.Vector3());centre.y=box.max.y;
         lobes.forEach(m=>{m.userData.flowCenter=m.worldToLocal(centre.clone());});
       }
     }
@@ -292,10 +309,12 @@ export function applyConnectiveVisibility(){
     Object.values(state.extraModels).forEach(layer=>layer.meshes.forEach(m=>{if(!state.focus.keep.has(m))m.visible=false;}));
   }
 }
-export function setPhysiology(on){
-  state.flow.on=!!on;
+export function setPhysiology(on, explicit=false){
+  if(explicit){state.flow.motionOptIn=!!on;state.flow.motionChoice=!!on;}
+  on=!!on && state.flow.motionChoice!==false && (!state.flow.reducedMotion || state.flow.motionOptIn);
+  state.flow.on=on;
   // Spread needs an undeformed model immediately for its layout measurements.
-  if(!on&&state.separation){
+  if(!on&&(state.separation||state.flow.reducedMotion)){
     state.flow.blend=0;
     state.flow.uOn.value=0;
     Object.values(state.flow.classes).forEach(u=>{if(u.uDeform)u.uDeform.value=0;});
@@ -303,6 +322,7 @@ export function setPhysiology(on){
     (state.flow.activity||[]).forEach(u=>{u.uDeform.value=0;});
   }
   applyConnectiveVisibility();
+  window.dispatchEvent(new CustomEvent('rss:physiologychange'));
   return state.flow.on;
 }
 
@@ -1369,7 +1389,24 @@ export function endMovement(){
 
 /* Runs after every part has evaluated — see the entry point. */
 export function init() {
-  state.flow = { on:true, blend:1, uT:{value:0}, uOn:{value:1}, classes:{}, counts:{}, connective:[] };
+  state.flow?.disposeMotionPreference?.();
+  const reducedMotion=prefersStill();
+  state.flow = { on:!reducedMotion, blend:reducedMotion?0:1, reducedMotion, motionOptIn:false, motionChoice:null,
+    uT:{value:0}, uOn:{value:reducedMotion?0:1}, classes:{}, counts:{}, connective:[] };
+  if(typeof matchMedia==='function'){
+    const preference=matchMedia('(prefers-reduced-motion: reduce)');
+    const change=event=>{
+      state.flow.reducedMotion=event.matches;
+      if(event.matches){state.flow.motionOptIn=false;state.flow.motionChoice=false;setPhysiology(false);}
+    };
+    if(preference.addEventListener){
+      preference.addEventListener('change',change);
+      state.flow.disposeMotionPreference=()=>preference.removeEventListener('change',change);
+    }else if(preference.addListener){
+      preference.addListener(change);
+      state.flow.disposeMotionPreference=()=>preference.removeListener(change);
+    }
+  }
   state.focus=null;
   state.xray=null;
   state.movement=null;
