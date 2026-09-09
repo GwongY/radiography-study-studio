@@ -693,7 +693,7 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 2,
       "title": "Muscles and fascial compartments of the arm and forearm",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.3",
@@ -704,6 +704,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.revans",
           "set": "old",
           "role": "assessment"
+        },
+        {
+          "ref": "hss.ul.2026",
+          "set": "new",
+          "role": "current-primary"
         }
       ],
       "reasons": [
@@ -865,7 +870,7 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 3,
       "title": "Thigh and gluteal muscles: hip and knee motor control and sciatic innervation",
-      "status": "partial",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.3",
@@ -875,7 +880,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.manual1920",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
+        },
+        {
+          "ref": "hss.ll.2026",
+          "set": "new",
+          "role": "current-primary"
         }
       ],
       "reasons": [
@@ -887,7 +897,7 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 3,
       "title": "Leg compartments, ankle and foot muscles, and the three foot arches",
-      "status": "partial",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.3",
@@ -897,7 +907,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.manual1920",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
+        },
+        {
+          "ref": "hss.ll.2026",
+          "set": "new",
+          "role": "current-primary"
         }
       ],
       "reasons": [
@@ -5044,6 +5059,16 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "hss2011-structures-kneeJoint",
         "set": "new",
         "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-lower-thigh-gluteal-muscles",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-lower-leg-foot-muscles-arches",
+        "set": "new",
+        "role": "current-primary"
       }
     ],
     "hss.manual1920": [
@@ -5070,12 +5095,12 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-lower-thigh-gluteal-muscles",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "hss2011-lower-leg-foot-muscles-arches",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "hss2011-lower-femoral-triangle-vessels-nerves",
@@ -5512,6 +5537,11 @@ export const Y1S1_SOURCE_MAP = {
       },
       {
         "lessonId": "hss2011-joints-rotator-cuff",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-upper-limb-muscles-compartments",
         "set": "new",
         "role": "current-primary"
       }
