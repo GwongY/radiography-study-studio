@@ -46,7 +46,10 @@ Live physiology honours reduced motion at startup and when the OS preference cha
 The Live button remains an explicit opt-in for the current page; returning to
 no preference does not restart motion. Check with `node work/physiology-motion-preference-check.mjs`.
 Live physiology has no speed control. Atrial contraction precedes an AV interval
-and ventricular contraction; chamber deformation reduces volume. The diaphragm
+and ventricular contraction; chamber deformation reduces volume. The four named
+papillary-muscle meshes share their own ventricle's contraction field, rather than
+shrinking around unrelated centres. Valve opening remains unresolved.
+`work/physiology-papillary-browser-check.js` checks the named pairs over a cycle. The diaphragm
 descends with inspiration; its normals follow the dome deformation. Each lung's
 lobes share one superior geometric reference, expanding outward and downward
 with the same directional field. This is not a measured hilum constraint.
