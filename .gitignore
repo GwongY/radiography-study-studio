@@ -16,6 +16,12 @@ work/.source-lesson-audit/
 # the files themselves stay out.
 New source/
 
+# Automated review-hook state (PostToolUse). Baseline snapshots of every file
+# an edit touched, content-hashed, plus its run reports and finding ledger —
+# 47 MB across ten sessions, and it grows with every edit. Local tooling state,
+# rebuilt on demand, and nothing in the app or the verifiers reads it.
+.mimosa/
+
 # Generated question packs. A pack is a publisher test bank reshaped into JSON:
 # fine to study from on your own device, not ours to republish, and this
 # repository is public. work/build-question-pack.mjs writes here, the app
