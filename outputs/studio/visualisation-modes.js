@@ -345,7 +345,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   /* The pool line counts the layers that are on, so the rail tells it when
      that changes rather than the line going stale. */
   refreshStudyPool:()=>renderStudyPool(),
-  setPhysiology:(on)=>setPhysiology(on),
+  setPhysiology:(on)=>setPhysiology(on,true),
   physiologyOn:()=>state.flow.on,
   /* How many meshes of each class a loaded layer turned out to hold -- the
      legend prints the real count rather than a claim about the atlas. */
