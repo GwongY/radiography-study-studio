@@ -343,9 +343,7 @@ export const EXPANSION_ITEMS = [
     ],
     "selfCheck": "From memory: list the six synovial joint types, classify each by axes of motion (uni-, bi-, polyaxial), provide one anatomical example for each, and state why the wrist is condylar rather than hinge.",
     "visuals": [
-      {
-        "fig": "synovialTypes"
-      },
+      { fig: 'synovialTypes', focus: ["a","b","c","d","e","f"] },
       {
         "schematic": "synovialTypes"
       },
@@ -674,9 +672,7 @@ export const EXPANSION_ITEMS = [
     ],
     "selfCheck": "From memory: write down the definitions of agonist, antagonist, synergist, fixator, ligament, and fibrous capsule, and name the bones forming the sternoclavicular and radiocarpal joints.",
     "visuals": [
-      {
-        "fig": "synovialJoint"
-      },
+      { fig: 'synovialJoint', focus: ["Articular cartilage","Joint cavity containing synovial fluid","Synovial membrane","Articular capsule"] },
       {
         "schematic": "muscleAction"
       },

@@ -21,9 +21,7 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-      {
-        "fig": "heartInternalAnatomy"
-      },
+      { fig: 'heartInternalAnatomy', focus: ["Right atrium","Right ventricle","Left atrium","Left ventricle","Interventricular septum","Tricuspid valve","Bicuspid valve"] },
       {
         "fig": "heart"
       },
@@ -204,12 +202,8 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-      {
-        "fig": "respiratoryTractAnatomy"
-      },
-      {
-        "fig": "lungsGrossAnatomy"
-      },
+      { fig: 'respiratoryTractAnatomy', focus: ["Trachea","Primary bronchi","Right lung","Left lung"] },
+      { fig: 'lungsGrossAnatomy', focus: ["Superior lobe (right lung)","Middle lobe (right lung)","Inferior lobe","Horizontal fissure","Oblique fissure"] },
       {
         "gen": true
       }
@@ -724,9 +718,7 @@ export const HSS_MODULES = [
           "caption": "The thalamus and hypothalamus walling the third ventricle, and the limbic circuit around them: cingulate gyrus arching over the corpus callosum, hippocampus and amygdala in the temporal lobe, joined by the fornix."
         }
       },
-      {
-        "fig": "cerebellumSection"
-      },
+      { fig: 'cerebellumSection', focus: ["cerebellar gyri","gray layer","medullary substance of hemisphere","vermis (superior portion)"] },
       {
         "gen": true
       }
@@ -993,15 +985,9 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-      {
-        "fig": "abdominalQuadrantsRegions"
-      },
-      {
-        "fig": "thoracicDiaphragm"
-      },
-      {
-        "fig": "maleFemalePelvis"
-      },
+      { fig: 'abdominalQuadrantsRegions', focus: ["Hypogastric region","Right iliac region","Left iliac region","Right lower quadrant","Left lower quadrant"] },
+      { fig: 'thoracicDiaphragm', focus: ["Caval opening (T8 level)","Esophageal hiatus (T10 level)","Aortic hiatus (T12 level)"] },
+      { fig: 'maleFemalePelvis', focus: ["Pelvic inlet","Pelvic outlet","Pubic angle","Sacrum","Acetabulum"] },
       {
         "gen": true
       }
@@ -2845,9 +2831,7 @@ export const HSS_MODULES = [
     ],
     "selfCheck": "From memory, describe the two layers of the periosteum, explain its dual blood supply with the nutrient foramen, name where it is absent, and explain why periosteal injuries are so painful.",
     "visuals": [
-      {
-        "fig": "longBone"
-      },
+      { fig: 'longBone', focus: ["Periosteum","Endosteum","Articular cartilage","Nutrient foramen"] },
       {
         "schematic": "longBone"
       },
@@ -3278,9 +3262,7 @@ export const HSS_MODULES = [
     ],
     "selfCheck": "From memory: state the innervations and actions of biceps brachii and triceps brachii, and compare the common flexor and extensor origins of the forearm.",
     "visuals": [
-      {
-        "fig": "muscleOrganization"
-      },
+      { fig: 'muscleOrganization', focus: ["Skeletal muscle","Epimysium","Fascicle","Tendon"] },
       {
         "model": {
           "layer": "muscle",
@@ -4179,9 +4161,7 @@ export const HSS_MODULES = [
       {
         "fig": "legMusclesCompartments"
       },
-      {
-        "fig": "bonesOfTheFoot"
-      },
+      { fig: 'bonesOfTheFoot', focus: ["Talus","Calcaneus","Navicular","Cuboid","Metatarsals (I–V)"] },
       {
         "model": {
           "layer": "muscle",
@@ -4689,9 +4669,7 @@ export const HSS_MODULES = [
       {
         "fig": "paranasalSinuses"
       },
-      {
-        "fig": "skullLateralView"
-      },
+      { fig: 'skullLateralView', focus: ["Coronal suture","Squamous suture","Lambdoid suture","Pterion","External acoustic meatus"] },
       {
         "model": {
           "layer": "skeleton",
@@ -5111,9 +5089,7 @@ export const HSS_MODULES = [
       {
         "fig": "masticationMuscles"
       },
-      {
-        "fig": "skullLateralView"
-      },
+      { fig: 'skullLateralView', focus: ["Zygomatic arch","Mastoid process","Styloid process","Mandible"] },
       {
         "gen": true
       }
@@ -5182,12 +5158,8 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-      {
-        "fig": "heartInternalAnatomy"
-      },
-      {
-        "fig": "lungsGrossAnatomy"
-      },
+      { fig: 'heartInternalAnatomy', focus: ["Aortic valve","Pulmonary valve","Tricuspid valve","Bicuspid valve","Right ventricle","Left ventricle"] },
+      { fig: 'lungsGrossAnatomy', focus: ["Horizontal fissure","Oblique fissure","Cardiac notch and lingula"] },
       {
         "gen": true
       }
@@ -6366,9 +6338,7 @@ export const HSS_MODULES = [
           "caption": "Midbrain, pons and medulla in a column, with the superior and inferior colliculi on the back of the midbrain, the red nucleus within it, and the olive bulging from the side of the medulla."
         }
       },
-      {
-        "fig": "cerebellumSection"
-      },
+      { fig: 'cerebellumSection', focus: ["dentate nucleus","vermis (superior portion)"] },
       {
         "gen": true
       }
@@ -7932,12 +7902,8 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-      {
-        "fig": "heartInternalAnatomy"
-      },
-      {
-        "fig": "cardiacConductionSystem"
-      },
+      { fig: 'heartInternalAnatomy', focus: ["Chordae tendineae","Papillary muscles","Tricuspid valve","Bicuspid valve","Right ventricle","Left ventricle"] },
+      { fig: 'cardiacConductionSystem', focus: ["Sinoatrial (SA) node","Atrioventricular (AV) node","Atrioventricular bundle (Bundle of His)","Purkinje fibers"] },
       {
         "gen": true
       }
@@ -8348,9 +8314,7 @@ export const HSS_MODULES = [
       {
         "fig": "lungsGrossAnatomy"
       },
-      {
-        "fig": "respiratoryTractAnatomy"
-      },
+      { fig: 'respiratoryTractAnatomy', focus: ["Primary bronchi","Right lung","Left lung","Diaphragm"] },
       {
         "gen": true
       }
@@ -8528,12 +8492,8 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-      {
-        "fig": "respiratoryTractAnatomy"
-      },
-      {
-        "fig": "respiratoryExchange"
-      },
+      { fig: 'respiratoryTractAnatomy', focus: ["Nasal cavity","Pharynx","Larynx","Trachea","Primary bronchi","Right lung","Left lung"] },
+      { fig: 'respiratoryExchange', focus: ["Type I alveolar cell","Type II alveolar cell","Respiratory membrane","Capillary","Alveolus (gas-filled space)"] },
       {
         "gen": true
       }
@@ -8895,9 +8855,7 @@ export const HSS_MODULES = [
       {
         "fig": "thoracicDiaphragm"
       },
-      {
-        "fig": "spirometryLungVolumes"
-      },
+      { fig: 'spirometryLungVolumes', focus: ["Tidal volume (TV)","Inspiratory reserve volume (IRV)","Expiratory reserve volume (ERV)","Vital capacity (VC)"] },
       {
         "gen": true
       }
@@ -9072,12 +9030,8 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-      {
-        "fig": "thoracicDiaphragm"
-      },
-      {
-        "fig": "thoracicCageAnatomy"
-      },
+      { fig: 'thoracicDiaphragm', focus: ["Central tendon","Right and left crura","Costal muscle margin"] },
+      { fig: 'thoracicCageAnatomy', focus: ["True ribs (Ribs 1–7)","False ribs (Ribs 8–10)","Floating ribs (Ribs 11–12)","Costal cartilages"] },
       {
         "gen": true
       }
@@ -9253,12 +9207,8 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-      {
-        "fig": "mediastinumDivisions"
-      },
-      {
-        "fig": "thoracicDiaphragm"
-      },
+      { fig: 'mediastinumDivisions', focus: ["Transverse thoracic plane","Superior mediastinum","Anterior mediastinum","Middle mediastinum","Posterior mediastinum"] },
+      { fig: 'thoracicDiaphragm', focus: ["Caval opening (T8 level)","Esophageal hiatus (T10 level)","Aortic hiatus (T12 level)","Central tendon"] },
       {
         "gen": true
       }
@@ -9452,9 +9402,7 @@ export const HSS_MODULES = [
       {
         "fig": "mediastinumDivisions"
       },
-      {
-        "fig": "heartInternalAnatomy"
-      },
+      { fig: 'heartInternalAnatomy', focus: ["Superior vena cava","Inferior vena cava","Pulmonary trunk","Ascending aorta","Pulmonary veins"] },
       {
         "gen": true
       }
@@ -9637,9 +9585,7 @@ export const HSS_MODULES = [
       {
         "fig": "mammaryGlandAnatomy"
       },
-      {
-        "fig": "lymphNodeStructure"
-      },
+      { fig: 'lymphNodeStructure', focus: ["Afferent lymphatic vessels","Cortex and germinal centers","Efferent lymphatic vessel and hilum","Subcapsular sinus"] },
       {
         "gen": true
       }
@@ -11022,12 +10968,8 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-      {
-        "fig": "digestiveSystemOverview"
-      },
-      {
-        "fig": "biliaryPancreaticDucts"
-      }
+      { fig: 'digestiveSystemOverview', focus: ["Oral cavity","Pharynx and esophagus","Stomach","Small intestine","Large intestine","Liver and gallbladder","Pancreas"] },
+      { fig: 'biliaryPancreaticDucts', focus: ["Right hepatic duct","Left hepatic duct","Cystic duct","Common bile duct","Pancreas","Gallbladder"] }
     ],
     "lesson": {
       "explanation": "This is the exam-facing drill for Module 3.1. Every item below is drawn from the official Study Manual revision exercises, the five-year fill-in-the-blank bank, and the More-exercises labelling sheet — with the model answers from the appendix.\n\nTHE FIVE FILL-IN-THE-BLANKS (Module 3.1, every sitting): (1) The epithelium of the mucosal layer along most of the digestive tract is simple columnar epithelium. (2) The third muscle layer overlaying the mucosa of the stomach wall is the oblique muscle. (3) The cardiac orifice is the opening where the oesophagus enters the stomach. (4) The junction between duodenum and jejunum is the duodenojejunal junction (flexure). (5) Nutrients absorbed in the gut are transported to the liver through the hepatic portal vein.\n\nTHE FIVE MCQs (Module 3.1): the longest part of the gut is the ILEUM; gastric pits are located in the MUCOSA; teniae coli are found in the COLON; the largest salivary gland is the PAROTID; a classic hepatic lobule has SIX portal triads.\n\nTHE FIVE-YEAR RECURRING BLANKS (asked in 12/13 through 16/17 without a break): the domelike roof superior to the oesophageal attachment of the stomach is the fundic region; the pyloric sphincter is the circular muscle guarding the stomach's exit; the duodenum is the small-intestine segment whose villi are largest; the midline abdominal regions top-to-bottom are epigastric, umbilical, hypogastric; the ileocecal valve, teniae coli and haustra trio; Peyer patches in the ileum; the pancreas trio (uncinate process of the head, tail to the spleen, duct joining the common bile duct at an ampulla); and the liver quartet — right, left, quadrate (anterior) and caudate (posterior) lobes, right and left divided by the falciform ligament, irregular opening = porta hepatis.\n\nMORE-EXERCISES LABELLING A–V: gallbladder, cystic duct, right kidney, common hepatic duct, common bile duct, hepatic portal vein, right ureter, psoas muscles, ascending colon, second part of duodenum, head and tail of pancreas, left kidney, left adrenal gland, spleen, left colic (splenic) flexure, coeliac trunk, hepatic artery proper, superior mesenteric artery, inferior mesenteric artery, IVC, common iliac arteries. Work it against the biliary-ducts figure and the 3D model until you can label cold.",
@@ -11639,9 +11581,7 @@ export const HSS_MODULES = [
       {
         "fig": "glomerularFiltrationMembrane"
       },
-      {
-        "fig": "nephronSecretionReabsorption"
-      }
+      { fig: 'nephronSecretionReabsorption', focus: ["PCT bulk reabsorption","PCT tubular secretion","Loop of Henle water and salt separation","DCT aldosterone-sensitive reabsorption","Collecting duct ADH-regulated water recovery"] }
     ],
     "lesson": {
       "explanation": "THE KIDNEY LOBE. The gross unit you can see on section is the kidney lobe: one renal pyramid plus the cortical tissue overlying it. The study manual's guiding question asks exactly this — pyramid + its cap of cortex, with the columns of cortex running between neighbouring pyramids. Urine leaves each lobe at its papilla into a minor calyx.\n\nTHE VASCULAR TREE. The renal artery at the hilum branches into segmental arteries, which divide into interlobar arteries running between the pyramids in the renal columns. At the cortex–medulla junction each interlobar artery turns to arch as an arcuate artery — \"the arterial vessel arch along the boundary between the cortex and medulla\" is the revision MCQ. From the arcuates arise the cortical radiate (interlobular) arteries, which give off the afferent arterioles, one per glomerulus. Blood leaves each glomerulus through an efferent arteriole — unusual: a capillary bed between two arterioles — and flows on into the peritubular capillaries around the tubule (or the long vasa recta that follow the medullary loops in juxtamedullary nephrons), then venules, cortical radiate veins, arcuate, interlobar veins, and out the renal vein.\n\nTWO TYPES OF NEPHRON. Each kidney holds over a million nephrons, of two types. Cortical nephrons sit high in the cortex with short nephron loops reaching only into the outer medulla — the majority, doing most reabsorptive housekeeping. Juxtamedullary nephrons sit next to the medulla with long loops (and their vasa recta) reaching deep into the pyramids — they build the osmotic gradient that concentrates urine.\n\nTHE RENAL CORPUSCLE. Filtration starts at the renal corpuscle: the glomerulus — \"the compact ball of capillaries in a nephron\", the every-year blank — inside the glomerular (Bowman's) capsule, whose parietal epithelium continues into the tubule and whose visceral epithelium cells are podocytes wrapping the capillaries; between them is the capsular space receiving the filtrate. Production of filtrate is the corpuscle's job. At the vascular pole sits the juxtaglomerular complex: juxtaglomerular cells — smooth-muscle fibres in the wall of the afferent arteriole — and the macula densa, epithelial cells of the distal convoluted tubule pressed against the corpuscle, which together monitor flow and signal for renin.\n\nTUBULE SEGMENTS AND THEIR JOBS. The proximal convoluted tubule reabsorbs water, ions and ALL organic nutrients — its cells are cuboidal with abundant microvilli (a brush border) and packed mitochondria to power the transport. The nephron loop then descends: the descending limb further reabsorbs water; the thin ascending limb is squamous; the thick ascending limb pumps sodium and chloride ions out. The distal convoluted tubule secretes ions, acids, drugs and toxins and varies its reabsorption of water, sodium and calcium under hormonal control — cuboidal cells with few microvilli. The collecting duct then drains the nephron through the medulla, receiving variable water/solute adjustment itself, and several collecting ducts join as papillary ducts that open at the renal papilla into the minor calyx — \"each renal pyramid drains into a separate cuplike urine receptacle called a minor calyx\", the recurring blank, and the model answer \"calyx\" for the Module 3.2 FIB.",
@@ -12767,12 +12707,8 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-      {
-        "fig": "urinaryBladderTrigone"
-      },
-      {
-        "fig": "maleReproductiveSagittal"
-      }
+      { fig: 'urinaryBladderTrigone', focus: ["Trigone","Ureteral opening","Internal urethral orifice / sphincter","Detrusor muscle"] },
+      { fig: 'maleReproductiveSagittal', focus: ["Testis","Epididymis","Vas deferens","Prostate gland","Seminal vesicle","Bulbourethral (Cowper) gland"] }
     ],
     "lesson": {
       "explanation": "The exam-facing drill for Module 3.2 (urogenital) and the 3.3 items that ride on it, drawn from the Study Manual revision exercises, the five-year blank bank and the 2017 paper.\n\nTHE FIVE FILL-IN-THE-BLANKS (Module 3.2): (1) the pair of glands at the base of the penis are the bulbourethral glands; (2) the powerful muscle of the bladder muscularis is the detrusor; (3) the cup-shaped drain receiving urine from a renal papilla is the calyx (minor calyx); (4) the female erectile tissue question — the answer key gives the clitoris (deck equivalence: vestibular bulbs ≈ corpus spongiosum); (5) the epithelial fold partially blocking the vaginal entrance is the hymen.\n\nTHE FIVE MCQs (Module 3.2): arcuate arteries arch at the cortex–medulla boundary; the DCT is the tubule distal to the loop of Henle; the spermatic cord contains everything EXCEPT seminiferous tubules; the passageway between internal and external os is the cervical canal; a testis has 15–20 efferent ductules.\n\nTHE FIVE-YEAR RECURRING BLANKS (12/13 → 16/17, unbroken): hilum = entry/exit of renal vessels; the ureter conveys urine and penetrates the POSTERIOR bladder wall; corpus spongiosum encloses the urethra; the seminal gland is the secretory structure posterior to the bladder contributing ~60% of semen; the cremaster contracts when cold; the glomerulus is the compact ball of capillaries; the uterine-tube segments fimbriae/infundibulum/ampulla/isthmus; endometrium + myometrium + perimetrium; the pampiniform plexus countercurrent exchanger; Peyer patches; the blood-testis barrier of sustentacular cells; medulla of ovary; uterosacral + ovarian + suspensory ligaments; the ileocecal valve + teniae coli + haustra trio; seminiferous tubules; the trigone; each pyramid drains into a minor calyx.\n\nAND FROM 3.3 / THE 2017 PAPER: midline regions epigastric-umbilical-hypogastric; the oesophageal hiatus at T10; the posterior abdominal wall of psoas + quadratus lumborum; the fundus as most superior part; the ureteric stones' three sites; the left 10th rib endangering left kidney and spleen; uterine-tube labelling [28] infundibulum, [29] ampulla, [30] isthmus. Drill them all until the answers are reflexes.",

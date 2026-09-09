@@ -146,9 +146,7 @@ export const HSS_JOINTS = [
       {
         "schematic": "jointClassification"
       },
-      {
-        "fig": "synovialJoint"
-      },
+      { fig: 'synovialJoint', focus: ["Articular cartilage","Joint cavity containing synovial fluid","Synovial membrane","Articular capsule"] },
       {
         "gen": true
       }
@@ -946,9 +944,7 @@ export const HSS_JOINTS = [
     ],
     "selfCheck": "From memory: define flexion, extension, abduction, adduction, pronation, supination, dorsiflexion, plantarflexion, inversion, eversion, opposition, and reposition with their respective joints.",
     "visuals": [
-      {
-        "fig": "jointMovements"
-      },
+      { fig: 'jointMovements', focus: ["a / b","e","f"] },
       {
         "schematic": "jointMovements"
       },
