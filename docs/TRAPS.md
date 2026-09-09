@@ -341,7 +341,9 @@ shapes** — in "The region grid and classifiers" below.
   due, what counts as unseen, and how the queue is ordered. A reading written
   in as an attempt would put lessons you have only looked at into the revision
   queue and drag the accuracy figures down with attempts nobody made. Read is
-  read; answered is answered, and the dots on a row stay a mastery reading.
+  read; answered is answered. Lesson-row dots now show the saved stage (1–4),
+  independently of answer mastery. Exercise the rendered row after Save & exit:
+  testing `getItemStep` alone missed Practise and Apply both displaying one dot.
 - **`saveContinue` had exactly one caller, and it was `setStep`.** So a resume
   point existed only if you *changed step* — open an item, read it, leave, and
   Today's Continue card still pointed at whatever you studied last week.

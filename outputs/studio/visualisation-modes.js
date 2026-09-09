@@ -446,7 +446,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   function saveStats(){ try{localStorage.setItem('osteology-studio-stats',JSON.stringify(state.stats))}catch{} }
   export function record(id, correct, elapsed){ const s=state.stats[id] || {attempts:0,correct:0,incorrect:0,avgMs:0,lastReviewed:null,confidence:0}; s.attempts++; correct?s.correct++:s.incorrect++; s.avgMs=Math.round(((s.avgMs*(s.attempts-1))+elapsed)/s.attempts); s.lastReviewed=new Date().toISOString(); s.confidence=Math.round((s.correct/s.attempts)*100); state.stats[id]=s; saveStats(); renderReview(); }
   export function showToast(message){ els.toast.textContent=message; els.toast.classList.add('show'); clearTimeout(showToast.t); showToast.t=setTimeout(()=>els.toast.classList.remove('show'),2200); }
-  export function clean(text){return text.replace(/[&<>"']/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  export function clean(text){return String(text ?? '').replace(/[&<>"']/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   function memoryTipHTML(record){const key=record?.id?.replace(/^(full:|real:)/,'')?.replace(/-(left|right)$/,'');const tip=MEMORY_TIPS[key]||MEMORY_TIPS[record?.modelObjectIds?.map(id=>id.replace(/-(left|right)$/,'')).find(id=>MEMORY_TIPS[id])];return tip?`<div class="memtip"><span class="mem-root">Memory hook · ${clean(tip.root)}</span><span class="mem-body">💡 ${clean(tip.tip)}</span></div>`:''}
   export function regionLabel(id){if(id==='all')return 'All regions';if(!id)return 'Unclassified';/* System layers carry their layer key as a region -- a vein has no bone region. */if(LAYER_NAMES[id])return LAYER_NAMES[id];return REGIONS.find(r=>r.id===id)?.label || id}
   /*

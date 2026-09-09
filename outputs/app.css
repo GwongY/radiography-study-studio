@@ -356,14 +356,15 @@
  * changes; the fallback is only for the frame before the first measurement.
  */
 .navhead{transition:transform .22s ease,opacity .16s ease}
-#rssSearchBtn,#rssSessionSearch{position:fixed;right:max(12px,env(safe-area-inset-right));top:max(12px,env(safe-area-inset-top));z-index:20;background:var(--bg)}
-.app-shell .navmain>.navhead,#sessionView>.navhead{padding-right:68px}
 @media(max-width:1100px){
   .navmain,#sessionView{position:relative}
   .navmain>.navhead,#sessionView>.navhead{position:absolute;top:0;left:0;right:0;z-index:6;background:var(--bg)}
-  .navhead.tucked{transform:translateY(-100%);opacity:0;pointer-events:none}
+  .navhead.tucked{transform:translateY(-100%);pointer-events:none}
+  .navhead.tucked>:not([data-textsize]):not(#rssSearchBtn):not(#rssSessionSearch){opacity:0}
+  .navhead>[data-textsize],.navhead>#rssSearchBtn,.navhead>#rssSessionSearch{transition:transform .22s ease;background:var(--bg)}
+  .navhead.tucked>[data-textsize],.navhead.tucked>#rssSearchBtn,.navhead.tucked>#rssSessionSearch{transform:translateY(var(--headh));pointer-events:auto}
 }
-@media(prefers-reduced-motion:reduce){.navhead{transition:none}}
+@media(prefers-reduced-motion:reduce){.navhead,.navhead>[data-textsize],.navhead>#rssSearchBtn,.navhead>#rssSessionSearch{transition:none}}
 
 .navhead.compact{padding:9px 16px;gap:10px}
 .navhead.compact .kicker{display:none}

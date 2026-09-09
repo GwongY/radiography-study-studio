@@ -78,8 +78,8 @@ export const FLOW_CLASSES = {
   heart: {
     label: 'Heart', short: 'Heart',
     color: 0x9e2f2f, flow: 0xff7a63,
-    says: 'Supporting heart structures are held still in this display. Valve opening and the internal conducting pathways are not resolved by these surface meshes.',
-    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0, beat: null },
+    says: 'A subtle pulse marks the cardiac cycle around the supporting heart structures. This is an activity cue; valve opening and internal conducting pathways are not resolved by these surface meshes.',
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0.45, beat: 'cardiac' },
   },
   heartAtrium: {
     label: 'Atrium', short: 'Atrium',
@@ -96,14 +96,14 @@ export const FLOW_CLASSES = {
   nerve: {
     label: 'Peripheral nerve', short: 'Nerve',
     color: 0xd8c65e, flow: 0xfffbc9,
-    says: 'Selected motor examples show an impulse travelling along the nerve before its target muscle contracts. Transmission is slowed for visibility; mixed nerves also carry sensory traffic, which is not animated here.',
+    says: 'Travelling light marks illustrative nerve activity. The selected motor examples follow a mapped path before their target muscle contracts, slowed for visibility. Other nerves use staggered activity cues, without claiming a specific sensory or motor route.',
     rule: { from: 'cord', wrap: 'mirror', dir: 1, speed: 3.4, freq: 3.2, sharp: 9, gain: 1.4, beat: null },
   },
   cns: {
     label: 'Brain and spinal cord', short: 'CNS',
     color: 0xbfc6a8, flow: 0xf2f6d8,
-    says: 'Central nervous tissue remains still; the model does not resolve its active neural circuits.',
-    rule: { from: 'cord', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0, beat: null },
+    says: 'A subtle light pulse represents neural activity without deforming the brain or spinal cord. It is an illustrative cue; these surfaces do not resolve individual neural circuits.',
+    rule: { from: 'cord', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0.35, beat: 'spike' },
   },
   /*
    * A note on what is actually in the file.
@@ -141,7 +141,7 @@ export const FLOW_CLASSES = {
   muscle: {
     label: 'Skeletal muscle', short: 'Muscle',
     color: 0xa8443c, flow: 0xff9b7a,
-    says: 'The mapped deltoid, biceps and quadriceps examples activate after their motor impulse, then relax. The belly deforms with tethered ends in this fixed-pose demonstration.',
+    says: 'Muscle bellies shorten and thicken with tethered ends, then relax. Unmapped muscles use staggered demonstration cycles. The mapped deltoid, biceps and quadriceps examples activate after their motor impulse in this fixed-pose display.',
     /* gain 0: the contraction is shown purely as deformation, so the muscle
        does not glow and dim with each beat. */
     rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0, beat: 'contract', mode: 'contract', deform: 'contract' },

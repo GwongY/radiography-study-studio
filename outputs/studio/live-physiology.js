@@ -104,8 +104,15 @@ function installFlow(mesh,cls){
   const mat=mesh.material;
   if(mat.color) mat.color.setHex(spec.color);
   const route=motorRoute(mesh.userData.layerKey,mesh.userData.label||mesh.name);
-  // Mixed sensory/motor nerves and unrelated muscles do not all fire together.
-  if((cls==='nerve'||cls==='muscle')&&!route)return;
+  // Unmapped structures retain illustrative activity, with staggered phases.
+  // Only the named motor examples claim a nerve-to-muscle sequence.
+  let activity=null;
+  if((cls==='nerve'||cls==='muscle')&&!route){
+    const name=(mesh.userData.label||mesh.name).replace(/left|right/gi,'');
+    const hash=[...name].reduce((n,c)=>(n*31+c.charCodeAt(0))>>>0,0);
+    activity={uT:{value:0},uDeform:{value:0},uBeat:{value:0},offset:(hash%2000)/1000};
+    (state.flow.activity||(state.flow.activity=[])).push(activity);
+  }
   let motor=null;
   if(route){
     state.flow.motors=state.flow.motors||{};
@@ -173,6 +180,7 @@ function installFlow(mesh,cls){
     sh.uniforms.uT=state.flow.uT;
     sh.uniforms.uOn=state.flow.uOn;
     Object.assign(sh.uniforms,uni);
+    if(activity){sh.uniforms.uT=activity.uT;sh.uniforms.uDeform=activity.uDeform;sh.uniforms.uBeat=activity.uBeat;}
     if(motor){sh.uniforms.uMotorClock=motor.uMotorClock;if(deform){sh.uniforms.uDeform=motor.uDeform;sh.uniforms.uBeat=motor.uBeat;}}
     if(cls==='nerve'&&route){
       const branch=/muscular branches/i.test((mesh.userData.label||mesh.name).replace(/_/g,' '));
@@ -292,6 +300,7 @@ export function setPhysiology(on){
     state.flow.uOn.value=0;
     Object.values(state.flow.classes).forEach(u=>{if(u.uDeform)u.uDeform.value=0;});
     Object.values(state.flow.motors||{}).forEach(u=>{u.uDeform.value=0;});
+    (state.flow.activity||[]).forEach(u=>{u.uDeform.value=0;});
   }
   applyConnectiveVisibility();
   return state.flow.on;
@@ -304,6 +313,11 @@ export function stepPhysiology(t){
   state.flow.uOn.value=blend;
   t=state.flow.elapsed;
   state.flow.uT.value=t;
+  for(const u of state.flow.activity||[]){
+    const local=t+u.offset;
+    u.uT.value=local;u.uDeform.value=contractEnvelope(local)*blend;
+    u.uBeat.value=.1+.9*spikeEnvelope(local);
+  }
   for(const route of MOTOR_ROUTES){
     const u=state.flow.motors?.[route.id];if(!u)continue;
     const seq=motorSequence(t,route.offset);

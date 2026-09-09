@@ -95,7 +95,7 @@ import { namedSide } from '../search-name.js';
     const layerTargets=Object.entries(state.extraModels||{}).filter(([k])=>layerOn(k)).flatMap(([,m])=>m.meshes);
     /* A focused lesson names only what it is teaching. The ghosted body behind
        it is context, so tapping a lymph node must not answer 'Sacrum'. */
-    const targets=state.focus?layerPool(state.focus.key):[...state.meshes,...state.fullMeshes,...layerTargets,...hotspotTargets];
+    const targets=state.focus?(state.focus.keep?[...state.focus.keep]:layerPool(state.focus.key)):[...state.meshes,...state.fullMeshes,...layerTargets,...hotspotTargets];
     const hits=state.raycaster.intersectObjects(targets,true)
       .filter(h=>isSelfOrAncestorVisible(h.object)&&h.object.userData.canonicalId);
     hits.sort((a,b)=>{

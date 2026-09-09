@@ -20,8 +20,10 @@ The workflow is the same for every subject:
 
 Lesson dots record the highest stage reached: Learn 1/4, Remember 2/4,
 Practise 3/4, Apply 4/4. Revisiting an earlier stage preserves that high-water
-mark; mastery remains a separate score. Search stays in the upper-right corner
-while reading. Searching a structure suspends the lesson; Quit viewer restores
+mark; mastery remains a separate score. Lesson rows display all four saved
+stages, independently of answer accuracy. Search stays beside text size at the
+upper right, including while the reading header tucks away.
+Searching a structure suspends the lesson; Quit viewer restores
 the same question state and scroll position.
 
 Subject papers include matching private-pack MCQs, including older questions
@@ -45,6 +47,11 @@ activate after the main nerve. Muscle bellies thicken with tethered ends.
 The Breathing and Motor nerve → muscle presets isolate these participants.
 Quintic easing, corrected deformation normals and frame-rate-independent blending
 smooth the motion and the live/static transition; hidden-tab gaps pause the clock.
+Other muscles and peripheral nerves retain staggered illustrative activity;
+subtle cardiac and CNS light pulses indicate activity without deforming supporting
+structures or neural tissue. These cues do not claim a mapped nerve-muscle route.
+Tapping a structure renders its label even when its record contains numeric fields;
+both layers of a physiology example remain selectable.
 
 Mechanism sources are listed in the viewer and `physiology-mechanics.js`:
 `phys.2` pp.43–52 (cardiac conduction), `phys.muscle.deck` pp.27–35
@@ -58,6 +65,8 @@ Checks: `node work/progress-pack-check.mjs [private-pack-path]` and the function
 in `work/progress-viewer-browser-check.js`, evaluated on a fresh dev-server tab.
 Further checks: `work/search-accuracy-check.mjs`,
 `work/physiology-mechanics-check.mjs` and `work/physiology-browser-check.js`.
+`work/reported-regressions-browser-check.js` checks the displayed lesson stages,
+exit/reopen, search alignment, selection labels and restored animation coverage.
 
 ### Viewer workspace and projection (September 2026)
 

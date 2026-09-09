@@ -8,7 +8,7 @@ import { adjScore, itemAttempted, itemRead, itemScore, read } from './storage-ve
 import { goTo, setActiveNav } from './navigation-five-destinations.js';
 import { leaveProjection } from './what-is-under.js';
 import { scrollViewTop, showView, toast } from './small-ui-helpers.js';
-import { startSession } from './session-engine.js';
+import { STEPS, startSession } from './session-engine.js';
 import { getContinueTarget, getItemStep, resumeContinue } from './home.js';
 import { studyItemWithin } from './global-search-one.js';
 
@@ -99,25 +99,12 @@ export function renderLearn() {
           const assumed = !attempted ? priorOf(i) : null;
           const opened = !attempted && !assumed && itemRead(i.id);
           const stepReached = getItemStep(i.id);
-          /*
-           * The first of the four dots is reading the lesson.
-           * Reaching Remember (step 2 of 4) fills two dots (2/4).
-           *
-           * The ladder tierFor walks is Not started / Seen / Recognised /
-           * Recalled / Mastered. Opening the lesson fills one dot of four;
-           * stepping to Remember marks two of four.
-           */
-          let tier = tierFor(adjScore(i), attempted || !!assumed || opened);
-          if (!attempted && !assumed && stepReached === 'remember') {
-            tier = Math.max(tier, 2);
-          }
-          /* Dim, not red, for both of the tiers nobody earned here: a mark
-             carried over from another syllabus, and a lesson that has been
-             read. Red at one dot is the colour for answering badly. */
-          const color = assumed || opened || stepReached === 'remember' ? 'var(--dim)'
-            : tier >= 3 ? 'var(--green)' : tier === 2 ? 'var(--orange)' : 'var(--red)';
+          // Lesson dots show stages visited; answer mastery is a separate score.
+          const stage = STEPS.findIndex(s => s.id === stepReached);
+          const tier = stage >= 0 ? stage + 1 : opened ? 1 : 0;
+          const color = tier === 4 ? 'var(--green)' : 'var(--dim)';
           const sub = (ITEM_TYPES[i.type] || {}).label || i.type;
-          const stepTag = stepReached === 'remember' ? ' · remember (2/4)' : (opened ? ' · read' : '');
+          const stepTag = stage >= 0 ? ` · ${STEPS[stage].label} (${tier}/4)` : (opened ? ' · read (1/4)' : '');
           return `<button class="unit-row" data-item="${esc(i.id)}"><span class="grow"><b>${esc(i.title)}</b><small>${esc(sub)}${stepTag}${assumed ? esc(' · assumed from ' + assumed.short + ', unverified') : ''}</small></span><span class="mono" style="color:${color}">${'\u25cf'.repeat(tier)}${'\u25cb'.repeat(4 - tier)}</span></button>`;
         }).join('')}
       </div>
