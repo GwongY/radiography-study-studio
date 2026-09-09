@@ -12,7 +12,7 @@ import { showPickCallout } from './spatial-concept-overlays.js';
 import { setSeparation, setTool } from './tools-and-capture.js';
 import { advancePhysiology } from '../physiology.js?v=4';
 import { MOTOR_ROUTES, motorRoute, motorSequence, transmissionField } from '../physiology-mechanics.js';
-import { deriveShape, deriveMuscleShape, MUSCLE_SHAPE_GLSL } from '../physiology-shape.js';
+import { deriveShape, deriveMuscleShape, deriveBreathingShape, MUSCLE_SHAPE_GLSL } from '../physiology-shape.js';
 
 /* ------------------------------------------------------------------ *
  * Live physiology
@@ -141,8 +141,9 @@ function installFlow(mesh,cls){
     if(!g.boundingBox) g.computeBoundingBox();
     const bb=g.boundingBox;
     const context={sharedCentre:mesh.userData.flowCenter?.toArray()};
-    if(rule.mode==='descend')context.anatomicalUp=new state.THREE.Vector3(0,1,0)
+    if(rule.mode==='descend'||cls==='airway')context.anatomicalUp=new state.THREE.Vector3(0,1,0)
       .transformDirection(new state.THREE.Matrix4().copy(mesh.matrixWorld).invert()).toArray();
+    context.lung=cls==='airway'&&rule.mode==='inflate';
     const input={bounds:{min:bb.min.toArray(),max:bb.max.toArray()},rule,context};
     if(cls==='muscle'){
       const p=g.attributes.position;
@@ -153,7 +154,7 @@ function installFlow(mesh,cls){
       const scale=new state.THREE.Vector3().setFromMatrixScale(mesh.matrixWorld).toArray();
       context.uniformMetric=Math.max(...scale)<=Math.min(...scale)*(1+1e-5);
     }
-    const shape=cls==='muscle'?deriveMuscleShape(input):deriveShape(input);
+    const shape=cls==='muscle'?deriveMuscleShape(input):context.lung?deriveBreathingShape(input):deriveShape(input);
     mCenter=new state.THREE.Vector3(...shape.centre);
     mAxis=new state.THREE.Vector3(...shape.axis);
     mLength=shape.length;mAmt=shape.amount;
@@ -161,7 +162,7 @@ function installFlow(mesh,cls){
   /* The deformed and colour-only meshes of a class compile to different
      programs, so the cache key has to name the variant or the first to compile
      is silently reused for every mesh of the class. */
-  mat.customProgramCacheKey=()=>'rssflow-muscle-jacobian:'+cls+(deform?':d':':c')+(route?':motor':'');
+  mat.customProgramCacheKey=()=>'rssflow-breathing-jacobian:'+cls+(deform?':d':':c')+(route?':motor':'');
   mat.onBeforeCompile=(sh)=>{
     sh.uniforms.uT=state.flow.uT;
     sh.uniforms.uOn=state.flow.uOn;
@@ -190,13 +191,13 @@ function installFlow(mesh,cls){
            +'if(uMode>4.5){/* chamber contraction reduces enclosed volume */\n'
            +'  transformed-=uDeform*uMAmt*(rssPerp+.55*rssAlong*uMAxis);\n'
            +'}else if(uMode>3.5){/* diaphragm: central dome descends; peripheral rim is tethered */\n'
-           +'  float dome=smoothstep(-.2,.45,rssAlong/uMLength);transformed-=uMAxis*uMAmt*uDeform*dome;\n'
+           +'  float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n'
            +'}else if(uMode>2.5){/* peristalsis: a ring of constriction travelling along the tube */\n'
            +'  float rssW=(rssAlong/uMLength)*2.-uT*uSpeed*uDir;\n'
            +'  float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n'
            +'  transformed-=rssPerp*rssRip*uMAmt*uDeform;\n'
            +'}else if(uMode>1.5){/* inflate: even expansion away from the centre */\n'
-           +'  transformed+=(transformed-uMCenter)*uDeform*uMAmt;\n'
+           +(cls==='airway'?'  transformed+=rssPerp*(.65*uDeform*uMAmt)+uMAxis*rssAlong*(1.4*uDeform*uMAmt);\n':'  transformed+=(transformed-uMCenter)*uDeform*uMAmt;\n')
            +'}else{/* contract: shorten along the axis, thicken across it */\n'
            +(cls==='muscle'
              ?'  vec4 profile=rssMuscleProfile(rssAlong);if(uDeform*uMAmt>0.&&abs(2.*rssAlong/uMLength)<1.)transformed=uMCenter+uMAxis*profile.x+rssPerp*profile.z;\n'
@@ -208,6 +209,8 @@ function installFlow(mesh,cls){
     if(deform)sh.vertexShader=sh.vertexShader.replace('#include <beginnormal_vertex>',
       '#include <beginnormal_vertex>\n'
       +'if(uMode>4.5){vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(na/max(.1,1.-.55*uDeform*uMAmt)+(objectNormal-na)/max(.1,1.-uDeform*uMAmt));}\n'
+      +'if(uMode>3.5&&uMode<4.5&&uDeform>0.&&uMAmt>0.){float z=dot(position-uMCenter,uMAxis)/max(uMLength,.000001);float t=clamp((z+.2)/.65,0.,1.);float k=1.-uMAmt*uDeform*6.*t*(1.-t)/(.65*max(uMLength,.000001));vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(objectNormal-na+na/k); }\n'
+      +(cls==='airway'?'if(uMode>1.5&&uMode<2.5&&uDeform>0.){vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize((objectNormal-na)/(1.+.65*uMAmt*uDeform)+na/(1.+1.4*uMAmt*uDeform));}\n':'')
       +(cls==='muscle'
         ?'if(uMode<1.5&&uDeform*uMAmt>0.){float along=dot(position-uMCenter,uMAxis);if(abs(2.*along/uMLength)<1.){vec3 radial=position-uMCenter-along*uMAxis;vec4 profile=rssMuscleProfile(along);float na=dot(objectNormal,uMAxis);vec3 nr=objectNormal-na*uMAxis;objectNormal=normalize(nr/profile.z+uMAxis*(na-profile.w*dot(radial,nr)/profile.z)/profile.y);}}\n'
         :'if(uMode<1.5){float k=max(.1,1.-uDeform*uMAmt);vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(na/k+(objectNormal-na)*sqrt(k));}\n')
@@ -235,14 +238,15 @@ function installFlow(mesh,cls){
 export function installLayerFlow(key,meshes){
   const counts={};
   meshes.forEach(m=>m.updateWorldMatrix(true,false));
-  // A lung's lobes breathe around one shared centre, keeping their seams joined.
+  // Every lobe uses one superior geometric reference and world-up field.
+  // This is an illustrative apex reference, not a measured hilum attachment.
   if(key==='organs'&&state.THREE){
     state.scene?.updateMatrixWorld(true);
     for(const side of ['left','right']){
       const lobes=meshes.filter(m=>new RegExp('lobe.*'+side+'.*lung','i').test(m.userData.label||m.name));
       const box=new state.THREE.Box3();lobes.forEach(m=>box.expandByObject(m));
       if(!box.isEmpty()){
-        const centre=box.getCenter(new state.THREE.Vector3());
+        const centre=box.getCenter(new state.THREE.Vector3());centre.y=box.max.y;
         lobes.forEach(m=>{m.userData.flowCenter=m.worldToLocal(centre.clone());});
       }
     }

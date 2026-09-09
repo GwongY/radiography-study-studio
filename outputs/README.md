@@ -42,7 +42,11 @@ The Live button remains an explicit opt-in for the current page; returning to
 no preference does not restart motion. Check with `node work/physiology-motion-preference-check.mjs`.
 Live physiology has no speed control. Atrial contraction precedes an AV interval
 and ventricular contraction; chamber deformation reduces volume. The diaphragm
-descends with inspiration and each lung's lobes expand around one common centre.
+descends with inspiration; its normals follow the dome deformation. Each lung's
+lobes share one superior geometric reference, expanding outward and downward
+with the same directional field. This is not a measured hilum constraint.
+Run `node work/physiology-breathing-check.mjs` and the shape browser check in
+`breathing` mode for displacement/normal verification.
 Selected axillary/deltoid, musculocutaneous/biceps and femoral/quadriceps examples
 show a travelling nerve impulse, excitation, contraction and relaxation. Nerve
 distance follows connected mesh edges around curves; separate axillary branches
