@@ -1,7 +1,7 @@
 // Evaluate in an isolated dev-server Chrome tab: mode='capture', then 'compare'
 // after reloading the edited app. Exercises the actual injected vertex GLSL.
 async function physiologyShapeBrowserCheck(mode='compare') {
-  const {deformMuscle}=await import('/physiology-shape.js');
+  const {deformMuscle,deformBreathing}=await import('/physiology-shape.js');
   const {goTo}=await import('/study/navigation-five-destinations.js');
   const {loadExtraModel}=await import('/studio/depth-picking.js');
   const {STRUCTURE_MODELS}=await import('/study-data.js');
@@ -40,13 +40,13 @@ async function physiologyShapeBrowserCheck(mode='compare') {
       gl.uniform1f(gl.getUniformLocation(program,'uT'),.37);
       const shape={key,name:mesh.name,centre:sh.uniforms.uMCenter.value.toArray(),axis:sh.uniforms.uMAxis.value.toArray(),length:sh.uniforms.uMLength.value,amount:sh.uniforms.uMAmt.value,mode:sh.uniforms.uMode.value};rows.push(shape);modes.add(shape.mode);
       const target=gl.createBuffer();gl.bindBuffer(gl.TRANSFORM_FEEDBACK_BUFFER,target);gl.bufferData(gl.TRANSFORM_FEEDBACK_BUFFER,p.length*2*4,gl.DYNAMIC_READ);gl.bindBufferBase(gl.TRANSFORM_FEEDBACK_BUFFER,0,target);
-      for(const amplitude of (mode==='muscle'?[0,.2,.5,.8,1]:[0,.35,.8])){
+      for(const amplitude of (['muscle','breathing'].includes(mode)?[0,.2,.5,.8,1]:[0,.35,.8])){
         gl.uniform1f(gl.getUniformLocation(program,'uDeform'),amplitude);gl.enable(gl.RASTERIZER_DISCARD);gl.beginTransformFeedback(gl.POINTS);gl.drawArrays(gl.POINTS,0,p.length/3);gl.endTransformFeedback();gl.disable(gl.RASTERIZER_DISCARD);
         const out=new Float32Array(p.length*2);gl.getBufferSubData(gl.TRANSFORM_FEEDBACK_BUFFER,0,out);
         if(!out.every(Number.isFinite))throw Error('Nonfinite shader output: '+mesh.name);
         if(!amplitude)for(let i=0;i<p.length/3;i++)for(let j=0;j<3;j++){maxRestPositionError=Math.max(maxRestPositionError,Math.abs(out[i*6+j]-p[i*3+j]));maxRestNormalError=Math.max(maxRestNormalError,Math.abs(out[i*6+j+3]-n[i*3+j]));}
-        if(mode==='muscle'&&mesh.userData.flowClass==='muscle')for(let i=0;i<p.length/3;i++){
-          const expected=deformMuscle(Array.from(p.slice(i*3,i*3+3)),Array.from(n.slice(i*3,i*3+3)),shape,amplitude);
+        if((mode==='muscle'&&mesh.userData.flowClass==='muscle')||(mode==='breathing'&&['diaphragm','airway'].includes(mesh.userData.flowClass)))for(let i=0;i<p.length/3;i++){
+          const expected=(mode==='breathing'?deformBreathing:deformMuscle)(Array.from(p.slice(i*3,i*3+3)),Array.from(n.slice(i*3,i*3+3)),shape,amplitude,mesh.userData.flowClass==='airway');
           for(let j=0;j<3;j++){
             maxMusclePositionError=Math.max(maxMusclePositionError,Math.abs(expected.position[j]-out[i*6+j])/Math.max(shape.length,1e-6));
             maxMuscleNormalError=Math.max(maxMuscleNormalError,Math.abs(expected.normal[j]-out[i*6+j+3]));
@@ -64,7 +64,7 @@ async function physiologyShapeBrowserCheck(mode='compare') {
     // Quantized input normals are not exactly unit length. The legacy shader
     // normalizes even at rest in modes 1/3/5; preserve this measured behaviour.
     if(maxRestPositionError!==0||maxRestNormalError>.002)throw Error('Unexpected legacy rest deviation '+JSON.stringify(result));
-    if(mode==='muscle'){if(muscleSamples<1000||maxMusclePositionError>2e-5||maxMuscleNormalError>2e-4)throw Error(JSON.stringify({muscleSamples,maxMusclePositionError,maxMuscleNormalError}));return {pass:true,...result,muscleSamples,maxMusclePositionError,maxMuscleNormalError};}
+    if(['muscle','breathing'].includes(mode)){if(muscleSamples<(mode==='muscle'?1000:100)||maxMusclePositionError>2e-5||maxMuscleNormalError>2e-4)throw Error(JSON.stringify({muscleSamples,maxMusclePositionError,maxMuscleNormalError}));return {pass:true,...result,muscleSamples,maxMusclePositionError,maxMuscleNormalError};}
     if(mode==='capture')localStorage.setItem('physiology-shape-baseline',JSON.stringify(result));
     else {const before=JSON.parse(localStorage.getItem('physiology-shape-baseline')||'null');if(!before)throw Error('Capture the unchanged app first');if(JSON.stringify(before)!==JSON.stringify(result))throw Error('Characterisation mismatch '+JSON.stringify({before,after:result}));}
     return {pass:true,mode,...result};

@@ -1,7 +1,7 @@
 — user-facing strings in outputs/ — 1083 —
-  f32eda58abed9638  WHOLE SET
+  c0bba07779582625  WHOLE SET
 
-  e4dbe27708ee07f1   float dome=smoothstep(-.2,.45,rssAlong/uMLength);transformed-=uMAxis*uMAmt*uDeform*dome;\n
+  5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   adb95f69067c7f3b   float rssW=(rssAlong/uMLength)*2.-uT*uSpeed*uDir;\n
   bc1e76b907fcb954   vec4 profile=rssMuscleProfile(rssAlong);if(uDeform*uMAmt>0.&&abs(2.*rssAlong/uMLength)<1.)transformed=uMCenter+uMAxis*profile.x+rssPerp*profile.z;\n

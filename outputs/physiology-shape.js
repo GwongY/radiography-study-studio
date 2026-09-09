@@ -1,5 +1,5 @@
-/* Pure rest-space shape derivation. This characterises the existing bbox model;
- * it does not infer anatomical attachments or change the deformation shader. */
+/* Pure rest-space shape derivation and illustrative deformation profiles.
+ * The bbox fallback is preserved; geometric axes are not anatomical attachments. */
 
 function vector(value, name) {
   if (!value || value.length !== 3 || !Array.from(value).every(Number.isFinite)) {
@@ -172,4 +172,40 @@ export function deriveMuscleShape(input) {
   const fit=principalMuscleAxis(input.positions,input.indices);
   if(!fit||fit.eigenvalues[0]<4*fit.eigenvalues[1]||fit.eigenvalues[1]>6*fit.eigenvalues[2]||fit.length<1e-6)return fallback;
   return {...fallback,axis:fit.axis,centre:fit.centre,length:fit.length,capabilities:['principal-muscle-axis']};
+}
+
+
+/** Shared superior geometric reference for lung lobes; not a hilum landmark.
+ * Directional gains are display parameters, not measured respiratory strain.
+ */
+export function deriveBreathingShape(input) {
+  const shape=deriveShape(input);
+  if(input.rule?.mode==='inflate'&&input.context?.lung){
+    shape.axis=vector(input.context.anatomicalUp,'anatomicalUp');
+    shape.capabilities=['directional-lung'];
+  }
+  return shape;
+}
+
+export function deformBreathing(position,normal,shape,amplitude,lung=false){
+  const {axis,centre,length,amount}=shape;
+  if(!amplitude||!amount)return {position:Array.from(position),normal:Array.from(normal),determinant:1};
+  const offset=position.map((v,i)=>v-centre[i]),z=offset.reduce((s,v,i)=>s+v*axis[i],0);
+  let out,n,determinant;
+  const na=normal.reduce((s,v,i)=>s+v*axis[i],0);
+  if(lung){
+    const transverse=1+.65*amount*amplitude,longitudinal=1+1.4*amount*amplitude;
+    out=position.map((v,i)=>v+(offset[i]-z*axis[i])*(transverse-1)+z*axis[i]*(longitudinal-1));
+    n=normal.map((v,i)=>(v-na*axis[i])/transverse+na*axis[i]/longitudinal);
+    determinant=transverse*transverse*longitudinal;
+  }else{
+    const safeLength=Math.max(length,1e-6);
+    const t=Math.max(0,Math.min(1,(z/safeLength+.2)/.65)),weight=t*t*(3-2*t);
+    const derivative=1-amount*amplitude*6*t*(1-t)/(.65*safeLength);
+    out=position.map((v,i)=>v-axis[i]*amount*amplitude*weight);
+    n=normal.map((v,i)=>v-na*axis[i]+na*axis[i]/derivative);
+    determinant=derivative;
+  }
+  const norm=Math.hypot(...n);
+  return {position:out,normal:n.map(v=>v/norm),determinant};
 }
