@@ -155,6 +155,7 @@ function installFlow(mesh,cls){
       context.uniformMetric=Math.max(...scale)<=Math.min(...scale)*(1+1e-5);
     }
     const shape=cls==='muscle'?deriveMuscleShape(input):context.lung?deriveBreathingShape(input):deriveShape(input);
+    if(cls==='heartVentricle'&&mesh.userData.flowPumpShape)Object.assign(shape,mesh.userData.flowPumpShape);
     mCenter=new state.THREE.Vector3(...shape.centre);
     mAxis=new state.THREE.Vector3(...shape.axis);
     mLength=shape.length;mAmt=shape.amount;
@@ -238,6 +239,29 @@ function installFlow(mesh,cls){
 export function installLayerFlow(key,meshes){
   const counts={};
   meshes.forEach(m=>m.updateWorldMatrix(true,false));
+  // Named papillary muscles follow their own ventricle's affine field.
+  // Sharing a field preserves existing attachment offsets; it does not infer
+  // valve motion or assign contraction to the pericardium.
+  if(key==='circulatory'&&state.THREE){
+    meshes.forEach(m=>{delete m.userData.flowPumpShape;});
+    const T=state.THREE;
+    for(const side of ['Left','Right']){
+      const chamber=meshes.find(m=>new RegExp('^'+side+'_ventricle(?:_\\d+)?$').test(m.name));
+      if(!chamber)continue;
+      if(!chamber.geometry.boundingBox)chamber.geometry.computeBoundingBox();
+      const bb=chamber.geometry.boundingBox;
+      const shape=deriveShape({bounds:{min:bb.min.toArray(),max:bb.max.toArray()},rule:FLOW_CLASSES.heartVentricle.rule});
+      const centre=chamber.localToWorld(new T.Vector3(...shape.centre));
+      const axis=new T.Vector3(...shape.axis).transformDirection(chamber.matrixWorld);
+      for(const m of meshes.filter(m=>new RegExp('papillary.*'+side+'_ventricle$','i').test(m.name))){
+        const scale=new T.Vector3().setFromMatrixScale(m.matrixWorld).toArray();
+        const parentScale=new T.Vector3().setFromMatrixScale(chamber.matrixWorld).toArray();
+        if([scale,parentScale].some(v=>Math.max(...v)>Math.min(...v)*(1+1e-5)))continue;
+        m.userData.flowPumpShape={centre:m.worldToLocal(centre.clone()).toArray(),
+          axis:axis.clone().transformDirection(new T.Matrix4().copy(m.matrixWorld).invert()).toArray(),amount:shape.amount};
+      }
+    }
+  }
   // Every lobe uses one superior geometric reference and world-up field.
   // This is an illustrative apex reference, not a measured hilum attachment.
   if(key==='organs'&&state.THREE){

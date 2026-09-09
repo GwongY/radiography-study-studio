@@ -128,7 +128,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `explosion-layout.js` | 16 | Pack only visible source meshes. Every projected bounding box gets its own cell. |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
 | `imports.js` | 97 | Block 0 has its own import scope -- block 1's copy is not visible here. |
-| `live-physiology.js` | 1389 | Live physiology |
+| `live-physiology.js` | 1413 | Live physiology |
 | `packed-spread.js` | 93 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
 | `region-boxes-how.js` | 499 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 249 | Search -> viewer: frame the part, then hide only what stands in front |
