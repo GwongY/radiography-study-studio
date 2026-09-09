@@ -187,15 +187,11 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: recite the six structural levels, the four tissue types, and all eleven organ systems.",
     "visuals": [
-      {
-        "fig": "cellAnatomy"
-      },
+      { fig: 'cellAnatomy', focus: ["Plasma membrane","Cytoplasm","Nucleus"] },
       {
         "schematic": "cellOrganisation"
       },
-      {
-        "fig": "epithelialTissues"
-      },
+      { fig: 'epithelialTissues', focus: ["Simple squamous epithelium","Stratified squamous epithelium"] },
       {
         "gen": true
       }
@@ -612,9 +608,7 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: name the three tunics of a blood vessel, state the flow rate relationship between systemic and pulmonary circuits, and explain why venous return needs a skeletal muscle pump.",
     "visuals": [
-      {
-        "fig": "bloodVesselStructure"
-      },
+      { fig: 'bloodVesselStructure', focus: ["Tunica intima","Tunica media","Tunica externa","Lumen","Valve in vein"] },
       {
         "schematic": "circuits"
       },
@@ -832,9 +826,7 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: list the three layers of the heart wall, state the structural and electrical roles of intercalated discs, and explain how papillary muscles protect AV valves during systole.",
     "visuals": [
-      {
-        "fig": "heartInternalAnatomy"
-      },
+      { fig: 'heartInternalAnatomy', focus: ["Right atrium","Right ventricle","Left atrium","Left ventricle","Tricuspid valve","Bicuspid valve","Aortic valve","Pulmonary valve","Chordae tendineae","Papillary muscles","Interventricular septum"] },
       {
         "fig": "heart"
       },
@@ -1082,12 +1074,8 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: recite the complete airway branching sequence from trachea to alveoli, contrast Type I and Type II pneumocytes, and explain why the right primary bronchus is prone to aspiration.",
     "visuals": [
-      {
-        "fig": "respiratoryTractAnatomy"
-      },
-      {
-        "fig": "alveolarMicroarchitecture"
-      },
+      { fig: 'respiratoryTractAnatomy', focus: ["Nasal cavity","Pharynx","Larynx","Trachea","Primary bronchi","Right lung","Left lung"] },
+      { fig: 'alveolarMicroarchitecture', focus: ["Respiratory bronchiole","Alveolar duct","Alveolus","Respiratory membrane"] },
       {
         "gen": true
       }
@@ -1324,12 +1312,8 @@ export const PHYS_ITEMS = [
   ],
   "selfCheck": "From memory: recite the complete nephron tubule sequence from Bowman’s capsule to the urethra, state the two components of the renal corpuscle, and describe the microvascular portal circuit.",
   "visuals": [
-    {
-      "fig": "kidneyGrossAnatomy"
-    },
-    {
-      "fig": "nephronVascularMicroanatomy"
-    },
+    { fig: 'kidneyGrossAnatomy', focus: ["Renal cortex","Renal medulla","Renal pyramid","Minor calyx","Major calyx","Renal pelvis","Ureter"] },
+    { fig: 'nephronVascularMicroanatomy', focus: ["Renal corpuscle","Glomerulus","Bowman’s (glomerular) capsule","Proximal convoluted tubule (PCT)","Descending limb of Henle","Ascending limb of Henle","Distal convoluted tubule (DCT)","Collecting duct"] },
     {
       "gen": true
     }
@@ -1548,12 +1532,8 @@ export const PHYS_ITEMS = [
   ],
   "selfCheck": "From memory: write down the seven organs of the alimentary tract in order, list the six accessory organs, and explain why the pancreas is both an endocrine and exocrine organ.",
   "visuals": [
-    {
-      "fig": "digestiveSystemOverview"
-    },
-    {
-      "fig": "digestiveWallLayers"
-    },
+    { fig: 'digestiveSystemOverview', focus: ["Oral cavity","Pharynx and esophagus","Stomach","Small intestine","Large intestine"] },
+    { fig: 'digestiveWallLayers', focus: ["Mucosa","Submucosa","Muscularis externa","Serosa / adventitia"] },
     {
       "gen": true
     }
@@ -1850,9 +1830,7 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: state the normal hematocrit ranges for males and females, name the three plasma protein classes with their functions, and distinguish plasma from serum.",
     "visuals": [
-      {
-        "fig": "bloodVesselStructure"
-      },
+      { fig: 'bloodVesselStructure', focus: ["Endothelium","Tunica intima","Lumen"] },
       {
         "schematic": "bloodComposition"
       },
@@ -2005,7 +1983,7 @@ export const PHYS_ITEMS = [
     tags: ['musculoskeletal', 'high-yield'],
     visuals: [
       { schematic: 'muscleTypes' },
-      { fig: 'muscleOrganization' },
+      { fig: 'muscleOrganization', focus: ["Skeletal muscle","Muscle fiber","Sarcomere"] },
       { gen: true },
     ],
     priorKnowledge: {
@@ -2644,7 +2622,7 @@ export const PHYS_ITEMS = [
     title: 'Where a drug can interfere with a synapse',
     tags: ['nervous', 'pharmacology', 'high-yield'],
     visuals: [
-      { fig: 'synapseIllustration' },
+      { fig: 'synapseIllustration', focus: ["Synaptic vesicle","Voltage-gated Ca++ channel","Neurotransmitters","Neurotransmitter receptors","Neurotransmitter re-uptake pump"] },
       { gen: true },
     ],
     lesson: {
@@ -2867,7 +2845,7 @@ export const PHYS_ITEMS = [
     title: 'From nerve to sarcomere: the junction, the motor unit and coupling',
     tags: ['musculoskeletal', 'nervous', 'high-yield'],
     visuals: [
-      { fig: 'synapseIllustration' },
+      { fig: 'synapseIllustration', focus: ["Axon terminal","Voltage-gated Ca++ channel","Synaptic vesicle","Synaptic cleft","Neurotransmitter receptors"] },
       { gen: true },
     ],
     lesson: {
@@ -2941,7 +2919,7 @@ export const PHYS_ITEMS = [
     title: 'Slow and fast twitch, and where a muscle gets its energy',
     tags: ['musculoskeletal'],
     visuals: [
-      { fig: 'muscleOrganization' },
+      { fig: 'muscleOrganization', focus: ["Muscle fiber","Myofibril","Sarcomere"] },
       { gen: true },
     ],
     lesson: {
@@ -3022,7 +3000,7 @@ export const PHYS_ITEMS = [
     tags: ['musculoskeletal', 'nervous'],
     visuals: [
       { fig: 'muscleSpindle' },
-      { fig: 'reflexArc' },
+      { fig: 'reflexArc', focus: ["A","B","C","E","F"] },
       { gen: true },
     ],
     lesson: {
@@ -3176,7 +3154,7 @@ export const PHYS_ITEMS = [
     tags: ['immune', 'high-yield'],
     visuals: [
       { fig: 'antigenPresentation' },
-      { fig: 'clonalSelection' },
+      { fig: 'clonalSelection', focus: ["Sensitized B cell","Plasma cells","Memory B cells"] },
       { gen: true },
     ],
     lesson: {
@@ -3260,7 +3238,7 @@ export const PHYS_ITEMS = [
     title: 'Inside three innate defences: phagocytes, NK cells, interferons',
     tags: ['immune', 'high-yield'],
     visuals: [
-      { fig: 'innateAdaptiveCooperation' },
+      { fig: 'innateAdaptiveCooperation', focus: ["Innate immunity","Antigen-presenting cell"] },
       { gen: true },
     ],
     lesson: {
@@ -3412,7 +3390,7 @@ export const PHYS_ITEMS = [
     title: 'Four kinds of T cell, and what each is for',
     tags: ['immune', 'high-yield'],
     visuals: [
-      { fig: 'antigenPresentation' },
+      { fig: 'antigenPresentation', focus: ["Antigen presentation","T cell receptor","MHC Class II"] },
       { gen: true },
     ],
     lesson: {
@@ -3486,7 +3464,7 @@ export const PHYS_ITEMS = [
     title: 'Four ways to become immune: active or passive, natural or artificial',
     tags: ['immune', 'high-yield'],
     visuals: [
-      { fig: 'innateAdaptiveCooperation' },
+      { fig: 'innateAdaptiveCooperation', focus: ["Cell-mediated immunity","Humoral immunity"] },
       { gen: true },
     ],
     lesson: {
@@ -3793,9 +3771,7 @@ export const PHYS_ITEMS = [
       {
         "fig": "plasmaMembrane"
       },
-      {
-        "fig": "cellAnatomy"
-      },
+      { fig: 'cellAnatomy', focus: ["Plasma membrane"] },
       {
         "gen": true
       }
@@ -3995,9 +3971,7 @@ export const PHYS_ITEMS = [
       {
         "fig": "cellAnatomy"
       },
-      {
-        "fig": "plasmaMembrane"
-      },
+      { fig: 'plasmaMembrane', focus: ["Phospholipid bilayer","Integral membrane protein","Cholesterol"] },
       {
         "gen": true
       }
@@ -4234,12 +4208,8 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "Define the four structural components of the nucleus and explain why DNA is packaged as chromatin in interphase but chromosomes in mitosis.",
     "visuals": [
-      {
-        "fig": "cellAnatomy"
-      },
-      {
-        "fig": "mitosisPhases"
-      },
+      { fig: 'cellAnatomy', focus: ["Nucleus","Nucleolus","Chromatin"] },
+      { fig: 'mitosisPhases', focus: ["Prophase","Metaphase","Anaphase","Telophase"] },
       {
         "gen": true
       }
@@ -4452,9 +4422,7 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "Outline the sequential events of protein synthesis from promoter binding to release factor termination, identifying where each occurs in the cell.",
     "visuals": [
-      {
-        "fig": "cellAnatomy"
-      },
+      { fig: 'cellAnatomy', focus: ["Nucleus","Chromatin","Ribosomes","Rough endoplasmic reticulum"] },
       {
         "gen": true
       }
@@ -4662,9 +4630,7 @@ export const PHYS_ITEMS = [
       {
         "fig": "mitosisPhases"
       },
-      {
-        "fig": "cellAnatomy"
-      },
+      { fig: 'cellAnatomy', focus: ["Centrosome","Chromatin","Microtubule","Plasma membrane"] },
       {
         "gen": true
       }
@@ -5312,9 +5278,7 @@ export const PHYS_ITEMS = [
       {
         "schematic": "muscleTypes"
       },
-      {
-        "fig": "connectiveTissues"
-      },
+      { fig: 'connectiveTissues', focus: ["Collagen fibers","Fibroblast","Adipocytes"] },
       {
         "gen": true
       }
@@ -5557,7 +5521,7 @@ export const PHYS_ITEMS = [
     tags: ['physiology', 'nervous', 'action-potential', 'synapse', 'high-yield'],
     visuals: [
       { fig: 'actionPotential' },
-      { fig: 'myelinSheath' },
+      { fig: 'myelinSheath', focus: ["Myelin Sheath","Node of Ranvier","Axon"] },
       { gen: true },
     ],
     lesson: {
@@ -5827,12 +5791,8 @@ export const PHYS_ITEMS = [
   ],
   "selfCheck": "From memory: recite male/female GFR values, total daily filtrate volume, basal energy cost of reabsorption, minimum obligatory urine volume, and the minimum urinary pH limit.",
   "visuals": [
-    {
-      "fig": "glomerularFiltrationMembrane"
-    },
-    {
-      "fig": "nephronVascularMicroanatomy"
-    },
+    { fig: 'glomerularFiltrationMembrane', focus: ["Fenestrated capillary endothelium","Basement membrane (lamina densa)","Podocyte pedicels (foot processes)","Filtration slit","Capsular space","Macula densa","Juxtaglomerular (granular) cells"] },
+    { fig: 'nephronVascularMicroanatomy', focus: ["Renal corpuscle","Glomerulus","Afferent arteriole","Efferent arteriole","Descending limb of Henle","Ascending limb of Henle"] },
     {
       "gen": true
     }
@@ -5874,8 +5834,8 @@ export const PHYS_ITEMS = [
     title: 'Muscle physiology: sarcomere ultrastructure, titin recoil, motor unit recruitment, fibre types, and neural control',
     tags: ['muscle', 'sarcomere', 'titin', 'motor-unit', 'vo2max', 'high-yield'],
     visuals: [
-      { fig: 'sarcomere' },
-      { fig: 'muscleOrganization' },
+      { fig: 'sarcomere', focus: ["Z","M","A","I"] },
+      { fig: 'muscleOrganization', focus: ["Muscle fiber","Myofibril","Sarcomere"] },
       { gen: true },
     ],
     lesson: {
@@ -5965,9 +5925,9 @@ export const PHYS_ITEMS = [
     title: 'Compact vs spongy bone, bone cells, remodelling and calcium balance',
     tags: ['bone', 'msk', 'high-yield'],
     visuals: [
-      { fig: 'compactBone' },
-      { fig: 'longBone' },
-      { fig: 'boneCells' },
+      { fig: 'compactBone', focus: ["Osteon","Concentric lamellae","Lacunae","Canaliculi","Spongy bone"] },
+      { fig: 'longBone', focus: ["Diaphysis","Epiphysis","Medullary cavity","Spongy bone"] },
+      { fig: 'boneCells', focus: ["Osteoblast","Osteoclast","Osteocyte"] },
       { schematic: 'boneFunctions' },
       { gen: true },
     ],
@@ -6232,9 +6192,7 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: recite Poiseuille determinants of resistance, identify the blood volume reservoir of the body, and state the backup firing rate of the AV node.",
     "visuals": [
-      {
-        "fig": "bloodVesselStructure"
-      },
+      { fig: 'bloodVesselStructure', focus: ["Tunica media","Lumen","Valve in vein"] },
       {
         "schematic": "circuits"
       },
@@ -6471,9 +6429,7 @@ export const PHYS_ITEMS = [
     {
       "fig": "countercurrentMultiplierMechanism"
     },
-    {
-      "fig": "nephronVascularMicroanatomy"
-    },
+    { fig: 'nephronVascularMicroanatomy', focus: ["Vasa recta","Descending limb of Henle","Ascending limb of Henle","Collecting duct","Peritubular capillaries"] },
     {
       "gen": true
     }
@@ -6719,12 +6675,8 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: explain why arterial PO2 would be normal in an animal with zero red blood cells, state which ion directly stimulates the medulla, and identify why systemic H+ cannot stimulate central chemoreceptors directly.",
     "visuals": [
-      {
-        "fig": "ventilationMechanics"
-      },
-      {
-        "fig": "spirometryLungVolumes"
-      },
+      { fig: 'ventilationMechanics', focus: ["Diaphragm contraction","External intercostal muscles","Intrapulmonary pressure"] },
+      { fig: 'spirometryLungVolumes', focus: ["Vital capacity (VC)","Tidal volume (TV)","Residual volume (RV)","Total lung capacity (TLC)"] },
       {
         "gen": true
       }
@@ -6995,9 +6947,7 @@ export const PHYS_ITEMS = [
     {
       "fig": "nephronSecretionReabsorption"
     },
-    {
-      "fig": "kidneyGrossAnatomy"
-    },
+    { fig: 'kidneyGrossAnatomy', focus: ["Renal cortex","Renal medulla","Renal artery","Renal vein"] },
     {
       "gen": true
     }

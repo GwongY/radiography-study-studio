@@ -1432,12 +1432,8 @@ export const EXPANSION_ITEMS = [
     ],
     "selfCheck": "From memory: state the percentages of O2 and CO2 transported by each method, define the Bohr effect, and recite the mnemonic CADET face Right.",
     "visuals": [
-      {
-        "fig": "oxyhemoglobinCurve"
-      },
-      {
-        "fig": "alveolarMicroarchitecture"
-      },
+      { fig: 'oxyhemoglobinCurve', focus: ["Pulmonary capillary loading plateau","Systemic tissue unloading slope","Mixed venous reserve"] },
+      { fig: 'alveolarMicroarchitecture', focus: ["Respiratory membrane","Type I alveolar cell","Pulmonary capillary network"] },
       {
         "gen": true
       }
@@ -1495,7 +1491,7 @@ export const EXPANSION_ITEMS = [
     title: 'Inflammation, complement and adaptive immunity',
     tags: ['immune', 'high-yield'],
     visuals: [
-      { fig: 'innateAdaptiveCooperation' },
+      { fig: 'innateAdaptiveCooperation', focus: ["Antigen-presenting cell","Cell-mediated immunity","Humoral immunity"] },
       { schematic: 'immuneAdaptive' },
       { gen: true },
     ],
