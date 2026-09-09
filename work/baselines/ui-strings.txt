@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1088 —
-  7d1645ea88f65872  WHOLE SET
+— user-facing strings in outputs/ — 1084 —
+  5ec8902ae6fa6c9b  WHOLE SET
 
   e4dbe27708ee07f1   float dome=smoothstep(-.2,.45,rssAlong/uMLength);transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -16,7 +16,7 @@
   c82482e143ba29a6   questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.</div>
   4086a0d4cd005901   showed metatarsals with no toes; choosing 
   2599c70aaa36cb29   · assumed from 
-  6ace9c2ffa6d6d52   · remember (2/4)
+  b4cf2a435cef9d35   · read (1/4)
   df725abe14c48979   · this week
   a6eff766a2215e5d   · time almost up
   5d2e551e2af8ca21   · visual study
@@ -81,7 +81,6 @@
   dc6a7d80c9915298  , with the questions you got wrong.
   c0b1daed9b12da7c  -level background — the part you already have
   f6532b372c4a48d5  /* Back faces are where the ray leaves material, front faces where it enters. */
-  7fcd9bd65799c327  /* Dim, not red, for both of the tiers nobody earned here: a mark
   128ec36b82d62dde  /* Incidence angle of the ray on this surface, for the cortical slab. */
   6f222f7fe2ccf697  /* One cortical slab per crossing, at the true incidence angle. Added on
   b23e904849d93b99  /* Quantum mottle: sigma comes from mAs and SID via radiography.js. */
@@ -100,7 +99,7 @@
   69ea32698864c4c1  3D scene not ready
   a7fbec4f385f22fb  3D · tap to name
   70ec40827f738641  8 carpals, 5 metacarpals, 14 phalanges
-  41a2db3039bfb60a  : tier >= 3 ? 'var(--green)' : tier === 2 ? 'var(--orange)' : 'var(--red)';
+  e9d9670fa0f80cf5  : (opened ? ' · read (1/4)' : '');
   02c400f14d7569ed  <a href="
   bc002056a461072f  <b style="
   fbc7f40a78126f42  <b>—</b> so far
@@ -825,15 +824,13 @@
   dee735ed000908c8  card overlaycard
   53a55ca51fe7c9ab  card sylcard
   3498234b41cec63c  card toolcard
-  b757250e02657ee4  carried over from another syllabus, and a lesson that has been
   51d90b3094195356  change both, because the node check only tests that copy. */
   67e4b13874eb864a  chip beyond
   4fdb308b1fc87ab3  chip learn
   2cbe9c9f6127a32e  const attrs = hit ?
-  30282f0866f30a82  const color = assumed || opened || stepReached === 'remember' ? 'var(--dim)'
   150b21e4e5effc2a  const hit = lookupTerm(term);
   278b6cfc619726c6  const n = itemsForSubject(s.id).length;
-  ca7d8b19b15e976d  const stepTag = stepReached === 'remember' ? ' · remember (2/4)' : (opened ? ' · read' : '');
+  18b29e9c3e5c1ca4  const stepTag = stage >= 0 ?
   3d088b55d74552a6  const subject = getSubject(s.id);
   fa75afdd29c43adb  const tag = hit ? 'button' : 'span';
   bda336734237a549  correct. Reviews scheduled.
@@ -970,7 +967,6 @@
   e0c67e29f60bbf7e  questions, including
   0ea24a7a68bdff89  questions, the index says
   9104b22058806e6c  rather than rotating rigidly, so swinging them would tear them off their origin.
-  7d1f3fd573ef5371  read. Red at one dot is the colour for answering badly. */
   9601152cce8eb58a  reads as
   c93a88684ed76c4f  real BodyParts3D upper-limb meshes
   6ab01b1dba123b71  region filter does not work

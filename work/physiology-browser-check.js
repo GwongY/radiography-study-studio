@@ -6,7 +6,7 @@ async function physiologyBrowserCheck(){
   const {searchHits}=await import('/study/global-search-one.js');
   const {loadExtraModel}=await import('/studio/depth-picking.js');
   const {meshesFor}=await import('/studio/search-viewer-frame.js');
-  const {stepPhysiology}=await import('/studio/live-physiology.js');
+  const {stepPhysiology,focusPhysiologyExample,clearStudyFocus}=await import('/studio/live-physiology.js');
   const {STRUCTURE_MODELS}=await import('/study-data.js');
   const {MESH_INDEX}=await import('/mesh-index.js?v=5');
   goTo('viewer');await __osteo.boot();
@@ -38,7 +38,7 @@ async function physiologyBrowserCheck(){
   }
   __osteo.unhide('all');
   renderLayerRail();
-  const preset=async kind=>{const select=document.getElementById('systemPreset');select.value=kind;await select.onchange();};
+  const preset=async kind=>kind==='all'?clearStudyFocus():focusPhysiologyExample(kind);
   await preset('breathing');
   check(s.focus.count===6,'breathing needs five lung lobes and diaphragm');
   for(const side of ['left','right']){

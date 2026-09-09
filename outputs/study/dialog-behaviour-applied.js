@@ -93,8 +93,6 @@ window.addEventListener('keydown', (e) => {
 /* Runs after every part has evaluated — see the entry point. */
 export function init() {
   window.__rssOpenDialog = (d) => openDialog(d);
-  document.querySelector('.app-shell').appendChild($$('rssSearchBtn'));
-  $$('sessionView').appendChild($$('rssSessionSearch'));
   $$('rssSearchBtn').onclick = openSearchSheet;
   $$('rssSessionSearch').onclick = openSearchSheet;
   $$('searchClose').onclick = closeSearchSheet;

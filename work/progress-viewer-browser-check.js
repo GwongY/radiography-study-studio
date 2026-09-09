@@ -18,6 +18,7 @@ async function progressViewerBrowserCheck() {
   const pane=document.querySelector('#sessionView>.navcontent');pane.scrollTop=300;
   const scroll=pane.scrollTop;
   document.querySelector('#sessionView>.navhead').classList.add('tucked');
+  await new Promise(resolve=>setTimeout(resolve,260));
   const button=document.getElementById('rssSessionSearch'),r=button.getBoundingClientRect();
   check(r.right<=innerWidth&&r.left>innerWidth-100,'search not at upper right');
   check(document.elementFromPoint(r.x+22,r.y+22)===button,'search not tappable');
