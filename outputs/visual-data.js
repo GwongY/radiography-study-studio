@@ -503,7 +503,21 @@ export function normaliseVisualSpec(entry, item) {
 export function visualsFor(item) {
   if (!item) return [];
   if (Array.isArray(item.visuals) && item.visuals.length) {
-    return item.visuals.map((e) => normaliseVisualSpec(e, item)).filter(Boolean);
+    const hasReal = item.visuals.some((e) => e && (e.fig || e.schematic || e.plate || e.model));
+    const list = [];
+    for (const e of item.visuals) {
+      if (!e) continue;
+      if (e.gen) {
+        if (!hasReal) {
+          const g = generatedFor(item);
+          if (g) list.push(g);
+        }
+      } else {
+        const s = normaliseVisualSpec(e, item);
+        if (s) list.push(s);
+      }
+    }
+    return list;
   }
   const one = visualFor(item);
   return one ? [one] : [];
