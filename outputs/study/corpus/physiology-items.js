@@ -228,6 +228,10 @@ export const PHYS_ITEMS = [
       {
         "ref": "phys.1",
         "location": "p57 \"Organs\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p2 \"types of tissue organization\""
       }
     ]
   },
@@ -493,7 +497,7 @@ export const PHYS_ITEMS = [
       ]
     },
     "lesson": {
-      "explanation": "The human cardiovascular system is a closed, dual-circuit circulatory network driven by a four-chambered muscular pump, the heart. The two distinct vascular loops—the pulmonary circulation and the systemic circulation—are functionally arranged in series. A foundational physiological principle of this architecture is that the volume rate of blood flow through the systemic circulation must equal the flow rate through the pulmonary circuit at steady state (~5 L/min at rest). If either side ejected more volume than the other over time, blood would rapidly and catastrophically pool either in the pulmonary vasculature (leading to fatal pulmonary edema) or in systemic venous beds. Blood travels in an unbroken, unidirectional sequence: deoxygenated systemic venous return enters the right atrium via the superior and inferior vena cavae (and coronary sinus); passes through the right atrioventricular (tricuspid) valve into the right ventricle; is pumped across the pulmonary semilunar valve into the pulmonary trunk and pulmonary arteries to the pulmonary capillaries of the lungs where CO2 is released and O2 is absorbed; oxygenated blood returns via four pulmonary veins to the left atrium; flows across the left atrioventricular (bicuspid/mitral) valve into the left ventricle; and is forcefully ejected across the aortic semilunar valve into the ascending aorta to supply all systemic organs and peripheral tissues before returning via systemic veins. Blood vessels are organized histologically into three concentric tunics: the tunica interna (intima), featuring a non-thrombogenic simple squamous endothelium, basement membrane, and internal elastic membrane; the tunica media, composed predominantly of concentric smooth muscle layers and elastic fibers; and the tunica externa (adventitia), a tough connective tissue sheath anchoring the vessel. Arteries carry blood away from the heart under high, pulsating pressure; large elastic arteries expand during ventricular systole and elastically recoil during diastole to smooth arterial pressure oscillations. Muscular arteries branch into small arterioles, which possess abundant smooth muscle and provide the primary site of peripheral vascular resistance in the circulatory system, regulating blood pressure and downstream microvascular perfusion. Capillaries consist exclusively of an endothelial cylinder resting on a basal lamina, lacking tunica media or externa to minimize diffusion distance. Capillary flow is modulated by precapillary sphincters at arteriole junctions. Continuous capillaries have tightly joined endothelial cells with narrow intercellular clefts (found in skeletal muscle, lungs, skin, and adipose tissue), whereas fenestrated capillaries feature pores or 'windows' allowing rapid exchange of water and small solutes (located in endocrine glands, intestinal villi, and renal glomeruli). Capillaries drain into venules and systemic veins that return blood to the heart. Veins have thinner walls, larger lumens, and high compliance, acting as a low-pressure (~2 mmHg) capacitance reservoir containing the majority of the body's blood volume. Because central venous pressure is insufficient on its own to drive venous return against gravity, blood is propelled toward the heart by the rhythmic contraction of surrounding skeletal muscles (the skeletal muscle pump), assisted by thoracoabdominal pressure gradients during ventilation and prevented from backward pooling by one-way bicuspid venous valves.",
+      "explanation": "The human cardiovascular system is a closed, dual-circuit circulatory network driven by a four-chambered muscular pump, the heart. The two distinct vascular loops—the pulmonary circulation and the systemic circulation—are functionally arranged in series. A foundational physiological principle of this architecture is that the volume rate of blood flow through the systemic circulation must equal the flow rate through the pulmonary circuit at steady state (~5 L/min at rest). If either side ejected more volume than the other over time, blood would rapidly and catastrophically pool either in the pulmonary vasculature (leading to fatal pulmonary edema) or in systemic venous beds. Blood travels in an unbroken, unidirectional sequence: deoxygenated systemic venous return enters the right atrium via the superior and inferior vena cavae (and coronary sinus); passes through the right atrioventricular (tricuspid) valve into the right ventricle; is pumped across the pulmonary semilunar valve into the pulmonary trunk and pulmonary arteries to the pulmonary capillaries of the lungs where CO2 is released and O2 is absorbed; oxygenated blood returns via four pulmonary veins to the left atrium; flows across the left atrioventricular (bicuspid/mitral) valve into the left ventricle; and is forcefully ejected across the aortic semilunar valve into the ascending aorta to supply all systemic organs and peripheral tissues before returning via systemic veins. Blood vessels are organized histologically into three concentric tunics: the tunica interna (intima), featuring a non-thrombogenic simple squamous endothelium, basement membrane, and internal elastic membrane; the tunica media, composed predominantly of concentric smooth muscle layers and elastic fibers; and the tunica externa (adventitia), a tough connective tissue sheath anchoring the vessel. Arteries carry blood away from the heart under high, pulsating pressure; large elastic arteries expand during ventricular systole and elastically recoil during diastole to smooth arterial pressure oscillations. Muscular arteries branch into small arterioles, which possess abundant smooth muscle and provide the primary site of peripheral vascular resistance in the circulatory system, regulating blood pressure and downstream microvascular perfusion. Capillaries consist exclusively of an endothelial cylinder resting on a basal lamina, lacking tunica media or externa to minimize diffusion distance. Capillary flow is modulated by precapillary sphincters at arteriole junctions. Continuous capillaries have tightly joined endothelial cells with narrow intercellular clefts (found in skeletal muscle, lungs, skin, and adipose tissue), whereas fenestrated capillaries feature pores or 'windows' allowing rapid exchange of water and small solutes (located in endocrine glands, intestinal villi, and renal glomeruli). Materials move across capillary walls primarily by diffusion, filtration, osmosis, and active/bulk transport (transcytosis). Capillaries drain into venules and systemic veins that return blood to the heart. Veins have thinner walls, larger lumens, and high compliance, acting as a low-pressure (~2 mmHg) capacitance reservoir containing the majority of the body's blood volume. Because central venous pressure is insufficient on its own to drive venous return against gravity, blood is propelled toward the heart by the rhythmic contraction of surrounding skeletal muscles (the skeletal muscle pump), assisted by thoracoabdominal pressure gradients during ventilation and prevented from backward pooling by one-way bicuspid venous valves. During physical exercise, blood movement is enhanced through increased cardiac output, local arteriolar vasodilation in working skeletal muscles (active hyperemia), and markedly augmented venous return driven by the rhythmic contraction of the skeletal muscle pump and deeper respiratory pump excursions.",
       "plain": "The circulatory system consists of two loops connected in series: the pulmonary circuit (carrying deoxygenated blood from the right ventricle to the lungs and back to the left atrium) and the systemic circuit (carrying oxygenated blood from the left ventricle to all body organs and back to the right atrium). Because the two circuits are in series, the rate of blood flow through both circuits must be exactly equal. Arteries carry blood away from the heart under high pressure; small arterioles provide most of the vascular resistance. Capillaries are single-cell-thick exchange tubes (continuous in muscles and lungs, fenestrated in kidneys and intestines). Veins hold most of the body's blood volume at very low pressure (~2 mmHg) and rely on one-way valves and skeletal muscle contractions to return blood to the heart.",
       "keyFacts": [
         "The pulmonary and systemic circuits are connected in series; their steady-state flow rates must be exactly equal (~5 L/min).",
@@ -505,7 +509,9 @@ export const PHYS_ITEMS = [
         "Small arteries and arterioles provide the primary peripheral vascular resistance in the systemic circulation.",
         "Capillaries consist solely of endothelium and basement membrane to maximize rapid diffusion and exchange.",
         "Continuous capillaries are tightly sealed (muscles, lungs); fenestrated capillaries possess pores for rapid solute exchange (kidneys, intestines).",
-        "Veins are high-compliance capacitance vessels containing the majority of total blood volume at low pressure (~2 mmHg)."
+        "Materials cross capillary walls by diffusion, osmosis, active transport, and bulk transport.",
+        "Veins are high-compliance capacitance vessels containing the majority of total blood volume at low pressure (~2 mmHg).",
+        "During exercise, blood flow is accelerated via elevated cardiac output, active hyperemia in working muscles, and the skeletal muscle pump."
       ],
       "prerequisites": [],
       "examples": [
@@ -648,6 +654,26 @@ export const PHYS_ITEMS = [
       {
         "ref": "phys.2",
         "location": "p20 \"Pulmonary and Systemic Circulations\""
+      },
+      {
+        "ref": "phys.cvs.tut",
+        "location": "p1 \"Explain how blood moves through arteries\""
+      },
+      {
+        "ref": "phys.cvs.tut",
+        "location": "p1 \"How does exercise affect this movement\""
+      },
+      {
+        "ref": "phys.cvs.tut",
+        "location": "p2 \"Materials can move across capillary walls by\""
+      },
+      {
+        "ref": "phys.cvs.tut",
+        "location": "p2 \"The normal blood volume of the venous system\""
+      },
+      {
+        "ref": "phys.cvs.tut",
+        "location": "p2 \"Pulmonary arteries and pulmonary veins\""
       }
     ]
   },
@@ -873,6 +899,10 @@ export const PHYS_ITEMS = [
       {
         "ref": "phys.2",
         "location": "p35 \"Functions of the valves\""
+      },
+      {
+        "ref": "phys.cvs.tut",
+        "location": "p1 \"types of valves in the heart\""
       }
     ]
   },
@@ -3808,6 +3838,18 @@ export const PHYS_ITEMS = [
       {
         "ref": "phys.1",
         "location": "p11 \"Anchoring proteins\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p1 \"functions of the plasma membrane\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p1 \"pass the cells' membrane\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p2 \"function of membrane proteins\""
       }
     ]
   },
@@ -3864,7 +3906,7 @@ export const PHYS_ITEMS = [
       ]
     },
     "lesson": {
-      "explanation": "Eukaryotic cellular functions are compartmentalized within intracellular structures called organelles, which are systematically divided into non-membranous and membranous classes based on their physical relationship with the cytosol. Non-membranous organelles lack a surrounding lipid membrane and remain in direct, continuous physical contact with the cytoplasm: (1) Cytoskeleton: an internal protein framework consisting of thin microfilaments (composed of actin, 7 nm diameter, forming the terminal web and driving cellular motility), intermediate filaments (insoluble protein fibres, 8–12 nm, providing tensile strength and stabilizing organelle positions), and microtubules (hollow cylinders of tubulin, 25 nm, acting as monorail transport tracks, forming centrioles and the mitotic spindle); (2) Microvilli: small, non-motile finger-like membrane extensions packed with actin filaments that amplify cell surface area for intestinal and renal absorption; (3) Centrosome and Centrioles: the microtubule organizing center containing two perpendicular cylindrical centrioles (nine microtubule triplets) that orchestrate chromosome movement during mitosis; (4) Cilia: microtubule-based surface projections split into primary cilia (solitary sensory antennas on most cells detecting flow and chemical signals) and motile cilia (containing a 9+2 doublet array that beat rhythmically to sweep mucus and fluids across respiratory and oviduct surfaces); (5) Ribosomes: dense ribonucleoprotein complexes (small and large subunits) that translate mRNA into polypeptide chains, occurring as free ribosomes in cytosol (synthesizing intracellular proteins) or fixed ribosomes bound to the rough endoplasmic reticulum (synthesizing secretory, membrane, and lysosomal proteins); and (6) Proteasomes: cylindrical protein-degrading complexes containing proteases that rapidly disassemble ubiquitin-tagged damaged, abnormal, or short-lived regulatory proteins. In contrast, Membranous organelles are completely enclosed within phospholipid bilayer membranes that isolate their internal biochemical microenvironments from the cytosol: (1) Endoplasmic Reticulum (ER): an extensive network of folded cisternae and tubules divided into Rough ER (studded with fixed ribosomes, responsible for folding and chemical modification of newly synthesized proteins) and Smooth ER (lacking ribosomes, synthesizing lipids, phospholipids, cholesterol, steroid hormones, glycogen, and storing calcium ions); (2) Golgi Apparatus: stacks of 5–6 flattened membranous discs (cisternae) functioning as the cell's post office, which receives transport vesicles from the ER at its cis face, modifies glycoproteins, and sorts them at its trans face into three major product pathways: secretory vesicles for exocytosis, membrane renewal vesicles that fuse with the plasma membrane, and hydrolytic transport vesicles that become lysosomes; (3) Lysosomes: digestive vesicles containing acidic hydrolases that degrade engulfed pathogens, recycle damaged organelles (autophagy), and execute autolysis during apoptosis; (4) Peroxisomes: enzymatic vesicles containing oxidases and catalase that neutralize metabolic toxins, break down fatty acids via beta-oxidation, and decompose hazardous hydrogen peroxide (H2O2); and (5) Mitochondria: double-membrane powerhouses with outer smooth membranes and deeply folded inner cristae enclosing a dense enzymatic matrix, generating over 95% of cellular ATP through the citric acid cycle and oxidative phosphorylation.",
+      "explanation": "Eukaryotic cellular functions are compartmentalized within intracellular structures called organelles, which are systematically divided into non-membranous and membranous classes based on their physical relationship with the cytosol. Non-membranous organelles lack a surrounding lipid membrane and remain in direct, continuous physical contact with the cytoplasm: (1) Cytoskeleton: an internal protein framework consisting of thin microfilaments (composed of actin, 7 nm diameter, forming the terminal web and driving cellular motility), intermediate filaments (insoluble protein fibres, 8–12 nm, providing tensile strength and stabilizing organelle positions), and microtubules (hollow cylinders of tubulin, 25 nm, acting as monorail transport tracks, forming centrioles and the mitotic spindle); (2) Microvilli: small, non-motile finger-like membrane extensions packed with actin filaments that amplify cell surface area for intestinal and renal absorption; (3) Centrosome and Centrioles: the microtubule organizing center containing two perpendicular cylindrical centrioles (nine microtubule triplets) that orchestrate chromosome movement during mitosis; (4) Cilia: microtubule-based surface projections split into primary cilia (solitary sensory antennas on most cells detecting flow and chemical signals) and motile cilia (containing a 9+2 doublet array that beat rhythmically to sweep mucus and fluids across respiratory and oviduct surfaces; environmental insults such as cigarette smoke paralyze these ciliated epithelial cells); (5) Ribosomes: dense ribonucleoprotein complexes (small and large subunits) that translate mRNA into polypeptide chains, occurring as free ribosomes in cytosol (synthesizing intracellular proteins) or fixed ribosomes bound to the rough endoplasmic reticulum (synthesizing secretory, membrane, and lysosomal proteins; notably, mature red blood cells lack both a nucleus and ribosomes, meaning they cannot synthesize new proteins and become worn out within a few months / ~120 days); and (6) Proteasomes: cylindrical protein-degrading complexes containing proteases that rapidly disassemble ubiquitin-tagged damaged, abnormal, or short-lived regulatory proteins. In contrast, Membranous organelles are completely enclosed within phospholipid bilayer membranes that isolate their internal biochemical microenvironments from the cytosol: (1) Endoplasmic Reticulum (ER): an extensive network of folded cisternae and tubules divided into Rough ER (studded with fixed ribosomes, responsible for folding and chemical modification of newly synthesized proteins) and Smooth ER (lacking ribosomes, synthesizing lipids, phospholipids, cholesterol, steroid hormones, glycogen, and storing calcium ions); (2) Golgi Apparatus: stacks of 5–6 flattened membranous discs (cisternae) functioning as the cell's post office, which receives transport vesicles from the ER at its cis face, modifies glycoproteins, and sorts them at its trans face into three major product pathways: secretory vesicles for exocytosis, membrane renewal vesicles that fuse with the plasma membrane, and hydrolytic transport vesicles that become lysosomes; (3) Lysosomes: digestive vesicles containing acidic hydrolases that degrade engulfed pathogens, recycle damaged organelles (autophagy), and execute autolysis during apoptosis (digestion of extracellular materials following endocytosis or intracellular debris); (4) Peroxisomes: enzymatic vesicles containing oxidases and catalase that neutralize metabolic toxins, break down fatty acids via beta-oxidation, and decompose hazardous hydrogen peroxide (H2O2); and (5) Mitochondria: double-membrane powerhouses with outer smooth membranes and deeply folded inner cristae enclosing a dense enzymatic matrix, generating over 95% of cellular ATP through the citric acid cycle and oxidative phosphorylation.",
       "plain": "Organelles are the cell's internal organs. They are grouped into non-membranous (naked to the cytoplasm) and membranous (wrapped in their own protective lipid envelopes). Non-membranous ones include the cytoskeleton framework, microvilli for absorption, centrioles for cell division, cilia for sensing or sweeping, ribosomes for building proteins, and proteasomes for shredding old proteins. Membranous ones include the rough ER (protein workshop), smooth ER (lipid factory), Golgi apparatus (sorting and packaging postal center), lysosomes (acidic recycling centers), peroxisomes (detox units), and mitochondria (the ATP power plants).",
       "keyFacts": [
         "Non-membranous organelles lack lipid envelopes and sit directly in contact with the cytosol.",
@@ -3872,6 +3914,7 @@ export const PHYS_ITEMS = [
         "The cytoskeleton consists of actin microfilaments, intermediate filaments, and tubulin microtubules.",
         "Microvilli increase absorptive surface area, while motile cilia sweep fluids across epithelial surfaces.",
         "Ribosomes translate mRNA into proteins; free ribosomes make cytosolic proteins, fixed ribosomes make secretory proteins.",
+        "Mature red blood cells lack a nucleus and ribosomes, so they cannot synthesize new proteins and become worn out within a few months.",
         "Proteasomes degrade abnormal or unneeded proteins tagged with ubiquitin.",
         "Rough ER modifies and folds proteins; Smooth ER synthesizes lipids, steroids, and stores calcium.",
         "Golgi apparatus modifies and packages products into secretory vesicles, membrane renewal vesicles, or lysosomes.",
@@ -4024,6 +4067,22 @@ export const PHYS_ITEMS = [
       {
         "ref": "phys.1",
         "location": "p21 \"Products of Golgi Apparatus\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p2 \"paralyses the ciliated epithelial\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p3 \"digestion of materials\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p3 \"form the mitotic spindle\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p3 \"cannot make new proteins and will be worn out within a few months\""
       }
     ]
   },
@@ -4246,6 +4305,10 @@ export const PHYS_ITEMS = [
       {
         "ref": "phys.1",
         "location": "p16 \"Triplet code\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p3 \"DNA ; proteins\""
       }
     ]
   },
@@ -4451,6 +4514,10 @@ export const PHYS_ITEMS = [
       {
         "ref": "phys.1",
         "location": "p22 \"Translation\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p1 \"gene expression and protein synthesis\""
       }
     ]
   },
@@ -4659,6 +4726,14 @@ export const PHYS_ITEMS = [
       {
         "ref": "phys.1",
         "location": "p28 \"Meiosis\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p3 \"form the mitotic spindle\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p3 \"When is DNA replicated\""
       }
     ]
   },
@@ -4711,7 +4786,7 @@ export const PHYS_ITEMS = [
       "explanation": "Representing the first of the four primary tissue classes introduced in Levels of organization (abct2326-cells-organisation), epithelial tissue comprises continuous sheets of specialized cells that cover all exposed external body surfaces, line internal cavities and passageways, and form secretory glands. Epithelia are defined by five fundamental histological characteristics: (1) Cellularity: cells are bound tightly together with minimal intervening extracellular space via specialized cell junctions (tight junctions, desmosomes, and gap junctions); (2) Polarity: epithelial cells possess distinct structural and functional polarity, presenting an exposed apical surface facing the external environment or internal lumen (frequently adorned with microvilli or motile cilia) and an attached basal surface resting on underlying structures; (3) Attachment: the basal surface firmly anchors to a specialized non-cellular basement membrane (basal lamina) synthesized jointly by the epithelial cells and adjacent connective tissue; (4) Avascularity: epithelia completely lack blood vessels, acquiring essential oxygen and nutrients entirely by diffusion across the basement membrane from capillaries in underlying vascular connective tissue; and (5) Regeneration: continuous stem cell division in the basal layer rapidly replaces damaged or sloughed surface cells. Epithelia execute four vital physiological functions: physical protection against abrasion and pathogens, regulation of barrier permeability, sensory reception via neuroepithelia, and specialized secretion. Anatomists classify covering and lining epithelia using a two-variable histological matrix based on cell layer number and apical cell shape. By layer number, epithelia are either Simple (a single layer of cells resting on the basement membrane, optimized for rapid diffusion, filtration, absorption, or secretion) or Stratified (multiple cell layers stacked atop the basement membrane, engineered for mechanical protection and abrasion resistance). By cell shape, epithelia are Squamous (flat, thin, plate-like cells with flattened disc-like nuclei), Cuboidal (cube-shaped, box-like cells with spherical central nuclei), or Columnar (tall, slender rectangular prisms with elongated oval nuclei positioned near the basal lamina). Combining these yields six primary types: simple squamous (lining alveoli and vascular endothelium), simple cuboidal (kidney tubules), simple columnar (gastric and intestinal lining), stratified squamous (keratinized on skin epidermis, non-keratinized in oral cavity and esophagus), stratified cuboidal (rare sweat and mammary ducts), and stratified columnar (rare pharyngeal/urethral zones). Two specialized variants expand this framework: Pseudostratified ciliated columnar epithelium, which appears stratified because cell nuclei reside at varying heights, though every individual cell maintains direct attachment to the basement membrane (characteristic of nasal cavities, trachea, and bronchi); and Transitional epithelium (urothelium), a stratified epithelium capable of significant stretching and mechanical recoil without cellular detachment, lining the renal pelves, ureters, and urinary bladder. Glandular epithelia specialize in fluid secretion and divide strictly by delivery route: Endocrine glands are ductless glands that secrete chemical messengers (hormones) directly into interstitial fluid for systemic uptake into the bloodstream; Exocrine glands discharge secretions onto external or internal epithelial surfaces through tubular epithelial ducts (e.g. sweat glands, salivary glands, and pancreatic exocrine acini).",
       "plain": "Epithelial tissue is the body's wrapping paper and lining. It has five golden rules: packed tight with almost no gaps (cellularity), distinct top and bottom (polarity), glued down to a basement membrane (attachment), has zero blood vessels of its own (avascularity), and repairs itself lightning fast (regeneration). We classify them like a grid: by how many layers they have (simple = 1 layer for easy soaking or breathing; stratified = many layers for tough armor) and what shape the top cells are (squamous = flat like fried eggs; cuboidal = neat cubes; columnar = tall pillars). Two special types are pseudostratified (looks layered but every cell touches the bottom; lines airways) and transitional (stretches like a balloon; lines the bladder). Glands split into endocrine (ductless, puts hormones straight into blood) and exocrine (uses pipes to squirt sweat or saliva onto surfaces).",
       "keyFacts": [
-        "The five hallmarks of epithelia: cellularity, polarity, basement membrane attachment, avascularity, and regeneration.",
+        "The five hallmarks of epithelia: cellularity, polarity (always has an apical and a basal surface), basement membrane attachment, avascularity, and regeneration.",
         "Epithelial tissues are completely avascular; all nutrients must diffuse from underlying vascular connective tissue.",
         "Simple epithelia consist of a single layer, optimized for diffusion, filtration, absorption, and secretion.",
         "Stratified epithelia consist of multiple layers, specialized for mechanical protection against abrasion.",
@@ -4870,6 +4945,14 @@ export const PHYS_ITEMS = [
       {
         "ref": "phys.1",
         "location": "p37 \"Glandular Epithelia\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p2 \"types of tissue organization\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p4 \"always has an apical and a basal surface\""
       }
     ]
   },
@@ -4926,11 +5009,12 @@ export const PHYS_ITEMS = [
       ]
     },
     "lesson": {
-      "explanation": "Following the primary tissue overview in Levels of organization (abct2326-cells-organisation), connective tissue is the most abundant, structurally diverse, and widely distributed tissue class in the human body. Unlike epithelia—which consist of densely packed cellular sheets—connective tissues are characterized by specialized cells widely dispersed within an extensive non-cellular extracellular matrix. The tissue is universally composed of three fundamental elements: (1) Specialized cells (such as fibroblasts, adipocytes, chondrocytes, and osteocytes); (2) Extracellular protein fibres (collagen fibres providing tensile strength, reticular fibres forming delicate branching networks, and elastic fibres enabling stretch and elastic recoil); and (3) Ground substance, a clear, viscous, hydrophilic fluid containing proteoglycans and hyaluronic acid that fills all spaces between cells and fibres. Together, extracellular fibres and ground substance constitute the extracellular matrix, which accounts for the overwhelming majority of connective tissue volume and determines its mechanical properties. Connective tissues perform six systemic roles: structural framework creation, fluid and solute transport, physical organ protection, tissue interconnection, energy storage (triglycerides), and pathogen defense. Histologists divide connective tissues into three major classes: (1) Connective Tissue Proper: containing varied cell populations within a syrupy ground substance. This class subdivides into Loose connective tissue—which features an open structural framework with abundant ground substance that cushions organs and absorbs shock, comprising Areolar tissue (the universal packing material beneath epithelia), Adipose tissue (specialized for lipid storage, insulation, and metabolic cushioning), and Reticular tissue (a delicate 3D stroma supporting parenchymal cells in the spleen, liver, and lymph nodes); and Dense connective tissue—dominated by densely packed collagen fibres, comprising Dense Regular connective tissue (cables of tightly packed parallel collagen fibres resisting unidirectional tension in tendons and aponeuroses), Dense Irregular connective tissue (an interwoven, multi-directional meshwork resisting tension from varied vectors in the dermis, periosteum, and organ capsules), and Elastic tissue (springy elastic fibres in arterial walls and vertebral ligaments). (2) Fluid Connective Tissues: featuring distinctive aqueous matrices without insoluble structural fibres under resting conditions: Blood—containing watery plasma (water, electrolytes, plasma proteins) and suspended formed elements (erythrocytes for gas transport, leukocytes for immune defense, thrombocytes for hemostasis); and Lymph—interstitial fluid collected by lymphatic vessels and returned to the venous circulation. (3) Supporting Connective Tissues: possessing a dense, highly specialized matrix that provides a weight-bearing framework for the entire body: Cartilage—a firm, gel-like avascular matrix rich in chondroitin sulfate, where chondrocytes reside isolated within tiny cavities called lacunae; cartilage occurs in three varieties: Hyaline cartilage (glassy, smooth collagen matrix covering synovial joints, costal cartilages, and respiratory passages), Elastic cartilage (flexible elastic fibre mesh in the external ear and epiglottis), and Fibrocartilage (dense bundles of durable collagen fibres resisting extreme compression and shearing in intervertebral discs, the pubic symphysis, and menisci); and Bone (Osseous tissue)—a rigid, mineralized matrix containing calcium phosphate crystals (hydroxyapatite) deposited upon collagen scaffolding, where osteocytes reside in lacunae interconnected by microscopic canaliculi, organized around central blood vessels into cylindrical structural units called osteons (Haversian systems).",
+      "explanation": "Following the primary tissue overview in Levels of organization (abct2326-cells-organisation), connective tissue is the most abundant, structurally diverse, and widely distributed tissue class in the human body. Unlike epithelia—which consist of densely packed cellular sheets—connective tissues are characterized by specialized cells widely dispersed within an extensive non-cellular extracellular matrix. The tissue is universally composed of three fundamental elements: (1) Specialized cells (such as fibroblasts, adipocytes, chondrocytes, and osteocytes; fibroblasts are the primary resident cells of connective tissue proper that produce hyaluronic acid and matrix protein fibres including collagen and elastin); (2) Extracellular protein fibres (collagen fibres providing tensile strength, reticular fibres forming delicate branching networks, and elastic fibres enabling stretch and elastic recoil); and (3) Ground substance, a clear, viscous, hydrophilic fluid containing proteoglycans and hyaluronic acid that fills all spaces between cells and fibres. Together, extracellular fibres and ground substance constitute the extracellular matrix, which accounts for the overwhelming majority of connective tissue volume and determines its mechanical properties. Connective tissues perform six systemic roles: structural framework creation, fluid and solute transport, physical organ protection, tissue interconnection, energy storage (triglycerides), and pathogen defense. Histologists divide connective tissues into three major classes: (1) Connective Tissue Proper: containing varied cell populations within a syrupy ground substance. This class subdivides into Loose connective tissue—which features an open structural framework with abundant ground substance that cushions organs and absorbs shock, comprising Areolar tissue (the universal packing material beneath epithelia), Adipose tissue (specialized for lipid storage, insulation, and metabolic cushioning), and Reticular tissue (a delicate 3D stroma supporting parenchymal cells in the spleen, liver, and lymph nodes); and Dense connective tissue—dominated by densely packed collagen fibres, comprising Dense Regular connective tissue (cables of tightly packed parallel collagen fibres resisting unidirectional tension in tendons and aponeuroses), Dense Irregular connective tissue (an interwoven, multi-directional meshwork resisting tension from varied vectors in the dermis, periosteum, and organ capsules), and Elastic tissue (springy elastic fibres in arterial walls and vertebral ligaments). (2) Fluid Connective Tissues: featuring distinctive aqueous matrices without insoluble structural fibres under resting conditions: Blood—containing watery plasma (water, electrolytes, plasma proteins) and suspended formed elements (erythrocytes for gas transport, leukocytes for immune defense, thrombocytes for hemostasis); and Lymph—interstitial fluid collected by lymphatic vessels and returned to the venous circulation. (3) Supporting Connective Tissues: possessing a dense, highly specialized matrix that provides a weight-bearing framework for the entire body: Cartilage—a firm, gel-like avascular matrix rich in chondroitin sulfate, where chondrocytes reside isolated within tiny cavities called lacunae; cartilage occurs in three varieties: Hyaline cartilage (glassy, smooth collagen matrix covering synovial joints, costal cartilages, and respiratory passages), Elastic cartilage (flexible elastic fibre mesh in the external ear and epiglottis), and Fibrocartilage (dense bundles of durable collagen fibres resisting extreme compression and shearing in intervertebral discs, the pubic symphysis, and menisci); and Bone (Osseous tissue)—a rigid, mineralized matrix containing calcium phosphate crystals (hydroxyapatite) deposited upon collagen scaffolding, where osteocytes reside in lacunae interconnected by microscopic canaliculi, organized around central blood vessels into cylindrical structural units called osteons (Haversian systems).",
       "plain": "Connective tissue is the body's scaffolding, glue, and plumbing. Unlike skin cells packed shoulder-to-shoulder, connective tissue consists of scattered cells floating in a vast extracellular matrix made of protein fibres (collagen for strength, elastin for stretch) and watery jelly called ground substance. It divides into three big families: (1) Connective Tissue Proper, which splits into Loose (areolar packing cushion, fatty adipose, reticular organ webs) and Dense (regular tendons pulled in one direction, irregular dermis pulled in many directions, elastic artery walls); (2) Fluid Connective Tissues, which are liquid highways with no solid fibres (blood carrying red/white cells and platelets, and clear lymph); and (3) Supporting Connective Tissues, which bear heavy loads (avascular cartilage with chondrocytes in lacunae, and rock-hard calcified bone packed with osteocytes and blood vessels).",
       "keyFacts": [
         "Connective tissue is defined by three components: specialized cells, extracellular protein fibres, and ground substance.",
         "The extracellular matrix (protein fibres + ground substance) accounts for the bulk of connective tissue volume.",
+        "Fibroblasts are the primary resident cells of connective tissue proper that produce collagen and other matrix fibres.",
         "The three primary classes: Connective Tissue Proper, Fluid Connective Tissues, and Supporting Connective Tissues.",
         "Loose connective tissue comprises areolar, adipose, and reticular tissues, serving as cushioning packing material.",
         "Dense regular connective tissue features parallel collagen fibres resisting pull along a single axis (tendons, ligaments).",
@@ -5100,6 +5184,22 @@ export const PHYS_ITEMS = [
       {
         "ref": "phys.1",
         "location": "p40 \"Supporting Connective Tissues\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p2 \"types of tissue organization\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p4 \"Blood is which type of tissue\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p4 \"connective tissue cells produce collagen\""
+      },
+      {
+        "ref": "phys.tut",
+        "location": "p7 \"B) fibroblasts\""
       }
     ]
   },
@@ -5150,14 +5250,16 @@ export const PHYS_ITEMS = [
       ]
     },
     "lesson": {
-      "explanation": "Completing the four primary tissue classes introduced in Levels of organization (abct2326-cells-organisation), muscle and neural tissues represent the body's excitable tissues, specialized for generating physical force and transmitting rapid electrical signals. Muscle tissue is dedicated to active contraction and mechanical tension generation, utilizing interactions between internal actin and myosin protein microfilaments to produce all bodily movements. Muscle tissue is categorized into three structurally and functionally distinct types: (1) Skeletal muscle: composed of very large, elongated cylindrical cells termed muscle fibers (up to 30 cm long); fibers are multinucleated with multiple peripheral nuclei lying immediately beneath the sarcolemma (resulting from embryonic myoblast fusion); fibers display prominent transverse striations due to precisely aligned sarcomeric arrangements of actin and myosin; skeletal muscle operates under voluntary somatic motor nervous system control, anchoring to skeleton via tendons to execute skeletal movement, maintain posture, and generate body heat; (2) Cardiac muscle: located strictly and exclusively within the muscular wall of the heart (myocardium); cells (cardiocytes) are shorter, branched, and typically possess a single central nucleus (occasionally two); cardiocytes are striated and contract involuntarily under the regulation of intrinsic pacemaker cells and autonomic nerve fibers; adjacent cardiocytes join end-to-end at specialized junctional complexes called intercalated discs, which combine desmosomes (anchoring intermediate filaments to withstand high systolic pressures) and gap junctions (low-resistance electrical channels allowing rapid ionic flow and synchronized contraction of the cardiac syncytium); and (3) Smooth muscle: non-striated, involuntary muscle located within the walls of hollow contracting visceral organs, blood vessels, respiratory airways, digestive tracts, the urinary bladder, and reproductive ducts; cells are small, spindle-shaped (fusiform) with a single central oval nucleus; smooth muscle lacks organized sarcomeres (actin and myosin disperse diagonally throughout cytoplasm), allowing contraction over extensive stretch ranges to regulate lumen diameter, propel food via peristalsis, and empty organs. Neural (nervous) tissue comprises the body's rapid communication network, specialized for detecting sensory stimuli, processing information, and conducting electrical nerve impulses. Approximately 98% of all neural tissue resides within the central nervous system (brain and spinal cord). Neural tissue consists of two distinct cell populations: (1) Neurons: the functional, electrically excitable cells responsible for processing and transmitting electrical impulses. A typical multipolar neuron comprises three principal anatomical regions: Cell body (soma), containing the large nucleus, prominent nucleolus, and intense protein-synthesizing machinery (Nissl bodies / rough ER); Dendrites, multiple short, highly branched cytoplasmic extensions projecting from the soma that act as antenna-like receptors receiving incoming synaptic inputs from other neurons or sensory receptors; and a single Axon (nerve fiber), an elongated cylindrical process originating at the axon hillock that propagates outgoing action potentials away from the cell body toward target synaptic terminals, where neurotransmitter release communicates with adjacent neurons, muscle fibers, or glands. Electrical signal transmission follows an invariant directional vector: incoming signals enter through branching dendrites, undergo spatial and temporal integration at the soma and axon hillock, and exit along the axon. (2) Neuroglia (glial cells): non-excitable supporting cells that outnumber neurons, maintaining homeostatic interstitial fluid composition, providing mechanical scaffolding, defending against pathogens, repairing injured tissue, and synthesizing the insulating myelin sheaths that accelerate nerve conduction velocity.",
+      "explanation": "Completing the four primary tissue classes introduced in Levels of organization (abct2326-cells-organisation), muscle and neural tissues represent the body's excitable tissues, specialized for generating physical force and transmitting rapid electrical signals. Muscle tissue is dedicated to active contraction and mechanical tension generation, utilizing interactions between internal actin and myosin protein microfilaments to produce all bodily movements. Muscle tissue is categorized into three structurally and functionally distinct types: (1) Skeletal muscle: composed of very large, elongated cylindrical cells termed muscle fibers (up to 30 cm long); fibers are multinucleated with multiple peripheral nuclei lying immediately beneath the sarcolemma (resulting from embryonic myoblast fusion); fibers display prominent transverse striations due to precisely aligned sarcomeric arrangements of actin and myosin organized into repeating sarcomeres with A bands and I bands (dark anisotropic A bands and light isotropic I bands); skeletal muscle operates under voluntary somatic motor nervous system control, anchoring to skeleton via tendons to execute skeletal movement, maintain posture, and generate body heat; (2) Cardiac muscle: located strictly and exclusively within the muscular wall of the heart (myocardium); cells (cardiocytes / cardiac muscle fibers) are shorter, branched, and typically possess a single central nucleus (occasionally two); cardiac muscle fibers have striations (also composed of myofibrils organized into sarcomeres with A and I bands) and contract involuntarily under the regulation of intrinsic pacemaker cells and autonomic nerve fibers; adjacent cardiocytes join end-to-end at specialized junctional complexes called intercalated discs, which combine desmosomes (anchoring intermediate filaments to withstand high systolic pressures) and gap junctions (low-resistance electrical channels allowing rapid ionic flow and synchronized contraction of the cardiac syncytium); and (3) Smooth muscle: non-striated, involuntary muscle located within the walls of hollow contracting visceral organs, blood vessels, respiratory airways, digestive tracts, the urinary bladder, and reproductive ducts; cells are small, spindle-shaped (fusiform) with a single central oval nucleus; smooth muscle lacks organized sarcomeres (actin and myosin disperse diagonally throughout cytoplasm without A or I banding), allowing contraction over extensive stretch ranges to regulate lumen diameter, propel food via peristalsis, and empty organs. Neural (nervous) tissue comprises the body's rapid communication network, specialized for detecting sensory stimuli, processing information, and conducting electrical nerve impulses. Neurons and neuroglia constitute neural tissue, which is functionally distinct from connective tissue (neurons are excitable transmission cells, not matrix-secreting connective tissue cells). Approximately 98% of all neural tissue resides within the central nervous system (brain and spinal cord). Neural tissue consists of two distinct cell populations: (1) Neurons: the functional, electrically excitable cells responsible for processing and transmitting electrical impulses. A typical multipolar neuron comprises three principal anatomical regions: Cell body (soma), containing the large nucleus, prominent nucleolus, and intense protein-synthesizing machinery (Nissl bodies / rough ER); Dendrites, multiple short, highly branched cytoplasmic extensions projecting from the soma that act as antenna-like receptors receiving incoming synaptic inputs from other neurons or sensory receptors; and a single Axon (nerve fiber), an elongated cylindrical process originating at the axon hillock that propagates outgoing action potentials away from the cell body toward target synaptic terminals, where neurotransmitter release communicates with adjacent neurons, muscle fibers, or glands. Electrical signal transmission follows an invariant directional vector: incoming signals enter through branching dendrites, undergo spatial and temporal integration at the soma and axon hillock, and exit along the axon. (2) Neuroglia (glial cells): non-excitable supporting cells that outnumber neurons, maintaining homeostatic interstitial fluid composition, providing mechanical scaffolding, defending against pathogens, repairing injured tissue, and synthesizing the insulating myelin sheaths that accelerate nerve conduction velocity.",
       "plain": "Muscle tissue moves you; neural tissue controls you. Muscle comes in three distinct flavors: Skeletal (long striped voluntary muscle tied to bones, packed with multiple nuclei); Cardiac (striped involuntary heart muscle with branched cells locked together by intercalated discs so the whole heart beats as one); and Smooth (unstriped involuntary spindle-shaped muscle in the walls of hollow organs and blood vessels). Neural tissue is divided between the rock stars (neurons, which carry electrical signals) and the road crew (neuroglia, which keep neurons alive, fed, and insulated). Every neuron has a strict one-way traffic rule: dendrites receive incoming messages, the cell body thinks and decides, and the long axon fires the message out.",
       "keyFacts": [
         "Muscle tissue is specialized for contraction, containing actin and myosin contractile filaments.",
+        "Cardiac and skeletal muscle fibers are both striated, containing sarcomeres with alternating A and I bands; smooth muscle lacks striations.",
         "Skeletal muscle fibers are elongated, striated, multinucleated, and under voluntary somatic control.",
         "Cardiac muscle cells are branched, striated, single-nucleated, involuntary, and found exclusively in the heart.",
         "Intercalated discs connect cardiac myocytes via desmosomes for mechanical strength and gap junctions for electrical synchrony.",
         "Smooth muscle cells are spindle-shaped, non-striated, single-nucleated, and involuntary within hollow organ walls.",
+        "Neurons and neuroglia constitute neural tissue, which is functionally distinct from connective tissue.",
         "Neural tissue specializes in conducting electrical impulses; ~98% is concentrated in the brain and spinal cord.",
         "Neurons perform electrical communication; neuroglia provide metabolic and structural support.",
         "Neuron anatomy: branching dendrites receive inputs; cell body (soma) integrates; single axon carries outgoing signals.",
@@ -5315,6 +5417,22 @@ export const PHYS_ITEMS = [
       {
         "ref": "phys.1",
         "location": "p57 \"Organs and Systems\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p2 \"types of tissue organization\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p4 \"specialized form of connective tissue\""
+      },
+      {
+        "ref": "phys.cvs.tut",
+        "location": "p1 \"sarcomeres with A bands and I bands\""
+      },
+      {
+        "ref": "phys.cvs.tut",
+        "location": "p2 \"cardiac muscle fibers have striations\""
       }
     ]
   },
@@ -5511,6 +5629,10 @@ export const PHYS_ITEMS = [
       {
         "ref": "phys.1",
         "location": "p60 \"Negative and Positive Feedback\""
+      },
+      {
+        "ref": "phys.cells.tut",
+        "location": "p2 \"positive and negative feedback control\""
       }
     ]
   },
