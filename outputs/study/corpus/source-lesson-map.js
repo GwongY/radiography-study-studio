@@ -166,6 +166,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.vocab",
           "set": "old",
           "role": "needs-review"
+        },
+        {
+          "ref": "hss.ll.2026",
+          "set": "new",
+          "role": "current-primary"
         }
       ],
       "reasons": [
@@ -541,12 +546,17 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 2,
       "title": "The pectoral girdle and shoulder joint",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.3",
           "set": "old",
           "role": "needs-review"
+        },
+        {
+          "ref": "hss.ul.2026",
+          "set": "new",
+          "role": "current-primary"
         }
       ],
       "reasons": [
@@ -558,7 +568,7 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 2,
       "title": "Bones of the forearm, wrist and hand",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.3",
@@ -569,6 +579,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.revans",
           "set": "old",
           "role": "assessment"
+        },
+        {
+          "ref": "hss.ul.2026",
+          "set": "new",
+          "role": "current-primary"
         }
       ],
       "reasons": [
@@ -580,7 +595,7 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 2,
       "title": "The eight carpal bones",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.3",
@@ -591,6 +606,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.m0.1718",
           "set": "old",
           "role": "needs-review"
+        },
+        {
+          "ref": "hss.ul.2026",
+          "set": "new",
+          "role": "current-primary"
         }
       ],
       "reasons": [
@@ -602,7 +622,7 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 2,
       "title": "Rotator cuff and the abduction muscles",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.3",
@@ -613,6 +633,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.revans",
           "set": "old",
           "role": "assessment"
+        },
+        {
+          "ref": "hss.ul.2026",
+          "set": "new",
+          "role": "current-primary"
         }
       ],
       "reasons": [
@@ -624,7 +649,7 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 2,
       "title": "Rotator cuff and full abduction of the arm",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.3",
@@ -635,6 +660,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.revans",
           "set": "old",
           "role": "assessment"
+        },
+        {
+          "ref": "hss.ul.2026",
+          "set": "new",
+          "role": "current-primary"
         }
       ],
       "reasons": [
@@ -707,7 +737,7 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 3,
       "title": "Pelvic girdle, hip joint, and the proximal and distal femur",
-      "status": "partial",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.3",
@@ -727,7 +757,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.manual1920",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
+        },
+        {
+          "ref": "hss.ll.2026",
+          "set": "new",
+          "role": "current-primary"
         }
       ],
       "reasons": [
@@ -739,7 +774,7 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 3,
       "title": "Leg bones (tibia and fibula), the patella, and the tarsal bones",
-      "status": "partial",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.1",
@@ -754,7 +789,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.manual1920",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
+        },
+        {
+          "ref": "hss.ll.2026",
+          "set": "new",
+          "role": "current-primary"
         }
       ],
       "reasons": [
@@ -766,7 +806,7 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 3,
       "title": "The seven tarsal bones",
-      "status": "partial",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.3",
@@ -776,7 +816,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.manual1920",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
+        },
+        {
+          "ref": "hss.ll.2026",
+          "set": "new",
+          "role": "current-primary"
         }
       ],
       "reasons": [
@@ -788,7 +833,7 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 3,
       "title": "Inside the knee — a synovial joint",
-      "status": "needs-review",
+      "status": "complete",
       "sources": [
         {
           "ref": "hss.4.1",
@@ -804,6 +849,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.m0.1718",
           "set": "old",
           "role": "needs-review"
+        },
+        {
+          "ref": "hss.ll.2026",
+          "set": "new",
+          "role": "current-primary"
         }
       ],
       "reasons": [
@@ -859,7 +909,7 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 3,
       "title": "Femoral triangle boundaries, neurovascular contents, and lower limb vessels",
-      "status": "needs-review",
+      "status": "partial",
       "sources": [
         {
           "ref": "hss.4.3",
@@ -880,6 +930,11 @@ export const Y1S1_SOURCE_MAP = {
           "ref": "hss.3.3",
           "set": "old",
           "role": "needs-review"
+        },
+        {
+          "ref": "hss.manual1920",
+          "set": "old",
+          "role": "older-fallback"
         }
       ],
       "reasons": [
@@ -4964,6 +5019,33 @@ export const Y1S1_SOURCE_MAP = {
         "role": "needs-review"
       }
     ],
+    "hss.ll.2026": [
+      {
+        "lessonId": "hss2011-osteo-axial-appendicular",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-osteo-pelvic-girdle",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-osteo-leg-tarsals",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-structures-tarsals",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-structures-kneeJoint",
+        "set": "new",
+        "role": "current-primary"
+      }
+    ],
     "hss.manual1920": [
       {
         "lessonId": "hss2011-osteo-bone-functions",
@@ -4973,17 +5055,17 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-osteo-pelvic-girdle",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "hss2011-osteo-leg-tarsals",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "hss2011-structures-tarsals",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "hss2011-lower-thigh-gluteal-muscles",
@@ -4992,6 +5074,11 @@ export const Y1S1_SOURCE_MAP = {
       },
       {
         "lessonId": "hss2011-lower-leg-foot-muscles-arches",
+        "set": "old",
+        "role": "older-fallback"
+      },
+      {
+        "lessonId": "hss2011-lower-femoral-triangle-vessels-nerves",
         "set": "old",
         "role": "older-fallback"
       },
@@ -5400,6 +5487,33 @@ export const Y1S1_SOURCE_MAP = {
         "lessonId": "abct2326-muscle-action",
         "set": "old",
         "role": "needs-review"
+      }
+    ],
+    "hss.ul.2026": [
+      {
+        "lessonId": "hss2011-osteo-pectoral-girdle",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-osteo-forearm-carpals",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-structures-carpals",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-structures-rotatorCuff",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hss2011-joints-rotator-cuff",
+        "set": "new",
+        "role": "current-primary"
       }
     ],
     "hss.1.1": [
