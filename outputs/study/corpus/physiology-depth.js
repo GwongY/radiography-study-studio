@@ -109,7 +109,6 @@ export const PHYS_DEPTH_ITEMS = [
         "Forced exhalation actively recruits internal intercostals, transversus thoracis, and abdominal wall muscles.",
         "Lung compliance reflects expandability; low compliance requires greater muscular work to inhale."
       ],
-      "prerequisites": [],
       "examples": [
         "In tension pneumothorax, penetrating chest trauma breaches the parietal pleura, allowing atmospheric air into the intrapleural space; loss of the normal subatmospheric intrapleural pressure (-4 mmHg) causes immediate elastic recoil collapse of the ipsilateral lung (atelectasis) and shifts mediastinal structures away from the affected side.",
         "In idiopathic pulmonary fibrosis, excessive collagen deposition throughout the alveolar interstitium stiffens the lung parenchyma, drastically reducing lung compliance; patients must generate immense negative intrapleural pressures (-15 to -20 mmHg) just to inhale a modest tidal volume, presenting with severe dyspnea and rapid shallow breathing."
@@ -334,7 +333,6 @@ export const PHYS_DEPTH_ITEMS = [
         "Functional residual capacity (FRC) is the air left after quiet expiration: FRC = ERV + RV (~2,300 mL).",
         "Total lung capacity (TLC) equals VC + RV (~6,000 mL in males); restrictive diseases reduce all lung volumes."
       ],
-      "prerequisites": [],
       "examples": [
         "In severe pulmonary emphysema (an obstructive disease), destruction of alveolar elastic tissue reduces lung recoil, causing premature small airway collapse during expiration; air is trapped in the lungs, increasing Residual Volume (RV) from 1.2 L to 3.0 L and expanding Total Lung Capacity (TLC) with a characteristic barrel chest deformity.",
         "In idiopathic pulmonary fibrosis (a restrictive disorder), fibrotic scarring prevents lung expansion; spirometry demonstrates proportional reductions in all volumes: Vital Capacity drops from 4.8 L to 2.2 L and TLC drops from 6.0 L to 3.1 L, while the FEV1/FVC ratio remains normal or elevated (>80%)."
@@ -550,7 +548,6 @@ export const PHYS_DEPTH_ITEMS = [
         "A rightward shift decreases oxygen affinity and increases P50, promoting tissue oxygen release.",
         "Elevated temperature and increased 2,3-BPG also shift the curve rightward to assist working muscles."
       ],
-      "prerequisites": [],
       "examples": [
         "During sprinting, quadriceps muscle PO2 drops to 15 mmHg, intracellular temperature rises to 40°C, and local lactic acid lowers capillary pH to 7.1. These synergistic changes shift the oxygen-hemoglobin curve heavily to the right (Bohr effect), driving hemoglobin saturation down from 75% to less than 15%, liberating nearly all bound oxygen to fuel muscular ATP generation.",
         "In severe hypothermia (core body temperature dropping below 32°C), the oxygen-hemoglobin curve shifts markedly to the left. Although hemoglobin binds oxygen avidly in the lungs, it refuses to release oxygen in systemic tissues, producing cellular tissue hypoxia despite bright red, oxygen-saturated venous blood."
@@ -792,7 +789,6 @@ export const PHYS_DEPTH_ITEMS = [
         "Central chemoreceptors on the ventrolateral medulla respond to CSF [H+] derived from arterial PCO2.",
         "Negative feedback tightly regulates arterial PCO2 at 40 mmHg; hypercapnia triggers hyperventilation."
       ],
-      "prerequisites": [],
       "examples": [
         "During an acute panic attack, psychogenic hyperventilation blows off carbon dioxide, driving arterial PCO2 down to 22 mmHg (hypocapnia and acute respiratory alkalosis). Reduced blood CO2 causes cerebral vasoconstriction, producing lightheadedness, while acute alkalosis lowers ionized calcium, precipitating carpopedal spasms (tetany).",
         "When an individual holds their breath (voluntary apnea), cellular metabolism continues adding CO2 to blood, raising arterial PCO2 above 50 mmHg (hypercapnia). The resulting severe acidosis in the CSF stimulates central medullary chemoreceptors so powerfully that the involuntary respiratory drive overrides voluntary cortical inhibition, forcing the individual to gasp and resume breathing."
@@ -1043,9 +1039,6 @@ export const PHYS_DEPTH_ITEMS = [
       "Short enteric reflexes are processed entirely within the enteric nervous system without central nervous system involvement.",
       "Parasympathetic signaling stimulates gut motility and secretion; sympathetic signaling inhibits gastrointestinal function."
     ],
-    "prerequisites": [
-      "abct2326-digestive-pathway"
-    ],
     "examples": [
       "In Hirschsprung disease (congenital aganglionic megacolon), parasympathetic neural crest cells fail to migrate into the distal colon during embryonic development; the absence of both myenteric and submucosal plexuses leaves the distal colon in a state of uncoordinated tonus without peristalsis, causing severe bowel obstruction and massive dilation of the proximal colon.",
       "During extreme acute stress or vigorous exercise ('fight-or-flight' activation), high sympathetic outflow stimulates vascular alpha-1 adrenergic receptors, shunting blood flow away from the mesenteric circulation to skeletal muscle while profoundly inhibiting myenteric peristalsis and mucosal secretions."
@@ -1274,9 +1267,6 @@ export const PHYS_DEPTH_ITEMS = [
       "The cephalic phase anticipates food through vagal (CN X) parasympathetic stimulation.",
       "The gastric phase is triggered by stomach distension, peptides, and elevated pH, driving gastrin and acid release.",
       "The intestinal phase brakes gastric secretion and emptying via the enterogastric reflex, secretin, and CCK."
-    ],
-    "prerequisites": [
-      "abct2326-digestive-wall-motility"
     ],
     "examples": [
       "In autoimmune atrophic gastritis (pernicious anemia), autoantibodies destroy gastric parietal cells; loss of parietal cells eliminates intrinsic factor production, preventing vitamin B12 absorption in the ileum and leading to megaloblastic anemia and severe demyelinating neurological deficits.",
@@ -1524,9 +1514,6 @@ export const PHYS_DEPTH_ITEMS = [
       "The liver is organized into hexagonal lobules with portal triads (hepatic artery, portal vein, bile duct) at their vertices.",
       "Bile salts do not enzymatically digest fat; they act as biological detergents that emulsify large lipid drops into small droplets.",
       "Cholecystokinin (CCK) stimulates gallbladder contraction and relaxes the hepatopancreatic sphincter to eject bile."
-    ],
-    "prerequisites": [
-      "abct2326-digestive-stomach-control"
     ],
     "examples": [
       "In celiac disease, ingestion of dietary gluten triggers an autoimmune T-cell-mediated destruction of intestinal villi (villous blunting and atrophy) in the duodenum and jejunum; the catastrophic loss of absorptive surface area produces severe malabsorption of iron, calcium, carbohydrates, and fat, leading to anemia, steatorrhea, and profound weight loss.",
@@ -1777,9 +1764,6 @@ export const PHYS_DEPTH_ITEMS = [
       "The large intestine absorbs bacterial vitamins: vitamin K (clotting factors), biotin (B7), and pantothenic acid (B5).",
       "Of ~9,000 mL of fluid entering the tract daily, small intestine reabsorbs ~8,000 mL, colon reabsorbs ~1,200 mL, and feces retains ~150 mL.",
       "Water is never actively transported across digestive epithelium; it moves strictly by osmosis following active solute transport."
-    ],
-    "prerequisites": [
-      "abct2326-digestive-small-intestine-accessory"
     ],
     "examples": [
       "In severe Vibrio cholerae infection, cholera enterotoxin permanently locks the G-alpha-s subunit in an active GTP-bound state within crypt enterocytes, triggering constitutive adenylate cyclase activation and massive cAMP-driven cystic fibrosis transmembrane conductance regulator (CFTR) chloride secretion; water follows chloride osmotically, exceeding the 1.2 L daily absorptive capacity of the colon and producing voluminous 'rice-water' secretory diarrhea of up to 10–20 liters per day.",

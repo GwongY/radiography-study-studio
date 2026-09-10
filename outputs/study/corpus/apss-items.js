@@ -21,7 +21,6 @@ export const APSS_ITEMS = [
         'Ask how society shapes what people think and do.',
         'Partner selection is guided by social factors including age, schooling, race, ethnicity, sex and social class.',
       ],
-      prerequisites: [],
       examples: ['The lecture contrasts partner expectations across income groups, then asks how Hong Kong culture, property and family gender roles shape those expectations.'],
     },
     practice: [
@@ -51,7 +50,6 @@ export const APSS_ITEMS = [
         'Hong Kong examples connect educational opportunity with parental education, housing and family income.',
         'Unequal access also appears in overseas study and summer enrichment opportunities.',
       ],
-      prerequisites: ['apss1a08-sociological-perspective'],
       examples: ['“I chose PolyU for a professional degree” is a personal account; asking who is able to reach tertiary education and why is the sociological account.'],
     },
     practice: [
@@ -77,7 +75,6 @@ export const APSS_ITEMS = [
         'Technology, culture, trade, finance and employment connect events across societies.',
         'What happens elsewhere can change everyday opportunities at home.',
       ],
-      prerequisites: ['apss1a08-sociological-perspective'],
       examples: ['K-pop’s influence in Hong Kong illustrates cultural connection; the trade-war case illustrates economic connection.'],
     },
     practice: [
@@ -94,7 +91,6 @@ export const APSS_ITEMS = [
     lesson: {
       explanation: 'Topic 01 presents sociological work as a four-step path from evidence to change. Research first discovers a patterned inequality. Policy makers then recognise the issue, legal reform changes enforceable rights, and the broader impact includes a more active and critical social awareness. The lecture’s worked case is Lenore Weitzman’s finding of a substantial post-divorce income decline among women, followed by state recognition, stronger marital-property and child-support rules, and wider public understanding.',
       keyFacts: ['Research discovery → policy recognition → legal reform → broader impact.', 'The worked example begins with post-divorce income inequality.', 'The final impact is not only a law; it also includes more critical social awareness.'],
-      prerequisites: ['apss1a08-sociological-perspective'],
       examples: ['Weitzman’s research is used as the lecture’s concrete example of the four-step sequence.'],
     },
     practice: [
@@ -117,7 +113,6 @@ export const APSS_ITEMS = [
         'The lecture distinguishes Marxism from the later political system called communism.',
         'Weber’s contrast shows religion and ideas can drive social change rather than economics alone.',
       ],
-      prerequisites: ['apss1a08-sociological-perspective'],
       examples: ['The Weber slide contrasts a traditional religious emphasis on institutional membership with religion acting as a force that transforms economic and social life.'],
     },
     practice: [

@@ -31,7 +31,6 @@ export const HSS_TERMINOLOGY = [
         'A scar in the "anterior carpal region" is located on the palm side of the wrist even in a prone patient.',
         'Supine describes a patient lying horizontally on the back facing up; prone describes lying face down.',
       ],
-      prerequisites: [],
       examples: [
         'A trauma patient lying face down (prone) on a CT table has a laceration on the anterior surface of the forearm; this means the surface facing the table, because anterior is determined by the anatomical position, not room gravity.',
       ],
@@ -124,7 +123,6 @@ export const HSS_TERMINOLOGY = [
         'Six hierarchical levels of structural organization: chemical → cellular → tissue → organ → organ system → organism.',
         'The eleven human organ systems: integumentary, skeletal, muscular, nervous, endocrine, cardiovascular, lymphatic, respiratory, digestive, urinary, reproductive.',
       ],
-      prerequisites: ['hss2011-terminology-anatomical-position'],
       examples: [
         'Module 1.1 and 1.2 examine the respiratory and cardiovascular systems systemically; Module 1.3 Regional Anatomy of the Thorax reassembles both systems inside the thoracic cavity to study their physical spatial relationships.',
       ],
@@ -221,7 +219,6 @@ export const HSS_TERMINOLOGY = [
         'The sternum is anterior to the scapula (not medial, proximal, or superior).',
         'The popliteus muscle is posterior to the patella; the orbits are superior to the mouth (oris).',
       ],
-      prerequisites: ['hss2011-terminology-anatomical-position'],
       examples: [
         'A fracture of the "distal radius" is near the wrist, because the wrist is further from the shoulder attachment than the elbow is.',
         'The sternum is anterior to the thoracic vertebrae; calling it "proximal" is invalid because both are axial trunk structures.',
@@ -331,7 +328,6 @@ export const HSS_TERMINOLOGY = [
         'Radiological viewing convention: axial slices are viewed from the patient’s feet looking upward (patient right is on viewer left).',
         'Dual nomenclature in official glossaries: Frontal = Coronal; Median = Mid-sagittal; Horizontal = Transverse.',
       ],
-      prerequisites: ['hss2011-terminology-directional-pairs'],
       examples: [
         'A brain MRI slice displaying both cerebral hemispheres, the corpus callosum along the midline, and the brainstem is a midsagittal view.',
         'An abdominal CT slice showing the liver on the right and spleen on the left at the same level is an axial (transverse) section.',
@@ -424,7 +420,6 @@ export const HSS_TERMINOLOGY = [
         'The transtubercular plane forms the lower boundary of the nine-region grid, passing through the iliac tubercles.',
         'Hypochondriac literally translates as "below the cartilage" (under the costal cartilages of the rib cage).',
       ],
-      prerequisites: ['hss2011-terminology-planes'],
       examples: [
         'Appendicitis presents as acute pain and tenderness in the right lower quadrant (RLQ), corresponding precisely to the right inguinal (iliac) region.',
         'The gallbladder lies in the right hypochondriac region of the nine-region grid, which translates to the right upper quadrant (RUQ).',

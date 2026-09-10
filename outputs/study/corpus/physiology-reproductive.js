@@ -36,8 +36,7 @@ export const PHYS_REPRODUCTIVE = [
         'LH → Leydig cells → testosterone; testosterone stimulates meiosis and early spermatid maturation.',
         'FSH acts through Sertoli cells and ABP; FSH ensures optimal fertility.',
         'Testosterone: spermatogenesis, genital enlargement, body hair, deep voice, growth, muscle mass, long-bone growth + calcium retention, erythropoiesis.',
-      ],
-      prerequisites: ['abct2326-cell-division', 'abct2326-endocrine-delivery'], examples: [
+      ], examples: [
         'Anabolic-steroid use supplies testosterone from outside; the raised androgen level suppresses LH, so Leydig-cell output and intratesticular testosterone fall — spermatogenesis, which needs testosterone inside the tubule, is impaired even while circulating androgen is high.',
         'A Sertoli-cell tumour secreting inhibin would feed back on the pituitary and hold FSH down, starving the later follicle stages of their trophic signal.',
       ],
@@ -110,8 +109,7 @@ export const PHYS_REPRODUCTIVE = [
         'Cowper (bulbourethral) glands: thick alkaline mucus — neutralizes urinary acids in the urethra, lubricates the glans.',
         'Erection = increased parasympathetic outflow via pelvic nerves.',
         'Emission = semen moved into the urethra (sympathetic). Ejaculation = forceful expulsion from the urethra (sympathetic).',
-      ],
-      prerequisites: ['abct2326-repro-male-regulation'], examples: [
+      ], examples: [
         'A vasectomy cuts the ductus deferens. Spermatogenesis continues and sperm still mature and are stored in the epididymis, but they can no longer reach the urethra — the semen volume is barely changed because the accessory glands still contribute, but it contains no sperm.',
         'Prostaglandins from the seminal vesicles stimulate smooth-muscle contractions in both tracts — part of why they are in the semen at all.',
       ],
@@ -185,8 +183,7 @@ export const PHYS_REPRODUCTIVE = [
         'The follicle secretes proteolytic enzymes to break the ovary surface; antral fluid plus ovum are released into the peritoneal cavity — ovulation.',
         'Only if fertilization occurs will the second meiotic division take place.',
         'After ovulation the follicle becomes the corpus luteum (oestrogen + progesterone); without pregnancy it becomes the corpus albicans.',
-      ],
-      prerequisites: ['abct2326-cell-division'], examples: [
+      ], examples: [
         'An ectopic pregnancy implants in the tube rather than the uterus — the ampulla is where fertilization normally happens, and a conceptus that lingers there can outgrow the tube.',
         'The oocyte pool is never replenished: everything a woman will ever ovulate was already present before her birth, unlike spermatogenesis which runs lifelong from stem cells.',
       ],
@@ -253,8 +250,7 @@ export const PHYS_REPRODUCTIVE = [
         'Corpus luteum degenerates around day 28; falling hormones break down the endometrium → menstruation (~5 days).',
         'Menstrual mechanics: endometrial vessels constrict; uterine prostaglandin contracts the smooth muscle; excess prostaglandin → cramps.',
         'Mid-cycle oestrogen is the exception to negative feedback — it triggers the LH surge by positive feedback.',
-      ],
-      prerequisites: ['abct2326-repro-female-tract-follicles', 'abct2326-feedback-loops'], examples: [
+      ], examples: [
         'Combined hormonal contraceptives supply steady oestrogen and progestogen, mimicking the luteal-phase brake — FSH and LH stay suppressed, so no follicle is selected and no LH surge occurs.',
         'Ovulation predictor kits detect the LH surge in urine; a positive test means ovulation follows roughly a day later, exactly as the lecture states.',
       ],
@@ -336,8 +332,7 @@ export const PHYS_REPRODUCTIVE = [
         'Day 1: 2-cell · Day 2: 4-cell · Days 3–4: morula · Day 6: hatching · Days 7–10: implantation.',
         'Day 6: trophoblast cells secrete an enzyme that lets the blastocyst "eat" into the endometrium.',
         'hCG acts like LH to keep the corpus luteum alive → oestrogen/progesterone continue → endometrium stays thick and vascular.',
-      ],
-      prerequisites: ['abct2326-repro-ovarian-menstrual-cycle'], examples: [
+      ], examples: [
         'Pregnancy tests detect hCG in urine — the same hormone the implanting blastocyst uses to rescue the corpus luteum.',
         'In vitro fertilization bypasses capacitation barriers partially but sperm must still be capacitated in culture before they can fertilize.',
       ],
@@ -418,8 +413,7 @@ export const PHYS_REPRODUCTIVE = [
         'Dilation stage: up to 8+ hours; contractions ≤½ min every 10–30 min; water breaks late.',
         'Expulsion stage: cervix ~4 inches dilated; contractions every 2–3 min lasting a full minute; usually <2 hours.',
         'Placental stage: within 1 hour of delivery the placenta is ejected; uterine vessel contraction limits blood loss.',
-      ],
-      prerequisites: ['abct2326-repro-fertilization-implantation'], examples: [
+      ], examples: [
         'Erythroblastosis fetalis: maternal anti-Rh antibodies cross the placenta by the same active transport that carries protective IgG — the one route where maternal protein reaching the fetus is harmful.',
         'Giving exogenous oxytocin (Pitocin) to induce labour works precisely because the term myometrium is 100× sensitised — the same contraction the feedback loop would produce, supplied from outside.',
       ],

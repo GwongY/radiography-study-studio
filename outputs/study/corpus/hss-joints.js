@@ -34,10 +34,6 @@ export const HSS_JOINTS = [
         "Synovial joints: fluid-filled joint cavity lined by synovial membrane; freely movable (diarthroses); most common joint class.",
         "Model exam rule: a suture is the least movable joint among all skeletal articulations."
       ],
-      "prerequisites": [
-        "hss2011-osteo-bone-shapes",
-        "hss2011-osteo-long-bone-structure"
-      ],
       "examples": [
         "In pediatric skeletal radiographs, the epiphyseal plate between the epiphysis and diaphysis appears as a radiolucent line; this is a synchondrosis, not a fracture, and will ossify into a synostosis by adulthood.",
         "The coronal suture tightly binds the frontal bone to the parietal bones, creating an immovable protective vault for the cerebral hemispheres."
@@ -291,9 +287,6 @@ export const HSS_JOINTS = [
         "Synovial fluid: clear, colorless fluid that lubricates surfaces, reduces friction, and nourishes chondrocytes.",
         "Bursae: protrusions of synovial membrane between tendon and bone to prevent friction wear.",
         "Hilton’s law: nerves supplying a joint also supply the muscles moving the joint and the skin over their insertion."
-      ],
-      "prerequisites": [
-        "hss2011-joints-classification"
       ],
       "examples": [
         "The knee joint contains extensive synovial structures including suprapatellar and prepatellar bursae, meniscal fibrocartilages, cruciate ligaments, and rich synovial fluid to buffer walking loads.",
@@ -551,10 +544,6 @@ export const HSS_JOINTS = [
         "Dorsiflexion (dorsum upwards) and plantarflexion (sole downwards): take place at the ankle (talocrural) joint.",
         "Inversion (sole tilted inward/medially) and eversion (sole tilted outward/laterally): take place at the intertarsal joints.",
         "Circumduction: combination of flexion, abduction, lateral/medial rotation, adduction, and extension forming a cone."
-      ],
-      "prerequisites": [
-        "hss2011-terminology-directional-pairs",
-        "hss2011-joints-classification"
       ],
       "examples": [
         "Turning a brass doorknob clockwise with the right hand involves supination of the forearm produced at the proximal and distal radioulnar joints, not rotation at the wrist.",
@@ -844,10 +833,6 @@ export const HSS_JOINTS = [
         "Ankle dorsiflexion (dorsum upwards) and plantarflexion (sole downwards): take place at the talocrural joint.",
         "Foot inversion (sole medially) and eversion (sole laterally): take place at the intertarsal joints."
       ],
-      "prerequisites": [
-        "hss2011-terminology-anatomical-position",
-        "hss2011-joints-movements"
-      ],
       "examples": [
         "Turning a key clockwise in a right-hand door lock involves forearm supination at the radioulnar joints and shoulder lateral rotation.",
         "Grasping a needle between the thumb and little finger tests thumb opposition at the first carpometacarpal joint."
@@ -1084,10 +1069,6 @@ export const HSS_JOINTS = [
         "Pectoralis major (pectoral nerves): flexion, adduction, and medial rotation of shoulder.",
         "Latissimus dorsi (thoracodorsal nerve): adduction, extension, and medial rotation of shoulder.",
         "Greater tubercle receives three cuff tendons (supraspinatus, infraspinatus, teres minor); lesser tubercle receives subscapularis."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-pectoral-girdle",
-        "hss2011-joints-classification"
       ],
       "examples": [
         "A patient with a torn supraspinatus tendon cannot initiate lifting their arm away from their side; however, once an examiner lifts the arm past 15 degrees, the deltoid takes over and easily abducts to 90 degrees.",

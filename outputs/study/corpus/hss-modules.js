@@ -44,9 +44,6 @@ export const HSS_MODULES = [
         "Gap junctions permit rapid ionic flow, enabling cardiomyocytes to function as a functional syncytium.",
         "Endocardium is a simple squamous endothelium continuous with the tunica intima of the great blood vessels."
       ],
-      "prerequisites": [
-        "hss2011-osteo-ribs-sternum"
-      ],
       "examples": [
         "Cardiac tamponade: rapid accumulation of fluid or blood in the inelastic pericardial cavity compresses the ventricles, preventing diastolic filling and reducing cardiac output.",
         "Infective endocarditis: bacterial colonization of the endocardium preferentially damages the heart valves, which are covered by endocardial duplications."
@@ -223,9 +220,6 @@ export const HSS_MODULES = [
         "Bronchioles have no cartilage, are dominated by smooth muscle, and their calibre (set by the autonomic nervous system) controls airway resistance and air distribution.",
         "Terminal bronchioles end the conducting division; respiratory bronchioles begin the respiratory division where gas exchange occurs."
       ],
-      "prerequisites": [
-        "hss2011-resp-upper-tract-larynx"
-      ],
       "examples": [
         "Aspiration pneumonia: a patient who aspirates gastric contents while supine most often develops consolidation in the posterior segment of the right upper lobe or the superior segment of the right lower lobe, matching right-bronchus geometry.",
         "Segmentectomy: because each bronchopulmonary segment has its own bronchus and artery, a small peripheral tumour can be removed by resecting one segment rather than a whole lobe."
@@ -389,7 +383,6 @@ export const HSS_MODULES = [
         "Because both pathways cross, a stroke on one side of the brain causes deficit on the opposite side of the body.",
         "Afferent = toward the CNS (sensory); efferent = away from the CNS (motor)."
       ],
-      "prerequisites": [],
       "examples": [
         "Mr Law’s stroke blocked his LEFT middle cerebral artery and left him unable to move the RIGHT side of his body — the descending motor tract had already crossed at the medullary pyramids."
       ]
@@ -598,9 +591,6 @@ export const HSS_MODULES = [
         "Limbic system = centre of emotion and learning; components cingulate gyrus, hippocampus, amygdala, fornix, mammillary body.",
         "Memory: recent / short-term memory (hippocampus) is converted to long-term memory (prefrontal lobe)."
       ],
-      "prerequisites": [
-        "hss2011-m2-cns-basics"
-      ],
       "examples": [
         "Damage to the hippocampus leaves old memories intact but blocks the laying-down of new long-term memories, the short-term-to-long-term conversion the limbic system performs."
       ]
@@ -788,7 +778,6 @@ export const HSS_MODULES = [
         "Simple columnar epithelium lines most of the tract; stratified squamous lines mouth, pharynx, oesophagus and anal canal against abrasion.",
         "The myenteric plexus (between the muscle coats) and submucosal plexus are the enteric nerve networks of the wall."
       ],
-      "prerequisites": [],
       "examples": [
         "A biopsy labelled \"gastric mucosa, simple columnar epithelium\" is normal stomach lining; the same picture from the oesophagus would mean Barrett metaplasia — because the normal oesophageal lining is stratified squamous."
       ]
@@ -1006,9 +995,6 @@ export const HSS_MODULES = [
         "Pelvic diaphragm = levator ani + coccygeus; perineum = urogenital + anal triangles with the perineal body at the centre.",
         "Female pelvis: broader, oval inlet, pubic angle ≥100°, flexible sacrococcygeal joint; male: heart-shaped inlet, angle <90°.",
         "Abdominal aorta T12→L4; IVC L5→T8; right gonadal vein → IVC, left gonadal vein → left renal vein."
-      ],
-      "prerequisites": [
-        "hss2011-digestive-peritoneum-portal-circulation"
       ],
       "examples": [
         "Suspected appendicitis is tested at McBurney point — the surface mark of the caecum/appendix at one-third ASIS→umbilicus.",
@@ -1367,7 +1353,6 @@ export const HSS_MODULES = [
         "Compact bone: dense solid mass forming the outer shell; resists bending, twisting, and full body weight.",
         "Spongy bone: web-like lattice of trabeculae forming the inner core; cuts down weight and absorbs shock."
       ],
-      "prerequisites": [],
       "examples": [
         "In targeted radiation therapy near bone structures, radiation-induced microvascular damage can lead to osteocyte necrosis within lacunae, resulting in osteoradionecrosis due to failure of osteoclastic remodelling and osteoblastic bone maintenance."
       ]
@@ -1565,9 +1550,6 @@ export const HSS_MODULES = [
         "Yellow marrow contains multipotent mesenchymal stem cells that can differentiate into cartilage, bone, fat, or muscle cells.",
         "Under severe physiological stress (e.g. severe anemia), yellow marrow can revert to hematopoietically active red marrow."
       ],
-      "prerequisites": [
-        "hss2011-msk-bone-histology"
-      ],
       "examples": [
         "When diagnosing leukemia or aplastic anemia, bone marrow aspirates and core biopsies are typically harvested from the posterior superior iliac spine (PSIS) of the pelvis because it provides reliable adult red marrow while avoiding vital visceral organs."
       ]
@@ -1730,7 +1712,6 @@ export const HSS_MODULES = [
         "Accessory (extrinsic) ligaments: separate from the capsule, binding bones together (e.g. MCL and LCL of knee).",
         "Cartilage: shock-absorbing gel-like tissue; hyaline cartilage, fibrocartilage, and elastic cartilage."
       ],
-      "prerequisites": [],
       "examples": [
         "At the knee joint, all five tissues interact: distal femur and proximal tibia (bones), quadriceps and hamstrings (muscles), patellar tendon (tendon), ACL/PCL and collateral ligaments (ligaments), and femoral articular cartilage and menisci (cartilages)."
       ]
@@ -1954,7 +1935,6 @@ export const HSS_MODULES = [
         "Circular: concentric fascicles forming a sphincter or opening.",
         "Pennate: short oblique fascicles packed along a tendon; unipennate (one side), bipennate (both sides), multipennate (multiple directions)."
       ],
-      "prerequisites": [],
       "examples": [
         "The deltoid muscle is a multipennate muscle whose multiple oblique fascicle bundles converge on tendons at the deltoid tuberosity, allowing it to generate the powerful force needed to abduct the heavy upper limb."
       ]
@@ -2177,9 +2157,6 @@ export const HSS_MODULES = [
         "Origin: usually proximal, the skeletal attachment site that does NOT move during contraction.",
         "Insertion: usually distal, the skeletal attachment site that MOVES during contraction."
       ],
-      "prerequisites": [
-        "hss2011-msk-muscle-organisation"
-      ],
       "examples": [
         "In biceps brachii contraction during elbow flexion, the origin on the scapula remains fixed, while the insertion on the radial tuberosity moves superiorly, drawing the forearm towards the shoulder."
       ]
@@ -2374,9 +2351,6 @@ export const HSS_MODULES = [
         "Mechanism of tone: small groups of motor units alternate between active and inactive states in a constantly shifting pattern.",
         "Tone is not strong enough to produce movement, but is essential to maintain firmness, joint stability, and posture."
       ],
-      "prerequisites": [
-        "hss2011-msk-muscle-organisation"
-      ],
       "examples": [
         "In clinical neurological examination, hypotonia (loss of resting muscle tone) or flaccidity indicates lower motor neuron damage, whereas hypertonia (spasticity) reflects upper motor neuron lesions releasing spinal motor units from cerebral inhibition."
       ]
@@ -2541,9 +2515,6 @@ export const HSS_MODULES = [
         "Structural classification: fibrous joints, cartilaginous joints, and synovial joints.",
         "Synovial joints feature a fluid-filled joint cavity surrounded by a fibrous capsule; they are the most common joints in the human body.",
         "All synovial joints are functionally classified as diarthroses (freely movable)."
-      ],
-      "prerequisites": [
-        "hss2011-joints-classification"
       ],
       "examples": [
         "When evaluating a pelvic radiograph, the pubic symphysis is classified as an amphiarthrosis functionally and a cartilaginous joint structurally, whereas the hip joint is an acetabulofemoral diarthrosis functionally and a synovial joint structurally."
@@ -2739,9 +2710,6 @@ export const HSS_MODULES = [
         "Dense sensory innervation makes periosteal tears and fractures exquisitely painful.",
         "Crucial for appositional bone growth and fracture repair."
       ],
-      "prerequisites": [
-        "hss2011-msk-bone-histology"
-      ],
       "examples": [
         "A subperiosteal hematoma following a direct blow to the shin (anterior tibia) causes extreme tenderness because the expanding pool of blood strips and stretches the densely innervated, pain-sensitive periosteum."
       ]
@@ -2907,10 +2875,6 @@ export const HSS_MODULES = [
         "Median nerve: innervates forearm flexors and thenar muscles; traverses the carpal tunnel (compressed in CTS).",
         "Ulnar nerve: innervates flexor carpi ulnaris and intrinsic muscles of the hand.",
         "M-shaped configuration: musculocutaneous nerve runs laterally, median nerve runs in the middle, and ulnar nerve runs medially."
-      ],
-      "prerequisites": [
-        "hss2011-joints-classification",
-        "hss2011-osteo-pectoral-girdle"
       ],
       "examples": [
         "Trauma to the upper limb disrupting the radial nerve denervates the triceps brachii and the posterior forearm compartment, disabling wrist and finger extension.",
@@ -3148,10 +3112,6 @@ export const HSS_MODULES = [
         "Scapular movers: Trapezius (elevate, retract, depress, upward rotation), Serratus anterior (protract, upward rotation), Levator scapulae (elevate, downward rotation), Rhomboids (retract, downward rotation), Pectoralis minor (depress, protract, downward rotation).",
         "Hand intrinsic compartments (5): thenar, hypothenar, adductor, central (lumbricals arise from FDP tendons), interosseous (palmar interossei adduct digits; dorsal interossei abduct digits).",
         "Medial epicondylitis (\"golfer’s elbow\") affects flexor origin; lateral epicondylitis (\"tennis elbow\") affects extensor origin."
-      ],
-      "prerequisites": [
-        "hss2011-joints-movements",
-        "hss2011-osteo-pectoral-girdle"
       ],
       "examples": [
         "Inflammation of the common extensor tendon origin at the lateral epicondyle from repetitive backhand wrist extension produces lateral epicondylitis (tennis elbow).",
@@ -3464,10 +3424,6 @@ export const HSS_MODULES = [
         "Median cubital vein: oblique superficial communication in cubital fossa connecting cephalic and basilic veins.",
         "Clinical venipuncture site: median cubital vein is protected from underlying brachial artery by bicipital aponeurosis."
       ],
-      "prerequisites": [
-        "hss2011-osteo-pectoral-girdle",
-        "hss2011-osteo-forearm-carpals"
-      ],
       "examples": [
         "During routine CT angiography of the chest, high-pressure iodinated contrast media is injected through a wide-bore cannula placed into the median cubital vein in the cubital fossa.",
         "When taking blood pressure with a stethoscope and cuff, the brachial pulse is auscultated over the brachial artery just medial to the biceps brachii tendon in the cubital fossa."
@@ -3680,10 +3636,6 @@ export const HSS_MODULES = [
         "Major knee flexors: Hamstrings (biceps femoris, semitendinosus, semimembranosus).",
         "All 3 hamstring muscles are innervated by the sciatic nerve.",
         "The sciatic nerve originates from the lumbosacral plexus and branches into tibial and common fibular nerves."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-pelvic-girdle",
-        "hss2011-joints-synovial-types"
       ],
       "examples": [
         "Superior gluteal nerve injury paralyses the gluteus medius, causing the pelvis to drop toward the unsupported swing leg during gait (positive Trendelenburg sign).",
@@ -4050,10 +4002,6 @@ export const HSS_MODULES = [
         "Lateral longitudinal arch (4 bones): calcaneus, cuboid, metatarsals IV–V.",
         "Transverse arch (9 bones): metatarsals I–V, 3 cuneiforms, cuboid."
       ],
-      "prerequisites": [
-        "hss2011-osteo-leg-tarsals",
-        "hss2011-structures-tarsals"
-      ],
       "examples": [
         "Common fibular nerve trauma at the fibular neck paralyses tibialis anterior via its deep branch, causing acute foot drop where the patient drags their toes unless they adopt a high-stepping gait.",
         "Rupture of the calcaneal (Achilles) tendon completely disrupts gastrocnemius/soleus plantarflexion, preventing the patient from standing on their tiptoes."
@@ -4326,10 +4274,6 @@ export const HSS_MODULES = [
         "Femoral vein receives the great saphenous vein and continues as the external iliac vein.",
         "Distal arterial tree: Femoral artery → Popliteal artery → Anterior tibial & Posterior tibial arteries."
       ],
-      "prerequisites": [
-        "hss2011-osteo-pelvic-girdle",
-        "hss2011-lower-thigh-gluteal-muscles"
-      ],
       "examples": [
         "Clinicians and interventional radiologists palpate the femoral artery pulse at the midinguinal point immediately inferior to the inguinal ligament within the femoral triangle.",
         "When performing femoral arterial cannulation, clinicians use the lateral-to-medial NAV relation to ensure the needle enters the artery without penetrating the femoral nerve laterally or the femoral vein medially."
@@ -4569,9 +4513,6 @@ export const HSS_MODULES = [
         "Paranasal sinuses: four pairs of mucus-lined air cavities (frontal, ethmoid air cells, sphenoid, maxillary sinuses).",
         "Maxillary sinus: largest sinus; located in maxilla; ostium is located high on medial wall draining into middle nasal meatus."
       ],
-      "prerequisites": [
-        "hss2011-osteo-skull-sutures"
-      ],
       "examples": [
         "A fracture of the cribriform plate of the ethmoid bone in the anterior cranial fossa lacerates olfactory nerve filaments and the overlying dura mater, producing anosmia (loss of smell) and clear CSF rhinorrhea (cerebrospinal fluid dripping from the nose).",
         "Acute maxillary sinusitis presents with facial fullness, toothache (due to shared innervation of upper dentition and maxillary sinus mucosa by the superior alveolar branches of CN V2), and worsening pain when bending forward because the high ostium cannot drain by gravity."
@@ -4765,9 +4706,6 @@ export const HSS_MODULES = [
         "Platysma: superficial cervical sheet drawing lower lip and angle of mouth downward in surprise/grimace.",
         "All muscles of facial expression are innervated by the 7th cranial nerve (CN VII, facial nerve).",
         "The 5 terminal motor branches of CN VII: Temporal, Zygomatic, Buccal, Marginal mandibular, and Cervical branches."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-skull-sutures"
       ],
       "examples": [
         "A laceration through the first 3 layers of the scalp bleeds massively because the dense connective tissue prevents the cut arteries from retracting and clamping off, requiring deep suturing through the epicranial aponeurosis.",
@@ -4975,9 +4913,6 @@ export const HSS_MODULES = [
         "Trapezius: bilateral contraction produces neck extension; innervated by spinal accessory nerve (CN XI).",
         "SCM divides the neck into anterior and posterior triangles."
       ],
-      "prerequisites": [
-        "hss2011-osteo-skull-sutures"
-      ],
       "examples": [
         "Anterior dislocation of the TMJ occurs when the mandibular condyles slide too far anteriorly over the articular tubercles during wide yawning or dental extraction, locking the jaw open because masseter and temporalis muscle spasm traps the condyles anterior to the tubercles.",
         "Torticollis (\"wry neck\") is a painful spasmodic contraction or congenital shortening of the sternocleidomastoid muscle, producing head tilt toward the affected muscle and chin rotation toward the opposite side."
@@ -5179,9 +5114,6 @@ export const HSS_MODULES = [
         "Pleural inferior reflection: rib 8 mid-clavicular, rib 10 mid-axillary, rib 12 paravertebral — about two ribs below the lung.",
         "The costodiaphragmatic recess is the dependent site of pleural effusion; a drain is inserted there, immediately above a rib, to avoid the costal-groove neurovascular bundle."
       ],
-      "prerequisites": [
-        "hss2011-thorax-mediastinum-divisions-contents"
-      ],
       "examples": [
         "Aortic stenosis produces an ejection systolic murmur loudest in the 2nd right intercostal space that radiates to the carotids, matching the aortic auscultation area and downstream flow.",
         "A small pleural effusion first blunts the costophrenic angle on an erect chest film because fluid settles in the costodiaphragmatic recess."
@@ -5341,9 +5273,6 @@ export const HSS_MODULES = [
         "Distal branches of a spinal nerve: dorsal ramus, ventral ramus, meningeal branch.",
         "A dermatome is one bilateral skin strip per spinal nerve pair, except C1.",
         "A nerve plexus is interwoven ventral rami: cervical (C1–C4), brachial (C5–T1), lumbar (T12–L4), sacral (L4–S4), coccygeal."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-vertebra-parts"
       ],
       "examples": [
         "The denticulate ligament, extending from the pia mater to the dura mater, anchors the cord within the CSF of the subarachnoid space."
@@ -5557,9 +5486,6 @@ export const HSS_MODULES = [
         "Paraplegia = both lower limbs paralysed, from cord lesions at T1–L1.",
         "Quadriplegia = all four limbs paralysed, from lesions above C5."
       ],
-      "prerequisites": [
-        "hss2011-m2-cns-basics"
-      ],
       "examples": [
         "Touching a hot stove: skin nociceptor → sensory fibre → interneurons in the cord → motor fibre → flexor muscles pull the hand away, all before the pain is consciously felt."
       ]
@@ -5725,9 +5651,6 @@ export const HSS_MODULES = [
         "Parasympathetic ganglia are terminal ganglia in or near the target organ.",
         "Parasympathetic cranial outflow: CN III, VII, IX to the head; CN X (vagus) to the thoracic and abdominal viscera.",
         "Autonomic tone = the running balance between the two divisions."
-      ],
-      "prerequisites": [
-        "hss2011-m2-cns-basics"
       ],
       "examples": [
         "The pupillary constrictor and pupillary dilator are an antagonistic pair both controlled by the ANS — parasympathetic constriction (CN III) versus sympathetic dilation."
@@ -5915,9 +5838,6 @@ export const HSS_MODULES = [
         "Radial glial cells guide neuron development / migration in the embryo.",
         "Blood–brain barrier: blocks chemicals and micro-organisms; brain capillaries are lined by endothelial cells."
       ],
-      "prerequisites": [
-        "hss2011-m2-cns-basics"
-      ],
       "examples": [
         "A past-paper blank tested every year: \"Astrocytes are the most abundant glial cells in the CNS. They stimulate the formation of the blood-brain barrier.\""
       ]
@@ -6081,9 +6001,6 @@ export const HSS_MODULES = [
         "Function: motor coordination, plus non-motor functions such as emotion.",
         "The tentorium cerebelli separates the cerebellum from the occipital lobes of the cerebrum."
       ],
-      "prerequisites": [
-        "hss2011-m2-cns-basics"
-      ],
       "examples": [],
       "studyNote": "Radiography framing: on a sagittal MRI the arbor vitae is the fern-like white-matter pattern in the cerebellum and the vermis is the midline slice through it — useful landmarks, but this descriptive detail goes beyond the single lecture slide, which only names the parts."
     },
@@ -6226,9 +6143,6 @@ export const HSS_MODULES = [
         "Medulla oblongata: cardiac centre, vasomotor centre, respiratory centre; pyramids (corticospinal tract inside) and the olive; cranial nerves IX to XII.",
         "Reticular formation: a loosely organised web of grey matter running vertically through all levels of the brainstem.",
         "Reticular activating system functions: somatic motor control, cardiovascular control, pain modulation, sleep and consciousness."
-      ],
-      "prerequisites": [
-        "hss2011-cns-spinal-cord-meninges"
       ],
       "examples": [
         "A blow to the back of the head affecting the reticular activating system can cause immediate loss of consciousness."
@@ -6403,9 +6317,6 @@ export const HSS_MODULES = [
         "Projection fibres: cortex to more caudal CNS — e.g. internal capsule, corona radiata, decussation of the pyramids.",
         "Basal nuclei = caudate nucleus + putamen + globus pallidus.",
         "Basal nuclei: adjust activity in the descending tracts; sequence movements; regulate muscle tone and force."
-      ],
-      "prerequisites": [
-        "hss2011-cns-brainstem-reticular"
       ],
       "examples": [
         "A blow to the back of the head that damages the occipital lobe causes loss of vision — a recurring past-paper item."
@@ -6586,9 +6497,6 @@ export const HSS_MODULES = [
         "Functions of CSF: mechanical support of the brain; controls brain excitability by regulating the ionic composition; carries away metabolites; some protection from pressure changes.",
         "Reabsorption: at the arachnoid villi / granulations, which penetrate the meningeal dura and extend into the superior sagittal (dural venous) sinus."
       ],
-      "prerequisites": [
-        "hss2011-cns-cerebrum-cortex-basal"
-      ],
       "examples": [
         "Blockage of the cerebral aqueduct dilates the lateral and third ventricles upstream while the fourth ventricle stays normal downstream — a non-communicating hydrocephalus."
       ]
@@ -6756,9 +6664,6 @@ export const HSS_MODULES = [
         "CN X vagus: the longest cranial nerve, most extensive distribution; parasympathetic to cardiac, pulmonary, digestive and urinary systems.",
         "Parasympathetic cranial nerves: III, VII, IX, X.",
         "Clinical contrast: CN V chews (mastication); CN VII makes facial expressions."
-      ],
-      "prerequisites": [
-        "hss2011-cns-brainstem-reticular"
       ],
       "examples": [
         "Bell’s palsy weakens facial expression on one side (CN VII) while sensation of the face and chewing (CN V) stay normal."
@@ -6965,10 +6870,6 @@ export const HSS_MODULES = [
         "The cerebral arterial circle (circle of Willis) encircles the infundibulum of the pituitary gland and reduces the probability of interruption of circulation.",
         "A lower-brainstem stroke is commonly fatal (medullary cardiac, vasomotor and respiratory centres)."
       ],
-      "prerequisites": [
-        "hss2011-m2-cns-basics",
-        "hss2011-cns-cerebrum-cortex-basal"
-      ],
       "examples": [
         "Mr LAW: occlusion of the left middle cerebral artery, left hemisphere affected, cannot move the right upper limb, and difficulty in vocalisation from Broca’s area damage in the frontal lobe."
       ]
@@ -7156,9 +7057,6 @@ export const HSS_MODULES = [
         "During ventricular systole, AV valves close and semilunar valves open; during diastole, AV valves open and semilunar close.",
         "Interventricular septum comprises a thick muscular inferior partition and a thin superior membranous partition.",
         "Cardiac fibrous skeleton provides physical valve anchorage and electrical insulation between atria and ventricles."
-      ],
-      "prerequisites": [
-        "hss2011-m1-heart-wall-valves"
       ],
       "examples": [
         "Mitral valve prolapse: weakened chordae tendineae or myxomatous degeneration of valve cusps allows leaflets to balloon into the left atrium during systole, producing a systolic click and murmur.",
@@ -7364,9 +7262,6 @@ export const HSS_MODULES = [
         "Atrioventricular bundle (Bundle of His) is the sole physiological electrical connection through the fibrous skeleton.",
         "Purkinje fibres conduct impulses at high velocity, initiating ventricular contraction from apex upward toward base."
       ],
-      "prerequisites": [
-        "hss2011-cvs-internal-chambers-valves"
-      ],
       "examples": [
         "Anterior wall STEMI: acute occlusion of the LAD leads to transmural ischemia of the anterior ventricular wall and loss of R waves on V1–V4 ECG leads.",
         "Complete (third-degree) heart block: pathology in the AV node or bundle of His disconnects atria from ventricles, requiring an electronic pacemaker."
@@ -7544,9 +7439,6 @@ export const HSS_MODULES = [
         "Capillary walls lack tunica media and externa, consisting only of a single endothelial cell layer and basal lamina.",
         "Capillaries are continuous (skin, muscle), fenestrated (kidneys, intestines), or sinusoidal (liver, spleen, bone marrow).",
         "Systemic veins act as capacitance blood reservoirs (holding 60–70% of blood) and feature one-way valves in limbs."
-      ],
-      "prerequisites": [
-        "hss2011-m1-heart-wall-valves"
       ],
       "examples": [
         "Atherosclerosis: lipid deposition and chronic inflammation within the tunica intima of muscular and elastic arteries forms atheromatous plaques, narrowing the lumen and predisposing to thrombosis.",
@@ -7729,9 +7621,6 @@ export const HSS_MODULES = [
         "Primary lymphoid organs (sites of formation/maturation) are red bone marrow and the thymus.",
         "MALT represents clusters of lymphoid nodules situated in the mucosal tissue layer of tracts.",
         "Lymph nodes receive lymph via multiple afferent vessels and discharge filtered lymph via efferent vessels at the hilum."
-      ],
-      "prerequisites": [
-        "hss2011-cvs-blood-vessel-circuits"
       ],
       "examples": [
         "Lymphedema: surgical removal of axillary lymph nodes during radical mastectomy blocks lymphatic drainage from the ipsilateral upper limb, causing chronic painful swelling.",
@@ -7922,12 +7811,6 @@ export const HSS_MODULES = [
         "Mediastinum is the central thoracic space situated between the two lateral pleural cavities.",
         "Elastic arteries contain the most resilient vessel walls to buffer systolic pressure waves.",
         "Cisterna chyli is the dilated sac-like chamber at the base of the thoracic duct (L1–L2); right upper quadrant does not drain into it."
-      ],
-      "prerequisites": [
-        "hss2011-m1-heart-wall-valves",
-        "hss2011-cvs-internal-chambers-valves",
-        "hss2011-cvs-blood-vessel-circuits",
-        "hss2011-cvs-lymphatic-system"
       ],
       "examples": [
         "Past paper fill-in-the-blank: \"The groove structure that marks the boundary between the left and right ventricles at the anterior side of the heart is known as anterior interventricular sulcus.\"",
@@ -8132,9 +8015,6 @@ export const HSS_MODULES = [
         "Laryngeal ligaments: thyrohyoid (thyroid–hyoid), cricothyroid (thyroid–cricoid), cricotracheal (cricoid–trachea).",
         "The glottis is the vocal folds plus the opening between them; arytenoid movement opens the folds for airflow and closes them for swallowing and phonation."
       ],
-      "prerequisites": [
-        "hss2011-osteo-skull-sutures"
-      ],
       "examples": [
         "Cricothyrotomy: in a can’t-intubate emergency the airway is opened through the cricothyroid ligament, which lies subcutaneously in the midline between the thyroid and cricoid cartilages.",
         "Otitis media in children: the more horizontal auditory tube opening in the nasopharyngeal meatus lets nasopharyngeal organisms pass easily to the middle ear."
@@ -8334,9 +8214,6 @@ export const HSS_MODULES = [
         "The costodiaphragmatic and costomediastinal recesses are potential spaces where pleural effusions accumulate.",
         "Dual blood supply: pulmonary arteries (deoxygenated blood for gas exchange) and bronchial arteries from the thoracic aorta (oxygenated blood for lung tissue and visceral pleura); bronchial veins drain to the azygos and hemiazygos veins."
       ],
-      "prerequisites": [
-        "hss2011-resp-respiratory-epithelium-alveoli"
-      ],
       "examples": [
         "Pleural effusion: fluid tracks to the costodiaphragmatic recess, blunting the costophrenic angle on an erect chest film; thoracentesis is performed low in the mid-axillary line, above a rib.",
         "Pneumonia of the right middle lobe: because the horizontal fissure bounds it, consolidation produces a sharply demarcated shadow on the frontal film with loss of the right heart border silhouette."
@@ -8512,9 +8389,6 @@ export const HSS_MODULES = [
         "The left lung has a cardiac notch for the heart.",
         "Primary inspiratory muscles: diaphragm and external intercostal muscles; quiet expiration is passive.",
         "Aspirated objects enter the right main bronchus because it is larger, shorter and more vertical."
-      ],
-      "prerequisites": [
-        "hss2011-resp-mechanics-muscles-breathing"
       ],
       "examples": [
         "A fill-in-the-blank asks for the epithelium lining the trachea — the mark is for \"pseudostratified ciliated columnar epithelium\".",
@@ -8697,9 +8571,6 @@ export const HSS_MODULES = [
         "Type II pneumocytes produce surfactant, which reduces alveolar surface tension and prevents collapse; alveolar macrophages (dust cells) remove debris.",
         "The respiratory membrane has three layers: alveolar squamous epithelium, capillary endothelium, and the fused basement membranes between them."
       ],
-      "prerequisites": [
-        "hss2011-m1-lungs-airway"
-      ],
       "examples": [
         "Neonatal respiratory distress syndrome: a premature infant with too few functioning type II pneumocytes lacks surfactant, so surface tension collapses the alveoli at end-expiration and the work of breathing rises sharply.",
         "Pulmonary oedema: fluid in the interstitium widens the respiratory membrane, lengthening the diffusion path and dropping arterial oxygen despite a normal airway."
@@ -8875,9 +8746,6 @@ export const HSS_MODULES = [
         "Accessory expiratory muscles: internal intercostal muscles, transversus thoracis, and the abdominal wall muscles (rectus abdominis, external and internal oblique).",
         "A cord injury above C3 abolishes phrenic drive and diaphragmatic breathing; below C5 the diaphragm is spared."
       ],
-      "prerequisites": [
-        "hss2011-resp-pleura-lungs-gross"
-      ],
       "examples": [
         "COPD exacerbation: a breathless patient sits forward with hands on knees, fixing the shoulder girdle so pectoralis minor and serratus anterior can pull on the ribs — visible use of accessory muscles signals severe airflow limitation.",
         "Phrenic nerve palsy after cardiac surgery: one hemidiaphragm is paralysed and rises paradoxically on inspiration, seen as an elevated dome on the chest film and worse breathlessness when supine."
@@ -9050,9 +8918,6 @@ export const HSS_MODULES = [
         "Oesophageal hiatus: T10, in the right crus, transmits the oesophagus and vagal trunks.",
         "Aortic hiatus: T12, behind the median arcuate ligament, transmits the aorta, thoracic duct and azygos vein.",
         "Diaphragmatic pain is referred to the C3–C5 dermatomes at the shoulder tip via the phrenic nerve."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-ribs-sternum"
       ],
       "examples": [
         "A sliding hiatus hernia occurs when the gastro-oesophageal junction slides up through a lax oesophageal hiatus (T10) into the thorax, weakening the antireflux mechanism.",
@@ -9227,9 +9092,6 @@ export const HSS_MODULES = [
         "The diaphragm is supplied by the superior and inferior phrenic arteries and innervated by the phrenic nerve.",
         "The azygos vein drains the posterior thoracic wall into the superior vena cava at the level of T4.",
         "The horizontal fissure separates the superior and middle lobes of the right lung."
-      ],
-      "prerequisites": [
-        "hss2011-thorax-breast-axillary-lymphatics"
       ],
       "examples": [
         "A fill-in-the-blank: \"The ______ drains blood from the posterior thoracic wall into the ______ at the level of T4\" — azygos vein; superior vena cava.",
@@ -9422,9 +9284,6 @@ export const HSS_MODULES = [
         "The oesophagus descends through the superior and the posterior mediastinum.",
         "The arch of the aorta lies in the superior mediastinum."
       ],
-      "prerequisites": [
-        "hss2011-thorax-intercostal-diaphragm"
-      ],
       "examples": [
         "A widened superior mediastinum on a trauma chest film raises concern for aortic arch injury, because the arch and great vessels occupy that compartment.",
         "Achalasia and oesophageal carcinoma present with mediastinal signs because the oesophagus runs the length of the superior and posterior mediastinum, close to the airway and aorta."
@@ -9604,9 +9463,6 @@ export const HSS_MODULES = [
         "The remainder drains medially to the parasternal (internal thoracic) nodes, a route for contralateral and abdominal spread.",
         "Axillary lymph node status is central to breast cancer staging and management.",
         "The tail of the mammary gland extends into the axilla (tested revision answer)."
-      ],
-      "prerequisites": [
-        "hss2011-cvs-lymphatic-system"
       ],
       "examples": [
         "Peau d’orange: lymphatic obstruction by tumour causes dermal oedema tethered at the sweat-gland openings and Cooper’s ligaments, giving an orange-peel skin texture.",
@@ -9797,9 +9653,6 @@ export const HSS_MODULES = [
         "The oesophagus is covered by serosa only below the diaphragm.",
         "Stomach: J-shaped, 4 regions (cardia, fundus, body, pylorus), lesser and greater curvatures, rugae, 3 muscle layers with innermost oblique.",
         "Gastric gland cells: mucous cells (mucus), chief cells (pepsinogen), parietal cells (HCl + intrinsic factor for B12), regenerative cells, enteroendocrine cells (hormones)."
-      ],
-      "prerequisites": [
-        "hss2011-m3-digestive"
       ],
       "examples": [
         "In an emergency intubation or NG-tube pass, the voluntary upper oesophageal segment is why the patient cooperates during the first few centimetres and the smooth muscle takes over beyond.",
@@ -10095,9 +9948,6 @@ export const HSS_MODULES = [
         "Teniae coli = three longitudinal smooth-muscle bands of the COLON; their tone creates haustra.",
         "Omental appendices = fatty peritoneal pouches on the colon serosa, function unknown.",
         "Internal anal sphincter = smooth muscle, involuntary; external anal sphincter = skeletal muscle, voluntary."
-      ],
-      "prerequisites": [
-        "hss2011-digestive-tract-upper"
       ],
       "examples": [
         "Crohn disease favours the terminal ileum — where Peyer patches concentrate; the lymphoid tissue is part of why.",
@@ -10407,9 +10257,6 @@ export const HSS_MODULES = [
         "Pancreas: head (uncinate process) in the duodenal C, body, tail to spleen; retroperitoneal, posterior to stomach.",
         "Exocrine acinar cells secrete pancreatic enzymes (activated in the duodenum); endocrine islets secrete insulin and glucagon for glucose homeostasis."
       ],
-      "prerequisites": [
-        "hss2011-m3-digestive"
-      ],
       "examples": [
         "Gallstones lodging at the ampulla can also block the pancreatic duct — biliary colic plus pancreatitis from one stone.",
         "Cirrhosis scars the sinusoids: portal blood cannot get through, and portal hypertension follows — the anatomy of the lobule explains the physiology."
@@ -10693,10 +10540,6 @@ export const HSS_MODULES = [
         "Foregut → coeliac trunk; midgut → superior mesenteric artery; hindgut → inferior mesenteric artery.",
         "The midgut ends at the proximal two-thirds of the transverse colon; the hindgut takes the distal one-third.",
         "All below-diaphragm digestive blood drains via the hepatic portal vein to the liver — a portal vessel connects two capillary beds."
-      ],
-      "prerequisites": [
-        "hss2011-digestive-tract-upper",
-        "hss2011-digestive-tract-small-large-bowel"
       ],
       "examples": [
         "Appendicitis: the greater omentum migrates to wall off the inflamed caecum — the isolation function made visible in theatre.",
@@ -10986,13 +10829,6 @@ export const HSS_MODULES = [
         "Recurring: pancreas — uncinate process, tail to spleen, duct joins CBD at an ampulla.",
         "Recurring: liver lobes right/left (falciform), quadrate anterior, caudate posterior; irregular opening = porta hepatis."
       ],
-      "prerequisites": [
-        "hss2011-m3-digestive",
-        "hss2011-digestive-tract-upper",
-        "hss2011-digestive-tract-small-large-bowel",
-        "hss2011-digestive-accessory-liver-pancreas",
-        "hss2011-digestive-peritoneum-portal-circulation"
-      ],
       "examples": [
         "2017-18 exam Module-3 block repeats the same five-year blanks — the appendix answer key marks each one."
       ]
@@ -11256,9 +11092,6 @@ export const HSS_MODULES = [
         "Bladder wall = mucosa, submucosa, muscularis; the detrusor has inner/outer longitudinal + circular layers (blank).",
         "Trigone = two ureteral openings + urethral entrance; funnels urine to the urethra.",
         "Male urethra 18–20 cm: prostatic, membranous, spongy; female 3–5 cm; external urethral sphincter voluntary in both sexes."
-      ],
-      "prerequisites": [
-        "hss2011-m3-urogenital-pelvis"
       ],
       "examples": [
         "IVU/CT reconstructed coronals show the three ureteric constrictions — which is where stones stick (the More-exercises answer).",
@@ -11597,9 +11430,6 @@ export const HSS_MODULES = [
         "Nephron loop: descending limb reabsorbs water; thin ascending squamous; thick ascending limb reabsorbs Na and Cl.",
         "DCT secretes ions, acids, drugs and toxins; variable hormonal reabsorption of water, Na, Ca — few microvilli.",
         "Collecting ducts → papillary ducts → renal papilla → minor calyx (each pyramid drains into its own minor calyx)."
-      ],
-      "prerequisites": [
-        "hss2011-uro-kidneys-urinary-tract"
       ],
       "examples": [
         "On a contrast CT nephrogram, the cortex brightens first (cortical nephron glomeruli) — the anatomy behind the imaging phases.",
@@ -11940,9 +11770,6 @@ export const HSS_MODULES = [
         "Ductus deferens → terminal ampulla behind the bladder → joins the seminal gland duct → ejaculatory duct → penetrates prostate → urethra.",
         "Seminal glands contribute ~60% of semen volume; bulbourethral (Cowper) glands sit at the base of the penis in the urogenital diaphragm.",
         "Penis = 2 corpora cavernosa + corpus spongiosum enclosing the urethra; lacunae/trabeculae; flaccid 8–10 cm, erect 13–18 cm."
-      ],
-      "prerequisites": [
-        "hss2011-uro-kidneys-urinary-tract"
       ],
       "examples": [
         "A left varicocele feels like \"a bag of worms\" — pampiniform plexus engorgement, left-sided because of the left renal vein drainage.",
@@ -12326,9 +12153,6 @@ export const HSS_MODULES = [
         "Vagina: elastic distensible tube, rectum posterior, urethra anterior; fornix around the cervix; hymen a partial fold at the entrance.",
         "Clitoris = pair of corpora cavernosa as crura, no corpus spongiosum, no urinary role; vestibular bulbs ≈ corpus spongiosum.",
         "Position/support: anteverted + anteflexed over the bladder; broad, uterosacral, ovarian, suspensory ligaments; vesicouterine + rectouterine pouches."
-      ],
-      "prerequisites": [
-        "hss2011-uro-kidneys-urinary-tract"
       ],
       "examples": [
         "Ectopic pregnancy implants in the ampulla most often — the widest tube segment where fertilisation happens.",
@@ -12725,13 +12549,6 @@ export const HSS_MODULES = [
         "Repeater: glomerulus = compact ball; tube segments fimbriae→infundibulum/ampulla/isthmus; endo+myo+perimetrium.",
         "Repeater: pampiniform plexus, Peyer patches, blood-testis barrier, medulla of ovary, three uterine ligaments, trigone, minor calyx."
       ],
-      "prerequisites": [
-        "hss2011-m3-urogenital-pelvis",
-        "hss2011-uro-kidneys-urinary-tract",
-        "hss2011-uro-nephron-renal-microanatomy",
-        "hss2011-uro-male-reproductive-anatomy",
-        "hss2011-uro-female-reproductive-pelvis"
-      ],
       "examples": [
         "The 2017 paper (pp.1718) repeats the hilum/ureter/corpus-spongiosum/seminal-gland/cremaster block verbatim — five marks for five memorised sentences."
       ]
@@ -13026,9 +12843,6 @@ export const HSS_MODULES = [
         "Pseudostratified columnar: ciliated with goblet cells; trachea and upper respiratory tract.",
         "Stratified squamous: keratinized (epidermis: dead anucleated cells with keratin; tough, waterproof) vs parakeratinized/non-keratinized (mouth, esophagus: surface cells retain nuclei, kept moist).",
         "Transitional epithelium (urothelium): dome/umbrella cells that flatten during distension; urinary bladder and ureters."
-      ],
-      "prerequisites": [
-        "hss2011-terminology-cavities-regions"
       ],
       "examples": [
         "Pemphigus vulgaris: an autoimmune disorder where autoantibodies attack desmosomal cadherin proteins, disrupting mechanical cell junctions and causing severe intraepithelial skin blistering.",

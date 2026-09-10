@@ -33,8 +33,7 @@ export const DSAI_ITEMS = [
         'Robots automate repeatable physical work; autonomous vehicles combine sensing, perception, planning and control.',
         'Vehicle automation progresses from human control through assistance and conditional/high automation to full automation.',
         'Always ask which task is automated, where it works and who must take over.',
-      ],
-      prerequisites: [], examples: [],
+      ], examples: [],
     },
     memory: { comparison: 'Automation does a task; autonomy decides and acts within an operating environment. Neither word guarantees every condition is covered.' },
     practice: [
@@ -64,7 +63,6 @@ export const DSAI_ITEMS = [
         'AlphaFold (DeepMind, 2021) predicts 3D protein shapes, lowering drug-discovery cost for neglected diseases.',
         'GenAI drafts medical reports — but doctors still review and finalise them.',
       ],
-      prerequisites: [],
       examples: [
         'The Hospital Authority receives over 100,000 medical report requests a year. Patients wait about eight weeks, and writing them takes doctors 8–10% of their time — which is the staffing problem GenAI is being pointed at.',
       ],
@@ -127,7 +125,6 @@ export const DSAI_ITEMS = [
         'Entry-level roles are disappearing or evolving as AI automates foundational tasks.',
         'The subject expects you to USE GenAI for take-home work, and to document that use where required.',
       ],
-      prerequisites: [],
       examples: [
         'AI is already in the junior secondary curriculum in Hong Kong — 10–14 hours across Forms 1 to 3 in computer lessons from 2023, covering generative AI, machine learning, computer vision and natural language processing.',
       ],
@@ -198,9 +195,6 @@ export const DSAI_ITEMS = [
         "Deep learning revolution: Hinton pretraining (2006), speech ASR beating HMMs (2009), AlexNet ImageNet victory (2012), AlphaGo (2016).",
         "Three intellectual traditions: Symbolic AI (rules/logic), Neural AI (connectionist/deep learning), and Statistical AI (probability/regression/SVM).",
         "Core definition: computational systems performing learning, reasoning, problem-solving, perception, and decision-making aligned with human values."
-      ],
-      "prerequisites": [
-        "dsai1202-ai-literacy"
       ],
       "examples": [
         "MYCIN: an early rule-based expert system developed at Stanford that encoded over 500 rules to identify blood-borne bacterial pathogens and recommend antibiotic regimens, outperforming junior clinicians but limited by an inability to learn from new cases.",
@@ -314,9 +308,6 @@ export const DSAI_ITEMS = [
         "Face processing: detection (bounding box) -> analysis (emotion/attributes) -> recognition (1:1 verification vs 1:N identification).",
         "OCR: detects and extracts printed or written text from document images."
       ],
-      "prerequisites": [
-        "dsai1202-ai-everyday-autonomy"
-      ],
       "examples": [
         "Tumor semantic segmentation: in radiation oncology and radiography, models delineate the irregular voxel boundaries of glioblastomas on MRI, sparing adjacent healthy brain tissue during radiotherapy planning.",
         "Pill and vial defect inspection: high-speed factory computer vision systems use object detection to spot broken tablets, foreign particulate contamination, or cracked glass vials on pharmaceutical packaging lines."
@@ -427,10 +418,6 @@ export const DSAI_ITEMS = [
         "Image prompt rule: prompts should be descriptive rather than instructive (describe the scene directly rather than commanding the bot).",
         "Prompt modifiers structure: medium (photo/painting), subject, details, lighting, environment, color scheme, art style.",
         "Conversation history: foundation models re-send chat history as input tokens; clearing history on platforms like PolyU GenAI saves token credits."
-      ],
-      "prerequisites": [
-        "dsai1202-ai-everyday-autonomy",
-        "dsai1202-ai-literacy"
       ],
       "examples": [
         "PolyU GenAI platform (genai.polyu.edu.hk): provides university students with access to state-of-the-art foundation models with monthly credit quotas that deduct input and output tokens on each prompt interaction.",
