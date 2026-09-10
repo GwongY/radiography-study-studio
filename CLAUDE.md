@@ -15,6 +15,7 @@ This application is the student's **personal University study platform for HKPol
 4. **Source Precedence**:
    - **Primary**: Current 2026/27 confirmed documents (syllabi, teaching schedules, 2026 lecture slides in `New source/`).
    - **Support & Fallback**: Official older PolyU lecture slide decks, tutorial packets, and past examination papers on the shared drive where 2026 materials are not yet available.
+   - **Intake Procedure**: When new files arrive in `New source/`, follow the 6-step intake workflow in [`docs/superpowers/specs/2026-09-10-new-source-intake-workflow.md`](docs/superpowers/specs/2026-09-10-new-source-intake-workflow.md).
 
 ## Find things here first
 
