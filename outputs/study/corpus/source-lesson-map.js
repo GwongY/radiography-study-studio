@@ -521,6 +521,21 @@ export const Y1S1_SOURCE_MAP = {
         "unresolved source identity"
       ]
     },
+    "hss2011-tissues-junctions-epithelia": {
+      "id": "hss2011-tissues-junctions-epithelia",
+      "subject": "HSS2011",
+      "week": 2,
+      "title": "Body tissues: intercellular junctions, epithelial classifications, and skin keratinization",
+      "status": "missing",
+      "sources": [
+        {
+          "ref": "hss.tut.tissues",
+          "set": "new",
+          "role": "assessment"
+        }
+      ],
+      "reasons": []
+    },
     "hss2011-joints-movement-map-2026": {
       "id": "hss2011-joints-movement-map-2026",
       "subject": "HSS2011",
@@ -757,7 +772,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "older-supporting"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -2302,7 +2317,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -2334,7 +2349,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -2366,7 +2381,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -2398,12 +2413,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -2440,12 +2455,12 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.1.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.manual1920",
@@ -2524,7 +2539,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.revans",
@@ -2556,7 +2571,7 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HSS2011",
       "week": 12,
       "title": "Kidneys and the urinary tract: gross anatomy, ureters, bladder, urethra, urothelium",
-      "status": "partial",
+      "status": "needs-review",
       "sources": [
         {
           "ref": "hss.3.2",
@@ -2566,7 +2581,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -2630,7 +2645,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -2667,7 +2682,7 @@ export const Y1S1_SOURCE_MAP = {
         {
           "ref": "hss.3.3.2019",
           "set": "old",
-          "role": "older-fallback"
+          "role": "needs-review"
         },
         {
           "ref": "hss.fib5yr",
@@ -3866,12 +3881,17 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "ABCT2326",
       "week": 13,
       "title": "Innate vs adaptive immunity and the seven innate categories",
-      "status": "partial",
+      "status": "complete",
       "sources": [
+        {
+          "ref": "phys.10.2026",
+          "set": "new",
+          "role": "current-primary"
+        },
         {
           "ref": "phys.10",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -3881,17 +3901,22 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "ABCT2326",
       "week": 13,
       "title": "Complement: two pathways to the same hole in the wall",
-      "status": "partial",
+      "status": "complete",
       "sources": [
+        {
+          "ref": "phys.10.2026",
+          "set": "new",
+          "role": "current-primary"
+        },
         {
           "ref": "phys.susan10",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         },
         {
           "ref": "phys.10",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -3991,12 +4016,17 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "ABCT2326",
       "week": 13,
       "title": "Antibody structure, five immunoglobulin classes and defence against bacteria",
-      "status": "partial",
+      "status": "complete",
       "sources": [
+        {
+          "ref": "phys.10.2026",
+          "set": "new",
+          "role": "current-primary"
+        },
         {
           "ref": "phys.10",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         }
       ],
       "reasons": []
@@ -4043,51 +4073,60 @@ export const Y1S1_SOURCE_MAP = {
       "subject": "HTI17103",
       "week": 2,
       "title": "Ionizing vs non-ionizing modalities",
-      "status": "partial",
+      "status": "complete",
       "sources": [
+        {
+          "ref": "hti.w2.2025",
+          "set": "new",
+          "role": "current-primary"
+        },
         {
           "ref": "hti.w2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         }
       ],
-      "reasons": [
-        "current-source substitution: verified HTI17101 material is retained as fallback for HTI17103."
-      ]
+      "reasons": []
     },
     "hti17103-modality-detail": {
       "id": "hti17103-modality-detail",
       "subject": "HTI17103",
       "week": 2,
       "title": "Modality detail — X-ray, fluoroscopy, CT and nuclear medicine",
-      "status": "partial",
+      "status": "complete",
       "sources": [
+        {
+          "ref": "hti.w2.2025",
+          "set": "new",
+          "role": "current-primary"
+        },
         {
           "ref": "hti.w2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         }
       ],
-      "reasons": [
-        "current-source substitution: verified HTI17101 material is retained as fallback for HTI17103."
-      ]
+      "reasons": []
     },
     "hti17103-modality-best-use": {
       "id": "hti17103-modality-best-use",
       "subject": "HTI17103",
       "week": 2,
       "title": "What each modality is best used for",
-      "status": "partial",
+      "status": "complete",
       "sources": [
+        {
+          "ref": "hti.w2.2025",
+          "set": "new",
+          "role": "current-primary"
+        },
         {
           "ref": "hti.w2",
           "set": "old",
-          "role": "older-fallback"
+          "role": "older-supporting"
         }
       ],
-      "reasons": [
-        "current-source substitution: verified HTI17101 material is retained as fallback for HTI17103."
-      ]
+      "reasons": []
     },
     "hti17103-radiation-therapy": {
       "id": "hti17103-radiation-therapy",
@@ -4210,6 +4249,11 @@ export const Y1S1_SOURCE_MAP = {
       "title": "Structural against functional, and how a modality gets chosen",
       "status": "complete",
       "sources": [
+        {
+          "ref": "hti.w2.2025",
+          "set": "new",
+          "role": "current-primary"
+        },
         {
           "ref": "hti.w1.2026",
           "set": "new",
@@ -4337,6 +4381,51 @@ export const Y1S1_SOURCE_MAP = {
         }
       ],
       "reasons": []
+    },
+    "dsai1202-history-paradigms": {
+      "id": "dsai1202-history-paradigms",
+      "subject": "DSAI1202",
+      "week": 2,
+      "title": "AI history: Dartmouth, expert systems, neural networks and the three traditions",
+      "status": "complete",
+      "sources": [
+        {
+          "ref": "dsai.w2",
+          "set": "new",
+          "role": "current-primary"
+        }
+      ],
+      "reasons": []
+    },
+    "dsai1202-core-elements-nlp-cv": {
+      "id": "dsai1202-core-elements-nlp-cv",
+      "subject": "DSAI1202",
+      "week": 2,
+      "title": "Core AI framework: Data-Model-Inference, NLP tasks, and computer vision hierarchy",
+      "status": "complete",
+      "sources": [
+        {
+          "ref": "dsai.w2",
+          "set": "new",
+          "role": "current-primary"
+        }
+      ],
+      "reasons": []
+    },
+    "dsai1202-generative-ai-prompting": {
+      "id": "dsai1202-generative-ai-prompting",
+      "subject": "DSAI1202",
+      "week": 2,
+      "title": "Generative AI: LLMs, diffusion models, levels of AI, and prompt engineering",
+      "status": "complete",
+      "sources": [
+        {
+          "ref": "dsai.w2",
+          "set": "new",
+          "role": "current-primary"
+        }
+      ],
+      "reasons": []
     }
   },
   "byWeek": {
@@ -4367,6 +4456,7 @@ export const Y1S1_SOURCE_MAP = {
         "hss2011-pastpaper-joints-articulations"
       ],
       "2": [
+        "hss2011-tissues-junctions-epithelia",
         "hss2011-joints-movement-map-2026",
         "hss2011-osteo-pectoral-girdle",
         "hss2011-osteo-forearm-carpals",
@@ -4616,7 +4706,11 @@ export const Y1S1_SOURCE_MAP = {
         "dsai1202-ai-in-healthcare",
         "dsai1202-ai-literacy"
       ],
-      "2": [],
+      "2": [
+        "dsai1202-history-paradigms",
+        "dsai1202-core-elements-nlp-cv",
+        "dsai1202-generative-ai-prompting"
+      ],
       "3": [],
       "4": [],
       "5": [],
@@ -5539,6 +5633,13 @@ export const Y1S1_SOURCE_MAP = {
         "role": "assessment"
       }
     ],
+    "hss.tut.tissues": [
+      {
+        "lessonId": "hss2011-tissues-junctions-epithelia",
+        "set": "new",
+        "role": "assessment"
+      }
+    ],
     "hss.4.3": [
       {
         "lessonId": "hss2011-osteo-pectoral-girdle",
@@ -5699,37 +5800,37 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-osteo-pelvic-girdle",
         "set": "old",
-        "role": "older-supporting"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-accessory-liver-pancreas",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-m3-urogenital-pelvis",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-uro-kidneys-urinary-tract",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-uro-male-reproductive-anatomy",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-uro-female-reproductive-pelvis",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       }
     ],
     "hss.ppans": [
@@ -6263,27 +6364,27 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "hss2011-m3-digestive",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-tract-upper",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-tract-small-large-bowel",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-accessory-liver-pancreas",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       },
       {
         "lessonId": "hss2011-digestive-peritoneum-portal-circulation",
         "set": "old",
-        "role": "older-fallback"
+        "role": "needs-review"
       }
     ],
     "phys.4": [
@@ -6801,12 +6902,12 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "abct2326-innate-adaptive",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "abct2326-complement",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "abct2326-immune-adaptive",
@@ -6816,14 +6917,31 @@ export const Y1S1_SOURCE_MAP = {
       {
         "lessonId": "abct2326-antibody-structure-classes",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
+      }
+    ],
+    "phys.10.2026": [
+      {
+        "lessonId": "abct2326-innate-adaptive",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "abct2326-complement",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "abct2326-antibody-structure-classes",
+        "set": "new",
+        "role": "current-primary"
       }
     ],
     "phys.susan10": [
       {
         "lessonId": "abct2326-complement",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "abct2326-mhc-costimulation",
@@ -6877,21 +6995,43 @@ export const Y1S1_SOURCE_MAP = {
         "role": "older-fallback"
       }
     ],
+    "hti.w2.2025": [
+      {
+        "lessonId": "hti17103-ionizing-vs-nonionizing",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hti17103-modality-detail",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hti17103-modality-best-use",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "hti17103-modality-choice",
+        "set": "new",
+        "role": "current-primary"
+      }
+    ],
     "hti.w2": [
       {
         "lessonId": "hti17103-ionizing-vs-nonionizing",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "hti17103-modality-detail",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       },
       {
         "lessonId": "hti17103-modality-best-use",
         "set": "old",
-        "role": "older-fallback"
+        "role": "older-supporting"
       }
     ],
     "hti.w3": [
@@ -6990,6 +7130,23 @@ export const Y1S1_SOURCE_MAP = {
       },
       {
         "lessonId": "dsai1202-ai-literacy",
+        "set": "new",
+        "role": "current-primary"
+      }
+    ],
+    "dsai.w2": [
+      {
+        "lessonId": "dsai1202-history-paradigms",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "dsai1202-core-elements-nlp-cv",
+        "set": "new",
+        "role": "current-primary"
+      },
+      {
+        "lessonId": "dsai1202-generative-ai-prompting",
         "set": "new",
         "role": "current-primary"
       }

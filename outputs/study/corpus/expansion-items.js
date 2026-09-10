@@ -1766,6 +1766,14 @@ export const EXPANSION_ITEMS = [
     ],
     "sourceRefs": [
       {
+        "ref": "hti.w2.2025",
+        "location": "p16 \"Fluoroscopy and contrast enhancement\""
+      },
+      {
+        "ref": "hti.w2.2025",
+        "location": "p38 \"Ultrasonography - characteristics\""
+      },
+      {
         "ref": "hti.w2",
         "location": "p18 \"Fluoroscopy and contrast enhancement\""
       },

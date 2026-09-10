@@ -2297,7 +2297,14 @@ export const TERM_GLOSS = {
   'peritone/o': ['Combining form meaning the serous peritoneal membrane.', '腹膜'],
   record: ['Combining form meaning to register, write down, or document.', '記錄'],
   'record/i': ['Combining form meaning to register, write down, or document.', '記錄'],
-
+  keratin: ['Tough, insoluble structural fibrous protein forming the primary constituent of hair, nails, and the outer cornified layer of epidermis.', '角蛋白'],
+  desmosome: ['Specialized cell-anchoring junction that mechanically attaches intermediate filaments of adjacent cells.', '橋粒'],
+  desmosomes: ['Specialized cell-anchoring junctions that mechanically attach intermediate filaments of adjacent cells.', '橋粒'],
+  topography: ['Detailed anatomical mapping and spatial description of specific body regions and their relative surface positions.', '解剖局部形態學 / 地形圖解'],
+  intraepithelial: ['Occurring, situated, or originating entirely within the epithelial cellular layer.', '上皮內的'],
+  corneocyte: ['A terminally differentiated, anucleated dead keratinocyte packed with keratin in the stratum corneum.', '角質細胞'],
+  corneocytes: ['Terminally differentiated, anucleated dead keratinocytes packed with keratin in the outermost stratum corneum of the skin.', '角質細胞'],
+  neoplasm: ['An abnormal and excessive tissue mass or new growth resulting from autonomous cell proliferation.', '腫瘤 / 新生物'],
 };
 
 /*
