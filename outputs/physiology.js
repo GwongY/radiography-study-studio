@@ -36,6 +36,47 @@
 export const FLOW_ANCHORS = { heart: 0.755, venousAngle: 0.824, cord: 0.70 };
 
 /*
+ * Circuits — how a travelling light is displayed along a curated ROUTE.
+ *
+ * A route (outputs/physiology-paths.js) says where along a structure a vertex
+ * is, and which end the source calls upstream. It says nothing about how fast
+ * to draw the crest, how wide it is, or how sharp: everything below is a
+ * display choice written by this app, and the viewer says so.
+ *
+ * The two modes are the distinction the anatomy actually makes.
+ *
+ *   pulse   ONE crest crosses the whole circuit each heartbeat. This is the
+ *           pressure wave, not a packet of blood: the source says an artery
+ *           expands during systole and recoils during diastole, and what
+ *           travels is that expansion. A real pulse wave crosses the aorta in
+ *           a small fraction of a beat, so drawing it as a crest that takes a
+ *           whole beat is a deliberate slowing for visibility.
+ *   drift   crests of a fixed world wavelength travelling at a fixed world
+ *           speed. Blood in a vein really is moving, and slowly; the rate here
+ *           is chosen to read, not measured.
+ *   motor   no crest of its own. The route parameter supplies the ARRIVAL time
+ *           along the nerve for the motor sequence in physiology-mechanics.js,
+ *           which is already slowed for visibility.
+ *
+ * `lead` is where in the cardiac cycle the crest leaves the heart, matched to
+ * the ejection phase of cardiacEnvelope. `wavelength` and `speed` are in the
+ * model's world units, in which the body stands about 1.7 tall.
+ */
+const MOTOR_CIRCUIT = { label: 'Motor nerve', mode: 'motor', arrivalStart: .10, arrivalSpan: .45 };
+export const FLOW_CIRCUITS = {
+  'systemic-arterial': { label: 'Systemic arteries', mode: 'pulse', sharp: 5, lead: .34 },
+  'pulmonary-arterial': { label: 'Pulmonary arteries', mode: 'pulse', sharp: 5, lead: .34 },
+  'systemic-venous': { label: 'Systemic veins', mode: 'drift', sharp: 3, wavelength: .16, speed: .10 },
+  'pulmonary-venous': { label: 'Pulmonary veins', mode: 'drift', sharp: 3, wavelength: .16, speed: .12 },
+  'motor-axillary-left': MOTOR_CIRCUIT,
+  'motor-axillary-right': MOTOR_CIRCUIT,
+  'motor-musculocutaneous-left': MOTOR_CIRCUIT,
+  'motor-musculocutaneous-right': MOTOR_CIRCUIT,
+  'motor-femoral-left': MOTOR_CIRCUIT,
+  'motor-femoral-right': MOTOR_CIRCUIT,
+};
+
+/*
  * A class is [base colour, flow colour, rule].
  *
  * rule.from   which anchor the wave is measured from
@@ -69,25 +110,25 @@ export const FLOW_CLASSES = {
   arterial: {
     label: 'Systemic artery', short: 'Artery',
     color: 0xc4372f, flow: 0xff8a72,
-    says: 'Oxygenated blood leaving the heart. The crest is the pulse wave — it travels away from the heart at every beat, and the wall swells as the pulse passes.',
+    says: 'Oxygenated blood leaving the heart. The crest is the PRESSURE wave, not a packet of blood: the artery wall expands as it passes and recoils behind it. On the aorta, the carotid, subclavian, vertebral, iliac and femoral arteries the crest follows the measured length of each vessel and carries on across the join into the next one, so one wave crosses the whole chain each beat. It is slowed a long way down to be watchable.',
     rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.95, freq: 1.7, sharp: 5, gain: 1.5, beat: 'cardiac', mode: 'inflate', deform: 'cardiac', inflate: 0.06 },
   },
   venous: {
     label: 'Systemic vein', short: 'Vein',
     color: 0x2f5aa8, flow: 0x7fb0ff,
-    says: 'Deoxygenated blood returning to the heart. Steady, low pressure, and running the other way.',
+    says: 'Deoxygenated blood returning to the heart. Here the blood itself is what moves: steady, low pressure, one way only, from the femoral and jugular veins along the measured length of each vessel and on into the venae cavae. The speed is this app illustration, not a measurement.',
     rule: { from: 'heart', wrap: 'mirror', dir: -1, speed: 0.42, freq: 1.3, sharp: 3, gain: 0.9, beat: null },
   },
   pulmArtery: {
     label: 'Pulmonary artery', short: 'Pulm. artery',
     color: 0x5a4bbf, flow: 0x9d8cff,
-    says: 'The exception: an artery carrying DEOXYGENATED blood. Right ventricle to lung — and it swells with that ventricle\'s pulse.',
+    says: 'The exception: an artery carrying DEOXYGENATED blood. Right ventricle to lung, and the same pressure wave, leaving the trunk each beat and passing into both pulmonary arteries together.',
     rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.9, freq: 2.6, sharp: 5, gain: 1.5, beat: 'cardiac', mode: 'inflate', deform: 'cardiac', inflate: 0.06 },
   },
   pulmVein: {
     label: 'Pulmonary vein', short: 'Pulm. vein',
     color: 0xd0453d, flow: 0xffa88f,
-    says: 'The other half of the exception: a vein carrying OXYGENATED blood. Lung back to left atrium.',
+    says: 'The other half of the exception: a vein carrying OXYGENATED blood. Lung back to left atrium. No measured route: three of the four pulmonary vein meshes in this atlas are in several disconnected pieces, so these keep the illustrative cue.',
     rule: { from: 'heart', wrap: 'mirror', dir: -1, speed: 0.55, freq: 2.6, sharp: 4, gain: 1.1, beat: null },
   },
   heart: {
@@ -111,7 +152,7 @@ export const FLOW_CLASSES = {
   nerve: {
     label: 'Peripheral nerve', short: 'Nerve',
     color: 0xd8c65e, flow: 0xfffbc9,
-    says: 'Travelling light marks illustrative nerve activity. The selected motor examples follow a mapped path before their target muscle contracts, slowed for visibility. Other nerves use staggered activity cues, without claiming a specific sensory or motor route.',
+    says: 'Travelling light marks illustrative nerve activity. The axillary and musculocutaneous examples follow the measured length of the nerve itself, outwards from the central nervous system and on into its muscular branches, before the target muscle contracts; the timing is slowed for visibility. Every other nerve, including any whose mesh the measurement refused, flashes without claiming a direction: most peripheral nerves are mixed, and nothing here says which way a given fibre is carrying traffic.',
     rule: { from: 'cord', wrap: 'mirror', dir: 1, speed: 3.4, freq: 3.2, sharp: 9, gain: 1.4, beat: null },
   },
   cns: {

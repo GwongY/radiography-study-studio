@@ -1,7 +1,8 @@
 
   import { ANATOMY_DATABASE, LANDMARK_HOTSPOTS, MODEL_CATALOG, REGIONS, getAnatomy, searchAnatomy } from '../anatomy-data.js?v=5';
   import { FLOW_CLASSES, FLOW_ANCHORS, LAYER_CLASSES, classify,
-    cardiacEnvelope, breathEnvelope, spikeEnvelope, contractEnvelope, atriumEnvelope, ventricleEnvelope, RATES } from '../physiology.js?v=4';
+    cardiacEnvelope, breathEnvelope, spikeEnvelope, contractEnvelope, atriumEnvelope, ventricleEnvelope, RATES,
+    FLOW_CIRCUITS } from '../physiology.js?v=4';
   import { BODY_CONCEPTS, CONCEPT_GROUPS, conceptById, conceptAncestors, conceptChildren, conceptLeaves } from '../bodymap.js?v=4';
   import { createResolver } from '../landmarks.js?v=2';
   import { buildCavityGeometry, measureLandmarks, measureGrid, gridBounds } from '../cavity-build.js?v=2';
@@ -52,11 +53,13 @@ export {
   CORTEX_CM,
   DEFAULT_WINDOW,
   FLOW_ANCHORS,
+  FLOW_CIRCUITS,
   FLOW_CLASSES,
   GRAZE_CLAMP,
   LANDMARK_HOTSPOTS,
   MESH_INDEX,
   MODEL_CATALOG,
+  RATES,
   REF_MAS,
   REF_SID_CM,
   REGIONS,

@@ -3,7 +3,7 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CLASSES, GRAZE_CLAMP, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, fluence, mottleSigma, mu, prefersStill, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
+import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CIRCUITS, FLOW_CLASSES, GRAZE_CLAMP, RATES, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, fluence, mottleSigma, mu, prefersStill, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
 import { MEMORY_TIPS, answer, clean, openDetail, pool, record, regionLabel, selectBone, showToast } from './visualisation-modes.js';
 import { animate, applyVisibility, between, getRecord, tube } from './region-boxes-how.js';
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
@@ -11,9 +11,9 @@ import { enforceHidden } from './hide-and-search.js';
 import { showPickCallout } from './spatial-concept-overlays.js';
 import { setSeparation, setTool } from './tools-and-capture.js';
 import { advancePhysiology } from '../physiology.js?v=4';
-import { MOTOR_ROUTES, motorRoute, motorSequence, transmissionField } from '../physiology-mechanics.js';
+import { MOTOR_ROUTES, motorRoute, motorSequence } from '../physiology-mechanics.js';
 import { deriveShape, deriveMuscleShape, deriveBreathingShape, MUSCLE_SHAPE_GLSL } from '../physiology-shape.js';
-import { PATH_ATTRIBUTES, PATH_SHAPE_GLSL } from '../physiology-path.js';
+import { PATH_ATTRIBUTES, PATH_GLOW_FRAGMENT_GLSL, PATH_GLOW_VERTEX_GLSL, PATH_SHAPE_GLSL, PROGRESS_ATTRIBUTES } from '../physiology-path.js';
 import { PATH_PAYLOADS } from '../physiology-paths.js';
 
 /* ------------------------------------------------------------------ *
@@ -95,6 +95,30 @@ function classUniforms(cls){
 }
 
 /*
+ * One uniform object per CIRCUIT, for the same reason as per class: the crest
+ * on the aorta and the crest on the femoral artery are the same crest, so they
+ * share one phase and cost one write a frame between them.
+ *
+ * The circuit's world length comes from the payload, because that is what the
+ * wavelength and the crossing time are measured against; the mode, rate and
+ * sharpness come from FLOW_CIRCUITS, because those are display choices.
+ */
+function circuitUniforms(layerKey,id){
+  const spec=FLOW_CIRCUITS[id];
+  if(!spec)return null;                     /* a circuit the display does not know */
+  const store=state.flow.circuits||(state.flow.circuits={});
+  if(store[id])return store[id];
+  const length=state.flow.paths?.[layerKey]?.circuits?.[id]?.worldLength||1;
+  store[id]={
+    id,spec,length,
+    uRouteWaves:{value:spec.mode==='drift'?Math.max(1,length/(spec.wavelength||.16)):1},
+    uRoutePhase:{value:0},
+    uRouteSharp:{value:spec.sharp||5},
+  };
+  return store[id];
+}
+
+/*
  * Patch one material.
  *
  * onBeforeCompile is the only way into the standard material's lighting without
@@ -120,18 +144,37 @@ function installFlow(mesh,cls){
   if(route){
     state.flow.motors=state.flow.motors||{};
     motor=state.flow.motors[route.id]||(state.flow.motors[route.id]={uMotorClock:{value:0},uDeform:{value:0},uBeat:{value:0}});
-    if(cls==='nerve'){
-      mesh.updateWorldMatrix(true,false);
-      const p=mesh.geometry.attributes.position,vertices=[];
-      let top=-Infinity,seed=[0,0,0];
-      const v=new state.THREE.Vector3();
-      for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i).applyMatrix4(mesh.matrixWorld);vertices.push(v.x,v.y,v.z);if(v.y>top){top=v.y;seed=v.toArray();}}
-      mesh.geometry.setAttribute('aTransmission',new state.THREE.BufferAttribute(transmissionField(vertices,mesh.geometry.index?.array,seed),1));
-    }
   }
   if(!spec.rule) return;                    /* coloured, but nothing to animate */
   const uni=classUniforms(cls);
   const rule=spec.rule;
+  /*
+   * A curated route, if this mesh has one that still matches its geometry.
+   *
+   * A GLOW route replaces the vertical stripe the band used to be measured on.
+   * The old field was |world Y - anchor|, which is a plane through the body:
+   * on the arch of the aorta it puts the crest in two places at once and runs
+   * it the wrong way over the top, and on a nerve it was worse still -- the
+   * seed was simply the mesh's HIGHEST vertex, which is a guess about anatomy
+   * dressed up as a measurement, and on the femoral nerve's four disconnected
+   * pieces it was four separate guesses. Progress along a curated route is
+   * measured over the surface between two named, adjacent structures, and a
+   * mesh without one keeps a cue that claims no direction at all.
+   */
+  const found=pathRouteFor(mesh);
+  const tube=found&&found.kind!=='glow'?found:null;
+  let glow=null;
+  if(found&&found.kind==='glow'){
+    const circuit=circuitUniforms(mesh.userData.layerKey,found.circuit);
+    if(circuit){
+      for(const [name,size] of PROGRESS_ATTRIBUTES){
+        mesh.geometry.setAttribute(name,new state.THREE.BufferAttribute(found.data[name],size));
+      }
+      /* Where this mesh sits along its circuit, so one crest crosses a chain
+         of separate meshes as a single wave instead of restarting on each. */
+      glow={circuit,uRouteStart:{value:found.uStart||0},uRouteSpan:{value:found.uSpan||1}};
+    }
+  }
   /* A rule can deform only some meshes of a class -- peristalsis on the gut
      tube but not the liver, ureters but not the kidneys. Meshes that do not
      match are coloured but otherwise static. */
@@ -169,39 +212,47 @@ function installFlow(mesh,cls){
      * the centre and the direction are read per vertex off the tube's measured
      * centreline, so the ring stays a ring the whole way round a flexure.
      */
-    if(rule.mode==='peristalsis'){
-      const found=pathRouteFor(mesh);
-      if(found){
-        for(const [name,size] of PATH_ATTRIBUTES){
-          mesh.geometry.setAttribute(name,new state.THREE.BufferAttribute(found.data[name],size));
-        }
-        path={
-          uPathLength:{value:found.length},
-          /* Dimensionless, so they mean the same thing in the local frame the
-             shader works in as in the world frame they were measured in --
-             which is why the payload keeps both lengths. */
-          uPathWaves:{value:Math.max(1.2,found.worldLength/(rule.pathWavelength||.1))},
-          uPathTravel:{value:(rule.pathSpeed||.08)/Math.max(1e-6,found.worldLength)},
-          uPathTaper:{value:rule.pathTaper||.14},
-          uPathSharp:{value:rule.sharp||4},
-        };
+    if(rule.mode==='peristalsis'&&tube){
+      for(const [name,size] of PATH_ATTRIBUTES){
+        mesh.geometry.setAttribute(name,new state.THREE.BufferAttribute(tube.data[name],size));
       }
+      path={
+        uPathLength:{value:tube.length},
+        /* Dimensionless, so they mean the same thing in the local frame the
+           shader works in as in the world frame they were measured in --
+           which is why the payload keeps both lengths. */
+        uPathWaves:{value:Math.max(1.2,tube.worldLength/(rule.pathWavelength||.1))},
+        uPathTravel:{value:(rule.pathSpeed||.08)/Math.max(1e-6,tube.worldLength)},
+        uPathTaper:{value:rule.pathTaper||.14},
+        uPathSharp:{value:rule.sharp||4},
+      };
     }
   }
   /* The deformed and colour-only meshes of a class compile to different
      programs, so the cache key has to name the variant or the first to compile
      is silently reused for every mesh of the class. */
-  mat.customProgramCacheKey=()=>'rssflow-tubepath-jacobian:'+cls+(deform?':d':':c')+(route?':motor':'')+(path?':path':'');
+  mat.customProgramCacheKey=()=>'rssflow-routeglow:'+cls+(deform?':d':':c')+(route?':motor':'')+(path?':path':'')+(glow?':glow':'');
   mat.onBeforeCompile=(sh)=>{
     sh.uniforms.uT=state.flow.uT;
     sh.uniforms.uOn=state.flow.uOn;
     Object.assign(sh.uniforms,uni);
     if(activity){sh.uniforms.uT=activity.uT;sh.uniforms.uDeform=activity.uDeform;sh.uniforms.uBeat=activity.uBeat;}
     if(motor){sh.uniforms.uMotorClock=motor.uMotorClock;if(deform){sh.uniforms.uDeform=motor.uDeform;sh.uniforms.uBeat=motor.uBeat;}}
+    if(glow){
+      sh.uniforms.uRouteStart=glow.uRouteStart;
+      sh.uniforms.uRouteSpan=glow.uRouteSpan;
+      sh.uniforms.uRouteWaves=glow.circuit.uRouteWaves;
+      sh.uniforms.uRoutePhase=glow.circuit.uRoutePhase;
+      sh.uniforms.uRouteSharp=glow.circuit.uRouteSharp;
+    }
     if(cls==='nerve'&&route){
-      const branch=/muscular branches/i.test((mesh.userData.label||mesh.name).replace(/_/g,' '));
-      sh.uniforms.uArrivalStart={value:branch?.40:.10};
-      sh.uniforms.uArrivalSpan={value:branch?.15:route.id==='deltoid'?.30:.45};
+      /* With a route the volley ARRIVES later the further along the nerve a
+         point is, over the whole curated chain. Without one the span is zero:
+         the nerve lights all at once, which claims the timing and not a
+         direction, because no measurement here supports a direction. */
+      const timing=glow?glow.circuit.spec:null;
+      sh.uniforms.uArrivalStart={value:timing?.arrivalStart??.10};
+      sh.uniforms.uArrivalSpan={value:glow?(timing?.arrivalSpan??.45):0};
     }
     if(deform){
       sh.uniforms.uMCenter={value:mCenter};
@@ -210,7 +261,7 @@ function installFlow(mesh,cls){
       sh.uniforms.uMLength={value:mLength};
     }
     if(path)Object.assign(sh.uniforms,path);
-    sh.vertexShader=(cls==='nerve'&&route?'attribute float aTransmission;varying float vTransmission;\n':'')+'varying float vFlowY;\n'
+    sh.vertexShader=(glow?PATH_GLOW_VERTEX_GLSL:'')+'varying float vFlowY;\n'
       +(deform?'uniform float uDeform;uniform vec3 uMCenter;uniform vec3 uMAxis;uniform float uMAmt;uniform float uMLength;uniform float uMode;\nuniform float uT;uniform float uSpeed;uniform float uDir;uniform float uFreq;uniform float uSharp;\n':'')
       +(deform&&cls==='muscle'?MUSCLE_SHAPE_GLSL:'')
       +(path?PATH_SHAPE_GLSL:'')
@@ -237,7 +288,7 @@ function installFlow(mesh,cls){
              :'  transformed-=uMAxis*rssAlong*uDeform*uMAmt;transformed+=rssPerp*(inversesqrt(max(.1,1.-uDeform*uMAmt))-1.);\n')
            +'}\n'
           :'')
-        +(cls==='nerve'&&route?'vTransmission=aTransmission;\n':'')
+        +(glow?'vFlowS=rssRouteProgress();\n':'')
         +'vFlowY=(modelMatrix*vec4(transformed,1.0)).y;');
     /* The normal patch runs BEFORE begin_vertex, so it derives the same map
        again from `position` rather than from a `transformed` that does not
@@ -255,7 +306,8 @@ function installFlow(mesh,cls){
         ?'if(uMode<1.5&&uDeform*uMAmt>0.){float along=dot(position-uMCenter,uMAxis);if(abs(2.*along/uMLength)<1.){vec3 radial=position-uMCenter-along*uMAxis;vec4 profile=rssMuscleProfile(along);float na=dot(objectNormal,uMAxis);vec3 nr=objectNormal-na*uMAxis;objectNormal=normalize(nr/profile.z+uMAxis*(na-profile.w*dot(radial,nr)/profile.z)/profile.y);}}\n'
         :'if(uMode<1.5){float k=max(.1,1.-uDeform*uMAmt);vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(na/k+(objectNormal-na)*sqrt(k));}\n')
       +'else if(uMode>2.5&&uMode<3.5){float along=dot(position-uMCenter,uMAxis);vec3 radial=position-uMCenter-along*uMAxis;float phase=(along/uMLength*2.-uT*uSpeed*uDir)*6.2831853;float wave=max(0.,.5+.5*sin(phase));float k=max(.1,1.-pow(wave,uSharp)*uMAmt*uDeform);float dk=-uMAmt*uDeform*uSharp*pow(wave,max(0.,uSharp-1.))*.5*cos(phase)*12.5663706/uMLength;float na=dot(objectNormal,uMAxis);vec3 nr=objectNormal-na*uMAxis;objectNormal=normalize(nr/k+uMAxis*(na-dk*dot(radial,nr)/k));}\n');
-    sh.fragmentShader=(cls==='nerve'&&route?'varying float vTransmission;uniform float uMotorClock;uniform float uArrivalStart;uniform float uArrivalSpan;\n':'')+'varying float vFlowY;\n'
+    sh.fragmentShader=(glow?PATH_GLOW_FRAGMENT_GLSL:'')
+      +(cls==='nerve'&&route?'uniform float uMotorClock;uniform float uArrivalStart;uniform float uArrivalSpan;\n':'')+'varying float vFlowY;\n'
       +'uniform float uT;uniform float uOn;uniform float uBeat;uniform vec3 uFlowColor;\n'
       +'uniform float uOrigin;uniform float uWrap;uniform float uDir;uniform float uSpeed;\n'
       +'uniform float uFreq;uniform float uSharp;uniform float uGain;\n'
@@ -268,8 +320,13 @@ function installFlow(mesh,cls){
         +'float rssBand=1.;\n'
         +'if(uFreq>0.){float w=abs(rssD)*uFreq-uT*uSpeed*uDir*uFreq;\n'
         +'rssBand=pow(max(0.,.5+.5*sin(w*6.2831853)),uSharp);}\n'
-        +(cls==='nerve'&&route?'float arrival=uArrivalStart+vTransmission*uArrivalSpan;float age=uMotorClock-arrival;rssBand=smoothstep(0.,.025,age)*(1.-smoothstep(.05,.10,age));rssSide=1.;\n':'')
-        +'float rssGlow=rssBand*rssSide*uGain*uBeat*uOn;totalEmissiveRadiance+=uFlowColor*(rssGlow/(1.+rssGlow*.65));');
+        /* A curated route replaces the vertical stripe entirely: the band is
+           where along the VESSEL a fragment is, not how far it is from a plane
+           through the heart, and the crest carries the rhythm itself, so it is
+           not dimmed a second time by the beat envelope. */
+        +(glow&&!(cls==='nerve'&&route)?'rssBand=rssRouteBand(vFlowS);rssSide=1.;\n':'')
+        +(cls==='nerve'&&route?'float arrival=uArrivalStart+'+(glow?'vFlowS':'0.')+'*uArrivalSpan;float age=uMotorClock-arrival;rssBand=smoothstep(0.,.025,age)*(1.-smoothstep(.05,.10,age));rssSide=1.;\n':'')
+        +'float rssGlow=rssBand*rssSide*uGain*'+(glow&&!(cls==='nerve'&&route)?'1.':'uBeat')+'*uOn;totalEmissiveRadiance+=uFlowColor*(rssGlow/(1.+rssGlow*.65));');
   };
   mat.needsUpdate=true;
 }
@@ -328,7 +385,7 @@ export async function loadPathRoutes(key){
     const response=await fetch(entry.url,{cache:'force-cache'});
     if(!response.ok)throw new Error('HTTP '+response.status);
     const payload=await response.json();
-    if(payload.schemaVersion!==1)throw new Error('schema '+payload.schemaVersion);
+    if(payload.schemaVersion!==2)throw new Error('schema '+payload.schemaVersion);
     const routes=new Map(),byNode=new Map();
     for(const route of payload.routes||[]){
       const data={};
@@ -340,7 +397,7 @@ export async function loadPathRoutes(key){
         console.warn('[physiology] route',route.id,'failed its digest');
         continue;
       }
-      for(const [name,size] of PATH_ATTRIBUTES){
+      for(const [name,size] of (route.kind==='glow'?PROGRESS_ATTRIBUTES:PATH_ATTRIBUTES)){
         const values=decodeFloats(route.data[name]||'');
         if(values.length!==route.vertices*size){usable=false;break}
         if(!values.every(Number.isFinite)){usable=false;break}
@@ -351,7 +408,7 @@ export async function loadPathRoutes(key){
       routes.set(route.mesh,decoded);
       if(route.node!==undefined)byNode.set(route.node,decoded);
     }
-    state.flow.paths[key]={routes,byNode,rejected:payload.rejected||[]};
+    state.flow.paths[key]={routes,byNode,circuits:payload.circuits||{},rejected:payload.rejected||[]};
   }catch(e){
     console.warn('[physiology] no tube routes for',key,e);
     state.flow.paths[key]=null;
@@ -490,6 +547,15 @@ export function stepPhysiology(t){
     const seq=motorSequence(t,route.offset);
     u.uMotorClock.value=seq.clock;u.uDeform.value=seq.tension*blend;
     u.uBeat.value=seq.activation;
+  }
+  /* One phase per circuit. A pulse circuit advances a whole crest across
+     itself each heartbeat, leaving the heart at the moment of ejection; a
+     drift circuit advances at a fixed world speed. A motor circuit has no
+     crest of its own -- its route parameter is an arrival time, read above. */
+  for(const circuit of Object.values(state.flow.circuits||{})){
+    const spec=circuit.spec;
+    if(spec.mode==='drift')circuit.uRoutePhase.value=t*(spec.speed||.1)/(spec.wavelength||.16);
+    else if(spec.mode==='pulse')circuit.uRoutePhase.value=t*RATES.heartBpm/60-(spec.lead||0);
   }
   const beat=cardiacEnvelope(t),spike=spikeEnvelope(t),breath=breathEnvelope(t),squeeze=contractEnvelope(t),atrial=atriumEnvelope(t),ventricular=ventricleEnvelope(t);
   Object.entries(state.flow.classes).forEach(([cls,u])=>{

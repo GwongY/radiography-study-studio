@@ -1,6 +1,7 @@
 # Piece 5 — vessel and nerve activity on curved paths
 
-Status: draft. Depends on 0 and 4. Parent: [decomposition](2026-09-09-physiology-decomposition.md).
+Status: IMPLEMENTED. Depends on 0 and 4. Parent: [decomposition](2026-09-09-physiology-decomposition.md).
+Measurements, refusals and departures: [transmission evidence](../notes/2026-09-09-physiology-transmission-evidence.md).
 
 ## Change
 

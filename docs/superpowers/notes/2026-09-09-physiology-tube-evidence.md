@@ -32,9 +32,9 @@ Refused, by name, each keeping the existing illustrative peristalsis:
   against a ninth-decile of 0.88.
 - **colon-sigmoid — `route-shorter-than-its-calibre`.** The descending colon
   mesh overlaps the sigmoid, so the nearest-vertex anchor lands in the sigmoid's
-  middle and the balanced field fits a centreline about two diameters long
-  across a mesh spanning six. Below three diameters the taper alone occupies a
-  quarter of the route and the fitted curvature is mostly fit noise.
+  middle and the balanced field fits a centreline **0.87** of a diameter long
+  (0.0632 against a radius of 0.0362). Below three diameters the taper alone
+  occupies a quarter of the route and the fitted curvature is mostly fit noise.
 
 ## Shape and normals
 
@@ -88,10 +88,10 @@ Claimed, with the quote checked against the page it cites by
 `source-check.mjs` uses:
 
 - Gut: peristalsis is a travelling wave of circular-muscle contraction moving a
-  bolus along the tract, mouth to anus — `phys.4` p12, p13.
-- Oesophagus: conveys food downwards to the stomach — `phys.4` p20, `hss.3.1` p9.
+  bolus along the tract, mouth to anus — `phys.4` p13, p14.
+- Oesophagus: conveys food downwards to the stomach — `phys.4` p21, `hss.3.1` p10.
 - Ureter: **direction only** — urine flows from the kidneys down the ureters to
-  the bladder, `phys.5` p3. No cited source describes ureteric peristalsis, so
+  the bladder, `phys.5` p4. No cited source describes ureteric peristalsis, so
   the travelling ring on the ureters is labelled in the viewer as this app's
   illustration of a muscular tube.
 
@@ -116,3 +116,13 @@ is accepted whole or refused whole; there are no partially valid routes.
 
 `work/build-physiology-paths.mjs --write` regenerates everything, and the model
 check compares what shipped against a fresh derivation byte for byte.
+
+## Corrected later
+
+Piece 5 found that this check read `source.pages[String(page)]` on a zero-based
+array, so it tested the page AFTER the one cited and every page number above was
+one low. The indexing and all eleven citations were corrected;
+[the piece 5 note](2026-09-09-physiology-transmission-evidence.md) records it.
+The payload format also moved to `schemaVersion: 2` there, with a per-kind
+attribute map and a circuit record, and the six routes above were regenerated
+unchanged apart from that.

@@ -14,7 +14,7 @@ motion, and decompose the work before implementation.
 | 2 | [Breathing and coupling](2026-09-09-physiology-2-breathing.md) | 0 | Lung/diaphragm shape and normals, source-supported respiratory coupling |
 | 3 | [Heart boundaries](2026-09-09-physiology-3-heart.md) | 0 | Regional cardiac deformation with measured boundary behaviour |
 | 4 | [Tubes on paths](2026-09-09-physiology-4-tubes.md) — **done** | 0 | Curved tube coordinates, radial constriction, topology-aware fallback. Six routes accepted, three refused by name; [evidence](../notes/2026-09-09-physiology-tube-evidence.md) |
-| 5 | [Vessel and nerve paths](2026-09-09-physiology-5-transmission.md) | 0, 4 | Curved activity fields on a curated, defensible route set |
+| 5 | [Vessel and nerve paths](2026-09-09-physiology-5-transmission.md) — **done** | 0, 4 | Curved activity fields on a curated, defensible route set. Forty vessels and six nerves accepted in chained circuits, six refused by name; [evidence](../notes/2026-09-09-physiology-transmission-evidence.md) |
 
 Recommended implementation order: 0A (characterisation), 0B (accessibility), 1,
 2, 3, 4, 5. Pieces 1–4 are independently reviewable after 0; their shared

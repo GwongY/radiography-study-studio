@@ -1,5 +1,5 @@
 {
-  "note": "Curated tube routes for the peristalsis profile. Each route names the anatomical structures at its two ends INSTEAD of coordinates, so the ordering is justified by the atlas's own neighbouring meshes and the taught sequence rather than by a hand-typed point. 'far' means the topologically opposite end of the same mesh, used where the neighbouring structure is not in the model at all. sourceRefs carry the direction-and-mechanism claim; wave rate, width and depth are display parameters and are NOT claimed from any source.",
+  "note": "Curated routes. A \"tube\" route carries a full local frame and drives the travelling constriction of the peristalsis profile; a \"glow\" route carries one number per vertex — how far along the structure that vertex is — and drives a travelling light only, moving nothing. Each route names the anatomical structures at its two ends INSTEAD of coordinates, so the ordering is justified by the atlas's own neighbouring meshes and the taught sequence rather than by a hand-typed point, and the generator refuses an anchor the model does not actually place against the mesh. 'far' means the topologically opposite end of the same mesh, used where the neighbouring structure is not in the model at all or where its nearest vertex is measurably not at an end. 'from' is always the UPSTREAM end and 'to' the downstream one, so the derived parameter is 0 where the source says the flow starts; a glow route also names the CIRCUIT it belongs to and, where it continues another route, the route it comes after, so one crest crosses a chain of separate meshes as a single wave instead of restarting on each. sourceRefs carry the direction-and-mechanism claim; wave rate, width, depth and crest sharpness are display parameters and are NOT claimed from any source.",
   "layers": {
     "organs": [
       {
@@ -9,9 +9,18 @@
         "to": "Stomach",
         "claim": "A peristaltic wave carries a swallowed bolus down the oesophagus from the pharynx to the stomach.",
         "sourceRefs": [
-          {"ref": "phys.4", "page": 20, "quote": "The Esophagus A hollow muscular tube Conveys solid food and liquids to the stomach"},
-          {"ref": "hss.3.1", "page": 9, "quote": "Transition from voluntary to involuntary stages of swallowing as food passes downwards"}
-        ]
+          {
+            "ref": "phys.4",
+            "page": 21,
+            "quote": "The Esophagus A hollow muscular tube Conveys solid food and liquids to the stomach"
+          },
+          {
+            "ref": "hss.3.1",
+            "page": 10,
+            "quote": "Transition from voluntary to involuntary stages of swallowing as food passes downwards"
+          }
+        ],
+        "kind": "tube"
       },
       {
         "id": "duodenum",
@@ -20,9 +29,18 @@
         "to": "Jejunum",
         "claim": "Peristalsis moves the contents of the digestive tract onward, mouth to anus; the duodenum receives from the stomach and passes to the jejunum.",
         "sourceRefs": [
-          {"ref": "phys.4", "page": 13, "quote": "From mouth To anus Contraction of circular muscles behind bolus"},
-          {"ref": "phys.4", "page": 12, "quote": "Peristalsis Consists of waves of muscular contractions Moves a bolus along the length of the digestive tract"}
-        ]
+          {
+            "ref": "phys.4",
+            "page": 14,
+            "quote": "From mouth To anus Contraction of circular muscles behind bolus"
+          },
+          {
+            "ref": "phys.4",
+            "page": 13,
+            "quote": "Peristalsis Consists of waves of muscular contractions Moves a bolus along the length of the digestive tract"
+          }
+        ],
+        "kind": "tube"
       },
       {
         "id": "colon-ascending",
@@ -31,8 +49,13 @@
         "to": "Transverse_colon",
         "claim": "Peristalsis moves the contents of the digestive tract onward; the ascending colon passes to the transverse colon. The caecal end is the topologically far end because the caecum is not a separate mesh in this atlas layer.",
         "sourceRefs": [
-          {"ref": "phys.4", "page": 13, "quote": "From mouth To anus Contraction of circular muscles behind bolus"}
-        ]
+          {
+            "ref": "phys.4",
+            "page": 14,
+            "quote": "From mouth To anus Contraction of circular muscles behind bolus"
+          }
+        ],
+        "kind": "tube"
       },
       {
         "id": "colon-transverse",
@@ -41,8 +64,13 @@
         "to": "Descending_colon",
         "claim": "Peristalsis moves the contents of the digestive tract onward; the transverse colon passes to the descending colon.",
         "sourceRefs": [
-          {"ref": "phys.4", "page": 13, "quote": "From mouth To anus Contraction of circular muscles behind bolus"}
-        ]
+          {
+            "ref": "phys.4",
+            "page": 14,
+            "quote": "From mouth To anus Contraction of circular muscles behind bolus"
+          }
+        ],
+        "kind": "tube"
       },
       {
         "id": "colon-descending",
@@ -51,8 +79,13 @@
         "to": "Sigmoid_colon",
         "claim": "Peristalsis moves the contents of the digestive tract onward; the descending colon passes to the sigmoid colon.",
         "sourceRefs": [
-          {"ref": "phys.4", "page": 13, "quote": "From mouth To anus Contraction of circular muscles behind bolus"}
-        ]
+          {
+            "ref": "phys.4",
+            "page": 14,
+            "quote": "From mouth To anus Contraction of circular muscles behind bolus"
+          }
+        ],
+        "kind": "tube"
       },
       {
         "id": "colon-sigmoid",
@@ -61,8 +94,13 @@
         "to": "far",
         "claim": "Peristalsis moves the contents of the digestive tract onward; the sigmoid colon passes to the rectum, which is not a separate mesh in this atlas layer, so the rectal end is the topologically far end.",
         "sourceRefs": [
-          {"ref": "phys.4", "page": 13, "quote": "From mouth To anus Contraction of circular muscles behind bolus"}
-        ]
+          {
+            "ref": "phys.4",
+            "page": 14,
+            "quote": "From mouth To anus Contraction of circular muscles behind bolus"
+          }
+        ],
+        "kind": "tube"
       },
       {
         "id": "jejunum",
@@ -71,8 +109,13 @@
         "to": "far",
         "claim": "Candidate only. The small-bowel mesh is a coil whose loops touch, so this route exists to be MEASURED, not to be assumed: if the gate refuses it the jejunum keeps its existing illustrative animation.",
         "sourceRefs": [
-          {"ref": "phys.4", "page": 12, "quote": "Peristalsis Consists of waves of muscular contractions Moves a bolus along the length of the digestive tract"}
-        ]
+          {
+            "ref": "phys.4",
+            "page": 13,
+            "quote": "Peristalsis Consists of waves of muscular contractions Moves a bolus along the length of the digestive tract"
+          }
+        ],
+        "kind": "tube"
       },
       {
         "id": "ureter-left",
@@ -81,8 +124,13 @@
         "to": "Urinary_bladder",
         "claim": "Urine travels from the kidney down the ureter to the bladder. The travelling constriction is this app's illustration of a muscular tube; the cited pages give the DIRECTION, not a peristaltic mechanism for the ureter.",
         "sourceRefs": [
-          {"ref": "phys.5", "page": 3, "quote": "Urine flows from kidneys into ureters which empty into bladder"}
-        ]
+          {
+            "ref": "phys.5",
+            "page": 4,
+            "quote": "Urine flows from kidneys into ureters which empty into bladder"
+          }
+        ],
+        "kind": "tube"
       },
       {
         "id": "ureter-right",
@@ -91,7 +139,1412 @@
         "to": "Urinary_bladder",
         "claim": "Urine travels from the kidney down the ureter to the bladder. The travelling constriction is this app's illustration of a muscular tube; the cited pages give the DIRECTION, not a peristaltic mechanism for the ureter.",
         "sourceRefs": [
-          {"ref": "phys.5", "page": 3, "quote": "Urine flows from kidneys into ureters which empty into bladder"}
+          {
+            "ref": "phys.5",
+            "page": 4,
+            "quote": "Urine flows from kidneys into ureters which empty into bladder"
+          }
+        ],
+        "kind": "tube"
+      }
+    ],
+    "circulatory": [
+      {
+        "id": "aorta-ascending",
+        "kind": "glow",
+        "mesh": "Ascending_aorta",
+        "circuit": "systemic-arterial",
+        "after": null,
+        "from": "Left_ventricle",
+        "to": "Aortic_arch",
+        "direction": "away from the heart",
+        "claim": "The left ventricle pumps blood into the ascending aorta, which continues into the arch.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "aorta-arch",
+        "kind": "glow",
+        "mesh": "Aortic_arch",
+        "circuit": "systemic-arterial",
+        "after": "aorta-ascending",
+        "from": "Ascending_aorta",
+        "to": "Thoracic_aorta",
+        "direction": "away from the heart",
+        "claim": "Blood continues away from the heart through the arch and into the thoracic aorta.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "aorta-thoracic",
+        "kind": "glow",
+        "mesh": "Thoracic_aorta",
+        "circuit": "systemic-arterial",
+        "after": "aorta-arch",
+        "from": "Aortic_arch",
+        "to": "far",
+        "direction": "away from the heart",
+        "claim": "The thoracic aorta carries blood away from the heart down the thorax. Its lower end is the topologically far end: the nearest vertex to the abdominal aorta mesh sits at 0.946 of this mesh's surface extent, just short of the 0.951 the gate requires of an end anchor.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "aorta-abdominal",
+        "kind": "glow",
+        "mesh": "Abdominal_aorta",
+        "circuit": "systemic-arterial",
+        "after": "aorta-thoracic",
+        "from": "Thoracic_aorta",
+        "to": "Common_iliac_arteryr",
+        "direction": "away from the heart",
+        "claim": "The abdominal aorta carries blood on down to the common iliac arteries.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "brachiocephalic-trunk",
+        "kind": "glow",
+        "mesh": "Brachiocephalic_trunk",
+        "circuit": "systemic-arterial",
+        "after": "aorta-arch",
+        "from": "Aortic_arch",
+        "to": "Right_common_carotid_artery",
+        "direction": "away from the heart",
+        "claim": "The brachiocephalic trunk leaves the arch and divides into the right common carotid and right subclavian arteries.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "carotid-common-right",
+        "kind": "glow",
+        "mesh": "Right_common_carotid_artery",
+        "circuit": "systemic-arterial",
+        "after": "brachiocephalic-trunk",
+        "from": "Brachiocephalic_trunk",
+        "to": "Internal_carotid_arteryr",
+        "direction": "away from the heart",
+        "claim": "The right common carotid artery carries blood up the neck to the internal carotid artery.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "carotid-common-left",
+        "kind": "glow",
+        "mesh": "Left_common_carotid_artery",
+        "circuit": "systemic-arterial",
+        "after": "aorta-arch",
+        "from": "Aortic_arch",
+        "to": "Internal_carotid_arteryl",
+        "direction": "away from the heart",
+        "claim": "The left common carotid artery leaves the arch and carries blood up the neck.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "carotid-internal-right",
+        "kind": "glow",
+        "mesh": "Internal_carotid_arteryr",
+        "circuit": "systemic-arterial",
+        "after": "carotid-common-right",
+        "from": "Right_common_carotid_artery",
+        "to": "far",
+        "direction": "away from the heart",
+        "claim": "The internal carotid artery carries blood on into the head.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "carotid-internal-left",
+        "kind": "glow",
+        "mesh": "Internal_carotid_arteryl",
+        "circuit": "systemic-arterial",
+        "after": "carotid-common-left",
+        "from": "Left_common_carotid_artery",
+        "to": "far",
+        "direction": "away from the heart",
+        "claim": "The internal carotid artery carries blood on into the head.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "subclavian-artery-right",
+        "kind": "glow",
+        "mesh": "Right_subclavian_artery",
+        "circuit": "systemic-arterial",
+        "after": "brachiocephalic-trunk",
+        "from": "Brachiocephalic_trunk",
+        "to": "Axillary_arteryr",
+        "direction": "away from the heart",
+        "claim": "The right subclavian artery carries blood out towards the upper limb, becoming the axillary artery.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "subclavian-artery-left",
+        "kind": "glow",
+        "mesh": "Left_subclavian_artery",
+        "circuit": "systemic-arterial",
+        "after": "aorta-arch",
+        "from": "Aortic_arch",
+        "to": "Axillary_arteryl",
+        "direction": "away from the heart",
+        "claim": "The left subclavian artery leaves the arch and carries blood out towards the upper limb.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "axillary-artery-right",
+        "kind": "glow",
+        "mesh": "Axillary_arteryr",
+        "circuit": "systemic-arterial",
+        "after": "subclavian-artery-right",
+        "from": "Right_subclavian_artery",
+        "to": "far",
+        "direction": "away from the heart",
+        "claim": "The axillary artery carries blood on into the arm.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "axillary-artery-left",
+        "kind": "glow",
+        "mesh": "Axillary_arteryl",
+        "circuit": "systemic-arterial",
+        "after": "subclavian-artery-left",
+        "from": "Left_subclavian_artery",
+        "to": "far",
+        "direction": "away from the heart",
+        "claim": "The axillary artery carries blood on into the arm.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "vertebral-artery-right",
+        "kind": "glow",
+        "mesh": "Vertebral_arteryr",
+        "circuit": "systemic-arterial",
+        "after": "subclavian-artery-right",
+        "from": "Right_subclavian_artery",
+        "to": "far",
+        "direction": "away from the heart",
+        "claim": "The vertebral artery leaves the subclavian artery and carries blood up to the brain.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "vertebral-artery-left",
+        "kind": "glow",
+        "mesh": "Vertebral_arteryl",
+        "circuit": "systemic-arterial",
+        "after": "subclavian-artery-left",
+        "from": "Left_subclavian_artery",
+        "to": "far",
+        "direction": "away from the heart",
+        "claim": "The vertebral artery leaves the subclavian artery and carries blood up to the brain.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "iliac-common-right",
+        "kind": "glow",
+        "mesh": "Common_iliac_arteryr",
+        "circuit": "systemic-arterial",
+        "after": "aorta-abdominal",
+        "from": "Abdominal_aorta",
+        "to": "External_iliac_arteryr",
+        "direction": "away from the heart",
+        "claim": "The common iliac artery carries blood on into the external iliac artery.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "iliac-common-left",
+        "kind": "glow",
+        "mesh": "Common_iliac_arteryl",
+        "circuit": "systemic-arterial",
+        "after": "aorta-abdominal",
+        "from": "Abdominal_aorta",
+        "to": "External_iliac_arteryl",
+        "direction": "away from the heart",
+        "claim": "The common iliac artery carries blood on into the external iliac artery.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "iliac-external-right",
+        "kind": "glow",
+        "mesh": "External_iliac_arteryr",
+        "circuit": "systemic-arterial",
+        "after": "iliac-common-right",
+        "from": "Common_iliac_arteryr",
+        "to": "Femoral_arteryr",
+        "direction": "away from the heart",
+        "claim": "The external iliac artery carries blood on into the thigh as the femoral artery.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "iliac-external-left",
+        "kind": "glow",
+        "mesh": "External_iliac_arteryl",
+        "circuit": "systemic-arterial",
+        "after": "iliac-common-left",
+        "from": "Common_iliac_arteryl",
+        "to": "Femoral_arteryl",
+        "direction": "away from the heart",
+        "claim": "The external iliac artery carries blood on into the thigh as the femoral artery.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "femoral-artery-right",
+        "kind": "glow",
+        "mesh": "Femoral_arteryr",
+        "circuit": "systemic-arterial",
+        "after": "iliac-external-right",
+        "from": "External_iliac_arteryr",
+        "to": "far",
+        "direction": "away from the heart",
+        "claim": "The femoral artery carries blood down the thigh.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "femoral-artery-left",
+        "kind": "glow",
+        "mesh": "Femoral_arteryl",
+        "circuit": "systemic-arterial",
+        "after": "iliac-external-left",
+        "from": "External_iliac_arteryl",
+        "to": "far",
+        "direction": "away from the heart",
+        "claim": "The femoral artery carries blood down the thigh.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Arteries Carry blood away from heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "left ventricle which pumps it through aorta to body"
+          }
+        ]
+      },
+      {
+        "id": "pulmonary-trunk",
+        "kind": "glow",
+        "mesh": "Pulmonary_trunk",
+        "circuit": "pulmonary-arterial",
+        "after": null,
+        "from": "Right_ventricle",
+        "to": "Bifurcation_of_pulmonary_trunk",
+        "direction": "away from the heart",
+        "claim": "The right ventricle pumps blood into the pulmonary trunk, which divides into the two pulmonary arteries.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 18,
+            "quote": "Pulmonary circulation is path of blood from right ventricle through lungs and back to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "right ventricle which pumps it through pulmonary arteries to lungs"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          }
+        ]
+      },
+      {
+        "id": "pulmonary-artery-right",
+        "kind": "glow",
+        "mesh": "Right_pulmonary_artery",
+        "circuit": "pulmonary-arterial",
+        "after": "pulmonary-trunk",
+        "from": "Bifurcation_of_pulmonary_trunk",
+        "to": "far",
+        "direction": "away from the heart",
+        "claim": "The right pulmonary artery carries deoxygenated blood out to the right lung.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 18,
+            "quote": "Pulmonary circulation is path of blood from right ventricle through lungs and back to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "right ventricle which pumps it through pulmonary arteries to lungs"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          }
+        ]
+      },
+      {
+        "id": "pulmonary-artery-left",
+        "kind": "glow",
+        "mesh": "Left_pulmonary_artery",
+        "circuit": "pulmonary-arterial",
+        "after": "pulmonary-trunk",
+        "from": "Bifurcation_of_pulmonary_trunk",
+        "to": "far",
+        "direction": "away from the heart",
+        "claim": "The left pulmonary artery carries deoxygenated blood out to the left lung.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 18,
+            "quote": "Pulmonary circulation is path of blood from right ventricle through lungs and back to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "right ventricle which pumps it through pulmonary arteries to lungs"
+          },
+          {
+            "ref": "phys.2",
+            "page": 13,
+            "quote": "Expand during systole and recoil during diastole"
+          }
+        ]
+      },
+      {
+        "id": "femoral-vein-right",
+        "kind": "glow",
+        "mesh": "Femoral_veinr",
+        "circuit": "systemic-venous",
+        "after": null,
+        "from": "far",
+        "to": "External_iliac_veinr",
+        "direction": "towards the heart",
+        "claim": "The femoral vein carries blood up out of the thigh towards the heart.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "femoral-vein-left",
+        "kind": "glow",
+        "mesh": "Femoral_veinl",
+        "circuit": "systemic-venous",
+        "after": null,
+        "from": "far",
+        "to": "External_iliac_veinl",
+        "direction": "towards the heart",
+        "claim": "The femoral vein carries blood up out of the thigh towards the heart.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "iliac-external-vein-right",
+        "kind": "glow",
+        "mesh": "External_iliac_veinr",
+        "circuit": "systemic-venous",
+        "after": "femoral-vein-right",
+        "from": "Femoral_veinr",
+        "to": "Common_iliac_veinr",
+        "direction": "towards the heart",
+        "claim": "The external iliac vein carries blood on towards the common iliac vein.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "iliac-external-vein-left",
+        "kind": "glow",
+        "mesh": "External_iliac_veinl",
+        "circuit": "systemic-venous",
+        "after": "femoral-vein-left",
+        "from": "Femoral_veinl",
+        "to": "Common_iliac_veinl",
+        "direction": "towards the heart",
+        "claim": "The external iliac vein carries blood on towards the common iliac vein.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "iliac-common-vein-right",
+        "kind": "glow",
+        "mesh": "Common_iliac_veinr",
+        "circuit": "systemic-venous",
+        "after": "iliac-external-vein-right",
+        "from": "External_iliac_veinr",
+        "to": "far",
+        "direction": "towards the heart",
+        "claim": "The common iliac vein carries blood on towards the inferior vena cava. Its upper end is the topologically far end: the nearest vertex to the inferior vena cava mesh sits at 0.833 of this mesh's surface extent, short of the 0.917 the gate requires of an end anchor, so it is not a usable end anchor here.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "iliac-common-vein-left",
+        "kind": "glow",
+        "mesh": "Common_iliac_veinl",
+        "circuit": "systemic-venous",
+        "after": "iliac-external-vein-left",
+        "from": "External_iliac_veinl",
+        "to": "Inferior_vena_cava_(abdominal_part)",
+        "direction": "towards the heart",
+        "claim": "The common iliac vein carries blood on into the inferior vena cava.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "vena-cava-inferior-abdominal",
+        "kind": "glow",
+        "mesh": "Inferior_vena_cava_(abdominal_part)",
+        "circuit": "systemic-venous",
+        "after": "iliac-common-vein-right",
+        "from": "Common_iliac_veinr",
+        "to": "far",
+        "direction": "towards the heart",
+        "claim": "The abdominal part of the inferior vena cava carries blood up towards the heart.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "vena-cava-inferior-thoracic",
+        "kind": "glow",
+        "mesh": "Inferior_vena_cava_(thoracic_part)",
+        "circuit": "systemic-venous",
+        "after": "vena-cava-inferior-abdominal",
+        "from": "Inferior_vena_cava_(abdominal_part)",
+        "to": "far",
+        "direction": "towards the heart",
+        "claim": "The thoracic part of the inferior vena cava carries blood on into the right atrium. Its upper end is the topologically far end: the nearest vertex to the right atrium mesh sits at 0.814 of this mesh's surface extent, well short of the 0.979 the gate requires of an end anchor.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "jugular-internal-right",
+        "kind": "glow",
+        "mesh": "Internal_jugular_veinr",
+        "circuit": "systemic-venous",
+        "after": null,
+        "from": "far",
+        "to": "Right_brachiocephalic_vein",
+        "direction": "towards the heart",
+        "claim": "The internal jugular vein carries blood down from the head towards the heart.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "jugular-internal-left",
+        "kind": "glow",
+        "mesh": "Internal_jugular_veinl",
+        "circuit": "systemic-venous",
+        "after": null,
+        "from": "far",
+        "to": "Left_brachiocephalic_vein",
+        "direction": "towards the heart",
+        "claim": "The internal jugular vein carries blood down from the head towards the heart.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "subclavian-vein-right",
+        "kind": "glow",
+        "mesh": "Right_subclavian_vein",
+        "circuit": "systemic-venous",
+        "after": null,
+        "from": "far",
+        "to": "Right_brachiocephalic_vein",
+        "direction": "towards the heart",
+        "claim": "The subclavian vein carries blood in from the upper limb towards the heart.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "subclavian-vein-left",
+        "kind": "glow",
+        "mesh": "Left_subclavian_vein",
+        "circuit": "systemic-venous",
+        "after": null,
+        "from": "far",
+        "to": "Left_brachiocephalic_vein",
+        "direction": "towards the heart",
+        "claim": "The subclavian vein carries blood in from the upper limb towards the heart.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "brachiocephalic-vein-right",
+        "kind": "glow",
+        "mesh": "Right_brachiocephalic_vein",
+        "circuit": "systemic-venous",
+        "after": "jugular-internal-right",
+        "from": "Right_subclavian_vein",
+        "to": "Superior_vena_cava",
+        "direction": "towards the heart",
+        "claim": "The right brachiocephalic vein carries blood on into the superior vena cava.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "brachiocephalic-vein-left",
+        "kind": "glow",
+        "mesh": "Left_brachiocephalic_vein",
+        "circuit": "systemic-venous",
+        "after": "jugular-internal-left",
+        "from": "Left_subclavian_vein",
+        "to": "Superior_vena_cava",
+        "direction": "towards the heart",
+        "claim": "The left brachiocephalic vein carries blood on into the superior vena cava.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "vena-cava-superior",
+        "kind": "glow",
+        "mesh": "Superior_vena_cava",
+        "circuit": "systemic-venous",
+        "after": "brachiocephalic-vein-right",
+        "from": "Right_brachiocephalic_vein",
+        "to": "far",
+        "direction": "towards the heart",
+        "claim": "The superior vena cava carries blood on into the right atrium. Its lower end is the topologically far end: the nearest vertex to the right atrium mesh sits at 0.856 of this mesh's surface extent, short of the 0.926 the gate requires of an end anchor.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "azygos-vein",
+        "kind": "glow",
+        "mesh": "Azygos_vein",
+        "circuit": "systemic-venous",
+        "after": null,
+        "from": "far",
+        "to": "Superior_vena_cava",
+        "direction": "towards the heart",
+        "claim": "The azygos vein carries blood up the posterior thoracic wall and empties into the superior vena cava.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "Veins Carry blood to heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 17,
+            "quote": "1-way venous valves ensure blood moves only toward heart"
+          },
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Blood coming from tissues enters superior and inferior vena cavae which empties into right atrium"
+          }
+        ]
+      },
+      {
+        "id": "pulmonary-vein-right-superior",
+        "kind": "glow",
+        "mesh": "Right_superior_pulmonary_vein",
+        "circuit": "pulmonary-venous",
+        "after": null,
+        "from": "far",
+        "to": "Left_atrium",
+        "direction": "towards the heart",
+        "claim": "Candidate only. Oxygenated blood returns from the lung through the pulmonary veins to the left atrium; this route exists to be MEASURED against that ordering, not to assume it.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Oxygenated blood from lungs passes through pulmonary veins to left atrium"
+          },
+          {
+            "ref": "phys.2",
+            "page": 18,
+            "quote": "Pulmonary circulation is path of blood from right ventricle through lungs and back to heart"
+          }
+        ]
+      },
+      {
+        "id": "pulmonary-vein-right-inferior",
+        "kind": "glow",
+        "mesh": "Right_inferior_pulmonary_vein",
+        "circuit": "pulmonary-venous",
+        "after": null,
+        "from": "far",
+        "to": "Left_atrium",
+        "direction": "towards the heart",
+        "claim": "Candidate only. Oxygenated blood returns from the lung through the pulmonary veins to the left atrium; this route exists to be MEASURED against that ordering, not to assume it.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Oxygenated blood from lungs passes through pulmonary veins to left atrium"
+          },
+          {
+            "ref": "phys.2",
+            "page": 18,
+            "quote": "Pulmonary circulation is path of blood from right ventricle through lungs and back to heart"
+          }
+        ]
+      },
+      {
+        "id": "pulmonary-vein-left-superior",
+        "kind": "glow",
+        "mesh": "Left_superior_pulmonary_vein",
+        "circuit": "pulmonary-venous",
+        "after": null,
+        "from": "far",
+        "to": "Left_atrium",
+        "direction": "towards the heart",
+        "claim": "Candidate only. Oxygenated blood returns from the lung through the pulmonary veins to the left atrium; this route exists to be MEASURED against that ordering, not to assume it.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Oxygenated blood from lungs passes through pulmonary veins to left atrium"
+          },
+          {
+            "ref": "phys.2",
+            "page": 18,
+            "quote": "Pulmonary circulation is path of blood from right ventricle through lungs and back to heart"
+          }
+        ]
+      },
+      {
+        "id": "pulmonary-vein-left-inferior",
+        "kind": "glow",
+        "mesh": "Left_inferior_pulmonary_vein",
+        "circuit": "pulmonary-venous",
+        "after": null,
+        "from": "far",
+        "to": "Left_atrium",
+        "direction": "towards the heart",
+        "claim": "Candidate only. Oxygenated blood returns from the lung through the pulmonary veins to the left atrium; this route exists to be MEASURED against that ordering, not to assume it.",
+        "sourceRefs": [
+          {
+            "ref": "phys.2",
+            "page": 20,
+            "quote": "Oxygenated blood from lungs passes through pulmonary veins to left atrium"
+          },
+          {
+            "ref": "phys.2",
+            "page": 18,
+            "quote": "Pulmonary circulation is path of blood from right ventricle through lungs and back to heart"
+          }
+        ]
+      }
+    ],
+    "nervous": [
+      {
+        "id": "axillary-nerve-right",
+        "kind": "glow",
+        "mesh": "Axillary_nerver",
+        "circuit": "motor-axillary-right",
+        "after": null,
+        "from": "far",
+        "to": "Muscular_branches_of_axillary_nerver",
+        "direction": "outwards from the central nervous system",
+        "claim": "A motor impulse travels out from the central nervous system along the axillary nerve towards its muscular branches. The proximal end is the topologically far end from those branches; in this atlas that end abuts the brachial plexus.",
+        "sourceRefs": [
+          {
+            "ref": "phys.nerve.deck",
+            "page": 7,
+            "quote": "Motor neurons: conduct impulses from the CNS to target organs"
+          },
+          {
+            "ref": "hss.4.3",
+            "page": 19,
+            "quote": "Innervated by: Axillary nerve"
+          }
+        ]
+      },
+      {
+        "id": "axillary-nerve-left",
+        "kind": "glow",
+        "mesh": "Axillary_nervel",
+        "circuit": "motor-axillary-left",
+        "after": null,
+        "from": "far",
+        "to": "Muscular_branches_of_axillary_nervel",
+        "direction": "outwards from the central nervous system",
+        "claim": "A motor impulse travels out from the central nervous system along the axillary nerve towards its muscular branches. The proximal end is the topologically far end from those branches; in this atlas that end abuts the brachial plexus.",
+        "sourceRefs": [
+          {
+            "ref": "phys.nerve.deck",
+            "page": 7,
+            "quote": "Motor neurons: conduct impulses from the CNS to target organs"
+          },
+          {
+            "ref": "hss.4.3",
+            "page": 19,
+            "quote": "Innervated by: Axillary nerve"
+          }
+        ]
+      },
+      {
+        "id": "axillary-branches-right",
+        "kind": "glow",
+        "mesh": "Muscular_branches_of_axillary_nerver",
+        "circuit": "motor-axillary-right",
+        "after": "axillary-nerve-right",
+        "from": "Axillary_nerver",
+        "to": "far",
+        "direction": "outwards from the central nervous system",
+        "claim": "The impulse continues out along the muscular branches of the axillary nerve, which innervate the deltoid.",
+        "sourceRefs": [
+          {
+            "ref": "phys.nerve.deck",
+            "page": 7,
+            "quote": "Motor neurons: conduct impulses from the CNS to target organs"
+          },
+          {
+            "ref": "hss.4.3",
+            "page": 19,
+            "quote": "Innervated by: Axillary nerve"
+          }
+        ]
+      },
+      {
+        "id": "axillary-branches-left",
+        "kind": "glow",
+        "mesh": "Muscular_branches_of_axillary_nervel",
+        "circuit": "motor-axillary-left",
+        "after": "axillary-nerve-left",
+        "from": "Axillary_nervel",
+        "to": "far",
+        "direction": "outwards from the central nervous system",
+        "claim": "The impulse continues out along the muscular branches of the axillary nerve, which innervate the deltoid.",
+        "sourceRefs": [
+          {
+            "ref": "phys.nerve.deck",
+            "page": 7,
+            "quote": "Motor neurons: conduct impulses from the CNS to target organs"
+          },
+          {
+            "ref": "hss.4.3",
+            "page": 19,
+            "quote": "Innervated by: Axillary nerve"
+          }
+        ]
+      },
+      {
+        "id": "musculocutaneous-right",
+        "kind": "glow",
+        "mesh": "Musculocutaneous_nerver",
+        "circuit": "motor-musculocutaneous-right",
+        "after": null,
+        "from": "far",
+        "to": "Lateral_antebrachial_cutaneous_nerver",
+        "direction": "outwards from the central nervous system",
+        "claim": "A motor impulse travels out from the central nervous system along the musculocutaneous nerve, which innervates the biceps brachii before continuing as the lateral antebrachial cutaneous nerve.",
+        "sourceRefs": [
+          {
+            "ref": "phys.nerve.deck",
+            "page": 7,
+            "quote": "Motor neurons: conduct impulses from the CNS to target organs"
+          },
+          {
+            "ref": "hss.4.3",
+            "page": 24,
+            "quote": "Innervated by: Musculocutaneous nerve"
+          }
+        ]
+      },
+      {
+        "id": "musculocutaneous-left",
+        "kind": "glow",
+        "mesh": "Musculocutaneous_nervel",
+        "circuit": "motor-musculocutaneous-left",
+        "after": null,
+        "from": "far",
+        "to": "Lateral_antebrachial_cutaneous_nervel",
+        "direction": "outwards from the central nervous system",
+        "claim": "A motor impulse travels out from the central nervous system along the musculocutaneous nerve, which innervates the biceps brachii before continuing as the lateral antebrachial cutaneous nerve.",
+        "sourceRefs": [
+          {
+            "ref": "phys.nerve.deck",
+            "page": 7,
+            "quote": "Motor neurons: conduct impulses from the CNS to target organs"
+          },
+          {
+            "ref": "hss.4.3",
+            "page": 24,
+            "quote": "Innervated by: Musculocutaneous nerve"
+          }
+        ]
+      },
+      {
+        "id": "femoral-nerve-right",
+        "kind": "glow",
+        "mesh": "Femoral_nerver",
+        "circuit": "motor-femoral-right",
+        "after": null,
+        "from": "Anterior_root_of_spinal_nerver",
+        "to": "far",
+        "direction": "outwards from the central nervous system",
+        "claim": "Candidate only. A motor impulse would travel out from the spinal nerve roots along the femoral nerve to the quadriceps; this route exists to be MEASURED, and the femoral nerve mesh is the one the piece 0 profile already found in several pieces.",
+        "sourceRefs": [
+          {
+            "ref": "phys.nerve.deck",
+            "page": 7,
+            "quote": "Motor neurons: conduct impulses from the CNS to target organs"
+          },
+          {
+            "ref": "hss.4.3",
+            "page": 52,
+            "quote": "All 4 muscles innervated by: Femoral nerve"
+          }
+        ]
+      },
+      {
+        "id": "femoral-nerve-left",
+        "kind": "glow",
+        "mesh": "Femoral_nervel",
+        "circuit": "motor-femoral-left",
+        "after": null,
+        "from": "Anterior_root_of_spinal_nervel",
+        "to": "far",
+        "direction": "outwards from the central nervous system",
+        "claim": "Candidate only. A motor impulse would travel out from the spinal nerve roots along the femoral nerve to the quadriceps; this route exists to be MEASURED, and the femoral nerve mesh is the one the piece 0 profile already found in several pieces.",
+        "sourceRefs": [
+          {
+            "ref": "phys.nerve.deck",
+            "page": 7,
+            "quote": "Motor neurons: conduct impulses from the CNS to target organs"
+          },
+          {
+            "ref": "hss.4.3",
+            "page": 52,
+            "quote": "All 4 muscles innervated by: Femoral nerve"
+          }
         ]
       }
     ]

@@ -99,22 +99,44 @@ Path cost evidence and the offline-payload contract are in
 
 Peristalsis follows the tube, not a bounding-box axis. `physiology-path.js` is
 the pure geometry — welded graph, a distance field balanced between the two ends
-of the tube, a centreline fitted from it, the gate that accepts or REFUSES a
-route by name, and the travelling constriction with its Jacobian. Routes are
-derived offline by `work/build-physiology-paths.mjs` from the curated
-`work/physiology-routes.json`, whose two ends are named neighbouring STRUCTURES
-rather than coordinates, and committed to `outputs/assets/physiology/`. Six are
-accepted: oesophagus, duodenum, transverse and descending colon, both ureters.
-Three are refused and keep the existing illustrative animation — the jejunum
-because its coils lie within a calibre of each other, the ascending colon
-because a blind pocket at the caecal end breaks the surface ordering, the
-sigmoid because the descending colon overlaps it. The direction and mechanism
-are cited (`phys.4` p12–13, p20; `hss.3.1` p9); for the ureters only the
-DIRECTION is cited (`phys.5` p3) and the ripple is labelled as this app's
-illustration. Rate, wavelength, taper and depth are display parameters, named as
-such in `physiology.js`. Run `node work/physiology-path-check.mjs`,
+of the structure, and, for a tube, a centreline fitted from it plus the
+travelling constriction with its Jacobian. Routes are derived offline by
+`work/build-physiology-paths.mjs` from the curated `work/physiology-routes.json`,
+whose two ends are named neighbouring STRUCTURES rather than coordinates, and
+committed to `outputs/assets/physiology/`. Six tube routes are accepted:
+oesophagus, duodenum, transverse and descending colon, both ureters. Three are
+refused and keep the existing illustrative animation — the jejunum because its
+coils lie within a calibre of each other, the ascending colon because a blind
+pocket at the caecal end breaks the surface ordering, the sigmoid because the
+descending colon overlaps it. The direction and mechanism are cited (`phys.4`
+p13–14, p21; `hss.3.1` p10); for the ureters only the DIRECTION is cited
+(`phys.5` p4) and the ripple is labelled as this app's illustration. Rate,
+wavelength, taper and depth are display parameters, named as such in
+`physiology.js`. Measurements:
+`docs/superpowers/notes/2026-09-09-physiology-tube-evidence.md`.
+
+The travelling light on a vessel or a nerve now follows the same measured
+progress instead of a plane through the body. The old band was a function of
+world height, which on the arch of the aorta puts the crest in two places at
+once and runs it backwards over the top; on the mapped motor nerves the field
+was seeded at the mesh's HIGHEST vertex, which was a guess about anatomy in the
+shape of a measurement. A **glow** route carries one number per vertex and moves
+nothing, so it is gated more weakly than a tube route on purpose —
+`deriveProgressRoute` names the four refusals it drops, and that is what lets the
+2.9-diameter aortic arch through. Forty vessels and six nerves are accepted, in
+chained circuits so one crest crosses the ascending aorta, the arch, the thoracic
+and abdominal aorta, the iliacs and the femoral artery as a single wave; six are
+refused by name (all four pulmonary veins, whose meshes are in several pieces or
+whose atrial anchor is not at an end, and both femoral nerves, which are four
+pieces each) and keep a cue that claims no direction. Arteries carry a PRESSURE
+pulse — one crest per heartbeat, slowed by roughly an order of magnitude for
+visibility — and veins a slow drift of blood; those are separate display modes in
+`FLOW_CIRCUITS`. Directions and innervations are cited (`phys.2` p13, p17, p18,
+p20; `phys.nerve.deck` p7; `hss.4.3` p19, p24, p52); speed, wavelength and crest
+sharpness are not. Run `node work/physiology-path-check.mjs`,
 `physiology-path-deform-check.mjs` and `physiology-path-model-check.mjs`;
-measurements are in `docs/superpowers/notes/2026-09-09-physiology-tube-evidence.md`.
+measurements are in
+`docs/superpowers/notes/2026-09-09-physiology-transmission-evidence.md`.
 
 ### Viewer workspace and projection (September 2026)
 
