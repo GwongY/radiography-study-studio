@@ -1,5 +1,5 @@
 — user-facing strings in outputs/ — 1087 —
-  8646701dd23ac714  WHOLE SET
+  6aad768993bf471a  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -68,6 +68,7 @@
   fce63bfb9ebaba3d  (prefers-reduced-motion: reduce)
   61ba12870f23bb03  ) but its
   93a03cdc35a83caa  ). Nothing was lost — try again later.
+  0ca05724eba6810f  *uArrivalSpan;float age=uMotorClock-arrival;rssBand=smoothstep(0.,.025,age)*(1.-smoothstep(.05,.10,age));rssSide=1.;\n
   7ac7679148ff1f49  , and this app is on
   75c7ea370d30e16f  , as a percentage"
   843bdca5f41b8d44  , floating
@@ -811,7 +812,6 @@
   2f4b24c630bdf091  aria-label="Your mark for
   4dafb342c48fd85e  artery = red = oxygenated
   038dbe3356c60c5f  assets/xray/ is empty \u2014 add a licence-cleared image
-  4614ba5f56364133  attribute float aTransmission;varying float vTransmission;\n
   f0a2f6bcdb910bd5  axial at the sternal angle
   4c7527e58057a88f  beats and
   8db95312cb849877  bone mesh
@@ -855,7 +855,7 @@
   13a86f208033b6a8  failed its digest
   8983c81d3b29aff6  feedback bad show
   fa671a9de2c2bd28  feedback good show
-  070670bfc41d233f  float arrival=uArrivalStart+vTransmission*uArrivalSpan;float age=uMotorClock-arrival;rssBand=smoothstep(0.,.025,age)*(1.-smoothstep(.05,.10,age));rssSide=1.;\n
+  507593ca8dd72ee2  float arrival=uArrivalStart+
   f3b824b884a50db2  float bulk = sgn * (-vPosition.z - vCenterDepth) / rayCos * uCmPerUnit * uMu;
   d2e20b189c0af032  float density = clamp((tau - uWinLo) / (uWinHi - uWinLo), 0.0, 1.0);
   5ecd6cf556acd465  float n = hash(uv * 1024.0 + uSeed) - 0.5;
@@ -863,7 +863,7 @@
   84b1d2d907ea8193  float rssAlong=dot(transformed-uMCenter,uMAxis);\n
   eea76eefee8acb5d  float rssBand=1.;\n
   5f88a5c8e77785f0  float rssD=vFlowY-uOrigin;\n
-  07c912077e70ec12  float rssGlow=rssBand*rssSide*uGain*uBeat*uOn;totalEmissiveRadiance+=uFlowColor*(rssGlow/(1.+rssGlow*.65));
+  976d869e1742ccac  float rssGlow=rssBand*rssSide*uGain*
   d10d90ea7a935deb  float rssSide=uWrap>.5?step(0.,rssD):(uWrap<-.5?step(rssD,0.):1.);\n
   58c52e396dc3adee  float sgn = gl_FrontFacing ? -1.0 : 1.0;
   0b509037323249e4  float shell = uShell / max(uGraze, vCos);
@@ -1027,6 +1027,7 @@
   b76b61628827fa7f  under one name
   3b5666d93e60ff87  uniform float uDeform;uniform vec3 uMCenter;uniform vec3 uMAxis;uniform float uMAmt;uniform float uMLength;uniform float uMode;\nuniform float uT;uniform float uSpeed;uniform float uDir;uniform float uFreq;uniform float uSharp;\n
   63f7d8ba8fb13ebf  uniform float uFreq;uniform float uSharp;uniform float uGain;\n
+  c3822811c3710882  uniform float uMotorClock;uniform float uArrivalStart;uniform float uArrivalSpan;\n
   abdffdbeb6c126c5  uniform float uMu, uCmPerUnit, uShell, uGraze;
   3d482f7345225afc  uniform float uOrigin;uniform float uWrap;uniform float uDir;uniform float uSpeed;\n
   44710d35e1fad7ee  uniform float uT;uniform float uOn;uniform float uBeat;uniform vec3 uFlowColor;\n
@@ -1044,7 +1045,6 @@
   35cf5b7cf14017b9  varying float vCenterDepth;
   84fbaea5156547f6  varying float vCos;
   9c46d65d8d548c7f  varying float vFlowY;\n
-  039fd8000316dbde  varying float vTransmission;uniform float uMotorClock;uniform float uArrivalStart;uniform float uArrivalSpan;\n
   18dca9f54eeb687d  varying vec2 vUv;
   535038c502c1ec8e  varying vec3 vPosition;
   54f60ba690743752  vec2 displayed = vUv - uPan;
