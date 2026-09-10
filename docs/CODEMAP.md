@@ -40,14 +40,16 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `layouts.js` | 304 | layouts.js — the sixteen that are layouts, as layouts. |  |
 | `mesh-index.js` | 2594 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `physiology-mechanics.js` | 52 | Source-backed sequences; display timings are slowed for the motor example. |  |
+| `physiology-path.js` | 594 | Tube paths — pure rest-space route geometry, no three.js and no DOM. | [Tube paths](TRAPS.md#tube-paths--outputsphysiology-pathjs-workbuild-physiology-pathsmjs-outputsstudiolive-physiologyjs) |
+| `physiology-paths.js` | 12 | Where the curated tube-route payloads live, and what they were derived from. |  |
 | `physiology-shape.js` | 211 | Pure rest-space shape derivation and illustrative deformation profiles. |  |
-| `physiology.js` | 325 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
+| `physiology.js` | 340 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
 | `schedule.js` | 921 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `search-name.js` | 27 | Anatomical name matching shared by search and its regression gate. |  |
 | `study-data.js` | 127 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 384 | Radiography Study Studio — service worker |  |
+| `sw.js` | 398 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 356 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 268 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 1748 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
@@ -65,6 +67,8 @@ belong in `init()`. The two keep separate import scopes and talk only through
 - `landmarks.js` — `normName`, `baseName`, `patternMatches`, `RIB_ORDINALS`, `LANDMARKS`, `REFERENCE_CHAINS`, `createResolver`, `LANDMARK_KEYS`
 - `layouts.js` — `LAYOUTS`, `layoutFor`, `LAYOUT_COUNT`
 - `physiology-mechanics.js` — `MECHANISM_SOURCES`, `MOTOR_ROUTES`, `motorRoute`, `motorSequence`, `transmissionField`
+- `physiology-path.js` — `weldedGraph`, `geodesicFrom`, `stationsOf`, `resampleArcLength`, `pointAt`, `frameAt`, `pathGradient`, `derivePathRoute`, `peristalticWave`, `pathDeformation`, `PATH_ATTRIBUTES`, `PATH_SHAPE_GLSL`
+- `physiology-paths.js` — `PATH_STAMP`, `PATH_PAYLOADS`
 - `physiology-shape.js` — `deriveShape`, `muscleProfile`, `deformMuscle`, `MUSCLE_SHAPE_GLSL`, `principalMuscleAxis`, `deriveMuscleShape`, `deriveBreathingShape`, `deformBreathing`
 - `physiology.js` — `FLOW_ANCHORS`, `FLOW_CLASSES`, `LAYER_CLASSES`, `classify`, `RATES`, `cardiacEnvelope`, `breathEnvelope`, `spikeEnvelope`, `contractEnvelope`, `ventricleEnvelope`, `atriumEnvelope`, `advancePhysiology`, `CLASS_COUNT`
 - `radiography.js` — `KEV_ROWS`, `TISSUES`, `massAtten`, `muAt`, `EFF_ENERGY_FRACTION`, `effectiveKeV`, `mu`, `contrastRatio`, `UNITS_PER_M`, `CM_PER_UNIT`, `unitsToCm`, `REF_MAS`, `fluence`, `REF_SIGMA`, `mottleSigma`, `magnification`, `DEFAULT_WINDOW`, `filmDensity`, `windowFor`, `CORTEX_CM`, `GRAZE_CLAMP`, `boneTau`, `AIR_FILLED`, `tissueForMesh`
@@ -124,11 +128,11 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `cavity-geometry-derived.js` | 473 | Cavity geometry, derived from the loaded anatomy. |
-| `depth-picking.js` | 412 | Depth picking |
+| `depth-picking.js` | 429 | Depth picking |
 | `explosion-layout.js` | 16 | Pack only visible source meshes. Every projected bounding box gets its own cell. |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
 | `imports.js` | 97 | Block 0 has its own import scope -- block 1's copy is not visible here. |
-| `live-physiology.js` | 1413 | Live physiology |
+| `live-physiology.js` | 1560 | Live physiology |
 | `packed-spread.js` | 93 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
 | `region-boxes-how.js` | 499 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 249 | Search -> viewer: frame the part, then hide only what stands in front |
@@ -222,6 +226,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/build-check.mjs` | Build every cavity from the real GLBs and assert the results are anatomy. |  |
 | `work/build-course-terms.mjs` | Build work/course-terms.json — which of the model's 1,687 named structures | [Study depth and course terms](TRAPS.md#study-depth-and-course-terms--workbuild-course-termsmjs) |
 | `work/build-mesh-index.mjs` | Build outputs/mesh-index.js — the searchable name index for every mesh in | [The mesh index](TRAPS.md#the-mesh-index--workbuild-mesh-indexmjs-worklibmesh-namesmjs) |
+| `work/build-physiology-paths.mjs` | Build the curated tube routes into a committed, immutable payload. | [Tube paths](TRAPS.md#tube-paths--outputsphysiology-pathjs-workbuild-physiology-pathsmjs-outputsstudiolive-physiologyjs) |
 | `work/build-question-pack.mjs` | Build a question pack — publisher test-bank PDFs into one JSON file that | [Option E laid out before option A](TRAPS.md#option-e-laid-out-before-option-a--workbuild-question-packmjs) |
 | `work/build-source-catalogue.mjs` | Build work/source-catalogue.json — what is on the source drive, so that no | [The source drive](TRAPS.md#the-source-drive--workbuild-source-cataloguemjs-worksource-checkmjs) |
 | `work/build-source-lesson-map.mjs` | Generate the compact public Y1S1 source-to-lesson map and its local, |  |
@@ -256,6 +261,9 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/physiology-mechanics-check.mjs` |  |  |
 | `work/physiology-motion-preference-check.mjs` |  |  |
 | `work/physiology-muscle-check.mjs` |  |  |
+| `work/physiology-path-check.mjs` | Path kernel check — the geometry piece 4 rests on, run without a browser. |  |
+| `work/physiology-path-deform-check.mjs` | Path deformation check — the constriction itself, and the normals that have |  |
+| `work/physiology-path-model-check.mjs` | Path routes against the real model, and against the payload that ships. |  |
 | `work/physiology-path-profile.mjs` | Offline engineering profile, not an anatomical route generator. |  |
 | `work/physiology-shape-check.mjs` |  |  |
 | `work/progress-log-check.mjs` | Progress log — the replay contract. | [The progress log must reproduce the record, not resemble it](TRAPS.md#the-progress-log-must-reproduce-the-record-not-resemble-it--outputsstudyprogress-logjs-workprogress-log-checkmjs) |

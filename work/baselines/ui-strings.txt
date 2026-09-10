@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1084 —
-  f97e3e9eb8ebba25  WHOLE SET
+— user-facing strings in outputs/ — 1087 —
+  8646701dd23ac714  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -796,7 +796,9 @@
   f1d2a707f4eba80b  a left and a right in the model
   13a77ae510047ac8  above the
   0a48f9e432c65fab  above, upon
+  8b989443dc296bd7  across it
   7def0e94fb88b5e9  additional MCQs available in mixed and matching subject papers. Other formats are in Short answer.
+  3acebb3518969546  along the tube
   cae3667040774d63  along the way.
   f6ca2bae3ef97f78  already covered this, so the session opens on the question.
   9200422efeb6a14b  also deficient)
@@ -850,6 +852,7 @@
   8aa164c59694512b  e.g. username/study-packs
   099aa9ffa0926efa  emptybox hidden
   aa9b42a9c9734d2f  epi- (above, upon), hypo- (below; also deficient), inter- (between)
+  13a86f208033b6a8  failed its digest
   8983c81d3b29aff6  feedback bad show
   fa671a9de2c2bd28  feedback good show
   070670bfc41d233f  float arrival=uArrivalStart+vTransmission*uArrivalSpan;float age=uMotorClock-arrival;rssBand=smoothstep(0.,.025,age)*(1.-smoothstep(.05,.10,age));rssSide=1.;\n
