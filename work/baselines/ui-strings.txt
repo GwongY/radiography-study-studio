@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1087 —
-  6aad768993bf471a  WHOLE SET
+— user-facing strings in outputs/ — 1086 —
+  063d66b35c23c246  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -553,7 +553,6 @@
   ce253ba033cf1abf  Phalanges of the hand
   64d834855c4320e7  Pick up the daily warm-up, or choose another session below.
   032a270b28e8d32d  Plane \u00b7 separates
-  79219f35ed006231  Plural form
   b1fa06dcff9ea3f6  Practice paper
   6500e2302d2dac54  Practise ·
   d5ff712edaa1e542  Pre-aortic nodes
@@ -608,7 +607,6 @@
   c8e398243f5fa550  Shrunk by
   7e8a98a62cfebe39  Shuffle and go again →
   f95f623f793c9f96  Single item
-  5b49bc3f366884d9  Singular form
   14ff2c02f1b62ffb  Skills to build
   72e816aa3b0aaa5b  Skills to build with this content
   da2e37e9592542f8  Skip to practice
@@ -732,6 +730,7 @@
   948c12e38dda005e  This device holds
   c4dd0e722ec81849  This device is not connected to a gist yet.
   d424b366dd8d36ab  This fallback reference is fused. Use Upper limb for per-bone isolation.
+  749efd01151fa0f2  This is the
   334addec24dbdad9  This lecture mostly re-treads it. The lines below are what it adds on top, and they are the examinable part.
   160a7acfab0d47ae  This one is best answered on the 3D skeleton
   8c4eef5ab2532515  This week

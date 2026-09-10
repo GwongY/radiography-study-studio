@@ -246,9 +246,11 @@ function partsHTML(split) {
 
 export function numberHTML(note) {
   if (!note || !note.number || !note.other) return '';
-  const label = note.number === 'singular' ? 'Singular form' : 'Plural form';
-  const opposite = note.number === 'singular' ? 'plural' : 'singular';
-  return `<p class="small term-number" style="margin:9px 0 0;color:var(--muted)">${label} · ${opposite}: <strong style="color:var(--ink)">${esc(note.other)}</strong></p>`;
+  const isSingular = note.number === 'singular';
+  const label = isSingular
+    ? `This is the <b>singular</b>. Plural: <b>${esc(note.other)}</b>`
+    : `This is the <b>plural</b>. Singular: <b>${esc(note.other)}</b>`;
+  return `<p class="small term-number" style="margin:9px 0 0;color:var(--muted)">${label}</p>`;
 }
 
 export function memoryHTML(tip) {
