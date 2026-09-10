@@ -1,20 +1,29 @@
 /*
- * Tube paths — pure rest-space route geometry, no three.js and no DOM.
+ * Routes — pure rest-space route geometry, no three.js and no DOM.
  *
- * A travelling ring of constriction only reads as peristalsis if it is a ring
- * around the TUBE. The earlier profile squeezed every gut mesh toward one
- * global bounding-box axis, which on a bent structure pinches it toward a line
- * that leaves the lumen entirely. What is needed instead is a local frame:
- * where along the tube a vertex sits, where the centre of the tube is THERE,
- * and which way the tube is pointing THERE.
+ * Two things travel along an anatomical structure in this app, and both used to
+ * be measured against a straight line through the body. A ring of constriction
+ * only reads as peristalsis if it is a ring around the TUBE; the earlier
+ * profile squeezed every gut mesh toward one global bounding-box axis, which on
+ * a bent structure pinches it toward a line outside the lumen. A crest of light
+ * only reads as a pulse leaving the heart if it follows the VESSEL; the earlier
+ * band was a function of world height, which on the arch of the aorta puts the
+ * crest in two places at once and runs it backwards over the top.
  *
- * None of that can be read off a bounding box, and surface distance alone does
- * not supply it either — a fused or coiled mesh contains shortcuts, so two
- * points close across the surface may be far apart along the tube. So every
- * route is derived offline, gated, and either accepted with evidence or
- * rejected by name; a rejected mesh keeps the existing illustrative motion.
+ * Both want the same thing first: where along this structure a point is,
+ * measured over its own surface between two curated ends. Neither can read that
+ * off a bounding box, and surface distance from one end does not supply it
+ * either — a fused or coiled mesh contains shortcuts, so two points close
+ * across the surface may be far apart along the tube. So every route is derived
+ * offline, gated, and either accepted with evidence or rejected by name; a
+ * rejected mesh keeps the existing illustrative motion.
  *
- * Rest-space only. Rate, wave width and amplitude are display parameters.
+ * The two gates share that half and diverge after it: a ring needs a centreline
+ * it can be a ring AROUND, a light needs only an ordering, and the weaker gate
+ * says exactly which refusals it drops.
+ *
+ * Rest-space only. Rate, wave width, crest sharpness and amplitude are display
+ * parameters.
  */
 
 const KEY_SCALE = 1e6;   /* matches transmissionField's welding tolerance */
@@ -249,11 +258,19 @@ export function pathGradient(tangent, bend, radial, total) {
 }
 
 /**
- * The discovery gate. Returns an accepted route carrying a per-vertex frame,
- * or a refusal naming the topology it could not read. A refusal is a result,
- * not a failure: the caller keeps the existing illustrative animation.
+ * Everything both gates need, and the refusals both share.
+ *
+ * A travelling ring and a travelling light want the same question answered
+ * first — where along this structure is a vertex, measured over the surface
+ * from one curated end to the other — and they have to answer it the same way,
+ * or a mesh moved from one profile to the other would silently change where its
+ * wave is. So the shared half lives here and neither gate keeps its own copy.
+ *
+ * It stops at the progress field and its bands. What each gate does with them
+ * afterwards is where they legitimately differ: a ring needs a centreline it
+ * can be a ring AROUND, a travelling light needs only an ordering.
  */
-export function derivePathRoute({ positions, indices, proximal, distal, spreadRatio = 2.6, crowdRatio = 6, offsetRatio = 3.2, selfClearance = 1.15, minCalibres = 3, stepRatio = 3, samples = 160, smoothing = 2 }) {
+export function progressField(positions, indices, proximal, distal) {
   checkMesh(positions, indices);
   const graph = weldedGraph(positions, indices);
   if (graph.componentCount !== 1) return { accepted: false, reason: 'disconnected', components: graph.componentCount };
@@ -296,6 +313,24 @@ export function derivePathRoute({ positions, indices, proximal, distal, spreadRa
   const bands = Math.min(512, Math.max(8, Math.round(extent / (spacing || extent))));
   const stations = stationsOf(graph, field, bands);
   if (stations.points.length < 4) return { accepted: false, reason: 'too-few-stations', stations: stations.points.length };
+  const midCount = median(stations.counts), worstCount = Math.max(...stations.counts);
+  return {
+    accepted: true, graph, field, stations, extent, spacing,
+    worstSpread: Math.max(...stations.spread),
+    crowding: midCount > 0 ? worstCount / midCount : 0,
+    split: stations.limbs.filter((n) => n > 1).length,
+  };
+}
+
+/**
+ * The discovery gate. Returns an accepted route carrying a per-vertex frame,
+ * or a refusal naming the topology it could not read. A refusal is a result,
+ * not a failure: the caller keeps the existing illustrative animation.
+ */
+export function derivePathRoute({ positions, indices, proximal, distal, spreadRatio = 2.6, crowdRatio = 6, offsetRatio = 3.2, selfClearance = 1.15, minCalibres = 3, stepRatio = 3, samples = 160, smoothing = 2 }) {
+  const base = progressField(positions, indices, proximal, distal);
+  if (!base.accepted) return base;
+  const { graph, field, stations, extent } = base;
   /*
    * Three independent ways a band can fail to be a cross-section, because no
    * one of them catches all three shapes that matter here.
@@ -325,10 +360,7 @@ export function derivePathRoute({ positions, indices, proximal, distal, spreadRa
    * the offset test further down, measured against the FITTED centreline
    * instead of a band centroid.
    */
-  const worstSpread = Math.max(...stations.spread);
-  const midCount = median(stations.counts), worstCount = Math.max(...stations.counts);
-  const crowding = midCount > 0 ? worstCount / midCount : 0;
-  const split = stations.limbs.filter((n) => n > 1).length;
+  const { worstSpread, crowding, split } = base;
   const wide = stations.spread.filter((r) => r > spreadRatio).length;
   if (crowding > crowdRatio) {
     return { accepted: false, reason: 'ambiguous-cross-section', crowding, split, wide, stations: stations.spread.length, worstSpread };
@@ -462,6 +494,106 @@ export function derivePathRoute({ positions, indices, proximal, distal, spreadRa
     worstSpread, crowding, split, bulge, clearance, worstStep: midStep > 0 ? worstStep / midStep : 0, surfaceExtent: extent,
   };
 }
+
+/**
+ * The glow gate: the same progress field, without the centreline.
+ *
+ * A travelling light needs strictly less than a travelling ring. It needs an
+ * ordering along the structure and a guarantee that the ordering advances
+ * smoothly through space; it does not need a fitted centreline, a local
+ * tangent, a radius, or a Jacobian, because nothing moves. So this gate keeps
+ * the four shared refusals and adds only the two that a MOVING light can still
+ * be wrong about — a band that swallows a branch, and a band whose centroid
+ * jumps — and drops the four that exist to protect a deformation:
+ * not-a-tube-about-this-path, route-shorter-than-its-calibre,
+ * route-self-adjacent and degenerate-frame.
+ *
+ * That is a deliberately weaker gate for a deliberately weaker claim, and it
+ * accepts things the tube gate refuses: the aortic arch is under three
+ * diameters long, which makes it a poor thing to run a ring of constriction
+ * along and a perfectly good thing to run a light along. What it does NOT do is
+ * infer a direction. Which end is upstream comes from the curated route, and
+ * the returned parameter is 0 at that end and 1 at the other.
+ */
+export function deriveProgressRoute({ positions, indices, proximal, distal, crowdRatio = 6, stepRatio = 3, smoothing = 2 }) {
+  const base = progressField(positions, indices, proximal, distal);
+  if (!base.accepted) return base;
+  const { graph, field, stations, extent, worstSpread, crowding, split } = base;
+  if (crowding > crowdRatio) {
+    return { accepted: false, reason: 'ambiguous-cross-section', crowding, split, worstSpread, stations: stations.points.length };
+  }
+  /* A light that jumps from one band to the next reads as two lights, not one
+     travelling one, so the same step test the tube gate uses applies here. */
+  const steps = stations.points.slice(1).map((point, i) => norm(sub(point, stations.points[i])));
+  const midStep = median(steps), worstStep = Math.max(...steps);
+  if (midStep > 0 && worstStep > stepRatio * midStep) {
+    return { accepted: false, reason: 'centreline-discontinuous', worstStep: worstStep / midStep };
+  }
+  /* The length the wavelength is measured in: the arc the band centroid walks,
+     not the straight-line span and not the surface extent. */
+  const smoothed = smooth(stations.points, smoothing);
+  let length = 0;
+  for (let i = 1; i < smoothed.length; i++) length += norm(sub(smoothed[i], smoothed[i - 1]));
+  if (!(length > 0)) return { accepted: false, reason: 'degenerate-extent' };
+
+  const count = positions.length / 3;
+  const param = new Float32Array(count);
+  for (let i = 0; i < count; i++) {
+    const s = field[graph.ids[i]];
+    if (!Number.isFinite(s)) return { accepted: false, reason: 'progress-not-finite', vertex: i };
+    param[i] = Math.min(1, Math.max(0, s));
+  }
+  return {
+    accepted: true, param, length, stations: stations.points.length,
+    worstSpread, crowding, split, worstStep: midStep > 0 ? worstStep / midStep : 0, surfaceExtent: extent,
+  };
+}
+
+/*
+ * The travelling light, as a function of progress and a phase in cycles.
+ *
+ * Nothing here is claimed by a source. The DIRECTION is — it is the curated
+ * route's own ordering, and `param` is 0 at the end the source calls upstream.
+ * How wide the crest is, how sharp, and how long it takes to cross are display
+ * choices, and the viewer says so.
+ */
+export function progressBand(param, phase, { waves = 1, sharp = 5 } = {}) {
+  const crest = Math.max(0, .5 + .5 * Math.sin(TWO_PI * (waves * param - phase)));
+  return Math.pow(crest, Math.max(1, sharp));
+}
+
+/* One float per vertex — the whole payload for a glow route. */
+export const PROGRESS_ATTRIBUTES = [['aPathProgress', 1]];
+
+/*
+ * Carried through the vertex stage untouched: a glow route moves no vertex,
+ * which is the piece of it the browser check asserts rather than assumes.
+ *
+ * uRouteStart and uRouteSpan place this mesh's own 0-to-1 inside its circuit,
+ * so a crest crossing the ascending aorta, the arch, the thoracic aorta and the
+ * abdominal aorta is one crest rather than four moving together.
+ */
+export const PATH_GLOW_VERTEX_GLSL = `
+attribute float aPathProgress;
+uniform float uRouteStart;
+uniform float uRouteSpan;
+varying float vFlowS;
+float rssRouteProgress(){return uRouteStart+aPathProgress*uRouteSpan;}
+`;
+
+/* And the same band as progressBand above, in the fragment stage. Written once
+   so the GPU and the reference cannot drift; the browser check renders this
+   text and compares it against progressBand at the same phase. */
+export const PATH_GLOW_FRAGMENT_GLSL = `
+varying float vFlowS;
+uniform float uRouteWaves;
+uniform float uRoutePhase;
+uniform float uRouteSharp;
+float rssRouteBand(float s){
+  float crest=max(0.,.5+.5*sin(6.283185307179586*(uRouteWaves*s-uRoutePhase)));
+  return pow(crest,max(1.,uRouteSharp));
+}
+`;
 
 /*
  * The travelling constriction.

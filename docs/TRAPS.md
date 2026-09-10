@@ -1243,7 +1243,7 @@ not by erroring. Always report what was dropped, per file, against what the
 document itself claims to contain — here, `Answer:` lines counted directly.
 
 
-### Tube paths — `outputs/physiology-path.js`, `work/build-physiology-paths.mjs`, `outputs/studio/live-physiology.js`
+### Routes — `outputs/physiology-path.js`, `work/build-physiology-paths.mjs`, `outputs/studio/live-physiology.js`
 
 Peristalsis used to be measured against one bounding-box axis: "along the tube"
 was a projection onto a single global direction and "across it" was whatever was
@@ -1299,3 +1299,53 @@ and compares against the reference implementation — measured agreement 1e-7
 across all six routes, and bit-exact rest pose at zero amplitude. Call
 `o.boot()` before `setLayer`, or `loadExtraModel` throws "3D scene not ready"
 and the bridge swallows it into a `false` return.
+
+Four more bit when the same machinery was pointed at vessels and nerves, where
+nothing deforms and only a light travels.
+
+**A weaker claim wants a weaker gate, but only in named places.** The tube gate
+refuses anything under three diameters long, because the taper alone would
+swallow it and the fitted curvature would be fit noise. Neither exists for a
+travelling light, and the AORTIC ARCH is 2.94 diameters — so the one vessel
+where a vertical-stripe wave is most obviously wrong was the one the tube gate
+would not replace. `deriveProgressRoute` drops exactly four refusals
+(`not-a-tube-about-this-path`, `route-shorter-than-its-calibre`,
+`route-self-adjacent`, `degenerate-frame`) and shares the other five through
+`progressField`, so the two gates cannot disagree about what progress IS. Do not
+loosen a threshold to admit a case; write the second gate and say what it drops.
+
+**An anchor that is merely plausible still produces an accepted route.** The
+musculocutaneous nerve anchored at the roots of the brachial plexus measured
+0.172 away — a tenth of the body's height, and the plexus meshes are not even
+its nearest neighbours — and the gate accepted it, because the nearest-vertex
+seed landed somewhere regardless. Nothing in the geometry says an anchor is the
+wrong anchor. Measure the gap and refuse it: `anchor-not-adjacent` at 0.01 world
+units, this model being 1.698 tall. Worst gap across the 52 shipped routes is
+0.0027.
+
+**A big blob makes a bad end anchor.** The right atrium lies ALONGSIDE the
+superior vena cava as well as at its end, so the nearest-vertex anchor lands
+0.856 of the way along instead of at 1.0, and `endpoints-not-opposed` refuses a
+perfectly good vessel. Same for the thoracic inferior vena cava (0.814), the
+right common iliac vein (0.833) and, by a whisker, the thoracic aorta (0.946
+against a required 0.951). The fix is to name the far end topologically and
+record the measured reach in the route definition — not to lower the percentile,
+which is what catches an anchor that really is in the middle (the sigmoid colon
+at 0.52).
+
+**A per-mesh 0-to-1 is four crests, not one.** Four aorta meshes each running
+their own parameter pulse in lockstep and read as nothing. Routes carry the id
+of the route they come after, the generator sums the measured world lengths
+before them into `uStart`/`uSpan`, and the shader lights
+`uRouteStart + aPathProgress * uRouteSpan`. A circuit is a TREE, not a list —
+both pulmonary arteries come after the trunk and share an offset, which is what
+the anatomy says.
+
+And a defect this work found in the check that was supposed to prevent exactly
+this class of thing: `physiology-path-model-check.mjs` read
+`source.pages[String(page)]`. `pages` is zero-based and a page number is
+one-based, so it tested the page AFTER the one cited, and every route citation
+written against it was one page low — while the check's own comment claimed it
+used the same comparison as `source-check.mjs`. If a check claims to be the same
+comparison as another, make it share the indexing, or assert it on a case where
+they must agree.

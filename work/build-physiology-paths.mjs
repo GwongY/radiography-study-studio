@@ -1,11 +1,12 @@
 /*
- * Build the curated tube routes into a committed, immutable payload.
+ * Build the curated routes into a committed, immutable payload.
  *
- * Nothing here runs in the browser. Recovering a tube's centreline means a
- * welded triangle graph, two Dijkstra sweeps and a banded centroid fit per
- * mesh; doing that at layer-load time would add hundreds of milliseconds of
- * main-thread graph work to the one moment the viewer is already busy. So it
- * is done once, offline, and the result is committed like mesh-index.js.
+ * Nothing here runs in the browser. Recovering a route means a welded triangle
+ * graph, two Dijkstra sweeps and a banded centroid fit per mesh — and a tube
+ * route a centreline fit on top of that; doing it at layer-load time would add
+ * hundreds of milliseconds of main-thread graph work, over fifty-odd meshes, to
+ * the one moment the viewer is already busy. So it is done once, offline, and
+ * the result is committed like mesh-index.js.
  *
  * A payload is keyed to the exact geometry it was derived from: model version,
  * GLB content hash, mesh name, vertex and index counts, a hash of the LOCAL
@@ -23,7 +24,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadGlbMeshes } from './glb-mesh.mjs';
 import { LAYERS, OUTPUTS } from './lib/mesh-names.mjs';
-import { PATH_ATTRIBUTES, derivePathRoute, geodesicFrom, weldedGraph } from '../outputs/physiology-path.js';
+import { PATH_ATTRIBUTES, PROGRESS_ATTRIBUTES, derivePathRoute, deriveProgressRoute, geodesicFrom, weldedGraph } from '../outputs/physiology-path.js';
 
 const here = (name) => fileURLToPath(new URL(name, import.meta.url));
 const sha = (data) => createHash('sha256').update(data).digest('hex');
@@ -33,6 +34,8 @@ const MODEL_VERSION = readFileSync(join(OUTPUTS, 'sw.js'), 'utf8').match(/const 
 const GENERATOR = short(readFileSync(here('./build-physiology-paths.mjs')));
 const KERNEL = short(readFileSync(join(OUTPUTS, 'physiology-path.js')));
 const DEFINITIONS = short(readFileSync(here('./physiology-routes.json')));
+/* Decoder world units. This model stands 1.698 tall, so this is a centimetre. */
+const ANCHOR_GAP = 0.01;
 
 /*
  * The runtime's vertex shader works in the mesh's OWN local frame; the decoder
@@ -128,13 +131,27 @@ export function buildLayer(layer, file, definitions) {
 
     /* Resolve both ends. 'far' is the topologically opposite end of the same
        mesh, for a neighbour this atlas layer does not contain at all. */
-    let proximal, distal, anchors = {};
+    let proximal, distal, anchors = {}, tooFar = null;
+    /*
+     * An anchor is only an anchor if the atlas puts the two surfaces together.
+     * Naming a plausible neighbour that this model does not actually place next
+     * to the mesh reads as a justified ordering and is a guess: the
+     * musculocutaneous nerve anchored at the roots of the brachial plexus
+     * measured 0.172 away — a tenth of the body's height — and the route
+     * derived from it was accepted, because the seed still landed SOMEWHERE.
+     * ANCHOR_GAP is in the decoder's world units, in which this model stands
+     * 1.698 tall, so it is about a centimetre.
+     */
+    const adjacent = (name, hit) => {
+      anchors[name] = hit.distance;
+      if (hit.distance > ANCHOR_GAP) tooFar = { anchor: name, distance: hit.distance };
+      return hit;
+    };
     if (definition.to === 'far' || definition.from === 'far') {
       const named = definition.to === 'far' ? definition.from : definition.to;
       const other = meshes.get(named);
       if (!other) { rejected.push({ ...definition, reason: 'anchor-mesh-not-found', anchor: named }); continue; }
-      const hit = nearestTo(mesh, other);
-      anchors[named] = hit.distance;
+      const hit = adjacent(named, nearestTo(mesh, other));
       const far = farthestFrom(mesh, hit.index);
       if (definition.to === 'far') { proximal = hit.index; distal = far; }
       else { proximal = far; distal = hit.index; }
@@ -144,12 +161,23 @@ export function buildLayer(layer, file, definitions) {
         rejected.push({ ...definition, reason: 'anchor-mesh-not-found', anchor: fromMesh ? definition.to : definition.from });
         continue;
       }
-      const a = nearestTo(mesh, fromMesh), b = nearestTo(mesh, toMesh);
-      anchors[definition.from] = a.distance; anchors[definition.to] = b.distance;
+      const a = adjacent(definition.from, nearestTo(mesh, fromMesh));
+      const b = adjacent(definition.to, nearestTo(mesh, toMesh));
       proximal = a.index; distal = b.index;
     }
+    if (tooFar) { rejected.push({ ...definition, reason: 'anchor-not-adjacent', ...tooFar, anchors }); continue; }
 
-    const route = derivePathRoute({ positions: mesh.positions, indices: mesh.indices, proximal, distal });
+    /*
+     * Two kinds, two gates. A tube route earns a local frame and a Jacobian
+     * because something is going to MOVE along it; a glow route earns an
+     * ordering and nothing else, because nothing moves. The weaker gate is
+     * deliberate, and outputs/physiology-path.js records exactly which four
+     * refusals it drops and why.
+     */
+    const glow = definition.kind === 'glow';
+    const route = glow
+      ? deriveProgressRoute({ positions: mesh.positions, indices: mesh.indices, proximal, distal })
+      : derivePathRoute({ positions: mesh.positions, indices: mesh.indices, proximal, distal });
     if (!route.accepted) { rejected.push({ ...definition, ...route, accepted: undefined, anchors }); continue; }
 
     const count = mesh.positions.length / 3;
@@ -158,20 +186,32 @@ export function buildLayer(layer, file, definitions) {
       const p = similarity.point([mesh.positions[i * 3], mesh.positions[i * 3 + 1], mesh.positions[i * 3 + 2]]);
       local.set(p, i * 3);
     }
-    const centre = new Float32Array(count * 3), tangent = new Float32Array(count * 3), bend = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      centre.set(similarity.point([route.centre[i * 3], route.centre[i * 3 + 1], route.centre[i * 3 + 2]]), i * 3);
-      tangent.set(similarity.direction([route.tangent[i * 3], route.tangent[i * 3 + 1], route.tangent[i * 3 + 2]]), i * 3);
-      bend.set(similarity.direction([route.bend[i * 3], route.bend[i * 3 + 1], route.bend[i * 3 + 2]]).map((v) => v / similarity.scale), i * 3);
+    const encode = (array) => Buffer.from(array.buffer, array.byteOffset, array.byteLength).toString('base64');
+    let data;
+    if (glow) {
+      /* One number per vertex. There is nothing to push back through the node
+         transform: progress along the route is a scalar, and a similarity does
+         not change it. The transform is still resolved above, because a
+         non-similarity node would mean the runtime's local frame is not the
+         frame this was derived in, and that is worth refusing either way. */
+      data = { aPathProgress: encode(route.param) };
+    } else {
+      const centre = new Float32Array(count * 3), tangent = new Float32Array(count * 3), bend = new Float32Array(count * 3);
+      for (let i = 0; i < count; i++) {
+        centre.set(similarity.point([route.centre[i * 3], route.centre[i * 3 + 1], route.centre[i * 3 + 2]]), i * 3);
+        tangent.set(similarity.direction([route.tangent[i * 3], route.tangent[i * 3 + 1], route.tangent[i * 3 + 2]]), i * 3);
+        bend.set(similarity.direction([route.bend[i * 3], route.bend[i * 3 + 1], route.bend[i * 3 + 2]]).map((v) => v / similarity.scale), i * 3);
+      }
+      data = {
+        aPathParam: encode(route.param),
+        aPathCentre: encode(centre),
+        aPathTangent: encode(tangent),
+        aPathBend: encode(bend),
+      };
     }
-    const data = {
-      aPathParam: Buffer.from(route.param.buffer, route.param.byteOffset, route.param.byteLength).toString('base64'),
-      aPathCentre: Buffer.from(centre.buffer).toString('base64'),
-      aPathTangent: Buffer.from(tangent.buffer).toString('base64'),
-      aPathBend: Buffer.from(bend.buffer).toString('base64'),
-    };
     accepted.push({
-      id: definition.id, mesh: definition.mesh,
+      id: definition.id, mesh: definition.mesh, kind: glow ? 'glow' : 'tube',
+      circuit: definition.circuit || null, after: definition.after || null,
       /*
        * The glTF NODE index, not just the name. three.js renames a duplicate to
        * `Stomach_1`, and this layer really does contain such pairs, so a lookup
@@ -182,7 +222,8 @@ export function buildLayer(layer, file, definitions) {
       digest: sha(Object.values(data).join('')).slice(0, 16),
       vertices: count, indexCount: mesh.indices.length,
       layout: layoutHash(mesh.indices), bounds: localBounds(local),
-      length: route.length / similarity.scale, radius: route.radius / similarity.scale,
+      length: route.length / similarity.scale,
+      radius: glow ? null : route.radius / similarity.scale,
       worldLength: route.length, stations: route.stations,
       crowding: +route.crowding.toFixed(2), worstSpread: +route.worstSpread.toFixed(2), worstStep: +route.worstStep.toFixed(2),
       anchors,
@@ -193,7 +234,54 @@ export function buildLayer(layer, file, definitions) {
       data,
     });
   }
-  return { layer, file, glbHash, accepted, rejected };
+  return { layer, file, glbHash, accepted, rejected, circuits: circuitsOf(accepted, rejected) };
+}
+
+/*
+ * Where each route starts along its circuit, and how long the circuit is.
+ *
+ * A crest has to cross the ascending aorta, the arch, the thoracic aorta and
+ * the abdominal aorta as ONE wave. Four independent routes each running 0 to 1
+ * would put four crests on the aorta at once, all moving together, which is a
+ * picture of nothing. So each route names the route it comes after, the offset
+ * is the sum of the measured world lengths before it, and the runtime lights
+ * (offset + s * length) / circuitLength instead of s.
+ *
+ * A circuit is a tree, not a list: both pulmonary arteries come after the
+ * trunk and therefore start at the same offset, which is what the anatomy says.
+ * A route whose predecessor was REFUSED starts a new run at offset 0 rather
+ * than guessing the missing length, and says so.
+ */
+export function circuitsOf(accepted, rejected) {
+  const byId = new Map(accepted.map((route) => [route.id, route]));
+  const refused = new Set(rejected.map((route) => route.id));
+  const offsetOf = (route, seen = new Set()) => {
+    if (!route.after) return { offset: 0, broken: null };
+    if (seen.has(route.id)) return { offset: 0, broken: route.id };      /* a cycle in the curated order */
+    const previous = byId.get(route.after);
+    if (!previous) return { offset: 0, broken: route.after };
+    seen.add(route.id);
+    const back = offsetOf(previous, seen);
+    return { offset: back.offset + previous.worldLength, broken: back.broken };
+  };
+  const circuits = {};
+  for (const route of accepted) {
+    if (!route.circuit) continue;
+    const { offset, broken } = offsetOf(route);
+    route.offset = offset;
+    if (broken) route.chainBrokenAt = broken;
+    const circuit = circuits[route.circuit] || (circuits[route.circuit] = { id: route.circuit, worldLength: 0, routes: [], broken: [] });
+    circuit.routes.push(route.id);
+    circuit.worldLength = Math.max(circuit.worldLength, offset + route.worldLength);
+    if (broken) circuit.broken.push({ route: route.id, after: broken, refused: refused.has(broken) });
+  }
+  for (const route of accepted) {
+    if (!route.circuit) continue;
+    const total = circuits[route.circuit].worldLength || 1;
+    route.uStart = +(route.offset / total).toFixed(6);
+    route.uSpan = +(route.worldLength / total).toFixed(6);
+  }
+  return circuits;
 }
 
 /* Farthest vertex over the SURFACE, not through the air: the far end of a bent
@@ -210,6 +298,10 @@ function farthestFrom(mesh, index) {
   return at;
 }
 
+/* The cache key, as a function so a checker can recompute it. A committed
+   manifest whose stamp is not this one was built from different inputs. */
+export function stampOf() { return short(GENERATOR + KERNEL + DEFINITIONS + MODEL_VERSION); }
+
 /* Importing this file gives a checker buildLayer and the hashes; only running
    it directly does the work and writes anything. */
 if (process.argv[1]?.endsWith('build-physiology-paths.mjs')) {
@@ -220,17 +312,24 @@ if (process.argv[1]?.endsWith('build-physiology-paths.mjs')) {
     layers.push(buildLayer(layer, file, definitions));
   }
 
-  const stamp = short(GENERATOR + KERNEL + DEFINITIONS + MODEL_VERSION);
+  const stamp = stampOf();
   let total = 0;
   for (const built of layers) {
     console.log(`\n${built.layer}  (${built.file}, glb ${built.glbHash})`);
     for (const route of built.accepted) {
       const bytes = Object.values(route.data).reduce((s, b) => s + b.length, 0);
       total += bytes;
-      console.log(`  ok    ${route.id.padEnd(18)} ${String(route.vertices).padStart(5)} verts  length ${route.worldLength.toFixed(3)}  stations ${String(route.stations).padStart(3)}  crowd ${route.crowding}  spread ${route.worstSpread}  ${(bytes / 1024).toFixed(0)} KiB`);
+      const place = route.circuit ? `  ${route.circuit} ${route.uStart.toFixed(2)}\u2013${(route.uStart + route.uSpan).toFixed(2)}` : '';
+      console.log(`  ok ${route.kind === 'glow' ? 'glow' : 'tube'} ${route.id.padEnd(30)} ${String(route.vertices).padStart(5)} verts  length ${route.worldLength.toFixed(3)}  stations ${String(route.stations).padStart(3)}  crowd ${route.crowding}  ${(bytes / 1024).toFixed(0)} KiB${place}`);
     }
     for (const route of built.rejected) {
-      console.log(`  SKIP  ${route.id.padEnd(18)} ${route.reason}${route.crowding ? ` (crowding ${route.crowding.toFixed(1)}, split ${route.split}, wide ${route.wide})` : ''}${route.reach ? ` (reach ${route.reach.toFixed(2)})` : ''}`);
+      const why = ['components', 'reach', 'decile', 'crowding', 'split', 'wide', 'worstStep', 'bulge', 'clearance', 'calibres', 'distance']
+        .filter((key) => route[key] !== undefined)
+        .map((key) => `${key} ${typeof route[key] === 'number' ? +route[key].toFixed(3) : route[key]}`);
+      console.log(`  SKIP      ${route.id.padEnd(30)} ${route.reason}${why.length ? ` (${why.join(', ')})` : ''}`);
+    }
+    for (const circuit of Object.values(built.circuits)) {
+      console.log(`  circuit   ${circuit.id.padEnd(30)} ${circuit.routes.length} routes over ${circuit.worldLength.toFixed(3)}${circuit.broken.length ? `  BROKEN AFTER ${circuit.broken.map((b) => b.after).join(', ')}` : ''}`);
     }
   }
   console.log(`\ntotal encoded payload ${(total / 1024).toFixed(0)} KiB, stamp ${stamp}`);
@@ -240,11 +339,12 @@ if (process.argv[1]?.endsWith('build-physiology-paths.mjs')) {
     const manifest = [];
     for (const built of layers) {
       const payload = {
-        schemaVersion: 1, layer: built.layer, modelVersion: MODEL_VERSION,
+        schemaVersion: 2, layer: built.layer, modelVersion: MODEL_VERSION,
         glbHash: built.glbHash, generator: GENERATOR, kernel: KERNEL, definitions: DEFINITIONS,
-        attributes: PATH_ATTRIBUTES,
+        attributes: { tube: PATH_ATTRIBUTES, glow: PROGRESS_ATTRIBUTES },
+        circuits: built.circuits,
         routes: built.accepted.map(({ derived, ...route }) => route),
-        rejected: built.rejected.map((r) => ({ id: r.id, mesh: r.mesh, reason: r.reason })),
+        rejected: built.rejected.map((r) => ({ id: r.id, mesh: r.mesh, kind: r.kind || 'tube', circuit: r.circuit || null, reason: r.reason })),
       };
       const name = `${built.layer}-paths.json`;
       const text = JSON.stringify(payload);
@@ -253,7 +353,10 @@ if (process.argv[1]?.endsWith('build-physiology-paths.mjs')) {
     }
     const lines = [
       '/*',
-      ' * Where the curated tube-route payloads live, and what they were derived from.',
+      ' * Where the curated route payloads live, and what they were derived from.',
+      ' *',
+      ' * One file per layer, fetched with the layer it belongs to: tube routes for the',
+      ' * travelling constriction, glow routes for the travelling light.',
       ' *',
       ' * GENERATED by work/build-physiology-paths.mjs — do not hand-edit. The `?g=`',
       ' * stamp is the cache key: it changes whenever the generator, the path kernel,',
