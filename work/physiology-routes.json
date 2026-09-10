@@ -1,0 +1,99 @@
+{
+  "note": "Curated tube routes for the peristalsis profile. Each route names the anatomical structures at its two ends INSTEAD of coordinates, so the ordering is justified by the atlas's own neighbouring meshes and the taught sequence rather than by a hand-typed point. 'far' means the topologically opposite end of the same mesh, used where the neighbouring structure is not in the model at all. sourceRefs carry the direction-and-mechanism claim; wave rate, width and depth are display parameters and are NOT claimed from any source.",
+  "layers": {
+    "organs": [
+      {
+        "id": "oesophagus",
+        "mesh": "Oesophagus",
+        "from": "Laryngopharynx",
+        "to": "Stomach",
+        "claim": "A peristaltic wave carries a swallowed bolus down the oesophagus from the pharynx to the stomach.",
+        "sourceRefs": [
+          {"ref": "phys.4", "page": 20, "quote": "The Esophagus A hollow muscular tube Conveys solid food and liquids to the stomach"},
+          {"ref": "hss.3.1", "page": 9, "quote": "Transition from voluntary to involuntary stages of swallowing as food passes downwards"}
+        ]
+      },
+      {
+        "id": "duodenum",
+        "mesh": "Duodenum",
+        "from": "Stomach",
+        "to": "Jejunum",
+        "claim": "Peristalsis moves the contents of the digestive tract onward, mouth to anus; the duodenum receives from the stomach and passes to the jejunum.",
+        "sourceRefs": [
+          {"ref": "phys.4", "page": 13, "quote": "From mouth To anus Contraction of circular muscles behind bolus"},
+          {"ref": "phys.4", "page": 12, "quote": "Peristalsis Consists of waves of muscular contractions Moves a bolus along the length of the digestive tract"}
+        ]
+      },
+      {
+        "id": "colon-ascending",
+        "mesh": "Ascending_colon",
+        "from": "far",
+        "to": "Transverse_colon",
+        "claim": "Peristalsis moves the contents of the digestive tract onward; the ascending colon passes to the transverse colon. The caecal end is the topologically far end because the caecum is not a separate mesh in this atlas layer.",
+        "sourceRefs": [
+          {"ref": "phys.4", "page": 13, "quote": "From mouth To anus Contraction of circular muscles behind bolus"}
+        ]
+      },
+      {
+        "id": "colon-transverse",
+        "mesh": "Transverse_colon",
+        "from": "Ascending_colon",
+        "to": "Descending_colon",
+        "claim": "Peristalsis moves the contents of the digestive tract onward; the transverse colon passes to the descending colon.",
+        "sourceRefs": [
+          {"ref": "phys.4", "page": 13, "quote": "From mouth To anus Contraction of circular muscles behind bolus"}
+        ]
+      },
+      {
+        "id": "colon-descending",
+        "mesh": "Descending_colon",
+        "from": "Transverse_colon",
+        "to": "Sigmoid_colon",
+        "claim": "Peristalsis moves the contents of the digestive tract onward; the descending colon passes to the sigmoid colon.",
+        "sourceRefs": [
+          {"ref": "phys.4", "page": 13, "quote": "From mouth To anus Contraction of circular muscles behind bolus"}
+        ]
+      },
+      {
+        "id": "colon-sigmoid",
+        "mesh": "Sigmoid_colon",
+        "from": "Descending_colon",
+        "to": "far",
+        "claim": "Peristalsis moves the contents of the digestive tract onward; the sigmoid colon passes to the rectum, which is not a separate mesh in this atlas layer, so the rectal end is the topologically far end.",
+        "sourceRefs": [
+          {"ref": "phys.4", "page": 13, "quote": "From mouth To anus Contraction of circular muscles behind bolus"}
+        ]
+      },
+      {
+        "id": "jejunum",
+        "mesh": "Jejunum",
+        "from": "Duodenum",
+        "to": "far",
+        "claim": "Candidate only. The small-bowel mesh is a coil whose loops touch, so this route exists to be MEASURED, not to be assumed: if the gate refuses it the jejunum keeps its existing illustrative animation.",
+        "sourceRefs": [
+          {"ref": "phys.4", "page": 12, "quote": "Peristalsis Consists of waves of muscular contractions Moves a bolus along the length of the digestive tract"}
+        ]
+      },
+      {
+        "id": "ureter-left",
+        "mesh": "Ureterl",
+        "from": "Kidneyl",
+        "to": "Urinary_bladder",
+        "claim": "Urine travels from the kidney down the ureter to the bladder. The travelling constriction is this app's illustration of a muscular tube; the cited pages give the DIRECTION, not a peristaltic mechanism for the ureter.",
+        "sourceRefs": [
+          {"ref": "phys.5", "page": 3, "quote": "Urine flows from kidneys into ureters which empty into bladder"}
+        ]
+      },
+      {
+        "id": "ureter-right",
+        "mesh": "Ureterr",
+        "from": "Kidneyr",
+        "to": "Urinary_bladder",
+        "claim": "Urine travels from the kidney down the ureter to the bladder. The travelling constriction is this app's illustration of a muscular tube; the cited pages give the DIRECTION, not a peristaltic mechanism for the ureter.",
+        "sourceRefs": [
+          {"ref": "phys.5", "page": 3, "quote": "Urine flows from kidneys into ureters which empty into bladder"}
+        ]
+      }
+    ]
+  }
+}

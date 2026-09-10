@@ -94,8 +94,27 @@ extraction preserves the existing bbox-based motion and injected GLSL. Run
 `node work/physiology-shape-check.mjs` for real-model parameter parity. The
 `physiology-shape-browser-check.js` function captures/compares actual shader
 positions and normals through WebGL2 transform feedback on the same browser.
-Path cost evidence and the future offline-payload contract are in
+Path cost evidence and the offline-payload contract are in
 `docs/superpowers/notes/2026-09-09-physiology-path-contract.md`.
+
+Peristalsis follows the tube, not a bounding-box axis. `physiology-path.js` is
+the pure geometry — welded graph, a distance field balanced between the two ends
+of the tube, a centreline fitted from it, the gate that accepts or REFUSES a
+route by name, and the travelling constriction with its Jacobian. Routes are
+derived offline by `work/build-physiology-paths.mjs` from the curated
+`work/physiology-routes.json`, whose two ends are named neighbouring STRUCTURES
+rather than coordinates, and committed to `outputs/assets/physiology/`. Six are
+accepted: oesophagus, duodenum, transverse and descending colon, both ureters.
+Three are refused and keep the existing illustrative animation — the jejunum
+because its coils lie within a calibre of each other, the ascending colon
+because a blind pocket at the caecal end breaks the surface ordering, the
+sigmoid because the descending colon overlaps it. The direction and mechanism
+are cited (`phys.4` p12–13, p20; `hss.3.1` p9); for the ureters only the
+DIRECTION is cited (`phys.5` p3) and the ripple is labelled as this app's
+illustration. Rate, wavelength, taper and depth are display parameters, named as
+such in `physiology.js`. Run `node work/physiology-path-check.mjs`,
+`physiology-path-deform-check.mjs` and `physiology-path-model-check.mjs`;
+measurements are in `docs/superpowers/notes/2026-09-09-physiology-tube-evidence.md`.
 
 ### Viewer workspace and projection (September 2026)
 

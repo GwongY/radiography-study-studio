@@ -49,6 +49,21 @@ export const FLOW_ANCHORS = { heart: 0.755, venousAngle: 0.824, cord: 0.70 };
  * rule.beat   'cardiac' gates the wave to the heartbeat, 'spike' to a nerve
  *             volley, 'contract' to the muscle contraction envelope, null runs
  *             steady
+ *
+ * For the two peristalsis classes there are three more, used only where a
+ * curated tube ROUTE exists for the mesh (see outputs/physiology-paths.js):
+ *
+ * rule.pathSpeed       how fast the ring of constriction travels, in world
+ *                      units per second along the tube's own centreline
+ * rule.pathWavelength  world units between one ring and the next
+ * rule.pathTaper       the fraction of the route at each end over which the
+ *                      constriction fades in, so a segment does not shear
+ *                      against the segment it runs into
+ *
+ * All three are DISPLAY parameters written by this app. The sources cited for
+ * these routes give the direction and, for the gut, the mechanism — a ring of
+ * circular-muscle contraction passing along the tube. None of them says how
+ * fast, how deep, or how far apart to draw it.
  */
 export const FLOW_CLASSES = {
   arterial: {
@@ -179,14 +194,14 @@ export const FLOW_CLASSES = {
   gut: {
     label: 'Digestive organ', short: 'Gut',
     color: 0xc08a56, flow: 0xffd2a1,
-    says: 'A ring of contraction travels down the tube, squeezing its contents onward — peristalsis, shown as the constriction you can watch move.',
-    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.45, freq: 1.2, sharp: 4, gain: 0, beat: null, mode: 'peristalsis', deform: 'steady', pinch: 0.18, match: /stomach|intestine|colon|caec|cecum|duoden|jejun|ile|rect|oesophag|esophag|appendix/i },
+    says: 'A ring of contraction travels down the tube, squeezing its contents onward — peristalsis, shown as the constriction you can watch move. On the oesophagus, duodenum and transverse and descending colon the ring follows the measured centreline of the tube itself, so it stays a ring around the lumen through every bend.',
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.45, freq: 1.2, sharp: 4, gain: 0, beat: null, mode: 'peristalsis', deform: 'steady', pinch: 0.18, pathSpeed: 0.085, pathWavelength: 0.10, pathTaper: 0.14, match: /stomach|intestine|colon|caec|cecum|duoden|jejun|ile|rect|oesophag|esophag|appendix/i },
   },
   urinary: {
     label: 'Urinary organ', short: 'Urinary',
     color: 0xa07bb8, flow: 0xe4c8f5,
-    says: 'The ureters squeeze urine onward in slow ripples. The kidneys filter steadily — no rhythm to show, so they sit still.',
-    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.3, freq: 2.0, sharp: 3, gain: 0, beat: null, mode: 'peristalsis', deform: 'steady', pinch: 0.15, match: /ureter/i },
+    says: 'The ureters squeeze urine onward in slow ripples, along the measured centreline of each ureter from renal pelvis to bladder. The direction is from the source; the ripple itself is an illustration written by this app. The kidneys filter steadily — no rhythm to show, so they sit still.',
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.3, freq: 2.0, sharp: 3, gain: 0, beat: null, mode: 'peristalsis', deform: 'steady', pinch: 0.15, pathSpeed: 0.05, pathWavelength: 0.07, pathTaper: 0.16, match: /ureter/i },
   },
   gland: { label: 'Gland', short: 'Gland', color: 0xcf9a4e, flow: 0xffe0a8, rule: null },
   organ: { label: 'Organ', short: 'Organ', color: 0xb08268, flow: 0xffd8bd, rule: null },

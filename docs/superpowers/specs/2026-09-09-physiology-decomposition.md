@@ -13,7 +13,7 @@ motion, and decompose the work before implementation.
 | 1 | [Muscles](2026-09-09-physiology-1-muscles.md) | 0 | Geometry-derived axis, tethered belly deformation and matching normals |
 | 2 | [Breathing and coupling](2026-09-09-physiology-2-breathing.md) | 0 | Lung/diaphragm shape and normals, source-supported respiratory coupling |
 | 3 | [Heart boundaries](2026-09-09-physiology-3-heart.md) | 0 | Regional cardiac deformation with measured boundary behaviour |
-| 4 | [Tubes on paths](2026-09-09-physiology-4-tubes.md) | 0 | Curved tube coordinates, radial constriction, topology-aware fallback |
+| 4 | [Tubes on paths](2026-09-09-physiology-4-tubes.md) — **done** | 0 | Curved tube coordinates, radial constriction, topology-aware fallback. Six routes accepted, three refused by name; [evidence](../notes/2026-09-09-physiology-tube-evidence.md) |
 | 5 | [Vessel and nerve paths](2026-09-09-physiology-5-transmission.md) | 0, 4 | Curved activity fields on a curated, defensible route set |
 
 Recommended implementation order: 0A (characterisation), 0B (accessibility), 1,
