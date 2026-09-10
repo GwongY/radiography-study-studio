@@ -221,7 +221,8 @@ function structureItem(set) {
         + `Work through the labelled view first, then the guided view with only ${set.anchors.length} anchor${set.anchors.length === 1 ? '' : 's'} left in, then the blank view where nothing is named.`
         + (set.paired ? ' These are paired structures, so the side is always part of the answer.' : '')
         + (set.orientation ? ` ${set.orientation}` : ''),
-      keyFacts: listing,
+      /* factsHTML() renders keyFactsGroups INSTEAD of the flat list, so a flat
+         keyFacts here would be invisible duplication of the grouped form. */
       keyFactsGroups,
       hook: hooks.hook || null,
       examples: [],
