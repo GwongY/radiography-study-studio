@@ -27,7 +27,6 @@ export const HSS_SPECIAL_SENSES = [
         'Motor rule LR6(SO4)3: lateral rectus = CN VI (abducens); superior oblique = CN IV (trochlear); all others = CN III (oculomotor).',
         'Sensory: CN II = sight; 1st portion of CN V serves conjunctiva (lacrimal branch), forehead/eyelid (frontal), orbit and nasal cavities (nasociliary).',
       ],
-      prerequisites: [],
       examples: ['Blocked at any step of the drainage chain, tears have nowhere to go but over the lid — the watery eye of a blocked nasolacrimal duct is the chain read backwards.'],
     },
     memory: {
@@ -106,7 +105,6 @@ export const HSS_SPECIAL_SENSES = [
         'Retinal landmarks: ora serrata; optic disc = blind spot (no receptor cells, optic nerve originates); macula lutea; fovea centralis = most finely detailed image (high cone density, no rods).',
         'Light path: cornea → aqueous humor → lens → vitreous body → retina.',
       ],
-      prerequisites: [],
       examples: ['Shine a torch at the eye and the pupil narrows: the photopupillary reflex, the constrictor winning its tug-of-war with the dilator.'],
     },
     memory: {
@@ -193,7 +191,6 @@ export const HSS_SPECIAL_SENSES = [
         'Midbrain nuclei control visual reflexes: extrinsic eye muscles, pupillary reflexes, accommodation of the lens.',
         'A blow to the back of the head can destroy vision by damaging the occipital lobe — eyes intact.',
       ],
-      prerequisites: ['hss2011-m2-brain-regions'],
       examples: ['Bill takes a blow to the back of the head and goes blind: the eyes are fine, the occipital cortex at the end of the pathway is not.'],
     },
     memory: {
@@ -269,7 +266,6 @@ export const HSS_SPECIAL_SENSES = [
         'Hearing mechanics: distortion of the basilar membrane forces hair cells of the organ of Corti to vibrate against the tectorial membrane.',
         'Auditory pathway: cochlear nerve → spiral ganglion → cochlear branch of CN VIII → superior olivary nucleus (pons) → inferior colliculi (midbrain) → medial geniculate nucleus (thalamus) → auditory cortex (temporal lobe).',
       ],
-      prerequisites: [],
       examples: ['Pop your ears on a plane: the eustachian tube momentarily opens to the nasopharynx and equalises pressure across the tympanic membrane the ossicles are pushing on.'],
     },
     memory: {
@@ -355,7 +351,6 @@ export const HSS_SPECIAL_SENSES = [
         'Signals leave in the vestibular nerve (vestibular branch of CN VIII); vestibular nuclei issue reflex commands via CN III, IV, VI, XI.',
         'Nystagmus — involuntary eye movement when the body is turning or spinning — follows damage to the brainstem or internal ear.',
       ],
-      prerequisites: ['hss2011-m2-ear-hearing'],
       examples: ['Spin in a chair and stop: the cupulae are still deflected by the lagging endolymph, so the world keeps swimming — nystagmus is that reflex laid bare.'],
     },
     memory: {
@@ -441,7 +436,6 @@ export const HSS_SPECIAL_SENSES = [
         'Hypoglossal XII = tongue movements of speech, food manipulation and swallowing — not taste.',
         'Smell is a special sensation; olfactory route: olfactory mucosa → olfactory nerve (CN I) → olfactory bulb → olfactory tract → primary olfactory cortex.',
       ],
-      prerequisites: ['hss2011-neuro-cranial-nerves-distribution'],
       examples: ['Burning the tip of your tongue on coffee silences the sweet-readers there — but the lateral margins still report the salt, because taste occurs over the entire tongue.'],
     },
     memory: {

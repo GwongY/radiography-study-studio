@@ -37,7 +37,6 @@ export const HTI_ITEMS = [
         "Medical physicist: calibrates equipment, verifies beam output, and measures radiation doses of clinical instruments.",
         "Radiology is a \"science of everything\" combining anatomy (where/what to see), physics (protection/formation), physiology, chemistry, and biology."
       ],
-      "prerequisites": [],
       "examples": [
         "Airport security scanners and customs cargo inspection use transmission X-rays to generate diagnostic projection images, whereas industrial food and medical equipment sterilization bombards items with high-dose gamma rays to kill bacteria without producing any photographic image.",
         "In an emergency trauma case, a radiographer executes urgent portable CXR and pelvis radiographs, a medical physicist ensures the mobile unit is properly calibrated, and a radiologist immediately interprets the acquired digital images for hemothorax or pelvic fractures."
@@ -260,9 +259,6 @@ export const HTI_ITEMS = [
         "MRI physical mechanism: uses static magnetic fields (permanent or superconducting) and radiofrequency at 6–340 MHz.",
         "MRI tissue contrast: exploits resonance of water (hydrogen) molecules to yield superior soft-tissue delineation.",
         "Core classification rule: modality safety categorization depends on photon quantum energy, not total equipment electrical wattage."
-      ],
-      "prerequisites": [
-        "hti17103-what-is-radiography"
       ],
       "examples": [
         "A patient undergoing a lumbar spine CT scan receives ionizing radiation (measured in mGy and mSv) requiring ALARA protection, whereas the same patient undergoing a lumbar spine MRI is exposed to non-ionizing radiofrequency pulses (SAR in W/kg) inside a 1.5 T or 3.0 T static magnetic field.",
@@ -493,9 +489,6 @@ export const HTI_ITEMS = [
         "Computed Tomography principle: overcomes 2-view projection limit with 360-degree rotation and multiplanar / 3D reconstruction.",
         "Radiopharmaceutical structure: composed of a radioisotope (\"the siren\") coupled to a specific chemical targeting compound.",
         "SPECT vs PET: SPECT uses gamma emitters (e.g. 99mTc, t1/2 = 6.02 h); PET uses positron emitters (e.g. 18F, t1/2 = 109.75 min) requiring cyclotrons and robotic synthesis."
-      ],
-      "prerequisites": [
-        "hti17103-ionizing-vs-nonionizing"
       ],
       "examples": [
         "A cardiac catheterization laboratory uses dynamic fluoroscopy and intravenous iodinated contrast to guide real-time coronary angioplasty and deploy a vascular stent under continuous visual feedback.",
@@ -917,7 +910,6 @@ export const HTI_ITEMS = [
         'Thermoluminescent dosimeters (TLD) monitor high-risk personnel, with a detection range of 0.05 mSv to 10 Sv.',
         'TLDs are not feasible for accidental exposure because they do not provide real-time instantaneous readout.',
       ],
-      prerequisites: ['hti17103-ionizing-vs-nonionizing'],
       examples: [
         'During interventional fluoroscopy, a radiographer stands 2 metres away behind a mobile lead barrier rather than next to the patient table, reducing scatter exposure to under 1/4 via the inverse square law plus attenuation.',
         'In a nuclear medicine department after a diagnostic technetium-99m scan, radioactive waste is held in shielded storage to allow natural decay over multiple physical half-lives before disposal.',
@@ -1064,7 +1056,6 @@ export const HTI_ITEMS = [
         'Planning Step 4 (Radiotherapy treatment): delivered on a specified linac, typically daily 5 days/week for 3–6 weeks, by 2–3 stationed radiation therapists.',
         'RT treatment record: logs each beam delivered daily, patient condition, lab results, cumulative dose, and therapist signatures.',
       ],
-      prerequisites: ['hti17103-what-is-radiography'],
       examples: [
         'A patient with nasopharyngeal carcinoma (NPC) undergoes thermoplastic head-and-neck immobilization, followed by simulation CT, OAR contouring of the brainstem and parotid glands, and 33 daily fractions over 6.5 weeks.',
       ],
@@ -1217,9 +1208,6 @@ export const HTI_ITEMS = [
         "Clinical information example: \"Cough x 2/12. SOB\" = cough lasting 2 months with shortness of breath; diagnosis = \"Chest infection\".",
         "LMP verification is mandatory for females of childbearing potential to protect against fetal radiation exposure.",
         "Transport categories determine patient handling needs: walking (ambulant), wheelchair, or stretcher."
-      ],
-      "prerequisites": [
-        "hti17103-what-is-radiography"
       ],
       "examples": [
         "A patient arrives from A&E on a stretcher with an urgent request form stating \"RTA (road traffic accident), severe dyspnea, suspected pneumothorax; CXR (PA)\". The panel radiographer prepares a mobile digital plate while the patient-handling radiographer carefully verifies identity and immobilizes the patient.",
@@ -1450,7 +1438,6 @@ export const HTI_ITEMS = [
         'Radiographers have five core clinical contributions: patient comfort/communication, positioning/parameters, dose/safety safeguarding, procedural caution, and diagnostic image quality.',
         'A modality choice is tailored to the patient and clinical question, rather than choosing the most expensive machine.',
       ],
-      prerequisites: ['hti17103-what-is-radiography'],
       examples: [
         'A suspected scaphoid or radial head fracture with joint effusion exhibits an elevated fat pad sign on plain radiography, prompting targeted immobilization or CT.',
         'An erect abdominal radiograph or CT demonstrates horizontal air/fluid levels in dilated bowel loops, diagnosing mechanical intestinal obstruction.',
@@ -1623,7 +1610,6 @@ export const HTI_ITEMS = [
         '90° bending magnets produce a smaller head and lower isocentre; 270° bending magnets provide stable energy output and beam uniformity.',
         'The primary collimator limits the field to 50 cm diameter; the low-Z flattening filter creates a uniform beam across 80% of FWHM, with "horns" appearing at Dmax.',
       ],
-      prerequisites: ['hti17103-what-is-radiography', 'hti17103-ionizing-vs-nonionizing'],
       examples: ['The Prince of Wales Hospital radiotherapy department operates multi-modality Varian and Elekta linacs spanning 6 MV to high-energy dual-photon beams.'],
     },
     memory: {
@@ -1703,7 +1689,6 @@ export const HTI_ITEMS = [
         'At beam energies above 10 MV, photonuclear reactions produce photoneutrons.',
         'A 5 m long bunker maze reduces scatter and secondary radiation entering the door to one-tenth.',
       ],
-      prerequisites: ['hti17103-linac-physics-components'],
       examples: ['At Prince of Wales Hospital, dynamic MLC delivery and volumetric arc therapy (RapidArc) replaced Cerrobend block casting for head and neck (NPC) treatments.'],
     },
     memory: {
@@ -1777,7 +1762,6 @@ export const HTI_ITEMS = [
         'RapidArc Progressive Resolution Optimization refines delivery from Level 1 (10 control points) to Level 5 (177 control points), using an X-jaw < 17 cm.',
         'For nasopharyngeal carcinoma (NPC), RapidArc cuts monitor units from >2000 MU (IMRT) to <700 MU, and treatment time from 12–20 minutes to ~3 minutes.',
       ],
-      prerequisites: ['hti17103-linac-physics-components', 'hti17103-linac-accessories-protection'],
       examples: ['Prince of Wales Hospital treats NPC patients with dual RapidArc coplanar arcs in approximately 3 minutes couch time.'],
     },
     memory: {
@@ -1861,7 +1845,6 @@ export const HTI_ITEMS = [
         'Rotational arc therapy (Tomotherapy and VMAT) delivers radiation continuously as the gantry rotates relative to the patient.',
         'Arc therapy compresses delivery times (avoiding lengthy 45-minute couch times) and decreases monitor units, reducing intrafraction patient motion.',
       ],
-      prerequisites: ['hti17103-linac-physics-components', 'hti17103-linac-electrons-rapidarc'],
       examples: ['Stereotactic body radiotherapy (SBRT) for early lung cancer delivers high hypofractionated doses (e.g. 3 fractions of 20 Gy) using rotational arc therapy in minutes instead of up to 45 minutes.'],
     },
     memory: {
@@ -1943,7 +1926,6 @@ export const HTI_ITEMS = [
         'Yttrium-90 (90Y) has a physical half-life of 2.7 days and average tissue penetration of 3 mm, delivering 100–150 Gy without prolonged isolation.',
         'SIRT is the only therapy delivering high radiation doses to diffuse small HCC, but whole-liver SIRT should be avoided in Child-Pugh B patients.',
       ],
-      prerequisites: ['hti17103-arc-radiation-therapy-vmat-tomo', 'hti17103-radiation-therapy'],
       examples: ['A patient with an unresectable 5.6 cm segment 7 HCC receives 39 Gy in six fractions of SBRT with 4D motion control, demonstrating 25% tumor reduction at 3 months.'],
     },
     memory: {
@@ -2022,7 +2004,6 @@ export const HTI_COURSE_LOGISTICS = [
         'Observation Day is at Hospital Authority hospitals, run by clinical educators, on 5–6 October.',
         'Lecturers: Liang-Ting Lin for most of the set, Vincent Leung for the radiotherapist introduction.',
       ],
-      prerequisites: [],
       examples: [],
     },
     memory: {
@@ -2095,7 +2076,7 @@ export const HTI_COURSE_LOGISTICS = [
  *   id: 'hti17103-cxr-pa-example',
  *   subject: 'HTI17103', unit: 'hti.modalities', type: 'mcq',
  *   title: 'Reading a CXR PA radiograph',
- *   lesson: { explanation: '...', keyFacts: ['...'], prerequisites: [], examples: [] },
+ *   lesson: { explanation: '...', keyFacts: ['...'],  examples: [] },
  *   practice: [
  *     { type: 'mcq', image: 'cxr-pa-001.jpg',
  *       prompt: 'Which projection is shown here?',

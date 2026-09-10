@@ -36,9 +36,6 @@ export const EXPANSION_ITEMS = [
         "Surgical suffixes: -tomy (incision/cutting), -stomy (creation of a new opening), -scopy (process of visual examination).",
         "Double meaning alert: hypo- means both below in anatomical position AND deficient in quantity (e.g., hypoglycemia)."
       ],
-      "prerequisites": [
-        "hss2011-terminology-directional-pairs"
-      ],
       "examples": [
         "Costochondritis breaks down into cost/o (rib) + chondr/o (cartilage) + -itis (inflammation) = inflammation of the cartilage linking the ribs to the sternum.",
         "Radiography breaks down into radio- (radiation / rays) + -graphy (process of recording) = the process of capturing internal bodily structures using penetrating radiation.",
@@ -233,10 +230,6 @@ export const EXPANSION_ITEMS = [
         "Saddle example: carpometacarpal joint of the thumb (enables opposition).",
         "Ball-and-socket example: glenohumeral (shoulder) joint and hip joint.",
         "Shoulder vs hip trade-off: shallow glenoid fossa maximizes mobility; deep acetabulum maximizes stability."
-      ],
-      "prerequisites": [
-        "hss2011-joints-classification",
-        "hss2011-joints-synovial-structure"
       ],
       "examples": [
         "At the elbow region, two different synovial joint types sit within a single capsule: the humero-ulnar articulation is a hinge joint, while the adjacent proximal radioulnar articulation is a pivot joint.",
@@ -529,10 +522,6 @@ export const EXPANSION_ITEMS = [
         "Antagonist: muscle whose action opposes that of a prime mover; relaxes as agonist contracts.",
         "Synergist: muscle that assists the prime mover in performing its primary actions and stabilizes intervening joints.",
         "Fixator: muscle that stabilizes the origin of the prime mover so work is focused at the insertion."
-      ],
-      "prerequisites": [
-        "hss2011-joints-classification",
-        "hss2011-joints-synovial-structure"
       ],
       "examples": [
         "In elbow flexion, the biceps brachii and brachialis act as agonists, while the triceps brachii acts as the antagonist that must relax; rotator cuff muscles act as fixators to stabilize the shoulder origin.",
@@ -846,7 +835,6 @@ export const EXPANSION_ITEMS = [
         "Purkinje fibers conduct impulses rapidly (~4 m/s) from the cardiac apex upward through the ventricular walls.",
         "Ventricular contractile cells rest at -90 mV and feature a 200–300 ms plateau (sustained by balanced Ca2+ influx and K+ efflux); tracings showing a plateau reflect contractile cells, not pacemaker cells."
       ],
-      "prerequisites": [],
       "examples": [
         "In complete (third-degree) atrioventricular block, pathological damage to the AV node or bundle of His completely severs electrical communication between atria and ventricles; the atria continue beating at the SA rate (~75 bpm) while the ventricles beat at a dangerously slow Purkinje escape rhythm (~30 bpm), resulting in AV dissociation and severe fatigue.",
         "Beta-blockers (such as metoprolol) bind to beta-1 adrenergic receptors on SA nodal cells, decreasing intracellular cAMP, which reduces HCN channel open probability, decreases the slope of the pacemaker prepotential, and slows resting heart rate."
@@ -1122,7 +1110,6 @@ export const EXPANSION_ITEMS = [
         "The Frank-Starling Law states that increasing EDV stretches myocardial walls, increasing contractile force and stroke volume.",
         "Heart sound S1 ('lubb') is caused by AV valve closure; heart sound S2 ('dupp') is caused by semilunar valve closure."
       ],
-      "prerequisites": [],
       "examples": [
         "In first-degree AV block, delayed conduction through an inflamed or fibrotic AV node prolongs the P–R interval beyond the upper normal limit of 200 milliseconds (>0.20 s), but every P wave is still followed by a QRS complex.",
         "During vigorous exercise, increased skeletal muscle pump activity enhances venous return, raising EDV from 130 mL to 160 mL; by the Frank-Starling mechanism, the stretched myocardium contracts more forcefully, raising stroke volume from 75 mL to 110 mL."
@@ -1382,7 +1369,6 @@ export const EXPANSION_ITEMS = [
         "CO2 is transported 70% as bicarbonate (HCO3-), 23% as carbaminohemoglobin, and 7% dissolved in plasma.",
         "Central and peripheral chemoreceptor reflexes continually modulate brainstem respiratory centers to maintain gas homeostasis."
       ],
-      "prerequisites": [],
       "examples": [
         "In vigorously exercising skeletal muscle, local lactic acid accumulation drops tissue pH to 7.2, PCO2 rises to 60 mmHg, and temperature climbs to 39°C. These metabolic changes trigger a profound rightward shift of the oxygen-hemoglobin curve (Bohr effect), increasing oxygen unloading from 25% to over 75% to power working muscle fibers.",
         "At high altitude (such as 3,000 meters above sea level), barometric pressure drops, reducing alveolar PO2 to ~60 mmHg. Because this value still sits on the flat plateau of the sigmoidal oxygen-hemoglobin curve, arterial hemoglobin remains approximately 90% saturated, preventing immediate hypoxemic collapse."
@@ -1569,7 +1555,6 @@ export const EXPANSION_ITEMS = [
         'Active immunity: antibodies develop after exposure. Passive immunity: antibodies transferred from another source.',
         'Cell-mediated immunity involves T cells; antibody-mediated (humoral) immunity involves B cells.',
       ],
-      prerequisites: ['abct2326-innate-adaptive'],
       examples: [],
     },
     memory: {
@@ -1637,9 +1622,6 @@ export const EXPANSION_ITEMS = [
         "Ultrasound primary clinical benefits: non-invasive, non-ionizing radiation (ideal for fetus and genital organs), cheaper, real-time monitoring.",
         "Ultrasound physical limitations: body habitus dependent, operator-dependent, low penetration, poor visualization through gas or bone.",
         "Doppler ultrasound: specialized clinical application measuring dynamic vascular blood flow and velocity."
-      ],
-      "prerequisites": [
-        "hti17103-ionizing-vs-nonionizing"
       ],
       "examples": [
         "An obstetrician uses 2–15 MHz pelvic ultrasonography to safely assess fetal gestational growth and cardiac motion without exposing the developing embryo to ionizing radiation.",

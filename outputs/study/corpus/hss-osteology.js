@@ -43,7 +43,6 @@ export const HSS_OSTEOLOGY = [
         "Sacrum belongs to the axial vertebral column, while the ilium articulating with it is appendicular.",
         "The boundary between divisions crosses directly through the sacroiliac joint."
       ],
-      "prerequisites": [],
       "examples": [
         "During an anatomical survey, a radiographer identifies a fracture of the clavicle. Although the clavicle lies across the superior thoracic wall, it is recorded as an appendicular skeletal injury because the pectoral girdle belongs to the appendicular division."
       ]
@@ -234,9 +233,6 @@ export const HSS_OSTEOLOGY = [
         "Pneumatic bones: cancellous tissue absorbed leaving an air sinus; frontal and sphenoidal sinuses lighten the skull.",
         "Sesamoid bones: nodules developing inside tendons that alter the direction of tendon pull; the patella is the primary example.",
         "A vertebra is irregular, not short: its chunky body and projecting arches/processes form an irregular shape."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-axial-appendicular"
       ],
       "examples": [
         "On an AP knee radiograph, the patella is identified as a sesamoid bone embedded within the quadriceps tendon, where it holds the tendon away from the femur to increase the lever arm of knee extension."
@@ -454,9 +450,6 @@ export const HSS_OSTEOLOGY = [
         "Cancellous (spongy) bone forms the inner core and epiphyses; composed of web-like trabeculae.",
         "Trabeculae align precisely along lines of mechanical stress to provide high strength with minimal weight.",
         "Joint ends of epiphyses are capped by smooth articular cartilage rather than periosteum."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-bone-shapes"
       ],
       "examples": [
         "In pediatric radiography, an injury across the metaphysis and epiphyseal cartilage (Salter-Harris fracture) requires careful evaluation because the cartilaginous growth plate at the metaphysis drives longitudinal limb growth."
@@ -677,9 +670,6 @@ export const HSS_OSTEOLOGY = [
         "Lipid storage: yellow bone marrow in adult medullary cavities stores adipose tissue and mesenchymal stem cells.",
         "Compact bone resists bending and twisting; spongy bone absorbs shock and cuts down skeleton weight for movement."
       ],
-      "prerequisites": [
-        "hss2011-osteo-bone-shapes"
-      ],
       "examples": [
         "In clinical osteomalacia or severe hyperparathyroidism, the body leaches calcium phosphate from the skeletal storehouse to maintain serum calcium, causing the bone levers to soften and deform under normal body weight."
       ]
@@ -863,10 +853,6 @@ export const HSS_OSTEOLOGY = [
         "Mobility vs stability trade-off: shallow glenoid accommodates ~1/3 of humeral head; greatest mobility in the body.",
         "Dynamic stabilizers: rotator cuff muscles (SITS) and glenoid labrum fibrocartilage rim.",
         "Major shoulder girdle muscles: pectoralis major, latissimus dorsi, and deltoid."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-axial-appendicular",
-        "hss2011-joints-classification"
       ],
       "examples": [
         "When falling onto an outstretched hand (FOOSH), compressive mechanical shock is transmitted up the radius, humerus, scapula, and clavicle to the sternum; because the sternoclavicular ligaments are exceptionally strong, fracture occurs at the junction of the middle and lateral thirds of the clavicle rather than joint dislocation.",
@@ -1056,10 +1042,6 @@ export const HSS_OSTEOLOGY = [
         "Carpal Tunnel Syndrome (CTS): compression of the median nerve within the carpal tunnel.",
         "Hand skeleton: 8 carpals, 5 metacarpals (I–V), 14 phalanges (thumb has 2; digits II–V have 3).",
         "Wrist (radiocarpal) joint is a condyloid joint; MCP joints 2–5 are condyloid, while 1st MCP joint (thumb) is a hinge joint; intercarpal joints are gliding joints."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-long-bone-structure",
-        "hss2011-joints-classification"
       ],
       "examples": [
         "A fall onto an extended wrist frequently fractures the scaphoid across its waist; because retrograde arterial blood enters from the distal pole, non-union and avascular necrosis of the proximal scaphoid fragment are serious complications.",
@@ -1314,9 +1296,6 @@ export const HSS_OSTEOLOGY = [
         "Transverse processes: paired lateral projections from pedicle-lamina junctions.",
         "Articular processes: four per vertebra (2 superior, 2 inferior) forming bilateral synovial facet (zygapophysial) joints."
       ],
-      "prerequisites": [
-        "hss2011-osteo-axial-appendicular"
-      ],
       "examples": [
         "Degenerative osteoarthritis of lumbar zygapophysial (facet) joints causes osteophyte (bone spur) formation encroaching on the intervertebral foramen, compressing the exiting L5 spinal nerve root and producing sciatica.",
         "Spondylolysis involves a fatigue stress fracture of the pars interarticularis—the narrow bony neck between the superior and inferior articular processes of lumbar vertebrae, most frequently L5."
@@ -1497,9 +1476,6 @@ export const HSS_OSTEOLOGY = [
         "Primary curvatures: thoracic and pelvic (sacral) curves; concave anteriorly; present from the embryonic stage.",
         "Secondary curvatures: cervical and lumbar curves; concave posteriorly (lordotic); develop postnatally with upright posture.",
         "Cervical curve develops at ~3 months when holding head erect; lumbar curve develops at ~12 months with standing and walking."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-vertebra-parts"
       ],
       "examples": [
         "Osteoporotic wedge compression fractures of mid-thoracic vertebral bodies accentuate the normal thoracic kyphosis, leading to senile hyperkyphosis (\"dowager’s hump\") and compromised respiratory lung volumes.",
@@ -1683,9 +1659,6 @@ export const HSS_OSTEOLOGY = [
         "Transverse ligament of atlas: strong ligament spanning C1 lateral masses that keeps dens seated and protects the cervical spinal cord.",
         "Typical cervical vertebrae (C2–C6) possess bifid spinous processes.",
         "C7 (vertebra prominens) features a long, prominent, non-bifid spinous process that is easily palpable at the base of the neck."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-vertebral-column"
       ],
       "examples": [
         "An open-mouth \"peg\" (odontoid) radiograph is routinely obtained in trauma cases to visualize the dens between the lateral masses of C1, checking for type I, II, or III odontoid peg fractures.",
@@ -1894,9 +1867,6 @@ export const HSS_OSTEOLOGY = [
         "Bregma: intersection of the coronal suture and sagittal suture (site of anterior fontanelle).",
         "Lambda: intersection of the sagittal suture and lambdoid suture (site of posterior fontanelle).",
         "Pterion: H-shaped craniometric junction of frontal, parietal, temporal, and sphenoid bones over the anterior branch of the middle meningeal artery."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-axial-appendicular"
       ],
       "examples": [
         "A blunt blow to the pterion from a baseball bat fractures the thin temporal bone squama and lacerates the underlying anterior branch of the middle meningeal artery, causing an acute epidural (extradural) hematoma that presents with a lucid interval followed by rapid uncal herniation.",
@@ -2109,10 +2079,6 @@ export const HSS_OSTEOLOGY = [
         "Female pelvis: broader, smoother, lighter, circular inlet, enlarged outlet, pubic angle 100° or more.",
         "Male pelvis: narrower, rougher, heavier, heart-shaped inlet, narrow outlet, pubic angle under 90°.",
         "Gluteus medius is a key hip abductor inserting onto the greater trochanter (superior gluteal nerve)."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-axial-appendicular",
-        "hss2011-joints-classification"
       ],
       "examples": [
         "A subcapital neck-of-femur fracture in an elderly patient disrupts retinacular blood vessels supplying the femoral head, risking avascular necrosis because the neck lies inside the hip joint capsule.",
@@ -2361,10 +2327,6 @@ export const HSS_OSTEOLOGY = [
         "Calcaneus is the heel bone, the largest tarsal, receiving the calcaneal (Achilles) tendon.",
         "Ankle (talocrural) joint: hinge joint for plantarflexion and dorsiflexion; Subtalar joint: plane joint for inversion and eversion.",
         "Ankle sprains: most involve inversion injuring the ATFL (and CFL if force is greater); eversion injuries are much less frequent due to the strong medial deltoid ligament."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-pelvic-girdle",
-        "hss2011-joints-classification"
       ],
       "examples": [
         "An inversion ankle sprain violently stretches or tears the anterior talofibular ligament bridging the lateral malleolus of the fibula to the talus.",
@@ -2638,9 +2600,6 @@ export const HSS_OSTEOLOGY = [
         "Floating (vertebral) ribs 11–12 have no anterior attachment.",
         "A typical rib has a head (two facets), neck, tubercle (articular facet), angle and shaft; the costal groove on the lower inner border carries the intercostal vein, artery and nerve (VAN).",
         "Ribs articulate with the vertebral column at the costovertebral (capitular) joint and the costotransverse joint."
-      ],
-      "prerequisites": [
-        "hss2011-osteo-vertebral-column"
       ],
       "examples": [
         "Rib counting: the sternal angle is felt as a ridge; the finger slides laterally to the 2nd costal cartilage and 2nd rib, and ribs and intercostal spaces are then numbered downward.",

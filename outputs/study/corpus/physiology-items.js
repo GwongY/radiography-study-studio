@@ -92,7 +92,6 @@ export const PHYS_ITEMS = [
         "Neural tissue specializes in rapid conduction of electrical impulses and information processing.",
         "All eleven organ systems must integrate their activities to sustain physiological homeostasis."
       ],
-      "prerequisites": [],
       "examples": [
         "The stomach is an organ containing all four tissue types: simple columnar epithelium lining the lumen, loose and dense irregular connective tissue in the submucosa, smooth muscle in the muscularis externa, and neural tissue in the myenteric plexus.",
         "Severe hypovolemic shock triggers compensatory responses across multiple organ systems: nervous (sympathetic activation), endocrine (ADH and aldosterone release), cardiovascular (tachycardia and vasoconstriction), and urinary (oliguria)."
@@ -294,9 +293,6 @@ export const PHYS_ITEMS = [
         "The three loop components: Receptor (sensor), Control Centre (integrator), and Effector (responder).",
         "The receptor monitors the environment and detects changes (stimuli).",
         "The effector carries out the commands of the control centre to alter the internal variable."
-      ],
-      "prerequisites": [
-        "abct2326-cells-organisation"
       ],
       "examples": [
         "Local exercise hyperemia is an example of autoregulation: accumulating lactic acid, adenosine, and CO2 in active skeletal muscle directly dilate local arteriolar precapillary sphincters, boosting muscle perfusion tenfold without sympathetic nerve involvement.",
@@ -513,7 +509,6 @@ export const PHYS_ITEMS = [
         "Veins are high-compliance capacitance vessels containing the majority of total blood volume at low pressure (~2 mmHg).",
         "During exercise, blood flow is accelerated via elevated cardiac output, active hyperemia in working muscles, and the skeletal muscle pump."
       ],
-      "prerequisites": [],
       "examples": [
         "In left ventricular heart failure, the left ventricle fails to match the output of the right ventricle, causing blood to back up into the pulmonary veins and capillaries, raising hydrostatic pressure and precipitating acute pulmonary edema.",
         "Standing motionless on parade for extended periods deprives lower extremity veins of the skeletal muscle pump, causing blood to pool in dependent capacitance veins, reducing venous return, cardiac output, and cerebral perfusion, resulting in orthostatic syncope."
@@ -759,7 +754,6 @@ export const PHYS_ITEMS = [
         "The pulmonary and aortic semilunar valves prevent backflow of blood from arterial trunks into ventricles during diastole.",
         "Cardiac valves open and close passively, driven entirely by transvalvular fluid pressure gradients."
       ],
-      "prerequisites": [],
       "examples": [
         "In acute myocardial infarction involving the posterior descending artery, necrosis of the posterior papillary muscle can cause chordae tendineae rupture, leading to acute severe mitral valve prolapse and regurgitation, precipitating pulmonary edema and cardiogenic shock.",
         "Arrhythmias such as Wolff-Parkinson-White syndrome occur when an abnormal congenital muscular bypass tract (bundle of Kent) breaches the insulating fibrous cardiac skeleton, allowing electrical impulses to short-circuit between atria and ventricles."
@@ -1006,7 +1000,6 @@ export const PHYS_ITEMS = [
         "Type II pneumocytes are cuboidal secretory cells that produce pulmonary surfactant.",
         "Pulmonary surfactant reduces alveolar surface tension, preventing end-expiratory alveolar collapse (atelectasis)."
       ],
-      "prerequisites": [],
       "examples": [
         "In Infant Respiratory Distress Syndrome (IRDS), premature neonates born before 28–32 weeks of gestation lack mature Type II pneumocytes and cannot produce sufficient surfactant; elevated alveolar surface tension causes widespread alveolar collapse (atelectasis) and severe hypoxemia, requiring exogenous surfactant administration and positive airway pressure.",
         "Because the right primary bronchus is wider, shorter, and descends more vertically than the left, a foreign object (such as a peanut) aspirated by a toddler almost always lodges in the right bronchial tree rather than the left."
@@ -1245,9 +1238,6 @@ export const PHYS_ITEMS = [
       "Renal microvascular portal flow: interlobular artery → afferent arteriole → glomerulus → efferent arteriole → peritubular capillaries/vasa recta.",
       "Cortical nephrons have short loops mostly in the cortex; juxtamedullary nephrons have long loops extending deep into the medulla."
     ],
-    "prerequisites": [
-      "abct2326-homeostasis"
-    ],
     "examples": [
       "In polycystic kidney disease (PKD), genetic mutations cause fluid-filled cysts to proliferate along the nephron tubules, destroying normal renal cortex and medullary pyramids, compressing interlobar vessels, and culminating in end-stage renal disease.",
       "A renal calculus (kidney stone) formed by precipitated calcium oxalate in a minor calyx can migrate into the narrow ureteropelvic junction, causing severe colicky flank pain, hematuria, and hydronephrosis due to backpressure in the renal pelvis."
@@ -1465,9 +1455,6 @@ export const PHYS_ITEMS = [
       "Absorption moves organic nutrients, electrolytes, vitamins, and water across the gut lining into blood or lymph.",
       "Excretion is the compaction and elimination of indigestible waste materials (feces) via defecation."
     ],
-    "prerequisites": [
-      "abct2326-cells-organisation"
-    ],
     "examples": [
       "In severe acute pancreatitis, gallstones or alcohol abuse obstruct the hepatopancreatic ampulla; digestive proenzymes within the pancreatic acini become prematurely activated, leading to enzymatic autodigestion of pancreatic parenchyma and severe retroperitoneal inflammation.",
       "Surgical removal of the gallbladder (cholecystectomy) eliminates bile storage and concentration, meaning bile trickles continuously from the liver into the duodenum; patients must avoid high-fat meals to prevent steatorrhea (fatty diarrhea) due to reduced lipid emulsification efficiency."
@@ -1634,7 +1621,6 @@ export const PHYS_ITEMS = [
         'T4 is inactive until converted to T3 in target cells — activation by the target.',
         'Endocrine glands are ductless; targets are defined by having the receptor protein.',
       ],
-      prerequisites: ['abct2326-homeostasis'],
       examples: [
         'Proinsulin is cut to insulin before secretion; preproinsulin is the ribosome\'s first product before even proinsulin — one gene, three names, two cleavages.',
         'Epinephrine and thyroxine are both tyrosine derivatives, yet one is a fast water-soluble hormone and the other a slow lipid-soluble one — the iodine in thyroxine makes it lipid-soluble, so chemical class alone does not fix the mechanism.',
@@ -1767,7 +1753,6 @@ export const PHYS_ITEMS = [
         "The body produces approximately 300 billion new red blood cells every day via erythropoiesis.",
         "Platelets are enucleated fragments of bone marrow megakaryocytes that survive 5–9 days and mediate clotting."
       ],
-      "prerequisites": [],
       "examples": [
         "In severe hepatic cirrhosis, impaired liver synthesis of albumin leads to profound hypoalbuminemia; reduced plasma colloid osmotic pressure allows excessive fluid filtration into peritoneal and tissue spaces, presenting clinically as ascites and generalized pitting edema.",
         "In polycythemia vera or severe dehydration, an abnormally elevated hematocrit (>55%) drastically increases blood viscosity, raising systemic vascular resistance and the cardiac workload while predisposing the patient to venous and arterial thrombosis."
@@ -1908,7 +1893,6 @@ export const PHYS_ITEMS = [
         'The cisterna chyli is an expanded sac-like chamber at the base of the thoracic duct.',
         'Lymph drainage is not symmetrical — the right upper body drains separately from the rest.',
       ],
-      prerequisites: ['abct2326-blood-composition'],
       examples: [],
     },
     memory: {
@@ -1971,7 +1955,6 @@ export const PHYS_ITEMS = [
         'Autonomic motor neurons: smooth muscle, cardiac muscle and glands, via sympathetic and parasympathetic divisions.',
         'The adult brain holds almost 97% of the body’s neural tissue, about 100 billion neurons and 1,000 billion neuroglia.',
       ],
-      prerequisites: ['abct2326-homeostasis'],
       examples: [],
     },
     memory: {
@@ -2041,7 +2024,6 @@ export const PHYS_ITEMS = [
         'The sarcoplasmic reticulum stores Ca2+.',
         'Skeletal muscle is about 40% of body weight in males, 32% in females.',
       ],
-      prerequisites: ['abct2326-cells-organisation'],
       examples: [],
     },
     memory: {
@@ -2111,7 +2093,6 @@ export const PHYS_ITEMS = [
         'Antagonist = the opposing muscle; flexors and extensors are antagonists to each other.',
         'More fibres per motor unit means less precise control.',
       ],
-      prerequisites: ['abct2326-muscle-types'],
       examples: [],
     },
     memory: {
@@ -2184,7 +2165,6 @@ export const PHYS_ITEMS = [
         'Interferons trigger antiviral proteins that block replication rather than killing viruses.',
         'Innate activation: pathogens carry PAMPs, recognised by toll-like receptors, a class of pattern-recognition receptor.',
       ],
-      prerequisites: ['abct2326-blood-composition'],
       examples: [],
     },
     memory: {
@@ -2257,7 +2237,6 @@ export const PHYS_ITEMS = [
         'Downregulation: blood hormone rises → fewer receptors, holding interaction steady.',
         'Upregulation: blood hormone falls → more receptors.',
       ],
-      prerequisites: ['abct2326-endocrine-delivery'],
       examples: [],
     },
     memory: {
@@ -2329,7 +2308,6 @@ export const PHYS_ITEMS = [
         'Intracellular receptors carry two domains: a hormone-binding domain and a DNA-binding domain.',
         'The DNA site the bound receptor attaches to is the hormone response element.',
       ],
-      prerequisites: ['abct2326-endocrine-receptors'],
       examples: [
         'Adrenaline in a fight-or-flight moment: through phospholipase C the chain ends at protein kinase C driving glycogen → glucose 6-phosphate → glucose → blood.',
         'Insulin through tyrosine kinase: GLUT4 carriers inserted into the membrane let glucose into the cell, lowering blood glucose.',
@@ -2416,8 +2394,7 @@ export const PHYS_ITEMS = [
         'Feedback: sex steroids close the gonad axis negatively; a short loop sends anterior-pituitary hormones back to inhibit the hypothalamus.',
         'Exception: menstrual-cycle oestrogen stimulates the LH surge by POSITIVE feedback.',
         'Higher brain input: emotional states and stress affect circadian rhythms, menstrual cycle and adrenal hormones.',
-      ],
-      prerequisites: ['abct2326-endocrine-receptors'], examples: [
+      ], examples: [
         'A prolactinoma keeps prolactin high for months; the constant trophic stimulation hypertrophies the breast tissue — the trophic-hormone principle visible clinically.',
         'Head injury that shears the infundibulum can sever both the portal system (anterior axes fail) and the hypothalamo-hypophyseal tract (ADH and oxytocin fail) — the two lobes\' supply lines in one lesion.',
       ],
@@ -2497,8 +2474,7 @@ export const PHYS_ITEMS = [
         'Hypothyroidism: low BMR, weight gain, lethargy, cold intolerance, myxedema. Hyperthyroidism (Graves\'): antibodies act like TSH, goitre + exophthalmos, weight loss, heat intolerance, high BMR.',
         'Parathyroids: 4 glands embedded in the posterior thyroid; PTH is the most important hormone for raising blood Ca2+.',
         'PTH: osteoclast stimulation/osteoblast inhibition, renal Ca2+ reabsorption, calcitriol secretion (also ↑digestive Ca2+ and phosphate absorption).',
-      ],
-      prerequisites: ['abct2326-endocrine-pituitary-axes'], examples: [
+      ], examples: [
         'A phaeochromocytoma (medulla tumour) floods the blood with epinephrine: hypertension, palpitations and glycaemia — the fight-or-flight chemistry running without a fight.',
         'Thyroid surgery risks removing the parathyroids with the gland; the PTH loss drops blood calcium and causes tetany — the two glands\' fates are anatomically bound.',
       ],
@@ -2582,8 +2558,7 @@ export const PHYS_ITEMS = [
         'Autocrine regulators act within the same tissue and control gene expression; paracrine regulators act on different tissue in the same organ.',
         'Both classes include cytokines (lymphokines, interleukins), growth factors, and neutrophins (trophic support for neurons).',
         'GH abnormality: dwarfism (deficient) or giantism (excess).',
-      ],
-      prerequisites: ['abct2326-endocrine-adrenal-thyroid'], examples: [
+      ], examples: [
         'Jet-lag is a pineal problem: light reaching the retina no longer matches the SCN\'s schedule, so melatonin secretion stays on home time until the clock resets.',
         'hCG is the placenta\'s endocrine signature — the same hormone the reproductive item meets at implantation, rescuing the corpus luteum.',
       ],
@@ -2667,7 +2642,6 @@ export const PHYS_ITEMS = [
         'Long-term effects are hard to predict: the feedback mechanism that normally regulates the synapse counteracts the imbalance the drug creates.',
         'Worked example — SSRIs block serotonin (5-HT) reuptake into the pre-synaptic cell, so it continues to bind the receptor.',
       ],
-      prerequisites: ['abct2326-nervous-divisions'],
       examples: [
         'An SSRI does not add serotonin. It leaves the serotonin already released sitting in the gap for longer.',
         'A drug that blocks acetylcholinesterase raises acetylcholine effect at the neuromuscular junction by the same logic — stop the clearing enzyme, and the transmitter keeps acting.',
@@ -2736,8 +2710,7 @@ export const PHYS_ITEMS = [
         'Sympathetic: norepinephrine binds adrenergic receptors α1, α2, β1, β2 — tissue-specific effects.',
         'EPSP = graded depolarization (Na+ or Ca2+ channels open); IPSP = graded hyperpolarization (K+ or Cl− channels open).',
         'EPSPs move the membrane closer to threshold; IPSPs farther away; summation of both determines whether an action potential occurs.',
-      ],
-      prerequisites: ['phys-nerve-cellular-action-potential'], examples: [
+      ], examples: [
         'The vagus slowing the heart is ACh at M2 receptors: K+ leaves, the membrane hyperpolarizes, the SA node takes longer to reach threshold — parasympathetic braking you can feel as a slow pulse after a big meal.',
         'A nicotinic blocker at the neuromuscular junction stops ACh\'s direct channel opening — the muscle cannot be driven at all, which is the pharmacology behind curare.',
       ],
@@ -2815,7 +2788,6 @@ export const PHYS_ITEMS = [
         'Relaxation is not one process: a fibre returns to its resting length through THREE forces — its own elastic recoil, the contraction of opposing muscles, and gravity.',
         'Opposing muscles return a muscle to resting length faster than elastic recoil alone — the triceps stretches the biceps.',
       ],
-      prerequisites: ['abct2326-muscle-types'],
       examples: [
         'A radiograph of a contracted limb muscle shows a shorter muscle belly but the same filament proteins — nothing in the tissue has been consumed or shortened, only rearranged.',
         'Rigor mortis is the crossbridge cycle stopped at one step: heads bound to actin with no ATP to release them.',
@@ -2896,7 +2868,6 @@ export const PHYS_ITEMS = [
         'Contraction above 10⁻⁶ molar cytoplasmic Ca2+; relaxation requires active transport of Ca2+ back into the sarcoplasmic reticulum.',
         'Most calcium in a relaxed fibre sits in the terminal cisternae of the sarcoplasmic reticulum.',
       ],
-      prerequisites: ['abct2326-crossbridge-cycle'],
       examples: [
         'Precision versus power is a motor-unit question: a muscle whose neurons each command few fibres can be graded finely; one whose neurons each command hundreds moves in coarser steps.',
         'A drug blocking acetylcholinesterase leaves ACh on the end plate, so the fibre keeps being driven — the same reuptake/breakdown logic as at any synapse, applied to muscle.',
@@ -2974,7 +2945,6 @@ export const PHYS_ITEMS = [
         'Endurance training does NOT increase muscle size — it adds mitochondria and aerobic enzymes. Size comes only from high-intensity work against resistance.',
         'Hypertrophy is more myofibril, not more cells: myofibrils thicken as actin and myosin are synthesised and new sarcomeres added, then a thickened myofibril may split in two.',
       ],
-      prerequisites: ['abct2326-nmj-coupling'],
       examples: [
         'Muscle biopsies show sprinters carry a larger proportion of pale, powerful, rapidly fatiguing fibres than marathoners.',
         'Endurance training does not enlarge muscle — it adds mitochondria and aerobic enzymes. Enlargement comes from high-resistance work, thickening Type II fibres by hypertrophy.',
@@ -3052,7 +3022,6 @@ export const PHYS_ITEMS = [
         'Parkinson\'s disease, from insufficient dopamine in those areas, gives "extrapyramidal symptoms".',
         'Cutting the pyramidal tracts does not abolish movement: the extrapyramidal system can still produce it.',
       ],
-      prerequisites: ['abct2326-nmj-coupling'],
       examples: [
         'Positioning a patient who resists passively: the stretch reflex is doing exactly what it is built to do, and forcing against it recruits it harder.',
         'A tremor or rigidity described as an extrapyramidal symptom points at the subconscious motor system, not at the voluntary pyramidal route.',
@@ -3126,7 +3095,6 @@ export const PHYS_ITEMS = [
         'Alternative pathway proteins: properdin (factor P), factor B, factor D. It is slower and less effective.',
         'Both pathways converge on C3b and produce the same three effects: pore formation, enhanced phagocytosis, histamine release.',
       ],
-      prerequisites: ['abct2326-innate-adaptive'],
       examples: [
         'A bacterium the body has met before is cleared by the classical route, because antibody is already available to trigger C1.',
         'A bacterium never met before can still be attacked, because the alternative pathway reads the capsule directly and needs no antibody — slower, but immediate in the sense that nothing has to be learned first.',
@@ -3208,7 +3176,6 @@ export const PHYS_ITEMS = [
         'A sensitised B cell waits for a helper T cell before it acts — a safety mechanism of the same kind.',
         'Plasma cells release around 100 million antibodies per hour; memory B cells stay in reserve for the next exposure.',
       ],
-      prerequisites: ['abct2326-innate-adaptive'],
       examples: [
         'A virus hiding inside a cell cannot be reached by antibody, but the infected cell displays viral peptides on Class I MHC — and that is what a CD8 cytotoxic T cell reads.',
         'A transplanted kidney is attacked for the same reason an infected cell is: the recipient\'s T cells find MHC proteins whose shape is not theirs.',
@@ -3293,7 +3260,6 @@ export const PHYS_ITEMS = [
         'Three interferons: alpha, beta, gamma. Most non-lymphocyte, non-macrophage cells secrete BETA.',
         'An interferon is a cytokine: a messenger a tissue cell releases to coordinate local activity.',
       ],
-      prerequisites: ['abct2326-innate-adaptive'],
       examples: [
         'Pus is largely spent neutrophils — cells that did their 25 bacteria and died on the spot.',
         'A virus inside a cell is invisible to antibody but not to an NK cell, because the infected cell puts viral antigen on its own surface.',
@@ -3368,7 +3334,6 @@ export const PHYS_ITEMS = [
         'Pyrogens have two sources: the pathogen itself, or an active macrophage releasing endogenous pyrogen — interleukin-1 (IL-1).',
         'For each 1 °C rise, metabolic rate increases by about 10%.',
       ],
-      prerequisites: ['abct2326-innate-adaptive'],
       examples: [
         'The pain of an infected wound is a defence, not a side effect — it is what makes you clean it.',
         'A patient who is febrile is running their whole metabolism about 10% faster per degree, which is part of why fever is exhausting.',
@@ -3441,7 +3406,6 @@ export const PHYS_ITEMS = [
         'Suppressors take longer to activate, and most CD8 cells become cytotoxic rather than suppressor — so they act AFTER the initial response.',
         'CD8 marks cytotoxic and suppressor T cells; CD4 marks helper T cells.',
       ],
-      prerequisites: ['abct2326-mhc-costimulation'],
       examples: [
         'A second exposure to the same pathogen is dealt with in hours rather than days — that difference is the memory T cell.',
         'The reason a helper T cell defect looks like a failure of antibody production as well as of cell-mediated immunity is that B cells wait for its permission.',
@@ -3516,7 +3480,6 @@ export const PHYS_ITEMS = [
         'Activated T cells do not respond to antigen in solution; antibodies cannot cross plasma membranes.',
         'The helper T cell links the two arms: cell-mediated itself, but it stimulates B cells.',
       ],
-      prerequisites: ['abct2326-innate-adaptive'],
       examples: [
         'A vaccine and a natural infection produce the same kind of immunity — active — because in both your own cells make the antibody. Only the route of exposure differs.',
         'Antibodies in breast milk and antibodies injected after a rabies exposure are the same kind — passive — and both fade, because nothing in the recipient is making more.',
@@ -3587,7 +3550,6 @@ export const PHYS_ITEMS = [
         'Opsonization: antibodies and complement proteins coat bacteria, dramatically increasing the effectiveness of phagocytosis.',
         'SCID ("bubble boy" disease): genetic defect impairing both B and T cells of the adaptive immune system; treated with bone marrow or fetal thymus transplants.',
       ],
-      prerequisites: ['abct2326-mhc-costimulation'],
       examples: [
         'Opsonization acts like handles on a slippery object: macrophages have receptors for antibody Fc stems and C3b, allowing them to firmly grasp and engulf encapsulated bacteria.',
         'David Vetter lived in a sterile plastic isolator ("bubble boy") because SCID left him with neither functional T cells nor functional B cell antibody responses.',
@@ -3716,9 +3678,6 @@ export const PHYS_ITEMS = [
         "Enzymes catalyze chemical reactions at the inner or outer surface of the plasma membrane.",
         "Receptor proteins bind specific extracellular ligands to initiate intracellular regulatory responses.",
         "Carrier proteins transport specific solutes via conformational changes, whereas channels form water-filled pores."
-      ],
-      "prerequisites": [
-        "abct2326-cells-organisation"
       ],
       "examples": [
         "Insulin receptors are receptor proteins spanning pancreatic target cell membranes; insulin binding triggers glucose carrier (GLUT4) insertion to facilitate cellular glucose uptake.",
@@ -3926,10 +3885,6 @@ export const PHYS_ITEMS = [
         "Golgi apparatus modifies and packages products into secretory vesicles, membrane renewal vesicles, or lysosomes.",
         "Lysosomes contain acidic hydrolases for intracellular digestion; peroxisomes neutralize toxins and H2O2.",
         "Mitochondria possess double membranes with cristae and generate >95% of cellular ATP via aerobic respiration."
-      ],
-      "prerequisites": [
-        "abct2326-cells-organisation",
-        "abct2326-plasma-membrane"
       ],
       "examples": [
         "Hepatocytes (liver cells) contain abundant smooth endoplasmic reticulum dedicated to drug detoxification and extensive peroxisomes to neutralize metabolic hydrogen peroxide.",
@@ -4159,10 +4114,6 @@ export const PHYS_ITEMS = [
         "Complementary base pairing governs DNA: Adenine pairs with Thymine, and Cytosine pairs with Guanine.",
         "The nucleus directs long-term metabolic homeostasis by dictating which enzymes and proteins are synthesized."
       ],
-      "prerequisites": [
-        "abct2326-cells-organisation",
-        "abct2326-organelles"
-      ],
       "examples": [
         "Mature human red blood cells (erythrocytes) extrude their nuclei during maturation to maximize hemoglobin packaging and gas transport capacity, but as a consequence cannot synthesize new proteins and survive only ~120 days.",
         "Skeletal muscle fibers are multinucleated syncytia resulting from the fusion of embryonic myoblasts, allowing regional nuclear control over vast cytoplasmic volumes."
@@ -4378,10 +4329,6 @@ export const PHYS_ITEMS = [
         "Ribosomes form peptide bonds between adjacent amino acids and translocate one codon at a time.",
         "Translation terminates when the ribosome encounters a stop codon (UAA, UAG, or UGA), releasing the polypeptide."
       ],
-      "prerequisites": [
-        "abct2326-nucleus-genetic-code",
-        "abct2326-organelles"
-      ],
       "examples": [
         "Pancreatic beta cells respond to hyperglycemia by activating transcription of the insulin gene, translating preproinsulin on rough ER ribosomes, and packaging active insulin into secretory granules for exocytosis.",
         "Duchenne muscular dystrophy is frequently caused by frameshift mutations (deletions or insertions of 1–2 bases) that alter downstream triplet codon reading, generating premature stop codons and truncated, nonfunctional dystrophin proteins."
@@ -4586,9 +4533,6 @@ export const PHYS_ITEMS = [
         "Anaphase: centromeres split and sister chromatids are pulled to opposite cellular poles.",
         "Telophase: nuclear envelopes reassemble around daughter chromosomes as they uncoil into chromatin.",
         "Cytokinesis pinches cytoplasm via an actin-myosin contractile ring forming a cleavage furrow."
-      ],
-      "prerequisites": [
-        "abct2326-nucleus-genetic-code"
       ],
       "examples": [
         "Skin epidermal basal cells and gastrointestinal epithelial cells constantly cycle through mitosis to replace shed surface cells every few days, rendering them highly sensitive to chemotherapy drugs that target mitotic spindle assembly.",
@@ -4802,9 +4746,6 @@ export const PHYS_ITEMS = [
         "Pseudostratified ciliated columnar epithelium lines the trachea and bronchi; all cells touch the basement membrane.",
         "Transitional epithelium (urothelium) lines the urinary bladder and ureters, stretching without losing integrity.",
         "Endocrine glands are ductless and secrete hormones into blood; exocrine glands secrete onto surfaces through ducts."
-      ],
-      "prerequisites": [
-        "abct2326-cells-organisation"
       ],
       "examples": [
         "In cigarette smokers, chronic irritant exposure causes respiratory pseudostratified ciliated columnar epithelium to undergo squamous metaplasia into stratified squamous epithelium, losing motile cilia and crippling the mucus escalator.",
@@ -5029,9 +4970,6 @@ export const PHYS_ITEMS = [
         "Cartilage is completely avascular; chondrocytes reside in lacunae within a chondroitin sulfate gel matrix.",
         "The three cartilage types: hyaline (joint surfaces), elastic (external ear), and fibrocartilage (intervertebral discs).",
         "Bone possesses a rigid mineralized matrix of calcium phosphate crystals and collagen organized into osteons."
-      ],
-      "prerequisites": [
-        "abct2326-cells-organisation"
       ],
       "examples": [
         "Scurvy results from vitamin C deficiency, which cripples the enzyme prolyl hydroxylase required for collagen cross-linking; defective collagen causes blood vessel fragility, poor wound healing, and loss of teeth as periodontal ligaments fail.",
@@ -5272,9 +5210,6 @@ export const PHYS_ITEMS = [
         "The direction of electrical signaling in a neuron is strictly dendrites → soma → axon.",
         "The skin is the body's largest organ, containing all four primary tissue classes (epithelial, connective, muscle, neural)."
       ],
-      "prerequisites": [
-        "abct2326-cells-organisation"
-      ],
       "examples": [
         "Myasthenia gravis is an autoimmune neuromuscular disorder where autoantibodies block nicotinic acetylcholine receptors at skeletal muscle motor end plates, producing progressive skeletal muscle weakness while sparing cardiac and smooth muscle.",
         "Multiple sclerosis is a chronic demyelinating disease of the central nervous system where autoimmune destruction of oligodendrocytes (neuroglia) impairs action potential propagation along CNS axons, producing motor weakness, sensory loss, and visual deficits."
@@ -5502,9 +5437,6 @@ export const PHYS_ITEMS = [
         "Positive feedback loops require an external stopping event (e.g. clot completion or child delivery) to terminate.",
         "Negative feedback loops terminate automatically when set points are restored, whereas positive feedback loops require an external stopping event."
       ],
-      "prerequisites": [
-        "abct2326-homeostasis"
-      ],
       "examples": [
         "During severe hemorrhage, blood loss exceeding ~2 liters can precipitate irreversible shock: falling cardiac output reduces coronary perfusion, weakening myocardial pumping, which further drops cardiac output in a lethal, pathological positive feedback death spiral.",
         "Parturition (labor) is an endocrine positive feedback loop: cervical stretch triggers posterior pituitary oxytocin release, stimulating uterine contractions that force the fetus harder against the cervix, escalating until delivery."
@@ -5668,7 +5600,6 @@ export const PHYS_ITEMS = [
         'At electrical synapses, cells are connected by gap junctions; at chemical synapses, ACh directly opens ion channels, while in the heart muscarinic ACh opens K+ channels to slow heart rate.',
         'Opening Na+ or Ca2+ channels causes graded depolarization called an excitatory postsynaptic potential (EPSP).',
       ],
-      prerequisites: ['phys-cell-plasma-membrane', 'phys-nervous-organisation'],
       examples: ['Multiple sclerosis involves autoimmune demyelination of CNS oligodendrocytes, disrupting saltatory conduction at nodes of Ranvier.'],
     },
     memory: {
@@ -5820,9 +5751,6 @@ export const PHYS_ITEMS = [
       "Countercurrent multiplication establishes a deep medullary hyperosmolar gradient reaching 1400 mOsm/L.",
       "Aldosterone regulates distal nephron Na+ reabsorption and K+ secretion via the RAAS axis.",
       "The nephron cannot produce urine with a pH below 4.5, requiring phosphate and ammonia buffering for proton clearance."
-    ],
-    "prerequisites": [
-      "abct2326-renal-nephron"
     ],
     "examples": [
       "In nephrotic syndrome, autoimmune disruption or loss of negative charge on the glomerular basement membrane allows massive leakage of serum albumin into Bowman's space; profound proteinuria (>3.5 g/day) drops plasma oncotic pressure, producing generalized edema and ascites.",
@@ -5982,7 +5910,6 @@ export const PHYS_ITEMS = [
         'Parkinson\'s disease stems from substantia nigra dopaminergic loss (treated with L-dopa), whereas chorea in Huntington\'s results from striatal degeneration.',
         'The basic functional unit of compact bone is the osteon (Haversian system); 1/5 of the adult skeleton remodels yearly.',
       ],
-      prerequisites: ['phys-cell-membrane-transport', 'hss2011-muscle-fascicle-and-tissue-architecture'],
       examples: ['Olympic marathon runners exhibit high proportions of red slow oxidative Type I fibres and a VO2 max approaching 80 ml/kg/min with a lactate threshold above 70% VO2 max.'],
     },
     memory: {
@@ -6071,8 +5998,7 @@ export const PHYS_ITEMS = [
         'Each year about 1/5 of the adult skeleton is demolished and rebuilt.',
         'Ca2+ balance is hormonal: parathyroid hormone, calcitonin, calcitriol (active vitamin D).',
         'PTH raises blood Ca2+ (osteoclast-driven); calcitonin signals Ca2+ excretion and storage in bone.',
-      ],
-      prerequisites: ['abct2326-muscle-types', 'abct2326-endocrine-adrenal-thyroid'], examples: [
+      ], examples: [
         'Osteoporosis is remodelling running out of balance: osteoclast demolition outpacing osteoblast rebuilding, thinning trabeculae first — which is why vertebral bodies fracture early.',
         'A technetium bone scan lights up wherever osteoblasts are actively rebuilding — the remodelling rate, imaged.',
       ],
@@ -6223,7 +6149,6 @@ export const PHYS_ITEMS = [
         "Tendinous cords (chordae tendineae) provide mechanical valve support and are not part of the electrical conduction system.",
         "When the SA node is damaged or blocked, the AV node takes over pacing at an intrinsic backup rhythm of 40 to 50 bpm."
       ],
-      "prerequisites": [],
       "examples": [
         "In essential hypertension, chronic sympathetic hyperactivity and circulating angiotensin II induce arteriolar vasoconstriction; a mere 10% reduction in average arteriolar radius increases vascular resistance by approximately 52% ([1/0.9]⁴ ≈ 1.52), driving mean arterial pressure upward.",
         "In complete sinoatrial arrest, the ECG shows an absence of P waves, but the heart continues beating with regular, narrow QRS complexes at 45 bpm, reflecting an AV junctional escape rhythm generated by the AV node's intrinsic 40–50 bpm pacemaker."
@@ -6455,9 +6380,6 @@ export const PHYS_ITEMS = [
       "NaCl and recycled urea are continuously trapped within the medullary interstitium and vasa recta.",
       "Antidiuretic hormone (ADH) inserts aquaporin-2 channels into collecting ducts to exploit this 1400 mOsm/L gradient.",
       "Aquaporins are specialized transmembrane water channels that enable rapid facilitated diffusion of water."
-    ],
-    "prerequisites": [
-      "abct2326-renal-filtration-countercurrent"
     ],
     "examples": [
       "Loop diuretics (such as furosemide/Lasix) reversibly inhibit the apical Na+/K+/2Cl- (NKCC2) cotransporter in the thick ascending limb; blocking active NaCl extrusion abolishes the medullary hyperosmolar gradient, preventing water reabsorption in both the descending limb and collecting duct and producing massive diuresis.",
@@ -6706,7 +6628,6 @@ export const PHYS_ITEMS = [
         "PCO2 is normally higher in systemic veins (~45 mmHg) than in systemic arteries (~40 mmHg) due to tissue metabolism.",
         "Central chemoreceptors provide the dominant (75–85%) chemical drive for resting pulmonary ventilation."
       ],
-      "prerequisites": [],
       "examples": [
         "In severe carbon monoxide (CO) poisoning, CO binds tightly to hemoglobin with 200-fold higher affinity than oxygen, displacing O2 and crippling oxygen delivery to tissues; however, because dissolved oxygen in plasma is unaffected, routine arterial blood gas (ABG) analysis shows a deceptively normal PaO2 (~100 mmHg), masking lethal tissue hypoxia.",
         "Voluntary hyperventilation blows off arterial CO2 (hypocapnia, PaCO2 dropping from 40 to 20 mmHg); reduced blood CO2 decreases CSF [H+], removing the stimulation of central chemoreceptors and producing a prolonged post-hyperventilation apnea until metabolic CO2 accumulates back to normal."
@@ -6974,9 +6895,6 @@ export const PHYS_ITEMS = [
       "The bladder detrusor muscle and internal urethral sphincter are controlled by involuntary autonomic pathways.",
       "Voluntary control over urination is maintained because the external urethral sphincter is somatic skeletal muscle."
     ],
-    "prerequisites": [
-      "abct2326-renal-countercurrent-vasarecta"
-    ],
     "examples": [
       "During intense marathon running in extreme heat, heavy sweating activates high sympathetic renal nerve tone and triggers maximal RAAS and ADH release; renal blood flow drops by 70%, GFR is reduced, and nearly all filtered sodium and water are reclaimed, producing a scanty, highly concentrated urine sample.",
       "A patient who suffers a complete transection of the spinal cord above the sacral level initially experiences urinary retention; subsequently, an automatic neurogenic bladder develops where bladder distension triggers involuntary detrusor contraction and emptying, because voluntary control of the external urethral sphincter via the pudendal nerve is severed from higher cortical centers."
@@ -7149,7 +7067,6 @@ export const PHYS_ITEMS = [
         'The absolute refractory period occurs during depolarization and the first part of the repolarization phase.',
         'The speed of impulse conduction along an axon is increased by a myelin sheath.',
       ],
-      prerequisites: ['phys-nerve-cellular-action-potential', 'abct2326-nervous-divisions'],
       examples: ['Multiple sclerosis involves autoimmune demyelination, causing saltatory conduction failure, dispersion of action potentials, and sensory-motor deficits.'],
     },
     memory: {
