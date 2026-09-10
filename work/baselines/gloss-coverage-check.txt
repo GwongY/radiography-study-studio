@@ -1,0 +1,8 @@
+— gloss coverage check: underlined tokens without gloss —
+  ok  all underlined tokens have TERM_GLOSS or are stoplisted
+— gloss integrity check: structure and Chinese presence —
+  ok  2044 TERM_GLOSS entries well-formed with Traditional Chinese
+— number cues check: singular/plural reciprocal cues in TERM_NOTES —
+  ok  35 singular/plural pairs have reciprocal cues
+
+ALL PASS

@@ -145,6 +145,8 @@ node work/figure-key-check.mjs  # every figure/plate a lesson shows has intro + 
 node work/visuals-check.mjs      # every item.visuals[] entry resolves to a real
                                  # figure/plate/schematic/layer; --selftest proves
                                  # the gate still bites
+node work/gloss-coverage-check.mjs # every underlined word has a gloss or is stoplisted;
+                                 # every gloss has Chinese; singular/plural reciprocal cues
 node work/codemap-check.mjs     # the map matches the code; TRAPS names real files
 node work/data-index-check.mjs  # the data summary matches the data
 node work/schedule-check.mjs    # REQUIRED for outputs/schedule.js edits — the

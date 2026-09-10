@@ -36,6 +36,7 @@ const PROBES = [
   ['system-check', ['work/system-check.mjs']],
   ['figure-key-check', ['work/figure-key-check.mjs']],
   ['visuals-check', ['work/visuals-check.mjs']],
+  ['gloss-coverage-check', ['work/gloss-coverage-check.mjs']],
   ['landmark-check', ['work/landmark-check.mjs']],
   ['cavity-probe', ['work/cavity-probe.mjs']],
   ['grid-probe', ['work/grid-probe.mjs']],
