@@ -13,6 +13,8 @@ import { setSeparation, setTool } from './tools-and-capture.js';
 import { advancePhysiology } from '../physiology.js?v=4';
 import { MOTOR_ROUTES, motorRoute, motorSequence, transmissionField } from '../physiology-mechanics.js';
 import { deriveShape, deriveMuscleShape, deriveBreathingShape, MUSCLE_SHAPE_GLSL } from '../physiology-shape.js';
+import { PATH_ATTRIBUTES, PATH_SHAPE_GLSL } from '../physiology-path.js';
+import { PATH_PAYLOADS } from '../physiology-paths.js';
 
 /* ------------------------------------------------------------------ *
  * Live physiology
@@ -135,7 +137,7 @@ function installFlow(mesh,cls){
      match are coloured but otherwise static. */
   const deform=!!rule && (rule.contract || rule.mode)
     && (!rule.match || rule.match.test(mesh.userData.label||mesh.name||''));
-  let mCenter=null,mAxis=null,mAmt=0,mLength=1;
+  let mCenter=null,mAxis=null,mAmt=0,mLength=1,path=null;
   if(deform){
     const g=mesh.geometry;
     if(!g.boundingBox) g.computeBoundingBox();
@@ -159,11 +161,37 @@ function installFlow(mesh,cls){
     mCenter=new state.THREE.Vector3(...shape.centre);
     mAxis=new state.THREE.Vector3(...shape.axis);
     mLength=shape.length;mAmt=shape.amount;
+    /*
+     * A curated route replaces the bounding-box axis entirely for this mesh.
+     * The old profile measured "along the tube" as a projection onto one global
+     * direction and "across it" as whatever was left over, which on a bend
+     * pinches the tube toward a line outside its own lumen. With a route both
+     * the centre and the direction are read per vertex off the tube's measured
+     * centreline, so the ring stays a ring the whole way round a flexure.
+     */
+    if(rule.mode==='peristalsis'){
+      const found=pathRouteFor(mesh);
+      if(found){
+        for(const [name,size] of PATH_ATTRIBUTES){
+          mesh.geometry.setAttribute(name,new state.THREE.BufferAttribute(found.data[name],size));
+        }
+        path={
+          uPathLength:{value:found.length},
+          /* Dimensionless, so they mean the same thing in the local frame the
+             shader works in as in the world frame they were measured in --
+             which is why the payload keeps both lengths. */
+          uPathWaves:{value:Math.max(1.2,found.worldLength/(rule.pathWavelength||.1))},
+          uPathTravel:{value:(rule.pathSpeed||.08)/Math.max(1e-6,found.worldLength)},
+          uPathTaper:{value:rule.pathTaper||.14},
+          uPathSharp:{value:rule.sharp||4},
+        };
+      }
+    }
   }
   /* The deformed and colour-only meshes of a class compile to different
      programs, so the cache key has to name the variant or the first to compile
      is silently reused for every mesh of the class. */
-  mat.customProgramCacheKey=()=>'rssflow-breathing-jacobian:'+cls+(deform?':d':':c')+(route?':motor':'');
+  mat.customProgramCacheKey=()=>'rssflow-tubepath-jacobian:'+cls+(deform?':d':':c')+(route?':motor':'')+(path?':path':'');
   mat.onBeforeCompile=(sh)=>{
     sh.uniforms.uT=state.flow.uT;
     sh.uniforms.uOn=state.flow.uOn;
@@ -181,12 +209,16 @@ function installFlow(mesh,cls){
       sh.uniforms.uMAmt={value:mAmt};
       sh.uniforms.uMLength={value:mLength};
     }
+    if(path)Object.assign(sh.uniforms,path);
     sh.vertexShader=(cls==='nerve'&&route?'attribute float aTransmission;varying float vTransmission;\n':'')+'varying float vFlowY;\n'
       +(deform?'uniform float uDeform;uniform vec3 uMCenter;uniform vec3 uMAxis;uniform float uMAmt;uniform float uMLength;uniform float uMode;\nuniform float uT;uniform float uSpeed;uniform float uDir;uniform float uFreq;uniform float uSharp;\n':'')
       +(deform&&cls==='muscle'?MUSCLE_SHAPE_GLSL:'')
+      +(path?PATH_SHAPE_GLSL:'')
       +sh.vertexShader.replace('#include <begin_vertex>',
         '#include <begin_vertex>\n'
-        +(deform
+        +(path
+          ?'if(uDeform*uMAmt>0.){vec3 rssPathX=transformed;rssPathDeform(rssPathX,uDeform*uMAmt);transformed=rssPathX;}\n'
+          :deform
           ?'float rssAlong=dot(transformed-uMCenter,uMAxis);\n'
            +'vec3 rssPerp=(transformed-uMCenter)-rssAlong*uMAxis;\n'
            +'if(uMode>4.5){/* chamber contraction reduces enclosed volume */\n'
@@ -207,7 +239,14 @@ function installFlow(mesh,cls){
           :'')
         +(cls==='nerve'&&route?'vTransmission=aTransmission;\n':'')
         +'vFlowY=(modelMatrix*vec4(transformed,1.0)).y;');
-    if(deform)sh.vertexShader=sh.vertexShader.replace('#include <beginnormal_vertex>',
+    /* The normal patch runs BEFORE begin_vertex, so it derives the same map
+       again from `position` rather than from a `transformed` that does not
+       exist yet. One shared GLSL function called twice is what keeps the
+       two halves of the map from drifting apart. */
+    if(path)sh.vertexShader=sh.vertexShader.replace('#include <beginnormal_vertex>',
+      '#include <beginnormal_vertex>\n'
+      +'if(uDeform*uMAmt>0.){vec3 rssPathN=position;objectNormal=normalize(rssPathDeform(rssPathN,uDeform*uMAmt)*objectNormal);}\n');
+    else if(deform)sh.vertexShader=sh.vertexShader.replace('#include <beginnormal_vertex>',
       '#include <beginnormal_vertex>\n'
       +'if(uMode>4.5){vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(na/max(.1,1.-.55*uDeform*uMAmt)+(objectNormal-na)/max(.1,1.-uDeform*uMAmt));}\n'
       +'if(uMode>3.5&&uMode<4.5&&uDeform>0.&&uMAmt>0.){float z=dot(position-uMCenter,uMAxis)/max(uMLength,.000001);float t=clamp((z+.2)/.65,0.,1.);float k=1.-uMAmt*uDeform*6.*t*(1.-t)/(.65*max(uMLength,.000001));vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(objectNormal-na+na/k); }\n'
@@ -233,6 +272,114 @@ function installFlow(mesh,cls){
         +'float rssGlow=rssBand*rssSide*uGain*uBeat*uOn;totalEmissiveRadiance+=uFlowColor*(rssGlow/(1.+rssGlow*.65));');
   };
   mat.needsUpdate=true;
+}
+
+/*
+ * Curated tube routes, loaded with the layer they belong to.
+ *
+ * The payload is derived offline (work/build-physiology-paths.mjs) and keyed to
+ * the exact geometry it came from. Everything here is a way of REFUSING it: a
+ * different model version, a different GLB, a mesh with a different vertex
+ * layout, a fetch that failed, a decode that came out the wrong length. Any of
+ * those and the mesh keeps the existing illustrative peristalsis, which is
+ * wrong-looking on a bend but is at least the animation that was there before.
+ */
+function decodeFloats(encoded){
+  const binary=atob(encoded),bytes=new Uint8Array(binary.length);
+  for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+  return new Float32Array(bytes.buffer);
+}
+/*
+ * The same FNV-1a the generator runs over the INDEX buffer, plus the local
+ * bounds. Indices are integers, so the two sides agree bit for bit; positions
+ * do not, and hashing them rounded was measured disagreeing on four of six real
+ * routes purely on which side of a rounding bucket a quantised coordinate fell.
+ * See work/build-physiology-paths.mjs.
+ */
+function indexLayoutHash(geometry){
+  const index=geometry.index?.array;
+  if(!index)return null;
+  let h=0x811c9dc5;
+  for(let i=0;i<index.length;i++){
+    const v=index[i]|0;
+    h=Math.imul(h^(v&255),0x01000193)>>>0;
+    h=Math.imul(h^((v>>8)&255),0x01000193)>>>0;
+    h=Math.imul(h^((v>>16)&255),0x01000193)>>>0;
+    h=Math.imul(h^((v>>24)&255),0x01000193)>>>0;
+  }
+  return h.toString(16).padStart(8,'0');
+}
+function localBoundsOf(geometry){
+  if(!geometry.boundingBox)geometry.computeBoundingBox();
+  const b=geometry.boundingBox;
+  return [b.min.x,b.min.y,b.min.z,b.max.x,b.max.y,b.max.z];
+}
+async function digestOf(text){
+  const bytes=new TextEncoder().encode(text);
+  const hash=await crypto.subtle.digest('SHA-256',bytes);
+  return [...new Uint8Array(hash)].map(b=>b.toString(16).padStart(2,'0')).join('').slice(0,16);
+}
+export async function loadPathRoutes(key){
+  if(state.flow.paths&&key in state.flow.paths)return state.flow.paths[key];
+  state.flow.paths=state.flow.paths||{};
+  const entry=PATH_PAYLOADS[key];
+  if(!entry){state.flow.paths[key]=null;return null}
+  try{
+    const response=await fetch(entry.url,{cache:'force-cache'});
+    if(!response.ok)throw new Error('HTTP '+response.status);
+    const payload=await response.json();
+    if(payload.schemaVersion!==1)throw new Error('schema '+payload.schemaVersion);
+    const routes=new Map(),byNode=new Map();
+    for(const route of payload.routes||[]){
+      const data={};
+      let usable=true;
+      /* The payload digest, checked against what the generator recorded rather
+         than against anything the payload says about itself elsewhere. A
+         truncated or partly written file decodes to plausible numbers. */
+      if(route.digest&&await digestOf(Object.values(route.data).join(''))!==route.digest){
+        console.warn('[physiology] route',route.id,'failed its digest');
+        continue;
+      }
+      for(const [name,size] of PATH_ATTRIBUTES){
+        const values=decodeFloats(route.data[name]||'');
+        if(values.length!==route.vertices*size){usable=false;break}
+        if(!values.every(Number.isFinite)){usable=false;break}
+        data[name]=values;
+      }
+      if(!usable)continue;
+      const decoded={...route,data};
+      routes.set(route.mesh,decoded);
+      if(route.node!==undefined)byNode.set(route.node,decoded);
+    }
+    state.flow.paths[key]={routes,byNode,rejected:payload.rejected||[]};
+  }catch(e){
+    console.warn('[physiology] no tube routes for',key,e);
+    state.flow.paths[key]=null;
+  }
+  return state.flow.paths[key];
+}
+/* The route for this mesh, or null. The layout hash is the last gate: two
+   meshes can share a name across a model change and not share a vertex. */
+function pathRouteFor(mesh){
+  const set=state.flow.paths?.[mesh.userData.layerKey];
+  if(!set)return null;
+  /* The glTF node index first: three.js renames a duplicate node to
+     `Stomach_1`, and this layer contains such pairs, so a name is not an
+     identity. The name is the fallback for a loader that did not record one. */
+  const route=(mesh.userData.gltfNode!==undefined&&set.byNode?.get(mesh.userData.gltfNode))
+    ||set.routes.get(mesh.name)||set.routes.get(mesh.userData.label);
+  if(!route)return null;
+  const geometry=mesh.geometry;
+  if(geometry.attributes.position.count!==route.vertices)return null;
+  if((geometry.index?.count||0)!==route.indexCount)return null;
+  if(geometry.userData.rssPathLayout===undefined)geometry.userData.rssPathLayout=indexLayoutHash(geometry);
+  if(geometry.userData.rssPathLayout!==route.layout)return null;
+  /* Same topology, moved vertices: the frame would be bound to geometry it was
+     not measured on, which looks plausible and is wrong. 1e-3 of a unit cube is
+     thirty quantisation steps — far past float noise, far short of a real edit. */
+  const bounds=localBoundsOf(geometry);
+  if(!route.bounds||route.bounds.some((v,i)=>Math.abs(v-bounds[i])>1e-3))return null;
+  return route;
 }
 
 /* Classify and colour a whole layer as it lands. */

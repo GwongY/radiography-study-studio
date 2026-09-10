@@ -188,7 +188,10 @@ export function loadGlbMeshes(relPath) {
         const allIdx = new Uint32Array(idxChunks.reduce((s, c) => s + c.length, 0));
         o = 0;
         for (const c of idxChunks) { allIdx.set(c, o); o += c.length; }
-        out.push({ name: sanitizeNodeName(name), rawName: name, positions: all, indices: allIdx });
+        /* The node transform, so an offline generator can put derived data back
+           into the LOCAL frame the runtime's vertex shader actually works in.
+           Column-major, the same order glTF and three.js use. */
+        out.push({ name: sanitizeNodeName(name), rawName: name, positions: all, indices: allIdx, matrix: world.slice(), primitives: chunks.length, node: idx });
       }
     }
     for (const c of n.children || []) visit(c, world, owned);

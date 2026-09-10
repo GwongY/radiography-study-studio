@@ -1,6 +1,7 @@
 # Piece 4 — peristalsis along tubes
 
-Status: draft. Depends on 0. Parent: [decomposition](2026-09-09-physiology-decomposition.md).
+Status: IMPLEMENTED. Depends on 0. Parent: [decomposition](2026-09-09-physiology-decomposition.md).
+Measurements, refusals and departures: [tube evidence](../notes/2026-09-09-physiology-tube-evidence.md).
 
 ## Discovery and path representation
 

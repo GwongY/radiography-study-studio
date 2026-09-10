@@ -1242,3 +1242,60 @@ The lesson generalises: a parser over extracted PDF text fails by returning less
 not by erroring. Always report what was dropped, per file, against what the
 document itself claims to contain — here, `Answer:` lines counted directly.
 
+
+### Tube paths — `outputs/physiology-path.js`, `work/build-physiology-paths.mjs`, `outputs/studio/live-physiology.js`
+
+Peristalsis used to be measured against one bounding-box axis: "along the tube"
+was a projection onto a single global direction and "across it" was whatever was
+left. On a straight ureter that reads correctly. On the transverse colon it
+squeezes the gut toward a line that leaves the lumen entirely, and the wave
+appears to run through the abdomen rather than along the bowel.
+
+Four things bit while replacing it, none of which announce themselves.
+
+**Surface distance from a POINT is not progress along a tube.** Seed the field
+at one vertex on an open end and the first shells are little discs around that
+vertex, not cross-sections; the centre and tangent are wrong for the whole first
+tenth of the route. Seeding the boundary loop the anchor sits on fixed the
+proximal end (worst tangent error 0.17 → under 0.01) and did nothing for the
+distal end, because distance from one end runs longer round the outside of a
+bend than the inside and its far level sets arrive tilted. What works is the
+BALANCE of the two end distances, `d_prox / (d_prox + d_dist)`: the two biases
+point opposite ways and mostly cancel, and the ends pin at exactly 0 and 1.
+
+**A resampled polyline has no curvature except at its joins.** `dT/ds` from
+neighbouring samples of a 160-point resample of a 30-point station polyline is
+zero inside each segment and a spike at every corner. Those spikes drove
+`L - b·r` negative and refused three of the four colon segments as
+`degenerate-frame` — a real-looking refusal with no real cause. Measure the
+frame over one station's worth of arc instead.
+
+**No single diagnostic separates a tube from a coil.** Radial spread misses a
+symmetric bifurcation entirely, because the fork's centroid sits neatly between
+the limbs and every member is about equally far from it: measured 2.0, i.e.
+clean. Band connectivity catches that but refuses a real 203-vertex oesophagus,
+where a band is two coarse rings that are not joined to each other *inside the
+band* — six of ten bands refused on a perfectly good tube. What survives both is
+band POPULATION (a branch folds a whole limb back into the trunk's range of
+progress, so one band swallows it: 294 nodes against a median of 20) plus a
+self-clearance test between parts of the route more than four calibres apart
+along it. Measured clearances: jejunum 0.93 combined calibres, every accepted
+route 2.28 or more. Comparing every pair instead only measures how wide the tube
+is and calls that a fold.
+
+**Do not identify a mesh by hashing rounded positions.** The first identity
+check hashed local coordinates rounded to 1e-4. Quantised coordinates are
+`n/32767`, the offline reconstruction carries about 1e-7 of float error, and a
+couple of coordinates per mesh land within that of a rounding-bucket edge — so
+four of six routes disagreed with the running app for no reason but the
+tie-break. The ureters agreed, which is exactly how a check like that survives
+review. Hash the INDEX buffer, which is integers on both sides, and compare
+local bounds with a tolerance.
+
+The Browser pane cannot show this working: it freezes `requestAnimationFrame`,
+so `uT` stays at 0 and nothing deforms. `work/physiology-path-browser-check.js`
+renders the real `PATH_SHAPE_GLSL` into a float target, one pixel per vertex,
+and compares against the reference implementation — measured agreement 1e-7
+across all six routes, and bit-exact rest pose at zero amplitude. Call
+`o.boot()` before `setLayer`, or `loadExtraModel` throws "3D scene not ready"
+and the bridge swallows it into a `false` return.

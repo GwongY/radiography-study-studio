@@ -33,7 +33,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v166';
+const CACHE_VERSION = 'v167';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -180,6 +180,8 @@ const SHELL = [
   './physiology.js?v=4',
   './physiology-mechanics.js',
   './physiology-shape.js',
+  './physiology-path.js',
+  './physiology-paths.js',
   './radiography.js?v=1',
   './schedule.js?v=1',
   './bodymap.js?v=4',
@@ -239,7 +241,19 @@ self.addEventListener('activate', (event) => {
   })());
 });
 
-function isModel(url) { return url.pathname.endsWith('.glb'); }
+/*
+ * The .glb layers and the tube-route payloads that go with them.
+ *
+ * The routes are keyed to a specific GLB's contents, so they belong in the same
+ * cache as the model and on the same lifetime: they arrive when their layer is
+ * first opened, not in the install-time shell, and a regenerated payload is a
+ * different URL because the manifest stamps it with a ?g= of the generator, the
+ * kernel, the route definitions and MODEL_VERSION. That is deliberately NOT
+ * CACHE_VERSION -- see the note above about which version means what.
+ */
+function isModel(url) {
+  return url.pathname.endsWith('.glb') || url.pathname.includes('/assets/physiology/');
+}
 const isFigure = (url) => url.pathname.includes('/assets/figures/');
 /*
  * The IA redesign loads Instrument Sans and Newsreader from Google Fonts.

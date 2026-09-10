@@ -8,7 +8,7 @@ import { answer, clean, clearHighlight, highlight, onBonePicked, pool, rebuildCo
 import { applyVisibility, boot3D, cameraView, confirmPick, focusSelected, getRecord, isSelfOrAncestorVisible, mapImportedName, nearestVisibleMesh, resize, toggleIsolation, zoomCamera } from './region-boxes-how.js';
 import { clearPickCallout } from './spatial-concept-overlays.js';
 import { hideMesh } from './hide-and-search.js';
-import { installLayerFlow, layerOn, layerPool, setXrayView, unitBlurb, unitFor } from './live-physiology.js';
+import { installLayerFlow, layerOn, layerPool, loadPathRoutes, setXrayView, unitBlurb, unitFor } from './live-physiology.js';
 import { applySeparation } from './tools-and-capture.js';
 import { namedSide } from '../search-name.js';
 
@@ -263,6 +263,12 @@ async function loadExtraModelUncached(key,file){
    * in that case there is honestly nothing to show, so the bar is left alone.
    */
   els.progress.style.width='3%';
+  /* The tube-route payload for this layer, fetched alongside the model rather
+     than after it: installLayerFlow patches every material once, and a route
+     that arrives later would mean recompiling them all a second time. It is
+     allowed to fail — loadPathRoutes resolves to null and the meshes keep the
+     illustrative peristalsis. */
+  const routes=loadPathRoutes(key);
   const gltf=await new Promise((ok,err)=>new GLTFLoader().load(file,ok,(e)=>{
     if(!e||!e.lengthComputable||!e.total)return;
     els.progress.style.width=`${Math.max(3,Math.round(e.loaded/e.total*100))}%`;
@@ -293,7 +299,17 @@ async function loadExtraModelUncached(key,file){
   }
   const meshes=[];
   const raws=[];
-  root.traverse(o=>{if(o.isMesh){meshes.push(o);raws.push(o.name||o.parent?.name||'Unnamed structure')}});
+  /* The glTF node index behind each mesh, kept because a NAME is not an
+     identity here: three.js appends _1 to a duplicate, and the organ layer
+     really does contain duplicate node names. The tube-route loader matches on
+     this so a route cannot be bound to the wrong node's vertices. */
+  root.traverse(o=>{
+    if(!o.isMesh)return;
+    meshes.push(o);
+    raws.push(o.name||o.parent?.name||'Unnamed structure');
+    const association=gltf.parser?.associations?.get(o);
+    if(association?.nodes!==undefined)o.userData={...(o.userData||{}),gltfNode:association.nodes};
+  });
   /*
    * Side letters are glued straight onto the name -- "Kidneyl", "Vagus nerve
    * (X)r", "Internal thoracic veinsl". Stripping any trailing l/r would maim
@@ -357,6 +373,7 @@ async function loadExtraModelUncached(key,file){
   });
   /* Colour and classify before the layer is ever drawn, so it never appears
      in the flat atlas beige and then change under the learner. */
+  await routes;
   installLayerFlow(key,meshes);
   root.visible=false;
   /* A pivot at the world origin, exactly like the skeleton's, so the idle
