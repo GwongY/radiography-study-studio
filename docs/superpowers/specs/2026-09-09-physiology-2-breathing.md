@@ -1,6 +1,6 @@
 # Piece 2 — breathing shape and respiratory coupling
 
-Status: draft. Depends on 0. Parent: [decomposition](2026-09-09-physiology-decomposition.md).
+Status: IMPLEMENTED (commit `e4377a7` — coordinated lobe expansion, diaphragm shape and normals following its motion). The optional thoracic venous respiratory cue was prototyped on a since-deleted branch and is NOT on master. Depends on 0. Parent: [decomposition](2026-09-09-physiology-decomposition.md).
 
 ## Change
 

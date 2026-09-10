@@ -1,6 +1,6 @@
 # Piece 3 — cardiac boundaries
 
-Status: draft. Depends on 0. Parent: [decomposition](2026-09-09-physiology-decomposition.md).
+Status: NOT DONE — open. Only papillary-muscle motion in its ventricular frame has landed (commit `5b5355c`). One attempt at the regional boundary deformation (a cardiac collar / attachment profile) was made on a since-deleted branch and **rejected**: it narrowed the chamber-wall gaps but worsened valve-leaflet overlap. A fresh approach is needed; this is not a resume. Depends on 0. Parent: [decomposition](2026-09-09-physiology-decomposition.md).
 
 ## Problem and discovery gate
 

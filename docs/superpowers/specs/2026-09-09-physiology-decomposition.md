@@ -1,7 +1,7 @@
 # Physiology animation: six draft specifications
 
-Status: proposed decomposition for review; no runtime implementation authorised by this document.
-Inspected base: fc9ddde. The existing uncommitted HSS lesson edit is unrelated.
+Status: pieces 0, 1, 2, 4 and 5 implemented and on `master` (through cache v168); piece 3
+(heart boundaries) remains open after one rejected attempt. Original inspected base: fc9ddde.
 Request: retain the successfully restored activity and interaction, improve anatomical
 motion, and decompose the work before implementation.
 
@@ -9,10 +9,10 @@ motion, and decompose the work before implementation.
 
 | Piece | Specification | Dependency | Deliverable |
 | --- | --- | --- | --- |
-| 0 | [Shape kernel and harness](2026-09-09-physiology-0-kernel.md) | None | Characterisation extraction, pure geometry tests, path contract and cost policy; separately gated reduced-motion behaviour |
-| 1 | [Muscles](2026-09-09-physiology-1-muscles.md) | 0 | Geometry-derived axis, tethered belly deformation and matching normals |
-| 2 | [Breathing and coupling](2026-09-09-physiology-2-breathing.md) | 0 | Lung/diaphragm shape and normals, source-supported respiratory coupling |
-| 3 | [Heart boundaries](2026-09-09-physiology-3-heart.md) | 0 | Regional cardiac deformation with measured boundary behaviour |
+| 0 | [Shape kernel and harness](2026-09-09-physiology-0-kernel.md) — **done** | None | Characterisation extraction, pure geometry tests, path contract and cost policy; separately gated reduced-motion behaviour (`8ab302e`, `930a42d`, `7a2a331`) |
+| 1 | [Muscles](2026-09-09-physiology-1-muscles.md) — **done** | 0 | Geometry-derived axis, tethered belly deformation and matching normals (`8ab302e`) |
+| 2 | [Breathing and coupling](2026-09-09-physiology-2-breathing.md) — **done** | 0 | Lung/diaphragm shape and normals (`e4377a7`). Respiratory venous coupling prototyped then dropped — not on master |
+| 3 | [Heart boundaries](2026-09-09-physiology-3-heart.md) — **open** | 0 | Regional cardiac deformation with measured boundary behaviour. Papillary motion landed (`5b5355c`); the one boundary-deformation attempt was rejected for worsening valve overlap |
 | 4 | [Tubes on paths](2026-09-09-physiology-4-tubes.md) — **done** | 0 | Curved tube coordinates, radial constriction, topology-aware fallback. Six routes accepted, three refused by name; [evidence](../notes/2026-09-09-physiology-tube-evidence.md) |
 | 5 | [Vessel and nerve paths](2026-09-09-physiology-5-transmission.md) — **done** | 0, 4 | Curved activity fields on a curated, defensible route set. Forty vessels and six nerves accepted in chained circuits, six refused by name; [evidence](../notes/2026-09-09-physiology-transmission-evidence.md) |
 

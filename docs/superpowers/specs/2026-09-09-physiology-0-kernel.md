@@ -1,6 +1,6 @@
 # Piece 0 — shape kernel, harness and path contract
 
-Status: draft. Dependency: none. Parent: [decomposition](2026-09-09-physiology-decomposition.md).
+Status: IMPLEMENTED (commits `8ab302e` shape kernel + normals, `930a42d` reduced-motion / explicit Live choice, `7a2a331` 0A characterisation extraction). Dependency: none. Parent: [decomposition](2026-09-09-physiology-decomposition.md).
 
 ## Problem and scope
 
