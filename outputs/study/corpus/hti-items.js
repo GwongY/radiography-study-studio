@@ -385,6 +385,14 @@ export const HTI_ITEMS = [
     ],
     "sourceRefs": [
       {
+        "ref": "hti.w2.2025",
+        "location": "p2 \"Ionizing Radiation Non-ionizing Radiation\""
+      },
+      {
+        "ref": "hti.w2.2025",
+        "location": "p5 \"Imaging Modalities\""
+      },
+      {
         "ref": "hti.w2",
         "location": "p3 \"Imaging Modalities\""
       },
@@ -610,6 +618,62 @@ export const HTI_ITEMS = [
       }
     ],
     "sourceRefs": [
+      {
+        "ref": "hti.w2.2025",
+        "location": "p8 \"General (routine) X-ray\""
+      },
+      {
+        "ref": "hti.w2.2025",
+        "location": "p10 \"Computed Radiography (CR)\""
+      },
+      {
+        "ref": "hti.w2.2025",
+        "location": "p11 \"Direct Digital Radiography (DR)\""
+      },
+      {
+        "ref": "hti.w2.2025",
+        "location": "p16 \"Fluoroscopy and contrast enhancement\""
+      },
+      {
+        "ref": "hti.w2.2025",
+        "location": "p19 \"Computed Tomography\""
+      },
+      {
+        "ref": "hti.w2.2025",
+        "location": "p29 \"Magnetic Resonance Imaging\""
+      },
+      {
+        "ref": "hti.w2.2025",
+        "location": "p37 \"Ultrasound (US) imaging\""
+      },
+      {
+        "ref": "hti.w2.2025",
+        "location": "p8 \"General (routine) X-ray\""
+      },
+      {
+        "ref": "hti.w2.2025",
+        "location": "p10 \"Computed Radiography (CR)\""
+      },
+      {
+        "ref": "hti.w2.2025",
+        "location": "p11 \"Direct Digital Radiography (DR)\""
+      },
+      {
+        "ref": "hti.w2.2025",
+        "location": "p16 \"Fluoroscopy and contrast enhancement\""
+      },
+      {
+        "ref": "hti.w2.2025",
+        "location": "p19 \"Computed Tomography\""
+      },
+      {
+        "ref": "hti.w2.2025",
+        "location": "p29 \"Magnetic Resonance Imaging\""
+      },
+      {
+        "ref": "hti.w2.2025",
+        "location": "p37 \"Ultrasound (US) imaging\""
+      },
       {
         "ref": "hti.w2",
         "location": "p6 \"Discovery of X-ray\""
@@ -1501,6 +1565,8 @@ export const HTI_ITEMS = [
     ],
     selfCheck: 'Recite from memory: the 6 diagnostic modalities, 6 radiotherapy modalities, the 3 modality selection grounds (with examples), and the radiographer\'s 5 clinical contributions.',
     sourceRefs: [
+      { ref: 'hti.w2.2025', location: 'p38 "Benefits Limitations"' },
+      { ref: 'hti.w2.2025', location: 'p41 "Name the modalities"' },
       { ref: 'hti.w1.2026', location: 'p15 "How many modalities are applied in hospitals?"' },
       { ref: 'hti.w1.2026', location: 'p15 "Department of Diagnostic Radiology / Radiography"' },
       { ref: 'hti.w1.2026', location: 'p15 "General (Routine) X-ray"' },

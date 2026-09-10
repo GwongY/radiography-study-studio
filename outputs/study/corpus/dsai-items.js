@@ -170,4 +170,341 @@ export const DSAI_ITEMS = [
       { ref: 'dsai.w1', location: 'Slides 36–41 GenAI policy, deepfakes, and AI threats to white-collar and entry-level positions' },
     ],
   },
+  {
+    "id": "dsai1202-history-paradigms",
+    "subject": "DSAI1202",
+    "unit": "dsai.w2",
+    "type": "concept",
+    "title": "AI history: Dartmouth, expert systems, neural networks and the three traditions",
+    "tags": [
+      "ai",
+      "history",
+      "symbolic-ai",
+      "neural-networks",
+      "deep-learning",
+      "high-yield"
+    ],
+    "lesson": {
+      "explanation": "The formal discipline of artificial intelligence began in the summer of 1956 at a Dartmouth College workshop organized by John McCarthy, where the field was named and founded on the core assertion that every aspect of learning or any other feature of intelligence can in principle be so precisely described that a machine can simulate it. Early symbolic successes included Arthur Samuel’s checkers program (1952), which learned board weights through self-play, and Allen Newell and Herbert Simon’s Logic Theorist (1955) and General Problem Solver (GPS), which proved mathematical theorems using heuristic search. These early triumphs generated overwhelming optimism: Herbert Simon predicted machines would do any human work within twenty years, Marvin Minsky anticipated the core problems of AI would be substantially solved within a decade, and Claude Shannon envisioned robots surpassing humans. However, real-world complexity and combinatorial explosion in search spaces quickly outpaced early computing hardware. Machine translation collapsed into failure — translating \"The spirit is willing, but the flesh is weak\" through Russian into \"The vodka is good, but the meat is rotten\" — leading to the 1966 ALPAC report that cut government funding and triggered the first AI winter. Even so, the early era yielded foundational computing contributions from John McCarthy, including the Lisp programming language, automated garbage collection, and time-sharing operating systems.\n\nIn the 1970s and 1980s, the field revived around knowledge-based expert systems that elicited domain rules directly from human specialists: DENDRAL inferred molecular structures from mass spectrometry in chemistry, MYCIN diagnosed bacterial blood infections and recommended antibiotics, and XCON converted customer orders into computer hardware parts specifications. Although expert systems bridged information gaps and proved AI had commercial value, their rigid deterministic rules could not handle real-world uncertainty, and dense rule interactions grew too complex to maintain — what Terry Winograd described with SHRDLU as a dead end presenting a dense mass with no easy footholds. The collapse of the specialized Lisp machine market in 1987 precipitated the second AI winter.\n\nRunning in parallel was the connectionist or neural lineage: from Warren McCulloch and Walter Pitts’ 1943 mathematical model of artificial neurons relating neural circuitry to logic, and Donald Hebb’s 1949 synaptic learning rule (\"cells that fire together wire together\"), to Frank Rosenblatt’s 1958 Perceptron for linear classification and Widrow and Hoff’s 1959 ADALINE. In 1969, Marvin Minsky and Seymour Papert published the book Perceptrons, proving mathematically that single-layer linear perceptrons could not compute nonlinear functions such as XOR, which dried up funding for neural network research for over a decade. Neural networks were revived through backpropagation and unsupervised layerwise pretraining by Geoffrey Hinton in 2006, surpassed Hidden Markov Models in speech recognition in 2009, and catalyzed the modern deep learning revolution when AlexNet won the ImageNet visual recognition challenge by a massive margin in 2012, followed by DeepMind’s AlphaGo defeating world Go champion Lee Sedol in 2016.\n\nToday, AI rests upon three intellectual traditions: Symbolic AI (explicit logic, knowledge graphs, heuristic search), Neural AI (brain-inspired distributed representations, backpropagation, deep architectures), and Statistical AI (regression, probability, Bayesian networks, and support vector machines derived from outside mathematics). AI is fundamentally defined as computational systems capable of performing tasks typically associated with human intelligence — learning, reasoning, problem-solving, perception, and decision-making — with the ultimate objective of remaining beneficial and aligned with human values.",
+      "keyFacts": [
+        "Dartmouth workshop (1956): organized by John McCarthy; coined Artificial Intelligence.",
+        "Early symbolic successes: Samuel checkers (1952, learned weights), Newell & Simon Logic Theorist (1955, theorem proving), General Problem Solver.",
+        "First AI winter: 1966 ALPAC report defunded machine translation after search spaces exploded and translations failed (\"vodka is good, meat is rotten\").",
+        "Early era spinoffs: Lisp programming language, garbage collection, and time-sharing systems.",
+        "Expert systems (1970s–80s): rule-based domain knowledge; DENDRAL (chemistry), MYCIN (blood infections/antibiotics), XCON (parts configuration).",
+        "Second AI winter: 1987 collapse of Lisp machines; rigid rules could not handle real-world uncertainty (Winograd SHRDLU complexity bottleneck).",
+        "Neural lineage: McCulloch-Pitts artificial neuron (1943), Hebbian learning (1949), Rosenblatt Perceptron (1958).",
+        "Perceptrons book (1969): Minsky & Papert proved linear models cannot compute XOR, freezing neural net funding.",
+        "Deep learning revolution: Hinton pretraining (2006), speech ASR beating HMMs (2009), AlexNet ImageNet victory (2012), AlphaGo (2016).",
+        "Three intellectual traditions: Symbolic AI (rules/logic), Neural AI (connectionist/deep learning), and Statistical AI (probability/regression/SVM).",
+        "Core definition: computational systems performing learning, reasoning, problem-solving, perception, and decision-making aligned with human values."
+      ],
+      "prerequisites": [
+        "dsai1202-ai-literacy"
+      ],
+      "examples": [
+        "MYCIN: an early rule-based expert system developed at Stanford that encoded over 500 rules to identify blood-borne bacterial pathogens and recommend antibiotic regimens, outperforming junior clinicians but limited by an inability to learn from new cases.",
+        "AlexNet (2012): a deep convolutional neural network that halved the error rate in the ImageNet competition, proving that deep learning paired with GPU compute and large labeled datasets beats hand-crafted visual feature extractors."
+      ]
+    },
+    "memory": {
+      "chunking": "Three eras, two winters: 1950s Dartmouth optimism -> 1966 ALPAC winter -> 1970s-80s Expert systems -> 1987 Lisp market crash winter -> 2012 AlexNet deep learning boom.",
+      "comparison": "Symbolic AI vs Neural AI vs Statistical AI: Symbolic uses hand-written rules and logical deduction (top-down); Neural uses simulated synapses learning representations from raw signals (bottom-up); Statistical optimizes mathematical probabilities and loss functions from data.",
+      "wordOrigin": "Perceptron: coined by Frank Rosenblatt in 1958 from perceive + -tron (instrument/device), denoting a computational unit modeled on biological sensory perception."
+    },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each historic milestone to its corresponding discovery or event.",
+        "pairs": [
+          [
+            "Dartmouth Workshop 1956",
+            "Coined Artificial Intelligence under John McCarthy"
+          ],
+          [
+            "ALPAC Report 1966",
+            "Defunded machine translation, triggering the first AI winter"
+          ],
+          [
+            "Perceptrons book 1969",
+            "Minsky & Papert proved linear models cannot compute XOR"
+          ],
+          [
+            "AlexNet 2012",
+            "Transformed computer vision with deep convolutional neural networks"
+          ]
+        ],
+        "explanation": "These mark the foundational pivot points between optimism, AI winters, and deep learning breakthroughs."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which of the following was a primary reason for the failure and collapse of 1980s rule-based expert systems (the second AI winter)?",
+        "options": [
+          "Lack of electronic digital computers",
+          "Deterministic hand-crafted rules could not handle real-world uncertainty and grew too complex to maintain",
+          "Governments banned commercial knowledge systems",
+          "Deep neural networks completely replaced all software overnight"
+        ],
+        "answer": 1,
+        "explanation": "Expert systems relied on deterministic if-then rules that became exponentially brittle, expensive to update, and incapable of coping with real-world noise and uncertainty."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What are the three distinct intellectual traditions that form the foundation of modern artificial intelligence?",
+        "options": [
+          "Hardware AI, Software AI, and Cloud AI",
+          "Symbolic AI, Neural AI, and Statistical AI",
+          "Robotics, Quantum Computing, and Nanotechnology",
+          "Generative AI, Agentic AI, and Autonomous AI"
+        ],
+        "answer": 1,
+        "explanation": "The lecture explicitly identifies three intellectual streams: Symbolic AI (rules, logic), Neural AI (artificial neural networks), and Statistical AI (probability, regression, machine learning algorithms)."
+      }
+    ],
+    "commonMistakes": [
+      "Assuming deep learning is new: artificial neural networks date back to McCulloch-Pitts in 1943 and Rosenblatt in 1958.",
+      "Thinking AI winters were caused by a lack of interest: they were caused by over-promising followed by computational and informational bottlenecks that produced underwhelming real-world results."
+    ],
+    "skills": [
+      "Identify the three intellectual traditions of AI and explain why modern AI relies on data-driven neural and statistical methods rather than pure deterministic rules."
+    ],
+    "selfCheck": "Name the three traditions of AI, explain why the 1966 ALPAC report triggered an AI winter, and explain why Minsky & Papert's 1969 proof about XOR stalled neural network research.",
+    "sourceRefs": [
+      {
+        "ref": "dsai.w2",
+        "location": "Slides 2–7 Birth of AI, Dartmouth 1956, Samuel checkers, early optimism, machine translation failure, ALPAC 1966 and first AI winter"
+      },
+      {
+        "ref": "dsai.w2",
+        "location": "Slides 8–9 Knowledge-based systems (70-80s), DENDRAL, MYCIN, XCON, uncertainty, Winograd SHRDLU, 1987 second AI winter"
+      },
+      {
+        "ref": "dsai.w2",
+        "location": "Slides 10–11 Artificial neural networks, McCulloch-Pitts 1943, Hebb 1949, Rosenblatt 1958, Minsky-Papert XOR 1969, deep learning Hinton 2006, AlexNet 2012, AlphaGo 2016"
+      },
+      {
+        "ref": "dsai.w2",
+        "location": "Slides 12–15 Two and three intellectual traditions (Symbolic, Neural, Statistical AI), definitions and alignment goals"
+      }
+    ]
+  },
+  {
+    "id": "dsai1202-core-elements-nlp-cv",
+    "subject": "DSAI1202",
+    "unit": "dsai.w2",
+    "type": "concept",
+    "title": "Core AI framework: Data-Model-Inference, NLP tasks, and computer vision hierarchy",
+    "tags": [
+      "ai",
+      "nlp",
+      "computer-vision",
+      "speech",
+      "high-yield"
+    ],
+    "lesson": {
+      "explanation": "Across all subfields of artificial intelligence, systems can be understood through a universal three-part pipeline: Data -> Model -> Inference/Decision. Data provides the empirical training signals or real-time inputs (financial time-series, text corpora, medical imagery, audio waveforms, or sensor streams). The Model learns underlying statistical representations, weights, or relationship patterns from that data. Inference (or Decision) applies the trained model to novel, unseen inputs to generate predictions, labels, actions, or synthesized outputs.\n\nNatural Language Processing (NLP) gives computers the capability to comprehend, interpret, and generate human language in text and speech. The lecture categorizes core NLP tasks:\n1. Machine Translation: mapping source-language text to target sequences using transformer architectures.\n2. Summarization: condensing lengthy documents into concise summaries while preserving core factual meaning (e.g. Zoom AI Companion meeting summaries; TripAdvisor review synthesis using GPT-4).\n3. Question Answering and Chatbots: conversational multi-turn dialogue and knowledge retrieval.\n4. Sentiment Analysis and Text Classification: determining underlying emotional polarity or assigning categorical labels (e.g. email spam filtering, customer feedback triage).\n5. Speech-to-Text (Automatic Speech Recognition / ASR): transforming acoustic waveforms into text tokens (e.g. OpenAI Whisper).\n6. Speech Synthesis (Text-to-Speech / TTS): generating natural-sounding spoken audio from text tokens (e.g. ElevenLabs, Tacotron 2, FastSpeech, VITS), enabling post-call sentiment and service analytics.\n\nComputer Vision (CV) enables computational systems to derive meaningful semantic information from visual inputs. The lecture establishes a clear hierarchy of visual tasks:\n1. Image Classification: predicting a single global category label with a confidence score for an entire image (e.g., classifying a pathology slide as malignant vs benign).\n2. Object Detection: identifying, classifying, and spatially locating multiple distinct entities within an image or video stream using bounding boxes with coordinates and confidence scores (e.g., YOLOv5, Faster R-CNN, DETR). Applications include autonomous vehicle obstacle tracking, retail people counting, agricultural yield prediction, PPE safety compliance, and pharmaceutical pill and vial defect inspection.\n3. Image Segmentation: assigning a category label to every individual pixel, delineating precise structural boundaries (e.g., semantic tumor segmentation in MRI or CT scans, separating neoplasm from healthy parenchyma for radiographers and oncologists).\n4. Keypoint Detection & Pose Estimation: detecting anatomical landmarks (eyes, ears, shoulders, elbows, wrists, hips, knees, ankles) and connecting them into a skeletal kinematic graph. Key clinical and practical applications include elderly fall detection, posture analysis, stroke physical rehabilitation form tracking, and athletic movement assessment.\n5. Facial Analysis & Recognition: face detection (bounding box), face analysis (demographics, expressions, emotions), and face recognition (1:1 verification such as phone biometric unlocking vs 1:N identification such as surveillance suspect matching).\n6. Optical Character Recognition (OCR): extracting alphanumeric text and bounding boxes from scanned documents, invoices, and clinical insurance records.",
+      "keyFacts": [
+        "Universal AI framework: Data (training/input) -> Model (learned patterns/weights) -> Inference/Decision (output predictions).",
+        "NLP core tasks: machine translation, summarization, question answering, chatbots, sentiment analysis, text classification, and text generation.",
+        "Speech AI: Speech-to-text (ASR, e.g. Whisper converts acoustics to text); Text-to-speech (TTS, e.g. ElevenLabs, Tacotron 2 converts text to speech).",
+        "Image classification: assigns one overall label and confidence score to an entire image.",
+        "Object detection: outputs bounding boxes + labels + confidence scores for multiple objects (YOLO, Faster R-CNN; used in PPE, pill inspection, vehicles).",
+        "Image segmentation: pixel-level classification delineating exact geometric boundaries (vital for tumor segmentation in CT/MRI).",
+        "Keypoint detection & pose estimation: tracks anatomical landmarks and skeletal posture (used in fall detection, stroke rehab, and posture correction).",
+        "Face processing: detection (bounding box) -> analysis (emotion/attributes) -> recognition (1:1 verification vs 1:N identification).",
+        "OCR: detects and extracts printed or written text from document images."
+      ],
+      "prerequisites": [
+        "dsai1202-ai-everyday-autonomy"
+      ],
+      "examples": [
+        "Tumor semantic segmentation: in radiation oncology and radiography, models delineate the irregular voxel boundaries of glioblastomas on MRI, sparing adjacent healthy brain tissue during radiotherapy planning.",
+        "Pill and vial defect inspection: high-speed factory computer vision systems use object detection to spot broken tablets, foreign particulate contamination, or cracked glass vials on pharmaceutical packaging lines."
+      ]
+    },
+    "memory": {
+      "chunking": "CV task precision ladder: Classification (whole image label) -> Detection (boxes around objects) -> Segmentation (exact pixel-level boundaries).",
+      "comparison": "Face verification vs Face identification: Verification is 1:1 matching (\"Are you who you claim to be?\", e.g. phone unlock); Identification is 1:N matching (\"Who among this entire database are you?\", e.g. police surveillance).",
+      "wordOrigin": "Segmentation: from Latin segmentum (\"a piece cut off\"), referring to partitioning an image into discrete, semantically meaningful pixel regions."
+    },
+    "practice": [
+      {
+        "type": "matching",
+        "prompt": "Match each computer vision task to its defining spatial output.",
+        "pairs": [
+          [
+            "Image classification",
+            "Single global class label and confidence score"
+          ],
+          [
+            "Object detection",
+            "Rectangular bounding boxes with labels for multiple objects"
+          ],
+          [
+            "Image segmentation",
+            "Pixel-level region masks delineating exact boundaries"
+          ],
+          [
+            "Pose estimation",
+            "Skeletal landmark keypoints tracking body joint positions"
+          ]
+        ],
+        "explanation": "Each CV task increases in spatial granularity from whole-image labels to bounding boxes, pixel masks, and joint keypoints."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In a medical imaging context, why is image segmentation chosen over simple object detection for delineating a tumor in a CT or MRI scan?",
+        "options": [
+          "Segmentation only requires low-resolution cameras",
+          "Segmentation provides pixel-level boundary delineation necessary for precise radiotherapy margins and surgical resection",
+          "Object detection is too computationally fast to be clinically useful",
+          "Segmentation converts images directly into text summaries"
+        ],
+        "answer": 1,
+        "explanation": "Object detection only draws a rectangular bounding box around a lesion, whereas segmentation classifies every individual pixel to outline the irregular biological boundaries of the tumor."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What distinguishes 1:1 face verification from 1:N face identification?",
+        "options": [
+          "Verification confirms an identity claim (one-to-one), while identification searches an entire database of faces (one-to-many)",
+          "Verification works on video, while identification works only on static photos",
+          "Verification uses speech signals, while identification uses retina scans",
+          "Verification is performed by humans, while identification is performed by AI"
+        ],
+        "answer": 0,
+        "explanation": "Face verification compares an image against a single known template (1:1, like unlocking a phone), while identification searches an unknown face across an entire gallery (1:N, like criminal database lookup)."
+      }
+    ],
+    "commonMistakes": [
+      "Confusing object detection with image segmentation: detection outputs rectangular bounding boxes; segmentation classifies every pixel.",
+      "Confusing speech recognition (ASR) with speech synthesis (TTS): ASR turns audio into text; TTS turns text into audio."
+    ],
+    "skills": [
+      "Select the appropriate computer vision or NLP tool for a given clinical or operational problem based on whether classification, detection, segmentation, or transcription is required."
+    ],
+    "selfCheck": "Explain the difference between classification, detection, and segmentation, and give one clinical application of pose estimation.",
+    "sourceRefs": [
+      {
+        "ref": "dsai.w2",
+        "location": "Slides 16–24 Core elements of an AI system (Data, Model, Inference/Decision), data types, and subfield map"
+      },
+      {
+        "ref": "dsai.w2",
+        "location": "Slides 25–32 Natural language processing, machine translation, summarization (Zoom/TripAdvisor), speech-to-text (Whisper), TTS (ElevenLabs), and post-call analytics"
+      },
+      {
+        "ref": "dsai.w2",
+        "location": "Slides 33–42 Computer vision tasks, classification vs detection vs segmentation, YOLOv5, people counting, PPE detection, pill/vial inspection, and tumor segmentation"
+      },
+      {
+        "ref": "dsai.w2",
+        "location": "Slides 43–48 Keypoint detection, pose estimation (fall detection, stroke rehab), face detection/analysis/recognition (1:1 vs 1:N), and OCR"
+      }
+    ]
+  },
+  {
+    "id": "dsai1202-generative-ai-prompting",
+    "subject": "DSAI1202",
+    "unit": "dsai.w2",
+    "type": "concept",
+    "title": "Generative AI: LLMs, diffusion models, levels of AI, and prompt engineering",
+    "tags": [
+      "ai",
+      "generative-ai",
+      "llm",
+      "prompt-engineering",
+      "high-yield"
+    ],
+    "lesson": {
+      "explanation": "Generative Artificial Intelligence represents a paradigm shift from discriminative models (which classify or predict labels on existing data) to generative models that synthesize entirely new artifacts — text, high-resolution imagery, synthetic speech, sound effects, and coherent video. In natural language, Large Language Models (LLMs) learn statistical and semantic patterns across massive internet-scale text corpora through next-token prediction, evolving from early GPT models to GPT-4o, Claude, DeepSeek, and Google Gemini. Modern foundation models are increasingly natively multimodal, processing and generating interleaved text, audio, and visual inputs simultaneously, enabling in-context visual reasoning, conversational image editing, and world-knowledge synthesis.\n\nIn visual and media generation, text-to-image synthesis is driven by diffusion models and flow-matching architectures: Midjourney (producing award-winning fine art such as Théâtre D’opéra Spatial and Japan’s first AI manga Cyberpunk: Peach John), Stable Diffusion (an open-source model developed by Stability AI running locally on consumer GPUs across versions 1.4, 1.5, 2.0, SDXL, and 3.5), and Flux from Black Forest Labs (featuring FLUX.1 pro, dev, and schnell, with Kontext for region-specific inpainting). Audio generation is spearheaded by platforms like ElevenLabs (offering text-to-speech, speech-to-speech voice transformation, voice cloning, and text-to-sound effects). Video generation has advanced rapidly with Google DeepMind’s Veo / Veo 3.1 and OpenAI’s Sora / Sora 2, capable of generating cinematic multi-shot video with synchronized audio at up to 95% lower cost than traditional commercial production.\n\nThe lecture frames the evolutionary trajectory of AI across three conceptual levels:\n1. Artificial Narrow Intelligence (ANI / Weak AI): systems designed to perform specific tasks within limited contexts (e.g. speech recognition, facial detection, chess, autonomous driving, medical imaging analysis). Every AI system currently in existence is ANI.\n2. Artificial General Intelligence (AGI / Strong AI): hypothetical AI that can learn, think, reason, and adapt across any intellectual task with human-level or cross-domain capability. AGI remains under active research.\n3. Artificial Super Intelligence (ASI): hypothetical future AI surpassing all human intelligence across every intellectual and creative endeavour, potentially possessing its own beliefs, desires, and self-directed goals.\n\nEffective interaction with generative AI relies on Prompt Engineering. A prompt is the textual instruction or input provided to guide token generation. For traditional image generation models (such as Stable Diffusion), prompts must be descriptive rather than instructive — describing the visual scene elements (e.g., \"Painting, oil on canvas, van Gogh style, vibrant colors\") rather than issuing procedural commands to the bot (\"Please draw me a painting...\"). A well-engineered prompt systematically specifies six core components: medium/format (photo vs painting), subject, specific details/clothing, lighting (natural, soft, neon), environment/setting, and color scheme or artistic style.\n\nCrucially, foundation models (e.g., GPT, DeepSeek) incorporate prior conversation history into subsequent prompt windows. In multi-turn chat, previous user turns, model outputs, and uploaded documents are re-sent as input tokens. When the total context exceeds the model’s context window, older turns are truncated. Because monthly quotas and computational costs on institutional platforms (such as the PolyU GenAI platform at genai.polyu.edu.hk) are billed per token, lengthy chat histories continuously consume input credits. Users should clear history or start a new chat session when initiating unrelated tasks to prevent token waste.",
+      "keyFacts": [
+        "Generative AI synthesizes new content (text, image, audio, video) rather than merely classifying existing data.",
+        "LLMs learn statistical and semantic representations through massive-scale next-token prediction; native multimodal models combine text, vision, and audio.",
+        "Image generation architectures: Midjourney, Stable Diffusion (open-source, consumer GPU runnable), Flux (Black Forest Labs), and native multimodal editors (GPT-4o, Gemini).",
+        "Audio & Video synthesis: ElevenLabs (TTS, voice cloning, sound effects); Veo (DeepMind) and Sora (OpenAI) generate high-definition video with audio.",
+        "Three levels of AI: ANI (Narrow/Weak, task-specific — ALL current AI); AGI (General/Strong, human-level across all domains); ASI (Super, surpasses all human intellect).",
+        "Image prompt rule: prompts should be descriptive rather than instructive (describe the scene directly rather than commanding the bot).",
+        "Prompt modifiers structure: medium (photo/painting), subject, details, lighting, environment, color scheme, art style.",
+        "Conversation history: foundation models re-send chat history as input tokens; clearing history on platforms like PolyU GenAI saves token credits."
+      ],
+      "prerequisites": [
+        "dsai1202-ai-everyday-autonomy",
+        "dsai1202-ai-literacy"
+      ],
+      "examples": [
+        "PolyU GenAI platform (genai.polyu.edu.hk): provides university students with access to state-of-the-art foundation models with monthly credit quotas that deduct input and output tokens on each prompt interaction.",
+        "Stable Diffusion prompt engineering: using \"A photo of a pretty girl walking in a garden, ultra-high resolution, award-winning photographer\" provides specific modifiers for subject, setting, medium, and photographic quality."
+      ]
+    },
+    "memory": {
+      "chunking": "Three levels of AI: ANI (Narrow - today's reality) -> AGI (General - human equivalent) -> ASI (Super - superhuman intellect).",
+      "comparison": "Descriptive vs Instructive prompting: Instructive says \"Please paint an apple on a table for me\"; Descriptive says \"An oil painting of a ripe red apple on a rustic wooden table, soft morning window light, high realism\". Descriptive yields far tighter visual control.",
+      "wordOrigin": "Generative: from Latin generare (\"to beget, produce\"), denoting systems that generate novel data distributions rather than selecting among existing choices."
+    },
+    "practice": [
+      {
+        "type": "mcq",
+        "prompt": "Which level of artificial intelligence describes all AI systems that exist today, including advanced models like GPT-4o, AlphaGo, and autonomous vehicles?",
+        "options": [
+          "Artificial General Intelligence (AGI)",
+          "Artificial Narrow Intelligence (ANI)",
+          "Artificial Super Intelligence (ASI)",
+          "Artificial Sentient Intelligence (ASI)"
+        ],
+        "answer": 1,
+        "explanation": "All currently deployed AI systems are Artificial Narrow Intelligence (weak AI), designed to operate within specific tasks or defined operational contexts."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Why should image generation prompts for models like Stable Diffusion be descriptive rather than instructive?",
+        "options": [
+          "Diffusion models do not speak English",
+          "Diffusion models predict visual distributions matching scene descriptions and keywords, whereas conversational commands add unnecessary noise without visual meaning",
+          "Instructive prompts consume ten times more GPU electricity",
+          "Descriptive prompts are required by international copyright law"
+        ],
+        "answer": 1,
+        "explanation": "Traditional diffusion models align visual tokens with descriptive attributes (subject, lighting, medium, style) rather than interpreting procedural conversational instructions."
+      },
+      {
+        "type": "mcq",
+        "prompt": "On chat-based foundation model platforms such as PolyU GenAI, why does leaving old conversation history in an active chat consume more credits?",
+        "options": [
+          "The server charges rent for the disk space of saved messages",
+          "The entire conversation history is concatenated and sent as input tokens with every new prompt, increasing input token usage",
+          "Old messages cause the model to slow down its clock frequency",
+          "Credits automatically expire after ten minutes of inactivity"
+        ],
+        "answer": 1,
+        "explanation": "Multi-turn chat models maintain context by re-transmitting previous conversation turns as input tokens on each submission, which draws against monthly token allowances."
+      }
+    ],
+    "commonMistakes": [
+      "Believing AGI or ASI has already been achieved: all current foundation models and agentic systems remain ANI.",
+      "Treating chat history as free: multi-turn chat resends prior turns, multiplying token consumption on every turn."
+    ],
+    "skills": [
+      "Structure high-fidelity prompts using modular descriptive modifiers (medium, subject, lighting, environment, style) and manage token context windows efficiently."
+    ],
+    "selfCheck": "Distinguish ANI from AGI and ASI, state the golden rule of diffusion image prompting, and explain why chat history increases token billing.",
+    "sourceRefs": [
+      {
+        "ref": "dsai.w2",
+        "location": "Slides 50–58 Generative AI, ChatGPT, GPT timeline, multimodal LLMs and visual prompt processing"
+      },
+      {
+        "ref": "dsai.w2",
+        "location": "Slides 59–67 Image, audio and video generation: Midjourney, Stable Diffusion versions, Flux, ElevenLabs, Veo and Sora"
+      },
+      {
+        "ref": "dsai.w2",
+        "location": "Slide 68 Three Levels of AI: Artificial Narrow Intelligence (ANI), Artificial General Intelligence (AGI), and Artificial Super Intelligence (ASI)"
+      },
+      {
+        "ref": "dsai.w2",
+        "location": "Slides 69–74 PolyU GenAI platform, prompt definition, descriptive vs instructive prompting, prompt modifiers, and conversation history token limits"
+      }
+    ]
+  }
 ];

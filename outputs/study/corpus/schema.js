@@ -116,6 +116,8 @@ export const SOURCE_FILES = {
   'hss.3.1.2019': { file: '1920_M3_L8_digestive_system student version.pdf', subject: 'HSS2011', root: 'extra', folder: 'extra source2.0/Year 1 Sem1/Anat/M3', kind: 'primary', note: "Dr Thomas Lau's 2019 HSS2011 digestive-system anatomy lecture — the four-layer gut wall, gross and microanatomy of each organ, the embryonic fore/mid/hindgut arterial supply, hepatic portal drainage. A different lecture from hss.3.1, which is McGraw-Hill based." },
   'hss.3.3.2019': { file: '1920_M3_L7_Abdomen and Pelvis student version.pdf', subject: 'HSS2011', root: 'extra', folder: 'extra source2.0/Year 1 Sem1/Anat/M3', kind: 'primary', note: "Dr Thomas Lau's 2019 HSS2011 Regional Anatomy of the Abdomen & Pelvis lecture — surface planes, the diaphragm hiatuses, the peritoneum and its folds, GI organ gross anatomy, the posterior abdominal wall vessels. A different deck from hss.3.3." },
   'hss.thorax.deck': { file: 'L2 Regional Anatomy of the Thorax.pdf', subject: 'HSS2011', root: 'lordo21', folder: 'PT Year 1 Subjects/Sem 1/Human Anatomy (HA)/2018 Lectures/M1 Thorax', kind: 'primary', note: "Dr Josephine Lau's HSS2011 lecture on regional anatomy of the thorax: sternal angle (manubriosternal junction at T4/T5, 2nd costal cartilage, boundary of superior and inferior mediastinum), carina at T4/T5, boundaries of thoracic inlet and outlet, intercostal neurovascular bundle (VAN + lymphatics), and diaphragm innervation by phrenic nerves." },
+  'hss.tut.ice': { file: 'Tutorial 1_ HSS2011_Human Anatomy_2026-27-Ice breaking.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'admin', note: 'Week 1 icebreaker and course orientation tutorial. Administrative only.' },
+  'hss.tut.tissues': { file: 'Tutorial2_HSS2011_HumanAnatomy_WEEK2_202627_BodyTissues.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'assessment', note: 'Dr Chileka Chiyanika’s Week 2 tutorial on body tissues: cell junctions (tight, adherent, gap with connexons), 4 primary tissues, epithelial classifications with anatomical locations, and keratinized vs parakeratinized stratified squamous.' },
 
   /* ---------------- ABCT2326 Human Physiology ---------------- */
   'phys.ebook': { file: 'Fundamentals of Anatomy and Physiology_eBook.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology', kind: 'primary', note: 'Martini, Nath & Bartholomew (2015), 10th ed. — the core textbook named on the lecture-note title slides.' },
@@ -142,6 +144,7 @@ export const SOURCE_FILES = {
   'phys.8': { file: 'Lecture notes.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/8. Nervous System', kind: 'primary' },
   'phys.9': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/9. Musculoskeletal System', kind: 'primary' },
   'phys.10': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/10. Immune System', kind: 'primary' },
+  'phys.10.2026': { file: 'ABCT2326 Immune v2.pdf', subject: 'ABCT2326', root: 'newsrc', folder: '', kind: 'primary', note: 'The confirmed 2026 edition of Lecture 10 (Immune System), 71 slides. Physical/chemical barriers, phagocytes, immunological surveillance (NK cells & perforin), interferons (cytokines, alpha/beta/gamma), complement system (classical and alternative pathways, MAC, histamine release), inflammation (mast cells, basophils, tissue repair), fever (pyrogens, preoptic hypothalamic thermostat), adaptive immunity (MHC class I vs II, CD4/CD8 T cell activation, costimulation, B cell sensitization & clonal selection, antibody structure and classes IgG/IgE/IgD/IgM/IgA).' },
   /*
    * The lecturer's own prose notes, one per system, filed inside the numbered
    * lecture folders alongside the deck. They are the same author writing at
@@ -178,6 +181,7 @@ export const SOURCE_FILES = {
   'hti.w1b': { file: 'Week 1 Radiographer To Be.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography/Lecture notes', kind: 'primary' },
   'hti.w1.2026': { file: 'ER_Lec1%282026%29.pdf', subject: 'HTI17103', root: 'newsrc', folder: '', kind: 'primary', note: 'The 2026 edition of the opening lecture, by Liang-Ting Lin. Most of it restates hti.w1b — same etymology, same six professional roles, same tungsten/rhenium target. What is new is the back half: the radiotherapy technique list, structural versus functional imaging, and the criteria by which a modality is chosen.' },
   'hti.w2': { file: 'Week 2 Medical Imaging Modalities and Equipment.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography/Lecture notes', kind: 'primary' },
+  'hti.w2.2025': { file: 'ER_Lec2 (2025).pdf', subject: 'HTI17103', root: 'newsrc', folder: '', kind: 'primary', note: 'The confirmed 2025/26 lecture on Medical Imaging Modalities and Equipment by Dr Liang-Ting Lin (42 slides). General X-ray (film vs CR vs DR), fluoroscopy/angiography, computed tomography, radionuclide imaging (SPECT/PET), MRI, and ultrasound.' },
   'hti.w3': { file: 'Week 3 Introduction to Radiation Therapy.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography/Lecture notes', kind: 'primary' },
   'hti.w5': { file: 'Week 5 Radiographer Role Extension.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography/Lecture notes', kind: 'primary' },
   'hti.w6': { file: 'Week 6 Basic Radioprotection and Cancers.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography/Lecture notes', kind: 'primary' },
@@ -196,6 +200,7 @@ export const SOURCE_FILES = {
 
   /* ---------------- DSAI1202 Introduction to AI and Data Analytics ---------------- */
   'dsai.w1': { file: '1.+Week1-Overview.pptx', subject: 'DSAI1202', root: 'newsrc', folder: '', kind: 'primary', note: 'Week 1 overview, 47 slides, Dr Xiuling Wang. Half course admin, half a tour of where AI already sits in daily life, healthcare and work. The deck states its own limits: this is an AI-literacy General University Requirement, and programming and the mathematics of AI are explicitly not included.' },
+  'dsai.w2': { file: '2. Week2-AI Overview.pptx', subject: 'DSAI1202', root: 'newsrc', folder: '', kind: 'primary', note: 'Week 2 AI Overview, 74 slides. Detailed coverage of AI history (Dartmouth 1956, early symbolic successes and AI winters), expert systems (DENDRAL, MYCIN, XCON), neural networks and deep learning milestones (McCulloch-Pitts, Hebb, Rosenblatt Perceptron, Minsky & Papert XOR, backpropagation, ImageNet 2012), core AI system elements (data, model, training, inference; supervised/unsupervised/reinforcement learning), computer vision, NLP, and modern Generative AI foundations (LLMs/ChatGPT, Stable Diffusion, ElevenLabs, prompt engineering).' },
 
   /* ---------------- APSS1A08 Introduction to Sociology ---------------- */
   'soc.syllabus.2026': { file: 'Introduction to Sociology (2026-2027 Sem.1).pdf', subject: 'APSS1A08', root: 'newsrc', folder: '', kind: 'admin', note: 'Current APSS1A08/APSS112 syllabus for Semester One 2026/27. The authority for the Friday class, all thirteen weekly topics, learning outcomes, assessment weights, AI permissions and assignment deadlines.' },
@@ -331,9 +336,10 @@ export const SUBJECTS = [
     title: 'Introduction to AI and Data Analytics',
     accent: '#7fd1a0',
     coverage: 'limited',
-    blurb: 'The Week 1 overview deck only, dropped into New source/ as the semester started. It is a General University Requirement AI-literacy subject, explicitly not technical: the deck says programming and the mathematics of AI are not included. The other twelve weeks — AI overview, GenAI, machine learning — have not been supplied.',
+    blurb: 'Week 1 course overview and Week 2 AI overview decks are supplied. A General University Requirement AI-literacy subject, explicitly conceptual rather than algorithmic: the syllabus and decks emphasize principles, historical paradigms, system components, NLP/vision applications and generative AI literacy rather than code.',
     units: [
       { id: 'dsai.overview', label: 'Week 1 — Course overview & AI in practice' },
+      { id: 'dsai.w2', label: 'Week 2 — AI overview, history, foundations & paradigms' },
     ],
   },
   {

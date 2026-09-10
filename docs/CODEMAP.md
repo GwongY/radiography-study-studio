@@ -45,15 +45,15 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `physiology-shape.js` | 211 | Pure rest-space shape derivation and illustrative deformation profiles. |  |
 | `physiology.js` | 381 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
-| `schedule.js` | 921 | schedule.js — the semester itself: what the syllabus says, and when each |  |
+| `schedule.js` | 926 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `search-name.js` | 27 | Anatomical name matching shared by search and its regression gate. |  |
 | `study-data.js` | 127 | Radiography Study Studio — study data layer. |  |
 | `sw.js` | 398 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 356 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 268 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
-| `term-gloss.js` | 1748 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
-| `term-notes.js` | 1491 | Term notes — say it, then mean it. |  |
+| `term-gloss.js` | 2382 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
+| `term-notes.js` | 1535 | Term notes — say it, then mean it. |  |
 | `visual-data.js` | 524 | visual-data.js — a visual for every study item. |  |
 | `wordparts.js` | 952 | Word parts — the medical vocabulary broken into the pieces it is built from. |  |
 
@@ -108,13 +108,13 @@ belong in `init()`. The two keep separate import scopes and talk only through
 |  | 275–304 | Groups the student belongs to but the schedule does not say |
 |  | 305–314 | Every timetabled session |
 |  | 315–368 | Weekly slots, from the university timetable |
-|  | 369–817 | Which lessons cover which week |
-|  | 818–866 | Where a session sits in time |
-|  | 867–921 | Formatting — kept here so the view has no date arithmetic in it |
+|  | 369–822 | Which lessons cover which week |
+|  | 823–871 | Where a session sits in time |
+|  | 872–926 | Formatting — kept here so the view has no date arithmetic in it |
 | `term-gloss.js` | 1–702 | preamble |
 |  | 703–788 | 2026 sweep — the cell, from the Lecture 1 items |
 |  | 789–831 | 2026 sweep — bone, muscle and the tissues of movement |
-|  | 832–1748 | The vocabulary of a bony landmark |
+|  | 832–2382 | The vocabulary of a bony landmark |
 | `visual-data.js` | 1–29 | preamble |
 |  | 30–63 | Bone records -> skeleton meshes |
 |  | 64–72 | Explicit per-item visuals |
@@ -163,7 +163,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `navigation-five-destinations.js` | 161 | Navigation -- five destinations, rendered into both the icon rail and |
 | `progress-log.js` | 374 | Progress log — the append-only record every other progress number is derived from |
 | `question-pack.js` | 532 | Question packs — licensed questions that live on this device and nowhere else. |
-| `reading-help.js` | 330 | Reading help |
+| `reading-help.js` | 332 | Reading help |
 | `reset.js` | 199 | Reset |
 | `review-mistakes-due.js` | 317 | Exam — past papers, timed practice, mistakes, short answer, and the mastery map. |
 | `search-viewer-open.js` | 45 | Search -> viewer: open the model, select the part, auto-uncover, and |
@@ -192,22 +192,22 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `coverage.js` | 251 | Coverage report — what the supplied sources actually cover, and what they |
 | `derived-items.js` | 344 | Items generated rather than authored: one per canonical bone record, one |
 | `diagrams.js` | 50 | Diagrams — authored schematics, drawn inline as SVG so the app needs no |
-| `dsai-items.js` | 173 | DSAI1202, from the Week 1 overview deck. |
-| `expansion-items.js` | 1890 | Expansion batch — fills gaps found in a coverage audit. |
+| `dsai-items.js` | 510 | DSAI1202, from the Week 1 overview deck. |
+| `expansion-items.js` | 1898 | Expansion batch — fills gaps found in a coverage audit. |
 | `hss-joints.js` | 1326 | HSS2011 Human Anatomy — joints and the muscles that move them. |
-| `hss-modules.js` | 13001 | HSS2011 Human Anatomy — the per-module study items. |
+| `hss-modules.js` | 13119 | HSS2011 Human Anatomy — the per-module study items. |
 | `hss-osteology.js` | 2796 | HSS2011 Human Anatomy — osteology: bone classification, the axial and |
 | `hss-special-senses.js` | 511 | HSS2011 Week 7 — Special Senses. |
 | `hss-terminology.js` | 505 | HSS2011 Human Anatomy — anatomical terminology: position, planes, movement |
-| `hti-items.js` | 2041 | HTI17103, drawn from the HTI17101 Exploring Radiography set — the study |
+| `hti-items.js` | 2107 | HTI17103, drawn from the HTI17101 Exploring Radiography set — the study |
 | `mastery.js` | 121 | Spaced repetition — the schedule, the mastery score and its dimensions, and |
 | `modules.js` | 133 | Course modules — which unit belongs to which teaching module, so the app can |
 | `notices.js` | 33 | Notices for subjects whose current source set is incomplete. |
 | `physiology-depth.js` | 1923 | ABCT2326 depth lessons. These split the mechanism-heavy respiratory and |
-| `physiology-items.js` | 7210 | ABCT2326 Human Physiology — the study items. |
+| `physiology-items.js` | 7216 | ABCT2326 Human Physiology — the study items. |
 | `physiology-reproductive.js` | 481 | ABCT2326 Lecture 6 — Reproductive System. |
-| `schema.js` | 533 | Scaffolding: the source registry, the subjects and their units, the item |
-| `source-lesson-map.js` | 7004 | GENERATED by work/build-source-lesson-map.mjs — do not hand-edit. |
+| `schema.js` | 539 | Scaffolding: the source registry, the subjects and their units, the item |
+| `source-lesson-map.js` | 7161 | GENERATED by work/build-source-lesson-map.mjs — do not hand-edit. |
 | `structures.js` | 448 | Granular 3D targets: the structure sets a tap-to-identify item draws from, |
 | `validate.js` | 152 | Validation — every question must have a resolvable answer and every claim a |
 
@@ -251,6 +251,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/glb-bounds.mjs` | Per-mesh axis-aligned bounding boxes straight out of a GLB, without three.js. |  |
 | `work/glb-mesh.mjs` | Decode POSITION vertices out of an uncompressed GLB, node-side. |  |
 | `work/glb-names.mjs` | Dump mesh/node names from a GLB (JSON chunk only). Usage: node work/glb-names.mjs assets/kas.glb [fi |  |
+| `work/gloss-coverage-check.mjs` | Gloss coverage check — every underlined word has a definition and Traditional Chinese. |  |
 | `work/gloss-gap-scan.mjs` | Gloss gap scan — regression check for the reading help. |  |
 | `work/grid-probe.mjs` | Numeric validation of the abdominal surface grid -- the nine regions and the |  |
 | `work/handoff-export.mjs` | Turn the unread manifest into a folder another AI can actually read. |  |

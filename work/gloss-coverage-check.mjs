@@ -30,7 +30,8 @@ export const COMMON_STOPLIST = new Set([
   'recorded', 'records', 'recycle', 'recycled', 'recycling', 'reductive', 'referral', 'referred',
   'referring', 'reflexive', 'sterile', 'tensile', 'transmission', 'transplant', 'transplanted',
   'transplants', 'universal', 'version', 'visual', 'pause', 'press', 'plant', 'organism', 'organisms',
-  'organismal', 'autopilot', 'admission'
+  'organismal', 'autopilot', 'admission', 'symbolic', 'defunded', 'program', 'programs',
+  'submission', 'submissions'
 ]);
 
 export const KNOWN_NUMBER_PAIRS = [
@@ -68,7 +69,9 @@ export const KNOWN_NUMBER_PAIRS = [
   ['apex', 'apices'],
   ['cortex', 'cortices'],
   ['index', 'indices'],
-  ['matrix', 'matrices']
+  ['matrix', 'matrices'],
+  ['desmosome', 'desmosomes'],
+  ['corneocyte', 'corneocytes']
 ];
 
 export function shortWordOk(token, glossFn = termGloss, partFn = partOf) {

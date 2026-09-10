@@ -399,6 +399,7 @@ export const WEEK_STUDY = {
       'hss2011-joints-movements', 'hss2011-pastpaper-joints-articulations',
     ],
     2: [
+      'hss2011-tissues-junctions-epithelia',
       'hss2011-joints-movement-map-2026', 'hss2011-osteo-pectoral-girdle',
       'hss2011-osteo-forearm-carpals', 'hss2011-structures-carpals',
       'hss2011-structures-rotatorCuff', 'hss2011-joints-rotator-cuff',
@@ -536,7 +537,12 @@ export const WEEK_STUDY = {
   },
   DSAI1202: {
     1: ['dsai1202-ai-everyday-autonomy', 'dsai1202-ai-in-healthcare', 'dsai1202-ai-literacy'],
-    2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: [], 13: [],
+    2: [
+      'dsai1202-history-paradigms',
+      'dsai1202-core-elements-nlp-cv',
+      'dsai1202-generative-ai-prompting',
+    ],
+    3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: [], 13: [],
   },
 };
 
@@ -566,7 +572,6 @@ export const WEEK_GAPS = {
     13: 'End-of-term Quiz (50%) and Mini Project submission deadline.',
   },
   DSAI1202: {
-    2: 'AI Overview: only the Week 1 overview deck is supplied; the Week 2 teaching notes are missing.',
     3: 'Generative AI and chatbots: official Week 3 teaching notes not supplied.',
     4: 'Generative-AI class exercise: official Week 4 teaching notes not supplied.',
     5: 'Industrial Centre Visit 1 / Machine Learning I: official teaching notes not supplied.',
