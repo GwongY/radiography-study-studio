@@ -1029,6 +1029,12 @@ to get wrong.
 
 ### The tucking header must not change the scroller's geometry — `outputs/app.css`, `outputs/study/small-ui-helpers.js`
 
+All header controls tuck together, including text size and search. Do not apply
+an inverse translate to those buttons: that leaves them floating over the lesson.
+The hidden header also uses visibility:hidden so descendants cannot retain focus
+or pointer interaction. `work/header-tuck-browser-check.js` exercises long lesson
+metadata and repeated tuck/reveal cycles without changing scroller geometry.
+
 The first version collapsed the header with a negative margin. It reclaims the
 space and it looks wrong: the scroller's top edge moves up by the header's
 height at the same instant, so every line of text jumps 73px under the reader's
