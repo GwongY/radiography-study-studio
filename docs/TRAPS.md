@@ -1355,3 +1355,35 @@ written against it was one page low — while the check's own comment claimed it
 used the same comparison as `source-check.mjs`. If a check claims to be the same
 comparison as another, make it share the indexing, or assert it on a case where
 they must agree.
+
+### The heart's shared tether — `outputs/physiology-shape.js`, `outputs/studio/live-physiology.js`
+
+Piece 3 (the tethered chamber contraction) and the collar it replaces both live or
+died on the same four facts.
+
+**The valve leaflets are not along a plane.** The proposed axial mask died at the
+discovery gate: the tricuspid leaflet body reaches 0.34 of the ventricle's
+half-length apical of the RV bbox centre and the mitral body 0.22 into the LV, and
+the old map's worst shrink happens mid-chamber. Anything anchored at "the valve
+plane" either leaves the leaflet bodies exposed or freezes 80% of the chamber.
+Measure, then choose the mask; the proximity field is what the measurements
+support, and `work/physiology-heart-discovery.mjs` is what measured it.
+
+**A steep mask folds the map.** The first field (radius 0.02) put the mask's
+midpoint slope high enough that a·|grad w|·lambda·|v| exceeded 1 near the band —
+det J negative, the map folds, surfaces cross: the collar's failure, reached by
+arithmetic instead of by eye. The shipped field is radius 0.04 WITH a gradient
+clamp derived from that same product; `work/physiology-heart-check.mjs` asserts
+determinants, and the assertion is the part that must never be deleted.
+
+**An unbound float attribute reads 0.** The tether rides attributes; a mesh that
+skips the field (the nonuniform-metric guard) must bind an explicit all-ones
+field, because an unbound attribute feeds 0 to the shader and 0 means "frozen".
+The whole heart would go still with no error anywhere.
+
+**When a classifier splits a class, grep every name filter.** The leaflets moved
+from class `heart` to `heartAVValve`/`heartSemilunarValve`, and both the check's
+and the adapter's static-set filters — written as a list containing
+`'heart'` — silently lost all 9 leaflets. The only symptom was the gate's pair
+count dropping 283 → 220. A class rename is an API change to every list that
+names it.

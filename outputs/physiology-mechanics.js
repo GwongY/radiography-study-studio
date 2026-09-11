@@ -1,6 +1,6 @@
 /* Source-backed sequences; display timings are slowed for the motor example. */
 export const MECHANISM_SOURCES = [
-  {ref:'phys.2',pages:[43,44,45,49,50,51,52]},
+  {ref:'phys.2',pages:[33,34,35,36,37,38,39,43,44,45,49,50,51,52]},
   {ref:'phys.muscle.deck',pages:[27,29,30,32,35]},
   {ref:'phys.3',pages:[21,22,24]},
   {ref:'hss.4.3',pages:[19,24]},

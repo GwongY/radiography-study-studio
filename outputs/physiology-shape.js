@@ -187,6 +187,122 @@ export function deriveBreathingShape(input) {
   return shape;
 }
 
+
+/* Chamber contraction under a shared tether field (piece 3, constrained).
+ *
+ * The rejected boundary collar added displacement near the chamber seams; the
+ * static valve leaflets cannot yield, so annulus-region wall motion can only
+ * penetrate. Measured on the real GLB (work/physiology-heart-discovery.mjs),
+ * the leaflet bodies lie against the chamber walls over wide regions that no
+ * single axial plane anchors — so the mask is per-vertex PROXIMITY to the
+ * measured static set: zero where the wall actually touches a static mesh,
+ * rising to full contraction beyond the influence radius.
+ *
+ * The field is ONE function of position shared by every deforming heart
+ * surface (chambers and papillary muscles alike). Sharing it preserves the
+ * 5b5355c guarantee in its general form: surfaces moving under the same map
+ * keep their rest relationship, provided the map stays a homeomorphism —
+ * which the positive-determinant assertion in work/physiology-heart-check.mjs
+ * samples for. The per-vertex arrays are samples of that one field, because a
+ * vertex shader cannot walk a point set.
+ */
+
+/* Per-vertex samples of the field w = smoothstep(dist/radius) against the
+ * static point set, with the field's analytic gradient. Both arrays are in
+ * ONE common (the moving mesh's local) frame; the caller converts the static
+ * vertices and scales the radius. Vertices at or beyond `radius` get w=1 and
+ * a zero gradient, which makes deformChamber there exactly the unmasked map.
+ * Coincident vertices (w=0) get a zero gradient: smoothstep's derivative is
+ * zero there anyway, so this is the limit, not a fudge.
+ *
+ * maxGrad bounds the shipped gradient. Unclamped, the mask's slope near its
+ * midpoint can make the map's Jacobian fold (det J <= 0) — the mechanism that
+ * killed the boundary collar. The fold condition is a*|grad|*lambda*|v| < 1
+ * with lambda the largest inverse scale of the unmasked part; the caller
+ * derives maxGrad from it once for the whole heart, so every mesh samples the
+ * SAME clamped field and the maps stay one map.
+ */
+export function chamberTetherField(positions, staticPositions, radius, maxGrad = Infinity) {
+  const count=positions.length/3, statics=staticPositions.length/3;
+  const weights=new Float32Array(count).fill(1), gradients=new Float32Array(count*3);
+  if(!(radius>0)||!statics)return {weights,gradients};
+  const r2=radius*radius;
+  for(let i=0;i<count;i++){
+    const px=positions[i*3],py=positions[i*3+1],pz=positions[i*3+2];
+    let best=r2,bx=0,by=0,bz=0;
+    for(let j=0;j<statics;j++){
+      const dx=px-staticPositions[j*3],dy=py-staticPositions[j*3+1],dz=pz-staticPositions[j*3+2];
+      const d2=dx*dx+dy*dy+dz*dz;
+      if(d2<best){best=d2;bx=dx;by=dy;bz=dz;}
+    }
+    if(best>=r2)continue;
+    const d=Math.sqrt(best),x=d/radius;
+    weights[i]=x*x*(3-2*x);
+    let dw=6*x*(1-x)/radius;
+    if(dw>maxGrad)dw=maxGrad;
+    if(d>1e-9){
+      gradients[i*3]=dw*bx/d;gradients[i*3+1]=dw*by/d;gradients[i*3+2]=dw*bz/d;
+    }
+  }
+  return {weights,gradients};
+}
+
+/**
+ * The chamber map. `tether` carries this vertex's field sample; null means an
+ * untouched field (w=1, zero gradient), which is EXACTLY the map the inline
+ * uMode-5 branch shipped before this piece — contraction toward the centre
+ * with the axial component weighted .55, and the matching inverse-transpose
+ * normal. Where the field is 1 with zero gradient the two agree term for term.
+ * The gradient term is the derivative of the spatial weight, without which
+ * the normal field would not match the surface it is lit on.
+ */
+export function deformChamber(position,normal,shape,amplitude,tether=null) {
+  const {axis,centre,amount}=shape;
+  const a=Math.max(0,Math.min(.25,(Number(amplitude)||0)*amount));
+  if(a===0)return {position:Array.from(position),normal:Array.from(normal),determinant:1,jacobian:[1,0,0,0,1,0,0,0,1]};
+  const w=tether?tether.weight:1, gw=tether?tether.gradient:[0,0,0];
+  const k=a*w;
+  const offset=position.map((v,i)=>v-centre[i]);
+  const s=offset.reduce((n,v,i)=>n+v*axis[i],0);
+  const v=offset.map((d,i)=>d-s*axis[i]+.55*s*axis[i]);
+  const moved=position.map((p,i)=>p-k*v[i]);
+  /* J[r][c] = dr_c - k*(dr_c - .45*axis[r]axis[c]) - a*gw[c]*v[r], column-major. */
+  const jacobian=new Array(9);
+  for(let c=0;c<3;c++)for(let r=0;r<3;r++){
+    jacobian[c*3+r]=(r===c?1-k:0)+k*.45*axis[r]*axis[c]-a*gw[c]*v[r];
+  }
+  const col=c=>[jacobian[c*3],jacobian[c*3+1],jacobian[c*3+2]];
+  const cross=(p,q)=>[p[1]*q[2]-p[2]*q[1],p[2]*q[0]-p[0]*q[2],p[0]*q[1]-p[1]*q[0]];
+  const c0=cross(col(1),col(2)),c1=cross(col(2),col(0)),c2=cross(col(0),col(1));
+  const movedN=[0,1,2].map(r=>c0[r]*normal[0]+c1[r]*normal[1]+c2[r]*normal[2]);
+  const scale=Math.hypot(...movedN)||1;
+  return {position:moved,normal:movedN.map(v2=>v2/scale),determinant:col(0).reduce((n,p,i)=>n+p*c0[i],0),jacobian};
+}
+
+// Same map in GLSL, on the MUSCLE_SHAPE_GLSL pattern: written once, called by
+// the position patch on `transformed` and the normal patch on `position`, so
+// the two halves cannot drift. uMAxis/uMCenter/uMAmt come from the existing
+// deform uniforms; aTetherW/aTetherGrad are the field samples the adapter
+// binds (constant 1/0 where a mesh runs unmasked).
+export const CHAMBER_SHAPE_GLSL = `
+attribute float aTetherW;
+attribute vec3 aTetherGrad;
+mat3 rssChamberDeform(inout vec3 x,float amp){
+  float a=clamp(amp*uMAmt,0.,.25);
+  if(a<=0.)return mat3(1.);
+  float k=a*aTetherW;
+  vec3 u=x-uMCenter;
+  float s=dot(u,uMAxis);
+  vec3 v=u-s*uMAxis+.55*s*uMAxis;
+  mat3 J;
+  J[0]=vec3(1.-k,0.,0.)+(k*.45*uMAxis.x)*uMAxis-(a*aTetherGrad.x)*v;
+  J[1]=vec3(0.,1.-k,0.)+(k*.45*uMAxis.y)*uMAxis-(a*aTetherGrad.y)*v;
+  J[2]=vec3(0.,0.,1.-k)+(k*.45*uMAxis.z)*uMAxis-(a*aTetherGrad.z)*v;
+  x-=k*v;
+  return mat3(cross(J[1],J[2]),cross(J[2],J[0]),cross(J[0],J[1]));
+}
+`;
+
 export function deformBreathing(position,normal,shape,amplitude,lung=false){
   const {axis,centre,length,amount}=shape;
   if(!amplitude||!amount)return {position:Array.from(position),normal:Array.from(normal),determinant:1};
