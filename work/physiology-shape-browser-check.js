@@ -1,13 +1,7 @@
 // Evaluate in an isolated dev-server Chrome tab: mode='capture', then 'compare'
 // after reloading the edited app. Exercises the actual injected vertex GLSL.
 async function physiologyShapeBrowserCheck(mode='compare') {
-  const {deformMuscle,deformBreathing}=await import('/physiology-shape.js');
-  const deformPump=(position,normal,shape,amplitude)=>{
-    const {axis,centre,amount}=shape,d=position.map((v,i)=>v-centre[i]);
-    const z=d.reduce((n,v,i)=>n+v*axis[i],0),na=normal.reduce((n,v,i)=>n+v*axis[i],0),a=amount*amplitude;
-    const n=normal.map((v,i)=>(v-na*axis[i])/(1-a)+na*axis[i]/(1-.55*a));
-    return {position:position.map((v,i)=>v-a*(d[i]-.45*z*axis[i])),normal:n.map(v=>v/Math.hypot(...n))};
-  };
+  const {deformMuscle,deformBreathing,deformChamber}=await import('/physiology-shape.js');
   const {goTo}=await import('/study/navigation-five-destinations.js');
   const {loadExtraModel}=await import('/studio/depth-picking.js');
   const {STRUCTURE_MODELS}=await import('/study-data.js');
@@ -23,6 +17,7 @@ async function physiologyShapeBrowserCheck(mode='compare') {
   let vertices=0,maxRestPositionError=0,maxRestNormalError=0,muscleSamples=0,maxMusclePositionError=0,maxMuscleNormalError=0;
   const fragment=compile(gl.FRAGMENT_SHADER,'#version 300 es\nprecision highp float;out vec4 color;void main(){color=vec4(1.);}');
   const sample=(a,n=64)=>{const count=Math.min(n,a.count),out=new Float32Array(count*3);for(let i=0;i<count;i++){const j=Math.floor(i*(a.count-1)/Math.max(1,count-1));out.set([a.getX(j),a.getY(j),a.getZ(j)],i*3);}return out;};
+  const sampleIdx=(a,n=64)=>{const count=Math.min(n,a.count);return Array.from({length:count},(_,i)=>Math.floor(i*(a.count-1)/Math.max(1,count-1)));};
   try {
     for(const [key,layer] of Object.entries(s.extraModels).sort(([a],[b])=>a.localeCompare(b))) for(const mesh of layer.meshes){
       const sh={uniforms:{},vertexShader:s.THREE.ShaderLib.standard.vertexShader,fragmentShader:s.THREE.ShaderLib.standard.fragmentShader};
@@ -40,7 +35,9 @@ async function physiologyShapeBrowserCheck(mode='compare') {
       const matrix=mesh.matrix.toArray(),bounds=mesh.geometry.boundingBox.clone();
       const vao=gl.createVertexArray();gl.bindVertexArray(vao);gl.useProgram(program);
       const buffers=[];
-      for(const [name,data] of [['position',p],['normal',n]]){const at=gl.getAttribLocation(program,name);if(at<0)continue;const b=gl.createBuffer();buffers.push(b);gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);gl.enableVertexAttribArray(at);gl.vertexAttribPointer(at,3,gl.FLOAT,false,0,0);}
+      const tw=mesh.geometry.attributes.aTetherW,tg=mesh.geometry.attributes.aTetherGrad;
+      const bind3=(name,data,size)=>{const at=gl.getAttribLocation(program,name);if(at<0||!data)return;const b=gl.createBuffer();buffers.push(b);gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);gl.enableVertexAttribArray(at);gl.vertexAttribPointer(at,size,gl.FLOAT,false,0,0);};
+      bind3('position',p,3);bind3('normal',n,3);bind3('aTetherW',tw?tw.array:null,1);bind3('aTetherGrad',tg?tg.array:null,3);
       gl.uniformMatrix4fv(gl.getUniformLocation(program,'modelMatrix'),false,new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]));
       for(const [name,{value}] of Object.entries(sh.uniforms)){const at=gl.getUniformLocation(program,name);if(at===null)continue;if(typeof value==='number')gl.uniform1f(at,value);else if(value.isVector3)gl.uniform3fv(at,value.toArray());}
       gl.uniform1f(gl.getUniformLocation(program,'uT'),.37);
@@ -51,8 +48,12 @@ async function physiologyShapeBrowserCheck(mode='compare') {
         const out=new Float32Array(p.length*2);gl.getBufferSubData(gl.TRANSFORM_FEEDBACK_BUFFER,0,out);
         if(!out.every(Number.isFinite))throw Error('Nonfinite shader output: '+mesh.name);
         if(!amplitude)for(let i=0;i<p.length/3;i++)for(let j=0;j<3;j++){maxRestPositionError=Math.max(maxRestPositionError,Math.abs(out[i*6+j]-p[i*3+j]));maxRestNormalError=Math.max(maxRestNormalError,Math.abs(out[i*6+j+3]-n[i*3+j]));}
-        if((mode==='muscle'&&mesh.userData.flowClass==='muscle')||(mode==='breathing'&&['diaphragm','airway'].includes(mesh.userData.flowClass))||(mode==='pump'&&mesh.userData.flowClass==='heartVentricle'))for(let i=0;i<p.length/3;i++){
-          const expected=(mode==='pump'?deformPump:mode==='breathing'?deformBreathing:deformMuscle)(Array.from(p.slice(i*3,i*3+3)),Array.from(n.slice(i*3,i*3+3)),shape,amplitude,mesh.userData.flowClass==='airway');
+        if((mode==='muscle'&&mesh.userData.flowClass==='muscle')||(mode==='breathing'&&['diaphragm','airway'].includes(mesh.userData.flowClass))||(mode==='pump'&&['heartVentricle','heartAtrium'].includes(mesh.userData.flowClass)))for(let i=0;i<p.length/3;i++){
+          const idx=sampleIdx(mesh.geometry.attributes.position)[i];
+          const tether=tw?{weight:tw.getX(idx),gradient:[tg.getX(idx*3),tg.getX(idx*3+1),tg.getX(idx*3+2)]}:null;
+          const args=mode==='pump'?[Array.from(p.slice(i*3,i*3+3)),Array.from(n.slice(i*3,i*3+3)),shape,amplitude,tether]
+            :[Array.from(p.slice(i*3,i*3+3)),Array.from(n.slice(i*3,i*3+3)),shape,amplitude,mesh.userData.flowClass==='airway'];
+          const expected=(mode==='pump'?deformChamber:mode==='breathing'?deformBreathing:deformMuscle)(...args);
           for(let j=0;j<3;j++){
             maxMusclePositionError=Math.max(maxMusclePositionError,Math.abs(expected.position[j]-out[i*6+j])/Math.max(shape.length,1e-6));
             maxMuscleNormalError=Math.max(maxMuscleNormalError,Math.abs(expected.normal[j]-out[i*6+j+3]));

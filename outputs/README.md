@@ -48,8 +48,22 @@ no preference does not restart motion. Check with `node work/physiology-motion-p
 Live physiology has no speed control. Atrial contraction precedes an AV interval
 and ventricular contraction; chamber deformation reduces volume. The four named
 papillary-muscle meshes share their own ventricle's contraction field, rather than
-shrinking around unrelated centres. Valve opening remains unresolved.
-`work/physiology-papillary-browser-check.js` checks the named pairs over a cycle. The diaphragm
+shrinking around unrelated centres. The chambers contract under ONE shared tether
+field, measured on the real meshes: at every point where a chamber wall or a
+papillary tip touches a static mesh (the nine valve leaflets, the adjacent venous
+meshes) the wall is exactly still, and a full radius away the contraction is the
+plain chamber squeeze. The earlier boundary attempt added displacement at the
+seams and was rejected — the static leaflets cannot yield. The valve leaflets do
+not move and no valve rig exists: instead each leaflet group lights with its
+taught state (phys.2 pp36-39) — AV valves lit while the ventricles relax and
+fill, semilunar lit during ejection. The leaflet meshes are the taught state, not
+a bending rig. Numbers and the rejected axial-mask alternative:
+`docs/superpowers/notes/2026-09-11-physiology-heart-evidence.md`;
+`node work/physiology-heart-check.mjs` is the gate (characterisation, Jacobian,
+positive determinants, and 283 adjacent pairs whose full-cycle separation holds
+at its rest gap). `work/physiology-papillary-browser-check.js` checks the named
+pairs over a cycle — their peak gaps reproduce the papillary commit's numbers to
+all digits, and the tips freeze at their chordae contacts. The diaphragm
 descends with inspiration; its normals follow the dome deformation. Each lung's
 lobes share one superior geometric reference, expanding outward and downward
 with the same directional field. This is not a measured hilum constraint.
@@ -75,7 +89,7 @@ Tapping a structure renders its label even when its record contains numeric fiel
 both layers of a physiology example remain selectable.
 
 Mechanism sources are listed in the viewer and `physiology-mechanics.js`:
-`phys.2` pp.43–52 (cardiac conduction), `phys.muscle.deck` pp.27–35
+`phys.2` pp.33–39 (valve states and papillary/chordae function) and pp.43–52 (cardiac conduction), `phys.muscle.deck` pp.27–35
 (neuromuscular excitation and relaxation), `phys.3` pp.21–24 (breathing),
 `hss.4.3` pp.19/24 and `hss.ppans` p.27 (motor innervation).
 These are illustrative surface deformations, not a fibre/valve/haemodynamic

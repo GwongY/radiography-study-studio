@@ -149,6 +149,25 @@ export const FLOW_CLASSES = {
     says: 'The main pump. Both ventricles contract together in systole — right to the lungs, left to the body. The papillary muscles shorten with them.',
     rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 1.35, beat: 'cardiac', mode: 'pump', deform: 'ventricular', contract: 0.14 },
   },
+  /*
+   * The valve leaflets do not move — no valve rig — but the sources teach
+   * their STATE across the cycle as a table: relaxed ventricles = AV valves
+   * open and semilunar closed; contracting ventricles = AV closed and
+   * semilunar open (phys.2 pp36–38). Lighting each group when it is open
+   * teaches that table with nothing moving, and the wording says so.
+   */
+  heartAVValve: {
+    label: 'AV valve leaflet', short: 'AV leaflet',
+    color: 0x9e2f2f, flow: 0xff7a63,
+    says: 'Lit while open. The atrioventricular valves stand open while the ventricles relax and fill, and are held shut while they contract — the leaflet mesh itself does not bend.',
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0.55, beat: 'avValve' },
+  },
+  heartSemilunarValve: {
+    label: 'Semilunar valve leaflet', short: 'Semilunar leaflet',
+    color: 0x9e2f2f, flow: 0xff7a63,
+    says: 'Lit while open. The pulmonary and aortic valves stay shut while the ventricles fill, then stand open for the ejection — the leaflet mesh itself does not bend.',
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0.55, beat: 'semilunar' },
+  },
   nerve: {
     label: 'Peripheral nerve', short: 'Nerve',
     color: 0xd8c65e, flow: 0xfffbc9,
@@ -251,7 +270,7 @@ export const FLOW_CLASSES = {
 
 /* Which classes a given layer can produce, for the legend. */
 export const LAYER_CLASSES = {
-  circulatory: ['arterial', 'venous', 'pulmArtery', 'pulmVein', 'heart', 'heartAtrium', 'heartVentricle'],
+  circulatory: ['arterial', 'venous', 'pulmArtery', 'pulmVein', 'heart', 'heartAtrium', 'heartVentricle', 'heartAVValve', 'heartSemilunarValve'],
   nervous: ['cns', 'nerve'],
   lymphatic: ['lymphVessel', 'lymphNode', 'lymphOrgan'],
   muscle: ['diaphragm', 'muscle', 'tendon', 'bursa'],
@@ -271,9 +290,10 @@ const has = (s, re) => re.test(s);
  * Once veins are out of the way, the chambers are matched before the plain
  * 'arterial' fallback, because 'Left_ventricle' would otherwise pass the
  * artery test ('ventricle' contains 'arter'). The chambers split into two
- * animated classes -- contracting atria and contracting ventricles -- while
- * the valves, leaflets and conducting tissue stay in the static 'heart' class
- * (they open, close and fire; they do not pump). Pulmonary arteries are
+ * animated classes -- contracting atria and contracting ventricles -- the
+ * valve leaflets carry their taught open/closed state as a light (they do
+ * not move), and everything else static -- conducting tissue and the rest --
+ * stays in the plain 'heart' class. Pulmonary arteries are
  * matched after the chamber tests so that 'Pulmonary_trunk' still reads as an
  * artery-like vessel. A name is pulmonary by function ('Superior_lobar_artery
  * _of_right_lung'), and function is what the colour is claiming.
@@ -289,7 +309,12 @@ export function classify(layerKey, rawName) {
     if (vein) return 'venous';
     if (has(n, /ventricle/)) return 'heartVentricle';
     if (has(n, /atrium/)) return 'heartAtrium';
-    if (has(n, /leaflet|valve|papillary|chordae|septum|myocard|pericard|node of|bundle/)) return 'heart';
+    /* The leaflet groups carry the taught valve states; everything else
+       static in the heart keeps the generic activity cue. ('atrioventricular'
+       does NOT contain 'ventricle' — atrio-, not atrium- — and the aortic
+       leaflets are named only '*_coronary_leaflet'.) */
+    if (has(n, /leaflet/)) return has(n, /atrioventricular/) ? 'heartAVValve' : 'heartSemilunarValve';
+    if (has(n, /valve|papillary|chordae|septum|myocard|pericard|node of|bundle/)) return 'heart';
     if (pulmonary && artery) return 'pulmArtery';
     return 'arterial';
   }
@@ -366,6 +391,12 @@ export function contractEnvelope(t) {
 }
 export function ventricleEnvelope(t) { return pulse(phase(t,RATES.heartBpm),.26,.42,.68); }
 export function atriumEnvelope(t) { return pulse(phase(t,RATES.heartBpm),.04,.12,.22); }
+/* The taught valve table (phys.2 pp36-38), as light: the AV valves are open
+   exactly while the ventricles are relaxed; the semilunar valves open for
+   ejection. One envelope each, derived from ventricleEnvelope, so the valve
+   cue can never drift out of the chamber timing it is keyed to. */
+export function avValveEnvelope(t) { return 1-ventricleEnvelope(t); }
+export function semilunarEnvelope(t) { return ventricleEnvelope(t); }
 
 /* One clock at the display rate. Hidden-tab gaps pause the clock instead of
    jumping through a cycle; exponential blending is independent of frame rate. */

@@ -141,6 +141,7 @@ const MUST = {
   venous: 'venous', pulmVein: 'venous',
   arterial: 'arterial', pulmArtery: 'arterial',
   heart: 'heart', heartAtrium: 'heart', heartVentricle: 'heart',
+  heartAVValve: 'heart', heartSemilunarValve: 'heart',
   airway: 'respiratory', gut: 'digestive', urinary: 'urogenital',
 };
 console.log('— the systems agree with the flow classes wherever both speak —');

@@ -1,6 +1,6 @@
 # Piece 3 — cardiac boundaries
 
-Status: NOT DONE — open. Only papillary-muscle motion in its ventricular frame has landed (commit `5b5355c`). One attempt at the regional boundary deformation (a cardiac collar / attachment profile) was made on a since-deleted branch and **rejected**: it narrowed the chamber-wall gaps but worsened valve-leaflet overlap. A fresh approach is needed; this is not a resume. Depends on 0. Parent: [decomposition](2026-09-09-physiology-decomposition.md).
+Status: DONE — by a different route than this page describes. The collar attempt was rejected (narrowed chamber-wall gaps, worsened valve-leaflet overlap); papillary motion landed (`5b5355c`); the constrained restart — a shared proximity tether, after the axial-plane mask failed at the discovery gate — landed 2026-09-11: [constrained spec](2026-09-11-physiology-3-heart-constrained.md), [evidence](../notes/2026-09-11-physiology-heart-evidence.md). Depends on 0. Parent: [decomposition](2026-09-09-physiology-decomposition.md).
 
 ## Problem and discovery gate
 

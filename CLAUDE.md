@@ -64,7 +64,7 @@ from the credit the licence requires; there is no override flag). `simplify-mode
 | `study-data.js` | **Barrel** over `study/corpus/*.js` — the lesson corpus, `STRUCTURE_MODELS` (layer key → GLB), `validateCorpus()`. Re-exports by name, never `export *`: the corpus files share item arrays with each other that are not public API. |
 | `physiology.js` | Flow/layer classes, `FLOW_CIRCUITS` (how a travelling light is displayed along a curated route: `pulse` = one crest per heartbeat across a whole circuit, `drift` = fixed world wavelength and speed, `motor` = an arrival time for the nerve sequence), animation envelopes, `RATES`. |
 | `physiology-path.js` | Pure rest-space route geometry: welded graph, geodesic field, the shared `progressField` both gates rest on, TWO discovery gates that accept or refuse a route by name — `derivePathRoute` for a tube (centreline fit, local frame, the travelling-constriction map and its Jacobian, `PATH_SHAPE_GLSL`) and the deliberately weaker `deriveProgressRoute` for a glow route (an ordering and nothing else, `progressBand` + the two `PATH_GLOW_*_GLSL` halves). The weaker gate names the four refusals it drops and why. No three.js, no DOM, so `work/` runs it. |
-| `physiology-shape.js` | Pure rest-space shape derivation for the GPU deformation (pieces 0–2): `deriveShape` with a bounding-box fallback, `principalMuscleAxis` / `deriveMuscleShape` (a geometry-derived contraction axis for the named muscles, not an anatomical attachment), `muscleProfile` + `deformMuscle` + `MUSCLE_SHAPE_GLSL`, and `deriveBreathingShape` / `deformBreathing`. No three.js, no DOM. |
+| `physiology-shape.js` | Pure rest-space shape derivation for the GPU deformation: `deriveShape` with a bounding-box fallback, `principalMuscleAxis` / `deriveMuscleShape` (a geometry-derived contraction axis for the named muscles, not an anatomical attachment), `muscleProfile` + `deformMuscle` + `MUSCLE_SHAPE_GLSL`, `deriveBreathingShape` / `deformBreathing`, and piece 3's chamber map: `chamberTetherField` (per-vertex samples of the one shared heart tether field) + `deformChamber` + `CHAMBER_SHAPE_GLSL` (written once, called by both shader patches). No three.js, no DOM. |
 | `physiology-mechanics.js` | Source-backed motor/transmission sequences: `MECHANISM_SOURCES` (the cited pages), `MOTOR_ROUTES` + `motorRoute` / `motorSequence` (nerve→muscle arrival timing, display timings slowed), and `transmissionField` (per-vertex order along a nerve for the travelling activity). |
 | `physiology-paths.js` | **Generated** — which layers have a route payload, where it lives, and the `?g=` stamp that makes a regenerated payload a new cache key. Rebuild with `node work/build-physiology-paths.mjs --write`; never hand-edit. |
 | `visual-data.js`, `schematics.js`, `figures.js`, `layouts.js` | Lesson visuals. `figures.js` / `visual-data.js` `PLATES` — published images, each with an `intro` line and a callout `key` (`{mark,name,beyond?}`) so the lesson teaches from the image; `beyond` = a callout the lesson's sources don't name, read off the figure's own labelling, rendered dimmed. `work/figure-key-check.mjs` enforces this. |
@@ -191,6 +191,20 @@ node work/viewport-check.mjs    # REQUIRED for outputs/study/viewport-recovery.j
                                  # this is the only thing standing between the
                                  # diagnosis and a recovery flip firing on a
                                  # healthy phone every time it is rotated
+node work/physiology-heart-check.mjs # REQUIRED for the chamber tether:
+                                     #   outputs/physiology-shape.js's
+                                     #   chamberTetherField/deformChamber, the
+                                     #   tether wiring in live-physiology.js, and
+                                     #   anything that moves the heart classes —
+                                     #   characterisation against the inline map it
+                                     #   replaced, central-difference Jacobian,
+                                     #   positive determinants (the fold gate), and
+                                     #   the 283-pair acceptance that every seam
+                                     #   holds at its rest gap. Radius/clamp live in
+                                     #   live-physiology.js and MUST stay in sync.
+node work/physiology-heart-discovery.mjs  # regenerates the measurements behind
+                                          #   docs/superpowers/notes/2026-09-11-
+                                          #   physiology-heart-evidence.md
 node work/physiology-path-check.mjs        # REQUIRED for outputs/physiology-path.js,
 node work/physiology-path-deform-check.mjs #   for FLOW_CIRCUITS, and for the
 node work/physiology-path-model-check.mjs  #   peristalsis or route-glow shaders in

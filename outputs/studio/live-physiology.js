@@ -3,7 +3,7 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CIRCUITS, FLOW_CLASSES, GRAZE_CLAMP, RATES, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, fluence, mottleSigma, mu, prefersStill, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
+import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CIRCUITS, FLOW_CLASSES, GRAZE_CLAMP, RATES, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, avValveEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, fluence, mottleSigma, mu, prefersStill, semilunarEnvelope, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
 import { MEMORY_TIPS, answer, clean, openDetail, pool, record, regionLabel, selectBone, showToast } from './visualisation-modes.js';
 import { animate, applyVisibility, between, getRecord, tube } from './region-boxes-how.js';
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
@@ -12,7 +12,7 @@ import { showPickCallout } from './spatial-concept-overlays.js';
 import { setSeparation, setTool } from './tools-and-capture.js';
 import { advancePhysiology } from '../physiology.js?v=4';
 import { MOTOR_ROUTES, motorRoute, motorSequence } from '../physiology-mechanics.js';
-import { deriveShape, deriveMuscleShape, deriveBreathingShape, MUSCLE_SHAPE_GLSL } from '../physiology-shape.js';
+import { CHAMBER_SHAPE_GLSL, chamberTetherField, deriveShape, deriveMuscleShape, deriveBreathingShape, MUSCLE_SHAPE_GLSL } from '../physiology-shape.js';
 import { PATH_ATTRIBUTES, PATH_GLOW_FRAGMENT_GLSL, PATH_GLOW_VERTEX_GLSL, PATH_SHAPE_GLSL, PROGRESS_ATTRIBUTES } from '../physiology-path.js';
 import { PATH_PAYLOADS } from '../physiology-paths.js';
 
@@ -264,6 +264,10 @@ function installFlow(mesh,cls){
     sh.vertexShader=(glow?PATH_GLOW_VERTEX_GLSL:'')+'varying float vFlowY;\n'
       +(deform?'uniform float uDeform;uniform vec3 uMCenter;uniform vec3 uMAxis;uniform float uMAmt;uniform float uMLength;uniform float uMode;\nuniform float uT;uniform float uSpeed;uniform float uDir;uniform float uFreq;uniform float uSharp;\n':'')
       +(deform&&cls==='muscle'?MUSCLE_SHAPE_GLSL:'')
+      /* Declared for every deforming class: the uMode-5 branch below calls
+       * rssChamberDeform, and a patch the compiler sees must have its function
+       * declared even where the branch itself is dead. */
+      +(deform?CHAMBER_SHAPE_GLSL:'')
       +(path?PATH_SHAPE_GLSL:'')
       +sh.vertexShader.replace('#include <begin_vertex>',
         '#include <begin_vertex>\n'
@@ -272,8 +276,8 @@ function installFlow(mesh,cls){
           :deform
           ?'float rssAlong=dot(transformed-uMCenter,uMAxis);\n'
            +'vec3 rssPerp=(transformed-uMCenter)-rssAlong*uMAxis;\n'
-           +'if(uMode>4.5){/* chamber contraction reduces enclosed volume */\n'
-           +'  transformed-=uDeform*uMAmt*(rssPerp+.55*rssAlong*uMAxis);\n'
+           +'if(uMode>4.5){/* chamber contraction under the shared tether field */\n'
+           +'  rssChamberDeform(transformed,uDeform);\n'
            +'}else if(uMode>3.5){/* diaphragm: central dome descends; peripheral rim is tethered */\n'
            +'  float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n'
            +'}else if(uMode>2.5){/* peristalsis: a ring of constriction travelling along the tube */\n'
@@ -299,7 +303,7 @@ function installFlow(mesh,cls){
       +'if(uDeform*uMAmt>0.){vec3 rssPathN=position;objectNormal=normalize(rssPathDeform(rssPathN,uDeform*uMAmt)*objectNormal);}\n');
     else if(deform)sh.vertexShader=sh.vertexShader.replace('#include <beginnormal_vertex>',
       '#include <beginnormal_vertex>\n'
-      +'if(uMode>4.5){vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(na/max(.1,1.-.55*uDeform*uMAmt)+(objectNormal-na)/max(.1,1.-uDeform*uMAmt));}\n'
+      +'if(uMode>4.5){vec3 rssChN=position;objectNormal=normalize(rssChamberDeform(rssChN,uDeform)*objectNormal);}\n'
       +'if(uMode>3.5&&uMode<4.5&&uDeform>0.&&uMAmt>0.){float z=dot(position-uMCenter,uMAxis)/max(uMLength,.000001);float t=clamp((z+.2)/.65,0.,1.);float k=1.-uMAmt*uDeform*6.*t*(1.-t)/(.65*max(uMLength,.000001));vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize(objectNormal-na+na/k); }\n'
       +(cls==='airway'?'if(uMode>1.5&&uMode<2.5&&uDeform>0.){vec3 na=uMAxis*dot(objectNormal,uMAxis);objectNormal=normalize((objectNormal-na)/(1.+.65*uMAmt*uDeform)+na/(1.+1.4*uMAmt*uDeform));}\n':'')
       +(cls==='muscle'
@@ -439,6 +443,15 @@ function pathRouteFor(mesh){
   return route;
 }
 
+/* The shared heart tether, in world units (the body stands ~1.7 tall).
+   These are measured display parameters: work/physiology-heart-check.mjs
+   holds the acceptance numbers and must be kept in sync with them. */
+const HEART_TETHER_RADIUS=0.04;
+const HEART_TETHER_ADJACENT=0.05;
+/* Gradient clamp margin: the fold condition a*|grad|*lambda*|v| < 1, with
+   slack -- see chamberTetherField in outputs/physiology-shape.js. */
+const HEART_TETHER_MARGIN=0.6;
+
 /* Classify and colour a whole layer as it lands. */
 export function installLayerFlow(key,meshes){
   const counts={};
@@ -463,6 +476,78 @@ export function installLayerFlow(key,meshes){
         if([scale,parentScale].some(v=>Math.max(...v)>Math.min(...v)*(1+1e-5)))continue;
         m.userData.flowPumpShape={centre:m.worldToLocal(centre.clone()).toArray(),
           axis:axis.clone().transformDirection(new T.Matrix4().copy(m.matrixWorld).invert()).toArray(),amount:shape.amount};
+      }
+    }
+    /* Every deforming heart surface -- chambers and papillary muscles alike --
+       moves under ONE shared tether field: a smoothstep of the distance to the
+       nearest mesh beside the heart that does not move with it (the valve
+       leaflets, and the venous meshes). At a contact the field is 0 and the
+       wall is exactly still; a full radius away it is 1 and the map is the
+       plain chamber contraction. The rejected boundary collar failed by
+       ADDING displacement near the static leaflets; this removes it, and the
+       acceptance numbers live in work/physiology-heart-check.mjs, whose
+       radius, adjacency and gradient clamp must match these. The per-vertex
+       arrays are samples of that one field in each mesh's own local frame,
+       which is what keeps the meshes on one map: the same function of
+       position, not several masks that happen to look similar. */
+    const clsOf=m=>classify(key,m.userData.label||m.name);
+    const movers=meshes.filter(m=>['heartVentricle','heartAtrium'].includes(clsOf(m)));
+    const statics=meshes.filter(m=>['heart','heartAVValve','heartSemilunarValve','venous','pulmVein'].includes(clsOf(m)));
+    const worldPts=(m,box)=>{const p=m.geometry.attributes.position,out=[],v=new T.Vector3();
+      for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i).applyMatrix4(m.matrixWorld);
+        if(!box||box.containsPoint(v))out.push(v.x,v.y,v.z);}
+      return Float32Array.from(out);};
+    const gap=(A,B)=>{let best=Infinity;
+      for(let i=0;i<A.length;i+=3)for(let j=0;j<B.length;j+=3){
+        const d=(A[i]-B[j])**2+(A[i+1]-B[j+1])**2+(A[i+2]-B[j+2])**2;
+        if(d<best)best=d;}
+      return Math.sqrt(best);};
+    const moversW=movers.map(m=>worldPts(m));
+    const staticsW=statics.map(m=>worldPts(m));
+    const staticsNear=statics.filter((s,i)=>moversW.some(w=>gap(w,staticsW[i])<HEART_TETHER_ADJACENT));
+    if(movers.length&&staticsNear.length){
+      const aMax=Math.max(...movers.map(m=>(FLOW_CLASSES[clsOf(m)].rule||{}).contract||0));
+      const lambda=1/(1-.55*aMax);
+      for(const m of movers){
+        const p=m.geometry.attributes.position;
+        if(!m.geometry.boundingBox)m.geometry.computeBoundingBox();
+        const scale=new T.Vector3().setFromMatrixScale(m.matrixWorld).toArray();
+        const uniform=Math.max(...scale)<=Math.min(...scale)*(1+1e-5);
+        let weights,gradients;
+        if(uniform){
+          const inv=new T.Matrix4().copy(m.matrixWorld).invert();
+          const box=m.geometry.boundingBox.clone().expandByScalar(HEART_TETHER_RADIUS/Math.max(...scale));
+          const boxWorld=box.applyMatrix4(m.matrixWorld);
+          const near=[],v=new T.Vector3();
+          for(const s of staticsNear){
+            const sp=s.geometry.attributes.position;
+            for(let i=0;i<sp.count;i++){
+              v.fromBufferAttribute(sp,i).applyMatrix4(s.matrixWorld);
+              if(!boxWorld.containsPoint(v))continue;
+              v.applyMatrix4(inv);
+              near.push(v.x,v.y,v.z);
+            }
+          }
+          /* The fold margin needs the chamber's own |v| maximum, on the axis
+             installFlow derives for this mesh. */
+          const shape=deriveShape({bounds:{min:m.geometry.boundingBox.min.toArray(),max:m.geometry.boundingBox.max.toArray()},rule:FLOW_CLASSES[clsOf(m)].rule});
+          let vMax=0;
+          for(let i=0;i<p.count;i++){
+            const u=[p.getX(i)-shape.centre[0],p.getY(i)-shape.centre[1],p.getZ(i)-shape.centre[2]];
+            const s=u.reduce((n,x,k)=>n+x*shape.axis[k],0);
+            vMax=Math.max(vMax,Math.hypot(u[0]-s*shape.axis[0]+.55*s*shape.axis[0],u[1]-s*shape.axis[1]+.55*s*shape.axis[1],u[2]-s*shape.axis[2]+.55*s*shape.axis[2]));
+          }
+          const field=chamberTetherField(p.array,Float32Array.from(near),
+            HEART_TETHER_RADIUS/Math.max(...scale),HEART_TETHER_MARGIN/(aMax*lambda*Math.max(vMax,1e-6)));
+          weights=field.weights;gradients=field.gradients;
+        }else{
+          /* The papillary guard skips nonuniform metrics; an unbound float
+             attribute reads 0 in WebGL, which would freeze the mesh, so a
+             skipped mesh binds an explicit untouched field instead. */
+          weights=new Float32Array(p.count).fill(1);gradients=new Float32Array(p.count*3);
+        }
+        m.geometry.setAttribute('aTetherW',new T.BufferAttribute(weights,1));
+        m.geometry.setAttribute('aTetherGrad',new T.BufferAttribute(gradients,3));
       }
     }
   }
@@ -563,6 +648,8 @@ export function stepPhysiology(t){
     u.uBeat.value=r.deform==='atrial'?.2+.8*atrial
       :r.deform==='ventricular'?.2+.8*ventricular
       :r.beat==='cardiac'?.25+.75*beat
+      :r.beat==='avValve'?.15+.85*avValveEnvelope(t)
+      :r.beat==='semilunar'?.15+.85*semilunarEnvelope(t)
       :r.beat==='spike'?.1+.9*spike
       :r.beat==='breath'?.3+.7*breath
       :r.beat==='contract'?.2+.8*squeeze

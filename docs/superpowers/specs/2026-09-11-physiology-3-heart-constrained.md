@@ -49,19 +49,25 @@ a second moving surface beside the leaflets.
 Two changes, both timed by the existing envelopes. No new timing, no new rates.
 
 **1. Tethered-annulus contraction.** Keep the volume-reducing chamber contraction
-but weight it by axial position so displacement AND its axial derivative reach
-exactly zero at the derived valve plane, peaking mid-wall and apex. Precedent is in
-this codebase twice: the diaphragm's rim tether (`deformBreathing`'s smoothstep
-weight, whose derivative structure is already carried in its normal transform) and
-the muscle profile's cubic end weight, which reaches zero value and zero derivative
-at both ends. The mask is a function of the same axial coordinate the pump mode
-already uses, so the chamber axis, centre and length derivation is unchanged.
+but scale it by a tether mask whose displacement reaches exactly zero at every
+point where a chamber wall touches a static mesh. AMENDED at the discovery gate
+before implementation: the axial-plane mask first proposed cannot work on the real
+meshes — the leaflet bodies lie against the walls over wide regions reaching
+0.22–0.34 of the half-length apical of any attachment anchor, and the current
+map's worst shrinks happen mid-chamber. The shipped mask is per-vertex PROXIMITY
+to the measured static set (the 9 named leaflets plus the venous meshes adjacent
+to a deforming heart mesh): one shared field, w = smoothstep(dist/0.04), sampled
+per vertex in each mesh's local frame so chambers and papillary muscles move under
+the SAME function of position — the 5b5355c shared-map guarantee, generalised,
+with the positive-determinant assertion it now requires. A gradient clamp bounds
+the field's slope so the map cannot fold. Numbers:
+[the evidence note](../notes/2026-09-11-physiology-heart-evidence.md).
 
-The four papillary muscles keep sharing their ventricle's field — the SAME masked
-map, converted through the existing world→local flowPumpShape path (which must now
-carry the annulus height as well). Sharing the field is what guarantees no new
-papillary–ventricle intersection; the mask is zero at the annulus and large at the
-apex where the papillary muscles sit, so their motion is preserved, not damped.
+The four papillary muscles keep sharing their ventricle's map — the same shared
+field, converted through the existing world→local flowPumpShape path. Their tips
+touch the tricuspid leaflets (the chordae connection), where the field goes to
+zero and the tips hold still; the measured cycle gaps never exceed rest, and the
+in-browser check reproduces the 5b5355c peak gaps to all digits.
 
 The map and its derivative are written once, as a reference function in
 `physiology-shape.js` plus one shared GLSL block exported beside it, on the

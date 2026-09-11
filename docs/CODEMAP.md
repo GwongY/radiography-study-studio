@@ -35,14 +35,14 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `bodymap.js` | 319 | Body map — search extras and spatial concepts for the 3D viewer. |  |
 | `cavity-build.js` | 732 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
 | `cavity-geom.js` | 1148 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
-| `figures.js` | 2976 | figures.js — the diagrams that replaced the hand-drawn ones. |  |
+| `figures.js` | 2977 | figures.js — the diagrams that replaced the hand-drawn ones. |  |
 | `landmarks.js` | 450 | landmarks.js -- the one place that knows how to find a named anatomical | [Named cut levels](TRAPS.md#named-cut-levels--outputsstudiotools-and-capturejs-outputslandmarksjs) |
 | `layouts.js` | 304 | layouts.js — the sixteen that are layouts, as layouts. |  |
 | `mesh-index.js` | 2594 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `physiology-mechanics.js` | 52 | Source-backed sequences; display timings are slowed for the motor example. |  |
 | `physiology-path.js` | 726 | Routes — pure rest-space route geometry, no three.js and no DOM. | [Routes](TRAPS.md#routes--outputsphysiology-pathjs-workbuild-physiology-pathsmjs-outputsstudiolive-physiologyjs) |
 | `physiology-paths.js` | 17 | Where the curated route payloads live, and what they were derived from. |  |
-| `physiology-shape.js` | 327 | Pure rest-space shape derivation and illustrative deformation profiles. |  |
+| `physiology-shape.js` | 327 | Pure rest-space shape derivation and illustrative deformation profiles. | [The heart's shared tether](TRAPS.md#the-hearts-shared-tether--outputsphysiology-shapejs-outputsstudiolive-physiologyjs) |
 | `physiology.js` | 412 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
 | `schedule.js` | 926 | schedule.js — the semester itself: what the syllabus says, and when each |  |
@@ -132,7 +132,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `explosion-layout.js` | 16 | Pack only visible source meshes. Every projected bounding box gets its own cell. |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
 | `imports.js` | 103 | Block 0 has its own import scope -- block 1's copy is not visible here. |
-| `live-physiology.js` | 1710 | Live physiology |
+| `live-physiology.js` | 1713 | Live physiology |
 | `packed-spread.js` | 93 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
 | `region-boxes-how.js` | 499 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 249 | Search -> viewer: frame the part, then hide only what stands in front |
@@ -193,10 +193,10 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `derived-items.js` | 342 | Items generated rather than authored: one per canonical bone record, one |
 | `diagrams.js` | 50 | Diagrams — authored schematics, drawn inline as SVG so the app needs no |
 | `dsai-items.js` | 497 | DSAI1202, from the Week 1 overview deck. |
-| `expansion-items.js` | 1813 | Expansion batch — fills gaps found in a coverage audit. |
-| `hss-joints.js` | 1307 | HSS2011 Human Anatomy — joints and the muscles that move them. |
-| `hss-modules.js` | 12940 | HSS2011 Human Anatomy — the per-module study items. |
-| `hss-osteology.js` | 2755 | HSS2011 Human Anatomy — osteology: bone classification, the axial and |
+| `expansion-items.js` | 1803 | Expansion batch — fills gaps found in a coverage audit. |
+| `hss-joints.js` | 1299 | HSS2011 Human Anatomy — joints and the muscles that move them. |
+| `hss-modules.js` | 12897 | HSS2011 Human Anatomy — the per-module study items. |
+| `hss-osteology.js` | 2751 | HSS2011 Human Anatomy — osteology: bone classification, the axial and |
 | `hss-special-senses.js` | 505 | HSS2011 Week 7 — Special Senses. |
 | `hss-terminology.js` | 500 | HSS2011 Human Anatomy — anatomical terminology: position, planes, movement |
 | `hti-items.js` | 2088 | HTI17103, drawn from the HTI17101 Exploring Radiography set — the study |
@@ -204,11 +204,11 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `modules.js` | 133 | Course modules — which unit belongs to which teaching module, so the app can |
 | `notices.js` | 33 | Notices for subjects whose current source set is incomplete. |
 | `physiology-depth.js` | 1806 | ABCT2326 depth lessons. These split the mechanism-heavy respiratory and |
-| `physiology-items.js` | 6999 | ABCT2326 Human Physiology — the study items. |
+| `physiology-items.js` | 6986 | ABCT2326 Human Physiology — the study items. |
 | `physiology-reproductive.js` | 475 | ABCT2326 Lecture 6 — Reproductive System. |
 | `schema.js` | 550 | Scaffolding: the source registry, the subjects and their units, the item |
 | `source-lesson-map.js` | 7161 | GENERATED by work/build-source-lesson-map.mjs — do not hand-edit. |
-| `structures.js` | 448 | Granular 3D targets: the structure sets a tap-to-identify item draws from, |
+| `structures.js` | 440 | Granular 3D targets: the structure sets a tap-to-identify item draws from, |
 | `validate.js` | 152 | Validation — every question must have a resolvable answer and every claim a |
 
 ## Verifiers and generators — `work/*.mjs`
