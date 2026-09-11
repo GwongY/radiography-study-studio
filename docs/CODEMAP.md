@@ -35,15 +35,15 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `bodymap.js` | 319 | Body map — search extras and spatial concepts for the 3D viewer. |  |
 | `cavity-build.js` | 732 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
 | `cavity-geom.js` | 1148 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
-| `figures.js` | 2903 | figures.js — the diagrams that replaced the hand-drawn ones. |  |
+| `figures.js` | 2976 | figures.js — the diagrams that replaced the hand-drawn ones. |  |
 | `landmarks.js` | 450 | landmarks.js -- the one place that knows how to find a named anatomical | [Named cut levels](TRAPS.md#named-cut-levels--outputsstudiotools-and-capturejs-outputslandmarksjs) |
 | `layouts.js` | 304 | layouts.js — the sixteen that are layouts, as layouts. |  |
 | `mesh-index.js` | 2594 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `physiology-mechanics.js` | 52 | Source-backed sequences; display timings are slowed for the motor example. |  |
 | `physiology-path.js` | 726 | Routes — pure rest-space route geometry, no three.js and no DOM. | [Routes](TRAPS.md#routes--outputsphysiology-pathjs-workbuild-physiology-pathsmjs-outputsstudiolive-physiologyjs) |
 | `physiology-paths.js` | 17 | Where the curated route payloads live, and what they were derived from. |  |
-| `physiology-shape.js` | 211 | Pure rest-space shape derivation and illustrative deformation profiles. |  |
-| `physiology.js` | 381 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
+| `physiology-shape.js` | 327 | Pure rest-space shape derivation and illustrative deformation profiles. |  |
+| `physiology.js` | 412 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
 | `schedule.js` | 926 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
@@ -54,7 +54,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `systems.js` | 268 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 2382 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
 | `term-notes.js` | 1535 | Term notes — say it, then mean it. |  |
-| `visual-data.js` | 524 | visual-data.js — a visual for every study item. |  |
+| `visual-data.js` | 533 | visual-data.js — a visual for every study item. |  |
 | `wordparts.js` | 952 | Word parts — the medical vocabulary broken into the pieces it is built from. |  |
 
 ### Exported symbols
@@ -69,8 +69,8 @@ belong in `init()`. The two keep separate import scopes and talk only through
 - `physiology-mechanics.js` — `MECHANISM_SOURCES`, `MOTOR_ROUTES`, `motorRoute`, `motorSequence`, `transmissionField`
 - `physiology-path.js` — `weldedGraph`, `geodesicFrom`, `stationsOf`, `resampleArcLength`, `pointAt`, `frameAt`, `pathGradient`, `progressField`, `derivePathRoute`, `deriveProgressRoute`, `progressBand`, `PROGRESS_ATTRIBUTES`, `PATH_GLOW_VERTEX_GLSL`, `PATH_GLOW_FRAGMENT_GLSL`, `peristalticWave`, `pathDeformation`, `PATH_ATTRIBUTES`, `PATH_SHAPE_GLSL`
 - `physiology-paths.js` — `PATH_STAMP`, `PATH_PAYLOADS`
-- `physiology-shape.js` — `deriveShape`, `muscleProfile`, `deformMuscle`, `MUSCLE_SHAPE_GLSL`, `principalMuscleAxis`, `deriveMuscleShape`, `deriveBreathingShape`, `deformBreathing`
-- `physiology.js` — `FLOW_ANCHORS`, `FLOW_CIRCUITS`, `FLOW_CLASSES`, `LAYER_CLASSES`, `classify`, `RATES`, `cardiacEnvelope`, `breathEnvelope`, `spikeEnvelope`, `contractEnvelope`, `ventricleEnvelope`, `atriumEnvelope`, `advancePhysiology`, `CLASS_COUNT`
+- `physiology-shape.js` — `deriveShape`, `muscleProfile`, `deformMuscle`, `MUSCLE_SHAPE_GLSL`, `principalMuscleAxis`, `deriveMuscleShape`, `deriveBreathingShape`, `chamberTetherField`, `deformChamber`, `CHAMBER_SHAPE_GLSL`, `deformBreathing`
+- `physiology.js` — `FLOW_ANCHORS`, `FLOW_CIRCUITS`, `FLOW_CLASSES`, `LAYER_CLASSES`, `classify`, `RATES`, `cardiacEnvelope`, `breathEnvelope`, `spikeEnvelope`, `contractEnvelope`, `ventricleEnvelope`, `atriumEnvelope`, `avValveEnvelope`, `semilunarEnvelope`, `advancePhysiology`, `CLASS_COUNT`
 - `radiography.js` — `KEV_ROWS`, `TISSUES`, `massAtten`, `muAt`, `EFF_ENERGY_FRACTION`, `effectiveKeV`, `mu`, `contrastRatio`, `UNITS_PER_M`, `CM_PER_UNIT`, `unitsToCm`, `REF_MAS`, `fluence`, `REF_SIGMA`, `mottleSigma`, `magnification`, `DEFAULT_WINDOW`, `filmDensity`, `windowFor`, `CORTEX_CM`, `GRAZE_CLAMP`, `boneTau`, `AIR_FILLED`, `tissueForMesh`
 - `schedule.js` — `TERM`, `ymd`, `weekStart`, `weekEnd`, `weekOf`, `STAFF`, `SUBJECT_ADMIN`, `GROUP_CHOICES`, `dayOf`, `STUDY_SUBJECTS`, `WEEK_STUDY`, `WEEK_GAPS`, `studyFor`, `gapFor`, `WEEK_RELATED`, `relatedFor`, `weekTopicId`, `teachingWeeks`, `SESSIONS`, `sessionSpan`, `sessionStatus`, `sessionsWithStatus`, `isOtherGroup`, `fmtDate`, `fmtTime`, `fmtWeekRange`, `fmtWhen`, `KINDS`, `SCHEDULE_SOURCES`
 - `schematics.js` — `SCHEMATICS`, `schematic`
@@ -118,10 +118,10 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `visual-data.js` | 1–29 | preamble |
 |  | 30–63 | Bone records -> skeleton meshes |
 |  | 64–72 | Explicit per-item visuals |
-|  | 73–282 | The 2026 items. All eighteen shipped on a generated layout — a flow |
-|  | 283–353 | Resolver |
-|  | 354–464 | Plates |
-|  | 465–524 | Ordered per-item visual lists |
+|  | 73–285 | The 2026 items. All eighteen shipped on a generated layout — a flow |
+|  | 286–362 | Resolver |
+|  | 363–473 | Plates |
+|  | 474–533 | Ordered per-item visual lists |
 
 ## The 3D studio — `outputs/studio/*.js`
 
@@ -131,8 +131,8 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `depth-picking.js` | 429 | Depth picking |
 | `explosion-layout.js` | 16 | Pack only visible source meshes. Every projected bounding box gets its own cell. |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
-| `imports.js` | 100 | Block 0 has its own import scope -- block 1's copy is not visible here. |
-| `live-physiology.js` | 1626 | Live physiology |
+| `imports.js` | 103 | Block 0 has its own import scope -- block 1's copy is not visible here. |
+| `live-physiology.js` | 1710 | Live physiology |
 | `packed-spread.js` | 93 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
 | `region-boxes-how.js` | 499 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 249 | Search -> viewer: frame the part, then hide only what stands in front |
@@ -187,26 +187,26 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 
 | File | Lines | What it holds |
 | --- | --- | --- |
-| `apss-items.js` | 130 | APSS1A08 Introduction to Sociology — Topic 01 only. |
+| `apss-items.js` | 125 | APSS1A08 Introduction to Sociology — Topic 01 only. |
 | `corpus.js` | 65 | The assembled corpus — every item array spread into one list, and the |
 | `coverage.js` | 251 | Coverage report — what the supplied sources actually cover, and what they |
-| `derived-items.js` | 344 | Items generated rather than authored: one per canonical bone record, one |
+| `derived-items.js` | 342 | Items generated rather than authored: one per canonical bone record, one |
 | `diagrams.js` | 50 | Diagrams — authored schematics, drawn inline as SVG so the app needs no |
-| `dsai-items.js` | 510 | DSAI1202, from the Week 1 overview deck. |
-| `expansion-items.js` | 1898 | Expansion batch — fills gaps found in a coverage audit. |
-| `hss-joints.js` | 1326 | HSS2011 Human Anatomy — joints and the muscles that move them. |
-| `hss-modules.js` | 13119 | HSS2011 Human Anatomy — the per-module study items. |
-| `hss-osteology.js` | 2796 | HSS2011 Human Anatomy — osteology: bone classification, the axial and |
-| `hss-special-senses.js` | 511 | HSS2011 Week 7 — Special Senses. |
-| `hss-terminology.js` | 505 | HSS2011 Human Anatomy — anatomical terminology: position, planes, movement |
-| `hti-items.js` | 2107 | HTI17103, drawn from the HTI17101 Exploring Radiography set — the study |
+| `dsai-items.js` | 497 | DSAI1202, from the Week 1 overview deck. |
+| `expansion-items.js` | 1813 | Expansion batch — fills gaps found in a coverage audit. |
+| `hss-joints.js` | 1307 | HSS2011 Human Anatomy — joints and the muscles that move them. |
+| `hss-modules.js` | 12940 | HSS2011 Human Anatomy — the per-module study items. |
+| `hss-osteology.js` | 2755 | HSS2011 Human Anatomy — osteology: bone classification, the axial and |
+| `hss-special-senses.js` | 505 | HSS2011 Week 7 — Special Senses. |
+| `hss-terminology.js` | 500 | HSS2011 Human Anatomy — anatomical terminology: position, planes, movement |
+| `hti-items.js` | 2088 | HTI17103, drawn from the HTI17101 Exploring Radiography set — the study |
 | `mastery.js` | 121 | Spaced repetition — the schedule, the mastery score and its dimensions, and |
 | `modules.js` | 133 | Course modules — which unit belongs to which teaching module, so the app can |
 | `notices.js` | 33 | Notices for subjects whose current source set is incomplete. |
-| `physiology-depth.js` | 1923 | ABCT2326 depth lessons. These split the mechanism-heavy respiratory and |
-| `physiology-items.js` | 7216 | ABCT2326 Human Physiology — the study items. |
-| `physiology-reproductive.js` | 481 | ABCT2326 Lecture 6 — Reproductive System. |
-| `schema.js` | 539 | Scaffolding: the source registry, the subjects and their units, the item |
+| `physiology-depth.js` | 1806 | ABCT2326 depth lessons. These split the mechanism-heavy respiratory and |
+| `physiology-items.js` | 6999 | ABCT2326 Human Physiology — the study items. |
+| `physiology-reproductive.js` | 475 | ABCT2326 Lecture 6 — Reproductive System. |
+| `schema.js` | 550 | Scaffolding: the source registry, the subjects and their units, the item |
 | `source-lesson-map.js` | 7161 | GENERATED by work/build-source-lesson-map.mjs — do not hand-edit. |
 | `structures.js` | 448 | Granular 3D targets: the structure sets a tap-to-identify item draws from, |
 | `validate.js` | 152 | Validation — every question must have a resolvable answer and every claim a |
@@ -243,6 +243,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/dev-server.mjs` | Minimal static server for outputs/ — same role as `python -m http.server 8420` | [The dev server had no cache headers](TRAPS.md#the-dev-server-had-no-cache-headers--workdev-servermjs) |
 | `work/doc-text-check.mjs` | Regression check for PDF extraction when Poppler's pdftotext executable is |  |
 | `work/dump-plain-candidates.mjs` |  |  |
+| `work/dup-audit.mjs` | dup-audit.mjs — the duplication gate: shared figures, and lesson text that |  |
 | `work/exam-check.mjs` | Exam mode — the paper and the mark, checked without a browser. |  |
 | `work/fetch-figure.mjs` | fetch-figure.mjs — search Wikimedia Commons, and download a figure ONLY if |  |
 | `work/figure-key-check.mjs` | Figure key check — every published figure and plate a lesson shows carries an |  |
@@ -259,6 +260,8 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/load-check.mjs` | Load-time verification for radiography-study-studio.html. |  |
 | `work/pack-privacy-check.mjs` | Question packs — the guard that the licensed half never leaves the device. |  |
 | `work/physiology-breathing-check.mjs` |  |  |
+| `work/physiology-heart-check.mjs` | Piece-3 heart gate: the tethered chamber map, on the real circulatory GLB. |  |
+| `work/physiology-heart-discovery.mjs` | Piece-3 heart discovery: measure on the real circulatory GLB what the spec's |  |
 | `work/physiology-mechanics-check.mjs` |  |  |
 | `work/physiology-motion-preference-check.mjs` |  |  |
 | `work/physiology-muscle-check.mjs` |  |  |
@@ -285,6 +288,9 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/syntax-check.mjs` | Syntax-checks every inline <script type="module"> block in the app HTML, plus |  |
 | `work/system-check.mjs` | Does every mesh in a split layer land in a system? | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs) |
 | `work/text-size-check.mjs` | Does the text-size control actually move the text? | [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) |
+| `work/tmp-dedup-visuals.mjs` | One-off (phase 1 of de-duplicating lesson visuals): scoped drops and swaps |  |
+| `work/tmp-dryrun-visuals.mjs` | One-off dry-run: apply the DROP plan in memory and report (a) figures still |  |
+| `work/tmp-remove-prereq.mjs` | One-off: remove the dead `prerequisites` property from every study item |  |
 | `work/toplevel.mjs` | Which names does a module declare at TOP level? Ask Node, not the indentation. |  |
 | `work/ui-strings.mjs` | UI strings — every literal the app can put on screen, as a sorted fingerprint. | [The UI-string baseline reads comments too](TRAPS.md#the-ui-string-baseline-reads-comments-too--workui-stringsmjs) |
 | `work/unread-manifest.mjs` | Write a work list of everything the corpus has not read, for handing to |  |
