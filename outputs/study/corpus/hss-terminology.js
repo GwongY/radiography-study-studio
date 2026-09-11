@@ -94,10 +94,9 @@ export const HSS_TERMINOLOGY = [
       'When reading clinical imaging reports, mentally translate any patient posture back to the standing anatomical position before applying directional vectors.',
     ],
     selfCheck: 'From memory, describe the five posture requirements of the anatomical position, explain the mechanical reason for forearm supination, and deduce whether a prone patient’s anterior knee faces the couch or ceiling.',
-    visuals: [
-      { fig: 'directionalTerms', focus: ["Superior","Inferior","Anterior","Posterior","Medial","Lateral"] },
-      { gen: true },
-    ],
+    /* No visuals key: visualFor() serves this item its own anatomicalPosition
+       schematic — directionalTerms is owned by the directional-pairs lesson,
+       and a visuals key holding only {gen} would block that fallback. */
     sourceRefs: [
       { ref: 'hss.w1.2026', location: 'p14 "The terminology of"' },
       { ref: 'hss.move.2026', location: 'p1 "Anatomical Position"' },

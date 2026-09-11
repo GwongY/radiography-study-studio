@@ -652,7 +652,7 @@ export const HSS_JOINTS = [
     ],
     "commonMistakes": [
       "Believing the wrist joint rotates; the wrist only flexes, extends, and deviates side-to-side. Rotation occurs at the radioulnar joints.",
-      "Confusing ankle dorsiflexion/plantarflexion (talocrural joint) with foot inversion/eversion (intertarsal joints).",
+      "The classic swap: dorsiflexion/plantarflexion live at the talocrural (ankle) joint, inversion/eversion at the intertarsal joints — not the same joint, not the same axis.",
       "Measuring thumb abduction/adduction against the middle finger; the palm of the hand is the reference plane for thumb movements."
     ],
     "skills": [
@@ -826,7 +826,7 @@ export const HSS_JOINTS = [
         "Finger abduction and adduction use the middle digit (digit III) as the invariant reference line.",
         "Thumb movements (flexion, extension, abduction, adduction, opposition, reposition): referenced to the palm.",
         "Opposition: tip-to-tip attachment of thumb with any finger; reverse movement is reposition.",
-        "Ankle dorsiflexion (dorsum upwards) and plantarflexion (sole downwards): take place at the talocrural joint.",
+        "Same split as the movements lesson: dorsiflexion/plantarflexion at the talocrural (ankle) joint; inversion/eversion at the intertarsal joints.",
         "Foot inversion (sole medially) and eversion (sole laterally): take place at the intertarsal joints."
       ],
       "examples": [

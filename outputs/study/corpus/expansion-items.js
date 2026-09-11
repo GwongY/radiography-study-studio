@@ -276,7 +276,7 @@ export const EXPANSION_ITEMS = [
       },
       {
         "type": "mcq",
-        "prompt": "In monoaxial articulation,",
+        "prompt": "In a monoaxial (uniaxial) joint,",
         "options": [
           "Movement can occur in only one plane.",
           "Movement can occur in two planes.",
