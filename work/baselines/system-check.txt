@@ -36,9 +36,11 @@
   ok pulmVein          20 meshes, all in venous
   ok arterial         723 meshes, all in arterial
   ok pulmArtery        27 meshes, all in arterial
-  ok heart              9 meshes, all in heart
+  -  heart           no meshes carry this class
   ok heartAtrium        2 meshes, all in heart
   ok heartVentricle     6 meshes, all in heart
+  ok heartAVValve       3 meshes, all in heart
+  ok heartSemilunarValve    6 meshes, all in heart
   ok airway            39 meshes, all in respiratory
   ok gut               23 meshes, all in digestive
   ok urinary            8 meshes, all in urogenital
