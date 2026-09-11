@@ -1,9 +1,10 @@
 — every figure a lesson shows has intro (+ key) —
-  ok  146 figures checked
+  ok  149 figures checked
 — every plate has intro + key —
   ok  5 plates checked
 — unused FIGURES entries (informational) —
+  note  FIGURES.lungsGrossAnatomy is defined but no lesson renders it
 — every visuals[].focus entry resolves to a real figure mark —
-  ok  111 focus specifications checked
+  ok  15 focus specifications checked
 
 ALL PASS

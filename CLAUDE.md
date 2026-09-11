@@ -150,6 +150,16 @@ node work/visuals-check.mjs      # every item.visuals[] entry resolves to a real
                                  # the gate still bites
 node work/gloss-coverage-check.mjs # every underlined word has a gloss or is stoplisted;
                                  # every gloss has Chinese; singular/plural reciprocal cues
+node work/dup-audit.mjs         # REQUIRED for any study-item or visual edit — one owner
+                                 # per image (no figure/plate/schematic shown by two
+                                 # lessons, no model spec reused across units), and no
+                                 # VERBATIM duplicated sentence within an item, within a
+                                 # unit, or across units. Near-duplicates (0.8–0.99) are
+                                 # reported, not failed — a one-line restatement of a key
+                                 # fact as the teaching takeaway is legitimate pedagogy.
+                                 # Deliberate repeats live in ALLOWED / TEMPLATE_TEXT with
+                                 # written reasons; --report <path> writes the full
+                                 # markdown audit, --flags prints the failing set
 node work/codemap-check.mjs     # the map matches the code; TRAPS names real files
 node work/data-index-check.mjs  # the data summary matches the data
 node work/schedule-check.mjs    # REQUIRED for outputs/schedule.js edits — the

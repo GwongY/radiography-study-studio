@@ -190,7 +190,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `apss-items.js` | 125 | APSS1A08 Introduction to Sociology — Topic 01 only. |
 | `corpus.js` | 65 | The assembled corpus — every item array spread into one list, and the |
 | `coverage.js` | 251 | Coverage report — what the supplied sources actually cover, and what they |
-| `derived-items.js` | 342 | Items generated rather than authored: one per canonical bone record, one |
+| `derived-items.js` | 352 | Items generated rather than authored: one per canonical bone record, one |
 | `diagrams.js` | 50 | Diagrams — authored schematics, drawn inline as SVG so the app needs no |
 | `dsai-items.js` | 497 | DSAI1202, from the Week 1 overview deck. |
 | `expansion-items.js` | 1803 | Expansion batch — fills gaps found in a coverage audit. |
@@ -198,7 +198,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `hss-modules.js` | 12897 | HSS2011 Human Anatomy — the per-module study items. |
 | `hss-osteology.js` | 2751 | HSS2011 Human Anatomy — osteology: bone classification, the axial and |
 | `hss-special-senses.js` | 505 | HSS2011 Week 7 — Special Senses. |
-| `hss-terminology.js` | 500 | HSS2011 Human Anatomy — anatomical terminology: position, planes, movement |
+| `hss-terminology.js` | 499 | HSS2011 Human Anatomy — anatomical terminology: position, planes, movement |
 | `hti-items.js` | 2088 | HTI17103, drawn from the HTI17101 Exploring Radiography set — the study |
 | `mastery.js` | 121 | Spaced repetition — the schedule, the mastery score and its dimensions, and |
 | `modules.js` | 133 | Course modules — which unit belongs to which teaching module, so the app can |
@@ -288,9 +288,6 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/syntax-check.mjs` | Syntax-checks every inline <script type="module"> block in the app HTML, plus |  |
 | `work/system-check.mjs` | Does every mesh in a split layer land in a system? | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs) |
 | `work/text-size-check.mjs` | Does the text-size control actually move the text? | [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) |
-| `work/tmp-dedup-visuals.mjs` | One-off (phase 1 of de-duplicating lesson visuals): scoped drops and swaps |  |
-| `work/tmp-dryrun-visuals.mjs` | One-off dry-run: apply the DROP plan in memory and report (a) figures still |  |
-| `work/tmp-remove-prereq.mjs` | One-off: remove the dead `prerequisites` property from every study item |  |
 | `work/toplevel.mjs` | Which names does a module declare at TOP level? Ask Node, not the indentation. |  |
 | `work/ui-strings.mjs` | UI strings — every literal the app can put on screen, as a sorted fingerprint. | [The UI-string baseline reads comments too](TRAPS.md#the-ui-string-baseline-reads-comments-too--workui-stringsmjs) |
 | `work/unread-manifest.mjs` | Write a work list of everything the corpus has not read, for handing to |  |
