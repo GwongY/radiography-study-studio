@@ -45,7 +45,6 @@ export const STRUCTURE_SETS = {
       { id: 'hamate', label: 'Hamate', mesh: 'Hamate bone', group: 'Distal row', order: 8 },
     ],
     visuals: [
-      { fig: 'carpalBones', focus: ["Scaphoid (A)","Lunate (B)","Triquetrum (C)","Pisiform (D)","Trapezium (E)","Trapezoid (F)","Capitate (G)","Hamate (H)"] },
       { model: { layer: 'skeleton', meshes: ['Scaphoid bone', 'Lunate bone', 'Triquetrum bone', 'Pisiform bone', 'Trapezium bone', 'Trapezoid bone', 'Capitate bone', 'Hamate bone'], label: 'Carpal bones in 3D', caption: 'Proximal row (scaphoid, lunate, triquetrum, pisiform) and distal row (trapezium, trapezoid, capitate, hamate).' } },
       { gen: true },
     ],
@@ -72,7 +71,6 @@ export const STRUCTURE_SETS = {
       { id: 'lateral-cuneiform', label: 'Lateral cuneiform', mesh: 'Lateral cuneiform bone', group: 'Distal', order: 7 },
     ],
     visuals: [
-      { fig: 'bonesOfTheFoot', focus: ["Talus","Calcaneus","Navicular","Cuboid","Medial cuneiform","Intermediate cuneiform","Lateral cuneiform"] },
       { model: { layer: 'skeleton', meshes: ['Talus', 'Calcaneus', 'Navicular bone', 'Cuboid bone', 'Medial cuneiform bone', 'Intermediate cuneiform bone', 'Lateral cuneiform bone'], label: 'The seven tarsal bones in 3D', caption: 'Proximal group (talus, calcaneus), intermediate group (navicular), and distal group (cuboid, medial, intermediate, lateral cuneiforms).' } },
       { gen: true },
     ],
@@ -107,8 +105,6 @@ export const STRUCTURE_SETS = {
       { id: 'mandible', label: 'Mandible', mesh: 'Mandible', group: 'Facial', order: 12, note: 'The only movable bone in the skull.' },
     ],
     visuals: [
-      { fig: 'skullLateralView', focus: ["Coronal suture","Squamous suture","Lambdoid suture","Pterion","Zygomatic arch","External acoustic meatus","Mastoid process","Mandible","Maxilla"] },
-      { fig: 'paranasalSinuses', focus: ["Frontal sinus","Ethmoid air cells (sinus)","Sphenoid sinus","Maxillary sinus (antrum of Highmore)"] },
       {
         model: {
           layer: 'skeleton',
@@ -139,7 +135,6 @@ export const STRUCTURE_SETS = {
       { id: 'coccyx', label: 'Coccyx', mesh: 'Coccyx', group: 'Coccygeal', order: 7, note: 'Co1–Co4 fused.' },
     ],
     visuals: [
-      { fig: 'cervicalVertebrae', focus: ["Atlas (C1)","Axis (C2)","Transverse foramen (foramen transversarium)","Bifid spinous process"] },
       {
         model: {
           layer: 'skeleton',
@@ -261,7 +256,6 @@ export const STRUCTURE_SETS = {
       { id: 'pec-major', label: 'Pectoralis major (sternocostal head)', mesh: 'Sternocostal head of pectoralis major muscle', group: 'Shoulder girdle', order: 8, note: 'Flexion, adduction and medial rotation. Pectoral nerve.' },
     ],
     visuals: [
-      { fig: 'rotatorCuffMuscles', focus: ["Subscapularis","Supraspinatus","Infraspinatus","Teres minor"] },
       { model: { layer: 'muscle', meshes: ['Supraspinatus muscle', 'Infraspinatus muscle', 'Teres minor muscle', 'Subscapularis muscle', 'Acromial part of deltoid muscle'], label: 'Rotator cuff and abductors', caption: 'The four cuff muscles clustering around the humeral head: supraspinatus, infraspinatus, teres minor, and subscapularis, with deltoid acting as primary abductor.' } },
       { gen: true },
     ],
@@ -293,7 +287,6 @@ export const STRUCTURE_SETS = {
     ],
     orientation: 'On the model, find the twelve pairs emerging in order along the base of the brain, front to back: olfactory and optic into the forebrain, oculomotor and trochlear at the midbrain, the large trigeminal with abducens, facial and vestibulocochlear at the pons, and glossopharyngeal, vagus, accessory and hypoglossal in a row off the medulla oblongata. Learn the emergence order here, and take the modality and target of each nerve from the tested item hss2011-neuro-cranial-nerves-distribution.',
     visuals: [
-      { fig: 'cranialNervesBase', focus: ["Olfactory","Optic","Oculomotor","Trochlear","Trigeminal","Abducens","Facial","Vestibulocochlear","Glossopharyngeal","Vagus","Cranial Accessory","Hypoglossal"] },
       { model: { layer: 'nervous', meshes: ['Olfactory nerve (I)', 'Optic nerve (II)', 'Trigeminal nerve (V)', 'Facial nerve (VII)', 'Vestibulocochlear nerve (VIII)', 'Vagus nerve (X)', 'Hypoglossal nerve (XII)'], label: 'Cranial nerves along the brain base', caption: 'The set on the 3D model: a sample down the numbered sequence from the olfactory and optic nerves at the front to the vagus and hypoglossal leaving the medulla.' } },
       { gen: true },
     ],
@@ -319,7 +312,6 @@ export const STRUCTURE_SETS = {
     ],
     orientation: 'Orient on a midline view. The brainstem is the vertical stalk: midbrain at the top, then pons, then medulla oblongata at the bottom, with the cerebellum behind the pons. The ventricles run down the core: the lateral ventricle in the hemisphere drains through the interventricular foramen to the third ventricle, then through the aqueduct of the midbrain to the fourth ventricle behind the pons. The corpus callosum and thalamus cap it above; the spinal dura and cauda equina trail below, where the cord itself has ended. This set is the visual backing for the tested items hss2011-cns-brainstem-reticular and hss2011-cns-ventricles-csf-blood.',
     visuals: [
-      { fig: 'csfSystem', focus: ["Lateral Ventricles","Third Ventricle","Fourth Ventricle","Cerebral Spinal Fluid"] },
       { model: { layer: 'nervous', meshes: ['Midbrain', 'Pons', 'Medulla oblongata', 'Lateral ventricle', 'Third ventricle', 'Aqueduct of midbrain', 'Fourth ventricle', 'Corpus callosum'], label: 'Brainstem, ventricles and forebrain cap', caption: 'The three brainstem parts as a column, the ventricular system threaded through the midline, and the corpus callosum arching over it.' } },
       { gen: true },
     ],

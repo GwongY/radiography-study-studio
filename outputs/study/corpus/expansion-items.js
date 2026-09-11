@@ -337,7 +337,7 @@ export const EXPANSION_ITEMS = [
     "selfCheck": "From memory: list the six synovial joint types, classify each by axes of motion (uni-, bi-, polyaxial), provide one anatomical example for each, and state why the wrist is condylar rather than hinge.",
     "visuals": [
       { fig: 'synovialTypes', focus: ["a","b","c","d","e","f"] },
-      
+
       {
         "gen": true
       }
@@ -659,7 +659,7 @@ export const EXPANSION_ITEMS = [
     ],
     "selfCheck": "From memory: write down the definitions of agonist, antagonist, synergist, fixator, ligament, and fibrous capsule, and name the bones forming the sternoclavicular and radiocarpal joints.",
     "visuals": [
-      
+
       
       {
         "gen": true
@@ -761,7 +761,7 @@ export const EXPANSION_ITEMS = [
             "location": "p44 \"Conducting Cells\""
           }
         },
-        
+
         {
           "t": "The pacemaker prepotential: resting potential spontaneously depolarizes toward threshold driven by HCN channels admitting inward current while outward K+ drops.",
           "src": {
@@ -1392,7 +1392,7 @@ export const EXPANSION_ITEMS = [
     ],
     "selfCheck": "From memory: state the percentages of O2 and CO2 transported by each method, define the Bohr effect, and recite the mnemonic CADET face Right.",
     "visuals": [
-      
+
       { fig: 'alveolarMicroarchitecture', focus: ["Respiratory membrane","Type I alveolar cell","Pulmonary capillary network"] },
       {
         "gen": true
@@ -1451,7 +1451,7 @@ export const EXPANSION_ITEMS = [
     title: 'Inflammation, complement and adaptive immunity',
     tags: ['immune', 'high-yield'],
     visuals: [
-      
+
       { schematic: 'immuneAdaptive' },
       { gen: true },
     ],
@@ -1463,7 +1463,7 @@ export const EXPANSION_ITEMS = [
           src: { ref: 'phys.10', location: 'Slides 27, 29 "Complement System"' } },
         { t: 'Inflammation as a named set: four Latin signs, three effects, and the products necrosis, pus and abscess.',
           src: { ref: 'phys.10', location: 'Slides 31–33 "Inflammation"' } },
-        
+
         { t: 'Four major T cell types: cytotoxic, memory, helper and suppressor.',
           src: { ref: 'phys.10', location: 'Slide 39 "4 Major Types of T Cells"' } },
         { t: 'MHC proteins, coded on chromosome 6, as the reason T cells only ever see presented antigen — class I on all nucleated cells, class II on antigen-presenting cells.',
@@ -1664,7 +1664,7 @@ export const EXPANSION_ITEMS = [
       {
         "schematic": "modalityBestUse"
       },
-      
+
       {
         "gen": true
       }

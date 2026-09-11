@@ -90,9 +90,12 @@ export const ITEM_VISUALS = {
   'abct2326-cell-division': sch('mitosisStages'),
   'abct2326-epithelium-classification': sch('epitheliumTypes'),
   'abct2326-feedback-loops': sch('negativeFeedback'),
-  'abct2326-muscle-neural-tissue': sch('muscleTypes'),
+  /* muscle-neural-tissue used to fall back to sch('muscleTypes') — the same
+     image abct2326-muscle-types owns, a repeat the duplication gate refuses.
+     It renders its own generated pairing grid instead. */
   'abct2326-connective-tissue-classes': sch('bloodComposition'),
-  'hss2011-msk-joint-classifications': sch('synovialTypes'),
+  /* msk-joint-classifications used to fall back to sch('synovialTypes') —
+     same repeat; it renders its own generated pairing grid instead. */
   'hss2011-msk-bone-histology': sch('boneCells'),
   'hss2011-msk-tissues-of-movement': sch('cartilageTypes'),
   /* The long-bone schematic showed a labelled diagram; this is a photograph
@@ -343,6 +346,12 @@ export function generatedFor(item) {
   if (item.type === 'comparison' && item.memory && item.memory.comparison) {
     return { kind: 'generated', form: 'contrast', text: item.memory.comparison, facts: facts.slice(0, 6), label: item.title };
   }
+  /* Last resort, and the visual for the past-paper compilations: the item's
+     own questions at a glance. The prompts are this item's sourced content —
+     not a copy of the key facts — laid out so the scope of the paper is
+     visible before the first question is opened. */
+  const prompts = practice.map((q) => q.prompt).filter((p) => typeof p === 'string' && p.trim().length >= 15);
+  if (prompts.length >= 3) return { kind: 'generated', form: 'facts', facts: prompts, label: item.title };
   return null;
 }
 
