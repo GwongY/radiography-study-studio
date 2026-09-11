@@ -218,7 +218,17 @@ export const SOURCE_FILES = {
   'soc.ass1.oste': { file: 'ASS1.doc', subject: 'APSS1A08', root: 'oste20', folder: 'GUR Subjects/CAR Subjects/Sociology', kind: 'student' },
   'soc.ass2.oste': { file: 'Assessment 2.docx', subject: 'APSS1A08', root: 'oste20', folder: 'GUR Subjects/CAR Subjects/Sociology', kind: 'student' },
   /* ---------------- Prior knowledge ---------------- */
-  'edb.bio': { file: 'Biology Curriculum and Assessment Guide (S4–6), updated Nov 2015', subject: 'HKDSE', root: 'edb', folder: 'Science Education KLA — edb.gov.hk', kind: 'syllabus', note: 'Fetched from edb.gov.hk, not from the supplied shared folders. It is here for exactly one purpose: to say what HKDSE Biology already covered, and whether a topic sat in the compulsory part or in the Human Physiology elective. No anatomy or physiology claim in this file is sourced to it.' },
+  /*
+   * Two EDB documents, two jobs. The Guide (edb.bio) says which PART a topic
+   * sat in; the Supplement (edb.bio.supp) says how DEEP — its tables add the
+   * learning outcomes and the numbered footnotes that carve content out of
+   * the learning-and-assessment focus. EDB's curriculum-documents page still
+   * lists "Biology (S4-6) 2007 (with updates in November 2015)" as current
+   * (verified 2026-09-11), so this Guide edition is the one a 2024-25 DSE
+   * candidate sat under.
+   */
+  'edb.bio': { file: 'Biology Curriculum and Assessment Guide (S4–6), updated Nov 2015', subject: 'HKDSE', root: 'edb', folder: 'Science Education KLA — edb.gov.hk', kind: 'syllabus', note: 'Fetched from edb.gov.hk, not from the supplied shared folders. It is here for exactly one purpose: to say what HKDSE Biology already covered, and whether a topic sat in the compulsory part or in the Human Physiology elective. How deep each topic went is fixed by the Supplement, registered as edb.bio.supp. No anatomy or physiology claim in this file is sourced to it.' },
+  'edb.bio.supp': { file: 'Biology Curriculum (Secondary 4-6) Supplementary Document (2015 printing; applies to the 2016 HKDSE and onwards) — cd1.edb.hkedcity.net/cd/science/biology/supplementary/bio_supplement_e_2016.pdf', subject: 'HKDSE', root: 'edb', folder: 'Science Education KLA — edb.gov.hk', kind: 'syllabus', note: 'The depth authority beside the Guide: jointly prepared by the CDC and the HKEAA, applicable to the HKDSE Biology examination from 2016 onward, and meant to be read with the Biology Curriculum and Assessment Guide (S4–6). Its per-topic "Students should be able to" outcomes and its numbered footnotes fix the assessment focus — e.g. the countercurrent multiplier, and the details of transcription, translation and the cell cycle, are "not the learning and assessment focus". Where a priorKnowledge tag leans on such a depth limit it cites this document. Same scope-only rule as edb.bio: no anatomy or physiology claim is sourced to it.' },
   'openstax.ap2e': { file: 'Anatomy and Physiology 2e — openstax.org/details/books/anatomy-and-physiology-2e', subject: 'HSS2011', root: 'web', folder: 'OpenStax — openstax.org', kind: 'primary', note: 'The free OpenStax textbook, named as a reference on the last slide of the 2026 HSS2011 orientation deck (which links the first edition; this is the current one). It is registered so the app can point at it, and for NOTHING ELSE: this repo does not fetch it, and no claim in the corpus is sourced to it. Reading it is a thing the student does, not a thing the corpus does — see the source-discipline rule in outputs/README.md.' },
 
   'soc.img.torti': { file: 'IMG_4192.JPG / IMG_4193.JPG / IMG_4194.JPG', subject: 'APSS1A08', root: 'torti', folder: 'GUR subjects/CAR/Introduction to Sociology', kind: 'student', note: 'Photographs. Not machine-readable offline, so their contents are unverified.' },
@@ -449,7 +459,8 @@ export const PRIOR_KNOWLEDGE = {
  * sit in the elective "Human Physiology: Regulation and Control". Tagging them
  * as already-known is only correct for someone who took that elective, and
  * sending anyone else straight to a question on unseen material would be the
- * opposite of helpful. Every dsePart below is checked against the EDB guide.
+ * opposite of helpful. Every dsePart below is checked against the EDB Guide
+ * and, for depth, the EDB Supplement (edb.bio.supp).
  */
 export const DSE_PARTS = {
   core: { label: 'compulsory part', note: 'Every HKDSE Biology candidate takes this.' },
