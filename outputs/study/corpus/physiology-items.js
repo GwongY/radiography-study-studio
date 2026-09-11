@@ -186,11 +186,11 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: recite the six structural levels, the four tissue types, and all eleven organ systems.",
     "visuals": [
-      { fig: 'cellAnatomy', focus: ["Plasma membrane","Cytoplasm","Nucleus"] },
+      
       {
         "schematic": "cellOrganisation"
       },
-      { fig: 'epithelialTissues', focus: ["Simple squamous epithelium","Stratified squamous epithelium"] },
+      
       {
         "gen": true
       }
@@ -256,27 +256,15 @@ export const PHYS_ITEMS = [
         "location": "Compulsory III \"Homeostasis\" — concept of internal environment stability."
       },
       "beyond": [
-        {
-          "t": "Homeostasis defined as all body systems working together to maintain a stable internal environment in dynamic equilibrium, where opposing forces are balanced.",
-          "src": {
-            "ref": "phys.1.2026",
-            "location": "p57 \"Homeostasis\""
-          }
-        },
+        
         {
           "t": "The two mechanisms of physiological regulation: Autoregulation (intrinsic local cell/tissue response) versus Extrinsic regulation (nervous and endocrine systemic control).",
           "src": {
             "ref": "phys.1.2026",
             "location": "p58 \"Mechanisms of Regulation\""
           }
-        },
-        {
-          "t": "The three mandatory structural components of every homeostatic control loop: Receptor (sensor), Control Centre (integration processor), and Effector (responsive cell/organ).",
-          "src": {
-            "ref": "phys.1.2026",
-            "location": "p58 \"Mechanisms of Regulation\""
-          }
         }
+        
       ]
     },
     "lesson": {
@@ -448,20 +436,8 @@ export const PHYS_ITEMS = [
         "location": "Compulsory III(b) \"Essential life processes in animals\" — \"General plan of the circulatory system and lymphatic system\"."
       },
       "beyond": [
-        {
-          "t": "Flow through the systemic circuit equals flow through the pulmonary circuit, because the two run in series.",
-          "src": {
-            "ref": "phys.2",
-            "location": "p18 \"An Introduction to the Cardiovascular System\""
-          }
-        },
-        {
-          "t": "The whole route named as one recitable sequence, vena cavae through to aorta.",
-          "src": {
-            "ref": "phys.2",
-            "location": "p20 \"Pulmonary and Systemic Circulations\""
-          }
-        },
+        
+        
         {
           "t": "Three vessel wall tunics: tunica intima with endothelium, tunica media with smooth muscle, tunica externa with connective tissue.",
           "src": {
@@ -484,7 +460,7 @@ export const PHYS_ITEMS = [
           }
         },
         {
-          "t": "Veins function as high-capacitance reservoirs operating at very low pressure (~2 mmHg), requiring skeletal muscle pump and one-way valves.",
+          "t": "Veins as a high-capacitance reservoir at about 2 mmHg — the quantification past the classroom valves-and-muscle-pump return.",
           "src": {
             "ref": "phys.2",
             "location": "p17 \"Veins\""
@@ -609,7 +585,7 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: name the three tunics of a blood vessel, state the flow rate relationship between systemic and pulmonary circuits, and explain why venous return needs a skeletal muscle pump.",
     "visuals": [
-      { fig: 'bloodVesselStructure', focus: ["Tunica intima","Tunica media","Tunica externa","Lumen","Valve in vein"] },
+      
       {
         "schematic": "circuits"
       },
@@ -723,15 +699,9 @@ export const PHYS_ITEMS = [
             "location": "p27 \"Characteristics of Cardiac Muscle Cells\""
           }
         },
+        
         {
-          "t": "Structural differences between ventricles: right ventricle is pouch-shaped and thin-walled; left ventricle is thick-walled, round, and develops high pressure.",
-          "src": {
-            "ref": "phys.2",
-            "location": "p31 \"Structural Differences between the Left and Right Ventricles\""
-          }
-        },
-        {
-          "t": "Papillary muscles contracting through chordae tendineae to prevent ventricular pressure everting the AV valves.",
+          "t": "Papillary muscles actively contracting through chordae tendineae to hold the AV valves shut — past the classroom chords-prevent-eversion picture.",
           "src": {
             "ref": "phys.2",
             "location": "p35 \"Functions of the valves\""
@@ -846,13 +816,9 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: list the three layers of the heart wall, state the structural and electrical roles of intercalated discs, and explain how papillary muscles protect AV valves during systole.",
     "visuals": [
-      { fig: 'heartInternalAnatomy', focus: ["Right atrium","Right ventricle","Left atrium","Left ventricle","Tricuspid valve","Bicuspid valve","Aortic valve","Pulmonary valve","Chordae tendineae","Papillary muscles","Interventricular septum"] },
-      {
-        "fig": "heart"
-      },
-      {
-        "schematic": "circuits"
-      },
+      
+      
+      
       {
         "gen": true
       }
@@ -945,7 +911,7 @@ export const PHYS_ITEMS = [
           }
         },
         {
-          "t": "Trachea branching into primary, secondary (lobar), and tertiary (segmental) bronchi.",
+          "t": "Bronchi named by generation: secondary (lobar) and tertiary (segmental) — past the classroom main-airway branching.",
           "src": {
             "ref": "phys.3",
             "location": "p7 \"Trachea\""
@@ -1098,7 +1064,7 @@ export const PHYS_ITEMS = [
     "selfCheck": "From memory: recite the complete airway branching sequence from trachea to alveoli, contrast Type I and Type II pneumocytes, and explain why the right primary bronchus is prone to aspiration.",
     "visuals": [
       { fig: 'respiratoryTractAnatomy', focus: ["Nasal cavity","Pharynx","Larynx","Trachea","Primary bronchi","Right lung","Left lung"] },
-      { fig: 'alveolarMicroarchitecture', focus: ["Respiratory bronchiole","Alveolar duct","Alveolus","Respiratory membrane"] },
+      
       {
         "gen": true
       }
@@ -1158,27 +1124,15 @@ export const PHYS_ITEMS = [
   ],
   "priorKnowledge": {
     "level": "dse-bio",
-    "covers": "part",
+    "covers": "most",
     "dsePart": "elective-hp",
     "syllabusRef": {
       "ref": "edb.bio",
       "location": "Elective V(a) \"Regulation of water content (osmoregulation)\" — general plan of the urinary system, nephron structure and function, ultrafiltration, reabsorption and ADH."
     },
     "beyond": [
-      {
-        "t": "Kidney function regulates plasma and interstitial fluid through urine formation: volume, waste excretion, and electrolytes.",
-        "src": {
-          "ref": "phys.5",
-          "location": "p2 \"Is to regulate plasma and interstitial fluid by formation of\""
-        }
-      },
-      {
-        "t": "Gross structure of the urinary system: paired kidneys on either side of vertebral column.",
-        "src": {
-          "ref": "phys.5",
-          "location": "p4 \"Paired kidneys are on either side of vertebral\""
-        }
-      },
+      
+      
       {
         "t": "Renal cortex contains many capillaries and outer parts of nephrons; renal medulla contains renal pyramids.",
         "src": {
@@ -1187,35 +1141,23 @@ export const PHYS_ITEMS = [
         }
       },
       {
-        "t": "The nephron is the functional unit of the kidney, with more than 1 million per kidney.",
+        "t": "More than 1 million nephrons per kidney — the figure the elective's functional-unit line never quantifies.",
         "src": {
           "ref": "phys.5",
           "location": "p8 \"Is functional unit of kidney; responsible for forming urine\""
         }
       },
       {
-        "t": "Renal blood vessels: interlobular arteries give rise to afferent arterioles, glomeruli, and efferent arterioles.",
+        "t": "Interlobular arteries giving rise to the afferent arterioles — the interlobular naming past the classroom afferent/efferent pair.",
         "src": {
           "ref": "phys.5",
           "location": "p9 \"Interlobular arteries give rise to\""
         }
       },
+      
+      
       {
-        "t": "Nephron tubules begin with the glomerular capsule, transitioning into the proximal convoluted tubule and loop.",
-        "src": {
-          "ref": "phys.5",
-          "location": "p10 \"Tubular part of nephron begins with\""
-        }
-      },
-      {
-        "t": "Glomerular capsule surrounds the glomerulus; together they form the renal corpuscle.",
-        "src": {
-          "ref": "phys.5",
-          "location": "p11 \"Together they form\""
-        }
-      },
-      {
-        "t": "Proximal convoluted tubule walls consist of a single layer of cuboidal cells with dense microvilli.",
+        "t": "PCT wall histology: a single cuboidal layer with dense microvilli — the naming past the classroom brush-border adaptation.",
         "src": {
           "ref": "phys.5",
           "location": "p12 \"Walls consist of single layer of cuboidal cells with\""
@@ -1333,7 +1275,7 @@ export const PHYS_ITEMS = [
   "selfCheck": "From memory: recite the complete nephron tubule sequence from Bowman’s capsule to the urethra, state the two components of the renal corpuscle, and describe the microvascular portal circuit.",
   "visuals": [
     { fig: 'kidneyGrossAnatomy', focus: ["Renal cortex","Renal medulla","Renal pyramid","Minor calyx","Major calyx","Renal pelvis","Ureter"] },
-    { fig: 'nephronVascularMicroanatomy', focus: ["Renal corpuscle","Glomerulus","Bowman’s (glomerular) capsule","Proximal convoluted tubule (PCT)","Descending limb of Henle","Ascending limb of Henle","Distal convoluted tubule (DCT)","Collecting duct"] },
+    
     {
       "gen": true
     }
@@ -1396,13 +1338,7 @@ export const PHYS_ITEMS = [
       "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": general plan of the digestive system, digestion in each part of the alimentary canal, absorption, the role of the liver and egestion."
     },
     "beyond": [
-      {
-        "t": "Muscular propulsion of materials into the esophagus and transport of materials to the stomach.",
-        "src": {
-          "ref": "phys.4",
-          "location": "p2 \"Muscular propulsion of materials into\""
-        }
-      },
+      
       {
         "t": "Accessory organs of the digestive system: teeth, tongue, salivary glands, liver, gallbladder, and pancreas.",
         "src": {
@@ -1417,13 +1353,7 @@ export const PHYS_ITEMS = [
           "location": "p4 \"Six Functions of the\""
         }
       },
-      {
-        "t": "Ingestion occurs when conscious food materials enter the digestive tract via the mouth.",
-        "src": {
-          "ref": "phys.4",
-          "location": "p5 \"Ingestion\""
-        }
-      },
+      
       {
         "t": "Secretion involves the release of water, acids, enzymes, buffers, and salts by epithelium and glandular organs.",
         "src": {
@@ -1549,8 +1479,8 @@ export const PHYS_ITEMS = [
   ],
   "selfCheck": "From memory: write down the seven organs of the alimentary tract in order, list the six accessory organs, and explain why the pancreas is both an endocrine and exocrine organ.",
   "visuals": [
-    { fig: 'digestiveSystemOverview', focus: ["Oral cavity","Pharynx and esophagus","Stomach","Small intestine","Large intestine"] },
-    { fig: 'digestiveWallLayers', focus: ["Mucosa","Submucosa","Muscularis externa","Serosa / adventitia"] },
+    
+    
     {
       "gen": true
     }
@@ -1602,8 +1532,7 @@ export const PHYS_ITEMS = [
           src: { ref: 'phys.7', location: 'Page 9 "Chemical Classifications of Hormones"' } },
         { t: 'Prohormones and prehormones, and T4 as an inactive prohormone converted to active T3 by the target cell.',
           src: { ref: 'phys.7', location: 'Page 10 "Prohormones and Prehormones"' } },
-        { t: 'A comparison of nervous against endocrine signalling: impulses fast and short-lived, hormones slow and long-lasting.',
-          src: { ref: 'phys.hormech', location: 'p1 "hormones act more slowly"' } },
+        
       ],
     },
     lesson: {
@@ -1845,7 +1774,7 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: state the normal hematocrit ranges for males and females, name the three plasma protein classes with their functions, and distinguish plasma from serum.",
     "visuals": [
-      { fig: 'bloodVesselStructure', focus: ["Endothelium","Tunica intima","Lumen"] },
+      
       {
         "schematic": "bloodComposition"
       },
@@ -1996,7 +1925,7 @@ export const PHYS_ITEMS = [
     tags: ['musculoskeletal', 'high-yield'],
     visuals: [
       { schematic: 'muscleTypes' },
-      { fig: 'muscleOrganization', focus: ["Skeletal muscle","Muscle fiber","Sarcomere"] },
+      
       { gen: true },
     ],
     priorKnowledge: {
@@ -2007,7 +1936,7 @@ export const PHYS_ITEMS = [
           src: { ref: 'phys.9', location: 'Slide 5 "4 Properties of Muscle"' } },
         { t: 'Three muscle tissue types told apart histologically — nucleus number and position, striation, intercalated discs, gap junctions in visceral smooth muscle — rather than by where they sit.',
           src: { ref: 'phys.9', location: 'Slide 6 "Classification of 3 Muscle Tissue Types"' } },
-        { t: 'Voluntary defined as directed by thought through the nervous system, involuntary as directed by the autonomic nervous system.',
+        { t: 'Involuntary defined as directed by the autonomic nervous system — the attribution past the classroom voluntary/involuntary split.',
           src: { ref: 'phys.9', location: 'Slide 7 "Classification of muscle"' } },
         { t: 'The sarcomere between two Z discs, with M lines anchoring myosin and titin supplying the elastic recoil.',
           src: { ref: 'phys.9', location: 'Slide 18 "Sarcomeres"' } },
@@ -2073,8 +2002,7 @@ export const PHYS_ITEMS = [
       level: 'dse-bio', covers: 'part', dsePart: 'core',
       syllabusRef: { ref: 'edb.bio', location: 'Compulsory III(d) "Coordination and response" — "Action of opposing muscle pairs" and the neuromuscular junction. Origin, insertion and the motor unit are not in the syllabus.' },
       beyond: [
-        { t: 'Origin and insertion as named attachments — insertion on the bone that moves, distal; origin on the bone that does not, closer to the body.',
-          src: { ref: 'phys.9', location: 'Slide 10 "Skeletal Muscle Action"' } },
+        
         { t: 'Agonist and antagonist as roles that swap with the direction of movement, not fixed labels for particular muscles.',
           src: { ref: 'phys.9', location: 'Slide 11 "Skeletal Muscles"' } },
         { t: 'The motor unit — one motor neuron and every fibre it innervates, all of which contract together.',
@@ -2139,7 +2067,7 @@ export const PHYS_ITEMS = [
     ],
     priorKnowledge: {
       level: 'dse-bio', covers: 'part', dsePart: 'core',
-      syllabusRef: { ref: 'edb.bio', location: 'Compulsory IV(c) "Body defence mechanisms" — non-specific defence is listed as skin, mucus, cilia, phagocytes, blood clotting and inflammatory responses. Interferons, complement and NK cells are not in the syllabus.' },
+      syllabusRef: { ref: 'edb.bio', location: 'Compulsory IV(c) "Body defence mechanisms" — non-specific defence is listed as skin, mucus and other secretions, cilia, phagocytes, blood clotting and inflammatory responses. Interferons, complement and NK cells are not in the syllabus.' },
       beyond: [
         { t: 'The seven named categories of innate immunity, in the lecture’s own order — DSE lists six examples loosely; this is a numbered set you can be asked to reproduce.',
           src: { ref: 'phys.10', location: 'Slide 6 "7 Major Categories of Innate Immunity"' } },
@@ -2210,7 +2138,8 @@ export const PHYS_ITEMS = [
     title: 'The hormone receptor, and why cells change how many they have',
     tags: ['endocrine', 'high-yield'],
     visuals: [
-      { schematic: 'endocrineDelivery' },
+      
+      { fig: 'hormoneReceptorMechanisms', focus: ['Steroid Hormones', 'Protein Hormones', 'b', 'd'] },
       { gen: true },
     ],
     priorKnowledge: {
@@ -2849,7 +2778,7 @@ export const PHYS_ITEMS = [
     title: 'From nerve to sarcomere: the junction, the motor unit and coupling',
     tags: ['musculoskeletal', 'nervous', 'high-yield'],
     visuals: [
-      { fig: 'synapseIllustration', focus: ["Axon terminal","Voltage-gated Ca++ channel","Synaptic vesicle","Synaptic cleft","Neurotransmitter receptors"] },
+      
       { gen: true },
     ],
     lesson: {
@@ -2922,7 +2851,7 @@ export const PHYS_ITEMS = [
     title: 'Slow and fast twitch, and where a muscle gets its energy',
     tags: ['musculoskeletal'],
     visuals: [
-      { fig: 'muscleOrganization', focus: ["Muscle fiber","Myofibril","Sarcomere"] },
+      
       { gen: true },
     ],
     lesson: {
@@ -3002,7 +2931,7 @@ export const PHYS_ITEMS = [
     tags: ['musculoskeletal', 'nervous'],
     visuals: [
       { fig: 'muscleSpindle' },
-      { fig: 'reflexArc', focus: ["A","B","C","E","F"] },
+      
       { gen: true },
     ],
     lesson: {
@@ -3156,7 +3085,7 @@ export const PHYS_ITEMS = [
     tags: ['immune', 'high-yield'],
     visuals: [
       { fig: 'antigenPresentation' },
-      { fig: 'clonalSelection', focus: ["Sensitized B cell","Plasma cells","Memory B cells"] },
+      
       { gen: true },
     ],
     lesson: {
@@ -3239,7 +3168,7 @@ export const PHYS_ITEMS = [
     title: 'Inside three innate defences: phagocytes, NK cells, interferons',
     tags: ['immune', 'high-yield'],
     visuals: [
-      { fig: 'innateAdaptiveCooperation', focus: ["Innate immunity","Antigen-presenting cell"] },
+      
       { gen: true },
     ],
     lesson: {
@@ -3389,7 +3318,7 @@ export const PHYS_ITEMS = [
     title: 'Four kinds of T cell, and what each is for',
     tags: ['immune', 'high-yield'],
     visuals: [
-      { fig: 'antigenPresentation', focus: ["Antigen presentation","T cell receptor","MHC Class II"] },
+      
       { gen: true },
     ],
     lesson: {
@@ -3462,7 +3391,7 @@ export const PHYS_ITEMS = [
     title: 'Four ways to become immune: active or passive, natural or artificial',
     tags: ['immune', 'high-yield'],
     visuals: [
-      { fig: 'innateAdaptiveCooperation', focus: ["Cell-mediated immunity","Humoral immunity"] },
+      
       { gen: true },
     ],
     lesson: {
@@ -3766,7 +3695,7 @@ export const PHYS_ITEMS = [
       {
         "fig": "plasmaMembrane"
       },
-      { fig: 'cellAnatomy', focus: ["Plasma membrane"] },
+      
       {
         "gen": true
       }
@@ -3833,7 +3762,7 @@ export const PHYS_ITEMS = [
     ],
     "priorKnowledge": {
       "level": "dse-bio",
-      "covers": "most",
+      "covers": "part",
       "dsePart": "core",
       "syllabusRef": {
         "ref": "edb.bio",
@@ -3975,7 +3904,7 @@ export const PHYS_ITEMS = [
       {
         "fig": "cellAnatomy"
       },
-      { fig: 'plasmaMembrane', focus: ["Phospholipid bilayer","Integral membrane protein","Cholesterol"] },
+      
       {
         "gen": true
       }
@@ -4066,7 +3995,7 @@ export const PHYS_ITEMS = [
       "dsePart": "core",
       "syllabusRef": {
         "ref": "edb.bio",
-        "location": "Compulsory I \"Cells and Molecules of Life\" — DNA structure and function; Compulsory IV \"Applied Ecology and Genetics\"."
+        "Compulsory I \"Cells and Molecules of Life\" — nucleus and chromosomes; Compulsory II(b) \"Molecular genetics — chromosomes, genes and nucleic acids\".": "Compulsory I \"Cells and Molecules of Life\" — DNA structure and function; Compulsory IV \"Applied Ecology and Genetics\"."
       },
       "beyond": [
         {
@@ -4089,14 +4018,8 @@ export const PHYS_ITEMS = [
             "ref": "phys.1.2026",
             "location": "p14 \"Organization of DNA\""
           }
-        },
-        {
-          "t": "The genetic code specified strictly as triplets of nitrogenous bases on DNA that determine the sequence of codons and amino acids in a polypeptide chain.",
-          "src": {
-            "ref": "phys.1.2026",
-            "location": "p15 \"Triplet code\""
-          }
         }
+        
       ]
     },
     "lesson": {
@@ -4224,8 +4147,8 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "Define the four structural components of the nucleus and explain why DNA is packaged as chromatin in interphase but chromosomes in mitosis.",
     "visuals": [
-      { fig: 'cellAnatomy', focus: ["Nucleus","Nucleolus","Chromatin"] },
-      { fig: 'mitosisPhases', focus: ["Prophase","Metaphase","Anaphase","Telophase"] },
+      
+      
       {
         "gen": true
       }
@@ -4287,8 +4210,8 @@ export const PHYS_ITEMS = [
       "covers": "most",
       "dsePart": "core",
       "syllabusRef": {
-        "ref": "edb.bio",
-        "location": "Compulsory I \"Cells and Molecules of Life\" — protein synthesis, transcription and translation."
+        "ref": "edb.bio.supp",
+        "Compulsory II(b) \"Molecular genetics — gene expression and protein synthesis: transcription and translation\" — outcome \"Outline the process of protein synthesis\"; footnotes 3 and 4 limit DSE depth to template strand and base pairing, and to codon and anticodon.": "Compulsory I \"Cells and Molecules of Life\" — protein synthesis, transcription and translation."
       },
       "beyond": [
         {
@@ -4299,14 +4222,14 @@ export const PHYS_ITEMS = [
           }
         },
         {
-          "t": "Transcription explained with the template strand read by RNA polymerase to generate complementary pre-mRNA containing codons.",
+          "t": "Transcription run by RNA polymerase to generate pre-mRNA — past the DSE footnoted limit of template strand and base pairing.",
           "src": {
             "ref": "phys.1.2026",
             "location": "p22 \"Transcription\""
           }
         },
         {
-          "t": "Translation detailed at ribosomal P and A sites: small subunit binding AUG start codon, tRNA anticodon pairing, peptide bond formation, and stop codon release.",
+          "t": "Translation at the ribosomal P and A sites: AUG start codon, peptide bond formation and stop-codon release — past the DSE footnoted limit of codon and anticodon.",
           "src": {
             "ref": "phys.1.2026",
             "location": "p21 \"Translation\""
@@ -4438,7 +4361,7 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "Outline the sequential events of protein synthesis from promoter binding to release factor termination, identifying where each occurs in the cell.",
     "visuals": [
-      { fig: 'cellAnatomy', focus: ["Nucleus","Chromatin","Ribosomes","Rough endoplasmic reticulum"] },
+      
       {
         "gen": true
       }
@@ -4504,19 +4427,13 @@ export const PHYS_ITEMS = [
           }
         },
         {
-          "t": "The four continuous phases of mitosis — Prophase, Metaphase, Anaphase, Telophase — described by spindle attachment, kinetochores, and chromatid migration.",
+          "t": "Mitosis described by spindle attachment, kinetochores and chromatid migration — mechanism detail past the DSE outline of the four phases.",
           "src": {
             "ref": "phys.1.2026",
             "location": "p24 \"Mitosis divides genetic material equally\""
           }
-        },
-        {
-          "t": "Comparison of Mitosis (one division producing two identical diploid somatic cells) with Meiosis (two divisions yielding four genetically distinct haploid gametes with crossing over).",
-          "src": {
-            "ref": "phys.1.2026",
-            "location": "p27 \"Meiosis\""
-          }
         }
+        
       ]
     },
     "lesson": {
@@ -4647,7 +4564,7 @@ export const PHYS_ITEMS = [
       {
         "fig": "mitosisPhases"
       },
-      { fig: 'cellAnatomy', focus: ["Centrosome","Chromatin","Microtubule","Plasma membrane"] },
+      
       {
         "gen": true
       }
@@ -4706,7 +4623,7 @@ export const PHYS_ITEMS = [
       "dsePart": "core",
       "syllabusRef": {
         "ref": "edb.bio",
-        "location": "Compulsory I \"Cells and Molecules of Life\" — human tissues."
+        "Compulsory I(b) \"Cellular organisation\" — cell structure only; the four-tissue classification is not in the S4-6 Biology curriculum at all.": "Compulsory I \"Cells and Molecules of Life\" — human tissues."
       },
       "beyond": [
         {
@@ -4861,9 +4778,7 @@ export const PHYS_ITEMS = [
       {
         "fig": "epithelialTissues"
       },
-      {
-        "schematic": "cellOrganisation"
-      },
+      
       {
         "gen": true
       }
@@ -4922,7 +4837,7 @@ export const PHYS_ITEMS = [
       "dsePart": "core",
       "syllabusRef": {
         "ref": "edb.bio",
-        "location": "Compulsory I \"Cells and Molecules of Life\" — human tissues."
+        "Compulsory I(b) \"Cellular organisation\" — cell structure only; the four-tissue classification is not in the S4-6 Biology curriculum at all.": "Compulsory I \"Cells and Molecules of Life\" — human tissues."
       },
       "beyond": [
         {
@@ -5163,11 +5078,11 @@ export const PHYS_ITEMS = [
     ],
     "priorKnowledge": {
       "level": "dse-bio",
-      "covers": "most",
+      "covers": "part",
       "dsePart": "core",
       "syllabusRef": {
         "ref": "edb.bio",
-        "location": "Compulsory I \"Cells and Molecules of Life\" — animal tissues; Compulsory III \"Nervous coordination\"."
+        "Compulsory I(b) \"Cellular organisation\" + Compulsory III(d) \"Nervous coordination in humans\" — neurone types by structure and function; tissue histology is not in the curriculum.": "Compulsory I \"Cells and Molecules of Life\" — animal tissues; Compulsory III \"Nervous coordination\"."
       },
       "beyond": [
         {
@@ -5183,14 +5098,8 @@ export const PHYS_ITEMS = [
             "ref": "phys.1.2026",
             "location": "p53 \"Neural Tissue\""
           }
-        },
-        {
-          "t": "The invariant directional rule of neuron architecture: signal reception at branching dendrites, integration in cell body, and outgoing signal conduction along the single axon.",
-          "src": {
-            "ref": "phys.1.2026",
-            "location": "p54 \"Neuroglia\""
-          }
         }
+        
       ]
     },
     "lesson": {
@@ -5321,7 +5230,7 @@ export const PHYS_ITEMS = [
       {
         "schematic": "muscleTypes"
       },
-      { fig: 'connectiveTissues', focus: ["Collagen fibers","Fibroblast","Adipocytes"] },
+      
       {
         "gen": true
       }
@@ -5400,7 +5309,7 @@ export const PHYS_ITEMS = [
       },
       "beyond": [
         {
-          "t": "The defining functional distinction: negative feedback negates/opposes the stimulus to restore normal range, while positive feedback amplifies/reinforces the change to accelerate a process.",
+          "t": "Positive feedback amplifies the change instead of negating it — the distinction the negative-feedback-only DSE focus never draws.",
           "src": {
             "ref": "phys.1.2026",
             "location": "p59 \"Positive Feedback\""
@@ -5536,9 +5445,7 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "Compare negative and positive feedback using their core defining verbs, and walk through the thermoregulation and clotting loops step-by-step.",
     "visuals": [
-      {
-        "schematic": "homeostasis"
-      },
+      
       {
         "gen": true
       }
@@ -5682,8 +5589,8 @@ export const PHYS_ITEMS = [
     "covers": "part",
     "dsePart": "elective-hp",
     "syllabusRef": {
-      "ref": "edb.bio",
-      "location": "Elective V(a) \"Regulation of water content (osmoregulation)\" — ultrafiltration in Bowman’s capsule, hydrostatic pressure and composition of filtrate."
+      "ref": "edb.bio.supp",
+      "Elective V(a) \"Regulation of water content (osmoregulation)\" — \"Processes in urine formation: ultrafiltration, reabsorption\". Footnote 1: the countercurrent multiplier is not the learning and assessment focus.": "Elective V(a) \"Regulation of water content (osmoregulation)\" — ultrafiltration in Bowman’s capsule, hydrostatic pressure and composition of filtrate."
     },
     "beyond": [
       {
@@ -5847,8 +5754,8 @@ export const PHYS_ITEMS = [
   ],
   "selfCheck": "From memory: recite male/female GFR values, total daily filtrate volume, basal energy cost of reabsorption, minimum obligatory urine volume, and the minimum urinary pH limit.",
   "visuals": [
-    { fig: 'glomerularFiltrationMembrane', focus: ["Fenestrated capillary endothelium","Basement membrane (lamina densa)","Podocyte pedicels (foot processes)","Filtration slit","Capsular space","Macula densa","Juxtaglomerular (granular) cells"] },
-    { fig: 'nephronVascularMicroanatomy', focus: ["Renal corpuscle","Glomerulus","Afferent arteriole","Efferent arteriole","Descending limb of Henle","Ascending limb of Henle"] },
+    
+    
     {
       "gen": true
     }
@@ -5891,7 +5798,7 @@ export const PHYS_ITEMS = [
     tags: ['muscle', 'sarcomere', 'titin', 'motor-unit', 'vo2max', 'high-yield'],
     visuals: [
       { fig: 'sarcomere', focus: ["Z","M","A","I"] },
-      { fig: 'muscleOrganization', focus: ["Muscle fiber","Myofibril","Sarcomere"] },
+      
       { gen: true },
     ],
     lesson: {
@@ -5980,10 +5887,10 @@ export const PHYS_ITEMS = [
     title: 'Compact vs spongy bone, bone cells, remodelling and calcium balance',
     tags: ['bone', 'msk', 'high-yield'],
     visuals: [
-      { fig: 'compactBone', focus: ["Osteon","Concentric lamellae","Lacunae","Canaliculi","Spongy bone"] },
-      { fig: 'longBone', focus: ["Diaphysis","Epiphysis","Medullary cavity","Spongy bone"] },
-      { fig: 'boneCells', focus: ["Osteoblast","Osteoclast","Osteocyte"] },
-      { schematic: 'boneFunctions' },
+      
+      
+      
+      
       { gen: true },
     ],
     lesson: {
@@ -6073,7 +5980,7 @@ export const PHYS_ITEMS = [
       "dsePart": "elective-hp",
       "syllabusRef": {
         "ref": "edb.bio",
-        "location": "Elective V(c) \"Regulation of gas content in blood\" — cardiovascular control and hemodynamics."
+        "Elective V(c) \"Regulation of gas content in blood\" — \"Control of cardiac output: heart rate and stroke volume, pacemaker and cardiac cycle\". The elective does not name hemodynamics; the Poiseuille relationship and the resistance determinants are past it entirely.": "Elective V(c) \"Regulation of gas content in blood\" — cardiovascular control and hemodynamics."
       },
       "beyond": [
         {
@@ -6097,27 +6004,9 @@ export const PHYS_ITEMS = [
             "location": "p2 \"The normal blood volume of the venous system.\""
           }
         },
-        {
-          "t": "Blood colloid osmotic pressure is most affected by plasma protein concentration.",
-          "src": {
-            "ref": "phys.cvs.tut",
-            "location": "p2 \"concentration of plasma proteins.\""
-          }
-        },
-        {
-          "t": "Pulmonary circuit components include pulmonary arteries and pulmonary veins.",
-          "src": {
-            "ref": "phys.cvs.tut",
-            "location": "p2 \"Pulmonary arteries and pulmonary veins\""
-          }
-        },
-        {
-          "t": "The sinoatrial (SA) node is the intrinsic primary pacemaker initiating heartbeats.",
-          "src": {
-            "ref": "phys.cvs.tut",
-            "location": "p2 \"sinoatrial (SA) node\""
-          }
-        },
+        
+        
+        
         {
           "t": "Tendinous cords are structural valve anchors, not part of the electrical conduction system.",
           "src": {
@@ -6245,10 +6134,8 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: recite Poiseuille determinants of resistance, identify the blood volume reservoir of the body, and state the backup firing rate of the AV node.",
     "visuals": [
-      { fig: 'bloodVesselStructure', focus: ["Tunica media","Lumen","Valve in vein"] },
-      {
-        "schematic": "circuits"
-      },
+      
+      
       {
         "gen": true
       }
@@ -6304,8 +6191,8 @@ export const PHYS_ITEMS = [
     "covers": "part",
     "dsePart": "elective-hp",
     "syllabusRef": {
-      "ref": "edb.bio",
-      "location": "Elective V(a) \"Regulation of water content (osmoregulation)\" — hairpin loop of Henle and creation of osmotic gradients."
+      "ref": "edb.bio.supp",
+      "Elective V(a) \"Regulation of water content (osmoregulation)\" — \"Structure and function of nephron\". Footnote 1: the countercurrent multiplier is not the learning and assessment focus — the multiplier and vasa recta mechanics are past DSE depth, not just past the compulsory part.": "Elective V(a) \"Regulation of water content (osmoregulation)\" — hairpin loop of Henle and creation of osmotic gradients."
     },
     "beyond": [
       {
@@ -6322,13 +6209,7 @@ export const PHYS_ITEMS = [
           "location": "p30 \"Countercurrent Exchange in\""
         }
       },
-      {
-        "t": "Homeostasis of plasma concentration is maintained by ADH modulating collecting duct permeability.",
-        "src": {
-          "ref": "phys.5",
-          "location": "p31 \"Homeostasis of\""
-        }
-      },
+      
       {
         "t": "Active NaCl extrusion in the thick ascending limb raises medullary interstitial osmolality to 1400 mOsm/L.",
         "src": {
@@ -6479,7 +6360,7 @@ export const PHYS_ITEMS = [
     {
       "fig": "countercurrentMultiplierMechanism"
     },
-    { fig: 'nephronVascularMicroanatomy', focus: ["Vasa recta","Descending limb of Henle","Ascending limb of Henle","Collecting duct","Peritubular capillaries"] },
+    
     {
       "gen": true
     }
@@ -6540,16 +6421,10 @@ export const PHYS_ITEMS = [
       "dsePart": "elective-hp",
       "syllabusRef": {
         "ref": "edb.bio",
-        "location": "Elective V(c) \"Regulation of gas content in blood\" — respiratory control centers and chemoreceptor regulation."
+        "Elective V(c) \"Regulation of gas content in blood\" — \"Control of rate and depth of breathing: nervous control, respiratory centre and chemoreceptors, effects of carbon dioxide concentration in blood\".": "Elective V(c) \"Regulation of gas content in blood\" — respiratory control centers and chemoreceptor regulation."
       },
       "beyond": [
-        {
-          "t": "External respiration (gas exchange between alveolar air and blood) versus internal respiration (gas exchange between blood and interstitial fluid).",
-          "src": {
-            "ref": "phys.resp.tut",
-            "location": "p1 \"define and compare the processes of external respiration and internal respiration\""
-          }
-        },
+        
         {
           "t": "Three chemoreceptor input sources: central medullary chemoreceptors, carotid bodies, and aortic bodies.",
           "src": {
@@ -6557,13 +6432,7 @@ export const PHYS_ITEMS = [
             "location": "p1 \"THREE different sources of chemoreceptor input that can influence the respiratory\""
           }
         },
-        {
-          "t": "Air entering the body is filtered, warmed, and humidified by the upper conducting airway.",
-          "src": {
-            "ref": "phys.resp.tut",
-            "location": "p2 \"Air entering the body is filtered, warmed, and humidified by the\""
-          }
-        },
+        
         {
           "t": "Vital capacity represents the maximum volume of air that can be exhaled following maximal inhalation.",
           "src": {
@@ -6724,8 +6593,8 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: explain why arterial PO2 would be normal in an animal with zero red blood cells, state which ion directly stimulates the medulla, and identify why systemic H+ cannot stimulate central chemoreceptors directly.",
     "visuals": [
-      { fig: 'ventilationMechanics', focus: ["Diaphragm contraction","External intercostal muscles","Intrapulmonary pressure"] },
-      { fig: 'spirometryLungVolumes', focus: ["Vital capacity (VC)","Tidal volume (TV)","Residual volume (RV)","Total lung capacity (TLC)"] },
+      
+      
       {
         "gen": true
       }
@@ -6798,7 +6667,7 @@ export const PHYS_ITEMS = [
     "dsePart": "elective-hp",
     "syllabusRef": {
       "ref": "edb.bio",
-      "location": "Elective V(a) \"Regulation of water content (osmoregulation)\" — osmoreceptors, hormonal control by ADH, and voluntary versus involuntary urination."
+      "Elective V(a) \"Regulation of water content (osmoregulation)\" — \"Action of antidiuretic hormone (ADH)\". Osmoreceptors, voluntary control of urination, renal clearance, sympathetic renal innervation and the juxtaglomerular complex are not in the curriculum.": "Elective V(a) \"Regulation of water content (osmoregulation)\" — osmoreceptors, hormonal control by ADH, and voluntary versus involuntary urination."
     },
     "beyond": [
       {
@@ -6843,13 +6712,7 @@ export const PHYS_ITEMS = [
           "location": "p1 \"The external uretheral sphincter can be controlled voluntarily.\""
         }
       },
-      {
-        "t": "Primary function of the proximal convoluted tubule is bulk absorption of ions, organic molecules, vitamins, and water.",
-        "src": {
-          "ref": "phys.renal.tut",
-          "location": "p1 \"absorption of ions, organic molecules, vitamins, and water.\""
-        }
-      },
+      
       {
         "t": "Filtered urea is passively reabsorbed in the proximal convoluted tubule (~50%) along the water osmotic gradient.",
         "src": {
@@ -6870,14 +6733,8 @@ export const PHYS_ITEMS = [
           "ref": "phys.renal.tut",
           "location": "p2 \"the regulation of glomerular blood flow and pressure.\""
         }
-      },
-      {
-        "t": "When ADH levels rise, the amount of water reabsorbed increases dramatically across collecting ducts.",
-        "src": {
-          "ref": "phys.renal.tut",
-          "location": "p2 \"the amount of water reabsorbed increases.\""
-        }
       }
+      
     ]
   },
   "lesson": {
@@ -6990,10 +6847,8 @@ export const PHYS_ITEMS = [
   ],
   "selfCheck": "From memory: describe the differences between cortical and juxtamedullary nephrons, list the three actions of sympathetic renal stimulation, state how much urea is reabsorbed in the PCT, and name the muscle of the voluntary urethral sphincter.",
   "visuals": [
-    {
-      "fig": "nephronSecretionReabsorption"
-    },
-    { fig: 'kidneyGrossAnatomy', focus: ["Renal cortex","Renal medulla","Renal artery","Renal vein"] },
+    
+    
     {
       "gen": true
     }
@@ -7052,7 +6907,7 @@ export const PHYS_ITEMS = [
     tags: ['nervous', 'neuroglia', 'action-potential', 'refractory-period', 'high-yield'],
     visuals: [
       { fig: 'neuronDiagram' },
-      { fig: 'myelinSheath' },
+      
       { gen: true },
     ],
     lesson: {

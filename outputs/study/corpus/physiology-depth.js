@@ -23,10 +23,10 @@ export const PHYS_DEPTH_ITEMS = [
     "priorKnowledge": {
       "level": "dse-bio",
       "covers": "part",
-      "dsePart": "elective-hp",
+      "dsePart": "core",
       "syllabusRef": {
         "ref": "edb.bio",
-        "location": "Elective V(c) \"Regulation of gas content in blood\" — mechanism of breathing."
+        "Compulsory III(b) \"Essential life processes in animals\" — \"Gas exchange in humans: mechanism of ventilation\". The elective adds only the control of rate and depth of breathing.": "Elective V(c) \"Regulation of gas content in blood\" — mechanism of breathing."
       },
       "beyond": [
         {
@@ -36,13 +36,7 @@ export const PHYS_DEPTH_ITEMS = [
             "location": "p18 \"Boyle’s Law\""
           }
         },
-        {
-          "t": "Airflow direction is governed by pressure gradients between atmosphere and intrapulmonary space.",
-          "src": {
-            "ref": "phys.3",
-            "location": "p20 \"Pressure and airflow to the lungs\""
-          }
-        },
+        
         {
           "t": "Pulmonary ventilation causes thoracic volume changes that create transpulmonary pressure gradients.",
           "src": {
@@ -50,20 +44,8 @@ export const PHYS_DEPTH_ITEMS = [
             "location": "p21 \"Pulmonary ventilation\""
           }
         },
-        {
-          "t": "Inhalation mechanics: elevation of rib cage and contraction of diaphragm increase thoracic cavity size, lowering intrapulmonary pressure.",
-          "src": {
-            "ref": "phys.3",
-            "location": "p24 \"Inhalation.\""
-          }
-        },
-        {
-          "t": "Exhalation mechanics: relaxation of diaphragm and elastic recoil decrease thoracic cavity size, raising intrapulmonary pressure.",
-          "src": {
-            "ref": "phys.3",
-            "location": "p25 \"Exhalation.\""
-          }
-        },
+        
+        
         {
           "t": "Lung compliance as an indicator of expandability: low compliance requires greater muscular force.",
           "src": {
@@ -86,7 +68,7 @@ export const PHYS_DEPTH_ITEMS = [
           }
         },
         {
-          "t": "Muscles of active exhalation: internal intercostals, transversus thoracis, and abdominal muscles.",
+          "t": "Active exhalation muscles: transversus thoracis and the abdominals joining the internal intercostals — past the classroom quiet-breathing set.",
           "src": {
             "ref": "phys.3",
             "location": "p31 \"Muscles used in exhalation\""
@@ -206,7 +188,7 @@ export const PHYS_DEPTH_ITEMS = [
       {
         "fig": "ventilationMechanics"
       },
-      { fig: 'respiratoryTractAnatomy', focus: ["Diaphragm","Right lung","Left lung","Trachea"] },
+      
       {
         "gen": true
       }
@@ -265,59 +247,6 @@ export const PHYS_DEPTH_ITEMS = [
       "capacities",
       "vital-capacity"
     ],
-    "priorKnowledge": {
-      "level": "dse-bio",
-      "covers": "part",
-      "dsePart": "elective-hp",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "location": "Elective V(c) — \"Measurement of lung volumes: tidal volume, vital capacity\"."
-      },
-      "beyond": [
-        {
-          "t": "Respiratory rate and respiratory minute volume: minute ventilation equals respiratory rate multiplied by tidal volume.",
-          "src": {
-            "ref": "phys.3",
-            "location": "p32 \"Respiratory rates\""
-          }
-        },
-        {
-          "t": "Total lung volume partitioned into four non-overlapping pulmonary volumes: TV, IRV, ERV, and RV.",
-          "src": {
-            "ref": "phys.3",
-            "location": "p34 \"Four pulmonary volumes\""
-          }
-        },
-        {
-          "t": "Pulmonary capacities: composite measurements formed by combining two or more volumes (VC, IC, FRC, TLC).",
-          "src": {
-            "ref": "phys.3",
-            "location": "p36 \"Pulmonary Volumes and Capacities\""
-          }
-        },
-        {
-          "t": "Resting tidal volume (TV) averages approximately 500 mL in both adult males and females.",
-          "src": {
-            "ref": "phys.3",
-            "location": "p37 \"Resting tidal volume\""
-          }
-        },
-        {
-          "t": "Inspiratory capacity (IC) equals tidal volume plus inspiratory reserve volume (IC = TV + IRV).",
-          "src": {
-            "ref": "phys.3",
-            "location": "p38 \"Inspiratory capacity\""
-          }
-        },
-        {
-          "t": "Distinguishing obstructive versus restrictive lung diseases: volumes are decreased in restrictive disease, while airflow rates are impaired in obstructive disease.",
-          "src": {
-            "ref": "phys.3",
-            "location": "p39 \"Volumes are decreased\""
-          }
-        }
-      ]
-    },
     "lesson": {
       "explanation": "Clinical assessment of pulmonary function relies on spirometric measurement of pulmonary volumes and lung capacities, which provide diagnostic differentiation between normal physiology, obstructive ventilatory defects, and restrictive disorders. A healthy resting adult breathes at a resting respiratory rate (f) of approximately 12 to 18 breaths per minute. The total volume of air displaced into and out of the respiratory tract each minute is the respiratory minute volume (VE), calculated as VE = f × TV (e.g., 12 breaths/min × 500 mL = 6,000 mL/min or 6.0 L/min). However, because roughly 150 mL of each tidal breath remains within the non-gas-exchanging conducting airways (anatomical dead space, VD), actual alveolar ventilation (VA)—the volume of fresh air reaching the alveoli each minute—is calculated as VA = f × (TV - VD) (e.g., 12 × [500 - 150] = 4,200 mL/min). Total lung capacity is structurally divided into four primary, non-overlapping pulmonary volumes: (1) Resting Tidal Volume (TV or VT): the volume of air inhaled or exhaled in a single normal quiet respiratory cycle, averaging ~500 mL in healthy adult males and females. (2) Inspiratory Reserve Volume (IRV): the maximum additional volume of air that can be forcibly inhaled above the resting tidal volume peak, averaging ~3,300 mL in adult males (~1,900 mL in females). (3) Expiratory Reserve Volume (ERV): the maximum additional volume of air that can be forcibly exhaled after completing a normal resting tidal expiration, averaging ~1,000–1,200 mL in males (~700 mL in females). (4) Residual Volume (RV): the volume of air that remains in the lungs even after a maximal, exhaustive forced expiration, averaging ~1,200 mL in males (~1,100 mL in females). Residual volume cannot be exhaled under voluntary effort; it serves the critical physiological purpose of preventing alveolar collapse (atelectasis) and maintaining continuous pulmonary capillary gas exchange between breaths. Because the residual volume cannot be expelled into a spirometer, RV (and any capacity containing it) cannot be measured by standard water-displacement or flow-sensor spirometry and requires specialized techniques such as body plethysmography or helium gas dilution. Combining two or more of these four primary volumes defines the four lung capacities: (1) Inspiratory Capacity (IC): the maximum volume of air that can be inhaled following a quiet resting expiration (IC = TV + IRV; ~3,800 mL in males, ~2,400 mL in females). (2) Functional Residual Capacity (FRC): the volume of air remaining in the lungs at the end of a normal quiet tidal expiration, representing the resting equilibrium point between inward lung recoil and outward chest wall spring (FRC = ERV + RV; ~2,200–2,400 mL in males, ~1,800 mL in females). (3) Vital Capacity (VC): the maximum volume of air that can be exhaled following a maximal, deepest inspiration (VC = TV + IRV + ERV; ~4,800 mL in males, ~3,100 mL in females). (4) Total Lung Capacity (TLC): the total volume of air contained within the lungs following maximal inhalation (TLC = VC + RV = TV + IRV + ERV + RV; ~6,000 mL in males, ~4,200 mL in females). In pulmonary medicine, spirometric profiles distinguish obstructive pulmonary diseases (such as asthma, chronic bronchitis, and emphysema) from restrictive disorders (such as pulmonary fibrosis and severe scoliosis). In obstructive diseases, expiration is impaired by increased airway resistance, leading to dynamic hyperinflation and air trapping; while lung volumes are essentially normal or increased (elevated RV, FRC, and TLC), the rate of forced airflow (such as FEV1 and the FEV1/FVC ratio < 70%) is severely reduced. In restrictive diseases, the lung tissue is stiff or chest wall expansion is mechanically restricted; all pulmonary volumes and capacities (VC, FRC, TLC) are markedly decreased, but forced expiration airflow rates remain relatively preserved.",
       "plain": "Spirometry measures lung air volumes to test how well your lungs work. A normal adult breathes 12–18 times a minute, moving about 500 mL of air per quiet breath (Tidal Volume, TV). Four basic non-overlapping volumes make up total lung capacity: Tidal Volume (TV ~500 mL), Inspiratory Reserve Volume (IRV, extra air you can inhale ~3,300 mL), Expiratory Reserve Volume (ERV, extra air you can blow out ~1,000 mL), and Residual Volume (RV ~1,200 mL, air trapped inside that stops lungs from collapsing and cannot be exhaled). Adding volumes together creates capacities: Vital Capacity (VC = TV + IRV + ERV) is the maximum breath you can blow out (~4,800 mL); Total Lung Capacity (TLC = VC + RV) is all the air the lungs can hold (~6,000 mL). In restrictive diseases like lung fibrosis, all lung volumes are shrunk down; in obstructive diseases like asthma or emphysema, air gets trapped, increasing residual volume while slowing down exhalation speed.",
@@ -429,7 +358,7 @@ export const PHYS_DEPTH_ITEMS = [
       {
         "fig": "spirometryLungVolumes"
       },
-      { fig: 'ventilationMechanics', focus: ["Intrapulmonary pressure","Intrapleural pressure","Quiet expiration"] },
+      
       {
         "gen": true
       }
@@ -479,10 +408,10 @@ export const PHYS_DEPTH_ITEMS = [
     "priorKnowledge": {
       "level": "dse-bio",
       "covers": "part",
-      "dsePart": "elective-hp",
+      "dsePart": "core",
       "syllabusRef": {
         "ref": "edb.bio",
-        "location": "Elective V(c) — \"Transport of respiratory gases: oxygen dissociation curve of haemoglobin\"."
+        "Compulsory III(b) \"Essential life processes in animals\" — \"Gas exchange in humans: routes of transport of respiratory gases\". The oxygen–hemoglobin saturation curve, the Bohr effect and the partial-pressure figures are not in the curriculum.": "Elective V(c) — \"Transport of respiratory gases: oxygen dissociation curve of haemoglobin\"."
       },
       "beyond": [
         {
@@ -645,7 +574,7 @@ export const PHYS_DEPTH_ITEMS = [
       {
         "fig": "oxyhemoglobinCurve"
       },
-      { fig: 'alveolarMicroarchitecture', focus: ["Respiratory membrane","Alveolus","Pulmonary capillary network"] },
+      
       {
         "gen": true
       }
@@ -702,7 +631,7 @@ export const PHYS_DEPTH_ITEMS = [
       "dsePart": "elective-hp",
       "syllabusRef": {
         "ref": "edb.bio",
-        "location": "Elective V(c) — \"Carbon dioxide transport in blood\" and \"Control of respiration: nervous and chemical control\"."
+        "Elective V(c) \"Regulation of gas content in blood\" — \"Control of rate and depth of breathing: respiratory centre and chemoreceptors\". Carbon dioxide transport is not in the curriculum at all.": "Elective V(c) — \"Carbon dioxide transport in blood\" and \"Control of respiration: nervous and chemical control\"."
       },
       "beyond": [
         {
@@ -727,7 +656,7 @@ export const PHYS_DEPTH_ITEMS = [
           }
         },
         {
-          "t": "Neural control of respiration: involuntary respiratory centers in the medulla oblongata and pons, subject to cortical voluntary modulation.",
+          "t": "Respiratory centres in the pons alongside the medulla, subject to cortical voluntary modulation — past the elective's single respiratory centre.",
           "src": {
             "ref": "phys.3",
             "location": "p59 \"The respiratory centers of the brain\""
@@ -883,8 +812,8 @@ export const PHYS_DEPTH_ITEMS = [
     ],
     "selfCheck": "From memory: recite the three modes of CO2 transport with percentages, explain the chloride shift, and distinguish the DRG from the VRG.",
     "visuals": [
-      { fig: 'ventilationMechanics', focus: ["Diaphragm contraction","Accessory muscles of breathing"] },
-      { fig: 'oxyhemoglobinCurve', focus: ["Rightward curve shift (Bohr effect)","Systemic tissue unloading slope"] },
+      
+      
       {
         "gen": true
       }
@@ -956,7 +885,7 @@ export const PHYS_DEPTH_ITEMS = [
     "dsePart": "core",
     "syllabusRef": {
       "ref": "edb.bio",
-      "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": peristalsis and general structure of the digestive tract."
+      "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans: general plan of the digestive system\". Peristalsis is not in the curriculum.": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": peristalsis and general structure of the digestive tract."
     },
     "beyond": [
       {
@@ -988,7 +917,7 @@ export const PHYS_DEPTH_ITEMS = [
         }
       },
       {
-        "t": "Movement of digestive materials occurs by muscular layers of digestive tract via peristalsis and segmentation.",
+        "t": "Segmentation alongside peristalsis in the muscularis — the second movement pattern past the classroom peristalsis lesson.",
         "src": {
           "ref": "phys.4",
           "location": "p13 \"Movement of Digestive Materials\""
@@ -1134,7 +1063,7 @@ export const PHYS_DEPTH_ITEMS = [
   "selfCheck": "From memory: name the four layers of the digestive wall from inside out, identify where each plexus sits, and contrast short enteric reflexes with long autonomic reflexes.",
   "visuals": [
     { fig: 'digestiveWallLayers', focus: ["Submucosal plexus (Meissner)","Myenteric plexus (Auerbach)","Muscularis externa","Submucosa"] },
-    { fig: 'digestiveSystemOverview', focus: ["Stomach","Small intestine","Large intestine"] },
+    
     {
       "gen": true
     }
@@ -1199,11 +1128,11 @@ export const PHYS_DEPTH_ITEMS = [
     "dsePart": "core",
     "syllabusRef": {
       "ref": "edb.bio",
-      "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": digestion in the stomach, roles of gastric juice and hydrochloric acid."
+      "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans: digestion of carbohydrates, proteins and lipids in various parts of the alimentary canal\" — digestion in the stomach is DSE; the gastric glands, the parietal cells and the three control phases are past it.": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": digestion in the stomach, roles of gastric juice and hydrochloric acid."
     },
     "beyond": [
       {
-        "t": "Major functions of the stomach: bulk storage, mechanical breakdown, chemical digestion, and intrinsic factor production.",
+        "t": "Intrinsic factor production named among the stomach's major functions.",
         "src": {
           "ref": "phys.4",
           "location": "p22 \"Major Functions of the\""
@@ -1217,19 +1146,13 @@ export const PHYS_DEPTH_ITEMS = [
         }
       },
       {
-        "t": "Parietal cells secrete intrinsic factor and hydrochloric acid (HCl).",
+        "t": "Intrinsic factor secreted by the parietal cells — the named cell type past the classroom gastric-juice picture.",
         "src": {
           "ref": "phys.4",
           "location": "p27 \"Parietal Cells\""
         }
       },
-      {
-        "t": "Stomach performs preliminary digestion of proteins by pepsin.",
-        "src": {
-          "ref": "phys.4",
-          "location": "p28 \"Stomach performs preliminary digestion of proteins by pepsin\""
-        }
-      },
+      
       {
         "t": "Production of acid and enzymes by gastric mucosa is controlled by cephalic, gastric, and intestinal phases.",
         "src": {
@@ -1360,7 +1283,7 @@ export const PHYS_DEPTH_ITEMS = [
   "selfCheck": "From memory: describe the four cell types in a gastric gland, diagram how parietal cells generate HCl and the alkaline tide, and contrast the cephalic and intestinal phases.",
   "visuals": [
     { fig: 'stomachWallGlands', focus: ["Gastric pit","Parietal cell","Chief cell","G cell","Mucous neck cell"] },
-    { fig: 'digestiveWallLayers', focus: ["Mucosa","Muscularis externa","Submucosa"] },
+    
     {
       "gen": true
     }
@@ -1418,7 +1341,7 @@ export const PHYS_DEPTH_ITEMS = [
     "dsePart": "core",
     "syllabusRef": {
       "ref": "edb.bio",
-      "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": digestion in small intestine, functions of liver and pancreas, absorption in villi."
+      "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans: structural adaptation of small intestine for food absorption, role of liver\". The duodenal segments, the brush-border enzymes and the hormonal control are past it.": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": digestion in small intestine, functions of liver and pancreas, absorption in villi."
     },
     "beyond": [
       {
@@ -1429,7 +1352,7 @@ export const PHYS_DEPTH_ITEMS = [
         }
       },
       {
-        "t": "The duodenum is the closest segment to the stomach acting as a mixing bowl to neutralize acids.",
+        "t": "The duodenum as the mixing bowl where chyme meets bile and pancreatic juice — the framing past the classroom neutralisation fact.",
         "src": {
           "ref": "phys.4",
           "location": "p37 \"The segment of small intestine closest to stomach\""
@@ -1463,36 +1386,18 @@ export const PHYS_DEPTH_ITEMS = [
           "location": "p40 \"Enteropeptidase\""
         }
       },
+      
       {
-        "t": "Pancreatic exocrine acinar cells secrete digestive enzymes and alkaline buffers.",
-        "src": {
-          "ref": "phys.4",
-          "location": "p42 \"Pancreatic\""
-        }
-      },
-      {
-        "t": "Pancreatic alpha-amylase is a carbohydrase that hydrolyzes starches into oligosaccharides.",
+        "t": "Alpha-amylase hydrolysing starch to oligosaccharides — the product-level detail past the classroom pancreatic-amylase fact.",
         "src": {
           "ref": "phys.4",
           "location": "p44 \"Pancreatic Alpha-Amylase\""
         }
       },
+      
+      
       {
-        "t": "The liver performs essential metabolic, synthetic, and regulatory functions and produces bile.",
-        "src": {
-          "ref": "phys.4",
-          "location": "p45 \"Performs essential metabolic and synthetic functions\""
-        }
-      },
-      {
-        "t": "Dietary lipids are not water-soluble; bile salts emulsify lipid drops into micro-droplets.",
-        "src": {
-          "ref": "phys.4",
-          "location": "p48 \"Dietary lipids are not water soluble\""
-        }
-      },
-      {
-        "t": "Gallbladder stores and concentrates bile and releases it under cholecystokinin (CCK) stimulation.",
+        "t": "Bile released under cholecystokinin (CCK) stimulation — hormonal control past the classroom gallbladder-stores-bile fact.",
         "src": {
           "ref": "phys.4",
           "location": "p51 \"Releases bile into duodenum, but only under stimulation of intestinal hormone cholecystokinin\""
@@ -1609,7 +1514,7 @@ export const PHYS_DEPTH_ITEMS = [
   "selfCheck": "From memory: contrast the roles of the three small intestinal segments, explain how enteropeptidase activates pancreatic juice, and explain the difference between emulsification by bile and chemical cleavage by lipase.",
   "visuals": [
     { fig: 'smallIntestineVillus', focus: ["Plicae circulares","Intestinal villus","Microvillar brush border","Lacteal","Capillary network"] },
-    { fig: 'liverLobuleAnatomy', focus: ["Hexagonal hepatic lobule","Portal triad","Hepatic sinusoid","Kupffer cell","Central vein"] },
+    
     {
       "gen": true
     }
@@ -1682,7 +1587,7 @@ export const PHYS_DEPTH_ITEMS = [
     "dsePart": "core",
     "syllabusRef": {
       "ref": "edb.bio",
-      "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": absorption of water, role of the large intestine, egestion."
+      "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans: absorption and assimilation, egestion\". The duodenal peptide hormones and the colonic detail are past it.": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": absorption of water, role of the large intestine, egestion."
     },
     "beyond": [
       {
@@ -1728,21 +1633,15 @@ export const PHYS_DEPTH_ITEMS = [
         }
       },
       {
-        "t": "Four regions of the colon: ascending colon, transverse colon, descending colon, and sigmoid colon.",
+        "t": "The sigmoid colon completing the four-region sequence — past the classroom three-segment diagram.",
         "src": {
           "ref": "phys.4",
           "location": "p61 \"Four Regions of the Colon\""
         }
       },
+      
       {
-        "t": "The rectum forms the last part of the digestive tract as an expandable organ for fecal storage.",
-        "src": {
-          "ref": "phys.4",
-          "location": "p63 \"Forms last part of digestive tract\""
-        }
-      },
-      {
-        "t": "Reabsorption of water, bile salts, and vitamins K, biotin, and B5 occurs in the large intestine.",
+        "t": "Bile salts and vitamins K, biotin and B5 reabsorbed alongside water — the specific substances past the classroom water-uptake fact.",
         "src": {
           "ref": "phys.4",
           "location": "p64 \"Reabsorption of water\""
@@ -1859,8 +1758,8 @@ export const PHYS_DEPTH_ITEMS = [
   ],
   "selfCheck": "From memory: list the five duodenal hormones and their triggers, trace the 9 L fluid budget of the digestive tract, and name the three vitamins produced by gut flora.",
   "visuals": [
-    { fig: 'digestiveSystemOverview', focus: ["Small intestine","Large intestine","Pancreas","Liver and gallbladder"] },
-    { fig: 'smallIntestineVillus', focus: ["Microvillar brush border","Intestinal crypt (crypt of Lieberkühn)","Intestinal villus"] },
+    
+    
     {
       "gen": true
     }

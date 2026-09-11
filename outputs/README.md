@@ -912,7 +912,7 @@ same rule the memory aids follow.
 
 ## Prior knowledge — what not to teach from zero
 
-Fifteen of the twenty-three ABCT2326 Human Physiology items cover material HKDSE Biology already
+Thirty-eight of the sixty-two ABCT2326 Human Physiology items cover material HKDSE Biology already
 taught. They carry a `priorKnowledge` field so the lesson can distinguish familiar
 background from what the PolyU lecture adds:
 
@@ -929,19 +929,37 @@ background from what the PolyU lecture adds:
 
 ### Checked against the actual syllabus, not against a guess
 
-Every tag carries a `syllabusRef` into the **EDB Biology Curriculum and Assessment Guide (S4–6)**,
-registered as `edb.bio` with `kind: 'syllabus'` — a kind that is allowed to support exactly one sort
-of claim, "a previous course already taught this", and never a fact about anatomy or physiology.
+Every tag carries a `syllabusRef` into the EDB documents: `edb.bio`, the **Biology Curriculum and
+Assessment Guide (S4–6), updated Nov 2015** — still the current edition, so the one a 2024-25
+candidate sat under — and `edb.bio.supp`, the **Biology Curriculum (Secondary 4–6) Supplementary
+Document** applicable to the 2016 HKDSE and onwards. Both are registered with `kind: 'syllabus'` —
+a kind that is allowed to support exactly one sort of claim, "a previous course already taught
+this, to this depth", and never a fact about anatomy or physiology. The Guide says which PART a
+topic sat in; the Supplement says how DEEP, through its per-topic learning outcomes and the
+numbered footnotes that carve content out of the learning-and-assessment focus.
 
-Reading it changed the tagging, because assumptions about DSE turned out to be wrong:
+Reading them re-shaped the tagging, because assumptions about DSE turned out to be wrong:
 
 - The **nephron, the cardiac cycle, the pacemaker and the respiratory centres are not in the
   compulsory part at all.** They sit in the elective *Human Physiology: Regulation and Control*.
-  `dsePart` records which part covered each item, and 4 of the 17 rest on that elective.
+  `dsePart` records which part covered each item, and 8 of the 38 rest on that elective.
+- **The mechanism of ventilation is not elective.** It is a compulsory III(b) heading; the elective
+  adds only the *control* of rate and depth of breathing. The ventilation-mechanics item was
+  re-tagged from the elective to the compulsory part.
+- **Lung volumes and the ECG were never DSE content at all.** "Tidal volume" and "vital capacity"
+  appear in neither document, and depolarisation — the concept the ECG trace is built on — appears
+  in neither either. Both items lost their tags and are taught from zero, like the other
+  action-potential material.
 - DSE **does** name sensory, inter- and motor neurones. A `beyond` line claiming interneurones were
   new material was wrong and has been replaced.
 - DSE never groups tissues into epithelial/connective/muscle/neural, so the cells item covers *less*
   prior ground than first assumed and was downgraded from `most` to `part`.
+- The Supplement's footnotes settle depth questions the Guide's headings cannot: **positive
+  feedback** is outside the learning-and-assessment focus, and so is the **countercurrent
+  multiplier** — which is why the kidney items' `beyond` lines run past the elective heading rather
+  than just past the compulsory part — and **transcription and translation** are limited to template
+  strand plus base pairing, and codon plus anticodon. Lines that restate what those footnotes leave
+  in were deleted; lines carrying what they leave out stay.
 
 `covers: 'most'` means the lecture mostly re-treads DSE and adds terminology or a list;
 `covers: 'part'` means a substantial part is genuinely new. Lymphoid tissue / MALT stays untagged:
@@ -956,8 +974,11 @@ same way a practice question does:
   src: { ref: 'phys.5', location: 'Slide 17 "Glomerular Filtration Rate (GFR)"' } }
 ```
 
-All 69 of them point at a `kind: 'primary'` ABCT2326 teaching deck — `phys.1`–`phys.10`, the
-`Lecture notes.pptx` and `.pdf` files — never at a past paper, a tutorial answer or student work,
+All 194 of them point at an ABCT2326 teaching source — the ten system decks (`phys.1`–`phys.10`,
+including the 2026 cells deck `phys.1.2026`, the hormone-mechanism handout `phys.hormech` and the
+renal supplementary handout `phys.renal.supp`) for all but 15 lines, which cite the PolyU official
+tutorial PDFs (`phys.cvs.tut`, `phys.resp.tut`, `phys.renal.tut`) that the three tutorial-derived
+items were built from — never at a past paper or student work,
 and never at the textbook. `validateCorpus()` fails the build on a line with no `src`, an
 unresolvable `ref`, or no slide named, so a line cannot quietly become textbook expansion later. The
 source dialog on a prior-knowledge item lists those slides in their own table.

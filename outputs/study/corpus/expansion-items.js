@@ -337,9 +337,7 @@ export const EXPANSION_ITEMS = [
     "selfCheck": "From memory: list the six synovial joint types, classify each by axes of motion (uni-, bi-, polyaxial), provide one anatomical example for each, and state why the wrist is condylar rather than hinge.",
     "visuals": [
       { fig: 'synovialTypes', focus: ["a","b","c","d","e","f"] },
-      {
-        "schematic": "synovialTypes"
-      },
+      
       {
         "gen": true
       }
@@ -661,10 +659,8 @@ export const EXPANSION_ITEMS = [
     ],
     "selfCheck": "From memory: write down the definitions of agonist, antagonist, synergist, fixator, ligament, and fibrous capsule, and name the bones forming the sternoclavicular and radiocarpal joints.",
     "visuals": [
-      { fig: 'synovialJoint', focus: ["Articular cartilage","Joint cavity containing synovial fluid","Synovial membrane","Articular capsule"] },
-      {
-        "schematic": "muscleAction"
-      },
+      
+      
       {
         "gen": true
       }
@@ -741,7 +737,7 @@ export const EXPANSION_ITEMS = [
       "dsePart": "elective-hp",
       "syllabusRef": {
         "ref": "edb.bio",
-        "location": "Elective V(c) \"Regulation of gas content in blood\" — \"Control of cardiac output: heart rate and stroke volume, Pacemaker and cardiac cycle\". The elective names the pacemaker; it does not go inside it."
+        "Elective V(c) \"Regulation of gas content in blood\" — \"Control of cardiac output: heart rate and stroke volume, Pacemaker and cardiac cycle\" (Biology Curriculum Supplement 2016, Elective V(c), p.34). The elective names the pacemaker; it does not go inside it.": "Elective V(c) \"Regulation of gas content in blood\" — \"Control of cardiac output: heart rate and stroke volume, Pacemaker and cardiac cycle\". The elective names the pacemaker; it does not go inside it."
       },
       "beyond": [
         {
@@ -759,19 +755,13 @@ export const EXPANSION_ITEMS = [
           }
         },
         {
-          "t": "Internodal pathways distribute impulses through atria; AV bundle, bundle branches, and Purkinje fibers distribute through ventricles.",
+          "t": "Internodal pathways distributing impulses through the atria, and Purkinje fibers spreading depolarisation upward from the apex — past the classroom SA to AV to bundle-of-His sequence.",
           "src": {
             "ref": "phys.2",
             "location": "p44 \"Conducting Cells\""
           }
         },
-        {
-          "t": "Sinoatrial (SA) node in posterior wall of right atrium contains autorhythmic pacemaker cells that initiate atrial activation.",
-          "src": {
-            "ref": "phys.2",
-            "location": "p45 \"In posterior wall of right atrium\""
-          }
-        },
+        
         {
           "t": "The pacemaker prepotential: resting potential spontaneously depolarizes toward threshold driven by HCN channels admitting inward current while outward K+ drops.",
           "src": {
@@ -1035,66 +1025,6 @@ export const EXPANSION_ITEMS = [
       "hemodynamics",
       "refractory-period"
     ],
-    "priorKnowledge": {
-      "level": "dse-bio",
-      "covers": "part",
-      "dsePart": "elective-hp",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "location": "Elective V(c) — \"Outline the major events during the cardiac cycle\" and cardiac output as heart rate × stroke volume. The ECG trace itself is not in the syllabus at all."
-      },
-      "beyond": [
-        {
-          "t": "Ventricular action potential duration of 250–300 ms (30x longer than skeletal muscle) produces a long refractory period preventing summation and tetany.",
-          "src": {
-            "ref": "phys.2",
-            "location": "p55 \"Refractory Periods\""
-          }
-        },
-        {
-          "t": "Electrocardiogram (ECG or EKG) as a surface recording of myocardial electrical events used to diagnose cardiac pathology.",
-          "src": {
-            "ref": "phys.2",
-            "location": "p57 \"A recording of electrical events in the heart\""
-          }
-        },
-        {
-          "t": "ECG features: P wave atrial depolarisation, QRS complex ventricular depolarisation, T wave ventricular repolarisation, with P-R and Q-T intervals.",
-          "src": {
-            "ref": "phys.2",
-            "location": "p58 \"Features of an ECG\""
-          }
-        },
-        {
-          "t": "Cardiac cycle: repeating pattern of contraction (systole) and relaxation (diastole), with ventricles contracting 0.1-0.2 sec after atria.",
-          "src": {
-            "ref": "phys.2",
-            "location": "p61 \"Cardiac Cycle\""
-          }
-        },
-        {
-          "t": "Three cardiodynamic volumes: End-diastolic volume (EDV) minus Stroke volume (SV) equals End-systolic volume (ESV); Frank-Starling Law matches SV to EDV.",
-          "src": {
-            "ref": "phys.2",
-            "location": "p62 \"End-diastolic volume\""
-          }
-        },
-        {
-          "t": "Heart sounds: S1 from closure of AV valves, S2 from closure of semilunar valves.",
-          "src": {
-            "ref": "phys.2",
-            "location": "p63 \"Heart Sounds\""
-          }
-        },
-        {
-          "t": "The temporal relationship between heart sounds (lubb-dupp), chamber pressures, and valve opening/closure across the cardiac cycle.",
-          "src": {
-            "ref": "phys.2",
-            "location": "p64 \"Figure 20-18b Heart Sounds.\""
-          }
-        }
-      ]
-    },
     "lesson": {
       "explanation": "The mechanical pumping activity of the heart is driven by synchronized electrical depolarization and protected by specialized electrophysiological properties. In ventricular contractile myocytes, the action potential lasts 250 to 300 milliseconds—approximately 30 times longer than in a skeletal muscle fiber. This extended duration confers a remarkably long absolute refractory period, during which the cell is completely inexcitable because voltage-gated sodium channels remain inactivated. Consequently, cardiac muscle cannot undergo wave summation or tetanic contraction; the heart is compelled to relax between beats, guaranteeing a mandatory diastolic phase during which ventricular chambers can refill with blood. The composite electrical currents generated by millions of depolarizing and repolarizing cardiac myocytes conduct through extracellular fluids to the body surface, where they are recorded as the electrocardiogram (ECG or EKG). The ECG represents the electrical events of the heart. A standard surface ECG displays three distinct wave deflections and intervening intervals that correlate directly with ventricular contractile cell action potentials: (1) The P wave represents atrial depolarization spreading from the SA node across atrial myocardium. (2) The P–R interval, measured from the beginning of the P wave to the beginning of the QRS complex (normally 120–200 ms), reflects the time required for electrical impulses to travel from the SA node through the atria, internodal tracts, and AV node into the AV bundle, directly quantifying AV nodal conduction delay. (3) The QRS complex represents rapid ventricular depolarization; in terms of ventricular cellular electrophysiology, the QRS complex corresponds to the upstroke (Phase 0 fast Na+ depolarization) of ventricular contractile cell action potentials; because ventricular muscle mass is vastly greater than atrial mass, the QRS complex is much larger than the P wave; atrial repolarization occurs simultaneously during this phase but masks atrial repolarization on the surface ECG trace. (4) The T wave corresponds to the plateau and repolarization phase (Phase 2 Ca2+ plateau and Phase 3 K+ repolarization) of ventricular contractile cell action potentials, representing ventricular repolarization as myocytes restore their resting membrane potential. (5) The Q–T interval, spanning from the start of the QRS complex to the end of the T wave (normally 360–440 ms), represents the total duration of ventricular electrical systole (depolarization and repolarization). The mechanical cardiac cycle coordinates the repeating pattern of contraction (systole) and relaxation (diastole) of each chamber. In a resting subject beating at 75 bpm, each cardiac cycle lasts roughly 800 ms. Both atria contract simultaneously during atrial systole (~100 ms), topping off ventricular filling; approximately 0.1 to 0.2 seconds later, ventricular systole begins (~300 ms), during which ventricles forcefully eject blood into the arterial tree, followed by ventricular diastole (~400 ms). Three quantitative volume parameters define ventricular cardiodynamics: (1) End-diastolic volume (EDV), the total volume of blood in a ventricle at the end of diastole following filling (~130 mL); (2) Stroke volume (SV), the volume of blood ejected during ventricular systole (~70–80 mL); and (3) End-systolic volume (ESV), the residual blood volume remaining in the ventricle at the end of systole (~50 mL). These parameters are governed by the subtraction relationship: EDV - SV = ESV (or SV = EDV - ESV). Under the Frank-Starling Law of the heart, stroke volume increases in direct proportion to end-diastolic volume: increased venous return stretches ventricular myocardial fibers toward their optimal sarcomere length, dramatically increasing actin-myosin overlap and force of contraction to eject the added volume. The cardiac cycle generates two distinct auscultatory heart sounds produced by turbulent blood flow vibrating surrounding tissues as valves snap shut: The first heart sound (S1, 'lubb') marks the onset of ventricular systole and is produced by the closure of the atrioventricular (AV) valves (tricuspid and mitral) during early isovolumetric ventricular contraction. The second heart sound (S2, 'dupp') marks the onset of ventricular diastole and is produced by the closure of the semilunar valves (aortic and pulmonary) during early isovolumetric ventricular relaxation as arterial pressure exceeds falling ventricular pressure.",
       "plain": "Ventricular heart muscle cells have a very long action potential (250–300 ms, 30 times longer than skeletal muscle), creating a long refractory period that makes muscle spasms or tetany impossible—ensuring the heart always relaxes to refill with blood. An ECG records this electrical activity: the P wave is atrial depolarization; the P–R interval measures the delay through the AV node; the QRS complex is ventricular depolarization (corresponding to the rapid upstroke of ventricular contractile action potentials, and masks atrial repolarization); and the T wave corresponds to the plateau and repolarization phase. The mechanical cardiac cycle alternates between systole (contraction) and diastole (relaxation). End-diastolic volume (EDV ~130 mL) minus stroke volume (SV ~70–80 mL ejected) leaves end-systolic volume (ESV ~50 mL). The Frank-Starling Law states that greater venous return stretches the heart muscle, increasing the force of contraction and boosting stroke volume. Heart sounds are valve doors snapping shut: S1 ('lubb') is the AV valves closing at the start of systole; S2 ('dupp') is the semilunar valves closing at the start of diastole.",
@@ -1283,10 +1213,10 @@ export const EXPANSION_ITEMS = [
     "priorKnowledge": {
       "level": "dse-bio",
       "covers": "part",
-      "dsePart": "elective-hp",
+      "dsePart": "core",
       "syllabusRef": {
         "ref": "edb.bio",
-        "location": "Elective V(c) \"Regulation of gas content in blood\" — oxygen and carbon dioxide transport mechanisms."
+        "Compulsory III(b) \"Essential life processes in animals\" — \"Gas exchange in humans: routes of transport of respiratory gases\". The transport percentages, the saturation curve and the Bohr effect are not in the curriculum.": "Elective V(c) \"Regulation of gas content in blood\" — oxygen and carbon dioxide transport mechanisms."
       },
       "beyond": [
         {
@@ -1462,7 +1392,7 @@ export const EXPANSION_ITEMS = [
     ],
     "selfCheck": "From memory: state the percentages of O2 and CO2 transported by each method, define the Bohr effect, and recite the mnemonic CADET face Right.",
     "visuals": [
-      { fig: 'oxyhemoglobinCurve', focus: ["Pulmonary capillary loading plateau","Systemic tissue unloading slope","Mixed venous reserve"] },
+      
       { fig: 'alveolarMicroarchitecture', focus: ["Respiratory membrane","Type I alveolar cell","Pulmonary capillary network"] },
       {
         "gen": true
@@ -1521,7 +1451,7 @@ export const EXPANSION_ITEMS = [
     title: 'Inflammation, complement and adaptive immunity',
     tags: ['immune', 'high-yield'],
     visuals: [
-      { fig: 'innateAdaptiveCooperation', focus: ["Antigen-presenting cell","Cell-mediated immunity","Humoral immunity"] },
+      
       { schematic: 'immuneAdaptive' },
       { gen: true },
     ],
@@ -1533,8 +1463,7 @@ export const EXPANSION_ITEMS = [
           src: { ref: 'phys.10', location: 'Slides 27, 29 "Complement System"' } },
         { t: 'Inflammation as a named set: four Latin signs, three effects, and the products necrosis, pus and abscess.',
           src: { ref: 'phys.10', location: 'Slides 31–33 "Inflammation"' } },
-        { t: 'Active and passive immunity each split again into naturally acquired and artificially induced — a four-cell grid, where DSE stops at the pair.',
-          src: { ref: 'phys.10', location: 'Slide 35 "Active Immunity / Passive Immunity"' } },
+        
         { t: 'Four major T cell types: cytotoxic, memory, helper and suppressor.',
           src: { ref: 'phys.10', location: 'Slide 39 "4 Major Types of T Cells"' } },
         { t: 'MHC proteins, coded on chromosome 6, as the reason T cells only ever see presented antigen — class I on all nucleated cells, class II on antigen-presenting cells.',
@@ -1735,13 +1664,7 @@ export const EXPANSION_ITEMS = [
       {
         "schematic": "modalityBestUse"
       },
-      {
-        "fig": "fluoroscopyRoomSetup",
-        "focus": [
-          "Examination couch and C-arm",
-          "Control panel console"
-        ]
-      },
+      
       {
         "gen": true
       }
