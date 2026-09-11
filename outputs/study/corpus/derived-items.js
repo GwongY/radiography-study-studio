@@ -152,12 +152,14 @@ const STRUCTURE_HOOKS = {
     location: 'Start at the thumb side of the wrist crease and work across, then step down a row and come back. Same path every time.',
   },
   tarsals: {
+    memoryHook: 'Blank page: rebuild the stack from the ground up — what sits on the calcaneus, what in front of the talus, what on the lateral side, what fans forward?',
     hook: 'Three layers, not a row: talus on calcaneus takes the load, navicular sits in front of the talus, cuboid is on the lateral side, and three cuneiforms fan forward to the toes.',
     location: 'Build it in layers rather than a row: talus on top of calcaneus takes the load, navicular in front of the talus, cuboid on the lateral side, three cuneiforms fanning forward.',
     comparison: 'Carpals are in the wrist, tarsals in the ankle. If a question says "collective name for wrist bones", the answer is carpal — tarsal is the distractor.',
     chunking: 'Seven bones, four groups: two big weight-bearers, one navicular, one cuboid, three cuneiforms.',
   },
   skullBones: {
+    memoryHook: 'Blank page: two piles — name the six cranial bones, then the facial bones, and say which single facial bone moves.',
     hook: 'Split cranial from facial first: the cranial vault and floor are frontal, parietals, temporals, occipital, sphenoid and ethmoid; the facial bones hang off the front, with the mandible the only movable one.',
     chunking: 'Split cranial from facial first. Six cranial bones form the vault and floor; the facial bones hang off the front.',
     location: 'Trace it as a face: forehead is frontal, sides are parietal then temporal, back is occipital, cheek is zygomatic, upper jaw is maxilla, lower jaw is mandible.',
@@ -173,6 +175,7 @@ const STRUCTURE_HOOKS = {
     hook: 'Two atria receive, two ventricles pump — the right side sends blood to the lungs, the left to the body. The AV valves (tricuspid on the right, bicuspid on the left) keep it one-way and are held shut by papillary muscle; the pulmonary valve guards the exit to the lungs.',
   },
   greatVessels: {
+    memoryHook: 'Blank page: trace one loop — in from the venae cavae, to the lungs, out to the body — then name what feeds the heart itself.',
     hook: 'Follow the loop: the venae cavae bring blood back, the pulmonary trunk and arteries carry it to the lungs, the aortic arch carries it to the body — and the coronary sinus and right coronary artery feed the heart’s own muscle.',
   },
   airwayTree: {
@@ -182,18 +185,22 @@ const STRUCTURE_HOOKS = {
     hook: 'Follow the urine: the kidney makes it, the renal pelvis and ureter drain it, the bladder stores it, the urethra lets it out. The suprarenal gland sits on top but is endocrine, not part of this tract.',
   },
   digestiveTract: {
+    memoryHook: 'Blank page: one tube, two calibres — which half absorbs, which frames it, and which three organs only pour into it?',
     hook: 'One tube with two calibres: the small intestine (duodenum, jejunum) does the absorbing, the large intestine frames it around the edge and carries the appendix; the liver, gallbladder and pancreas are accessory organs that pour their secretions into the tube.',
   },
   rotatorCuff: {
     hook: 'Four cuff muscles hold the humeral head in the socket — supraspinatus, infraspinatus, teres minor, subscapularis. Supraspinatus starts abduction, deltoid powers it, trapezius finishes it; latissimus and pectoralis major are the big girdle movers.',
   },
   cranialNerves: {
+    memoryHook: 'Blank page: sort the twelve by job — special sense, eye movers, the face, pharynx and organs, the tongue.',
     hook: 'Learn them by job, not by number: smell (I), sight (II), hearing and balance (VIII) are special sense; IV and VI move the eye; V and VII run the face; IX and X reach the pharynx and organs; XII moves the tongue.',
   },
   brainAndCsf: {
+    memoryHook: 'Blank page: name the three stem parts in order, then trace the CSF from the lateral ventricle to the fourth.',
     hook: 'One vertical axis: the brainstem (midbrain, pons, medulla) carries the core, the ventricles run CSF down its middle (lateral → third → aqueduct → fourth), the forebrain (corpus callosum, thalamus) caps it, and the spinal cord trails below.',
   },
   kneeJoint: {
+    memoryHook: 'Blank page: what sits inside the capsule, what cushions, and what does the hip comparison teach?',
     hook: 'One capsule, two cruciate ligaments inside it, two menisci as shock absorbers — and the hip capsule alongside for comparison: the same parts, but a deeper, more stable socket.',
   },
 };
@@ -227,7 +234,10 @@ function structureItem(set) {
       hook: hooks.hook || null,
       examples: [],
     },
-    memory: hooks,
+    /* Memory Coach gets a recall-phrased cue, not a second copy of the
+       Learn card's hook (lesson.hook and memory.hook were identical text).
+       memoryHook is consumed here so it never lands on the item. */
+    memory: (() => { if (!hooks.memoryHook) return hooks; const { memoryHook, ...rest } = hooks; return { ...rest, hook: memoryHook }; })(),
     practice: [
       { type: 'structure', prompt: `Name every structure in the set, working from the labelled view.`, setId: set.id, reveal: 'labelled',
         explanation: `Teaching view. All ${set.members.length} are named — read them in group order (${groups.join(' → ')}) and say each one out loud before moving on.` },

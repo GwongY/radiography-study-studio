@@ -1833,7 +1833,7 @@ export const PHYS_ITEMS = [
         explanation: 'Model answer A. The name itself says mucosa-associated lymphoid tissue.',
         src: { ref: 'hss.revans', location: 'HSS2011 Module 1.2, MCQ 5' } },
       { type: 'cloze', prompt: '______ is an expanded, sac-like chamber located at the base of the thoracic duct.', accept: ['cisterna chyli', 'the cisterna chyli'],
-        explanation: 'Model answer: cisterna chyli.',
+        explanation: 'The answer is the cisterna chyli — the expanded sac the prompt describes, at the base of the thoracic duct.',
         src: { ref: 'hss.revans', location: 'HSS2011 Module 1.2, Fill-in-blanks 5' } },
       { type: 'explain', prompt: 'What job does the lymphatic system do for the cardiovascular system?',
         model: 'It picks up the excess fluid that has been filtered out in the capillary beds and returns it to the veins, so the circulating volume is maintained. Its lymph nodes also form part of the immune system.',

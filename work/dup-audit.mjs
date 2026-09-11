@@ -53,6 +53,40 @@ import { STUDY_ITEMS } from '../outputs/study-data.js';
  * ------------------------------------------------------------------ */
 const ALLOWED = [];
 
+/* Template sentences generated for EVERY structure/movement set by
+   structureItem() and movementItem() in study/corpus/derived-items.js. They
+   are identical across sets on purpose — one generator, one workflow
+   (labelled → guided → blank), one scoring rubric shape. A group is allowed
+   when its sample text contains one of these markers; a NEW occurrence of
+   the sentence is still visible in the report, but it comes from the
+   generator and cannot drift per item. Normalised (lowercase, punctuation
+   stripped) substring match. */
+const TEMPLATE_TEXT = [
+  ['every one of these is a separately named mesh', 'structureItem(): the set is real tappable meshes — identical by generation'],
+  ['name every structure in the set', 'structureItem(): the teaching-view prompt, generated per set'],
+  ['only the anchors are named now', 'structureItem(): the guided-view prompt, generated per set'],
+  ['match each structure to the group it belongs to', 'structureItem(): the matching question, generated per set'],
+  ['counting the set is the fastest check', 'structureItem(): the count self-check, generated per set'],
+  ['you are shown one structure from this set in isolation', 'structureItem(): the Apply scenario, generated per set'],
+  ['what do you use to identify it and what do you lose without the neighbours', 'structureItem(): the Apply prompt, generated per set'],
+  ['you fall back on the shape and any distinctive feature', 'structureItem(): the Apply model answer, generated per set'],
+  ['identifies relative position as what is lost', 'structureItem(): the Apply rubric, generated per set'],
+  ['names shape individual features as the fallback', 'structureItem(): the Apply rubric, generated per set'],
+  ['refers to the group structure of the set', 'structureItem(): the Apply rubric, generated per set'],
+  ['knowing the group narrows any identification question', 'structureItem(): the matching explanation, generated per set'],
+  ['these are paired structures so the side is always part of the answer', 'structureItem(): paired-set note, generated per set'],
+  ['reading the side off the screen instead of the model', 'structureItem(): paired-set mistake, generated per set'],
+  ['paired means the side is part of the name', 'structureItem(): paired-set skill, generated per set'],
+  ['work through the labelled view first', 'structureItem(): the blank/guided/labelled walkthrough, generated per set'],
+  ['the blank view cold all', 'structureItem(): the self-check line, generated per set (count interpolated)'],
+  ['the flat list is the trap this set sets', 'structureItem(): the grouping skill, generated per set (groups interpolated)'],
+  ['learning the names as a flat list', 'structureItem(): the grouping mistake, generated per set (groups interpolated)'],
+  ['anchor logic is what holds the set together', 'structureItem(): the anchor skill, generated per set (anchors interpolated)'],
+  ['stay labelled everything else is worked out from their position relative to those', 'structureItem(): the guided-view explanation, generated per set (anchors interpolated)'],
+  ['what you lose is position which is what the group and the ordering normally give you', 'structureItem(): the Apply model answer, generated per set (groups interpolated)'],
+  ['all named read them in group order', 'structureItem(): the teaching-view explanation, generated per set'],
+];
+
 /* ------------------------------------------------------------------ *
  * helpers                                                            */
 /* ------------------------------------------------------------------ */
@@ -81,13 +115,18 @@ const excerpt = (s, n = 170) => {
 
 const flags = [];
 const allowReasons = [];
-function allow(kind, key) {
+function allow(kind, key, sample) {
+  if (sample != null) {
+    const n = typeof sample === 'string' ? norm(sample) : '';
+    const t = TEMPLATE_TEXT.find(([m]) => n.includes(m));
+    if (t) { allowReasons.push({ kind, key: `template:${t[0]}`, reason: t[1] }); return true; }
+  }
   const a = ALLOWED.find((x) => x.kind === kind && x.key === key);
-  if (a) allowReasons.push({ kind, key, reason: a.reason });
-  return !!a;
+  if (a) { allowReasons.push({ kind, key, reason: a.reason }); return true; }
+  return false;
 }
 function pushFlag(kind, key, detail) {
-  if (!allow(kind, key)) flags.push({ kind, key, detail });
+  if (!allow(kind, key, detail && detail.sample)) flags.push({ kind, key, detail });
 }
 
 /* ------------------------------------------------------------------ *
@@ -482,6 +521,21 @@ if (showUses) {
   }
 }
 if (reportPath) console.log(`  report: ${reportPath}`);
+if (process.argv.includes('--flags')) {
+  for (const f of flags) {
+    const d = f.detail;
+    if (f.kind === 'text') {
+      console.log(`\n[text ${d.scope}] sim ${d.sim}`);
+      for (const o of d.occ) console.log(`   ${o}`);
+      console.log(`   > ${excerpt(d.sample, 200)}`);
+    } else if (f.kind === 'visual') {
+      console.log(`\n[${f.key}] ${d.why}`);
+      for (const u of d.uses) console.log(`   ${u.unit} · ${u.itemId}`);
+    } else {
+      console.log(`\n[${f.kind}] ${JSON.stringify(f.detail).slice(0, 200)}`);
+    }
+  }
+}
 if (flags.length) {
   console.log('GATE FAIL — repeats above are neither fixed nor listed in ALLOWED with a reason.');
   process.exit(1);
