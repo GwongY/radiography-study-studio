@@ -160,6 +160,11 @@ node work/dup-audit.mjs         # REQUIRED for any study-item or visual edit —
                                  # Deliberate repeats live in ALLOWED / TEMPLATE_TEXT with
                                  # written reasons; --report <path> writes the full
                                  # markdown audit, --flags prints the failing set
+node work/array-integrity-check.mjs # REQUIRED for outputs/study/corpus/*.js edits —
+                                 # catches orphaned array elements (broad find/replaces
+                                 # deleting content down to blank lines) and malformed
+                                 # syllabusRef / src reference objects; --selftest proves
+                                 # the gates bite
 node work/codemap-check.mjs     # the map matches the code; TRAPS names real files
 node work/data-index-check.mjs  # the data summary matches the data
 node work/schedule-check.mjs    # REQUIRED for outputs/schedule.js edits — the
