@@ -661,8 +661,10 @@ export const EXPANSION_ITEMS = [
     ],
     "selfCheck": "From memory: write down the definitions of agonist, antagonist, synergist, fixator, ligament, and fibrous capsule, and name the bones forming the sternoclavicular and radiocarpal joints.",
     "visuals": [
-
-      
+      { fig: 'synovialJoint', focus: ["Articular cartilage","Joint cavity containing synovial fluid","Synovial membrane","Articular capsule"] },
+      {
+        "schematic": "muscleAction"
+      },
       {
         "gen": true
       }
@@ -1388,8 +1390,7 @@ export const EXPANSION_ITEMS = [
     ],
     "selfCheck": "From memory: state the percentages of O2 and CO2 transported by each method, define the Bohr effect, and recite the mnemonic CADET face Right.",
     "visuals": [
-
-      { fig: 'alveolarMicroarchitecture', focus: ["Respiratory membrane","Type I alveolar cell","Pulmonary capillary network"] },
+      { fig: 'oxyhemoglobinCurve', focus: ["Pulmonary capillary loading plateau","Systemic tissue unloading slope","Mixed venous reserve"] },
       {
         "gen": true
       }
@@ -1447,7 +1448,7 @@ export const EXPANSION_ITEMS = [
     title: 'Inflammation, complement and adaptive immunity',
     tags: ['immune', 'high-yield'],
     visuals: [
-
+      { fig: 'innateAdaptiveCooperation', focus: ["Antigen-presenting cell","Cell-mediated immunity","Humoral immunity"] },
       { schematic: 'immuneAdaptive' },
       { gen: true },
     ],

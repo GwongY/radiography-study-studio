@@ -21,7 +21,7 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-
+      { fig: 'heartInternalAnatomy', focus: ["Right atrium","Right ventricle","Left atrium","Left ventricle","Interventricular septum","Tricuspid valve","Bicuspid valve"] },
       {
         "fig": "heart"
       },
@@ -199,8 +199,8 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-
-      
+      { fig: 'respiratoryTractAnatomy', focus: ["Trachea","Primary bronchi","Right lung","Left lung"] },
+      { fig: 'lungsGrossAnatomy', focus: ["Superior lobe (right lung)","Middle lobe (right lung)","Inferior lobe","Horizontal fissure","Oblique fissure"] },
       {
         "gen": true
       }
@@ -520,7 +520,9 @@ export const HSS_MODULES = [
           "caption": "The central horns are grey matter — cell bodies and synapses; the surrounding rim is white matter — the myelinated ascending and descending tracts."
         }
       },
-
+      {
+        "schematic": "nervousDivisions"
+      },
       {
         "gen": true
       }
@@ -754,7 +756,9 @@ export const HSS_MODULES = [
       {
         "fig": "digestiveSystemOverview"
       },
-
+      {
+        "fig": "digestiveWallLayers"
+      },
       {
         "gen": true
       }
@@ -970,9 +974,9 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-
-      
-
+      { fig: 'abdominalQuadrantsRegions', focus: ["Hypogastric region","Right iliac region","Left iliac region","Right lower quadrant","Left lower quadrant"] },
+      { fig: 'thoracicDiaphragm', focus: ["Caval opening (T8 level)","Esophageal hiatus (T10 level)","Aortic hiatus (T12 level)"] },
+      { fig: 'maleFemalePelvis', focus: ["Pelvic inlet","Pelvic outlet","Pubic angle","Sacrum","Acetabulum"] },
       {
         "gen": true
       }
@@ -2037,7 +2041,9 @@ export const HSS_MODULES = [
       {
         "fig": "muscleOrganization"
       },
-
+      {
+        "fig": "muscleTypes"
+      },
       {
         "model": {
           "layer": "muscle",
@@ -2625,8 +2631,12 @@ export const HSS_MODULES = [
     ],
     "selfCheck": "From memory, list the three classification axes, define synarthrosis, amphiarthrosis, and diarthrosis, name the three structural types, and give the official anatomical names for jaw, shoulder, wrist, hip, and ankle joints.",
     "visuals": [
-
-      
+      {
+        "fig": "synovialTypes"
+      },
+      {
+        "schematic": "jointClassification"
+      },
       {
         "gen": true
       }
@@ -2787,8 +2797,10 @@ export const HSS_MODULES = [
     ],
     "selfCheck": "From memory, describe the two layers of the periosteum, explain its dual blood supply with the nutrient foramen, name where it is absent, and explain why periosteal injuries are so painful.",
     "visuals": [
-
-      
+      { fig: 'longBone', focus: ["Periosteum","Endosteum","Articular cartilage","Nutrient foramen"] },
+      {
+        "schematic": "longBone"
+      },
       {
         "gen": true
       }
@@ -2958,7 +2970,9 @@ export const HSS_MODULES = [
       {
         "fig": "brachialPlexus"
       },
-
+      {
+        "schematic": "nervousDivisions"
+      },
       {
         "gen": true
       }
@@ -3206,7 +3220,7 @@ export const HSS_MODULES = [
     ],
     "selfCheck": "From memory: state the innervations and actions of biceps brachii and triceps brachii, and compare the common flexor and extensor origins of the forearm.",
     "visuals": [
-
+      { fig: 'muscleOrganization', focus: ["Skeletal muscle","Epimysium","Fascicle","Tendon"] },
       {
         "model": {
           "layer": "muscle",
@@ -3219,7 +3233,9 @@ export const HSS_MODULES = [
           "caption": "Anterior and posterior compartments of the arm and shoulder girdle."
         }
       },
-
+      {
+        "schematic": "muscleAction"
+      },
       {
         "gen": true
       }
@@ -3519,7 +3535,9 @@ export const HSS_MODULES = [
       {
         "fig": "upperLimbArteries"
       },
-
+      {
+        "schematic": "circuits"
+      },
       {
         "gen": true
       }
@@ -4089,7 +4107,7 @@ export const HSS_MODULES = [
       {
         "fig": "legMusclesCompartments"
       },
-
+      { fig: 'bonesOfTheFoot', focus: ["Talus","Calcaneus","Navicular","Cuboid","Metatarsals (I–V)"] },
       {
         "model": {
           "layer": "muscle",
@@ -4590,7 +4608,7 @@ export const HSS_MODULES = [
       {
         "fig": "paranasalSinuses"
       },
-
+      { fig: 'skullLateralView', focus: ["Coronal suture","Squamous suture","Lambdoid suture","Pterion","External acoustic meatus"] },
       {
         "model": {
           "layer": "skeleton",
@@ -5004,7 +5022,7 @@ export const HSS_MODULES = [
       {
         "fig": "masticationMuscles"
       },
-
+      { fig: 'skullLateralView', focus: ["Zygomatic arch","Mastoid process","Styloid process","Mandible"] },
       {
         "gen": true
       }
@@ -7017,7 +7035,9 @@ export const HSS_MODULES = [
       {
         "fig": "heartInternalAnatomy"
       },
-
+      {
+        "fig": "heart"
+      },
       {
         "gen": true
       }
@@ -7770,8 +7790,8 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-
-      
+      { fig: 'heartInternalAnatomy', focus: ["Chordae tendineae","Papillary muscles","Tricuspid valve","Bicuspid valve","Right ventricle","Left ventricle"] },
+      { fig: 'cardiacConductionSystem', focus: ["Sinoatrial (SA) node","Atrioventricular (AV) node","Atrioventricular bundle (Bundle of His)","Purkinje fibers"] },
       {
         "gen": true
       }
@@ -7972,7 +7992,9 @@ export const HSS_MODULES = [
       {
         "fig": "larynxAnatomy"
       },
-
+      {
+        "fig": "respiratoryTractAnatomy"
+      },
       {
         "gen": true
       }
@@ -8168,8 +8190,10 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-
-      
+      {
+        "fig": "lungsGrossAnatomy"
+      },
+      { fig: 'respiratoryTractAnatomy', focus: ["Primary bronchi","Right lung","Left lung","Diaphragm"] },
       {
         "gen": true
       }
@@ -8344,8 +8368,8 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-
-      
+      { fig: 'respiratoryTractAnatomy', focus: ["Nasal cavity","Pharynx","Larynx","Trachea","Primary bronchi","Right lung","Left lung"] },
+      { fig: 'respiratoryExchange', focus: ["Type I alveolar cell","Type II alveolar cell","Respiratory membrane","Capillary","Alveolus (gas-filled space)"] },
       {
         "gen": true
       }
@@ -8524,7 +8548,9 @@ export const HSS_MODULES = [
       {
         "fig": "respiratoryExchange"
       },
-
+      {
+        "fig": "alveolarMicroarchitecture"
+      },
       {
         "gen": true
       }
@@ -8875,7 +8901,7 @@ export const HSS_MODULES = [
     ],
     "visuals": [
       { fig: 'thoracicDiaphragm', focus: ["Central tendon","Right and left crura","Costal muscle margin"] },
-
+      { fig: 'thoracicCageAnatomy', focus: ["True ribs (Ribs 1–7)","False ribs (Ribs 8–10)","Floating ribs (Ribs 11–12)","Costal cartilages"] },
       {
         "gen": true
       }
@@ -9048,8 +9074,8 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-
-      
+      { fig: 'mediastinumDivisions', focus: ["Transverse thoracic plane","Superior mediastinum","Anterior mediastinum","Middle mediastinum","Posterior mediastinum"] },
+      { fig: 'thoracicDiaphragm', focus: ["Caval opening (T8 level)","Esophageal hiatus (T10 level)","Aortic hiatus (T12 level)","Central tendon"] },
       {
         "gen": true
       }
@@ -9240,7 +9266,7 @@ export const HSS_MODULES = [
       {
         "fig": "mediastinumDivisions"
       },
-
+      { fig: 'heartInternalAnatomy', focus: ["Superior vena cava","Inferior vena cava","Pulmonary trunk","Ascending aorta","Pulmonary veins"] },
       {
         "gen": true
       }
@@ -9420,7 +9446,7 @@ export const HSS_MODULES = [
       {
         "fig": "mammaryGlandAnatomy"
       },
-
+      { fig: 'lymphNodeStructure', focus: ["Afferent lymphatic vessels","Cortex and germinal centers","Efferent lymphatic vessel and hilum","Subcapsular sinus"] },
       {
         "gen": true
       }
@@ -9599,7 +9625,9 @@ export const HSS_MODULES = [
       {
         "fig": "stomachRegions"
       },
-
+      {
+        "fig": "stomachWallGlands"
+      },
       {
         "model": {
           "layer": "organs",
@@ -9882,7 +9910,9 @@ export const HSS_MODULES = [
       "high-yield"
     ],
     "visuals": [
-
+      {
+        "fig": "smallIntestineVillus"
+      },
       {
         "fig": "largeIntestineAnatomy"
       },

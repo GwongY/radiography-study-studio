@@ -1,4 +1,4 @@
 — every visuals[] entry resolves —
-  ok  176 items with visuals, 392 entries checked
+  ok  176 items with visuals, 453 entries checked
 
 ALL PASS

@@ -185,7 +185,6 @@ export const PHYS_DEPTH_ITEMS = [
       {
         "fig": "ventilationMechanics"
       },
-      { fig: 'respiratoryTractAnatomy', focus: ["Diaphragm","Right lung","Left lung","Trachea"] },
       {
         "gen": true
       }
@@ -568,7 +567,6 @@ export const PHYS_DEPTH_ITEMS = [
       {
         "fig": "oxyhemoglobinCurve"
       },
-      { fig: 'alveolarMicroarchitecture', focus: ["Respiratory membrane","Alveolus","Pulmonary capillary network"] },
       {
         "gen": true
       }
@@ -803,8 +801,8 @@ export const PHYS_DEPTH_ITEMS = [
     ],
     "selfCheck": "From memory: recite the three modes of CO2 transport with percentages, explain the chloride shift, and distinguish the DRG from the VRG.",
     "visuals": [
-      
-      
+      { fig: 'ventilationMechanics', focus: ["Diaphragm contraction","Accessory muscles of breathing"] },
+      { fig: 'oxyhemoglobinCurve', focus: ["Rightward curve shift (Bohr effect)","Systemic tissue unloading slope"] },
       {
         "gen": true
       }
@@ -1050,7 +1048,6 @@ export const PHYS_DEPTH_ITEMS = [
   ],
   "selfCheck": "From memory: name the four layers of the digestive wall from inside out, identify where each plexus sits, and contrast short enteric reflexes with long autonomic reflexes.",
   "visuals": [
-    { fig: 'digestiveWallLayers', focus: ["Submucosal plexus (Meissner)","Myenteric plexus (Auerbach)","Muscularis externa","Submucosa"] },
     {
       "gen": true
     }
@@ -1266,8 +1263,6 @@ export const PHYS_DEPTH_ITEMS = [
   ],
   "selfCheck": "From memory: describe the four cell types in a gastric gland, diagram how parietal cells generate HCl and the alkaline tide, and contrast the cephalic and intestinal phases.",
   "visuals": [
-    { fig: 'stomachWallGlands', focus: ["Gastric pit","Parietal cell","Chief cell","G cell","Mucous neck cell"] },
-    { fig: 'digestiveWallLayers', focus: ["Mucosa","Muscularis externa","Submucosa"] },
     {
       "gen": true
     }
@@ -1494,7 +1489,6 @@ export const PHYS_DEPTH_ITEMS = [
   ],
   "selfCheck": "From memory: contrast the roles of the three small intestinal segments, explain how enteropeptidase activates pancreatic juice, and explain the difference between emulsification by bile and chemical cleavage by lipase.",
   "visuals": [
-    { fig: 'smallIntestineVillus', focus: ["Plicae circulares","Intestinal villus","Microvillar brush border","Lacteal","Capillary network"] },
     {
       "gen": true
     }
@@ -1735,8 +1729,6 @@ export const PHYS_DEPTH_ITEMS = [
   ],
   "selfCheck": "From memory: list the five duodenal hormones and their triggers, trace the 9 L fluid budget of the digestive tract, and name the three vitamins produced by gut flora.",
   "visuals": [
-    
-    
     {
       "gen": true
     }

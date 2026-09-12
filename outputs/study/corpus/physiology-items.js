@@ -576,10 +576,6 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: name the three tunics of a blood vessel, state the flow rate relationship between systemic and pulmonary circuits, and explain why venous return needs a skeletal muscle pump.",
     "visuals": [
-
-      {
-        "schematic": "circuits"
-      },
       {
         "gen": true
       }
@@ -804,9 +800,6 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: list the three layers of the heart wall, state the structural and electrical roles of intercalated discs, and explain how papillary muscles protect AV valves during systole.",
     "visuals": [
-
-      
-
       {
         "gen": true
       }
@@ -1048,8 +1041,6 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: recite the complete airway branching sequence from trachea to alveoli, contrast Type I and Type II pneumocytes, and explain why the right primary bronchus is prone to aspiration.",
     "visuals": [
-      { fig: 'respiratoryTractAnatomy', focus: ["Nasal cavity","Pharynx","Larynx","Trachea","Primary bronchi","Right lung","Left lung"] },
-      { fig: 'alveolarMicroarchitecture', focus: ["Respiratory bronchiole","Alveolar duct","Alveolus","Respiratory membrane"] },
       {
         "gen": true
       }
@@ -1256,8 +1247,6 @@ export const PHYS_ITEMS = [
   ],
   "selfCheck": "From memory: recite the complete nephron tubule sequence from Bowman’s capsule to the urethra, state the two components of the renal corpuscle, and describe the microvascular portal circuit.",
   "visuals": [
-
-    
     {
       "gen": true
     }
@@ -1458,8 +1447,6 @@ export const PHYS_ITEMS = [
   ],
   "selfCheck": "From memory: write down the seven organs of the alimentary tract in order, list the six accessory organs, and explain why the pancreas is both an endocrine and exocrine organ.",
   "visuals": [
-
-    
     {
       "gen": true
     }
@@ -1750,7 +1737,6 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: state the normal hematocrit ranges for males and females, name the three plasma protein classes with their functions, and distinguish plasma from serum.",
     "visuals": [
-
       {
         "schematic": "bloodComposition"
       },
@@ -1834,7 +1820,6 @@ export const PHYS_ITEMS = [
     title: 'Divisions of the nervous system and classes of neuron',
     tags: ['nervous', 'high-yield'],
     visuals: [
-      { schematic: 'nervousDivisions' },
       { gen: true },
     ],
     priorKnowledge: {
@@ -1900,8 +1885,6 @@ export const PHYS_ITEMS = [
     title: 'Three muscle tissue types and the four properties',
     tags: ['musculoskeletal', 'high-yield'],
     visuals: [
-      { schematic: 'muscleTypes' },
-
       { gen: true },
     ],
     priorKnowledge: {
@@ -1971,7 +1954,6 @@ export const PHYS_ITEMS = [
     title: 'Origin, insertion, agonist and antagonist',
     tags: ['musculoskeletal'],
     visuals: [
-      { schematic: 'muscleAction' },
       { gen: true },
     ],
     priorKnowledge: {
@@ -2534,7 +2516,7 @@ export const PHYS_ITEMS = [
     title: 'Where a drug can interfere with a synapse',
     tags: ['nervous', 'pharmacology', 'high-yield'],
     visuals: [
-
+      { fig: 'synapseIllustration', focus: ["Synaptic vesicle","Voltage-gated Ca++ channel","Neurotransmitters","Neurotransmitter receptors","Neurotransmitter re-uptake pump"] },
       { gen: true },
     ],
     lesson: {
@@ -2754,7 +2736,7 @@ export const PHYS_ITEMS = [
     title: 'From nerve to sarcomere: the junction, the motor unit and coupling',
     tags: ['musculoskeletal', 'nervous', 'high-yield'],
     visuals: [
-
+      { fig: 'synapseIllustration', focus: ["Axon terminal","Voltage-gated Ca++ channel","Synaptic vesicle","Synaptic cleft","Neurotransmitter receptors"] },
       { gen: true },
     ],
     lesson: {
@@ -2827,7 +2809,6 @@ export const PHYS_ITEMS = [
     title: 'Slow and fast twitch, and where a muscle gets its energy',
     tags: ['musculoskeletal'],
     visuals: [
-
       { gen: true },
     ],
     lesson: {
@@ -2907,7 +2888,6 @@ export const PHYS_ITEMS = [
     tags: ['musculoskeletal', 'nervous'],
     visuals: [
       { fig: 'muscleSpindle' },
-
       { gen: true },
     ],
     lesson: {
@@ -3061,7 +3041,7 @@ export const PHYS_ITEMS = [
     tags: ['immune', 'high-yield'],
     visuals: [
       { fig: 'antigenPresentation' },
-
+      { fig: 'clonalSelection', focus: ["Sensitized B cell","Plasma cells","Memory B cells"] },
       { gen: true },
     ],
     lesson: {
@@ -3144,7 +3124,7 @@ export const PHYS_ITEMS = [
     title: 'Inside three innate defences: phagocytes, NK cells, interferons',
     tags: ['immune', 'high-yield'],
     visuals: [
-
+      { fig: 'innateAdaptiveCooperation', focus: ["Innate immunity","Antigen-presenting cell"] },
       { gen: true },
     ],
     lesson: {
@@ -3294,7 +3274,7 @@ export const PHYS_ITEMS = [
     title: 'Four kinds of T cell, and what each is for',
     tags: ['immune', 'high-yield'],
     visuals: [
-
+      { fig: 'antigenPresentation', focus: ["Antigen presentation","T cell receptor","MHC Class II"] },
       { gen: true },
     ],
     lesson: {
@@ -3367,7 +3347,7 @@ export const PHYS_ITEMS = [
     title: 'Four ways to become immune: active or passive, natural or artificial',
     tags: ['immune', 'high-yield'],
     visuals: [
-
+      { fig: 'innateAdaptiveCooperation', focus: ["Cell-mediated immunity","Humoral immunity"] },
       { gen: true },
     ],
     lesson: {
@@ -4114,8 +4094,8 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "Define the four structural components of the nucleus and explain why DNA is packaged as chromatin in interphase but chromosomes in mitosis.",
     "visuals": [
-
-      
+      { fig: 'cellAnatomy', focus: ["Nucleus","Nucleolus","Chromatin"] },
+      { fig: 'mitosisPhases', focus: ["Prophase","Metaphase","Anaphase","Telophase"] },
       {
         "gen": true
       }
@@ -4325,7 +4305,7 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "Outline the sequential events of protein synthesis from promoter binding to release factor termination, identifying where each occurs in the cell.",
     "visuals": [
-
+      { fig: 'cellAnatomy', focus: ["Nucleus","Chromatin","Ribosomes","Rough endoplasmic reticulum"] },
       {
         "gen": true
       }
@@ -5181,8 +5161,7 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "Compare skeletal, cardiac, and smooth muscle across four histological features, and state the directional signaling rule of a neuron.",
     "visuals": [
-
-      
+      { fig: 'connectiveTissues', focus: ["Collagen fibers","Fibroblast","Adipocytes"] },
       {
         "gen": true
       }
@@ -5394,7 +5373,9 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "Compare negative and positive feedback using their core defining verbs, and walk through the thermoregulation and clotting loops step-by-step.",
     "visuals": [
-
+      {
+        "schematic": "homeostasis"
+      },
       {
         "gen": true
       }
@@ -5700,8 +5681,6 @@ export const PHYS_ITEMS = [
   ],
   "selfCheck": "From memory: recite male/female GFR values, total daily filtrate volume, basal energy cost of reabsorption, minimum obligatory urine volume, and the minimum urinary pH limit.",
   "visuals": [
-
-    
     {
       "gen": true
     }
@@ -5743,8 +5722,7 @@ export const PHYS_ITEMS = [
     title: 'Muscle physiology: sarcomere ultrastructure, titin recoil, motor unit recruitment, fibre types, and neural control',
     tags: ['muscle', 'sarcomere', 'titin', 'motor-unit', 'vo2max', 'high-yield'],
     visuals: [
-
-      
+      { fig: 'sarcomere', focus: ["Z","M","A","I"] },
       { gen: true },
     ],
     lesson: {
@@ -5833,10 +5811,6 @@ export const PHYS_ITEMS = [
     title: 'Compact vs spongy bone, bone cells, remodelling and calcium balance',
     tags: ['bone', 'msk', 'high-yield'],
     visuals: [
-
-      
-
-      
       { gen: true },
     ],
     lesson: {
@@ -6077,8 +6051,6 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: recite Poiseuille determinants of resistance, identify the blood volume reservoir of the body, and state the backup firing rate of the AV node.",
     "visuals": [
-
-      
       {
         "gen": true
       }
@@ -6529,8 +6501,8 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: explain why arterial PO2 would be normal in an animal with zero red blood cells, state which ion directly stimulates the medulla, and identify why systemic H+ cannot stimulate central chemoreceptors directly.",
     "visuals": [
-
-      
+      { fig: 'ventilationMechanics', focus: ["Diaphragm contraction","External intercostal muscles","Intrapulmonary pressure"] },
+      { fig: 'spirometryLungVolumes', focus: ["Vital capacity (VC)","Tidal volume (TV)","Residual volume (RV)","Total lung capacity (TLC)"] },
       {
         "gen": true
       }
@@ -6780,8 +6752,6 @@ export const PHYS_ITEMS = [
   ],
   "selfCheck": "From memory: describe the differences between cortical and juxtamedullary nephrons, list the three actions of sympathetic renal stimulation, state how much urea is reabsorbed in the PCT, and name the muscle of the voluntary urethral sphincter.",
   "visuals": [
-
-    
     {
       "gen": true
     }
@@ -6840,7 +6810,7 @@ export const PHYS_ITEMS = [
     tags: ['nervous', 'neuroglia', 'action-potential', 'refractory-period', 'high-yield'],
     visuals: [
       { fig: 'neuronDiagram' },
-
+      { fig: 'myelinSheath' },
       { gen: true },
     ],
     lesson: {
