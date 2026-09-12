@@ -24,10 +24,7 @@ export const PHYS_DEPTH_ITEMS = [
       "level": "dse-bio",
       "covers": "part",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "Compulsory III(b) \"Essential life processes in animals\" — \"Gas exchange in humans: mechanism of ventilation\". The elective adds only the control of rate and depth of breathing.": "Elective V(c) \"Regulation of gas content in blood\" — mechanism of breathing."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Elective V(c) \"Regulation of gas content in blood\" — mechanism of breathing." },
       "beyond": [
         {
           "t": "Boyle’s law: pressure is inversely proportional to volume (P = 1/V).",
@@ -188,7 +185,7 @@ export const PHYS_DEPTH_ITEMS = [
       {
         "fig": "ventilationMechanics"
       },
-      
+      { fig: 'respiratoryTractAnatomy', focus: ["Diaphragm","Right lung","Left lung","Trachea"] },
       {
         "gen": true
       }
@@ -358,7 +355,7 @@ export const PHYS_DEPTH_ITEMS = [
       {
         "fig": "spirometryLungVolumes"
       },
-      
+      { fig: 'ventilationMechanics', focus: ["Intrapulmonary pressure","Intrapleural pressure","Quiet expiration"] },
       {
         "gen": true
       }
@@ -409,10 +406,7 @@ export const PHYS_DEPTH_ITEMS = [
       "level": "dse-bio",
       "covers": "part",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "Compulsory III(b) \"Essential life processes in animals\" — \"Gas exchange in humans: routes of transport of respiratory gases\". The oxygen–hemoglobin saturation curve, the Bohr effect and the partial-pressure figures are not in the curriculum.": "Elective V(c) — \"Transport of respiratory gases: oxygen dissociation curve of haemoglobin\"."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Elective V(c) — \"Transport of respiratory gases: oxygen dissociation curve of haemoglobin\"." },
       "beyond": [
         {
           "t": "Gas exchange across the respiratory membrane driven by partial pressure gradients between alveolar air and capillary blood.",
@@ -574,7 +568,7 @@ export const PHYS_DEPTH_ITEMS = [
       {
         "fig": "oxyhemoglobinCurve"
       },
-      
+      { fig: 'alveolarMicroarchitecture', focus: ["Respiratory membrane","Alveolus","Pulmonary capillary network"] },
       {
         "gen": true
       }
@@ -629,10 +623,7 @@ export const PHYS_DEPTH_ITEMS = [
       "level": "dse-bio",
       "covers": "part",
       "dsePart": "elective-hp",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "Elective V(c) \"Regulation of gas content in blood\" — \"Control of rate and depth of breathing: respiratory centre and chemoreceptors\". Carbon dioxide transport is not in the curriculum at all.": "Elective V(c) — \"Carbon dioxide transport in blood\" and \"Control of respiration: nervous and chemical control\"."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Elective V(c) — \"Carbon dioxide transport in blood\" and \"Control of respiration: nervous and chemical control\"." },
       "beyond": [
         {
           "t": "Three pathways of carbon dioxide transport: dissolved gas in plasma (7%), carbaminohemoglobin (23%), and bicarbonate ions (70%).",
@@ -883,10 +874,7 @@ export const PHYS_DEPTH_ITEMS = [
     "level": "dse-bio",
     "covers": "part",
     "dsePart": "core",
-    "syllabusRef": {
-      "ref": "edb.bio",
-      "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans: general plan of the digestive system\". Peristalsis is not in the curriculum.": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": peristalsis and general structure of the digestive tract."
-    },
+    "syllabusRef": { "ref": "edb.bio", "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": peristalsis and general structure of the digestive tract." },
     "beyond": [
       {
         "t": "The mucosa is the inner lining of the digestive tract, folded to increase surface area for absorption.",
@@ -1063,7 +1051,6 @@ export const PHYS_DEPTH_ITEMS = [
   "selfCheck": "From memory: name the four layers of the digestive wall from inside out, identify where each plexus sits, and contrast short enteric reflexes with long autonomic reflexes.",
   "visuals": [
     { fig: 'digestiveWallLayers', focus: ["Submucosal plexus (Meissner)","Myenteric plexus (Auerbach)","Muscularis externa","Submucosa"] },
-    
     {
       "gen": true
     }
@@ -1126,10 +1113,7 @@ export const PHYS_DEPTH_ITEMS = [
     "level": "dse-bio",
     "covers": "part",
     "dsePart": "core",
-    "syllabusRef": {
-      "ref": "edb.bio",
-      "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans: digestion of carbohydrates, proteins and lipids in various parts of the alimentary canal\" — digestion in the stomach is DSE; the gastric glands, the parietal cells and the three control phases are past it.": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": digestion in the stomach, roles of gastric juice and hydrochloric acid."
-    },
+    "syllabusRef": { "ref": "edb.bio", "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": digestion in the stomach, roles of gastric juice and hydrochloric acid." },
     "beyond": [
       {
         "t": "Intrinsic factor production named among the stomach's major functions.",
@@ -1283,7 +1267,7 @@ export const PHYS_DEPTH_ITEMS = [
   "selfCheck": "From memory: describe the four cell types in a gastric gland, diagram how parietal cells generate HCl and the alkaline tide, and contrast the cephalic and intestinal phases.",
   "visuals": [
     { fig: 'stomachWallGlands', focus: ["Gastric pit","Parietal cell","Chief cell","G cell","Mucous neck cell"] },
-    
+    { fig: 'digestiveWallLayers', focus: ["Mucosa","Muscularis externa","Submucosa"] },
     {
       "gen": true
     }
@@ -1339,10 +1323,7 @@ export const PHYS_DEPTH_ITEMS = [
     "level": "dse-bio",
     "covers": "part",
     "dsePart": "core",
-    "syllabusRef": {
-      "ref": "edb.bio",
-      "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans: structural adaptation of small intestine for food absorption, role of liver\". The duodenal segments, the brush-border enzymes and the hormonal control are past it.": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": digestion in small intestine, functions of liver and pancreas, absorption in villi."
-    },
+    "syllabusRef": { "ref": "edb.bio", "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": digestion in small intestine, functions of liver and pancreas, absorption in villi." },
     "beyond": [
       {
         "t": "The small intestine plays a key role in digestion and absorption of 90% of dietary nutrients.",
@@ -1514,7 +1495,6 @@ export const PHYS_DEPTH_ITEMS = [
   "selfCheck": "From memory: contrast the roles of the three small intestinal segments, explain how enteropeptidase activates pancreatic juice, and explain the difference between emulsification by bile and chemical cleavage by lipase.",
   "visuals": [
     { fig: 'smallIntestineVillus', focus: ["Plicae circulares","Intestinal villus","Microvillar brush border","Lacteal","Capillary network"] },
-    
     {
       "gen": true
     }
@@ -1585,10 +1565,7 @@ export const PHYS_DEPTH_ITEMS = [
     "level": "dse-bio",
     "covers": "part",
     "dsePart": "core",
-    "syllabusRef": {
-      "ref": "edb.bio",
-      "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans: absorption and assimilation, egestion\". The duodenal peptide hormones and the colonic detail are past it.": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": absorption of water, role of the large intestine, egestion."
-    },
+    "syllabusRef": { "ref": "edb.bio", "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": absorption of water, role of the large intestine, egestion." },
     "beyond": [
       {
         "t": "Coordinate activities of digestive glands through neural and hormonal regulatory mechanisms centering around the duodenum.",

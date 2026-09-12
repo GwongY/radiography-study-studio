@@ -337,7 +337,9 @@ export const EXPANSION_ITEMS = [
     "selfCheck": "From memory: list the six synovial joint types, classify each by axes of motion (uni-, bi-, polyaxial), provide one anatomical example for each, and state why the wrist is condylar rather than hinge.",
     "visuals": [
       { fig: 'synovialTypes', focus: ["a","b","c","d","e","f"] },
-
+      {
+        "schematic": "synovialTypes"
+      },
       {
         "gen": true
       }
@@ -735,10 +737,7 @@ export const EXPANSION_ITEMS = [
       "level": "dse-bio",
       "covers": "part",
       "dsePart": "elective-hp",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "Elective V(c) \"Regulation of gas content in blood\" — \"Control of cardiac output: heart rate and stroke volume, Pacemaker and cardiac cycle\" (Biology Curriculum Supplement 2016, Elective V(c), p.34). The elective names the pacemaker; it does not go inside it.": "Elective V(c) \"Regulation of gas content in blood\" — \"Control of cardiac output: heart rate and stroke volume, Pacemaker and cardiac cycle\". The elective names the pacemaker; it does not go inside it."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Elective V(c) \"Regulation of gas content in blood\" — \"Control of cardiac output: heart rate and stroke volume, Pacemaker and cardiac cycle\". The elective names the pacemaker; it does not go inside it." },
       "beyond": [
         {
           "t": "Two functional cell classes in cardiac tissue: specialized conducting system cells that initiate and distribute impulses, and contractile cells that produce mechanical force.",
@@ -1214,10 +1213,7 @@ export const EXPANSION_ITEMS = [
       "level": "dse-bio",
       "covers": "part",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "Compulsory III(b) \"Essential life processes in animals\" — \"Gas exchange in humans: routes of transport of respiratory gases\". The transport percentages, the saturation curve and the Bohr effect are not in the curriculum.": "Elective V(c) \"Regulation of gas content in blood\" — oxygen and carbon dioxide transport mechanisms."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Elective V(c) \"Regulation of gas content in blood\" — oxygen and carbon dioxide transport mechanisms." },
       "beyond": [
         {
           "t": "Alveolar epithelium and respiratory membrane structure: Type I pneumocytes, shared basement membrane, and capillary endothelium forming a 0.5 µm barrier.",
@@ -1664,7 +1660,13 @@ export const EXPANSION_ITEMS = [
       {
         "schematic": "modalityBestUse"
       },
-
+      {
+        "fig": "fluoroscopyRoomSetup",
+        "focus": [
+          "Examination couch and C-arm",
+          "Control panel console"
+        ]
+      },
       {
         "gen": true
       }

@@ -28,10 +28,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "part",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "location": "Compulsory I \"Cells and Molecules of Life\" — cell structure, organelles and membrane transport."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Compulsory I \"Cells and Molecules of Life\" — cell structure, organelles and membrane transport." },
       "beyond": [
         {
           "t": "The four tissue types as a classification — epithelial, connective, muscle, neural. DSE stops at the cell and never groups them this way.",
@@ -186,11 +183,11 @@ export const PHYS_ITEMS = [
     ],
     "selfCheck": "From memory: recite the six structural levels, the four tissue types, and all eleven organ systems.",
     "visuals": [
-
+      { fig: 'cellAnatomy', focus: ["Plasma membrane","Cytoplasm","Nucleus"] },
       {
         "schematic": "cellOrganisation"
       },
-
+      { fig: 'epithelialTissues', focus: ["Simple squamous epithelium","Stratified squamous epithelium"] },
       {
         "gen": true
       }
@@ -251,10 +248,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "most",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "location": "Compulsory III \"Homeostasis\" — concept of internal environment stability."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Compulsory III \"Homeostasis\" — concept of internal environment stability." },
       "beyond": [
 
         {
@@ -431,10 +425,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "most",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "location": "Compulsory III(b) \"Essential life processes in animals\" — \"General plan of the circulatory system and lymphatic system\"."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Compulsory III(b) \"Essential life processes in animals\" — \"General plan of the circulatory system and lymphatic system\"." },
       "beyond": [
 
         
@@ -666,10 +657,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "part",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "location": "Compulsory III(b) \"Essential life processes in animals\" — the circulatory system in general plan only; the syllabus gets to heart structure through a pig-heart dissection, not through named histology."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Compulsory III(b) \"Essential life processes in animals\" — the circulatory system in general plan only; the syllabus gets to heart structure through a pig-heart dissection, not through named histology." },
       "beyond": [
         {
           "t": "The cardiac (fibrous) skeleton: dense connective tissue encircling the valves and the bases of the pulmonary trunk and aorta, separating atria from ventricles structurally, functionally and electrically.",
@@ -884,10 +872,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "part",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Gas exchange in humans: structure of the respiratory system\"."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Gas exchange in humans: structure of the respiratory system\"." },
       "beyond": [
         {
           "t": "The five functions of the respiratory system: gas exchange surface, moving air, protecting exchange surfaces, sound production, and olfactory sensation.",
@@ -1064,7 +1049,7 @@ export const PHYS_ITEMS = [
     "selfCheck": "From memory: recite the complete airway branching sequence from trachea to alveoli, contrast Type I and Type II pneumocytes, and explain why the right primary bronchus is prone to aspiration.",
     "visuals": [
       { fig: 'respiratoryTractAnatomy', focus: ["Nasal cavity","Pharynx","Larynx","Trachea","Primary bronchi","Right lung","Left lung"] },
-
+      { fig: 'alveolarMicroarchitecture', focus: ["Respiratory bronchiole","Alveolar duct","Alveolus","Respiratory membrane"] },
       {
         "gen": true
       }
@@ -1126,10 +1111,7 @@ export const PHYS_ITEMS = [
     "level": "dse-bio",
     "covers": "most",
     "dsePart": "elective-hp",
-    "syllabusRef": {
-      "ref": "edb.bio",
-      "location": "Elective V(a) \"Regulation of water content (osmoregulation)\" — general plan of the urinary system, nephron structure and function, ultrafiltration, reabsorption and ADH."
-    },
+    "syllabusRef": { "ref": "edb.bio", "location": "Elective V(a) \"Regulation of water content (osmoregulation)\" — general plan of the urinary system, nephron structure and function, ultrafiltration, reabsorption and ADH." },
     "beyond": [
 
       
@@ -1333,10 +1315,7 @@ export const PHYS_ITEMS = [
     "level": "dse-bio",
     "covers": "part",
     "dsePart": "core",
-    "syllabusRef": {
-      "ref": "edb.bio",
-      "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": general plan of the digestive system, digestion in each part of the alimentary canal, absorption, the role of the liver and egestion."
-    },
+    "syllabusRef": { "ref": "edb.bio", "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Nutrition in humans\": general plan of the digestive system, digestion in each part of the alimentary canal, absorption, the role of the liver and egestion." },
     "beyond": [
 
       {
@@ -1625,10 +1604,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "part",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Composition and functions of blood, tissue fluid and lymph\". The syllabus wants the components and what they do; it never quantifies them or dissects a vessel wall."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Compulsory III(b) \"Essential life processes in animals\" — \"Composition and functions of blood, tissue fluid and lymph\". The syllabus wants the components and what they do; it never quantifies them or dissects a vessel wall." },
       "beyond": [
         {
           "t": "Haematocrit as a named measurement with ranges: 36–46% in women, 41–53% in men.",
@@ -3558,10 +3534,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "most",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "location": "Compulsory I \"Cells and Molecules of Life\" — cell membrane structure and membrane transport."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Compulsory I \"Cells and Molecules of Life\" — cell membrane structure and membrane transport." },
       "beyond": [
         {
           "t": "Membrane proteins split into six named classes — anchoring, recognition, enzymes, receptor, carrier, channel — as a list to reproduce rather than a general \"proteins do jobs\".",
@@ -3695,7 +3668,7 @@ export const PHYS_ITEMS = [
       {
         "fig": "plasmaMembrane"
       },
-
+      { fig: 'cellAnatomy', focus: ["Plasma membrane"] },
       {
         "gen": true
       }
@@ -3764,10 +3737,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "part",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "location": "Compulsory I \"Cells and Molecules of Life\" — cell organelles and their functions."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Compulsory I \"Cells and Molecules of Life\" — cell organelles and their functions." },
       "beyond": [
         {
           "t": "Organelles classified strictly into non-membranous (no membrane, in direct cytosol contact) versus membranous (surrounded by lipid membranes, isolated compartments).",
@@ -3904,7 +3874,7 @@ export const PHYS_ITEMS = [
       {
         "fig": "cellAnatomy"
       },
-
+      { fig: 'plasmaMembrane', focus: ["Phospholipid bilayer","Integral membrane protein","Cholesterol"] },
       {
         "gen": true
       }
@@ -3993,10 +3963,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "most",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "Compulsory I \"Cells and Molecules of Life\" — nucleus and chromosomes; Compulsory II(b) \"Molecular genetics — chromosomes, genes and nucleic acids\".": "Compulsory I \"Cells and Molecules of Life\" — DNA structure and function; Compulsory IV \"Applied Ecology and Genetics\"."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Compulsory I \"Cells and Molecules of Life\" — DNA structure and function; Compulsory IV \"Applied Ecology and Genetics\"." },
       "beyond": [
         {
           "t": "The nuclear envelope described specifically as a double membrane enclosing a perinuclear space, perforated by nuclear pores regulated by transport proteins.",
@@ -4209,10 +4176,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "most",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio.supp",
-        "Compulsory II(b) \"Molecular genetics — gene expression and protein synthesis: transcription and translation\" — outcome \"Outline the process of protein synthesis\"; footnotes 3 and 4 limit DSE depth to template strand and base pairing, and to codon and anticodon.": "Compulsory I \"Cells and Molecules of Life\" — protein synthesis, transcription and translation."
-      },
+      "syllabusRef": { "ref": "edb.bio.supp", "location": "Compulsory I \"Cells and Molecules of Life\" — protein synthesis, transcription and translation." },
       "beyond": [
         {
           "t": "Gene activation defined as the initial physical uncoiling of chromatin and removal of histones at the promoter region by gene-activating factors.",
@@ -4414,10 +4378,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "most",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "location": "Compulsory I \"Cells and Molecules of Life\" — cell cycle, mitosis and meiosis."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Compulsory I \"Cells and Molecules of Life\" — cell cycle, mitosis and meiosis." },
       "beyond": [
         {
           "t": "Interphase phases defined specifically: G0 (specialized quiescence), G1 (organelle replication), S phase (semiconservative DNA duplication), and G2 (protein synthesis & centriole completion).",
@@ -4564,7 +4525,7 @@ export const PHYS_ITEMS = [
       {
         "fig": "mitosisPhases"
       },
-
+      { fig: 'cellAnatomy', focus: ["Centrosome","Chromatin","Microtubule","Plasma membrane"] },
       {
         "gen": true
       }
@@ -4621,10 +4582,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "part",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "Compulsory I(b) \"Cellular organisation\" — cell structure only; the four-tissue classification is not in the S4-6 Biology curriculum at all.": "Compulsory I \"Cells and Molecules of Life\" — human tissues."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Compulsory I \"Cells and Molecules of Life\" — human tissues." },
       "beyond": [
         {
           "t": "The five defining hallmarks of epithelia: cellularity, polarity (apical vs basal), basement membrane attachment, avascularity, and ongoing regeneration.",
@@ -4778,7 +4736,9 @@ export const PHYS_ITEMS = [
       {
         "fig": "epithelialTissues"
       },
-
+      {
+        "schematic": "cellOrganisation"
+      },
       {
         "gen": true
       }
@@ -4835,10 +4795,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "part",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "Compulsory I(b) \"Cellular organisation\" — cell structure only; the four-tissue classification is not in the S4-6 Biology curriculum at all.": "Compulsory I \"Cells and Molecules of Life\" — human tissues."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Compulsory I \"Cells and Molecules of Life\" — human tissues." },
       "beyond": [
         {
           "t": "Connective tissue defined strictly by its tripartite composition: specialized cells, extracellular protein fibres, and clear ground substance (fibres + ground substance = extracellular matrix).",
@@ -5080,10 +5037,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "part",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "Compulsory I(b) \"Cellular organisation\" + Compulsory III(d) \"Nervous coordination in humans\" — neurone types by structure and function; tissue histology is not in the curriculum.": "Compulsory I \"Cells and Molecules of Life\" — animal tissues; Compulsory III \"Nervous coordination\"."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Compulsory I \"Cells and Molecules of Life\" — animal tissues; Compulsory III \"Nervous coordination\"." },
       "beyond": [
         {
           "t": "The three muscle types compared across striation, nuclei per cell, voluntary/involuntary control, and unique histology (intercalated discs in cardiac muscle).",
@@ -5301,10 +5255,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "most",
       "dsePart": "core",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "location": "Compulsory III \"Homeostasis\" — negative feedback mechanism."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Compulsory III \"Homeostasis\" — negative feedback mechanism." },
       "beyond": [
         {
           "t": "Positive feedback amplifies the change instead of negating it — the distinction the negative-feedback-only DSE focus never draws.",
@@ -5586,10 +5537,7 @@ export const PHYS_ITEMS = [
     "level": "dse-bio",
     "covers": "part",
     "dsePart": "elective-hp",
-    "syllabusRef": {
-      "ref": "edb.bio.supp",
-      "Elective V(a) \"Regulation of water content (osmoregulation)\" — \"Processes in urine formation: ultrafiltration, reabsorption\". Footnote 1: the countercurrent multiplier is not the learning and assessment focus.": "Elective V(a) \"Regulation of water content (osmoregulation)\" — ultrafiltration in Bowman’s capsule, hydrostatic pressure and composition of filtrate."
-    },
+    "syllabusRef": { "ref": "edb.bio.supp", "location": "Elective V(a) \"Regulation of water content (osmoregulation)\" — ultrafiltration in Bowman’s capsule, hydrostatic pressure and composition of filtrate." },
     "beyond": [
       {
         "t": "Glomerular capillary endothelial fenestrations make them 100 to 400 times more permeable than continuous capillaries.",
@@ -5976,10 +5924,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "part",
       "dsePart": "elective-hp",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "Elective V(c) \"Regulation of gas content in blood\" — \"Control of cardiac output: heart rate and stroke volume, pacemaker and cardiac cycle\". The elective does not name hemodynamics; the Poiseuille relationship and the resistance determinants are past it entirely.": "Elective V(c) \"Regulation of gas content in blood\" — cardiovascular control and hemodynamics."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Elective V(c) \"Regulation of gas content in blood\" — cardiovascular control and hemodynamics." },
       "beyond": [
         {
           "t": "Poiseuille relationship for vascular resistance: resistance is directly proportional to vessel length and blood viscosity, and inversely proportional to the fourth power of vessel radius.",
@@ -6188,10 +6133,7 @@ export const PHYS_ITEMS = [
     "level": "dse-bio",
     "covers": "part",
     "dsePart": "elective-hp",
-    "syllabusRef": {
-      "ref": "edb.bio.supp",
-      "Elective V(a) \"Regulation of water content (osmoregulation)\" — \"Structure and function of nephron\". Footnote 1: the countercurrent multiplier is not the learning and assessment focus — the multiplier and vasa recta mechanics are past DSE depth, not just past the compulsory part.": "Elective V(a) \"Regulation of water content (osmoregulation)\" — hairpin loop of Henle and creation of osmotic gradients."
-    },
+    "syllabusRef": { "ref": "edb.bio.supp", "location": "Elective V(a) \"Regulation of water content (osmoregulation)\" — hairpin loop of Henle and creation of osmotic gradients." },
     "beyond": [
       {
         "t": "The countercurrent multiplier system relies on countercurrent flow and proximity of descending and ascending limbs.",
@@ -6358,7 +6300,6 @@ export const PHYS_ITEMS = [
     {
       "fig": "countercurrentMultiplierMechanism"
     },
-
     {
       "gen": true
     }
@@ -6417,10 +6358,7 @@ export const PHYS_ITEMS = [
       "level": "dse-bio",
       "covers": "part",
       "dsePart": "elective-hp",
-      "syllabusRef": {
-        "ref": "edb.bio",
-        "Elective V(c) \"Regulation of gas content in blood\" — \"Control of rate and depth of breathing: nervous control, respiratory centre and chemoreceptors, effects of carbon dioxide concentration in blood\".": "Elective V(c) \"Regulation of gas content in blood\" — respiratory control centers and chemoreceptor regulation."
-      },
+      "syllabusRef": { "ref": "edb.bio", "location": "Elective V(c) \"Regulation of gas content in blood\" — respiratory control centers and chemoreceptor regulation." },
       "beyond": [
 
         {
@@ -6663,10 +6601,7 @@ export const PHYS_ITEMS = [
     "level": "dse-bio",
     "covers": "part",
     "dsePart": "elective-hp",
-    "syllabusRef": {
-      "ref": "edb.bio",
-      "Elective V(a) \"Regulation of water content (osmoregulation)\" — \"Action of antidiuretic hormone (ADH)\". Osmoreceptors, voluntary control of urination, renal clearance, sympathetic renal innervation and the juxtaglomerular complex are not in the curriculum.": "Elective V(a) \"Regulation of water content (osmoregulation)\" — osmoreceptors, hormonal control by ADH, and voluntary versus involuntary urination."
-    },
+    "syllabusRef": { "ref": "edb.bio", "location": "Elective V(a) \"Regulation of water content (osmoregulation)\" — osmoreceptors, hormonal control by ADH, and voluntary versus involuntary urination." },
     "beyond": [
       {
         "t": "Sympathetic activity constricts afferent arterioles, preserving blood volume and regulating GFR.",

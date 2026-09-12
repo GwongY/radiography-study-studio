@@ -6,7 +6,7 @@
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  5117f0aee63777f6   2172767  ITEM_BY_ID  Map[196]
+  6e5c4cc3d448f14c   2169905  ITEM_BY_ID  Map[196]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
@@ -24,7 +24,7 @@
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   47f0e0afa8bfc14c     27464  STRUCTURE_SETS  object[13]
-  47c6b3c0459ae7b3   2166139  STUDY_ITEMS  array[196]
+  1022b7618cdb75ed   2163277  STUDY_ITEMS  array[196]
   983b09221060f435       570  STUDY_MODES  array[4]
   15d4397a80f1826a      4084  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
@@ -32,7 +32,7 @@
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  fae4a0ea05f5e53f   2263354  default  object[7]
+  42196789a9528440   2260492  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   f8f5dd7feb96caac        72  entryStep  function
@@ -64,34 +64,34 @@
   ba048d6b42696398      2356  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  3ff6fcecc3126daa  WHOLE SURFACE
+  dacc3ed29883580a  WHOLE SURFACE
 
 — every study item, by id — 196 items —
   450e9426d21f5a7c  abct2326-acquired-immunity
   e253b7f06f68ff1f  abct2326-antibody-structure-classes
   c90588b5652ca64d  abct2326-blood-composition
-  b2d334bcfa0525ad  abct2326-cell-division
-  db0fa581399b00eb  abct2326-cells-organisation
+  ead7a7a96a410bd3  abct2326-cell-division
+  09356194b34887b8  abct2326-cells-organisation
   7f5196a89b566fb6  abct2326-complement
-  47d7d0b56f7b6ad6  abct2326-connective-tissue-classes
+  d5ed3206ec6c97b3  abct2326-connective-tissue-classes
   ef24f1ea157514b6  abct2326-crossbridge-cycle
   18e71d9aa76bde78  abct2326-cvs-circuits
-  cd1a130a5be02b11  abct2326-cvs-conduction
+  801652afbae66ece  abct2326-cvs-conduction
   35b683d3301e0390  abct2326-cvs-ecg-cycle
   5cc5da8f1d40512d  abct2326-cvs-heart-structure
-  e88ded42a6de9799  abct2326-cvs-hemodynamics-tutorial
-  b5d0ca694a82c969  abct2326-digestive-hormones-colon
+  b0e364604e19eef6  abct2326-cvs-hemodynamics-tutorial
+  b4663bbde1843a23  abct2326-digestive-hormones-colon
   dcb8ac8e8cf23a54  abct2326-digestive-pathway
-  97c68c2932ec41ee  abct2326-digestive-small-intestine-accessory
-  4ba24a23c7131b0d  abct2326-digestive-stomach-control
-  7bf6e275768b00f2  abct2326-digestive-wall-motility
+  f6c5a583866f155c  abct2326-digestive-small-intestine-accessory
+  759cf220520c2bb4  abct2326-digestive-stomach-control
+  205cca98930e5126  abct2326-digestive-wall-motility
   27e9ac825a46036e  abct2326-endocrine-adrenal-thyroid
   8a1f05527a14352b  abct2326-endocrine-delivery
   a739eb884660d56f  abct2326-endocrine-pancreas-misc
   1538b4d5cb5bd9b1  abct2326-endocrine-pituitary-axes
   f8c5f53d87e6a2fc  abct2326-endocrine-receptors
   824602bd4404b232  abct2326-endocrine-second-messengers
-  12cf2ab2022cd6bb  abct2326-epithelium-classification
+  20a4339d364d4cc9  abct2326-epithelium-classification
   a15f4bedace10c79  abct2326-feedback-loops
   1dbd807fceb1c643  abct2326-fibre-types-fuel
   023dc80e727284f8  abct2326-homeostasis
@@ -103,34 +103,34 @@
   bbaa4df978941eef  abct2326-msk-bone-structure-remodeling
   2fea1019fd773ea4  abct2326-msk-immune-overview
   336483e9a1009fbd  abct2326-muscle-action
-  7be48a3cce82dd5d  abct2326-muscle-neural-tissue
+  93ef7e431ca74cdb  abct2326-muscle-neural-tissue
   1de9b2908d524da4  abct2326-muscle-types
   4c6b2e558becf14b  abct2326-muscle-ultrastructure-energetics
   cdef36e43c42211c  abct2326-nervous-divisions
   86f3f88b6785e80a  abct2326-nervous-synapse-types-nt
   5d2f144394f49dc9  abct2326-nervous-synaptic-refractory-neuroglia
   8afb69485a976b1a  abct2326-nmj-coupling
-  87ab577c21e6dda0  abct2326-nucleus-genetic-code
-  a007434b68781199  abct2326-organelles
-  3370007e52c660ac  abct2326-plasma-membrane
-  7a81e69b3be86da4  abct2326-protein-synthesis
-  022ace8ad0b99ba7  abct2326-renal-countercurrent-vasarecta
-  6f3f01806571a903  abct2326-renal-filtration-countercurrent
+  5493e72cb434caa7  abct2326-nucleus-genetic-code
+  f4f57a6cc82bf9ed  abct2326-organelles
+  ee69a5091bc239c1  abct2326-plasma-membrane
+  4285ad8bb78e5b51  abct2326-protein-synthesis
+  20a5dc6eea10c503  abct2326-renal-countercurrent-vasarecta
+  0684a3f676bafc40  abct2326-renal-filtration-countercurrent
   079955f2a209929c  abct2326-renal-nephron
-  1755155ccc4e292c  abct2326-renal-tubular-clearance-sympathetic
+  dd49dc61228f1b63  abct2326-renal-tubular-clearance-sympathetic
   0b09674746f5d4fb  abct2326-repro-female-tract-follicles
   85cbe51f57448888  abct2326-repro-fertilization-implantation
   c457051a2caa8a41  abct2326-repro-male-regulation
   05e27115bfe39a23  abct2326-repro-male-tract-accessory
   3354b51346191327  abct2326-repro-ovarian-menstrual-cycle
   67e3254ca9d41f48  abct2326-repro-placenta-parturition
-  bb011d78e09a1ddb  abct2326-resp-carbon-dioxide-control
-  98440c3d65e184f4  abct2326-resp-gas-transport
-  d64f6fed02ca7198  abct2326-resp-lung-volumes
-  d4d67a64fd4cefb7  abct2326-resp-oxygen-transport
-  90681663fbb7d089  abct2326-resp-pathway
-  be3a525bf18eb2d5  abct2326-resp-ventilation-chemoreceptors
-  2c652f154172c351  abct2326-resp-ventilation-mechanics
+  e5c2f9673ddde554  abct2326-resp-carbon-dioxide-control
+  4feb55211b444b43  abct2326-resp-gas-transport
+  62cb92dfacdb138e  abct2326-resp-lung-volumes
+  ed7d3460f84aa982  abct2326-resp-oxygen-transport
+  8b78052284c93758  abct2326-resp-pathway
+  40de014fce5539b2  abct2326-resp-ventilation-chemoreceptors
+  9f92be1ba27f106e  abct2326-resp-ventilation-mechanics
   7e912f83940b20cf  abct2326-spindle-golgi
   cdafdaa0fc116952  abct2326-synapse-drug-action
   8a2086b79935fcad  abct2326-t-cell-types
@@ -167,7 +167,7 @@
   3d7fca2a42c80c39  hss2011-joints-movements
   21a55e02a84c71a8  hss2011-joints-rotator-cuff
   22560aaf88e51f57  hss2011-joints-synovial-structure
-  eeb540bf3e373524  hss2011-joints-synovial-types
+  cacc62a2803abd79  hss2011-joints-synovial-types
   7e65a670a9b31dca  hss2011-lower-femoral-triangle-vessels-nerves
   cbf924788dc5dff7  hss2011-lower-leg-foot-muscles-arches
   989b1596f98d307f  hss2011-lower-thigh-gluteal-muscles
@@ -255,7 +255,7 @@
   30091d89e9d0186e  hti17103-linac-accessories-protection
   62b95f4726c3c768  hti17103-linac-electrons-rapidarc
   731f398b4947215e  hti17103-linac-physics-components
-  3254f4f925328398  hti17103-modality-best-use
+  ff9a1814eb4625d6  hti17103-modality-best-use
   a5068abd9cba55ae  hti17103-modality-choice
   f4c425d8513dce4c  hti17103-modality-detail
   c5b8fe867b2db5eb  hti17103-radiation-therapy
