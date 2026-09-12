@@ -533,7 +533,18 @@ export const WEEK_STUDY = {
       'apss1a08-global-perspective', 'apss1a08-research-to-change',
       'apss1a08-marx-weber-change',
     ],
-    2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: [], 13: [],
+    2: [
+      'apss1a08-three-theoretical-approaches', 'apss1a08-structural-functional-approach',
+      'apss1a08-social-conflict-key-concepts', 'apss1a08-social-conflict-case-studies',
+      'apss1a08-symbolic-interaction-approach', 'apss1a08-comparing-three-approaches',
+    ],
+    3: [
+      'apss1a08-goffman-dramaturgy', 'apss1a08-bourdieu-forms-of-capital',
+      'apss1a08-bourdieu-cultural-capital-reproduction', 'apss1a08-bourdieu-poverty-hong-kong',
+      'apss1a08-foucault-knowledge-power', 'apss1a08-foucault-disciplinary-power-sexuality',
+      'apss1a08-giddens-love-history', 'apss1a08-giddens-pure-relationship-critique',
+    ],
+    4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: [], 13: [],
   },
   DSAI1202: {
     1: ['dsai1202-ai-everyday-autonomy', 'dsai1202-ai-in-healthcare', 'dsai1202-ai-literacy'],
@@ -558,8 +569,6 @@ export const WEEK_GAPS = {
     10: 'Reading week — no lecture or tutorial scheduled.',
   },
   APSS1A08: {
-    2: 'T02A — Functionalist perspectives, social institutions and conflict perspectives: official lecture notes not supplied.',
-    3: 'T02B — Modern Contemporary Theorists: official lecture notes not supplied.',
     4: 'T03 — Socialization: official lecture notes not supplied.',
     5: 'T04 — Social Interaction: official lecture notes not supplied.',
     6: 'Consultation Session 1 — individual consultations on reflective paper, no lecture.',

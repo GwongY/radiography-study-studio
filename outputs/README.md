@@ -16,6 +16,32 @@ The workflow is the same for every subject:
 
 ## Files
 
+### APSS1A08 Topics 02A and 02B registered (September 2026)
+
+`New source/Sociology/Topic 02A & Topic 02B.pdf` arrived 2026-09-12, covering the
+lecture already delivered that week (T02A: structural-functional, social-conflict
+and symbolic-interaction approaches) and the following week's lecture (T02B: four
+modern contemporary theorists — Goffman, Bourdieu, Foucault, Giddens). Genuinely
+new slots (`node work/query.mjs file "Topic 02"` found nothing before this),
+registered as two `SOURCE_FILES` refs against the one combined PDF —
+`soc.t02a.2026` for pp1–12, `soc.t02b.2026` for pp13–28 — because
+`resolveSource` keys on filename+folder, not on page range, so the ref itself is
+what tells a citation which topic it belongs to; discipline about which ref cites
+which page range is enforced by the author, not the checker. Fourteen new
+lessons wired into `WEEK_STUDY.APSS1A08` weeks 2 and 3, retiring both weeks'
+`WEEK_GAPS` entries. Five ordinary English words (`linguistic`, `protests`,
+`symbols`, `metaphor`, `analysing`) picked up spurious reading-help underlines
+from anatomical word-part roots buried inside them (`lingu-` = tongue, `lys-` =
+break down, `meta-` = beyond/change) and joined the stoplist, the same fix
+already applied to `symbolic`. `work/source-catalogue.json` and
+`work/source-text.json` regenerated to pick up the new file; `CACHE_VERSION`
+bumped to v172. `docs/CODEMAP.md` and `docs/DATA-INDEX.md` regeneration was
+deliberately deferred — a concurrent session had unrelated corpus and
+physiology-route changes staged in the same working tree at the time, and
+regenerating either file would have swept their unfinished work into this
+change. Whoever lands next should run both generators once all sessions have
+committed.
+
 ### Lesson progress and viewer return (September 2026)
 
 New lessons start on Learn (1/4), including prior-knowledge lessons. Prior syllabus
@@ -339,7 +365,7 @@ answer used was then cross-checked against its question text.
 | ABCT2326 Human Physiology | **Syllabus mapped; sources audited** | The current Group 4 overview and 2026 Lecture 1 control the course shape and cells unit. Systems 2–10 use official older lectures where current files are absent. “Mapped” means every app lesson is placed in the current schedule and source-checked; it is not a claim that every historical file became a lesson. |
 | HSS2011 Human Anatomy | **Syllabus mapped; sources audited** | The current SDF, schedules, Week 1 pair and Weeks 2–4 movement self-study control the syllabus and early weeks. Later topics use official older HSS2011 sources, including four Week 7 Special Senses lessons. “Mapped” does not treat uncited duplicates, student work or future material as missing lessons. |
 | HTI17103 Introduction to Medical Radiation Science | **Substitute source** | The current HTI17103 schedule and opening lecture are supplied. Later teaching remains built from the official HTI17101 Exploring Radiography set, topic-matched to the current schedule and never silently renamed. |
-| APSS1A08 Introduction to Sociology | **Limited source coverage** | The current syllabus and Topic 01 lecture are verified, producing five lessons. Official T02A–T08 lecture notes are missing and appear as named weekly gaps; old student papers are not used for facts. |
+| APSS1A08 Introduction to Sociology | **Limited source coverage** | The current syllabus and Topics 01, 02A and 02B are verified, producing nineteen lessons. T02A and T02B come from one combined deck (`Topic 02A & Topic 02B.pdf`), registered as two refs — `soc.t02a.2026` for pp1–12, `soc.t02b.2026` for pp13–28 — so a citation's page range says which topic it belongs to. Official T03–T08 lecture notes are missing and appear as named weekly gaps; old student papers are not used for facts. |
 | DSAI1202 Introduction to AI and Data Analytics | **Limited source coverage** | The current Week 1 overview supplies two lessons, the full tentative topic schedule, assessment and AI policy. Weeks 2–12 remain named source gaps until their official teaching files arrive. |
 | LEI1101 AI as a Tool for Language Learning | **No materials** | Placeholder page. ELC1011/ELC1012 exist but are different subjects and were deliberately not substituted. |
 

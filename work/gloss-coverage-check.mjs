@@ -31,7 +31,7 @@ export const COMMON_STOPLIST = new Set([
   'referring', 'reflexive', 'sterile', 'tensile', 'transmission', 'transplant', 'transplanted',
   'transplants', 'universal', 'version', 'visual', 'pause', 'press', 'plant', 'organism', 'organisms',
   'organismal', 'autopilot', 'admission', 'symbolic', 'defunded', 'program', 'programs',
-  'submission', 'submissions'
+  'submission', 'submissions', 'linguistic', 'protests', 'symbols', 'metaphor', 'analysing',
 ]);
 
 export const KNOWN_NUMBER_PAIRS = [

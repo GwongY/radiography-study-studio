@@ -204,7 +204,9 @@ export const SOURCE_FILES = {
 
   /* ---------------- APSS1A08 Introduction to Sociology ---------------- */
   'soc.syllabus.2026': { file: 'Introduction to Sociology (2026-2027 Sem.1).pdf', subject: 'APSS1A08', root: 'newsrc', folder: '', kind: 'admin', note: 'Current APSS1A08/APSS112 syllabus for Semester One 2026/27. The authority for the Friday class, all thirteen weekly topics, learning outcomes, assessment weights, AI permissions and assignment deadlines.' },
-  'soc.t01.2026': { file: 'Topic 01.pdf', subject: 'APSS1A08', root: 'newsrc', folder: '', kind: 'primary', note: 'Current Topic 01 lecture, September 2026. Defines sociology and the sociological perspective, applies it to partner selection and educational opportunity, extends it to the global perspective, and introduces Marx and Weber. This is the only APSS lecture supplied so far.' },
+  'soc.t01.2026': { file: 'Topic 01.pdf', subject: 'APSS1A08', root: 'newsrc', folder: '', kind: 'primary', note: 'Current Topic 01 lecture, September 2026. Defines sociology and the sociological perspective, applies it to partner selection and educational opportunity, extends it to the global perspective, and introduces Marx and Weber.' },
+  'soc.t02a.2026': { file: 'Topic 02A & Topic 02B.pdf', subject: 'APSS1A08', root: 'newsrc', folder: '', kind: 'primary', note: 'Current T02A lecture, September 2026, pp1-12 of the combined T02A/T02B deck. The three major theoretical approaches: structural-functional (manifest/latent functions, social dysfunction), social-conflict (gender-conflict and race-conflict theory, an educational-system and a Hong Kong healthcare example) and symbolic-interaction, closing with a comparison table across all three.' },
+  'soc.t02b.2026': { file: 'Topic 02A & Topic 02B.pdf', subject: 'APSS1A08', root: 'newsrc', folder: '', kind: 'primary', note: 'Current T02B lecture, September 2026, pp13-28 of the combined T02A/T02B deck. Four modern contemporary theorists: Goffman (dramaturgy, front/backstage), Bourdieu (forms of capital, cultural-capital reproduction, a Hong Kong poverty case), Foucault (knowledge/power, disciplinary power, the historical discourse of sexuality) and Giddens (the pure relationship, democratization of intimacy).' },
   'soc.a1.star': { file: 'assignment 1.docx', subject: 'APSS1A08', root: 'star', folder: 'CAR/introduction to sociology', kind: 'student' },
   'soc.a2.star': { file: 'assignment 2.docx', subject: 'APSS1A08', root: 'star', folder: 'CAR/introduction to sociology', kind: 'student' },
   'soc.fp.star': { file: 'final paper.docx', subject: 'APSS1A08', root: 'star', folder: 'CAR/introduction to sociology', kind: 'student' },
@@ -327,7 +329,7 @@ export const SUBJECTS = [
     title: 'Introduction to Sociology',
     accent: '#d3a0ff',
     coverage: 'limited',
-    blurb: 'The current 2026/27 syllabus and Topic 01 lecture are supplied. T02A–T08 remain explicit source gaps until their lecture notes arrive.',
+    blurb: 'The current 2026/27 syllabus and Topics 01, 02A and 02B are supplied. T03–T08 remain explicit source gaps until their lecture notes arrive.',
     units: [
       { id: 'soc.t01', label: 'T01 — Introduction to sociology' },
       { id: 'soc.t02a', label: 'T02A — Functionalist and conflict perspectives' },
