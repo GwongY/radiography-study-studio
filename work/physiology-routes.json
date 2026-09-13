@@ -151,7 +151,7 @@
     "circulatory": [
       {
         "id": "aorta-ascending",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Ascending_aorta",
         "circuit": "systemic-arterial",
         "after": null,
@@ -179,7 +179,7 @@
       },
       {
         "id": "aorta-arch",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Aortic_arch",
         "circuit": "systemic-arterial",
         "after": "aorta-ascending",
@@ -207,7 +207,7 @@
       },
       {
         "id": "aorta-thoracic",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Thoracic_aorta",
         "circuit": "systemic-arterial",
         "after": "aorta-arch",
@@ -235,7 +235,7 @@
       },
       {
         "id": "aorta-abdominal",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Abdominal_aorta",
         "circuit": "systemic-arterial",
         "after": "aorta-thoracic",
@@ -263,7 +263,7 @@
       },
       {
         "id": "brachiocephalic-trunk",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Brachiocephalic_trunk",
         "circuit": "systemic-arterial",
         "after": "aorta-arch",
@@ -291,7 +291,7 @@
       },
       {
         "id": "carotid-common-right",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Right_common_carotid_artery",
         "circuit": "systemic-arterial",
         "after": "brachiocephalic-trunk",
@@ -319,7 +319,7 @@
       },
       {
         "id": "carotid-common-left",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Left_common_carotid_artery",
         "circuit": "systemic-arterial",
         "after": "aorta-arch",
@@ -347,7 +347,7 @@
       },
       {
         "id": "carotid-internal-right",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Internal_carotid_arteryr",
         "circuit": "systemic-arterial",
         "after": "carotid-common-right",
@@ -375,7 +375,7 @@
       },
       {
         "id": "carotid-internal-left",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Internal_carotid_arteryl",
         "circuit": "systemic-arterial",
         "after": "carotid-common-left",
@@ -403,7 +403,7 @@
       },
       {
         "id": "subclavian-artery-right",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Right_subclavian_artery",
         "circuit": "systemic-arterial",
         "after": "brachiocephalic-trunk",
@@ -431,7 +431,7 @@
       },
       {
         "id": "subclavian-artery-left",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Left_subclavian_artery",
         "circuit": "systemic-arterial",
         "after": "aorta-arch",
@@ -459,7 +459,7 @@
       },
       {
         "id": "axillary-artery-right",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Axillary_arteryr",
         "circuit": "systemic-arterial",
         "after": "subclavian-artery-right",
@@ -487,7 +487,7 @@
       },
       {
         "id": "axillary-artery-left",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Axillary_arteryl",
         "circuit": "systemic-arterial",
         "after": "subclavian-artery-left",
@@ -515,7 +515,7 @@
       },
       {
         "id": "vertebral-artery-right",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Vertebral_arteryr",
         "circuit": "systemic-arterial",
         "after": "subclavian-artery-right",
@@ -543,7 +543,7 @@
       },
       {
         "id": "vertebral-artery-left",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Vertebral_arteryl",
         "circuit": "systemic-arterial",
         "after": "subclavian-artery-left",
@@ -571,7 +571,7 @@
       },
       {
         "id": "iliac-common-right",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Common_iliac_arteryr",
         "circuit": "systemic-arterial",
         "after": "aorta-abdominal",
@@ -599,7 +599,7 @@
       },
       {
         "id": "iliac-common-left",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Common_iliac_arteryl",
         "circuit": "systemic-arterial",
         "after": "aorta-abdominal",
@@ -627,7 +627,7 @@
       },
       {
         "id": "iliac-external-right",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "External_iliac_arteryr",
         "circuit": "systemic-arterial",
         "after": "iliac-common-right",
@@ -655,7 +655,7 @@
       },
       {
         "id": "iliac-external-left",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "External_iliac_arteryl",
         "circuit": "systemic-arterial",
         "after": "iliac-common-left",
@@ -683,7 +683,7 @@
       },
       {
         "id": "femoral-artery-right",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Femoral_arteryr",
         "circuit": "systemic-arterial",
         "after": "iliac-external-right",
@@ -711,7 +711,7 @@
       },
       {
         "id": "femoral-artery-left",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Femoral_arteryl",
         "circuit": "systemic-arterial",
         "after": "iliac-external-left",
@@ -739,7 +739,7 @@
       },
       {
         "id": "pulmonary-trunk",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Pulmonary_trunk",
         "circuit": "pulmonary-arterial",
         "after": null,
@@ -767,7 +767,7 @@
       },
       {
         "id": "pulmonary-artery-right",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Right_pulmonary_artery",
         "circuit": "pulmonary-arterial",
         "after": "pulmonary-trunk",
@@ -795,7 +795,7 @@
       },
       {
         "id": "pulmonary-artery-left",
-        "kind": "glow",
+        "kind": "pulse",
         "mesh": "Left_pulmonary_artery",
         "circuit": "pulmonary-arterial",
         "after": "pulmonary-trunk",

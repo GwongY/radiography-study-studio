@@ -24,7 +24,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadGlbMeshes } from './glb-mesh.mjs';
 import { LAYERS, OUTPUTS } from './lib/mesh-names.mjs';
-import { PATH_ATTRIBUTES, PROGRESS_ATTRIBUTES, derivePathRoute, deriveProgressRoute, geodesicFrom, weldedGraph } from '../outputs/physiology-path.js';
+import { PATH_ATTRIBUTES, PROGRESS_ATTRIBUTES, derivePathRoute, deriveProgressRoute, derivePulseRoute, geodesicFrom, weldedGraph } from '../outputs/physiology-path.js';
 
 const here = (name) => fileURLToPath(new URL(name, import.meta.url));
 const sha = (data) => createHash('sha256').update(data).digest('hex');
@@ -168,16 +168,35 @@ export function buildLayer(layer, file, definitions) {
     if (tooFar) { rejected.push({ ...definition, reason: 'anchor-not-adjacent', ...tooFar, anchors }); continue; }
 
     /*
-     * Two kinds, two gates. A tube route earns a local frame and a Jacobian
+     * Three kinds, three gates. A tube route earns a local frame and a Jacobian
      * because something is going to MOVE along it; a glow route earns an
      * ordering and nothing else, because nothing moves. The weaker gate is
      * deliberate, and outputs/physiology-path.js records exactly which four
      * refusals it drops and why.
      */
     const glow = definition.kind === 'glow';
-    const route = glow
-      ? deriveProgressRoute({ positions: mesh.positions, indices: mesh.indices, proximal, distal })
-      : derivePathRoute({ positions: mesh.positions, indices: mesh.indices, proximal, distal });
+    const pulse = definition.kind === 'pulse';
+    /*
+     * A curated pulse route that the pulse gate refuses falls back to its glow
+     * derivation, and the refusal rides the accepted route as `pulseRefused`:
+     * the travelling light and its chained offsets must not lose the refused
+     * mesh's length (the ascending aorta, at 1.3 calibres, is exactly the
+     * vessel the crest has to cross on its way out), and the missing SWELL is
+     * the honest outcome — the wall there simply stays still under the light.
+     */
+    let pulseRefused = null;
+    let route = pulse
+      ? derivePulseRoute({ positions: mesh.positions, indices: mesh.indices, proximal, distal })
+      : null;
+    if (pulse && !route.accepted) {
+      pulseRefused = { reason: route.reason, calibres: route.calibres };
+      route = deriveProgressRoute({ positions: mesh.positions, indices: mesh.indices, proximal, distal });
+    } else if (!pulse) {
+      route = glow
+        ? deriveProgressRoute({ positions: mesh.positions, indices: mesh.indices, proximal, distal })
+        : derivePathRoute({ positions: mesh.positions, indices: mesh.indices, proximal, distal });
+    }
+    const effectiveGlow = glow || (pulse && pulseRefused !== null);
     if (!route.accepted) { rejected.push({ ...definition, ...route, accepted: undefined, anchors }); continue; }
 
     const count = mesh.positions.length / 3;
@@ -188,8 +207,27 @@ export function buildLayer(layer, file, definitions) {
     }
     const encode = (array) => Buffer.from(array.buffer, array.byteOffset, array.byteLength).toString('base64');
     let data;
-    if (glow) {
-      /* One number per vertex. There is nothing to push back through the node
+    if (pulse && pulseRefused === null) {
+      /* The pulse route carries the full tube-style frame — the swell is real
+         displacement, Jacobian and all — and its WAVE is placed by the
+         circuit's uStart/uSpan against the route parameter, exactly as the
+         glow band is. No extra attribute: aPathParam does double duty. */
+      const centre = new Float32Array(count * 3), tangent = new Float32Array(count * 3), bend = new Float32Array(count * 3);
+      for (let i = 0; i < count; i++) {
+        centre.set(similarity.point([route.centre[i * 3], route.centre[i * 3 + 1], route.centre[i * 3 + 2]]), i * 3);
+        tangent.set(similarity.direction([route.tangent[i * 3], route.tangent[i * 3 + 1], route.tangent[i * 3 + 2]]), i * 3);
+        bend.set(similarity.direction([route.bend[i * 3], route.bend[i * 3 + 1], route.bend[i * 3 + 2]]).map((v) => v * similarity.scale), i * 3);
+      }
+      data = {
+        aPathParam: encode(route.param),
+        aPathCentre: encode(centre),
+        aPathTangent: encode(tangent),
+        aPathBend: encode(bend),
+      };
+    } else if (glow || pulseRefused !== null) {
+      /* glow — a curated glow route, or a pulse route the pulse gate refused:
+         the light keeps its chained route and the wall stays still. One number
+         per vertex. There is nothing to push back through the node
          transform: progress along the route is a scalar, and a similarity does
          not change it. The transform is still resolved above, because a
          non-similarity node would mean the runtime's local frame is not the
@@ -200,7 +238,7 @@ export function buildLayer(layer, file, definitions) {
       for (let i = 0; i < count; i++) {
         centre.set(similarity.point([route.centre[i * 3], route.centre[i * 3 + 1], route.centre[i * 3 + 2]]), i * 3);
         tangent.set(similarity.direction([route.tangent[i * 3], route.tangent[i * 3 + 1], route.tangent[i * 3 + 2]]), i * 3);
-        bend.set(similarity.direction([route.bend[i * 3], route.bend[i * 3 + 1], route.bend[i * 3 + 2]]).map((v) => v / similarity.scale), i * 3);
+        bend.set(similarity.direction([route.bend[i * 3], route.bend[i * 3 + 1], route.bend[i * 3 + 2]]).map((v) => v * similarity.scale), i * 3);
       }
       data = {
         aPathParam: encode(route.param),
@@ -210,7 +248,8 @@ export function buildLayer(layer, file, definitions) {
       };
     }
     accepted.push({
-      id: definition.id, mesh: definition.mesh, kind: glow ? 'glow' : 'tube',
+      id: definition.id, mesh: definition.mesh, kind: definition.kind === 'tube' ? 'tube' : effectiveGlow ? 'glow' : 'pulse',
+      pulseRefused: pulseRefused || undefined,
       circuit: definition.circuit || null, after: definition.after || null,
       /*
        * The glTF NODE index, not just the name. three.js renames a duplicate to
@@ -223,7 +262,7 @@ export function buildLayer(layer, file, definitions) {
       vertices: count, indexCount: mesh.indices.length,
       layout: layoutHash(mesh.indices), bounds: localBounds(local),
       length: route.length / similarity.scale,
-      radius: glow ? null : route.radius / similarity.scale,
+      radius: effectiveGlow ? null : route.radius / similarity.scale,
       worldLength: route.length, stations: route.stations,
       crowding: +route.crowding.toFixed(2), worstSpread: +route.worstSpread.toFixed(2), worstStep: +route.worstStep.toFixed(2),
       anchors,
@@ -234,7 +273,39 @@ export function buildLayer(layer, file, definitions) {
       data,
     });
   }
-  return { layer, file, glbHash, accepted, rejected, circuits: circuitsOf(accepted, rejected) };
+  const circuits = circuitsOf(accepted, rejected);
+  // A branch can pass the tube gate but have opposing fitted radial directions
+  // at its attachment. Refuse that child's swell, preserving its measured glow.
+  // cos < -0.5 means over 120 degrees: beyond a right-angle branch plus a
+  // 30-degree fit allowance. The independent payload check repeats this in local
+  // space through the actual map across the cycle.
+  for (const child of accepted) {
+    const parent = accepted.find(r => r.id === child.after);
+    if (child.kind !== 'pulse' || parent?.kind !== 'pulse') continue;
+    const cm = meshes.get(child.mesh), pm = meshes.get(parent.mesh);
+    let gap = Infinity, pair;
+    for (let j = 0; j < child.vertices; j++) {
+      for (let i = 0; i < parent.vertices; i++) {
+        const d = Math.hypot(...[0,1,2].map(k => pm.positions[i*3+k]-cm.positions[j*3+k]));
+        if (d < gap) { gap = d; pair = [i,j]; }
+      }
+    }
+    if (!pair) throw new Error(`${child.id}: no proximal join vertices`);
+    const radial = (r,m,i) => {
+      const u = [0,1,2].map(k => m.positions[i*3+k]-r.derived.centre[i*3+k]);
+      const t = Array.from(r.derived.tangent.slice(i*3,i*3+3));
+      const dot = u.reduce((a,v,k)=>a+v*t[k],0);
+      return u.map((v,k)=>v-dot*t[k]);
+    };
+    const p = radial(parent,pm,pair[0]), c = radial(child,cm,pair[1]);
+    const cosine = p.reduce((a,v,k)=>a+v*c[k],0)/(Math.hypot(...p)*Math.hypot(...c));
+    if (cosine >= -.5) continue;
+    child.pulseRefused = { reason:'route-join-direction', predecessor:parent.id, cosine, gap };
+    child.kind = 'glow'; child.radius = null;
+    child.data = { aPathProgress: child.data.aPathParam };
+    child.digest = sha(Object.values(child.data).join('')).slice(0,16);
+  }
+  return { layer, file, glbHash, accepted, rejected, circuits };
 }
 
 /*
@@ -320,7 +391,7 @@ if (process.argv[1]?.endsWith('build-physiology-paths.mjs')) {
       const bytes = Object.values(route.data).reduce((s, b) => s + b.length, 0);
       total += bytes;
       const place = route.circuit ? `  ${route.circuit} ${route.uStart.toFixed(2)}\u2013${(route.uStart + route.uSpan).toFixed(2)}` : '';
-      console.log(`  ok ${route.kind === 'glow' ? 'glow' : 'tube'} ${route.id.padEnd(30)} ${String(route.vertices).padStart(5)} verts  length ${route.worldLength.toFixed(3)}  stations ${String(route.stations).padStart(3)}  crowd ${route.crowding}  ${(bytes / 1024).toFixed(0)} KiB${place}`);
+      console.log(`  ok ${route.kind} ${route.id.padEnd(30)} ${String(route.vertices).padStart(5)} verts  length ${route.worldLength.toFixed(3)}  stations ${String(route.stations).padStart(3)}  crowd ${route.crowding}  ${(bytes / 1024).toFixed(0)} KiB${place}`);
     }
     for (const route of built.rejected) {
       const why = ['components', 'reach', 'decile', 'crowding', 'split', 'wide', 'worstStep', 'bulge', 'clearance', 'calibres', 'distance']
@@ -341,7 +412,7 @@ if (process.argv[1]?.endsWith('build-physiology-paths.mjs')) {
       const payload = {
         schemaVersion: 2, layer: built.layer, modelVersion: MODEL_VERSION,
         glbHash: built.glbHash, generator: GENERATOR, kernel: KERNEL, definitions: DEFINITIONS,
-        attributes: { tube: PATH_ATTRIBUTES, glow: PROGRESS_ATTRIBUTES },
+        attributes: { tube: PATH_ATTRIBUTES, glow: PROGRESS_ATTRIBUTES, pulse: PATH_ATTRIBUTES },
         circuits: built.circuits,
         routes: built.accepted.map(({ derived, ...route }) => route),
         rejected: built.rejected.map((r) => ({ id: r.id, mesh: r.mesh, kind: r.kind || 'tube', circuit: r.circuit || null, reason: r.reason })),
@@ -356,7 +427,7 @@ if (process.argv[1]?.endsWith('build-physiology-paths.mjs')) {
       ' * Where the curated route payloads live, and what they were derived from.',
       ' *',
       ' * One file per layer, fetched with the layer it belongs to: tube routes for the',
-      ' * travelling constriction, glow routes for the travelling light.',
+      ' * travelling constriction, pulse frames for arterial swell, glow for light.',
       ' *',
       ' * GENERATED by work/build-physiology-paths.mjs — do not hand-edit. The `?g=`',
       ' * stamp is the cache key: it changes whenever the generator, the path kernel,',

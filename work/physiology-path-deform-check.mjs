@@ -12,7 +12,7 @@
 import assert from 'node:assert/strict';
 import { S_BEND, STRAIGHT, U_BEND, tubeMesh } from './lib/synthetic-tubes.mjs';
 import {
-  PATH_SHAPE_GLSL, derivePathRoute, pathDeformation, peristalticWave,
+  PATH_PULSE_GLSL, PATH_SHAPE_GLSL, derivePathRoute, pathDeformation, peristalticWave, pulseWave,
 } from '../outputs/physiology-path.js';
 
 let checks = 0;
@@ -200,4 +200,68 @@ for (const [name, curve] of [['straight', STRAIGHT(1)], ['U', U_BEND], ['S', S_B
   ok(!/\bfor\s*\(/.test(PATH_SHAPE_GLSL), 'no loops in the per-vertex path shader');
 }
 
-console.log(`PASS: ${checks} deformation assertions (wave taper and derivative, exact zero-amplitude identity, Jacobian against central differences, normals against deformed tangents, purely local radial squeeze on straight/U/S routes)`);
+/* --- the arterial swell: the constriction algebra with the sign reversed --- */
+{
+  /* The pulse deformation is pathDeformation with the wave's sign reversed;
+     the swell must displace OUTWARD with a positive determinant, the zero
+     amplitude identity must stay exact, and the Jacobian must still match a
+     central difference of the map itself. On a straight frame the route param
+     of a point is its axial coordinate over the length, so the wave is a
+     spatial function of the probe point exactly as it is on a real route. */
+  const frame = { centre: [0, 0, 0], tangent: [0, 1, 0], bend: [0, 0, 0], length: 1.2 };
+  const args = { amplitude: .05, falloff: .5, sharp: 4, phase: .37 };
+  const at = { position: [.012, .015, .004], normal: unit([.7, .1, .7]) };
+  const paramOf = (p) => Math.min(1, Math.max(0, p[1] / frame.length + .5));
+  const waveAt = (p) => {
+    const w = pulseWave(.14 + .16 * paramOf(p), args.phase, args);
+    return { value: -w.value, derivative: -.16 * w.derivative };
+  };
+  const w0 = waveAt(at.position);
+  ok(w0.value < 0, 'the reversed wave is negative, which the algebra reads as expansion');
+  const moved = pathDeformation({ ...frame, ...at, wave: w0 });
+  const radial = unit(sub(at.position, frame.centre).map((v, i) => v - dot(sub(at.position, frame.centre), frame.tangent) * frame.tangent[i]));
+  ok(dot(sub(moved.position, at.position), radial) > 0, 'the wall moves outward along its own radial');
+  ok(moved.determinant > 1, `expansion reads in the determinant (${moved.determinant.toFixed(5)})`);
+  ok(moved.jacobian.every(Number.isFinite), 'jacobian finite');
+
+  const rest = pathDeformation({ ...frame, ...at, wave: { value: 0, derivative: 0 } });
+  ok(rest.position.every((v, i) => v === at.position[i]) && rest.normal.every((v, i) => v === at.normal[i]),
+    'zero amplitude returns the rest pose bit for bit');
+
+  const eps = 1e-7;
+  let worstJ = 0;
+  for (let c = 0; c < 3; c++) {
+    const e = [0, 0, 0]; e[c] = eps;
+    const up = at.position.slice(); up[c] += eps;
+    const dn = at.position.slice(); dn[c] -= eps;
+    const fwd = pathDeformation({ ...frame, position: up, normal: at.normal, wave: waveAt(up) });
+    const back = pathDeformation({ ...frame, position: dn, normal: at.normal, wave: waveAt(dn) });
+    for (let r = 0; r < 3; r++) {
+      const fd = (fwd.position[r] - back.position[r]) / (2 * eps);
+      worstJ = Math.max(worstJ, Math.abs(fd - moved.jacobian[c * 3 + r]));
+    }
+  }
+  const cols = [0, 1, 2].map((c2) => {
+    const e = [0, 0, 0]; e[c2] = eps;
+    const up = at.position.slice(); up[c2] += eps;
+    const dn = at.position.slice(); dn[c2] -= eps;
+    const fwd = pathDeformation({ ...frame, position: up, normal: at.normal, wave: waveAt(up) });
+    const back = pathDeformation({ ...frame, position: dn, normal: at.normal, wave: waveAt(dn) });
+    return [0, 1, 2].map((r2) => (fwd.position[r2] - back.position[r2]) / (2 * eps));
+  });
+  const cross = (a2, b2) => [a2[1] * b2[2] - a2[2] * b2[1], a2[2] * b2[0] - a2[0] * b2[2], a2[0] * b2[1] - a2[1] * b2[0]];
+  const c0 = cross(cols[1], cols[2]), c1 = cross(cols[2], cols[0]), c2 = cross(cols[0], cols[1]);
+  const movedN = [0, 1, 2].map((r2) => c0[r2] * at.normal[0] + c1[r2] * at.normal[1] + c2[r2] * at.normal[2]);
+  const len = norm(movedN) || 1;
+  let worstN = 0;
+  for (let k = 0; k < 3; k++) worstN = Math.max(worstN, Math.abs(movedN[k] / len - moved.normal[k]));
+  ok(worstJ < 1e-6 && worstN < 1e-6,
+    `the swell's jacobian and normal match central differences (J ${worstJ.toExponential(2)}, n ${worstN.toExponential(2)})`);
+
+  for (const token of ['rssPulseWave', 'rssPulseDeform', 'uPulseAmp', 'uPulsePhase', 'uOn']) {
+    ok(PATH_PULSE_GLSL.includes(token), `the pulse GLSL declares ${token}`);
+  }
+  ok(!/for\s*\(/.test(PATH_PULSE_GLSL.replace(/\s/g, ' ')), 'no loops in the per-vertex pulse shader');
+}
+
+console.log(`PASS: ${checks} deformation assertions (wave taper and derivative, exact zero-amplitude identity, Jacobian against central differences, normals against deformed tangents, purely local radial squeeze on straight/U/S routes, the arterial swell through the shared algebra)`);

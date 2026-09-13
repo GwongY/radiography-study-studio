@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1086 —
-  063d66b35c23c246  WHOLE SET
+— user-facing strings in outputs/ — 1089 —
+  d31302b6b84147ff  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -973,6 +973,7 @@
   c93a88684ed76c4f  real BodyParts3D upper-limb meshes
   6ab01b1dba123b71  region filter does not work
   781cdd8431f04584  reveal open
+  039ed7115face420  s depth is a fraction of the vessel
   dce1c177b1e44a6a  s depth, less the tag
   df49128572cf09cb  s job is only to feed it those meshes in the body
   91f0e226c82016ff  s left), fz 0 the trunk
@@ -1029,6 +1030,7 @@
   c3822811c3710882  uniform float uMotorClock;uniform float uArrivalStart;uniform float uArrivalSpan;\n
   abdffdbeb6c126c5  uniform float uMu, uCmPerUnit, uShell, uGraze;
   3d482f7345225afc  uniform float uOrigin;uniform float uWrap;uniform float uDir;uniform float uSpeed;\n
+  074c83e0aa0c072d  uniform float uT;uniform float uDir;
   44710d35e1fad7ee  uniform float uT;uniform float uOn;uniform float uBeat;uniform vec3 uFlowColor;\n
   9a6541d474b851c9  uniform float uWinLo, uWinHi, uSigma, uSeed, uFlipX;
   98250706ec88a1f3  uniform sampler2D tTau;
@@ -1043,6 +1045,7 @@
   9530daa7ca0f593d  vPosition = mv.xyz;
   35cf5b7cf14017b9  varying float vCenterDepth;
   84fbaea5156547f6  varying float vCos;
+  7391f351ea4a8453  varying float vFlowS;
   9c46d65d8d548c7f  varying float vFlowY;\n
   18dca9f54eeb687d  varying vec2 vUv;
   535038c502c1ec8e  varying vec3 vPosition;

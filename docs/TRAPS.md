@@ -1251,6 +1251,28 @@ document itself claims to contain — here, `Answer:` lines counted directly.
 
 ### Routes — `outputs/physiology-path.js`, `work/build-physiology-paths.mjs`, `outputs/studio/live-physiology.js`
 
+**Pulse is independent of the old deformation rule.** Arterial rules deliberately
+have no `mode`; bind pulse attributes/uniforms outside `if(deform)`. Compile a
+real pulse material as well as testing the standalone GLSL. `PATH_SHAPE_GLSL`
+needs uT/uDir declared before it, even when its constriction function is unused.
+Do not duplicate the route uniforms from the glow header in the pulse header.
+
+**The swell is dimensionless.** `x += w * radial` already includes radius.
+Multiplying depth by radius again makes the result depend on the GLB node scale.
+The wave uses circuit progress, but the frame uses local route progress: multiply
+its derivative by `uRouteSpan` before applying the Jacobian. Check GPU normals,
+not just moved positions. Clearance is centreline distance / sum of radii; a
+5% swell requires more than 1.05, not a threshold below resting contact at 1.
+
+**A join test must sample every phase and preserve buffer indices.** Reset the
+nearest-pair distance for each sample; a global minimum silently skipped seven
+of eight old iterations. Indices into a filtered list are not vertex indices.
+The corrected 64-phase check includes pulse/glow boundaries and the named
+stationary pulmonary bifurcation. Added displacement mismatch is bounded at
+1 mm, a display tolerance; it does not assert welded continuity. Opposing fits
+(cosine below -0.5) refuse the child's swell by name, retaining its glow.
+
+
 Peristalsis used to be measured against one bounding-box axis: "along the tube"
 was a projection onto a single global direction and "across it" was whatever was
 left. On a straight ureter that reads correctly. On the transverse colon it

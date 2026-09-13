@@ -63,9 +63,14 @@ export const FLOW_ANCHORS = { heart: 0.755, venousAngle: 0.824, cord: 0.70 };
  * model's world units, in which the body stands about 1.7 tall.
  */
 const MOTOR_CIRCUIT = { label: 'Motor nerve', mode: 'motor', arrivalStart: .10, arrivalSpan: .45 };
+/* depth and falloff are DISPLAY parameters for the travelling swell on the
+   pulse routes: the depth is a fraction of each vessel's own calibre, and the
+   falloff — a stand-in for compliance the sources do not describe — leaves the
+   distal end of the circuit at (1 - falloff) of the proximal swell. Both are
+   labelled as display in the legend wording. */
 export const FLOW_CIRCUITS = {
-  'systemic-arterial': { label: 'Systemic arteries', mode: 'pulse', sharp: 5, lead: .34 },
-  'pulmonary-arterial': { label: 'Pulmonary arteries', mode: 'pulse', sharp: 5, lead: .34 },
+  'systemic-arterial': { label: 'Systemic arteries', mode: 'pulse', sharp: 5, lead: .34, depth: .05, falloff: .5 },
+  'pulmonary-arterial': { label: 'Pulmonary arteries', mode: 'pulse', sharp: 5, lead: .34, depth: .05, falloff: .5 },
   'systemic-venous': { label: 'Systemic veins', mode: 'drift', sharp: 3, wavelength: .16, speed: .10 },
   'pulmonary-venous': { label: 'Pulmonary veins', mode: 'drift', sharp: 3, wavelength: .16, speed: .12 },
   'motor-axillary-left': MOTOR_CIRCUIT,
@@ -110,8 +115,8 @@ export const FLOW_CLASSES = {
   arterial: {
     label: 'Systemic artery', short: 'Artery',
     color: 0xc4372f, flow: 0xff8a72,
-    says: 'Oxygenated blood leaving the heart. The crest is the PRESSURE wave, not a packet of blood: the artery wall expands as it passes and recoils behind it. On the aorta, the carotid, subclavian, vertebral, iliac and femoral arteries the crest follows the measured length of each vessel and carries on across the join into the next one, so one wave crosses the whole chain each beat. It is slowed a long way down to be watchable.',
-    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.95, freq: 1.7, sharp: 5, gain: 1.5, beat: 'cardiac', mode: 'inflate', deform: 'cardiac', inflate: 0.06 },
+    says: 'Oxygenated blood leaving the heart. The crest is the PRESSURE wave, not a packet of blood: the artery wall expands as it passes and recoils behind it — expand in systole, recoil in diastole. On the aortic arch, the carotid, subclavian, right vertebral, iliac and femoral arteries the wall itself swells under the crest, by a twentieth of each vessel’s own calibre and fading towards the far end — Display parameters: 5% radial swell, 50% distal falloff and crest sharpness 5; these are illustration choices, not measurements. Routes that fail the geometry gate keep the light alone. The light and the swell cross the chained vessels as one wave each beat, slowed a long way down to be watchable.',
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.95, freq: 1.7, sharp: 5, gain: 1.5, beat: 'cardiac' },
   },
   venous: {
     label: 'Systemic vein', short: 'Vein',
@@ -122,8 +127,8 @@ export const FLOW_CLASSES = {
   pulmArtery: {
     label: 'Pulmonary artery', short: 'Pulm. artery',
     color: 0x5a4bbf, flow: 0x9d8cff,
-    says: 'The exception: an artery carrying DEOXYGENATED blood. Right ventricle to lung, and the same pressure wave, leaving the trunk each beat and passing into both pulmonary arteries together.',
-    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.9, freq: 2.6, sharp: 5, gain: 1.5, beat: 'cardiac', mode: 'inflate', deform: 'cardiac', inflate: 0.06 },
+    says: 'The exception: an artery carrying DEOXYGENATED blood. Right ventricle to lung, and the same pressure wave, leaving the trunk each beat and passing into both pulmonary arteries together — the left one’s wall swells under the crest where its route carries a frame. Display parameters: 5% radial swell, 50% distal falloff and crest sharpness 5; these are illustration choices, not measurements.',
+    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.9, freq: 2.6, sharp: 5, gain: 1.5, beat: 'cardiac' },
   },
   pulmVein: {
     label: 'Pulmonary vein', short: 'Pulm. vein',

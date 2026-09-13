@@ -21,7 +21,7 @@ import { fileURLToPath } from 'node:url';
 import { loadGlbMeshes } from './glb-mesh.mjs';
 import { LAYERS, OUTPUTS } from './lib/mesh-names.mjs';
 import { buildLayer, layoutHash, localBounds, similarityOf, stampOf } from './build-physiology-paths.mjs';
-import { PATH_ATTRIBUTES, PROGRESS_ATTRIBUTES } from '../outputs/physiology-path.js';
+import { PATH_ATTRIBUTES, PROGRESS_ATTRIBUTES, pathDeformation, pulseWave } from '../outputs/physiology-path.js';
 import { FLOW_CIRCUITS } from '../outputs/physiology.js';
 
 const attributesFor = (kind) => (kind === 'glow' ? PROGRESS_ATTRIBUTES : PATH_ATTRIBUTES);
@@ -171,8 +171,8 @@ for (const route of built.get('organs').result.accepted) {
     const payload = JSON.parse(readFileSync(join(OUTPUTS, url.split('?')[0].replace('./', '')), 'utf8'));
     ok(payload.glbHash === result.glbHash, `${layer}: the payload names the GLB it was derived from`);
     ok(payload.schemaVersion === 2, `${layer}: the payload declares the schema the loader accepts`);
-    ok(JSON.stringify(payload.attributes) === JSON.stringify({ tube: PATH_ATTRIBUTES, glow: PROGRESS_ATTRIBUTES }),
-      `${layer}: the payload declares both attribute layouts the kernel defines`);
+    ok(JSON.stringify(payload.attributes) === JSON.stringify({ tube: PATH_ATTRIBUTES, glow: PROGRESS_ATTRIBUTES, pulse: PATH_ATTRIBUTES }),
+      `${layer}: the payload declares every attribute layout the kernel defines`);
     ok(payload.routes.length === result.accepted.length, `${layer}: the payload holds every accepted route and no others`);
     for (const shipped of payload.routes) {
       const fresh = result.accepted.find((r) => r.id === shipped.id);
@@ -197,6 +197,140 @@ for (const route of built.get('organs').result.accepted) {
        derived attributes overall. Reported, not assumed. */
     const encoded = payload.routes.reduce((sum, r) => sum + Object.values(r.data).reduce((s, b) => s + b.length, 0), 0);
     const resident = payload.routes.reduce((sum, r) => sum + r.vertices * (r.kind === 'glow' ? 1 : 10) * 4, 0);
+
+    /* --- the arterial pulse: refusal records and measured join continuity --- */
+    for (const definition of ROUTES.layers[layer].filter((d) => d.kind === 'pulse')) {
+      const shipped = payload.routes.find((r) => r.id === definition.id);
+      ok(!!shipped, `${layer}/${definition.id}: a curated pulse route ships`);
+      ok(shipped.kind === 'pulse' || (shipped.kind === 'glow' && /^route-|^not-a-tube|^degenerate/.test(shipped.pulseRefused?.reason || '')),
+        `${layer}/${definition.id}: a refused pulse falls back to the glow BY NAME (${shipped.pulseRefused?.reason || 'shipped as pulse'})`);
+    }
+    const pulseShipped = payload.routes.filter((r) => r.circuit && FLOW_CIRCUITS[r.circuit]?.mode === 'pulse');
+    const pulseSettings = (route) => FLOW_CIRCUITS[route.circuit];
+    function invert4(m) {
+  const R = [];
+  for (let r = 0; r < 4; r++) R.push([m[r], m[4 + r], m[8 + r], m[12 + r]]);
+  const I = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]];
+  for (let col = 0; col < 4; col++) {
+    let piv = col;
+    for (let r = col + 1; r < 4; r++) if (Math.abs(R[r][col]) > Math.abs(R[piv][col])) piv = r;
+    const d = R[piv][col];
+    [R[col], R[piv]] = [R[piv], R[col]]; [I[col], I[piv]] = [I[piv], I[col]];
+    for (let k = 0; k < 4; k++) { R[col][k] /= d; I[col][k] /= d; }
+    for (let r = 0; r < 4; r++) {
+      if (r === col) continue;
+      const f = R[r][col];
+      if (!f) continue;
+      for (let k = 0; k < 4; k++) { R[r][k] -= f * R[col][k]; I[r][k] -= f * I[col][k]; }
+    }
+  }
+  const o = new Array(16);
+  for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) o[c * 4 + r] = I[r][c];
+  return o;
+}
+const applyM = (m, p) => [
+  m[0]*p[0]+m[4]*p[1]+m[8]*p[2]+m[12],
+  m[1]*p[0]+m[5]*p[1]+m[9]*p[2]+m[13],
+  m[2]*p[0]+m[6]*p[1]+m[10]*p[2]+m[14],
+];
+const decode = (route, name) => {
+      if (name === 'aPathParam' && route.kind === 'glow') name = 'aPathProgress';
+      if (!route.data[name]) return new Float32Array(route.vertices * 3);
+      const bytes = Buffer.from(route.data[name], 'base64');
+      return new Float32Array(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength));
+    };
+    for (const shipped of pulseShipped) {
+      const predecessor = pulseShipped.find((r) => r.id === shipped.after);
+      if (!predecessor || (shipped.kind === 'glow' && predecessor.kind === 'glow')) continue;
+      // The pulmonary chain crosses a named, stationary bifurcation mesh.
+      // Measure that real attachment rather than demanding the separated trunk
+      // touch the artery through the intervening geometry.
+      const bridge = predecessor.kind === 'glow' && Object.keys(shipped.anchors || {})
+        .find(name => Object.hasOwn(predecessor.anchors || {}, name));
+      const pm = built.get(layer).meshes.get(bridge || predecessor.mesh);
+      const sm = built.get(layer).meshes.get(shipped.mesh);
+      /* The payload frames are LOCAL; the decoder's positions are world. The
+         map runs in local space and the displacement comes back through the
+         mesh's linear part for comparison. */
+      const toLocal = (mesh) => {
+        const m = mesh.matrix, inv = invert4(m);
+        return {
+          pts: (world, i) => applyM(inv, [world[i*3], world[i*3+1], world[i*3+2]]),
+          linear: (d) => [d[0]*m[0]+d[1]*m[4]+d[2]*m[8], d[0]*m[1]+d[1]*m[5]+d[2]*m[9], d[0]*m[2]+d[1]*m[6]+d[2]*m[10]],
+        };
+      };
+      const pl = toLocal(pm), sl = toLocal(sm);
+      const pCentre = decode(predecessor, 'aPathCentre'), pTangent = decode(predecessor, 'aPathTangent'), pBend = decode(predecessor, 'aPathBend'), pParam = bridge ? new Float32Array(pm.positions.length / 3) : decode(predecessor, 'aPathParam');
+      const sCentre = decode(shipped, 'aPathCentre'), sTangent = decode(shipped, 'aPathTangent'), sBend = decode(shipped, 'aPathBend'), sParam = decode(shipped, 'aPathParam');
+      /* The crest peaks a quarter-cycle past the phase; place its PEAK exactly
+         on the join (chained s = this route's start). */
+      const joinS = shipped.uStart;
+      /* Sample 64 phases including a crest at the chained join. The nearest
+         rest-surface pair identifies the physical attachment; preserve its
+         original buffer indices. Both pulse/pulse and pulse/glow boundaries
+         must stay within 0.001 world units (1 mm on this 1.7 m model).
+         This is an explicit display tolerance, not exact welded continuity.
+         It limits the added mismatch to 1/1700 body height, below a pixel at
+         whole-body scale. Opposing radial fits are independently refused. */
+      const disp = (route, mesh, arrays, vert, v, ph) => {
+        if (route.kind === 'glow') return [0,0,0];
+        const frame = { centre: [arrays.centre[vert*3], arrays.centre[vert*3+1], arrays.centre[vert*3+2]],
+          tangent: [arrays.tangent[vert*3], arrays.tangent[vert*3+1], arrays.tangent[vert*3+2]],
+          bend: [arrays.bend[vert*3], arrays.bend[vert*3+1], arrays.bend[vert*3+2]], length: route.length };
+        const wave = pulseWave(route.uStart + arrays.param[vert] * route.uSpan, ph, { amplitude: pulseSettings(route).depth, falloff: pulseSettings(route).falloff, sharp: pulseSettings(route).sharp });
+        const out = pathDeformation({ ...frame, position: v, normal: [0, 1, 0], wave: { value: -wave.value, derivative: -wave.derivative * route.uSpan } });
+        const d = [out.position[0]-v[0], out.position[1]-v[1], out.position[2]-v[2]];
+        /* local -> world displacement: the mesh's linear part (uniform scale) */
+        return [d[0]*mesh.matrix[0] + d[1]*mesh.matrix[4] + d[2]*mesh.matrix[8],
+                d[0]*mesh.matrix[1] + d[1]*mesh.matrix[5] + d[2]*mesh.matrix[9],
+                d[0]*mesh.matrix[2] + d[1]*mesh.matrix[6] + d[2]*mesh.matrix[10]];
+      };
+      const pVerts = [], sVerts = [];
+      for (let i = 0; i < pParam.length; i++) {
+        const v = pl.pts(pm.positions, i);
+        pVerts.push({ v, i, p: pParam[i] });
+      }
+      for (let i = 0; i < sParam.length; i++) {
+        {
+          const v = sl.pts(sm.positions, i);
+          sVerts.push({ v, i, p: sParam[i] });
+        }
+      }
+      let centreStep = null, radiusStep = null;
+      let worstStep = 0, worstDot = 1, pairs = 0, minPair = Infinity;
+      for (let k = 0; k < 64; k++) {
+        const ph = joinS - .25 + k / 64;
+        let best = null; minPair = Infinity;
+        for (const p of pVerts) for (const s2 of sVerts) {
+          const pw = applyM(pm.matrix, p.v), sw = applyM(sm.matrix, s2.v);
+          const d2 = Math.hypot(pw[0]-sw[0], pw[1]-sw[1], pw[2]-sw[2]);
+          if (d2 < minPair) { minPair = d2; best = { p, s2 }; }
+        }
+        if (!best) continue;
+        pairs++;
+        if (shipped.kind === 'pulse' && predecessor.kind === 'pulse') {
+          const pc = applyM(pm.matrix, Array.from(pCentre.slice(best.p.i*3,best.p.i*3+3)));
+          const sc = applyM(sm.matrix, Array.from(sCentre.slice(best.s2.i*3,best.s2.i*3+3)));
+          centreStep = Math.hypot(...pc.map((v,k)=>v-sc[k]));
+          radiusStep = Math.abs(predecessor.radius*Math.hypot(...pm.matrix.slice(0,3))
+            -shipped.radius*Math.hypot(...sm.matrix.slice(0,3)));
+          ok(Number.isFinite(centreStep) && Number.isFinite(radiusStep), `${shipped.id}: measured centre/calibre step`);
+        }
+        const pd = disp(predecessor, pm, { centre: pCentre, tangent: pTangent, bend: pBend, param: pParam }, best.p.i, best.p.v, ph);
+        const sd = disp(shipped, sm, { centre: sCentre, tangent: sTangent, bend: sBend, param: sParam }, best.s2.i, best.s2.v, ph);
+        const mp = Math.hypot(...pd), ms = Math.hypot(...sd);
+        const m = Math.hypot(pd[0]-sd[0], pd[1]-sd[1], pd[2]-sd[2]);
+        const crestK = Math.max(mp, ms);
+        worstStep = Math.max(worstStep,m);
+        if (crestK > 0) {
+          if(mp > 1e-12 && ms > 1e-12) worstDot = Math.min(worstDot, (pd[0]*sd[0] + pd[1]*sd[1] + pd[2]*sd[2]) / (mp * ms));
+        }
+      }
+      ok(pairs === 64 && minPair <= .02, `${layer}/${shipped.id}: the join with ${predecessor.id} has an anchor pair (${pairs}/64 phases, nearest ${minPair.toExponential(3)})`);
+      ok(worstDot > -.5 && worstStep <= .001,
+        `${layer}/${shipped.id}: the swell crosses the join with ${predecessor.id} without inverting (worst cos ${worstDot.toFixed(3)}) or exceeding the 1 mm display tolerance (worst step ${worstStep.toExponential(3)} world units)`);
+      console.log(`JOIN ${predecessor.id} -> ${shipped.id}: gap=${minPair.toExponential(3)}, step=${worstStep.toExponential(3)}, cos=${worstDot.toFixed(3)}, phases=${pairs}, centreStep=${centreStep?.toExponential(3) ?? "static boundary"}, radiusStep=${radiusStep?.toExponential(3) ?? "static boundary"}`);
+    }
     ok(encoded < 1024 * 1024, `${layer}: ${(encoded / 1024).toFixed(0)} KiB of encoded route data, under the 1 MiB per-layer budget`);
     ok(resident < 8 * 1024 * 1024, `${layer}: ${(resident / 1024).toFixed(0)} KiB of resident attributes, under the 8 MiB budget`);
   }

@@ -8,7 +8,10 @@
  * into a float target, one pixel per vertex, and compares what they produce
  * with the reference implementation at the same instant.
  *
- * Two kinds, two things to prove:
+ * Three kinds, three things to prove:
+ *
+ *   pulse the chained outward map and inverse-transpose normals match the
+ *         reference, phase moves geometry, and zero amplitude is bit-exact rest.
  *
  *   tube  the deformed position matches pathDeformation, and zero amplitude
  *         returns the rest pose bit for bit.
@@ -61,7 +64,7 @@ export async function physiologyPathBrowserCheck({ time = 3.4, amplitude = 0.18,
       renderer.readRenderTargetPixels(target, 0, 0, count, 1, pixels);
       return pixels;
     };
-    const dispose = () => { target.dispose(); renderer.dispose(); };
+    const dispose = () => { target.dispose(); renderer.dispose(); renderer.forceContextLoss(); };
     return { read, dispose };
   };
   const pointGeometry = (THREE, count, local) => {
@@ -105,6 +108,7 @@ export async function physiologyPathBrowserCheck({ time = 3.4, amplitude = 0.18,
         const waves = spec.mode === 'drift'
           ? Math.max(1, (payload.circuits[route.circuit]?.worldLength || 1) / (spec.wavelength || .16)) : 1;
         const sharp = spec.sharp || 5;
+        const pulsePhase = route.uStart + route.uSpan * .5 - .25;
         const uniforms = {
           uRouteStart: { value: route.uStart }, uRouteSpan: { value: route.uSpan },
           uRouteWaves: { value: waves }, uRoutePhase: { value: phase }, uRouteSharp: { value: sharp },
@@ -157,6 +161,111 @@ void main(){gl_FragColor=vec4(rssRouteBand(vFlowS),vFlowS,vRest.x,vRest.y);}`,
         if (outside) problems.push(`${route.id}: ${outside} vertices fall outside this route's slice of its circuit`);
         if (!bandChanged) problems.push(`${route.id}: advancing the phase did not move the light at all`);
         if (worstDrift !== 0) problems.push(`${route.id}: advancing the phase MOVED the geometry by ${worstDrift.toExponential(2)}`);
+        pass.dispose(); geometry.dispose(); material.dispose();
+        continue;
+      }
+
+      /* --------------------------------------------------------- pulse --- */
+      if (route.kind === 'pulse') {
+        /* The kernel GLSL comes from a fresh import: this check has been served
+           by a service worker mid-install before, and a stale kernel binding
+           interpolates empty shader blocks that fail to compile. */
+        const pulseKernel = await import('/physiology-path.js');
+        const spec = FLOW_CIRCUITS[route.circuit];
+        if (!spec) { problems.push(`${route.id}: circuit ${route.circuit} has no display entry`); continue; }
+        const pulsePhase = route.uStart + route.uSpan * .5 - .25;
+        const uniforms = {
+          uRouteStart: { value: route.uStart }, uRouteSpan: { value: route.uSpan },
+          uPathLength: { value: route.length },
+          uPulseAmp: { value: (spec.depth ?? .05) },
+          uPulseFalloff: { value: spec.falloff || 0 },
+          uPulseSharp: { value: spec.sharp || 4 },
+          uOutputNormal: { value: 0 }, uPulsePhase: { value: pulsePhase }, uOn: { value: 1 },
+          uT: { value: 0 }, uDir: { value: 1 },
+        };
+        const geometry = pointGeometry(THREE, count, local);
+        for (const [name, size] of layout) geometry.setAttribute(name, new THREE.BufferAttribute(data[name], size));
+        const material = new THREE.ShaderMaterial({
+          uniforms,
+          vertexShader: `
+attribute float aVertexIndex;
+uniform float uT;uniform float uDir;uniform float uOutputNormal;
+${pulseKernel.PATH_SHAPE_GLSL}
+${pulseKernel.PATH_PULSE_GLSL}
+varying vec3 vOut;
+varying float vFlowS;
+void main(){
+  vec3 p=position;
+  mat3 J=rssPulseDeform(p);
+  vFlowS=uRouteStart+aPathParam*uRouteSpan;
+  vOut=uOutputNormal>0.5?normalize(J*vec3(0.,1.,0.)):p;
+  ${PLACE(count)}
+}`,
+          fragmentShader: 'varying vec3 vOut;varying float vFlowS;void main(){gl_FragColor=vec4(vOut,vFlowS);}',
+        });
+        const pass = renderPixels(count, geometry, material);
+        const pixels = pass.read();
+
+        uniforms.uOutputNormal.value = 1;
+        const normalPixels = pass.read();
+        uniforms.uOutputNormal.value = 0;
+        let worstNormal = 0;
+        let worst = 0, worstAt = -1, movedCount = 0, worstParam = 0;
+        for (let i = 0; i < count; i++) {
+          const frame = {
+            centre: [data.aPathCentre[i * 3], data.aPathCentre[i * 3 + 1], data.aPathCentre[i * 3 + 2]],
+            tangent: [data.aPathTangent[i * 3], data.aPathTangent[i * 3 + 1], data.aPathTangent[i * 3 + 2]],
+            bend: [data.aPathBend[i * 3], data.aPathBend[i * 3 + 1], data.aPathBend[i * 3 + 2]],
+          };
+          const chained = route.uStart + data.aPathParam[i] * route.uSpan;
+          worstParam = Math.max(worstParam, Math.abs(pixels[i * 4 + 3] - chained));
+          const wave = pulseKernel.pulseWave(chained, pulsePhase, {
+            amplitude: (spec.depth ?? .05), falloff: spec.falloff || 0, sharp: spec.sharp || 4,
+          });
+          const rest = [local[i * 3], local[i * 3 + 1], local[i * 3 + 2]];
+          /* The swell is the constriction algebra with the wave's sign reversed. */
+          const expected = pulseKernel.pathDeformation({ position: rest, normal: [0, 1, 0], length: route.length, wave: { value: -wave.value, derivative: -wave.derivative * route.uSpan }, ...frame });
+          if (route.kind === "pulse") for (let k=0;k<3;k++) worstNormal = Math.max(worstNormal, Math.abs(normalPixels[i*4+k]-expected.normal[k]));
+          if (Math.hypot(...expected.position.map((v, k) => v - rest[k])) > 1e-7) movedCount++;
+          for (let k = 0; k < 3; k++) {
+            const error = Math.abs(pixels[i * 4 + k] - expected.position[k]);
+            if (error > worst) { worst = error; worstAt = i; }
+          }
+        }
+
+        /* Zero amplitude (uOn = 0, the live/static transition at rest) hands
+           back the rest pose exactly. */
+        uniforms.uOn.value = 0;
+        const still = pass.read();
+        let worstStill = 0;
+        for (let i = 0; i < count; i++) for (let k = 0; k < 3; k++) {
+          worstStill = Math.max(worstStill, Math.abs(still[i * 4 + k] - local[i * 3 + k]));
+        }
+
+        /* And advancing the phase must move the GEOMETRY — the opposite claim
+           to a glow route's — with the normals following is the deform
+           check's business; here it is position against the reference. */
+        uniforms.uOn.value = 1;
+        uniforms.uPulsePhase.value = pulsePhase + .5;
+        const moved = pass.read();
+        let stillCount = 0;
+        for (let i = 0; i < count; i++) {
+          if (Math.abs(moved[i * 4] - pixels[i * 4]) < 1e-7
+            && Math.abs(moved[i * 4 + 1] - pixels[i * 4 + 1]) < 1e-7) stillCount++;
+        }
+
+        results.push({
+          id: route.id, kind: 'pulse', mesh: route.mesh, vertices: count, moved: movedCount,
+          worstGpuError: worst, worstVertex: worstAt, worstAtRest: worstStill, worstNormalError: worstNormal, worstParamError: worstParam,
+          stillOnPhaseAdvance: stillCount,
+        });
+        if (!(worst < 2e-5)) problems.push(`${route.id}: GPU and reference differ by ${worst.toExponential(2)}`);
+        if (worstStill !== 0) problems.push(`${route.id}: rest pose moved by ${worstStill.toExponential(2)} at zero amplitude`);
+        if (!(movedCount > count / 20)) problems.push(`${route.id}: only ${movedCount} of ${count} vertices moved with the crest`);
+        if (!(worstNormal < 2e-5)) problems.push(`${route.id}: GPU normal error ${worstNormal}`);
+        if (!(worstParam < 2e-6)) problems.push(`${route.id}: chained parameter differs by ${worstParam.toExponential(2)}`);
+        if (stillCount > count / 20) problems.push(`${route.id}: advancing the phase left ${stillCount} of ${count} vertices still`);
+
         pass.dispose(); geometry.dispose(); material.dispose();
         continue;
       }

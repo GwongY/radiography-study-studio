@@ -1,5 +1,16 @@
 # Radiography Study Studio
 
+### Travelling arterial swell (September 2026)
+
+Nineteen validated arterial routes now swell radially under the travelling
+pressure crest, replacing uniform arterial inflation. Five named pulse refusals
+keep their measured glow; other arteries retain activity glow and veins are
+unchanged. The 2.94-calibre aortic arch passes. Depth, distal falloff and sharpness
+are labelled display parameters. GPU positions/normals, 64-phase join bounds,
+rest identity and a matched Chrome performance comparison passed. Cache v173.
+See [measurements and verification](../docs/superpowers/notes/2026-09-11-physiology-pulse-evidence.md).
+
+
 An offline-first personal University study application for HKPolyU Radiography Year 1 Semester 1.
 The curriculum strictly follows the student's 13-week syllabus, weekly lectures, tutorials, and
 assessments across all enrolled subjects (HSS2011 Human Anatomy, ABCT2326 Human Physiology,

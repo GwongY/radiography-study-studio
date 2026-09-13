@@ -549,6 +549,38 @@ export function deriveProgressRoute({ positions, indices, proximal, distal, crow
   };
 }
 
+/**
+ * The pulse gate: the tube gate's frame machinery, at thresholds argued for a
+ * travelling swell instead of a travelling constriction.
+ *
+ * A radial swell moves geometry, so the four deformation refusals the glow gate
+ * deliberately drops come back — but two of their thresholds were set by what a
+ * CONSTRICTION needs, and a swell needs less:
+ *
+ *   route-shorter-than-its-calibre  the tube floor of 3 calibres exists because
+ *     the taper eats a quarter of the route and the curvature fit goes
+ *     noise-dominated on what is left. The swell has NO taper — a taper at every
+ *     chained join would strangle a wave that has to cross twenty meshes — which
+ *     returns most of that argument: 2.5 calibres, which the aortic arch, at
+ *     2.94, passes.
+ *   route-self-adjacent  clearance is centreline distance divided by the SUM
+ *     of the two radii: 1 means resting walls touch. A 5% radial swell needs
+ *     1.05; 1.10 adds another 5% fit allowance. A floor below 1 would allow
+ *     overlapping resting walls and cannot protect an outward swell.
+ *   not-a-tube-about-this-path and degenerate-frame keep the tube thresholds
+ *     unchanged: an outward swell about a centre outside the lumen pushes the
+ *     wrong way, and the frame is the frame.
+ *
+ * The returned frame means exactly what a tube route's frame means; the circuit
+ * chaining (uStart/uSpan) is the generator's, as for a glow route. No threshold
+ * is loosened to admit a specific case: the two moved here are argued from the
+ * swell's own 5%-of-calibre depth, and `work/physiology-path-check.mjs` holds a
+ * synthetic tube the tube gate refuses and this gate accepts.
+ */
+export function derivePulseRoute(opts = {}) {
+  return derivePathRoute({ ...opts, minCalibres: 2.5, selfClearance: 1.10 });
+}
+
 /*
  * The travelling light, as a function of progress and a phase in cycles.
  *
@@ -560,6 +592,33 @@ export function deriveProgressRoute({ positions, indices, proximal, distal, crow
 export function progressBand(param, phase, { waves = 1, sharp = 5 } = {}) {
   const crest = Math.max(0, .5 + .5 * Math.sin(TWO_PI * (waves * param - phase)));
   return Math.pow(crest, Math.max(1, sharp));
+}
+
+
+/**
+ * The travelling swell, as a function of the CHAINED circuit progress and the
+ * circuit's phase. Nothing here is claimed by a source: direction and timing
+ * come from the curated route and the pulse circuit (one crest per beat,
+ * leaving at ejection); the depth, the distal falloff and the crest sharpness
+ * are display parameters, and the viewer says so. The falloff is a stand-in for
+ * arterial compliance — the sources say arteries expand in systole and recoil
+ * in diastole (phys.2 p13); they do not say the swell fades distally, and this
+ * does not claim they do.
+ *
+ * Positive value means OUTWARD. The deformation applies it through the
+ * constriction algebra with the sign reversed, so `derivative` is d(value)/ds.
+ */
+export function pulseWave(param, phase, { amplitude = 0, falloff = 0, sharp = 4 } = {}) {
+  if (!(amplitude > 0)) return { value: 0, derivative: 0 };
+  const s = Math.min(1, Math.max(0, param));
+  const amp = amplitude * (1 - falloff * s);
+  const ph = TWO_PI * (s - phase);
+  const crest = Math.max(0, .5 + .5 * Math.sin(ph));
+  const power = Math.max(1, sharp);
+  const ring = Math.pow(crest, power);
+  const ringD = crest < 1e-5 ? 0 : power * Math.pow(Math.max(crest, 1e-5), power - 1) * .5 * Math.cos(ph) * TWO_PI;
+  const fallD = -falloff * amplitude;
+  return { value: amp * ring, derivative: fallD * ring + amp * ringD };
 }
 
 /* One float per vertex — the whole payload for a glow route. */
@@ -707,8 +766,7 @@ vec2 rssPathWave(float s,float amplitude){
   float ringD=(crest<0.00001)?0.:power*pow(max(crest,0.00001),power-1.)*.5*cos(phase)*6.283185307*uPathWaves;
   return vec2(amplitude*taper*ring,amplitude*(taperD*ring+taper*ringD));
 }
-mat3 rssPathDeform(inout vec3 x,float amplitude){
-  vec2 w=rssPathWave(aPathParam,amplitude);
+mat3 rssPathApply(inout vec3 x,vec2 w){
   if(w.x==0.&&w.y==0.)return mat3(1.);
   vec3 u=x-aPathCentre;
   float along=dot(u,aPathTangent);
@@ -722,5 +780,56 @@ mat3 rssPathDeform(inout vec3 x,float amplitude){
   J[2]=vec3(0.,0.,1.-w.x)+axialTerm*(uPathLength*g.z+da.z)+aPathBend*(w.x*along*g.z)-radial*(w.y*g.z);
   x-=w.x*radial;
   return mat3(cross(J[1],J[2]),cross(J[2],J[0]),cross(J[0],J[1]));
+}
+mat3 rssPathDeform(inout vec3 x,float amplitude){
+  return rssPathApply(x,rssPathWave(aPathParam,amplitude));
+}
+`;
+
+
+/*
+ * The arterial swell, on the frame a pulse route carries. The wave is a
+ * function of the CHAINED circuit progress — uRouteStart + aPathParam*uRouteSpan,
+ * the same slice the glow band reads — so one crest crosses the whole circuit
+ * instead of restarting on each mesh. Positive w is OUTWARD: the constriction
+ * algebra above is applied with the wave's sign reversed, so the displacement,
+ * its derivative and every Jacobian term reverse together through ONE shared
+ * body (rssPathApply) rather than a second copy of the algebra. Depends on
+ * PATH_SHAPE_GLSL having been included first.
+ *
+ * Depth, falloff and sharpness are display parameters (FLOW_CIRCUITS). uPulsePhase
+ * is the pulse circuit's shared phase uniform — the same object the glow band
+ * reads — so the light and the swell travel together. uOn fades the swell out
+ * with the live/static transition; at zero the map is the rest pose.
+ *
+ * ONE DECLARATION ORDER CONSTRAINT: rssPathWave in PATH_SHAPE_GLSL reads uT and
+ * uDir, which the app's deform header declares only for deforming classes — a
+ * pulse material is not one. The host therefore injects
+ * `uniform float uT; uniform float uDir;` BEFORE this block's PATH_SHAPE
+ * include (GLSL wants declarations before use); live-physiology.js's pulse
+ * branch and the browser check both do.
+ */
+export const PATH_PULSE_GLSL = `
+uniform float uRouteStart;
+uniform float uRouteSpan;
+uniform float uPulseAmp;
+uniform float uPulseFalloff;
+uniform float uPulseSharp;
+uniform float uPulsePhase;
+uniform float uOn;
+vec2 rssPulseWave(){
+  float s=clamp(uRouteStart+aPathParam*uRouteSpan,0.,1.);
+  float amp=uPulseAmp*(1.-uPulseFalloff*s)*uOn;
+  if(amp<=0.)return vec2(0.);
+  float ph=6.283185307*(s-uPulsePhase);
+  float crest=max(0.,.5+.5*sin(ph));
+  float power=max(1.,uPulseSharp);
+  float ring=pow(crest,power);
+  float ringD=(crest<0.00001)?0.:power*pow(max(crest,0.00001),power-1.)*.5*cos(ph)*6.283185307;
+  return vec2(amp*ring,-uPulseFalloff*uPulseAmp*uOn*ring+amp*ringD);
+}
+mat3 rssPulseDeform(inout vec3 x){
+  vec2 w=rssPulseWave();
+  return rssPathApply(x,vec2(-w.x,-w.y*uRouteSpan));
 }
 `;

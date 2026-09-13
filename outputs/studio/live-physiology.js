@@ -13,7 +13,7 @@ import { setSeparation, setTool } from './tools-and-capture.js';
 import { advancePhysiology } from '../physiology.js?v=4';
 import { MOTOR_ROUTES, motorRoute, motorSequence } from '../physiology-mechanics.js';
 import { CHAMBER_SHAPE_GLSL, chamberTetherField, deriveShape, deriveMuscleShape, deriveBreathingShape, MUSCLE_SHAPE_GLSL } from '../physiology-shape.js';
-import { PATH_ATTRIBUTES, PATH_GLOW_FRAGMENT_GLSL, PATH_GLOW_VERTEX_GLSL, PATH_SHAPE_GLSL, PROGRESS_ATTRIBUTES } from '../physiology-path.js';
+import { PATH_ATTRIBUTES, PATH_GLOW_FRAGMENT_GLSL, PATH_GLOW_VERTEX_GLSL, PATH_PULSE_GLSL, PATH_SHAPE_GLSL, PROGRESS_ATTRIBUTES } from '../physiology-path.js';
 import { PATH_PAYLOADS } from '../physiology-paths.js';
 
 /* ------------------------------------------------------------------ *
@@ -162,13 +162,19 @@ function installFlow(mesh,cls){
    * mesh without one keeps a cue that claims no direction at all.
    */
   const found=pathRouteFor(mesh);
-  const tube=found&&found.kind!=='glow'?found:null;
+  const tube=found&&found.kind==='tube'?found:null;
+  /* A pulse route is a glow route that also carries a frame: the light and the
+     swell read the same circuit phase, and where the pulse gate refused the
+     mesh, its route shipped as plain glow and nothing deforms. */
+  const pulse=found&&found.kind==='pulse'?found:null;
   let glow=null;
-  if(found&&found.kind==='glow'){
+  if(found&&(found.kind==='glow'||found.kind==='pulse')){
     const circuit=circuitUniforms(mesh.userData.layerKey,found.circuit);
     if(circuit){
-      for(const [name,size] of PROGRESS_ATTRIBUTES){
-        mesh.geometry.setAttribute(name,new state.THREE.BufferAttribute(found.data[name],size));
+      if(found.kind==='glow'){
+        for(const [name,size] of PROGRESS_ATTRIBUTES){
+          mesh.geometry.setAttribute(name,new state.THREE.BufferAttribute(found.data[name],size));
+        }
       }
       /* Where this mesh sits along its circuit, so one crest crosses a chain
          of separate meshes as a single wave instead of restarting on each. */
@@ -180,7 +186,7 @@ function installFlow(mesh,cls){
      match are coloured but otherwise static. */
   const deform=!!rule && (rule.contract || rule.mode)
     && (!rule.match || rule.match.test(mesh.userData.label||mesh.name||''));
-  let mCenter=null,mAxis=null,mAmt=0,mLength=1,path=null;
+  let mCenter=null,mAxis=null,mAmt=0,mLength=1,path=null,pulseU=null;
   if(deform){
     const g=mesh.geometry;
     if(!g.boundingBox) g.computeBoundingBox();
@@ -228,10 +234,30 @@ function installFlow(mesh,cls){
       };
     }
   }
+  if(pulse){
+    for(const [name,size] of PATH_ATTRIBUTES){
+      mesh.geometry.setAttribute(name,new state.THREE.BufferAttribute(found.data[name],size));
+    }
+    /* The swell's depth is a fraction of the vessel's own calibre — the
+       sources give the systole/diastole rhythm, never a depth — and the
+       falloff stands in for compliance. Both are display parameters
+       (FLOW_CIRCUITS), as the legend says. The phase is the circuit's own
+       uniform, shared with the glow band, so light and swell travel
+       together. */
+    const spec=FLOW_CIRCUITS[found.circuit]||{};
+    pulseU={
+      uPathLength:{value:found.length},
+      uPulseAmp:{value:(spec.depth??.05)},
+      uPulseFalloff:{value:spec.falloff||0},
+      uPulseSharp:{value:spec.sharp||4},
+      uPulsePhase:glow.circuit.uRoutePhase,
+      uT:state.flow.uT,uDir:{value:1},
+    };
+  }
   /* The deformed and colour-only meshes of a class compile to different
      programs, so the cache key has to name the variant or the first to compile
      is silently reused for every mesh of the class. */
-  mat.customProgramCacheKey=()=>'rssflow-routeglow:'+cls+(deform?':d':':c')+(route?':motor':'')+(path?':path':'')+(glow?':glow':'');
+  mat.customProgramCacheKey=()=>'rssflow-routeglow:'+cls+(deform?':d':':c')+(route?':motor':'')+(path?':path':'')+(pulse?':pulse':'')+(glow?':glow':'');
   mat.onBeforeCompile=(sh)=>{
     sh.uniforms.uT=state.flow.uT;
     sh.uniforms.uOn=state.flow.uOn;
@@ -261,17 +287,22 @@ function installFlow(mesh,cls){
       sh.uniforms.uMLength={value:mLength};
     }
     if(path)Object.assign(sh.uniforms,path);
-    sh.vertexShader=(glow?PATH_GLOW_VERTEX_GLSL:'')+'varying float vFlowY;\n'
+    if(pulseU)Object.assign(sh.uniforms,pulseU);
+    sh.vertexShader=(glow&&!pulse?PATH_GLOW_VERTEX_GLSL:pulse?'varying float vFlowS;':'')+'varying float vFlowY;\n'
       +(deform?'uniform float uDeform;uniform vec3 uMCenter;uniform vec3 uMAxis;uniform float uMAmt;uniform float uMLength;uniform float uMode;\nuniform float uT;uniform float uSpeed;uniform float uDir;uniform float uFreq;uniform float uSharp;\n':'')
       +(deform&&cls==='muscle'?MUSCLE_SHAPE_GLSL:'')
       /* Declared for every deforming class: the uMode-5 branch below calls
        * rssChamberDeform, and a patch the compiler sees must have its function
        * declared even where the branch itself is dead. */
       +(deform?CHAMBER_SHAPE_GLSL:'')
-      +(path?PATH_SHAPE_GLSL:'')
+      +(pulse?'uniform float uT;uniform float uDir;':'')
+      +((path||pulse)?PATH_SHAPE_GLSL:'')
+      +(pulse?PATH_PULSE_GLSL:'')
       +sh.vertexShader.replace('#include <begin_vertex>',
         '#include <begin_vertex>\n'
-        +(path
+        +(pulse
+          ?'if(uPulseAmp>0.){vec3 rssPlX=transformed;rssPulseDeform(rssPlX);transformed=rssPlX;}\n'
+          :path
           ?'if(uDeform*uMAmt>0.){vec3 rssPathX=transformed;rssPathDeform(rssPathX,uDeform*uMAmt);transformed=rssPathX;}\n'
           :deform
           ?'float rssAlong=dot(transformed-uMCenter,uMAxis);\n'
@@ -292,7 +323,8 @@ function installFlow(mesh,cls){
              :'  transformed-=uMAxis*rssAlong*uDeform*uMAmt;transformed+=rssPerp*(inversesqrt(max(.1,1.-uDeform*uMAmt))-1.);\n')
            +'}\n'
           :'')
-        +(glow?'vFlowS=rssRouteProgress();\n':'')
+        +(glow&&!pulse?'vFlowS=rssRouteProgress();\n':'')
+        +(pulse?'vFlowS=uRouteStart+aPathParam*uRouteSpan;\n':'')
         +'vFlowY=(modelMatrix*vec4(transformed,1.0)).y;');
     /* The normal patch runs BEFORE begin_vertex, so it derives the same map
        again from `position` rather than from a `transformed` that does not
@@ -301,6 +333,9 @@ function installFlow(mesh,cls){
     if(path)sh.vertexShader=sh.vertexShader.replace('#include <beginnormal_vertex>',
       '#include <beginnormal_vertex>\n'
       +'if(uDeform*uMAmt>0.){vec3 rssPathN=position;objectNormal=normalize(rssPathDeform(rssPathN,uDeform*uMAmt)*objectNormal);}\n');
+    else if(pulse)sh.vertexShader=sh.vertexShader.replace('#include <beginnormal_vertex>',
+      '#include <beginnormal_vertex>\n'
+      +'if(uPulseAmp>0.){vec3 rssPlN=position;objectNormal=normalize(rssPulseDeform(rssPlN)*objectNormal);}\n');
     else if(deform)sh.vertexShader=sh.vertexShader.replace('#include <beginnormal_vertex>',
       '#include <beginnormal_vertex>\n'
       +'if(uMode>4.5){vec3 rssChN=position;objectNormal=normalize(rssChamberDeform(rssChN,uDeform)*objectNormal);}\n'

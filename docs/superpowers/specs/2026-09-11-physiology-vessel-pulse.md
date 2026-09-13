@@ -1,6 +1,6 @@
 # Arterial pulse — a radial pressure wave along the curated routes
 
-Status: PROPOSED — not started. Depends on 0 and 4 (the route machinery it extends).
+Status: IMPLEMENTED — verified locally on 2026-09-13; see [evidence](../notes/2026-09-11-physiology-pulse-evidence.md). Depends on 0 and 4 (the route machinery it extends).
 Parent: [decomposition](2026-09-09-physiology-decomposition.md); extends piece 5's
 curated route set. Companion: the heart piece is separate —
 [2026-09-11-physiology-3-heart-constrained.md](2026-09-11-physiology-3-heart-constrained.md).
@@ -116,3 +116,7 @@ other class, are untouched.
 - `TRAPS.md` gains what this work learns, under Routes; `CACHE_VERSION` bump;
   README/CODEMAP/CLAUDE.md updated when it lands; every display parameter tagged
   as display in the wording the viewer shows.
+
+Implementation thresholds: 2.5 calibres, self-clearance 1.10 combined radii,
+join direction cosine >= -0.5, added join displacement <= 0.001 world units
+across 64 phases. The latter is a 1 mm display tolerance, not exact continuity.

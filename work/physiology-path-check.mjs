@@ -13,8 +13,9 @@ import {
   S_BEND, STRAIGHT, U_BEND, fuse, joinRings, merge, tubeMesh, withDegenerateTriangles,
 } from './lib/synthetic-tubes.mjs';
 import {
-  PATH_GLOW_FRAGMENT_GLSL, PATH_GLOW_VERTEX_GLSL, PROGRESS_ATTRIBUTES,
-  derivePathRoute, deriveProgressRoute, geodesicFrom, progressBand, progressField, weldedGraph,
+  PATH_GLOW_FRAGMENT_GLSL, PATH_GLOW_VERTEX_GLSL, PATH_PULSE_GLSL, PATH_SHAPE_GLSL, PROGRESS_ATTRIBUTES,
+  derivePathRoute, deriveProgressRoute, derivePulseRoute, geodesicFrom, pathDeformation,
+  progressBand, progressField, pulseWave, weldedGraph,
 } from '../outputs/physiology-path.js';
 
 let checks = 0;
@@ -285,4 +286,118 @@ for (const [name, curve] of [['U', U_BEND], ['S', S_BEND]]) {
   ok(PATH_GLOW_FRAGMENT_GLSL.includes('6.283185307179586'), 'and the fragment carries the same 2*pi the reference uses');
 }
 
-console.log(`PASS: ${checks} path-kernel assertions (welding, degenerate faces, components, gate rejections, bent-tube frames, the glow gate and its travelling band)`);
+/* --- the pulse gate: swell-argued thresholds ------------------------------ */
+{
+  const pulseRoute = (mesh, from, to, options) => derivePulseRoute({
+    positions: mesh.positions, indices: mesh.indices,
+    proximal: seedNearest(mesh, from), distal: seedNearest(mesh, to), ...options,
+  });
+  /* A 2.7-calibre tube: the tube gate refuses it (3-calibre floor, whose
+     argument is the constriction's taper), the pulse gate accepts it — the
+     swell has no taper, and this acceptance is the whole reason the aortic
+     arch (2.94 calibres) can carry a pulse. */
+  const short2 = tubeMesh(STRAIGHT(.15), .025, 40, 12, { seam: true });
+  const asTube = route(short2, [0, -.075, 0], [0, .075, 0]);
+  const asPulse = pulseRoute(short2, [0, -.075, 0], [0, .075, 0]);
+  ok(asTube.reason === 'route-shorter-than-its-calibre', `the tube gate refuses 2.7 calibres: ${asTube.reason} (${asTube.calibres})`);
+  ok(asTube.calibres > 2.5 && asTube.calibres < 3, `and it really is between the two floors: ${asTube.calibres.toFixed(2)}`);
+  ok(asPulse.accepted === true, `the pulse gate accepts the same tube: ${asPulse.reason || ''}`);
+  ok(asPulse.param && asPulse.centre && asPulse.tangent && asPulse.bend, 'and it carries the full tube-style frame');
+
+  /* Self-adjacency: two facing limbs closer than the swell can bridge. The
+     hairpin with a 0.09 gap was clean at tube thresholds; squeeze the limbs to
+     a fraction of the swell's reach and the pulse gate refuses too. A 0.05
+     radius tube with a 0.004 gap is 0.08 combined calibres — below the 1.10
+     floor. */
+  const tightGap = .004;
+  const down = tubeMesh((u) => [0, .3 - u * .6, 0], .05, 40, 12);
+  const bend = tubeMesh((u) => [tightGap * .5 * (1 - Math.cos(Math.PI * u)), -.3 - tightGap * .5 * Math.sin(Math.PI * u), 0], .05, 12, 12);
+  const up = tubeMesh((u) => [tightGap, -.3 + u * .6, 0], .05, 40, 12);
+  const hairpin = merge(down, bend, up);
+  const [dBase, bBase, uBase] = hairpin.parts.map((p) => p.base);
+  let tight = joinRings(hairpin, down.ring(down.rings - 1).map((i) => i + dBase), bend.ring(0).map((i) => i + bBase));
+  tight = joinRings(tight, bend.ring(bend.rings - 1).map((i) => i + bBase), up.ring(0).map((i) => i + uBase));
+  const tightPulse = pulseRoute(tight, [0, .3, 0], [tightGap, .3, 0]);
+  ok(tightPulse.reason === 'route-self-adjacent', `limbs the swell could bridge are refused: ${tightPulse.reason} (clearance ${tightPulse.clearance?.toFixed?.(3)})`);
+  /* The same hairpin with a comfortable gap: tube and pulse gates both accept. */
+  const wideGap = .09;
+  const wDown = tubeMesh((u) => [0, .3 - u * .6, 0], .03, 40, 12);
+  const wBend = tubeMesh((u) => [wideGap * .5 * (1 - Math.cos(Math.PI * u)), -.3 - wideGap * .5 * Math.sin(Math.PI * u), 0], .03, 12, 12);
+  const wUp = tubeMesh((u) => [wideGap, -.3 + u * .6, 0], .03, 40, 12);
+  const wide = merge(wDown, wBend, wUp);
+  const [wdBase, wbBase, wuBase] = wide.parts.map((p) => p.base);
+  let wideJoined = joinRings(wide, wDown.ring(wDown.rings - 1).map((i) => i + wdBase), wBend.ring(0).map((i) => i + wbBase));
+  wideJoined = joinRings(wideJoined, wBend.ring(wBend.rings - 1).map((i) => i + wbBase), wUp.ring(0).map((i) => i + wuBase));
+  const cleanHairpin = pulseRoute(wideJoined, [0, .3, 0], [wideGap, .3, 0]);
+  ok(cleanHairpin.accepted === true, `the wider clean hairpin still passes: ${cleanHairpin.reason || ''}`);
+
+  /* The two gates name the same reason on the same input where they share a
+     threshold: the Y junction refuses as ambiguous-cross-section either way. */
+  const trunk = tubeMesh((u) => [0, u * .5, 0], .04, 24, 12);
+  const left = tubeMesh((u) => [-u * .34, .5 + u * .34, 0], .04, 24, 12);
+  const right = tubeMesh((u) => [u * .34, .5 + u * .34, 0], .04, 24, 12);
+  const yb = merge(trunk, left, right);
+  const [tBase, lBase, rBase] = yb.parts.map((p) => p.base);
+  const yb2 = joinRings(
+    joinRings(yb, trunk.ring(trunk.rings - 1).map((i) => i + tBase), left.ring(0).map((i) => i + lBase)),
+    trunk.ring(trunk.rings - 1).map((i) => i + tBase), right.ring(0).map((i) => i + rBase),
+  );
+  ok(pulseRoute(yb2, [0, 0, 0], [.34, .84, 0]).reason === 'ambiguous-cross-section',
+    'the Y junction refuses the pulse gate by the same name');
+}
+
+/* --- the pulse wave ------------------------------------------------------- */
+{
+  /* Value zero far from the crest, peak at the crest, falloff monotone. */
+  const args = { amplitude: .002, falloff: .5, sharp: 4 };
+  /* The band formula peaks a quarter-cycle after the phase: s = phase + .25. */
+  ok(Math.abs(pulseWave(.75, .5, args).value - args.amplitude * (1 - args.falloff * .75)) < 1e-12,
+    'the crest peaks a quarter-cycle past the phase, at full amplitude*(1-falloff*s)');
+  ok(pulseWave(.5, .5, args).value < args.amplitude && pulseWave(.5, .5, args).value > 0,
+    'and the phase itself sits on the rising flank');
+  /* The raised-sine flanks never reach exactly zero; far from the crest the
+     swell is negligible against its peak (0.2^sharp = 0.2% at sharp 4). */
+  const peak = pulseWave(.75, .5, args).value;
+  ok(pulseWave(.1, .5, args).value < .005 * peak && pulseWave(.25, .5, args).value < .01 * peak,
+    'far from the crest the swell is negligible against its peak');
+  /* Falloff compares the ENVELOPE: each point taken at its own crest. */
+  const lo = pulseWave(.2, -.05, args).value, hi = pulseWave(.8, .55, args).value;
+  ok(hi < lo && Math.abs(hi / lo - (.6 / .9)) < 1e-9,
+    `the swell fades distally: proximal ${lo.toExponential(3)} > distal ${hi.toExponential(3)} at 0.6/0.9 of it`);
+  ok(pulseWave(.5, .5, { amplitude: 0 }).value === 0, 'zero amplitude moves nothing');
+  /* Derivative against a central difference of the value. */
+  const eps = 1e-6;
+  let worst = 0;
+  for (let i = 1; i < 40; i++) {
+    const p = i / 40;
+    const mid = pulseWave(p, .37, args);
+    const fwd = pulseWave(p + eps, .37, args), back = pulseWave(p - eps, .37, args);
+    worst = Math.max(worst, Math.abs((fwd.value - back.value) / (2 * eps) - mid.derivative));
+  }
+  ok(worst < 1e-6, `the wave derivative matches a central difference (worst ${worst.toExponential(2)})`);
+  /* End-to-end: the swell through the constriction algebra with the sign
+     reversed displaces OUTWARD, and the Jacobian stays positive. */
+  const frame = { centre: [0, 0, 0], tangent: [0, 1, 0], bend: [0, 0, .01], length: 1.2 };
+  const at = { position: [.01, .02, 0], normal: [0, 0, 1] };
+  const w = pulseWave(.3, .1, args);
+  const moved = pathDeformation({ ...frame, ...at, wave: { value: -w.value, derivative: -w.derivative } });
+  ok(moved.position[0] > at.position[0], 'the swell pushes the wall outward, not inward');
+  ok(moved.determinant > 1, `and expansion reads in the determinant (${moved.determinant.toFixed(4)})`);
+}
+
+/* --- the pulse GLSL ------------------------------------------------------- */
+{
+  for (const token of ['uniform float uPulseAmp', 'uniform float uPulsePhase', 'uniform float uOn',
+    'uRouteStart+aPathParam*uRouteSpan', 'rssPathApply(x,vec2(-w.x,-w.y*uRouteSpan))']) {
+    ok(PATH_PULSE_GLSL.includes(token), `the pulse GLSL declares ${token}`);
+  }
+  /* One shared algebra body: rssPathApply is called by both variants, and the
+     pulse never duplicates the Jacobian text. */
+  ok((PATH_SHAPE_GLSL.match(/rssPathApply/g) || []).length === 2
+    && (PATH_PULSE_GLSL.match(/rssPathApply/g) || []).length === 1,
+    'the constriction and the swell share one algebra body');
+  ok(PATH_SHAPE_GLSL.includes('mat3 rssPathApply(inout vec3 x,vec2 w)'),
+    'and the shared body lives in PATH_SHAPE_GLSL, which the pulse includes first');
+}
+
+console.log(`PASS: ${checks} path-kernel assertions (welding, degenerate faces, components, gate rejections, bent-tube frames, the glow gate and its travelling band, the pulse gate, wave and shared algebra)`);

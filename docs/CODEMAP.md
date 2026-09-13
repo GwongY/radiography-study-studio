@@ -31,7 +31,6 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 | File | Lines | What it holds | Traps |
 | --- | --- | --- | --- |
-| `__pathcheck.js` | 335 | Path routes, on a GPU. |  |
 | `anatomy-data.js` | 174 | Osteology Studio — anatomy data layer | [The back is a half-space](TRAPS.md#the-back-is-a-half-space--outputsstudioregion-boxes-howjs-outputsanatomy-datajs) |
 | `bodymap.js` | 319 | Body map — search extras and spatial concepts for the 3D viewer. |  |
 | `cavity-build.js` | 732 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
@@ -41,7 +40,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `layouts.js` | 304 | layouts.js — the sixteen that are layouts, as layouts. |  |
 | `mesh-index.js` | 2594 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `physiology-mechanics.js` | 52 | Source-backed sequences; display timings are slowed for the motor example. |  |
-| `physiology-path.js` | 833 | Routes — pure rest-space route geometry, no three.js and no DOM. | [Routes](TRAPS.md#routes--outputsphysiology-pathjs-workbuild-physiology-pathsmjs-outputsstudiolive-physiologyjs) |
+| `physiology-path.js` | 835 | Routes — pure rest-space route geometry, no three.js and no DOM. | [Routes](TRAPS.md#routes--outputsphysiology-pathjs-workbuild-physiology-pathsmjs-outputsstudiolive-physiologyjs) |
 | `physiology-paths.js` | 17 | Where the curated route payloads live, and what they were derived from. |  |
 | `physiology-shape.js` | 327 | Pure rest-space shape derivation and illustrative deformation profiles. | [The heart's shared tether](TRAPS.md#the-hearts-shared-tether--outputsphysiology-shapejs-outputsstudiolive-physiologyjs) |
 | `physiology.js` | 417 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
@@ -60,7 +59,6 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 ### Exported symbols
 
-- `__pathcheck.js` — `physiologyPathBrowserCheck`
 - `anatomy-data.js` — `REGIONS`, `ANATOMY_DATABASE`, `LANDMARK_HOTSPOTS`, `MODEL_CATALOG`, `getAnatomy`, `searchAnatomy`
 - `bodymap.js` — `SEARCH_EXTRAS`, `BODY_CONCEPTS`, `CONCEPT_GROUPS`, `conceptById`, `conceptAncestors`, `conceptChildren`, `conceptLeaves`
 - `cavity-build.js` — `measureLandmarks`, `measureGrid`, `gridBounds`, `buildCavityGeometry`, `BUILDABLE`
@@ -134,7 +132,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `explosion-layout.js` | 16 | Pack only visible source meshes. Every projected bounding box gets its own cell. |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
 | `imports.js` | 103 | Block 0 has its own import scope -- block 1's copy is not visible here. |
-| `live-physiology.js` | 1766 | Live physiology |
+| `live-physiology.js` | 1748 | Live physiology |
 | `packed-spread.js` | 93 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
 | `region-boxes-how.js` | 499 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 249 | Search -> viewer: frame the part, then hide only what stands in front |
