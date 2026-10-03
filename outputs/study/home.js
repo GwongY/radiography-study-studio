@@ -14,7 +14,7 @@ import { goTo, openSessionOverlay, setActiveNav } from './navigation-five-destin
 import { read, write } from './storage-versioned-keys.js';
 import { showView } from './small-ui-helpers.js';
 import { paintBriefing, refreshBriefing } from './weekly-briefing.js';
-import { DEADLINES, SOON_MS, deadlineStats, isDone, paintImminent, untilText } from './assessments-and-marks.js';
+import { DEADLINES, SOON_MS, paintImminent, untilText } from './assessments-and-marks.js';
 
 /* ------------------------------------------------------------------ *
  * Home
@@ -92,11 +92,10 @@ export function resumeContinue(cont) {
  * It replaced the Continue card at the top of Today. Worked out from the
  * timetable every time Today is drawn, so it follows outputs/schedule.js --
  * which the Sunday email task keeps current -- without anything else having
- * to write to it. In order: the heaviest assessment due in the next seven
- * days; failing that, an overdue one; failing that, the next class worth
- * preparing for. A class a course notice changed this week is added beneath,
- * because a new room is the change you only notice by walking into the old
- * one. Resuming a lesson stays, as one small link.
+ * to write to it: the heaviest assessment due in the next seven days, else
+ * the next class worth preparing for. Rooms and times a course email filled
+ * in simply show as the row's own details; nothing here flags them, at the
+ * owner's request.
  */
 const WEEK_MS = 7 * 86400000;
 /* Ranking only, never shown. A sitting with no weight of its own (the ABCT2326
@@ -105,26 +104,17 @@ const rankOf = (s) => s.weight ?? (/quiz|test|exam/i.test(s.title) ? 25 : 0);
 function weekFocus(now) {
   const groups = myGroups();
   const horizon = now.getTime() + WEEK_MS;
-  const open = DEADLINES.filter((r) => !isDone(r.s.id) && !isOtherGroup(r.s, groups));
-  const due = open.filter((r) => r.to >= now && r.to <= horizon)
+  const due = DEADLINES.filter((r) => r.to >= now && r.to <= horizon && !isOtherGroup(r.s, groups))
     .sort((a, b) => rankOf(b.s) - rankOf(a.s) || a.to - b.to);
-  const overdue = open.filter((r) => r.to < now);
-  const changed = sessionsWithStatus(now).filter((r) => r.s.src?.ref === 'email.2026'
-    && r.s.on && r.to >= now && r.from <= horizon && !isOtherGroup(r.s, groups));
-  let main = null;
-  if (due.length) main = { kind: 'due', r: due[0] };
-  else if (overdue.length) main = { kind: 'overdue', r: overdue[overdue.length - 1] };
-  else {
-    const prep = sessionsWithStatus(now).find((r) => r.s.on && r.from > now && r.from <= horizon
-      && TEACHING.includes(r.s.kind) && !r.s.noStudy && r.s.unit && !isOtherGroup(r.s, groups)
-      && itemsForUnit(r.s.subject, r.s.unit).length);
-    if (prep) main = { kind: 'prep', r: prep };
-  }
-  return { main, changed, more: Math.max(0, due.length - 1) };
+  if (due.length) return { main: { kind: 'due', r: due[0] }, more: due.length - 1 };
+  const prep = sessionsWithStatus(now).find((r) => r.s.on && r.from > now && r.from <= horizon
+    && TEACHING.includes(r.s.kind) && !r.s.noStudy && r.s.unit && !isOtherGroup(r.s, groups)
+    && itemsForUnit(r.s.subject, r.s.unit).length);
+  return { main: prep ? { kind: 'prep', r: prep } : null, more: 0 };
 }
 
-function paintWeekFocus(now, cont) {
-  const { main, changed, more } = weekFocus(now);
+function paintWeekFocus(now) {
+  const { main, more } = weekFocus(now);
   const where = (s) => [s.subject, fmtWhen(s), s.room].filter(Boolean).join(' · ');
   /* A hand-in has no length: 'due Sun 4 Oct, 23:59', not '23:59–23:59'. */
   const whenDue = (r) => (r.s.on && +r.from === +r.to
@@ -132,27 +122,23 @@ function paintWeekFocus(now, cont) {
     : where(r.s));
   const head = !main ? 'Nothing due this week'
     : main.kind === 'due' ? main.r.s.title
-    : main.kind === 'overdue' ? `Overdue: ${main.r.s.title}`
     : `Prepare: ${main.r.s.title}`;
   const sub = !main ? 'No assessment in the next seven days. A good week to get ahead.'
     : main.kind === 'prep' ? where(main.r.s)
     : `${whenDue(main.r)} · ${untilText(main.r.to, now)}${more ? ` · ${more} more due this week` : ''}`;
   const unit = main?.r.s.unit && itemsForUnit(main.r.s.subject, main.r.s.unit).length ? main.r.s.unit : null;
   const action = unit ? '<button class="primary" id="focusStudyBtn">Study for it →</button>'
-    : main && main.kind !== 'prep' ? '<button class="primary" id="focusAssessBtn">See assessments →</button>'
+    : main ? '<button class="primary" id="focusAssessBtn">See assessments →</button>'
     : '<button class="primary" id="openLearnBtn">Choose a topic →</button>';
   $$('continueCard').innerHTML = `
     <div class="task-kicker">This week</div>
-    <h2 class="editorial" style="font-size:calc(24px*var(--ts));margin:8px 0 0${main?.kind === 'overdue' ? ';color:var(--red)' : ''}">${esc(head)}</h2>
+    <h2 class="editorial" style="font-size:calc(24px*var(--ts));margin:8px 0 0">${esc(head)}</h2>
     <p class="small" style="margin-top:6px">${esc(sub)}</p>
-    ${changed.map((r) => `<p class="small" style="margin-top:6px;color:var(--orange)">Changed: ${esc(r.s.title)} — ${esc(where(r.s))}</p>`).join('')}
-    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px">${action}
-      ${cont ? `<button class="ghost" id="continueBtn" style="border:0;background:none;color:var(--teal);padding:6px 0">Resume ${esc(cont.item.title)} →</button>` : ''}
-    </div>`;
+    ${main?.r.s.note ? `<p class="small" style="margin-top:6px">${esc(main.r.s.note)}</p>` : ''}
+    <div style="margin-top:14px">${action}</div>`;
   if (unit) $$('focusStudyBtn').onclick = () => { ui.learnFilter = 'all'; ui.learnTopic = unit; ui.learnDrill = true; renderLearn(); };
   if ($$('focusAssessBtn')) $$('focusAssessBtn').onclick = () => { ui.courseTab = 'assess'; goTo('course'); };
   if ($$('openLearnBtn')) $$('openLearnBtn').onclick = () => goTo('learn');
-  if (cont) $$('continueBtn').onclick = () => resumeContinue(cont);
 }
 
 /*
@@ -206,8 +192,7 @@ function renderWorkPrep(now) {
 export function renderToday() {
   setActiveNav('today');
 
-  const cont = getContinueTarget();
-  paintWeekFocus(new Date(), cont);
+  paintWeekFocus(new Date());
 
   /* After a pack is fetched or removed this re-runs, so the briefing appears
      or disappears with the token it is read by. */
@@ -225,16 +210,15 @@ export function renderToday() {
    * study app that knew its date all along.
    */
   const nowT = new Date();
-  const dstats = deadlineStats(nowT);
   const upcoming = DEADLINES
-    .filter((r) => !isDone(r.s.id) && r.to >= nowT)
+    .filter((r) => r.to >= nowT)
     .slice(0, 3);
   $$('deadlineList').innerHTML = upcoming.length ? upcoming.map((r) => `
     <div class="unit-row" style="cursor:default">
       <span class="grow"><b>${esc(r.s.title)}</b><small>${esc(r.s.subject)}${r.s.weight ? ` · ${r.s.weight}%` : ''}</small></span>
       <span class="pc" style="color:${r.to - nowT <= SOON_MS ? 'var(--orange)' : 'var(--muted)'}">${esc(untilText(r.to, nowT))}</span>
     </div>`).join('')
-    : `<div class="empty">${dstats.overdue ? 'Nothing ahead — but something is overdue.' : 'Nothing left on the published deadlines.'}</div>`;
+    : '<div class="empty">Nothing left on the published deadlines.</div>';
   $$('allDeadlinesBtn').onclick = () => { ui.courseTab = 'assess'; goTo('course'); };
 
   showView('todayView');

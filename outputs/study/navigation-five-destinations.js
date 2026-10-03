@@ -31,7 +31,7 @@ const NAV_KICKERS = {
   today: 'What to do now',
   learn: 'All Y1S1 courses \u00b7 latest schedule order',
   viewer: 'Model and images in one place',
-  course: 'Timetable, syllabus, attendance',
+  course: 'Timetable, syllabus, assessments',
   exam: 'Past papers, timed practice, mastery',
   more: 'Sources, coverage, settings',
 };

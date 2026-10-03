@@ -1,13 +1,15 @@
 /*
- * Course — the syllabus and the timetable, with attendance
+ * Course — the syllabus and the timetable
  *
  * The rest of the app answers "what should I study". This answers "where am I
- * meant to be, and what have I already missed". It reads outputs/schedule.js
- * and holds two pieces of state of its own, both in localStorage:
+ * meant to be". It reads outputs/schedule.js and holds one piece of state of
+ * its own, in localStorage:
  *
- *   attendance   sessionId -> 'went' | 'missed'
  *   groups       groupSetId -> chosen option id (the tutorial and lab groups
  *                the supplied schedule does not say the student is in)
+ *
+ * Attendance marking was removed at the owner's request (2026-10-03). Records
+ * already saved under K.attendance are left untouched, not deleted.
  *
  * The clock is live. A session is past once its end time has gone by, and an
  * HSS2011 session — which has a teaching week but no published time — is past
@@ -27,21 +29,12 @@ import { renderLearn } from './subject.js';
 import { assessmentsPanel, imminentHTML, wireAssessments } from './assessments-and-marks.js';
 
 /* ------------------------------------------------------------------ *
- * State — attendance and the two unknown groups
+ * State — the two unknown groups
  * ------------------------------------------------------------------ */
 
-function attendanceMap() {
-  if (!store.attendance) store.attendance = read(K.attendance, {});
-  return store.attendance;
-}
 export function myGroups() {
   if (!store.groups) store.groups = read(K.groups, {});
   return store.groups;
-}
-function setAttendance(id, value) {
-  const a = attendanceMap();
-  if (a[id] === value) delete a[id]; else a[id] = value;
-  write(K.attendance, a);
 }
 function setGroup(setId, optionId) {
   const g = myGroups();
@@ -67,27 +60,15 @@ function countdown(from, now) {
 }
 
 /*
- * One row. `status` decides the whole visual treatment: a past row is dimmed
- * and grows the two attendance buttons, a running one is ringed, the next one
- * up carries a countdown.
+ * One row. `status` decides the whole visual treatment: a past row is dimmed,
+ * a running one is ringed, the next one up carries a countdown.
  */
 function sessionRow(r, now) {
   const s = r.s;
   const kind = KINDS[s.kind] || { label: s.kind, tone: 'muted' };
-  const att = attendanceMap()[s.id];
   const other = isOtherGroup(s, myGroups());
   const teacher = s.teacher && STAFF[s.teacher] ? STAFF[s.teacher].name : '';
   const bits = [kind.label, s.room, teacher, s.group ? `Group ${s.group}` : ''].filter(Boolean);
-
-  /* Only a past teaching session asks whether you went. A cancelled week,
-     a holiday or a revision slot has no attendance to record. */
-  const asks = r.status === 'past' && !['none', 'revision', 'assessment'].includes(s.kind) && !other;
-  const marks = asks
-    ? `<div class="attrow">
-        <button class="attbtn${att === 'went' ? ' on' : ''}" data-att="went" data-sid="${esc(s.id)}">Went</button>
-        <button class="attbtn miss${att === 'missed' ? ' on' : ''}" data-att="missed" data-sid="${esc(s.id)}">Missed</button>
-      </div>`
-    : '';
 
   /* A row can be real while its official teaching notes are still absent.
      Name that state instead of letting an absent button look accidental. */
@@ -111,7 +92,7 @@ function sessionRow(r, now) {
       <div class="sessmeta">${esc(bits.join(' · '))}</div>
       ${s.note ? `<div class="sessnote">${esc(s.note)}</div>` : ''}
       ${other ? '<div class="sessnote">Another group’s slot — hidden from your counts.</div>' : ''}
-      <div class="sessacts">${lessons}${marks}</div>
+      <div class="sessacts">${lessons}</div>
     </div>
   </li>`;
 }
@@ -222,26 +203,11 @@ function jumpToToday(now) {
   setTimeout(() => target.classList.remove('flashrow'), 1600);
 }
 
-function attendanceSummary(rows) {
-  const a = attendanceMap();
-  const past = rows.filter((r) => r.status === 'past' && !['none', 'revision'].includes(r.s.kind) && !isOtherGroup(r.s, myGroups()));
-  const went = past.filter((r) => a[r.s.id] === 'went').length;
-  const missed = past.filter((r) => a[r.s.id] === 'missed').length;
-  const unmarked = past.length - went - missed;
-  if (!past.length) return '';
-  return `<div class="attsum">
-    <span class="s"><b>${went}</b><small>attended</small></span>
-    <span class="s"><b>${missed}</b><small>missed</small></span>
-    <span class="s"><b>${unmarked}</b><small>unmarked</small></span>
-    <span class="s"><b>${past.length}</b><small>held so far</small></span>
-  </div>`;
-}
-
 function groupPickerHTML() {
   const g = myGroups();
   return `<div class="card grouppick">
     <div class="task-kicker">Your groups</div>
-    <p class="small" style="margin:9px 0 12px">The supplied timetable lists all three tutorial and lab groups without saying which is yours. Pick them once and the other groups’ slots stop counting against your attendance.</p>
+    <p class="small" style="margin:9px 0 12px">The supplied timetable lists all three tutorial and lab groups without saying which is yours. Pick them once and the other groups’ slots are dimmed and left out of your counts.</p>
     ${GROUP_CHOICES.map((set) => `<div class="grouprow">
       <span class="grouplab">${esc(set.label)}</span>
       <span class="groupopts">${set.options.map((o) =>
@@ -299,7 +265,7 @@ function syllabusPanel() {
 
 const TABS = [['week', 'This week'], ['next', 'Next week'], ['term', 'Full term'], ['assess', 'Assessments'], ['syllabus', 'Syllabus']];
 
-/* Which tabs carry a timetable, and so want the attendance line and the group
+/* Which tabs carry a timetable, and so want the group
    picker under them. Naming the ones that do, rather than testing for the
    others one by one in three places. */
 const TIMETABLE_TABS = ['week', 'next', 'term'];
@@ -323,7 +289,6 @@ export function renderCourse() {
     ${nowNextHTML(rows, now)}
     <div class="segbar coursetabs">${TABS.map(([id, label]) =>
     `<button class="seg${tab === id ? ' active' : ''}" data-ctab="${esc(id)}">${esc(label)}</button>`).join('')}</div>
-    ${timetable ? attendanceSummary(rows) : ''}
     <div class="coursebody">${body}</div>
     ${timetable ? groupPickerHTML() : ''}`;
 
@@ -334,9 +299,6 @@ export function renderCourse() {
     wireAssessments($$('courseView'), renderCourse, (f) => { ui.assessFilter = f; });
   }
   if (tab === 'term') $$('jumpTodayBtn').onclick = () => jumpToToday(new Date());
-  $$('courseView').querySelectorAll('[data-att]').forEach((b) => {
-    b.onclick = () => { setAttendance(b.dataset.sid, b.dataset.att); renderCourse(); };
-  });
   $$('courseView').querySelectorAll('[data-groupset]').forEach((b) => {
     b.onclick = () => { setGroup(b.dataset.groupset, b.dataset.groupopt); renderCourse(); };
   });

@@ -144,17 +144,17 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 | File | Lines | What it holds |
 | --- | --- | --- |
-| `assessments-and-marks.js` | 480 | Course — assessments, deadlines and the running mark |
+| `assessments-and-marks.js` | 476 | Course — assessments, deadlines and the running mark |
 | `boot.js` | 73 | Boot |
 | `briefing-format.js` | 65 | Weekly briefing — the file format, and nothing else. |
-| `course-timetable.js` | 360 | Course — the syllabus and the timetable, with attendance |
+| `course-timetable.js` | 322 | Course — the syllabus and the timetable |
 | `coverage-report.js` | 118 | Coverage report |
 | `dialog-behaviour-applied.js` | 125 | Dialog behaviour, applied to all seven at once |
 | `exam-mode.js` | 434 | Exam mode — a sitting, not a drill. |
 | `gist-sync.js` | 474 | Gist sync — the off-device copy, on the one service this app already depends on |
 | `global-search-one.js` | 456 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
-| `home.js` | 244 | Home |
+| `home.js` | 228 | Home |
 | `imports.js` | 146 |  |
 | `layout-figures.js` | 867 | Layout figures |
 | `lesson-visuals.js` | 321 | Lesson visuals |

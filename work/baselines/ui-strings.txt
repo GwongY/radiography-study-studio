@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1112 —
-  07fd5d8d7827cfc3  WHOLE SET
+— user-facing strings in outputs/ — 1099 —
+  3a6fc03daf4d4e7e  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -24,12 +24,9 @@
   f50d324d8a3b2119  " aria-label="
   b3c0b044207f0ecc  " aria-pressed="
   428d71c485304cd4  " class="dlab">
-  88c26bf09f179369  " data-att="missed" data-sid="
-  56dab152666c2c7c  " data-att="went" data-sid="
   b52c5573bfa9d3bf  " data-component="
   d9f636bbe94e0ae5  " data-concept="
   8ea7e01970b3f34f  " data-depth="
-  4c962673577ace70  " data-done="
   ae8ca477f78c9e53  " data-etab="
   ef15913a4f42b0cc  " data-filter="
   5265bd1a089ac9df  " data-groupopt="
@@ -104,8 +101,6 @@
   02c400f14d7569ed  <a href="
   bc002056a461072f  <b style="
   fbc7f40a78126f42  <b>—</b> so far
-  13afbf804d8a2068  <button class="attbtn
-  a7efef6ed82b83dc  <button class="attbtn miss
   1a6ab45c16783dc4  <button class="card" data-row="
   3f235ec9141a2347  <button class="conf
   125f93e4a929b76f  <button class="filter-chip
@@ -152,6 +147,7 @@
   933dac4c71ff915a  <div class="empty">No topics match this filter yet.</div>
   4c4c92b71b945230  <div class="empty">No upcoming class has lessons to prepare.</div>
   42fe6c40c24b5c28  <div class="empty">Nothing important in this week\'s university email.</div>
+  4e5528ba372cc6f9  <div class="empty">Nothing left on the published deadlines.</div>
   6b5b6a25a2f50ee3  <div class="empty">Recent searches — tap to run again</div>
   94ca8e2b60e2f26b  <div class="empty">Search structures, study items and topics. Press Esc to close.</div>
   35ce3a36a607c3e6  <div class="emptybox" style="margin-top:14px">No memory aid authored for this item yet.</div>
@@ -186,7 +182,6 @@
   bdf855c7c177a453  <ellipse class="sk" cx="
   798cf300248becd5  <em style="color:var(--muted)">tap to reveal</em>
   8df921f209075c80  <figure class="lessonvis"
-  cf42e1ff1e88983f  <h2 class="editorial" style="font-size:calc(24px*var(--ts));margin:8px 0 0
   c5c104a746bff703  <h4>Derived from</h4>
   a03547db46bf9e4b  <i style="background:#
   6f722b80156fb8ac  <img src="
@@ -384,8 +379,6 @@
   6ac6a5c7f23082d7  Greek kranion — helmet/skull
   a5ae4d1e81505bca  Greek sternon — chest
   a7412a5575ad7d75  Greek thorax — chest armour
-  b70193da11b2bc6b  Handed in
-  9ce88e70377dc5ee  Handed in ✓
   805e154ea0f599bc  Has 3D / images
   318e02bf5cf6ad64  Have a go first. Applying it badly and then correcting beats reading the answer.
   dc0798173dbd926c  Held still for reference:
@@ -455,7 +448,6 @@
   4329d1c71debab86  MCQ and fill-in-the-blanks
   165674c787736715  MCQs in Exam Mode).
   13166033a2c30bb5  Manubrium, body, xiphoid: head, torso, sword-tip.
-  47c4ca3bc141b48a  Mark handed in
   74c4823f019f3ab0  Mastery and review schedules —
   d64f4eee948af6c3  Mastery lives in this browser only, so the desktop and the iPad keep separate schedules. Export a file here and import it on the other device.
   36d4a1c821f13df1  Match every row before checking.
@@ -522,13 +514,11 @@
   e843982c79a688a1  Not right — here is why
   ba35f0c47d862763  Not started
   2ca96754a9566ca9  Not that one — try again. You tapped
-  f7223d935cbef77b  Nothing ahead — but something is overdue.
   1e778de2e2378f44  Nothing due this week
   17c54ae148fd8107  Nothing has happened yet. Close this dialog and it never will.
   48973ea5c4589751  Nothing important in this week\'s university email.
   a272b965cae90dba  Nothing is assumed about your answer — this is the first thing recorded for the item.
   992f6502afaafa7a  Nothing is highlighted. Rotate the model and tap it. Tapping the same spot twice steps behind whatever is in front.
-  9ef12bb7fdb531f5  Nothing left on the published deadlines.
   db09520da1bff2bb  Nothing left on the published timetable.
   4197398a69b67157  Nothing marked yet — enter a mark as each piece comes back.
   e482fecba95e8c84  Nothing matches \u201c
@@ -722,7 +712,7 @@
   444c5de284285e50  The sacred wedge-shaped keystone locks the pelvic ring together.
   22bf2179a0ff259e  The small clue
   d34c527efb66b8ea  The study tools still work. Check your connection, then retry the model layer.
-  0e418effcb6578f9  The supplied timetable lists all three tutorial and lab groups without saying which is yours. Pick them once and the other groups’ slots stop counting against your attendance.
+  a6d6e45faa6aea68  The supplied timetable lists all three tutorial and lab groups without saying which is yours. Pick them once and the other groups’ slots are dimmed and left out of your counts.
   8786e514e5dee92d  The teaching term is over
   09612087f1b58b52  The term has not started yet
   dd5fd4c64fb6fb43  The thigh bone
@@ -744,7 +734,7 @@
   e592a9cae0957d20  Time limit
   003b779bf4554f34  Time up · paper submitted automatically
   60fbbc864f3e78f7  Timetable to your calendar
-  f3fbfcd5fea4fbe9  Timetable, syllabus, attendance
+  e8b3b668039def92  Timetable, syllabus, assessments
   365876067e586bde  Traced to
   bdadc5cef1ccc303  Transpyloric (L1)
   0a0d093315fde56b  Transtubercular (L5)
@@ -772,7 +762,7 @@
   9aa8e28faa9142cd  What the colours mean
   b4162094b978eb6b  What this lecture adds beyond
   536306b242c83602  What to do now
-  f91dc12078f83541  What you handed in and what you scored are yours, kept on this device with the rest of your progress.
+  b8babfa53259c4ba  What you scored is yours, kept on this device with the rest of your progress.
   7efbff3832400d93  Where all of this came from
   01801f7e0fdeb96f  Where it went
   595c0868c16492a2  Where the xiphoid process meets the body of the sternum, at the anterior end of the thoracic outlet.
@@ -882,7 +872,6 @@
   2417f7519a9d91f5  gl_FragColor = vec4(vec3(clamp(density, 0.0, 1.0)), 1.0);
   6a590bc9c97002da  gl_Position = projectionMatrix * mv;
   c3218bfbba24a149  half the model has gone missing
-  ece337d77fd9e30f  handed in
   45e1f41b67cfb2c2  has no action.
   cb60f96a9ee9ec62  has no id.
   ff0f82ab6a7041b2  has no questions array.
@@ -890,7 +879,6 @@
   7204bc464abbadf6  has no summary.
   678af8d54d4b2e77  has no title.
   d3626567f9a5400b  have I learnt it
-  136c83226ce5507e  held so far
   801150784042ae58  hiddentray empty
   1627ca8d8438acb8  how far does this region reach
   940f7dac806d0907  htitle editorial
@@ -1027,7 +1015,6 @@
   0d9fec38ee8cf1fe  source.receivedAt must be ISO with an offset.
   a1c7213f9215c796  source.threadId must be hexadecimal.
   c2c8014913158639  still blank. Submit anyway?
-  4118e397f17372ab  still to hand in
   7d30607b3e9c2d7a  structures in
   036a99f6c882069b  structures to name. Work round them in a fixed order every time, so the order itself becomes the cue.
   4132e48b488fc684  studied, across

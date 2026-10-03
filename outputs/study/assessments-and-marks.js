@@ -174,7 +174,7 @@ export function deadlineStats(now) {
   let soon = 0;
   let next = null;
   for (const row of DEADLINES) {
-    const state = deadlineState(row, now, isDone(row.s.id));
+    const state = deadlineState(row, now, false);
     if (state === 'done') continue;
     open += 1;
     if (state === 'overdue') overdue += 1;
@@ -299,11 +299,15 @@ export function exportCalendar() {
  * The panel
  * ------------------------------------------------------------------ */
 
-const FILTERS = [['open', 'To do'], ['soon', 'This week'], ['overdue', 'Overdue'], ['done', 'Handed in'], ['all', 'All']];
+/* Hand-in marking was removed at the owner's request (2026-10-03): a deadline
+   is upcoming until it passes, then past. Saved hand-in records are left in
+   storage, untouched, and no longer read. 'overdue' is the state name
+   deadlineState() gives a passed deadline; here it is shown as "Past". */
+const FILTERS = [['open', 'Upcoming'], ['soon', 'This week'], ['overdue', 'Past'], ['all', 'All']];
 
 function passesFilter(state, filter) {
   if (filter === 'all') return true;
-  if (filter === 'open') return state !== 'done';
+  if (filter === 'open') return state !== 'done' && state !== 'overdue';
   return state === filter;
 }
 
@@ -311,22 +315,18 @@ const accentOf = (code) => (getSubject(code) || {}).accent || 'var(--teal)';
 
 function deadlineRow(row, now) {
   const s = row.s;
-  const done = isDone(s.id);
-  const state = deadlineState(row, now, done);
+  const state = deadlineState(row, now, false);
   const when = s.at && s.at[0] === 23 && s.at[1] === 59
     ? `${fmtDate(row.to)}, ${fmtTime(row.to)}`
     : `${fmtDate(row.from)} · ${fmtTime(row.from)}–${fmtTime(row.to)}`;
   const meta = [s.subject, `Week ${s.week}`, s.room, s.weight ? `${s.weight}% of the subject` : '']
     .filter(Boolean).join(' · ');
-  return `<li class="assrow ${esc(state)}" style="--acc:${esc(accentOf(s.subject))}">
-    <div class="assdue">${esc(when)}<br>${esc(done ? 'handed in' : untilText(row.to, now))}</div>
+  return `<li class="assrow ${esc(state === 'overdue' ? 'past' : state)}" style="--acc:${esc(accentOf(s.subject))}">
+    <div class="assdue">${esc(when)}<br>${esc(untilText(row.to, now))}</div>
     <div>
       <div class="assname">${esc(s.title)}</div>
       <div class="assmeta">${esc(meta)}</div>
       ${s.note ? `<div class="assmeta">${esc(s.note)}</div>` : ''}
-      <div class="assacts">
-        <button class="conf${done ? ' on' : ''}" data-done="${esc(s.id)}">${done ? 'Handed in ✓' : 'Mark handed in'}</button>
-      </div>
     </div>
   </li>`;
 }
@@ -402,13 +402,12 @@ function markCard(code) {
 export function assessmentsPanel(now, filter) {
   const stats = deadlineStats(now);
   const shown = DEADLINES.filter((row) =>
-    passesFilter(deadlineState(row, now, isDone(row.s.id)), filter));
+    passesFilter(deadlineState(row, now, false), filter));
 
   const head = `<div class="attsum">
     <span class="s"><b>${STUDY_SUBJECTS.length}</b><small>subjects</small></span>
-    <span class="s"><b>${stats.open}</b><small>still to hand in</small></span>
+    <span class="s"><b>${stats.open - stats.overdue}</b><small>upcoming</small></span>
     <span class="s"><b style="${stats.soon ? 'color:var(--orange)' : ''}">${stats.soon}</b><small>due this week</small></span>
-    <span class="s"><b style="${stats.overdue ? 'color:var(--red)' : ''}">${stats.overdue}</b><small>overdue</small></span>
   </div>`;
 
   const bar = `<div class="assbar">
@@ -424,16 +423,13 @@ export function assessmentsPanel(now, filter) {
   return `${head}${bar}${list}
     ${Object.keys(SUBJECT_ADMIN).map(markCard).join('')}
     <p class="marknote" style="margin-top:14px">Deadlines and weights come from the subject documents on the Syllabus tab.
-      What you handed in and what you scored are yours, kept on this device with the rest of your progress.</p>`;
+      What you scored is yours, kept on this device with the rest of your progress.</p>`;
 }
 
 /** Wire the panel's controls. `rerender` redraws whichever view hosts it. */
 export function wireAssessments(root, rerender, setFilter) {
   root.querySelectorAll('[data-afilter]').forEach((b) => {
     b.onclick = () => { setFilter(b.dataset.afilter); rerender(); };
-  });
-  root.querySelectorAll('[data-done]').forEach((b) => {
-    b.onclick = () => { setDone(b.dataset.done, !isDone(b.dataset.done)); rerender(); };
   });
   root.querySelectorAll('[data-mark]').forEach((input) => {
     /*
