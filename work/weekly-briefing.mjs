@@ -11,6 +11,10 @@
  *                                                read it back, then delete <file>
  *   node work/weekly-briefing.mjs --selftest    the validator still bites
  *
+ * Add `--checkout <dir>` to pull/push to use a git clone of the private repo
+ * instead of the gh CLI — what a cloud run has. The clone's origin must be the
+ * private repo; push commits briefing/latest.json there and `git push`es.
+ *
  * Uses the `gh` CLI's existing login; no token is read, printed or written by
  * this script. Prints counts and dates only — never a notice's text, because
  * this output can end up in a log or a chat.
@@ -27,9 +31,18 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO = process.env.BRIEFING_REPO || 'GwongY/rss-packs';
 const DIR = join(root, 'work/.briefing');
 
+const ci = process.argv.indexOf('--checkout');
+const CHECKOUT = ci > 0 ? resolve(process.argv[ci + 1]) : null;
+const git = (args) => execFileSync('git', ['-C', CHECKOUT, ...args], { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] });
 const gh = (args, opts = {}) => execFileSync('gh', args, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'], ...opts });
 
 function remote() {
+  if (CHECKOUT) {
+    const p = join(CHECKOUT, BRIEFING_PATH);
+    if (!existsSync(p)) return null;
+    const raw = readFileSync(p, 'utf8');
+    return { sha: null, raw, briefing: JSON.parse(raw) };
+  }
   try {
     const sha = gh(['api', `repos/${REPO}/contents/${BRIEFING_PATH}`, '--jq', '.sha']).trim();
     const raw = gh(['api', '-H', 'Accept: application/vnd.github.raw', `repos/${REPO}/contents/${BRIEFING_PATH}`]);
@@ -41,6 +54,11 @@ function remote() {
 }
 
 function assertPrivate() {
+  if (CHECKOUT) {
+    const url = git(['remote', 'get-url', 'origin']).trim();
+    if (!url.toLowerCase().includes(REPO.toLowerCase())) throw new Error(`The checkout's origin is not ${REPO}. Refusing.`);
+    return;
+  }
   const vis = gh(['api', `repos/${REPO}`, '--jq', '.private']).trim();
   if (vis !== 'true') throw new Error(`${REPO} is not private. Refusing to publish email there.`);
 }
@@ -82,7 +100,7 @@ function selftest() {
 }
 
 try {
-  const [cmd, file] = process.argv.slice(2);
+  const [cmd, file] = process.argv.slice(2).filter((a, i, all) => a !== '--checkout' && all[i - 1] !== '--checkout');
   if (cmd === '--selftest') selftest();
   else if (cmd === 'check') console.log(`Valid: ${describe(load(file))}`);
   else if (cmd === 'pull') {
@@ -102,6 +120,17 @@ try {
       throw new Error(`Refusing: this briefing (${b.generatedAt}) is older than the published one (${prev.briefing.generatedAt}).`);
     }
     const body = JSON.stringify(b, null, 2) + '\n';
+    if (CHECKOUT) {
+      mkdirSync(join(CHECKOUT, dirname(BRIEFING_PATH)), { recursive: true });
+      writeFileSync(join(CHECKOUT, BRIEFING_PATH), body);
+      git(['add', BRIEFING_PATH]);
+      git(['-c', 'user.name=Radiography', '-c', 'user.email=286941778+GwongY@users.noreply.github.com',
+        'commit', '-m', `Weekly briefing ${b.generatedAt.slice(0, 10)}`]);
+      git(['push', 'origin', 'HEAD']);
+      rmSync(file, { force: true });
+      console.log(`Pushed to the private repository checkout: ${describe(b)}. Removed the local plaintext.`);
+      process.exit(0);
+    }
     mkdirSync(DIR, { recursive: true });
     const req = join(DIR, '.put-request.json');
     writeFileSync(req, JSON.stringify({
