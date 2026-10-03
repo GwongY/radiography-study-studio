@@ -29,3 +29,6 @@ New source/
 # asserts that nothing pack-shaped ever reaches outputs/, the SW SHELL, the
 # progress export or the answer log.
 work/.packs/
+
+# Offline copy of the old sources (E:\UNI sources). Copyrighted, public repo.
+UNI sources/

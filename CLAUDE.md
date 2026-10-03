@@ -14,7 +14,7 @@ This application is the student's **personal University study platform for HKPol
 3. **Taught and Tested Only**: Unrelated lessons or artificial curriculum filler must NOT be produced. Content must strictly teach what is delivered in lectures and tutorials, and test what appears in revision exercises, quizzes, mid-term tests, and final exam papers.
 4. **Source Precedence**:
    - **Primary**: Current 2026/27 confirmed documents (syllabi, teaching schedules, 2026 lecture slides in `New source/`).
-   - **Support & Fallback**: Official older PolyU lecture slide decks, tutorial packets, and past examination papers on the shared drive where 2026 materials are not yet available.
+   - **Support & Fallback**: Official older PolyU lecture slide decks, tutorial packets, and past examination papers where 2026 materials are not yet available. These are the **old sources**, held offline at `E:\UNI sources` (see "Old sources" below) — no longer the Google Drive shortcuts.
    - **Intake Procedure**: When new files arrive in `New source/`, follow the 6-step intake workflow in [`docs/superpowers/specs/2026-09-10-new-source-intake-workflow.md`](docs/superpowers/specs/2026-09-10-new-source-intake-workflow.md).
 
 ## Find things here first
@@ -37,6 +37,65 @@ app, its file, its line range, and a link to the traps that govern it.
 are **generated** — never read or edit them, ask `work/query.mjs`. **Never walk
 `G:` for a source**: minutes of network stats, and the catalogue already knows.
 
+## Old sources: `E:\UNI sources`
+
+The old (pre-2026) materials live in one organised offline collection,
+`E:\UNI sources` (31.6 GiB, 9,668 files after the records clean-up; it was 66.8 GB, 17,380 files). It replaced the `Old source/` `.lnk`
+shortcuts and the Drive walk. It is **local disk, so listing it is cheap** — the
+`G:` warning above does not apply to it. It is read-only reference: do not move,
+rename or delete anything in it unprompted. It was reorganised twice on request
+(2026-10-02, folder moves only, journalled and undoable with
+`_Organization Records\Reorganisation 2026-10-02\undo-reorganisation.mjs`); any further
+change should be journalled the same way. `New source/` stays the home of 2026/27
+material and wins on precedence; `E:` is the fallback.
+
+Layout (reorganised 2026-10-02 to follow PolyU's degree structure; `E:\UNI sources\README.md`
+explains it and lists the open decisions):
+
+| Folder | Holds |
+| --- | --- |
+| `1 Radiography Programme` → `Year N` → `Sem N` → `<CODE Subject>` → material type | The programme's own subjects, plus `Clinical Placement`. Material type is one of `Notes`, `Exams`, `Labs`, `Assignments`, `Tutorials`, `References`, `Course Information`; dated sub-folders (`2019-2020`…) sit under that. `Midterm`/`Final` only where a course has both. |
+| `2 GUR` | General University Requirements for students admitted **2022/23 or later**, as PolyU publishes them (checked 2026-10-02): `AIDA`, `Innovation and Entrepreneurship`, `Language` (`English`, `Chinese`), `Leadership`, `Service-Learning`, and the four Cluster Areas Requirement groups `CAR A Human Nature`, `CAR D Science Tech`, `CAR M Chinese Culture`, `CAR N Societies`. The old A/B/C/D scheme was replaced by A/D/M/N and B/C subjects re-coded (`APSS1B16` → `APSS1BN16`), so old B/C folders were matched to the official lists by code or title. `CAR Unlisted` holds 5 courses in no current list. **APSS1A08 Introduction to Sociology is under `CAR A`, not under Year 1.** Freshman Seminar is not a 2022/23+ GUR, so `HSS1010` is in Year 1 Sem 1; `ELC3626` and `CLC3265P` are discipline-specific and sit in Year 3. |
+| `3 Other Subjects` | Subjects outside the programme or with no confirmed place (Optometry physiology, University Physics II, Applied Psychology, IT). |
+| `4 Additional Radiography Subjects` | Legacy radiography curriculum (Radiography Studies I–VI, older Medical Imaging Studies, AP204). |
+| `5 Reference Library` | Textbooks, papers, supplementary anatomy, software, postgraduate info. |
+| `_Organization Records` | 12 MiB. The original provenance and process records were summarised into `E:\UNI sources\README.md` ("What the original organisation records said") and the rest moved to `E:\TO DELETE - UNI sources records` for the user to delete — never treat that folder as a source and do not delete it for them. The 29.4 GiB `Offline Originals` (other programmes' source packs, unique content) went the same way and the user has already deleted them. Kept: `Reorganisation 2026-10-02/` (plans, journals, before-manifests, verifications, `undo-reorganisation.mjs`), `current-file-index.csv` (SHA-256 of every file; **pre-reorganisation paths**), `provisional-placement-review.csv`, `offline-unavailable-sources.md`, `Provenance Links`, `Source Index Documents`. Translate old paths through `reorganisation-plan.json` then `reorganisation-plan-pass2.json`. |
+
+Why the names are short (`2 GUR`, `CAR D Science Tech`): Windows is unreliable above
+259 characters, and the official cluster names pushed 21 files over. The longest
+study path is now 257. Keep new folder names short.
+
+Where this semester's five subjects sit (old-source predecessors by course code —
+the codes changed, so a lesson may cite a predecessor only as old-source support):
+
+| 2026/27 subject | Old-source location |
+| --- | --- |
+| HSS2011 Human Anatomy | `1 Radiography Programme\Year 1\Sem 1\HSS2011 Human Anatomy` (730 files; 536 of them `Exams`) |
+| ABCT2326 Human Physiology | `1 Radiography Programme\Year 1\Sem 1\ABCT2326 Human Physiology` (639; `Notes` has the lecture decks, `Labs`, `Exams`) |
+| HTI17103 Medical Radiation Science | no folder under that code; nearest is `1 Radiography Programme\Year 1\Sem 1\HTI17101 Exploring Radiography` (61) — treat the match as unconfirmed |
+| APSS1A08 Sociology | `2 GUR\CAR A Human Nature\APSS1A08 Introduction to Sociology` (22) |
+| DSAI1202 AI Literacy | no folder under that code. It is PolyU's AIDA GUR; its predecessor is `2 GUR\AIDA\COMP1004 AI` (8; the files are titled "AIDA Quiz" / "AIDA main quiz 2023-24"), plus the loose `2 GUR\AIDA\AIDA (course code unspecified)` |
+
+Completeness (checked 2026-10-02, against `work/source-catalogue.json`): 8,762 of
+the 8,794 catalogued documents are on `E:` (7,278 by name and size, 1,470 by size
+and extension where the file was renamed during organising, 14 zero-byte).
+The 32 not found are 29 `New source/` files (expected — they are not old) and 3
+4 KB OT Theory & Process placeholders from a non-radiography course. The
+collection's own checks (`final-collection-hash-verification.json`, summarised in the E: README) report all
+9,482 active files hash-verified and no missing targets. Known gaps it records: 6 linked folders, 11
+linked files and 20 old Dropbox links were inaccessible (`offline-unavailable-sources.md`),
+and 12 files carry provisional placements.
+
+Tooling has **not** been repointed: `work/build-source-catalogue.mjs`,
+`build-course-terms.mjs` and `source-resolve-check.mjs` still default to the `G:`
+shortcuts and `Old source/`. The committed catalogue and `source-text.json` stay
+valid, so nothing needs re-running; for a rebuild pass `--root "E:/UNI sources"`
+(supported by `build-course-terms.mjs`) and check the result before committing.
+
+`UNI sources/` inside the repo is an untracked partial copy (1.97 GB, 1,677 files)
+of `E:`. It is gitignored: this repository is public and the material is not ours
+to publish. Do not read from it in place of `E:`.
+
 ## Layout
 
 | Path | What it is |
@@ -54,7 +113,7 @@ are **generated** — never read or edit them, ask `work/query.mjs`. **Never wal
 licence is demonstrably free — author/licence/source are read from the same API
 response that authorised the download, so the credit the app shows cannot drift
 from the credit the licence requires; there is no override flag). `simplify-models.mjs` (simplifies the seven GLBs offline and commits the result — per-primitive, never through the CLI's document-level pass, because that prunes a mesh simplified below three triangles and takes a named structure with it; a triangle floor per primitive, a per-layer error budget where a cavity is measured off the surface, and a name-set comparison that refuses to write; needs a one-off npm install, see its header). Generators: `build-course-terms.mjs` (needs the drive + `pdftotext`) then `build-mesh-index.mjs`; `build-source-catalogue.mjs` then `build-source-text.mjs` (both need the drive; `lib/doc-text.mjs` reads pdf/docx/pptx, `lib/source-resolve.mjs` decides WHICH copy a `SOURCE_FILES` entry means); shared GLB-name reading AND per-structure geometry (`boxesIn`, `measureStructures`) live in `lib/mesh-names.mjs`. `build-question-pack.mjs` (the drive's question bank into a gitignored pack; `--split` writes one file per chapter because the GitHub Contents API stops returning content over 1 MB; reports per file what it could not parse rather than rounding it off), `pack-privacy-check.mjs` (the licensed half never leaves the device — written before the feature and watched to fail), `exam-check.mjs` (the paper builder and the marker, driven in node), `physiology-path-check.mjs` / `physiology-path-deform-check.mjs` / `physiology-path-model-check.mjs` (the routes: synthetic tubes with a KNOWN analytic answer for the welding, both gates and the frames — including that the two gates name the SAME reason on the same input, and that the weaker one accepts the short stub the stronger refuses; the constriction's Jacobian against a central difference of its own map, its normals against the deformed surface, and the exact zero-amplitude identity; then the real GLB — curated names resolve, quotes are on the pages they cite (one-based, the same indexing `source-check.mjs` uses), every refusal is refused BY NAME, every anchor is one the model puts against the mesh, independent landmarks and world height agree with the derived direction, a chained route begins exactly where its predecessor ends, a glow route ships nothing that could move a vertex, and the committed payload and its cache stamp match a fresh derivation byte for byte), `physiology-path-browser-check.js` (the same maps on a GPU: the real `PATH_SHAPE_GLSL` and `PATH_GLOW_*_GLSL` rendered into a float target, one pixel per vertex, against the reference — the only thing that can catch the GLSL and the JavaScript drifting apart, and the only thing that asserts advancing a glow route's phase moves the light and not the geometry). Generators: `build-physiology-paths.mjs` (the curated routes in `physiology-routes.json` into `outputs/assets/physiology/`; run it with no flag for the discovery report, `--write` to commit it). One-offs: `dense-lessons`, `gloss-gap-scan`, `dump-plain-candidates`. `scan-output.txt` and `id-inventory-*.txt` are scratch. |
-| `Uni/` | `.lnk` shortcuts to the Google Drive source folders. They resolve into `G:\.shortcut-targets-by-id\` — enumerate that directory, don't trust the shortcut list alone. |
+| `Uni/` | Legacy `.lnk` shortcuts to the Google Drive source folders (resolve into `G:\.shortcut-targets-by-id\`). Superseded for old sources by `E:\UNI sources` — see "Old sources" above. |
 
 ### `outputs/` data modules
 
