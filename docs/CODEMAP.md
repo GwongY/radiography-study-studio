@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 526 lines
+## `outputs/radiography-study-studio.html` — 524 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–501 | markup — no banners, grep here |
-| 502–502 | importmap |
-| 503–503 | loads studio.js |
-| 504–504 | loads study.js |
-| 505–524 | classic script · preamble |
-| 525–526 | markup — no banners, grep here |
+| 1–499 | markup — no banners, grep here |
+| 500–500 | importmap |
+| 501–501 | loads studio.js |
+| 502–502 | loads study.js |
+| 503–522 | classic script · preamble |
+| 523–524 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -154,7 +154,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `gist-sync.js` | 474 | Gist sync — the off-device copy, on the one service this app already depends on |
 | `global-search-one.js` | 456 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
-| `home.js` | 249 | Home |
+| `home.js` | 244 | Home |
 | `imports.js` | 146 |  |
 | `layout-figures.js` | 867 | Layout figures |
 | `lesson-visuals.js` | 321 | Lesson visuals |

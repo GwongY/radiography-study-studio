@@ -226,11 +226,6 @@ export function renderToday() {
    */
   const nowT = new Date();
   const dstats = deadlineStats(nowT);
-  $$('deadlineStatrow').innerHTML = [
-    [String(dstats.open), 'to hand in', ''],
-    [String(dstats.soon), 'this week', dstats.soon ? 'var(--orange)' : ''],
-    [String(dstats.overdue), 'overdue', dstats.overdue ? 'var(--red)' : ''],
-  ].map(([v, l, colour]) => `<div class="s"><b${colour ? ` style="color:${colour}"` : ''}>${esc(v)}</b><small>${esc(l)}</small></div>`).join('');
   const upcoming = DEADLINES
     .filter((r) => !isDone(r.s.id) && r.to >= nowT)
     .slice(0, 3);

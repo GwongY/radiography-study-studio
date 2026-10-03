@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1114 —
-  9f66873fd92e6fa6  WHOLE SET
+— user-facing strings in outputs/ — 1112 —
+  07fd5d8d7827cfc3  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -1041,10 +1041,8 @@
   b34e03407b386047  the token no longer has gist access
   aa380a202d8e6080  this device was empty, so the whole history was taken from the gist and rebuilt from the log
   8a3a6bcf33fef191  this is what I got
-  7d76655e727c2c50  this week
   a1af653b71796a91  to add your private question bank (past papers, publisher test bank).
   055ad9b667bf5424  to fetch one.
-  e0dd37bd06a20746  to hand in
   5d2033a00068467a  to uncover
   91ca901995ca8a91  type="button" data-term="
   e44871869c937cfc  uShell is zero for the soft-tissue layers. See radiography.js boneTau(). */
