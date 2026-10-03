@@ -32,3 +32,14 @@ work/.packs/
 
 # Offline copy of the old sources (E:\UNI sources). Copyrighted, public repo.
 UNI sources/
+
+# Private runtime secrets and mail.
+private-app/.env
+private-app/.data/
+private-app/*.vault
+private-app/*.vault.*
+private-app/.test-data/
+
+# Retired local prototype and private hosting checkout.
+work/.retired-private-mail/
+.sites-private/

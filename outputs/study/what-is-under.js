@@ -10,7 +10,7 @@ import { renderHiddenTray } from './hidden-tray.js';
 import { renderOverlayCard } from './spatial-overlay-controls.js';
 import { restoreStage } from './lesson-visuals.js';
 import { setActiveNav } from './navigation-five-destinations.js';
-import { showView } from './small-ui-helpers.js';
+import { showView, setTaskPanelExpanded } from './small-ui-helpers.js';
 import { renderViewerTools } from './viewer-tools.js';
 
 /* ------------------------------------------------------------------ *
@@ -178,6 +178,7 @@ function bindViewerExtras() {
 }
 
 export function openViewer() {
+  setTaskPanelExpanded(false);
   setActiveNav('viewer');
   renderViewerTabs();
   renderLayerRail();

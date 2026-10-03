@@ -236,8 +236,8 @@ export function init() {
     setTaskPanelExpanded(open);
     if (open && isPhoneViewer()) setToolsPanelOpen(false);
   });
-  /* Both panels ship open. On a phone, start with Explore & study only. */
-  setTaskPanelExpanded(true);
+  /* Explore opens only when requested from the bottom bar. */
+  setTaskPanelExpanded(false);
   setToolsPanelOpen(!$$('viewerToolsPanel').classList.contains('tools-collapsed'), 'spread');
   /*
    * The dock and the hidden-items tray sit ABOVE the control bar, and the bar's

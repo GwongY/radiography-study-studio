@@ -327,9 +327,13 @@ node work/baseline.mjs --check  # the probes still say what they said
 
 ## Git / deploy
 
-Branch is `master`, auto-deploys `outputs/` via `.github/workflows/pages.yml` to
-https://gwongy.github.io/radiography-study-studio/ on every push — don't push
-half-finished shell changes.
+Branch is `master`. On 2026-10-03 the owner returned to public GitHub Pages after
+trying owner-only Sites hosting. The repository is public again and
+`.github/workflows/pages.yml` verifies changes before publishing `outputs/`.
+Pushing master updates https://gwongy.github.io/radiography-study-studio/.
+The owner cancelled Gmail and automatic email updates; no Google Cloud or Gmail
+connection is needed. The previous Sites publication is a separate snapshot,
+not the primary deployment. See `docs/PRIVATE-HOSTING.md` for that history.
 
 What `master` carries is `git log --oneline` — not repeated here, because a
 changelog in the one file every session loads is one that goes stale unread.

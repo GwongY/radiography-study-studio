@@ -1,16 +1,5 @@
-# Publishes outputs/ to GitHub Pages.
-#
-# The app lives in outputs/, and Pages' "deploy from a branch" mode can only
-# serve the repo root or /docs. This uploads outputs/ as the artifact instead,
-# so the site root is the app directory and every relative path in it — the
-# service worker scope, the manifest, ./assets/*.glb — resolves unchanged.
-#
-# Nothing was checked before deploying, and this repo's whole safety story is
-# ~40 node verifiers that nothing ran automatically. They need no npm, no
-# network and no mounted drive — the .glb files they measure are tracked in
-# git — so there is no reason for the deploy to be the one place they are
-# skipped. verify now gates deploy: a failing check leaves the live site on
-# its last good version rather than publishing over it.
+# Publishes outputs/ to GitHub Pages after verification.
+# The owner requested a return to GitHub Pages on 2026-10-03.
 name: Deploy study studio to Pages
 
 on:
@@ -45,6 +34,8 @@ jobs:
         run: node work/syntax-check.mjs
       - name: Data module imports resolve
         run: node work/verify-modules.mjs
+      - name: Today and search-only settings navigation
+        run: node work/today-navigation-check.mjs
       - name: Every reachable module is precached, query and all
         run: node work/shell-check.mjs
       - name: Every split part imports what it references
@@ -73,9 +64,7 @@ jobs:
         run: node work/baseline.mjs --check
 
   deploy:
-    # A red verify leaves the live site alone. This is the whole point of the job.
     needs: verify
-    # Pull requests are checked but never published.
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:

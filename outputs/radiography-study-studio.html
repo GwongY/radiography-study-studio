@@ -120,10 +120,6 @@
                 <div class="statrow" id="deadlineStatrow"></div>
                 <div style="display:grid;gap:7px;margin-top:11px" id="deadlineList"></div>
               </div>
-              <div>
-                <div class="task-kicker" style="margin-bottom:9px">Start a session</div>
-                <div class="session-row" id="sessionTiles"></div>
-              </div>
             </div>
           </section>
           <section class="view hidden" id="learnView">
@@ -167,8 +163,8 @@
         <div class="hlist" id="hiddenList"></div>
       </div>
       <div class="stagenote"><span class="stagenote-row"><span id="stageMeta">z-anatomy-skeleton.glb · cached offline</span><span class="mono" id="regionMeta">All regions</span></span><span class="stage-hint">drag to rotate · pinch to zoom · tap a structure · tap the same spot again to go deeper</span></div>
-<div class="viewer-dock" id="viewerDock">      <aside class="selpanel panel-expanded" id="taskCard">
-        <button class="panel-toggle" id="taskPanelToggle" aria-expanded="true" aria-controls="taskPanelContent">Explore &amp; study</button>
+<div class="viewer-dock" id="viewerDock">      <aside class="selpanel hidden" id="taskCard">
+        <button class="panel-toggle" id="taskPanelToggle" aria-expanded="false" aria-controls="taskPanelContent">Explore &amp; study</button>
         <div id="taskPanelContent">
         <!--
           The study modes used to live inside the "⋯" sheet, two taps away from
@@ -233,7 +229,7 @@
       </div>
     </div>
 </section></div>
-<div class="ctrlpill"><button class="icon-btn" id="viewerExploreBtn" aria-expanded="true" aria-controls="taskCard">Explore</button><button class="icon-btn" data-tsec="spread" aria-expanded="false" aria-controls="viewerToolsPanel">Spread</button><button class="icon-btn" data-tsec="cut" aria-expanded="false" aria-controls="viewerToolsPanel">Cut</button><button class="icon-btn" data-tsec="regions" aria-expanded="false" aria-controls="viewerToolsPanel">Regions</button><button class="icon-btn" id="resetBtn">Reset view</button><button class="icon-btn" id="focusBtn">Focus</button><button class="ghost hidden" id="mvBackToSession">Back to the question</button></div>
+<div class="ctrlpill"><button class="icon-btn" id="viewerExploreBtn" aria-expanded="false" aria-controls="taskCard">Explore</button><button class="icon-btn" data-tsec="spread" aria-expanded="false" aria-controls="viewerToolsPanel">Spread</button><button class="icon-btn" data-tsec="cut" aria-expanded="false" aria-controls="viewerToolsPanel">Cut</button><button class="icon-btn" data-tsec="regions" aria-expanded="false" aria-controls="viewerToolsPanel">Regions</button><button class="icon-btn" id="resetBtn">Reset view</button><button class="icon-btn" id="focusBtn">Focus</button><button class="ghost hidden" id="mvBackToSession">Back to the question</button></div>
     </div>
             </div>
             <div id="viewerXrayPane" class="hidden">

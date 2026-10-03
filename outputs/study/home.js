@@ -4,13 +4,12 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import {
-  $$, STORAGE_PREFIX, STUDY_MODES, esc, fmtWhen, getItem, getSubject, isOtherGroup,
+  $$, STORAGE_PREFIX, esc, fmtWhen, getItem, getSubject, isOtherGroup,
   itemsForSubject, itemsForUnit, sessionsWithStatus, ui,
 } from './imports.js';
 import { myGroups } from './course-timetable.js';
 import { renderLearn } from './subject.js';
-import { examPool } from './exam-mode.js';
-import { STEPS, pickItems, setStep, startSession } from './session-engine.js';
+import { STEPS, setStep } from './session-engine.js';
 import { goTo, openSessionOverlay, setActiveNav } from './navigation-five-destinations.js';
 import { itemScore, read, write } from './storage-versioned-keys.js';
 import { showView } from './small-ui-helpers.js';
@@ -161,44 +160,6 @@ export function renderToday() {
   else $$('openLearnBtn').onclick = () => goTo('learn');
 
   renderWorkPrep(new Date());
-
-  /*
-   * One row, three buttons, and the hint is gone.
-   *
-   * There were eight tiles here, each carrying a glyph, a label, a sentence of
-   * hint and a count, at a 104px floor -- roughly two phone screens of chooser
-   * before the reader reached anything to do. Five of the modes were cut in
-   * schema.js; what is left is short enough to sit in a single row, so the
-   * hint sentence goes too. It survives as the title attribute, which is where
-   * an explanation belongs once the label is doing its job.
-   *
-   * The count is still the real thing, taken by running the picker rather than
-   * by an estimate that could drift from it, and a mode with nothing to offer
-   * is still disabled and still says why rather than opening an empty session
-   * and toasting an apology.
-   */
-  const TILE_COLOR = { daily: 'var(--teal)', exam: 'var(--blue)', mistakes: 'var(--red)' };
-  const EMPTY_WHY = { mistakes: 'None logged — good', daily: 'Nothing to warm up on', exam: 'No questions yet' };
-  /* 'daily' is left out too: Work to do is the daily pre-study now, tied to
-     the timetable. The mode itself stays, for the home-screen shortcut. */
-  const tiles = STUDY_MODES.filter((m) => m.id !== 'subject' && m.id !== 'daily').map((m) => {
-    /* Exam mode builds a PAPER, so its tile counts questions rather than
-       items -- and counts them from the same pool buildPaper draws on, so the
-       number on the card cannot drift from the questions actually available. */
-    const isExam = m.id === 'exam';
-    const count = isExam ? examPool().length : pickItems({ mode: m.id }).length;
-    return { ...m, count, noun: isExam ? 'question' : 'item', color: TILE_COLOR[m.id] || 'var(--teal)' };
-  });
-  $$('sessionTiles').innerHTML = tiles.map((m) => `
-    <button class="rss-mode" style="flex-direction:column;align-items:flex-start;gap:4px;min-height:78px" data-mode="${esc(m.id)}" title="${esc(m.hint)}"${m.count ? '' : ' disabled'}>
-      <span class="ic" style="font-size:16px;color:${m.color}">${m.icon}</span>
-      <b>${esc(m.label)}</b>
-      <span class="cnt">${m.count ? m.count.toLocaleString() + ' ' + m.noun + (m.count === 1 ? '' : 's') : esc(EMPTY_WHY[m.id] || 'Nothing to study')}</span>
-    </button>`).join('');
-  $$('sessionTiles').querySelectorAll('[data-mode]').forEach((b) => {
-    if (b.disabled) return;
-    b.onclick = () => startSession({ mode: b.dataset.mode });
-  });
 
   /*
    * What is due, beside what is mastered.

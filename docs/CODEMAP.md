@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 526 lines
+## `outputs/radiography-study-studio.html` — 522 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–501 | markup — no banners, grep here |
-| 502–502 | importmap |
-| 503–503 | loads studio.js |
-| 504–504 | loads study.js |
-| 505–524 | classic script · preamble |
-| 525–526 | markup — no banners, grep here |
+| 1–497 | markup — no banners, grep here |
+| 498–498 | importmap |
+| 499–499 | loads studio.js |
+| 500–500 | loads study.js |
+| 501–520 | classic script · preamble |
+| 521–522 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -49,7 +49,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `search-name.js` | 27 | Anatomical name matching shared by search and its regression gate. |  |
 | `study-data.js` | 127 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 398 | Radiography Study Studio — service worker |  |
+| `sw.js` | 400 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 356 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 268 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 2382 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
@@ -151,9 +151,9 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `dialog-behaviour-applied.js` | 125 | Dialog behaviour, applied to all seven at once |
 | `exam-mode.js` | 434 | Exam mode — a sitting, not a drill. |
 | `gist-sync.js` | 474 | Gist sync — the off-device copy, on the one service this app already depends on |
-| `global-search-one.js` | 452 | Global search -- one sheet over every destination, mixing structures, |
+| `global-search-one.js` | 456 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
-| `home.js` | 233 | Home |
+| `home.js` | 194 | Home |
 | `imports.js` | 146 |  |
 | `layout-figures.js` | 867 | Layout figures |
 | `lesson-visuals.js` | 321 | Lesson visuals |
@@ -177,7 +177,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 257 | Viewer tools — spread, section cut, layer depth |
 | `viewport-recovery.js` | 485 | The band below the tab bar — measuring it, and asking for the space back |
-| `what-is-under.js` | 223 | What is under the tap |
+| `what-is-under.js` | 224 | What is under the tap |
 
 ## The corpus — `outputs/study/corpus/*.js`
 
@@ -289,6 +289,7 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/syntax-check.mjs` | Syntax-checks every inline <script type="module"> block in the app HTML, plus |  |
 | `work/system-check.mjs` | Does every mesh in a split layer land in a system? | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs) |
 | `work/text-size-check.mjs` | Does the text-size control actually move the text? | [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) |
+| `work/today-navigation-check.mjs` | The requested hidden destination stays reachable through real search actions. |  |
 | `work/toplevel.mjs` | Which names does a module declare at TOP level? Ask Node, not the indentation. |  |
 | `work/ui-strings.mjs` | UI strings — every literal the app can put on screen, as a sorted fingerprint. | [The UI-string baseline reads comments too](TRAPS.md#the-ui-string-baseline-reads-comments-too--workui-stringsmjs) |
 | `work/unread-manifest.mjs` | Write a work list of everything the corpus has not read, for handing to |  |

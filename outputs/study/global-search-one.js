@@ -209,6 +209,10 @@ MESH_INDEX.forEach((m) => {
 export function searchHits(q) {
   const needle = q.trim().toLowerCase();
   if (!needle) return [];
+  if (/^(more|settings|about|more\/settings\/about)$/.test(needle)) return [{
+    kind: 'Settings', title: 'More', note: 'Settings, sources and about this app',
+    go: () => { closeSearchSheet(); dismissSessionForNav(); goTo('more'); },
+  }];
   const hits = [];
   const side = /^(left|right)\s/.exec(needle)?.[1] || null;
   const structureNeedle = side ? needle.slice(side.length).trim() : needle;

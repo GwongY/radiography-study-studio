@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1086 —
-  e59512b25b26acb1  WHOLE SET
+— user-facing strings in outputs/ — 1081 —
+  347331f66f38827c  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -129,7 +129,6 @@
   f8db73fad7b2457b  <button class="primary" id="rssNextItem">Next item →</button>
   63d4be2570536586  <button class="primary" id="rssNextQ">Next question →</button><button class="ghost" data-nav="apply">Go to apply</button>
   bfe8380af38f3075  <button class="primary" id="studyTopicBtn">Study in teaching order</button>
-  6a5b2a7c9f7e2a0b  <button class="rss-mode" style="flex-direction:column;align-items:flex-start;gap:4px;min-height:78px" data-mode="
   52c2a2e072de9ed6  <button class="seg
   6dcaad6caa1d4d6e  <button class="sres" data-hit="
   104dbe0e4864608b  <button class="sres" data-recent="
@@ -212,7 +211,6 @@
   ca7957e9685c2f1b  <span class="chip learn" title="
   87a837b4b8e9abcd  <span class="cnt" title="
   8bfd7adceef1345f  <span class="hy">auto</span>
-  50fa398b0c1af21a  <span class="ic" style="font-size:16px;color:
   b2aa118a497b3f4e  <span class="lay-arrow">\u2192</span>
   0f87e484d07b041c  <span class="livenow">On now</span>
   b83f09d243f67fb8  <span class="mono" data-depthread="
@@ -498,7 +496,6 @@
   5d2fd2351410d1ac  No question pack is currently loaded on this device.
   3a08d256416009cb  No question pack is loaded on this device. Open
   23ebb87a96f2c8f9  No question pack loaded. Open
-  43ba4c6744b168bf  No questions yet
   b7cae769b9db0fc6  No radiographs bundled
   ef8c7dae7a20163c  No reference
   f6a59c0ee7b34cc0  No source materials
@@ -506,7 +503,6 @@
   7731f34185d19140  No structure in the database has
   71d9ec8ef4d13ffe  No token is stored on this device.
   79575cdd56093f95  None listed.
-  95cf3b788a21623d  None logged — good
   041f683d3d9b3b9c  None of this item’s structures resolved in the model, so no 3D is shown.
   0c5f34541ff2a787  Not a question pack (format "
   3b3d2796168bf388  Not connected.
@@ -531,9 +527,7 @@
   f8c104249eb21c8b  Nothing selected
   5f659a0f0761bf95  Nothing to ask here yet
   dcc202d7f9385e97  Nothing to delete.
-  91d3cc9c39ce4d97  Nothing to study
   f5de33541d146691  Nothing to study for that selection yet.
-  6e02efea589c745e  Nothing to warm up on
   ad0e73f2f15963a1  Nothing under “
   a6e0c34b9bca71d0  Off. The app stops at the bottom of the viewport, leaving the strip below it empty.
   2b12d09ebcacae94  Official notes missing — see weekly gap
@@ -598,6 +592,7 @@
   4b36a73963ed2610  Self-graded as missed.
   8eda29c62c095bb5  Self-graded as partial — the points you missed are listed above.
   b4821ec5efba32ad  Session done —
+  d622e8fd81460d52  Settings, sources and about this app
   8bbf4d2a69b0c709  Seven vertebrae: breakfast at 7. C1 Atlas holds the head; C2 Axis lets you say no.
   40f6ba6b7d426214  Short answer
   0e96950aeb59f005  Short by
@@ -984,7 +979,7 @@
   b5b38c70aa56b8e0  segbar assfilters
   d0f660b8c5b0b50c  segbar coursetabs
   cd3c2bcf3f5c6659  segbar hidden
-  a89caa772a070b67  selpanel panel-expanded
+  65e03182d9d760c0  selpanel hidden
   37e8cb66682dd7b0  separately selectable">
   a8970b03087f1926  sheetscrim hidden
   607a6bbd50b8e2a7  shell position=

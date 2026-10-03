@@ -33,7 +33,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v177';
+const CACHE_VERSION = 'v182';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -289,7 +289,7 @@ async function cacheFirst(request, cacheName) {
   const hit = await cache.match(request);
   if (hit) return hit;
   const response = await fetch(request);
-  if (response && response.ok) cache.put(request, response.clone());
+  if (response && response.ok && !response.redirected) cache.put(request, response.clone());
   return response;
 }
 
@@ -372,6 +372,8 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
+  // Private email and sign-in responses never enter an offline cache.
+  if (url.origin === self.location.origin && (url.pathname.startsWith('/api/') || url.pathname.startsWith('/auth/') || url.pathname === '/login' || url.pathname === '/healthz')) return;
 
   if (isCdn(url)) { event.respondWith(cacheFirst(request, CDN_CACHE)); return; }
   if (url.origin !== self.location.origin) return;  /* leave other origins alone */

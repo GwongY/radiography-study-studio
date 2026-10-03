@@ -1,5 +1,15 @@
 # Radiography Study Studio
 
+### GitHub Pages restored (October 2026)
+
+The owner returned to public GitHub Pages and restored the repository's public
+visibility. Pushing master runs verification and publishes outputs/ automatically.
+Gmail integration and scheduled email updates remain cancelled. More is accessible
+through searching more/settings/about, the Today session chooser has been removed,
+and Explore starts closed whenever the Viewer opens (cache v182).
+Export existing progress before importing it at a new origin; keep the installed
+old app and its device data until migration is verified.
+
 ### Travelling arterial swell (September 2026)
 
 Nineteen validated arterial routes now swell radially under the travelling

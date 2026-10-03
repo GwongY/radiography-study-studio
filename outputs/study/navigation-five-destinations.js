@@ -83,7 +83,7 @@ export function goTo(id) {
   if (dest) dest[3]();
 }
 export function renderNavButtons() {
-  const html = NAV_DESTS.map(([id, label, icon]) =>
+  const html = NAV_DESTS.filter(([id]) => id !== 'more').map(([id, label, icon]) =>
     `<button data-nav="${esc(id)}"><span class="ic">${icon}</span><span>${esc(label)}</span></button>`).join('');
   $$('navRail').insertAdjacentHTML('beforeend', html);
   $$('bottomTab').innerHTML = html;
