@@ -1487,7 +1487,9 @@ html[data-ts="xl"]{--ts:1.55}
 @media(max-width:700px){
   #stageHome .ctrlpill{flex-wrap:nowrap;justify-content:flex-start;bottom:8px;left:8px;right:8px;transform:none;max-width:none;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none}
   #stageHome .ctrlpill::-webkit-scrollbar{display:none}
-  #stageHome .ctrlpill button{flex:1 1 auto;min-width:0;padding:8px 6px}
+  /* Grow to fill, never shrink below the label: shrinking let the labels
+     overlap at large text sizes. When they do not fit, the bar scrolls. */
+  #stageHome .ctrlpill button{flex:1 0 auto;padding:8px 6px;font-size:min(calc(12px * var(--ts)), 13.5px)}
   .viewer-dock{top:auto;bottom:calc(var(--pill-h,56px) + 14px);max-height:55%}
   .viewer-dock .selpanel{max-height:none;flex:0 0 auto}
   .viewer-dock .selpanel.panel-expanded{flex:1 1 auto}
@@ -1524,3 +1526,14 @@ html[data-ts="xl"]{--ts:1.55}
   #stageHome .hiddentray{top:58px;right:10px;left:auto;bottom:auto;align-items:flex-end;z-index:7}
   #stageHome .hiddentray .hlist{max-height:40vh}
 }
+/*
+ * Viewer corner, every platform (owner request, 2026-10-03). The file name,
+ * region and gesture hint printed above the model are gone everywhere -- on a
+ * phone they were already hidden, which left the Layers button floating 58px
+ * down under nothing. Layers now sits in the stage's top-left corner and the
+ * rail opens directly beneath it. The elements stay in the DOM because the
+ * studio still writes to #stageMeta and #regionMeta.
+ */
+#stageHome .stagenote{display:none}
+#stageHome .layer-rail-toggle{top:14px;left:14px}
+#stageHome .layerrail{top:58px;max-height:calc(100% - 176px)}

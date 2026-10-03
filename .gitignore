@@ -46,3 +46,6 @@ work/.retired-private-mail/
 
 # Weekly briefing plaintext (work/weekly-briefing.mjs). Real email; this repo is public.
 work/.briefing/
+
+# Prompts that name the owner's mailbox. Local only; this repo is public.
+private-prompts/

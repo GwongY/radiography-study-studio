@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1099 —
-  3a6fc03daf4d4e7e  WHOLE SET
+— user-facing strings in outputs/ — 1101 —
+  cbf4cb6a8b7986ea  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -573,6 +573,7 @@
   236dba4cad011ac5  Replace wipes this device\u2019s progress and installs the file instead. There is no undo. Continue?
   b4484cf5ac9a4334  Repository, token, and pack ID are all required.
   fc56055b48b49999  Reset progress on this device
+  ce89ae822e8ba072  Reset view
   b508cb314f3f74c3  Return to the same lesson page
   914423b50b0c8bb6  Reveal next hint
   ff43191f37c6e281  Review scheduled from your answers
@@ -1065,6 +1066,7 @@
   48aeee7eb3f531af  vec3 rssPerp=(transformed-uMCenter)-rssAlong*uMAxis;\n
   eddc22218b2be4a2  vec4 mv = modelViewMatrix * vec4(position,1.0);
   6a721f9bcdcf952d  view hidden
+  691c01cec2897213  viewer-tools-panel tools-collapsed
   517a9e300094cc0d  wall interpolated between the costal margin and the pelvis (muscle layer not loaded)
   e78e242b95628323  what is left
   d1d9ae15f23c9b21  what should I study
