@@ -102,7 +102,7 @@ to publish. Do not read from it in place of `E:`.
 | --- | --- |
 | `outputs/` | The app, deployed as-is — no build step. `radiography-study-studio.html` is now markup only (~360 lines); it pulls in `app.css`, then `studio.js` (3D studio) and `study.js` (study system) as two separate module scripts, in that order. They keep separate import scopes and talk only through `window.__osteo`. |
 | `outputs/*.js` | Data modules, each imported with `?v=N` (see the SW SHELL rule below). Map is below. |
-| `outputs/study/*.js` | The study system, 34 parts. `study.js` imports them in order, then calls their `init()`s — **nothing may run at module scope**, they import each other cyclically. Shared mutable UI state lives in `study/state.js` as `ui.*`; the studio's equivalent is its `state` object. |
+| `outputs/study/*.js` | The study system, 36 parts. `study.js` imports them in order, then calls their `init()`s — **nothing may run at module scope**, they import each other cyclically. Shared mutable UI state lives in `study/state.js` as `ui.*`; the studio's equivalent is its `state` object. |
 | `outputs/study/question-pack.js` | Fetches a question pack from a PRIVATE repo (`GwongY/rss-packs`, one file per chapter behind an `index.json`) into its own IndexedDB, `rss-packs`. Licensed test-bank content: **never** in git, in `outputs/`, in the SW shell, in the answer log or in the progress export — only ids of the form `pack:<packId>:<qid>`. `work/.packs/` is gitignored; rebuild with `node work/build-question-pack.mjs --split`. Its own fine-grained token, read-only on that one repo, so an unlocked device cannot reach anything else. |
 | `outputs/study/corpus/*.js` | The lesson corpus, 23 files. `study-data.js` is a barrel re-exporting them under the same 63 names, so nothing imports these directly. |
 | `outputs/studio/*.js` | The 3D studio, 12 parts, same shape as `study/`. Its top level is indented inconsistently, so no text or brace rule can tell a top-level declaration from a nested one — `node work/toplevel.mjs <file>` asks V8 instead, and is the tool to use before touching its structure. |
@@ -331,9 +331,14 @@ Branch is `master`. On 2026-10-03 the owner returned to public GitHub Pages afte
 trying owner-only Sites hosting. The repository is public again and
 `.github/workflows/pages.yml` verifies changes before publishing `outputs/`.
 Pushing master updates https://gwongy.github.io/radiography-study-studio/.
-The owner cancelled Gmail and automatic email updates; no Google Cloud or Gmail
-connection is needed. The previous Sites publication is a separate snapshot,
-not the primary deployment. See `docs/PRIVATE-HOSTING.md` for that history.
+No Google Cloud project or server is involved. A weekly briefing of the owner's
+university email is written by a local scheduled task and pushed with
+`work/weekly-briefing.mjs` to the PRIVATE pack repository; Today reads it with the
+pack token (`study/weekly-briefing.js`). **This repository is public: no email
+text, names, addresses or student details in commits, `outputs/`, docs or commit
+messages** — plaintext lives only in ignored `work/.briefing/`. Commits use the
+GitHub noreply address (repo-local `user.email`). The previous Sites publication
+is a separate snapshot; see `docs/PRIVATE-HOSTING.md`.
 
 What `master` carries is `git log --oneline` — not repeated here, because a
 changelog in the one file every session loads is one that goes stale unread.

@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 522 lines
+## `outputs/radiography-study-studio.html` — 526 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–497 | markup — no banners, grep here |
-| 498–498 | importmap |
-| 499–499 | loads studio.js |
-| 500–500 | loads study.js |
-| 501–520 | classic script · preamble |
-| 521–522 | markup — no banners, grep here |
+| 1–501 | markup — no banners, grep here |
+| 502–502 | importmap |
+| 503–503 | loads studio.js |
+| 504–504 | loads study.js |
+| 505–524 | classic script · preamble |
+| 525–526 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -25,7 +25,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 - `outputs/app.css` — 1526 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) · [hidden loses to an explicit display](TRAPS.md#hidden-loses-to-an-explicit-display--outputsappcss-outputsstudyexam-modejs)
 - `outputs/studio.js` — 29 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
-- `outputs/study.js` — 65 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
+- `outputs/study.js` — 67 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
 ## Data modules — `outputs/*.js`
 
@@ -49,7 +49,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `search-name.js` | 27 | Anatomical name matching shared by search and its regression gate. |  |
 | `study-data.js` | 127 | Radiography Study Studio — study data layer. |  |
-| `sw.js` | 400 | Radiography Study Studio — service worker |  |
+| `sw.js` | 402 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 356 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 268 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 2382 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
@@ -146,6 +146,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | --- | --- | --- |
 | `assessments-and-marks.js` | 480 | Course — assessments, deadlines and the running mark |
 | `boot.js` | 73 | Boot |
+| `briefing-format.js` | 65 | Weekly briefing — the file format, and nothing else. |
 | `course-timetable.js` | 360 | Course — the syllabus and the timetable, with attendance |
 | `coverage-report.js` | 118 | Coverage report |
 | `dialog-behaviour-applied.js` | 125 | Dialog behaviour, applied to all seven at once |
@@ -153,7 +154,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `gist-sync.js` | 474 | Gist sync — the off-device copy, on the one service this app already depends on |
 | `global-search-one.js` | 456 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
-| `home.js` | 194 | Home |
+| `home.js` | 200 | Home |
 | `imports.js` | 146 |  |
 | `layout-figures.js` | 867 | Layout figures |
 | `lesson-visuals.js` | 321 | Lesson visuals |
@@ -177,6 +178,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 257 | Viewer tools — spread, section cut, layer depth |
 | `viewport-recovery.js` | 485 | The band below the tab bar — measuring it, and asking for the space back |
+| `weekly-briefing.js` | 117 | Weekly briefing — this week's university notices, on Today. |
 | `what-is-under.js` | 224 | What is under the tap |
 
 ## The corpus — `outputs/study/corpus/*.js`
@@ -297,4 +299,5 @@ To read one item without opening a file: `node work/query.mjs item <id>`.
 | `work/verify-notes.mjs` | Check notes that came back from another reader, before any of it becomes a |  |
 | `work/viewport-check.mjs` | The viewport diagnosis — driven with readings no phone here can produce. |  |
 | `work/visuals-check.mjs` | Visuals check — every entry in every item's `visuals` list resolves to |  |
+| `work/weekly-briefing.mjs` | The writer's half of the weekly briefing (the reader is |  |
 

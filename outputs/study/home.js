@@ -13,6 +13,7 @@ import { STEPS, setStep } from './session-engine.js';
 import { goTo, openSessionOverlay, setActiveNav } from './navigation-five-destinations.js';
 import { itemScore, read, write } from './storage-versioned-keys.js';
 import { showView } from './small-ui-helpers.js';
+import { paintBriefing, refreshBriefing } from './weekly-briefing.js';
 import { DEADLINES, SOON_MS, deadlineStats, isDone, paintImminent, untilText } from './assessments-and-marks.js';
 
 /* ------------------------------------------------------------------ *
@@ -158,6 +159,11 @@ export function renderToday() {
    */
   if (cont) $$('continueBtn').onclick = () => resumeContinue(cont);
   else $$('openLearnBtn').onclick = () => goTo('learn');
+
+  /* After a pack is fetched or removed this re-runs, so the briefing appears
+     or disappears with the token it is read by. */
+  paintBriefing();
+  void refreshBriefing();
 
   renderWorkPrep(new Date());
 

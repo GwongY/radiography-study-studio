@@ -43,3 +43,6 @@ private-app/.test-data/
 # Retired local prototype and private hosting checkout.
 work/.retired-private-mail/
 .sites-private/
+
+# Weekly briefing plaintext (work/weekly-briefing.mjs). Real email; this repo is public.
+work/.briefing/

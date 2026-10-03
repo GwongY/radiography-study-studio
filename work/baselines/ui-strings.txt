@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1081 —
-  347331f66f38827c  WHOLE SET
+— user-facing strings in outputs/ — 1115 —
+  d811547fb2d0ec6a  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -69,6 +69,7 @@
   fce63bfb9ebaba3d  (prefers-reduced-motion: reduce)
   61ba12870f23bb03  ) but its
   93a03cdc35a83caa  ). Nothing was lost — try again later.
+  9c0ccf1f5ceb1311  ). Showing the last saved briefing.
   0ca05724eba6810f  *uArrivalSpan;float age=uMotorClock-arrival;rssBand=smoothstep(0.,.025,age)*(1.-smoothstep(.05,.10,age));rssSide=1.;\n
   7ac7679148ff1f49  , and this app is on
   75c7ea370d30e16f  , as a percentage"
@@ -148,6 +149,7 @@
   5d79580d037dc02a  <div class="empty">No study items found.</div>
   933dac4c71ff915a  <div class="empty">No topics match this filter yet.</div>
   4c4c92b71b945230  <div class="empty">No upcoming class has lessons to prepare.</div>
+  42fe6c40c24b5c28  <div class="empty">Nothing important in this week\'s university email.</div>
   6b5b6a25a2f50ee3  <div class="empty">Recent searches — tap to run again</div>
   94ca8e2b60e2f26b  <div class="empty">Search structures, study items and topics. Press Esc to close.</div>
   35ce3a36a607c3e6  <div class="emptybox" style="margin-top:14px">No memory aid authored for this item yet.</div>
@@ -297,6 +299,7 @@
   59b5b25c3f1225bb  Check answer
   df8077d81115769e  Check matches
   b731b58ee17f6202  Check order
+  b21cbce6bf98471b  Check this
   585386802f1281b5  Choose a topic →
   1fd0e2b073997f0d  Click the hotspot for:
   55656b5e434f4c06  Close search
@@ -315,6 +318,7 @@
   89f2d033d8a58d5f  Could not load the
   73a069d82b0d3b67  Could not locate that structure in the model
   57a9734bd3bcd083  Could not reach GitHub. If you are offline, this will retry on its own.
+  bc8906da68815d0b  Could not refresh (
   3e43a3e5c3ac8956  Could not set that movement up on the model.
   1aad18ebde0cbd8d  Course body
   a21359ed1dd0ede0  Created a private gist and wrote
@@ -336,6 +340,7 @@
   def37d546eb3a08f  Drawn by this app
   892bd00331369854  Drill these 
   29d95e88a631533a  Drill weakest 
+  7f8ac71aa449b0ac  Email from
   e3531efed93e66d7  Every factual claim on this item traces to a file below. Memory aids are written by this app and are marked separately.
   eb33e7f0fd9f3397  Every item has been seen at least once. Try "Review my weakest topics".
   7588a781fa751450  Every point is answerable in the practice question.
@@ -471,6 +476,7 @@
   073c6093b8588908  Model answer
   5eece731d84439fc  Modelled in the
   16ad3d834f99b1f1  Module 1 Thorax/Previous Years/1.1 Cardiovascular System and Lungs (17-18)
+  fe59e57a7a810873  More than
   71ee53804046e06a  More → Question pack
   4c67f0e5acff873f  Motion off. The anatomical colours stay.
   7d7e2aaf6139362e  Motor transmission · deltoid, biceps and quadriceps · slowed
@@ -504,6 +510,7 @@
   71d9ec8ef4d13ffe  No token is stored on this device.
   79575cdd56093f95  None listed.
   041f683d3d9b3b9c  None of this item’s structures resolved in the model, so no 3D is shown.
+  20e84bd6cc1b99f8  Not a briefing object.
   0c5f34541ff2a787  Not a question pack (format "
   3b3d2796168bf388  Not connected.
   81983c371fcb6aeb  Not enough exam-style questions for that selection yet.
@@ -516,6 +523,7 @@
   2ca96754a9566ca9  Not that one — try again. You tapped
   f7223d935cbef77b  Nothing ahead — but something is overdue.
   17c54ae148fd8107  Nothing has happened yet. Close this dialog and it never will.
+  48973ea5c4589751  Nothing important in this week\'s university email.
   44a3cc778bbfd521  Nothing in progress
   a272b965cae90dba  Nothing is assumed about your answer — this is the first thing recorded for the item.
   992f6502afaafa7a  Nothing is highlighted. Rotate the model and tap it. Tapping the same spot twice steps behind whatever is in front.
@@ -609,6 +617,7 @@
   14ff2c02f1b62ffb  Skills to build
   72e816aa3b0aaa5b  Skills to build with this content
   da2e37e9592542f8  Skip to practice
+  1a5f0309b5e9c356  Skipped line
   0eb673542101b71b  Slides behind the "beyond DSE Biology" lines
   1bfa470c34403319  Some tissue layers could not load. This is an incomplete projection; reopen this tab to retry.
   89d17970366ba5b3  Source files cited
@@ -675,6 +684,7 @@
   1a87df33818b2fb0  The 3D model is not available.
   188a07a1f493d877  The 3D models, the lessons and the source files are untouched \u2014 only your own history is.
   18c0bd11dc622725  The answer log in that file is malformed.
+  9ebdb7b20f4558c3  The briefing file is malformed:
   50dea43a7637d719  The chosen file is not valid JSON.
   d6811f43e25d4939  The contrast
   d216dedb9f2f1d46  The controls live with the model — the render loop only runs while the studio is on screen, so a slider here would move bones you cannot see.
@@ -720,6 +730,7 @@
   cca5df84a9532446  The upper horizontal line of the nine abdominopelvic regions. Measured at the body of L1.
   51aee75534b22418  There is nothing recorded on this device yet, so there is nothing to erase.
   b5792b631250ed3a  This bone is in the database, but high-yield hotspot coordinates have not been added yet.
+  b7e52a046ae1491a  This briefing is from
   0593a567427cea70  This device cannot render the floating-point projection. The 3D viewer is still available.
   948c12e38dda005e  This device holds
   c4dd0e722ec81849  This device is not connected to a gist yet.
@@ -745,7 +756,9 @@
   41146b07110e6e0c  Type the bone name
   d078bf7520a710d0  Type your answer
   314528767e58f2ee  ULna = yoUr elbow side: the pinky-side stable hinge.
+  d2d26d5185dd6a94  University notices
   132f74cac4453f6b  Unnamed structure
+  ccfe1ff0816d17cc  Unsupported version
   cef68b40feba1c6a  Upper first molar tooth
   75f3e35ccd2851cf  Upper limb
   a16d86c59b699247  Use the idea on something you have not seen.
@@ -828,11 +841,13 @@
   fa75afdd29c43adb  const tag = hit ? 'button' : 'span';
   bda336734237a549  correct. Reviews scheduled.
   8936e4bc4884d331  could not locate that structure
+  6c1f17a2f0ae1dbd  coverageEnd is before coverageStart.
   d3967cf0a967dbd6  cross the joint and are ghosted and held still — muscle and vessel deform across a joint
   d1db107277f6c3b0  current + older support
   e62c5be9438eca6a  current source verified
   a419fe7f15c0a5e3  dated sessions written to radiography-timetable.ics — open it to add them to your calendar.
   37dad91df7b23460  days ago
+  b0b164def6e14665  deadline must be null or ISO with an offset.
   bbb10c71f4b6d8f3  density += n * uSigma * (0.35 + 0.65 * density);
   69bde2c73b039a19  described in
   efe8bcccea6ac349  dlg-scroll termbody
@@ -868,7 +883,12 @@
   6a590bc9c97002da  gl_Position = projectionMatrix * mv;
   c3218bfbba24a149  half the model has gone missing
   ece337d77fd9e30f  handed in
+  45e1f41b67cfb2c2  has no action.
+  cb60f96a9ee9ec62  has no id.
   ff0f82ab6a7041b2  has no questions array.
+  c9fa72a47238593f  has no source.
+  7204bc464abbadf6  has no summary.
+  678af8d54d4b2e77  has no title.
   d3626567f9a5400b  have I learnt it
   136c83226ce5507e  held so far
   801150784042ae58  hiddentray empty
@@ -882,12 +902,15 @@
   40ba1be988786a47  in line here
   8f4e6e661819b86b  in the examinable glossary
   77fffafaf552e5b1  in this drill ·
+  914a79041cba02d9  incomplete must be a string or absent.
   ef17d1d3acfa4f78  insets top
   c7e4e6c144bbd4f1  inside its measured box
   57d0e79a82a3c644  intensity -- which is what a detector applies, and what the previous
+  f31f7b64448da8ce  is empty or too long.
   c8e3253dee590724  is held back by Live physiology — turn it off to see it
   1e8d660a5dd17abe  is missing a qid, a type or a stem.
   3e48f87cb43c928d  is missing from the markup
+  eaca51006df81f64  is not an object.
   63ba7e6dace7932d  is outside the current region filter
   65dfd88eb248fc0c  is the useful distinguishing landmark.
   71423f841ff7a38a  is too large for the API to return whole. Nothing was merged; this needs a smaller bucket size.
@@ -921,6 +944,7 @@
   91468c5437728572  mono sesscount
   0f168de1e265af3b  month file
   83be7b03931fc161  multiple-choice in timed papers,
+  65ee551fb198c26a  must be an ISO timestamp with an offset.
   f46b7e5ab634f52d  mv-note hidden
   31f204f598d94b86  mv-panel hidden
   2db7c5d825e1b1e4  named atlas structure
@@ -939,6 +963,7 @@
   29c0d92fb897dea2  not named in your course material
   adc2f0455e58e7cf  not yet synced
   6c72de620a530165  notice stop
+  f9af67a8e2ab418c  notices must be an array.
   bcc38d49bd57532e  of existing progress into the new mastery record.
   5265228587b69a1f  of the mark
   051d858fae071603  of them are selected together under a name it does use. The atlas calls this one "
@@ -955,6 +980,7 @@
   d2c10c79856392a6  primary detail-open
   63d1b7f8646ef672  primary next
   c504c70741f08c26  primary next show
+  46591e102d765ad8  priority must be urgent, normal or check.
   57df5f919992d6d5  pulled in,
   777503f25750cf8f  px "Instrument Sans", system-ui, -apple-system, sans-serif
   cee00d5056341f6c  questions from "
@@ -964,6 +990,7 @@
   9601152cce8eb58a  reads as
   c93a88684ed76c4f  real BodyParts3D upper-limb meshes
   6ab01b1dba123b71  region filter does not work
+  ec6a0f3dde81ba11  repeats id
   781cdd8431f04584  reveal open
   039ed7115face420  s depth is a fraction of the vessel
   dce1c177b1e44a6a  s depth, less the tag
@@ -986,6 +1013,8 @@
   e5b00fa86931ed23  short-answer questions in this pack.
   8758d8b826c9ddb8  short-answer under Exam → Short answer. Stored in IndexedDB on this device.
   29795951237abb24  should hold an array of events.
+  2c7793c890df5263  skipped lines.
+  7e1d4ce29beaeb4e  skipped must be an array.
   5c6db2f77cfe003a  small cut-levelnote
   535432277ab15c02  small term-number
   31c5f19d08e70b45  so far' :
@@ -993,6 +1022,10 @@
   f004ce84a1c00cd6  soft-tissue structures travel with the bone.
   29a944fb41484f0b  something is wrong
   a05d0fe6c99cd823  source review needed
+  b43e10e950501611  source.from is missing.
+  dd6b1fb86b59799a  source.quote is missing.
+  0d9fec38ee8cf1fe  source.receivedAt must be ISO with an offset.
+  a1c7213f9215c796  source.threadId must be hexadecimal.
   c2c8014913158639  still blank. Submit anyway?
   4118e397f17372ab  still to hand in
   7d30607b3e9c2d7a  structures in
@@ -1066,6 +1099,7 @@
   0ab77651425c254f  you can select · tap one
   d7085db92f248fb1  you need 140%
   0a070443fbd9b75b  · <a href="
+  9933c459a1daee37  · AI summary — check the quoted email before acting.
   cede9d46ada8b8f1  · found under "
   220cbb8b7a5db024  · left off at
   36a28bbb25a617bc  · modelled, but named in none of your course material
