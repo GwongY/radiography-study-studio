@@ -284,6 +284,11 @@ export function renderCourse() {
         : tab === 'next' ? weekPanel(rows, now, 'next')
           : weekPanel(rows, now);
 
+  /* The tab strip scrolls sideways on a phone and is rebuilt on every tap, so
+     its scroll position is carried across the redraw -- without this a tap
+     on "Assessments" snapped the strip back to the start. */
+  const oldTabs = $$('courseView').querySelector('.coursetabs');
+  const tabsLeft = oldTabs ? oldTabs.scrollLeft : 0;
   $$('courseView').innerHTML = `
     ${imminentHTML(now, rows)}
     ${nowNextHTML(rows, now)}
@@ -292,6 +297,16 @@ export function renderCourse() {
     <div class="coursebody">${body}</div>
     ${timetable ? groupPickerHTML() : ''}`;
 
+  const tabs = $$('courseView').querySelector('.coursetabs');
+  if (tabs) {
+    tabs.scrollLeft = tabsLeft;
+    const on = tabs.querySelector('.seg.active');
+    if (on) {
+      const l = on.offsetLeft - tabs.offsetLeft, r = l + on.offsetWidth;
+      if (l < tabs.scrollLeft) tabs.scrollLeft = l - 8;
+      else if (r > tabs.scrollLeft + tabs.clientWidth) tabs.scrollLeft = r - tabs.clientWidth + 8;
+    }
+  }
   $$('courseView').querySelectorAll('[data-ctab]').forEach((b) => {
     b.onclick = () => { ui.courseTab = b.dataset.ctab; renderCourse(); };
   });

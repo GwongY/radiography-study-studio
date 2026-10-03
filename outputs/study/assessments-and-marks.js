@@ -33,7 +33,7 @@
  * the arithmetic closes.
  */
 import {
-  $$, SESSIONS, STUDY_SUBJECTS, SUBJECT_ADMIN, esc, fmtDate, fmtTime,
+  $$, SESSIONS, SUBJECT_ADMIN, esc, fmtDate, fmtTime,
   getSubject, sessionSpan, sessionsWithStatus,
 } from './imports.js';
 import { K, read, store, write } from './storage-versioned-keys.js';
@@ -400,27 +400,25 @@ function markCard(code) {
 }
 
 export function assessmentsPanel(now, filter) {
-  const stats = deadlineStats(now);
-  const shown = DEADLINES.filter((row) =>
-    passesFilter(deadlineState(row, now, false), filter));
-
-  const head = `<div class="attsum">
-    <span class="s"><b>${STUDY_SUBJECTS.length}</b><small>subjects</small></span>
-    <span class="s"><b>${stats.open - stats.overdue}</b><small>upcoming</small></span>
-    <span class="s"><b style="${stats.soon ? 'color:var(--orange)' : ''}">${stats.soon}</b><small>due this week</small></span>
-  </div>`;
-
-  const bar = `<div class="assbar">
-    <div class="segbar assfilters">${FILTERS.map(([id, label]) =>
-    `<button class="seg${filter === id ? ' active' : ''}" data-afilter="${esc(id)}">${esc(label)}</button>`).join('')}</div>
-    <button class="ghost" id="icsExport">Export timetable to calendar</button>
-  </div>`;
+  const states = DEADLINES.map((row) => deadlineState(row, now, false));
+  const shown = DEADLINES.filter((row, i) => passesFilter(states[i], filter));
+  /*
+   * The counts ARE the filters: one row of four, each a number over its name,
+   * where there used to be a stat strip and a scrolling filter bar saying the
+   * same things twice. Fits a phone without scrolling.
+   */
+  const count = (id) => states.filter((st) => passesFilter(st, id)).length;
+  const bar = `<div class="segbar asscount">${FILTERS.map(([id, label]) => {
+    const n = count(id);
+    const hot = id === 'soon' && n && filter !== id ? ' style="color:var(--orange)"' : '';
+    return `<button class="seg${filter === id ? ' active' : ''}" data-afilter="${esc(id)}" aria-pressed="${filter === id}"><b${hot}>${n}</b><small>${esc(label)}</small></button>`;
+  }).join('')}</div>`;
 
   const list = shown.length
     ? `<ul class="asslines" style="margin-top:12px">${shown.map((r) => deadlineRow(r, now)).join('')}</ul>`
     : `<div class="emptybox">Nothing under “${esc((FILTERS.find((f) => f[0] === filter) || [])[1] || filter)}”.</div>`;
 
-  return `${head}${bar}${list}
+  return `${bar}${list}
     ${Object.keys(SUBJECT_ADMIN).map(markCard).join('')}
     <p class="marknote" style="margin-top:14px">Deadlines and weights come from the subject documents on the Syllabus tab.
       What you scored is yours, kept on this device with the rest of your progress.</p>`;
@@ -444,8 +442,6 @@ export function wireAssessments(root, rerender, setFilter) {
       rerender();
     };
   });
-  const ex = root.querySelector('#icsExport');
-  if (ex) ex.onclick = () => exportCalendar();
 }
 
 /* ------------------------------------------------------------------ *

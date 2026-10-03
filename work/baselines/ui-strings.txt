@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1101 —
-  cbf4cb6a8b7986ea  WHOLE SET
+— user-facing strings in outputs/ — 1100 —
+  54d46e8f90371e54  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -99,7 +99,6 @@
   70ec40827f738641  8 carpals, 5 metacarpals, 14 phalanges
   e9d9670fa0f80cf5  : (opened ? ' · read (1/4)' : '');
   02c400f14d7569ed  <a href="
-  bc002056a461072f  <b style="
   fbc7f40a78126f42  <b>—</b> so far
   1a6ab45c16783dc4  <button class="card" data-row="
   3f235ec9141a2347  <button class="conf
@@ -347,7 +346,6 @@
   b30e7966d149dbe2  Exam · results
   cc0c20dad7a077f0  Exam-style recall
   c00d4a1a69e70add  Explain my mistakes
-  b90b4a943e80fc1e  Export timetable to calendar
   9f7d2428f854a82f  Fade everything except the structures that define the cavity.
   35049c761f675e0a  Fetch from repository
   5cc50463f38d1ae0  Fetched pack "
@@ -826,6 +824,8 @@
   4fdb308b1fc87ab3  chip learn
   2cbe9c9f6127a32e  const attrs = hit ?
   150b21e4e5effc2a  const hit = lookupTerm(term);
+  422cab3643ecd94c  const hot = id === 'soon' && n && filter !== id ? ' style="color:var(--orange)"' : '';
+  093507f437ff79fb  const n = count(id);
   278b6cfc619726c6  const n = itemsForSubject(s.id).length;
   18b29e9c3e5c1ca4  const stepTag = stage >= 0 ?
   3d088b55d74552a6  const subject = getSubject(s.id);
@@ -844,7 +844,6 @@
   efe8bcccea6ac349  dlg-scroll termbody
   4f6bd1ad9fc7a4f8  does not hold valid JSON.
   9c029c43f1357a43  drawn on the abdominal wall muscles
-  b01870ef39f66f92  due this week
   95d2090b8994a8fe  e.g. abct2326-bank-v1
   8aa164c59694512b  e.g. username/study-packs
   099aa9ffa0926efa  emptybox hidden
@@ -992,7 +991,7 @@
   1299be2249d386cf  screen. No band.
   2ba630de2f754c51  screen. That gap is the band.
   287b152b950af901  screen. The band only appears in the installed app.
-  b5b38c70aa56b8e0  segbar assfilters
+  8eb22913bea624fe  segbar asscount
   d0f660b8c5b0b50c  segbar coursetabs
   cd3c2bcf3f5c6659  segbar hidden
   65e03182d9d760c0  selpanel hidden

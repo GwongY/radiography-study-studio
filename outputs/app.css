@@ -1537,3 +1537,22 @@ html[data-ts="xl"]{--ts:1.55}
 #stageHome .stagenote{display:none}
 #stageHome .layer-rail-toggle{top:14px;left:14px}
 #stageHome .layerrail{top:58px;max-height:calc(100% - 176px)}
+/*
+ * Phone fit, 2026-10-03 (owner report from an iPhone).
+ * - A segbar wider than the screen (Exam's four tabs measured 425px on a 402px
+ *   phone) made the whole PAGE pannable and zoomable on iOS. Segbars now
+ *   scroll inside themselves and never widen the page.
+ * - .asslines is a <ul>: the browser's 40px list indent pushed every
+ *   assessment card right.
+ * - The viewer header hides the .grow spacer, so Aa and search sat beside
+ *   the Course body / Projection switch instead of in the corner.
+ */
+.segbar{max-width:100%;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.segbar::-webkit-scrollbar{display:none}
+.segbar>.seg{flex:none}
+ul.asslines{list-style:none;margin:0;padding:0}
+.navhead #viewerTabs{margin-right:auto}
+.asscount{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;margin-top:14px}
+.asscount>.seg{display:grid;gap:1px;justify-items:center;align-content:center;min-height:54px;padding:6px 4px;white-space:normal}
+.asscount>.seg b{font-size:calc(18px * var(--ts));letter-spacing:-.03em;line-height:1.1}
+.asscount>.seg small{font:600 10.5px 'Instrument Sans',sans-serif;font-size:calc(10.5px * var(--ts));letter-spacing:.02em}
