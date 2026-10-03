@@ -4,14 +4,14 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import {
-  $$, STORAGE_PREFIX, esc, fmtWhen, getItem, getSubject, isOtherGroup,
+  $$, STORAGE_PREFIX, esc, fmtDate, fmtTime, fmtWhen, getItem, isOtherGroup,
   itemsForSubject, itemsForUnit, sessionsWithStatus, ui,
 } from './imports.js';
 import { myGroups } from './course-timetable.js';
 import { renderLearn } from './subject.js';
 import { STEPS, setStep } from './session-engine.js';
 import { goTo, openSessionOverlay, setActiveNav } from './navigation-five-destinations.js';
-import { itemScore, read, write } from './storage-versioned-keys.js';
+import { read, write } from './storage-versioned-keys.js';
 import { showView } from './small-ui-helpers.js';
 import { paintBriefing, refreshBriefing } from './weekly-briefing.js';
 import { DEADLINES, SOON_MS, deadlineStats, isDone, paintImminent, untilText } from './assessments-and-marks.js';
@@ -87,6 +87,75 @@ export function resumeContinue(cont) {
   setStep(cont.step);
 }
 /*
+ * This week -- the one thing that matters most in the next seven days.
+ *
+ * It replaced the Continue card at the top of Today. Worked out from the
+ * timetable every time Today is drawn, so it follows outputs/schedule.js --
+ * which the Sunday email task keeps current -- without anything else having
+ * to write to it. In order: the heaviest assessment due in the next seven
+ * days; failing that, an overdue one; failing that, the next class worth
+ * preparing for. A class a course notice changed this week is added beneath,
+ * because a new room is the change you only notice by walking into the old
+ * one. Resuming a lesson stays, as one small link.
+ */
+const WEEK_MS = 7 * 86400000;
+/* Ranking only, never shown. A sitting with no weight of its own (the ABCT2326
+   quiz counts towards a 35% component) still outranks a 2% exercise. */
+const rankOf = (s) => s.weight ?? (/quiz|test|exam/i.test(s.title) ? 25 : 0);
+function weekFocus(now) {
+  const groups = myGroups();
+  const horizon = now.getTime() + WEEK_MS;
+  const open = DEADLINES.filter((r) => !isDone(r.s.id) && !isOtherGroup(r.s, groups));
+  const due = open.filter((r) => r.to >= now && r.to <= horizon)
+    .sort((a, b) => rankOf(b.s) - rankOf(a.s) || a.to - b.to);
+  const overdue = open.filter((r) => r.to < now);
+  const changed = sessionsWithStatus(now).filter((r) => r.s.src?.ref === 'email.2026'
+    && r.s.on && r.to >= now && r.from <= horizon && !isOtherGroup(r.s, groups));
+  let main = null;
+  if (due.length) main = { kind: 'due', r: due[0] };
+  else if (overdue.length) main = { kind: 'overdue', r: overdue[overdue.length - 1] };
+  else {
+    const prep = sessionsWithStatus(now).find((r) => r.s.on && r.from > now && r.from <= horizon
+      && TEACHING.includes(r.s.kind) && !r.s.noStudy && r.s.unit && !isOtherGroup(r.s, groups)
+      && itemsForUnit(r.s.subject, r.s.unit).length);
+    if (prep) main = { kind: 'prep', r: prep };
+  }
+  return { main, changed, more: Math.max(0, due.length - 1) };
+}
+
+function paintWeekFocus(now, cont) {
+  const { main, changed, more } = weekFocus(now);
+  const where = (s) => [s.subject, fmtWhen(s), s.room].filter(Boolean).join(' · ');
+  /* A hand-in has no length: 'due Sun 4 Oct, 23:59', not '23:59–23:59'. */
+  const whenDue = (r) => (r.s.on && +r.from === +r.to
+    ? [r.s.subject, `due ${fmtDate(r.to)}, ${fmtTime(r.to)}`, r.s.room].filter(Boolean).join(' · ')
+    : where(r.s));
+  const head = !main ? 'Nothing due this week'
+    : main.kind === 'due' ? main.r.s.title
+    : main.kind === 'overdue' ? `Overdue: ${main.r.s.title}`
+    : `Prepare: ${main.r.s.title}`;
+  const sub = !main ? 'No assessment in the next seven days. A good week to get ahead.'
+    : main.kind === 'prep' ? where(main.r.s)
+    : `${whenDue(main.r)} · ${untilText(main.r.to, now)}${more ? ` · ${more} more due this week` : ''}`;
+  const unit = main?.r.s.unit && itemsForUnit(main.r.s.subject, main.r.s.unit).length ? main.r.s.unit : null;
+  const action = unit ? '<button class="primary" id="focusStudyBtn">Study for it →</button>'
+    : main && main.kind !== 'prep' ? '<button class="primary" id="focusAssessBtn">See assessments →</button>'
+    : '<button class="primary" id="openLearnBtn">Choose a topic →</button>';
+  $$('continueCard').innerHTML = `
+    <div class="task-kicker">This week</div>
+    <h2 class="editorial" style="font-size:calc(24px*var(--ts));margin:8px 0 0${main?.kind === 'overdue' ? ';color:var(--red)' : ''}">${esc(head)}</h2>
+    <p class="small" style="margin-top:6px">${esc(sub)}</p>
+    ${changed.map((r) => `<p class="small" style="margin-top:6px;color:var(--orange)">Changed: ${esc(r.s.title)} — ${esc(where(r.s))}</p>`).join('')}
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px">${action}
+      ${cont ? `<button class="ghost" id="continueBtn" style="border:0;background:none;color:var(--teal);padding:6px 0">Resume ${esc(cont.item.title)} →</button>` : ''}
+    </div>`;
+  if (unit) $$('focusStudyBtn').onclick = () => { ui.learnFilter = 'all'; ui.learnTopic = unit; ui.learnDrill = true; renderLearn(); };
+  if ($$('focusAssessBtn')) $$('focusAssessBtn').onclick = () => { ui.courseTab = 'assess'; goTo('course'); };
+  if ($$('openLearnBtn')) $$('openLearnBtn').onclick = () => goTo('learn');
+  if (cont) $$('continueBtn').onclick = () => resumeContinue(cont);
+}
+
+/*
  * Work to do, first half: the classes worth preparing for.
  *
  * Today's remaining classes and those on the next day that has any — so on a
@@ -138,27 +207,7 @@ export function renderToday() {
   setActiveNav('today');
 
   const cont = getContinueTarget();
-  $$('continueCard').innerHTML = cont ? `
-    <div class="task-kicker">Continue</div>
-    <h2 class="editorial" style="font-size:calc(24px*var(--ts));margin:8px 0 0">${esc(cont.item.title)}</h2>
-    <p class="small" style="margin-top:6px">${esc(getSubject(cont.item.subject).title)} · item ${cont.index + 1} of ${cont.total} · left off at ${esc(STEPS.find((s) => s.id === cont.step).label)}</p>
-    <div style="height:6px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden;margin-top:14px"><div style="height:100%;width:${Math.round(itemScore(cont.item.id) * 100)}%;border-radius:99px;background:var(--teal)"></div></div>
-    <div style="display:flex;align-items:center;gap:12px;margin-top:14px">
-      <button class="primary" id="continueBtn">Continue →</button>
-      <span class="small">${Math.round(itemScore(cont.item.id) * 100)}% mastered</span>
-    </div>` : `
-    <div class="task-kicker">Continue</div>
-    <h2 class="editorial" style="font-size:calc(24px*var(--ts));margin:8px 0 0">Nothing in progress</h2>
-    <p class="small" style="margin-top:6px">Prepare for a class from Work to do below, or pick a topic in Learn.</p>
-    <div style="margin-top:14px"><button class="primary" id="openLearnBtn">Choose a topic →</button></div>`;
-  /*
-   * The empty state used to be a sentence pointing at the tiles underneath it.
-   * With the page down to three elements it is the largest thing on screen and
-   * saying nothing, so it carries the default action instead of describing it.
-   * That action was the random daily warm-up until Work to do replaced it.
-   */
-  if (cont) $$('continueBtn').onclick = () => resumeContinue(cont);
-  else $$('openLearnBtn').onclick = () => goTo('learn');
+  paintWeekFocus(new Date(), cont);
 
   /* After a pack is fetched or removed this re-runs, so the briefing appears
      or disappears with the token it is read by. */

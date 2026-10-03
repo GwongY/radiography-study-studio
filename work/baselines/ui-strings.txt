@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1115 —
-  d811547fb2d0ec6a  WHOLE SET
+— user-facing strings in outputs/ — 1114 —
+  9f66873fd92e6fa6  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -60,7 +60,6 @@
   fe28989274e10994  % banked from
   23db48b468bb0c9a  % correct overall · weaker structures are prioritised.
   cce4036d8e09c47c  % marked
-  1fa5a4b7dc45d675  % mastered
   1981fd63b751ccdb  % of the subject
   b0aa62730bf81dd2  % of the weight,
   450933f8f8e47891  % still to come. Highest still reachable:
@@ -124,6 +123,9 @@
   346f8acb28a2cff6  <button class="omode" data-mode="
   b93aaff64fde9120  <button class="primary" data-nav="apply">Apply it →</button>
   7a600a4fe8fc3508  <button class="primary" data-nav="practise">Test me →</button>
+  0f7d2ec301dc047b  <button class="primary" id="focusAssessBtn">See assessments →</button>
+  cc9d3c1d8ec4a6b4  <button class="primary" id="focusStudyBtn">Study for it →</button>
+  b8e2de2dac42c9c3  <button class="primary" id="openLearnBtn">Choose a topic →</button>
   4a8dfeb9b037e6a4  <button class="primary" id="rssFinish">Finish session</button>
   a8fe76c9e49873c6  <button class="primary" id="rssFinish">Finish</button>
   041bb1de3e01a00e  <button class="primary" id="rssNextItem">Next hook →</button>
@@ -181,10 +183,10 @@
   20a11226de7c5b9f  <div class="studyscore">no attempts yet on this device</div>
   6634c6d53e1e4431  <div class="upnext
   eb7577ba3c5c592f  <div class="verdict
-  c1e9dab7d597ae36  <div style="height:100%;width:
   bdf855c7c177a453  <ellipse class="sk" cx="
   798cf300248becd5  <em style="color:var(--muted)">tap to reveal</em>
   8df921f209075c80  <figure class="lessonvis"
+  cf42e1ff1e88983f  <h2 class="editorial" style="font-size:calc(24px*var(--ts));margin:8px 0 0
   c5c104a746bff703  <h4>Derived from</h4>
   a03547db46bf9e4b  <i style="background:#
   6f722b80156fb8ac  <img src="
@@ -300,7 +302,6 @@
   df8077d81115769e  Check matches
   b731b58ee17f6202  Check order
   b21cbce6bf98471b  Check this
-  585386802f1281b5  Choose a topic →
   1fd0e2b073997f0d  Click the hotspot for:
   55656b5e434f4c06  Close search
   e503367c41c06b12  Close session
@@ -311,7 +312,6 @@
   20db2e0618629cd5  Compare with the model answer
   a75d43a157167800  Confirm it if that is right.
   0f7e8a381336fb95  Continue (
-  496267ccc6b01605  Continue →
   37b72d6c576f83a7  Correct — you found it in space.
   4a0c3a0072aecfa0  Could not load that layer — the others are still there.
   7405b8bbcaf9d423  Could not load that model — the skeleton is still available.
@@ -494,6 +494,7 @@
   dc16ec2f36f7218f  New sources — primary
   21fbde19cfb095cd  Next week
   5174f99c057c3927  No application task authored for this item.
+  606a71a1ba80cb6a  No assessment in the next seven days. A good week to get ahead.
   e15d3dda4ba3b830  No layer shown — turn one on to study it
   6a600b8957f187b2  No lesson for this administrative row
   acb7f9d4b343d5e8  No memory aid authored for this item yet.
@@ -522,9 +523,9 @@
   ba35f0c47d862763  Not started
   2ca96754a9566ca9  Not that one — try again. You tapped
   f7223d935cbef77b  Nothing ahead — but something is overdue.
+  1e778de2e2378f44  Nothing due this week
   17c54ae148fd8107  Nothing has happened yet. Close this dialog and it never will.
   48973ea5c4589751  Nothing important in this week\'s university email.
-  44a3cc778bbfd521  Nothing in progress
   a272b965cae90dba  Nothing is assumed about your answer — this is the first thing recorded for the item.
   992f6502afaafa7a  Nothing is highlighted. Rotate the model and tap it. Tapping the same spot twice steps behind whatever is in front.
   9ef12bb7fdb531f5  Nothing left on the published deadlines.
@@ -562,7 +563,6 @@
   6500e2302d2dac54  Practise ·
   d5ff712edaa1e542  Pre-aortic nodes
   6b6b69ac71bfe9de  Precise Z-Anatomy / BodyParts3D skeleton ·
-  d194ef408bdf39c0  Prepare for a class from Work to do below, or pick a topic in Learn.
   97bbce4ac834ffb8  Progress erased \u2014
   dbe0aa3439619d84  Progress merged.
   045742deb50fcee2  Progress replaced from file.
@@ -1101,7 +1101,6 @@
   0a070443fbd9b75b  · <a href="
   9933c459a1daee37  · AI summary — check the quoted email before acting.
   cede9d46ada8b8f1  · found under "
-  220cbb8b7a5db024  · left off at
   36a28bbb25a617bc  · modelled, but named in none of your course material
   6b4bb99b4ebbd84c  · only these have
   b49836c27fde6f76  · opens all together

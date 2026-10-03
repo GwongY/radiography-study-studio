@@ -154,7 +154,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `gist-sync.js` | 474 | Gist sync — the off-device copy, on the one service this app already depends on |
 | `global-search-one.js` | 456 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
-| `home.js` | 200 | Home |
+| `home.js` | 249 | Home |
 | `imports.js` | 146 |  |
 | `layout-figures.js` | 867 | Layout figures |
 | `lesson-visuals.js` | 321 | Lesson visuals |
