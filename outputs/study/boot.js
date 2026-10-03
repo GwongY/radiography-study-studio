@@ -18,8 +18,8 @@ import { isPhoneViewer, scrollViewTop, setTaskPanelExpanded, setToolsPanelOpen }
 /* Contextual back: only meaningful on a phone drilled into a topic. */
 /* The viewer keeps four primary controls on the canvas; everything the old
    studio showed at once now sits behind this one toggle. */
-/* The panel headers are the toggles; the bottom bar no longer repeats them. */
-$$('toolsPanelToggle').onclick = () => {
+/* The bottom bar's Tools button opens and closes the Tools panel. */
+$$('viewerMoreBtn').onclick = () => {
   const open = $$('viewerToolsPanel').classList.contains('tools-collapsed');
   setToolsPanelOpen(open);
   /* One panel at a time on a phone — see setToolsPanelOpen. */

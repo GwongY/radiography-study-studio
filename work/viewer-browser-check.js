@@ -14,12 +14,12 @@ async () => {
   if (o.inXray()) viewer.leaveProjection();
   document.querySelector('[data-vtab="3d"]').click();
   await pause(100);
-  const exploreButton=document.getElementById('taskPanelToggle');
+  const exploreButton=document.getElementById('viewerExploreBtn');
   exploreButton.click();
-  assert(getComputedStyle(document.getElementById('taskPanelContent')).display==='none','Explore can collapse from its header');
+  assert(getComputedStyle(document.getElementById('taskCard')).display==='none','Explore closes from the bottom bar');
   exploreButton.click();
-  assert(getComputedStyle(document.getElementById('taskPanelContent')).display!=='none','Explore can expand from its header');
-  assert(['viewerExploreBtn','viewerMoreBtn','motionBtn'].every(id=>!document.getElementById(id)),'Bottom bar no longer repeats the panel toggles or the turntable');
+  assert(getComputedStyle(document.getElementById('taskCard')).display!=='none','Explore opens from the bottom bar');
+  assert(!document.getElementById('motionBtn')&&['taskPanelToggle','toolsPanelToggle'].every(id=>getComputedStyle(document.getElementById(id)).display==='none'),'No turntable, and no header strips on the panels');
   assert(['toolShot','reviewBtn','reviewTitle','zoomInBtn','zoomOutBtn','frontBtn','lateralBtn'].every(id=>!document.getElementById(id)),'Removed controls are absent');
   const hud=await import('./studio/spatial-concept-overlays.js');
   const label=hud.labelSprite('A long annotation on the left clavicle remains readable',0x72e3cf);
@@ -37,9 +37,9 @@ async () => {
   assert(document.getElementById('viewerToolsPanel').getBoundingClientRect().top >= exploreRect.bottom, 'Tools is beneath Explore');
   sheet.scrollTop = 300;
   assert(stage.getBoundingClientRect().height === stageRect.height, 'Scrolling Tools preserves canvas height');
-  document.getElementById('toolsPanelToggle').click();
+  document.getElementById('viewerMoreBtn').click();
   assert(getComputedStyle(sheet).display === 'none', 'Tools toggle collapses panel');
-  document.getElementById('toolsPanelToggle').click(); sheet.scrollTop = 0;
+  document.getElementById('viewerMoreBtn').click(); sheet.scrollTop = 0;
 
   // A loading projection must not take the shared canvas after another destination wins.
   const originalEnsure = o.ensureXrayLayers;

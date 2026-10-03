@@ -1487,9 +1487,20 @@ html[data-ts="xl"]{--ts:1.55}
 @media(max-width:700px){
   #stageHome .ctrlpill{flex-wrap:nowrap;justify-content:flex-start;bottom:8px;left:8px;right:8px;transform:none;max-width:none;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none}
   #stageHome .ctrlpill::-webkit-scrollbar{display:none}
-  #stageHome .ctrlpill button{flex:1 1 auto;min-width:0;padding:8px 6px}
+  #stageHome .ctrlpill button{flex:none;padding:8px 10px}
   .viewer-dock{top:auto;bottom:70px;max-height:55%}
   .viewer-dock .selpanel{max-height:none;flex:0 0 auto}
   .viewer-dock .selpanel.panel-expanded{flex:1 1 auto}
   .viewer-dock .viewer-tools-panel.tools-collapsed{flex:0 0 auto}
 }
+
+/*
+ * The bottom bar's Explore and Tools buttons open the two panels, so the
+ * panels carry no header strip of their own, and a closed panel is gone
+ * rather than left as a bar across the model. (Every width, not just phones.)
+ */
+.viewer-dock .panel-toggle,.viewer-tools-panel>#toolsPanelToggle{display:none}
+.viewer-dock .viewer-tools-panel.tools-collapsed{display:none}
+.viewer-dock #taskPanelContent{padding-top:12px}
+.viewer-tools-panel .vsheet{padding-top:12px}
+#stageHome .ctrlpill #viewerExploreBtn.active,#stageHome .ctrlpill #viewerMoreBtn.active{background:rgba(114,227,207,.16);color:var(--teal)}

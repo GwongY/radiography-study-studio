@@ -194,32 +194,40 @@ function tuckOnRead() {
    scope, and the parts import each other cyclically. */
 export function isPhoneViewer() { return matchMedia('(max-width:700px)').matches; }
 
-export function setTaskPanelExpanded(expanded) {
+/*
+ * The bottom bar's Explore and Tools buttons are the only toggles: a closed
+ * panel is gone entirely rather than left as a header strip on the model.
+ * The in-panel header buttons are hidden by app.css.
+ */
+export function setTaskPanelExpanded(open) {
   const panel = $$('taskCard');
-  const toggle = $$('taskPanelToggle');
-  panel.classList.toggle('panel-expanded', expanded);
-  toggle.setAttribute('aria-expanded', String(expanded));
-  toggle.textContent = expanded ? 'Hide panel' : 'Explore & study';
+  panel.classList.toggle('hidden', !open);
+  panel.classList.toggle('panel-expanded', open);
+  $$('taskPanelToggle').setAttribute('aria-expanded', String(open));
+  $$('viewerExploreBtn').classList.toggle('active', open);
+  $$('viewerExploreBtn').setAttribute('aria-expanded', String(open));
 }
 export function setToolsPanelOpen(open) {
   $$('viewerToolsPanel').classList.toggle('tools-collapsed', !open);
   $$('toolsPanelToggle').setAttribute('aria-expanded', String(open));
+  $$('viewerMoreBtn').classList.toggle('active', open);
+  $$('viewerMoreBtn').setAttribute('aria-expanded', String(open));
 }
 
 /* Runs after every part has evaluated — see the entry point. */
 export function init() {
   window.xrayFallback = xrayFallback;
   window.__rssToast = toast;
-  const panelToggle = $$('taskPanelToggle');
   const panel = $$('taskCard');
-  panelToggle.addEventListener('click', () => {
-    const expanded = !panel.classList.contains('panel-expanded');
-    setTaskPanelExpanded(expanded);
-    if (expanded && isPhoneViewer()) setToolsPanelOpen(false);
+  $$('viewerExploreBtn').addEventListener('click', () => {
+    const open = panel.classList.contains('hidden');
+    setTaskPanelExpanded(open);
+    if (open && isPhoneViewer()) setToolsPanelOpen(false);
   });
   /* Both panels ship open. On a phone, start with Explore & study only. */
+  setTaskPanelExpanded(true);
   const settle = () => {
-    if (isPhoneViewer() && panel.classList.contains('panel-expanded')) setToolsPanelOpen(false);
+    if (isPhoneViewer() && !panel.classList.contains('hidden')) setToolsPanelOpen(false);
   };
   settle();
   matchMedia('(max-width:700px)').addEventListener('change', settle);

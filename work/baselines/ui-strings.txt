@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1098 —
-  7287723965ac4b85  WHOLE SET
+— user-facing strings in outputs/ — 1096 —
+  9c0d5f206a09001a  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -350,7 +350,6 @@
   b30e7966d149dbe2  Exam · results
   cc0c20dad7a077f0  Exam-style recall
   c00d4a1a69e70add  Explain my mistakes
-  bffe96c6114e2262  Explore & study
   b90b4a943e80fc1e  Export timetable to calendar
   9f7d2428f854a82f  Fade everything except the structures that define the cavity.
   35049c761f675e0a  Fetch from repository
@@ -390,7 +389,6 @@
   dc0798173dbd926c  Held still for reference:
   6fd0c5d030af33d3  Held still:
   2a7c8d2f587fec15  Hidden (
-  40cd6293d193b56d  Hide panel
   33832e6712de5c86  Hide this
   661c70362c780c6a  Holding pack "
   17dd4e0e76c7a31e  How to read the type column
