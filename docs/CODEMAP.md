@@ -45,7 +45,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `physiology-shape.js` | 327 | Pure rest-space shape derivation and illustrative deformation profiles. | [The heart's shared tether](TRAPS.md#the-hearts-shared-tether--outputsphysiology-shapejs-outputsstudiolive-physiologyjs) |
 | `physiology.js` | 417 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
-| `schedule.js` | 935 | schedule.js — the semester itself: what the syllabus says, and when each |  |
+| `schedule.js` | 937 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `schematics.js` | 784 | schematics.js — hand-authored SVG for the concepts no mesh can show. |  |
 | `search-name.js` | 27 | Anatomical name matching shared by search and its regression gate. |  |
 | `study-data.js` | 127 | Radiography Study Studio — study data layer. |  |
@@ -108,9 +108,9 @@ belong in `init()`. The two keep separate import scopes and talk only through
 |  | 275–304 | Groups the student belongs to but the schedule does not say |
 |  | 305–314 | Every timetabled session |
 |  | 315–368 | Weekly slots, from the university timetable |
-|  | 369–831 | Which lessons cover which week |
-|  | 832–880 | Where a session sits in time |
-|  | 881–935 | Formatting — kept here so the view has no date arithmetic in it |
+|  | 369–832 | Which lessons cover which week |
+|  | 833–881 | Where a session sits in time |
+|  | 882–937 | Formatting — kept here so the view has no date arithmetic in it |
 | `term-gloss.js` | 1–702 | preamble |
 |  | 703–788 | 2026 sweep — the cell, from the Lecture 1 items |
 |  | 789–831 | 2026 sweep — bone, muscle and the tissues of movement |

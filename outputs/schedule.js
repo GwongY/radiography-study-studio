@@ -702,7 +702,7 @@ export const SESSIONS = [
      happens, so it stays cancelled here — but the room is booked, so this is
      worth checking rather than assuming. Same pattern in week 10 below. */
   S({ subject: 'ABCT2326', week: 5, kind: 'none', on: [2026, 9, 1], title: 'Holiday — no lab', note: 'The teaching schedule cancels it for National Day. The university timetable still shows the Y719 slot at 13:30 — confirm before skipping.' }),
-  S({ subject: 'ABCT2326', week: 6, kind: 'assessment', on: [2026, 9, 7], at: [13, 30, 15, 20], room: 'V322', title: 'QUIZ — Lectures 1–5', teacher: 'CC', note: 'Counts towards the 35% quiz component.' }),
+  S({ subject: 'ABCT2326', week: 6, kind: 'assessment', on: [2026, 9, 7], at: [13, 30, 14, 20], room: 'V322', title: 'QUIZ — Lectures 1–5', teacher: 'CC', note: 'Counts towards the 35% quiz component. 60 MCQs, Cells to Renal. Bring an HB or B pencil and an eraser; wait outside until admitted.', src: { ref: 'email.2026', location: 'ABCT2326 course notice, 25 Sep 2026' } }),
   /* The teaching schedule explicitly designates "No Class" for tutorial during quiz week.
      The recurring room booking remains in the university timetable. */
   S({ subject: 'ABCT2326', week: 6, kind: 'tutorial', on: [2026, 9, 7], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — No Class (Teaching Schedule)', groupOf: 'physTutorial', note: 'The teaching schedule explicitly designates "No Class" for Tutorial in week 6 (Quiz 1 week). University timetable holds the recurring Y306 booking.', src: { ref: 'phys.sched.2026', location: 'Week 6 Tutorial: No Class' } }),
@@ -718,7 +718,7 @@ export const SESSIONS = [
      The recurring room booking remains in the university timetable. */
   S({ subject: 'ABCT2326', week: 9, kind: 'tutorial', on: [2026, 9, 28], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — No Class (Teaching Schedule)', groupOf: 'physTutorial', note: 'The teaching schedule explicitly designates "No Class" for Tutorial in week 9. University timetable holds the recurring Y306 booking.', src: { ref: 'phys.sched.2026', location: 'Week 9 Tutorial: No Class' } }),
   S({ subject: 'ABCT2326', week: 9, kind: 'lab', on: [2026, 9, 29], at: [13, 30, 15, 20], room: 'Y719', title: 'Digestive Lab', group: '1', groupOf: 'physLab' }),
-  S({ subject: 'ABCT2326', week: 10, kind: 'none', on: [2026, 10, 4], title: 'No class this week', note: 'CONFLICT: the teaching schedule says no class; the university timetable books the lecture (Wed 13:30 V322), the tutorial (Wed 17:30) and the lab (Thu 5 Nov 13:30 Y719) as normal. Confirm before skipping the week.' }),
+  S({ subject: 'ABCT2326', week: 10, kind: 'none', on: [2026, 10, 4], title: 'No class this week', note: 'No lecture or tutorial on 4 Nov and no lab on 5 Nov. The teaching schedule says so and the subject team confirmed it by notice; the university timetable still shows the slots.', src: { ref: 'email.2026', location: 'ABCT2326 course notice, 7 Sep 2026' } }),
   S({ subject: 'ABCT2326', week: 11, kind: 'lecture', on: [2026, 10, 11], at: [13, 30, 15, 20], room: 'V322', title: 'Lecture 9 — Nerve / Musculoskeletal', teacher: 'CY', unit: 'phys.msk' }),
   S({ subject: 'ABCT2326', week: 11, kind: 'tutorial', on: [2026, 10, 11], at: [17, 30, 18, 20], room: 'Y306', title: 'Tutorial — Nerve', unit: 'phys.nerv', groupOf: 'physTutorial' }),
   S({ subject: 'ABCT2326', week: 11, kind: 'lab', on: [2026, 10, 12], at: [13, 30, 15, 20], room: 'Y719', title: 'Digestive Lab', group: '2', groupOf: 'physLab' }),
@@ -730,7 +730,7 @@ export const SESSIONS = [
   /* A fourth lab the teaching schedule does not carry. Its rotation lists
      three topics across groups 1/2/3 and stops; the timetable books Y719 at
      the usual Thursday hour one more time. Whose lab group is not derivable. */
-  S({ subject: 'ABCT2326', week: 13, kind: 'lab', on: [2026, 10, 26], at: [13, 30, 15, 20], room: 'Y719', title: 'Lab — slot booked, topic not published', groupOf: 'physLab', note: 'From the university timetable only. The teaching schedule’s lab rotation ends at week 12.', src: { ref: 'cal.2026', location: 'ABCT2326 LAB, Thu 26 Nov' } }),
+  S({ subject: 'ABCT2326', week: 13, kind: 'none', on: [2026, 10, 26], title: 'No lab', note: 'The subject team’s notice lists no laboratory class on 26 Nov. The university timetable still books Y719.', src: { ref: 'email.2026', location: 'ABCT2326 course notice, 7 Sep 2026' } }),
 
   /* ---------------- HTI17103 — the real 2026 schedule ------------------- */
   S({ subject: 'HTI17103', week: 1, kind: 'lecture', on: [2026, 7, 31], at: [9, 30, 11, 20], room: 'GH201', title: 'About this subject; Introduction — Radiographer-to-be', teacher: 'LTL', unit: 'hti.subject', note: 'The teaching schedule puts this in HJ202; the calendar books GH201. Room from the calendar, which is the booking.' }),
@@ -743,6 +743,7 @@ export const SESSIONS = [
      is where the subject's 12 observation contact hours actually go. */
   S({ subject: 'HTI17103', week: 6, kind: 'observation', on: [2026, 9, 5], at: [8, 30, 18, 20], title: 'Observation Day 1 (HA Hospitals)', teacher: 'CE', room: 'TBA', note: 'Mon 5 Oct. Two blocks: 08:30–12:20 and 13:30–18:20.' }),
   S({ subject: 'HTI17103', week: 6, kind: 'observation', on: [2026, 9, 6], at: [8, 30, 18, 20], title: 'Observation Day 2 (HA Hospitals)', teacher: 'CE', room: 'TBA', note: 'Tue 6 Oct. Two blocks: 08:30–12:20 and 13:30–18:20. Together these are 12 of the subject’s 26 contact hours.' }),
+  S({ subject: 'HTI17103', week: 6, kind: 'observation', on: [2026, 9, 8], title: 'Observation (HA Hospital, Thursday group)', teacher: 'CE', room: 'TBA', note: 'Check hospital, session and reporting location in CLIPS and use the latest worksheet on Canvas.', src: { ref: 'email.2026', location: 'HTI17103 course notice, 1 Oct 2026' } }),
   S({ subject: 'HTI17103', week: 7, kind: 'seminar', on: [2026, 9, 15], at: [9, 30, 11, 20], room: 'TU201', title: 'Seminar I — Group Presentation', teacher: 'LTL', note: '10 minutes plus 5 minutes Q&A. Everyone in the group must speak.' }),
   S({ subject: 'HTI17103', week: 8, kind: 'seminar', on: [2026, 9, 22], at: [9, 30, 11, 20], room: 'TU201', title: 'Seminar II — Group Presentation', teacher: 'LTL', note: '10 minutes plus 5 minutes Q&A.' }),
 
@@ -927,6 +928,7 @@ export const SCHEDULE_SOURCES = [
   { subject: 'HTI17103', ref: 'hti.sched.2026', what: 'Teaching schedule 2026 — all eight sessions and both assessments' },
   { subject: 'APSS1A08', ref: 'soc.syllabus.2026', what: 'Current 2026/27 syllabus — objectives, all thirteen weeks, assessments, AI permissions and deadlines' },
   { subject: 'DSAI1202', ref: 'dsai.w1', what: 'Current Week 1 overview — tentative weekly sequence, assessment schedule, course scope and generative-AI policy' },
+  { subject: 'All', ref: 'email.2026', label: 'Course notices by email', what: 'Details announced to the class by email. The emails themselves are private and are not republished.' },
   /* Not a document, and deliberately not in SOURCE_FILES: source-check.mjs
      verifies that every SOURCE_FILES entry is a real file on the shared
      drive, and this one is a calendar. It is labelled here instead so the
