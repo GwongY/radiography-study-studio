@@ -3,7 +3,12 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, STORAGE_PREFIX, STUDY_MODES, esc, getItem, getSubject, itemsForSubject, ui } from './imports.js';
+import {
+  $$, STORAGE_PREFIX, STUDY_MODES, esc, fmtWhen, getItem, getSubject, isOtherGroup,
+  itemsForSubject, itemsForUnit, sessionsWithStatus, ui,
+} from './imports.js';
+import { myGroups } from './course-timetable.js';
+import { renderLearn } from './subject.js';
 import { examPool } from './exam-mode.js';
 import { STEPS, pickItems, setStep, startSession } from './session-engine.js';
 import { goTo, openSessionOverlay, setActiveNav } from './navigation-five-destinations.js';
@@ -82,6 +87,40 @@ export function resumeContinue(cont) {
   setStep(cont.step);
 }
 /*
+ * Work to do, first half: the classes worth preparing for.
+ *
+ * Today's remaining classes and those on the next day that has any — so on a
+ * Saturday it is Monday's, not an empty box — plus anything running now or
+ * open this week. Only teaching sessions whose unit has lessons; another
+ * group's slot is left out, as it is in the Course tab's counts. Each row
+ * hands its unit to Learn, the same way the timetable's "Study this" does.
+ */
+const TEACHING = ['lecture', 'tutorial', 'lab', 'seminar', 'observation', 'activity'];
+const dayKey = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+function renderWorkPrep(now) {
+  const groups = myGroups();
+  const prep = sessionsWithStatus(now).filter((r) =>
+    ['now', 'open', 'next', 'upcoming'].includes(r.status)
+    && TEACHING.includes(r.s.kind) && !r.s.noStudy && r.s.unit
+    && !isOtherGroup(r.s, groups)
+    && itemsForUnit(r.s.subject, r.s.unit).length);
+  const dated = prep.filter((r) => r.s.on && r.from > now);
+  const nextDay = dated.find((r) => dayKey(r.from) !== dayKey(now));
+  const days = new Set([dayKey(now), nextDay ? dayKey(nextDay.from) : null]);
+  const rows = prep.filter((r) => r.status === 'now' || r.status === 'open'
+    || (r.s.on && days.has(dayKey(r.from)))).slice(0, 5);
+  $$('workPrep').innerHTML = rows.length ? rows.map((r) => `
+    <div class="unit-row" style="cursor:default">
+      <span class="grow"><b>${esc(r.s.title)}</b><small>${esc([r.s.subject, fmtWhen(r.s)].join(' · '))}</small></span>
+      <button class="ghost" data-prepunit="${esc(r.s.unit)}" style="flex:none">Study this →</button>
+    </div>`).join('')
+    : '<div class="empty">No upcoming class has lessons to prepare.</div>';
+  $$('workPrep').querySelectorAll('[data-prepunit]').forEach((b) => {
+    b.onclick = () => { ui.learnFilter = 'all'; ui.learnTopic = b.dataset.prepunit; ui.learnDrill = true; renderLearn(); };
+  });
+}
+
+/*
  * THREE ELEMENTS: where was I, what shall I do, what is coming.
  *
  * Weakest, the Today stat row and Recent were all removed together, and for
@@ -110,15 +149,18 @@ export function renderToday() {
     </div>` : `
     <div class="task-kicker">Continue</div>
     <h2 class="editorial" style="font-size:calc(24px*var(--ts));margin:8px 0 0">Nothing in progress</h2>
-    <p class="small" style="margin-top:6px">Pick up the daily warm-up, or choose another session below.</p>
-    <div style="margin-top:14px"><button class="primary" id="startDailyBtn">Start today's session →</button></div>`;
+    <p class="small" style="margin-top:6px">Prepare for a class from Work to do below, or pick a topic in Learn.</p>
+    <div style="margin-top:14px"><button class="primary" id="openLearnBtn">Choose a topic →</button></div>`;
   /*
    * The empty state used to be a sentence pointing at the tiles underneath it.
    * With the page down to three elements it is the largest thing on screen and
    * saying nothing, so it carries the default action instead of describing it.
+   * That action was the random daily warm-up until Work to do replaced it.
    */
   if (cont) $$('continueBtn').onclick = () => resumeContinue(cont);
-  else $$('startDailyBtn').onclick = () => startSession({ mode: 'daily' });
+  else $$('openLearnBtn').onclick = () => goTo('learn');
+
+  renderWorkPrep(new Date());
 
   /*
    * One row, three buttons, and the hint is gone.
@@ -137,7 +179,9 @@ export function renderToday() {
    */
   const TILE_COLOR = { daily: 'var(--teal)', exam: 'var(--blue)', mistakes: 'var(--red)' };
   const EMPTY_WHY = { mistakes: 'None logged — good', daily: 'Nothing to warm up on', exam: 'No questions yet' };
-  const tiles = STUDY_MODES.filter((m) => m.id !== 'subject').map((m) => {
+  /* 'daily' is left out too: Work to do is the daily pre-study now, tied to
+     the timetable. The mode itself stays, for the home-screen shortcut. */
+  const tiles = STUDY_MODES.filter((m) => m.id !== 'subject' && m.id !== 'daily').map((m) => {
     /* Exam mode builds a PAPER, so its tile counts questions rather than
        items -- and counts them from the same pool buildPaper draws on, so the
        number on the card cannot drift from the questions actually available. */

@@ -34,7 +34,7 @@ function attendanceMap() {
   if (!store.attendance) store.attendance = read(K.attendance, {});
   return store.attendance;
 }
-function myGroups() {
+export function myGroups() {
   if (!store.groups) store.groups = read(K.groups, {});
   return store.groups;
 }
@@ -162,12 +162,33 @@ function nowNextHTML(rows, now) {
  * which hands the week's topic to Learn instead of restating it here.
  */
 
-function weekPanel(rows, now) {
+/*
+ * The teaching week that "next week" means. Before the term starts it is
+ * week 1 — the first week there is — and in the last week there is none.
+ */
+function nextWeekOf(now) {
   const wk = weekOf(now);
-  if (!wk) return '<div class="emptybox">Outside the teaching term — use the full-term view.</div>';
+  if (wk) return wk < TERM.weeks ? wk + 1 : null;
+  return now < weekStart(1) ? 1 : null;
+}
+
+function weekPanel(rows, now, which = 'this') {
+  const wk = which === 'next' ? nextWeekOf(now) : weekOf(now);
+  if (!wk) {
+    return which === 'next'
+      ? '<div class="emptybox">There is no next teaching week — the term ends this week.</div>'
+      : '<div class="emptybox">Outside the teaching term — use the full-term view.</div>';
+  }
   const mine = rows.filter((r) => r.s.week === wk);
-  if (!mine.length) return '<div class="emptybox">Nothing scheduled this week.</div>';
-  return `<ul class="sesslist">${mine.map((r) => sessionRow(r, now)).join('')}</ul>`;
+  const head = which === 'next'
+    ? `<h3 class="weekhead">Week ${wk}<span>${esc(fmtWeekRange(wk))}</span></h3>` : '';
+  if (!mine.length) return `${head}<div class="emptybox">Nothing scheduled ${which === 'next' ? 'next' : 'this'} week.</div>`;
+  return `${head}<ul class="sesslist">${mine.map((r) => sessionRow(r, now)).join('')}</ul>`;
+}
+
+/* The week "Jump to today" lands on: this one, or the nearest end of the term. */
+function todayWeek(now) {
+  return weekOf(now) || (now < weekStart(1) ? 1 : TERM.weeks);
 }
 
 function termPanel(rows, now) {
@@ -177,11 +198,28 @@ function termPanel(rows, now) {
     byWeek.get(r.s.week).push(r);
   }
   const here = weekOf(now);
-  return [...byWeek.keys()].sort((a, b) => a - b).map((w) => `
-    <section class="weekblock${w === here ? ' thisweek' : ''}">
+  return `<div class="jumptoday"><button class="ghost" id="jumpTodayBtn">Jump to today ↓</button></div>` +
+    [...byWeek.keys()].sort((a, b) => a - b).map((w) => `
+    <section class="weekblock${w === here ? ' thisweek' : ''}" data-week="${w}">
       <h3 class="weekhead">Week ${w}<span>${esc(fmtWeekRange(w))}${w === here ? ' · this week' : ''}</span></h3>
       <ul class="sesslist">${byWeek.get(w).map((r) => sessionRow(r, now)).join('')}</ul>
     </section>`).join('');
+}
+
+/*
+ * Scroll the full term to today: the session on now, else the next one up,
+ * else the top of this week's block. The term is ~150 rows long, which is
+ * several phone screens of scrolling to find where you are.
+ */
+function jumpToToday(now) {
+  const view = $$('courseView');
+  const block = view.querySelector(`.weekblock[data-week="${todayWeek(now)}"]`);
+  if (!block) return;
+  const target = view.querySelector('.sessrow.now, .sessrow.next, .sessrow.open')
+    || block;
+  target.scrollIntoView({ behavior: 'smooth', block: target === block ? 'start' : 'center' });
+  target.classList.add('flashrow');
+  setTimeout(() => target.classList.remove('flashrow'), 1600);
 }
 
 function attendanceSummary(rows) {
@@ -259,12 +297,12 @@ function syllabusPanel() {
  * The view
  * ------------------------------------------------------------------ */
 
-const TABS = [['week', 'This week'], ['term', 'Full term'], ['assess', 'Assessments'], ['syllabus', 'Syllabus']];
+const TABS = [['week', 'This week'], ['next', 'Next week'], ['term', 'Full term'], ['assess', 'Assessments'], ['syllabus', 'Syllabus']];
 
 /* Which tabs carry a timetable, and so want the attendance line and the group
-   picker under them. Naming the two that do not, rather than testing for them
-   one by one in three places. */
-const TIMETABLE_TABS = ['week', 'term'];
+   picker under them. Naming the ones that do, rather than testing for the
+   others one by one in three places. */
+const TIMETABLE_TABS = ['week', 'next', 'term'];
 
 export function renderCourse() {
   showView('courseView');
@@ -277,7 +315,8 @@ export function renderCourse() {
   const body = tab === 'syllabus' ? syllabusPanel()
     : tab === 'assess' ? assessmentsPanel(now, ui.assessFilter || 'open')
       : tab === 'term' ? termPanel(rows, now)
-        : weekPanel(rows, now);
+        : tab === 'next' ? weekPanel(rows, now, 'next')
+          : weekPanel(rows, now);
 
   $$('courseView').innerHTML = `
     ${imminentHTML(now, rows)}
@@ -294,6 +333,7 @@ export function renderCourse() {
   if (tab === 'assess') {
     wireAssessments($$('courseView'), renderCourse, (f) => { ui.assessFilter = f; });
   }
+  if (tab === 'term') $$('jumpTodayBtn').onclick = () => jumpToToday(new Date());
   $$('courseView').querySelectorAll('[data-att]').forEach((b) => {
     b.onclick = () => { setAttendance(b.dataset.sid, b.dataset.att); renderCourse(); };
   });

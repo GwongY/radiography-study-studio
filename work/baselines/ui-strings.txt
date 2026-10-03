@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1089 —
-  d31302b6b84147ff  WHOLE SET
+— user-facing strings in outputs/ — 1101 —
+  b752bdaa199b2611  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -40,6 +40,7 @@
   62d7f300f56bd1fa  " data-tool="off" aria-pressed="
   339e1b7085304bc2  " data-topic="
   e2d80c92ddbb5f6d  " data-vtab="
+  828626d9f204fdc0  " data-week="
   40096d512b202dd9  " data-xregion="
   33ebbb5a93b28f77  " data-xview="
   ee816f3b5b66dbf1  " loading="lazy">
@@ -49,6 +50,7 @@
   f847813600bc8f62  " role="status">
   eb82935571faaac8  " style="--acc:
   1b0741baa2d2f617  " style="--accent:
+  4206927b49985f17  " style="flex:none">Study this →
   64e063eaa6244b35  " style="margin-left:8px">Start →
   a70a4627802e8fd1  " style="text-align:left;cursor:
   8582de8f630e53c2  " style="width:100%;margin-top:4px">
@@ -110,6 +112,7 @@
   125f93e4a929b76f  <button class="filter-chip
   7c91d479afddcabc  <button class="ghost tolesson" data-unit="
   c4fc3c3169677b57  <button class="ghost" data-exam-subject="
+  e0d378bd7c1e136c  <button class="ghost" data-prepunit="
   eccfc54f8a6ac23c  <button class="ghost" id="openViewerBtn">Open in Viewer</button>
   8a969989b832ac09  <button class="ghost" id="rssExamPrev"
   e930ca7db13997d6  <button class="ghost" id="rssPriorLesson">Read the lesson</button>
@@ -146,15 +149,16 @@
   ecb0e29a4e98fcab  <div class="empty">No mistakes recorded yet.</div>
   5d79580d037dc02a  <div class="empty">No study items found.</div>
   933dac4c71ff915a  <div class="empty">No topics match this filter yet.</div>
+  4c4c92b71b945230  <div class="empty">No upcoming class has lessons to prepare.</div>
   6b5b6a25a2f50ee3  <div class="empty">Recent searches — tap to run again</div>
   94ca8e2b60e2f26b  <div class="empty">Search structures, study items and topics. Press Esc to close.</div>
   35ce3a36a607c3e6  <div class="emptybox" style="margin-top:14px">No memory aid authored for this item yet.</div>
   bb363a3bd702def4  <div class="emptybox">Diagram unavailable.</div>
   d9c86f19c355240f  <div class="emptybox">Movement unavailable.</div>
   f9d3a9e3de82b3af  <div class="emptybox">No practice questions on this item.</div>
-  eacaf6e72b6f92ef  <div class="emptybox">Nothing scheduled this week.</div>
   cce4305b03b60844  <div class="emptybox">Outside the teaching term — use the full-term view.</div>
   6a67b586c93aec27  <div class="emptybox">Structure set unavailable.</div>
+  32ac2097168e30ba  <div class="emptybox">There is no next teaching week — the term ends this week.</div>
   828d38aa47993dea  <div class="emptybox">This question type is not renderable.</div>
   62a3238117318412  <div class="eyebrow" style="color:
   d10dbba90cf966b3  <div class="lay-card" style="--tone:
@@ -295,6 +299,7 @@
   59b5b25c3f1225bb  Check answer
   df8077d81115769e  Check matches
   b731b58ee17f6202  Check order
+  585386802f1281b5  Choose a topic →
   1fd0e2b073997f0d  Click the hotspot for:
   55656b5e434f4c06  Close search
   e503367c41c06b12  Close session
@@ -319,6 +324,7 @@
   650bfee8c10b708c  Current files take priority for dates, topics and assessment. Older official lectures are used only to teach a current syllabus topic when the matching 2026 lecture is absent; student coursework is never used as a factual source.
   0d2b823fa1b5d4d8  Custom length / time →
   80593d9330e238e5  Cut position
+  153ad017bde62981  Daily pre-study
   e3c1a5d80a89f718  Day streak, per-item status and the item you were last part-way through.
   792b1ed47ceecb59  Deadlines and weights come from the subject documents on the Syllabus tab.
   1ce89851847711af  Delete every mastery record, mistake and schedule stored in this browser. There is no server and no undo, so export a backup first if you might want it.
@@ -405,6 +411,8 @@
   9d0d3e0a20bc01d4  Joint angle
   39fb4546ac87cc3a  Judge it from the landmarks in anatomical position, not from which side of the screen it is on.
   90a8aa236c266060  Jugular notch
+  2e5922f2b0aef227  Jump to today
+  8270b0379eedc536  Jump to today ↓
   bfd62f38eb7f415e  Keep hidden
   c6867b20a8fd8669  Key facts to remember
   2072e9484cb255ff  Keyboard up · viewport
@@ -483,6 +491,7 @@
   1072a05d6e1e212d  Nearest first. Tap any of them, or tap the model again in the same spot to step deeper.
   53a0c7682495933c  New and old files are grouped under the same Y1S1 lesson. The original source file remains the teaching note; this view only identifies which version to use. Files without a current Y1S1 syllabus placement remain retained for future work and are not assigned to another year here.
   dc16ec2f36f7218f  New sources — primary
+  21fbde19cfb095cd  Next week
   5174f99c057c3927  No application task authored for this item.
   e15d3dda4ba3b830  No layer shown — turn one on to study it
   6a600b8957f187b2  No lesson for this administrative row
@@ -522,6 +531,7 @@
   db09520da1bff2bb  Nothing left on the published timetable.
   4197398a69b67157  Nothing marked yet — enter a mark as each piece comes back.
   e482fecba95e8c84  Nothing matches \u201c
+  61c8091bab4aa222  Nothing scheduled
   f8c104249eb21c8b  Nothing selected
   5f659a0f0761bf95  Nothing to ask here yet
   dcc202d7f9385e97  Nothing to delete.
@@ -551,12 +561,12 @@
   998f59ec6907c1a6  Past papers, timed practice, mastery
   d44f57779facfe5b  Pause turntable
   ce253ba033cf1abf  Phalanges of the hand
-  64d834855c4320e7  Pick up the daily warm-up, or choose another session below.
   032a270b28e8d32d  Plane \u00b7 separates
   b1fa06dcff9ea3f6  Practice paper
   6500e2302d2dac54  Practise ·
   d5ff712edaa1e542  Pre-aortic nodes
   6b6b69ac71bfe9de  Precise Z-Anatomy / BodyParts3D skeleton ·
+  d194ef408bdf39c0  Prepare for a class from Work to do below, or pick a topic in Learn.
   97bbce4ac834ffb8  Progress erased \u2014
   dbe0aa3439619d84  Progress merged.
   045742deb50fcee2  Progress replaced from file.
@@ -631,7 +641,6 @@
   b13f13a030dc286c  Start from the title and ask what category the answer belongs to.
   a1fd34564fe28dfc  Start paper →
   bbbe87b5cafa988b  Start the stroke on a structure.
-  ad00307047df0c32  Start today's session →
   73a408b0bf3f0f58  Start with Identify to create your first review history.
   44379762f7964194  Starts soon
   abf1b14dc2f90ee7  Static model
@@ -644,6 +653,7 @@
   7aeec7e28ab447b1  Study items
   197a9cfd7132bfb2  Study modes
   6db1fe691cb5e688  Study session
+  c16080fe4a8db070  Study this
   da5c0cb3a2f2cda1  Study this topic
   586b0a54a4f22b10  Study this →
   307e3df259cf7ea5  Subjects with no material
@@ -940,6 +950,7 @@
   a9ff6c862d2bfd72  new Date(y, m, d, h, min)
   fb71e35554b8c081  new items,
   ef79fc55610a0395  new state.THREE.Vector3()
+  326d83d3d43bbef3  next week
   66e7dd59209ea41c  no baseline
   e7b1a45f4258c96c  no engine
   3c990f97c8ed9e68  no stage
@@ -979,6 +990,7 @@
   91f0e226c82016ff  s left), fz 0 the trunk
   4e01dcdc55cd6293  s own half-width put the oesophagus
   ade98b80a888aed2  s own signature. 
+  b231d81d3578309e  s slot is left out, as it is in the Course tab
   1946ee43aab92871  screen, but with no top inset — the status bar is opaque, so the page starts below it and reaches the bottom. No band.
   1299be2249d386cf  screen. No band.
   2ba630de2f754c51  screen. That gap is the band.

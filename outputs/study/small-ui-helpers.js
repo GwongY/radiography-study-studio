@@ -182,6 +182,32 @@ function tuckOnRead() {
   });
 }
 
+/*
+ * The viewer's two panels, one at a time on a phone.
+ *
+ * On a phone the dock is a strip above the control bar, and two open panels
+ * inside it split the strip into two slivers nobody can read. So on a phone
+ * opening either panel folds the other one; on anything wider both can stay
+ * open, because there the dock is a full-height column.
+ */
+/* A declaration, not an arrow const: boot.js wires its handlers at module
+   scope, and the parts import each other cyclically. */
+export function isPhoneViewer() { return matchMedia('(max-width:700px)').matches; }
+
+export function setTaskPanelExpanded(expanded) {
+  const panel = $$('taskCard');
+  const toggle = $$('taskPanelToggle');
+  panel.classList.toggle('panel-expanded', expanded);
+  toggle.setAttribute('aria-expanded', String(expanded));
+  toggle.textContent = expanded ? 'Hide panel' : 'Explore & study';
+}
+export function setToolsPanelOpen(open) {
+  $$('viewerToolsPanel').classList.toggle('tools-collapsed', !open);
+  $$('toolsPanelToggle').setAttribute('aria-expanded', String(open));
+  $$('viewerMoreBtn').classList.toggle('active', open);
+  $$('viewerMoreBtn').setAttribute('aria-expanded', String(open));
+}
+
 /* Runs after every part has evaluated — see the entry point. */
 export function init() {
   window.xrayFallback = xrayFallback;
@@ -189,10 +215,16 @@ export function init() {
   const panelToggle = $$('taskPanelToggle');
   const panel = $$('taskCard');
   panelToggle.addEventListener('click', () => {
-    const expanded = panel.classList.toggle('panel-expanded');
-    panelToggle.setAttribute('aria-expanded', String(expanded));
-    panelToggle.textContent = expanded ? 'Hide panel' : 'Explore & study';
+    const expanded = !panel.classList.contains('panel-expanded');
+    setTaskPanelExpanded(expanded);
+    if (expanded && isPhoneViewer()) setToolsPanelOpen(false);
   });
+  /* Both panels ship open. On a phone, start with Explore & study only. */
+  const settle = () => {
+    if (isPhoneViewer() && panel.classList.contains('panel-expanded')) setToolsPanelOpen(false);
+  };
+  settle();
+  matchMedia('(max-width:700px)').addEventListener('change', settle);
   publishHeadHeight();
   tuckOnRead();
 }

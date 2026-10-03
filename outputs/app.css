@@ -1465,3 +1465,34 @@ html[data-ts="xl"]{--ts:1.55}
 
 
 #spreadMode{min-height:36px;max-width:100%;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);padding:6px 8px;font-size:calc(12px * var(--ts))}
+
+/* Today: the two sections of the Work to do card. */
+.work-lab{margin:14px 0 8px;font:700 10px ui-monospace,Menlo,monospace;font-size:calc(10px * var(--ts));letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* Full term: the jump-to-today button rides along at the top while the term
+   scrolls, and the row it lands on flashes once so the eye finds it. */
+.jumptoday{position:sticky;top:8px;z-index:3;display:flex;justify-content:flex-end;margin:0 0 10px;pointer-events:none}
+.jumptoday button{pointer-events:auto;border:1px solid rgba(114,227,207,.45);border-radius:10px;background:rgba(8,16,22,.94);color:var(--teal);padding:8px 12px;font-size:calc(12px * var(--ts));min-height:40px}
+.sessrow.flashrow,.weekblock.flashrow{animation:flashrow 1.6s ease}
+@keyframes flashrow{0%,40%{box-shadow:0 0 0 2px var(--teal)}100%{box-shadow:0 0 0 2px transparent}}
+
+/*
+ * Phone viewer: the control bar, the Explore & study panel and the Tools panel
+ * used to land on top of each other. The bar wrapped to three rows (~200px
+ * tall) while the dock was pinned 100px up, so the dock sat over the bar; and
+ * both panels were open at once inside a 45% dock, so each got a sliver.
+ *
+ * Now: the bar is ONE row that scrolls sideways, with the two panel toggles
+ * first so they never scroll off; the dock starts just above it; and the dock
+ * holds one open panel at a time (study/small-ui-helpers.js keeps that true).
+ */
+@media(max-width:700px){
+  #stageHome .ctrlpill{flex-wrap:nowrap;justify-content:flex-start;bottom:8px;left:8px;right:8px;transform:none;max-width:none;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none}
+  #stageHome .ctrlpill::-webkit-scrollbar{display:none}
+  #stageHome .ctrlpill button{flex:none;padding:8px 10px}
+  #stageHome .ctrlpill #viewerExploreBtn,#stageHome .ctrlpill #viewerMoreBtn{order:-1}
+  .viewer-dock{top:auto;bottom:70px;max-height:55%}
+  .viewer-dock .selpanel{max-height:none;flex:0 0 auto}
+  .viewer-dock .selpanel.panel-expanded{flex:1 1 auto}
+  .viewer-dock .viewer-tools-panel.tools-collapsed{flex:0 0 auto}
+}

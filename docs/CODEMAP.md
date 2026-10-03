@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 537 lines
+## `outputs/radiography-study-studio.html` — 545 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–512 | markup — no banners, grep here |
-| 513–513 | importmap |
-| 514–514 | loads studio.js |
-| 515–515 | loads study.js |
-| 516–535 | classic script · preamble |
-| 536–537 | markup — no banners, grep here |
+| 1–520 | markup — no banners, grep here |
+| 521–521 | importmap |
+| 522–522 | loads studio.js |
+| 523–523 | loads study.js |
+| 524–543 | classic script · preamble |
+| 544–545 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1467 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) · [hidden loses to an explicit display](TRAPS.md#hidden-loses-to-an-explicit-display--outputsappcss-outputsstudyexam-modejs)
+- `outputs/app.css` — 1498 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs) · [hidden loses to an explicit display](TRAPS.md#hidden-loses-to-an-explicit-display--outputsappcss-outputsstudyexam-modejs)
 - `outputs/studio.js` — 29 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 65 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -145,15 +145,15 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `assessments-and-marks.js` | 480 | Course — assessments, deadlines and the running mark |
-| `boot.js` | 79 | Boot |
-| `course-timetable.js` | 320 | Course — the syllabus and the timetable, with attendance |
+| `boot.js` | 78 | Boot |
+| `course-timetable.js` | 360 | Course — the syllabus and the timetable, with attendance |
 | `coverage-report.js` | 118 | Coverage report |
 | `dialog-behaviour-applied.js` | 125 | Dialog behaviour, applied to all seven at once |
 | `exam-mode.js` | 434 | Exam mode — a sitting, not a drill. |
 | `gist-sync.js` | 474 | Gist sync — the off-device copy, on the one service this app already depends on |
 | `global-search-one.js` | 452 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
-| `home.js` | 189 | Home |
+| `home.js` | 233 | Home |
 | `imports.js` | 146 |  |
 | `layout-figures.js` | 867 | Layout figures |
 | `lesson-visuals.js` | 321 | Lesson visuals |
@@ -168,7 +168,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `review-mistakes-due.js` | 317 | Exam — past papers, timed practice, mistakes, short answer, and the mastery map. |
 | `search-viewer-open.js` | 45 | Search -> viewer: open the model, select the part, auto-uncover, and |
 | `session-engine.js` | 256 | Session engine |
-| `small-ui-helpers.js` | 198 | Small UI helpers |
+| `small-ui-helpers.js` | 230 | Small UI helpers |
 | `source-dialog.js` | 59 | Source dialog |
 | `spatial-overlay-controls.js` | 120 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 35 | The study system's mutable UI state. |

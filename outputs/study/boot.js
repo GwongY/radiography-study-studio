@@ -9,7 +9,7 @@ import { renderLayerRail, renderLearn } from './subject.js';
 import { renderNavButtons } from './navigation-five-destinations.js';
 import { renderOverlayCard } from './spatial-overlay-controls.js';
 import { renderViewerTools } from './viewer-tools.js';
-import { scrollViewTop } from './small-ui-helpers.js';
+import { isPhoneViewer, scrollViewTop, setTaskPanelExpanded, setToolsPanelOpen } from './small-ui-helpers.js';
 
 /* ------------------------------------------------------------------ *
  * Boot
@@ -19,11 +19,10 @@ import { scrollViewTop } from './small-ui-helpers.js';
 /* The viewer keeps four primary controls on the canvas; everything the old
    studio showed at once now sits behind this one toggle. */
 $$('viewerMoreBtn').onclick = () => {
-  const panel = $$('viewerToolsPanel');
-  const open = !panel.classList.toggle('tools-collapsed');
-  $$('toolsPanelToggle').setAttribute('aria-expanded', String(open));
-  $$('viewerMoreBtn').classList.toggle('active', open);
-  $$('viewerMoreBtn').setAttribute('aria-expanded', String(open));
+  const open = $$('viewerToolsPanel').classList.contains('tools-collapsed');
+  setToolsPanelOpen(open);
+  /* One panel at a time on a phone — see setToolsPanelOpen. */
+  if (open && isPhoneViewer()) setTaskPanelExpanded(false);
   if (open) { renderOverlayCard(); renderViewerTools(); }
 };
 $$('toolsPanelToggle').onclick = () => $$('viewerMoreBtn').click();
@@ -73,7 +72,7 @@ export function init() {
 $$('viewerExploreBtn').onclick = () => {
  const panel = $$('taskCard');
  const open = !panel.classList.toggle('hidden');
- if(open){panel.classList.add('panel-expanded');$$('taskPanelToggle').setAttribute('aria-expanded','true');}
+ if(open){setTaskPanelExpanded(true);if(isPhoneViewer())setToolsPanelOpen(false);}
  $$('viewerExploreBtn').setAttribute('aria-expanded', String(open));
  $$('viewerExploreBtn').classList.toggle('active', open);
 };

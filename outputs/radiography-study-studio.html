@@ -104,17 +104,25 @@
             -->
             <div class="today-grid" id="todayGrid">
               <div id="continueCard" style="border:1px solid rgba(114,227,207,.4);border-radius:16px;background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03));padding:18px"></div>
+              <!--
+                Work to do: the classes in the next two days worth preparing
+                for, then what is due. It replaced the "Daily pre-study" tile,
+                a random warm-up that knew nothing about the timetable.
+              -->
+              <div class="card" id="workCard">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+                  <div class="task-kicker">Work to do</div>
+                  <button class="ghost" id="allDeadlinesBtn" style="border:0;background:none;color:var(--teal);padding:6px 0">All assessments →</button>
+                </div>
+                <div class="work-lab">Prepare for class</div>
+                <div style="display:grid;gap:7px" id="workPrep"></div>
+                <div class="work-lab">Hand in</div>
+                <div class="statrow" id="deadlineStatrow"></div>
+                <div style="display:grid;gap:7px;margin-top:11px" id="deadlineList"></div>
+              </div>
               <div>
                 <div class="task-kicker" style="margin-bottom:9px">Start a session</div>
                 <div class="session-row" id="sessionTiles"></div>
-              </div>
-              <div class="card">
-                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
-                  <div class="task-kicker">Due next</div>
-                  <button class="ghost" id="allDeadlinesBtn" style="border:0;background:none;color:var(--teal);padding:6px 0">All assessments →</button>
-                </div>
-                <div class="statrow" id="deadlineStatrow" style="margin-top:12px"></div>
-                <div style="display:grid;gap:7px;margin-top:11px" id="deadlineList"></div>
               </div>
             </div>
           </section>
