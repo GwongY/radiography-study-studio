@@ -16,16 +16,18 @@ import { isPhoneViewer, scrollViewTop, setTaskPanelExpanded, setToolsPanelOpen }
  * ------------------------------------------------------------------ */
 
 /* Contextual back: only meaningful on a phone drilled into a topic. */
-/* The viewer keeps four primary controls on the canvas; everything the old
-   studio showed at once now sits behind this one toggle. */
-/* The bottom bar's Tools button opens and closes the Tools panel. */
-$$('viewerMoreBtn').onclick = () => {
-  const open = $$('viewerToolsPanel').classList.contains('tools-collapsed');
-  setToolsPanelOpen(open);
-  /* One panel at a time on a phone — see setToolsPanelOpen. */
-  if (open && isPhoneViewer()) setTaskPanelExpanded(false);
-  if (open) { renderOverlayCard(); renderViewerTools(); }
-};
+/* The bottom bar's Spread, Cut and Regions buttons each open the Tools panel
+   on their own section; pressing the one already open closes it. */
+document.querySelectorAll('.ctrlpill [data-tsec]').forEach((b) => {
+  b.onclick = () => {
+    const panel = $$('viewerToolsPanel');
+    const showing = !panel.classList.contains('tools-collapsed') && panel.dataset.show === b.dataset.tsec;
+    setToolsPanelOpen(!showing, b.dataset.tsec);
+    /* One panel at a time on a phone — see setToolsPanelOpen. */
+    if (!showing && isPhoneViewer()) setTaskPanelExpanded(false);
+    if (!showing) { renderOverlayCard(); renderViewerTools(); $$('viewerSheet').scrollTop = 0; }
+  };
+});
 $$('layerRailToggle').onclick = () => {
   const open = getComputedStyle($$('layerRail')).display === 'none';
   $$('stageHome').classList.toggle('layers-open', open);

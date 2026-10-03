@@ -192,8 +192,9 @@ measurements are in
 ### Viewer workspace and projection (September 2026)
 
 Explore and Tools share a dock inside the viewer. Each panel scrolls independently;
-Tools includes cuts, opacity, separation and annotations. Explore and Tools collapse
-independently; model controls sit in the bottom bar. Layers start collapsed at tablet widths.
+Tools is split into three bottom-bar buttons: Spread (separation and layer opacity),
+Cut (section cuts) and Regions (region filter and spatial overlays). Panels open and close
+from the bottom bar only (Explore, Spread, Cut, Regions, Reset view, Focus). Layers start collapsed at tablet widths.
 
 Projection includes the Heart system from the circulatory file. Mesh-relative
 entry/exit integration limits artefacts from open surfaces; the source meshes still
@@ -211,7 +212,8 @@ the implementation retains this app's vanilla modules.
 **Course body only.** Viewer has Course body and Projection tabs. Packed piece-level
 Spread lays out the visible course meshes in non-overlapping frontal cells at 100%;
 the Layers mode retains the previous layer fan. This is a display layout, not anatomy.
-Search, isolation, turntable, cuts, annotations and curriculum links stay on this body.
+Search, isolation, cuts and curriculum links stay on this body. The turntable, the
+Isolate selected / Show all buttons and annotation were removed on 2026-10-03.
 There is no alternate viewer, source switch or extra model download. Upstream MIT
 notices for the retained packed layout and pointer handling remain in
 THIRD-PARTY-NOTICES.txt; the course model's existing attribution is unchanged.

@@ -45,7 +45,6 @@ export default async function(){
   await preset('none');assert(s.packedLayout.parts.length===0,'Hide all left pieces');
   await preset('skeleton');o.setSeparation(0);
   o.setSeparation(1);o.setCut('axial',.5,false);assert(o.separation()===0,'cut left spread active');o.clearCut();
-  o.setSeparation(1);o.setTool('pin');assert(o.separation()===0,'annotation left spread active');o.setTool('off');
   o.setSeparation(1);
   const focus=await o.focusStructures({layer:'organs',meshes:['~lung'],ghostBody:true});
   assert(focus.ok&&o.separation()===0,'lesson did not assemble/focus');

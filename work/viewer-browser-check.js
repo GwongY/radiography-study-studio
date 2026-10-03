@@ -32,14 +32,21 @@ async () => {
   const sheet = document.getElementById('viewerSheet');
   const stage = document.getElementById('stage');
   const stageRect = stage.getBoundingClientRect();
+  /* Regions is the long section (region filter + overlays); the others fit. */
+  const regionsBtn = document.querySelector('.ctrlpill [data-tsec="regions"]');
+  regionsBtn.click(); await pause(50);
   assert(sheet.clientHeight > 80 && sheet.scrollHeight > sheet.clientHeight, 'Tools has an independent scroll area');
   const exploreRect = document.getElementById('taskCard').getBoundingClientRect();
   assert(document.getElementById('viewerToolsPanel').getBoundingClientRect().top >= exploreRect.bottom, 'Tools is beneath Explore');
   sheet.scrollTop = 300;
   assert(stage.getBoundingClientRect().height === stageRect.height, 'Scrolling Tools preserves canvas height');
-  document.getElementById('viewerMoreBtn').click();
-  assert(getComputedStyle(sheet).display === 'none', 'Tools toggle collapses panel');
-  document.getElementById('viewerMoreBtn').click(); sheet.scrollTop = 0;
+  const spreadBtn = document.querySelector('.ctrlpill [data-tsec="spread"]');
+  regionsBtn.click();
+  assert(getComputedStyle(sheet).display === 'none', 'Pressing the open section again collapses Tools');
+  document.querySelector('.ctrlpill [data-tsec="cut"]').click();
+  assert([...document.querySelectorAll('#viewerSheet .vsheet-grid>[data-tsec]')].filter((e) => getComputedStyle(e).display !== 'none').every((e) => e.dataset.tsec === 'cut'), 'Cut shows only the section cut');
+  spreadBtn.click(); sheet.scrollTop = 0;
+  assert(!['isolateBtn', 'showAllBtn', 'toolButtons', 'toolChip'].some((id) => document.getElementById(id)), 'Isolate, Show all and annotation are gone');
 
   // A loading projection must not take the shared canvas after another destination wins.
   const originalEnsure = o.ensureXrayLayers;
@@ -74,10 +81,10 @@ async () => {
   r.setRenderTarget(null);r.setClearColor(previousColor,previousAlpha);
   target.dispose();cube.geometry.dispose();material.dispose();
 
-  // Start from a deliberately altered workspace: filter, hidden mesh, cut and active pen.
+  // Start from a deliberately altered workspace: filter, hidden mesh and cut.
   s.motionEnabled=false;s.fullModel.rotation.y=.18;s.region='upper_limb';s.isolated=true;
   s.selectedId=s.fullMeshes[0].userData.canonicalId;applyVisibility();
-  o.setCut('axial',.54,false);o.setTool('pen');
+  o.setCut('axial',.54,false);
   s.scene.updateMatrixWorld(true);
   const before = {pos:s.camera.position.clone(),target:s.controls.target.clone(),layers:JSON.stringify(s.layers),
     visibility:new Map(),materials:new Map(),rotation:s.fullModel.rotation.y,clip:s.renderer.clippingPlanes};
@@ -87,7 +94,7 @@ async () => {
   assert(o.inXray() && stage.parentElement.id==='xrayMount', 'Projection owns shared canvas');
   assert(s.fullMeshes.every(m=>m.visible) && s.fullModel.visible, '3D filtering and isolation cannot remove projected bones');
   assert(s.extraModels.circulatory.meshes.filter(m=>m.visible).length===17, 'Heart is included without vessel trees');
-  assert(s.tool===null && s.renderer.clippingPlanes.length===0, 'Pen and section are suspended');
+  assert(!s.tool && s.renderer.clippingPlanes.length===0, 'Section is suspended');
   const capture = async () => {
     const src=o.snapshot(), img=new Image(); img.src=src;await img.decode();
     const c=document.createElement('canvas');c.width=96;c.height=96;
@@ -139,7 +146,7 @@ async () => {
   assert(JSON.stringify(s.layers)===before.layers,'Exit restores system switches');
   assert([...before.materials].every(([m,mat])=>m.material===mat),'Exit restores original materials');
   assert([...before.visibility].every(([m,v])=>m.visible===v),'Exit restores mesh and overlay visibility');
-  assert(s.fullModel.rotation.y===before.rotation && s.renderer.clippingPlanes===before.clip && s.tool==='pen','Exit restores rotation, cut and tool');
-  o.setTool('off');o.clearCut();s.region='all';s.isolated=false;applyVisibility();
+  assert(s.fullModel.rotation.y===before.rotation && s.renderer.clippingPlanes===before.clip && !s.tool,'Exit restores rotation and cut');
+  o.clearCut();s.region='all';s.isolated=false;applyVisibility();
   return {checks,films,gpu:{near,far}};
 }

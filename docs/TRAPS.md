@@ -649,7 +649,11 @@ do the same job, the control is the one that can be found, undone and explained.
   SERVER has; unregister the worker and clear caches before believing a
   before/after.
 
-### Tools: cut, ink, pins — `outputs/studio/tools-and-capture.js`, `outputs/study/viewer-tools.js`
+### Tools: cut, spread (ink and pins removed) — `outputs/studio/tools-and-capture.js`, `outputs/study/viewer-tools.js`
+
+The pen, pinned labels and notes were removed on 2026-10-03 at the reader's
+request. The pen/pin entries below are kept for if annotation ever returns;
+the cut, the tool group and the clipping traps still apply.
 
 - **Two pointer-capture owners for one pointer breaks OrbitControls.** The pen
   captured the pointer on `#stage` while OrbitControls had already captured it
@@ -661,7 +665,8 @@ do the same job, the control is the one that can be found, undone and explained.
   instead and takes the surface outright; events still reach the stage by
   bubbling. Never call `setPointerCapture` on an ancestor of the canvas.
 - **The clipping plane must be re-derived from the root's world matrix every
-  frame.** The turntable yaws the pivots continuously, so a plane computed once
+  frame.** (The idle turntable that made this urgent was removed 2026-10-03, but
+  a spread or a physiology view can still move the root.) A plane computed once
   in world space when you press "Axial" swings away from the body as it turns.
   `state.cut.local` is stored in the body frame and `syncCut()` maps it out on
   each frame, from `animate()` via `syncTools()`.

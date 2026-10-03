@@ -1,5 +1,5 @@
 /*
- * Tools — section cuts, surface ink, pinned labels, capture.
+ * Tools — section cuts, layer separation, capture.
  *
  * The Complete Anatomy side of the viewer: the things you DO to the model
  * rather than the things you look at. Four tools, and the rule they all obey
@@ -341,298 +341,13 @@ export function syncTools(){
   syncCut();
 }
 
-/* ------------------------------------------------------------------ *
- * The annotation stack
- *
- * Ink strokes and pins go on one stack so a single Undo means "take back the
- * last thing I did", which is what an undo button is for. Pins also hold a
- * band reservation — calloutAt slides a tag down past the tags already on that
- * side — so undoing a pin has to release its band or the next one starts lower
- * than it should.
- * ------------------------------------------------------------------ */
-function annots(){ return state.annots||(state.annots=[]); }
-function bands(){ return state.pinBands||(state.pinBands=[]); }
+/* Annotation (pen, pinned labels, notes) was removed on the reader's request.
+   state.tool stays null; depth-picking and live-physiology still read it. */
 
-function dropObjects(objs){
-  objs.forEach((o)=>{
-    o.removeFromParent();
-    if(o.geometry) o.geometry.dispose();
-    const m=o.material;
-    if(m){ if(m.map) m.map.dispose(); m.dispose(); }
-  });
-}
-export function undoAnnotation(){
-  const st=annots();
-  const last=st.pop();
-  if(!last) return false;
-  dropObjects(last.objs);
-  if(last.band){
-    const i=bands().indexOf(last.band);
-    if(i>=0) bands().splice(i,1);
-  }
-  return true;
-}
-export function clearAnnotations(){
-  annots().forEach((a)=>dropObjects(a.objs));
-  state.annots=[];
-  state.pinBands=[];
-}
-export function annotationCount(){ return annots().length; }
-
-/* ------------------------------------------------------------------ *
- * Pins — a structure's own name, or one of yours
- *
- * calloutAt already knows how to put a tag beside the body with a leader back
- * to the point it names, how to pick a side, and how to stack tags without
- * overlapping. A pin is one of those, kept.
- * ------------------------------------------------------------------ */
-function pinAt(anchor,text,color,mesh){
-  const g=ensureToolGroup();
-  if(!g) return false;
-  const M=bodyMetrics();
-  const taken=bands();
-  const before=taken.length;
-  /* Clear the silhouette — a tag lying across the ribs names nothing — but
-     stay inside a framed close-up, which is what maxReach is for. */
-  const objs=calloutAt(anchor,text,color,M,{clear:M.halfX*0.95,maxReach:M.halfX*1.55,taken,size:0.026});
-  objs.forEach((o)=>g.add(o));
-  attachCalloutToMesh(objs,mesh,anchor);
-  annots().push({kind:'pin',objs,band:taken.length>before?taken[taken.length-1]:null});
-  return true;
-}
-
-/* ------------------------------------------------------------------ *
- * Ink — a pen that draws on the anatomy, not on the glass
- *
- * Each sample is raycast onto whatever surface is under the pointer and stored
- * in the body frame, lifted a hair along the hit normal so the line reads as
- * being ON the structure rather than inside it. Rotate the model afterwards
- * and the stroke turns with the part you drew it on.
- *
- * One honest limit: the raycaster does not know about the clipping plane, so
- * with a cut open the pen can land on a surface the cut has removed. Draw
- * first, cut second.
- * ------------------------------------------------------------------ */
-function inkTargets(){
-  const layers=Object.entries(state.extraModels||{})
-    .filter(([k])=>layerOn(k))
-    .flatMap(([,m])=>m.meshes||[]);
-  return [...state.fullMeshes,...layers].filter((o)=>o.visible!==false);
-}
-/*
- * Per-stroke invariants, computed once instead of per pointermove.
- *
- * inkTargets() walked every loaded layer -- an Object.entries, a filter, a
- * flatMap and a final filter over every mesh -- and getBoundingClientRect()
- * forced a layout read beside it, both BEFORE the raycast itself ran against as
- * much as 436k triangles (sinir 436,608; kas 442,555; dolasim 448,731, on top of
- * the skeleton's 320,179). All of that repeated on every single move event.
- *
- * Neither can change between pointerdown and pointerup: the layer set is fixed
- * for the length of a stroke, and the canvas cannot resize under a captured
- * pointer. So they are measured when the stroke starts and dropped when it
- * ends. Absent a cache -- the pin and label tools, which hit once on pointerup
- * -- surfaceHit measures exactly as it used to.
- */
-function beginHitCache(){
-  if(!state.renderer) return;
-  state.hitCache={targets:inkTargets(),rect:state.renderer.domElement.getBoundingClientRect()};
-}
-function endHitCache(){ state.hitCache=null; }
-
-function surfaceHit(event){
-  const THREE=state.THREE;
-  if(!THREE||!state.renderer||!state.camera) return null;
-  const cache=state.hitCache;
-  const rect=cache?cache.rect:state.renderer.domElement.getBoundingClientRect();
-  state.pointer.x=((event.clientX-rect.left)/rect.width)*2-1;
-  state.pointer.y=-((event.clientY-rect.top)/rect.height)*2+1;
-  state.raycaster.setFromCamera(state.pointer,state.camera);
-  const hits=state.raycaster.intersectObjects(cache?cache.targets:inkTargets(),true);
-  return hits.length?hits[0]:null;
-}
-/* World point -> body frame, the one conversion every annotation goes through. */
-function toBody(v){
-  const THREE=state.THREE, root=bodyRoot();
-  const out=v.clone();
-  if(root) out.applyMatrix4(new THREE.Matrix4().copy(root.matrixWorld).invert());
-  return out;
-}
-function inkPoint(hit,M){
-  const THREE=state.THREE;
-  const p=hit.point.clone();
-  if(hit.face&&hit.object){
-    const n=hit.face.normal.clone()
-      .applyMatrix3(new THREE.Matrix3().getNormalMatrix(hit.object.matrixWorld)).normalize();
-    p.add(n.multiplyScalar(M.H*0.006));
-  }
-  return toBody(p);
-}
-function startStroke(hit){
-  const THREE=state.THREE;
-  const g=ensureToolGroup();
-  if(!g) return null;
-  const M=bodyMetrics();
-  const pts=[inkPoint(hit,M)];
-  const geo=new THREE.BufferGeometry().setFromPoints(pts);
-  const line=new THREE.Line(geo,new THREE.LineBasicMaterial({
-    color:0xffba67,transparent:true,opacity:0.95,depthTest:false,depthWrite:false}));
-  line.renderOrder=996;
-  g.add(line);
-  state.stroke={line,pts,M};
-  return line;
-}
-function extendStroke(hit){
-  const s=state.stroke;
-  if(!s) return;
-  const p=inkPoint(hit,s.M);
-  const last=s.pts[s.pts.length-1];
-  if(last&&p.distanceTo(last)<s.M.H*0.002) return;   /* don't pile samples on one spot */
-  s.pts.push(p);
-  s.line.geometry.dispose();
-  s.line.geometry=new state.THREE.BufferGeometry().setFromPoints(s.pts);
-}
-/*
- * A finished stroke becomes a tube, not a line.
- *
- * WebGL ignores LineBasicMaterial.linewidth on every desktop driver, so a
- * stroke drawn as a Line is one hairline pixel wide however far you zoom in —
- * it was there on the sternum and you could not see it. The Line stays as the
- * live preview because it is free to rebuild on every pointermove; the moment
- * the stroke ends it is swapped for a tube of real thickness, which is also
- * the point at which depth testing can come back on: ink lying on a bone
- * should disappear when you turn that bone away from you.
- */
-function finishStroke(s){
-  const THREE=state.THREE;
-  try{
-    const curve=new THREE.CatmullRomCurve3(s.pts);
-    const geo=new THREE.TubeGeometry(curve,Math.min(400,s.pts.length*2),s.M.H*0.0035,6,false);
-    const tube=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color:0xffba67}));
-    tube.renderOrder=996;
-    const g=ensureToolGroup();
-    if(!g) return null;
-    g.add(tube);
-    dropObjects([s.line]);
-    return tube;
-  }catch(e){ return s.line; }   /* a degenerate curve keeps the hairline */
-}
-function endStroke(){
-  const s=state.stroke;
-  state.stroke=null;
-  if(!s) return;
-  if(s.pts.length<2){ dropObjects([s.line]); return; }
-  const obj=finishStroke(s);
-  if(!obj) return;
-  annots().push({kind:'ink',objs:[obj]});
-  publishTool();
-}
-
-/* ------------------------------------------------------------------ *
- * Arming a tool
- *
- * While a tool is armed the stage stops being a selector: depth-picking's
- * pointerup handler checks state.tool and steps aside, and orbit is suspended
- * for the pen so a stroke does not also spin the body.
- * ------------------------------------------------------------------ */
-export const TOOLS={
-  off:{label:'Off'},
-  pen:{label:'Pen',hint:'Drag on a structure to draw on it.'},
-  label:{label:'Label',hint:'Tap a structure to pin the name it is taught under.'},
-  note:{label:'Note',hint:'Tap a structure to pin your own text to it.'},
-};
-export function setTool(id){
-  if(id!=='off'&&state.separation)setSeparation(0);
-  const next=TOOLS[id]?id:'off';
-  state.tool=next==='off'?null:next;
-  /* Belt and braces: a stroke's cached targets and rect must never outlive the
-     pen and reach the pin tool. Every pointer path already ends in finish(),
-     but switching tool is the one route that does not have to touch one. */
-  endHitCache();
-  /*
-   * The pen takes the whole surface, orbit included.
-   *
-   * The first version left OrbitControls enabled and captured the pointer on
-   * the stage instead. That silently broke the controls: OrbitControls calls
-   * setPointerCapture on the CANVAS in its own pointerdown, so a second
-   * capture on the stage (the canvas's parent) meant its pointerup never
-   * fired, its `pointers` list kept a stale id, and the NEXT pointerup read
-   * `pointerPositions[staleId].x` off undefined — an exception thrown from
-   * inside the library, on a later gesture, with nothing pointing back here.
-   * Two capture owners for one pointer is the bug; one is the fix. Disarm the
-   * pen to orbit again — the badge on the stage says which tool holds it.
-   */
-  if(state.controls) state.controls.enabled=state.tool!=='pen';
-  if(els.stage) els.stage.classList.toggle('tooling',!!state.tool);
-  publishTool();
-  return state.tool;
-}
-export function toolState(){ return state.tool||'off'; }
-export function setNoteText(t){ state.noteText=String(t||'').slice(0,90); }
-function publishTool(){
-  if(state.toolHook) try{ state.toolHook({tool:toolState(),annotations:annotationCount(),cut:cutState()}); }catch(e){}
-}
-
-function bindStage(){
-  const stage=els.stage;
-  if(!stage||stage.dataset.toolsBound==='1') return;
-  stage.dataset.toolsBound='1';
-  stage.addEventListener('pointerdown',(e)=>{
-    if(!state.tool) return;
-    if(state.tool==='pen'){
-      beginHitCache();
-      const hit=surfaceHit(e);
-      if(!hit){ endHitCache(); showToast('Start the stroke on a structure.'); return; }
-      startStroke(hit);
-    }
-  });
-  stage.addEventListener('pointermove',(e)=>{
-    if(state.tool!=='pen'||!state.stroke) return;
-    /*
-     * pointermove fires faster than the screen redraws -- more again on a pen
-     * or a 120Hz panel, and coalesced events arrive in bursts -- and each one
-     * used to run its own full raycast. Only the last position in a frame can
-     * change what gets drawn, so the rest are dropped rather than traced.
-     * Position is copied out because the event object is not safe to hold.
-     */
-    state.penPending={clientX:e.clientX,clientY:e.clientY};
-    if(state.penRaf) return;
-    state.penRaf=requestAnimationFrame(()=>{
-      state.penRaf=0;
-      const p=state.penPending;
-      if(!p||state.tool!=='pen'||!state.stroke) return;
-      const hit=surfaceHit(p);
-      if(hit) extendStroke(hit);
-    });
-  });
-  const finish=()=>{
-    /* Drop a frame that is already queued: it would extend a finished stroke. */
-    if(state.penRaf){ cancelAnimationFrame(state.penRaf); state.penRaf=0; }
-    state.penPending=null;
-    endHitCache();
-    if(state.stroke) endStroke();
-  };
-  stage.addEventListener('pointerup',(e)=>{
-    if(!state.tool) return;
-    if(state.tool==='pen'){ finish(); return; }
-    const hit=surfaceHit(e);
-    if(!hit){ showToast('Tap a structure to pin it.'); return; }
-    const M=bodyMetrics();
-    const anchor=inkPoint(hit,M);
-    if(state.tool==='label'){
-      const id=hit.object.userData&&hit.object.userData.canonicalId;
-      const rec=id?getRecord(id):null;
-      const name=(rec&&rec.canonicalName)||(hit.object.userData&&hit.object.userData.label)||'Unnamed structure';
-      pinAt(anchor,String(name).replace(/_/g,' '),0x72e3cf,hit.object);
-    }else{
-      const text=state.noteText;
-      if(!text){ showToast('Type the note first, then tap the structure.'); return; }
-      pinAt(anchor,text,0xffba67,hit.object);
-    }
-    publishTool();
-  });
-  stage.addEventListener('pointercancel',finish);
-  stage.addEventListener('pointerleave',finish);
+/* Tell the Tools panel that something it shows (the spread) changed, when the
+   change did not come from the panel itself. */
+function notifyPanel(){
+  if(state.toolHook) try{ state.toolHook({cut:cutState(),separation:separation()}); }catch(e){}
 }
 
 /* ------------------------------------------------------------------ *
@@ -773,7 +488,7 @@ export function setSeparation(v){
   if(state.xray&&t>0){ showToast('The projection needs the body assembled.'); return separation(); }
   if(t>0&&state.movement)endMovement();
   const was=state.separation||0;
-  if(t>0&&was===0){clearCut();setTool('off');}
+  if(t>0&&was===0){clearCut();}
   state.separation=t;
   if(t!==was){
     /*
@@ -796,7 +511,7 @@ export function setSeparation(v){
      */
   }
   applySeparation();
-  if(t!==was)publishTool();
+  if(t!==was)notifyPanel();
   return t;
 }
 
@@ -805,7 +520,7 @@ export function setSpreadMode(mode){
   setSeparation(0);
   restorePackedSpread();
   state.spreadMode=mode;
-  publishTool();
+  notifyPanel();
 }
 
 /* ------------------------------------------------------------------ *
@@ -826,7 +541,6 @@ export function snapshot(){
 }
 
 export function init(){
-  bindStage();
   state.separation=0;
   state.spreadMode='pieces';
   if(typeof window==='undefined'||!window.__osteo) return;
@@ -838,13 +552,6 @@ export function init(){
     setCut:(axis,t,flip)=>setCut(axis,t,flip),
     clearCut:()=>clearCut(),
     cutState:()=>cutState(),
-    setTool:(id)=>setTool(id),
-    toolState:()=>toolState(),
-    tools:()=>Object.entries(TOOLS).filter(([k])=>k!=='off').map(([id,t])=>({id,label:t.label,hint:t.hint})),
-    setNoteText:(t)=>setNoteText(t),
-    undoAnnotation:()=>undoAnnotation(),
-    clearAnnotations:()=>clearAnnotations(),
-    annotationCount:()=>annotationCount(),
     setToolHook:(fn)=>{state.toolHook=fn||null},
     snapshot:()=>snapshot(),
     separation:()=>separation(),

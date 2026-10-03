@@ -9,7 +9,7 @@ import { animate, applyVisibility, between, getRecord, tube } from './region-box
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
 import { enforceHidden } from './hide-and-search.js';
 import { showPickCallout } from './spatial-concept-overlays.js';
-import { setSeparation, setTool } from './tools-and-capture.js';
+import { setSeparation } from './tools-and-capture.js';
 import { advancePhysiology } from '../physiology.js?v=4';
 import { MOTOR_ROUTES, motorRoute, motorSequence } from '../physiology-mechanics.js';
 import { CHAMBER_SHAPE_GLSL, chamberTetherField, deriveShape, deriveMuscleShape, deriveBreathingShape, MUSCLE_SHAPE_GLSL } from '../physiology-shape.js';
@@ -1126,7 +1126,6 @@ export function enterXray(){
    * The UI awaits ensureXrayLayers before this synchronous material swap. */
   XRAY_LAYERS.forEach((k)=>setLayerChips(k,true));
   state.layers.arterial=false;state.layers.venous=false;state.layers.heart=true;
-  setTool('off');
   // Drain orbit damping before choosing a fixed beam direction.
   ctr.enableDamping=false;ctr.update();
   ctr.enabled=true;ctr.enableRotate=false;ctr.enableZoom=false;ctr.enablePan=false;
@@ -1441,7 +1440,6 @@ export function exitXray(){
   state.renderer.setClearColor(x.clearColor,x.clearAlpha);
   state.xray=null;
   Object.assign(ctr,x.controls);
-  setTool(x.tool||'off');
   ctr.enabled=x.controls.enabled;
   applyLayers();
   x.visibility.forEach((v,o)=>{o.visible=v});

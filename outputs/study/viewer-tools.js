@@ -1,13 +1,13 @@
 /*
- * Viewer tools — annotate, cut, layer depth, capture
+ * Viewer tools — spread, section cut, layer depth
  *
  * The panel side of studio/tools-and-capture.js. Everything here is DOM; every
  * line that touches the model goes through window.__osteo, like the rest of
  * the study half.
  *
- * One card, grouped in the order you reach for the tools: mark what you are
- * looking at, section it to see inside, fade what is in the way, keep the
- * picture. Choosing a REGION is deliberately not here — the Region filter card
+ * One card, grouped in the order you reach for the tools: spread the body,
+ * section it to see inside, fade what is in the way. (Annotation was removed
+ * on the reader's request.) Choosing a REGION is deliberately not here — the Region filter card
  * beside it already does that, and now frames the camera too.
  *
  * Split out along the banner sections. See docs/CODEMAP.md.
@@ -23,21 +23,6 @@ function osteo() { return window.__osteo || null; }
 
 export function renderViewerTools() {
   const o = osteo();
-  const tools = $$('toolButtons');
-  if (!tools) return;
-  const armed = o && o.toolState ? o.toolState() : 'off';
-  const list = o && o.tools ? o.tools() : [];
-  tools.innerHTML = list.map((t) => `<button class="icon-btn${armed === t.id ? ' active' : ''}"
-      data-tool="${esc(t.id)}" title="${esc(t.hint || '')}" aria-pressed="${armed === t.id}">${esc(t.label)}</button>`).join('')
-    + `<button class="icon-btn${armed === 'off' ? ' active' : ''}" data-tool="off" aria-pressed="${armed === 'off'}">Off</button>`;
-  tools.querySelectorAll('[data-tool]').forEach((b) => {
-    b.onclick = () => {
-      if (!osteo() || !osteo().setTool) { toast('Open the 3D model first.'); return; }
-      osteo().setTool(b.dataset.tool);
-      renderViewerTools();
-    };
-  });
-
   const axes = $$('cutButtons');
   if (axes) {
     const live = o && o.cutState ? o.cutState() : null;
@@ -67,16 +52,9 @@ export function renderViewerTools() {
     if (flip) flip.classList.toggle('active', !!cut.flip);
   }
 
-  const count = $$('toolCount');
-  if (count) {
-    const n = o && o.annotationCount ? o.annotationCount() : 0;
-    count.textContent = n ? `${n} annotation${n === 1 ? '' : 's'}` : 'nothing drawn yet';
-  }
-
   renderCutLevels();
   renderLayerDepth();
   paintSeparation();
-  renderToolChip();
 }
 
 /* ------------------------------------------------------------------ *
@@ -222,30 +200,9 @@ function paintSeparation() {
   renderLayerRail();
 }
 
-/* ------------------------------------------------------------------ *
- * The armed-tool badge
- *
- * The tools live in the sheet, and the sheet is usually shut while you use
- * them. Without this you arm the pen, scroll back to the model, and the stage
- * has silently stopped selecting with nothing on screen saying why.
- * ------------------------------------------------------------------ */
-function renderToolChip() {
-  const chip = $$('toolChip');
-  if (!chip) return;
-  const o = osteo();
-  const armed = o && o.toolState ? o.toolState() : 'off';
-  const spec = (o && o.tools ? o.tools() : []).find((t) => t.id === armed);
-  chip.classList.toggle('hidden', armed === 'off');
-  const text = $$('toolChipText');
-  if (text && spec) text.textContent = `${spec.label} — ${spec.hint}`;
-}
-
 export function init() {
   const mode=$$('spreadMode');
   if(mode)mode.onchange=()=>{osteo()?.setSpreadMode?.(mode.value);paintSeparation();};
-  const note = $$('toolNote');
-  if (note) note.oninput = () => { if (osteo() && osteo().setNoteText) osteo().setNoteText(note.value); };
-
   const slider = $$('cutSlider');
   if (slider) slider.oninput = () => {
     cut.t = Number(slider.value) / 100;
@@ -278,23 +235,6 @@ export function init() {
     paintSeparation();
   };
 
-  const undo = $$('toolUndo');
-  if (undo) undo.onclick = () => {
-    if (!osteo() || !osteo().undoAnnotation) { toast('Open the 3D model first.'); return; }
-    if (!osteo().undoAnnotation()) toast('Nothing to undo.');
-    renderViewerTools();
-  };
-  const wipe = $$('toolClear');
-  if (wipe) wipe.onclick = () => {
-    if (osteo() && osteo().clearAnnotations) osteo().clearAnnotations();
-    renderViewerTools();
-  };
-  const off = $$('toolChipOff');
-  if (off) off.onclick = () => {
-    if (osteo() && osteo().setTool) osteo().setTool('off');
-    renderViewerTools();
-  };
-
   const shot = $$('toolShot');
   if (shot) shot.onclick = () => {
     if (!osteo() || !osteo().snapshot) { toast('Open the 3D model first.'); return; }
@@ -309,8 +249,9 @@ export function init() {
     toast('Saved the current view as a PNG.');
   };
 
-  /* The engine tells the panel when a tap changed something — a pinned label
-     is created on the stage, not in here. */
+  /* The engine says when something it owns changed without the panel's help —
+     a cavity or the projection collapsing the spread — so the slider follows. */
   if (osteo() && osteo().setToolHook) osteo().setToolHook(() => renderViewerTools());
+
   renderViewerTools();
 }

@@ -162,7 +162,6 @@
         you are using one. This says which tool has the stage, and gives it
         back in one press.
       -->
-      <div class="toolchip hidden" id="toolChip" role="status"><span id="toolChipText"></span><button id="toolChipOff">Done</button></div>
       <div class="hiddentray empty" id="hiddenTray">
         <button class="htoggle" id="hiddenToggle" aria-expanded="false">🚫 <span id="hiddenCount">Hidden</span></button>
         <div class="hlist" id="hiddenList"></div>
@@ -200,59 +199,41 @@
       </aside>
 <section class="viewer-tools-panel" id="viewerToolsPanel"><button id="toolsPanelToggle" aria-expanded="true" aria-controls="viewerSheet">Tools</button>    <div class="vsheet" id="viewerSheet">
 
-      <div class="vsheet-grid">        <section class="card toolcard">
-          <div class="task-kicker">Tools</div>
-
-
-
+      <div class="vsheet-grid">
+        <!--
+          Three bottom-bar buttons, three sections: Spread opens the first,
+          Cut the second, Regions the last two. The panel shows only the
+          section its button names (data-tsec, filtered in app.css).
+        -->
+        <section class="card toolcard" data-tsec="spread">
           <div class="tool-lab">Spread the body</div>
           <label class="small">Layout <select id="spreadMode" aria-label="Spread layout"><option value="pieces">Pieces</option><option value="layers">Layers</option></select></label>
           <label class="tool-slider"><span>Spread</span><input type="range" id="sepSlider" min="0" max="100" value="0" aria-label="Spread the course body"><span class="mono" id="sepRead">together</span></label>
           <p class="small">Pieces packs visible structures into rows at 100%. Layers fans whole layers sideways. Display layouts, not anatomical positions.</p>
-
-          <div class="tool-lab">Annotate</div>
-          <div class="tool-row" id="toolButtons"></div>
-          <input class="tool-note" id="toolNote" maxlength="90" placeholder="Note text, then tap the structure">
-          <div class="tool-row"><button class="icon-btn" id="toolUndo">Undo</button><button class="icon-btn" id="toolClear">Clear all</button><span class="tool-count" id="toolCount">nothing drawn yet</span></div>
-
+          <div class="tool-lab">Layer depth</div>
+          <div class="depthlist" id="layerDepth"></div>
+        </section>
+        <section class="card toolcard" data-tsec="cut">
           <div class="tool-lab">Section cut</div>
           <div class="tool-row" id="cutButtons"></div>
           <div class="cut-levels" id="cutLevels"></div>
           <label class="tool-slider"><span>Position</span><input type="range" id="cutSlider" min="0" max="100" value="50" aria-label="Cut position"><span class="mono" id="cutRead">no cut</span></label>
           <div class="tool-row"><button class="icon-btn" id="cutFlip">Flip side</button><button class="icon-btn" id="cutClear">Clear cut</button></div>
-
-          <div class="tool-lab">Layer depth</div>
-          <div class="depthlist" id="layerDepth"></div>
-
-
-
-
-
-
-
-
         </section>
-        <section class="card"><div class="task-kicker">Region filter</div><h2 class="task-title">Study one area</h2><div class="region-row" id="regionButtons"></div></section>
-
-        <section class="card overlaycard">
+        <section class="card" data-tsec="regions"><div class="task-kicker">Region filter</div><h2 class="task-title">Study one area</h2><div class="region-row" id="regionButtons"></div></section>
+        <section class="card overlaycard" data-tsec="regions">
           <div class="task-kicker">Spatial overlays</div>
           <h2 class="task-title">Cavities, regions, planes</h2>
-
           <div class="ogroups" id="overlayGroups"></div>
           <div class="olist" id="overlayItems"></div>
           <div class="omodes" id="overlayModes"></div>
           <div class="oprov" id="overlayProv"></div>
         </section>
-        <!--
-          Tools. The four things you DO to the model rather than look at:
-          section it, mark it, name it, keep the picture. Grouped in the order
-          you reach for them.
-        -->
 
       </div>
     </div>
 </section></div>
-<div class="ctrlpill"><button class="icon-btn" id="viewerExploreBtn" aria-expanded="true" aria-controls="taskCard">Explore</button><button class="icon-btn" id="viewerMoreBtn" aria-expanded="true" aria-controls="viewerToolsPanel">Tools</button><button class="icon-btn" id="resetBtn">Reset view</button><button class="icon-btn" id="focusBtn">Focus</button><button class="icon-btn" id="isolateBtn">Isolate selected</button><button class="icon-btn" id="showAllBtn">Show all</button><button class="ghost hidden" id="mvBackToSession">Back to the question</button></div>
+<div class="ctrlpill"><button class="icon-btn" id="viewerExploreBtn" aria-expanded="true" aria-controls="taskCard">Explore</button><button class="icon-btn" data-tsec="spread" aria-expanded="false" aria-controls="viewerToolsPanel">Spread</button><button class="icon-btn" data-tsec="cut" aria-expanded="false" aria-controls="viewerToolsPanel">Cut</button><button class="icon-btn" data-tsec="regions" aria-expanded="false" aria-controls="viewerToolsPanel">Regions</button><button class="icon-btn" id="resetBtn">Reset view</button><button class="icon-btn" id="focusBtn">Focus</button><button class="ghost hidden" id="mvBackToSession">Back to the question</button></div>
     </div>
             </div>
             <div id="viewerXrayPane" class="hidden">

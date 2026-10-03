@@ -1487,8 +1487,8 @@ html[data-ts="xl"]{--ts:1.55}
 @media(max-width:700px){
   #stageHome .ctrlpill{flex-wrap:nowrap;justify-content:flex-start;bottom:8px;left:8px;right:8px;transform:none;max-width:none;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none}
   #stageHome .ctrlpill::-webkit-scrollbar{display:none}
-  #stageHome .ctrlpill button{flex:none;padding:8px 10px}
-  .viewer-dock{top:auto;bottom:70px;max-height:55%}
+  #stageHome .ctrlpill button{flex:1 1 auto;min-width:0;padding:8px 6px}
+  .viewer-dock{top:auto;bottom:calc(var(--pill-h,56px) + 14px);max-height:55%}
   .viewer-dock .selpanel{max-height:none;flex:0 0 auto}
   .viewer-dock .selpanel.panel-expanded{flex:1 1 auto}
   .viewer-dock .viewer-tools-panel.tools-collapsed{flex:0 0 auto}
@@ -1503,4 +1503,24 @@ html[data-ts="xl"]{--ts:1.55}
 .viewer-dock .viewer-tools-panel.tools-collapsed{display:none}
 .viewer-dock #taskPanelContent{padding-top:12px}
 .viewer-tools-panel .vsheet{padding-top:12px}
-#stageHome .ctrlpill #viewerExploreBtn.active,#stageHome .ctrlpill #viewerMoreBtn.active{background:rgba(114,227,207,.16);color:var(--teal)}
+#stageHome .ctrlpill #viewerExploreBtn.active,#stageHome .ctrlpill [data-tsec].active{background:rgba(114,227,207,.16);color:var(--teal)}
+
+/* The Tools panel shows only the section its bottom-bar button named. */
+.viewer-tools-panel[data-show="spread"] .vsheet-grid>[data-tsec]:not([data-tsec="spread"]),
+.viewer-tools-panel[data-show="cut"] .vsheet-grid>[data-tsec]:not([data-tsec="cut"]),
+.viewer-tools-panel[data-show="regions"] .vsheet-grid>[data-tsec]:not([data-tsec="regions"]){display:none}
+
+/*
+ * Nothing on the stage may sit under the control bar. --pill-h is the bar's
+ * measured height (study/small-ui-helpers.js); the dock and the hidden-items
+ * tray stand on top of it instead of at a guessed offset.
+ */
+@media(min-width:701px){.viewer-dock{bottom:calc(var(--pill-h,56px) + 24px)}}
+#stageHome .hiddentray{bottom:calc(var(--pill-h,56px) + 22px)}
+/* On a phone the bar and the dock own the whole bottom edge, so the tray goes
+   to the top-right corner, opposite the Layers button, and opens downward
+   over the model rather than into the panels. */
+@media(max-width:700px){
+  #stageHome .hiddentray{top:58px;right:10px;left:auto;bottom:auto;align-items:flex-end;z-index:7}
+  #stageHome .hiddentray .hlist{max-height:40vh}
+}

@@ -207,11 +207,23 @@ export function setTaskPanelExpanded(open) {
   $$('viewerExploreBtn').classList.toggle('active', open);
   $$('viewerExploreBtn').setAttribute('aria-expanded', String(open));
 }
-export function setToolsPanelOpen(open) {
-  $$('viewerToolsPanel').classList.toggle('tools-collapsed', !open);
+/*
+ * The Tools panel is three panels in one: the bottom bar's Spread, Cut and
+ * Regions buttons each open it on their own section (data-tsec; app.css hides
+ * the rest). `section` is kept when omitted, so closing and reopening returns
+ * to where the reader was.
+ */
+export function setToolsPanelOpen(open, section) {
+  const panel = $$('viewerToolsPanel');
+  if (section) panel.dataset.show = section;
+  if (!panel.dataset.show) panel.dataset.show = 'spread';
+  panel.classList.toggle('tools-collapsed', !open);
   $$('toolsPanelToggle').setAttribute('aria-expanded', String(open));
-  $$('viewerMoreBtn').classList.toggle('active', open);
-  $$('viewerMoreBtn').setAttribute('aria-expanded', String(open));
+  document.querySelectorAll('.ctrlpill [data-tsec]').forEach((b) => {
+    const on = open && b.dataset.tsec === panel.dataset.show;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-expanded', String(on));
+  });
 }
 
 /* Runs after every part has evaluated — see the entry point. */
@@ -226,6 +238,21 @@ export function init() {
   });
   /* Both panels ship open. On a phone, start with Explore & study only. */
   setTaskPanelExpanded(true);
+  setToolsPanelOpen(!$$('viewerToolsPanel').classList.contains('tools-collapsed'), 'spread');
+  /*
+   * The dock and the hidden-items tray sit ABOVE the control bar, and the bar's
+   * height is not a constant: it changes with the text-size setting, with
+   * wrapping on a mid-width screen, and with the "Back to the question" button.
+   * A fixed offset is how the panels came to overlap it, so the real height is
+   * published as --pill-h on the stage and app.css positions from that.
+   */
+  const pill = document.querySelector('#stageHome .ctrlpill');
+  const home = $$('stageHome');
+  if (pill && home) {
+    const publish = () => home.style.setProperty('--pill-h', `${Math.ceil(pill.getBoundingClientRect().height) || 56}px`);
+    publish();
+    if (typeof ResizeObserver !== 'undefined') new ResizeObserver(publish).observe(pill);
+  }
   const settle = () => {
     if (isPhoneViewer() && !panel.classList.contains('hidden')) setToolsPanelOpen(false);
   };
