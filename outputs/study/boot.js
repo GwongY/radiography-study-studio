@@ -18,14 +18,14 @@ import { isPhoneViewer, scrollViewTop, setTaskPanelExpanded, setToolsPanelOpen }
 /* Contextual back: only meaningful on a phone drilled into a topic. */
 /* The viewer keeps four primary controls on the canvas; everything the old
    studio showed at once now sits behind this one toggle. */
-$$('viewerMoreBtn').onclick = () => {
+/* The panel headers are the toggles; the bottom bar no longer repeats them. */
+$$('toolsPanelToggle').onclick = () => {
   const open = $$('viewerToolsPanel').classList.contains('tools-collapsed');
   setToolsPanelOpen(open);
   /* One panel at a time on a phone — see setToolsPanelOpen. */
   if (open && isPhoneViewer()) setTaskPanelExpanded(false);
   if (open) { renderOverlayCard(); renderViewerTools(); }
 };
-$$('toolsPanelToggle').onclick = () => $$('viewerMoreBtn').click();
 $$('layerRailToggle').onclick = () => {
   const open = getComputedStyle($$('layerRail')).display === 'none';
   $$('stageHome').classList.toggle('layers-open', open);
@@ -69,10 +69,3 @@ export function init() {
   $$('navBackBtn').onclick = () => { ui.learnDrill = false; renderLearn(); scrollViewTop(); };
 }
 
-$$('viewerExploreBtn').onclick = () => {
- const panel = $$('taskCard');
- const open = !panel.classList.toggle('hidden');
- if(open){setTaskPanelExpanded(true);if(isPhoneViewer())setToolsPanelOpen(false);}
- $$('viewerExploreBtn').setAttribute('aria-expanded', String(open));
- $$('viewerExploreBtn').classList.toggle('active', open);
-};

@@ -409,19 +409,10 @@ export function init() {
   window.addEventListener('resize',resize);
   window.addEventListener('orientationchange',()=>setTimeout(resize,120));
   if(window.visualViewport)window.visualViewport.addEventListener('resize',resize);
-  /*
-   * The button ships reading "Pause turntable" with .active, which was true
-   * only because motionEnabled was hard-coded on. It now follows
-   * prefers-reduced-motion, so the label has to be drawn from state rather than
-   * assumed -- otherwise a reader who asked for stillness gets a still model
-   * under a button offering to pause it.
-   */
-  const paintMotion=()=>{els.motion.textContent=state.motionEnabled?'Pause turntable':'Spin turntable';els.motion.classList.toggle('active',state.motionEnabled)};
-  paintMotion();
-  if(prefersStill())els.motion.title='Your system asks for reduced motion, so the turntable starts still.';
-  /* The turntable command routes to the atlas body while it owns the canvas;
-     it answers 'on'/'off' so the label can be painted from the atlas state. */
-  els.motion.onclick=()=>{state.motionEnabled=!state.motionEnabled;paintMotion()};renderRegions();renderReview();bindCanvas();setMode('explore');
+  /* The idle turntable and its button were removed on the reader's request:
+     the body stays where the reader leaves it. state.motionEnabled is kept,
+     always false, because packed spread and live physiology save and restore it. */
+  renderRegions();renderReview();bindCanvas();setMode('explore');
   state.extraModels=state.extraModels||{};
   /* Both halves of the skeleton on, which is what one chip called Skeleton
      used to mean. systemsIn keeps this honest if the split ever changes. */

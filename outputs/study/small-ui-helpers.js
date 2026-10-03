@@ -204,8 +204,6 @@ export function setTaskPanelExpanded(expanded) {
 export function setToolsPanelOpen(open) {
   $$('viewerToolsPanel').classList.toggle('tools-collapsed', !open);
   $$('toolsPanelToggle').setAttribute('aria-expanded', String(open));
-  $$('viewerMoreBtn').classList.toggle('active', open);
-  $$('viewerMoreBtn').setAttribute('aria-expanded', String(open));
 }
 
 /* Runs after every part has evaluated — see the entry point. */

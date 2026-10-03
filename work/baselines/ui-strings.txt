@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1101 —
-  b752bdaa199b2611  WHOLE SET
+— user-facing strings in outputs/ — 1098 —
+  7287723965ac4b85  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -559,7 +559,6 @@
   c5ca4a0d519c1995  Page / section
   88ce19bc20fd3349  Paper submitted
   998f59ec6907c1a6  Past papers, timed practice, mastery
-  d44f57779facfe5b  Pause turntable
   ce253ba033cf1abf  Phalanges of the hand
   032a270b28e8d32d  Plane \u00b7 separates
   b1fa06dcff9ea3f6  Practice paper
@@ -634,7 +633,6 @@
   824ba78711430662  Sources for the whole item
   781ffed29fcefcff  Sources, coverage, settings
   8453b6ae9d67090b  Spelling was off — the exact form is "
-  c58398bfd89d3d58  Spin turntable
   a5e79c9bffea95ae  Spread layout
   58f0fa59236bbc71  Spread the course body
   c0601cc0e1e9ad8c  Start due session
@@ -799,7 +797,6 @@
   62375359a1826914  Your groups
   69bfb7f1b8cfd020  Your mistake log —
   0766aba44d3ed61b  Your sources call it
-  eca79e98499b2cd2  Your system asks for reduced motion, so the turntable starts still.
   5aacae2229c04415  Z-Anatomy / BodyParts3D skeleton · 159 named structures
   10c21ae68a2b089a  \u00b7 opens in Viewer
   b90043e9bd499c60  \u00b7 via

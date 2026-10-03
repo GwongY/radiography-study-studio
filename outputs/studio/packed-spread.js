@@ -31,8 +31,7 @@ export function endPackedSpread(){
     state.controls.target.copy(saved.target);
     state.controls.maxDistance=saved.maxDistance;
     state.camera.far=saved.far;
-    state.motionEnabled=saved.motion;
-    if(els.motion){els.motion.textContent=saved.motion?'Pause turntable':'Spin turntable';els.motion.classList.toggle('active',saved.motion);}
+    state.motionEnabled=saved.motion;
     if(saved.physiology)setPhysiology(true);
     state.camera.updateProjectionMatrix();
     state.controls.update();
@@ -47,8 +46,7 @@ export function applyPackedSpread(t){
   if(!state.packedView){
     state.packedView={position:state.camera.position.clone(),target:state.controls.target.clone(),
       maxDistance:state.controls.maxDistance,far:state.camera.far,motion:state.motionEnabled,physiology:!!state.flow?.on};
-    state.motionEnabled=false;
-    if(els.motion){els.motion.textContent='Spin turntable';els.motion.classList.remove('active');}
+    state.motionEnabled=false;
     if(state.flow?.on)setPhysiology(false);
   }
   const shown=meshes().filter(visible);

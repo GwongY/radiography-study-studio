@@ -469,7 +469,7 @@ import { restorePackedSpread } from './packed-spread.js';
     if(a>=mv.range[1]){a=mv.range[1];state.movement.dir=-1}
     else if(a<=mv.range[0]){a=mv.range[0];state.movement.dir=1}
     setMovementAngle(a);
-  }state.motionPhase=performance.now()*.001;stepPhysiology(state.motionPhase);if(state.motionEnabled){const turn=Math.sin(state.motionPhase*.55)*.24;[state.fullModel,state.realModel,state.conceptGroup,state.pickGroup,...Object.values(state.extraModels||{}).map(m=>m.pivot)].forEach(root=>{if(root)root.rotation.y=turn})}/* Held at full rather than oscillating when the reader asked for stillness:
+  }state.motionPhase=performance.now()*.001;stepPhysiology(state.motionPhase);/* Held at full rather than oscillating when the reader asked for stillness:
      the highlight still marks the structure, it just stops breathing. */
   const pulse=prefersStill()?1:.72+.28*Math.sin(state.motionPhase*3.2);[...state.meshes,...state.fullMeshes].filter(m=>m.userData.presentationActive).forEach(m=>{if(m.material.emissive)m.material.emissiveIntensity=.95*pulse});state.controls.update();syncTools();if(typeof updateHudSprites==='function')updateHudSprites();if(!renderXray())state.renderer.render(state.scene,state.camera)}
   export function zoomCamera(factor){if(!state.camera||!state.controls)return;const offset=state.camera.position.clone().sub(state.controls.target);const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,offset.length()*factor));state.camera.position.copy(state.controls.target).add(offset.normalize().multiplyScalar(distance));state.controls.update()}
