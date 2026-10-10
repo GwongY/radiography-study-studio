@@ -134,7 +134,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `cavity-geometry-derived.js` | 473 | Cavity geometry, derived from the loaded anatomy. |
 | `depth-picking.js` | 420 | Depth picking |
 | `explosion-layout.js` | 16 | Pack only visible source meshes. Every projected bounding box gets its own cell. |
-| `heart-atlas.js` | 310 | Heart atlas |
+| `heart-atlas.js` | 328 | Heart atlas |
 | `hide-and-search.js` | 112 | Hide, and search-driven uncover |
 | `imports.js` | 103 | Block 0 has its own import scope -- block 1's copy is not visible here. |
 | `live-physiology.js` | 1765 | Live physiology |

@@ -159,13 +159,31 @@ function showInfo(key) {
 }
 
 /* ---- the explorer's own heart ---- */
+/* The heart-system meshes, plus any UNCLASSIFIED mesh (no system: the GLB carries a
+   few whose names did not survive export, shown as "????????") whose centre lies
+   inside the heart's own box. The host's coronary arteries are one of those; left
+   alone they are drawn on top of the atlas whatever its Coronary box says, because
+   an unclassified mesh follows its whole layer. The list is taken once per entry
+   and the same one is un-hidden on exit. */
+let hostHidden = [];
 function hostHeartMeshes() {
   const circ = state.extraModels && state.extraModels.circulatory;
   if (!circ) return [];
-  return circ.meshes.filter((m) => (m.userData.systems || []).includes('heart'));
+  const heart = circ.meshes.filter((m) => (m.userData.systems || []).includes('heart'));
+  circ.root.updateMatrixWorld(true);
+  const box = new state.THREE.Box3();
+  for (const m of heart) box.union(new state.THREE.Box3().setFromObject(m));
+  if (box.isEmpty()) return heart;
+  box.expandByScalar(0.02);
+  const c = new state.THREE.Vector3();
+  const strays = circ.meshes.filter((m) => !(m.userData.systems || []).length
+    && box.containsPoint(new state.THREE.Box3().setFromObject(m).getCenter(c)));
+  return heart.concat(strays);
 }
 function setHostHeartHidden(on) {
-  for (const m of hostHeartMeshes()) m.userData.atlasHidden = !!on;
+  if (on) hostHidden = hostHeartMeshes();
+  for (const m of hostHidden) m.userData.atlasHidden = !!on;
+  if (!on) hostHidden = [];
 }
 
 /* The skeleton is two chips (Axial, Appendicular) -- setLayerChips names them. */

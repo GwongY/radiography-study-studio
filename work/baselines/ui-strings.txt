@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1145 —
-  5aaa4b7d6aceb607  WHOLE SET
+— user-facing strings in outputs/ — 1146 —
+  ae018b50d92fcbdc  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -1029,6 +1029,7 @@
   dce1c177b1e44a6a  s depth, less the tag
   df49128572cf09cb  s job is only to feed it those meshes in the body
   91f0e226c82016ff  s left), fz 0 the trunk
+  7b1ad636e00edbe5  s own box. The host
   4e01dcdc55cd6293  s own half-width put the oesophagus
   ade98b80a888aed2  s own signature. 
   b231d81d3578309e  s slot is left out, as it is in the Course tab
