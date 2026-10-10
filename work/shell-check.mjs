@@ -48,7 +48,7 @@ function walk(rel) {
   const abs = join(root, rel);
   if (!existsSync(abs)) return;
   const dir = dirname(rel);
-  for (const m of readFileSync(abs, 'utf8').matchAll(/from\s+'(\.\.?\/[^']+\.js(?:\?v=\d+)?)'/g)) {
+  for (const m of readFileSync(abs, 'utf8').matchAll(/(?:from\s+|import\(\s*)'(\.\.?\/[^']+\.js(?:\?v=\d+)?)'/g)) {
     /* Resolve against the importing file, then record it as the service worker
        would see it: a path relative to outputs/, forward slashes. */
     const resolved = normalize(join(dir, m[1])).replace(/\\/g, '/');

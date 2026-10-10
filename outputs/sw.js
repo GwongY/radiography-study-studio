@@ -33,7 +33,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v189';
+const CACHE_VERSION = 'v190';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -89,7 +89,31 @@ const SHELL = [
   './studio/region-boxes-how.js',
   './studio/depth-picking.js',
   './studio/live-physiology.js',
+  './studio/heart-atlas.js',
   './studio/tools-and-capture.js',
+  /*
+   * The heart atlas. studio/heart-atlas.js reaches heart/atlas.js by a dynamic
+   * import() only, so none of these load until the mode is first opened -- but
+   * they are precached all the same, because a mode that cannot open offline is
+   * the failure this app exists to avoid. Each specifier is exactly the one its
+   * importer writes (query and all); shell-check walks the dynamic literals.
+   * The two data files (heart-manifest.json, heart-meshes.bin, ~1 MB) are NOT
+   * here: they are lazy, see isModel().
+   */
+  './heart/atlas.js?v=1',
+  './heart/alignment.js?v=1',
+  './heart/descriptions.js?v=1',
+  './heart/conduction.js?v=2',
+  './heart/heart-motion.js?v=25',
+  './heart/heartbeat.js?v=7',
+  './heart/echo-sim.js?v=16',
+  './heart/cardiac-cycle.js',
+  './heart/valve-surfaces.js?v=4',
+  './heart/valve-apparatus.js?v=6',
+  './heart/valve-rings.js?v=2',
+  './heart/coronary-flow.js?v=10',
+  './heart/coronary-routes.js?v=1',
+  './heart/transvalvular-flow.js?v=2',
   './studio/packed-spread.js','./studio/explosion-layout.js','./THIRD-PARTY-NOTICES.txt',
   /*
    * study.js is an entry point that imports these and then calls their init()s.
@@ -252,9 +276,18 @@ self.addEventListener('activate', (event) => {
  * different URL because the manifest stamps it with a ?g= of the generator, the
  * kernel, the route definitions and MODEL_VERSION. That is deliberately NOT
  * CACHE_VERSION -- see the note above about which version means what.
+ *
+ * The heart atlas's data (heart/heart-manifest.json and heart/heart-meshes.bin,
+ * ~1 MB) rides the same cache and lifetime for the same reason: it is fetched
+ * when the mode is first opened, never in the install-time shell, and it is
+ * addressed by its filename. It is matched by those two exact names -- NOT by
+ * a '/heart/heart-' prefix, which would also catch heart-motion.js and pull a
+ * precached shell module out of the shell cache into this cache-first one.
+ * Regenerating either file in place means bumping MODEL_VERSION, as for a .glb.
  */
 function isModel(url) {
-  return url.pathname.endsWith('.glb') || url.pathname.includes('/assets/physiology/');
+  return url.pathname.endsWith('.glb') || url.pathname.includes('/assets/physiology/')
+      || url.pathname.endsWith('/heart/heart-manifest.json') || url.pathname.endsWith('/heart/heart-meshes.bin');
 }
 const isFigure = (url) => url.pathname.includes('/assets/figures/');
 /*

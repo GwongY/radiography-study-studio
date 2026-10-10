@@ -1,5 +1,9 @@
 # Radiography Study Studio
 
+### Heart atlas mode (October 2026)
+
+The viewer has a **Heart atlas** mode: a visual reference tool, not a lesson source. It adds no study items and no `sourceRefs`. It brings in BetterHeart's four chamber cavities and the two anterior AV leaflets, moving valves with annulus rings and chordae, coronary flow tracers, the conduction system, a cardiac-cycle clock with a schematic ECG, and a TTE/TEE section simulator, drawn on the explorer's own circulatory layer (the explorer's heart is hidden while the mode is on). Left out on purpose: nerves, catheter and flow dots, the PCI, TAVI, ASD and mitral-balloon simulators, and leader-line labels. The descriptions in the panel are BetterHeart's own Traditional Chinese text with English first, attributed to it -- they are not lessons. Licence: the mesh data and `coronary-routes.js` are CC BY-SA 4.0 (BodyParts3D underneath, CC BY-SA 2.1 JP), recorded in `outputs/THIRD-PARTY-NOTICES.txt` and `outputs/heart/MODEL-NOTICES.txt`; the site's code carries no stated licence and is included with the owner's permission. The modules in `outputs/heart/` load by dynamic import on first entry; the two data files (~1 MB) are cached lazily with the models. Traps: `docs/TRAPS.md`, "The heart atlas".
+
 ### GitHub Pages restored (October 2026)
 
 The owner returned to public GitHub Pages and restored the repository's public

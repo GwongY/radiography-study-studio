@@ -1414,3 +1414,14 @@ and the adapter's static-set filters — written as a list containing
 `'heart'` — silently lost all 9 leaflets. The only symptom was the gate's pair
 count dropping 283 → 220. A class rename is an API change to every list that
 names it.
+
+### The heart atlas — `outputs/studio/heart-atlas.js`, `outputs/heart/atlas.js`, `work/heart-atlas-check.mjs`
+
+- **The atlas group is a child of the circulatory layer's `root`**, in BetterHeart's frame, with scale 1/24. Re-parenting it to the scene breaks registration, layer separation and the pivot.
+- **It is attached only while the mode is on**, so `Box3.setFromObject(root)` and the packed spread never see it. Do not leave it attached "hidden".
+- **The explorer's own heart meshes are hidden with `userData.atlasHidden`**, honoured by `meshOn` -- not by `mesh.visible`, which `applyLayers` rewrites on every layer change.
+- **`outputs/heart/*` is reached by a dynamic import only** (`load-check` cannot resolve a bare `three`); `shell-check` walks dynamic `import('./x.js?v=N')` literals for that reason. A specifier built at run time is invisible to it.
+- **The service-worker data rule matches two exact filenames**, `heart-manifest.json` and `heart-meshes.bin`. A `/heart/heart-` prefix would also match `heart-motion.js` and move a precached shell module into the cache-first model cache. Regenerating either file in place needs a `MODEL_VERSION` bump (cache-first never revalidates).
+- **The vendored modules read DOM ids prefixed `ha-`**; the panel in `heart-atlas.js` must exist before `createHeartAtlas()`.
+- **The echo does not rotate the body** (BetterHeart's page does); clipping is applied to atlas materials only.
+- **`outputs/heart/alignment.js` is generated**; `work/heart-atlas-check.mjs` re-fits it against `dolasim.glb` and fails if the model is ever replaced without re-running `node work/build-heart-alignment.mjs --write`.
