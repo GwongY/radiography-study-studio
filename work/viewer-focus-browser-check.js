@@ -1,0 +1,83 @@
+// Run this default function through Chrome evaluate_script on the local app.
+export default async function(){
+  const assert=(ok,message)=>{if(!ok)throw new Error(message);};
+  const {openViewer}=await import('./study/what-is-under.js');
+  const {BODY_LAYERS}=await import('./study/subject.js');
+  const {onBonePicked}=await import('./studio/visualisation-modes.js');
+  const {clearSelection}=await import('./studio/depth-picking.js');
+  const {applyVisibility}=await import('./studio/region-boxes-how.js');
+  const {hideMesh}=await import('./studio/hide-and-search.js');
+  const {setPhysiology}=await import('./studio/live-physiology.js');
+  const {revealStructure}=await import('./studio/search-viewer-frame.js');
+  const {compositeFor}=await import('./synonyms.js');
+  openViewer();await window.__osteo.boot();
+  const o=window.__osteo,s=o.state,T=s.THREE;
+  o.clearStudyFocus();o.setSeparation(0);o.clearCut();
+  s.mode='explore';s.region='all';s.isolated=false;s.motionEnabled=false;
+  s.fullModel.rotation.y=0;if(s.realModel)s.realModel.rotation.y=0;
+  s.hidden.clear();s.autoHidden.clear();s.controls.enableDamping=false;
+  const all=()=>[...s.fullMeshes,...Object.values(s.extraModels).flatMap(m=>m.meshes)];
+  const visible=m=>{for(let p=m;p;p=p.parent)if(!p.visible)return false;return true;};
+  const shown=()=>all().filter(visible);
+  const same=(a,b)=>a.length===b.length&&a.every(m=>b.includes(m));
+  const focus=()=>document.querySelector('#focusBtn').click();
+  const reset=()=>document.querySelector('#resetBtn').click();
+  const onlySelection=()=>{
+    const v=shown();assert(v.length>0,'Focus left an empty stage');
+    assert(same(v,s.selectionMeshes),'Focus left other structures visible or dropped a selected part');
+    assert(v.every(m=>!m.userData.presentationActive&&(!m.material.emissive||m.material.emissive.getHex()===0)&&!m.material.emissiveIntensity),'Focus kept selection glow or its animated pulse');
+  };
+  await o.setLayer('lymphatic',false);
+  for(const l of BODY_LAYERS.filter(l=>l.key!=='lymphatic')){
+    await o.setLayer(l.key,true,l.file);o.setLayerOpacity(l.key,1);
+  }
+  setPhysiology(false);clearSelection();
+  const baseline=shown();assert(baseline.length>1000,'not enough layers to exercise isolation');
+  focus();assert(!s.isolated&&same(shown(),baseline),'Focus without a selection changed visibility');
+  o.selectMesh('Femur','left');focus();onlySelection();
+  assert(s.selectionMeshes.length===1&&s.selectedSide==='left','Focus kept the opposite side');
+  const position=s.camera.position.clone(),target=s.controls.target.clone();
+  focus();onlySelection();
+  assert(position.distanceTo(s.camera.position)<1e-9&&target.distanceTo(s.controls.target)<1e-9,'repeated Focus moved the camera');
+  o.setLayerOpacity('axial',.25);onlySelection();
+  setPhysiology(true);onlySelection();setPhysiology(false);onlySelection();
+  const late=BODY_LAYERS.find(l=>l.key==='lymphatic');
+  await o.setLayer(late.key,true,late.file);onlySelection();
+  const layers=JSON.stringify(s.layers),depths=JSON.stringify(s.layerOpacity);
+  assert(!s.hidden.size&&!s.autoHidden.size,'Focus polluted the hidden tray');
+  reset();assert(!s.isolated&&shown().length>baseline.length,'Reset did not restore enabled layers');
+  assert(JSON.stringify(s.layers)===layers&&JSON.stringify(s.layerOpacity)===depths,'Focus or Reset changed layer preferences');
+  assert(s.fullMeshes.filter(m=>m.userData.systems.includes('axial')).every(m=>m.material.opacity===.25),'Reset lost depth settings');
+  const other=s.fullMeshes.find(m=>m!==s.selectionAnchor&&visible(m));
+  hideMesh(other);const manuallyHidden=new Set(s.hidden),before=shown();
+  focus();onlySelection();reset();
+  assert(same(shown(),before)&&[...manuallyHidden].every(m=>s.hidden.has(m)),'Reset lost manual hiding');
+  s.hidden.clear();applyVisibility();
+  const muscle=s.extraModels.muscle.meshes.find(m=>/part_of_deltoid_muscle/i.test(m.userData.label||m.name));
+  assert(muscle,'missing deltoid');onBonePicked(muscle);focus();onlySelection();
+  assert(s.selectionMeshes.length===3,'three-part deltoid not kept whole');
+  const box=new T.Box3();s.selectionMeshes.forEach(m=>box.expandByObject(m));
+  assert(box.getCenter(new T.Vector3()).distanceTo(s.controls.target)<1e-9,'Focus framed only one muscle part');
+  reset();
+  assert(await o.selectInSystem('muscle',BODY_LAYERS.find(l=>l.key==='muscle').file,muscle.userData.label),'structure-set selection failed');
+  focus();onlySelection();assert(s.selectionMeshes.length===3,'structure-set Focus lost a muscle part');reset();
+  const composite=compositeFor('larynx');assert(composite,'missing cross-layer group');
+  const found=await revealStructure({name:composite.name,parts:composite.parts.map(([system,mesh])=>({system,mesh}))});
+  assert(found.ok&&new Set(s.selectionMeshes.map(m=>m.userData.layerKey||m.userData.extraKey)).size>1,'cross-layer selection not exercised');
+  const group=s.selectionMeshes.slice();focus();onlySelection();
+  assert(same(shown(),group),'Focus lost part of a search group');reset();
+  s.autoHidden.clear();applyVisibility();
+  o.selectMesh('Femur','left');o.setSpreadMode('pieces');
+  s.scene.updateMatrixWorld(true);const home=s.selectionAnchor.matrixWorld.toArray();
+  o.setSeparation(1);focus();onlySelection();
+  assert(s.packedLayout.parts.length===s.selectionMeshes.length,'Spread repacked unrelated structures into focus');
+  reset();assert(s.packedLayout.parts.length>group.length,'Reset did not restore Spread');
+  o.setSeparation(0);s.scene.updateMatrixWorld(true);
+  assert(s.selectionAnchor.matrixWorld.toArray().every((v,i)=>v===home[i]),'Focus damaged assembled bone transforms');
+  o.selectMesh('Femur','left');focus();onlySelection();
+  o.selectMesh('Humerus','right');onlySelection();
+  clearSelection();assert(!s.isolated&&shown().length>1000,'clearing selection did not release isolation');
+  s.controls.enableDamping=true;
+  return {pass:true,viewport:[innerWidth,innerHeight],layers:Object.keys(s.extraModels).length,
+    checks:['no-selection guard','one anatomical side','all layers hidden','no glow or pulse in Focus','repeated Focus','depth and physiology changes','lazy loading','Reset retains layers and depth','manual hiding retained','whole multi-part muscle framed','structure-set selection','cross-layer search group','packed Spread and exact assembly','replacement selection','clear selection restores visibility']};
+}

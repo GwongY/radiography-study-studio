@@ -3,8 +3,10 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
+import { viewerStructureName } from '../search-name.js';
+import { lectureRow } from '../viewer-lecture-names.js';
 import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CIRCUITS, FLOW_CLASSES, GRAZE_CLAMP, RATES, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, avValveEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, fluence, mottleSigma, mu, prefersStill, semilunarEnvelope, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
-import { MEMORY_TIPS, answer, clean, openDetail, pool, record, regionLabel, selectBone, showToast } from './visualisation-modes.js';
+import { MEMORY_TIPS, answer, clean, clearHighlight, openDetail, pool, record, regionLabel, selectBone, showToast } from './visualisation-modes.js';
 import { animate, applyVisibility, between, getRecord, tube } from './region-boxes-how.js';
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
 import { enforceHidden } from './hide-and-search.js';
@@ -15,6 +17,7 @@ import { MOTOR_ROUTES, motorRoute, motorSequence } from '../physiology-mechanics
 import { CHAMBER_SHAPE_GLSL, chamberTetherField, deriveShape, deriveMuscleShape, deriveBreathingShape, MUSCLE_SHAPE_GLSL } from '../physiology-shape.js';
 import { PATH_ATTRIBUTES, PATH_GLOW_FRAGMENT_GLSL, PATH_GLOW_VERTEX_GLSL, PATH_PULSE_GLSL, PATH_SHAPE_GLSL, PROGRESS_ATTRIBUTES } from '../physiology-path.js';
 import { PATH_PAYLOADS } from '../physiology-paths.js';
+import { systemsOf } from '../systems.js?v=1';
 
 /* ------------------------------------------------------------------ *
  * Live physiology
@@ -628,7 +631,7 @@ export function applyConnectiveVisibility(){
      while the scene is still booting -- before state.flow exists. */
   if(!state.flow||!state.flow.connective) return;
   const show=!state.flow.on;
-  state.flow.connective.forEach(m=>{ m.visible=show; });
+  state.flow.connective.forEach(m=>{ m.visible=show&&(!state.isolated||!state.selectedId||state.selectionMeshes.includes(m)); });
   if(state.focus?.keep){
     Object.values(state.extraModels).forEach(layer=>layer.meshes.forEach(m=>{if(!state.focus.keep.has(m))m.visible=false;}));
   }
@@ -764,6 +767,8 @@ export function updateStageMeta(){
  */
 export function applyLayers(){
   if(state.xray)return;
+  // Clear saved peel materials before changing the underlying system opacity.
+  restorePeel();
   Object.entries(state.extraModels).forEach(([k,m])=>{
     m.root.visible=layerOn(k);
     /* Opacity is per CHIP, not per file: the arteries can be solid while the
@@ -783,9 +788,12 @@ export function applyLayers(){
   });
   /* The skeleton ghosts too -- seeing vessels against translucent bone is the
      whole reason to put two layers on at once. */
-  const so=chipsOf('skeleton').reduce((v,k)=>{const x=state.layerOpacity?.[k];return x===undefined?v:(v===undefined?x:Math.max(v,x))},undefined);
-  if(so!==undefined)[...state.fullMeshes,...state.meshes].forEach(o=>{
+  [...state.fullMeshes,...state.meshes].forEach(o=>{
     if(!o.material)return;
+    const keys=o.userData.systems?.length?o.userData.systems
+      :systemsOf('skeleton',o.userData.sourceCanonicalId||o.userData.canonicalId||o.name);
+    const on=keys.filter(k=>state.layers[k]);
+    const so=on.length?Math.max(...on.map(k=>state.layerOpacity?.[k]??1)):1;
     const t=so<.99;
     /* three.js compiles transparency into the shader program, so flipping the
        flag without needsUpdate leaves the mesh stubbornly opaque. */
@@ -1486,6 +1494,7 @@ function unitMap(){
   MESH_INDEX.forEach((r)=>{
     if(!_unitMap.has(r.layer)) _unitMap.set(r.layer,new Map());
     _unitMap.get(r.layer).set(tightKey(r.name),r);
+    _unitMap.get(r.layer).set('exact:'+r.name.toLowerCase(),r);
   });
   return _unitMap;
 }
@@ -1511,7 +1520,13 @@ export function unitFor(layerKey,raw){
   const fm=unitMap().get(layerKey);
   if(!fm) return null;
   const k=tightKey(raw);
-  return fm.get(k)||(/[lr]$/.test(k)?fm.get(k.slice(0,-1)):null)||null;
+  const exact=String(raw).replace(/_/g,' ').replace(/\s+/g,' ').trim().toLowerCase();
+  const row=fm.get('exact:'+exact)||fm.get(k)||(/[lr]$/.test(k)?fm.get(k.slice(0,-1)):null)||null;
+  if(!row)return null;
+  // Add identities only for newly evidenced names; existing unit IDs and
+  // recorded progress remain stable. Coarse atlas families still cover names
+  // absent from the supplied notes.
+  return lectureRow(row);
 }
 
 export function highlightExtra(mesh){
@@ -1522,6 +1537,8 @@ export function highlightExtra(mesh){
      was tapped is every mesh carrying that id, not the one triangle hit. */
   const kin=m.meshes.filter(o=>o.userData.canonicalId===mesh.userData.canonicalId);
   const lit=kin.length?kin:[mesh];
+  state.selectedId=mesh.userData.canonicalId;state.selectedSide=mesh.userData.side||null;
+  state.selectionAnchor=mesh;state.selectionMeshes=lit;
   lit.forEach(o=>o.material.emissive?.setHex(0x1c6f66));
   if(state.camera&&state.controls&&state.THREE){
     const box=new state.THREE.Box3();
@@ -1549,9 +1566,10 @@ export function highlightExtra(mesh){
     });
     if(partner){clean=stem;side=m2[2].toLowerCase()==='l'?'Left':'Right'}
   }
-  els.selectedName.textContent=clean;
-  els.selectedChips.innerHTML=side?`<span class="chip">${side}</span>`:'';
+  els.selectedName.textContent=viewerStructureName(clean);
+  els.selectedChips.innerHTML='';
   showPickCallout(lit,side?`${clean}\n${side}`:clean);
+  if(state.isolated){clearHighlight();applyVisibility();}
 }
 /*
  * Joint movement player.

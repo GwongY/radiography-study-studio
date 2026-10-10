@@ -3,6 +3,8 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
+import { viewerStructureName } from '../search-name.js';
+import { BONE_LANDMARKS, boneLandmarkKey, surfaceLandmarks } from '../bone-landmarks.js';
 import { anatomicalMatrix } from './packed-spread.js';
 import { $, state } from './imports.js';
 import { animate, between, tube } from './region-boxes-how.js';
@@ -172,6 +174,328 @@ export function updateHudSprites(){
   walk(state.conceptGroup);
   walk(state.toolGroup); // Pinned annotations need the same aspect-preserving HUD sizing.
   walk(state.pickGroup);      /* the selection callout obeys the same band */
+  updateBoneLandmarks();
+}
+
+/* ------------------------------------------------------------------ *
+ * Bone landmarks in a close view
+ *
+ * Positions belong to a specific, verified vertex of the current skeleton.
+ * Only the final projection and label packing are in screen coordinates.
+ * Reprojecting from mesh.matrixWorld keeps the leader on the exact feature
+ * through orbit, zoom, highlighting and the per-piece spread parents.
+ * ------------------------------------------------------------------ */
+function boneLabelOverlay(){
+  if(state.boneLabelOverlay?.host.isConnected)return state.boneLabelOverlay;
+  const stage=$('stage');if(!stage)return null;
+  const host=document.createElement('div');host.className='bone-landmarks';
+  host.id='boneLandmarkLabels';host.setAttribute('aria-label','Bone landmarks');
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('aria-hidden','true');host.append(svg);
+  const note=document.createElement('p');note.className='bone-landmark-note';
+  note.textContent='Landmark labels are not mapped for this bone yet.';host.append(note);
+  const key=document.createElement('p');key.className='bone-landmark-key';
+  key.textContent='Dashed leaders: far side or inside';host.append(key);
+  const controls=document.createElement('div');controls.className='bone-landmark-controls';
+  const toggle=document.createElement('button');toggle.type='button';toggle.className='bone-landmark-toggle';
+  toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-controls','boneLandmarkMenu');
+  const menu=document.createElement('div');menu.id='boneLandmarkMenu';menu.className='bone-landmark-menu';
+  menu.hidden=true;menu.setAttribute('aria-label','Choose a bone landmark');
+  controls.append(toggle,menu);host.append(controls);
+  stage.append(host);
+  const overlay=state.boneLabelOverlay={host,svg,note,key,controls,toggle,menu,mesh:null,points:[],pose:'',close:false};
+  const closeMenu=()=>{menu.hidden=true;host.classList.remove('choosing');toggle.setAttribute('aria-expanded','false');overlay.pose='';};
+  toggle.onclick=()=>{menu.hidden=!menu.hidden;host.classList.toggle('choosing',!menu.hidden);toggle.setAttribute('aria-expanded',String(!menu.hidden));overlay.pose='';updateBoneLandmarks();};
+  controls.addEventListener('pointerdown',e=>e.stopPropagation());
+  controls.addEventListener('click',e=>e.stopPropagation());
+  controls.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();toggle.focus();updateBoneLandmarks();}});
+  stage.addEventListener('pointerdown',e=>{if(!controls.contains(e.target)&&!menu.hidden){closeMenu();updateBoneLandmarks();}});
+  return overlay;
+}
+function landmarkVisible(mesh){
+  for(let p=mesh;p;p=p.parent)if(!p.visible)return false;
+  return true;
+}
+function prepareBoneLabels(overlay,mesh){
+  overlay.mesh=mesh;overlay.pose='';overlay.points=[];overlay.close=false;overlay.activeName=null;
+  overlay.menu.hidden=true;overlay.host.classList.remove('choosing','all-parts');overlay.toggle.setAttribute('aria-expanded','false');overlay.menu.replaceChildren();
+  overlay.host.querySelectorAll('.bone-landmark-label').forEach(e=>e.remove());
+  overlay.svg.replaceChildren();
+  const T=state.THREE,attr=mesh.geometry.attributes.position;
+  const key=boneLandmarkKey(mesh.userData.label||mesh.name,mesh.userData.side);
+  const spec=BONE_LANDMARKS[key];
+  const points=surfaceLandmarks(key,attr.count,i=>new T.Vector3().fromBufferAttribute(attr,i).toArray());
+  const markers=points.map(p=>({...p,locals:[p,...(p.alternates||[])].map(a=>new T.Vector3().fromBufferAttribute(attr,a.vertex))}));
+  for(const p of spec?.points||[]){
+    if(!p.part)continue;
+    const part=state.fullMeshes.find(m=>boneLandmarkKey(m.userData.label||m.name,m.userData.side)===p.part);
+    if(!part)continue;
+    // Measure the actual sinus in assembled anatomy, then carry its interior
+    // location with the host bone when that bone becomes a spread specimen.
+    part.geometry.computeBoundingBox();
+    const center=part.geometry.boundingBox.getCenter(new T.Vector3()).applyMatrix4(anatomicalMatrix(part));
+    const local=center.applyMatrix4(new T.Matrix4().copy(anatomicalMatrix(mesh)).invert());
+    markers.push({...p,locals:[local],partMesh:part});
+  }
+  // One named feature has one tag, including alternate vertices for its faces.
+  const unique=[...new Map(markers.map(p=>[p.name.toLowerCase().trim(),p])).values()];
+  overlay.primaryNames=new Set(spec?.primaryNames||unique.slice(0,5).map(p=>p.name));
+  overlay.toggle.textContent=`Parts · ${unique.length}`;overlay.controls.hidden=!unique.length;
+  const choose=name=>{
+    overlay.activeName=name;overlay.menu.hidden=true;overlay.host.classList.remove('choosing');overlay.toggle.setAttribute('aria-expanded','false');
+    overlay.host.classList.toggle('all-parts',name==='*');
+    overlay.menu.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.landmarkChoice||null)===name)));
+    overlay.pose='';updateBoneLandmarks();overlay.toggle.focus();
+  };
+  const main=document.createElement('button');main.type='button';main.textContent='Main landmarks';
+  main.setAttribute('aria-pressed','true');main.onclick=()=>choose(null);overlay.menu.append(main);
+  const all=document.createElement('button');all.type='button';all.textContent='Show all parts';
+  all.dataset.landmarkChoice='*';all.setAttribute('aria-pressed','false');all.onclick=()=>choose('*');overlay.menu.append(all);
+  for(const marker of unique){
+    const label=document.createElement('span');label.className='bone-landmark-label';
+    label.textContent=marker.name+(marker.inside?' · inside':'');
+    label.dataset.landmark=marker.name;
+    overlay.host.append(label);
+    const line=document.createElementNS('http://www.w3.org/2000/svg','path');
+    const dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    dot.setAttribute('r','3');
+    if(marker.inside)line.setAttribute('stroke-dasharray','3 3');
+    overlay.svg.append(line,dot);
+    overlay.points.push({...marker,label,line,dot});
+    const choice=document.createElement('button');choice.type='button';choice.textContent=marker.name;
+    choice.dataset.landmarkChoice=marker.name;choice.setAttribute('aria-pressed','false');
+    choice.onclick=()=>choose(marker.name);overlay.menu.append(choice);
+  }
+}
+function boneLabelOutline(mesh,cam,rect){
+  const T=state.THREE,attr=mesh.geometry.attributes.position,vertices=[];
+  const v=new T.Vector3();
+  for(let i=0;i<attr.count;i++){
+    v.fromBufferAttribute(attr,i).applyMatrix4(mesh.matrixWorld).project(cam);
+    if(v.z>=-1&&v.z<=1)vertices.push({x:(v.x+1)*rect.width/2,y:(1-v.y)*rect.height/2});
+  }
+  vertices.sort((a,b)=>a.x-b.x||a.y-b.y);
+  const cross=(a,b,c)=>(b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x);
+  const half=rows=>{const h=[];for(const p of rows){while(h.length>1&&cross(h[h.length-2],h[h.length-1],p)<=0)h.pop();h.push(p);}h.pop();return h;};
+  const hull=[...half(vertices),...half(vertices.slice().reverse())];
+  const axes=[{x:1,y:0},{x:0,y:1}];
+  for(let i=0;i<hull.length;i++){
+    const a=hull[i],b=hull[(i+1)%hull.length],length=Math.hypot(b.x-a.x,b.y-a.y);
+    if(length)axes.push({x:(a.y-b.y)/length,y:(b.x-a.x)/length});
+  }
+  return hull.length<3?null:axes.map(a=>({...a,min:Math.min(...hull.map(p=>p.x*a.x+p.y*a.y)),max:Math.max(...hull.map(p=>p.x*a.x+p.y*a.y))}));
+}
+function placeBoneLabels(points,frame,box,outline){
+  // Tags travel with their feature, instead of joining fixed margin queues.
+  // Search locally first; dense Show all views can use more of the canvas.
+  const cx=(box.minX+box.maxX)/2,cy=(box.minY+box.maxY)/2;
+  const minGap=frame.right-frame.left<500?32:46;
+  const leader=(r,p)=>{
+    const side=r.lx+r.width/2>=p.x?1:-1;
+    const edge=side===1?r.lx:r.lx+r.width;
+    const run=(edge-p.x)*side,tail=28;
+    const rise=Math.max(8,(run-tail)*Math.tan(22*Math.PI/180));
+    const options=[r.ly+r.height/2,p.y+rise,p.y-rise]
+      .map(y=>({x:edge,y:Math.max(r.ly+6,Math.min(r.ly+r.height-6,y))}));
+    for(const q of options){
+      const rise=Math.abs(q.y-p.y);
+      // A visible incline, then an exposed tail: a bend of 145-170 degrees.
+      if(run-tail>2&&rise>=8&&rise>=(run-tail)*Math.tan(10*Math.PI/180)
+        &&rise<=(run-tail)*Math.tan(35*Math.PI/180))
+        return {...q,elbow:q.x-side*tail};
+    }
+    return null;
+  };
+  const nearBone=r=>outline&&outline.every(a=>{
+    const center=(r.lx+r.width/2)*a.x+(r.ly+r.height/2)*a.y;
+    const radius=r.width/2*Math.abs(a.x)+r.height/2*Math.abs(a.y)+12;
+    return center+radius>=a.min&&center-radius<=a.max;
+  });
+  const overlap=(a,b,gap=4)=>a.lx<b.lx+b.width+gap&&a.lx+a.width+gap>b.lx
+    &&a.ly<b.ly+b.height+gap&&a.ly+a.height+gap>b.ly;
+  const crossesTag=(r,q)=>{
+    const route=leader(r,r.p);if(!route)return false;
+    return route.y>q.ly-2&&route.y<q.ly+q.height+2
+      &&Math.max(route.x,route.elbow)>q.lx-2&&Math.min(route.x,route.elbow)<q.lx+q.width+2;
+  };
+  const compatible=(r,q)=>!overlap(r,q)&&!crossesTag(r,q)&&!crossesTag(q,r);
+  const place=order=>{
+    const placed=[];
+    for(const p of order){
+      let best=null,score=Infinity;
+      const consider=(x,y)=>{
+        const r={lx:Math.max(frame.left,Math.min(frame.right-p.width,x-p.width/2)),
+          ly:Math.max(frame.top,Math.min(frame.bottom-p.height,y-p.height/2)),width:p.width,height:p.height,p};
+        if(placed.some(q=>!compatible(r,q))||points.some(q=>q.x>r.lx-7&&q.x<r.lx+r.width+7&&q.y>r.ly-7&&q.y<r.ly+r.height+7))return;
+        const dx=r.lx+p.width/2-p.x,dy=r.ly+p.height/2-p.y;
+        const edgeX=Math.max(r.lx,Math.min(r.lx+r.width,p.x)),edgeY=Math.max(r.ly,Math.min(r.ly+r.height,p.y));
+        const distance=(edgeX-p.x)**2+(edgeY-p.y)**2;
+        if(distance<minGap**2)return;
+        if(points.length===1&&distance>=250**2)return;
+        if(!leader(r,p))return;
+        const stay=p.tagOffset?((dx-p.tagOffset.x)**2+(dy-p.tagOffset.y)**2)*.12:0;
+        const cost=distance+(dx*dx+dy*dy)*.03+stay+(nearBone(r)?100000:0);
+        if(cost<score){score=cost;best=r;}
+      };
+      if(p.tagOffset)consider(p.x+p.tagOffset.x,p.y+p.tagOffset.y);
+      const bearing=Math.atan2(p.y-cy,p.x-cx);
+      for(let gap=minGap;gap<=300;gap+=24)for(let i=0;i<12;i++){
+        const angle=bearing+i*Math.PI/6;
+        consider(p.x+Math.cos(angle)*(p.width/2+gap),p.y+Math.sin(angle)*(p.height/2+gap));
+      }
+      // Use the actual free edges as well as the radial samples. This avoids
+      // wasting narrow gaps when a phone canvas wraps a long name.
+      for(const q of placed)for(const x of [q.lx-p.width/2-4,q.lx+q.width+p.width/2+4,q.lx+p.width/2])
+        for(const y of [q.ly-p.height/2-4,q.ly+q.height+p.height/2+4,q.ly+p.height/2])consider(x,y);
+      for(const q of points)for(const y of [q.y-7.1-p.height/2,q.y+7.1+p.height/2])
+        for(const x of [frame.left+p.width/2,frame.right-p.width/2,p.x-p.width/2-50,p.x+p.width/2+50])consider(x,y);
+      if(!best)for(let y=frame.top+p.height/2;y<=frame.bottom-p.height/2;y+=12)
+        for(let x=frame.left+p.width/2;x<=frame.right-p.width/2;x+=12)consider(x,y);
+      if(!best)continue;
+      placed.push(best);
+    }
+    return placed;
+  };
+  const orders=[points.slice().sort((a,b)=>b.width*b.height-a.width*a.height),
+    points.slice().sort((a,b)=>a.y-b.y),points.slice().sort((a,b)=>b.y-a.y)];
+  for(let seed=1;seed<=12;seed++)orders.push(points.slice().sort((a,b)=>{
+    const rank=p=>Math.sin((points.indexOf(p)+1)*seed*17.31)*10000;
+    return rank(a)-rank(b);
+  }));
+  let placed=[];
+  for(const order of orders){const attempt=place(order);if(attempt.length>placed.length)placed=attempt;if(placed.length===points.length)break;}
+  if(placed.length<points.length){
+    // Dense views need to reserve the few usable slots near edge pins before
+    // less constrained tags take them. Backtrack over real, legal placements.
+    const choices=new Map();
+    for(const p of points){
+      const options=[];
+      const xs=[frame.right-p.width],ys=[frame.bottom-p.height];
+      for(let lx=frame.left;lx<=frame.right-p.width;lx+=8)xs.push(lx);
+      for(let ly=frame.top;ly<=frame.bottom-p.height;ly+=8)ys.push(ly);
+      for(const q of points)ys.push(q.y+7.1,q.y-7.1-p.height);
+      for(const ly of ys.filter(y=>y>=frame.top&&y<=frame.bottom-p.height))
+        for(const lx of xs){
+          const r={lx,ly,width:p.width,height:p.height,p};
+          if(!leader(r,p)||points.some(q=>q.x>lx-7&&q.x<lx+p.width+7&&q.y>ly-7&&q.y<ly+p.height+7))continue;
+          const distance=(Math.max(lx,Math.min(lx+p.width,p.x))-p.x)**2
+            +(Math.max(ly,Math.min(ly+p.height,p.y))-p.y)**2;
+          if(distance<minGap**2||points.length===1&&distance>=250**2)continue;
+          options.push({...r,cost:distance});
+        }
+      choices.set(p,options.sort((a,b)=>a.cost-b.cost).slice(0,600));
+    }
+    let budget=4000;
+    const solve=(remaining,chosen)=>{
+      if(!remaining.length)return chosen;
+      if(budget--<=0)return null;
+      const available=remaining.map(p=>({p,options:choices.get(p).filter(r=>chosen.every(q=>compatible(r,q)))}))
+        .sort((a,b)=>a.options.length-b.options.length);
+      const next=available[0];if(!next.options.length)return null;
+      for(const r of next.options){const found=solve(remaining.filter(p=>p!==next.p),[...chosen,r]);if(found)return found;}
+      return null;
+    };
+    const complete=solve(points,[]);if(complete)placed=complete;
+  }
+  for(const p of points){
+    const r=placed.find(r=>r.p===p);
+    // Never drop a chosen feature just because the camera moved. A very dense
+    // canvas still names every point, with its nearest free placement preferred.
+    p.lx=r?.lx??Math.max(frame.left,Math.min(frame.right-p.width,p.x+12));
+    p.ly=r?.ly??Math.max(frame.top,Math.min(frame.bottom-p.height,p.y-p.height-12));
+    p.tagOffset={x:p.lx+p.width/2-p.x,y:p.ly+p.height/2-p.y};
+    p.label.style.transform=`translate(${p.lx}px,${p.ly}px)`;
+    const {x,y,elbow}=leader({lx:p.lx,ly:p.ly,width:p.width,height:p.height},p)
+      ??{x:p.lx,y:p.ly+p.height/2,elbow:p.lx-20};
+    p.line.setAttribute('d',`M${p.x},${p.y} L${elbow},${y} L${x},${y}`);
+    p.dot.setAttribute('cx',p.x);p.dot.setAttribute('cy',p.y);
+  }
+}
+function updateBoneLandmarks(){
+  if(state.pickGroup)state.pickGroup.visible=!state.xray;
+  const overlay=state.boneLabelOverlay,mesh=state.selectionAnchor;
+  const stage=$('stage'),view=$('viewerView');
+  const allowed=mesh?.geometry?.attributes.position&&mesh.userData.layerKey==='skeleton'
+    &&state.mode==='explore'&&!state.focus&&!state.xray&&!state.cut
+    &&view&&!view.hidden&&view.contains(stage)&&landmarkVisible(mesh);
+  if(!allowed){if(overlay)overlay.host.hidden=true;return;}
+  const T=state.THREE,cam=state.camera,rect=state.renderer.domElement.getBoundingClientRect();
+  if(rect.width<1||rect.height<1)return;
+  const bounds=new T.Box3().setFromObject(mesh),box={minX:Infinity,maxX:-Infinity,minY:Infinity,maxY:-Infinity};
+  for(let i=0;i<8;i++){
+    const v=new T.Vector3(i&1?bounds.max.x:bounds.min.x,i&2?bounds.max.y:bounds.min.y,i&4?bounds.max.z:bounds.min.z).project(cam);
+    const x=(v.x+1)*rect.width/2,y=(1-v.y)*rect.height/2;
+    box.minX=Math.min(box.minX,x);box.maxX=Math.max(box.maxX,x);box.minY=Math.min(box.minY,y);box.maxY=Math.max(box.maxY,y);
+  }
+  const wasClose=overlay?.mesh===mesh&&overlay.close;
+  // Focus proximity is independent of angle: foreshortening a long bone must
+  // not remove its names. Zooming back to the body still clears the detail.
+  const size=bounds.getSize(new T.Vector3());
+  const fit=Math.max(.07,Math.max(size.y,size.x/Math.max(.1,cam.aspect*.5))
+    /(2*Math.tan(cam.fov*Math.PI/360)/cam.zoom)+size.z/2);
+  const focusSpan=fit/cam.position.distanceTo(bounds.getCenter(new T.Vector3()));
+  const close=focusSpan>(wasClose ? .76 : .82);
+  if(!close){if(overlay){overlay.host.hidden=true;overlay.close=false;}return;}
+  const ui=overlay||boneLabelOverlay();if(!ui)return;
+  ui.host.hidden=false;
+  if(ui.mesh!==mesh)prepareBoneLabels(ui,mesh);
+  ui.close=true;
+  ui.note.hidden=ui.points.length>0;
+  ui.key.hidden=false;
+  const frame={left:8,right:rect.width-8,top:ui.controls.hidden?14:Math.max(ui.toggle.offsetHeight+24,52+ui.key.offsetHeight+10),bottom:rect.height-86};
+  for(const id of ['layerRail','taskCard','viewerToolsPanel']){
+    const e=$(id);if(!e||e.classList.contains('hidden')||e.hidden||!e.getClientRects().length)continue;
+    const r=e.getBoundingClientRect();
+    if(id==='layerRail')frame.left=Math.max(frame.left,r.right-rect.left+10);
+    else frame.right=Math.min(frame.right,r.left-rect.left-10);
+  }
+  // A phone sheet can occupy the whole picture: avoid labels under its controls.
+  if(frame.right-frame.left<150){ui.host.hidden=true;return;}
+  ui.controls.style.right=`${rect.width-frame.right}px`;
+  ui.key.style.left=`${frame.left}px`;ui.key.style.maxWidth=`${frame.right-frame.left}px`;
+  const pose=[...mesh.matrixWorld.elements,...cam.matrixWorld.elements,cam.aspect,cam.zoom,
+    rect.width,rect.height,frame.left,frame.right,document.documentElement.dataset.ts,ui.activeName,ui.menu.hidden,mesh.material.opacity,
+    ...Object.values(state.layers),...Object.values(state.layerOpacity||{}),state.hidden?.size||0,state.autoHidden?.size||0].join(',');
+  if(ui.pose===pose){ui.key.hidden=!ui.hasFarSide;if((ui.shown||!ui.menu.hidden)&&state.pickGroup)state.pickGroup.visible=false;return;}ui.pose=pose;
+  const maxWidth=Math.min(210,(frame.right-frame.left)*(ui.activeName==='*'?.4:.30));
+  const visible=[];
+  const ray=state.boneLabelRay||(state.boneLabelRay=new T.Raycaster());
+  const occluders=[...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)]
+    .filter(m=>landmarkVisible(m)&&m.material.opacity>=.95);
+  const epsilon=bounds.getSize(new T.Vector3()).length()*.006;
+  for(const p of ui.points){
+    const chosen=ui.menu.hidden&&(ui.activeName==='*'||(ui.activeName?p.name===ui.activeName:ui.primaryNames.has(p.name)));
+    if(!chosen){p.label.hidden=true;p.line.style.display=p.dot.style.display='none';continue;}
+    let screen=null,farSide=false;
+    for(const local of p.locals){
+      const world=local.clone().applyMatrix4(mesh.matrixWorld),candidate=world.clone().project(cam);
+      if(candidate.z < -1||candidate.z > 1||Math.abs(candidate.x)>=1||Math.abs(candidate.y)>=1)continue;
+      const origin=cam.getWorldPosition(new T.Vector3()),dir=world.clone().sub(origin);
+      ray.set(origin,dir.clone().normalize());ray.far=dir.length()+epsilon;
+      const hit=ray.intersectObjects(p.inside?occluders.filter(m=>m!==mesh&&m!==p.partMesh):occluders,false)[0];
+      // A feature remains named as it turns away. Depth changes its leader,
+      // not its availability; a small dead band avoids edge-on style flicker.
+      farSide=!!p.inside||!!hit&&hit.distance<dir.length()-epsilon*(p.farSide ? .7 : 1.5);
+      screen=candidate;break;
+    }
+    const shown=!!screen;
+    p.label.hidden=p.line.hidden=p.dot.hidden=!shown;
+    p.line.style.display=p.dot.style.display=shown?'':'none';
+    if(!shown)continue;
+    p.farSide=farSide;p.label.classList.toggle('far-side',farSide);
+    p.line.setAttribute('stroke-dasharray',farSide?'4 3':'');
+    p.dot.classList.toggle('far-side',farSide);
+    p.x=(screen.x+1)*rect.width/2;p.y=(1-screen.y)*rect.height/2;
+    // Leave room for both segments even when a long name is near the centre
+    // of a phone canvas. Wrap the text; keep the standard font unchanged.
+    const sideRoom=Math.max(p.x-frame.left,frame.right-p.x)-42;
+    p.label.style.maxWidth=`${Math.min(maxWidth,Math.max(60,sideRoom))}px`;
+    p.width=p.label.offsetWidth;p.height=p.label.offsetHeight;visible.push(p);
+  }
+  placeBoneLabels(visible,frame,box,boneLabelOutline(mesh,cam,rect));
+  ui.shown=visible.filter(p=>!p.label.hidden).length;
+  ui.hasFarSide=visible.some(p=>p.farSide&&!p.label.hidden);ui.key.hidden=!ui.hasFarSide;
+  if((ui.shown||!ui.menu.hidden)&&state.pickGroup)state.pickGroup.visible=false;
 }
 /*
  * Callout: a named tag beside the body with a leader back to what it names.
@@ -408,6 +732,7 @@ export function attachCalloutToMesh(objects,mesh,anchor){
 }
 
 export function showPickCallout(obj,text){
+  text=viewerStructureName(text);
   if(!state.scene||!state.THREE||!obj||!text) return;
   const list=Array.isArray(obj)?obj.filter(Boolean):[obj];
   if(!list.length) return;

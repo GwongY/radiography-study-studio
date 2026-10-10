@@ -127,6 +127,11 @@ shapes** — in "The region grid and classifiers" below.
 
 ### Visibility and hiding — `outputs/studio.js`
 
+- **Focus isolation applies after every layer's visibility rules.** Keep the
+  actual selected meshes, including multi-part and cross-layer search groups.
+  The connective-tissue pass must respect isolation too: it runs again after
+  `applyVisibility` and otherwise brings tendons and bursae back. Reset releases
+  isolation without changing layer toggles, depth settings or manual hiding.
 - **`revealStructure` must dedupe its targets.** Each part of a multi-part spec
   widens to its whole unit, so a 39-part spec collected the same 77 meshes 39
   times and the card read "3003 parts".
@@ -834,6 +839,13 @@ Run `node work/separation-check.mjs` after touching any of it.
 
 ### Body systems, not files — `outputs/systems.js`, `outputs/study/subject.js`, `outputs/studio/live-physiology.js`
 
+- **Skeleton opacity belongs to each mesh's system.** Taking the maximum of
+  Axial and Appendicular and applying it to the whole skeleton made either
+  solid chip override the other slider. Use the mesh's imported systems (the
+  shared `systemsOf` classifier for fallback meshes), just as extra layers do.
+  Restore peel materials before updating opacity, or a later unpeel restores
+  old values. Reopening the viewer must preserve the precise stored opacity;
+  translating every ghost chip back to 0.34 discards the slider's setting.
 - **`state.layers` is keyed by CHIP, not by GLB.** Two of the seven files draw
   several chips each, so `state.layers[glbKey]` is `undefined` everywhere and
   reads as off. Every place that asks whether a layer is showing goes through
@@ -1213,6 +1225,52 @@ given a `display` to.
 
 ### The frame loop starts before the model exists — `outputs/studio/spatial-concept-overlays.js`
 
+- **GLTFLoader mesh suffixes are not anatomical numbers.** `Frontal_bone_1`
+  belongs to parent `Frontal_bone`. Use the actual matching parent name for a
+  numerical loader suffix before resolving its course unit; this repairs the
+  frontal selection/detail label and preserves real names such as Vertebra T1.
+- **Close-view bone landmarks use reviewed local vertices, not the old fallback
+  hotspots or fractions of a bounding box.** The simplified course GLB integrates
+  most landmarks into one mesh. `bone-landmarks.js` is generated from curated
+  vertices, with cited source quotes or visually reviewed diagram labels and
+  position/count signatures that refuse drift. Diagram transcriptions are not
+  machine-verified PDF text. Only the supplied current lectures are allowed; see the curation
+  file and coverage spec for exact pages. A mirrored GLTF node reverses winding:
+  correct the determinant sign when distinguishing the scapular fossa surfaces.
+  The asymmetric parietal bones need independent vertex signatures.
+  Sinuses are an exception: derive the interior point from the actual named
+  sinus mesh in assembled anatomy, then carry it with the host bone during
+  Spread. Project each marker through the selected mesh's current matrix;
+  never measure a spread location as though it were assembled anatomy.
+  Tags must avoid their markers as well as other tags on narrow screens, with
+  a visible gap from the named feature. Prefer placements outside an outline
+  projected from the actual mesh. A label printed on a background diagram is
+  insufficient evidence of teaching emphasis: retain the lecturer's highlighted
+  and identified features, rather than expanding Parts to the entire diagram.
+  Keep one tag per named feature and no more than five in the starting diagram;
+  the Parts list selects one feature or Show all parts. Alternate surface vertices
+  must never become duplicate tags. Keep tags near their features with diagonal then horizontal
+  leaders, not fixed side queues. Prefer previous relative offsets, and use depth
+  cues instead of dropping a name at each occlusion boundary.
+  The horizontal tail must stay outside every tag box, enter a side edge, and
+  remain at least 28 px long; a path with two `L` commands proves none of this.
+  Keep the incline visibly between 10 and 35 degrees, rising at least 8 px.
+  Wrap long phone tags to leave room for both segments, without shrinking fonts.
+  Test the projected geometry and visually inspect the result. The tag host
+  fixes `--ts` at standard (1.1), independently of reading text size. Require a
+  closer zoom than the default Focus frame, with hysteresis and aspect-aware,
+  angle-independent proximity. Dense phone views need continuous marker-edge
+  candidates and bounded backtracking; the grid alone can miss narrow slots.
+  `viewer-lecture-names.js` supplements older atlas groupings with names in the
+  13 supplied current PDFs. Newly named structures get deterministic additional
+  identities; existing course IDs do not get renumbered. Named families such as
+  the numbered phalanges remain separately selectable. Whole muscles whose
+  fragments are not named keep their grouping. Joint names can refer to the
+  corresponding modelled articular capsules, with this representation recorded
+  in the source metadata. Resolve matching parent/loader suffixes in soft tissue
+  too (e.g. Stomach_1), and try exact spelling before lossy tight-key matching.
+  The offline and browser checks are `work/bone-landmark-check.mjs` and
+  `work/bone-landmark-browser-check.js`.
 `state.THREE` is set by `prepareFullReference`, which runs when the skeleton
 finishes loading. The frame loop starts as soon as the camera exists. So every
 time the viewer opens there is a window where `state.camera` is truthy and

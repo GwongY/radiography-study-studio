@@ -10,7 +10,7 @@ import { clearPickCallout } from './spatial-concept-overlays.js';
 import { hideMesh } from './hide-and-search.js';
 import { installLayerFlow, layerOn, layerPool, loadPathRoutes, setXrayView, unitBlurb, unitFor } from './live-physiology.js';
 import { applySeparation } from './tools-and-capture.js';
-import { namedSide } from '../search-name.js';
+import { modelMeshName, namedSide, viewerStructureName } from '../search-name.js';
 
   /* ------------------------------------------------------------------ *
    * Depth picking
@@ -60,7 +60,7 @@ import { namedSide } from '../search-name.js';
     return state.pickStack.map((m,i)=>({
       index:i,
       id:m.userData.canonicalId,
-      name:(getRecord(m.userData.canonicalId)||{}).canonicalName||m.userData.label||'Unnamed',
+      name:viewerStructureName((getRecord(m.userData.canonicalId)||{}).canonicalName||m.userData.label||'Unnamed'),
       layer:LAYER_NAMES[m.userData.layerKey||(m.userData.extraKey)]||(m.userData.landmarkId?'Landmark':'Skeleton'),
       current:m===state.pickCurrent,
     }));
@@ -132,7 +132,7 @@ import { namedSide } from '../search-name.js';
       state.pickCurrent=chosen;
       if(state.xray){
         const label=getRecord(chosen.userData.canonicalId)?.canonicalName||chosen.userData.label||chosen.name;
-        const out=$('xraySelection');if(out)out.textContent=label;
+        const out=$('xraySelection');if(out)out.textContent=viewerStructureName(label);
         return;
       }
       peelTo(chosen);
@@ -222,8 +222,8 @@ import { namedSide } from '../search-name.js';
    * Nothing else called renderSearch; the global search is searchHits() in
    * the study module below.
    */
-  export function clearSelection(){state.selectedId=null;state.selectedSide=null;state.selectionAnchor=null;state.isolated=false;clearPickCallout();$('isolateBtn')?.classList.remove('active');clearHighlight();restorePeel();state.pickStack=[];state.pickCurrent=null;publishStack();applyVisibility();els.selectedName.textContent='Nothing selected';els.selectedChips.innerHTML='';els.selectedDetails.innerHTML=''}
-  document.querySelectorAll('.mode-btn').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));$('resetBtn').onclick=()=>{if(state.xray){setXrayView(state.xray.view);return}cameraView('front');state.isolated=false;$('isolateBtn')?.classList.remove('active');applyVisibility()};els.focus.onclick=()=>{focusSelected()};els.next.onclick=()=>startQuestion();/* This button used to be a second, differently-named way to press Identify.
+  export function clearSelection(){state.selectedId=null;state.selectedSide=null;state.selectionAnchor=null;state.selectionMeshes=[];state.isolated=false;clearPickCallout();$('isolateBtn')?.classList.remove('active');clearHighlight();restorePeel();state.pickStack=[];state.pickCurrent=null;publishStack();applyVisibility();els.selectedName.textContent='Nothing selected';els.selectedChips.innerHTML='';els.selectedDetails.innerHTML=''}
+  document.querySelectorAll('.mode-btn').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));$('resetBtn').onclick=()=>{if(state.xray){setXrayView(state.xray.view);return}cameraView('front');state.isolated=false;$('isolateBtn')?.classList.remove('active');applyVisibility()};els.focus.onclick=()=>{focusSelected(true)};els.next.onclick=()=>startQuestion();/* This button used to be a second, differently-named way to press Identify.
    It now does the thing its name promises: opens the drill on the structure
    you have got wrong most often, rather than a fresh weighted pick. */
 $('closeDetail').onclick=()=>{els.detailDialog.close();state.lastDetailId=null;history.replaceState(null,'',location.pathname+location.search)};els.retry.onclick=()=>{try{state.controls?.dispose()}catch{}if(state.renderer){state.renderer.domElement.remove();state.renderer=null;state.controls=null}state.scene=null;state.camera=null;state.fullModel=null;state.realModel=null;state.meshes=[];state.fullMeshes=[];state.hotspots=[];state.fullPickables=[];boot3D()};
@@ -306,7 +306,7 @@ async function loadExtraModelUncached(key,file){
   root.traverse(o=>{
     if(!o.isMesh)return;
     meshes.push(o);
-    raws.push(o.name||o.parent?.name||'Unnamed structure');
+    raws.push(modelMeshName(o));
     const association=gltf.parser?.associations?.get(o);
     if(association?.nodes!==undefined)o.userData={...(o.userData||{}),gltfNode:association.nodes};
   });

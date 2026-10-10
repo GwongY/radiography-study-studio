@@ -25,3 +25,18 @@ export function modelSearchNames(name) {
   if(n==='pubic symphysis')return ['Interpubic disc','Superior pubic ligament','Inferior pubic ligament'];
   return [name];
 }
+
+// GLTFLoader adds a numerical suffix when a mesh shares its parent's name.
+// Resolve that actual parent; keep genuine anatomical numbers intact.
+export function modelMeshName(mesh) {
+  const raw=mesh.name||mesh.parent?.name||'Unnamed structure',parent=mesh.parent?.name;
+  return parent&&raw.startsWith(parent+'_')&&/^\d+$/.test(raw.slice(parent.length+1))?parent:raw;
+}
+
+// Viewer labels are concise; canonical names and side-aware matching stay intact.
+export function viewerStructureName(value) {
+  const name=String(value||'').replace(/_/g,' ').replace(/(\b(?:bone|muscle))\s+\d+$/i,'$1')
+    .replace(/\b(?:left|right)\b/gi,' ')
+    .replace(/\b(?:bones?|muscles?)\s*$/i,'').replace(/\s+/g,' ').trim();
+  return name ? name[0].toUpperCase()+name.slice(1) : String(value||'').trim();
+}

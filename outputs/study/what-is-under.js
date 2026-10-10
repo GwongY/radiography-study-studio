@@ -30,7 +30,7 @@ function renderPickStack(entries) {
   box.innerHTML = `<div class="ph">${entries.length} in line here
       <button class="x" id="pickStackClose" aria-label="Dismiss">×</button></div>
     <ol>${entries.map((e) => `<li data-cur="${e.current ? 1 : 0}">
-      <button data-pick="${e.index}"><span class="d">${e.index + 1}</span><span>${esc(e.name)}</span><span class="ly">${esc(e.layer)}</span></button>
+      <button data-pick="${e.index}"><span class="d">${e.index + 1}</span><span>${esc(e.name)}</span></button>
       <button class="peel" data-hide="${e.index}" aria-label="Hide ${esc(e.name)}">hide</button>
     </li>`).join('')}</ol>
     <div class="pf">${at > 0
@@ -159,7 +159,7 @@ async function syncLayersToRail() {
     const st = layerState[l.key] || 'off';
     if (st === 'off') { await window.__osteo.setLayer(l.key, false); continue; }
     const ok = await window.__osteo.setLayer(l.key, true, l.file);
-    if (ok) window.__osteo.setLayerOpacity(l.key, st === 'ghost' ? GHOST_OPACITY : 1);
+    if (ok) window.__osteo.setLayerOpacity(l.key, window.__osteo.layerOpacity?.()[l.key] ?? (st === 'ghost' ? GHOST_OPACITY : 1));
   }
 }
 

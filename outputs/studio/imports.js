@@ -41,7 +41,7 @@
     return typeof matchMedia==='function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  export const state = { mode:'explore', region:'all', selectedId:null, selectedSide:null, current:null, quizStarted:false, isolated:false, meshes:[], fullMeshes:[], hotspots:[], fullPickables:[], importedRecords:new Map(), selectionAnchor:null, lastPick:{x:0,y:0,t:0,candidates:[],index:-1}, lastDetailId:null, hashRestored:false, scene:null, camera:null, controls:null, renderer:null, raycaster:null, pointer:null, fullModel:null, realModel:null, realIsProcedural:false, memoryStreak:0, motionEnabled:false, motionPhase:0, stats:loadStats() };
+  export const state = { mode:'explore', region:'all', selectedId:null, selectedSide:null, current:null, quizStarted:false, isolated:false, meshes:[], fullMeshes:[], hotspots:[], fullPickables:[], importedRecords:new Map(), selectionAnchor:null, selectionMeshes:[], lastPick:{x:0,y:0,t:0,candidates:[],index:-1}, lastDetailId:null, hashRestored:false, scene:null, camera:null, controls:null, renderer:null, raycaster:null, pointer:null, fullModel:null, realModel:null, realIsProcedural:false, memoryStreak:0, motionEnabled:false, motionPhase:0, stats:loadStats() };
 export const LAYER_NAMES={skeleton:'Skeleton',muscle:'Muscles',organs:'Organs',circulatory:'Vessels',nervous:'Nerves',joint:'Ligaments',lymphatic:'Lymphatic'};
 
   function loadStats(){ try{return JSON.parse(localStorage.getItem('osteology-studio-stats') || '{}')}catch{return {}} }

@@ -4,6 +4,33 @@
 
 The viewer has a **Heart atlas** mode: a visual reference tool, not a lesson source. It adds no study items and no `sourceRefs`. It brings in BetterHeart's four chamber cavities and the two anterior AV leaflets, moving valves with annulus rings and chordae, coronary flow tracers, the conduction system, a cardiac-cycle clock with a schematic ECG, and a TTE/TEE section simulator, drawn on the explorer's own circulatory layer (the explorer's heart is hidden while the mode is on). Left out on purpose: nerves, catheter and flow dots, the PCI, TAVI, ASD and mitral-balloon simulators, and leader-line labels. The descriptions in the panel are BetterHeart's own Traditional Chinese text with English first, attributed to it -- they are not lessons. Licence: the mesh data and `coronary-routes.js` are CC BY-SA 4.0 (BodyParts3D underneath, CC BY-SA 2.1 JP), recorded in `outputs/THIRD-PARTY-NOTICES.txt` and `outputs/heart/MODEL-NOTICES.txt`; the site's code carries no stated licence and is included with the owner's permission. The modules in `outputs/heart/` load by dynamic import on first entry; the two data files (~1 MB) are cached lazily with the models. Traps: `docs/TRAPS.md`, "The heart atlas".
 
+### Bone parts in Focus and Spread (October 2026)
+
+Select a bone and press Focus to hide other structures, remove selection glow
+and frame its mapped landmarks; Reset restores the enabled layers. The default
+diagram shows up to five tags. **Parts** offers every mapped feature; choosing
+one shows its single tag; **Show all parts** displays all mapped names. Distinct fossae retain their full names without filling
+the picture. Tags have a visible gap from their features and diagonal then
+horizontal leaders with outward bends of at least 145 degrees. The 28 px
+horizontal tail stays outside the tag and clear of other tag boxes. Tags keep
+their standard font size when the reading text size changes. Parts appear after
+zooming closer than the default Focus frame.
+Labels stay available during rotation, with dashed leaders for
+far-side features and actual sinus locations. Close Spread specimens work too.
+The map covers 82 labels on 20 bone types, including 6 scapular parts, cranial
+sutures, Bregma, Lambda, Pterion and Asterion. Tags use only the supplied current
+Human Anatomy lectures, with highlighted/identified teaching features retained
+and unneeded background diagram labels removed (femur 10, humerus 12). Unmapped bones show a notice.
+Axial and Appendicular depth sliders now change their own meshes independently,
+and reopening the viewer preserves the chosen opacity. Cache v200.
+An audit of all 13 supplied PDFs provides file/page references for 223 model
+structure or family names. It restores 66 individual names hidden by earlier
+atlas grouping, including metacarpals, metatarsals, phalanges, taught muscles
+and joint names such as metacarpophalangeal joints. Joints represented by the
+model's articular capsules use the lecture joint name. Existing course unit IDs
+and study progress remain stable.
+See [coverage and verification](../docs/superpowers/specs/2026-10-04-viewer-bone-landmarks.md).
+
 ### GitHub Pages restored (October 2026)
 
 The owner returned to public GitHub Pages and restored the repository's public

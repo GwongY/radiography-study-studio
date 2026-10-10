@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1137 —
-  e1c694166bd6efa5  WHOLE SET
+— user-facing strings in outputs/ — 1145 —
+  5aaa4b7d6aceb607  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -15,6 +15,7 @@
   c82482e143ba29a6   questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.</div>
   4086a0d4cd005901   showed metatarsals with no toes; choosing 
   2599c70aaa36cb29   · assumed from 
+  f45783c4bcd27e3d   · inside
   b4cf2a435cef9d35   · read (1/4)
   df725abe14c48979   · this week
   a6eff766a2215e5d   · time almost up
@@ -55,6 +56,7 @@
   d8353d56700520ba  " target="_blank" rel="noreferrer">
   2c99b5c4dedfd5a5  " target="_blank" rel="noreferrer">Wikimedia Commons
   e272ca64fe23b521  " title="
+  98dff919a1651387  ">Named in
   5465451fbdda9b14  ">Study this →
   fe28989274e10994  % banked from
   23db48b468bb0c9a  % correct overall · weaker structures are prioritised.
@@ -286,6 +288,7 @@
   e72ca92c0272f35b  Body layers
   2cea2e3a045ac3d2  BodyParts3D / Anatomography model licensing and the candidate sources that were reviewed.
   14352d43201b3476  Bone goes translucent; the cavity reads straight through it.
+  e270caf3ffdc6356  Bone landmarks
   63042ab0dfb866aa  Bottom strip left alone. The app stops at the edge of the viewport.
   53c88dc6b8160b72  Breathing · diaphragm and lungs
   08dec09e60523dff  Browser tab · viewport
@@ -305,6 +308,7 @@
   df8077d81115769e  Check matches
   b731b58ee17f6202  Check order
   b21cbce6bf98471b  Check this
+  4cad109bd8bf7ba8  Choose a bone landmark
   1fd0e2b073997f0d  Click the hotspot for:
   55656b5e434f4c06  Close search
   e503367c41c06b12  Close session
@@ -333,6 +337,7 @@
   0d2b823fa1b5d4d8  Custom length / time →
   80593d9330e238e5  Cut position
   153ad017bde62981  Daily pre-study
+  364c244f38af2511  Dashed leaders: far side or inside
   e3c1a5d80a89f718  Day streak, per-item status and the item you were last part-way through.
   792b1ed47ceecb59  Deadlines and weights come from the subject documents on the Syllabus tab.
   1ce89851847711af  Delete every mastery record, mistake and schedule stored in this browser. There is no server and no undo, so export a backup first if you might want it.
@@ -427,6 +432,7 @@
   2072e9484cb255ff  Keyboard up · viewport
   5b03442d3cba299d  Lab reports
   31fb459fac2d4100  Landmark data next
+  3f1becfc49e415ec  Landmark labels are not mapped for this bone yet.
   cf032eb29801f8f7  Language learning
   03b26f0f8e4b2a5e  Larynx \u2014 modelled as its parts
   e511d368519fe74a  Last merge:
@@ -463,6 +469,7 @@
   a7dc140c63a71953  MANdible = MAN-chews. It is the mobile skull bone.
   4329d1c71debab86  MCQ and fill-in-the-blanks
   165674c787736715  MCQs in Exam Mode).
+  67c3f3e2a9096e6f  Main landmarks
   13166033a2c30bb5  Manubrium, body, xiphoid: head, torso, sword-tip.
   74c4823f019f3ab0  Mastery and review schedules —
   d64f4eee948af6c3  Mastery lives in this browser only, so the desktop and the iPad keep separate schedules. Export a file here and import it on the other device.
@@ -620,6 +627,7 @@
   b7e2eaa5cec47a39  Shoulder blade / spade
   2150d8df37e48957  Show all
   6eabbe9ab1e22c72  Show all in the Viewer
+  2d36fe08484d4ec4  Show all parts
   667095c7b2d70a16  Show the lesson first
   0595489058178b10  Show the model answer
   d0b966e35ee96fdd  Show the skeleton around the heart
@@ -1121,6 +1129,7 @@
   a280303e42e6da2d  you can select
   0ab77651425c254f  you can select · tap one
   d7085db92f248fb1  you need 140%
+  6aa6cfac2b89d73f  your course names none of these one by one
   0a070443fbd9b75b  · <a href="
   9933c459a1daee37  · AI summary — check the quoted email before acting.
   cede9d46ada8b8f1  · found under "
@@ -1133,7 +1142,6 @@
   70c67477da9f1f7f  · teaching order
   98702c9246db235b  · the page covers the status bar (top inset
   e22653df93982092  · viewport
-  2b40b61749321612  · your course names none of these one by one
   2ed64db2b62cdd4f  — coursework produced by students. Used only to confirm topic scope, never as a fact source.
   906d335588568bc2  — past papers, revision exercises, model answers and question banks.
   6c3aff886c4d2790  — teaching material issued by the subject: lecture handouts, study manuals, slide decks.

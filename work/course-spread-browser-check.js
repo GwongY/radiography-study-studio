@@ -10,9 +10,12 @@ export default async function(){
   const {cavityContext}=await import('./studio/cavity-geometry-derived.js');
   const {clearHighlight}=await import('./studio/visualisation-modes.js');
   const {pick}=await import('./studio/depth-picking.js');
+  const {BODY_LAYERS}=await import('./study/subject.js');
+  const {applyVisibility}=await import('./studio/region-boxes-how.js');
   document.querySelector('[data-vtab="3d"]').click();
   assert(!document.querySelector('#modelSourceTabs,#viewerAtlasPane'),'alternate surface remains');
-  o.setSpreadMode('pieces');s.motionEnabled=false;
+  o.clearStudyFocus();s.isolated=false;applyVisibility();
+  o.setSpreadMode('pieces');o.setSeparation(0);s.motionEnabled=false;
   s.scene.updateMatrixWorld(true);
   const home=s.fullMeshes.map(m=>({m,matrix:m.matrixWorld.toArray()}));
   const metrics=bodyMetrics();
@@ -21,8 +24,12 @@ export default async function(){
   const changed=bodyMetrics();
   for(const k of ['H','cx','cz','halfX','halfZ','minY','maxY'])assert(Math.abs(metrics[k]-changed[k])<1e-9,`measurement drift: ${k}`);
   const preset=async(id)=>{
-    const el=document.querySelector('#systemPreset');el.value=id;el.dispatchEvent(new Event('change'));
-    await until(()=>!document.querySelector('#systemPreset').disabled);
+    // The preset select was retired; exercise the same system sets through
+    // the current bridge, which also owns lazy loading and packed repacking.
+    for(const {key,file} of BODY_LAYERS){
+      const on=id==='all'||(id==='skeleton'&&['axial','appendicular'].includes(key))||key===id;
+      assert(await o.setLayer(key,on,file),`could not set ${key}`);
+    }
   };
   await preset('all');
   assert(Object.keys(s.extraModels).length===6,'all preset did not load six extra layers');
@@ -60,5 +67,5 @@ export default async function(){
   await preset('skeleton');o.setSpreadMode('layers');o.setSeparation(.5);o.setSpreadMode('pieces');
   assert(o.separation()===0,'layout switching did not assemble');
   assert(document.querySelectorAll('#stage canvas').length<=1,'extra renderer canvas');
-  return {pass:true,pieces,checks:['presets and lazy loading','packed non-overlap','idempotence','highlight','exact assembly','anatomical measurements','system repack','hide all','cut and annotation guards','lesson picking','projection round trip','layout switching']};
+  return {pass:true,pieces,checks:['system sets and lazy loading','packed non-overlap','idempotence','highlight','exact assembly','anatomical measurements','system repack','hide all','cut and annotation guards','lesson picking','projection round trip','layout switching']};
 }

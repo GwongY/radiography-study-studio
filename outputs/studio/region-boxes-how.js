@@ -6,9 +6,9 @@
 import { $, LANDMARK_HOTSPOTS, MODEL_CATALOG, els, getAnatomy, prefersStill, state, systemsOf } from './imports.js';
 import { applyConnectiveVisibility, applyLayers, layerOn, meshOn, renderXray, resizeXray, setMovementAngle, stepPhysiology, unitBlurb, unitFor, updateStageMeta } from './live-physiology.js';
 import { bodyMetrics, clearPickCallout, updateHudSprites } from './spatial-concept-overlays.js';
-import { clean, onBonePicked, pool, record, renderRegions, selectBone, showToast } from './visualisation-modes.js';
+import { clean, clearHighlight, onBonePicked, pool, record, renderRegions, selectBone, showToast } from './visualisation-modes.js';
 import { enforceHidden } from './hide-and-search.js';
-import { loadExtraModel } from './depth-picking.js';
+import { loadExtraModel, restorePeel } from './depth-picking.js';
 /* The abdomen's box is cut to the levels the nine-region grid is drawn on --
    see regionBoxes. Imported as a function, called only from inside one, so the
    cycle with cavity-geometry-derived.js resolves like the others here. */
@@ -205,7 +205,7 @@ import { restorePackedSpread } from './packed-spread.js';
    * case for the skeleton beyond stamping userData.systems in
    * prepareFullReference.
    */
-  export function applyVisibility(){if(state.xray)return;if(state.spreadMode==='pieces'&&state.separation)restorePackedSpread();const skelOn=state.layers?layerOn('skeleton'):true;/* 'upper_limb' is now an ordinary region filter on the full skeleton. The   separate five-bone set is never drawn -- the skeleton already names those   five -- but its group stays visible so the landmark hotspots parented to   it can show. */if(state.fullModel)state.fullModel.visible=skelOn;if(state.realModel)state.realModel.visible=true;state.fullPickables.forEach(m=>m.visible=skelOn);state.fullMeshes.forEach(m=>{const inRegion=state.region==='all'||(m.userData.regions||[m.userData.region]).includes(state.region);const isolated=!state.isolated||!state.selectedId||m.userData.canonicalId===state.selectedId;m.visible=(state.layers?meshOn(m):true)&&inRegion&&isolated});state.meshes.forEach(m=>{m.visible=false});state.hotspots.forEach(h=>h.visible=skelOn&&state.mode==='landmarks'&&(!state.selectedId||h.userData.parentId===state.selectedId));
+  export function applyVisibility(){if(state.xray)return;if(state.spreadMode==='pieces'&&state.separation)restorePackedSpread();const skelOn=state.layers?layerOn('skeleton'):true;/* 'upper_limb' is now an ordinary region filter on the full skeleton. The   separate five-bone set is never drawn -- the skeleton already names those   five -- but its group stays visible so the landmark hotspots parented to   it can show. */if(state.fullModel)state.fullModel.visible=skelOn;if(state.realModel)state.realModel.visible=true;state.fullPickables.forEach(m=>m.visible=skelOn);state.fullMeshes.forEach(m=>{const inRegion=state.region==='all'||(m.userData.regions||[m.userData.region]).includes(state.region);m.visible=(state.layers?meshOn(m):true)&&inRegion});state.meshes.forEach(m=>{m.visible=false});state.hotspots.forEach(h=>h.visible=skelOn&&state.mode==='landmarks'&&(!state.selectedId||h.userData.parentId===state.selectedId));
     /*
      * The six system layers.
      *
@@ -240,6 +240,11 @@ import { restorePackedSpread } from './packed-spread.js';
     }
     if(typeof applyConnectiveVisibility==='function')applyConnectiveVisibility();
     if(typeof enforceHidden==='function')enforceHidden();
+    // Focus keeps every part of the selection, including groups across layers.
+    if(state.isolated&&state.selectedId){
+      const keep=new Set(state.selectionMeshes.length?state.selectionMeshes:[state.selectionAnchor]);
+      [...state.fullMeshes,...state.fullPickables,...state.meshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].forEach(m=>{if(!keep.has(m))m.visible=false});
+    }
     /*
      * A leader line pointing at something no longer on screen.
      *
@@ -381,7 +386,14 @@ import { restorePackedSpread } from './packed-spread.js';
   }
   function importedRecord(id,raw,mapped,region){const known=mapped&&getAnatomy(mapped);const label=cleanImportedLabel(raw);const side=sideFromImportedName(raw);if(known)return {...known,id,canonicalName:label||known.canonicalName,side:side||known.side};return {id,canonicalName:label||'Unnamed structure',aliases:[],region,side:side||'bilateral',category:'named atlas structure',landmarks:[],articulations:[],radiographyImportance:'Named atlas structure from the interactive skeleton source.',difficulty:3,modelObjectIds:[],commonConfusions:[]}}
   export function getRecord(id){return getAnatomy(id)||state.importedRecords.get(id)||null}
-  function prepareFullReference(THREE,root){state.THREE=THREE;state.fullMeshes=[];state.fullPickables=[];root.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(root);const size=box.getSize(new THREE.Vector3());const maxDim=Math.max(size.x,size.y,size.z)||1;root.scale.setScalar(11.8/maxDim);const scaledBox=new THREE.Box3().setFromObject(root);const center=scaledBox.getCenter(new THREE.Vector3());root.position.x-=center.x;root.position.y+=1-center.y;root.position.z-=center.z;root.updateMatrixWorld(true);/* The canonical body frame. Every other layer gets THIS transform verbatim -- see loadExtraModel. */state.bodyTransform={scalar:11.8/maxDim,offset:[root.position.x,root.position.y,root.position.z]};/* * Side letters are glued onto the name -- 'Costal_cartilage_of_fifth_ribl', * 'Incusr'. cleanImportedLabel only knew a fixed list of bone words, so 148 * of the 277 structures displayed their side letter as part of the name. * Strip it only when the opposite-side twin actually exists, which needs * every name in hand first -- hence two passes. Femur and Vomer genuinely * end in r and have no twin, so they are left alone. */const objs=[];root.traverse((o)=>{if(o.isMesh)objs.push(o)});const raws=objs.map(o=>o.name||o.parent?.name||'Unnamed structure');const flatNames=new Set(raws.map(r=>r.replace(/_/g,' ').trim().toLowerCase()));const sideAware=(raw)=>{const clean=String(raw).replace(/_/g,' ').replace(/\s+/g,' ').trim();const mm=clean.match(/^(.*\S)(l|r)$/i);if(mm){const stem=mm[1].trim();const twin=(stem+(mm[2].toLowerCase()==='l'?'r':'l')).toLowerCase();if(flatNames.has(twin))return {label:stem,side:mm[2].toLowerCase()==='l'?'left':'right'}}return {label:clean,side:null}};objs.forEach((obj,i)=>{const raw=raws[i];const {label,side:sd}=sideAware(raw);const mapped=mapImportedName(raw);const region=importedRegion(raw,mapped);const regions=importedRegions(raw,mapped);/* The same study units as every other layer -- see unitFor. Before this the skeleton handed every mesh its own id, so tapping a toe returned "Distal phalanx of fifth finger of foot", a name no lecture uses. */const unit=unitFor('skeleton',raw);const id=unit?`full:u:${unit.unitId}${sd?':'+sd:''}`:`full:${i}:${raw}`;const base=importedRecord(id,raw,mapped,region);if(!state.importedRecords.has(id)){const rec={...base,canonicalName:(unit?unit.unit:label)||base.canonicalName,side:sd||base.side};if(unit&&unit.unitKind!=='course'&&!(mapped&&getAnatomy(mapped)))rec.radiographyImportance=unitBlurb(unit,'skeleton');state.importedRecords.set(id,rec);}/* layerKey and systems are what meshOn reads -- the same two fields the
+  function skeletonMeshName(mesh){
+    const raw=mesh.name||mesh.parent?.name||'Unnamed structure',parent=mesh.parent?.name;
+    // GLTFLoader disambiguates the Frontal_bone mesh from its containing node
+    // as Frontal_bone_1. Resolve it against that actual parent, so the course
+    // unit and every tap agree; anatomical numbers such as T1 stay intact.
+    return parent&&raw.startsWith(parent+'_')&&/^\d+$/.test(raw.slice(parent.length+1))?parent:raw;
+  }
+  function prepareFullReference(THREE,root){state.THREE=THREE;state.fullMeshes=[];state.fullPickables=[];root.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(root);const size=box.getSize(new THREE.Vector3());const maxDim=Math.max(size.x,size.y,size.z)||1;root.scale.setScalar(11.8/maxDim);const scaledBox=new THREE.Box3().setFromObject(root);const center=scaledBox.getCenter(new THREE.Vector3());root.position.x-=center.x;root.position.y+=1-center.y;root.position.z-=center.z;root.updateMatrixWorld(true);/* The canonical body frame. Every other layer gets THIS transform verbatim -- see loadExtraModel. */state.bodyTransform={scalar:11.8/maxDim,offset:[root.position.x,root.position.y,root.position.z]};/* * Side letters are glued onto the name -- 'Costal_cartilage_of_fifth_ribl', * 'Incusr'. cleanImportedLabel only knew a fixed list of bone words, so 148 * of the 277 structures displayed their side letter as part of the name. * Strip it only when the opposite-side twin actually exists, which needs * every name in hand first -- hence two passes. Femur and Vomer genuinely * end in r and have no twin, so they are left alone. */const objs=[];root.traverse((o)=>{if(o.isMesh)objs.push(o)});const raws=objs.map(skeletonMeshName);const flatNames=new Set(raws.map(r=>r.replace(/_/g,' ').trim().toLowerCase()));const sideAware=(raw)=>{const clean=String(raw).replace(/_/g,' ').replace(/\s+/g,' ').trim();const mm=clean.match(/^(.*\S)(l|r)$/i);if(mm){const stem=mm[1].trim();const twin=(stem+(mm[2].toLowerCase()==='l'?'r':'l')).toLowerCase();if(flatNames.has(twin))return {label:stem,side:mm[2].toLowerCase()==='l'?'left':'right'}}return {label:clean,side:null}};objs.forEach((obj,i)=>{const raw=raws[i];const {label,side:sd}=sideAware(raw);const mapped=mapImportedName(raw);const region=importedRegion(raw,mapped);const regions=importedRegions(raw,mapped);/* The same study units as every other layer -- see unitFor. Before this the skeleton handed every mesh its own id, so tapping a toe returned "Distal phalanx of fifth finger of foot", a name no lecture uses. */const unit=unitFor('skeleton',raw);const id=unit?`full:u:${unit.unitId}${sd?':'+sd:''}`:`full:${i}:${raw}`;const base=importedRecord(id,raw,mapped,region);if(!state.importedRecords.has(id)){const rec={...base,canonicalName:(unit?unit.unit:label)||base.canonicalName,side:sd||base.side};if(unit&&unit.unitKind!=='course'&&!(mapped&&getAnatomy(mapped)))rec.radiographyImportance=unitBlurb(unit,'skeleton');state.importedRecords.set(id,rec);}/* layerKey and systems are what meshOn reads -- the same two fields the
        soft-tissue layers get in loadExtraModel. Computed once here rather than
        per visibility pass: 388 meshes times two regexes on every applyLayers
        is work whose result never changes. */
@@ -474,19 +486,23 @@ import { restorePackedSpread } from './packed-spread.js';
   const pulse=prefersStill()?1:.72+.28*Math.sin(state.motionPhase*3.2);[...state.meshes,...state.fullMeshes].filter(m=>m.userData.presentationActive).forEach(m=>{if(m.material.emissive)m.material.emissiveIntensity=.95*pulse});state.controls.update();syncTools();if(typeof updateHudSprites==='function')updateHudSprites();if(!renderXray())state.renderer.render(state.scene,state.camera)}
   export function zoomCamera(factor){if(!state.camera||!state.controls)return;const offset=state.camera.position.clone().sub(state.controls.target);const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,offset.length()*factor));state.camera.position.copy(state.controls.target).add(offset.normalize().multiplyScalar(distance));state.controls.update()}
   // Aspect-aware framing adapted from ashemag/human-atlas app/scene.tsx (MIT).
-  export function focusSelected(){
+  export function focusSelected(isolate=false){
     if(!state.camera||!state.controls||!state.selectionAnchor){showToast('Select a structure first');return}
-    const box=new state.THREE.Box3().setFromObject(state.selectionAnchor);
+    if(isolate){restorePeel();state.isolated=true;clearHighlight();$('isolateBtn')?.classList.add('active');applyVisibility();}
+    state.scene.updateMatrixWorld(true);
+    const box=new state.THREE.Box3();
+    (state.selectionMeshes.length?state.selectionMeshes:[state.selectionAnchor]).forEach(m=>box.expandByObject(m));
     const center=box.getCenter(new state.THREE.Vector3()),size=box.getSize(new state.THREE.Vector3());
     const camera=state.camera,controls=state.controls;
     const offset=camera.position.clone().sub(controls.target).normalize();
     const halfFov=Math.tan(camera.fov*Math.PI/360)/camera.zoom;
-    const distance=Math.max(.07,Math.max(size.y,size.x/Math.max(.1,camera.aspect))/(2*halfFov)+size.z/2)*1.35;
+    const labelSpace=state.selectionAnchor.userData.layerKey==='skeleton' ? .5 : 1;
+    const distance=Math.max(.07,Math.max(size.y,size.x/Math.max(.1,camera.aspect*labelSpace))/(2*halfFov)+size.z/2)*1.35;
     controls.minDistance=Math.min(2.5,distance*.25);
     controls.maxDistance=Math.max(controls.maxDistance,distance*2);
     controls.target.copy(center);camera.position.copy(center).add(offset.multiplyScalar(distance));controls.update();
   }
-  export function toggleIsolation(){if(!state.selectedId){showToast('Select a structure first');return}const record=getRecord(state.selectedId);if(!state.fullMeshes.length&&record?.region!=='upper_limb'&&state.region!=='upper_limb'){showToast('This fallback reference is fused. Use Upper limb for per-bone isolation.');focusSelected();return}if(state.region!=='upper_limb'&&record?.region==='upper_limb'&&state.meshes.length){state.region='upper_limb';els.regionMeta.textContent='Upper limb';renderRegions();applyVisibility()}state.isolated=!state.isolated;$('isolateBtn')?.classList.toggle('active',state.isolated);applyVisibility();focusSelected()}
+  export function toggleIsolation(){if(!state.selectedId){showToast('Select a structure first');return}const record=getRecord(state.selectedId);if(!state.fullMeshes.length&&record?.region!=='upper_limb'&&state.region!=='upper_limb'){showToast('This fallback reference is fused. Use Upper limb for per-bone isolation.');focusSelected();return}if(state.region!=='upper_limb'&&record?.region==='upper_limb'&&state.meshes.length){state.region='upper_limb';els.regionMeta.textContent='Upper limb';renderRegions();applyVisibility()}state.isolated=!state.isolated;if(state.isolated)clearHighlight();$('isolateBtn')?.classList.toggle('active',state.isolated);applyVisibility();focusSelected()}
   export function isSelfOrAncestorVisible(obj){let o=obj;while(o){if(!o.visible)return false;o=o.parent}return true}
   export function nearestVisibleMesh(event,rect){if(!state.THREE)return null;const pool=state.fullMeshes;let best=null;for(const mesh of pool){if(!isSelfOrAncestorVisible(mesh))continue;const box=new state.THREE.Box3().setFromObject(mesh);const boxSize=box.getSize(new state.THREE.Vector3());box.expandByScalar(-Math.min(boxSize.length()*.08,.15));const center=box.getCenter(new state.THREE.Vector3()).project(state.camera);const px=rect.left+(center.x+1)*rect.width/2;const py=rect.top+(1-center.y)*rect.height/2;const radiusPx=Math.max(4,Math.min(32,Math.max(boxSize.x,boxSize.y,boxSize.z)*state.camera.position.distanceTo(state.controls.target)*3));const distance=Math.hypot(event.clientX-px,event.clientY-py);const tolerance=Math.max(18,radiusPx+10);if(distance<=tolerance&&(!best||distance<best.distance))best={mesh,distance}}return best?.mesh||null}
   /*

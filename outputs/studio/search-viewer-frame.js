@@ -10,7 +10,7 @@ import { clean, clearHighlight, courseChipHTML, pool, renderRegions, selectBone,
 import { enforceHidden, hiddenName, publishHidden } from './hide-and-search.js';
 import { loadExtraModel, pick } from './depth-picking.js';
 import { showPickCallout } from './spatial-concept-overlays.js';
-import { modelSearchNames, namedSide } from '../search-name.js';
+import { modelSearchNames, namedSide, viewerStructureName } from '../search-name.js';
 
 /* ------------------------------------------------------------------ *
  * Search -> viewer: frame the part, then hide only what stands in front
@@ -212,6 +212,7 @@ export async function revealStructure(spec){
   const kin=targets.filter(o=>o.userData.canonicalId
     &&o.userData.canonicalId===primary.userData.canonicalId);
   const frameTargets=curatedGroup?targets:(kin.length>1?kin:[primary]);
+  state.selectionAnchor=primary;state.selectionMeshes=frameTargets;
   const frame=frameOn(frameTargets);
   const occ=occludersOf(frameTargets,frame);
   occ.forEach(m=>state.autoHidden.add(m));
@@ -234,15 +235,14 @@ export async function revealStructure(spec){
     /* Anchor on what was actually selected and lit, not on every mesh the
        name matched. A bilateral result frames and lights ONE side, so
        anchoring over both put the vagus nerve's dot on the opposite nerve. */
-    state.selectionAnchor=primary;
     showPickCallout(frameTargets,spec.name);
-    els.selectedName.textContent=spec.name;
+    els.selectedName.textContent=viewerStructureName(spec.name);
     /* selectBone already rendered the card; overwriting the chips here dropped
        the one that says whether the course names this. Put it back. */
     const chip=courseChipHTML({canonicalName:spec.name},state.selectionAnchor);
     els.selectedChips.innerHTML=(spec.parts
       ?`<span class="chip">${targets.length} parts</span>`
-      :(targets[0]&&targets[0].userData.side?`<span class="chip">${targets[0].userData.side}</span>`:''))+chip;
+      :'')+chip;
   }
   const names=[...new Set(occ.map(hiddenName))];
   return {ok:true,found:targets.length,covered:names};

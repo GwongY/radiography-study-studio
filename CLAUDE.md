@@ -121,6 +121,8 @@ from the credit the licence requires; there is no override flag). `simplify-mode
 | Module | What it holds |
 | --- | --- |
 | `anatomy-data.js` | `ANATOMY_DATABASE` (curated bone records), `LANDMARK_HOTSPOTS`, `MODEL_CATALOG` (per-layer coverage **and gaps**), `REGIONS`, search. |
+| `bone-landmarks.js` | **Generated** close-view bone labels: course citations, reviewed mesh vertices and geometry signatures. Built by `work/build-bone-landmarks.mjs`; replacing the skeleton requires visual curation. See `docs/superpowers/specs/2026-10-04-viewer-bone-landmarks.md`. |
+| `viewer-lecture-names.js` | **Generated** supplemental structure names from the user's current Human Anatomy PDFs, with file/page references and hashes. Built by `work/build-viewer-lecture-names.mjs`; `lectureRow` gives newly named meshes additional identities while preserving existing course IDs. Verified by `work/viewer-lecture-names-check.mjs` and the matching browser check. |
 | `study-data.js` | **Barrel** over `study/corpus/*.js` — the lesson corpus, `STRUCTURE_MODELS` (layer key → GLB), `validateCorpus()`. Re-exports by name, never `export *`: the corpus files share item arrays with each other that are not public API. |
 | `physiology.js` | Flow/layer classes, `FLOW_CIRCUITS` (how a travelling light is displayed along a curated route: `pulse` = one crest per heartbeat across a whole circuit, `drift` = fixed world wavelength and speed, `motor` = an arrival time for the nerve sequence), animation envelopes, `RATES`. |
 | `physiology-path.js` | Pure rest-space route geometry: welded graph, geodesic field, the shared `progressField` both gates rest on, TWO discovery gates that accept or refuse a route by name — `derivePathRoute` for a tube (centreline fit, local frame, the travelling-constriction map and its Jacobian, `PATH_SHAPE_GLSL`) and the deliberately weaker `deriveProgressRoute` for a glow route (an ordering and nothing else, `progressBand` + the two `PATH_GLOW_*_GLSL` halves). The weaker gate names the four refusals it drops and why. No three.js, no DOM, so `work/` runs it. |
@@ -244,6 +246,10 @@ node work/cut-level-check.mjs   # REQUIRED for the named section levels — thei
                                  # Also measures every level off the real GLB,
                                  # asserts the axial order, and holds the sternal
                                  # angle against the T4/T5 span the lecture claims
+node work/build-bone-landmarks.mjs --check # reviewed curation matches the shipped labels
+node work/bone-landmark-check.mjs # citations, real paired geometry and refusal on drift;
+                                 # work/bone-landmark-browser-check.js covers the actual
+                                 # depth sliders, close views, occlusion and spread in Chrome
 node work/pack-privacy-check.mjs # REQUIRED for outputs/study/question-pack.js and
                                  # for buildProgressExport — the only thing
                                  # asserting that no licensed question text

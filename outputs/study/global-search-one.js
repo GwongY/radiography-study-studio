@@ -3,7 +3,7 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, ITEM_TYPES, MESH_INDEX, SEARCH_EXTRAS, STRUCTURE_MODELS, STUDY_ITEMS, UNITS, compositeFor, entryStep, esc, expandQuery, getSubject, missingFor, searchAnatomy, ui } from './imports.js';
+import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, ITEM_TYPES, MESH_INDEX as ATLAS_MESH_INDEX, SEARCH_EXTRAS, STRUCTURE_MODELS, STUDY_ITEMS, UNITS, compositeFor, entryStep, esc, expandQuery, getSubject, missingFor, searchAnatomy, ui } from './imports.js';
 import { adjScore, itemAttempted, K, read, write } from './storage-versioned-keys.js';
 import { goTo, openSessionOverlay } from './navigation-five-destinations.js';
 import { openStructureInViewer } from './search-viewer-open.js';
@@ -13,6 +13,11 @@ import { setStep } from './session-engine.js';
 import { showView } from './small-ui-helpers.js';
 import { getItemStep } from './home.js';
 import { exactSearch, matchesSearch, modelSearchNames } from '../search-name.js';
+import { lectureRow } from '../viewer-lecture-names.js';
+const lectureRows=ATLAS_MESH_INDEX.map(lectureRow);
+const unitSizes=new Map();
+lectureRows.forEach(r=>unitSizes.set(r.unitId,(unitSizes.get(r.unitId)||0)+1));
+const MESH_INDEX=lectureRows.map(r=>({...r,unitSize:unitSizes.get(r.unitId)}));
 
 /* ------------------------------------------------------------------ *
  * Global search -- one sheet over every destination, mixing structures,
@@ -184,6 +189,7 @@ function shortSource(file) {
 const EVIDENCE_WORD = { listed: 'in the examinable glossary',
   named: 'named in', described: 'described in' };
 function sourceNote(m) {
+  if(m.lectureSource)return EVIDENCE_WORD.named+' '+shortSource(m.lectureSource.file)+' · p'+m.lectureSource.page;
   if (!m.source) return 'not named in your course material';
   return m.source.evidence === 'listed'
     ? 'in the examinable glossary'
@@ -347,7 +353,7 @@ export function searchHits(q) {
       return;
     }
     idxHits.push({ rank: rank + 4, hit: { kind: 'Group', title: `${label} — ${any.unitSize}`,
-      note: `${model ? model.label : any.layer} · your course names none of these one by one`
+      note: `${model ? model.label : any.layer} · ${any.lectureSource?sourceNote(any):'your course names none of these one by one'}`
         + ` · opens all together${via}`, go } });
   });
   idxHits.sort((a, b) => a.rank - b.rank || a.hit.title.length - b.hit.title.length);
