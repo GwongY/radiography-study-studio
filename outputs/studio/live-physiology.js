@@ -716,6 +716,7 @@ export function layerOn(layerKey){return systemsIn(layerKey).some(s=>!!state.lay
 export const chipsOf=(layerKey)=>systemsIn(layerKey).map(s=>s.key);
 export function setLayerChips(layerKey,on){chipsOf(layerKey).forEach(k=>{state.layers[k]=!!on})}
 export function meshOn(mesh){
+  if(mesh&&mesh.userData&&mesh.userData.atlasHidden)return false;
   const sys=mesh&&mesh.userData&&mesh.userData.systems;
   if(!sys||!sys.length)return layerOn(mesh&&mesh.userData&&mesh.userData.layerKey);
   return sys.some(k=>!!state.layers[k]);

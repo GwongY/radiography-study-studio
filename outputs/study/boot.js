@@ -5,7 +5,7 @@
  */
 import { $$, ui } from './imports.js';
 import { migrate } from './storage-versioned-keys.js';
-import { renderLayerRail, renderLearn } from './subject.js';
+import { layerState, renderLayerRail, renderLearn } from './subject.js';
 import { renderNavButtons } from './navigation-five-destinations.js';
 import { renderOverlayCard } from './spatial-overlay-controls.js';
 import { renderViewerTools } from './viewer-tools.js';
@@ -59,8 +59,20 @@ function askForPersistence() {
   try { navigator.storage?.persist?.().catch(() => {}); } catch { /* no storage manager */ }
 }
 
+/* The studio changes its own layer flags while the heart atlas is on (and puts them back on exit).
+   The rail draws from layerState, so bring that in line and redraw. */
+function syncLayerRail() {
+  const o = window.__osteo, live = o && o.layerState && o.layerState();
+  if (live) {
+    const op = (o.layerOpacity && o.layerOpacity()) || {};
+    for (const k of Object.keys(live)) layerState[k] = !live[k] ? 'off' : (op[k] !== undefined && op[k] < 0.92 ? 'ghost' : 'solid');
+  }
+  renderLayerRail();
+}
+
 export function init() {
   window.addEventListener('rss:physiologychange',renderLayerRail);
+  window.addEventListener('osteo:layers', syncLayerRail);
   askForPersistence();
   migrate();
   renderNavButtons();
