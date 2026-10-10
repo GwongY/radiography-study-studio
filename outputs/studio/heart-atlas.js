@@ -96,11 +96,59 @@ function wireControls() {
   $('ha-parts').querySelectorAll('[data-ha-part]').forEach((c) => { c.oninput = () => atlas.setPart(c.dataset.haPart, c.checked); });
   $('ha-opacity').oninput = () => { atlas.setOpacity($('ha-opacity').value); $('ha-opacityValue').textContent = Math.round(atlas.state.opacity) + '%'; };
   $('ha-context').oninput = () => setContext($('ha-context').checked);
+  buildEchoPanel();
 }
 
-/* Preset hook for the echo task; a no-op until Task 5 replaces it. */
-let onPresetChanged = () => {};
-export function setPresetHook(fn) { onPresetChanged = fn || (() => {}); }
+/* ---- Ultrasound: TTE / TEE sections ----
+   The body never rotates. The scan plane clips the ATLAS materials only (see
+   outputs/heart/atlas.js); the sector image is drawn into #ha-echoCanvas from the
+   same geometry. renderer.localClippingEnabled is on only while the echo preset is,
+   so no other material in the explorer can be clipped by it. */
+let sizeEcho = () => {};
+let echoLastView = 'A4C';
+
+function buildEchoPanel() {
+  const host = $('ha-echoPanel');
+  const groups = { TTE: 'Transthoracic TTE 經胸', TEE: 'Transoesophageal TEE 經食道' };
+  host.innerHTML = `<div class="ha-row" id="ha-echoTabs" role="group" aria-label="TTE or TEE">${Object.entries(groups).map(([g, l]) => `<button type="button" data-ha-etab="${g}" aria-pressed="false">${l}</button>`).join('')}</div>
+    <div class="ha-row" id="ha-echoViews"></div>
+    <canvas id="ha-echoCanvas" class="ha-echo-canvas" aria-label="Simulated ultrasound sector image"></canvas>
+    <p class="ha-note" id="ha-echoName"></p><p class="ha-note" id="ha-echoText"></p>`;
+  const render = (g) => {
+    $('ha-echoViews').innerHTML = atlas.ECHO_VIEWS.filter((v) => v.group === g).map((v) => `<button type="button" data-ha-echo="${v.id}" aria-pressed="false" title="${v.name}">${v.english}</button>`).join('');
+    $('ha-echoViews').querySelectorAll('[data-ha-echo]').forEach((b) => { b.onclick = () => chooseEcho(b.dataset.haEcho); });
+    host.querySelectorAll('[data-ha-etab]').forEach((t) => { const on = t.dataset.haEtab === g; t.classList.toggle('active', on); t.setAttribute('aria-pressed', String(on)); });
+    markEchoView();
+  };
+  host.querySelectorAll('[data-ha-etab]').forEach((t) => { t.onclick = () => render(t.dataset.haEtab); });
+  render('TTE');
+  const c = $('ha-echoCanvas');
+  sizeEcho = () => { const w = Math.round(c.clientWidth * Math.min(devicePixelRatio || 1, 2)); if (w > 0 && c.width !== w) { c.width = w; c.height = Math.round(w * 7 / 8); } };
+  if (typeof ResizeObserver === 'function') new ResizeObserver(sizeEcho).observe(c);
+  sizeEcho();
+}
+
+function markEchoView() {
+  $('ha-echoViews').querySelectorAll('[data-ha-echo]').forEach((b) => { const on = b.dataset.haEcho === echoLastView; b.classList.toggle('active', on); b.setAttribute('aria-pressed', String(on)); });
+}
+
+function chooseEcho(id) {
+  state.renderer.localClippingEnabled = true;
+  sizeEcho();
+  const v = atlas.setEchoView(id, $('ha-echoCanvas'));
+  echoLastView = v.id;
+  markEchoView();
+  $('ha-echoName').textContent = `${v.angle ? 'TEE ' + v.angle + ' · ' : ''}${v.english} · ${v.name}`;
+  $('ha-echoText').textContent = v.text;
+}
+
+/* Entering the echo preset selects a view (the last one, else A4C); leaving it
+   -- atlas.setPreset has already cleared the clipping -- turns the renderer's
+   local clipping off again. */
+function onPresetChanged() {
+  if (atlas.state.preset === 'echo') chooseEcho(echoLastView);
+  else if (state.renderer) state.renderer.localClippingEnabled = false;
+}
 
 function showInfo(key) {
   if (!key) { $('ha-infoTitle').textContent = 'Tap a structure'; $('ha-infoCat').textContent = ''; $('ha-infoText').textContent = 'Tap the heart, or choose a chamber or valve, to read about it.'; return; }
@@ -213,6 +261,7 @@ export async function enterHeartAtlas() {
     $('ha-context').checked = false;
     atlas.setPreset('natural');
     syncControls();
+    onPresetChanged();
     showInfo(null);
     bindPicking();
     frameHeart();
@@ -227,6 +276,7 @@ export function exitHeartAtlas() {
   state.atlasTick = null;
   if (bindPicking.off) bindPicking.off();
   if (atlas) { atlas.select(null); atlas.detach(); }
+  if (state.renderer) state.renderer.localClippingEnabled = false;
   setHostHeartHidden(false);
   if (saved) {
     Object.assign(state.layers, saved.layers);
