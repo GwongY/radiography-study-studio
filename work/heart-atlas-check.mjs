@@ -58,5 +58,32 @@ if (DESCRIPTIONS) {
   ok(missing.length === 0, `every manifest key has a description${missing.length ? ' (missing ' + missing.join(', ') + ')' : ''}`);
 } else console.log('  skip descriptions.js not generated yet');
 
+console.log('atlas build (needs three in node_modules; skipped if absent)');
+let three = null;
+try { three = await import('three'); } catch { /* not installed */ }
+if (!three) console.log('  skip no local three; the browser check in Task 7 covers this');
+else {
+  const els = new Map();
+  const mk = (id) => { const e = { id, dataset: {}, style: {}, textContent: '', value: '70', addEventListener() {}, setAttribute() {}, classList: { toggle() {}, add() {}, remove() {} } }; els.set(id, e); return e; };
+  globalThis.document = { getElementById: (id) => els.get(id) || mk(id), createElement: () => ({ getContext: () => null, width: 0, height: 0 }) };
+  globalThis.fetch = async (u) => {
+    const f = String(u).split('/').pop();
+    const buf = readFileSync(join(HEART_DIR, f));
+    return { ok: true, json: async () => JSON.parse(buf.toString()), arrayBuffer: async () => buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) };
+  };
+  const { createHeartAtlas } = await import(pathToFileURL(join(HEART_DIR, 'atlas.js')).href);
+  const atlas = await createHeartAtlas({ base: 'file:///x/' });
+  ok(atlas.meshes.length >= manifest.meshes.length, `atlas built ${atlas.meshes.length} meshes (manifest has ${manifest.meshes.length})`);
+  ok(Math.abs(atlas.group.scale.x - 1 / SCALE) < 1e-12, 'group scale is 1/24');
+  atlas.setPreset('conduction');
+  ok(atlas.groups.conduction.visible && !atlas.groups.chambers.visible, 'conduction preset shows the conduction group and hides the cavities');
+  atlas.setPreset('chambers');
+  ok(atlas.groups.chambers.visible && !atlas.groups.valves.visible, 'chambers preset shows the cavities and hides the valves');
+  atlas.attach(new three.Group());
+  for (let t = 0; t < 2; t += 0.05) atlas.update(t);
+  ok(atlas.state.beat && Number.isFinite(atlas.state.beat.phase), 'the cardiac clock advances');
+  atlas.detach();
+}
+
 console.log(fail ? `\n${fail} FAILED` : '\nALL PASS');
 process.exit(fail ? 1 : 0);
