@@ -8,3 +8,13 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+BetterHeart heart atlas (outputs/heart/)
+Source: https://skypray.synology.me/betterheart/heart-anatomy/ — (c) Dr. Huang Tian-Chi (黃天祈醫師), BetterHeart.
+Mesh data (heart-meshes.bin, heart-manifest.json) and coronary-routes.js are distributed by their
+author under Creative Commons Attribution-ShareAlike 4.0 International; they are adapted from
+BodyParts3D (DBCLS, CC BY-SA 2.1 JP) and Z-Anatomy / Dr. Murat Altun's Anatomi Simulatoru.
+The full source and modification notice is outputs/heart/MODEL-NOTICES.txt.
+The remaining scripts (conduction, heartbeat, valve, coronary-flow, echo-sim) carry no stated licence;
+they are included with the repository owner's confirmation that they have the author's permission,
+and were modified here (DOM ids namespaced, strings made English-first, host-driven).

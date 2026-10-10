@@ -1,0 +1,57 @@
+BetterHeart Heart Education — model sources and modifications
+
+1. Cardiovascular mesh subset
+Source: Dr. Murat Altun, Anatomi Simülatörü, systems/dolasim.glb
+https://github.com/DrMuratAltun/anatomi-simulatoru
+Underlying atlas: Z-Anatomy — The libre 3D atlas of anatomy
+https://www.z-anatomy.com/
+https://github.com/Z-Anatomy/Models-of-human-anatomy
+Underlying data: BodyParts3D, The Database Center for Life Science (DBCLS)
+https://lifesciencedb.jp/bp3d/
+License: Creative Commons Attribution-ShareAlike 4.0 International
+https://creativecommons.org/licenses/by-sa/4.0/
+Original BodyParts3D: CC BY-SA 2.1 Japan
+https://creativecommons.org/licenses/by-sa/2.1/jp/
+
+2. Four chamber cavities and anterior mitral/tricuspid leaflets
+Source: BodyParts3D, DBCLS, via jixiangying/anatomy
+https://github.com/jixiangying/anatomy
+Original assets: FJ2420.obj, FJ2421.obj, FJ2422.obj, FJ2423.obj,
+FJ2424.obj, FJ2425.obj. Shared posterior leaflet FJ2432.obj was used
+as an alignment reference. License: CC BY-SA 2.1 Japan.
+
+Modifications by BetterHeart: extract heart-associated structures; transform
+and rescale to a shared coordinate system; align original cavity and leaflet
+meshes by the common posterior mitral leaflet; trim the displayed inferior
+vena cava and descending thoracic aorta; pack coordinates and indices into
+heart-meshes.bin with a descriptive heart-manifest.json; recolor for education.
+The adapted mesh data (heart-meshes.bin and heart-manifest.json) is shared under
+Creative Commons Attribution-ShareAlike 4.0 International. Source mesh names
+and the transformation are retained in heart-manifest.json.
+
+Nerve paths, blood-flow particles, and right-heart catheter paths are original
+educational schematics, not atlas-derived anatomical surfaces or patient data.
+Leaflet meshes are static. Chordae and fine nerves are not fully modeled.
+
+Reference for interaction design (not copied code or assets):
+https://weatlee.github.io/CHESTTOOLS/Tools/lung-education.html
+
+Three.js 0.180.0 — MIT License; full license in vendor/THREE-LICENSE.txt.
+https://github.com/mrdoob/three.js
+
+Dynamic educational additions (2026): valve surfaces, coronary tracer paths and
+ECG were authored for BetterHeart as conceptual teaching models.
+Clinical disease/device cutaway demonstrations have been removed.
+
+Papillary/chordal apparatus: branching chordae and a supplemental left ventricular
+papillary muscle are original teaching geometry. The original atlas papillary
+meshes are retained, and their tips deform with ventricular contraction.
+Motion reference: https://www.youtube.com/shorts/8n_DeE0DBXA
+Biomechanics: https://pubmed.ncbi.nlm.nih.gov/22980066/
+No reference-video imagery is included in the published model.
+
+coronary-routes.js: surface-geodesic derivative of the attributed atlas meshes;
+distributed under CC BY-SA 4.0. Coronary tracers and the cardiac conduction layer
+are original educational visualizations.
+Pressure-driven valve opening reference: https://pmc.ncbi.nlm.nih.gov/articles/PMC1768071/
+Normal papillary/annular dynamics: https://pmc.ncbi.nlm.nih.gov/articles/PMC3698758/

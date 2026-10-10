@@ -1,0 +1,1184 @@
+{
+  "version": 1,
+  "meshes": [
+    {
+      "sourceName": "Bifurcation of pulmonary trunk",
+      "group": "pa",
+      "key": "PAB",
+      "label": "肺動脈分叉",
+      "english": "PA",
+      "positionOffset": 0,
+      "positionCount": 258,
+      "indexOffset": 1032,
+      "indexCount": 372,
+      "center": [
+        0.05634850263595581,
+        0.9176755249500275,
+        -0.27322761714458466
+      ],
+      "min": [
+        -0.42320722341537476,
+        0.5592823624610901,
+        -0.8118892908096313
+      ],
+      "max": [
+        0.5359042286872864,
+        1.2760686874389648,
+        0.26543405652046204
+      ]
+    },
+    {
+      "sourceName": "Left pulmonary artery",
+      "group": "pa",
+      "key": "LPA",
+      "label": "左肺動脈",
+      "english": "LPA",
+      "positionOffset": 2520,
+      "positionCount": 366,
+      "indexOffset": 3984,
+      "indexCount": 660,
+      "center": [
+        0.7930129845626652,
+        0.141361266374588,
+        -1.07575061917305
+      ],
+      "min": [
+        -0.013255699537694454,
+        -0.9623669981956482,
+        -1.5515364408493042
+      ],
+      "max": [
+        1.599281668663025,
+        1.2450895309448242,
+        -0.5999647974967957
+      ]
+    },
+    {
+      "sourceName": "Right superior pulmonary vein",
+      "group": "pv",
+      "key": "RSPV",
+      "label": "右上肺靜脈",
+      "english": "RSPV",
+      "positionOffset": 6624,
+      "positionCount": 315,
+      "indexOffset": 7884,
+      "indexCount": 564,
+      "center": [
+        -1.247063010931015,
+        0.37440161406993866,
+        -0.7444463670253754
+      ],
+      "min": [
+        -1.6336896419525146,
+        -0.05057045817375183,
+        -0.9936460256576538
+      ],
+      "max": [
+        -0.8604363799095154,
+        0.7993736863136292,
+        -0.4952467083930969
+      ]
+    },
+    {
+      "sourceName": "Right coronary artery",
+      "group": "coronary",
+      "key": "RCA",
+      "label": "右冠狀動脈",
+      "english": "RCA",
+      "positionOffset": 10140,
+      "positionCount": 4701,
+      "indexOffset": 28944,
+      "indexCount": 8874,
+      "center": [
+        -0.12754899263381958,
+        -0.47853657603263855,
+        0.3227986991405487
+      ],
+      "min": [
+        -1.0947264432907104,
+        -1.597153663635254,
+        -0.7043034434318542
+      ],
+      "max": [
+        0.8396284580230713,
+        0.6400805115699768,
+        1.3499008417129517
+      ]
+    },
+    {
+      "sourceName": "Circumflex artery of heart",
+      "group": "coronary",
+      "key": "LCX",
+      "label": "左迴旋支",
+      "english": "LCx",
+      "positionOffset": 64440,
+      "positionCount": 2796,
+      "indexOffset": 75624,
+      "indexCount": 5379,
+      "center": [
+        0.8308199793100357,
+        -0.45742224156856537,
+        -0.18037328124046326
+      ],
+      "min": [
+        0.2898750603199005,
+        -1.3558835983276367,
+        -0.8704922795295715
+      ],
+      "max": [
+        1.371764898300171,
+        0.441039115190506,
+        0.509745717048645
+      ]
+    },
+    {
+      "sourceName": "Anterior interventricular artery",
+      "group": "coronary",
+      "key": "LAD",
+      "label": "左前降支",
+      "english": "LAD",
+      "positionOffset": 97140,
+      "positionCount": 2004,
+      "indexOffset": 105156,
+      "indexCount": 3771,
+      "center": [
+        0.7605849504470825,
+        -0.541868194937706,
+        0.6244815401732922
+      ],
+      "min": [
+        0.290324330329895,
+        -1.5253219604492188,
+        -0.05310419946908951
+      ],
+      "max": [
+        1.23084557056427,
+        0.44158557057380676,
+        1.3020672798156738
+      ]
+    },
+    {
+      "sourceName": "Left coronary artery",
+      "group": "coronary",
+      "key": "LM",
+      "label": "左冠狀動脈主幹",
+      "english": "LM",
+      "positionOffset": 120240,
+      "positionCount": 900,
+      "indexOffset": 123840,
+      "indexCount": 1728,
+      "center": [
+        0.13512540608644485,
+        0.48987679183483124,
+        -0.053707826882600784
+      ],
+      "min": [
+        -0.048702701926231384,
+        0.3598347008228302,
+        -0.1394384205341339
+      ],
+      "max": [
+        0.3189535140991211,
+        0.6199188828468323,
+        0.03202276676893234
+      ]
+    },
+    {
+      "sourceName": "Right inferolateral branch of right coronary artery",
+      "group": "coronary",
+      "key": "RPL",
+      "label": "右冠狀動脈分支",
+      "english": "RCA branch",
+      "positionOffset": 130752,
+      "positionCount": 3177,
+      "indexOffset": 143460,
+      "indexCount": 6039,
+      "center": [
+        0.6212481334805489,
+        -1.4152469635009766,
+        -0.20588243007659912
+      ],
+      "min": [
+        -0.04895661771297455,
+        -1.6571264266967773,
+        -0.8329139351844788
+      ],
+      "max": [
+        1.2914528846740723,
+        -1.1733675003051758,
+        0.4211490750312805
+      ]
+    },
+    {
+      "sourceName": "Septal branches of anterior interventricular artery",
+      "group": "coronary",
+      "key": "LADS",
+      "label": "前降支中膈分支",
+      "english": "Septal branches",
+      "positionOffset": 167616,
+      "positionCount": 1263,
+      "indexOffset": 172668,
+      "indexCount": 2265,
+      "center": [
+        0.648563951253891,
+        -0.4471854716539383,
+        0.7864832729101181
+      ],
+      "min": [
+        0.5006695985794067,
+        -0.9161929488182068,
+        0.4009515941143036
+      ],
+      "max": [
+        0.7964583039283752,
+        0.0218220055103302,
+        1.1720149517059326
+      ]
+    },
+    {
+      "sourceName": "Inferior vein of left ventricle (//Posterior '')",
+      "group": "cardiacVein",
+      "key": "CV1",
+      "label": "心臟靜脈",
+      "english": "Cardiac vein",
+      "positionOffset": 181728,
+      "positionCount": 3783,
+      "indexOffset": 196860,
+      "indexCount": 7266,
+      "center": [
+        0.6000631079077721,
+        -1.350327491760254,
+        -0.1556684374809265
+      ],
+      "min": [
+        -0.10807080566883087,
+        -1.6682186126708984,
+        -0.8566213250160217
+      ],
+      "max": [
+        1.308197021484375,
+        -1.0324363708496094,
+        0.5452844500541687
+      ]
+    },
+    {
+      "sourceName": "Coronary sinus",
+      "group": "cardiacVein",
+      "key": "CS",
+      "label": "冠狀竇",
+      "english": "Coronary sinus",
+      "positionOffset": 225924,
+      "positionCount": 255,
+      "indexOffset": 226944,
+      "indexCount": 471,
+      "center": [
+        -0.02577391266822815,
+        -0.8289289176464081,
+        -0.597358763217926
+      ],
+      "min": [
+        -0.6653422713279724,
+        -1.109452247619629,
+        -1.0304961204528809
+      ],
+      "max": [
+        0.6137944459915161,
+        -0.5484055876731873,
+        -0.1642214059829712
+      ]
+    },
+    {
+      "sourceName": "Inferior vein of left ventricle",
+      "group": "cardiacVein",
+      "key": "CV2",
+      "label": "心臟靜脈",
+      "english": "Cardiac vein",
+      "positionOffset": 228828,
+      "positionCount": 2019,
+      "indexOffset": 236904,
+      "indexCount": 3867,
+      "center": [
+        0.9320589303970337,
+        -1.0489515960216522,
+        -0.22527533769607544
+      ],
+      "min": [
+        0.48440611362457275,
+        -1.479863166809082,
+        -0.964379608631134
+      ],
+      "max": [
+        1.3797117471694946,
+        -0.6180400252342224,
+        0.5138289332389832
+      ]
+    },
+    {
+      "sourceName": "Aortic arch",
+      "group": "aorta",
+      "key": "ARCH",
+      "label": "主動脈弓",
+      "english": "Aortic arch",
+      "positionOffset": 252372,
+      "positionCount": 900,
+      "indexOffset": 255972,
+      "indexCount": 1728,
+      "center": [
+        -0.26688726991415024,
+        1.6584186553955078,
+        -0.6107727140188217
+      ],
+      "min": [
+        -0.743369996547699,
+        1.1600170135498047,
+        -1.6326531171798706
+      ],
+      "max": [
+        0.2095954567193985,
+        2.156820297241211,
+        0.4111076891422272
+      ]
+    },
+    {
+      "sourceName": "Thoracic aorta",
+      "group": "aorta",
+      "key": "DAO",
+      "label": "降主動脈",
+      "english": "Descending aorta",
+      "positionOffset": 262884,
+      "positionCount": 165,
+      "indexOffset": 263544,
+      "indexCount": 279,
+      "center": [
+        -0.17694446444511414,
+        -0.5205779075622559,
+        -1.2080161273479462
+      ],
+      "min": [
+        -0.54754638671875,
+        -2.445286750793457,
+        -1.7741239070892334
+      ],
+      "max": [
+        0.19365745782852173,
+        1.4041309356689453,
+        -0.6419083476066589
+      ]
+    },
+    {
+      "sourceName": "Ascending aorta",
+      "group": "aorta",
+      "key": "AO",
+      "label": "升主動脈",
+      "english": "Aorta",
+      "positionOffset": 264660,
+      "positionCount": 900,
+      "indexOffset": 268260,
+      "indexCount": 1728,
+      "center": [
+        -0.28398192673921585,
+        0.6907920986413956,
+        -0.017430052161216736
+      ],
+      "min": [
+        -0.7831026315689087,
+        0.024230986833572388,
+        -0.49619877338409424
+      ],
+      "max": [
+        0.215138778090477,
+        1.3573532104492188,
+        0.46133866906166077
+      ]
+    },
+    {
+      "sourceName": "Superior vena cava",
+      "group": "cava",
+      "key": "SVC",
+      "label": "上腔靜脈",
+      "english": "SVC",
+      "positionOffset": 275172,
+      "positionCount": 468,
+      "indexOffset": 277044,
+      "indexCount": 864,
+      "center": [
+        -0.9439316987991333,
+        1.2443270981311798,
+        -0.14179997146129608
+      ],
+      "min": [
+        -1.2429336309432983,
+        0.7922468781471252,
+        -0.4661768078804016
+      ],
+      "max": [
+        -0.6449297666549683,
+        1.6964073181152344,
+        0.18257686495780945
+      ]
+    },
+    {
+      "sourceName": "Inferior vena cava (thoracic part)",
+      "group": "cava",
+      "key": "IVC",
+      "label": "下腔靜脈",
+      "english": "IVC",
+      "positionOffset": 280500,
+      "positionCount": 171,
+      "indexOffset": 281184,
+      "indexCount": 222,
+      "center": [
+        -0.8733605742454529,
+        -2.1606192588806152,
+        -0.19718079268932343
+      ],
+      "min": [
+        -1.182016134262085,
+        -3.2756242752075195,
+        -0.6036486029624939
+      ],
+      "max": [
+        -0.5647050142288208,
+        -1.045614242553711,
+        0.20928701758384705
+      ]
+    },
+    {
+      "sourceName": "Right pulmonary artery",
+      "group": "pa",
+      "key": "RPA",
+      "label": "右肺動脈",
+      "english": "RPA",
+      "positionOffset": 282072,
+      "positionCount": 900,
+      "indexOffset": 285672,
+      "indexCount": 1728,
+      "center": [
+        -0.8381104916334152,
+        0.7401890903711319,
+        -0.634084165096283
+      ],
+      "min": [
+        -1.465816617012024,
+        0.4064493477344513,
+        -0.9506160616874695
+      ],
+      "max": [
+        -0.21040436625480652,
+        1.0739288330078125,
+        -0.31755226850509644
+      ]
+    },
+    {
+      "sourceName": "Right inferior pulmonary vein",
+      "group": "pv",
+      "key": "RIPV",
+      "label": "右下肺靜脈",
+      "english": "RIPV",
+      "positionOffset": 292584,
+      "positionCount": 936,
+      "indexOffset": 296328,
+      "indexCount": 1728,
+      "center": [
+        -0.8744173347949982,
+        -0.302944153547287,
+        -1.1661260724067688
+      ],
+      "min": [
+        -1.1566433906555176,
+        -0.47855374217033386,
+        -1.3243910074234009
+      ],
+      "max": [
+        -0.5921912789344788,
+        -0.1273345649242401,
+        -1.0078611373901367
+      ]
+    },
+    {
+      "sourceName": "Left inferior pulmonary vein",
+      "group": "pv",
+      "key": "LIPV",
+      "label": "左下肺靜脈",
+      "english": "LIPV",
+      "positionOffset": 303240,
+      "positionCount": 210,
+      "indexOffset": 304080,
+      "indexCount": 279,
+      "center": [
+        0.5114749521017075,
+        -0.33595748245716095,
+        -1.1315592527389526
+      ],
+      "min": [
+        0.3293244540691376,
+        -0.5015763640403748,
+        -1.2552745342254639
+      ],
+      "max": [
+        0.6936254501342773,
+        -0.17033860087394714,
+        -1.0078439712524414
+      ]
+    },
+    {
+      "sourceName": "Left superior pulmonary vein",
+      "group": "pv",
+      "key": "LSPV",
+      "label": "左上肺靜脈",
+      "english": "LSPV",
+      "positionOffset": 305196,
+      "positionCount": 222,
+      "indexOffset": 306084,
+      "indexCount": 282,
+      "center": [
+        0.5731975585222244,
+        0.2557821571826935,
+        -0.7948406040668488
+      ],
+      "min": [
+        0.3619726598262787,
+        0.1096811592578888,
+        -0.951977550983429
+      ],
+      "max": [
+        0.7844224572181702,
+        0.40188315510749817,
+        -0.6377036571502686
+      ]
+    },
+    {
+      "sourceName": "Left atrium",
+      "group": "wall",
+      "key": "LA",
+      "label": "左心房",
+      "english": "LA",
+      "positionOffset": 307212,
+      "positionCount": 894,
+      "indexOffset": 310788,
+      "indexCount": 1671,
+      "center": [
+        -0.0481451153755188,
+        -0.14690253138542175,
+        -0.3259120285511017
+      ],
+      "min": [
+        -1.1197750568389893,
+        -1.0501289367675781,
+        -1.3632391691207886
+      ],
+      "max": [
+        1.0234848260879517,
+        0.7563238739967346,
+        0.7114151120185852
+      ]
+    },
+    {
+      "sourceName": "Inferior papillary muscle of left ventricle",
+      "group": "valves",
+      "key": "PAP",
+      "label": "乳頭肌",
+      "english": "Papillary muscle",
+      "positionOffset": 317472,
+      "positionCount": 261,
+      "indexOffset": 318516,
+      "indexCount": 510,
+      "center": [
+        0.9672117829322815,
+        -0.9731087386608124,
+        0.09549665451049805
+      ],
+      "min": [
+        0.6127371788024902,
+        -1.3491401672363281,
+        -0.42237842082977295
+      ],
+      "max": [
+        1.3216863870620728,
+        -0.5970773100852966,
+        0.613371729850769
+      ]
+    },
+    {
+      "sourceName": "Left ventricle",
+      "group": "wall",
+      "key": "LV",
+      "label": "左心室",
+      "english": "LV",
+      "positionOffset": 320556,
+      "positionCount": 3906,
+      "indexOffset": 336180,
+      "indexCount": 7293,
+      "center": [
+        0.46632546186447144,
+        -0.6109690517187119,
+        0.074700266122818
+      ],
+      "min": [
+        -0.49125611782073975,
+        -1.6860971450805664,
+        -0.9745598435401917
+      ],
+      "max": [
+        1.4239070415496826,
+        0.4641590416431427,
+        1.1239603757858276
+      ]
+    },
+    {
+      "sourceName": "Right atrium",
+      "group": "wall",
+      "key": "RA",
+      "label": "右心房",
+      "english": "RA",
+      "positionOffset": 365352,
+      "positionCount": 3900,
+      "indexOffset": 380952,
+      "indexCount": 7431,
+      "center": [
+        -0.899387001991272,
+        -0.2761091887950897,
+        0.09988802671432495
+      ],
+      "min": [
+        -1.436173439025879,
+        -1.4590606689453125,
+        -0.7847049236297607
+      ],
+      "max": [
+        -0.36260056495666504,
+        0.9068422913551331,
+        0.9844809770584106
+      ]
+    },
+    {
+      "sourceName": "Anterior papillary muscle of right ventricle",
+      "group": "valves",
+      "key": "PAP",
+      "label": "乳頭肌",
+      "english": "Papillary muscle",
+      "positionOffset": 410676,
+      "positionCount": 258,
+      "indexOffset": 411708,
+      "indexCount": 504,
+      "center": [
+        0.19536274671554565,
+        -1.1920542418956757,
+        0.986594170331955
+      ],
+      "min": [
+        -0.2410644292831421,
+        -1.5580692291259766,
+        0.7189790606498718
+      ],
+      "max": [
+        0.6317899227142334,
+        -0.8260392546653748,
+        1.254209280014038
+      ]
+    },
+    {
+      "sourceName": "Inferior papillary muscle of right ventricle",
+      "group": "valves",
+      "key": "PAP",
+      "label": "乳頭肌",
+      "english": "Papillary muscle",
+      "positionOffset": 413724,
+      "positionCount": 183,
+      "indexOffset": 414456,
+      "indexCount": 354,
+      "center": [
+        0.0036210566759109497,
+        -1.3988003730773926,
+        0.6027144938707352
+      ],
+      "min": [
+        -0.36353006958961487,
+        -1.5785398483276367,
+        0.24342742562294006
+      ],
+      "max": [
+        0.37077218294143677,
+        -1.2190608978271484,
+        0.9620015621185303
+      ]
+    },
+    {
+      "sourceName": "Septal papillary muscle of right ventricle",
+      "group": "valves",
+      "key": "PAP",
+      "label": "乳頭肌",
+      "english": "Papillary muscle",
+      "positionOffset": 415872,
+      "positionCount": 144,
+      "indexOffset": 416448,
+      "indexCount": 276,
+      "center": [
+        0.025413550436496735,
+        -0.3897203952074051,
+        0.3452230244874954
+      ],
+      "min": [
+        -0.21325306594371796,
+        -0.7185649275779724,
+        0.15627261996269226
+      ],
+      "max": [
+        0.2640801668167114,
+        -0.06087586283683777,
+        0.5341734290122986
+      ]
+    },
+    {
+      "sourceName": "Right ventricle",
+      "group": "wall",
+      "key": "RV",
+      "label": "右心室",
+      "english": "RV",
+      "positionOffset": 417552,
+      "positionCount": 3924,
+      "indexOffset": 433248,
+      "indexCount": 7314,
+      "center": [
+        -0.07844892144203186,
+        -0.5248250663280487,
+        0.545861005783081
+      ],
+      "min": [
+        -1.0691717863082886,
+        -1.6334257125854492,
+        -0.25793731212615967
+      ],
+      "max": [
+        0.9122739434242249,
+        0.5837755799293518,
+        1.3496593236923218
+      ]
+    },
+    {
+      "sourceName": "Inferior leaflet of right atrioventricular valve",
+      "group": "valves",
+      "key": "TV",
+      "label": "三尖瓣",
+      "english": "Tricuspid valve",
+      "positionOffset": 462504,
+      "positionCount": 1572,
+      "indexOffset": 468792,
+      "indexCount": 3228,
+      "center": [
+        -0.5678851157426834,
+        -0.986901730298996,
+        0.18381106853485107
+      ],
+      "min": [
+        -1.0079219341278076,
+        -1.3296079635620117,
+        -0.20834499597549438
+      ],
+      "max": [
+        -0.1278482973575592,
+        -0.6441954970359802,
+        0.5759671330451965
+      ]
+    },
+    {
+      "sourceName": "Posterior leaflet of left atrioventricular valve",
+      "group": "valves",
+      "key": "MV",
+      "label": "二尖瓣",
+      "english": "Mitral valve",
+      "positionOffset": 481704,
+      "positionCount": 1185,
+      "indexOffset": 486444,
+      "indexCount": 2502,
+      "center": [
+        0.4100984036922455,
+        -0.6589469760656357,
+        -0.44097817223519087
+      ],
+      "min": [
+        -0.20157784223556519,
+        -1.0560998916625977,
+        -0.9106957316398621
+      ],
+      "max": [
+        1.0217746496200562,
+        -0.2617940604686737,
+        0.028739387169480324
+      ]
+    },
+    {
+      "sourceName": "Septal leaflet of right atrioventricular valve",
+      "group": "valves",
+      "key": "TV",
+      "label": "三尖瓣",
+      "english": "Tricuspid valve",
+      "positionOffset": 496452,
+      "positionCount": 1437,
+      "indexOffset": 502200,
+      "indexCount": 2958,
+      "center": [
+        -0.2523283511400223,
+        -0.4320935755968094,
+        0.088411346077919
+      ],
+      "min": [
+        -0.6990336179733276,
+        -0.7219294905662537,
+        -0.21121156215667725
+      ],
+      "max": [
+        0.19437691569328308,
+        -0.1422576606273651,
+        0.38803425431251526
+      ]
+    },
+    {
+      "sourceName": "Left coronary leaflet",
+      "group": "valves",
+      "key": "AV",
+      "label": "主動脈瓣",
+      "english": "Aortic valve",
+      "positionOffset": 514032,
+      "positionCount": 153,
+      "indexOffset": 514644,
+      "indexCount": 294,
+      "center": [
+        -0.0560738667845726,
+        0.24967101216316223,
+        -0.07072460651397705
+      ],
+      "min": [
+        -0.23586663603782654,
+        0.07879355549812317,
+        -0.32128557562828064
+      ],
+      "max": [
+        0.12371890246868134,
+        0.4205484688282013,
+        0.17983636260032654
+      ]
+    },
+    {
+      "sourceName": "Non-coronary leaflet",
+      "group": "valves",
+      "key": "AV",
+      "label": "主動脈瓣",
+      "english": "Aortic valve",
+      "positionOffset": 515820,
+      "positionCount": 480,
+      "indexOffset": 517740,
+      "indexCount": 948,
+      "center": [
+        -0.3172561600804329,
+        0.17480948567390442,
+        -0.12868305668234825
+      ],
+      "min": [
+        -0.5252894163131714,
+        -0.02288147807121277,
+        -0.35839617252349854
+      ],
+      "max": [
+        -0.1092229038476944,
+        0.3725004494190216,
+        0.10103005915880203
+      ]
+    },
+    {
+      "sourceName": "Right coronary leaflet",
+      "group": "valves",
+      "key": "AV",
+      "label": "主動脈瓣",
+      "english": "Aortic valve",
+      "positionOffset": 521532,
+      "positionCount": 156,
+      "indexOffset": 522156,
+      "indexCount": 300,
+      "center": [
+        -0.2628131350502372,
+        0.19138339208438993,
+        0.15340531338006258
+      ],
+      "min": [
+        -0.4984399378299713,
+        -0.008971183560788631,
+        -0.015744110569357872
+      ],
+      "max": [
+        -0.027186332270503044,
+        0.3917379677295685,
+        0.32255473732948303
+      ]
+    },
+    {
+      "sourceName": "Anterior semilunar leaflet of pulmonary valve",
+      "group": "valves",
+      "key": "PV",
+      "label": "肺動脈瓣",
+      "english": "Pulmonary valve",
+      "positionOffset": 523356,
+      "positionCount": 423,
+      "indexOffset": 525048,
+      "indexCount": 834,
+      "center": [
+        0.2581913024187088,
+        0.2677812874317169,
+        0.6800724864006042
+      ],
+      "min": [
+        0.03548482060432434,
+        0.059487372636795044,
+        0.4302106499671936
+      ],
+      "max": [
+        0.48089778423309326,
+        0.4760752022266388,
+        0.9299343228340149
+      ]
+    },
+    {
+      "sourceName": "Left semilunar leaflet of pulmonary valve",
+      "group": "valves",
+      "key": "PV",
+      "label": "肺動脈瓣",
+      "english": "Pulmonary valve",
+      "positionOffset": 528384,
+      "positionCount": 330,
+      "indexOffset": 529704,
+      "indexCount": 648,
+      "center": [
+        0.2573031783103943,
+        0.2749209702014923,
+        0.3178558647632599
+      ],
+      "min": [
+        0.04316192865371704,
+        0.06966689229011536,
+        0.13621488213539124
+      ],
+      "max": [
+        0.47144442796707153,
+        0.48017504811286926,
+        0.49949684739112854
+      ]
+    },
+    {
+      "sourceName": "Right semilunar leaflet of pulmonary valve",
+      "group": "valves",
+      "key": "PV",
+      "label": "肺動脈瓣",
+      "english": "Pulmonary valve",
+      "positionOffset": 532296,
+      "positionCount": 456,
+      "indexOffset": 534120,
+      "indexCount": 894,
+      "center": [
+        -0.08614445477724075,
+        0.35575346648693085,
+        0.5672143846750259
+      ],
+      "min": [
+        -0.3207949995994568,
+        0.1421394646167755,
+        0.26871922612190247
+      ],
+      "max": [
+        0.14850609004497528,
+        0.5693674683570862,
+        0.8657095432281494
+      ]
+    },
+    {
+      "sourceName": "Pulmonary trunk",
+      "group": "pa",
+      "key": "PT",
+      "label": "肺動脈幹",
+      "english": "Pulmonary trunk",
+      "positionOffset": 537696,
+      "positionCount": 414,
+      "indexOffset": 539352,
+      "indexCount": 690,
+      "center": [
+        0.1132204532623291,
+        0.8072014003992081,
+        0.4627529354766011
+      ],
+      "min": [
+        -0.2606692314147949,
+        0.41222575306892395,
+        0.009131545200943947
+      ],
+      "max": [
+        0.4871101379394531,
+        1.2021770477294922,
+        0.9163743257522583
+      ]
+    },
+    {
+      "sourceName": "BodyParts3D FJ2422",
+      "group": "chambers",
+      "key": "LV",
+      "label": "左心室",
+      "english": "LV",
+      "positionOffset": 542112,
+      "positionCount": 2637,
+      "indexOffset": 552660,
+      "indexCount": 5166,
+      "center": [
+        0.41363395750522614,
+        -0.6047248691320419,
+        0.008328229188919067
+      ],
+      "min": [
+        -0.37771257758140564,
+        -1.4419946670532227,
+        -0.8865174651145935
+      ],
+      "max": [
+        1.204980492591858,
+        0.2325449287891388,
+        0.9031739234924316
+      ]
+    },
+    {
+      "sourceName": "BodyParts3D FJ2423",
+      "group": "chambers",
+      "key": "RV",
+      "label": "右心室",
+      "english": "RV",
+      "positionOffset": 573324,
+      "positionCount": 2919,
+      "indexOffset": 585000,
+      "indexCount": 5754,
+      "center": [
+        -0.11860707402229309,
+        -0.5564594119787216,
+        0.5504115372896194
+      ],
+      "min": [
+        -1.0058691501617432,
+        -1.5558977127075195,
+        -0.17199990153312683
+      ],
+      "max": [
+        0.768655002117157,
+        0.4429788887500763,
+        1.2728229761123657
+      ]
+    },
+    {
+      "sourceName": "BodyParts3D FJ2424",
+      "group": "chambers",
+      "key": "RA",
+      "label": "右心房",
+      "english": "RA",
+      "positionOffset": 608016,
+      "positionCount": 3579,
+      "indexOffset": 622332,
+      "indexCount": 6732,
+      "center": [
+        -0.9230399578809738,
+        -0.2677321135997772,
+        0.02181398868560791
+      ],
+      "min": [
+        -1.386963129043579,
+        -1.4124631881713867,
+        -0.7366355061531067
+      ],
+      "max": [
+        -0.45911678671836853,
+        0.8769989609718323,
+        0.7802634835243225
+      ]
+    },
+    {
+      "sourceName": "BodyParts3D FJ2425",
+      "group": "chambers",
+      "key": "LA",
+      "label": "左心房",
+      "english": "LA",
+      "positionOffset": 649260,
+      "positionCount": 1761,
+      "indexOffset": 656304,
+      "indexCount": 3192,
+      "center": [
+        -0.1915455162525177,
+        -0.11933797597885132,
+        -0.576967392116785
+      ],
+      "min": [
+        -1.0440549850463867,
+        -0.8866299986839294,
+        -1.268949031829834
+      ],
+      "max": [
+        0.6609639525413513,
+        0.6479540467262268,
+        0.11501424759626389
+      ]
+    },
+    {
+      "sourceName": "BodyParts3D FJ2420",
+      "group": "valves",
+      "key": "MV",
+      "label": "二尖瓣",
+      "english": "Mitral valve",
+      "positionOffset": 669072,
+      "positionCount": 12156,
+      "indexOffset": 717696,
+      "indexCount": 22674,
+      "center": [
+        0.17659609019756317,
+        -0.5456647425889969,
+        -0.11818532645702362
+      ],
+      "min": [
+        -0.24732664227485657,
+        -0.9360112547874451,
+        -0.7202398777008057
+      ],
+      "max": [
+        0.6005188226699829,
+        -0.1553182303905487,
+        0.4838692247867584
+      ]
+    },
+    {
+      "sourceName": "BodyParts3D FJ2421",
+      "group": "valves",
+      "key": "TV",
+      "label": "三尖瓣",
+      "english": "Tricuspid valve",
+      "positionOffset": 808392,
+      "positionCount": 12846,
+      "indexOffset": 859776,
+      "indexCount": 24480,
+      "center": [
+        -0.5118071660399437,
+        -0.6208567470312119,
+        0.5119229853153229
+      ],
+      "min": [
+        -1.0612421035766602,
+        -1.093587875366211,
+        0.1754891276359558
+      ],
+      "max": [
+        0.037627771496772766,
+        -0.14812561869621277,
+        0.8483568429946899
+      ]
+    }
+  ],
+  "alignment": {
+    "scale": 0.001033971995506638,
+    "shift": [
+      0.0005748132677079951,
+      0.022621668959508234,
+      -0.10127506592851024
+    ]
+  },
+  "source": "BodyParts3D / Z-Anatomy"
+}
