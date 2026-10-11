@@ -38,8 +38,9 @@
  * Requires the drive mounted. The output is committed, so query.mjs does not.
  *
  * Usage: node work/build-source-catalogue.mjs [--out <path>]
+ *        node work/build-source-catalogue.mjs --add-file <local source document>
  */
-import { readdirSync, statSync, existsSync, writeFileSync } from 'node:fs';
+import { readdirSync, statSync, existsSync, writeFileSync, readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -308,4 +309,23 @@ function main() {
   console.log(`\n-> ${OUT}  (${MB(statSync(OUT).size)} MB)`);
 }
 
-main();
+// A supplied local lecture can be registered without rescanning streamed drives.
+// Preserve every existing catalogue row; only files inside the source folders
+// are accepted by this deliberately narrow intake path.
+const addAt=process.argv.indexOf('--add-file');
+if(addAt>=0){
+  const file=resolve(process.argv[addAt+1]||'').replace(/\\/g,'/');
+  const root=localRoots.find(r=>file.toLowerCase().startsWith(r.toLowerCase().replace(/\\/g,'/')+'/'));
+  if(!root||!DOC.test(file)||!statSync(file).isFile())throw new Error('--add-file requires a document inside New source or Old source');
+  const cat=JSON.parse(readFileSync(OUT,'utf8')),s=statSync(file),n=file.split('/').pop();
+  const normalizedRoot=root.replace(/\\/g,'/');
+  let ri=cat.roots.findIndex(r=>r.toLowerCase()===normalizedRoot.toLowerCase());
+  if(ri<0){ri=cat.roots.length;cat.roots.push(normalizedRoot);}
+  const location=[ri,file.slice(normalizedRoot.length+1)];
+  let doc=cat.docs.find(d=>d.n.toLowerCase()===n.toLowerCase()&&d.b===s.size);
+  if(!doc){doc={n,b:s.size,m:s.mtimeMs,at:[]};cat.docs.push(doc);}
+  if(!doc.at.some(a=>a[0]===ri&&a[1]===location[1]))doc.at.push(location);
+  cat.docs.sort((a,b)=>a.n.localeCompare(b.n));cat.newest=Math.max(cat.newest,s.mtimeMs);
+  writeFileSync(OUT,JSON.stringify(cat),'utf8');
+  console.log(`Registered local source: ${n}`);
+}else main();

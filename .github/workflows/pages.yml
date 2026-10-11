@@ -56,6 +56,10 @@ jobs:
         run: node work/schedule-check.mjs
       - name: Named cut levels resolve, measure and stay in order
         run: node work/cut-level-check.mjs
+      - name: Bone landmark payload matches reviewed curation
+        run: node work/build-bone-landmarks.mjs --check
+      - name: Bone landmark sources and actual mesh signatures agree
+        run: node work/bone-landmark-check.mjs
       - name: Every cited source exists and says it on the page it names
         run: node work/source-check.mjs
       - name: Every __osteo call the study half makes is answered

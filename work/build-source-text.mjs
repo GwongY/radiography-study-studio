@@ -44,6 +44,7 @@
  *
  * Usage:
  *   node work/build-source-text.mjs                      the cited sources (minutes)
+ *   node work/build-source-text.mjs --ref hss.hnt.2026    one registered source only
  *   node work/build-source-text.mjs --all                + every teaching document
  *   node work/build-source-text.mjs --all --shard 0/6    one of six parallel passes
  *   node work/build-source-text.mjs --all --limit 200    a bounded slice
@@ -128,9 +129,11 @@ for (const d of cat.docs) {
 
 function buildCited() {
   const existing = existsSync(CITED_OUT) ? JSON.parse(readFileSync(CITED_OUT, 'utf8')) : { sources: {}, failed: {} };
-  const sources = {}, failed = {};
+  const refAt=argv.indexOf('--ref'),onlyRef=refAt>=0?argv[refAt+1]:null;
+  if(refAt>=0&&!SOURCE_FILES[onlyRef])throw new Error('--ref requires a registered source');
+  const sources = onlyRef?{...existing.sources}:{}, failed = onlyRef?{...existing.failed}:{};
   let pages = 0, chars = 0, n = 0;
-  const entries = Object.entries(SOURCE_FILES);
+  const entries = Object.entries(SOURCE_FILES).filter(([id])=>!onlyRef||id===onlyRef);
   let ambiguous = 0;
   for (const [id, e] of entries) {
     /* By filename AND folder — eighteen documents are called "Lecture notes". */
@@ -154,6 +157,7 @@ function buildCited() {
     const r = extractText(hit.full);
     if (!r.ok) { failed[id] = r.why; continue; }
     sources[id] = { file: d.n, at: hit.where, subject: e.subject, kind: e.kind, pages: r.pages };
+    delete failed[id];
     pages += r.pages.length;
     chars += r.pages.reduce((a, p) => a + p.length, 0);
   }
