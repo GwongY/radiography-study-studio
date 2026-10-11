@@ -11,12 +11,12 @@
  * Nothing here runs at module scope.
  */
 import * as THREE from 'three';
-import { createConduction } from './conduction.js?v=2';
-import { createHeartMotion, cycleAt } from './heart-motion.js?v=25';
-import { createHeartbeat } from './heartbeat.js?v=7';
+import { createConduction } from './conduction.js?v=3';
+import { createHeartMotion, cycleAt } from './heart-motion.js?v=26';
+import { createHeartbeat } from './heartbeat.js?v=9';
 import { ATLAS_SCALE, ATLAS_SHIFT } from './alignment.js?v=1';
-import { DESCRIPTIONS } from './descriptions.js?v=1';
-import { ECHO_VIEWS, computeEchoFrames, createEchoRenderer } from './echo-sim.js?v=16';
+import { DESCRIPTIONS } from './descriptions.js?v=2';
+import { ECHO_VIEWS, computeEchoFrames, createEchoRenderer } from './echo-sim.js?v=17';
 
 export const CHAMBER_COLOURS = { RA: 0x668ea9, RV: 0x759fae, LA: 0xca998d, LV: 0xb76659 };
 const COLOURS = { wall: 0xb97465, valves: 0xe7d6ac, coronary: 0xcf6651, cardiacVein: 0x6884aa, aorta: 0xc96758, cava: 0x7695b9, pa: 0x6c92ae, pv: 0xd78d7b };
@@ -29,15 +29,15 @@ export const PART_KEYS = ['RA', 'RV', 'LA', 'LV', 'TV', 'MV', 'AV', 'PV'];
    the coronary tracer and transvalvular flow; `dynamic` gives the larger
    ventricular excursion. */
 export const PRESETS = {
-  natural:    { label: 'Natural 自然外觀',         opacity: 100, show: { wall: 1, chambers: 0, valves: 1, coronary: 1, great: 1, conduction: 0 }, speed: 1,   flow: false },
-  chambers:   { label: 'Four chambers 四腔分色',   opacity: 15,  show: { wall: 1, chambers: 1, valves: 0, coronary: 0, great: 1, conduction: 0 }, speed: 1,   flow: false },
-  coronary:   { label: 'Coronaries 冠狀動脈',      opacity: 100, show: { wall: 1, chambers: 0, valves: 0, coronary: 1, great: 1, conduction: 0 }, speed: 1,   flow: true  },
-  dynamic:    { label: 'Heartbeat 心臟動態',       opacity: 22,  show: { wall: 1, chambers: 1, valves: 1, coronary: 1, great: 1, conduction: 0 }, speed: 1,   flow: true, dynamic: true },
-  conduction: { label: 'Conduction 傳導系統',      opacity: 12,  show: { wall: 1, chambers: 0, valves: 0, coronary: 0, great: 1, conduction: 1 }, speed: 0.35, flow: false },
-  echo:       { label: 'Ultrasound 超音波切面',    opacity: 100, show: { wall: 1, chambers: 0, valves: 1, coronary: 0, great: 1, conduction: 0 }, speed: 1,   flow: false, echo: true },
+  natural:    { label: 'Natural',         opacity: 100, show: { wall: 1, chambers: 0, valves: 1, coronary: 1, great: 1, conduction: 0 }, speed: 1,   flow: false },
+  chambers:   { label: 'Four chambers',   opacity: 15,  show: { wall: 1, chambers: 1, valves: 0, coronary: 0, great: 1, conduction: 0 }, speed: 1,   flow: false },
+  coronary:   { label: 'Coronaries',      opacity: 100, show: { wall: 1, chambers: 0, valves: 0, coronary: 1, great: 1, conduction: 0 }, speed: 1,   flow: true  },
+  dynamic:    { label: 'Heartbeat',       opacity: 22,  show: { wall: 1, chambers: 1, valves: 1, coronary: 1, great: 1, conduction: 0 }, speed: 1,   flow: true, dynamic: true },
+  conduction: { label: 'Conduction',      opacity: 12,  show: { wall: 1, chambers: 0, valves: 0, coronary: 0, great: 1, conduction: 1 }, speed: 0.35, flow: false },
+  echo:       { label: 'Ultrasound',    opacity: 100, show: { wall: 1, chambers: 0, valves: 1, coronary: 0, great: 1, conduction: 0 }, speed: 1,   flow: false, echo: true },
 };
 
-export async function createHeartAtlas({ base = new URL('./', import.meta.url).href } = {}) {
+export async function createHeartAtlas({ base = new URL('./', import.meta.url).href, startPaused = false } = {}) {
   const [manifest, data] = await Promise.all([
     fetch(base + 'heart-manifest.json').then((r) => { if (!r.ok) throw new Error('heart manifest ' + r.status); return r.json(); }),
     fetch(base + 'heart-meshes.bin').then((r) => { if (!r.ok) throw new Error('heart meshes ' + r.status); return r.arrayBuffer(); }),
@@ -73,7 +73,7 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
   let heartbeat = null;
   const conduction = createConduction({ group: groups.conduction, byKey, deformPoint: (p) => (heartbeat ? heartbeat.deformPoint(p) : p) });
   meshes.push(...conduction.meshes);
-  heartbeat = createHeartbeat({ meshes });
+  heartbeat = createHeartbeat({ meshes, startPaused });
   const parts = {};
   const motion = createHeartMotion({ scene: group, byKey, deformPoint: heartbeat.deformPoint, isPartOn: (k) => parts[k] !== false });
   meshes.push(...motion.extraMeshes);
@@ -130,7 +130,7 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
   function describe(key) {
     const d = DESCRIPTIONS[key];
     const m = byKey[key] && byKey[key][0];
-    return { key, category: d ? d[0] : '', title: d ? d[1] : (m && m.userData.label) || key, english: (m && m.userData.english) || key, text: d ? d[2] : '' };
+    return { key, category: d ? d[0] : '', title: d ? d[1] : (m && m.userData.english) || key, english: (m && m.userData.english) || key, text: d ? d[2] : '' };
   }
 
   function pick(raycaster) {

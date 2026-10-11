@@ -106,7 +106,7 @@ to publish. Do not read from it in place of `E:`.
 | `outputs/study/question-pack.js` | Fetches a question pack from a PRIVATE repo (`GwongY/rss-packs`, one file per chapter behind an `index.json`) into its own IndexedDB, `rss-packs`. Licensed test-bank content: **never** in git, in `outputs/`, in the SW shell, in the answer log or in the progress export — only ids of the form `pack:<packId>:<qid>`. `work/.packs/` is gitignored; rebuild with `node work/build-question-pack.mjs --split`. Its own fine-grained token, read-only on that one repo, so an unlocked device cannot reach anything else. |
 | `outputs/study/corpus/*.js` | The lesson corpus, 23 files. `study-data.js` is a barrel re-exporting them under the same 63 names, so nothing imports these directly. |
 | `outputs/studio/*.js` | The 3D studio, 13 parts, same shape as `study/`. Its top level is indented inconsistently, so no text or brace rule can tell a top-level declaration from a nested one — `node work/toplevel.mjs <file>` asks V8 instead, and is the tool to use before touching its structure. |
-| `outputs/heart/` | The Heart atlas mode's modules and data (BetterHeart; cavities, valves, coronary flow, conduction, echo). Reached **only** by a dynamic `import()` from `studio/heart-atlas.js`, so it loads on first entry into the mode; `heart-manifest.json` and `heart-meshes.bin` (CC BY-SA mesh data, see `MODEL-NOTICES.txt`) are cached lazily like the GLBs. A visual reference, not lessons. Traps: `docs/TRAPS.md`. |
+| `outputs/heart/` | The Heart atlas mode's modules and data (BetterHeart; cavities, valves, coronary flow, conduction, echo). Reached **only** by a dynamic `import()` from `studio/heart-atlas.js`, so it loads on first entry into the mode. `heart-manifest.json`, `heart-meshes.bin` (CC BY-SA mesh data), and `MODEL-NOTICES.txt` are precached in the shell; the larger circulatory GLB remains first-use cached, so an offline first entry can still fail cleanly and restore the previous viewer state. A visual reference, not lessons. Traps: `docs/TRAPS.md`. |
 | `outputs/assets/physiology/*.json` | **Generated** — the curated routes for a layer (`work/build-physiology-paths.mjs`), one file per layer, fetched with the layer it belongs to and cached beside the GLB. Three kinds: a **pulse** route reuses the local tube frame for outward arterial swell; a **tube** route carries a local frame per vertex and drives the travelling constriction (organs); a **glow** route carries one number per vertex — how far along the structure it is — and drives the travelling light only (circulatory, nervous). Never hand-edit; `outputs/physiology-paths.js` is the generated manifest that names them and stamps the cache key. |
 | `outputs/assets/*.glb` | The seven anatomical layers (skeleton, muscles, ligaments, organs, vessels, nerves, lymphatic), ~14 MB, lazy-loaded on demand. Quantized (`KHR_mesh_quantization`), which `work/glb-mesh.mjs` and `work/lib/mesh-names.mjs` decode — re-quantize a replacement with `npx @gltf-transform/cli quantize` and bump `MODEL_VERSION`, never `CACHE_VERSION`. Simplified once, offline, by `work/simplify-models.mjs` — never below a triangle floor, and never at the cost of a named mesh. Per-layer counts: `docs/DATA-INDEX.md`. |
 | `docs/superpowers/` | Design specs (`specs/`) and implementation plans (`plans/`). Follow this pattern for new work. |
@@ -183,6 +183,7 @@ node work/load-check.mjs        # REQUIRED for HTML edits — evaluates both inl
 node work/syntax-check.mjs      # data-module syntax
 node work/verify-modules.mjs    # data-module imports resolve
 node work/shell-check.mjs       # every reachable module is precached, query and all
+node work/heart-atlas-check.mjs # atlas geometry alignment, payload integrity and descriptions
 node work/binding-check.mjs     # REQUIRED for study/ or studio/ edits — every part
                                  # imports the names it uses. A missing import loads
                                  # fine and throws only when that code path runs.
@@ -327,6 +328,12 @@ node work/baseline.mjs --check  # the probes still say what they said
   it is imported by — a mismatch is a 404 that appears only offline, the one
   condition this app is built for. `shell-check.mjs` walks the import graph and
   enforces it. A file imported both with and without a query needs **both**.
+- **Heart atlas verification has two layers.** `heart-atlas-check.mjs` validates
+  manifest-to-model alignment and mesh payload integrity. Its optional Node
+  builder section skips when local `three` is unavailable, so exercise actual
+  entry, failed-load rollback, focus/projection transitions and narrow layouts
+  in a browser before calling an integration change complete. The atlas data and
+  notice are shell-cached; the circulatory GLB is still fetched on first use.
 - Touched `mesh-index.js`? Rerun `node work/build-mesh-index.mjs` rather than
   editing it, then `node work/search-probe.mjs`.
 - Added or renamed a `SOURCE_FILES` entry? Run `node work/source-check.mjs` — it

@@ -1577,26 +1577,34 @@ ul.asslines{list-style:none;margin:0;padding:0}
 .asscount>.seg b{font-size:calc(18px * var(--ts));letter-spacing:-.03em;line-height:1.1}
 .asscount>.seg small{font:600 10.5px 'Instrument Sans',sans-serif;font-size:calc(10.5px * var(--ts));letter-spacing:.02em}
 
-/* Heart atlas — outputs/studio/heart-atlas.js */
-.heart-atlas-toggle{position:absolute;top:12px;right:12px;z-index:6;padding:7px 12px;border-radius:999px;border:1px solid var(--line,rgba(255,255,255,.18));background:var(--panel,rgba(20,24,30,.78));color:inherit;font-size:calc(12px * var(--ts));font-weight:700;cursor:pointer}
+/* Heart atlas — outputs/studio/heart-atlas.js. Both controls live in the
+   viewer dock, so they share its responsive layout and never cover the stage. */
+.heart-atlas-toggle{position:static;order:-1;flex:none;width:100%;min-height:44px;padding:8px 12px;border-radius:14px;border:1px solid var(--line,rgba(255,255,255,.18));background:rgba(8,16,22,.96);color:var(--teal);font-size:calc(12px * var(--ts));font-weight:700;text-align:left;cursor:pointer}
+.heart-atlas-toggle:disabled{opacity:.72;cursor:progress}
 .heart-atlas-toggle[aria-pressed="true"]{background:var(--orange,#e08a5a);color:#1b1b1b}
-.heart-atlas-panel{position:absolute;top:52px;right:12px;bottom:12px;width:min(340px,calc(100% - 24px));z-index:6;display:flex;flex-direction:column;border-radius:14px;border:1px solid var(--line,rgba(255,255,255,.18));background:var(--panel,rgba(20,24,30,.92));backdrop-filter:blur(8px);font-size:calc(12px * var(--ts));line-height:1.45;overflow:hidden}
+.heart-atlas-panel{position:static;flex:1 1 auto;min-height:0;width:auto;z-index:auto;display:flex;flex-direction:column;border-radius:14px;border:1px solid var(--line,rgba(255,255,255,.18));background:var(--panel,rgba(20,24,30,.96));backdrop-filter:blur(8px);font-size:calc(12px * var(--ts));line-height:1.45;overflow:hidden}
 .heart-atlas-panel[hidden]{display:none}
+.viewer-dock.heart-atlas-open .selpanel,.viewer-dock.heart-atlas-open .viewer-tools-panel{display:none!important}
+#stageHome.heart-atlas-open .layerrail,#stageHome.heart-atlas-open .layer-rail-toggle{display:none}
 .ha-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line,rgba(255,255,255,.14))}
 .ha-head strong{font-size:calc(14px * var(--ts))}.ha-head span{opacity:.7}
-.ha-head button,.ha-row button,.ha-ecg-head button{font-size:calc(11px * var(--ts));padding:5px 9px;border-radius:8px;border:1px solid var(--line,rgba(255,255,255,.2));background:transparent;color:inherit;cursor:pointer}
+.ha-head button,.ha-row button,.ha-ecg-head button{font-size:calc(11px * var(--ts));padding:5px 9px;min-height:40px;border-radius:8px;border:1px solid var(--line,rgba(255,255,255,.2));background:transparent;color:inherit;cursor:pointer}
 .ha-row button.active,.ha-ecg-head button[aria-pressed="true"]{background:var(--orange,#e08a5a);color:#1b1b1b;border-color:transparent}
-.ha-scroll{overflow:auto;padding:10px 12px;display:grid;gap:10px;align-content:start}
+.ha-scroll{flex:1;min-height:0;overflow:auto;padding:10px 12px;display:grid;gap:10px;align-content:start}
 .ha-row,.ha-shows,.ha-parts{display:flex;flex-wrap:wrap;gap:6px}
 .ha-shows label,.ha-parts label,.ha-check,.ha-slider{display:flex;align-items:center;gap:6px}
 .ha-slider{flex-wrap:wrap}.ha-slider input{flex:1 1 120px}
 .ha-ecg{border:1px solid var(--line,rgba(255,255,255,.14));border-radius:10px;padding:8px;color:#7fb08f}
 .ha-ecg-head{display:flex;flex-wrap:wrap;align-items:center;gap:6px}.ha-ecg-head strong{flex:1 1 100%;font-size:calc(12px * var(--ts));color:inherit}
 .ha-ecg-chart{width:100%;height:auto;display:block}.ha-ecg-chart text{font-size:calc(11px * var(--ts));fill:currentColor;opacity:.7}
-.ha-ecg-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;color:var(--text,#e8e8e8)}
+.ha-ecg-foot{display:grid;gap:6px;color:var(--text,#e8e8e8)}
+.ha-ecg-foot label{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+/* The phase caption and the two status lines change text as the beat advances.
+   Their height is reserved, so a shorter caption never pulls everything beneath it up. */
+#ha-ecgPhase{display:block;min-height:calc(2 * 1.45em);font-weight:600}
 .ha-note,.ha-status,.ha-credit{margin:0;opacity:.75;font-size:calc(11px * var(--ts))}
+.ha-status{min-height:calc(3 * 1.45em)}
 .ha-info{display:grid;gap:4px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.05)}
 .ha-info strong{font-size:calc(13px * var(--ts))}.ha-info span{opacity:.7;font-size:calc(11px * var(--ts))}.ha-info p{margin:0}
 .ha-echo{display:grid;gap:8px}.ha-echo[hidden]{display:none}
 .ha-echo-canvas{width:100%;aspect-ratio:8/7;background:#000;border-radius:8px;display:block}
-@media(max-width:560px){.heart-atlas-panel{top:auto;left:8px;right:8px;width:auto;height:46%}}

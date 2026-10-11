@@ -2,7 +2,7 @@
 
 This file is a pointer, not a copy.
 
-**The working guide is [`CLAUDE.md`](CLAUDE.md). Read that.**
+**The working guide, including Heart atlas integration and verification notes, is [`CLAUDE.md`](CLAUDE.md). Read that.**
 
 It was duplicated here once, and the copy silently rotted two commits behind the
 original — wrong part counts, and missing the two checks that guard four years of

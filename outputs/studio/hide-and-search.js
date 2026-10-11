@@ -21,8 +21,10 @@ import { showToast } from './visualisation-modes.js';
  * layer toggle or a region filter can never quietly bring a hidden part back.
  * ------------------------------------------------------------------ */
 export function enforceHidden(){
-  state.hidden.forEach(m=>{ if(m) m.visible=false; });
-  state.autoHidden.forEach(m=>{ if(m) m.visible=false; });
+  const hide=(m)=>{if(m&&(m.userData?.atlasHidden||state.hidden.has(m)||state.autoHidden.has(m)))m.visible=false;};
+  state.hidden.forEach(hide);
+  state.autoHidden.forEach(hide);
+  Object.values(state.extraModels||{}).forEach(layer=>(layer.meshes||[]).forEach(hide));
 }
 export function hiddenName(m){
   const rec=getRecord(m.userData?.canonicalId);

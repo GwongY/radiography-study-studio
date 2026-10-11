@@ -9,6 +9,10 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+Three.js 0.161.0 is loaded at runtime from jsDelivr (not bundled in this
+repository). Three.js is licensed under the MIT License:
+https://github.com/mrdoob/three.js
+
 BetterHeart heart atlas (outputs/heart/)
 Source: https://skypray.synology.me/betterheart/heart-anatomy/ — (c) Dr. Huang Tian-Chi (黃天祈醫師), BetterHeart.
 Mesh data (heart-meshes.bin, heart-manifest.json) and coronary-routes.js are distributed by their

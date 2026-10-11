@@ -4,10 +4,9 @@
  * Caching strategy, and why it is split:
  *
  *   SHELL (precached on install) — the HTML, the four data modules (study,
- *   anatomy, visual registry and schematics), the manifest and the icons.
- *   Still well under a megabyte, so installing is fast and the whole study
- *   system — including every lesson schematic — works offline immediately
- *   after the first visit.
+ *   anatomy, visual registry and schematics), the heart atlas data, manifest
+ *   and icons. It stays small enough for a fast first install, so the study
+ *   system and heart atlas can open offline immediately after the first visit.
  *
  *   MODELS (cached on first use) — the seven .glb files total ~21 MB, down
  *   from ~37 MB when they were quantized (KHR_mesh_quantization). That is the
@@ -33,7 +32,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v201';
+const CACHE_VERSION = 'v206';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -97,19 +96,22 @@ const SHELL = [
    * they are precached all the same, because a mode that cannot open offline is
    * the failure this app exists to avoid. Each specifier is exactly the one its
    * importer writes (query and all); shell-check walks the dynamic literals.
-   * The two data files (heart-manifest.json, heart-meshes.bin, ~1 MB) are NOT
-   * here: they are lazy, see isModel().
+   * The small atlas payload and source notice are also precached, so first use
+   * works offline; the much larger circulatory GLB remains lazy.
    */
-  './heart/atlas.js?v=1',
+  './heart/atlas.js?v=2',
   './heart/alignment.js?v=1',
-  './heart/descriptions.js?v=1',
-  './heart/conduction.js?v=2',
-  './heart/heart-motion.js?v=25',
-  './heart/heartbeat.js?v=7',
-  './heart/echo-sim.js?v=16',
+  './heart/descriptions.js?v=2',
+  './heart/conduction.js?v=3',
+  './heart/heart-motion.js?v=26',
+  './heart/heartbeat.js?v=9',
+  './heart/echo-sim.js?v=17',
   './heart/cardiac-cycle.js',
   './heart/valve-surfaces.js?v=4',
-  './heart/valve-apparatus.js?v=6',
+  './heart/valve-apparatus.js?v=7',
+  './heart/heart-manifest.json',
+  './heart/heart-meshes.bin',
+  './heart/MODEL-NOTICES.txt',
   './heart/valve-rings.js?v=2',
   './heart/coronary-flow.js?v=10',
   './heart/coronary-routes.js?v=1',
@@ -279,18 +281,12 @@ self.addEventListener('activate', (event) => {
  * kernel, the route definitions and MODEL_VERSION. That is deliberately NOT
  * CACHE_VERSION -- see the note above about which version means what.
  *
- * The heart atlas's data (heart/heart-manifest.json and heart/heart-meshes.bin,
- * ~1 MB) rides the same cache and lifetime for the same reason: it is fetched
- * when the mode is first opened, never in the install-time shell, and it is
- * addressed by its filename. It is matched by those two exact names -- NOT by
- * a '/heart/heart-' prefix, which would also catch heart-motion.js and pull a
- * precached shell module out of the shell cache into this cache-first one.
- * Regenerating either file in place means bumping MODEL_VERSION, as for a .glb.
+ * The heart atlas data is small enough to live in SHELL, rather than joining
+ * the lazy model cache: first use now works offline. Do not add a broad
+ * '/heart/heart-' model-cache rule; it would catch heart-motion.js and pull a
+ * precached shell module out of the shell cache.
  */
-function isModel(url) {
-  return url.pathname.endsWith('.glb') || url.pathname.includes('/assets/physiology/')
-      || url.pathname.endsWith('/heart/heart-manifest.json') || url.pathname.endsWith('/heart/heart-meshes.bin');
-}
+function isModel(url) { return url.pathname.endsWith('.glb') || url.pathname.includes('/assets/physiology/'); }
 const isFigure = (url) => url.pathname.includes('/assets/figures/');
 /*
  * The IA redesign loads Instrument Sans and Newsreader from Google Fonts.

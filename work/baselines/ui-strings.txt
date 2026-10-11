@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1146 —
-  ae018b50d92fcbdc  WHOLE SET
+— user-facing strings in outputs/ — 1159 —
+  7707268e5b23bd6e  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -24,7 +24,6 @@
   ee2ecbd9ea7a7e36   — it does not stand alone, it attaches to a root.
   f50d324d8a3b2119  " aria-label="
   b3c0b044207f0ecc  " aria-pressed="
-  880ee62d382bc1b1  " aria-pressed="false" title="
   49e64241e3e15d62  " aria-pressed="false">
   428d71c485304cd4  " class="dlab">
   b52c5573bfa9d3bf  " data-component="
@@ -245,7 +244,7 @@
   d68c2508d4466174  A repository, a token and a pack id are all needed.
   43efab18440887ca  A root — the part carrying the meaning. The /o on the end is the vowel that joins it to whatever follows.
   1a650cac2c2c4567  A sagittal slice, median at 50%. Keeps the patient's left; flip for the right.
-  fe85606669c337cc  A schematic sinus rhythm; electrical activity precedes mechanical contraction. Not a diagnostic ECG. 示意心電圖，非診斷用。
+  3046becc4af53a79  A schematic sinus rhythm; electrical activity precedes mechanical contraction. Not a diagnostic ECG.
   c3dc290201f7331a  A token is needed before this device can reach a gist.
   61acb41ad0a4a17c  A token is stored — enter a new one to replace it
   54046378ce3a6c7b  A token is stored — type a new one to replace it
@@ -267,7 +266,6 @@
   8e84fc2aae90b055  Anatomy search
   06f59255e2ecf0df  Answer in your own words, then check against the model answer
   52d6c898fba9d472  Answer, then see why.
-  86e370898dd0f17f  Aortic 主動脈瓣
   729af5ea912cd156  App note
   67cce00647649afd  App-authored aid
   5638e57272cc5eeb  Application recorded.
@@ -310,18 +308,21 @@
   b21cbce6bf98471b  Check this
   4cad109bd8bf7ba8  Choose a bone landmark
   1fd0e2b073997f0d  Click the hotspot for:
+  cd9a490533f1b735  Close Projection before opening the heart atlas.
   55656b5e434f4c06  Close search
   e503367c41c06b12  Close session
+  a588a0ec5115695d  Close the focused lesson before opening the heart atlas.
   e57c17d13927ddf0  Close the heart atlas
   78e0f97b52bcc45f  Cloze recall
   2c5b57d5e71b2811  Colours and rhythms are drawn by this app, not measured.
   c6ffddc144cdab7e  Common confusions
   b1eb88b86761c850  Common confusions on this item
   20db2e0618629cd5  Compare with the model answer
-  fa0101b5c6dcb236  Conduction system 傳導系統
+  dd3713b4cdcac4eb  Conduction system
   a75d43a157167800  Confirm it if that is right.
+  ea15571d2e81759e  Connect once to download the circulatory layer for offline use.
   0f7e8a381336fb95  Continue (
-  37c1bed6d26c24a9  Coronary arteries and veins 冠狀動脈與心臟靜脈
+  5d1ae0c75b2cc967  Coronary arteries and veins
   37b72d6c576f83a7  Correct — you found it in space.
   4a0c3a0072aecfa0  Could not load that layer — the others are still there.
   7405b8bbcaf9d423  Could not load that model — the skeleton is still available.
@@ -343,7 +344,7 @@
   1ce89851847711af  Delete every mastery record, mistake and schedule stored in this browser. There is no server and no undo, so export a backup first if you might want it.
   71eb8a08ffd768d7  Delete everything
   6b4482e521d6ca2b  Described in
-  5af62afe7b9f3ea7  Diastole 舒張期
+  c83aee17dcb5bdf2  Diastole · ventricular filling
   f02a6b73528ef5aa  Did you cover it?
   93d539da04aaa89f  Did you get there?
   93a3f31a9efeceef  Disconnected. The gist is untouched — reconnect with the same id to pull it back.
@@ -377,7 +378,7 @@
   fd2f684294d47cfc  Finish session \u2192
   8802e1925c84cdea  Five large load-bearing vertebrae: dinner at 5. Lumbar bodies are chunky.
   fb86d37ef027a4b7  Flag for review
-  b4443fac0edc7f04  Four chambers 四個心腔
+  eece46bf2c48d0c2  Four chambers
   7e4442b59b339275  From this item
   8e8f88fe40d45d19  Frontal bone
   cb73b83197d100e5  Full height · viewport
@@ -392,7 +393,7 @@
   c182599da2e5bcc5  GitHub returned
   40c84cdc3af701a2  Give me the memory aids →
   831a75c9cc4213cd  Go to review →
-  4e05f71db4507a7d  Great vessels 大血管
+  164764d2143530ad  Great vessels
   9f6d5644228aca65  Greek kokkyx — cuckoo
   6ac6a5c7f23082d7  Greek kranion — helmet/skull
   a5ae4d1e81505bca  Greek sternon — chest
@@ -400,8 +401,16 @@
   805e154ea0f599bc  Has 3D / images
   318e02bf5cf6ad64  Have a go first. Applying it badly and then correcting beats reading the answer.
   c690d7fcaa1865bc  Heart atlas
-  ccdcfc337397d4c5  Heart model and teaching scripts: BetterHeart (黃天祈醫師), meshes CC BY-SA 4.0, from BodyParts3D / Z-Anatomy.
-  94b3ef474e6928bb  Heartbeat and schematic ECG 心跳與示意心電圖
+  fb328932c2fb282f  Heart atlas animation stopped; closing the mode.
+  ccf3bb7342768369  Heart atlas controls
+  0802c0cf8c1a6870  Heart atlas detach failed
+  6f13db4476ae898b  Heart atlas disposal failed
+  058870b2089a8dae  Heart atlas entry failed; restoring the viewer.
+  ee635fc9e840fc60  Heart atlas registration check failed
+  a01e69ecda6b2a0a  Heart atlas selection cleanup failed
+  4ef6cff4e69f817a  Heart atlas toggle failed.
+  831bef238aea50ce  Heart model and teaching scripts: BetterHeart, meshes CC BY-SA 4.0, from BodyParts3D / Z-Anatomy.
+  1dd81b3e6efbe82c  Heartbeat and schematic ECG
   dc0798173dbd926c  Held still for reference:
   6fd0c5d030af33d3  Held still:
   2a7c8d2f587fec15  Hidden (
@@ -462,6 +471,7 @@
   86d0a64d8957c6f4  Live physiology
   19d7f3a65f188042  Load a private question bank JSON file or sync from a private repository to expand the exam pool with thousands of chapter questions.
   3f4169972d9430b8  Loaded question pack "
+  6dc9738e319a50f2  Loading heart atlas…
   ccc3f0daa040bf01  Loading skeleton, muscle, organs and heart…
   24c4a56f525fe0d9  Loading the Z-Anatomy skeleton — 159 named structures, 80 of them named by your course material, 88 things you can select. The other six system layers load on demand.
   d9ebad5495305a37  Loading the skeleton layer
@@ -486,7 +496,6 @@
   ff656be9917a49e2  Mid-clavicular, left
   6906cd85608d4b0d  Mid-clavicular, right
   ac1e653bdd328c9d  Missing or limited
-  f5b45be26987983a  Mitral 二尖瓣
   b7381c3ddaaa2bf1  Mixed paper (all subjects) →
   57fe077d62f2439c  Model and images in one place
   073c6093b8588908  Model answer
@@ -501,7 +510,6 @@
   79fefc32357d38fa  Multiple choice
   47bad95e45aec9ab  Muscles 345
   88f8470351458866  My mistakes
-  3c75a3143c8721a0  Myocardium 心肌外壁
   d326e3de4eabd98d  Named atlas structure from the interactive skeleton source.
   dd5d38109490e655  Named in
   884edaf6a85ff6cc  Named in your notes, on the other side
@@ -573,6 +581,7 @@
   c5ca4a0d519c1995  Page / section
   88ce19bc20fd3349  Paper submitted
   998f59ec6907c1a6  Past papers, timed practice, mastery
+  75f9b67785ab2af8  Pause heartbeat
   ce253ba033cf1abf  Phalanges of the hand
   032a270b28e8d32d  Plane \u00b7 separates
   b1fa06dcff9ea3f6  Practice paper
@@ -583,7 +592,6 @@
   dbe0aa3439619d84  Progress merged.
   045742deb50fcee2  Progress replaced from file.
   6322bc723f755180  Projection could not load. Reopen this tab to retry.
-  70404a5ce01d7090  Pulmonary 肺動脈瓣
   538bf15be302a521  Question pack
   acf90758fc65377b  Question pack loaded:
   dcd12e71ad9828a9  Question pack removed from this device.
@@ -641,7 +649,7 @@
   da2e37e9592542f8  Skip to practice
   1a5f0309b5e9c356  Skipped line
   0eb673542101b71b  Slides behind the "beyond DSE Biology" lines
-  871f8aff33423246  Slow motion 慢速
+  3c18ba95de1982d4  Slow motion
   1bfa470c34403319  Some tissue layers could not load. This is an incomplete projection; reopen this tab to retry.
   89d17970366ba5b3  Source files cited
   b6ade0f684ef5714  Source for the answer you just saw
@@ -690,7 +698,7 @@
   86daae5b32dfb5e1  Tap again to erase \u2014 this is final
   a323b59e9840d5a0  Tap any named structure. Choose a deeper structure from the selection list.
   972ad77d901803a7  Tap the heart, or choose a chamber or valve, to read about it.
-  3053670a3e9c2118  Tap the heart, or choose a chamber or valve, to read about it. Descriptions are BetterHeart's (Traditional Chinese).
+  d7e20a4ec38c6ac4  Tap the heart, or choose a chamber or valve, to read about it. Descriptions are adapted from BetterHeart.
   102e94ebbb429ab6  Tap the image to name a structure. Drag to pan; use Zoom to enlarge the image.
   caff82fe942e6cfe  Tarsals, metatarsals, phalanges: 7–5–14.
   e4817959acaa3360  Teaching notes missing
@@ -711,9 +719,13 @@
   e1bee8d506ebb8f0  The 3D layer could not be loaded right now.
   1a87df33818b2fb0  The 3D model is not available.
   188a07a1f493d877  The 3D models, the lessons and the source files are untouched \u2014 only your own history is.
+  522e8247ff62fe14  The 3D viewer could not start.
+  e329894670ba6143  The 3D viewer did not finish booting.
+  7765e837cae1c30d  The 3D viewer has not finished booting.
   18c0bd11dc622725  The answer log in that file is malformed.
   9ebdb7b20f4558c3  The briefing file is malformed:
   50dea43a7637d719  The chosen file is not valid JSON.
+  f445cb8ba3f6b544  The circulatory layer did not load.
   d6811f43e25d4939  The contrast
   d216dedb9f2f1d46  The controls live with the model — the render loop only runs while the studio is on screen, so a slider here would move bones you cannot see.
   f44fc384994cd331  The four quadrants
@@ -721,7 +733,11 @@
   0b155a87d8f27dc9  The gist does not hold a progress file this app understands —
   efdfb9f844f48df5  The gist file
   8c4ec2a13272609e  The gist index was truncated.
-  f4e330b3d73761b1  The heart atlas could not load.
+  163b106c4f497084  The heart atlas could not load. Your viewer has been restored; try again.
+  b8f7cccf6f308adc  The heart atlas did not align with the model. Your previous viewer state was restored.
+  45977a18ccdb7c80  The heart atlas is loading. Please wait.
+  e9c995cd03294a74  The heart atlas still could not load. Reload the page, then try again.
+  349318391a9281e8  The heart atlas stopped after an error. The 3D viewer is still running.
   3932fc91ec44669c  The highlighted hotspot is the
   bd33ae668254412b  The hollow at the top of the sternum. Measured at the superior border of the manubrium.
   751126bbdcad0ed8  The hotspots are showing. Tap the one you are asked for.
@@ -775,11 +791,10 @@
   60fbbc864f3e78f7  Timetable to your calendar
   e8b3b668039def92  Timetable, syllabus, assessments
   365876067e586bde  Traced to
-  da8960562f06f086  Transoesophageal TEE 經食道
+  dc368a8e3a63d78f  Transoesophageal (TEE)
   bdadc5cef1ccc303  Transpyloric (L1)
-  69b4d1998fdbb66d  Transthoracic TTE 經胸
+  38ec1b40c4659da4  Transthoracic (TTE)
   0a0d093315fde56b  Transtubercular (L5)
-  bbbfea1f3b85409c  Tricuspid 三尖瓣
   3c3544bc08702ae8  True / false
   66f9c52ff704f03a  Tube current time product in mAs
   f2f36bb84e6dfc7b  Tube voltage in kVp
@@ -796,12 +811,11 @@
   a16d86c59b699247  Use the idea on something you have not seen.
   c4114cbb2027abdb  Vagus nerve (X)r
   ad3067dcb5a43246  Validation failures
-  11bdc70703e671c7  Valves 四個心臟瓣膜
   6b46d2656d79336e  Verifying, not teaching
   235aff25d47f45e6  Vertebra T5
   bf5f5fb18964519a  Vessels 186/419
   dd74882d7fe5f23d  Vessels 419
-  d1d95ea56d04ac80  Wall opacity 外壁不透明度
+  5f9c270c538683cc  Wall opacity
   1ad371bd047f8bcf  What bone is this?
   9aa8e28faa9142cd  What the colours mean
   b4162094b978eb6b  What this lecture adds beyond
@@ -1029,7 +1043,6 @@
   dce1c177b1e44a6a  s depth, less the tag
   df49128572cf09cb  s job is only to feed it those meshes in the body
   91f0e226c82016ff  s left), fz 0 the trunk
-  7b1ad636e00edbe5  s own box. The host
   4e01dcdc55cd6293  s own half-width put the oesophagus
   ade98b80a888aed2  s own signature. 
   b231d81d3578309e  s slot is left out, as it is in the Course tab

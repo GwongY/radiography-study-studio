@@ -41,14 +41,22 @@ transform `loadExtraModel` applies (`state.bodyTransform`), puts the atlas group
 on the explorer's heart. A node check (`work/heart-atlas-check.mjs`) compares the
 transformed bounds of the manifest's wall and vessel meshes against the same
 named meshes in `outputs/assets/dolasim.glb` and fails above a stated tolerance.
-At run time the loader refuses to show the atlas if that comparison fails.
+At run time the loader also compares the world-space bounds of at least 35
+same-named loaded meshes and refuses to show the atlas if any bound differs by
+more than 3% of the heart's span.
 
 ### 2. Heart atlas mode
 A toggle in the viewer adds one `THREE.Group` to the studio scene. While on:
 
-- the explorer's own heart-system and coronary meshes in the circulatory layer
-  are hidden, and restored on exit;
-- every other layer, the cut and spread tools, search and picking are unchanged;
+- the atlas is an exclusive layer mode: it temporarily selects the heart chip,
+  hides other layer chips, and offers the skeleton as optional context; the
+  prior layer selection, opacity and camera are restored on close;
+- the layer rail is hidden while the atlas is open, so a temporary layer set
+  cannot discard a reader's change; a layer or study-focus action closes the
+  atlas before applying that action;
+- Projection and focused lessons cannot overlap the atlas: entry is refused
+  while either is active, and starting either one closes the atlas first;
+- cut, spread and the remaining viewer tools stay available;
 - `live-physiology.js` is not edited. The tether shader keeps animating the
   hidden meshes' classes untouched; the atlas runs its own cardiac clock.
 
@@ -71,9 +79,9 @@ vendored 0.180.0. Anything that differs between the two versions is found by
 the load check and the browser check and fixed in our copy.
 
 ### 4. Files, caching, licence
-- New files live in `outputs/heart/`. Mesh data and manifest are lazy-loaded on
-  first entry into the mode and cached beside the GLBs, with a version key like
-  `MODEL_VERSION`.
+- New files live in `outputs/heart/`. The 1 MB heart mesh data, manifest and
+  attribution notice are precached in the shell so the atlas can open on first
+  offline use. The larger circulatory GLB remains lazy-loaded on first use.
 - Every module is in the service-worker SHELL under the identical specifier it
   is imported by; `CACHE_VERSION` is bumped; `shell-check.mjs` must pass.
 - `outputs/THIRD-PARTY-NOTICES.txt` gains BetterHeart's `MODEL-NOTICES.txt`
@@ -89,9 +97,12 @@ Existing checks after every edit (`load-check`, `syntax-check`,
 `verify-modules`, `shell-check`, `binding-check`, `bridge-check`, then
 `codemap.mjs`). New: `heart-atlas-check.mjs` (alignment, manifest integrity,
 every manifest mesh index in range of the `.bin`). Browser check in Chrome:
-enter and leave the mode, confirm the original heart returns, the clock and
-ECG run, the echo sections render, no console errors, and the mode does not
-change anything in the other layers.
+enter and leave the mode, force an entry failure and confirm layers/camera are
+restored, verify the live alignment guard, test atlas controls without
+accidental picking, start a focused lesson and Projection from atlas mode,
+check the animation failure recovery, and confirm the dock at desktop, tablet
+and phone widths. Confirm the original heart returns, the clock and ECG run,
+and the echo sections render without console errors.
 
 ## Risks
 

@@ -1,3 +1,11 @@
+Scope note from Radiography Study Studio: This repository includes the heart
+mesh data and interactive teaching modules listed below. The upstream notice
+also refers to right-heart catheter paths, separate nerve-path assets and a
+THREE-LICENSE.txt file that are not included here. This viewer loads Three.js
+0.161.0 from jsDelivr; its MIT license is listed in outputs/THIRD-PARTY-NOTICES.txt.
+Version and file references in the upstream notice below describe BetterHeart's
+source site and are retained as attribution.
+
 BetterHeart Heart Education — model sources and modifications
 
 1. Cardiovascular mesh subset

@@ -486,8 +486,14 @@ import { restorePackedSpread } from './packed-spread.js';
   const pulse=prefersStill()?1:.72+.28*Math.sin(state.motionPhase*3.2);[...state.meshes,...state.fullMeshes].filter(m=>m.userData.presentationActive).forEach(m=>{if(m.material.emissive)m.material.emissiveIntensity=.95*pulse});state.controls.update();syncTools();if(typeof updateHudSprites==='function')updateHudSprites();if(!renderXray())state.renderer.render(state.scene,state.camera)}
   export function zoomCamera(factor){if(!state.camera||!state.controls)return;const offset=state.camera.position.clone().sub(state.controls.target);const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,offset.length()*factor));state.camera.position.copy(state.controls.target).add(offset.normalize().multiplyScalar(distance));state.controls.update()}
   // Aspect-aware framing adapted from ashemag/human-atlas app/scene.tsx (MIT).
+  function leaveAtlasBeforeFocus(){
+    if(state.heartAtlasLoading){showToast('The heart atlas is loading. Please wait.');return false;}
+    if(state.heartAtlasOn&&typeof window!=='undefined')window.__osteo?.exitHeartAtlas?.();
+    return !state.heartAtlasOn;
+  }
   export function focusSelected(isolate=false){
     if(!state.camera||!state.controls||!state.selectionAnchor){showToast('Select a structure first');return}
+    if(!leaveAtlasBeforeFocus())return;
     if(isolate){restorePeel();state.isolated=true;clearHighlight();$('isolateBtn')?.classList.add('active');applyVisibility();}
     state.scene.updateMatrixWorld(true);
     const box=new state.THREE.Box3();
@@ -502,7 +508,7 @@ import { restorePackedSpread } from './packed-spread.js';
     controls.maxDistance=Math.max(controls.maxDistance,distance*2);
     controls.target.copy(center);camera.position.copy(center).add(offset.multiplyScalar(distance));controls.update();
   }
-  export function toggleIsolation(){if(!state.selectedId){showToast('Select a structure first');return}const record=getRecord(state.selectedId);if(!state.fullMeshes.length&&record?.region!=='upper_limb'&&state.region!=='upper_limb'){showToast('This fallback reference is fused. Use Upper limb for per-bone isolation.');focusSelected();return}if(state.region!=='upper_limb'&&record?.region==='upper_limb'&&state.meshes.length){state.region='upper_limb';els.regionMeta.textContent='Upper limb';renderRegions();applyVisibility()}state.isolated=!state.isolated;if(state.isolated)clearHighlight();$('isolateBtn')?.classList.toggle('active',state.isolated);applyVisibility();focusSelected()}
+  export function toggleIsolation(){if(state.heartAtlasLoading){showToast('The heart atlas is loading. Please wait.');return}if(state.heartAtlasOn&&!leaveAtlasBeforeFocus())return;if(!state.selectedId){showToast('Select a structure first');return}const record=getRecord(state.selectedId);if(!state.fullMeshes.length&&record?.region!=='upper_limb'&&state.region!=='upper_limb'){showToast('This fallback reference is fused. Use Upper limb for per-bone isolation.');focusSelected();return}if(state.region!=='upper_limb'&&record?.region==='upper_limb'&&state.meshes.length){state.region='upper_limb';els.regionMeta.textContent='Upper limb';renderRegions();applyVisibility()}state.isolated=!state.isolated;if(state.isolated)clearHighlight();$('isolateBtn')?.classList.toggle('active',state.isolated);applyVisibility();focusSelected()}
   export function isSelfOrAncestorVisible(obj){let o=obj;while(o){if(!o.visible)return false;o=o.parent}return true}
   export function nearestVisibleMesh(event,rect){if(!state.THREE)return null;const pool=state.fullMeshes;let best=null;for(const mesh of pool){if(!isSelfOrAncestorVisible(mesh))continue;const box=new state.THREE.Box3().setFromObject(mesh);const boxSize=box.getSize(new state.THREE.Vector3());box.expandByScalar(-Math.min(boxSize.length()*.08,.15));const center=box.getCenter(new state.THREE.Vector3()).project(state.camera);const px=rect.left+(center.x+1)*rect.width/2;const py=rect.top+(1-center.y)*rect.height/2;const radiusPx=Math.max(4,Math.min(32,Math.max(boxSize.x,boxSize.y,boxSize.z)*state.camera.position.distanceTo(state.controls.target)*3));const distance=Math.hypot(event.clientX-px,event.clientY-py);const tolerance=Math.max(18,radiusPx+10);if(distance<=tolerance&&(!best||distance<best.distance))best={mesh,distance}}return best?.mesh||null}
   /*

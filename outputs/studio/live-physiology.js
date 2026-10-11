@@ -882,6 +882,15 @@ export function resumeViewerState(){
 }
 /* Just the meshes. focusStructures calls THIS on its way in -- it is replacing
    one focus with another and must not hand the viewer's state back mid-way. */
+function leaveHeartAtlasBeforeMode() {
+  if (state.heartAtlasLoading) {
+    showToast('The heart atlas is loading. Please wait.');
+    return false;
+  }
+  if (state.heartAtlasOn && typeof window !== 'undefined') window.__osteo?.exitHeartAtlas?.();
+  return !state.heartAtlasOn;
+}
+
 function releaseFocusMeshes(){
   if(!state.focus)return false;
   (state.focus.keys||[state.focus.key]).flatMap(layerPool).forEach(o=>{o.visible=true;if(o.material)o.material.emissive?.setHex(0x000000)});
@@ -897,6 +906,7 @@ export function clearStudyFocus(){
 }
 /* A focused mechanism keeps the actual participating structures in view. */
 export function focusPhysiologyExample(kind){
+  if(!leaveHeartAtlasBeforeMode())return false;
   if(!['breathing','motor'].includes(kind)||!state.THREE)return false;
   if(state.separation)setSeparation(0);
   clearStudyFocus();clearSelection();suspendViewerState();
@@ -917,6 +927,7 @@ export function focusPhysiologyExample(kind){
   return true;
 }
 export async function focusStructures(spec){
+  if(!leaveHeartAtlasBeforeMode())return {ok:false,reason:'atlas-loading',found:0};
   if(state.separation)setSeparation(0);
   if(!state.scene)return {ok:false,reason:'not-booted',found:0};
   suspendViewerState();
@@ -1068,6 +1079,12 @@ function sharedFor(tissue){
 }
 
 export function enterXray(){
+  if(state.heartAtlasLoading){showToast('The heart atlas is loading. Please wait.');return false;}
+  if(state.xray||!state.scene||!state.renderer?.extensions)return false;
+  if(!state.renderer.extensions.has('EXT_color_buffer_float') && !state.renderer.extensions.has('EXT_color_buffer_half_float')) {
+    throw new Error('This device cannot render the floating-point projection. The 3D viewer is still available.');
+  }
+  if(!leaveHeartAtlasBeforeMode())return false;
   /* A peel in progress would be captured as the 'original' opacity by the
      material swap below and come back at 6% when the projection exits. */
   if(typeof restorePeel==='function')restorePeel();
@@ -1075,11 +1092,7 @@ export function enterXray(){
      a separated body it still produces a confident-looking image -- of a
      patient whose lungs are a body-depth in front of their chest wall. */
   if(state.separation)setSeparation(0);
-  if(state.xray||!state.scene)return false;
   if(state.movement)endMovement();
-  if(!state.renderer.extensions.has('EXT_color_buffer_float') && !state.renderer.extensions.has('EXT_color_buffer_half_float')) {
-    throw new Error('This device cannot render the floating-point projection. The 3D viewer is still available.');
-  }
   const THREE=state.THREE;
   const c=state.camera, ctr=state.controls;
   /*
@@ -1456,6 +1469,7 @@ export function exitXray(){
   state.scene.updateMatrixWorld(true);
 }
 export function setLayer(key,on){
+  if(!leaveHeartAtlasBeforeMode())return;
   if(state.xray)return;
   if(state.focus?.keep)clearStudyFocus();
   /* Meshes carried by a movement live under the pivot group, not their layer

@@ -1,204 +1,194 @@
-/* BetterHeart per-structure descriptions (Traditional Chinese), (c) BetterHeart, used with the owner's permission.
+/* Heart atlas descriptions, adapted from BetterHeart (used with the owner's permission) and translated into English.
  * Shape: key -> [category, title, text]. Shown in the Heart atlas info card; not lesson content. */
 export const DESCRIPTIONS = {
  "RA": [
-  "心腔 · RIGHT ATRIUM",
-  "右心房 RA",
-  "接收上、下腔靜脈及冠狀竇回流的缺氧血，再經三尖瓣流向右心室。前面觀看時，病人的右側在畫面左側。"
+  "Chamber · RIGHT ATRIUM",
+  "Right atrium (RA)",
+  "Receives deoxygenated blood returning from the superior and inferior vena cavae and the coronary sinus, then passes it through the tricuspid valve into the right ventricle. In the front view, the patient's right side is on the left of the screen."
  ],
  "RV": [
-  "心腔 · RIGHT VENTRICLE",
-  "右心室 RV",
-  "經肺動脈瓣把缺氧血送入肺動脈幹，再送往肺部。右心室位於心臟較前方；不要把畫面左右當成病人的左右。"
+  "Chamber · RIGHT VENTRICLE",
+  "Right ventricle (RV)",
+  "Pumps deoxygenated blood through the pulmonary valve into the pulmonary trunk and on to the lungs. The right ventricle lies toward the front of the heart; do not read the left and right of the screen as the patient's left and right."
  ],
  "LA": [
-  "心腔 · LEFT ATRIUM",
-  "左心房 LA",
-  "接收肺靜脈帶回的含氧血，再經二尖瓣流入左心室。左心房主要在心臟後方，切到後面視角較容易看見。"
+  "Chamber · LEFT ATRIUM",
+  "Left atrium (LA)",
+  "Receives oxygenated blood returned by the pulmonary veins and passes it through the mitral valve into the left ventricle. The left atrium lies mainly at the back of the heart, so it is easier to see from the back view."
  ],
  "LV": [
-  "心腔 · LEFT VENTRICLE",
-  "左心室 LV",
-  "經主動脈瓣將含氧血送往全身。左心室形成大部分心尖，心肌壁比右心室厚。"
+  "Chamber · LEFT VENTRICLE",
+  "Left ventricle (LV)",
+  "Pumps oxygenated blood through the aortic valve to the whole body. The left ventricle forms most of the apex, and its wall is thicker than that of the right ventricle."
  ],
  "TV": [
-  "瓣膜 · TRICUSPID VALVE",
-  "三尖瓣",
-  "位於右心房與右心室之間。關閉時幫助避免右心室收縮的血液逆流回右心房。"
+  "Valve · TRICUSPID VALVE",
+  "Tricuspid valve",
+  "Lies between the right atrium and right ventricle. When it closes it helps prevent blood from flowing back into the right atrium during right ventricular contraction."
  ],
  "MV": [
-  "瓣膜 · MITRAL VALVE",
-  "二尖瓣",
-  "位於左心房與左心室之間，由前、後兩片瓣葉構成。乳頭肌與腱索支持瓣葉，幫助避免收縮時向心房翻轉。"
+  "Valve · MITRAL VALVE",
+  "Mitral valve",
+  "Lies between the left atrium and left ventricle and has two leaflets, anterior and posterior. The papillary muscles and chordae tendineae support the leaflets and help keep them from flipping back into the atrium during contraction."
  ],
  "AV": [
-  "瓣膜 · AORTIC VALVE",
-  "主動脈瓣",
-  "位於左心室出口與主動脈之間。心室收縮時血液由此流入主動脈；關閉後防止血液回流左心室。"
+  "Valve · AORTIC VALVE",
+  "Aortic valve",
+  "Lies between the left ventricular outflow tract and the aorta. Blood flows through it into the aorta during ventricular contraction; once closed it stops blood flowing back into the left ventricle."
  ],
  "PV": [
-  "瓣膜 · PULMONARY VALVE",
-  "肺動脈瓣",
-  "位於右心室流出道與肺動脈幹之間，控制右心室送往肺部的血流。"
+  "Valve · PULMONARY VALVE",
+  "Pulmonary valve",
+  "Lies between the right ventricular outflow tract and the pulmonary trunk and controls the flow of blood from the right ventricle to the lungs."
  ],
  "PAP": [
-  "瓣膜支持構造",
-  "乳頭肌",
-  "乳頭肌與心室同步收縮，透過腱索維持瓣葉的支持，避免收縮時翻向心房。腱索兩端連接瓣葉與乳頭肌；部分乳頭肌與腱索為補足的教學示意。"
+  "Valve support structure",
+  "Papillary muscles",
+  "The papillary muscles contract together with the ventricle and, through the chordae tendineae, keep supporting the leaflets so they do not flip toward the atrium during contraction. The chordae connect the leaflets to the papillary muscles; some papillary muscles and chordae are added teaching schematics."
  ],
  "AO": [
-  "大血管 · AORTA",
-  "升主動脈",
-  "從左心室接收含氧血；冠狀動脈由主動脈根部附近起始，供應心肌本身。"
+  "Great vessel · AORTA",
+  "Ascending aorta",
+  "Receives oxygenated blood from the left ventricle. The coronary arteries arise near the aortic root and supply the heart muscle itself."
  ],
  "ARCH": [
-  "大血管 · AORTIC ARCH",
-  "主動脈弓",
-  "升主動脈向後彎成主動脈弓，再接降主動脈。本模型聚焦心臟附近，未顯示全部頭頸分支。"
+  "Great vessel · AORTIC ARCH",
+  "Aortic arch",
+  "The ascending aorta curves backward into the aortic arch, which continues as the descending aorta. This model focuses on the area near the heart and does not show all the head and neck branches."
  ],
  "DAO": [
-  "大血管 · DESCENDING AORTA",
-  "降主動脈",
-  "沿胸腔後方往下，持續供應軀幹與下半身。本模型截取胸段的一部分。"
+  "Great vessel · DESCENDING AORTA",
+  "Descending aorta",
+  "Runs down the back of the chest and keeps supplying the trunk and lower body. This model includes only part of the thoracic segment."
  ],
  "SVC": [
-  "大血管 · SUPERIOR VENA CAVA",
-  "上腔靜脈",
-  "把上半身回流的缺氧血送入右心房。右心導管示意由上腔靜脈開始，展示其後的心內路徑。"
+  "Great vessel · SUPERIOR VENA CAVA",
+  "Superior vena cava (SVC)",
+  "Carries deoxygenated blood from the upper body into the right atrium."
  ],
  "IVC": [
-  "大血管 · INFERIOR VENA CAVA",
-  "下腔靜脈",
-  "把下半身回流的缺氧血送入右心房。上下腔靜脈屬體循環靜脈。"
+  "Great vessel · INFERIOR VENA CAVA",
+  "Inferior vena cava (IVC)",
+  "Carries deoxygenated blood from the lower body into the right atrium. The superior and inferior vena cavae are systemic veins."
  ],
  "PT": [
-  "大血管 · PULMONARY TRUNK",
-  "肺動脈幹",
-  "從右心室經肺動脈瓣接收缺氧血，分成左、右肺動脈送往肺部。"
+  "Great vessel · PULMONARY TRUNK",
+  "Pulmonary trunk",
+  "Receives deoxygenated blood from the right ventricle through the pulmonary valve and divides into the left and right pulmonary arteries, which carry it to the lungs."
  ],
  "PAB": [
-  "大血管 · PULMONARY ARTERIES",
-  "肺動脈分叉",
-  "肺動脈幹分成左右肺動脈。肺動脈運送的是前往肺部的缺氧血，因此以藍色示意。"
+  "Great vessel · PULMONARY ARTERIES",
+  "Pulmonary artery bifurcation",
+  "The pulmonary trunk divides into the left and right pulmonary arteries. Pulmonary arteries carry deoxygenated blood to the lungs, so they are shown in blue."
  ],
  "RPA": [
-  "大血管 · RIGHT PULMONARY ARTERY",
-  "右肺動脈",
-  "把右心室送出的血液帶往右肺。"
+  "Great vessel · RIGHT PULMONARY ARTERY",
+  "Right pulmonary artery",
+  "Carries blood from the right ventricle to the right lung."
  ],
  "LPA": [
-  "大血管 · LEFT PULMONARY ARTERY",
-  "左肺動脈",
-  "把右心室送出的血液帶往左肺。"
+  "Great vessel · LEFT PULMONARY ARTERY",
+  "Left pulmonary artery",
+  "Carries blood from the right ventricle to the left lung."
  ],
  "RSPV": [
-  "大血管 · PULMONARY VEINS",
-  "右上肺靜脈",
-  "肺靜脈把在肺部取得氧氣的血液送回左心房；因此以紅色呈現。"
+  "Great vessel · PULMONARY VEINS",
+  "Right superior pulmonary vein",
+  "Pulmonary veins return blood that has picked up oxygen in the lungs to the left atrium, so they are shown in red."
  ],
  "RIPV": [
-  "大血管 · PULMONARY VEINS",
-  "右下肺靜脈",
-  "把右肺含氧血送回左心房。"
+  "Great vessel · PULMONARY VEINS",
+  "Right inferior pulmonary vein",
+  "Returns oxygenated blood from the right lung to the left atrium."
  ],
  "LSPV": [
-  "大血管 · PULMONARY VEINS",
-  "左上肺靜脈",
-  "把左肺含氧血送回左心房。"
+  "Great vessel · PULMONARY VEINS",
+  "Left superior pulmonary vein",
+  "Returns oxygenated blood from the left lung to the left atrium."
  ],
  "LIPV": [
-  "大血管 · PULMONARY VEINS",
-  "左下肺靜脈",
-  "把左肺含氧血送回左心房。"
+  "Great vessel · PULMONARY VEINS",
+  "Left inferior pulmonary vein",
+  "Returns oxygenated blood from the left lung to the left atrium."
  ],
  "LM": [
-  "冠狀動脈 · LEFT MAIN",
-  "左冠狀動脈主幹 LM",
-  "由主動脈根部起始，通常分為左前降支與左迴旋支，供應心肌。"
+  "Coronary artery · LEFT MAIN",
+  "Left main coronary artery (LM)",
+  "Arises from the aortic root and usually divides into the left anterior descending and left circumflex arteries, which supply the heart muscle."
  ],
  "LAD": [
-  "冠狀動脈 · LAD",
-  "左前降支 LAD",
-  "沿前室間溝向心尖走行，供應部分左心室前壁與心室中膈。實際供血範圍會因分支而異。"
+  "Coronary artery · LAD",
+  "Left anterior descending artery (LAD)",
+  "Runs along the anterior interventricular groove toward the apex and supplies part of the anterior wall of the left ventricle and the interventricular septum. The territory it actually supplies varies with branching."
  ],
  "LCX": [
-  "冠狀動脈 · LCx",
-  "左迴旋支 LCx",
-  "箭頭指向左迴旋支近端主幹，從左冠狀動脈分出後，沿左側房室溝走向後方。前面視角容易被周圍構造遮住，可切換後面視角或降低外壁不透明度查看。"
+  "Coronary artery · LCx",
+  "Left circumflex artery (LCx)",
+  "Branches from the left coronary artery and runs along the left atrioventricular groove toward the back. From the front view it is easily hidden by surrounding structures; switch to the back view or lower the wall opacity to see it."
  ],
  "RCA": [
-  "冠狀動脈 · RCA",
-  "右冠狀動脈 RCA",
-  "沿右側房室溝走行，供應右心及部分左心室。冠狀動脈優勢型會影響實際分支與供血範圍。"
+  "Coronary artery · RCA",
+  "Right coronary artery (RCA)",
+  "Runs along the right atrioventricular groove and supplies the right heart and part of the left ventricle. Coronary dominance affects the actual branches and the territory supplied."
  ],
  "RPL": [
-  "冠狀動脈分支",
-  "右冠狀動脈分支",
-  "右冠狀動脈在心臟後下方的分支。"
+  "Coronary artery branch",
+  "Right coronary artery branch",
+  "A branch of the right coronary artery on the lower back of the heart."
  ],
  "LADS": [
-  "冠狀動脈分支",
-  "前降支中膈分支",
-  "由前降支分出，供應心室中膈的一部分。"
+  "Coronary artery branch",
+  "Septal branches of the LAD",
+  "Arise from the left anterior descending artery and supply part of the interventricular septum."
  ],
  "CS": [
-  "心臟靜脈 · CORONARY SINUS",
-  "冠狀竇",
-  "匯集大部分心肌的靜脈回流，再流入右心房。位於心臟後方的房室溝附近。"
+  "Cardiac vein · CORONARY SINUS",
+  "Coronary sinus",
+  "Collects most of the venous return from the heart muscle and drains into the right atrium. It lies near the atrioventricular groove at the back of the heart."
  ],
  "CV1": [
-  "心臟靜脈",
-  "心臟靜脈",
-  "收集心肌使用後的血液，經心臟靜脈系統回流。"
+  "Cardiac vein",
+  "Cardiac vein",
+  "Collects blood that the heart muscle has used and returns it through the cardiac venous system."
  ],
  "CV2": [
-  "心臟靜脈",
-  "心臟靜脈",
-  "收集心肌使用後的血液，經心臟靜脈系統回流。"
- ],
- "PHRENIC": [
-  "神經 · SCHEMATIC",
-  "膈神經路徑（示意）",
-  "沿心包外側、在肺門前方走行，主要負責橫膈膜運動。此路徑為教學示意，未顯示完整胸腔。"
- ],
- "VAGUS": [
-  "神經 · SCHEMATIC",
-  "迷走神經路徑（示意）",
-  "迷走神經經胸腔並參與心臟的自主神經調節。圖中以後方路徑作概念示意，未顯示完整心臟神經叢。"
+  "Cardiac vein",
+  "Cardiac vein",
+  "Collects blood that the heart muscle has used and returns it through the cardiac venous system."
  ],
  "SA": [
-  "心臟傳導系統",
-  "竇房結 SA node",
-  "位於右心房上方、靠近上腔靜脈入口，正常心跳的電氣訊號由此開始。"
+  "Cardiac conduction system",
+  "Sinoatrial (SA) node",
+  "Lies at the top of the right atrium near the entrance of the superior vena cava; the electrical signal of a normal heartbeat starts here."
  ],
  "AVN": [
-  "心臟傳導系統",
-  "房室結 AV node",
-  "位於右心房中隔側，將訊號短暫延遲，讓心房的電氣活動與心室活動依序發生。"
+  "Cardiac conduction system",
+  "Atrioventricular (AV) node",
+  "Lies on the septal side of the right atrium and briefly delays the signal so that atrial and ventricular activity occur in sequence."
  ],
  "HIS": [
-  "心臟傳導系統",
-  "希氏束 His bundle",
-  "將房室結送出的訊號經房室交界傳入心室，接續分成左右束支。"
+  "Cardiac conduction system",
+  "Bundle of His",
+  "Carries the signal from the AV node across the atrioventricular junction into the ventricles, where it divides into the left and right bundle branches."
  ],
  "LBB": [
-  "心臟傳導系統",
-  "左束支 Left bundle branch",
-  "沿心室中隔左側向下，並分出主要分支，將訊號送往左心室。"
+  "Cardiac conduction system",
+  "Left bundle branch",
+  "Runs down the left side of the interventricular septum, gives off its main divisions and carries the signal to the left ventricle."
  ],
  "RBB": [
-  "心臟傳導系統",
-  "右束支 Right bundle branch",
-  "沿心室中隔右側傳導，將訊號送往右心室。"
+  "Cardiac conduction system",
+  "Right bundle branch",
+  "Runs along the right side of the interventricular septum and carries the signal to the right ventricle."
  ],
  "PK": [
-  "心臟傳導系統",
-  "浦肯野纖維 Purkinje network",
-  "在心室心內膜下形成傳導網絡，使心室肌依序接收電氣訊號並協調收縮。"
+  "Cardiac conduction system",
+  "Purkinje fibres",
+  "Form a conduction network beneath the ventricular endocardium so that the ventricular muscle receives the electrical signal in sequence and contracts in a coordinated way."
  ],
  "ATRIAL": [
-  "心臟傳導系統",
-  "心房內傳導示意",
-  "示意竇房結的訊號在右、左心房傳播，並抵達房室結；路徑為教學示意。"
+  "Cardiac conduction system",
+  "Intra-atrial conduction (schematic)",
+  "Schematic of the SA node signal spreading through the right and left atria to reach the AV node; the pathway is a teaching schematic."
  ]
 };

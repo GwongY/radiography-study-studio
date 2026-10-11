@@ -247,6 +247,15 @@ function showConceptKind(kind){
 }
 function publishConcepts(){ if(state.conceptHook) try{ state.conceptHook([...state.concepts]); }catch(e){} }
 
+function closeHeartAtlasForAction() {
+  if (state.heartAtlasLoading) {
+    showToast('The heart atlas is loading. Please wait.');
+    return false;
+  }
+  if (state.heartAtlasOn && typeof window !== 'undefined') window.__osteo?.exitHeartAtlas?.();
+  return !state.heartAtlasOn;
+}
+
 window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootPromise=boot3D()}return state.bootPromise||Promise.resolve(!!state.scene)},resize,
   hide:(m)=>hideMesh(m||null),
   hideSelected:()=>hideMesh(null),
@@ -333,6 +342,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
      showing a history whose storage has already gone. */
   resetStats:()=>{state.stats={};saveStats();renderReview()},
   setLayer:async(key,on,file)=>{
+    if(!closeHeartAtlasForAction())return false;
     /* The skeleton is already in the scene -- there is no file to fetch for
        either of its two chips, so they switch and return. */
     if(layerOf(key)==='skeleton'){setLayer(key,on);return true}
@@ -371,13 +381,15 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
     return hit?hit.userData.flowClass||null:null;
   },
   layerLoaded:(key)=>layerOf(key)==='skeleton'?!!state.fullModel:!!state.extraModels[layerOf(key)],
-  setLayerOpacity:(key,v)=>{state.layerOpacity={...(state.layerOpacity||{}),[key]:v};applyLayers()},
-  showSystem:async(key,file)=>{
+  setLayerOpacity:(key,v)=>{if(!closeHeartAtlasForAction())return;state.layerOpacity={...(state.layerOpacity||{}),[key]:v};applyLayers()},
+  showSystem:async(key,file,options={})=>{
+    if(!options.atlasEntry&&!closeHeartAtlasForAction())return false;
     if(!key){setExtraVisible(null);return true}
     try{await loadExtraModel(key,file);setExtraVisible(key);return true}
-    catch(e){showToast('Could not load that model — the skeleton is still available.');return false}
+    catch(e){showToast(options.failureMessage||'Could not load that model — the skeleton is still available.');return false}
   },
   selectInSystem:async(key,file,meshName)=>{
+    if(!closeHeartAtlasForAction())return false;
     try{
       const m=await loadExtraModel(key,file);
       setExtraVisible(key);
