@@ -16,7 +16,7 @@ import { createHeartMotion, cycleAt } from './heart-motion.js?v=26';
 import { createHeartbeat } from './heartbeat.js?v=11';
 import { ATLAS_SCALE, ATLAS_SHIFT } from './alignment.js?v=1';
 import { DESCRIPTIONS } from './descriptions.js?v=2';
-import { ECHO_VIEWS, computeEchoFrames, createEchoRenderer } from './echo-sim.js?v=17';
+import { ECHO_VIEWS, computeEchoFrames, createEchoRenderer } from './echo-sim.js?v=21';
 import { mountClinicalPanels, PANEL_SECTIONS } from './panels.js?v=1';
 export { mountClinicalPanels };
 
@@ -240,7 +240,7 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
      the plane, and the sector image is drawn in the panel from the same
      geometry. Frames are computed once from the REST positions (heartbeat
      rewrites the live arrays every frame). */
-  let echoFrames = null, echoRenderer = null, echoFan = null, echoView = 'A4C', echoLast = 0;
+  let echoFrames = null, echoRenderer = null, echoFan = null, echoView = 'A4C', echoLast = 0, echoCanvasEl = null, mmodeUi = null;
   const echoPlane = new THREE.Plane(), echoModelPlane = new THREE.Plane(), inv = new THREE.Matrix4();
   const echoClip = [echoPlane];
   const echoKind = (u) => u.group === 'wall' ? 'wall' : u.group === 'chambers' ? 'cavity' : ['aorta', 'pa', 'cava', 'pv'].includes(u.group) ? 'vessel' : u.key === 'PAP' ? 'solid' : u.group === 'valves' ? 'valve' : null;
@@ -248,6 +248,7 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
 
   function echoInit(canvas) {
     if (echoFrames) return;
+    echoCanvasEl = canvas;
     const rest = meshes.filter((m) => m.userData.positionCount && m.geometry.index)
       .map((m) => ({ key: m.userData.key, group: m.userData.group, pos: m.userData.rest, idx: m.geometry.index.array }));
     echoFrames = computeEchoFrames(rest).frames;
@@ -284,10 +285,12 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
 
   function setEchoView(id, canvas) {
     echoInit(canvas);
+    if (mmodeUi && mmodeUi.active() && !id.startsWith('MM_')) mmodeUi.deactivate();
     if (!echoFrames[id]) id = 'A4C';
     echoView = id;
     const fr = echoFrames[id], V = (a) => new THREE.Vector3(...a);
     buildFan(fr);
+    if (mmodeUi) mmodeUi.attachCursor(echoFan, fr, id);
     setClipping(true);
     echoModelPlane.setFromNormalAndCoplanarPoint(V(fr.n), V(fr.O));
     echoLast = 0;
@@ -326,10 +329,25 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
       sources.push({ kind: 'leaflet', valve: o.parent && o.parent.userData.key, pos: o.geometry.attributes.position.array, idx: o.geometry.index.array,
         matrix: new THREE.Matrix4().multiplyMatrices(inv, o.matrixWorld).elements });
     });
-    echoRenderer.render(sources, { ...echoFrames[echoView], labels: view && view.labels, hideValves: view && view.hideValves }, { rings: echoRings(), open: echoOpen() });
+    const placed = echoRenderer.render(sources, { ...echoFrames[echoView], labels: view && view.labels, hideValves: view && view.hideValves }, { rings: echoRings(), open: echoOpen() });
+    if (mmodeUi && mmodeUi.active()) mmodeUi.tick(ms, placed);
   }
 
-  function exitEcho() { setClipping(false); if (echoFan) echoFan.visible = false; }
+  /* M-mode (heart/mmode-ui.js, loaded on first use). Returns the echo view now showing, or null. */
+  async function setMmode(m, canvas) {
+    echoInit(canvas);
+    if (!mmodeUi) {
+      const { createMmodeUi } = await import('./mmode-ui.js?v=1');
+      if (!mmodeUi) mmodeUi = createMmodeUi({
+        rest: () => meshes.filter((x) => x.userData.positionCount && x.geometry.index).map((x) => ({ key: x.userData.key, group: x.userData.group, pos: x.userData.rest, idx: x.geometry.index.array })),
+        frames: () => echoFrames, views: ECHO_VIEWS, heartbeat, beat: () => S.beat, view: () => echoView,
+        setView: (id) => setEchoView(id, canvas), size: () => echoRenderer.size, canvas: () => echoCanvasEl,
+      });
+    }
+    return mmodeUi.set(m || null);
+  }
+
+  function exitEcho() { if (mmodeUi) mmodeUi.deactivate(); setClipping(false); if (echoFan) echoFan.visible = false; }
 
   apply();
   return {
@@ -338,7 +356,7 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
     setPreset, setShow, setOpacity, setPart, select, describe, pick, prepare, features, setHost,
     intro: () => { const f = features[PRESETS[S.preset].feature]; return f && f.intro ? f.intro() : null; },
     attach, detach, update, dispose,
-    PANEL_SECTIONS, ECHO_VIEWS, setEchoView, echoDraw, echoRenderer: () => echoRenderer,
+    PANEL_SECTIONS, ECHO_VIEWS, setEchoView, setMmode, mmodeMode: () => (mmodeUi ? mmodeUi.mode() : null), echoDraw, echoRenderer: () => echoRenderer,
     worldBox: () => new THREE.Box3().setFromObject(groups.wall),
   };
 }

@@ -18,6 +18,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { VERSIONS } from './lib/bh-js.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const HEART = join(ROOT, 'outputs', 'heart');
@@ -63,7 +64,8 @@ else {
   console.log(`build tag     ${base.buildTag === state.buildTag ? 'unchanged' : `${base.buildTag} -> ${state.buildTag}`}`);
   console.log(`mesh data     ${base.meshesHash === meshesHash ? 'unchanged' : 'CHANGED'}`);
   console.log(`modules       ${changed.length} changed, ${added.length} new, ${removed.length} removed`);
-  for (const k of changed) console.log('   changed  ' + k);
+  /* modules in VERSIONS are re-ported by work/port-betterheart.mjs; the rest carry hand adaptations (heart-motion, conduction, valve-*, ...) */
+  for (const k of changed) console.log('   changed  ' + k + (k in VERSIONS ? '   -> node work/port-betterheart.mjs ' + k : '   -> hand-adapted: diff it against outputs/heart/' + k));
   for (const k of added) console.log('   new      ' + k);
   for (const k of removed) console.log('   removed  ' + k);
 }

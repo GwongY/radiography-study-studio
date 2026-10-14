@@ -24,9 +24,16 @@ for (const f of files) {
   const src = readFileSync(f, 'utf8');
   mapStrings(src, ({ body }) => { if (hasCjk(body)) keys.add(body.replace(/\\(['"\\])/g, '$1').replace(/\\n/g, '\n')); });
 }
+/* The site's English is American; the app is British (oesophagus, depolarisation). Only stems seen in the
+   site's heart vocabulary, so a word like "size" is never touched. An override in work/heart-i18n-overrides.json
+   is taken as written. */
+const UK = [[/esophag/g, 'oesophag'], [/Esophag/g, 'Oesophag'], [/edema/g, 'oedema'], [/Edema/g, 'Oedema'], [/ischem/g, 'ischaem'], [/Ischem/g, 'Ischaem'],
+  [/hemodynamic/g, 'haemodynamic'], [/Hemodynamic/g, 'Haemodynamic'], [/hemorrhag/g, 'haemorrhag'], [/anemi/g, 'anaemi'],
+  [/(polar|ventricular|equal|normal|stabil|synchron|visual|minim|maxim|recogn|categor|character|general|local|optim|summar|util|real)iz(ation|e|ed|es|ing)/g, '$1is$2']];
+const british = (s) => UK.reduce((t, [re, to]) => t.replace(re, to), s);
 const dict = {}, missing = [];
 for (const k of [...keys].sort()) {
-  const v = over[k] ?? upstream[k];
+  const v = over[k] ?? (upstream[k] === undefined ? undefined : british(upstream[k]));
   if (v === undefined) missing.push(k); else dict[k] = v;
 }
 console.log(`${keys.size} Chinese strings in ${files.length} files: ${Object.keys(dict).length} translated, ${missing.length} missing`);

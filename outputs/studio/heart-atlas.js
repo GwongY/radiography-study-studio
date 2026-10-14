@@ -51,8 +51,8 @@ async function loadHeartModule() {
   if (heartModule) return heartModule;
   try {
     heartModule = importFailures === 0
-      ? await import('../heart/atlas.js?v=5')
-      : await import(`../heart/atlas.js?v=5&retry=${importFailures}`);
+      ? await import('../heart/atlas.js?v=6')
+      : await import(`../heart/atlas.js?v=6&retry=${importFailures}`);
   } catch (error) {
     importFailures += 1;
     throw error;
@@ -184,6 +184,8 @@ function buildEchoPanel() {
   host.innerHTML = `<div class="ha-row" id="ha-echoTabs" role="group" aria-label="TTE or TEE">${Object.entries(groups).map(([g, l]) => `<button type="button" data-ha-etab="${g}" aria-pressed="false">${l}</button>`).join('')}</div>
     <div class="ha-row" id="ha-echoViews"></div>
     <canvas id="ha-echoCanvas" class="ha-echo-canvas" role="img" aria-label="Simulated ultrasound sector image"></canvas>
+    <div class="ha-row" id="ha-mmodeRow" role="group" aria-label="M-mode"><button type="button" id="ha-echoPlay" aria-pressed="true">Pause heartbeat</button><button type="button" data-ha-mmode="AO" aria-pressed="false">M-mode: Ao / LA</button><button type="button" data-ha-mmode="LV" aria-pressed="false">LV</button><button type="button" data-ha-mmode="TAPSE" aria-pressed="false">TAPSE</button><button type="button" data-ha-mmode="" aria-pressed="false">Off</button></div>
+    <div id="ha-mmodeWrap" class="ha-mmode" hidden><canvas id="ha-mmodeCanvas" role="img" aria-label="M-mode image"></canvas><p class="ha-note" id="ha-mmodeHint"></p><div id="ha-mmodeValues"></div><p class="ha-note">The M-mode position comes from the 3D model; myocardial thickening and valve motion are physiological simulation, and the numbers are teaching values.</p></div>
     <p class="ha-note" id="ha-echoName"></p><p class="ha-note" id="ha-echoText"></p>`;
   const render = (g) => {
     $('ha-echoViews').innerHTML = atlas.ECHO_VIEWS.filter((v) => v.group === g).map((v) => `<button type="button" data-ha-echo="${v.id}" aria-pressed="false">${v.english}</button>`).join('');
@@ -192,6 +194,16 @@ function buildEchoPanel() {
     markEchoView();
   };
   host.querySelectorAll('[data-ha-etab]').forEach((t) => { t.onclick = () => render(t.dataset.haEtab); });
+  $('ha-echoPlay').onclick = () => $('ha-heartPlay').click();
+  host.querySelectorAll('[data-ha-mmode]').forEach((b) => {
+    b.onclick = async () => {
+      state.renderer.localClippingEnabled = true; sizeEcho();
+      let v;
+      try { v = await atlas.setMmode(b.dataset.haMmode || null, $('ha-echoCanvas')); }
+      catch (error) { console.error('M-mode failed to start', error); showToast('M-mode could not be started.'); return; }
+      if (v) { echoLastView = v.id; markEchoView(); $('ha-echoName').textContent = `${v.angle ? 'TEE ' + v.angle + ' · ' : ''}${v.english}`; $('ha-echoText').textContent = v.text; }
+    };
+  });
   render('TTE');
   const c = $('ha-echoCanvas');
   sizeEcho = () => { const w = Math.round(c.clientWidth * Math.min(devicePixelRatio || 1, 2)); if (w > 0 && c.width !== w) { c.width = w; c.height = Math.round(w * 7 / 8); } };
@@ -201,6 +213,15 @@ function buildEchoPanel() {
     echoResizeObserver.observe(c);
   }
   sizeEcho();
+}
+
+/* The sector's own pause button mirrors the heartbeat control (M-mode measures while it is paused). */
+let echoPlayShown = null;
+function syncEchoPlay() {
+  const on = atlas.heartbeat.isPlaying(), b = $('ha-echoPlay');
+  if (!b || on === echoPlayShown) return;
+  echoPlayShown = on;
+  b.textContent = on ? 'Pause heartbeat' : 'Play heartbeat'; b.setAttribute('aria-pressed', String(on));
 }
 
 function markEchoView() {
@@ -500,7 +521,7 @@ export async function enterHeartAtlas() {
     applyLayers();
     state.heartAtlasOn = true;
     state.atlasTick = (t) => {
-      try { atlas.update(t); }
+      try { atlas.update(t); if (atlas.state.preset === 'echo') syncEchoPlay(); }
       catch (error) {
         state.atlasTick = null;
         console.error('Heart atlas animation stopped; closing the mode.', error);

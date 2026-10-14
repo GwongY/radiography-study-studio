@@ -89,6 +89,6 @@ export function constStatement(src, name) {
 }
 
 export const VERSIONS = {
-  'heartbeat.js': 11, 'hemo-model.js': 4, 'hemo-explain.js': 2, 'hemo-panel.js': 11, 'hemo-sim.js': 3, 'pci-sim.js': 17, 'coronary-flow.js': 19, 'heart-text.js': 2, 'scenarios.js': 1,
-  'lumen-fit.js': 1, 'mmode.js': 9, 'arrhythmia.js': 10, 'ivus-sim.js': 7, 'ivus-image.js': 6,
+  'heartbeat.js': 11, 'hemo-model.js': 4, 'hemo-explain.js': 2, 'hemo-panel.js': 11, 'hemo-sim.js': 3, 'pci-sim.js': 17, 'coronary-flow.js': 19, 'heart-text.js': 2, 'echo-sim.js': 21, 'scenarios.js': 1,
+  'lumen-fit.js': 1, 'mmode.js': 9, 'mmode-ui.js': 1, 'arrhythmia.js': 10, 'ivus-sim.js': 7, 'ivus-image.js': 6,
 };

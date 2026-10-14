@@ -37,7 +37,7 @@ const PORTS = {
     ],
   },
   'hemo-model.js': {}, 'hemo-explain.js': {}, 'lumen-fit.js': {}, 'pci-sim.js': {}, 'hemo-sim.js': {},
-  'coronary-flow.js': {}, 'ivus-sim.js': {}, 'arrhythmia.js': {},
+  'coronary-flow.js': {}, 'ivus-sim.js': {}, 'arrhythmia.js': {}, 'mmode.js': {}, 'echo-sim.js': {},
   /* constants the site keeps inside its page script, lifted out whole */
   'heart-text.js': { extract: { from: 'heart.js', consts: ['IVUS_HINT', 'IVUS_TXT', 'IVUS_FIND', 'RTXT', 'ARR_DONE', 'CONDUCTION_CAM'] } },
   /* the site passes its own tr() in; ours is imported, so drop the parameter that would shadow it */

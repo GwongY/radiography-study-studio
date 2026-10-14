@@ -1626,6 +1626,11 @@ ul.asslines{list-style:none;margin:0;padding:0}
 #ha-ivusMeasure.active{background:var(--orange,#e08a5a);color:#1b1b1b}
 .ha-ivus-find{margin:0;font-size:calc(12.5px * var(--ts));line-height:1.55}
 
+/* Heart atlas, M-mode -- outputs/heart/mmode-ui.js */
+.ha-mmode{display:grid;gap:6px;min-width:0}
+.ha-mmode[hidden]{display:none}
+.ha-mmode canvas{width:100%;height:auto;display:block;border-radius:8px;background:#05080b}
+
 /* Heart atlas, rhythms and ablation -- outputs/heart/panels.js, scenarios.js */
 .ha-rhythm{display:grid;gap:8px;min-width:0}
 .ha-rhythm[hidden]{display:none}
