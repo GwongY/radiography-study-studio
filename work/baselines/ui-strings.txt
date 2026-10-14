@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1159 —
-  7707268e5b23bd6e  WHOLE SET
+— user-facing strings in outputs/ — 1161 —
+  0530802bfa4e2660  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -407,6 +407,7 @@
   6f13db4476ae898b  Heart atlas disposal failed
   058870b2089a8dae  Heart atlas entry failed; restoring the viewer.
   ee635fc9e840fc60  Heart atlas registration check failed
+  c33b6aacc31eb4bc  Heart atlas scenario failed to load
   a01e69ecda6b2a0a  Heart atlas selection cleanup failed
   4ef6cff4e69f817a  Heart atlas toggle failed.
   831bef238aea50ce  Heart model and teaching scripts: BetterHeart, meshes CC BY-SA 4.0, from BodyParts3D / Z-Anatomy.
@@ -716,6 +717,7 @@
   5e7de65014abb04a  That is not a pack file.
   65abc2a3ffcc911e  That is not a pack index (format "
   c1b89966f927cd48  That level needs a structure this model has not loaded.
+  4d4b253d5901cdea  That scenario could not be loaded. Check your connection and try again.
   e1bee8d506ebb8f0  The 3D layer could not be loaded right now.
   1a87df33818b2fb0  The 3D model is not available.
   188a07a1f493d877  The 3D models, the lessons and the source files are untouched \u2014 only your own history is.
