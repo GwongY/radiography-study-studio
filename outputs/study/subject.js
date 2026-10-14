@@ -262,8 +262,8 @@ function renderFlowKey() {
 }
 
 /*
- * Circulation extras: what BetterHeart's pages add to the vessel and heart layers, offered whenever one of those chips
- * is on. The studio owns the behaviour (studio/circulation-extras.js); this only draws the three controls. Colours and
+ * Circulation extras: what BetterHeart's pages add to the vessel layers, offered whenever one of the vessel or heart chips
+ * is on. The studio owns the behaviour (studio/circulation-extras.js); this only draws the flow-dots switch. Colours and
  * tap behaviour are not among them on purpose -- the key below already follows the oxygenation convention, and a tap
  * keeps left and right apart because that is the L2 drill.
  */
@@ -271,13 +271,10 @@ function renderCircExtras() {
   const api = window.__osteo && window.__osteo.circulation;
   const on = ['arterial', 'venous', 'heart'].some((k) => (layerState[k] || 'off') !== 'off');
   if (!api || !on) return '';
-  const st = api.state(), sc = api.scenarios();
-  const group = (kind, label, list) => `<optgroup label="${label}">${list.map(([id, l]) => `<option value="${kind}:${id}">${esc(l)}</option>`).join('')}</optgroup>`;
+  const st = api.state();
   return `<div class="circextras"><div class="kh">Circulation extras</div>
     <label class="ce"><input type="checkbox" id="ceDots"${st.dots ? ' checked' : ''}><span>Flow dots</span><small>arteries and veins</small></label>
-    <label class="ce"><input type="checkbox" id="ceHeart"${st.heart ? ' checked' : ''}><span>Enhanced heart</span><small>valves, chambers, beating</small></label>
-    <select id="ceScenario" aria-label="Open a scenario"><option value="">Open a scenario…</option>${group('heart', 'Heart atlas', sc.heart)}${group('limb', 'Limb vessels', sc.limb)}</select>
-    <div class="note">The enhanced heart stands in for the heart's own meshes while it is on, so they cannot be tapped.</div></div>`;
+    <div class="note">The Heart chip draws the enhanced heart -- valves, chambers, beating -- in place of the heart's own meshes, so those cannot be tapped; focus and Projection bring them back.</div></div>`;
 }
 
 export function renderLayerRail() {
@@ -303,10 +300,8 @@ export function renderLayerRail() {
   rail.querySelectorAll('[data-layer]').forEach((b) => { b.onclick = () => cycleLayer(b.dataset.layer, b); });
   const circ = window.__osteo && window.__osteo.circulation;
   if (circ) {
-    const dots = $$('ceDots'), heart = $$('ceHeart'), scenario = $$('ceScenario');
+    const dots = $$('ceDots');
     if (dots) dots.onchange = async () => { await circ.setDots(dots.checked); renderLayerRail(); };
-    if (heart) heart.onchange = async () => { heart.disabled = true; await circ.setHeart(heart.checked); renderLayerRail(); };
-    if (scenario) scenario.onchange = async () => { const v = scenario.value; scenario.value = ''; if (v) await circ.openScenario(v); };
   }
   const chip = $$('liveChip');
   if (chip) chip.onclick = () => {

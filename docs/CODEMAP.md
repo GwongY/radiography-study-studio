@@ -132,13 +132,13 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `cavity-geometry-derived.js` | 473 | Cavity geometry, derived from the loaded anatomy. |
-| `circulation-extras.js` | 94 | Circulation extras |
+| `circulation-extras.js` | 91 | Circulation extras |
 | `depth-picking.js` | 420 | Depth picking |
 | `explosion-layout.js` | 16 | Pack only visible source meshes. Every projected bounding box gets its own cell. |
-| `heart-atlas.js` | 698 | Heart atlas |
+| `heart-atlas.js` | 690 | Heart atlas |
 | `hide-and-search.js` | 114 | Hide, and search-driven uncover |
 | `imports.js` | 103 | Block 0 has its own import scope -- block 1's copy is not visible here. |
-| `limb-atlas.js` | 357 | Limb vessels |
+| `limb-atlas.js` | 347 | Limb vessels |
 | `live-physiology.js` | 1780 | Live physiology |
 | `packed-spread.js` | 91 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
 | `region-boxes-how.js` | 521 | Region boxes — how the region filter reaches the six soft-tissue layers |
@@ -181,7 +181,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `spatial-overlay-controls.js` | 120 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 35 | The study system's mutable UI state. |
 | `storage-versioned-keys.js` | 159 | Storage — versioned keys, one-time migration from the osteology app |
-| `subject.js` | 343 | Subject |
+| `subject.js` | 338 | Subject |
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 257 | Viewer tools — spread, section cut, layer depth |
 | `viewport-recovery.js` | 485 | The band below the tab bar — measuring it, and asking for the space back |

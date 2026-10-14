@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1234 —
-  b3883859af11cf83  WHOLE SET
+— user-facing strings in outputs/ — 1220 —
+  fc9a4a14ae59e150  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -197,14 +197,12 @@
   700d0e6637c671e0  <input type="checkbox" data-ha-part="
   660caf1b880e86b7  <input type="checkbox" data-ha-show="
   1b8b5718b484b569  <input type="checkbox" id="ceDots"
-  164a7046b850044f  <input type="checkbox" id="ceHeart"
   166a9b9081e89b18  <input type="range" id="examCountSlider" min="5" max="50" step="5" value="
   248d7a1f23802ad0  <input type="range" id="examTimeSlider" min="10" max="90" step="5" value="
   3a324e9e0d188447  <input type="range" min="8" max="100" value="
   65da2d38aebef408  <li class="assrow
   4a0089a78242886e  <li class="sessrow
   144901117bb21081  <li>A sync is waiting for the network.</li>
-  be3aba666bfdd183  <optgroup label="
   5f0ccbf50845efd8  <option value="
   541b9a046de22b45  <p class="figkey-note">Dimmed marks are the figure’s own labels, beyond this lesson’s named set.</p>
   e3eca2ac525ec10d  <p class="small">A mixed paper across subjects, so it does not stand in for any one assessment.</p>
@@ -289,7 +287,6 @@
   e4cc8252f2f7fe5d  Back up to a private GitHub gist
   442808ef2fd68469  Backup exported. The erase button is still there when you are ready.
   87b238e3beba6204  Beyond your course \u2014
-  a6f8979cf9b10128  Blood flow
   182d6f9b9b115719  Body cavities
   e72ca92c0272f35b  Body layers
   2cea2e3a045ac3d2  BodyParts3D / Anatomography model licensing and the candidate sources that were reviewed.
@@ -304,9 +301,7 @@
   955687714a9cf383  Built out of: a-, near + b/o, thing
   a7ac53f16f45ee2e  By subject
   2863d4882fc93b85  CRANium is the cap that holds the brain.
-  5c3e745e2d266a38  Calcium treatment
   d72271896337e29f  Carried over as known, but missed — worth reading the lesson on this one.
-  a16ba9e12da3ffcc  Cath pressures
   f4bfeb743bb75d23  Cavities behind the anatomy, correctly occluded.
   9cd4f2c0c016002f  Cavities drop back to a hint so the structures lead.
   9eb78b423e03f32d  Chambers and valves
@@ -328,14 +323,11 @@
   3baf54f532efe7d3  Close the focused lesson before opening the limb vessels.
   e57c17d13927ddf0  Close the heart atlas
   ed83ad7bf06ab235  Close the other viewer mode before opening the limb vessels.
-  39b0a548a645f61d  Clot lysis (DVT)
-  4a8175f3c060dbeb  Clot retrieval
   78e0f97b52bcc45f  Cloze recall
   2c5b57d5e71b2811  Colours and rhythms are drawn by this app, not measured.
   c6ffddc144cdab7e  Common confusions
   b1eb88b86761c850  Common confusions on this item
   20db2e0618629cd5  Compare with the model answer
-  030d9bcdbde5deaf  Conduction & rhythms
   dd3713b4cdcac4eb  Conduction system
   a75d43a157167800  Confirm it if that is right.
   ea15571d2e81759e  Connect once to download the circulatory layer for offline use.
@@ -374,7 +366,6 @@
   892bd00331369854  Drill these 
   29d95e88a631533a  Drill weakest 
   7f8ac71aa449b0ac  Email from
-  298ad014765f4515  Enhanced heart
   714107fe5444c036  Enhanced heart animation stopped; switching it off.
   f400b407a24abea1  Enhanced heart cleanup failed
   65d5d600357b9941  Enhanced heart failed to start.
@@ -613,8 +604,6 @@
   1e4827dab1028aa7  On where the page is measured short of the screen — it extends the app into the strip so the tab bar reaches the edge. What is left after that is the screen\'s own rounded corner, which no page can fill.
   a6c061874897dabb  One learning tree
   2db2d8da5f89a995  One to start you off —
-  2822bdadc4d770d1  Open a scenario
-  fd8bb898a4768b72  Open a scenario…
   4ab8e7a5acc75973  Open detail
   9b33b799de06232b  Open source dialog
   bc135a2d441222b6  Open the 3D model first.
@@ -624,7 +613,6 @@
   5d4ccdb9cfeecb7a  Opens in Viewer
   c9a8d09845fef502  Other labels on this figure (
   2053c76b6c147934  P wave, QRS and T wave with a cursor on the current phase
-  51819828b3369f18  PCI (right coronary)
   c5ca4a0d519c1995  Page / section
   88ce19bc20fd3349  Paper submitted
   998f59ec6907c1a6  Past papers, timed practice, mastery
@@ -775,6 +763,7 @@
   522e8247ff62fe14  The 3D viewer could not start.
   e329894670ba6143  The 3D viewer did not finish booting.
   7765e837cae1c30d  The 3D viewer has not finished booting.
+  b79d53a39dab5e47  The Heart chip draws the enhanced heart -- valves, chambers, beating -- in place of the heart's own meshes, so those cannot be tapped; focus and Projection bring them back.
   bced9d6acc82a832  The M-mode position comes from the 3D model; myocardial thickening and valve motion are physiological simulation, and the numbers are teaching values.
   18c0bd11dc622725  The answer log in that file is malformed.
   9ebdb7b20f4558c3  The briefing file is malformed:
@@ -783,7 +772,6 @@
   d6811f43e25d4939  The contrast
   d216dedb9f2f1d46  The controls live with the model — the render loop only runs while the studio is on screen, so a slider here would move bones you cannot see.
   58e55d5fa025b10d  The enhanced heart did not align with the model, so it was left off.
-  1ed42975c84bb3ac  The enhanced heart stands in for the heart's own meshes while it is on, so they cannot be tapped.
   c953e256b7ff57dc  The enhanced heart stopped after an error. The standard heart is back.
   7bce956a047534c7  The flow dots could not load. Try again.
   f44fc384994cd331  The four quadrants
@@ -867,7 +855,6 @@
   41146b07110e6e0c  Type the bone name
   d078bf7520a710d0  Type your answer
   314528767e58f2ee  ULna = yoUr elbow side: the pinky-side stable hinge.
-  9b2f088258d39d9c  Ultrasound & M-mode
   d2d26d5185dd6a94  University notices
   132f74cac4453f6b  Unnamed structure
   ccfe1ff0816d17cc  Unsupported version
@@ -1113,7 +1100,7 @@
   0eda74d519563cb0  s camera regions: a box in a limb
   039ed7115face420  s depth is a fraction of the vessel
   dce1c177b1e44a6a  s depth, less the tag
-  6ab58474f456ee94  s heart inside the NORMAL viewer: the Heart chip
+  374ca136be919d16  s heart: whenever the Heart chip is on, the atlas heart stands in for the explorer
   df49128572cf09cb  s job is only to feed it those meshes in the body
   91f0e226c82016ff  s left), fz 0 the trunk
   4e01dcdc55cd6293  s own half-width put the oesophagus
@@ -1186,7 +1173,6 @@
   0fcb2cf14e540c07  vCenterDepth = -(modelViewMatrix * vec4(uCenter,1.0)).z;
   b33a0e0d9fc04368  vCos = abs(dot(n, normalize(-mv.xyz)));
   9530daa7ca0f593d  vPosition = mv.xyz;
-  5644acec04fd8869  valves, chambers, beating
   35cf5b7cf14017b9  varying float vCenterDepth;
   84fbaea5156547f6  varying float vCos;
   7391f351ea4a8453  varying float vFlowS;

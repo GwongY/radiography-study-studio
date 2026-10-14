@@ -165,16 +165,6 @@ async function choosePreset(name) {
   return true;
 }
 
-/* Open the full atlas straight into a scenario (the layer rail's shortcut). */
-export async function openHeartScenario(name) {
-  if (state.enhancedHeartOn) exitEnhancedHeart();
-  if (!state.heartAtlasOn || state.limbAtlasOn) {
-    const ok = await enterHeartAtlas();
-    if (!ok || !state.heartAtlasOn || state.limbAtlasOn) return false;
-  }
-  return choosePreset(name);
-}
-
 function wireControls() {
   const presets = $('ha-presets');
   presets.innerHTML = Object.entries(atlas.PRESETS).map(([k, p]) => `<button type="button" data-ha-preset="${k}" aria-pressed="false">${p.label}</button>`).join('');
@@ -581,18 +571,20 @@ export async function enterHeartAtlas() {
 }
 
 /* ---- Enhanced heart ----
-   The atlas heart standing in for the explorer's heart inside the NORMAL viewer: the Heart chip's meshes are flagged
+   The explorer's heart: whenever the Heart chip is on, the atlas heart stands in for the explorer's heart meshes (started
+   and restarted by studio/circulation-extras.js). It is the atlas heart inside the NORMAL viewer: the Heart chip's meshes are flagged
    atlasHidden (as in the full mode) and the atlas group -- moving valves, chordae, coronaries, four-chamber colours
    when the chip is ghosted -- is drawn in their place, on the same beat clock the full mode uses. Every other layer is
    left exactly as it is. The trade: while it is on the explorer's own heart meshes cannot be tapped or studied, so
    anything that needs them (focus, Projection, the full atlas, the limb mode) switches it off first, through the
    same exit hook. It beats while Live physiology is on and holds still when the model is Static. */
 let enhancedLook = { op: -1, ghost: null };
-export async function enterEnhancedHeart() {
+export async function enterEnhancedHeart({ quiet = false } = {}) {
   if (state.enhancedHeartOn) return true;
   if (state.heartAtlasOn || busy) return false;
-  if (!(state.extraModels && state.extraModels.circulatory)) { showToast('Turn on the Heart layer first.'); return false; }
-  setBusy(true);
+  if (!(state.extraModels && state.extraModels.circulatory)) { if (!quiet) showToast('Turn on the Heart layer first.'); return false; }
+  /* quiet: the automatic start (studio/circulation-extras.js) must not flash the atlas button's loading label */
+  if (!quiet) setBusy(true);
   state.heartAtlasLoading = true;
   try {
     await ensureAtlas();
@@ -646,7 +638,7 @@ export async function enterEnhancedHeart() {
     return false;
   } finally {
     state.heartAtlasLoading = false;
-    setBusy(false);
+    if (!quiet) setBusy(false);
   }
 }
 

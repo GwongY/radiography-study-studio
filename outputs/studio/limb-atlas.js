@@ -313,16 +313,6 @@ export async function enterLimbAtlas() {
   }
 }
 
-/* Open the limb vessels straight into a scenario (the layer rail's shortcut). */
-export async function openLimbScenario(name) {
-  if (!state.limbAtlasOn) {
-    const ok = await enterLimbAtlas();
-    if (!ok || !state.limbAtlasOn) return false;
-  }
-  choosePreset(name);
-  return true;
-}
-
 export function exitLimbAtlas() {
   if (!state.limbAtlasOn && !saved) return;
   const before = saved;
