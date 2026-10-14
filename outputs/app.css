@@ -1590,7 +1590,7 @@ ul.asslines{list-style:none;margin:0;padding:0}
 .ha-head strong{font-size:calc(14px * var(--ts))}.ha-head span{opacity:.7}
 .ha-head button,.ha-row button,.ha-ecg-head button{font-size:calc(11px * var(--ts));padding:5px 9px;min-height:40px;border-radius:8px;border:1px solid var(--line,rgba(255,255,255,.2));background:transparent;color:inherit;cursor:pointer}
 .ha-row button.active,.ha-ecg-head button[aria-pressed="true"]{background:var(--orange,#e08a5a);color:#1b1b1b;border-color:transparent}
-.ha-scroll{flex:1;min-height:0;overflow:auto;padding:10px 12px;display:grid;gap:10px;align-content:start}
+.ha-scroll{flex:1;min-height:0;overflow:auto;padding:10px 12px;display:grid;grid-template-columns:minmax(0,1fr);gap:10px;align-content:start}
 .ha-row,.ha-shows,.ha-parts{display:flex;flex-wrap:wrap;gap:6px}
 .ha-shows label,.ha-parts label,.ha-check,.ha-slider{display:flex;align-items:center;gap:6px}
 .ha-slider{flex-wrap:wrap}.ha-slider input{flex:1 1 120px}
@@ -1608,3 +1608,46 @@ ul.asslines{list-style:none;margin:0;padding:0}
 .ha-info strong{font-size:calc(13px * var(--ts))}.ha-info span{opacity:.7;font-size:calc(11px * var(--ts))}.ha-info p{margin:0}
 .ha-echo{display:grid;gap:8px}.ha-echo[hidden]{display:none}
 .ha-echo-canvas{width:100%;aspect-ratio:8/7;background:#000;border-radius:8px;display:block}
+
+/* Heart atlas, cath-pressure scenario -- outputs/heart/panels.js, hemo-panel.js (ported from BetterHeart; the
+   monitor keeps its own dark palette whatever the theme). */
+.ha-hemo-panel{color:inherit;display:flex;flex-direction:column;gap:8px;min-width:0;max-width:100%}
+.ha-hemo-panel>*{min-width:0}
+.ha-hemo-dz>label{flex:1 1 100%;min-width:0}.ha-hemo-dz select{flex:1;width:100%;max-width:100%;min-width:0}.ha-hemo-dz label{flex-wrap:wrap}
+.ha-hemo-panel[hidden]{display:none}
+.ha-hemo-controls{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;font-size:calc(13px * var(--ts))}
+.ha-hemo-cath{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2px 8px}
+.ha-hemo-cath label{font-weight:600}
+.ha-hemo-cath.sw label{color:#f2d15c}
+.ha-hemo-cath.pg label{color:#ff9b9b}
+.ha-hemo-cath output{font:600 13px/1 ui-monospace,monospace;font-size:calc(13px * var(--ts));color:#fff;background:#1d2730;border-radius:5px;padding:3px 7px}
+.ha-hemo-cath input{grid-column:1/-1;width:100%}
+.ha-hemo-ticks{grid-column:1/-1;position:relative;height:14px;font-size:calc(10.5px * var(--ts));color:#8ea2b3}
+.ha-hemo-ticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.ha-hemo-dz,.ha-hemo-opts{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}
+.ha-hemo-dz label,.ha-hemo-opts label{display:flex;align-items:center;gap:6px}
+.ha-hemo-dz select,.ha-hemo-opts select{background:#161c22;color:#dfe6ec;border:1px solid #2c3640;border-radius:6px;padding:3px 6px;font:inherit}
+.ha-hemo-dz input[type=range]{width:120px}
+.ha-hemo-dz output{min-width:2.5em;color:#fff}
+.ha-hemo-chart{width:100%;height:auto;display:block;border-radius:8px;background:#0b1116;cursor:pointer;font-family:ui-monospace,monospace}
+.ha-hemo-legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:calc(11.5px * var(--ts));color:#9fb3c4}
+.ha-hemo-legend span::before{content:'';display:inline-block;width:18px;height:0;border-top:2px solid;vertical-align:middle;margin-right:5px}
+.ha-hemo-legend .sw::before{border-color:#f2d15c}
+.ha-hemo-legend .pg::before{border-color:#ff7a7a}
+.ha-hemo-legend .ref::before{border-top:2px dashed #ffad5c}
+.ha-hemo-read{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+.ha-hemo-block{background:#131a20;border:1px solid #232c35;border-radius:7px;padding:6px 8px;display:flex;flex-direction:column;gap:2px;font-size:calc(12px * var(--ts))}
+.ha-hemo-block strong{font-size:calc(11.5px * var(--ts));color:#9fb3c4;font-weight:600}
+.ha-hemo-block.sw strong{color:#f2d15c}.ha-hemo-block.pg strong{color:#ff9b9b}.ha-hemo-block.ref strong{color:#ffad5c}.ha-hemo-block.grad{border-color:#5a2a2a}.ha-hemo-block.grad strong{color:#ff8f8f}
+.ha-hemo-block span{display:flex;align-items:baseline;gap:5px}
+.ha-hemo-block em{font-style:normal;color:#b9c6d1;flex:1}
+.ha-hemo-block b{font:600 14px/1.2 ui-monospace,monospace;font-size:calc(14px * var(--ts));color:#fff}
+.ha-hemo-block small{font-size:calc(10px * var(--ts));color:#7f909e}
+.ha-hemo-note{margin:0;font-size:calc(11px * var(--ts));line-height:1.5;color:#7f909e}
+.ha-hemo-explain{background:#121a21;border:1px solid #26333e;border-left:3px solid #5fa8d8;border-radius:7px;padding:8px 12px 8px 12px;font-size:calc(13px * var(--ts));line-height:1.65;color:#d5dee6}
+.ha-hemo-explain-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin-bottom:2px}
+.ha-hemo-explain-head strong{font-size:calc(11.5px * var(--ts));letter-spacing:.06em;color:#7fc1ee;font-weight:600}
+.ha-hemo-explain-head span{font-size:calc(14px * var(--ts));font-weight:600;color:#fff}
+.ha-hemo-explain ul{margin:0;padding-left:1.2em}
+.ha-hemo-explain li{margin:2px 0}
+@media(max-width:650px){.ha-hemo-explain{font-size:calc(12.5px * var(--ts));line-height:1.5;padding:6px 10px}.ha-hemo-explain li{margin:1px 0}}

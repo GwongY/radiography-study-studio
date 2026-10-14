@@ -51,8 +51,8 @@ async function loadHeartModule() {
   if (heartModule) return heartModule;
   try {
     heartModule = importFailures === 0
-      ? await import('../heart/atlas.js?v=2')
-      : await import(`../heart/atlas.js?v=2&retry=${importFailures}`);
+      ? await import('../heart/atlas.js?v=3')
+      : await import(`../heart/atlas.js?v=3&retry=${importFailures}`);
   } catch (error) {
     importFailures += 1;
     throw error;
@@ -100,6 +100,7 @@ function panelHtml() {
     <p class="ha-status" id="ha-conductionStatus" hidden></p>
     <p class="ha-status" id="ha-apparatusStatus"></p>
     <section class="ha-echo" id="ha-echoPanel" hidden></section>
+    <div id="ha-clinical"></div>
     <article class="ha-info" aria-live="polite"><strong id="ha-infoTitle">Tap a structure</strong><span id="ha-infoCat"></span><p id="ha-infoText">Tap the heart, or choose a chamber or valve, to read about it. Descriptions are adapted from BetterHeart.</p></article>
     <p class="ha-credit">Heart model and teaching scripts: BetterHeart, meshes CC BY-SA 4.0, from BodyParts3D / Z-Anatomy. <a href="./heart/MODEL-NOTICES.txt" target="_blank" rel="noopener">Sources and licence</a></p>
   </div>`;
@@ -138,13 +139,26 @@ function syncControls() {
   $('ha-opacityValue').textContent = Math.round(S.opacity) + '%';
   for (const k of Object.keys(PART_LABELS)) { const c = panel.querySelector(`[data-ha-part="${k}"]`); if (c) c.checked = atlas.parts[k] !== false; }
   $('ha-echoPanel').hidden = S.preset !== 'echo';
+  for (const [k, id] of Object.entries(atlas.PANEL_SECTIONS || {})) { const el = $(id); if (el) el.hidden = S.preset !== k; }
   $('ha-conductionStatus').hidden = !S.show.conduction;
 }
 
 function wireControls() {
   const presets = $('ha-presets');
   presets.innerHTML = Object.entries(atlas.PRESETS).map(([k, p]) => `<button type="button" data-ha-preset="${k}" aria-pressed="false">${p.label}</button>`).join('');
-  presets.querySelectorAll('[data-ha-preset]').forEach((b) => { b.onclick = () => { atlas.setPreset(b.dataset.haPreset); syncControls(); onPresetChanged(); }; });
+  presets.querySelectorAll('[data-ha-preset]').forEach((b) => {
+    b.onclick = async () => {
+      const name = b.dataset.haPreset;
+      if (atlas.PRESETS[name].feature) {
+        b.disabled = true;
+        try { await atlas.prepare(name); }
+        catch (error) { console.error('Heart atlas scenario failed to load', error); showToast('That scenario could not be loaded. Check your connection and try again.'); return; }
+        finally { b.disabled = false; }
+        if (!state.heartAtlasOn) return;
+      }
+      atlas.setPreset(name); syncControls(); onPresetChanged();
+    };
+  });
   $('ha-shows').innerHTML = SHOWS.map(([k, l]) => `<label><input type="checkbox" data-ha-show="${k}"> ${l}</label>`).join('');
   $('ha-shows').querySelectorAll('[data-ha-show]').forEach((c) => { c.oninput = () => { atlas.setShow(c.dataset.haShow, c.checked); syncControls(); }; });
   $('ha-parts').innerHTML = Object.entries(PART_LABELS).map(([k, l]) => `<label><input type="checkbox" data-ha-part="${k}"> ${l}</label>`).join('');
@@ -440,6 +454,7 @@ export async function enterHeartAtlas() {
     if (!atlas) {
       const heartMod = await loadHeartModule();
       atlas = await heartMod.createHeartAtlas({ startPaused: prefersStill() });
+      heartMod.mountClinicalPanels($('ha-clinical'));
       createdHere = true;
     }
     if (!controlsWired) wireControls();

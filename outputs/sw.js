@@ -32,7 +32,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v206';
+const CACHE_VERSION = 'v207';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -99,12 +99,21 @@ const SHELL = [
    * The small atlas payload and source notice are also precached, so first use
    * works offline; the much larger circulatory GLB remains lazy.
    */
-  './heart/atlas.js?v=2',
+  './heart/atlas.js?v=3',
+  './heart/panels.js?v=1',
+  './heart/i18n.js?v=1',
+  './heart/i18n-en.js?v=1',
+  './heart/hemo-sim.js?v=3',
+  './heart/hemo-panel.js?v=11',
+  './heart/hemo-model.js?v=4',
+  './heart/hemo-explain.js?v=2',
+  './heart/pci-sim.js?v=17',
+  './heart/lumen-fit.js?v=1',
   './heart/alignment.js?v=1',
   './heart/descriptions.js?v=2',
   './heart/conduction.js?v=3',
   './heart/heart-motion.js?v=26',
-  './heart/heartbeat.js?v=9',
+  './heart/heartbeat.js?v=11',
   './heart/echo-sim.js?v=17',
   './heart/cardiac-cycle.js',
   './heart/valve-surfaces.js?v=4',

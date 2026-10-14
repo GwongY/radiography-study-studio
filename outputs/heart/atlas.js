@@ -13,10 +13,12 @@
 import * as THREE from 'three';
 import { createConduction } from './conduction.js?v=3';
 import { createHeartMotion, cycleAt } from './heart-motion.js?v=26';
-import { createHeartbeat } from './heartbeat.js?v=9';
+import { createHeartbeat } from './heartbeat.js?v=11';
 import { ATLAS_SCALE, ATLAS_SHIFT } from './alignment.js?v=1';
 import { DESCRIPTIONS } from './descriptions.js?v=2';
 import { ECHO_VIEWS, computeEchoFrames, createEchoRenderer } from './echo-sim.js?v=17';
+import { mountClinicalPanels, PANEL_SECTIONS } from './panels.js?v=1';
+export { mountClinicalPanels };
 
 export const CHAMBER_COLOURS = { RA: 0x668ea9, RV: 0x759fae, LA: 0xca998d, LV: 0xb76659 };
 const COLOURS = { wall: 0xb97465, valves: 0xe7d6ac, coronary: 0xcf6651, cardiacVein: 0x6884aa, aorta: 0xc96758, cava: 0x7695b9, pa: 0x6c92ae, pv: 0xd78d7b };
@@ -35,6 +37,8 @@ export const PRESETS = {
   dynamic:    { label: 'Heartbeat',       opacity: 22,  show: { wall: 1, chambers: 1, valves: 1, coronary: 1, great: 1, conduction: 0 }, speed: 1,   flow: true, dynamic: true },
   conduction: { label: 'Conduction',      opacity: 12,  show: { wall: 1, chambers: 0, valves: 0, coronary: 0, great: 1, conduction: 1 }, speed: 0.35, flow: false },
   echo:       { label: 'Ultrasound',    opacity: 100, show: { wall: 1, chambers: 0, valves: 1, coronary: 0, great: 1, conduction: 0 }, speed: 1,   flow: false, echo: true },
+  /* Clinical scenarios: `feature` names a lazily-built module (see prepare()), `section` the panel section it owns. */
+  hemo:       { label: 'Cath pressures', opacity: 14, show: { wall: 1, chambers: 0, valves: 1, coronary: 0, great: 1, conduction: 0 }, speed: 1,   flow: false, feature: 'hemo' },
 };
 
 export async function createHeartAtlas({ base = new URL('./', import.meta.url).href, startPaused = false } = {}) {
@@ -99,8 +103,8 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
       }
       if (g === 'coronary') { m.renderOrder = 1; m.material.depthWrite = !p.flow; m.material.opacity = 1; m.material.transparent = false; }
       if (GREAT.includes(g)) {
-        const see = S.preset === 'conduction';
-        m.material.opacity = see ? 0.18 : 1; m.material.transparent = see; m.material.depthWrite = !see;
+        const see = S.preset === 'conduction' || S.preset === 'hemo';
+        m.material.opacity = S.preset === 'hemo' ? 0.3 : see ? 0.18 : 1; m.material.transparent = see; m.material.depthWrite = !see;
       }
       if (key === 'PAP') {
         m.material.color.setHex(COLOURS.wall);
@@ -115,6 +119,26 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
     }
     motion.show(S.active && S.preset !== 'chambers', { flow: p.flow });
     heartbeat.setSpeed(p.speed);
+    for (const [k, f] of Object.entries(features)) f.group.visible = S.active && S.preset === k;
+  }
+
+  /* ---- Clinical scenarios ----
+     Built on first use (their modules are imported then, not at atlas load). The panel section a
+     scenario reads must already be in the DOM: studio/heart-atlas.js mounts heart/panels.js first. */
+  const features = {};
+  async function prepare(name) {
+    const p = PRESETS[name];
+    if (!p || !p.feature || features[name]) return features[name] || null;
+    if (p.feature === 'hemo') {
+      const [{ createHemo }, { createHemoPanel }] = await Promise.all([import('./hemo-sim.js?v=3'), import('./hemo-panel.js?v=11')]);
+      if (features[name]) return features[name];
+      const g = new THREE.Group();
+      g.name = 'atlas-hemo'; g.visible = false; group.add(g);
+      const sim = createHemo({ parent: g, deformPoint: heartbeat.deformPoint, motion, byKey });
+      const panel = createHemoPanel({ sim, heartbeat });
+      features[name] = { group: g, update() { sim.update(); panel.update(); }, enter() { panel.reset(); }, exit() {} };
+    }
+    return features[name] || null;
   }
 
   function select(key) {
@@ -147,7 +171,9 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
     for (const k of Object.keys(parts)) delete parts[k];
     select(null);
     if (was === 'echo' && name !== 'echo') exitEcho();
+    if (was !== name && features[was]) features[was].exit();
     apply();
+    if (was !== name && features[name]) features[name].enter();
     return true;
   }
   function setShow(k, on) { S.show[k] = on ? 1 : 0; apply(); }
@@ -168,6 +194,7 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
     conduction.update(beat, S.selected);
     S.beat = beat;
     if (p.echo) { if (echoFan) echoFan.visible = true; echoDraw(performance.now()); }
+    if (p.feature && features[p.feature]) features[p.feature].update(beat);
   }
 
   function dispose() {
@@ -281,9 +308,9 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
   return {
     group, groups, meshes, byKey, manifest, motion, heartbeat, parts,
     state: S, PRESETS,
-    setPreset, setShow, setOpacity, setPart, select, describe, pick,
+    setPreset, setShow, setOpacity, setPart, select, describe, pick, prepare, features,
     attach, detach, update, dispose,
-    ECHO_VIEWS, setEchoView, echoDraw, echoRenderer: () => echoRenderer,
+    PANEL_SECTIONS, ECHO_VIEWS, setEchoView, echoDraw, echoRenderer: () => echoRenderer,
     worldBox: () => new THREE.Box3().setFromObject(groups.wall),
   };
 }
