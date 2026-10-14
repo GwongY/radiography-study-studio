@@ -7,8 +7,8 @@
  *
  * Nothing here runs at module scope. */
 
-export function createProcHud() {
-  const $ = (id) => document.getElementById('ha-' + id);
+export function createProcHud({ prefix = 'ha-' } = {}) {
+  const $ = (id) => document.getElementById(prefix + id);
   let steps = [], duration = 1, t = 0, playing = true, shown = -1, onSeek = null, bound = false;
 
   const els = () => ({ list: $('procSteps'), caption: $('procCaption'), play: $('procPlay'), replay: $('procReplay'), scrub: $('procScrub'), hint: $('procHint') });

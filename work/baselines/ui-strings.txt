@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1166 —
-  20ced2e6bc459f4c  WHOLE SET
+— user-facing strings in outputs/ — 1201 —
+  6c1831509dbb3ee7  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -142,6 +142,8 @@
   5037f4fbb7be28c4  <button type="button" class="term" data-term="
   f67a053a761acb59  <button type="button" data-ha-echo="
   a11210dc5f7b44a3  <button type="button" data-ha-preset="
+  068e3f966e869db7  <button type="button" data-la-preset="
+  3b01ee2603c4c016  <button type="button" data-la-region="
   c788de990354b04d  <circle class="hot" cx="
   19fcd2a46cd8e679  <circle class="hot" data-hot="
   ae442e0069cfe5fb  <circle class="sk" cx="
@@ -270,6 +272,8 @@
   67cce00647649afd  App-authored aid
   5638e57272cc5eeb  Application recorded.
   96610ec0bf887745  Apply · scenario
+  d5b73833e18aaee6  Arm regions
+  0ed1c4f146d988d3  Arterial flow
   523e9ac9420b9f08  Assessment/practice context
   46b396c85919af7d  At a glance
   98c427b530ed1f56  Attach the fact to something you already know well.
@@ -309,10 +313,14 @@
   4cad109bd8bf7ba8  Choose a bone landmark
   1fd0e2b073997f0d  Click the hotspot for:
   cd9a490533f1b735  Close Projection before opening the heart atlas.
+  223b2c2730a583d5  Close Projection before opening the limb vessels.
+  85a5949c778aeb96  Close limb vessels
   55656b5e434f4c06  Close search
   e503367c41c06b12  Close session
   a588a0ec5115695d  Close the focused lesson before opening the heart atlas.
+  3baf54f532efe7d3  Close the focused lesson before opening the limb vessels.
   e57c17d13927ddf0  Close the heart atlas
+  ed83ad7bf06ab235  Close the other viewer mode before opening the limb vessels.
   78e0f97b52bcc45f  Cloze recall
   2c5b57d5e71b2811  Colours and rhythms are drawn by this app, not measured.
   c6ffddc144cdab7e  Common confusions
@@ -344,6 +352,7 @@
   1ce89851847711af  Delete every mastery record, mistake and schedule stored in this browser. There is no server and no undo, so export a backup first if you might want it.
   71eb8a08ffd768d7  Delete everything
   6b4482e521d6ca2b  Described in
+  b9d87a27ce7e548d  Device sizes, speeds and the clot and plaque shapes are teaching illustrations; the vessels are the explorer's own. Flow dots follow the vessel centre-lines.
   c83aee17dcb5bdf2  Diastole · ventricular filling
   f02a6b73528ef5aa  Did you cover it?
   93d539da04aaa89f  Did you get there?
@@ -461,18 +470,30 @@
   bf913fcad550f5eb  Layer 7, Muscular
   53726d5c6c42f35d  Leave this paper? Nothing is recorded until it is submitted.
   929fda3beb4aa693  Left / right
+  81fc40bd06d68923  Left arm
   5ca5b8e793bee30e  Left hand
+  ecba8c12c93b3967  Leg regions
   a3053906dabadf84  Level 1 · Identify
   617be6645af4d311  Level 2 · Left or right
   c0a7072453a97480  Level 3 · Landmarks
   fe13eb18e1aabd2a  Level 4 · Find
   fb0cba7118d5431a  Level 5 · Memory hooks
   4e0daaeb43239f40  Lift out whatever sits in front of the cavity.
+  a0787f112df22192  Limb routes and procedure animations: BetterHeart, vessels CC BY-SA 4.0, from BodyParts3D / Z-Anatomy.
+  5d92523f2489ac18  Limb vessels
+  fb1a1372b5ceaba2  Limb vessels animation stopped; closing the mode.
+  9edaf73ab1c50e21  Limb vessels controls
+  a280a873dbddfa88  Limb vessels detach failed
+  1c093bcf75bb669f  Limb vessels disposal failed
+  ee44405f4c2ab0cd  Limb vessels entry failed; restoring the viewer.
+  b3c01d33734b5236  Limb vessels toggle failed.
   ae0fd8d06fa2440f  Limited source coverage
+  364844514fd65933  Lit in green along its whole course on both sides, from origin to end. Tap it again to clear.
   86d0a64d8957c6f4  Live physiology
   19d7f3a65f188042  Load a private question bank JSON file or sync from a private repository to expand the exam pool with thousands of chapter questions.
   3f4169972d9430b8  Loaded question pack "
   6dc9738e319a50f2  Loading heart atlas…
+  e40373a04bdb6c6d  Loading limb vessels…
   ccc3f0daa040bf01  Loading skeleton, muscle, organs and heart…
   24c4a56f525fe0d9  Loading the Z-Anatomy skeleton — 159 named structures, 80 of them named by your course material, 88 things you can select. The other six system layers load on demand.
   d9ebad5495305a37  Loading the skeleton layer
@@ -589,10 +610,12 @@
   ce253ba033cf1abf  Phalanges of the hand
   032a270b28e8d32d  Plane \u00b7 separates
   ffcaf3bf7a5536c2  Play heartbeat
+  74308e73e59ebdb9  Position in the procedure
   b1fa06dcff9ea3f6  Practice paper
   6500e2302d2dac54  Practise ·
   d5ff712edaa1e542  Pre-aortic nodes
   6b6b69ac71bfe9de  Precise Z-Anatomy / BodyParts3D skeleton ·
+  626e73ac2e2866aa  Procedure steps
   97bbce4ac834ffb8  Progress erased \u2014
   dbe0aa3439619d84  Progress merged.
   045742deb50fcee2  Progress replaced from file.
@@ -619,6 +642,7 @@
   ff43191f37c6e281  Review scheduled from your answers
   818f842a6df6eadc  Revision exercise
   70e713c50b354a05  Rib-count memory
+  e32da4522b9793a5  Right arm
   f57aea52d9f416b4  Running mark
   226449e53de8c9e3  Saved the current view as a PNG.
   557649a62d5eb1a6  Scaphoid bone.r
@@ -644,6 +668,7 @@
   667095c7b2d70a16  Show the lesson first
   0595489058178b10  Show the model answer
   d0b966e35ee96fdd  Show the skeleton around the heart
+  f0c80dc7d3d237d2  Show the skeleton around the vessels
   cab88e281cc40392  Show them
   c8e398243f5fa550  Shrunk by
   7e8a98a62cfebe39  Shuffle and go again →
@@ -753,6 +778,10 @@
   0afc2685e3e71794  The item record in that file is missing or malformed.
   f0d091ecd0468216  The largest sesamoid bone slides like a dish in the trochlear groove.
   c305592b8a2341d1  The lesson below is unaffected.
+  36044bc5f29f1a49  The limb vessels could not load. Your viewer has been restored; try again.
+  f3902838023c6d09  The limb vessels mode
+  cdfe011fc10ac58d  The limb vessels still could not load. Reload the page, then try again.
+  feac98c0d0a6b988  The limb vessels stopped after an error. The 3D viewer is still running.
   f0864c68a8d121df  The longest and strongest bone angles inward from hip to knee.
   054bcb5189d58091  The lower horizontal line of the nine abdominopelvic regions. Measured at the body of L5.
   0022127b9bbde1a5  The manubriosternal junction. Vertebral level T4/T5, and the boundary between the superior and inferior mediastinum.
@@ -818,6 +847,7 @@
   a16d86c59b699247  Use the idea on something you have not seen.
   c4114cbb2027abdb  Vagus nerve (X)r
   ad3067dcb5a43246  Validation failures
+  e7a0bbd1fec7c429  Venous flow
   6b46d2656d79336e  Verifying, not teaching
   235aff25d47f45e6  Vertebra T5
   bf5f5fb18964519a  Vessels 186/419
@@ -831,6 +861,7 @@
   7efbff3832400d93  Where all of this came from
   01801f7e0fdeb96f  Where it went
   595c0868c16492a2  Where the xiphoid process meets the body of the sternum, at the anterior end of the thoracic outlet.
+  c19e1f70b7aed2d9  Which arm
   99e5997ec6eb3f95  Which bone does this hook belong to?
   14ab8c8c07e135d1  Whole body
   a6075b915d80c000  Work it out in your own words
@@ -862,6 +893,7 @@
   cae3667040774d63  along the way.
   f6ca2bae3ef97f78  already covered this, so the session opens on the question.
   9200422efeb6a14b  also deficient)
+  806cde273b729388  an atlas mode is open
   d69ed2e7567c8fed  an authored memory hook
   069d6e57d291854b  another structure
   94143c2692614a77  answer event
@@ -945,6 +977,7 @@
   7204bc464abbadf6  has no summary.
   678af8d54d4b2e77  has no title.
   d3626567f9a5400b  have I learnt it
+  13e89492fe874fed  heart-atlas-toggle limb-atlas-toggle
   801150784042ae58  hiddentray empty
   1627ca8d8438acb8  how far does this region reach
   940f7dac806d0907  htitle editorial
@@ -1046,6 +1079,8 @@
   6ab01b1dba123b71  region filter does not work
   ec6a0f3dde81ba11  repeats id
   781cdd8431f04584  reveal open
+  2c0e6e68763510e0  s `root`; the vessels themselves are the explorer
+  0eda74d519563cb0  s camera regions: a box in a limb
   039ed7115face420  s depth is a fraction of the vessel
   dce1c177b1e44a6a  s depth, less the tag
   df49128572cf09cb  s job is only to feed it those meshes in the body

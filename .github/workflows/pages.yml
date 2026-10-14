@@ -54,6 +54,8 @@ jobs:
         run: node work/data-index-check.mjs
       - name: The timetable points at real units and real items
         run: node work/schedule-check.mjs
+      - name: The limb frames fit the circulatory layer and every route lies in its vessel
+        run: node work/limb-check.mjs
       - name: Named cut levels resolve, measure and stay in order
         run: node work/cut-level-check.mjs
       - name: Bone landmark payload matches reviewed curation

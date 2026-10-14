@@ -88,7 +88,25 @@ export function constStatement(src, name) {
   throw new Error('const ' + name + ' does not end');
 }
 
+/* The source of `function NAME(...){...}` from a minified page script (no regex literal may contain a brace). */
+export function functionStatement(src, name) {
+  const m = new RegExp('(^|[;}])function ' + name + '[(]', 'm').exec(src);
+  if (!m) throw new Error('function ' + name + ' not found');
+  const from = m.index + m[1].length;
+  let i = src.indexOf('(', from), parens = 0;
+  for (; i < src.length; i++) { if (src[i] === '(') parens++; else if (src[i] === ')' && --parens === 0) break; }
+  let depth = 0, body = false;
+  for (i++; i < src.length; i++) {
+    const c = src[i];
+    if (c === '"' || c === "'" || c === '`') { for (i++; i < src.length && src[i] !== c; i++) if (src[i] === '\\') i++; continue; }
+    if (c === '/' && src[i + 1] === '/') { while (i < src.length && src[i] !== '\n') i++; continue; }
+    if (c === '{') { depth++; body = true; }
+    else if (c === '}') { depth--; if (body && depth === 0) return src.slice(from, i + 1); }
+  }
+  throw new Error('function ' + name + ' does not end');
+}
+
 export const VERSIONS = {
   'heartbeat.js': 11, 'hemo-model.js': 4, 'hemo-explain.js': 2, 'hemo-panel.js': 11, 'hemo-sim.js': 3, 'pci-sim.js': 17, 'coronary-flow.js': 19, 'heart-text.js': 2, 'echo-sim.js': 21, 'scenarios.js': 1,
-  'lumen-fit.js': 1, 'mmode.js': 9, 'mmode-ui.js': 1, 'arrhythmia.js': 10, 'ivus-sim.js': 7, 'ivus-image.js': 6,
+  'lumen-fit.js': 1, 'mmode.js': 9, 'mmode-ui.js': 1, 'leg-proc.js': 11, 'limb-text.js': 1, 'limb-flow.js': 1, 'limb.js': 1, 'camera-follow.js': 1, 'arrhythmia.js': 10, 'ivus-sim.js': 7, 'ivus-image.js': 6,
 };

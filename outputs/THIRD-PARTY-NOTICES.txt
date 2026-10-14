@@ -19,6 +19,16 @@ Mesh data (heart-meshes.bin, heart-manifest.json) and coronary-routes.js are dis
 author under Creative Commons Attribution-ShareAlike 4.0 International; they are adapted from
 BodyParts3D (DBCLS, CC BY-SA 2.1 JP) and Z-Anatomy / Dr. Murat Altun's Anatomi Simulatoru.
 The full source and modification notice is outputs/heart/MODEL-NOTICES.txt.
-The remaining scripts (conduction, heartbeat, valve, coronary-flow, echo-sim) carry no stated licence;
-they are included with the repository owner's confirmation that they have the author's permission,
-and were modified here (DOM ids namespaced, strings made English-first, host-driven).
+The remaining scripts (conduction, heartbeat, valve, coronary-flow, echo-sim, the hemodynamics, PCI, IVUS/OCT,
+rhythm and M-mode modules, and the limb modules below) carry the site's notice of 2026-10-14: code and teaching
+content (c) 2026 Dr. Tien-Chi Huang, all rights reserved, not to be copied or adapted without written permission.
+They are included with the repository owner's confirmation that they have the author's permission, and were
+modified here (DOM ids namespaced, strings made English-first, host-driven). Keep that permission in writing.
+
+BetterHeart limb vessels (outputs/limb/)
+Sources: https://skypray.synology.me/betterheart/upper-extremity-anatomy/ and .../lower-extremity-anatomy/
+The centre-line route data (routes-upper.json, routes-lower.json) is derived from the attributed BodyParts3D /
+Z-Anatomy vessel meshes and is distributed by its author under CC BY-SA 4.0 (see outputs/heart/MODEL-NOTICES.txt).
+The limb meshes themselves are not included: the viewer's own circulatory layer is the same source.
+The blood-flow dots and the three peripheral-intervention animations (leg-proc.js, limb-flow.js, limb-text.js) are
+covered by the notice above.

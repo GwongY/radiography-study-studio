@@ -1,3 +1,4 @@
 {
- "左右拖曳 2D 影像上的黃色游標可調整 M-mode 位置：游標在二尖瓣左側量左心室（IVS、LVID、LVPW、EF），在右側量 Ao、LA；按左上角暫停鈕後自動量測。": "Drag the yellow cursor on the 2D image to move the M-mode line: left of the mitral valve it measures the left ventricle (IVS, LVID, LVPW, EF), right of it the Ao and LA. Pause the heartbeat to measure automatically."
+ "左右拖曳 2D 影像上的黃色游標可調整 M-mode 位置：游標在二尖瓣左側量左心室（IVS、LVID、LVPW、EF），在右側量 Ao、LA；按左上角暫停鈕後自動量測。": "Drag the yellow cursor on the 2D image to move the M-mode line: left of the mitral valve it measures the left ventricle (IVS, LVID, LVPW, EF), right of it the Ao and LA. Pause the heartbeat to measure automatically.",
+ "沿導絲送入 Rotarex：導管頭內的螺旋高速旋轉，在頭端側窗產生負壓，把血栓吸進窗口、打碎後沿導管抽出體外。慢慢前進、後退、再前進，一段一段清掉。": "Rotarex is advanced over the wire: a helix inside the head spins at high speed, creating suction at the side windows that draws thrombus in, fragments it and carries it out through the catheter. It is advanced, pulled back and advanced again, clearing the clot section by section."
 }

@@ -18,6 +18,7 @@ import { init as init_depth_picking_js } from './studio/depth-picking.js';
 import { init as init_live_physiology_js } from './studio/live-physiology.js';
 import { init as init_tools_and_capture_js } from './studio/tools-and-capture.js';
 import { init as init_heart_atlas_js } from './studio/heart-atlas.js';
+import { init as init_limb_atlas_js } from './studio/limb-atlas.js';
 
 init_hide_and_search_js();
 init_spatial_concept_overlays_js();
@@ -26,6 +27,7 @@ init_depth_picking_js();
 init_live_physiology_js();
 init_tools_and_capture_js();
 init_heart_atlas_js();
+init_limb_atlas_js(); /* after the heart atlas: it wraps window.__osteo.exitHeartAtlas */
 /* Last: its __osteo surface must exist by the time the study half's viewer
    page asks for it, and the ctrlpill routing it reads was wired by
    depth-picking's init above. */

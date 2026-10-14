@@ -51,8 +51,8 @@ async function loadHeartModule() {
   if (heartModule) return heartModule;
   try {
     heartModule = importFailures === 0
-      ? await import('../heart/atlas.js?v=6')
-      : await import(`../heart/atlas.js?v=6&retry=${importFailures}`);
+      ? await import('../heart/atlas.js?v=7')
+      : await import(`../heart/atlas.js?v=7&retry=${importFailures}`);
   } catch (error) {
     importFailures += 1;
     throw error;
@@ -299,14 +299,16 @@ function setContext(on) {
 }
 
 /* ---- camera ---- */
-function frameHeart() {
-  const box = atlas.worldBox();
+function frameHeart() { frameWorldBox(atlas.worldBox()); }
+
+/* Put a world-space box in the middle of what the dock leaves of the stage. Shared with the limb vessels mode. */
+export function frameWorldBox(box, direction = null, margin = 1.5) {
   if (box.isEmpty()) return;
   const c = box.getCenter(new state.THREE.Vector3()), size = box.getSize(new state.THREE.Vector3());
   const camera = state.camera, controls = state.controls;
-  const offset = camera.position.clone().sub(controls.target).normalize();
+  const offset = direction ? direction.clone().normalize() : camera.position.clone().sub(controls.target).normalize();
   const half = Math.tan(camera.fov * Math.PI / 360) / camera.zoom;
-  const dist = Math.max(0.12, Math.max(size.y, size.x / Math.max(0.1, camera.aspect)) / (2 * half) + size.z / 2) * 1.5;
+  const dist = Math.max(0.12, Math.max(size.y, size.x / Math.max(0.1, camera.aspect)) / (2 * half) + size.z / 2) * margin;
   controls.minDistance = Math.min(controls.minDistance, dist * 0.2);
   controls.target.copy(c);
   camera.position.copy(c).add(offset.multiplyScalar(dist));
@@ -325,7 +327,7 @@ function frameHeart() {
   controls.update();
 }
 
-function takeSnapshot() {
+export function takeSnapshot() {
   if (!state.controls || !state.camera) throw new Error('The 3D viewer has not finished booting.');
   return {
     layers: { ...state.layers },
@@ -335,7 +337,7 @@ function takeSnapshot() {
   };
 }
 
-function restoreSnapshot(snapshot) {
+export function restoreSnapshot(snapshot) {
   if (!snapshot) return;
   const layers = state.layers || (state.layers = {});
   for (const key of Object.keys(layers)) if (!(key in snapshot.layers)) delete layers[key];
@@ -467,6 +469,7 @@ function bindPicking() {
 
 /* ---- enter / exit ---- */
 export async function enterHeartAtlas() {
+  if (state.limbAtlasOn) window.__osteo?.exitHeartAtlas?.(); /* the limb vessels mode is the other atlas: close it first */
   if (state.heartAtlasOn || busy) return state.heartAtlasOn;
   if (state.xray || state.focus) {
     showToast(state.xray ? 'Close Projection before opening the heart atlas.' : 'Close the focused lesson before opening the heart atlas.');
@@ -555,6 +558,7 @@ export async function enterHeartAtlas() {
 }
 
 export function exitHeartAtlas() {
+  if (state.limbAtlasOn) return; /* not ours to close */
   if (!state.heartAtlasOn && !saved) return;
   const before = saved;
   saved = null;
@@ -577,7 +581,7 @@ export function init() {
   toggle.setAttribute('aria-busy', 'false');
   toggle.textContent = 'Heart atlas';
   toggle.onclick = () => {
-    if (state.heartAtlasOn) exitHeartAtlas();
+    if (state.heartAtlasOn && !state.limbAtlasOn) exitHeartAtlas();
     else void enterHeartAtlas().catch((error) => {
       console.error('Heart atlas toggle failed.', error);
       showToast(loadFailureMessage());

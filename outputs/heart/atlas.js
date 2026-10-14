@@ -152,7 +152,7 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
       features.hemo = { group: g, update() { sim.update(); panel.update(); }, enter() { panel.reset(); }, exit() {} };
     }
     if (p.feature === 'pci' || p.feature === 'ivus' || p.feature === 'arrhythmia') {
-      const sc = await import('./scenarios.js?v=3');
+      const sc = await import('./scenarios.js?v=4');
       if (features[p.feature]) return features[p.feature];
       const ctx = { group, heartbeat, motion, byKey, host: () => host, onIntro: (i) => { if (onIntro) onIntro(i); } };
       features[p.feature] = p.feature === 'pci' ? await sc.createPciFeature(ctx) : p.feature === 'ivus' ? await sc.createIvusFeature(ctx) : await sc.createArrhythmiaFeature(ctx);

@@ -14,9 +14,11 @@ import { fileURLToPath } from 'node:url';
 import { mapStrings, hasCjk, VERSIONS } from './lib/bh-js.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const files = [...Object.keys(VERSIONS).map((f) => join(ROOT, 'outputs', 'heart', f)), join(ROOT, 'outputs', 'studio', 'heart-atlas.js'), join(ROOT, 'outputs', 'heart', 'heart-panels.js')]
+const files = [...Object.keys(VERSIONS).flatMap((f) => [join(ROOT, 'outputs', 'heart', f), join(ROOT, 'outputs', 'limb', f)]), join(ROOT, 'outputs', 'studio', 'heart-atlas.js'), join(ROOT, 'outputs', 'studio', 'limb-atlas.js'), join(ROOT, 'outputs', 'heart', 'heart-panels.js')]
   .filter(existsSync);
-const upstream = await (await fetch('https://skypray.synology.me/betterheart/heart-anatomy/i18n/en.json')).json();
+/* The three pages each ship their own Chinese -> English dictionary; the heart page's wins where they overlap. */
+const upstream = {};
+for (const page of ['lower-extremity-anatomy', 'upper-extremity-anatomy', 'heart-anatomy']) Object.assign(upstream, await (await fetch(`https://skypray.synology.me/betterheart/${page}/i18n/en.json`)).json());
 const over = existsSync(join(ROOT, 'work', 'heart-i18n-overrides.json')) ? JSON.parse(readFileSync(join(ROOT, 'work', 'heart-i18n-overrides.json'), 'utf8')) : {};
 
 const keys = new Set();

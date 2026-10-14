@@ -32,7 +32,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v210';
+const CACHE_VERSION = 'v211';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -89,6 +89,7 @@ const SHELL = [
   './studio/depth-picking.js',
   './studio/live-physiology.js',
   './studio/heart-atlas.js',
+  './studio/limb-atlas.js',
   './studio/tools-and-capture.js',
   /*
    * The heart atlas. studio/heart-atlas.js reaches heart/atlas.js by a dynamic
@@ -99,12 +100,22 @@ const SHELL = [
    * The small atlas payload and source notice are also precached, so first use
    * works offline; the much larger circulatory GLB remains lazy.
    */
-  './heart/atlas.js?v=6',
+  './heart/atlas.js?v=7',
+  /* Limb vessels: studio/limb-atlas.js reaches limb/limb.js by a dynamic import, like the heart atlas. The routes
+     are small (~380 KB together) and cached whole so the mode opens offline; the circulatory GLB stays lazy. */
+  './limb/limb.js?v=1',
+  './limb/alignment.js?v=1',
+  './limb/limb-flow.js?v=1',
+  './limb/leg-proc.js?v=11',
+  './limb/limb-text.js?v=1',
+  './limb/routes-upper.json?v=1',
+  './limb/routes-lower.json?v=1',
+  './heart/camera-follow.js?v=1',
+  './heart/proc-hud.js?v=2',
   './heart/mmode-ui.js?v=1',
   './heart/mmode.js?v=9',
-  './heart/scenarios.js?v=3',
+  './heart/scenarios.js?v=4',
   './heart/arrhythmia.js?v=10',
-  './heart/proc-hud.js?v=1',
   './heart/heart-text.js?v=2',
   './heart/ivus-sim.js?v=7',
   './heart/ivus-image.js?v=6',
