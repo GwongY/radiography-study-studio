@@ -20,7 +20,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { mapStrings, hasCjk, cjkTemplates, VERSIONS } from './lib/bh-js.mjs';
+import { mapStrings, hasCjk, cjkTemplates, constStatement, VERSIONS } from './lib/bh-js.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'outputs', 'heart');
@@ -37,6 +37,11 @@ const PORTS = {
     ],
   },
   'hemo-model.js': {}, 'hemo-explain.js': {}, 'lumen-fit.js': {}, 'pci-sim.js': {}, 'hemo-sim.js': {},
+  'coronary-flow.js': {}, 'ivus-sim.js': {},
+  /* constants the site keeps inside its page script, lifted out whole */
+  'heart-text.js': { extract: { from: 'heart.js', consts: ['IVUS_HINT', 'IVUS_TXT', 'IVUS_FIND'] } },
+  /* the site passes its own tr() in; ours is imported, so drop the parameter that would shadow it */
+  'ivus-image.js': { edits: [['createIvusView({canvas,lmode,tr=s=>s})', 'createIvusView({canvas,lmode})']] },
   'hemo-panel.js': {
     prefixIds: true,
     edits: [
@@ -60,14 +65,14 @@ export function transform(name, src, edits = [], prefixIds = false) {
   if (prefixIds) s = s.replace(/(\$\(|getElementById\()'([A-Za-z][\w-]*)'\)/g, "$1'ha-$2')");
   s = s.replace(/(\.\/[\w-]+\.js)\?v=\d+/g, (m, p) => { const v = VERSIONS[p.slice(2)]; return v ? `${p}?v=${v}` : m; });
   let wrapped = 0;
-  s = mapStrings(s, ({ quote, body }) => {
-    if (!hasCjk(body)) return undefined;
+  s = mapStrings(s, ({ quote, body, before }) => {
+    if (!hasCjk(body) || before === 'tr(') return undefined; /* already translated by the site */
     /* leave import specifiers and anything already inside tr() alone */
     wrapped++;
     return `tr(${quote}${body}${quote})`;
   });
   const templates = cjkTemplates(s);
-  if (wrapped) {
+  if (wrapped || /(^|[^\w$.])tr\(/.test(s)) {
     const imp = "import {tr} from './i18n.js?v=1';\n";
     const lines = s.split('\n');
     const at = lines.findIndex((l) => !/^\s*(\/\/|\/\*|\*)/.test(l));
@@ -85,7 +90,10 @@ let failed = 0;
 for (const [name, cfg] of Object.entries(PORTS)) {
   if (only.length && !only.includes(name)) continue;
   try {
-    const { text, wrapped, templates } = transform(name, await fetchText(name), cfg.edits, cfg.prefixIds);
+    let src;
+    if (cfg.extract) { const page = (await fetchText(cfg.extract.from)).replace(/\r/g, ''); src = cfg.extract.consts.map((c) => 'export ' + constStatement(page, c)).join('\n') + '\n'; }
+    else src = await fetchText(name);
+    const { text, wrapped, templates } = transform(name, src, cfg.edits, cfg.prefixIds);
     console.log(`${name}: ${text.split('\n').length} lines, ${wrapped} Chinese literals wrapped in tr()${templates.length ? `, ${templates.length} template literal(s) with Chinese NOT wrapped` : ''}`);
     for (const t of templates) console.log('   template: ' + t.replace(/\n/g, ' '));
     if (write) writeFileSync(join(OUT, name), text.replace(/\n/g, '\r\n'));

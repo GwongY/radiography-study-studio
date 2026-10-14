@@ -35,7 +35,7 @@ export function mapStrings(src, fn) {
       let j = i + 1;
       for (; j < n && src[j] !== c; j++) { if (src[j] === '\\') j++; if (src[j] === '\n') break; }
       if (src[j] === c) {
-        const r = fn({ start: i, end: j + 1, quote: c, body: src.slice(i + 1, j) });
+        const r = fn({ start: i, end: j + 1, quote: c, body: src.slice(i + 1, j), before: src.slice(Math.max(0, i - 3), i) });
         if (typeof r === 'string') { out += src.slice(last, i) + r; last = j + 1; }
         i = j + 1; continue;
       }
@@ -71,7 +71,23 @@ export function cjkTemplates(src) {
 
 /* The one specifier each ported module is imported by, everywhere under outputs/heart. Bump the number
    when the module's content changes (it is the browser's cache key; the SW list must name it too). */
+/* The source of `const NAME=...;` (top-level, a single statement) from a minified module. */
+export function constStatement(src, name) {
+  const m = new RegExp('^const ' + name + '=', 'm').exec(src);
+  if (!m) throw new Error('const ' + name + ' not found');
+  let depth = 0;
+  for (let i = m.index; i < src.length; i++) {
+    const c = src[i];
+    if (c === '"' || c === "'" || c === '`') { for (i++; i < src.length && src[i] !== c; i++) if (src[i] === '\\') i++; continue; }
+    if (c === '/' && src[i + 1] === '/') { while (i < src.length && src[i] !== '\n') i++; continue; }
+    if ('{[('.includes(c)) depth++;
+    else if ('}])'.includes(c)) depth--;
+    else if (c === ';' && depth === 0) return src.slice(m.index, i + 1);
+  }
+  throw new Error('const ' + name + ' does not end');
+}
+
 export const VERSIONS = {
-  'heartbeat.js': 11, 'hemo-model.js': 4, 'hemo-explain.js': 2, 'hemo-panel.js': 11, 'hemo-sim.js': 3, 'pci-sim.js': 17,
+  'heartbeat.js': 11, 'hemo-model.js': 4, 'hemo-explain.js': 2, 'hemo-panel.js': 11, 'hemo-sim.js': 3, 'pci-sim.js': 17, 'coronary-flow.js': 19, 'heart-text.js': 1, 'scenarios.js': 1,
   'lumen-fit.js': 1, 'mmode.js': 9, 'arrhythmia.js': 10, 'ivus-sim.js': 7, 'ivus-image.js': 6,
 };

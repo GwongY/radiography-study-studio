@@ -33,10 +33,34 @@ export function hemoPanelHtml() {
   </section>`;
 }
 
-/* The sections a scenario preset owns, by preset name. */
-export const PANEL_SECTIONS = { hemo: 'ha-hemoPanel' };
+/* Step player shared by the procedure scenarios (heart/proc-hud.js). */
+export function procPanelHtml() {
+  return `<section id="ha-procPanel" class="ha-proc" aria-label="Procedure steps" hidden>
+    <p class="ha-note" id="ha-procHint"></p>
+    <div class="ha-row"><button type="button" id="ha-procPlay" aria-pressed="true">Pause</button><button type="button" id="ha-procReplay">Replay</button></div>
+    <input type="range" id="ha-procScrub" min="0" max="1000" value="0" aria-label="Position in the procedure">
+    <ol id="ha-procSteps" class="ha-proc-steps" aria-label="Procedure steps"></ol>
+    <p id="ha-procCaption" class="ha-proc-caption" aria-live="polite"></p>
+  </section>`;
+}
+
+export function ivusPanelHtml() {
+  return `<section id="ha-ivusPanel" class="ha-ivus" aria-label="Intravascular imaging" hidden>
+    <div class="ha-row" role="group" aria-label="IVUS or OCT"><button type="button" class="active" data-ha-ivus="ivus" aria-pressed="true">IVUS</button><button type="button" data-ha-ivus="oct" aria-pressed="false">OCT</button></div>
+    <p class="ha-note" id="ha-ivusModeName"></p>
+    <div class="ha-ivus-wrap"><canvas id="ha-ivusCanvas" width="560" height="560" role="img" aria-label="Cross-section of the vessel as the imaging catheter sees it"></canvas>
+      <button type="button" id="ha-ivusMeasure" class="active" aria-pressed="true" aria-label="Automatic contours on or off" title="Automatic contours on or off">&#9678;</button></div>
+    <canvas id="ha-ivusLmode" class="ha-ivus-lmode" width="640" height="140" role="img" aria-label="Longitudinal L-mode view; tap to jump to a position"></canvas>
+    <p class="ha-note">Longitudinal view (L-mode): proximal on the left, distal on the right, the blue line is the current position. Drag the round image or the longitudinal view to move along the vessel; while paused the lumen and vessel boundaries are measured automatically (the circle button switches the contours).</p>
+    <p id="ha-ivusFind" class="ha-ivus-find" aria-live="polite"></p>
+    <p class="ha-note">Teaching images generated from a parametric model, not real patient images; lesion positions, sizes and measurements are for comparison only.</p>
+  </section>`;
+}
+
+/* The panel sections each scenario preset shows (a preset's panel is hidden otherwise). */
+export const PANEL_SECTIONS = { hemo: ['ha-hemoPanel'], pci: ['ha-procPanel'], ivus: ['ha-procPanel', 'ha-ivusPanel'] };
 
 export function mountClinicalPanels(host) {
   if (host.querySelector('#ha-hemoPanel')) return;
-  host.insertAdjacentHTML('beforeend', hemoPanelHtml());
+  host.insertAdjacentHTML('beforeend', hemoPanelHtml() + procPanelHtml() + ivusPanelHtml());
 }

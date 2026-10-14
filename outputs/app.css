@@ -1609,6 +1609,23 @@ ul.asslines{list-style:none;margin:0;padding:0}
 .ha-echo{display:grid;gap:8px}.ha-echo[hidden]{display:none}
 .ha-echo-canvas{width:100%;aspect-ratio:8/7;background:#000;border-radius:8px;display:block}
 
+/* Heart atlas, procedure player (PCI, IVUS/OCT) -- outputs/heart/proc-hud.js, panels.js */
+.ha-proc,.ha-ivus{display:grid;gap:8px;min-width:0}
+.ha-proc[hidden],.ha-ivus[hidden]{display:none}
+.ha-proc input[type=range]{width:100%}
+.ha-proc-steps{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.ha-proc-steps button{display:flex;gap:8px;align-items:center;width:100%;text-align:left;min-height:40px;padding:6px 10px;border-radius:8px;border:1px solid var(--line,rgba(255,255,255,.2));background:transparent;color:inherit;font-size:calc(12px * var(--ts));cursor:pointer}
+.ha-proc-steps button b{flex:none;width:1.7em;height:1.7em;border-radius:50%;display:grid;place-items:center;background:rgba(127,127,127,.25);font-size:calc(11px * var(--ts))}
+.ha-proc-steps button.active{background:var(--orange,#e08a5a);color:#1b1b1b;border-color:transparent}
+.ha-proc-steps button.done b{background:var(--teal,#5fd3c4);color:#0b1a17}
+.ha-proc-caption{margin:0;font-size:calc(12.5px * var(--ts));line-height:1.55}
+.ha-ivus-wrap{position:relative}
+.ha-ivus-wrap canvas,.ha-ivus-lmode{width:100%;height:auto;display:block;border-radius:8px;background:#05080b;touch-action:none}
+.ha-ivus-wrap canvas{cursor:ew-resize}.ha-ivus-lmode{cursor:pointer}
+#ha-ivusMeasure{position:absolute;top:6px;right:6px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.45);color:#fff;font-size:calc(16px * var(--ts));cursor:pointer}
+#ha-ivusMeasure.active{background:var(--orange,#e08a5a);color:#1b1b1b}
+.ha-ivus-find{margin:0;font-size:calc(12.5px * var(--ts));line-height:1.55}
+
 /* Heart atlas, cath-pressure scenario -- outputs/heart/panels.js, hemo-panel.js (ported from BetterHeart; the
    monitor keeps its own dark palette whatever the theme). */
 .ha-hemo-panel{color:inherit;display:flex;flex-direction:column;gap:8px;min-width:0;max-width:100%}

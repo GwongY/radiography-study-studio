@@ -1,7 +1,7 @@
 import * as T from 'three';
 import {leaflet} from './valve-surfaces.js?v=4';
 import {createValveApparatus} from './valve-apparatus.js?v=7';
-import {createCoronaryFlow} from './coronary-flow.js?v=10';
+import {createCoronaryFlow} from './coronary-flow.js?v=19';
 import {createTransvalvularFlow} from './transvalvular-flow.js?v=2';
 import {smooth} from './cardiac-cycle.js';
 import {computeValveRings} from './valve-rings.js?v=2';

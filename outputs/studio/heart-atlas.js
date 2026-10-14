@@ -51,8 +51,8 @@ async function loadHeartModule() {
   if (heartModule) return heartModule;
   try {
     heartModule = importFailures === 0
-      ? await import('../heart/atlas.js?v=3')
-      : await import(`../heart/atlas.js?v=3&retry=${importFailures}`);
+      ? await import('../heart/atlas.js?v=4')
+      : await import(`../heart/atlas.js?v=4&retry=${importFailures}`);
   } catch (error) {
     importFailures += 1;
     throw error;
@@ -139,7 +139,8 @@ function syncControls() {
   $('ha-opacityValue').textContent = Math.round(S.opacity) + '%';
   for (const k of Object.keys(PART_LABELS)) { const c = panel.querySelector(`[data-ha-part="${k}"]`); if (c) c.checked = atlas.parts[k] !== false; }
   $('ha-echoPanel').hidden = S.preset !== 'echo';
-  for (const [k, id] of Object.entries(atlas.PANEL_SECTIONS || {})) { const el = $(id); if (el) el.hidden = S.preset !== k; }
+  const open = new Set((atlas.PANEL_SECTIONS || {})[S.preset] || []);
+  for (const id of new Set(Object.values(atlas.PANEL_SECTIONS || {}).flat())) { const el = $(id); if (el) el.hidden = !open.has(id); }
   $('ha-conductionStatus').hidden = !S.show.conduction;
 }
 
@@ -219,9 +220,23 @@ function chooseEcho(id) {
 /* Entering the echo preset selects a view (the last one, else A4C); leaving it
    -- atlas.setPreset has already cleared the clipping -- turns the renderer's
    local clipping off again. */
+let lastPreset = 'natural';
+const isProcedure = (p) => p === 'pci' || p === 'ivus';
 function onPresetChanged() {
-  if (atlas.state.preset === 'echo') chooseEcho(echoLastView);
+  const p = atlas.state.preset;
+  if (p === 'echo') chooseEcho(echoLastView);
   else if (state.renderer) state.renderer.localClippingEnabled = false;
+  const intro = atlas.intro();
+  if (intro) showIntro(intro);
+  else if (isProcedure(lastPreset) && !isProcedure(p)) { showInfo(atlas.state.selected); frameHeart(); }
+  lastPreset = p;
+}
+
+/* A scenario's own card in the info area (the procedure scenarios explain themselves there). */
+function showIntro(i) {
+  $('ha-infoTitle').textContent = i.title;
+  $('ha-infoCat').textContent = i.category;
+  $('ha-infoText').textContent = i.text;
 }
 
 function showInfo(key) {
@@ -465,6 +480,7 @@ export async function enterHeartAtlas() {
     if (!ok) { cleanupEntry(before, createdHere); return false; }
     const circ = state.extraModels.circulatory;
     if (!circ) throw new Error('The circulatory layer did not load.');
+    atlas.setHost({ camera: state.camera, controls: state.controls }, showIntro);
     atlas.attach(circ.root);
     circ.root.updateMatrixWorld(true);
     state.scene.updateMatrixWorld(true);
@@ -498,8 +514,9 @@ export async function enterHeartAtlas() {
     toggle.setAttribute('aria-pressed', 'true');
     $('ha-context').checked = false;
     syncControls();
+    lastPreset = atlas.state.preset;
     onPresetChanged();
-    showInfo(null);
+    if (!atlas.intro()) showInfo(null);
     bindPicking();
     frameHeart();
     notifyLayersChanged();
