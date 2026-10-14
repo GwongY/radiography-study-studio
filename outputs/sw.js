@@ -32,7 +32,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v211';
+const CACHE_VERSION = 'v212';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -90,6 +90,7 @@ const SHELL = [
   './studio/live-physiology.js',
   './studio/heart-atlas.js',
   './studio/limb-atlas.js',
+  './studio/circulation-extras.js',
   './studio/tools-and-capture.js',
   /*
    * The heart atlas. studio/heart-atlas.js reaches heart/atlas.js by a dynamic
@@ -106,6 +107,7 @@ const SHELL = [
   './limb/limb.js?v=1',
   './limb/alignment.js?v=1',
   './limb/limb-flow.js?v=1',
+  './limb/vessel-dots.js?v=1',
   './limb/leg-proc.js?v=11',
   './limb/limb-text.js?v=1',
   './limb/routes-upper.json?v=1',

@@ -60,6 +60,17 @@ async function loadHeartModule() {
   return heartModule;
 }
 
+/* The atlas needs the panel's DOM (the ported modules look it up by id), hidden or not. Shared by the full mode,
+   the enhanced heart and the scenario shortcuts. */
+async function ensureAtlas() {
+  buildPanel();
+  if (atlas) return atlas;
+  const heartMod = await loadHeartModule();
+  atlas = await heartMod.createHeartAtlas({ startPaused: prefersStill() });
+  heartMod.mountClinicalPanels($('ha-clinical'));
+  return atlas;
+}
+
 function loadFailureMessage() {
   if (importFailures >= 2 && !(typeof navigator !== 'undefined' && navigator.onLine === false)) return 'The heart atlas still could not load. Reload the page, then try again.';
   return typeof navigator !== 'undefined' && navigator.onLine === false
@@ -144,20 +155,33 @@ function syncControls() {
   $('ha-conductionStatus').hidden = !S.show.conduction;
 }
 
+async function choosePreset(name) {
+  if (atlas.PRESETS[name].feature) {
+    try { await atlas.prepare(name); }
+    catch (error) { console.error('Heart atlas scenario failed to load', error); showToast('That scenario could not be loaded. Check your connection and try again.'); return false; }
+    if (!state.heartAtlasOn) return false;
+  }
+  atlas.setPreset(name); syncControls(); onPresetChanged();
+  return true;
+}
+
+/* Open the full atlas straight into a scenario (the layer rail's shortcut). */
+export async function openHeartScenario(name) {
+  if (state.enhancedHeartOn) exitEnhancedHeart();
+  if (!state.heartAtlasOn || state.limbAtlasOn) {
+    const ok = await enterHeartAtlas();
+    if (!ok || !state.heartAtlasOn || state.limbAtlasOn) return false;
+  }
+  return choosePreset(name);
+}
+
 function wireControls() {
   const presets = $('ha-presets');
   presets.innerHTML = Object.entries(atlas.PRESETS).map(([k, p]) => `<button type="button" data-ha-preset="${k}" aria-pressed="false">${p.label}</button>`).join('');
   presets.querySelectorAll('[data-ha-preset]').forEach((b) => {
     b.onclick = async () => {
-      const name = b.dataset.haPreset;
-      if (atlas.PRESETS[name].feature) {
-        b.disabled = true;
-        try { await atlas.prepare(name); }
-        catch (error) { console.error('Heart atlas scenario failed to load', error); showToast('That scenario could not be loaded. Check your connection and try again.'); return; }
-        finally { b.disabled = false; }
-        if (!state.heartAtlasOn) return;
-      }
-      atlas.setPreset(name); syncControls(); onPresetChanged();
+      b.disabled = true;
+      try { await choosePreset(b.dataset.haPreset); } finally { b.disabled = false; }
     };
   });
   $('ha-shows').innerHTML = SHOWS.map(([k, l]) => `<label><input type="checkbox" data-ha-show="${k}"> ${l}</label>`).join('');
@@ -469,6 +493,7 @@ function bindPicking() {
 
 /* ---- enter / exit ---- */
 export async function enterHeartAtlas() {
+  if (state.enhancedHeartOn) exitEnhancedHeart();
   if (state.limbAtlasOn) window.__osteo?.exitHeartAtlas?.(); /* the limb vessels mode is the other atlas: close it first */
   if (state.heartAtlasOn || busy) return state.heartAtlasOn;
   if (state.xray || state.focus) {
@@ -491,9 +516,7 @@ export async function enterHeartAtlas() {
     before = takeSnapshot();
     buildPanel();
     if (!atlas) {
-      const heartMod = await loadHeartModule();
-      atlas = await heartMod.createHeartAtlas({ startPaused: prefersStill() });
-      heartMod.mountClinicalPanels($('ha-clinical'));
+      await ensureAtlas();
       createdHere = true;
     }
     if (!controlsWired) wireControls();
@@ -557,8 +580,90 @@ export async function enterHeartAtlas() {
   }
 }
 
+/* ---- Enhanced heart ----
+   The atlas heart standing in for the explorer's heart inside the NORMAL viewer: the Heart chip's meshes are flagged
+   atlasHidden (as in the full mode) and the atlas group -- moving valves, chordae, coronaries, four-chamber colours
+   when the chip is ghosted -- is drawn in their place, on the same beat clock the full mode uses. Every other layer is
+   left exactly as it is. The trade: while it is on the explorer's own heart meshes cannot be tapped or studied, so
+   anything that needs them (focus, Projection, the full atlas, the limb mode) switches it off first, through the
+   same exit hook. It beats while Live physiology is on and holds still when the model is Static. */
+let enhancedLook = { op: -1, ghost: null };
+export async function enterEnhancedHeart() {
+  if (state.enhancedHeartOn) return true;
+  if (state.heartAtlasOn || busy) return false;
+  if (!(state.extraModels && state.extraModels.circulatory)) { showToast('Turn on the Heart layer first.'); return false; }
+  setBusy(true);
+  state.heartAtlasLoading = true;
+  try {
+    await ensureAtlas();
+    const circ = state.extraModels.circulatory;
+    atlas.attach(circ.root);
+    circ.root.updateMatrixWorld(true);
+    state.scene.updateMatrixWorld(true);
+    const alignment = checkAtlasAlignment(circ);
+    if (!alignment.ok) {
+      console.error('Enhanced heart registration check failed', alignment);
+      atlas.detach();
+      showToast('The enhanced heart did not align with the model, so it was left off.');
+      return false;
+    }
+    atlas.setPreset('natural');
+    atlas.setShow('great', false); /* the explorer's own aorta, cavae and pulmonary vessels stay */
+    setHostHeartHidden(true);
+    enhancedLook = { op: -1, ghost: null };
+    state.heartAtlasOn = true;
+    state.enhancedHeartOn = true;
+    let lastT = state.motionPhase || 0;
+    state.atlasTick = (t) => {
+      try {
+        const on = !!state.layers.heart;
+        atlas.group.visible = on;
+        const op = state.layerOpacity && state.layerOpacity.heart !== undefined ? state.layerOpacity.heart : 1, ghost = op < 0.99;
+        if (op !== enhancedLook.op) {
+          enhancedLook.op = op;
+          atlas.setOpacity(Math.max(8, op * 100));
+          if (ghost !== enhancedLook.ghost) { enhancedLook.ghost = ghost; atlas.setShow('chambers', ghost); }
+        }
+        if (on) {
+          if (window.__osteo && window.__osteo.physiologyOn && window.__osteo.physiologyOn()) lastT = t;
+          atlas.update(lastT);
+        }
+      } catch (error) {
+        console.error('Enhanced heart animation stopped; switching it off.', error);
+        showToast('The enhanced heart stopped after an error. The standard heart is back.');
+        exitEnhancedHeart();
+      }
+    };
+    applyLayers();
+    notifyLayersChanged();
+    return true;
+  } catch (error) {
+    console.error('Enhanced heart failed to start.', error);
+    try { if (atlas) atlas.detach(); } catch (e) { /* nothing to undo */ }
+    setHostHeartHidden(false);
+    state.enhancedHeartOn = false; state.heartAtlasOn = false; state.atlasTick = null;
+    showToast(loadFailureMessage());
+    return false;
+  } finally {
+    state.heartAtlasLoading = false;
+    setBusy(false);
+  }
+}
+
+export function exitEnhancedHeart() {
+  if (!state.enhancedHeartOn) return;
+  state.enhancedHeartOn = false;
+  state.heartAtlasOn = false;
+  state.atlasTick = null;
+  try { atlas.select(null); atlas.detach(); atlas.setPreset('natural'); } catch (error) { console.error('Enhanced heart cleanup failed', error); }
+  setHostHeartHidden(false);
+  applyLayers();
+  notifyLayersChanged();
+}
+
 export function exitHeartAtlas() {
   if (state.limbAtlasOn) return; /* not ours to close */
+  if (state.enhancedHeartOn) { exitEnhancedHeart(); return; }
   if (!state.heartAtlasOn && !saved) return;
   const before = saved;
   saved = null;
@@ -581,7 +686,7 @@ export function init() {
   toggle.setAttribute('aria-busy', 'false');
   toggle.textContent = 'Heart atlas';
   toggle.onclick = () => {
-    if (state.heartAtlasOn && !state.limbAtlasOn) exitHeartAtlas();
+    if (state.heartAtlasOn && !state.limbAtlasOn && !state.enhancedHeartOn) exitHeartAtlas();
     else void enterHeartAtlas().catch((error) => {
       console.error('Heart atlas toggle failed.', error);
       showToast(loadFailureMessage());

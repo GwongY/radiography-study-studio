@@ -882,11 +882,12 @@ export function resumeViewerState(){
 }
 /* Just the meshes. focusStructures calls THIS on its way in -- it is replacing
    one focus with another and must not hand the viewer's state back mid-way. */
-function leaveHeartAtlasBeforeMode() {
+function leaveHeartAtlasBeforeMode(layerOnly = false) {
   if (state.heartAtlasLoading) {
     showToast('The heart atlas is loading. Please wait.');
     return false;
   }
+  if (layerOnly && state.enhancedHeartOn) return true; /* the enhanced heart survives layer changes only */
   if (state.heartAtlasOn && typeof window !== 'undefined') window.__osteo?.exitHeartAtlas?.();
   return !state.heartAtlasOn;
 }
@@ -1469,7 +1470,7 @@ export function exitXray(){
   state.scene.updateMatrixWorld(true);
 }
 export function setLayer(key,on){
-  if(!leaveHeartAtlasBeforeMode())return;
+  if(!leaveHeartAtlasBeforeMode(true))return;
   if(state.xray)return;
   if(state.focus?.keep)clearStudyFocus();
   /* Meshes carried by a movement live under the pivot group, not their layer

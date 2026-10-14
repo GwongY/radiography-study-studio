@@ -247,11 +247,14 @@ function showConceptKind(kind){
 }
 function publishConcepts(){ if(state.conceptHook) try{ state.conceptHook([...state.concepts]); }catch(e){} }
 
-function closeHeartAtlasForAction() {
+/* `layerOnly`: an ordinary layer change (a chip, an opacity, a layer load). The enhanced heart is a view of the
+   normal viewer and survives those; every other action that closes an atlas closes it too. */
+function closeHeartAtlasForAction(layerOnly = false) {
   if (state.heartAtlasLoading) {
     showToast('The heart atlas is loading. Please wait.');
     return false;
   }
+  if (layerOnly && state.enhancedHeartOn) return true;
   if (state.heartAtlasOn && typeof window !== 'undefined') window.__osteo?.exitHeartAtlas?.();
   return !state.heartAtlasOn;
 }
@@ -342,7 +345,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
      showing a history whose storage has already gone. */
   resetStats:()=>{state.stats={};saveStats();renderReview()},
   setLayer:async(key,on,file)=>{
-    if(!closeHeartAtlasForAction())return false;
+    if(!closeHeartAtlasForAction(true))return false;
     /* The skeleton is already in the scene -- there is no file to fetch for
        either of its two chips, so they switch and return. */
     if(layerOf(key)==='skeleton'){setLayer(key,on);return true}
@@ -381,9 +384,9 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
     return hit?hit.userData.flowClass||null:null;
   },
   layerLoaded:(key)=>layerOf(key)==='skeleton'?!!state.fullModel:!!state.extraModels[layerOf(key)],
-  setLayerOpacity:(key,v)=>{if(!closeHeartAtlasForAction())return;state.layerOpacity={...(state.layerOpacity||{}),[key]:v};applyLayers()},
+  setLayerOpacity:(key,v)=>{if(!closeHeartAtlasForAction(true))return;state.layerOpacity={...(state.layerOpacity||{}),[key]:v};applyLayers()},
   showSystem:async(key,file,options={})=>{
-    if(!options.atlasEntry&&!closeHeartAtlasForAction())return false;
+    if(!options.atlasEntry&&!closeHeartAtlasForAction(true))return false;
     if(!key){setExtraVisible(null);return true}
     try{await loadExtraModel(key,file);setExtraVisible(key);return true}
     catch(e){showToast(options.failureMessage||'Could not load that model — the skeleton is still available.');return false}

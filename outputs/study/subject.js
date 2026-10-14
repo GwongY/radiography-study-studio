@@ -261,6 +261,25 @@ function renderFlowKey() {
     <div class="note">Colours and rhythms are drawn by this app, not measured.</div></div>`;
 }
 
+/*
+ * Circulation extras: what BetterHeart's pages add to the vessel and heart layers, offered whenever one of those chips
+ * is on. The studio owns the behaviour (studio/circulation-extras.js); this only draws the three controls. Colours and
+ * tap behaviour are not among them on purpose -- the key below already follows the oxygenation convention, and a tap
+ * keeps left and right apart because that is the L2 drill.
+ */
+function renderCircExtras() {
+  const api = window.__osteo && window.__osteo.circulation;
+  const on = ['arterial', 'venous', 'heart'].some((k) => (layerState[k] || 'off') !== 'off');
+  if (!api || !on) return '';
+  const st = api.state(), sc = api.scenarios();
+  const group = (kind, label, list) => `<optgroup label="${label}">${list.map(([id, l]) => `<option value="${kind}:${id}">${esc(l)}</option>`).join('')}</optgroup>`;
+  return `<div class="circextras"><div class="kh">Circulation extras</div>
+    <label class="ce"><input type="checkbox" id="ceDots"${st.dots ? ' checked' : ''}><span>Flow dots</span><small>arteries and veins</small></label>
+    <label class="ce"><input type="checkbox" id="ceHeart"${st.heart ? ' checked' : ''}><span>Enhanced heart</span><small>valves, chambers, beating</small></label>
+    <select id="ceScenario" aria-label="Open a scenario"><option value="">Open a scenario…</option>${group('heart', 'Heart atlas', sc.heart)}${group('limb', 'Limb vessels', sc.limb)}</select>
+    <div class="note">The enhanced heart stands in for the heart's own meshes while it is on, so they cannot be tapped.</div></div>`;
+}
+
 export function renderLayerRail() {
   const rail = $$('layerRail');
   if (!rail) return;
@@ -280,8 +299,15 @@ export function renderLayerRail() {
     return `<button class="layerchip" data-layer="${esc(l.key)}" data-state="${st}"${sub} aria-pressed="${st !== 'off'}">
       <span class="dot"></span><span>${esc(l.label)}</span><span class="cnt" title="${layerCourseCount(l.key)} named by your course · ${layerCount(l.key)} modelled · ${layerUnitCount(l.key)} separately selectable">${layerCourseCount(l.key)}<i>/${layerCount(l.key)}</i></span>
     </button>`;
-  }).join('') + '<div class="layerhint">tap to cycle · solid → ghost → off</div>' + renderFlowKey();
+  }).join('') + '<div class="layerhint">tap to cycle · solid → ghost → off</div>' + renderCircExtras() + renderFlowKey();
   rail.querySelectorAll('[data-layer]').forEach((b) => { b.onclick = () => cycleLayer(b.dataset.layer, b); });
+  const circ = window.__osteo && window.__osteo.circulation;
+  if (circ) {
+    const dots = $$('ceDots'), heart = $$('ceHeart'), scenario = $$('ceScenario');
+    if (dots) dots.onchange = async () => { await circ.setDots(dots.checked); renderLayerRail(); };
+    if (heart) heart.onchange = async () => { heart.disabled = true; await circ.setHeart(heart.checked); renderLayerRail(); };
+    if (scenario) scenario.onchange = async () => { const v = scenario.value; scenario.value = ''; if (v) await circ.openScenario(v); };
+  }
   const chip = $$('liveChip');
   if (chip) chip.onclick = () => {
     if (!window.__osteo || !window.__osteo.setPhysiology) { toast('Open the 3D model first.'); return; }

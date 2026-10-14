@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1201 —
-  6c1831509dbb3ee7  WHOLE SET
+— user-facing strings in outputs/ — 1234 —
+  b3883859af11cf83  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -196,12 +196,15 @@
   2f476a078765d308  <input id="rssTypedInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="
   700d0e6637c671e0  <input type="checkbox" data-ha-part="
   660caf1b880e86b7  <input type="checkbox" data-ha-show="
+  1b8b5718b484b569  <input type="checkbox" id="ceDots"
+  164a7046b850044f  <input type="checkbox" id="ceHeart"
   166a9b9081e89b18  <input type="range" id="examCountSlider" min="5" max="50" step="5" value="
   248d7a1f23802ad0  <input type="range" id="examTimeSlider" min="10" max="90" step="5" value="
   3a324e9e0d188447  <input type="range" min="8" max="100" value="
   65da2d38aebef408  <li class="assrow
   4a0089a78242886e  <li class="sessrow
   144901117bb21081  <li>A sync is waiting for the network.</li>
+  be3aba666bfdd183  <optgroup label="
   5f0ccbf50845efd8  <option value="
   541b9a046de22b45  <p class="figkey-note">Dimmed marks are the figure’s own labels, beyond this lesson’s named set.</p>
   e3eca2ac525ec10d  <p class="small">A mixed paper across subjects, so it does not stand in for any one assessment.</p>
@@ -286,6 +289,7 @@
   e4cc8252f2f7fe5d  Back up to a private GitHub gist
   442808ef2fd68469  Backup exported. The erase button is still there when you are ready.
   87b238e3beba6204  Beyond your course \u2014
+  a6f8979cf9b10128  Blood flow
   182d6f9b9b115719  Body cavities
   e72ca92c0272f35b  Body layers
   2cea2e3a045ac3d2  BodyParts3D / Anatomography model licensing and the candidate sources that were reviewed.
@@ -300,7 +304,9 @@
   955687714a9cf383  Built out of: a-, near + b/o, thing
   a7ac53f16f45ee2e  By subject
   2863d4882fc93b85  CRANium is the cap that holds the brain.
+  5c3e745e2d266a38  Calcium treatment
   d72271896337e29f  Carried over as known, but missed — worth reading the lesson on this one.
+  a16ba9e12da3ffcc  Cath pressures
   f4bfeb743bb75d23  Cavities behind the anatomy, correctly occluded.
   9cd4f2c0c016002f  Cavities drop back to a hint so the structures lead.
   9eb78b423e03f32d  Chambers and valves
@@ -311,6 +317,7 @@
   b731b58ee17f6202  Check order
   b21cbce6bf98471b  Check this
   4cad109bd8bf7ba8  Choose a bone landmark
+  55c8c832892fe4f2  Circulation extras
   1fd0e2b073997f0d  Click the hotspot for:
   cd9a490533f1b735  Close Projection before opening the heart atlas.
   223b2c2730a583d5  Close Projection before opening the limb vessels.
@@ -321,14 +328,18 @@
   3baf54f532efe7d3  Close the focused lesson before opening the limb vessels.
   e57c17d13927ddf0  Close the heart atlas
   ed83ad7bf06ab235  Close the other viewer mode before opening the limb vessels.
+  39b0a548a645f61d  Clot lysis (DVT)
+  4a8175f3c060dbeb  Clot retrieval
   78e0f97b52bcc45f  Cloze recall
   2c5b57d5e71b2811  Colours and rhythms are drawn by this app, not measured.
   c6ffddc144cdab7e  Common confusions
   b1eb88b86761c850  Common confusions on this item
   20db2e0618629cd5  Compare with the model answer
+  030d9bcdbde5deaf  Conduction & rhythms
   dd3713b4cdcac4eb  Conduction system
   a75d43a157167800  Confirm it if that is right.
   ea15571d2e81759e  Connect once to download the circulatory layer for offline use.
+  ecfa0bb83a393a74  Connect once to download the vessel routes for offline use.
   0f7e8a381336fb95  Continue (
   5d1ae0c75b2cc967  Coronary arteries and veins
   37b72d6c576f83a7  Correct — you found it in space.
@@ -363,6 +374,11 @@
   892bd00331369854  Drill these 
   29d95e88a631533a  Drill weakest 
   7f8ac71aa449b0ac  Email from
+  298ad014765f4515  Enhanced heart
+  714107fe5444c036  Enhanced heart animation stopped; switching it off.
+  f400b407a24abea1  Enhanced heart cleanup failed
+  65d5d600357b9941  Enhanced heart failed to start.
+  fcc22d5c8e446af2  Enhanced heart registration check failed
   e3531efed93e66d7  Every factual claim on this item traces to a file below. Memory aids are written by this app and are marked separately.
   eb33e7f0fd9f3397  Every item has been seen at least once. Try "Review my weakest topics".
   7588a781fa751450  Every point is answerable in the practice question.
@@ -387,6 +403,9 @@
   fd2f684294d47cfc  Finish session \u2192
   8802e1925c84cdea  Five large load-bearing vertebrae: dinner at 5. Lumbar bodies are chunky.
   fb86d37ef027a4b7  Flag for review
+  f2cd28f0405a9f8f  Flow dots
+  c4a8696de4da2c8a  Flow dots failed to load.
+  a138b6097f40d816  Flow dots stopped.
   eece46bf2c48d0c2  Four chambers
   7e4442b59b339275  From this item
   8e8f88fe40d45d19  Frontal bone
@@ -594,6 +613,8 @@
   1e4827dab1028aa7  On where the page is measured short of the screen — it extends the app into the strip so the tab bar reaches the edge. What is left after that is the screen\'s own rounded corner, which no page can fill.
   a6c061874897dabb  One learning tree
   2db2d8da5f89a995  One to start you off —
+  2822bdadc4d770d1  Open a scenario
+  fd8bb898a4768b72  Open a scenario…
   4ab8e7a5acc75973  Open detail
   9b33b799de06232b  Open source dialog
   bc135a2d441222b6  Open the 3D model first.
@@ -603,6 +624,7 @@
   5d4ccdb9cfeecb7a  Opens in Viewer
   c9a8d09845fef502  Other labels on this figure (
   2053c76b6c147934  P wave, QRS and T wave with a cursor on the current phase
+  51819828b3369f18  PCI (right coronary)
   c5ca4a0d519c1995  Page / section
   88ce19bc20fd3349  Paper submitted
   998f59ec6907c1a6  Past papers, timed practice, mastery
@@ -760,6 +782,10 @@
   f445cb8ba3f6b544  The circulatory layer did not load.
   d6811f43e25d4939  The contrast
   d216dedb9f2f1d46  The controls live with the model — the render loop only runs while the studio is on screen, so a slider here would move bones you cannot see.
+  58e55d5fa025b10d  The enhanced heart did not align with the model, so it was left off.
+  1ed42975c84bb3ac  The enhanced heart stands in for the heart's own meshes while it is on, so they cannot be tapped.
+  c953e256b7ff57dc  The enhanced heart stopped after an error. The standard heart is back.
+  7bce956a047534c7  The flow dots could not load. Try again.
   f44fc384994cd331  The four quadrants
   f1b6f4d1bbc67e3f  The funny-bone groove
   0b155a87d8f27dc9  The gist does not hold a progress file this app understands —
@@ -834,11 +860,14 @@
   3c3544bc08702ae8  True / false
   66f9c52ff704f03a  Tube current time product in mAs
   f2f36bb84e6dfc7b  Tube voltage in kVp
+  2558655fc84f9098  Turn on the Arterial or Venous layer first.
+  9fda7c1f6705d46d  Turn on the Heart layer first.
   325a3667381bade5  Twelve vertebrae: lunch at 12, with ribs attached.
   431c871a874df758  Type an answer first — a guess still teaches you more than skipping.
   41146b07110e6e0c  Type the bone name
   d078bf7520a710d0  Type your answer
   314528767e58f2ee  ULna = yoUr elbow side: the pinky-side stable hinge.
+  9b2f088258d39d9c  Ultrasound & M-mode
   d2d26d5185dd6a94  University notices
   132f74cac4453f6b  Unnamed structure
   ccfe1ff0816d17cc  Unsupported version
@@ -901,6 +930,7 @@
   41ea005f14d7fd15  app-body padding-bottom=
   9b5538d17c61f0ec  are held on this device and nowhere else.
   2f4b24c630bdf091  aria-label="Your mark for
+  c5fb5f7140d8d066  arteries and veins
   4dafb342c48fd85e  artery = red = oxygenated
   038dbe3356c60c5f  assets/xray/ is empty \u2014 add a licence-cleared image
   f0a2f6bcdb910bd5  axial at the sternal angle
@@ -1083,10 +1113,12 @@
   0eda74d519563cb0  s camera regions: a box in a limb
   039ed7115face420  s depth is a fraction of the vessel
   dce1c177b1e44a6a  s depth, less the tag
+  6ab58474f456ee94  s heart inside the NORMAL viewer: the Heart chip
   df49128572cf09cb  s job is only to feed it those meshes in the body
   91f0e226c82016ff  s left), fz 0 the trunk
   4e01dcdc55cd6293  s own half-width put the oesophagus
   ade98b80a888aed2  s own signature. 
+  0fb35ed1991ca018  s pages add to the explorer
   b231d81d3578309e  s slot is left out, as it is in the Course tab
   1946ee43aab92871  screen, but with no top inset — the status bar is opaque, so the page starts below it and reaches the bottom. No band.
   1299be2249d386cf  screen. No band.
@@ -1154,6 +1186,7 @@
   0fcb2cf14e540c07  vCenterDepth = -(modelViewMatrix * vec4(uCenter,1.0)).z;
   b33a0e0d9fc04368  vCos = abs(dot(n, normalize(-mv.xyz)));
   9530daa7ca0f593d  vPosition = mv.xyz;
+  5644acec04fd8869  valves, chambers, beating
   35cf5b7cf14017b9  varying float vCenterDepth;
   84fbaea5156547f6  varying float vCos;
   7391f351ea4a8453  varying float vFlowS;
