@@ -57,10 +57,21 @@ export function ivusPanelHtml() {
   </section>`;
 }
 
+export function rhythmPanelHtml() {
+  const R = [['sinus', 'Normal sinus rhythm'], ['avnrt', 'AVNRT (slow-fast)'], ['avrt', 'AVRT (orthodromic)'], ['flutter', 'Typical atrial flutter'], ['af', 'Atrial fibrillation'], ['vt', 'RVOT VT']];
+  const buttons = R.map(([id, l], i) => '<button type="button" data-ha-rhythm="' + id + '" aria-pressed="' + (i === 0) + '"' + (i === 0 ? ' class="active"' : '') + '>' + l + '</button>').join('');
+  return '<section id="ha-rhythmPanel" class="ha-rhythm" aria-label="Heart rhythms" hidden>'
+    + '<div class="ha-row" role="group" aria-label="Choose a rhythm">' + buttons + '</div>'
+    + '<button type="button" id="ha-ablateBtn" class="ha-ablate" hidden>&#9889; Ablate</button>'
+    + '<p id="ha-rhythmCaption" class="ha-proc-caption" aria-live="polite"></p>'
+    + '<p class="ha-note">The rhythm animations and the ECG run at real speed; use Slow motion to watch them more slowly. The current paths and the ECG are teaching schematics.</p>'
+    + '</section>';
+}
+
 /* The panel sections each scenario preset shows (a preset's panel is hidden otherwise). */
-export const PANEL_SECTIONS = { hemo: ['ha-hemoPanel'], pci: ['ha-procPanel'], ivus: ['ha-procPanel', 'ha-ivusPanel'] };
+export const PANEL_SECTIONS = { hemo: ['ha-hemoPanel'], pci: ['ha-procPanel'], ivus: ['ha-procPanel', 'ha-ivusPanel'], conduction: ['ha-rhythmPanel'] };
 
 export function mountClinicalPanels(host) {
   if (host.querySelector('#ha-hemoPanel')) return;
-  host.insertAdjacentHTML('beforeend', hemoPanelHtml() + procPanelHtml() + ivusPanelHtml());
+  host.insertAdjacentHTML('beforeend', hemoPanelHtml() + procPanelHtml() + ivusPanelHtml() + rhythmPanelHtml());
 }

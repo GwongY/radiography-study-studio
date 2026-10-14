@@ -35,7 +35,7 @@ export const PRESETS = {
   chambers:   { label: 'Four chambers',   opacity: 15,  show: { wall: 1, chambers: 1, valves: 0, coronary: 0, great: 1, conduction: 0 }, speed: 1,   flow: false },
   coronary:   { label: 'Coronaries',      opacity: 100, show: { wall: 1, chambers: 0, valves: 0, coronary: 1, great: 1, conduction: 0 }, speed: 1,   flow: true  },
   dynamic:    { label: 'Heartbeat',       opacity: 22,  show: { wall: 1, chambers: 1, valves: 1, coronary: 1, great: 1, conduction: 0 }, speed: 1,   flow: true, dynamic: true },
-  conduction: { label: 'Conduction',      opacity: 12,  show: { wall: 1, chambers: 0, valves: 0, coronary: 0, great: 1, conduction: 1 }, speed: 0.35, flow: false },
+  conduction: { label: 'Conduction & rhythms', opacity: 12,  show: { wall: 1, chambers: 0, valves: 0, coronary: 0, great: 1, conduction: 1 }, speed: 0.35, flow: false, feature: 'arrhythmia' },
   echo:       { label: 'Ultrasound',    opacity: 100, show: { wall: 1, chambers: 0, valves: 1, coronary: 0, great: 1, conduction: 0 }, speed: 1,   flow: false, echo: true },
   /* Clinical scenarios: `feature` names a lazily-built module (see prepare()), `section` the panel section it owns. */
   /* greatSee: great-vessel groups drawn see-through; hideGreat: groups left out; coronarySee: coronary keys drawn see-through;
@@ -125,7 +125,8 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
       m.material.needsUpdate = true;
     }
     motion.show(S.active && S.preset !== 'chambers', { flow: p.flow });
-    heartbeat.setSpeed(p.speed);
+    const pf = features[p.feature];
+    heartbeat.setSpeed(pf && pf.speed ? pf.speed() : p.speed);
     for (const [k, f] of Object.entries(features)) f.group.visible = S.active && PRESETS[S.preset].feature === k;
     group.traverse((o) => {
       if (o.userData.kind !== 'coronary-flow' || !o.material) return;
@@ -150,11 +151,11 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
       const panel = createHemoPanel({ sim, heartbeat });
       features.hemo = { group: g, update() { sim.update(); panel.update(); }, enter() { panel.reset(); }, exit() {} };
     }
-    if (p.feature === 'pci' || p.feature === 'ivus') {
-      const sc = await import('./scenarios.js?v=1');
+    if (p.feature === 'pci' || p.feature === 'ivus' || p.feature === 'arrhythmia') {
+      const sc = await import('./scenarios.js?v=3');
       if (features[p.feature]) return features[p.feature];
       const ctx = { group, heartbeat, motion, byKey, host: () => host, onIntro: (i) => { if (onIntro) onIntro(i); } };
-      features[p.feature] = p.feature === 'pci' ? await sc.createPciFeature(ctx) : await sc.createIvusFeature(ctx);
+      features[p.feature] = p.feature === 'pci' ? await sc.createPciFeature(ctx) : p.feature === 'ivus' ? await sc.createIvusFeature(ctx) : await sc.createArrhythmiaFeature(ctx);
     }
     return features[p.feature] || null;
   }
@@ -216,7 +217,8 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
     const p = PRESETS[S.preset];
     const beat = heartbeat.update(dt, false, !!p.dynamic || !!p.echo);
     motion.update(dt, beat, heartbeat.isPlaying());
-    conduction.update(beat, S.selected);
+    const pf = features[p.feature];
+    conduction.update(pf && pf.suppressConduction && pf.suppressConduction() ? { phase: 0.97 } : beat, S.selected);
     S.beat = beat;
     if (p.echo) { if (echoFan) echoFan.visible = true; echoDraw(performance.now()); }
     if (p.feature && features[p.feature]) features[p.feature].update(beat, dt);

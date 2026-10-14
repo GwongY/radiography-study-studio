@@ -51,8 +51,8 @@ async function loadHeartModule() {
   if (heartModule) return heartModule;
   try {
     heartModule = importFailures === 0
-      ? await import('../heart/atlas.js?v=4')
-      : await import(`../heart/atlas.js?v=4&retry=${importFailures}`);
+      ? await import('../heart/atlas.js?v=5')
+      : await import(`../heart/atlas.js?v=5&retry=${importFailures}`);
   } catch (error) {
     importFailures += 1;
     throw error;

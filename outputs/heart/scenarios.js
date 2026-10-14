@@ -74,7 +74,7 @@ export async function createPciFeature(ctx) {
 /* ---- IVUS / OCT: pull-back through a diseased LAD ---- */
 export async function createIvusFeature(ctx) {
   const [{ createIvus, IVUS_DURATION, ivusSteps, PB0 }, { createIvusView, zoneAt }, { IVUS_HINT, IVUS_TXT, IVUS_FIND }] = await Promise.all([
-    import('./ivus-sim.js?v=7'), import('./ivus-image.js?v=6'), import('./heart-text.js?v=1'),
+    import('./ivus-sim.js?v=7'), import('./ivus-image.js?v=6'), import('./heart-text.js?v=2'),
   ]);
   const $ = (id) => document.getElementById('ha-' + id);
   const g = new THREE.Group();
@@ -150,6 +150,123 @@ export async function createIvusFeature(ctx) {
         find.dataset.k = key;
         find.textContent = st.inVessel ? IVUS_FIND[mode][zoneAt(st.x)] : tr('影像導管還在導引導管內，尚未進入左前降支。');
       }
+    },
+  };
+}
+
+/* ---- Rhythms and catheter ablation, on the Conduction preset ----
+   The six rhythms (arrhythmia.js, ported) replace the sinus clock through heartbeat.setDriver and own the
+   ECG strip while one is running; this feature paints that strip, keeps the rate slider in step and tells the
+   atlas when the conduction glow should stand down. */
+export async function createArrhythmiaFeature(ctx) {
+  const [{ createArrhythmia }, { RTXT, ARR_DONE, CONDUCTION_CAM }] = await Promise.all([import('./arrhythmia.js?v=10'), import('./heart-text.js?v=2')]);
+  const $ = (id) => document.getElementById('ha-' + id);
+  const arr = createArrhythmia({ group: ctx.group, byKey: ctx.byKey, deformPoint: ctx.heartbeat.deformPoint, setDriver: (d) => ctx.heartbeat.setDriver(d) });
+  const follow = createFollow(ctx);
+  let sinusRate = null, sweep = null, sweepId = '', wired = false, camGoal = null;
+
+  const asCam = (c) => (c ? { target: new THREE.Vector3(...c.target), dir: new THREE.Vector3(...c.dir).normalize(), dist: c.dist } : null);
+  const sinusIntro = () => ({
+    category: tr('心臟內電氣傳導'),
+    title: tr('竇房結 → 房室結 → 希氏束 → 左右束支 → 浦金耶纖維'),
+    text: tr('傳導路徑會配合示意心電圖依序亮起。房室結的短暫延遲，讓心房與心室依序活動。此為心臟傳導細胞與路徑的教學示意。'),
+  });
+  const intro = () => (arr.id === 'sinus' ? sinusIntro() : { category: RTXT[arr.id].cat, title: RTXT[arr.id].title, text: RTXT[arr.id].text });
+
+  /* The slider follows the rhythm (read-only during an arrhythmia) and returns to the reader's sinus rate afterwards. */
+  function syncRate(id) {
+    const hr = $('heartRate');
+    if (id !== 'sinus') { if (sinusRate === null) sinusRate = hr.value; hr.max = 200; hr.value = arr.rate(id); hr.disabled = true; }
+    else { hr.min = 45; hr.max = 120; if (sinusRate !== null) hr.value = sinusRate; sinusRate = null; hr.disabled = false; }
+    $('heartRateValue').value = (id === 'af' ? '~' : '') + hr.value + ' bpm';
+  }
+
+  function setRhythmUI(id, keepInfo) {
+    ctx.heartbeat.setSpeed(id === 'sinus' ? 0.35 : 1);
+    sweep = null; sweepId = '';
+    syncRate(id);
+    for (const b of document.querySelectorAll('[data-ha-rhythm]')) { const on = b.dataset.haRhythm === id; b.classList.toggle('active', on); b.setAttribute('aria-pressed', String(on)); }
+    $('rhythmCaption').textContent = RTXT[id].cap;
+    $('ablateBtn').hidden = id === 'sinus'; $('ablateBtn').disabled = false;
+    if (id !== 'sinus') $('ecgPhase').textContent = RTXT[id].name;
+    if (id !== 'sinus' || !keepInfo) { if (ctx.onIntro) ctx.onIntro(intro()); }
+  }
+
+  function chooseRhythm(id) {
+    arr.setRhythm(id); setRhythmUI(id);
+    camGoal = asCam(id === 'sinus' ? CONDUCTION_CAM : arr.cam(id)); follow.resume();
+  }
+
+  function wire() {
+    if (wired) return;
+    wired = true;
+    for (const b of document.querySelectorAll('[data-ha-rhythm]')) b.onclick = () => chooseRhythm(b.dataset.haRhythm);
+    $('ablateBtn').onclick = () => {
+      if (arr.id === 'sinus' || arr.ablating) return;
+      const id = arr.id;
+      $('ablateBtn').disabled = true; $('rhythmCaption').textContent = RTXT[id].abl;
+      arr.ablate(() => {
+        setRhythmUI('sinus', true);
+        $('rhythmCaption').textContent = ARR_DONE;
+        $('ecgRate').textContent = $('heartRate').value + ' bpm';
+        camGoal = asCam(CONDUCTION_CAM); follow.resume();
+      });
+    };
+  }
+
+  /* The 25 mm/s strip, swept like the sinus one in heartbeat.js, from the rhythm's own ECG window. */
+  function paintEcg() {
+    const w = arr.ecgWindow();
+    if (!w) return;
+    const NS = 1000, SPAN = 6.6, dtS = SPAN / NS;
+    if (sweepId !== arr.id || !sweep) {
+      sweepId = arr.id;
+      sweep = { y: new Float32Array(NS + 1), pos: 0, tau: w.t };
+      for (let k = 0; k <= NS; k++) sweep.y[k] = w.f((((w.t - SPAN + k * dtS) % w.W) + w.W) % w.W);
+      for (const t of document.querySelectorAll('.ha-ecg-chart text')) t.style.visibility = 'hidden';
+      $('ecgPhase').textContent = RTXT[arr.id].name;
+    }
+    let adv = (w.t - sweep.tau + w.W) % w.W;
+    if (adv > 1) adv = 0;
+    const steps = Math.round(adv / dtS);
+    for (let k = 1; k <= steps; k++) { sweep.pos = (sweep.pos + 1) % (NS + 1); sweep.y[sweep.pos] = w.f((sweep.tau + k * dtS) % w.W); }
+    sweep.tau = (sweep.tau + steps * dtS) % w.W;
+    const gap = Math.round(0.1 / dtS), path = [];
+    let pen = false;
+    for (let k = 0; k <= NS; k++) {
+      const d = (k - sweep.pos + NS + 1) % (NS + 1);
+      if (d > 0 && d <= gap) { pen = false; continue; }
+      path.push((pen ? 'L' : 'M') + (20 + k / NS * 660).toFixed(1) + ',' + (63 - sweep.y[k] * 43).toFixed(1));
+      pen = true;
+    }
+    $('ecgTrace').setAttribute('d', path.join(''));
+    const x = 20 + sweep.pos / NS * 660;
+    $('ecgCursor').setAttribute('x1', x); $('ecgCursor').setAttribute('x2', x);
+    $('ecgDot').setAttribute('cx', x); $('ecgDot').setAttribute('cy', 63 - sweep.y[sweep.pos] * 43);
+    $('ecgRate').textContent = (arr.id === 'af' ? '~' : '') + arr.rate(arr.id) + ' bpm';
+    const st = arr.statusText();
+    if (st && $('conductionStatus').textContent !== st) $('conductionStatus').textContent = st;
+  }
+
+  return {
+    group: new THREE.Group(), /* arr.root owns its own visibility */
+    intro,
+    speed: () => (arr.id === 'sinus' ? 0.35 : 1),
+    suppressConduction: () => arr.id !== 'sinus',
+    enter() {
+      wire();
+      arr.setRhythm('sinus'); setRhythmUI('sinus', true);
+      camGoal = asCam(CONDUCTION_CAM); follow.arm();
+    },
+    exit() {
+      if (arr.id !== 'sinus' || arr.root.visible) { arr.setRhythm('sinus'); setRhythmUI('sinus', true); }
+      follow.disarm();
+    },
+    update(beat, dt) {
+      /* a zero step (the first frame, or two frames on the same clock tick) makes the AF catheter builder return no tip */
+      arr.update(Math.max(dt, 0.001), ctx.heartbeat.isPlaying());
+      if (camGoal) follow.step(camGoal, ease(dt));
+      paintEcg();
     },
   };
 }
