@@ -2185,3 +2185,15 @@ push publishes the site.
   `.2026`, so their text is in `work/source-text.json`. Then write their leaves: the 12
   cranial nerves, the named tracts, brain parts, meninges, ventricles, receptors, eye and
   ear parts, and the ANS divisions.
+- **ABCT2326 Human Physiology needs this too** (the owner, 19 October 2026). Revise has
+  no physiology data yet: `registry.js` holds HSS2011 only, and `revise.js` has no subject
+  switch (`rv.subject` is always `DEFAULT_SUBJECT`). So physiology needs its own spec
+  first: its topics, tree, links, threads, tables and decoder, each with its teaching
+  week, read off the 2026 decks in the iCloud `Human Physology` folder; plus a way to
+  switch subject in Revise. The machinery this plan builds reads only `REVISION[subject]`,
+  so it carries over as it is: `mergeLeaves`, `hubLayout`, `linkRows`, the numbered list,
+  the Map's dots and the hub. The leaf kinds `muscle`, `bone`, `joint` and `nerve` are
+  anatomy shapes, though. Physiology leaves would mostly be `group` and `part` rows with
+  hand-written `links`, so that spec should decide whether physiology needs kinds of its
+  own (for example a step in a pathway, or a hormone and its target) rather than forcing
+  it into these.
