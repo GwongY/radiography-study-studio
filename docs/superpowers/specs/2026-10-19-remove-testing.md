@@ -152,3 +152,38 @@ Revise's week pick, text size, briefing token and viewport keys survive. The mar
   individually accessible"); not caused by this change.
 - Order of work changed: the study parts went first, and `course-data.js` was cut from what the
   surviving code still imported, rather than before.
+
+## Part 2: the 3D studio's drill modes (owner, 2026-10-19: "Yes, remove them")
+
+The owner chose to remove Identify, Left / right, Landmarks, Find and Memory, and to delete
+`osteology-studio-stats`. Same rules as above: no history export, no dead imports.
+
+**Goes**
+- Markup: the `#studyModes` mode bar with its six buttons, `#studyPool`, `#feedback`, `#answers`,
+  `#nextBtn`, and the CSS only they use (`.modebar`, `.mode-btn`, `.studypool`, `.feedback`,
+  `.answers`, `.answer`, `.studyscore`; each checked for another user first).
+- `studio/visualisation-modes.js`: `setMode` (reduced to nothing: the panel is always Explore),
+  `renderStudyPool`, `scoreHTML`, `applyModeVisuals`, `MODE_ASK`/`MODE_LABEL`, `startQuestion`,
+  `startQuestionFor`, `distractorPool`, `renderAnswers`, `renderMemoryAnswers`, `renderMemoryCloze`,
+  `renderLandmarkQuestion`, `answer`, `recordAnswer`, `record`, `saveStats`, `weightedPick`,
+  `modePool`, `pool`/`selectableIds` if nothing else reads them, `renderReview`, `clearFeedback`,
+  and the `resetStats` / `refreshStudyPool` bridge entries (with the call in `study/subject.js`).
+- `onBonePicked` loses its Find and Landmarks branches; tapping a bone still selects it.
+- `studio/imports.js`: `state.mode/current/quizStarted/memoryStreak/runStreak/stats`, `loadStats`,
+  the quiz `els`. `studio/depth-picking.js`: the `.mode-btn` wiring, `setMode('explore')`, the
+  `hotspotTargets` branch. `studio/region-boxes-how.js` and `live-physiology.js`: the landmark
+  hotspots (`addHotspots`, `showHotspots`, `remapHotspotsToReal`, `state.hotspots`) which were only
+  ever shown in Landmarks mode, and `LANDMARK_HOTSPOTS` in `anatomy-data.js` once nothing reads it.
+- Purge: `osteology-studio-stats` joins the one-time list, and the purge marker is bumped to a new
+  key (`rss.v1.testing-purged-2`) so devices that already ran the first purge run this one too.
+
+**Stays**: `MEMORY_TIPS` and `memoryTipHTML`. The selected-structure card shows a bone's mnemonic
+under its landmarks; that is reading, not testing. The `bone-landmarks.js` close-view labels are a
+different thing from `LANDMARK_HOTSPOTS` and are untouched. `state.region` and the region filter
+stay (they filter the viewer, not a drill).
+
+**Checks**: `toplevel.mjs` before touching the studio parts' structure, then `binding-check`,
+`bridge-check`, `load-check`, `shell-check`, `region-probe`, `search-probe`, `text-size-check`,
+`codemap-check`, baselines (`ui-strings` diff reviewed), plus a browser run at 375x812: select a
+structure by tap and by search, open the detail dialog, switch layers, no console errors.
+CLAUDE.md principle 0 loses its "left alone" sentence; README's note is updated.
