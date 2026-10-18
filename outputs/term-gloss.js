@@ -2353,7 +2353,73 @@ const ALIASES = {
   thoracic: 'thorax',
 };
 
+/*
+ * SHORT FORMS. Matched case-sensitively (SO is the superior oblique; "so" is a
+ * word), so they live apart from TERM_GLOSS and are tried first. Each says what
+ * the letters stand for, then what the thing is.
+ */
+const ABBREVIATIONS = {
+  CN: ['cranial nerve', 'One of the twelve nerves that leave the brain directly, numbered I–XII.', '腦神經'],
+  CNS: ['central nervous system', 'The brain and the spinal cord.', '中樞神經系統'],
+  PNS: ['peripheral nervous system', 'All the nerves outside the brain and spinal cord.', '周圍神經系統'],
+  ANS: ['autonomic nervous system', 'The involuntary part of the nervous system: sympathetic and parasympathetic.', '自主神經系統'],
+  CSF: ['cerebrospinal fluid', 'The clear fluid that cushions the brain and spinal cord.', '腦脊髓液'],
+  BBB: ['blood–brain barrier', 'The tight lining of brain capillaries that controls what passes from blood into the brain.', '血腦屏障'],
+  ACh: ['acetylcholine', 'The transmitter released at the neuromuscular junction and by parasympathetic nerves.', '乙醯膽鹼'],
+  NMJ: ['neuromuscular junction', 'The synapse where a motor neuron makes a muscle fibre contract.', '神經肌肉接點'],
+  LGN: ['lateral geniculate nucleus', 'The thalamic relay for vision, between the optic tract and the visual cortex.', '外側膝狀體'],
+  GI: ['gastrointestinal', 'Of the stomach and intestines — the digestive tract.', '胃腸的'],
+  BP: ['blood pressure', 'The force of blood against the vessel wall.', '血壓'],
+  CT: ['computed tomography', 'Cross-sectional X-ray imaging built up by a rotating scanner.', '電腦斷層掃描'],
+  MRI: ['magnetic resonance imaging', 'Imaging with a strong magnet and radio waves, with no ionising radiation.', '磁力共振成像'],
+  TMJ: ['temporomandibular joint', 'The jaw joint, between the mandible and the temporal bone.', '顳下頜關節'],
+  SCM: ['sternocleidomastoid', 'The neck muscle running from the sternum and clavicle up to the mastoid process.', '胸鎖乳突肌'],
+  TFL: ['tensor fasciae latae', 'A hip muscle that tenses the iliotibial band and helps abduct the thigh.', '闊筋膜張肌'],
+  QL: ['quadratus lumborum', 'The muscle of the back wall of the abdomen, from the pelvis to the lowest rib.', '腰方肌'],
+  FCR: ['flexor carpi radialis', 'A front-of-forearm muscle that flexes and abducts the wrist.', '橈側腕屈肌'],
+  FCU: ['flexor carpi ulnaris', 'A front-of-forearm muscle that flexes and adducts the wrist; supplied by the ulnar nerve.', '尺側腕屈肌'],
+  FDS: ['flexor digitorum superficialis', 'Flexes the middle joints of the four fingers.', '指淺屈肌'],
+  FDP: ['flexor digitorum profundus', 'Flexes the end joints of the four fingers.', '指深屈肌'],
+  FPL: ['flexor pollicis longus', 'Flexes the tip of the thumb.', '拇長屈肌'],
+  FPB: ['flexor pollicis brevis', 'A thenar muscle that flexes the thumb at its base.', '拇短屈肌'],
+  ECRL: ['extensor carpi radialis longus', 'Extends and abducts the wrist.', '橈側腕長伸肌'],
+  ECRB: ['extensor carpi radialis brevis', 'Extends and abducts the wrist.', '橈側腕短伸肌'],
+  ECU: ['extensor carpi ulnaris', 'Extends and adducts the wrist.', '尺側腕伸肌'],
+  ED: ['extensor digitorum', 'Extends the four fingers.', '指伸肌'],
+  EI: ['extensor indicis', 'Extends the index finger on its own.', '食指伸肌'],
+  EDM: ['extensor digiti minimi', 'Extends the little finger.', '小指伸肌'],
+  EPL: ['extensor pollicis longus', 'Extends the tip of the thumb.', '拇長伸肌'],
+  EPB: ['extensor pollicis brevis', 'Extends the thumb at its base.', '拇短伸肌'],
+  APL: ['abductor pollicis longus', 'Abducts the thumb.', '拇長展肌'],
+  EHL: ['extensor hallucis longus', 'Extends the big toe and dorsiflexes the foot.', '拇長伸肌（足）'],
+  EDL: ['extensor digitorum longus', 'Extends the four lateral toes and dorsiflexes the foot.', '趾長伸肌'],
+  FHL: ['flexor hallucis longus', 'Flexes the big toe.', '拇長屈肌（足）'],
+  FDL: ['flexor digitorum longus', 'Flexes the four lateral toes.', '趾長屈肌'],
+  SO: ['superior oblique', 'The eye muscle that looks through the trochlea; it intorts and depresses the eye. Supplied by CN IV.', '上斜肌'],
+  IO: ['inferior oblique', 'The eye muscle that extorts and elevates the eye. Supplied by CN III.', '下斜肌'],
+  SR: ['superior rectus', 'The eye muscle that elevates, intorts and adducts the eye. Supplied by CN III.', '上直肌'],
+  IR: ['inferior rectus', 'The eye muscle that depresses, extorts and adducts the eye. Supplied by CN III.', '下直肌'],
+  MR: ['medial rectus', 'The eye muscle that adducts the eye. Supplied by CN III.', '內直肌'],
+  LR: ['lateral rectus', 'The eye muscle that abducts the eye. Supplied by CN VI.', '外直肌'],
+  MCP: ['metacarpophalangeal', 'The knuckle joint between a metacarpal and a finger bone.', '掌指關節'],
+  IP: ['interphalangeal', 'A joint between two finger or toe bones.', '指（趾）間關節'],
+  CMC: ['carpometacarpal', 'The joint between the carpal bones and a metacarpal; the thumb’s is a saddle joint.', '腕掌關節'],
+  ATFL: ['anterior talofibular ligament', 'The ankle ligament torn first in an inversion sprain.', '距腓前韌帶'],
+  CFL: ['calcaneofibular ligament', 'The ankle ligament torn second in an inversion sprain.', '跟腓韌帶'],
+  SITS: ['supraspinatus, infraspinatus, teres minor, subscapularis', 'The four rotator cuff muscles.', '肩袖肌群'],
+  DAB: ['dorsal interossei ABduct', 'Mnemonic: the dorsal interossei spread the fingers apart.', '背側骨間肌外展'],
+  PAD: ['palmar interossei ADduct', 'Mnemonic: the palmar interossei draw the fingers together.', '掌側骨間肌內收'],
+};
+
+export function abbrGloss(token) {
+  const a = ABBREVIATIONS[String(token || '').trim()];
+  if (!a) return null;
+  return { key: String(token).trim().toLowerCase(), meaning: `Short for ${a[0]}. ${a[1]}`, zh: a[2] };
+}
+
 export function termGloss(token) {
+  const short = abbrGloss(token);
+  if (short) return short;
   const raw = String(token || '').toLowerCase().trim();
   if (!raw) return null;
   const hit = (k) => ({ key: k, meaning: TERM_GLOSS[k][0], zh: TERM_GLOSS[k][1] });

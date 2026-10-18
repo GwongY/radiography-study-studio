@@ -31,8 +31,8 @@ export const TABLES_HTML = `<h2>Tables</h2>
   <tr data-wk="3"><td>Forearm, front</td><td>FCR, FCU, FDS, FDP, FPL, pronator teres, pronator quadratus</td><td>Wrist and finger flexion, pronation</td><td>Median (FCU and medial FDP by ulnar)</td></tr>
   <tr data-wk="3"><td>Forearm, back</td><td>ECRL, ECRB, ECU, ED, EI, EDM, EPL, EPB, APL, supinator</td><td>Wrist and finger extension, thumb, supination</td><td>Radial</td></tr>
   <tr data-wk="3"><td>Hand</td><td>Thenar, hypothenar, adductor pollicis, lumbricals, interossei</td><td>Fine finger and thumb work</td><td>Mostly ulnar; thenar by median <span class="star">★</span></td></tr>
-  <tr data-wk="2"><td>Gluteal</td><td>Medius, minimus, TFL</td><td>Abduct, medial rotate, steady the pelvis</td><td>Superior gluteal</td></tr>
-  <tr data-wk="2"><td>Gluteal</td><td>Maximus</td><td>Extend, lateral rotate</td><td>Inferior gluteal</td></tr>
+  <tr data-wk="2"><td>Gluteal, lateral</td><td>Medius, minimus, TFL</td><td>Abduct, medial rotate, steady the pelvis</td><td>Superior gluteal</td></tr>
+  <tr data-wk="2"><td>Gluteal, back</td><td>Maximus</td><td>Extend, lateral rotate</td><td>Inferior gluteal</td></tr>
   <tr data-wk="2"><td>Thigh, front</td><td>Iliopsoas, sartorius, quadriceps</td><td>Hip flexion, knee extension</td><td>Femoral</td></tr>
   <tr data-wk="2"><td>Thigh, medial</td><td>Adductor group, pectineus</td><td>Hip adduction</td><td>Obturator</td></tr>
   <tr data-wk="2"><td>Thigh, back</td><td>Hamstrings</td><td>Knee flexion, hip extension</td><td>Sciatic</td></tr>

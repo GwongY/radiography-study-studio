@@ -3,7 +3,7 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, decompose, esc, memoryTip, partOf, termGloss, termNote } from './imports.js';
+import { $$, abbrGloss, decompose, esc, memoryTip, partOf, termGloss, termNote } from './imports.js';
 import { openDialog } from './dialog-behaviour-applied.js';
 
 /* ------------------------------------------------------------------ *
@@ -21,7 +21,8 @@ import { openDialog } from './dialog-behaviour-applied.js';
 const glossCache = new Map();
 
 export function lookupTerm(word) {
-  const key = word.toLowerCase();
+  /* Short forms are case-sensitive (SO is an eye muscle, "so" is a word). */
+  const key = abbrGloss(word) ? word : word.toLowerCase();
   if (glossCache.has(key)) return glossCache.get(key);
   const note = termNote(word);
   const split = decompose(word);
@@ -63,7 +64,7 @@ export function lookupTerm(word) {
  * prefix — ordinary English wearing an anatomical meaning it does not have,
  * which is worse than leaving it plain.
  */
-const GLOSS_RE = /([a-z]{2,12}\/[oi])|(^|[\s(])(-[a-z]{2,12})\b|\b([a-z]{2,12}-)(?=[\s,;)])|\b([A-Za-z][a-z]{4,})\b/g;
+const GLOSS_RE = /([a-z]{2,12}\/[oi])|(^|[\s(])(-[a-z]{2,12})\b|\b([a-z]{2,12}-)(?=[\s,;)])|\b([A-Za-z][a-z]{4,})\b|\b([A-Z][A-Za-z]{1,5})\b/g;
 
 /* A five-letter token is only helpable through a whole-word glossary entry
    whose key is not itself a word part. Six and over keep the old rule. */
@@ -74,7 +75,9 @@ function shortWordOk(token) {
 }
 
 export function glossify(escaped) {
-  return String(escaped).replace(GLOSS_RE, (m, combForm, pre, sufForm, preForm, word) => {
+  return String(escaped).replace(GLOSS_RE, (m, combForm, pre, sufForm, preForm, word, short) => {
+    /* A short form (TFL, CSF, ACh) is tappable only when it is a known one. */
+    if (short) return abbrGloss(short) ? `<button type="button" class="term" data-term="${esc(short)}">${short}</button>` : m;
     const token = combForm || sufForm || preForm || word;
     const lead = pre || '';
     if (word && !shortWordOk(token)) return m;

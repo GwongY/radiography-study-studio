@@ -10,7 +10,7 @@ import { FLOW_CLASSES, LAYER_CLASSES, RATES } from '../physiology.js?v=4';
 import { SYSTEMS, layerOf, systemCounts } from '../systems.js?v=1';
 import { decompose, partOf } from '../wordparts.js?v=3';
 import { memoryTip, termNote } from '../term-notes.js?v=6';
-import { termGloss } from '../term-gloss.js?v=5';
+import { abbrGloss, termGloss } from '../term-gloss.js?v=5';
 import {
   GROUP_CHOICES, KINDS, SCHEDULE_SOURCES, SESSIONS, STAFF, SUBJECT_ADMIN, TERM,
   fmtDate, fmtTime, fmtWeekRange, fmtWhen, isOtherGroup, sessionSpan,
@@ -64,6 +64,7 @@ export {
   partOf,
   searchAnatomy,
   systemCounts,
+  abbrGloss,
   termGloss,
   termNote,
   ui,
