@@ -1,5 +1,13 @@
 # Radiography Study Studio
 
+### Revise replaces Learn (October 2026)
+
+The app stopped teaching. The owner learns each chapter elsewhere and comes here to **link** what has been learnt, so the Learn tab, the Remember step and the lesson reading are gone and the **Revise** tab took their place. It has five views over one set of data (`outputs/revision/`): a Markmap mind map, a Brain 3D link graph, Threads (one pathway across weeks), Tables, and a Decoder of terms. The reading help (tappable terms) is kept and runs over the fragments.
+
+**One map, a week at a time.** The week follows the teaching calendar (`weekOf` in `schedule.js`), clamped to the last week that has content (7 for HSS2011), so in week 7 the map links weeks 1-7. The week chips let the owner pick earlier (say week 6 when week 7 is not learnt yet); the choice is saved per subject and the **Auto** chip returns to the calendar. Each week adds to the same map: a topic appears at the first week it was taught, and links, thread steps, table rows and decoder rows appear with the latest week they draw on. A topic taught later but needed as the map's skeleton stays as a dim structure node.
+
+**Decisions.** HSS2011 Human Anatomy only (the reference build covered only it); the other four subjects have no map yet. Brain 3D is included. The lesson corpus is kept for Practise and Apply; its reading half is unreachable and can be deleted as a separate step. The week given to each table row and decoder row is a judgment from each topic's own weeks (`rowWeek` in the generator), adjustable. Practise and Apply remain: a session now opens on Practise, and a resume point saved on Learn or Remember reopens on Practise.
+
 ### Heart atlas mode (October 2026)
 
 The viewer has a **Heart atlas** mode: a visual reference tool, not a lesson source. It adds no study items and no `sourceRefs`. It brings in BetterHeart's four chamber cavities and the two anterior AV leaflets, moving valves with annulus rings and chordae, coronary flow tracers, the conduction system, a cardiac-cycle clock with a schematic ECG, and a TTE/TEE section simulator with M-mode, drawn on the explorer's own circulatory layer (the explorer's heart is hidden while the mode is on). Clinical scenarios added 2026-10-14, chosen as the imaging and physiology a radiographer meets (the owner asked for what is relevant to the four-year course): **Cath pressures** (Swan-Ganz and pigtail catheters, the pressure monitor, twelve conditions), **PCI** of the right coronary, **IVUS / OCT** pull-back with L-mode and automatic measurement, and **Conduction & rhythms** (AVNRT, AVRT, flutter, AF, RVOT VT, with catheter ablation). Left out on purpose: nerves, catheter and flow dots, leader-line labels, and the device-therapy simulators (TAVI, ASD and LAA closure, mitral balloon, MitraClip, rotational atherectomy, pacemakers) -- cardiology procedure detail, not radiography. The descriptions in the panel are BetterHeart's own Traditional Chinese text with English first, attributed to it -- they are not lessons. Licence: the mesh data and `coronary-routes.js` are CC BY-SA 4.0 (BodyParts3D underneath, CC BY-SA 2.1 JP), recorded in `outputs/THIRD-PARTY-NOTICES.txt` and `outputs/heart/MODEL-NOTICES.txt`; the site's code and teaching content now carry an all-rights-reserved notice (re-checked 2026-10-14: "do not copy, adapt or republish without written permission") and are included on the repository owner's confirmation that they have the author's permission -- keep that permission in writing, this repository is public.
@@ -74,7 +82,7 @@ movements into standalone lessons) are deprecated in favour of balanced, lecture
 
 The workflow is the same for every subject:
 
-> **Learn** → **Remember** → **Practise** → **Apply** → **Review**
+> **Revise** (link what you learnt) → **Practise** → **Apply** → **Review**  _(Learn and Remember were removed in October 2026; see "Revise replaces Learn" above)_
 
 ## Files
 

@@ -506,10 +506,11 @@ export function priorAdjustedScore(item, score, attempted) {
   return priorOf(item) ? PRIOR_ASSUMED_SCORE : 0;
 }
 
-/* New lessons start at Learn. Prior syllabus coverage is not saved progress.
- * Callers restore a lesson-specific saved stage before using this default. */
+/* An item starts at Practise: the app tests what has been learnt, it does not
+ * teach it. Prior syllabus coverage is not saved progress. Callers restore an
+ * item-specific saved stage before using this default. */
 export function entryStep(item, attempted) {
-  return 'learn';
+  return 'practise';
 }
 
 /* ------------------------------------------------------------------ *

@@ -13,12 +13,6 @@
  * them belongs in the section that owns the behaviour, not here.
  */
 export const ui = {
-  /* Learn: which subject filter, which topic, and whether the phone layout has
-     drilled into a topic so the detail replaces the list. */
-  learnFilter: 'all',
-  learnTopic: null,
-  learnDrill: false,
-
   /* Course: which panel of the timetable tab. */
   courseTab: 'week',
   /* Course → Assessments: which deadlines the list is showing. 'open' by

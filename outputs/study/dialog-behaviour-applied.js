@@ -71,7 +71,7 @@ $$('rssSkipBtn').onclick = () => {
   if (!ui.session) return;
   if (ui.session.index >= ui.session.items.length - 1) return endSession();
   ui.session.index += 1; ui.session.qIndex = 0; ui.session.seqOrder = null; ui.session.matchRights = null; ui.session.diagramTarget = null; ui.session.diagramReveal = null; if (window.__osteo && window.__osteo.endMovement) { window.__osteo.endMovement(); const b=$$('mvBar'); if(b) b.classList.add('hidden'); const bk=$$('mvBackToSession'); if(bk) bk.classList.add('hidden'); }
-  setStep('learn');
+  setStep('practise');
 };
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !document.querySelector('dialog[open]') && ui.session) { /* let the osteology handler own Escape in its own view */ }

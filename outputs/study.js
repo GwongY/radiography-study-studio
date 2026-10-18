@@ -24,6 +24,7 @@ import './study/search-viewer-open.js';
 import './study/hidden-tray.js';
 import './study/spatial-overlay-controls.js';
 import './study/subject.js';
+import { init as init_revise_js } from './study/revise.js';
 import './study/what-is-under.js';
 import './study/session-engine.js';
 import './study/lesson-visuals.js';
@@ -57,6 +58,7 @@ init_progress_log_js();
 init_gist_sync_js();
 init_dialog_behaviour_applied_js();
 init_course_timetable_js();
+init_revise_js();
 init_assessments_and_marks_js();
 init_viewer_tools_js();
 /* After dialog wiring: exam mode intercepts the session overlay's own close

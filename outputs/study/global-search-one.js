@@ -3,15 +3,12 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, ITEM_TYPES, MESH_INDEX as ATLAS_MESH_INDEX, SEARCH_EXTRAS, STRUCTURE_MODELS, STUDY_ITEMS, UNITS, compositeFor, entryStep, esc, expandQuery, getSubject, missingFor, searchAnatomy, ui } from './imports.js';
-import { adjScore, itemAttempted, K, read, write } from './storage-versioned-keys.js';
-import { goTo, openSessionOverlay } from './navigation-five-destinations.js';
+import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, MESH_INDEX as ATLAS_MESH_INDEX, SEARCH_EXTRAS, STRUCTURE_MODELS, UNITS, compositeFor, esc, expandQuery, missingFor, searchAnatomy, ui } from './imports.js';
+import { K, read, write } from './storage-versioned-keys.js';
+import { goTo } from './navigation-five-destinations.js';
 import { openStructureInViewer } from './search-viewer-open.js';
 import { releaseLessonVisual } from './lesson-visuals.js';
-import { renderLearn, topicsWithContent } from './subject.js';
-import { setStep } from './session-engine.js';
 import { showView } from './small-ui-helpers.js';
-import { getItemStep } from './home.js';
 import { exactSearch, matchesSearch, modelSearchNames } from '../search-name.js';
 import { lectureRow } from '../viewer-lecture-names.js';
 const lectureRows=ATLAS_MESH_INDEX.map(lectureRow);
@@ -118,41 +115,6 @@ export function dismissSessionForNav() {
   if (shell) shell.inert = false;
 }
 
-/* One item, taught on its own -- used when a search result names a
-   specific study item rather than a whole topic. */
-function studySingleItem(item) {
-  ui.session = {
-    opts: { mode: 'subject', subject: item.subject }, mode: null, items: [item], index: 0,
-    step: 'learn', qIndex: 0, answered: false, startedAt: 0,
-    results: [], hooksOnly: false, modeLabel: 'Single item',
-  };
-  openSessionOverlay();
-  setStep('learn');
-}
-
-/*
- * One topic, opened at the item you tapped.
- *
- * The same queue "Study this topic" builds -- the whole topic is in it, and
- * Next walks the rest -- except the item you actually asked for leads it, in
- * the weakest-first order the list on screen is already sorted by.
- */
-export function studyItemWithin(topic, itemId) {
-  const ordered = topic.week ? topic.items.slice() : topic.items.slice().sort((a, b) => adjScore(a) - adjScore(b));
-  const at = ordered.findIndex((i) => i.id === itemId);
-  if (at < 0) return;
-  const items = [ordered[at], ...ordered.slice(0, at), ...ordered.slice(at + 1)];
-  const savedStep = getItemStep(items[0].id);
-  const step = savedStep || entryStep(items[0], itemAttempted(items[0].id));
-  ui.session = {
-    opts: { mode: 'subject', subject: topic.subject?.id || topic.id, unit: topic.unit?.id || topic.id }, mode: null, items, index: 0,
-    step, qIndex: 0, answered: false, startedAt: 0,
-    results: [], hooksOnly: false, modeLabel: topic.unit?.label || topic.title,
-  };
-  openSessionOverlay();
-  setStep(step);
-}
-
 /*
  * One query, every name a structure goes by.
  *
@@ -224,21 +186,6 @@ export function searchHits(q) {
   const structureNeedle = side ? needle.slice(side.length).trim() : needle;
   const matches = makeMatcher(structureNeedle);
   const openStructure = (spec) => openStructureInViewer({...spec, side});
-
-  topicsWithContent().forEach((t) => {
-    if (t.unit.label.toLowerCase().includes(needle) || t.subject.code.toLowerCase().includes(needle)) {
-      hits.push({ kind: 'Topic', title: t.unit.label, note: `${t.group.label} \u00b7 ${t.subject.code} \u00b7 ${t.items.length} items`,
-        go: () => { ui.learnFilter = 'all'; ui.learnTopic = t.unit.id; ui.learnDrill = true; closeSearchSheet(); dismissSessionForNav(); renderLearn(); } });
-    }
-  });
-
-  STUDY_ITEMS.forEach((i) => {
-    const hay = (i.title + ' ' + (i.tags || []).join(' ')).toLowerCase();
-    if (hay.includes(needle)) {
-      hits.push({ kind: 'Item', title: i.title, note: `${getSubject(i.subject).title} \u00b7 ${(ITEM_TYPES[i.type] || {}).label || i.type}`,
-        go: () => { closeSearchSheet(); studySingleItem(i); } });
-    }
-  });
 
   /*
    * One row per structure across all four sources.

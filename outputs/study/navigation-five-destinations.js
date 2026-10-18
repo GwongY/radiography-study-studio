@@ -6,8 +6,8 @@
  */
 import { $$, esc, ui } from './imports.js';
 import { openViewer, leaveProjection } from './what-is-under.js';
-import { releaseLessonVisual, mountLessonVisual } from './lesson-visuals.js';
-import { renderLearn } from './subject.js';
+import { releaseLessonVisual } from './lesson-visuals.js';
+import { renderRevise } from './revise.js';
 import { renderMore } from './more-sources-coverage.js';
 import { renderToday } from './home.js';
 import { renderExamTab, examTab } from './review-mistakes-due.js';
@@ -20,16 +20,16 @@ import { renderCourse } from './course-timetable.js';
 
 const NAV_DESTS = [
   ['today', 'Today', '\u25d4', () => renderToday()],
-  ['learn', 'Learn', '\u25a6', () => renderLearn()],
+  ['revise', 'Revise', '\u25a6', () => renderRevise()],
   ['viewer', 'Viewer', '\u25c9', () => openViewer()],
   ['course', 'Course', '\u25f3', () => renderCourse()],
   ['exam', 'Exam', '\u2707', () => renderExamTab(examTab)],
   ['more', 'More', '\u22ef', () => renderMore()],
 ];
-const NAV_TITLES = { today: 'Today', learn: 'One learning tree', viewer: 'Viewer', course: 'Course', exam: 'Exam', more: 'More' };
+const NAV_TITLES = { today: 'Today', revise: 'Revise', viewer: 'Viewer', course: 'Course', exam: 'Exam', more: 'More' };
 const NAV_KICKERS = {
   today: 'What to do now',
-  learn: 'All Y1S1 courses \u00b7 latest schedule order',
+  revise: 'Link what you have learnt \u00b7 week by week',
   viewer: 'Model and images in one place',
   course: 'Timetable, syllabus, assessments',
   exam: 'Past papers, timed practice, mastery',
@@ -52,7 +52,6 @@ export function setActiveNav(id) {
      removed; there is no second source to pause any more. */
   if (id !== 'viewer') {leaveProjection();}
   $$('navTitle').textContent = NAV_TITLES[id] || 'Study Studio';
-  if (id !== 'learn') $$('navBackBtn').classList.add('hidden');
   $$('navKicker').textContent = NAV_KICKERS[id] || '';
   /*
    * The viewer takes over the window: the page stops scrolling, the width cap
@@ -78,7 +77,6 @@ export function goTo(id) {
     ui.session = null;
     $$('viewerLessonQuit').classList.add('hidden');
   }
-  ui.learnDrill = false;
   const dest = NAV_DESTS.find((d) => d[0] === id);
   if (dest) dest[3]();
 }
@@ -95,24 +93,10 @@ export function renderNavButtons() {
 /* The session is a full-screen overlay rather than a routed view, so it can
    cover the shell whatever destination is behind it. */
 let tabBeforeSession = 'today';
-/*
- * The destination alone was not enough to come back to.
- *
- * Closing a session called goTo(), and goTo() clears ui.learnDrill because
- * that is what pressing Learn in the tab bar should do. So leaving a lesson
- * you had opened from inside a topic put you back at the grid of topics, one
- * level above where you were, with the topic you were working through closed
- * -- and the item list you had picked from was the one thing you wanted back.
- * The drill-down is part of where you were, so it is saved and restored with
- * the tab, and the return path renders the destination WITHOUT going through
- * goTo's reset.
- */
-let placeBeforeSession = null;
 export function openSessionOverlay() {
   viewerLesson = null;
   $$('viewerLessonQuit').classList.add('hidden');
   tabBeforeSession = currentTab || 'today';
-  placeBeforeSession = { drill: ui.learnDrill, topic: ui.learnTopic, filter: ui.learnFilter };
   $$('sessionView').classList.remove('hidden');
   /* Without this the rail, tab bar and search button stay in the tab order
      behind the overlay. `inert` needs no focus-trap code. */
@@ -137,7 +121,6 @@ export function suspendSessionForViewer() {
     if (ui.session.startedAt) ui.session.startedAt += performance.now() - viewerLesson.at;
     session.classList.remove('hidden');
     document.querySelector('.app-shell').inert = true;
-    if (ui.session.step === 'learn') mountLessonVisual(ui.session.items[ui.session.index]);
     session.querySelector('.navcontent').scrollTop = viewerLesson.scroll;
     viewerLesson = null;
     back.classList.add('hidden');
@@ -150,12 +133,6 @@ export function closeSessionOverlay() {
   $$('sessionView').classList.add('hidden');
   const shell = document.querySelector('.app-shell');
   if (shell) shell.inert = false;
-  if (placeBeforeSession) {
-    ui.learnDrill = placeBeforeSession.drill;
-    ui.learnTopic = placeBeforeSession.topic;
-    ui.learnFilter = placeBeforeSession.filter;
-    placeBeforeSession = null;
-  }
   const dest = NAV_DESTS.find((d) => d[0] === tabBeforeSession);
   if (dest) dest[3]();
 }

@@ -207,6 +207,31 @@ export function proseHTML(text) {
   return `<ol class="chunks">${body}</ol>`;
 }
 
+/*
+ * Reading help for markup that is already HTML — the revision notes, threads and
+ * tables, which are authored as HTML and so cannot go through glossify(esc(text)).
+ * Only text nodes are touched, never a tag or an attribute, and never text inside
+ * something that is already a control or a heading cell, so a button is not wrapped
+ * in a button. Safe to call again on the same node: words already wrapped sit
+ * inside a <button> and are skipped.
+ */
+export function glossifyNode(root, skip = 'button, a, th, summary, script, style, select, option, textarea') {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  for (let n = walker.nextNode(); n; n = walker.nextNode()) nodes.push(n);
+  for (const t of nodes) {
+    const text = t.nodeValue;
+    if (!text.trim() || (t.parentElement && t.parentElement.closest(skip))) continue;
+    const escaped = esc(text);
+    const html = glossify(escaped);
+    if (html === escaped) continue;
+    const tpl = document.createElement('template');
+    tpl.innerHTML = html;
+    t.replaceWith(tpl.content);
+  }
+  wireTerms(root);
+}
+
 /* Delegated: the chips are rebuilt on every render, so binding per chip would leak. */
 export function wireTerms(root) {
   (root || document).querySelectorAll('[data-term]').forEach((b) => { b.onclick = () => openTermDialog(b.dataset.term); });

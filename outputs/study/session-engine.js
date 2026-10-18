@@ -4,10 +4,10 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, ITEM_TYPES, STUDY_ITEMS, STUDY_MODES, describeSource, entryStep, esc, getItem, priorOf, questionsOf, ui } from './imports.js';
-import { applyHTML, endSession, learnHTML, practiseHTML, rememberHTML, wireApply, wirePractise, wireStageNav } from './layout-figures.js';
+import { applyHTML, endSession, practiseHTML, wireApply, wirePractise, wireStageNav } from './layout-figures.js';
 import { adjScore, itemAttempted, itemDue, itemLapses, store } from './storage-versioned-keys.js';
 import { recordRead } from './progress-log.js';
-import { mountLessonVisual, releaseLessonVisual } from './lesson-visuals.js';
+import { releaseLessonVisual } from './lesson-visuals.js';
 import { startExam } from './exam-mode.js';
 import { openSessionOverlay } from './navigation-five-destinations.js';
 import { openSourceDialog } from './source-dialog.js';
@@ -19,12 +19,18 @@ import { wireTerms } from './reading-help.js';
  * Session engine
  * ------------------------------------------------------------------ */
 
+/*
+ * Two steps. The app no longer teaches: the owner learns each chapter elsewhere
+ * and comes here to link and recall it (Revise), then to be tested (this).
+ * Learn and Remember were the reading half and are gone. A resume point saved
+ * by an older build can still name them; stepOf() turns that into Practise
+ * rather than leaving a step the engine has no page for.
+ */
 export const STEPS = [
-  { id: 'learn', label: 'Learn', copy: 'Read the teaching explanation and the key facts.' },
-  { id: 'remember', label: 'Remember', copy: 'Memory Coach — the hooks and the traps for this item.' },
   { id: 'practise', label: 'Practise', copy: 'Answer, then see why.' },
   { id: 'apply', label: 'Apply', copy: 'Use the idea on something you have not seen.' },
 ];
+export const stepOf = (step) => (step === 'apply' ? 'apply' : 'practise');
 
 /*
  * There were five steps. Review was the fifth, and it was the one step that
@@ -88,8 +94,6 @@ export function pickItems(opts) {
      * before it reaches here, because an exam is a paper rather than a queue of
      * items. A case here would be unreachable code that looked authoritative.
      */
-    case 'hooks':
-      return shuffle(pool.filter((i) => i.memory && Object.keys(i.memory).length)).slice(0, 12);
     case 'mistakes': {
       const ids = [...new Set(store.mistakes.map((m) => m.itemId))];
       return ids.map(getItem).filter(Boolean).filter((i) => !opts.subject || i.subject === opts.subject).slice(0, 12);
@@ -129,10 +133,10 @@ export function startSession(opts) {
     return toast('Nothing to study for that selection yet.');
   }
   const mode = STUDY_MODES.find((m) => m.id === opts.mode);
-  const hooksOnly = opts.mode === 'hooks';
+  const hooksOnly = false;
   const first = items[0];
   const savedStep = getItemStep(first.id);
-  const step = hooksOnly ? 'remember' : (savedStep || entryStep(first, itemAttempted(first.id)));
+  const step = stepOf(savedStep || entryStep(first, itemAttempted(first.id)));
   ui.session = {
     opts, mode, items, index: 0, step,
     qIndex: 0, answered: false, startedAt: 0,
@@ -155,7 +159,7 @@ function currentItem() { return ui.session.items[ui.session.index]; }
 
 /*
  * Moving to the next item. The footer control and the Apply card's own button
- * both land here: restore this item's saved stage, or start a new item on Learn.
+ * both land here: restore this item's saved stage, or start a new item on Practise.
  */
 export function advanceItem() {
   ui.session.index += 1; ui.session.qIndex = 0; ui.session.seqOrder = null; ui.session.matchRights = null;
@@ -167,12 +171,13 @@ export function advanceItem() {
   }
   const next = ui.session.items[ui.session.index];
   const savedNext = next ? getItemStep(next.id) : null;
-  setStep(ui.session.hooksOnly ? 'remember' : (savedNext || entryStep(next, itemAttempted(next.id))));
+  setStep(savedNext || entryStep(next, itemAttempted(next.id)));
 }
 
 export function setStep(step) {
   /* Step buttons stay in the DOM after a session ends; ignore late clicks. */
   if (!ui.session) return;
+  step = stepOf(step);
   ui.session.step = step;
   if (ui.session.items[ui.session.index]) saveContinue(ui.session.items[ui.session.index].id, step);
   ui.session.answered = false;
@@ -244,9 +249,7 @@ export function renderStep() {
   renderSessionMeter();
   renderSourceCard(item);
   const stage = $$('rssStage');
-  if (ui.session.step === 'learn') { stage.innerHTML = learnHTML(item); mountLessonVisual(item); }
-  else if (ui.session.step === 'remember') { releaseLessonVisual(); stage.innerHTML = rememberHTML(item); }
-  else if (ui.session.step === 'practise') { releaseLessonVisual(); stage.innerHTML = practiseHTML(item); wirePractise(item); }
+  if (ui.session.step === 'practise') { releaseLessonVisual(); stage.innerHTML = practiseHTML(item); wirePractise(item); }
   else { releaseLessonVisual(); stage.innerHTML = applyHTML(item); wireApply(item); }
   wireStageNav(item);
   wireTerms($$('rssStage'));

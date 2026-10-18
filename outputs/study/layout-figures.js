@@ -9,10 +9,9 @@ import { recordAttempt } from './progress-log.js';
 import { syncSoon } from './gist-sync.js';
 import { advanceItem, renderSessionFoot, renderStep, setStep, typeLabel } from './session-engine.js';
 import { closeSessionOverlay } from './navigation-five-destinations.js';
-import { glossify, lookupTerm, plateHTML, proseHTML, wireTerms } from './reading-help.js';
+import { glossify, lookupTerm, plateHTML, wireTerms } from './reading-help.js';
 import { openSourceDialog } from './source-dialog.js';
 import { openViewer } from './what-is-under.js';
-import { priorLeadHTML, visualSlotHTML } from './lesson-visuals.js';
 import { renderToday } from './home.js';
 import { showView, toast, xrayFallback } from './small-ui-helpers.js';
 
@@ -69,235 +68,6 @@ export function layoutHTML(id, sc) {
       <span class="figcredit">A layout, not a depiction \u2014 no anatomy is being drawn to scale here.</span>
     </figcaption>
   </figure>`;
-}
-
-/* Where in the HSS2011 course this lesson sits — app-authored framing, not a source claim. */
-function moduleLine(item) {
-  const m = moduleInfo(item);
-  if (!m) return '';
-  /* The sources number the modules differently — say so here rather than let
-     the citation under the lesson look like it contradicts the header. */
-  const was = m.legacy ? `<span class="modlegacy">Your sources call it ${esc(m.legacy)}</span>` : '';
-  return `<div class="moduleline"><span class="apptag">App note</span>From <strong>Module ${m.n}</strong> · ${esc(m.name)} — ${esc(m.plain)}${was}</div>`;
-}
-
-/* App-authored plain-English lead — a hook for dense lessons so the sourced
-   explanation below has something to hang on. Tagged; not a source claim.
-   Glossified like key facts so the hard words stay tappable here too. */
-function plainLeadHTML(item) {
-  const p = item.lesson && item.lesson.plain;
-  if (!p) return '';
-  return `<div class="plainlead"><span class="apptag">App note</span> ${glossify(esc(p))}</div>`;
-}
-
-/*
- * Key-facts block. Structure-set lessons carry a grouped form — an app-authored
- * hook with the organising idea (tagged APP NOTE, a study device not a source
- * claim), then the members under the group headings that already exist in the
- * data. Every other lesson renders the flat list unchanged. Member strings stay
- * glossified either way so the hard words remain tappable.
- */
-function factsHTML(item) {
-  const lesson = item.lesson || {};
-  const groups = lesson.keyFactsGroups;
-  if (groups && groups.length) {
-    const hook = lesson.hook
-      ? `<div class="hook"><span class="apptag">App note</span> The idea to hang it on: ${glossify(esc(lesson.hook))}</div>`
-      : '';
-    const blocks = groups.map((bucket) => `<div class="factgroup"><div class="factgroup-head">${esc(bucket.group)}</div>`
-      + `<ul class="facts">${bucket.items.map((f) => `<li>${glossify(esc(f))}</li>`).join('')}</ul></div>`).join('');
-    return `${hook}<div class="subhead">Key facts to remember</div>${blocks}`;
-  }
-  return lesson.keyFacts && lesson.keyFacts.length
-    ? `<div class="subhead">Key facts to remember</div><ul class="facts">${lesson.keyFacts.map((f) => `<li>${glossify(esc(f))}</li>`).join('')}</ul>` : '';
-}
-
-export function learnHTML(item) {
-  const subject = getSubject(item.subject);
-  const prior = priorOf(item);
-  const facts = factsHTML(item);
-  const examples = item.lesson.examples && item.lesson.examples.length
-    ? `<div class="subhead">Examples</div><ul class="facts">${item.lesson.examples.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>` : '';
-  const teaching = prior
-    ? `${plainLeadHTML(item)}${priorLeadHTML(item, prior)}${facts}${examples}
-    <details class="priorback"><summary>${esc(prior.short)}-level background — the part you already have</summary>${proseHTML(item.lesson.explanation)}</details>`
-    : `${plainLeadHTML(item)}${proseHTML(item.lesson.explanation)}${facts}${examples}`;
-  /*
-   * "Skills to build" — app-authored and content-embedded: each entry is an
-   * insight that lives inside this item's own knowledge — a misconception
-   * with its correction, a distinction with the discriminator that separates
-   * it, a discrimination pattern, a trap in an otherwise reasonable
-   * assumption — never generic how-to-study advice. Tagged App note because
-   * the insight framing is study scaffolding, even though every fact it
-   * turns is source-traced on this card.
-   */
-  const skillsBlock = item.skills && item.skills.length
-    ? `<div class="subhead">Skills to build with this content</div><ul class="facts">${item.skills.map((s) => `<li>${glossify(esc(s))}</li>`).join('')}</ul><p class="small" style="color:var(--muted);margin-top:8px"><span class="apptag">App note</span> Written by this app from the content above. The facts are the sourced ones; the insight framing is study scaffolding.</p>`
-    : '';
-  return `<div class="lesson">
-    <div class="eyebrow" style="color:${subject ? subject.accent : 'var(--teal)'}">${esc(subject ? subject.code : item.subject)} · ${esc(typeLabel(item.type))}</div>
-    ${moduleLine(item)}
-    <h2>${esc(item.title)}</h2>
-    ${visualSlotHTML(item)}
-    ${teaching}
-    ${skillsBlock}
-    ${item.lesson.studyNote ? `<div class="notice"><strong>Radiography study note — written by this app</strong>${esc(item.lesson.studyNote)}<p>This framing is not a claim from the supplied sources. The anatomy above is; this sentence is study scaffolding.</p></div>` : ''}
-    ${plateHTML(item)}
-    ${item.tags && item.tags.length ? `<div class="tagrow">${item.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}
-    <div class="rss-actions"><button class="primary" data-nav="remember">Give me the memory aids →</button><button class="ghost" data-nav="practise">Skip to practice</button></div>
-  </div>`;
-}
-
-/*
- * The nine structure-set items carry no memory aids, so the first two stages
- * used to fall back on filler -- "Attach the fact to something you already know
- * well" is not a hint, it is a sentence shaped like one. They do carry
- * something better: each member has its own note off the lecture, and the
- * members are grouped. Those make an actual clue.
- */
-function setHint(item, wantGroups) {
-  const set = item.structureSet && structureSet(item.structureSet);
-  if (!set) return null;
-  const members = set.members || [];
-  if (wantGroups) {
-    const groups = [...new Set(members.map((m) => m.group).filter(Boolean))];
-    if (groups.length > 1) return `${members.length} structures in ${groups.length} groups: ${groups.join(', ')}. Name the group first, then place the members inside it.`;
-    if (members.length) return `${members.length} structures to name. Work round them in a fixed order every time, so the order itself becomes the cue.`;
-    return null;
-  }
-  const withNote = members.filter((m) => m.note);
-  if (!withNote.length) return null;
-  const m = withNote[0];
-  return `One to start you off — ${m.label}: ${m.note}`;
-}
-
-/*
- * A hint built from the word itself, for items whose memory aids run out.
- *
- * The app already carries an 814-stem word-part list; on an item called
- * "Radioulnar joints" that is a real clue -- radi/o + ulnar, so the name is
- * telling you which two bones -- and it beats the filler line that used to sit
- * here by a distance.
- */
-function originHint(item) {
-  const words = String(item.title || '').split(/[^A-Za-z]+/).filter((w) => w.length >= 8);
-  for (const w of words) {
-    const d = decompose(w);
-    if (d) return `The name is doing the work: ${w.toLowerCase()} reads as ${readingOf(d)}.`;
-  }
-  return null;
-}
-
-/*
- * The stages are resolved together rather than independently: each one takes
- * the first of its candidates that no earlier stage has already claimed, so a
- * hint is never shown twice on one card.
- */
-export const HINT_STAGES = [
-  { lab: 'The small clue',
-    candidates: (item) => [
-      { k: 'chunking', v: item.memory.chunking }, { k: 'wordOrigin', v: item.memory.wordOrigin },
-      { k: 'location', v: item.memory.location }, { k: 'comparison', v: item.memory.comparison },
-      { v: setHint(item, true) },
-      { k: 'mnemonic', v: item.memory.mnemonic }, { k: 'firstLetter', v: item.memory.firstLetter },
-      { k: 'visualCue', v: item.memory.visualCue }, { k: 'sequence', v: item.memory.sequence },
-      { k: 'teachBack', v: item.memory.teachBack }, { v: originHint(item) },
-    ],
-    fallback: 'Start from the title and ask what category the answer belongs to.' },
-  { lab: 'The memory hook',
-    candidates: (item) => [
-      { v: item.lesson.hook },
-      { k: 'mnemonic', v: item.memory.mnemonic }, { k: 'firstLetter', v: item.memory.firstLetter },
-      { k: 'visualCue', v: item.memory.visualCue }, { k: 'sequence', v: item.memory.sequence },
-      { k: 'chunking', v: item.memory.chunking }, { v: setHint(item, false) }, { v: originHint(item) },
-      { k: 'comparison', v: item.memory.comparison }, { k: 'wordOrigin', v: item.memory.wordOrigin },
-      { k: 'location', v: item.memory.location }, { k: 'teachBack', v: item.memory.teachBack },
-    ],
-    fallback: 'Attach the fact to something you already know well.' },
-];
-
-/*
- * There was a third stage. It showed this item's common confusions, and when
- * the item had none it showed a paragraph of general advice about retrieval
- * practice. The confusions have their own section below now -- named, and not
- * behind anything -- and general advice about how to study is not what a
- * memory hook is for.
- */
-
-const sameText = (a, b) => String(a).trim().toLowerCase().replace(/\s+/g, ' ') === String(b).trim().toLowerCase().replace(/\s+/g, ' ');
-
-function stageTexts(item) {
-  const out = new Array(HINT_STAGES.length).fill('');
-  const usedKeys = new Set();
-  const used = [];
-  const claim = (i, cand) => {
-    if (!cand || !cand.v || used.some((u) => sameText(u, cand.v))) return false;
-    out[i] = cand.v;
-    if (cand.k) usedKeys.add(cand.k);
-    used.push(cand.v);
-    return true;
-  };
-  HINT_STAGES.forEach((s, i) => {
-    if (!s.candidates(item).some((c) => claim(i, c))) {
-      out[i] = (typeof s.fallback === 'function' ? s.fallback(item) : s.fallback) || '';
-    }
-  });
-  return { texts: out, usedKeys, used };
-}
-
-/*
- * Both hints, open, with the traps underneath.
- *
- * They used to be behind a "Reveal next hint" button, one press per stage, on
- * the theory that a hint you had to ask for was a hint you had tried without.
- * In use it was three presses standing between the reader and the whole point
- * of the card, and the first press was never a decision -- nobody arrives at
- * the Memory Coach wanting to not see the memory aids. What used to be the
- * discipline lives in the order instead: the small clue is above the hook, so
- * reading downwards is still reading from least given away to most.
- */
-export function rememberHTML(item) {
-  const hooks = Object.entries(item.memory || {}).filter(([, v]) => v);
-  const { texts, usedKeys, used } = stageTexts(item);
-  const stack = HINT_STAGES.map((st, i) => `<div class="reveal open" data-stage="${i}">
-      <div class="lab">${esc(st.lab)}</div>
-      <div class="txt">${glossify(esc(texts[i]))}</div>
-    </div>`).join('');
-  /*
-   * Only the aids the two stages did not already use. The stages draw from the
-   * same pool, so without this the card says the same sentence twice.
-   */
-  const moreHooks = hooks.filter(([k, v]) => v && !usedKeys.has(k) && !used.some((u) => sameText(u, v)));
-  const hooksList = (list) => `${list.map(([k, v]) => `<div class="hookcard"><div class="kind">${esc(MEMORY_METHODS[k] || k)}</div><div class="txt">${esc(v)}</div></div>`).join('')}
-      <p class="small" style="color:var(--muted);margin-top:10px">Memory aids are written by this app. The facts they point at are the source-traced ones on the Learn card.</p>`;
-  /*
-   * What replaced the blank-page prompt.
-   *
-   * That prompt was app-authored advice about how to revise -- write the page
-   * from memory, then check it -- shown on this card and again on the step
-   * after it. These are the mistakes people actually make on THIS item, they
-   * come out of the corpus with the rest of the lesson, and knowing the trap
-   * before you are tested is worth more than being told to try harder.
-   */
-  const traps = (item.commonMistakes || []).length
-    ? `<div class="subhead" style="margin-top:14px">Common confusions on this item</div>
-       <ul class="facts">${item.commonMistakes.map((m) => `<li>${glossify(esc(m))}</li>`).join('')}</ul>`
-    : '';
-  return `<div class="lesson">
-    <div class="eyebrow">Memory Coach</div>
-    <h2>${esc(item.title)}</h2>
-    <p class="task-copy">${ui.session.hooksOnly ? 'Browsing memory hooks — nothing is scored in this mode.' : 'Read down: the small clue first, then the hook it hangs on.'}</p>
-    ${ui.session.hooksOnly ? '' : `<div class="reveal-stack">${stack}</div>`}
-    ${ui.session.hooksOnly ? '' : traps}
-    <div class="rss-actions">
-      ${ui.session.hooksOnly
-        ? (ui.session.index >= ui.session.items.length - 1 ? '<button class="primary" id="rssFinish">Finish</button>' : '<button class="primary" id="rssNextItem">Next hook →</button>')
-        : '<button class="primary" data-nav="practise">Test me →</button>'}
-    </div>
-    ${ui.session.hooksOnly
-      ? (hooks.length ? `<div class="subhead">All memory aids for this item</div>${hooksList(hooks)}` : '<div class="emptybox" style="margin-top:14px">No memory aid authored for this item yet.</div>')
-      : (moreHooks.length ? `<div class="subhead" style="margin-top:14px">More hooks for this item</div>${hooksList(moreHooks)}` : '')}
-  </div>`;
 }
 
 /* ---------------- question rendering ---------------- */
@@ -418,7 +188,7 @@ export function practiseHTML(item) {
    */
   const prior = priorOf(item);
   const verifying = prior && !itemAttempted(item.id)
-    ? `<div class="priorbar"><div class="txt"><span class="kick">Verifying, not teaching</span>${esc(prior.label)} already covered this, so the session opens on the question.<p>Nothing is assumed about your answer — this is the first thing recorded for the item.</p></div><button class="ghost" id="rssPriorLesson">Show the lesson first</button></div>`
+    ? `<div class="priorbar"><div class="txt"><span class="kick">Verifying, not teaching</span>${esc(prior.label)} already covered this, so the session opens on the question.<p>Nothing is assumed about your answer — this is the first thing recorded for the item.</p></div></div>`
     : '';
   return `<div class="lesson">
     ${verifying}
@@ -520,12 +290,7 @@ function finishQuestion(item, q, correct, extra, conf = 2) {
     ? '<button class="primary" id="rssNextQ">Next question →</button><button class="ghost" data-nav="apply">Go to apply</button>'
     : '<button class="primary" data-nav="apply">Apply it →</button>';
   if (untestedPrior && !correct) {
-    /* The assumption that this was already known has just failed, so put the
-       lesson back in front of the one item that turned out to need it. */
-    nav.insertAdjacentHTML('afterbegin', '<button class="ghost" id="rssPriorLesson">Read the lesson</button>');
-    const pl = $$('rssPriorLesson');
-    if (pl) pl.onclick = () => setStep('learn');
-    toast('Carried over as known, but missed — worth reading the lesson on this one.');
+    toast('Carried over as known, but missed — worth revising this one.');
   }
   const nq = $$('rssNextQ');
   if (nq) nq.onclick = () => { ui.session.qIndex += 1; ui.session.answered = false; ui.session.seqOrder = null; ui.session.matchRights = null; ui.session.diagramTarget = null; ui.session.diagramReveal = null; if (window.__osteo && window.__osteo.endMovement) { window.__osteo.endMovement(); const b=$$('mvBar'); if(b) b.classList.add('hidden'); const bk=$$('mvBackToSession'); if(bk) bk.classList.add('hidden'); } ui.session.startedAt = performance.now(); renderStep(); };
@@ -591,9 +356,6 @@ function targetIn3D(set, member) {
 export function wirePractise(item) {
   const q = ui.session.currentQ;
   if (!q) return;
-  /* Survives renderSessionFoot, which strips [data-nav] buttons out of the card. */
-  const showLesson = $$('rssPriorLesson');
-  if (showLesson) showLesson.onclick = () => setStep('learn');
   if (!ui.session.startedAt) ui.session.startedAt = performance.now();
 
   const lockOpts = (correctIdx, chosen) => {

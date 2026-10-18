@@ -5,7 +5,7 @@
  */
 import { $$, ui } from './imports.js';
 import { migrate } from './storage-versioned-keys.js';
-import { layerState, renderLayerRail, renderLearn } from './subject.js';
+import { layerState, renderLayerRail } from './subject.js';
 import { renderNavButtons } from './navigation-five-destinations.js';
 import { renderOverlayCard } from './spatial-overlay-controls.js';
 import { renderViewerTools } from './viewer-tools.js';
@@ -79,7 +79,5 @@ export function init() {
   $$('closeSource').onclick = () => $$('sourceDialog').close();
   $$('closeCoverage').onclick = () => $$('coverageDialog').close();
   $$('closeAbout').onclick = () => $$('aboutDialog').close();
-  /* ...and so does coming back out of one. */
-  $$('navBackBtn').onclick = () => { ui.learnDrill = false; renderLearn(); scrollViewTop(); };
 }
 

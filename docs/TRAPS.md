@@ -1512,3 +1512,11 @@ names it.
 - **`routes-*.json?v=N` is fetched by a run-time string**, so `shell-check` cannot see it: the two files are listed in `sw.js` by hand under the same query as `limb.js` writes. Bump both together.
 
 - **Unclassified circulatory meshes follow the whole layer, so the atlas must hide ALL of them.** `dolasim.glb` has meshes whose names did not survive export (`????????`, `?x`) and no system rule claims them; with the Heart chip on they are drawn regardless. Two of them, `?x.l` and `?x.r`, are ~5 mm pieces at neck height, 0.3 m above the heart, and showed up as two small vessels floating over it. `hostHeartMeshes()` in `heart-atlas.js` flags every unclassified mesh as well as the heart-system ones, not only those inside the heart's box. Check: with the mode on, no visible mesh may sit outside the `heartAtlas` group.
+
+### Revise — week-gated fragments — `outputs/study/revise.js`, `outputs/revision/`, `work/revision-check.mjs`
+
+- **Markmap's `setData()` does not remove what it already drew.** A new week showed last week's topics under the new heading. The map is destroyed and made again (`makeInstance`) on every week change; never go back to `setData`.
+- **Fit gives NaN in a zero-size container.** The pane can be 0x0 while hidden, and Markmap then writes `translate(NaN,NaN)` into every group. A ResizeObserver refits when the size arrives; test with `resize_window`, not a hidden tab.
+- **Every fragment must carry `data-wk`.** A thread step (`li`), a thread table row (`tr`), a table row, a double-check box and a decoder row each need one, or they show from week 1. A thread table row with no week of its own takes the latest week in its table or its thread heading (generator fallback). `revision-check.mjs` fails on any untagged `li`/`tr`.
+- **The library is fetched lazily.** d3 and markmap are in the SW shell; 3d-force-graph is cached on first use (`isModel` in `sw.js` includes `/revision/vendor/3d-force-graph`). The revision modules are imported with `?v=1`, so `shell-check` needs the same query in SHELL.
+- **The Browser pane serves stale code after an edit.** The service worker caches modules: unregister it, clear caches and navigate twice, or you are testing the last `CACHE_VERSION`. Its console also keeps errors from before the reload, so reproduce with a fresh `window.onerror` hook before believing one.

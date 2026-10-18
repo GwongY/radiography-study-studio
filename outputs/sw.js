@@ -32,7 +32,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v213';
+const CACHE_VERSION = 'v215';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -169,6 +169,8 @@ const SHELL = [
   './study/hidden-tray.js',
   './study/spatial-overlay-controls.js',
   './study/subject.js',
+  './study/revise.js',
+  './study/revise-brain.js',
   './study/text-size.js',
   './study/what-is-under.js',
   './study/session-engine.js',
@@ -242,6 +244,17 @@ const SHELL = [
   './physiology-paths.js',
   './radiography.js?v=1',
   './schedule.js?v=1',
+  /* Revise: the week rule, the subject registry and the HSS2011 content. d3 and markmap are the
+     map's libraries and are small enough for the shell; 3d-force-graph (1.4 MB, three.js inside it)
+     is cached on first use like the models, so Brain 3D works offline after it has been opened once. */
+  './revision/weeks.js?v=1',
+  './revision/registry.js?v=1',
+  './revision/hss2011-data.js',
+  './revision/hss2011-threads.js',
+  './revision/hss2011-tables.js',
+  './revision/hss2011-decoder.js',
+  './revision/vendor/d3.min.js',
+  './revision/vendor/markmap-view.min.js',
   './bodymap.js?v=4',
   /* the search index: every named mesh in every layer, plus the synonym table
      that maps "collarbone" and "voice box" onto what the model calls them */
@@ -316,7 +329,7 @@ self.addEventListener('activate', (event) => {
  * '/heart/heart-' model-cache rule; it would catch heart-motion.js and pull a
  * precached shell module out of the shell cache.
  */
-function isModel(url) { return url.pathname.endsWith('.glb') || url.pathname.includes('/assets/physiology/'); }
+function isModel(url) { return url.pathname.endsWith('.glb') || url.pathname.includes('/assets/physiology/') || url.pathname.includes('/revision/vendor/3d-force-graph'); }
 const isFigure = (url) => url.pathname.includes('/assets/figures/');
 /*
  * The IA redesign loads Instrument Sans and Newsreader from Google Fonts.

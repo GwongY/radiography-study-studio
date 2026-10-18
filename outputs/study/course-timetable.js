@@ -25,7 +25,9 @@ import {
 import { showView } from './small-ui-helpers.js';
 import { setActiveNav } from './navigation-five-destinations.js';
 import { K, read, store, write } from './storage-versioned-keys.js';
-import { renderLearn } from './subject.js';
+import { renderRevise } from './revise.js';
+import { REVISION } from '../revision/registry.js?v=1';
+import { lastWeekOf } from '../revision/weeks.js?v=1';
 import { assessmentsPanel, imminentHTML, wireAssessments } from './assessments-and-marks.js';
 
 /* ------------------------------------------------------------------ *
@@ -74,10 +76,12 @@ function sessionRow(r, now) {
      Name that state instead of letting an absent button look accidental. */
   const teachingGap = gapFor(s.subject, s.week)
     && ['lecture', 'tutorial', 'lab', 'seminar', 'observation', 'consultation', 'activity'].includes(s.kind);
+  /* The app no longer teaches a session; it revises one that has happened. The button is offered
+     only for a subject that has a revision map and a session already taught (or being taught). */
   const lessons = s.noStudy
-    ? `<span class="nostudy">${teachingGap ? 'Official notes missing — see weekly gap' : 'No lesson for this administrative row'}</span>`
-    : s.unit && itemsForUnit(s.subject, s.unit).length
-      ? `<button class="ghost tolesson" data-unit="${esc(s.unit)}">Study this →</button>` : '';
+    ? `<span class="nostudy">${teachingGap ? 'Official notes missing — see weekly gap' : 'Nothing to revise on this administrative row'}</span>`
+    : REVISION[s.subject] && ['past', 'now', 'open'].includes(r.status) && s.week <= lastWeekOf(REVISION[s.subject].data)
+      ? '<button class="ghost tolesson" data-revise="1">Revise →</button>' : '';
 
   return `<li class="sessrow ${esc(r.status)}${other ? ' otherg' : ''}" style="--acc:${esc(subjectAccent(s.subject))}">
     <div class="sesswhen">
@@ -135,12 +139,12 @@ function nowNextHTML(rows, now) {
  * Every week printed one card per subject: a mastery bar, a verdict line, the
  * first three lessons as buttons, "Show all", and a source list folded under
  * each lesson. It was the Learn tab rewritten in a second place, and the two
- * drifted — Learn is now the page that teaches, orders and cites the lessons,
- * and it does all of it better than a card wedged between two timetable rows.
+ * drifted — Revise is now the page that links what has been learnt, and it does
+ * that better than a card wedged between two timetable rows.
  *
  * What is kept is the ONE thing the timetable is uniquely able to say: which
- * unit a session teaches. That is the "Study this →" button on the row itself,
- * which hands the week's topic to Learn instead of restating it here.
+ * sessions have already been taught. That is the "Revise →" button on the row
+ * itself, which opens Revise instead of restating it here.
  */
 
 /*
@@ -317,8 +321,8 @@ export function renderCourse() {
   $$('courseView').querySelectorAll('[data-groupset]').forEach((b) => {
     b.onclick = () => { setGroup(b.dataset.groupset, b.dataset.groupopt); renderCourse(); };
   });
-  $$('courseView').querySelectorAll('[data-unit]').forEach((b) => {
-    b.onclick = () => { ui.learnFilter = 'all'; ui.learnTopic = b.dataset.unit; ui.learnDrill = true; renderLearn(); };
+  $$('courseView').querySelectorAll('[data-revise]').forEach((b) => {
+    b.onclick = () => renderRevise();
   });
 }
 
