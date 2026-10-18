@@ -1,9 +1,9 @@
 # Standing Intake Workflow — Processing New Source Files
 
-This specification documents the procedure to run whenever new material arrives in `New source/` (e.g. when the student uploads slides, tutorial packets, or revision notes) or when instructed to "check this New source file".
+This specification documents the procedure to run whenever new material arrives in the iCloud Drive subject folders (Human Anatomy, Human Physology, Medical Radiology, Socio, AI) (e.g. when the student uploads slides, tutorial packets, or revision notes) or when instructed to "check this New source file".
 
 > [!IMPORTANT]
-> **Arrival is not a request.** Files sitting in `New source/` are not an automatic intake queue. The workflow runs only when explicitly directed to evaluate a source file or note.
+> **Arrival is not a request.** Files sitting in the iCloud subject folders are not an automatic intake queue. The workflow runs only when explicitly directed to evaluate a source file or note.
 
 ---
 
@@ -33,7 +33,7 @@ This specification documents the procedure to run whenever new material arrives 
 
 ### Step 3: Register and Cache
 1. Add entry to `SOURCE_FILES` in [`outputs/study/corpus/schema.js`](file:///c:/Users/leung/Documents/Codex/2026-08-24/files-pasted-by-the-user-yes/outputs/study/corpus/schema.js):
-   - `root`: `'newsrc'` for `New source/` files, or `'uni'` for shared drive targets.
+   - `root`: `'newsrc'` for the iCloud subject-folder files, or `'uni'` for shared drive targets.
    - `folder`: relative path within the root.
    - `file`: exact filename.
    - `kind`: `'primary'` | `'assessment'` | `'admin'` | `'reference'`.

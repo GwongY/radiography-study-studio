@@ -7,6 +7,7 @@
  *   node work/doc-text-check.mjs <absolute path to python.exe>
  */
 import { dirname, join } from 'node:path';
+import { homedir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { extractText } from './lib/doc-text.mjs';
 
@@ -22,7 +23,7 @@ if (!python) {
 process.env.PATH = join(ROOT, 'work', '.no-pdftotext-here');
 process.env.RSS_PYTHON = python;
 
-const result = extractText(join(ROOT, 'New source', 'Topic 01.pdf'));
+const result = extractText(join(process.env.RSS_ICLOUD || join(homedir(), 'iCloudDrive'), 'Socio', 'Topic 01.pdf'));
 const checks = [
   [result.ok, result.why || 'PDF extracted'],
   [result.pages.length === 20, `kept 20 page boundaries (got ${result.pages.length})`],

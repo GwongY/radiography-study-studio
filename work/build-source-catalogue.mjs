@@ -43,6 +43,7 @@
 import { readdirSync, statSync, existsSync, writeFileSync, readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { join, dirname, resolve } from 'node:path';
+import { homedir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 
 const WORK = dirname(fileURLToPath(import.meta.url));
@@ -85,7 +86,7 @@ function resolveLnks(lnks) {
 }
 
 function repoShortcuts() {
-  const dirs = ['Old source', 'New source', 'Uni'].map((d) => join(REPO, d)).filter(existsSync);
+  const dirs = ['Old source', 'Uni'].map((d) => join(REPO, d)).filter(existsSync);
   const lnks = [];
   for (const d of dirs) {
     for (const k of readdirSync(d)) if (k.toLowerCase().endsWith('.lnk')) lnks.push(join(d, k));
@@ -113,15 +114,20 @@ const SHARED = /^g:\/\.shortcut-targets-by-id\/[^/]+\/[^/]+/;
 /*
  * The drive is not the only place sources arrive.
  *
- * "New source/" in this repo is where material gets dropped straight in — the
- * 2026 edition of the HTI17103 opening lecture landed there, and so did a
- * subject the app does not cover at all. None of it was catalogued, because the
- * rule above only admits shared Drive folders, so `query.mjs file` answered
- * "no match" for documents sitting in the working tree. Include them.
+ * The 2026/27 ("new") material no longer lives in the repo. It is the five
+ * per-subject folders of the user's iCloud Drive (Windows: ~/iCloudDrive).
+ * The iCloud Drive root also holds unrelated folders (Biology, DSE, Maths …), so
+ * the subject folders are listed by name rather than walking the root.
+ * RSS_ICLOUD overrides the root, for another machine.
+ *
+ * None of this is admitted by the shared-Drive rule above, so it is listed
+ * here, or `query.mjs file` answers "no match" for a document that exists.
  */
-const LOCAL_SOURCE_DIRS = ['New source', 'Old source'];
+const ICLOUD_ROOT = process.env.RSS_ICLOUD || join(homedir(), 'iCloudDrive');
+const NEW_SOURCE_DIRS = ['Human Anatomy', 'Human Physology', 'Medical Radiology', 'Socio', 'AI']
+  .map((d) => join(ICLOUD_ROOT, d));
+const LOCAL_SOURCE_DIRS = [...NEW_SOURCE_DIRS, join(REPO, 'Old source')];
 const localRoots = LOCAL_SOURCE_DIRS
-  .map((d) => join(REPO, d))
   .filter(existsSync)
   .map((p) => resolve(p).replace(/\\/g, '/'));
 const localKeys = new Set(localRoots.map((p) => p.toLowerCase()));
@@ -316,7 +322,7 @@ const addAt=process.argv.indexOf('--add-file');
 if(addAt>=0){
   const file=resolve(process.argv[addAt+1]||'').replace(/\\/g,'/');
   const root=localRoots.find(r=>file.toLowerCase().startsWith(r.toLowerCase().replace(/\\/g,'/')+'/'));
-  if(!root||!DOC.test(file)||!statSync(file).isFile())throw new Error('--add-file requires a document inside New source or Old source');
+  if(!root||!DOC.test(file)||!statSync(file).isFile())throw new Error('--add-file requires a document inside a new-source (iCloud Drive subject) folder or Old source');
   const cat=JSON.parse(readFileSync(OUT,'utf8')),s=statSync(file),n=file.split('/').pop();
   const normalizedRoot=root.replace(/\\/g,'/');
   let ri=cat.roots.findIndex(r=>r.toLowerCase()===normalizedRoot.toLowerCase());

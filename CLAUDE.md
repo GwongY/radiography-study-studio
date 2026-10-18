@@ -13,9 +13,9 @@ This application is the student's **personal University study platform for HKPol
 2. **Strict Syllabus & Timetable Alignment**: The curriculum strictly mirrors the user's university syllabus, weekly lectures, and tutorials across the 13-week teaching term for all enrolled subjects (HSS2011 Human Anatomy, ABCT2326 Human Physiology, HTI17103 Medical Radiation Science, APSS1A08 Sociology, DSAI1202 AI Literacy).
 3. **Taught and Tested Only**: Unrelated lessons or artificial curriculum filler must NOT be produced. Content must strictly teach what is delivered in lectures and tutorials, and test what appears in revision exercises, quizzes, mid-term tests, and final exam papers.
 4. **Source Precedence**:
-   - **Primary**: Current 2026/27 confirmed documents (syllabi, teaching schedules, 2026 lecture slides in `New source/`).
+   - **Primary**: Current 2026/27 confirmed documents (syllabi, teaching schedules, 2026 lecture slides) in the **iCloud Drive subject folders** (see "New sources" below). The repo's `New source/` folder was deleted and no longer exists.
    - **Support & Fallback**: Official older PolyU lecture slide decks, tutorial packets, and past examination papers where 2026 materials are not yet available. These are the **old sources**, held offline at `E:\UNI sources` (see "Old sources" below) — no longer the Google Drive shortcuts.
-   - **Intake Procedure**: When new files arrive in `New source/`, follow the 6-step intake workflow in [`docs/superpowers/specs/2026-09-10-new-source-intake-workflow.md`](docs/superpowers/specs/2026-09-10-new-source-intake-workflow.md).
+   - **Intake Procedure**: When new files arrive in the iCloud subject folders, follow the 6-step intake workflow in [`docs/superpowers/specs/2026-09-10-new-source-intake-workflow.md`](docs/superpowers/specs/2026-09-10-new-source-intake-workflow.md).
 
 ## Find things here first
 
@@ -37,6 +37,17 @@ app, its file, its line range, and a link to the traps that govern it.
 are **generated** — never read or edit them, ask `work/query.mjs`. **Never walk
 `G:` for a source**: minutes of network stats, and the catalogue already knows.
 
+## New sources: iCloud Drive
+
+The 2026/27 material is read from `%USERPROFILE%\iCloudDrive` (override with the
+`RSS_ICLOUD` env var), from exactly five subject folders: `Human Anatomy`,
+`Human Physology`, `Medical Radiology`, `Socio`, `AI`. The iCloud root also holds
+unrelated folders (Biology, DSE, Maths …) — never walk it. The list lives in
+`NEW_SOURCE_DIRS` in `work/build-source-catalogue.mjs`. Rebuild the catalogue with
+`node work/build-source-catalogue.mjs` (or `--add-file <path>` for one document).
+Existing `sourceRefs` and `source-text.json` still cite these files by filename,
+so they stay valid.
+
 ## Old sources: `E:\UNI sources`
 
 The old (pre-2026) materials live in one organised offline collection,
@@ -46,7 +57,7 @@ shortcuts and the Drive walk. It is **local disk, so listing it is cheap** — t
 rename or delete anything in it unprompted. It was reorganised twice on request
 (2026-10-02, folder moves only, journalled and undoable with
 `_Organization Records\Reorganisation 2026-10-02\undo-reorganisation.mjs`); any further
-change should be journalled the same way. `New source/` stays the home of 2026/27
+change should be journalled the same way. The iCloud subject folders stay the home of 2026/27
 material and wins on precedence; `E:` is the fallback.
 
 Layout (reorganised 2026-10-02 to follow PolyU's degree structure; `E:\UNI sources\README.md`
