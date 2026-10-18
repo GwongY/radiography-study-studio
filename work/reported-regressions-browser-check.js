@@ -23,7 +23,7 @@ async function reportedRegressionsBrowserCheck() {
   } finally {canvas.setPointerCapture=capture;canvas.releasePointerCapture=release;}
   check(s.pickStack.length>0 && s.pickGroup?.children.length>0,'canvas tap did not show a selection label');
   const {loadExtraModel} = await import('/studio/depth-picking.js');
-  const {STRUCTURE_MODELS} = await import('/study-data.js');
+  const {STRUCTURE_MODELS} = await import('/study/course-data.js');
   for (const key of ['muscle','nervous','organs']) await loadExtraModel(key, STRUCTURE_MODELS[key].file);
   const {selectBone} = await import('/studio/visualisation-modes.js');
   for (const m of [s.fullMeshes.find(m=>/femur/i.test(m.name)), s.extraModels.muscle.meshes.find(m=>m.userData.flowClass==='muscle')]) {

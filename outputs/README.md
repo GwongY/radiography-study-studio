@@ -1,5 +1,17 @@
 # Radiography Study Studio
 
+### Testing removed (October 2026)
+
+The owner said on 2026-10-19: "I don't need any test in this app. Remove it", and chose all testing, not only Revise's Test me. **Everything below that describes Practise, Apply, mastery, review scheduling, mistakes, the answer log, Gist sync, progress export/import, the Reset dialog, the coverage report or the question corpus is history: none of it exists any more.** Spec: `docs/superpowers/specs/2026-10-19-remove-testing.md`. The sections further down are kept as a record of why things were decided, not as a description of the app.
+
+What was removed: `study/session-engine.js`, `layout-figures.js`, `progress-log.js`, `gist-sync.js`, `moving-progress-between.js`, `reset.js`, `source-dialog.js`, `coverage-report.js`, the whole of `study/corpus/` and the `study-data.js` barrel, the session overlay and the transfer / sync / reset / source / coverage dialogs in the HTML, the manifest's three `#mode=` shortcuts, and `WEEK_STUDY` and the other item references in `schedule.js`. The corpus is in git history: `git show 235c93f:outputs/study/corpus/<file>`.
+
+What the corpus held that other features still need moved to `study/course-data.js`: the `SOURCE_FILES` registry and `describeSource`, the subject list (code, title, accent) and `STRUCTURE_MODELS`. `mesh-index.js`, `search`, the bone landmarks and the section cuts are untouched.
+
+**One-time purge.** The first load after this change runs `purgeTesting()` (`study/storage-versioned-keys.js`): it deletes `rss.v1.{mastery,items,mistakes,meta,continue,log,baseline,device,sync}`, the per-item step keys and the `rss-progress` IndexedDB, then writes `rss.v1.testing-purged`. It does **not** touch `osteology-studio-stats`: that is the 3D studio's own Identify / Find drill history, and those modes (Explore's L1 to L5 buttons in the viewer, `studio/visualisation-modes.js`) were not part of the owner's list of surfaces, so they are still there. Whether they go too is an open question for the owner. The private Gist the old sync wrote to is not touched; delete it on github.com if it is no longer wanted.
+
+Checks retired with their subject: `corpus-check`, `array-integrity-check`, `corpus-snapshot`, `progress-log-check`, `gist-sync-check`, `study-regression-check`, `source-lesson-check`, `build-source-lesson-map`, `coverage-gap`, `gloss-gap-scan`, `header-tuck-browser-check`, `progress-viewer-browser-check`. Narrowed: `schedule-check`, `source-check` (registry only), `gloss-coverage-check` (now sweeps the Revise notes, advisory), `query.mjs` (no `item`), `data-index`. `search-accuracy-check.mjs` was already failing before this change ("full model names must remain individually accessible").
+
 ### Revise replaces Learn (October 2026)
 
 The app stopped teaching. The owner learns each chapter elsewhere and comes here to **link** what has been learnt, so the Learn tab, the Remember step and the lesson reading are gone and the **Revise** tab took their place. It has five views over one set of data (`outputs/revision/`): a Markmap mind map, a Brain 3D link graph, Threads (one pathway across weeks), Tables, and a Decoder of terms. The reading help (tappable terms) is kept and runs over the fragments.

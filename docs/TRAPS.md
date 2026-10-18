@@ -334,96 +334,6 @@ shapes** — in "The region grid and classifiers" below.
   followed. Any tool that classifies lines in this file has to track backtick
   parity and dangling `/*`.
 
-### Legacy reading history and saved session steps — `outputs/study/storage-versioned-keys.js`, `outputs/study/session-engine.js`, `outputs/study/home.js`
-
-- The old Learn/Remember reading session is retired. Opening a Practise or Apply
-  session records no read event; the progress log still replays and syncs read
-  events written by older builds so existing history remains intact.
-- Answer mastery remains separate from those legacy read events. Queue order,
-  due status and accuracy use answered questions only.
-- Continue cards accept only the current `practise` and `apply` step ids. Older
-  saved step names are ignored by `getItemStep` and resume at the item's current
-  entry step; `getContinueTarget` also defaults an old continue record to
-  `practise`. Keep this migration tolerant when adding or removing session steps.
-
-### The progress log must reproduce the record, not resemble it — `outputs/study/progress-log.js`, `work/progress-log-check.mjs`
-
-- **The log is only worth having if a replay is EXACT.** `rebuild()` folds
-  `schedule()` over the events of one (item, dimension); if that lands anywhere
-  other than the live record, a rebuild stops being a repair and becomes a
-  corruption, and a merge that trusts the log quietly rewrites history. That is
-  the whole contract, and `verify()` is the assertion of it.
-- **`ms` arrives as a float, and the first attempt stores it unrounded.**
-  `schedule()` sets `avgMs = outcome.ms` on the first rep and only rounds on
-  later ones, so a `performance.now()` difference like `5524.800000011921` goes
-  into the record verbatim. Rounding it on the way into the EVENT but not on
-  the way into the record made the two disagree in the twelfth decimal place —
-  invisible, permanent, and enough to fail `verify()` on the very first answer
-  ever recorded. Normalise once in `recordAttempt`, then use that one value for
-  both. Never round in only one of the two places.
-- **One timestamp per answer, passed in, not three `Date.now()` calls.**
-  `finishQuestion` schedules up to three dimensions and writes `items.lastSeen`;
-  if each read the clock separately the replay would be milliseconds out on
-  every record. The call site takes `at` once and hands it to every
-  `recordAttempt` and to `lastSeen`.
-- **`markRead` throttles, so `recordRead` must ask whether it wrote.** The
-  one-minute floor means most calls do nothing; a log that appended on every
-  call would rebuild a reads count the app never had. `markRead` returns a
-  boolean for exactly this, and nothing else uses it — do not "simplify" it
-  back to returning nothing.
-- **Erasing progress has to erase the log.** For the same reason the reset
-  banner gives about `osteology-studio-stats`: events left behind let a rebuild
-  resurrect the history the reader just deleted, and the erase looks broken.
-  `clearLog()` runs inside `resetProgress`, before the keys go.
-- **A check that builds its own events cannot see a bug in the recorder.**
-  Every property test in `progress-log-check.mjs` synthesises a log, so all of
-  them passed while the float bug shipped; the browser's `verify()` caught it.
-  The last section now drives the real `recordAttempt` with float `ms` and
-  compares against the records it wrote. Reintroduce the bug and that section
-  fails — it was confirmed by doing so.
-
-### Gist sync — `outputs/study/gist-sync.js`, `work/gist-sync-check.mjs`
-
-- **The gist API truncates any file over 1 MB** and returns a stub plus a
-  `raw_url` on a host this app cannot rely on reaching. Four years of log passes
-  that inside the first year, so the log is written as one file per calendar
-  month. Month buckets are stable under both appending and merging, so a push
-  rewrites the current month and nothing else. `parseGistFiles` REFUSES a
-  truncated bucket rather than reading it partially — reading half a month and
-  pushing it back would delete the events past the cut.
-- **The token belongs in the Authorization header and nowhere else.** Not the
-  URL (proxy logs, referrers), not the body, not the gist description — the
-  gist is the reader's own backup and a credential written into it is published
-  into the thing they were protecting. `gist-sync-check.mjs` asserts this on the
-  actual bytes the request builders produce.
-- **A reset must disconnect the sync.** An erased device is indistinguishable
-  from a brand-new one, and a brand-new one ADOPTS the remote history wholesale
-  — so a reset that left the connection in place would silently undo itself on
-  the next sync. `resetProgress` disconnects; the gist itself is untouched.
-- **"Empty" has to include the log.** `reconcile` adopts the remote wholesale
-  when the device is blank, and a device holding events but no records is not
-  blank — adopting there would throw its log away. The test is
-  `!events.length && !mastery && !items`.
-- **A fresh install's baseline is 0, not `now`.** A baseline fences off history
-  the log cannot explain; an install with no history has none. Stamped `now`, it
-  would sit after every event the device was about to be handed and the replay
-  would find nothing to do — which is precisely the replacement-phone case the
-  sync exists for.
-- **`dialog-behaviour-applied.js` touches the DOM as it evaluates**, so
-  importing it makes a module unloadable in node. That is why the merge
-  functions live in `moving-progress-between.js` (DOM-free) rather than in
-  `reset.js`, and why `openSyncDialog` reaches the dialog through
-  `window.__rssOpenDialog` instead of importing `openDialog`. Import it and the
-  whole sync check stops running.
-- **Render the dialog before showing an error, never after.**
-  `renderSyncDialog()` decides the error box from the STORED config, and a
-  connect that fails before it is ever connected has nothing stored — so
-  setting the message first and re-rendering second wiped it, and a mistyped
-  token looked exactly like nothing happening.
-- **`<strong>` inside `.notice` is a block.** `.notice strong{display:block}`
-  makes the lead-in a heading, so an inline `<strong>` mid-sentence breaks the
-  line. Use `<em>`.
-
 ### A name classifier is fed a different name than the GLB holds — `outputs/systems.js`, `work/system-check.mjs`
 
 The skeleton split into Axial and Appendicular shipped with an axial rule
@@ -456,20 +366,6 @@ in cavity-geometry-derived.js and bodyMetrics to exclude the presentation parent
 lazy vertex reads after a layer arrives mid-spread. Visibility filters temporarily restore
 parents before region tests and repack afterwards. Projection, cuts and annotation entry assemble the body. Keep exact zero restoration and repeated application tested.
 
-
-### Where you were is not the same as which tab you were on — `outputs/study/navigation-destinations.js`
-
-`closeSessionOverlay` restored the destination by calling `goTo()`, and `goTo`
-clears `ui.learnDrill` — correctly, because that is what pressing Learn in the
-tab bar should do. The result was that leaving a lesson opened from inside a
-topic put you back at the grid of topics, one level above where you were, with
-the item list you had picked from closed.
-
-The drill-down is part of where you were. `openSessionOverlay` saves
-`learnDrill`, `learnTopic` and `learnFilter` with the tab; `closeSessionOverlay`
-restores them and then renders the destination **directly**, bypassing `goTo`'s
-reset. Returning to the same view id also means `showView` does not scroll to
-top, so the list comes back where it was.
 
 ### Gestures that fire without being asked for — `outputs/studio/depth-picking.js`
 

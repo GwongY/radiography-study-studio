@@ -3,15 +3,9 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import {
-  $$, STORAGE_PREFIX, esc, fmtDate, fmtTime, fmtWhen, getItem, isOtherGroup,
-  itemsForSubject, itemsForUnit, sessionsWithStatus, ui,
-} from './imports.js';
+import { $$, esc, fmtDate, fmtTime, fmtWhen, isOtherGroup, ui } from './imports.js';
 import { myGroups } from './course-timetable.js';
-import { renderRevise } from './revise.js';
-import { STEPS, setStep } from './session-engine.js';
-import { goTo, openSessionOverlay, setActiveNav } from './navigation-destinations.js';
-import { read, write } from './storage-versioned-keys.js';
+import { goTo, setActiveNav } from './navigation-destinations.js';
 import { showView } from './small-ui-helpers.js';
 import { paintBriefing, refreshBriefing } from './weekly-briefing.js';
 import { DEADLINES, SOON_MS, paintImminent, untilText } from './assessments-and-marks.js';
@@ -20,72 +14,6 @@ import { DEADLINES, SOON_MS, paintImminent, untilText } from './assessments-and-
  * Home
  * ------------------------------------------------------------------ */
 
-export function getContinueTarget() {
-  const raw = read(STORAGE_PREFIX + 'continue', null);
-  if (!raw || !raw.itemId) return null;
-  const item = getItem(raw.itemId);
-  if (!item) return null;
-  const siblings = itemsForSubject(item.subject);
-  const subjectIndex = siblings.findIndex((i) => i.id === item.id);
-  /* A resume point saved by an older build can name a retired Learn/Remember
-     step. The card prints only a current step label; old names resume at
-     Practise. */
-  const step = STEPS.some((x) => x.id === raw.step) ? raw.step : 'practise';
-  const hasSessionItems = Array.isArray(raw.itemIds) && raw.itemIds.length > 0;
-  const index = typeof raw.index === 'number' ? raw.index : (subjectIndex < 0 ? 0 : subjectIndex);
-  const total = typeof raw.total === 'number' && raw.total > 0 ? raw.total : siblings.length;
-  return {
-    item,
-    step,
-    index,
-    total,
-    itemIds: hasSessionItems ? raw.itemIds : null,
-    opts: raw.opts || null,
-    modeLabel: raw.modeLabel || null,
-  };
-}
-export function saveContinue(itemId, step) {
-  const itemIds = ui.session?.items ? ui.session.items.map((i) => i.id) : null;
-  const index = typeof ui.session?.index === 'number' ? ui.session.index : 0;
-  const total = itemIds ? itemIds.length : 1;
-  const opts = ui.session?.opts || null;
-  const modeLabel = ui.session?.modeLabel || null;
-  write(STORAGE_PREFIX + 'continue', { itemId, step, itemIds, index, total, opts, modeLabel });
-  if (itemId && step) {
-    const order = STEPS.map((s) => s.id);
-    const highest = order[Math.max(order.indexOf(getItemStep(itemId)), order.indexOf(step))];
-    if (highest) {
-      write('rss-step:' + itemId, highest);
-      write(STORAGE_PREFIX + 'step:' + itemId, highest);
-    }
-  }
-}
-export function getItemStep(itemId) {
-  const order = STEPS.map((s) => s.id);
-  const saved = [read('rss-step:' + itemId, null), read(STORAGE_PREFIX + 'step:' + itemId, null)]
-    .filter((step) => order.includes(step));
-  return saved.sort((a, b) => order.indexOf(b) - order.indexOf(a))[0] || null;
-}
-export function resumeContinue(cont) {
-  const items = (cont.itemIds && cont.itemIds.length)
-    ? cont.itemIds.map(getItem).filter(Boolean)
-    : [cont.item];
-  const index = cont.index >= 0 && cont.index < items.length ? cont.index : 0;
-  ui.session = {
-    opts: cont.opts || { mode: 'ids', ids: items.map((i) => i.id) },
-    mode: null,
-    items,
-    index,
-    step: cont.step,
-    qIndex: 0,
-    answered: false,
-    startedAt: 0,
-    results: [],
-  };
-  ui.session.modeLabel = cont.modeLabel || 'Study session';
-  openSessionOverlay();
-  setStep(cont.step);
-}
 /*
  * This week -- the one thing that matters most in the next seven days.
  *
@@ -133,20 +61,7 @@ function paintWeekFocus(now) {
   if ($$('openReviseBtn')) $$('openReviseBtn').onclick = () => goTo('revise');
 }
 
-/*
- * THREE ELEMENTS: where was I, what shall I do, what is coming.
- *
- * Weakest, the Today stat row and Recent were all removed together, and for
- * one reason between them: each restated something another element already
- * said. Weakest and Recent are both views of the mistakes list that "Explain
- * my mistakes" opens and explains; the stat row led with a day streak, which
- * measures showing up rather than knowing anything.
- *
- * The streak is still WRITTEN -- endSession keeps folding it into store.meta,
- * so the append-only log, the export and the gist sync are all untouched and
- * work/progress-log-check.mjs is unaffected. It is only no longer the first
- * number on the first screen.
- */
+/* Today: what is due this week, what is coming, and the weekly notice. */
 export function renderToday() {
   setActiveNav('today');
 

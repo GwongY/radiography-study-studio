@@ -7,7 +7,7 @@ async function physiologyBrowserCheck(){
   const {loadExtraModel}=await import('/studio/depth-picking.js');
   const {meshesFor}=await import('/studio/search-viewer-frame.js');
   const {stepPhysiology,focusPhysiologyExample,clearStudyFocus}=await import('/studio/live-physiology.js');
-  const {STRUCTURE_MODELS}=await import('/study-data.js');
+  const {STRUCTURE_MODELS}=await import('/study/course-data.js');
   const {MESH_INDEX}=await import('/mesh-index.js?v=5');
   goTo('viewer');await __osteo.boot();
   const s=__osteo.state;s.motionEnabled=false;

@@ -4,7 +4,7 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, ui } from './imports.js';
-import { migrate } from './storage-versioned-keys.js';
+import { purgeTesting } from './storage-versioned-keys.js';
 import { layerState, renderLayerRail } from './subject.js';
 import { renderNavButtons } from './navigation-destinations.js';
 import { renderOverlayCard } from './spatial-overlay-controls.js';
@@ -74,10 +74,9 @@ export function init() {
   window.addEventListener('rss:physiologychange',renderLayerRail);
   window.addEventListener('osteo:layers', syncLayerRail);
   askForPersistence();
-  migrate();
+  purgeTesting();
   renderNavButtons();
-  $$('closeSource').onclick = () => $$('sourceDialog').close();
-  $$('closeCoverage').onclick = () => $$('coverageDialog').close();
+  $$('closeTerm').onclick = () => $$('termDialog').close();
   $$('closeAbout').onclick = () => $$('aboutDialog').close();
 }
 

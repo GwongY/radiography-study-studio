@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#05090d">
-  <title>Radiography Study Studio — revise, recall, apply</title>
+  <title>Radiography Study Studio — revise and link</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/icon-192.png">
@@ -71,7 +71,7 @@
           -->
           <div class="segbar hidden" id="viewerTabs"></div>
           <button class="icon-btn tsbtn" id="rssTextSize" data-textsize aria-label="Text size" style="min-width:44px;min-height:44px;border-radius:11px">Aa</button>
-          <button class="ghost hidden" id="viewerSessionReturn" title="Return to the active session">Quit viewer</button><button class="icon-btn" id="rssSearchBtn" aria-label="Search" style="min-width:44px;min-height:44px;border-radius:11px">⌕</button>
+          <button class="icon-btn" id="rssSearchBtn" aria-label="Search" style="min-width:44px;min-height:44px;border-radius:11px">⌕</button>
         </header>
         <div class="navcontent" id="navContent">
           <section class="view" id="todayView">
@@ -84,19 +84,8 @@
             <!--
               THREE ELEMENTS, and the count is the point.
 
-              This was six boxes across two columns: Continue, an eight-tile
-              session grid, Weakest, a Today stat row, Due next, and Recent.
-              Read as a whole it answered six questions at once and led with
-              none of them, which on the first screen of the app is the same
-              as answering none.
-
-              What is left answers one question each: where was I, what shall
-              I do, and what is coming. Weakest and Recent both restated the
-              mistakes list that "Explain my mistakes" opens; the Today row
-              led with a day streak, which measures attendance rather than
-              learning. The streak is still computed into store.meta -- the
-              progress log and the gist sync are untouched -- it is simply no
-              longer the first number on the page.
+              Today answers what is due this week and what is coming. The app
+              no longer tests, so there is no practice, mastery or streak here.
 
               One column, not two: with three elements a second column makes
               a short page wide instead of making a long page short.
@@ -231,7 +220,7 @@
     </div>
     <div class="stagewrap" id="stageHome">
       <div class="stage" id="stage">
-        <div class="stage-state" id="stageState"><h2 id="stateTitle">Preparing the 3D study model</h2><p id="stateCopy">The anatomy database and quiz remain available while the interactive layer starts.</p><button class="primary" id="retryBtn">Retry 3D model</button></div>
+        <div class="stage-state" id="stageState"><h2 id="stateTitle">Preparing the 3D study model</h2><p id="stateCopy">The anatomy database remains available while the interactive layer starts.</p><button class="primary" id="retryBtn">Retry 3D model</button></div>
         <div class="progress"><span id="progressBar"></span></div>
       </div>
       <button class="layer-rail-toggle" id="layerRailToggle" aria-expanded="true" aria-controls="layerRail">Layers</button><div class="layerrail" id="layerRail" aria-label="Body layers"></div>
@@ -405,109 +394,8 @@
     <nav class="bottomtab" id="bottomTab" aria-label="Destinations"></nav>
   </div>
 
-  <!-- ========================== SESSION =========================== -->
-  <section class="view hidden" id="sessionView">
-    <div class="navhead">
-      <button class="icon-btn" id="rssSessionClose" aria-label="Close session" style="min-width:44px;min-height:44px;border-radius:11px">✕</button>
-      <div class="grow">
-        <div class="kicker" id="rssSessionKicker">Learn</div>
-        <div class="small" id="rssSessionMeta"></div>
-      </div>
-      <div class="sessprog"><span id="rssSessionBar"></span></div>
-      <span class="mono sesscount" id="rssSessionCount">0/0</span>
-      <button class="icon-btn tsbtn" id="rssSessionTextSize" data-textsize aria-label="Text size" style="min-width:44px;min-height:44px;border-radius:11px">Aa</button>
-      <button class="icon-btn" id="rssSessionSearch" aria-label="Search" style="min-width:44px;min-height:44px;border-radius:11px">⌕</button>
-    </div>
-    <div class="navcontent">
-      <div class="steps" id="rssSteps"></div>
-      <div class="sessioncol">
-        <section class="stagecard" id="rssStage"></section>
-        <div class="srcinline">
-          <span class="srclab">Source</span>
-          <button class="srcbtn" id="rssSourceInline">—</button>
-        </div>
-        <div class="sessionfoot">
-          <button class="primary" id="rssNextStep">Next</button>
-          <button class="ghost" id="rssEndBtn">Save &amp; exit</button>
-          <button class="ghost" id="rssSkipBtn">Skip item</button>
-          <span class="mono foothint" id="rssFootHint">Autosaves as you go</span>
-        </div>
-      </div>
-    </div>
-  </section>
 </div>
 
-<dialog id="transferDialog">
-  <button class="ghost close" id="closeTransfer">Close</button>
-  <div class="eyebrow">Progress transfer</div>
-  <h2 class="task-title">Move progress between devices</h2>
-  <p class="small" id="transferSummary"></p>
-  <div class="notice" style="margin-top:12px">
-    <strong>A file you carry, with no server in the middle.</strong>
-    Export writes a JSON file; import reads one back on the other device. If you would rather it happened by itself,
-    connect a private gist under &ldquo;Back up to a private GitHub gist&rdquo; — same format, same merge rules.
-  </div>
-  <div class="rss-actions" style="margin-top:14px">
-    <button class="primary" id="transferExport">Export progress file</button>
-  </div>
-  <div class="subhead" style="margin-top:18px">Import</div>
-  <input type="file" id="transferFile" accept="application/json,.json" style="margin-top:6px">
-  <div class="emptybox hidden" id="transferError" style="margin-top:10px;color:var(--red)"></div>
-  <div class="hidden" id="transferPlan" style="margin-top:12px">
-    <div id="transferPlanBody"></div>
-    <div class="notice" style="margin-top:10px">
-      <strong>How merging decides.</strong>
-      For each item and dimension the whole record with the more recent activity wins — records are never recombined
-      field by field. Attempt counts are cumulative, and with no event log there is no way to know whether two devices
-      logged the same attempt or two different ones, so adding them would inflate your history and taking the larger
-      would invent a total neither device reached. The older side of a clash is dropped rather than guessed at.
-      Mistakes are timestamped, so those genuinely merge.
-    </div>
-    <div class="rss-actions" style="margin-top:12px">
-      <button class="primary" id="transferMerge">Merge into this device</button>
-      <button class="ghost" id="transferReplace">Replace everything</button>
-    </div>
-  </div>
-</dialog>
-<dialog id="syncDialog">
-  <button class="ghost close" id="closeSync">Close</button>
-  <div class="eyebrow">Off-device backup</div>
-  <h2 class="task-title">Back up to a private GitHub gist</h2>
-  <p class="small" id="syncSummary"></p>
-  <div class="notice" style="margin-top:12px">
-    <strong>Why a gist.</strong>
-    This app is already served from GitHub, so a private gist adds nothing new that has to survive four years —
-    no server to keep running, no second account, no free tier that pauses over the summer. Your progress is
-    written there as the same JSON the export button produces, so you can read it on github.com or download and
-    import it by hand at any time.
-  </div>
-  <div class="notice stop" style="margin-top:10px">
-    <strong>The token is stored on this device.</strong>
-    Create a <em>classic</em> personal access token whose only scope is <em>gist</em>,
-    and no expiry if you want this to keep working without attention. Anyone who can unlock this device can read it
-    and reach your gists — not your repositories, not your account. That is the smallest scope GitHub offers that
-    can write a gist, and it is what having no server costs.
-  </div>
-  <div class="subhead" style="margin-top:16px">Connect</div>
-  <label class="small" for="syncToken" style="display:block;margin-top:6px">Personal access token (classic, <strong>gist</strong> scope)</label>
-  <input type="password" id="syncToken" autocomplete="off" spellcheck="false" placeholder="ghp_…" style="margin-top:5px;width:100%">
-  <label class="small" for="syncGist" style="display:block;margin-top:10px">Gist id — leave empty to create a new private gist</label>
-  <input type="text" id="syncGist" autocomplete="off" spellcheck="false" placeholder="e.g. 9f2c1a…" style="margin-top:5px;width:100%">
-  <div class="rss-actions" style="margin-top:12px">
-    <button class="primary" id="syncConnect">Connect</button>
-    <button class="ghost" id="syncNowBtn">Sync now</button>
-    <button class="ghost" id="syncDisconnect">Disconnect this device</button>
-  </div>
-  <div class="emptybox hidden" id="syncError" style="margin-top:10px;color:var(--red)"></div>
-  <div class="hidden" id="syncStatus" style="margin-top:12px"></div>
-  <div class="notice" style="margin-top:12px">
-    <strong>What a sync does.</strong>
-    It reads the gist, folds anything new into this device, and writes back what changed. Answer events merge
-    exactly — they are timestamped facts, so two devices never contradict each other and nothing is double-counted.
-    Where both devices carry history from before the log existed, the mastery records still fall back to the older
-    rule and the more recent side of a clash wins; the full event history survives either way.
-  </div>
-</dialog>
 <dialog id="briefingAccessDialog">
   <button class="ghost close" id="closeBriefingAccess">Close</button>
   <div class="eyebrow">Private access</div>
@@ -527,25 +415,6 @@
   </div>
   <div class="emptybox hidden" id="briefingAccessError" style="margin-top:10px;color:var(--red)"></div>
 </dialog>
-<dialog id="resetDialog">
-  <button class="ghost close" id="closeReset">Close</button>
-  <div class="eyebrow">Erase</div>
-  <h2 class="task-title">Reset progress on this device</h2>
-  <p class="small" id="resetSummary"></p>
-  <div class="notice stop" style="margin-top:12px">
-    <strong>This cannot be undone.</strong>
-    Every mastery record, every mistake and the whole answer log go — on this device. Once they are gone they are
-    gone, unless you exported a file first. A connected gist is <em>disconnected</em> rather than emptied: the backup
-    itself survives untouched, and reconnecting with the same gist id would pull the whole history back.
-  </div>
-  <div class="subhead" style="margin-top:16px">What gets deleted</div>
-  <ul class="facts" id="resetList"></ul>
-  <div class="rss-actions" style="margin-top:16px">
-    <button class="primary" id="resetExportFirst">Export a backup first</button>
-    <button class="ghost" id="resetGo" style="color:var(--red);border-color:rgba(241,129,129,.45)">Delete everything</button>
-  </div>
-  <p class="small" id="resetHint" style="margin-top:8px">The 3D models, revision material and source references are untouched — only your saved progress is.</p>
-</dialog>
 <dialog id="aboutDialog"><button class="ghost close" id="closeAbout">Close</button><div class="eyebrow">Sources / architecture</div><h2 class="task-title">Seven named anatomical layers</h2><div class="about"><p><strong>Active model:</strong> seven Z-Anatomy / BodyParts3D GLB layers in one shared coordinate frame, holding 1,686 named structures, which resolve to 787 things a tap can select — skeleton (159), muscles (344), ligaments and joints (236), organs (104), vessels (419), nerves (317) and lymphatic (107). Of those, 619 are named somewhere in the HSS2011 / ABCT2326 teaching and assessment material, and the layer chips lead with that number. The skeleton loads first; the other six are fetched the moment you first switch one on, so a first install does not download neuroanatomy for someone studying bones.</p><h3>Model attribution</h3><p>BodyParts3D / Anatomography, &copy; The Database Center for Life Science, licensed under CC BY-SA 2.1 JP. The layer set is distributed through the open <a href="https://github.com/DrMuratAltun/anatomi-simulatoru" target="_blank" rel="noreferrer">anatomi-simulatoru</a> project, which documents the per-structure BodyParts3D source and the share-alike attribution.</p><h3>Which names you are asked to know</h3><p>1,686 structures is an atlas, not a vocabulary list. Every structure therefore carries the file that names it, or records that nothing does. A build step reads the HSS2011 and ABCT2326 teaching and assessment material — the examinable glossary, both study manuals, every module lecture and revision exercise, the model answers, the MOOCs, every past paper on the drive, and the ten physiology lectures with their tutorials and exercises — and asks, for each of the 1,686, whether the course names it. 619 do: 261 are listed in the glossary itself, 244 appear verbatim, 106 are described in place (your notes say “the right lung is divided into superior, middle and inferior lobes”, never “Superior lobe of right lung”), one is the mirror image of a structure named on the other side, and seven finish a numbered series the sources name over and over — six thoracic vertebrae and one lumbar, because a course that names T1, T2, T4, T5, T6 and T12 in six different documents is teaching the thoracic vertebrae, not six of them.</p><p>Three things are left out of that corpus on purpose. The set textbook — Martini, <em>Fundamentals of Anatomy &amp; Physiology</em> — names essentially every structure in the body, so counting it would mark almost everything examinable and destroy the distinction; it remains a source for facts, but it is not evidence that a NAME must be memorised. Student coursework is evidence of topic scope only, which is what the source registry already says. And the publisher’s question bank is not taught material.</p><h3>What a tap can select</h3><p>Knowing which names matter is only half of it. The model splits further than any course does — the deltoid exists only as three “parts”, the left lung as eleven segmental bronchi, the wrist as thirty-three separately named ligaments — and while every one of those was individually selectable, tapping the wrist answered “Dorsal scaphotriquetral ligament”, a name that appears in no lecture, no exercise and no paper.</p><p>So every structure now resolves to a <strong>study unit</strong>, and the unit is what a tap selects. A structure the course names is its own unit and keeps its name. Everything below that joins one, in the order the anatomy allows: into the whole it is a piece of, where the model has one (the branches of the ulnar nerve <em>are</em> the ulnar nerve); under the whole they collectively make up, where it has none (the three “parts” become the deltoid); or under their kind and where they are — “Ligaments of the foot”, “Bronchi of the left lung”, “Lymph nodes of the abdomen”. Where they are is measured off the model, not read out of the name: nothing in the words “capitohamate interosseous ligament” says hand, but the nearest bone to it does.</p><p>That turns 1,374 separately selectable things into 787: the 619 the course names, 158 groups, and 10 structures that are genuinely one of a kind with nothing to join. Those 10 stay selectable under their own name and say so. Nothing is hidden — all 1,686 names are still searchable, and searching one that belongs to a group opens the group and tells you which name it was found under.</p><h3>Spatial overlays are measured, not drawn</h3><p>The body cavities, the nine abdominopelvic regions and the four quadrants are not in any GLB. They are generated at runtime <em>from</em> the loaded meshes: the thoracic cavity is swept from the inner surface of these ribs, sternum and thoracic vertebrae and floored by the diaphragm; the vertebral canal is threaded through the foramen found in each vertebra; the pelvic cavity is the space inside these hip bones below the brim. Nothing is placed by hand, so the overlays follow the model rather than a remembered position, and they would follow a different body too.</p><p>The nine regions and the four quadrants are not spaces at all — they are topographic divisions, so they are built the way a clinician draws them: two midclavicular lines dropped from the midpoint of each clavicle, the subcostal plane at the inferior border of the tenth costal cartilage, the transtubercular plane through the tubercle of each iliac crest, the median and transumbilical planes for the quadrants. Every one of those is a measured level and stays a flat, straight boundary; only the projection onto the front of the torso curves, because the belly does. The organs underneath are what the regions are used to <em>talk about</em> and are deliberately excluded from the measurement — the liver crosses three regions and is not allowed to bend one.</p><p>Where a cavity is defined by a structure from a layer you have not loaded — the pericardial sac is defined by the heart — the viewer falls back to the strongest bony reference it does have and says on the card that the result is estimated rather than measured.</p><h3>Legacy files</h3><p><code>assets/bodyparts3d/</code> still holds five per-bone upper-limb GLBs (clavicle, scapula, humerus, radius, ulna) from an earlier iteration of this app. They are <strong>not</strong> the active source and nothing in the current viewer is built around them.</p><h3>Offline and failure behaviour</h3><p>Search, records, regions and quiz choices render without the 3D dependency. If the local assets or the three.js CDN are unavailable, the model area exits with a retryable fallback state instead of leaving an infinite spinner.</p></div></dialog>
 <dialog id="detailDialog"><button class="ghost close" id="closeDetail">Close</button><div class="eyebrow">Structure detail</div><h2 class="task-title" id="detailTitle">Structure</h2><div class="chips" id="detailChips"></div><div class="about" id="detailBody"></div></dialog>
 <div class="sheetscrim hidden" id="searchScrim">
@@ -562,8 +431,6 @@
 </div>
 <div class="toast" id="toast" role="status"></div>
 <dialog id="termDialog"><button class="ghost close" id="closeTerm">Close</button><div class="eyebrow">Reading help</div><h2 class="task-title" id="termTitle" style="margin-top:6px">Term</h2><div class="dlg-scroll termbody" id="termBody"></div></dialog>
-<dialog id="sourceDialog"><button class="ghost close" id="closeSource">Close</button><div class="eyebrow">Source trace</div><h2 class="task-title" id="sourceTitle" style="margin-top:6px">Where this comes from</h2><div class="dlg-scroll" id="sourceBody"></div></dialog>
-<dialog id="coverageDialog"><button class="ghost close" id="closeCoverage">Close</button><div class="eyebrow">Coverage report</div><h2 class="task-title" style="margin-top:6px">What the supplied sources actually cover</h2><div class="dlg-scroll" id="coverageBody"></div></dialog>
 
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js"}}</script>
 <script type="module" src="./studio.js?v=1"></script>
@@ -585,8 +452,6 @@ if ('serviceWorker' in navigator) {
       .catch((err) => { console.warn('[app] service worker registration failed:', err); });
   });
 }
-/* Deep links from the manifest shortcuts: #mode=daily etc. */
-window.__rssLaunchMode = (location.hash.match(/^#mode=([a-z0-9]+)/i) || [])[1] || null;
 </script>
 </body>
 </html>

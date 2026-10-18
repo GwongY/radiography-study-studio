@@ -2,7 +2,7 @@
 # Data index
 
 What the large generated files hold, so you never have to open them.
-For anything more specific: `node work/query.mjs <unit|mesh|item|layer> <term>`.
+For anything more specific: `node work/query.mjs <unit|mesh|layer|source> <term>`.
 
 ## `outputs/mesh-index.js` — GENERATED, never hand-edit
 
@@ -57,33 +57,4 @@ Blender duplicate suffixes. Row shape:
 
 **Before writing a new `NOT_MODELLED` entry, check it against the index.**
 `work/search-probe.mjs` fails the build if a NOT_MODELLED term names a mesh that exists.
-
-## `outputs/study-data.js` — study items and questions
-
-210 study items across 6 subjects.
-
-| Subject | Units | Items |
-| --- | --- | --- |
-| HSS2011 | 7 | 104 |
-| ABCT2326 | 10 | 68 |
-| HTI17103 | 5 | 13 |
-| APSS1A08 | 9 | 19 |
-| DSAI1202 | 2 | 6 |
-| LEI1101 | 0 | 0 |
-
-Item shape: `{ status, id, subject, unit, type, title, tags, priorKnowledge,
-practice, application, commonMistakes, sourceRefs }`.
-
-| Item type | Count |
-| --- | --- |
-| definition | 69 |
-| concept | 45 |
-| comparison | 32 |
-| sequence | 29 |
-| structure | 14 |
-| matching | 12 |
-| cloze | 4 |
-| diagram | 2 |
-| practice | 2 |
-| explain | 1 |
 

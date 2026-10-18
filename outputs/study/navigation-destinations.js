@@ -4,7 +4,7 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, esc, ui } from './imports.js';
+import { $$, esc } from './imports.js';
 import { openViewer, leaveProjection } from './what-is-under.js';
 import { renderRevise } from './revise.js';
 import { renderMore } from './more-sources-coverage.js';
@@ -31,19 +31,8 @@ const NAV_KICKERS = {
   course: 'Timetable, syllabus, assessments',
   more: 'Sources, coverage, settings',
 };
-let currentTab = 'today';
 
 export function setActiveNav(id) {
-  /*
-   * The one assignment that makes `currentTab` mean anything.
-   *
-   * It was declared, defaulted to 'today', and read by openSessionOverlay --
-   * and never written. So `tabBeforeSession` was 'today' whatever destination
-   * you were on, and quitting a session from any destination put you on Home
-   * every time. The drill-down restore below it was already correct and was
-   * being handed the wrong tab to restore INTO.
-   */
-  currentTab = id;
   /* pauseFullAtlas() stood beside leaveProjection() until the Full Atlas was
      removed; there is no second source to pause any more. */
   if (id !== 'viewer') {leaveProjection();}
@@ -68,11 +57,6 @@ export function setActiveNav(id) {
   });
 }
 export function goTo(id) {
-  if (id !== 'viewer' && viewerSession) {
-    viewerSession = null;
-    ui.session = null;
-    $$('viewerSessionReturn').classList.add('hidden');
-  }
   const dest = NAV_DESTS.find((d) => d[0] === id);
   if (dest) dest[3]();
 }
@@ -84,49 +68,4 @@ export function renderNavButtons() {
   document.querySelectorAll('.navrail [data-nav], .bottomtab [data-nav]').forEach((b) => {
     b.onclick = () => goTo(b.dataset.nav);
   });
-}
-
-/* The session is a full-screen overlay rather than a routed view, so it can
-   cover the shell whatever destination is behind it. */
-let tabBeforeSession = 'today';
-export function openSessionOverlay() {
-  viewerSession = null;
-  $$('viewerSessionReturn').classList.add('hidden');
-  tabBeforeSession = currentTab || 'today';
-  $$('sessionView').classList.remove('hidden');
-  /* Without this the rail, tab bar and search button stay in the tab order
-     behind the overlay. `inert` needs no focus-trap code. */
-  const shell = document.querySelector('.app-shell');
-  if (shell) shell.inert = true;
-}
-let viewerSession = null;
-export function suspendSessionForViewer() {
-  const session = $$('sessionView');
-  if (!ui.session || session.classList.contains('hidden')) return false;
-  viewerSession = { session: ui.session, scroll: session.querySelector('.navcontent').scrollTop, at: performance.now() };
-  session.classList.add('hidden');
-  session.inert = false;
-  document.querySelector('.app-shell').inert = false;
-  const back = $$('viewerSessionReturn');
-  back.classList.remove('hidden');
-  back.onclick = () => {
-    if (!viewerSession) return;
-    leaveProjection();
-    ui.session = viewerSession.session;
-    if (ui.session.startedAt) ui.session.startedAt += performance.now() - viewerSession.at;
-    session.classList.remove('hidden');
-    document.querySelector('.app-shell').inert = true;
-    session.querySelector('.navcontent').scrollTop = viewerSession.scroll;
-    viewerSession = null;
-    back.classList.add('hidden');
-  };
-  return true;
-}
-
-export function closeSessionOverlay() {
-  $$('sessionView').classList.add('hidden');
-  const shell = document.querySelector('.app-shell');
-  if (shell) shell.inert = false;
-  const dest = NAV_DESTS.find((d) => d[0] === tabBeforeSession);
-  if (dest) dest[3]();
 }

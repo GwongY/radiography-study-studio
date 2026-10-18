@@ -3,7 +3,7 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, MESH_INDEX as ATLAS_MESH_INDEX, SEARCH_EXTRAS, STRUCTURE_MODELS, UNITS, compositeFor, esc, expandQuery, missingFor, searchAnatomy, ui } from './imports.js';
+import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, MESH_INDEX as ATLAS_MESH_INDEX, SEARCH_EXTRAS, STRUCTURE_MODELS, UNITS, compositeFor, esc, expandQuery, missingFor, searchAnatomy } from './imports.js';
 import { K, read, write } from './storage-versioned-keys.js';
 import { goTo } from './navigation-destinations.js';
 import { openStructureInViewer } from './search-viewer-open.js';
@@ -16,8 +16,8 @@ lectureRows.forEach(r=>unitSizes.set(r.unitId,(unitSizes.get(r.unitId)||0)+1));
 const MESH_INDEX=lectureRows.map(r=>({...r,unitSize:unitSizes.get(r.unitId)}));
 
 /* ------------------------------------------------------------------ *
- * Global search -- one sheet over every destination, mixing structures,
- * study items and topics. Replaces the studio-only anatomy search card.
+ * Global search -- one sheet over every destination, mixing structures
+ * and topics. Replaces the studio-only anatomy search card.
  * ------------------------------------------------------------------ */
 
 let searchReturnFocus = null;
@@ -79,10 +79,6 @@ export function openSearchSheet() {
   $$('searchScrim').classList.remove('hidden');
   const shell = document.querySelector('.app-shell');
   if (shell) shell.inert = true;
-  /* The session overlay is a sibling of the shell, not a child — inert it too so
-     focus cannot land on the session behind the scrim. */
-  const sess = $$('sessionView');
-  if (sess && !sess.classList.contains('hidden')) sess.inert = true;
   const input = $$('globalSearch');
   input.value = '';
   runSearch('');
@@ -90,27 +86,10 @@ export function openSearchSheet() {
 }
 export function closeSearchSheet() {
   $$('searchScrim').classList.add('hidden');
-  const sess = $$('sessionView');
-  const sessionUp = sess && !sess.classList.contains('hidden');
-  const shell = document.querySelector('.app-shell');
-  /* If a session is still underneath, the shell stays inert for it. */
-  if (shell) shell.inert = !!sessionUp;
-  if (sess) sess.inert = false;
-  if (searchReturnFocus && searchReturnFocus.focus) searchReturnFocus.focus();
-  searchReturnFocus = null;
-}
-
-/* A search result that jumps into the viewer has to pause the session
-   overlay first — it is a fixed layer that showView() does not touch. The
-   session autosaves each stage, so dropping the current one is safe. */
-export function dismissSessionForNav() {
-  const sess = $$('sessionView');
-  if (!sess || sess.classList.contains('hidden')) return;
-  ui.session = null;
-  sess.classList.add('hidden');
-  sess.inert = false;
   const shell = document.querySelector('.app-shell');
   if (shell) shell.inert = false;
+  if (searchReturnFocus && searchReturnFocus.focus) searchReturnFocus.focus();
+  searchReturnFocus = null;
 }
 
 /*
@@ -177,7 +156,7 @@ export function searchHits(q) {
   if (!needle) return [];
   if (/^(more|settings|about|more\/settings\/about)$/.test(needle)) return [{
     kind: 'Settings', title: 'More', note: 'Settings, sources and about this app',
-    go: () => { closeSearchSheet(); dismissSessionForNav(); goTo('more'); },
+    go: () => { closeSearchSheet(); goTo('more'); },
   }];
   const hits = [];
   const side = /^(left|right)\s/.exec(needle)?.[1] || null;
@@ -349,12 +328,12 @@ export function searchHits(q) {
     const kindLabel = { cavity: 'Cavity', region: 'Region', quadrant: 'Quadrant', plane: 'Plane' }[c.kind];
     const note = c.kind === 'plane' ? `Plane \u00b7 separates ${c.separates}` : `${kindLabel} \u00b7 ${c.blurb}`;
     hits.push({ kind: kindLabel, title: c.name, note,
-      go: () => { closeSearchSheet(); dismissSessionForNav(); goTo('viewer'); setTimeout(() => window.__osteo && window.__osteo.showConcept && window.__osteo.showConcept(c.id), 160); } });
+      go: () => { closeSearchSheet(); goTo('viewer'); setTimeout(() => window.__osteo && window.__osteo.showConcept && window.__osteo.showConcept(c.id), 160); } });
   });
   CONCEPT_GROUPS.forEach((g) => {
     if (!g.words.some((w) => w === needle || w.startsWith(needle) || needle === g.kind)) return;
     hits.push({ kind: 'Overlay', title: g.name, note: `Show all in the Viewer`,
-      go: () => { closeSearchSheet(); dismissSessionForNav(); goTo('viewer'); setTimeout(() => window.__osteo && window.__osteo.toggleConceptKind && window.__osteo.toggleConceptKind(g.kind), 160); } });
+      go: () => { closeSearchSheet(); goTo('viewer'); setTimeout(() => window.__osteo && window.__osteo.toggleConceptKind && window.__osteo.toggleConceptKind(g.kind), 160); } });
   });
 
   if (/radiograph|x-?ray|projection/.test(needle)) {
@@ -379,7 +358,7 @@ export function runSearch(q) {
        to look up the same structure. */
     const recents = recentSearches();
     if (!recents.length) {
-      box.innerHTML = '<div class="empty">Search structures, study items and topics. Press Esc to close.</div>';
+      box.innerHTML = '<div class="empty">Search structures and topics. Press Esc to close.</div>';
       return;
     }
     box.innerHTML = '<div class="empty">Recent searches — tap to run again</div>'

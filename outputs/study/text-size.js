@@ -75,7 +75,7 @@ export function init() {
   /* $$ is imported for the same reason every other part imports it: the
      button ids are checked here so a renamed one fails loudly at boot
      rather than silently doing nothing when tapped. */
-  for (const id of ['rssTextSize', 'rssSessionTextSize']) {
+  for (const id of ['rssTextSize']) {
     if (!$$(id)) console.warn(`text-size: #${id} is missing from the markup`);
   }
 }

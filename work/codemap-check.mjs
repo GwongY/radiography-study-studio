@@ -11,7 +11,7 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const norm = (s) => s.replace(/\r\n/g, '\n').trimEnd();
@@ -62,33 +62,20 @@ if (existsSync(mapPath)) {
 
 console.log('\u2014 the counts CLAUDE.md states by hand are the counts on disk \u2014');
 /*
- * CLAUDE.md is the one file every session loads, and four of its numbers are
- * kept by hand: how many parts study/ and studio/ are split into, how many
- * corpus files there are, and how many names the barrel re-exports. Everything
+ * CLAUDE.md is the one file every session loads, and two of its numbers are
+ * kept by hand: how many parts study/ and studio/ are split into. Everything
  * around them is generated and checked, which is exactly why nobody noticed
- * when three of the four rotted — seventeen corpus files against 23, 57 barrel
- * names against 63, 9 studio parts against 10. A number in a guide nobody
+ * when they rotted — 9 studio parts against 10. A number in a guide nobody
  * verifies is a number that is eventually wrong, and this one is read before
  * every edit.
  *
- * Counted from disk, not from prose. The barrel is IMPORTED rather than parsed,
- * so what is counted is what an importer actually gets.
+ * Counted from disk, not from prose.
  */
 const countJs = (dir) => readdirSync(join(root, dir)).filter((f) => f.endsWith('.js')).length;
 const claude = readFileSync(join(root, 'CLAUDE.md'), 'utf8');
 
-let barrelNames = null;
-try {
-  barrelNames = Object.keys(await import(pathToFileURL(join(root, 'outputs/study-data.js')).href))
-    .filter((k) => k !== 'default').length;
-} catch (err) {
-  ok(false, `could not import outputs/study-data.js to count its exports: ${err.message}`);
-}
-
 const claims = [
   { what: 'study/ parts',  re: /The study system, (\d+) parts/,                  got: () => countJs('outputs/study') },
-  { what: 'corpus files',  re: /The question corpus, (\d+) files/,               got: () => countJs('outputs/study/corpus') },
-  { what: 'barrel names',  re: /re-exporting them under the same (\d+) names/,   got: () => barrelNames },
   { what: 'studio/ parts', re: /The 3D studio, (\d+) parts/,                     got: () => countJs('outputs/studio') },
 ];
 

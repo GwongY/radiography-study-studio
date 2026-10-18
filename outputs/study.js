@@ -9,10 +9,6 @@
  */
 import './study/imports.js';
 import './study/storage-versioned-keys.js';
-import { init as init_progress_log_js } from './study/progress-log.js';
-import { init as init_gist_sync_js } from './study/gist-sync.js';
-import './study/moving-progress-between.js';
-import './study/reset.js';
 import { init as init_small_ui_helpers_js } from './study/small-ui-helpers.js';
 import { init as init_viewport_recovery_js } from './study/viewport-recovery.js';
 import './study/home.js';
@@ -25,11 +21,7 @@ import './study/spatial-overlay-controls.js';
 import './study/subject.js';
 import { init as init_revise_js } from './study/revise.js';
 import './study/what-is-under.js';
-import './study/session-engine.js';
 import './study/reading-help.js';
-import { init as init_layout_figures_js } from './study/layout-figures.js';
-import { init as init_source_dialog_js } from './study/source-dialog.js';
-import './study/coverage-report.js';
 import { init as init_assessments_and_marks_js } from './study/assessments-and-marks.js';
 import { init as init_briefing_access_js } from './study/briefing-access.js';
 import { init as init_weekly_briefing_js } from './study/weekly-briefing.js';
@@ -44,14 +36,7 @@ init_small_ui_helpers_js();
    measurement in the app is taken against. */
 init_viewport_recovery_js();
 init_text_size_js();
-init_layout_figures_js();
-init_source_dialog_js();
 init_boot_js();
-/* After boot: migrate() folds in the legacy history, and the log's baseline
-   has to be taken with that already in it. */
-init_progress_log_js();
-/* After the log: a pull can only reconcile against a baseline that exists. */
-init_gist_sync_js();
 init_dialog_behaviour_applied_js();
 init_course_timetable_js();
 init_revise_js();

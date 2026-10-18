@@ -47,15 +47,12 @@ for (const b of blocks) await check(b.label, b.src);
 /*
  * The data modules, and the directories they were split into.
  *
- * study-data.js is now a barrel. Checking it alone proves nothing: the
- * data: URL cannot resolve its relative imports, so it stops at the first
- * one and reports OK having parsed a re-export list. Every real study item,
- * every source entry and the whole coverage report live in the files behind
- * it, and an unescaped apostrophe in one of those passed this check and was
- * caught two checks later by corpus-check. Walk the directories.
+ * The data modules, and the directories they were split into. Walk the
+ * directories: a data: URL cannot resolve relative imports, so a barrel alone
+ * would report OK having parsed a re-export list.
  */
-const FILES = ['study-data.js', 'anatomy-data.js', 'term-notes.js', 'term-gloss.js', 'wordparts.js', 'bodymap.js', 'mesh-index.js', 'synonyms.js'];
-for (const dir of ['study/corpus', 'study', 'studio']) {
+const FILES = ['study/course-data.js', 'anatomy-data.js', 'term-notes.js', 'term-gloss.js', 'wordparts.js', 'bodymap.js', 'mesh-index.js', 'synonyms.js'];
+for (const dir of ['study', 'studio']) {
   try {
     for (const f of readdirSync(join(root, 'outputs', dir))) if (f.endsWith('.js')) FILES.push(`${dir}/${f}`);
   } catch { /* a checkout from before the split */ }

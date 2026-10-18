@@ -1,10 +1,11 @@
 /*
- * Does every source the corpus cites actually exist on the drive?
+ * Does every source the registry lists actually exist on the drive?
  *
- * CLAUDE.md's first hard rule is that every factual study claim cites a
- * sourceRefs entry "keyed to a file that actually exists in the supplied source
- * folders". Until there was a catalogue, that rule was enforced by hand — which
- * is to say it was enforced by remembering. A file that was renamed, moved
+ * SOURCE_FILES (outputs/study/course-data.js) is what the Course syllabus, the
+ * viewer's citations, the bone landmarks and the section cuts name. Until there
+ * was a catalogue, that was enforced by hand — which is to say it was enforced
+ * by remembering. (The quoted-page check on study items went with the items;
+ * bone-landmark-check and cut-level-check verify their own page citations.) A file that was renamed, moved
  * between shared folders, or never existed under the name written down would
  * sit in SOURCE_FILES indefinitely, and every claim citing it would look
  * sourced while pointing at nothing.
@@ -43,8 +44,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { SOURCE_FILES, SOURCE_ROOTS } from '../outputs/study/corpus/schema.js';
-import { citationEvidence, citationPageNumbers } from './lib/source-lesson-map.mjs';
+import { SOURCE_FILES, SOURCE_ROOTS } from '../outputs/study/course-data.js';
 
 const WORK = dirname(fileURLToPath(import.meta.url));
 const CATALOGUE = join(WORK, 'source-catalogue.json');
@@ -178,80 +178,6 @@ if (missing.length) {
   console.log('Either the file is named wrongly in SOURCE_FILES, or it is not in the shared folders.');
 }
 
-/* ------------------------------------------------------------------ *
- * And one level deeper: does the cited page actually say it?
- *
- * A sourceRef is `{ ref, location }`, and a location is written the way a
- * person cites — `L1 p4 "The anatomical position"`, `Section "Directional
- * Terms"`. Where it carries a quoted phrase, that phrase is a claim about what
- * the source says, and work/source-text.json can now settle it. Nothing has
- * ever checked this: a quote could drift, or be transcribed from a different
- * edition of the same lecture, and look perfectly sourced.
- *
- * Only quoted phrases are checked. `Opening section` and `Glossary entries for
- * each term` describe where to look rather than assert wording, and inventing a
- * test for them would manufacture failures out of prose.
- * ------------------------------------------------------------------ */
-
-const TEXT = join(WORK, 'source-text.json');
-let quoteFails = 0;
-if (existsSync(TEXT)) {
-  const { sources, failed: noText } = JSON.parse(readFileSync(TEXT, 'utf8'));
-  const { STUDY_ITEMS } = await import('../outputs/study-data.js');
-
-  const checked = [], drifted = [], unverifiable = [];
-  for (const item of STUDY_ITEMS) {
-    for (const r of item.sourceRefs || []) {
-      const quote = (String(r.location || '').match(/"([^"]{4,})"/) || [])[1];
-      if (!quote) continue;
-      const src = sources[r.ref];
-      if (!src) { unverifiable.push({ item: item.id, r, why: noText?.[r.ref] || 'no text for this source' }); continue; }
-
-      /*
-       * If the location names a page, ask about THAT page — do not go hunting
-       * for the first page that happens to contain the words.
-       *
-       * A lecture states its headings more than once: "How many modalities are
-       * applied in hospitals?" is a question on the opening slide and the
-       * heading of slide 15, and the three second-messenger systems are listed
-       * on p3 before each gets its own section later. Reporting the first hit
-       * called four correct citations wrong, because it answered "where does
-       * this phrase first appear" when the citation claims something narrower
-       * and checkable: that the phrase is on the page named.
-       */
-      const evidence = citationEvidence(r, src);
-      const claimedPages = citationPageNumbers(r);
-      const claimed = claimedPages.length ? claimedPages.join(',') : '';
-      if (evidence.ok) {
-        checked.push({ item: item.id, r, file: src.file, at: evidence.matchedPage || claimed || '', claimed, ok: true });
-        continue;
-      }
-      if (!evidence.foundPage) { drifted.push({ item: item.id, r, file: src.file }); continue; }
-      checked.push({ item: item.id, r, file: src.file, at: evidence.foundPage, claimed, ok: false });
-    }
-  }
-
-  const onPage = checked.filter((c) => c.ok);
-  const offPage = checked.filter((c) => !c.ok);
-  console.log('\n— and the cited page says what the citation quotes —');
-  console.log(`  ok   ${onPage.length} quoted citations found in the source they name`);
-  console.log(`       ${offPage.length} on a different page, ${drifted.length} not found, ${unverifiable.length} no text to check against`);
-
-  if (offPage.length) {
-    console.log(`\n— quote found, but not on the page cited (${offPage.length}) —`);
-    for (const c of offPage) console.log(`  warn ${c.item}  ${c.file}  cited p${c.claimed}, found p${c.at}  "${(c.r.location.match(/"([^"]+)"/) || [])[1]}"`);
-  }
-  if (drifted.length) {
-    console.log(`\n— quoted, but the source does not contain it (${drifted.length}) —`);
-    for (const d of drifted) console.log(`  FAIL ${d.item}  ${d.r.ref} (${d.file})  ${d.r.location}`);
-    console.log('\nEither the wording drifted from the source, or it came from a different edition.');
-    quoteFails = drifted.length;
-  }
-} else {
-  console.log('\n— quoted citations not checked: no work/source-text.json —');
-  console.log('  run: node work/build-source-text.mjs');
-}
-
-const fails = missing.length + quoteFails;
+const fails = missing.length;
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASS');
 process.exit(fails ? 1 : 0);

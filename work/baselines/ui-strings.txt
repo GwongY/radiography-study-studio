@@ -1,40 +1,31 @@
-— user-facing strings in outputs/ — 1089 —
-  47f68f02672bd2f5  WHOLE SET
+— user-facing strings in outputs/ — 1038 —
+  6100ef27e7801a0d  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
   adb95f69067c7f3b   float rssW=(rssAlong/uMLength)*2.-uT*uSpeed*uDir;\n
   bc1e76b907fcb954   vec4 profile=rssMuscleProfile(rssAlong);if(uDeform*uMAmt>0.&&abs(2.*rssAlong/uMLength)<1.)transformed=uMCenter+uMAxis*profile.x+rssPerp*profile.z;\n
   753ec4f3a305c1c3   <span class="cut-levelcite">
-  ecba1318e9d7541e   Gist sync disconnected; the gist itself is untouched.
   33fff96676d47f8a   Tap to ask the browser to reconfigure the viewport.
-  c8f303e7554a57f7   These are paired — the side is part of the answer.
   1f1170e574c9a100   \u2014 nearest to it
-  b76b153720aa5733   files cited. Conflicts and duplicates listed in full.
-  535dfd07433b0bcd   questions have a resolvable correct answer and an explanation, and every item carries at least one source reference.</div>
   4086a0d4cd005901   showed metatarsals with no toes; choosing 
   f45783c4bcd27e3d   · inside
   df725abe14c48979   · this week
-  4182fc45612acdfc   — No source-backed item is assigned.
   ee2ecbd9ea7a7e36   — it does not stand alone, it attaches to a root.
   f50d324d8a3b2119  " aria-label="
   b3c0b044207f0ecc  " aria-pressed="
   49e64241e3e15d62  " aria-pressed="false">
-  428d71c485304cd4  " class="dlab">
   b52c5573bfa9d3bf  " data-component="
   d9f636bbe94e0ae5  " data-concept="
   8ea7e01970b3f34f  " data-depth="
   5265bd1a089ac9df  " data-groupopt="
   9d18b1672389d7fe  " data-groupset="
-  921e345548b45de2  " data-reveal="
   d73ec115ea9142c9  " data-state="
-  19d374017e84dc66  " data-step="
   e2d80c92ddbb5f6d  " data-vtab="
   828626d9f204fdc0  " data-week="
   40096d512b202dd9  " data-xregion="
   33ebbb5a93b28f77  " data-xview="
   46d6bbe92726dad5  " placeholder="—"
-  9496b6eb7e0374d5  " role="img" aria-label="
   f847813600bc8f62  " role="status">
   eb82935571faaac8  " style="--acc:
   a70a4627802e8fd1  " style="text-align:left;cursor:
@@ -53,25 +44,22 @@
   1c6686f0a3559395  (or its row in this panel) to see why it links. 先睇線，再問點解：the reason pops up only for the one you point at.
   a085a59f1538c1fd  (prefers-color-scheme: dark)
   fce63bfb9ebaba3d  (prefers-reduced-motion: reduce)
+  77bef085dc40b313  (subject root)
   64e3502b5cae8ba3  ) and the links between them and everything before.
   61ba12870f23bb03  ) but its
-  93a03cdc35a83caa  ). Nothing was lost — try again later.
   9c0ccf1f5ceb1311  ). Showing the last saved briefing.
   bd5a091667ef8487  ). The Map has the same topics and links.
   b3e460cf6102e239  ). Threads, Tables and Decoder still work.
   0ca05724eba6810f  *uArrivalSpan;float age=uMotorClock-arrival;rssBand=smoothstep(0.,.025,age)*(1.-smoothstep(.05,.10,age));rssSide=1.;\n
-  7ac7679148ff1f49  , and this app is on
   75c7ea370d30e16f  , as a percentage"
   843bdca5f41b8d44  , floating
   9a278d9bf11e90ec  , inset dead
   3d9662fc3889f4c4  , labelled with the reason. That is where the brain → nerve → muscle kind of connection shows up.
-  e7d099eb305882c1  , last written
   0bff6b241b6ff6c2  , short by
   b918fd89f7c21601  , so that is what shows.
   bfd4242c0712a338  , tap for
   047d5c333d912982  , viewport
   80af9e309235558e  , which you have not reached. It is on the map only because topics you have learnt hang from it.
-  dc6a7d80c9915298  , with the questions you got wrong.
   f6532b372c4a48d5  /* Back faces are where the ray leaves material, front faces where it enters. */
   128ec36b82d62dde  /* Incidence angle of the ray on this surface, for the cortical slab. */
   6f222f7fe2ccf697  /* One cortical slab per crossing, at the true incidence angle. Added on
@@ -80,13 +68,31 @@
   ddad222bd9577f32  /* tau is -ln(transmission), so a linear window here is a LOG window on
   05630a5f60a116a9  // Perspective interpolation gives the surface point. Correct the axial
   449780ec8ee9a31e  // depth to distance along this ray; subtract the same plane at both crossings.
+  ff38dee1b5989019  0 Human Body and Movement (17-18).pdf
+  c42c1a95c71fbe97  0 Human Body and Movement_Revision Exercise.pdf
+  96f31665427b618f  0. Human Body and Movement.pdf
   5c0ca222c75b80db  1-exp(-tau) did not. MIRRORS radiography.js filmDensity(): change one,
+  faced3baef131198  1. Cells, Tissues and Body Organization Tutorial.pdf
+  29bbf796c6ac6474  1.1 Cardiovascular System and Lungs (17-18).pdf
+  301c66beb8ec839f  1.2 Cardiopulmonary System and Associated Structures.pdf
+  bb86a6659da901cb  1.3 Regional Anatomy of the Thorax.pdf
+  333296b72da3372d  1920_M3_L7_Abdomen and Pelvis student version.pdf
+  d9b7eecc6b034668  1920_M3_L8_digestive_system student version.pdf
   9a6893535657967f  1–7 go alone, 8–10 carpool, 11–12 walk free.
+  d89262d08dc26da0  2.3 Regional Anatomy of the Abdominopelvic.pdf
+  608f1c9133984842  20 Oste sourcesssss
+  de6fcf7737dcf738  2021 Lordo source
   315afd5b7575b942  26 bones per foot
+  24b20d85be2745ac  29 chapter-level question sets.
+  40b245d5adfefc87  3.2 Nervous System and Special Sense.pdf
   ac30f30602e06aa0  3003 parts
   5bc27994a6e1afa3  3D is unavailable, so the projection cannot be drawn.
   58982e92cc27e4fa  3D model unavailable
   69ea32698864c4c1  3D scene not ready
+  27bd7fece1d0b1aa  4.2 Head and Neck.pdf
+  dd8fe4c9c3840f24  4.3 Upper and Lower Limbs.pdf
+  93905c7a41a60262  5yrs PP module 1-4 FIB.pdf
+  87e6af96083ec8da  6 CVS conducting-system slides transcribed to text: conductive vs contractile cells, contractile AP phases (rest −90 mV, plateau, absolute refractory), pacemaker AP (threshold −40 mV, Ca2+ upstroke, K+ repolarisation, HCN funny Na+ prepotential), and the ECG breakdown (P / QRS / T, P–R / Q–T / S–T intervals, QRS masks atrial repolarisation). Single page (p1).
   70ec40827f738641  8 carpals, 5 metacarpals, 14 phalanges
   0db9b4e72b8b81a2  ; the latest week with notes is
   fbc7f40a78126f42  <b>—</b> so far
@@ -99,20 +105,13 @@
   9cf783159a7226c8  <button class="ochip" data-kind="
   1b80327a8260e72e  <button class="oitem
   346f8acb28a2cff6  <button class="omode" data-mode="
-  b93aaff64fde9120  <button class="primary" data-nav="apply">Apply it →</button>
   bb756b89a204d236  <button class="primary" id="focusAssessBtn">See assessments →</button><button class="ghost" id="focusReviseBtn" style="margin-left:8px">Revise →</button>
   0579935e689ae1c5  <button class="primary" id="openReviseBtn">Revise →</button>
-  4a8dfeb9b037e6a4  <button class="primary" id="rssFinish">Finish session</button>
-  f8db73fad7b2457b  <button class="primary" id="rssNextItem">Next item →</button>
-  63d4be2570536586  <button class="primary" id="rssNextQ">Next question →</button><button class="ghost" data-nav="apply">Go to apply</button>
   52c2a2e072de9ed6  <button class="seg
   6dcaad6caa1d4d6e  <button class="sres" data-hit="
   104dbe0e4864608b  <button class="sres" data-recent="
-  996524c555242052  <button class="step
-  3b5f48665ac61ed0  <button data-down="
   4e33c3206cbfafcf  <button data-nav="
   a92d150b6b9eeea2  <button data-show="
-  b41b98da72c1a4ce  <button data-up="
   25f49e24208984d6  <button type="button" class="nbtn" data-node="
   8f1ddc92fcdd66f1  <button type="button" class="nbtn" data-thread="
   988f0b5e4825f8c7  <button type="button" class="rv-chip rv-auto" data-auto="1" aria-pressed="
@@ -122,48 +121,35 @@
   a11210dc5f7b44a3  <button type="button" data-ha-preset="
   068e3f966e869db7  <button type="button" data-la-preset="
   3b01ee2603c4c016  <button type="button" data-la-region="
-  19fcd2a46cd8e679  <circle class="hot" data-hot="
   edf7f1be7d1d26fd  <circle cx="
   42fe6c40c24b5c28  <div class="empty">Nothing important in this week\'s university email.</div>
   4e5528ba372cc6f9  <div class="empty">Nothing left on the published deadlines.</div>
   6b5b6a25a2f50ee3  <div class="empty">Recent searches — tap to run again</div>
-  94ca8e2b60e2f26b  <div class="empty">Search structures, study items and topics. Press Esc to close.</div>
-  bb363a3bd702def4  <div class="emptybox">Diagram unavailable.</div>
-  d9c86f19c355240f  <div class="emptybox">Movement unavailable.</div>
-  f9d3a9e3de82b3af  <div class="emptybox">No practice questions on this item.</div>
+  27df0481450ad677  <div class="empty">Search structures and topics. Press Esc to close.</div>
   cce4305b03b60844  <div class="emptybox">Outside the teaching term — use the full-term view.</div>
-  6a67b586c93aec27  <div class="emptybox">Structure set unavailable.</div>
   32ac2097168e30ba  <div class="emptybox">There is no next teaching week — the term ends this week.</div>
-  828d38aa47993dea  <div class="emptybox">This question type is not renderable.</div>
   81bbed0091211144  <div class="layerhint">tap to cycle · solid → ghost → off</div>
   b72e23b04ca38453  <div class="note">Red is oxygenated, blue is not — which is why the pulmonary artery is blue-violet and the pulmonary veins are red. Vessel type does not decide the colour; what it carries does.</div>
-  f7e97a446dcb1b5b  <div class="notice"><strong>Every question validates</strong>All 
   28c656ec553bbafd  <div class="nowcard
   ab35719b544daab9  <div class="ohead">Cavities</div>
   cd51c79109a79fed  <div class="ohead">How to look</div>
   4008203e0b664f6f  <div class="ohead">Planes</div>
   e0871ec754d0a09c  <div class="physline" style="--tone:#
   a2a3d9fba89127bb  <div class="rv-note shown">Branch heading. Topics inside:</div><div class="nlist" style="margin-top:8px">
-  dc5da9c1fabda5e9  <div class="seq-item" data-pos="
   079bd17310af1ec7  <div class="sessnote">Another group’s slot — hidden from your counts.</div>
   20a11226de7c5b9f  <div class="studyscore">no attempts yet on this device</div>
   6634c6d53e1e4431  <div class="upnext
-  eb7577ba3c5c592f  <div class="verdict
   9dae22a7cf893a5d  <div id="rvBfallback">This device cannot draw 3D graphics. The Map has the same topics and links.</div>
-  798cf300248becd5  <em style="color:var(--muted)">tap to reveal</em>
   c5c104a746bff703  <h4>Derived from</h4>
   fa7e758003d5978e  <h4>Pathways through this topic</h4><div class="nlist">
   a03547db46bf9e4b  <i style="background:#
   590b1769ac58646c  <input class="markin" type="number" inputmode="decimal" min="0" max="100" step="0.1"
-  2f476a078765d308  <input id="rssTypedInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="
   700d0e6637c671e0  <input type="checkbox" data-ha-part="
   660caf1b880e86b7  <input type="checkbox" data-ha-show="
   1b8b5718b484b569  <input type="checkbox" id="ceDots"
   3a324e9e0d188447  <input type="range" min="8" max="100" value="
   65da2d38aebef408  <li class="assrow
   4a0089a78242886e  <li class="sessrow
-  144901117bb21081  <li>A sync is waiting for the network.</li>
-  5f0ccbf50845efd8  <option value="
   16b4b492a8dc070b  <option value="">Pick a pathway…</option>
   e118852a651db556  <option value="">Pick a topic…</option>
   50736c338f7db54a  <p class="rv-quizhint">Test me is on. Say the answer in your head first, then tap the blur to check. 自己估下先，再撳開睇。</p>
@@ -188,50 +174,49 @@
   24337fc436267890  <span class="pc" style="color:
   a8bd35f3ae605d47  <span class="pending" style="width:
   1120ce038e281d16  <span class="pill
-  8c0951042a96d65b  <span class="pill">App-authored aid</span>
   38647448055fa9f9  <span class="rv-tag sys" style="background:var(
   4714c142e626766f  <span class="sc
   c556c181d6a203e1  <span class="termpart
   a05bf7cf9eb01e77  <span class="termplus">+</span>
   a8c0e6943d65acd5  <span class="vague" title="No time published for this subject">week only</span>
   de168730add79551  <span class="wknew">new</span>
-  9a190444c57e8ead  <svg viewBox="
   c12c67df1fb8fe14  A basin made of ilium, ischium and pubis: I sit on my ischial tuberosity.
   bd5105f51b6139f1  A flat triangle with a spine and a shallow glenoid socket: mobility over stability.
   023844eacdc79cc6  A frontal slice. Keeps the anterior half; flip for the posterior.
+  646f72954279ba79  A page written in answer to a student question, on how drugs act at synapses: the eight points in the mechanism a drug can attack, why long-term effects resist prediction, and SSRIs as the worked example.
   43efab18440887ca  A root — the part carrying the meaning. The /o on the end is the vowel that joins it to whatever follows.
   1a650cac2c2c4567  A sagittal slice, median at 50%. Keeps the patient's left; flip for the right.
   3046becc4af53a79  A schematic sinus rhythm; electrical activity precedes mechanical contraction. Not a diagnostic ECG.
-  c3dc290201f7331a  A token is needed before this device can reach a gist.
   61acb41ad0a4a17c  A token is stored — enter a new one to replace it
-  54046378ce3a6c7b  A token is stored — type a new one to replace it
   2dee5d201e02f95e  A transverse slice, the plane a CT slice is taken in. Keeps everything above it; flip to keep what is below.
   c97733fde5d549af  A vertical line dropped from the midpoint of the left clavicle. The other vertical of the nine-region grid.
   455d11e097ea6e80  A vertical line dropped from the midpoint of the right clavicle. One of the two verticals of the nine-region grid.
+  b374b09eb3eaa9d6  ABCT2326 Human Physiology/1. Cells and Body Organization
+  0283df3a1950aa32  ABCT2326 Human Physiology/<system folder>
   f425542186138bee  Abdomen & pelvis
   92508480855a651c  Acromial part of deltoid muscle
-  6f656ce0774147e5  Additional lecture references for prior-knowledge items
-  f4afef98e10a91e9  All ' + qCount + ' questions have a resolvable correct answer and an explanation, and every item carries at least one source reference.
   8968425df01d3da6  All regions
-  c2db0f34254c9f63  An off-device copy that happens on its own — the only thing here that survives losing this device, reinstalling the app, or the browser clearing its storage. Needs a GitHub token scoped to gists and nothing else.
+  e0122ea6ce287313  An Introduction to Tissues
+  80bb9a8df0eb4726  Anat L1 Overview of Human Anatomy _ Body Movements.pdf
+  e35519f2e580a097  Anat L9 The special senses.pdf
+  cc330ab0b596ae50  Anatomical orientation and terminologies.docx
+  5bed942aec49feef  Anatomy and Physiology 2e — openstax.org/details/books/anatomy-and-physiology-2e
   90d82470f4817358  Anatomy first
+  d24b94f5c345bee1  Anatomy of Upper & Lower Limbs — Dr Shamay Ng, 2018-2019.
   8e84fc2aae90b055  Anatomy search
-  06f59255e2ecf0df  Answer in your own words, then check against the model answer
-  52d6c898fba9d472  Answer, then see why.
-  67cce00647649afd  App-authored aid
-  5638e57272cc5eeb  Application recorded.
-  96610ec0bf887745  Apply · scenario
   d5b73833e18aaee6  Arm regions
   0ed1c4f146d988d3  Arterial flow
-  523e9ac9420b9f08  Assessment/practice context
+  0eef1d3da1f5ee70  Assessment 2.docx
+  4decc73c5e6d7ff4  Au Chung Chin - APSS1A08 Assignment 2.docx
   e42d98d7d58c2fe2  Automatic exposure control
-  30f9484f78fa55f8  Autosaves as you go
   b7e50f8f4d18036a  Axillary nodes
   13e0765632a97ef3  BOTH faces (not signed) because entering and leaving each cross one.
   c3f65e6d3ec7ab24  Back to the question
-  e4cc8252f2f7fe5d  Back up to a private GitHub gist
-  442808ef2fd68469  Backup exported. The erase button is still there when you are ready.
+  8064be1e537993c1  Beam collimation accessories and shielding: Cerrobend blocks (melting point 70°C, 25 lbs hazard), asymmetric independent jaws (<0.5% transmission), dynamic wedges (30 cm field width), multileaf collimators (3 cm/s leaf speed), photoneutron hazards above 10 MV, and 5 m maze entrance shielding.
   87b238e3beba6204  Beyond your course \u2014
+  a2bec3fc1436c89c  Biology (S4-6) 2007 (with updates in November 2015)
+  0a63590f65cfd859  Biology Curriculum (Secondary 4-6) Supplementary Document (2015 printing; applies to the 2016 HKDSE and onwards) — cd1.edb.hkedcity.net/cd/science/biology/supplementary/bio_supplement_e_2016.pdf
+  7e30ea7ed2acb764  Biology Curriculum and Assessment Guide (S4–6), updated Nov 2015
   84b11074c6028e67  Blur the notes so you can recall them first
   182d6f9b9b115719  Body cavities
   e72ca92c0272f35b  Body layers
@@ -247,24 +232,22 @@
   4edfab653f74507f  Browsing the
   f30ae92534e255f4  Built out of
   955687714a9cf383  Built out of: a-, near + b/o, thing
+  589ed84a63233a63  CAR/Introduction to Sociology
+  f21c424c5937f117  CAR/introduction to sociology
   2863d4882fc93b85  CRANium is the cap that holds the brain.
-  85613269c7a92243  Carried over as known, but missed — worth revising this one.
   f4bfeb743bb75d23  Cavities behind the anatomy, correctly occluded.
   9cd4f2c0c016002f  Cavities drop back to a hint so the structures lead.
   9eb78b423e03f32d  Chambers and valves
   59b5b25c3f1225bb  Check answer
-  df8077d81115769e  Check matches
-  b731b58ee17f6202  Check order
   b21cbce6bf98471b  Check this
   4cad109bd8bf7ba8  Choose a bone landmark
   55c8c832892fe4f2  Circulation extras
-  1fd0e2b073997f0d  Click the hotspot for:
+  7650ff8a60e6603c  Circulatory system
   cd9a490533f1b735  Close Projection before opening the heart atlas.
   223b2c2730a583d5  Close Projection before opening the limb vessels.
   85a5949c778aeb96  Close limb vessels
   5fa16ee16664ed54  Close older Study Studio tabs to finish removing the retired question bank.
   55656b5e434f4c06  Close search
-  e503367c41c06b12  Close session
   a588a0ec5115695d  Close the focused lesson before opening the heart atlas.
   3baf54f532efe7d3  Close the focused lesson before opening the limb vessels.
   e57c17d13927ddf0  Close the heart atlas
@@ -274,7 +257,7 @@
   2c5b57d5e71b2811  Colours and rhythms are drawn by this app, not measured.
   4d04c99327f18548  Colours group into six neighbourhoods. A line that jumps between two colours is a link across systems, and those are the ones exams like to ask about.
   c6ffddc144cdab7e  Common confusions
-  20db2e0618629cd5  Compare with the model answer
+  365f81eef39949e8  Comprehensive review (Palma et al. 2010) on arc radiotherapy modalities: 2D vs 3D-CRT vs IMRT vs Arc Therapy (Tomotherapy & VMAT), continuous beam delivery while rotating, integral dose considerations, secondary cancer risks, delivery time reduction, and monitor unit (MU) efficiency.
   dd3713b4cdcac4eb  Conduction system
   a75d43a157167800  Confirm it if that is right.
   e889a1ffb05f45ba  Connect a read-only GitHub token to read the private weekly university notice summary on Today.
@@ -288,29 +271,36 @@
   7405b8bbcaf9d423  Could not load that model — the skeleton is still available.
   89f2d033d8a58d5f  Could not load the
   73a069d82b0d3b67  Could not locate that structure in the model
-  57a9734bd3bcd083  Could not reach GitHub. If you are offline, this will retry on its own.
   bc8906da68815d0b  Could not refresh (
-  3e43a3e5c3ac8956  Could not set that movement up on the model.
+  4ebe8f8d70be8911  Course Overview - Group 4.pdf
   1aad18ebde0cbd8d  Course body
-  a21359ed1dd0ede0  Created a private gist and wrote
+  bdb4a7c3c49353bc  Current APSS1A08/APSS112 syllabus for Semester One 2026/27. The authority for the Friday class, all thirteen weekly topics, learning outcomes, assessment weights, AI permissions and assignment deadlines.
+  a2eb79466ed5bb29  Current Group 4 course overview. Confirms the ten lecture topics, one quiz worth 35%, three lab reports worth 5% each, final exam worth 50%, the three lab topics, and Martini 10th edition or newer as the recommended text. OCR was checked against all six rendered pages.
+  f1db5a06963b0c7e  Current T02A lecture, September 2026, pp1-12 of the combined T02A/T02B deck. The three major theoretical approaches: structural-functional (manifest/latent functions, social dysfunction), social-conflict (gender-conflict and race-conflict theory, an educational-system and a Hong Kong healthcare example) and symbolic-interaction, closing with a comparison table across all three.
+  59e84a3ffabc8c50  Current T02B lecture, September 2026, pp13-28 of the combined T02A/T02B deck. Four modern contemporary theorists: Goffman (dramaturgy, front/backstage), Bourdieu (forms of capital, cultural-capital reproduction, a Hong Kong poverty case), Foucault (knowledge/power, disciplinary power, the historical discourse of sexuality) and Giddens (the pure relationship, democratization of intimacy).
+  9d910f0b6571edcc  Current Topic 01 lecture, September 2026. Defines sociology and the sociological perspective, applies it to partner selection and educational opportunity, extends it to the global perspective, and introduces Marx and Weber.
   650bfee8c10b708c  Current files take priority for dates, topics and assessment. Older official lectures are used only to teach a current syllabus topic when the matching 2026 lecture is absent; student coursework is never used as a factual source.
+  991657a98eb07682  Current self-study deck explicitly assigned for Weeks 2–4. Ten image-led pages covering anatomical position, directional terms, regional flexion and extension, shoulder rotation, abduction and adduction, forearm rotation, ankle and foot movements, thumb movements and circumduction. OCR was checked against rendered pages before use.
+  f1a34f27fd3f7125  Current supplied Head, Neck and Trunk lecture, Dr Alex Cheung, 36 pages. Viewer landmark scope reviewed from skull and orbit diagrams, cranial sutures and junctions, TMJ and the base of skull. Image-only pages are reviewed visually; no older reference-only features are added to the viewer.
   80593d9330e238e5  Cut position
   153ad017bde62981  Daily pre-study
   364c244f38af2511  Dashed leaders: far side or inside
-  e3c1a5d80a89f718  Day streak, per-item status and the item you were last part-way through.
   792b1ed47ceecb59  Deadlines and weights come from the subject documents on the Syllabus tab.
-  1ce89851847711af  Delete every mastery record, mistake and schedule stored in this browser. There is no server and no undo, so export a backup first if you might want it.
-  71eb8a08ffd768d7  Delete everything
   6b4482e521d6ca2b  Described in
   b9d87a27ce7e548d  Device sizes, speeds and the clot and plaque shapes are teaching illustrations; the vessels are the explorer's own. Flow dots follow the vessel centre-lines.
   c83aee17dcb5bdf2  Diastole · ventricular filling
-  f02a6b73528ef5aa  Did you cover it?
-  93d539da04aaa89f  Did you get there?
-  93a3f31a9efeceef  Disconnected. The gist is untouched — reconnect with the same id to pull it back.
   6e3a2aaa642e7315  Distal phalanx of fifth finger of foot
   84aa3c799bf45058  Distal phalanx of third finger of foot
+  ed4f9ed48186e320  Dr Chileka Chiyanika’s Week 2 tutorial on body tissues: cell junctions (tight, adherent, gap with connexons), 4 primary tissues, epithelial classifications with anatomical locations, and keratinized vs parakeratinized stratified squamous.
+  d63a3a9e4f5cb30c  Dr John Yuen's standalone respiratory-system lecture (Chapter 23). Its larynx, trachea, bronchial-tree and alveolar-cell slides repeat hss.1.2; registered for the lung gross-anatomy slides hss.1.2 lacks — apex beyond the first rib, the three-layer respiratory membrane, the lobe and fissure pattern, the hilum.
+  beba85b7dad6b3e3  Dr Josephine Lau's HSS2011 Lecture 1 overview — anatomical position and planes, the skeleton and vertebral column, joint classes, the body-movement catalogue. A fuller deck than the Module 0 handout hss.m0.1718, and paged by its own [[page]] numbering rather than the \"L1 pN\" slide footers.
+  5dcdb17a3bd69223  Dr Josephine Lau's HSS2011 lecture on regional anatomy of the thorax: sternal angle (manubriosternal junction at T4/T5, 2nd costal cartilage, boundary of superior and inferior mediastinum), carina at T4/T5, boundaries of thoracic inlet and outlet, intercostal neurovascular bundle (VAN + lymphatics), and diaphragm innervation by phrenic nerves.
+  ecbf7c8883e0d9a3  Dr Thomas Lau's 2019 HSS2011 Regional Anatomy of the Abdomen & Pelvis lecture — surface planes, the diaphragm hiatuses, the peritoneum and its folds, GI organ gross anatomy, the posterior abdominal wall vessels. A different deck from hss.3.3.
+  870c19b9df0ab1ea  Dr Thomas Lau's 2019 HSS2011 digestive-system anatomy lecture — the four-layer gut wall, gross and microanatomy of each organ, the embryonic fore/mid/hindgut arterial supply, hepatic portal drainage. A different lecture from hss.3.1, which is McGraw-Hill based.
   c9083bf6b3390deb  Drag to pan. Pinch, or hold Ctrl / ⌘ and scroll, to zoom.
   84f2d14b8aae1c5c  Drag to turn, pinch or scroll to zoom.
+  e62716d0bf230878  Duplicate of the 1819 manual held in a second shared folder.
+  4ccc46ca0cf14a36  EDB — external, fetched from edb.gov.hk
   7f8ac71aa449b0ac  Email from
   714107fe5444c036  Enhanced heart animation stopped; switching it off.
   f400b407a24abea1  Enhanced heart cleanup failed
@@ -318,19 +308,19 @@
   fcc22d5c8e446af2  Enhanced heart registration check failed
   6856ba7c615e1eca  Enter a read-only GitHub token.
   0526f8c27201b323  Enter a repository as owner/repository.
-  a8daee03e95c4e28  Every factual claim on this item traces to a file below. App-authored aids are marked separately in the type column.
-  eb33e7f0fd9f3397  Every item has been seen at least once. Try "Review my weakest topics".
-  4b18c8812e334be5  Every question validates
   f7b81d5c080156a2  Everything is marked. Final:
-  c00d4a1a69e70add  Explain my mistakes
+  4e9ac1992ad89c82  Exam Past paper by year 2003-2013/ (11 papers, 2003-04 to 2013-14)
+  024712ec57d80d28  Exploring Radiography
+  058eb20c2b99e492  External — a reference the course names, not a file in the shared folders
+  ee0b93467f59d3a0  Extra exercise.pdf
   9f7d2428f854a82f  Fade everything except the structures that define the cavity.
+  aa5a2ec02bc8fea1  Fetched from edb.gov.hk, not from the supplied shared folders. It is here for exactly one purpose: to say what HKDSE Biology already covered, and whether a topic sat in the compulsory part or in the Human Physiology elective. How deep each topic went is fixed by the Supplement, registered as edb.bio.supp. No anatomy or physiology claim in this file is sourced to it.
   b4b9abe93d713048  FiBUla is the thin lateral pin and ends in the lower lateral malleolus.
+  54ae239a3b4599be  Filed under Module 2 Neuroanatomy but numbered 3.2 from the older module ordering.
   dd190b58a846cb67  Fill the bottom strip
   2e76bfabfd9b22bc  Filling the bottom strip wherever the page is measured short of the screen.
   ca39fc5e6da394f2  Final exam
   1a5d72ec7b07df58  Find the
-  68ed5dff9e6e0d16  Finish \u00b7 next item \u2192
-  fd2f684294d47cfc  Finish session \u2192
   8802e1925c84cdea  Five large load-bearing vertebrae: dinner at 5. Lumbar bodies are chunky.
   f2cd28f0405a9f8f  Flow dots
   c4a8696de4da2c8a  Flow dots failed to load.
@@ -342,20 +332,23 @@
   3ee9379ac50332af  Full reference + fallback upper-limb meshes
   c779b95a4e70b011  Full reference failed
   edf0377d91509acb  Full term
-  da3c855a5650742b  GitHub could not process the payload (422).
+  f13cb04ba7eea38d  Fundamentals of Anatomy and Physiology_Question Bank.pdf
+  0042d17b5aaf39e6  Fundamentals of Anatomy and Physiology_eBook.pdf
+  09bf3f02226e1be3  GUR subjects/CAR/Introduction to Sociology
   1879a81d80daa827  GitHub denied access. Check the token permissions or try again later.
-  a9d364c48ad1e195  GitHub is having trouble (
-  7a04e9078453a9ca  GitHub refused the request (403). Check the token carries the gist scope, or wait — this can also be the hourly rate limit.
-  0274933d5fd0075e  GitHub rejected the token (401). It may have been revoked, expired, or mistyped.
-  c182599da2e5bcc5  GitHub returned
   4d88bea0d6a1f72f  GitHub returned HTTP
-  831a75c9cc4213cd  Go to review →
+  00bd9144bae7b955  Glossary of examinable term names. Lists terms only — it carries no definitions, so it fixes scope but never supplies wording.
   164764d2143530ad  Great vessels
   9f6d5644228aca65  Greek kokkyx — cuckoo
   6ac6a5c7f23082d7  Greek kranion — helmet/skull
   a5ae4d1e81505bca  Greek sternon — chest
   a7412a5575ad7d75  Greek thorax — chest armour
-  318e02bf5cf6ad64  Have a go first. Applying it badly and then correcting beats reading the answer.
+  558fbf2237b42482  Green Group Source
+  68d33afb48f57eb9  Guidelines and Topics for Presentations 2018-19.pdf
+  14d3326b9e65363b  HSS2011 Human Anatomy/Module 0 Online Studies on Human Body and Movement/Previous Years
+  f8935505567e0234  HSS2011 Human Anatomy/Module 3 Abdomen and Pelvis/Previous Years
+  a922f8e6c07e1e27  HTI17101 Exploring Radiography/Lecture notes
+  76cf25daf5c66005  Handout version 2017/18. Slide footers run L1 p2 … L1 p60, which is what the page references below point at.
   c690d7fcaa1865bc  Heart atlas
   fb328932c2fb282f  Heart atlas animation stopped; closing the mode.
   ccf3bb7342768369  Heart atlas controls
@@ -368,24 +361,27 @@
   4ef6cff4e69f817a  Heart atlas toggle failed.
   831bef238aea50ce  Heart model and teaching scripts: BetterHeart, meshes CC BY-SA 4.0, from BodyParts3D / Z-Anatomy.
   1dd81b3e6efbe82c  Heartbeat and schematic ECG
-  dc0798173dbd926c  Held still for reference:
-  6fd0c5d030af33d3  Held still:
   2a7c8d2f587fec15  Hidden (
   33832e6712de5c86  Hide this
   018593d6d1ad868d  Hover a linked topic
-  17dd4e0e76c7a31e  How to read the type column
   9cb5da4c5b3239cb  How to read this map
-  65df92c8f92a9651  I can see how it moves
-  ae6900e95532340c  I could not
-  bf86a7499d7d6ae8  I could not follow it
-  71d0c345b3b19dfe  I could not place it
-  95873b2461b45a1f  I found it / I know where it is
+  3da484ff55f9a8cd  Human Anatomy
+  df5c8963a56c4105  Human Anatomy Manual 1819.pdf
+  27512338bf0ab1e7  Human Anatomy/Lecture notes/Module1
+  8aa6677034308dbf  Human Physiology
+  d0c43bd380f45662  Human Physiology/Lecture
+  68c77cca1226e49d  Human anatomy/useful HA!!!!/Exam
   4bf4f120eac41088  I have handed this in
-  8e0e442a601073a4  I identified them all
   61dbe2ea793be5ad  Identify the highlighted landmark
   faf46f11200150fe  Image not found — add it to assets/xray/ and reload.
+  a149aa9f92e925e8  Image scan, 4 pp — ABCT2326 Tut1 (Cells/Tissues/Body Org, pp.1–2) + Tut2 (CVS, pp.3–4); not text-extractable; content verified via phys.cells.tut and phys.cvs.tut. Registry entry only — never appears in a sourceRefs.
   ec0f7ff7ac2ed3e2  In the examinable glossary
   52e1d334ec0f4d41  Instrument Sans
+  06ebc6cb3943c309  Internal organs
+  3525a29c37b4be12  Introduction to AI and Data Analytics
+  d383d16f5923dc11  Introduction to Medical Radiation Science
+  0dff914432484e16  Introduction to Sociology
+  51dce19cd3833ded  Introduction to Sociology (2026-2027 Sem.1).pdf
   6952e888c308114f  Is this a left or right
   44b2104669287ba5  It is a normal mind map: six coloured branches, each opening into topics. Tap a name to open its branch and read it here.
   85a238105e1d6ab5  It is lit up on the model. Choose its canonical name.
@@ -398,12 +394,11 @@
   8270b0379eedc536  Jump to today ↓
   bfd62f38eb7f415e  Keep hidden
   2072e9484cb255ff  Keyboard up · viewport
+  f11e2c29d715e2ab  L2 Regional Anatomy of the Thorax.pdf
   5b03442d3cba299d  Lab reports
   31fb459fac2d4100  Landmark data next
   3f1becfc49e415ec  Landmark labels are not mapped for this bone yet.
   03b26f0f8e4b2a5e  Larynx \u2014 modelled as its parts
-  e511d368519fe74a  Last merge:
-  464c44cef8d37278  Last pulled
   ffae3eb13d34cfa9  Latin cervix — neck
   5832761b1cc98797  Latin clavicula — little key
   4d04ac817195f8ab  Latin fibula — pin/buckle
@@ -416,16 +411,23 @@
   a280355bca83b833  Latin ulna — elbow
   19a26e702fb685e6  Latin — small pan/dish
   bf913fcad550f5eb  Layer 7, Muscular
+  a00fe7545fde7751  Lec11_Skeletal, joint and muscular system.pdf
+  9fd4a340208eb0ac  Lecture 1 - Cells and Body Organization.pdf
+  90ac9941ec04d0ec  Lecture notes.pdf
+  bf66d3073fb2cc9a  Lecture notes.ppt
+  d9be6503be2f8ead  Lecture notes.pptx
   929fda3beb4aa693  Left / right
   81fc40bd06d68923  Left arm
   5ca5b8e793bee30e  Left hand
   ecba8c12c93b3967  Leg regions
+  f8da99dc7400ec37  Legacy binary .ppt, not readable offline. Superseded here by Lec6_Reproduction.pdf, which is the same lecture in a readable form.
   a3053906dabadf84  Level 1 · Identify
   617be6645af4d311  Level 2 · Left or right
   c0a7072453a97480  Level 3 · Landmarks
   fe13eb18e1aabd2a  Level 4 · Find
   fb0cba7118d5431a  Level 5 · Memory hooks
   4e0daaeb43239f40  Lift out whatever sits in front of the cavity.
+  ecfc1f95e84fd1fe  Ligaments and joints
   a0787f112df22192  Limb routes and procedure animations: BetterHeart, vessels CC BY-SA 4.0, from BodyParts3D / Z-Anatomy.
   5d92523f2489ac18  Limb vessels
   fb1a1372b5ceaba2  Limb vessels animation stopped; closing the mode.
@@ -435,6 +437,13 @@
   ee44405f4c2ab0cd  Limb vessels entry failed; restoring the viewer.
   b3c01d33734b5236  Limb vessels toggle failed.
   ae0fd8d06fa2440f  Limited source coverage
+  4879426df9734b24  Linac RF systems and treatment head: electron gun injection (0.4c to 0.9c), klystron RF amplifier, 270-degree achromatic bending magnets, flattening filters, dual ionization chambers.
+  ee25c0a775880c43  Linac electron therapy and RapidArc: scattering foils, lead cut-outs, NACP energy estimation (E = 2.33 x d50), 120-leaf dynamic MLC, gantry speed 6 deg/s, MLC speed 3.0 cm/s, 600 MU/s dose rate, Level 5 PRO optimization (177 CP), and NPC delivery time reduction to 3 min.
+  299cae6b6184f05c  Linear Accelerator 1.pdf
+  f91e7997509d7aab  Linear Accelerator 2.pdf
+  589e65a6f10036b9  Linear Accelerator 3.pdf
+  f8c529cc2f79a0c3  Linear Accelerator 4.pdf
+  c33b16cd49599188  Linear accelerator physics: history of 4MV machines, magnetron microwave source, low bone absorption, standing vs traveling waveguides.
   fd79abefdd5b8f3c  Link what you have learnt \u00b7 week by week
   364844514fd65933  Lit in green along its whole course on both sides, from origin to end. Tap it again to clear.
   86d0a64d8957c6f4  Live physiology
@@ -444,15 +453,18 @@
   24c4a56f525fe0d9  Loading the Z-Anatomy skeleton — 159 named structures, 80 of them named by your course material, 88 things you can select. The other six system layers load on demand.
   d9ebad5495305a37  Loading the skeleton layer
   f244cc971bb836e5  Lymph nodes of the abdomen
+  910325f3591fc4f6  Lymphatic system
   763ab63ebce1153d  M-mode could not be started.
   d3233c7adf7b6650  M-mode failed to start
   1243b4c8fd76b896  M-mode image
   a7dc140c63a71953  MANdible = MAN-chews. It is the mobile skull bone.
+  6e902246bc385253  MC + SQ by topic 2005-2011/ (14 topic folders)
+  ecc4d7aae0117e93  MOOC 1 Arterial Supply of Body Trunk and Upper Limbs.pdf
+  10b818df0e9fa411  MOOC 2 Arterial Supply and Venous Drainage of Neck and Head, and Meninges.pdf
+  d91df604e1ed5a64  MOOC 3 Anatomical Correlates of Stroke.pdf
   67c3f3e2a9096e6f  Main landmarks
   13166033a2c30bb5  Manubrium, body, xiphoid: head, torso, sword-tip.
-  74c4823f019f3ab0  Mastery and review schedules —
-  d64f4eee948af6c3  Mastery lives in this browser only, so the desktop and the iPad keep separate schedules. Export a file here and import it on the other device.
-  36d4a1c821f13df1  Match every row before checking.
+  5ad4b45c89c7db38  Martini, Nath & Bartholomew (2015), 10th ed. — the core textbook named on the lecture-note title slides.
   a15f12b908b57e8e  Median plane
   e7f85340bf6b2c31  Memory hook
   055b6d2dba839774  Memory hook ·
@@ -462,49 +474,41 @@
   ff656be9917a49e2  Mid-clavicular, left
   6906cd85608d4b0d  Mid-clavicular, right
   489e28c90c149050  Mind map of the topics learnt so far, grouped into six branches. Use the Find box or the Jump to menu for a text route into the same content.
-  ac1e653bdd328c9d  Missing or limited
   57fe077d62f2439c  Model and images in one place
-  073c6093b8588908  Model answer
+  0786ba6804f53fd4  Model answers for every module revision exercise. Same content as the Study Manual appendix; read with layout preserved so the three-column answer table resolves correctly.
   5eece731d84439fc  Modelled in the
   16ad3d834f99b1f1  Module 1 Thorax/Previous Years/1.1 Cardiovascular System and Lungs (17-18)
   fe59e57a7a810873  More than
   4c67f0e5acff873f  Motion off. The anatomical colours stay.
   7d7e2aaf6139362e  Motor transmission · deltoid, biceps and quadriceps · slowed
-  40bb50da160cdc21  Move down
-  5cad0eb3bde4cb2b  Move progress to another device
   47bad95e45aec9ab  Muscles 345
+  10f452f6c61c85b4  Muscular system
   d326e3de4eabd98d  Named atlas structure from the interactive skeleton source.
   dd5d38109490e655  Named in
   884edaf6a85ff6cc  Named in your notes, on the other side
   7a7ed8508aa3a822  Named structure in the
   1072a05d6e1e212d  Nearest first. Tap any of them, or tap the model again in the same spot to step deeper.
-  53a0c7682495933c  New and old files are grouped under the same Y1S1 lesson. The original source file remains the teaching note; this view only identifies which version to use. Files without a current Y1S1 syllabus placement remain retained for future work and are not assigned to another year here.
-  dc16ec2f36f7218f  New sources — primary
+  16916d40e94cebba  Nervous system
+  36049fbc6e70d468  New development in arc radiation therapy.pdf
+  65c52e4ee0ddb6fb  New source
   a2750db0f176ee17  Next stop
   21fbde19cfb095cd  Next week
-  5174f99c057c3927  No application task authored for this item.
+  0515d3e5e4343b2a  Nine pages of prose on how a hormone actually acts: receptors and up/downregulation, the three hydrophilic second-messenger systems (adenylate cyclase-cAMP, phospholipase C-Ca2+, tyrosine kinase), and the hydrophobic/genomic route. The Week 7 slide deck names the mechanisms; this is the file that explains them.
   f66366c8e852a49b  No assessment in the next seven days. A good week to link what you have learnt.
   e15d3dda4ba3b830  No layer shown — turn one on to study it
-  f6a29e5cf126ace1  No mistakes recorded yet — nothing to explain.
   7b133c89847929de  No named structure here.
   b7cae769b9db0fc6  No radiographs bundled
-  ef8c7dae7a20163c  No reference
   f6a59c0ee7b34cc0  No source materials
   166b0cc5ce4455c1  No structure in
   7731f34185d19140  No structure in the database has
-  71d9ec8ef4d13ffe  No token is stored on this device.
   79575cdd56093f95  None listed.
   20e84bd6cc1b99f8  Not a briefing object.
-  3b3d2796168bf388  Not connected.
   1317f61a70a5a29e  Not connected. Add a read-only token for the private weekly notice repository.
   24bc2b88e5e580eb  Not modelled
   8e1c1b7eb909b934  Not quite. Correct:
-  e843982c79a688a1  Not right — here is why
   2ca96754a9566ca9  Not that one — try again. You tapped
   1e778de2e2378f44  Nothing due this week
-  17c54ae148fd8107  Nothing has happened yet. Close this dialog and it never will.
   48973ea5c4589751  Nothing important in this week\'s university email.
-  a272b965cae90dba  Nothing is assumed about your answer — this is the first thing recorded for the item.
   992f6502afaafa7a  Nothing is highlighted. Rotate the model and tap it. Tapping the same spot twice steps behind whatever is in front.
   db09520da1bff2bb  Nothing left on the published timetable.
   4197398a69b67157  Nothing marked yet — enter a mark as each piece comes back.
@@ -512,126 +516,125 @@
   61c8091bab4aa222  Nothing scheduled
   f8c104249eb21c8b  Nothing selected
   5f659a0f0761bf95  Nothing to ask here yet
-  dcc202d7f9385e97  Nothing to delete.
   a4f1b0cac239a4df  Nothing to revise on this administrative row
-  f5de33541d146691  Nothing to study for that selection yet.
   ad0e73f2f15963a1  Nothing under “
   a6e0c34b9bca71d0  Off. The app stops at the bottom of the viewport, leaving the strip below it empty.
   2b12d09ebcacae94  Official notes missing — see weekly gap
   2efc956104ec7d7a  Offline & storage
   e1070a158b550318  Offline-first study system for HSS2011 Human Anatomy, ABCT2326 Human Physiology and medical radiation science.
-  335056d20d010f9a  Old sources — supporting/fallback
+  e4a002696fd31154  Older official HSS2011 Special Senses lecture by Dr William Tsang. Used because the 2026 syllabus still assigns Special Senses in Week 7 and no current Week 7 lecture has been supplied. Covers the eye and visual pathway, ear and cochlea, equilibrium, and gustation; its olfaction slide is only a reading-list pointer, so olfactory anatomy is completed from the registered HSS neuroanatomy lecture.
   5f529dc3126fa412  On a topic with many links the lines carry no labels at first.
   1e4827dab1028aa7  On where the page is measured short of the screen — it extends the app into the strip so the tab bar reaches the edge. What is left after that is the screen\'s own rounded corner, which no page can fill.
+  2e83d0f606bbeb05  One per system folder (1–10).
   4ab8e7a5acc75973  Open detail
-  9b33b799de06232b  Open source dialog
   bc135a2d441222b6  Open the 3D model first.
-  c6e5cd42315997d4  Open the 3D studio
-  dcac248f8a2e0ec7  Open the Osteology studio to find it on the model. If 3D is unavailable, answer from the landmark list instead — the explanation below covers both routes.
-  e48bafe3f0edb133  Open the studio and drive it →
+  708b05ba8e2011a3  OpenStax — openstax.org
   5d4ccdb9cfeecb7a  Opens in Viewer
+  c4cc7f2e4076a489  Others/Temp all/Radiography Studies/Radiography Studies I/RS literature review/sources/source from Ben Chiu/literature review/reference
+  86bfb88e1629383c  Others/Temp all/Radiography Studies/Radiography Studies III/Cancer Treatment/source from alex/Radiograhy Studies III/Physics of Radiation Therapy
   2053c76b6c147934  P wave, QRS and T wave with a cursor on the current phase
-  c5ca4a0d519c1995  Page / section
+  3c34b55bcf13722f  Past-paper questions sorted by topic across 14 folders. QUESTIONS ONLY — it carries no answer key, so it cannot by itself supply a verified answer. Used here only where the answer is independently confirmed by a current HSS2011 source.
   75f9b67785ab2af8  Pause heartbeat
   93d52ed478ca4e1b  Peripheral nerves
   ce253ba033cf1abf  Phalanges of the hand
+  c062efd4ef2d7f80  Photographs. Not machine-readable offline, so their contents are unverified.
+  dd6885dd0073e45c  Physi sources
+  5bf0bc466aa58433  Physiology lecture deck (Martini Chapter 26) on the renal system: quantitative GFR metrics (115 vs 125 ml/min, 180 L/day filtrate, 400 ml/day minimum obligate volume), 6% basal body energy consumption, 65% PCT and 20% Henle reabsorption (85% early hydration-independent), 1400 mOsm/L medullary countercurrent multiplier, RAAS renin-angiotensin-aldosterone axis, and detrusor bladder smooth muscle.
   032a270b28e8d32d  Plane \u00b7 separates
   ffcaf3bf7a5536c2  Play heartbeat
+  45b4541206ca1094  PolyU official supplementary handout on renal countercurrent multiplication: active NaCl extrusion in thick ascending limb creating interstitial hyperosmolality, osmotic water extraction from descending limb, vasa recta countercurrent exchange trapping solute and recovering water via oncotic pressure, and aquaporin-mediated facilitated water diffusion.
   74308e73e59ebdb9  Position in the procedure
-  6500e2302d2dac54  Practise ·
   d5ff712edaa1e542  Pre-aortic nodes
   6b6b69ac71bfe9de  Precise Z-Anatomy / BodyParts3D skeleton ·
   36a5b03a4ac42492  Previous stop
   626e73ac2e2866aa  Procedure steps
-  97bbce4ac834ffb8  Progress erased \u2014
-  dbe0aa3439619d84  Progress merged.
-  045742deb50fcee2  Progress replaced from file.
   6322bc723f755180  Projection could not load. Reopen this tab to retry.
-  c91778ac1e937e43  Radiography Study Studio — study progress (private)
+  ead61b004eb315fc  Radiography Sources (祝返工順利)
+  9262778a6bdeefc5  Radiography Studies/Radiography Studies III/Cancer Treatment/source from alex/Radiograhy Studies III/Treatment modality of cancer
   726a962ec689197d  Read the hook, then choose the structure it describes.
+  cf9600734b54209e  Readable copy of the reproductive-system lecture, from the 2020/21 set.
   164775a7b441c383  Real upper-limb model failed, using local fallback
-  88bf9f43dc509b45  Recorded as partly — no mistake logged, but it comes back soon.
-  a42518e9381f9348  Recorded — this one will come back sooner.
   7914bbadb94c3bc3  Region filter cleared \u2014 that structure is outside it
-  236dba4cad011ac5  Replace wipes this device\u2019s progress and installs the file instead. There is no undo. Continue?
-  fc56055b48b49999  Reset progress on this device
   ce89ae822e8ba072  Reset view
-  95cd3fe58579dbc1  Return to the active session
-  ff43191f37c6e281  Review scheduled from your answers
   c1ed33754a522a46  Revise through
   cbdf42bd4926ebbc  Revise through week
   9944576179012a04  Revise →
+  8fd7fc8ccc0f89e0  Revision Exercise Answer.pdf
   818f842a6df6eadc  Revision exercise
   7341ca361884e9b9  Revision views
   70e713c50b354a05  Rib-count memory
   e32da4522b9793a5  Right arm
   f57aea52d9f416b4  Running mark
+  3c3ce40288a6a63e  SQ Answer by year 2007-2011/ (photographs)
+  bbcf340df7f405bf  Sat under the predecessor subject code. The 2012-13 paper header reads "HSS201/HSS2011(2012) Final Exam", which is how the university itself writes the two codes — HSS201 is the earlier code for the same subject.
   226449e53de8c9e3  Saved the current view as a PNG.
+  aad32294b61bc9ab  Scanned Document 9-9-26 at 7.24.26 PM.pdf
   557649a62d5eb1a6  Scaphoid bone.r
   c2faf1deb36d01f2  Scheduling rules
   87a1f365c652e090  Schematic ECG
+  d2bde9bb590a687f  Science Education KLA — edb.gov.hk
   d4e5958084c9d6f2  Screen fit on this device
   415155739590b1f9  Search everything
   82b194198823cb4e  Select a structure
   e448874d62e27a4a  Select a structure first
-  ee65719205c6c855  Self-graded as covered.
-  4b36a73963ed2610  Self-graded as missed.
-  8eda29c62c095bb5  Self-graded as partial — the points you missed are listed above.
+  3a36e049f5a27012  Self-study terminology of movements--for Week 2-4.pdf
+  454a84e5d57c450e  Sem 1 (Year 1)/Human Anatomy
+  c1079fd80cf63a76  Sem 1 (Year 1)/Human Anatomy/Lecture ppt_1920/Module 1
+  f11329a3fa816f92  Sem 1 (Year 1)/Human Anatomy/Lectures ppt_1516
+  e4e4ead186190113  Sem 1 (Year 1)/Human Physiology/Lecture
+  685257d015270bf3  Sem 1我哋又重新上路🌟/Human Physiology/Tutorial_1516
+  50362bba1f6398aa  Sem 1我哋又重新上路🌟/Human Physiology/Tutorial_2021
   e7ee48b03b58590b  Senses & autonomic
-  b4821ec5efba32ad  Session done —
   d622e8fd81460d52  Settings, sources and about this app
   8bbf4d2a69b0c709  Seven vertebrae: breakfast at 7. C1 Atlas holds the head; C2 Axis lets you say no.
+  b484627cdfe1e893  Seventeen pages on immunity: the seven innate defences one by one, both complement pathways in sequence, then the adaptive side — MHC class I and II, CD4/CD8, costimulation, and how a B cell waits for a helper T cell.
   0e96950aeb59f005  Short by
+  31af7f7a8f9b11f8  Short-question answers, but as JPG photographs of handwritten pages. Not machine-readable offline, so they could not be used to verify anything.
   b7e2eaa5cec47a39  Shoulder blade / spade
   2150d8df37e48957  Show all
   6eabbe9ab1e22c72  Show all in the Viewer
   2d36fe08484d4ec4  Show all parts
-  0595489058178b10  Show the model answer
   d0b966e35ee96fdd  Show the skeleton around the heart
   f0c80dc7d3d237d2  Show the skeleton around the vessels
   cab88e281cc40392  Show them
   c8e398243f5fa550  Shrunk by
   50870a5c5468e10a  Simulated ultrasound sector image
+  d9d3b7327b495751  Skeletal, joint and muscular systems — Dr William Tsang, 2018.
   407f44c36c185f59  Skeleton & joints
   1a5f0309b5e9c356  Skipped line
   3c18ba95de1982d4  Slow motion
+  a84672ee09907e25  Sociology HW 2.docx
   1bfa470c34403319  Some tissue layers could not load. This is an incomplete projection; reopen this tab to retry.
-  89d17970366ba5b3  Source files cited
-  b6ade0f684ef5714  Source for the answer you just saw
-  d7505a67aed74fd6  Source for this answer
-  ad7c5e1704cdd17e  Source gap or review state
-  16812f56ee19ad92  Source gap · missing
-  bfbc26c86db7ac9e  Source record not in current Y1S1 map
-  f54fe982f5d3009e  Source status:
-  11f066152b09be80  Sources & coverage report
   da72a8dda063752a  Sources & model attribution
+  e42ce7f100acb20d  Sources (Year1)
   c204e763aa80733c  Sources and licence
-  824ba78711430662  Sources for the whole item
   781ffed29fcefcff  Sources, coverage, settings
-  8453b6ae9d67090b  Spelling was off — the exact form is "
   a5e79c9bffea95ae  Spread layout
   58f0fa59236bbc71  Spread the course body
   73a408b0bf3f0f58  Start with Identify to create your first review history.
   44379762f7964194  Starts soon
   abf1b14dc2f90ee7  Static model
+  a51ff0f4cfeac624  Stereotactic radiation therapy and selecive internal radiation therapy for hepatocellular carcinoma.pdf
   36d7a4f4ac12b2b4  Sternal angle
-  893865becae0ba06  Still unnamed:
   e6a0a4c59cbb9600  Structures, study items, topics…
-  4a085fa65d717e0d  Student work
+  f10ea99fc47c7866  Student-compiled, module-grouped term list. Mostly names rather than definitions, but carries useful equivalences such as "visceral = epicardium".
+  25bde9ac1130006c  Study Manual 1819.pdf
+  2e9fd821f220d32d  Study Manual 1920.pdf
+  9f7ea6329b77c517  Study Manual, 2nd Edition 2019/20. Module structure, study guides, guiding questions, revision exercises and model answers.
   381d54ae5dc158bf  Study Studio
-  7aeec7e28ab447b1  Study items
   197a9cfd7132bfb2  Study modes
-  6db1fe691cb5e688  Study session
+  def49c965385a2ca  Subject Desciption Form.pdf
+  d258063d699e90b9  Subject Description Form.pdf
   307e3df259cf7ea5  Subjects with no material
   25a2aae6c2da8872  Substitute source
+  f4be116ca8ba7db8  Supplementary info (Renal System).pdf
+  690c04663107e7b4  Susan notes.docx
+  1b05808ad9f94e0a  Susan notes.pdf
   8a4f2ddb68e960e8  Syllabus mapped · audited sources
-  abf3e80b5b4ceb36  Sync failed
-  98fc2d0150072bd5  Synced —
   eb81808a3bbd84cf  TIBia = TIBe weight-bearing. The medial malleolus is the inner ankle bump.
   a74b2c7ed30b2af3  TTE or TEE
   926c79c7de0d0ba0  Tap a dot
   86e499302603b045  Tap a structure
-  86daae5b32dfb5e1  Tap again to erase \u2014 this is final
   a323b59e9840d5a0  Tap any named structure. Choose a deeper structure from the selection list.
   972ad77d901803a7  Tap the heart, or choose a chamber or valve, to read about it.
   d7e20a4ec38c6ac4  Tap the heart, or choose a chamber or valve, to read about it. Descriptions are adapted from BetterHeart.
@@ -639,48 +642,40 @@
   effda080f100d56b  Tapping a topic draws
   caff82fe942e6cfe  Tarsals, metatarsals, phalanges: 7–5–14.
   da36c0320030978c  Teaching week
+  41a5e905b3ef1707  Term Sociology paper .docx
   d68761cc1eb29647  Text size
   4664e02dbe3f6cd9  Text size — currently
   8ba9f9b39e0f8de0  Text size:
-  e9fe8433758b6f59  That file could not be read.
-  77b11fb420786198  That file is not JSON this app understands.
-  9b7eb2fb53d7ebf5  That file is not valid JSON.
-  8f42be5eb962d271  That file was written for data version
-  baa0b0bb4dabeb4c  That gist was not found (404). Either the id is wrong, or this token cannot see it.
-  6a89036a1ab7f02a  That is not a Study Studio progress file.
   c1b89966f927cd48  That level needs a structure this model has not loaded.
   4d4b253d5901cdea  That scenario could not be loaded. Check your connection and try again.
+  1fa4519e78421d46  The 2015/16 lecture set, kept as a second reading of the same material.
+  8b1c93819e49e928  The 2019/20 lecture set — the same academic year as Study Manual 1920, so its module numbering matches the manual rather than the older Previous Years copies.
+  4721003e591afecc  The 2026 edition of the opening lecture, by Liang-Ting Lin. Most of it restates hti.w1b — same etymology, same six professional roles, same tungsten/rhenium target. What is new is the back half: the radiotherapy technique list, structural versus functional imaging, and the criteria by which a modality is chosen.
   dc0c310ea8a52008  The 3D library could not load (
-  1a87df33818b2fb0  The 3D model is not available.
-  9683a018a6f3f8ac  The 3D models, revision material and source references are untouched \u2014 only your saved progress is.
   522e8247ff62fe14  The 3D viewer could not start.
   e329894670ba6143  The 3D viewer did not finish booting.
   7765e837cae1c30d  The 3D viewer has not finished booting.
   3d1378de7c528ab6  The GitHub token was rejected. Check it in University notice access.
   b79d53a39dab5e47  The Heart chip draws the enhanced heart -- valves, chambers, beating -- in place of the heart's own meshes, so those cannot be tapped; focus and Projection bring them back.
   bced9d6acc82a832  The M-mode position comes from the 3D model; myocardial thickening and valve motion are physiological simulation, and the numbers are teaching values.
-  18c0bd11dc622725  The answer log in that file is malformed.
+  410d485ff7e6b46b  The Respiratory System.pdf
   9ebdb7b20f4558c3  The briefing file is malformed:
+  a1ff59cbc2ef3956  The cerebral circulation the Module 2 lectures never teach but the stroke fill-in-the-blank tests every year — the arterial circle (circle of Willis / cerebral arterial cycle), the internal carotid and vertebral inflow, the dural venous sinuses, and the meningeal layers. Registered for SP1 Module 2.
   f445cb8ba3f6b544  The circulatory layer did not load.
-  d216dedb9f2f1d46  The controls live with the model — the render loop only runs while the studio is on screen, so a slider here would move bones you cannot see.
+  07c58fcce5e3b9af  The confirmed 2025/26 lecture on Medical Imaging Modalities and Equipment by Dr Liang-Ting Lin (42 slides). General X-ray (film vs CR vs DR), fluoroscopy/angiography, computed tomography, radionuclide imaging (SPECT/PET), MRI, and ultrasound.
   58e55d5fa025b10d  The enhanced heart did not align with the model, so it was left off.
   c953e256b7ff57dc  The enhanced heart stopped after an error. The standard heart is back.
   7bce956a047534c7  The flow dots could not load. Try again.
   f44fc384994cd331  The four quadrants
   f1b6f4d1bbc67e3f  The funny-bone groove
-  0b155a87d8f27dc9  The gist does not hold a progress file this app understands —
-  efdfb9f844f48df5  The gist file
-  8c4ec2a13272609e  The gist index was truncated.
   163b106c4f497084  The heart atlas could not load. Your viewer has been restored; try again.
   b8f7cccf6f308adc  The heart atlas did not align with the model. Your previous viewer state was restored.
   45977a18ccdb7c80  The heart atlas is loading. Please wait.
   e9c995cd03294a74  The heart atlas still could not load. Reload the page, then try again.
   349318391a9281e8  The heart atlas stopped after an error. The 3D viewer is still running.
-  3932fc91ec44669c  The highlighted hotspot is the
   bd33ae668254412b  The hollow at the top of the sternum. Measured at the superior border of the manubrium.
   751126bbdcad0ed8  The hotspots are showing. Tap the one you are asked for.
   4be07258aa5be37a  The humerus has the radial nerve spiral groove: the funny bone grooves.
-  0afc2685e3e71794  The item record in that file is missing or malformed.
   f0d091ecd0468216  The largest sesamoid bone slides like a dish in the trochlear groove.
   36044bc5f29f1a49  The limb vessels could not load. Your viewer has been restored; try again.
   f3902838023c6d09  The limb vessels mode
@@ -691,13 +686,10 @@
   0022127b9bbde1a5  The manubriosternal junction. Vertebral level T4/T5, and the boundary between the superior and inferior mediastinum.
   2f77ff0c9bc510bf  The map holds
   5832f418f4bfcba2  The map library could not load (
-  bc8615178d30481f  The mastery record in that file is missing or malformed.
   a7c6e6433e70b227  The mid-sagittal plane, measured from the midline structures themselves — the vertebral column and the sternum — rather than assumed to be x = 0.
-  75527df298173eb8  The mistake log in that file is malformed.
   45ac6ce6220f94f4  The model is not rendering yet.
   c30d436bb4db379e  The nine abdominopelvic regions
   1ee065c69f618147  The only horizontal long bone: an S-shaped key between sternum and shoulder.
-  f952c4467244cd99  The original osteology quiz history —
   9539cace1b778297  The private repository or notice file was not found.
   76d42016751dbca5  The projection needs the body assembled.
   f8fde19067e881fa  The projection reads through closed surfaces — section it in the 3D view.
@@ -712,15 +704,11 @@
   590bfc830c51d0b2  The term is over — showing everything, weeks 1–
   dd5fd4c64fb6fb43  The thigh bone
   cca5df84a9532446  The upper horizontal line of the nine abdominopelvic regions. Measured at the body of L1.
-  51aee75534b22418  There is nothing recorded on this device yet, so there is nothing to erase.
   b5792b631250ed3a  This bone is in the database, but high-yield hotspot coordinates have not been added yet.
   b7e52a046ae1491a  This briefing is from
   0593a567427cea70  This device cannot render the floating-point projection. The 3D viewer is still available.
-  948c12e38dda005e  This device holds
-  c4dd0e722ec81849  This device is not connected to a gist yet.
   d424b366dd8d36ab  This fallback reference is fused. Use Upper limb for per-bone isolation.
   749efd01151fa0f2  This is the
-  160a7acfab0d47ae  This one is best answered on the 3D skeleton
   4590b96d3ae014c4  This topic is taught in week
   8c4eef5ab2532515  This week
   2a2abf143c0b1cb9  Thoracic cage
@@ -728,7 +716,8 @@
   60fbbc864f3e78f7  Timetable to your calendar
   e8b3b668039def92  Timetable, syllabus, assessments
   e4b0795bc898e390  Tissues & cells
-  365876067e586bde  Traced to
+  4aeae9b304c159f5  Topic 01.pdf
+  f9879cf212344477  Topic 02A & Topic 02B.pdf
   dc368a8e3a63d78f  Transoesophageal (TEE)
   bdadc5cef1ccc303  Transpyloric (L1)
   38ec1b40c4659da4  Transthoracic (TTE)
@@ -737,8 +726,10 @@
   f2f36bb84e6dfc7b  Tube voltage in kVp
   2558655fc84f9098  Turn on the Arterial or Venous layer first.
   9fda7c1f6705d46d  Turn on the Heart layer first.
+  2eaa29179283ca97  Tutorial 1_ HSS2011_Human Anatomy_2026-27-Ice breaking.pdf
+  ce532acc6199f3dd  Tutorial answer.pdf
   325a3667381bade5  Twelve vertebrae: lunch at 12, with ribs attached.
-  431c871a874df758  Type an answer first — a guess still teaches you more than skipping.
+  326aa46dc2457d25  Twenty-one pages on muscle: sarcomere banding, the crossbridge cycle step by step, the neuromuscular junction and excitation-contraction coupling, muscle fuel and VO2 max, slow/fast twitch, spindles and the Golgi tendon organ, pyramidal and extrapyramidal control.
   41146b07110e6e0c  Type the bone name
   314528767e58f2ee  ULna = yoUr elbow side: the pinky-side stable hinge.
   d95164b497684e98  University notice access
@@ -749,15 +740,23 @@
   ccfe1ff0816d17cc  Unsupported version
   cef68b40feba1c6a  Upper first molar tooth
   75f3e35ccd2851cf  Upper limb
-  a16d86c59b699247  Use the idea on something you have not seen.
   c4114cbb2027abdb  Vagus nerve (X)r
-  ad3067dcb5a43246  Validation failures
   e7a0bbd1fec7c429  Venous flow
-  6b46d2656d79336e  Verifying, not teaching
   235aff25d47f45e6  Vertebra T5
   bf5f5fb18964519a  Vessels 186/419
   dd74882d7fe5f23d  Vessels 419
   5f9c270c538683cc  Wall opacity
+  efb79a19d76a63b9  Week 1 About the Subject.pdf
+  1a30435adb968ed1  Week 1 Radiographer To Be.pdf
+  dcc284b3b904d671  Week 1 icebreaker and course orientation tutorial. Administrative only.
+  c5a6d561135ac208  Week 1 overview, 47 slides, Dr Xiuling Wang. Half course admin, half a tour of where AI already sits in daily life, healthcare and work. The deck states its own limits: this is an AI-literacy General University Requirement, and programming and the mathematics of AI are explicitly not included.
+  132fdbdbd0aca08a  Week 1 subject orientation, Benson Lau, 18 pages. The authority for the 2026 module ordering — Module 1 Musculoskeletal, 2 Nervous, 3 Cardiovascular and pulmonary, 4 Digestive and urogenital — which is a different numbering from the "Module 1 Thorax … Module 4 Musculoskeletal System" folders every older file is filed under. Also carries the assessment weights and the body-orientation terminology.
+  d1eebf99d0f1e7df  Week 2 Medical Imaging Modalities and Equipment.pdf
+  ff6cdc22b8cc33c3  Week 2_LL _2026_CKK_upload.pdf
+  c172bd62afc3fd93  Week 3 Introduction to Radiation Therapy.pdf
+  a5584d2da8398bc9  Week 3_UL_2026_CKK_upload.pdf
+  104b428b2811d0f2  Week 5 Radiographer Role Extension.pdf
+  3ca9f291ff43f09b  Week 6 Basic Radioprotection and Cancers.pdf
   1ad371bd047f8bcf  What bone is this?
   9aa8e28faa9142cd  What the colours mean
   536306b242c83602  What to do now
@@ -767,20 +766,13 @@
   c19e1f70b7aed2d9  Which arm
   99e5997ec6eb3f95  Which bone does this hook belong to?
   14ab8c8c07e135d1  Whole body
-  a6075b915d80c000  Work it out in your own words
-  2efde2e039fd8b4b  Write something first — even a rough answer. Comparing beats reading.
   a8d1f0be7354e2b9  Writes every dated class, lab and deadline as a standard .ics file. Open it and your phone or laptop calendar offers to add them — after which the reminders are the calendar\'s job, not this app\'s.
   f2737495d683165a  Xiphisternal joint
-  c66f49de59b48578  Y1S1 source map
-  c9d8ebfea055fc4e  Yes, I had it
+  900198b07e06f2d2  Year 1 Sem 1 Source
+  580122b478924713  Year 1 Sem 1/Physio/note/physio/note
   9b47681c3dd7b85f  You chose week
-  1a33ef3e9b63cd34  You named
-  6072830a754d6f42  You revealed
-  3885517f2e4fef0c  You wrote "
-  c4c648151de0063d  Your connection to the backup gist — <strong>disconnected</strong>, so the next sync cannot quietly restore what you just erased. The gist itself is left alone.
   94661d68cd8ce6bb  Your course material names none of these one by one, so the
   62375359a1826914  Your groups
-  69bfb7f1b8cfd020  Your mistake log —
   5aacae2229c04415  Z-Anatomy / BodyParts3D skeleton · 159 named structures
   10c21ae68a2b089a  \u00b7 opens in Viewer
   72bc02f83b0378e4  ] : weeks.filter((w) => w
@@ -789,15 +781,10 @@
   0a48f9e432c65fab  above, upon
   8b989443dc296bd7  across it
   3acebb3518969546  along the tube
-  cae3667040774d63  along the way.
-  f6ca2bae3ef97f78  already covered this, so the session opens on the question.
   806cde273b729388  an atlas mode is open
   d69ed2e7567c8fed  an authored memory hook
   069d6e57d291854b  another structure
-  94143c2692614a77  answer event
-  f53741724922c4e4  answer events this device has never recorded — added.
   41ea005f14d7fd15  app-body padding-bottom=
-  9b5538d17c61f0ec  are held on this device and nowhere else.
   d5e50d9f16500f8d  are shown, and the next week appears by itself.
   2f4b24c630bdf091  aria-label="Your mark for
   c5fb5f7140d8d066  arteries and veins
@@ -809,7 +796,6 @@
   8db95312cb849877  bone mesh
   642d69680683778d  boot on Today, then tap Viewer
   a4d8d4905749584b  border:1px solid rgba(114,227,207,.4);border-radius:16px;background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03));padding:18px
-  6607a28fb29685f9  both sides were fully logged, so the records were replayed from the merged log — exact
   53afa6849ec5c20b  bottomtab display=
   1d647a1965983c2a  breaths a minute
   30f46b9b2fd19178  browser tab
@@ -823,28 +809,24 @@
   4fdb308b1fc87ab3  chip learn
   422cab3643ecd94c  const hot = id === 'soon' && n && filter !== id ? ' style="color:var(--orange)"' : '';
   093507f437ff79fb  const n = count(id);
-  278b6cfc619726c6  const n = itemsForSubject(s.id).length;
-  3d088b55d74552a6  const subject = getSubject(s.id);
-  bda336734237a549  correct. Reviews scheduled.
   db8cb666a550bed1  could not load
   8936e4bc4884d331  could not locate that structure
   6c1f17a2f0ae1dbd  coverageEnd is before coverageStart.
   d3967cf0a967dbd6  cross the joint and are ghosted and held still — muscle and vessel deform across a joint
-  d1db107277f6c3b0  current + older support
-  e62c5be9438eca6a  current source verified
   a419fe7f15c0a5e3  dated sessions written to radiography-timetable.ics — open it to add them to your calendar.
-  37dad91df7b23460  days ago
   b0b164def6e14665  deadline must be null or ISO with an offset.
   bbb10c71f4b6d8f3  density += n * uSigma * (0.35 + 0.65 * density);
   69bde2c73b039a19  described in
   efe8bcccea6ac349  dlg-scroll termbody
-  4f6bd1ad9fc7a4f8  does not hold valid JSON.
   9c029c43f1357a43  drawn on the abdominal wall muscles
   ce6366d2f153989d  e.g. foramen, CN VII
   099aa9ffa0926efa  emptybox hidden
+  68df191d51f4440a  extra source
+  99ab1c88ca5ca156  extra source2.0/Year 1 Sem1/Anat/M3
   13a86f208033b6a8  failed its digest
   8983c81d3b29aff6  feedback bad show
   fa671a9de2c2bd28  feedback good show
+  9c8f0126861d9ea2  final paper.docx
   bc7f4cbf853879b8  flies you through a pathway stop by stop. Press
   507593ca8dd72ee2  float arrival=uArrivalStart+
   f3b824b884a50db2  float bulk = sgn * (-vPosition.z - vCenterDepth) / rayCos * uCmPerUnit * uMu;
@@ -892,8 +874,6 @@
   eaca51006df81f64  is not an object.
   63ba7e6dace7932d  is outside the current region filter
   65dfd88eb248fc0c  is the useful distinguishing landmark.
-  71423f841ff7a38a  is too large for the API to return whole. Nothing was merged; this needs a smaller bucket size.
-  27b597099a09d320  items, and
   ffffa4a4024beb37  just outside it
   bc90f206ab9838a2  layer and named in none of your course material. Nothing of its kind is near enough to group it with, so it stays on its own.
   025e05ffcefaecc7  layer load failed
@@ -904,25 +884,14 @@
   ffd3f57d74f648cd  li[data-wk], tr[data-wk]
   486ef3aa4d9d1ed3  lines to everything it links to
   475a27209211c549  links, as a network floating in space. Bigger dots have more links, so the hubs stand out. Each week you reach adds dots and joins them to the ones already there.
-  11e35ae68e488f96  logged mistakes.
-  b76e73e177286de4  logs merged in full; records fell back to newer-wins because there is pre-log history in play
   a5dc748e4551de5f  lymph node
-  bcdc5cfcf9c33fa1  mastery record
-  fba43240d360273f  mastery records across
-  e63085a46870e9f1  mastery records this device has never seen — added.
-  9cb9cc72d6bb3f51  mastery records.
   b4d0b1a5df8f0d4a  measured from
   ddef735c79b2f059  median plane from the vertebral column and sternum; transumbilical plane at the L3/L4 junction
-  14433191e01ec5b1  merely re-read
   1c75c0d36de79131  midclavicular lines from the midpoint of each clavicle; subcostal plane at the tenth costal cartilage; transtubercular plane at the iliac tubercles
   f3d699287b13df92  min-height:38px;border:1px solid var(--line);border-radius:9px;background:rgba(255,186,103,.12);color:var(--orange);padding:0 12px;font-size:12px
-  128ac26d1dc5e406  mistakes added to the log.
   6581a1af2821cdb5  mmt mmb mmroot
   c66389c491b110b2  mode-btn active
   2ecfe0945353a3ea  modebar tight
-  3d293ff29b16699d  mono foothint
-  91468c5437728572  mono sesscount
-  0f168de1e265af3b  month file
   9926eafbd8d2de07  more step
   65ee551fb198c26a  must be an ISO timestamp with an offset.
   f46b7e5ab634f52d  mv-note hidden
@@ -934,19 +903,13 @@
   ec127246ffd2352f  named landmark hotspots
   65a8e13d43e16a88  named mesh
   a9ff6c862d2bfd72  new Date(y, m, d, h, min)
-  fb71e35554b8c081  new items,
   ef79fc55610a0395  new state.THREE.Vector3()
   326d83d3d43bbef3  next week
-  66e7dd59209ea41c  no baseline
   10222398a8cb121a  none found
   29c0d92fb897dea2  not named in your course material
-  adc2f0455e58e7cf  not yet synced
-  6c72de620a530165  notice stop
   f9af67a8e2ab418c  notices must be an array.
-  bcc38d49bd57532e  of existing progress into the new mastery record.
   5265228587b69a1f  of the mark
   051d858fae071603  of them are selected together under a name it does use. The atlas calls this one "
-  0c1c4b58250af158  on this device, across
   1cb1551f0a61cd2d  only what you have been taught up to the week chosen above
   70a087e95fa21632  opens any topic by name.
   207efbf91868f3d0  p13 "xiphoid process"
@@ -956,14 +919,13 @@
   4be7dbf90c62fb39  p4 "Jugular notch = suprasternal notch"
   4211a7c90dfee211  p5 "junction between manubrium and body of sternum"
   a78c340554344e5e  p5 "vertebral level of T4/T5"
-  77aaf50327326363  pick up where you left off
   ccdf632a1acc3583  pickstack hidden
   d2c10c79856392a6  primary detail-open
   63d1b7f8646ef672  primary next
   c504c70741f08c26  primary next show
   46591e102d765ad8  priority must be urgent, normal or check.
-  57df5f919992d6d5  pulled in,
   777503f25750cf8f  px "Instrument Sans", system-ui, -apple-system, sans-serif
+  fe61828d0377d29b  question blank/Chapter 1–29.pdf
   9104b22058806e6c  rather than rotating rigidly, so swinging them would tear them off their origin.
   c93a88684ed76c4f  real BodyParts3D upper-limb meshes
   6ab01b1dba123b71  region filter does not work
@@ -994,7 +956,6 @@
   37e8cb66682dd7b0  separately selectable">
   a8970b03087f1926  sheetscrim hidden
   607a6bbd50b8e2a7  shell position=
-  29795951237abb24  should hold an array of events.
   2c7793c890df5263  skipped lines.
   7e1d4ce29beaeb4e  skipped must be an array.
   5c6db2f77cfe003a  small cut-levelnote
@@ -1003,21 +964,15 @@
   b06f2f1ca52fc976  soft-tissue mesh
   f004ce84a1c00cd6  soft-tissue structures travel with the bone.
   29a944fb41484f0b  something is wrong
-  a05d0fe6c99cd823  source review needed
   b43e10e950501611  source.from is missing.
   dd6b1fb86b59799a  source.quote is missing.
   0d9fec38ee8cf1fe  source.receivedAt must be ISO with an offset.
   a1c7213f9215c796  source.threadId must be hexadecimal.
-  4132e48b488fc684  studied, across
   88a595b7ebfe83fb  summary small
-  53b5cb1fd8627dca  synced today
   ed964bcd197f9142  tap to name
   f5f88ae39b9a5ceb  that structure
   8ef9472e82771a5b  the body frame
-  d6e625da1b663266  the gist was empty, so this device seeded it
   4f6a3d859e615a5a  the skeleton
-  b34e03407b386047  the token no longer has gist access
-  aa380a202d8e6080  this device was empty, so the whole history was taken from the gist and rebuilt from the log
   8a3a6bcf33fef191  this is what I got
   53bc713bab10603a  to fly to it. Its links light up and small pulses run along them, like signals along a nerve. Its notes open here.
   4d25c171929a0ada  to let it run, or use ◀ ▶. 跟住條路行一次，個次序就會記得。
@@ -1037,7 +992,6 @@
   98250706ec88a1f3  uniform sampler2D tTau;
   81d45d9b45873d73  uniform vec2 uPan;
   567591d501c8163d  uniform vec3 uCenter;
-  9d59aa851d0f5a24  unknown time
   c965a53737adbfdc  upon, above
   a7f1899a2980bf16  upper limb
   0e58ec839ddda109  use the whole skeleton
@@ -1062,14 +1016,14 @@
   d1d9ae15f23c9b21  what should I study
   5fd1f8e2da61b599  what this mode needs
   9e3ac18c25c2c980  where am I meant to be
-  c9ef209dbe30af9e  where the file is more recent — replaced.
   a27139acecaf8695  where this device has reported
-  8198bdb854b9ed3d  where this device is more recent — kept as they are.
   f15917d478d385d3  which of these is a skull bone
   a08b97ce59de6217  whole skeleton
   29ff11bb0c6073f7  width:100%;background:#0a141b;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 12px;outline:none
   4319bd073a8a50ce  without on-device evidence
   19453f5759aed21a  wrong transform
+  2210176f08824bc0  year 1 sem 1/ABCT2326 Human Physiology
+  ec65ddfbd08d1f48  year 1 sem 1/HSS2011 Human Anatomy
   a280303e42e6da2d  you can select
   0ab77651425c254f  you can select · tap one
   d7085db92f248fb1  you need 140%
@@ -1080,13 +1034,8 @@
   36a28bbb25a617bc  · modelled, but named in none of your course material
   6b4bb99b4ebbd84c  · only these have
   b49836c27fde6f76  · opens all together
-  0f3ebbb0ff98d5ec  · question
   4b74c9a1d1103c73  · simulated · tap to name
   dbfe3f147332dc00  · tap to name them
   98702c9246db235b  · the page covers the status bar (top inset
   e22653df93982092  · viewport
-  2ed64db2b62cdd4f  — coursework produced by students. Used only to confirm topic scope, never as a fact source.
-  906d335588568bc2  — past papers, revision exercises, model answers and question banks.
-  6c3aff886c4d2790  — teaching material issued by the subject: lecture handouts, study manuals, slide decks.
   bbbede49d8c54941  — weeks 1–
-  6e5571bd88962ae4  — written by this app to help you remember. Not a claim from your sources.

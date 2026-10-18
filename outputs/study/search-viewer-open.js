@@ -4,8 +4,8 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, esc, ui } from './imports.js';
-import { closeSearchSheet, dismissSessionForNav } from './global-search-one.js';
-import { goTo, suspendSessionForViewer } from './navigation-destinations.js';
+import { closeSearchSheet } from './global-search-one.js';
+import { goTo } from './navigation-destinations.js';
 
 /* ------------------------------------------------------------------ *
  * Search -> viewer: open the model, select the part, auto-uncover, and
@@ -13,7 +13,6 @@ import { goTo, suspendSessionForViewer } from './navigation-destinations.js';
  * ------------------------------------------------------------------ */
 export function openStructureInViewer(spec) {
   closeSearchSheet();
-  if (!suspendSessionForViewer()) dismissSessionForNav();
   ui.viewerTab = '3d';
   goTo('viewer');
   setTimeout(async () => {

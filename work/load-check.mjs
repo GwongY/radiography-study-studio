@@ -53,7 +53,7 @@ const blocks = EXTRACTED.every((f) => existsSync(join(OUT, f)))
 console.log(`application modules: ${blocks.length} (${blocks.map((b) => b.label).join(', ') || 'NONE'})`);
 if (blocks.length < 2) fail(`expected 2 application modules, found ${blocks.length} — the app moved and this check did not follow it`);
 for (const b of blocks) await parseCheck(b.label, b.src);
-for (const f of ['study-data.js', 'anatomy-data.js', 'physiology.js', 'wordparts.js', 'term-notes.js', 'term-gloss.js', 'bodymap.js']) {
+for (const f of ['study/course-data.js', 'anatomy-data.js', 'physiology.js', 'wordparts.js', 'term-notes.js', 'term-gloss.js', 'bodymap.js']) {
   try { await parseCheck(`outputs/${f}`, readFileSync(join(OUT, f), 'utf8')); }
   catch { console.log(`SKIP  parse outputs/${f} (not found)`); }
 }

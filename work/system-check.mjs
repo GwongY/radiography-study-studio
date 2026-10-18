@@ -41,7 +41,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SYSTEMS, UNREADABLE, isSplit, systemsIn, systemsOf } from '../outputs/systems.js';
 import { classify } from '../outputs/physiology.js';
-import { STRUCTURE_MODELS } from '../outputs/study-data.js';
+import { STRUCTURE_MODELS } from '../outputs/study/course-data.js';
 
 const OUT = join(dirname(fileURLToPath(import.meta.url)), '..', 'outputs');
 

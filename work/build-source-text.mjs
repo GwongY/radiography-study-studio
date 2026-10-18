@@ -56,7 +56,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { extractText } from './lib/doc-text.mjs';
 import { resolveSource } from './lib/source-resolve.mjs';
-import { SOURCE_FILES, SOURCE_ROOTS } from '../outputs/study/corpus/schema.js';
+import { SOURCE_FILES, SOURCE_ROOTS } from '../outputs/study/course-data.js';
 
 const WORK = dirname(fileURLToPath(import.meta.url));
 const CATALOGUE = join(WORK, 'source-catalogue.json');

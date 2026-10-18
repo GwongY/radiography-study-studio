@@ -4,7 +4,7 @@ async function physiologyShapeBrowserCheck(mode='compare') {
   const {deformMuscle,deformBreathing,deformChamber}=await import('/physiology-shape.js');
   const {goTo}=await import('/study/navigation-destinations.js');
   const {loadExtraModel}=await import('/studio/depth-picking.js');
-  const {STRUCTURE_MODELS}=await import('/study-data.js');
+  const {STRUCTURE_MODELS}=await import('/study/course-data.js');
   goTo('viewer');await __osteo.boot();
   const s=__osteo.state;s.motionEnabled=false;
   for(const key of Object.keys(STRUCTURE_MODELS).filter(k=>k!=='skeleton'))

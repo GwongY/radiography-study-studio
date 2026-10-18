@@ -81,9 +81,6 @@
 .step:disabled{opacity:.4;cursor:not-allowed}
 .session-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(288px,.68fr);gap:14px;align-items:start}
 @media(max-width:1020px){.session-grid{grid-template-columns:1fr}}
-.stagecard{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:20px clamp(16px,2.2vw,26px);box-shadow:var(--shadow)}
-.lesson h2{margin:6px 0 12px;font-size:clamp(20px,2.6vw,29px);line-height:1.14;letter-spacing:-.03em}
-.lesson{max-width:880px;margin:0 auto}.lesson .body{font-size:calc(15px * var(--ts));line-height:1.68;color:#dfe6ea}
 
 .facts{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:7px}
 .facts li{position:relative;padding-left:20px;font-size:calc(14px * var(--ts));line-height:1.55;color:#d5dee3}
@@ -203,12 +200,6 @@
 .verdict h4{margin:0 0 6px;font-size:calc(14px * var(--ts));letter-spacing:-.01em}
 .verdict .why{color:#d7e0e5}
 .verdict .mistakes{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:calc(13px * var(--ts));line-height:1.55}
-.srcbtn{background:none;border:0;padding:0;color:var(--teal);cursor:pointer;font:inherit;font-size:calc(12.5px * var(--ts));text-decoration:underline dotted;text-underline-offset:3px}
-.srcline{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:calc(12.5px * var(--ts));color:var(--muted)}
-.srctable{width:100%;border-collapse:collapse;font-size:calc(13px * var(--ts));margin-top:6px}
-.srctable th,.srctable td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-.srctable th{color:var(--muted);font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em;text-transform:uppercase;font-weight:700;font-size:calc(11px * var(--ts))}
-.srctable td.k{white-space:nowrap}
 .cov-sec{border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:11px;background:rgba(255,255,255,.02)}
 .cov-sec h4{margin:0 0 8px;font-size:calc(15px * var(--ts));display:flex;align-items:center;gap:9px;flex-wrap:wrap}
 .cov-sec ul{margin:6px 0 0;padding-left:18px;color:var(--muted);font-size:calc(13px * var(--ts));line-height:1.6}
@@ -294,8 +285,8 @@
  */
 .navhead{transition:transform .22s ease,opacity .16s ease}
 @media(max-width:1100px){
-  .navmain,#sessionView{position:relative}
-  .navmain>.navhead,#sessionView>.navhead{position:absolute;top:0;left:0;right:0;z-index:6;background:var(--bg)}
+  .navmain{position:relative}
+  .navmain>.navhead{position:absolute;top:0;left:0;right:0;z-index:6;background:var(--bg)}
   .navhead.tucked{transform:translateY(-100%);opacity:0;visibility:hidden;pointer-events:none}
 }
 @media(prefers-reduced-motion:reduce){.navhead{transition:none}}
@@ -428,9 +419,6 @@ html[data-strip="on"] .shell{bottom:calc(-1 * var(--vp-shortfall,0px))}
   html[data-inset="dead"] .app-body{padding-bottom:8px}
 }
 /* ---------- IA redesign: session overlay ---------- */
-#sessionView{position:fixed;inset:0;z-index:10;background:var(--bg);display:flex;flex-direction:column;animation:fadeUp .2s ease}
-#sessionView.hidden{display:none}
-#sessionView .navcontent{flex:1;min-height:0;overflow:auto;padding:22px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .filter-chip{min-height:38px;border:1px solid var(--line);border-radius:99px;background:rgba(255,255,255,.03);color:var(--muted);font:600 12.5px 'Instrument Sans',sans-serif;padding:0 14px;cursor:pointer;font-size:calc(12.5px * var(--ts))}
 .filter-chip.active{border-color:var(--accent,var(--teal));color:var(--accent,var(--teal));background:rgba(114,227,207,.12)}
@@ -458,18 +446,6 @@ html[data-strip="on"] .shell{bottom:calc(-1 * var(--vp-shortfall,0px))}
 .sheetgroup{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:6px 0 2px;font-size:calc(10px * var(--ts))}
 @media(max-width:700px){.sheetscrim{padding:0}.sheet{max-width:none;border-radius:18px 18px 0 0;max-height:80vh;max-height:80dvh}}
 /* ---------- Session overlay: one centred column ---------- */
-.sessioncol{max-width:720px;margin:0 auto;display:grid;gap:12px}
-.sessioncol .stagecard{padding:22px}
-.sessprog{flex:none;width:110px;height:6px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden}
-.sessprog span{display:block;height:100%;width:0;background:var(--teal);transition:width .18s ease}
-.sesscount{flex:none;font-size:11.5px;color:var(--muted)}
-.srcinline{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--line)}
-.srclab{font:11px ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-size:calc(11px * var(--ts))}
-.sessionfoot{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
-.sessionfoot .primary{min-height:48px;padding:0 22px;white-space:nowrap}
-.sessionfoot .ghost{min-height:48px;white-space:nowrap}
-.foothint{font-size:calc(11.5px * var(--ts));color:var(--dim)}
-@media(max-width:700px){.sessioncol .stagecard{padding:16px}.sessprog{width:70px}}
 
 
 /* ---------- Responsive view grids (migrated from inline styles so tiers apply) ---------- */
@@ -833,37 +809,8 @@ html[data-strip="on"] .shell{bottom:calc(-1 * var(--vp-shortfall,0px))}
    not, so a lesson headed "Module 1" cites "Module 4.1". This says which. */
 .modlegacy{display:block;margin-top:3px;font-size:calc(11.5px * var(--ts));color:var(--dim)}
 
-/*
- * ---------- iPad / installed web app ----------
- *
- * The manifest is standalone and the meta is apple-mobile-web-app-capable with
- * a BLACK-TRANSLUCENT status bar, which means iPadOS draws the clock, VPN badge
- * and battery ON TOP of the page rather than above it. .app-shell already pads
- * itself past that inset (it inherited the job from .app-topbar, which is
- * gone). #sessionView does not: it is position:fixed;inset:0 and its .navhead
- * starts at y=0, so the close and search buttons sat directly under the status
- * bar and could be neither read nor reliably tapped.
- *
- * Every fixed-position surface has to pay the inset itself; being inside a
- * padded ancestor does not help when you are taken out of flow.
- *
- * The inset is ADDED to the design padding rather than folded into a max(),
- * matching .app-topbar above: the inset is unusable space, so the 14px of
- * breathing room has to sit BELOW it, not partly inside it. On an iPad the top
- * inset is around 20px, which max(14px, inset+6px) would have turned into 26px
- * of padding holding a 44px button -- clearing the status bar by two pixels.
- */
-#sessionView{
-  padding-left:env(safe-area-inset-left);
-  padding-right:env(safe-area-inset-right);
-}
-#sessionView .navhead{
-  padding-top:calc(14px + env(safe-area-inset-top));
-}
-/* The session's own scroller ends above the home indicator, not under it. */
-#sessionView .navcontent{padding-bottom:calc(22px + env(safe-area-inset-bottom))}
-
-/* The toast and the search sheet are fixed to the bottom edge for the same
+/* iPad / installed web app: .app-shell pads itself past the status-bar inset;
+   fixed surfaces have to pay it themselves. The toast and the search sheet are fixed to the bottom edge for the same
    reason and need the same treatment. */
 .toast{bottom:calc(20px + env(safe-area-inset-bottom))}
 .sheetscrim{padding-bottom:calc(40px + env(safe-area-inset-bottom))}
@@ -880,7 +827,7 @@ html[data-strip="on"] .shell{bottom:calc(-1 * var(--vp-shortfall,0px))}
  */
 @media(pointer:coarse){
   .step{min-height:46px;display:flex;flex-direction:column;justify-content:center}
-  .srcbtn,.filter-chip,.seg,.answer,.opt{min-height:44px}
+  .filter-chip,.seg,.answer,.opt{min-height:44px}
   .navrail button{min-height:52px}
 }
 
@@ -899,25 +846,14 @@ html[data-strip="on"] .shell{bottom:calc(-1 * var(--vp-shortfall,0px))}
  * Vertical only, and as a longhand AFTER the shorthand: writing the shorthand
  * here would reset overscroll-behavior-x and take horizontal panning with it.
  */
-.navcontent,.sheetresults,.dlg-scroll,#sessionView .navcontent{overscroll-behavior:contain}
-.navcontent,#sessionView .navcontent{overscroll-behavior-y:none}
+.navcontent,.sheetresults,.dlg-scroll{overscroll-behavior:contain}
+.navcontent{overscroll-behavior-y:none}
 
 /*
  * Safari inflates text when an iPad is rotated to landscape unless it is told
  * not to. The type here is already sized per breakpoint; let it be.
  */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-
-/*
- * iPad landscape (1024-1366) reads as a small desktop and gets the desktop
- * grids, which is right. What it does not get by default is a comfortable
- * measure in the session overlay: 720px of lesson on a 1194px screen leaves the
- * column stranded in the middle. Widen it a little where there is room.
- */
-@media(min-width:1024px) and (max-width:1366px) and (pointer:coarse){
-  .sessioncol{max-width:820px}
-  #sessionView .navcontent{padding:22px 28px}
-}
 
 /*
  * The space the tucking header needs belongs INSIDE the scroller.
@@ -939,7 +875,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
  * top value, which is how the first attempt at this appeared to do nothing.
  */
 @media(max-width:1100px){
-  .navmain>.navcontent,#sessionView>.navcontent{padding-top:calc(var(--headh,74px) + 12px)}
+  .navmain>.navcontent{padding-top:calc(var(--headh,74px) + 12px)}
 }
 
 /*
@@ -1109,25 +1045,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .markin:focus{outline:2px solid var(--teal);outline-offset:1px}
 .marklab{font-size:calc(11.5px * var(--ts));color:var(--dim)}
 
-/* Active session cards widen on tablets and desktop. */
-@media(min-width:1024px){
-  .sessioncol{max-width:900px}
-  .lesson{max-width:820px}
-}
-@media(min-width:1400px){
-  .sessioncol{max-width:1000px}
-  .lesson{max-width:860px}
-}
-@media(min-width:701px) and (max-width:1023px){
-  .sessioncol{max-width:none}
-  .lesson{max-width:none}
-  .sessioncol .stagecard{padding:22px clamp(18px,3vw,28px)}
-}
-@media(min-width:1024px) and (max-width:1366px) and (pointer:coarse){
-  .sessioncol{max-width:none}
-  .lesson{max-width:none}
-}
-
 /* ==================================================================
  * Text size — html[data-ts] set by outputs/study/text-size.js
  *
@@ -1163,8 +1080,6 @@ html[data-ts="xl"]{--ts:1.55}
 .tsbtn.active{color:var(--teal);border-color:var(--teal);background:rgba(114,227,207,.08)}
 
 /* Lesson prose and its lists */
-.lesson .body{font-size:calc(15px * var(--ts))}
-.lesson h2{font-size:calc(clamp(20px,2.6vw,29px) * var(--ts))}
 .facts li{font-size:calc(14px * var(--ts))}
 .small{font-size:calc(12px * var(--ts))}
 

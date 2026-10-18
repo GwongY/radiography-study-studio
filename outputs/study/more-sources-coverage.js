@@ -3,12 +3,9 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, SOURCE_FILES, STUDY_ITEMS, allQuestions, esc, validateApplications, validateCorpus } from './imports.js';
+import { $$, esc } from './imports.js';
 import { setActiveNav } from './navigation-destinations.js';
-import { openCoverage } from './coverage-report.js';
 import { openDialog } from './dialog-behaviour-applied.js';
-import { openResetDialog, openTransferDialog } from './reset.js';
-import { isConnected, openSyncDialog, syncConfig } from './gist-sync.js';
 import { showView } from './small-ui-helpers.js';
 import { exportCalendar } from './assessments-and-marks.js';
 import { recoverByHand, stripMode, toggleStripFill, viewportNote, viewportReport } from './viewport-recovery.js';
@@ -25,24 +22,10 @@ function viewportBadge() {
 }
 
 /* A settings row should say what the state IS, not what the feature is for. */
-function syncBadge() {
-  const c = syncConfig();
-  if (!isConnected()) return 'off';
-  if (c.lastError) return 'failing';
-  if (!c.lastPushAt) return 'connected';
-  const days = Math.floor((Date.now() - c.lastPushAt) / 86400000);
-  return days < 1 ? 'synced today' : `${days}d ago`;
-}
-
 export function renderMore() {
   window.__rssRenderMore = renderMore;
   setActiveNav('more');
-  /* validateCorpus/validateApplications each return an ARRAY of failures. */
-  const failures = validateCorpus().length + validateApplications().length;
   const rows = [
-    { title: 'Sources & coverage report', badge: failures + ' failures', color: failures ? 'var(--red)' : 'var(--green)',
-      note: STUDY_ITEMS.length + ' items, ' + allQuestions().length + ' questions, ' + Object.keys(SOURCE_FILES).length
-        + ' files cited. Conflicts and duplicates listed in full.', open: () => openCoverage(null) },
     /*
      * Three rows were removed here, and they had one thing in common: no
      * `open`. "Subjects with no material", "Offline & storage" and
@@ -77,15 +60,6 @@ export function renderMore() {
       color: isBriefingConnected() ? 'var(--teal)' : 'var(--muted)',
       note: 'Connect a read-only GitHub token to read the private weekly university notice summary on Today.',
       open: () => openBriefingAccessDialog() },
-    { title: 'Back up to a private GitHub gist', badge: syncBadge(), color: isConnected() ? 'var(--green)' : 'var(--muted)',
-      note: 'An off-device copy that happens on its own — the only thing here that survives losing this device, reinstalling the app, or the browser clearing its storage. Needs a GitHub token scoped to gists and nothing else.',
-      open: () => openSyncDialog() },
-    { title: 'Move progress to another device', badge: 'JSON', color: 'var(--teal)',
-      note: 'Mastery lives in this browser only, so the desktop and the iPad keep separate schedules. Export a file here and import it on the other device.',
-      open: () => openTransferDialog() },
-    { title: 'Reset progress on this device', badge: 'erase', color: 'var(--red)',
-      note: 'Delete every mastery record, mistake and schedule stored in this browser. There is no server and no undo, so export a backup first if you might want it.',
-      open: () => openResetDialog() },
   ];
   $$('moreRows').innerHTML = rows.map((r, i) => `
     <button class="card" data-row="${i}" style="text-align:left;cursor:${r.open ? 'pointer' : 'default'};width:100%">

@@ -1,15 +1,13 @@
 /*
  * Ask the data a question instead of reading the file.
  *
- * outputs/mesh-index.js is ~36K tokens and outputs/study-data.js ~120K. Almost
- * every reason to open either is a lookup that fits in twenty lines. This
+ * outputs/mesh-index.js is ~36K tokens. Almost every reason to open it is a lookup that fits in twenty lines. This
  * answers those, so a session spends tens of tokens where it used to spend
  * tens of thousands.
  *
  * Usage:
  *   node work/query.mjs unit  <term>    what a tap selects, and what is in it
  *   node work/query.mjs mesh  <term>    index rows whose name matches
- *   node work/query.mjs item  <term>    study items by id, title or tag
  *   node work/query.mjs layer <key>     one layer's counts and its top units
  *   node work/query.mjs source <term>   which course file names a structure
  *   node work/query.mjs file  <term>    which source document on the drive
@@ -22,7 +20,6 @@ import { gunzipSync } from 'node:zlib';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { MESH_INDEX, UNITS } from '../outputs/mesh-index.js';
-import { STUDY_ITEMS } from '../outputs/study-data.js';
 
 /*
  * The drive catalogue: 8,801 distinct documents across 46.9 GB of shared
@@ -51,7 +48,6 @@ const usage = () => {
 
   unit   <term>   what a tap selects, and every structure inside it
   mesh   <term>   index rows whose name matches
-  item   <term>   study items by id, title or tag
   layer  <key>    one layer's counts and its largest units
   source <term>   which course file names a structure
   file   <term>   which source document on the drive, and where its copies are
@@ -122,15 +118,6 @@ switch (cmd) {
       `${r.name}\n    layer ${r.layer}  mesh "${r.mesh}"  sides "${r.sides}"  tier ${r.tier}\n` +
       `    unit: ${r.unit} (${r.unitKind}, ${r.unitSize})${r.isUnit ? '  ← this row IS the unit' : ''}\n` +
       `    source: ${r.source ? `${r.source.file} [${r.source.subject}, ${r.source.evidence}]` : 'not named by the course'}\n`));
-    break;
-  }
-  case 'item': {
-    const items = STUDY_ITEMS.filter((i) => hit(i.id) || hit(i.title) || (i.tags || []).some(hit));
-    console.log(`${items.length} item(s) matching "${term}"\n`);
-    show(items, (i) => console.log(
-      `${i.id}  ${i.title}\n    ${i.subject} / ${i.unit}  type ${i.type}\n` +
-      `    ${(i.practice || []).length} question(s), ${(i.sourceRefs || []).length} source ref(s)` +
-      `${(i.tags || []).length ? `\n    tags: ${i.tags.join(', ')}` : ''}\n`));
     break;
   }
   case 'layer': {

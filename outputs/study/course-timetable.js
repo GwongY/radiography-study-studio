@@ -20,7 +20,7 @@
 import {
   $$, GROUP_CHOICES, KINDS, SCHEDULE_SOURCES, SUBJECT_ADMIN, TERM,
   describeSource, esc, fmtWeekRange, fmtWhen, getSubject, isOtherGroup,
-  gapFor, itemsForUnit, sessionsWithStatus, weekOf, weekStart, STAFF, ui,
+  gapFor, sessionsWithStatus, weekOf, weekStart, STAFF, ui,
 } from './imports.js';
 import { showView } from './small-ui-helpers.js';
 import { setActiveNav } from './navigation-destinations.js';

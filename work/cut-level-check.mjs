@@ -6,8 +6,8 @@
  * is two claims at once, and nothing else in the repo checks either:
  *
  *   1. A SOURCE claim. The level is presented as course fact, so CLAUDE.md's
- *      first rule applies to it. But source-check.mjs only walks STUDY_ITEMS,
- *      and these levels are viewer code, not corpus -- so a quote here could
+ *      first rule applies to it. But source-check.mjs only checks that the
+ *      registry's files exist, and these levels are viewer code -- so a quote here could
  *      drift, or cite a page that never said it, and every existing check
  *      would still pass.
  *   2. A GEOMETRY claim. "The sternal angle is at the manubriosternal
@@ -41,7 +41,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadGlbMeshes } from './glb-mesh.mjs';
 import { createResolver } from '../outputs/landmarks.js';
-import { SOURCE_FILES } from '../outputs/study/corpus/schema.js';
+import { SOURCE_FILES } from '../outputs/study/course-data.js';
 
 const WORK = dirname(fileURLToPath(import.meta.url));
 

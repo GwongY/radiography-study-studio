@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { BONE_LANDMARKS, BONE_LANDMARK_MODEL_HASH, boneLandmarkKey, surfaceLandmarks } from '../outputs/bone-landmarks.js';
 import { loadGlbMeshes } from './glb-mesh.mjs';
 import { citationEvidence } from './lib/source-lesson-map.mjs';
-import { SOURCE_FILES } from '../outputs/study/corpus/schema.js';
+import { SOURCE_FILES } from '../outputs/study/course-data.js';
 
 assert.equal(createHash('sha256').update(readFileSync('outputs/assets/z-anatomy-skeleton.glb')).digest('hex'), BONE_LANDMARK_MODEL_HASH);
 const sources=JSON.parse(readFileSync('work/source-text.json','utf8')).sources;

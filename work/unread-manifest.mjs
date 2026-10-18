@@ -30,7 +30,7 @@ import { gunzipSync } from 'node:zlib';
 import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { SOURCE_FILES } from '../outputs/study/corpus/schema.js';
+import { SOURCE_FILES } from '../outputs/study/course-data.js';
 
 const WORK = dirname(fileURLToPath(import.meta.url));
 const CACHE = join(WORK, '.source-text');

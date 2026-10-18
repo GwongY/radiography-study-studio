@@ -1,16 +1,19 @@
 /*
- * Scaffolding: the source registry, the subjects and their units, the item
- * types and mastery dimensions, what prior knowledge is assumed, and the study
- * modes. No study item lives here.
+ * Course data -- the source registry, the subject list and the model files.
  *
- * Split out of study-data.js in phase 2026-09-01. outputs/study-data.js is
- * the barrel every importer still uses; nothing imports this file directly
- * except its siblings.
+ * What is left of the old question corpus after the app stopped testing
+ * (docs/superpowers/specs/2026-10-19-remove-testing.md). No study item, no
+ * question and no mastery lives here: only what other features still read.
+ *
+ *   SOURCE_FILES / describeSource  the Course syllabus text, the viewer's
+ *                                  citations, bone landmarks and cut levels
+ *   SUBJECTS / getSubject          a subject's code, title and accent colour
+ *   STRUCTURE_MODELS               layer key -> bundled GLB, for the 3D viewer
+ *                                  and the search sheet
+ *   STORAGE_PREFIX                 the localStorage namespace
  */
 
-export const DATA_VERSION = 1;
 export const STORAGE_PREFIX = 'rss.v1.';
-export const LEGACY_STATS_KEY = 'osteology-studio-stats';
 
 /* ------------------------------------------------------------------ *
  * Source registry
@@ -237,10 +240,6 @@ export const SOURCE_FILES = {
   'soc.img.torti': { file: 'IMG_4192.JPG / IMG_4193.JPG / IMG_4194.JPG', subject: 'APSS1A08', root: 'torti', folder: 'GUR subjects/CAR/Introduction to Sociology', kind: 'student', note: 'Photographs. Not machine-readable offline, so their contents are unverified.' },
 };
 
-export function sourceRef(ref) {
-  return SOURCE_FILES[ref] || null;
-}
-
 export function describeSource(entry) {
   const src = SOURCE_FILES[entry.ref];
   if (!src) {
@@ -262,251 +261,24 @@ export function describeSource(entry) {
  * ------------------------------------------------------------------ */
 
 export const SUBJECTS = [
-  {
-    id: 'HSS2011',
-    code: 'HSS2011',
-    title: 'Human Anatomy',
-    accent: '#5fd0c5',
-    coverage: 'mapped',
-    blurb: 'Four modules plus the online foundation module, taught through a flipped-classroom study manual with revision exercises and model answers.',
-    units: [
-      /*
-       * Ordered and numbered by the 2026 orientation deck (hss.w1.2026 p10-13),
-       * not by the source folders. The unit KEYS still carry the folder numbers
-       * because saved progress is keyed by them — see modules.js.
-       */
-      /* 'hss.subject' was here. Its one item was course logistics — module
-         titles and assessment weights — and it is now on the Course tab's
-         Syllabus panel, sourced, beside the timetable it belongs with.
-         An empty unit is a topic card that opens onto nothing. */
-      { id: 'hss.term', label: 'Anatomical orientation & terminology', note: 'Week 1 foundation' },
-      { id: 'hss.osteo', label: 'Osteology — bones, landmarks, articulations', note: 'Interactive 3D skeleton', hasStudio: true },
-      { id: 'hss.joints', label: 'Joints & movements' },
-      { id: 'hss.m4', label: 'Module 1 — Musculoskeletal system', note: 'Filed as Module 4 on the drive' },
-      { id: 'hss.m2', label: 'Module 2 — Nervous system' },
-      { id: 'hss.m1', label: 'Module 3 — Cardiovascular & pulmonary', note: 'Filed as Module 1 on the drive' },
-      { id: 'hss.m3', label: 'Module 4 — Digestive & urogenital', note: 'Filed as Module 3 on the drive' },
-    ],
-  },
-  {
-    id: 'ABCT2326',
-    code: 'ABCT2326',
-    title: 'Human Physiology',
-    accent: '#ffba67',
-    coverage: 'mapped',
-    blurb: 'Ten system lectures with supplementary decks, tutorial answers and extra exercises, built on the Martini Fundamentals of Anatomy & Physiology eBook.',
-    units: [
-      { id: 'phys.cells', label: '1 — Cells & body organisation' },
-      { id: 'phys.cvs', label: '2 — Cardiovascular system' },
-      { id: 'phys.resp', label: '3 — Respiratory system' },
-      { id: 'phys.dig', label: '4 — Digestive system' },
-      { id: 'phys.renal', label: '5 — Renal system' },
-      { id: 'phys.repro', label: '6 — Reproductive system', note: 'Covered from a readable older official lecture until the 2026 lecture is supplied' },
-      { id: 'phys.endo', label: '7 — Endocrine system' },
-      { id: 'phys.nerv', label: '8 — Nervous system' },
-      { id: 'phys.msk', label: '9 — Musculoskeletal system' },
-      { id: 'phys.imm', label: '10 — Immune system' },
-    ],
-  },
-  {
-    id: 'HTI17103',
-    code: 'HTI17103',
-    title: 'Introduction to Medical Radiation Science',
-    accent: '#8ea9ff',
-    coverage: 'substitute',
-    substituteFor: 'HTI17101 Exploring Radiography',
-    blurb: 'The real 2026 HTI17103 schedule and opening lecture are supplied; later topic questions draw from the older HTI17101 Exploring Radiography set whose topics the current schedule confirms.',
-    units: [
-      { id: 'hti.subject', label: 'About the subject & the radiographer role' },
-      { id: 'hti.modalities', label: 'Medical imaging modalities & equipment' },
-      { id: 'hti.rt', label: 'Introduction to radiation therapy' },
-      { id: 'hti.roleext', label: 'Radiographer role extension' },
-      { id: 'hti.protect', label: 'Basic radioprotection & cancers' },
-    ],
-  },
-  {
-    id: 'APSS1A08',
-    code: 'APSS1A08',
-    title: 'Introduction to Sociology',
-    accent: '#d3a0ff',
-    coverage: 'limited',
-    blurb: 'The current 2026/27 syllabus and Topics 01, 02A and 02B are supplied. T03–T08 remain explicit source gaps until their lecture notes arrive.',
-    units: [
-      { id: 'soc.t01', label: 'T01 — Introduction to sociology' },
-      { id: 'soc.t02a', label: 'T02A — Functionalist and conflict perspectives' },
-      { id: 'soc.t02b', label: 'T02B — Modern contemporary theorists' },
-      { id: 'soc.t03', label: 'T03 — Socialization' },
-      { id: 'soc.t04', label: 'T04 — Social interaction' },
-      { id: 'soc.t05', label: 'T05 — Social stratification and social class' },
-      { id: 'soc.t06', label: 'T06 — Sexuality and society' },
-      { id: 'soc.t07', label: 'T07 — Gender stratification' },
-      { id: 'soc.t08', label: 'T08 — Deviance' },
-    ],
-  },
-  {
-    id: 'DSAI1202',
-    code: 'DSAI1202',
-    title: 'Introduction to AI and Data Analytics',
-    accent: '#7fd1a0',
-    coverage: 'limited',
-    blurb: 'Week 1 course overview and Week 2 AI overview decks are supplied. A General University Requirement AI-literacy subject, explicitly conceptual rather than algorithmic: the syllabus and decks emphasize principles, historical paradigms, system components, NLP/vision applications and generative AI literacy rather than code.',
-    units: [
-      { id: 'dsai.overview', label: 'Week 1 — Course overview & AI in practice' },
-      { id: 'dsai.w2', label: 'Week 2 — AI overview, history, foundations & paradigms' },
-    ],
-  },
-  {
-    id: 'LEI1101',
-    code: 'LEI1101',
-    title: 'AI as a Tool for Language Learning',
-    accent: '#ff9aa8',
-    coverage: 'none',
-    blurb: 'No verified LEI1101 materials were found in the supplied source folders.',
-    units: [],
-  },
+  { id: 'HSS2011', code: 'HSS2011', title: 'Human Anatomy', accent: '#5fd0c5' },
+  { id: 'ABCT2326', code: 'ABCT2326', title: 'Human Physiology', accent: '#ffba67' },
+  { id: 'HTI17103', code: 'HTI17103', title: 'Introduction to Medical Radiation Science', accent: '#8ea9ff' },
+  { id: 'APSS1A08', code: 'APSS1A08', title: 'Introduction to Sociology', accent: '#d3a0ff' },
+  { id: 'DSAI1202', code: 'DSAI1202', title: 'Introduction to AI and Data Analytics', accent: '#7fd1a0' },
 ];
 
 export function getSubject(id) {
   return SUBJECTS.find((s) => s.id === id) || null;
 }
 
-export function getUnit(subjectId, unitId) {
-  const subject = getSubject(subjectId);
-  if (!subject) return null;
-  return subject.units.find((u) => u.id === unitId) || null;
-}
-
-/* ------------------------------------------------------------------ *
- * Item types and mastery dimensions
- * ------------------------------------------------------------------ */
-
-export const ITEM_TYPES = {
-  definition: { label: 'Definition', dimension: 'recognition' },
-  mcq: { label: 'Multiple choice', dimension: 'recognition' },
-  typed: { label: 'Typed recall', dimension: 'typedRecall' },
-  cloze: { label: 'Cloze', dimension: 'typedRecall' },
-  sequence: { label: 'Sequence ordering', dimension: 'sequence' },
-  matching: { label: 'Matching', dimension: 'recognition' },
-  diagram: { label: 'Diagram labelling', dimension: 'location' },
-  id3d: { label: '3D identification', dimension: 'location' },
-  structure: { label: 'Structure set — tap to identify', dimension: 'location' },
-  movement: { label: 'Joint movement — drive it on the model', dimension: 'location' },
-  laterality: { label: 'Laterality', dimension: 'location' },
-  landmark: { label: 'Landmark identification', dimension: 'location' },
-  comparison: { label: 'Comparison', dimension: 'comparison' },
-  explain: { label: 'Short explanation', dimension: 'explanation' },
-  scenario: { label: 'Scenario application', dimension: 'application' },
+/* Which bundled GLB each layer draws. */
+export const STRUCTURE_MODELS = {
+  skeleton: { file: './assets/z-anatomy-skeleton.glb', label: 'Skeleton', meshes: 277 },
+  organs: { file: './assets/ic-organlar.glb', label: 'Internal organs', meshes: 120 },
+  circulatory: { file: './assets/dolasim.glb', label: 'Circulatory system', meshes: 676 },
+  nervous: { file: './assets/sinir.glb', label: 'Nervous system', meshes: 582 },
+  muscle: { file: './assets/kas.glb', label: 'Muscular system', meshes: 683 },
+  joint: { file: './assets/eklem.glb', label: 'Ligaments and joints', meshes: 413 },
+  lymphatic: { file: './assets/lenf.glb', label: 'Lymphatic system', meshes: 163 },
 };
-
-export const MASTERY_DIMENSIONS = [
-  { id: 'recognition', label: 'Recognition', hint: 'Picking the right answer when you can see it.' },
-  { id: 'typedRecall', label: 'Typed recall', hint: 'Producing the term from memory with no options on screen.' },
-  { id: 'spelling', label: 'Spelling', hint: 'Getting the term letter-perfect, not just close.' },
-  { id: 'location', label: 'Location', hint: 'Finding it on the model, on a diagram, or on the correct side.' },
-  { id: 'sequence', label: 'Sequence', hint: 'Putting a pathway or order into the right sequence.' },
-  { id: 'explanation', label: 'Explanation', hint: 'Saying why, in your own words.' },
-  { id: 'application', label: 'Application', hint: 'Using the fact in a scenario you have not seen before.' },
-  { id: 'comparison', label: 'Comparison', hint: 'Telling it apart from the structure it is most confused with.' },
-  { id: 'delayedRecall', label: 'Delayed recall', hint: 'Getting it right on the first attempt after a gap of a day or more — not just within a session.' },
-];
-
-/* ------------------------------------------------------------------ *
- * Prior knowledge
- *
- * Some of this corpus is not new material for the person studying it. The
- * Practise queue treats those unseen items as verification and places them
- * after unseen items without prior coverage.
- *
- * An item carrying a priorKnowledge entry is therefore verified through
- * Practise: the session opens with a question on the assumed background, and
- * the source dialog can show the linked lecture references.
- *
- *   covers: 'most'  the prior subject taught the substance of this item; the
- *                   lecture adds terminology, a named list or specific numbers.
- *   covers: 'part'  the prior subject taught the foundation only; a substantial
- *                   part of this item is genuinely new.
- *
- * sources[] retains the lecture references once shown alongside the removed
- * Learn-only "beyond DSE" text: { ref, location } points at the slide. The
- * text itself is not needed by Practise, Apply, Exam, search or reading help.
- * ------------------------------------------------------------------ */
-
-export const PRIOR_KNOWLEDGE = {
-  'dse-bio': {
-    label: 'HKDSE Biology',
-    short: 'DSE Bio',
-    blurb: 'Covered at HKDSE Biology level. Verify it with a question; linked lecture sources remain available in the source dialog.',
-  },
-};
-
-/*
- * Which part of the DSE syllabus carried it.
- *
- * This distinction is not pedantry. The nephron, the cardiac cycle, the
- * pacemaker and the respiratory centres are NOT in the compulsory part — they
- * sit in the elective "Human Physiology: Regulation and Control". Tagging them
- * as already-known is only correct for someone who took that elective, and
- * sending anyone else straight to a question on unseen material would be the
- * opposite of helpful. Every dsePart below is checked against the EDB Guide
- * and, for depth, the EDB Supplement (edb.bio.supp).
- */
-export const DSE_PARTS = {
-  core: { label: 'compulsory part', note: 'Every HKDSE Biology candidate takes this.' },
-  'elective-hp': { label: 'elective — Human Physiology: Regulation and Control', note: 'Only assumed because this learner took that elective.' },
-};
-
-export function priorOf(item) {
-  const pk = item && item.priorKnowledge;
-  if (!pk) return null;
-  const level = PRIOR_KNOWLEDGE[pk.level];
-  if (!level) return null;
-  const part = DSE_PARTS[pk.dsePart] || DSE_PARTS.core;
-  return { ...level, id: pk.level, covers: pk.covers || 'part', sources: pk.sources || [], dsePart: pk.dsePart || 'core', part };
-}
-
-/* Retained prior-knowledge lecture references for the source dialog. */
-export function priorSources(item) {
-  const prior = priorOf(item);
-  if (!prior) return [];
-  return prior.sources;
-}
-
-/*
- * An unattempted item scores zero, which puts it at the front of every
- * weakest-first queue. A prior-knowledge item is not zero — it is unverified,
- * which is a different thing — so ordering treats it as half known until the
- * first real answer replaces the assumption with evidence.
- *
- * This is a DERIVED value, used for ordering and for the dashboard label. It is
- * never written into the mastery store: attempts, accuracy, lapses and
- * intervals stay a record of what was actually answered in this course, with no
- * seeded attempts inflating them.
- */
-export const PRIOR_ASSUMED_SCORE = 0.5;
-
-export function priorAdjustedScore(item, score, attempted) {
-  if (attempted) return score;
-  return priorOf(item) ? PRIOR_ASSUMED_SCORE : 0;
-}
-
-/* An item starts at Practise: the app tests what has been learnt, it does not
- * teach it. Prior syllabus coverage is not saved progress. Callers restore an
- * item-specific saved stage before using this default. */
-export function entryStep(item, attempted) {
-  return 'practise';
-}
-
-/* ------------------------------------------------------------------ *
- * Study modes
- * ------------------------------------------------------------------ */
-
-/*
- * Home's visible session choices. Contextual launchers use additional picker
- * modes; old saved sessions can also carry ids that are no longer offered.
- * Learn/Remember-only hooks mode was removed with those steps.
- */
-export const STUDY_MODES = [
-  { id: 'daily', label: 'Daily pre-study', hint: 'A mixed warm-up: terminology, bones, one physiology sequence, one radiation-science concept.', icon: '◔' },
-  { id: 'mistakes', label: 'Explain my mistakes', hint: 'Everything you have got wrong, with the explanation and the confusion that caused it.', icon: '⚠' },
-  { id: 'subject', label: 'Subject-specific study', hint: 'Stay inside one subject or one unit.', icon: '▦' },
-];

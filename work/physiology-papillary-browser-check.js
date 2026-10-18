@@ -1,6 +1,6 @@
 async function physiologyPapillaryBrowserCheck(){
  const {loadExtraModel}=await import('/studio/depth-picking.js');
- const {STRUCTURE_MODELS}=await import('/study-data.js');
+ const {STRUCTURE_MODELS}=await import('/study/course-data.js');
  const {deformChamber}=await import('/physiology-shape.js');
  await __osteo.boot();await loadExtraModel('circulatory',STRUCTURE_MODELS.circulatory.file);
  const s=__osteo.state,T=s.THREE,rows=[];

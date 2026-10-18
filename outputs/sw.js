@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v217';
+const CACHE_VERSION = 'v219';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -144,10 +144,7 @@ const SHELL = [
   './study/imports.js',
   './study/state.js',
   './study/storage-versioned-keys.js',
-  './study/progress-log.js',
-  './study/gist-sync.js',
-  './study/moving-progress-between.js',
-  './study/reset.js',
+  './study/course-data.js',
   './study/small-ui-helpers.js',
   './study/viewport-recovery.js',
   './study/home.js',
@@ -162,49 +159,15 @@ const SHELL = [
   './study/revise-brain.js',
   './study/text-size.js',
   './study/what-is-under.js',
-  './study/session-engine.js',
   './study/briefing-access.js',
   './study/briefing-format.js',
   './study/weekly-briefing.js',
   './study/reading-help.js',
-  './study/layout-figures.js',
-  './study/source-dialog.js',
-  './study/coverage-report.js',
   './study/assessments-and-marks.js',
   './study/course-timetable.js',
   './study/viewer-tools.js',
   './study/boot.js',
   './study/dialog-behaviour-applied.js',
-  './study-data.js',
-  /*
-   * study-data.js is a barrel; these are what it re-exports. The app never
-   * imports them directly, but the browser fetches every one of them, so all
-   * twenty have to be in the shell or the study system is empty offline.
-   * work/shell-check.mjs walks the import graph and will name any that is
-   * missing.
-   */
-  './study/corpus/schema.js',
-  './study/corpus/source-lesson-map.js',
-  './study/corpus/hss-terminology.js',
-  './study/corpus/hss-osteology.js',
-  './study/corpus/hss-joints.js',
-  './study/corpus/hss-special-senses.js',
-  './study/corpus/hss-modules.js',
-  './study/corpus/physiology-items.js',
-  './study/corpus/physiology-depth.js',
-  './study/corpus/physiology-reproductive.js',
-  './study/corpus/hti-items.js',
-  './study/corpus/dsai-items.js',
-  './study/corpus/apss-items.js',
-  './study/corpus/notices.js',
-  './study/corpus/structures.js',
-  './study/corpus/expansion-items.js',
-  './study/corpus/derived-items.js',
-  './study/corpus/corpus.js',
-  './study/corpus/validate.js',
-  './study/corpus/diagrams.js',
-  './study/corpus/coverage.js',
-  './study/corpus/mastery.js',
   './anatomy-data.js?v=5',
   /*
    * The same two files again, unversioned — NOT a duplicate. A cache key is the
