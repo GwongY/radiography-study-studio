@@ -144,8 +144,8 @@ Revise's week pick, text size, briefing token and viewport keys survive. The mar
 - **The 3D studio has its own drill.** The viewer's Explore panel carries Identify, Left / right,
   Landmarks, Find and Memory modes (`studio/visualisation-modes.js`, `depth-picking.js`, the
   `#studyModes` markup) with a private score history in `osteology-studio-stats`. They were not in
-  the list of surfaces and CLAUDE.md calls the studio a reference tool, so this change leaves them
-  and the purge does not touch their key. Removing them is a separate decision for the owner.
+  the list of surfaces and CLAUDE.md calls the studio a reference tool, so Part 1 left them.
+  The owner then chose to remove them: see Part 2 below.
 - **`gloss-coverage-check`** swept study items. It now sweeps the Revise notes and reports 17
   untappable words as warnings, because closing them is gloss work, not part of this change.
 - **`search-accuracy-check.mjs`** fails on the untouched HEAD ("full model names must remain

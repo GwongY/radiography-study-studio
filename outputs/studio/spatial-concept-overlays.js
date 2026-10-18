@@ -8,7 +8,7 @@ import { BONE_LANDMARKS, boneLandmarkKey, surfaceLandmarks } from '../bone-landm
 import { anatomicalMatrix } from './packed-spread.js';
 import { $, state } from './imports.js';
 import { animate, between, tube } from './region-boxes-how.js';
-import { answer, clean, disposeConceptObj, pool } from './visualisation-modes.js';
+import { clean, disposeConceptObj } from './visualisation-modes.js';
 import { cavityContext } from './cavity-geometry-derived.js';
 import { pick } from './depth-picking.js';
 
@@ -416,7 +416,7 @@ function updateBoneLandmarks(){
   const overlay=state.boneLabelOverlay,mesh=state.selectionAnchor;
   const stage=$('stage'),view=$('viewerView');
   const allowed=mesh?.geometry?.attributes.position&&mesh.userData.layerKey==='skeleton'
-    &&state.mode==='explore'&&!state.focus&&!state.xray&&!state.cut
+    &&!state.focus&&!state.xray&&!state.cut
     &&view&&!view.hidden&&view.contains(stage)&&landmarkVisible(mesh);
   if(!allowed){if(overlay)overlay.host.hidden=true;return;}
   const T=state.THREE,cam=state.camera,rect=state.renderer.domElement.getBoundingClientRect();

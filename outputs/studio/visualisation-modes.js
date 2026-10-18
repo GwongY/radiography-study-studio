@@ -4,9 +4,9 @@
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
 import { viewerStructureName } from '../search-name.js';
-import { $, ANATOMY_DATABASE, BODY_CONCEPTS, CM_PER_UNIT, FLOW_CLASSES, LANDMARK_HOTSPOTS, LAYER_NAMES, MESH_INDEX, REGIONS, conceptById, els, getAnatomy, layerOf, mu, state } from './imports.js';
+import { $, BODY_CONCEPTS, CM_PER_UNIT, FLOW_CLASSES, LAYER_NAMES, MESH_INDEX, REGIONS, conceptById, els, layerOf, mu, state } from './imports.js';
 import { XRAY_LAYERS, XRAY_LAYER_FILES, applyLayers, clearStudyFocus, endMovement, enterXray, exitXray, focusPhysiologyExample, focusStructures, highlightExtra, setExtraVisible, setLayer, setMovementAngle, setPhysiology, setXrayAec, setXrayKvp, setXrayMas, setXrayRegion, setXrayView, setXrayWindow, setXrayZoom, startMovement, unitFor, xrayDepthMaterial } from './live-physiology.js';
-import { addHotspots, applyVisibility, between, boot3D, getRecord, remapHotspotsToReal, resize, showHotspots } from './region-boxes-how.js';
+import { applyVisibility, between, boot3D, getRecord, resize } from './region-boxes-how.js';
 import { bodyMetrics, ensureConceptGroup, showPickCallout } from './spatial-concept-overlays.js';
 import { buildCavity, buildCellGrid, buildPlane, cavityContext, cavityStyle, layerSignature } from './cavity-geometry-derived.js';
 import { hiddenRows, hideMesh, publishHidden, unhide } from './hide-and-search.js';
@@ -340,10 +340,6 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   peelDepth:()=>state.peeled.length,
   clearStudyFocus:()=>clearStudyFocus(),
   stageEl:()=>els.stage,
-  /* The embedded osteology module keeps its quiz history in memory as well as in
-     localStorage, so a reset has to reach in here or the review meter keeps
-     showing a history whose storage has already gone. */
-  resetStats:()=>{state.stats={};saveStats();renderReview()},
   setLayer:async(key,on,file)=>{
     if(!closeHeartAtlasForAction(true))return false;
     /* The skeleton is already in the scene -- there is no file to fetch for
@@ -356,9 +352,6 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
     catch(e){showToast('Could not load that layer — the others are still there.');return false}
   },
   layerState:()=>({...state.layers}),
-  /* The pool line counts the layers that are on, so the rail tells it when
-     that changes rather than the line going stale. */
-  refreshStudyPool:()=>renderStudyPool(),
   setPhysiology:(on)=>setPhysiology(on,true),
   physiologyOn:()=>state.flow.on,
   /* How many meshes of each class a loaded layer turned out to hold -- the
@@ -459,55 +452,17 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   };
 
 
-  function saveStats(){ try{localStorage.setItem('osteology-studio-stats',JSON.stringify(state.stats))}catch{} }
-  export function record(id, correct, elapsed){ const s=state.stats[id] || {attempts:0,correct:0,incorrect:0,avgMs:0,lastReviewed:null,confidence:0}; s.attempts++; correct?s.correct++:s.incorrect++; s.avgMs=Math.round(((s.avgMs*(s.attempts-1))+elapsed)/s.attempts); s.lastReviewed=new Date().toISOString(); s.confidence=Math.round((s.correct/s.attempts)*100); state.stats[id]=s; saveStats(); renderReview(); }
   export function showToast(message){ els.toast.textContent=message; els.toast.classList.add('show'); clearTimeout(showToast.t); showToast.t=setTimeout(()=>els.toast.classList.remove('show'),2200); }
   export function clean(text){return String(text ?? '').replace(/[&<>"']/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   function memoryTipHTML(record){const key=record?.id?.replace(/^(full:|real:)/,'')?.replace(/-(left|right)$/,'');const tip=MEMORY_TIPS[key]||MEMORY_TIPS[record?.modelObjectIds?.map(id=>id.replace(/-(left|right)$/,'')).find(id=>MEMORY_TIPS[id])];return tip?`<div class="memtip"><span class="mem-root">Memory hook · ${clean(tip.root)}</span><span class="mem-body">💡 ${clean(tip.tip)}</span></div>`:''}
   export function regionLabel(id){if(id==='all')return 'All regions';if(!id)return 'Unclassified';/* System layers carry their layer key as a region -- a vein has no bone region. */if(LAYER_NAMES[id])return LAYER_NAMES[id];return REGIONS.find(r=>r.id===id)?.label || id}
-  /*
-   * The quiz pool.
-   *
-   * A question is only fair if the answer exists on the model in front of you.
-   * Four of the 21 canonical records are groupings the atlas does not carry a
-   * single mesh for -- it names 'Frontal bone' and 'Vertebra T5', not 'cranium'
-   * and 'thoracic' -- so asking you to find one had no right answer to tap.
-   * Those are dropped from the drill and kept everywhere else.
-   */
-  function selectableIds(){
-    if(state.selectableCache&&state.selectableCache.n===state.fullMeshes.length)return state.selectableCache.set;
-    const set=new Set(state.fullMeshes.map(m=>m.userData.sourceCanonicalId).filter(Boolean));
-    state.meshes.forEach(m=>{if(m.userData.canonicalId)set.add(m.userData.canonicalId)});
-    state.selectableCache={n:state.fullMeshes.length,set};
-    return set;
-  }
-  export function pool(){
-    const byRegion=ANATOMY_DATABASE.filter((r)=>state.region==='all'||r.region===state.region);
-    /* Before the model is up there is nothing to check against, so everything
-       stays in rather than the drill silently emptying. */
-    const ok=selectableIds();
-    if(!ok.size)return byRegion;
-    const drillable=byRegion.filter(r=>ok.has(r.id));
-    return drillable.length?drillable:byRegion;
-  }
-  /* The pool a given mode can actually use, and why it is smaller if it is. */
-  function modePool(mode){
-    const base=pool();
-    if(mode==='side')return {records:base.filter(r=>r.modelObjectIds.some(id=>id.includes('-left')||id.includes('-right'))),need:'a left and a right in the model'};
-    if(mode==='landmarks')return {records:base.filter(r=>LANDMARK_HOTSPOTS[r.id]?.length),need:'named landmark hotspots'};
-    if(mode==='memory')return {records:base.filter(r=>MEMORY_TIPS[r.id]),need:'an authored memory hook'};
-    return {records:base,need:null};
-  }
-  function weightedPick(records=pool()){const sorted=[...records].sort((a,b)=>((state.stats[b.id]?.incorrect||0)-(state.stats[a.id]?.incorrect||0))||((state.stats[a.id]?.attempts||0)-(state.stats[b.id]?.attempts||0)));return sorted[Math.floor(Math.random()*Math.min(5,sorted.length))] || records[0]}
-
-  export function renderRegions(){ els.regions.innerHTML=''; [['all','All regions'],...REGIONS.map(r=>[r.id,r.label])].forEach(([id,label])=>{const b=document.createElement('button');b.className='region-btn'+(state.region===id?' active':'');b.textContent=label;b.onclick=()=>{state.region=id;els.regionMeta.textContent=regionLabel(id);applyVisibility();/* Filtering without moving left you looking at a whole skeleton with most of it off. See frameRegion in studio/tools-and-capture.js. */frameRegion();if(state.mode!=='explore')startQuestion();renderRegions();renderStudyPool()};els.regions.appendChild(b)}) }
-  export function renderReview(){if(!els.reviewNumber)return;const reviewed=Object.values(state.stats).filter(s=>s.attempts>0).length;const accuracy=Object.values(state.stats).reduce((n,s)=>n+s.correct,0)/Math.max(1,Object.values(state.stats).reduce((n,s)=>n+s.attempts,0));els.reviewNumber.textContent=`${reviewed} / ${ANATOMY_DATABASE.length} reviewed`;els.reviewBar.style.width=`${Math.round(accuracy*100)}%`;els.reviewHint.textContent=reviewed?`${Math.round(accuracy*100)}% correct overall · weaker structures are prioritised.`:'Start with Identify to create your first review history.'}
+  export function renderRegions(){ els.regions.innerHTML=''; [['all','All regions'],...REGIONS.map(r=>[r.id,r.label])].forEach(([id,label])=>{const b=document.createElement('button');b.className='region-btn'+(state.region===id?' active':'');b.textContent=label;b.onclick=()=>{state.region=id;els.regionMeta.textContent=regionLabel(id);applyVisibility();/* Filtering without moving left you looking at a whole skeleton with most of it off. See frameRegion in studio/tools-and-capture.js. */frameRegion();renderRegions()};els.regions.appendChild(b)}) }
   export function selectBone(id, side=null){state.selectedId=id;state.selectedSide=side;const record=getRecord(id);if(!record)return;const layerMeshes=Object.values(state.extraModels||{}).flatMap(m=>m.meshes);state.selectionAnchor=state.meshes.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||layerMeshes.find(m=>m.userData.canonicalId===id)||state.fullMeshes.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||state.fullPickables.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||null;renderSelected(record,side);highlight(id,side);
     state.selectionMeshes=[...state.meshes,...layerMeshes,...state.fullMeshes,...state.fullPickables].filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()));
     /* the name stays on the model until the selection changes */
     if(state.selectionAnchor)showPickCallout(state.selectionAnchor,side?`${record.canonicalName}\n${side}`:record.canonicalName);
     if(state.isolated){clearHighlight();applyVisibility()}}
-  export function openDetail(record,side=null){els.detailTitle.textContent=viewerStructureName(record.canonicalName);els.detailChips.innerHTML=`<span class="chip">Level ${clean(record.difficulty)}</span>`;els.detailBody.innerHTML=`<div class="info-grid"><div><div class="info-label">Landmarks</div><ul class="compact-list">${record.landmarks.map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div><div><div class="info-label">Articulations</div><ul class="compact-list">${record.articulations.map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div></div>${memoryTipHTML(record)}<h3>Radiography</h3><p>${clean(record.radiographyImportance)}</p><h3>Common confusions</h3><p>${record.commonConfusions?.map(clean).join(', ')||'None listed.'}</p>`;state.lastDetailId=record.id;location.hash=`detail/${record.id}`;(window.__rssOpenDialog ? window.__rssOpenDialog(els.detailDialog) : els.detailDialog.showModal())}
+  export function openDetail(record,side=null){els.detailTitle.textContent=viewerStructureName(record.canonicalName);els.detailChips.innerHTML='';els.detailBody.innerHTML=`<div class="info-grid"><div><div class="info-label">Landmarks</div><ul class="compact-list">${record.landmarks.map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div><div><div class="info-label">Articulations</div><ul class="compact-list">${record.articulations.map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div></div>${memoryTipHTML(record)}<h3>Radiography</h3><p>${clean(record.radiographyImportance)}</p><h3>Common confusions</h3><p>${record.commonConfusions?.map(clean).join(', ')||'None listed.'}</p>`;state.lastDetailId=record.id;location.hash=`detail/${record.id}`;(window.__rssOpenDialog ? window.__rssOpenDialog(els.detailDialog) : els.detailDialog.showModal())}
   /*
    * What the selected structure DOES, not just what it is called.
    *
@@ -562,140 +517,9 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
     if(row) return '<span class="chip beyond">Not named in your course material</span>';
     return '';
   }
-  function renderSelected(record,side){const card=$('selectedCard');if(card)card.classList.remove('quiet');els.selectedName.textContent=viewerStructureName(record.canonicalName);els.selectedChips.innerHTML=`<span class="chip">Level ${clean(record.difficulty)}</span>${courseChipHTML(record,state.selectionAnchor)}`;els.selectedDetails.innerHTML=`${physLineHTML(record.id)}<div class="info-grid"><div><div class="info-label">Landmarks</div><ul class="compact-list">${record.landmarks.slice(0,4).map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div><div><div class="info-label">Radiography</div><div class="info-value">${clean(record.radiographyImportance)}</div></div></div>${memoryTipHTML(record)}<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><button class="primary detail-open" id="openDetailBtn" style="margin-top:0">Open detail</button><button class="icon-btn" id="hideSelectedBtn" style="min-height:38px;border:1px solid var(--line);border-radius:9px;background:rgba(255,186,103,.12);color:var(--orange);padding:0 12px;font-size:12px">Hide this</button></div>`;$('openDetailBtn').onclick=()=>openDetail(record,side);const hb=$('hideSelectedBtn');if(hb)hb.onclick=()=>hideMesh(state.selectionAnchor)}
-  function clearFeedback(){els.feedback.className='feedback';els.feedback.textContent='';els.next.classList.remove('show')}
-  /*
-   * Choosing a mode used to silently rewrite the region to 'upper limb'.
-   *
-   * That dated from when the five BodyParts3D arm bones were the only
-   * individually selectable meshes; the whole 277-mesh skeleton has been
-   * selectable for a while, and the leftover switch meant picking 'Identify'
-   * threw away the region you had chosen, swapped the model under you and then
-   * asked you the same six bones forever. It is gone. Nothing moves when you
-   * change mode except the question.
-   */
-  export function setMode(mode){
-    state.mode=mode;state.current=null;clearFeedback();
-    document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
-    if(mode==='explore'){
-      els.taskKicker.textContent='Explore';
-      els.taskTitle.textContent='Select a structure';
-      els.taskCopy.textContent='Tap any named structure. Choose a deeper structure from the selection list.';
-      els.answers.innerHTML='';
-      els.next.classList.remove('show');
-      if(state.selectedId)renderSelected(getRecord(state.selectedId),state.selectedSide);
-    } else startQuestion();
-    const card=$('selectedCard');
-    if(card)card.classList.toggle('quiet',mode!=='explore'&&!state.selectedId);
-    renderStudyPool();
-    applyModeVisuals();applyVisibility();
-  }
-
-  /* The line under the mode buttons: what is in the pool, and how to change it.
-     The old build left you to infer both. */
-  const MODE_LABEL={explore:'Explore',identify:'Identify',side:'Left / right',landmarks:'Landmarks',find:'Find',memory:'Memory hooks'};
-  export function renderStudyPool(){
-    const box=$('studyPool');if(!box)return;
-    const region=state.region==='all'?'whole skeleton':regionLabel(state.region);
-    if(state.mode==='explore'){
-      const layers=Object.keys(state.layers||{}).filter(k=>state.layers[k]).length;
-      box.innerHTML=`<span>Browsing the <span class="sc">${clean(region)}</span> · ${layers} layer${layers===1?'':'s'} on</span>`;
-      return;
-    }
-    const {records,need}=modePool(state.mode);
-    const total=pool().length;
-    const short=records.length<total;
-    box.innerHTML=`<span><span class="sc${records.length?'':' warn'}">${records.length}</span> structure${records.length===1?'':'s'} in this drill · ${clean(region)}`
-      +(short&&need?` · only these have ${clean(need)}`:'')
-      +`</span>`+(state.region!=='all'?` <button id="poolWiden">use the whole skeleton</button>`:'');
-    const w=$('poolWiden');
-    if(w)w.onclick=()=>{state.region='all';els.regionMeta.textContent='All regions';renderRegions();applyVisibility();startQuestion();renderStudyPool()};
-  }
-
-  /* Attempts, accuracy and the run you are on, where you are actually drilling
-     rather than only in the sheet behind the '⋯'. */
-  function scoreHTML(){
-    const vals=Object.values(state.stats||{});
-    const attempts=vals.reduce((n,s)=>n+(s.attempts||0),0);
-    const correct=vals.reduce((n,s)=>n+(s.correct||0),0);
-    if(!attempts)return '<div class="studyscore">no attempts yet on this device</div>';
-    return `<div class="studyscore"><span><b>${correct}</b>/${attempts} correct</span>`
-      +`<span><b>${Math.round(correct/attempts*100)}%</b></span>`
-      +(state.runStreak>1?`<span class="hot"><b>${state.runStreak}</b> in a row</span>`:'')+`</div>`;
-  }
-  function applyModeVisuals(){if(state.mode==='landmarks'&&!state.hotspots.length&&state.THREE&&state.scene){addHotspots(state.THREE,state.realModel||state.scene);if(!state.realIsProcedural)remapHotspotsToReal(state.THREE)}state.hotspots.forEach(h=>h.visible=state.mode==='landmarks'&&(!state.selectedId||h.userData.parentId===state.selectedId));if(state.mode==='find'&&state.current){clearHighlight()}else if(state.current?.id){highlight(state.current.id,state.current.side)} }
-  /*
-   * One question.
-   *
-   * Every mode now says the same three things in the same three places: what
-   * level you are on, what you are being asked, and what you are supposed to
-   * DO about it. The old copy left 'Find' explaining itself and 'Identify'
-   * not, and a mode with an empty pool rendered nothing at all -- the card
-   * simply kept the previous question and looked broken.
-   */
-  const MODE_ASK={
-    identify:{kick:'Level 1 · Identify',title:()=>'What bone is this?',copy:'It is lit up on the model. Choose its canonical name.'},
-    side:{kick:'Level 2 · Left or right',title:(r)=>`Is this a left or right ${r.canonicalName.toLowerCase()}?`,copy:'Judge it from the landmarks in anatomical position, not from which side of the screen it is on.'},
-    landmarks:{kick:'Level 3 · Landmarks',title:()=>'Identify the highlighted landmark',copy:'The hotspots are showing. Tap the one you are asked for.'},
-    find:{kick:'Level 4 · Find',title:(r)=>`Find the ${r.canonicalName.toLowerCase()}`,copy:'Nothing is highlighted. Rotate the model and tap it. Tapping the same spot twice steps behind whatever is in front.'},
-    memory:{kick:'Level 5 · Memory hooks',title:()=>'Which bone does this hook belong to?',copy:'Read the hook, then choose the structure it describes.'},
-  };
-  export function startQuestion(){
-    const mode=state.mode;
-    const {records,need}=modePool(mode);
-    if(!records.length){
-      /* Say why, and offer the one action that fixes it. */
-      els.taskKicker.textContent=MODE_LABEL[mode]||mode;
-      els.taskTitle.textContent='Nothing to ask here yet';
-      els.taskCopy.textContent=state.region==='all'
-        ?`No structure in the database has ${need||'what this mode needs'} yet.`
-        :`No structure in ${regionLabel(state.region)} has ${need||'what this mode needs'}. Widen the region, or try another level.`;
-      els.answers.innerHTML='';clearHighlight();els.next.classList.remove('show');
-      return;
-    }
-    const record=weightedPick(records);
-    if(!record)return;
-    let side=null;
-    if(mode==='side'){
-      const ids=record.modelObjectIds.filter(id=>id.includes('-left')||id.includes('-right'));
-      side=ids[Math.floor(Math.random()*ids.length)].includes('-left')?'Left':'Right';
-    }
-    state.current={id:record.id,side,started:performance.now(),mode};
-    state.quizStarted=true;
-    const ask=MODE_ASK[mode]||MODE_ASK.identify;
-    els.taskKicker.textContent=ask.kick;
-    els.taskTitle.textContent=ask.title(record);
-    els.taskCopy.textContent=ask.copy;
-    if(mode==='identify')highlight(record.id);
-    else if(mode==='side')highlight(record.id,side);
-    else clearHighlight();
-    if(mode==='memory'){
-      if(state.memoryStreak>=2){state.current.cloze=true;renderMemoryCloze(record)}
-      else renderMemoryAnswers(record);
-    } else renderAnswers(record,mode);
-    if(mode==='landmarks')renderLandmarkQuestion(record);
-    renderStudyPool();
-  }
-  export function startQuestionFor(record){state.current={id:record.id,side:null,started:performance.now(),mode:state.mode};renderAnswers(record,state.mode)}
-  /*
-   * Distractors come from the whole selectable skeleton, not from the filtered
-   * region. Drawing them from the region meant a one-bone filter produced a
-   * one-option multiple choice, and even at three it was giving the answer
-   * away: if every option is a skull bone, 'which of these is a skull bone'
-   * has stopped being a question.
-   */
-  function distractorPool(){
-    const ok=selectableIds();
-    const wide=ok.size?ANATOMY_DATABASE.filter(r=>ok.has(r.id)):ANATOMY_DATABASE;
-    return wide.length>3?wide:ANATOMY_DATABASE;
-  }
-  function renderAnswers(record,mode){els.answers.innerHTML='';if(mode==='find'||mode==='landmarks')return;let options=[];if(mode==='side'){options=['Left','Right']}else{const others=distractorPool().filter(r=>r.id!==record.id).sort(()=>Math.random()-.5).slice(0,3);options=[record,...others].sort(()=>Math.random()-.5).map(r=>r.id)}options.forEach((option,i)=>{const b=document.createElement('button');b.className='answer';b.innerHTML=`<b>${String.fromCharCode(65+i)}</b>${mode==='side'?option:clean(getAnatomy(option).canonicalName)}`;b.onclick=()=>answer(option,b);els.answers.appendChild(b)})}
-  function renderMemoryAnswers(record){els.answers.innerHTML='';const tip=MEMORY_TIPS[record.id];if(!tip){startQuestion();return}const box=document.createElement('div');box.className='memtip';box.innerHTML=`<span class="mem-root">Memory hook</span><span class="mem-body">💡 ${clean(tip.tip)}</span>`;els.answers.appendChild(box);const others=distractorPool().filter(r=>r.id!==record.id&&MEMORY_TIPS[r.id]).sort(()=>Math.random()-.5).slice(0,3);[record,...others].sort(()=>Math.random()-.5).forEach((r,i)=>{const b=document.createElement('button');b.className='answer';b.innerHTML=`<b>${String.fromCharCode(65+i)}</b>${clean(r.canonicalName)}`;b.onclick=()=>answer(r.id,b);els.answers.appendChild(b)})}
-  function renderMemoryCloze(record){const tip=MEMORY_TIPS[record.id];els.answers.innerHTML='';const box=document.createElement('div');box.className='memtip';box.innerHTML=`<span class="mem-root">Cloze recall</span><span class="mem-body">💡 ${clean(tip.tip)}</span>`;const input=document.createElement('input');input.type='search';input.placeholder='Type the bone name';input.autocomplete='off';input.style.cssText='width:100%;background:#0a141b;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 12px;outline:none';const button=document.createElement('button');button.className='primary next show';button.textContent='Check answer';button.onclick=()=>{const normalize=s=>s.toLowerCase().replace(/[^a-z]/g,'');recordAnswer(normalize(input.value)===normalize(record.canonicalName),record,null)};els.answers.append(box,input,button);setTimeout(()=>input.focus(),50)}
-  function renderLandmarkQuestion(record){const hotspots=LANDMARK_HOTSPOTS[record.id]||[];if(!hotspots.length){els.taskTitle.textContent='Landmark data next';els.taskCopy.textContent='This bone is in the database, but high-yield hotspot coordinates have not been added yet.';return}const target=hotspots[Math.floor(Math.random()*hotspots.length)];state.current.landmark=target.id;els.taskTitle.textContent=`Find the ${target.label.toLowerCase()}`;els.answers.innerHTML='';hotspots.forEach((h)=>{const b=document.createElement('button');b.className='answer';b.textContent=h.label;b.onclick=()=>answer(h.id,b);els.answers.appendChild(b)});showHotspots(record.id)}
-  export function answer(option,button){if(!state.current)return;const correct=state.current.mode==='side'?option===state.current.side:state.current.mode==='landmarks'?option===state.current.landmark:option===state.current.id;const record=getRecord(state.current.id);if(record)recordAnswer(correct,record,button);}
-  function recordAnswer(correct,bone,button){const elapsed=performance.now()-state.current.started;if(state.current.mode==='memory')state.memoryStreak=correct?state.memoryStreak+1:0;state.runStreak=correct?(state.runStreak||0)+1:0;record(bone.id,correct,elapsed);document.querySelectorAll('.answer').forEach(b=>b.disabled=true);if(button)button.classList.add(correct?'correct':'wrong');if(!correct){const correctText=state.current.mode==='side'?state.current.side:state.current.mode==='landmarks'?(LANDMARK_HOTSPOTS[bone.id]||[]).find(h=>h.id===state.current.landmark)?.label:bone.canonicalName;const hook=MEMORY_TIPS[bone.id]?.tip?` Memory hook: ${MEMORY_TIPS[bone.id].tip}`:'';els.feedback.className='feedback bad show';els.feedback.textContent=`Not quite. Correct: ${correctText}. ${bone.landmarks[0]} is the useful distinguishing landmark.${hook}`}else{els.feedback.className='feedback good show';els.feedback.textContent=state.current.mode==='find'?'Correct — you found it in space.':`Correct. ${bone.radiographyImportance}`;}highlight(bone.id,state.current.side);els.feedback.insertAdjacentHTML('beforeend',scoreHTML());els.next.classList.add('show')}
-  export function onBonePicked(obj){const {canonicalId,side}=obj.userData;const record=getRecord(canonicalId);const sourceId=obj.userData.sourceCanonicalId;/* Tapping a bone selects it. It used to also flip the viewer to the   upper-limb region and swap the model, which is a surprise at the best of   times and left the other layers standing next to a different skeleton. */if(state.mode==='find'&&state.current){const correct=canonicalId===state.current.id;const questionRecord=getAnatomy(state.current.id);recordAnswer(correct,questionRecord,null);if(!correct){selectBone(canonicalId,side);els.feedback.className='feedback bad show';els.feedback.textContent=`Not that one — try again. You tapped ${getRecord(canonicalId)?.canonicalName||'another structure'}.`;els.next.classList.remove('show');document.querySelectorAll('.answer').forEach(b=>b.disabled=false);state.current.started=performance.now();return}return}if(state.mode==='landmarks'&&obj.userData.landmarkId){answer(obj.userData.landmarkId,null);return}if(record)selectBone(canonicalId,side)}
+  function renderSelected(record,side){const card=$('selectedCard');if(card)card.classList.remove('quiet');els.selectedName.textContent=viewerStructureName(record.canonicalName);els.selectedChips.innerHTML=courseChipHTML(record,state.selectionAnchor);els.selectedDetails.innerHTML=`${physLineHTML(record.id)}<div class="info-grid"><div><div class="info-label">Landmarks</div><ul class="compact-list">${record.landmarks.slice(0,4).map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div><div><div class="info-label">Radiography</div><div class="info-value">${clean(record.radiographyImportance)}</div></div></div>${memoryTipHTML(record)}<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><button class="primary detail-open" id="openDetailBtn" style="margin-top:0">Open detail</button><button class="icon-btn" id="hideSelectedBtn" style="min-height:38px;border:1px solid var(--line);border-radius:9px;background:rgba(255,186,103,.12);color:var(--orange);padding:0 12px;font-size:12px">Hide this</button></div>`;$('openDetailBtn').onclick=()=>openDetail(record,side);const hb=$('hideSelectedBtn');if(hb)hb.onclick=()=>hideMesh(state.selectionAnchor)}
+  /* Tapping a bone selects it. */
+  export function onBonePicked(obj){const {canonicalId,side}=obj.userData;if(getRecord(canonicalId))selectBone(canonicalId,side)}
   export function clearHighlight(){[...state.meshes,...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].forEach(m=>{m.material.emissive?.setHex(0x000000);m.material.emissiveIntensity=0;m.userData.presentationActive=false;if(state.xray&&m.userData.xrayHot){m.material.dispose();m.material=state.xray.shared.get(m.userData.xrayTissue);delete m.userData.xrayHot}if(m.userData.baseScale)m.scale.set(...m.userData.baseScale);if(m.userData.basePosition)m.position.set(...m.userData.basePosition)});state.fullPickables.forEach(m=>{m.material.opacity=0})}
   export function highlight(id,side=null){clearHighlight();if(state.isolated&&!state.xray)return;[...state.meshes,...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{/* In the projection there is no emissive channel to light up, so a pick   reads as a brighter, tinted accumulation instead. */if(state.xray&&m.userData.xrayTissue){/* A hot pick is a marker, not a tissue: the real coefficient at the set   kVp, lifted, and no cortical shell -- an edge-brightened highlight would   read as anatomy. */const hot=mu(m.userData.xrayTissue,state.xray.kvp)*3.4;m.material=xrayDepthMaterial(state.THREE,hot,CM_PER_UNIT,0);m.userData.xrayHot=true}else{m.material.emissive?.setHex(0x1eb9a6);m.material.emissiveIntensity=.95}m.userData.presentationActive=true});state.fullPickables.filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase())).forEach(m=>{m.material.opacity=.26})}
 

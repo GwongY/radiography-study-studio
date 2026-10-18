@@ -199,6 +199,5 @@ async function cycleLayer(key, btn) {
   } finally {
     if (btn) { btn.dataset.busy = '0'; }
     renderLayerRail();
-    if (window.__osteo && window.__osteo.refreshStudyPool) window.__osteo.refreshStudyPool();
   }
 }

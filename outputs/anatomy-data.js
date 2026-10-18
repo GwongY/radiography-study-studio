@@ -72,23 +72,6 @@ export const ANATOMY_DATABASE = [
   { id:'foot', canonicalName:'Foot bones', aliases:['tarsals','metatarsals','toes'], region:'lower_limb', side:'paired', category:'distal skeleton', landmarks:['talus','calcaneus','navicular','metatarsals'], articulations:['tibia','fibula'], radiographyImportance:'AP, oblique and lateral foot/ankle projections.', difficulty:3, modelObjectIds:['foot-left','foot-right'], commonConfusions:['hand'] },
 ];
 
-export const LANDMARK_HOTSPOTS = {
-  scapula: [
-    { id:'acromion', label:'Acromion', position:[-2.75,8.1,0.35] },
-    { id:'coracoid', label:'Coracoid process', position:[-2.05,7.8,0.65] },
-    { id:'glenoid', label:'Glenoid cavity', position:[-2.95,7.45,0.5] },
-    { id:'spine', label:'Spine of scapula', position:[-2.4,7.35,0.25] },
-  ],
-  humerus: [
-    { id:'greater-tubercle', label:'Greater tubercle', position:[-3.0,7.75,0.42] },
-    { id:'head', label:'Head', position:[-2.7,8.15,0.35] },
-  ],
-  femur: [
-    { id:'greater-trochanter', label:'Greater trochanter', position:[-1.45,-1.1,0.35] },
-    { id:'condyles', label:'Femoral condyles', position:[-1.0,-5.0,0.4] },
-  ],
-};
-
 export const MODEL_CATALOG = {
   active: {
     id: 'bodyparts3d-upper-limb-v1',

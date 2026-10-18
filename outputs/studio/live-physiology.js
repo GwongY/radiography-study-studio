@@ -6,7 +6,7 @@
 import { viewerStructureName } from '../search-name.js';
 import { lectureRow } from '../viewer-lecture-names.js';
 import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CIRCUITS, FLOW_CLASSES, GRAZE_CLAMP, RATES, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, avValveEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, fluence, mottleSigma, mu, prefersStill, semilunarEnvelope, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
-import { MEMORY_TIPS, answer, clean, clearHighlight, openDetail, pool, record, regionLabel, selectBone, showToast } from './visualisation-modes.js';
+import { MEMORY_TIPS, clean, clearHighlight, openDetail, regionLabel, selectBone, showToast } from './visualisation-modes.js';
 import { animate, applyVisibility, between, getRecord, tube } from './region-boxes-how.js';
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
 import { enforceHidden } from './hide-and-search.js';
@@ -1158,7 +1158,6 @@ export function enterXray(){
   state.scene.traverse(o=>state.xray.visibility.set(o,o.visible));
   state.fullModel.visible=true;
   state.fullPickables.forEach(o=>o.visible=false);
-  state.hotspots.forEach(o=>o.visible=false);
   SYSTEMS.forEach((s)=>{if(!XRAY_LAYERS.includes(s.layer))state.layers[s.key]=false});
   /*
    * Cavities, regions and planes are teaching overlays drawn ON the anatomy.

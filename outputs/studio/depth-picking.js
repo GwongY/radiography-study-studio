@@ -4,7 +4,7 @@
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $, ANATOMY_DATABASE, classify, els, getAnatomy, LAYER_NAMES, prefersStill, state, systemsIn, systemsOf } from './imports.js';
-import { answer, clean, clearHighlight, highlight, onBonePicked, pool, rebuildConcepts, record, renderRegions, renderReview, setMode, showToast, startQuestion, startQuestionFor } from './visualisation-modes.js';
+import { clean, clearHighlight, highlight, onBonePicked, rebuildConcepts, renderRegions, showToast } from './visualisation-modes.js';
 import { applyVisibility, boot3D, cameraView, confirmPick, focusSelected, getRecord, isSelfOrAncestorVisible, mapImportedName, nearestVisibleMesh, resize, toggleIsolation, zoomCamera } from './region-boxes-how.js';
 import { clearPickCallout } from './spatial-concept-overlays.js';
 import { hideMesh } from './hide-and-search.js';
@@ -91,11 +91,10 @@ import { modelMeshName, namedSide, viewerStructureName } from '../search-name.js
       if(state.xray.view==='pa')state.pointer.x*=-1;
     }
     state.raycaster.setFromCamera(state.pointer,state.camera);
-    const hotspotTargets=state.mode==='landmarks'?state.hotspots:[];
     const layerTargets=Object.entries(state.extraModels||{}).filter(([k])=>layerOn(k)).flatMap(([,m])=>m.meshes);
     /* A focused lesson names only what it is teaching. The ghosted body behind
        it is context, so tapping a lymph node must not answer 'Sacrum'. */
-    const targets=state.focus?(state.focus.keep?[...state.focus.keep]:layerPool(state.focus.key)):[...state.meshes,...state.fullMeshes,...layerTargets,...hotspotTargets];
+    const targets=state.focus?(state.focus.keep?[...state.focus.keep]:layerPool(state.focus.key)):[...state.meshes,...state.fullMeshes,...layerTargets];
     const hits=state.raycaster.intersectObjects(targets,true)
       .filter(h=>isSelfOrAncestorVisible(h.object)&&h.object.userData.canonicalId);
     hits.sort((a,b)=>{
@@ -223,7 +222,7 @@ import { modelMeshName, namedSide, viewerStructureName } from '../search-name.js
    * the study module below.
    */
   export function clearSelection(){state.selectedId=null;state.selectedSide=null;state.selectionAnchor=null;state.selectionMeshes=[];state.isolated=false;clearPickCallout();$('isolateBtn')?.classList.remove('active');clearHighlight();restorePeel();state.pickStack=[];state.pickCurrent=null;publishStack();applyVisibility();els.selectedName.textContent='Nothing selected';els.selectedChips.innerHTML='';els.selectedDetails.innerHTML=''}
-  document.querySelectorAll('.mode-btn').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));$('resetBtn').onclick=()=>{if(state.xray){setXrayView(state.xray.view);return}cameraView('front');state.isolated=false;$('isolateBtn')?.classList.remove('active');applyVisibility()};els.focus.onclick=()=>{focusSelected(true)};els.next.onclick=()=>startQuestion();/* This button used to be a second, differently-named way to press Identify.
+  $('resetBtn').onclick=()=>{if(state.xray){setXrayView(state.xray.view);return}cameraView('front');state.isolated=false;$('isolateBtn')?.classList.remove('active');applyVisibility()};els.focus.onclick=()=>{focusSelected(true)};/* This button used to be a second, differently-named way to press Identify.
    It now does the thing its name promises: opens the drill on the structure
    you have got wrong most often, rather than a fresh weighted pick. */
 $('closeDetail').onclick=()=>{els.detailDialog.close();state.lastDetailId=null;history.replaceState(null,'',location.pathname+location.search)};els.retry.onclick=()=>{try{state.controls?.dispose()}catch{}if(state.renderer){state.renderer.domElement.remove();state.renderer=null;state.controls=null}state.scene=null;state.camera=null;state.fullModel=null;state.realModel=null;state.meshes=[];state.fullMeshes=[];state.hotspots=[];state.fullPickables=[];boot3D()};
@@ -412,7 +411,7 @@ export function init() {
   /* The idle turntable and its button were removed on the reader's request:
      the body stays where the reader leaves it. state.motionEnabled is kept,
      always false, because packed spread and live physiology save and restore it. */
-  renderRegions();renderReview();bindCanvas();setMode('explore');
+  renderRegions();bindCanvas();
   state.extraModels=state.extraModels||{};
   /* Both halves of the skeleton on, which is what one chip called Skeleton
      used to mean. systemsIn keeps this honest if the split ever changes. */

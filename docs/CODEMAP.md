@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 457 lines
+## `outputs/radiography-study-studio.html` — 437 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–434 | markup — no banners, grep here |
-| 435–435 | importmap |
-| 436–436 | loads studio.js |
-| 437–437 | loads study.js |
-| 438–455 | classic script · preamble |
-| 456–457 | markup — no banners, grep here |
+| 1–414 | markup — no banners, grep here |
+| 415–415 | importmap |
+| 416–416 | loads studio.js |
+| 417–417 | loads study.js |
+| 418–435 | classic script · preamble |
+| 436–437 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1378 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
+- `outputs/app.css` — 1549 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
 - `outputs/studio.js` — 35 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 47 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -31,7 +31,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 | File | Lines | What it holds | Traps |
 | --- | --- | --- | --- |
-| `anatomy-data.js` | 174 | Osteology Studio — anatomy data layer | [The back is a half-space](TRAPS.md#the-back-is-a-half-space--outputsstudioregion-boxes-howjs-outputsanatomy-datajs) |
+| `anatomy-data.js` | 157 | Osteology Studio — anatomy data layer | [The back is a half-space](TRAPS.md#the-back-is-a-half-space--outputsstudioregion-boxes-howjs-outputsanatomy-datajs) |
 | `bodymap.js` | 319 | Body map — search extras and spatial concepts for the 3D viewer. |  |
 | `bone-landmarks.js` | 1596 | Bone landmarks — curated on the shipped skeleton by work/build-bone-landmarks.mjs. |  |
 | `cavity-build.js` | 732 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
@@ -56,7 +56,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 ### Exported symbols
 
-- `anatomy-data.js` — `REGIONS`, `ANATOMY_DATABASE`, `LANDMARK_HOTSPOTS`, `MODEL_CATALOG`, `getAnatomy`, `searchAnatomy`
+- `anatomy-data.js` — `REGIONS`, `ANATOMY_DATABASE`, `MODEL_CATALOG`, `getAnatomy`, `searchAnatomy`
 - `bodymap.js` — `SEARCH_EXTRAS`, `BODY_CONCEPTS`, `CONCEPT_GROUPS`, `conceptById`, `conceptAncestors`, `conceptChildren`, `conceptLeaves`
 - `bone-landmarks.js` — `BONE_LANDMARK_MODEL_HASH`, `BONE_LANDMARKS`, `boneLandmarkKey`, `surfaceLandmarks`
 - `cavity-build.js` — `measureLandmarks`, `measureGrid`, `gridBounds`, `buildCavityGeometry`, `BUILDABLE`
@@ -115,21 +115,21 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 | File | Lines | What it holds |
 | --- | --- | --- |
-| `cavity-geometry-derived.js` | 473 | Cavity geometry, derived from the loaded anatomy. |
+| `cavity-geometry-derived.js` | 472 | Cavity geometry, derived from the loaded anatomy. |
 | `circulation-extras.js` | 91 | Circulation extras |
-| `depth-picking.js` | 420 | Depth picking |
+| `depth-picking.js` | 419 | Depth picking |
 | `explosion-layout.js` | 16 | Pack only visible source meshes. Every projected bounding box gets its own cell. |
 | `heart-atlas.js` | 690 | Heart atlas |
 | `hide-and-search.js` | 114 | Hide, and search-driven uncover |
-| `imports.js` | 103 | Block 0 has its own import scope -- block 1's copy is not visible here. |
+| `imports.js` | 101 | Block 0 has its own import scope -- block 1's copy is not visible here. |
 | `limb-atlas.js` | 347 | Limb vessels |
-| `live-physiology.js` | 1780 | Live physiology |
+| `live-physiology.js` | 1779 | Live physiology |
 | `packed-spread.js` | 91 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
-| `region-boxes-how.js` | 521 | Region boxes — how the region filter reaches the six soft-tissue layers |
+| `region-boxes-how.js` | 518 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 249 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 831 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
 | `tools-and-capture.js` | 562 | Tools — section cuts, layer separation, capture. |
-| `visualisation-modes.js` | 706 | Visualisation modes. |
+| `visualisation-modes.js` | 530 | Visualisation modes. |
 
 ## The study system — `outputs/study/*.js`
 
@@ -156,7 +156,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `spatial-overlay-controls.js` | 120 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 29 | The study system's mutable UI state. |
 | `storage-versioned-keys.js` | 74 | Storage -- versioned keys and the one-time purge of the retired testing data |
-| `subject.js` | 204 | Subject |
+| `subject.js` | 203 | Subject |
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 257 | Viewer tools — spread, section cut, layer depth |
 | `viewport-recovery.js` | 485 | The band below the tab bar — measuring it, and asking for the space back |

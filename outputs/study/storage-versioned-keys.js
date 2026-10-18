@@ -48,16 +48,16 @@ export const store = {
  *
  * An explicit list, never a prefix sweep: Revise's week pick, the text size,
  * the notice token and the viewport keys all live under rss.v1.* too and must
-
- * survive, and so does 'osteology-studio-stats': that is the 3D studio's own
- * Identify/Find drill history, a separate engine this change does not touch
- * (see the spec's addendum). The private gist the old sync wrote to is not touched -- the app
- * never could delete it, and the owner removes it on github.com.
+ * survive. 'osteology-studio-stats' is the 3D studio's old Identify/Find drill
+ * history; those modes went in part 2 of the spec, so it goes too, and the marker
+ * carries a suffix so a device that ran the first purge runs this one. The
+ * private gist the old sync wrote to is not touched: the app never could
+ * delete it, and the owner removes it on github.com.
  */
-const PURGED = STORAGE_PREFIX + 'testing-purged';
+const PURGED = STORAGE_PREFIX + 'testing-purged-2';
 const RETIRED_KEYS = [
   'mastery', 'items', 'mistakes', 'meta', 'continue', 'log', 'baseline', 'device', 'sync',
-].map((k) => STORAGE_PREFIX + k);
+].map((k) => STORAGE_PREFIX + k).concat('osteology-studio-stats');
 const RETIRED_PREFIXES = ['rss-step:', STORAGE_PREFIX + 'step:'];
 
 export function purgeTesting() {
