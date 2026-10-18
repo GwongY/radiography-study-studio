@@ -8,10 +8,15 @@ import { BODY_LAYERS, GHOST_OPACITY, layerState, renderLayerRail } from './subje
 import { read } from './storage-versioned-keys.js';
 import { renderHiddenTray } from './hidden-tray.js';
 import { renderOverlayCard } from './spatial-overlay-controls.js';
-import { restoreStage } from './lesson-visuals.js';
 import { setActiveNav } from './navigation-five-destinations.js';
 import { showView, setTaskPanelExpanded } from './small-ui-helpers.js';
 import { renderViewerTools } from './viewer-tools.js';
+
+function restoreStage() {
+  const home = $$('stageHome');
+  const stage = window.__osteo && window.__osteo.stageEl && window.__osteo.stageEl();
+  if (home && stage && stage.parentElement !== home) home.insertBefore(stage, home.firstChild);
+}
 
 /* ------------------------------------------------------------------ *
  * What is under the tap
@@ -96,7 +101,7 @@ function renderXrayViews() {
   });
 }
 
-/* The projection borrows the same canvas the studio and the lessons use. */
+/* The projection temporarily borrows the studio canvas. */
 async function enterProjection() {
   const mount = $$('xrayMount');
   if (!mount || !window.__osteo) return;
@@ -200,7 +205,7 @@ export function openViewer() {
   wire('xrayKvp', 'xrayKvpRead', (v) => `${v} kVp`, (v) => window.__osteo.xrayKvp(v));
   wire('xrayMas', 'xrayMasRead', (v) => `${v} mAs`, (v) => window.__osteo.xrayMas(v));
   wire('xrayAec', 'xrayAecRead', (v) => (v ? 'on' : 'off'), (v) => window.__osteo.xrayAec(v));
-  /* A lesson may have left a study focus and other layers on. */
+  /* A previous viewer state may have left a focus or non-default layers on. */
   if (ui.viewerTab === '3d') syncLayersToRail();
   showView('viewerView');
   const windowInput = $$('xrayWindow'), levelInput = $$('xrayLevel'), zoomInput = $$('xrayZoom');

@@ -94,7 +94,7 @@ export const SOURCE_FILES = {
   /*
    * The 2026 material, dropped into the repo as the semester runs. These two
    * are the first HSS2011 files from the year the student is actually sitting,
-   * and the orientation deck RENUMBERS THE MODULES — see MODULES in modules.js.
+   * and the orientation deck RENUMBERS THE MODULES.
    */
   'hss.w1.2026': { file: 'HSS2011_Wk1__orientat_intro.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'primary', note: 'Week 1 subject orientation, Benson Lau, 18 pages. The authority for the 2026 module ordering — Module 1 Musculoskeletal, 2 Nervous, 3 Cardiovascular and pulmonary, 4 Digestive and urogenital — which is a different numbering from the "Module 1 Thorax … Module 4 Musculoskeletal System" folders every older file is filed under. Also carries the assessment weights and the body-orientation terminology.' },
   'hss.msk.2026': { file: 'W1_MusculoskeletalSystem_2026_CKK_upload.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'primary', note: 'Module 1 Week 1, Dr Alex Cheung, 39 pages. Bone histology and gross structure, marrow, the five bone types, the three joint classifications and the six synovial types, ligaments, cartilage, muscle organisation from epimysium down to myofilament, tendon and the Golgi tendon organ, origin and insertion, the fascicle arrangements, motor units and muscle tone. Its fibre-type comparison table and its movement-terminology slides are pictures, so neither extracts as text.' },
@@ -191,7 +191,7 @@ export const SOURCE_FILES = {
   'hti.rni': { file: 'RADIONUCLIDE IMAGING  (RNI).pptx', subject: 'HTI17103', root: 'greengrp', folder: 'Exploring Radiography', kind: 'student' },
   'hti.pres': { file: 'Guidelines and Topics for Presentations 2018-19.pdf', subject: 'HTI17103', root: 'radio', folder: 'Yr1 Sem1 Radiography/HTI17101 Exploring Radiography/Class Information', kind: 'admin' },
   'hti.sdf': { file: 'Subject Desciption Form.pdf', subject: 'HTI17103', root: 'y1s1', folder: 'HTI17101 Exploring Radiography', kind: 'admin' },
-  'hti.sched.2026': { file: 'HTI17103_TeachingSchedule2026.pdf', subject: 'HTI17103', root: 'newsrc', folder: '', kind: 'admin', note: 'The real HTI17103 teaching schedule for 2026 — the first document in this repo under the actual subject code rather than its HTI17101 stand-in. Eight sessions across Aug 31 to Oct 22, the lecturers (Liang-Ting Lin, Vincent Leung, clinical educators), the venues, and the assessment: worksheet 50%, seminar presentation 50%. It confirms the substitution was well chosen — every topic it lists has a lesson already built from the HTI17101 set.' },
+  'hti.sched.2026': { file: 'HTI17103_TeachingSchedule2026.pdf', subject: 'HTI17103', root: 'newsrc', folder: '', kind: 'admin', note: 'The real HTI17103 teaching schedule for 2026 — the first document in this repo under the actual subject code rather than its HTI17101 stand-in. Eight sessions across Aug 31 to Oct 22, the lecturers (Liang-Ting Lin, Vincent Leung, clinical educators), the venues, and the assessment: worksheet 50%, seminar presentation 50%. It confirms the substitution was well chosen — every covered topic has question items drawn from the HTI17101 set.' },
   'hti.linac1': { file: 'Linear Accelerator 1.pdf', subject: 'HTI17103', root: 'greengrp', folder: 'Others/Temp all/Radiography Studies/Radiography Studies III/Cancer Treatment/source from alex/Radiograhy Studies III/Physics of Radiation Therapy', kind: 'primary', note: 'Linear accelerator physics: history of 4MV machines, magnetron microwave source, low bone absorption, standing vs traveling waveguides.' },
   'hti.linac2': { file: 'Linear Accelerator 2.pdf', subject: 'HTI17103', root: 'greengrp', folder: 'Others/Temp all/Radiography Studies/Radiography Studies III/Cancer Treatment/source from alex/Radiograhy Studies III/Physics of Radiation Therapy', kind: 'primary', note: 'Linac RF systems and treatment head: electron gun injection (0.4c to 0.9c), klystron RF amplifier, 270-degree achromatic bending magnets, flattening filters, dual ionization chambers.' },
   'hti.linac3': { file: 'Linear Accelerator 3.pdf', subject: 'HTI17103', root: 'greengrp', folder: 'Others/Temp all/Radiography Studies/Radiography Studies III/Cancer Treatment/source from alex/Radiograhy Studies III/Physics of Radiation Therapy', kind: 'primary', note: 'Linac electron therapy and RapidArc: scattering foils, lead cut-outs, NACP energy estimation (E = 2.33 x d50), 120-leaf dynamic MLC, gantry speed 6 deg/s, MLC speed 3.0 cm/s, 600 MU/s dose rate, Level 5 PRO optimization (177 CP), and NPC delivery time reduction to 3 min.' },
@@ -315,7 +315,7 @@ export const SUBJECTS = [
     accent: '#8ea9ff',
     coverage: 'substitute',
     substituteFor: 'HTI17101 Exploring Radiography',
-    blurb: 'The real 2026 HTI17103 schedule and opening lecture are supplied; later topic lessons use the older HTI17101 Exploring Radiography set whose topics the current schedule confirms.',
+    blurb: 'The real 2026 HTI17103 schedule and opening lecture are supplied; later topic questions draw from the older HTI17101 Exploring Radiography set whose topics the current schedule confirms.',
     units: [
       { id: 'hti.subject', label: 'About the subject & the radiographer role' },
       { id: 'hti.modalities', label: 'Medical imaging modalities & equipment' },
@@ -410,47 +410,32 @@ export const MASTERY_DIMENSIONS = [
   { id: 'delayedRecall', label: 'Delayed recall', hint: 'Getting it right on the first attempt after a gap of a day or more — not just within a session.' },
 ];
 
-export const MEMORY_METHODS = {
-  mnemonic: 'Mnemonic',
-  firstLetter: 'First-letter mnemonic',
-  chunking: 'Chunking',
-  wordOrigin: 'Word origin',
-  visualCue: 'Visual association',
-  comparison: 'Contrast with a confusable',
-  sequence: 'Sequence grouping',
-  teachBack: 'Teach-back',
-  location: 'Location-based association',
-};
-
 /* ------------------------------------------------------------------ *
  * Prior knowledge
  *
- * Some of this corpus is not new material for the person studying it. Where a
- * whole school subject already taught the same content, teaching it again from
- * zero wastes the session and, worse, buries the two or three things the
- * lecture actually adds on top of it.
+ * Some of this corpus is not new material for the person studying it. The
+ * Practise queue treats those unseen items as verification and places them
+ * after unseen items without prior coverage.
  *
- * An item carrying a priorKnowledge entry is therefore VERIFIED rather than
- * taught: the session opens on Practise, the lesson stays one click away, and
- * the Learn card leads with what the lecture adds instead of the shared
- * background.
+ * An item carrying a priorKnowledge entry is therefore verified through
+ * Practise: the session opens with a question on the assumed background, and
+ * the source dialog can show the linked lecture references.
  *
  *   covers: 'most'  the prior subject taught the substance of this item; the
  *                   lecture adds terminology, a named list or specific numbers.
  *   covers: 'part'  the prior subject taught the foundation only; a substantial
  *                   part of this item is genuinely new.
  *
- * beyond[] is drawn from the lecture deck itself, and each line carries its own
- * src the way a practice question does: { ref, location } pointing at the slide
- * it came off. Nothing here is textbook expansion or DSE-syllabus knowledge
- * written from memory — if a line has no slide behind it, it does not belong.
+ * sources[] retains the lecture references once shown alongside the removed
+ * Learn-only "beyond DSE" text: { ref, location } points at the slide. The
+ * text itself is not needed by Practise, Apply, Exam, search or reading help.
  * ------------------------------------------------------------------ */
 
 export const PRIOR_KNOWLEDGE = {
   'dse-bio': {
     label: 'HKDSE Biology',
     short: 'DSE Bio',
-    blurb: 'Covered at HKDSE Biology level. Verify it rather than sit through it — the full lesson is one click away if the answer does not come.',
+    blurb: 'Covered at HKDSE Biology level. Verify it with a question; linked lecture sources remain available in the source dialog.',
   },
 };
 
@@ -475,17 +460,15 @@ export function priorOf(item) {
   if (!pk) return null;
   const level = PRIOR_KNOWLEDGE[pk.level];
   if (!level) return null;
-  /* A bare string is accepted so a line can be sketched before its slide is found. */
-  const beyond = (pk.beyond || []).map((b) => (typeof b === 'string' ? { t: b, src: null } : b));
   const part = DSE_PARTS[pk.dsePart] || DSE_PARTS.core;
-  return { ...level, id: pk.level, covers: pk.covers || 'part', beyond, dsePart: pk.dsePart || 'core', part };
+  return { ...level, id: pk.level, covers: pk.covers || 'part', sources: pk.sources || [], dsePart: pk.dsePart || 'core', part };
 }
 
-/* Every beyond line's citation, for the source dialog. */
+/* Retained prior-knowledge lecture references for the source dialog. */
 export function priorSources(item) {
   const prior = priorOf(item);
   if (!prior) return [];
-  return prior.beyond.map((b) => b.src).filter(Boolean);
+  return prior.sources;
 }
 
 /*
@@ -518,33 +501,9 @@ export function entryStep(item, attempted) {
  * ------------------------------------------------------------------ */
 
 /*
- * The modes Home offers, and the reason there are now three of them.
- *
- * There were eight tiles here, built on the principle that every mode
- * pickItems() implements should have a way in. That principle was right about
- * the bug it fixed -- six modes existed with no door at all -- and wrong about
- * the remedy, because a door for each produced a wall of eight boxes on the
- * first screen of the app, three of which duplicated another:
- *
- *   'weakest'  is 'mistakes' sorted differently. The mistakes list is the one
- *              a reader acts on, because it says WHY.
- *   'mixed'    is 'daily' without the syllabus shape that makes daily useful.
- *   'new'      is Learn. Learn is where topics get chosen, and it is the way
- *              in this reader actually uses.
- *   'quick10'  and 'hooks' were cut on the reader's own report: neither gets
- *              opened, and a tile nobody taps costs the same screen space as
- *              one everybody does.
- *
- * `subject` is not a tile and never was -- it is what choosing a topic in
- * Learn opens. It stays in the list because startSession and the manifest
- * shortcut look modes up here by id.
- *
- * WHAT THIS DOES NOT DO is remove the matching cases from pickItems(). A
- * resume point saved by an earlier build can still name 'quick10', and
- * session-engine.js's `default` walks the pool weakest-first for anything it
- * does not recognise, so an in-flight session survives the upgrade either way.
- * Both lookup sites (session-engine.js, dialog-behaviour-applied.js) already
- * handle `find` returning undefined.
+ * Home's visible session choices. Contextual launchers use additional picker
+ * modes; old saved sessions can also carry ids that are no longer offered.
+ * Learn/Remember-only hooks mode was removed with those steps.
  */
 export const STUDY_MODES = [
   { id: 'daily', label: 'Daily pre-study', hint: 'A mixed warm-up: terminology, bones, one physiology sequence, one radiation-science concept.', icon: '◔' },

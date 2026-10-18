@@ -32,8 +32,8 @@ jobs:
         run: node work/load-check.mjs
       - name: Data modules parse
         run: node work/syntax-check.mjs
-      - name: Data module imports resolve
-        run: node work/verify-modules.mjs
+      - name: Study corpus and applications validate
+        run: node work/corpus-check.mjs
       - name: Today and search-only settings navigation
         run: node work/today-navigation-check.mjs
       - name: Every reachable module is precached, query and all
@@ -46,8 +46,6 @@ jobs:
         run: node work/region-probe.mjs
       - name: Body systems agree with the flow classes
         run: node work/system-check.mjs
-      - name: Every figure a lesson shows has intro + key
-        run: node work/figure-key-check.mjs
       - name: The code map matches the code
         run: node work/codemap-check.mjs
       - name: The data summary matches the data

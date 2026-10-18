@@ -6,7 +6,7 @@ The app stopped teaching. The owner learns each chapter elsewhere and comes here
 
 **One map, a week at a time.** The week follows the teaching calendar (`weekOf` in `schedule.js`), clamped to the last week that has content (7 for HSS2011), so in week 7 the map links weeks 1-7. The week chips let the owner pick earlier (say week 6 when week 7 is not learnt yet); the choice is saved per subject and the **Auto** chip returns to the calendar. Each week adds to the same map: a topic appears at the first week it was taught, and links, thread steps, table rows and decoder rows appear with the latest week they draw on. A topic taught later but needed as the map's skeleton stays as a dim structure node.
 
-**Decisions.** HSS2011 Human Anatomy only (the reference build covered only it); the other four subjects have no map yet. Brain 3D is included. The lesson corpus is kept for Practise and Apply; its reading half is unreachable and can be deleted as a separate step. The week given to each table row and decoder row is a judgment from each topic's own weeks (`rowWeek` in the generator), adjustable. Practise and Apply remain: a session now opens on Practise, and a resume point saved on Learn or Remember reopens on Practise.
+**Decisions.** HSS2011 Human Anatomy only (the reference build covered only it); the other four subjects have no map yet. Brain 3D is included. The corpus keeps the questions and application tasks needed by Practise, Apply, Exam and search, with their sourceRefs. A follow-up on 2026-10-18 removed Learn/Remember-only explanations, key facts, item memory hooks and visual data; glossary and reading-help modules remain. The week given to each table row and decoder row is a judgment from each topic's own weeks (`rowWeek` in the generator), adjustable. Practise and Apply remain: a session now opens on Practise, and a resume point saved on Learn or Remember reopens on Practise.
 
 ### Heart atlas mode (October 2026)
 
@@ -112,141 +112,9 @@ regenerating either file would have swept their unfinished work into this
 change. Whoever lands next should run both generators once all sessions have
 committed.
 
-### Lesson progress and viewer return (September 2026)
+### Session progress and viewer return (October 2026)
 
-New lessons start on Learn (1/4), including prior-knowledge lessons. Prior syllabus
-coverage cannot skip stages or mark Practise as visited. Saved per-lesson stages
-still restore normally. `work/new-lesson-progress-browser-check.js` covers direct,
-topic/search and next-item entry, plus saved Practise/Apply restoration.
-
-Lesson dots record the highest stage reached: Learn 1/4, Remember 2/4,
-Practise 3/4, Apply 4/4. Revisiting an earlier stage preserves that high-water
-mark; mastery remains a separate score. Lesson rows display all four saved
-stages, independently of answer accuracy. Search stays beside text size at the
-upper right, including while the reading header tucks away.
-Searching a structure suspends the lesson; Quit viewer restores
-the same question state and scroll position.
-
-Subject papers include matching private-pack MCQs, including older questions
-whose subject is encoded in their bank ID. Other pack formats have a subject
-picker in Short answer. Pack contents remain private and are never bundled.
-
-Search checks every one of the 1,686 model names, including left/right names,
-ordinal digits and plurals. Exact searches select the named mesh rather than
-silently substituting its teaching group. Carpus, tarsus, metacarpals,
-metatarsals, rotator cuff, quadriceps, hamstrings, lung lobes and colon segments
-select their specific parts. Composite expansion goes
-from a group to its members without treating sibling structures as synonyms.
-Selection labels and pinned annotations track their mesh through Spread.
-Live physiology honours reduced motion at startup and when the OS preference changes.
-The Live button remains an explicit opt-in for the current page; returning to
-no preference does not restart motion. Check with `node work/physiology-motion-preference-check.mjs`.
-Live physiology has no speed control. Atrial contraction precedes an AV interval
-and ventricular contraction; chamber deformation reduces volume. The four named
-papillary-muscle meshes share their own ventricle's contraction field, rather than
-shrinking around unrelated centres. The chambers contract under ONE shared tether
-field, measured on the real meshes: at every point where a chamber wall or a
-papillary tip touches a static mesh (the nine valve leaflets, the adjacent venous
-meshes) the wall is exactly still, and a full radius away the contraction is the
-plain chamber squeeze. The earlier boundary attempt added displacement at the
-seams and was rejected — the static leaflets cannot yield. The valve leaflets do
-not move and no valve rig exists: instead each leaflet group lights with its
-taught state (phys.2 pp36-39) — AV valves lit while the ventricles relax and
-fill, semilunar lit during ejection. The leaflet meshes are the taught state, not
-a bending rig. Numbers and the rejected axial-mask alternative:
-`docs/superpowers/notes/2026-09-11-physiology-heart-evidence.md`;
-`node work/physiology-heart-check.mjs` is the gate (characterisation, Jacobian,
-positive determinants, and 283 adjacent pairs whose full-cycle separation holds
-at its rest gap). `work/physiology-papillary-browser-check.js` checks the named
-pairs over a cycle — their peak gaps reproduce the papillary commit's numbers to
-all digits, and the tips freeze at their chordae contacts. The diaphragm
-descends with inspiration; its normals follow the dome deformation. Each lung's
-lobes share one superior geometric reference, expanding outward and downward
-with the same directional field. This is not a measured hilum constraint.
-Run `node work/physiology-breathing-check.mjs` and the shape browser check in
-`breathing` mode for displacement/normal verification.
-Selected axillary/deltoid, musculocutaneous/biceps and femoral/quadriceps examples
-show a travelling nerve impulse, excitation, contraction and relaxation. Nerve
-distance follows connected mesh edges around curves; separate axillary branches
-activate after the main nerve. Muscle bellies thicken with tethered ends. Their surface normals follow the full
-weighted deformation, and radial expansion follows local axial shortening.
-Sartorius and the long/short biceps heads use surface-area-weighted principal axes;
-other muscle shapes retain their existing axes. These axes and end constraints
-are illustrative geometry, not measured fibres or anatomical attachments.
-Run `node work/physiology-muscle-check.mjs`; the shape browser check in `muscle`
-mode compares actual GPU positions/normals with the reference map.
-The Breathing and Motor nerve → muscle presets isolate these participants.
-Quintic easing, corrected deformation normals and frame-rate-independent blending
-smooth the motion and the live/static transition; hidden-tab gaps pause the clock.
-Other muscles and peripheral nerves retain staggered illustrative activity;
-subtle cardiac and CNS light pulses indicate activity without deforming supporting
-structures or neural tissue. These cues do not claim a mapped nerve-muscle route.
-Tapping a structure renders its label even when its record contains numeric fields;
-both layers of a physiology example remain selectable.
-
-Mechanism sources are listed in the viewer and `physiology-mechanics.js`:
-`phys.2` pp.33–39 (valve states and papillary/chordae function) and pp.43–52 (cardiac conduction), `phys.muscle.deck` pp.27–35
-(neuromuscular excitation and relaxation), `phys.3` pp.21–24 (breathing),
-`hss.4.3` pp.19/24 and `hss.ppans` p.27 (motor innervation).
-These are illustrative surface deformations, not a fibre/valve/haemodynamic
-simulation. Motor display timing is deliberately slowed; mesh-edge distances
-approximate the route, not measured axon trajectories or conduction velocity.
-
-Checks: `node work/progress-pack-check.mjs [private-pack-path]` and the function
-in `work/progress-viewer-browser-check.js`, evaluated on a fresh dev-server tab.
-Further checks: `work/search-accuracy-check.mjs`,
-`work/physiology-mechanics-check.mjs` and `work/physiology-browser-check.js`.
-`work/reported-regressions-browser-check.js` checks the displayed lesson stages,
-exit/reopen, search alignment, selection labels and restored animation coverage.
-
-The rest-space shape derivation is isolated in `physiology-shape.js`. This first
-extraction preserves the existing bbox-based motion and injected GLSL. Run
-`node work/physiology-shape-check.mjs` for real-model parameter parity. The
-`physiology-shape-browser-check.js` function captures/compares actual shader
-positions and normals through WebGL2 transform feedback on the same browser.
-Path cost evidence and the offline-payload contract are in
-`docs/superpowers/notes/2026-09-09-physiology-path-contract.md`.
-
-Peristalsis follows the tube, not a bounding-box axis. `physiology-path.js` is
-the pure geometry — welded graph, a distance field balanced between the two ends
-of the structure, and, for a tube, a centreline fitted from it plus the
-travelling constriction with its Jacobian. Routes are derived offline by
-`work/build-physiology-paths.mjs` from the curated `work/physiology-routes.json`,
-whose two ends are named neighbouring STRUCTURES rather than coordinates, and
-committed to `outputs/assets/physiology/`. Six tube routes are accepted:
-oesophagus, duodenum, transverse and descending colon, both ureters. Three are
-refused and keep the existing illustrative animation — the jejunum because its
-coils lie within a calibre of each other, the ascending colon because a blind
-pocket at the caecal end breaks the surface ordering, the sigmoid because the
-descending colon overlaps it. The direction and mechanism are cited (`phys.4`
-p13–14, p21; `hss.3.1` p10); for the ureters only the DIRECTION is cited
-(`phys.5` p4) and the ripple is labelled as this app's illustration. Rate,
-wavelength, taper and depth are display parameters, named as such in
-`physiology.js`. Measurements:
-`docs/superpowers/notes/2026-09-09-physiology-tube-evidence.md`.
-
-The travelling light on a vessel or a nerve now follows the same measured
-progress instead of a plane through the body. The old band was a function of
-world height, which on the arch of the aorta puts the crest in two places at
-once and runs it backwards over the top; on the mapped motor nerves the field
-was seeded at the mesh's HIGHEST vertex, which was a guess about anatomy in the
-shape of a measurement. A **glow** route carries one number per vertex and moves
-nothing, so it is gated more weakly than a tube route on purpose —
-`deriveProgressRoute` names the four refusals it drops, and that is what lets the
-2.9-diameter aortic arch through. Forty vessels and six nerves are accepted, in
-chained circuits so one crest crosses the ascending aorta, the arch, the thoracic
-and abdominal aorta, the iliacs and the femoral artery as a single wave; six are
-refused by name (all four pulmonary veins, whose meshes are in several pieces or
-whose atrial anchor is not at an end, and both femoral nerves, which are four
-pieces each) and keep a cue that claims no direction. Arteries carry a PRESSURE
-pulse — one crest per heartbeat, slowed by roughly an order of magnitude for
-visibility — and veins a slow drift of blood; those are separate display modes in
-`FLOW_CIRCUITS`. Directions and innervations are cited (`phys.2` p13, p17, p18,
-p20; `phys.nerve.deck` p7; `hss.4.3` p19, p24, p52); speed, wavelength and crest
-sharpness are not. Run `node work/physiology-path-check.mjs`,
-`physiology-path-deform-check.mjs` and `physiology-path-model-check.mjs`;
-measurements are in
-`docs/superpowers/notes/2026-09-09-physiology-transmission-evidence.md`.
+Sessions now have Practise and Apply stages. New items begin with Practise, and saved item stages restore when reopened. Searching a structure can suspend an active session; Quit viewer returns to that same item and stage.
 
 ### Viewer workspace and projection (September 2026)
 
@@ -279,18 +147,13 @@ THIRD-PARTY-NOTICES.txt; the course model's existing attribution is unchanged.
 
 | File | What it is |
 | --- | --- |
-| `radiography-study-studio.html` | The app. Subject selector, learning workflow, Memory Coach, source dialogs, coverage report, and the full osteology 3D studio embedded as the HSS2011 Osteology module. |
-| `study-data.js` | The study layer: source registry, subject registry, 150 study items, prior-knowledge registry, spaced repetition, coverage report, corpus validator. |
+| `radiography-study-studio.html` | The app shell: subject selector, Practise/Apply sessions, source dialogs, coverage report, and the 3D studio. |
+| `study-data.js` | The study layer: source and subject registries, 210 study items, prior-knowledge metadata, spaced repetition, coverage report, and corpus validator. |
 | `wordparts.js` | 814 medical word parts, inverted from the HSS2011 glossary, plus the segmenter that takes a long term apart. |
-| `term-notes.js` | 746 hand-written pronunciations and plain-English readings, plus 565 app-authored memory hooks, for the terms word parts alone cannot rescue. |
-| `assets/plates/` | Five public-domain anatomy plates from Gray's Anatomy (1918), licence-verified through the Wikimedia Commons API before download. |
+| `term-notes.js` | 746 pronunciations and plain-English readings, plus term-level memory tips for words word parts alone cannot rescue. |
 | `anatomy-data.js` | Unchanged. Canonical bone records, landmark hotspots and the 3D model adapter metadata. |
-| `visual-data.js` | The visual registry: which model layer and meshes each study item is about, and which items get a schematic or figure instead. Verified mesh names, not guesses. Also `PLATES` — the Gray's plate on five physiology items, each with its `intro` and callout `key`. |
-| `layouts.js` | The 16 non-depictions as HTML layout data — cards, flows, term grids. Replaced the hand-plotted SVG versions. |
-| `schematics.js` | The retired SVG plotter. Still the fallback for anything without a layout entry; nothing currently uses it. |
-| `figures.js` | 18 published figures that replaced the hand-drawn *anatomy*, each with author/licence/source captured from the Wikimedia API and an `intro` + callout `key` so the lesson teaches from the image. |
-| `assets/figures/` | Those 18 image files. Licence-gated at download: anything not demonstrably free is refused. |
-| `assets/` | Local GLB models. Unchanged. |
+| `study/reading-help.js`, `wordparts.js`, `term-notes.js`, `term-gloss.js` | Glossary lookup, term notes and word-part help used in Revise. |
+| `assets/` | Local GLB models. |
 | `mesh-index.js` | **Generated.** Every named structure in every GLB layer (1,686), with the course file that names it and the study unit it resolves to (`UNITS`, 796 of them). Rebuild with `node work/build-mesh-index.mjs`; never hand-edit. |
 | `schedule.js` | The semester: the syllabus of each subject as its description form states it, and every timetabled session with its date, time, room and teacher. Course logistics, not anatomy — but every row cites the document it came off. |
 | `synonyms.js` | Query expansion (collarbone → clavicle), composites (a name with no mesh but real parts), and the three structures genuinely not modelled. |
@@ -485,8 +348,8 @@ number and the current syllabus is the normal state of this material.
 
 The **unit keys were deliberately not renamed**. `hss.m1` … `hss.m4` still carry the folder numbers,
 because saved progress in the browser is keyed by them and renaming would orphan it. They mean "the
-unit whose sources are the old Module N folder" and nothing else; `MODULE_BY_UNIT` in
-`study/corpus/modules.js` is the single place that turns one into a module number.
+unit whose sources are the old Module N folder" and nothing else. The former Learn view's module
+label mapper was retired with that view; schedule and progress code use the stable unit keys.
 
 ### A gap the coverage report was hiding
 
@@ -527,9 +390,8 @@ Two structural fixes came with it.
 - **Word parts gained the anatomy set** — `ab-`, `ad-`, `bi-`, `syn-`, `amphi-`, `dia-`, `iso-`, and
   the stems behind epimysium, osteoblast, acetabulofemoral and glenohumeral.
 
-Where a term is used but its own source never defines it — introns and exons are exactly that case —
-the lesson’s plain lead now carries the sentence that does, tagged app-authored the way every
-app-authored line is.
+Where a source uses a term without defining it, `term-notes.js` can provide plain-English help in
+the tappable term panel. Those notes remain separate from source-backed question claims.
 
 ## Course — the timetable, the syllabus, and what you have already missed
 
@@ -630,14 +492,10 @@ surprises the layout.
 
 ## Tablet layout
 
-`.sessioncol` capped the whole reading column at 720px. On a 1024-wide iPad that is 300px of empty
-rail on each side **while the figure inside it is squeezed into 52vh** — the two worst outcomes at
-once. The column now widens with the viewport (900px at 1024, 1000px at 1400) and `.lesson` keeps
-prose to a readable measure inside it, so the extra width goes to the figures and the tables, which
-are what wanted it. In portrait, where 768px never reaches the cap, the win is the figure height
-instead: 430px to 560px. Every fixed surface pays its own `env(safe-area-inset-*)`.
+The Practice/Apply session column widens on tablets and desktop instead of leaving a narrow question card between empty rails. sessioncol grows with the viewport (900px at 1024 and 1000px at 1400), while lesson keeps a readable content width. Portrait layouts remain screen-bounded, and fixed surfaces respect env(safe-area-inset-*).
+## Former Learn item model (archival; retired 2026-10-18)
 
-## Item model
+> Historical record: item teaching text and the Learn-only visual registry described below were removed. Practice diagram questions and their authored diagrams remain in the current corpus.
 
 Each item carries a teaching explanation, key facts, one or more memory aids, per-item skills (see
 *Memory Coach* below), practice questions, an explanation of the correct answer, common mistakes or
@@ -648,7 +506,7 @@ identification, comparison, short explanation and scenario application.
 Diagram labelling uses inline SVG schematics authored by the app — no supplied labelled diagram
 images exist in the assets folder, only `.glb` models. The label names come from the cited sources.
 
-## Every lesson opens with a visual
+## Former Learn visual inventory (archival; retired 2026-10-18)
 
 No lesson is a wall of prose. All 150 items resolve to a visual, and the resolver never invents one:
 
@@ -674,8 +532,8 @@ bone cells, red and yellow marrow in a real photographed bone, and the three car
 splicing one exists because a lesson said *"introns will be removed and exons will be spliced
 together"* — its source slide's own words — and showed nothing; that figure draws the sentence.
 
-`work/fetch-figure.mjs` is how they arrived, and it will not download anything whose licence is not
-demonstrably free. The author, licence and source page the app renders were read out of the same API
+The retired `work/fetch-figure.mjs` script downloaded them, and it refused anything whose licence
+was not demonstrably free. The author, licence and source page the app rendered were read out of the same API
 response that authorised the download, so the credit cannot drift from the credit the licence
 requires. There is no override flag. Every callout key was written from **looking at the image**,
 not from knowing what that figure usually shows.
@@ -698,8 +556,8 @@ shows, why it is on this lesson, how to read it) and a `key` (every visible call
 name, glossary terms tappable). A key entry marked `beyond` is a callout this lesson's own sources
 do not name — it is read off the figure's own published labelling, which is legitimate because the
 figure is a cited, attributed source on the page; the renderer dims those and adds a note.
-`work/figure-key-check.mjs` fails the build if a figure a lesson shows has no `intro`, no `key`, or a
-malformed key row.
+The retired `work/figure-key-check.mjs` required an `intro`, a `key`, and well-formed key rows for
+every figure shown by a lesson.
 
 The survey that added this also fixed the figures that did not match their lesson: the
 *Structures of a synovial joint* figure was pointing at Gray 349 (the knee from above); the
@@ -819,7 +677,7 @@ central axis and none is appended to it, so they draw with the axial half. That 
 which chip **draws** them, not a claim that a tooth is a bone — the count under a chip says
 "structures", not "bones".
 
-### Inside a lesson, the canvas is the lesson's
+### Former Learn lesson-canvas integration (archival; retired 2026-10-18)
 
 Picking is restricted to the layer being taught. Otherwise the ghosted body behind it steals the tap,
 and tapping a lymph node answers "Sacrum".
@@ -842,11 +700,11 @@ One further bug the mesh audit caught: the name normaliser turned `(` and `)` in
 side letter. Every parenthesised structure — the twelve cranial nerves among them — was unmatchable,
 including in the pre-existing cranial-nerve structure set.
 
-## Blank mode
+## Diagram question reveal modes
 
 Diagram and structure-set questions each render in three states:
 
-1. **Teaching** — everything named
+1. **Labelled** — everything named
 2. **Guided** — a couple of anchors left in, the rest worked out from them
 3. **Test** — nothing named, identify everything yourself
 
@@ -930,7 +788,7 @@ rather than rotated, because a structure wrongly swung is a worse error than one
 The controls sit **in the studio, not next to the question**, because the render loop only runs while
 the studio is on screen. A slider beside the question would have moved bones nobody could see.
 
-## Memory Coach
+## Memory Coach (archival; retired 2026-10-18)
 
 Every item has memory aids drawn from: mnemonic, first-letter mnemonic, chunking, word origin, visual
 association, contrast with a confusable, sequence grouping, teach-back and location-based
@@ -965,7 +823,7 @@ Two more content-anchored fields sit alongside the ladder, authored for every it
 Both are app-authored study scaffolding and tagged *App note* wherever they appear; the facts they
 point at are the source-traced ones on the same card.
 
-## Reading help — chunks, and the long words
+## Lesson prose chunking (archival; retired with Learn on 2026-10-18)
 
 Two different problems make a physiology page feel unreadable, so there are two fixes.
 
@@ -995,11 +853,9 @@ a list of them, and leaving them inert while the app shipped an 814-stem glossar
 
 **The words.** Any term the app can genuinely help with is underlined and tappable.
 
-### What counts as complete reading help
+## Current term panel
 
-A term panel is finished when it carries **all five** of these, in this order. Fewer than five is a
-panel with a gap in it, not a shorter panel — each one answers a question the others do not, and the
-one people skip is never the one the reader needed.
+A term panel can combine these fields when they are available:
 
 | | What it answers |
 | --- | --- |
@@ -1007,11 +863,11 @@ one people skip is never the one the reader needed.
 | **Chinese** | 橈尺的. A good deal of this material is already filed under its Chinese name for anyone who met the anatomy in Chinese first. |
 | **Say it** | `glo-MER-yoo-luss`, stress in capitals. A word you cannot pronounce is a word you cannot rehearse. |
 | **Built out of** | `inter` + `ventricul` + `ar` — the pieces, each with its own meaning. |
-| **Read as** | What those pieces say when you read them straight through: between + ventricle. The breakdown is the parts; this is the sentence they make. |
+| **Reads as** | A short meaning assembled from the recognised roots and affixes. |
 
-Definition, Chinese, Say it and Built out of are rendered today. **Read as is not** — `readingOf()`
-in `wordparts.js` produces exactly this line and is currently used only by the Memory Coach, so the
-term dialog is four-fifths of the standard above rather than all of it.
+The dialog can also show a base form, singular/plural cue or memory tip when the entry has one.
+The “Reads as” line is rendered from the parts in `reading-help.js`; `wordparts.js` only supplies
+the active decomposition and single-part lookups.
 
 The breakdown is real, not decorative: `wordparts.js` holds 814 stems inverted out of
 `definition_wordparts.pdf`, and the segmenter returns **nothing at all** unless the whole word
@@ -1019,25 +875,23 @@ resolves into known parts and recognised endings. That rule is what stops it spl
 into gloss + ary, or *properties* into pro + per. Four glossary rows that wrapped in the source PDF
 were corrected by hand — one of them was making `diagnosis` read as "through + kneecap".
 
-Pronunciations and plain-English lines are **written by this app**. The term panel says so, under the
-same rule the memory aids follow.
+Pronunciations and plain-English term notes are **written by this app**. They are reading help,
+separate from source-backed question claims.
 
-## Prior knowledge — what not to teach from zero
+## Prior-knowledge tags (retained for Practise)
 
-Thirty-eight of the sixty-two ABCT2326 Human Physiology items cover material HKDSE Biology already
-taught. They carry a `priorKnowledge` field so the lesson can distinguish familiar
-background from what the PolyU lecture adds:
+Thirty-eight of the sixty-two ABCT2326 Human Physiology items carry a `priorKnowledge` tag for
+material already covered by HKDSE Biology. The tag remains active in three places:
 
-- New lessons open on **Learn**. Prior coverage affects teaching context and queue
-  ordering, but never counts as a stage the learner has visited.
-- Their **Learn card leads with "What this lecture adds beyond DSE Bio"** — the named lists, the
-  terminology and the specific numbers from the lecture slides. The full explanation is not deleted;
-  it drops into a fold at the foot of the card labelled as background you already have.
-- **Weakest-first queues** treat them as half known rather than as a zero they have not earned, so
-  they sort behind material no syllabus ever taught. "Teach me something new" excludes them until the
-  genuinely new items run out.
-- **Getting one wrong** puts the lesson back in front of that item — the assumption failed, so the
-  teaching is worth reading after all.
+- **New-item queue.** Unseen items without the tag come first; tagged items follow them.
+- **Mastery ordering.** An unseen tagged item has a derived assumed score until its first answer;
+  no attempt is written into the learner's record.
+- **Source dialog.** The tag keeps its syllabus reference and lecture source references so the
+  assumed coverage can be inspected and validated.
+
+The 194 Learn-only “what this lecture adds” text lines were removed. Their linked lecture citations
+remain in `priorKnowledge.sources`; item `sourceRefs`, question explanations and Apply scenarios
+remain intact.
 
 ### Checked against the actual syllabus, not against a guess
 
@@ -1060,40 +914,35 @@ Reading them re-shaped the tagging, because assumptions about DSE turned out to 
   re-tagged from the elective to the compulsory part.
 - **Lung volumes and the ECG were never DSE content at all.** "Tidal volume" and "vital capacity"
   appear in neither document, and depolarisation — the concept the ECG trace is built on — appears
-  in neither either. Both items lost their tags and are taught from zero, like the other
+  in neither either. Both items lost their tags and are tested from zero, like the other
   action-potential material.
-- DSE **does** name sensory, inter- and motor neurones. A `beyond` line claiming interneurones were
-  new material was wrong and has been replaced.
+- DSE **does** name sensory, inter- and motor neurones, so the prior-knowledge scope reflects that.
 - DSE never groups tissues into epithelial/connective/muscle/neural, so the cells item covers *less*
   prior ground than first assumed and was downgraded from `most` to `part`.
 - The Supplement's footnotes settle depth questions the Guide's headings cannot: **positive
   feedback** is outside the learning-and-assessment focus, and so is the **countercurrent
-  multiplier** — which is why the kidney items' `beyond` lines run past the elective heading rather
-  than just past the compulsory part — and **transcription and translation** are limited to template
-  strand plus base pairing, and codon plus anticodon. Lines that restate what those footnotes leave
-  in were deleted; lines carrying what they leave out stay.
+  multiplier**. **Transcription and translation** are limited to template strand plus base pairing,
+  and codon plus anticodon. These depth boundaries inform the retained prior-coverage tags.
 
 `covers: 'most'` means the lecture mostly re-treads DSE and adds terminology or a list;
 `covers: 'part'` means a substantial part is genuinely new. Lymphoid tissue / MALT stays untagged:
 no DSE topic covers the cisterna chyli, and the only source for it is an answer key rather than a
 physiology deck.
 
-Every `beyond` line was written against the lecture deck itself and carries its own citation, the
-same way a practice question does:
+The retained prior-knowledge source rows point to lecture slides or official tutorial PDFs:
 
 ```js
-{ t: 'GFR as a figure: 115 ml/min in women, 125 ml/min in men, about 180 L a day…',
-  src: { ref: 'phys.5', location: 'Slide 17 "Glomerular Filtration Rate (GFR)"' } }
+{ ref: 'phys.5', location: 'Slide 17 "Glomerular Filtration Rate (GFR)"' }
 ```
 
-All 194 of them point at an ABCT2326 teaching source — the ten system decks (`phys.1`–`phys.10`,
+All retained refs point at an ABCT2326 teaching source — the ten system decks (`phys.1`–`phys.10`,
 including the 2026 cells deck `phys.1.2026`, the hormone-mechanism handout `phys.hormech` and the
-renal supplementary handout `phys.renal.supp`) for all but 15 lines, which cite the PolyU official
+renal supplementary handout `phys.renal.supp`) for all but 15 refs, which cite the PolyU official
 tutorial PDFs (`phys.cvs.tut`, `phys.resp.tut`, `phys.renal.tut`) that the three tutorial-derived
 items were built from — never at a past paper or student work,
-and never at the textbook. `validateCorpus()` fails the build on a line with no `src`, an
-unresolvable `ref`, or no slide named, so a line cannot quietly become textbook expansion later. The
-source dialog on a prior-knowledge item lists those slides in their own table.
+and never at the textbook. `validateCorpus()` fails the build on a missing or unresolvable source
+reference or a missing location. The source dialog on a prior-knowledge item lists those slides in
+their own table.
 
 Nothing about this writes to the mastery store. `priorAdjustedScore()` is derived at read time for
 ordering and for the dashboard label, so attempts, accuracy, lapses and intervals stay a record of
@@ -1116,32 +965,20 @@ There is no confidence picker: a wrong answer is a miss worth fixing, full stop.
 self-reported signals left are the self-grades (Yes / Partly / No) on the Explain/Scenario
 questions and the Apply scenario, where Partly is scored as reached-but-shaky.
 
-## Study modes
+## Session choices
 
-Teach me something new · Daily pre-study session · Review my weakest topics · Quick 10-minute session
-· Exam-style recall · Memory hooks only · Explain my mistakes · Subject-specific study · Mixed
-Semester 1 review.
+Home offers **Daily pre-study**, **Sit a timed paper**, **Explain my mistakes** and
+**Subject-specific study**. The session picker also supports contextual queues such as new items,
+weakest items, Quick 10 and mixed review. The former Memory hooks only mode was removed with Learn
+and Remember.
 
-The daily session deliberately mixes anatomy terminology, bone names, one physiology sequence and one
-radiation-science concept.
+## Reading help reaches questions and Revise
 
-**All of them now have a way in.** Six of the nine were implemented in `pickItems()` and never given
-a tile — including *Explain my mistakes*, which is the one you want most in the week before an exam,
-and *Quick 10-minute session*. Today renders a tile per mode instead of three hardcoded ones.
-(*Subject-specific* is the exception: it is entered by choosing a topic in Learn, so a tile for it
-would be a second door onto the same room with no topic chosen.)
-
-The count under each tile comes from **running the picker**, not from a separate estimate that could
-drift away from what the session would actually contain, and a mode with nothing to offer is disabled
-and says why — *"No mistakes logged — good"* — rather than opening an empty session and apologising
-in a toast.
-
-## Reading help reaches the questions now
-
-The term layer stopped at the lesson. **107 distinct words the glossary can explain also appear in
+The term layer began on Learn. **107 distinct words the glossary can explain also appear in
 question prompts, answer explanations and Apply scenarios** — which is exactly where you are under
 time pressure and least able to go and look something up. Prompts, verdict explanations, common
-mistakes, Apply scenarios, model answers and rubrics are all glossified now.
+mistakes, Apply scenarios, model answers and rubrics are glossified, and Revise glossifies its authored
+notes, threads and tables.
 
 The one place it deliberately does not go is the MCQ option buttons: a `<button>` inside a
 `<button data-opt>` is invalid HTML, and the inner one would swallow the click meant to answer the
@@ -1186,7 +1023,7 @@ Nothing can be due on a fresh install, so the mode advertised as a ten-minute se
 time. It now takes due work first and fills the remaining room from unseen, then from the weakest,
 to reach six. Verified at 6 on a clean install.
 
-## Memory Coach — why stage 4 is gone
+## Memory Coach — why stage 4 is gone (archival; retired 2026-10-18)
 
 The old ladder ended with **Stage 4 — the full explanation**, which repeated the Learn card's
 teaching verbatim (up to 1,181 characters on the word-parts item), so the Remember step asked you to
@@ -1576,7 +1413,9 @@ storage eviction Safari applies to ordinary tabs.
 A `gh-pages` branch from the earlier manual `git subtree push` deployment is
 left in place as a fallback. It is no longer what serves the site.
 
-## Diagrams — what is drawn here and what is not
+## Former lesson visual pipeline (archival; retired 2026-10-18)
+
+> Historical record: the figure, plate and layout assets described below were removed when the reading path was retired. Current Practice diagrams remain in the question corpus.
 
 The hand-plotted SVGs were the wrong tool for anatomy. They were laid out from guessed coordinates,
 so proportions and positions were whatever the numbers happened to be, and at least one actively
@@ -1662,7 +1501,7 @@ The ones under ~360 KB are precached in the service-worker shell; the four large
 deliberately left out so a first install stays lean, and `networkFirst` caches them into the same
 shell cache the first time a lesson shows one — so they end up offline either way.
 
-## Plates — the only pictures not made here
+### Archived plates (removed 2026-10-18)
 
 Five illustrations from **Gray's Anatomy of the Human Body, 1918**, in `assets/plates/`. Every one
 was licence-checked through the Wikimedia Commons API *before* download — `Public domain`, verified,

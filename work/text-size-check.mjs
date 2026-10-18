@@ -49,9 +49,9 @@ const css = raw.replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '));
 const FIXED = [
   '.navrail', '.bottomtab', '.navhead', '.seg', '.ctrlpill', '.sesscount', '.sessprog',
   '.stagenote', '.uncoverbanner', '.toolchip', '.pickstack', '.hiddentray', '.selpanel',
-  '.xray-exp', '.lessonvis-readout', '.flowkey', '.layerchip', '.layerhint', '.livechip',
+  '.xray-exp', '.flowkey', '.layerchip', '.layerhint', '.livechip',
   '.physline', '.overlaycard', '.vsheet-lab', '.modebar', '.studypool', '.studyscore',
-  '.struct', '.mv-read', '.mv-ends', '.lessonvis-busy', '.diagram-wrap', '.lessonvis-mount',
+  '.struct', '.mv-read', '.mv-ends', '.diagram-wrap',
   '.sheethead input', '.typed-row input', '.markin', '.toast', '.nostudy', '.progress', '.stage-hint',
   '.stage-meta', '.stage-state', '.mode-btn', '.icon-btn', '.stage-label', '.stage-controls',
 ];
@@ -162,10 +162,8 @@ if (!fails) console.log('  ok each step is a real step, and the range stays insi
  * The sizes that are not in the stylesheet at all.
  *
  * A handful of templates set font-size in a style attribute, where no CSS rule
- * can reach them and the walk above cannot see them. That is how the Learn
- * page's topic titles stayed at 17px through all three settings while
- * everything around them grew -- the single most visible thing on that screen,
- * and the reason this section exists.
+ * can reach them and the walk above cannot see them. That is how inline Practice/Apply copy could stay fixed while surrounding app
+ * text scaled.
  *
  * The two allowed to stay fixed are an icon glyph and the movement bar's
  * title, which is drawn over the 3D stage. Anything else must carry its own
@@ -174,7 +172,7 @@ if (!fails) console.log('  ok each step is a real step, and the range stays insi
 console.log('\n— the sizes written inline in the templates scale too —');
 const TEMPLATES = ['radiography-study-studio.html', 'study/subject.js', 'study/layout-figures.js',
   'study/spatial-overlay-controls.js', 'study/source-dialog.js', 'study/what-is-under.js',
-  'study/course-timetable.js', 'study/viewer-tools.js', 'study/lesson-visuals.js',
+  'study/course-timetable.js', 'study/viewer-tools.js',
   'study/review-mistakes-due.js', 'study/global-search-one.js', 'study/small-ui-helpers.js'];
 const INLINE_FIXED = [/class="ic"/, /id="mvBarTitle"/];
 let inlineOk = 0;

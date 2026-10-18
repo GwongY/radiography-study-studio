@@ -5,20 +5,18 @@
  *   Every factual claim carries a sourceRefs entry pointing at a file that
  *   exists in the supplied source folders. Nothing here comes from internet
  *   research, generic textbook expansion or invented syllabus content.
- *   App-authored memory aids are allowed but are tagged authored:true so the
- *   source dialog can say "app-authored memory aid, not a source claim".
+ *   Practise and Apply content is retained with item-level source references.
  *
  * anatomy-data.js stays as the 3D model adapter + canonical bone records.
- * This layer is the broader learning system that wraps it.
+ * This layer supplies revision support, questions and progress tracking.
  *
  * THIS FILE IS A BARREL. The corpus lives in study/corpus/ — see
- * docs/CODEMAP.md for which file holds what. Thirteen modules import this
- * path, so it keeps the same name and the same public surface.
+ * docs/CODEMAP.md for which file holds what. The app imports this path, so it
+ * keeps the same name and a deliberately curated public surface.
  *
  * The re-exports are listed by name on purpose. `export *` would also
  * re-export the item arrays the corpus files share with each other, widening
- * the public API from 57 names to 67 — work/corpus-snapshot.mjs fails if that
- * ever happens.
+ * the public API — work/corpus-snapshot.mjs fails if that ever happens.
  */
 
 export {
@@ -34,7 +32,6 @@ export {
   getUnit,
   ITEM_TYPES,
   MASTERY_DIMENSIONS,
-  MEMORY_METHODS,
   PRIOR_KNOWLEDGE,
   DSE_PARTS,
   priorOf,
@@ -44,12 +41,6 @@ export {
   entryStep,
   STUDY_MODES,
 } from './study/corpus/schema.js';
-
-export {
-  MODULES,
-  moduleOf,
-  moduleInfo,
-} from './study/corpus/modules.js';
 
 export {
   SOCIOLOGY_NOTICE,
@@ -74,10 +65,6 @@ export {
   jointMovement,
   STRUCTURE_MODELS,
 } from './study/corpus/structures.js';
-
-export {
-  BONE_HOOKS,
-} from './study/corpus/derived-items.js';
 
 export {
   STUDY_ITEMS,

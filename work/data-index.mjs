@@ -96,7 +96,7 @@ p('**Before writing a new `NOT_MODELLED` entry, check it against the index.**');
 p('`work/search-probe.mjs` fails the build if a NOT_MODELLED term names a mesh that exists.');
 p();
 
-p('## `outputs/study-data.js` — the lesson corpus');
+p('## `outputs/study-data.js` — study items and questions');
 p();
 p(`${STUDY_ITEMS.length} study items across ${SUBJECTS.length} subjects.`);
 p();
@@ -106,8 +106,8 @@ for (const s of SUBJECTS) {
   p(`| ${s.id} | ${(s.units || []).length} | ${STUDY_ITEMS.filter((i) => i.subject === s.id).length} |`);
 }
 p();
-p('Item shape: `{ status, id, subject, unit, type, title, tags, lesson, memory,');
-p('practice, application, commonMistakes, skills, selfCheck, sourceRefs }`.');
+p('Item shape: `{ status, id, subject, unit, type, title, tags, priorKnowledge,');
+p('practice, application, commonMistakes, sourceRefs }`.');
 p();
 p('| Item type | Count |');
 p('| --- | --- |');

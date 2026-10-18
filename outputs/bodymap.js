@@ -43,7 +43,7 @@
  * drift out of agreement with them.
  *
  * Nothing here is course material — it is standard first-year spatial anatomy,
- * written for this app, and it is kept out of the lesson corpus on purpose.
+ * written for this app, and it is kept out of the question corpus on purpose.
  *
  * Planes are the exception: they are pure reference geometry with no structure
  * to derive from, so they still carry an axis and a position, expressed as a

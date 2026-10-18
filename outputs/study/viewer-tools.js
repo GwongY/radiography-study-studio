@@ -68,7 +68,7 @@ export function renderViewerTools() {
  * Every level shown here measured against the model that is actually loaded --
  * studio/tools-and-capture.js leaves out any level whose structure is missing,
  * so a chip that is drawn is a chip that works. The citation under the row is
- * the same source machinery the lesson cards use, because a level IS a claim:
+ * the same source machinery the practice items use, because a level IS a claim:
  * it says the sternal angle is here, and the student is entitled to the page.
  * ------------------------------------------------------------------ */
 const AXIS_TITLE = { axial: 'Axial', sagittal: 'Sagittal', coronal: 'Coronal' };

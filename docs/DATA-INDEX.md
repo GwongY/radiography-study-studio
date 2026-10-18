@@ -58,7 +58,7 @@ Blender duplicate suffixes. Row shape:
 **Before writing a new `NOT_MODELLED` entry, check it against the index.**
 `work/search-probe.mjs` fails the build if a NOT_MODELLED term names a mesh that exists.
 
-## `outputs/study-data.js` — the lesson corpus
+## `outputs/study-data.js` — study items and questions
 
 210 study items across 6 subjects.
 
@@ -71,8 +71,8 @@ Blender duplicate suffixes. Row shape:
 | DSAI1202 | 2 | 6 |
 | LEI1101 | 0 | 0 |
 
-Item shape: `{ status, id, subject, unit, type, title, tags, lesson, memory,
-practice, application, commonMistakes, skills, selfCheck, sourceRefs }`.
+Item shape: `{ status, id, subject, unit, type, title, tags, priorKnowledge,
+practice, application, commonMistakes, sourceRefs }`.
 
 | Item type | Count |
 | --- | --- |

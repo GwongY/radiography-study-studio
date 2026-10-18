@@ -14,7 +14,7 @@ const nav = await read('outputs/study/navigation-five-destinations.js');
 const nodes = { navRail: { insertAdjacentHTML: (_, value) => { nodes.rail = value; } }, bottomTab: {} };
 const setup = nav.slice(nav.indexOf('const NAV_DESTS'), nav.indexOf('const NAV_TITLES'));
 const render = nav.slice(nav.indexOf('export function renderNavButtons'), nav.indexOf('/* The session'));
-const scope = { $$: (id) => nodes[id], esc: (s) => s, renderToday() {}, renderLearn() {}, openViewer() {}, renderCourse() {}, renderExamTab() {}, renderMore() {}, examTab: '', document: { querySelectorAll: () => [] } };
+const scope = { $$: (id) => nodes[id], esc: (s) => s, renderToday() {}, openViewer() {}, renderCourse() {}, renderExamTab() {}, renderMore() {}, examTab: '', document: { querySelectorAll: () => [] } };
 runInNewContext(setup + render.replace('export function', 'function') + '\nrenderNavButtons();', scope);
 assert.equal((nodes.bottomTab.innerHTML.match(/data-nav=/g) || []).length, 5);
 assert.equal(nodes.bottomTab.innerHTML.includes('data-nav="more"'), false);

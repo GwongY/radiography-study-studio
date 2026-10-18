@@ -1,9 +1,9 @@
 /*
  * Subject
  *
- * What is left of the old Learn destination is the viewer's layer rail: the
- * body layers, their chips, the colour key and the circulation extras. The
- * lesson list that gave this file its name moved to Revise (study/revise.js).
+ * This is the viewer's layer rail: body layers, their chips, the colour key
+ * and circulation extras. The old Learn topic list moved to Revise
+ * (study/revise.js).
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */

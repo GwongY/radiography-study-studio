@@ -75,3 +75,7 @@ data file made the same way, not new code. Subjects without content say so.
 the tree exactly once; visibility is monotonic in N; the auto week is right at the
 term's edges; every thread step, table and decoder group resolves to a week; links
 never point at a hidden topic.
+
+## Follow-up: remove the unreachable reading half (2026-10-18)
+
+After the Revise change, a separate reachability audit removed Learn/Remember-only item explanations, key facts, item memory hooks, visual specifications, figure/layout registries and their unused image assets. Practise, Apply, Exam, source dialogs, search, and all item sourceRefs remain. The glossary and reading-help stack (term-gloss.js, term-notes.js, wordparts.js) remains active for Revise. The cleanup keeps validateCorpus() at zero failures and removes only the retired figure/visual/duplicate verifiers and their baselines.

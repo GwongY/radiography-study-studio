@@ -624,7 +624,7 @@ export function weekTopicId(subject, week) {
   return `${subject}.week.${week}`;
 }
 
-/** Course and Learn use the same scheduled topic and ordered reading list.
+/** Course and session launchers use the same scheduled topic and ordered item list.
  * These are teaching-week groups, not historical source-folder units. */
 export function teachingWeeks(subject) {
   return Object.entries(WEEK_STUDY[subject] || {}).map(([key, ids]) => {

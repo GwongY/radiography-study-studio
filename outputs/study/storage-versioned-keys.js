@@ -102,27 +102,8 @@ export function itemAttempted(itemId) {
   return MASTERY_DIMENSIONS.some((d) => (getMastery(itemId, d.id) || {}).attempts > 0);
 }
 
-/*
- * Reading a lesson is progress, and until this existed the app did not think
- * so: mastery only moves when a question is ANSWERED, so opening an item,
- * reading the whole lesson and leaving -- by Save & exit or by closing the
- * app -- left it reading "Not started", exactly as it had before it was
- * opened. There was nothing wrong with the save; there was nothing to save.
- *
- * It is kept apart from the mastery record on purpose. itemAttempted decides
- * what is due, what counts as unseen and how the queue is ordered, so writing
- * a reading into it would mean a lesson you have only looked at starts
- * competing for revision slots and drags the accuracy figures down with
- * attempts nobody made. Read is read; answered is answered.
- *
- * The one-minute floor stops paging back and forth between the steps of one
- * item writing localStorage on every render.
- *
- * Returns whether a read was actually recorded, because progress-log.js has to
- * append exactly when this writes and never when it declines -- a log that
- * counted the throttled calls would rebuild a different history than the one
- * the app lived.
- */
+/* Legacy read-history support. Existing Learn read events still replay and
+ * sync, but Practise/Apply openings no longer record an item as read. */
 export function markRead(itemId, now = Date.now()) {
   const rec = store.items[itemId] || {};
   if (rec.readAt && now - rec.readAt < 60000) return false;

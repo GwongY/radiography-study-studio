@@ -6,7 +6,6 @@
  */
 import { $$, esc, ui } from './imports.js';
 import { openViewer, leaveProjection } from './what-is-under.js';
-import { releaseLessonVisual } from './lesson-visuals.js';
 import { renderRevise } from './revise.js';
 import { renderMore } from './more-sources-coverage.js';
 import { renderToday } from './home.js';
@@ -43,7 +42,7 @@ export function setActiveNav(id) {
    *
    * It was declared, defaulted to 'today', and read by openSessionOverlay --
    * and never written. So `tabBeforeSession` was 'today' whatever destination
-   * you were on, and quitting a lesson opened from Learn put you on Home
+   * you were on, and quitting a session from any destination put you on Home
    * every time. The drill-down restore below it was already correct and was
    * being handed the wrong tab to restore INTO.
    */
@@ -72,10 +71,10 @@ export function setActiveNav(id) {
   });
 }
 export function goTo(id) {
-  if (id !== 'viewer' && viewerLesson) {
-    viewerLesson = null;
+  if (id !== 'viewer' && viewerSession) {
+    viewerSession = null;
     ui.session = null;
-    $$('viewerLessonQuit').classList.add('hidden');
+    $$('viewerSessionReturn').classList.add('hidden');
   }
   const dest = NAV_DESTS.find((d) => d[0] === id);
   if (dest) dest[3]();
@@ -94,8 +93,8 @@ export function renderNavButtons() {
    cover the shell whatever destination is behind it. */
 let tabBeforeSession = 'today';
 export function openSessionOverlay() {
-  viewerLesson = null;
-  $$('viewerLessonQuit').classList.add('hidden');
+  viewerSession = null;
+  $$('viewerSessionReturn').classList.add('hidden');
   tabBeforeSession = currentTab || 'today';
   $$('sessionView').classList.remove('hidden');
   /* Without this the rail, tab bar and search button stay in the tab order
@@ -103,33 +102,31 @@ export function openSessionOverlay() {
   const shell = document.querySelector('.app-shell');
   if (shell) shell.inert = true;
 }
-let viewerLesson = null;
+let viewerSession = null;
 export function suspendSessionForViewer() {
   const session = $$('sessionView');
   if (!ui.session || session.classList.contains('hidden')) return false;
-  viewerLesson = { session: ui.session, scroll: session.querySelector('.navcontent').scrollTop, at: performance.now() };
-  releaseLessonVisual();
+  viewerSession = { session: ui.session, scroll: session.querySelector('.navcontent').scrollTop, at: performance.now() };
   session.classList.add('hidden');
   session.inert = false;
   document.querySelector('.app-shell').inert = false;
-  const back = $$('viewerLessonQuit');
+  const back = $$('viewerSessionReturn');
   back.classList.remove('hidden');
   back.onclick = () => {
-    if (!viewerLesson) return;
+    if (!viewerSession) return;
     leaveProjection();
-    ui.session = viewerLesson.session;
-    if (ui.session.startedAt) ui.session.startedAt += performance.now() - viewerLesson.at;
+    ui.session = viewerSession.session;
+    if (ui.session.startedAt) ui.session.startedAt += performance.now() - viewerSession.at;
     session.classList.remove('hidden');
     document.querySelector('.app-shell').inert = true;
-    session.querySelector('.navcontent').scrollTop = viewerLesson.scroll;
-    viewerLesson = null;
+    session.querySelector('.navcontent').scrollTop = viewerSession.scroll;
+    viewerSession = null;
     back.classList.add('hidden');
   };
   return true;
 }
 
 export function closeSessionOverlay() {
-  releaseLessonVisual();
   $$('sessionView').classList.add('hidden');
   const shell = document.querySelector('.app-shell');
   if (shell) shell.inert = false;

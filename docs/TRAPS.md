@@ -334,28 +334,17 @@ shapes** — in "The region grid and classifiers" below.
   followed. Any tool that classifies lines in this file has to track backtick
   parity and dangling `/*`.
 
-### Reading is not answering — `outputs/study/storage-versioned-keys.js`, `outputs/study/session-engine.js`
+### Legacy reading history and saved session steps — `outputs/study/storage-versioned-keys.js`, `outputs/study/session-engine.js`, `outputs/study/home.js`
 
-- **The app had no record that a lesson had been read.** Mastery only moves when
-  a question is answered, and `itemAttempted` is derived from mastery, so
-  opening an item, reading all of it and leaving — by Save & exit, by the close
-  button, by killing the app — left the row saying "Not started", exactly as it
-  had before it was opened. Nothing was failing to save; there was nothing to
-  save. `markRead` / `itemRead` keep that in `store.items` as `readAt`.
-- **Do not fold it into the mastery record.** `itemAttempted` decides what is
-  due, what counts as unseen, and how the queue is ordered. A reading written
-  in as an attempt would put lessons you have only looked at into the revision
-  queue and drag the accuracy figures down with attempts nobody made. Read is
-  read; answered is answered. Lesson-row dots now show the saved stage (1–4),
-  independently of answer mastery. Exercise the rendered row after Save & exit:
-  testing `getItemStep` alone missed Practise and Apply both displaying one dot.
-- **`saveContinue` had exactly one caller, and it was `setStep`.** So a resume
-  point existed only if you *changed step* — open an item, read it, leave, and
-  Today's Continue card still pointed at whatever you studied last week.
-  `startSession` writes it too now.
-- **A stored step can name a step this build no longer has.** Review was one.
-  The Continue card looks the step up by name to print its label, so an
-  unrecognised one used to throw; `getContinueTarget` falls back to `learn`.
+- The old Learn/Remember reading session is retired. Opening a Practise or Apply
+  session records no read event; the progress log still replays and syncs read
+  events written by older builds so existing history remains intact.
+- Answer mastery remains separate from those legacy read events. Queue order,
+  due status and accuracy use answered questions only.
+- Continue cards accept only the current `practise` and `apply` step ids. Older
+  saved step names are ignored by `getItemStep` and resume at the item's current
+  entry step; `getContinueTarget` also defaults an old continue record to
+  `practise`. Keep this migration tolerant when adding or removing session steps.
 
 ### The progress log must reproduce the record, not resemble it — `outputs/study/progress-log.js`, `work/progress-log-check.mjs`
 
@@ -459,41 +448,13 @@ a live page, not by any probe.
   screen; the other two are the toe phalanges and the carpals, both recorded
   above.
 
-### The viewer is a workspace, and a lesson must not inherit it — `outputs/studio/live-physiology.js`, `outputs/study/lesson-visuals.js`
-
-There is one WebGL context. The lesson card does not get a copy of the stage, it
-gets THE stage, moved into it — so every setting the Viewer page was left in is
-still in force when a lesson mounts. `focusStructures` handled the layers from
-the start and nothing else, and each of the five it missed breaks the lesson
-quietly rather than loudly:
-
-- **the cut.** `renderer.clippingPlanes` is global state on the renderer. A
-  coronal cut left armed in the Viewer sliced the lesson's carpal bones in half.
-- **hidden meshes.** `focusStructures` ended by calling `enforceHidden()`, so a
-  bone hidden by hand stayed hidden in the lesson teaching that bone. Worst of
-  the five: the card renders successfully and shows nothing.
-- **the region filter**, for a spec with `isolate:false`.
-- **isolation**, same expression, same result.
-- **an armed tool.** `bindCanvas` returns early when `state.tool` is set, so a
-  tap placed ink or a pin instead of naming the structure — on a card whose own
-  caption says "tap to name".
-
-They are **suspended, not cleared**: the Viewer is a workspace and the state a
-reader set up in it is theirs. `suspendViewerState` saves and neutralises,
-`resumeViewerState` puts it back, and `clearStudyFocus` calls resume even when
-there was no focus to clear — a lesson whose names did not resolve still
-suspended on the way in. `focusStructures` calls `releaseFocusMeshes` rather
-than `clearStudyFocus` when replacing one focus with another, or it would hand
-the Viewer's state back halfway through mounting.
-
 ### Packed course pieces — `outputs/studio/packed-spread.js`
 
 The spread parent owns only presentation translation. Never write packed offsets into
 mesh.position or basePosition: highlighting resets them. Measurement uses anatomicalMatrix
 in cavity-geometry-derived.js and bodyMetrics to exclude the presentation parent, including
 lazy vertex reads after a layer arrives mid-spread. Visibility filters temporarily restore
-parents before region tests and repack afterwards. Projection, lessons, cuts and annotation
-entry assemble the body. Keep exact zero restoration and repeated application tested.
+parents before region tests and repack afterwards. Projection, cuts and annotation entry assemble the body. Keep exact zero restoration and repeated application tested.
 
 
 ### Where you were is not the same as which tab you were on — `outputs/study/navigation-five-destinations.js`

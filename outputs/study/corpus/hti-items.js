@@ -22,31 +22,6 @@ export const HTI_ITEMS = [
       "profession",
       "high-yield"
     ],
-    "lesson": {
-      "explanation": "Radiography is rooted in classical etymology: the prefix \"radio-\" derives from the Latin \"radius\", denoting a ray, a spoke, or the radial divergence and spread-out of energy in all directions, which forms the physical concept of radiation. The suffix \"-graphy\" designates the physical process of recording, capturing, or producing a snapshot or photograph. Synthesized into professional medical terminology, radiography is defined as the art and science of utilizing ionizing radiation to create diagnostic images of the human body and its internal anatomical structures, providing essential visual evidence to detect, characterize, and manage human disease and injury. The lecture emphasizes that radiation imaging is not magic but rigorous physics: high-energy X-radiation is produced inside an evacuated X-ray tube when an energetic stream of high-velocity electrons, thermionically emitted from a heated cathode filament, is accelerated across a high-voltage potential to strike a solid metal target. This target is specifically engineered from a specialized refractory mixture of tungsten and rhenium; bombarding this target decelerates electrons rapidly (bremsstrahlung) and ejects inner-shell orbital electrons, generating characteristic X-rays. In hospital practice, working with ionizing radiation requires strict division of labor among six specialized healthcare professionals: (1) The Radiographer (diagnostic radiographer), who positions the patient, sets exposure parameters, and takes the diagnostic radiographs; (2) The Radiotherapist (radiation therapist), who plans treatment geometries and switches on the high-energy megavoltage beam for cancer radiotherapy; (3) The Radiation Chemist / Pharmacist, who formulates, synthesizes, quality-checks, and dispenses radioactive tracers and radiopharmaceuticals for diagnostic imaging and targeted therapy; (4) The Radiologist, a licensed specialist medical doctor who interprets radiographic images, formulates differential diagnoses, and performs image-guided interventional procedures; (5) The Radio-oncologist (clinical/radiation oncologist), a specialist medical doctor who diagnoses malignancies, prescribes radiation dosages, and oversees comprehensive oncological care; and (6) The Medical Physicist, who calibrates output, monitors quality assurance, performs dosimetric calculations, and measures the radiation dose of clinical instruments. Beyond clinical medicine, radiation serves society in airport security luggage screening, customs cargo container inspection, and industrial non-destructive material testing—which contrast sharply with industrial sterilization, where radiation is applied solely to destroy microorganisms without creating any image. The lecture famously characterizes radiology as \"a science of everything,\" interweaving anatomy (where to aim and what structures are expected), physics (how X-rays form and how to protect against ionizing damage), physiology (how living organs move and function), chemistry (how radiotracers and contrast agents behave), and biology (how radiation impacts cellular DNA).",
-      "plain": "Radiography literally means \"ray-writing\" or taking pictures using radiation. High-energy X-rays are made when a speeding stream of electrons slams into a spinning metal target made of tungsten and rhenium. In hospitals, six different professionals work with radiation: the radiographer takes the pictures; the radiotherapist delivers the cancer treatment beam; the radiation pharmacist makes the radioactive drugs; the radiologist (a doctor) reads the images; the radio-oncologist (a doctor) prescribes the cancer radiation; and the medical physicist calibrates the machines and measures radiation doses. Radiology is a \"science of everything\" because it combines anatomy, physics, physiology, chemistry, and biology.",
-      "keyFacts": [
-        "Etymology: \"radio-\" means radial spread-out of energy (radiation); \"-graphy\" means snapshot or process of recording.",
-        "Definition: radiography is the art and science of using ionizing radiation to create images of the body and inner structures for disease diagnosis.",
-        "X-ray production: high-speed electron stream strikes a metal target made of a mixture of tungsten and rhenium.",
-        "Radiographer: positions patients, optimizes exposure factors, and takes the diagnostic radiographs.",
-        "Radiotherapist: plans beam delivery and switches the beam on for cancer treatments.",
-        "Radiation chemist / pharmacist: prepares nuclear medicine radiopharmaceuticals for diagnosis and therapy.",
-        "Radiologist: medical doctor who interprets radiographic images and issues diagnostic reports.",
-        "Radio-oncologist: medical doctor who diagnoses cancer and establishes radiation therapy prescriptions.",
-        "Medical physicist: calibrates equipment, verifies beam output, and measures radiation doses of clinical instruments.",
-        "Radiology is a \"science of everything\" combining anatomy (where/what to see), physics (protection/formation), physiology, chemistry, and biology."
-      ],
-      "examples": [
-        "Airport security scanners and customs cargo inspection use transmission X-rays to generate diagnostic projection images, whereas industrial food and medical equipment sterilization bombards items with high-dose gamma rays to kill bacteria without producing any photographic image.",
-        "In an emergency trauma case, a radiographer executes urgent portable CXR and pelvis radiographs, a medical physicist ensures the mobile unit is properly calibrated, and a radiologist immediately interprets the acquired digital images for hemothorax or pelvic fractures."
-      ]
-    },
-    "memory": {
-      "wordOrigin": "Split every title at the root: Radio-grapher writes/takes the image; Radio-logist studies/interprets it; Radio-therapist treats disease with it; Radio-oncologist directs cancer care with it; Medical Physicist measures its physical dose.",
-      "comparison": "Radiographer vs Radiologist: the radiographer operates the technology and captures the radiograph; the radiologist is a physician who diagnoses pathology from that radiograph.",
-      "chunking": "Six hospital roles in 3 pairs: The operators (radiographer, radiotherapist), the doctors (radiologist, radio-oncologist), and the scientists (medical physicist, radiation pharmacist)."
-    },
     "practice": [
       {
         "type": "matching",
@@ -148,22 +123,6 @@ export const HTI_ITEMS = [
       "Assuming all ionizing radiation applications produce images: industrial sterilization uses radiation without producing any image.",
       "Believing pure tungsten is used for all X-ray targets: the lecture explicitly specifies a mixture of tungsten and rhenium."
     ],
-    "skills": [
-      "Differentiate the six hospital radiation professions based on verb and scope of practice (operating, prescribing, formulating, interpreting, calibrating).",
-      "Explain the physical mechanism of diagnostic X-ray generation at the tungsten-rhenium target to patients or colleagues."
-    ],
-    "selfCheck": "From memory, write down the Latin origins of radio- and -graphy, name all six radiation professions with their core duty, and state the two metals composing the X-ray target.",
-    "visuals": [
-      {
-        "fig": "xrayTubeAnatomy"
-      },
-      {
-        "schematic": "radiographyRoles"
-      },
-      {
-        "gen": true
-      }
-    ],
     "sourceRefs": [
       {
         "ref": "hti.w1.2026",
@@ -245,31 +204,6 @@ export const HTI_ITEMS = [
       "modalities",
       "high-yield"
     ],
-    "lesson": {
-      "explanation": "Medical imaging modalities are fundamentally bifurcated by the physical mechanism through which electromagnetic and acoustic energy interacts with human biological tissue: ionizing radiation versus non-ionizing radiation. By formal physical definition, ionization represents the process and quantum capacity to impart sufficient localized energy to completely liberate or free outer-shell bound orbital electrons from electrically neutral atoms or molecules, thereby generating highly reactive chemical ions and free radicals capable of inducing direct or indirect double-strand deoxyribonucleic acid (DNA) damage. The syllabus classifies diagnostic imaging into two rigid operational columns: (1) Ionizing modalities encompass General (routine) X-ray projection radiography, Fluoroscopy and interventional angiography, Mammography (characterized by specialized low-kVp high-resolution breast imaging), Computed Tomography (CT), and Radionuclide Imaging (encompassing planar gamma scintigraphy, Single Photon Emission Computed Tomography [SPECT], and Positron Emission Tomography [PET]); (2) Non-ionizing modalities comprise Magnetic Resonance Imaging (MRI) and Ultrasonography (US). Physical sources capable of biological ionization enumerated in the curriculum comprise high-energy ultraviolet (UV) radiation at the short-wavelength boundary, characteristic X-rays emitted via atomic inner-shell transitions, high-energy electron beams, and particulate or gamma-ray emissions originating from unstable radioisotopes. The lecture rigorously dispels persistent public \"urban myths\" regarding consumer electromagnetic appliances: household microwave ovens operate at an ultra-high frequency of 2,450 MHz (corresponding to a physical wavelength of 12.2 cm), and commercial mobile cellular phones operate across radiofrequency carrier channels of 900 MHz, 1,800 MHz, and 2,600 MHz; neither possesses photon energy remotely approaching the electron-binding threshold needed to ionize matter, regardless of macroscopic electrical wattage. Furthermore, the two domains are governed by completely different international measurement units: non-ionizing exposure is quantified by the Specific Absorption Rate (SAR in Watts per kilogram, W/kg) and static magnetic flux density in Tesla (T), whereas ionizing radiation is strictly quantified in absorbed energy dose (Joules per kilogram, J/kg, designated as the gray, Gy) and biologically equivalent / effective human dose (sieverts, Sv). For magnetic resonance imaging, non-ionizing radiofrequency fields operate across 6–340 MHz in tandem with strong static magnetic fields produced by permanent or superconducting magnets, exploiting the quantum magnetic moment and nuclear resonance effect of abundant water (hydrogen) molecules to yield exquisite soft-tissue anatomical contrast without ionizing hazard.",
-      "plain": "Medical imaging splits into two camps: machines that use ionizing radiation and machines that do not. Ionizing radiation has enough energy to knock outer-shell electrons off atoms, which can damage cell DNA. Ionizing machines include general X-rays, fluoroscopy, mammography, CT scans, and nuclear medicine. Non-ionizing machines are MRI and ultrasound. The lecture busts common myths: microwaves (at 2,450 MHz) and mobile phones (at 900, 1,800, and 2,600 MHz) cannot ionize anything because their waves are far too low in energy. They also use completely different safety units: W/kg and Tesla for non-ionizing waves, versus grays (Gy) and sieverts (Sv) for ionizing radiation doses.",
-      "keyFacts": [
-        "Ionization definition: the physical capacity to free outer-shell electrons from atoms or molecules.",
-        "Ionizing modalities: general X-ray, fluoroscopy/angiography, mammography, computed tomography (CT), radionuclide imaging (RNI).",
-        "Non-ionizing modalities: magnetic resonance imaging (MRI) and ultrasonography (US).",
-        "Physical ionizing sources: high-energy ultraviolet (UV), characteristic X-rays, electron beams, and radioisotopes.",
-        "Urban myth frequency — microwave oven: operates at 2,450 MHz (12.2 cm wavelength).",
-        "Urban myth frequencies — cell phones: operate at 900 MHz, 1,800 MHz, and 2,600 MHz.",
-        "Measurement units: non-ionizing uses W/kg (SAR) and Tesla (T); ionizing uses J/kg, gray (Gy), and sievert (Sv).",
-        "MRI physical mechanism: uses static magnetic fields (permanent or superconducting) and radiofrequency at 6–340 MHz.",
-        "MRI tissue contrast: exploits resonance of water (hydrogen) molecules to yield superior soft-tissue delineation.",
-        "Core classification rule: modality safety categorization depends on photon quantum energy, not total equipment electrical wattage."
-      ],
-      "examples": [
-        "A patient undergoing a lumbar spine CT scan receives ionizing radiation (measured in mGy and mSv) requiring ALARA protection, whereas the same patient undergoing a lumbar spine MRI is exposed to non-ionizing radiofrequency pulses (SAR in W/kg) inside a 1.5 T or 3.0 T static magnetic field.",
-        "Public concern over 5G/4G cellular mobile towers operating at 900–2,600 MHz conflates signal power with ionizing potential; because RF photons lack quantum energy to free outer-shell orbital electrons, they cannot cause DNA strand breaks."
-      ]
-    },
-    "memory": {
-      "chunking": "Five ionizing modalities (General X-ray, Fluoroscopy, Mammography, CT, Radionuclide) versus two non-ionizing modalities (MRI, Ultrasound). Remember \"M & U\" are non-ionizing.",
-      "comparison": "Ionizing vs Non-ionizing Units: Ionizing uses Gy (absorbed dose) and Sv (equivalent dose); Non-ionizing uses W/kg (RF power deposition) and Tesla (magnetic flux).",
-      "firstLetter": "Four ionizing sources from lecture: U-X-E-R — Ultraviolet, (characteristic) X-ray, Electron beams, Radioisotopes."
-    },
     "practice": [
       {
         "type": "mcq",
@@ -362,22 +296,6 @@ export const HTI_ITEMS = [
       "Assuming that high macroscopic electrical wattage or large equipment size equates to ionizing capability.",
       "Classifying MRI or ultrasound under ionizing radiation simply because they are housed within hospital radiology departments.",
       "Confusing the units of radiofrequency specific absorption rate (W/kg) with absorbed ionizing radiation dose (Gy = J/kg)."
-    ],
-    "skills": [
-      "Categorize any medical imaging examination immediately into ionizing versus non-ionizing workflows to apply statutory ALARA precautions.",
-      "Differentiate physical electromagnetic spectrum bands and counter lay misconceptions regarding consumer telecommunications safety."
-    ],
-    "selfCheck": "From memory, state the atomic definition of ionization, list the 5 ionizing and 2 non-ionizing modalities, recite the 3 cell phone frequencies, and state the respective units for both categories.",
-    "visuals": [
-      {
-        "fig": "emSpectrum"
-      },
-      {
-        "schematic": "modalities"
-      },
-      {
-        "gen": true
-      }
     ],
     "sourceRefs": [
       {
@@ -475,31 +393,6 @@ export const HTI_ITEMS = [
     "tags": [
       "modalities"
     ],
-    "lesson": {
-      "explanation": "Diagnostic radiology was founded upon Wilhelm Conrad Roentgen’s discovery of X-radiation in 1895 (for which he was awarded the inaugural Nobel Prize in Physics in 1901), achieved by applying high-voltage electricity across an evacuated vacuum tube containing a cathode and an anode, famously producing a transmission radiograph of his wife’s hand. In 1896, Thomas Edison invented dynamic X-ray fluoroscopy. Projection radiography hardware evolved through three major historical generations: (1) Traditional photographic film/screen cassettes, which required wet chemical darkroom processing through a mandatory four-stage sequence — Developing -> Fixation -> Washing -> Drying — which was time-consuming, space-consuming, and prone to archiving degradation; (2) Computed Radiography (CR), introduced in the 1980s, which utilizes photostimulable phosphor storage cassettes requiring dedicated digital plate readers, maintaining instrument independence and digital compatibility with Picture Archiving and Communication Systems (PACS); and (3) Direct Digital Radiography (DDR), which incorporates integrated flat-panel active matrix detectors eliminating cassette handling and external readers, providing rapid time-saving workflow and filmless operation at higher capital expense. Fluoroscopy provides continuous real-time dynamic monitoring and intraoperative visualization, proving essential for vascular catheter angiography (often utilizing bi-plane dual imaging kits), percutaneous stent installation, orthopaedic bone cement injection, and functional tract evaluation (such as barium swallow examinations and post-gastric bypass integrity checks). To visualize radiolucent luminal organs, oral contrast agents such as flavored barium sulfate (BaSO4) suspension are ingested, while vascular and urinary tract interventions utilize intravenous injection of ionic versus non-ionic water-soluble iodinated contrast agents. Computed Tomography (CT) overcame the fundamental limitation of projection radiography (where superimposed 3D anatomical structures collapse into a single 2D shadow requiring at least two orthogonal projections) by rotating an X-ray source and opposing detector array 360 degrees around the patient. Modern spiral (helical) CT accelerates clinical throughput and computational volume scanning, supporting multiplanar reconstruction (MPR), 3D angiographic reconstruction, and dynamic simulated cardiac models. Radionuclide Imaging (RNI) provides the non-invasive visualization of physiological bio-distribution by administering a radiopharmaceutical — an engineered compound pairing a radioactive isotope (\"the siren\" or beacon) with an organ-seeking chemical vector. Planar gamma cameras image emitted gamma photons, exemplified by Technetium-99m labeled with methylene diphosphonate (99mTc-MDP) for skeletal osteoblastic bone scans, Thallium-201 (201Tl) for myocardial perfusion cardiac scans, and 99mTc-DTPA for renal clearance evaluation. Nuclear medicine further bifurcates into Single Photon Emission Computed Tomography (SPECT) and Positron Emission Tomography (PET): SPECT agents emit single gamma rays from heavier interstitial isotopes (e.g. 99mTc with a half-life of 6.02 hours, Iodine-123 with a half-life of 13 hours) and are less expensive, less energy-emitting, easier to prepare, and globally accessible; conversely, PET utilizes short-lived positron-emitting essential biological isotopes (e.g. Fluorine-18 with a half-life of 109.75 minutes, Carbon-11 with a half-life of 20.33 minutes, Nitrogen-13 with 9.97 minutes, Oxygen-15 with 2.04 minutes), requiring on-site medical cyclotrons and automated robotic radiochemistry to achieve highly quantitative metabolic and molecular tumor imaging, frequently co-registered with helical CT for precise attenuation correction.",
-      "plain": "X-rays were discovered in 1895 by Roentgen (winning the first Nobel Prize in 1901), and Edison invented fluoroscopy in 1896. X-ray technology evolved from darkroom wet chemical film (Developing -> Fixation -> Washing -> Drying), to 1980s Computed Radiography (CR, which uses phosphor cassettes and digital readers), to modern Direct Digital Radiography (DDR, which needs no readers and has no physical film, but costs more). Fluoroscopy shows live real-time motion for stent placement, bone cement, and angiography, using oral barium sulfate drinks or IV iodine contrast. CT spins 360 degrees around the patient to create 3D multiplanar slices and blood vessel models. Nuclear medicine uses \"radiopharmaceuticals\" (a radioactive isotope attached to a carrier molecule) to show organ function. A gamma camera detects gamma rays from agents like 99mTc-MDP for bone scans. SPECT uses longer-lived gamma emitters like Technetium-99m (6.02 h half-life) that are cheaper and widely available; PET uses very short-lived positron emitters like Fluorine-18 (109.75 min) that need an on-site cyclotron and robotic handling for precise quantitative cancer scanning.",
-      "keyFacts": [
-        "Wilhelm Conrad Roentgen discovered X-rays in 1895; awarded 1st Nobel Prize in Physics (1901).",
-        "Thomas Edison invented dynamic X-ray fluoroscopy in 1896.",
-        "Traditional film processing mandatory chemical order: Developing -> Fixation -> Washing -> Drying.",
-        "Computed Radiography (CR): applied since 1980s; uses cassettes; requires plate readers; compatible with PACS.",
-        "Direct Digital Radiography (DDR): flat-panel detectors; no readers; time-saving; no physical films; expensive.",
-        "Fluoroscopy key features: real-time dynamic monitoring, intraoperative guidance, angiography, stent installation, bone cement.",
-        "Contrast agents: oral barium sulfate (BaSO4) suspension for gut; intravenous ionic vs non-ionic agents.",
-        "Computed Tomography principle: overcomes 2-view projection limit with 360-degree rotation and multiplanar / 3D reconstruction.",
-        "Radiopharmaceutical structure: composed of a radioisotope (\"the siren\") coupled to a specific chemical targeting compound.",
-        "SPECT vs PET: SPECT uses gamma emitters (e.g. 99mTc, t1/2 = 6.02 h); PET uses positron emitters (e.g. 18F, t1/2 = 109.75 min) requiring cyclotrons and robotic synthesis."
-      ],
-      "examples": [
-        "A cardiac catheterization laboratory uses dynamic fluoroscopy and intravenous iodinated contrast to guide real-time coronary angioplasty and deploy a vascular stent under continuous visual feedback.",
-        "In oncology staging, a patient receives an intravenous injection of 18F-FDG (PET tracer), which accumulates in glucose-avid neoplastic lesions and is imaged on an integrated PET-CT scanner to calculate standardized uptake values and map anatomical tumor borders."
-      ]
-    },
-    "memory": {
-      "sequence": "Darkroom film chemistry: D-F-W-D — Developing -> Fixation -> Washing -> Drying.",
-      "comparison": "CR vs DDR: CR keeps cassettes and requires an external reader; DDR has flat panels, needs no reader, and is instant but expensive.",
-      "chunking": "Nuclear medicine radionuclides: SPECT uses Technetium-99m (6.02 h) and Iodine-123 (13 h); PET uses Carbon-11 (20.33 min), Nitrogen-13 (9.97 min), Oxygen-15 (2.04 min), and Fluorine-18 (109.75 min)."
-    },
     "practice": [
       {
         "type": "sequence",
@@ -590,25 +483,6 @@ export const HTI_ITEMS = [
       "Confusing Computed Radiography (CR, which still uses physical cassettes and readers) with Direct Digital Radiography (DDR, which uses no readers).",
       "Assuming that PET and SPECT use identical radioisotopes, overlooking that PET requires positron emitters with very short half-lives and medical cyclotrons.",
       "Reversing the order of wet darkroom processing stages (e.g. putting fixation before developing)."
-    ],
-    "skills": [
-      "Differentiate projection radiography, fluoroscopy, CT, and nuclear medicine instrumentation based on clinical workflow and acquisition geometry.",
-      "Interpret radionuclide half-lives and decay characteristics to evaluate hospital radiopharmacy preparation and imaging feasibility."
-    ],
-    "selfCheck": "From memory, state Roentgen and Edison discoveries with dates, list the 4 film darkroom steps in order, define PACS, and compare SPECT vs PET across 4 parameters (half-life, emitter type, cost, cyclotron requirement).",
-    "visuals": [
-      {
-        "fig": "ctScannerGeometry"
-      },
-      {
-        "fig": "fluoroscopyRoomSetup"
-      },
-      {
-        "fig": "petCtScanner"
-      },
-      {
-        "gen": true
-      }
     ],
     "sourceRefs": [
       {
@@ -890,37 +764,6 @@ export const HTI_ITEMS = [
     subject: 'HTI17103', unit: 'hti.protect', type: 'definition',
     title: 'Radioprotective measures and dose limits',
     tags: ['radioprotection', 'dose-limits', 'alara', 'high-yield'],
-    visuals: [
-      { fig: 'tldBadge' },
-      { schematic: 'radioprotection' },
-      { gen: true },
-    ],
-    lesson: {
-      explanation: 'Radiation protection in medical imaging and radiotherapy is governed by fundamental physical principles and international regulatory limits designed to minimize detrimental biological effects while maximizing diagnostic and therapeutic benefits. Human radiation exposure originates from two main categories: natural background radiation (cosmic rays, terrestrial rocks, and internal radionuclides) and artificial sources. Notably, only 15% of total human exposure belongs to artificial radiation; however, within that artificial component, medical needs account for over 90% (primarily diagnostic radiography, computed tomography, and nuclear medicine radioisotopes).\n\nThe biological damage induced by ionizing radiation follows a dual paradigm:\n1. Deterministic effects: have a definite dose threshold below which the effect does not occur. Once the threshold is exceeded, the severity of biological damage increases with increasing dose (e.g., skin erythema, epilation, and cataractogenesis).\n2. Stochastic effects: have no known dose threshold; any exposure carries a probabilistic risk. The probability of occurrence—rather than its clinical severity—is directly proportional to the radiation dose (e.g., radiation-induced carcinogenesis and hereditary germline mutations).\n\nTo manage stochastic risks, clinical practice adheres to the ALARA principle: as low as reasonably achievable, considering economic and societal factors. Four primary radioprotective measures are employed:\n• Time: exposure should be kept as short as possible because radiation dose accumulates directly with time (the dose rate issue).\n• Distance: staff and personnel should keep as far as possible from the radiation source; under the inverse square law, doubling distance cuts dose to one-quarter.\n• Shielding: with no obstruction of clinical working, personnel must be shielded as comprehensively as possible using lead aprons, thyroid shields, mobile barriers, and lead-glass control booths.\n• Decay: if radioactive material cannot be physically removed (such as in radionuclide therapy or radionuclide spills), a certain time period must be allowed until its natural decay, governed by physical, biological, and effective half-lives.\n\nAccording to ICRP Publication 103, strict occupational and public dose limits are established:\n• Radiology workers: 20 mSv/year averaged over consecutive 5 years, with a single-year ceiling of 50 mSv. If a female worker declares pregnancy, a strict 1 mSv limit is applied for the remainder of the pregnancy.\n• Public: 1 mSv in a year.\n\nFor high-risk jobs (radiographers, radiation therapists, and interventional radiologists), individual occupational exposure is monitored using a thermoluminescent dosimeter (TLD). The TLD has a wide detection range of 0.05 mSv to 10 Sv. However, because TLDs require laboratory heating for readout, they are not feasible for immediate accidental exposure detection.',
-      plain: 'Radiation safety uses four core measures: time (keep exposures short), distance (step back using the inverse square law), shielding (wear lead barriers), and decay (wait for radioisotopes to decay based on half-life), all guided by ALARA (as low as reasonably achievable). Radiation damage is either deterministic (threshold exists, severity scales with dose) or stochastic (no threshold, probability scales with dose). ICRP 103 limits workers to 20 mSv/year (averaged over 5 years; max 50 mSv in any single year; 1 mSv if pregnant) and the public to 1 mSv/year. Personnel wear TLD badges (0.05 mSv–10 Sv range), which cannot detect real-time accidents.',
-      keyFacts: [
-        'Four radioprotective measures: time (short exposure), distance (inverse square law), shielding (barriers), and decay (radioisotope half-lives).',
-        'ALARA principle: as low as reasonably achievable.',
-        'Only 15% of human exposure belongs to artificial radiation, but medical needs account for over 90% of that artificial exposure.',
-        'Deterministic effects have a threshold dose, and severity increases with dose; stochastic effects have no threshold, and probability increases with dose.',
-        'ICRP Publication 103 worker dose limit: 20 mSv/year averaged over consecutive 5 years.',
-        'Worker single-year dose ceiling: 50 mSv in any single year.',
-        'Declared pregnancy dose limit for workers: 1 mSv for the declared period.',
-        'Public dose limit: 1 mSv in a year.',
-        'Thermoluminescent dosimeters (TLD) monitor high-risk personnel, with a detection range of 0.05 mSv to 10 Sv.',
-        'TLDs are not feasible for accidental exposure because they do not provide real-time instantaneous readout.',
-      ],
-      examples: [
-        'During interventional fluoroscopy, a radiographer stands 2 metres away behind a mobile lead barrier rather than next to the patient table, reducing scatter exposure to under 1/4 via the inverse square law plus attenuation.',
-        'In a nuclear medicine department after a diagnostic technetium-99m scan, radioactive waste is held in shielded storage to allow natural decay over multiple physical half-lives before disposal.',
-      ],
-    },
-    memory: {
-      chunking: 'Four protective shields: Time (minimize beam-on seconds) -> Distance (step back, inverse square) -> Shielding (lead aprons, glass walls) -> Decay (half-life in unsealed nuclear medicine).',
-      comparison: 'Deterministic vs Stochastic: Deterministic = definite threshold, severity scales with dose (e.g. skin burn); Stochastic = zero threshold, probability scales with dose (e.g. cancer, leukaemia).',
-      firstLetter: 'TDSD: Time, Distance, Shielding, Decay. Most people remember TDS; remember that Decay is the 4th rule for nuclear isotopes.',
-      number: '20 mSv/yr (5-yr worker average) · 50 mSv (single-year worker cap) · 1 mSv/yr (public and declared pregnancy) · 0.05 mSv to 10 Sv (TLD range) · >90% (medical share of artificial dose).',
-    },
     practice: [
       {
         type: 'sequence',
@@ -1001,12 +844,6 @@ export const HTI_ITEMS = [
       'Believing TLD badges sound an audible alarm during accidental radiation leaks (they require delayed laboratory thermal readout).',
       'Confusing deterministic effects (which have a threshold dose, e.g. skin burn) with stochastic effects (no threshold, e.g. radiation-induced cancer).',
     ],
-    skills: [
-      'Calculating radiation intensity changes using the inverse square law when adjusting staff standing positions.',
-      'Selecting appropriate personal shielding equipment (apron, thyroid collar, mobile barrier) tailored to specific modality risks.',
-      'Managing occupational dosimeter protocols and interpreting ICRP 103 limits for routine and pregnant workers.',
-    ],
-    selfCheck: 'State the 4 radioprotective measures, the difference between deterministic and stochastic damage, the 20 mSv/50 mSv/1 mSv dose limits, and the TLD detection range.',
     sourceRefs: [
       { ref: 'hti.w6', location: 'p3 "thermoluminescent dosimeter (TLD) is a great tool"' },
       { ref: 'hti.w6', location: 'p3 "Detection range of TLD: 0.05 mSv – 10 Sv"' },
@@ -1036,36 +873,6 @@ export const HTI_ITEMS = [
     subject: 'HTI17103', unit: 'hti.rt', type: 'sequence',
     title: 'The radiation therapy pathway',
     tags: ['radiation-therapy', 'clinical-pathway', 'high-yield'],
-    visuals: [
-      { fig: 'linacTreatmentHead', focus: ['Target and flattening filter', 'Collimation system'] },
-      { schematic: 'radiotherapyPath' },
-      { gen: true },
-    ],
-    lesson: {
-      explanation: 'Radiation therapy (radiotherapy, RT) utilizes ionizing radiation—predominantly megavoltage X-ray beams produced by linear accelerators—to destroy malignant tumours with an adequate lethal dose while strictly minimizing dose to adjacent normal organs at risk (OARs). In Hong Kong, the professional title is radiation therapist, formerly designated therapeutic radiographer; in the USA, clinical duties are split between radiologic technologists (whose routine responsibilities differ from Hong Kong therapists) and dosimetrists, who specialize specifically in computerized treatment planning and physical dose calculation. Radiation therapy services in Hong Kong are delivered across twelve specialized RT centres: six public hospitals under the Hospital Authority (Queen Mary Hospital [QMH], Pamela Youde Nethersole Eastern Hospital [PYNEH], Queen Elizabeth Hospital [QEH], Princess Margaret Hospital [PMH], Prince of Wales Hospital [PWH], and Tuen Mun Hospital [TMH]) and six private hospitals (Baptist Hospital, Hong Kong Sanatorium & Hospital, Hong Kong Adventist Hospital, St. Teresa\'s Hospital, Gleneagles Hong Kong Hospital, and Canossa Hospital), served by approximately 420 registered radiation therapists.\n\nThe oncological care pathway begins when a patient is diagnosed with cancer by primary or specialist clinicians (such as general practitioners, general surgeons, or medical physicians). Importantly, not all cancer patients are referred to Clinical Oncology; referral occurs only when oncology management (systemic therapy or radiation) is indicated. In the Clinical Oncology Department, oncologists specializing in RT meet the patient and relatives to explain the treatment journey, schedule the regimen, and initiate a booking for the "RT planning session"—the critical beginning of the treatment workflow and the very first time the patient meets radiation therapists.\n\nThe RT planning session follows four sequential stages:\n1. Step 1: Determine treatment position. Radiation therapists construct personalized immobilization devices (such as thermoplastic head/neck masks or vacuum cushions) to minimize voluntary and involuntary patient movement during irradiation. Four core clinical considerations govern position design: patient comfort, treatment accuracy, planning feasibility, and reproducibility across daily fractions.\n2. Step 2: Simulation. Radiation therapists acquire dedicated medical images (usually CT or MRI scans) simulating the exact planned treatment setup.\n3. Step 3: RT treatment planning. Simulation images are exported to the treatment planning computer. The clinical oncologist reviews every image slice to delineate the tumour volume (number, location, and size). Radiation therapists then contour all organs at risk in proximity to the tumour on every slice. Therapists design one or more radiation beams incident at different gantry angles to achieve high tumour dose and minimal OAR dose, and perform computerized dose calculation to derive machine parameters for the linear accelerator. The entire planning package undergoes meticulous double- and triple-checking by radiation therapists prior to beam delivery.\n4. Step 4: Radiotherapy treatment. The patient attends daily fractions at a designated linear accelerator (typically 5 days per week over 3 to 6 weeks). Two to three radiation therapists stationed at the linac conduct patient assessment, setup alignment, and beam delivery. An official RT treatment record logs every radiation beam delivered each day, the patient\'s general condition and lab results, the cumulative dose, and therapists\' verifying signatures.',
-      plain: 'The RT pathway moves from cancer diagnosis to oncologist consultation, then into the four-step radiotherapy sequence: (1) determine treatment position with custom immobilization (prioritizing comfort, accuracy, feasibility, and reproducibility); (2) CT/MRI simulation in that exact position; (3) treatment planning (oncologist delineates tumour, therapist contours OARs and calculates beam dose); and (4) daily linac treatment (5 days/week for 3–6 weeks by 2–3 therapists). Hong Kong operates 12 RT centres (6 public, 6 private) with ~420 registered radiation therapists.',
-      keyFacts: [
-        'Hong Kong title is radiation therapist (previously therapeutic radiographer); USA splits duties between radiologic technologists and dosimetrists (planning and dose calculation specialists).',
-        'Hong Kong has 12 RT centres: 6 public HA hospitals (QMH, PYNEH, QEH, PMH, PWH, TMH) and 6 private hospitals, with ~420 registered radiation therapists.',
-        'Not all cancer patients are referred to Clinical Oncology; referral occurs only when oncological management is indicated.',
-        'The "RT planning session" booking is the very first time the patient meets radiation therapists.',
-        'Planning Step 1 (Determine treatment position): personalized immobilization devices are constructed to minimize movement.',
-        'Four essential immobilisation considerations: patient comfort, treatment accuracy, planning feasibility, and reproducibility.',
-        'Planning Step 2 (Simulation): acquire CT/MRI medical images and simulate the real treatment setup.',
-        'Planning Step 3 (RT treatment planning): oncologist delineates tumour in every slice; radiation therapist contours OARs in every slice and performs dose calculation.',
-        'Planning Step 4 (Radiotherapy treatment): delivered on a specified linac, typically daily 5 days/week for 3–6 weeks, by 2–3 stationed radiation therapists.',
-        'RT treatment record: logs each beam delivered daily, patient condition, lab results, cumulative dose, and therapist signatures.',
-      ],
-      examples: [
-        'A patient with nasopharyngeal carcinoma (NPC) undergoes thermoplastic head-and-neck immobilization, followed by simulation CT, OAR contouring of the brainstem and parotid glands, and 33 daily fractions over 6.5 weeks.',
-      ],
-    },
-    memory: {
-      chunking: 'Four sequential steps: (1) Position & Immobilize -> (2) Simulate (CT/MRI) -> (3) Plan (Tumour/OAR contours + Dose calculation) -> (4) Treat (Linac 5 days/wk, 3-6 wks).',
-      firstLetter: 'Immobilisation CAFR: Comfort, Accuracy, Feasibility, Reproducibility. Reproducibility is paramount because every daily fraction must match the simulation scan.',
-      comparison: 'Division of labour in Step 3 Planning: Oncologist delineates tumour (target) on every slice; Radiation Therapist contours organs at risk (OARs) on every slice and calculates linac beam parameters.',
-      number: '12 centres (6 public + 6 private) · ~420 registered radiation therapists in HK · 5 days/week for 3-6 weeks · 2-3 therapists at the linac console.',
-    },
     practice: [
       {
         type: 'sequence',
@@ -1156,12 +963,6 @@ export const HTI_ITEMS = [
       'Confusing the roles in planning: the oncologist delineates the tumour volume, whereas the radiation therapist contours organs at risk (OARs) and performs dose calculation.',
       'Assuming the USA job titles are identical to Hong Kong: the US uses "radiologic technologist" and separate specialized "dosimetrists".',
     ],
-    skills: [
-      'Differentiating the clinical roles and responsibilities of oncologists, radiation therapists, and dosimetrists throughout the radiotherapy pathway.',
-      'Tracing the 4-step RT planning workflow from immobilization fabrication through simulation, contouring, dose calculation, and linac fraction delivery.',
-      'Auditing an RT treatment record to ensure beam delivery parameters, therapist sign-offs, and cumulative dose records meet safety standards.',
-    ],
-    selfCheck: 'Recite from memory: the 4 planning session steps, the 4 immobilization criteria, the division of contouring tasks between oncologist and radiation therapist, and the HK RT centre counts (6 public, 6 private, ~420 therapists).',
     sourceRefs: [
       { ref: 'hti.w3', location: 'p2 "Previously: Therapeutic radiographer"' },
       { ref: 'hti.w3', location: 'p2 "Specialist in treatment planning & dose calculation"' },
@@ -1194,31 +995,6 @@ export const HTI_ITEMS = [
       "clinical-practice",
       "high-yield"
     ],
-    "lesson": {
-      "explanation": "Operating a clinical medical imaging or oncology service requires complex institutional infrastructure, coordinated clinical staffing, and rigorous administrative communication. Within the Hong Kong public healthcare system, the Hospital Authority (HA) is geographically organized into 7 hospital clusters that govern 39 Departments of Radiology delivering diagnostic medical imaging (MI), 16 Accident & Emergency (A&E) radiology services providing immediate acute trauma assessment, and 6 Clinical Oncology Centers delivering specialized radiation therapy (RT). To staff this network, the Hospital Authority employs approximately 800 diagnostic radiographers and about 180–200 radiation therapists. At an acute tertiary hospital such as the Prince of Wales Hospital (PWH), a representative departmental workforce comprises 29 radiologists, 84 radiographers, and 16 nurses and patient-care assistants (PCAs). Within the diagnostic X-ray suite, clinical safe practice mandates close teamwork: general radiography rooms are typically staffed by a pair of radiographers who divide operational tasks—one dedicated to direct patient handling (confirming patient identity, explaining the procedure, assisting onto the examination table, and positioning anatomy), while the second operates the control panel (setting kilovoltage [kVp], tube current-time product [mAs], collimator shutters, and triggering beam exposure behind the lead-glass barrier). Support personnel are integral: patient-care assistants assist with changing, gowning, and physical transfers, while registered nurses manage intravenous cannulation and contrast administration in computed tomography (CT), magnetic resonance imaging (MRI), and A&E suites. Every imaging examination begins with an official medical request form (order form), which serves as a legal prescription and clinical communication tool. A qualified radiographer must thoroughly scrutinize the request form across eight essential fields: (1) Patient demographics (full name, Hong Kong Identity Card [HKID] number, hospital number, ward, bed, age, sex, and Chinese name); (2) Drug allergy history (e.g. \"No Known Drug Allergy\" vs contrast allergies); (3) Priority category (Routine, Early, or Urgent); (4) Form of transport (Walk, Wheelchair, or Stretcher); (5) Clinical information—the presenting signs, symptoms, and duration (e.g. the worked lecture example \"Cough x 2/12. SOB\", indicating a 2-month history of persistent cough and shortness of breath); (6) Provisional clinical diagnosis (e.g. \"Chest infection\"); (7) Examination requested (e.g. \"CXR (PA + Lat)\", requesting a chest X-ray in both posteroanterior and lateral projections); and (8) Last Menstrual Period (LMP), mandatory in females of childbearing age to uphold the 10-day or 28-day radiation protection rule and prevent inadvertent irradiation of an early unsuspected pregnancy.",
-      "plain": "A hospital radiology department is a highly organized team. In Hong Kong, the Hospital Authority has 7 hospital clusters with 39 radiology departments, 16 emergency radiology units, and 6 cancer radiation centres, employing around 800 diagnostic radiographers and 180–200 radiotherapists. In the X-ray room, radiographers work in pairs: one positions and handles the patient while the other sets the exposure on the control console. Before taking an image, the radiographer reads the request form, checking patient identity, allergies, urgency, transport, symptoms, diagnosis, the exact views requested (like CXR PA + Lat), and last menstrual period (LMP) to protect pregnant patients from radiation.",
-      "keyFacts": [
-        "Hospital Authority structure: 7 hospital clusters, 39 Departments of Radiology (MI), 16 A&E radiology services, 6 Clinical Oncology Centers (RT).",
-        "Public manpower: approximately 800 diagnostic radiographers and 180–200 radiation therapists across Hong Kong.",
-        "PWH departmental staffing example: 29 radiologists, 84 radiographers, and 16 nurses/patient-care assistants.",
-        "Pair of radiographers: one dedicated to patient handling/positioning, the second dedicated to panel control/exposure triggering.",
-        "Patient-care assistants prepare and transfer patients; nurses support CT, MRI, and A&E emergency contrast suites.",
-        "Eight vital request form fields: patient ID, drug allergy, priority, transport, clinical history, diagnosis, examination, LMP.",
-        "Worked request example: CXR (PA + Lat) = chest X-ray in posteroanterior and lateral projections.",
-        "Clinical information example: \"Cough x 2/12. SOB\" = cough lasting 2 months with shortness of breath; diagnosis = \"Chest infection\".",
-        "LMP verification is mandatory for females of childbearing potential to protect against fetal radiation exposure.",
-        "Transport categories determine patient handling needs: walking (ambulant), wheelchair, or stretcher."
-      ],
-      "examples": [
-        "A patient arrives from A&E on a stretcher with an urgent request form stating \"RTA (road traffic accident), severe dyspnea, suspected pneumothorax; CXR (PA)\". The panel radiographer prepares a mobile digital plate while the patient-handling radiographer carefully verifies identity and immobilizes the patient.",
-        "A 28-year-old female presents for lumbar spine radiography. Because the lumbar spine directly exposes the ovaries and uterus to the primary X-ray beam, the radiographer must check the LMP field on the request form and verbally verify menstrual dates with the patient before making an exposure."
-      ]
-    },
-    "memory": {
-      "chunking": "HA network: 7 clusters -> 39 MI depts -> 16 A&E services -> 6 RT centres. Manpower ratio: 800 diagnostic to 200 therapy (4:1 ratio).",
-      "comparison": "Patient handler vs Panel controller: The handler works in front of the lead shield touching the patient; the controller works behind the lead screen triggering radiation.",
-      "checklist": "Request form 5-finger check: Who (patient ID), Why (symptoms/diagnosis), What (exam requested), When/Safety (LMP & allergy), How (transport mode)."
-    },
     "practice": [
       {
         "type": "mcq",
@@ -1313,19 +1089,6 @@ export const HTI_ITEMS = [
       "Assuming all 39 radiology departments in HA provide cancer radiation therapy (only 6 Clinical Oncology Centers provide radiotherapy; the 39 departments provide diagnostic medical imaging).",
       "Failing to verify LMP verbally with female patients before abdominal or lumbar spine imaging."
     ],
-    "skills": [
-      "Deconstruct clinical abbreviations on radiology order forms (e.g. CXR, PA, Lat, SOB, LMP, RTA, #).",
-      "Coordinate duties within a two-radiographer room team to ensure fast patient throughput and zero radiation positioning errors."
-    ],
-    "selfCheck": "From memory, state the numbers of HA clusters, radiology departments, and RT centres; explain the two roles of the paired radiographers; and list 6 essential fields on an X-ray request form.",
-    "visuals": [
-      {
-        "schematic": "requestForm"
-      },
-      {
-        "gen": true
-      }
-    ],
     "sourceRefs": [
       {
         "ref": "hti.w5",
@@ -1418,37 +1181,6 @@ export const HTI_ITEMS = [
     subject: 'HTI17103', unit: 'hti.modalities', type: 'comparison',
     title: 'Structural against functional, and how a modality gets chosen',
     tags: ['modalities', 'structural-vs-functional', 'clinical-selection', 'high-yield'],
-    visuals: [
-      { fig: 'petCtScanner', focus: ['Gantry aperture bore', 'Motorized patient couch'] },
-      { schematic: 'modalities' },
-      { gen: true },
-    ],
-    lesson: {
-      explanation: 'Clinical imaging and therapeutic radiation technologies in modern hospital healthcare are organized across two main clinical departments, each deploying six core modalities:\n1. Department of Diagnostic Radiology / Radiography: operates General (Routine) X-ray, Vascular Interventional Imaging, Computed Tomography (CT), Magnetic Resonance Imaging (MRI), Ultrasound Imaging, and Nuclear Medicine Imaging.\n2. Department of Radiotherapy: operates Linear Accelerator (LINAC), 3D conformational radiotherapy (3D-CRT), Intensity-modulated radiotherapy (IMRT), Image-guided radiotherapy (IGRT), Brachytherapy, and Heavy ion / Proton therapy.\n\nRather than viewing modalities purely by hardware, clinical practice classifies examinations by the biological information they provide:\n• Structural Imaging (indicating anatomical changes): visualizes macroscopic tissue boundaries, physical morphology, and structural disruption. Modalities include General (Routine) X-ray, Vascular Interventional Imaging, Computed Tomography, Magnetic Resonance Imaging, and Ultrasound Imaging.\n• Functional Imaging (indicating physiological changes): visualizes dynamic metabolic activity, cellular biochemistry, and tissue perfusion. Modalities include Nuclear medicine imaging and Magnetic Resonance Imaging.\n\nA key clinical insight is that Magnetic Resonance Imaging uniquely appears on BOTH lists: the same scanner can acquire high-resolution anatomical sequences (T1-weighted, T2-weighted anatomy) or interrogate physiological function (diffusion-weighted imaging, perfusion MRI, MR spectroscopy, and functional MRI). Thus, structural versus functional is a property of the clinical inquiry and acquisition sequence, not rigid machine classification.\n\nWhen determining which examination to perform, clinicians and radiographers evaluate three fundamental selection grounds ("Why is certain modality chosen?"):\n1. Structure-of-interest: bones (optimally depicted by plain X-ray or high-resolution CT for cortical bone and trabeculae), soft tissues (best differentiated by the superior contrast resolution of MRI or ultrasound), or biochemical activities (assessed by radiotracers in nuclear medicine or functional MRI sequences).\n2. Disease-dependent pathology: specific radiological presentations demand tailored modalities—such as evaluating tumor heterogeneity (cellularity vs necrotic cores via multi-parametric MRI or PET/CT), detecting air/fluid levels (demonstrating erect plain X-rays or CT for acute bowel obstruction or hemothorax), or identifying fat pad signs (revealing occult intra-articular elbow fractures on lateral radiographs).\n3. Patient condition: clinical acuity, mobility, cooperation, pregnancy, renal function, presence of metallic implants, or critical claustrophobia.\n\nFinally, radiographers contribute indispensable professional care to diagnosis across five domains: calmly communicating and comforting patients for preparation, precisely positioning patients and setting imaging parameters, safeguarding patient welfare through radiation dose optimization and safety measures (ALARA), maintaining vigilant caution throughout medical interventions, and delivering informative images for definitive medical diagnosis.',
-      plain: 'Hospitals divide modalities into Diagnostic Radiology (General X-ray, Interventional, CT, MRI, Ultrasound, Nuclear Medicine) and Radiotherapy (LINAC, 3D-CRT, IMRT, IGRT, Brachytherapy, Heavy ion/Proton). Modalities are also split into Structural (anatomical changes) and Functional (physiological changes). MRI uniquely belongs to both groups. Choosing a modality depends on three factors: structure-of-interest (bones, soft tissues, biochemical activities), disease-dependent features (tumor heterogeneity, air/fluid levels, fat pad signs), and patient condition. Radiographers contribute by comforting patients, precise positioning/parameters, safeguarding radiation safety, staying cautious during interventions, and providing diagnostic images.',
-      keyFacts: [
-        'Diagnostic Radiology operates six modalities: General X-ray, Vascular Interventional, CT, MRI, Ultrasound, and Nuclear Medicine.',
-        'Radiotherapy operates six delivery modalities: LINAC, 3D-CRT, IMRT, IGRT, Brachytherapy, and Heavy ion / Proton therapy.',
-        'Structural imaging indicates anatomical changes: General X-ray, Vascular Interventional, CT, MRI, Ultrasound.',
-        'Functional imaging indicates physiological changes: Nuclear Medicine and MRI.',
-        'MRI uniquely appears on both lists (structural and functional).',
-        'Modality selection rests on three grounds: structure-of-interest, disease-dependent factors, and patient condition.',
-        'Structure-of-interest divides into bones, soft tissues, and biochemical activities.',
-        'Disease-dependent examples include tumor heterogeneity, air/fluid levels, and fat pad signs.',
-        'Radiographers have five core clinical contributions: patient comfort/communication, positioning/parameters, dose/safety safeguarding, procedural caution, and diagnostic image quality.',
-        'A modality choice is tailored to the patient and clinical question, rather than choosing the most expensive machine.',
-      ],
-      examples: [
-        'A suspected scaphoid or radial head fracture with joint effusion exhibits an elevated fat pad sign on plain radiography, prompting targeted immobilization or CT.',
-        'An erect abdominal radiograph or CT demonstrates horizontal air/fluid levels in dilated bowel loops, diagnosing mechanical intestinal obstruction.',
-      ],
-    },
-    memory: {
-      chunking: 'Two departments x 6 modalities: Diagnostic = X-ray, Interventional, CT, MRI, US, Nuclear Medicine. Radiotherapy = LINAC, 3D-CRT, IMRT, IGRT, Brachytherapy, Heavy ion/Proton.',
-      comparison: 'Structural vs Functional: Structural = anatomical changes (bones, margins); Functional = physiological changes (metabolism, perfusion). MRI bridges both.',
-      story: 'The 3 selection questions: (1) What anatomy is injured? [Structure-of-interest: bone, soft tissue, chemistry] -> (2) What disease process is suspected? [Disease-dependent: tumour heterogeneity, air/fluid level, fat pad] -> (3) Who is the patient? [Patient condition: trauma, renal status, pacemaker].',
-      firstLetter: 'Five Radiographer Contributions: C-P-S-C-I: Communicate/comfort, Position/parameters, Safeguard dose/safety, Cautious intervention, Informative images.',
-    },
     practice: [
       {
         type: 'matching',
@@ -1545,12 +1277,6 @@ export const HTI_ITEMS = [
       'Selecting modalities solely based on "newest or most expensive technology" rather than structure, disease, and patient condition.',
       'Overlooking patient condition contraindications (e.g. pacemakers for MRI, renal failure for iodinated CT contrast, instability in prolonged scanning).',
     ],
-    skills: [
-      'Evaluating imaging requisitions across the three criteria: structure-of-interest, disease characteristics, and patient condition.',
-      'Differentiating structural anatomical examinations from functional physiological studies and recognizing hybrid applications (PET/CT, fMRI).',
-      'Implementing the radiographer’s five clinical responsibilities to balance diagnostic image quality with patient radiation protection.',
-    ],
-    selfCheck: 'Recite from memory: the 6 diagnostic modalities, 6 radiotherapy modalities, the 3 modality selection grounds (with examples), and the radiographer\'s 5 clinical contributions.',
     sourceRefs: [
       { ref: 'hti.w2.2025', location: 'p38 "Benefits Limitations"' },
       { ref: 'hti.w2.2025', location: 'p41 "Name the modalities"' },
@@ -1594,29 +1320,6 @@ export const HTI_ITEMS = [
     subject: 'HTI17103', unit: 'hti.rt', type: 'concept',
     title: 'Linear accelerator: physics, microwave RF, and treatment head',
     tags: ['radiation-therapy', 'linac', 'physics', 'high-yield'],
-    visuals: [
-      { fig: 'linacTreatmentHead' },
-      { gen: true },
-    ],
-    lesson: {
-      explanation: 'The medical linear accelerator (linac) accelerates electrons to megavoltage kinetic energies using high-frequency microwaves, first constructed as a 4 MV unit in 1953 adapting wartime radar technology. Unlike cobalt-60 teletherapy units, a linac contains no permanent radioactive source, eliminating source decay corrections and disposal hazards. Megavoltage photon beams offer superior skin sparing and low bone absorption compared to orthovoltage because Compton scattering predominates over photoelectric absorption. High-voltage DC pulses (38–52 kV) from the modulator drive the electron gun and the microwave generator at ~3 GHz. For low-energy linacs (typically 4–6 MV), a magnetron operates as a self-oscillating microwave source (2–5 MW peak power). For high-energy multi-modality linacs, a klystron functions as a high-gain microwave amplifier (~7 MW peak power) requiring an external RF driver. Electrons emitted from the gun cathode at ~0.4c enter the evacuated accelerating waveguide (maintained at 10^-7 torr by an ion pump) and ride the microwave electric field up to ~0.9c. In high-energy machines with horizontal waveguides, the electron beam is bent onto the target by a 90° magnet (yielding a compact head and low isocentre) or a 270° achromatic magnet (ensuring stable energy selection and field uniformity). In photon mode, the electrons strike a high-Z target (tungsten) producing bremsstrahlung X-rays; the beam is shaped by a conical primary collimator, flattened by a low-Z flattening filter (designed so the flattening region covers 80% of FWHM, with over-flattening at Dmax producing peripheral "horns"), and monitored by dual independent ionization chambers before reaching the collimator jaws.',
-      plain: 'A linac uses 3 GHz radar microwaves to accelerate electrons from 0.4c to 0.9c into a tungsten target. Low-energy machines use a magnetron oscillator; high-energy machines use a klystron amplifier. A 270° bending magnet ensures uniform energy, while a low-Z flattening filter evens out the forward-peaked photon beam.',
-      keyFacts: [
-        'The first medical linear accelerator (4 MV) was built in 1953 adapting wartime radar technology with a magnetron microwave source.',
-        'No permanent radioactive source exists in a linac, unlike a cobalt-60 unit.',
-        'Megavoltage photon beams give low bone absorption compared to orthovoltage due to Compton predominance.',
-        'Microwave generators operate near 3 GHz: magnetrons are oscillators (2–5 MW peak power) used in low-energy machines; klystrons are amplifiers (~7 MW peak power) used in high-energy machines.',
-        'Electrons eject from the electron gun at ~0.4c and accelerate to ~0.9c in the waveguide, kept under vacuum (10^-7 torr) by an ion pump.',
-        '90° bending magnets produce a smaller head and lower isocentre; 270° bending magnets provide stable energy output and beam uniformity.',
-        'The primary collimator limits the field to 50 cm diameter; the low-Z flattening filter creates a uniform beam across 80% of FWHM, with "horns" appearing at Dmax.',
-      ],
-      examples: ['The Prince of Wales Hospital radiotherapy department operates multi-modality Varian and Elekta linacs spanning 6 MV to high-energy dual-photon beams.'],
-    },
-    memory: {
-      chunking: 'Three stages: (1) Generation (modulator + magnetron/klystron at 3 GHz), (2) Acceleration (electron gun at 0.4c -> waveguide to 0.9c -> 270° bending magnet), (3) Collimation & Monitoring (target -> primary collimator -> flattening filter -> dual ion chambers -> jaws).',
-      comparison: 'Magnetron vs Klystron: Magnetron makes its own wave (oscillator, 2-5 MW, low energy); Klystron needs an input signal to amplify (amplifier, 7 MW, high energy).',
-      mnemonic: 'M-M-L: Magnetron = Makes Microwave (oscillator) = Low energy. K-A-H: Klystron = Amplifier = High energy.',
-    },
     practice: [
       { type: 'mcq', prompt: 'Which microwave source functions as an oscillator and is typically used in low-energy linacs?', options: ['Klystron', 'Magnetron', 'Betatron', 'Cyclotron'], answer: 1,
         explanation: 'A magnetron is a microwave oscillator (2–5 MW peak power) used in low-energy linacs. A klystron is an amplifier (~7 MW) used in high-energy machines.',
@@ -1649,10 +1352,6 @@ export const HTI_ITEMS = [
       'Believing a linac contains radioactive cobalt or caesium pellets that must be stored safely when power is off.',
       'Thinking the flattening filter is used during electron beam therapy (it is only used for photon beams; electron beams use scattering foils).',
     ],
-    skills: [
-      'Tracing linac beam generation from RF power through acceleration to target and flattening, and recognising why Compton dominance makes megavoltage linac photons safe for pelvic and thoracic bony anatomy.',
-    ],
-    selfCheck: 'State the difference between magnetron and klystron, electron speeds before and after the waveguide, and the purpose of the flattening filter.',
     sourceRefs: [
       { ref: 'hti.linac1', location: 'p6 "1953 first 4MV machine was made"' },
       { ref: 'hti.linac1', location: 'p6 "Used Radar technique : Magnetron microwave source"' },
@@ -1673,29 +1372,6 @@ export const HTI_ITEMS = [
     subject: 'HTI17103', unit: 'hti.rt', type: 'concept',
     title: 'Linac accessories: Cerrobend, wedges, MLCs, and bunker maze shielding',
     tags: ['radiation-therapy', 'linac', 'accessories', 'protection', 'high-yield'],
-    visuals: [
-      { fig: 'multileafCollimator' },
-      { gen: true },
-    ],
-    lesson: {
-      explanation: 'Linear accelerators utilize specialized accessories and collimation devices to conform the radiation field to the target volume while sparing critical organs. Conventional field-shaping lead blocks (7 cm thick with 2 cm aluminium) provide transmission under 3%, but custom Cerrobend (Lipowitz metal: bismuth, lead, tin, cadmium) is preferred due to its low melting point of 70°C, casting easily into divergent shapes (8 cm thickness provides ~7 cm lead equivalence). However, blocks weigh ~25 lbs, posing physical handling hazards, and take 1–2 days to fabricate. Beam collimation begins with independent jaws (transmission <0.5%). For beam modification, physical wedges (typically 15° to 60°) attenuate the beam differentially but reduce field size (15–20 cm) and require staff to enter the room. Dynamic wedges (virtual wedges driven by independent jaw movement during irradiation) achieve field widths up to 30 cm and eliminate room entry, speeding treatment. Modern multi-leaf collimators (MLCs) replace physical blocks: on Varian systems, leaves move at ~3 cm/s with transmission around 1.8% and leaf travel up to 14.5 cm each side. In bunker radiation protection, machines operating above 10 MV trigger photonuclear reactions (gamma, n) that generate hazardous photoneutrons; treatment room bunkers incorporate a 5 m long maze that attenuates scatter and secondary radiation to one-tenth, avoiding the need for heavy direct-shielding neutron doors.',
-      plain: 'Cerrobend blocks melt at 70°C but weigh 25 lbs and take days to pour. Modern linacs replace them with dynamic wedges (up to 30 cm field, no room entry) and 120-leaf MLCs (3 cm/s leaf speed, 1.8% transmission). Above 10 MV, photoneutrons are produced, requiring a 5 m maze entrance to reduce radiation tenfold.',
-      keyFacts: [
-        'Cerrobend alloy has a low melting point of 70°C; an 8 cm block provides equivalent attenuation to 7 cm of pure lead.',
-        'Physical field blocks weigh ~25 lbs, presenting an ergonomic and drop hazard, and require 1–2 days to fabricate.',
-        'Independent jaws have a transmission of under 0.5%.',
-        'Dynamic wedges provide a larger field size (30 cm width vs 15–20 cm for physical wedges) and do not require therapists to enter the treatment room.',
-        'Varian MLC leaves travel at a maximum speed of ~3 cm/s with average leaf transmission of ~1.8%.',
-        'At beam energies above 10 MV, photonuclear reactions produce photoneutrons.',
-        'A 5 m long bunker maze reduces scatter and secondary radiation entering the door to one-tenth.',
-      ],
-      examples: ['At Prince of Wales Hospital, dynamic MLC delivery and volumetric arc therapy (RapidArc) replaced Cerrobend block casting for head and neck (NPC) treatments.'],
-    },
-    memory: {
-      chunking: 'Accessories from coarse to fine: Primary jaws (<0.5% transmission) -> Blocks/Cerrobend (70°C melting, 25 lbs) -> Wedges (dynamic up to 30 cm) -> MLC (3 cm/s, 1.8% transmission). Room safety: >10 MV produces neutrons; 5 m maze = 1/10 reduction.',
-      comparison: 'Physical wedge vs Dynamic wedge: Physical wedge limits field to 15-20 cm and requires entering room between fields; Dynamic wedge moves jaws during beam-on, gives 30 cm width, and therapists stay at console.',
-      number: '70°C (Cerrobend melting) · 25 lbs (block weight) · 3 cm/s (MLC leaf speed) · 1.8% (MLC transmission) · >10 MV (neutrons) · 5 m maze (1/10 dose).',
-    },
     practice: [
       { type: 'mcq', prompt: 'What is the primary operational advantage of dynamic wedges over physical metal wedges?', options: ['They increase photon energy', 'They provide larger field sizes (30 cm vs 15–20 cm) without requiring staff to enter the room', 'They eliminate all collimator transmission', 'They reduce treatment machine cost'], answer: 1,
         explanation: 'Dynamic wedges achieve up to 30 cm field width (vs 15–20 cm for physical wedges) and are driven by moving jaws during treatment, eliminating staff room entry.',
@@ -1724,10 +1400,6 @@ export const HTI_ITEMS = [
       'Assuming linac jaws transmit 5% (jaws transmit <0.5%; MLC leaves transmit ~1.8%).',
       'Believing neutron shielding is required for 6 MV linac bunkers (photonuclear reactions only become significant above 10 MV).',
     ],
-    skills: [
-      'Evaluating linac beam collimators, comparing Cerrobend blocks vs dynamic wedges and MLCs, and applying bunker maze protection rules for megavoltage installations.',
-    ],
-    selfCheck: 'State the melting point and weight hazard of Cerrobend, the leaf speed and transmission of MLCs, the neutron threshold energy, and the attenuation factor of a 5 m maze.',
     sourceRefs: [
       { ref: 'hti.linac4', location: 'p3 "7cm thick with 2cm Al at the"' },
       { ref: 'hti.linac4', location: 'p4 "Low melting point (70oC)"' },
@@ -1745,30 +1417,6 @@ export const HTI_ITEMS = [
     subject: 'HTI17103', unit: 'hti.rt', type: 'concept',
     title: 'Linac electron therapy and RapidArc volumetric modulated arc delivery',
     tags: ['radiation-therapy', 'linac', 'electrons', 'rapidarc', 'high-yield'],
-    visuals: [
-      { fig: 'multileafCollimator', focus: ['Tungsten leaf banks', 'Conformal aperture opening'] },
-      { gen: true },
-    ],
-    lesson: {
-      explanation: 'Megavoltage linear accelerators provide dedicated electron-beam therapy for superficial tumours and skin lesions, taking advantage of electrons steep depth-dose fall-off to spare underlying distal tissues. When switched to electron mode, the tungsten X-ray target and flattening filter retract, and electrons pass through scattering foils. Two types of scattering foil exist: single scatter and double scatter (where a primary thin foil broadens the pencil beam and a secondary contoured foil flattens the profile). Because electrons scatter heavily in air, collimation requires an electron applicator (cone) extending close to the patient surface, fitted with custom Cerrobend or lead cut-outs. For electron energies up to 26 MeV, the lead insert thickness in cm roughly equals the electron energy in MeV (with an added aluminium filter to absorb ~88 kV characteristic lead X-rays). Electron beam penetration is governed by depth-dose formulas: under NACP protocols, mean surface energy is estimated as E = 2.33 x d50 (where d50 is the depth of 50% dose in cm), and the 80% therapeutic depth roughly equals Energy (MeV) / 3 for a 10x10 cm field. Distal bremsstrahlung X-ray contamination contributes ~3% background dose at 3–10 MeV and ~5% at 10–25 MeV. In modern photon radiotherapy, RapidArc (volumetric modulated arc therapy) was implemented at Prince of Wales Hospital in April 2009 using 120-leaf multileaf collimators. RapidArc coordinates continuous gantry rotation (speed capped at 6 deg/s), dynamic MLC movement (max speed 3.0 cm/s), and variable dose rate (up to 600 MU/s). Progressive Resolution Optimization optimizes the arc through hierarchical stages, from Level 1 (10 control points) up to Level 5 (177 control points), maintaining X-jaw < 17 cm for dual-arc setups. For complex targets such as nasopharyngeal carcinoma (NPC), RapidArc reduces total monitor units from >2000 MU in static IMRT to <700 MU, and shortens treatment delivery time from 12–20 minutes down to ~3 minutes, drastically minimizing intrafraction patient and organ motion.',
-      plain: 'Electron beams spare deep organs via steep dose fall-off. Dual scattering foils flatten the beam, applicators bring collimation close, and lead cut-outs (thickness in cm ~ energy in MeV) shape the field. NACP energy is E = 2.33 x d50. In arc therapy, RapidArc rotates the gantry (6 deg/s), moves 120 MLC leaves (3.0 cm/s), and varies dose rate (600 MU/s), cutting NPC treatment time from 15 min to 3 min.',
-      keyFacts: [
-        'There are two types of scattering foil used in linac electron mode: single scatter and double scatter.',
-        'For electron energies <= 26 MeV, lead-insert thickness in cm roughly equals the electron energy in MeV, with an aluminium filter added to absorb 88 kV lead X-rays.',
-        'The NACP electron energy formula is E = 2.33 x d50 (Dose); for a 10x10 cm field, the 80% therapeutic depth d80 ~ Energy (MeV) / 3.',
-        'Distal X-ray contamination in electron beams averages ~3% for 3–10 MeV and ~5% for 10–25 MeV.',
-        'Modern linacs utilize 120-leaf multileaf collimators for conformal intensity modulation.',
-        'RapidArc delivers VMAT with delivery parameters restricted to gantry speed 6 deg/s, MLC speed 3.0 cm/s, and maximum dose rate 600 MU/s.',
-        'RapidArc Progressive Resolution Optimization refines delivery from Level 1 (10 control points) to Level 5 (177 control points), using an X-jaw < 17 cm.',
-        'For nasopharyngeal carcinoma (NPC), RapidArc cuts monitor units from >2000 MU (IMRT) to <700 MU, and treatment time from 12–20 minutes to ~3 minutes.',
-      ],
-      examples: ['Prince of Wales Hospital treats NPC patients with dual RapidArc coplanar arcs in approximately 3 minutes couch time.'],
-    },
-    memory: {
-      chunking: 'Electrons: Retract target -> Scattering foils (single/double) -> Applicator + Pb insert (thickness in cm = MeV) + Al filter (88 kV) -> d50 x 2.33 = E, d80 = E/3. RapidArc: 120 leaves, 6 deg/s gantry, 3 cm/s leaf, 600 MU/s, 10 -> 177 control points, NPC: 3 min vs 15 min.',
-      comparison: 'IMRT vs RapidArc: Static IMRT uses fixed gantry angles with 12-20 min delivery and >2000 MU; RapidArc delivers during continuous gantry rotation in 3 min with <700 MU.',
-      number: '2.33 x d50 (NACP energy) · 3% and 5% (X-ray contamination) · 120 leaves · 6 deg/s (gantry) · 3.0 cm/s (MLC) · 600 MU/s (dose rate) · 177 CP (Level 5) · 3 min vs 12-20 min.',
-    },
     practice: [
       { type: 'mcq', prompt: 'According to NACP protocols, how is mean electron beam energy (E) related to the 50% depth-dose level (d50)?', options: ['E = 1.5 x d50', 'E = 2.33 x d50', 'E = 3.0 x d50', 'E = 5.0 x d50'], answer: 1,
         explanation: 'Under NACP protocols, mean electron energy at the surface is calculated as E = 2.33 x d50.',
@@ -1801,10 +1449,6 @@ export const HTI_ITEMS = [
       'Assuming RapidArc increases monitor units (it decreases MUs from >2000 to <700 for NPC).',
       'Confusing NACP electron dose formula (2.33 x d50) with photon depth dose rules.',
     ],
-    skills: [
-      'Evaluating electron beam collimation and depth dose (NACP formula, lead insert thickness), and quantifying RapidArc delivery parameters (gantry/MLC speed limits, MU reduction, treatment time efficiency).',
-    ],
-    selfCheck: 'State the NACP electron energy equation, the lead insert rule of thumb, the three RapidArc motion constraints (gantry, MLC, dose rate), and the NPC treatment time comparison.',
     sourceRefs: [
       { ref: 'hti.linac3', location: 'p5 "NACP E = 2.33 x d50 (Dose)"' },
       { ref: 'hti.linac3', location: 'p6 "3-10MeV ~ 3%"' },
@@ -1830,28 +1474,6 @@ export const HTI_ITEMS = [
     subject: 'HTI17103', unit: 'hti.rt', type: 'concept',
     title: 'Evolution of radiotherapy: 2D, 3D-CRT, static IMRT, and rotational arc therapy (VMAT & Tomotherapy)',
     tags: ['radiation-therapy', 'vmat', 'tomotherapy', 'imrt', 'high-yield'],
-    visuals: [
-      { fig: 'multileafCollimator', focus: ['Tungsten leaf banks', 'Conformal aperture opening'] },
-      { gen: true },
-    ],
-    lesson: {
-      explanation: 'Radiotherapy technology has progressively evolved through four major eras. In the 2D era, two-dimensional radiotherapy was the standard of care, relying on planar anatomical landmarks and bony projections. The advent of CT scanning for radiotherapy planning ushered in three-dimensional conformal radiation therapy (3D-CRT), which shapes beams to target volumes using multileaf collimators (MLCs) while delivering uniform beam intensities. Next, intensity-modulated radiation therapy (IMRT) revolutionized dose delivery by dividing each large radiation beam into numerous tiny beamlets with individually modulated intensities, allowing concave dose distributions around critical organs at risk. However, conventional step-and-shoot or dynamic IMRT relies on static gantry angles that do not rotate while the beam is on. Because IMRT generally requires more beams than 3D-CRT, plans can be complex and take longer to deliver, prolonging the time that a patient must remain immobilized on the treatment couch (e.g. stereotactic lung treatments taking up to 45 min to deliver). Furthermore, static IMRT can result in increased integral dose and greater low-dose bath to normal tissues, raising concerns regarding a potential increased risk of secondary malignancy. In response, modern rotational arc therapy (such as Tomotherapy and Volumetric Modulated Arc Therapy / VMAT) incorporates rotation of the beam relative to the patient while continuously shaping beamlets and modulating fluence. Rotational delivery achieves highly conformal target coverage with steeper dose fall-off, substantial reductions in monitor units (MU), and dramatic compression of treatment times down to just a few minutes, markedly minimizing intrafraction patient movement and internal organ shift.',
-      plain: 'Radiotherapy progressed from 2D (bony landmarks) to 3D-CRT (CT anatomy, uniform beams), static IMRT (modulated beamlets at fixed gantry angles), and rotational arc therapy (VMAT and Tomotherapy). Arc therapy rotates while delivering, slashing delivery times from up to 45 min down to a few minutes and lowering monitor units while maintaining steep dose fall-off.',
-      keyFacts: [
-        '2D radiotherapy historically relied on planar anatomical landmarks, whereas CT scanning ushered in 3D conformal radiotherapy (3D-CRT).',
-        'IMRT divides each radiation beam into numerous small beamlets with modulated intensities, allowing concave conformal dose distributions.',
-        'Static IMRT uses fixed gantry angles that do not rotate while the beam is on.',
-        'Static IMRT generally requires more beam directions, takes longer to deliver, and increases total body integral dose, raising potential secondary malignancy risks.',
-        'Rotational arc therapy (Tomotherapy and VMAT) delivers radiation continuously as the gantry rotates relative to the patient.',
-        'Arc therapy compresses delivery times (avoiding lengthy 45-minute couch times) and decreases monitor units, reducing intrafraction patient motion.',
-      ],
-      examples: ['Stereotactic body radiotherapy (SBRT) for early lung cancer delivers high hypofractionated doses (e.g. 3 fractions of 20 Gy) using rotational arc therapy in minutes instead of up to 45 minutes.'],
-    },
-    memory: {
-      chunking: '2D (planar bones) -> 3D-CRT (CT scans, uniform MLC) -> IMRT (static angles, modulated beamlets, longer time/integral dose) -> Arc Therapy (Tomotherapy/VMAT: continuous rotation + modulation, faster tx, fewer MUs).',
-      comparison: 'Static IMRT vs Arc Therapy (VMAT): Static IMRT has fixed gantry angles, higher integral dose, and longer delivery times (up to 45 min); Arc therapy rotates continuously during delivery, shortening treatment time to minutes and lowering MUs.',
-      number: '4 eras (2D, 3D-CRT, IMRT, Arc) · Up to 45 min (static SBRT) vs ~3 min (arc delivery) · 3 fractions of 20 Gy (stereotactic lung).',
-    },
     practice: [
       { type: 'mcq', prompt: 'What distinguishes conventional static IMRT from rotational arc therapy (such as VMAT and Tomotherapy)?', options: ['IMRT uses electron beams while arc therapy uses protons', 'Static IMRT uses gantry angles that do not rotate while the beam is on, whereas arc therapy delivers continuously during rotation', 'Static IMRT does not use multileaf collimators', 'Arc therapy cannot modulate beam intensity'], answer: 1,
         explanation: 'In conventional static IMRT, beams are delivered from fixed gantry angles that do not rotate while the beam is active. Arc therapy rotates continuously around the patient during beam delivery.',
@@ -1884,10 +1506,6 @@ export const HTI_ITEMS = [
       'Thinking static IMRT rotates during irradiation (static IMRT delivers from fixed gantry angles).',
       'Believing arc therapy increases total treatment time (it dramatically decreases delivery time from ~45 min to ~3 min).',
     ],
-    skills: [
-      'Contrasting 2D, 3D-CRT, static IMRT, and rotational arc therapy (VMAT/Tomotherapy), and evaluating the clinical impacts of integral dose, monitor units, and intrafraction motion.',
-    ],
-    selfCheck: 'Outline the chronological progression from 2D to rotational arc therapy, state why static IMRT prolonged delivery times, and explain how continuous rotation improves efficiency and reduces intrafraction error.',
     sourceRefs: [
       { ref: 'hti.arc.deck', location: 'p1 "dimensional radiotherapy was the standard of care, relying on"' },
       { ref: 'hti.arc.deck', location: 'p1 "The advent of CT scanning for radiotherapy planning ushered in"' },
@@ -1910,29 +1528,6 @@ export const HTI_ITEMS = [
     subject: 'HTI17103', unit: 'hti.rt', type: 'concept',
     title: 'Liver SBRT and selective internal radiation therapy (SIRT) for hepatocellular carcinoma',
     tags: ['radiation-therapy', 'sbrt', 'sirt', 'liver', 'high-yield'],
-    visuals: [
-      { fig: 'cyberKnifeRobotic' },
-      { gen: true },
-    ],
-    lesson: {
-      explanation: 'Stereotactic body radiotherapy (SBRT) and selective internal radiation therapy (SIRT / radioembolization) represent advanced conformal radiation modalities for hepatocellular carcinoma (HCC). Stereotactic body radiotherapy is a conformal external beam radiation technique that uses a small number of relatively large fractions (e.g. 24–54 Gy in 3–6 fractions). Because the diaphragm and liver motion can be as much as 3 cm cranio-caudally during respiration, stringent breathing motion management and 4D image guidance are mandatory. To prevent tumor seeding and major bleeding from hypervascular HCC in cirrhotic patients with coagulopathy, radio-opaque fiducial markers for tracking are implanted in the surrounding non-neoplastic liver rather than inside the tumor core. External beam dose escalation is limited by liver tolerance to prevent radiation-induced liver disease (RILD): classic radiation-induced liver disease (RILD) presents with anicteric ascites and alkaline phosphatase elevation associated with veno-occlusive disease, whereas non-classic RILD is characterized by a 5-fold elevation in liver transaminases or worsening of Child-Pugh score. Normal tissue tolerances include maximal doses of 30 Gy in 6 fractions to esophagus and bowel. In contrast, selective internal radiotherapy or radioembolization refers to the injection of radioisotopes, usually delivered to liver tumors via the hepatic artery, exploiting the fact that HCC derives >80% of its blood from arterial branches while normal liver parenchyma receives ~75% from the portal vein. The most common therapeutic isotopes are Yttrium-90 (90 Y) and Iodine-131 (131 I); 90Y is a pure beta emitter with a physical half-life of 2.7 days and average tissue penetration of 3 mm, allowing outpatient delivery without prolonged isolation (unlike 131I which requires 7–10 days of isolation). Selective internal radiation therapy is the only therapy that can deliver high doses of radiation to diffuse small HCC across large tumor burdens, but whole-liver SIRT should be avoided in Child-Pugh B patients.',
-      plain: 'Liver SBRT uses high-dose external beams in 3–6 fractions, managing up to 3 cm cranio-caudal respiratory motion and placing tracking fiducials in non-neoplastic liver to avoid bleeding, while guarding against classic RILD (anicteric ascites, ALP rise) and non-classic RILD. SIRT injects radioisotopes (chiefly 90Y microspheres: beta emitter, 2.7 d half-life, 3 mm tissue range) through the hepatic artery to deliver 100–150 Gy selectively to tumors, and is the only modality delivering high doses to diffuse HCC, though whole-liver SIRT is avoided in Child-Pugh B cirrhosis.',
-      keyFacts: [
-        'Stereotactic body radiotherapy is a conformal external beam radiation technique using large fractions (e.g. 24–54 Gy in 3–6 fractions).',
-        'Diaphragm and liver motion can be as much as 3 cm cranio-caudally during respiration, requiring stringent 4D motion management.',
-        'Fiducial markers are implanted in surrounding non-neoplastic liver to avoid bleeding risks from hypervascular HCC and cirrhotic coagulopathy.',
-        'Classic RILD presents with anicteric ascites and alkaline phosphatase elevation (veno-occlusive disease); non-classic RILD presents with transaminase elevation or Child-Pugh worsening.',
-        'Selective internal radiotherapy (SIRT) injects radioisotopes via the hepatic artery, exploiting the arterial supply of HCC.',
-        'Yttrium-90 (90Y) has a physical half-life of 2.7 days and average tissue penetration of 3 mm, delivering 100–150 Gy without prolonged isolation.',
-        'SIRT is the only therapy delivering high radiation doses to diffuse small HCC, but whole-liver SIRT should be avoided in Child-Pugh B patients.',
-      ],
-      examples: ['A patient with an unresectable 5.6 cm segment 7 HCC receives 39 Gy in six fractions of SBRT with 4D motion control, demonstrating 25% tumor reduction at 3 months.'],
-    },
-    memory: {
-      chunking: 'SBRT (external beam, 3–6 fx, 3 cm craniocaudal motion, fiducials in normal liver, classic/non-classic RILD) vs SIRT (hepatic artery, 90Y beta emitter, 2.7 d half-life, 3 mm penetration, diffuse HCC, avoid Child-Pugh B).',
-      comparison: 'SBRT vs SIRT: SBRT is external beam hypofractionated (3–6 fractions) targeting focal tumors with breathing motion control; SIRT is transcatheter radioembolization (90Y microspheres) via the hepatic artery capable of treating diffuse multifocal disease.',
-      number: '3 cm (liver craniocaudal motion) · 30 Gy / 6 fx (bowel/esophagus max dose) · 2.7 days (90Y half-life) · 3 mm (90Y average tissue range) · 100–150 Gy (SIRT tumor dose).',
-    },
     practice: [
       { type: 'mcq', prompt: 'In liver stereotactic body radiation therapy (SBRT), why are radio-opaque fiducial markers usually implanted in surrounding non-neoplastic liver rather than within the hepatocellular carcinoma itself?', options: ['Tumor markers cannot be seen on kV imaging', 'Because of concern about hepatocellular carcinoma high vascularization and cirrhosis-related coagulation impairment', 'Markers migrate faster in healthy liver tissue', 'To increase the physical density of the normal liver'], answer: 1,
         explanation: 'Due to tumor hypervascularity and underlying cirrhotic coagulopathy, fiducials are placed in surrounding non-neoplastic liver to prevent major hemorrhage.',
@@ -1965,10 +1560,6 @@ export const HTI_ITEMS = [
       'Confusing classic RILD (anicteric ascites, alkaline phosphatase elevation) with acute hepatitis (marked jaundice and transaminitis).',
       'Believing 90Y requires prolonged inpatient isolation (it is a beta emitter with ~3 mm penetration and 2.7 d half-life; 131I Lipiodol requires 7–10 days isolation).',
     ],
-    skills: [
-      'Contrasting liver SBRT and SIRT radioembolization mechanisms, detailing 4D breathing motion management (up to 3 cm liver excursion), identifying fiducial placement safety in non-neoplastic liver, distinguishing classic from non-classic RILD, and analyzing Yttrium-90 physical properties and clinical indications.',
-    ],
-    selfCheck: 'State the maximum cranio-caudal liver excursion, the two defining laboratory/clinical findings of classic RILD, why fiducials are placed in non-neoplastic liver, and the physical half-life and tissue range of 90Y.',
     sourceRefs: [
       { ref: 'hti.sbrt.hcc', location: 'p1 "Stereotactic body radiotherapy is a conformal external beam radiation technique"' },
       { ref: 'hti.sbrt.hcc', location: 'p1 "injection of radioisotopes, usually delivered to liver tumors via the hepatic artery."' },
@@ -1992,25 +1583,6 @@ export const HTI_COURSE_LOGISTICS = [
     subject: 'HTI17103', unit: 'hti.subject', type: 'definition',
     title: 'The 2026 subject — eight sessions, two halves, two marks',
     tags: ['foundation', 'high-yield'],
-    lesson: {
-      explanation: 'HTI17103 is a 2-credit subject with a subtotal of 26 contact hours, split three ways: lecture 10 hours, seminar presentation 4 hours, and clinical observation 12 hours. The teaching runs as eight sessions. The first, on 31 August, is about the subject itself and an introduction to being a radiographer-to-be. The second covers medical imaging modalities and instruments. The third is the introduction to being a radiotherapist-to-be, taught by Vincent Leung; the rest of the lecture set is taught by Liang-Ting Lin. The fourth is basic radiation protection, and the fifth is "MI vs. RT — Grand Prix of Streams", which sets the two professional streams against each other. Session six is the Observation Day in Hospital Authority hospitals, run by clinical educators over two days, 5 and 6 October — that alone is 12 of the 26 contact hours. Sessions seven and eight are Seminar I and Seminar II, both group presentations. Assessment is two halves, each worth 50%: a worksheet, which must be submitted via the designated portal before the deadline, and the seminar presentation, in which each group presents the given topic for 10 minutes followed by a 5-minute Q&A, and everyone in the group must speak.',
-      plain: 'Half the contact hours of this subject are the two days in hospital, not the lectures — 12 of 26. And the marks are a clean 50/50 between one worksheet and one group presentation, so there is no exam to revise for and no way to carry a weak half. Note the presentation rule: everyone in the group must speak, which makes it an individual risk dressed as a group task.',
-      keyFacts: [
-        '2 credits, 26 contact hours: lecture 10 h, seminar presentation 4 h, clinical observation 12 h.',
-        'Worksheet — 50%. Submitted via the designated portal before the deadline.',
-        'Seminar presentation — 50%. 10 minutes per group, then 5 minutes of Q&A.',
-        'Everyone in the group must speak.',
-        'Eight sessions: about the subject and radiographer-to-be; imaging modalities and instruments; radiotherapist-to-be; basic radiation protection; MI vs RT; Observation Day; Seminar I; Seminar II.',
-        'Observation Day is at Hospital Authority hospitals, run by clinical educators, on 5–6 October.',
-        'Lecturers: Liang-Ting Lin for most of the set, Vincent Leung for the radiotherapist introduction.',
-      ],
-      examples: [],
-    },
-    memory: {
-      chunking: 'Five lectures, one placement, two seminars. 10 + 12 + 4 = 26 hours.',
-      comparison: 'The placement is the biggest single block of contact time in the subject — nearly half — and it is the only part that is not in a classroom.',
-      location: 'The two streams the whole subject is built around are medical imaging and radiotherapy; session five puts them side by side on purpose.',
-    },
     practice: [
       { type: 'mcq', prompt: 'How are the marks split in HTI17103?', options: ['Worksheet 100%', 'Worksheet 50%, seminar presentation 50%', 'Written exam 60%, coursework 40%', 'Seminar 100%'], answer: 1,
         explanation: 'Two halves, 50% each: the worksheet and the seminar presentation. There is no written examination.',
@@ -2038,11 +1610,6 @@ export const HTI_COURSE_LOGISTICS = [
       'Assuming a written examination exists — the assessment is worksheet plus seminar, nothing else.',
       'Letting one group member present the whole seminar; the schedule requires everyone to speak.',
     ],
-    skills: [
-      'Contact hours tell you where a subject thinks its value is, and this one puts nearly half into a hospital rather than a lecture theatre — which is a claim about what it is for, not just a timetable.',
-      'A 50/50 split with no exam means neither half can be rescued by the other. Both are effectively pass-or-fail for the grade, and the one with a portal deadline is the one that fails silently.',
-    ],
-    selfCheck: 'From a blank page: the two assessments and their weights, the three contact-hour components, and the eight sessions in order.',
     sourceRefs: [
       { ref: 'hti.sched.2026', location: 'p1 "This is a 2-credit subject with a subtotal of 26 contact hours required"' },
       { ref: 'hti.sched.2026', location: 'p1 "Worksheet"' },
@@ -2076,7 +1643,6 @@ export const HTI_COURSE_LOGISTICS = [
  *   id: 'hti17103-cxr-pa-example',
  *   subject: 'HTI17103', unit: 'hti.modalities', type: 'mcq',
  *   title: 'Reading a CXR PA radiograph',
- *   lesson: { explanation: '...', keyFacts: ['...'],  examples: [] },
  *   practice: [
  *     { type: 'mcq', image: 'cxr-pa-001.jpg',
  *       prompt: 'Which projection is shown here?',

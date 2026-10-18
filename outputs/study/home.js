@@ -27,9 +27,9 @@ export function getContinueTarget() {
   if (!item) return null;
   const siblings = itemsForSubject(item.subject);
   const subjectIndex = siblings.findIndex((i) => i.id === item.id);
-  /* A resume point saved by an older build can name a step this one no longer
-     has -- Review was one -- and the card looks that step up by name to print
-     its label. Anything unrecognised opens the lesson. */
+  /* A resume point saved by an older build can name a retired Learn/Remember
+     step. The card prints only a current step label; old names resume at
+     Practise. */
   const step = STEPS.some((x) => x.id === raw.step) ? raw.step : 'practise';
   const hasSessionItems = Array.isArray(raw.itemIds) && raw.itemIds.length > 0;
   const index = typeof raw.index === 'number' ? raw.index : (subjectIndex < 0 ? 0 : subjectIndex);
@@ -62,8 +62,9 @@ export function saveContinue(itemId, step) {
 }
 export function getItemStep(itemId) {
   const order = STEPS.map((s) => s.id);
-  const saved = [read('rss-step:' + itemId, null), read(STORAGE_PREFIX + 'step:' + itemId, null)];
-  return order[Math.max(...saved.map((s) => s === 'review' ? 3 : order.indexOf(s)))] || null;
+  const saved = [read('rss-step:' + itemId, null), read(STORAGE_PREFIX + 'step:' + itemId, null)]
+    .filter((step) => order.includes(step));
+  return saved.sort((a, b) => order.indexOf(b) - order.indexOf(a))[0] || null;
 }
 export function resumeContinue(cont) {
   const items = (cont.itemIds && cont.itemIds.length)
@@ -80,7 +81,6 @@ export function resumeContinue(cont) {
     answered: false,
     startedAt: 0,
     results: [],
-    hooksOnly: cont.step === 'remember' && !!cont.opts?.hooksOnly,
   };
   ui.session.modeLabel = cont.modeLabel || 'Study session';
   openSessionOverlay();

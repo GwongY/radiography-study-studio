@@ -923,12 +923,6 @@ export function decompose(word) {
   return { word: String(word), parts: seg };
 }
 
-/* A one-line reading of the term, built from the parts: "tongue + pharynx + relating to". */
-export function readingOf(d) {
-  if (!d) return '';
-  return d.parts.filter((p) => p.kind !== 'link' && p.kind !== 'ending').map((p) => p.means.split(',')[0]).join(' + ');
-}
-
 /*
  * A single word part, looked up as it is written in the text: 'epi-', '-graphy',
  * 'cardi/o'. decompose() answers "what is this long word made of"; this answers

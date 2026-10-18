@@ -1,4 +1,4 @@
-// Regression gate for lesson stage retention and subject access to private packs.
+// Regression gate for current session-step retention and subject access to private packs.
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 const mem = new Map();
@@ -11,14 +11,14 @@ globalThis.matchMedia=()=>({matches:false,addEventListener(){},addListener(){}})
 globalThis.addEventListener=()=>{};
 const {saveContinue,getItemStep}=await import('../outputs/study/home.js');
 const {STORAGE_PREFIX}=await import('../outputs/study/imports.js');
-for(const [step,want] of [['learn','learn'],['remember','remember'],['practise','practise'],['apply','apply'],['learn','apply'],['remember','apply'],['practise','apply']]){
+for(const [step,want] of [['practise','practise'],['apply','apply'],['practise','apply']]){
   saveContinue('stage-regression',step);assert.equal(getItemStep('stage-regression'),want);
 }
 localStorage.setItem('rss-step:legacy',JSON.stringify('learn'));
 localStorage.setItem(STORAGE_PREFIX+'step:legacy',JSON.stringify('apply'));
 assert.equal(getItemStep('legacy'),'apply');
 saveContinue('legacy','remember');assert.equal(getItemStep('legacy'),'apply');
-console.log('PASS: stages advance 1/4 through 4/4; earlier visits and conflicting legacy keys cannot lower them');
+console.log('PASS: Practise and Apply retain their highest saved step; legacy names are ignored');
 const {holdPack,packQuestions,packShortQuestions}=await import('../outputs/study/question-pack.js');
 const {examPool,markPaper}=await import('../outputs/study/exam-mode.js');
 const base={HSS2011:examPool({subject:'HSS2011'}).length,ABCT2326:examPool({subject:'ABCT2326'}).length};

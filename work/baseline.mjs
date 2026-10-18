@@ -34,8 +34,6 @@ const PROBES = [
   ['search-probe', ['work/search-probe.mjs']],
   ['region-probe', ['work/region-probe.mjs']],
   ['system-check', ['work/system-check.mjs']],
-  ['figure-key-check', ['work/figure-key-check.mjs']],
-  ['visuals-check', ['work/visuals-check.mjs']],
   ['gloss-coverage-check', ['work/gloss-coverage-check.mjs']],
   ['landmark-check', ['work/landmark-check.mjs']],
   ['cavity-probe', ['work/cavity-probe.mjs']],
@@ -44,7 +42,7 @@ const PROBES = [
   ['build-check', ['work/build-check.mjs']],
   /* Content, not geometry: the hash of every export and every study item.
      Captured before phase 3 split the corpus, so the split has to prove it
-     moved no lesson wording, not merely no item counts. */
+     moved no question wording, not merely no item counts. */
   ['corpus-snapshot', ['work/corpus-snapshot.mjs']],
   /* Words, not data: every sentence the interface can show. A rename that runs
      over a string literal moves this and nothing else. */

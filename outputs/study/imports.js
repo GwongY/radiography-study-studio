@@ -1,6 +1,6 @@
 
 import {
-  SUBJECTS, STUDY_ITEMS, STUDY_MODES, ITEM_TYPES, MASTERY_DIMENSIONS, MEMORY_METHODS,
+  SUBJECTS, STUDY_ITEMS, STUDY_MODES, ITEM_TYPES, MASTERY_DIMENSIONS,
   SOURCE_FILES, SOURCE_ROOTS, COVERAGE, DIAGRAMS, SOCIOLOGY_NOTICE, PLACEHOLDER_NOTICES,
   STORAGE_PREFIX, LEGACY_STATS_KEY, DATA_VERSION,
   getSubject, getItem, itemsForSubject, itemsForUnit, questionsOf, allQuestions,
@@ -9,7 +9,6 @@ import {
   isDelayedAttempt, REVEAL_MODES, structureSet, STRUCTURE_MODELS, jointMovement,
   validateCorpus, validateApplications,
   priorOf, priorSources, priorAdjustedScore, entryStep,
-  moduleInfo,
   SOURCE_MAP_VERSION, Y1S1_SOURCE_MAP, sourceGroupFor, sourceGroupsForWeek,
   sourceMetaFor, sourceSetLabel, sourceRoleLabel,
 } from '../study-data.js';
@@ -17,15 +16,11 @@ import { searchAnatomy } from '../anatomy-data.js?v=5';
 import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS, conceptById, conceptAncestors, conceptChildren } from '../bodymap.js?v=4';
 import { MESH_INDEX, UNITS } from '../mesh-index.js?v=5';
 import { expandQuery, missingFor, compositeFor } from '../synonyms.js?v=3';
-import { visualFor, visualsFor, plateFor } from '../visual-data.js?v=4';
 import { FLOW_CLASSES, LAYER_CLASSES, RATES } from '../physiology.js?v=4';
 /* The layer rail is a rail of SYSTEMS, not of files: two of the seven GLBs
    draw several chips each. See outputs/systems.js. */
 import { SYSTEMS, layerOf, systemCounts } from '../systems.js?v=1';
-import { schematic } from '../schematics.js?v=2';
-import { figureFor } from '../figures.js?v=2';
-import { layoutFor } from '../layouts.js?v=1';
-import { decompose, readingOf, partOf } from '../wordparts.js?v=3';
+import { decompose, partOf } from '../wordparts.js?v=3';
 import { memoryTip, termNote } from '../term-notes.js?v=6';
 import { termGloss } from '../term-gloss.js?v=5';
 import {
@@ -77,7 +72,6 @@ export {
   LAYER_CLASSES,
   LEGACY_STATS_KEY,
   MASTERY_DIMENSIONS,
-  MEMORY_METHODS,
   MESH_INDEX,
   RATES,
   REVEAL_MODES,
@@ -103,7 +97,6 @@ export {
   dimensionFor,
   entryStep,
   expandQuery,
-  figureFor,
   getItem,
   getSubject,
   isDelayedAttempt,
@@ -112,20 +105,15 @@ export {
   itemsForUnit,
   jointMovement,
   layerOf,
-  layoutFor,
   masteryScore,
   missingFor,
-  moduleInfo,
   memoryTip,
   partOf,
-  plateFor,
   priorAdjustedScore,
   priorOf,
   priorSources,
   questionsOf,
-  readingOf,
   schedule,
-  schematic,
   searchAnatomy,
   sourceGroupFor,
   sourceGroupsForWeek,
@@ -141,6 +129,4 @@ export {
   ui,
   validateApplications,
   validateCorpus,
-  visualFor,
-  visualsFor,
 };

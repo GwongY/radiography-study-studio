@@ -9,7 +9,7 @@
  */
 import { ANATOMY_DATABASE, REGIONS } from '../../anatomy-data.js';
 const BONE_REGIONS = REGIONS.filter((r) => r.bones !== false);
-import { STRUCTURE_SETS, structureSet, JOINT_MOVEMENTS } from './structures.js';
+import { STRUCTURE_SETS, JOINT_MOVEMENTS } from './structures.js';
 
 /* ------------------------------------------------------------------ *
  * Osteology items generated from the canonical bone records
@@ -29,36 +29,9 @@ const REGION_SOURCES = {
   lower_limb: [{ ref: 'hss.4.3', location: 'Anatomy of the lower limb — bones, Figs 8-11 to 8-13' }, { ref: 'hss.m0.1718', location: 'L1 p54–56 hip and knee joints' }],
 };
 
-/* App-authored memory hooks. Every entry is a study aid, never a fact claim. */
-export const BONE_HOOKS = {
-  cranium: { wordOrigin: 'Greek kranion — helmet, skull.', mnemonic: 'CRANium is the cap that holds the brain.' },
-  mandible: { wordOrigin: 'Latin mandere — to chew.', mnemonic: 'MANdible = MAN-chews. It is the one skull bone that moves.' },
-  cervical: { wordOrigin: 'Latin cervix — neck.', mnemonic: 'Seven vertebrae, breakfast at 7. C1 Atlas holds the head up; C2 Axis is the pin it turns on.' },
-  thoracic: { wordOrigin: 'Greek thorax — chest armour.', mnemonic: 'Twelve vertebrae, lunch at 12 — one for each pair of ribs.' },
-  lumbar: { wordOrigin: 'Latin lumbus — loin.', mnemonic: 'Five large load-bearing vertebrae, dinner at 5. The bodies are the biggest because they carry the most.' },
-  sacrum: { wordOrigin: 'Latin os sacrum — sacred bone.', mnemonic: 'The sacred wedge is the keystone locking the pelvic ring together.' },
-  coccyx: { wordOrigin: 'Greek kokkyx — cuckoo.', mnemonic: 'Shaped like a cuckoo’s beak — the tail remnant left behind.' },
-  sternum: { wordOrigin: 'Greek sternon — chest.', mnemonic: 'Manubrium, body, xiphoid: handle, blade, tip — the sternum is a sword pointing down.' },
-  ribs: { chunking: 'Ribs 1–7 attach to the sternum alone, 8–10 share a cartilage, 11–12 attach to nothing in front.', mnemonic: '1–7 go alone, 8–10 carpool, 11–12 walk free.' },
-  clavicle: { wordOrigin: 'Latin clavicula — little key.', mnemonic: 'The only horizontal long bone: an S-shaped key bolting the arm onto the sternum.' },
-  scapula: { visualCue: 'A flat triangle sliding on the back of the ribcage, with a shallow socket. Shallow socket means mobile but unstable.', comparison: 'Glenoid cavity is shallow, the acetabulum is deep — that one difference explains why shoulders dislocate and hips do not.' },
-  humerus: { mnemonic: 'The humerus carries the radial nerve in its spiral groove — the funny bone that is not funny when you hit it.', comparison: 'Trochlea meets the ulna, capitulum meets the radius. Capitulum and radius both have rounded heads.' },
-  radius: { wordOrigin: 'Latin radius — spoke or rod.', mnemonic: 'The radius rotates over the ulna like a wheel spoke. It is the thumb-side bone, so it is lateral.' },
-  ulna: { wordOrigin: 'Latin ulna — elbow.', mnemonic: 'ULna = yoUr eLbow side, the little-finger side. Its trochlear notch is the hinge.' },
-  hand: { firstLetter: 'Carpals lateral to medial, proximal row then distal: Scaphoid, Lunate, Triquetrum, Pisiform, Trapezium, Trapezoid, Capitate, Hamate.', chunking: '8 carpals, 5 metacarpals, 14 phalanges.' },
-  pelvis: { wordOrigin: 'Latin pelvis — basin.', mnemonic: 'A basin made of ilium, ischium and pubis: I stand on my Ilium, I Sit on my Ischium, and the Pubis is the front join.' },
-  femur: { mnemonic: 'The longest and strongest bone, angling inward from hip to knee — that inward angle is the angle of inclination.' },
-  patella: { wordOrigin: 'Latin patella — small pan or dish.', mnemonic: 'The largest sesamoid bone, riding in the groove like a dish in a rack. Base up, apex down.' },
-  tibia: { wordOrigin: 'Latin tibia — flute, shinbone.', mnemonic: 'TIBia Takes the weight. Medial bone, medial malleolus.' },
-  fibula: { wordOrigin: 'Latin fibula — pin or buckle.', mnemonic: 'The thin lateral pin, ending in the lateral malleolus.' },
-  foot: { chunking: 'Tarsals, metatarsals, phalanges — 7, 5, 14. Talus on top of calcaneus takes the whole load.' },
-};
-
 function boneItem(record) {
   const region = REGIONS.find((r) => r.id === record.region);
   const regionLabel = region ? region.label : record.region;
-  const hooks = BONE_HOOKS[record.id] || {};
-  const sideText = record.side === 'paired' ? 'Paired — there is a left and a right, so laterality is always part of the answer.' : 'Midline or bilateral — it is not a left/right pair.';
   const practice = [
     { type: 'typed', prompt: `Which bone or bone group has these landmarks: ${record.landmarks.join(', ')}?`, accept: [record.canonicalName.toLowerCase(), ...record.aliases.map((a) => a.toLowerCase())],
       explanation: `${record.canonicalName}. Its landmarks are ${record.landmarks.join(', ')}.` },
@@ -98,21 +71,6 @@ function boneItem(record) {
     subject: 'HSS2011', unit: 'hss.osteo', type: 'id3d',
     title: record.canonicalName,
     tags: ['osteology', 'bone', record.region],
-    boneId: record.id,
-    lesson: {
-      explanation: `${record.canonicalName} — ${regionLabel.toLowerCase()}. ${sideText} Landmarks to know: ${record.landmarks.join(', ')}. It articulates with ${record.articulations.join(', ')}.` +
-        (record.aliases.length ? ` Also called ${record.aliases.join(', ')}.` : ''),
-      keyFacts: [
-        `Region: ${regionLabel}.`,
-        `Side: ${record.side}.`,
-        `Landmarks: ${record.landmarks.join(', ')}.`,
-        `Articulates with: ${record.articulations.join(', ')}.`,
-        `Commonly confused with: ${(record.commonConfusions || []).join(', ') || 'nothing in particular'}.`,
-      ],
-      examples: [],
-      studyNote: record.radiographyImportance,
-    },
-    memory: hooks,
     practice,
     application: [
       { type: 'scenario', prompt: `You are handed an isolated ${record.canonicalName.toLowerCase()}${record.side === 'paired' ? ' and asked which side it is from' : ' and asked to place it in the skeleton'}. What do you look at first?`,
@@ -125,13 +83,6 @@ function boneItem(record) {
     ],
     commonMistakes: (record.commonConfusions || []).map((c) => `Mistaking it for the ${String(c).toLowerCase()} — compare landmark sets rather than overall shape.`)
       .concat(record.side === 'paired' ? ['Calling the side from the screen rather than from the model’s own left and right.'] : []),
-    skills: [
-      `The landmark set, not the silhouette, is the discriminator: ${(record.commonConfusions || []).length ? `${record.canonicalName} carries ${record.landmarks.slice(0, 2).join(' and ')} — the very landmarks that separate it from the ${String(record.commonConfusions[0]).toLowerCase()} — so two bones that look alike are told apart by their landmark lists, never by overall shape` : `${record.canonicalName} is known by carrying ${record.landmarks.slice(0, 2).join(' and ')}${record.landmarks.length > 2 ? `, with ${record.landmarks.slice(2).join(', ')} confirming` : ''}, and lookalike bones are told apart by their landmark lists, never by overall shape`}.`,
-      record.side === 'paired'
-        ? 'A paired bone\'s side is a consequence of the anatomical position, not of how you happen to hold it: find an asymmetric landmark and ask which way it must face when the body stands palms-forward — and the model faces you, so its left is on your right.'
-        : `The articulations are an address, not an afterthought: a bone that must meet ${record.articulations.slice(0, 2).join(' and ')} fits exactly one place in the skeleton, so the neighbour list locates the bone before any shape judgement does.`,
-    ],
-    selfCheck: `From a blank page: the region, the side (${record.side}), every landmark, and the full articulation list for the ${record.canonicalName.toLowerCase()}${(record.commonConfusions || []).length ? `, told apart from the ${String(record.commonConfusions[0]).toLowerCase()} by landmarks alone` : ''}.`,
     sourceRefs: (REGION_SOURCES[record.region] || [{ ref: 'hss.vocab', location: 'Glossary' }])
       .concat(record.radiographyImportance ? [{ ref: null, location: 'Radiography study note authored by this app — not a claim from the supplied sources', authored: true }] : []),
   };
@@ -143,101 +94,15 @@ export const BONE_ITEMS = ANATOMY_DATABASE.map(boneItem);
  * Structure-set items — tap-to-identify with a three-state reveal
  * ------------------------------------------------------------------ */
 
-const STRUCTURE_HOOKS = {
-  carpals: {
-    hook: 'Two rows of four, lateral to medial: proximal is Scaphoid, Lunate, Triquetrum, Pisiform; distal is Trapezium, Trapezoid, Capitate, Hamate. Learn the row first — almost every carpal question is which row a bone is in.',
-    firstLetter: 'Proximal row then distal row, lateral to medial: Scaphoid, Lunate, Triquetrum, Pisiform — Trapezium, Trapezoid, Capitate, Hamate.',
-    chunking: 'Four and four, two rows. Almost every carpal question is really asking which row a bone is in, so learn the rows as units before the individual bones.',
-    comparison: 'TrapeziuM sits under the thuMb; the trapezoid is its neighbour. That one letter settles the pair people most often swap.',
-    location: 'Start at the thumb side of the wrist crease and work across, then step down a row and come back. Same path every time.',
-  },
-  tarsals: {
-    memoryHook: 'Blank page: rebuild the stack from the ground up — what sits on the calcaneus, what in front of the talus, what on the lateral side, what fans forward?',
-    hook: 'Three layers, not a row: talus on calcaneus takes the load, navicular sits in front of the talus, cuboid is on the lateral side, and three cuneiforms fan forward to the toes.',
-    location: 'Build it in layers rather than a row: talus on top of calcaneus takes the load, navicular in front of the talus, cuboid on the lateral side, three cuneiforms fanning forward.',
-    comparison: 'Carpals are in the wrist, tarsals in the ankle. If a question says "collective name for wrist bones", the answer is carpal — tarsal is the distractor.',
-    chunking: 'Seven bones, four groups: two big weight-bearers, one navicular, one cuboid, three cuneiforms.',
-  },
-  skullBones: {
-    memoryHook: 'Blank page: two piles — name the six cranial bones, then the facial bones, and say which single facial bone moves.',
-    hook: 'Split cranial from facial first: the cranial vault and floor are frontal, parietals, temporals, occipital, sphenoid and ethmoid; the facial bones hang off the front, with the mandible the only movable one.',
-    chunking: 'Split cranial from facial first. Six cranial bones form the vault and floor; the facial bones hang off the front.',
-    location: 'Trace it as a face: forehead is frontal, sides are parietal then temporal, back is occipital, cheek is zygomatic, upper jaw is maxilla, lower jaw is mandible.',
-    comparison: 'Sphenoid and ethmoid are the two you cannot see from outside — both sit deep in the floor of the cranium, which is why they are the two most often missed.',
-  },
-  vertebralRegions: {
-    hook: 'Five regions top to bottom: cervical (7), thoracic (12), lumbar (5), then two fused — sacrum and coccyx. Breakfast at 7, lunch at 12, dinner at 5.',
-    mnemonic: 'Breakfast at 7, lunch at 12, dinner at 5 — cervical 7, thoracic 12, lumbar 5.',
-    comparison: 'Atlas carries the world and gives you the nod; Axis is the pin and gives you the shake.',
-    chunking: 'Five regions top to bottom, two of them fused: cervical, thoracic, lumbar, then sacrum and coccyx.',
-  },
-  heartChambers: {
-    hook: 'Two atria receive, two ventricles pump — the right side sends blood to the lungs, the left to the body. The AV valves (tricuspid on the right, bicuspid on the left) keep it one-way and are held shut by papillary muscle; the pulmonary valve guards the exit to the lungs.',
-  },
-  greatVessels: {
-    memoryHook: 'Blank page: trace one loop — in from the venae cavae, to the lungs, out to the body — then name what feeds the heart itself.',
-    hook: 'Follow the loop: the venae cavae bring blood back, the pulmonary trunk and arteries carry it to the lungs, the aortic arch carries it to the body — and the coronary sinus and right coronary artery feed the heart’s own muscle.',
-  },
-  airwayTree: {
-    hook: 'A tree, not a list: one trachea splits into two main bronchi, then lobar bronchi, one per lobe. The right lung has three lobes, the left has two — the heart takes that space. The pleura wraps the whole thing.',
-  },
-  urinaryTract: {
-    hook: 'Follow the urine: the kidney makes it, the renal pelvis and ureter drain it, the bladder stores it, the urethra lets it out. The suprarenal gland sits on top but is endocrine, not part of this tract.',
-  },
-  digestiveTract: {
-    memoryHook: 'Blank page: one tube, two calibres — which half absorbs, which frames it, and which three organs only pour into it?',
-    hook: 'One tube with two calibres: the small intestine (duodenum, jejunum) does the absorbing, the large intestine frames it around the edge and carries the appendix; the liver, gallbladder and pancreas are accessory organs that pour their secretions into the tube.',
-  },
-  rotatorCuff: {
-    hook: 'Four cuff muscles hold the humeral head in the socket — supraspinatus, infraspinatus, teres minor, subscapularis. Supraspinatus starts abduction, deltoid powers it, trapezius finishes it; latissimus and pectoralis major are the big girdle movers.',
-  },
-  cranialNerves: {
-    memoryHook: 'Blank page: sort the twelve by job — special sense, eye movers, the face, pharynx and organs, the tongue.',
-    hook: 'Learn them by job, not by number: smell (I), sight (II), hearing and balance (VIII) are special sense; IV and VI move the eye; V and VII run the face; IX and X reach the pharynx and organs; XII moves the tongue.',
-  },
-  brainAndCsf: {
-    memoryHook: 'Blank page: name the three stem parts in order, then trace the CSF from the lateral ventricle to the fourth.',
-    hook: 'One vertical axis: the brainstem (midbrain, pons, medulla) carries the core, the ventricles run CSF down its middle (lateral → third → aqueduct → fourth), the forebrain (corpus callosum, thalamus) caps it, and the spinal cord trails below.',
-  },
-  kneeJoint: {
-    memoryHook: 'Blank page: what sits inside the capsule, what cushions, and what does the hip comparison teach?',
-    hook: 'One capsule, two cruciate ligaments inside it, two menisci as shock absorbers — and the hip capsule alongside for comparison: the same parts, but a deeper, more stable socket.',
-  },
-};
-
 function structureItem(set) {
-  const hooks = STRUCTURE_HOOKS[set.id] || {};
   const groups = [...new Set(set.members.map((mem) => mem.group))];
   const listing = set.members.map((mem) => `${mem.label}${mem.note ? ` — ${mem.note}` : ''}`);
-  const keyFactsGroups = set.members.reduce((acc, mem) => {
-    const g = mem.group || 'Ungrouped';
-    let bucket = acc.find((b) => b.group === g);
-    if (!bucket) { bucket = { group: g, items: [] }; acc.push(bucket); }
-    bucket.items.push(`${mem.label}${mem.note ? ` — ${mem.note}` : ''}`);
-    return acc;
-  }, []);
   return {
     id: `hss2011-structures-${set.id}`,
     subject: set.subject, unit: set.unit, type: 'structure',
     title: set.label,
     tags: ['osteology', '3d'],
-    structureSet: set.id,
-    lesson: {
-      explanation: `${set.label} — ${set.members.length} structures in ${groups.length} group${groups.length === 1 ? '' : 's'}: ${groups.join(', ')}. `
-        + `Every one of these is a separately named mesh in the bundled skeleton, so you can rotate to it and tap it directly. `
-        + `Work through the labelled view first, then the guided view with only ${set.anchors.length} anchor${set.anchors.length === 1 ? '' : 's'} left in, then the blank view where nothing is named.`
-        + (set.paired ? ' These are paired structures, so the side is always part of the answer.' : '')
-        + (set.orientation ? ` ${set.orientation}` : ''),
-      /* factsHTML() renders keyFactsGroups INSTEAD of the flat list, so a flat
-         keyFacts here would be invisible duplication of the grouped form. */
-      keyFactsGroups,
-      hook: hooks.hook || null,
-      examples: [],
-    },
-    /* Memory Coach gets a recall-phrased cue, not a second copy of the
-       Learn card's hook (lesson.hook and memory.hook were identical text).
-       memoryHook is consumed here so it never lands on the item. */
-    memory: (() => { if (!hooks.memoryHook) return hooks; const { memoryHook, ...rest } = hooks; return { ...rest, hook: memoryHook }; })(),
+    /* Generated structure questions keep their own prompts; item-level Learn hooks were removed. */
     practice: [
       { type: 'structure', prompt: `Name every structure in the set, working from the labelled view.`, setId: set.id, reveal: 'labelled',
         explanation: `Teaching view. All ${set.members.length} are named — read them in group order (${groups.join(' → ')}) and say each one out loud before moving on.` },
@@ -260,14 +125,6 @@ function structureItem(set) {
       `Learning the names as a flat list. This set has ${groups.length} group${groups.length === 1 ? '' : 's'} (${groups.join(', ')}), and the group is usually what a question is really testing.`,
       ...(set.paired ? ['Reading the side off the screen instead of the model’s own left and right.'] : []),
     ],
-    skills: [
-      `The flat list is the trap this set sets: it is really ${groups.length} group${groups.length === 1 ? '' : 's'} (${groups.join(', ')}), and the question behind most identification questions is which group — which position relative to the others — a member sits in. Naming a member without placing it is half an answer.`,
-      set.paired
-        ? 'Paired means the side is part of the name: every structure here exists twice, and the reliable side-cue is the model\'s own left and right — it faces you, so its left is on your right, never the screen edge.'
-        : `Anchor logic is what holds the set together: the ${set.anchors.length} named anchor${set.anchors.length === 1 ? '' : 's'} (${set.anchors.map((a) => (set.members.find((mem) => mem.id === a) || {}).label).filter(Boolean).join(', ')}) are what every other member is reconstructed from — which is why a structure seen in isolation loses its most reliable clue, and only individual shape remains.`,
-    ],
-    selfCheck: `The blank view, cold: all ${set.members.length} named in group order, with the count used as the drop-check — if your list is shorter than ${set.members.length}, find which group you dropped before moving on.`,
-    ...(set.visuals ? { visuals: set.visuals } : {}),
     sourceRefs: set.sourceRefs,
   };
 }
@@ -278,48 +135,13 @@ export const STRUCTURE_ITEMS = Object.values(STRUCTURE_SETS).map(structureItem);
  * Movement items — generated from JOINT_MOVEMENTS
  * ------------------------------------------------------------------ */
 
-const MOVEMENT_HOOKS = {
-  supination: {
-    mnemonic: 'You hold a bowl of SOUP in a supinated palm. Turn it over and you spill it — that is pronation.',
-    comparison: 'The wrist does not rotate. If a movement turns the palm over, it happened at the radioulnar joints, and the hand only came along for the ride.',
-    visualCue: 'Watch the radius cross over the ulna as you scrub the slider. That crossing IS pronation — there is nothing else to remember.',
-  },
-  elbowFlexion: {
-    chunking: 'Hinge means one plane. If a question offers you two or three planes for the elbow, it is wrong before you read the rest.',
-    location: 'The axis runs side to side through the trochlea. Put a finger on each epicondyle and that line is the hinge.',
-  },
-  shoulderAbduction: {
-    firstLetter: 'The running order is Start, Lift, Rotate, Tilt — Supraspinatus, Deltoid, Infraspinatus and teres minor, Trapezius.',
-    sequence: 'Abduction is a relay, not a single muscle. Supraspinatus only runs the first 15 degrees.',
-    comparison: 'Ball-and-socket at the shoulder and at the hip both give three planes. The glenoid fossa is shallow, so the shoulder trades stability for this range.',
-  },
-  thumbOpposition: {
-    mnemonic: 'Only a saddle joint can oppose. If a question mentions opposition, it is the thumb carpo-metacarpal joint every time.',
-    comparison: 'Finger abduction is referenced to the middle finger; thumb movement is referenced to the palm. Different reference planes.',
-  },
-};
-
 function movementItem(mv) {
-  const stageNote = (mv.stages || []).map((s) => `${s.at}°: ${s.note}`);
   return {
     id: `hss2011-movement-${mv.id}`,
     subject: mv.subject, unit: mv.unit, type: 'movement',
     title: mv.label,
     tags: ['joints', 'movement', '3d'],
     movementId: mv.id,
-    lesson: {
-      explanation: `${mv.label} happens at the ${mv.joint.toLowerCase()}. ${mv.summary} `
-        + `On the model you can drive it yourself: the bones that move are ${mv.moves.length === 1 ? 'one mesh' : `${mv.moves.length} meshes`}, rotating about an axis resolved from the bones themselves, while ${mv.fixed.join(' and ')} stay put as the reference.`,
-      keyFacts: [
-        `Joint: ${mv.joint}.`,
-        `Range shown: ${mv.range[0]}° to ${mv.range[1]}°.`,
-        `Moves: ${mv.moves.slice(0, 3).join(', ')}${mv.moves.length > 3 ? ` and ${mv.moves.length - 3} more` : ''}.`,
-        `Held still for reference: ${mv.fixed.join(', ')}.`,
-        ...stageNote,
-      ],
-      examples: [],
-    },
-    memory: MOVEMENT_HOOKS[mv.id] || {},
     practice: [
       { type: 'movement', prompt: `Drive ${mv.label.toLowerCase()} on the model and watch which bones move.`, movementId: mv.id,
         explanation: `${mv.summary} The bones held still — ${mv.fixed.join(' and ')} — are what makes the movement legible: without a fixed reference you cannot see what moved.` },
@@ -340,11 +162,6 @@ function movementItem(mv) {
       ...(mv.id === 'supination' ? ['Attributing forearm rotation to the wrist. The wrist does not rotate; the radius does.'] : []),
       ...(mv.id === 'shoulderAbduction' ? ['Answering "deltoid" for the start of abduction. Supraspinatus initiates the first 15 degrees.'] : []),
     ],
-    skills: [
-      `A movement is defined by its stillness as much as its motion: ${mv.label.toLowerCase()} only means something against what stays fixed — ${mv.fixed.join(' and ')} — because the same motion against a different reference is a different movement. Naming the moving bones without the fixed ones is half an answer.`,
-      `"${mv.label}" without a joint is the half-answer the fill-in-blanks price in: this one happens at the ${mv.joint.toLowerCase()}, and naming the joint is worth as many marks as naming the movement.${stageNote.length ? ` The stage marker carries the mechanism: ${stageNote[0]}.` : ''}`,
-    ],
-    selfCheck: `Drive it through the full ${mv.range[0]}°–${mv.range[1]}° range, then state the joint, the moving bones and the fixed references with the labels hidden.`,
     sourceRefs: mv.sourceRefs,
   };
 }

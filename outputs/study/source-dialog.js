@@ -3,7 +3,7 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, MEMORY_METHODS, describeSource, esc, priorSources, sourceMetaFor, sourceRoleLabel, sourceSetLabel } from './imports.js';
+import { $$, describeSource, esc, priorSources, sourceMetaFor, sourceRoleLabel, sourceSetLabel } from './imports.js';
 import { armReset, exportProgress } from './reset.js';
 import { openDialog } from './dialog-behaviour-applied.js';
 import { read } from './storage-versioned-keys.js';
@@ -31,14 +31,11 @@ function sourceTableHTML(refs, heading, lessonId = '') {
 
 export function openSourceDialog(item, question) {
   $$('sourceTitle').textContent = item.title;
-  const memoryKeys = Object.keys(item.memory || {}).filter((k) => item.memory[k]);
   $$('sourceBody').innerHTML = `
-    <p class="task-copy" style="margin-top:0">Every factual claim on this item traces to a file below. Memory aids are written by this app and are marked separately.</p>
+    <p class="task-copy" style="margin-top:0">Every factual claim on this item traces to a file below. App-authored aids are marked separately in the type column.</p>
     ${question && question.src ? sourceTableHTML([question.src], 'Source for the answer you just saw', item.id) : ''}
     ${sourceTableHTML(item.sourceRefs, question && question.src ? 'Sources for the whole item' : '', item.id)}
-    ${priorSources(item).length ? sourceTableHTML(priorSources(item), 'Slides behind the "beyond DSE Biology" lines') : ''}
-    ${memoryKeys.length ? `<div class="subhead">App-authored memory aids on this item</div>
-      <div class="notice">These are study devices, not source claims. ${memoryKeys.map((k) => esc(MEMORY_METHODS[k] || k)).join(', ')}.</div>` : ''}
+    ${priorSources(item).length ? sourceTableHTML(priorSources(item), 'Additional lecture references for prior-knowledge items') : ''}
     <div class="subhead">How to read the type column</div>
     <ul class="facts">
       <li><strong>Source-derived</strong> — teaching material issued by the subject: lecture handouts, study manuals, slide decks.</li>

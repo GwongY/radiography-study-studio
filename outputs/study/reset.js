@@ -56,7 +56,7 @@ export function openResetDialog() {
   go.dataset.armed = '';
   $$('resetHint').textContent = nothing
     ? 'Nothing to delete.'
-    : 'The 3D models, the lessons and the source files are untouched \u2014 only your own history is.';
+    : 'The 3D models, revision material and source references are untouched \u2014 only your saved progress is.';
   openDialog($$('resetDialog'));
 }
 

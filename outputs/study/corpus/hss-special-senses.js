@@ -14,26 +14,6 @@ export const HSS_SPECIAL_SENSES = [
     subject: 'HSS2011', unit: 'hss.m2', type: 'matching',
     title: 'Accessory structures of the eye: eyelids, lacrimal apparatus and the extrinsic muscles',
     tags: ['special senses', 'eye', 'cranial nerves', 'high-yield'],
-    lesson: {
-      explanation: 'The accessory structures protect the eye and move it, without themselves being seeing parts. Around the orbit sit the eyebrows and the eyelids, the palpebrae. Each eye opens into the palpebral fissure between the lids, and the lids meet at the medial and lateral commissures, also called the canthi. Each eyelid is stiffened internally by a tarsal plate, and in it lie the tarsal glands, which secrete an oil that coats the eye and reduces tear evaporation. The eyelashes guard the rim of the lid, and the blink reflex sweeps them shut against hazard. Lining the lids and the front of the eye is the conjunctiva, a transparent mucous membrane that secretes a thin mucous film preventing the eyeball from drying; the MOOC names its two sheets, the palpebral conjunctiva covering the inner surface of the eyelids and the ocular conjunctiva covering the anterior surface of the eye. Tears are made by the lacrimal apparatus: the lacrimal gland sits above the eye, and blinking sweeps the tears across the ocular surface so that they accumulate at the medial canthus, beside the lacrimal caruncle. There two small pores, the superior and inferior lacrimal puncta, open into the paired lacrimal canaliculi, which lead to the lacrimal sac; from here the nasolacrimal duct carries the tears down to the inferior meatus of the nasal cavity — which is why crying floods the nose. Six extrinsic eye muscles move each eyeball: the superior rectus (movement up), inferior rectus (down), medial rectus (medially) and lateral rectus (laterally), plus the superior oblique, which hooks through the trochlea and turns the eye down and laterally, and the inferior oblique, which turns it up and laterally. Their motor supply follows the rule LR6(SO4)3: the lateral rectus is innervated by CN VI, the abducens nerve; the superior oblique by CN IV, the trochlear nerve; and all the others by CN III, the oculomotor nerve. Sensory supply to the orbit is CN II for sight itself and the first portion of CN V, whose lacrimal, frontal and nasociliary branches serve the conjunctiva, the forehead and eyelid, and the orbit and nasal cavities respectively.',
-      plain: 'The accessories are the eye’s armour and its windscreen wipers. Eyelids with tarsal glands (oil against evaporation) and a conjunctiva (mucus against drying); a tear system that drains by a chain to memorise — punctum → canaliculus → sac → nasolacrimal duct → nose. Six muscles move the eye and their nerves follow one rule: LR6, SO4, everything else 3.',
-      keyFacts: [
-        'Eyelids (palpebrae) meet at the medial and lateral commissures (canthi); palpebral fissure = the opening between them.',
-        'Tarsal glands, in the tarsal plate, secrete an oil that coats the eye and reduces tear evaporation.',
-        'Conjunctiva: transparent mucous membrane; its mucous film prevents the eyeball from drying.',
-        'Lacrimal drainage chain: lacrimal gland → punctum → (lacrimal) canaliculus → lacrimal sac → nasolacrimal duct → nasal cavity.',
-        'Six extrinsic eye muscles: superior/inferior/medial/lateral rectus, superior/inferior oblique.',
-        'Movements: recti move the eye up, down, medially, laterally; superior oblique down and laterally (via the trochlea); inferior oblique up and laterally.',
-        'Motor rule LR6(SO4)3: lateral rectus = CN VI (abducens); superior oblique = CN IV (trochlear); all others = CN III (oculomotor).',
-        'Sensory: CN II = sight; 1st portion of CN V serves conjunctiva (lacrimal branch), forehead/eyelid (frontal), orbit and nasal cavities (nasociliary).',
-      ],
-      examples: ['Blocked at any step of the drainage chain, tears have nowhere to go but over the lid — the watery eye of a blocked nasolacrimal duct is the chain read backwards.'],
-    },
-    memory: {
-      sequence: 'Tears travel: gland makes them, punctum drinks them, canaliculus channels them, sac holds them, nasolacrimal duct drops them in the nose. G-P-C-S-N.',
-      mnemonic: 'LR6(SO4)3 — read it as a formula: Lateral Rectus, 6; Superior Oblique, 4; the remaining four muscles, 3.',
-      comparison: 'Tarsal glands oil the eye from the LIDS; the lacrimal gland waters the eye from ABOVE; the conjunctiva greases it from its MEMBRANE. Three different tissues, three anti-dry jobs.',
-    },
     practice: [
       { type: 'sequence', prompt: 'Order the lacrimal drainage chain from the eye surface to the nasal cavity.', items: ['Lacrimal punctum', 'Lacrimal canaliculus', 'Lacrimal sac', 'Nasolacrimal duct', 'Inferior meatus of the nasal cavity'],
         explanation: 'Tears accumulate at the medial canthus, enter through the two puncta, pass the canaliculi to the lacrimal sac, and the nasolacrimal duct carries them to the inferior meatus of the nasal cavity.',
@@ -61,18 +41,6 @@ export const HSS_SPECIAL_SENSES = [
       'Giving the superior oblique CN III because "most eye muscles are III" — the whole point of LR6(SO4)3 is that two muscles break the rule.',
       'Saying the conjunctiva makes tears; it secretes a mucous film. Tears come from the lacrimal gland.',
     ],
-    skills: [
-      'Any "which nerve moves the eye in direction X" question: name the muscle for the direction first (the p6 slide list), then apply LR6(SO4)3. Two steps, never one.',
-      'The drainage chain is a pure sequence question that has appeared every year — write it out from memory before the test: punctum, canaliculus, sac, nasolacrimal duct, inferior meatus.',
-      'The three anti-drying secretions are three different glands: oil (tarsal), mucus (conjunctiva), tears (lacrimal). Questions swap them; keep the secretion with the gland.',
-    ],
-    selfCheck: 'From a blank page: the drainage chain in order with the nasal endpoint; what the tarsal glands and conjunctiva each secrete; the six extrinsic muscles with their movements; and which cranial nerve drives each.',
-    visuals: [
-      { model: { layer: 'muscle', meshes: ['Superior rectus muscle', 'Inferior rectus muscle', 'Medial rectus muscle', 'Lateral rectus muscle', 'Superior oblique muscle', 'Inferior oblique muscle'], label: 'The six extrinsic eye muscles', caption: 'The four recti and two obliques on the model — spin the view to see how the obliques approach the eye at an angle the recti do not. Tap any muscle to name it.' } },
-      { fig: 'extrinsicEyeMuscles' },
-      { fig: 'lacrimalApparatus' },
-      { gen: true },
-    ],
     sourceRefs: [
       { ref: 'hss.special.2017', location: 'p3 "Tarsal gland" — palpebral fissure, medial/lateral commissures (canthi), tarsal plate, eyelashes, blink reflex' },
       { ref: 'hss.special.2017', location: 'p3 "Secrete an oil" — coats the eye and reduces tear evaporation' },
@@ -92,26 +60,6 @@ export const HSS_SPECIAL_SENSES = [
     subject: 'HSS2011', unit: 'hss.m2', type: 'definition',
     title: 'The eyeball: three tunics, optical media and the retinal landmarks',
     tags: ['special senses', 'eye', 'high-yield'],
-    lesson: {
-      explanation: 'The wall of the eyeball is built in three layers, and the lecture peels them off like a grape. The outer fibrous layer holds the sclera, the whites of the eye, and in front of it the clear cornea. The middle vascular layer is the uvea, and it carries three structures: the choroid, a pigmented coat whose pigment epithelium blocks stray light; the ciliary body, whose ciliary muscle controls the tension of the lens and whose ciliary processes secrete the aqueous humor; and the iris, where chromatophores give the eye its colour and two antagonistic intrinsic muscles ring the pupil — the pupillary constrictor and the pupillary dilator. The inner layer is the retina, with a neural part and a pigmented part. The three are also called the intrinsic eye muscles’ home: the pupillary muscles live in the iris, and the photopupillary reflex narrows the pupil in bright light. The diameter of the pupil increases as the pupillary dilator muscle contracts and decreases as the pupillary constrictor contracts, and both are controlled by the autonomic nervous system. In front of the lens, the optical components carry the light inward. Aqueous humor, secreted by the ciliary processes, fills the posterior chamber and flows through the pupil into the anterior chamber, draining at the scleral venous sinus. The lens hangs on its suspensory ligament; behind it the vitreous body (vitreous humor) fills the large vitreous chamber, with the hyaloid canal running through it. On the retina, four named landmarks: the ora serrata, the jagged front edge of the retina; the optic disc, where the optic nerve leaves and where there are no receptor cells — the blind spot; the macula lutea; and at its centre the fovea centralis, which gives the most finely detailed image — the MOOC adds why, a high density of cone cells for colour vision and no rod cells. Light passes cornea, aqueous humor, lens and vitreous body before reaching the retina.',
-      plain: 'Three coats: fibrous (sclera + cornea) outside, vascular uvea (choroid, ciliary body, iris) in the middle, retina lining the back. Three fluids/lenses carry the light: aqueous humor in the two chambers, the lens on its suspensory ligament, the vitreous body behind. Four retinal addresses: ora serrata (front edge), optic disc (blind spot, nerve leaves), macula lutea, fovea centralis (sharpest image, all cones). Pupil size is a tug-of-war in the iris: constrictor vs dilator, run by the autonomic nervous system.',
-      keyFacts: [
-        'Fibrous layer: sclera (whites of the eye) and clear cornea.',
-        'Vascular layer = uvea: choroid (pigment blocks stray light), ciliary body (muscle controls lens tension; processes secrete aqueous humor), iris (chromatophores = eye colour).',
-        'Pupillary constrictor and pupillary dilator are antagonists in the iris; dilator contracts → pupil increases; constrictor contracts → pupil decreases.',
-        'The pupillary muscles are controlled by the autonomic nervous system; the photopupillary reflex narrows the pupil.',
-        'Inner layer: retina — neural part + pigmented part.',
-        'Optical components: aqueous humor (posterior chamber → anterior chamber → scleral venous sinus), lens (suspensory ligament), vitreous body (vitreous chamber, hyaloid canal).',
-        'Retinal landmarks: ora serrata; optic disc = blind spot (no receptor cells, optic nerve originates); macula lutea; fovea centralis = most finely detailed image (high cone density, no rods).',
-        'Light path: cornea → aqueous humor → lens → vitreous body → retina.',
-      ],
-      examples: ['Shine a torch at the eye and the pupil narrows: the photopupillary reflex, the constrictor winning its tug-of-war with the dilator.'],
-    },
-    memory: {
-      chunking: 'The grape: skin (fibrous — sclera, cornea), flesh (vascular uvea — choroid, ciliary body, iris), inner skin (retina). The lecture literally calls the uvea "peeled grape".',
-      comparison: 'Optic disc vs fovea: disc = exits, sees nothing (blind spot, no receptor cells); fovea = sees everything (finest image, cones only). One is a doorway, one is the reading spot.',
-      sequence: 'Light swims the A-L-V: Aqueous, Lens, Vitreous — after the cornea lets it in.',
-    },
     practice: [
       { type: 'matching', prompt: 'Match each structure to its layer of the eyeball wall.', pairs: [['Sclera and cornea', 'Fibrous layer'], ['Choroid, ciliary body and iris', 'Vascular layer (uvea)'], ['Retina', 'Inner layer']],
         explanation: 'The anatomy-of-eyeball slide numbers them 1 fibrous, 2 vascular (uvea), 3 inner (retina).',
@@ -143,18 +91,6 @@ export const HSS_SPECIAL_SENSES = [
       'Calling the aqueous humor’s spaces the "superior chamber": the chambers are posterior (behind the iris, holding aqueous) and anterior (in front of the lens); the vitreous chamber holds the vitreous body.',
       'Putting the ciliary muscle in the iris; it is in the ciliary body. The iris owns the pupillary muscles only.',
     ],
-    skills: [
-      'Three tunics first, then everything else falls in: any structure name in an eye question is a choroid, ciliary body, iris, sclera, cornea or retina — assign the tunic before answering the detail.',
-      'The pupil question is always the same tug-of-war: constrictor = smaller, dilator = larger, autonomic = the controller. Learn the trio once and every blank variant is covered.',
-      'Blind-spot questions want the phrase "no receptor cells"; sharp-vision questions want "cone density". The two landmarks trade on exactly that contrast.',
-    ],
-    selfCheck: 'From a blank page: the three tunics and what each contains; the optical components in light-path order; four retinal landmarks and what each is for; and the pupil-muscle pair with its controller.',
-    visuals: [
-      { model: { layer: 'nervous', meshes: ['Cornea', 'Iris', 'Lens', 'Anterior chamber of eyeball', 'Suspensory ligament of eyeball', 'Vitreous body'], label: 'The optical media of the eyeball', caption: 'Cornea, iris and lens in the anterior segment, suspensory ligament and vitreous body behind — the route the light takes to the retina. Tap each to name it.' } },
-      { fig: 'eyeballLayers' },
-      { fig: 'eyeballCrossSection' },
-      { gen: true },
-    ],
     sourceRefs: [
       { ref: 'hss.special.2017', location: 'p8 "Vascular layer" — fibrous (sclera, cornea) and inner (retina) layers numbered on the same slide' },
       { ref: 'hss.special.2017', location: 'p8 "Uvea: peeled grape" — choroid, ciliary body (muscle controls tension of lens), iris' },
@@ -179,25 +115,6 @@ export const HSS_SPECIAL_SENSES = [
     subject: 'HSS2011', unit: 'hss.m2', type: 'sequence',
     title: 'The visual projection pathway: chiasm, thalamus and visual cortex',
     tags: ['special senses', 'eye', 'vision', 'high-yield'],
-    lesson: {
-      explanation: 'The retina converts light into signals, and the projection pathway carries those signals to the brain. Signals leave the photosensory ganglion cells of each retina as the optic nerve (CN II). Both optic nerves meet at the optic chiasm, where a hemidecussation happens: half the fibres cross. The MOOC states the rule the crossing produces — the left visual field goes to the right cerebral hemisphere, and the right visual field to the left cerebral hemisphere — so after the chiasm each optic tract carries the OPPOSITE field of view. From the tract, about 90% of the data relays in the lateral geniculate nucleus of the thalamus; from there projection fibres (the optic radiation) sweep to the visual cortex of the occipital lobe, where seeing happens. The remaining ~10% of fibres leave the main road before the thalamus and lead to the superior colliculi in the midbrain. The midbrain nuclei controlling visual reflexes use that branch: they steer the extrinsic eye muscles, run the pupillary reflexes and drive accommodation of the lens — all the automatic optical housekeeping a conscious cortex never does. The whole chain is a sequence question in the past paper, blank for blank: optic nerve → optic chiasm → optic tract → lateral geniculate nucleus in thalamus → (superior colliculus in midbrain for the reflex branch) → projection fibers (optic radiation) → visual cortex. And the endpoint matters clinically: the visual cortex is in the occipital lobe, so a blow to the back of the head destroys vision even with perfectly intact eyes — the past paper’s Bill case. Read the field rule with the crossing and the localisation follows automatically: anything before the chiasm carries one eye’s whole field; anything after the chiasm carries one field from both eyes.',
-      plain: 'One road, one crossing, one relay: retina → optic nerve (CN II) → optic chiasm (hemidecussation — half the fibres cross) → optic tract → lateral geniculate nucleus of the thalamus (90%) → optic radiation (projection fibres) → visual cortex of the occipital lobe. The other 10% branches to the superior colliculi of the midbrain for visual reflexes: eye muscles, pupil, lens accommodation. Because of the crossing, each hemisphere sees the OPPOSITE half of the world.',
-      keyFacts: [
-        'Pathway: retina → optic nerve (CN II) → optic chiasm → optic tract → lateral geniculate nucleus of thalamus → projection fibres (optic radiation) → visual cortex, occipital lobe.',
-        'Hemidecussation: at the chiasm, fibres from the medial half of each retina cross to the other side.',
-        'Consequence: left visual field → right cerebral hemisphere; right visual field → left cerebral hemisphere.',
-        '~90% of the data relays at the lateral geniculate nucleus and reaches the occipital visual cortex.',
-        '~10% of fibres lead to the superior colliculi in the midbrain.',
-        'Midbrain nuclei control visual reflexes: extrinsic eye muscles, pupillary reflexes, accommodation of the lens.',
-        'A blow to the back of the head can destroy vision by damaging the occipital lobe — eyes intact.',
-      ],
-      examples: ['Bill takes a blow to the back of the head and goes blind: the eyes are fine, the occipital cortex at the end of the pathway is not.'],
-    },
-    memory: {
-      sequence: 'N-C-T-G-R-C: Nerve, Chiasm, Tract, Geniculate (lateral), Radiation, Cortex. "Never Cross The Great Rocky Cliffs."',
-      mnemonic: 'At the chiasm, LOOK DOWN: fibres from the medial (nose-side) half drop to the other side. Nose-side crosses, temple-side stays.',
-      chunking: '90 / 10 split: 90% of fibres go sightseeing to the cortex via the lateral geniculate; 10% take the reflex exit to the superior colliculi.',
-    },
     practice: [
       { type: 'sequence', prompt: 'Order the visual pathway from the retina to the cortex as the past paper labels it.', items: ['Optic nerve', 'Optic chiasm', 'Optic tract', 'Lateral geniculate nucleus in thalamus', 'Projection fibers (optic radiation)', 'Visual cortex'],
         explanation: 'The labelling blanks [40]–[45] fill exactly this chain; the superior colliculus in the midbrain is the separate reflex branch.',
@@ -225,17 +142,6 @@ export const HSS_SPECIAL_SENSES = [
       'Putting the visual cortex in the parietal or temporal lobe — vision is occipital; the past paper makes the blow-to-the-back-of-the-head the giveaway.',
       'Skipping the lateral geniculate and jumping tract → cortex; the thalamus relay (and the ~90/10 split with the superior colliculi) is a labelled blank of its own.',
     ],
-    skills: [
-      'Localisation rule: lesion BEFORE the chiasm costs one eye; lesion AFTER the chiasm costs a visual field in both eyes. The crossing is the switch point.',
-      'The reflex branch is always the 10% answer: superior colliculi, midbrain, extrinsic eye muscles + pupil + accommodation. Cortical vision and reflex vision are separate roads.',
-      'Sequence questions on this pathway have appeared every year — practise writing the six-link chain from nothing before the test.',
-    ],
-    selfCheck: 'From a blank page: the six-link pathway in order; what hemidecussation does and which field each hemisphere ends up with; the 90/10 split and what the superior colliculi control.',
-    visuals: [
-      { fig: 'visualPathway' },
-      { model: { layer: 'nervous', meshes: ['Optic nerve (II)', 'Optic chiasm', 'Optic tract'], label: 'Optic nerve, chiasm and tract on the model', caption: 'The first three links of the pathway as real structures on the base of the brain — the chiasm is where the hemidecussation happens. The thalamus, radiation and cortex continue inside the hemispheres.' } },
-      { gen: true },
-    ],
     sourceRefs: [
       { ref: 'hss.special.2017', location: 'p16 "Hemidecussation" — optic chiasm, optic tracts, lateral geniculate (thalamus)' },
       { ref: 'hss.2.3', location: 'p34 "Optic nerve" — CN II' },
@@ -252,27 +158,6 @@ export const HSS_SPECIAL_SENSES = [
     subject: 'HSS2011', unit: 'hss.m2', type: 'matching',
     title: 'Outer, middle and inner ear; the cochlea and the auditory pathway',
     tags: ['special senses', 'ear', 'hearing', 'high-yield'],
-    lesson: {
-      explanation: 'The ear is a three-chambered instrument: conduct, amplify, transduce. The outer ear is the auricle and the auditory canal, whose opening is the external acoustic meatus; guard hairs and cerumen — earwax — line it against debris and insects. It ends at the tympanic membrane, the eardrum, the revision exercise’s most-asked structure. Behind it the middle ear is an air space whose three auditory ossicles — malleus, incus, stapes — bridge from the eardrum to the oval window, the membrane into the inner ear; the stapedius and tensor tympani muscles damp the chain. The auditory (eustachian) tube links the middle ear to the nasopharynx, equalising pressure either side of the eardrum — the past paper’s phrasing is that the middle ear communicates with the nasopharynx through it. The inner ear buries the delicate parts in bone: a bony labyrinth containing perilymph, and inside it a membranous labyrinth containing endolymph. Its three regions are the vestibule, the semicircular canals (equilibrium, the next lesson) and the cochlea — the organ of hearing. The cochlea spirals about two and a half coils around the modiolus, its spongy bone axis. Its three spiral spaces: the scala vestibuli, which continues from the oval window and contains perilymph; the cochlear duct (scala media), which contains endolymph; and the scala tympani, also perilymph, closed by the round window — the secondary tympanic membrane that relieves the pressure the stapes creates. The cochlear duct is floored by the basilar membrane and roofed by the vestibular membrane, and on its basilar membrane sits the spiral organ — the acoustic organ, or organ of Corti. It carries a tectorial membrane overhanging two sets of hair cells with stereocilia: one row of inner hair cells, all hearing function; three rows of outer hair cells, associated with frequencies. In the production of an auditory sensation, distortion of the basilar membrane forces the hair cells of the organ of Corti to vibrate against the tectorial membrane, and the cochlear nerve carries the signal out. From there the MOOC traces the central road: cochlear nerve → spiral ganglion → cochlear branch of the vestibulocochlear nerve (CN VIII) → superior olivary nucleus of the pons → inferior colliculi of the midbrain → medial geniculate nucleus of the thalamus → auditory cortex of the temporal lobe.',
-      plain: 'Three rooms: OUTER collects (auricle, canal, wax), MIDDLE amplifies (eardrum drumming three ossicles onto the oval window; eustachian tube vents pressure), INNER transduces (cochlea). In the cochlea: two perilymph stairs (scala vestibuli above, scala tympani below) sandwich the endolymph-filled cochlear duct, whose basilar membrane carries the organ of Corti — hair cells brushing the tectorial membrane. Then the signal rides CN VIII to the thalamus and the temporal-lobe auditory cortex.',
-      keyFacts: [
-        'Outer ear: auricle, auditory canal / external acoustic meatus, guard hairs, cerumen (earwax).',
-        'Middle ear: tympanic membrane, ossicles (malleus, incus, stapes), oval window, stapedius + tensor tympani, auditory (eustachian) tube to the nasopharynx.',
-        'Inner ear: bony labyrinth (perilymph) + membranous labyrinth (endolymph); vestibule, semicircular canals, cochlea.',
-        'Cochlea: organ of hearing, ~2½ coils around the modiolus (spongy bone axis).',
-        'Cochlear spaces: scala vestibuli (from the oval window, perilymph), cochlear duct / scala media (endolymph), scala tympani (perilymph; round window = secondary tympanic membrane).',
-        'Cochlear duct: vestibular membrane above, basilar membrane below, spiral organ = acoustic organ = organ of Corti.',
-        'Spiral organ: tectorial membrane; inner hair cells — one row, all hearing function; outer hair cells — three rows, frequencies; cochlear nerve.',
-        'Hearing mechanics: distortion of the basilar membrane forces hair cells of the organ of Corti to vibrate against the tectorial membrane.',
-        'Auditory pathway: cochlear nerve → spiral ganglion → cochlear branch of CN VIII → superior olivary nucleus (pons) → inferior colliculi (midbrain) → medial geniculate nucleus (thalamus) → auditory cortex (temporal lobe).',
-      ],
-      examples: ['Pop your ears on a plane: the eustachian tube momentarily opens to the nasopharynx and equalises pressure across the tympanic membrane the ossicles are pushing on.'],
-    },
-    memory: {
-      sequence: 'Sound’s journey: canal → eardrum → malleus → incus → stapes → oval window → scala vestibuli → basilar membrane → hair cells vs tectorial membrane → cochlear nerve → brain.',
-      chunking: 'Two fluids, never swapped: perilymph in the bony labyrinth (and both scala vestibuli/tympani), endolymph in the membranous labyrinth (and the cochlear duct).',
-      comparison: 'Middle-ear windows: oval window IN (stapes pushes), round window OUT (secondary tympanic membrane bulges to relieve). One pushes, one yields.',
-    },
     practice: [
       { type: 'matching', prompt: 'Place each structure in the correct part of the ear.', pairs: [['Auricle', 'Outer ear'], ['Malleus, incus and stapes', 'Middle ear'], ['Auditory tube to nasopharynx', 'Middle ear'], ['Cochlea and semicircular canals', 'Inner ear'], ['Cerumen', 'Outer ear']],
         explanation: 'The three anatomy slides group the structures exactly this way.',
@@ -304,17 +189,6 @@ export const HSS_SPECIAL_SENSES = [
       'Saying the auditory tube carries sound; it carries AIR (pressure equalisation) between the middle ear and nasopharynx.',
       'Giving the organ of Corti to the vestibule or canals — it sits on the basilar membrane of the cochlear duct only; the vestibule and semicircular canals are equilibrium hardware.',
     ],
-    skills: [
-      'Every ear question resolves to "which of the three rooms?": outer = canal/eardrum boundary, middle = ossicles + tube, inner = labyrinth + cochlea. Assign the room first.',
-      'The vibrating-pair question (basilar vs tectorial) has a fixed answer: basilar distorts, hair cells caught between, tectorial above. Any variant is that sentence reworded.',
-      'Count the hair-cell rows to answer function: one row inner = hearing, three rows outer = frequencies. Rows and jobs are tested as a pair.',
-    ],
-    selfCheck: 'From a blank page: the structures of each of the three ear regions; the three cochlear spaces with their fluids; the parts of the spiral organ; and the auditory pathway from cochlear nerve to temporal cortex.',
-    visuals: [
-      { fig: 'earAnatomy' },
-      { model: { layer: 'nervous', meshes: ['Cochlea', 'Cochlear nerve'], label: 'The cochlea and cochlear nerve', caption: 'The organ of hearing as a real structure — about 2½ coils around its bony axis, with the cochlear nerve leaving its centre. The bundled model cannot show the internal scalae; the organ-of-Corti figure draws what is inside.' } },
-      { fig: 'organOfCorti' },
-    ],
     sourceRefs: [
       { ref: 'hss.special.2017', location: 'p19 "External acoustic meatus" — auricle, auditory canal, guard hairs, cerumen (earwax)' },
       { ref: 'hss.special.2017', location: 'p20 "Tympanic membrane" — auditory (eustachian) tube, passage to nasopharynx; ossicles malleus/incus/stapes; oval window; stapedius, tensor tympani' },
@@ -337,27 +211,6 @@ export const HSS_SPECIAL_SENSES = [
     subject: 'HSS2011', unit: 'hss.m2', type: 'comparison',
     title: 'Static and dynamic equilibrium: maculae, otoliths and the semicircular ducts',
     tags: ['special senses', 'equilibrium', 'vestibular', 'high-yield'],
-    lesson: {
-      explanation: 'Balance has two senses, and both live in the vestibular apparatus of the inner ear: the three semicircular canals, the utricle and the saccule. Static equilibrium is perception of the orientation of the head when the body is stationary. Its receptors are the two maculae, patches of hair cells and supporting cells about two by three millimetres: the macula sacculi sits vertically on the wall of the saccule, and the macula utriculi lies horizontally on the floor of the utricle. Over each macula lies an otolithic membrane packed with otoliths — calcium carbonate crystals. Head tilt shifts the crystals, the hair cells read the shear, and the brain knows which way up the head is. Dynamic equilibrium is perception of acceleration. The past paper draws the first line for you: the utricle and saccule provide equilibrium sensations whether the body is moving or is stationary, and their maculae are sensitive to linear movements — the saccule registers vertical acceleration, the utricle horizontal acceleration. Angular acceleration belongs to the semicircular ducts, which respond to rotational movements of the head. There are three — anterior, posterior and lateral semicircular ducts — each filled with endolymph, and each expands into an ampulla, an expanded region that contains the receptors. Inside the ampulla the crista ampullaris carries the hair cells, and on its top is a gelatinous structure called the cupula. Turn the head and the endolymph lags behind, pushes the cupula, and the hair cells report the rotation. Information leaves in the vestibular nerve — the vestibular branch of the vestibulocochlear nerve (CN VIII) — and reaches vestibular nuclei that issue reflexive motor commands through CN III, IV, VI and XI to steady the eyes, head and neck; damage the brainstem or the internal ear and the result is nystagmus, involuntary eye movement when the body is turning or spinning. The two senses partition cleanly: STATIC = maculae + otoliths (position), DYNAMIC = cristae + cupulae (motion), linear vs angular the dividing line.',
-      plain: 'Two balance systems in one vestibular apparatus. STATIC (stationary head position): maculae of utricle (horizontal) and saccule (vertical), weighted with otoliths in an otolithic membrane — they feel gravity and LINEAR acceleration. DYNAMIC (rotation): the three semicircular ducts, each with an ampulla holding a crista of hair cells capped by the gelatinous cupula, reading ANGULAR acceleration from endolymph drag. Vestibular nerve (CN VIII branch) carries it all out; its reflexes steady eyes, head and neck; damage causes nystagmus.',
-      keyFacts: [
-        'Vestibular apparatus = three semicircular canals + utricle + saccule.',
-        'Static equilibrium = perception of the orientation of the head when the body is stationary.',
-        'Macula sacculi: vertical on the wall of the saccule. Macula utriculi: horizontal on the floor of the utricle.',
-        'Maculae: 2 × 3 mm patches of hair cells and supporting cells, under an otolithic membrane packed with otoliths (calcium carbonate crystals).',
-        'Dynamic equilibrium = perception of linear acceleration (saccule and utricle) and angular acceleration (semicircular ducts).',
-        'Saccule registers vertical acceleration; utricle horizontal acceleration.',
-        'Semicircular ducts (anterior, posterior, lateral): filled with endolymph; expand into an ampulla containing the crista ampullaris, topped by the cupula.',
-        'Signals leave in the vestibular nerve (vestibular branch of CN VIII); vestibular nuclei issue reflex commands via CN III, IV, VI, XI.',
-        'Nystagmus — involuntary eye movement when the body is turning or spinning — follows damage to the brainstem or internal ear.',
-      ],
-      examples: ['Spin in a chair and stop: the cupulae are still deflected by the lagging endolymph, so the world keeps swimming — nystagmus is that reflex laid bare.'],
-    },
-    memory: {
-      comparison: 'STATIC = stones: otoliths (little stones) weigh the maculae down — position and LINEAR motion. DYNAMIC = spinning: cupulae swing in the ducts — ANGULAR motion. Stones sit, cupulae spin.',
-      chunking: 'Ampulla’s three-decker: ampulla (the bulge) → crista ampullaris (the ridge of hair cells) → cupula (the jelly on top). Same three names every year.',
-      mnemonic: 'Utricle Up-top and horizontal (like a utricle-raft floating flat); Saccule vertical on its Side-wall. Sac = vertical.',
-    },
     practice: [
       { type: 'matching', prompt: 'Match the movement or orientation to its receptor region.', pairs: [['Stationary head orientation', 'Maculae of utricle and saccule'], ['Linear acceleration', 'Saccule and utricle'], ['Angular acceleration', 'Semicircular ducts']],
         explanation: 'The static- and dynamic-equilibrium slides make exactly this three-way split.',
@@ -389,17 +242,6 @@ export const HSS_SPECIAL_SENSES = [
       'Calling the ampulla’s jelly the otolithic membrane — the otolithic membrane belongs to the maculae; the ampulla’s cap is the cupula.',
       'Forgetting the equilibrium items split: canals/ducts hold the cristae; the utricle and saccule hold the maculae. Crista-ampulla vs macula-otolith pairs must not cross.',
     ],
-    skills: [
-      'First question for any balance fact: static or dynamic? Static recruits maculae + otoliths + otolithic membrane; dynamic recruits ducts + ampulla + crista + cupula. Nothing crosses the divide.',
-      'The three-word ampulla answer (ampulla, crista ampullaris, cupula) is a recurring blank — practise it as one breath, in that order.',
-      'Nystagmus questions are reflex-arc questions wearing a vestibular coat: ducts → vestibular nerve (CN VIII) → vestibular nuclei → eye-muscle nerves (CN III/IV/VI).',
-    ],
-    selfCheck: 'From a blank page: the three parts of the vestibular apparatus; both maculae with their orientations and the otolithic membrane; which structures read linear vs angular acceleration; and the ampulla’s three structures in order.',
-    visuals: [
-      { fig: 'membranousLabyrinth' },
-      { fig: 'semicircularCanalSection' },
-      { gen: true },
-    ],
     sourceRefs: [
       { ref: 'hss.special.2017', location: 'p27 "Vestibular Apparatus" — three semicircular canals, utricle, saccule' },
       { ref: 'hss.special.2017', location: 'p28 "Perception of the orientation of the" — head when the body is stationary; macula sacculi, macula utriculi, otolithic membrane, otoliths' },
@@ -424,25 +266,6 @@ export const HSS_SPECIAL_SENSES = [
     subject: 'HSS2011', unit: 'hss.m2', type: 'matching',
     title: 'Taste receptors, tongue innervation and the olfactory pathway',
     tags: ['special senses', 'taste', 'smell', 'cranial nerves', 'high-yield'],
-    lesson: {
-      explanation: 'Taste and smell are the chemical senses; both start at epithelial receptors and both are special sensations of the afferent division. Gustation places about 4,000 taste buds on the tongue, soft palate, pharynx, epiglottis and cheeks. The tongue’s surface carries the lingual papillae, projections of four types: filiform papillae give the texture of food but carry no taste buds; foliate papillae are weakly developed in humans; fungiform papillae stand mainly on the apex; and the vallate papillae are large papillae arranged in a V at the rear of the tongue, where most taste buds are located. Inside a taste bud sit banana-shaped taste cells whose taste hairs are the receptors for taste molecules, synapsing with sensory nerve fibres; the taste pore is the hole on the epithelial surface of the tongue through which the hairs reach. Taste occurs over the entire tongue — the modality map is emphasis, not exclusive zones: sweet at the tip, salty and sour at the lateral margins, bitter at the rear. Innervation is the tested map: the facial nerve (VII) serves the anterior 2/3 of the tongue, the glossopharyngeal nerve (IX) the posterior 1/3, and the vagus (X) the palate, pharynx and epiglottis; the hypoglossal nerve (XII) moves the tongue — the movements of speech, food manipulation and swallowing — carrying no taste at all. Smell runs beside it. Smell is one of the special sensations the nervous-system map lists alongside vision, hearing, balance and taste. Olfactory receptor cells sit in the olfactory mucosa of the nasal cavity; their axons gather as the olfactory nerve (CN I), the deck’s own slide title. On the base of the brain the neuroanatomy slide labels the olfactory bulb — "(from CN I)" — and continuing back the olfactory tract, which delivers to the primary olfactory cortex of the cerebrum. So the teachable olfactory route is short: olfactory mucosa → olfactory nerve (CN I) → olfactory bulb → olfactory tract → primary olfactory cortex.',
-      plain: 'TASTE: ~4,000 taste buds on tongue, palate, pharynx, epiglottis, cheeks; most live in the vallate papillae’s rear V. Taste cell → taste hairs → taste pore. Taste is whole-tongue (modalities are emphases). Nerves: VII front two-thirds, IX back third, X palate/pharynx/epiglottis, XII movement only. SMELL: olfactory mucosa → CN I → olfactory bulb → olfactory tract → primary olfactory cortex.',
-      keyFacts: [
-        'About 4,000 taste buds, on tongue, soft palate, pharynx, epiglottis and cheeks.',
-        'Papillae: filiform = texture of food (no taste buds); foliate = weakly developed in humans; fungiform = mainly on the apex; vallate = large, in a V at the rear, most taste buds.',
-        'Taste bud: banana-shaped taste cells; taste hairs = receptors for taste molecules; synapse with sensory nerve; taste pore = hole on the epithelial surface.',
-        'Taste occurs over the entire tongue; sweet tip, salty and sour lateral margins, bitter rear — emphases, not exclusive zones.',
-        'Facial nerve VII = anterior 2/3 of tongue (taste); glossopharyngeal IX = posterior 1/3; vagus X = palate, pharynx, epiglottis.',
-        'Hypoglossal XII = tongue movements of speech, food manipulation and swallowing — not taste.',
-        'Smell is a special sensation; olfactory route: olfactory mucosa → olfactory nerve (CN I) → olfactory bulb → olfactory tract → primary olfactory cortex.',
-      ],
-      examples: ['Burning the tip of your tongue on coffee silences the sweet-readers there — but the lateral margins still report the salt, because taste occurs over the entire tongue.'],
-    },
-    memory: {
-      mnemonic: 'Tongue nerves front-to-back: 7-9-10, a countdown down the tongue — VII anterior ⅔, IX posterior ⅓, X everything behind (palate, pharynx, epiglottis). XII drives, never tastes.',
-      chunking: 'Papillae by usefulness: FILiform = FILe the food (texture); FUNgi = FUN (apex); Vallate = V-shaped and VALUABLE (most taste buds); Foliate = Feeble in humans.',
-      sequence: 'Smell climbs a ladder: mucosa → nerve I → bulb → tract → primary olfactory cortex. Five rungs, in order.',
-    },
     practice: [
       { type: 'matching', prompt: 'Match each papilla or nerve to the lecture’s description.', pairs: [['Filiform papillae', 'Texture of food'], ['Foliate papillae', 'Weakly developed in humans'], ['Fungiform papillae', 'Mainly on the apex'], ['Vallate papillae', 'Large, in a V at the rear; most taste buds']],
         explanation: 'The gustation slide lists all four papilla types with exactly these descriptors.',
@@ -473,18 +296,6 @@ export const HSS_SPECIAL_SENSES = [
       'Learning exclusive taste zones — the lecture states taste occurs over the ENTIRE tongue; tip/sweet etc. are emphases, and questions exploit the word "only".',
       'Crediting the filiform papillae with taste buds — filiform gives texture of food; the vallate papillae hold most taste buds.',
       'Ending the olfactory pathway at the bulb — the tract continues to the primary olfactory cortex; bulb and tract are two separate links on the base of the brain.',
-    ],
-    skills: [
-      'Tongue questions divide motor from sensory in one move: movement = XII, always; taste = VII front, IX back, X behind. A deviation/swallowing stem wants XII; a taste stem wants VII or IX.',
-      'Papilla questions turn on the one useless-for-taste member: filiform = texture, no buds. Eliminate it first and the answer space halves.',
-      'The olfactory chain is short enough to recite whole: mucosa, CN I, bulb, tract, primary olfactory cortex — five words, and any ordering question is done.',
-    ],
-    selfCheck: 'From a blank page: where the 4,000 taste buds sit; the four papilla types and which holds most taste buds; the parts of a taste bud; the full nerve map of the tongue (taste AND movement); and the olfactory route from mucosa to cortex.',
-    visuals: [
-      { model: { layer: 'organs', meshes: ['Tongue'], label: 'The tongue', caption: 'The tongue on the model — the largest single collection of taste buds, carried on lingual papillae across its surface and concentrated at the rear V.' } },
-      { fig: 'tonguePapillae' },
-      { fig: 'olfactorySystem' },
-      { gen: true },
     ],
     sourceRefs: [
       { ref: 'hss.special.2017', location: 'p32 "About 4,000" — on tongue; soft palate, pharynx, epiglottis, cheeks; lingual papillae types' },

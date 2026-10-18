@@ -109,7 +109,7 @@ function studyTerm(days) {
         events.push({ id: `dA.${at.toString(36)}.${n += 1}`, t: 'attempt', at, itemId, dim: 'spelling', correct, confidence, ms, expectedMs: 14000, primary: false });
       }
     }
-    /* Opening a lesson, once past markRead's one-minute floor. */
+    /* A legacy read event, once past markRead's one-minute floor. */
     if (rnd() > 0.5) {
       at += 120000;
       const itemId = ITEMS[Math.floor(rnd() * ITEMS.length)];

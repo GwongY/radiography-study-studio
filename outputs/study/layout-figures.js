@@ -3,13 +3,13 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, DIAGRAMS, MASTERY_DIMENSIONS, MEMORY_METHODS, REVEAL_MODES, STRUCTURE_MODELS, decompose, describeSource, dimensionFor, esc, getSubject, isDelayedAttempt, jointMovement, layoutFor, moduleInfo, priorOf, questionsOf, readingOf, structureSet, ui } from './imports.js';
+import { $$, DIAGRAMS, MASTERY_DIMENSIONS, REVEAL_MODES, STRUCTURE_MODELS, decompose, describeSource, dimensionFor, esc, getSubject, isDelayedAttempt, jointMovement, priorOf, questionsOf, structureSet, ui } from './imports.js';
 import { K, getMastery, itemAttempted, logMistake, read, store, write } from './storage-versioned-keys.js';
 import { recordAttempt } from './progress-log.js';
 import { syncSoon } from './gist-sync.js';
 import { advanceItem, renderSessionFoot, renderStep, setStep, typeLabel } from './session-engine.js';
 import { closeSessionOverlay } from './navigation-five-destinations.js';
-import { glossify, lookupTerm, plateHTML, wireTerms } from './reading-help.js';
+import { glossify, lookupTerm, wireTerms } from './reading-help.js';
 import { openSourceDialog } from './source-dialog.js';
 import { openViewer } from './what-is-under.js';
 import { renderToday } from './home.js';
@@ -22,53 +22,6 @@ import { showView, toast, xrayFallback } from './small-ui-helpers.js';
  * their text, so the overflow that was measured at up to 15.4px is not a bug
  * that got fixed -- it is a bug that can no longer be expressed.
  * ------------------------------------------------------------------ */
-
-const LAY_TONE = { teal: 'var(--teal)', orange: 'var(--orange)', blue: 'var(--blue)',
-  red: 'var(--red)', green: 'var(--green)', dim: 'var(--dim)' };
-
-function layCard(c) {
-  const tone = LAY_TONE[c.tone] || LAY_TONE.teal;
-  return `<div class="lay-card" style="--tone:${tone}"><b>${glossify(esc(c.t))}</b>${
-    c.b ? `<span>${glossify(esc(c.b))}</span>` : ''}</div>`;
-}
-
-function layBlock(b) {
-  switch (b.type) {
-    case 'heading':
-      return `<div class="lay-h">${esc(b.text)}</div>`;
-    case 'row':
-      return `<div class="lay-row${b.dense ? ' dense' : ''}">${b.cards.map(layCard).join('')}</div>`;
-    case 'stack':
-      return `<div class="lay-stack">${b.cards.map(layCard).join('')}</div>`;
-    case 'flow':
-      return `<div class="lay-flow">${b.cards.map(layCard).join('<span class="lay-arrow">\u2192</span>')}</div>`;
-    case 'terms':
-      return `<div class="termgrid">${b.pairs.map(([term, gloss]) => {
-        const hit = lookupTerm(term);
-        const tag = hit ? 'button' : 'span';
-        const attrs = hit ? ` type="button" data-term="${esc(term)}"` : '';
-        return `<${tag} class="gt"${attrs}><b>${esc(term)}</b><span>${esc(gloss)}</span></${tag}>`;
-      }).join('')}</div>`;
-    case 'scale':
-      return `<div><div class="lay-scale"><span class="end">${esc(b.from)}</span><span class="bar"></span><span class="end">${esc(b.to)}</span></div>${
-        b.note ? `<div class="lay-note dim" style="margin-top:7px">${glossify(esc(b.note))}</div>` : ''}</div>`;
-    case 'note':
-    default:
-      return `<div class="lay-note${b.dim ? ' dim' : ''}${b.tone ? ' tone' : ''}">${glossify(esc(b.text))}</div>`;
-  }
-}
-
-export function layoutHTML(id, sc) {
-  const lay = layoutFor(id);
-  if (!lay) return '';
-  return `<figure class="lessonvis" data-kind="layout">
-    <div class="lessonvis-head"><span class="lessonvis-kick">Drawn by this app</span><span class="lessonvis-title">${esc(sc.title)}</span></div>
-    <div class="lay">${lay.blocks.map(layBlock).join('')}</div>
-    <figcaption class="lessonvis-cap">${esc(sc.caption)}
-      <span class="figcredit">A layout, not a depiction \u2014 no anatomy is being drawn to scale here.</span>
-    </figcaption>
-  </figure>`;
-}
 
 /* ---------------- question rendering ---------------- */
 
@@ -183,8 +136,7 @@ export function practiseHTML(item) {
   ui.session.currentQ = q;
   /*
    * A prior-knowledge item with nothing recorded against it yet opened straight
-   * onto this step. Say so, rather than leaving it looking like the lesson was
-   * lost, and keep the lesson one click away for when the answer does not come.
+   * onto this step. Say so, rather than leaving the question context unclear.
    */
   const prior = priorOf(item);
   const verifying = prior && !itemAttempted(item.id)
@@ -608,11 +560,8 @@ export function endSession() {
   /*
    * Nothing to report, nothing to say.
    *
-   * Quitting a lesson you had only read raised a toast that told you the app
-   * had noticed you leaving and nothing else -- an interruption in exchange
-   * for no information, on the one action whose whole point is to get out.
-   * A session with answers in it still reports the score, because that IS
-   * information and it is the last chance to see it.
+   * Ending an unanswered session needs no toast. A session with answers still
+   * reports the score, because that is useful feedback before it closes.
    */
   if (total) toast(`Session done — ${right}/${total} correct. Reviews scheduled.`);
   ui.session = null;

@@ -7,7 +7,6 @@ import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, MESH_INDEX as ATLAS_MESH_INDEX, SEAR
 import { K, read, write } from './storage-versioned-keys.js';
 import { goTo } from './navigation-five-destinations.js';
 import { openStructureInViewer } from './search-viewer-open.js';
-import { releaseLessonVisual } from './lesson-visuals.js';
 import { showView } from './small-ui-helpers.js';
 import { exactSearch, matchesSearch, modelSearchNames } from '../search-name.js';
 import { lectureRow } from '../viewer-lecture-names.js';
@@ -81,7 +80,7 @@ export function openSearchSheet() {
   const shell = document.querySelector('.app-shell');
   if (shell) shell.inert = true;
   /* The session overlay is a sibling of the shell, not a child — inert it too so
-     focus cannot land on the lesson behind the scrim. */
+     focus cannot land on the session behind the scrim. */
   const sess = $$('sessionView');
   if (sess && !sess.classList.contains('hidden')) sess.inert = true;
   const input = $$('globalSearch');
@@ -94,20 +93,19 @@ export function closeSearchSheet() {
   const sess = $$('sessionView');
   const sessionUp = sess && !sess.classList.contains('hidden');
   const shell = document.querySelector('.app-shell');
-  /* If a lesson is still underneath, the shell stays inert for it. */
+  /* If a session is still underneath, the shell stays inert for it. */
   if (shell) shell.inert = !!sessionUp;
   if (sess) sess.inert = false;
   if (searchReturnFocus && searchReturnFocus.focus) searchReturnFocus.focus();
   searchReturnFocus = null;
 }
 
-/* A search result that jumps into the viewer has to take down the lesson
+/* A search result that jumps into the viewer has to pause the session
    overlay first — it is a fixed layer that showView() does not touch. The
-   lesson autosaves each step, so dropping the current one is safe. */
+   session autosaves each stage, so dropping the current one is safe. */
 export function dismissSessionForNav() {
   const sess = $$('sessionView');
   if (!sess || sess.classList.contains('hidden')) return;
-  if (typeof releaseLessonVisual === 'function') releaseLessonVisual();
   ui.session = null;
   sess.classList.add('hidden');
   sess.inert = false;

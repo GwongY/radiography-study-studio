@@ -51,7 +51,7 @@ function sourceMapHTML(focusSubject) {
     const gap = WEEK_GAPS[subjectId]?.[week] || '';
     const body = lessons.length
       ? `<ul>${lessons.map(lessonHTML).join('')}</ul>`
-      : `<p class="small" style="margin:6px 0 0"><strong>Source gap · missing</strong>${gap ? ` — ${esc(gap)}` : ' — No source-backed lesson is assigned.'}</p>`;
+      : `<p class="small" style="margin:6px 0 0"><strong>Source gap · missing</strong>${gap ? ` — ${esc(gap)}` : ' — No source-backed item is assigned.'}</p>`;
     return `<div style="margin:8px 0"><strong>Week ${week}</strong>${body}</div>`;
   };
   return `<div class="cov-sec">
@@ -82,7 +82,7 @@ export function openCoverage(focusSubject) {
     </div>
     ${failures.length
       ? `<div class="notice stop"><strong>${failures.length} question${failures.length === 1 ? '' : 's'} failed validation</strong>${failures.slice(0, 12).map((f) => esc(`${f.qid || f.itemId}: ${f.problems.join('; ')}`)).join('<br>')}</div>`
-      : '<div class="notice"><strong>Every question validates</strong>All ' + qCount + ' questions have a resolvable correct answer and an explanation, every item has a teaching explanation, and every item carries at least one source reference.</div>'}
+      : '<div class="notice"><strong>Every question validates</strong>All ' + qCount + ' questions have a resolvable correct answer and an explanation, and every item carries at least one source reference.</div>'}
 
     ${subjects.map((s) => {
       const subject = getSubject(s.id);
@@ -99,7 +99,7 @@ export function openCoverage(focusSubject) {
     ${focusSubject ? '' : `
     <div class="cov-sec">
       <h4>New source — filename-first intake (${COVERAGE.newSourceIntake.length} files)</h4>
-      <p class="small">Every upload was sorted by its literal filename before reading. “Administration” and “Timetable” files can change the Course tab but do not become factual study lessons.</p>
+      <p class="small">Every upload was sorted by its literal filename before reading. “Administration” and “Timetable” files can change the Course tab but do not become factual study items.</p>
       <ul>${COVERAGE.newSourceIntake.map((f) => `<li><strong style="color:var(--text)">${esc(f.file)}</strong><br>${esc(f.role)} — ${esc(f.used)}</li>`).join('')}</ul>
     </div>
     <div class="cov-sec">

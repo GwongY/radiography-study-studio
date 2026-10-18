@@ -87,7 +87,7 @@ try {
 
 const claims = [
   { what: 'study/ parts',  re: /The study system, (\d+) parts/,                  got: () => countJs('outputs/study') },
-  { what: 'corpus files',  re: /The lesson corpus, (\d+) files/,                 got: () => countJs('outputs/study/corpus') },
+  { what: 'corpus files',  re: /The question corpus, (\d+) files/,               got: () => countJs('outputs/study/corpus') },
   { what: 'barrel names',  re: /re-exporting them under the same (\d+) names/,   got: () => barrelNames },
   { what: 'studio/ parts', re: /The 3D studio, (\d+) parts/,                     got: () => countJs('outputs/studio') },
 ];

@@ -92,13 +92,6 @@ export function textsOf(item) {
   const out = [];
   const push = (v) => { if (typeof v === 'string' && v.trim()) out.push(v); };
   push(item.title);
-  const L = item.lesson || {};
-  push(L.explanation);
-  push(L.plain);
-  push(L.hook);
-  (L.keyFacts || []).forEach(push);
-  (L.examples || []).forEach(push);
-  Object.values(item.memory || {}).forEach(push);
   for (const q of item.practice || []) {
     push(q.prompt);
     (q.options || []).forEach(push);
@@ -119,7 +112,7 @@ export function textsOf(item) {
 
 const GLOSS_RE = /([a-z]{2,12}\/[oi])|(^|[\s(])(-[a-z]{2,12})\b|\b([a-z]{2,12}-)(?=[\s,;)])|\b([A-Za-z][a-z]{4,})\b/g;
 
-export function checkUnderlinedTokens(items, stoplist = COMMON_STOPLIST, glossFn = termGloss) {
+export function checkUnderlinedTokens(items, stoplist = COMMON_STOPLIST, glossFn = termGloss, lookupFn = lookupTerm) {
   const missing = new Map();
   for (const item of items) {
     for (const text of textsOf(item)) {
@@ -128,7 +121,7 @@ export function checkUnderlinedTokens(items, stoplist = COMMON_STOPLIST, glossFn
         if (!token) continue;
         const word = m[5];
         if (word && !shortWordOk(token, glossFn)) continue;
-        const hit = lookupTerm(token, termNote, decompose, partOf, glossFn);
+        const hit = lookupFn(token);
         if (hit && !hit.gloss) {
           const key = token.toLowerCase();
           if (!stoplist.has(key)) {
@@ -182,19 +175,14 @@ if (process.argv.includes('--selftest')) {
   let selftestFails = 0;
 
   // 1. Missing gloss must be caught
-  const testItems = [{
-    title: 'Test Item',
-    lesson: { explanation: 'An unknown unglossed term without stoplist.' }
-  }];
-  // Pretend 'unglossed' is matched
-  const fakeLookup = () => ({ note: {}, gloss: null });
-  const hit = checkUnderlinedTokens(testItems, new Set(), () => null);
-  // 'unknown' is >= 6 chars, if lookupTerm returns something with no gloss, it must flag
-  if (hit.size === 0) {
-    // Let's verify with an explicit synthetic check
-    console.log('  ok  empty stoplist flags underlined tokens without gloss');
+  const testItems = [{ title: 'Test Item', practice: [{ prompt: 'An unglossedterm appears in this question.' }] }];
+  const fakeLookup = () => ({ note: null, split: {}, part: null, gloss: null });
+  const hit = checkUnderlinedTokens(testItems, new Set(), () => null, fakeLookup);
+  if (hit.has('unglossedterm')) {
+    console.log('  ok  question tokens with a reading-help hit but no gloss are caught');
   } else {
-    console.log('  ok  unglossed non-stoplisted tokens caught (' + hit.size + ' caught)');
+    selftestFails++;
+    console.log('FAIL selftest did not detect a missing question-term gloss');
   }
 
   // 2. ASCII-only Chinese in TERM_GLOSS must be caught

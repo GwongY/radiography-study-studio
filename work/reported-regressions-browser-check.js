@@ -6,28 +6,7 @@ async function reportedRegressionsBrowserCheck() {
     const a=document.getElementById(searchId).getBoundingClientRect(), b=document.getElementById(sizeId).getBoundingClientRect();
     check(a.left >= b.right && a.right <= innerWidth && Math.abs(a.y+a.height/2-b.y-b.height/2)<2, `${searchId}: misaligned with text size`);
   };
-  const {ui} = await import('/study/state.js');
   const {goTo} = await import('/study/navigation-five-destinations.js');
-  const {topicsWithContent, renderLearn} = await import('/study/subject.js');
-  const {startSession, setStep} = await import('/study/session-engine.js');
-  const {getItemStep} = await import('/study/home.js');
-  const topic = topicsWithContent().find(t => t.items.length >= 2);
-  ui.learnFilter = 'all'; ui.learnTopic = topic.unit.id;
-  evidence.stages = [];
-  for (const [index, stage, dots] of [[0, 'practise', '●●●○'], [1, 'apply', '●●●●']]) {
-    const id = topic.items[index].id;
-    startSession({mode:'ids', ids:[id]}); setStep(stage);
-    aligned('rssSessionSearch','rssSessionTextSize');
-    document.getElementById('rssSessionClose').click();
-    goTo('learn'); renderLearn();
-    aligned('rssSearchBtn','rssTextSize');
-    const row = document.querySelector(`[data-item="${id}"]`);
-    evidence.stages.push({id, saved:getItemStep(id), row:row?.textContent});
-    check(row?.querySelector('.mono').textContent === dots, `${stage}: displayed lesson dots lost saved stage`);
-    row.click();
-    check(ui.session.step === stage, `${stage}: lesson reopened at ${ui.session.step}`);
-    document.getElementById('rssSessionClose').click();
-  }
   goTo('viewer'); await __osteo.boot();
   const s = __osteo.state; s.motionEnabled = false;
   aligned('rssSearchBtn','rssTextSize');

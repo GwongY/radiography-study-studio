@@ -18,33 +18,6 @@ export const HSS_JOINTS = [
       "high-yield",
       "foundation"
     ],
-    "lesson": {
-      "explanation": "Arthrology (from the Greek arthron, joint, and logos, study) is the anatomical science dedicated to the structure, function, and dysfunction of joints. A joint, or articulation, exists wherever two or more bones, bone and cartilage, or teeth and bone meet, regardless of whether movement actually occurs across the junction. In human anatomy, joints are classified structurally according to the binding material uniting the articulating bones and the presence or absence of a joint cavity, dividing into three fundamental classes: fibrous joints, cartilaginous joints, and synovial joints. In fibrous joints, the bones are held firmly together by dense fibrous connective tissue without any intervening joint cavity, allowing very limited or no movement (synarthroses or amphiarthroses). Fibrous joints comprise three distinct types: sutures, in which interlocking bone margins articulate by process and indentation bound by dense collagen (characteristic of the skull, such as the coronal suture binding the frontal and parietal bones); gomphoses (peg-and-socket joints), where a conical fibrous process fits into a deep socket, uniquely exemplified by the roots of teeth anchoring into the bony alveoli of the maxillae and mandible via periodontal ligaments; and syndesmoses, where the articulating bony surfaces are united by an interosseous ligament or sheet that permits slight giving movement, such as the inferior tibiofibular articulation. Cartilaginous joints unite bones directly by hyaline cartilage or fibrocartilage, devoid of a synovial cavity. They divide into primary cartilaginous joints (synchondroses) and secondary cartilaginous joints (symphyses). Synchondroses are temporary joints where bones are joined purely by hyaline cartilage that progressively ossifies into solid bone during adult life (around 25 years of age), prominently seen at the epiphyseal plates of growing long bones in children and between the sphenoid and occipital bones; once ossified, they become synostoses. Symphyses are permanent secondary cartilaginous joints where articulating bony surfaces covered by hyaline articular cartilage are fused together by a broad, compressible pad of fibrocartilage; symphyses occupy the midline of the body, notably the inter-body joints of the spine (intervertebral discs) and the pubic symphysis, delivering exceptional shock absorption and tensile strength. Synovial joints, by far the most numerous and functionally diverse joints in the human skeleton, are characterised by articulating bone ends capped with smooth hyaline cartilage, a fluid-filled joint cavity enclosed within a fibrous articular capsule, and an inner synovial membrane, permitting free multi-planar movement (diarthroses). In standard revision questions, sutures are identified as the least movable joint among all skeletal articulations.",
-      "plain": "Arthrology is the study of joints. Joints are grouped into three structural families based on what binds them together: fibrous joints, cartilaginous joints, and synovial joints. Fibrous joints have no joint cavity and are stitched tight with fibrous tissue for minimal movement: sutures interlock skull bones, gomphoses anchor teeth into their sockets, and syndesmoses tie bones together with ligaments like at the lower tibia and fibula. Cartilaginous joints connect bones with cartilage: synchondroses are temporary hyaline cartilage joints (like growth plates) that turn to solid bone by around age 25, while symphyses are permanent midline fibrocartilage cushions like intervertebral discs and the pubic symphysis that absorb heavy shocks. Synovial joints feature a lubricating fluid-filled cavity and smooth cartilage caps for free, smooth movement.",
-      "keyFacts": [
-        "Arthrology: from Greek arthron (joint) and logos (study).",
-        "Three structural joint classes: fibrous, cartilaginous, and synovial.",
-        "Fibrous joints: no joint cavity, united by fibrous connective tissue, very limited movement.",
-        "Sutures: interlocking process-and-indentation bone edges bound by fibrous tissue (e.g., coronal suture).",
-        "Gomphoses: conical process fitting into a socket (e.g., roots of teeth into alveoli of maxillae/mandible).",
-        "Syndesmoses: bones united by an interosseous ligament (e.g., inferior tibiofibular articulation).",
-        "Cartilaginous joints: bones joined by hyaline cartilage or fibrocartilage, lacking a joint cavity.",
-        "Synchondroses (primary cartilaginous): temporary hyaline cartilage joints that ossify ~25 years (e.g., epiphyseal growth plates).",
-        "Symphyses (secondary cartilaginous): permanent joints united by fibrocartilage (e.g., intervertebral discs, pubic symphysis).",
-        "Synovial joints: fluid-filled joint cavity lined by synovial membrane; freely movable (diarthroses); most common joint class.",
-        "Model exam rule: a suture is the least movable joint among all skeletal articulations."
-      ],
-      "examples": [
-        "In pediatric skeletal radiographs, the epiphyseal plate between the epiphysis and diaphysis appears as a radiolucent line; this is a synchondrosis, not a fracture, and will ossify into a synostosis by adulthood.",
-        "The coronal suture tightly binds the frontal bone to the parietal bones, creating an immovable protective vault for the cerebral hemispheres."
-      ]
-    },
-    "memory": {
-      "chunking": "Name the joint class by what fills the junction: fibrous connective tissue (fibrous), cartilage pad (cartilaginous), or lubricating fluid cavity (synovial). Structural composition dictates mechanical mobility.",
-      "comparison": "Synchondrosis vs Symphysis: syn-CHONDR-osis uses pure hyaline cartilage (chondro) and is temporary (growth plates disappear); SYM-physis brings bones together with permanent fibrocartilage pads in the body midline.",
-      "wordOrigin": "Gomphosis comes from the Greek gomphos (bolt or nail) — picture hammering a peg into a wooden socket, exactly like a tooth root driven into the alveolar jaw bone.",
-      "teachBack": "Explain why epiphyseal growth plates and intervertebral discs are both cartilaginous joints yet behave entirely differently across a patient’s lifespan."
-    },
     "practice": [
       {
         "type": "mcq",
@@ -132,20 +105,6 @@ export const HSS_JOINTS = [
       "Assuming all cartilaginous joints are permanent; synchondroses are temporary growth plates that ossify into synostoses by adulthood.",
       "Confusing syndesmosis (ligamentous fibrous sheet, like inferior tibiofibular) with symphysis (fibrocartilage pad, like pubic symphysis).",
       "Thinking teeth are embedded in bone by synovial joints or ankylosis; they are held by fibrous gomphoses."
-    ],
-    "skills": [
-      "Look at the tissue bridging the gap: if fibrous collagen unites bone margins directly without a cavity, it is a fibrous joint (suture, gomphosis, syndesmosis). If cartilage bridges the bone ends, examine the cartilage type: temporary hyaline is a synchondrosis, permanent fibrocartilage is a symphysis.",
-      "On skeletal imaging, recognize that synchondroses appear as radiolucent bands because hyaline cartilage lacks calcium mineral density; do not confuse normal developmental growth plates with traumatic fractures."
-    ],
-    "selfCheck": "From memory: state the three structural joint classes, give the two types of cartilaginous joints with their defining cartilage and lifespan, name the three fibrous joint types with examples, and state which joint is the least movable.",
-    "visuals": [
-      {
-        "schematic": "jointClassification"
-      },
-      { fig: 'synovialJoint', focus: ["Articular cartilage","Joint cavity containing synovial fluid","Synovial membrane","Articular capsule"] },
-      {
-        "gen": true
-      }
     ],
     "sourceRefs": [
       {
@@ -273,32 +232,6 @@ export const HSS_JOINTS = [
       "high-yield",
       "foundation"
     ],
-    "lesson": {
-      "explanation": "Synovial joints are the most common in the human body, providing high mechanical mobility while maintaining structural stability under physiological loading. Every synovial articulation shares five core anatomical features: articulating bone ends covered by articular cartilage, a joint cavity interposed between the bone ends in the normal healthy state, a enclosing articular capsule, an inner synovial membrane, and viscous synovial fluid. Articular cartilage is a specialized layer of hyaline cartilage capping the subchondral bone ends; it is avascular, aneural, and presents a wear-resistant, low-friction lubricated surface that acts as a shock absorber during joint compression. Because articular cartilage possesses no intrinsic blood supply of its own, its chondrocytes rely on indirect nutrition via three convergent pathways: diffusion from synovial fluid, perfusion from the vascular net in the synovial membrane, and capillary exchange from blood vessels in underlying marrow spaces. The joint cavity is completely enclosed by the articular capsule, which is structured in two distinct layers. The outer fibrous capsule forms a tough sleeve or cuff around the joint close to the articular surface, composed of dense connective fibrous tissue that resists mechanical traction and holds the articulating bones in close contact. Localized thickenings of this fibrous capsule form intrinsic joint ligaments; in addition, accessory ligaments (extracapsular or intracapsular) reinforce the joint while remaining separate from the joint capsule. A ligament is structurally defined as a cord or band of tough collagenous tissue binding one bone to another. The inner lining of the capsule is the delicate synovial membrane, which lines all internal non-articular surfaces of the joint cavity and secretes synovial fluid—a clear, colorless fluid containing hyaluronic acid and lubricin that lubricates the articulating cartilages, nourishes chondrocytes, and cushions mechanical impacts. Protrusions of the synovial membrane form fluid-filled sacs called bursae, situated between bones and overlying tendons or skin to minimize friction. Joint innervation obeys Hilton’s law: the sensory nerves supplying a joint also supply the muscles moving that joint and the overlying skin covering the insertion of these muscles, providing essential proprioceptive sensation and pain signals to protect the joint against mechanical damage.",
-      "plain": "Synovial joints are the most common and movable joints in your body, found in the knees, hips, shoulders, and fingers. Every synovial joint has five essential components: bone ends capped with smooth hyaline articular cartilage that acts as a wear-resistant shock absorber; a joint cavity filled with clear, slippery synovial fluid; an articular capsule with a tough outer fibrous cuff that holds the joint together; localized thickenings of the capsule that form stabilizing ligaments; and an inner synovial membrane that secretes synovial fluid and forms friction-reducing bursae. Because articular cartilage has no blood vessels, it feeds on synovial fluid circulated during movement. Hilton’s law states that the nerves supplying a joint also supply the muscles that move it and the skin over their attachments.",
-      "keyFacts": [
-        "Synovial joints: most common joint class in the human body; freely movable (diarthroses).",
-        "Five core structures: articular cartilage, joint cavity, articular capsule, synovial membrane, synovial fluid.",
-        "Articular cartilage: avascular hyaline cartilage; provides a wear-resistant, low-friction lubricated surface; acts as a shock absorber.",
-        "Articular cartilage nutrition: diffusion from synovial fluid, vascular net in synovial membrane, and vessels in underlying marrow spaces.",
-        "Fibrous capsule: tough cuff of dense connective fibrous tissue around the joint close to articular surfaces.",
-        "Ligaments: localized thickenings of fibrous capsule (intrinsic) or separate bands (accessory); bind one bone to another.",
-        "Synovial membrane: vascular inner layer lining non-cartilaginous surfaces; produces synovial fluid.",
-        "Synovial fluid: clear, colorless fluid that lubricates surfaces, reduces friction, and nourishes chondrocytes.",
-        "Bursae: protrusions of synovial membrane between tendon and bone to prevent friction wear.",
-        "Hilton’s law: nerves supplying a joint also supply the muscles moving the joint and the skin over their insertion."
-      ],
-      "examples": [
-        "The knee joint contains extensive synovial structures including suprapatellar and prepatellar bursae, meniscal fibrocartilages, cruciate ligaments, and rich synovial fluid to buffer walking loads.",
-        "Following joint immobilisation in a cast, synovial fluid is not circulated across the joint, leading to starved chondrocytes and cartilage stiffness."
-      ]
-    },
-    "memory": {
-      "location": "Build the joint from bone outward: bone marrow vessels → hyaline cartilage cap → synovial fluid in joint cavity → synovial membrane lining → fibrous capsule cuff → reinforcing ligaments.",
-      "comparison": "Ligament vs Tendon: both are tough collagenous cords, but a ligament binds bone to bone across a joint, whereas a tendon attaches muscle to bone to transmit contractile force.",
-      "chunking": "Hilton’s Law triangle: Joint, Muscle that moves it, and Skin over the muscle insertion share the identical nerve trunk.",
-      "teachBack": "Explain why walking and moving a joint is biologically necessary to feed articular cartilage despite the cartilage having zero blood vessels."
-    },
     "practice": [
       {
         "type": "cloze",
@@ -378,22 +311,6 @@ export const HSS_JOINTS = [
       "Believing articular cartilage is nourished by its own dedicated artery; it is completely avascular.",
       "Calling an intracapsular or extracapsular ligament a tendon; ligaments bind bone to bone, whereas tendons connect muscle to bone.",
       "Assuming the fibrous capsule lines the joint cavity; the inner lining is always the cellular synovial membrane."
-    ],
-    "skills": [
-      "Distinguish ligament from tendon on clinical descriptions: a cord binding bone to bone is a ligament; a cord attaching muscle to bone is a tendon.",
-      "Trace Hilton’s law when analyzing referred joint pain: irritation of a deep joint capsule frequently manifests as muscle spasm and cutaneous hyperesthesia along the same nerve distribution."
-    ],
-    "selfCheck": "From memory: name the five universal parts of a synovial joint, state the three nutritional pathways of articular cartilage, define a ligament, and formulate Hilton’s law.",
-    "visuals": [
-      {
-        "fig": "synovialJoint"
-      },
-      {
-        "schematic": "synovialJoint"
-      },
-      {
-        "gen": true
-      }
     ],
     "sourceRefs": [
       {
@@ -530,33 +447,6 @@ export const HSS_JOINTS = [
       "high-yield",
       "foundation"
     ],
-    "lesson": {
-      "explanation": "Body movements are defined by precise geometric changes in joint angles and spatial positions, each anchored to specific anatomical articulations. In HSS2011, mastering movements requires matching each named action to the exact joint producing it. Angular movements in the sagittal plane include flexion (decreasing the angle between articulating bones, such as bending the elbow or knee) and extension (increasing the joint angle back toward anatomical position); continuing movement past anatomical position is hyperextension. Flexion and extension of the forearm take place specifically at the humeroulnar and humeroradial articulations of the elbow joint. Movements in the coronal plane include abduction (body parts moving away from midline) and adduction (body parts moving towards the midline); at the shoulder and hip joints, abduction lifts the limb away from the body trunk, while adduction draws it back toward the torso. In the forearm, rotation about the longitudinal axis produces supination (forearm rotated so the palm faces upwards/anteriorly) and pronation (forearm rotated so the palm faces downwards/posteriorly); these rotational actions take place at the superior and inferior radioulnar joints, where the head of the radius pivots within the radial notch of the ulna. At the wrist (radiocarpal) joint, coronal plane deviation is termed radial flexion (abduction) and ulnar flexion (adduction). The thumb possesses a unique range of motion produced at the carpometacarpal (CMC) joint of the thumb, where the trapezium articulates with the first metacarpal; because the thumb sits rotated 90 degrees relative to other digits, the palm of the hand serves as the fixed reference plane for thumb flexion, extension, abduction, and adduction. Opposition is the specialized action by which the pulp of the thumb contacts the tips of any of the other fingers (tip-to-tip attachment); its opposite restoring movement is reposition. At the ankle and foot, movements split between the talocrural and subtalar/intertarsal joints: dorsiflexion (moving the top of the foot / dorsum upwards toward the shin) and plantarflexion (moving the sole / plantar surface downwards) take place at the ankle (talocrural) joint, whereas inversion (tilting the sole inward / medially) and eversion (tilting the sole outward / laterally) take place at the intertarsal joints. Circumduction is a composite circular movement combining flexion, abduction, extension, and adduction in sequence, seen at ball-and-socket joints of the shoulder and hip.",
-      "plain": "Movements are defined by how joint angles change, and each action belongs to a specific joint. Forearm flexion and extension occur at the elbow joint. Turning your palm up (supination) or down (pronation) occurs at the superior and inferior radioulnar joints as the radius pivots against the ulna. Wrist side-to-side bending occurs at the radiocarpal joint. The thumb moves at its carpometacarpal saddle joint, where opposition touches the thumb tip to any fingertip (reversed by reposition). At the ankle, pointing your foot down (plantarflexion) or lifting your toes up (dorsiflexion) happens at the talocrural joint, while tilting your sole inward (inversion) or outward (eversion) happens at the intertarsal joints. Circumduction combines flexion, abduction, extension, and adduction in a smooth cone of motion.",
-      "keyFacts": [
-        "Flexion and extension of forearm: take place at the elbow joint (sagittal plane).",
-        "Abduction and adduction: moving body parts away from or towards the midline (coronal plane).",
-        "Supination (palm facing upwards) and pronation (palm facing downwards): take place at the superior and inferior radioulnar joints.",
-        "Radial flexion (abduction) and ulnar flexion (adduction): take place at the wrist (radiocarpal) joint.",
-        "Thumb movements (flexion, extension, abduction, adduction, opposition): take place at the carpometacarpal joint of the thumb.",
-        "Thumb reference frame: palm of the hand is the fixed reference plane (not the digits).",
-        "Opposition: tip-to-tip attachment of the thumb with any of the fingers; reverse movement is reposition.",
-        "Dorsiflexion (dorsum upwards) and plantarflexion (sole downwards): take place at the ankle (talocrural) joint.",
-        "Inversion (sole tilted inward/medially) and eversion (sole tilted outward/laterally): take place at the intertarsal joints.",
-        "Circumduction: combination of flexion, abduction, lateral/medial rotation, adduction, and extension forming a cone."
-      ],
-      "examples": [
-        "Turning a brass doorknob clockwise with the right hand involves supination of the forearm produced at the proximal and distal radioulnar joints, not rotation at the wrist.",
-        "Holding a bowl of hot soup requires full forearm supination; spilling the soup requires pronation.",
-        "Standing on your tip-toes is plantarflexion at the talocrural joint; lifting the forefoot to clear the ground when walking is dorsiflexion."
-      ]
-    },
-    "memory": {
-      "mnemonic": "SOUP-ination: hold a bowl of SOUP with palms facing up. PRO-nation: turn palms down like a PRO basketball player dribbling.",
-      "location": "Ankle dual-joint rule: Up/down movements (dorsiflexion / plantarflexion) live at the talocrural joint; side-tilt movements (inversion / eversion) live at the intertarsal joints.",
-      "chunking": "Thumb is a complete 5-movement package at 1 joint: flexion, extension, abduction, adduction, opposition — all at the carpometacarpal joint.",
-      "teachBack": "Explain why the wrist joint cannot rotate, and demonstrate the exact joint mechanism that allows your hand to turn palm-up and palm-down."
-    },
     "practice": [
       {
         "type": "cloze",
@@ -656,22 +546,6 @@ export const HSS_JOINTS = [
       "Believing the wrist joint rotates; the wrist only flexes, extends, and deviates side-to-side. Rotation occurs at the radioulnar joints.",
       "The classic swap: dorsiflexion/plantarflexion live at the talocrural (ankle) joint, inversion/eversion at the intertarsal joints — not the same joint, not the same axis.",
       "Measuring thumb abduction/adduction against the middle finger; the palm of the hand is the reference plane for thumb movements."
-    ],
-    "skills": [
-      "Always separate the joint name from the movement name: in HSS2011 exams, questions frequently award marks for the exact articulation (e.g., radioulnar vs elbow vs radiocarpal).",
-      "Distinguish foot movements by joint level: talocrural joint for sagittal hinge motion (dorsiflexion/plantarflexion); intertarsal joints for frontal plane tilting (inversion/eversion)."
-    ],
-    "selfCheck": "From memory: list the joints where supination/pronation, dorsiflexion/plantarflexion, inversion/eversion, and thumb opposition take place, and define opposition with its reverse term.",
-    "visuals": [
-      {
-        "fig": "jointMovements"
-      },
-      {
-        "schematic": "jointMovements"
-      },
-      {
-        "gen": true
-      }
     ],
     "sourceRefs": [
       {
@@ -818,32 +692,6 @@ export const HSS_JOINTS = [
       "head and neck",
       "high-yield"
     ],
-    "lesson": {
-      "explanation": "The current self-study movement terminology deck applies standard biomechanical movement descriptors across each region of the human body. In the upper limb, angular and rotational movements are anchored to specific joints. At the glenohumeral (shoulder) joint, movements in the sagittal plane comprise flexion (anterior movement of the arm) and extension (posterior movement returning to anatomical position, continuing beyond as hyperextension). In the coronal plane, abduction moves the upper limb laterally away from the body midline, while adduction draws the limb medially towards the midline. In the transverse plane, lateral (external) rotation of the shoulder turns the humerus away from the midline, whereas medial (internal) rotation turns the humerus towards the midline. Circumduction combines flexion, abduction, extension, and adduction into a smooth cone of motion. At the elbow joint, flexion decreases the angle between the arm and forearm, while extension increases it. In the forearm, rotational actions occur at the superior and inferior radioulnar joints: pronation rotates the radius over the ulna so that the palm faces downwards (or posteriorly), whereas supination rotates the radius laterally so that the palm faces upwards (or anteriorly) and the forearm bones lie parallel. At the wrist (radiocarpal) joint, deviation toward the radial side is abduction (radial flexion) and toward the ulnar side is adduction (ulnar flexion). The thumb possesses a unique multi-axial repertoire at its carpometacarpal (CMC) saddle joint, where the palm of the hand serves as the fixed reference plane: thumb flexion curls across the palm, extension moves away in the plane of the palm, abduction moves anteriorly away at 90 degrees to the palm, adduction returns to the index finger, and opposition brings the tip of the thumb into contact with any of the fingertips, reversed by reposition. For the fingers (digits II–V), abduction spreads digits away from the longitudinal reference axis through the third (middle) digit, and adduction draws them back. In the lower limb, the hip joint exhibits triaxial flexion, extension, abduction, adduction, and rotation. At the ankle and foot, movements split anatomically: dorsiflexion (moving the top of the foot / dorsum upwards toward the leg) and plantarflexion (moving the sole / plantar surface downwards) take place at the ankle (talocrural) joint; inversion (tilting the sole of the foot inward / medially) and eversion (tilting the sole of the foot outward / laterally) take place at the intertarsal joints.",
-      "plain": "The movement deck applies standard movement terms across the body: shoulder flexion moves the arm forward, extension backward; abduction lifts it away from the midline, adduction brings it back; medial rotation turns the arm in, lateral rotation turns it out. Forearm pronation turns the palm down (crossing radius over ulna), while supination turns the palm up. The wrist flexes, extends, and deviates side to side. The thumb is referenced to the palm: opposition touches the thumb tip to any finger, and reposition returns it. Finger abduction is measured from the middle finger. At the foot, dorsiflexion lifts the top of the foot up and plantarflexion pushes the sole down at the ankle joint; inversion turns the sole inward and eversion turns it outward at the intertarsal joints.",
-      "keyFacts": [
-        "Shoulder flexion/extension occurs in the sagittal plane; abduction/adduction in the coronal plane.",
-        "Shoulder rotation: lateral (external) rotation turns away from midline; medial (internal) rotation turns towards midline.",
-        "Circumduction: sequential combination of flexion, abduction, extension, and adduction in a cone.",
-        "Forearm pronation (palm facing downwards) and supination (palm facing upwards): take place at radioulnar joints.",
-        "Pronation causes the distal radius to cross anterior to the ulna; supination restores parallel bone alignment.",
-        "Finger abduction and adduction use the middle digit (digit III) as the invariant reference line.",
-        "Thumb movements (flexion, extension, abduction, adduction, opposition, reposition): referenced to the palm.",
-        "Opposition: tip-to-tip attachment of thumb with any finger; reverse movement is reposition.",
-        "Same split as the movements lesson: dorsiflexion/plantarflexion at the talocrural (ankle) joint; inversion/eversion at the intertarsal joints.",
-        "Foot inversion (sole medially) and eversion (sole laterally): take place at the intertarsal joints."
-      ],
-      "examples": [
-        "Turning a key clockwise in a right-hand door lock involves forearm supination at the radioulnar joints and shoulder lateral rotation.",
-        "Grasping a needle between the thumb and little finger tests thumb opposition at the first carpometacarpal joint."
-      ]
-    },
-    "memory": {
-      "chunking": "Sort movements by joint axis: Sagittal = Flexion/Extension; Coronal = Abduction/Adduction; Transverse = Medial/Lateral Rotation and Pronation/Supination; Composite = Circumduction.",
-      "comparison": "Thumb vs Fingers reference line: Fingers abduct away from the middle finger (digit III); thumb abducts away from the palm at 90 degrees.",
-      "visualCue": "Picture walking on heels (dorsiflexion at ankle) vs walking on tiptoes (plantarflexion at ankle) vs twisting your ankle on a curb (inversion at intertarsal joints).",
-      "teachBack": "Demonstrate each movement of the upper and lower limb out loud, stating the precise anatomical plane and joint responsible."
-    },
     "practice": [
       {
         "type": "matching",
@@ -922,20 +770,6 @@ export const HSS_JOINTS = [
       "Assuming the wrist rotates when the palm turns over; rotation occurs purely at the proximal and distal radioulnar joints.",
       "Confusing ankle dorsiflexion/plantarflexion (talocrural joint) with foot inversion/eversion (intertarsal joints).",
       "Using the thumb as the reference axis for finger abduction instead of the middle finger (digit III)."
-    ],
-    "skills": [
-      "Identify movement vectors on clinical motion analysis: classify every action into its anatomical plane (sagittal, coronal, transverse) and name the exact articulating surface.",
-      "Differentiate digit reference rules: digits II, IV, and V move relative to digit III; the thumb moves in planes perpendicular to the palm."
-    ],
-    "selfCheck": "From memory: define flexion, extension, abduction, adduction, pronation, supination, dorsiflexion, plantarflexion, inversion, eversion, opposition, and reposition with their respective joints.",
-    "visuals": [
-      { fig: 'jointMovements', focus: ["a / b","e","f"] },
-      {
-        "schematic": "jointMovements"
-      },
-      {
-        "gen": true
-      }
     ],
     "sourceRefs": [
       {
@@ -1056,31 +890,6 @@ export const HSS_JOINTS = [
       "high-yield",
       "foundation"
     ],
-    "lesson": {
-      "explanation": "The rotator cuff (musculotendinous cuff) is a critical functional collar formed by the blended tendons of four intrinsic scapulohumeral muscles that encircle and intimately reinforce the fibrous capsule of the glenohumeral (shoulder) joint. The four muscles are remembered by the classic medical mnemonic SITS: Supraspinatus, Infraspinatus, Teres minor, and Subscapularis. 1. Supraspinatus originates from the supraspinous fossa on the posterior surface of the scapula, passes beneath the acromion, and inserts onto the superior facet of the greater tubercle of the humerus; it initiates the first 15 degrees of abduction and is innervated by the suprascapular nerve. 2. Infraspinatus occupies the extensive infraspinous fossa inferior to the scapular spine, inserting onto the middle facet of the greater tubercle; it acts as a powerful lateral (external) rotator of the humerus and is innervated by the suprascapular nerve. 3. Teres minor is a slender muscle arising from the lateral border of the scapula and inserting onto the inferior facet of the greater tubercle; it works synergistically with infraspinatus to produce lateral rotation of the humerus and is innervated by the axillary nerve. 4. Subscapularis is a large, triangular muscle occupying the subscapular fossa on the anterior (costal) surface of the scapula; its tendon crosses the anterior aspect of the joint capsule to insert onto the lesser tubercle of the humerus. Subscapularis is the sole anterior rotator cuff muscle and serves as the primary medial (internal) rotator of the humerus, innervated by the subscapular nerve. Full abduction of the arm through its complete 180-degree physiological arc is not executed by a single muscle, but is an orchestrated four-stage neuromuscular sequence: Stage 1: Supraspinatus initiates abduction through the first 15 degrees. Stage 2: Deltoid (acromial part) acts as the primary powerful abductor from 15 to 90 degrees (innervated by the axillary nerve). Stage 3: Infraspinatus and Teres minor laterally rotate the humerus, clearing the greater tubercle from impinging against the coracoacromial arch. Stage 4: Trapezius and serratus anterior upwardly rotate the scapula, turning the glenoid cavity upward to allow full overhead elevation up to 180 degrees. Major shoulder-girdle muscles surrounding the cuff include pectoralis major (responsible for flexion, adduction, and medial rotation of the shoulder joint; innervated by pectoral nerves) and latissimus dorsi (responsible for adduction, extension, and medial rotation; innervated by the thoracodorsal nerve).",
-      "plain": "The rotator cuff consists of four muscles that wrap around the shoulder joint like a cuff to keep the humeral ball snug inside the shallow glenoid socket: Supraspinatus, Infraspinatus, Teres minor, and Subscapularis (mnemonic: SITS). Supraspinatus starts the first 15 degrees of arm lift (abduction). Deltoid is the heavyweight lifter that abducts from 15 to 90 degrees. Infraspinatus and teres minor rotate the arm outward (lateral rotation) so the bone does not bump into the shoulder roof. Finally, trapezius and serratus anterior tilt the shoulder blade up so your arm can reach straight overhead. Subscapularis is the only muscle in front, and it rotates the arm inward (medial rotation).",
-      "keyFacts": [
-        "Rotator cuff muscles (SITS): Supraspinatus, Infraspinatus, Teres minor, Subscapularis.",
-        "Supraspinatus (suprascapular n.): initiates the first 15 degrees of abduction.",
-        "Infraspinatus (suprascapular n.) & Teres minor (axillary n.): lateral rotation of humerus.",
-        "Subscapularis (subscapular n.): medial rotation of humerus; only anterior cuff muscle.",
-        "Deltoid (axillary n.): powerful abductor of the arm from 15° to 90° (not part of rotator cuff).",
-        "Four-stage full abduction sequence: Supraspinatus initiates → Deltoid abducts → Infraspinatus/Teres minor laterally rotate → Trapezius/serratus anterior upwardly rotate scapula.",
-        "Pectoralis major (pectoral nerves): flexion, adduction, and medial rotation of shoulder.",
-        "Latissimus dorsi (thoracodorsal nerve): adduction, extension, and medial rotation of shoulder.",
-        "Greater tubercle receives three cuff tendons (supraspinatus, infraspinatus, teres minor); lesser tubercle receives subscapularis."
-      ],
-      "examples": [
-        "A patient with a torn supraspinatus tendon cannot initiate lifting their arm away from their side; however, once an examiner lifts the arm past 15 degrees, the deltoid takes over and easily abducts to 90 degrees.",
-        "Painful arc syndrome occurs during abduction between 60° and 120° when an inflamed supraspinatus tendon is pinched beneath the acromion."
-      ]
-    },
-    "memory": {
-      "firstLetter": "SITS on the shoulder: Supraspinatus, Infraspinatus, Teres minor, Subscapularis.",
-      "comparison": "Three back, one front: Supraspinatus, Infraspinatus, and Teres minor sit on the dorsal scapula and insert on the greater tubercle (external rotators / abductor). Subscapularis sits on the anterior scapula and inserts on the lesser tubercle (internal rotator).",
-      "sequence": "Abduction relay: Start (Supraspinatus) → Lift (Deltoid) → Clear (Infraspinatus/Teres minor) → Overhead Tilt (Trapezius).",
-      "teachBack": "Explain why a patient who can hold their arm out horizontally might still have a torn rotator cuff that prevents them starting the movement from their thigh."
-    },
     "practice": [
       {
         "type": "cloze",
@@ -1168,22 +977,6 @@ export const HSS_JOINTS = [
       "Including the deltoid in the rotator cuff; deltoid is a major shoulder girdle abductor, not a cuff muscle.",
       "Assuming supraspinatus abducts the arm all the way to 90 degrees; it only initiates the first 15 degrees.",
       "Thinking subscapularis sits on the posterior scapula; it occupies the anterior subscapular fossa and medially rotates."
-    ],
-    "skills": [
-      "Break abduction into its four relays: Starter (Supraspinatus) → Main Motor (Deltoid) → Rotator (Infraspinatus/Teres Minor) → Scapular Tilter (Trapezius/Serratus Anterior).",
-      "Distinguish cuff insertions: Greater tubercle receives S-I-T (Supraspinatus, Infraspinatus, Teres minor); Lesser tubercle receives S (Subscapularis)."
-    ],
-    "selfCheck": "From memory: list the four rotator cuff muscles (SITS) with their actions and innervations, write down the 4-step abduction relay in order, and state which tubercle each muscle inserts upon.",
-    "visuals": [
-      {
-        "fig": "rotatorCuffMuscles"
-      },
-      {
-        "schematic": "muscleAction"
-      },
-      {
-        "gen": true
-      }
     ],
     "sourceRefs": [
       {

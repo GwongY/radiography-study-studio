@@ -1,8 +1,8 @@
 /*
  * Gloss gap scan — regression check for the reading help.
  *
- * Re-runs the same tokenisation + lookup the app uses over every study text,
- * and lists the words that would NOT be tappable. The count at the top is the
+ * Re-runs the same tokenisation + lookup the app uses over item titles,
+ * Practice/Apply prompts and answer text, and lists words that are not tappable. The count at the top is the
  * thing to watch: after any change to term-gloss.js, term-notes.js or
  * wordparts.js it must not grow.
  *
@@ -32,11 +32,6 @@ function textsOf(item) {
   const out = [];
   const push = (v) => { if (typeof v === 'string' && v.trim()) out.push(v); };
   push(item.title);
-  const L = item.lesson || {};
-  push(L.explanation);
-  (L.keyFacts || []).forEach(push);
-  (L.examples || []).forEach(push);
-  Object.values(item.memory || {}).forEach(push);
   for (const q of item.practice || []) {
     push(q.prompt);
     (q.options || []).forEach(push);

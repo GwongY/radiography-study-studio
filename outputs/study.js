@@ -27,7 +27,6 @@ import './study/subject.js';
 import { init as init_revise_js } from './study/revise.js';
 import './study/what-is-under.js';
 import './study/session-engine.js';
-import './study/lesson-visuals.js';
 import './study/reading-help.js';
 import { init as init_layout_figures_js } from './study/layout-figures.js';
 import { init as init_source_dialog_js } from './study/source-dialog.js';

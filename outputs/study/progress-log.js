@@ -231,12 +231,8 @@ export function recordAttempt(itemId, dim, outcome, meta = {}) {
   return rec;
 }
 
-/*
- * markRead throttles to one write a minute, so paging between the steps of one
- * item does not write storage on every render. The log has to agree with that
- * or a rebuild would count reads the app never recorded -- hence the return
- * value, and hence appending only when it says something was actually written.
- */
+/* Legacy Learn-read event writer. Kept so old read-event histories remain
+ * representable and testable; the current session engine does not call it. */
 export function recordRead(itemId, at = Date.now()) {
   if (!markRead(itemId, at)) return false;
   append({ t: 'read', at, itemId });

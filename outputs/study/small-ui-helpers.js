@@ -74,7 +74,7 @@ export function coveragePill(status) {
  * The header tucks away while you read downwards.
  *
  * Two headers, two scrollers: the main one over #navContent, and the session
- * overlay's own over its .navcontent, which is where a lesson is actually
+ * overlay's own over its .navcontent, which is where a session is actually
  * read. Each pairs with the .navhead immediately before it, so nothing here
  * needs to know which is which.
  *

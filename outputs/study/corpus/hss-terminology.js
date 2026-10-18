@@ -17,29 +17,6 @@ export const HSS_TERMINOLOGY = [
     subject: 'HSS2011', unit: 'hss.term', type: 'definition',
     title: 'Anatomical position',
     tags: ['terminology', 'foundation'],
-    lesson: {
-      explanation: 'Anatomists and health care professionals standardise the way they view and describe the human body in exactly the same way geographers orient maps with north at the top. The anatomical position serves as the universal reference frame: an individual standing upright and erect, facing forward with eyes open, feet flat on the floor at shoulder width and parallel, toes pointing forward, and upper limbs held slightly away from the trunk at each side with the palms of the hands facing forward (supinated) and thumbs pointing away from the body. Every directional term (anterior, posterior, superior, inferior, medial, lateral, proximal, distal) is applied strictly as if the patient were standing in this posture, regardless of how they are positioned in clinical reality—whether lying supine (face up), prone (face down), or recumbent on a radiography imaging couch. The critical functional detail is forearm supination: when the palms face forward, the two forearm bones—the lateral radius and medial ulna—lie parallel to each other rather than crossed. If the palms were allowed to face backward as in a relaxed stance (pronation), the radius would cross anteriorly over the ulna, which would invert the spatial relationship of the thumb and wrist. Thus, an injury or surgical scar described as being in the "anterior carpal region" is unambiguously located on the palmar surface of the wrist, even if the patient is imaged lying prone with their hands behind their back.',
-      plain: 'The anatomical position is the universal standard map for the body. You stand upright, facing forward, feet parallel and flat, arms at the sides with palms turned forward and thumbs pointing out. Every directional term—front, back, left, right—is locked to this standard stance, no matter what position the patient is actually in on the hospital bed or scanning table. Palms facing forward is the crucial rule: it keeps the radius and ulna side by side without crossing, ensuring that the thumb is always defined as lateral.',
-      keyFacts: [
-        'Universal reference stance: body upright/erect, head and eyes facing forward.',
-        'Lower limbs: feet placed at shoulder width, parallel, flat on the floor with toes pointing anteriorly.',
-        'Upper limbs: hanging at the sides, slightly abducted from the trunk.',
-        'Forearm and hands: palms facing forward (full supination), fingers extended, thumbs pointing laterally.',
-        'Forearm bones (radius laterally, ulna medially) remain parallel only when the palms face forward.',
-        'Pronation causes the distal radius to cross anterior to the ulna, distorting reference laterality.',
-        'Directional terms are permanently anchored to this stance regardless of real-world patient posture.',
-        'A scar in the "anterior carpal region" is located on the palm side of the wrist even in a prone patient.',
-        'Supine describes a patient lying horizontally on the back facing up; prone describes lying face down.',
-      ],
-      examples: [
-        'A trauma patient lying face down (prone) on a CT table has a laceration on the anterior surface of the forearm; this means the surface facing the table, because anterior is determined by the anatomical position, not room gravity.',
-      ],
-    },
-    memory: {
-      visualCue: 'Picture passing through an airport security full-body scanner: standing upright, feet flat, arms slightly out, showing your palms flat to the forward scanner.',
-      comparison: 'Standing at ease has the palms turned inward or backward (pronation), which crosses the radius over the ulna. Anatomical position forces the palms forward to uncross the forearm bones.',
-      teachBack: 'Explain why the anatomical position is essential in clinical notes: without a single fixed stance, "above the wrist" could mean the forearm or the hand depending on whether the arm is raised.',
-    },
     practice: [
       {
         type: 'mcq', prompt: 'In the anatomical position, how are the palms of the hands oriented?',
@@ -89,14 +66,6 @@ export const HSS_TERMINOLOGY = [
       'Re-orienting directional terms based on whether the patient is sitting, supine, or prone in the radiology suite.',
       'Confusing supine (lying on the back facing up) with prone (lying face down).',
     ],
-    skills: [
-      'Palms forward is not an aesthetic convention—it is the structural pivot of upper limb laterality: uncrossed forearm bones mean the radius is lateral and ulna is medial.',
-      'When reading clinical imaging reports, mentally translate any patient posture back to the standing anatomical position before applying directional vectors.',
-    ],
-    selfCheck: 'From memory, describe the five posture requirements of the anatomical position, explain the mechanical reason for forearm supination, and deduce whether a prone patient’s anterior knee faces the couch or ceiling.',
-    /* No visuals key: visualFor() serves this item its own anatomicalPosition
-       schematic — directionalTerms is owned by the directional-pairs lesson,
-       and a visuals key holding only {gen} would block that fallback. */
     sourceRefs: [
       { ref: 'hss.w1.2026', location: 'p14 "The terminology of"' },
       { ref: 'hss.move.2026', location: 'p1 "Anatomical Position"' },
@@ -110,26 +79,6 @@ export const HSS_TERMINOLOGY = [
     subject: 'HSS2011', unit: 'hss.term', type: 'comparison',
     title: 'Regional vs systemic anatomy',
     tags: ['terminology', 'foundation'],
-    lesson: {
-      explanation: 'In the scientific study of the human body, anatomists employ two complementary organizational paradigms: regional anatomy and systemic anatomy. Regional anatomy studies the spatial arrangement and mutual relationships of all anatomical structures within a specific topographical division of the body, such as the head and neck, thoracic cavity, abdomen, or upper limb. This approach emphasizes how skeletal muscles, peripheral nerves, blood vessels, lymphatics, and visceral organs sit alongside one another within shared fascial compartments and body cavities. It provides the three-dimensional spatial foundation essential for surgical procedures, physical palpation, and the interpretation of cross-sectional radiological imaging (such as CT and MRI scans). In contrast, systemic anatomy studies the structures that compose a discrete, dedicated organ system—that is, a group of coordinated organs that perform a unified physiological function throughout the entire organism. For example, a systemic study of the muscular system examines all skeletal muscles across head, trunk, and limbs; a systemic study of the cardiovascular system follows the heart and vascular circuits everywhere they run. The HSS2011 syllabus deliberately combines both approaches: the course opens with foundational systemic overviews (osteology, arthrology, myology, neuroanatomy, cardiovascular, and respiratory systems) and then consolidates them within regional modules (such as Regional Anatomy of the Thorax, Abdomen, and Pelvis). Furthermore, both approaches operate across the hierarchy of structural organization: from the chemical level (atoms, molecules) to the cellular level, tissue level (epithelial, connective, muscle, nervous), organ level, organ system level (the 11 body systems), and organismal level.',
-      plain: 'Regional anatomy and systemic anatomy are two ways of exploring the same human body. Regional anatomy focuses on a single location—like the thorax or the upper limb—and studies everything packed into that space: muscles, nerves, blood vessels, and bones all together. Systemic anatomy follows one complete functional system across the whole body, like tracing every artery in the cardiovascular network. HSS2011 uses both: you learn the systems first so you understand how the parts work, and then study the regions so you know where everything sits in 3D.',
-      keyFacts: [
-        'Regional anatomy: examines all structures (muscles, nerves, vessels, viscera) within a defined body region.',
-        'Regional anatomy emphasizes 3D spatial interrelationships, fascial compartments, and cross-sectional anatomy.',
-        'Systemic anatomy: examines the components of a single functional body system throughout the entire body.',
-        'Systemic anatomy emphasizes integrated physiological functions across distant anatomical sites.',
-        'HSS2011 combines systemic foundations with regional consolidation modules.',
-        'Six hierarchical levels of structural organization: chemical → cellular → tissue → organ → organ system → organism.',
-        'The eleven human organ systems: integumentary, skeletal, muscular, nervous, endocrine, cardiovascular, lymphatic, respiratory, digestive, urinary, reproductive.',
-      ],
-      examples: [
-        'Module 1.1 and 1.2 examine the respiratory and cardiovascular systems systemically; Module 1.3 Regional Anatomy of the Thorax reassembles both systems inside the thoracic cavity to study their physical spatial relationships.',
-      ],
-    },
-    memory: {
-      chunking: 'Region = Location / Neighborhood ("Where am I standing?"). System = Function / Utility Network ("What job is being done across the city?").',
-      comparison: 'Regional anatomy is like an architect’s blueprint of a single room showing the plumbing, wiring, and studs; systemic anatomy is like tracing the building’s entire electrical circuit from basement to roof.',
-    },
     practice: [
       {
         type: 'mcq', prompt: 'Studying all the skeletal muscles of the body as a single collective system is an example of which anatomical approach?',
@@ -183,14 +132,6 @@ export const HSS_TERMINOLOGY = [
       'Assuming regional anatomy is merely redundant revision of systemic anatomy rather than a new layer of spatial relationships.',
       'Confusing the tissue level (e.g. cardiac muscle tissue) with the organ level (the whole heart containing muscle, epithelial, and connective tissues).',
     ],
-    skills: [
-      'Use systemic knowledge to understand physiology and systemic pathology; use regional knowledge to interpret cross-sectional scans (CT/MRI) and predict local mass effects.',
-    ],
-    selfCheck: 'Define regional and systemic anatomy, list the 6 levels of structural hierarchy, and describe how the two approaches complement each other in radiological diagnosis.',
-    visuals: [
-      { fig: 'levelsOfOrganisation' },
-      { gen: true },
-    ],
     sourceRefs: [
       { ref: 'hss.w1.2026', location: 'p2 "With systemic and regional approaches, students will demonstrate basic understanding"' },
       { ref: 'hss.w1.2026', location: 'p9 "Organization of human body"' },
@@ -204,30 +145,6 @@ export const HSS_TERMINOLOGY = [
     subject: 'HSS2011', unit: 'hss.term', type: 'matching',
     title: 'The ten directional terms',
     tags: ['terminology', 'high-yield'],
-    lesson: {
-      explanation: 'Anatomical directional terms describe the relative positions of body structures along defined spatial axes. To prevent ambiguity in clinical documentation and medical imaging, these terms are organized as five mutually exclusive, opposed pairs, each defined relative to the standardized anatomical position:\n\n1. Anterior (ventral) versus Posterior (dorsal):\nAnterior describes a position at or toward the front surface of the body (e.g., the toes are anterior to the foot; the sternum is anterior to the heart). Posterior describes a position at or toward the back surface of the body (e.g., the popliteus is posterior to the patella; the esophagus is posterior to the trachea). In human bipedal anatomy, ventral corresponds to anterior and dorsal corresponds to posterior.\n\n2. Superior (cranial / cephalic) versus Inferior (caudal):\nSuperior describes a position above or higher than another structure along the vertical axis of the body proper (e.g., the orbits are superior to the oris; the lungs are superior to the liver). Inferior describes a position below or lower than another structure along the vertical axis, toward the tail/feet (e.g., the pelvis is inferior to the abdomen; the stomach is inferior to the diaphragm).\n\n3. Medial versus Lateral:\nMedial describes a position toward the vertical longitudinal midline of the body (e.g., the hallux is the medial toe; the ulna is medial to the radius). Lateral describes a position away from the midline, toward the outer sides of the body (e.g., the thumb / pollex is lateral to the digits; the lungs are lateral to the mediastinum). Note that the thumb is lateral only because the anatomical position specifies supinated palms.\n\n4. Proximal versus Distal:\nThese terms apply strictly within the appendicular skeleton (the limbs) to describe distances relative to the limb’s point of origin or attachment to the trunk. Proximal describes a position closer to the attachment point (e.g., the brachium is proximal to the antebrachium; the femur is proximal to the tibia). Distal describes a position farther from the attachment point (e.g., the crus is distal to the femur; the wrist is distal to the elbow). Proximal and distal must never be used to describe the relationship between two structures on the trunk (e.g. the relationship between the sternum and scapula is anterior/posterior, not proximal/distal).\n\n5. Superficial versus Deep:\nSuperficial describes a position closer to the external surface of the body (e.g., the skin is superficial to the skeletal muscles; the rib cage is superficial to the lungs). Deep describes a position farther internal from the surface (e.g., the brain is deep to the cranium; the bone marrow is deep to the periosteum).',
-      plain: 'Directional terms are precision tools that work in five opposite pairs. Anterior/posterior tells front from back; superior/inferior tells top from bottom; medial/lateral tells midline from outer side. Proximal and distal are reserved strictly for the arms and legs, measuring how close something is to where the limb connects to the torso (proximal is closer to the shoulder or hip; distal is further down toward the fingers or toes). Superficial and deep tell surface from deep interior.',
-      keyFacts: [
-        'Anterior (ventral) = toward the front; posterior (dorsal) = toward the back.',
-        'Superior (cranial) = above or toward the head; inferior (caudal) = below or toward the tail/feet.',
-        'Medial = toward the vertical midline; lateral = away from the midline toward the side.',
-        'Proximal = closer to the limb attachment to the trunk; distal = farther from the limb attachment.',
-        'Proximal and distal are strictly appendicular terms; they cannot be applied between trunk structures.',
-        'Superficial = nearer to the external body surface; deep = farther internal from the surface.',
-        'The thumb (pollex) is lateral to the other digits because the palms face forward in anatomical position.',
-        'The sternum is anterior to the scapula (not medial, proximal, or superior).',
-        'The popliteus muscle is posterior to the patella; the orbits are superior to the mouth (oris).',
-      ],
-      examples: [
-        'A fracture of the "distal radius" is near the wrist, because the wrist is further from the shoulder attachment than the elbow is.',
-        'The sternum is anterior to the thoracic vertebrae; calling it "proximal" is invalid because both are axial trunk structures.',
-      ],
-    },
-    memory: {
-      firstLetter: 'Five pairs along five axes: Front/Back (Anterior/Posterior), Up/Down (Superior/Inferior), In/Out (Medial/Lateral), Near/Far (Proximal/Distal), Surface/Core (Superficial/Deep).',
-      chunking: 'Always learn them in opposed pairs. Half of exam mistakes come from selecting the correct axis but the opposite partner.',
-      wordOrigin: 'Proximal shares its Latin root with "proximity" (closeness to the trunk). Distal shares its root with "distance" (far from the trunk).',
-    },
     practice: [
       {
         type: 'mcq', prompt: 'The sternal region is __________ to the scapular region.',
@@ -283,15 +200,6 @@ export const HSS_TERMINOLOGY = [
       'Forgetting that laterality of the thumb depends entirely on anatomical forearm supination; in a pronated hand the thumb faces medially.',
       'Accidentally selecting the opposite partner term under exam time pressure (e.g. confusing medial with lateral).',
     ],
-    skills: [
-      'Rule out proximal/distal immediately if the two structures being compared both lie on the head, neck, or torso.',
-      'Anchor forearm and hand laterality to the radius (lateral) and ulna (medial) in the supinated anatomical position.',
-    ],
-    selfCheck: 'List all five pairs of directional terms from memory, state the rule governing proximal vs distal, and explain why the thumb is lateral while the great toe is medial.',
-    visuals: [
-      { fig: 'directionalTerms' },
-      { gen: true },
-    ],
     sourceRefs: [
       { ref: 'hss.w1.2026', location: 'p14 "Proximal VS Distal"' },
       { ref: 'hss.w1.2026', location: 'p14 "Toward midline VS away from midline"' },
@@ -315,28 +223,6 @@ export const HSS_TERMINOLOGY = [
     subject: 'HSS2011', unit: 'hss.term', type: 'definition',
     title: 'Body planes and what each one separates',
     tags: ['terminology', 'high-yield'],
-    lesson: {
-      explanation: 'To visualize, section, and describe three-dimensional anatomical structures, anatomists and radiologists slice the human body along three standardized imaginary geometric planes that intersect at right angles to each other. Each orthogonal plane is directly coupled to one specific pair of directional terms:\n\n1. Frontal (Coronal) Plane:\nA vertical plane oriented longitudinally from side to side, perpendicular to the sagittal plane. It divides the body into anterior (front) and posterior (back) portions. In medical imaging, coronal reformations display front-to-back relationships (e.g. showing both kidneys alongside the inferior vena cava and abdominal aorta). The term "coronal" derives from the coronal suture of the cranium, which runs along this exact plane between the frontal bone and parietal bones.\n\n2. Sagittal Plane:\nA vertical plane oriented longitudinally from front to back, dividing the body into right and left portions. When the plane passes exactly down the anatomical midline, dividing the body into equal, symmetrical right and left halves, it is designated the midsagittal (or median) plane. When a vertical plane runs parallel to the midline but off-center, dividing the body into unequal right and left parts, it is termed a parasagittal plane. In radiology, sagittal scans are essential for viewing the curvature of the vertebral column, spinal cord, and brainstem.\n\n3. Transverse (Horizontal / Axial) Plane:\nA horizontal plane running perpendicular to both the sagittal and coronal planes, dividing the body into superior (upper) and inferior (lower) portions. In diagnostic radiography, CT and MRI cross-sections are routinely acquired or viewed in this transverse (axial) orientation, looking from the patient\'s feet upward (so the patient\'s right side is on the viewer\'s left).\n\n4. Oblique Plane:\nA cut taken at an angle intermediate between horizontal and vertical planes, frequently used in echocardiography and specialized musculoskeletal imaging to align with an organ’s long axis.',
-      plain: 'There are three main ways to slice the body, and each slice separates one specific pair of directions. A coronal (frontal) cut slices ear-to-ear, splitting front from back (anterior and posterior). A sagittal cut slices front-to-back along the midline, splitting left from right; if it is dead-center, it is called midsagittal or median. A transverse (horizontal or axial) cut slices across the waist, splitting top from bottom (superior and inferior). Standard CT and MRI scans are based on these exact three planes.',
-      keyFacts: [
-        'Coronal (frontal) plane: vertical cut that separates the body into anterior and posterior parts.',
-        'Midsagittal (median) plane: vertical cut along the midline that separates the body into equal left and right halves.',
-        'Parasagittal plane: vertical cut parallel to the midline dividing the body into unequal left and right parts.',
-        'Transverse (horizontal / axial) plane: horizontal cut that separates the body into superior and inferior parts.',
-        'Standard CT and MRI cross-sectional images are acquired in or reformatted to these three orthogonal planes.',
-        'Radiological viewing convention: axial slices are viewed from the patient’s feet looking upward (patient right is on viewer left).',
-        'Dual nomenclature in official glossaries: Frontal = Coronal; Median = Mid-sagittal; Horizontal = Transverse.',
-      ],
-      examples: [
-        'A brain MRI slice displaying both cerebral hemispheres, the corpus callosum along the midline, and the brainstem is a midsagittal view.',
-        'An abdominal CT slice showing the liver on the right and spleen on the left at the same level is an axial (transverse) section.',
-      ],
-    },
-    memory: {
-      visualCue: 'Coronal = Crown (tiara) sitting across your head from ear to ear, slicing front from back. Sagittal = Arrow (sagitta) shot straight through your nose and out the back of your head, splitting left from right.',
-      chunking: 'Three planes, three splits: Coronal → Front/Back; Transverse → Top/Bottom; Sagittal → Left/Right.',
-      wordOrigin: 'Sagittal comes from Latin "sagitta" meaning arrow; coronal comes from Latin "corona" meaning crown.',
-    },
     practice: [
       {
         type: 'matching', prompt: 'Match each body plane to the directional pair it separates.',
@@ -383,14 +269,6 @@ export const HSS_TERMINOLOGY = [
       'Confusing coronal and sagittal planes because both are vertical cuts; distinguish them by whether they split front/back (coronal) or left/right (sagittal).',
       'Using the word "sagittal" when strictly meaning "midsagittal"; parasagittal sections also run vertically front-to-back but do not pass down the midline.',
     ],
-    skills: [
-      'Identify the plane by looking at the margins of the section: if you see left and right together with superior and inferior, it is coronal; if you see anterior and posterior together with superior and inferior, it is sagittal; if you see anterior and posterior together with left and right, it is transverse/axial.',
-    ],
-    selfCheck: 'From memory, state the three orthogonal planes of the body, give both accepted technical names for each, and identify which plane is equivalent to a conventional axial CT slice.',
-    visuals: [
-      { fig: 'bodyPlanes' },
-      { gen: true },
-    ],
     sourceRefs: [
       { ref: 'hss.w1.2026', location: 'p16 "Coronal Plane"' },
       { ref: 'hss.w1.2026', location: 'p16 "Sagittal Plane"' },
@@ -404,31 +282,6 @@ export const HSS_TERMINOLOGY = [
     subject: 'HSS2011', unit: 'hss.term', type: 'definition',
     title: 'Body cavities, regions and quadrants',
     tags: ['terminology', 'high-yield'],
-    lesson: {
-      explanation: 'The internal architecture of the human body is partitioned into enclosed spaces called body cavities that cushion, protect, and support internal viscera while allowing them to change size and shape without disrupting neighbouring tissues. Anatomists divide the body into two principal cavities: the dorsal body cavity and the ventral body cavity.\n\n1. Dorsal Body Cavity:\nLocated posteriorly, continuous, and lined by three protective connective tissue membranes called the meninges and cushioned by cerebrospinal fluid (CSF). It comprises:\n- Cranial cavity: enclosed by the cranium of the skull, housing the brain.\n- Vertebral (spinal) canal: formed by the aligned vertebral foramina of the vertebral column, enclosing the spinal cord.\n\n2. Ventral Body Cavity:\nLocated anteriorly and subdivided by the muscular diaphragm into two primary compartments:\n- Thoracic Cavity (superior to diaphragm): bounded by the ribs and chest musculature. It contains three internal subdivisions:\n  a) Two Pleural Cavities: lateral spaces, each enclosing one lung and lined by visceral and parietal pleura.\n  b) Mediastinum: central mass of connective tissue separating the two pleural cavities, containing the trachea, esophagus, thymus, thoracic duct, and great vessels.\n  c) Pericardial Cavity: nested within the inferior mediastinum, surrounding the heart and lined by visceral and parietal pericardium.\n- Abdominopelvic Cavity (inferior to diaphragm): bounded by abdominal wall muscles, vertebrae, and the pelvis. It is conventionally divided into:\n  a) Abdominal Cavity: superior division containing the stomach, liver, gallbladder, spleen, pancreas, small intestine, and most of the large intestine, enclosed within the peritoneal cavity.\n  b) Pelvic Cavity: inferior division enclosed by the bony pelvis, containing the urinary bladder, terminal sigmoid colon, rectum, and internal reproductive organs.\n\n3. Surface Grids of the Abdomen:\nTo describe the clinical location of abdominal pain, palpable masses, or surgical findings, two standard grid systems are used:\n- Four Quadrants: created by the intersection of the vertical median plane and the horizontal transumbilical plane at the umbilicus: Right Upper Quadrant (RUQ), Left Upper Quadrant (LUQ), Right Lower Quadrant (RLQ), and Left Lower Quadrant (LLQ).\n- Nine Abdominopelvic Regions: created by four planes—two vertical midclavicular lines, one superior horizontal subcostal plane (below 10th costal cartilage), and one inferior horizontal transtubercular plane (through iliac tubercles). The resulting 3x3 grid from superior to inferior comprises:\n  - Top row: Right Hypochondriac, Epigastric, Left Hypochondriac.\n  - Middle row: Right Lumbar (lateral), Umbilical, Left Lumbar (lateral).\n  - Bottom row: Right Inguinal (iliac), Hypogastric (pubic), Left Inguinal (iliac).',
-      plain: 'The body houses its organs in sealed internal rooms called cavities. In the back is the dorsal cavity (brain and spinal cord). In the front is the ventral cavity, split by the diaphragm into the thoracic cavity (chest: heart in its pericardial sac, lungs in their pleural sacs, and the mediastinum between them) and the abdominopelvic cavity (abdomen and pelvis). On the surface of the abdomen, doctors describe locations using either four quadrants (meeting at the navel) or a more precise nine-region grid.',
-      keyFacts: [
-        'Dorsal body cavity = cranial cavity (brain) + vertebral canal (spinal cord); lined by meninges.',
-        'Ventral body cavity is partitioned by the muscular diaphragm into thoracic and abdominopelvic cavities.',
-        'Thoracic cavity contains two pleural cavities, one pericardial cavity, and the central mediastinum.',
-        'Mediastinum is the central tissue partition between the two pleural cavities; it houses the pericardial cavity.',
-        'Abdominopelvic cavity contains the abdominal cavity (digestive organs) and pelvic cavity (bladder, rectum, reproductive viscera).',
-        'Serous membranes (pleura, pericardium, peritoneum) have an inner visceral layer on the organ and an outer parietal layer lining the wall.',
-        'Four clinical quadrants: RUQ, LUQ, RLQ, LLQ intersect at the umbilicus.',
-        'Nine anatomical regions: right/left hypochondriac, epigastric; right/left lumbar, umbilical; right/left inguinal, hypogastric.',
-        'The transtubercular plane forms the lower boundary of the nine-region grid, passing through the iliac tubercles.',
-        'Hypochondriac literally translates as "below the cartilage" (under the costal cartilages of the rib cage).',
-      ],
-      examples: [
-        'Appendicitis presents as acute pain and tenderness in the right lower quadrant (RLQ), corresponding precisely to the right inguinal (iliac) region.',
-        'The gallbladder lies in the right hypochondriac region of the nine-region grid, which translates to the right upper quadrant (RUQ).',
-      ],
-    },
-    memory: {
-      chunking: 'Ventral splits at the diaphragm: Thoracic above, Abdominopelvic below. Thoracic holds 2 Pleural + 1 Pericardial inside the Mediastinum.',
-      location: 'Nine-box grid: middle column runs down from Epigastric (above stomach) → Umbilical (navel) → Hypogastric (below stomach). Flanks are Hypochondriac (under ribs) → Lumbar (loins) → Inguinal (groin).',
-      wordOrigin: 'Hypo- (under) + chondros (cartilage) = Hypochondriac, because it sits tucked under the costal cartilages of the rib cage.',
-    },
     practice: [
       {
         type: 'typed', prompt: 'Which single anatomical name designates the continuous space comprising the abdominal and pelvic cavities combined?',
@@ -472,16 +325,6 @@ export const HSS_TERMINOLOGY = [
       'Confusing the pericardial cavity (around the heart in the chest) with the peritoneal cavity (around abdominal organs).',
       'Thinking the mediastinum is an empty cavity; it is a dense connective tissue partition containing the heart, trachea, esophagus, and great vessels.',
       'Misunderstanding "hypochondriac" as an emotional condition rather than "under the costal cartilage".',
-    ],
-    skills: [
-      'Use the four-quadrant system for rapid bedside triage and emergency localization; use the nine-region system for precise organ-specific localization and surgical planning.',
-      'Identify serous cavities by their two layers: visceral (adherent to organ) and parietal (lining wall), separated by lubricating serous fluid.',
-    ],
-    selfCheck: 'From a blank sheet: diagram the dorsal and ventral cavities, sketch the 3x3 nine-region abdominopelvic grid with all 9 labels and bounding planes, and map the 4 clinical quadrants.',
-    visuals: [
-      { fig: 'abdominalQuadrantsRegions' },
-      { fig: 'bodyCavities' },
-      { gen: true },
     ],
     sourceRefs: [
       { ref: 'hss.w1.2026', location: 'p9 "Organization of human body"' },

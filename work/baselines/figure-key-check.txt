@@ -1,9 +1,0 @@
-— every figure a lesson shows has intro (+ key) —
-  ok  150 figures checked
-— every plate has intro + key —
-  ok  5 plates checked
-— unused FIGURES entries (informational) —
-— every visuals[].focus entry resolves to a real figure mark —
-  ok  65 focus specifications checked
-
-ALL PASS

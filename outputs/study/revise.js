@@ -222,7 +222,7 @@ function renderPanel(id, el) {
   }
   side.innerHTML = h;
   side.scrollTop = 0;
-  /* Reading help: the same underlined, tappable words the lessons had. */
+  /* Reading help: tappable terms in the revision notes. */
   side.querySelectorAll('.rv-note').forEach((e) => glossifyNode(e));
 }
 

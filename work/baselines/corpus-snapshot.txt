@@ -1,38 +1,35 @@
-— the export surface of outputs/study-data.js — 64 exports —
-  f6ce6e2d285e4eb0      3308  BONE_HOOKS  object[21]
-  76ae76e146614b12     47007  COVERAGE  object[6]
+— the export surface of outputs/study-data.js — 59 exports —
+  0db71e7a09327403     43357  COVERAGE  object[6]
   6b86b273ff34fce1         1  DATA_VERSION  number
   619d6a33617fad34         8  DAY_MS  number
   aa913c9e4315215a         8  DELAY_THRESHOLD_MS  number
   b27df81e56274c00      1272  DIAGRAMS  object[2]
   6faf83c533413f49       228  DSE_PARTS  object[2]
-  f5db0cdbcd3dca8d   2222779  ITEM_BY_ID  Map[210]
+  0157f20e54ef8cb2   1011567  ITEM_BY_ID  Map[210]
   ecf976e047bbfdbb       969  ITEM_TYPES  object[15]
   1c5e15195305d358      4556  JOINT_MOVEMENTS  object[4]
   f7f8a880fc5360f1        24  LEGACY_STATS_KEY  string
   420a0e68b2bda59f       967  MASTERY_DIMENSIONS  array[9]
-  365f0cf2af2e474f       281  MEMORY_METHODS  object[9]
-  43616648afe49c5c      1368  MODULES  object[5]
-  58b5ba15ac8b970a      1089  PLACEHOLDER_NOTICES  object[2]
+  75d2a8649fe0622f      1093  PLACEHOLDER_NOTICES  object[2]
   d2cbad71ff333de6         3  PRIOR_ASSUMED_SCORE  number
-  f428292239abe4d6       199  PRIOR_KNOWLEDGE  object[1]
+  c8350e8d9b4d8467       186  PRIOR_KNOWLEDGE  object[1]
   98a503c7f71e10a2       285  REVEAL_MODES  array[3]
-  f0a99ffb06d2f02a       740  SOCIOLOGY_NOTICE  object[5]
-  bee77947be091fc5     44944  SOURCE_FILES  object[130]
+  266b1d37e664a297       747  SOCIOLOGY_NOTICE  object[5]
+  8220bebce5f9f88d     44941  SOURCE_FILES  object[130]
   fcd1b035a403732f        12  SOURCE_MAP_VERSION  string
   9131051cbbd87c06       539  SOURCE_ROOTS  object[18]
   f5a4a790ced096e6         9  STORAGE_PREFIX  string
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
-  47f0e0afa8bfc14c     27464  STRUCTURE_SETS  object[13]
-  03d55659629c3710   2215592  STUDY_ITEMS  array[210]
+  0c48f89076c08212     22713  STRUCTURE_SETS  object[13]
+  02b548f34bbd133e   1004380  STUDY_ITEMS  array[210]
   983b09221060f435       570  STUDY_MODES  array[4]
-  f073fc79896f1797      4089  SUBJECTS  array[6]
+  c304b213ba040ea9      4097  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
   4bbc36eef0009106    116942  Y1S1_SOURCE_MAP  object[4]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  87b7a01cc58fe6e0   2314245  default  object[7]
+  158b149184b13bef   1099388  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   d432de439a4df5de        75  entryStep  function
@@ -45,11 +42,9 @@
   25498cad4c3607c3       144  itemsForUnit  function
   b5dc8533700355bc        85  jointMovement  function
   e57aba4948ebb600       412  masteryScore  function
-  b1b4645e5a4a7cd8       230  moduleInfo  function
-  251f9a3a88308bc4       210  moduleOf  function
   97992b474f7b8875       160  priorAdjustedScore  function
-  eb588cef64a3ecc6       527  priorOf  function
-  1fa771353264707c       162  priorSources  function
+  03b47b6e3ffc63af       361  priorOf  function
+  286aca99e0a618eb       129  priorSources  function
   fd4bc0f092703d06       156  questionsOf  function
   ab67db13c9dd65b7      2004  schedule  function
   805f5380024c8e9c       108  sourceGroupFor  function
@@ -61,219 +56,219 @@
   c66385619e50da76        82  structureSet  function
   1e4bbf472267ad81       183  tierFor  function
   26fdf16524e01e89       526  validateApplications  function
-  ba048d6b42696398      2356  validateCorpus  function
+  af29b88e48ce8342      1947  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  54ec84247cd993db  WHOLE SURFACE
+  51ef19154fe4356c  WHOLE SURFACE
 
 — every study item, by id — 210 items —
-  cc438d82f012c562  abct2326-acquired-immunity
-  e253b7f06f68ff1f  abct2326-antibody-structure-classes
-  c90588b5652ca64d  abct2326-blood-composition
-  ead7a7a96a410bd3  abct2326-cell-division
-  09356194b34887b8  abct2326-cells-organisation
-  7f5196a89b566fb6  abct2326-complement
-  d5ed3206ec6c97b3  abct2326-connective-tissue-classes
-  ef24f1ea157514b6  abct2326-crossbridge-cycle
-  d7aa04c0e68da7b8  abct2326-cvs-circuits
-  801652afbae66ece  abct2326-cvs-conduction
-  35b683d3301e0390  abct2326-cvs-ecg-cycle
-  5cc5da8f1d40512d  abct2326-cvs-heart-structure
-  b0e364604e19eef6  abct2326-cvs-hemodynamics-tutorial
-  b4663bbde1843a23  abct2326-digestive-hormones-colon
-  dcb8ac8e8cf23a54  abct2326-digestive-pathway
-  7af8767d2e290bb8  abct2326-digestive-small-intestine-accessory
-  c301eb1c23277ad8  abct2326-digestive-stomach-control
-  6d1f1b88d7f0e4ed  abct2326-digestive-wall-motility
-  27e9ac825a46036e  abct2326-endocrine-adrenal-thyroid
-  8a1f05527a14352b  abct2326-endocrine-delivery
-  a739eb884660d56f  abct2326-endocrine-pancreas-misc
-  1538b4d5cb5bd9b1  abct2326-endocrine-pituitary-axes
-  f8c5f53d87e6a2fc  abct2326-endocrine-receptors
-  824602bd4404b232  abct2326-endocrine-second-messengers
-  20a4339d364d4cc9  abct2326-epithelium-classification
-  42e40a3bbc81bfb8  abct2326-feedback-loops
-  1dbd807fceb1c643  abct2326-fibre-types-fuel
-  023dc80e727284f8  abct2326-homeostasis
-  54ee13f37d70b0f1  abct2326-immune-adaptive
-  3411a1a33022496f  abct2326-inflammation-fever
-  9f5a1edd51094f02  abct2326-innate-adaptive
-  d9e50a9468c45f33  abct2326-innate-mechanisms
-  7ba7c8e1a0ff96e8  abct2326-mhc-costimulation
-  bbaa4df978941eef  abct2326-msk-bone-structure-remodeling
-  2fea1019fd773ea4  abct2326-msk-immune-overview
-  7ecf0faafbee9aee  abct2326-muscle-action
-  e57cb15baa8123ea  abct2326-muscle-neural-tissue
-  69bbfbc0c975f25d  abct2326-muscle-types
-  e2572ec4e3127339  abct2326-muscle-ultrastructure-energetics
-  4e6eb7616a147eb9  abct2326-nervous-divisions
-  86f3f88b6785e80a  abct2326-nervous-synapse-types-nt
-  f3578579bfe98641  abct2326-nervous-synaptic-refractory-neuroglia
-  c2212de29b8173bc  abct2326-nmj-coupling
-  c987dc128001d25e  abct2326-nucleus-genetic-code
-  f4f57a6cc82bf9ed  abct2326-organelles
-  ee69a5091bc239c1  abct2326-plasma-membrane
-  af856a1a462b82e0  abct2326-protein-synthesis
-  20a5dc6eea10c503  abct2326-renal-countercurrent-vasarecta
-  0684a3f676bafc40  abct2326-renal-filtration-countercurrent
-  079955f2a209929c  abct2326-renal-nephron
-  dd49dc61228f1b63  abct2326-renal-tubular-clearance-sympathetic
-  0b09674746f5d4fb  abct2326-repro-female-tract-follicles
-  85cbe51f57448888  abct2326-repro-fertilization-implantation
-  c457051a2caa8a41  abct2326-repro-male-regulation
-  05e27115bfe39a23  abct2326-repro-male-tract-accessory
-  3354b51346191327  abct2326-repro-ovarian-menstrual-cycle
-  67e3254ca9d41f48  abct2326-repro-placenta-parturition
-  9048a63a691956ec  abct2326-resp-carbon-dioxide-control
-  f2bc165b01e24627  abct2326-resp-gas-transport
-  62cb92dfacdb138e  abct2326-resp-lung-volumes
-  7ccbebef3e81db5b  abct2326-resp-oxygen-transport
-  de99de0d20671ad9  abct2326-resp-pathway
-  bde64e5d3cf6775c  abct2326-resp-ventilation-chemoreceptors
-  656e4396e0be7ed1  abct2326-resp-ventilation-mechanics
-  7e912f83940b20cf  abct2326-spindle-golgi
-  fe663a6245ea4b0f  abct2326-synapse-drug-action
-  83db586b9e6658fe  abct2326-t-cell-types
-  c40816ba1111185d  apss1a08-bourdieu-cultural-capital-reproduction
-  d1660af2f9ce2f09  apss1a08-bourdieu-forms-of-capital
-  966893dbb5707d43  apss1a08-bourdieu-poverty-hong-kong
-  2c3a61f283d23af4  apss1a08-comparing-three-approaches
-  6835bf4651abca75  apss1a08-foucault-disciplinary-power-sexuality
-  734de089c0207e86  apss1a08-foucault-knowledge-power
-  2cf51933837a5f03  apss1a08-giddens-love-history
-  2ff83ed8b3c41480  apss1a08-giddens-pure-relationship-critique
-  a0f85a350f227daf  apss1a08-global-perspective
-  6d1543cf03992055  apss1a08-goffman-dramaturgy
-  21f8201582fa15b3  apss1a08-marx-weber-change
-  e39f89aa4eb294f4  apss1a08-personal-social-education
-  c6620c59eef00ed2  apss1a08-research-to-change
-  fcf86a74288fde1b  apss1a08-social-conflict-case-studies
-  89c407da66f5a91f  apss1a08-social-conflict-key-concepts
-  0aa7f09f02927976  apss1a08-sociological-perspective
-  ae4367420f89e927  apss1a08-structural-functional-approach
-  2416e7c5c9371318  apss1a08-symbolic-interaction-approach
-  78e364436baccb4f  apss1a08-three-theoretical-approaches
-  2d6163646401f09e  dsai1202-ai-everyday-autonomy
-  4ed69aeaaf1fac18  dsai1202-ai-in-healthcare
-  694fac806a85cfad  dsai1202-ai-literacy
-  08fa25a2eb3fa568  dsai1202-core-elements-nlp-cv
-  489d7d3d56214cd8  dsai1202-generative-ai-prompting
-  ba18af906c9d8d9f  dsai1202-history-paradigms
-  ae8e98a53547f17d  hss2011-cns-brainstem-reticular
-  857b43a0f4a50007  hss2011-cns-cerebrum-cortex-basal
-  be55f630819d5fa3  hss2011-cns-spinal-cord-meninges
-  a5838fb61495bdb5  hss2011-cns-ventricles-csf-blood
-  67f83da030dd1867  hss2011-cvs-blood-vessel-circuits
-  508c2e569fdd785d  hss2011-cvs-coronary-circulation-conduction
-  cb15700fbf6888e7  hss2011-cvs-internal-chambers-valves
-  f0161fc1a0cd1df2  hss2011-cvs-lymphatic-system
-  c02319e8304d8d4f  hss2011-cvs-tutorial-pastpaper-practice
-  a4ed810bbbd158a9  hss2011-digestive-accessory-liver-pancreas
-  7f4a49571539617c  hss2011-digestive-peritoneum-portal-circulation
-  d436cfc377ef0b7c  hss2011-digestive-tract-small-large-bowel
-  798204fdfbcc0372  hss2011-digestive-tract-upper
-  4e8680eff52cd74e  hss2011-digestive-tutorial-pastpaper-practice
-  922bf2aa037e3b01  hss2011-head-cranial-cavities-sinuses
-  d58f63207ef628f9  hss2011-head-facial-expression-muscles
-  cd6074c9f4ebb412  hss2011-head-mastication-neck-muscles
-  e02425365125b407  hss2011-joints-classification
-  e30cc582e33556c3  hss2011-joints-movement-map-2026
-  07f681912a82fe5a  hss2011-joints-movements
-  858a5fe92a3d0e4d  hss2011-joints-rotator-cuff
-  93f01cdffe559d82  hss2011-joints-synovial-structure
-  cacc62a2803abd79  hss2011-joints-synovial-types
-  7e65a670a9b31dca  hss2011-lower-femoral-triangle-vessels-nerves
-  8b9dec9a9e1a8827  hss2011-lower-leg-foot-muscles-arches
-  989b1596f98d307f  hss2011-lower-thigh-gluteal-muscles
-  dace774dd819e5e6  hss2011-m1-heart-wall-valves
-  5e2f5c885ec05f00  hss2011-m1-lungs-airway
-  690b4e2e2a92d922  hss2011-m2-autonomic-nervous-system
-  d857d0dea3e8d95c  hss2011-m2-brain-regions
-  eed1dd1d5146001b  hss2011-m2-cerebellum
-  8b89a0cb7d438c75  hss2011-m2-cns-basics
-  05b93db05b08f02f  hss2011-m2-ear-hearing
-  1ba4890f99106a0e  hss2011-m2-eye-accessory
-  0bca2cf0501993c3  hss2011-m2-eye-visual-pathway
-  527ed5a05bec4552  hss2011-m2-eyeball-anatomy
-  cfd3a166b6133425  hss2011-m2-neurons-glia
-  4bff87c4d112344d  hss2011-m2-reflex-arc
-  363d4f03c275cce1  hss2011-m2-static-dynamic-equilibrium
-  22e5eebba7ddc578  hss2011-m2-stroke-correlates
-  51ce848b8460fca5  hss2011-m2-taste-smell
-  c10b1e4d02020b39  hss2011-m3-digestive
-  e12cd398725b922f  hss2011-m3-urogenital-pelvis
-  679da8c865019dc5  hss2011-msk-bone-histology
-  57c9f13b9a6a2a84  hss2011-msk-bone-marrow
-  bd86712c4b795a09  hss2011-msk-joint-classifications
-  0277fa35d9579868  hss2011-msk-motor-unit-tone
-  8bd867b773532440  hss2011-msk-muscle-organisation
-  fcaa104725b31310  hss2011-msk-periosteum
-  7a0e134a6b04f662  hss2011-msk-tendon-attachment
-  215f48419e99bc0a  hss2011-msk-tissues-of-movement
-  4d16fed9c70b9145  hss2011-neuro-cranial-nerves-distribution
-  c78c5bf266b0a52f  hss2011-osteo-axial-appendicular
-  b08acc475e8c475d  hss2011-osteo-bone-functions
-  6aacdee0467e9a63  hss2011-osteo-bone-shapes
-  b94dbfa54fccc0dd  hss2011-osteo-c1-c2
-  8118fb26832f304d  hss2011-osteo-forearm-carpals
-  ad5aa3550c9a8b79  hss2011-osteo-leg-tarsals
-  785fa66e4263c87f  hss2011-osteo-long-bone-structure
-  15397c59e9dfd420  hss2011-osteo-pectoral-girdle
-  126a49a503f1be03  hss2011-osteo-pelvic-girdle
-  820589e26c1a43ab  hss2011-osteo-ribs-sternum
-  4ab2bd8dda66a844  hss2011-osteo-skull-sutures
-  ebf1e6469fd5fc63  hss2011-osteo-vertebra-parts
-  c558b812f0efa0c8  hss2011-osteo-vertebral-column
-  3f091524d0575165  hss2011-pastpaper-joints-articulations
-  e341bb8899df4dc1  hss2011-resp-mechanics-muscles-breathing
-  0ee9695d1cbf0954  hss2011-resp-pleura-lungs-gross
-  e8d1e36c19852f6e  hss2011-resp-respiratory-epithelium-alveoli
-  88135e3d8026d673  hss2011-resp-tutorial-pastpaper-practice
-  a736f148f8486643  hss2011-resp-upper-tract-larynx
-  13b5daa0abd693af  hss2011-structures-airwayTree
-  6e746a0d71f09915  hss2011-structures-brainAndCsf
-  e3e4aec917cb421f  hss2011-structures-carpals
-  dd56b0e28149023f  hss2011-structures-cranialNerves
-  09fc30ba78bfa913  hss2011-structures-digestiveTract
-  e7e9644888ec88d9  hss2011-structures-greatVessels
-  3e5958b41f588df2  hss2011-structures-heartChambers
-  b13d9ded35944f20  hss2011-structures-kneeJoint
-  947e7ad7e205e5b8  hss2011-structures-rotatorCuff
-  2edd24691664c061  hss2011-structures-skullBones
-  45a39e23cf24fa67  hss2011-structures-tarsals
-  f0b98335cfc1897e  hss2011-structures-urinaryTract
-  adb380752ef0ab6b  hss2011-structures-vertebralRegions
-  1db3e63e7d8664bf  hss2011-terminology-anatomical-position
-  5018229f8ca88fe6  hss2011-terminology-cavities-regions
-  7bbfbddab1d07971  hss2011-terminology-directional-pairs
-  9f033f3e7b9de3cf  hss2011-terminology-planes
-  390c5fcf14a2bec6  hss2011-terminology-regional-systemic
-  e6c772f0020d731f  hss2011-terminology-word-parts
-  6b61745bdb7c294e  hss2011-thorax-breast-axillary-lymphatics
-  db0871acd8698db4  hss2011-thorax-intercostal-diaphragm
-  c3a824e9d14367d0  hss2011-thorax-mediastinum-divisions-contents
-  1293b3ef308b76ca  hss2011-thorax-regional-landmarks
-  91cab186967fb1be  hss2011-thorax-tutorial-pastpaper-practice
-  85288d3d5ecaac40  hss2011-tissues-junctions-epithelia
-  e13ac07c5f7c489c  hss2011-upper-brachial-plexus-nerves
-  4f179259a1954dd2  hss2011-upper-limb-blood-vessels
-  8dcf56c1a2b64486  hss2011-upper-limb-muscles-compartments
-  fae18f6563b26b47  hss2011-uro-female-reproductive-pelvis
-  d292a02971776b76  hss2011-uro-kidneys-urinary-tract
-  3426ffaef9a9eb35  hss2011-uro-male-reproductive-anatomy
-  b20897425f27b044  hss2011-uro-nephron-renal-microanatomy
-  11b0824f11812498  hss2011-uro-tutorial-pastpaper-practice
-  8451a94456712070  hti17103-arc-radiation-therapy-vmat-tomo
-  2853e93899e7b87e  hti17103-department-and-request
-  dde49a2febb471d1  hti17103-ionizing-vs-nonionizing
-  30091d89e9d0186e  hti17103-linac-accessories-protection
-  5745820ee4d5edf2  hti17103-linac-electrons-rapidarc
-  2e3f0d085f13c2a2  hti17103-linac-physics-components
-  ff9a1814eb4625d6  hti17103-modality-best-use
-  d2eb2f18bcdff698  hti17103-modality-choice
-  f4c425d8513dce4c  hti17103-modality-detail
-  c5b8fe867b2db5eb  hti17103-radiation-therapy
-  d9644dae360961e3  hti17103-radioprotection
-  08dca15cf8958d0f  hti17103-sbrt-sirt-hepatocellular-carcinoma
-  fea8fa75aa9438e3  hti17103-what-is-radiography
-  c185c1736fdb4580  phys-nerve-cellular-action-potential
+  a8d11099e6d0e78e  abct2326-acquired-immunity
+  4b6da53beb689bea  abct2326-antibody-structure-classes
+  30e19ab0e0446a4b  abct2326-blood-composition
+  47c9afac51d2efe4  abct2326-cell-division
+  78ee779c6503b5d1  abct2326-cells-organisation
+  2d96630a1bb83794  abct2326-complement
+  6cc6a287e98dd488  abct2326-connective-tissue-classes
+  c2f0512c2ab0cdfe  abct2326-crossbridge-cycle
+  fdf89d5462dc57af  abct2326-cvs-circuits
+  c41bf496e1762f37  abct2326-cvs-conduction
+  bbc47a1559651922  abct2326-cvs-ecg-cycle
+  6ad9028cf7736dc0  abct2326-cvs-heart-structure
+  7fa9f0f796563d95  abct2326-cvs-hemodynamics-tutorial
+  ad00bf0a8f5332cc  abct2326-digestive-hormones-colon
+  cbbe0b80bc9ad1d8  abct2326-digestive-pathway
+  f0404fe107f907fd  abct2326-digestive-small-intestine-accessory
+  945732365a93c582  abct2326-digestive-stomach-control
+  dd688ceca72fa8b3  abct2326-digestive-wall-motility
+  be3df0d31c40b4c0  abct2326-endocrine-adrenal-thyroid
+  37936eb134414545  abct2326-endocrine-delivery
+  daf3dccf95916754  abct2326-endocrine-pancreas-misc
+  cb170e2b0545ce83  abct2326-endocrine-pituitary-axes
+  e5d74e1817187e70  abct2326-endocrine-receptors
+  46b41500483b942e  abct2326-endocrine-second-messengers
+  974db58fd3c58232  abct2326-epithelium-classification
+  11d314ca33cca25c  abct2326-feedback-loops
+  d33ce460136c8354  abct2326-fibre-types-fuel
+  667c89fa8f7f763b  abct2326-homeostasis
+  39e179adaa05b4b6  abct2326-immune-adaptive
+  2bb8033cffdee58b  abct2326-inflammation-fever
+  4fd6b73bb2749024  abct2326-innate-adaptive
+  8a0d5374334d137b  abct2326-innate-mechanisms
+  62b4232945e14f9d  abct2326-mhc-costimulation
+  3e730100eeb6c655  abct2326-msk-bone-structure-remodeling
+  a49ecf90fcf983ba  abct2326-msk-immune-overview
+  1ee6572ac5c7b5e3  abct2326-muscle-action
+  e98dfeb198b6cea6  abct2326-muscle-neural-tissue
+  bbd0722fa9eb38f9  abct2326-muscle-types
+  8de0016c216b70f2  abct2326-muscle-ultrastructure-energetics
+  3d43b912cbb6d71c  abct2326-nervous-divisions
+  b365c54ead5fc7bc  abct2326-nervous-synapse-types-nt
+  77cc1d25186c4bc7  abct2326-nervous-synaptic-refractory-neuroglia
+  257eaf398e17433d  abct2326-nmj-coupling
+  df241eb0d7cc2e39  abct2326-nucleus-genetic-code
+  d3c610117c0153a7  abct2326-organelles
+  1f1721da1a1d7c2c  abct2326-plasma-membrane
+  21a15090e6df441c  abct2326-protein-synthesis
+  c78daaefd06d6283  abct2326-renal-countercurrent-vasarecta
+  22db87b17ca22849  abct2326-renal-filtration-countercurrent
+  e4ed9ec79d5bf957  abct2326-renal-nephron
+  d35c778c14e9d1d0  abct2326-renal-tubular-clearance-sympathetic
+  2d3505b7073f8e42  abct2326-repro-female-tract-follicles
+  847226393b8eb7ec  abct2326-repro-fertilization-implantation
+  bfd8df9b64b25a8c  abct2326-repro-male-regulation
+  2b17c04a1811803e  abct2326-repro-male-tract-accessory
+  f3c9b8258f68677a  abct2326-repro-ovarian-menstrual-cycle
+  1ed242fecf57f36d  abct2326-repro-placenta-parturition
+  4da86c8b7e741050  abct2326-resp-carbon-dioxide-control
+  5bf29b91d5c6e3a2  abct2326-resp-gas-transport
+  02e6a7e4c917404f  abct2326-resp-lung-volumes
+  9504ec1b792428da  abct2326-resp-oxygen-transport
+  0fde1958551002b6  abct2326-resp-pathway
+  541eabf012d2f2fc  abct2326-resp-ventilation-chemoreceptors
+  072f3015117d610c  abct2326-resp-ventilation-mechanics
+  8a6af8df2c69c9d0  abct2326-spindle-golgi
+  2448767e0e019db4  abct2326-synapse-drug-action
+  6bdda5381723425c  abct2326-t-cell-types
+  11def50a71b7504e  apss1a08-bourdieu-cultural-capital-reproduction
+  fd46d1cb55c27849  apss1a08-bourdieu-forms-of-capital
+  2efb1d632977a2c8  apss1a08-bourdieu-poverty-hong-kong
+  d87418c17f3f5977  apss1a08-comparing-three-approaches
+  3c500877d1357776  apss1a08-foucault-disciplinary-power-sexuality
+  6dad9762837f616c  apss1a08-foucault-knowledge-power
+  c78bf0c48a020cb2  apss1a08-giddens-love-history
+  3359aba9aacde3a0  apss1a08-giddens-pure-relationship-critique
+  df2a1a8d63d73359  apss1a08-global-perspective
+  fb00d503c9567cad  apss1a08-goffman-dramaturgy
+  04c4b871e3e22b35  apss1a08-marx-weber-change
+  16fc4813efcd677b  apss1a08-personal-social-education
+  d6d798524d5cb78e  apss1a08-research-to-change
+  c994bfc623c132b7  apss1a08-social-conflict-case-studies
+  38455e5af1ad2d8f  apss1a08-social-conflict-key-concepts
+  ac7f81c350ac07c7  apss1a08-sociological-perspective
+  a9e7c99ca87c9794  apss1a08-structural-functional-approach
+  007a721e89145f19  apss1a08-symbolic-interaction-approach
+  a6adb8e844223f1f  apss1a08-three-theoretical-approaches
+  f171d4ba55fb0068  dsai1202-ai-everyday-autonomy
+  7f6c318a6c71a88d  dsai1202-ai-in-healthcare
+  1a3b78751df89608  dsai1202-ai-literacy
+  5eedc51daa6fef1b  dsai1202-core-elements-nlp-cv
+  03e307eb20f13a8e  dsai1202-generative-ai-prompting
+  3fb61d3948517396  dsai1202-history-paradigms
+  e4a02c1d13a8dfda  hss2011-cns-brainstem-reticular
+  795d1f25b5289747  hss2011-cns-cerebrum-cortex-basal
+  2d45579dc4fe2d17  hss2011-cns-spinal-cord-meninges
+  77db4e67d01adc12  hss2011-cns-ventricles-csf-blood
+  e21aa836ad7fa831  hss2011-cvs-blood-vessel-circuits
+  61d850ba784b11a4  hss2011-cvs-coronary-circulation-conduction
+  39d5965261031803  hss2011-cvs-internal-chambers-valves
+  7e3318f174669312  hss2011-cvs-lymphatic-system
+  b3ba7903796f2619  hss2011-cvs-tutorial-pastpaper-practice
+  43f90cfa2682eb85  hss2011-digestive-accessory-liver-pancreas
+  7dcab72e3ca70893  hss2011-digestive-peritoneum-portal-circulation
+  774ca5beca5bf2b3  hss2011-digestive-tract-small-large-bowel
+  ff30520cf110c5e5  hss2011-digestive-tract-upper
+  d40125997cbc8ae4  hss2011-digestive-tutorial-pastpaper-practice
+  d493118fb3ab0701  hss2011-head-cranial-cavities-sinuses
+  7f74b7ca60a4bb95  hss2011-head-facial-expression-muscles
+  8c00b2ed9e0c4429  hss2011-head-mastication-neck-muscles
+  4329b68300f7de21  hss2011-joints-classification
+  3815ef804f462b27  hss2011-joints-movement-map-2026
+  3fa7cd891e092324  hss2011-joints-movements
+  edc575cffbb2541b  hss2011-joints-rotator-cuff
+  4388c52243a30a69  hss2011-joints-synovial-structure
+  c6d222b709687a1f  hss2011-joints-synovial-types
+  866ebd56f9bde908  hss2011-lower-femoral-triangle-vessels-nerves
+  e7c7aece6dc073ba  hss2011-lower-leg-foot-muscles-arches
+  2afa85c5a3544b34  hss2011-lower-thigh-gluteal-muscles
+  10df67a43c78ba77  hss2011-m1-heart-wall-valves
+  820eac8cd36971d3  hss2011-m1-lungs-airway
+  0d3276546fd577bf  hss2011-m2-autonomic-nervous-system
+  e65807f537a0a80b  hss2011-m2-brain-regions
+  ef99b7810816e6ee  hss2011-m2-cerebellum
+  787a2578a8df87b2  hss2011-m2-cns-basics
+  88a23db2d8e7a59a  hss2011-m2-ear-hearing
+  de2451904154b071  hss2011-m2-eye-accessory
+  93679f19bb9ca57d  hss2011-m2-eye-visual-pathway
+  052e8922aacd2532  hss2011-m2-eyeball-anatomy
+  68c92b8044826721  hss2011-m2-neurons-glia
+  f4574949ea155425  hss2011-m2-reflex-arc
+  e25e8834f380a7eb  hss2011-m2-static-dynamic-equilibrium
+  ddf49a7cdbaf9f60  hss2011-m2-stroke-correlates
+  7be9d182a75a2580  hss2011-m2-taste-smell
+  029e99fdbe7a6ddd  hss2011-m3-digestive
+  919fc17f3545a221  hss2011-m3-urogenital-pelvis
+  c4a1333fd32d7274  hss2011-msk-bone-histology
+  158bcf119585d018  hss2011-msk-bone-marrow
+  fc7d3537d39f3499  hss2011-msk-joint-classifications
+  1378fd336aa8ccd6  hss2011-msk-motor-unit-tone
+  a34a479b553a81dc  hss2011-msk-muscle-organisation
+  fe59faec1f966594  hss2011-msk-periosteum
+  44ee392838566682  hss2011-msk-tendon-attachment
+  8b1784b51f8ac94b  hss2011-msk-tissues-of-movement
+  0cc9a43a61904768  hss2011-neuro-cranial-nerves-distribution
+  b9cbebbba00ea6cd  hss2011-osteo-axial-appendicular
+  97bcaba6e360d560  hss2011-osteo-bone-functions
+  2eadb0402b002721  hss2011-osteo-bone-shapes
+  260821323613b165  hss2011-osteo-c1-c2
+  ed536f1220493e8f  hss2011-osteo-forearm-carpals
+  f00f91a2b8b08e99  hss2011-osteo-leg-tarsals
+  3edc6831db643e2b  hss2011-osteo-long-bone-structure
+  4194e91a8c879e1b  hss2011-osteo-pectoral-girdle
+  59adbad553d911ae  hss2011-osteo-pelvic-girdle
+  e200619a9b68569f  hss2011-osteo-ribs-sternum
+  30f47369efa0c52c  hss2011-osteo-skull-sutures
+  90c9fb4aa05dbbca  hss2011-osteo-vertebra-parts
+  76cf9aad76a95cdd  hss2011-osteo-vertebral-column
+  44fe3b5e0e8d0b97  hss2011-pastpaper-joints-articulations
+  0263ebe7439e0824  hss2011-resp-mechanics-muscles-breathing
+  4b1ad5c68261e434  hss2011-resp-pleura-lungs-gross
+  db7df11198bc0135  hss2011-resp-respiratory-epithelium-alveoli
+  1042e62374c5f4cd  hss2011-resp-tutorial-pastpaper-practice
+  8248cca27b4588e8  hss2011-resp-upper-tract-larynx
+  5fe4a5275a9302db  hss2011-structures-airwayTree
+  3e1e1f3cb1cf2282  hss2011-structures-brainAndCsf
+  ee446294b1f33bb2  hss2011-structures-carpals
+  c27a1660bcd8bc1e  hss2011-structures-cranialNerves
+  aeec395037b42dc4  hss2011-structures-digestiveTract
+  d649fa9b8c78f2ae  hss2011-structures-greatVessels
+  4ebb84c7ed060c4e  hss2011-structures-heartChambers
+  763b573c65c57709  hss2011-structures-kneeJoint
+  ba012b76bfd440d5  hss2011-structures-rotatorCuff
+  df8973c5606c9e5e  hss2011-structures-skullBones
+  ac6b87f5ffdb3c56  hss2011-structures-tarsals
+  185bc885e85aee42  hss2011-structures-urinaryTract
+  290148de96a19e7b  hss2011-structures-vertebralRegions
+  03868735515087ee  hss2011-terminology-anatomical-position
+  4cd709f411f20943  hss2011-terminology-cavities-regions
+  f06a745fbc5b92b1  hss2011-terminology-directional-pairs
+  2ac10e96aa0b8d26  hss2011-terminology-planes
+  bc67107242960ba7  hss2011-terminology-regional-systemic
+  1cc21d9e013105cd  hss2011-terminology-word-parts
+  3ce774b32991adf0  hss2011-thorax-breast-axillary-lymphatics
+  ce2b03cdf4e52f85  hss2011-thorax-intercostal-diaphragm
+  e67aa93eba492757  hss2011-thorax-mediastinum-divisions-contents
+  77b545ffcb32bdb1  hss2011-thorax-regional-landmarks
+  baf3e359af548471  hss2011-thorax-tutorial-pastpaper-practice
+  fafe8769c5e81f7e  hss2011-tissues-junctions-epithelia
+  cea7cab313a557ed  hss2011-upper-brachial-plexus-nerves
+  34aea74188438e44  hss2011-upper-limb-blood-vessels
+  6eb7c7fa1eb8a710  hss2011-upper-limb-muscles-compartments
+  1d58e2b52c50fade  hss2011-uro-female-reproductive-pelvis
+  649f4ccca494eacd  hss2011-uro-kidneys-urinary-tract
+  f9e9fecb3d807fdb  hss2011-uro-male-reproductive-anatomy
+  ed41aede22a67feb  hss2011-uro-nephron-renal-microanatomy
+  8707a2f5dc3d55df  hss2011-uro-tutorial-pastpaper-practice
+  8afe62984e50a4d2  hti17103-arc-radiation-therapy-vmat-tomo
+  0c60f75fb0b16ca7  hti17103-department-and-request
+  37016e83fa205d55  hti17103-ionizing-vs-nonionizing
+  2bb9b51f34da6c11  hti17103-linac-accessories-protection
+  7a0ef4d21591b167  hti17103-linac-electrons-rapidarc
+  e500918c4e2dbdee  hti17103-linac-physics-components
+  6e8ae0b19c958b42  hti17103-modality-best-use
+  34dacbb743673b52  hti17103-modality-choice
+  39cb2d17df88529e  hti17103-modality-detail
+  79cb3d78bca168ff  hti17103-radiation-therapy
+  6973fdf1e5f4ac30  hti17103-radioprotection
+  c2443b76a018ed40  hti17103-sbrt-sirt-hepatocellular-carcinoma
+  58d81adc60c97a2e  hti17103-what-is-radiography
+  68250ccfada8b5f5  phys-nerve-cellular-action-potential

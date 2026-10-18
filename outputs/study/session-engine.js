@@ -6,8 +6,6 @@
 import { $$, ITEM_TYPES, STUDY_ITEMS, STUDY_MODES, describeSource, entryStep, esc, getItem, priorOf, questionsOf, ui } from './imports.js';
 import { applyHTML, endSession, practiseHTML, wireApply, wirePractise, wireStageNav } from './layout-figures.js';
 import { adjScore, itemAttempted, itemDue, itemLapses, store } from './storage-versioned-keys.js';
-import { recordRead } from './progress-log.js';
-import { releaseLessonVisual } from './lesson-visuals.js';
 import { startExam } from './exam-mode.js';
 import { openSessionOverlay } from './navigation-five-destinations.js';
 import { openSourceDialog } from './source-dialog.js';
@@ -32,15 +30,7 @@ export const STEPS = [
 ];
 export const stepOf = (step) => (step === 'apply' ? 'apply' : 'practise');
 
-/*
- * There were five steps. Review was the fifth, and it was the one step that
- * taught nothing: it recapped what the previous two had just told you, then
- * repeated the item's confusions and its blank-page prompt underneath. The
- * confusions now sit on Remember, where they are a hint rather than a
- * postscript, and what the schedule did is already said by the toast and by
- * the Review destination in the nav -- which is a different thing with the
- * same name and is not going anywhere.
- */
+
 
 
 export function pickItems(opts) {
@@ -56,7 +46,7 @@ export function pickItems(opts) {
 
   switch (opts.mode) {
     case 'ids':
-      /* The order is the caller’s: a week’s reading list is a sequence,
+      /* The order is the caller’s: a week’s item list is a sequence,
          not a pool to shuffle. Unknown ids drop out silently rather than
          emptying the session -- work/schedule-check.mjs is what stops them
          being unknown in the first place. */
@@ -133,21 +123,20 @@ export function startSession(opts) {
     return toast('Nothing to study for that selection yet.');
   }
   const mode = STUDY_MODES.find((m) => m.id === opts.mode);
-  const hooksOnly = false;
   const first = items[0];
   const savedStep = getItemStep(first.id);
   const step = stepOf(savedStep || entryStep(first, itemAttempted(first.id)));
   ui.session = {
     opts, mode, items, index: 0, step,
     qIndex: 0, answered: false, startedAt: 0,
-    results: [], hooksOnly,
+    results: [],
   };
   ui.session.modeLabel = mode ? mode.label : 'Study session';
   /*
    * The resume point is written when the session OPENS, not only when a step
-   * changes. setStep was the only writer, so opening an item, reading it and
+   * changes. setStep was the only writer, so opening an item and
    * leaving saved nothing at all -- Today's Continue card still pointed at
-   * whatever you had studied before, and the lesson you had just read was not
+   * whatever you had studied before, and the session you had just opened was not
    * anywhere in the app's memory of you.
    */
   saveContinue(first.id, step);
@@ -241,16 +230,14 @@ export function renderSessionFoot(item) {
 }
 export function renderStep() {
   const item = currentItem();
-  /* Looking at it counts, even if no question is ever answered on it. */
-  recordRead(item.id);
   const stepDef = STEPS.find((x) => x.id === ui.session.step) || STEPS[0];
   $$('rssSessionKicker').textContent = stepDef.label;
   renderSteps();
   renderSessionMeter();
   renderSourceCard(item);
   const stage = $$('rssStage');
-  if (ui.session.step === 'practise') { releaseLessonVisual(); stage.innerHTML = practiseHTML(item); wirePractise(item); }
-  else { releaseLessonVisual(); stage.innerHTML = applyHTML(item); wireApply(item); }
+  if (ui.session.step === 'practise') { stage.innerHTML = practiseHTML(item); wirePractise(item); }
+  else { stage.innerHTML = applyHTML(item); wireApply(item); }
   wireStageNav(item);
   wireTerms($$('rssStage'));
   renderSessionFoot(item);

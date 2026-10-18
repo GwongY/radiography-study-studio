@@ -27,8 +27,8 @@ This specification documents the procedure to run whenever new material arrives 
    node work/query.mjs where "<subject>"
    ```
 2. Compare content against the registered source for that slot (`node work/query.mjs pages <ref>` or `text <term>`):
-   - **Genuinely new slot** (no current lessons exist for this week/topic) → Proceed to Steps 3 and 4 to register and author.
-   - **Newer edition of a registered source** (e.g. 2026 slides vs 2025/2019 fallback) → Register as `<ref>.2026` (kind: `primary`). Demote old source to `older-supporting`. Re-point affected `sourceRefs` to the 2026 pages. Only rewrite lesson prose where the curriculum actually changed.
+   - **Genuinely new slot** (no current study items cover this week/topic) → Proceed to Steps 3 and 4 to register and author question items.
+   - **Newer edition of a registered source** (e.g. 2026 slides vs 2025/2019 fallback) → Register as `<ref>.2026` (kind: `primary`). Demote old source to `older-supporting`. Re-point affected `sourceRefs` to the 2026 pages. Update question or Apply content only where the curriculum actually changed.
    - **Format-twin or identical duplicate** → Register nothing. Record the verdict in `outputs/README.md` and stop.
 
 ### Step 3: Register and Cache
@@ -44,8 +44,8 @@ This specification documents the procedure to run whenever new material arrives 
    node work/source-check.mjs
    ```
 
-### Step 4: Author or Update Lessons
-1. Strict provenance: every factual study claim must cite the newest source for that slot with verified page numbers.
+### Step 4: Author or Update Study Items
+1. Strict provenance: every factual question or Apply claim must cite the newest source for that slot with verified page numbers.
 2. Maintain single ownership:
    - Apply single-concept ownership across modules; secondary items use `See [[<owner-id>]]` rather than duplicating text.
 3. Timetable wiring:
@@ -61,13 +61,11 @@ This specification documents the procedure to run whenever new material arrives 
    ```bash
    node work/load-check.mjs
    node work/syntax-check.mjs
-   node work/verify-modules.mjs
+   node work/corpus-check.mjs
    node work/shell-check.mjs
    node work/binding-check.mjs
    node work/schedule-check.mjs
    node work/source-check.mjs
-   node work/figure-key-check.mjs
-   node work/visuals-check.mjs
    node work/gloss-coverage-check.mjs
    node work/baseline.mjs --check
    ```

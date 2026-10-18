@@ -336,7 +336,7 @@ for (const [dir, title] of [['studio', 'The 3D studio'], ['study', 'The study sy
 /*
  * ---- the corpus ----
  * study-data.js is a barrel; readdirSync is not recursive, so without this the
- * seventeen files holding every lesson are invisible to a map whose whole
+ * corpus files holding every study item are invisible to a map whose whole
  * promise is "read this before grepping".
  */
 const corpusDir = join(outputs, 'study', 'corpus');
@@ -344,8 +344,8 @@ const corpus = existsSync(corpusDir) ? readdirSync(corpusDir).filter((f) => f.en
 if (corpus.length) {
   p('## The corpus — `outputs/study/corpus/*.js`');
   p();
-  p('Every lesson lives here. `outputs/study-data.js` is a barrel that re-exports');
-  p('these under the same 57 names, so importers never name these files.');
+  p('Every study item and its question content lives here. `outputs/study-data.js` is a barrel that re-exports');
+  p('these modules, so importers never name these files.');
   p('To read one item without opening a file: `node work/query.mjs item <id>`.');
   p();
   p('| File | Lines | What it holds |');

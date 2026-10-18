@@ -10,10 +10,10 @@ async function progressViewerBrowserCheck() {
   const {STRUCTURE_MODELS}=await import('/study-data.js');
   engine.startSession({mode:'daily'});
   const id=ui.session.items[0].id;
-  for(const stage of ['remember','practise','apply']){
+  for(const stage of ['practise','apply']){
     engine.setStep(stage);check(home.getItemStep(id)===stage,'stage did not advance');
   }
-  engine.setStep('learn');check(home.getItemStep(id)==='apply','progress fell on revisit');
+  engine.setStep('practise');check(home.getItemStep(id)==='apply','progress fell on revisit');
   const session=ui.session,html=document.getElementById('rssStage').innerHTML;
   const pane=document.querySelector('#sessionView>.navcontent');pane.scrollTop=300;
   const scroll=pane.scrollTop;
@@ -45,5 +45,5 @@ async function progressViewerBrowserCheck() {
   check(ui.session===session,'viewer discarded session');
   check(document.getElementById('rssStage').innerHTML===html,'viewer changed lesson content');
   check(Math.abs(pane.scrollTop-scroll)<1,'viewer lost scroll position');
-  return {pass:true,stages:'1/4 → 4/4, no regression',carpus:16,tarsus:14,returnScroll:scroll};
+  return {pass:true,steps:'Practise → Apply, no regression',carpus:16,tarsus:14,returnScroll:scroll};
 }

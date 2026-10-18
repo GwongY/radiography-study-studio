@@ -44,10 +44,6 @@ export const STRUCTURE_SETS = {
       { id: 'capitate', label: 'Capitate', mesh: 'Capitate bone', group: 'Distal row', order: 7, note: 'The largest carpal.' },
       { id: 'hamate', label: 'Hamate', mesh: 'Hamate bone', group: 'Distal row', order: 8 },
     ],
-    visuals: [
-      { model: { layer: 'skeleton', meshes: ['Scaphoid bone', 'Lunate bone', 'Triquetrum bone', 'Pisiform bone', 'Trapezium bone', 'Trapezoid bone', 'Capitate bone', 'Hamate bone'], label: 'Carpal bones in 3D', caption: 'Proximal row (scaphoid, lunate, triquetrum, pisiform) and distal row (trapezium, trapezoid, capitate, hamate).' } },
-      { gen: true },
-    ],
     sourceRefs: [
       { ref: 'hss.4.3', location: 'p11 "Carpal Bones"' },
       { ref: 'hss.4.3', location: 'p11 "Capitate"' },
@@ -69,10 +65,6 @@ export const STRUCTURE_SETS = {
       { id: 'medial-cuneiform', label: 'Medial cuneiform', mesh: 'Medial cuneiform bone', group: 'Distal', order: 5 },
       { id: 'intermediate-cuneiform', label: 'Intermediate cuneiform', mesh: 'Intermediate cuneiform bone', group: 'Distal', order: 6 },
       { id: 'lateral-cuneiform', label: 'Lateral cuneiform', mesh: 'Lateral cuneiform bone', group: 'Distal', order: 7 },
-    ],
-    visuals: [
-      { model: { layer: 'skeleton', meshes: ['Talus', 'Calcaneus', 'Navicular bone', 'Cuboid bone', 'Medial cuneiform bone', 'Intermediate cuneiform bone', 'Lateral cuneiform bone'], label: 'The seven tarsal bones in 3D', caption: 'Proximal group (talus, calcaneus), intermediate group (navicular), and distal group (cuboid, medial, intermediate, lateral cuneiforms).' } },
-      { gen: true },
     ],
     sourceRefs: [
       { ref: 'hss.4.3', location: 'p42 "Ankle & Foot"' },
@@ -104,16 +96,6 @@ export const STRUCTURE_SETS = {
       { id: 'vomer', label: 'Vomer', mesh: 'Vomer', group: 'Facial', order: 11 },
       { id: 'mandible', label: 'Mandible', mesh: 'Mandible', group: 'Facial', order: 12, note: 'The only movable bone in the skull.' },
     ],
-    visuals: [
-      {
-        model: {
-          layer: 'skeleton',
-          meshes: ['Frontal bone', 'Parietal bone', 'Temporal bone', 'Occipital bone', 'Sphenoid bone', 'Ethmoid bone', 'Maxilla', 'Mandible', 'Zygomatic bone'],
-          label: 'Bones of the skull',
-          caption: 'Neurocranium enclosing the cranial cavity and viscerocranium forming facial architecture.',
-        },
-      },
-    ],
     sourceRefs: [
       { ref: 'hss.4.2', location: 'p5 "The skull is composed of"' },
       { ref: 'hss.4.2', location: 'p5 "8 cranial bones +"' },
@@ -133,16 +115,6 @@ export const STRUCTURE_SETS = {
       { id: 'l-typical', label: 'Typical lumbar vertebra (L1–L5)', mesh: 'Vertebra L3', group: 'Lumbar', order: 5, note: 'Five, with the largest bodies.' },
       { id: 'sacrum', label: 'Sacrum', mesh: 'Sacrum', group: 'Sacral', order: 6, note: 'S1–S5 fused.' },
       { id: 'coccyx', label: 'Coccyx', mesh: 'Coccyx', group: 'Coccygeal', order: 7, note: 'Co1–Co4 fused.' },
-    ],
-    visuals: [
-      {
-        model: {
-          layer: 'skeleton',
-          meshes: ['Atlas (C1)', 'Axis (C2)', 'Vertebra C5', 'Vertebra T6', 'Vertebra L3', 'Sacrum', 'Coccyx'],
-          label: 'Vertebral column regions',
-          caption: 'Articulated spine demonstrating cervical, thoracic, lumbar, sacral, and coccygeal divisions.',
-        },
-      },
     ],
     sourceRefs: [
       { ref: 'hss.m0.1718', location: 'p15 "Vertebral column"' },
@@ -169,7 +141,6 @@ export const STRUCTURE_SETS = {
       { id: 'papillary', label: 'Papillary muscle', mesh: 'Anterior papillary muscle of right ventricle', group: 'Valve apparatus', order: 8, note: 'Holds the AV valve through the chordae tendineae.' },
     ],
     sourceRefs: [{ ref: 'phys.2', location: 'Slides 28–39 heart chambers, AV valves, semilunar valves, functions of the valves' }, { ref: 'hss.1.2', location: 'Cardiopulmonary system and associated structures' }],
-    modelGap: 'The aortic valve leaflets are not separately named in this model, and neither is the conducting system.',
   },
   greatVessels: {
     id: 'greatVessels', label: 'Great vessels of the heart', subject: 'HSS2011', unit: 'hss.m1',
@@ -255,10 +226,6 @@ export const STRUCTURE_SETS = {
       { id: 'latissimus', label: 'Latissimus dorsi', mesh: 'Latissimus dorsi muscle', group: 'Shoulder girdle', order: 7, note: 'Adduction and medial rotation. Thoracodorsal nerve.' },
       { id: 'pec-major', label: 'Pectoralis major (sternocostal head)', mesh: 'Sternocostal head of pectoralis major muscle', group: 'Shoulder girdle', order: 8, note: 'Flexion, adduction and medial rotation. Pectoral nerve.' },
     ],
-    visuals: [
-      { model: { layer: 'muscle', meshes: ['Supraspinatus muscle', 'Infraspinatus muscle', 'Teres minor muscle', 'Subscapularis muscle', 'Acromial part of deltoid muscle'], label: 'Rotator cuff and abductors', caption: 'The four cuff muscles clustering around the humeral head: supraspinatus, infraspinatus, teres minor, and subscapularis, with deltoid acting as primary abductor.' } },
-      { gen: true },
-    ],
     sourceRefs: [
       { ref: 'hss.4.3', location: 'p16 "Rotator Cuff Muscles:"' },
       { ref: 'hss.4.3', location: 'p20 "Rotator Cuff Muscles"' },
@@ -267,7 +234,6 @@ export const STRUCTURE_SETS = {
       { ref: 'hss.ul.2026', location: 'p19 "Rotator Cuff Muscle: stabilize shoulder joint"' },
       { ref: 'hss.ul.2026', location: 'p19 "Supraspinatus" — "Infraspinatus" — "Subscapularis" — "Teres minor"' },
     ],
-    modelGap: 'Deltoid, pectoralis major and trapezius are split into named parts in this model, so one representative part is used for each.',
   },
   cranialNerves: {
     id: 'cranialNerves', label: 'Cranial nerves', subject: 'HSS2011', unit: 'hss.m2',
@@ -285,13 +251,7 @@ export const STRUCTURE_SETS = {
       { id: 'vagus', label: 'Vagus nerve (X)', mesh: 'Vagus nerve (X)', group: 'Pharynx & viscera', order: 9, note: 'The longest cranial nerve. Carries aortic body chemoreceptor input.' },
       { id: 'hypoglossal', label: 'Hypoglossal nerve (XII)', mesh: 'Hypoglossal nerve (XII)', group: 'Tongue', order: 10 },
     ],
-    orientation: 'On the model, find the twelve pairs emerging in order along the base of the brain, front to back: olfactory and optic into the forebrain, oculomotor and trochlear at the midbrain, the large trigeminal with abducens, facial and vestibulocochlear at the pons, and glossopharyngeal, vagus, accessory and hypoglossal in a row off the medulla oblongata. Learn the emergence order here, and take the modality and target of each nerve from the tested item hss2011-neuro-cranial-nerves-distribution.',
-    visuals: [
-      { model: { layer: 'nervous', meshes: ['Olfactory nerve (I)', 'Optic nerve (II)', 'Trigeminal nerve (V)', 'Facial nerve (VII)', 'Vestibulocochlear nerve (VIII)', 'Vagus nerve (X)', 'Hypoglossal nerve (XII)'], label: 'Cranial nerves along the brain base', caption: 'The set on the 3D model: a sample down the numbered sequence from the olfactory and optic nerves at the front to the vagus and hypoglossal leaving the medulla.' } },
-      { gen: true },
-    ],
     sourceRefs: [{ ref: 'hss.2.3', location: 'p31 "Cranial nerves (CN) – 12 pairs" — "Olfactory bulb" — "Olfactory tract" — "Optic chiasm" — "Midbrain CN V" — "Pons CN VI"' }, { ref: 'hss.2.3', location: 'p32 "Cranial nerves (CN) – 12 pairs"' }, { ref: 'hss.vocab', location: 'Glossary — the cranial nerves listed as examinable terms' }, { ref: 'hss.revans', location: 'Module 2.3 Fill-in-blanks 1 and 4; Module 4.2 Fill-in-blanks 1' }, { ref: 'phys.3', location: 'Slides 68–69 glossopharyngeal and vagus chemoreceptor input' }],
-    modelGap: 'Oculomotor (III) and accessory (XI) are in the model but are not named in the HSS2011 glossary, so they are left out of this set rather than added on assumption.',
   },
   brainAndCsf: {
     id: 'brainAndCsf', label: 'Brainstem, ventricles and the spinal cord', subject: 'HSS2011', unit: 'hss.m2',
@@ -310,11 +270,6 @@ export const STRUCTURE_SETS = {
       { id: 'spinaldura', label: 'Spinal dura', mesh: 'Spinal dura', group: 'Spinal cord', order: 10 },
       { id: 'caudaequina', label: 'Cauda equina', mesh: 'Cauda equina', group: 'Spinal cord', order: 11, note: 'Below L1–L2, where the cord itself has ended.' },
     ],
-    orientation: 'Orient on a midline view. The brainstem is the vertical stalk: midbrain at the top, then pons, then medulla oblongata at the bottom, with the cerebellum behind the pons. The ventricles run down the core: the lateral ventricle in the hemisphere drains through the interventricular foramen to the third ventricle, then through the aqueduct of the midbrain to the fourth ventricle behind the pons. The corpus callosum and thalamus cap it above; the spinal dura and cauda equina trail below, where the cord itself has ended. This set is the visual backing for the tested items hss2011-cns-brainstem-reticular and hss2011-cns-ventricles-csf-blood.',
-    visuals: [
-      { model: { layer: 'nervous', meshes: ['Midbrain', 'Pons', 'Medulla oblongata', 'Lateral ventricle', 'Third ventricle', 'Aqueduct of midbrain', 'Fourth ventricle', 'Corpus callosum'], label: 'Brainstem, ventricles and forebrain cap', caption: 'The three brainstem parts as a column, the ventricular system threaded through the midline, and the corpus callosum arching over it.' } },
-      { gen: true },
-    ],
     sourceRefs: [{ ref: 'hss.2.3', location: 'p12 "Corpus callosum" — "Thalamus" — "Midbrain" — "Pons" — "Medulla" — "Brainstem"' }, { ref: 'hss.2.3', location: 'p21 "Brainstem" — "Midbrain" — "Pons" — "Medulla" — "oblongata"' }, { ref: 'hss.2.3', location: 'p27 "Ventricular system of the brain" — "Interventricular" — "foramen" — "Third ventricle" — "Cerebral aqueduct" — "Fourth ventricle"' }, { ref: 'hss.revans', location: 'Module 2.1 and 2.3 answers' }],
   },
   kneeJoint: {
@@ -329,11 +284,6 @@ export const STRUCTURE_SETS = {
       { id: 'latmen', label: 'Lateral meniscus', mesh: 'Lateral meniscus', group: 'Menisci', order: 5 },
       { id: 'hipcapsule', label: 'Articular capsule of hip joint', mesh: 'Articular capsule of hip joint', group: 'Compare', order: 6, note: 'The hip capsule, for comparison — deep socket, far more stable.' },
     ],
-    visuals: [
-      { fig: 'kneeJointAnatomy' },
-      { model: { layer: 'joint', meshes: ['Articular capsule of knee joint', 'Anterior cruciate ligament', 'Posterior cruciate ligament', 'Medial meniscus', 'Lateral meniscus', 'Articular capsule of hip joint'], label: 'Internal structures of the knee joint', caption: 'Intracapsular cruciate ligaments crossing within the joint capsule alongside the medial and lateral fibrocartilaginous menisci.' } },
-      { gen: true },
-    ],
     sourceRefs: [
       { ref: 'hss.4.1', location: 'p37 "Synovial joints"' },
       { ref: 'hss.4.1', location: 'p38 "Articular cartilage"' },
@@ -343,7 +293,6 @@ export const STRUCTURE_SETS = {
       { ref: 'hss.m0.1718', location: 'p56 "Right knee joint"' },
       { ref: 'hss.ll.2026', location: 'p8 "Knee Joint (patellofemoral + tibiofemoral)" — "Hinge joint"' },
     ],
-    modelGap: 'The synovial membrane and joint cavity are not separate meshes, so the layered structure still comes from the lecture diagram.',
   },
 };
 
