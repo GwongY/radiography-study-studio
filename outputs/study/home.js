@@ -10,7 +10,7 @@ import {
 import { myGroups } from './course-timetable.js';
 import { renderRevise } from './revise.js';
 import { STEPS, setStep } from './session-engine.js';
-import { goTo, openSessionOverlay, setActiveNav } from './navigation-five-destinations.js';
+import { goTo, openSessionOverlay, setActiveNav } from './navigation-destinations.js';
 import { read, write } from './storage-versioned-keys.js';
 import { showView } from './small-ui-helpers.js';
 import { paintBriefing, refreshBriefing } from './weekly-briefing.js';
@@ -152,8 +152,7 @@ export function renderToday() {
 
   paintWeekFocus(new Date());
 
-  /* After a pack is fetched or removed this re-runs, so the briefing appears
-     or disappears with the token it is read by. */
+  /* The notice card follows the saved private-repository connection. */
   paintBriefing();
   void refreshBriefing();
 

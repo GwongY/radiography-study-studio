@@ -8,7 +8,7 @@ import { K, getMastery, itemAttempted, logMistake, read, store, write } from './
 import { recordAttempt } from './progress-log.js';
 import { syncSoon } from './gist-sync.js';
 import { advanceItem, renderSessionFoot, renderStep, setStep, typeLabel } from './session-engine.js';
-import { closeSessionOverlay } from './navigation-five-destinations.js';
+import { closeSessionOverlay } from './navigation-destinations.js';
 import { glossify, lookupTerm, wireTerms } from './reading-help.js';
 import { openSourceDialog } from './source-dialog.js';
 import { openViewer } from './what-is-under.js';
@@ -156,8 +156,7 @@ export function practiseHTML(item) {
 function normalise(s) {
   return String(s).toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9;,\s]/g, ' ').replace(/\s+/g, ' ').trim();
 }
-/* Exported so exam-mode.js marks a fill-in-the-blank exactly as practice
-   does. Two matchers would be two definitions of a right answer. */
+/* The same answer matcher is used throughout Practise. */
 export function looseMatch(given, accepted) {
   const g = normalise(given);
   if (!g) return false;

@@ -8,7 +8,7 @@ import { BODY_LAYERS, GHOST_OPACITY, layerState, renderLayerRail } from './subje
 import { read } from './storage-versioned-keys.js';
 import { renderHiddenTray } from './hidden-tray.js';
 import { renderOverlayCard } from './spatial-overlay-controls.js';
-import { setActiveNav } from './navigation-five-destinations.js';
+import { setActiveNav } from './navigation-destinations.js';
 import { showView, setTaskPanelExpanded } from './small-ui-helpers.js';
 import { renderViewerTools } from './viewer-tools.js';
 

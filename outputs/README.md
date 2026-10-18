@@ -6,7 +6,7 @@ The app stopped teaching. The owner learns each chapter elsewhere and comes here
 
 **One map, a week at a time.** The week follows the teaching calendar (`weekOf` in `schedule.js`), clamped to the last week that has content (7 for HSS2011), so in week 7 the map links weeks 1-7. The week chips let the owner pick earlier (say week 6 when week 7 is not learnt yet); the choice is saved per subject and the **Auto** chip returns to the calendar. Each week adds to the same map: a topic appears at the first week it was taught, and links, thread steps, table rows and decoder rows appear with the latest week they draw on. A topic taught later but needed as the map's skeleton stays as a dim structure node.
 
-**Decisions.** HSS2011 Human Anatomy only (the reference build covered only it); the other four subjects have no map yet. Brain 3D is included. The corpus keeps the questions and application tasks needed by Practise, Apply, Exam and search, with their sourceRefs. A follow-up on 2026-10-18 removed Learn/Remember-only explanations, key facts, item memory hooks and visual data; glossary and reading-help modules remain. The week given to each table row and decoder row is a judgment from each topic's own weeks (`rowWeek` in the generator), adjustable. Practise and Apply remain: a session now opens on Practise, and a resume point saved on Learn or Remember reopens on Practise.
+**Decisions.** HSS2011 Human Anatomy only (the reference build covered only it); the other four subjects have no map yet. Brain 3D is included. The corpus keeps the questions and application tasks needed by Practise, Apply and search, with their sourceRefs. A follow-up on 2026-10-18 removed Learn/Remember-only explanations, key facts, item memory hooks and visual data; glossary and reading-help modules remain. The week given to each table row and decoder row is a judgment from each topic's own weeks (`rowWeek` in the generator), adjustable. Practise and Apply remain: a session now opens on Practise, and a resume point saved on Learn or Remember reopens on Practise.
 
 ### Heart atlas mode (October 2026)
 
@@ -967,7 +967,7 @@ questions and the Apply scenario, where Partly is scored as reached-but-shaky.
 
 ## Session choices
 
-Home offers **Daily pre-study**, **Sit a timed paper**, **Explain my mistakes** and
+Home offers **Daily pre-study**, **Explain my mistakes** and
 **Subject-specific study**. The session picker also supports contextual queues such as new items,
 weakest items, Quick 10 and mixed review. The former Memory hooks only mode was removed with Learn
 and Remember.
@@ -978,7 +978,7 @@ The term layer began on Learn. **107 distinct words the glossary can explain als
 question prompts, answer explanations and Apply scenarios** — which is exactly where you are under
 time pressure and least able to go and look something up. Prompts, verdict explanations, common
 mistakes, Apply scenarios, model answers and rubrics are glossified, and Revise glossifies its authored
-notes, threads and tables.
+notes, threads, tables and decoder rows.
 
 The one place it deliberately does not go is the MCQ option buttons: a `<button>` inside a
 `<button data-opt>` is invalid HTML, and the inner one would swallow the click meant to answer the
@@ -1084,7 +1084,7 @@ for, and reconnecting with the same id brings it all back.
 
 Three layers, and it is worth knowing which one is doing the work.
 
-**The mastery records** (`rss.v1.mastery`, `rss.v1.items`) are what the dashboard reads. They are
+**The mastery records** (`rss.v1.mastery`, `rss.v1.items`) drive item status and scheduling. They are
 counters, and a counter cannot say where it came from.
 
 **The answer log** (IndexedDB, `rss-progress`) is the source of truth underneath them. Every scheduled

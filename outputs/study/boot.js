@@ -6,7 +6,7 @@
 import { $$, ui } from './imports.js';
 import { migrate } from './storage-versioned-keys.js';
 import { layerState, renderLayerRail } from './subject.js';
-import { renderNavButtons } from './navigation-five-destinations.js';
+import { renderNavButtons } from './navigation-destinations.js';
 import { renderOverlayCard } from './spatial-overlay-controls.js';
 import { renderViewerTools } from './viewer-tools.js';
 import { isPhoneViewer, scrollViewTop, setTaskPanelExpanded, setToolsPanelOpen } from './small-ui-helpers.js';

@@ -5,7 +5,7 @@
  */
 import { $$, esc, ui } from './imports.js';
 import { closeSearchSheet, dismissSessionForNav } from './global-search-one.js';
-import { goTo, suspendSessionForViewer } from './navigation-five-destinations.js';
+import { goTo, suspendSessionForViewer } from './navigation-destinations.js';
 
 /* ------------------------------------------------------------------ *
  * Search -> viewer: open the model, select the part, auto-uncover, and

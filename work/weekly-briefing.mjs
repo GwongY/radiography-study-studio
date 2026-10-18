@@ -2,7 +2,7 @@
 /*
  * The writer's half of the weekly briefing (the reader is
  * outputs/study/weekly-briefing.js). The Sunday task uses it to read last
- * week's briefing and to publish this week's — to the PRIVATE pack repository,
+ * week's briefing and to publish this week's — to the PRIVATE notices repository,
  * never to this public one.
  *
  *   node work/weekly-briefing.mjs pull          last briefing → work/.briefing/previous.json

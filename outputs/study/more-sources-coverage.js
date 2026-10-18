@@ -4,7 +4,7 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, SOURCE_FILES, STUDY_ITEMS, allQuestions, esc, validateApplications, validateCorpus } from './imports.js';
-import { setActiveNav } from './navigation-five-destinations.js';
+import { setActiveNav } from './navigation-destinations.js';
 import { openCoverage } from './coverage-report.js';
 import { openDialog } from './dialog-behaviour-applied.js';
 import { openResetDialog, openTransferDialog } from './reset.js';
@@ -12,7 +12,7 @@ import { isConnected, openSyncDialog, syncConfig } from './gist-sync.js';
 import { showView } from './small-ui-helpers.js';
 import { exportCalendar } from './assessments-and-marks.js';
 import { recoverByHand, stripMode, toggleStripFill, viewportNote, viewportReport } from './viewport-recovery.js';
-import { isPackConnected, loadedPack, openPackDialog, packCounts } from './question-pack.js';
+import { isBriefingConnected, openBriefingAccessDialog } from './briefing-access.js';
 
 /* ------------------------------------------------------------------ *
  * More -- sources, coverage, and the things demoted out of the topbar.
@@ -73,12 +73,10 @@ export function renderMore() {
         : 'On where the page is measured short of the screen — it extends the app into the strip so the tab bar reaches the edge. What is left after that is the screen\'s own rounded corner, which no page can fill.',
       open: () => { toggleStripFill(); renderMore(); },
     }] : []),
-    { title: 'Question pack', badge: loadedPack() ? `${packCounts().total.toLocaleString()} loaded` : (isPackConnected() ? 'connected' : 'off'),
-      color: loadedPack() ? 'var(--teal)' : 'var(--muted)',
-      note: loadedPack()
-        ? `Holding ${packCounts().total.toLocaleString()} questions from "${loadedPack().packId}" — ${packCounts().mcq.toLocaleString()} multiple-choice in timed papers, ${packCounts().short.toLocaleString()} short-answer under Exam → Short answer. Stored in IndexedDB on this device.`
-        : 'Load a private question bank JSON file or sync from a private repository to expand the exam pool with thousands of chapter questions.',
-      open: () => openPackDialog() },
+    { title: 'University notice access', badge: isBriefingConnected() ? 'connected' : 'off',
+      color: isBriefingConnected() ? 'var(--teal)' : 'var(--muted)',
+      note: 'Connect a read-only GitHub token to read the private weekly university notice summary on Today.',
+      open: () => openBriefingAccessDialog() },
     { title: 'Back up to a private GitHub gist', badge: syncBadge(), color: isConnected() ? 'var(--green)' : 'var(--muted)',
       note: 'An off-device copy that happens on its own — the only thing here that survives losing this device, reinstalling the app, or the browser clearing its storage. Needs a GitHub token scoped to gists and nothing else.',
       open: () => openSyncDialog() },

@@ -1,6 +1,5 @@
-// Regression gate for current session-step retention and subject access to private packs.
+// Regression gate for current session-step retention and unrelated study helpers.
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
 const mem = new Map();
 globalThis.localStorage = {getItem:k=>mem.get(k)||null,setItem:(k,v)=>mem.set(k,String(v)),removeItem:k=>mem.delete(k)};
 const el=()=>({classList:{add(){},remove(){},toggle(){}},style:{},addEventListener(){},setAttribute(){},appendChild(){}});
@@ -19,28 +18,6 @@ localStorage.setItem(STORAGE_PREFIX+'step:legacy',JSON.stringify('apply'));
 assert.equal(getItemStep('legacy'),'apply');
 saveContinue('legacy','remember');assert.equal(getItemStep('legacy'),'apply');
 console.log('PASS: Practise and Apply retain their highest saved step; legacy names are ignored');
-const {holdPack,packQuestions,packShortQuestions}=await import('../outputs/study/question-pack.js');
-const {examPool,markPaper}=await import('../outputs/study/exam-mode.js');
-const base={HSS2011:examPool({subject:'HSS2011'}).length,ABCT2326:examPool({subject:'ABCT2326'}).length};
-await holdPack({format:'rss.pack',packId:'fixture',questions:[
-  {qid:'a',type:'mcq',stem:'Fixture A',subject:'HSS2011',options:[{letter:'A',text:'Fixture'}],answer:'A'},
-  {qid:'b',type:'mcq',stem:'Fixture B',bank:'abct2326-bank-v1',options:[{letter:'A',text:'Fixture'}],answer:'A'},
-  {qid:'c',type:'short',stem:'Fixture C',bank:'abct2326-bank-v1',answer:'Fixture answer'},
-  {qid:'u',type:'mcq',stem:'Unassigned',options:[{letter:'A',text:'Fixture'}],answer:'A'},
-]});
-for(const code of Object.keys(base)) assert.equal(examPool({subject:code}).length,base[code]+1);
-assert.equal(packShortQuestions()[0].subject,'ABCT2326');
-assert.equal(markPaper(packQuestions()).rows[1].subject,'ABCT2326');
-console.log('PASS: explicit subjects and legacy bank IDs enter only the matching subject paper');
-if(process.argv[2]){
-  const pack=JSON.parse(readFileSync(process.argv[2],'utf8'));
-  await holdPack(pack);
-  const mcq=packQuestions(),short=packShortQuestions();
-  assert.equal(mcq.length+short.length,pack.questions.length);
-  assert(mcq.every(q=>q.subject));assert(short.every(q=>q.subject));
-  for(const code of Object.keys(base))assert.equal(examPool({subject:code}).length,base[code]+mcq.filter(q=>q.subject===code).length);
-  console.log(`PASS: private bank has ${mcq.length} accessible MCQs and ${short.length} other questions; all assigned by subject`);
-}
 const {breathEnvelope}=await import('../outputs/physiology.js');
 const cycle=60/14;
 for(const phase of [0,.4,1])assert(Math.abs(breathEnvelope((phase+1e-7)*cycle)-breathEnvelope((phase+1-1e-7)*cycle))<1e-5);

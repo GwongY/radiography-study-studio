@@ -2,8 +2,8 @@
  * Weekly briefing — the file format, and nothing else.
  *
  * A weekly briefing is a summary of the reader's own university email, written
- * by the Sunday task and pushed to the PRIVATE pack repository. It is read on
- * Today with the same read-only token question-pack.js already holds. This
+ * by the Sunday task and pushed to the PRIVATE notices repository. It is read
+ * on Today with the separate university-notices credential. This
  * repository and its deployed site are public, so the briefing is never in
  * outputs/, never in the SW shell, never in the answer log or the export.
  *

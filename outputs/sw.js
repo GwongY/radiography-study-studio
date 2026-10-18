@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v216';
+const CACHE_VERSION = 'v217';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -151,8 +151,7 @@ const SHELL = [
   './study/small-ui-helpers.js',
   './study/viewport-recovery.js',
   './study/home.js',
-  './study/navigation-five-destinations.js',
-  './study/review-mistakes-due.js',
+  './study/navigation-destinations.js',
   './study/more-sources-coverage.js',
   './study/global-search-one.js',
   './study/search-viewer-open.js',
@@ -164,15 +163,13 @@ const SHELL = [
   './study/text-size.js',
   './study/what-is-under.js',
   './study/session-engine.js',
-  './study/exam-mode.js',
-  './study/question-pack.js',
+  './study/briefing-access.js',
   './study/briefing-format.js',
   './study/weekly-briefing.js',
   './study/reading-help.js',
   './study/layout-figures.js',
   './study/source-dialog.js',
   './study/coverage-report.js',
-  './study/mastery-dashboard.js',
   './study/assessments-and-marks.js',
   './study/course-timetable.js',
   './study/viewer-tools.js',

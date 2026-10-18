@@ -6,7 +6,7 @@ async function reportedRegressionsBrowserCheck() {
     const a=document.getElementById(searchId).getBoundingClientRect(), b=document.getElementById(sizeId).getBoundingClientRect();
     check(a.left >= b.right && a.right <= innerWidth && Math.abs(a.y+a.height/2-b.y-b.height/2)<2, `${searchId}: misaligned with text size`);
   };
-  const {goTo} = await import('/study/navigation-five-destinations.js');
+  const {goTo} = await import('/study/navigation-destinations.js');
   goTo('viewer'); await __osteo.boot();
   const s = __osteo.state; s.motionEnabled = false;
   aligned('rssSearchBtn','rssTextSize');

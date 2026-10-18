@@ -6,8 +6,7 @@
 import { $$, ITEM_TYPES, STUDY_ITEMS, STUDY_MODES, describeSource, entryStep, esc, getItem, priorOf, questionsOf, ui } from './imports.js';
 import { applyHTML, endSession, practiseHTML, wireApply, wirePractise, wireStageNav } from './layout-figures.js';
 import { adjScore, itemAttempted, itemDue, itemLapses, store } from './storage-versioned-keys.js';
-import { startExam } from './exam-mode.js';
-import { openSessionOverlay } from './navigation-five-destinations.js';
+import { openSessionOverlay } from './navigation-destinations.js';
 import { openSourceDialog } from './source-dialog.js';
 import { getItemStep, saveContinue } from './home.js';
 import { toast } from './small-ui-helpers.js';
@@ -79,11 +78,6 @@ export function pickItems(opts) {
       }
       return picked.slice(0, QUICK);
     }
-    /*
-     * 'exam' is deliberately absent. startSession delegates it to exam-mode.js
-     * before it reaches here, because an exam is a paper rather than a queue of
-     * items. A case here would be unreachable code that looked authoritative.
-     */
     case 'mistakes': {
       const ids = [...new Set(store.mistakes.map((m) => m.itemId))];
       return ids.map(getItem).filter(Boolean).filter((i) => !opts.subject || i.subject === opts.subject).slice(0, 12);
@@ -109,13 +103,6 @@ export function pickItems(opts) {
 }
 
 export function startSession(opts) {
-  /*
-   * Exam mode is a sitting, not a step sequence, so it does not go through
-   * the session engine at all. Delegating HERE rather than at each launcher
-   * means the mode picker, the manifest shortcut and the Today card all get
-   * the paper without any of them knowing there are two kinds of session.
-   */
-  if (opts.mode === 'exam') return startExam({ subject: opts.subject });
   const items = pickItems(opts).filter(Boolean);
   if (!items.length) {
     if (opts.mode === 'mistakes') return toast('No mistakes recorded yet — nothing to explain.');

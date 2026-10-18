@@ -6,11 +6,12 @@
 import { $$, STUDY_MODES, ui } from './imports.js';
 import { K } from './storage-versioned-keys.js';
 import { closeSearchSheet, openSearchSheet, runSearch, searchKeydown } from './global-search-one.js';
-import { closeSessionOverlay } from './navigation-five-destinations.js';
+import { closeSessionOverlay } from './navigation-destinations.js';
 import { commitTransfer, exportProgress, handleTransferFile } from './reset.js';
 import { handleConnect, handleDisconnect, handleSyncNow } from './gist-sync.js';
 import { endSession } from './layout-figures.js';
-import { handlePackFile, handlePackFetch, handlePackRemove, whenPackLoaded } from './question-pack.js';
+import { handleBriefingAccessSave, handleBriefingDisconnect, renderBriefingAccessDialog } from './briefing-access.js';
+import { forgetBriefing, paintBriefing, refreshBriefing } from './weekly-briefing.js';
 import { renderToday } from './home.js';
 import { setStep, startSession } from './session-engine.js';
 
@@ -110,16 +111,18 @@ export function init() {
   $$('syncConnect').onclick = () => handleConnect();
   $$('syncNowBtn').onclick = () => handleSyncNow();
   $$('syncDisconnect').onclick = () => handleDisconnect();
-  $$('closePack').onclick = () => $$('packDialog').close();
-  $$('packFileInput').onchange = (e) => handlePackFile(e.target.files && e.target.files[0]);
-  $$('packFetchBtn').onclick = () => handlePackFetch();
-  $$('packRemoveBtn').onclick = () => handlePackRemove();
-  /*
-   * The pack is read from IndexedDB after boot, deliberately without blocking
-   * it. Today's tiles count the exam pool, so they are drawn before it can
-   * arrive -- redraw once when it does, or the card understates the pool until
-   * something else happens to re-render.
-   */
-  whenPackLoaded(() => renderToday());
+  $$('closeBriefingAccess').onclick = () => $$('briefingAccessDialog').close();
+  $$('briefingAccessSave').onclick = () => {
+    if (!handleBriefingAccessSave()) return;
+    $$('briefingAccessDialog').close();
+    paintBriefing();
+    void refreshBriefing({ force: true });
+  };
+  $$('briefingAccessDisconnect').onclick = () => {
+    handleBriefingDisconnect();
+    forgetBriefing();
+    renderBriefingAccessDialog();
+    paintBriefing();
+  };
   renderToday();
 }

@@ -8,7 +8,7 @@ import { K, itemAttempted, itemDue, itemScore, migrate, read, store, write } fro
 import { applyProgressImport, buildProgressExport, planProgressMerge, validateProgressFile } from './moving-progress-between.js';
 import { absorb, clearLog, events } from './progress-log.js';
 import { disconnect, isConnected } from './gist-sync.js';
-import { closeSessionOverlay, goTo } from './navigation-five-destinations.js';
+import { closeSessionOverlay, goTo } from './navigation-destinations.js';
 import { openDialog } from './dialog-behaviour-applied.js';
 import { renderToday } from './home.js';
 import { toast } from './small-ui-helpers.js';

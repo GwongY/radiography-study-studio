@@ -2,7 +2,7 @@
 // after reloading the edited app. Exercises the actual injected vertex GLSL.
 async function physiologyShapeBrowserCheck(mode='compare') {
   const {deformMuscle,deformBreathing,deformChamber}=await import('/physiology-shape.js');
-  const {goTo}=await import('/study/navigation-five-destinations.js');
+  const {goTo}=await import('/study/navigation-destinations.js');
   const {loadExtraModel}=await import('/studio/depth-picking.js');
   const {STRUCTURE_MODELS}=await import('/study-data.js');
   goTo('viewer');await __osteo.boot();

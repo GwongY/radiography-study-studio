@@ -5,7 +5,7 @@
  */
 import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, MESH_INDEX as ATLAS_MESH_INDEX, SEARCH_EXTRAS, STRUCTURE_MODELS, UNITS, compositeFor, esc, expandQuery, missingFor, searchAnatomy, ui } from './imports.js';
 import { K, read, write } from './storage-versioned-keys.js';
-import { goTo } from './navigation-five-destinations.js';
+import { goTo } from './navigation-destinations.js';
 import { openStructureInViewer } from './search-viewer-open.js';
 import { showView } from './small-ui-helpers.js';
 import { exactSearch, matchesSearch, modelSearchNames } from '../search-name.js';

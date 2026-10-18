@@ -10,7 +10,7 @@ Published and confirmed succeeded on 2026-10-03. Its address, project and
 deployment identifiers are kept locally in ignored `.sites-private/`, not here:
 this repository is public.
 
-Email updates now run as a weekly briefing pushed to the private pack repository
+Email updates now run as a weekly briefing pushed to the private notices repository
 (see CLAUDE.md, "Git / deploy"). The earlier server-based mail prototype is
 retired in ignored `work/.retired-private-mail/`; nothing imports or deploys it.
 
@@ -38,8 +38,8 @@ host, prepend `C:\Program Files\Git\bin` to PATH for the process and set
 `TAR_OPTIONS=--force-local` so the official packaging helper supports drive paths.
 Keep archives outside the managed source checkout and credentials in stdin only.
 
-Study progress and private question packs remain in each browser's existing
-databases. A new origin does not automatically receive old progress. Export from
+Study progress remains in each browser's existing database. A new origin does
+not automatically receive old progress. Export from
 the old installed PWA and import through More (search more/settings/about) in the
 new app. Keep the old installation until the new progress is verified. Downloaded
 offline content on an authorised device cannot be remotely revoked by changing

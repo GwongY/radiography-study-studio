@@ -23,7 +23,7 @@ import {
   gapFor, itemsForUnit, sessionsWithStatus, weekOf, weekStart, STAFF, ui,
 } from './imports.js';
 import { showView } from './small-ui-helpers.js';
-import { setActiveNav } from './navigation-five-destinations.js';
+import { setActiveNav } from './navigation-destinations.js';
 import { K, read, store, write } from './storage-versioned-keys.js';
 import { renderRevise } from './revise.js';
 import { REVISION } from '../revision/registry.js?v=1';

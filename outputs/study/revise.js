@@ -17,7 +17,7 @@
  */
 import { $$, STORAGE_PREFIX, esc, weekOf, weekStart } from './imports.js';
 import { read, write } from './storage-versioned-keys.js';
-import { setActiveNav } from './navigation-five-destinations.js';
+import { setActiveNav } from './navigation-destinations.js';
 import { leaveProjection } from './what-is-under.js';
 import { scrollViewTop, showView } from './small-ui-helpers.js';
 import { glossifyNode } from './reading-help.js';
@@ -614,8 +614,8 @@ function mountFragments() {
   $$('rvThreads').querySelectorAll('details.thread').forEach((d) => {
     ix.threadTitles[d.id] = d.querySelector('summary').firstChild.textContent.trim();
   });
-  /* the reading help, once: it does not depend on the week */
-  ['rvThreads', 'rvTables'].forEach((id) => glossifyNode($$(id)));
+  /* Reading help spans every static fragment, including the Decoder rows. */
+  ['rvThreads', 'rvTables', 'rvDecoder'].forEach((id) => glossifyNode($$(id)));
   $$('rvTables').querySelectorAll('.subnav a').forEach((a) => {
     a.addEventListener('click', (ev) => {
       ev.preventDefault();

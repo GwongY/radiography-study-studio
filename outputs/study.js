@@ -16,8 +16,7 @@ import './study/reset.js';
 import { init as init_small_ui_helpers_js } from './study/small-ui-helpers.js';
 import { init as init_viewport_recovery_js } from './study/viewport-recovery.js';
 import './study/home.js';
-import './study/navigation-five-destinations.js';
-import './study/review-mistakes-due.js';
+import './study/navigation-destinations.js';
 import './study/more-sources-coverage.js';
 import './study/global-search-one.js';
 import './study/search-viewer-open.js';
@@ -31,11 +30,9 @@ import './study/reading-help.js';
 import { init as init_layout_figures_js } from './study/layout-figures.js';
 import { init as init_source_dialog_js } from './study/source-dialog.js';
 import './study/coverage-report.js';
-import './study/mastery-dashboard.js';
 import { init as init_assessments_and_marks_js } from './study/assessments-and-marks.js';
-import { init as init_question_pack_js } from './study/question-pack.js';
+import { init as init_briefing_access_js } from './study/briefing-access.js';
 import { init as init_weekly_briefing_js } from './study/weekly-briefing.js';
-import { init as init_exam_mode_js } from './study/exam-mode.js';
 import { init as init_course_timetable_js } from './study/course-timetable.js';
 import { init as init_text_size_js } from './study/text-size.js';
 import { init as init_viewer_tools_js } from './study/viewer-tools.js';
@@ -60,9 +57,6 @@ init_course_timetable_js();
 init_revise_js();
 init_assessments_and_marks_js();
 init_viewer_tools_js();
-/* After dialog wiring: exam mode intercepts the session overlay's own close
-   and end buttons, so those handlers have to exist before it captures them. */
-/* Before exam mode: a restored pack is part of the pool it counts. */
-init_question_pack_js();
+/* Migrate the old notice credential and retire the device-only question bank. */
+init_briefing_access_js();
 init_weekly_briefing_js();
-init_exam_mode_js();

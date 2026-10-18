@@ -1,5 +1,5 @@
 /*
- * Navigation -- five destinations, rendered into both the icon rail and
+ * Navigation -- four destinations, rendered into both the icon rail and
  * the phone tab bar from one definition.
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
@@ -9,11 +9,10 @@ import { openViewer, leaveProjection } from './what-is-under.js';
 import { renderRevise } from './revise.js';
 import { renderMore } from './more-sources-coverage.js';
 import { renderToday } from './home.js';
-import { renderExamTab, examTab } from './review-mistakes-due.js';
 import { renderCourse } from './course-timetable.js';
 
 /* ------------------------------------------------------------------ *
- * Navigation -- five destinations, rendered into both the icon rail and
+ * Navigation -- four destinations, rendered into both the icon rail and
  * the phone tab bar from one definition.
  * ------------------------------------------------------------------ */
 
@@ -22,16 +21,14 @@ const NAV_DESTS = [
   ['revise', 'Revise', '\u25a6', () => renderRevise()],
   ['viewer', 'Viewer', '\u25c9', () => openViewer()],
   ['course', 'Course', '\u25f3', () => renderCourse()],
-  ['exam', 'Exam', '\u2707', () => renderExamTab(examTab)],
   ['more', 'More', '\u22ef', () => renderMore()],
 ];
-const NAV_TITLES = { today: 'Today', revise: 'Revise', viewer: 'Viewer', course: 'Course', exam: 'Exam', more: 'More' };
+const NAV_TITLES = { today: 'Today', revise: 'Revise', viewer: 'Viewer', course: 'Course', more: 'More' };
 const NAV_KICKERS = {
   today: 'What to do now',
   revise: 'Link what you have learnt \u00b7 week by week',
   viewer: 'Model and images in one place',
   course: 'Timetable, syllabus, assessments',
-  exam: 'Past papers, timed practice, mastery',
   more: 'Sources, coverage, settings',
 };
 let currentTab = 'today';

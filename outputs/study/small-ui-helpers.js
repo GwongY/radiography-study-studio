@@ -26,7 +26,7 @@ export function xrayFallback(el) {
   el.replaceWith(div);
 }
 
-const VIEWS = ['todayView', 'reviseView', 'viewerView', 'courseView', 'examView', 'moreView'];
+const VIEWS = ['todayView', 'reviseView', 'viewerView', 'courseView', 'moreView'];
 /*
  * Which view is up, so a RE-RENDER can be told from a NAVIGATION.
  *

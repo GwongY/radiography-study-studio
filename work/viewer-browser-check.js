@@ -57,7 +57,7 @@ async () => {
   release(['skeleton','muscle','organs','circulatory']); await pause(30);
   assert(!o.inXray() && stage.parentElement.id === 'stageHome', 'Late tissue load cannot steal canvas from 3D');
   document.querySelector('[data-vtab="xray"]').click(); await pause(20);
-  (await import('./study/navigation-five-destinations.js')).goTo('today');
+  (await import('./study/navigation-destinations.js')).goTo('today');
   release(['skeleton','muscle','organs','circulatory']); await pause(30);
   assert(!o.inXray() && stage.parentElement.id === 'stageHome', 'Leaving viewer cancels pending projection');
   o.ensureXrayLayers = originalEnsure;

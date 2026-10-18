@@ -22,14 +22,14 @@
   304cb7fbbaa0be5f       576  STRUCTURE_MODELS  object[7]
   0c48f89076c08212     22713  STRUCTURE_SETS  object[13]
   02b548f34bbd133e   1004380  STUDY_ITEMS  array[210]
-  983b09221060f435       570  STUDY_MODES  array[4]
+  cd460c999e0ebfe5       416  STUDY_MODES  array[3]
   c304b213ba040ea9      4097  SUBJECTS  array[6]
   963154a00b363295        57  TIER_LABELS  array[5]
   4bbc36eef0009106    116942  Y1S1_SOURCE_MAP  object[4]
   32039fd949359b25        88  allQuestions  function
   f22dc64193861bbd       207  blankMastery  function
   19d93af5294891af       120  coverageFor  function
-  158b149184b13bef   1099388  default  object[7]
+  0e731c72c73f849e   1099234  default  object[7]
   3ccc8570c78e7c7d       511  describeSource  function
   3ab99068d04f2a58       249  dimensionFor  function
   d432de439a4df5de        75  entryStep  function
@@ -59,7 +59,7 @@
   af29b88e48ce8342      1947  validateCorpus  function
   f4c4104303214acd      3081  validateQuestion  function
 
-  51ef19154fe4356c  WHOLE SURFACE
+  4eb9c34a1c82748a  WHOLE SURFACE
 
 — every study item, by id — 210 items —
   a8d11099e6d0e78e  abct2326-acquired-immunity

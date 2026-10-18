@@ -507,7 +507,6 @@ export function entryStep(item, attempted) {
  */
 export const STUDY_MODES = [
   { id: 'daily', label: 'Daily pre-study', hint: 'A mixed warm-up: terminology, bones, one physiology sequence, one radiation-science concept.', icon: '◔' },
-  { id: 'exam', label: 'Sit a timed paper', hint: 'Twenty questions, 25 minutes, no feedback until you submit — then a mark and where it went.', icon: '⌸' },
   { id: 'mistakes', label: 'Explain my mistakes', hint: 'Everything you have got wrong, with the explanation and the confusion that caused it.', icon: '⚠' },
   { id: 'subject', label: 'Subject-specific study', hint: 'Stay inside one subject or one unit.', icon: '▦' },
 ];

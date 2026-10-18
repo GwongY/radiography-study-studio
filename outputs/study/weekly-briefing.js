@@ -2,20 +2,19 @@
  * Weekly briefing — this week's university notices, on Today.
  *
  * The Sunday task reads the reader's PolyU mail, summarises it, and pushes one
- * file to the PRIVATE pack repository (see briefing-format.js). This part reads
- * that file with the read-only token question-pack.js already holds, so a
- * device that can fetch question packs can read its briefing, and a device
- * that cannot sees nothing. No new credential, no server.
+ * file to the PRIVATE notices repository (see briefing-format.js). This part
+ * reads that file with the read-only credential configured for university
+ * notices. No server.
  *
  * WHAT NEVER LEAVES. The briefing quotes real email. It is cached in its own
  * localStorage key, outside STORAGE_PREFIX, so it is not in the progress
  * export, the answer log or the gist; it is never in the SW shell; and
- * disconnecting the pack forgets it with the token.
+ * disconnecting university notices forgets it with the token.
  *
  * Split out per docs/CODEMAP.md. Nothing runs at module scope.
  */
 import { $$, esc } from './imports.js';
-import { isPackConnected, packConfig, packRequestFor, packMessageFor } from './question-pack.js';
+import { briefingConfig, briefingMessageFor, briefingRequestFor, isBriefingConnected } from './briefing-access.js';
 import { BRIEFING_PATH, briefingProblem, orderNotices } from './briefing-format.js';
 
 const CACHE_KEY = 'rss-briefing-cache';
@@ -52,7 +51,7 @@ const COLOUR = { urgent: 'var(--red)', normal: 'var(--teal)', check: 'var(--oran
 export function paintBriefing() {
   const card = $$('briefingCard');
   if (!card) return;
-  if (!isPackConnected()) { forgetBriefing(); card.hidden = true; card.replaceChildren(); return; }
+  if (!isBriefingConnected()) { forgetBriefing(); card.hidden = true; card.replaceChildren(); return; }
   if (!held) held = readCache();
   if (!held) {
     card.hidden = !lastError;
@@ -85,16 +84,16 @@ export function paintBriefing() {
 }
 
 export async function refreshBriefing({ force = false } = {}) {
-  if (busy || !isPackConnected()) return;
+  if (busy || !isBriefingConnected()) return;
   if (!force && Date.now() - lastTry < REFETCH_MS) return;
   busy = true;
   lastTry = Date.now();
-  const { repo, token } = packConfig();
+  const { repo, token } = briefingConfig();
   try {
-    const { url, init } = packRequestFor(`/repos/${repo}/contents/${BRIEFING_PATH}`, { token });
+    const { url, init } = briefingRequestFor(`/repos/${repo}/contents/${BRIEFING_PATH}`, { token });
     const res = await fetch(url, init);
     if (res.status === 404) { lastError = null; return; } // no briefing pushed yet
-    if (!res.ok) throw new Error(packMessageFor(res.status));
+    if (!res.ok) throw new Error(briefingMessageFor(res.status));
     const b = JSON.parse(await res.text());
     const problem = briefingProblem(b);
     if (problem) throw new Error(`The briefing file is malformed: ${problem}`);

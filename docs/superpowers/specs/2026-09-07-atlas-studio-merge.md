@@ -92,7 +92,7 @@ and the lessons use." The atlas now borrows it too.
   "picking is restricted to the layer being taught" behaviour is untouched.
 - **Study half.** `what-is-under.js` renders the source switch, mounts the atlas dock, and
   keeps `pauseFullAtlas()` as the nav-away pause (called from
-  `navigation-five-destinations.js` exactly as today). The active source is a new cross-part
+  `navigation-destinations.js` exactly as today). The active source is a new cross-part
   mutable in `study/state.js`, per the TRAPS rule.
 
 ## Risks
