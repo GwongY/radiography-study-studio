@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v242';
+const CACHE_VERSION = 'v243';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -197,9 +197,12 @@ const SHELL = [
   './revision/weeks.js?v=1',
   './revision/registry.js?v=1',
   './revision/hub.js?v=1',
+  './revision/hub.js',
   './revision/link-rows.js?v=1',
   './revision/describe.js?v=1',
   './revision/own-words.js?v=1',
+  './revision/rules.js?v=1',
+  './revision/cross-links.js?v=1',
   './revision/hss2011-data.js',
   './revision/leaves.js',
   './revision/hss2011-leaves-w1.js',
@@ -213,6 +216,20 @@ const SHELL = [
   './revision/hss2011-threads.js',
   './revision/hss2011-tables.js',
   './revision/hss2011-decoder.js',
+  './revision/fragments.js',
+  './revision/abct2326-topics.js',
+  './revision/abct2326-leaves-w1.js',
+  './revision/abct2326-leaves-tissues.js',
+  './revision/abct2326-leaves-w2.js',
+  './revision/abct2326-leaves-w3.js',
+  './revision/abct2326-leaves-w4.js',
+  './revision/abct2326-leaves-w5.js',
+  './revision/abct2326-leaves-w7.js',
+  './revision/abct2326-leaves-w8.js',
+  './revision/abct2326-leaves-w9.js',
+  './revision/abct2326-leaves-w11.js',
+  './revision/abct2326-leaves-w12.js',
+  './revision/abct2326-fragments.js',
   './revision/vendor/d3.min.js',
   './revision/vendor/markmap-view.min.js',
   './bodymap.js?v=4',
