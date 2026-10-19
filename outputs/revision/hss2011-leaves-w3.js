@@ -61,7 +61,7 @@ export const ROWS = [
 { k: 'joint', id: 'w3_j_mcp', l: 'Metacarpophalangeal joint', parent: 'w3_wristjoints', w: 3, line: 'condyloid in 2nd to 5th; 1st is hinge', match: 'metacarpophalangeal', src: [UL, 12] },
 
 /* ---------------- brachial plexus (p15) ---------------- */
-{ k: 'group', id: 'w3_brachial', l: 'Brachial plexus', parent: 'plexuses', w: 3, line: 'network of nerves from ventral rami C5-T1, supplying the upper limbs', src: [UL, 15] },
+{ k: 'group', id: 'w3_brachial', l: 'Brachial plexus', parent: 'plexuses', w: 3, line: 'network of nerves from ventral rami C5-T1, supplying the upper limbs', links: { w5_brachial_plexus: 'same plexus, Week 5 lecture' }, src: [UL, 15] },
 
 /* ---------------- muscles that move the pectoral girdle (p16-17) ---------------- */
 { k: 'group', id: 'w3_girdlemusc', l: 'Muscles that move the pectoral girdle', parent: 'ul_muscles', w: 3, src: [UL, 16, 17] },

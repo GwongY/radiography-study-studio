@@ -113,7 +113,7 @@ export const ROWS = [
 { k: 'nerve', id: 'w2_n_infglut', l: 'Inferior gluteal nerve', parent: 'w2_llnerves', w: 2, supplies: { w2_gmax: 'supplies gluteus maximus' }, match: 'inferior gluteal n.', src: [LL, 33] },
 { k: 'nerve', id: 'w2_n_femoral', l: 'Femoral nerve', parent: 'w2_llnerves', w: 2, line: 'hip flexor, knee extensor', supplies: { w2_quads: 'supplies the knee extensors' }, match: 'femoral n.', src: [LL, 33] },
 { k: 'nerve', id: 'w2_n_obturator', l: 'Obturator nerve', parent: 'w2_llnerves', w: 2, supplies: { w2_medthigh: 'supplies the hip adductors' }, match: 'obturator n.', src: [LL, 33] },
-{ k: 'nerve', id: 'w2_n_sciatic', l: 'Sciatic nerve', parent: 'w2_llnerves', w: 2, supplies: { w2_postthigh: 'supplies the knee flexors' }, match: 'sciatic n.', src: [LL, 33] },
+{ k: 'nerve', id: 'w2_n_sciatic', l: 'Sciatic nerve', parent: 'w2_llnerves', w: 2, from: 'w5_sacral_plexus', supplies: { w2_postthigh: 'supplies the knee flexors' }, match: 'sciatic n.', src: [LL, 33] },
 { k: 'nerve', id: 'w2_n_tibial', l: 'Tibial nerve', parent: 'w2_llnerves', w: 2, supplies: { w2_suppost: 'supplies the plantarflexors', w2_deeppost: 'supplies the plantarflexors' }, match: 'tibial n', src: [LL, 33] },
 { k: 'nerve', id: 'w2_n_comperon', l: 'Common peroneal nerve', parent: 'w2_llnerves', w: 2, supplies: { w2_antleg: 'supplies the dorsiflexors' }, match: 'common peroneal n.', src: [LL, 33] },
 ];

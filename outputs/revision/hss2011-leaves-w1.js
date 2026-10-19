@@ -175,9 +175,9 @@ export const ROWS = [
 { k: 'part', id: 'w2_tis_organelles', l: 'Organelles', parent: 'w2_tis_cell', w: 2, src: [TIS, 20] },
 
 { k: 'group', id: 'w2_tis_junctions', l: 'Intercellular Junctions', parent: 'junctions', w: 2, line: 'cells adhere to and communicate with one another', src: [TIS, 6, 5] },
-{ k: 'part', id: 'w2_tis_tight', l: 'Tight Junctions', parent: 'w2_tis_junctions', w: 2, line: 'protein band fusing plasma membranes into an impermeable seal', links: { w2_tis_plasmamem: 'fuse the plasma membranes together' }, src: [TIS, 6] },
+{ k: 'part', id: 'w2_tis_tight', l: 'Tight Junctions', parent: 'w2_tis_junctions', w: 2, line: 'protein band fusing plasma membranes into an impermeable seal', links: { w2_tis_plasmamem: 'fuse the plasma membranes together', w6_bbbarrier: 'astrocytes stimulate tight junctions between endothelial cells' }, src: [TIS, 6] },
 { k: 'part', id: 'w2_tis_adherent', l: 'Adherent Junctions', parent: 'w2_tis_junctions', w: 2, line: 'strengthen tight junctions; link cytoskeletons of adjacent cells', links: { w2_tis_tight: 'located just below tight junctions', w2_tis_cytoskel: 'mechanically link the cytoskeletons' }, src: [TIS, 7] },
-{ k: 'part', id: 'w2_tis_gap', l: 'Gap Junctions', parent: 'w2_tis_junctions', w: 2, line: 'open channels exchanging nutrients, ions and signals between cells', src: [TIS, 8] },
+{ k: 'part', id: 'w2_tis_gap', l: 'Gap Junctions', parent: 'w2_tis_junctions', w: 2, line: 'open channels exchanging nutrients, ions and signals between cells', links: { w5_elecsyn: 'electrical synapse: with gap junctions' }, src: [TIS, 8] },
 { k: 'part', id: 'w2_tis_connexins', l: 'Connexins', parent: 'w2_tis_gap', w: 2, line: 'rings of transmembrane proteins', src: [TIS, 8] },
 { k: 'part', id: 'w2_tis_connexon', l: 'Connexon', parent: 'w2_tis_gap', w: 2, line: 'hollow cylinder formed by aligned connexins', links: { w2_tis_connexins: 'connexins align to form the connexon' }, src: [TIS, 8] },
 
@@ -221,12 +221,12 @@ export const ROWS = [
 { k: 'group', id: 'w2_tis_nerve', l: 'Nerve Tissue', parent: 'tissues', w: 2, line: 'also known as neural tissue; the CNS and the PNS', src: [TIS, 20] },
 { k: 'part', id: 'w2_tis_cns', l: 'Central nervous system', match: '(CNS)', parent: 'w2_tis_nerve', w: 2, line: 'the brain and spinal cord; processes and integrates information', src: [TIS, 20, 21] },
 { k: 'part', id: 'w2_tis_pns', l: 'Peripheral nervous system', match: '(PNS)', parent: 'w2_tis_nerve', w: 2, line: 'nerves and ganglia outside the CNS; carries signals to the body', links: { w2_tis_cns: 'transmits signals between the CNS and the body' }, src: [TIS, 20, 21] },
-{ k: 'part', id: 'w2_tis_neurons', l: 'Neurons', parent: 'w2_tis_nerve', w: 2, line: 'transmit electrical signals', src: [TIS, 20] },
+{ k: 'part', id: 'w2_tis_neurons', l: 'Neurons', parent: 'w2_tis_nerve', w: 2, line: 'transmit electrical signals', links: { neuron: 'Neurons and Glia, the cells in the nervous system' }, src: [TIS, 20] },
 { k: 'part', id: 'w2_tis_soma', l: 'Cell body (soma)', match: 'cell body', parent: 'w2_tis_neurons', w: 2, line: 'contains the nucleus and organelles', links: { w2_tis_nucleus: 'the cell body contains the nucleus', w2_tis_organelles: 'and the organelles' }, src: [TIS, 20] },
 { k: 'part', id: 'w2_tis_dendrites', l: 'Dendrites', parent: 'w2_tis_neurons', w: 2, line: 'receive signals from other neurons', src: [TIS, 20] },
 { k: 'part', id: 'w2_tis_axon', l: 'Axon', parent: 'w2_tis_neurons', w: 2, line: 'transmits signals to other neurons or effector cells', src: [TIS, 20] },
 { k: 'part', id: 'w2_tis_sensoryn', l: 'Sensory neurons', parent: 'w2_tis_neurons', w: 2, line: 'transmit information from receptors to the CNS', links: { w2_tis_cns: 'carry sensory information to the CNS' }, src: [TIS, 21] },
 { k: 'part', id: 'w2_tis_motorn', l: 'Motor neurons', parent: 'w2_tis_neurons', w: 2, line: 'transmit signals from the CNS to muscles or glands', links: { w1_motorneuron: 'the motor neuron of a motor unit', w2_tis_cns: 'signals leave the CNS' }, src: [TIS, 21] },
 { k: 'part', id: 'w2_tis_interneurons', l: 'Interneurons', parent: 'w2_tis_neurons', w: 2, line: 'connect neurons within the CNS and integrate information', links: { w2_tis_cns: 'found in the brain and spinal cord' }, src: [TIS, 21] },
-{ k: 'part', id: 'w2_tis_glia', l: 'Glial cells', parent: 'w2_tis_nerve', w: 2, line: 'support, protect and nourish neurons; remove waste', links: { w2_tis_neurons: 'support, insulation, nutrients, waste removal' }, src: [TIS, 20, 21] },
+{ k: 'part', id: 'w2_tis_glia', l: 'Glial cells', parent: 'w2_tis_nerve', w: 2, line: 'support, protect and nourish neurons; remove waste', links: { w2_tis_neurons: 'support, insulation, nutrients, waste removal', glia: 'a.k.a. Glia; protects neurons and aids their function' }, src: [TIS, 20, 21] },
 ];
