@@ -202,6 +202,7 @@ function renderPanel(id, el) {
   } else if (n) {
     h = `<h3>${esc(n.l)}</h3><div class="rv-tags"><span class="rv-tag sys" style="background:var(${SYSVAR[n.s].replace('--c-', '--rv-c-')})">${esc(SYS[n.s])}</span>${weeksTags(n)}</div>`;
     h += `<div class="rv-note">${n.t}</div>`;
+    h += `<p class="rv-to3d"><button type="button" class="rv-linkbtn" data-to3d="${esc(id)}">Connections in 3D (${(ix.NB[id] || []).length})</button></p>`;
     if (n.th && n.th.length) {
       h += '<h4>Pathways through this topic</h4><div class="nlist">';
       n.th.forEach((t) => { h += `<button type="button" class="nbtn" data-thread="${esc(t)}"><span>${esc(ix.threadTitles[t] || t)}</span><span class="rel">open →</span></button>`; });
@@ -571,6 +572,7 @@ function createMap() {
       const b = ev.target.closest('button'); if (!b) return;
       if (b.dataset.node) reveal(b.dataset.node);
       if (b.dataset.thread) openThread(b.dataset.thread);
+      if (b.dataset.to3d) openIn3D(b.dataset.to3d);
     });
     linkList = bindLinkList($$('rvLinkList'), {
       onHot: (id) => { hotRow = id; setHot(linkKey[id] || null); },
@@ -734,7 +736,15 @@ async function ensureMap() {
   return map;
 }
 
-async function ensureBrain() {
+/* The 3D tab and "Connections in 3D" can both ask for the hub while the library is
+   still loading; one promise, so there is only ever one hub. */
+let brainLoading = null;
+function ensureBrain() {
+  if (!brainLoading) brainLoading = loadBrain().then((b) => { if (!b) brainLoading = null; return b; });
+  return brainLoading;
+}
+
+async function loadBrain() {
   if (brain) return brain;
   try {
     await loadScript('3d-force-graph.min.js');
@@ -745,10 +755,26 @@ async function ensureBrain() {
   brain = createBrain({
     ix, rv, renderPanel, openThread,
     tours: () => subjectData().tours,
-    sysName: { tissue: 'Tissues', skel: 'Skeleton', musc: 'Muscles', pns: 'Nerves', cns: 'Brain & cord', sense: 'Senses' },
+    mapSelected: () => (map && map.ready() ? map.selected() : null),
+    newest: newestTopic,
   });
   brain.setData();
   return brain;
+}
+
+/* Where the 3D hub starts when nothing is chosen: the best-linked topic new this week, else the best-linked of all. */
+function newestTopic() {
+  const deg = (id) => (ix.NB[id] || []).length;
+  const pick = (ids) => ids.filter((id) => ix.byId[id] && ix.ids.has(id) && !ix.structural.has(id)).sort((a, b) => deg(b) - deg(a) || (a < b ? -1 : 1))[0] || null;
+  return pick([...ix.fresh]) || pick([...ix.ids]);
+}
+
+/* "Connections in 3D" in a topic's notes: the same topic, at the centre of the hub. */
+async function openIn3D(id) {
+  showTab('brain');
+  scrollViewTop();
+  const b = await ensureBrain();
+  if (b) b.focus(id);
 }
 
 /* ------------------------------------------------------------------ *

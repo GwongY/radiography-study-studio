@@ -165,7 +165,7 @@
             <section class="rv-panel" id="rvBrain" role="tabpanel" aria-labelledby="rvTabBrain" hidden>
               <div class="rv-mapbar">
                 <div class="rv-jump">
-                  <label for="rvBJump" class="rv-jlab">Fly to</label>
+                  <label for="rvBJump" class="rv-jlab">Centre on</label>
                   <select id="rvBJump"><option value="">Pick a topic…</option></select>
                 </div>
                 <div class="rv-jump">
@@ -176,12 +176,11 @@
                     <button class="rv-linkbtn" id="rvBPlay" type="button" aria-pressed="false" disabled>Play</button>
                     <button class="rv-linkbtn" id="rvBNext" type="button" aria-label="Next stop" disabled>▶</button>
                     <button class="rv-linkbtn" id="rvBSpin" type="button" aria-pressed="true">Spin</button>
-                    <button class="rv-linkbtn" id="rvBReset" type="button">Reset</button>
                   </span>
                 </div>
               </div>
               <div class="rv-legend" aria-label="Colour key">
-                <span class="rv-lab">Colour = what it is · size = how many links</span>
+                <span class="rv-lab">Colour = what it is · grey at the top = the branch it sits in</span>
                 <span><i style="background:var(--rv-c-tissue)"></i>Tissues &amp; cells</span>
                 <span><i style="background:var(--rv-c-skel)"></i>Skeleton &amp; joints</span>
                 <span><i style="background:var(--rv-c-musc)"></i>Muscles</span>
@@ -190,12 +189,17 @@
                 <span><i style="background:var(--rv-c-sense)"></i>Senses &amp; autonomic</span>
               </div>
               <div class="rv-mapwrap">
+                <div class="rv-col">
                 <div id="rvBwrap">
                   <div id="rvBgraph" aria-hidden="true"></div>
                   <div id="rvBlabels" aria-hidden="true"></div>
-                  <div id="rvBhint">Drag to turn · pinch or scroll to zoom · tap a dot</div>
+                  <div id="rvBdots" aria-hidden="true"></div>
+                  <nav id="rvBTrail" aria-label="The chain you walked"></nav>
+                  <button class="rv-linkbtn" id="rvBMore" type="button" hidden></button>
                   <div id="rvBcap" aria-live="polite" hidden></div>
                   <button class="rv-linkbtn" id="rvBNotesBtn" type="button" hidden>Notes ↓</button>
+                </div>
+                <ol class="rv-links" id="rvBLinkList" aria-label="Why each topic links" hidden></ol>
                 </div>
                 <aside class="rv-side" id="rvBside" aria-live="polite"></aside>
               </div>
