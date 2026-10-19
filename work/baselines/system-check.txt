@@ -1,5 +1,5 @@
 — every chip draws from a real GLB layer —
-  13 chips over 7 layers
+  14 chips over 7 layers
 
 — skeleton: 388 names in ./assets/z-anatomy-skeleton.glb —
   ok Axial          202 meshes
@@ -31,6 +31,10 @@
   ok Venous         389 meshes
   ok Heart           17 meshes
 
+— muscle: 1014 names in ./assets/kas.glb —
+  ok Muscles        707 meshes
+  ok Tendons & bursae  307 meshes
+
 — the systems agree with the flow classes wherever both speak —
   ok venous           369 meshes, all in venous
   ok pulmVein          20 meshes, all in venous
@@ -44,5 +48,9 @@
   ok airway            39 meshes, all in respiratory
   ok gut               23 meshes, all in digestive
   ok urinary            8 meshes, all in urogenital
+  ok muscle           706 meshes, all in muscle
+  ok diaphragm          1 meshes, all in muscle
+  ok tendon           189 meshes, all in tendon
+  ok bursa            118 meshes, all in tendon
 
 EVERY MESH IS IN A SYSTEM

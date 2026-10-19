@@ -143,6 +143,7 @@ const MUST = {
   heart: 'heart', heartAtrium: 'heart', heartVentricle: 'heart',
   heartAVValve: 'heart', heartSemilunarValve: 'heart',
   airway: 'respiratory', gut: 'digestive', urinary: 'urogenital',
+  muscle: 'muscle', diaphragm: 'muscle', tendon: 'tendon', bursa: 'tendon',
 };
 console.log('— the systems agree with the flow classes wherever both speak —');
 for (const [flow, want] of Object.entries(MUST)) {

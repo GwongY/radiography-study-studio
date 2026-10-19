@@ -134,7 +134,19 @@ const SKELETON = [
   ['axial', /cranium|skull|frontal bone|parietal|occipital|temporal bone|sphenoid|ethmoid|lacrimal|nasal|vomer|palatine|zygomat|maxilla|mandible|concha|hyoid|incus|malleus|stapes|ossicle|tooth|teeth|molar|premolar|incisor|canine|vertebra|atlas|\baxis|sacrum|sacral|coccyx|\brib|costal|sternum|manubrium|xiphoid|arytenoid|corniculate|cricoid|thyroid cartilage|epiglot|cuneiform cartilage|alar cartilage/],
 ];
 
-const RULES = { circulatory: CIRCULATORY, organs: ORGANS, skeleton: SKELETON };
+/*
+ * The muscle file, in two chips: the muscles themselves, and what joins and cushions them (tendons, aponeuroses,
+ * fasciae, retinacula, sheaths, bursae and joint capsules). The tendon words are the ones physiology.js's classify()
+ * turns into its 'tendon' and 'bursa' classes, and work/system-check.mjs holds the two together. Everything else in the
+ * file is a muscle, the diaphragm included, so this is the one list that ends in a catch-all: the layer is defined by
+ * the exclusion, not by a vocabulary of muscle names.
+ */
+const MUSCLE = [
+  ['tendon', /bursa|capsule|synovial|membrane|ligament|tendon|aponeuros|retinacul|fascia|raphe|linea|sheath|septum|arcade|arch of|band/],
+  ['muscle', /./],
+];
+
+const RULES = { circulatory: CIRCULATORY, organs: ORGANS, skeleton: SKELETON, muscle: MUSCLE };
 
 /*
  * A structure that honestly belongs to two systems.
@@ -182,6 +194,7 @@ export const SYSTEMS = [
   { key: 'axial', label: 'Axial', layer: 'skeleton' },
   { key: 'appendicular', label: 'Appendicular', layer: 'skeleton' },
   { key: 'muscle', label: 'Muscles', layer: 'muscle' },
+  { key: 'tendon', label: 'Tendons & bursae', layer: 'muscle' },
   { key: 'joint', label: 'Ligaments', layer: 'joint' },
   { key: 'respiratory', label: 'Respiratory', layer: 'organs' },
   { key: 'digestive', label: 'Digestive', layer: 'organs' },
