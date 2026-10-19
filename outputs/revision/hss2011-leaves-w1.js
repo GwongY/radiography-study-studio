@@ -140,4 +140,23 @@ export const ROWS = [
 { k: 'part', id: 'w1_slowox', l: 'Slow oxidative', parent: 'fibretypes', w: 1, src: [MSK, 38] },
 { k: 'part', id: 'w1_fastox', l: 'Fast oxidative', parent: 'fibretypes', w: 1, src: [MSK, 38] },
 { k: 'part', id: 'w1_fastgly', l: 'Fast glycolytic', parent: 'fibretypes', w: 1, src: [MSK, 38] },
+
+/* ---------------- body orientation words and planes (orientation deck p14-16) ---------------- */
+{ k: 'group', id: 'w1_directions', l: 'Word pairs', parent: 'orient', w: 1, src: [ORI, 14] },
+{ k: 'part', id: 'w1_right', l: 'Right', parent: 'w1_directions', w: 1, src: [ORI, 14] },
+{ k: 'part', id: 'w1_left', l: 'Left', parent: 'w1_directions', w: 1, src: [ORI, 14] },
+{ k: 'part', id: 'w1_proximal', l: 'Proximal', parent: 'w1_directions', w: 1, line: 'close to the trunk', src: [ORI, 14] },
+{ k: 'part', id: 'w1_distal', l: 'Distal', parent: 'w1_directions', w: 1, line: 'away from the trunk', src: [ORI, 14] },
+{ k: 'part', id: 'w1_medial', l: 'Medial', parent: 'w1_directions', w: 1, line: 'toward the midline', src: [ORI, 14] },
+{ k: 'part', id: 'w1_lateral', l: 'Lateral', match: 'Later', parent: 'w1_directions', w: 1, line: 'away from the midline', src: [ORI, 14] },
+{ k: 'part', id: 'w1_anterior', l: 'Anterior', parent: 'w1_directions', w: 1, line: 'at the front', src: [ORI, 15] },
+{ k: 'part', id: 'w1_posterior', l: 'Posterior', parent: 'w1_directions', w: 1, line: 'at the back', src: [ORI, 15] },
+{ k: 'part', id: 'w1_cranial', l: 'Cranial', parent: 'w1_directions', w: 1, line: 'toward the head (cephalic)', src: [ORI, 15] },
+{ k: 'part', id: 'w1_caudal', l: 'Caudal', parent: 'w1_directions', w: 1, line: 'toward the tail', src: [ORI, 15] },
+{ k: 'part', id: 'w1_superior', l: 'Superior', parent: 'w1_directions', w: 1, line: 'above', src: [ORI, 15] },
+{ k: 'part', id: 'w1_inferior', l: 'Inferior', parent: 'w1_directions', w: 1, line: 'below', src: [ORI, 15] },
+{ k: 'group', id: 'w1_planes', l: 'Planes', match: 'Plane', parent: 'orient', w: 1, src: [ORI, 16] },
+{ k: 'part', id: 'w1_coronal', l: 'Coronal plane', parent: 'w1_planes', w: 1, line: 'separates the body into anterior and posterior parts', src: [ORI, 16] },
+{ k: 'part', id: 'w1_sagittal', l: 'Sagittal plane', parent: 'w1_planes', w: 1, line: 'separates the body into left and right', src: [ORI, 16] },
+{ k: 'part', id: 'w1_transverse', l: 'Transverse/horizontal plane', parent: 'w1_planes', w: 1, line: 'separates the body into superior and inferior parts', src: [ORI, 16] },
 ];
