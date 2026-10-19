@@ -29,6 +29,7 @@ import { SOURCE_FILES } from '../outputs/study/course-data.js';
 import { checkSystems, needsOwn, ownProblems, rowWeekOk, starProblems, yueProblems } from '../outputs/revision/rules.js';
 import { decoderProblems } from '../outputs/revision/fragments.js';
 import { decompose } from '../outputs/wordparts.js';
+import { CROSS } from '../outputs/revision/cross-links.js';
 
 const SOURCE_TEXT = JSON.parse(readFileSync(new URL('./source-text.json', import.meta.url), 'utf8')).sources;
 
@@ -56,6 +57,14 @@ const rowKey = (r) => `${r.src[0]}|${r.src[1]}|${String(r.l).toLowerCase()}`;
 const keyOwner = new Map(); const sameRow = [];
 for (const s of allSubjects) for (const r of s.rows || []) { const k = rowKey(r); if (keyOwner.has(k) && keyOwner.get(k) !== s.id) sameRow.push(k); else keyOwner.set(k, s.id); }
 ok(!sameRow.length, `no slide row is written into two subjects${sameRow.length ? ` (${sameRow.slice(0, 4).join(', ')})` : ''}`);
+/* The owner's answer 8: a box can point at the same thing in the other subject (cross-links.js). */
+const nodeIn = (sub, id) => !!REVISION[sub] && REVISION[sub].data.NODES.some((n) => n.id === id);
+const crossBad = CROSS.filter((c) => !nodeIn(c.a[0], c.a[1]) || !nodeIn(c.b[0], c.b[1]) || c.a[0] === c.b[0]).map((c) => `${c.a.join(':')}-${c.b.join(':')}`);
+ok(!crossBad.length, `every cross-subject link joins two real boxes in two subjects${crossBad.length ? ` (${crossBad.slice(0, 6).join(', ')})` : ''}`);
+const crossKey = (c) => [c.a.join(':'), c.b.join(':')].sort().join('|');
+ok(new Set(CROSS.map(crossKey)).size === CROSS.length, 'no cross-subject link is written twice');
+const crossOff = CROSS.filter((c) => !String(c.why || '').trim() || !c.match || !onPage(c.src, c.match)).map(crossKey);
+ok(!crossOff.length, `every cross-subject link's reason is on the page it cites${crossOff.length ? ` (${crossOff.slice(0, 6).join(', ')})` : ''}`);
 /* Rule 3: the Map draws a box's name only; the sentence lives in the notes. */
 const reviseSrc = readFileSync(new URL('../outputs/study/revise.js', import.meta.url), 'utf8');
 const deriveBody = (reviseSrc.match(/function deriveWeek\(\)[\s\S]*?\n\}/) || [''])[0];
