@@ -16,7 +16,7 @@ export const ROWS = [
   /* ---------------- Spermatogenesis & Testis (p3-5, 8, 10-11, 15) ---------------- */
   { k: 'part', id: 'p7_seminiferous', l: 'Seminiferous tubules', parent: 'p_spermato', w: 7, line: 'begins at outermost cell layer in seminiferous tubules', src: [L6, 4, 10] },
   { k: 'cell', id: 'p7_spermatogonia', l: 'Spermatogonia', parent: 'p_spermato', w: 7, line: 'stem cells that divide by mitosis to produce daughter cells', src: [L6, 4] },
-  { k: 'cell', id: 'p7_primary_spermatocyte', l: 'Primary spermatocytes', match: 'primary spermatocyte', parent: 'p_spermato', w: 7, line: 'begin meiosis and form secondary spermatocytes', src: [L6, 5, 4] },
+  { k: 'cell', id: 'p7_primary_spermatocyte', l: 'Primary spermatocytes', match: 'primary spermatocyte', parent: 'p_spermato', w: 7, line: 'begin meiosis and form secondary spermatocytes', links: { p_meiosis: 'Primary spermatocytes begin meiosis' }, src: [L6, 5, 4] },
   { k: 'cell', id: 'p7_secondary_spermatocytes', l: 'Secondary spermatocytes', parent: 'p_spermato', w: 7, line: 'finish meiosis I to form immature gametes', src: [L6, 5] },
   { k: 'cell', id: 'p7_spermatids', l: 'Spermatids', parent: 'p_spermato', w: 7, line: 'finish meiosis II and differentiate into spermatozoa', src: [L6, 5, 3] },
   { k: 'cell', id: 'p7_spermatozoa', l: 'Spermatozoa', parent: 'p_spermato', w: 7, line: 'lose contact with tubule wall and enter fluid in lumen', src: [L6, 5, 8] },
@@ -115,7 +115,7 @@ export const ROWS = [
   { k: 'part', id: 'p7_umbilical_vein', l: 'Umbilical vein', match: 'Umbilical vein', parent: 'p7_umbilical_cord', w: 7, line: 'returns oxygenated and nutrient-rich blood from placenta to fetus', src: [L6, 51, 53] },
 
   /* ---------------- Parturition & Labor (p55-59) ---------------- */
-  { k: 'substance', id: 'p7_oxytocin', l: 'Oxytocin', match: 'oxytocin', parent: 'p_parturition', w: 7, line: 'stimulates myometrium smooth muscle contractions and prostaglandin release', src: [L6, 56], acts: { p7_myometrium: 'stimulates smooth muscle contractions in labor' } },
+  { k: 'substance', id: 'p7_oxytocin', l: 'Oxytocin', match: 'oxytocin', parent: 'p_parturition', w: 7, line: 'stimulates myometrium smooth muscle contractions and prostaglandin release', links: { p1_pos_feedback: 'This positive feedback continues until delivery is completed' }, src: [L6, 56], acts: { p7_myometrium: 'stimulates smooth muscle contractions in labor' } },
   { k: 'substance', id: 'p7_relaxin', l: 'Relaxin', match: 'Relaxin', parent: 'p_parturition', w: 7, line: 'relaxes pelvic articulations and dilates the cervix during delivery', src: [L6, 56] },
   { k: 'process', id: 'p7_labor', l: 'Labor contractions', match: 'Labor contractions', parent: 'p_parturition', w: 7, line: 'positive feedback contractions that get stronger until delivery is completed', src: [L6, 56], next: { p7_dilation_stage: 'leads to dilation stage' } },
   { k: 'process', id: 'p7_dilation_stage', l: 'Dilation stage', match: 'Dilation Stage', parent: 'p_parturition', w: 7, line: 'first stage of labor where cervix dilates and amniotic membrane ruptures', src: [L6, 57], next: { p7_expulsion_stage: 'leads to expulsion stage' } },

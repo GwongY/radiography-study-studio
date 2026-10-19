@@ -20,8 +20,8 @@ export const ROWS = [
   { k: 'process', id: 'p11_elasticity', l: 'Elasticity', parent: 'p_musc_props', w: 11, line: 'ability of muscle to recoil to original resting length after stretched', src: [L9, 5] },
 
   /* ---------------- Classification of muscle (p6) ---------------- */
-  { k: 'group', id: 'p11_voluntary', l: 'Voluntary muscles', match: 'Voluntary', parent: 'p_musc_class', w: 11, line: 'actions can be directed by our thoughts via nervous system', src: [L9, 6] },
-  { k: 'group', id: 'p11_involuntary', l: 'Involuntary muscles', match: 'Involuntary', parent: 'p_musc_class', w: 11, line: 'actions are not under conscious control', src: [L9, 6] },
+  { k: 'group', id: 'p11_voluntary', l: 'Voluntary muscles', match: 'Voluntary', parent: 'p_musc_class', w: 11, line: 'actions can be directed by our thoughts via nervous system', links: { p1_skel_muscle_t: 'nervous system (skeletal muscles)' }, src: [L9, 6] },
+  { k: 'group', id: 'p11_involuntary', l: 'Involuntary muscles', match: 'Involuntary', parent: 'p_musc_class', w: 11, line: 'actions are not under conscious control', links: { p1_smooth_muscle_t: 'directed by the autonomic nervous system (cardiac and smooth muscles)', p1_cardiac_muscle_t: 'directed by the autonomic nervous system (cardiac and smooth muscles)' }, src: [L9, 6] },
 
   /* ---------------- Skeletal muscle structure (p9, 10, 11, 14, 15) ---------------- */
   { k: 'part', id: 'p11_tendons', l: 'Tendons', match: 'tendons', parent: 'p_skm_struct', w: 11, line: 'places tension on tendons connecting muscle to a bone', src: [L9, 10] },
@@ -70,7 +70,7 @@ export const ROWS = [
   /* ---------------- Neuromuscular junction (NMJ) (p28, 29, 30, 31) ---------------- */
   { k: 'part', id: 'p11_motor_end_plate', l: 'Motor end plate', match: 'motor end plate', parent: 'p_nmj', w: 11, line: 'place on sarcolemma where NMJ occurs', src: [L9, 28, 29] },
   { k: 'part', id: 'p11_synaptic_cleft', l: 'Synaptic cleft', match: 'synaptic cleft', parent: 'p_nmj', w: 11, line: 'narrow space that separates axon terminal from opposing motor end plate', src: [L9, 29, 30] },
-  { k: 'substance', id: 'p11_ach', l: 'Acetylcholine (ACh)', match: 'ACh', parent: 'p_nmj', w: 11, line: 'chemical released by neuron to change membrane permeability', acts: { p11_ach_receptors: 'binds to ACh receptors on motor end plate' }, src: [L9, 29, 30, 31] },
+  { k: 'substance', id: 'p11_ach', l: 'Acetylcholine (ACh)', match: 'ACh', parent: 'p_nmj', w: 11, line: 'chemical released by neuron to change membrane permeability', acts: { p11_ach_receptors: 'binds to ACh receptors on motor end plate' }, links: { p9_ach_substance: 'acetylcholine is a neurotransmitter, a chemical released by a neuron' }, src: [L9, 29, 30, 31] },
   { k: 'substance', id: 'p11_ache', l: 'Acetylcholinesterase (AChE)', match: 'AChE', parent: 'p_nmj', w: 11, line: 'enzyme which breaks down ACh into acetic acid and choline', acts: { p11_ach: 'breaks down acetylcholine' }, src: [L9, 29, 30] },
   { k: 'part', id: 'p11_ach_receptors', l: 'ACh receptors', match: 'ACh receptors', parent: 'p_nmj', w: 11, line: 'receptors on the surface of the motor end plate altering sodium permeability', src: [L9, 30] },
   { k: 'process', id: 'p11_epp', l: 'End-plate potential', match: 'plate potentials', parent: 'p_nmj', w: 11, line: 'large depolarizing end-plate potentials and APs in muscle', src: [L9, 31] },
@@ -131,7 +131,7 @@ export const ROWS = [
   { k: 'process', id: 'p11_stretch_reflex', l: 'Monosynaptic stretch reflex', match: 'Monosynaptic-Stretch Reflex', parent: 'p_spindle', w: 11, line: 'stretching spindles produces knee-jerk reflex via one CNS synapse', src: [L9, 61] },
 
   /* ---------------- Bone tissue (p65, 68) ---------------- */
-  { k: 'part', id: 'p11_compact_bone', l: 'Compact bone', match: 'Compact bone', parent: 'p_bone_t', w: 11, line: 'dense and solid bone tissue with osteons', src: [L9, 65] },
+  { k: 'part', id: 'p11_compact_bone', l: 'Compact bone', match: 'Compact bone', parent: 'p_bone_t', w: 11, line: 'dense and solid bone tissue with osteons', links: { p1_bone_tissue: 'two types of bone tissues: compact bone and spongy bone' }, src: [L9, 65] },
   { k: 'part', id: 'p11_osteon', l: 'Osteon', match: 'osteon', parent: 'p_bone_t', w: 11, line: 'basic functional unit of compact bone', src: [L9, 65, 68] },
   { k: 'part', id: 'p11_spongy_bone', l: 'Spongy bone', match: 'Spongy bone', parent: 'p_bone_t', w: 11, line: 'less dense open network characterized by trabeculae', src: [L9, 65, 68] },
   { k: 'part', id: 'p11_trabeculae', l: 'Trabeculae', match: 'trabeculae', parent: 'p_bone_t', w: 11, line: 'bone plates characterizing spongy bone to withstand stresses', src: [L9, 68] },
@@ -140,7 +140,7 @@ export const ROWS = [
   /* ---------------- Remodeling of bone (p68, 70) ---------------- */
   { k: 'cell', id: 'p11_osteoblasts', l: 'Osteoblasts', match: 'osteoblasts', parent: 'p_remodel', w: 11, line: 'bone cells involved in balanced remodeling activities', src: [L9, 70] },
   { k: 'cell', id: 'p11_osteoclasts', l: 'Osteoclasts', match: 'osteoclasts', parent: 'p_remodel', w: 11, line: 'bone cells involved in balanced remodeling activities', src: [L9, 70] },
-  { k: 'cell', id: 'p11_osteocytes', l: 'Osteocytes', match: 'Osteocytes', parent: 'p_remodel', w: 11, line: 'get nutrients via diffusion from canaliculi of compact bone', src: [L9, 68, 70] },
+  { k: 'cell', id: 'p11_osteocytes', l: 'Osteocytes', match: 'Osteocytes', parent: 'p_remodel', w: 11, line: 'get nutrients via diffusion from canaliculi of compact bone', links: { p1_osteocytes: 'osteocytes get the nutrients via diffusion from canaliculi of compact bone' }, src: [L9, 68, 70] },
   { k: 'process', id: 'p11_bone_matrix_renewal', l: 'Bone matrix recycling', match: 'bone matrix', parent: 'p_remodel', w: 11, line: 'organic and mineral components of bone matrix continuously renewed', src: [L9, 70] },
   { k: 'process', id: 'p11_ca_homeostasis', l: 'Calcium homeostasis', match: 'Homeostasis of Ca2+ balance', parent: 'p_remodel', w: 11, line: 'balance depends on parathyroid hormone, calcitonin and calcitriol', src: [L9, 70] },
 ];

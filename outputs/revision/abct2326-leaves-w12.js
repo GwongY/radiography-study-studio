@@ -39,11 +39,11 @@ export const ROWS = [
   { k: 'part', id: 'p12_monocyte_macro_sys', l: 'Monocyte-macrophage system', match: 'monocyte–macrophage system', parent: 'p_phagocytes', w: 12, line: 'reticuloendothelial system of large phagocytic cells distributed throughout body', src: [L10, 14] },
 
   /* ---------------- Macrophages (p15-18, 42) ---------------- */
-  { k: 'cell', id: 'p12_fixed_macro', l: 'Fixed macrophages', parent: 'p_macrophages', w: 12, line: 'histiocytes that stay in specific tissues or organs', src: [L10, 15, 16, 42] },
+  { k: 'cell', id: 'p12_fixed_macro', l: 'Fixed macrophages', parent: 'p_macrophages', w: 12, line: 'histiocytes that stay in specific tissues or organs', links: { p1_tis_macrophages: 'stay in specific tissues or organs' }, src: [L10, 15, 16, 42] },
   { k: 'cell', id: 'p12_microglia', l: 'Microglia', parent: 'p12_fixed_macro', w: 12, line: 'special histiocytes found in central nervous system', src: [L10, 16, 57] },
   { k: 'cell', id: 'p12_kupffer', l: 'Kupffer cells', parent: 'p12_fixed_macro', w: 12, line: 'special histiocytes found in liver sinusoids', src: [L10, 16, 57] },
   { k: 'cell', id: 'p12_free_macro', l: 'Free macrophages', parent: 'p_macrophages', w: 12, line: 'wandering macrophages that travel throughout body', src: [L10, 15, 16, 42] },
-  { k: 'cell', id: 'p12_alveolar_macro', l: 'Alveolar macrophages', parent: 'p12_free_macro', w: 12, line: 'special free macrophages in lungs acting as phagocytic dust cells', src: [L10, 16] },
+  { k: 'cell', id: 'p12_alveolar_macro', l: 'Alveolar macrophages', parent: 'p12_free_macro', w: 12, line: 'special free macrophages in lungs acting as phagocytic dust cells', links: { p3_alveolar_macrophages: 'special free macrophages in lungs acting as phagocytic dust cells' }, src: [L10, 16] },
   { k: 'process', id: 'p12_emigration', l: 'Emigration', match: 'emigration', parent: 'p_macrophages', w: 12, line: 'movement of macrophages through capillary walls into tissues', src: [L10, 18] },
   { k: 'process', id: 'p12_chemotaxis', l: 'Chemotaxis', match: 'chemotaxis', parent: 'p_macrophages', w: 12, line: 'attracted or repelled by chemicals in surrounding fluids', src: [L10, 18] },
   { k: 'process', id: 'p12_adhesion', l: 'Adhesion', match: 'adhesion', parent: 'p_macrophages', w: 12, line: 'phagocyte attaches to target and surrounds it with a vesicle', src: [L10, 18] },
@@ -75,7 +75,7 @@ export const ROWS = [
   /* ---------------- Inflammation (p37-39, 43) ---------------- */
   { k: 'group', id: 'p12_cardinal_signs', l: 'Cardinal signs of inflammation', match: 'Signs and Symptoms', parent: 'p_inflammation', w: 12, line: 'swelling, redness, heat, and pain at the injury site', src: [L10, 37] },
   { k: 'substance', id: 'p12_histamine', l: 'Histamine', match: 'histamine', parent: 'p_inflammation', w: 12, line: 'released by mast cells to increase local inflammation and blood flow', src: [L10, 33, 34, 38], acts: { p_inflammation: 'accelerates blood flow and inflammation' } },
-  { k: 'cell', id: 'p12_mast_cells', l: 'Mast cells', match: 'mast cells', parent: 'p_inflammation', w: 12, line: 'release histamine to increase degree of local inflammation and blood flow', src: [L10, 33, 43], makes: { p12_histamine: 'releases histamine' } },
+  { k: 'cell', id: 'p12_mast_cells', l: 'Mast cells', match: 'mast cells', parent: 'p_inflammation', w: 12, line: 'release histamine to increase degree of local inflammation and blood flow', links: { p1_tis_mastcells: 'mast cell: blood flow increased, capillary permeability increased' }, src: [L10, 33, 43], makes: { p12_histamine: 'releases histamine' } },
   { k: 'cell', id: 'p12_basophils', l: 'Basophils', match: 'basophils', parent: 'p_inflammation', w: 12, line: 'circulating granulocytes that release histamine to increase inflammation', src: [L10, 33], makes: { p12_histamine: 'releases histamine' } },
   { k: 'process', id: 'p12_necrosis', l: 'Necrosis', parent: 'p_inflammation', w: 12, line: 'destruction of injured cells accumulated during local inflammation', src: [L10, 39] },
   { k: 'substance', id: 'p12_pus', l: 'Pus', match: 'pus', parent: 'p_inflammation', w: 12, line: 'viscous fluid mixture of debris, fluid, dead and dying cells', src: [L10, 39] },

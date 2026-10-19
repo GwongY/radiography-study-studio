@@ -75,6 +75,7 @@ export const ROWS = [
     w: 4,
     src: ['phys.l4.2026', 7, 8, 9, 24],
     line: 'inner lining folded to increase surface area for absorption',
+    links: { p1_tis_epi: 'a mucous membrane consisting of epithelium, moistened by glandular secretions' },
   },
   {
     k: 'cell',
@@ -657,6 +658,7 @@ export const ROWS = [
     w: 4,
     src: ['phys.l4.2026', 41, 42],
     line: 'secrete insulin and glucagon into bloodstream',
+    links: { p8_glucagon: 'secrete insulin and glucagon into bloodstream', p8_insulin: 'secrete insulin and glucagon into bloodstream' },
   },
   {
     k: 'part',
@@ -887,6 +889,7 @@ export const ROWS = [
     src: ['phys.l4.2026', 33, 55, 57, 59],
     line: 'stimulates release of insulin from pancreas',
     acts: { p_pancreas: 'stimulates release of insulin' },
+    links: { p8_insulin: 'release of insulin from pancreas' },
   },
   {
     k: 'substance',

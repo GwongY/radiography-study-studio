@@ -163,7 +163,10 @@ for (const subject of Object.values(REVISION)) {
     const topicWeek = data.NODES.filter((n) => !n.leaf).map((n) => [n.id, rowWeekOk({ w: Math.min(...n.w), src: n.src }, subject.decks, SESSIONS, subject.id)]).filter(([, why]) => why);
     ok(!topicWeek.length, `every topic cites a lecture deck and sits in a week it was lectured${topicWeek.length ? ` — ${topicWeek.slice(0, 6).map(([id, why]) => `${id}: ${why}`).join('; ')}` : ''}`);
     const topicEdges = data.EDGES.filter((e) => !data.NODES.find((n) => n.id === e[0]).leaf && !data.NODES.find((n) => n.id === e[1]).leaf);
-    ok(topicEdges.every((e) => Array.isArray(e[3]) && onPage(e[3], e[3][2] || data.NODES.find((n) => n.id === e[1]).l)), 'every topic link cites a page that names its far end');
+    /* e[3] = [source, page…, 'words on the page naming the far end'?]: the words are a string, the pages integers. */
+    const edgeSrc = (e) => [e[3][0], ...e[3].slice(1).filter(Number.isInteger)];
+    const edgeWords = (e) => { const w = e[3][e[3].length - 1]; return typeof w === 'string' ? w : data.NODES.find((n) => n.id === e[1]).l; };
+    ok(topicEdges.every((e) => Array.isArray(e[3]) && onPage(edgeSrc(e), edgeWords(e))), 'every topic link cites a page that names its far end');
     /* Rule 5 at branch level: no topic is named like the branch heading above it. */
     const labelOf = new Map(data.NODES.map((n) => [n.id, String(n.l).toLowerCase()]));
     const branchTwins = (data.TREE.kids || []).flatMap((b) => (b.kids || []).filter((k) => k.id && b.label && labelOf.get(k.id) === b.label.toLowerCase()).map((k) => k.id));

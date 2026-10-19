@@ -182,8 +182,18 @@ export const TOPICS = [
   { id: 'p_pathogens', l: 'Defenses against bacterial and viral pathogens', match: 'Defenses against Bacterial and Viral Pathogens', s: 'p_immune', w: 12, src: [L10, 69], own: 'Integrated innate and adaptive responses that neutralize foreign bacteria and viruses.' },
 ];
 
-/* Topic links are written by plan Task 20, each citing a page. */
-export const EDGES = [];
+/* Topic links: each cites a page that states the relationship (plan Task 20). */
+export const EDGES = [
+  ['p_o2', 'p_blood', 'Each RBC has about 280 million Hb molecules', ['phys.l3.2026', 45, 'RBC']],
+  ['p_gasex', 'p_circuits', 'Blood arriving in pulmonary arteries has low PO2 and high PCO2', ['phys.l3.2026', 41, 'pulmonary arteries']],
+  ['p_spermato', 'p_meiosis', 'Primary spermatocytes begin meiosis', ['phys.l6.2026', 5, 'meiosis']],
+  ['p_pit_feedback', 'p_feedback', 'Involves negative feedback of target gland hormones', ['phys.l7.2026', 31, 'negative feedback']],
+  ['p_parturition', 'p_feedback', 'This positive feedback continues until delivery is completed', ['phys.l6.2026', 56, 'positive feedback']],
+  ['p_islets', 'p_pancreas', 'Are scattered clusters of endocrine cells in pancreas', ['phys.l7.2026', 47, 'pancreas']],
+  ['p_adrenal', 'p_symp_path', 'Secretory activities controlled by sympathetic division of ANS', ['phys.l7.2026', 34, 'sympathetic division']],
+  ['p_nmj', 'p_ach', 'Acetylcholine is a neurotransmitter released by a neuron', ['phys.l9.2026', 29, 'acetylcholine']],
+  ['p_raas', 'p_plasma', 'Low blood volume and renal blood flow stimulate renin release', ['phys.l5.2026', 41, 'blood volume']],
+];
 
 export const TREE = { label: 'root', kids: [
   { sys: 'p_cell', label: 'Cells & tissues', kids: [

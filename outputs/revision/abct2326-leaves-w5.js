@@ -14,7 +14,7 @@ export const SOURCES = {
 
 export const ROWS = [
   /* ---------------- Kidney function (p2) ---------------- */
-  { k: 'process', id: 'p5_blood_plasma_vol', l: 'Volume of blood plasma', match: 'Volume of blood plasma', parent: 'p_kidneyfn', w: 5, src: [L5, 2], line: 'regulated by kidneys and contributes to blood pressure' },
+  { k: 'process', id: 'p5_blood_plasma_vol', l: 'Volume of blood plasma', match: 'Volume of blood plasma', parent: 'p_kidneyfn', w: 5, links: { p_plasma: 'volume of blood plasma, which contributes to BP' }, src: [L5, 2], line: 'regulated by kidneys and contributes to blood pressure' },
   { k: 'substance', id: 'p5_waste_products', l: 'Waste products', match: 'Waste products', parent: 'p_kidneyfn', w: 5, src: [L5, 2, 21], line: 'metabolic wastes eliminated in the process of urine formation' },
   { k: 'process', id: 'p5_plasma_ph', l: 'Plasma pH', match: 'Plasma pH', parent: 'p_kidneyfn', w: 5, src: [L5, 2], line: 'regulated by kidneys through formation of urine' },
 
@@ -39,7 +39,7 @@ export const ROWS = [
   /* ---------------- Renal blood vessels (p9) ---------------- */
   { k: 'group', id: 'p5_renal_vessels', l: 'Renal Blood Vessels', match: 'Renal Blood Vessels', parent: 'p_nephron', w: 5, src: [L5, 9], line: 'arteries, arterioles, capillaries and veins supplying the nephron' },
   { k: 'part', id: 'p5_interlobular_arteries', l: 'Interlobular arteries', match: 'Interlobular arteries', parent: 'p5_renal_vessels', w: 5, src: [L5, 9], line: 'give rise to afferent arterioles which supply glomeruli' },
-  { k: 'part', id: 'p5_afferent_arteriole', l: 'Afferent arterioles', match: 'afferent arterioles', parent: 'p5_renal_vessels', w: 5, src: [L5, 9, 18, 19, 39, 43], line: 'supply glomeruli', own: 'Arterioles that arise from the interlobular arteries; the slide says their constriction or dilation affects blood flow to glomeruli and so GFR.' },
+  { k: 'part', id: 'p5_afferent_arteriole', l: 'Afferent arterioles', match: 'afferent arterioles', parent: 'p5_renal_vessels', w: 5, links: { p2_arterioles: 'interlobular arteries give rise to afferent arterioles which supply glomeruli' }, src: [L5, 9, 18, 19, 39, 43], line: 'supply glomeruli', own: 'Arterioles that arise from the interlobular arteries; the slide says their constriction or dilation affects blood flow to glomeruli and so GFR.' },
   { k: 'part', id: 'p5_glomerulus', l: 'Glomeruli', match: 'Glomeruli', parent: 'p5_renal_vessels', w: 5, src: [L5, 9, 11], line: 'mass of capillaries inside glomerular capsule that produces filtrate' },
   { k: 'part', id: 'p5_efferent_arteriole', l: 'Efferent arteriole', match: 'Efferent arteriole', parent: 'p5_renal_vessels', w: 5, src: [L5, 9], line: 'drains glomerulus and delivers blood to peritubular capillaries' },
   { k: 'part', id: 'p5_peritubular_capillaries', l: 'Peritubular capillaries', match: 'peritubular capillaries', parent: 'p5_renal_vessels', w: 5, src: [L5, 9, 12, 21, 34], line: 'surround nephron tubules for reabsorption and secretion' },
@@ -70,7 +70,7 @@ export const ROWS = [
   { k: 'substance', id: 'p5_ultrafiltrate', l: 'Filtrate', match: 'filtrate', parent: 'p_gfr', w: 5, src: [L5, 17, 9, 10, 11, 15, 16, 21], line: 'totals about 180 L/day produced by both kidneys' },
   { k: 'process', id: 'p5_vasoconstriction_afferent', l: 'Vasoconstriction of afferent arterioles', match: 'Vasoconstriction', parent: 'p_gfr', w: 5, src: [L5, 18, 19], line: 'affects rate of blood flow to glomeruli and thus GFR' },
   { k: 'process', id: 'p5_autoregulation_gfr', l: 'Autoregulation of GFR', match: 'autoregulation', parent: 'p_gfr', w: 5, src: [L5, 18, 43], line: 'intrinsic mechanism keeping GFR constant via afferent arteriole diameter' },
-  { k: 'process', id: 'p5_sympathetic_gfr', l: 'Sympathetic nerve activity', match: 'Sympathetic nerve activity', parent: 'p_gfr', w: 5, src: [L5, 19, 41, 42], line: 'constricts afferent arterioles to reduce GFR and conserve blood volume' },
+  { k: 'process', id: 'p5_sympathetic_gfr', l: 'Sympathetic nerve activity', match: 'Sympathetic nerve activity', parent: 'p_gfr', w: 5, links: { p1_neg_feedback: 'Negative feedback control' }, src: [L5, 19, 41, 42], line: 'constricts afferent arterioles to reduce GFR and conserve blood volume' },
 
   /* ---------------- Reabsorption of salt and water (p20-26) ---------------- */
   { k: 'process', id: 'p5_obligatory_water_loss', l: 'Obligatory water loss', match: 'obligatory water loss', parent: 'p_reabs', w: 5, src: [L5, 21], line: 'minimum of 400 ml/day urine necessary to excrete metabolic wastes' },
@@ -109,7 +109,7 @@ export const ROWS = [
   { k: 'part', id: 'p5_jgc', l: 'Juxtaglomerular complex', match: 'Juxtaglomerular Complex', parent: 'p_raas', w: 5, src: [L5, 39, 42], line: 'region where afferent arteriole contacts thick ascending limb' },
   { k: 'cell', id: 'p5_jg_cells', l: 'Juxtaglomerular cells', match: 'juxtaglomerular cells', parent: 'p5_jgc', w: 5, src: [L5, 40, 41, 43], line: 'specialized smooth muscle cells that release renin', makes: { p5_renin: 'secretes renin' } },
   { k: 'cell', id: 'p5_macula_densa', l: 'Macula densa', match: 'Macula Densa', parent: 'p5_jgc', w: 5, src: [L5, 43], line: 'sensor for tubuloglomerular feedback regulating GFR and renin secretion' },
-  { k: 'process', id: 'p5_renin_release', l: 'Renin release', match: 'release of renin', parent: 'p_raas', w: 5, src: [L5, 40, 41], line: 'activated by low blood volume, low renal blood flow, or sympathetic activity', next: { p5_ang1_formation: 'cleaves angiotensinogen to angiotensin I' } },
+  { k: 'process', id: 'p5_renin_release', l: 'Renin release', match: 'release of renin', parent: 'p_raas', w: 5, links: { p1_neg_feedback: 'Neg. feedback control', p_plasma: 'low blood volume and renal blood flow stimulate renin release' }, src: [L5, 40, 41], line: 'activated by low blood volume, low renal blood flow, or sympathetic activity', next: { p5_ang1_formation: 'cleaves angiotensinogen to angiotensin I' } },
   { k: 'process', id: 'p5_ang1_formation', l: 'Angiotensin I formation', match: 'angiotensin I', parent: 'p_raas', w: 5, src: [L5, 40], line: 'renin converts circulating angiotensinogen to angiotensin I', next: { p5_ang2_conversion: 'converted by ACE in lungs' } },
   { k: 'process', id: 'p5_ang2_conversion', l: 'Angiotensin II conversion', match: 'angiotensin II', parent: 'p_raas', w: 5, src: [L5, 40], line: 'angiotensin-converting enzyme in lungs converts angiotensin I to angiotensin II', next: { p5_aldosterone_secretion: 'stimulates aldosterone release' } },
   { k: 'process', id: 'p5_aldosterone_secretion', l: 'Aldosterone secretion', match: 'release of aldosterone', parent: 'p_raas', w: 5, src: [L5, 40, 42], line: 'angiotensin II stimulates adrenal cortex to release aldosterone', next: { p_electrolyte: 'enhances sodium reabsorption in collecting ducts' } },

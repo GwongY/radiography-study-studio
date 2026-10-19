@@ -94,7 +94,7 @@ export const ROWS = [
 
   /* ---------------- Sympathetic pathways & Receptors (p57-61) ---------------- */
   { k: 'part', id: 'p9_nicotinic', l: 'Nicotinic Receptors', match: 'Nicotinic Receptors', parent: 'p_symp_path', w: 9, line: 'cholinergic receptors stimulated by acetylcholine', src: [L8, 59] },
-  { k: 'part', id: 'p9_muscarinic', l: 'Muscarinic Receptors', match: 'Muscarinic Receptors', parent: 'p_symp_path', w: 9, line: 'parasympathetic receptors with different tissue effects via K+ channels', src: [L8, 60] },
+  { k: 'part', id: 'p9_muscarinic', l: 'Muscarinic Receptors', match: 'Muscarinic Receptors', parent: 'p_symp_path', w: 9, line: 'parasympathetic receptors with different tissue effects via K+ channels', links: { p_heart: 'in the heart, K+ channels are opened, creating IPSPs that slow the heart rate' }, src: [L8, 60] },
   { k: 'part', id: 'p9_m1_receptor', l: 'M1 receptor', match: 'M1 receptor', parent: 'p9_muscarinic', w: 9, line: 'Ach binds to M1 receptor in smooth muscles of the stomach', src: [L8, 60] },
   { k: 'part', id: 'p9_m2_receptor', l: 'M2 receptor', match: 'M2 receptor', parent: 'p9_muscarinic', w: 9, line: 'Ach binds to M2 receptor in the heart to slow heart rate', src: [L8, 60] },
 

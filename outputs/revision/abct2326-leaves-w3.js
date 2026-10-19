@@ -32,7 +32,7 @@ export const ROWS = [
   { k: 'part', id: 'p3_alveolar_ducts', l: 'Alveolar duct', parent: 'p_resp_portion', w: 3, own: 'Labelled on the slide between the respiratory bronchiole and the alveolar sac at the distal end of a lobule.', src: [L3, 8] },
   { k: 'part', id: 'p3_alveolar_sacs', l: 'Alveolar sac', parent: 'p_resp_portion', w: 3, own: 'Labelled beside the alveolar duct at the distal end of a lobule, where each alveolus is surrounded by capillaries.', src: [L3, 8] },
   { k: 'part', id: 'p3_alveoli', l: 'Alveoli', parent: 'p_resp_portion', w: 3, line: 'air-filled pockets within the lungs where all gas exchange takes place', src: [L3, 5, 7, 8, 9] },
-  { k: 'cell', id: 'p3_type1_pneumocytes', l: 'Type I pneumocytes', match: 'type I pneumocytes', parent: 'p3_alveoli', w: 3, line: 'thin, delicate cells where majority of gas exchange occurs', src: [L3, 10, 12] },
+  { k: 'cell', id: 'p3_type1_pneumocytes', l: 'Type I pneumocytes', match: 'type I pneumocytes', parent: 'p3_alveoli', w: 3, line: 'thin, delicate cells where majority of gas exchange occurs', links: { p1_simple_epi: 'alveolar epithelium consists of simple squamous epithelium' }, src: [L3, 10, 12] },
   { k: 'cell', id: 'p3_type2_pneumocytes', l: 'Type II pneumocytes', match: 'type II pneumocytes', parent: 'p3_alveoli', w: 3, line: 'septal cells that produce surfactant', makes: { p3_surfactant: 'produce surfactant' }, src: [L3, 10, 12] },
   { k: 'cell', id: 'p3_alveolar_macrophages', l: 'Alveolar macrophages', match: 'alveolar macrophages', parent: 'p3_alveoli', w: 3, line: 'dust cells patrolling the alveolar epithelium', src: [L3, 10, 12] },
   { k: 'substance', id: 'p3_surfactant', l: 'Surfactant', parent: 'p_resp_portion', w: 3, line: 'oily secretion that coats alveolar surfaces and reduces surface tension', acts: { p3_alveoli: 'prevents collapse of the lung' }, src: [L3, 10, 13] },
@@ -86,7 +86,7 @@ export const ROWS = [
   { k: 'process', id: 'p3_equilibrium', l: 'Equilibrium', match: 'equilibrium', parent: 'p_gasex', w: 3, line: 'rapid exchange allows blood and alveolar air to reach equilibrium', src: [L3, 41] },
 
   /* ---------------- Oxygen transport (p45-54) ---------------- */
-  { k: 'substance', id: 'p3_hemoglobin', l: 'Hemoglobin', match: 'hemoglobin', parent: 'p_o2', w: 3, line: 'each hemoglobin molecule reversibly binds four oxygen molecules to iron', src: [L3, 45, 46, 47, 48, 50, 51, 53, 56, 57] },
+  { k: 'substance', id: 'p3_hemoglobin', l: 'Hemoglobin', match: 'hemoglobin', parent: 'p_o2', w: 3, line: 'each hemoglobin molecule reversibly binds four oxygen molecules to iron', links: { p2_rbc: 'RBCs transport O2 to, and CO2 from, peripheral tissues', p2_hemoglobin: 'Each RBC has about 280 million Hb molecules' }, src: [L3, 45, 46, 47, 48, 50, 51, 53, 56, 57] },
   { k: 'substance', id: 'p3_oxyhemoglobin', l: 'Oxyhemoglobin', match: 'oxyhemoglobin', parent: 'p_o2', w: 3, line: 'formed when oxygen binds to iron ions in hemoglobin molecules', src: [L3, 45, 49, 52, 54] },
   { k: 'process', id: 'p3_hb_saturation', l: 'Hemoglobin saturation', match: 'Hemoglobin saturation', parent: 'p_o2', w: 3, line: 'percentage of heme units in hemoglobin that contain bound oxygen', src: [L3, 46, 47] },
   { k: 'process', id: 'p3_sat_curve', l: 'Oxygen–hemoglobin saturation curve', match: 'Oxygen–hemoglobin saturation curve', parent: 'p_o2', w: 3, line: 'relates saturation of hemoglobin to partial pressure of oxygen', src: [L3, 47, 48, 52, 54] },
@@ -97,7 +97,7 @@ export const ROWS = [
 
   /* ---------------- Carbon dioxide transport (p55-58) ---------------- */
   { k: 'substance', id: 'p3_co2_dissolved', l: 'Dissolved in plasma', match: 'dissolved in plasma', parent: 'p_co2', w: 3, line: '7 percent of carbon dioxide is transported dissolved in plasma', src: [L3, 55, 57, 58] },
-  { k: 'substance', id: 'p3_carbaminohemoglobin', l: 'Carbaminohemoglobin', match: 'carbaminohemoglobin', parent: 'p_co2', w: 3, line: '23 percent bound to amino groups of globular proteins in hemoglobin', src: [L3, 57, 58] },
+  { k: 'substance', id: 'p3_carbaminohemoglobin', l: 'Carbaminohemoglobin', match: 'carbaminohemoglobin', parent: 'p_co2', w: 3, line: '23 percent bound to amino groups of globular proteins in hemoglobin', links: { p2_rbc: 'bound to hemoglobin within red blood cells' }, src: [L3, 57, 58] },
   { k: 'substance', id: 'p3_bicarbonate', l: 'Bicarbonate', match: 'bicarbonate', parent: 'p_co2', w: 3, line: '70 percent transported as carbonic acid which dissociates into bicarbonate', src: [L3, 50, 56, 58] },
   { k: 'process', id: 'p3_chloride_shift', l: 'Chloride shift', match: 'chloride shift', parent: 'p_co2', w: 3, line: 'moves bicarbonate into plasma in exchange for chloride ions without ATP', src: [L3, 56, 58] },
 
@@ -116,6 +116,6 @@ export const ROWS = [
   { k: 'part', id: 'p3_vagus', l: 'Vagus nerve', match: 'Vagus nerve', parent: 'p_respcontrol', w: 3, line: 'relays sensory input from aortic bodies and stretch receptors to medulla', links: { p3_drg: 'relays sensory input to respiratory centers' }, src: [L3, 68, 69, 70] },
   { k: 'part', id: 'p3_baroreceptors', l: 'Baroreceptors', match: 'Baroreceptors', parent: 'p_respcontrol', w: 3, line: 'in aortic or carotid sinuses, sensitive to changes in blood pressure', src: [L3, 67, 70] },
   { k: 'part', id: 'p3_stretch_receptors', l: 'Stretch receptors', match: 'Stretch receptors', parent: 'p_respcontrol', w: 3, line: 'respond to changes in lung volume', src: [L3, 67, 70] },
-  { k: 'process', id: 'p3_hypercapnia', l: 'Hypercapnia', match: 'hypercapnia', parent: 'p_respcontrol', w: 3, line: 'increased arterial PCO2 stimulates chemoreceptors to accelerate breathing cycles', src: [L3, 73] },
+  { k: 'process', id: 'p3_hypercapnia', l: 'Hypercapnia', match: 'hypercapnia', parent: 'p_respcontrol', w: 3, line: 'increased arterial PCO2 stimulates chemoreceptors to accelerate breathing cycles', links: { p1_neg_feedback: 'Homeostasis of Arterial PCO2' }, src: [L3, 73] },
   { k: 'process', id: 'p3_hypocapnia', l: 'Hypocapnia', match: 'hypocapnia', parent: 'p_respcontrol', w: 3, line: 'decreased arterial PCO2 inhibits chemoreceptors to slow rate of respiration', src: [L3, 74] },
 ];
