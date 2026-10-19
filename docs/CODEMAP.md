@@ -125,7 +125,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `limb-atlas.js` | 347 | Limb vessels |
 | `live-physiology.js` | 1780 | Live physiology |
 | `packed-spread.js` | 91 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
-| `region-boxes-how.js` | 518 | Region boxes — how the region filter reaches the six soft-tissue layers |
+| `region-boxes-how.js` | 526 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 251 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 831 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
 | `tools-and-capture.js` | 562 | Tools — section cuts, layer separation, capture. |

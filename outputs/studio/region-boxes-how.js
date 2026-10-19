@@ -500,7 +500,15 @@ import { restorePackedSpread } from './packed-spread.js';
     const offset=camera.position.clone().sub(controls.target).normalize();
     const halfFov=Math.tan(camera.fov*Math.PI/360)/camera.zoom;
     const labelSpace=state.selectionAnchor.userData.layerKey==='skeleton' ? .5 : 1;
-    const distance=Math.max(.07,Math.max(size.y,size.x/Math.max(.1,camera.aspect*labelSpace))/(2*halfFov)+size.z/2)*1.35;
+    let distance=Math.max(.07,Math.max(size.y,size.x/Math.max(.1,camera.aspect*labelSpace))/(2*halfFov)+size.z/2)*1.35;
+    /* Focus must land inside the close view that draws a bone's part names (updateBoneLandmarks asks for the
+       camera to be within about 1/.82 of the bone's own fit). The room left for labels above can put a wide bone
+       just outside it, so the names only appeared after a small zoom; stop short of that. */
+    if(state.selectionAnchor.userData.layerKey==='skeleton'){
+      const ab=new state.THREE.Box3().setFromObject(state.selectionAnchor),as=ab.getSize(new state.THREE.Vector3());
+      const own=Math.max(.07,Math.max(as.y,as.x/Math.max(.1,camera.aspect*.5))/(2*halfFov)+as.z/2);
+      distance=Math.min(distance,own/.9);
+    }
     controls.minDistance=Math.min(2.5,distance*.25);
     controls.maxDistance=Math.max(controls.maxDistance,distance*2);
     controls.target.copy(center);camera.position.copy(center).add(offset.multiplyScalar(distance));controls.update();
