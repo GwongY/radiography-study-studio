@@ -9,14 +9,15 @@
  */
 import * as hss2011 from './hss2011-data.js';
 import { mergeLeaves } from './leaves.js';
+import * as hss2011W1 from './hss2011-leaves-w1.js';
 import * as hss2011W2 from './hss2011-leaves-w2.js';
 import { THREADS_HTML } from './hss2011-threads.js';
 import { TABLES_HTML } from './hss2011-tables.js';
 import { DECODER_HTML, SOURCES_HTML } from './hss2011-decoder.js';
 
 /* Leaf rows, week by week (outputs/revision/leaves.js). */
-const HSS2011_ROWS = [...hss2011W2.ROWS];
-const HSS2011_LEAF_SOURCES = { ...hss2011W2.SOURCES };
+const HSS2011_ROWS = [...hss2011W1.ROWS, ...hss2011W2.ROWS];
+const HSS2011_LEAF_SOURCES = { ...hss2011W1.SOURCES, ...hss2011W2.SOURCES };
 
 export const REVISION = {
   HSS2011: {
