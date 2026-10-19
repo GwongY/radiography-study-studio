@@ -68,14 +68,23 @@ for (const subject of Object.values(REVISION)) {
     const kindOf = new Map(leafRows.map((r) => [r.id, r.k]));
     const topicIds = new Set(data.NODES.filter((n) => !n.leaf).map((n) => n.id));
     const nodeOf = new Map(data.NODES.map((n) => [n.id, n]));
+    const twins = [];
+    (function walk(spec, parent) {
+      const me = nodeOf.get(spec.id), up = parent && nodeOf.get(parent.id);
+      if (me && up && String(me.l).toLowerCase() === String(up.l).toLowerCase()) twins.push(`${parent.id} > ${spec.id}`);
+      (spec.kids || []).forEach((k) => walk(k, spec));
+    })(data.TREE, null);
+    ok(!twins.length, `no box has a child of the same name${twins.length ? ` (${twins.join(', ')})` : ''}`);
+    /* a row named like its parent topic is folded into it (mergeLeaves ALIAS) */
+    const real = (id) => (data.ALIAS || {})[id] || id;
     ok(leafRows.every((r) => KINDS.includes(r.k)), `every leaf has a known kind (${leafRows.length} leaves)`);
     ok(leafRows.every((r) => topicIds.has(r.parent) || (order.has(r.parent) && order.get(r.parent) < order.get(r.id))), 'every leaf hangs from a topic or an earlier leaf');
-    ok(leafRows.every((r) => Number.isInteger(r.w) && nodeOf.has(r.parent) && r.w >= firstWeek(nodeOf.get(r.parent))), 'no leaf is taught before what it hangs from');
+    ok(leafRows.every((r) => Number.isInteger(r.w) && nodeOf.has(real(r.parent)) && r.w >= firstWeek(nodeOf.get(real(r.parent)))), 'no leaf is taught before what it hangs from');
     const movesTarget = (id) => ['bone', 'part', 'group'].includes(kindOf.get(id));
     ok(leafRows.filter((r) => r.k === 'muscle').every((r) => { const j = Object.entries(r.joints || {}); const m = Object.entries(r.moves || {}); return j.length + m.length > 0 && j.every(([id, act]) => kindOf.get(id) === 'joint' && String(act).trim()) && m.every(([id, act]) => movesTarget(id) && String(act).trim()); }), 'every muscle acts at a joint row (joints) or moves a bone, part or group (moves), and says how');
     ok(leafRows.filter((r) => r.k === 'bone').every((r) => (r.joints || []).every((id) => kindOf.get(id) === 'joint')), "every bone's joints are joint rows");
-    ok(leafRows.filter((r) => r.k === 'nerve').every((r) => Object.keys(r.supplies || {}).length > 0 && Object.keys(r.supplies).every((id) => ids.has(id)) && (!r.from || ids.has(r.from))), 'every nerve supplies something real');
-    ok(leafRows.every((r) => Object.keys(r.links || {}).every((id) => ids.has(id))), 'every hand-written leaf link points at something real');
+    ok(leafRows.filter((r) => r.k === 'nerve').every((r) => Object.keys(r.supplies || {}).length > 0 && Object.keys(r.supplies).every((id) => ids.has(real(id))) && (!r.from || ids.has(real(r.from)))), 'every nerve supplies something real');
+    ok(leafRows.every((r) => Object.keys(r.links || {}).every((id) => ids.has(real(id)))), 'every hand-written leaf link points at something real');
     const badSrc = [];
     for (const r of leafRows) {
       const [sid, ...pages] = r.src || [];

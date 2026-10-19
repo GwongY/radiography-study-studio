@@ -56,13 +56,21 @@ export function mergeLeaves(data, rows, sources = {}) {
   const specOf = new Map();
   (function walk(s) { if (s.id) specOf.set(s.id, s); (s.kids || []).forEach(walk); })(tree);
   const seen = new Set(edges.map((e) => pairKey(e[0], e[1])));
-  const link = (a, b, why) => { const k = pairKey(a, b); if (seen.has(k)) return; seen.add(k); edges.push([a, b, why]); };
+  /* A row named exactly like its parent topic (Brainstem under Brainstem) would draw the same box twice, one inside the
+     other. It is folded into the parent: its own rows hang straight from the parent, and its links end there. */
+  const alias = {};
+  const labelOf = new Map(data.NODES.map((n) => [n.id, n.l]));
+  const to = (id) => alias[id] || id;
+  const link = (a0, b0, why) => { const a = to(a0), b = to(b0); if (a === b) return; const k = pairKey(a, b); if (seen.has(k)) return; seen.add(k); edges.push([a, b, why]); };
 
   for (const row of rows) {
     const parent = specOf.get(row.parent);
     if (!parent) throw new Error(`revision leaf ${row.id}: parent ${row.parent} is not a topic or an earlier row`);
+    if (labelOf.has(row.parent) && String(labelOf.get(row.parent)).toLowerCase() === String(row.l).toLowerCase()) {
+      alias[row.id] = row.parent; specOf.set(row.id, parent); continue;
+    }
     const s = row.s || KIND_SYS[row.k] || sysOf.get(row.parent);
-    sysOf.set(row.id, s);
+    sysOf.set(row.id, s); labelOf.set(row.id, row.l);
     const line = leafLine(row);
     nodes.push({ id: row.id, l: row.l, s, w: [row.w], t: leafNote(row, line, sources), leaf: row.k, line, src: row.src, old: !!row.old });
     const spec = { id: row.id };
@@ -81,7 +89,7 @@ export function mergeLeaves(data, rows, sources = {}) {
     }
     for (const [t, why] of Object.entries(row.links || {})) link(row.id, t, why);
   }
-  return { NODES: nodes, EDGES: edges, TREE: tree };
+  return { NODES: nodes, EDGES: edges, TREE: tree, ALIAS: alias };
 }
 
 /**
