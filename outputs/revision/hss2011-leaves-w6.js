@@ -63,4 +63,50 @@ export const ROWS = [
 { k: 'part', id: 'w6_bbs', l: 'Brain Barrier system', parent: 'bbb', w: 6, line: 'regulates substances from blood stream into the brain', src: [L6, 15] },
 { k: 'part', id: 'w6_bbbarrier', l: 'Blood-Brain barrier', parent: 'w6_bbs', w: 6, line: 'astrocytes stimulate tight junctions between endothelial cells', links: { w5_astrocytes: 'astrocytes contact blood capillaries' }, src: [L6, 15] },
 { k: 'part', id: 'w6_bloodcsf', l: 'Blood-CSF barrier', parent: 'w6_bbs', w: 6, line: 'formed at choroid plexus, by ependymal cells', links: { w6_choroid: 'formed at choroid plexus', w5_ependymal: 'formed by ependymal cells' }, src: [L6, 15] },
+
+/* ---------------- brainstem: medulla, pons, midbrain (p17-22) ---------------- */
+{ k: 'group', id: 'w6_medulla', l: 'Medulla oblongata', parent: 'w6_brainstem', w: 6, line: 'contains all nerve fibers communicating brain and spinal cord', src: [L6, 18, 19, 17] },
+{ k: 'group', id: 'w6_pons', l: 'Pons', parent: 'w6_brainstem', w: 6, line: 'bridge; 4 pairs of cranial nerves begin/end here',
+  links: { reticular: 'part of reticular formation' }, src: [L6, 20, 17] },
+{ k: 'group', id: 'w6_midbrain', l: 'Midbrain', parent: 'w6_brainstem', w: 6,
+  links: { reticular: 'continuation of reticular formation' }, src: [L6, 21, 22, 17] },
+
+{ k: 'part', id: 'w6_autonuclei', l: 'Autonomic nuclei', parent: 'w6_medulla', w: 6, line: 'visceral activities', src: [L6, 18, 19] },
+{ k: 'part', id: 'w6_cvcentre', l: 'Cardiovascular centre', match: 'Cardiovascular: heart rate', parent: 'w6_autonuclei', w: 6, line: 'heart rate, contraction force', src: [L6, 19] },
+{ k: 'part', id: 'w6_respcentre', l: 'Respiratory centre', match: 'Respiratory: pace of respiration', parent: 'w6_autonuclei', w: 6, line: 'pace of respiration', src: [L6, 19] },
+{ k: 'part', id: 'w6_relaynuclei', l: 'Relay stations nuclei', parent: 'w6_medulla', w: 6, line: 'pass somatic information to the thalamus', src: [L6, 18] },
+{ k: 'part', id: 'w6_cuneatus', l: 'Nucleus cuneatus', parent: 'w6_relaynuclei', w: 6, line: 'somatic sensation to thalamus', src: [L6, 19] },
+{ k: 'part', id: 'w6_gracilis', l: 'Nucleus gracilis', match: 'cuneatus and gracilis', parent: 'w6_relaynuclei', w: 6, line: 'somatic sensation to thalamus', src: [L6, 19] },
+{ k: 'part', id: 'w6_olivary', l: 'Olivary nucleus', match: 'Olivary: somatic motor command', parent: 'w6_relaynuclei', w: 6, line: 'somatic motor command to cerebellum', links: { w6_cerebellum: 'somatic motor command to cerebellum' }, src: [L6, 19] },
+{ k: 'part', id: 'w6_solitary', l: 'Solitary nucleus', match: 'Solitary: visceral sensation', parent: 'w6_relaynuclei', w: 6, line: 'visceral sensation to brain', src: [L6, 19] },
+{ k: 'part', id: 'w6_medcnnuclei', l: 'Nuclei of CN VIII to XII', parent: 'w6_medulla', w: 6, line: 'cranial nerves nuclei', src: [L6, 19] },
+
+{ k: 'part', id: 'w6_ponspeduncles', l: 'Cerebellar peduncles', parent: 'w6_pons', w: 6, line: 'connecting to the cerebellum', links: { w6_cerebellum: 'connecting to the cerebellum' }, src: [L6, 20] },
+{ k: 'part', id: 'w6_ponscnnuclei', l: 'Nuclei of CN V to VIII', parent: 'w6_pons', w: 6, src: [L6, 20] },
+{ k: 'part', id: 'w6_ponstracts', l: 'Ascending/descending tracts', parent: 'w6_pons', w: 6, src: [L6, 20] },
+{ k: 'part', id: 'w6_ponsrelay', l: 'Relay nuclei and tracts', parent: 'w6_pons', w: 6, line: 'connecting cerebellum to other brain parts', links: { w6_cerebellum: 'connecting cerebellum to other brain parts' }, src: [L6, 20] },
+
+{ k: 'part', id: 'w6_supcolliculus', l: 'Superior colliculus', parent: 'w6_midbrain', w: 6, line: 'visual reflex (e.g. blinking) and visual attention', src: [L6, 21] },
+{ k: 'part', id: 'w6_infcolliculus', l: 'Inferior colliculus', parent: 'w6_midbrain', w: 6, line: 'transduce auditory info to the brain; auditory reflexes', src: [L6, 21] },
+{ k: 'part', id: 'w6_cerebralpeduncle', l: 'Cerebral peduncle', parent: 'w6_midbrain', w: 6, line: 'ascending + descending tracts', src: [L6, 21] },
+{ k: 'part', id: 'w6_rednuclei', l: 'Red nuclei', parent: 'w6_midbrain', w: 6, line: 'subconscious control of upper limb; muscle tone', src: [L6, 22] },
+{ k: 'part', id: 'w6_substantianigra', l: 'Substantia nigra', parent: 'w6_midbrain', w: 6, line: 'regulate motor movement', src: [L6, 22] },
+{ k: 'part', id: 'w6_midcnnuclei', l: 'Nuclei of CN III and IV', parent: 'w6_midbrain', w: 6, src: [L6, 22] },
+
+/* ---------------- reticular formation (p23) ---------------- */
+{ k: 'part', id: 'w6_reticformation', l: 'Reticular formation', parent: 'reticular', w: 6, line: 'loosely organized gray matter, runs vertically in brainstem',
+  links: { w6_medulla: 'runs from medulla oblongata to midbrain', w6_midbrain: 'runs from medulla oblongata to midbrain' }, src: [L6, 23, 19, 20, 22] },
+
+/* ---------------- cerebellum (p24-25) ---------------- */
+{ k: 'part', id: 'w6_cbhemispheres', l: 'Cerebellar hemispheres', match: 'two hemispheres', parent: 'w6_cerebellum', w: 6, line: 'connected by vermis', src: [L6, 24] },
+{ k: 'part', id: 'w6_vermis', l: 'Vermis', parent: 'w6_cerebellum', w: 6, line: 'narrow wormlike bridge', links: { w6_cbhemispheres: 'connects the two hemispheres' }, src: [L6, 24] },
+{ k: 'part', id: 'w6_folia', l: 'Folia', parent: 'w6_cerebellum', w: 6, line: '= gyri on cerebrum', links: { w6_gyrus: '= gyri on cerebrum' }, src: [L6, 24] },
+{ k: 'part', id: 'w6_infpeduncle', l: 'Inferior peduncles', parent: 'w6_cerebellum', w: 6, line: 'connect to medulla', links: { w6_medulla: 'connect to medulla' }, src: [L6, 24] },
+{ k: 'part', id: 'w6_midpeduncle', l: 'Middle peduncles', parent: 'w6_cerebellum', w: 6, line: 'connect to pons', links: { w6_pons: 'connect to pons' }, src: [L6, 24] },
+{ k: 'part', id: 'w6_suppeduncle', l: 'Superior peduncles', parent: 'w6_cerebellum', w: 6, line: 'connect to midbrain', links: { w6_midbrain: 'connect to midbrain' }, src: [L6, 24] },
+{ k: 'part', id: 'w6_arborvitae', l: 'Arbor vitae', parent: 'w6_cerebellum', w: 6, line: 'white matter', src: [L6, 24] },
+{ k: 'part', id: 'w6_granule', l: 'Granule cells', parent: 'w6_cerebellum', w: 6, line: 'specific type of neuron', src: [L6, 24] },
+{ k: 'part', id: 'w6_purkinje', l: 'Purkinje cells', parent: 'w6_cerebellum', w: 6, line: 'specific type of neuron', src: [L6, 24] },
+{ k: 'part', id: 'w6_cbposture', l: 'Adjusting postural muscles', parent: 'w6_cerebellum', w: 6, line: 'rapid, automatic adjustments to maintain balance', src: [L6, 25] },
+{ k: 'part', id: 'w6_cbprogram', l: 'Programming, fine-tuning movement', match: 'fine-tuning movement', parent: 'w6_cerebellum', w: 6, line: 'at conscious/subconscious levels', src: [L6, 25] },
 ];
