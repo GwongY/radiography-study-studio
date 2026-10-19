@@ -245,5 +245,7 @@ export async function revealStructure(spec){
       :'')+chip;
   }
   const names=[...new Set(occ.map(hiddenName))];
+  /* The layer chips above were turned on here, behind the study half's back: tell it, or the rail keeps saying off. */
+  window.dispatchEvent(new Event('osteo:layers'));
   return {ok:true,found:targets.length,covered:names};
 }
