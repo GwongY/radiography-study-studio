@@ -194,8 +194,6 @@ export const ROWS = [
 { k: 'group', id: 'w2_tis_fibres', l: 'Fibers', parent: 'w2_tis_conn', w: 2, line: 'collagen, elastin or reticular fibers support the cells', links: { w1_collagen: 'mostly collagen for strength' }, src: [TIS, 17] },
 { k: 'part', id: 'w2_tis_elastin', l: 'Elastin', parent: 'w2_tis_fibres', w: 2, line: 'gives elasticity', src: [TIS, 17] },
 { k: 'part', id: 'w2_tis_reticular', l: 'Reticular fibers', parent: 'w2_tis_fibres', w: 2, line: 'for support', src: [TIS, 17] },
-{ k: 'part', id: 'w2_tis_proteoglycans', l: 'Proteoglycans', parent: 'w1_groundsub', w: 2, line: 'in the clear, viscous ground substance of connective tissue', links: { w2_tis_conn: 'ground substance of connective tissue' }, src: [TIS, 17] },
-{ k: 'part', id: 'w2_tis_gags', l: 'Glycosaminoglycans', parent: 'w1_groundsub', w: 2, line: 'in the clear, viscous ground substance of connective tissue', links: { w2_tis_proteoglycans: 'both found in ground substance' }, src: [TIS, 17] },
 { k: 'group', id: 'w2_tis_connells', l: 'Connective tissue cells', match: 'Cells', parent: 'w2_tis_conn', w: 2, line: 'dispersed through the extracellular matrix of fiber and ground substance', src: [TIS, 17] },
 { k: 'part', id: 'w2_tis_adipocytes', l: 'Adipocytes', parent: 'w2_tis_connells', w: 2, line: 'fat cells', src: [TIS, 17] },
 { k: 'part', id: 'w2_tis_macrophages', l: 'Macrophages', parent: 'w2_tis_connells', w: 2, src: [TIS, 17] },
