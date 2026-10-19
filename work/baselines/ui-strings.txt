@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 987 —
-  4a99f96ac7f6cc97  WHOLE SET
+— user-facing strings in outputs/ — 989 —
+  decece00603faf61  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -461,6 +461,7 @@
   d9acc7d3dcc5e22f  Module 2 lecture 1 (Week 5 Nervous System), Prof Benson Lau, 43 pages. Nervous system overview, neurons (functional and structural classes), neuroglia of the CNS and PNS, myelin, synapses and neural circuits, the spinal cord (surface and cross-sectional anatomy, tracts), nerves, spinal nerves, plexuses and dermatomes. Pages 40 to 42 are clinical conditions.
   5316729540993bfa  Module 2 lecture 2 (Week 6 Brain and Cranial Nerve), Prof Benson Lau, 56 pages. Overview of the brain, meninges, ventricles and cerebrospinal fluid, the brain barrier system, brainstem (medulla, pons, midbrain, reticular formation), cerebellum, diencephalon (thalamus, hypothalamus), cerebrum (lobes, white matter, limbic system, basal nuclei, motor and sensory areas) and the twelve cranial nerves.
   815dede96d975e40  Module 2 lecture 3 (Week 7 Special Senses), Prof Benson Lau, 55 pages. Sensory receptors and general senses, taste and smell, the ear (hearing and equilibrium), the eye and visual pathway, and the autonomic nervous system (visceral reflexes, sympathetic and parasympathetic divisions).
+  747fe599f992b303  Module 3 part one_cardiovascular system Student.pdf
   fe59e57a7a810873  More than
   4c67f0e5acff873f  Motion off. The anatomical colours stay.
   7d7e2aaf6139362e  Motor transmission · deltoid, biceps and quadriceps · slowed
@@ -569,6 +570,7 @@
   2150d8df37e48957  Show all
   6eabbe9ab1e22c72  Show all in the Viewer
   2d36fe08484d4ec4  Show all parts
+  aa8ea843d6a657b5  Show in the viewer
   d0b966e35ee96fdd  Show the skeleton around the heart
   f0c80dc7d3d237d2  Show the skeleton around the vessels
   cab88e281cc40392  Show them

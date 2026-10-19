@@ -139,7 +139,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `boot.js` | 82 | Boot |
 | `briefing-access.js` | 129 | University notice access. |
 | `briefing-format.js` | 65 | Weekly briefing — the file format, and nothing else. |
-| `course-data.js` | 287 | Course data -- the source registry, the subject list and the model files. |
+| `course-data.js` | 288 | Course data -- the source registry, the subject list and the model files. |
 | `course-timetable.js` | 359 | Course — the syllabus and the timetable |
 | `dialog-behaviour-applied.js` | 88 | Dialog behaviour, applied to all seven at once |
 | `global-search-one.js` | 386 | Global search -- one sheet over every destination, mixing structures, |
@@ -151,7 +151,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `reading-help.js` | 218 | Reading help |
 | `revise-brain.js` | 427 | Revise · Brain 3D — the connections hub |
 | `revise-links.js` | 32 | Revise · the numbered links list under the Map and under the 3D hub. |
-| `revise.js` | 839 | Revise |
+| `revise.js` | 858 | Revise |
 | `search-viewer-open.js` | 44 | Search -> viewer: open the model, select the part, auto-uncover, and |
 | `small-ui-helpers.js` | 263 | Small UI helpers |
 | `spatial-overlay-controls.js` | 120 | Spatial overlay controls (viewer "..." sheet) |

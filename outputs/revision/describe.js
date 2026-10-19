@@ -3,8 +3,8 @@
  *
  * Pure: no DOM, so work/ runs the same rule the app does. A box gets, in order:
  * the slide's own line for a leaf, the first sentence of a topic's note, then a
- * sentence made only from where the box sits (what it covers, what it is part
- * of, what it links to). The last step says nothing the tree does not already
+ * sentence made only from where the box sits (what it covers, or what it is
+ * part of and what that is in). The last step says nothing the tree does not already
  * say, so no box is ever empty and none carries an unsourced claim.
  */
 
@@ -23,12 +23,11 @@ export function firstSentence(text, max = 150) {
 
 /**
  * @param node   a merged NODES row, or null for a branch with no row (a group heading, the root)
- * @param ctx    { parent, kids, linked }: labels of what the box sits in, covers and links to
+ * @param ctx    { parent, grand, kids }: labels of what the box sits in, what that sits in, and what it covers
  */
-export function describe(node, { parent = '', kids = [], linked = [] } = {}) {
+export function describe(node, { parent = '', grand = '', kids = [] } = {}) {
   if (node && node.leaf && node.line && node.line.trim()) return ended(node.line.trim());
   if (node && !node.leaf && node.t) { const s = firstSentence(node.t); if (s) return ended(s); }
   if (kids.length) return `Covers ${list(kids, 4)}.`;
-  const links = linked.length ? `; linked to ${list(linked, 3)}` : '';
-  return `Part of ${parent || 'this map'}${links}.`;
+  return `Part of ${parent || 'this map'}${grand && grand !== parent ? `, in ${grand}` : ''}.`;
 }

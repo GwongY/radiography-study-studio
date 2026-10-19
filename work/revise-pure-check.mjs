@@ -110,7 +110,7 @@ ok(pickFirst(mk(3), 2).more.join() === 'n02', 'pickFirst keeps the best-linked')
 ok(describe({ leaf: true, line: 'flexion' }) === 'flexion.', "a leaf's own line is the sentence");
 ok(describe({ leaf: false, t: '<b>Epithelial</b> covers, lines and secretes. <b>Connective</b> binds.' }) === 'Epithelial covers, lines and secretes.', "a topic's first note sentence");
 ok(describe({ leaf: true, line: '' }, { kids: ['a', 'b', 'c', 'd', 'e'] }) === 'Covers a, b, c, d and 1 more.', 'a box with nothing of its own says what it covers');
-ok(describe({ leaf: true }, { parent: 'Muscles', linked: ['x'] }) === 'Part of Muscles; linked to x.', 'a bare leaf says what it is part of and links to');
+ok(describe({ leaf: true }, { parent: 'Facial bones', grand: 'Skull' }) === 'Part of Facial bones, in Skull.', 'a bare leaf says what it is part of and what that is in');
 ok(describe(null, { parent: '' }) === 'Part of this map.' && describe(null, { kids: ['One'] }) === 'Covers One.', 'a group heading and the root are never empty');
 ok(firstSentence('x'.repeat(300)).length <= 150 && firstSentence('x'.repeat(300)).endsWith('…'), 'a long first sentence is cut at the limit');
 ok(describe({ leaf: true, line: '  ' }, {}).length > 3, 'a blank line falls back to the derived sentence');

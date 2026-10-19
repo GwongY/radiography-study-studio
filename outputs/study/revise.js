@@ -26,6 +26,7 @@ import { DEFAULT_SUBJECT, REVISION } from '../revision/registry.js?v=1';
 import { autoWeek, firstWeek, lastWeekOf, newIds, pruneTree, resolveWeek, visibleEdges, visibleIds } from '../revision/weeks.js?v=1';
 import { linkRows } from '../revision/link-rows.js?v=1';
 import { describe } from '../revision/describe.js?v=1';
+import { searchHits } from './global-search-one.js';
 import { createBrain } from './revise-brain.js';
 
 /* ------------------------------------------------------------------ *
@@ -192,6 +193,15 @@ function weeksTags(n) {
   return n.w.slice().sort((a, b) => a - b).filter((x) => x <= rv.week).map((x) => `<span class="rv-tag">Week ${x}</span>`).join('');
 }
 
+/* The viewer's own search says whether it has this structure; the button runs the same jump a search result does. */
+function viewerHit(label) {
+  const norm = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const want = norm(label);
+  let hit = null;
+  try { hit = searchHits(label).find((h) => h.kind === 'Structure' && (norm(h.title) === want || norm(h.title).startsWith(`${want} `))) || null; } catch { hit = null; }
+  return hit;
+}
+
 function renderPanel(id, el) {
   const side = el || $$('rvSide');
   const n = ix.byId[id];
@@ -203,9 +213,10 @@ function renderPanel(id, el) {
     const said = bare ? `<p class="rv-said">${esc(describe(n, {
       parent: ix.LABEL[ix.PARENT[id]] || '',
       kids: (ix.KIDS[id] || []).map((k) => ix.LABEL[k]),
-      linked: (ix.NB[id] || []).map((p) => ix.LABEL[p[0]]).filter(Boolean),
+      grand: ix.LABEL[ix.PARENT[ix.PARENT[id]]] || '',
     }))}</p>` : '';
-    h += `<div class="rv-note">${said}${n.t}</div>`;    h += `<p class="rv-to3d"><button type="button" class="rv-linkbtn" data-to3d="${esc(id)}">Connections in 3D (${(ix.NB[id] || []).length})</button></p>`;
+    h += `<div class="rv-note">${said}${n.t}</div>`;    const vh = viewerHit(n.l);
+    h += `<p class="rv-to3d"><button type="button" class="rv-linkbtn" data-to3d="${esc(id)}">Connections in 3D (${(ix.NB[id] || []).length})</button>${vh ? ` <button type="button" class="rv-linkbtn" data-toviewer="${esc(id)}">Show in the viewer</button>` : ''}</p>`;
     if (n.th && n.th.length) {
       h += '<h4>Pathways through this topic</h4><div class="nlist">';
       n.th.forEach((t) => { h += `<button type="button" class="nbtn" data-thread="${esc(t)}"><span>${esc(ix.threadTitles[t] || t)}</span><span class="rel">open →</span></button>`; });
@@ -276,8 +287,9 @@ function createMap() {
   }
 
   function applyMarks() {
-    const rel = {}; const anc = {};
+    const rel = {}; const anc = {}; const kid = {};
     if (selId) {
+      (ix.KIDS[selId] || []).forEach((k) => { kid[k] = 1; });
       (ix.NB[selId] || []).forEach((p) => { rel[p[0]] = 1; });
       ancestors(selId).forEach((a) => { anc[a] = 1; });
       if (!ix.byId[selId]) descendantsOf(selId).forEach((d) => { rel[d] = 1; });
@@ -289,6 +301,7 @@ function createMap() {
       g.classList.toggle('sel', id === selId);
       g.classList.toggle('rel', !!rel[id]);
       g.classList.toggle('anc', !!anc[id]);
+      g.classList.toggle('kid', !!kid[id]);
       g.classList.toggle('hit', !!hits[id]);
       g.classList.toggle('hanc', !!hanc[id]);
     });
@@ -833,6 +846,12 @@ export function renderRevise() {
 
 export function init() {
   document.addEventListener('visibilitychange', () => { if (!document.hidden) followCalendar(); });
+  /* "Show in the viewer" in the notes, on the Map and on Brain 3D alike */
+  document.addEventListener('click', (ev) => {
+    const b = ev.target.closest && ev.target.closest('[data-toviewer]'); if (!b) return;
+    const n = ix.byId[b.dataset.toviewer]; const h = n && viewerHit(n.l);
+    if (h) h.go();
+  });
 }
 
 /* Test hook: what the view believes, for work/ checks that drive it in a browser. */
