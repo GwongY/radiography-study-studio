@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 445 lines
+## `outputs/radiography-study-studio.html` — 432 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–422 | markup — no banners, grep here |
-| 423–423 | importmap |
-| 424–424 | loads studio.js |
-| 425–425 | loads study.js |
-| 426–443 | classic script · preamble |
-| 444–445 | markup — no banners, grep here |
+| 1–409 | markup — no banners, grep here |
+| 410–410 | importmap |
+| 411–411 | loads studio.js |
+| 412–412 | loads study.js |
+| 413–430 | classic script · preamble |
+| 431–432 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1574 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
+- `outputs/app.css` — 1576 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
 - `outputs/studio.js` — 35 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiovisualisation-modesjs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 47 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -46,7 +46,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
 | `schedule.js` | 713 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `search-name.js` | 42 | Anatomical name matching shared by search and its regression gate. |  |
-| `sw.js` | 425 | Radiography Study Studio — service worker |  |
+| `sw.js` | 442 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 356 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 281 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 2461 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
@@ -139,7 +139,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `boot.js` | 82 | Boot |
 | `briefing-access.js` | 129 | University notice access. |
 | `briefing-format.js` | 65 | Weekly briefing — the file format, and nothing else. |
-| `course-data.js` | 288 | Course data -- the source registry, the subject list and the model files. |
+| `course-data.js` | 296 | Course data -- the source registry, the subject list and the model files. |
 | `course-timetable.js` | 359 | Course — the syllabus and the timetable |
 | `dialog-behaviour-applied.js` | 88 | Dialog behaviour, applied to all seven at once |
 | `global-search-one.js` | 386 | Global search -- one sheet over every destination, mixing structures, |
@@ -149,9 +149,9 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `more-sources-coverage.js` | 75 | More -- sources, coverage, and the things demoted out of the topbar. |
 | `navigation-destinations.js` | 71 | Navigation -- four destinations, rendered into both the icon rail and |
 | `reading-help.js` | 218 | Reading help |
-| `revise-brain.js` | 427 | Revise · Brain 3D — the connections hub |
+| `revise-brain.js` | 429 | Revise · Brain 3D — the connections hub |
 | `revise-links.js` | 32 | Revise · the numbered links list under the Map and under the 3D hub. |
-| `revise.js` | 882 | Revise |
+| `revise.js` | 970 | Revise |
 | `search-viewer-open.js` | 44 | Search -> viewer: open the model, select the part, auto-uncover, and |
 | `small-ui-helpers.js` | 263 | Small UI helpers |
 | `spatial-overlay-controls.js` | 120 | Spatial overlay controls (viewer "..." sheet) |
@@ -207,6 +207,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `work/landmark-check.mjs` | Does every landmark actually resolve against the real GLBs? |  |
 | `work/limb-check.mjs` | Limb vessels check -- the BetterHeart limb frames against the explorer's own circulatory layer, offl | [The limb vessels mode -- outputs/studio/limb-atlas.js, outputs/limb/, work/limb-check.mjs](TRAPS.md#the-limb-vessels-mode----outputsstudiolimb-atlasjs-outputslimb-worklimb-checkmjs) |
 | `work/load-check.mjs` | Load-time verification for radiography-study-studio.html. |  |
+| `work/pages-workflow-check.mjs` | Pages workflow check — every script .github/workflows/pages.yml runs exists. |  |
 | `work/physiology-breathing-check.mjs` |  |  |
 | `work/physiology-heart-check.mjs` | Piece-3 heart gate: the tethered chamber map, on the real circulatory GLB. |  |
 | `work/physiology-heart-discovery.mjs` | Piece-3 heart discovery: measure on the real circulatory GLB what the spec's |  |
