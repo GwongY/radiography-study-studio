@@ -2,8 +2,14 @@
  * Revision own words — one short sentence for a row the lecture only names.
  *
  * The slides give some structures just a name (Vomer, Epimysium, the lambdoid
- * suture). For those the owner asked for a plain sentence saying where it is or
- * what it does, in the app's own words. These are NOT from the slides: the
+ * suture). For those the owner asked for a plain sentence saying the thing's main
+ * function or defining feature (owner, 20 Oct 2026). Not where it sits, and not
+ * where it appears on a slide. Position is kept only where position is the point:
+ * odd bone, landmark and suture names, foramina, fissures, small skull bones,
+ * carpal and tarsal bones, and chambers named by position. Familiar things
+ * (kidney, thigh, colon) say what they do.
+ * Plain words, in the app's own words.
+ * These are NOT from the slides: the
  * notes label them so, and work/revision-check.mjs holds that every row with no
  * slide line has one and that every id here is a real row.
  */
@@ -49,11 +55,11 @@ export const OWN = {
   /* ---- Week 2: lower limb ---- */
   w2_j_hip: 'The ball-and-socket joint where the head of the femur sits in the acetabulum of the hip bone, joining the lower limb to the pelvis.',
   w2_iliaccrest: 'The curved upper edge of the hip bone, which you can feel at the waist.',
-  w2_femreg: 'The thigh, whose single bone is the femur.',
+  w2_femreg: 'The region of the thigh built around the femur, which carries body weight from the hip to the knee.',
   w2_femur: 'The thigh bone, the longest and strongest bone in the body, running from the hip to the knee.',
-  w2_kneereg: 'Where the thigh meets the leg, with the kneecap at the front.',
+  w2_kneereg: 'The knee joint, a large hinge that carries body weight from the thigh to the leg and allows bending and straightening.',
   w2_patella: 'The kneecap, a small bone set in the quadriceps tendon at the front of the knee.',
-  w2_legreg: 'The part of the lower limb between the knee and the ankle, with the tibia and fibula.',
+  w2_legreg: 'The tibia and fibula carry body weight from the knee to the ankle and anchor the muscles that move the foot.',
   w2_tibia: 'The shin bone, the larger, weight-bearing bone of the leg.',
   w2_medcondyle: 'The inner rounded top of the tibia, which takes weight from the femur.',
   w2_latcondyle: 'The outer rounded top of the tibia, which takes weight from the femur.',
@@ -66,7 +72,7 @@ export const OWN = {
   w2_lljoints: 'The joints of the lower limb: hip, knee, ankle and the joints of the foot.',
   w2_gluteal: 'The buttock region, with the muscles that move and steady the hip.',
   w2_glutei: 'The three buttock muscles, gluteus maximus, medius and minimus, which extend and abduct the hip.',
-  w2_thigh: 'The part of the lower limb between the hip and the knee, with muscles in front, behind and on the inner side.',
+  w2_thigh: 'The large muscles of the thigh move the hip and knee: the front group straightens the knee, the back group bends it.',
   w2_antthigh: 'The front thigh muscles, which flex the hip and extend the knee.',
   w2_llnerves: 'The nerves of the lower limb, which come from the lumbar and sacral plexuses.',
 
@@ -74,12 +80,12 @@ export const OWN = {
   w3_scapula: 'The shoulder blade, a flat triangular bone on the back of the ribcage that carries the shoulder socket.',
   w3_manubrium: 'The upper part of the sternum, where the clavicles and first ribs join.',
   w3_sternum: 'The breastbone in the middle of the chest, made of manubrium, body and xiphoid process.',
-  w3_arm: 'The part of the upper limb between the shoulder and the elbow, whose bone is the humerus.',
+  w3_arm: 'The upper arm, one long bone, the humerus, that the shoulder and elbow muscles use to move the forearm.',
   w3_humerus: 'The bone of the upper arm, running from the shoulder to the elbow.',
   w3_hum_shaft: 'The long middle part of the humerus.',
   w3_hum_trochlea: 'The spool-shaped part of the lower humerus that the ulna hinges on.',
   w3_hum_capitulum: 'The rounded part of the lower humerus that the head of the radius rolls against.',
-  w3_forearm: 'The part of the upper limb between the elbow and the wrist, with the radius and ulna.',
+  w3_forearm: 'The two forearm bones, the radius and ulna, let the hand turn palm up and palm down.',
   w3_hand: 'The wrist, palm and finger bones: carpals, metacarpals and phalanges.',
   w3_scaphoid: 'A boat-shaped carpal bone on the thumb side of the wrist, often broken in a fall on the hand.',
   w3_lunate: 'A moon-shaped carpal bone in the middle of the first row of wrist bones.',
@@ -157,8 +163,8 @@ export const OWN = {
   w4_mandmusc: 'The chewing muscles, such as masseter and temporalis, that raise, lower and move the jaw.',
   w4_tongue: 'A muscular organ in the mouth used for taste, speech and moving food.',
   w4_neckmusc: 'The muscles on the front of the neck that move the head, lower jaw and hyoid bone.',
-  w4_lipmouth: 'Movement of the lower lip and corner of the mouth, by neck muscles such as platysma.',
-  w4_abdcontents: 'The organs inside the abdominal cavity, held in and protected by the abdominal muscles.',
+  w4_lipmouth: 'The muscles, such as the platysma, that pull the lower lip and mouth corner down, shaping facial expression.',
+  w4_abdcontents: 'The stomach, liver, intestines and other organs that the abdominal wall holds in and protects.',
   w4_anterolat: 'The muscles of the front and side abdominal wall, which bend and rotate the trunk and compress the abdomen.',
   w4_posterior: 'The muscles of the back, which extend and steady the spine.',
 
@@ -320,8 +326,8 @@ export const OWN = {
   w6_midpeduncle: 'A thick bundle of fibres joining the cerebellum to the pons.',
   w6_suppeduncle: 'A thick bundle of fibres joining the cerebellum to the midbrain.',
   w6_arborvitae: 'The branching tree-shaped pattern of white matter seen inside the cerebellum.',
-  w6_granule: 'A small neuron in the cerebellar cortex, one of its main cell types.',
-  w6_purkinje: 'A large branching neuron in the cerebellar cortex.',
+  w6_granule: 'Tiny, very numerous neurons of the cerebellar cortex that relay input to the Purkinje cells.',
+  w6_purkinje: 'Large branching neurons of the cerebellar cortex; they send the only output of the cortex to the deep nuclei.',
   w6_parietal: 'The lobe at the upper back of the cerebrum that processes touch and body sensation.',
   w6_occipital: 'The lobe at the back of the cerebrum that processes vision.',
   w7_bymodality: 'Receptors can be sorted by the kind of stimulus they respond to, and their names carry a matching prefix.',

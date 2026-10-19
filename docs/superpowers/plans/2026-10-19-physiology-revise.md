@@ -1969,7 +1969,7 @@ Every Wave-1 task runs this recipe with its own parameters.
      (a row above, or a topic). No link from general knowledge.
 4. **Own words (rule 4).** After writing the rows, run the check (step 6). Every row it lists
    under "not useful … has an own-words sentence" gets `own: '…'` on the row: ONE plain
-   sentence saying what it is and where it is or what it does, 40–220 characters, ending
+   sentence saying its main function or defining feature (not where it sits or where it appears on the slide; position only where position is the point: odd bone, landmark and suture names, foramina, fissures, small skull bones, carpal and tarsal bones, named chambers; owner, 20 Oct 2026), 40–220 characters, ending
    with a full stop, **no digits and no star**, no clinical content, nothing the slides do
    not support. Do not put it in `own-words.js` (that is anatomy's). This is real work:
    expect a third to a half of the rows to need one. A `group` with no line needs one too.

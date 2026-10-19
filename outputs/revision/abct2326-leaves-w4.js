@@ -131,7 +131,7 @@ export const ROWS = [
     parent: 'p_gi_layers',
     w: 4,
     src: ['phys.l4.2026', 8],
-    own: 'Labelled on the slide beside the mesenteric artery and vein, in a diagram of the digestive tract wall layers.',
+    own: 'A fold of peritoneum that holds the intestines in place and carries their blood vessels and nerves.',
   },
 
   // --- Movement of digestive materials (p_gi_move) ---
@@ -172,7 +172,7 @@ export const ROWS = [
     parent: 'p_gi_move',
     w: 4,
     src: ['phys.l4.2026', 18],
-    own: 'A movement of the digestive tract named on the slide beside peristalsis, under neural control mechanisms.',
+    own: 'Rhythmic contractions of the small intestine that churn and mix the chyme with secretions without pushing it along.',
   },
 
   // --- Digestive tract regulation (p_gi_reg) ---
@@ -235,7 +235,7 @@ export const ROWS = [
     w: 4,
     src: ['phys.l4.2026', 3, 19],
     line: 'chew (masticate) food',
-    own: 'Structures that chew (masticate) food, giving the mechanical processing the slide lists for the oral cavity.',
+    own: 'Hard structures that break food into smaller pieces, the start of mechanical digestion.',
   },
   {
     k: 'part',
@@ -314,7 +314,7 @@ export const ROWS = [
     parent: 'p_stomach',
     w: 4,
     src: ['phys.l4.2026', 22],
-    own: 'A region of the stomach labelled next to the esophagus on the slide\'s diagram of the stomach wall.',
+    own: 'The small region around the opening from the esophagus, rich in mucous glands whose secretions coat the junction.',
   },
   {
     k: 'part',
@@ -323,7 +323,7 @@ export const ROWS = [
     parent: 'p_stomach',
     w: 4,
     src: ['phys.l4.2026', 22, 23, 48, 49],
-    own: 'A region of the stomach; the slide says the gastric glands are in the fundus and body.',
+    own: 'The dome-shaped upper part of the stomach, where gastric glands secrete acid and enzymes.',
   },
   {
     k: 'part',
@@ -341,7 +341,7 @@ export const ROWS = [
     parent: 'p_stomach',
     w: 4,
     src: ['phys.l4.2026', 22],
-    own: 'Labelled between the pylorus and the duodenum on the slide\'s diagram of the stomach wall.',
+    own: 'A ring of muscle that regulates how much chyme passes from the stomach into the duodenum.',
   },
   {
     k: 'part',
@@ -350,7 +350,7 @@ export const ROWS = [
     parent: 'p_stomach',
     w: 4,
     src: ['phys.l4.2026', 22],
-    own: 'A feature named on the slide\'s diagram of the stomach wall, along with the cardia, fundus and body.',
+    own: 'Temporary folds of the stomach wall that let the stomach expand greatly as it fills.',
   },
   {
     k: 'part',
@@ -402,7 +402,7 @@ export const ROWS = [
     w: 4,
     src: ['phys.l4.2026', 25, 26, 31, 32, 56],
     makes: { p4_gastrin: 'produce gastrin' },
-    own: 'Cells among the gastric glands and pyloric glands; the slide says G cells produce gastrin.',
+    own: 'Cells in the gastric and pyloric glands that release gastrin, which stimulates acid secretion.',
   },
   {
     k: 'cell',
@@ -422,7 +422,7 @@ export const ROWS = [
     parent: 'p4_gastric_glands',
     w: 4,
     src: ['phys.l4.2026', 25, 31, 32],
-    own: 'Cells of the gastric glands; on the slide\'s regulation diagrams they release mucus under stimulation.',
+    own: 'Gastric gland cells that secrete mucus, which protects the stomach lining from acid and enzymes.',
   },
   {
     k: 'substance',
@@ -514,7 +514,7 @@ export const ROWS = [
     w: 4,
     src: ['phys.l4.2026', 30, 31],
     next: { p4_gastric_phase: 'leads to gastric phase' },
-    own: 'The first of the three phases of gastric control; the slide starts it with sight, smell, taste or thoughts of food.',
+    own: 'The first stage of gastric secretion, triggered by the sight, smell, taste or thought of food.',
   },
   {
     k: 'process',
@@ -525,7 +525,7 @@ export const ROWS = [
     w: 4,
     src: ['phys.l4.2026', 30, 32],
     next: { p4_intestinal_phase: 'leads to intestinal phase' },
-    own: 'The second of the three phases of gastric control; the slide shows distension and elevated pH stimulating the gastric glands.',
+    own: 'The stage in which stretch of the stomach and a rise in pH stimulate the gastric glands to secrete more.',
   },
   {
     k: 'process',
@@ -535,7 +535,7 @@ export const ROWS = [
     parent: 'p_gastric_reg',
     w: 4,
     src: ['phys.l4.2026', 30, 33],
-    own: 'The third of the three phases of gastric control; the slide shows duodenal stretch and chemoreceptors, CCK, GIP and secretin.',
+    own: 'The stage in which chyme in the duodenum slows gastric secretion and emptying through hormones and reflexes.',
   },
   {
     k: 'process',
@@ -545,7 +545,7 @@ export const ROWS = [
     parent: 'p_gastric_reg',
     w: 4,
     src: ['phys.l4.2026', 33, 53],
-    own: 'One of the reflexes that coordinate movement along the digestive tract; the slide shows it in the intestinal phase.',
+    own: 'A reflex from the duodenum that slows gastrin release, gastric contraction and the emptying of chyme.',
   },
 
   // --- Small intestine (p_smallint) ---
@@ -603,7 +603,7 @@ export const ROWS = [
     parent: 'p4_villi',
     w: 4,
     src: ['phys.l4.2026', 40],
-    own: 'A lymphatic part of a villus, labelled with the capillary network and lymphatic vessel inside a single villus.',
+    own: 'A lymphatic capillary in each villus that carries absorbed fats away as chylomicrons.',
   },
   {
     k: 'substance',
@@ -668,7 +668,7 @@ export const ROWS = [
     parent: 'p_pancreas',
     w: 4,
     src: ['phys.l4.2026', 42],
-    own: 'A duct labelled on the pancreas diagram next to the common bile duct and the duodenal papilla.',
+    own: 'The main duct that carries pancreatic juice, with its digestive enzymes and buffers, into the duodenum.',
   },
   {
     k: 'substance',
@@ -750,7 +750,7 @@ export const ROWS = [
     parent: 'p4_liver_lobules',
     w: 4,
     src: ['phys.l4.2026', 45],
-    own: 'Labelled on the liver lobule diagram with a bile duct and a branch of the hepatic portal vein.',
+    own: 'A portal triad at each corner of a liver lobule: branches that bring blood in and carry bile out.',
   },
   {
     k: 'process',
@@ -770,7 +770,7 @@ export const ROWS = [
     parent: 'p_liver',
     w: 4,
     src: ['phys.l4.2026', 44],
-    own: 'The second of three physiological roles the slide lists for the liver, after metabolic regulation and before bile production.',
+    own: 'The liver removes and breaks down circulating drugs, toxins and hormones, keeping the blood composition steady.',
   },
   {
     k: 'substance',
@@ -822,7 +822,7 @@ export const ROWS = [
     parent: 'p_gallbladder',
     w: 4,
     src: ['phys.l4.2026', 42, 49, 50],
-    own: 'A duct carrying bile from the liver and gallbladder to the duodenum; it is labelled on the gallbladder and pancreas diagrams.',
+    own: 'Carries bile from the liver and gallbladder into the duodenum.',
   },
   {
     k: 'part',
@@ -842,7 +842,7 @@ export const ROWS = [
     parent: 'p_gallbladder',
     w: 4,
     src: ['phys.l4.2026', 51],
-    own: 'Where the slide says bile is ejected into the duodenum when CCK causes the gallbladder to contract.',
+    own: 'The opening where bile and pancreatic juice enter the duodenum.',
   },
 
   // --- Coordination of secretion and absorption (p_coord) ---
@@ -933,7 +933,7 @@ export const ROWS = [
     parent: 'p_largeint',
     w: 4,
     src: ['phys.l4.2026', 61],
-    own: 'Labelled beside the cecum on the slide\'s diagram of the regions of the large intestine.',
+    own: 'A blind pouch off the cecum whose lymphoid nodules make it an organ of the lymphatic system.',
   },
   {
     k: 'part',
@@ -953,7 +953,7 @@ export const ROWS = [
     parent: 'p4_colon',
     w: 4,
     src: ['phys.l4.2026', 60, 61],
-    own: 'The first of the four regions of the colon the slide lists, before the transverse colon.',
+    own: 'Absorbs water from the material as it moves up the right side of the abdomen.',
   },
   {
     k: 'part',
@@ -963,7 +963,7 @@ export const ROWS = [
     parent: 'p4_colon',
     w: 4,
     src: ['phys.l4.2026', 60, 61],
-    own: 'The second of the four regions of the colon the slide lists, after the ascending colon.',
+    own: 'Carries the contents across the abdomen from right to left, reabsorbing water as it goes.',
   },
   {
     k: 'part',
@@ -973,7 +973,7 @@ export const ROWS = [
     parent: 'p4_colon',
     w: 4,
     src: ['phys.l4.2026', 60, 61],
-    own: 'The third of the four regions of the colon the slide lists, after the transverse colon.',
+    own: 'Reabsorbs water and salts from the material as it moves down the left side of the abdomen.',
   },
   {
     k: 'part',
@@ -983,7 +983,7 @@ export const ROWS = [
     parent: 'p4_colon',
     w: 4,
     src: ['phys.l4.2026', 60, 61],
-    own: 'The fourth of the four regions of the colon the slide lists, after the descending colon.',
+    own: 'An S-shaped segment that stores faeces and moves them into the rectum, which triggers defecation.',
   },
   {
     k: 'part',
@@ -993,7 +993,7 @@ export const ROWS = [
     parent: 'p_largeint',
     w: 4,
     src: ['phys.l4.2026', 61],
-    own: 'Labelled on the slide\'s diagram of the large intestine, near the teniae coli and the sigmoid colon.',
+    own: 'Pouches of the colon formed by the teniae coli, which let the colon expand and elongate.',
   },
   {
     k: 'part',
@@ -1003,7 +1003,7 @@ export const ROWS = [
     parent: 'p_largeint',
     w: 4,
     src: ['phys.l4.2026', 61],
-    own: 'Labelled on the slide\'s diagram of the large intestine, along with the haustra and omental appendices.',
+    own: 'Three bands of smooth muscle along the colon whose tone pulls the wall into haustra.',
   },
   {
     k: 'part',
