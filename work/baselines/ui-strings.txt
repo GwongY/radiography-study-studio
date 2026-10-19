@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 978 —
-  839a5091438c2496  WHOLE SET
+— user-facing strings in outputs/ — 986 —
+  819ef3ab52225644  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -15,6 +15,7 @@
   f50d324d8a3b2119  " aria-label="
   b3c0b044207f0ecc  " aria-pressed="
   49e64241e3e15d62  " aria-pressed="false">
+  cee9078a7a6abefd  " data-at="
   b52c5573bfa9d3bf  " data-component="
   d9f636bbe94e0ae5  " data-concept="
   8ea7e01970b3f34f  " data-depth="
@@ -29,9 +30,10 @@
   f847813600bc8f62  " role="status">
   eb82935571faaac8  " style="--acc:
   a70a4627802e8fd1  " style="text-align:left;cursor:
-  9c59607878e9ffc2  " text-anchor="
   e272ca64fe23b521  " title="
   b7337d3498ef8467  " title="Follow the teaching week by itself">Auto
+  96de2d47a973c7ca  " transform="translate(
+  ddaed8f0c0a21455  ">Connections in 3D (
   98dff919a1651387  ">Named in
   fe28989274e10994  % banked from
   cce4036d8e09c47c  % marked
@@ -40,7 +42,6 @@
   450933f8f8e47891  % still to come. Highest still reachable:
   fab48eab3dda333d  % you need
   0d39dfc8843ce989  (display-mode: standalone)
-  1c6686f0a3559395  (or its row in this panel) to see why it links. 先睇線，再問點解：the reason pops up only for the one you point at.
   a085a59f1538c1fd  (prefers-color-scheme: dark)
   fce63bfb9ebaba3d  (prefers-reduced-motion: reduce)
   77bef085dc40b313  (subject root)
@@ -49,11 +50,13 @@
   9c0ccf1f5ceb1311  ). Showing the last saved briefing.
   bd5a091667ef8487  ). The Map has the same topics and links.
   b3e460cf6102e239  ). Threads, Tables and Decoder still work.
+  ef98b8f0eb8bf9dd  ): tap one to light it up, tap again to go there
   0ca05724eba6810f  *uArrivalSpan;float age=uMotorClock-arrival;rssBand=smoothstep(0.,.025,age)*(1.-smoothstep(.05,.10,age));rssSide=1.;\n
   75c7ea370d30e16f  , as a percentage"
+  11e6e401aaa72c89  , each ending in a
   843bdca5f41b8d44  , floating
+  bfd9a695232ff2aa  , in a topic's notes, opens the same topic in Brain 3D, where you can walk its links.
   9a278d9bf11e90ec  , inset dead
-  3d9662fc3889f4c4  , labelled with the reason. That is where the brain → nerve → muscle kind of connection shows up.
   0bff6b241b6ff6c2  , short by
   b918fd89f7c21601  , so that is what shows.
   bfd4242c0712a338  , tap for
@@ -113,14 +116,16 @@
   a92d150b6b9eeea2  <button data-show="
   25f49e24208984d6  <button type="button" class="nbtn" data-node="
   8f1ddc92fcdd66f1  <button type="button" class="nbtn" data-thread="
+  380f864b046ac3b9  <button type="button" class="rv-back" data-back="1">Back</button>
   988f0b5e4825f8c7  <button type="button" class="rv-chip rv-auto" data-auto="1" aria-pressed="
   b2f06ab240053277  <button type="button" class="rv-chip" data-week="
+  7be6ad5156454d4e  <button type="button" class="rv-linkbtn" data-to3d="
   5037f4fbb7be28c4  <button type="button" class="term" data-term="
   f67a053a761acb59  <button type="button" data-ha-echo="
   a11210dc5f7b44a3  <button type="button" data-ha-preset="
   068e3f966e869db7  <button type="button" data-la-preset="
   3b01ee2603c4c016  <button type="button" data-la-region="
-  edf7f1be7d1d26fd  <circle cx="
+  9040bc486e8d129c  <button type="button" data-trail="
   42fe6c40c24b5c28  <div class="empty">Nothing important in this week\'s university email.</div>
   4e5528ba372cc6f9  <div class="empty">Nothing left on the published deadlines.</div>
   6b5b6a25a2f50ee3  <div class="empty">Recent searches — tap to run again</div>
@@ -137,7 +142,8 @@
   a2a3d9fba89127bb  <div class="rv-note shown">Branch heading. Topics inside:</div><div class="nlist" style="margin-top:8px">
   079bd17310af1ec7  <div class="sessnote">Another group’s slot — hidden from your counts.</div>
   6634c6d53e1e4431  <div class="upnext
-  9dae22a7cf893a5d  <div id="rvBfallback">This device cannot draw 3D graphics. The Map has the same topics and links.</div>
+  01cae9b7a911e0bb  <div id="rvBfallback">This device cannot draw 3D graphics. The Links list and the Map show the same links.</div>
+  b462c4f1b869df7c  <g class="rv-dot
   c5c104a746bff703  <h4>Derived from</h4>
   fa7e758003d5978e  <h4>Pathways through this topic</h4><div class="nlist">
   a03547db46bf9e4b  <i style="background:#
@@ -150,14 +156,14 @@
   4a0089a78242886e  <li class="sessrow
   16b4b492a8dc070b  <option value="">Pick a pathway…</option>
   e118852a651db556  <option value="">Pick a topic…</option>
-  50736c338f7db54a  <p class="rv-quizhint">Test me is on. Say the answer in your head first, then tap the blur to check. 自己估下先，再撳開睇。</p>
   1e3664261ca012db  <p class="small">Enable a layer to adjust opacity.</p>
   a2ec6a726731d8d4  <p class="small">Open the 3D model to measure its levels.</p>
   0a552549eab9f1bc  <p class="small">The section is put away while the Projection tab is open — that beam is drawn by a shader that ignores clipping planes, so a cut there would be silently ignored. It comes back exactly as you left it.</p>
   0fdaafc926d93c69  <path class="
-  44253459e8795ded  <section class="card sylcard" style="--acc:
-  a8a2ffd086d2a88d  <section class="markcard" style="--acc:
+  b720ae2902410f75  <section class="card sylcard" data-subj="
+  c01c9914acb8c640  <section class="markcard" data-subj="
   797b7e050cea9dbd  <section class="weekblock
+  716d87006980fa2b  <span aria-hidden="true">›</span>
   1e9880161389bfd4  <span class="banked" style="width:
   c01f823061ea0f83  <span class="chip beyond">Beyond your course \u2014 one of a kind</span>
   7b73cadaeb914935  <span class="chip beyond">Not named in your course material</span>
@@ -210,20 +216,19 @@
   13e0765632a97ef3  BOTH faces (not signed) because entering and leaving each cross one.
   c3f65e6d3ec7ab24  Back to the question
   8064be1e537993c1  Beam collimation accessories and shielding: Cerrobend blocks (melting point 70°C, 25 lbs hazard), asymmetric independent jaws (<0.5% transmission), dynamic wedges (30 cm field width), multileaf collimators (3 cm/s leaf speed), photoneutron hazards above 10 MV, and 5 m maze entrance shielding.
+  ff2a69e64172f10b  Before you open a branch, name what is inside it. That is the revision.
   87b238e3beba6204  Beyond your course \u2014
   a2bec3fc1436c89c  Biology (S4-6) 2007 (with updates in November 2015)
   0a63590f65cfd859  Biology Curriculum (Secondary 4-6) Supplementary Document (2015 printing; applies to the 2016 HKDSE and onwards) — cd1.edb.hkedcity.net/cd/science/biology/supplementary/bio_supplement_e_2016.pdf
   7e30ea7ed2acb764  Biology Curriculum and Assessment Guide (S4–6), updated Nov 2015
-  84b11074c6028e67  Blur the notes so you can recall them first
   182d6f9b9b115719  Body cavities
   e72ca92c0272f35b  Body layers
   2cea2e3a045ac3d2  BodyParts3D / Anatomography model licensing and the candidate sources that were reviewed.
   14352d43201b3476  Bone goes translucent; the cavity reads straight through it.
   e270caf3ffdc6356  Bone landmarks
   63042ab0dfb866aa  Bottom strip left alone. The app stops at the edge of the viewport.
-  6042224bd959d2b0  Brain & cord
   1fbb2550c83f0a26  Brain & spinal cord
-  338bdd1dac9b28d8  Brain 3D
+  3bde7bf844de948d  Brain 3D: how things connect
   53c88dc6b8160b72  Breathing · diaphragm and lungs
   08dec09e60523dff  Browser tab · viewport
   f30ae92534e255f4  Built out of
@@ -249,7 +254,6 @@
   ed83ad7bf06ab235  Close the other viewer mode before opening the limb vessels.
   7b41319301f2ac0e  Colour key
   2c5b57d5e71b2811  Colours and rhythms are drawn by this app, not measured.
-  4d04c99327f18548  Colours group into six neighbourhoods. A line that jumps between two colours is a link across systems, and those are the ones exams like to ask about.
   c6ffddc144cdab7e  Common confusions
   365f81eef39949e8  Comprehensive review (Palma et al. 2010) on arc radiotherapy modalities: 2D vs 3D-CRT vs IMRT vs Arc Therapy (Tomotherapy & VMAT), continuous beam delivery while rotating, integral dose considerations, secondary cancer risks, delivery time reduction, and monitor unit (MU) efficiency.
   dd3713b4cdcac4eb  Conduction system
@@ -257,8 +261,8 @@
   e889a1ffb05f45ba  Connect a read-only GitHub token to read the private weekly university notice summary on Today.
   ea15571d2e81759e  Connect once to download the circulatory layer for offline use.
   ecfa0bb83a393a74  Connect once to download the vessel routes for offline use.
-  af7c19f292a86989  Connected to (
   d092247971ad1619  Connected. The credential is stored in this browser.
+  9b7b1f19bce40e3f  Connections in 3D
   5d1ae0c75b2cc967  Coronary arteries and veins
   4a0c3a0072aecfa0  Could not load that layer — the others are still there.
   7405b8bbcaf9d423  Could not load that model — the skeleton is still available.
@@ -354,7 +358,6 @@
   1dd81b3e6efbe82c  Heartbeat and schematic ECG
   2a7c8d2f587fec15  Hidden (
   33832e6712de5c86  Hide this
-  018593d6d1ad868d  Hover a linked topic
   9cb5da4c5b3239cb  How to read this map
   3da484ff55f9a8cd  Human Anatomy
   df5c8963a56c4105  Human Anatomy Manual 1819.pdf
@@ -372,7 +375,7 @@
   d383d16f5923dc11  Introduction to Medical Radiation Science
   0dff914432484e16  Introduction to Sociology
   51dce19cd3833ded  Introduction to Sociology (2026-2027 Sem.1).pdf
-  44b2104669287ba5  It is a normal mind map: six coloured branches, each opening into topics. Tap a name to open its branch and read it here.
+  2c58384f80f14de2  It is a normal mind map: six coloured branches, each opening into topics, and topics opening into single muscles, bones, joints and nerves. Tap a name to open its branch and read it here.
   8ccc3126acbbefa7  It is shaped like a cuckoo beak: the tail remnant left behind.
   8c279f0914b7eb4e  It is teaching week
   9d0d3e0a20bc01d4  Joint angle
@@ -494,9 +497,9 @@
   2efc956104ec7d7a  Offline & storage
   e1070a158b550318  Offline-first study system for HSS2011 Human Anatomy, ABCT2326 Human Physiology and medical radiation science.
   e4a002696fd31154  Older official HSS2011 Special Senses lecture by Dr William Tsang. Used because the 2026 syllabus still assigns Special Senses in Week 7 and no current Week 7 lecture has been supplied. Covers the eye and visual pathway, ear and cochlea, equilibrium, and gustation; its olfaction slide is only a reading-list pointer, so olfactory anatomy is completed from the registered HSS neuroanatomy lecture.
-  5f529dc3126fa412  On a topic with many links the lines carry no labels at first.
   1e4827dab1028aa7  On where the page is measured short of the screen — it extends the app into the strip so the tab bar reaches the edge. What is left after that is the screen\'s own rounded corner, which no page can fill.
   2e83d0f606bbeb05  One per system folder (1–10).
+  d60f8697d151f82e  One topic sits in the middle. Round it are the topics it links to; the faint dots further out are the next step. The Map shows what belongs where; this shows the links across it.
   4ab8e7a5acc75973  Open detail
   bc135a2d441222b6  Open the 3D model first.
   708b05ba8e2011a3  OpenStax — openstax.org
@@ -600,8 +603,8 @@
   8a4f2ddb68e960e8  Syllabus mapped · audited sources
   eb81808a3bbd84cf  TIBia = TIBe weight-bearing. The medial malleolus is the inner ankle bump.
   a74b2c7ed30b2af3  TTE or TEE
-  926c79c7de0d0ba0  Tap a dot
   86e499302603b045  Tap a structure
+  0e38c1877273b1c3  Tap any ball or name
   972ad77d901803a7  Tap the heart, or choose a chamber or valve, to read about it.
   d7e20a4ec38c6ac4  Tap the heart, or choose a chamber or valve, to read about it. Descriptions are adapted from BetterHeart.
   102e94ebbb429ab6  Tap the image to name a structure. Drag to pan; use Zoom to enlarge the image.
@@ -627,6 +630,7 @@
   410d485ff7e6b46b  The Respiratory System.pdf
   9ebdb7b20f4558c3  The briefing file is malformed:
   a1ff59cbc2ef3956  The cerebral circulation the Module 2 lectures never teach but the stroke fill-in-the-blank tests every year — the arterial circle (circle of Willis / cerebral arterial cycle), the internal carotid and vertebral inflow, the dural venous sinuses, and the meningeal layers. Registered for SP1 Module 2.
+  7817299cb7910466  The chain you walked
   f445cb8ba3f6b544  The circulatory layer did not load.
   07c58fcce5e3b9af  The confirmed 2025/26 lecture on Medical Imaging Modalities and Equipment by Dr Liang-Ting Lin (42 slides). General X-ray (film vs CR vs DR), fluoroscopy/angiography, computed tomography, radionuclide imaging (SPECT/PET), MRI, and ultrasound.
   58e55d5fa025b10d  The enhanced heart did not align with the model, so it was left off.
@@ -634,6 +638,7 @@
   7bce956a047534c7  The flow dots could not load. Try again.
   f44fc384994cd331  The four quadrants
   f1b6f4d1bbc67e3f  The funny-bone groove
+  7b2f6ad8ffe0edae  The grey ball at the top is the branch the topic sits in on the Map.
   163b106c4f497084  The heart atlas could not load. Your viewer has been restored; try again.
   b8f7cccf6f308adc  The heart atlas did not align with the model. Your previous viewer state was restored.
   45977a18ccdb7c80  The heart atlas is loading. Please wait.
@@ -654,13 +659,14 @@
   a7c6e6433e70b227  The mid-sagittal plane, measured from the midline structures themselves — the vertebral column and the sternum — rather than assumed to be x = 0.
   45ac6ce6220f94f4  The model is not rendering yet.
   c30d436bb4db379e  The nine abdominopelvic regions
+  f03b5c49a3a60d37  The numbers on the lines match the
   1ee065c69f618147  The only horizontal long bone: an S-shaped key between sternum and shoulder.
   9539cace1b778297  The private repository or notice file was not found.
   76d42016751dbca5  The projection needs the body assembled.
   f8fde19067e881fa  The projection reads through closed surfaces — section it in the 3D view.
   8baacea34fdc4ab0  The radius rotates over the ulna like a wheel spoke. It is on the thumb side.
   444c5de284285e50  The sacred wedge-shaped keystone locks the pelvic ring together.
-  d2e62265a19712df  The small tags (W1…) say when each topic was taught.
+  0cfb09a0a7e6b9ab  The small tags (W1…) say when each topic was taught. The grey line under a muscle is what it does, from the slide.
   d34c527efb66b8ea  The study tools still work. Check your connection, then retry the model layer.
   a6d6e45faa6aea68  The supplied timetable lists all three tutorial and lab groups without saying which is yours. Pick them once and the other groups’ slots are dimmed and left out of your counts.
   8786e514e5dee92d  The teaching term is over
@@ -726,6 +732,7 @@
   595c0868c16492a2  Where the xiphoid process meets the body of the sternum, at the anterior end of the thoracic outlet.
   c19e1f70b7aed2d9  Which arm
   14ab8c8c07e135d1  Whole body
+  bab1adc2881dfa58  Why each topic links
   a8d1f0be7354e2b9  Writes every dated class, lab and deadline as a standard .ics file. Open it and your phone or laptop calendar offers to add them — after which the reminders are the calendar\'s job, not this app\'s.
   f2737495d683165a  Xiphisternal joint
   900198b07e06f2d2  Year 1 Sem 1 Source
@@ -749,7 +756,6 @@
   038dbe3356c60c5f  assets/xray/ is empty \u2014 add a licence-cleared image
   f0a2f6bcdb910bd5  axial at the sternal angle
   4c7527e58057a88f  beats and
-  0c54865270dc85aa  blurs the notes and link reasons. Recall first, then tap to check.
   8db95312cb849877  bone mesh
   642d69680683778d  boot on Today, then tap Viewer
   a4d8d4905749584b  border:1px solid rgba(114,227,207,.4);border-radius:16px;background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03));padding:18px
@@ -782,7 +788,6 @@
   99ab1c88ca5ca156  extra source2.0/Year 1 Sem1/Anat/M3
   13a86f208033b6a8  failed its digest
   9c8f0126861d9ea2  final paper.docx
-  bc7f4cbf853879b8  flies you through a pathway stop by stop. Press
   507593ca8dd72ee2  float arrival=uArrivalStart+
   f3b824b884a50db2  float bulk = sgn * (-vPosition.z - vCenterDepth) / rayCos * uCmPerUnit * uMu;
   d2e20b189c0af032  float density = clamp((tau - uWinLo) / (uWinHi - uWinLo), 0.0, 1.0);
@@ -835,13 +840,15 @@
   685dafbd5e3df475  left and right
   ffd3f57d74f648cd  li[data-wk], tr[data-wk]
   486ef3aa4d9d1ed3  lines to everything it links to
-  475a27209211c549  links, as a network floating in space. Bigger dots have more links, so the hubs stand out. Each week you reach adds dots and joins them to the ones already there.
+  aac04770553cef95  list under the map gives the reason for each number. Tap a row to light up its line; tap it again to go there.
+  204cb40985c0081f  list under the picture. Tap a row to light up its line, tap it again to go there.
   a5dc748e4551de5f  lymph node
   b4d0b1a5df8f0d4a  measured from
   ddef735c79b2f059  median plane from the vertebral column and sternum; transumbilical plane at the L3/L4 junction
   1c75c0d36de79131  midclavicular lines from the midpoint of each clavicle; subcostal plane at the tenth costal cartilage; transtubercular plane at the iliac tubercles
   f3d699287b13df92  min-height:38px;border:1px solid var(--line);border-radius:9px;background:rgba(255,186,103,.12);color:var(--orange);padding:0 12px;font-size:12px
   6581a1af2821cdb5  mmt mmb mmroot
+  2404a2a6da56a404  more in the list
   9926eafbd8d2de07  more step
   65ee551fb198c26a  must be an ISO timestamp with an offset.
   f46b7e5ab634f52d  mv-note hidden
@@ -891,6 +898,7 @@
   ade98b80a888aed2  s own signature. 
   0fb35ed1991ca018  s pages add to the explorer
   d10676d5ce41f402  s topics under this week
+  f290c69ba59f71b0  s underline, clear of Markmap
   1946ee43aab92871  screen, but with no top inset — the status bar is opaque, so the page starts below it and reaches the bottom. No band.
   1299be2249d386cf  screen. No band.
   2ba630de2f754c51  screen. That gap is the band.
@@ -899,6 +907,7 @@
   8eb22913bea624fe  segbar asscount
   d0f660b8c5b0b50c  segbar coursetabs
   cd3c2bcf3f5c6659  segbar hidden
+  4e609444f1178e6b  segbar subjjump
   65e03182d9d760c0  selpanel hidden
   37e8cb66682dd7b0  separately selectable">
   a8970b03087f1926  sheetscrim hidden
@@ -915,16 +924,15 @@
   dd6b1fb86b59799a  source.quote is missing.
   0d9fec38ee8cf1fe  source.receivedAt must be ISO with an offset.
   a1c7213f9215c796  source.threadId must be hexadecimal.
+  4ff53f9057f1ce39  steps back.
   88a595b7ebfe83fb  summary small
   ed964bcd197f9142  tap to name
   f5f88ae39b9a5ceb  that structure
   8ef9472e82771a5b  the body frame
   4f6a3d859e615a5a  the skeleton
   8a3a6bcf33fef191  this is what I got
-  53bc713bab10603a  to fly to it. Its links light up and small pulses run along them, like signals along a nerve. Its notes open here.
-  4d25c171929a0ada  to let it run, or use ◀ ▶. 跟住條路行一次，個次序就會記得。
+  a9cfb7f3dd5ef2c1  to bring it to the middle. The trail at the top keeps the chain you walked;
   5d2033a00068467a  to uncover
-  40ba46112718eb4e  topics you have learnt so far and their
   e44871869c937cfc  uShell is zero for the soft-tissue layers. See radiography.js boneTau(). */
   e53766dcd94ffbe0  uncoverbanner hidden
   b76b61628827fa7f  under one name
@@ -956,6 +964,7 @@
   eddc22218b2be4a2  vec4 mv = modelViewMatrix * vec4(position,1.0);
   6a721f9bcdcf952d  view hidden
   691c01cec2897213  viewer-tools-panel tools-collapsed
+  17309428bb5a39d1  walks one pathway stop by stop. 跟住條路行一次，個次序就會記得。
   517a9e300094cc0d  wall interpolated between the costal margin and the pelvis (muscle layer not loaded)
   e78e242b95628323  what is left
   d1d9ae15f23c9b21  what should I study
@@ -969,7 +978,6 @@
   0ab77651425c254f  you can select · tap one
   d7085db92f248fb1  you need 140%
   6aa6cfac2b89d73f  your course names none of these one by one
-  1198ce0e9bf5dbb2  zooms out to the whole brain.
   9933c459a1daee37  · AI summary — check the quoted email before acting.
   cede9d46ada8b8f1  · found under "
   36a28bbb25a617bc  · modelled, but named in none of your course material
