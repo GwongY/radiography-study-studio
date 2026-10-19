@@ -20,9 +20,9 @@ export const ROWS = [
   { k: 'cell', id: 'p7_secondary_spermatocytes', l: 'Secondary spermatocytes', parent: 'p_spermato', w: 7, line: 'finish meiosis I to form immature gametes', src: [L6, 5] },
   { k: 'cell', id: 'p7_spermatids', l: 'Spermatids', parent: 'p_spermato', w: 7, line: 'finish meiosis II and differentiate into spermatozoa', src: [L6, 5, 3] },
   { k: 'cell', id: 'p7_spermatozoa', l: 'Spermatozoa', parent: 'p_spermato', w: 7, line: 'lose contact with tubule wall and enter fluid in lumen', src: [L6, 5, 8] },
-  { k: 'part', id: 'p7_sperm_head', l: 'Head', parent: 'p7_spermatozoa', w: 7, line: 'five micrometre head containing nucleus and acrosome', own: 'The anterior region of a spermatozoon containing the condensed genetic material.', src: [L6, 8] },
+  { k: 'part', id: 'p7_sperm_head', l: 'Head', parent: 'p7_spermatozoa', w: 7, line: 'five micrometre head containing nucleus and acrosome', src: [L6, 8] },
   { k: 'part', id: 'p7_acrosome', l: 'Acrosome', parent: 'p7_spermatozoa', w: 7, line: 'cap containing enzymes that allow sperm to digest into oocyte', src: [L6, 8, 41] },
-  { k: 'part', id: 'p7_middle_piece', l: 'Middle piece', match: 'Middle piece', parent: 'p7_spermatozoa', w: 7, line: 'five micrometre section containing mitochondrial spiral', own: 'The central segment of a sperm cell packed with mitochondria providing energy for movement.', src: [L6, 8] },
+  { k: 'part', id: 'p7_middle_piece', l: 'Middle piece', match: 'Middle piece', parent: 'p7_spermatozoa', w: 7, line: 'five micrometre section containing mitochondrial spiral', src: [L6, 8] },
   { k: 'part', id: 'p7_sperm_tail', l: 'Tail', parent: 'p7_spermatozoa', w: 7, line: 'flagellum with fibrous sheath providing whip-like motility', src: [L6, 8, 40] },
   { k: 'cell', id: 'p7_sertoli', l: 'Sertoli cells', match: 'Sertoli cells', parent: 'p_spermato', w: 7, line: 'surround stem cells and support developing spermatocytes and spermatids', src: [L6, 10, 3, 11, 15], makes: { p7_abp: 'synthesize androgen-binding protein', p7_inhibin: 'synthesize inhibin' } },
   { k: 'substance', id: 'p7_abp', l: 'Androgen-binding protein', match: 'androgen-binding protein', parent: 'p7_sertoli', w: 7, line: 'binds onto testosterone to increase the concentration of testosterone', src: [L6, 11], acts: { p7_testosterone: 'binds and concentrates testosterone' } },
@@ -35,8 +35,8 @@ export const ROWS = [
 
   /* ---------------- Testosterone actions (p13-15) ---------------- */
   { k: 'substance', id: 'p7_testosterone', l: 'Testosterone', parent: 'p_testosterone', w: 7, line: 'required to stimulate meiosis and early spermatid maturation', src: [L6, 15, 13, 14], acts: { p7_primary_spermatocyte: 'stimulates meiosis and early spermatid maturation' } },
-  { k: 'group', id: 'p7_sec_sex_char', l: 'Secondary Sexual Characteristics', match: 'Secondary Sexual Characteristics', parent: 'p_testosterone', w: 7, line: 'growth and maintenance of penis and secondary sexual organs', own: 'Physical traits distinguishing male sex that develop under androgen stimulation during puberty.', src: [L6, 14] },
-  { k: 'group', id: 'p7_anabolic_effects', l: 'Anabolic Effects', match: 'Anabolic Effects', parent: 'p_testosterone', w: 7, line: 'protein synthesis and muscle growth and growth of bones', own: 'Metabolic actions promoting protein synthesis and tissue enlargement stimulated by testosterone.', src: [L6, 14] },
+  { k: 'group', id: 'p7_sec_sex_char', l: 'Secondary Sexual Characteristics', match: 'Secondary Sexual Characteristics', parent: 'p_testosterone', w: 7, line: 'growth and maintenance of penis and secondary sexual organs', src: [L6, 14] },
+  { k: 'group', id: 'p7_anabolic_effects', l: 'Anabolic Effects', match: 'Anabolic Effects', parent: 'p_testosterone', w: 7, line: 'protein synthesis and muscle growth and growth of bones', src: [L6, 14] },
 
   /* ---------------- Male accessory sex organs & sperm movement (p16-18) ---------------- */
   { k: 'part', id: 'p7_rete_testis', l: 'Rete testis', match: 'rete testis', parent: 'p_male_acc', w: 7, line: 'network of ducts receiving sperm from seminiferous tubules', src: [L6, 16] },
@@ -55,24 +55,24 @@ export const ROWS = [
 
   /* ---------------- Female reproductive organs (p20-22) ---------------- */
   { k: 'part', id: 'p7_ovary', l: 'Ovary', match: 'Ovary', parent: 'p_female', w: 7, line: 'female gonad containing follicles that release ovum at ovulation', src: [L6, 20, 22, 24, 27] },
-  { k: 'part', id: 'p7_uterine_tube', l: 'Uterine tube', match: 'Uterine tube', parent: 'p_female', w: 7, line: 'duct connecting ovary to uterus where fertilization occurs', own: 'Ciliated muscular tube that transports the ovulated secondary oocyte from the ovary to the uterus.', src: [L6, 20] },
-  { k: 'part', id: 'p7_vagina', l: 'Vagina', match: 'Vagina', parent: 'p_female', w: 7, line: 'elastic muscular canal extending from cervix to external genitalia', own: 'The distensible muscular canal extending from the uterine cervix to the vestibule of external genitalia.', src: [L6, 20] },
+  { k: 'part', id: 'p7_uterine_tube', l: 'Uterine tube', match: 'Uterine tube', parent: 'p_female', w: 7, line: 'duct connecting ovary to uterus where fertilization occurs', src: [L6, 20] },
+  { k: 'part', id: 'p7_vagina', l: 'Vagina', match: 'Vagina', parent: 'p_female', w: 7, line: 'elastic muscular canal extending from cervix to external genitalia', src: [L6, 20] },
   { k: 'part', id: 'p7_cervix', l: 'Cervix', match: 'Cervix', parent: 'p_female', w: 7, line: 'inferior portion of uterus that dilates during delivery', src: [L6, 20, 55, 56] },
 
   /* ---------------- Uterus & uterine wall layers (p20-21, 37-38) ---------------- */
-  { k: 'part', id: 'p7_perimetrium', l: 'Perimetrium', match: 'Perimetrium', parent: 'p_uterus', w: 7, line: 'outer serosa layer of the uterine wall', own: 'The outer serous layer of the uterine wall providing an external peritoneal covering.', src: [L6, 20] },
+  { k: 'part', id: 'p7_perimetrium', l: 'Perimetrium', match: 'Perimetrium', parent: 'p_uterus', w: 7, line: 'outer serosa layer of the uterine wall', src: [L6, 20] },
   { k: 'part', id: 'p7_myometrium', l: 'Myometrium', match: 'Myometrium', parent: 'p_uterus', w: 7, line: 'middle smooth muscle layer whose contractions eject foetus at birth', src: [L6, 20, 49, 56] },
   { k: 'part', id: 'p7_endometrium', l: 'Endometrium', match: 'Endometrium', parent: 'p_uterus', w: 7, line: 'inner glandular mucosal layer that supports embryo and breaks down during menstruation', src: [L6, 20, 37, 38, 47, 48, 56] },
 
   /* ---------------- Ovarian cycle: follicles, phases & hormones (p24, 27, 29-37) ---------------- */
-  { k: 'part', id: 'p7_primordial', l: 'Primordial follicles', match: 'Primordial follicles', parent: 'p_ovarian', w: 7, line: 'resting follicles present in ovary before monthly recruitment', own: 'Dormant ovarian follicles each consisting of an oocyte surrounded by a single flattened follicular layer.', src: [L6, 27] },
+  { k: 'part', id: 'p7_primordial', l: 'Primordial follicles', match: 'Primordial follicles', parent: 'p_ovarian', w: 7, line: 'resting follicles present in ovary before monthly recruitment', src: [L6, 27] },
   { k: 'part', id: 'p7_primary_follicle', l: 'Primary follicle', match: 'Primary follicle', parent: 'p_ovarian', w: 7, line: 'one gets bigger each month while others degenerate', src: [L6, 27, 24] },
-  { k: 'part', id: 'p7_secondary_follicle', l: 'Secondary follicle', match: 'Secondary follicle', parent: 'p_ovarian', w: 7, line: 'developing follicle with multiple layers and fluid accumulation', own: 'A maturing ovarian follicle with multiple granulosa cell layers and accumulating follicular fluid.', src: [L6, 27, 31] },
+  { k: 'part', id: 'p7_secondary_follicle', l: 'Secondary follicle', match: 'Secondary follicle', parent: 'p_ovarian', w: 7, line: 'developing follicle with multiple layers and fluid accumulation', src: [L6, 27, 31] },
   { k: 'part', id: 'p7_graafian', l: 'Graafian follicle', match: 'Graafian follicle', parent: 'p_ovarian', w: 7, line: 'mature follicle that bulges out of ovary wall before rupture', src: [L6, 31, 32, 33] },
   { k: 'cell', id: 'p7_secondary_oocyte', l: 'Secondary oocyte', match: 'Secondary oocyte', parent: 'p_ovarian', w: 7, line: 'gamete released at ovulation arrested until fertilization', src: [L6, 27, 33] },
-  { k: 'part', id: 'p7_corona_radiata', l: 'Corona radiata', match: 'Corona radiata', parent: 'p7_secondary_oocyte', w: 7, line: 'granulosa cells surrounding the secondary oocyte during ovulation', own: 'An outer protective ring of follicular cells adhering to the secondary oocyte after ovulation.', src: [L6, 27] },
+  { k: 'part', id: 'p7_corona_radiata', l: 'Corona radiata', match: 'Corona radiata', parent: 'p7_secondary_oocyte', w: 7, line: 'granulosa cells surrounding the secondary oocyte during ovulation', src: [L6, 27] },
   { k: 'part', id: 'p7_corpus_luteum', l: 'Corpus luteum', match: 'Corpus luteum', parent: 'p_ovarian', w: 7, line: 'secretes both estrogen and progesterone to maintain endometrium', src: [L6, 29, 27, 35, 37, 48], makes: { p7_estrogen: 'secretes estrogen', p7_progesterone: 'secretes progesterone' } },
-  { k: 'part', id: 'p7_corpus_albicans', l: 'Corpus albicans', match: 'Corpus albicans', parent: 'p_ovarian', w: 7, line: 'scar tissue formed upon degeneration of corpus luteum', own: 'The pale connective tissue scar formed in the ovary after the corpus luteum undergoes regression.', src: [L6, 27] },
+  { k: 'part', id: 'p7_corpus_albicans', l: 'Corpus albicans', match: 'Corpus albicans', parent: 'p_ovarian', w: 7, line: 'scar tissue formed upon degeneration of corpus luteum', src: [L6, 27] },
   { k: 'process', id: 'p7_follicular', l: 'Follicular phase', match: 'Follicular phase', parent: 'p_ovarian', w: 7, line: 'characterized by increasing levels of estrogen production reaching a high', src: [L6, 30, 31, 32], next: { p7_ovulation: 'leads to ovulation' } },
   { k: 'process', id: 'p7_ovulation', l: 'Ovulation', match: 'Ovulation', parent: 'p_ovarian', w: 7, line: 'rupture of Graafian follicle releasing secondary oocyte into cavity', src: [L6, 30, 33, 24, 27], next: { p7_luteal: 'leads to luteal phase' } },
   { k: 'process', id: 'p7_luteal', l: 'Luteal phase', match: 'Luteal phase', parent: 'p_ovarian', w: 7, line: 'LH stimulates ruptured follicle to become a corpus luteum', src: [L6, 30, 35, 36, 37], next: { p_menstrual: 'leads to menstruation if no fertilization' } },
@@ -92,24 +92,24 @@ export const ROWS = [
 
   /* ---------------- Cleavage & Implantation (p46-48) ---------------- */
   { k: 'process', id: 'p7_cleavage', l: 'Cleavage', match: 'Cleavage', parent: 'p_implant', w: 7, line: 'series of cell divisions producing blastomeres from zygote', src: [L6, 46], links: { p7_morula: 'leads to morula formation' } },
-  { k: 'part', id: 'p7_morula', l: 'Morula', match: 'morula', parent: 'p_implant', w: 7, line: 'solid ball of cells resulting from early cleavage divisions', own: 'A solid spherical mass of blastomeres formed during early mitotic cleavage before cavitation.', src: [L6, 46] },
+  { k: 'part', id: 'p7_morula', l: 'Morula', match: 'morula', parent: 'p_implant', w: 7, line: 'solid ball of cells resulting from early cleavage divisions', src: [L6, 46] },
   { k: 'part', id: 'p7_blastocyst', l: 'Blastocyst', match: 'Blastocyst', parent: 'p_implant', w: 7, line: 'hollow ball with trophoblast outer layer and inner cell mass', src: [L6, 46, 47, 48] },
   { k: 'part', id: 'p7_trophoblast', l: 'Trophoblast', match: 'Trophoblast', parent: 'p7_blastocyst', w: 7, line: 'outer layer secreting enzymes to eat into endometrium during implantation', src: [L6, 46, 47, 49, 53], makes: { p7_hcg: 'releases chorionic gonadotropin' } },
-  { k: 'part', id: 'p7_cellular_trophoblast', l: 'Cellular trophoblast', match: 'Cellular trophoblast', parent: 'p7_trophoblast', w: 7, line: 'inner cellular layer of trophoblast during early implantation', own: 'The inner cellular layer of the trophoblast consisting of distinct cells surrounding the blastocoele.', src: [L6, 47] },
-  { k: 'part', id: 'p7_syncytial_trophoblast', l: 'Syncytial trophoblast', match: 'Syncytial trophoblast', parent: 'p7_trophoblast', w: 7, line: 'multinucleated outer layer eroding endometrial capillary and forming lacunae', own: 'The outer multinucleated invasive layer of the trophoblast that erodes into maternal endometrium.', src: [L6, 47] },
+  { k: 'part', id: 'p7_cellular_trophoblast', l: 'Cellular trophoblast', match: 'Cellular trophoblast', parent: 'p7_trophoblast', w: 7, line: 'inner cellular layer of trophoblast during early implantation', src: [L6, 47] },
+  { k: 'part', id: 'p7_syncytial_trophoblast', l: 'Syncytial trophoblast', match: 'Syncytial trophoblast', parent: 'p7_trophoblast', w: 7, line: 'multinucleated outer layer eroding endometrial capillary and forming lacunae', src: [L6, 47] },
   { k: 'part', id: 'p7_inner_cell_mass', l: 'Inner cell mass', match: 'Inner cell mass', parent: 'p7_blastocyst', w: 7, line: 'cluster of cells in blastocyst that differentiates into embryo', src: [L6, 46] },
   { k: 'part', id: 'p7_amniotic_cavity', l: 'Amniotic cavity', match: 'Amniotic cavity', parent: 'p_implant', w: 7, line: 'chamber that appears within inner cell mass during implantation', src: [L6, 47, 50] },
   { k: 'substance', id: 'p7_hcg', l: 'Chorionic gonadotropin', match: 'chorionic gonadotropin', parent: 'p_implant', w: 7, line: 'hormone keeping corpus luteum alive to release estrogen and progesterone', src: [L6, 48], acts: { p7_corpus_luteum: 'keeps corpus luteum alive' } },
 
   /* ---------------- Extraembryonic membranes & Placenta (p49-54) ---------------- */
-  { k: 'part', id: 'p7_chorion', l: 'Chorion', match: 'Chorion', parent: 'p_placenta', w: 7, line: 'outer extraembryonic membrane forming fetal component of placenta', own: 'The outermost fetal membrane that forms the chorionic villi for nutrient and gas exchange.', src: [L6, 50] },
+  { k: 'part', id: 'p7_chorion', l: 'Chorion', match: 'Chorion', parent: 'p_placenta', w: 7, line: 'outer extraembryonic membrane forming fetal component of placenta', src: [L6, 50] },
   { k: 'part', id: 'p7_chorionic_villi', l: 'Chorionic villi', match: 'Chorionic villi', parent: 'p_placenta', w: 7, line: 'contain fetal blood vessels around which maternal blood flows', src: [L6, 49, 53] },
   { k: 'part', id: 'p7_amnion', l: 'Amnion', match: 'Amnion', parent: 'p_placenta', w: 7, line: 'membrane expanding greatly to fill uterine cavity and enclose fluid', src: [L6, 50, 53] },
   { k: 'part', id: 'p7_yolk_sac', l: 'Yolk sac', match: 'Yolk sac', parent: 'p_placenta', w: 7, line: 'membrane whose stalk fuses with body stalk into umbilical stalk', src: [L6, 49] },
-  { k: 'part', id: 'p7_allantois', l: 'Allantois', match: 'allantois', parent: 'p_placenta', w: 7, line: 'endodermal sac whose remnants are contained within umbilical cord', own: 'An extraembryonic membrane whose structural remnants contribute to the umbilical cord.', src: [L6, 50] },
+  { k: 'part', id: 'p7_allantois', l: 'Allantois', match: 'allantois', parent: 'p_placenta', w: 7, line: 'endodermal sac whose remnants are contained within umbilical cord', src: [L6, 50] },
   { k: 'part', id: 'p7_decidua_basalis', l: 'Decidua basalis', match: 'Decidua basalis', parent: 'p_placenta', w: 7, line: 'maternal portion of endometrium underlying implanted embryo', src: [L6, 49, 50] },
-  { k: 'part', id: 'p7_decidua_capsularis', l: 'Decidua capsularis', match: 'Decidua capsularis', parent: 'p_placenta', w: 7, line: 'portion of endometrium covering the expanding embryo and trophoblast', own: 'The region of maternal endometrium that encloses the expanding blastocyst and extraembryonic membranes.', src: [L6, 49, 50] },
-  { k: 'part', id: 'p7_decidua_parietalis', l: 'Decidua parietalis', match: 'Decidua parietalis', parent: 'p_placenta', w: 7, line: 'endometrium lining the remainder of the uterine cavity', own: 'The remaining endometrium lining the uterine cavity not in direct contact with the gestational sac.', src: [L6, 49, 50] },
+  { k: 'part', id: 'p7_decidua_capsularis', l: 'Decidua capsularis', match: 'Decidua capsularis', parent: 'p_placenta', w: 7, line: 'portion of endometrium covering the expanding embryo and trophoblast', src: [L6, 49, 50] },
+  { k: 'part', id: 'p7_decidua_parietalis', l: 'Decidua parietalis', match: 'Decidua parietalis', parent: 'p_placenta', w: 7, line: 'endometrium lining the remainder of the uterine cavity', src: [L6, 49, 50] },
   { k: 'part', id: 'p7_umbilical_cord', l: 'Umbilical cord', match: 'Umbilical cord', parent: 'p_placenta', w: 7, line: 'connects fetus to placenta containing blood vessels and stalk remnants', src: [L6, 50, 54, 53, 55] },
   { k: 'part', id: 'p7_umbilical_arteries', l: 'Umbilical arteries', match: 'Umbilical arteries', parent: 'p7_umbilical_cord', w: 7, line: 'deliver fetal blood to placental vessels for exchange', src: [L6, 51, 53] },
   { k: 'part', id: 'p7_umbilical_vein', l: 'Umbilical vein', match: 'Umbilical vein', parent: 'p7_umbilical_cord', w: 7, line: 'returns oxygenated and nutrient-rich blood from placenta to fetus', src: [L6, 51, 53] },

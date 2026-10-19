@@ -18,7 +18,7 @@ export const ROWS = [
   { k: 'cell', id: 'p2_rbc', l: 'Red blood cells (erythrocytes)', match: 'Red blood cells', parent: 'p2_formed_elements', w: 2, line: 'flattened biconcave discs lacking nuclei and mitochondria', links: { p2_hemoglobin: 'each red blood cell contains 280 million molecules of' }, src: [L2, 7, 5] },
   { k: 'substance', id: 'p2_hemoglobin', l: 'Hemoglobin', match: 'hemoglobin', parent: 'p2_rbc', w: 2, line: 'each RBC contains 280 million hemoglobin molecules', src: [L2, 7] },
   { k: 'process', id: 'p2_hematocrit', l: 'Hematocrit', match: 'hematocrit', parent: 'p_blood', w: 2, line: 'percentage of RBCs in centrifuged blood sample: 36-46% women, 41-53% men', src: [L2, 5] },
-  { k: 'cell', id: 'p2_wbc', l: 'Leukocytes (WBCs)', match: 'leukocytes', parent: 'p2_formed_elements', w: 2, line: 'white blood cells of the formed elements', own: 'White blood cells that defend the body against infections and foreign substances.', src: [L2, 7] },
+  { k: 'cell', id: 'p2_wbc', l: 'Leukocytes (WBCs)', match: 'leukocytes', parent: 'p2_formed_elements', w: 2, line: 'white blood cells of the formed elements', src: [L2, 7] },
   { k: 'cell', id: 'p2_platelets', l: 'Platelets (thrombocytes)', match: 'Platelets', parent: 'p2_formed_elements', w: 2, line: 'fragments of megakaryocytes that constitute most of mass of blood clots', links: { p2_megakaryocytes: 'derived from bone marrow' }, src: [L2, 8] },
   { k: 'cell', id: 'p2_megakaryocytes', l: 'Megakaryocytes', match: 'megakaryocytes', parent: 'p_blood', w: 2, line: 'bone marrow cells whose fragments form platelets', src: [L2, 8] },
 
@@ -26,9 +26,9 @@ export const ROWS = [
   { k: 'group', id: 'p2_plasma_proteins', l: 'Plasma proteins', match: 'Plasma proteins', parent: 'p_plasma', w: 2, line: 'albumins, globulins, and fibrinogen constituting 7-9% of plasma', src: [L2, 6] },
   { k: 'substance', id: 'p2_albumin', l: 'Albumin', match: 'Albumin', parent: 'p2_plasma_proteins', w: 2, line: 'creates colloid osmotic pressure to maintain blood volume and pressure', src: [L2, 6] },
   { k: 'substance', id: 'p2_globulins', l: 'Globulins', match: 'Globulins', parent: 'p2_plasma_proteins', w: 2, line: 'plasma proteins that carry lipids', src: [L2, 6] },
-  { k: 'substance', id: 'p2_gamma_globulins', l: 'Gamma globulins', match: 'Gamma globulins', parent: 'p2_globulins', w: 2, line: 'antibodies functioning in immune defense', own: 'Plasma proteins produced by the immune system that act as circulating antibodies.', src: [L2, 6] },
+  { k: 'substance', id: 'p2_gamma_globulins', l: 'Gamma globulins', match: 'Gamma globulins', parent: 'p2_globulins', w: 2, line: 'antibodies functioning in immune defense', src: [L2, 6] },
   { k: 'substance', id: 'p2_fibrinogen', l: 'Fibrinogen', match: 'Fibrinogen', parent: 'p2_plasma_proteins', w: 2, line: 'clotting factor converted to fibrin', acts: { p2_fibrin: 'converted into' }, src: [L2, 6] },
-  { k: 'substance', id: 'p2_fibrin', l: 'Fibrin', match: 'fibrin', parent: 'p2_fibrinogen', w: 2, line: 'insoluble protein converted from fibrinogen', own: 'An insoluble protein that polymerizes into threads to form the structural framework of a blood clot.', src: [L2, 6] },
+  { k: 'substance', id: 'p2_fibrin', l: 'Fibrin', match: 'fibrin', parent: 'p2_fibrinogen', w: 2, line: 'insoluble protein converted from fibrinogen', src: [L2, 6] },
   { k: 'substance', id: 'p2_serum', l: 'Serum', match: 'Serum', parent: 'p_plasma', w: 2, line: 'fluid left when blood clots', src: [L2, 6] },
 
   /* ---------------- Blood vessels (p9-10, 12-13, 15-16) ---------------- */
@@ -105,9 +105,9 @@ export const ROWS = [
   { k: 'process', id: 'p2_rel_refractory', l: 'Relative refractory period', match: 'Relative refractory period', parent: 'p_refractory', w: 2, line: 'short period where response depends on degree of stimulus', src: [L2, 59] },
 
   /* ---------------- Electrocardiogram (p61-63) ---------------- */
-  { k: 'process', id: 'p2_p_wave', l: 'P wave', match: 'P wave', parent: 'p_ecg', w: 2, line: 'atria depolarize', own: 'An electrocardiogram deflection produced by depolarization of the atria prior to contraction.', next: { p2_qrs_complex: 'followed by ventricular depolarization' }, src: [L2, 62] },
-  { k: 'process', id: 'p2_qrs_complex', l: 'QRS complex', match: 'QRS complex', parent: 'p_ecg', w: 2, line: 'ventricles depolarize', own: 'An electrocardiogram waveform produced by the depolarization of the ventricles.', next: { p2_t_wave: 'followed by ventricular repolarization' }, src: [L2, 62] },
-  { k: 'process', id: 'p2_t_wave', l: 'T wave', match: 'T wave', parent: 'p_ecg', w: 2, line: 'ventricles repolarize', own: 'An electrocardiogram deflection produced by the repolarization of the ventricles.', src: [L2, 62] },
+  { k: 'process', id: 'p2_p_wave', l: 'P wave', match: 'P wave', parent: 'p_ecg', w: 2, line: 'atria depolarize', own: 'The part of the ECG that shows the atria depolarizing, before the QRS complex.', next: { p2_qrs_complex: 'followed by ventricular depolarization' }, src: [L2, 62] },
+  { k: 'process', id: 'p2_qrs_complex', l: 'QRS complex', match: 'QRS complex', parent: 'p_ecg', w: 2, line: 'ventricles depolarize', own: 'The part of the ECG that shows the ventricles depolarizing, after the P wave.', next: { p2_t_wave: 'followed by ventricular repolarization' }, src: [L2, 62] },
+  { k: 'process', id: 'p2_t_wave', l: 'T wave', match: 'T wave', parent: 'p_ecg', w: 2, line: 'ventricles repolarize', own: 'The part of the ECG that shows the ventricles repolarizing, after the QRS complex.', src: [L2, 62] },
   { k: 'process', id: 'p2_pr_interval', l: 'P–R interval', match: 'P–R interval', parent: 'p_ecg', w: 2, line: 'from start of atrial depolarization to start of QRS complex', src: [L2, 62] },
   { k: 'process', id: 'p2_qt_interval', l: 'Q–T interval', match: 'Q–T interval', parent: 'p_ecg', w: 2, line: 'from ventricular depolarization to ventricular repolarization', src: [L2, 62] },
 

@@ -14,9 +14,9 @@ export const SOURCES = {
 export const ROWS = [
   /* ---------------- cell parts and junctions (tutorial p5-8, 20) ---------------- */
   { k: 'group', id: 'p1_tis_cell', l: 'Cell', parent: 'p_tissues', w: 1, line: 'a tissue is a group of similar cells', src: [TIS, 5] },
-  { k: 'part', id: 'p1_tis_plasmamem', l: 'Plasma membranes', match: 'plasma membrane', parent: 'p1_tis_cell', w: 1, own: 'The outer boundary of the cell that regulates movement of substances in and out.', src: [TIS, 6] },
-  { k: 'part', id: 'p1_tis_nucleus', l: 'Nucleus', parent: 'p1_tis_cell', w: 1, own: 'The central cellular organelle containing DNA and controlling cell activities.', src: [TIS, 20] },
-  { k: 'part', id: 'p1_tis_organelles', l: 'Organelles', parent: 'p1_tis_cell', w: 1, own: 'Specialized internal structures of the cell each performing a specific metabolic task.', src: [TIS, 20] },
+  { k: 'part', id: 'p1_tis_plasmamem', l: 'Plasma membranes', match: 'plasma membrane', parent: 'p1_tis_cell', w: 1, own: 'The cell\'s membrane; at a tight junction the plasma membranes of connecting cells are fused to form a seal.', src: [TIS, 6] },
+  { k: 'part', id: 'p1_tis_nucleus', l: 'Nucleus', parent: 'p1_tis_cell', w: 1, own: 'Contained in the cell body of a neuron, together with the organelles, according to the nerve tissue page.', src: [TIS, 20] },
+  { k: 'part', id: 'p1_tis_organelles', l: 'Organelles', parent: 'p1_tis_cell', w: 1, own: 'Contained in the cell body of a neuron, together with the nucleus, according to the nerve tissue page.', src: [TIS, 20] },
 
   { k: 'group', id: 'p1_tis_junctions', l: 'Intercellular Junctions', parent: 'p_cells', w: 1, line: 'cells adhere to and communicate with one another', src: [TIS, 6, 5] },
   { k: 'part', id: 'p1_tis_tight', l: 'Tight Junctions', parent: 'p1_tis_junctions', w: 1, line: 'protein band fusing plasma membranes into an impermeable seal', links: { p1_tis_plasmamem: 'fuse the plasma membranes together' }, src: [TIS, 6] },
@@ -38,19 +38,19 @@ export const ROWS = [
   /* ---------------- connective tissue (tutorial p17) ---------------- */
   { k: 'group', id: 'p1_tis_conn', l: 'Connective Tissue', parent: 'p_connective', w: 1, line: 'most abundant tissue; supports, binds, stores fat, insulates, protects', src: [TIS, 17] },
   { k: 'group', id: 'p1_tis_fibres', l: 'Fibers', parent: 'p1_tis_conn', w: 1, line: 'collagen, elastin or reticular fibers support the cells', src: [TIS, 17] },
-  { k: 'part', id: 'p1_tis_elastin', l: 'Elastin', parent: 'p1_tis_fibres', w: 1, line: 'gives elasticity', own: 'An extracellular matrix protein that allows connective tissues to stretch and recoil.', src: [TIS, 17] },
-  { k: 'part', id: 'p1_tis_reticular', l: 'Reticular fibers', parent: 'p1_tis_fibres', w: 1, line: 'for support', own: 'Delicate branching collagenous fibers that form a supporting network in soft organs.', src: [TIS, 17] },
+  { k: 'part', id: 'p1_tis_elastin', l: 'Elastin', parent: 'p1_tis_fibres', w: 1, line: 'gives elasticity', own: 'A protein fiber in connective tissue that the tutorial says gives elasticity.', src: [TIS, 17] },
+  { k: 'part', id: 'p1_tis_reticular', l: 'Reticular fibers', parent: 'p1_tis_fibres', w: 1, line: 'for support', own: 'A fiber type in connective tissue that the tutorial says provides support.', src: [TIS, 17] },
   { k: 'group', id: 'p1_tis_connells', l: 'Connective tissue cells', match: 'Cells', parent: 'p1_tis_conn', w: 1, line: 'dispersed through the extracellular matrix of fiber and ground substance', src: [TIS, 17] },
-  { k: 'part', id: 'p1_tis_adipocytes', l: 'Adipocytes', parent: 'p1_tis_connells', w: 1, line: 'fat cells', own: 'Specialized fat-storing cells that provide insulation, cushioning and energy storage.', src: [TIS, 17] },
-  { k: 'part', id: 'p1_tis_macrophages', l: 'Macrophages', parent: 'p1_tis_connells', w: 1, own: 'Phagocytic cells that engulf cellular debris and foreign substances in connective tissues.', src: [TIS, 17] },
-  { k: 'part', id: 'p1_tis_mastcells', l: 'Mast cells', parent: 'p1_tis_connells', w: 1, own: 'Cells that release histamine and heparin to initiate local inflammatory responses.', src: [TIS, 17] },
-  { k: 'part', id: 'p1_tis_fibroblasts', l: 'Fibroblasts', parent: 'p1_tis_connells', w: 1, own: 'The primary active cells that secrete collagen and other extracellular matrix components.', src: [TIS, 17] },
-  { k: 'part', id: 'p1_tis_leukocytes', l: 'Leukocytes', parent: 'p1_tis_connells', w: 1, own: 'White blood cells that enter tissues to defend against infection and injury.', src: [TIS, 17] },
+  { k: 'part', id: 'p1_tis_adipocytes', l: 'Adipocytes', parent: 'p1_tis_connells', w: 1, line: 'fat cells', own: 'The fat cells of connective tissue; the tutorial lists them among the cells suspended in water.', src: [TIS, 17] },
+  { k: 'part', id: 'p1_tis_macrophages', l: 'Macrophages', parent: 'p1_tis_connells', w: 1, own: 'A cell type the tutorial lists among the cells of connective tissue, suspended in water.', src: [TIS, 17] },
+  { k: 'part', id: 'p1_tis_mastcells', l: 'Mast cells', parent: 'p1_tis_connells', w: 1, own: 'Another cell type the tutorial lists among the cells of connective tissue, with macrophages and fibroblasts.', src: [TIS, 17] },
+  { k: 'part', id: 'p1_tis_fibroblasts', l: 'Fibroblasts', parent: 'p1_tis_connells', w: 1, own: 'A cell type the tutorial lists among the cells of connective tissue, with adipocytes and mast cells.', src: [TIS, 17] },
+  { k: 'part', id: 'p1_tis_leukocytes', l: 'Leukocytes', parent: 'p1_tis_connells', w: 1, own: 'A cell type the tutorial lists last among the cells of connective tissue, after fibroblasts.', src: [TIS, 17] },
   { k: 'part', id: 'p1_tis_water', l: 'Water', parent: 'p1_tis_conn', w: 1, line: 'all the cells are suspended in it', src: [TIS, 17] },
-  { k: 'group', id: 'p1_tis_conntypes', l: 'Includes', parent: 'p1_tis_conn', w: 1, own: 'The diverse categories and examples of connective tissue found throughout the body.', src: [TIS, 17] },
-  { k: 'part', id: 'p1_tis_fatty', l: 'Fatty tissue', parent: 'p1_tis_conntypes', w: 1, links: { p1_tis_adipocytes: 'adipocytes are fat cells' }, own: 'Adipose connective tissue consisting predominantly of fat cells for insulation and fuel storage.', src: [TIS, 17] },
-  { k: 'part', id: 'p1_tis_dense', l: 'Dense fibrous tissue', parent: 'p1_tis_conntypes', w: 1, own: 'Connective tissue with densely packed collagen fibers providing tensile strength in tendons and ligaments.', src: [TIS, 17] },
-  { k: 'part', id: 'p1_tis_bonetissue', l: 'Bone', parent: 'p1_tis_conntypes', w: 1, own: 'Rigid supporting connective tissue with a mineralized matrix protecting organs and supporting body weight.', src: [TIS, 17] },
+  { k: 'group', id: 'p1_tis_conntypes', l: 'Includes', parent: 'p1_tis_conn', w: 1, own: 'The tissues the tutorial lists as connective tissue: fatty, loose, dense fibrous, bone, lymph, cartilage and blood.', src: [TIS, 17] },
+  { k: 'part', id: 'p1_tis_fatty', l: 'Fatty tissue', parent: 'p1_tis_conntypes', w: 1, links: { p1_tis_adipocytes: 'adipocytes are fat cells' }, own: 'The connective tissue the tutorial lists first; connective tissue stores energy as fat.', src: [TIS, 17] },
+  { k: 'part', id: 'p1_tis_dense', l: 'Dense fibrous tissue', parent: 'p1_tis_conntypes', w: 1, own: 'A connective tissue the tutorial lists after loose connective tissue, before bone.', src: [TIS, 17] },
+  { k: 'part', id: 'p1_tis_bonetissue', l: 'Bone', parent: 'p1_tis_conntypes', w: 1, own: 'A connective tissue the tutorial lists after dense fibrous tissue, before lymph tissue.', src: [TIS, 17] },
   { k: 'part', id: 'p1_tis_lymph', l: 'Lymph tissue', parent: 'p1_tis_conntypes', w: 1, line: 'technically connective tissue but lacks fiber', src: [TIS, 17] },
 
   /* ---------------- muscle tissue (tutorial p18) ---------------- */

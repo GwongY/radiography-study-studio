@@ -130,7 +130,7 @@ export const ROWS = [
     parent: 'p_gi_layers',
     w: 4,
     src: ['phys.l4.2026', 8],
-    own: 'A double sheet of peritoneal membrane supporting and stabilizing the digestive tract.',
+    own: 'Labelled on the slide beside the mesenteric artery and vein, in a diagram of the digestive tract wall layers.',
   },
 
   // --- Movement of digestive materials (p_gi_move) ---
@@ -171,7 +171,7 @@ export const ROWS = [
     parent: 'p_gi_move',
     w: 4,
     src: ['phys.l4.2026', 18],
-    own: 'Cycles of muscular contraction that churn and fragment intestinal contents.',
+    own: 'A movement of the digestive tract named on the slide beside peristalsis, under neural control mechanisms.',
   },
 
   // --- Digestive tract regulation (p_gi_reg) ---
@@ -234,7 +234,7 @@ export const ROWS = [
     w: 4,
     src: ['phys.l4.2026', 3, 19],
     line: 'chew (masticate) food',
-    own: 'Mineralized structures in the jaws used for chewing and mechanical breakdown of food.',
+    own: 'Structures that chew (masticate) food, giving the mechanical processing the slide lists for the oral cavity.',
   },
   {
     k: 'part',
@@ -313,7 +313,7 @@ export const ROWS = [
     parent: 'p_stomach',
     w: 4,
     src: ['phys.l4.2026', 22],
-    own: 'The superior and medial region of the stomach surrounding the junction with the esophagus.',
+    own: 'A region of the stomach labelled next to the esophagus on the slide\'s diagram of the stomach wall.',
   },
   {
     k: 'part',
@@ -322,7 +322,7 @@ export const ROWS = [
     parent: 'p_stomach',
     w: 4,
     src: ['phys.l4.2026', 22, 23, 48, 49],
-    own: 'The dome-shaped portion of the stomach located superior to the junction with the esophagus.',
+    own: 'A region of the stomach; the slide says the gastric glands are in the fundus and body.',
   },
   {
     k: 'part',
@@ -340,7 +340,7 @@ export const ROWS = [
     parent: 'p_stomach',
     w: 4,
     src: ['phys.l4.2026', 22],
-    own: 'A muscular ring regulating the release of chyme from the pylorus into the duodenum.',
+    own: 'Labelled between the pylorus and the duodenum on the slide\'s diagram of the stomach wall.',
   },
   {
     k: 'part',
@@ -349,7 +349,7 @@ export const ROWS = [
     parent: 'p_stomach',
     w: 4,
     src: ['phys.l4.2026', 22],
-    own: 'Prominent longitudinal mucosal folds in an empty stomach that flatten as it expands.',
+    own: 'A feature named on the slide\'s diagram of the stomach wall, along with the cardia, fundus and body.',
   },
   {
     k: 'part',
@@ -401,7 +401,7 @@ export const ROWS = [
     w: 4,
     src: ['phys.l4.2026', 25, 26, 31, 32, 56],
     makes: { p4_gastrin: 'produce gastrin' },
-    own: 'Enteroendocrine cells in the gastric and duodenal mucosa that produce the peptide hormone gastrin.',
+    own: 'Cells among the gastric glands and pyloric glands; the slide says G cells produce gastrin.',
   },
   {
     k: 'cell',
@@ -421,7 +421,7 @@ export const ROWS = [
     parent: 'p4_gastric_glands',
     w: 4,
     src: ['phys.l4.2026', 25, 31, 32],
-    own: 'Epithelial cells lining gastric pits that secrete an alkaline mucus protecting the stomach wall.',
+    own: 'Cells of the gastric glands; on the slide\'s regulation diagrams they release mucus under stimulation.',
   },
   {
     k: 'substance',
@@ -471,7 +471,6 @@ export const ROWS = [
     src: ['phys.l4.2026', 26],
     line: 'inhibits release of gastrin',
     acts: { p4_g_cells: 'inhibits release of gastrin' },
-    own: 'A peptide hormone released by gastrointestinal cells that inhibits acid and gastrin secretion.',
   },
   {
     k: 'substance',
@@ -514,7 +513,7 @@ export const ROWS = [
     w: 4,
     src: ['phys.l4.2026', 30, 31],
     next: { p4_gastric_phase: 'leads to gastric phase' },
-    own: 'The initial reflex stage of gastric secretion triggered by the sight, smell, taste or thought of food.',
+    own: 'The first of the three phases of gastric control; the slide starts it with sight, smell, taste or thoughts of food.',
   },
   {
     k: 'process',
@@ -525,7 +524,7 @@ export const ROWS = [
     w: 4,
     src: ['phys.l4.2026', 30, 32],
     next: { p4_intestinal_phase: 'leads to intestinal phase' },
-    own: 'The period of maximal gastric acid and enzyme secretion stimulated by stomach distension and food chemistry.',
+    own: 'The second of the three phases of gastric control; the slide shows distension and elevated pH stimulating the gastric glands.',
   },
   {
     k: 'process',
@@ -535,7 +534,7 @@ export const ROWS = [
     parent: 'p_gastric_reg',
     w: 4,
     src: ['phys.l4.2026', 30, 33],
-    own: 'The phase where entry of chyme into the duodenum triggers neural and hormonal feedback controlling emptying.',
+    own: 'The third of the three phases of gastric control; the slide shows duodenal stretch and chemoreceptors, CCK, GIP and secretin.',
   },
   {
     k: 'process',
@@ -545,7 +544,7 @@ export const ROWS = [
     parent: 'p_gastric_reg',
     w: 4,
     src: ['phys.l4.2026', 33, 53],
-    own: 'A neural reflex triggered by acid and chyme in the duodenum that inhibits gastric motility.',
+    own: 'One of the reflexes that coordinate movement along the digestive tract; the slide shows it in the intestinal phase.',
   },
 
   // --- Small intestine (p_smallint) ---
@@ -603,7 +602,7 @@ export const ROWS = [
     parent: 'p4_villi',
     w: 4,
     src: ['phys.l4.2026', 40],
-    own: 'A specialized lymphatic capillary in an intestinal villus that absorbs dietary lipids.',
+    own: 'A lymphatic part of a villus, labelled with the capillary network and lymphatic vessel inside a single villus.',
   },
   {
     k: 'substance',
@@ -667,7 +666,7 @@ export const ROWS = [
     parent: 'p_pancreas',
     w: 4,
     src: ['phys.l4.2026', 42],
-    own: 'A duct carrying exocrine secretions from the pancreas to the duodenal lumen.',
+    own: 'A duct labelled on the pancreas diagram next to the common bile duct and the duodenal papilla.',
   },
   {
     k: 'substance',
@@ -707,7 +706,7 @@ export const ROWS = [
     parent: 'p_pancreas',
     w: 4,
     src: ['phys.l4.2026', 43],
-    own: 'Enzymes in pancreatic juice that break down dietary ribonucleic and deoxyribonucleic acids.',
+    own: 'A group of pancreatic enzymes that break down nucleic acids.',
   },
   {
     k: 'substance',
@@ -727,7 +726,7 @@ export const ROWS = [
     parent: 'p_pancreas',
     w: 4,
     src: ['phys.l4.2026', 39],
-    own: 'An inactive pancreatic proenzyme converted into the active protease trypsin by enteropeptidase.',
+    own: 'A pancreatic proenzyme that the intestinal enzyme enteropeptidase activates.',
   },
 
   // --- Liver (p_liver) ---
@@ -749,7 +748,7 @@ export const ROWS = [
     parent: 'p4_liver_lobules',
     w: 4,
     src: ['phys.l4.2026', 45],
-    own: 'A region situated at each corner of a liver lobule containing branches of portal vessels and bile duct.',
+    own: 'Labelled on the liver lobule diagram with a bile duct and a branch of the hepatic portal vein.',
   },
   {
     k: 'process',
@@ -769,7 +768,7 @@ export const ROWS = [
     parent: 'p_liver',
     w: 4,
     src: ['phys.l4.2026', 44],
-    own: 'The liver processes blood components, removes aged red blood cells and synthesizes plasma proteins.',
+    own: 'The second of three physiological roles the slide lists for the liver, after metabolic regulation and before bile production.',
   },
   {
     k: 'substance',
@@ -821,7 +820,7 @@ export const ROWS = [
     parent: 'p_gallbladder',
     w: 4,
     src: ['phys.l4.2026', 42, 49, 50],
-    own: 'The duct formed by the union of the cystic duct and common hepatic duct carrying bile to the duodenum.',
+    own: 'A duct carrying bile from the liver and gallbladder to the duodenum; it is labelled on the gallbladder and pancreas diagrams.',
   },
   {
     k: 'part',
@@ -841,7 +840,7 @@ export const ROWS = [
     parent: 'p_gallbladder',
     w: 4,
     src: ['phys.l4.2026', 51],
-    own: 'A muscular chamber at the junction of the bile duct and pancreatic duct opening into the duodenum.',
+    own: 'Where the slide says bile is ejected into the duodenum when CCK causes the gallbladder to contract.',
   },
 
   // --- Coordination of secretion and absorption (p_coord) ---
@@ -921,7 +920,7 @@ export const ROWS = [
     parent: 'p_largeint',
     w: 4,
     src: ['phys.l4.2026', 37, 61, 63],
-    own: 'The initial pouch-like region of the large intestine receiving chyme from the ileum.',
+    own: 'The part of the large intestine that receives material from the ileum through the ileocecal valve.',
   },
   {
     k: 'part',
@@ -931,7 +930,7 @@ export const ROWS = [
     parent: 'p_largeint',
     w: 4,
     src: ['phys.l4.2026', 61],
-    own: 'A slender blind-ended tubular pouch containing lymphoid nodules attached to the posteromedial surface of the cecum.',
+    own: 'Labelled beside the cecum on the slide\'s diagram of the regions of the large intestine.',
   },
   {
     k: 'part',
@@ -951,7 +950,7 @@ export const ROWS = [
     parent: 'p4_colon',
     w: 4,
     src: ['phys.l4.2026', 60, 61],
-    own: 'The first segment of the colon ascending along the right lateral border of the abdominal cavity.',
+    own: 'The first of the four regions of the colon the slide lists, before the transverse colon.',
   },
   {
     k: 'part',
@@ -961,7 +960,7 @@ export const ROWS = [
     parent: 'p4_colon',
     w: 4,
     src: ['phys.l4.2026', 60, 61],
-    own: 'The horizontal portion of the large intestine spanning across the abdomen below the stomach.',
+    own: 'The second of the four regions of the colon the slide lists, after the ascending colon.',
   },
   {
     k: 'part',
@@ -971,7 +970,7 @@ export const ROWS = [
     parent: 'p4_colon',
     w: 4,
     src: ['phys.l4.2026', 60, 61],
-    own: 'The segment of the large intestine continuing inferiorly along the left abdominal wall.',
+    own: 'The third of the four regions of the colon the slide lists, after the transverse colon.',
   },
   {
     k: 'part',
@@ -981,7 +980,7 @@ export const ROWS = [
     parent: 'p4_colon',
     w: 4,
     src: ['phys.l4.2026', 60, 61],
-    own: 'An S-shaped final curved segment of the colon leading directly into the rectum.',
+    own: 'The fourth of the four regions of the colon the slide lists, after the descending colon.',
   },
   {
     k: 'part',
@@ -991,7 +990,7 @@ export const ROWS = [
     parent: 'p_largeint',
     w: 4,
     src: ['phys.l4.2026', 61],
-    own: 'A series of pouches in the colon wall that allow expansion and elongation during transit.',
+    own: 'Labelled on the slide\'s diagram of the large intestine, near the teniae coli and the sigmoid colon.',
   },
   {
     k: 'part',
@@ -1001,7 +1000,7 @@ export const ROWS = [
     parent: 'p_largeint',
     w: 4,
     src: ['phys.l4.2026', 61],
-    own: 'Three longitudinal bands of smooth muscle running along the outer surfaces of the colon.',
+    own: 'Labelled on the slide\'s diagram of the large intestine, along with the haustra and omental appendices.',
   },
   {
     k: 'part',

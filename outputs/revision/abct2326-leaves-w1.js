@@ -19,14 +19,14 @@ export const ROWS = [
   { k: 'part', id: 'p1_cytoplasm', l: 'Cytoplasm', parent: 'p_cells', w: 1, line: 'all materials inside the cell and outside the nucleus', src: [L1, 8, 5, 9, 16] },
   { k: 'part', id: 'p1_cytosol', l: 'Cytosol', parent: 'p1_cytoplasm', w: 1, line: 'intracellular fluid with dissolved nutrients, ions, proteins, and waste products', src: [L1, 8, 5, 6] },
   { k: 'part', id: 'p1_centrosome', l: 'Centrosome', parent: 'p_cells', w: 1, line: 'essential for movement of chromosomes during cell division', src: [L1, 5] },
-  { k: 'part', id: 'p1_centrioles', l: 'Centrioles', parent: 'p1_centrosome', w: 1, line: 'composed of nine microtubule triplets in a circular array', own: 'Centrioles are paired cylindrical structures that organize microtubules during cell division.', src: [L1, 5] },
+  { k: 'part', id: 'p1_centrioles', l: 'Centrioles', parent: 'p1_centrosome', w: 1, line: 'composed of nine microtubule triplets in a circular array', src: [L1, 5] },
   { k: 'part', id: 'p1_cytoskeleton', l: 'Cytoskeleton', parent: 'p_cells', w: 1, line: 'proteins organized in fine filaments or slender tubes for strength and support', src: [L1, 6, 9] },
   { k: 'part', id: 'p1_microfilaments', l: 'Microfilaments', match: 'Microfilament', parent: 'p1_cytoskeleton', w: 1, line: 'proteins organized in fine filaments', src: [L1, 6, 9, 11] },
   { k: 'part', id: 'p1_microtubules', l: 'Microtubules', match: 'Microtubule', parent: 'p1_cytoskeleton', w: 1, line: 'proteins organized in slender tubes', src: [L1, 6, 5, 11] },
   { k: 'part', id: 'p1_freeribosomes', l: 'Free ribosomes', parent: 'p_cells', w: 1, line: 'ribosomes distributed throughout the cytosol', src: [L1, 6, 20] },
   { k: 'part', id: 'p1_microvilli', l: 'Microvilli', parent: 'p_cells', w: 1, line: 'membrane extensions containing microfilaments that increase surface area for absorption', src: [L1, 11, 33] },
   { k: 'part', id: 'p1_cilia', l: 'Cilia', parent: 'p_cells', w: 1, line: 'long extensions of the plasma membrane containing microtubules', src: [L1, 11, 33] },
-  { k: 'part', id: 'p1_mitochondria', l: 'Mitochondria', parent: 'p_cells', w: 1, line: 'double membrane organelles producing ninety-five percent of cellular ATP', own: 'Mitochondria generate most of the chemical energy required by the cell through cellular respiration.', src: [L1, 16, 33] },
+  { k: 'part', id: 'p1_mitochondria', l: 'Mitochondria', parent: 'p_cells', w: 1, line: 'double membrane organelles producing ninety-five percent of cellular ATP', src: [L1, 16, 33] },
 
   /* ---------------- Plasma membrane (p7-10) ---------------- */
   { k: 'part', id: 'p1_phospholipid_bilayer', l: 'Phospholipid bilayer', parent: 'p_membrane', w: 1, line: 'hydrophilic heads and hydrophobic fatty-acid tails forming barrier to ions and water', src: [L1, 7, 9] },
@@ -59,7 +59,7 @@ export const ROWS = [
   { k: 'part', id: 'p1_peroxisomes', l: 'Peroxisomes', parent: 'p_golgi', w: 1, line: 'vesicles containing degradative enzymes that catabolize fats and neutralize toxic compounds', src: [L1, 20] },
 
   /* ---------------- Protein synthesis (p21-23) ---------------- */
-  { k: 'process', id: 'p1_gene_activation', l: 'Gene activation', parent: 'p_protein', w: 1, line: 'uncoiling DNA to use it', next: { p1_transcription: 'initiates transcription' }, own: 'Gene activation involves temporary uncoiling of DNA segments to allow transcription of specific genes.', src: [L1, 21] },
+  { k: 'process', id: 'p1_gene_activation', l: 'Gene activation', parent: 'p_protein', w: 1, line: 'uncoiling DNA to use it', next: { p1_transcription: 'initiates transcription' }, own: 'The step of protein synthesis in which DNA is uncoiled so that its instructions can be copied to mRNA by transcription.', src: [L1, 21] },
   { k: 'process', id: 'p1_transcription', l: 'Transcription', parent: 'p_protein', w: 1, line: 'copies instructions from DNA to mRNA in the nucleus', next: { p1_translation: 'mRNA travels through nuclear pores to ribosomes' }, src: [L1, 21, 22] },
   { k: 'substance', id: 'p1_rna_polymerase', l: 'RNA polymerase', parent: 'p_protein', w: 1, line: 'enzyme that produces messenger RNA from DNA template', acts: { p1_gene: 'binds promoter on DNA template strand' }, src: [L1, 21, 22] },
   { k: 'process', id: 'p1_translation', l: 'Translation', parent: 'p_protein', w: 1, line: 'ribosome reads mRNA code and assembles amino acids into polypeptide chain', src: [L1, 21] },
@@ -104,7 +104,7 @@ export const ROWS = [
 
   /* ---------------- Muscle tissue (p51-52) ---------------- */
   { k: 'part', id: 'p1_skel_muscle_t', l: 'Skeletal muscle tissue', parent: 'p_muscle_t', w: 1, line: 'large body muscles responsible for movement', src: [L1, 51] },
-  { k: 'part', id: 'p1_cardiac_muscle_t', l: 'Cardiac muscle tissue', parent: 'p_muscle_t', w: 1, line: 'found only in the heart', own: 'Cardiac muscle tissue consists of interconnected branching muscle cells dedicated to pumping blood.', src: [L1, 51] },
+  { k: 'part', id: 'p1_cardiac_muscle_t', l: 'Cardiac muscle tissue', parent: 'p_muscle_t', w: 1, line: 'found only in the heart', own: 'One of the three types of muscle tissue, specialised for contraction and found only in the heart.', src: [L1, 51] },
   { k: 'part', id: 'p1_smooth_muscle_t', l: 'Smooth muscle tissue', parent: 'p_muscle_t', w: 1, line: 'found in walls of hollow contracting organs', src: [L1, 51] },
 
   /* ---------------- Neural tissue (p53-55) ---------------- */
@@ -129,7 +129,7 @@ export const ROWS = [
   { k: 'process', id: 'p1_neg_feedback', l: 'Negative feedback', match: 'negative feedback', parent: 'p_feedback', w: 1, line: 'effector response negates stimulus to bring body back into homeostasis', src: [L1, 59] },
   { k: 'process', id: 'p1_temp_stimulus', l: 'Body temperature rises', parent: 'p1_neg_feedback', w: 1, line: 'stimulus disturbing normal body temperature', next: { p1_temp_sensors: 'activates temperature sensors' }, src: [L1, 60] },
   { k: 'process', id: 'p1_temp_sensors', l: 'Temperature sensors', match: 'sensors in skin', parent: 'p1_neg_feedback', w: 1, line: 'sensors in skin and hypothalamus that detect temperature rise', next: { p1_thermoreg_center: 'information affects control center' }, src: [L1, 60] },
-  { k: 'process', id: 'p1_thermoreg_center', l: 'Thermoregulatory center', parent: 'p1_neg_feedback', w: 1, line: 'hypothalamus functions as thermostat with thirty-seven degrees set point', next: { p1_temp_effectors: 'sends commands to effectors' }, own: 'The thermoregulatory center in the hypothalamus processes temperature input and regulates heat loss mechanisms.', src: [L1, 60] },
+  { k: 'process', id: 'p1_thermoreg_center', l: 'Thermoregulatory center', parent: 'p1_neg_feedback', w: 1, line: 'hypothalamus functions as thermostat with thirty-seven degrees set point', next: { p1_temp_effectors: 'sends commands to effectors' }, src: [L1, 60] },
   { k: 'process', id: 'p1_temp_effectors', l: 'Sweat glands and blood vessels', match: 'Sweat glands', parent: 'p1_neg_feedback', w: 1, line: 'sweat glands increase secretion and skin blood vessels dilate', next: { p1_temp_response: 'causes increased heat loss' }, src: [L1, 60] },
   { k: 'process', id: 'p1_temp_response', l: 'Increased heat loss', parent: 'p1_neg_feedback', w: 1, line: 'increased heat loss drops body temperature back to normal', next: { p1_neg_feedback: 'negative feedback restores normal temperature' }, src: [L1, 60] },
   { k: 'process', id: 'p1_pos_feedback', l: 'Positive feedback', match: 'positive feedback', parent: 'p_feedback', w: 1, line: 'effector response increases change of stimulus to speed up processes', src: [L1, 59] },

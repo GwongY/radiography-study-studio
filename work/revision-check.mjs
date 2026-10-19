@@ -83,6 +83,10 @@ for (const subject of Object.values(REVISION)) {
   ok(!needy.length, `every row whose slide line is not useful has an own-words sentence${needy.length ? ` (missing: ${needy.slice(0, 30).join(' ')}${needy.length > 30 ? ` and ${needy.length - 30} more` : ''})` : ''}`);
   const badOwn = data.NODES.filter((n) => n.own).map((n) => [n.id, ownProblems(n.own, n.l)]).filter(([, p]) => p.length);
   ok(!badOwn.length, `every own-words sentence on a row is plain: a sentence, no digit, no star${badOwn.length ? ` — ${badOwn.slice(0, 6).map(([id, p]) => `${id}: ${p.join(', ')}`).join('; ')}` : ''}`);
+  if (subject.id === 'ABCT2326') {
+    const extra = data.NODES.filter((n) => n.own && !needsOwn(n)).map((n) => n.id);
+    ok(!extra.length, `an own-words sentence only where the slide line is not useful${extra.length ? ` (needless: ${extra.slice(0, 12).join(' ')}${extra.length > 12 ? ` and ${extra.length - 12} more` : ''})` : ''}`);
+  }
   if (subject.id === 'HSS2011') ok(Object.keys(OWN).every((id) => ids.has(id)), 'every own-words id is a real row');
   const last = lastWeekOf(data);
 

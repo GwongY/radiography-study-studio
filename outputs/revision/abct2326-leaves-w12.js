@@ -14,7 +14,7 @@ export const SOURCES = {
 
 export const ROWS = [
   /* ---------------- Defense mechanisms (p3-5) ---------------- */
-  { k: 'group', id: 'p12_pathogens', l: 'Pathogens', parent: 'p_defense', w: 12, line: 'viruses, bacteria, protozoa, multicellular parasites in our environment', own: 'Biological agents capable of causing disease or infection in host organism tissues.', src: [L10, 3] },
+  { k: 'group', id: 'p12_pathogens', l: 'Pathogens', parent: 'p_defense', w: 12, line: 'viruses, bacteria, protozoa, multicellular parasites in our environment', src: [L10, 3] },
   { k: 'process', id: 'p12_nonspecific_res', l: 'Nonspecific resistance', parent: 'p_defense', w: 12, line: 'always works the same way against any type of invading agent', src: [L10, 5] },
   { k: 'process', id: 'p12_specific_res', l: 'Specific resistance', parent: 'p_defense', w: 12, line: 'protects against specific pathogens and depends on activities of lymphocytes', src: [L10, 5, 48] },
 
@@ -27,12 +27,12 @@ export const ROWS = [
   { k: 'part', id: 'p12_skin', l: 'Outer layer of skin', parent: 'p_barriers', w: 12, line: 'physical barrier keeping hazardous materials outside the body', src: [L10, 12, 8] },
   { k: 'part', id: 'p12_hair', l: 'Hair', parent: 'p_barriers', w: 12, line: 'provides physical protection against mechanical impact and hazardous materials', src: [L10, 12, 42] },
   { k: 'part', id: 'p12_epithelial_layers', l: 'Epithelial layers', match: 'Epithelial layers of internal passageways', parent: 'p_barriers', w: 12, line: 'epithelial layers of internal passageways preventing pathogen entry', src: [L10, 12] },
-  { k: 'group', id: 'p12_secretions', l: 'Secretions', parent: 'p_barriers', w: 12, line: 'flush away materials and kill or inhibit microorganisms', own: 'Body fluids and glandular secretions that flush away or chemically destroy invading microbes.', src: [L10, 12, 42] },
+  { k: 'group', id: 'p12_secretions', l: 'Secretions', parent: 'p_barriers', w: 12, line: 'flush away materials and kill or inhibit microorganisms', src: [L10, 12, 42] },
   { k: 'substance', id: 'p12_mucus', l: 'Mucus', match: 'mucus', parent: 'p12_secretions', w: 12, line: 'respiratory secretion that flushes away materials', src: [L10, 12] },
   { k: 'substance', id: 'p12_stomach_acid', l: 'Stomach acid', match: 'stomach acid', parent: 'p12_secretions', w: 12, line: 'secretions that kill or inhibit microorganisms', src: [L10, 12] },
 
   /* ---------------- Phagocytes (p14, 42) ---------------- */
-  { k: 'group', id: 'p12_microphages', l: 'Microphages', parent: 'p_phagocytes', w: 12, line: 'neutrophils and eosinophils that leave bloodstream to fight infections', own: 'Small circulating phagocytic white blood cells that leave the blood to combat localized infections.', src: [L10, 14] },
+  { k: 'group', id: 'p12_microphages', l: 'Microphages', parent: 'p_phagocytes', w: 12, line: 'neutrophils and eosinophils that leave bloodstream to fight infections', src: [L10, 14] },
   { k: 'cell', id: 'p12_neutrophils', l: 'Neutrophils', parent: 'p12_microphages', w: 12, line: 'leave the bloodstream and enter peripheral tissues to fight infections', src: [L10, 14] },
   { k: 'cell', id: 'p12_eosinophils', l: 'Eosinophils', match: 'eosinophils', parent: 'p12_microphages', w: 12, line: 'kill parasites and involved in allergic reactions', src: [L10, 14] },
   { k: 'cell', id: 'p12_monocytes', l: 'Monocytes', match: 'monocytes', parent: 'p_phagocytes', w: 12, line: 'circulating hematopoietic stem cells settling in tissues as macrophages', src: [L10, 14, 15] },
@@ -73,7 +73,7 @@ export const ROWS = [
   { k: 'process', id: 'p12_opsonization', l: 'Opsonization', match: 'opsonization', parent: 'p_complement', w: 12, line: 'coating of complement proteins and antibodies that enhances phagocytosis', src: [L10, 33, 34] },
 
   /* ---------------- Inflammation (p37-39, 43) ---------------- */
-  { k: 'group', id: 'p12_cardinal_signs', l: 'Cardinal signs of inflammation', match: 'Signs and Symptoms', parent: 'p_inflammation', w: 12, line: 'swelling, redness, heat, and pain at the injury site', own: 'The four characteristic physical manifestations indicating an active local inflammatory tissue reaction.', src: [L10, 37] },
+  { k: 'group', id: 'p12_cardinal_signs', l: 'Cardinal signs of inflammation', match: 'Signs and Symptoms', parent: 'p_inflammation', w: 12, line: 'swelling, redness, heat, and pain at the injury site', src: [L10, 37] },
   { k: 'substance', id: 'p12_histamine', l: 'Histamine', match: 'histamine', parent: 'p_inflammation', w: 12, line: 'released by mast cells to increase local inflammation and blood flow', src: [L10, 33, 34, 38], acts: { p_inflammation: 'accelerates blood flow and inflammation' } },
   { k: 'cell', id: 'p12_mast_cells', l: 'Mast cells', match: 'mast cells', parent: 'p_inflammation', w: 12, line: 'release histamine to increase degree of local inflammation and blood flow', src: [L10, 33, 43], makes: { p12_histamine: 'releases histamine' } },
   { k: 'cell', id: 'p12_basophils', l: 'Basophils', match: 'basophils', parent: 'p_inflammation', w: 12, line: 'circulating granulocytes that release histamine to increase inflammation', src: [L10, 33], makes: { p12_histamine: 'releases histamine' } },
@@ -90,10 +90,10 @@ export const ROWS = [
   { k: 'process', id: 'p12_ab_med_imm', l: 'Antibody-mediated immunity', match: 'antibody-mediated immunity', parent: 'p_adaptive', w: 12, line: 'B cells defend against antigens and pathogens in body fluids', src: [L10, 48, 49, 63] },
 
   /* ---------------- Forms of immunity (p45-47) ---------------- */
-  { k: 'group', id: 'p12_active_imm', l: 'Active immunity', match: 'Active Immunity', parent: 'p_imm_forms', w: 12, line: 'antibodies develop in the body after exposure to an antigen', own: 'Adaptive immunity that develops naturally or artificially following direct exposure to pathogenic antigens.', src: [L10, 46, 45, 47] },
+  { k: 'group', id: 'p12_active_imm', l: 'Active immunity', match: 'Active Immunity', parent: 'p_imm_forms', w: 12, line: 'antibodies develop in the body after exposure to an antigen', src: [L10, 46, 45, 47] },
   { k: 'process', id: 'p12_nat_active_imm', l: 'Naturally acquired active immunity', parent: 'p12_active_imm', w: 12, line: 'develops after environmental exposure to antigens and pathogens', src: [L10, 47, 46] },
   { k: 'process', id: 'p12_art_active_imm', l: 'Artificially induced active immunity', parent: 'p12_active_imm', w: 12, line: 'develops after administration of vaccines containing pathogens to prevent disease', src: [L10, 47, 46] },
-  { k: 'group', id: 'p12_passive_imm', l: 'Passive immunity', match: 'Passive Immunity', parent: 'p_imm_forms', w: 12, line: 'antibodies are transferred into body from another source', own: 'Immunity acquired through the transfer of preformed protective antibodies produced by another individual.', src: [L10, 46, 45, 47] },
+  { k: 'group', id: 'p12_passive_imm', l: 'Passive immunity', match: 'Passive Immunity', parent: 'p_imm_forms', w: 12, line: 'antibodies are transferred into body from another source', src: [L10, 46, 45, 47] },
   { k: 'process', id: 'p12_nat_passive_imm', l: 'Naturally acquired passive immunity', parent: 'p12_passive_imm', w: 12, line: 'conferred by transfer of maternal antibodies across placenta or breast milk', src: [L10, 47, 46] },
   { k: 'process', id: 'p12_art_passive_imm', l: 'Artificially induced passive immunity', parent: 'p12_passive_imm', w: 12, line: 'conferred by administration of antibodies to combat infection', src: [L10, 47, 46] },
 

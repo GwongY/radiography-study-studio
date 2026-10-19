@@ -89,7 +89,7 @@ export const ROWS = [
   { k: 'group', id: 'p11_large_motor_units', l: 'Large motor units', match: 'larger, stronger muscles', parent: 'p_motorunit', w: 11, line: 'larger muscles have motor units with thousands of muscle fibers', src: [L9, 39] },
 
   /* ---------------- Energy requirements of skeletal muscles (p41-45, 52, 53) ---------------- */
-  { k: 'substance', id: 'p11_atp', l: 'Adenosine triphosphate (ATP)', match: 'ATP', parent: 'p_musc_energy', w: 11, line: 'energy currency needed for muscle contraction', own: 'The primary chemical energy source required for muscle cross bridge cycling and relaxation.', src: [L9, 52, 53] },
+  { k: 'substance', id: 'p11_atp', l: 'Adenosine triphosphate (ATP)', match: 'ATP', parent: 'p_musc_energy', w: 11, line: 'energy currency needed for muscle contraction', src: [L9, 52, 53] },
   { k: 'substance', id: 'p11_phosphocreatine', l: 'Phosphocreatine', match: 'phosphocreatine', parent: 'p_musc_energy', w: 11, line: 'breakdown provides PO4 and rapidly regenerates ATP', src: [L9, 52] },
   { k: 'substance', id: 'p11_fatty_acids', l: 'Fatty acids', match: 'fatty acids', parent: 'p_musc_energy', w: 11, line: 'at rest and for mild exercise energy comes from fatty acids', src: [L9, 41] },
   { k: 'substance', id: 'p11_glycogen', l: 'Glycogen stores', match: 'glycogen stores', parent: 'p_musc_energy', w: 11, line: 'for heavy exercise mostly from glycogen stores and blood glucose', src: [L9, 41] },
@@ -138,8 +138,8 @@ export const ROWS = [
   { k: 'part', id: 'p11_canaliculi', l: 'Canaliculi', match: 'canaliculi', parent: 'p_bone_t', w: 11, line: 'passages delivering nutrients to osteocytes via diffusion', src: [L9, 68] },
 
   /* ---------------- Remodeling of bone (p68, 70) ---------------- */
-  { k: 'cell', id: 'p11_osteoblasts', l: 'Osteoblasts', match: 'osteoblasts', parent: 'p_remodel', w: 11, line: 'bone cells involved in balanced remodeling activities', own: 'Bone-forming cells that secrete new organic bone matrix during remodeling.', src: [L9, 70] },
-  { k: 'cell', id: 'p11_osteoclasts', l: 'Osteoclasts', match: 'osteoclasts', parent: 'p_remodel', w: 11, line: 'bone cells involved in balanced remodeling activities', own: 'Large multinucleated bone cells that resorb and dissolve mineralized bone matrix.', src: [L9, 70] },
+  { k: 'cell', id: 'p11_osteoblasts', l: 'Osteoblasts', match: 'osteoblasts', parent: 'p_remodel', w: 11, line: 'bone cells involved in balanced remodeling activities', src: [L9, 70] },
+  { k: 'cell', id: 'p11_osteoclasts', l: 'Osteoclasts', match: 'osteoclasts', parent: 'p_remodel', w: 11, line: 'bone cells involved in balanced remodeling activities', src: [L9, 70] },
   { k: 'cell', id: 'p11_osteocytes', l: 'Osteocytes', match: 'Osteocytes', parent: 'p_remodel', w: 11, line: 'get nutrients via diffusion from canaliculi of compact bone', src: [L9, 68, 70] },
   { k: 'process', id: 'p11_bone_matrix_renewal', l: 'Bone matrix recycling', match: 'bone matrix', parent: 'p_remodel', w: 11, line: 'organic and mineral components of bone matrix continuously renewed', src: [L9, 70] },
   { k: 'process', id: 'p11_ca_homeostasis', l: 'Calcium homeostasis', match: 'Homeostasis of Ca2+ balance', parent: 'p_remodel', w: 11, line: 'balance depends on parathyroid hormone, calcitonin and calcitriol', src: [L9, 70] },
