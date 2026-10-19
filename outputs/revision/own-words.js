@@ -47,6 +47,7 @@ export const OWN = {
   w1_planes: 'Imaginary flat cuts through the body: sagittal (left and right), coronal (front and back) and transverse (top and bottom).',
 
   /* ---- Week 2: lower limb ---- */
+  w2_j_hip: 'The ball-and-socket joint where the head of the femur sits in the acetabulum of the hip bone, joining the lower limb to the pelvis.',
   w2_iliaccrest: 'The curved upper edge of the hip bone, which you can feel at the waist.',
   w2_femreg: 'The thigh, whose single bone is the femur.',
   w2_femur: 'The thigh bone, the longest and strongest bone in the body, running from the hip to the knee.',

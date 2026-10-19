@@ -21,32 +21,60 @@
 import { REVISION } from '../outputs/revision/registry.js';
 import { OWN } from '../outputs/revision/own-words.js';
 import { autoWeek, clampWeek, releasedLast, firstWeek, lastWeekOf, newIds, pruneTree, resolveWeek, visibleEdges, visibleIds } from '../outputs/revision/weeks.js';
-import { TERM, weekOf, weekStart, weekEnd } from '../outputs/schedule.js';
+import { TERM, weekOf, weekStart, weekEnd, SESSIONS } from '../outputs/schedule.js';
 import { readFileSync } from 'node:fs';
 import { normaliseCitationText } from './lib/source-lesson-map.mjs';
 import { KINDS } from '../outputs/revision/leaves.js';
 import { SOURCE_FILES } from '../outputs/study/course-data.js';
+import { checkSystems, needsOwn, ownProblems, rowWeekOk, starProblems, yueProblems } from '../outputs/revision/rules.js';
+import { decoderProblems } from '../outputs/revision/fragments.js';
+import { decompose } from '../outputs/wordparts.js';
 
 const SOURCE_TEXT = JSON.parse(readFileSync(new URL('./source-text.json', import.meta.url), 'utf8')).sources;
 
 let fail = 0;
 const ok = (good, msg) => { console.log(`  ${good ? 'ok  ' : 'FAIL'} ${msg}`); if (!good) fail++; };
 
+/* Rule 1: `needle` is on one of the cited pages (the same comparison source-check.mjs uses). */
+const onPage = (src, needle) => {
+  const [sid, ...pages] = src || [];
+  const text = SOURCE_TEXT[sid];
+  const n = normaliseCitationText(needle);
+  return !!text && pages.length > 0 && pages.every((p) => Number.isInteger(p) && p >= 1 && p <= text.pages.length) && pages.some((p) => normaliseCitationText(text.pages[p - 1]).includes(n));
+};
+/* The week a source's deck was first lectured, from any subject's decks (1 when none says). */
+const firstWeekOfSource = (src) => { const sid = (src || [])[0]; for (const s of Object.values(REVISION)) if (s.decks && s.decks[sid]) return s.decks[sid].weeks[0]; return 1; };
+
+console.log('\nacross subjects');
+const allSubjects = Object.values(REVISION);
+const sysProblems = checkSystems(allSubjects);
+ok(!sysProblems.length, `colour groups: every node's system is listed, keys unique, colours apart and readable${sysProblems.length ? ` — ${sysProblems.slice(0, 6).join('; ')}` : ''}`);
+const idOwner = new Map(); const shared = [];
+for (const s of allSubjects) for (const n of s.data.NODES) { if (idOwner.has(n.id)) shared.push(`${n.id} (${idOwner.get(n.id)}, ${s.id})`); else idOwner.set(n.id, s.id); }
+ok(!shared.length, `no topic or row is in two subjects${shared.length ? ` (${shared.slice(0, 6).join(', ')})` : ''}`);
+const rowKey = (r) => `${r.src[0]}|${r.src[1]}|${String(r.l).toLowerCase()}`;
+const keyOwner = new Map(); const sameRow = [];
+for (const s of allSubjects) for (const r of s.rows || []) { const k = rowKey(r); if (keyOwner.has(k) && keyOwner.get(k) !== s.id) sameRow.push(k); else keyOwner.set(k, s.id); }
+ok(!sameRow.length, `no slide row is written into two subjects${sameRow.length ? ` (${sameRow.slice(0, 4).join(', ')})` : ''}`);
+/* Rule 3: the Map draws a box's name only; the sentence lives in the notes. */
+const reviseSrc = readFileSync(new URL('../outputs/study/revise.js', import.meta.url), 'utf8');
+const deriveBody = (reviseSrc.match(/function deriveWeek\(\)[\s\S]*?\n\}/) || [''])[0];
+ok(deriveBody.length > 0 && !/describe\(|rv-said|firstSentence\(/.test(deriveBody), 'the Map builder puts no sentence under a box');
+
 for (const subject of Object.values(REVISION)) {
   const { data } = subject;
   console.log(`\n${subject.id}`);
   const ids = new Set(data.NODES.map((n) => n.id));
-  if (subject.id === 'HSS2011') {
-    const bare = data.NODES.filter((n) => n.leaf && !(n.line && n.line.trim()));
-    const missing = bare.filter((n) => !OWN[n.id]).map((n) => n.id);
-    ok(!missing.length, `every row with no slide line has a sentence in own-words.js${missing.length ? ` (missing: ${missing.join(' ')})` : ''}`);
-    /* A slide line under 25 characters ("x2", "(1-7)", "8 pairs", "lateral rotation") rarely says where a structure is.
-       The position words of Week 1 say it in full already. */
-    const PLAIN = new Set(['w1_proximal', 'w1_distal', 'w1_medial', 'w1_lateral', 'w1_anterior', 'w1_posterior', 'w1_caudal', 'w1_superior', 'w1_inferior', 'w1_cranial']);
-    const thin = data.NODES.filter((n) => n.leaf && n.line && n.line.trim().length < 25 && !PLAIN.has(n.id) && !OWN[n.id]).map((n) => n.id);
-    ok(!thin.length, `every row whose slide line is under 25 characters has a sentence in own-words.js${thin.length ? ` (missing: ${thin.join(' ')})` : ''}`);
-    ok(Object.keys(OWN).every((id) => ids.has(id)), 'every own-words id is a real row');
-  }
+  /* Rule 4 (rules.js): every row's notes say something useful. A row — or a sourced topic — whose slide line is not
+     useful (under 25 characters, a count or fragment, or under three words) needs an own-words sentence. The Week 1
+     position words of HSS2011 say where in full already. */
+  const PLAIN = subject.id === 'HSS2011' ? new Set(['w1_proximal', 'w1_distal', 'w1_medial', 'w1_lateral', 'w1_anterior', 'w1_posterior', 'w1_caudal', 'w1_superior', 'w1_inferior', 'w1_cranial']) : new Set();
+  const ownOf = (n) => n.own || OWN[n.id];
+  const needy = data.NODES.filter((n) => (n.leaf || n.src) && !PLAIN.has(n.id) && needsOwn(n) && !ownOf(n)).map((n) => n.id);
+  ok(!needy.length, `every row whose slide line is not useful has an own-words sentence${needy.length ? ` (missing: ${needy.slice(0, 30).join(' ')}${needy.length > 30 ? ` and ${needy.length - 30} more` : ''})` : ''}`);
+  const badOwn = data.NODES.filter((n) => n.own).map((n) => [n.id, ownProblems(n.own, n.l)]).filter(([, p]) => p.length);
+  ok(!badOwn.length, `every own-words sentence on a row is plain: a sentence, no digit, no star${badOwn.length ? ` — ${badOwn.slice(0, 6).map(([id, p]) => `${id}: ${p.join(', ')}`).join('; ')}` : ''}`);
+  if (subject.id === 'HSS2011') ok(Object.keys(OWN).every((id) => ids.has(id)), 'every own-words id is a real row');
   const last = lastWeekOf(data);
 
   ok(ids.size === data.NODES.length, 'topic ids are unique');
@@ -62,20 +90,21 @@ for (const subject of Object.values(REVISION)) {
   ok(data.NODES.every((n) => (n.th || []).every((t) => threadIds.has(t))), 'every thread a topic names exists');
   ok(subject.tours.every((t) => threadIds.has(t.th) && t.stops.every((s) => ids.has(s))), 'every tour names a real thread and real topics');
 
+  const nodeOf = new Map(data.NODES.map((n) => [n.id, n]));
+  const twins = [];
+  (function walk(spec, parent) {
+    const me = nodeOf.get(spec.id), up = parent && nodeOf.get(parent.id);
+    if (me && up && String(me.l).toLowerCase() === String(up.l).toLowerCase()) twins.push(`${parent.id} > ${spec.id}`);
+    (spec.kids || []).forEach((k) => walk(k, spec));
+  })(data.TREE, null);
+  ok(!twins.length, `no box has a child of the same name${twins.length ? ` (${twins.join(', ')})` : ''}`);
+
   /* ---- leaves: the depth under a topic (outputs/revision/leaves.js) ---- */
   const leafRows = subject.rows || [];
   if (leafRows.length) {
     const order = new Map(leafRows.map((r, i) => [r.id, i]));
     const kindOf = new Map(leafRows.map((r) => [r.id, r.k]));
     const topicIds = new Set(data.NODES.filter((n) => !n.leaf).map((n) => n.id));
-    const nodeOf = new Map(data.NODES.map((n) => [n.id, n]));
-    const twins = [];
-    (function walk(spec, parent) {
-      const me = nodeOf.get(spec.id), up = parent && nodeOf.get(parent.id);
-      if (me && up && String(me.l).toLowerCase() === String(up.l).toLowerCase()) twins.push(`${parent.id} > ${spec.id}`);
-      (spec.kids || []).forEach((k) => walk(k, spec));
-    })(data.TREE, null);
-    ok(!twins.length, `no box has a child of the same name${twins.length ? ` (${twins.join(', ')})` : ''}`);
     /* a row named like its parent topic is folded into it (mergeLeaves ALIAS) */
     const real = (id) => (data.ALIAS || {})[id] || id;
     ok(leafRows.every((r) => KINDS.includes(r.k)), `every leaf has a known kind (${leafRows.length} leaves)`);
@@ -97,6 +126,51 @@ for (const subject of Object.values(REVISION)) {
     ok(!badSrc.length, `every leaf's name is on a page it cites${badSrc.length ? ` — ${badSrc.slice(0, 6).join('; ')}` : ''}`);
     const current = (sid) => /\.2026$/.test(sid) || (!!SOURCE_FILES[sid] && SOURCE_FILES[sid].root === 'newsrc');
     ok(leafRows.every((r) => (r.old ? !current(r.src[0]) : current(r.src[0]))), 'a row marked old cites an older deck, and every other row a current 2026/27 file');
+    /* Rule 5: no two rows under one parent share a name. */
+    const sib = new Map(); const sibDup = [];
+    for (const r of leafRows) { const k = `${real(r.parent)}|${String(r.l).toLowerCase()}`; if (sib.has(k)) sibDup.push(`${sib.get(k)} = ${r.id}`); else sib.set(k, r.id); }
+    ok(!sibDup.length, `no two rows under one parent share a name${sibDup.length ? ` (${sibDup.slice(0, 6).join(', ')})` : ''}`);
+    /* Physiology link fields point at real rows of the right kind. */
+    ok(leafRows.filter((r) => r.makes).every((r) => ['part', 'cell'].includes(r.k) && Object.entries(r.makes).every(([id, why]) => kindOf.get(id) === 'substance' && String(why).trim())), 'every makes is on a part or cell and points at a substance row, with a reason');
+    ok(leafRows.filter((r) => r.acts).every((r) => r.k === 'substance' && Object.entries(r.acts).every(([id, why]) => ids.has(real(id)) && String(why).trim())), 'every acts is on a substance and points at something real, with a reason');
+    ok(leafRows.filter((r) => r.next).every((r) => r.k === 'process' && Object.entries(r.next).every(([id, why]) => (kindOf.get(id) === 'process' || topicIds.has(id)) && String(why).trim())), 'every next is on a process and points at a process row or a topic, with a reason');
+    /* Rule 2 and the owner's answers 2-3: a row cites one of the subject's lecture decks and is in a week that deck
+       was lectured (subjects that list their decks). */
+    if (subject.decks) {
+      const wrong = leafRows.map((r) => [r.id, rowWeekOk(r, subject.decks, SESSIONS, subject.id)]).filter(([, why]) => why);
+      ok(!wrong.length, `every row cites a lecture deck and sits in a week it was lectured${wrong.length ? ` — ${wrong.slice(0, 6).map(([id, why]) => `${id}: ${why}`).join('; ')}` : ''}`);
+      ok(!leafRows.some((r) => r.old), 'no row leans on an old deck (iCloud lecture decks only)');
+    }
+  }
+
+  /* Rule 1 for a subject written from scratch: topics, topic links and fragment steps cite a page that says them. */
+  if (subject.sourced) {
+    const badTopic = data.NODES.filter((n) => !n.leaf).filter((n) => !onPage(n.src, n.match || n.l)).map((n) => n.id);
+    ok(!badTopic.length, `every topic's name is on a page it cites${badTopic.length ? ` (${badTopic.slice(0, 8).join(' ')})` : ''}`);
+    const topicWeek = data.NODES.filter((n) => !n.leaf).map((n) => [n.id, rowWeekOk({ w: Math.min(...n.w), src: n.src }, subject.decks, SESSIONS, subject.id)]).filter(([, why]) => why);
+    ok(!topicWeek.length, `every topic cites a lecture deck and sits in a week it was lectured${topicWeek.length ? ` — ${topicWeek.slice(0, 6).map(([id, why]) => `${id}: ${why}`).join('; ')}` : ''}`);
+    const topicEdges = data.EDGES.filter((e) => !data.NODES.find((n) => n.id === e[0]).leaf && !data.NODES.find((n) => n.id === e[1]).leaf);
+    ok(topicEdges.every((e) => Array.isArray(e[3]) && onPage(e[3], e[3][2] || data.NODES.find((n) => n.id === e[1]).l)), 'every topic link cites a page that names its far end');
+    /* Rule 5 at branch level: no topic is named like the branch heading above it. */
+    const labelOf = new Map(data.NODES.map((n) => [n.id, String(n.l).toLowerCase()]));
+    const branchTwins = (data.TREE.kids || []).flatMap((b) => (b.kids || []).filter((k) => k.id && b.label && labelOf.get(k.id) === b.label.toLowerCase()).map((k) => k.id));
+    ok(!branchTwins.length, `no topic is named like its branch heading${branchTwins.length ? ` (${branchTwins.join(' ')})` : ''}`);
+    const fd = subject.fragmentData || { threads: [], tables: [], decoder: [] };
+    const steps = fd.threads.flatMap((t) => t.steps.map((s) => [t.id, s]));
+    const tRows = fd.tables.flatMap((t) => t.rows.map((r) => [t.id, r]));
+    const badSteps = [...steps, ...tRows].filter(([, s]) => !s.match || !onPage(s.src, s.match)).map(([id, s]) => `${id} "${s.match}"`);
+    ok(!badSteps.length, `every thread step and table row is on the page it cites${badSteps.length ? ` (${badSteps.slice(0, 6).join(', ')})` : ''}`);
+    ok([...steps, ...tRows].every(([, s]) => Number.isInteger(s.wk) && s.wk >= firstWeekOfSource(s.src)), 'no step or table row is tagged before its source was taught');
+    /* The owner's answers 6, 7, 9: ★ facts cite a Martini page of the lecture's chapter; every thread has a 廣東話 line
+       that adds no English word or number of its own; every decoder reading is the one a session reviewed. */
+    const chOf = (src) => ((subject.decks[(src || [])[0]] || {}).ch || []);
+    const badStar = steps.filter(([, s]) => s.star).map(([id, s]) => [id, starProblems(s.star, chOf(s.src))]).filter(([, p]) => p.length);
+    ok(!badStar.length, `every ★ fact is one sentence with a textbook page from its lecture's chapter${badStar.length ? ` — ${badStar.slice(0, 4).map(([id, p]) => `${id}: ${p.join(', ')}`).join('; ')}` : ''}`);
+    ok(!steps.some(([, s]) => s.star) || !!SOURCE_FILES['phys.ebook'], 'the textbook a ★ cites is a registered source');
+    const badYue = fd.threads.map((t) => [t.id, yueProblems(t.yue, t.steps.map((s) => s.text))]).filter(([, p]) => p.length);
+    ok(!badYue.length, `every thread's 廣東話 line retells only its steps${badYue.length ? ` — ${badYue.slice(0, 4).map(([id, p]) => `${id}: ${p.join(', ')}`).join('; ')}` : ''}`);
+    const decBad = decoderProblems(fd.decoder || [], decompose, new Set(data.NODES.map((n) => n.l)));
+    ok(!decBad.length, `every decoder reading is the reviewed one, every term a name on the map${decBad.length ? ` — ${decBad.slice(0, 4).join('; ')}` : ''}`);
   }
 
   ok(data.NODES.every((n) => n.w.length && n.w.every((w) => Number.isInteger(w) && w >= 1)), 'every topic has weeks');
@@ -137,21 +211,22 @@ for (const subject of Object.values(REVISION)) {
   ok(treeOk, 'the pruned tree holds every shown topic, no empty heading, and nothing taught later');
 
   /* the week tags baked into the fragments */
+  const need = subject.requireFragments !== false;
   const tagged = (html, re) => [...html.matchAll(re)].map((m) => Number(m[1]));
   const steps = tagged(subject.threads, /<li data-wk="(\d+)"/g);
   const untaggedSteps = (subject.threads.match(/<li>/g) || []).length;
   const untaggedRows = (subject.threads.match(/<tr>\s*<td/g) || []).length;
   ok(untaggedRows === 0, 'every thread table row has a week');
-  ok(steps.length > 0 && untaggedSteps === 0, `every thread step has a week (${steps.length} steps)`);
+  ok((need ? steps.length > 0 : true) && untaggedSteps === 0, `every thread step has a week (${steps.length} steps)${need ? '' : ' — fragments not required yet'}`);
   const rows = tagged(subject.tables, /<tr data-wk="(\d+)"/g);
   const boxes = tagged(subject.tables, /<div class="note-box" data-wk="(\d+)"/g);
-  ok(rows.length > 0 && !/<tr>\s*<td/.test(subject.tables), `every table row has a week (${rows.length} rows, ${boxes.length} boxes)`);
+  ok((need ? rows.length > 0 : true) && !/<tr>\s*<td/.test(subject.tables), `every table row has a week (${rows.length} rows, ${boxes.length} boxes)`);
   const dec = tagged(subject.decoder, /<tr [^>]*data-wk="(\d+)"/g);
-  ok(dec.length > 0 && !/<tr>\s*<td/.test(subject.decoder), `every decoder row has a week (${dec.length} rows)`);
+  ok((need ? dec.length > 0 : true) && !/<tr>\s*<td/.test(subject.decoder), `every decoder row has a week (${dec.length} rows)`);
   const all = [...steps, ...rows, ...boxes, ...dec];
   ok(all.every((w) => w >= 1 && w <= last), `no fragment is tagged outside weeks 1-${last}`);
   /* each week should add something to every list that has anything */
-  ok(steps.some((w) => w === 1) || steps.some((w) => w <= 2), 'threads have something from the first weeks');
+  if (need) ok(steps.some((w) => w <= 2), 'threads have something from the first weeks');
 }
 
 console.log('\nautomatic week');
@@ -171,6 +246,7 @@ ok(clampWeek('3', 7) === 3 && clampWeek(0, 7) === 1 && clampWeek(99, 7) === 7 &&
 ok(releasedLast(8, 7) === 7 && releasedLast(8, 8) === 8 && releasedLast(8, 13) === 8 && releasedLast(7, 3) === 3, 'a week beyond the released one is not offered: the chips stop there');
 ok(releasedLast(8, null) === 8 && releasedLast(8, 0) === 1, 'no released limit holds nothing back');
 ok(REVISION.HSS2011.released == null && lastWeekOf(REVISION.HSS2011.data) === 8, 'every week with notes (through Week 8) is offered; the auto week follows the calendar');
+ok(!REVISION.ABCT2326 || REVISION.ABCT2326.released == null, 'ABCT2326 has no released cap: every week with notes is a chip');
 
 console.log('\nsaved choice');
 ok(resolveWeek(null, 5, 7).mode === 'auto' && resolveWeek(null, 5, 7).week === 5, 'nothing saved: automatic');

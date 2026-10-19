@@ -20,6 +20,7 @@ import * as hss2011W8 from './hss2011-leaves-w8.js';
 import { THREADS_HTML } from './hss2011-threads.js';
 import { TABLES_HTML } from './hss2011-tables.js';
 import { DECODER_HTML, SOURCES_HTML } from './hss2011-decoder.js';
+import { SYSORDER } from './hub.js';
 
 /* Leaf rows, week by week (outputs/revision/leaves.js). */
 const HSS2011_ROWS = [...hss2011W1.ROWS, ...hss2011W2.ROWS, ...hss2011W3.ROWS, ...hss2011W4.ROWS, ...hss2011W5.ROWS, ...hss2011W6.ROWS, ...hss2011W7.ROWS, ...hss2011W8.ROWS];
@@ -35,6 +36,19 @@ const HSS2011_ALL = {
 /* The Tissues & cells notes are physiology's (the owner moved the file back to the physiology folder), so the anatomy map leaves them out.
    The rows stay in hss2011-leaves-w1.js and -w2.js for the physiology subject. */
 const HSS2011_SHOWN = dropSystem(HSS2011_ALL, HSS2011_ROWS, 'tissue');
+
+/* Colour groups. col = legend, notes tag and Brain 3D; map = the Map's own shade. The HSS2011 values are app.css's
+   (--rv-c-* line 1409, --c-* line 1441), so anatomy looks as it did. Tissues & cells is not listed: those rows are
+   physiology's (hidden by dropSystem below until plan Task 10 moves them). A shared colour across subjects means the
+   same body system (rules.js checkSystems). */
+const HSS2011_SYSTEMS = [
+  { key: 'skel', label: 'Skeleton & joints', col: '#d1a94f', map: '#e2b65a' },
+  { key: 'musc', label: 'Muscles', col: '#e3786b', map: '#f0806f', body: 'muscle' },
+  { key: 'pns', label: 'Peripheral nerves', col: '#6fa8e8', map: '#78b2f2' },
+  { key: 'cns', label: 'Brain & spinal cord', col: '#ae98ec', map: '#b9a1f5' },
+  { key: 'sense', label: 'Senses & autonomic', col: '#55c4a4', map: '#5ed0ae' },
+  { key: 'cv', label: 'Heart & vessels', col: '#e879c6', map: '#ee86cc', body: 'heart' },
+];
 
 export const REVISION = {
   HSS2011: {
@@ -59,6 +73,9 @@ export const REVISION = {
       { th: 't8', stops: ['ear_balance', 'cerebellum', 'basalnuclei', 'reticular', 'motorunit', 'trunk_muscles'] },
       { th: 't10', stops: ['musclestruct', 'nervestruct', 'meninges', 'csf', 'bbb'] },
     ],
+    systems: HSS2011_SYSTEMS,
+    hubOrder: SYSORDER.filter((k) => k !== 'tissue'),
+    copy: { name: 'Anatomy', leafWords: 'single muscles, bones, joints and nerves', findHint: 'e.g. foramen, CN VII' },
   },
 };
 

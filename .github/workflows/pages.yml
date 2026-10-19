@@ -32,6 +32,8 @@ jobs:
         run: node work/load-check.mjs
       - name: Data modules parse
         run: node work/syntax-check.mjs
+      - name: Every check this workflow names exists
+        run: node work/pages-workflow-check.mjs
       - name: Revision data and link logic validate
         run: node work/revision-check.mjs && node work/revise-pure-check.mjs
       - name: Today and search-only settings navigation
