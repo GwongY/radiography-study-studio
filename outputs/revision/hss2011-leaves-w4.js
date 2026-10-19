@@ -7,9 +7,11 @@
  * docs/superpowers/plans/2026-10-19-revise-depth-w1-w3-w4.md.
  */
 const HN = 'hss.hnt.2026';
+const SP17 = 'hss.special.2017';
 
 export const SOURCES = {
   [HN]: 'Week 4 head, neck and trunk slides',
+  [SP17]: '2017 Special Senses lecture (older deck)',
 };
 
 export const ROWS = [
@@ -118,6 +120,13 @@ export const ROWS = [
 
 /* ---------------- eyeball (p8, 9) ---------------- */
 { k: 'part', id: 'w4_eyeball', l: 'Eyeball', parent: 'orbit', w: 4, line: 'the extraocular muscles control the movement of the eyeball', src: [HN, 8, 9] },
+/* extraocular muscles: the older deck (p6) names them; the Week 4 slide (p9) gives the actions under the initials */
+{ k: 'muscle', id: 'w4_mr', l: 'Medial rectus', parent: 'extraocular', w: 4, moves: { w4_eyeball: 'adduct (in)' }, note: 'labelled MR on the Week 4 slide', old: true, src: [SP17, 6] },
+{ k: 'muscle', id: 'w4_lr', l: 'Lateral rectus', parent: 'extraocular', w: 4, moves: { w4_eyeball: 'abduct (out)' }, note: 'labelled LR on the Week 4 slide', old: true, src: [SP17, 6] },
+{ k: 'muscle', id: 'w4_sr', l: 'Superior rectus', parent: 'extraocular', w: 4, moves: { w4_eyeball: 'elevate, intorsion, adduct (in)' }, note: 'labelled SR on the Week 4 slide', old: true, src: [SP17, 6] },
+{ k: 'muscle', id: 'w4_ir', l: 'Inferior rectus', parent: 'extraocular', w: 4, moves: { w4_eyeball: 'depress, extorsion, adduct (in)' }, note: 'labelled IR on the Week 4 slide', old: true, src: [SP17, 6] },
+{ k: 'muscle', id: 'w4_so', l: 'Superior oblique', parent: 'extraocular', w: 4, moves: { w4_eyeball: 'intorsion, depress, abduct (out)' }, note: 'labelled SO on the Week 4 slide', old: true, src: [SP17, 6] },
+{ k: 'muscle', id: 'w4_io', l: 'Inferior oblique', parent: 'extraocular', w: 4, moves: { w4_eyeball: 'extorsion, elevate, abduct (out)' }, note: 'labelled IO on the Week 4 slide', old: true, src: [SP17, 6] },
 
 /* ---------------- muscles that move the mandible (p10) ---------------- */
 { k: 'group', id: 'w4_mandmusc', l: 'Muscles that move mandible', parent: 'headneck_muscles', w: 4, src: [HN, 10] },
