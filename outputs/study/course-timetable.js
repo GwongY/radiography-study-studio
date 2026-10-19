@@ -230,7 +230,7 @@ function syllabusPanel() {
       a.level ? `Level ${a.level}` : '',
       a.prereq ? `Pre-requisite: ${a.prereq}` : '',
     ].filter(Boolean).join(' · ');
-    return `<section class="card sylcard" style="--acc:${esc(subjectAccent(a.code))}">
+    return `<section class="card sylcard" data-subj="${esc(a.code)}" style="--acc:${esc(subjectAccent(a.code))}">
       <div class="sylhead">
         <span class="sesscode">${esc(a.code)}</span>
         <b>${esc(a.title)}</b>
@@ -267,6 +267,14 @@ function syllabusPanel() {
  * The view
  * ------------------------------------------------------------------ */
 
+/* Quick jump to a subject's card, under the tab bar, on the tabs that stack
+   one card per subject. */
+function subjectJumpHTML(tab) {
+  if (tab !== 'assess' && tab !== 'syllabus') return '';
+  return `<div class="segbar subjjump">${Object.values(SUBJECT_ADMIN).map((a) =>
+    `<button class="seg" data-jumpsubj="${esc(a.code)}" style="--acc:${esc(subjectAccent(a.code))}">${esc(a.code)}</button>`).join('')}</div>`;
+}
+
 const TABS = [['week', 'This week'], ['next', 'Next week'], ['term', 'Full term'], ['assess', 'Assessments'], ['syllabus', 'Syllabus']];
 
 /* Which tabs carry a timetable, and so want the group
@@ -298,6 +306,7 @@ export function renderCourse() {
     ${nowNextHTML(rows, now)}
     <div class="segbar coursetabs">${TABS.map(([id, label]) =>
     `<button class="seg${tab === id ? ' active' : ''}" data-ctab="${esc(id)}">${esc(label)}</button>`).join('')}</div>
+    ${subjectJumpHTML(tab)}
     <div class="coursebody">${body}</div>
     ${timetable ? groupPickerHTML() : ''}`;
 
@@ -317,6 +326,15 @@ export function renderCourse() {
   if (tab === 'assess') {
     wireAssessments($$('courseView'), renderCourse, (f) => { ui.assessFilter = f; });
   }
+  $$('courseView').querySelectorAll('[data-jumpsubj]').forEach((b) => {
+    b.onclick = () => {
+      const el = $$('courseView').querySelector(`[data-subj="${b.dataset.jumpsubj}"]`);
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      el.classList.add('flashrow');
+      setTimeout(() => el.classList.remove('flashrow'), 1600);
+    };
+  });
   if (tab === 'term') $$('jumpTodayBtn').onclick = () => jumpToToday(new Date());
   $$('courseView').querySelectorAll('[data-groupset]').forEach((b) => {
     b.onclick = () => { setGroup(b.dataset.groupset, b.dataset.groupopt); renderCourse(); };

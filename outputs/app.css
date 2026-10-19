@@ -97,7 +97,7 @@
 .priorback>summary::before{content:'\25b8  ';color:var(--teal)}
 .priorback[open]>summary::before{content:'\25be  '}
 .priorback .body{padding:0 0 14px}
-.beyondcite{display:block;margin-top:3px;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em;color:var(--dim);font-size:calc(11px * var(--ts))}
+.beyondcite{display:block;max-width:100%;overflow-wrap:anywhere;word-break:break-word;margin-top:3px;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em;color:var(--dim);font-size:calc(11px * var(--ts))}
 /*
  * A hard word is marked, not hidden: a dotted underline you can tap.
  *
@@ -877,6 +877,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
  */
 .coursebody{margin-top:14px}
 .coursetabs{margin-top:14px}
+.subjjump{margin-top:10px;display:flex}
+.subjjump .seg{border-bottom:2px solid var(--acc,var(--teal));font-size:calc(12px * var(--ts))}
+.sylcard.flashrow,.markcard.flashrow{animation:flashrow 1.6s ease}
 
 /* Now / next */
 .nowcard{border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025);padding:16px 18px}

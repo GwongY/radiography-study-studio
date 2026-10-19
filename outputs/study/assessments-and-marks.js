@@ -380,7 +380,7 @@ function markCard(code) {
       ? `Everything is marked. Final: ${pc(m.banked)}%.`
       : `${pc(m.banked)}% banked from ${m.entered}% of the weight, ${m.pending}% still to come. Highest still reachable: ${pc(m.best)}%.`;
 
-  return `<section class="markcard" style="--acc:${esc(accentOf(code))}">
+  return `<section class="markcard" data-subj="${esc(code)}" style="--acc:${esc(accentOf(code))}">
     <div class="marktop">
       <span class="sesscode">${esc(code)}</span>
       <b>Running mark</b>
