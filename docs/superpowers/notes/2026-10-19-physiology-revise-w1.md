@@ -45,3 +45,5 @@
 
 ## Cross-Subject Links
 - 29 cross-subject links populated in `outputs/revision/cross-links.js` connecting corresponding structures between ABCT2326 and HSS2011 with verified slide citations.
+
+**Own words, corrected later the same day:** only the rows whose slide line is not useful keep one, now 2 (and 14 in abct2326-leaves-tissues.js); every sentence was re-read against its page.

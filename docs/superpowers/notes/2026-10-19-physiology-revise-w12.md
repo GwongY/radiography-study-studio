@@ -53,3 +53,5 @@
 - `p12_nat_active_imm` -> `p12_art_active_imm`: different routes of acquiring active immunity, with no causative connection between them.
 - `p12_cytotoxic_t` -> `p12_helper_t`: distinct functional lineages of T cells (CD8 vs CD4), with no direct regulatory edge between them stated on the slides.
 - `p12_mhc_i` -> `p12_mhc_ii`: distinct classes of histocompatibility molecules with separate genetic structures and expression profiles.
+
+**Own words, corrected later the same day:** only the rows whose slide line is not useful keep one, now 0; every sentence was re-read against its page.

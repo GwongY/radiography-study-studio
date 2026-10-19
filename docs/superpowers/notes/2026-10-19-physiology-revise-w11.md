@@ -52,3 +52,5 @@
 - `p11_type1_fibres` -> `p11_type2x_fibres`: Contrasted in properties and fiber typing tables, but not chained sequentially in the text.
 - `p11_golgi_reflex` -> `p11_stretch_reflex`: Parallel proprioceptive reflex arcs, but treated as separate feedback pathways in the text.
 - `p11_osteoblasts` -> `p11_osteocytes`: In histology osteoblasts become osteocytes trapped in lacunae, but the slides describe them as separate cell types in balanced remodeling activities without detailing osteoblast differentiation.
+
+**Own words, corrected later the same day:** only the rows whose slide line is not useful keep one, now 0; every sentence was re-read against its page.

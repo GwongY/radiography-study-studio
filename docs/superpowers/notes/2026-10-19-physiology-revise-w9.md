@@ -33,3 +33,5 @@
 - `p9_astrocytes` -> `p9_csf`: astrocytes regulate interstitial fluid, while ependymal cells secrete CSF; slides state choroid plexus is ependymal cells and capillaries.
 - `p9_electrical_synapse` -> `p9_neurotransmitter`: electrical synapses use gap junctions without chemical neurotransmitters.
 - `p9_nicotinic` -> `p9_muscarinic`: distinct cholinergic receptor families with different mechanisms; slides state ACh binds to both separately.
+
+**Own words, corrected later the same day:** only the rows whose slide line is not useful keep one, now 2; every sentence was re-read against its page.

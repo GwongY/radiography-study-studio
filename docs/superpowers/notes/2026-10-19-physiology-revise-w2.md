@@ -27,3 +27,5 @@
 - `p2_hcn_channels` -> `p2_myo_depol`: HCN channels are restricted to pacemaker cells in the conducting system, not ventricular myocytes.
 - `p2_pr_interval` -> `p2_qt_interval`: independent intervals measuring distinct electrical conduction phases on an ECG.
 - `p2_esv` -> `p2_edv`: related mathematically by stroke volume equation, but not as a physiological causative sequence on the slides.
+
+**Own words, corrected later the same day:** only the rows whose slide line is not useful keep one, now 3; every sentence was re-read against its page.

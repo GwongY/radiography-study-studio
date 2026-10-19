@@ -30,3 +30,5 @@
 - `p4_pepsin` -> `p4_brush_border`: both are involved in digestion, but act in separate compartments at different pH levels without direct interaction.
 - `p4_gastric_phase` -> `p4_bile`: gastric phase stimulates gastric secretion, while bile release is triggered by intestinal phase CCK secretion.
 - `p4_colon` -> `p4_duodenum`: connected anatomically along the digestive tract, but no direct regulatory link beyond transit of chyme.
+
+**Own words, corrected later the same day:** only the rows whose slide line is not useful keep one, now 29; every sentence was re-read against its page.

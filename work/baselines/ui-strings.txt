@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 992 —
-  70594e5eda8a97e6  WHOLE SET
+— user-facing strings in outputs/ — 1000 —
+  c3cf2308507081fb  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -18,6 +18,7 @@
   cee9078a7a6abefd  " data-at="
   b52c5573bfa9d3bf  " data-component="
   d9f636bbe94e0ae5  " data-concept="
+  ac250da93d945b44  " data-crossid="
   8ea7e01970b3f34f  " data-depth="
   5265bd1a089ac9df  " data-groupopt="
   9d18b1672389d7fe  " data-groupset="
@@ -26,6 +27,7 @@
   828626d9f204fdc0  " data-week="
   40096d512b202dd9  " data-xregion="
   33ebbb5a93b28f77  " data-xview="
+  31b82f574a8c3ef0  " hidden><i style="background:var(--rv-c-
   46d6bbe92726dad5  " placeholder="—"
   f847813600bc8f62  " role="status">
   eb82935571faaac8  " style="--acc:
@@ -113,10 +115,12 @@
   104dbe0e4864608b  <button class="sres" data-recent="
   4e33c3206cbfafcf  <button data-nav="
   a92d150b6b9eeea2  <button data-show="
+  a50502455aa65c33  <button type="button" class="nbtn" data-cross="
   25f49e24208984d6  <button type="button" class="nbtn" data-node="
   8f1ddc92fcdd66f1  <button type="button" class="nbtn" data-thread="
   380f864b046ac3b9  <button type="button" class="rv-back" data-back="1">Back</button>
   988f0b5e4825f8c7  <button type="button" class="rv-chip rv-auto" data-auto="1" aria-pressed="
+  40e4f643a5dc2b8a  <button type="button" class="rv-chip rv-subj" data-subject="
   b2f06ab240053277  <button type="button" class="rv-chip" data-week="
   7be6ad5156454d4e  <button type="button" class="rv-linkbtn" data-to3d="
   5037f4fbb7be28c4  <button type="button" class="term" data-term="
@@ -170,18 +174,19 @@
   87a837b4b8e9abcd  <span class="cnt" title="
   8bfd7adceef1345f  <span class="hy">auto</span>
   0f87e484d07b041c  <span class="livenow">On now</span>
-  a75e01b6d955bdcd  <span class="mmt mmb" style="--bc:var(
+  ddc6aca43efa6a7e  <span class="mmt mmb" style="--bc:var(--c-
   b83f09d243f67fb8  <span class="mono" data-depthread="
   62bc3808f16130c2  <span class="mono" style="color:
   79494432a3df21c8  <span class="openwk">This week</span>
   24337fc436267890  <span class="pc" style="color:
   a8bd35f3ae605d47  <span class="pending" style="width:
   1120ce038e281d16  <span class="pill
-  38647448055fa9f9  <span class="rv-tag sys" style="background:var(
+  db46554f991cfb54  <span class="rv-tag sys" style="background:var(--rv-c-
   c556c181d6a203e1  <span class="termpart
   a05bf7cf9eb01e77  <span class="termplus">+</span>
   a8c0e6943d65acd5  <span class="vague" title="No time published for this subject">week only</span>
   de168730add79551  <span class="wknew">new</span>
+  6377e6d17ad08b7c  <span data-sys="
   c12c67df1fb8fe14  A basin made of ilium, ischium and pubis: I sit on my ischial tuberosity.
   bd5105f51b6139f1  A flat triangle with a spine and a shallow glenoid socket: mobility over stability.
   023844eacdc79cc6  A frontal slice. Keeps the anterior half; flip for the posterior.
@@ -195,6 +200,7 @@
   455d11e097ea6e80  A vertical line dropped from the midpoint of the right clavicle. One of the two verticals of the nine-region grid.
   b374b09eb3eaa9d6  ABCT2326 Human Physiology/1. Cells and Body Organization
   0283df3a1950aa32  ABCT2326 Human Physiology/<system folder>
+  8934abaf4759ff8d  ABCT2326 Nervous system.pdf
   f425542186138bee  Abdomen & pelvis
   92508480855a651c  Acromial part of deltoid muscle
   8968425df01d3da6  All regions
@@ -226,7 +232,6 @@
   14352d43201b3476  Bone goes translucent; the cavity reads straight through it.
   e270caf3ffdc6356  Bone landmarks
   63042ab0dfb866aa  Bottom strip left alone. The app stops at the edge of the viewport.
-  1fbb2550c83f0a26  Brain & spinal cord
   3bde7bf844de948d  Brain 3D: how things connect
   53c88dc6b8160b72  Breathing · diaphragm and lungs
   08dec09e60523dff  Browser tab · viewport
@@ -343,7 +348,6 @@
   f8935505567e0234  HSS2011 Human Anatomy/Module 3 Abdomen and Pelvis/Previous Years
   a922f8e6c07e1e27  HTI17101 Exploring Radiography/Lecture notes
   76cf25daf5c66005  Handout version 2017/18. Slide footers run L1 p2 … L1 p60, which is what the page references below point at.
-  10c6d3048e0200e8  Heart & vessels
   c690d7fcaa1865bc  Heart atlas
   fb328932c2fb282f  Heart atlas animation stopped; closing the mode.
   ccf3bb7342768369  Heart atlas controls
@@ -368,7 +372,7 @@
   4bf4f120eac41088  I have handed this in
   faf46f11200150fe  Image not found — add it to assets/xray/ and reload.
   a149aa9f92e925e8  Image scan, 4 pp — ABCT2326 Tut1 (Cells/Tissues/Body Org, pp.1–2) + Tut2 (CVS, pp.3–4); not text-extractable; content verified via phys.cells.tut and phys.cvs.tut. Registry entry only — never appears in a sourceRefs.
-  4749a98a8037b0d7  In brief, in the app's own words: the slides give only the name.
+  3cb628b528cea201  In brief, in the app's own words, not the slide's.
   ec0f7ff7ac2ed3e2  In the examinable glossary
   52e1d334ec0f4d41  Instrument Sans
   06ebc6cb3943c309  Internal organs
@@ -376,7 +380,7 @@
   d383d16f5923dc11  Introduction to Medical Radiation Science
   0dff914432484e16  Introduction to Sociology
   51dce19cd3833ded  Introduction to Sociology (2026-2027 Sem.1).pdf
-  2aa71b348af4de64  It is a normal mind map: coloured branches, each opening into topics, and topics opening into single muscles, bones, joints and nerves. Tap a name to open its branch and read it here.
+  5cf93e96c7079784  It is a normal mind map: coloured branches, each opening into topics, and topics opening into
   8ccc3126acbbefa7  It is shaped like a cuckoo beak: the tail remnant left behind.
   8c279f0914b7eb4e  It is teaching week
   9d0d3e0a20bc01d4  Joint angle
@@ -403,6 +407,10 @@
   bf913fcad550f5eb  Layer 7, Muscular
   a00fe7545fde7751  Lec11_Skeletal, joint and muscular system.pdf
   9fd4a340208eb0ac  Lecture 1 - Cells and Body Organization.pdf
+  16e41ee1046911c0  Lecture 2 (Week 2 Cardiovascular System), Martini Ch 19-21, 68 pages: composition of blood, blood vessels, pulmonary and systemic circulations, structure of the heart and its valves, the conducting system (SA node, AV node, AV bundle, Purkinje fibres), pacemaker and myocardial action potentials, refractory periods, the ECG and the cardiac cycle.
+  2541e710a2970c8d  Lecture 3 (Week 3 Respiratory System), Martini Ch 23, 75 pages: organisation of the respiratory system, the respiratory portion, external and internal respiration, pulmonary ventilation and Boyle\'s law, mechanics of breathing, lung measurements, gas exchange, oxygen and carbon dioxide transport, and the control of respiration.
+  18f1f01698e67d39  Lecture 4 (Week 4 Digestive System), Martini Ch 24, 68 pages: the digestive tract and its layers, movement and regulation, oral cavity, stomach and the regulation of gastric activity, small intestine, pancreas, liver, gallbladder, coordination of secretion and absorption, large intestine, digestion.
+  38e83c9f81bf55d8  Lecture 6 (Week 7 Reproductive System), Martini Ch 28-29, 60 pages: spermatogenesis and Sertoli cells, gonadotropin secretion and testosterone, male accessory organs, the female reproductive system, ovarian and menstrual cycles, fertilization, implantation, placenta and parturition.
   90ac9941ec04d0ec  Lecture notes.pdf
   bf66d3073fb2cc9a  Lecture notes.ppt
   d9be6503be2f8ead  Lecture notes.pptx
@@ -454,7 +462,8 @@
   f1d2585d9ef5e7ee  Memory tip
   ff656be9917a49e2  Mid-clavicular, left
   6906cd85608d4b0d  Mid-clavicular, right
-  489e28c90c149050  Mind map of the topics learnt so far, grouped into six branches. Use the Find box or the Jump to menu for a text route into the same content.
+  4774d8bd586f0f24  Mind map of the topics learnt so far, grouped into
+  0dfab81b0e03a15c  Mind map of the topics learnt so far. Use the Find box or the Jump to menu for a text route into the same content.
   57fe077d62f2439c  Model and images in one place
   0786ba6804f53fd4  Model answers for every module revision exercise. Same content as the Study Manual appendix; read with layout preserved so the three-column answer table resolves correctly.
   5eece731d84439fc  Modelled in the
@@ -514,7 +523,6 @@
   2053c76b6c147934  P wave, QRS and T wave with a cursor on the current phase
   3c34b55bcf13722f  Past-paper questions sorted by topic across 14 folders. QUESTIONS ONLY — it carries no answer key, so it cannot by itself supply a verified answer. Used here only where the answer is independently confirmed by a current HSS2011 source.
   75f9b67785ab2af8  Pause heartbeat
-  93d52ed478ca4e1b  Peripheral nerves
   ce253ba033cf1abf  Phalanges of the hand
   c062efd4ef2d7f80  Photographs. Not machine-readable offline, so their contents are unverified.
   dd6885dd0073e45c  Physi sources
@@ -561,7 +569,6 @@
   e4e4ead186190113  Sem 1 (Year 1)/Human Physiology/Lecture
   685257d015270bf3  Sem 1我哋又重新上路🌟/Human Physiology/Tutorial_1516
   50362bba1f6398aa  Sem 1我哋又重新上路🌟/Human Physiology/Tutorial_2021
-  e7ee48b03b58590b  Senses & autonomic
   d622e8fd81460d52  Settings, sources and about this app
   8bbf4d2a69b0c709  Seven vertebrae: breakfast at 7. C1 Atlas holds the head; C2 Axis lets you say no.
   b484627cdfe1e893  Seventeen pages on immunity: the seven innate defences one by one, both complement pathways in sequence, then the adaptive side — MHC class I and II, CD4/CD8, costimulation, and how a B cell waits for a helper T cell.
@@ -578,7 +585,6 @@
   c8e398243f5fa550  Shrunk by
   50870a5c5468e10a  Simulated ultrasound sector image
   d9d3b7327b495751  Skeletal, joint and muscular systems — Dr William Tsang, 2018.
-  407f44c36c185f59  Skeleton & joints
   1a5f0309b5e9c356  Skipped line
   3c18ba95de1982d4  Slow motion
   a84672ee09907e25  Sociology HW 2.docx
@@ -690,7 +696,6 @@
   8278421692e43358  Those bones are not in the loaded model.
   60fbbc864f3e78f7  Timetable to your calendar
   e8b3b668039def92  Timetable, syllabus, assessments
-  e4b0795bc898e390  Tissues & cells
   4aeae9b304c159f5  Topic 01.pdf
   f9879cf212344477  Topic 02A & Topic 02B.pdf
   dc368a8e3a63d78f  Transoesophageal (TEE)
@@ -765,6 +770,7 @@
   642d69680683778d  boot on Today, then tap Viewer
   a4d8d4905749584b  border:1px solid rgba(114,227,207,.4);border-radius:16px;background:linear-gradient(180deg,rgba(114,227,207,.12),rgba(114,227,207,.03));padding:18px
   53afa6849ec5c20b  bottomtab display=
+  bc426e54c82d75ac  branches. Use the Find box or the Jump to menu for a text route into the same content.
   1d647a1965983c2a  breaths a minute
   30f46b9b2fd19178  browser tab
   2cdd250c02ffc980  button, a, th, summary, script, style, select, option, textarea
@@ -891,6 +897,7 @@
   6ab01b1dba123b71  region filter does not work
   ec6a0f3dde81ba11  repeats id
   9eb7149db5d15b08  rv-chip rv-auto
+  413af7071953d105  rv-chip rv-subj
   2acea9fe38b93d3f  rv-tag sys
   645dd7161deaf67a  rv-weeknote small
   2c0e6e68763510e0  s `root`; the vessels themselves are the explorer
@@ -902,6 +909,7 @@
   91f0e226c82016ff  s left), fz 0 the trunk
   4e01dcdc55cd6293  s own half-width put the oesophagus
   ade98b80a888aed2  s own signature. 
+  c1a643d0fef960be  s own words, not the slide
   0fb35ed1991ca018  s pages add to the explorer
   d10676d5ce41f402  s topics under this week
   f290c69ba59f71b0  s underline, clear of Markmap

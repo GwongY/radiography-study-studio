@@ -27,3 +27,5 @@
 - `p8_calcitonin` -> `p8_pth`: both regulate blood calcium levels antagonistically, but slides do not describe direct counter-regulation between them.
 - `p8_alpha_cells` -> `p8_beta_cells`: alpha and beta cells occupy the islets of Langerhans, but paracrine interactions between them are not stated in text.
 - `p8_melatonin` -> `p8_gh`: circadian rhythms influence hormone release, but slides do not explicitly connect pineal melatonin to pituitary growth hormone.
+
+**Own words, corrected later the same day:** only the rows whose slide line is not useful keep one, now 1; every sentence was re-read against its page.

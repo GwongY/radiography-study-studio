@@ -37,3 +37,5 @@
 - `p3_baroreceptors` -> `p3_resp_centers`: Baroreceptors are stated on page 67 to be sensitive to blood pressure changes in aortic and carotid sinuses, but the slides do not detail the reflex respiratory response.
 - `p3_stretch_receptors` -> `p3_inhalation`: Stretch receptors are noted on pages 67 and 70 to monitor lung volume, but the Hering-Breuer reflex is not named or elaborated in the text.
 - `p3_carbonic_acid` -> `p3_bohr_effect`: Dissociation of carbonic acid produces H+ contributing to acidity, but the slides treat the chemical reaction and Bohr effect as distinct concepts without an explicit cross-link sentence.
+
+**Own words, corrected later the same day:** only the rows whose slide line is not useful keep one, now 17; every sentence was re-read against its page.

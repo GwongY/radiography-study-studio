@@ -39,3 +39,5 @@
 - `p7_allantois` -> `p7_yolk_sac`: Separate extraembryonic membranes with no physiological interaction described on the slide.
 - `p7_decidua_capsularis` -> `p7_decidua_basalis`: Distinct anatomical regions of maternal endometrium that do not regulate each other.
 - `p7_relaxin` -> `p7_oxytocin`: Both act in parturition, but no causal link between relaxin secretion and oxytocin release is stated on the slides.
+
+**Own words, corrected later the same day:** only the rows whose slide line is not useful keep one, now 0; every sentence was re-read against its page.

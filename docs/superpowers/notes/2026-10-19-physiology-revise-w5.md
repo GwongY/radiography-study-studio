@@ -27,3 +27,5 @@
 - `p5_aldosterone` -> `p5_nak_pump`: slide notes aldosterone regulates Na+/K+ balance, but does not explicitly state it targets the Na+/K+ pump on page 37.
 - `p5_macula_densa` -> `p5_afferent_arteriole`: slide notes macula densa signals afferent arteriole to constrict, but afferent arteriole is not a process or substance target.
 - `p5_adh` -> `p5_vasa_recta`: slide states water drawn out of collecting duct is reabsorbed by vasa recta, but does not state ADH acts directly on vasa recta.
+
+**Own words, corrected later the same day:** only the rows whose slide line is not useful keep one, now 1; every sentence was re-read against its page.
