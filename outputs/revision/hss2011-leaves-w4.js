@@ -115,4 +115,56 @@ export const ROWS = [
 /* sacrum and coccyx (p28) */
 { k: 'bone', id: 'w4_sacrum', l: 'Sacrum', parent: 'w4_vcolumn', w: 4, line: 'triangular; five vertebrae fully fused by age 26', joints: ['w2_j_si'], src: [HN, 28] },
 { k: 'bone', id: 'w4_coccyx', l: 'Coccyx', parent: 'w4_vcolumn', w: 4, line: 'Coccygeal (4)', src: [HN, 28, 17] },
+
+/* ---------------- eyeball (p8, 9) ---------------- */
+{ k: 'part', id: 'w4_eyeball', l: 'Eyeball', parent: 'orbit', w: 4, line: 'the extraocular muscles control the movement of the eyeball', src: [HN, 8, 9] },
+
+/* ---------------- muscles that move the mandible (p10) ---------------- */
+{ k: 'group', id: 'w4_mandmusc', l: 'Muscles that move mandible', parent: 'headneck_muscles', w: 4, src: [HN, 10] },
+{ k: 'muscle', id: 'w4_temporalis', l: 'Temporalis', parent: 'w4_mandmusc', w: 4, moves: { w4_mandible: 'elevate and retrude mandible' }, src: [HN, 10] },
+{ k: 'muscle', id: 'w4_masseter', l: 'Masseter', parent: 'w4_mandmusc', w: 4, moves: { w4_mandible: 'elevate mandible (weakly protrude)' }, src: [HN, 10] },
+{ k: 'muscle', id: 'w4_medpterygoid', l: 'Medial pterygoid', match: 'M. pterygoid', parent: 'w4_mandmusc', w: 4, moves: { w4_mandible: 'bilaterally protrude and elevate; unilaterally swing jaw laterally' }, src: [HN, 10] },
+{ k: 'muscle', id: 'w4_latpterygoid', l: 'Lateral pterygoid', match: 'L. pterygoid', parent: 'w4_mandmusc', w: 4, moves: { w4_mandible: 'bilaterally protrude and depress; unilaterally swing jaw laterally' }, src: [HN, 10] },
+
+/* ---------------- muscles of the tongue (p12) ---------------- */
+{ k: 'part', id: 'w4_tongue', l: 'Tongue', parent: 'headneck_muscles', w: 4, src: [HN, 12] },
+{ k: 'group', id: 'w4_tongue_int', l: 'Intrinsic tongue muscles', parent: 'w4_tongue', w: 4, line: 'change the shape of the tongue', src: [HN, 12] },
+{ k: 'group', id: 'w4_tongue_ext', l: 'Extrinsic tongue muscles', match: 'extrinsic muscles', parent: 'w4_tongue', w: 4, line: 'move and position the tongue', src: [HN, 12] },
+
+/* ---------------- muscles of the neck (p14 to 16) ---------------- */
+{ k: 'group', id: 'w4_neckmusc', l: 'Anterior muscles of the neck', match: 'Anterior muscle of the', parent: 'headneck_muscles', w: 4, src: [HN, 14, 15] },
+{ k: 'part', id: 'w4_lipmouth', l: 'Lower lip and angle of mouth', match: 'lower lip', parent: 'w4_neckmusc', w: 4, src: [HN, 14] },
+{ k: 'muscle', id: 'w4_platysma', l: 'Platysma', parent: 'w4_neckmusc', w: 4, moves: { w4_lipmouth: 'draws downward, as in expressions of surprise, horror, anger, sadness' }, note: 'superficial muscle within the superficial cervical fascia', src: [HN, 14] },
+{ k: 'muscle', id: 'w4_scm', l: 'Sternocleidomastoid', parent: 'w4_neckmusc', w: 4, moves: { w4_cervical: 'unilateral: ipsilateral flexion, contralateral rotation; bilateral: head extension', w4_ribcage: 'elevation of rib cage (inspiration)' }, note: 'neck flexor; superficial neck muscle', src: [HN, 15] },
+{ k: 'group', id: 'w4_scalenes', l: 'Scalene muscles', match: 'Scalene', parent: 'w4_neckmusc', w: 4, line: 'flexion, lateral flexion, neck rotation; and elevate ribs', src: [HN, 16] },
+{ k: 'muscle', id: 'w4_antscalene', l: 'Anterior scalene', match: 'Anterior Scalene', parent: 'w4_scalenes', w: 4, moves: { w4_cervical: 'flexion, lateral flexion, rotation', w4_ribcage: 'elevate ribs' }, note: 'C3-C6 to 1st rib', src: [HN, 16] },
+{ k: 'muscle', id: 'w4_midscalene', l: 'Middle scalene', match: 'Middle Scalene', parent: 'w4_scalenes', w: 4, moves: { w4_cervical: 'flexion, lateral flexion, rotation', w4_ribcage: 'elevate ribs' }, note: 'C2-C7 to 1st rib', src: [HN, 16] },
+{ k: 'muscle', id: 'w4_postscalene', l: 'Posterior scalene', match: 'Posterior Scalene', parent: 'w4_scalenes', w: 4, moves: { w4_cervical: 'flexion, lateral flexion, rotation', w4_ribcage: 'elevate ribs' }, note: 'C5-C7 to 2nd rib', src: [HN, 16] },
+{ k: 'muscle', id: 'w4_prevert', l: 'Prevertebral muscles', parent: 'w4_neckmusc', w: 4, moves: { w4_cervical: 'flexion and lateral flexion of head (capitis) and neck (colli)' }, note: 'neck flexor', src: [HN, 16] },
+
+/* ---------------- muscles of the back (p29 to 31, 35) ---------------- */
+{ k: 'group', id: 'w4_backextr', l: 'Extrinsic back muscles', match: 'Extrinsic (usually', parent: 'trunk_muscles', w: 4, line: 'usually moves shoulders and limbs; except trapezius', src: [HN, 29] },
+{ k: 'group', id: 'w4_backintr', l: 'Intrinsic back muscles', match: 'Intrinsic (Deep)', parent: 'trunk_muscles', w: 4, line: 'move head; move and stabilise the vertebral column', src: [HN, 29, 30] },
+{ k: 'muscle', id: 'w4_splcap', l: 'Splenius capitis', parent: 'w4_backintr', w: 4, moves: { w4_cervical: 'unilateral: laterally flex and rotate head and neck; bilateral: extend' }, note: 'a major extensor of the neck', src: [HN, 30, 35] },
+{ k: 'muscle', id: 'w4_splcerv', l: 'Splenius cervicis', parent: 'w4_backintr', w: 4, moves: { w4_cervical: 'unilateral: laterally flex and rotate head and neck; bilateral: extend' }, note: 'a major extensor of the neck', src: [HN, 30, 35] },
+{ k: 'muscle', id: 'w4_erector', l: 'Erector spinae', parent: 'w4_backintr', w: 4, moves: { w4_vcolumn: 'bilaterally main extensors of head and spine; unilaterally laterally flex' }, note: 'keeps the trunk upright', src: [HN, 30, 35] },
+{ k: 'muscle', id: 'w4_spinalis', l: 'Spinalis', parent: 'w4_erector', w: 4, moves: { w4_vcolumn: 'listed with erector spinae: extends the spine bilaterally' }, note: 'the slide gives no separate action for spinalis', src: [HN, 30] },
+{ k: 'group', id: 'w4_transpin', l: 'Transversospinalis', parent: 'w4_backintr', w: 4, line: 'stabilise the spine, maintain posture, control small intervertebral movement', src: [HN, 30] },
+{ k: 'muscle', id: 'w4_semicap', l: 'Semispinalis capitis', parent: 'w4_transpin', w: 4, moves: { w4_cervical: 'major extensor of the neck' }, src: [HN, 31, 35] },
+{ k: 'muscle', id: 'w4_semicerv', l: 'Semispinalis cervicis', parent: 'w4_transpin', w: 4, moves: { w4_cervical: 'major extensor of the neck' }, src: [HN, 31, 35] },
+{ k: 'muscle', id: 'w4_semithor', l: 'Semispinalis thoracis', parent: 'w4_transpin', w: 4, moves: { w4_cervical: 'major extensor of the neck (semispinalis muscles)' }, src: [HN, 31, 35] },
+{ k: 'muscle', id: 'w4_multifidus', l: 'Multifidus', parent: 'w4_transpin', w: 4, moves: { w4_vcolumn: 'major extensor of the vertebral column' }, src: [HN, 31, 35] },
+{ k: 'muscle', id: 'w4_rotatores', l: 'Rotatores', parent: 'w4_transpin', w: 4, moves: { w4_vcolumn: 'major extensor of the vertebral column' }, src: [HN, 31, 35] },
+
+/* ---------------- abdominal muscles (p32 to 35) ---------------- */
+{ k: 'part', id: 'w4_abdcontents', l: 'Abdominal contents', parent: 'trunk_muscles', w: 4, src: [HN, 33] },
+{ k: 'group', id: 'w4_anterolat', l: 'Anterolateral group', parent: 'trunk_muscles', w: 4, src: [HN, 32] },
+{ k: 'muscle', id: 'w4_rectusabd', l: 'Rectus abdominis', parent: 'w4_anterolat', w: 4, moves: { w4_abdcontents: 'compresses abdominal contents', w4_vcolumn: 'flexes vertebral column' }, note: 'accessory muscle of expiration', src: [HN, 33] },
+{ k: 'muscle', id: 'w4_extoblique', l: 'External oblique abdominis', match: 'External oblique', parent: 'w4_anterolat', w: 4, moves: { w4_abdcontents: 'supports and compresses abdominal contents', w4_vcolumn: 'assists in trunk flexing, side bending, and rotation' }, note: 'assists forced expiration, micturition, defecation and vomiting', src: [HN, 33] },
+{ k: 'muscle', id: 'w4_intoblique', l: 'Internal oblique abdominis', match: 'Internal oblique', parent: 'w4_anterolat', w: 4, moves: { w4_vcolumn: 'with contralateral external oblique: flexion, lateral flexion or axial rotation' }, note: 'underneath the external oblique; functions similarly', src: [HN, 33] },
+{ k: 'muscle', id: 'w4_transabd', l: 'Transverse abdominis', parent: 'w4_anterolat', w: 4, moves: { w4_abdcontents: 'holds abdominal contents' }, note: 'deepest layer', src: [HN, 33] },
+{ k: 'group', id: 'w4_posterior', l: 'Posterior group', parent: 'trunk_muscles', w: 4, src: [HN, 32, 34] },
+{ k: 'muscle', id: 'w4_psoas', l: 'Psoas major', parent: 'w4_posterior', w: 4, joints: { w2_j_hip: 'hip flexor (iliopsoas)' }, src: [HN, 34, 35] },
+{ k: 'muscle', id: 'w4_iliacus', l: 'Iliacus', parent: 'w4_posterior', w: 4, joints: { w2_j_hip: 'hip flexor (iliopsoas)' }, src: [HN, 34, 35] },
+{ k: 'muscle', id: 'w4_quadlumb', l: 'Quadratus lumborum', parent: 'w4_posterior', w: 4, joints: { w2_j_hip: 'hip stabiliser' }, note: 'transverse process L1-L4 to inferior border of rib 12', src: [HN, 34, 35] },
 ];
