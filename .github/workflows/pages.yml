@@ -32,8 +32,8 @@ jobs:
         run: node work/load-check.mjs
       - name: Data modules parse
         run: node work/syntax-check.mjs
-      - name: Study corpus and applications validate
-        run: node work/corpus-check.mjs
+      - name: Revision data and link logic validate
+        run: node work/revision-check.mjs && node work/revise-pure-check.mjs
       - name: Today and search-only settings navigation
         run: node work/today-navigation-check.mjs
       - name: Every reachable module is precached, query and all
