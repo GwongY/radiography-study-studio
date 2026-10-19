@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v223';
+const CACHE_VERSION = 'v224';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -200,7 +200,10 @@ const SHELL = [
   './revision/link-rows.js?v=1',
   './revision/hss2011-data.js',
   './revision/leaves.js',
+  './revision/hss2011-leaves-w1.js',
   './revision/hss2011-leaves-w2.js',
+  './revision/hss2011-leaves-w3.js',
+  './revision/hss2011-leaves-w4.js',
   './revision/hss2011-threads.js',
   './revision/hss2011-tables.js',
   './revision/hss2011-decoder.js',

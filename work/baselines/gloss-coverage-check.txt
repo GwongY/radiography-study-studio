@@ -18,7 +18,7 @@ warn  17 underlined Revise token(s) have no TERM_GLOSS and are not stoplisted:
     proprioceptor (1)
     barometer (1)
 — gloss integrity check: structure and Chinese presence —
-  ok  2051 TERM_GLOSS entries well-formed with Traditional Chinese
+  ok  2053 TERM_GLOSS entries well-formed with Traditional Chinese
 — number cues check: singular/plural reciprocal cues in TERM_NOTES —
   ok  37 singular/plural pairs have reciprocal cues
 
