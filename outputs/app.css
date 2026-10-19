@@ -1463,8 +1463,26 @@ ul.asslines{list-style:none;margin:0;padding:0}
 #rvLinks path{fill:none;stroke:var(--rv-accent);stroke-width:1.6;opacity:.7;stroke-linecap:round}
 #rvLinks path.far{stroke-dasharray:4 5;opacity:.5}
 #rvLinks path.hot{stroke-width:2.8;opacity:1}
-#rvLinks circle{fill:var(--rv-accent)}
-#rvLinks text{font:600 11.5px 'Instrument Sans',sans-serif;font-size:calc(11.5px * var(--ts));fill:var(--rv-ink);paint-order:stroke;stroke:var(--rv-surface);stroke-width:4px;stroke-linejoin:round}
+#rvLinks .rv-dot{pointer-events:all;cursor:pointer}
+#rvLinks .rv-dot .hit{fill:transparent}
+#rvLinks .rv-dot .ring{fill:var(--rv-surface);stroke:var(--rv-accent);stroke-width:1.4}
+#rvLinks .rv-dot.hot .ring{fill:var(--rv-accent)}
+#rvLinks .rv-dot text{font:600 11px 'Instrument Sans',sans-serif;font-size:calc(11px * var(--ts));fill:var(--rv-ink);text-anchor:middle}
+#rvLinks .rv-dot.hot text{fill:var(--rv-accent-ink)}
+#rvMm .mline{display:block;font:400 12px 'Instrument Sans',sans-serif;font-size:calc(12px * var(--ts));color:var(--rv-muted);margin-top:1px;white-space:normal}
+#reviseView .rv-col{min-width:0;display:flex;flex-direction:column;gap:10px}
+#reviseView .rv-links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+#reviseView .rv-links[hidden]{display:none}
+#reviseView .rv-lhead{font:500 12px ui-monospace,SFMono-Regular,Menlo,monospace;font-size:calc(12px * var(--ts));color:var(--rv-muted);text-transform:uppercase;letter-spacing:.06em;padding:2px 2px 4px}
+#reviseView .rv-lrow{display:grid;grid-template-columns:28px minmax(0,1fr);gap:2px 10px;width:100%;min-height:44px;text-align:left;align-items:center;background:var(--rv-surface2);border:1px solid transparent;border-radius:8px;padding:6px 10px;cursor:pointer;color:var(--rv-ink)}
+#reviseView .rv-lrow.hot{border-color:var(--rv-accent);background:var(--rv-accent-soft)}
+#reviseView .rv-ln{grid-row:span 2;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:600 12px 'Instrument Sans',sans-serif;font-size:calc(12px * var(--ts));background:var(--rv-surface);border:1.4px solid var(--rv-accent);color:var(--rv-ink)}
+#reviseView .rv-lrow.hot .rv-ln{background:var(--rv-accent);color:var(--rv-accent-ink)}
+#reviseView .rv-lname{font:500 14px 'Instrument Sans',sans-serif;font-size:calc(14px * var(--ts))}
+#reviseView .rv-lname small{font-size:calc(12px * var(--ts));color:var(--rv-muted);font-weight:400}
+#reviseView .rv-lwhy{font-size:calc(13px * var(--ts));color:var(--rv-ink2)}
+#reviseView .rv-src{font-size:calc(12px * var(--ts));color:var(--rv-muted);margin:8px 0 0}
+#reviseView .rv-to3d{margin:10px 0 0}
 #rvNotesBtn{position:absolute;right:10px;bottom:10px;background:var(--rv-surface)}
 #reviseView .rv-side{background:var(--rv-surface);border:1px solid var(--rv-line);border-radius:12px;padding:16px 16px 14px;max-height:660px;overflow-y:auto;min-width:0;display:block;color:var(--rv-ink2)}
 #reviseView .rv-side h3{margin:0 0 6px;font-size:calc(20px * var(--ts))}
