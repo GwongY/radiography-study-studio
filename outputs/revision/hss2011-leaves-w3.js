@@ -119,9 +119,9 @@ export const ROWS = [
 
 /* ---------------- posterior compartment of forearm, extrinsic (p27-28) ---------------- */
 { k: 'group', id: 'w3_postforearm', l: 'Posterior compartment of forearm', parent: 'ul_muscles', w: 3, line: 'extrinsic muscles; all extensors are innervated by the radial nerve', src: [UL, 27] },
-{ k: 'muscle', id: 'w3_apl', l: 'Abductor pollicis longus', parent: 'w3_postforearm', w: 3, moves: { w3_hand: 'extensor of the posterior compartment' }, note: 'the slide labels it APL and gives no action', match: 'apl', src: [UL, 27] },
-{ k: 'muscle', id: 'w3_epb', l: 'Extensor pollicis brevis', parent: 'w3_postforearm', w: 3, moves: { w3_phalanges: 'major muscle controlling thumb movement' }, note: 'the slide labels it EPB', match: 'epb', src: [UL, 27, 28] },
-{ k: 'muscle', id: 'w3_epl', l: 'Extensor pollicis longus', parent: 'w3_postforearm', w: 3, moves: { w3_phalanges: 'major muscle controlling thumb movement' }, note: 'the slide labels it EPL', match: 'epl', src: [UL, 27, 28] },
+{ k: 'muscle', id: 'w3_apl', l: 'Abductor pollicis longus', parent: 'w3_postforearm', w: 3, moves: { w3_hand: 'extensor of the posterior compartment' }, note: 'the slide labels it APL and gives no action', match: 'apl epb', src: [UL, 27] },
+{ k: 'muscle', id: 'w3_epb', l: 'Extensor pollicis brevis', parent: 'w3_postforearm', w: 3, moves: { w3_phalanges: 'major muscle controlling thumb movement' }, note: 'the slide labels it EPB', match: 'epb epl', src: [UL, 27, 28] },
+{ k: 'muscle', id: 'w3_epl', l: 'Extensor pollicis longus', parent: 'w3_postforearm', w: 3, moves: { w3_phalanges: 'major muscle controlling thumb movement' }, note: 'the slide labels it EPL', match: 'epl ei', src: [UL, 27, 28] },
 { k: 'muscle', id: 'w3_ei', l: 'Extensor indicis', parent: 'w3_postforearm', w: 3, moves: { w3_phalanges: 'major finger extensor' }, note: 'the slide labels it EI', match: 'epl ei', src: [UL, 27, 28] },
 { k: 'muscle', id: 'w3_edm', l: 'Extensor digiti minimi', parent: 'w3_postforearm', w: 3, moves: { w3_hand: 'extensor of the posterior compartment' }, note: 'the slide labels it EDM and gives no action', match: 'ei edm', src: [UL, 27] },
 { k: 'muscle', id: 'w3_ecu', l: 'Extensor carpi ulnaris', parent: 'w3_postforearm', w: 3, joints: { w1_j_rc: 'major wrist extensor' }, note: 'the slide labels it ECU', match: 'edm ecu', src: [UL, 27, 28] },
