@@ -391,7 +391,10 @@ export function createBrain(env) {
     if (tour && !TOURS.some((t) => t.th === tour.th)) stopTour();
     trail = trail.filter((id) => ix.ids.has(id));
     if (centre && !ix.ids.has(centre)) centre = trail.length ? trail[trail.length - 1] : null;
-    if (centre) recentre(centre, false); else { lay = null; rows = []; renderLinkList(listEl, rows); home(); }
+    const fallback = centre ? null : env.newest();
+    if (centre) recentre(centre, false);
+    else if (fallback) recentre(fallback, true);
+    else { lay = null; rows = []; renderLinkList(listEl, rows); moreBtn.hidden = true; paintTrail(); home(); }
   }
 
   /* ---------- only run while the tab is showing ---------- */

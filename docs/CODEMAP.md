@@ -149,7 +149,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `more-sources-coverage.js` | 75 | More -- sources, coverage, and the things demoted out of the topbar. |
 | `navigation-destinations.js` | 71 | Navigation -- four destinations, rendered into both the icon rail and |
 | `reading-help.js` | 218 | Reading help |
-| `revise-brain.js` | 424 | Revise · Brain 3D — the connections hub |
+| `revise-brain.js` | 427 | Revise · Brain 3D — the connections hub |
 | `revise-links.js` | 32 | Revise · the numbered links list under the Map and under the 3D hub. |
 | `revise.js` | 828 | Revise |
 | `search-viewer-open.js` | 44 | Search -> viewer: open the model, select the part, auto-uncover, and |
