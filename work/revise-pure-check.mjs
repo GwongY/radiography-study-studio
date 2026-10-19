@@ -8,7 +8,7 @@
  * revision-check.mjs's job; this file holds the three pure modules to what they
  * promise, so a change to one fails here before it reaches a phone.
  */
-import { dropSystem, leafLine, mergeLeaves, topicNodes } from '../outputs/revision/leaves.js';
+import { leafLine, mergeLeaves, topicNodes } from '../outputs/revision/leaves.js';
 import { linkRows } from '../outputs/revision/link-rows.js';
 import { describe, firstSentence } from '../outputs/revision/describe.js';
 import { HUB, angle, hubLayout, pickFirst, SYSORDER } from '../outputs/revision/hub.js';
@@ -116,18 +116,6 @@ ok(describe({ leaf: true }, { parent: 'Facial bones', grand: 'Skull' }) === 'Par
 ok(describe(null, { parent: '' }) === 'Part of this map.' && describe(null, { kids: ['One'] }) === 'Covers One.', 'a group heading and the root are never empty');
 ok(firstSentence('x'.repeat(300)).length <= 150 && firstSentence('x'.repeat(300)).endsWith('…'), 'a long first sentence is cut at the limit');
 ok(describe({ leaf: true, line: '  ' }, {}).length > 3, 'a blank line falls back to the derived sentence');
-
-/* ---- dropSystem: a body-system group left out of the map ---- */
-{
-  const base = { NODES: [{ id: 'a', s: 'x', w: [1] }, { id: 'b', s: 'y', w: [1] }], EDGES: [['a', 'b', 'why']],
-    TREE: { label: 'r', kids: [{ sys: 'x', label: 'X', kids: [{ id: 'a' }] }, { sys: 'y', label: 'Y', kids: [{ id: 'b' }] }] } };
-  const rs = [{ k: 'part', id: 'a1', l: 'A1', parent: 'a', w: 1, src: ['s', 1] },
-    { k: 'part', id: 'b1', l: 'B1', parent: 'b', w: 1, links: { a1: 'x', b: 'y' }, from: 'a1', src: ['s', 1] }];
-  const d = dropSystem(base, rs, 'x');
-  ok(d.base.NODES.length === 1 && d.base.EDGES.length === 0, 'the headings of the group and the links ending at them go');
-  ok(d.rows.length === 1 && d.rows[0].id === 'b1' && Object.keys(d.rows[0].links).join() === 'b' && !('from' in d.rows[0]), 'its rows go, and links from other rows into it are stripped');
-  ok(d.base.TREE.kids.length === 1 && d.base.TREE.kids[0].label === 'Y', 'its branch of the tree goes');
-}
 
 /* ---- a row folded into its same-named parent still gives its own rows a colour group ---- */
 const am = mergeLeaves({ NODES: [{ id: 'b', l: 'Brainstem', s: 'cns', w: [6], t: '' }], EDGES: [], TREE: { label: 'r', kids: [{ id: 'b' }] } }, [{ k: 'part', id: 'rb', l: 'Brainstem', parent: 'b', w: 6, src: ['x.2026', 1] }, { k: 'part', id: 'rm', l: 'Medulla', parent: 'rb', w: 6, src: ['x.2026', 1] }]);

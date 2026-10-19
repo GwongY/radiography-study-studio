@@ -46,12 +46,8 @@ export const EDGES = [
   ['heart', 'circuits', 'the right and left sides of the heart pump the two circuits'],
   ['coronary', 'cvdisease', 'blockage of the coronary circulation'],
   ['pericardium', 'cvdisease', 'too much fluid in the pericardial sac (tamponade)'],
-  ['cardiaccells', 'junctions', 'intercalated discs hold desmosomes and gap junctions'],
   ['cardiaccells', 'symp', 'norepinephrine speeds the heart rate'],
   ['cardiaccells', 'parasymp', 'the vagus nerve slows the heart rate'],
-  ['pericardium', 'epithelium', 'mesothelium is simple squamous epithelium'],
-  ['pericardium', 'connective', 'areolar tissue is loose connective tissue'],
-  ['bloodvessels', 'tissues', 'vessel walls are layers of tissue'],
 ];
 
 export const ROWS = [
@@ -74,8 +70,8 @@ export const ROWS = [
 { k: 'part', id: 'w8_epicardium', l: 'Epicardium', parent: 'w8_serperic', w: 8, line: 'the inner visceral layer', src: [L8, 7] },
 { k: 'part', id: 'w8_pericavity', l: 'Pericardial cavity', parent: 'pericardium', w: 8, line: 'between the parietal and visceral layers; holds pericardial fluid', src: [L8, 3, 7] },
 { k: 'part', id: 'w8_pericfluid', l: 'Pericardial fluid', parent: 'w8_pericavity', w: 8, line: 'normally about 15-50 mL; lubricates the heart', src: [L8, 7, 9] },
-{ k: 'part', id: 'w8_mesothelium', l: 'Mesothelium', parent: 'pericardium', w: 8, line: 'simple squamous epithelium; secretes pericardial fluid and cuts friction', links: { epithelium: 'simple squamous epithelium' }, src: [L8, 9] },
-{ k: 'part', id: 'w8_areolar', l: 'Areolar tissue', parent: 'pericardium', w: 8, line: 'loose connective tissue; anchors and supports the mesothelial layer', links: { connective: 'loose connective tissue' }, src: [L8, 9] },
+{ k: 'part', id: 'w8_mesothelium', l: 'Mesothelium', parent: 'pericardium', w: 8, line: 'simple squamous epithelium; secretes pericardial fluid and cuts friction', src: [L8, 9] },
+{ k: 'part', id: 'w8_areolar', l: 'Areolar tissue', parent: 'pericardium', w: 8, line: 'loose connective tissue; anchors and supports the mesothelial layer', src: [L8, 9] },
 { k: 'part', id: 'w8_epifat', l: 'Epicardial adipose tissue', parent: 'pericardium', w: 8, line: 'fat between the myocardium and the pericardium; cushions and fuels the heart', src: [L8, 11] },
 
 /* ---------------- heart wall (p13-15) ---------------- */
@@ -128,7 +124,7 @@ export const ROWS = [
 { k: 'group', id: 'w8_cardiomyocyte', l: 'Contractile cardiomyocytes', parent: 'cardiaccells', w: 8, line: 'striated, branched cells with intercalated discs; they contract to pump blood', src: [L8, 28, 29] },
 { k: 'group', id: 'w8_icd', l: 'Intercalated discs', parent: 'w8_cardiomyocyte', w: 8, line: 'connect cardiac muscle cells', src: [L8, 29] },
 { k: 'part', id: 'w8_desmo', l: 'Desmosomes', parent: 'w8_icd', w: 8, line: 'hold cells together during contraction', src: [L8, 29] },
-{ k: 'part', id: 'w8_gapj', l: 'Gap junctions', parent: 'w8_icd', w: 8, line: 'let electrical signals pass quickly from cell to cell', links: { w2_tis_gap: 'the same junction, Week 2' }, src: [L8, 29] },
+{ k: 'part', id: 'w8_gapj', l: 'Gap junctions', parent: 'w8_icd', w: 8, line: 'let electrical signals pass quickly from cell to cell', src: [L8, 29] },
 { k: 'part', id: 'w8_pacemaker', l: 'Pacemaker (nodal) cells', parent: 'cardiaccells', w: 8, line: 'start the heartbeat; produce electrical impulses automatically', src: [L8, 28] },
 { k: 'part', id: 'w8_purkinje', l: 'Purkinje fibres', parent: 'cardiaccells', w: 8, line: 'carry electrical signals rapidly; coordinate ventricular contraction', src: [L8, 28] },
 { k: 'part', id: 'w8_fibroblast', l: 'Fibroblasts', parent: 'cardiaccells', w: 8, line: 'produce connective tissue; support and repair the heart', src: [L8, 28] },
@@ -148,7 +144,7 @@ export const ROWS = [
 { k: 'part', id: 'w8_arteriole', l: 'Arterioles', parent: 'bloodvessels', w: 8, line: 'small branches that control blood flow into capillaries by vasoconstriction and vasodilation', src: [L8, 35] },
 { k: 'group', id: 'w8_capillary', l: 'Capillaries', parent: 'bloodvessels', w: 8, line: 'where gas, nutrient and waste exchange happens; one cell layer thick', src: [L8, 35] },
 { k: 'part', id: 'w8_contcap', l: 'Continuous Capillaries', parent: 'w8_capillary', w: 8, line: 'least permeable; tight junctions; in muscle, skin, lungs and the CNS',
-  links: { w2_tis_tight: 'tight junctions between the cells', w6_bbbarrier: 'found in the blood-brain barrier' }, src: [L8, 37] },
+  links: { w6_bbbarrier: 'found in the blood-brain barrier' }, src: [L8, 37] },
 { k: 'part', id: 'w8_fencap', l: 'Fenestrated Capillaries', parent: 'w8_capillary', w: 8, line: 'pores raise permeability; in the kidneys, intestines, endocrine glands and choroid plexus',
   links: { w6_choroid: 'found in the choroid plexus' }, src: [L8, 38] },
 { k: 'part', id: 'w8_sinusoid', l: 'Sinusoid', parent: 'w8_capillary', w: 8, line: 'large gaps between cells; in the liver, spleen, bone marrow and adrenal medulla', src: [L8, 39] },

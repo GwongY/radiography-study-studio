@@ -10,15 +10,6 @@
  */
 /* s = system colour group, w = weeks taught, th = thread ids to open */
 export const NODES = [
-/* ---------------- tissues & cells ---------------- */
-{id:'tissues', l:'4 tissue types', s:'tissue', w:[2], th:['t11'],
- t:`<b>Epithelial</b> covers, lines and secretes (every gland is epithelium). <b>Connective</b> supports, binds and stores (cells + fibres + ground substance; blood and lymph are the fibre-less members). <b>Muscle</b> contracts. <b>Nervous</b> conducts.<br>Every organ in Weeks 1–7 is these four stacked together. An eye = epithelium (conjunctiva) + connective (sclera) + muscle (iris, extraocular) + nervous (retina).`},
-{id:'junctions', l:'Cell junctions', s:'tissue', w:[2,5,6],
- t:`<b>Tight</b> = seal (zip-lock). <b>Adherens</b> = anchor (velcro, rivets). <b>Gap</b> = tunnel (connexons pass ions and signals).<br>They come back as the tight junctions of the blood–brain barrier (W6), the gap junctions of electrical synapses (W5), and the intercalated discs of the heart (Module 3).`},
-{id:'epithelium', l:'Epithelium', s:'tissue', w:[2,6,7], th:['t11'],
- t:`Sheets that cover, line and secrete: simple squamous (filter), cuboidal (absorb/secrete), columnar (absorb + mucus); stratified (protect); keratinised epidermis (dead cells, waterproof).<br>Nervous-system cameos: <b>ependymal cells</b> (line ventricles, make CSF), <b>taste cells</b> (epithelial, not neurons), <b>spiral organ</b> (thick epithelium), <b>olfactory epithelium</b> (its receptor cells ARE neurons), <b>conjunctiva</b>.`},
-{id:'connective', l:'Connective tissue', s:'tissue', w:[1,2,6,7], th:['t11'],
- t:`Bone, cartilage, tendon, ligament, blood, fat. Cartilage types tie to organs: <b>hyaline</b> = articular surfaces <span class="star">★</span>, <b>fibrocartilage</b> = meniscus, <b>elastic</b> = the ear's auricle (W7).<br><b>Dura</b> is dense fibrous tissue, <b>sclera</b> dense collagenous, <b>tendon</b> dense regular.`},
 /* ---------------- skeleton ---------------- */
 {id:'bone', l:'Bone & marrow', s:'skel', w:[1],
  t:`<b>Compact</b> (dense outer shell, bears weight) + <b>spongy</b> (inner trabeculae, lighter, absorbs shock). Matrix: ⅔ calcium hydroxyapatite (strong, stiff) + ⅓ collagen (flexible).<br>Osteo<b>blast</b> builds, osteo<b>cyte</b> maintains, osteo<b>clast</b> dissolves. <b>Periosteum</b> wraps the outside (rich in vessels and nerves). Red marrow makes blood cells, yellow marrow stores fat. Five shapes: long, short, flat, irregular, sesamoid.`},
@@ -134,11 +125,6 @@ export const NODES = [
 ];
 
 export const EDGES = [
-/* tissues */
-['tissues','epithelium','type 1'],['tissues','connective','type 2'],['tissues','musclestruct','type 3: muscle'],['tissues','neuron','type 4: nervous'],['tissues','junctions','held together by'],
-['epithelium','glia','ependymal cells are epithelium-like'],['epithelium','taste','taste cells are epithelial'],['epithelium','smell','olfactory epithelium'],['epithelium','ear_hearing','spiral organ = thick epithelium'],['epithelium','eye','conjunctiva, pigment layer'],['epithelium','csf','covers the choroid plexus'],
-['connective','bone','bone is connective tissue'],['connective','ligcart','cartilage, ligament'],['connective','meninges','dura = dense fibrous'],['connective','eye','sclera = dense collagenous'],['connective','ear_hearing','auricle = elastic cartilage'],['connective','musclestruct','tendon continues the wrappers'],
-['junctions','bbb','tight junctions seal it'],['junctions','synapse','gap junctions = electrical synapse'],
 /* skeleton */
 ['bone','joints','bones meet at'],['joints','ligcart','stabilised by'],['bone','skull','e.g.'],['bone','vertebrae','e.g.'],['bone','ll_bones','e.g.'],['bone','ul_bones','e.g.'],['bone','ear_hearing','ossicles are bones'],
 ['joints','movements','shape sets the movement'],['joints','ll_bones','hip, knee, ankle'],['joints','ul_bones','shoulder, elbow, wrist'],['joints','vertebrae','facet joints (plane)'],['joints','skull','TMJ, atlanto-occipital'],
@@ -177,8 +163,6 @@ export const EDGES = [
 
 /* One parent per topic = the mind-map skeleton. Cross-links (EDGES) are drawn on demand. */
 export const TREE = {label:'HSS2011 · Weeks 1–7', kids:[
- {sys:'tissue', label:'Tissues & cells', kids:[
-   {id:'tissues', kids:[{id:'epithelium'},{id:'connective'},{id:'junctions'}]}]},
  {sys:'skel', label:'Skeleton & joints', kids:[
    {id:'orient'},{id:'movements'},
    {id:'bone', kids:[{id:'skull', kids:[{id:'orbit'}]},{id:'vertebrae'},{id:'ll_bones'},{id:'ul_bones'}]},

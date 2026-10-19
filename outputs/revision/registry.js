@@ -10,7 +10,7 @@
  * its `decks`. No view code knows which subject it is showing.
  */
 import * as hss2011 from './hss2011-data.js';
-import { dropSystem, mergeLeaves, topicNodes } from './leaves.js';
+import { mergeLeaves, topicNodes } from './leaves.js';
 import * as hss2011W1 from './hss2011-leaves-w1.js';
 import * as hss2011W2 from './hss2011-leaves-w2.js';
 import * as hss2011W3 from './hss2011-leaves-w3.js';
@@ -50,13 +50,9 @@ const HSS2011_ALL = {
   TREE: { ...hss2011.TREE, kids: [...hss2011.TREE.kids, hss2011W8.BRANCH] },
 };
 
-/* The Tissues & cells notes are physiology's (the owner moved the file back to the physiology folder), so the anatomy map leaves them out.
-   The rows stay in hss2011-leaves-w1.js and -w2.js for the physiology subject. */
-const HSS2011_SHOWN = dropSystem(HSS2011_ALL, HSS2011_ROWS, 'tissue');
-
 /* Colour groups. col = legend, notes tag and Brain 3D; map = the Map's own shade. The HSS2011 values are app.css's
    (--rv-c-* line 1409, --c-* line 1441), so anatomy looks as it did. Tissues & cells is not listed: those rows are
-   physiology's (hidden by dropSystem below until plan Task 10 moves them). A shared colour across subjects means the
+   physiology's (merged into Lecture 1, owner 19 Oct 2026). A shared colour across subjects means the
    same body system (rules.js checkSystems). */
 const HSS2011_SYSTEMS = [
   { key: 'skel', label: 'Skeleton & joints', col: '#d1a94f', map: '#e2b65a' },
@@ -91,8 +87,8 @@ export const REVISION = {
   HSS2011: {
     id: 'HSS2011',
     label: 'HSS2011 Human Anatomy',
-    data: mergeLeaves(HSS2011_SHOWN.base, HSS2011_SHOWN.rows, HSS2011_LEAF_SOURCES),
-    rows: HSS2011_SHOWN.rows,
+    data: mergeLeaves(HSS2011_ALL, HSS2011_ROWS, HSS2011_LEAF_SOURCES),
+    rows: HSS2011_ROWS,
     threads: THREADS_HTML,
     tables: TABLES_HTML,
     decoder: DECODER_HTML,

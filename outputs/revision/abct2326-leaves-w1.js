@@ -90,7 +90,7 @@ export const ROWS = [
   { k: 'part', id: 'p1_loose_ct', l: 'Loose connective tissue', parent: 'p1_ct_proper', w: 1, line: 'more ground substance, fewer fibers, such as areolar and adipose tissue', src: [L1, 40] },
   { k: 'part', id: 'p1_dense_ct', l: 'Dense connective tissue', parent: 'p1_ct_proper', w: 1, line: 'more fibers, less ground substance, such as tendons', src: [L1, 40] },
   { k: 'group', id: 'p1_fluid_ct', l: 'Fluid connective tissues', parent: 'p_connective', w: 1, line: 'blood and lymph with watery matrix and specialized cells', src: [L1, 39, 43] },
-  { k: 'part', id: 'p1_blood', l: 'Blood', parent: 'p1_fluid_ct', w: 1, line: 'fluid connective tissue carrying formed elements in liquid matrix', src: [L1, 43, 44, 45] },
+  { k: 'part', id: 'p1_blood', l: 'Blood', parent: 'p1_fluid_ct', w: 1, line: 'fluid connective tissue carrying formed elements in liquid matrix', links: { p1_tis_lymph: 'blood and lymph both lack fiber' }, src: [L1, 43, 44, 45] },
   { k: 'cell', id: 'p1_rbc', l: 'Red blood cells', parent: 'p1_blood', w: 1, line: 'transport oxygen and carbon dioxide in the blood', src: [L1, 43, 44] },
   { k: 'cell', id: 'p1_wbc', l: 'White blood cells', parent: 'p1_blood', w: 1, line: 'defend the body from infection and disease', src: [L1, 43, 45] },
   { k: 'cell', id: 'p1_platelets', l: 'Platelets', parent: 'p1_blood', w: 1, line: 'membrane-enclosed packets of cytoplasm that function in blood clotting', src: [L1, 43, 44] },
@@ -109,7 +109,7 @@ export const ROWS = [
 
   /* ---------------- Neural tissue (p53-55) ---------------- */
   { k: 'cell', id: 'p1_neurons', l: 'Neurons', parent: 'p_neural_t', w: 1, line: 'nerve cells specialized for electrical communication', src: [L1, 54] },
-  { k: 'part', id: 'p1_cell_body', l: 'Cell body', parent: 'p1_neurons', w: 1, line: 'contains the nucleus and major organelles', src: [L1, 54] },
+  { k: 'part', id: 'p1_cell_body', l: 'Cell body', parent: 'p1_neurons', w: 1, line: 'contains the nucleus and major organelles', links: { p1_tis_nucleus: 'the cell body contains the nucleus', p1_tis_organelles: 'and the organelles' }, src: [L1, 54] },
   { k: 'part', id: 'p1_dendrites', l: 'Dendrites', parent: 'p1_neurons', w: 1, line: 'short branches extending from cell body that receive incoming signals', src: [L1, 54] },
   { k: 'part', id: 'p1_axon', l: 'Axon', parent: 'p1_neurons', w: 1, line: 'long thin extension that carries outgoing electrical signals', src: [L1, 54] },
   { k: 'cell', id: 'p1_neuroglia', l: 'Neuroglia', parent: 'p_neural_t', w: 1, line: 'supporting cells that maintain structure, repair, and nourish neurons', src: [L1, 54] },
