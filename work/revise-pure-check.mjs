@@ -8,7 +8,7 @@
  * revision-check.mjs's job; this file holds the three pure modules to what they
  * promise, so a change to one fails here before it reaches a phone.
  */
-import { dropSystem, leafLine, mergeLeaves } from '../outputs/revision/leaves.js';
+import { dropSystem, leafLine, mergeLeaves, topicNodes } from '../outputs/revision/leaves.js';
 import { linkRows } from '../outputs/revision/link-rows.js';
 import { describe, firstSentence } from '../outputs/revision/describe.js';
 import { HUB, angle, hubLayout, pickFirst, SYSORDER } from '../outputs/revision/hub.js';
@@ -183,6 +183,27 @@ ok(starProblems({ text: 'Each hemoglobin molecule can carry four oxygen molecule
 ok(starProblems({ text: 'Each hemoglobin molecule can carry four oxygen molecules.', page: 812, ch: 19 }, [23]).some((p) => p.startsWith('chapter')), "a ★ from a chapter the lecture is not built on fails");
 ok(starProblems({ text: 'Each hemoglobin molecule can carry four oxygen molecules.', ch: 23 }, [23]).includes('no textbook page'), 'a ★ needs its page');
 ok(starProblems({ text: 'Short', page: 1, ch: 23 }, [23]).some((p) => p.startsWith('text')), 'a ★ is one real sentence');
+
+
+console.log('\nphysiology kinds and sourced topics');
+const pbase = { NODES: topicNodes([{ id: 'p_k', l: 'Kidney', s: 'p_renal', w: 5, src: ['k.2026', 2], line: 'regulates plasma by forming urine' }], { 'k.2026': 'K slides' }), EDGES: [], TREE: { label: 'root', kids: [{ sys: 'p_renal', label: 'Kidney', kids: [{ id: 'p_k' }] }] } };
+ok(pbase.NODES[0].w.join() === '5' && pbase.NODES[0].src.join() === 'k.2026,2' && pbase.NODES[0].viewer === false, 'a topic keeps its week as a list, its source, and is not a viewer target unless it says so');
+ok(pbase.NODES[0].t.includes('regulates plasma') && pbase.NODES[0].t.includes('From K slides, p2'), "a topic's note is its slide line and its source");
+ok(topicNodes([{ id: 't', l: 'T', s: 's', w: 1, src: ['k.2026', 1], viewer: true }])[0].viewer === true, 'a topic can ask for the viewer button');
+const prows = [
+  { k: 'cell', id: 'p5_jg', l: 'Juxtaglomerular cells', parent: 'p_k', w: 5, makes: { p5_renin: 'secrete renin' }, src: ['k.2026', 39] },
+  { k: 'substance', id: 'p5_renin', l: 'Renin', parent: 'p_k', w: 5, acts: { p5_raas: 'starts the cascade' }, own: 'An enzyme from the kidney that starts a chain of hormones.', src: ['k.2026', 40] },
+  { k: 'process', id: 'p5_raas', l: 'RAAS', parent: 'p_k', w: 5, next: { p_k: 'raises blood pressure' }, line: 'renin to angiotensin to aldosterone', src: ['k.2026', 40] },
+];
+const pm = mergeLeaves(pbase, prows, { 'k.2026': 'K slides' });
+const phas = (a, b, why) => pm.EDGES.some((e) => pairKey(e[0], e[1]) === pairKey(a, b) && e[2] === why);
+ok(phas('p5_jg', 'p5_renin', 'secrete renin'), 'a cell links to what it makes');
+ok(phas('p5_renin', 'p5_raas', 'starts the cascade'), 'a substance links to what it acts on');
+ok(phas('p5_raas', 'p_k', 'raises blood pressure'), 'a process links to what it leads to');
+ok(pm.NODES.find((n) => n.id === 'p5_renin').own === 'An enzyme from the kidney that starts a chain of hormones.', 'own words travel with the row');
+ok(leafLine({ k: 'substance', acts: { a: 'x', b: 'y' } }) === 'x, y' && leafLine({ k: 'process' }) === '', 'a substance with no line shows what it does; a process with no line shows nothing');
+const ordered = pickFirst([{ id: 'a', sys: 'p_gi', deg: 1 }, { id: 'b', sys: 'p_cvs', deg: 1 }], 14, ['p_cvs', 'p_gi']).shown.map((n) => n.id).join();
+ok(ordered === 'b,a', 'the hub groups balls in the order the subject gives');
 
 console.log(fail ? `\n${fail} FAILED` : '\nALL PASS');
 process.exit(fail ? 1 : 0);

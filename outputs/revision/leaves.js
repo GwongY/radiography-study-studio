@@ -13,16 +13,19 @@
  * A row:
  *   { k, id, l, parent, w, src: [sourceId, page, page…], match?, old?, line?, note?,
  *     joints?, supplies?, from?, links?, s? }
- *   k        group | muscle | bone | joint | nerve | part
+ *   k        group | muscle | bone | joint | nerve | part | cell | substance | process
  *   joints   muscle: { jointId: 'action at that joint' }   bone: [jointId…]
  *   moves    muscle: { id: 'action' } on a structure that is not a joint (the eyeball, the tongue, the mandible)
  *   supplies nerve: { targetId: 'reason' }                 from: parent nerve or plexus
  *   links    any:    { id: 'reason' } for a link the fields above cannot say
+ *   makes    part or cell: { substanceId: 'secretes …' }        acts  substance: { targetId: 'effect' }
+ *   next     process: { processOrTopicId: 'leads to …' }         own   one sentence in the app's own words
+ *            (spec 2026-10-19-physiology-revise.md: physiology leaves)
  *   match    the words to look for on the cited page when the slide names it differently
  *   old      the row comes from an older deck because the 2026 slides do not name it
  */
 
-export const KINDS = ['group', 'muscle', 'bone', 'joint', 'nerve', 'part'];
+export const KINDS = ['group', 'muscle', 'bone', 'joint', 'nerve', 'part', 'cell', 'substance', 'process'];
 const KIND_SYS = { muscle: 'musc', bone: 'skel', joint: 'skel', nerve: 'pns' };
 
 const escHTML = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -32,6 +35,7 @@ const pairKey = (a, b) => (a < b ? `${a}|${b}` : `${b}|${a}`);
 export function leafLine(row) {
   if (row.k === 'muscle') return [Object.values({ ...(row.joints || {}), ...(row.moves || {}) }).join('; '), row.note].filter(Boolean).join(' · ');
   if (row.k === 'nerve' && !row.line) return [...new Set(Object.values(row.supplies || {}))].join(', ');
+  if (row.k === 'substance' && !row.line) return [...new Set(Object.values(row.acts || {}))].join(', ');
   return row.line || '';
 }
 
@@ -72,7 +76,7 @@ export function mergeLeaves(data, rows, sources = {}) {
     const s = row.s || KIND_SYS[row.k] || sysOf.get(row.parent);
     sysOf.set(row.id, s); labelOf.set(row.id, row.l);
     const line = leafLine(row);
-    nodes.push({ id: row.id, l: row.l, s, w: [row.w], t: leafNote(row, line, sources), leaf: row.k, line, src: row.src, old: !!row.old });
+    nodes.push({ id: row.id, l: row.l, s, w: [row.w], t: leafNote(row, line, sources), leaf: row.k, line, src: row.src, old: !!row.old, ...(row.own ? { own: row.own } : {}), ...(row.viewer === false ? { viewer: false } : {}) });
     const spec = { id: row.id };
     (parent.kids = parent.kids || []).push(spec);
     specOf.set(row.id, spec);
@@ -87,9 +91,29 @@ export function mergeLeaves(data, rows, sources = {}) {
       for (const [t, why] of Object.entries(row.supplies || {})) link(row.id, t, why);
       if (row.from) link(row.id, row.from, 'branch of');
     }
+    if (row.k === 'substance') for (const [t, why] of Object.entries(row.acts || {})) link(row.id, t, why);
+    if (row.k === 'part' || row.k === 'cell') for (const [t, why] of Object.entries(row.makes || {})) link(row.id, t, why);
+    if (row.k === 'process') for (const [t, why] of Object.entries(row.next || {})) link(row.id, t, why);
     for (const [t, why] of Object.entries(row.links || {})) link(row.id, t, why);
   }
   return { NODES: nodes, EDGES: edges, TREE: tree, ALIAS: alias };
+}
+
+/**
+ * Topics written like rows (physiology): { id, l, s, w, src, line?, own?, match?, th?, viewer? }.
+ * The note is made the way a leaf's is, so a topic says only what its slide says,
+ * and work/revision-check.mjs holds its name to the page it cites. A topic is not
+ * a viewer target unless it says `viewer: true` (physiology topics are processes).
+ */
+export function topicNodes(topics, sources = {}) {
+  return topics.map((t) => {
+    const line = t.line || '';
+    return {
+      id: t.id, l: t.l, s: t.s, w: Array.isArray(t.w) ? t.w.slice() : [t.w],
+      t: leafNote(t, line, sources), line, src: t.src, viewer: t.viewer === true,
+      ...(t.th ? { th: t.th } : {}), ...(t.own ? { own: t.own } : {}), ...(t.match ? { match: t.match } : {}),
+    };
+  });
 }
 
 /**

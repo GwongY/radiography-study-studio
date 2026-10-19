@@ -19,7 +19,6 @@ const TOP = [0, 1, 0];
 const len = (v) => Math.hypot(v[0], v[1], v[2]);
 const unit = (v) => { const l = len(v) || 1; return [v[0] / l, v[1] / l, v[2] / l]; };
 const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
-const sysRank = (s) => { const i = SYSORDER.indexOf(s); return i < 0 ? SYSORDER.length : i; };
 const byId = (a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
 
 /** The angle between two directions, in radians. */
@@ -28,10 +27,11 @@ export function angle(a, b) {
   return Math.acos(Math.max(-1, Math.min(1, d)));
 }
 
-/** Which direct links get a ball (the `max` with most links) and which wait behind "+N more". */
-export function pickFirst(first, max = HUB.MAX1) {
+/** Which direct links get a ball (the `max` with most links) and which wait behind "+N more"; balls of one system sit together, in `order`. */
+export function pickFirst(first, max = HUB.MAX1, order = SYSORDER) {
+  const rank = (s) => { const i = order.indexOf(s); return i < 0 ? order.length : i; };
   const ranked = first.slice().sort((a, b) => (b.deg - a.deg) || byId(a, b));
-  const shown = ranked.slice(0, max).sort((a, b) => (sysRank(a.sys) - sysRank(b.sys)) || byId(a, b));
+  const shown = ranked.slice(0, max).sort((a, b) => (rank(a.sys) - rank(b.sys)) || byId(a, b));
   const more = ranked.slice(max).map((n) => n.id).sort();
   return { shown, more };
 }
@@ -77,11 +77,12 @@ export function separate(dirs, gap, fixed = [], yMax = 1, passes = 300) {
  * first   [{ id, sys, deg }]  the centre's direct links
  * parent  the topic the centre hangs from on the Map, or null
  * second  [{ id, via }]       links of the direct links, in a stable order
+ * order   the subject's system order (registry hubOrder); anatomy's SYSORDER by default
  * Returns positions (the centre is the origin and is not listed), and what is
  * shown, what waits behind "+N more", and which ball each faint one hangs from.
  */
-export function hubLayout({ first = [], parent = null, second = [] } = {}) {
-  const { shown, more } = pickFirst(first.filter((n) => n.id !== parent));
+export function hubLayout({ first = [], parent = null, second = [], order = SYSORDER } = {}) {
+  const { shown, more } = pickFirst(first.filter((n) => n.id !== parent), HUB.MAX1, order);
   const k = shown.length;
   const d1 = shown.map((_, i) => {
     const y = k === 1 ? 0 : HUB.BAND - (2 * HUB.BAND * (i + 0.5)) / k;
