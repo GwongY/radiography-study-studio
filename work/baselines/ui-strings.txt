@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 986 —
-  819ef3ab52225644  WHOLE SET
+— user-facing strings in outputs/ — 990 —
+  5d4e5bd1df81c1ee  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -85,6 +85,7 @@
   608f1c9133984842  20 Oste sourcesssss
   de6fcf7737dcf738  2021 Lordo source
   315afd5b7575b942  26 bones per foot
+  538cd6d8f58ba90f  2627_M2_L5_Nervous system I.pdf
   24b20d85be2745ac  29 chapter-level question sets.
   40b245d5adfefc87  3.2 Nervous System and Special Sense.pdf
   ac30f30602e06aa0  3003 parts
@@ -458,6 +459,9 @@
   0786ba6804f53fd4  Model answers for every module revision exercise. Same content as the Study Manual appendix; read with layout preserved so the three-column answer table resolves correctly.
   5eece731d84439fc  Modelled in the
   16ad3d834f99b1f1  Module 1 Thorax/Previous Years/1.1 Cardiovascular System and Lungs (17-18)
+  d9acc7d3dcc5e22f  Module 2 lecture 1 (Week 5 Nervous System), Prof Benson Lau, 43 pages. Nervous system overview, neurons (functional and structural classes), neuroglia of the CNS and PNS, myelin, synapses and neural circuits, the spinal cord (surface and cross-sectional anatomy, tracts), nerves, spinal nerves, plexuses and dermatomes. Pages 40 to 42 are clinical conditions.
+  5316729540993bfa  Module 2 lecture 2 (Week 6 Brain and Cranial Nerve), Prof Benson Lau, 56 pages. Overview of the brain, meninges, ventricles and cerebrospinal fluid, the brain barrier system, brainstem (medulla, pons, midbrain, reticular formation), cerebellum, diencephalon (thalamus, hypothalamus), cerebrum (lobes, white matter, limbic system, basal nuclei, motor and sensory areas) and the twelve cranial nerves.
+  815dede96d975e40  Module 2 lecture 3 (Week 7 Special Senses), Prof Benson Lau, 55 pages. Sensory receptors and general senses, taste and smell, the ear (hearing and equilibrium), the eye and visual pathway, and the autonomic nervous system (visceral reflexes, sympathetic and parasympathetic divisions).
   fe59e57a7a810873  More than
   4c67f0e5acff873f  Motion off. The anatomical colours stay.
   7d7e2aaf6139362e  Motor transmission · deltoid, biceps and quadriceps · slowed
