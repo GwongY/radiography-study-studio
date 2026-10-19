@@ -206,19 +206,5 @@ export const THREADS_HTML = `<h2>Threads</h2>
 </div>
 </details>
 
-<details class="thread" id="t11">
-<summary>Tissue map: where the four tissues show up in Weeks 1–7<small>W1 · W2 · W5 · W6 · W7</small></summary>
-<div class="tbody">
-<div class="tw"><table>
-<thead><tr><th>Tissue</th><th>Where it appears</th></tr></thead>
-<tbody>
-<tr data-wk="7"><td>Epithelial</td><td>Epidermis (keratinised, W2) · ependymal cells lining ventricles and central canal (W5/W6) · cells covering the choroid plexus (W6) · taste cells (W7) · spiral organ, a thick epithelium (W7) · olfactory epithelium (W7) · conjunctiva (W7) · all glands, e.g. lacrimal, tarsal, salivary (W7)</td></tr>
-<tr data-wk="7"><td>Connective</td><td>Bone, marrow, periosteum (W1) · tendon, ligament (W1) · cartilage: hyaline on joint surfaces <span class="star">★</span>, fibro in menisci and discs <span class="star">★</span>, elastic in the auricle (W7) · dura (W6) · sclera (W7) · blood, dural sinuses, fat in yellow marrow</td></tr>
-<tr data-wk="7"><td>Muscle</td><td>Skeletal: limbs, trunk, head and neck, eye, tongue, ear (W1–W4, W7) · smooth: iris and ciliary muscle <span class="star">★</span>, hollow organs · cardiac: Module 3</td></tr>
-<tr data-wk="7"><td>Nervous</td><td>Neurons and glia: spinal cord, brain, nerves, ganglia (W5–W7) · retina, olfactory receptor cells, hair cells (W7)</td></tr>
-</tbody></table></div>
-<p>The junction trio (tight, adherens, gap) is the glue that holds epithelium and some muscle/nervous structures together: tight = BBB, gap = electrical synapse.</p>
-</div>
-</details>
 
 <p class="foot" style="margin-top:12px">Week sources: W1 orientation + musculoskeletal system · W2 lower limb + body tissues · W3 upper limb · W4 head, neck and trunk · W5 nervous tissue, spinal cord, spinal nerves · W6 brain and cranial nerves · W7 special senses and autonomic nervous system.</p>`;

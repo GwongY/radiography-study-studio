@@ -372,6 +372,7 @@ export function createBrain(env) {
   side.addEventListener('click', (ev) => {
     const b = ev.target.closest('button'); if (!b) return;
     if (b.dataset.node) { stopTour(); recentre(b.dataset.node, true); wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+    if (b.dataset.thread) env.openThread(b.dataset.thread);
     if (b.dataset.to3d && b.dataset.to3d !== centre) { stopTour(); recentre(b.dataset.to3d, true); }
   });
 

@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 443 lines
+## `outputs/radiography-study-studio.html` — 445 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–420 | markup — no banners, grep here |
-| 421–421 | importmap |
-| 422–422 | loads studio.js |
-| 423–423 | loads study.js |
-| 424–441 | classic script · preamble |
-| 442–443 | markup — no banners, grep here |
+| 1–422 | markup — no banners, grep here |
+| 423–423 | importmap |
+| 424–424 | loads studio.js |
+| 425–425 | loads study.js |
+| 426–443 | classic script · preamble |
+| 444–445 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -149,9 +149,9 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `more-sources-coverage.js` | 75 | More -- sources, coverage, and the things demoted out of the topbar. |
 | `navigation-destinations.js` | 71 | Navigation -- four destinations, rendered into both the icon rail and |
 | `reading-help.js` | 218 | Reading help |
-| `revise-brain.js` | 426 | Revise · Brain 3D — the connections hub |
+| `revise-brain.js` | 427 | Revise · Brain 3D — the connections hub |
 | `revise-links.js` | 32 | Revise · the numbered links list under the Map and under the 3D hub. |
-| `revise.js` | 825 | Revise |
+| `revise.js` | 864 | Revise |
 | `search-viewer-open.js` | 44 | Search -> viewer: open the model, select the part, auto-uncover, and |
 | `small-ui-helpers.js` | 263 | Small UI helpers |
 | `spatial-overlay-controls.js` | 120 | Spatial overlay controls (viewer "..." sheet) |
