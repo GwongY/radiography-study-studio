@@ -74,11 +74,10 @@ iCloud `Human Physology` and nothing else (answers 2, 3).
 | 13 | Lecture 11 Immune (25 Nov) | same deck | — | — | — |
 
 **Decks taught over two lectures.** The schedule's titles show the Nervous deck running
-into Lecture 9, the Muscle deck into Lecture 10 and the Immune deck into Lecture 11. Which
-slide each lecture reaches is not known before it is given. Each such deck lists both
-weeks; its rows start at the **first** lecture's week, and after each split lecture the
-owner may say the slide it stopped at, after which the later rows move to the next week
-(a data-only change, allowed by `rowWeekOk`). Open question A.
+into Lecture 9, the Muscle deck into Lecture 10 and the Immune deck into Lecture 11. Each such deck lists both weeks and
+its rows sit at the **first** lecture's week. The owner learns from the slides on their
+own rather than in the lecture, and will have covered everything before the final, so no
+row is moved later (owner, 19 Oct 2026). `rowWeekOk` still allows either week.
 
 Not sources (answers 2, 3): the 2026 tutorial scan (`phys.tut.scan2026`, image only), the
 labs (`Digestion Updated.pdf`, the CVS and respiratory lab material), the lab report
@@ -169,15 +168,15 @@ Today anatomy holds four tissue topics (`tissues`, `junctions`, `epithelium`,
 from the tissue tutorial `hss.tut.tissues`, 6 from the anatomy orientation deck
 `hss.w1.2026`). 60 hang under the tissue topics and are hidden from the anatomy map by
 `dropSystem(…, 'tissue')`; 2 (Proteoglycans, Glycosaminoglycans) cite the tutorial but hang
-under anatomy's Ground substance row and show in anatomy from week 2. They all move, not
-hide:
+under anatomy's Ground substance row and show in anatomy from week 2. The 60 move, not
+hide; the 2 are deleted from anatomy first and not added to physiology (owner, 19 Oct 2026):
 
-- **Anatomy loses them.** The four topics, their tree branch, their 19 topic edges, the
-  four W8 topic edges and four W8 row links into them, and `dropSystem` itself (function,
-  call and tests) are deleted. Anatomy's visible map changes only in that Ground substance
-  loses its two tutorial rows.
+- **Anatomy loses them.** The two ground-substance rows, the four topics, their tree
+  branch, their 19 topic edges, the four W8 topic edges and four W8 row links into them, and
+  `dropSystem` itself (function, call and tests) are deleted. Anatomy's visible map changes
+  only in that Ground substance loses its two tutorial rows.
 - **One row per thing, week 1.** Physiology Lecture 1 (week 1) and the tissue tutorial
-  name many of the same things: a plain word match finds 28 of the 62 on a Lecture 1 page
+  name many of the same things: a plain word match finds 28 of the 60 on a Lecture 1 page
   (some loosely, such as "Organ" inside "Organization"; the task decides each by reading
   the page). Where both name it, there is one row: its source is the page whose words make
   the more useful line (`lineIsUseful`), Lecture 1 when both do. The other rows keep their
@@ -192,10 +191,9 @@ hide:
   row links out (`w6_bbbarrier`, `w5_elecsyn`, `w1_cartilage`, `bone`, `w1_collagen`,
   `w1_musfibre`, `w1_fascicle`, `w1_perimysium`, `w1_epimysium`, `w1_tendon`, `neuron`,
   `w1_motorneuron`, `glia`), the 4 anatomy W8 rows that link in (`w8_mesothelium`,
-  `w8_areolar`, `w8_gapj`, `w8_contcap`), the 4 W8 topic edges, the 16 topic edges from the
-  tissue topics to anatomy topics, and the two ground-substance rows' tie to Ground
-  substance. Each becomes a cross link only if a page states it (the source rule); the rest
-  are listed.
+  `w8_areolar`, `w8_gapj`, `w8_contcap`), the 4 W8 topic edges and the 16 topic edges from
+  the tissue topics to anatomy topics. Each becomes a cross link only if a page states it
+  (the source rule); the rest are listed.
 
 Guard: row ids and node ids are disjoint across subjects; no `(source, page, label)` is in
 two subjects; no anatomy row, edge or tree node names a deleted tissue id.
@@ -309,8 +307,9 @@ Markmap/3D vendor files, `focusBranch`.
   English word or number the steps did not use. Each is still a judgement call per line.
 - **★ cannot be checked by machine** against the textbook (its text is not in the public
   repo). The check holds chapter and page; the task reads the page.
-- **Split decks.** Nervous, Muscle and Immune rows start at their first lecture's week;
-  until the owner says where a lecture stopped, Auto may show a few slides one lecture early.
+- **Split decks.** Nervous, Muscle and Immune rows sit at their first lecture's week, so
+  Auto may show some slides one lecture early. Accepted by the owner, who self-studies the
+  slides and covers all before the final.
 - **Image-only content.** The Nervous deck has 22 figure-only pages; graphs (oxyhemoglobin
   curve, ECG, action potential) carry much of the meaning. Their words are not written.
 - **Viewer false hits.** `viewerHit` matches titles; a loosely named part may miss.
@@ -324,7 +323,7 @@ Markmap/3D vendor files, `focusBranch`.
   `term-gloss.js`: only Wave 0 and Wave 3 touch shared files; in Wave 1 only the Week 1
   session touches anatomy files.
 
-## 8. The owner's answers (19 October 2026), and what is still open
+## 8. The owner's answers (19 October 2026)
 
 | # | Question | Answer | What the design does |
 | --- | --- | --- | --- |
@@ -335,17 +334,12 @@ Markmap/3D vendor files, `focusBranch`.
 | 5 | Reuse anatomy's hues? | OK. | Cells grey, heart pink, muscle red reused. |
 | 6 | 廣東話 lines? | Can. | One per thread, guarded (4.5). |
 | 7 | ★ textbook additions? | Can. | In thread steps only, cited to a Martini page of the lecture's chapter (4.5). |
-| 8 | Cross-subject links? | Can. | Read as "yes": section 4.6. See B. |
+| 8 | Cross-subject links? | Can; confirmed "yes". | Section 4.6. |
 | 9 | Decoder? | Ensure the splits are correct. | Every reading reviewed and frozen (4.5). |
 | 10 | Anatomy's tissue topics? | They belong to physiology, the same as Lecture 1: merge, do not hide. | Section 4.4; `dropSystem` deleted. |
 | 11 | Anatomy legend change? | Asked what it meant. | The colour key under the map lists body systems. Today anatomy's shows five of them even at Week 1, before those systems are taught; after this change an entry appears only from the week something of that colour is taught. That is the owner's own rule 6, so it is applied. |
 | 12 | Which subject opens first? | Asked what it meant. | When Revise opens: the subject used last on this device, or the one whose lecture is next. The design keeps "used last". |
+| A | Decks taught over two lectures: which week? | The owner self-studies from the slides and will cover everything before the final: "you decide". | Rows sit at the first lecture's week; nothing is moved later (section 3). |
+| B | Proteoglycans and Glycosaminoglycans (tutorial rows under anatomy's Ground substance)? | Delete from anatomy first; no need to add them to physiology. | Deleted in plan Task 10 before the merge; not moved; no cross link for them (4.4). |
 
-Still open:
-
-- **A. Decks taught over two lectures** (Nervous W9 + W11, Muscle W11 + W12, Immune W12 +
-  W13): rows start at the first lecture's week; after each, the owner may name the last
-  slide covered and the rows after it move to the next week. Is that right?
-- **B. Answer 8 reading.** "Can" is read as "yes, link physiology and anatomy". If it meant
-  "none for now", Task 10 lists the tissue links instead of writing them and Task 20 skips
-  cross links.
+Nothing is open.

@@ -21,9 +21,8 @@ fragments rendered by `outputs/revision/fragments.js`; cross-subject links live 
 `work/` checks, `pdftotext` for source intake, the Browser pane for the visual checks.
 
 **Spec:** `docs/superpowers/specs/2026-10-19-physiology-revise.md` (read it first; its
-section 8 records the owner's answers of 19 October 2026, which this plan follows, and the
-two questions still open: A, the week of split decks; B, the reading of answer 8. If the
-owner has since answered them differently, follow the owner).
+section 8 records the owner's answers of 19 October 2026, which this plan follows; nothing
+is open. If the owner later says otherwise, follow the owner).
 
 ---
 
@@ -1988,10 +1987,7 @@ node work/revise-pure-check.mjs | tail -2
    if the name is only in a picture, delete the row and list it (step 7).
 7. **Write the task's notes file** `docs/superpowers/notes/2026-10-19-physiology-revise-w<N>.md`:
    the row count, the own-words count, "Only in pictures, not written: …" (page and words),
-   and "Links not added because no page states them: …". For a deck lectured over two
-   weeks, also list its page ranges by section, so that when the owner names the last slide
-   of the first lecture (spec question A) the rows after it can be moved to the second week
-   by changing `w` only.
+   and "Links not added because no page states them: …".
 8. **Commit** only the task's files.
 
 Shared parameters: parent topics are those in `abct2326-topics.js` with the task's week.
@@ -2047,16 +2043,29 @@ anatomy topics), `w8 topic edges 4`, 14 links out (to `w6_bbbarrier`, `w5_elecsy
 `w8_contcap>w2_tis_tight`). If the numbers differ, another session changed anatomy: stop and
 ask.
 
-The two rows under anatomy's "Ground substance" (`w1_groundsub`) are the only tissue rows
-anatomy shows today (week 2 and later). They cite the tissue tutorial, which is
-physiology's, so they move too: the one visible change to the anatomy map. Step 5 gives
-each a cross link to Ground substance if the tutorial page states it (page 17 says "ground
-substance of connective tissue").
+- [ ] **Step 2b: Delete the two ground-substance rows from anatomy, first**
+
+The two rows under anatomy's "Ground substance" (`w1_groundsub`), `w2_tis_proteoglycans`
+and `w2_tis_gags`, are the only tissue-tutorial rows anatomy shows today (week 2 and
+later). The owner's answer (spec section 8, B): delete them from anatomy first, and do not
+add them to physiology. Delete both rows from `hss2011-leaves-w1.js` (and the
+`w2_tis_proteoglycans` link inside `w2_tis_gags`, which goes with them). Then
+`node work/revision-check.mjs | tail -5` and `node work/revise-pure-check.mjs | tail -2`:
+`ALL PASS`. Commit:
+
+```bash
+git add outputs/revision/hss2011-leaves-w1.js
+git commit -m "fix(revise): Proteoglycans and Glycosaminoglycans leave the anatomy map
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
+```
+
+This is the one visible change to the anatomy map in this plan. They get no cross link.
 
 - [ ] **Step 3: Merge the rows into Week 1**
 
 Into `abct2326-leaves-tissues.js` (and, for a merge, `abct2326-leaves-w1.js`), for each of
-the 62 rows in order:
+the 60 remaining rows in order:
 - **Rename** its id `w2_tis_<x>` to `p1_tis_<x>`, everywhere it appears in the two
   physiology files (id, `parent`, link keys). `w` is `1` (answer 4).
 - **One row per thing.** If a Week 1 row from Step 1 names the same thing (same name, or
@@ -2064,13 +2073,12 @@ the 62 rows in order:
   words make the more useful line (`rules.js lineIsUseful`), Lecture 1 when both do; its
   links are the union of both rows' links; the other row is deleted and its children are
   re-parented to the kept one. List each pair, and which page won, in the notes file. A
-  plain word match at planning time found 28 of the 62 on a Lecture 1 page, some only
+  plain word match at planning time found 28 of the 60 on a Lecture 1 page, some only
   loosely ("Organ" inside "Organization"): read the page, do not trust the match.
 - **Parents:** `tissues` → `p_tissues`, `epithelium` → `p_epithelial`, `connective` →
-  `p_connective`, `junctions` → `p_cells`, `w1_groundsub` (the two ground-substance rows)
-  → the connective-tissue row (`p1_tis_conn` or the Lecture 1 row it merged into); a
-  `w2_tis_*` parent becomes its `p1_tis_*` name; rows under muscle or nerve tissue go under
-  `p_muscle_t` / `p_neural_t` when their parent row was merged into one of those topics' rows.
+  `p_connective`, `junctions` → `p_cells`; a `w2_tis_*` parent becomes its `p1_tis_*` name;
+  rows under muscle or nerve tissue go under `p_muscle_t` / `p_neural_t` when their parent
+  row was merged into one of those topics' rows.
 - **Sources stay physiology's (answer 3).** Rows citing `TIS` (`hss.tut.tissues`, filed in
   iCloud `Human Physology`) keep it. The 6 rows citing `ORI` (`hss.w1.2026`, an anatomy
   deck) are re-cited to the Lecture 1 page that names them
@@ -2085,7 +2093,7 @@ the 62 rows in order:
 
 - [ ] **Step 4: Take tissues out of anatomy**
 
-- `hss2011-leaves-w1.js`: delete the 62 rows. If `ORI` or `TIS` is then unused in the
+- `hss2011-leaves-w1.js`: delete the 60 rows. If `ORI` or `TIS` is then unused in the
   file, delete its constant and its `SOURCES` entry.
 - `hss2011-data.js`: delete the four `NODES` (`tissues`, `junctions`, `epithelium`,
   `connective`, under `/* ---------------- tissues & cells ---------------- */`), the 19
@@ -2109,9 +2117,8 @@ the 62 rows in order:
 
 - [ ] **Step 5: Cross-subject links (the owner's answer 8)**
 
-For each item kept in Steps 3 and 4 (14 links out, 4 links in, 16 + 4 topic edges, and the
-two ground-substance rows' tie to `w1_groundsub`; the 3 edges between tissue topics are not
-needed, the physiology tree nests them): find a page
+For each item kept in Steps 3 and 4 (14 links out, 4 links in, 16 + 4 topic edges; the 3
+edges between tissue topics are not needed, the physiology tree nests them): find a page
 that states the relationship (`node work/query.mjs text "<words>"`, an anatomy or physiology
 slide) and add to `CROSS` in `cross-links.js`:
 
@@ -2122,11 +2129,10 @@ slide) and add to `CROSS` in `cross-links.js`:
 The physiology end is the merged row or topic (`tissues` → `p_tissues`, `epithelium` →
 `p_epithelial`, `connective` → `p_connective`, `junctions` → the junctions row); `a` is
 always the ABCT2326 end. A relationship no page states is not written: list it in the notes
-file. (If the owner has answered spec question B with "none", write no `CROSS` entry and
-list them all.)
+file.
 
 - [ ] **Step 6: Own words and the checks** — Recipe P step 4 for the merged rows (23 of
-the 62 had no useful line at planning time). Run:
+the 62 tissue rows had no useful line at planning time). Run:
 
 ```bash
 node work/revision-check.mjs | tail -80
@@ -2136,9 +2142,10 @@ node work/syntax-check.mjs | tail -1
 
 Expected: `ALL PASS`, including `no topic or row is in two subjects`, `no slide row is
 written into two subjects`, `every row cites a lecture deck and sits in a week it was
-lectured`, and the cross-link checks. The HSS2011 leaf count drops by exactly 62 and its
-topics by 4; anatomy's map is unchanged except that Ground substance (Week 2 on) no longer
-holds Proteoglycans and Glycosaminoglycans.
+lectured`, and the cross-link checks. Since before Step 2b the HSS2011 leaf count has
+dropped by exactly 62 (2 deleted, 60 moved) and its topics by 4; anatomy's map is unchanged
+except that Ground substance (Week 2 on) no longer holds Proteoglycans and
+Glycosaminoglycans.
 
 - [ ] **Step 7: Notes and commit**
 
@@ -2334,7 +2341,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 **Files:** Modify `outputs/revision/abct2326-leaves-w9.js`; create `docs/superpowers/notes/2026-10-19-physiology-revise-w9.md`.
 
 Source `phys.l8.2026` (Lecture 8, week 9, continued in Lecture 9, week 11: rows start at
-week 9, spec question A). Page map: 2–4 what the nervous system is, CNS · 5–8 neuron
+week 9, spec section 3). Page map: 2–4 what the nervous system is, CNS · 5–8 neuron
 classes, PNS · 9–13 neurons and their structure (11–13 are figures with labels) · 14–21
 glial cells: oligodendrocytes, Schwann cells and myelin, microglia, astrocytes · 22–31
 resting membrane potential, ion gating, concentration gradients, the Na+/K+ pump · 32–39
@@ -2367,7 +2374,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 **Files:** Modify `outputs/revision/abct2326-leaves-w11.js`; create `docs/superpowers/notes/2026-10-19-physiology-revise-w11.md`.
 
 Source `phys.l9.2026` (Lectures 9 and 10, weeks 11 and 12: rows start at week 11, spec
-question A). Page map: 2 outline · 3–8 skeletal muscles, properties, classification, the
+section 3). Page map: 2 outline · 3–8 skeletal muscles, properties, classification, the
 three tissue types compared · 9–15 skeletal muscle structure and action, sarcolemma and
 sarcomere defined · 16–19 muscle fibre, myofibril, sarcomeres · 20–27 how a fibre
 contracts: sliding filament theory, cross bridges, troponin–tropomyosin control, summary ·
@@ -2402,7 +2409,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 **Files:** Modify `outputs/revision/abct2326-leaves-w12.js`; create `docs/superpowers/notes/2026-10-19-physiology-revise-w12.md`.
 
 Source `phys.10.2026` (Lectures 10 and 11, weeks 12 and 13: rows start at week 12, spec
-question A; the deck splits itself at page 44, "Part II - Adaptive Immunity", which the
+section 3; the deck splits itself at page 44, "Part II - Adaptive Immunity", which the
 notes file records as the likely boundary). Page map: 2 learning outcomes (no rows) · 3–5
 pathogens, defence mechanisms · 6–43 Part I innate immunity, seven categories: physical
 barriers (8, 12), phagocytes, microphages and macrophages (14–18), activation of innate
@@ -2462,9 +2469,8 @@ shape in `cross-links.js` (Task 6), `a` the physiology end.
   action potential and refractory periods; W9 acetylcholine ↔ W11 neuromuscular junction;
   W11 muscle tissue types ↔ W1 `p_muscle_t` rows; W11 bone ↔ W1 bone tissue rows; W12
   macrophages ↔ the W1 tissue row of that name; W12 inflammation ↔ W1 mast cells.
-- [ ] **Step 2: Cross-subject candidates (the owner's answer 8; skip if spec question B
-  was answered "none")**: physiology W2 heart, valves and conducting system ↔ anatomy W8
-  heart rows; W3 respiratory portion ↔ anatomy W8 lung and airway rows; W9 neurons, glia,
+- [ ] **Step 2: Cross-subject candidates (the owner's answer 8)**: physiology W2
+  heart, valves and conducting system ↔ anatomy W8 heart rows; W3 respiratory portion ↔ anatomy W8 lung and airway rows; W9 neurons, glia,
   synapses and autonomic pathways ↔ anatomy W5–W6 nervous rows (`neuron`, `glia`,
   `synapse`, `symp`, `parasymp`); W11 muscle structure, motor unit and neuromuscular
   junction ↔ anatomy W1 `musclestruct`, `motorunit`; W11 bone ↔ anatomy W1 `bone`; W8
@@ -2635,7 +2641,7 @@ if all are this plan's run `node work/baseline.mjs` and stage the files you read
   leaf counts from `revision-check`), the eight decks taken through intake, the owner's
   answers of 19 October (spec section 8) in one line each, the image-only lists, the ★
   facts and links not added (collected from `docs/superpowers/notes/2026-10-19-physiology-revise-*.md`),
-  the tissues merged into Lecture 1 (and the two Ground substance rows that left anatomy),
+  the tissues merged into Lecture 1 (and the two Ground substance rows deleted from anatomy),
   the one new anatomy own sentence (`w2_j_hip`), the anatomy legend change, the anatomy
   廣東話 lines now gated by week, and the replaced `dropSystem` mention.
 - `CLAUDE.md` principle 0: replace "Only HSS2011 has revision data so far." with "HSS2011
@@ -2670,10 +2676,5 @@ it is committed locally, show the 390 × 844 screenshot, and ask before pushing 
 
 ## After this plan
 
-- **Split decks (spec question A).** After Lecture 9 (11 Nov), Lecture 10 (18 Nov) and
-  Lecture 11 (25 Nov), if the owner names the last slide a lecture reached, change `w` of
-  the rows (and topics) from later pages of that deck to the deck's second week, using the
-  page ranges in that week's notes file; `rowWeekOk` already allows it. One small commit
-  each, `CACHE_VERSION` bumped.
 - **A lecture that departs from its deck.** If a lecturer adds or skips material, the
   owner says so; rows are added or removed by Recipe P, nothing else changes.
