@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 990 —
-  80a9c93e0181dff0  WHOLE SET
+— user-facing strings in outputs/ — 987 —
+  4a99f96ac7f6cc97  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -61,7 +61,6 @@
   b918fd89f7c21601  , so that is what shows.
   bfd4242c0712a338  , tap for
   047d5c333d912982  , viewport
-  80af9e309235558e  , which you have not reached. It is on the map only because topics you have learnt hang from it.
   f6532b372c4a48d5  /* Back faces are where the ray leaves material, front faces where it enters. */
   128ec36b82d62dde  /* Incidence angle of the ray on this surface, for the cortical slab. */
   6f222f7fe2ccf697  /* One cortical slab per crossing, at the true incidence angle. Added on
@@ -683,7 +682,6 @@
   0593a567427cea70  This device cannot render the floating-point projection. The 3D viewer is still available.
   d424b366dd8d36ab  This fallback reference is fused. Use Upper limb for per-bone isolation.
   749efd01151fa0f2  This is the
-  4590b96d3ae014c4  This topic is taught in week
   8c4eef5ab2532515  This week
   2a2abf143c0b1cb9  Thoracic cage
   8278421692e43358  Those bones are not in the loaded model.
@@ -746,7 +744,6 @@
   62375359a1826914  Your groups
   5aacae2229c04415  Z-Anatomy / BodyParts3D skeleton · 159 named structures
   10c21ae68a2b089a  \u00b7 opens in Viewer
-  72bc02f83b0378e4  ] : weeks.filter((w) => w
   13a77ae510047ac8  above the
   0a48f9e432c65fab  above, upon
   8b989443dc296bd7  across it

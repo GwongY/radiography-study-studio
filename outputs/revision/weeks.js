@@ -61,26 +61,18 @@ export function visibleIds(data, n) {
  * The tree, cut down to what week n shows.
  *
  * A topic stays if it is taught by n. A heading with no topic of its own stays
- * if anything under it does. A topic taught LATER than n but sitting above one
- * taught earlier stays as structure — the tree has one parent per topic, so a
- * child cannot hang in the air — and is returned in `structural` so the view
- * can say so rather than present it as learnt.
+ * if anything under it does. A topic taught LATER than n is never drawn, not
+ * even dimmed: what hangs from it and is taught moves up to the nearest drawn
+ * parent, so the map holds only what has been learnt.
  */
 export function pruneTree(data, n) {
   const byId = new Map(data.NODES.map((x) => [x.id, x]));
-  const structural = new Set();
   const walk = (spec) => {
-    const kids = (spec.kids || []).map(walk).filter(Boolean);
-    if (spec.id) {
-      const taught = firstWeek(byId.get(spec.id)) <= n;
-      if (!taught && !kids.length) return null;
-      if (!taught) structural.add(spec.id);
-      return { ...spec, kids };
-    }
-    return kids.length || !spec.kids ? { ...spec, kids } : null;
+    const kids = (spec.kids || []).flatMap(walk);
+    if (spec.id) return firstWeek(byId.get(spec.id)) <= n ? [{ ...spec, kids }] : kids;
+    return kids.length || !spec.kids ? [{ ...spec, kids }] : [];
   };
-  const root = walk(data.TREE);
-  return { tree: root || { ...data.TREE, kids: [] }, structural };
+  return { tree: walk(data.TREE)[0] || { ...data.TREE, kids: [] } };
 }
 
 /** A cross-link is drawn only when both of its topics are. */

@@ -45,7 +45,7 @@ const rv = {
 };
 /* Everything derived from (subject, week). Rebuilt by deriveWeek(). */
 const ix = {
-  byId: {}, ids: new Set(), edges: [], fresh: new Set(), structural: new Set(),
+  byId: {}, ids: new Set(), edges: [], fresh: new Set(),
   PARENT: {}, KIDS: {}, LABEL: {}, NB: {}, DATA: null, threadTitles: {},
 };
 let map = null;
@@ -134,7 +134,6 @@ function deriveWeek() {
   ix.edges = visibleEdges(data, ix.ids);
   ix.fresh = newIds(data, rv.week);
   const pruned = pruneTree(data, rv.week);
-  ix.structural = pruned.structural;
 
   ix.PARENT = {}; ix.KIDS = {}; ix.LABEL = {};
   const build = (spec, sys, parent, depth) => {
@@ -150,7 +149,7 @@ function deriveWeek() {
     else html = `<span class="mmt">${esc(label)}</span>`;
     if (real) {
       const weeks = ix.byId[spec.id].w.slice().sort((a, b) => a - b);
-      html += `<span class="mwk">${(ix.structural.has(spec.id) ? [`W${weeks[0]} later`] : weeks.filter((w) => w <= rv.week).map((w) => `W${w}`)).join(' ')}</span>`;
+      html += `<span class="mwk">${weeks.filter((w) => w <= rv.week).map((w) => `W${w}`).join(' ')}</span>`;
       if (ix.fresh.has(spec.id)) html += '<span class="wknew">new</span>';
       const line = ix.byId[spec.id].line;
       if (line) html += `<span class="mline">${esc(line.length > 48 ? `${line.slice(0, 47)}…` : line)}</span>`;
@@ -197,10 +196,7 @@ function renderPanel(id, el) {
   const side = el || $$('rvSide');
   const n = ix.byId[id];
   let h;
-  if (n && ix.structural.has(id)) {
-    h = `<h3>${esc(n.l)}</h3><div class="rv-tags"><span class="rv-tag sys" style="background:var(${SYSVAR[n.s].replace('--c-', '--rv-c-')})">${esc(SYS[n.s])}</span><span class="rv-tag">Week ${firstWeek(n)}</span></div>
-      <div class="rv-later">This topic is taught in week ${firstWeek(n)}, which you have not reached. It is on the map only because topics you have learnt hang from it.</div>`;
-  } else if (n) {
+  if (n) {
     h = `<h3>${esc(n.l)}</h3><div class="rv-tags"><span class="rv-tag sys" style="background:var(${SYSVAR[n.s].replace('--c-', '--rv-c-')})">${esc(SYS[n.s])}</span>${weeksTags(n)}</div>`;
     /* a row with no slide line of its own still opens with one sentence: where it sits in the tree */
     const bare = n.leaf && !(n.line && n.line.trim());
@@ -295,7 +291,6 @@ function createMap() {
       g.classList.toggle('anc', !!anc[id]);
       g.classList.toggle('hit', !!hits[id]);
       g.classList.toggle('hanc', !!hanc[id]);
-      g.classList.toggle('struct', ix.structural.has(id));
     });
     svgEl.classList.toggle('focus', !!selId);
     svgEl.classList.toggle('searching', searching && !selId);
@@ -326,7 +321,7 @@ function createMap() {
      the arcs and their numbered dots are redrawn every frame while the map moves. */
   function refreshList() {
     const list = $$('rvLinkList');
-    if (!selId || !ix.byId[selId] || ix.structural.has(selId)) { rows = []; renderLinkList(list, rows); return; }
+    if (!selId || !ix.byId[selId]) { rows = []; renderLinkList(list, rows); return; }
     const bx = boxes();
     rows = linkRows(ix.NB[selId], {
       label: labelOf,
@@ -450,7 +445,7 @@ function createMap() {
     Object.keys(ix.LABEL).forEach((k) => {
       const n = ix.byId[k];
       const text = n && n.leaf ? `${n.l} ${n.line}` : n ? `${n.l} ${n.t.replace(/<[^>]+>/g, ' ')}` : '';
-      TEXT[k] = (n && !ix.structural.has(k) ? text : ix.LABEL[k]).toLowerCase();
+      TEXT[k] = (n ? text : ix.LABEL[k]).toLowerCase();
     });
     TREE_ORDER = [];
     (function walk(n) { TREE_ORDER.push(n.payload.id); (n.children || []).forEach(walk); })(ix.DATA);
@@ -781,7 +776,7 @@ async function loadBrain() {
 /* Where the 3D hub starts when nothing is chosen: the best-linked topic new this week, else the best-linked of all. */
 function newestTopic() {
   const deg = (id) => (ix.NB[id] || []).length;
-  const pick = (ids) => ids.filter((id) => ix.byId[id] && ix.ids.has(id) && !ix.structural.has(id)).sort((a, b) => deg(b) - deg(a) || (a < b ? -1 : 1))[0] || null;
+  const pick = (ids) => ids.filter((id) => ix.byId[id] && ix.ids.has(id)).sort((a, b) => deg(b) - deg(a) || (a < b ? -1 : 1))[0] || null;
   return pick([...ix.fresh]) || pick([...ix.ids]);
 }
 

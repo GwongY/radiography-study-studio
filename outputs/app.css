@@ -1457,8 +1457,6 @@ ul.asslines{list-style:none;margin:0;padding:0}
 #rvMm.focus path.markmap-link,#rvMm.searching path.markmap-link{opacity:.4}
 #rvMm.searching g.markmap-node:not(.hit):not(.hanc){opacity:.55}
 #rvMm g.markmap-node.hit .mmt,#rvMm g.markmap-node.hot .mmt{color:#fff;text-shadow:0 0 6px var(--rv-accent),0 0 14px rgba(92,196,212,.7)}
-#rvMm g.markmap-node.struct{opacity:.8}
-#rvMm g.markmap-node.struct .mmt{font-style:italic}
 #rvLinks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:hidden}
 #rvLinks path{fill:none;stroke:var(--rv-accent);stroke-width:1.6;opacity:.7;stroke-linecap:round}
 #rvLinks path.far{stroke-dasharray:4 5;opacity:.5}

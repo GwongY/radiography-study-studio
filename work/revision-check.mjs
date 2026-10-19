@@ -102,20 +102,17 @@ for (const subject of Object.values(REVISION)) {
   console.log(`      growth  ${sizes.join('  ')}`);
 
   let treeOk = true;
-  const structuralNotes = [];
   for (let n = 1; n <= last; n++) {
-    const { tree, structural } = pruneTree(data, n);
+    const { tree } = pruneTree(data, n);
     const inTree = [];
     (function walk(s) { if (s.id) inTree.push(s.id); (s.kids || []).forEach(walk); })(tree);
     const want = visibleIds(data, n);
     for (const id of want) if (!inTree.includes(id)) treeOk = false;
-    for (const id of inTree) if (!want.has(id) && !structural.has(id)) treeOk = false;
+    for (const id of inTree) if (!want.has(id)) treeOk = false;
     /* a heading with nothing under it must not survive */
     (function walk(s) { if (!s.id && s !== tree && !(s.kids || []).length) treeOk = false; (s.kids || []).forEach(walk); })(tree);
-    if (structural.size) structuralNotes.push(`week ${n}: ${[...structural].join(', ')}`);
   }
-  ok(treeOk, 'the pruned tree holds every shown topic, no empty heading, and no unexplained extra');
-  console.log(`      structural-only (taught later, shown as structure): ${structuralNotes.length ? structuralNotes.join(' | ') : 'none'}`);
+  ok(treeOk, 'the pruned tree holds every shown topic, no empty heading, and nothing taught later');
 
   /* the week tags baked into the fragments */
   const tagged = (html, re) => [...html.matchAll(re)].map((m) => Number(m[1]));
