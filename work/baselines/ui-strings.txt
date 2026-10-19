@@ -1,5 +1,5 @@
 — user-facing strings in outputs/ — 990 —
-  9bcf4c22318f62fc  WHOLE SET
+  7e15c38ea3c5c6de  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -376,7 +376,7 @@
   d383d16f5923dc11  Introduction to Medical Radiation Science
   0dff914432484e16  Introduction to Sociology
   51dce19cd3833ded  Introduction to Sociology (2026-2027 Sem.1).pdf
-  2c58384f80f14de2  It is a normal mind map: six coloured branches, each opening into topics, and topics opening into single muscles, bones, joints and nerves. Tap a name to open its branch and read it here.
+  2aa71b348af4de64  It is a normal mind map: coloured branches, each opening into topics, and topics opening into single muscles, bones, joints and nerves. Tap a name to open its branch and read it here.
   8ccc3126acbbefa7  It is shaped like a cuckoo beak: the tail remnant left behind.
   8c279f0914b7eb4e  It is teaching week
   9d0d3e0a20bc01d4  Joint angle

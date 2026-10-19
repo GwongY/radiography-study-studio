@@ -83,3 +83,39 @@ export function mergeLeaves(data, rows, sources = {}) {
   }
   return { NODES: nodes, EDGES: edges, TREE: tree };
 }
+
+/**
+ * The data without one body-system colour group: its headings, the rows that hang
+ * from them, every link that ends at either, and its branch of the tree. Used to
+ * leave a group's notes in the data while the map does not show them (the Tissues
+ * & cells notes are physiology's, not anatomy's).
+ */
+export function dropSystem(base, rows, sys) {
+  const gone = new Set(base.NODES.filter((n) => n.s === sys).map((n) => n.id));
+  const kept = [];
+  for (const row of rows) {
+    if (gone.has(row.parent)) { gone.add(row.id); continue; }
+    kept.push(row);
+  }
+  const clean = (row) => {
+    const out = { ...row };
+    for (const key of ['links', 'supplies', 'joints', 'moves']) {
+      const v = out[key]; if (!v) continue;
+      if (Array.isArray(v)) out[key] = v.filter((id) => !gone.has(id));
+      else out[key] = Object.fromEntries(Object.entries(v).filter(([id]) => !gone.has(id)));
+    }
+    if (gone.has(out.from)) delete out.from;
+    return out;
+  };
+  const prune = (spec) => (spec.id && gone.has(spec.id) ? [] : [{ ...spec, ...(spec.kids ? { kids: spec.kids.flatMap(prune) } : {}) }]);
+  const tree = prune(base.TREE)[0];
+  const tidy = (spec) => ({ ...spec, ...(spec.kids ? { kids: spec.kids.map(tidy).filter((k) => k.id || (k.kids || []).length) } : {}) });
+  return {
+    base: {
+      NODES: base.NODES.filter((n) => !gone.has(n.id)),
+      EDGES: base.EDGES.filter((e) => !gone.has(e[0]) && !gone.has(e[1])),
+      TREE: tidy(tree),
+    },
+    rows: kept.map(clean),
+  };
+}

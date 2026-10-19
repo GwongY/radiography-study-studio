@@ -182,7 +182,7 @@ function descendantsOf(id) {
 }
 
 function homeHTML() {
-  return `<h3>How to read this map</h3><div class="rv-hint"><p>It is a normal mind map: six coloured branches, each opening into topics, and topics opening into single muscles, bones, joints and nerves. Tap a name to open its branch and read it here.</p><ul>
+  return `<h3>How to read this map</h3><div class="rv-hint"><p>It is a normal mind map: coloured branches, each opening into topics, and topics opening into single muscles, bones, joints and nerves. Tap a name to open its branch and read it here.</p><ul>
     <li>Before you open a branch, name what is inside it. That is the revision.</li>
     <li>Tapping a topic draws <b>lines to everything it links to</b>, each ending in a <b>number</b>. The <b>Links</b> list under the map gives the reason for each number. Tap a row to light up its line; tap it again to go there.</li>
     <li>The map holds <b>only what you have been taught up to the week chosen above</b>. A new week adds topics (marked <b>new</b>) and the links between them and everything before.</li>
