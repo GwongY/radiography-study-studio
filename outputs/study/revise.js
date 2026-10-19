@@ -21,8 +21,10 @@ import { setActiveNav } from './navigation-destinations.js';
 import { leaveProjection } from './what-is-under.js';
 import { scrollViewTop, showView } from './small-ui-helpers.js';
 import { glossifyNode } from './reading-help.js';
+import { bindLinkList, markLinkRow, renderLinkList } from './revise-links.js';
 import { DEFAULT_SUBJECT, REVISION } from '../revision/registry.js?v=1';
 import { autoWeek, firstWeek, lastWeekOf, newIds, pruneTree, resolveWeek, visibleEdges, visibleIds } from '../revision/weeks.js?v=1';
+import { linkRows } from '../revision/link-rows.js?v=1';
 import { createBrain } from './revise-brain.js';
 
 /* ------------------------------------------------------------------ *
@@ -149,6 +151,8 @@ function deriveWeek() {
       const weeks = ix.byId[spec.id].w.slice().sort((a, b) => a - b);
       html += `<span class="mwk">${(ix.structural.has(spec.id) ? [`W${weeks[0]} later`] : weeks.filter((w) => w <= rv.week).map((w) => `W${w}`)).join(' ')}</span>`;
       if (ix.fresh.has(spec.id)) html += '<span class="wknew">new</span>';
+      const line = ix.byId[spec.id].line;
+      if (line) html += `<span class="mline">${esc(line.length > 48 ? `${line.slice(0, 47)}…` : line)}</span>`;
     }
     const kids = (spec.kids || []).map((k) => build(k, sy, key, depth + 1));
     ix.KIDS[key] = kids.map((k) => k.payload.id);
@@ -174,13 +178,13 @@ function descendantsOf(id) {
 }
 
 function homeHTML() {
-  return `<h3>How to read this map</h3><div class="rv-hint"><p>It is a normal mind map: six coloured branches, each opening into topics. Tap a name to open its branch and read it here.</p><ul>
-    <li>Tapping a topic draws <b>lines to everything it links to</b>, labelled with the reason. That is where the brain → nerve → muscle kind of connection shows up.</li>
+  return `<h3>How to read this map</h3><div class="rv-hint"><p>It is a normal mind map: six coloured branches, each opening into topics, and topics opening into single muscles, bones, joints and nerves. Tap a name to open its branch and read it here.</p><ul>
+    <li>Before you open a branch, name what is inside it. That is the revision.</li>
+    <li>Tapping a topic draws <b>lines to everything it links to</b>, each ending in a <b>number</b>. The <b>Links</b> list under the map gives the reason for each number. Tap a row to light up its line; tap it again to go there.</li>
     <li>The map holds <b>only what you have been taught up to the week chosen above</b>. A new week adds topics (marked <b>new</b>) and the links between them and everything before.</li>
-    <li>The small tags (W1…) say when each topic was taught.</li>
-    <li>On a topic with many links the lines carry no labels at first. <b>Hover a linked topic</b> (or its row in this panel) to see why it links. 先睇線，再問點解：the reason pops up only for the one you point at.</li>
+    <li>The small tags (W1…) say when each topic was taught. The grey line under a muscle is what it does, from the slide.</li>
     <li><b>Find</b> searches names and notes. Matches stay inside their branches, so you still see where each one lives.</li>
-    <li><b>Test me</b> blurs the notes and link reasons. Recall first, then tap to check.</li>
+    <li><b>Connections in 3D</b>, in a topic's notes, opens the same topic in Brain 3D, where you can walk its links.</li>
     <li>Drag to pan. Pinch, or hold Ctrl / ⌘ and scroll, to zoom. <b>Jump to</b> opens any topic by name.</li></ul></div>`;
 }
 
@@ -197,17 +201,12 @@ function renderPanel(id, el) {
       <div class="rv-later">This topic is taught in week ${firstWeek(n)}, which you have not reached. It is on the map only because topics you have learnt hang from it.</div>`;
   } else if (n) {
     h = `<h3>${esc(n.l)}</h3><div class="rv-tags"><span class="rv-tag sys" style="background:var(${SYSVAR[n.s].replace('--c-', '--rv-c-')})">${esc(SYS[n.s])}</span>${weeksTags(n)}</div>`;
-    if (side.classList.contains('quiz')) h += '<p class="rv-quizhint">Test me is on. Say the answer in your head first, then tap the blur to check. 自己估下先，再撳開睇。</p>';
     h += `<div class="rv-note">${n.t}</div>`;
     if (n.th && n.th.length) {
       h += '<h4>Pathways through this topic</h4><div class="nlist">';
       n.th.forEach((t) => { h += `<button type="button" class="nbtn" data-thread="${esc(t)}"><span>${esc(ix.threadTitles[t] || t)}</span><span class="rel">open →</span></button>`; });
       h += '</div>';
     }
-    const rows = (ix.NB[id] || []).slice().sort((a, b) => ix.byId[a[0]].l.localeCompare(ix.byId[b[0]].l));
-    h += `<h4>Connected to (${rows.length})</h4><div class="nlist">`;
-    rows.forEach((r) => { h += `<button type="button" class="nbtn" data-node="${esc(r[0])}"><span>${esc(ix.byId[r[0]].l)}</span><span class="rel">${esc(r[1])}</span></button>`; });
-    h += '</div>';
   } else {
     /* a branch heading takes its colour from the first topic under it */
     const first = descendantsOf(id).map((d) => ix.byId[d]).find(Boolean);
@@ -244,6 +243,11 @@ function createMap() {
   let hotKey = null;
   let linkKey = {};
   let tracking = 0;
+  let rows = [];
+  let hotRow = null;
+  let linkList = null;
+  const DOT_DX = 24; /* a dot sits this far right of the target's underline, clear of Markmap's fold circle */
+  const labelOf = (id) => (ix.byId[id] ? ix.byId[id].l : ix.LABEL[id]);
 
   const colorFn = (node) => {
     const sy = node.payload && node.payload.sys;
@@ -257,6 +261,15 @@ function createMap() {
     (function walk(n) { if (hit) return; if (n.payload && n.payload.id === id) { hit = n; return; } (n.children || []).forEach(walk); })(mm.state.data);
     return hit;
   };
+
+  /* On a phone, opening a branch folds the open branches beside it, so the map stays about one screen tall. */
+  function foldSiblings(id) {
+    (ix.KIDS[ix.PARENT[id]] || []).forEach((k) => {
+      if (k === id) return;
+      const n = findNode(k);
+      if (n && (n.children || []).length && !n.payload.fold) n.payload = Object.assign({}, n.payload, { fold: 1 });
+    });
+  }
 
   function applyMarks() {
     const rel = {}; const anc = {};
@@ -301,30 +314,48 @@ function createMap() {
       g.classList.toggle('hot', !!hotKey && id === hotKey);
     });
   }
+  /* The links list (numbers and reasons) is made when the selection or the folding changes;
+     the arcs and their numbered dots are redrawn every frame while the map moves. */
+  function refreshList() {
+    const list = $$('rvLinkList');
+    if (!selId || !ix.byId[selId] || ix.structural.has(selId)) { rows = []; renderLinkList(list, rows); return; }
+    const bx = boxes();
+    rows = linkRows(ix.NB[selId], {
+      label: labelOf,
+      visibleAs: (id) => { let k = id; while (k && !bx[k]) k = ix.PARENT[k]; return k && k !== selId && k !== 'root' ? k : null; },
+    });
+    renderLinkList(list, rows);
+    markLinkRow(list, hotRow);
+    if (linkList) linkList.reset();
+  }
+
+  /* Cross-link arcs for the selected topic. Each leaves from the right end of the selected node's underline,
+     bows out into the space beside the tree, and ends in a numbered dot just right of its target. The reason
+     is in the Links list under the map, never written over the tree. */
   function drawLinks() {
     const W = wrap.clientWidth; const H = wrap.clientHeight;
     ov.setAttribute('viewBox', `0 0 ${W} ${H}`);
     linkKey = {};
-    if (!selId || !ix.byId[selId] || ix.structural.has(selId)) { ov.innerHTML = ''; markHot(); return; }
+    if (!selId || !rows.length) { ov.innerHTML = ''; markHot(); return; }
     const bx = boxes(); const s = bx[selId]; if (!s) { ov.innerHTML = ''; markHot(); return; }
     const targets = {}; const order = [];
-    (ix.NB[selId] || []).forEach((p) => {
-      let k = p[0]; let far = false;
-      while (k && !bx[k]) { k = ix.PARENT[k]; far = true; }
+    rows.forEach((r) => {
+      /* the list fixed r.at when the folding last changed; while a branch is still animating
+         shut, its box can already be gone, so fall back to the nearest box above it */
+      let k = r.at;
+      while (k && !bx[k]) k = ix.PARENT[k];
       if (!k || k === selId || k === 'root') return;
-      linkKey[p[0]] = k;
+      linkKey[r.id] = k;
       /* parent and children are already joined by the tree itself, so no extra arc */
       if (ix.PARENT[k] === selId || ix.PARENT[selId] === k) return;
-      if (!targets[k]) { targets[k] = { far, rels: [], names: [], why: [] }; order.push(k); }
-      targets[k].far = targets[k].far && far;
-      if (!far) targets[k].rels.push(p[1]); else { targets[k].names.push(ix.byId[p[0]].l); targets[k].why.push(`${ix.byId[p[0]].l}: ${p[1]}`); }
+      if (!targets[k]) { targets[k] = { far: true, ns: [] }; order.push(k); }
+      if (k === r.id) targets[k].far = false;
+      targets[k].ns.push(r.n);
     });
-    /* hubs: hide reason labels until a target is hovered or tapped */
-    const showAll = order.length <= 4;
-    let paths = ''; let marks = ''; let labels = '';
+    let paths = ''; let dots = '';
     order.forEach((k) => {
-      const t = bx[k]; const far = targets[k].far; const hot = (k === hotKey);
-      const x1 = s.xr + 2; const y1 = s.y; const x2 = t.xr + 2; const y2 = t.y;
+      const t = bx[k]; const { far, ns } = targets[k]; const hot = (k === hotKey);
+      const x1 = s.xr + 2; const y1 = s.y; const x2 = t.xr + DOT_DX; const y2 = t.y;
       const dy = Math.abs(y2 - y1);
       let d;
       if (t.xr < s.x1 - 20 && dy < (NARROW ? 160 : 230)) {
@@ -338,17 +369,9 @@ function createMap() {
         d = `M${x1.toFixed(1)},${y1.toFixed(1)} C${xm.toFixed(1)},${y1.toFixed(1)} ${xm.toFixed(1)},${y2.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`;
       }
       paths += `<path class="${far ? 'far' : ''}${hot ? ' hot' : ''}" d="${d}"/>`;
-      marks += `<circle cx="${x2.toFixed(1)}" cy="${y2.toFixed(1)}" r="${hot ? 3.5 : 2.4}"/>`;
-      if (!(showAll || hot)) return;
-      let txt = far ? (hot ? targets[k].why : targets[k].names).join(' · ') : targets[k].rels.join(' · ');
-      const max = hot ? 64 : 32;
-      if (txt.length > max) txt = `${txt.slice(0, max - 1)}…`;
-      if (!txt) return;
-      let lx = x2 + 8; const ly = Math.max(14, Math.min(H - 6, y2 - 5)); let anchor = 'start';
-      if (lx + txt.length * 6.2 > W - 6) { lx = W - 6; anchor = 'end'; }
-      labels += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}"${far ? ' style="fill:var(--rv-accent)"' : ''}>${esc(txt)}</text>`;
+      dots += `<g class="rv-dot${hot ? ' hot' : ''}" data-at="${esc(k)}" transform="translate(${x2.toFixed(1)},${y2.toFixed(1)})"><circle class="hit" r="22"/><circle class="ring" r="9"/><text dy="3.8">${ns.length === 1 ? ns[0] : `${ns[0]}+`}</text></g>`;
     });
-    ov.innerHTML = paths + marks + labels;
+    ov.innerHTML = paths + dots;
     markHot();
   }
   function setHot(k) { if (k === hotKey) return; hotKey = k; if (selId) drawLinks(); }
@@ -376,15 +399,16 @@ function createMap() {
   }
   function select(id) {
     if (!(id in ix.PARENT)) return;
-    hotKey = null;
+    hotKey = null; hotRow = null;
     selId = (id === 'root') ? null : id;
-    if (!selId) { home(); applyMarks(); track(300); $$('rvJump').value = ''; return; }
+    if (!selId) { home(); refreshList(); applyMarks(); track(300); $$('rvJump').value = ''; return; }
     renderPanel(id);
     $$('rvJump').value = ix.byId[id] ? id : '';
     notesBtn.hidden = false;
+    refreshList();
     applyMarks(); track(500);
   }
-  function clearSel() { selId = null; home(); applyMarks(); drawLinks(); $$('rvJump').value = ''; }
+  function clearSel() { selId = null; hotKey = null; hotRow = null; home(); refreshList(); applyMarks(); drawLinks(); $$('rvJump').value = ''; }
 
   async function reveal(id) {
     const anc = ancestors(id); let changed = false;
@@ -417,7 +441,8 @@ function createMap() {
     TEXT = {};
     Object.keys(ix.LABEL).forEach((k) => {
       const n = ix.byId[k];
-      TEXT[k] = (n && !ix.structural.has(k) ? `${n.l} ${n.t.replace(/<[^>]+>/g, ' ')}` : ix.LABEL[k]).toLowerCase();
+      const text = n && n.leaf ? `${n.l} ${n.line}` : n ? `${n.l} ${n.t.replace(/<[^>]+>/g, ' ')}` : '';
+      TEXT[k] = (n && !ix.structural.has(k) ? text : ix.LABEL[k]).toLowerCase();
     });
     TREE_ORDER = [];
     (function walk(n) { TREE_ORDER.push(n.payload.id); (n.children || []).forEach(walk); })(ix.DATA);
@@ -470,7 +495,7 @@ function createMap() {
     svgEl.innerHTML = '';
     fitted = false;
     mm = window.markmap.Markmap.create(svgEl, {
-      initialExpandLevel: NARROW ? 2 : 3, maxWidth: 210, spacingHorizontal: NARROW ? 48 : 70, spacingVertical: 9, paddingX: 8,
+      initialExpandLevel: NARROW ? 2 : 3, maxWidth: 210, spacingHorizontal: NARROW ? 48 : 70, spacingVertical: NARROW ? 12 : 14, paddingX: 8,
       nodeMinHeight: 24, duration: 300,
       lineWidth: (node) => { const d = (node.state && node.state.depth) || 0; return Math.max(1.6, 4.2 - d * 0.85); },
       fitRatio: 0.96, maxInitialScale: NARROW ? 1.3 : 1.15,
@@ -482,12 +507,12 @@ function createMap() {
     mm.renderData = async function renderPatched(...args) {
       const r = await origRender(...args);
       svgEl.querySelectorAll('path.markmap-link').forEach((pth) => { const c = pth.getAttribute('stroke'); if (c) pth.style.setProperty('--glow', c); });
-      applyMarks(); track(500);
+      applyMarks(); refreshList(); track(500);
       return r;
     };
     mm.handleClick = (e, d) => { mm.toggleNode(d, false); };
     mm.svg.on('dblclick.zoom', null);
-    setTimeout(() => { applyMarks(); fitNow(); drawLinks(); }, 60);
+    setTimeout(() => { applyMarks(); fitNow(); refreshList(); drawLinks(); }, 60);
   }
 
   let mounting = null;
@@ -523,6 +548,7 @@ function createMap() {
       if (id === 'root') { clearSel(); return; }
       select(id);
       if (hasKids && (folded || wasSel)) {
+        if (NARROW && folded) foldSiblings(id);
         mm.toggleNode(d, false).then(() => {
           if (folded) { if (NARROW) mm.centerNode(d, { left: 8, right: Math.round(wrap.clientWidth * 0.55) }); else mm.ensureVisible(d, { left: 20, right: 40, top: 20, bottom: 20 }); }
           track(700);
@@ -542,14 +568,21 @@ function createMap() {
     });
     side.addEventListener('mouseleave', () => setHot(null));
     side.addEventListener('click', (ev) => {
-      /* Test me: the first tap on a blurred note or reason only uncovers it */
-      if (side.classList.contains('quiz')) {
-        const cov = ev.target.closest('.rv-note, .nbtn .rel');
-        if (cov && !cov.classList.contains('shown')) { cov.classList.add('shown'); ev.preventDefault(); return; }
-      }
       const b = ev.target.closest('button'); if (!b) return;
       if (b.dataset.node) reveal(b.dataset.node);
       if (b.dataset.thread) openThread(b.dataset.thread);
+    });
+    linkList = bindLinkList($$('rvLinkList'), {
+      onHot: (id) => { hotRow = id; setHot(linkKey[id] || null); },
+      onOpen: (id) => { reveal(id); },
+    });
+    ov.addEventListener('click', (ev) => {
+      const g = ev.target.closest && ev.target.closest('.rv-dot'); if (!g) return;
+      const r = rows.find((x) => x.at === g.dataset.at);
+      hotRow = r ? r.id : null;
+      markLinkRow($$('rvLinkList'), hotRow);
+      linkList.reset();
+      setHot(g.dataset.at);
     });
     notesBtn.addEventListener('click', () => side.scrollIntoView({ behavior: 'smooth', block: 'start' }));
 
@@ -561,13 +594,6 @@ function createMap() {
     $$('rvFind').addEventListener('keydown', (ev) => {
       if (ev.key === 'Enter') { ev.preventDefault(); clearTimeout(findTimer); runFind(); const first = TREE_ORDER.filter((k) => hits[k])[0]; if (first) reveal(first); }
       if (ev.key === 'Escape') { $$('rvFind').value = ''; runFind(); }
-    });
-    $$('rvQuiz').addEventListener('click', () => {
-      const on = !side.classList.contains('quiz');
-      side.classList.toggle('quiz', on);
-      $$('rvQuiz').setAttribute('aria-pressed', on ? 'true' : 'false');
-      side.querySelectorAll('.shown').forEach((e) => e.classList.remove('shown'));
-      if (selId) renderPanel(selId); else home();
     });
     window.addEventListener('resize', () => { if (selId) track(200); });
     try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => mm.renderData()); } catch { /* older browsers: no change listener */ }
@@ -584,6 +610,7 @@ function createMap() {
     reveal,
     select,
     ready: () => !!mm,
+    selected: () => selId,
   };
 }
 

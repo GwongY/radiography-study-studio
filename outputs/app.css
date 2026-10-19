@@ -1491,8 +1491,6 @@ ul.asslines{list-style:none;margin:0;padding:0}
 #reviseView .rv-tag.sys{color:var(--rv-c-on);border-color:transparent}
 #reviseView .rv-note{font-size:calc(14.5px * var(--ts));line-height:1.6}
 #reviseView .rv-note b{font-weight:600;color:var(--rv-ink)}
-#reviseView .rv-side.quiz .rv-note:not(.shown),#reviseView .rv-side.quiz .nbtn .rel:not(.shown){filter:blur(5px);cursor:pointer;user-select:none}
-#reviseView .rv-quizhint{font-size:calc(12.5px * var(--ts));color:var(--rv-muted);margin:0 0 8px}
 #reviseView .rv-side h4{font:600 12px ui-monospace,SFMono-Regular,Menlo,monospace;font-size:calc(12px * var(--ts));text-transform:uppercase;letter-spacing:.07em;color:var(--rv-muted);margin:16px 0 6px}
 #reviseView .rv-hint{color:var(--rv-ink2);font-size:calc(14px * var(--ts))}
 #reviseView .rv-hint ul{margin:6px 0 0;padding-left:18px}
