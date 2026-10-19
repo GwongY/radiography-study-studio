@@ -124,8 +124,6 @@ export const ROWS = [
 
 { k: 'group', id: 'w5_cervical_plexus', l: 'Cervical plexus', parent: 'plexuses', w: 5, line: 'C1 to C5; diaphragm and some neck and back muscles',
   links: { w5_antramus: 'anterior rami from spinal nerve branch and merge repeatedly' }, src: [L5, 37, 36] },
-{ k: 'group', id: 'w5_brachial_plexus', l: 'Brachial plexus', parent: 'plexuses', w: 5, line: 'C5 to T1; upper limb and some neck and shoulder muscles',
-  links: { w5_antramus: 'anterior rami from spinal nerve branch and merge repeatedly' }, src: [L5, 37] },
 { k: 'group', id: 'w5_lumbar_plexus', l: 'Lumbar plexus', parent: 'plexuses', w: 5, line: 'L1 to L4; sensory from hip/knee joints; motor to hip, thigh, scrotum',
   links: { w5_antramus: 'anterior rami from spinal nerve branch and merge repeatedly' }, src: [L5, 38, 36] },
 { k: 'group', id: 'w5_sacral_plexus', l: 'Sacral plexus', parent: 'plexuses', w: 5, line: 'L4 to S4; gives rise to sciatic nerve',
