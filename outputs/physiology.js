@@ -221,10 +221,8 @@ export const FLOW_CLASSES = {
   muscle: {
     label: 'Skeletal muscle', short: 'Muscle',
     color: 0xa8443c, flow: 0xff9b7a,
-    says: 'Muscle bellies shorten and thicken with tethered ends, then relax. Unmapped muscles use staggered demonstration cycles. The mapped deltoid, biceps and quadriceps examples activate after their motor impulse in this fixed-pose display.',
-    /* gain 0: the contraction is shown purely as deformation, so the muscle
-       does not glow and dim with each beat. */
-    rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0, beat: 'contract', mode: 'contract', deform: 'contract' },
+    says: 'Skeletal muscle. It is coloured, not animated: live physiology moves the heart, lungs, gut and vessels, and leaves the muscles still.',
+    rule: null,
   },
   bursa: {
     label: 'Bursa or sheath', short: 'Bursa',

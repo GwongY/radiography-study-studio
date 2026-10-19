@@ -42,7 +42,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `physiology-path.js` | 835 | Routes — pure rest-space route geometry, no three.js and no DOM. | [Routes](TRAPS.md#routes--outputsphysiology-pathjs-workbuild-physiology-pathsmjs-outputsstudiolive-physiologyjs) |
 | `physiology-paths.js` | 17 | Where the curated route payloads live, and what they were derived from. |  |
 | `physiology-shape.js` | 327 | Pure rest-space shape derivation and illustrative deformation profiles. | [The heart's shared tether](TRAPS.md#the-hearts-shared-tether--outputsphysiology-shapejs-outputsstudiolive-physiologyjs) |
-| `physiology.js` | 417 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
+| `physiology.js` | 415 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
 | `schedule.js` | 713 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `search-name.js` | 42 | Anatomical name matching shared by search and its regression gate. |  |
@@ -123,7 +123,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `hide-and-search.js` | 114 | Hide, and search-driven uncover |
 | `imports.js` | 101 | Block 0 has its own import scope -- block 1's copy is not visible here. |
 | `limb-atlas.js` | 347 | Limb vessels |
-| `live-physiology.js` | 1779 | Live physiology |
+| `live-physiology.js` | 1780 | Live physiology |
 | `packed-spread.js` | 91 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
 | `region-boxes-how.js` | 518 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 251 | Search -> viewer: frame the part, then hide only what stands in front |

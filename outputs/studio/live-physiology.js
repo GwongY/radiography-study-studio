@@ -137,7 +137,7 @@ function installFlow(mesh,cls){
   // Unmapped structures retain illustrative activity, with staggered phases.
   // Only the named motor examples claim a nerve-to-muscle sequence.
   let activity=null;
-  if((cls==='nerve'||cls==='muscle')&&!route){
+  if(cls==='nerve'&&!route){
     const name=(mesh.userData.label||mesh.name).replace(/left|right/gi,'');
     const hash=[...name].reduce((n,c)=>(n*31+c.charCodeAt(0))>>>0,0);
     activity={uT:{value:0},uDeform:{value:0},uBeat:{value:0},offset:(hash%2000)/1000};
@@ -610,7 +610,7 @@ export function installLayerFlow(key,meshes){
     /* Tendons, bursae and the other connective tissue do not contract, and while
        physiology is on they sit pale and static over the contracting muscles --
        so they are dropped for the animation and restored when it is off. */
-    if(cls==='tendon'||cls==='bursa'){ state.flow.connective.push(o); o.visible=!state.flow.on; }
+    /* (Tendons and bursae used to be hidden while muscles animated; muscles no longer move, so they stay.) */
   });
   state.flow.counts[key]=counts;
   /* The span is only knowable once something is in the scene, so anchors set
@@ -1757,8 +1757,9 @@ export function endMovement(){
 export function init() {
   state.flow?.disposeMotionPreference?.();
   const reducedMotion=prefersStill();
-  state.flow = { on:!reducedMotion, blend:reducedMotion?0:1, reducedMotion, motionOptIn:false, motionChoice:null,
-    uT:{value:0}, uOn:{value:reducedMotion?0:1}, classes:{}, counts:{}, connective:[] };
+  /* Live physiology starts off; the Live chip turns it on. */
+  state.flow = { on:false, blend:0, reducedMotion, motionOptIn:false, motionChoice:null,
+    uT:{value:0}, uOn:{value:0}, classes:{}, counts:{}, connective:[] };
   if(typeof matchMedia==='function'){
     const preference=matchMedia('(prefers-reduced-motion: reduce)');
     const change=event=>{
