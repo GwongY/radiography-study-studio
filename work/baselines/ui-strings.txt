@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 991 —
-  40ff8311aca595fb  WHOLE SET
+— user-facing strings in outputs/ — 990 —
+  80a9c93e0181dff0  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -217,6 +217,7 @@
   13e0765632a97ef3  BOTH faces (not signed) because entering and leaving each cross one.
   c3f65e6d3ec7ab24  Back to the question
   8064be1e537993c1  Beam collimation accessories and shielding: Cerrobend blocks (melting point 70°C, 25 lbs hazard), asymmetric independent jaws (<0.5% transmission), dynamic wedges (30 cm field width), multileaf collimators (3 cm/s leaf speed), photoneutron hazards above 10 MV, and 5 m maze entrance shielding.
+  ff2a69e64172f10b  Before you open a branch, name what is inside it. That is the revision.
   87b238e3beba6204  Beyond your course \u2014
   a2bec3fc1436c89c  Biology (S4-6) 2007 (with updates in November 2015)
   0a63590f65cfd859  Biology Curriculum (Secondary 4-6) Supplementary Document (2015 printing; applies to the 2016 HKDSE and onwards) — cd1.edb.hkedcity.net/cd/science/biology/supplementary/bio_supplement_e_2016.pdf
@@ -528,7 +529,6 @@
   6322bc723f755180  Projection could not load. Reopen this tab to retry.
   ead61b004eb315fc  Radiography Sources (祝返工順利)
   9262778a6bdeefc5  Radiography Studies/Radiography Studies III/Cancer Treatment/source from alex/Radiograhy Studies III/Treatment modality of cancer
-  86970f92d9fde48d  Read the line under a name, then open the branch to check what is inside it.
   cf9600734b54209e  Readable copy of the reproductive-system lecture, from the 2020/21 set.
   164775a7b441c383  Real upper-limb model failed, using local fallback
   7914bbadb94c3bc3  Region filter cleared \u2014 that structure is outside it
@@ -670,7 +670,7 @@
   f8fde19067e881fa  The projection reads through closed surfaces — section it in the 3D view.
   8baacea34fdc4ab0  The radius rotates over the ulna like a wheel spoke. It is on the thumb side.
   444c5de284285e50  The sacred wedge-shaped keystone locks the pelvic ring together.
-  260d90ca85a418a2  The small tags (W1…) say when each topic was taught. The line under each name says what it is: the slide's own words for a muscle, nerve or joint, and for a heading what it covers.
+  d262bbed9d72e6ec  The small tags (W1…) say when each topic was taught. The grey line under a muscle is what it does, from the slide. Tap any name and the notes open with a sentence about it.
   d34c527efb66b8ea  The study tools still work. Check your connection, then retry the model layer.
   a6d6e45faa6aea68  The supplied timetable lists all three tutorial and lab groups without saying which is yours. Pick them once and the other groups’ slots are dimmed and left out of your counts.
   8786e514e5dee92d  The teaching term is over
@@ -898,7 +898,6 @@
   374ca136be919d16  s heart: whenever the Heart chip is on, the atlas heart stands in for the explorer
   df49128572cf09cb  s job is only to feed it those meshes in the body
   91f0e226c82016ff  s left), fz 0 the trunk
-  4d532c3959ea20ec  s line, a topic
   4e01dcdc55cd6293  s own half-width put the oesophagus
   ade98b80a888aed2  s own signature. 
   0fb35ed1991ca018  s pages add to the explorer
