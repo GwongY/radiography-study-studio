@@ -123,8 +123,6 @@ export const REVISION = {
     tours: abctFrag.TOURS,
     /* topics, topic links and fragment steps cite pages (work/revision-check.mjs) */
     sourced: true,
-    /* the Threads, Tables and Decoder tabs are hidden until plan Task 21 fills them */
-    requireFragments: false,
     /* The only sources a physiology row, topic or step may cite: the lecture decks in iCloud Human Physology
        (owner, 19 Oct 2026: no labs, no tutorials, no old decks), with the teaching weeks each was lectured in
        (outputs/schedule.js; a deck run over two lectures lists both, and its rows start at the first) and the

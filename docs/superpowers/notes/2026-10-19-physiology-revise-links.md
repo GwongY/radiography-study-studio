@@ -43,3 +43,40 @@ Every link below cites a page of a registered 2026 lecture deck whose words stat
 `work/revision-check.mjs` treated the whole fourth element of a topic link as the page list, so the
 words-on-the-page string failed the integer-page test. It now reads the pages and the words
 separately; the requirement (the words are on a cited page) is unchanged.
+
+## Task 21 — threads, tables, decoder, tours
+
+Six threads (43 steps, each on a page that says it), 29 table rows, 51 decoder terms and six tours.
+Every thread has a 廣東話 line that `yueProblems` accepts (no English word or number the steps lack).
+
+### ★ textbook facts (Martini, PDF page of `Fundamentals of Anatomy and Physiology_eBook.pdf`, for the owner to check)
+
+| Thread, step | PDF page | Chapter | The sentence |
+| --- | --- | --- | --- |
+| t1 Carried on hemoglobin | 889 | 23 | Each hemoglobin molecule has four globular protein subunits, and each subunit contains a heme unit. |
+| t3 Negative feedback | 39 | 1 | Negative feedback opposes variations from normal, whereas positive feedback exaggerates them. |
+| t4 Bile | 943 | 24 | Without CCK the hepatopancreatic sphincter stays closed, so bile cannot flow through the common bile duct into the duodenum. |
+| t5 Relaxation | 336 | 10 | Acetylcholinesterase breaks ACh down, which ends action potential generation in the muscle fibre. |
+| t6 Mast cells | 830 | 22 | Histamine released by mast cells makes capillaries more permeable and speeds up blood flow through the area. |
+
+Thread t2 (blood pressure and volume) has no ★: a first look in chapters 19 to 21 and 26 found only
+sentences that repeat the slide, so none was written. Steps t3 (renin, aldosterone), t5 and others carry none either (at most one per step, only where it adds).
+
+### Decoder terms dropped, and why
+
+The reading `decoderReading` gives was checked against the slide's use of each word. Dropped:
+Oxyhemoglobin and Oxygen–hemoglobin saturation curve (`oxy-` is read as "rapid, fast"; it means oxygen),
+Spermatogonia (`goni/o` read as "angle"), Interphase (`phas/o` read as "speech"), Steroids (`ster/o` is
+the word itself), Paracrine (`para-` read as "abnormal"), Trophoblast (`troph/o` read as "development"),
+Osmosis (`-osis` read as "abnormal condition"), Nucleoplasm and Cytoplasm (`-plasm` read as
+"formation, production"), Glucose (`-ose` read as "pertaining to"), Cytokines and Lymphokines (`-kine`
+read as "movement"), and every term where a word of a multi-word name has no reading (for example
+Seminiferous tubules, Efferent ductules, Primary spermatocytes): only whole readings are kept.
+Wrong or doubtful roots in `wordparts.js` (a separate task, not edited here): `oxy-`, `goni/o`, `phas/o`,
+`ster/o`, `para-` (beside), `troph/o`, `-plasm`, `-kine`, `cycl/o` read as "ciliary body" in cyclase and
+recycling, `press/o` + `ur/o` for "pressure", `ur/o` in "natural killer".
+
+### Tables not written
+
+Tables hold slide facts only (no ★). No row for FSH and LH "made by": the Week 7 slide does not
+say it (the cell reads "Not stated on this slide").

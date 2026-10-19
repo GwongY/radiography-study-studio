@@ -1,13 +1,206 @@
 /*
  * ABCT2326 Threads, Tables, Decoder and Brain 3D tours, as sourced data.
  * Rendered by outputs/revision/fragments.js; every step and table row cites a page
- * (work/revision-check.mjs holds `match` to it). Filled by plan Task 21.
+ * (work/revision-check.mjs holds `match` to it). Written by plan Task 21.
  */
 export const THREADS_INTRO = 'Each thread follows one process across lectures and tags every step with the week it came from. ★ marks a sentence from the Martini textbook chapter the lecture is built on, beyond the slides, with its page. The 廣東話 line retells the thread in Cantonese and shows once every step is taught.';
 export const TABLES_INTRO = 'Look-ups that tie the lectures together. Every row names the slide it comes from.';
 export const DECODER_INTRO = 'Long words split into their parts, from the app\'s word-part list, each split checked against the word\'s meaning on the slides. Type in the box to filter.';
-export const THREADS = [];
-export const TABLES = [];
-export const DECODER = [];
-export const TOURS = [];
+export const THREADS = [
+  {
+    id: 't1',
+    title: 'Oxygen from air to cell',
+    yue: '空氣經 ventilation 入肺 → 肺動脈血嘅 PO2 低、PCO2 高，所以 O2 入血、CO2 出血 → O2 同 hemoglobin 嘅鐵離子結合，每個 Hb 結合 four oxygen molecules → 含氧血經肺靜脈入 left atrium，再由 left ventricle 經 aorta 泵去全身 → 去到 systemic capillaries 做 internal respiration，同 interstitial fluid 交換氣體',
+    steps: [
+      { wk: 3, hd: 'Ventilation.', text: 'Pulmonary ventilation is the physical movement of air in and out of the respiratory tract.', src: ['phys.l3.2026', 17], match: 'physical movement of air in and out of' },
+      { wk: 3, hd: 'Gas exchange.', text: 'Blood arriving in pulmonary arteries has low PO2 and high PCO2, so O2 enters the blood and CO2 leaves it.', src: ['phys.l3.2026', 41], match: 'O2 to enter blood' },
+      { wk: 3, hd: 'Carried on hemoglobin.', text: 'O2 binds to iron ions in hemoglobin molecules; each Hb binds four oxygen molecules.', src: ['phys.l3.2026', 45], match: 'Each Hb binds four oxygen molecules', star: { text: 'Each hemoglobin molecule has four globular protein subunits, and each subunit contains a heme unit.', page: 889, ch: 23 } },
+      { wk: 2, hd: 'Pumped to the body.', text: 'Oxygenated blood from lungs passes through pulmonary veins to left atrium, then to left ventricle which pumps it through aorta to body.', src: ['phys.l2.2026', 19], match: 'pumps it through aorta to body' },
+      { wk: 3, hd: 'Internal respiration.', text: 'At the systemic capillaries, internal respiration exchanges gases with the interstitial fluid.', src: ['phys.l3.2026', 44], match: 'Internal Respiration' },
+    ],
+  },
+  {
+    id: 't2',
+    title: 'Blood pressure and volume',
+    yue: '血漿蛋白（albumin）造成 colloid osmotic pressure，維持 blood volume 同 pressure → 腎臟調節 blood plasma 嘅 volume，影響 blood pressure → 血量同 renal blood flow 低會刺激 renin release → renin 轉 angiotensinogen 做 angiotensin I，再經 ACE 變 angiotensin II，刺激 aldosterone → aldosterone 增加 Na+ reabsorption，Na+ 留喺血入面 → ADH 令腎臟保水',
+    steps: [
+      { wk: 2, hd: 'Plasma proteins.', text: 'Albumin creates colloid osmotic pressure to maintain blood volume and pressure.', src: ['phys.l2.2026', 6], match: 'colloid osmotic pressure to maintain blood volume' },
+      { wk: 5, hd: 'Kidneys regulate the plasma volume.', text: 'In urine formation, kidneys regulate the volume of blood plasma, which contributes to blood pressure.', src: ['phys.l5.2026', 2], match: 'Volume of blood plasma, which contributes to BP' },
+      { wk: 5, hd: 'Low volume releases renin.', text: 'Low blood volume and renal blood flow stimulate renin release, also by sympathetic activity from the arterial baroreceptor reflex.', src: ['phys.l5.2026', 41], match: 'Low blood volume and renal blood flow stimulate renin release' },
+      { wk: 5, hd: 'Angiotensin II.', text: 'Renin converts angiotensinogen to angiotensin I, converted to angiotensin II by ACE in lungs; angiotensin II stimulates release of aldosterone.', src: ['phys.l5.2026', 40], match: 'Angiotensin II stimulates release of aldosterone' },
+      { wk: 5, hd: 'Aldosterone.', text: 'Aldosterone raises Na+ reabsorption in the cortical collecting duct, so more Na+ is retained in the blood.', src: ['phys.l5.2026', 42], match: 'Na+ reabsorption in cortical collecting duct' },
+      { wk: 8, hd: 'ADH.', text: 'ADH, made in the hypothalamus, promotes H2O conservation by kidneys.', src: ['phys.l7.2026', 27], match: 'promotes H2O conservation by kidneys' },
+    ],
+  },
+  {
+    id: 't3',
+    title: 'Feedback loops',
+    yue: '負回饋：effector 嘅反應令 stimulus 減弱，返回 homeostasis → 呼吸：arterial PCO2 升，chemoreceptors 令呼吸加快 → Na+ intake 低令 blood volume 降，renin、angiotensin II、aldosterone 升 → gonadotropins 令 gonads 出 sex steroid hormones，再 inhibit GnRH → 正回饋：clotting 一步加速下一步；estrogen 令 LH surge；oxytocin 同 prostaglandin 令 myometrium 收縮到 delivery 完成',
+    steps: [
+      { wk: 1, hd: 'Negative feedback.', text: 'The response of the effector negates the stimulus, and the body is brought back into homeostasis.', src: ['phys.1.2026', 59], match: 'The response of the effector negates the stimulus', star: { text: 'Negative feedback opposes variations from normal, whereas positive feedback exaggerates them.', page: 39, ch: 1 } },
+      { wk: 3, hd: 'Breathing and carbon dioxide.', text: 'Increased arterial PCO2 stimulates chemoreceptors that accelerate breathing cycles, increasing respiratory rate and decreasing arterial PCO2.', src: ['phys.l3.2026', 73], match: 'increases the respiratory rate' },
+      { wk: 5, hd: 'Salt and renin.', text: 'Low Na+ intake lowers blood volume; renin, angiotensin II and aldosterone rise and raise Na+ retention in blood. Neg. feedback control.', src: ['phys.l5.2026', 42], match: 'Neg. feedback control' },
+      { wk: 8, hd: 'Sex hormones.', text: 'Gonadotropins from the anterior pituitary act on the gonads; sex steroid hormones then inhibit secretion of GnRH by negative feedback.', src: ['phys.l7.2026', 31], match: 'Inhibits secretion of GnRH' },
+      { wk: 1, hd: 'Positive feedback.', text: 'As clotting continues, each step releases chemicals that further accelerate the process, a positive feedback loop that ends with a blood clot.', src: ['phys.1.2026', 61], match: 'positive feedback loop' },
+      { wk: 8, hd: 'LH surge.', text: 'During the menstrual cycle, estrogen stimulates the LH surge by positive feedback.', src: ['phys.l7.2026', 31], match: 'by positive feedback' },
+      { wk: 7, hd: 'Labor.', text: 'Distortion of the myometrium stimulates additional oxytocin and prostaglandin release; this positive feedback continues until delivery is completed.', src: ['phys.l6.2026', 56], match: 'This positive feedback continues until delivery is completed' },
+    ],
+  },
+  {
+    id: 't4',
+    title: 'A meal',
+    yue: '食物入口，saliva 濕潤食物，salivary amylase 消化 carbohydrates → stomach 用 acid 同 enzymes 破壞食物 → 見到、聞到食物經 vagus nerve 同 CNS 引起 cephalic phase → duodenum 嘅 CCK、GIP、secretin 加 enterogastric reflex 抑制 peristalsis → pancreas 分泌 alpha-amylase、lipase、nucleases → liver 每日分泌約 1 liter bile，CCK 令 gallbladder 收縮 → GIP 令 pancreas 釋放 insulin，beta cells 分泌 insulin 令 glucose 入細胞 → large intestine 回收 water，壓成 feces',
+    steps: [
+      { wk: 4, hd: 'Mouth.', text: 'Saliva moistens and lubricates materials and starts digestion of complex carbohydrates by salivary amylase; the teeth chew (masticate) food.', src: ['phys.l4.2026', 19], match: 'salivary amylase' },
+      { wk: 4, hd: 'Stomach.', text: 'The stomach disrupts chemical bonds in food material by acid and enzymes, after storage and mechanical breakdown of ingested food.', src: ['phys.l4.2026', 21], match: 'by acid and enzymes' },
+      { wk: 4, hd: 'Cephalic phase.', text: 'Sight, smell, taste or thoughts of food act via the vagus nerve and CNS: the cephalic phase, first of three phases of gastric control.', src: ['phys.l4.2026', 31], match: 'Sight, smell, taste, or thoughts of food' },
+      { wk: 4, hd: 'Duodenal hormones.', text: 'In the intestinal phase, CCK, GIP and secretin act with the enterogastric reflex to inhibit peristalsis.', src: ['phys.l4.2026', 33], match: 'Enterogastric reflex' },
+      { wk: 4, hd: 'Pancreas.', text: 'Pancreatic alpha-amylase breaks down starches, lipase breaks down lipids, nucleases break down nucleic acids; proteolytic enzymes are secreted as inactive proenzymes.', src: ['phys.l4.2026', 43], match: 'Secreted as inactive proenzymes' },
+      { wk: 4, hd: 'Bile.', text: 'The liver secretes bile continuously, about 1 liter per day; CCK from the duodenum triggers gallbladder contraction, ejecting bile into the duodenum.', src: ['phys.l4.2026', 51], match: 'about 1 liter per day', star: { text: 'Without CCK the hepatopancreatic sphincter stays closed, so bile cannot flow through the common bile duct into the duodenum.', page: 943, ch: 24 } },
+      { wk: 4, hd: 'GIP and insulin.', text: 'GIP is secreted when fats and carbohydrates enter small intestine; the pancreas releases insulin.', src: ['phys.l4.2026', 57, 59], match: 'Release of insulin from pancreas' },
+      { wk: 8, hd: 'Insulin.', text: 'Beta cells secrete insulin in response to high blood glucose; insulin promotes entry of glucose into cells and decreases blood glucose.', src: ['phys.l7.2026', 49], match: 'Promotes entry of glucose into cells' },
+      { wk: 4, hd: 'Large intestine.', text: 'The large intestine reabsorbs water, compacts intestinal contents into feces, absorbs vitamins produced by bacteria and stores fecal material before defecation.', src: ['phys.l4.2026', 60], match: 'Compaction of intestinal contents into feces' },
+    ],
+  },
+  {
+    id: 't5',
+    title: 'A signal from nerve to muscle',
+    yue: '神經 depolarization 去到 threshold –45 mV，peak +25 mV，再 repolarization → 到 threshold 就產生 action potential → myelin 令傳導快，nodes of Ranvier 令 Na+ 同 K+ 跨膜 → synapses 釋放 neurotransmitter → axon terminal 嘅 vesicles 載住 acetylcholine，acetylcholinesterase 分解 ACh → NMJ 釋放 ACh 引起 end-plate potentials，APs 入 T tubules → Ca2+ channels 相連 → action potentials 停止，Ca2+-ATPase 將 Ca2+ 泵返入 SR，cross bridges 唔再形成',
+    steps: [
+      { wk: 9, hd: 'Action potential.', text: 'When a nerve is stimulated, depolarization reaches a threshold value at –45 mV and a peak of +25 mV, then repolarization follows.', src: ['phys.l8.2026', 33], match: 'reaches a threshold value at –45mV' },
+      { wk: 9, hd: 'All or none.', text: 'Once threshold has been reached, the action potential will happen; the size of the stimulus will not affect its size.', src: ['phys.l8.2026', 36], match: 'Once threshold has been reached' },
+      { wk: 9, hd: 'Saltatory conduction.', text: 'Myelin provides insulation, improving the speed of cable properties; nodes of Ranvier allow Na+ and K+ to cross the membrane.', src: ['phys.l8.2026', 41], match: 'Saltatory Conduction' },
+      { wk: 9, hd: 'Chemical synapse.', text: 'Most synapses involve the release of a chemical called a neurotransmitter from the axon’s terminal boutons.', src: ['phys.l8.2026', 46], match: 'release of a chemical called a neurotransmitter' },
+      { wk: 11, hd: 'Neuromuscular junction.', text: 'The axon terminal contains vesicles filled with acetylcholine, a neurotransmitter; acetylcholinesterase in the synaptic cleft breaks down ACh.', src: ['phys.l9.2026', 29], match: 'vesicles filled with molecules of acetylcholine' },
+      { wk: 11, hd: 'End-plate potential.', text: 'Release of ACh at NMJ causes depolarizing end-plate potentials and APs that race over the sarcolemma and down T tubules.', src: ['phys.l9.2026', 31], match: 'Release of ACh at NMJ causes large depolarizing' },
+      { wk: 11, hd: 'Calcium release.', text: 'T tubules are extensions of sarcolemma; Ca2+ channels in the SR are mechanically linked to channels in T tubules.', src: ['phys.l9.2026', 32], match: 'mechanically linked to channels in T tubules' },
+      { wk: 11, hd: 'Relaxation.', text: 'Action potentials cease and Ca2+-ATPase pumps move Ca2+ back into SR, so no more cross bridges are formed.', src: ['phys.l9.2026', 37], match: 'Ca2+-ATPase pumps move Ca2+ back into SR', star: { text: 'Acetylcholinesterase breaks ACh down, which ends action potential generation in the muscle fibre.', page: 336, ch: 10 } },
+    ],
+  },
+  {
+    id: 't6',
+    title: 'Defence',
+    yue: '第一道防線 physical barriers 擋住 pathogens → phagocytes 包括 microphages（neutrophils、eosinophils）同由 monocytes 變嘅 macrophages → complement proteins 串聯成 cascades，形成 membrane attack complex（MAC）令細胞 lysis → inflammation 有 swelling、redness、heat、pain；mast cells 令 blood flow 加快 → fever 加速 metabolism → cytotoxic T cells 攻擊受感染細胞，helper T cells 刺激 B cells → B cells 製造 specific antibodies',
+    steps: [
+      { wk: 12, hd: 'Barriers.', text: 'Physical barriers keep hazardous materials (biological pathogens) outside the body.', src: ['phys.10.2026', 8], match: 'Keep hazardous materials' },
+      { wk: 12, hd: 'Phagocytes.', text: 'Two classes of phagocytes: microphages (neutrophils and eosinophils) and macrophages, large phagocytic cells derived from monocytes.', src: ['phys.10.2026', 14], match: 'Large phagocytic cells derived from monocytes' },
+      { wk: 12, hd: 'Complement.', text: 'Complement proteins work together in cascades that end in the membrane attack complex (MAC) on the bacterium, causing cell lysis.', src: ['phys.10.2026', 30], match: 'membrane attack complex' },
+      { wk: 12, hd: 'Inflammation.', text: 'Inflammation, a localized response triggered by any stimulus that injures tissue, brings swelling, redness, heat and pain.', src: ['phys.10.2026', 37], match: 'A localized response' },
+      { wk: 12, hd: 'Mast cells.', text: 'Release of histamine by mast cells and basophils increases the degree of local inflammation and accelerates blood flow to the region.', src: ['phys.10.2026', 33], match: 'Release of histamine by mast cells', star: { text: 'Histamine released by mast cells makes capillaries more permeable and speeds up blood flow through the area.', page: 830, ch: 22 } },
+      { wk: 12, hd: 'Fever.', text: 'Fever is an elevation of body temperature that accelerates tissue metabolism and body defenses.', src: ['phys.10.2026', 41], match: 'Fever is an elevation of body temperature' },
+      { wk: 12, hd: 'T cells.', text: 'Cytotoxic T cells attack cells infected by viruses; helper T cells stimulate T cells and B cells.', src: ['phys.10.2026', 50], match: 'Attack cells infected by viruses' },
+      { wk: 12, hd: 'B cells.', text: 'B cells are responsible for antibody-mediated immunity, attacking antigens by producing specific antibodies.', src: ['phys.10.2026', 63], match: 'Attack antigens by producing specific antibodies' },
+    ],
+  },
+];
+
+export const TABLES = [
+  {
+    id: 'tb-hormones',
+    title: 'Hormones',
+    head: ['Hormone', 'Made by', 'Acts on', 'Effect'],
+    rows: [
+      { wk: 4, cells: ['Gastrin', 'G cells in the duodenum', 'Stomach', 'Promotes increased stomach motility; stimulates acid and enzyme production'], src: ['phys.l4.2026', 56], match: 'Is secreted by G cells in duodenum' },
+      { wk: 4, cells: ['Secretin', 'Duodenum, when chyme arrives', 'Liver and pancreas', 'Increases secretion of bile and buffers'], src: ['phys.l4.2026', 56], match: 'Increases secretion of bile and buffers by liver and pancreas' },
+      { wk: 4, cells: ['Cholecystokinin (CCK)', 'Duodenum, when chyme contains lipids and partially digested proteins', 'Pancreas', 'Accelerates pancreatic production and secretion of digestive enzymes'], src: ['phys.l4.2026', 57], match: 'Accelerates pancreatic production and secretion of digestive enzymes' },
+      { wk: 4, cells: ['Gastric inhibitory peptide (GIP)', 'Small intestine, when fats and carbohydrates enter', 'Pancreas', 'Release of insulin'], src: ['phys.l4.2026', 57, 59], match: 'Release of insulin from pancreas' },
+      { wk: 5, cells: ['Renin', 'Juxtaglomerular cells', 'Angiotensinogen', 'Converts angiotensinogen to angiotensin I'], src: ['phys.l5.2026', 40], match: 'Renin converts angiotensinogen to angiotensin I' },
+      { wk: 5, cells: ['Aldosterone', 'Adrenal cortex', 'Distal tubule and cortical collecting duct', 'Controls K+ secretion and Na+ reabsorption'], src: ['phys.l5.2026', 37, 42], match: 'controls K+ secretion and Na+ reabsorption' },
+      { wk: 7, cells: ['Testosterone', 'Leydig cells, after stimulation by LH', 'Developing sperm cells', 'Required to stimulate meiosis and early spermatid maturation'], src: ['phys.l6.2026', 15], match: 'Testosterone is required to stimulate meiosis and early spermatid maturation' },
+      { wk: 7, cells: ['FSH', 'Not stated on this slide', 'Sertoli cells', 'Enhances spermatogenesis; the Sertoli cells make ABP, which concentrates testosterone'], src: ['phys.l6.2026', 15], match: 'FSH enhances spermatogenesis' },
+      { wk: 8, cells: ['Antidiuretic hormone (ADH)', 'Supraoptic nuclei of hypothalamus; released from posterior pituitary', 'Kidneys', 'Promotes H2O conservation'], src: ['phys.l7.2026', 27], match: 'promotes H2O conservation by kidneys' },
+      { wk: 8, cells: ['Oxytocin', 'Paraventricular nuclei of hypothalamus; released from posterior pituitary', 'Uterus and mammary gland alveoli', 'Stimulates contractions of uterus during parturition and the milk-ejection reflex'], src: ['phys.l7.2026', 27], match: 'stimulates contractions of uterus during parturition' },
+      { wk: 8, cells: ['Epinephrine', 'Adrenal medulla', 'Body (fight or flight response)', 'Increased respiratory rate, heart rate and cardiac output; glycogenolysis and lipolysis'], src: ['phys.l7.2026', 35], match: 'Activated during "fight or flight" response' },
+      { wk: 8, cells: ['Cortisol', 'Adrenal cortex', 'Glucose utilization and gluconeogenesis', 'Inhibits glucose utilization; stimulates gluconeogenesis'], src: ['phys.l7.2026', 36], match: 'Cortisol which inhibits glucose utilization and stimulates gluconeogenesis' },
+      { wk: 8, cells: ['Insulin', 'Beta cells of the islets', 'Cells (glucose entry)', 'Promotes entry of glucose into cells; decreases blood glucose'], src: ['phys.l7.2026', 49], match: 'Beta cells secrete insulin in response to high blood glucose' },
+      { wk: 8, cells: ['Glucagon', 'Alpha cells of the islets', 'Glycogenolysis and lipolysis', 'Stimulates glycogenolysis and lipolysis; increases blood glucose'], src: ['phys.l7.2026', 48], match: 'Alpha cells secrete glucagon in response to low blood glucose' },
+    ],
+  },
+  {
+    id: 'tb-values',
+    title: 'Numbers on the slides',
+    head: ['What', 'Value', 'Lecture'],
+    rows: [
+      { wk: 2, cells: ['Total blood volume', 'about 5 L', 'Week 2'], src: ['phys.l2.2026', 5], match: 'Total blood volume is about 5L' },
+      { wk: 2, cells: ['Hematocrit', '36-46% in women; 41-53% in men', 'Week 2'], src: ['phys.l2.2026', 5], match: 'Hematocrit is 36-46% in women; 41-53% in men' },
+      { wk: 2, cells: ['Pacemaker potential', 'begins at around -60 mV, depolarizes to -40 mV threshold', 'Week 2'], src: ['phys.l2.2026', 50], match: 'Membrane voltage begins at around -60mV' },
+      { wk: 2, cells: ['Myocardial resting membrane potential', '-90 mV', 'Week 2'], src: ['phys.l2.2026', 56], match: 'resting membrane potential of –90 mV' },
+      { wk: 3, cells: ['Atmospheric pressure', '1 atmosphere = 760 mmHg = 101.325 kPa', 'Week 3'], src: ['phys.l3.2026', 27], match: '1 atmosphere (atm) = 760 mmHg' },
+      { wk: 3, cells: ['Tidal volume (adult male)', '500 mL', 'Week 3'], src: ['phys.l3.2026', 36], match: 'Tidal volume (VT= 500 mL)' },
+      { wk: 3, cells: ['Hemoglobin molecules per red blood cell', 'about 280 million', 'Week 3'], src: ['phys.l3.2026', 45], match: 'Each RBC has about 280 million Hb molecules' },
+      { wk: 4, cells: ['Bile secreted by the liver', 'about 1 liter per day', 'Week 4'], src: ['phys.l4.2026', 51], match: 'about 1 liter per day' },
+      { wk: 5, cells: ['Glomerular filtration rate (GFR)', 'averages 115 ml/min in women; 125 ml/min in men; about 180 L/day', 'Week 5'], src: ['phys.l5.2026', 17], match: 'Averages 115 ml/min in women; 125 ml/min in men' },
+      { wk: 5, cells: ['Filtered Na+, Cl- and H2O reabsorbed in the proximal tubule', 'about 65%', 'Week 5'], src: ['phys.l5.2026', 26], match: '65% Na+, Cl-, and H2O is reabsorbed in proximal tubule' },
+      { wk: 5, cells: ['Urine excreted from about 180 L/day of ultrafiltrate', 'only 1-2 L per 24 hours', 'Week 5'], src: ['phys.l5.2026', 21], match: 'only 1–2 L of urine excreted/24 hours' },
+      { wk: 9, cells: ['Resting membrane potential of many nerve cells', 'approximately -60 mV (or -70 mV)', 'Week 9'], src: ['phys.l8.2026', 23], match: 'approximately –60mV' },
+      { wk: 9, cells: ['Nerve action potential', 'threshold at -45 mV; peak of +25 mV', 'Week 9'], src: ['phys.l8.2026', 33], match: 'reaches a threshold value at –45mV' },
+      { wk: 11, cells: ['Maximal oxygen uptake (VO2 max)', 'ranges from 12 to 84 ml O2/minute/kg body weight', 'Week 11'], src: ['phys.l9.2026', 43], match: 'Ranges from 12 ml O2/minute/kg body weight to 84 ml O2/minute/kg body weight' },
+      { wk: 11, cells: ['Lactate threshold', 'occurs at about 50-70% VO2 max', 'Week 11'], src: ['phys.l9.2026', 44], match: 'Occurs at about 50−70% VO2 max' },
+    ],
+  },
+];
+
+/* Every reading below was read against the slide that uses the word and approved (owner, 19 Oct 2026); revision-check holds it frozen. */
+export const DECODER = [
+  { wk: 1, term: 'Homeostasis', reading: 'home/o = same + -stasis = controlling, stopping' },
+  { wk: 1, term: 'Cytokinesis', reading: 'cyt/o = cell + kinesi/o = movement' },
+  { wk: 1, term: 'Lysosomes', reading: 'lys/o = break down, dissolve + som/o = body' },
+  { wk: 1, term: 'Nucleosomes', reading: 'nucle/o = nucleus + som/o = body' },
+  { wk: 1, term: 'Microtubules', reading: 'micro- = small + tub/o = tube, pipe + -ule = small' },
+  { wk: 1, term: 'Osteocytes', reading: 'oste/o = bone + cyt/o = cell' },
+  { wk: 1, term: 'Periosteum', reading: 'peri- = surrounding, around + oste/o = bone' },
+  { wk: 1, term: 'Neuroglia', reading: 'neur/o = nerve + -glia = glue, glia cell' },
+  { wk: 1, term: 'Adipocytes', reading: 'adip/o = fat + cyt/o = cell' },
+  { wk: 1, term: 'Fibroblasts', reading: 'fibr/o = fiber + -blast = a building, immature cell' },
+  { wk: 2, term: 'Hemoglobin', reading: 'hem/o = blood + -globin = protein substance' },
+  { wk: 2, term: 'Hematocrit', reading: 'hemat/o = blood + -crit = separate, separating' },
+  { wk: 2, term: 'Fibrinogen', reading: 'fibrin/o = fibrous substance + gen/o, -gen = origin, originate' },
+  { wk: 4, term: 'Peristalsis', reading: 'peri- = surrounding, around + -stalsis = contraction' },
+  { wk: 4, term: 'Cholecystokinin (CCK)', reading: 'cholecyst/o = gallbladder + -kinin = movement substance' },
+  { wk: 4, term: 'Lacteal', reading: 'lact/o = milk + -eal = pertaining to' },
+  { wk: 4, term: 'Nucleases', reading: 'nucle/o = nucleus + -ase = enzyme' },
+  { wk: 4, term: 'Lipases', reading: 'lip/o = fat + -ase = enzyme' },
+  { wk: 7, term: 'Spermatogenesis', reading: 'spermat/o = male sex cell, spermatozoon + -genesis = production' },
+  { wk: 7, term: 'Acrosome', reading: 'acro- = heights, extremes, extremities + som/o = body' },
+  { wk: 7, term: 'Perimetrium', reading: 'peri- = surrounding, around + metri/o = uterus' },
+  { wk: 7, term: 'Myometrium', reading: 'my/o = muscle + metri/o = uterus' },
+  { wk: 7, term: 'Blastocyst', reading: '-blast = a building, immature cell + cyst/o = bladder, sac' },
+  { wk: 8, term: 'Autocrine', reading: 'auto- = self + -crine = secrete, secreting' },
+  { wk: 8, term: 'Endocrine', reading: 'endo- = within, inner + -crine = secrete, secreting' },
+  { wk: 8, term: 'Neuroendocrine', reading: 'neur/o = nerve + endo- = within, inner + -crine = secrete, secreting' },
+  { wk: 8, term: 'Proinsulin', reading: 'pro- = forward, in front of + insulin/o = insulin' },
+  { wk: 8, term: 'Preproinsulin', reading: 'pre- = before, in front of + pro- = forward, in front of + insulin/o = insulin' },
+  { wk: 8, term: 'Epinephrine', reading: 'epi- = above, upon + nephr/o = kidney + -ine = pertaining to' },
+  { wk: 8, term: 'Colloid', reading: 'coll/o = glue + -oid = resembling, like' },
+  { wk: 8, term: 'Hypothyroidism', reading: 'hypo- = below + thyroid/o = thyroid gland + -ism = condition, state of' },
+  { wk: 8, term: 'Hyperthyroidism', reading: 'hyper- = excessive, above + thyroid/o = thyroid gland + -ism = condition, state of' },
+  { wk: 8, term: 'Myxedema', reading: 'myx/o = mucus + -edema = swelling' },
+  { wk: 8, term: 'Hypertrophy', reading: 'hyper- = excessive, above + -trophy = process of nourishment, development' },
+  { wk: 8, term: 'Osteoclasts', reading: 'oste/o = bone + -clast = a breaking-down cell' },
+  { wk: 8, term: 'Osteoblasts', reading: 'oste/o = bone + -blast = a building, immature cell' },
+  { wk: 9, term: 'Oligodendrocytes', reading: 'olig/o = scanty, few + dendr/o = dendrite, tree + cyt/o = cell' },
+  { wk: 9, term: 'Microglia', reading: 'micro- = small + -glia = glue, glia cell' },
+  { wk: 9, term: 'Astrocytes', reading: 'astr/o = star + cyt/o = cell' },
+  { wk: 11, term: 'Endomysium', reading: 'endo- = within, inner + mys/i = muscle (as in epimysium) + -ium = noun ending' },
+  { wk: 11, term: 'Myoglobin', reading: 'my/o = muscle + -globin = protein substance' },
+  { wk: 12, term: 'Phagocytes', reading: 'phag/o = eat, swallow + cyt/o = cell' },
+  { wk: 12, term: 'Macrophages', reading: 'macro- = large + phag/o = eat, swallow' },
+  { wk: 12, term: 'Microphages', reading: 'micro- = small + phag/o = eat, swallow' },
+  { wk: 12, term: 'Neutrophils', reading: 'neutr/o = neutral + phil/o, -phil = attraction' },
+  { wk: 12, term: 'Eosinophils', reading: 'eosin/o = rosy-colored + phil/o, -phil = attraction' },
+  { wk: 12, term: 'Basophils', reading: 'bas/o = base, bottom + phil/o, -phil = attraction' },
+  { wk: 12, term: 'Monocytes', reading: 'mono- = one + cyt/o = cell' },
+  { wk: 12, term: 'Pathogens', reading: 'path/o = disease + gen/o, -gen = origin, originate' },
+  { wk: 12, term: 'Pyrogens', reading: 'pyr/o = fever, fire + gen/o, -gen = origin, originate' },
+  { wk: 12, term: 'Necrosis', reading: 'necr/o = death, dead + -osis = abnormal condition' },
+];
+
+export const TOURS = [
+  { th: 't1', stops: ['p_ventilation', 'p_gasex', 'p_o2', 'p_circuits'] },
+  { th: 't2', stops: ['p_plasma', 'p_kidneyfn', 'p_raas', 'p_hypothal'] },
+  { th: 't3', stops: ['p_feedback', 'p_respcontrol', 'p_raas', 'p_pit_feedback', 'p_parturition'] },
+  { th: 't4', stops: ['p_oral', 'p_stomach', 'p_gastric_reg', 'p_pancreas', 'p_gallbladder', 'p_largeint'] },
+  { th: 't5', stops: ['p_ap', 'p_synapses', 'p_ach', 'p_nmj', 'p_ecc', 'p_relax'] },
+  { th: 't6', stops: ['p_barriers', 'p_phagocytes', 'p_complement', 'p_inflammation', 'p_fever', 'p_tcells', 'p_bcells'] },
+];
 export const SOURCES_HTML = '<p class="foot" style="margin-top:12px">Week sources: W1 cells and body organisation · W2 cardiovascular system · W3 respiratory system · W4 digestive system · W5 renal system · W7 reproductive system · W8 endocrine system · W9 nervous system · W11 muscle and bone · W12 immune system (2026 lecture decks). ★ facts: Martini, Fundamentals of Anatomy and Physiology.</p>';
