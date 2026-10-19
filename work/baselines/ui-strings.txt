@@ -1,5 +1,5 @@
 — user-facing strings in outputs/ — 991 —
-  89b9bf5ad5f5493f  WHOLE SET
+  73e8b0a81c1673f6  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -673,7 +673,7 @@
   f8fde19067e881fa  The projection reads through closed surfaces — section it in the 3D view.
   8baacea34fdc4ab0  The radius rotates over the ulna like a wheel spoke. It is on the thumb side.
   444c5de284285e50  The sacred wedge-shaped keystone locks the pelvic ring together.
-  d262bbed9d72e6ec  The small tags (W1…) say when each topic was taught. The grey line under a muscle is what it does, from the slide. Tap any name and the notes open with a sentence about it.
+  15789d161b4672de  The small tags (W1…) say when each topic was taught. Tap any name and the notes open with a sentence about it.
   d34c527efb66b8ea  The study tools still work. Check your connection, then retry the model layer.
   a6d6e45faa6aea68  The supplied timetable lists all three tutorial and lab groups without saying which is yours. Pick them once and the other groups’ slots are dimmed and left out of your counts.
   8786e514e5dee92d  The teaching term is over

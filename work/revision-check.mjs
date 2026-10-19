@@ -40,6 +40,11 @@ for (const subject of Object.values(REVISION)) {
     const bare = data.NODES.filter((n) => n.leaf && !(n.line && n.line.trim()));
     const missing = bare.filter((n) => !OWN[n.id]).map((n) => n.id);
     ok(!missing.length, `every row with no slide line has a sentence in own-words.js${missing.length ? ` (missing: ${missing.join(' ')})` : ''}`);
+    /* A slide line under 25 characters ("x2", "(1-7)", "8 pairs", "lateral rotation") rarely says where a structure is.
+       The position words of Week 1 say it in full already. */
+    const PLAIN = new Set(['w1_proximal', 'w1_distal', 'w1_medial', 'w1_lateral', 'w1_anterior', 'w1_posterior', 'w1_caudal', 'w1_superior', 'w1_inferior', 'w1_cranial']);
+    const thin = data.NODES.filter((n) => n.leaf && n.line && n.line.trim().length < 25 && !PLAIN.has(n.id) && !OWN[n.id]).map((n) => n.id);
+    ok(!thin.length, `every row whose slide line is under 25 characters has a sentence in own-words.js${thin.length ? ` (missing: ${thin.join(' ')})` : ''}`);
     ok(Object.keys(OWN).every((id) => ids.has(id)), 'every own-words id is a real row');
   }
   const last = lastWeekOf(data);
@@ -155,7 +160,7 @@ ok(autoWeek(5, false, 13) === 5, 'once a subject has content to week 13 the curr
 ok(clampWeek('3', 7) === 3 && clampWeek(0, 7) === 1 && clampWeek(99, 7) === 7 && clampWeek('x', 7) === 7, 'clampWeek holds 1..last and survives rubbish');
 ok(releasedLast(8, 7) === 7 && releasedLast(8, 8) === 8 && releasedLast(8, 13) === 8 && releasedLast(7, 3) === 3, 'a week beyond the released one is not offered: the chips stop there');
 ok(releasedLast(8, null) === 8 && releasedLast(8, 0) === 1, 'no released limit holds nothing back');
-ok(REVISION.HSS2011.released === 7 && lastWeekOf(REVISION.HSS2011.data) === 8, 'Week 8 notes exist but are held back until released is raised to 8');
+ok(REVISION.HSS2011.released == null && lastWeekOf(REVISION.HSS2011.data) === 8, 'every week with notes (through Week 8) is offered; the auto week follows the calendar');
 
 console.log('\nsaved choice');
 ok(resolveWeek(null, 5, 7).mode === 'auto' && resolveWeek(null, 5, 7).week === 5, 'nothing saved: automatic');

@@ -39,8 +39,6 @@ const HSS2011_SHOWN = dropSystem(HSS2011_ALL, HSS2011_ROWS, 'tissue');
 export const REVISION = {
   HSS2011: {
     id: 'HSS2011',
-    /* Notes exist through Week 8, but the owner has learnt through Week 7: raise this to 8 to add Week 8 on. */
-    released: 7,
     label: 'HSS2011 Human Anatomy',
     data: mergeLeaves(HSS2011_SHOWN.base, HSS2011_SHOWN.rows, HSS2011_LEAF_SOURCES),
     rows: HSS2011_SHOWN.rows,

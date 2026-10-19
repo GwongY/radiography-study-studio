@@ -156,8 +156,6 @@ function deriveWeek() {
       const weeks = ix.byId[spec.id].w.slice().sort((a, b) => a - b);
       html += `<span class="mwk">${weeks.filter((w) => w <= rv.week).map((w) => `W${w}`).join(' ')}</span>`;
       if (ix.fresh.has(spec.id)) html += '<span class="wknew">new</span>';
-      const line = ix.byId[spec.id].line;
-      if (line) html += `<span class="mline">${esc(line.length > 48 ? `${line.slice(0, 47)}…` : line)}</span>`;
     }
     const kids = (spec.kids || []).map((k) => build(k, sy, key, depth + 1));
     ix.KIDS[key] = kids.map((k) => k.payload.id);
@@ -187,7 +185,7 @@ function homeHTML() {
     <li>Before you open a branch, name what is inside it. That is the revision.</li>
     <li>Tapping a topic draws <b>lines to everything it links to</b>, each ending in a <b>number</b>. The <b>Links</b> list under the map gives the reason for each number. Tap a row to light up its line; tap it again to go there.</li>
     <li>The map holds <b>only what you have been taught up to the week chosen above</b>. A new week adds topics (marked <b>new</b>) and the links between them and everything before.</li>
-    <li>The small tags (W1…) say when each topic was taught. The grey line under a muscle is what it does, from the slide. Tap any name and the notes open with a sentence about it.</li>
+    <li>The small tags (W1…) say when each topic was taught. Tap any name and the notes open with a sentence about it.</li>
     <li><b>Find</b> searches names and notes. Matches stay inside their branches, so you still see where each one lives.</li>
     <li><b>Connections in 3D</b>, in a topic's notes, opens the same topic in Brain 3D, where you can walk its links.</li>
     <li>Drag to pan. Pinch, or hold Ctrl / ⌘ and scroll, to zoom. <b>Jump to</b> opens any topic by name.</li></ul></div>`;
@@ -408,6 +406,24 @@ function createMap() {
     })();
   }
 
+  /* A tapped branch is framed: the tapped box on the left edge, everything open under it filling the rest, zoomed
+     as far as that fits (never past 1.6x, never below 0.35x). Reads each box's laid-out rectangle from the library. */
+  function focusBranch(d) {
+    const rects = [];
+    (function walk(n) {
+      const r = n.state && n.state.rect; if (r && r.width) rects.push(r);
+      /* a folded box keeps stale zero rectangles on its hidden children */
+      if (!(n.payload && n.payload.fold)) (n.children || []).forEach(walk);
+    })(d);
+    if (!rects.length || wrap.clientWidth < 10) return;
+    const x0 = Math.min(...rects.map((r) => r.x)), x1 = Math.max(...rects.map((r) => r.x + r.width));
+    const y0 = Math.min(...rects.map((r) => r.y)), y1 = Math.max(...rects.map((r) => r.y + r.height));
+    const W = wrap.clientWidth, H = wrap.clientHeight, padL = 10, pad = 14;
+    const k = Math.max(0.35, Math.min(1.6, (W - padL - pad) / (x1 - x0), (H - 2 * pad) / (y1 - y0)));
+    const tx = padL - k * x0, ty = (H - k * (y1 - y0)) / 2 - k * y0;
+    mm.svg.transition().duration(450).call(mm.zoom.transform, window.d3.zoomIdentity.translate(tx, ty).scale(k));
+  }
+
   function fitNow() {
     if (wrap.clientWidth < 10) return;
     fitted = true;
@@ -536,8 +552,7 @@ function createMap() {
     mm.handleClick = (e, d) => {
       const opening = !!(d.payload && d.payload.fold);
       mm.toggleNode(d, false).then(() => {
-        if (NARROW && opening) mm.centerNode(d, { left: 8, right: Math.round(wrap.clientWidth * 0.55) });
-        else mm.ensureVisible(d, { left: 20, right: 40, top: 20, bottom: 20 });
+        if (opening) focusBranch(d); else mm.ensureVisible(d, { left: 20, right: 40, top: 20, bottom: 20 });
         track(700);
       });
     };
@@ -580,10 +595,10 @@ function createMap() {
       if (hasKids && (folded || wasSel)) {
         if (NARROW && folded) foldSiblings(id);
         mm.toggleNode(d, false).then(() => {
-          if (folded) { if (NARROW) mm.centerNode(d, { left: 8, right: Math.round(wrap.clientWidth * 0.55) }); else mm.ensureVisible(d, { left: 20, right: 40, top: 20, bottom: 20 }); }
+          if (folded) focusBranch(d);
           track(700);
         });
-      }
+      } else if (hasKids) { focusBranch(d); track(700); }
     });
     /* hover (or tap) a linked topic, on the map or in the side panel, to show why it links */
     svgEl.addEventListener('mouseover', (ev) => {
