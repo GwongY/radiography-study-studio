@@ -13,6 +13,7 @@ import { linkRows } from '../outputs/revision/link-rows.js';
 import { describe, firstSentence } from '../outputs/revision/describe.js';
 import { HUB, angle, hubLayout, pickFirst, SYSORDER } from '../outputs/revision/hub.js';
 import { checkSystems, colourDistance, contrast, crossFor, legendKeys, lineIsUseful, needsOwn, ownProblems, rowWeekOk, starProblems, viewerEligible, yueProblems } from '../outputs/revision/rules.js';
+import { decoderProblems, renderDecoder, renderTables, renderThreads } from '../outputs/revision/fragments.js';
 
 let fail = 0;
 const ok = (good, msg) => { console.log(`  ${good ? 'ok  ' : 'FAIL'} ${msg}`); if (!good) fail++; };
@@ -204,6 +205,29 @@ ok(pm.NODES.find((n) => n.id === 'p5_renin').own === 'An enzyme from the kidney 
 ok(leafLine({ k: 'substance', acts: { a: 'x', b: 'y' } }) === 'x, y' && leafLine({ k: 'process' }) === '', 'a substance with no line shows what it does; a process with no line shows nothing');
 const ordered = pickFirst([{ id: 'a', sys: 'p_gi', deg: 1 }, { id: 'b', sys: 'p_cvs', deg: 1 }], 14, ['p_cvs', 'p_gi']).shown.map((n) => n.id).join();
 ok(ordered === 'b,a', 'the hub groups balls in the order the subject gives');
+
+
+console.log('\nfragments');
+const fsrc = { 'k.2026': 'K slides' };
+ok(renderThreads([], fsrc) === '' && renderTables([], fsrc) === '' && renderDecoder([], () => null) === '', 'nothing to show renders nothing (the tab is then hidden)');
+const th = renderThreads([{ id: 't1', title: 'Pressure & volume', steps: [{ wk: 5, hd: 'Filter.', text: 'GFR <125>', src: ['k.2026', 17], match: 'gfr' }, { wk: 2, hd: 'Pump.', text: 'The heart', src: ['k.2026', 3], match: 'heart' }] }], fsrc, 'Intro');
+ok(/<details class="thread" id="t1" open>/.test(th) && /<summary>Pressure &amp; volume<small>W2 · W5<\/small><\/summary>/.test(th), 'a thread renders with its weeks in order');
+ok((th.match(/<li data-wk="\d+">/g) || []).length === 2 && !/<li>/.test(th), 'every step carries its week');
+ok(th.includes('GFR &lt;125&gt;') && th.includes('K slides, p17'), 'step text is escaped and cites its page');
+const th2 = renderThreads([{ id: 't2', title: 'X', yue: '甲 → 乙', steps: [{ wk: 3, hd: 'A.', text: 'a', src: ['k.2026', 1], match: 'a', star: { text: 'A sentence from the textbook.', page: 812, ch: 23 } }, { wk: 5, hd: 'B.', text: 'b', src: ['k.2026', 2], match: 'b' }] }], { ...fsrc, 'phys.ebook': 'Martini textbook' }, 'Intro');
+ok(th2.includes('A sentence from the textbook. <span class="star">★</span> <span class="rv-src">Martini textbook, p812</span>'), 'a ★ fact shows its star and its textbook page');
+ok(/<div class="yue" data-wk="5"><b>廣東話<\/b>甲 → 乙<\/div>/.test(th2), "the 廣東話 line waits for the thread's last week");
+const tb = renderTables([{ id: 'tb-h', title: 'Hormones', head: ['Hormone', 'Acts on'], rows: [{ wk: 5, cells: ['Renin', 'angiotensinogen'], src: ['k.2026', 40], match: 'renin' }] }], fsrc, 'Intro');
+ok(/<div class="rv-sec"><h3 id="tb-h">Hormones<\/h3>/.test(tb) && /<tr data-wk="5"><td>Renin<\/td>/.test(tb) && !/<tr>\s*<td/.test(tb) && /data-jump="tb-h"/.test(tb), 'a table renders as revise.js expects, every row with a week');
+const dz = (w) => (w.toLowerCase() === 'spermatogenesis' ? { word: w, parts: [{ text: 'spermat', kind: 'root', forms: 'spermat/o', means: 'male sex cell' }, { text: 'o', kind: 'link', means: 'joining vowel' }, { text: 'genesis', kind: 'suffix', forms: '-genesis', means: 'production' }] } : null);
+const dterm = { term: 'Spermatogenesis', wk: 7, reading: 'spermat/o = male sex cell + -genesis = production' };
+const dec = renderDecoder([dterm], dz, 'Intro');
+ok(/<table id="dtable">/.test(dec) && /<tr class="grp" data-wk="7">/.test(dec) && dec.includes('spermat/o = male sex cell + -genesis = production') && !/<tr>\s*<td/.test(dec), 'a decoder row shows the parts, grouped by week');
+ok(renderDecoder([{ ...dterm, reading: 'spermat/o = seed + -genesis = production' }], dz, 'Intro') === '', 'the app never shows a reading nobody reviewed (and never throws at load)');
+ok(decoderProblems([dterm], dz, new Set(['Spermatogenesis'])).length === 0, 'a reviewed reading that still holds passes');
+ok(decoderProblems([{ ...dterm, reading: 'spermat/o = seed + -genesis = production' }], dz, new Set(['Spermatogenesis']))[0].includes('changed'), 'a reading that no longer matches the reviewed one fails the check');
+ok(decoderProblems([{ term: 'Plasma', wk: 2, reading: '' }], () => null, new Set(['Plasma']))[0].includes('no word-part reading'), 'a term with no reading fails');
+ok(decoderProblems([dterm], dz, new Set())[0].includes('not a row or topic'), 'a decoder term is a name on the map');
 
 console.log(fail ? `\n${fail} FAILED` : '\nALL PASS');
 process.exit(fail ? 1 : 0);
