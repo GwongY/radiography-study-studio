@@ -151,7 +151,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `reading-help.js` | 218 | Reading help |
 | `revise-brain.js` | 427 | Revise · Brain 3D — the connections hub |
 | `revise-links.js` | 32 | Revise · the numbered links list under the Map and under the 3D hub. |
-| `revise.js` | 878 | Revise |
+| `revise.js` | 882 | Revise |
 | `search-viewer-open.js` | 44 | Search -> viewer: open the model, select the part, auto-uncover, and |
 | `small-ui-helpers.js` | 263 | Small UI helpers |
 | `spatial-overlay-controls.js` | 120 | Spatial overlay controls (viewer "..." sheet) |

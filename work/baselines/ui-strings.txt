@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 991 —
-  73e8b0a81c1673f6  WHOLE SET
+— user-facing strings in outputs/ — 992 —
+  70594e5eda8a97e6  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -58,7 +58,6 @@
   bfd9a695232ff2aa  , in a topic's notes, opens the same topic in Brain 3D, where you can walk its links.
   9a278d9bf11e90ec  , inset dead
   0bff6b241b6ff6c2  , short by
-  b918fd89f7c21601  , so that is what shows.
   bfd4242c0712a338  , tap for
   047d5c333d912982  , viewport
   f6532b372c4a48d5  /* Back faces are where the ray leaves material, front faces where it enters. */
@@ -96,7 +95,7 @@
   93905c7a41a60262  5yrs PP module 1-4 FIB.pdf
   87e6af96083ec8da  6 CVS conducting-system slides transcribed to text: conductive vs contractile cells, contractile AP phases (rest −90 mV, plateau, absolute refractory), pacemaker AP (threshold −40 mV, Ca2+ upstroke, K+ repolarisation, HCN funny Na+ prepotential), and the ECG breakdown (P / QRS / T, P–R / Q–T / S–T intervals, QRS masks atrial repolarisation). Single page (p1).
   70ec40827f738641  8 carpals, 5 metacarpals, 14 phalanges
-  0db9b4e72b8b81a2  ; the latest week with notes is
+  7b6a0c11cb331b4e  ; weeks 1–
   fbc7f40a78126f42  <b>—</b> so far
   1a6ab45c16783dc4  <button class="card" data-row="
   3f235ec9141a2347  <button class="conf
@@ -754,7 +753,8 @@
   3acebb3518969546  along the tube
   806cde273b729388  an atlas mode is open
   41ea005f14d7fd15  app-body padding-bottom=
-  d5e50d9f16500f8d  are shown, and the next week appears by itself.
+  bbc5ad7b56c3c5a7  are shown, the latest with notes.
+  57ed4210e238f869  are shown; week
   2f4b24c630bdf091  aria-label="Your mark for
   c5fb5f7140d8d066  arteries and veins
   4dafb342c48fd85e  artery = red = oxygenated
@@ -836,6 +836,7 @@
   3e48f87cb43c928d  is missing from the markup
   eaca51006df81f64  is not an object.
   63ba7e6dace7932d  is outside the current region filter
+  b778d5e9f409c168  joins on Sunday.
   ffffa4a4024beb37  just outside it
   bc90f206ab9838a2  layer and named in none of your course material. Nothing of its kind is near enough to group it with, so it stays on its own.
   025e05ffcefaecc7  layer load failed
