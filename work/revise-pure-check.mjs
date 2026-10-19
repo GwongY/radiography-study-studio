@@ -10,6 +10,7 @@
  */
 import { leafLine, mergeLeaves } from '../outputs/revision/leaves.js';
 import { linkRows } from '../outputs/revision/link-rows.js';
+import { HUB, angle, hubLayout, pickFirst, SYSORDER } from '../outputs/revision/hub.js';
 
 let fail = 0;
 const ok = (good, msg) => { console.log(`  ${good ? 'ok  ' : 'FAIL'} ${msg}`); if (!good) fail++; };
@@ -65,6 +66,40 @@ ok(R[2].at === null && R[2].inside === '', 'a link with nowhere to draw keeps it
 ok(linkRows(undefined, { label: (id) => id }).length === 0, 'no links, no rows');
 const plain = linkRows([['b', 'x'], ['a', 'y']], { label: (id) => names[id] });
 ok(plain.every((r) => r.at === r.id), 'without visibleAs every link is drawn to itself (the 3D hub)');
+
+console.log('\n3D hub layout');
+const mk = (n, sys = 'musc') => Array.from({ length: n }, (_, i) => ({ id: `n${String(i).padStart(2, '0')}`, sys, deg: n - i }));
+const vec = (p) => [p.x, p.y, p.z];
+const one = hubLayout({ first: mk(1) });
+ok(one.shown.join() === 'n00' && Math.abs(one.pos.n00.z - HUB.R1) < 1e-6 && Math.abs(one.pos.n00.x) < 1e-6 && Math.abs(one.pos.n00.y) < 1e-6, 'one link sits straight in front of the centre');
+const none = hubLayout({});
+ok(none.shown.length === 0 && Object.keys(none.pos).length === 0 && none.parent === null, 'no links and no parent: only the centre');
+const many = mk(40).map((n, i) => ({ ...n, sys: ['cns', 'musc', 'skel', 'pns'][i % 4] }));
+const second = many.slice(0, 14).flatMap((n, i) => ['a', 'b', 'c'].map((x) => ({ id: `s${i}${x}`, via: n.id })));
+const A = hubLayout({ first: many, parent: 'up', second });
+ok(JSON.stringify(A) === JSON.stringify(hubLayout({ first: many, parent: 'up', second })), 'the same input gives the same layout');
+ok(A.shown.length === HUB.MAX1 && A.more.length === 40 - HUB.MAX1, `at most ${HUB.MAX1} balls; the rest wait behind "+N more"`);
+ok(A.shown.every((id) => Number(id.slice(1)) < HUB.MAX1), 'the balls go to the links with the most links of their own');
+const sysSeq = A.shown.map((id) => many.find((n) => n.id === id).sys);
+ok(sysSeq.every((s, i) => i === 0 || SYSORDER.indexOf(sysSeq[i - 1]) <= SYSORDER.indexOf(s)), 'balls of one body system sit together');
+let gap1 = Infinity;
+A.shown.forEach((a, i) => A.shown.slice(i + 1).forEach((b) => { gap1 = Math.min(gap1, angle(vec(A.pos[a]), vec(A.pos[b]))); }));
+ok(gap1 >= HUB.GAP1 - 1e-3, `no two balls closer than ${HUB.GAP1} rad (closest ${gap1.toFixed(3)})`);
+ok(A.shown.every((id) => Math.abs(A.pos[id].y) <= HUB.YMAX * HUB.R1 + 1e-6), 'no ball hides straight above or below the centre');
+ok(A.parent === 'up' && Math.abs(A.pos.up.y - HUB.R1 * 1.05) < 1e-6 && Math.abs(A.pos.up.x) < 1e-9 && Math.abs(A.pos.up.z) < 1e-9, 'the parent sits at the top');
+ok(A.second.length === HUB.MAX2 && new Set(A.second).size === A.second.length, `at most ${HUB.MAX2} faint balls, none twice`);
+let gap2 = Infinity; let gap12 = Infinity;
+A.second.forEach((a, i) => {
+  A.second.slice(i + 1).forEach((b) => { gap2 = Math.min(gap2, angle(vec(A.pos[a]), vec(A.pos[b]))); });
+  A.shown.concat('up').forEach((b) => { gap12 = Math.min(gap12, angle(vec(A.pos[a]), vec(A.pos[b]))); });
+});
+ok(gap2 >= HUB.GAP2 - 1e-3 && gap12 >= HUB.GAP2 - 1e-3, `faint balls keep ${HUB.GAP2} rad from each other and from every ball in front (closest ${Math.min(gap2, gap12).toFixed(3)})`);
+ok(A.second.every((id) => Math.abs(Math.hypot(...vec(A.pos[id])) - HUB.R2) < 1e-6 && A.via[id]), 'faint balls sit on the outer sphere and know which ball they hang from');
+const P = hubLayout({ first: [{ id: 'up', sys: 'musc', deg: 9 }, { id: 'x', sys: 'musc', deg: 1 }], parent: 'up' });
+ok(P.shown.join() === 'x', 'the parent is never also a ball on the sphere');
+const S = hubLayout({ first: mk(2), second: [{ id: 'n01', via: 'n00' }, { id: 'z', via: 'hidden' }] });
+ok(S.second.length === 0, 'the next step skips what is already shown and anything hanging from a hidden ball');
+ok(pickFirst(mk(3), 2).more.join() === 'n02', 'pickFirst keeps the best-linked');
 
 console.log(fail ? `\n${fail} FAILED` : '\nALL PASS');
 process.exit(fail ? 1 : 0);
