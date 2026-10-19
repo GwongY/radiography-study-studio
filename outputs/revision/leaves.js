@@ -67,7 +67,7 @@ export function mergeLeaves(data, rows, sources = {}) {
     const parent = specOf.get(row.parent);
     if (!parent) throw new Error(`revision leaf ${row.id}: parent ${row.parent} is not a topic or an earlier row`);
     if (labelOf.has(row.parent) && String(labelOf.get(row.parent)).toLowerCase() === String(row.l).toLowerCase()) {
-      alias[row.id] = row.parent; specOf.set(row.id, parent); continue;
+      alias[row.id] = row.parent; specOf.set(row.id, parent); sysOf.set(row.id, sysOf.get(row.parent)); continue;
     }
     const s = row.s || KIND_SYS[row.k] || sysOf.get(row.parent);
     sysOf.set(row.id, s); labelOf.set(row.id, row.l);

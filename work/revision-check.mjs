@@ -50,6 +50,7 @@ for (const subject of Object.values(REVISION)) {
   const last = lastWeekOf(data);
 
   ok(ids.size === data.NODES.length, 'topic ids are unique');
+  ok(data.NODES.every((n) => n.s), 'every topic and row has a colour group');
   ok(data.EDGES.every((e) => ids.has(e[0]) && ids.has(e[1]) && e[0] !== e[1] && e[2]), 'every edge joins two real, different topics and says why');
   ok(new Set(data.EDGES.map((e) => [e[0], e[1]].sort().join('|'))).size === data.EDGES.length, 'no link is listed twice');
 

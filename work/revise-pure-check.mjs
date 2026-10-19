@@ -127,5 +127,9 @@ ok(describe({ leaf: true, line: '  ' }, {}).length > 3, 'a blank line falls back
   ok(d.base.TREE.kids.length === 1 && d.base.TREE.kids[0].label === 'Y', 'its branch of the tree goes');
 }
 
+/* ---- a row folded into its same-named parent still gives its own rows a colour group ---- */
+const am = mergeLeaves({ NODES: [{ id: 'b', l: 'Brainstem', s: 'cns', w: [6], t: '' }], EDGES: [], TREE: { label: 'r', kids: [{ id: 'b' }] } }, [{ k: 'part', id: 'rb', l: 'Brainstem', parent: 'b', w: 6, src: ['x.2026', 1] }, { k: 'part', id: 'rm', l: 'Medulla', parent: 'rb', w: 6, src: ['x.2026', 1] }]);
+ok(am.NODES.find((n) => n.id === 'rm').s === 'cns', 'a row under a folded row keeps its colour group');
+
 console.log(fail ? `\n${fail} FAILED` : '\nALL PASS');
 process.exit(fail ? 1 : 0);

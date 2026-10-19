@@ -366,6 +366,13 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 
 ### Task 3: Physiology leaf kinds, sourced topics, hub order
 
+> **Already done (19 Oct 2026, its own commit — skip it here):** the ALIAS colour-group fix, i.e. the
+> `sysOf.set(row.id, sysOf.get(row.parent))` change in `mergeLeaves` and the `am` test that guards it (the
+> `/* Found while planning` block at the end of Step 1), plus `revision-check.mjs`'s per-subject
+> "every topic and row has a colour group" and the `CACHE_VERSION` bump to v242. Do not re-apply them; the
+> `am` test is already in `work/revise-pure-check.mjs`, so Step 1 adds only the physiology block (leave out the `am` lines).
+> The Step 3 paragraph that repeats the ALIAS line is likewise already in `leaves.js`.
+
 **Files:**
 - Modify: `outputs/revision/leaves.js`, `outputs/revision/hub.js`
 - Test: `work/revise-pure-check.mjs`
