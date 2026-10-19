@@ -109,4 +109,56 @@ export const ROWS = [
 { k: 'part', id: 'w6_purkinje', l: 'Purkinje cells', parent: 'w6_cerebellum', w: 6, line: 'specific type of neuron', src: [L6, 24] },
 { k: 'part', id: 'w6_cbposture', l: 'Adjusting postural muscles', parent: 'w6_cerebellum', w: 6, line: 'rapid, automatic adjustments to maintain balance', src: [L6, 25] },
 { k: 'part', id: 'w6_cbprogram', l: 'Programming, fine-tuning movement', match: 'fine-tuning movement', parent: 'w6_cerebellum', w: 6, line: 'at conscious/subconscious levels', src: [L6, 25] },
+
+/* ---------------- diencephalon: thalamus, hypothalamus (p27-29) ---------------- */
+{ k: 'group', id: 'w6_diencephalon', l: 'Diencephalon', parent: 'thalamus', w: 6, line: 'most rostral part of brainstem; part of forebrain', src: [L6, 27] },
+{ k: 'part', id: 'w6_epithalamus', l: 'Epithalamus', parent: 'w6_diencephalon', w: 6, src: [L6, 27] },
+{ k: 'part', id: 'w6_thalrelay', l: 'Final relay point', parent: 'thalamus', w: 6, line: 'ascending sensory information to primary sensory cortex',
+  links: { cortexareas: 'ascending sensory information to primary sensory cortex' }, src: [L6, 28] },
+{ k: 'part', id: 'w6_thalnuclei', l: 'Groups of nuclei', match: 'groups of nuclei', parent: 'thalamus', w: 6, line: 'divided in 5 groups; different functions', src: [L6, 28] },
+{ k: 'part', id: 'w6_hypowalls', l: 'Walls and floor of the third ventricle', parent: 'hypothalamus', w: 6,
+  links: { w6_thirdvent: 'walls and floor of the third ventricle' }, src: [L6, 29] },
+
+/* ---------------- gross anatomy of the cerebrum (p30-31) ---------------- */
+{ k: 'group', id: 'w6_lobes', l: 'Lobes of the cerebrum', match: 'divided into 5', parent: 'w6_cerebrum', w: 6, line: 'surface of cerebrum divided into 5 lobes', src: [L6, 30, 31] },
+{ k: 'part', id: 'w6_frontal', l: 'Frontal lobe', match: 'Frontal:', parent: 'w6_lobes', w: 6, line: 'anterior, superior part; higher cognitive functions', src: [L6, 30, 31] },
+{ k: 'part', id: 'w6_parietal', l: 'Parietal lobe', match: 'Parietal:', parent: 'w6_lobes', w: 6, line: 'for sensation', src: [L6, 31, 30] },
+{ k: 'part', id: 'w6_occipital', l: 'Occipital lobe', match: 'Occipital:', parent: 'w6_lobes', w: 6, line: 'caudal part; for vision', src: [L6, 30, 31] },
+{ k: 'part', id: 'w6_temporal', l: 'Temporal lobe', match: 'Temporal:', parent: 'w6_lobes', w: 6, line: 'lateral; for hearing, smell, etc', src: [L6, 30, 31] },
+{ k: 'part', id: 'w6_insula', l: 'Insula', match: 'Insula:', parent: 'w6_lobes', w: 6, line: 'deep to the lateral sulcus; for taste, visceral sensation', src: [L6, 30, 31] },
+{ k: 'part', id: 'w6_centralsulcus', l: 'Central sulcus', parent: 'w6_sulcus', w: 6, line: 'separates parietal from frontal',
+  links: { w6_parietal: 'parietal separate from frontal by central sulcus', w6_frontal: 'parietal separate from frontal by central sulcus' }, src: [L6, 30] },
+{ k: 'part', id: 'w6_parietooccipital', l: 'Parieto-occipital sulcus', parent: 'w6_sulcus', w: 6, line: 'separates occipital from parietal lobe',
+  links: { w6_occipital: 'occipital separated from parietal lobe by it', w6_parietal: 'occipital separated from parietal lobe by it' }, src: [L6, 30] },
+{ k: 'part', id: 'w6_lateralsulcus', l: 'Lateral sulcus', parent: 'w6_sulcus', w: 6, line: 'separates temporal from parietal lobe',
+  links: { w6_temporal: 'temporal separated from parietal lobe by it', w6_parietal: 'temporal separated from parietal lobe by it', w6_insula: 'insula: deep to the lateral sulcus' }, src: [L6, 30] },
+
+/* ---------------- white matter of the cerebrum (p32) ---------------- */
+{ k: 'group', id: 'w6_projtracts', l: 'Projection tracts', parent: 'tracts', w: 6, line: 'extend vertically, between brain and spinal cord centers', src: [L6, 32] },
+{ k: 'part', id: 'w6_corticospinal', l: 'Corticospinal tract', parent: 'w6_projtracts', w: 6, line: 'carry motor commands to spinal cord', src: [L6, 32] },
+{ k: 'group', id: 'w6_commtracts', l: 'Commissural tracts', parent: 'tracts', w: 6, line: 'cross from one hemisphere to the other',
+  links: { w6_corpuscallosum: 'corpus callosum: largest tract' }, src: [L6, 32] },
+{ k: 'part', id: 'w6_commissures', l: 'Anterior and posterior commissures', parent: 'w6_commtracts', w: 6, src: [L6, 32] },
+{ k: 'group', id: 'w6_assoctracts', l: 'Association tracts', parent: 'tracts', w: 6, line: 'connect different regions in same hemisphere', src: [L6, 32] },
+
+/* ---------------- limbic system and basal nuclei (p33-34) ---------------- */
+{ k: 'part', id: 'w6_hippocampus', l: 'Hippocampus', parent: 'limbic', w: 6, line: 'key component of the limbic system in cortex', src: [L6, 33] },
+{ k: 'part', id: 'w6_amygdala', l: 'Amygdala', parent: 'limbic', w: 6, line: 'association of sensation to emotion; sense of fear', src: [L6, 33] },
+{ k: 'part', id: 'w6_cingulategyrus', l: 'Cingulate gyrus', parent: 'limbic', w: 6, line: 'key component of the limbic system in cortex', src: [L6, 33] },
+{ k: 'part', id: 'w6_caudate', l: 'Caudate nucleus', parent: 'basalnuclei', w: 6, line: 'basal nuclei, involved in motor control', src: [L6, 34] },
+{ k: 'part', id: 'w6_putamen', l: 'Putamen', parent: 'basalnuclei', w: 6, line: 'basal nuclei, involved in motor control', src: [L6, 34] },
+{ k: 'part', id: 'w6_globuspallidus', l: 'Globus pallidus', parent: 'basalnuclei', w: 6, line: 'basal nuclei, involved in motor control', src: [L6, 34] },
+
+/* ---------------- motor and sensory areas, integrative centres (p35-39) ---------------- */
+{ k: 'part', id: 'w6_primarycortex', l: 'Primary cortex', parent: 'cortexareas', w: 6, line: 'connect directly with sensory or motor neurons', src: [L6, 35] },
+{ k: 'group', id: 'w6_assoccortex', l: 'Association cortex', parent: 'cortexareas', w: 6, line: 'regions involved in integrative functions', src: [L6, 35] },
+{ k: 'part', id: 'w6_sensassoc', l: 'Somatic sensory association area', parent: 'w6_assoccortex', w: 6, line: 'interpretation of sensory input', src: [L6, 35] },
+{ k: 'part', id: 'w6_motorassoc', l: 'Somatic motor association area', parent: 'w6_assoccortex', w: 6, line: 'planning motor output, sending command to primary motor cortex',
+  links: { w6_primarycortex: 'sending command to primary motor cortex' }, src: [L6, 35] },
+{ k: 'group', id: 'w6_integrative', l: 'Integrative centers', parent: 'cortexareas', w: 6, line: 'receive input from many association areas', links: { w6_assoccortex: 'receive input from many association areas' }, src: [L6, 37] },
+{ k: 'part', id: 'w6_prefrontal', l: 'Prefrontal cortex', parent: 'w6_integrative', w: 6, line: 'integrates sensory information; abstract intellectual functions', src: [L6, 37] },
+{ k: 'part', id: 'w6_interpretive', l: 'General interpretive area', parent: 'w6_integrative', w: 6, line: 'integrate visual, auditory and somatosensory information', src: [L6, 38] },
+{ k: 'part', id: 'w6_speech', l: "Speech center (Broca's area)", match: 'Speech center', parent: 'w6_integrative', w: 6, line: 'coordinating respiratory muscle, tongue muscles to produce speech',
+  links: { w6_interpretive: 'same hemisphere as general interpretive area' }, src: [L6, 39] },
+{ k: 'part', id: 'w6_fef', l: 'Frontal eye field', parent: 'w6_integrative', w: 6, line: 'rapid, targeted eye movements (saccades); visual attention', src: [L6, 39] },
 ];
