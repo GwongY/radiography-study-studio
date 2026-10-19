@@ -44,11 +44,14 @@ Row kinds, each with `id`, `l` (label), `parent`, `w` (week) and `src: [sourceId
 | Kind | Extra fields | Derived links |
 | --- | --- | --- |
 | `group` | — (label only, structural, no note) | none |
-| `muscle` | `joints: { <jointId>: '<action at that joint>' }`, `nerve` | muscle → joint, reason = the action; muscle → nerve, "supplied by" |
+| `muscle` | `joints` | muscle → joint, reason = the action |
 | `bone` | `joints: [<jointId>…]` | bone → joint, "forms" |
-| `joint` | `type` when the slide gives it | none of its own |
-| `nerve` | `from` (plexus topic or parent nerve) | nerve → from, "branch of" |
+| `joint` | — (its type goes in its line) | none of its own |
+| `nerve` | `supplies: { <id>: '<reason>' }`, `from` | nerve → each target; nerve → from, "branch of" |
 | `part` | `line` (one line), `links: { <id>: '<reason>' }` | as written (W5–W7 structures) |
+
+`src` may list several pages; the name (or `match`, where the
+slide words it differently) must be on one of them.
 
 A muscle's one line in the Map is its actions, joined from `joints`. Bones link to
 muscles **through the joint they form and the muscle moves**. The 2026 deck teaches
@@ -59,7 +62,7 @@ Example (W2, lower limb):
 
 ```js
 { k: 'muscle', id: 'm_glut_med', l: 'Gluteus medius', parent: 'g_gluteal', w: 2,
-  joints: { j_hip: 'abducts, medially rotates' }, nerve: 'n_sup_gluteal', src: ['hss.ll.2026', 15] }
+  joints: { j_hip: 'abducts, medially rotates' }, src: ['hss.ll.2026', 15] }
 ```
 
 ## Map changes (`study/revise.js`, `app.css`)
@@ -108,7 +111,8 @@ under the canvas — **the same component as the Map's**.
 
 **Interaction**
 - Tap a ball, a label or a list row and that topic flies to the centre. A trail at the
-  top keeps the chain ("Quadriceps › Knee joint › Femur", the last 5), with Back.
+  top keeps the chain ("Quadriceps › Knee joint › Femur", the last 5; 3 on a phone, where
+  the trail has to fit one line), with Back.
 - Drag rotates; pinch or scroll zooms; the slow idle spin stops at the first touch.
   Picking is screen-space: nearest ball within 24 px, labelled ones first.
 - **Entry**: Connections in 3D from the Map centres on that topic. Opening the tab
