@@ -10,6 +10,7 @@
  */
 import { leafLine, mergeLeaves } from '../outputs/revision/leaves.js';
 import { linkRows } from '../outputs/revision/link-rows.js';
+import { describe, firstSentence } from '../outputs/revision/describe.js';
 import { HUB, angle, hubLayout, pickFirst, SYSORDER } from '../outputs/revision/hub.js';
 
 let fail = 0;
@@ -104,6 +105,15 @@ ok(P.shown.join() === 'x', 'the parent is never also a ball on the sphere');
 const S = hubLayout({ first: mk(2), second: [{ id: 'n01', via: 'n00' }, { id: 'z', via: 'hidden' }] });
 ok(S.second.length === 0, 'the next step skips what is already shown and anything hanging from a hidden ball');
 ok(pickFirst(mk(3), 2).more.join() === 'n02', 'pickFirst keeps the best-linked');
+
+/* ---- describe: every box gets a sentence ---- */
+ok(describe({ leaf: true, line: 'flexion' }) === 'flexion.', "a leaf's own line is the sentence");
+ok(describe({ leaf: false, t: '<b>Epithelial</b> covers, lines and secretes. <b>Connective</b> binds.' }) === 'Epithelial covers, lines and secretes.', "a topic's first note sentence");
+ok(describe({ leaf: true, line: '' }, { kids: ['a', 'b', 'c', 'd', 'e'] }) === 'Covers a, b, c, d and 1 more.', 'a box with nothing of its own says what it covers');
+ok(describe({ leaf: true }, { parent: 'Muscles', linked: ['x'] }) === 'Part of Muscles; linked to x.', 'a bare leaf says what it is part of and links to');
+ok(describe(null, { parent: '' }) === 'Part of this map.' && describe(null, { kids: ['One'] }) === 'Covers One.', 'a group heading and the root are never empty');
+ok(firstSentence('x'.repeat(300)).length <= 150 && firstSentence('x'.repeat(300)).endsWith('…'), 'a long first sentence is cut at the limit');
+ok(describe({ leaf: true, line: '  ' }, {}).length > 3, 'a blank line falls back to the derived sentence');
 
 console.log(fail ? `\n${fail} FAILED` : '\nALL PASS');
 process.exit(fail ? 1 : 0);

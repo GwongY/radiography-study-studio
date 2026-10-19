@@ -25,6 +25,7 @@ import { bindLinkList, markLinkRow, renderLinkList } from './revise-links.js';
 import { DEFAULT_SUBJECT, REVISION } from '../revision/registry.js?v=1';
 import { autoWeek, firstWeek, lastWeekOf, newIds, pruneTree, resolveWeek, visibleEdges, visibleIds } from '../revision/weeks.js?v=1';
 import { linkRows } from '../revision/link-rows.js?v=1';
+import { describe } from '../revision/describe.js?v=1';
 import { createBrain } from './revise-brain.js';
 
 /* ------------------------------------------------------------------ *
@@ -136,6 +137,8 @@ function deriveWeek() {
   ix.structural = pruned.structural;
 
   ix.PARENT = {}; ix.KIDS = {}; ix.LABEL = {};
+  const nbr = {};
+  ix.edges.forEach((e) => { (nbr[e[0]] = nbr[e[0]] || []).push(e[1]); (nbr[e[1]] = nbr[e[1]] || []).push(e[0]); });
   const build = (spec, sys, parent, depth) => {
     const real = !!spec.id;
     const sy = spec.sys || sys;
@@ -151,11 +154,15 @@ function deriveWeek() {
       const weeks = ix.byId[spec.id].w.slice().sort((a, b) => a - b);
       html += `<span class="mwk">${(ix.structural.has(spec.id) ? [`W${weeks[0]} later`] : weeks.filter((w) => w <= rv.week).map((w) => `W${w}`)).join(' ')}</span>`;
       if (ix.fresh.has(spec.id)) html += '<span class="wknew">new</span>';
-      const line = ix.byId[spec.id].line;
-      if (line) html += `<span class="mline">${esc(line.length > 48 ? `${line.slice(0, 47)}…` : line)}</span>`;
     }
     const kids = (spec.kids || []).map((k) => build(k, sy, key, depth + 1));
     ix.KIDS[key] = kids.map((k) => k.payload.id);
+    /* every box reads as a sentence before it is tapped: the slide's line, a topic's first note sentence, or where it sits */
+    html += `<span class="mline">${esc(describe(real ? ix.byId[spec.id] : null, {
+      parent: parent ? ix.LABEL[parent] : '',
+      kids: kids.map((k) => ix.LABEL[k.payload.id]),
+      linked: real ? (nbr[spec.id] || []).filter((id) => ix.byId[id] && ix.byId[id].l).map((id) => ix.byId[id].l) : [],
+    }))}</span>`;
     return { content: html, payload: { id: key, sys: depth === 0 ? null : sy }, children: kids };
   };
   ix.DATA = build(pruned.tree, null, null, 0);
@@ -179,10 +186,10 @@ function descendantsOf(id) {
 
 function homeHTML() {
   return `<h3>How to read this map</h3><div class="rv-hint"><p>It is a normal mind map: six coloured branches, each opening into topics, and topics opening into single muscles, bones, joints and nerves. Tap a name to open its branch and read it here.</p><ul>
-    <li>Before you open a branch, name what is inside it. That is the revision.</li>
+    <li>Read the line under a name, then open the branch to check what is inside it.</li>
     <li>Tapping a topic draws <b>lines to everything it links to</b>, each ending in a <b>number</b>. The <b>Links</b> list under the map gives the reason for each number. Tap a row to light up its line; tap it again to go there.</li>
     <li>The map holds <b>only what you have been taught up to the week chosen above</b>. A new week adds topics (marked <b>new</b>) and the links between them and everything before.</li>
-    <li>The small tags (W1…) say when each topic was taught. The grey line under a muscle is what it does, from the slide.</li>
+    <li>The small tags (W1…) say when each topic was taught. The line under each name says what it is: the slide's own words for a muscle, nerve or joint, and for a heading what it covers.</li>
     <li><b>Find</b> searches names and notes. Matches stay inside their branches, so you still see where each one lives.</li>
     <li><b>Connections in 3D</b>, in a topic's notes, opens the same topic in Brain 3D, where you can walk its links.</li>
     <li>Drag to pan. Pinch, or hold Ctrl / ⌘ and scroll, to zoom. <b>Jump to</b> opens any topic by name.</li></ul></div>`;
@@ -511,7 +518,16 @@ function createMap() {
       applyMarks(); refreshList(); track(500);
       return r;
     };
-    mm.handleClick = (e, d) => { mm.toggleNode(d, false); };
+    /* The fold circle opens or closes a branch. The tree re-lays itself out around the branch, which can carry
+       the tapped node clean off the screen, so the view follows it, as a tap on its text already does. */
+    mm.handleClick = (e, d) => {
+      const opening = !!(d.payload && d.payload.fold);
+      mm.toggleNode(d, false).then(() => {
+        if (NARROW && opening) mm.centerNode(d, { left: 8, right: Math.round(wrap.clientWidth * 0.55) });
+        else mm.ensureVisible(d, { left: 20, right: 40, top: 20, bottom: 20 });
+        track(700);
+      });
+    };
     mm.svg.on('dblclick.zoom', null);
     setTimeout(() => { applyMarks(); fitNow(); refreshList(); drawLinks(); }, 60);
   }

@@ -213,7 +213,7 @@ export function createBrain(env) {
         placed.push({ x: r.x - 3, y: r.y - 2, w: r.w + 6, h: r.h + 4 });
         showing.add(c.id);
         el.style.display = '';
-        el.style.opacity = c.d > dc + 40 ? '0.4' : '1';
+        el.style.opacity = c.d > dc + 40 ? '0.7' : '1';
         el.style.transform = `translate(${r.x.toFixed(1)}px,${r.y.toFixed(1)}px)`;
       });
     }
@@ -229,7 +229,7 @@ export function createBrain(env) {
         if (el.__t !== r.n) { el.textContent = r.n; el.__t = r.n; }
         el.className = r.id === hot ? 'hot' : '';
         el.style.display = '';
-        el.style.opacity = depthOf(mx, my, mz) > dc + 30 ? '0.45' : '1';
+        el.style.opacity = depthOf(mx, my, mz) > dc + 30 ? '0.7' : '1';
         el.style.transform = `translate(${p.x.toFixed(1)}px,${p.y.toFixed(1)}px)`;
       });
     }
