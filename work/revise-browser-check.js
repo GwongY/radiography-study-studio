@@ -5,6 +5,8 @@ export default async function () {
   const assert = (ok, message) => { if (!ok) throw new Error(message); };
   const until = async (fn) => { for (let i = 0; i < 150; i++) { if (fn()) return; await new Promise((r) => setTimeout(r, 100)); } throw new Error('Timed out'); };
   const rv = await import('./study/revise.js');
+  /* Opening a box is asynchronous (a folded branch is unfolded first): wait for its own notes before reading them. */
+  const open = async (id) => { const j = document.getElementById('rvJump'); j.value = id; j.dispatchEvent(new Event('change')); try { await until(() => document.querySelector('#rvSide [data-to3d="' + CSS.escape(id) + '"]')); } catch (e) { throw new Error('the notes of ' + id + ' never opened (' + rv.reviseState().subject + ' W' + rv.reviseState().week + ')'); } };
   const { REVISION } = await import('./revision/registry.js?v=1');
   const { viewerEligible } = await import('./revision/rules.js?v=1');
   const { pruneTree } = await import('./revision/weeks.js?v=1');
@@ -50,7 +52,7 @@ export default async function () {
     const perKind = {};
     const sample = REVISION[id].data.NODES.filter((x) => Math.min(...x.w) <= st.week).filter((x) => { const k = x.leaf || 'topic'; perKind[k] = (perKind[k] || 0) + 1; return k === 'topic' || perKind[k] <= 25; });
     for (const node of sample) {
-      jump.value = node.id; jump.dispatchEvent(new Event('change'));
+      await open(node.id);
       const btn = document.querySelector(`#rvSide [data-toviewer="${CSS.escape(node.id)}"]`);
       if (btn) { offered.push(`${node.l} (${node.leaf || 'topic'})`); assert(viewerEligible(node), `${id}: viewer button on ${node.l}, a ${node.leaf}`); }
     }
@@ -60,11 +62,11 @@ export default async function () {
   /* the owner's answer 8: a link into the other subject switches subject and opens the far box (a = ABCT2326 end) */
   const { CROSS } = await import('./revision/cross-links.js?v=1');
   const crossed = [];
-  for (const c of CROSS.slice(0, 5)) {
+  for (const c of CROSS.filter((_, i) => i % 6 === 0)) { /* every sixth: the first five-odd and the heart, nerve and muscle ones added later */
     rv.setSubject(c.a[0]);
     rv.setWeek(rv.reviseState().last, 'manual');
     const jump = document.getElementById('rvJump');
-    jump.value = c.a[1]; jump.dispatchEvent(new Event('change'));
+    await open(c.a[1]);
     const btn = document.querySelector(`#rvSide [data-cross="${CSS.escape(c.b[0])}"][data-crossid="${CSS.escape(c.b[1])}"]`);
     assert(btn, `cross link ${c.a.join(':')} to ${c.b.join(':')}: no button in the notes`);
     btn.click();
