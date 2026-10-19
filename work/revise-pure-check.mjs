@@ -52,6 +52,10 @@ const twice = mergeLeaves(base, [
   { k: 'part', id: 'q', l: 'Q', parent: 'm', w: 2, links: { p: 'two', j: 'move' }, src: ['x.2026', 1] },
 ]);
 ok(twice.EDGES.filter((e) => pairKey(e[0], e[1]) === 'p|q').length === 1, 'the same pair is linked once, the first reason kept');
+const eye = { k: 'muscle', id: 'sr', l: 'Superior rectus', parent: 'm', w: 2, moves: { ey: 'elevation; adduction' }, note: 'cranial nerve III', src: ['x.2026', 1] };
+const mv = mergeLeaves(base, [{ k: 'part', id: 'ey', l: 'Eyeball', parent: 'm', w: 2, src: ['x.2026', 1] }, eye]);
+ok(mv.EDGES.some((e) => pairKey(e[0], e[1]) === pairKey('sr', 'ey') && e[2] === 'elevation; adduction'), 'a muscle links to a structure it moves that is not a joint, with the action as the reason');
+ok(leafLine(eye) === 'elevation; adduction · cranial nerve III', "a muscle's one line carries what it moves as well as the joints it acts at");
 ok(mergeLeaves(base, []).EDGES.length === 1, 'no rows, no change');
 
 console.log('\nnumbered links list');

@@ -15,7 +15,8 @@
  *     joints?, supplies?, from?, links?, s? }
  *   k        group | muscle | bone | joint | nerve | part
  *   joints   muscle: { jointId: 'action at that joint' }   bone: [jointId…]
- *   supplies nerve:  { targetId: 'reason' }                 from: parent nerve or plexus
+ *   moves    muscle: { id: 'action' } on a structure that is not a joint (the eyeball, the tongue, the mandible)
+ *   supplies nerve: { targetId: 'reason' }                 from: parent nerve or plexus
  *   links    any:    { id: 'reason' } for a link the fields above cannot say
  *   match    the words to look for on the cited page when the slide names it differently
  *   old      the row comes from an older deck because the 2026 slides do not name it
@@ -29,7 +30,7 @@ const pairKey = (a, b) => (a < b ? `${a}|${b}` : `${b}|${a}`);
 
 /** The one line a leaf shows under its name. */
 export function leafLine(row) {
-  if (row.k === 'muscle') return [Object.values(row.joints || {}).join('; '), row.note].filter(Boolean).join(' · ');
+  if (row.k === 'muscle') return [Object.values({ ...(row.joints || {}), ...(row.moves || {}) }).join('; '), row.note].filter(Boolean).join(' · ');
   if (row.k === 'nerve' && !row.line) return [...new Set(Object.values(row.supplies || {}))].join(', ');
   return row.line || '';
 }
@@ -69,7 +70,10 @@ export function mergeLeaves(data, rows, sources = {}) {
     specOf.set(row.id, spec);
   }
   for (const row of rows) {
-    if (row.k === 'muscle') for (const [j, act] of Object.entries(row.joints || {})) link(row.id, j, act);
+    if (row.k === 'muscle') {
+      for (const [j, act] of Object.entries(row.joints || {})) link(row.id, j, act);
+      for (const [t, act] of Object.entries(row.moves || {})) link(row.id, t, act);
+    }
     if (row.k === 'bone') for (const j of row.joints || []) link(row.id, j, 'forms');
     if (row.k === 'nerve') {
       for (const [t, why] of Object.entries(row.supplies || {})) link(row.id, t, why);

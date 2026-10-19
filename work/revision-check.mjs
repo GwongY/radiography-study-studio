@@ -24,6 +24,7 @@ import { TERM, weekOf, weekStart, weekEnd } from '../outputs/schedule.js';
 import { readFileSync } from 'node:fs';
 import { normaliseCitationText } from './lib/source-lesson-map.mjs';
 import { KINDS } from '../outputs/revision/leaves.js';
+import { SOURCE_FILES } from '../outputs/study/course-data.js';
 
 const SOURCE_TEXT = JSON.parse(readFileSync(new URL('./source-text.json', import.meta.url), 'utf8')).sources;
 
@@ -58,7 +59,8 @@ for (const subject of Object.values(REVISION)) {
     ok(leafRows.every((r) => KINDS.includes(r.k)), `every leaf has a known kind (${leafRows.length} leaves)`);
     ok(leafRows.every((r) => topicIds.has(r.parent) || (order.has(r.parent) && order.get(r.parent) < order.get(r.id))), 'every leaf hangs from a topic or an earlier leaf');
     ok(leafRows.every((r) => Number.isInteger(r.w) && nodeOf.has(r.parent) && r.w >= firstWeek(nodeOf.get(r.parent))), 'no leaf is taught before what it hangs from');
-    ok(leafRows.filter((r) => r.k === 'muscle').every((r) => { const j = Object.entries(r.joints || {}); return j.length > 0 && j.every(([id, act]) => kindOf.get(id) === 'joint' && String(act).trim()); }), 'every muscle moves at least one joint row, and says how');
+    const movesTarget = (id) => ['bone', 'part', 'group'].includes(kindOf.get(id));
+    ok(leafRows.filter((r) => r.k === 'muscle').every((r) => { const j = Object.entries(r.joints || {}); const m = Object.entries(r.moves || {}); return j.length + m.length > 0 && j.every(([id, act]) => kindOf.get(id) === 'joint' && String(act).trim()) && m.every(([id, act]) => movesTarget(id) && String(act).trim()); }), 'every muscle acts at a joint row (joints) or moves a bone, part or group (moves), and says how');
     ok(leafRows.filter((r) => r.k === 'bone').every((r) => (r.joints || []).every((id) => kindOf.get(id) === 'joint')), "every bone's joints are joint rows");
     ok(leafRows.filter((r) => r.k === 'nerve').every((r) => Object.keys(r.supplies || {}).length > 0 && Object.keys(r.supplies).every((id) => ids.has(id)) && (!r.from || ids.has(r.from))), 'every nerve supplies something real');
     ok(leafRows.every((r) => Object.keys(r.links || {}).every((id) => ids.has(id))), 'every hand-written leaf link points at something real');
@@ -71,7 +73,8 @@ for (const subject of Object.values(REVISION)) {
       if (!inRange || !pages.some((p) => normaliseCitationText(text.pages[p - 1]).includes(needle))) badSrc.push(`${r.id} (${sid} p${pages.join(',')}: "${needle}")`);
     }
     ok(!badSrc.length, `every leaf's name is on a page it cites${badSrc.length ? ` — ${badSrc.slice(0, 6).join('; ')}` : ''}`);
-    ok(leafRows.every((r) => (r.old ? !/\.2026$/.test(r.src[0]) : /\.2026$/.test(r.src[0]))),'a row marked old cites an older deck, and every other row a 2026 one');
+    const current = (sid) => /\.2026$/.test(sid) || (!!SOURCE_FILES[sid] && SOURCE_FILES[sid].root === 'newsrc');
+    ok(leafRows.every((r) => (r.old ? !current(r.src[0]) : current(r.src[0]))), 'a row marked old cites an older deck, and every other row a current 2026/27 file');
   }
 
   ok(data.NODES.every((n) => n.w.length && n.w.every((w) => Number.isInteger(w) && w >= 1)), 'every topic has weeks');
