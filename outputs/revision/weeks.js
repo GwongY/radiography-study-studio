@@ -19,6 +19,15 @@ export function lastWeekOf(data) {
   return Math.max(...data.NODES.map(firstWeek));
 }
 
+/**
+ * The last week to offer. A subject can hold notes for weeks the owner has not
+ * learnt yet; `released` is the last week they have, and anything beyond it is
+ * hidden everywhere (chips, map, hub, find). No `released` means no limit.
+ */
+export function releasedLast(last, released) {
+  return released == null ? last : Math.max(1, Math.min(last, released));
+}
+
 export function clampWeek(n, last) {
   const w = Math.round(Number(n));
   if (!Number.isFinite(w)) return last;

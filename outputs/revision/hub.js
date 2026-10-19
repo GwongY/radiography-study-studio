@@ -12,7 +12,7 @@
 
 /* Sizes in the 3D library's units. GAP1 is wide enough for a name at phone width. */
 export const HUB = { R1: 110, R2: 200, MAX1: 14, MAX2: 30, GAP1: 0.5, GAP2: 0.24, BAND: 0.65, YMAX: 0.8 };
-export const SYSORDER = ['cns', 'pns', 'musc', 'skel', 'tissue', 'sense'];
+export const SYSORDER = ['cns', 'pns', 'musc', 'skel', 'tissue', 'sense', 'cv'];
 const GOLD = Math.PI * (3 - Math.sqrt(5));
 const TOP = [0, 1, 0];
 

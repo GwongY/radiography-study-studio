@@ -19,7 +19,7 @@
  *     week, and no week is outside what the topics cover.
  */
 import { REVISION } from '../outputs/revision/registry.js';
-import { autoWeek, clampWeek, firstWeek, lastWeekOf, newIds, pruneTree, resolveWeek, visibleEdges, visibleIds } from '../outputs/revision/weeks.js';
+import { autoWeek, clampWeek, releasedLast, firstWeek, lastWeekOf, newIds, pruneTree, resolveWeek, visibleEdges, visibleIds } from '../outputs/revision/weeks.js';
 import { TERM, weekOf, weekStart, weekEnd } from '../outputs/schedule.js';
 import { readFileSync } from 'node:fs';
 import { normaliseCitationText } from './lib/source-lesson-map.mjs';
@@ -146,6 +146,9 @@ ok(autoWeek(weekOf(weekStart(13)), false, last) === 7, 'week 13 clamps to the la
 ok(weekOf(after) === null && autoWeek(weekOf(after), after < weekStart(1), last) === 7, 'after the term it is the last week with content');
 ok(autoWeek(5, false, 13) === 5, 'once a subject has content to week 13 the current week is used as is');
 ok(clampWeek('3', 7) === 3 && clampWeek(0, 7) === 1 && clampWeek(99, 7) === 7 && clampWeek('x', 7) === 7, 'clampWeek holds 1..last and survives rubbish');
+ok(releasedLast(8, 7) === 7 && releasedLast(8, 8) === 8 && releasedLast(8, 13) === 8 && releasedLast(7, 3) === 3, 'a week beyond the released one is not offered: the chips stop there');
+ok(releasedLast(8, null) === 8 && releasedLast(8, 0) === 1, 'no released limit holds nothing back');
+ok(REVISION.HSS2011.released === 7 && lastWeekOf(REVISION.HSS2011.data) === 8, 'Week 8 notes exist but are held back until released is raised to 8');
 
 console.log('\nsaved choice');
 ok(resolveWeek(null, 5, 7).mode === 'auto' && resolveWeek(null, 5, 7).week === 5, 'nothing saved: automatic');

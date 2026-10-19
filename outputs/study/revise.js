@@ -23,7 +23,7 @@ import { scrollViewTop, showView } from './small-ui-helpers.js';
 import { glossifyNode } from './reading-help.js';
 import { bindLinkList, markLinkRow, renderLinkList } from './revise-links.js';
 import { DEFAULT_SUBJECT, REVISION } from '../revision/registry.js?v=1';
-import { autoWeek, firstWeek, lastWeekOf, newIds, pruneTree, resolveWeek, visibleEdges, visibleIds } from '../revision/weeks.js?v=1';
+import { autoWeek, firstWeek, lastWeekOf, newIds, pruneTree, releasedLast, resolveWeek, visibleEdges, visibleIds } from '../revision/weeks.js?v=1';
 import { linkRows } from '../revision/link-rows.js?v=1';
 import { describe } from '../revision/describe.js?v=1';
 import { searchHits } from './global-search-one.js';
@@ -33,8 +33,8 @@ import { createBrain } from './revise-brain.js';
  * State
  * ------------------------------------------------------------------ */
 
-const SYS = { tissue: 'Tissues & cells', skel: 'Skeleton & joints', musc: 'Muscles', pns: 'Peripheral nerves', cns: 'Brain & spinal cord', sense: 'Senses & autonomic' };
-const SYSVAR = { tissue: '--c-tissue', skel: '--c-skel', musc: '--c-musc', pns: '--c-pns', cns: '--c-cns', sense: '--c-sense' };
+const SYS = { tissue: 'Tissues & cells', skel: 'Skeleton & joints', musc: 'Muscles', pns: 'Peripheral nerves', cns: 'Brain & spinal cord', sense: 'Senses & autonomic', cv: 'Heart & vessels' };
+const SYSVAR = { tissue: '--c-tissue', skel: '--c-skel', musc: '--c-musc', pns: '--c-pns', cns: '--c-cns', sense: '--c-sense', cv: '--c-cv' };
 
 const rv = {
   subject: DEFAULT_SUBJECT,
@@ -99,6 +99,9 @@ export function setWeek(n, mode) {
 }
 
 function paintWeekBar() {
+  /* a body-system colour appears in the key only once something of it is taught */
+  const shown = new Set([...ix.ids].map((id) => ix.byId[id] && ix.byId[id].s));
+  document.querySelectorAll('#reviseView [data-sys]').forEach((e) => { e.hidden = !shown.has(e.dataset.sys); });
   const bar = $$('rvWeekBar');
   const chips = [];
   for (let n = 1; n <= rv.last; n++) {
@@ -816,7 +819,8 @@ function paintAll() {
    front, so a week that rolls over while the app sits in the background is picked
    up without a reload. Does nothing to a week the student chose themselves. */
 function followCalendar() {
-  if (!rv.mounted || rv.mode !== 'auto') return;
+  if (!rv.mounted) return;
+  if (rv.mode !== 'auto') { paintWeekBar(); return; }
   const a = autoNow();
   if (a !== rv.week) { rv.week = a; deriveWeek(); paintAll(); }
   else paintWeekBar();
@@ -828,7 +832,7 @@ export function renderRevise() {
   if (!rv.mounted) {
     rv.mounted = true;
     const sub = subjectData();
-    rv.last = lastWeekOf(sub.data);
+    rv.last = releasedLast(lastWeekOf(sub.data), sub.released);
     const next = resolveWeek(savedPref(), autoNow(), rv.last);
     rv.week = next.week; rv.mode = next.mode;
     deriveWeek();

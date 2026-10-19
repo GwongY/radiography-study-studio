@@ -20,7 +20,7 @@ import { linkRows } from '../revision/link-rows.js?v=1';
 import { bindLinkList, markLinkRow, renderLinkList } from './revise-links.js';
 
 /* the stage is dark, so these are the dark-theme system colours */
-const COL = { tissue: '#9FB2BB', skel: '#D1A94F', musc: '#E3786B', pns: '#6FA8E8', cns: '#AE98EC', sense: '#55C4A4' };
+const COL = { tissue: '#9FB2BB', skel: '#D1A94F', musc: '#E3786B', pns: '#6FA8E8', cns: '#AE98EC', sense: '#55C4A4', cv: '#E879C6' };
 const BG = '#071318';
 const PARENT_COL = '#7F9FA7';
 const LINK = '#3B6F7B';

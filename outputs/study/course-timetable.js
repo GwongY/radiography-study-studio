@@ -27,7 +27,7 @@ import { setActiveNav } from './navigation-destinations.js';
 import { K, read, store, write } from './storage-versioned-keys.js';
 import { renderRevise } from './revise.js';
 import { REVISION } from '../revision/registry.js?v=1';
-import { lastWeekOf } from '../revision/weeks.js?v=1';
+import { lastWeekOf, releasedLast } from '../revision/weeks.js?v=1';
 import { assessmentsPanel, imminentHTML, wireAssessments } from './assessments-and-marks.js';
 
 /* ------------------------------------------------------------------ *
@@ -80,7 +80,7 @@ function sessionRow(r, now) {
      only for a subject that has a revision map and a session already taught (or being taught). */
   const lessons = s.noStudy
     ? `<span class="nostudy">${teachingGap ? 'Official notes missing — see weekly gap' : 'Nothing to revise on this administrative row'}</span>`
-    : REVISION[s.subject] && ['past', 'now', 'open'].includes(r.status) && s.week <= lastWeekOf(REVISION[s.subject].data)
+    : REVISION[s.subject] && ['past', 'now', 'open'].includes(r.status) && s.week <= releasedLast(lastWeekOf(REVISION[s.subject].data), REVISION[s.subject].released)
       ? '<button class="ghost tolesson" data-revise="1">Revise →</button>' : '';
 
   return `<li class="sessrow ${esc(r.status)}${other ? ' otherg' : ''}" style="--acc:${esc(subjectAccent(s.subject))}">

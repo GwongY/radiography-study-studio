@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 989 —
-  decece00603faf61  WHOLE SET
+— user-facing strings in outputs/ — 990 —
+  9bcf4c22318f62fc  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -344,6 +344,7 @@
   f8935505567e0234  HSS2011 Human Anatomy/Module 3 Abdomen and Pelvis/Previous Years
   a922f8e6c07e1e27  HTI17101 Exploring Radiography/Lecture notes
   76cf25daf5c66005  Handout version 2017/18. Slide footers run L1 p2 … L1 p60, which is what the page references below point at.
+  10c6d3048e0200e8  Heart & vessels
   c690d7fcaa1865bc  Heart atlas
   fb328932c2fb282f  Heart atlas animation stopped; closing the mode.
   ccf3bb7342768369  Heart atlas controls

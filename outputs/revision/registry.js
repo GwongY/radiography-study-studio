@@ -16,19 +16,29 @@ import * as hss2011W4 from './hss2011-leaves-w4.js';
 import * as hss2011W5 from './hss2011-leaves-w5.js';
 import * as hss2011W6 from './hss2011-leaves-w6.js';
 import * as hss2011W7 from './hss2011-leaves-w7.js';
+import * as hss2011W8 from './hss2011-leaves-w8.js';
 import { THREADS_HTML } from './hss2011-threads.js';
 import { TABLES_HTML } from './hss2011-tables.js';
 import { DECODER_HTML, SOURCES_HTML } from './hss2011-decoder.js';
 
 /* Leaf rows, week by week (outputs/revision/leaves.js). */
-const HSS2011_ROWS = [...hss2011W1.ROWS, ...hss2011W2.ROWS, ...hss2011W3.ROWS, ...hss2011W4.ROWS, ...hss2011W5.ROWS, ...hss2011W6.ROWS, ...hss2011W7.ROWS];
-const HSS2011_LEAF_SOURCES = { ...hss2011W1.SOURCES, ...hss2011W2.SOURCES, ...hss2011W3.SOURCES, ...hss2011W4.SOURCES, ...hss2011W5.SOURCES, ...hss2011W6.SOURCES, ...hss2011W7.SOURCES };
+const HSS2011_ROWS = [...hss2011W1.ROWS, ...hss2011W2.ROWS, ...hss2011W3.ROWS, ...hss2011W4.ROWS, ...hss2011W5.ROWS, ...hss2011W6.ROWS, ...hss2011W7.ROWS, ...hss2011W8.ROWS];
+const HSS2011_LEAF_SOURCES = { ...hss2011W1.SOURCES, ...hss2011W2.SOURCES, ...hss2011W3.SOURCES, ...hss2011W4.SOURCES, ...hss2011W5.SOURCES, ...hss2011W6.SOURCES, ...hss2011W7.SOURCES, ...hss2011W8.SOURCES };
+
+/* Week 8 brings new headings and one new branch; the earlier weeks' headings stay as they are. */
+const HSS2011_BASE = {
+  NODES: [...hss2011.NODES, ...hss2011W8.TOPICS],
+  EDGES: [...hss2011.EDGES, ...hss2011W8.EDGES],
+  TREE: { ...hss2011.TREE, kids: [...hss2011.TREE.kids, hss2011W8.BRANCH] },
+};
 
 export const REVISION = {
   HSS2011: {
     id: 'HSS2011',
+    /* Notes exist through Week 8, but the owner has learnt through Week 7: raise this to 8 to add Week 8 on. */
+    released: 7,
     label: 'HSS2011 Human Anatomy',
-    data: mergeLeaves({ NODES: hss2011.NODES, EDGES: hss2011.EDGES, TREE: hss2011.TREE }, HSS2011_ROWS, HSS2011_LEAF_SOURCES),
+    data: mergeLeaves(HSS2011_BASE, HSS2011_ROWS, HSS2011_LEAF_SOURCES),
     rows: HSS2011_ROWS,
     threads: THREADS_HTML,
     tables: TABLES_HTML,
