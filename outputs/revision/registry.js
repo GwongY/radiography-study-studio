@@ -3,19 +3,27 @@
  * walk it.
  *
  * Adding a subject is a new data file (nodes, edges, tree, threads, tables,
- * decoder) made the way hss2011-*.js were, plus one entry here. No view code
- * knows which subject it is showing.
+ * decoder) made the way hss2011-*.js were, plus one entry here, and its depth is
+ * leaf rows merged here (outputs/revision/leaves.js). No view code knows which
+ * subject it is showing.
  */
 import * as hss2011 from './hss2011-data.js';
+import { mergeLeaves } from './leaves.js';
+import * as hss2011W2 from './hss2011-leaves-w2.js';
 import { THREADS_HTML } from './hss2011-threads.js';
 import { TABLES_HTML } from './hss2011-tables.js';
 import { DECODER_HTML, SOURCES_HTML } from './hss2011-decoder.js';
+
+/* Leaf rows, week by week (outputs/revision/leaves.js). */
+const HSS2011_ROWS = [...hss2011W2.ROWS];
+const HSS2011_LEAF_SOURCES = { ...hss2011W2.SOURCES };
 
 export const REVISION = {
   HSS2011: {
     id: 'HSS2011',
     label: 'HSS2011 Human Anatomy',
-    data: { NODES: hss2011.NODES, EDGES: hss2011.EDGES, TREE: hss2011.TREE },
+    data: mergeLeaves({ NODES: hss2011.NODES, EDGES: hss2011.EDGES, TREE: hss2011.TREE }, HSS2011_ROWS, HSS2011_LEAF_SOURCES),
+    rows: HSS2011_ROWS,
     threads: THREADS_HTML,
     tables: TABLES_HTML,
     decoder: DECODER_HTML,

@@ -4,6 +4,9 @@
  *   node work/revision-check.mjs
  *
  * What it holds:
+ *   - every leaf row (outputs/revision/leaves.js) hangs from a real parent, is not
+ *     taught before it, says what it moves or supplies, and its name is on a page
+ *     of the slide deck it cites (the comparison source-check.mjs uses);
  *   - every edge and every tree id is a real topic; every topic is in the tree
  *     exactly once; every thread id a topic names is a real thread;
  *   - visibility is MONOTONIC in the week: what week n shows, week n+1 shows too
@@ -18,6 +21,11 @@
 import { REVISION } from '../outputs/revision/registry.js';
 import { autoWeek, clampWeek, firstWeek, lastWeekOf, newIds, pruneTree, resolveWeek, visibleEdges, visibleIds } from '../outputs/revision/weeks.js';
 import { TERM, weekOf, weekStart, weekEnd } from '../outputs/schedule.js';
+import { readFileSync } from 'node:fs';
+import { normaliseCitationText } from './lib/source-lesson-map.mjs';
+import { KINDS } from '../outputs/revision/leaves.js';
+
+const SOURCE_TEXT = JSON.parse(readFileSync(new URL('./source-text.json', import.meta.url), 'utf8')).sources;
 
 let fail = 0;
 const ok = (good, msg) => { console.log(`  ${good ? 'ok  ' : 'FAIL'} ${msg}`); if (!good) fail++; };
@@ -39,6 +47,32 @@ for (const subject of Object.values(REVISION)) {
   const threadIds = new Set([...subject.threads.matchAll(/<details class="thread" id="(t\d+)"/g)].map((m) => m[1]));
   ok(data.NODES.every((n) => (n.th || []).every((t) => threadIds.has(t))), 'every thread a topic names exists');
   ok(subject.tours.every((t) => threadIds.has(t.th) && t.stops.every((s) => ids.has(s))), 'every tour names a real thread and real topics');
+
+  /* ---- leaves: the depth under a topic (outputs/revision/leaves.js) ---- */
+  const leafRows = subject.rows || [];
+  if (leafRows.length) {
+    const order = new Map(leafRows.map((r, i) => [r.id, i]));
+    const kindOf = new Map(leafRows.map((r) => [r.id, r.k]));
+    const topicIds = new Set(data.NODES.filter((n) => !n.leaf).map((n) => n.id));
+    const nodeOf = new Map(data.NODES.map((n) => [n.id, n]));
+    ok(leafRows.every((r) => KINDS.includes(r.k)), `every leaf has a known kind (${leafRows.length} leaves)`);
+    ok(leafRows.every((r) => topicIds.has(r.parent) || (order.has(r.parent) && order.get(r.parent) < order.get(r.id))), 'every leaf hangs from a topic or an earlier leaf');
+    ok(leafRows.every((r) => Number.isInteger(r.w) && nodeOf.has(r.parent) && r.w >= firstWeek(nodeOf.get(r.parent))), 'no leaf is taught before what it hangs from');
+    ok(leafRows.filter((r) => r.k === 'muscle').every((r) => { const j = Object.entries(r.joints || {}); return j.length > 0 && j.every(([id, act]) => kindOf.get(id) === 'joint' && String(act).trim()); }), 'every muscle moves at least one joint row, and says how');
+    ok(leafRows.filter((r) => r.k === 'bone').every((r) => (r.joints || []).every((id) => kindOf.get(id) === 'joint')), "every bone's joints are joint rows");
+    ok(leafRows.filter((r) => r.k === 'nerve').every((r) => Object.keys(r.supplies || {}).length > 0 && Object.keys(r.supplies).every((id) => ids.has(id)) && (!r.from || ids.has(r.from))), 'every nerve supplies something real');
+    ok(leafRows.every((r) => Object.keys(r.links || {}).every((id) => ids.has(id))), 'every hand-written leaf link points at something real');
+    const badSrc = [];
+    for (const r of leafRows) {
+      const [sid, ...pages] = r.src || [];
+      const text = SOURCE_TEXT[sid];
+      const needle = normaliseCitationText(r.match || r.l);
+      const inRange = !!text && pages.length > 0 && pages.every((p) => Number.isInteger(p) && p >= 1 && p <= text.pages.length);
+      if (!inRange || !pages.some((p) => normaliseCitationText(text.pages[p - 1]).includes(needle))) badSrc.push(`${r.id} (${sid} p${pages.join(',')}: "${needle}")`);
+    }
+    ok(!badSrc.length, `every leaf's name is on a page it cites${badSrc.length ? ` — ${badSrc.slice(0, 6).join('; ')}` : ''}`);
+    ok(leafRows.every((r) => (r.old ? !/\.2026$/.test(r.src[0]) : /\.2026$/.test(r.src[0]))),'a row marked old cites an older deck, and every other row a 2026 one');
+  }
 
   ok(data.NODES.every((n) => n.w.length && n.w.every((w) => Number.isInteger(w) && w >= 1)), 'every topic has weeks');
   ok(last >= 1 && last <= TERM.weeks, `last week with content is ${last}, inside the ${TERM.weeks}-week term`);
