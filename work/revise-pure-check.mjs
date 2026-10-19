@@ -12,6 +12,7 @@ import { dropSystem, leafLine, mergeLeaves } from '../outputs/revision/leaves.js
 import { linkRows } from '../outputs/revision/link-rows.js';
 import { describe, firstSentence } from '../outputs/revision/describe.js';
 import { HUB, angle, hubLayout, pickFirst, SYSORDER } from '../outputs/revision/hub.js';
+import { checkSystems, colourDistance, contrast, crossFor, legendKeys, lineIsUseful, needsOwn, ownProblems, rowWeekOk, starProblems, viewerEligible, yueProblems } from '../outputs/revision/rules.js';
 
 let fail = 0;
 const ok = (good, msg) => { console.log(`  ${good ? 'ok  ' : 'FAIL'} ${msg}`); if (!good) fail++; };
@@ -130,6 +131,58 @@ ok(describe({ leaf: true, line: '  ' }, {}).length > 3, 'a blank line falls back
 /* ---- a row folded into its same-named parent still gives its own rows a colour group ---- */
 const am = mergeLeaves({ NODES: [{ id: 'b', l: 'Brainstem', s: 'cns', w: [6], t: '' }], EDGES: [], TREE: { label: 'r', kids: [{ id: 'b' }] } }, [{ k: 'part', id: 'rb', l: 'Brainstem', parent: 'b', w: 6, src: ['x.2026', 1] }, { k: 'part', id: 'rm', l: 'Medulla', parent: 'rb', w: 6, src: ['x.2026', 1] }]);
 ok(am.NODES.find((n) => n.id === 'rm').s === 'cns', 'a row under a folded row keeps its colour group');
+
+
+console.log('\nrules (spec 2026-10-19-physiology-revise.md section 2)');
+ok(!lineIsUseful('x2') && !lineIsUseful('(1-7)') && !lineIsUseful('8 pairs') && !lineIsUseful('lateral rotation'), 'counts, ranges and two-word fragments are not useful lines');
+ok(!lineIsUseful('acetabulofemoral; ball-and-socket'), 'a 25+ character line of under three words is not useful');
+ok(!lineIsUseful('12 345 678 (90) x 1234567 - 89'), 'digits and brackets alone are not useful however long');
+ok(lineIsUseful('mature bone cells in lacunae'), 'a short real sentence is useful');
+ok(needsOwn({ line: '' }) && needsOwn({}) && !needsOwn({ line: 'the spaces that hold osteocytes' }), 'needsOwn follows lineIsUseful');
+ok(ownProblems('', 'X').join() === 'missing', 'an empty own sentence is missing');
+ok(ownProblems('Renin.', 'Renin').includes('under 40 characters'), 'too short');
+ok(ownProblems('An enzyme released by the kidney that starts a hormone chain', 'Renin').includes('no full stop at the end'), 'needs a full stop');
+ok(ownProblems('An enzyme released by the kidney at 125 ml per minute.', 'Renin').some((p) => p.startsWith('a digit')), 'no digits: numbers come from slides');
+ok(ownProblems('An enzyme released by the kidney ★ that starts a chain.', 'Renin').some((p) => p.startsWith('a star')), 'no stars in own words: a ★ fact belongs on a thread step with its page');
+ok(ownProblems('An enzyme released by the kidney that starts a hormone chain.', 'Renin').length === 0, 'a plain sentence passes');
+ok(viewerEligible({ id: 'a' }) && !viewerEligible({ id: 'a', viewer: false }), 'a topic is eligible unless it says viewer: false');
+ok(['part', 'muscle', 'bone', 'joint', 'nerve'].every((k) => viewerEligible({ leaf: k })), 'structure rows are eligible');
+ok(['group', 'cell', 'substance', 'process'].every((k) => !viewerEligible({ leaf: k })), 'groups, cells, substances and processes never get a viewer button');
+ok(!viewerEligible({ leaf: 'part', viewer: false }), 'a structure row can opt out');
+const ldata = { NODES: [{ id: 'a', s: 'x' }, { id: 'b', s: 'y' }, { id: 'c', s: 'x' }] };
+ok([...legendKeys(ldata, new Set(['a', 'c']))].join() === 'x', 'the legend holds only the systems of what is shown');
+ok(legendKeys(ldata, new Set()).size === 0, 'nothing shown, no legend entry');
+ok(Math.round(colourDistance('#000000', '#ffffff')) === 442 && contrast('#000000', '#ffffff') > 20.9, 'colour maths');
+const goodSys = [{ id: 'A', systems: [{ key: 'a1', label: 'A1', col: '#9fb2bb', body: 'cells' }, { key: 'a2', label: 'A2', col: '#e879c6' }], hubOrder: ['a1', 'a2'], data: { NODES: [{ id: 'n', s: 'a1' }] } },
+  { id: 'B', systems: [{ key: 'b1', label: 'B1', col: '#9FB2BB', body: 'cells' }], hubOrder: ['b1'], data: { NODES: [{ id: 'm', s: 'b1' }] } }];
+ok(checkSystems(goodSys).length === 0, 'a valid pair of subjects passes (a shared colour for the same body system is fine)');
+ok(checkSystems([{ ...goodSys[0], systems: [...goodSys[0].systems, { key: 'a3', label: 'A3', col: '#e97ac5' }] }]).some((p) => p.includes('too alike')), 'two near-identical colours in one subject fail');
+ok(checkSystems([{ ...goodSys[0], systems: [{ key: 'a1', label: 'A1', col: '#203038' }, goodSys[0].systems[1]] }]).some((p) => p.includes('4.5:1')), 'a colour that disappears on the legend fails');
+ok(checkSystems([goodSys[0], { ...goodSys[1], systems: [{ key: 'a1', label: 'B1', col: '#5b8def' }], hubOrder: ['a1'], data: { NODES: [{ id: 'm', s: 'a1' }] } }]).some((p) => p.includes('used by')), 'a key used by two subjects fails');
+ok(checkSystems([goodSys[0], { ...goodSys[1], systems: [{ key: 'b1', label: 'B1', col: '#e879c6', body: 'heart' }] }]).some((p) => p.includes('different body system')), 'the same colour for a different body system fails');
+ok(checkSystems([{ ...goodSys[0], data: { NODES: [{ id: 'n', s: 'zz' }] } }]).some((p) => p.includes('not in the list')), 'a node whose system is not listed fails');
+const sessions = [{ subject: 'S', week: 2, kind: 'lecture' }, { subject: 'S', week: 6, kind: 'tutorial' }, { subject: 'S', week: 9, kind: 'lecture' }, { subject: 'S', week: 11, kind: 'lecture' }, { subject: 'T', week: 10, kind: 'lecture' }];
+const decks = { d2: { weeks: [2] }, d6: { weeks: [6] }, d9: { weeks: [9, 11] } };
+ok(rowWeekOk({ w: 2, src: ['d2', 1] }, decks, sessions, 'S') === '', 'a row in its deck\'s week passes');
+ok(rowWeekOk({ w: 3, src: ['d2', 1] }, decks, sessions, 'S').includes('deck weeks'), 'a row in another week fails');
+ok(rowWeekOk({ w: 2, src: ['zz', 1] }, decks, sessions, 'S').includes('not one of'), 'a source that is not one of the decks fails (labs, tutorials, old decks)');
+ok(rowWeekOk({ w: 6, src: ['d6', 1] }, decks, sessions, 'S').includes('no S lecture'), 'a week with only a tutorial is not a lecture week');
+ok(rowWeekOk({ w: 11, src: ['d9', 1] }, decks, sessions, 'S') === '' && rowWeekOk({ w: 10, src: ['d9', 1] }, decks, sessions, 'S') !== '', 'a deck taught over two lectures allows either week and nothing between');
+const cx = [{ a: ['A', 'x'], b: ['B', 'y'], why: 'w', src: ['s', 1], match: 'w' }];
+const fw = (s, id) => ({ 'A|x': 1, 'B|y': 8 }[`${s}|${id}`] ?? null);
+ok(crossFor(cx, 'A', 'x', 8, fw).map((c) => `${c.subject}:${c.id}:${c.why}`).join() === 'B:y:w', 'a cross-subject link shows its far end and reason');
+ok(crossFor(cx, 'B', 'y', 8, fw)[0].id === 'x', 'from either end');
+ok(crossFor(cx, 'A', 'x', 7, fw).length === 0, 'not before the far end is taught');
+ok(crossFor(cx, 'A', 'z', 8, fw).length === 0 && crossFor([{ ...cx[0], b: ['B', 'gone'] }], 'A', 'x', 8, fw).length === 0, 'nothing for another box, or for a far end that does not exist');
+ok(yueProblems('', ['a']).join() === 'missing', 'a thread needs its 廣東話 line');
+ok(yueProblems('肺 → 血（hemoglobin）→ 細胞', ['Oxygen binds hemoglobin in the lungs']).length === 0, "a retelling that uses the steps' own English words passes");
+ok(yueProblems('肺 → 血（myoglobin）', ['Oxygen binds hemoglobin']).some((p) => p.includes('myoglobin')), 'an English word the steps never used fails');
+ok(yueProblems('每分鐘 125 ml', ['GFR is 120 ml/min']).some((p) => p.includes('125')), 'a number the steps never gave fails');
+ok(yueProblems('Oxygen binds hemoglobin', ['Oxygen binds hemoglobin']).includes('no Chinese'), 'it is Cantonese');
+ok(starProblems({ text: 'Each hemoglobin molecule can carry four oxygen molecules.', page: 812, ch: 23 }, [23]).length === 0, "a ★ fact with a page from the lecture's chapter passes");
+ok(starProblems({ text: 'Each hemoglobin molecule can carry four oxygen molecules.', page: 812, ch: 19 }, [23]).some((p) => p.startsWith('chapter')), "a ★ from a chapter the lecture is not built on fails");
+ok(starProblems({ text: 'Each hemoglobin molecule can carry four oxygen molecules.', ch: 23 }, [23]).includes('no textbook page'), 'a ★ needs its page');
+ok(starProblems({ text: 'Short', page: 1, ch: 23 }, [23]).some((p) => p.startsWith('text')), 'a ★ is one real sentence');
 
 console.log(fail ? `\n${fail} FAILED` : '\nALL PASS');
 process.exit(fail ? 1 : 0);
