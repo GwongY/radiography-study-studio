@@ -3,7 +3,7 @@
  *
  * The destination that replaced Learn. The app no longer teaches new chapters;
  * it links the ones already learnt. Five views over one week-gated dataset:
- * Map (Markmap), Brain 3D, Threads, Tables and Decoder.
+ * Map (Markmap), Brain 3D, Tables and Decoder.
  *
  * THE WEEK RULE lives in outputs/revision/weeks.js and is checked by
  * work/revision-check.mjs; this file only draws it. Revise through week N shows
@@ -26,6 +26,7 @@ import { DEFAULT_SUBJECT, REVISION } from '../revision/registry.js?v=1';
 import { autoWeek, firstWeek, lastWeekOf, newIds, pruneTree, releasedLast, resolveWeek, visibleEdges, visibleIds } from '../revision/weeks.js?v=1';
 import { linkRows } from '../revision/link-rows.js?v=1';
 import { describe } from '../revision/describe.js?v=1';
+import { OWN } from '../revision/own-words.js?v=1';
 import { searchHits } from './global-search-one.js';
 import { createBrain } from './revise-brain.js';
 
@@ -213,18 +214,14 @@ function renderPanel(id, el) {
     h = `<h3>${esc(n.l)}</h3><div class="rv-tags"><span class="rv-tag sys" style="background:var(${SYSVAR[n.s].replace('--c-', '--rv-c-')})">${esc(SYS[n.s])}</span>${weeksTags(n)}</div>`;
     /* a row with no slide line of its own still opens with one sentence: where it sits in the tree */
     const bare = n.leaf && !(n.line && n.line.trim());
-    const said = bare ? `<p class="rv-said">${esc(describe(n, {
+    const said = OWN[id] ? `<p class="rv-said">${esc(OWN[id])}</p><p class="rv-ownnote">In brief, in the app's own words: the slides give only the name.</p>` : bare ? `<p class="rv-said">${esc(describe(n, {
       parent: ix.LABEL[ix.PARENT[id]] || '',
       kids: (ix.KIDS[id] || []).map((k) => ix.LABEL[k]),
       grand: ix.LABEL[ix.PARENT[ix.PARENT[id]]] || '',
     }))}</p>` : '';
-    h += `<div class="rv-note">${said}${n.t}</div>`;    const vh = viewerHit(n.l);
+    h += `<div class="rv-note">${said}${n.t}</div>`;
+    const vh = viewerHit(n.l);
     h += `<p class="rv-to3d"><button type="button" class="rv-linkbtn" data-to3d="${esc(id)}">Connections in 3D (${(ix.NB[id] || []).length})</button>${vh ? ` <button type="button" class="rv-linkbtn" data-toviewer="${esc(id)}">Show in the viewer</button>` : ''}</p>`;
-    if (n.th && n.th.length) {
-      h += '<h4>Pathways through this topic</h4><div class="nlist">';
-      n.th.forEach((t) => { h += `<button type="button" class="nbtn" data-thread="${esc(t)}"><span>${esc(ix.threadTitles[t] || t)}</span><span class="rel">open →</span></button>`; });
-      h += '</div>';
-    }
   } else {
     /* a branch heading takes its colour from the first topic under it */
     const first = descendantsOf(id).map((d) => ix.byId[d]).find(Boolean);
@@ -598,7 +595,6 @@ function createMap() {
     side.addEventListener('click', (ev) => {
       const b = ev.target.closest('button'); if (!b) return;
       if (b.dataset.node) reveal(b.dataset.node);
-      if (b.dataset.thread) openThread(b.dataset.thread);
       if (b.dataset.to3d) openIn3D(b.dataset.to3d);
     });
     linkList = bindLinkList($$('rvLinkList'), {
@@ -644,22 +640,15 @@ function createMap() {
 }
 
 /* ------------------------------------------------------------------ *
- * Threads, Tables, Decoder — static fragments, gated by data-wk
+ * Tables, Decoder — static fragments, gated by data-wk
  * ------------------------------------------------------------------ */
-
-function openThread(id) {
-  showTab('threads');
-  const d = $$('rvThreads').querySelector(`#${CSS.escape(id)}`);
-  if (d && !d.hidden) { d.open = true; setTimeout(() => d.scrollIntoView({ behavior: 'smooth', block: 'start' }), 40); }
-}
 
 function mountFragments() {
   const sub = subjectData();
-  $$('rvThreads').innerHTML = sub.threads;
   $$('rvTables').innerHTML = `${sub.tables}`;
   $$('rvDecoder').innerHTML = `${sub.decoder}<div class="rv-foot">${sub.sources}</div>`;
   /* class names that would collide with the app's own */
-  ['rvThreads', 'rvTables', 'rvDecoder'].forEach((id) => {
+  ['rvTables', 'rvDecoder'].forEach((id) => {
     const root = $$(id);
     root.querySelectorAll('.pill').forEach((e) => { e.classList.replace('pill', 'rv-pill'); });
     root.querySelectorAll('.mono').forEach((e) => { e.classList.replace('mono', 'rv-mono'); });
@@ -667,11 +656,13 @@ function mountFragments() {
     root.querySelectorAll('[id]').forEach((e) => { if (e.id === 'dq' || e.id === 'dcount' || e.id === 'dtable') e.id = `rv${e.id}`; });
     root.querySelectorAll('label[for="dq"]').forEach((e) => { e.setAttribute('for', 'rvdq'); });
   });
-  $$('rvThreads').querySelectorAll('details.thread').forEach((d) => {
+  /* the Threads tab is gone, but its titles still name the Brain 3D pathways */
+  const tpl = document.createElement('template'); tpl.innerHTML = sub.threads;
+  tpl.content.querySelectorAll('details.thread').forEach((d) => {
     ix.threadTitles[d.id] = d.querySelector('summary').firstChild.textContent.trim();
   });
   /* Reading help spans every static fragment, including the Decoder rows. */
-  ['rvThreads', 'rvTables', 'rvDecoder'].forEach((id) => glossifyNode($$(id)));
+  ['rvTables', 'rvDecoder'].forEach((id) => glossifyNode($$(id)));
   $$('rvTables').querySelectorAll('.subnav a').forEach((a) => {
     a.addEventListener('click', (ev) => {
       ev.preventDefault();
@@ -699,34 +690,6 @@ function filterDecoder() {
 
 function applyWeekToFragments() {
   const n = rv.week;
-  /* Threads: a step shows once every week it draws on is reached. */
-  $$('rvThreads').querySelectorAll('details.thread').forEach((d) => {
-    /* a step is a chain item, a list item or, in the tissue map, a table row */
-    const steps = [...d.querySelectorAll('li[data-wk], tr[data-wk]')];
-    let hiddenCount = 0;
-    steps.forEach((li) => { const on = Number(li.dataset.wk) <= n; li.hidden = !on; if (!on) hiddenCount += 1; });
-    d.querySelectorAll('.tw').forEach((t) => { t.hidden = ![...t.querySelectorAll('tr[data-wk]')].some((r) => !r.hidden); });
-    d.querySelectorAll('.col').forEach((c) => {
-      const lis = [...c.querySelectorAll('li[data-wk]')];
-      if (lis.length) c.hidden = !lis.some((li) => !li.hidden);
-    });
-    const shown = steps.length - hiddenCount;
-    d.hidden = shown === 0;
-    const weeks = new Set();
-    steps.filter((li) => !li.hidden).forEach((li) => li.querySelectorAll('.wk').forEach((w) => weeks.add(Number(w.textContent.replace('W', '')))));
-    const small = d.querySelector('summary small');
-    if (small && weeks.size) small.textContent = [...weeks].sort((a, b) => a - b).map((w) => `W${w}`).join(' · ');
-    let note = d.querySelector('.rv-hidden-note');
-    if (hiddenCount && shown) {
-      if (!note) {
-        note = document.createElement('p'); note.className = 'rv-hidden-note';
-        const body = d.querySelector('.tbody') || d;
-        const chains = body.querySelectorAll('ol.chain');
-        if (chains.length) chains[chains.length - 1].after(note); else body.appendChild(note);
-      }
-      note.textContent = `${hiddenCount} more step${hiddenCount === 1 ? '' : 's'} in this pathway come from later weeks and appear once you reach them.`;
-    } else if (note) note.remove();
-  });
   /* Tables: every row, and every double-check box, has its own week. */
   $$('rvTables').querySelectorAll('.rv-sec').forEach((sec) => {
     const items = [...sec.querySelectorAll('tr[data-wk], .note-box[data-wk]')];
@@ -746,7 +709,7 @@ function applyWeekToFragments() {
  * ------------------------------------------------------------------ */
 
 function showTab(name) {
-  const ids = { map: 'rvMap', brain: 'rvBrain', threads: 'rvThreads', tables: 'rvTables', decoder: 'rvDecoder' };
+  const ids = { map: 'rvMap', brain: 'rvBrain', tables: 'rvTables', decoder: 'rvDecoder' };
   if (!ids[name]) name = 'map';
   rv.tab = name;
   document.querySelectorAll('#reviseView .rv-tabs [data-rvtab]').forEach((b) => b.setAttribute('aria-selected', b.dataset.rvtab === name ? 'true' : 'false'));
@@ -759,7 +722,7 @@ function showTab(name) {
 async function ensureMap() {
   if (!map) map = createMap();
   if (!map.ready()) { try { await map.mount(); } catch (e) {
-    /* mount() resolves once; a failed one may be retried on the next visit. */ $$('rvSide').innerHTML = `<div class="rv-later">The map library could not load (${esc(e.message)}). Threads, Tables and Decoder still work.</div>`; } }
+    /* mount() resolves once; a failed one may be retried on the next visit. */ $$('rvSide').innerHTML = `<div class="rv-later">The map library could not load (${esc(e.message)}). Tables and Decoder still work.</div>`; } }
   return map;
 }
 
@@ -780,7 +743,7 @@ async function loadBrain() {
     return null;
   }
   brain = createBrain({
-    ix, rv, renderPanel, openThread,
+    ix, rv, renderPanel,
     tours: () => subjectData().tours,
     mapSelected: () => (map && map.ready() ? map.selected() : null),
     newest: newestTopic,

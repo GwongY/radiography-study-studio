@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 990 —
-  7e15c38ea3c5c6de  WHOLE SET
+— user-facing strings in outputs/ — 985 —
+  9fa59d7804526f86  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -48,8 +48,8 @@
   64e3502b5cae8ba3  ) and the links between them and everything before.
   61ba12870f23bb03  ) but its
   9c0ccf1f5ceb1311  ). Showing the last saved briefing.
+  07754660a0bbb042  ). Tables and Decoder still work.
   bd5a091667ef8487  ). The Map has the same topics and links.
-  b3e460cf6102e239  ). Threads, Tables and Decoder still work.
   ef98b8f0eb8bf9dd  ): tap one to light it up, tap again to go there
   0ca05724eba6810f  *uArrivalSpan;float age=uMotorClock-arrival;rssBand=smoothstep(0.,.025,age)*(1.-smoothstep(.05,.10,age));rssSide=1.;\n
   75c7ea370d30e16f  , as a percentage"
@@ -115,7 +115,6 @@
   4e33c3206cbfafcf  <button data-nav="
   a92d150b6b9eeea2  <button data-show="
   25f49e24208984d6  <button type="button" class="nbtn" data-node="
-  8f1ddc92fcdd66f1  <button type="button" class="nbtn" data-thread="
   380f864b046ac3b9  <button type="button" class="rv-back" data-back="1">Back</button>
   988f0b5e4825f8c7  <button type="button" class="rv-chip rv-auto" data-auto="1" aria-pressed="
   b2f06ab240053277  <button type="button" class="rv-chip" data-week="
@@ -145,7 +144,6 @@
   01cae9b7a911e0bb  <div id="rvBfallback">This device cannot draw 3D graphics. The Links list and the Map show the same links.</div>
   b462c4f1b869df7c  <g class="rv-dot
   c5c104a746bff703  <h4>Derived from</h4>
-  fa7e758003d5978e  <h4>Pathways through this topic</h4><div class="nlist">
   a03547db46bf9e4b  <i style="background:#
   590b1769ac58646c  <input class="markin" type="number" inputmode="decimal" min="0" max="100" step="0.1"
   700d0e6637c671e0  <input type="checkbox" data-ha-part="
@@ -369,6 +367,7 @@
   4bf4f120eac41088  I have handed this in
   faf46f11200150fe  Image not found — add it to assets/xray/ and reload.
   a149aa9f92e925e8  Image scan, 4 pp — ABCT2326 Tut1 (Cells/Tissues/Body Org, pp.1–2) + Tut2 (CVS, pp.3–4); not text-extractable; content verified via phys.cells.tut and phys.cvs.tut. Registry entry only — never appears in a sourceRefs.
+  4749a98a8037b0d7  In brief, in the app's own words: the slides give only the name.
   ec0f7ff7ac2ed3e2  In the examinable glossary
   52e1d334ec0f4d41  Instrument Sans
   06ebc6cb3943c309  Internal organs
@@ -825,7 +824,6 @@
   f7b229ba3622cdd9  icon-btn tsbtn
   40ba1be988786a47  in line here
   8f4e6e661819b86b  in the examinable glossary
-  b78f50eb4f0a03a6  in this pathway come from later weeks and appear once you reach them.
   914a79041cba02d9  incomplete must be a string or absent.
   ef17d1d3acfa4f78  insets top
   c7e4e6c144bbd4f1  inside its measured box
@@ -842,7 +840,6 @@
   bfbe15ec0c9d325e  layer structure
   e9a2c565a3598a7b  layer — the beam is drawing what it has.
   685dafbd5e3df475  left and right
-  ffd3f57d74f648cd  li[data-wk], tr[data-wk]
   486ef3aa4d9d1ed3  lines to everything it links to
   aac04770553cef95  list under the map gives the reason for each number. Tap a row to light up its line; tap it again to go there.
   204cb40985c0081f  list under the picture. Tap a row to light up its line, tap it again to go there.
@@ -853,7 +850,6 @@
   f3d699287b13df92  min-height:38px;border:1px solid var(--line);border-radius:9px;background:rgba(255,186,103,.12);color:var(--orange);padding:0 12px;font-size:12px
   6581a1af2821cdb5  mmt mmb mmroot
   2404a2a6da56a404  more in the list
-  9926eafbd8d2de07  more step
   65ee551fb198c26a  must be an ISO timestamp with an offset.
   f46b7e5ab634f52d  mv-note hidden
   31f204f598d94b86  mv-panel hidden
@@ -929,7 +925,6 @@
   0d9fec38ee8cf1fe  source.receivedAt must be ISO with an offset.
   a1c7213f9215c796  source.threadId must be hexadecimal.
   4ff53f9057f1ce39  steps back.
-  88a595b7ebfe83fb  summary small
   ed964bcd197f9142  tap to name
   f5f88ae39b9a5ceb  that structure
   8ef9472e82771a5b  the body frame

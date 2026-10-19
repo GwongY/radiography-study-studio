@@ -19,6 +19,7 @@
  *     week, and no week is outside what the topics cover.
  */
 import { REVISION } from '../outputs/revision/registry.js';
+import { OWN } from '../outputs/revision/own-words.js';
 import { autoWeek, clampWeek, releasedLast, firstWeek, lastWeekOf, newIds, pruneTree, resolveWeek, visibleEdges, visibleIds } from '../outputs/revision/weeks.js';
 import { TERM, weekOf, weekStart, weekEnd } from '../outputs/schedule.js';
 import { readFileSync } from 'node:fs';
@@ -35,6 +36,12 @@ for (const subject of Object.values(REVISION)) {
   const { data } = subject;
   console.log(`\n${subject.id}`);
   const ids = new Set(data.NODES.map((n) => n.id));
+  if (subject.id === 'HSS2011') {
+    const bare = data.NODES.filter((n) => n.leaf && !(n.line && n.line.trim()));
+    const missing = bare.filter((n) => !OWN[n.id]).map((n) => n.id);
+    ok(!missing.length, `every row with no slide line has a sentence in own-words.js${missing.length ? ` (missing: ${missing.join(' ')})` : ''}`);
+    ok(Object.keys(OWN).every((id) => ids.has(id)), 'every own-words id is a real row');
+  }
   const last = lastWeekOf(data);
 
   ok(ids.size === data.NODES.length, 'topic ids are unique');
