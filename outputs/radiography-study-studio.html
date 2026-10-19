@@ -112,6 +112,7 @@
           </section>
           <section class="view hidden" id="reviseView">
             <div class="rv-head">
+              <div class="rv-subjects" id="rvSubjects" role="group" aria-label="Subject" hidden></div>
               <div class="rv-weekbar" id="rvWeekBar" role="group" aria-label="Revise through week"></div>
               <p class="rv-weeknote small" id="rvWeekNote" aria-live="polite"></p>
             </div>
@@ -142,18 +143,11 @@
               </div>
               <div class="rv-legend" aria-label="Colour key">
                 <span class="rv-lab">Colour = what it is</span>
-                <span data-sys="tissue"><i style="background:var(--rv-c-tissue)"></i>Tissues &amp; cells</span>
-                <span><i style="background:var(--rv-c-skel)"></i>Skeleton &amp; joints</span>
-                <span><i style="background:var(--rv-c-musc)"></i>Muscles</span>
-                <span><i style="background:var(--rv-c-pns)"></i>Peripheral nerves</span>
-                <span><i style="background:var(--rv-c-cns)"></i>Brain &amp; spinal cord</span>
-                <span><i style="background:var(--rv-c-sense)"></i>Senses &amp; autonomic</span>
-                <span data-sys="cv" hidden><i style="background:var(--rv-c-cv)"></i>Heart &amp; vessels</span>
               </div>
               <div class="rv-mapwrap">
                 <div class="rv-col">
                 <div id="rvMmwrap">
-                  <svg id="rvMm" role="img" aria-label="Mind map of the topics learnt so far, grouped into six branches. Use the Find box or the Jump to menu for a text route into the same content."></svg>
+                  <svg id="rvMm" role="img" aria-label="Mind map of the topics learnt so far. Use the Find box or the Jump to menu for a text route into the same content."></svg>
                   <svg id="rvLinks" aria-hidden="true"></svg>
                   <button class="rv-linkbtn" id="rvNotesBtn" type="button" hidden>Notes ↓</button>
                 </div>
@@ -182,13 +176,6 @@
               </div>
               <div class="rv-legend" aria-label="Colour key">
                 <span class="rv-lab">Colour = what it is · grey at the top = the branch it sits in</span>
-                <span data-sys="tissue"><i style="background:var(--rv-c-tissue)"></i>Tissues &amp; cells</span>
-                <span><i style="background:var(--rv-c-skel)"></i>Skeleton &amp; joints</span>
-                <span><i style="background:var(--rv-c-musc)"></i>Muscles</span>
-                <span><i style="background:var(--rv-c-pns)"></i>Peripheral nerves</span>
-                <span><i style="background:var(--rv-c-cns)"></i>Brain &amp; spinal cord</span>
-                <span><i style="background:var(--rv-c-sense)"></i>Senses &amp; autonomic</span>
-                <span data-sys="cv" hidden><i style="background:var(--rv-c-cv)"></i>Heart &amp; vessels</span>
               </div>
               <div class="rv-mapwrap">
                 <div class="rv-col">

@@ -19,8 +19,6 @@ import { hubLayout } from '../revision/hub.js?v=1';
 import { linkRows } from '../revision/link-rows.js?v=1';
 import { bindLinkList, markLinkRow, renderLinkList } from './revise-links.js';
 
-/* the stage is dark, so these are the dark-theme system colours */
-const COL = { tissue: '#9FB2BB', skel: '#D1A94F', musc: '#E3786B', pns: '#6FA8E8', cns: '#AE98EC', sense: '#55C4A4', cv: '#E879C6' };
 const BG = '#071318';
 const PARENT_COL = '#7F9FA7';
 const LINK = '#3B6F7B';
@@ -35,10 +33,14 @@ function mix(a, b, t) {
   for (let i = 1; i < 7; i += 2) { const v = Math.round(p(a, i) * (1 - t) + p(b, i) * t); out += (`0${v.toString(16)}`).slice(-2); }
   return out;
 }
-const DIM = Object.fromEntries(Object.keys(COL).map((k) => [k, mix(COL[k], BG, 0.55)]));
 
 export function createBrain(env) {
   const { ix } = env;
+  /* the stage is dark, so these are the dark-theme system colours */
+  /* the subject's colours (dark-stage legend colours); a dimmed one per key, made once */
+  const COL = (s) => env.colour(s) || PARENT_COL;
+  const dimmed = {};
+  const DIM = (s) => (dimmed[s] = dimmed[s] || mix(COL(s), BG, 0.55));
   const NARROW = window.matchMedia('(max-width: 700px)').matches;
   const TRAIL_MAX = NARROW ? 3 : 5;
   const wrap = $$('rvBwrap'); const host = $$('rvBgraph');
@@ -67,12 +69,12 @@ export function createBrain(env) {
     const first = (ix.NB[id] || []).filter(([o]) => ix.ids.has(o) && o !== parent).map(([o]) => ({ id: o, sys: ix.byId[o].s, deg: degree(o) }));
     const second = [];
     first.forEach((f) => (ix.NB[f.id] || []).forEach(([o]) => { if (o !== id && ix.ids.has(o)) second.push({ id: o, via: f.id }); }));
-    return hubLayout({ first, parent, second });
+    return hubLayout({ first, parent, second, order: env.order() });
   }
 
   /* ---------- drawing ---------- */
   const nodeVal = (n) => (n.ring === 0 ? 9 : n.ring === 1 ? 2 + Math.min(3, degree(n.id) * 0.15) : n.ring === 'p' ? 1.6 : 0.7);
-  const nodeColor = (n) => (n.ring === 'p' ? PARENT_COL : n.ring === 2 ? DIM[n.s] : COL[n.s]);
+  const nodeColor = (n) => (n.ring === 'p' ? PARENT_COL : n.ring === 2 ? DIM(n.s) : COL(n.s));
   const isHot = (l) => l.ring !== 2 && l.id === hot;
   const linkColor = (l) => (isHot(l) ? LINK_HOT : l.ring === 2 ? LINK_FAINT : l.ring === 'p' ? LINK_PARENT : LINK);
 
@@ -177,7 +179,7 @@ export function createBrain(env) {
     const cls = id === centre ? 'sel' : par ? 'par' : id === hot ? 'rel' : '';
     const text = par ? `in ${label(id)}` : label(id);
     if (el.className !== cls || el.__t !== text) { el.className = cls; el.textContent = text; el.__t = text; el.__w = 0; }
-    el.style.setProperty('--bc', par ? PARENT_COL : COL[ix.byId[id].s]);
+    el.style.setProperty('--bc', par ? PARENT_COL : COL(ix.byId[id].s));
     return el;
   }
   function dotEl(i) {

@@ -2,8 +2,8 @@
  * Revise
  *
  * The destination that replaced Learn. The app no longer teaches new chapters;
- * it links the ones already learnt. Five views over one week-gated dataset:
- * Map (Markmap), Brain 3D, Threads, Tables and Decoder.
+ * it links the ones already learnt. Five views over one week-gated dataset per
+ * subject; the subject switch (setSubject) picks which.
  *
  * THE WEEK RULE lives in outputs/revision/weeks.js and is checked by
  * work/revision-check.mjs; this file only draws it. Revise through week N shows
@@ -27,6 +27,8 @@ import { autoWeek, firstWeek, lastWeekOf, newIds, pruneTree, releasedLast, resol
 import { linkRows } from '../revision/link-rows.js?v=1';
 import { describe } from '../revision/describe.js?v=1';
 import { OWN } from '../revision/own-words.js?v=1';
+import { crossFor, legendKeys, viewerEligible } from '../revision/rules.js?v=1';
+import { CROSS } from '../revision/cross-links.js?v=1';
 import { searchHits } from './global-search-one.js';
 import { createBrain } from './revise-brain.js';
 
@@ -34,8 +36,12 @@ import { createBrain } from './revise-brain.js';
  * State
  * ------------------------------------------------------------------ */
 
-const SYS = { tissue: 'Tissues & cells', skel: 'Skeleton & joints', musc: 'Muscles', pns: 'Peripheral nerves', cns: 'Brain & spinal cord', sense: 'Senses & autonomic', cv: 'Heart & vessels' };
-const SYSVAR = { tissue: '--c-tissue', skel: '--c-skel', musc: '--c-musc', pns: '--c-pns', cns: '--c-cns', sense: '--c-sense', cv: '--c-cv' };
+/* Body-system colour groups belong to the subject (registry `systems`); applySubject() writes their colours as
+   --rv-c-<key> and --c-<key> on #reviseView. */
+const sysOf = (k) => (subjectData().systems || []).find((s) => s.key === k) || { key: k, label: k };
+const SUBJECT_KEY = `${STORAGE_PREFIX}revise:subject`;
+/* The first week a box of any subject is taught, or null when that subject has no such box (rules.js crossFor). */
+const firstWeekIn = (sub, nid) => { const n = REVISION[sub] && REVISION[sub].data.NODES.find((x) => x.id === nid); return n ? Math.min(...n.w) : null; };
 
 const rv = {
   subject: DEFAULT_SUBJECT,
@@ -104,7 +110,7 @@ export function setWeek(n, mode) {
 
 function paintWeekBar() {
   /* a body-system colour appears in the key only once something of it is taught */
-  const shown = new Set([...ix.ids].map((id) => ix.byId[id] && ix.byId[id].s));
+  const shown = legendKeys(subjectData().data, ix.ids);
   document.querySelectorAll('#reviseView [data-sys]').forEach((e) => { e.hidden = !shown.has(e.dataset.sys); });
   const bar = $$('rvWeekBar');
   const chips = [];
@@ -131,6 +137,56 @@ function paintWeekBar() {
 }
 
 /* ------------------------------------------------------------------ *
+ * The subject
+ * ------------------------------------------------------------------ */
+
+function paintSubjects() {
+  const box = $$('rvSubjects');
+  const subs = Object.values(REVISION);
+  box.hidden = subs.length < 2;
+  box.innerHTML = subs.map((s) => `<button type="button" class="rv-chip rv-subj" data-subject="${esc(s.id)}" aria-pressed="${s.id === rv.subject}">${esc(s.copy.name)}</button>`).join('');
+  box.querySelectorAll('[data-subject]').forEach((b) => { b.onclick = () => setSubject(b.dataset.subject); });
+}
+
+/* What belongs to the subject rather than the week: its colours, its legend (every entry hidden until
+   paintWeekBar finds something of it taught), and its few words. */
+function applySubject() {
+  const sub = subjectData();
+  const view = $$('reviseView');
+  for (const s of sub.systems) {
+    view.style.setProperty(`--rv-c-${s.key}`, s.col);
+    view.style.setProperty(`--c-${s.key}`, s.map || s.col);
+  }
+  document.querySelectorAll('#reviseView .rv-legend').forEach((lg) => {
+    const lab = lg.querySelector('.rv-lab');
+    lg.textContent = '';
+    if (lab) lg.appendChild(lab);
+    lg.insertAdjacentHTML('beforeend', sub.systems.map((s) => `<span data-sys="${esc(s.key)}" hidden><i style="background:var(--rv-c-${esc(s.key)})"></i>${esc(s.label)}</span>`).join(''));
+  });
+  $$('rvFind').placeholder = sub.copy.findHint;
+  $$('rvMm').setAttribute('aria-label', `Mind map of the topics learnt so far, grouped into ${sub.data.TREE.kids.length} branches. Use the Find box or the Jump to menu for a text route into the same content.`);
+  paintSubjects();
+}
+
+/* Switch subject. Each subject keeps its own saved week (prefKey is per subject). */
+export function setSubject(id) {
+  if (!REVISION[id]) return;
+  rv.subject = id;
+  write(SUBJECT_KEY, id);
+  if (!rv.mounted) return;
+  const sub = subjectData();
+  rv.last = releasedLast(lastWeekOf(sub.data), sub.released);
+  const next = resolveWeek(savedPref(), autoNow(), rv.last);
+  rv.week = next.week; rv.mode = next.mode;
+  applySubject();
+  deriveWeek();
+  mountFragments();
+  const tabOf = { threads: 'rvTabThreads', tables: 'rvTabTables', decoder: 'rvTabDecoder' };
+  if (tabOf[rv.tab] && $$(tabOf[rv.tab]).hidden) showTab('map');
+  paintAll();
+}
+
+/* ------------------------------------------------------------------ *
  * Derive everything that depends on the week
  * ------------------------------------------------------------------ */
 
@@ -153,7 +209,7 @@ function deriveWeek() {
     ix.PARENT[key] = parent;
     let html;
     if (depth === 0) html = `<span class="mmt mmb mmroot" style="--bc:var(--c-accent)">${esc(label)}</span>`;
-    else if (depth === 1) html = `<span class="mmt mmb" style="--bc:var(${SYSVAR[sy]})">${esc(label)}</span>`;
+    else if (depth === 1) html = `<span class="mmt mmb" style="--bc:var(--c-${sy})">${esc(label)}</span>`;
     else html = `<span class="mmt">${esc(label)}</span>`;
     if (real) {
       const weeks = ix.byId[spec.id].w.slice().sort((a, b) => a - b);
@@ -184,7 +240,7 @@ function descendantsOf(id) {
 }
 
 function homeHTML() {
-  return `<h3>How to read this map</h3><div class="rv-hint"><p>It is a normal mind map: coloured branches, each opening into topics, and topics opening into single muscles, bones, joints and nerves. Tap a name to open its branch and read it here.</p><ul>
+  return `<h3>How to read this map</h3><div class="rv-hint"><p>It is a normal mind map: coloured branches, each opening into topics, and topics opening into ${esc(subjectData().copy.leafWords)}. Tap a name to open its branch and read it here.</p><ul>
     <li>Before you open a branch, name what is inside it. That is the revision.</li>
     <li>Tapping a topic draws <b>lines to everything it links to</b>, each ending in a <b>number</b>. The <b>Links</b> list under the map gives the reason for each number. Tap a row to light up its line; tap it again to go there.</li>
     <li>The map holds <b>only what you have been taught up to the week chosen above</b>. A new week adds topics (marked <b>new</b>) and the links between them and everything before.</li>
@@ -212,17 +268,28 @@ function renderPanel(id, el) {
   const n = ix.byId[id];
   let h;
   if (n) {
-    h = `<h3>${esc(n.l)}</h3><div class="rv-tags"><span class="rv-tag sys" style="background:var(${SYSVAR[n.s].replace('--c-', '--rv-c-')})">${esc(SYS[n.s])}</span>${weeksTags(n)}</div>`;
+    h = `<h3>${esc(n.l)}</h3><div class="rv-tags"><span class="rv-tag sys" style="background:var(--rv-c-${n.s})">${esc(sysOf(n.s).label)}</span>${weeksTags(n)}</div>`;
     /* a row with no slide line of its own still opens with one sentence: where it sits in the tree */
     const bare = n.leaf && !(n.line && n.line.trim());
-    const said = OWN[id] ? `<p class="rv-said">${esc(OWN[id])}</p><p class="rv-ownnote">In brief, in the app's own words: the slides give only the name.</p>` : bare ? `<p class="rv-said">${esc(describe(n, {
+    const own = n.own || OWN[id];
+    const said = own ? `<p class="rv-said">${esc(own)}</p><p class="rv-ownnote">In brief, in the app's own words, not the slide's.</p>` : bare ? `<p class="rv-said">${esc(describe(n, {
       parent: ix.LABEL[ix.PARENT[id]] || '',
       kids: (ix.KIDS[id] || []).map((k) => ix.LABEL[k]),
       grand: ix.LABEL[ix.PARENT[ix.PARENT[id]]] || '',
     }))}</p>` : '';
     h += `<div class="rv-note">${said}${n.t}</div>`;
-    const vh = viewerHit(n.l);
+    const vh = viewerEligible(n) ? viewerHit(n.l) : null;
     h += `<p class="rv-to3d"><button type="button" class="rv-linkbtn" data-to3d="${esc(id)}">Connections in 3D (${(ix.NB[id] || []).length})</button>${vh ? ` <button type="button" class="rv-linkbtn" data-toviewer="${esc(id)}">Show in the viewer</button>` : ''}</p>`;
+    /* The owner's answer 8: the same thing in the other subject, once its week is reached. Tapping switches subject. */
+    const cross = crossFor(CROSS, rv.subject, id, rv.week, firstWeekIn);
+    for (const sub of [...new Set(cross.map((c) => c.subject))]) {
+      h += `<h4>In ${esc(REVISION[sub].copy.name)}</h4><div class="nlist">`;
+      cross.filter((c) => c.subject === sub).forEach((c) => {
+        const o = REVISION[sub].data.NODES.find((x) => x.id === c.id);
+        h += `<button type="button" class="nbtn" data-cross="${esc(sub)}" data-crossid="${esc(c.id)}"><span>${esc(o.l)}</span><span class="rel">${esc(c.why)}</span></button>`;
+      });
+      h += '</div>';
+    }
     if (n.th && n.th.length) {
       h += '<h4>Pathways through this topic</h4><div class="nlist">';
       n.th.forEach((t) => { h += `<button type="button" class="nbtn" data-thread="${esc(t)}"><span>${esc(ix.threadTitles[t] || t)}</span><span class="rel">open →</span></button>`; });
@@ -233,7 +300,7 @@ function renderPanel(id, el) {
     const first = descendantsOf(id).map((d) => ix.byId[d]).find(Boolean);
     const sys = first ? first.s : null;
     h = `<h3>${esc(ix.LABEL[id])}</h3>`;
-    if (sys) h += `<div class="rv-tags"><span class="rv-tag sys" style="background:var(${SYSVAR[sys].replace('--c-', '--rv-c-')})">${esc(SYS[sys])}</span></div>`;
+    if (sys) h += `<div class="rv-tags"><span class="rv-tag sys" style="background:var(--rv-c-${sys})">${esc(sysOf(sys).label)}</span></div>`;
     h += '<div class="rv-note shown">Branch heading. Topics inside:</div><div class="nlist" style="margin-top:8px">';
     descendantsOf(id).filter((d) => ix.byId[d]).forEach((d) => {
       h += `<button type="button" class="nbtn" data-node="${esc(d)}"><span>${esc(ix.byId[d].l)}</span><span class="rel">${ix.byId[d].w.slice().sort((a, b) => a - b).filter((x) => x <= rv.week).map((x) => `W${x}`).join(' ')}</span></button>`;
@@ -273,7 +340,7 @@ function createMap() {
   const colorFn = (node) => {
     const sy = node.payload && node.payload.sys;
     const cs = getComputedStyle(wrap);
-    return (sy ? cs.getPropertyValue(SYSVAR[sy]) : cs.getPropertyValue('--c-accent')).trim();
+    return (sy ? cs.getPropertyValue(`--c-${sy}`) : cs.getPropertyValue('--c-accent')).trim();
   };
 
   const ancestors = (id) => { const out = []; let k = ix.PARENT[id]; while (k) { out.push(k); k = ix.PARENT[k]; } return out; };
@@ -675,6 +742,9 @@ function openThread(id) {
 
 function mountFragments() {
   const sub = subjectData();
+  ix.threadTitles = {};
+  /* a subject still being written has no Threads, Tables or Decoder yet: its tabs are hidden */
+  [['threads', 'rvTabThreads'], ['tables', 'rvTabTables'], ['decoder', 'rvTabDecoder']].forEach(([k, tab]) => { $$(tab).hidden = !sub[k]; });
   $$('rvThreads').innerHTML = sub.threads;
   $$('rvTables').innerHTML = `${sub.tables}`;
   $$('rvDecoder').innerHTML = `${sub.decoder}<div class="rv-foot">${sub.sources}</div>`;
@@ -725,6 +795,8 @@ function applyWeekToFragments() {
     const steps = [...d.querySelectorAll('li[data-wk], tr[data-wk]')];
     let hiddenCount = 0;
     steps.forEach((li) => { const on = Number(li.dataset.wk) <= n; li.hidden = !on; if (!on) hiddenCount += 1; });
+    /* a 廣東話 line retells the whole thread, so it waits for the thread's last week */
+    d.querySelectorAll('.yue[data-wk]').forEach((y) => { y.hidden = Number(y.dataset.wk) > n; });
     d.querySelectorAll('.tw').forEach((t) => { t.hidden = ![...t.querySelectorAll('tr[data-wk]')].some((r) => !r.hidden); });
     d.querySelectorAll('.col').forEach((c) => {
       const lis = [...c.querySelectorAll('li[data-wk]')];
@@ -801,6 +873,8 @@ async function loadBrain() {
   }
   brain = createBrain({
     ix, rv, renderPanel, openThread,
+    colour: (s) => sysOf(s).col,
+    order: () => subjectData().hubOrder,
     tours: () => subjectData().tours,
     mapSelected: () => (map && map.ready() ? map.selected() : null),
     newest: newestTopic,
@@ -851,6 +925,9 @@ export function renderRevise() {
   setActiveNav('revise');
   if (!rv.mounted) {
     rv.mounted = true;
+    const savedSubject = read(SUBJECT_KEY, null);
+    if (savedSubject && REVISION[savedSubject]) rv.subject = savedSubject;
+    applySubject();
     const sub = subjectData();
     rv.last = releasedLast(lastWeekOf(sub.data), sub.released);
     const next = resolveWeek(savedPref(), autoNow(), rv.last);
@@ -873,8 +950,19 @@ export function init() {
   /* "Show in the viewer" in the notes, on the Map and on Brain 3D alike */
   document.addEventListener('click', (ev) => {
     const b = ev.target.closest && ev.target.closest('[data-toviewer]'); if (!b) return;
-    const n = ix.byId[b.dataset.toviewer]; const h = n && viewerHit(n.l);
+    const n = ix.byId[b.dataset.toviewer]; const h = n && viewerEligible(n) && viewerHit(n.l);
     if (h) h.go();
+  });
+  /* A link into the other subject: switch to it, at this week if the far box needs it, and open the box. */
+  document.addEventListener('click', async (ev) => {
+    const b = ev.target.closest && ev.target.closest('[data-cross]'); if (!b) return;
+    const week = rv.week;
+    setSubject(b.dataset.cross);
+    const w = firstWeekIn(b.dataset.cross, b.dataset.crossid);
+    if (w != null && w > rv.week) setWeek(week, 'manual');
+    showTab('map');
+    await ensureMap(); /* the Jump menu's listener lives in the map (createMap) */
+    const j = $$('rvJump'); j.value = b.dataset.crossid; j.dispatchEvent(new Event('change'));
   });
 }
 

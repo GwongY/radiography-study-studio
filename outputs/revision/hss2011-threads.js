@@ -17,7 +17,7 @@ export const THREADS_HTML = `<h2>Threads</h2>
   <li data-wk="3"><span class="wk">W1</span><span class="wk">W3</span><span class="hd">Joint.</span> The elbow is a <b>hinge</b> (humeroulnar, humeroradial): flexion. Brachialis works in every forearm position, biceps works best with the palm up, brachioradialis best in mid-pronation. Triceps is the <b>antagonist</b>; shoulder muscles act as <b>fixators</b> (W2 teamwork vocabulary).</li>
   <li data-wk="7"><span class="wk">W1</span><span class="wk">W7</span><span class="wk">W6</span><span class="hd">Feedback.</span> The Golgi tendon organ (tension, at the myotendinous junction) and muscle spindles (length) fire sensory neurons up the posterior root and into the cord. The <b>cerebellum</b> compares them with the command and corrects it.</li>
 </ol>
-<div class="yue"><b>廣東話</b>大腦落命令 → 上運動神經元（皮質脊髓束）→ 交叉（decussation，好似個「X」）→ 脊髓前角嘅運動神經元 → 前根 → 脊神經 → 神經叢 → 神經 → 肌肉 → 關節郁動。左腦控制右手；反饋由肌腱同肌梭上返小腦。</div>
+<div class="yue" data-wk="7"><b>廣東話</b>大腦落命令 → 上運動神經元（皮質脊髓束）→ 交叉（decussation，好似個「X」）→ 脊髓前角嘅運動神經元 → 前根 → 脊神經 → 神經叢 → 神經 → 肌肉 → 關節郁動。左腦控制右手；反饋由肌腱同肌梭上返小腦。</div>
 <div class="cols">
   <div class="col"><h4>Same chain, kicking a ball</h4><p>Motor cortex → corticospinal tract → <b>lumbosacral enlargement</b> → anterior horn → <b>lumbar plexus</b> (L1–L4) → <b>femoral nerve</b> → quadriceps extend the knee (rectus femoris also flexes the hip).</p></div>
   <div class="col"><h4>Same chain, lifting the toes</h4><p>… → <b>sacral plexus</b> (L4–S4) → <b>sciatic nerve</b> → <b>common peroneal</b> → tibialis anterior and the other anterior-compartment muscles dorsiflex the ankle. Tibial nerve takes the opposite job: plantarflexion.</p></div>
@@ -43,7 +43,7 @@ export const THREADS_HTML = `<h2>Threads</h2>
   <div class="col"><h4>Receptive field maths</h4><p>Small receptive field → dense receptors → fine two-point discrimination (fingertips, lips). Large fields (back) can't tell two points apart.</p></div>
   <div class="col"><h4>Where it shows up clinically</h4><p><b>Shingles</b>: virus rides one sensory nerve → band rash in one dermatome. <b>Sciatica</b>: sacral plexus pressure → pain from buttock down the leg (piriformis, a deep lateral rotator from W2, sits beside the sciatic nerve <span class="star">★</span>). <b>Rabies</b> travels the opposite way: up somatic motor nerves, then out along autonomic fibres.</p></div>
 </div>
-<div class="yue"><b>廣東話</b>感覺嘅路：感受器 → 第一級神經元（胞體喺後根神經節）→ 脊髓灰質 → 第二級神經元<b>喺脊髓入面交叉</b>，沿上行傳導束上去 → 丘腦（第三級）→ 頂葉初級體感覺皮質。丘腦係所有感覺嘅「總站」，淨係嗅覺唔經丘腦。</div>
+<div class="yue" data-wk="7"><b>廣東話</b>感覺嘅路：感受器 → 第一級神經元（胞體喺後根神經節）→ 脊髓灰質 → 第二級神經元<b>喺脊髓入面交叉</b>，沿上行傳導束上去 → 丘腦（第三級）→ 頂葉初級體感覺皮質。丘腦係所有感覺嘅「總站」，淨係嗅覺唔經丘腦。</div>
 </div>
 </details>
 
@@ -79,7 +79,7 @@ export const THREADS_HTML = `<h2>Threads</h2>
   <li data-wk="6"><span class="wk">W6</span><span class="hd">Into the brain.</span> CN VIII ends in the medulla and pons. The <b>inferior colliculus</b> handles auditory reflexes such as the startle response; hearing is perceived in the temporal lobe <span class="star">★</span>.</li>
   <li data-wk="6"><span class="wk">W6</span><span class="wk">W4</span><span class="hd">Outputs for balance.</span> The cerebellum adjusts postural muscles, the reticular formation sets tone, and the eye muscles (III, IV, VI) keep the picture steady. See the posture thread.</li>
 </ol>
-<div class="yue"><b>廣東話</b>耳朵三層：外耳（耳廓＝彈性軟骨）→ 中耳（鼓膜、三塊聽小骨、兩條骨骼肌）→ 內耳（耳蝸＝聽覺；前庭＋半規管＝平衡）。全部經第 VIII 對腦神經（前庭蝸神經）入腦幹。</div>
+<div class="yue" data-wk="7"><b>廣東話</b>耳朵三層：外耳（耳廓＝彈性軟骨）→ 中耳（鼓膜、三塊聽小骨、兩條骨骼肌）→ 內耳（耳蝸＝聽覺；前庭＋半規管＝平衡）。全部經第 VIII 對腦神經（前庭蝸神經）入腦幹。</div>
 </div>
 </details>
 
@@ -117,7 +117,7 @@ export const THREADS_HTML = `<h2>Threads</h2>
   <li data-wk="7"><span class="wk">W6</span><span class="wk">W7</span><span class="hd">Spatial logic of the parasympathetic.</span> CN III, VII, IX supply the head (pupil and ciliary muscle <span class="star">★</span>; tears, saliva and nasal mucus; parotid saliva <span class="star">★</span>); <b>X (vagus)</b> supplies the viscera (heart rate, bronchoconstriction, gut). Ganglion parked at the organ → very short postganglionic fibre.</li>
   <li data-wk="7"><span class="wk">W7</span><span class="hd">Visceral reflex example.</span> High blood pressure → baroreceptors in vessel walls → afferent neurons → medulla (interneurons) → efferent autonomic neurons → heart and vessels adjust. It is the same afferent → centre → efferent chain as the spinal reflex, just slower.</li>
 </ol>
-<div class="yue"><b>廣東話</b>記法：<b>交感</b>神經節喺脊柱旁邊（遠離器官）→ 節前纖維<b>短</b>、節後纖維<b>長</b>。<b>副交感</b>神經節貼住器官 → 節前<b>長</b>、節後<b>短</b>。交感＝胸腰段（thoracolumbar）；副交感＝腦＋骶段（craniosacral：III、VII、IX、X）。</div>
+<div class="yue" data-wk="7"><b>廣東話</b>記法：<b>交感</b>神經節喺脊柱旁邊（遠離器官）→ 節前纖維<b>短</b>、節後纖維<b>長</b>。<b>副交感</b>神經節貼住器官 → 節前<b>長</b>、節後<b>短</b>。交感＝胸腰段（thoracolumbar）；副交感＝腦＋骶段（craniosacral：III、VII、IX、X）。</div>
 </div>
 </details>
 
@@ -202,7 +202,7 @@ export const THREADS_HTML = `<h2>Threads</h2>
       <li data-wk="7"><b>Conjunctiva + tears:</b> moisten and clean the eye</li>
     </ul></div>
 </div>
-<div class="yue"><b>廣東話</b>肌肉同神經包膜用同一套字頭：<b>epi</b>＝最外層（成條肌／成條神經）、<b>peri</b>＝包住一束（fascicle）、<b>endo</b>＝包住單一條肌纖維／軸突。保護好似「盒＋膜＋液」：骨盒、三層膜、腦脊髓液。</div>
+<div class="yue" data-wk="7"><b>廣東話</b>肌肉同神經包膜用同一套字頭：<b>epi</b>＝最外層（成條肌／成條神經）、<b>peri</b>＝包住一束（fascicle）、<b>endo</b>＝包住單一條肌纖維／軸突。保護好似「盒＋膜＋液」：骨盒、三層膜、腦脊髓液。</div>
 </div>
 </details>
 

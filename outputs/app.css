@@ -1410,6 +1410,8 @@ ul.asslines{list-style:none;margin:0;padding:0}
 #reviseView .rv-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-bottom:12px}
 #reviseView .rv-weekbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 #reviseView .rv-weekbar .rv-lab{margin-right:2px}
+#reviseView .rv-subjects{display:flex;flex-wrap:wrap;gap:6px;align-items:center;width:100%}
+#reviseView .rv-subjects .rv-chip{min-height:44px;padding:8px 18px}
 #reviseView .rv-weeknote{margin:0;flex:1 1 220px}
 #reviseView .rv-lab,#reviseView .rv-jlab{font:500 12px ui-monospace,SFMono-Regular,Menlo,monospace;font-size:calc(12px * var(--ts));color:var(--rv-muted);text-transform:uppercase;letter-spacing:.06em}
 #reviseView .rv-chip{font:500 13px ui-monospace,SFMono-Regular,Menlo,monospace;font-size:calc(13px * var(--ts));color:var(--rv-ink2);background:var(--rv-surface);border:1px solid var(--rv-line);border-radius:999px;padding:6px 12px;min-height:34px;cursor:pointer}

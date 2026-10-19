@@ -226,6 +226,7 @@ for (const subject of Object.values(REVISION)) {
   const untaggedSteps = (subject.threads.match(/<li>/g) || []).length;
   const untaggedRows = (subject.threads.match(/<tr>\s*<td/g) || []).length;
   ok(untaggedRows === 0, 'every thread table row has a week');
+  ok(!/<div class="yue">/.test(subject.threads || ''), 'every 廣東話 line carries the week it may show from');
   ok((need ? steps.length > 0 : true) && untaggedSteps === 0, `every thread step has a week (${steps.length} steps)${need ? '' : ' — fragments not required yet'}`);
   const rows = tagged(subject.tables, /<tr data-wk="(\d+)"/g);
   const boxes = tagged(subject.tables, /<div class="note-box" data-wk="(\d+)"/g);
