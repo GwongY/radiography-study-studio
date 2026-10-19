@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v222';
+const CACHE_VERSION = 'v223';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -157,6 +157,7 @@ const SHELL = [
   './study/subject.js',
   './study/revise.js',
   './study/revise-brain.js',
+  './study/revise-links.js',
   './study/text-size.js',
   './study/what-is-under.js',
   './study/briefing-access.js',
@@ -195,7 +196,11 @@ const SHELL = [
      is cached on first use like the models, so Brain 3D works offline after it has been opened once. */
   './revision/weeks.js?v=1',
   './revision/registry.js?v=1',
+  './revision/hub.js?v=1',
+  './revision/link-rows.js?v=1',
   './revision/hss2011-data.js',
+  './revision/leaves.js',
+  './revision/hss2011-leaves-w2.js',
   './revision/hss2011-threads.js',
   './revision/hss2011-tables.js',
   './revision/hss2011-decoder.js',
