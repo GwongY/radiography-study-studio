@@ -9,6 +9,7 @@
  * promise, so a change to one fails here before it reaches a phone.
  */
 import { leafLine, mergeLeaves } from '../outputs/revision/leaves.js';
+import { linkRows } from '../outputs/revision/link-rows.js';
 
 let fail = 0;
 const ok = (good, msg) => { console.log(`  ${good ? 'ok  ' : 'FAIL'} ${msg}`); if (!good) fail++; };
@@ -51,6 +52,19 @@ const twice = mergeLeaves(base, [
 ]);
 ok(twice.EDGES.filter((e) => pairKey(e[0], e[1]) === 'p|q').length === 1, 'the same pair is linked once, the first reason kept');
 ok(mergeLeaves(base, []).EDGES.length === 1, 'no rows, no change');
+
+console.log('\nnumbered links list');
+const names = { a: 'Alpha', b: 'Bravo', c: 'Charlie', p: 'Parent branch' };
+const R = linkRows([['c', 'why c'], ['a', 'why a'], ['b', 'why b']], {
+  label: (id) => names[id],
+  visibleAs: (id) => (id === 'b' ? 'p' : id === 'c' ? null : id),
+});
+ok(R.map((r) => `${r.n}${r.id}`).join() === '1a,2b,3c', 'rows sorted by name and numbered from 1, including links not drawn');
+ok(R[1].at === 'p' && R[1].inside === 'Parent branch' && R[0].inside === '', 'a link into a folded branch names the branch it is inside');
+ok(R[2].at === null && R[2].inside === '', 'a link with nowhere to draw keeps its number and has no line');
+ok(linkRows(undefined, { label: (id) => id }).length === 0, 'no links, no rows');
+const plain = linkRows([['b', 'x'], ['a', 'y']], { label: (id) => names[id] });
+ok(plain.every((r) => r.at === r.id), 'without visibleAs every link is drawn to itself (the 3D hub)');
 
 console.log(fail ? `\n${fail} FAILED` : '\nALL PASS');
 process.exit(fail ? 1 : 0);
