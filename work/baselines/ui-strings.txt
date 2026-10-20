@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1042 —
-  806ce5423b3ca33b  WHOLE SET
+— user-facing strings in outputs/ — 1070 —
+  eeb8437911abb376  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -121,6 +121,7 @@
   104dbe0e4864608b  <button class="sres" data-recent="
   4e33c3206cbfafcf  <button data-nav="
   a92d150b6b9eeea2  <button data-show="
+  e5fac5d3048d95d7  <button type="button" class="mz-tag" data-cz-tag="
   b186fe40b4cf8cc2  <button type="button" class="mz-tag" data-mz-tag="
   a50502455aa65c33  <button type="button" class="nbtn" data-cross="
   25f49e24208984d6  <button type="button" class="nbtn" data-node="
@@ -131,6 +132,10 @@
   b2f06ab240053277  <button type="button" class="rv-chip" data-week="
   7be6ad5156454d4e  <button type="button" class="rv-linkbtn" data-to3d="
   5037f4fbb7be28c4  <button type="button" class="term" data-term="
+  f80810c7b1b63271  <button type="button" data-cz-label="
+  fa7032ba339fc668  <button type="button" data-cz-level="
+  9bb5af6c504888a9  <button type="button" data-cz-side="
+  e82fefb511f86939  <button type="button" data-cz-stage="
   f67a053a761acb59  <button type="button" data-ha-echo="
   a11210dc5f7b44a3  <button type="button" data-ha-preset="
   068e3f966e869db7  <button type="button" data-la-preset="
@@ -170,6 +175,8 @@
   65da2d38aebef408  <li class="assrow
   996b63bf35e081b7  <li class="progrow
   4a0089a78242886e  <li class="sessrow
+  be3aba666bfdd183  <optgroup label="
+  5f0ccbf50845efd8  <option value="
   16b4b492a8dc070b  <option value="">Pick a pathway…</option>
   e118852a651db556  <option value="">Pick a topic…</option>
   1e3664261ca012db  <p class="small">Enable a layer to adjust opacity.</p>
@@ -258,18 +265,26 @@
   2863d4882fc93b85  CRANium is the cap that holds the brain.
   f4bfeb743bb75d23  Cavities behind the anatomy, correctly occluded.
   9cd4f2c0c016002f  Cavities drop back to a hint so the structures lead.
+  0abe1b280d4123f3  Cell zoom controls
+  736e18345c169782  Cell zoom entry failed; restoring the viewer.
+  1166eb6e8260ba58  Cell zoom failed.
+  02f919406d56e574  Cell zoom stopped; closing the mode.
+  20ccfbead7fd8178  Cell zoom toggle failed.
   9eb78b423e03f32d  Chambers and valves
   b21cbce6bf98471b  Check this
   4cad109bd8bf7ba8  Choose a bone landmark
   55c8c832892fe4f2  Circulation extras
   7650ff8a60e6603c  Circulatory system
+  7876ed130a20acb5  Close Projection before opening the cell.
   cd9a490533f1b735  Close Projection before opening the heart atlas.
   223b2c2730a583d5  Close Projection before opening the limb vessels.
   807a858293ba89b7  Close Projection before zooming inside the muscle.
+  8a6f52384d12971e  Close cell zoom
   85a5949c778aeb96  Close limb vessels
   2d3ebc08516671d2  Close muscle zoom
   5fa16ee16664ed54  Close older Study Studio tabs to finish removing the retired question bank.
   55656b5e434f4c06  Close search
+  9992955f88bfc326  Close the focused lesson before opening the cell.
   a90bf56c4253f69c  Close the focused lesson before zooming inside the muscle.
   e57c17d13927ddf0  Close the heart atlas
   7b41319301f2ac0e  Colour key
@@ -279,6 +294,7 @@
   dd3713b4cdcac4eb  Conduction system
   a75d43a157167800  Confirm it if that is right.
   e889a1ffb05f45ba  Connect a read-only GitHub token to read the private weekly university notice summary on Today.
+  4f5a14daaa35a052  Connect once to download the cell zoom for offline use.
   ea15571d2e81759e  Connect once to download the circulatory layer for offline use.
   932723c34f1019ae  Connect once to download the muscle zoom for offline use.
   ecfa0bb83a393a74  Connect once to download the vessel routes for offline use.
@@ -461,6 +477,7 @@
   e40373a04bdb6c6d  Loading limb vessels…
   ccc3f0daa040bf01  Loading skeleton, muscle, organs and heart…
   24c4a56f525fe0d9  Loading the Z-Anatomy skeleton — 159 named structures, 80 of them named by your course material, 88 things you can select. The other six system layers load on demand.
+  f9ea23dbcdd4c045  Loading the cell…
   d9ebad5495305a37  Loading the skeleton layer
   0a6e65f24e308098  Loading the zoom…
   f244cc971bb836e5  Lymph nodes of the abdomen
@@ -603,6 +620,7 @@
   2150d8df37e48957  Show all
   6eabbe9ab1e22c72  Show all in the Viewer
   2d36fe08484d4ec4  Show all parts
+  bb014a51cb97f362  Show in 3D
   aa8ea843d6a657b5  Show in the viewer
   d0b966e35ee96fdd  Show the skeleton around the heart
   f0c80dc7d3d237d2  Show the skeleton around the vessels
@@ -668,6 +686,9 @@
   bced9d6acc82a832  The M-mode position comes from the 3D model; myocardial thickening and valve motion are physiological simulation, and the numbers are teaching values.
   410d485ff7e6b46b  The Respiratory System.pdf
   9ebdb7b20f4558c3  The briefing file is malformed:
+  276d783fd6a300ae  The cell zoom could not open. Your viewer has been restored; try again.
+  7d1b292ebb730c43  The cell zoom mode
+  94019b2d05ae8f3f  The cell zoom stopped after an error. The 3D viewer is still running.
   a1ff59cbc2ef3956  The cerebral circulation the Module 2 lectures never teach but the stroke fill-in-the-blank tests every year — the arterial circle (circle of Willis / cerebral arterial cycle), the internal carotid and vertebral inflow, the dural venous sinuses, and the meningeal layers. Registered for SP1 Module 2.
   7817299cb7910466  The chain you walked
   f445cb8ba3f6b544  The circulatory layer did not load.
@@ -701,6 +722,7 @@
   ef8f211af701c4cb  The muscle zoom could not open. Your viewer has been restored; try again.
   69feac2d1f218a5c  The muscle zoom stopped after an error. The 3D viewer is still running.
   c30d436bb4db379e  The nine abdominopelvic regions
+  98c82a2d6198ea3b  The nucleosome is the Protein Data Bank's PDB 3AFA (Tachiwana et al. 2010; CC0): its DNA, base pairs and histones as measured. The linker DNA, its neighbours and every other cell and stage are drawn for this app, schematic, not to scale. Labels and notes are the HSS2011 and ABCT2326 slides' and tutorials' words.
   f03b5c49a3a60d37  The numbers on the lines match the
   1ee065c69f618147  The only horizontal long bone: an S-shaped key between sternum and shoulder.
   9539cace1b778297  The private repository or notice file was not found.
@@ -865,6 +887,8 @@
   678af8d54d4b2e77  has no title.
   d3626567f9a5400b  have I learnt it
   c3d0e71b3b1207de  heart-atlas-panel muscle-zoom-panel
+  691186cc46e7dea0  heart-atlas-panel muscle-zoom-panel cell-zoom-panel
+  5d51fe71f02c7011  heart-atlas-toggle cell-zoom-toggle
   13e89492fe874fed  heart-atlas-toggle limb-atlas-toggle
   801150784042ae58  hiddentray empty
   1627ca8d8438acb8  how far does this region reach
@@ -903,6 +927,7 @@
   2404a2a6da56a404  more in the list
   9926eafbd8d2de07  more step
   65ee551fb198c26a  must be an ISO timestamp with an offset.
+  4556753a3e8ba9c8  mz-contract cz-stages
   2db7c5d825e1b1e4  named atlas structure
   4f80462d467f4c06  named by your course ·
   19b05a182a8f5ce6  named by your course,
@@ -938,6 +963,9 @@
   413af7071953d105  rv-chip rv-subj
   2acea9fe38b93d3f  rv-tag sys
   645dd7161deaf67a  rv-weeknote small
+  aec5179492e675e7  s "Show in 3D": the viewer
+  674137d425f5c5ff  s Cell mode at this box
+  3cc4e2b58f65e17a  s PDB 3AFA (Tachiwana et al. 2010; CC0): its DNA, base pairs and histones as measured. The linker DNA, its neighbours and every other cell and stage are drawn for this app, schematic, not to scale. Labels and notes are the HSS2011 and ABCT2326 slides
   2c0e6e68763510e0  s `root`; the vessels themselves are the explorer
   0eda74d519563cb0  s camera regions: a box in a limb
   039ed7115face420  s depth is a fraction of the vessel

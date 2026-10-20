@@ -1401,6 +1401,17 @@ names it.
 - **Tall stages stand the levels up.** On a stage whose part the dock leaves visible is more than 1.3x taller than wide (a tablet beside the dock) the root turns 90 degrees about z and each level's view direction turns with it; the junction never does.
 - **`frameWorldBox` (heart-atlas.js) shifts the view only when the dock overlaps the stage.** At tablet widths the dock sits beside the stage and is still wider than 60% of it; the old test then shifted every framed scene up by half a screen, in all three atlas modes.
 
+### The cell zoom mode -- `outputs/studio/cell-zoom.js`, `outputs/cell/`, `outputs/cell-zoom.js`, `work/cell-zoom-check.mjs`
+
+- **The fourth atlas mode: `state.heartAtlasOn` plus `state.cellZoomOn`.** Its `init()` wraps `window.__osteo.exitHeartAtlas` after the muscle zoom's (order in `studio.js`), and heart-atlas.js checks `cellZoomOn` in its three guards. A fifth mode needs all three guards again.
+- **Size the scenes to the camera, not to the view.** The viewer's `controls.maxDistance` (45) and `camera.far` (100) clamp a framed level; the root is scaled from them, and `framePose` raises `maxDistance` (the exit snapshot restores it). Scaling from the current camera distance looked right on a desktop and cropped every round level on a phone.
+- **`frameWorldBox` fits the whole stage, then shifts into the part the dock leaves.** On a phone the dock covers about two thirds of the stage, so `framePose` widens the margin by the open fraction (`openFraction()`), and tags the dock would cover are hidden. Long levels stand up only when the *open* part is portrait.
+- **One material per labelled part.** `kit.show()` fades a part by its materials' opacity and a highlight sets their emissive; a material shared by two parts fades or lights both. Drawn-but-unlabelled things (the DNA helix in protein synthesis, the pumps in the parietal cell) are left untagged, so they are never picked.
+- **`presence` decides which tags a stage shows.** A stage function that hides a part must `show(lv, part, 0)`, or its tag stays on screen over nothing (cAMP with no hormone was this bug).
+- **Stage k runs from s = k to s = k + 1;** a chip plays its own stage from its start, and the stage shown at s is `ceil(s) - 1`. The expression slider's stage list depends on the hormone (`stagesFor(slider, signal)`), so its length changes with the signal.
+- **`nucleosome-3afa.js` is generated** by `work/build-cell-nucleosome.mjs` from the PDB 3AFA mmCIF (not committed; download it from RCSB). Never edit it; the check holds it to 2 x 146 nucleotides, every pair A-T or G-C, and eight histones.
+- **Labels are checked, geometry is not** -- as the muscle zoom. A word no page uses goes in `UNLABELLED` and stays undrawn as a label; the check refuses it as a label name.
+
 ### Revise — week-gated fragments — `outputs/study/revise.js`, `outputs/revision/`, `work/revision-check.mjs`
 
 - **Revise ↔ viewer is a table, not a search.** `outputs/revision/viewer-units.js` is

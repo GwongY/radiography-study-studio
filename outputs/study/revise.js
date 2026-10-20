@@ -31,6 +31,8 @@ import { crossFor, legendKeys, viewerEligible } from '../revision/rules.js?v=1';
 import { CROSS } from '../revision/cross-links.js?v=1';
 import { UNIT_BOXES, VIEWER_UNITS } from '../revision/viewer-units.js?v=1';
 import { openUnitInViewer } from './global-search.js';
+import { openCellInViewer } from './search-viewer-open.js';
+import { showIn3D } from '../cell-zoom.js?v=1';
 import { createBrain } from './revise-brain.js';
 
 /* ------------------------------------------------------------------ *
@@ -300,7 +302,7 @@ function renderPanel(id, el) {
     }))}</p>` : '';
     h += `<div class="rv-note">${said}${n.t}</div>`;
     const vh = viewerEligible(n) ? viewerUnit(id) != null : false;
-    h += `<p class="rv-to3d"><button type="button" class="rv-linkbtn" data-to3d="${esc(id)}">Connections in 3D (${(ix.NB[id] || []).length})</button>${vh ? ` <button type="button" class="rv-linkbtn" data-toviewer="${esc(id)}">Show in the viewer</button>` : ''}</p>`;
+    h += `<p class="rv-to3d"><button type="button" class="rv-linkbtn" data-to3d="${esc(id)}">Connections in 3D (${(ix.NB[id] || []).length})</button>${vh ? ` <button type="button" class="rv-linkbtn" data-toviewer="${esc(id)}">Show in the viewer</button>` : ''}${showIn3D(rv.subject, id) ? ` <button type="button" class="rv-linkbtn" data-tocell="${esc(id)}">Show in 3D</button>` : ''}</p>`;
     /* The owner's answer 8: the same thing in the other subject, once its week is reached. Tapping switches subject. */
     const cross = crossFor(CROSS, rv.subject, id, rv.week, firstWeekIn);
     for (const sub of [...new Set(cross.map((c) => c.subject))]) {
@@ -1009,6 +1011,12 @@ export function init() {
     const b = ev.target.closest && ev.target.closest('[data-toviewer]'); if (!b) return;
     const n = ix.byId[b.dataset.toviewer]; const u = n && viewerEligible(n) ? viewerUnit(n.id) : null;
     if (u != null) openUnitInViewer(u);
+  });
+  /* "Show in 3D": the viewer's Cell mode at this box's level, stage and label */
+  document.addEventListener('click', (ev) => {
+    const b = ev.target.closest && ev.target.closest('[data-tocell]'); if (!b) return;
+    const t = showIn3D(rv.subject, b.dataset.tocell);
+    if (t) openCellInViewer(t);
   });
   /* A link into the other subject: switch to it, at this week if the far box needs it, and open the box. */
   document.addEventListener('click', async (ev) => {

@@ -25,6 +25,14 @@ export function openStructureInViewer(spec) {
     }
   }, 140);
 }
+/* Revise's "Show in 3D": the viewer's Cell mode, at a level, stage and label (outputs/cell-zoom.js SHOW_IN_3D). */
+export function openCellInViewer(target) {
+  ui.viewerTab = '3d';
+  goTo('viewer');
+  setTimeout(() => {
+    if (window.__osteo && window.__osteo.enterCellZoom) void window.__osteo.enterCellZoom(target).catch((error) => console.error('Cell zoom failed.', error));
+  }, 140);
+}
 function showUncoverBanner(target, names) {
   const el = $$('uncoverBanner');
   if (!el) return;

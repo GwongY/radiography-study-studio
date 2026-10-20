@@ -20,6 +20,7 @@ import { init as init_tools_and_capture_js } from './studio/tools-and-capture.js
 import { init as init_heart_atlas_js } from './studio/heart-atlas.js';
 import { init as init_limb_atlas_js } from './studio/limb-atlas.js';
 import { init as init_muscle_zoom_js } from './studio/muscle-zoom.js';
+import { init as init_cell_zoom_js } from './studio/cell-zoom.js';
 import { init as init_circulation_extras_js } from './studio/circulation-extras.js';
 
 init_hide_and_search_js();
@@ -31,6 +32,7 @@ init_tools_and_capture_js();
 init_heart_atlas_js();
 init_limb_atlas_js(); /* after the heart atlas: it wraps window.__osteo.exitHeartAtlas */
 init_muscle_zoom_js(); /* after the limb vessels: it wraps the same hook again */
+init_cell_zoom_js(); /* after the muscle zoom: and again */
 init_circulation_extras_js();
 /* Last: its __osteo surface must exist by the time the study half's viewer
    page asks for it, and the ctrlpill routing it reads was wired by
