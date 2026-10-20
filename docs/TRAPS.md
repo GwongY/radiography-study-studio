@@ -1393,6 +1393,7 @@ names it.
 
 - **It is the third atlas mode: `state.heartAtlasOn` plus `state.muscleZoomOn`.** Its `init()` wraps `window.__osteo.exitHeartAtlas` again, so it must run after the limb vessels' `init()` (order in `studio.js`); the heart atlas's own `exitHeartAtlas()`, its toggle and its `enterHeartAtlas()` check `muscleZoomOn` as they check `limbAtlasOn`. A new atlas mode needs the same three guards.
 - **The button lives on the selection card and follows `#selectedName`** (a MutationObserver, as Revise's "In Revise" does). It shows only for a muscle-layer mesh in the Muscles chip (`userData.systems` includes `muscle`), not for tendons, fasciae or bursae. On a phone the card is inside the Explore panel: the button is reached by Explore, not on the stage.
+- **Entry lands on Organization of muscle**, flying in from the tapped muscle (the owner's ask: "Zoom inside" goes inside, not just to a framed muscle). The muscle stays the path's first step.
 - **The whole muscle is a clone, not the original.** Entry turns every layer off (the snapshot gives them back), so the tapped meshes are hidden with their layer; `cloneMuscle` shares their geometry and bakes their `matrixWorld`. Dispose only the clone's material, never the shared geometry.
 - **Revise links cross the seam by an event, not by import.** The studio cannot see the week gate, so the panel dispatches `osteo:revise-slot` with `{ el, boxes: [[subject, id]] }` and `study/revise.js` paints the slot with the boxes the week each subject shows has taught -- an empty slot before ABCT2326 week 11 is correct, not a bug.
 - **The labels' words are checked, the geometry is not.** `muscle-zoom-check.mjs` holds every title, label, note and quote to its cited page and every label to a part in `PARTS`; add a label and its part together. A note is the slide's words cut, never rephrased -- the check compares it verbatim. A label written "Name (ABBR)" passes when both halves are on the page.
@@ -1437,20 +1438,3 @@ names it.
 - **The browser check needs a visible, real page.** In the Browser pane while it is hidden, the Map's transitions do not run and the first Jump-to after a render opens nothing; run `work/revise-browser-check.js` in real Chrome (or with the pane shown). It now waits for a box's notes to open instead of reading them at once.
 - **With 14 balls the number dots crowd near the centre at 390 px wide.** Legible, but tapping a list row is more reliable than tapping a dot there.
 
-### Joint movements — `outputs/movements.js`, `outputs/studio/live-physiology.js`, `outputs/studio/tools-and-capture.js`
-
-- **Ending a movement must put each mesh's own transform back, not re-attach it.**
-  `parent.attach(mesh)` keeps the world transform, so re-attaching while the pivot group
-  is still rotated leaves the bones where the slider left them. `startMovement` stores each
-  mesh's local position, quaternion and scale; `endMovement` re-adds and copies them back.
-  `work/movement-browser-check.js` requires matrixWorld to be identical after Stop and reset.
-- **`sign` is measured, not assumed.** The axis vectors came from the retired corpus and two
-  of three turned the wrong way (the hand went backwards in "flexion", across the body in
-  "abduction"). The browser check holds the direction of each; change an axis and run it.
-- **Starting a movement resets its slider to rest.** Read the slider's value before calling
-  `startMovement`, or the first drag drives the bones to 0.
-- **List every bone that rides along.** The hand list once had no phalanges, so the fingers
-  stayed in mid-air while the forearm moved. `work/movement-check.mjs` fails if any right-hand
-  bone in the GLB is missing from a movement that moves the hand.
-- **Names come off 2026 slides only.** Opposition of the thumb is not on any 2026 HSS2011
-  page, so it is not offered; the check holds each name, joint and range end against a cited page.

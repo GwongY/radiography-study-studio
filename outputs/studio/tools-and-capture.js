@@ -18,8 +18,7 @@ import { bodyMetrics } from './spatial-concept-overlays.js';
 import { cavityContext, gridMetrics } from './cavity-geometry-derived.js';
 import { clearConcepts, showToast } from './modes-and-bridge.js';
 /* layerOn: a layer is on when any of the systems it draws is -- systems.js. */
-import { endMovement, renderXray, setMovementAngle, startMovement } from './live-physiology.js';
-import { MOVEMENTS } from '../movements.js?v=1';
+import { renderXray } from './live-physiology.js';
 import { SOURCE_FILES } from '../study/course-data.js';
 import { applyPackedSpread, endPackedSpread, restorePackedSpread } from './packed-spread.js';
 
@@ -487,7 +486,6 @@ export function setSeparation(v){
    * chest wall. Refused rather than allowed to lie.
    */
   if(state.xray&&t>0){ showToast('The projection needs the body assembled.'); return separation(); }
-  if(t>0&&state.movement)endMovement();
   const was=state.separation||0;
   if(t>0&&was===0){clearCut();}
   state.separation=t;
@@ -541,41 +539,7 @@ export function snapshot(){
   }catch(e){ return null; }
 }
 
-/* ------------------------------------------------------------------ *
- * Movements
- *
- * One row per joint movement (outputs/movements.js): its slide name, the joint,
- * a slider between the two ends of its range, and the 2026 page that names it.
- * Moving a slider starts that movement if another is running; Stop and reset
- * puts every bone back exactly (endMovement restores each mesh's own transform).
- * ------------------------------------------------------------------ */
-function renderMovements(){
-  const list=document.getElementById('mvList');
-  if(!list)return;
-  const esc=(v)=>String(v).replace(/[&<>"]/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const rest=(m)=>Math.max(m.range[0],Math.min(m.range[1],0));
-  list.innerHTML=MOVEMENTS.map((m)=>`<div class="mv-item" data-mv="${esc(m.id)}">
-    <div class="mv-head"><b>${esc(m.label)}</b><small>${esc(m.joint)} · ${esc(m.side)} <span class="mono" data-mvread="${esc(m.id)}"></span></small></div>
-    <label class="mv-range"><span>${esc(m.ends[0])}</span><input type="range" min="${m.range[0]}" max="${m.range[1]}" step="1" value="${rest(m)}" data-rest="${rest(m)}" data-mvslider="${esc(m.id)}" aria-label="${esc(m.label)}"><span>${esc(m.ends[1])}</span></label>
-    <div class="mv-src">${m.cite.map((c)=>`HSS2011 · ${esc((SOURCE_FILES[c.ref]||{}).file||c.ref)} p${c.page}`).join(' · ')}</div>
-  </div>`).join('');
-  list.querySelectorAll('[data-mvslider]').forEach((sl)=>{
-    sl.addEventListener('input',()=>{
-      const m=MOVEMENTS.find((x)=>x.id===sl.dataset.mvslider);
-      const want=+sl.value;   /* read first: starting a movement puts its slider at rest */
-      if(!state.movement||state.movement.mv.id!==m.id){
-        if(!startMovement(m)){sl.value=sl.dataset.rest;return;}
-        list.querySelectorAll('.mv-item').forEach((it)=>it.classList.toggle('on',it.dataset.mv===m.id));
-      }
-      setMovementAngle(want);
-    });
-  });
-  const reset=document.getElementById('mvReset');
-  if(reset)reset.onclick=()=>{endMovement();list.querySelectorAll('.mv-item').forEach((it)=>it.classList.remove('on'));};
-}
-
 export function init(){
-  if(typeof document!=='undefined')renderMovements();
   state.separation=0;
   state.spreadMode='pieces';
   if(typeof window==='undefined'||!window.__osteo) return;

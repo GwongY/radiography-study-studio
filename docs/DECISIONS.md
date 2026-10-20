@@ -5,6 +5,15 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-20 — Joint movements removed, engine and all
+
+The owner asked for the **Moves** tool to go "totally and its code". The bottom
+bar's Moves button and panel, `outputs/movements.js`, the joint-movement engine
+in `studio/live-physiology.js` (pivot groups, soft-tissue holding), its
+`__osteo` methods and both movement checks are gone. Revise's Movement
+vocabulary box is untouched. This supersedes the entry below of the same day;
+do not bring the tool back without the owner asking.
+
 ### 2026-10-20 — Muscle zoom: the model's muscle, then procedural levels
 
 Tap a skeletal muscle, then **Zoom inside**: the muscle (the model's own mesh),

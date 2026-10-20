@@ -54,7 +54,6 @@ export const CHECKS = [
   ['bone-landmarks-build', 'work/build-bone-landmarks.mjs', '--check'],
   ['bone-landmarks', 'work/bone-landmark-check.mjs'],
   ['cut-level', 'work/cut-level-check.mjs'],
-  ['movement', 'work/movement-check.mjs'],
   ['muscle-zoom', 'work/muscle-zoom-check.mjs'],
   ['separation', 'work/separation-check.mjs'],
   ['full-atlas', 'work/full-atlas-check.mjs'],

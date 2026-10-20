@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1034 —
-  b51077348995f61a  WHOLE SET
+— user-facing strings in outputs/ — 1024 —
+  de253082ac490ebe  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -22,8 +22,6 @@
   8ea7e01970b3f34f  " data-depth="
   5265bd1a089ac9df  " data-groupopt="
   9d18b1672389d7fe  " data-groupset="
-  d07ebb87e1cca21f  " data-mvslider="
-  0916d2ff50dcb696  " data-rest="
   d73ec115ea9142c9  " data-state="
   ac18f6537d5721f5  " data-title="
   e2d80c92ddbb5f6d  " data-vtab="
@@ -33,7 +31,6 @@
   31b82f574a8c3ef0  " hidden><i style="background:var(--rv-c-
   46d6bbe92726dad5  " placeholder="—"
   f847813600bc8f62  " role="status">
-  e46944af191c11de  " step="1" value="
   eb82935571faaac8  " style="--acc:
   3921811003af6587  " style="padding:6px 10px">Link them →
   7a0a29093207a5f2  " style="padding:6px 10px">Revise →
@@ -149,7 +146,6 @@
   cce4305b03b60844  <div class="emptybox">Outside the teaching term — use the full-term view.</div>
   32ac2097168e30ba  <div class="emptybox">There is no next teaching week — the term ends this week.</div>
   81bbed0091211144  <div class="layerhint">tap to cycle · solid → ghost → off</div>
-  4ef88844437103f1  <div class="mv-item" data-mv="
   b72e23b04ca38453  <div class="note">Red is oxygenated, blue is not — which is why the pulmonary artery is blue-violet and the pulmonary veins are red. Vessel type does not decide the colour; what it carries does.</div>
   28c656ec553bbafd  <div class="nowcard
   ab35719b544daab9  <div class="ohead">Cavities</div>
@@ -168,7 +164,6 @@
   700d0e6637c671e0  <input type="checkbox" data-ha-part="
   660caf1b880e86b7  <input type="checkbox" data-ha-show="
   1b8b5718b484b569  <input type="checkbox" id="ceDots"
-  d958a4f248eaaf6a  <input type="range" min="
   3a324e9e0d188447  <input type="range" min="8" max="100" value="
   65da2d38aebef408  <li class="assrow
   4a0089a78242886e  <li class="sessrow
@@ -191,7 +186,6 @@
   0f87e484d07b041c  <span class="livenow">On now</span>
   ddc6aca43efa6a7e  <span class="mmt mmb" style="--bc:var(--c-
   b83f09d243f67fb8  <span class="mono" data-depthread="
-  4cd4fa59b810a429  <span class="mono" data-mvread="
   62bc3808f16130c2  <span class="mono" style="color:
   79494432a3df21c8  <span class="openwk">This week</span>
   24337fc436267890  <span class="pc" style="color:
@@ -501,6 +495,7 @@
   dd5d38109490e655  Named in
   884edaf6a85ff6cc  Named in your notes, on the other side
   7a7ed8508aa3a822  Named structure in the
+  45f0a3e44678584e  Named structure in the ... layer
   1072a05d6e1e212d  Nearest first. Tap any of them, or tap the model again in the same spot to step deeper.
   16916d40e94cebba  Nervous system
   e8f4e93d3af4fe80  Neuromuscular junction →
@@ -717,7 +712,6 @@
   749efd01151fa0f2  This is the
   8c4eef5ab2532515  This week
   2a2abf143c0b1cb9  Thoracic cage
-  8278421692e43358  Those bones are not in the loaded model.
   60fbbc864f3e78f7  Timetable to your calendar
   e8b3b668039def92  Timetable, syllabus, assessments
   4aeae9b304c159f5  Topic 01.pdf
@@ -813,7 +807,6 @@
   db8cb666a550bed1  could not load
   8936e4bc4884d331  could not locate that structure
   6c1f17a2f0ae1dbd  coverageEnd is before coverageStart.
-  dac737fee4061808  cross the joint, so they are ghosted and held still: a rigid rotation would pull them off the bone they start on.
   a419fe7f15c0a5e3  dated sessions written to radiography-timetable.ics — open it to add them to your calendar.
   b0b164def6e14665  deadline must be null or ISO with an offset.
   bbb10c71f4b6d8f3  density += n * uSigma * (0.35 + 0.65 * density);
@@ -894,7 +887,6 @@
   2404a2a6da56a404  more in the list
   9926eafbd8d2de07  more step
   65ee551fb198c26a  must be an ISO timestamp with an offset.
-  f46b7e5ab634f52d  mv-note hidden
   2db7c5d825e1b1e4  named atlas structure
   4f80462d467f4c06  named by your course ·
   19b05a182a8f5ce6  named by your course,
@@ -961,11 +953,9 @@
   2c7793c890df5263  skipped lines.
   7e1d4ce29beaeb4e  skipped must be an array.
   5c6db2f77cfe003a  small cut-levelnote
-  02cd0ea26e98c0c8  small mv-revise
   535432277ab15c02  small term-number
   31c5f19d08e70b45  so far' :
   b06f2f1ca52fc976  soft-tissue mesh
-  f69e4d17ef14bc81  soft-tissue structures move with the bones.
   29a944fb41484f0b  something is wrong
   b43e10e950501611  source.from is missing.
   dd6b1fb86b59799a  source.quote is missing.

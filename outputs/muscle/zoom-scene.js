@@ -281,7 +281,8 @@ export function createMuscleZoom(THREE) {
     fibril.brackets.sarcomere.userData.set(-h * K, h * K, top, 1);
     fibril.brackets.aband.userData.set(-a, a, bot, -1);
     fibril.brackets.hzone.userData.set(-hz, hz, bot - 0.55, -1);
-    fibril.brackets.iband.userData.set(L - h * K - (h * K - a), L - h * K + (h * K - a), top, 1);
+    /* a tier above the sarcomere's: the I band straddles the Z disc where the sarcomere bracket ends */
+  fibril.brackets.iband.userData.set(L - h * K - (h * K - a), L - h * K + (h * K - a), top + 0.6, 1);
   }
 
   /* ---------------- Sarcomere: the hexagonal lattice ---------------- */
@@ -462,7 +463,8 @@ export function createMuscleZoom(THREE) {
       root.updateMatrixWorld(true);
       return Object.entries(anchorFns[lv] || {}).map(([id, fn]) => ({ id, pos: fn().clone().applyMatrix4(levels[lv].matrixWorld) }));
     },
-    box(lv) { levels[lv].updateMatrixWorld(true); return new THREE.Box3().setFromObject(levels[lv]); },
+    /* from the root: a level measured before the first render after the root was placed would still be at its build-time place and size */
+    box(lv) { root.updateMatrixWorld(true); return new THREE.Box3().setFromObject(levels[lv]); },
     update(t, still) { if (!still && levels.nmj.visible) moveAch(t); },
     dispose() {
       root.removeFromParent();

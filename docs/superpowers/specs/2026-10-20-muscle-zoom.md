@@ -3,7 +3,9 @@
 ## What
 
 From the Viewer: tap a skeletal muscle, open its selection card (Explore on a
-phone), press **Zoom inside**. The mode walks the slide's own "Organization of
+phone), press **Zoom inside**: the view flies from the tapped muscle straight
+into Organization of muscle (the muscle stays the first step of the path, for
+Zoom out). The mode walks the slide's own "Organization of
 muscle" (HSS2011 W1, `hss.msk.2026` p32) down to the contracting unit:
 
 | Level | Shows | Labels (all checked on the page cited) |

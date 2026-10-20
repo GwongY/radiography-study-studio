@@ -389,8 +389,11 @@ export async function enterMuscleZoom() {
     panel.hidden = false; tags.hidden = false;
     setDockMode(true);
     paintZoomButton();
+    /* "Zoom inside" means inside: start framed on the tapped muscle and fly straight into its organisation.
+       The muscle stays the first step of the path, so Zoom out goes back to it. */
     showLevel('whole');
     frameWorldBox(levelBox('whole'), null, 1.6);
+    goTo('organisation');
     bindPicking();
     $('mz-in').focus();
     return true;

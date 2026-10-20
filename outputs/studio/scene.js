@@ -4,7 +4,7 @@
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $, MODEL_CATALOG, els, getAnatomy, prefersStill, state, systemsOf } from './imports.js';
-import { applyConnectiveVisibility, layerOn, meshOn, renderXray, resizeXray, setMovementAngle, stepPhysiology, unitBlurb, unitFor, updateStageMeta, applyLayers } from './live-physiology.js';
+import { applyConnectiveVisibility, layerOn, meshOn, renderXray, resizeXray, stepPhysiology, unitBlurb, unitFor, updateStageMeta, applyLayers } from './live-physiology.js';
 import { bodyMetrics, clearPickCallout, updateHudSprites } from './spatial-concept-overlays.js';
 import { clearHighlight, onBonePicked, renderRegions, showToast } from './modes-and-bridge.js';
 import { enforceHidden } from './hide-and-search.js';
@@ -454,13 +454,7 @@ import { restorePackedSpread } from './packed-spread.js';
    */
   export function animate(){if(!state.renderer)return;requestAnimationFrame(animate);
   if(state.stageLive===false)return;
-  if(state.movement&&state.movement.playing){
-    const mv=state.movement.mv, step=(mv.range[1]-mv.range[0])/90;
-    let a=state.movement.angle+step*state.movement.dir;
-    if(a>=mv.range[1]){a=mv.range[1];state.movement.dir=-1}
-    else if(a<=mv.range[0]){a=mv.range[0];state.movement.dir=1}
-    setMovementAngle(a);
-  }state.motionPhase=performance.now()*.001;stepPhysiology(state.motionPhase);if(state.atlasTick)state.atlasTick(state.motionPhase);if(state.extrasTick)state.extrasTick(state.motionPhase);/* Held at full rather than oscillating when the reader asked for stillness:
+  state.motionPhase=performance.now()*.001;stepPhysiology(state.motionPhase);if(state.atlasTick)state.atlasTick(state.motionPhase);if(state.extrasTick)state.extrasTick(state.motionPhase);/* Held at full rather than oscillating when the reader asked for stillness:
      the highlight still marks the structure, it just stops breathing. */
   const pulse=prefersStill()?1:.72+.28*Math.sin(state.motionPhase*3.2);state.fullMeshes.filter(m=>m.userData.presentationActive).forEach(m=>{if(m.material.emissive)m.material.emissiveIntensity=.95*pulse});state.controls.update();syncTools();if(typeof updateHudSprites==='function')updateHudSprites();if(!renderXray())state.renderer.render(state.scene,state.camera)}
   export function zoomCamera(factor){if(!state.camera||!state.controls)return;const offset=state.camera.position.clone().sub(state.controls.target);const distance=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,offset.length()*factor));state.camera.position.copy(state.controls.target).add(offset.normalize().multiplyScalar(distance));state.controls.update()}

@@ -234,8 +234,8 @@
 
       <div class="vsheet-grid">
         <!--
-          Four bottom-bar buttons: Spread, Cut, Moves (joint movements) and
-          Regions (the last two sections). The panel shows only the
+          Three bottom-bar buttons, three sections: Spread opens the first,
+          Cut the second, Regions the last two. The panel shows only the
           section its button names (data-tsec, filtered in app.css).
         -->
         <section class="card toolcard" data-tsec="spread">
@@ -253,13 +253,6 @@
           <label class="tool-slider"><span>Position</span><input type="range" id="cutSlider" min="0" max="100" value="50" aria-label="Cut position"><span class="mono" id="cutRead">no cut</span></label>
           <div class="tool-row"><button class="icon-btn" id="cutFlip">Flip side</button><button class="icon-btn" id="cutClear">Clear cut</button></div>
         </section>
-        <section class="card toolcard" data-tsec="moves">
-          <div class="tool-lab">Movements</div>
-          <div class="mv-list" id="mvList"></div>
-          <div class="tool-row"><button class="icon-btn" id="mvReset">Stop and reset</button></div>
-          <p class="mv-note hidden" id="mvNote"></p>
-          <p class="small mv-revise"><button class="sel-revise-btn" data-openrevise="HSS2011" data-openreviseid="movements">Movement vocabulary <small>In Revise →</small></button></p>
-        </section>
         <section class="card" data-tsec="regions"><div class="task-kicker">Region filter</div><h2 class="task-title">Study one area</h2><div class="region-row" id="regionButtons"></div></section>
         <section class="card overlaycard" data-tsec="regions">
           <div class="task-kicker">Spatial overlays</div>
@@ -273,7 +266,7 @@
       </div>
     </div>
 </section></div>
-<div class="ctrlpill"><button class="icon-btn" id="viewerExploreBtn" aria-expanded="false" aria-controls="taskCard">Explore</button><button class="icon-btn" data-tsec="spread" aria-expanded="false" aria-controls="viewerToolsPanel">Spread</button><button class="icon-btn" data-tsec="cut" aria-expanded="false" aria-controls="viewerToolsPanel">Cut</button><button class="icon-btn" data-tsec="regions" aria-expanded="false" aria-controls="viewerToolsPanel">Regions</button><button class="icon-btn" data-tsec="moves" aria-expanded="false" aria-controls="viewerToolsPanel">Moves</button><button class="icon-btn" id="resetBtn" aria-label="Reset view">Reset</button><button class="icon-btn" id="focusBtn">Focus</button></div>
+<div class="ctrlpill"><button class="icon-btn" id="viewerExploreBtn" aria-expanded="false" aria-controls="taskCard">Explore</button><button class="icon-btn" data-tsec="spread" aria-expanded="false" aria-controls="viewerToolsPanel">Spread</button><button class="icon-btn" data-tsec="cut" aria-expanded="false" aria-controls="viewerToolsPanel">Cut</button><button class="icon-btn" data-tsec="regions" aria-expanded="false" aria-controls="viewerToolsPanel">Regions</button><button class="icon-btn" id="resetBtn" aria-label="Reset view">Reset</button><button class="icon-btn" id="focusBtn">Focus</button></div>
     </div>
             </div>
             <div id="viewerXrayPane" class="hidden">

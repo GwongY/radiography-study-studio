@@ -10,7 +10,7 @@
  * Every title, label and note shown is a term or phrase the 2026 slides use,
  * and `cite` says where: work/muscle-zoom-check.mjs holds each `match`, and
  * each label's name and note, against the committed page text
- * (work/source-text.json), the comparison movement-check uses. A note is the
+ * (work/source-text.json), the comparison revision-check uses. A note is the
  * slide's own words, cut, never rephrased. `revise` names the Revise boxes the
  * label is ([subject, box id]); the check holds each to a real box.
  * No teaching prose.

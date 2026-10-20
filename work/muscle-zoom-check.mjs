@@ -8,7 +8,7 @@
  * Those are presented as course terms, so each cites a registered 2026 source
  * page and a quote; this holds every quote, every label name and every note
  * against the committed page text (work/source-text.json), the comparison
- * movement-check and revision-check use. It also holds each Revise link to a
+ * revision-check uses. It also holds each Revise link to a
  * real box, and each label to a part outputs/muscle/zoom-scene.js builds (read
  * from its PARTS export, which needs no three.js).
  */

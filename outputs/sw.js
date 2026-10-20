@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v257';
+const CACHE_VERSION = 'v258';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -146,7 +146,6 @@ const SHELL = [
   './study/state.js',
   './study/storage-versioned-keys.js',
   './study/course-data.js',
-  './movements.js?v=1',
   /* Muscle zoom: its labels, and the procedural levels studio/muscle-zoom.js reaches by a dynamic import. Both are
      small code, no model file, so they are precached and the mode opens offline from the first install. */
   './muscle-zoom.js?v=1',
