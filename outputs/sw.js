@@ -188,6 +188,7 @@ const SHELL = [
   './physiology-paths.js',
   './radiography.js?v=1',
   './schedule.js?v=1',
+  './programme.js?v=1',
   /* Revise: the week rule, the subject registry and the HSS2011 content. d3 and markmap are the
      map's libraries and are small enough for the shell; 3d-force-graph (1.4 MB, three.js inside it)
      is cached on first use like the models, so Brain 3D works offline after it has been opened once. */

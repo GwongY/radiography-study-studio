@@ -28,6 +28,7 @@ import { K, read, store, write } from './storage-versioned-keys.js';
 import { openRevise } from './revise.js';
 import { REVISION } from '../revision/registry.js?v=1';
 import { lastWeekOf, releasedLast } from '../revision/weeks.js?v=1';
+import { PROGRAMME, PROGRAMME_TERMS, semLabel, semesterCredits, subjectsOf } from '../programme.js?v=1';
 import { assessmentsPanel, imminentHTML, wireAssessments } from './assessments-and-marks.js';
 
 /* ------------------------------------------------------------------ *
@@ -264,6 +265,50 @@ function syllabusPanel() {
 }
 
 /* ------------------------------------------------------------------ *
+ * The programme panel
+ *
+ * The four years of the BSc (Hons) Radiography pattern, from outputs/programme.js
+ * (the official progression pattern, SOURCE_FILES 'prog.pattern'). Years, then
+ * semesters, then subjects. Important core courses are set apart; a subject only
+ * one stream takes says so. Nothing is chosen for the owner: until chosenStream
+ * is set the stream subjects read "MI/RT -- not chosen yet".
+ * ------------------------------------------------------------------ */
+
+function programmeSubjectHTML(s) {
+  const chosen = PROGRAMME.chosenStream;
+  const streamTag = s.stream === 'both' ? ''
+    : chosen ? `<span class="progtag">${esc(s.stream)}</span>`
+      : `<span class="progtag stream">${esc(s.stream)} \u2014 not chosen yet</span>`;
+  const other = chosen && s.stream !== 'both' && s.stream !== chosen;
+  const kind = s.required === 'elective' ? '<span class="progtag">elective</span>'
+    : s.group === 'discipline' ? '' : '<span class="progtag">general</span>';
+  return `<li class="progrow${s.important ? ' important' : ''}${other ? ' off' : ''}">
+    <span class="progcode">${esc(s.code || '\u2014')}</span>
+    <span class="progtitle">${esc(s.title)}${s.note ? `<small>${esc(s.note)}</small>` : ''}</span>
+    <span class="progtags">${s.important ? '<span class="progtag core">core</span>' : ''}${streamTag}${kind}</span>
+    <b class="progcr">${s.code === 'HTI47103' && s.credits === 0 ? 'L' : esc(s.credits)} cr</b>
+  </li>`;
+}
+
+function programmePanel() {
+  const chosen = PROGRAMME.chosenStream;
+  const head = `<section class="card progintro">
+    <div class="task-kicker">${esc(PROGRAMME.programme)} \u00b7 ${esc(PROGRAMME.code)} \u00b7 2026 intake</div>
+    <p class="small">${esc(PROGRAMME.totalCredits)} credits. ${chosen ? `Stream: <b>${esc(chosen)}</b>.`
+    : 'Stream: <b>not chosen yet</b> \u2014 subjects only one stream takes are marked MI or RT.'}
+    Core courses are the compulsory discipline-specific subjects (rule in outputs/programme.js).</p>
+  </section>`;
+  const years = PROGRAMME_TERMS.map(({ year, sems }) => `<details class="card progyear"${year === 1 ? ' open' : ''}>
+    <summary><b>Year ${year}</b><span class="progsum">${sems.map((m) => semesterCredits(year, m, 'MI')).reduce((a, b) => a + b, 0)} cr</span></summary>
+    ${sems.map((m) => `<div class="progsem">
+      <div class="subhead">${esc(semLabel(m))} \u00b7 ${esc(semesterCredits(year, m, 'MI'))} cr</div>
+      <ul class="proglist">${subjectsOf(year, m).map(programmeSubjectHTML).join('')}</ul>
+    </div>`).join('')}
+  </details>`).join('');
+  return head + years;
+}
+
+/* ------------------------------------------------------------------ *
  * The view
  * ------------------------------------------------------------------ */
 
@@ -275,7 +320,7 @@ function subjectJumpHTML(tab) {
     `<button class="seg" data-jumpsubj="${esc(a.code)}" style="--acc:${esc(subjectAccent(a.code))}">${esc(a.code)}</button>`).join('')}</div>`;
 }
 
-const TABS = [['week', 'This week'], ['next', 'Next week'], ['term', 'Full term'], ['assess', 'Assessments'], ['syllabus', 'Syllabus']];
+const TABS = [['week', 'This week'], ['next', 'Next week'], ['term', 'Full term'], ['assess', 'Assessments'], ['syllabus', 'Syllabus'], ['programme', 'Programme']];
 
 /* Which tabs carry a timetable, and so want the group
    picker under them. Naming the ones that do, rather than testing for the
@@ -290,7 +335,8 @@ export function renderCourse() {
   const rows = sessionsWithStatus(now);
   const timetable = TIMETABLE_TABS.includes(tab);
 
-  const body = tab === 'syllabus' ? syllabusPanel()
+  const body = tab === 'programme' ? programmePanel()
+    : tab === 'syllabus' ? syllabusPanel()
     : tab === 'assess' ? assessmentsPanel(now, ui.assessFilter || 'open')
       : tab === 'term' ? termPanel(rows, now)
         : tab === 'next' ? weekPanel(rows, now, 'next')

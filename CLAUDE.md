@@ -15,9 +15,12 @@ it does not test.
 0. **Core courses only.** HSS2011 Human Anatomy and ABCT2326 Human Physiology are
    the core courses and the only ones with Revise. HTI17103 (no exam), DSAI1202
    and APSS1A08 (minimal revision) live in the Course tab only — **build no Revise
-   maps or features for them.** Semester 2 brings imaging anatomy and the
-   four-year programme has other core courses: add those when they come, and keep
-   the app to the important core courses.
+   maps or features for them.** Which subjects of the four-year programme are the
+   important core courses is decided by `outputs/programme.js` (`important`, derived
+   by the rule in its header from the official 2026-intake progression pattern, MI and
+   RT streams) — not by a list here. Semester 2 brings imaging anatomy: add core
+   courses from that module when they come, and keep the app to them. `chosenStream`
+   there is `null` until the owner picks RT or MI; do not assume either.
 1. **Revise, not Learn; no testing.** The Revise tab (`outputs/study/revise.js`,
    data in `outputs/revision/`) is one cumulative map per core subject plus a 3D
    connections hub, Threads, Tables and a Decoder, gated by teaching week (the
