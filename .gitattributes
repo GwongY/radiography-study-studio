@@ -1,0 +1,13 @@
+# Every text file is LF in the repository AND in every checkout, Windows
+# included. Before this, a Windows checkout was CRLF and a Linux one LF, and
+# anything that hashed raw bytes (the physiology route stamp) disagreed between
+# them. Generators write LF too.
+* text=auto eol=lf
+
+*.glb binary
+*.bin binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff2 binary
+*.pdf binary

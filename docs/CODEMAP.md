@@ -189,6 +189,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `work/build-source-text.mjs` | Build the text of the sources, so a session can answer "what does page 4 | [Source text](TRAPS.md#source-text--workbuild-source-textmjs-worklibsource-resolvemjs) |
 | `work/build-viewer-lecture-names.mjs` | The names the 2026/27 HSS2011 decks give the model's structures. | [The 2026 names](TRAPS.md#the-2026-names--workbuild-viewer-lecture-namesmjs-worklibfallback-namesmjs) |
 | `work/cavity-probe.mjs` | Numeric validation of the cavity derivation against the real GLBs. |  |
+| `work/check.mjs` | Every check that runs without a browser, the source drive or Python — once. |  |
 | `work/codemap-check.mjs` | Codemap check — is docs/CODEMAP.md what work/codemap.mjs would generate |  |
 | `work/codemap.mjs` | Code map generator — writes docs/CODEMAP.md. Do not edit that file by hand. |  |
 | `work/cut-level-check.mjs` | Do the named section levels mean what they say? |  |
@@ -242,6 +243,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `work/today-navigation-check.mjs` | The remaining destinations and hidden More page stay reachable through search. |  |
 | `work/toplevel.mjs` | Which names does a module declare at TOP level? Ask Node, not the indentation. |  |
 | `work/ui-strings.mjs` | UI strings — every literal the app can put on screen, as a sorted fingerprint. | [The UI-string baseline reads comments too](TRAPS.md#the-ui-string-baseline-reads-comments-too--workui-stringsmjs) |
+| `work/undef-check.mjs` | Undef check — is every name the app uses defined somewhere? |  |
 | `work/unread-manifest.mjs` | Write a work list of everything the corpus has not read, for handing to |  |
 | `work/verify-notes.mjs` | Check notes that came back from another reader, before any of it becomes a |  |
 | `work/viewer-lecture-names-check.mjs` | The viewer's names follow the 2026 decks, and the older decks only where |  |

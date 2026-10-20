@@ -147,7 +147,7 @@ if (isMain) {
       const { text, wrapped, templates } = transform(name, await sourceOf(name, cfg), { edits: cfg.edits, prefixIds: cfg.prefixIds, dir, header: cfg.header, page: cfg.page || (cfg.extract && where(cfg.extract[0].from, 'heart')[0]) || 'heart' });
       console.log(`${name}: ${text.split('\n').length} lines, ${wrapped} Chinese literals wrapped in tr()${templates.length ? `, ${templates.length} template literal(s) with Chinese NOT wrapped` : ''}`);
       for (const t of templates) console.log('   template: ' + t.replace(/\n/g, ' '));
-      if (write) writeFileSync(join(DIRS[dir], name), text.replace(/\n/g, '\r\n'));
+      if (write) writeFileSync(join(DIRS[dir], name), text);
     } catch (e) { failed++; console.log('ERROR ' + e.message); }
   }
   if (!write) console.log('(dry run -- pass --write to write outputs/heart/ and outputs/limb/)');

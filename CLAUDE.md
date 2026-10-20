@@ -185,6 +185,10 @@ the last CACHE_VERSION rather than your edit.
 
 ## After every edit
 
+`node work/check.mjs` runs every check below that needs no browser and no drive,
+once (`--list` prints them; `npm ci --prefix work/lint` once for the no-undef pass).
+CI runs the same command. The list, with what each one guards:
+
 ```bash
 node work/load-check.mjs        # REQUIRED for HTML edits — evaluates both inline
                                  # modules in node with stubbed browser globals.
@@ -286,10 +290,10 @@ node work/baseline.mjs --check  # the probes still say what they said
   `git status` for files you did not touch before running `codemap.mjs`,
   `data-index.mjs` or `baseline.mjs` — regenerating sweeps their unfinished work
   into your commit, and can paper over a check that is red for their reasons.
-- **Line endings differ.** `outputs/` and this file are CRLF; `work/*.mjs` is LF.
-  A patch script matching on `
-` finds nothing in the CRLF files and reports
-  success having changed neither.
+- **Line endings are LF everywhere** (`.gitattributes`: `* text=auto eol=lf`), in
+  the repository and in every checkout, Windows included. Generators write LF.
+  Anything that hashes a text file must still normalise `\r\n` first, as
+  `work/build-physiology-paths.mjs` does, so an old CRLF working copy cannot move a stamp.
 - A trap you learn the hard way goes in `docs/TRAPS.md`, under the file it
   governs — not here. This file is loaded into every session; that one is read
   only by a session working in that file.

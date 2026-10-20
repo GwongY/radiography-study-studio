@@ -32,7 +32,7 @@ if (process.argv.includes('--write')) {
  * circulatory-layer frame (dolasim.glb). A group in a limb's own frame therefore takes scale 1/scale and
  * position origin (scale first, then translate) to sit on the body. */
 export const LIMB_FRAMES = ${JSON.stringify(frames)};
-`.replace(/\n/g, '\r\n'));
+`);
   console.log('wrote outputs/limb/alignment.js');
 }
 

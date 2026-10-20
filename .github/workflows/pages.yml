@@ -26,50 +26,14 @@ jobs:
         with:
           node-version: '22'
 
-      # The order is CLAUDE.md's "after every edit" list. Each is a separate
-      # step so a red X names the check that failed without reading a log.
-      - name: Both entry points survive evaluation
-        run: node work/load-check.mjs
-      - name: Data modules parse
-        run: node work/syntax-check.mjs
-      - name: Every check this workflow names exists
-        run: node work/pages-workflow-check.mjs
-      - name: Revision data and link logic validate
-        run: node work/revision-check.mjs && node work/revise-pure-check.mjs
-      - name: Today and search-only settings navigation
-        run: node work/today-navigation-check.mjs
-      - name: Every reachable module is precached, query and all
-        run: node work/shell-check.mjs
-      - name: Every split part imports what it references
-        run: node work/binding-check.mjs
-      - name: Search index, synonyms, tiering, study units
-        run: node work/search-probe.mjs
-      - name: Viewer names follow the 2026 decks, with older decks only as fallback
-        run: node work/build-viewer-lecture-names.mjs --check && node work/viewer-lecture-names-check.mjs
-      - name: Every skeleton mesh lands in the right region
-        run: node work/region-probe.mjs
-      - name: Body systems agree with the flow classes
-        run: node work/system-check.mjs
-      - name: The code map matches the code
-        run: node work/codemap-check.mjs
-      - name: The data summary matches the data
-        run: node work/data-index-check.mjs
-      - name: The timetable points at real units and real items
-        run: node work/schedule-check.mjs
-      - name: The limb frames fit the circulatory layer and every route lies in its vessel
-        run: node work/limb-check.mjs
-      - name: Named cut levels resolve, measure and stay in order
-        run: node work/cut-level-check.mjs
-      - name: Bone landmark payload matches reviewed curation
-        run: node work/build-bone-landmarks.mjs --check
-      - name: Bone landmark sources and actual mesh signatures agree
-        run: node work/bone-landmark-check.mjs
-      - name: Every cited source exists and says it on the page it names
-        run: node work/source-check.mjs
-      - name: Every __osteo call the study half makes is answered
-        run: node work/bridge-check.mjs
-      - name: The probes still say what they said
-        run: node work/baseline.mjs --check
+      # ESLint for work/undef-check.mjs (no-undef only). Check tooling, not the app.
+      - name: Install the check-only lint tooling
+        run: npm ci --prefix work/lint --no-audit --no-fund
+      # One runner, one list: work/check.mjs names every check that needs no
+      # browser and no source drive. A failure is printed as a named group and
+      # an error annotation, so the red X still says which check failed.
+      - name: Every check (work/check.mjs)
+        run: node work/check.mjs
 
   deploy:
     needs: verify

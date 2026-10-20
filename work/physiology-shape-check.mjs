@@ -37,7 +37,10 @@ for(const [layer,file] of LAYERS)for(const mesh of loadGlbMeshes(file)){
   }
   assert.deepEqual(mesh.positions,before,'input mutated');tested++;
 }
-assert(tested>100);assert.equal(modes.size,5);
+/* Muscles stopped deforming in 45bc9bf, which took the real 'contract' meshes
+   (and most of the count) with them: 49 meshes in four modes remain. The loop
+   below still checks 'contract' against the legacy derivation synthetically. */
+assert(tested>=40,`only ${tested} real deforming meshes`);assert.deepEqual([...modes].sort(),[2,3,4,5]);
 for(const bounds of [{min:[0,0,0],max:[0,0,0]},{min:[-1,-2,-3],max:[1,2,3]},{min:[0,0,0],max:[1,1,1]}])for(const mode of ['contract','pump','inflate','descend','peristalsis']){
   const rule={mode};assert.deepEqual(deriveShape({bounds,rule}),legacy(bounds,rule));
 }
@@ -48,7 +51,7 @@ assert.throws(()=>deriveShape({bounds:{min:[2,0,0],max:[1,1,1]},rule:{}}),RangeE
 const context={sharedCentre:[1,2,3],anatomicalUp:[0,1,0]},bounds={min:[0,0,0],max:[1,2,3]};
 const result=deriveShape({bounds,rule:{mode:'descend'},context});result.axis[0]=9;result.centre[0]=9;
 assert.deepEqual(context,{sharedCentre:[1,2,3],anatomicalUp:[0,1,0]},'output aliases context');
-console.log(`PASS: ${tested} real deforming meshes; five modes match legacy derivation exactly; inputs immutable; degenerate/invalid cases checked`);
+console.log(`PASS: ${tested} real deforming meshes; four real modes (all five synthetically) match legacy derivation exactly; inputs immutable; degenerate/invalid cases checked`);
 if(process.argv.includes('--fixtures')){
   assert.equal(fixtures.length,4,'decoder fixture names changed');
   writeFileSync(new URL('./physiology-decoder-fixtures.json',import.meta.url),JSON.stringify(fixtures,null,2)+'\n');

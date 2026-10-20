@@ -41,3 +41,6 @@ work/.briefing/
 
 # Prompts that name the owner's mailbox. Local only; this repo is public.
 private-prompts/
+
+# Check-only tooling installed by `npm ci --prefix work/lint` (work/undef-check.mjs).
+node_modules/
