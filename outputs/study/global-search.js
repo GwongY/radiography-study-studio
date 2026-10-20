@@ -3,11 +3,11 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, MESH_INDEX as ATLAS_MESH_INDEX, SEARCH_EXTRAS, STRUCTURE_MODELS, UNITS, compositeFor, esc, expandQuery, missingFor, searchAnatomy } from './imports.js';
+import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, MESH_INDEX as ATLAS_MESH_INDEX, SEARCH_EXTRAS, STRUCTURE_MODELS, compositeFor, esc, expandQuery, missingFor, searchAnatomy } from './imports.js';
 import { K, read, write } from './storage-versioned-keys.js';
 import { goTo } from './navigation-destinations.js';
 import { openStructureInViewer } from './search-viewer-open.js';
-import { showView } from './small-ui-helpers.js';
+import { reviseSearch } from './revise.js';
 import { exactSearch, matchesSearch, modelSearchNames } from '../search-name.js';
 import { lectureRow } from '../viewer-lecture-names.js';
 const lectureRows=ATLAS_MESH_INDEX.map(lectureRow);
@@ -150,6 +150,17 @@ MESH_INDEX.forEach((m) => {
   UNIT_ROWS.set(m.unitId, list);
   if (m.isUnit) UNIT_HEAD.set(m.unitId, m);
 });
+
+/* One study unit, opened whole in the viewer, exactly as a unit search hit opens it.
+   Revise's "Show in the viewer" uses it with the unit outputs/revision/viewer-units.js names. */
+export function openUnitInViewer(unitId) {
+  const rows = UNIT_ROWS.get(unitId);
+  if (!rows || !rows.length) return false;
+  const head = UNIT_HEAD.get(unitId) || rows[0];
+  const model = STRUCTURE_MODELS[head.layer];
+  openStructureInViewer({ parts: rows.map((m) => ({ system: m.layer, mesh: m.mesh, file: model && model.file })), name: head.unit });
+  return true;
+}
 
 export function searchHits(q) {
   const needle = q.trim().toLowerCase();
@@ -338,11 +349,8 @@ export function searchHits(q) {
       go: () => { closeSearchSheet(); goTo('viewer'); setTimeout(() => window.__osteo && window.__osteo.toggleConceptKind && window.__osteo.toggleConceptKind(g.kind), 160); } });
   });
 
-  if (/radiograph|x-?ray|projection/.test(needle)) {
-    hits.push({ kind: 'Radiograph', title: 'No radiographs bundled',
-      note: 'assets/xray/ is empty \u2014 add a licence-cleared image',
-      go: () => { closeSearchSheet(); goTo('viewer'); } });
-  }
+  /* Revise boxes and Decoder words (HSS2011, ABCT2326), only those taught by the week each subject shows. */
+  reviseSearch(needle).forEach((h) => hits.push({ ...h, go: () => { closeSearchSheet(); h.go(); } }));
   const rank = (h) => h.kind === 'Composite' ? -1
     : exactTerms.some(t=>exactSearch(h.title,t)) ? 0
     : h.title.toLowerCase().startsWith(needle) ? 1 : 2;
@@ -360,7 +368,7 @@ export function runSearch(q) {
        to look up the same structure. */
     const recents = recentSearches();
     if (!recents.length) {
-      box.innerHTML = '<div class="empty">Search structures and topics. Press Esc to close.</div>';
+      box.innerHTML = '<div class="empty">Search structures, Revise topics and Decoder words. Press Esc to close.</div>';
       return;
     }
     box.innerHTML = '<div class="empty">Recent searches — tap to run again</div>'

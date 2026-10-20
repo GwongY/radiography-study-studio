@@ -3,7 +3,9 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, esc, fmtDate, fmtTime, fmtWhen, isOtherGroup, ui } from './imports.js';
+import { $$, KINDS, esc, fmtDate, fmtTime, isOtherGroup, sessionsWithStatus, ui } from './imports.js';
+import { REVISION } from '../revision/registry.js?v=1';
+import { newToLink, openRevise } from './revise.js';
 import { myGroups } from './course-timetable.js';
 import { goTo, setActiveNav } from './navigation-destinations.js';
 import { showView } from './small-ui-helpers.js';
@@ -15,57 +17,66 @@ import { DEADLINES, SOON_MS, paintImminent, untilText } from './assessments-and-
  * ------------------------------------------------------------------ */
 
 /*
- * This week -- the one thing that matters most in the next seven days.
+ * Next up, and new to link.
  *
- * It replaced the Continue card at the top of Today. Worked out from the
- * timetable every time Today is drawn, so it follows outputs/schedule.js --
- * which the Sunday email task keeps current -- without anything else having
- * to write to it: the heaviest assessment due in the next seven days, else
- * nothing, which says so. Rooms and times a course email filled
- * in simply show as the row's own details; nothing here flags them, at the
- * owner's request.
+ * This card used to name the heaviest assessment due in the next seven days,
+ * which the Work to do card below already lists. Now it answers the two
+ * questions Today is opened for: what class is next (today or tomorrow), and
+ * what joined Revise in the week it shows. Both come from data that is
+ * already sourced: outputs/schedule.js and the Revise maps. Every line opens
+ * Revise where it applies; a subject with no Revise map gets no link.
  */
-const WEEK_MS = 7 * 86400000;
-/* Ranking only, never shown. A sitting with no weight of its own (the ABCT2326
-   quiz counts towards a 35% component) still outranks a 2% exercise. */
-const rankOf = (s) => s.weight ?? (/quiz|test|exam/i.test(s.title) ? 25 : 0);
-function weekFocus(now) {
+const DAY_MS = 86400000;
+function nextClasses(now) {
   const groups = myGroups();
-  const horizon = now.getTime() + WEEK_MS;
-  const due = DEADLINES.filter((r) => r.to >= now && r.to <= horizon && !isOtherGroup(r.s, groups))
-    .sort((a, b) => rankOf(b.s) - rankOf(a.s) || a.to - b.to);
-  if (due.length) return { main: { kind: 'due', r: due[0] }, more: due.length - 1 };
-  return { main: null, more: 0 };
+  const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 2);
+  return sessionsWithStatus(now)
+    .filter((r) => !r.vague && r.to >= now && r.from < end && r.s.kind !== 'assessment' && !isOtherGroup(r.s, groups))
+    .slice(0, 4);
 }
+const dayWord = (d, now) => {
+  const days = Math.round((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / DAY_MS);
+  return days === 0 ? 'Today' : days === 1 ? 'Tomorrow' : fmtDate(d);
+};
 
-function paintWeekFocus(now) {
-  const { main, more } = weekFocus(now);
-  const where = (s) => [s.subject, fmtWhen(s), s.room].filter(Boolean).join(' · ');
-  /* A hand-in has no length: 'due Sun 4 Oct, 23:59', not '23:59–23:59'. */
-  const whenDue = (r) => (r.s.on && +r.from === +r.to
-    ? [r.s.subject, `due ${fmtDate(r.to)}, ${fmtTime(r.to)}`, r.s.room].filter(Boolean).join(' · ')
-    : where(r.s));
-  const head = !main ? 'Nothing due this week' : main.r.s.title;
-  const sub = !main ? 'No assessment in the next seven days. A good week to link what you have learnt.'
-    : `${whenDue(main.r)} · ${untilText(main.r.to, now)}${more ? ` · ${more} more due this week` : ''}`;
-  const action = main ? '<button class="primary" id="focusAssessBtn">See assessments →</button><button class="ghost" id="focusReviseBtn" style="margin-left:8px">Revise →</button>'
-    : '<button class="primary" id="openReviseBtn">Revise →</button>';
+function paintNextAndNew(now) {
+  const classes = nextClasses(now);
+  const classRows = classes.length ? classes.map((r, n) => {
+    const s = r.s;
+    const kind = (KINDS[s.kind] || { label: s.kind }).label;
+    const when = r.status === 'now' ? 'On now' : `${dayWord(r.from, now)} ${fmtTime(r.from)}`;
+    const link = REVISION[s.subject] ? `<button class="ghost" data-todayrev="${n}" style="padding:6px 10px">Revise →</button>` : '';
+    return `<div class="unit-row" style="cursor:default">
+      <span class="grow"><b>${esc(s.title)}</b><small>${esc([when, s.subject, kind, s.room].filter(Boolean).join(' · '))}</small></span>${link}</div>`;
+  }).join('') : '<div class="empty">No classes today or tomorrow.</div>';
+
+  const fresh = newToLink().filter((f) => f.count);
+  const freshRows = fresh.length ? fresh.map((f, n) => `<div class="unit-row" style="cursor:default">
+      <span class="grow"><b>${esc(f.name)} · week ${esc(f.week)}</b><small>${f.count} new: ${f.first.map((x) => esc(x.label)).join(', ')}${f.count > f.first.length ? '…' : ''}</small></span>
+      <button class="ghost" data-todaynew="${n}" style="padding:6px 10px">Link them →</button></div>`).join('')
+    : '<div class="empty">Nothing new in Revise for the week shown.</div>';
+
   $$('continueCard').innerHTML = `
-    <div class="task-kicker">This week</div>
-    <h2 class="editorial" style="font-size:calc(24px*var(--ts));margin:8px 0 0">${esc(head)}</h2>
-    <p class="small" style="margin-top:6px">${esc(sub)}</p>
-    ${main?.r.s.note ? `<p class="small" style="margin-top:6px">${esc(main.r.s.note)}</p>` : ''}
-    <div style="margin-top:14px">${action}</div>`;
-  if ($$('focusAssessBtn')) $$('focusAssessBtn').onclick = () => { ui.courseTab = 'assess'; goTo('course'); };
-  if ($$('focusReviseBtn')) $$('focusReviseBtn').onclick = () => goTo('revise');
-  if ($$('openReviseBtn')) $$('openReviseBtn').onclick = () => goTo('revise');
+    <div class="task-kicker">Next up</div>
+    <div style="display:grid;gap:7px;margin-top:11px">${classRows}</div>
+    <div class="task-kicker" style="margin-top:16px">New to link</div>
+    <div style="display:grid;gap:7px;margin-top:11px">${freshRows}</div>`;
+  $$('continueCard').querySelectorAll('[data-todayrev]').forEach((b) => {
+    const s = classes[+b.dataset.todayrev].s;
+    /* revise what is taught so far in that subject, at the week Revise already shows */
+    b.onclick = () => openRevise({ subject: s.subject });
+  });
+  $$('continueCard').querySelectorAll('[data-todaynew]').forEach((b) => {
+    const f = fresh[+b.dataset.todaynew];
+    b.onclick = () => openRevise({ subject: f.subject, week: f.week });
+  });
 }
 
-/* Today: what is due this week, what is coming, and the weekly notice. */
+/* Today: the next classes, what is new to link, what is due, and the weekly notice. */
 export function renderToday() {
   setActiveNav('today');
 
-  paintWeekFocus(new Date());
+  paintNextAndNew(new Date());
 
   /* The notice card follows the saved private-repository connection. */
   paintBriefing();

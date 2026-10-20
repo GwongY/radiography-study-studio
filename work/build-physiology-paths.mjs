@@ -29,11 +29,14 @@ import { PATH_ATTRIBUTES, PROGRESS_ATTRIBUTES, derivePathRoute, deriveProgressRo
 const here = (name) => fileURLToPath(new URL(name, import.meta.url));
 const sha = (data) => createHash('sha256').update(data).digest('hex');
 const short = (data) => sha(data).slice(0, 12);
+/* Text sources are hashed with LF line endings, so the stamp is the same on a
+   Windows CRLF checkout and a Linux LF one. Binary files (the GLBs) are not. */
+const textOf = (path) => readFileSync(path, 'utf8').replace(/\r\n/g, '\n');
 const ROUTES = JSON.parse(readFileSync(here('./physiology-routes.json'), 'utf8'));
 const MODEL_VERSION = readFileSync(join(OUTPUTS, 'sw.js'), 'utf8').match(/const MODEL_VERSION = '([^']+)'/)[1];
-const GENERATOR = short(readFileSync(here('./build-physiology-paths.mjs')));
-const KERNEL = short(readFileSync(join(OUTPUTS, 'physiology-path.js')));
-const DEFINITIONS = short(readFileSync(here('./physiology-routes.json')));
+const GENERATOR = short(textOf(here('./build-physiology-paths.mjs')));
+const KERNEL = short(textOf(join(OUTPUTS, 'physiology-path.js')));
+const DEFINITIONS = short(textOf(here('./physiology-routes.json')));
 /* Decoder world units. This model stands 1.698 tall, so this is a centimetre. */
 const ANCHOR_GAP = 0.01;
 
@@ -440,7 +443,7 @@ if (process.argv[1]?.endsWith('build-physiology-paths.mjs')) {
       '};',
       '',
     ];
-    writeFileSync(join(OUTPUTS, 'physiology-paths.js'), lines.join('\r\n'));
+    writeFileSync(join(OUTPUTS, 'physiology-paths.js'), lines.join('\n'));
     console.log(`\nwrote ${manifest.length} payload(s) and outputs/physiology-paths.js`);
   }
 }

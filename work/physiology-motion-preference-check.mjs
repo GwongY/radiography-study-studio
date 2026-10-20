@@ -15,8 +15,9 @@ for(const api of ['modern','legacy','absent'])for(const reduced of [false,true])
     applyConnectiveVisibility:()=>{},CustomEvent:class {},window:{dispatchEvent:()=>events++}});
   vm.runInContext(setter+'\n'+init+'\ninit();',ctx);
   const set=(on,explicit=false)=>ctx.setPhysiology(on,explicit);
-  assert.equal(state.flow.on,api==='absent'||!reduced);
-  assert.equal(state.flow.uOn.value,Number(state.flow.on));
+  /* Live physiology starts off whatever the OS preference (45bc9bf); the Live chip turns it on. */
+  assert.equal(state.flow.on,false,'starts off');
+  assert.equal(state.flow.uOn.value,0);
   set(true);assert.equal(state.flow.on,api==='absent'||!reduced,'preset cannot bypass initial reduce');
   set(true,true);assert.equal(state.flow.on,true,'explicit Live works');
   set(false,true);assert.equal(state.flow.on,false);
@@ -36,4 +37,4 @@ for(const api of ['modern','legacy','absent'])for(const reduced of [false,true])
   }
   assert.ok(events>0);
 }
-console.log('PASS: reduced-motion defaults, explicit choices, OS changes, immediate uniforms, presets/restoration and listener cleanup.');
+console.log('PASS: starts off, reduced-motion presets, explicit choices, OS changes, immediate uniforms, presets/restoration and listener cleanup.');

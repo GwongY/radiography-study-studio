@@ -7,7 +7,7 @@ async () => {
   const {state:s} = await import('./studio/imports.js');
   const engine = await import('./studio/live-physiology.js');
   const viewer = await import('./study/what-is-under.js');
-  const {applyVisibility} = await import('./studio/region-boxes-how.js');
+  const {applyVisibility} = await import('./studio/scene.js');
   const {ui} = await import('./study/imports.js');
   const o = window.__osteo;
   viewer.openViewer(); await o.boot(); await o.ensureXrayLayers();

@@ -1,13 +1,10 @@
 
-  import { ANATOMY_DATABASE, MODEL_CATALOG, REGIONS, getAnatomy, searchAnatomy } from '../anatomy-data.js?v=5';
-  import { FLOW_CLASSES, FLOW_ANCHORS, LAYER_CLASSES, classify,
-    cardiacEnvelope, breathEnvelope, spikeEnvelope, contractEnvelope, atriumEnvelope, ventricleEnvelope,
-    avValveEnvelope, semilunarEnvelope, RATES,
-    FLOW_CIRCUITS } from '../physiology.js?v=4';
-  import { BODY_CONCEPTS, CONCEPT_GROUPS, conceptById, conceptAncestors, conceptChildren, conceptLeaves } from '../bodymap.js?v=4';
+  import { ANATOMY_DATABASE, MODEL_CATALOG, REGIONS, getAnatomy } from '../anatomy-data.js?v=5';
+  import { FLOW_CLASSES, FLOW_ANCHORS, classify, cardiacEnvelope, breathEnvelope, spikeEnvelope, contractEnvelope, atriumEnvelope, ventricleEnvelope, avValveEnvelope, semilunarEnvelope, RATES, FLOW_CIRCUITS } from '../physiology.js?v=4';
+  import { BODY_CONCEPTS, conceptById, conceptLeaves } from '../bodymap.js?v=4';
   import { createResolver } from '../landmarks.js?v=2';
   import { buildCavityGeometry, measureLandmarks, measureGrid, gridBounds } from '../cavity-build.js?v=2';
-  import { boundsOf, sampleField } from '../cavity-geom.js?v=2';
+  import { boundsOf } from '../cavity-geom.js?v=2';
   /* Block 0 has its own import scope -- block 1's copy is not visible here.
      Picking needs the index to know which meshes are sub-parts of one
      named structure. See the note in CLAUDE.md about the two scopes. */
@@ -41,7 +38,7 @@
     return typeof matchMedia==='function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  export const state = { region:'all', selectedId:null, selectedSide:null, isolated:false, meshes:[], fullMeshes:[], fullPickables:[], importedRecords:new Map(), selectionAnchor:null, selectionMeshes:[], lastPick:{x:0,y:0,t:0,candidates:[],index:-1}, lastDetailId:null, hashRestored:false, scene:null, camera:null, controls:null, renderer:null, raycaster:null, pointer:null, fullModel:null, realModel:null, realIsProcedural:false, motionEnabled:false, motionPhase:0 };
+  export const state = { region:'all', selectedId:null, selectedSide:null, isolated:false, fullMeshes:[], fullPickables:[], importedRecords:new Map(), selectionAnchor:null, selectionMeshes:[], lastPick:{x:0,y:0,t:0,candidates:[],index:-1}, lastDetailId:null, hashRestored:false, scene:null, camera:null, controls:null, renderer:null, raycaster:null, pointer:null, fullModel:null, motionEnabled:false, motionPhase:0 };
 export const LAYER_NAMES={skeleton:'Skeleton',muscle:'Muscles',organs:'Organs',circulatory:'Vessels',nervous:'Nerves',joint:'Ligaments',lymphatic:'Lymphatic'};
 
 

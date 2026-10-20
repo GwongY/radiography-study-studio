@@ -207,7 +207,7 @@ console.log('\n— the abdomen, which borrows every bone it shows —');
  *
  * Two questions, and the second is the one that matters:
  *   1. Do the right bones frame it? (Names. Same shape as the abdomen above.)
- *   2. Is the per-height depth profile in studio/region-boxes-how.js doing any
+ *   2. Is the per-height depth profile in studio/scene.js doing any
  *      work a single flat plane could not do? That function is thirty lines of
  *      geometry justified entirely by the claim that the vertebral column
  *      travels forward and back. If it turned out not to on this model, the

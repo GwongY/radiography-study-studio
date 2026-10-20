@@ -1,0 +1,9 @@
+{
+  "name": "rss-lint",
+  "private": true,
+  "description": "Check-only tooling: ESLint for work/undef-check.mjs. Not part of the app, which has no build step.",
+  "devDependencies": {
+    "eslint": "9.13.0",
+    "globals": "15.11.0"
+  }
+}

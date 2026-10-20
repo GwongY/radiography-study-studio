@@ -1,6 +1,6 @@
 # Piece 3 — heart, constrained: tethered-annulus contraction and the valve-state cue
 
-Status: PROPOSED — replaces the rejected boundary-deformation approach; not started.
+Status: IMPLEMENTED — `chamberTetherField` / `deformChamber` in `outputs/physiology-shape.js`, wired in `outputs/studio/live-physiology.js`, guarded by `work/physiology-heart-check.mjs` (checked 2026-10-20). Replaced the rejected boundary-deformation approach.
 Depends on 0. Parent: [decomposition](2026-09-09-physiology-decomposition.md).
 Companion piece: the arterial pulse is deliberately NOT here — it is specified
 separately in [2026-09-11-physiology-vessel-pulse.md](2026-09-11-physiology-vessel-pulse.md)

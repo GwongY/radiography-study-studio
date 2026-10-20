@@ -2,7 +2,7 @@
  * Does the studio actually expose everything the study system calls on it?
  *
  * The two halves of the app do not import each other. They talk through one
- * object, `window.__osteo`, built in outputs/studio/visualisation-modes.js and
+ * object, `window.__osteo`, built in outputs/studio/modes-and-bridge.js and
  * called from twenty files under outputs/study/. Nothing checks that the two
  * agree, and nothing can at load time: a missing method is not a missing
  * import. It is `undefined`, and `undefined is not a function` only when a user

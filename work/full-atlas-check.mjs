@@ -24,7 +24,7 @@ for(const parts of sets)for(const aspect of [.5,1,1.5]){
 }
 let activate;
 const removed=[];
-const requests=['https://app.test/atlas/models/body-0.bin.gz','https://app.test/assets/kas.glb','https://other.test/atlas/models/body-0.bin.gz'].map(url=>({url}));
+const requests=['https://app.test/assets/bodyparts3d/humerus_right.glb','https://app.test/assets/kas.glb','https://other.test/assets/bodyparts3d/humerus_right.glb'].map(url=>({url}));
 runInNewContext(readFileSync('outputs/sw.js','utf8'),{
   URL,console,
   self:{location:{origin:'https://app.test'},clients:{claim:async()=>{}},addEventListener:(name,fn)=>{if(name==='activate')activate=fn;}},

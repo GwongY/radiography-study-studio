@@ -17,15 +17,6 @@ export function toast(msg) {
   clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 4200);
 }
 
-/* A missing radiograph image degrades to a plain notice instead of a
-   broken-image icon or a blocked session. */
-export function xrayFallback(el) {
-  const div = document.createElement('div');
-  div.className = 'emptybox';
-  div.textContent = 'Image not found — add it to assets/xray/ and reload.';
-  el.replaceWith(div);
-}
-
 const VIEWS = ['todayView', 'reviseView', 'viewerView', 'courseView', 'moreView'];
 /*
  * Which view is up, so a RE-RENDER can be told from a NAVIGATION.
@@ -228,7 +219,6 @@ export function setToolsPanelOpen(open, section) {
 
 /* Runs after every part has evaluated — see the entry point. */
 export function init() {
-  window.xrayFallback = xrayFallback;
   window.__rssToast = toast;
   const panel = $$('taskCard');
   $$('viewerExploreBtn').addEventListener('click', () => {

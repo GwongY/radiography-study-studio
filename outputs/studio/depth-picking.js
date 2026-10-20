@@ -3,12 +3,12 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, ANATOMY_DATABASE, classify, els, getAnatomy, LAYER_NAMES, prefersStill, state, systemsIn, systemsOf } from './imports.js';
-import { clean, clearHighlight, highlight, onBonePicked, rebuildConcepts, renderRegions, showToast } from './visualisation-modes.js';
-import { applyVisibility, boot3D, cameraView, confirmPick, focusSelected, getRecord, isSelfOrAncestorVisible, mapImportedName, nearestVisibleMesh, resize, toggleIsolation, zoomCamera } from './region-boxes-how.js';
+import { $, els, getAnatomy, LAYER_NAMES, state, systemsIn, systemsOf } from './imports.js';
+import { clearHighlight, onBonePicked, rebuildConcepts, renderRegions } from './modes-and-bridge.js';
+import { applyVisibility, boot3D, cameraView, confirmPick, focusSelected, getRecord, isSelfOrAncestorVisible, mapImportedName, nearestVisibleMesh, resize } from './scene.js';
 import { clearPickCallout } from './spatial-concept-overlays.js';
 import { hideMesh } from './hide-and-search.js';
-import { installLayerFlow, layerOn, layerPool, loadPathRoutes, setXrayView, unitBlurb, unitFor } from './live-physiology.js';
+import { installLayerFlow, layerOn, loadPathRoutes, setXrayView, unitBlurb, unitFor } from './live-physiology.js';
 import { applySeparation } from './tools-and-capture.js';
 import { modelMeshName, viewerStructureName } from '../search-name.js';
 
@@ -92,9 +92,7 @@ import { modelMeshName, viewerStructureName } from '../search-name.js';
     }
     state.raycaster.setFromCamera(state.pointer,state.camera);
     const layerTargets=Object.entries(state.extraModels||{}).filter(([k])=>layerOn(k)).flatMap(([,m])=>m.meshes);
-    /* A focused lesson names only what it is teaching. The ghosted body behind
-       it is context, so tapping a lymph node must not answer 'Sacrum'. */
-    const targets=state.focus?(state.focus.keep?[...state.focus.keep]:layerPool(state.focus.key)):[...state.meshes,...state.fullMeshes,...layerTargets];
+    const targets=[...state.fullMeshes,...layerTargets];
     const hits=state.raycaster.intersectObjects(targets,true)
       .filter(h=>isSelfOrAncestorVisible(h.object)&&h.object.userData.canonicalId);
     hits.sort((a,b)=>{
@@ -144,8 +142,6 @@ import { modelMeshName, viewerStructureName } from '../search-name.js';
        then to the nearest thing on screen, as before. */
     if(state.xray){const out=$('xraySelection');if(out)out.textContent='No named structure here.';return;}
     restorePeel();state.pickStack=[];state.pickCurrent=null;publishStack();
-    // A missed lesson tap must not fall through to skeleton click zones.
-    if(state.focus)return;
     const zones=state.raycaster.intersectObjects(state.fullPickables,false).filter(h=>isSelfOrAncestorVisible(h.object));
     if(zones[0]){confirmPick(zones[0].object,event);return}
     const nearest=nearestVisibleMesh(event,rect);
@@ -225,7 +221,7 @@ import { modelMeshName, viewerStructureName } from '../search-name.js';
   $('resetBtn').onclick=()=>{if(state.xray){setXrayView(state.xray.view);return}cameraView('front');state.isolated=false;$('isolateBtn')?.classList.remove('active');applyVisibility()};els.focus.onclick=()=>{focusSelected(true)};/* This button used to be a second, differently-named way to press Identify.
    It now does the thing its name promises: opens the drill on the structure
    you have got wrong most often, rather than a fresh weighted pick. */
-$('closeDetail').onclick=()=>{els.detailDialog.close();state.lastDetailId=null;history.replaceState(null,'',location.pathname+location.search)};els.retry.onclick=()=>{try{state.controls?.dispose()}catch{}if(state.renderer){state.renderer.domElement.remove();state.renderer=null;state.controls=null}state.scene=null;state.camera=null;state.fullModel=null;state.realModel=null;state.meshes=[];state.fullMeshes=[];state.hotspots=[];state.fullPickables=[];boot3D()};
+$('closeDetail').onclick=()=>{els.detailDialog.close();state.lastDetailId=null;history.replaceState(null,'',location.pathname+location.search)};els.retry.onclick=()=>{try{state.controls?.dispose()}catch{}if(state.renderer){state.renderer.domElement.remove();state.renderer=null;state.controls=null}state.scene=null;state.camera=null;state.fullModel=null;state.fullMeshes=[];state.fullPickables=[];boot3D()};
 /* Belt and braces around the observer: iPadOS fires visualViewport resize on
    rotation and on the keyboard opening, sometimes before layout settles. */
   /* The turntable is the slow idle yaw of the whole body. It is a different

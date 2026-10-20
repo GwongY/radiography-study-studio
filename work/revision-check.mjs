@@ -31,6 +31,8 @@ import { decoderProblems, decoderReading } from '../outputs/revision/fragments.j
 import { decompose } from '../outputs/wordparts.js';
 import { CROSS } from '../outputs/revision/cross-links.js';
 import { COVERAGE } from './revision-coverage.mjs';
+import { deriveViewerUnits, viewerUnitsSource } from './build-revision-units.mjs';
+import { UNITS } from '../outputs/mesh-index.js';
 
 const SOURCE_TEXT = JSON.parse(readFileSync(new URL('./source-text.json', import.meta.url), 'utf8')).sources;
 
@@ -344,6 +346,21 @@ ok(resolveWeek({ mode: 'manual', week: 6 }, 7, 7).week === 6 && resolveWeek({ mo
 ok(resolveWeek({ mode: 'manual', week: 12 }, 3, 7).week === 7, 'a saved week beyond the content is re-clamped');
 ok(resolveWeek({ mode: 'auto', week: 2 }, 5, 7).week === 5, 'a saved auto ignores the stored week and follows the calendar');
 ok(resolveWeek({ mode: 'manual', week: null }, 5, 7).mode === 'auto', 'a manual choice with no week falls back to automatic');
+
+console.log('\nRevise box -> viewer unit (outputs/revision/viewer-units.js)');
+{
+  const derived = deriveViewerUnits();
+  const committed = readFileSync(new URL('../outputs/revision/viewer-units.js', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
+  ok(committed === viewerUnitsSource(derived), 'the committed table is what the generator derives now — if not: node work/build-revision-units.mjs --write');
+  for (const [sub, r] of Object.entries(derived)) {
+    const ids = Object.values(r.units);
+    ok(ids.every((u) => UNITS[u]), `${sub}: every linked unit exists in the mesh index`);
+    const nodes = new Set(REVISION[sub].data.NODES.map((n) => n.id));
+    ok(Object.keys(r.units).every((id) => nodes.has(id)), `${sub}: every linked box exists`);
+    /* reported, not failed: a topic or an organelle has no single structure in the model */
+    console.log(`  note ${sub}: ${ids.length} boxes linked; ${r.missing.length + r.ambiguous.length} viewer-eligible boxes have no unit (node work/build-revision-units.mjs --verbose lists them)`);
+  }
+}
 
 console.log(fail ? `\n${fail} FAILED` : '\nALL PASS');
 process.exit(fail ? 1 : 0);

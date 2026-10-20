@@ -4,7 +4,7 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, esc, ui } from './imports.js';
-import { closeSearchSheet } from './global-search-one.js';
+import { closeSearchSheet } from './global-search.js';
 import { goTo } from './navigation-destinations.js';
 
 /* ------------------------------------------------------------------ *

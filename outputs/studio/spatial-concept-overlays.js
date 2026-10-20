@@ -3,14 +3,12 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
+import { pick } from './depth-picking.js';
 import { viewerStructureName } from '../search-name.js';
 import { BONE_LANDMARKS, boneLandmarkKey, surfaceLandmarks } from '../bone-landmarks.js';
 import { anatomicalMatrix } from './packed-spread.js';
 import { $, state } from './imports.js';
-import { animate, between, tube } from './region-boxes-how.js';
-import { clean, disposeConceptObj } from './visualisation-modes.js';
-import { cavityContext } from './cavity-geometry-derived.js';
-import { pick } from './depth-picking.js';
+import { disposeConceptObj } from './modes-and-bridge.js';
 
 /* ------------------------------------------------------------------ *
  * Spatial concept overlays -- cavities, regions, quadrants, planes.
@@ -31,10 +29,9 @@ import { pick } from './depth-picking.js';
  */
 export function bodyMetrics(){
   const THREE=state.THREE;
-  const root=state.fullModel||state.realModel
+  const root=state.fullModel
     ||(Object.values(state.extraModels||{})[0]||{}).pivot||null;
   const src=state.fullMeshes.length?state.fullMeshes
-    :state.meshes.length?state.meshes
     :Object.values(state.extraModels||{}).flatMap(m=>m.meshes||[]);
   /* the whole scene, for the reason spelled out in cavityContext */
   if(state.scene) state.scene.updateMatrixWorld(true);
@@ -416,7 +413,7 @@ function updateBoneLandmarks(){
   const overlay=state.boneLabelOverlay,mesh=state.selectionAnchor;
   const stage=$('stage'),view=$('viewerView');
   const allowed=mesh?.geometry?.attributes.position&&mesh.userData.layerKey==='skeleton'
-    &&!state.focus&&!state.xray&&!state.cut
+    &&!state.xray&&!state.cut
     &&view&&!view.hidden&&view.contains(stage)&&landmarkVisible(mesh);
   if(!allowed){if(overlay)overlay.host.hidden=true;return;}
   const T=state.THREE,cam=state.camera,rect=state.renderer.domElement.getBoundingClientRect();
@@ -610,7 +607,7 @@ export function calloutAt(anchor,text,color,M,opts){
  * drawn square-on against a body that is turned a few degrees away.
  */
 function syncOverlayYaw(grp){
-  const root=state.fullModel||state.realModel
+  const root=state.fullModel
     ||(Object.values(state.extraModels||{})[0]||{}).pivot||null;
   if(grp&&root) grp.rotation.y=root.rotation.y;
 }
@@ -634,12 +631,12 @@ export function clearPickCallout(){
  */
 function silhouetteHalfAt(y,band){
   const THREE=state.THREE;
-  const root=state.fullModel||state.realModel
+  const root=state.fullModel
     ||(Object.values(state.extraModels||{})[0]||{}).pivot||null;
   if(!root) return 0;
   const inv=new THREE.Matrix4().copy(root.matrixWorld).invert();
   const v=new THREE.Vector3(), m4=new THREE.Matrix4();
-  const pools=[state.fullMeshes,state.meshes,
+  const pools=[state.fullMeshes,
     ...Object.values(state.extraModels||{}).map(m=>m.meshes||[])];
   let half=0;
   pools.forEach(pool=>pool.forEach(o=>{
@@ -723,7 +720,7 @@ function nearestSurfacePoint(list,target,inv){
  */
 export function attachCalloutToMesh(objects,mesh,anchor){
   if(!mesh||!state.THREE) return;
-  const root=state.fullModel||state.realModel||(Object.values(state.extraModels||{})[0]||{}).pivot;
+  const root=state.fullModel||(Object.values(state.extraModels||{})[0]||{}).pivot;
   state.scene.updateMatrixWorld(true);
   const world=anchor.clone();
   if(root)world.applyMatrix4(root.matrixWorld);
@@ -738,7 +735,7 @@ export function showPickCallout(obj,text){
   if(!list.length) return;
   clearPickCallout();
   const THREE=state.THREE;
-  const root=state.fullModel||state.realModel
+  const root=state.fullModel
     ||(Object.values(state.extraModels||{})[0]||{}).pivot||null;
   /*
    * Update the WHOLE scene, not just this object's branch.

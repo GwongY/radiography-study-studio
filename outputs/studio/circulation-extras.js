@@ -19,7 +19,7 @@
  * Nothing runs at module scope; init() publishes the API and starts the per-frame watcher.
  */
 import { state } from './imports.js';
-import { showToast } from './visualisation-modes.js';
+import { showToast } from './modes-and-bridge.js';
 import { enterEnhancedHeart } from './heart-atlas.js';
 
 let dots = null, dotsOn = false, dotsLoading = false;
@@ -32,7 +32,7 @@ const notify = () => window.dispatchEvent(new CustomEvent('osteo:layers'));
    failed start (alignment check, no network for the first load) is not retried until the page is reloaded. */
 function watchHeart() {
   const idle = !!state.layers.heart && !!(state.extraModels && state.extraModels.circulatory) && !state.heartAtlasOn
-    && !state.heartAtlasLoading && !state.focus && !state.xray && !heartFailed;
+    && !state.heartAtlasLoading && !state.xray && !heartFailed;
   if (!idle) { calm = 0; return; }
   if (++calm < CALM_FRAMES) return;
   calm = 0;

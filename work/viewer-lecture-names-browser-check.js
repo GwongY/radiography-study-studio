@@ -6,11 +6,11 @@ export default async function(){
   const {MESH_INDEX}=await import('./studio/imports.js');
   const {VIEWER_LECTURE_NAMES,lectureRow}=await import('./viewer-lecture-names.js');
   const {unitFor}=await import('./studio/live-physiology.js');
-  const {onBonePicked}=await import('./studio/visualisation-modes.js');
-  const {searchHits}=await import('./study/global-search-one.js');
+  const {onBonePicked}=await import('./studio/modes-and-bridge.js');
+  const {searchHits}=await import('./study/global-search.js');
   const {viewerStructureName}=await import('./search-name.js');
   openViewer();await window.__osteo.boot();
-  const o=window.__osteo,s=o.state;o.clearStudyFocus();o.clearCut();o.setSeparation(0);s.isolated=false;s.mode='explore';s.region='all';
+  const o=window.__osteo,s=o.state;o.clearCut();o.setSeparation(0);s.isolated=false;s.mode='explore';s.region='all';
   for(const l of BODY_LAYERS)await o.setLayer(l.key,true,l.file);
   const meshes=[...s.fullMeshes,...Object.values(s.extraModels).flatMap(m=>m.meshes)];
   let checked=0;

@@ -7,7 +7,7 @@ globalThis.window=globalThis;
 globalThis.location={origin:'http://localhost',pathname:'/',search:'',hash:''};
 globalThis.matchMedia=()=>({matches:false,addEventListener(){},addListener(){}});
 globalThis.addEventListener=()=>{};
-const {searchHits}=await import('../outputs/study/global-search-one.js');
+const {searchHits}=await import('../outputs/study/global-search.js');
 const {MESH_INDEX}=await import('../outputs/mesh-index.js');
 const {matchesSearch,exactSearch}=await import('../outputs/search-name.js');
 const failed=[];

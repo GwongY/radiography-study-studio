@@ -1,6 +1,6 @@
 # ABCT2326 Human Physiology in Revise — design
 
-Date: 19 October 2026 (Monday of teaching week 8). Status: design, not built. The owner
+Date: 19 October 2026 (Monday of teaching week 8). Status: built 19–20 October 2026 (ABCT2326 in Revise: `outputs/revision/abct2326-*.js`, guarded by `work/revision-check.mjs`). The owner
 answered the open questions the same day; section 8 records the answers and this
 document follows them.
 Plan: `docs/superpowers/plans/2026-10-19-physiology-revise.md`.

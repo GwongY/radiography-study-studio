@@ -4,9 +4,7 @@
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
 import { BODY_CONCEPTS, boundsOf, buildCavityGeometry, conceptLeaves, createResolver, gridBounds, measureGrid, measureLandmarks, state } from './imports.js';
-import { between } from './region-boxes-how.js';
 import { calloutAt, labelSprite } from './spatial-concept-overlays.js';
-import { meshesFor } from './search-viewer-frame.js';
 import { anatomicalMatrix } from './packed-spread.js';
 
 /* ------------------------------------------------------------------ *

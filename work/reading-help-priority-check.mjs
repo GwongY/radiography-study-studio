@@ -324,12 +324,10 @@ const builtMissing = BUILT_OUT_OF_TERMS.filter((term) => {
 
 const renderedNumber = numberHTML({ number: 'singular', other: 'nucleoli' });
 const renderedPlural = numberHTML({ number: 'plural', other: 'nucleolus' });
-const displayMissing = !renderedNumber.includes('Singular form')
-  || !renderedNumber.includes('plural')
-  || !renderedNumber.includes('nucleoli')
-  || !renderedPlural.includes('Plural form')
-  || !renderedPlural.includes('singular')
-  || !renderedPlural.includes('nucleolus');
+/* numberHTML's wording: "This is the singular. Plural: nucleoli". */
+const plain = (html) => html.replace(/<[^>]+>/g, '');
+const displayMissing = !plain(renderedNumber).includes('This is the singular. Plural: nucleoli')
+  || !plain(renderedPlural).includes('This is the plural. Singular: nucleolus');
 const renderedMemory = memoryHTML(memoryTip('intron'));
 const memoryDisplayMissing = !renderedMemory.includes('Memory tip')
   || !renderedMemory.includes('INtrons')

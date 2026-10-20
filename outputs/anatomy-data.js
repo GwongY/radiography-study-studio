@@ -26,7 +26,7 @@ export const REGIONS = [
      Named after the module that teaches it, exactly as 'skull' is labelled
      after Module 4.2: HSS2011 teaches the abdomen and the pelvis together, in
      '2.3 Regional Anatomy of the Abdominopelvic.pdf', titled "Abdomen &
-     Pelvis". Its box is measured in studio/region-boxes-how.js, and spans
+     Pelvis". Its box is measured in studio/scene.js, and spans
      precisely what the nine-region grid is painted on.
      bones:false keeps it out of the derived "In which region does the X sit?"
      question, which is asked about bones and offers every region as an option.
@@ -40,7 +40,7 @@ export const REGIONS = [
      could answer: Vertebral column shows the bones and nothing that lies on
      them, and no filter showed the muscles that a lumbar or cervical
      projection is actually looking through.
-     Defined, precisely, in studio/region-boxes-how.js: everything posterior to
+     Defined, precisely, in studio/scene.js: everything posterior to
      the front of the vertebral column at its own height. That boundary is
      measured from the column itself, band by band, because the column travels
      several centimetres forward and back between the neck and the sacrum and
@@ -73,19 +73,6 @@ export const ANATOMY_DATABASE = [
 ];
 
 export const MODEL_CATALOG = {
-  active: {
-    id: 'bodyparts3d-upper-limb-v1',
-    label: 'BodyParts3D real upper-limb study set',
-    source: 'BodyParts3D via paulvanmetre/anatomy-viewer',
-    license: 'CC BY-SA attribution; credit BodyParts3D / DBCLS and the source project',
-    files: [
-      { id:'clavicle', side:'right', label:'Right clavicle', file:'./assets/bodyparts3d/clavicle_right.glb' },
-      { id:'scapula', side:'right', label:'Right scapula', file:'./assets/bodyparts3d/scapula_right.glb' },
-      { id:'humerus', side:'right', label:'Right humerus', file:'./assets/bodyparts3d/humerus_right.glb' },
-      { id:'radius', side:'right', label:'Right radius', file:'./assets/bodyparts3d/radius_right.glb' },
-      { id:'ulna', side:'right', label:'Right ulna', file:'./assets/bodyparts3d/ulna_right.glb' },
-    ],
-  },
   fullSkeletonFile: './assets/z-anatomy-skeleton.glb',
   organSystemFile: './assets/ic-organlar.glb',
   organSystem: {

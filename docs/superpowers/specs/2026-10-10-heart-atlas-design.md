@@ -1,6 +1,6 @@
 # Heart atlas — BetterHeart heart detail inside the main 3D scene
 
-Date: 2026-10-10. Status: design approved in chat, awaiting spec review.
+Date: 2026-10-10. Status: built — `outputs/studio/heart-atlas.js` and `outputs/heart/`, guarded by `work/heart-atlas-check.mjs`; plan in `../plans/2026-10-10-heart-atlas.md`.
 
 ## Goal
 
