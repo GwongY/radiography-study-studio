@@ -13,7 +13,6 @@ export default async function(){
   openViewer();await window.__osteo.boot();
   const o=window.__osteo,s=o.state,T=s.THREE;
   s.motionEnabled=false;s.fullModel.rotation.y=0;
-  if(s.realModel)s.realModel.rotation.y=0;
   o.clearStudyFocus();o.setSeparation(0);s.mode='explore';s.isolated=false;
   await o.setLayer('axial',true);await o.setLayer('appendicular',true);
   renderViewerTools();

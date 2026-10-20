@@ -94,7 +94,7 @@ import { modelMeshName, viewerStructureName } from '../search-name.js';
     const layerTargets=Object.entries(state.extraModels||{}).filter(([k])=>layerOn(k)).flatMap(([,m])=>m.meshes);
     /* A focused lesson names only what it is teaching. The ghosted body behind
        it is context, so tapping a lymph node must not answer 'Sacrum'. */
-    const targets=state.focus?(state.focus.keep?[...state.focus.keep]:layerPool(state.focus.key)):[...state.meshes,...state.fullMeshes,...layerTargets];
+    const targets=state.focus?(state.focus.keep?[...state.focus.keep]:layerPool(state.focus.key)):[...state.fullMeshes,...layerTargets];
     const hits=state.raycaster.intersectObjects(targets,true)
       .filter(h=>isSelfOrAncestorVisible(h.object)&&h.object.userData.canonicalId);
     hits.sort((a,b)=>{
@@ -225,7 +225,7 @@ import { modelMeshName, viewerStructureName } from '../search-name.js';
   $('resetBtn').onclick=()=>{if(state.xray){setXrayView(state.xray.view);return}cameraView('front');state.isolated=false;$('isolateBtn')?.classList.remove('active');applyVisibility()};els.focus.onclick=()=>{focusSelected(true)};/* This button used to be a second, differently-named way to press Identify.
    It now does the thing its name promises: opens the drill on the structure
    you have got wrong most often, rather than a fresh weighted pick. */
-$('closeDetail').onclick=()=>{els.detailDialog.close();state.lastDetailId=null;history.replaceState(null,'',location.pathname+location.search)};els.retry.onclick=()=>{try{state.controls?.dispose()}catch{}if(state.renderer){state.renderer.domElement.remove();state.renderer=null;state.controls=null}state.scene=null;state.camera=null;state.fullModel=null;state.realModel=null;state.meshes=[];state.fullMeshes=[];state.hotspots=[];state.fullPickables=[];boot3D()};
+$('closeDetail').onclick=()=>{els.detailDialog.close();state.lastDetailId=null;history.replaceState(null,'',location.pathname+location.search)};els.retry.onclick=()=>{try{state.controls?.dispose()}catch{}if(state.renderer){state.renderer.domElement.remove();state.renderer=null;state.controls=null}state.scene=null;state.camera=null;state.fullModel=null;state.fullMeshes=[];state.fullPickables=[];boot3D()};
 /* Belt and braces around the observer: iPadOS fires visualViewport resize on
    rotation and on the keyboard opening, sometimes before layout settles. */
   /* The turntable is the slow idle yaw of the whole body. It is a different

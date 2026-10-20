@@ -7,7 +7,7 @@ import { viewerStructureName } from '../search-name.js';
 import { lectureRow } from '../viewer-lecture-names.js';
 import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CIRCUITS, FLOW_CLASSES, GRAZE_CLAMP, RATES, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, avValveEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, fluence, mottleSigma, mu, prefersStill, semilunarEnvelope, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
 import { MEMORY_TIPS, clean, clearHighlight, openDetail, regionLabel, selectBone, showToast } from './visualisation-modes.js';
-import { animate, applyVisibility, between, getRecord, tube } from './region-boxes-how.js';
+import { animate, applyVisibility, getRecord } from './region-boxes-how.js';
 import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
 import { enforceHidden } from './hide-and-search.js';
 import { showPickCallout } from './spatial-concept-overlays.js';
@@ -788,7 +788,7 @@ export function applyLayers(){
   });
   /* The skeleton ghosts too -- seeing vessels against translucent bone is the
      whole reason to put two layers on at once. */
-  [...state.fullMeshes,...state.meshes].forEach(o=>{
+  [...state.fullMeshes].forEach(o=>{
     if(!o.material)return;
     const keys=o.userData.systems?.length?o.userData.systems
       :systemsOf('skeleton',o.userData.sourceCanonicalId||o.userData.canonicalId||o.name);
@@ -1225,12 +1225,12 @@ export function enterXray(){
   state.fullMeshes.forEach(m=>apply(m,'skeleton'));
   Object.entries(state.extraModels||{}).forEach(([k,l])=>l.meshes.forEach(m=>apply(m,k)));
   Object.entries(state.extraModels||{}).forEach(([k,l])=>{l.root.visible=layerOn(k)});
-  if(state.realModel)state.realModel.visible=false;
+  
   state.scene.background=null;
   state.scene.fog=null;
   /* A yaw would smear a projection that is meant to be read square on. */
   state.motionEnabled=false;
-  [state.fullModel,state.realModel,...Object.values(state.extraModels||{}).map(m=>m.pivot)]
+  [state.fullModel,...Object.values(state.extraModels||{}).map(m=>m.pivot)]
     .forEach(r=>{if(r){state.xray.rotations.set(r,r.rotation.clone());r.rotation.y=0}});
   state.scene.updateMatrixWorld(true);
   ctr.minDistance=.5; ctr.maxDistance=900;
@@ -1767,10 +1767,10 @@ export function endMovement(){
 }
   if(false&&!sessionStorage.getItem('osteology-memory-tip-shown')){const tips=Object.values(MEMORY_TIPS);if(tips.length){showToast(`💡 ${tips[Math.floor(Math.random()*tips.length)].tip}`);sessionStorage.setItem('osteology-memory-tip-shown','1')}}
   window.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&state.selectedId&&!document.getElementById('viewerView').classList.contains('hidden')&&!document.querySelector('dialog[open]'))clearSelection()});
-  function restoreFromHash(){if(!location.hash)return;const m=location.hash.match(/^#detail\/([\w:-]+)/);if(!m||m[1]===state.lastDetailId)return;state.hashTries=(state.hashTries||0)+1;const record=getRecord(m[1]);if(!record){if(!state.fullMeshes.length&&!state.meshes.length&&state.hashTries<20)setTimeout(restoreFromHash,250);return}selectBone(record.id);openDetail(record)}
+  function restoreFromHash(){if(!location.hash)return;const m=location.hash.match(/^#detail\/([\w:-]+)/);if(!m||m[1]===state.lastDetailId)return;state.hashTries=(state.hashTries||0)+1;const record=getRecord(m[1]);if(!record){if(!state.fullMeshes.length&&state.hashTries<20)setTimeout(restoreFromHash,250);return}selectBone(record.id);openDetail(record)}
   window.addEventListener('hashchange',restoreFromHash);setTimeout(restoreFromHash,250);
   const activeModelCopy=document.querySelector('#aboutDialog .about p');
-  if(activeModelCopy)activeModelCopy.innerHTML='<strong>Active model:</strong> a precise Z-Anatomy / BodyParts3D full skeleton, plus six further BodyParts3D layers — muscles, ligaments, organs, vessels, nerves and lymphatic — in the same registered body frame. The seven layers hold 4,474 named nodes, which collapse to <strong>1,686 named structures</strong>: the counts shown on the layer chips are structures, not meshes, because the same thing is exported once per side, again per duplicate, and again per sub-part. Tapping a sub-part selects the whole structure it belongs to. Each chip carries two numbers &mdash; <strong>612 of those 1,686 structures are named somewhere in your own HSS2011 / ABCT2326 material</strong>, and those are the names worth learning. Which file names each one is read off the taught and assessed documents by <code>work/build-course-terms.mjs</code>, not decided here; the set textbook is deliberately excluded, because a reference that names every structure in the body is no evidence that a name is examinable. The rest are still modelled, still searchable and still tappable &mdash; the search groups them rather than listing them beside the ones you are asked to know. Five separate per-bone upper-limb GLBs are still loaded as the anchor that positions the landmark hotspots, but they are no longer drawn: the full skeleton already names those five bones. The procedural scene is only a last-resort fallback.';
+  if(activeModelCopy)activeModelCopy.innerHTML='<strong>Active model:</strong> a precise Z-Anatomy / BodyParts3D full skeleton, plus six further BodyParts3D layers — muscles, ligaments, organs, vessels, nerves and lymphatic — in the same registered body frame. The seven layers hold 4,474 named nodes, which collapse to <strong>1,686 named structures</strong>: the counts shown on the layer chips are structures, not meshes, because the same thing is exported once per side, again per duplicate, and again per sub-part. Tapping a sub-part selects the whole structure it belongs to. Each chip carries two numbers &mdash; <strong>612 of those 1,686 structures are named somewhere in your own HSS2011 / ABCT2326 material</strong>, and those are the names worth learning. Which file names each one is read off the taught and assessed documents by <code>work/build-course-terms.mjs</code>, not decided here; the set textbook is deliberately excluded, because a reference that names every structure in the body is no evidence that a name is examinable. The rest are still modelled, still searchable and still tappable &mdash; the search groups them rather than listing them beside the ones you are asked to know.';
 
 /* Runs after every part has evaluated — see the entry point. */
 export function init() {

@@ -46,9 +46,10 @@ Grouped by file. `docs/CODEMAP.md` links each file to its section.
   work on that view.
 - Picking is restricted to the taught layer inside a focused lesson, or the ghosted
   body behind it steals the tap.
-- The legacy `assets/bodyparts3d/` upper-limb GLBs are **not** the active anatomical
-  source (the 7-layer system is); they remain only as the anchor that positions the
-  landmark hotspots.
+- The viewer boots from the full skeleton alone. The five per-bone upper-limb GLBs
+  and their procedural fallback were removed on 2026-10-20: a failed fetch of one of
+  them used to call the deleted `addHotspots()` and blank a working viewer. If the
+  skeleton fails, the retryable "3D model unavailable" state is the right answer.
 - `MODEL_CATALOG` in `anatomy-data.js` records each layer's coverage *and its gaps* —
   check it before assuming a structure exists.
 - **A layer mesh's `side` is `'bilateral'` when it is unpaired.** That keeps its
@@ -100,7 +101,7 @@ Grouped by file. `docs/CODEMAP.md` links each file to its section.
   no-op when no overlay is showing. Check `conceptProvenance(id).exact`, not
   the picture: the estimate and the measurement look similar from the front.
 - **Overlay groups ride the pivots.** The animate loop yaws `fullModel`,
-  `realModel`, `conceptGroup`, `pickGroup` and every layer pivot together. A new
+  `conceptGroup`, `pickGroup` and every layer pivot together. A new
   group must be measured in the un-rotated frame AND adopt the current yaw
   (`syncOverlayYaw`) — while the turntable is paused the loop will not do it.
 - **A callout anchors on the STRUCTURE, not on its bounding-box centre.**

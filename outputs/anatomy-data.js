@@ -73,19 +73,6 @@ export const ANATOMY_DATABASE = [
 ];
 
 export const MODEL_CATALOG = {
-  active: {
-    id: 'bodyparts3d-upper-limb-v1',
-    label: 'BodyParts3D real upper-limb study set',
-    source: 'BodyParts3D via paulvanmetre/anatomy-viewer',
-    license: 'CC BY-SA attribution; credit BodyParts3D / DBCLS and the source project',
-    files: [
-      { id:'clavicle', side:'right', label:'Right clavicle', file:'./assets/bodyparts3d/clavicle_right.glb' },
-      { id:'scapula', side:'right', label:'Right scapula', file:'./assets/bodyparts3d/scapula_right.glb' },
-      { id:'humerus', side:'right', label:'Right humerus', file:'./assets/bodyparts3d/humerus_right.glb' },
-      { id:'radius', side:'right', label:'Right radius', file:'./assets/bodyparts3d/radius_right.glb' },
-      { id:'ulna', side:'right', label:'Right ulna', file:'./assets/bodyparts3d/ulna_right.glb' },
-    ],
-  },
   fullSkeletonFile: './assets/z-anatomy-skeleton.glb',
   organSystemFile: './assets/ic-organlar.glb',
   organSystem: {

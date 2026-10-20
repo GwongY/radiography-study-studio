@@ -59,7 +59,7 @@ export function publishHidden(){
   try{ state.hiddenHook(hiddenRows()); }catch(e){}
 }
 function meshByUuid(uuid){
-  const all=[...state.fullMeshes,...state.meshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)];
+  const all=[...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)];
   return all.find(m=>m.uuid===uuid)||null;
 }
 /* Every mesh that IS this structure. Sub-parts share a canonicalId, so hiding
@@ -67,7 +67,7 @@ function meshByUuid(uuid){
 function kinOf(m){
   const id=m&&m.userData&&m.userData.canonicalId;
   if(!id) return [m];
-  const all=[...state.fullMeshes,...state.meshes,...Object.values(state.extraModels||{}).flatMap(x=>x.meshes)];
+  const all=[...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(x=>x.meshes)];
   const kin=all.filter(o=>o.userData&&o.userData.canonicalId===id);
   return kin.length?kin:[m];
 }

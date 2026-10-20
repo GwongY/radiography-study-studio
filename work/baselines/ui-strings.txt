@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1000 —
-  c3cf2308507081fb  WHOLE SET
+— user-facing strings in outputs/ — 996 —
+  1512c7d934a7b3e0  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -328,8 +328,6 @@
   429916d6220ec030  Follow the teaching week by itself
   eece46bf2c48d0c2  Four chambers
   cb73b83197d100e5  Full height · viewport
-  3ee9379ac50332af  Full reference + fallback upper-limb meshes
-  c779b95a4e70b011  Full reference failed
   edf0377d91509acb  Full term
   f13cb04ba7eea38d  Fundamentals of Anatomy and Physiology_Question Bank.pdf
   0042d17b5aaf39e6  Fundamentals of Anatomy and Physiology_eBook.pdf
@@ -539,7 +537,6 @@
   ead61b004eb315fc  Radiography Sources (祝返工順利)
   9262778a6bdeefc5  Radiography Studies/Radiography Studies III/Cancer Treatment/source from alex/Radiograhy Studies III/Treatment modality of cancer
   cf9600734b54209e  Readable copy of the reproductive-system lecture, from the 2020/21 set.
-  164775a7b441c383  Real upper-limb model failed, using local fallback
   7914bbadb94c3bc3  Region filter cleared \u2014 that structure is outside it
   ce89ae822e8ba072  Reset view
   c1ed33754a522a46  Revise through
@@ -893,7 +890,6 @@
   777503f25750cf8f  px "Instrument Sans", system-ui, -apple-system, sans-serif
   fe61828d0377d29b  question blank/Chapter 1–29.pdf
   9104b22058806e6c  rather than rotating rigidly, so swinging them would tear them off their origin.
-  c93a88684ed76c4f  real BodyParts3D upper-limb meshes
   6ab01b1dba123b71  region filter does not work
   ec6a0f3dde81ba11  repeats id
   9eb7149db5d15b08  rv-chip rv-auto

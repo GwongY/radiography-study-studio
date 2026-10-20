@@ -48,7 +48,7 @@ function occludersOf(targets,frame){
      the biceps, and the other head, which the selection lights with it, was
      being hidden as an obstruction. */
   const targetIds=new Set(targets.map(m=>m.userData&&m.userData.canonicalId).filter(Boolean));
-  const pool=[...state.fullMeshes,...state.meshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)]
+  const pool=[...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)]
     .filter(m=>m.userData&&m.userData.canonicalId&&!targetSet.has(m)&&!targetIds.has(m.userData.canonicalId));
   samples.forEach(pt=>{
     const d=pt.clone().sub(from);
@@ -104,7 +104,7 @@ export async function revealStructure(spec){
     if(rec){
       /* Real-skeleton meshes carry a per-mesh id (full:N:name); the canonical
          'ribs' lives on userData.sourceCanonicalId. Match either. */
-      const pools=[state.meshes,state.fullMeshes,...Object.values(state.extraModels||{}).map(m=>m.meshes)];
+      const pools=[state.fullMeshes,...Object.values(state.extraModels||{}).map(m=>m.meshes)];
       pools.forEach(p=>p.forEach(m=>{
         if(m.userData&&(m.userData.canonicalId===rec.id||m.userData.sourceCanonicalId===rec.id||m.userData.canonicalId===spec.id)) targets.push(m);
       }));

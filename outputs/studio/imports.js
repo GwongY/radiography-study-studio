@@ -41,7 +41,7 @@
     return typeof matchMedia==='function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  export const state = { region:'all', selectedId:null, selectedSide:null, isolated:false, meshes:[], fullMeshes:[], fullPickables:[], importedRecords:new Map(), selectionAnchor:null, selectionMeshes:[], lastPick:{x:0,y:0,t:0,candidates:[],index:-1}, lastDetailId:null, hashRestored:false, scene:null, camera:null, controls:null, renderer:null, raycaster:null, pointer:null, fullModel:null, realModel:null, realIsProcedural:false, motionEnabled:false, motionPhase:0 };
+  export const state = { region:'all', selectedId:null, selectedSide:null, isolated:false, fullMeshes:[], fullPickables:[], importedRecords:new Map(), selectionAnchor:null, selectionMeshes:[], lastPick:{x:0,y:0,t:0,candidates:[],index:-1}, lastDetailId:null, hashRestored:false, scene:null, camera:null, controls:null, renderer:null, raycaster:null, pointer:null, fullModel:null, motionEnabled:false, motionPhase:0 };
 export const LAYER_NAMES={skeleton:'Skeleton',muscle:'Muscles',organs:'Organs',circulatory:'Vessels',nervous:'Nerves',joint:'Ligaments',lymphatic:'Lymphatic'};
 
 

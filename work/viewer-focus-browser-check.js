@@ -14,7 +14,7 @@ export default async function(){
   const o=window.__osteo,s=o.state,T=s.THREE;
   o.clearStudyFocus();o.setSeparation(0);o.clearCut();
   s.mode='explore';s.region='all';s.isolated=false;s.motionEnabled=false;
-  s.fullModel.rotation.y=0;if(s.realModel)s.realModel.rotation.y=0;
+  s.fullModel.rotation.y=0;
   s.hidden.clear();s.autoHidden.clear();s.controls.enableDamping=false;
   const all=()=>[...s.fullMeshes,...Object.values(s.extraModels).flatMap(m=>m.meshes)];
   const visible=m=>{for(let p=m;p;p=p.parent)if(!p.visible)return false;return true;};

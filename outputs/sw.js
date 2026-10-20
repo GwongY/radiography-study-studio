@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v250';
+const CACHE_VERSION = 'v251';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -276,10 +276,12 @@ self.addEventListener('activate', (event) => {
     const keys = await caches.keys();
     await Promise.all(keys.filter((k) => k.startsWith('rss-') && !ALL_CACHES.includes(k))
       .map((k) => caches.delete(k)));
+    /* Model files the app no longer loads: drop them from the model cache. */
+    const RETIRED_MODELS=['/atlas/models/','/assets/bodyparts3d/'];
     const models=await caches.open(MODEL_CACHE);
     await Promise.all((await models.keys()).filter(request=>{
       const url=new URL(request.url);
-      return url.origin===self.location.origin&&url.pathname.includes('/atlas/models/');
+      return url.origin===self.location.origin&&RETIRED_MODELS.some(p=>url.pathname.includes(p));
     }).map(request=>models.delete(request)));
     await self.clients.claim();
   })());

@@ -30,7 +30,7 @@ import { applyPackedSpread, endPackedSpread, restorePackedSpread } from './packe
  * built there and mapped out to the world once, per frame, in syncTools().
  * ------------------------------------------------------------------ */
 function bodyRoot(){
-  return state.fullModel||state.realModel
+  return state.fullModel
     ||(Object.values(state.extraModels||{})[0]||{}).pivot||null;
 }
 /*
