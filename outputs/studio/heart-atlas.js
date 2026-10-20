@@ -486,8 +486,8 @@ export async function enterHeartAtlas() {
   if (state.enhancedHeartOn) exitEnhancedHeart();
   if (state.limbAtlasOn) window.__osteo?.exitHeartAtlas?.(); /* the limb vessels mode is the other atlas: close it first */
   if (state.heartAtlasOn || busy) return state.heartAtlasOn;
-  if (state.xray || state.focus) {
-    showToast(state.xray ? 'Close Projection before opening the heart atlas.' : 'Close the focused lesson before opening the heart atlas.');
+  if (state.xray) {
+    showToast('Close Projection before opening the heart atlas.');
     return false;
   }
   setBusy(true);
@@ -499,8 +499,8 @@ export async function enterHeartAtlas() {
       await window.__osteo.boot();
     }
     if (!state.scene || !state.camera || !state.controls || !state.renderer) throw new Error('The 3D viewer did not finish booting.');
-    if (state.xray || state.focus) {
-      showToast(state.xray ? 'Close Projection before opening the heart atlas.' : 'Close the focused lesson before opening the heart atlas.');
+    if (state.xray) {
+      showToast('Close Projection before opening the heart atlas.');
       return false;
     }
     before = takeSnapshot();

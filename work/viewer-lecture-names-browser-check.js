@@ -10,7 +10,7 @@ export default async function(){
   const {searchHits}=await import('./study/global-search-one.js');
   const {viewerStructureName}=await import('./search-name.js');
   openViewer();await window.__osteo.boot();
-  const o=window.__osteo,s=o.state;o.clearStudyFocus();o.clearCut();o.setSeparation(0);s.isolated=false;s.mode='explore';s.region='all';
+  const o=window.__osteo,s=o.state;o.clearCut();o.setSeparation(0);s.isolated=false;s.mode='explore';s.region='all';
   for(const l of BODY_LAYERS)await o.setLayer(l.key,true,l.file);
   const meshes=[...s.fullMeshes,...Object.values(s.extraModels).flatMap(m=>m.meshes)];
   let checked=0;

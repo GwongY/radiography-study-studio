@@ -327,7 +327,7 @@ university-notice token (`study/weekly-briefing.js`). **This repository is publi
 text, names, addresses or student details in commits, `outputs/`, docs or commit
 messages** — plaintext lives only in ignored `work/.briefing/`. Commits use the
 GitHub noreply address (repo-local `user.email`). The previous Sites publication
-is a separate snapshot; see `docs/PRIVATE-HOSTING.md`.
+is a separate snapshot; see `docs/archive/PRIVATE-HOSTING.md`.
 
 What `master` carries is `git log --oneline` — not repeated here, because a
 changelog in the one file every session loads is one that goes stale unread.

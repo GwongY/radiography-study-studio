@@ -1,6 +1,6 @@
 # Piece 1 — muscle geometry and normals
 
-Status: IMPLEMENTED (commit `8ab302e` — geometry-derived contraction axis for sartorius and both biceps heads, tethered belly deformation, matching normals). Depends on 0. Parent: [decomposition](2026-09-09-physiology-decomposition.md).
+Status: RETIRED 2026-10-19 (45bc9bf: muscles no longer animate; live physiology starts off). Was IMPLEMENTED (commit `8ab302e` — geometry-derived contraction axis for sartorius and both biceps heads, tethered belly deformation, matching normals). Depends on 0. Parent: [decomposition](2026-09-09-physiology-decomposition.md).
 
 ## Change
 

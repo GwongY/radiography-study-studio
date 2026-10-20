@@ -4,11 +4,11 @@
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $, MODEL_CATALOG, els, getAnatomy, prefersStill, state, systemsOf } from './imports.js';
-import { applyConnectiveVisibility, applyLayers, layerOn, meshOn, renderXray, resizeXray, setMovementAngle, stepPhysiology, unitBlurb, unitFor, updateStageMeta } from './live-physiology.js';
+import { applyConnectiveVisibility, layerOn, meshOn, renderXray, resizeXray, setMovementAngle, stepPhysiology, unitBlurb, unitFor, updateStageMeta, applyLayers } from './live-physiology.js';
 import { bodyMetrics, clearPickCallout, updateHudSprites } from './spatial-concept-overlays.js';
-import { clean, clearHighlight, onBonePicked, renderRegions, selectBone, showToast } from './visualisation-modes.js';
+import { clearHighlight, onBonePicked, renderRegions, showToast } from './visualisation-modes.js';
 import { enforceHidden } from './hide-and-search.js';
-import { loadExtraModel, restorePeel } from './depth-picking.js';
+import { restorePeel, loadExtraModel } from './depth-picking.js';
 /* The abdomen's box is cut to the levels the nine-region grid is drawn on --
    see regionBoxes. Imported as a function, called only from inside one, so the
    cycle with cavity-geometry-derived.js resolves like the others here. */
@@ -224,7 +224,6 @@ import { restorePackedSpread } from './packed-spread.js';
       /* 4. Depth, for the one region that needs it -- see columnFront. */
       const front=state.region==='back'&&inv?columnFront(inv):null;
       Object.entries(state.extraModels||{}).forEach(([k,mdl])=>{
-        if(state.focus&&state.focus.key===k)return;   /* focus owns this layer */
         mdl.meshes.forEach(o=>{
           /* 3. System. Two of the seven files draw several chips, so a mesh
                 whose own system is off goes away even though its layer is on

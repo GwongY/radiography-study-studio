@@ -12,7 +12,7 @@ export default async function(){
   const {compositeFor}=await import('./synonyms.js');
   openViewer();await window.__osteo.boot();
   const o=window.__osteo,s=o.state,T=s.THREE;
-  o.clearStudyFocus();o.setSeparation(0);o.clearCut();
+  o.setSeparation(0);o.clearCut();
   s.mode='explore';s.region='all';s.isolated=false;s.motionEnabled=false;
   s.fullModel.rotation.y=0;
   s.hidden.clear();s.autoHidden.clear();s.controls.enableDamping=false;
@@ -59,8 +59,6 @@ export default async function(){
   const box=new T.Box3();s.selectionMeshes.forEach(m=>box.expandByObject(m));
   assert(box.getCenter(new T.Vector3()).distanceTo(s.controls.target)<1e-9,'Focus framed only one muscle part');
   reset();
-  assert(await o.selectInSystem('muscle',BODY_LAYERS.find(l=>l.key==='muscle').file,muscle.userData.label),'structure-set selection failed');
-  focus();onlySelection();assert(s.selectionMeshes.length===3,'structure-set Focus lost a muscle part');reset();
   const composite=compositeFor('larynx');assert(composite,'missing cross-layer group');
   const found=await revealStructure({name:composite.name,parts:composite.parts.map(([system,mesh])=>({system,mesh}))});
   assert(found.ok&&new Set(s.selectionMeshes.map(m=>m.userData.layerKey||m.userData.extraKey)).size>1,'cross-layer selection not exercised');

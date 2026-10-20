@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v252';
+const CACHE_VERSION = 'v253';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -171,15 +171,11 @@ const SHELL = [
   './study/dialog-behaviour-applied.js',
   './anatomy-data.js?v=5',
   /*
-   * The same two files again, unversioned — NOT a duplicate. A cache key is the
-   * whole URL, query included, and two modules import these without the query:
-   * study-data.js imports './anatomy-data.js' and cavity-build.js imports
-   * './cavity-geom.js'. Precaching only the ?v= form left both 404ing offline —
-   * the bone records and the entire overlay engine. Found by the transitive
-   * import walk in work/shell-check.mjs; the old one-level scrape could not see
-   * a second-level import at all.
+   * cavity-geom.js again, unversioned — NOT a duplicate. A cache key is the
+   * whole URL, query included, and cavity-build.js imports './cavity-geom.js'
+   * without the query. Precaching only the ?v= form left the overlay engine
+   * 404ing offline. work/shell-check.mjs walks the imports and enforces this.
    */
-  './anatomy-data.js',
   './cavity-geom.js',
   './wordparts.js?v=3',
   './term-notes.js?v=6',
@@ -277,7 +273,7 @@ self.addEventListener('activate', (event) => {
     await Promise.all(keys.filter((k) => k.startsWith('rss-') && !ALL_CACHES.includes(k))
       .map((k) => caches.delete(k)));
     /* Model files the app no longer loads: drop them from the model cache. */
-    const RETIRED_MODELS=['/atlas/models/','/assets/bodyparts3d/'];
+    const RETIRED_MODELS=['/assets/bodyparts3d/'];
     const models=await caches.open(MODEL_CACHE);
     await Promise.all((await models.keys()).filter(request=>{
       const url=new URL(request.url);
@@ -420,8 +416,6 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
-  // Private email and sign-in responses never enter an offline cache.
-  if (url.origin === self.location.origin && (url.pathname.startsWith('/api/') || url.pathname.startsWith('/auth/') || url.pathname === '/login' || url.pathname === '/healthz')) return;
 
   if (isCdn(url)) { event.respondWith(cacheFirst(request, CDN_CACHE)); return; }
   if (url.origin !== self.location.origin) return;  /* leave other origins alone */

@@ -3,14 +3,12 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
+import { pick } from './depth-picking.js';
 import { viewerStructureName } from '../search-name.js';
 import { BONE_LANDMARKS, boneLandmarkKey, surfaceLandmarks } from '../bone-landmarks.js';
 import { anatomicalMatrix } from './packed-spread.js';
 import { $, state } from './imports.js';
-import { animate } from './region-boxes-how.js';
-import { clean, disposeConceptObj } from './visualisation-modes.js';
-import { cavityContext } from './cavity-geometry-derived.js';
-import { pick } from './depth-picking.js';
+import { disposeConceptObj } from './visualisation-modes.js';
 
 /* ------------------------------------------------------------------ *
  * Spatial concept overlays -- cavities, regions, quadrants, planes.
@@ -415,7 +413,7 @@ function updateBoneLandmarks(){
   const overlay=state.boneLabelOverlay,mesh=state.selectionAnchor;
   const stage=$('stage'),view=$('viewerView');
   const allowed=mesh?.geometry?.attributes.position&&mesh.userData.layerKey==='skeleton'
-    &&!state.focus&&!state.xray&&!state.cut
+    &&!state.xray&&!state.cut
     &&view&&!view.hidden&&view.contains(stage)&&landmarkVisible(mesh);
   if(!allowed){if(overlay)overlay.host.hidden=true;return;}
   const T=state.THREE,cam=state.camera,rect=state.renderer.domElement.getBoundingClientRect();

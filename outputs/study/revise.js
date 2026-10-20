@@ -23,7 +23,7 @@ import { scrollViewTop, showView } from './small-ui-helpers.js';
 import { glossifyNode } from './reading-help.js';
 import { bindLinkList, markLinkRow, renderLinkList } from './revise-links.js';
 import { DEFAULT_SUBJECT, REVISION } from '../revision/registry.js?v=1';
-import { autoWeek, firstWeek, lastWeekOf, newIds, pruneTree, releasedLast, resolveWeek, visibleEdges, visibleIds } from '../revision/weeks.js?v=1';
+import { autoWeek, lastWeekOf, newIds, pruneTree, releasedLast, resolveWeek, visibleEdges, visibleIds } from '../revision/weeks.js?v=1';
 import { linkRows } from '../revision/link-rows.js?v=1';
 import { describe } from '../revision/describe.js?v=1';
 import { OWN } from '../revision/own-words.js?v=1';

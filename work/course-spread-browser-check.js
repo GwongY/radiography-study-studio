@@ -14,7 +14,7 @@ export default async function(){
   const {applyVisibility}=await import('./studio/region-boxes-how.js');
   document.querySelector('[data-vtab="3d"]').click();
   assert(!document.querySelector('#modelSourceTabs,#viewerAtlasPane'),'alternate surface remains');
-  o.clearStudyFocus();s.isolated=false;applyVisibility();
+  s.isolated=false;applyVisibility();
   o.setSpreadMode('pieces');o.setSeparation(0);s.motionEnabled=false;
   s.scene.updateMatrixWorld(true);
   const home=s.fullMeshes.map(m=>({m,matrix:m.matrixWorld.toArray()}));
@@ -53,13 +53,6 @@ export default async function(){
   await preset('skeleton');o.setSeparation(0);
   o.setSeparation(1);o.setCut('axial',.5,false);assert(o.separation()===0,'cut left spread active');o.clearCut();
   o.setSeparation(1);
-  const focus=await o.focusStructures({layer:'organs',meshes:['~lung'],ghostBody:true});
-  assert(focus.ok&&o.separation()===0,'lesson did not assemble/focus');
-  const intersect=s.raycaster.intersectObjects;
-  let targets=[];s.raycaster.intersectObjects=(pool)=>{targets=pool;return [];};
-  try{pick({clientX:100,clientY:100});}finally{s.raycaster.intersectObjects=intersect;}
-  assert(targets.length>0&&targets.every(m=>s.extraModels.organs.meshes.includes(m)),'lesson picking escaped the taught layer');
-  o.clearStudyFocus();o.setSeparation(1);
   document.querySelector('[data-vtab="xray"]').click();await until(()=>o.inXray());
   assert(o.separation()===0&&o.setSeparation(1)===0,'projection accepted spread');
   document.querySelector('[data-vtab="3d"]').click();

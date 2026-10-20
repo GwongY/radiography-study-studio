@@ -1,13 +1,10 @@
 
-  import { ANATOMY_DATABASE, MODEL_CATALOG, REGIONS, getAnatomy, searchAnatomy } from '../anatomy-data.js?v=5';
-  import { FLOW_CLASSES, FLOW_ANCHORS, LAYER_CLASSES, classify,
-    cardiacEnvelope, breathEnvelope, spikeEnvelope, contractEnvelope, atriumEnvelope, ventricleEnvelope,
-    avValveEnvelope, semilunarEnvelope, RATES,
-    FLOW_CIRCUITS } from '../physiology.js?v=4';
-  import { BODY_CONCEPTS, CONCEPT_GROUPS, conceptById, conceptAncestors, conceptChildren, conceptLeaves } from '../bodymap.js?v=4';
+  import { ANATOMY_DATABASE, MODEL_CATALOG, REGIONS, getAnatomy } from '../anatomy-data.js?v=5';
+  import { FLOW_CLASSES, FLOW_ANCHORS, classify, cardiacEnvelope, breathEnvelope, spikeEnvelope, contractEnvelope, atriumEnvelope, ventricleEnvelope, avValveEnvelope, semilunarEnvelope, RATES, FLOW_CIRCUITS } from '../physiology.js?v=4';
+  import { BODY_CONCEPTS, conceptById, conceptLeaves } from '../bodymap.js?v=4';
   import { createResolver } from '../landmarks.js?v=2';
   import { buildCavityGeometry, measureLandmarks, measureGrid, gridBounds } from '../cavity-build.js?v=2';
-  import { boundsOf, sampleField } from '../cavity-geom.js?v=2';
+  import { boundsOf } from '../cavity-geom.js?v=2';
   /* Block 0 has its own import scope -- block 1's copy is not visible here.
      Picking needs the index to know which meshes are sub-parts of one
      named structure. See the note in CLAUDE.md about the two scopes. */

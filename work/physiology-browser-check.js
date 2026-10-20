@@ -1,3 +1,7 @@
+// STALE (2026-10-20): this check drives focusPhysiologyExample / focusStructures,
+// the lesson-era study focus removed with the Learn tab, and it expects muscles
+// to animate, which stopped in 45bc9bf. It already failed on master before the
+// removal. Rewrite it against the current viewer before relying on it.
 // Evaluate on a fresh dev-server tab in real Chrome, after modules settle.
 async function physiologyBrowserCheck(){
   const check=(ok,message)=>{if(!ok)throw new Error(message);};

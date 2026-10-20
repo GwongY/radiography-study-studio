@@ -3,11 +3,10 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, MESH_INDEX as ATLAS_MESH_INDEX, SEARCH_EXTRAS, STRUCTURE_MODELS, UNITS, compositeFor, esc, expandQuery, missingFor, searchAnatomy } from './imports.js';
+import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, MESH_INDEX as ATLAS_MESH_INDEX, SEARCH_EXTRAS, STRUCTURE_MODELS, compositeFor, esc, expandQuery, missingFor, searchAnatomy } from './imports.js';
 import { K, read, write } from './storage-versioned-keys.js';
 import { goTo } from './navigation-destinations.js';
 import { openStructureInViewer } from './search-viewer-open.js';
-import { showView } from './small-ui-helpers.js';
 import { exactSearch, matchesSearch, modelSearchNames } from '../search-name.js';
 import { lectureRow } from '../viewer-lecture-names.js';
 const lectureRows=ATLAS_MESH_INDEX.map(lectureRow);
@@ -338,11 +337,6 @@ export function searchHits(q) {
       go: () => { closeSearchSheet(); goTo('viewer'); setTimeout(() => window.__osteo && window.__osteo.toggleConceptKind && window.__osteo.toggleConceptKind(g.kind), 160); } });
   });
 
-  if (/radiograph|x-?ray|projection/.test(needle)) {
-    hits.push({ kind: 'Radiograph', title: 'No radiographs bundled',
-      note: 'assets/xray/ is empty \u2014 add a licence-cleared image',
-      go: () => { closeSearchSheet(); goTo('viewer'); } });
-  }
   const rank = (h) => h.kind === 'Composite' ? -1
     : exactTerms.some(t=>exactSearch(h.title,t)) ? 0
     : h.title.toLowerCase().startsWith(needle) ? 1 : 2;
