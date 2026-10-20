@@ -1551,7 +1551,10 @@ export function startMovement(mv){
   const {carried,held}=classifySoftTissue(THREE,moving,meshesNamed(mv.fixed,mv.side));
   /* Reparent while preserving world transform, so nothing jumps on attach. */
   const travelling=[...moving,...carried];
-  const restore=travelling.map(mesh=>({mesh,parent:mesh.parent}));
+  /* Each mesh's own local transform is kept, so ending the movement puts it back
+     exactly, not via two matrix inversions (work/movement-browser-check.js). */
+  const restore=travelling.map(mesh=>({mesh,parent:mesh.parent,
+    position:mesh.position.clone(),quaternion:mesh.quaternion.clone(),scale:mesh.scale.clone()}));
   travelling.forEach(mesh=>group.attach(mesh));
   const ghosted=held.map(mesh=>({mesh,opacity:mesh.material?mesh.material.opacity:1,
     transparent:mesh.material?mesh.material.transparent:false}));
@@ -1560,38 +1563,39 @@ export function startMovement(mv){
     if(!mesh.material.transparent)mesh.material.needsUpdate=true;
     mesh.material.transparent=true;mesh.material.opacity=.1;mesh.material.depthWrite=false;
   });
-  const note=document.getElementById('mvBarNote');
+  const note=document.getElementById('mvNote');
   if(note){
     if(held.length){
-      note.textContent=`${carried.length} soft-tissue structures travel with the bone. `
-        +`${held.length} cross the joint and are ghosted and held still — muscle and vessel deform across a joint `
-        +`rather than rotating rigidly, so swinging them would tear them off their origin.`;
+      note.textContent=`${carried.length} soft-tissue structures move with the bones. `
+        +`${held.length} cross the joint, so they are ghosted and held still: a rigid rotation would pull them off the bone they start on.`;
       note.classList.remove('hidden');
     } else if(carried.length){
-      note.textContent=`${carried.length} soft-tissue structures travel with the bone.`;
+      note.textContent=`${carried.length} soft-tissue structures move with the bones.`;
       note.classList.remove('hidden');
     } else note.classList.add('hidden');
   }
   state.movement={mv,group,axis,restore,ghosted,angle:0,playing:false,dir:1};
-  setMovementAngle(mv.range[0]);
+  /* start from the model's own pose (0), not from an end of the range */
+  setMovementAngle(Math.max(mv.range[0],Math.min(mv.range[1],0)));
   return true;
 }
 export function setMovementAngle(deg){
   const m=state.movement; if(!m)return;
   const lo=m.mv.range[0], hi=m.mv.range[1];
   m.angle=Math.max(lo,Math.min(hi,deg));
-  m.group.setRotationFromAxisAngle(m.axis, m.angle*Math.PI/180);
-  const el=document.getElementById('mvBarReadout');
-  if(el){
-    const stage=(m.mv.stages||[]).filter(s=>m.angle>=s.at).pop();
-    el.textContent=`${Math.round(m.angle)}°`+(stage?` — ${stage.note}`:'');
-  }
-  const sl=document.getElementById('mvBarSlider');
+  m.group.setRotationFromAxisAngle(m.axis, (m.mv.sign||1)*m.angle*Math.PI/180);
+  if(typeof document==='undefined')return;
+  const el=document.querySelector(`[data-mvread="${m.mv.id}"]`);
+  if(el)el.textContent=`${Math.round(m.angle)}°`;
+  const sl=document.querySelector(`[data-mvslider="${m.mv.id}"]`);
   if(sl&&Math.round(+sl.value)!==Math.round(m.angle))sl.value=String(Math.round(m.angle));
 }
 export function endMovement(){
   const m=state.movement; if(!m)return;
-  m.restore.forEach(({mesh,parent})=>parent&&parent.attach(mesh));
+  m.restore.forEach(({mesh,parent,position,quaternion,scale})=>{
+    if(parent)parent.add(mesh);
+    mesh.position.copy(position);mesh.quaternion.copy(quaternion);mesh.scale.copy(scale);
+  });
   (m.ghosted||[]).forEach(({mesh,opacity,transparent})=>{
     if(!mesh.material)return;
     if(mesh.material.transparent!==transparent)mesh.material.needsUpdate=true;
@@ -1599,8 +1603,12 @@ export function endMovement(){
   });
   m.group.parent&&m.group.parent.remove(m.group);
   state.movement=null;
-  const note=document.getElementById('mvBarNote');
+  const note=document.getElementById('mvNote');
   if(note)note.classList.add('hidden');
+  /* every slider back to the model's own pose */
+  document.querySelectorAll('[data-mvslider]').forEach(sl=>{sl.value=sl.dataset.rest||'0';});
+  document.querySelectorAll('[data-mvread]').forEach(el=>{el.textContent='';});
+  document.querySelectorAll('.mv-item.on').forEach(el=>el.classList.remove('on'));
 }
   if(false&&!sessionStorage.getItem('osteology-memory-tip-shown')){const tips=Object.values(MEMORY_TIPS);if(tips.length){showToast(`💡 ${tips[Math.floor(Math.random()*tips.length)].tip}`);sessionStorage.setItem('osteology-memory-tip-shown','1')}}
   window.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&state.selectedId&&!document.getElementById('viewerView').classList.contains('hidden')&&!document.querySelector('dialog[open]'))clearSelection()});

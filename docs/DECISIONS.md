@@ -5,6 +5,15 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-20 — Joint movements are back, as a Viewer tool
+
+The Viewer's bottom bar has **Moves**: supination and pronation (radioulnar
+joint), flexion and extension (elbow joint), abduction and adduction
+(glenohumeral joint), each a slider on the right arm with Stop and reset, and a
+link to Revise's Movement vocabulary box. Every name is a 2026 HSS2011 slide
+term, cited to its page (`outputs/movements.js`). Opposition of the thumb was
+not brought back: no 2026 slide names it. No teaching prose.
+
 ### 2026-10-20 — Core courses only
 
 The app serves the important core courses only: **HSS2011 Human Anatomy** and

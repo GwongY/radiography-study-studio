@@ -145,6 +145,7 @@ const SHELL = [
   './study/state.js',
   './study/storage-versioned-keys.js',
   './study/course-data.js',
+  './movements.js?v=1',
   './study/small-ui-helpers.js',
   './study/viewport-recovery.js',
   './study/home.js',
