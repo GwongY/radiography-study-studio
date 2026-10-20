@@ -486,7 +486,7 @@ function bindPicking() {
 /* ---- enter / exit ---- */
 export async function enterHeartAtlas() {
   if (state.enhancedHeartOn) exitEnhancedHeart();
-  if (state.limbAtlasOn || state.muscleZoomOn) window.__osteo?.exitHeartAtlas?.(); /* another atlas mode is open: close it first */
+  if (state.limbAtlasOn || state.muscleZoomOn || state.cellZoomOn) window.__osteo?.exitHeartAtlas?.(); /* another atlas mode is open: close it first */
   if (state.heartAtlasOn || busy) return state.heartAtlasOn;
   if (state.xray) {
     showToast('Close Projection before opening the heart atlas.');
@@ -656,7 +656,7 @@ export function exitEnhancedHeart() {
 }
 
 export function exitHeartAtlas() {
-  if (state.limbAtlasOn || state.muscleZoomOn) return; /* not ours to close */
+  if (state.limbAtlasOn || state.muscleZoomOn || state.cellZoomOn) return; /* not ours to close */
   if (state.enhancedHeartOn) { exitEnhancedHeart(); return; }
   if (!state.heartAtlasOn && !saved) return;
   const before = saved;
@@ -680,7 +680,7 @@ export function init() {
   toggle.setAttribute('aria-busy', 'false');
   toggle.textContent = 'Heart atlas';
   toggle.onclick = () => {
-    if (state.heartAtlasOn && !state.limbAtlasOn && !state.muscleZoomOn && !state.enhancedHeartOn) exitHeartAtlas();
+    if (state.heartAtlasOn && !state.limbAtlasOn && !state.muscleZoomOn && !state.cellZoomOn && !state.enhancedHeartOn) exitHeartAtlas();
     else void enterHeartAtlas().catch((error) => {
       console.error('Heart atlas toggle failed.', error);
       showToast(loadFailureMessage());

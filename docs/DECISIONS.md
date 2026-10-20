@@ -5,6 +5,21 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-20 — Cell zoom: a Viewer mode from the cell to the nucleosome, and the cells of every lecture
+
+The Viewer's dock has **Cell**, and Revise boxes on the same things have **Show in 3D**: a typical cell cut open,
+Zoom in to the nucleus, the organisation of DNA (Nondividing cell ↔ Cell prepared for division) and one
+nucleosome; beside them the cell life cycle with a mitosis stage slider, meiosis, protein synthesis with a
+lipophilic or hydrophilic hormone acting on the gene (the owner's endocrine example), and the cells the other
+ABCT2326 lectures and HSS2011 W5 draw (plasma membrane, epithelium, blood, alveolus, parietal cell, spermatozoon,
+neuron, NK cell, antigen-presenting cell). Every label, stage and note is on the page it cites
+(`work/cell-zoom-check.mjs`); stage names come from the tutorials where the deck has no word for them; CREB and the
+hormone response element come from the older ABCT2326 Hormone Mechanism handout, the one named fallback, because
+the 2026 Endocrine deck stops at the kinase. Terms no source page uses (base pair, tetrad, homologous, linker DNA,
+the histone type names) are drawn but left unlabelled. The nucleosome is PDB 3AFA (CC0); everything else is built
+in three.js because no other open model could be downloaded and licence-checked. Spec:
+[`2026-10-20-cell-zoom.md`](superpowers/specs/2026-10-20-cell-zoom.md).
+
 ### 2026-10-20 — Joint movements removed, engine and all
 
 The owner asked for the **Moves** tool to go "totally and its code". The bottom

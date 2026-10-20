@@ -1530,3 +1530,21 @@ ul.asslines{list-style:none;margin:0;padding:0}
 @media(max-width:700px){.mz-tag{padding:2px}.mz-tag .mz-name{display:none}.mz-tag.active{padding-right:7px}.mz-tag.active .mz-name{display:inline}}
 .viewer-dock.muscle-zoom-open .heart-atlas-toggle{display:none}
 .mz-tag.flip{flex-direction:row-reverse;padding:2px 2px 2px 7px}
+/* Cell zoom (studio/cell-zoom.js): the same panel and tags as the muscle zoom, plus the side levels, the Go to
+   menu, the stage chips and the hormone choice. */
+.viewer-dock.cell-zoom-open .heart-atlas-toggle:not(.cell-zoom-toggle){display:none}
+.cz-side{display:contents}
+.cz-side button{padding:6px 10px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--text);font-size:calc(12px * var(--ts));cursor:pointer}
+.cz-goto,.cz-signal{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:calc(12px * var(--ts));color:var(--muted)}
+.cz-goto[hidden],.cz-signal[hidden]{display:none}
+.cz-goto select,.cz-signal select{flex:1;min-width:0;min-height:36px;padding:4px 8px;border-radius:8px;border:1px solid var(--line);background:rgba(8,16,22,.9);color:var(--text);font-size:calc(12.5px * var(--ts))}
+.cz-levelnote p,.cz-stage p,#cz-infoNote p{margin:4px 0}
+.cz-levelnote{margin:0 0 6px;color:var(--muted);font-size:calc(12px * var(--ts))}
+.cz-levelnote[hidden],.cz-stage[hidden],.cz-group[hidden],.cz-chips[hidden],.mz-ends[hidden]{display:none}
+.cz-group{margin:0;font-size:calc(11.5px * var(--ts));font-weight:700;color:var(--teal)}
+.cz-chips{display:flex;flex-wrap:wrap;gap:5px}
+.cz-chips button{min-height:34px;padding:4px 9px;border-radius:9px;border:1px solid var(--line);background:transparent;color:var(--text);font-size:calc(11.5px * var(--ts));cursor:pointer}
+.cz-chips button.active{border-color:var(--teal);background:rgba(114,227,207,.16)}
+.cz-stage{padding:6px 8px;border-radius:8px;background:rgba(255,255,255,.04)}
+.cz-stage small{color:var(--muted)}
+.mz-labels button.cz-absent{opacity:.5}

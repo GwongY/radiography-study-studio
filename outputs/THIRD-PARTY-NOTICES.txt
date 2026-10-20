@@ -40,3 +40,20 @@ neuromuscular junction levels are geometry generated in three.js by this app (ou
 Openly licensed meshes were looked for first (Sketchfab, NIH 3D, Wikimedia Commons, Smithsonian 3D, RCSB PDB) on
 2026-10-20; none could be fetched and licence-checked from the build environment, and the one sarcomere mesh found
 by search (Sketchfab "Sarcomere Model", rgmz2015) is CC BY-NC, which this repository does not use.
+
+Cell zoom (outputs/cell/, outputs/cell-zoom.js, outputs/studio/cell-zoom.js)
+The nucleosome level is the Protein Data Bank entry PDB 3AFA, a human nucleosome (two 146-nucleotide DNA strands
+and eight histones): https://www.rcsb.org/structure/3AFA
+Authors: Tachiwana H, Kagawa W, Osakabe A, Kawaguchi K, Shiga T, Hayashi-Takanaka Y, Kimura H, Kurumizaka H.
+Primary citation: Proc Natl Acad Sci USA 2010;107:10454-10459.
+Licence: data files in the PDB archive are available under CC0 1.0 Universal (RCSB PDB usage policy,
+https://www.rcsb.org/pages/usage-policy, checked 2026-10-20). The same structure is NIH 3D entry 3DPX-002662
+(public domain), https://3d.nih.gov/entries/3DPX-002662. outputs/cell/nucleosome-3afa.js keeps, per nucleotide, its
+base, one backbone atom and C1', and each histone's C-alpha trace, reduced by work/build-cell-nucleosome.mjs from
+the 3AFA mmCIF file; nothing else of the entry is redistributed.
+Every other level (the cell, nucleus, chromatin and chromosome, life cycle, meiosis, protein synthesis and the
+hormone signals, the plasma membrane, epithelium, blood, alveolus, parietal cell, spermatozoon, neuron, NK cell and
+antigen-presenting cell), and the nucleosome's linker DNA and neighbours, is geometry generated in three.js by this
+app. Openly licensed models were looked for first on 2026-10-20 (NIH 3D, Sketchfab, RCSB PDB); the NIH 3D model
+files could not be downloaded from the build environment and Sketchfab downloads need an account, so no other
+third-party asset is added.

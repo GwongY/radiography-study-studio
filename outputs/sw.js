@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v259';
+const CACHE_VERSION = 'v260';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -81,6 +81,7 @@ const SHELL = [
   './studio/heart-atlas.js',
   './studio/limb-atlas.js',
   './studio/muscle-zoom.js',
+  './studio/cell-zoom.js',
   './studio/circulation-extras.js',
   './studio/tools-and-capture.js',
   /*
@@ -150,6 +151,13 @@ const SHELL = [
      small code, no model file, so they are precached and the mode opens offline from the first install. */
   './muscle-zoom.js?v=1',
   './muscle/zoom-scene.js?v=1',
+  /* Cell zoom, likewise: its labels, and the scenes studio/cell-zoom.js reaches by a dynamic import (the nucleosome
+     is PDB 3AFA's coordinates, about 19 KB). No model file, so the mode opens offline from the first install. */
+  './cell-zoom.js?v=1',
+  './cell/zoom-scene.js?v=1',
+  './cell/kit.js?v=1',
+  './cell/lecture-cells.js?v=1',
+  './cell/nucleosome-3afa.js?v=1',
   './study/small-ui-helpers.js',
   './study/viewport-recovery.js',
   './study/home.js',
