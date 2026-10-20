@@ -327,6 +327,10 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
      under the last tap, nearest first. */
   setStackHook:(fn)=>{state.stackHook=fn||null},
   pickStack:()=>stackEntries(),
+  /* The mesh-index study units of what is selected (ids carry them as ':u:<id>'), so the study half
+     can say where the selection sits in Revise. */
+  selectedUnits:()=>[...new Set([state.selectedId,...(state.selectionMeshes||[]).map(m=>m.userData&&m.userData.canonicalId)]
+    .map(id=>/:u:(\d+)/.exec(String(id||''))).filter(Boolean).map(m=>Number(m[1])))],
   pickFromStack:(i)=>selectFromStack(i),
   hideFromStack:(i)=>hideFromStack(i),
   clearPeel:()=>{restorePeel();publishStack()},

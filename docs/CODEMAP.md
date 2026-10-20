@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 428 lines
+## `outputs/radiography-study-studio.html` — 429 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–405 | markup — no banners, grep here |
-| 406–406 | importmap |
-| 407–407 | loads studio.js |
-| 408–408 | loads study.js |
-| 409–426 | classic script · preamble |
-| 427–428 | markup — no banners, grep here |
+| 1–406 | markup — no banners, grep here |
+| 407–407 | importmap |
+| 408–408 | loads studio.js |
+| 409–409 | loads study.js |
+| 410–427 | classic script · preamble |
+| 428–429 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1445 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
+- `outputs/app.css` — 1483 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
 - `outputs/studio.js` — 35 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiomodes-and-bridgejs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 47 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -46,7 +46,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
 | `schedule.js` | 713 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `search-name.js` | 42 | Anatomical name matching shared by search and its regression gate. |  |
-| `sw.js` | 441 | Radiography Study Studio — service worker |  |
+| `sw.js` | 442 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 371 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 281 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 2465 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
@@ -124,7 +124,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `imports.js` | 98 | Block 0 has its own import scope -- block 1's copy is not visible here. |
 | `limb-atlas.js` | 347 | Limb vessels |
 | `live-physiology.js` | 1649 | Live physiology |
-| `modes-and-bridge.js` | 507 | Visualisation modes. |
+| `modes-and-bridge.js` | 511 | Visualisation modes. |
 | `packed-spread.js` | 93 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
 | `scene.js` | 508 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 254 | Search -> viewer: frame the part, then hide only what stands in front |
@@ -140,18 +140,18 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `briefing-access.js` | 129 | University notice access. |
 | `briefing-format.js` | 65 | Weekly briefing — the file format, and nothing else. |
 | `course-data.js` | 296 | Course data -- the source registry, the subject list and the model files. |
-| `course-timetable.js` | 359 | Course — the syllabus and the timetable |
+| `course-timetable.js` | 360 | Course — the syllabus and the timetable |
 | `dialogs.js` | 88 | Dialog behaviour, applied to all seven at once |
-| `global-search.js` | 382 | Global search -- one sheet over every destination, mixing structures, |
+| `global-search.js` | 396 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
-| `home.js` | 98 | Home |
+| `home.js` | 109 | Home |
 | `imports.js` | 71 | The layer rail is a rail of SYSTEMS, not of files: two of the seven GLBs |
 | `more.js` | 75 | More -- sources, coverage, and the things demoted out of the topbar. |
 | `navigation-destinations.js` | 71 | Navigation -- four destinations, rendered into both the icon rail and |
 | `reading-help.js` | 218 | Reading help |
 | `revise-brain.js` | 429 | Revise · Brain 3D — the connections hub |
 | `revise-links.js` | 32 | Revise · the numbered links list under the Map and under the 3D hub. |
-| `revise.js` | 972 | Revise |
+| `revise.js` | 1122 | Revise |
 | `search-viewer-open.js` | 44 | Search -> viewer: open the model, select the part, auto-uncover, and |
 | `small-ui-helpers.js` | 253 | Small UI helpers |
 | `spatial-overlay-controls.js` | 120 | Spatial overlay controls (viewer "..." sheet) |
@@ -181,6 +181,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `work/build-heart-i18n.mjs` | Build outputs/heart/i18n-en.js -- the English for every Chinese string the ported modules carry. |  |
 | `work/build-mesh-index.mjs` | Build outputs/mesh-index.js — the searchable name index for every mesh in | [The mesh index](TRAPS.md#the-mesh-index--workbuild-mesh-indexmjs-worklibmesh-namesmjs) |
 | `work/build-physiology-paths.mjs` | Build the curated routes into a committed, immutable payload. | [Routes](TRAPS.md#routes--outputsphysiology-pathjs-workbuild-physiology-pathsmjs-outputsstudiolive-physiologyjs) |
+| `work/build-revision-units.mjs` | Revise box -> viewer unit, decided once, offline, and committed. |  |
 | `work/build-source-catalogue.mjs` | Build work/source-catalogue.json — what is on the source drive, so that no | [The source drive](TRAPS.md#the-source-drive--workbuild-source-cataloguemjs-worksource-checkmjs) |
 | `work/build-source-text.mjs` | Build the text of the sources, so a session can answer "what does page 4 | [Source text](TRAPS.md#source-text--workbuild-source-textmjs-worklibsource-resolvemjs) |
 | `work/build-viewer-lecture-names.mjs` | The names the 2026/27 HSS2011 decks give the model's structures. | [The 2026 names](TRAPS.md#the-2026-names--workbuild-viewer-lecture-namesmjs-worklibfallback-namesmjs) |

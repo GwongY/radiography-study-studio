@@ -1443,3 +1443,41 @@ ul.asslines{list-style:none;margin:0;padding:0}
   #reviseView .rv-side{max-height:none}
 }
 @media(prefers-reduced-motion:reduce){#reviseView *{scroll-behavior:auto!important}}
+
+/* "In Revise" on the viewer's selection card (study/revise.js paintSelectedRevise). */
+.sel-revise{display:grid;gap:6px;margin-top:10px}
+.sel-revise[hidden]{display:none}
+.sel-revise-btn{display:flex;justify-content:space-between;align-items:baseline;gap:8px;width:100%;text-align:left;padding:8px 10px;border:1px solid rgba(114,227,207,.35);border-radius:9px;background:rgba(114,227,207,.08);color:var(--text);font-size:calc(13px * var(--ts));cursor:pointer}
+.sel-revise-btn small{color:var(--teal);font-size:calc(11.5px * var(--ts));white-space:nowrap}
+
+/* Revise on a phone: the subject switch, the week chips and the note each take one line, the tabs fit,
+   and Find / Jump share a row, so the map starts near the top of the screen instead of ~580px down.
+   The week chips and the colour key scroll sideways rather than wrapping. */
+@media(max-width:700px){
+  #reviseView .rv-head{gap:6px;margin-bottom:8px}
+  #reviseView .rv-subjects,#reviseView .rv-weekbar{flex-wrap:nowrap;overflow-x:auto;width:100%;scrollbar-width:thin;padding-bottom:2px}
+  #reviseView .rv-subjects .rv-chip{min-height:36px;padding:5px 14px;flex:none}
+  #reviseView .rv-weekbar{gap:4px}
+  #reviseView .rv-weekbar .rv-chip{min-height:36px;padding:4px 7px;flex:none;font-size:calc(12px * var(--ts))}
+  #reviseView .rv-weekbar .rv-auto{order:-1}
+  #reviseView .rv-weekbar .rv-lab{display:none}
+  #reviseView .rv-weeknote{font-size:calc(12px * var(--ts));line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  #reviseView .rv-tabs{overflow-x:visible;margin-bottom:8px;gap:0}
+  #reviseView .rv-tabs button{flex:1 1 0;min-width:0;padding:9px 2px 8px;font-size:calc(13px * var(--ts));text-overflow:ellipsis;overflow:hidden}
+  #reviseView .rv-mapbar{gap:6px;margin-bottom:6px}
+  #reviseView .rv-mapbar .rv-jump{flex:1 1 40%;min-width:0;flex-wrap:nowrap;gap:4px}
+  #reviseView .rv-mapbar .rv-jump select,#reviseView .rv-mapbar .rv-jump input[type=search]{flex:1 1 0;min-width:0;min-height:36px}
+  #reviseView .rv-mapbar .rv-jlab{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  #reviseView .rv-mapbar .rv-jump:has(.rv-jbtns){display:contents}
+  #reviseView .rv-mapbar .rv-jump:has(.rv-jbtns) select{flex:1 1 40%}
+  #reviseView .rv-mapbar .rv-jbtns{flex:1 0 100%;flex-wrap:nowrap;gap:4px}
+  #reviseView .rv-mapbar .rv-jbtns .rv-linkbtn{flex:1 1 0;padding:4px 6px;min-height:34px;white-space:nowrap}
+  #reviseView .rv-legend{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;margin-bottom:6px;scrollbar-width:thin}
+}
+
+/* Course on a phone: the five sub-tabs share the width instead of running off the edge
+   (they scrolled with the scrollbar hidden, so Assessments and Syllabus looked missing). */
+@media(max-width:700px){
+  .segbar.coursetabs{display:flex;width:100%;gap:2px;padding:4px}
+  .segbar.coursetabs>.seg{flex:1 1 auto;padding:0 3px;min-height:44px;font-size:calc(11px * var(--ts))}
+}
