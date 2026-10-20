@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1070 —
-  eeb8437911abb376  WHOLE SET
+— user-facing strings in outputs/ — 1075 —
+  531786ae368e3b5f  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -96,6 +96,7 @@
   ac30f30602e06aa0  3003 parts
   5bc27994a6e1afa3  3D is unavailable, so the projection cannot be drawn.
   58982e92cc27e4fa  3D model unavailable
+  299aa8c70bc621fe  3D model:
   69ea32698864c4c1  3D scene not ready
   27bd7fece1d0b1aa  4.2 Head and Neck.pdf
   dd8fe4c9c3840f24  4.3 Upper and Lower Limbs.pdf
@@ -270,6 +271,7 @@
   1166eb6e8260ba58  Cell zoom failed.
   02f919406d56e574  Cell zoom stopped; closing the mode.
   20ccfbead7fd8178  Cell zoom toggle failed.
+  5ba9eaac71ca6bd9  Cell zoom: the model did not load; the drawing stays.
   9eb78b423e03f32d  Chambers and valves
   b21cbce6bf98471b  Check this
   4cad109bd8bf7ba8  Choose a bone landmark
@@ -298,6 +300,7 @@
   ea15571d2e81759e  Connect once to download the circulatory layer for offline use.
   932723c34f1019ae  Connect once to download the muscle zoom for offline use.
   ecfa0bb83a393a74  Connect once to download the vessel routes for offline use.
+  fccc463e009396e5  Connect once to download this level’s 3D model.
   d092247971ad1619  Connected. The credential is stored in this browser.
   9b7b1f19bce40e3f  Connections in 3D
   3dcb665433de19fd  Core courses are the compulsory discipline-specific subjects that are not known to have no exam (rule in outputs/programme.js).
@@ -476,6 +479,7 @@
   6dc9738e319a50f2  Loading heart atlas…
   e40373a04bdb6c6d  Loading limb vessels…
   ccc3f0daa040bf01  Loading skeleton, muscle, organs and heart…
+  9685878d2bc86c13  Loading the 3D model…
   24c4a56f525fe0d9  Loading the Z-Anatomy skeleton — 159 named structures, 80 of them named by your course material, 88 things you can select. The other six system layers load on demand.
   f9ea23dbcdd4c045  Loading the cell…
   d9ebad5495305a37  Loading the skeleton layer
@@ -722,7 +726,6 @@
   ef8f211af701c4cb  The muscle zoom could not open. Your viewer has been restored; try again.
   69feac2d1f218a5c  The muscle zoom stopped after an error. The 3D viewer is still running.
   c30d436bb4db379e  The nine abdominopelvic regions
-  98c82a2d6198ea3b  The nucleosome is the Protein Data Bank's PDB 3AFA (Tachiwana et al. 2010; CC0): its DNA, base pairs and histones as measured. The linker DNA, its neighbours and every other cell and stage are drawn for this app, schematic, not to scale. Labels and notes are the HSS2011 and ABCT2326 slides' and tutorials' words.
   f03b5c49a3a60d37  The numbers on the lines match the
   1ee065c69f618147  The only horizontal long bone: an S-shaped key between sternum and shoulder.
   9539cace1b778297  The private repository or notice file was not found.
@@ -789,6 +792,7 @@
   9aa8e28faa9142cd  What the colours mean
   536306b242c83602  What to do now
   b8babfa53259c4ba  What you scored is yours, kept on this device with the rest of your progress.
+  18f8b7508685acf5  Where a download exists, a level wears it (credited above when it is on show); everything else is modelled for this app in Blender, schematic and not to scale, and drawn on the spot until its model has loaded. The nucleosome is the Protein Data Bank's PDB 3AFA (Tachiwana et al. 2010; CC0). Labels and notes are the HSS2011 and ABCT2326 slides' and tutorials' words.
   7efbff3832400d93  Where all of this came from
   595c0868c16492a2  Where the xiphoid process meets the body of the sternum, at the anterior end of the thoracic outlet.
   c19e1f70b7aed2d9  Which arm
@@ -877,6 +881,7 @@
   13738eb831c94c95  gl_FragColor = vec4(bulk + shell, 0.0, 0.0, 1.0);
   2417f7519a9d91f5  gl_FragColor = vec4(vec3(clamp(density, 0.0, 1.0)), 1.0);
   6a590bc9c97002da  gl_Position = projectionMatrix * mv;
+  6f3b11d82b72177a  ha-credit cz-model
   0a2224d1b002b513  ha-info mz-info
   e9433b9b95f5246f  ha-row mz-nav
   c3218bfbba24a149  half the model has gone missing
@@ -965,7 +970,7 @@
   645dd7161deaf67a  rv-weeknote small
   aec5179492e675e7  s "Show in 3D": the viewer
   674137d425f5c5ff  s Cell mode at this box
-  3cc4e2b58f65e17a  s PDB 3AFA (Tachiwana et al. 2010; CC0): its DNA, base pairs and histones as measured. The linker DNA, its neighbours and every other cell and stage are drawn for this app, schematic, not to scale. Labels and notes are the HSS2011 and ABCT2326 slides
+  d64a038389a3c4fe  s PDB 3AFA (Tachiwana et al. 2010; CC0). Labels and notes are the HSS2011 and ABCT2326 slides
   2c0e6e68763510e0  s `root`; the vessels themselves are the explorer
   0eda74d519563cb0  s camera regions: a box in a limb
   039ed7115face420  s depth is a fraction of the vessel

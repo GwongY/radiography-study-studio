@@ -17,10 +17,12 @@ import { makeKit, rand, span, mix, clamp01 } from './kit.js?v=1';
 import { buildLectureCells, LECTURE_PARTS } from './lecture-cells.js?v=1';
 import { DNA_STRANDS, BASE_PAIRS, HISTONE_CHAINS } from './nucleosome-3afa.js?v=1';
 import { stagesFor } from '../cell-zoom.js?v=1';
+import { MODELS, attachModel } from './models.js?v=1';
 
 /* Which labelled part each level builds; work/cell-zoom-check.mjs holds this to outputs/cell-zoom.js. */
 export const PARTS = {
   cell: ['membrane', 'cytoplasm', 'nucleus', 'envelope', 'pores', 'nucleolus', 'ribosomes', 'rer', 'ser', 'golgi', 'vesicles', 'mito', 'lyso', 'peroxisomes', 'centrosome', 'centrioles', 'microtubules'],
+  centrosome: ['centrosome', 'centrioles'],
   nucleus: ['envelope', 'pores', 'nucleoplasm', 'nucleolus', 'chromatin'],
   dna: ['nucleosome', 'chromatin', 'supercoiled', 'chromosome', 'sisters', 'centromere', 'kinetochore'],
   nucleosome: ['histones', 'dna', 'helix', 'bases', 'gene', 'nucleosome'],
@@ -149,6 +151,24 @@ function buildCell(K) {
   mts.userData.commit();
   add(g, lv, 'microtubules', mts);
   anchor(lv, 'microtubules', V(5.8, 1.0, -3.5));
+}
+
+/* ---------------------------------------------------------------- the centrosome ---- */
+/* Until its model arrives (cell/models/centrosome.glb): two centrioles at right angles, nine triplets each. */
+function buildCentrosome(K) {
+  const { V, mat, level, add, anchor, sphere, instanced } = K;
+  const lv = 'centrosome', g = level(lv);
+  add(g, lv, 'centrosome', sphere(4.2, mat(COL.centro, { opacity: 0.22 })), { shell: true });
+  anchor(lv, 'centrosome', V(0, 4.2, 0));
+  const axes = [V(0, 1, 0), V(1, 0, 0)];
+  add(g, lv, 'centrioles', instanced(K.unitCyl, mat(COL.centriole), 54, (i, d) => {
+    const b = Math.floor(i / 27), t = Math.floor((i % 27) / 3), j = i % 3, ax = axes[b];
+    const u = b === 0 ? V(1, 0, 0) : V(0, 0, 1), w = ax.clone().cross(u);
+    const a = t * 2 * Math.PI / 9 + j * 0.13;
+    d.position.addScaledVector(u, Math.cos(a) * 0.9).addScaledVector(w, Math.sin(a) * 0.9).add(b ? V(1.6, -1.4, 0) : V(-1.2, 0.4, 0));
+    d.quaternion.setFromUnitVectors(V(0, 1, 0), ax); d.scale.set(0.12, 3.2, 0.12);
+  }));
+  anchor(lv, 'centrioles', V(-1.2, 2.2, 0.9));
 }
 
 /* ---------------------------------------------------------------- the nucleus ---- */
@@ -651,16 +671,34 @@ export function createCellZoom(THREE) {
   root.name = 'cellZoom';
   const K = makeKit(THREE, root);
   const stageFns = {}, tickFns = {};
-  buildCell(K); buildNucleus(K); buildDna(K, stageFns); buildNucleosome(K);
+  buildCell(K); buildCentrosome(K); buildNucleus(K); buildDna(K, stageFns); buildNucleosome(K);
   buildCycle(K, stageFns); buildMeiosis(K, stageFns); buildExpression(K, stageFns);
   buildLectureCells(K, stageFns, tickFns);
   for (const lv of Object.keys(stageFns)) stageFns[lv](0, 'none');
   let current = null;
+  /* level -> 'loading' | 'ready'; the scene extras of a level wearing its model */
+  const models = {}, extras = {};
   return {
     root, levels: K.levels, PARTS,
     show(id) { current = id; for (const [k, grp] of Object.entries(K.levels)) grp.visible = k === id; },
     setStage(lv, s, signal = 'none') { if (stageFns[lv]) stageFns[lv](s, signal); },
     hasStage: (lv) => !!stageFns[lv],
+    /* the level's model (cell/models.js): null if it has none */
+    modelFor: (lv) => MODELS[lv] || null,
+    modelReady: (lv) => models[lv] === 'ready',
+    viewOf: (lv) => (extras[lv] && extras[lv].czView) || null,
+    /* load(url) -> a GLTFLoader result; resolves true once the level wears its model */
+    async loadModel(lv, load) {
+      if (!MODELS[lv]) return false;
+      if (models[lv]) return models[lv] === 'ready';
+      models[lv] = 'loading';
+      try {
+        const gltf = await load(MODELS[lv].file);
+        extras[lv] = attachModel(THREE, K, lv, gltf, stageFns, tickFns);
+        models[lv] = 'ready';
+        return true;
+      } catch (error) { delete models[lv]; throw error; }
+    },
     meshesOf: (lv, part) => (K.parts[lv] && K.parts[lv][part]) || [],
     /* what a tap can hit: meshes on show, not the see-through ones flagged noPick */
     pickables: (lv) => Object.values(K.parts[lv] || {}).flat().filter((o) => o.isMesh && o.visible && !o.userData.noPick),
@@ -670,11 +708,25 @@ export function createCellZoom(THREE) {
       root.updateMatrixWorld(true);
       return Object.entries(K.anchorFns[lv] || {}).filter(([id]) => (K.presence[lv][id] ?? 1) > 0.15).map(([id, fn]) => ({ id, pos: fn().clone().applyMatrix4(K.levels[lv].matrixWorld) }));
     },
-    box(lv) { root.updateMatrixWorld(true); return new THREE.Box3().setFromObject(K.levels[lv]); },
+    /* the level's extent; for an animated model, over its whole timeline (a part scaled away at one stage is the
+       part the camera must leave room for at another), the stage it shows put back after */
+    box(lv) {
+      root.updateMatrixWorld(true);
+      const e = extras[lv], g = K.levels[lv];
+      if (!e || !e.action) return new THREE.Box3().setFromObject(g);
+      const b = new THREE.Box3(), was = e.action.time, d = e.action.getClip().duration;
+      for (const k of [0, 0.25, 0.5, 0.75, 1]) { e.action.time = k * d; e.mixer.update(0); root.updateMatrixWorld(true); b.union(new THREE.Box3().setFromObject(g)); }
+      e.action.time = was; e.mixer.update(0); root.updateMatrixWorld(true);
+      return b;
+    },
     update(t, still) { if (current && tickFns[current] && !still) tickFns[current](t); },
     dispose() {
       root.removeFromParent();
-      root.traverse((o) => { if (o.geometry && !K.disposables.includes(o.geometry)) o.geometry.dispose(); });
+      for (const lv of Object.keys(extras)) if (extras[lv].mixer) extras[lv].mixer.stopAllAction();
+      root.traverse((o) => {
+        if (o.geometry && !K.disposables.includes(o.geometry)) o.geometry.dispose();
+        for (const m of [].concat(o.material || [])) if (!K.disposables.includes(m)) { for (const k of ['map', 'normalMap']) if (m[k]) m[k].dispose(); m.dispose(); }
+      });
       for (const x of K.disposables) x.dispose && x.dispose();
     },
   };

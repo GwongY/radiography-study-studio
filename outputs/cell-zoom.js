@@ -57,10 +57,11 @@ export const FALLBACK = {
  * the life cycle); `back` where Zoom out goes from a side level. `slider` names the stage slider a level carries.
  */
 export const LEVELS = [
-  { id: 'cell', title: 'A Typical Cell', cite: [{ ref: L1, page: 5, match: 'A Typical Cell' }], next: 'nucleus', side: ['membrane', 'cycle'] },
+  { id: 'cell', title: 'A Typical Cell', cite: [{ ref: L1, page: 5, match: 'A Typical Cell' }], next: 'nucleus', side: ['membrane', 'cycle', 'centrosome'] },
   { id: 'nucleus', title: 'Cell Nucleus', note: 'Largest organelle; The cell’s control center', cite: [{ ref: L1, page: 12, match: 'Largest organelle; The cell’s control center' }], next: 'dna', side: 'expression' },
   { id: 'dna', title: 'The Organization of DNA within the Nucleus', cite: [{ ref: L1, page: 14, match: 'The Organization of DNA within the Nucleus' }], next: 'nucleosome', slider: 'condense' },
   { id: 'nucleosome', title: 'Nucleosomes', note: 'DNA coiled around histones', cite: [{ ref: L1, page: 12, match: 'Nucleosomes • DNA coiled around histones' }] },
+  { id: 'centrosome', title: 'Centrosome and Centrioles', cite: [{ ref: L1, page: 5, match: 'Centrosome and Centrioles' }], back: 'cell' },
   { id: 'cycle', title: 'Cell Life Cycle', note: 'Most of a cell’s life is spent in a nondividing state (interphase)', cite: [{ ref: L1, page: 24, match: 'Most of a cell’s life is spent in a nondividing state (interphase)' }], back: 'cell', side: 'meiosis', slider: 'mitosis' },
   { id: 'expression', title: 'Protein synthesis (including gene expression)', note: 'These two steps can be called gene expression', cite: [{ ref: L1, page: 3, match: 'Protein synthesis (including gene expression)' }, { ref: CT, page: 1, match: 'These two steps can be called gene expression' }], back: 'nucleus', slider: 'expression' },
   { id: 'meiosis', title: 'Meiosis', note: 'Process by which two cell-division steps produce gametes (ova and sperm)', cite: [{ ref: L1, page: 27, match: 'Process by which two cell-division steps produce gametes (ova and sperm)' }], back: 'cycle', side: 'sperm', slider: 'meiosis' },
@@ -105,6 +106,10 @@ export const LABELS = {
     { id: 'centrosome', l: 'Centrosome', cite: [{ ref: L1, page: 5, match: 'Centrosome and Centrioles' }], revise: [['ABCT2326', 'p1_centrosome']] },
     { id: 'centrioles', l: 'Centrioles', note: 'each centriole is composed of 9 microtubule triplets in a 9 + 0 array', cite: [{ ref: L1, page: 5, match: 'each centriole is composed of 9 microtubule triplets in a 9 + 0 array' }], revise: [['ABCT2326', 'p1_centrioles']] },
     { id: 'microtubules', l: 'Microtubules', cite: [{ ref: L1, page: 6, match: 'Microtubule' }, { ref: L1, page: 11, match: 'containing microtubules' }], revise: [['ABCT2326', 'p1_microtubules'], ['ABCT2326', 'p1_cytoskeleton']] },
+  ],
+  centrosome: [
+    { id: 'centrosome', l: 'Centrosome', cite: [{ ref: L1, page: 5, match: 'Centrosome and Centrioles' }], revise: [['ABCT2326', 'p1_centrosome']] },
+    { id: 'centrioles', l: 'Centrioles', note: 'each centriole is composed of 9 microtubule triplets in a 9 + 0 array', cite: [{ ref: L1, page: 5, match: 'each centriole is composed of 9 microtubule triplets in a 9 + 0 array' }], revise: [['ABCT2326', 'p1_centrioles']] },
   ],
   nucleus: [
     { id: 'envelope', ...ENVELOPE },
@@ -367,8 +372,8 @@ export const SHOW_IN_3D = {
     p_cells: { level: 'cell' },
     p_membrane: { level: 'cell', label: 'membrane' },
     p1_cytoplasm: { level: 'cell', label: 'cytoplasm' },
-    p1_centrosome: { level: 'cell', label: 'centrosome' },
-    p1_centrioles: { level: 'cell', label: 'centrioles' },
+    p1_centrosome: { level: 'centrosome', label: 'centrosome' },
+    p1_centrioles: { level: 'centrosome', label: 'centrioles' },
     p1_cytoskeleton: { level: 'cell', label: 'microtubules' },
     p1_microtubules: { level: 'cell', label: 'microtubules' },
     p1_freeribosomes: { level: 'cell', label: 'ribosomes' },

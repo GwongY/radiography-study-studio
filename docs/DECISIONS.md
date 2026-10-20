@@ -5,6 +5,17 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-21 — Cell zoom wears 3D models: downloads where they exist, Blender for the rest
+
+The owner found the drawn levels buggy, asked for online models wherever possible (signing in to Sketchfab for the
+downloads) and for every model not found online to be made in Blender. So every level now wears a .glb
+(`outputs/cell/models/`): eleven CC BY 4.0 Sketchfab downloads cut into the level's labelled parts, and everything
+they lack modelled in Blender, with the drawn level's stage choreography keyed on the timeline. The drawing stays as
+what shows first and offline before a model has been fetched. No CC BY-NC model; the "Mitosis Stage" scans are not
+used because nothing labelled can be cut out of a photographed clay model. Labels, notes and cites are unchanged;
+the models carry the same parts. Supersedes the "everything else is built in three.js" line of the entry below.
+Spec: [`2026-10-20-cell-zoom.md`](superpowers/specs/2026-10-20-cell-zoom.md), "Assets".
+
 ### 2026-10-20 — Cell zoom: a Viewer mode from the cell to the nucleosome, and the cells of every lecture
 
 The Viewer's dock has **Cell**, and Revise boxes on the same things have **Show in 3D**: a typical cell cut open,

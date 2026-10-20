@@ -44,3 +44,10 @@ private-prompts/
 
 # Check-only tooling installed by `npm ci --prefix work/lint` (work/undef-check.mjs).
 node_modules/
+
+# Cell zoom model build: unzipped CC BY downloads and the intermediate .glb files between
+# work/build-cell-models.mjs and Blender (work/blender/). Rebuildable; only outputs/cell/models/ ships.
+work/.cell-build/
+
+# Python bytecode from running work/blender/ in Blender
+__pycache__/

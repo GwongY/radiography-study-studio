@@ -22,6 +22,7 @@ import { applyLayers } from './live-physiology.js';
 import { showToast } from './modes-and-bridge.js';
 import { frameWorldBox, restoreSnapshot, takeSnapshot } from './heart-atlas.js';
 import { LEVELS, LABELS, SLIDERS, CELL_SOURCES, levelById, stagesFor } from '../cell-zoom.js?v=1';
+import { modelCredit } from '../cell/models.js?v=1';
 
 let zoom = null;            /* createCellZoom() result, built once */
 let saved = null;           /* the snapshot taken on entry */
@@ -88,7 +89,8 @@ function panelHtml() {
     </section>
     <ol class="mz-labels" id="cz-labels" aria-label="Labels"></ol>
     <article class="ha-info mz-info" id="cz-info" aria-live="polite" hidden><strong id="cz-infoTitle"></strong><div id="cz-infoNote"></div><small id="cz-infoCite"></small><div class="sel-revise mz-revise" data-cz-revise="label" hidden></div></article>
-    <p class="ha-credit">The nucleosome is the Protein Data Bank's PDB 3AFA (Tachiwana et al. 2010; CC0): its DNA, base pairs and histones as measured. The linker DNA, its neighbours and every other cell and stage are drawn for this app, schematic, not to scale. Labels and notes are the HSS2011 and ABCT2326 slides' and tutorials' words. <a href="./THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Notices</a></p>
+    <p class="ha-credit cz-model" id="cz-model" aria-live="polite" hidden></p>
+    <p class="ha-credit">Where a download exists, a level wears it (credited above when it is on show); everything else is modelled for this app in Blender, schematic and not to scale, and drawn on the spot until its model has loaded. The nucleosome is the Protein Data Bank's PDB 3AFA (Tachiwana et al. 2010; CC0). Labels and notes are the HSS2011 and ABCT2326 slides' and tutorials' words. <a href="./THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Notices</a></p>
   </div>`;
 }
 
@@ -293,7 +295,7 @@ function openFraction() {
 function framePose(id) {
   const cam = state.camera, ctl = state.controls;
   const p = cam.position.clone(), t = ctl.target.clone();
-  const dir = new state.THREE.Vector3(...(VIEW[id] || DEFAULT_VIEW)).applyQuaternion(zoom.root.quaternion);
+  const dir = new state.THREE.Vector3(...(zoom.viewOf(id) || VIEW[id] || DEFAULT_VIEW)).applyQuaternion(zoom.root.quaternion);
   const box = zoom.box(id), size = box.getSize(new state.THREE.Vector3()), { fx, fy } = openFraction();
   const whole = Math.max(size.y, size.x / Math.max(0.1, cam.aspect)), open = Math.max(size.y / fy, size.x / Math.max(0.1, cam.aspect * fx));
   /* the viewer's own zoom-out limit would pull the camera in; the exit snapshot gives it back */
@@ -312,6 +314,46 @@ function showLevel(id) {
   orientLevels(id);
   zoom.show(id);
   paintPanel();
+  void ensureModel(id);
+}
+
+/* ---- a level's model (cell/models.js): the drawing shows at once, the model replaces it when it has loaded ---- */
+let gltfLoader = null;
+async function loadGLTF(url) {
+  if (!gltfLoader) {
+    const { GLTFLoader } = await import('https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js');
+    gltfLoader = new GLTFLoader();
+  }
+  return gltfLoader.loadAsync(url);
+}
+function paintModelNote(id, text) {
+  const el = panel && $('cz-model');
+  if (!el || id !== current) return;
+  el.textContent = text;
+  el.hidden = !text;
+}
+async function ensureModel(id) {
+  if (!zoom || !zoom.modelFor(id)) { paintModelNote(id, ''); return; }
+  if (zoom.modelReady(id)) { paintModelNote(id, `3D model: ${modelCredit(id)}.`); return; }
+  paintModelNote(id, 'Loading the 3D model…');
+  try {
+    if (!(await zoom.loadModel(id, loadGLTF)) || !state.cellZoomOn) return;
+  } catch (error) {
+    console.warn('Cell zoom: the model did not load; the drawing stays.', error);
+    paintModelNote(id, typeof navigator !== 'undefined' && navigator.onLine === false ? 'Connect once to download this level’s 3D model.' : '');
+    return;
+  }
+  if (id !== current) return;
+  paintModelNote(id, `3D model: ${modelCredit(id)}.`);
+  /* the model's parts take over: stage, highlight and label presence again, then settle the camera on it */
+  if (sliderOf(id)) setStage(stageVal[id] ?? 0, true);
+  if (selected) setHighlight(selected, true);
+  paintLabelPresence();
+  /* a zoom still flying lands on the model instead; otherwise glide to it */
+  const end = framePose(id), cam = state.camera, ctl = state.controls;
+  if (tween && !tween.then) tween.to = end;
+  else if (!tween && prefersStill()) { cam.position.copy(end.position); ctl.target.copy(end.target); ctl.update(); }
+  else if (!tween) tween = { t0: performance.now(), dur: 420, from: { position: cam.position.clone(), target: ctl.target.clone() }, to: end };
 }
 
 /* Zoom: fly into the level shown, swap, then settle on the next from further out — or the reverse going out. */
