@@ -99,7 +99,7 @@ only in disease), cycl/o (circle, cycle; ciliary body), papill/o (a garbled mean
 put on `NOT_A_TERM` so they get no reading: adenosine, amniotic, antigen(s), natural, pressure(s), recycling,
 reproduce, reproduction, reproductive.
 
-The Decoder went from 54 to 166 terms. The reading of each is frozen by `revision-check` as before.
+The Decoder went from 54 to 166 terms with a word-part reading. Later the same day the owner said the Decoder need not hold only long words ("I missed histamine while learning"), so it also lists every substance and cell leaf of the map as a key word with the slide's line and page (`keyWords()` in `fragments.js`, 362 rows in all). Those lines are the leaf rows' own, already read against their pages by `revision-check`. The reading of each is frozen by `revision-check` as before.
 
 ## Coverage rule
 

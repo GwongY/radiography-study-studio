@@ -11,7 +11,7 @@ export { TABLES } from './abct2326-tables.js';
 export { DECODER } from './abct2326-decoder.js';
 export const THREADS_INTRO = 'Each thread follows one process across lectures and tags every step with the week it came from. ★ marks a sentence from the Martini textbook chapter the lecture is built on, beyond the slides, with its page. The 廣東話 line retells the thread in Cantonese and shows once every step is taught.';
 export const TABLES_INTRO = 'Look-ups that tie the lectures together. Every row names the slide it comes from.';
-export const DECODER_INTRO = 'Long words split into their parts, from the app\'s word-part list, each split checked against the word\'s meaning on the slides. Type in the box to filter.';
+export const DECODER_INTRO = 'Key words (hormones, enzymes, ions, transmitters and cells) with what the slide says about each, and long words split into their parts from the word-part list. Type in the box to filter.';
 
 export const TOURS = [
   { th: 't1', stops: ['p_ventilation', 'p_gasex', 'p_o2', 'p_circuits'] },

@@ -23,7 +23,7 @@ import { THREADS_HTML } from './hss2011-threads.js';
 import { TABLES_HTML } from './hss2011-tables.js';
 import { DECODER_HTML, SOURCES_HTML } from './hss2011-decoder.js';
 import { SYSORDER } from './hub.js';
-import { renderDecoder, renderTables, renderThreads } from './fragments.js';
+import { keyWords, renderDecoder, renderTables, renderThreads } from './fragments.js';
 import { decompose } from '../wordparts.js?v=3';
 import * as abct from './abct2326-topics.js';
 import * as abctW1 from './abct2326-leaves-w1.js';
@@ -121,7 +121,7 @@ export const REVISION = {
     rows: ABCT2326_ROWS,
     threads: renderThreads(abctFrag.THREADS, ABCT2326_SOURCES, abctFrag.THREADS_INTRO),
     tables: renderTables(abctFrag.TABLES, ABCT2326_SOURCES, abctFrag.TABLES_INTRO),
-    decoder: renderDecoder(abctFrag.DECODER, decompose, abctFrag.DECODER_INTRO),
+    decoder: renderDecoder(abctFrag.DECODER, decompose, abctFrag.DECODER_INTRO, keyWords(ABCT2326_DATA.NODES), ABCT2326_SOURCES),
     sources: abctFrag.SOURCES_HTML,
     fragmentData: { threads: abctFrag.THREADS, tables: abctFrag.TABLES, decoder: abctFrag.DECODER },
     tours: ABCT2326_TOURS,

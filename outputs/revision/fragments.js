@@ -69,18 +69,38 @@ export function decoderProblems(terms, decompose, labels) {
 }
 
 /**
- * terms: [{ term, wk, reading }]; `decompose` is wordparts.js's. A term shows only
- * while its reading is still the reviewed one; anything else is left out here and
- * failed by work/revision-check.mjs, never thrown (this runs as the registry loads).
+ * Key words for the Decoder: the substances and cells of the map (hormones, enzymes, ions, transmitters,
+ * cells), each with the slide's own one-line meaning and its pages. They come from the leaf rows, so
+ * work/revision-check.mjs has already read every line on its slide page.
  */
-export function renderDecoder(terms, decompose, intro = '') {
-  const good = terms.filter((t) => t.reading && decoderReading(t.term, decompose) === t.reading);
-  if (!good.length) return '';
+export function keyWords(nodes, kinds = ['substance', 'cell']) {
+  const seen = new Set();
+  const out = [];
+  for (const n of nodes) {
+    if (!kinds.includes(n.leaf) || !n.line || !n.src || seen.has(n.l)) continue;
+    seen.add(n.l);
+    out.push({ wk: Math.min(...n.w), term: n.l, line: n.line, src: n.src });
+  }
+  return out;
+}
+
+/**
+ * terms: [{ term, wk, reading }]; words: keyWords(); `decompose` is wordparts.js's. A term shows its
+ * word parts only while its reading is still the reviewed one (anything else is left out here and
+ * failed by work/revision-check.mjs, never thrown: this runs as the registry loads). A key word shows
+ * the slide's line and page; a name in both lists gets one row with both.
+ */
+export function renderDecoder(terms, decompose, intro = '', words = [], sources = {}) {
+  const rows = new Map();
+  for (const t of terms) if (t.reading && decoderReading(t.term, decompose) === t.reading) rows.set(t.term, { wk: t.wk, term: t.term, reading: t.reading });
+  for (const w of words) rows.set(w.term, { ...(rows.get(w.term) || {}), wk: Math.min(w.wk, (rows.get(w.term) || {}).wk ?? w.wk), term: w.term, line: w.line, src: w.src });
+  if (!rows.size) return '';
   const byWeek = new Map();
-  for (const t of good) {
-    if (!byWeek.has(t.wk)) byWeek.set(t.wk, []);
-    byWeek.get(t.wk).push(`  <tr data-wk="${t.wk}"><td><b>${esc(t.term)}</b></td><td>${esc(t.reading)}</td></tr>`);
+  for (const r of [...rows.values()].sort((a, b) => a.term.localeCompare(b.term))) {
+    if (!byWeek.has(r.wk)) byWeek.set(r.wk, []);
+    const slide = r.line ? `${esc(r.line)} <span class="mono">(${esc(cite([r.src[0], r.src.slice(1).join(', ')], sources))})</span>` : '';
+    byWeek.get(r.wk).push(`  <tr data-wk="${r.wk}"><td><b>${esc(r.term)}</b></td><td>${r.line ? `<div>${slide}</div>` : ''}${r.reading ? `<div>${esc(r.reading)}</div>` : ''}</td></tr>`);
   }
   const body = [...byWeek.keys()].sort((a, b) => a - b).map((w) => `  <tr class="grp" data-wk="${w}"><td colspan="2">Week ${w}</td></tr>\n${byWeek.get(w).join('\n')}`).join('\n');
-  return `<h2>Decoder</h2>\n  <p>${esc(intro)}</p>\n  <div class="dq">\n    <label for="dq" class="mono">Filter</label>\n    <input id="dq" type="search" placeholder="e.g. glomerular, pneumocyte" autocomplete="off">\n    <span id="dcount" class="mono"></span>\n  </div>\n  <div class="tw"><table id="dtable">\n  <thead><tr data-wk="1"><th>Term</th><th>Word parts</th></tr></thead>\n  <tbody>\n${body}\n  </tbody>\n  </table></div>`;
+  return `<h2>Decoder</h2>\n  <p>${esc(intro)}</p>\n  <div class="dq">\n    <label for="dq" class="mono">Filter</label>\n    <input id="dq" type="search" placeholder="e.g. histamine, glomerular, pneumocyte" autocomplete="off">\n    <span id="dcount" class="mono"></span>\n  </div>\n  <div class="tw"><table id="dtable">\n  <thead><tr data-wk="1"><th>Term</th><th>What the slide says · word parts</th></tr></thead>\n  <tbody>\n${body}\n  </tbody>\n  </table></div>`;
 }

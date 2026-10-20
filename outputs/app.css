@@ -1539,6 +1539,9 @@ ul.asslines{list-style:none;margin:0;padding:0}
 #reviseView h3[id]{scroll-margin-top:64px}
 #reviseView a{color:var(--rv-accent)}
 /* Decoder */
+#reviseView #rvdtable{min-width:0}
+#reviseView #rvdtable td:first-child{width:34%}
+#reviseView #rvdtable td div+div{color:var(--rv-muted);margin-top:3px}
 #reviseView .dq{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:8px 0 14px}
 #reviseView .dq input{min-width:min(100%,320px)}
 #reviseView tr.grp td{background:var(--rv-surface2);font:600 12.5px ui-monospace,SFMono-Regular,Menlo,monospace;font-size:calc(12.5px * var(--ts));text-transform:uppercase;letter-spacing:.07em;color:var(--rv-muted)}
