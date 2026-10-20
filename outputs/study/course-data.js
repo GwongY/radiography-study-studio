@@ -36,6 +36,8 @@ export const SOURCE_ROOTS = {
   /* Not a shared drive folder: material dropped straight into the repo as the
      semester runs. Catalogued alongside the drive by build-source-catalogue. */
   newsrc: 'New source',
+  /* The official programme document, kept in the owner's offline collection (E:UNI sources), not in the shared folders. */
+  prog: 'External — official programme document in E:/UNI sources, not a file in the shared folders',
   /* Students' own shared folders, named here only for the outside-reader batch
      sources registered below. */
   hwater: '熊若水sourcesss',
@@ -94,6 +96,7 @@ export const SOURCE_FILES = {
   'hss.sdf.2627': { file: 'SDFHSS2011_2627confirmed.pdf', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'admin', note: 'The confirmed Subject Description Form for 2026/27, footed "Updated in August 2026". The authority for the module TITLES — Module I Musculoskeletal system, II Neuroanatomy, III The Thorax, IV The Abdomen and Pelvis — and for what sits inside each. Also the six intended learning outcomes, the 100% continuous-assessment structure, the 129-hour study effort, and Martini 12th edition as the set text. Its tables come out of pdftotext column-shifted; read them with -table, and see the note on study effort in the coverage report.' },
   'hss.sched.2026': { file: 'HSS2011_ScheduleLearningTeaching2026_screenshot.png', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'admin', note: 'The Schedule for Learning & Teaching Activities as shown on Canvas, captured as a screenshot — there is no document copy of it. Thirteen weeks, each with its 2-hour lecture and 1-hour collaborative learning session, the module each week belongs to, and the closed-book test on 28 Nov 2026. Being an image it cannot be text-checked, so every claim taken from it is ALSO carried in outputs/schedule.js where it can be read.' },
   'hss.sched.2026b': { file: 'HSS2011_Schedule_AssessmentAndDates_2026_screenshot.png', subject: 'HSS2011', root: 'newsrc', folder: '', kind: 'admin', note: 'The second half of the same Canvas page, also a screenshot. It carries what the first half did not: the assessment split as the subject states it — Individual Assignment 68% (revision exercise 8% + closed-book test 60%) and Group Assignment 32% (in-class exercise) — and an Important Dates table showing the 8% is FOUR separate 2% revision exercises, due at the end of weeks 2, 5, 8 and 10. Those four deadlines are the only hard dates HSS2011 publishes apart from the test.' },
+  'prog.pattern': { file: '260805_Normal Progression Patterns_55403 wef 2026 intake_total credits_138 (for students).xlsx', subject: 'PROGRAMME', root: 'prog', folder: '', kind: 'admin', note: 'BSc (Hons) in Radiography [55403], normal progression pattern for the 2026 intake, 138 credits. Sheets "MI Pattern" and "RT Pattern": every subject by year and semester with code, level and credit, and which stream takes it. The source of outputs/programme.js. It is an .xlsx held outside the catalogue, so source-check.mjs cannot see it; work/programme-check.mjs holds the data to the sheet totals instead.' },
   /*
    * The 2026 material, dropped into the repo as the semester runs. These two
    * are the first HSS2011 files from the year the student is actually sitting,
