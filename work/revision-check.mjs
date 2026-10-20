@@ -56,8 +56,7 @@ const firstWeekOfSource = (src) => { const sid = (src || [])[0]; for (const s of
  *   (ii)  every cross-chapter concept of the gap analysis has its own thread, and every box it lists is a step
  *         of that thread; and every box whose name is printed on the slides of two or more lectures (computed
  *         here, from the slide text) is in some step or table row, or on cov.skipCross with a reason;
- *   (iii) every box name wordparts.js gives a reading for has a reviewed decoder entry, or is on
- *         cov.skipDecoder with a reason (the reading is wrong for that word, or adds nothing);
+ *   (iii) every box name wordparts.js gives a reading for has a reviewed decoder entry (a wrong reading is fixed in wordparts.js);
  *   (iv)  the counts per week are printed, so thinness shows.
  */
 const lectureWeek = (subject, sid) => ((subject.decks || {})[sid] || { weeks: [] }).weeks[0];
@@ -115,10 +114,8 @@ function coverage(subject, cov, steps, tRows) {
   /* (iii) the decoder */
   const terms = new Set((fd.decoder || []).map((d) => d.term));
   const eligible = [...new Set(data.NODES.map((n) => n.l))].filter((l) => decoderReading(l, decompose));
-  const undecoded = eligible.filter((l) => !terms.has(l) && !cov.skipDecoder[l]);
-  ok(!undecoded.length, `every box name with a word-part reading (${eligible.length}) is in the decoder or skipped with a reason${undecoded.length ? ` (${undecoded.length} not: ${undecoded.slice(0, 15).join(', ')}${undecoded.length > 15 ? ' …' : ''})` : ''}`);
-  const staleDec = Object.entries(cov.skipDecoder).filter(([l, why]) => !eligible.includes(l) || terms.has(l) || String(why).trim().length < 12).map(([l]) => l);
-  ok(!staleDec.length, `every decoder skip is still needed and says why${staleDec.length ? ` (${staleDec.slice(0, 12).join(', ')})` : ''}`);
+  const undecoded = eligible.filter((l) => !terms.has(l));
+  ok(!undecoded.length, `every box name with a word-part reading (${eligible.length}) is in the decoder${undecoded.length ? ` (${undecoded.length} not: ${undecoded.slice(0, 15).join(', ')}${undecoded.length > 15 ? ' …' : ''})` : ''}`);
 }
 
 console.log('\nacross subjects');

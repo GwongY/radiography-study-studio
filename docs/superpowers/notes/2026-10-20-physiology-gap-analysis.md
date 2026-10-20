@@ -87,19 +87,19 @@ Every row cites one page and carries `ids`:
 
 ## Decoder
 
-The 51 owner-approved readings stay. This pass keeps the settled rule from 19 October
-(`2026-10-19-physiology-revise-links.md`): a name is in the Decoder only when every word of it has a reading
-and the reading is right for that word. Under that rule three names were added: Electrocardiogram (ECG) (W2),
-Neuroendocrine reflexes (W8) and T tubules (W11). That makes 54.
+Decision of 20 October 2026 (owner: "remove rule 1 2 and 3 ... Just fix when wordparts are wrong"): the three tests of
+the 19 October note (a name needs a reading; the reading must cover every word; the reading must be right for the
+word) are gone, for physiology and anatomy alike. **Every map name that `wordparts.js` gives a reading for is in the
+Decoder**, and where a reading is wrong the fix is made in `wordparts.js`.
 
-The other 124 map names with a reading from `wordparts.js` are listed under `skipDecoder` in
-`work/revision-coverage.mjs`, each with its reason:
+What was fixed in `wordparts.js`: oxy- (oxygen; sharp, rapid), -gonia added (seed, stem cell), phas/o (speech; a stage),
+ster/o (steroid, a four-ring fat-like molecule), para- (beside, near; abnormal), troph/o (nourishment, growth), -plasm
+(formed living substance of a cell), -kine (signalling protein), -ose (sugar), -osis and -cytosis (a process, abnormal
+only in disease), cycl/o (circle, cycle; ciliary body), papill/o (a garbled meaning). Words that only look like compounds were
+put on `NOT_A_TERM` so they get no reading: adenosine, amniotic, antigen(s), natural, pressure(s), recycling,
+reproduce, reproduction, reproductive.
 
-- **Wrong split for this word (39).** These include the roots the 19 October note already found wrong: oxy- read as "rapid"; goni/o as angle; phas/o as speech; ster/o as the word itself; para- as "abnormal"; troph/o as development; -plasm as formation; -kine as movement; -ose; cycl/o as ciliary body; press/o + ur/o for pressure. This pass found more: -osis and -cytosis read as "abnormal"; antigen read as "against + origin"; aden/o + sin/o in adenosine; ot/o in amniotic; hist/o in histones.
-- **Only part of the name has a reading (85).** For example: Pulmonary circulation, Atrioventricular (AV) valves, Myenteric plexus, Glossopharyngeal nerve, Hepatopancreatic sphincter, Lipophilic hormones, Adrenergic receptors, Neuromuscular junction (NMJ).
-
-Many of these 85 have a correct split for their hard word. The owner may want them: that would reverse the
-19 October whole-reading rule, so it was not done here. `wordparts.js` was not edited.
+The Decoder went from 54 to 166 terms. The reading of each is frozen by `revision-check` as before.
 
 ## Coverage rule
 
@@ -109,7 +109,7 @@ It checks four things:
 1. Every teaching week with content has at least 4 thread steps and 2 table rows.
 2. Every concept above has its own thread, and each box it lists is a step there.
    Also, every box whose name is printed on the slides of two or more lectures is in a step or a row (`ids`), or is on `skipCross` with a reason. The check computes these names from the slide text itself: 272 boxes.
-3. Every name with a word-part reading is in the Decoder or on `skipDecoder` with a reason.
+3. Every name with a word-part reading is in the Decoder.
 4. The counts per week are printed.
 
 Skips that are no longer needed fail as stale.
@@ -124,11 +124,11 @@ Skips that are no longer needed fail as stale.
 | --- | --- | --- |
 | Threads / steps | 6 / 43 | 22 / 257 |
 | Tables / rows | 2 / 29 | 10 / 114 |
-| Decoder terms | 51 | 54 |
+| Decoder terms | 51 | 166 |
 | Steps / rows / decoder by week | 1:2/0/10 2:2/4/3 3:5/3/0 4:8/5/5 5:5/5/0 7:1/2/5 8:4/6/13 9:4/2/3 11:4/2/2 12:8/0/10 | 1:23/24/10 2:20/9/4 3:23/6/0 4:32/12/5 5:33/12/0 7:23/7/5 8:26/22/14 9:22/7/3 11:32/10/3 12:23/5/10 |
 | Thin weeks | W1 W2 W7 W12 | none |
 | Cross-named boxes loose | 264 of 272 | 0 (8 skipped with a reason) |
-| Decoder names neither decoded nor skipped | 3 of 178 | 0 (124 skipped with a reason) |
+| Decoder names with a reading but not decoded | 3 of 178 | 0 |
 | `revision-check` | 5 FAILED | ALL PASS |
 
 "Before" was produced by running the new check with the committed `abct2326-fragments.js` swapped in through a

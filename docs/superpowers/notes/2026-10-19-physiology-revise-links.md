@@ -62,7 +62,7 @@ Every thread has a 廣東話 line that `yueProblems` accepts (no English word or
 Thread t2 (blood pressure and volume) has no ★: a first look in chapters 19 to 21 and 26 found only
 sentences that repeat the slide, so none was written. Steps t3 (renin, aldosterone), t5 and others carry none either (at most one per step, only where it adds).
 
-### Decoder terms dropped, and why
+### Decoder terms dropped, and why (superseded on 20 Oct 2026: the whole-reading rule was removed and the wrong roots fixed in `wordparts.js`; see 2026-10-20-physiology-gap-analysis.md)
 
 The reading `decoderReading` gives was checked against the slide's use of each word. Dropped:
 Oxyhemoglobin and Oxygen–hemoglobin saturation curve (`oxy-` is read as "rapid, fast"; it means oxygen),
