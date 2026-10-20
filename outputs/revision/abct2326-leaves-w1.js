@@ -15,6 +15,8 @@ export const SOURCES = {
 export const ROWS = [
   /* ---------------- Introduction to cells (p4-6, 8, 11, 16) ---------------- */
   { k: 'cell', id: 'p1_sexcells', l: 'Sex Cells', parent: 'p_cells', w: 1, line: 'reproductive cells: male sperm and female oocyte', src: [L1, 4] },
+  { k: 'cell', id: 'p1_oocyte', l: 'Oocyte', match: 'oocyte', parent: 'p1_sexcells', w: 1, line: 'the female sex cell: a cell that develops into an egg', src: [L1, 4] },
+  { k: 'cell', id: 'p1_sperm', l: 'Sperm', match: 'sperm', parent: 'p1_sexcells', w: 1, line: 'the male sex cell; with ova, one of the gametes meiosis makes in the gonads', src: [L1, 4, 27] },
   { k: 'cell', id: 'p1_somatic', l: 'Somatic Cells', parent: 'p_cells', w: 1, line: 'all body cells except sex cells', src: [L1, 4] },
   { k: 'part', id: 'p1_cytoplasm', l: 'Cytoplasm', parent: 'p_cells', w: 1, line: 'all materials inside the cell and outside the nucleus', src: [L1, 8, 5, 9, 16] },
   { k: 'part', id: 'p1_cytosol', l: 'Cytosol', parent: 'p1_cytoplasm', w: 1, line: 'intracellular fluid with dissolved nutrients, ions, proteins, and waste products', src: [L1, 8, 5, 6] },
@@ -29,12 +31,14 @@ export const ROWS = [
   { k: 'part', id: 'p1_mitochondria', l: 'Mitochondria', parent: 'p_cells', w: 1, line: 'double membrane organelles producing ninety-five percent of cellular ATP', src: [L1, 16, 33] },
 
   /* ---------------- Plasma membrane (p7-10) ---------------- */
+  { k: 'part', id: 'p1_ecf', l: 'Extracellular fluid', match: 'Extracellular Fluid', parent: 'p_membrane', w: 1, line: 'interstitial fluid: a watery medium that surrounds a cell', src: [L1, 8] },
   { k: 'part', id: 'p1_phospholipid_bilayer', l: 'Phospholipid bilayer', parent: 'p_membrane', w: 1, line: 'hydrophilic heads and hydrophobic fatty-acid tails forming barrier to ions and water', src: [L1, 7, 9] },
   { k: 'group', id: 'p1_membrane_proteins', l: 'Membrane Proteins', parent: 'p_membrane', w: 1, line: 'integral and peripheral proteins in the plasma membrane', src: [L1, 10, 9] },
   { k: 'part', id: 'p1_anchoring_proteins', l: 'Anchoring proteins', parent: 'p1_membrane_proteins', w: 1, line: 'stabilizers that attach to inside or outside structures', src: [L1, 10] },
   { k: 'part', id: 'p1_recognition_proteins', l: 'Recognition proteins', parent: 'p1_membrane_proteins', w: 1, line: 'identifiers that label cells as normal or abnormal', src: [L1, 10] },
   { k: 'part', id: 'p1_receptor_proteins', l: 'Receptor proteins', parent: 'p1_membrane_proteins', w: 1, line: 'bind and respond to ligands such as ions and hormones', src: [L1, 10] },
   { k: 'part', id: 'p1_carrier_proteins', l: 'Carrier proteins', parent: 'p1_membrane_proteins', w: 1, line: 'transport specific solutes through the membrane', src: [L1, 10] },
+  { k: 'part', id: 'p1_mp_enzymes', l: 'Enzymes', parent: 'p1_membrane_proteins', w: 1, line: 'membrane proteins that catalyze reactions', src: [L1, 10] },
   { k: 'part', id: 'p1_membrane_channels', l: 'Channels', parent: 'p1_membrane_proteins', w: 1, line: 'regulate water flow and solutes through the membrane', src: [L1, 10, 9] },
   { k: 'part', id: 'p1_glycocalyx', l: 'Glycocalyx', match: 'glycocalyx', parent: 'p_membrane', w: 1, line: 'outer layer of glycolipids and glycoproteins', src: [L1, 9] },
 
@@ -45,6 +49,8 @@ export const ROWS = [
   { k: 'part', id: 'p1_nucleolus', l: 'Nucleolus', parent: 'p_nucleus', w: 1, line: 'synthesizes ribosomal RNA and ribosomal subunits', src: [L1, 13, 12, 54, 55] },
   { k: 'part', id: 'p1_chromatin', l: 'Chromatin', parent: 'p_nucleus', w: 1, line: 'DNA and associated nucleoproteins in a nondividing cell', src: [L1, 13, 14] },
   { k: 'part', id: 'p1_nucleosomes', l: 'Nucleosomes', parent: 'p_nucleus', w: 1, line: 'complex of DNA coiled around core histones', src: [L1, 12, 14] },
+  { k: 'substance', id: 'p1_histones', l: 'Histones', match: 'histones', parent: 'p1_nucleosomes', w: 1, line: 'proteins DNA is coiled around in a nucleosome; nucleoli are made of RNA, enzymes and histones', src: [L1, 12, 14] },
+  { k: 'substance', id: 'p1_dna', l: 'DNA', parent: 'p_nucleus', w: 1, line: 'all information to build and run organisms: the instructions for every protein in the body', src: [L1, 12, 15] },
   { k: 'part', id: 'p1_gene', l: 'Gene', parent: 'p_nucleus', w: 1, line: 'DNA instructions for one protein', src: [L1, 15, 21, 22] },
   { k: 'substance', id: 'p1_genetic_code', l: 'Genetic code', parent: 'p_nucleus', w: 1, line: 'chemical language of DNA instructions in triplet base sequence', src: [L1, 15] },
 
@@ -61,6 +67,7 @@ export const ROWS = [
   /* ---------------- Protein synthesis (p21-23) ---------------- */
   { k: 'process', id: 'p1_gene_activation', l: 'Gene activation', parent: 'p_protein', w: 1, line: 'uncoiling DNA to use it', next: { p1_transcription: 'initiates transcription' }, own: 'The step of protein synthesis in which DNA is uncoiled so that its instructions can be copied to mRNA by transcription.', src: [L1, 21] },
   { k: 'process', id: 'p1_transcription', l: 'Transcription', parent: 'p_protein', w: 1, line: 'copies instructions from DNA to mRNA in the nucleus', next: { p1_translation: 'mRNA travels through nuclear pores to ribosomes' }, src: [L1, 21, 22] },
+  { k: 'substance', id: 'p1_mrna', l: 'Messenger RNA (mRNA)', match: 'messenger RNA (mRNA)', parent: 'p_protein', w: 1, line: 'made by RNA polymerase in the nucleus; leaves through nuclear pores for a ribosome to read its code', src: [L1, 21] },
   { k: 'substance', id: 'p1_rna_polymerase', l: 'RNA polymerase', parent: 'p_protein', w: 1, line: 'enzyme that produces messenger RNA from DNA template', acts: { p1_gene: 'binds promoter on DNA template strand' }, src: [L1, 21, 22] },
   { k: 'process', id: 'p1_translation', l: 'Translation', parent: 'p_protein', w: 1, line: 'ribosome reads mRNA code and assembles amino acids into polypeptide chain', src: [L1, 21] },
   { k: 'substance', id: 'p1_trna', l: 'tRNA', parent: 'p_protein', w: 1, line: 'delivers amino acids to the ribosome during translation', src: [L1, 21] },

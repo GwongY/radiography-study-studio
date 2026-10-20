@@ -100,6 +100,40 @@ export function mergeLeaves(data, rows, sources = {}) {
 }
 
 /**
+ * Threads written as data (physiology) name the map boxes each step is about (`ids`). Every such box
+ * gets the thread under "Pathways through this topic" (`th`), with the first week a step names it
+ * (`thWk`): a box can be taught before the step that links it, and the link waits for that step.
+ * Returns new nodes; the input is left alone.
+ */
+export function linkThreads(nodes, threads) {
+  const at = new Map();
+  for (const t of threads) for (const s of t.steps) for (const id of s.ids || []) {
+    const m = at.get(id) || new Map();
+    m.set(t.id, Math.min(m.has(t.id) ? m.get(t.id) : Infinity, s.wk));
+    at.set(id, m);
+  }
+  return nodes.map((n) => {
+    const m = at.get(n.id);
+    if (!m) return n;
+    return { ...n, th: [...new Set([...(n.th || []), ...m.keys()])], thWk: { ...(n.thWk || {}), ...Object.fromEntries(m) } };
+  });
+}
+
+/**
+ * The Brain 3D tour of a thread that has no hand-made one: the boxes its steps name, each lifted to the
+ * topic it hangs under (`data` is mergeLeaves' result), in step order, without repeats.
+ */
+export function threadTour(thread, data) {
+  const parent = new Map();
+  (function walk(s) { for (const k of s.kids || []) { if (s.id) parent.set(k.id, s.id); walk(k); } })(data.TREE);
+  const leaf = new Set(data.NODES.filter((n) => n.leaf).map((n) => n.id));
+  const topic = (id) => { let x = id; while (leaf.has(x) && parent.has(x)) x = parent.get(x); return x; };
+  const stops = [];
+  for (const s of thread.steps) for (const id of s.ids || []) { const t = topic(id); if (!stops.includes(t)) stops.push(t); }
+  return { th: thread.id, stops };
+}
+
+/**
  * Topics written like rows (physiology): { id, l, s, w, src, line?, own?, match?, th?, viewer? }.
  * The note is made the way a leaf's is, so a topic says only what its slide says,
  * and work/revision-check.mjs holds its name to the page it cites. A topic is not

@@ -1,0 +1,67 @@
+/*
+ * ABCT2326 Decoder, as sourced data: a long word on the map split into its parts by wordparts.js.
+ *
+ * Every reading is the one decoderReading() gives today (work/revision-check.mjs holds it frozen) and
+ * was read against the slide that uses the word. Only whole readings are kept: a name is here only when
+ * every word of it has a reading and the reading is right for this word (decision of 19 Oct 2026,
+ * docs/superpowers/notes/2026-10-19-physiology-revise-links.md). Every other name with a reading is on
+ * skipDecoder in work/revision-coverage.mjs with the reason. The first 51 were approved by the owner on
+ * 19 Oct 2026; Electrocardiogram, Neuroendocrine reflexes and T tubules come from the 20 Oct 2026 pass
+ * (docs/superpowers/notes/2026-10-20-physiology-gap-analysis.md).
+ */
+export const DECODER = [
+  { wk: 1, term: 'Homeostasis', reading: 'home/o = same + -stasis = controlling, stopping' },
+  { wk: 1, term: 'Cytokinesis', reading: 'cyt/o = cell + kinesi/o = movement' },
+  { wk: 1, term: 'Lysosomes', reading: 'lys/o = break down, dissolve + som/o = body' },
+  { wk: 1, term: 'Nucleosomes', reading: 'nucle/o = nucleus + som/o = body' },
+  { wk: 1, term: 'Microtubules', reading: 'micro- = small + tub/o = tube, pipe + -ule = small' },
+  { wk: 1, term: 'Osteocytes', reading: 'oste/o = bone + cyt/o = cell' },
+  { wk: 1, term: 'Periosteum', reading: 'peri- = surrounding, around + oste/o = bone' },
+  { wk: 1, term: 'Neuroglia', reading: 'neur/o = nerve + -glia = glue, glia cell' },
+  { wk: 1, term: 'Adipocytes', reading: 'adip/o = fat + cyt/o = cell' },
+  { wk: 1, term: 'Fibroblasts', reading: 'fibr/o = fiber + -blast = a building, immature cell' },
+  { wk: 2, term: 'Hemoglobin', reading: 'hem/o = blood + -globin = protein substance' },
+  { wk: 2, term: 'Hematocrit', reading: 'hemat/o = blood + -crit = separate, separating' },
+  { wk: 2, term: 'Fibrinogen', reading: 'fibrin/o = fibrous substance + gen/o, -gen = origin, originate' },
+  { wk: 2, term: 'Electrocardiogram (ECG)', reading: 'electr/o = electricity + cardi/o = heart + -gram = record, recording' },
+  { wk: 4, term: 'Peristalsis', reading: 'peri- = surrounding, around + -stalsis = contraction' },
+  { wk: 4, term: 'Cholecystokinin (CCK)', reading: 'cholecyst/o = gallbladder + -kinin = movement substance' },
+  { wk: 4, term: 'Lacteal', reading: 'lact/o = milk + -eal = pertaining to' },
+  { wk: 4, term: 'Nucleases', reading: 'nucle/o = nucleus + -ase = enzyme' },
+  { wk: 4, term: 'Lipases', reading: 'lip/o = fat + -ase = enzyme' },
+  { wk: 7, term: 'Spermatogenesis', reading: 'spermat/o = male sex cell, spermatozoon + -genesis = production' },
+  { wk: 7, term: 'Acrosome', reading: 'acro- = heights, extremes, extremities + som/o = body' },
+  { wk: 7, term: 'Perimetrium', reading: 'peri- = surrounding, around + metri/o = uterus' },
+  { wk: 7, term: 'Myometrium', reading: 'my/o = muscle + metri/o = uterus' },
+  { wk: 7, term: 'Blastocyst', reading: '-blast = a building, immature cell + cyst/o = bladder, sac' },
+  { wk: 8, term: 'Autocrine', reading: 'auto- = self + -crine = secrete, secreting' },
+  { wk: 8, term: 'Endocrine', reading: 'endo- = within, inner + -crine = secrete, secreting' },
+  { wk: 8, term: 'Neuroendocrine', reading: 'neur/o = nerve + endo- = within, inner + -crine = secrete, secreting' },
+  { wk: 8, term: 'Proinsulin', reading: 'pro- = forward, in front of + insulin/o = insulin' },
+  { wk: 8, term: 'Preproinsulin', reading: 'pre- = before, in front of + pro- = forward, in front of + insulin/o = insulin' },
+  { wk: 8, term: 'Epinephrine', reading: 'epi- = above, upon + nephr/o = kidney + -ine = pertaining to' },
+  { wk: 8, term: 'Colloid', reading: 'coll/o = glue + -oid = resembling, like' },
+  { wk: 8, term: 'Hypothyroidism', reading: 'hypo- = below + thyroid/o = thyroid gland + -ism = condition, state of' },
+  { wk: 8, term: 'Hyperthyroidism', reading: 'hyper- = excessive, above + thyroid/o = thyroid gland + -ism = condition, state of' },
+  { wk: 8, term: 'Myxedema', reading: 'myx/o = mucus + -edema = swelling' },
+  { wk: 8, term: 'Hypertrophy', reading: 'hyper- = excessive, above + -trophy = process of nourishment, development' },
+  { wk: 8, term: 'Osteoclasts', reading: 'oste/o = bone + -clast = a breaking-down cell' },
+  { wk: 8, term: 'Osteoblasts', reading: 'oste/o = bone + -blast = a building, immature cell' },
+  { wk: 8, term: 'Neuroendocrine reflexes', reading: 'neur/o = nerve + endo- = within, inner + -crine = secrete, secreting · re- = back, again + flex/o = bend, bending' },
+  { wk: 9, term: 'Oligodendrocytes', reading: 'olig/o = scanty, few + dendr/o = dendrite, tree + cyt/o = cell' },
+  { wk: 9, term: 'Microglia', reading: 'micro- = small + -glia = glue, glia cell' },
+  { wk: 9, term: 'Astrocytes', reading: 'astr/o = star + cyt/o = cell' },
+  { wk: 11, term: 'Endomysium', reading: 'endo- = within, inner + mys/i = muscle (as in epimysium) + -ium = noun ending' },
+  { wk: 11, term: 'Myoglobin', reading: 'my/o = muscle + -globin = protein substance' },
+  { wk: 11, term: 'T tubules', reading: 'tub/o = tube, pipe + -ule = small' },
+  { wk: 12, term: 'Phagocytes', reading: 'phag/o = eat, swallow + cyt/o = cell' },
+  { wk: 12, term: 'Macrophages', reading: 'macro- = large + phag/o = eat, swallow' },
+  { wk: 12, term: 'Microphages', reading: 'micro- = small + phag/o = eat, swallow' },
+  { wk: 12, term: 'Neutrophils', reading: 'neutr/o = neutral + phil/o, -phil = attraction' },
+  { wk: 12, term: 'Eosinophils', reading: 'eosin/o = rosy-colored + phil/o, -phil = attraction' },
+  { wk: 12, term: 'Basophils', reading: 'bas/o = base, bottom + phil/o, -phil = attraction' },
+  { wk: 12, term: 'Monocytes', reading: 'mono- = one + cyt/o = cell' },
+  { wk: 12, term: 'Pathogens', reading: 'path/o = disease + gen/o, -gen = origin, originate' },
+  { wk: 12, term: 'Pyrogens', reading: 'pyr/o = fever, fire + gen/o, -gen = origin, originate' },
+  { wk: 12, term: 'Necrosis', reading: 'necr/o = death, dead + -osis = abnormal condition' },
+];

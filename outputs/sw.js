@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v245';
+const CACHE_VERSION = 'v246';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -230,6 +230,9 @@ const SHELL = [
   './revision/abct2326-leaves-w11.js',
   './revision/abct2326-leaves-w12.js',
   './revision/abct2326-fragments.js',
+  './revision/abct2326-threads.js',
+  './revision/abct2326-tables.js',
+  './revision/abct2326-decoder.js',
   './revision/vendor/d3.min.js',
   './revision/vendor/markmap-view.min.js',
   './bodymap.js?v=4',

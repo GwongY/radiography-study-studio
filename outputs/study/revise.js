@@ -290,9 +290,11 @@ function renderPanel(id, el) {
       });
       h += '</div>';
     }
-    if (n.th && n.th.length) {
+    /* a thread linked by a later step than the box's own week waits for that step (revision/leaves.js linkThreads) */
+    const th = (n.th || []).filter((t) => !n.thWk || !(t in n.thWk) || n.thWk[t] <= rv.week);
+    if (th.length) {
       h += '<h4>Pathways through this topic</h4><div class="nlist">';
-      n.th.forEach((t) => { h += `<button type="button" class="nbtn" data-thread="${esc(t)}"><span>${esc(ix.threadTitles[t] || t)}</span><span class="rel">open →</span></button>`; });
+      th.forEach((t) => { h += `<button type="button" class="nbtn" data-thread="${esc(t)}"><span>${esc(ix.threadTitles[t] || t)}</span><span class="rel">open →</span></button>`; });
       h += '</div>';
     }
   } else {

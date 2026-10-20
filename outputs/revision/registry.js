@@ -10,7 +10,7 @@
  * its `decks`. No view code knows which subject it is showing.
  */
 import * as hss2011 from './hss2011-data.js';
-import { mergeLeaves, topicNodes } from './leaves.js';
+import { linkThreads, mergeLeaves, threadTour, topicNodes } from './leaves.js';
 import * as hss2011W1 from './hss2011-leaves-w1.js';
 import * as hss2011W2 from './hss2011-leaves-w2.js';
 import * as hss2011W3 from './hss2011-leaves-w3.js';
@@ -82,6 +82,10 @@ const ABCT2326_FILES = [abctW1, abctTis, abctW2, abctW3, abctW4, abctW5, abctW7,
 const ABCT2326_ROWS = ABCT2326_FILES.flatMap((f) => f.ROWS);
 const ABCT2326_SOURCES = Object.assign({ 'phys.ebook': 'Martini textbook' }, abct.SOURCES, ...ABCT2326_FILES.map((f) => f.SOURCES));
 const ABCT2326_BASE = { NODES: topicNodes(abct.TOPICS, ABCT2326_SOURCES), EDGES: abct.EDGES, TREE: abct.TREE };
+/* Every box a thread step names offers that thread in its notes; a thread with no hand-made tour gets one from its steps. */
+const ABCT2326_MERGED = mergeLeaves(ABCT2326_BASE, ABCT2326_ROWS, ABCT2326_SOURCES);
+const ABCT2326_DATA = { ...ABCT2326_MERGED, NODES: linkThreads(ABCT2326_MERGED.NODES, abctFrag.THREADS) };
+const ABCT2326_TOURS = [...abctFrag.TOURS, ...abctFrag.THREADS.filter((t) => !abctFrag.TOURS.some((x) => x.th === t.id)).map((t) => threadTour(t, ABCT2326_MERGED))];
 
 export const REVISION = {
   HSS2011: {
@@ -113,14 +117,14 @@ export const REVISION = {
   ABCT2326: {
     id: 'ABCT2326',
     label: 'ABCT2326 Human Physiology',
-    data: mergeLeaves(ABCT2326_BASE, ABCT2326_ROWS, ABCT2326_SOURCES),
+    data: ABCT2326_DATA,
     rows: ABCT2326_ROWS,
     threads: renderThreads(abctFrag.THREADS, ABCT2326_SOURCES, abctFrag.THREADS_INTRO),
     tables: renderTables(abctFrag.TABLES, ABCT2326_SOURCES, abctFrag.TABLES_INTRO),
     decoder: renderDecoder(abctFrag.DECODER, decompose, abctFrag.DECODER_INTRO),
     sources: abctFrag.SOURCES_HTML,
     fragmentData: { threads: abctFrag.THREADS, tables: abctFrag.TABLES, decoder: abctFrag.DECODER },
-    tours: abctFrag.TOURS,
+    tours: ABCT2326_TOURS,
     /* topics, topic links and fragment steps cite pages (work/revision-check.mjs) */
     sourced: true,
     /* The only sources a physiology row, topic or step may cite: the lecture decks in iCloud Human Physology

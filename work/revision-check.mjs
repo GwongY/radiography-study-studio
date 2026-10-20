@@ -27,9 +27,10 @@ import { normaliseCitationText } from './lib/source-lesson-map.mjs';
 import { KINDS } from '../outputs/revision/leaves.js';
 import { SOURCE_FILES } from '../outputs/study/course-data.js';
 import { checkSystems, needsOwn, ownProblems, rowWeekOk, starProblems, yueProblems } from '../outputs/revision/rules.js';
-import { decoderProblems } from '../outputs/revision/fragments.js';
+import { decoderProblems, decoderReading } from '../outputs/revision/fragments.js';
 import { decompose } from '../outputs/wordparts.js';
 import { CROSS } from '../outputs/revision/cross-links.js';
+import { COVERAGE } from './revision-coverage.mjs';
 
 const SOURCE_TEXT = JSON.parse(readFileSync(new URL('./source-text.json', import.meta.url), 'utf8')).sources;
 
@@ -45,6 +46,80 @@ const onPage = (src, needle) => {
 };
 /* The week a source's deck was first lectured, from any subject's decks (1 when none says). */
 const firstWeekOfSource = (src) => { const sid = (src || [])[0]; for (const s of Object.values(REVISION)) if (s.decks && s.decks[sid]) return s.decks[sid].weeks[0]; return 1; };
+
+/*
+ * Coverage: Threads, Tables and Decoder may not stay thin (owner, 20 Oct 2026: "a lot missing").
+ * `cov` is work/revision-coverage.mjs's entry for the subject; the gap analysis it records is
+ * docs/superpowers/notes/2026-10-20-physiology-gap-analysis.md. Every step and table row names the
+ * map boxes it is about (`ids`), and from those:
+ *   (i)   every teaching week with content has at least cov.minSteps thread steps and cov.minRows table rows;
+ *   (ii)  every cross-chapter concept of the gap analysis has its own thread, and every box it lists is a step
+ *         of that thread; and every box whose name is printed on the slides of two or more lectures (computed
+ *         here, from the slide text) is in some step or table row, or on cov.skipCross with a reason;
+ *   (iii) every box name wordparts.js gives a reading for has a reviewed decoder entry, or is on
+ *         cov.skipDecoder with a reason (the reading is wrong for that word, or adds nothing);
+ *   (iv)  the counts per week are printed, so thinness shows.
+ */
+const lectureWeek = (subject, sid) => ((subject.decks || {})[sid] || { weeks: [] }).weeks[0];
+/** The box names printed on the slides of two or more lectures (by lecture week; a tutorial filed with a lecture counts as that week). */
+function crossNamed(subject) {
+  const esc = (x) => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const decks = Object.keys(subject.decks || {}).filter((sid) => SOURCE_TEXT[sid]);
+  const pages = Object.fromEntries(decks.map((sid) => [sid, SOURCE_TEXT[sid].pages.map(normaliseCitationText)]));
+  const out = new Map();
+  for (const n of subject.data.NODES) {
+    const name = normaliseCitationText(String(n.l).replace(/\s*\([^)]*\)\s*$/, ''));
+    if (name.length < 3) continue;
+    const re = new RegExp(`(^|[^a-z0-9])${esc(name)}(s|es)?([^a-z0-9]|$)`);
+    const weeks = new Set(decks.filter((sid) => pages[sid].some((p) => re.test(p))).map((sid) => lectureWeek(subject, sid)));
+    if (weeks.size >= 2) out.set(n.id, [...weeks].sort((a, b) => a - b));
+  }
+  return out;
+}
+function coverage(subject, cov, steps, tRows) {
+  const { data } = subject;
+  const fd = subject.fragmentData;
+  const byId = new Map(data.NODES.map((n) => [n.id, n]));
+  const first = (id) => Math.min(...byId.get(id).w);
+  const all = [...steps, ...tRows];
+  const badIds = all.filter(([, s]) => !Array.isArray(s.ids) || !s.ids.length || s.ids.some((id) => !byId.has(id) || first(id) > s.wk)).map(([id, s]) => `${id} "${s.hd || s.cells[0]}"`);
+  ok(!badIds.length, `every thread step and table row names the map boxes it is about, none taught after the step${badIds.length ? ` (${badIds.slice(0, 6).join(', ')}${badIds.length > 6 ? ` and ${badIds.length - 6} more` : ''})` : ''}`);
+  const covered = new Set(all.flatMap(([, s]) => s.ids || []));
+  /* (i) and (iv) */
+  const weeks = [...new Set(data.NODES.map((n) => Math.min(...n.w)))].sort((a, b) => a - b);
+  const count = (list, w) => list.filter(([, s]) => s.wk === w).length;
+  const thinWeeks = weeks.filter((w) => count(steps, w) < cov.minSteps || count(tRows, w) < cov.minRows);
+  console.log(`      per week (steps/table rows/decoder terms)  ${weeks.map((w) => `${w}:${count(steps, w)}/${count(tRows, w)}/${(fd.decoder || []).filter((d) => d.wk === w).length}`).join('  ')}`);
+  console.log(`      totals  ${fd.threads.length} threads, ${steps.length} steps, ${fd.tables.length} tables, ${tRows.length} rows, ${(fd.decoder || []).length} decoder terms`);
+  ok(!thinWeeks.length, `every teaching week with content has at least ${cov.minSteps} thread steps and ${cov.minRows} table rows${thinWeeks.length ? ` (thin: ${thinWeeks.map((w) => `W${w}`).join(' ')})` : ''}`);
+  /* (ii) the gap analysis's cross-chapter concepts */
+  const threadOf = new Map(fd.threads.map((t) => [t.id, t]));
+  const conceptBad = [];
+  for (const c of cov.concepts) {
+    const t = threadOf.get(c.th);
+    if (!t) { conceptBad.push(`${c.name}: no thread ${c.th}`); continue; }
+    const missing = c.boxes.filter((id) => !byId.has(id));
+    if (missing.length) { conceptBad.push(`${c.name}: no box ${missing.join(' ')}`); continue; }
+    const inThread = new Set(t.steps.flatMap((s) => s.ids || []));
+    const out = c.boxes.filter((id) => !inThread.has(id));
+    if (out.length) conceptBad.push(`${c.name}: ${out.join(' ')} not a step of ${c.th}`);
+    const lect = new Set(c.boxes.map((id) => lectureWeek(subject, (byId.get(id).src || [])[0])));
+    if (lect.size < 2) conceptBad.push(`${c.name}: its boxes come from one lecture only`);
+  }
+  ok(!conceptBad.length, `every cross-chapter concept (${cov.concepts.length}) has its own thread and each of its boxes is a step there${conceptBad.length ? ` — ${conceptBad.slice(0, 6).join('; ')}${conceptBad.length > 6 ? ` and ${conceptBad.length - 6} more` : ''}` : ''}`);
+  const named = crossNamed(subject);
+  const loose = [...named.keys()].filter((id) => !covered.has(id) && !cov.skipCross[id]);
+  ok(!loose.length, `every box named on two or more lectures' slides (${named.size}) is in a thread or table, or skipped with a reason${loose.length ? ` (${loose.length} loose: ${loose.slice(0, 20).map((id) => `${id}[${named.get(id).join(',')}]`).join(' ')}${loose.length > 20 ? ' …' : ''})` : ''}`);
+  const staleCross = Object.entries(cov.skipCross).filter(([id, why]) => !named.has(id) || covered.has(id) || String(why).trim().length < 12).map(([id]) => id);
+  ok(!staleCross.length, `every cross-name skip is still needed and says why${staleCross.length ? ` (${staleCross.slice(0, 12).join(' ')})` : ''}`);
+  /* (iii) the decoder */
+  const terms = new Set((fd.decoder || []).map((d) => d.term));
+  const eligible = [...new Set(data.NODES.map((n) => n.l))].filter((l) => decoderReading(l, decompose));
+  const undecoded = eligible.filter((l) => !terms.has(l) && !cov.skipDecoder[l]);
+  ok(!undecoded.length, `every box name with a word-part reading (${eligible.length}) is in the decoder or skipped with a reason${undecoded.length ? ` (${undecoded.length} not: ${undecoded.slice(0, 15).join(', ')}${undecoded.length > 15 ? ' …' : ''})` : ''}`);
+  const staleDec = Object.entries(cov.skipDecoder).filter(([l, why]) => !eligible.includes(l) || terms.has(l) || String(why).trim().length < 12).map(([l]) => l);
+  ok(!staleDec.length, `every decoder skip is still needed and says why${staleDec.length ? ` (${staleDec.slice(0, 12).join(', ')})` : ''}`);
+}
 
 console.log('\nacross subjects');
 const allSubjects = Object.values(REVISION);
@@ -187,6 +262,7 @@ for (const subject of Object.values(REVISION)) {
     ok(!badYue.length, `every thread's 廣東話 line retells only its steps${badYue.length ? ` — ${badYue.slice(0, 4).map(([id, p]) => `${id}: ${p.join(', ')}`).join('; ')}` : ''}`);
     const decBad = decoderProblems(fd.decoder || [], decompose, new Set(data.NODES.map((n) => n.l)));
     ok(!decBad.length, `every decoder reading is the reviewed one, every term a name on the map${decBad.length ? ` — ${decBad.slice(0, 4).join('; ')}` : ''}`);
+    if (COVERAGE[subject.id]) coverage(subject, COVERAGE[subject.id], steps, tRows);
   }
 
   ok(data.NODES.every((n) => n.w.length && n.w.every((w) => Number.isInteger(w) && w >= 1)), 'every topic has weeks');

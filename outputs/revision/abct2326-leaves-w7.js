@@ -65,6 +65,8 @@ export const ROWS = [
   { k: 'part', id: 'p7_endometrium', l: 'Endometrium', match: 'Endometrium', parent: 'p_uterus', w: 7, line: 'inner glandular mucosal layer that supports embryo and breaks down during menstruation', src: [L6, 20, 37, 38, 47, 48, 56] },
 
   /* ---------------- Ovarian cycle: follicles, phases & hormones (p24, 27, 29-37) ---------------- */
+  { k: 'cell', id: 'p7_primary_oocytes', l: 'Primary oocytes', match: 'primary oocytes', parent: 'p_ovarian', w: 7, line: 'first 6 months of embryonic life produce 7 million; about 2 million are left at birth and 400,000 by puberty', src: [L6, 22] },
+  { k: 'process', id: 'p7_atresia', l: 'Atresia', match: 'atresia', parent: 'p_ovarian', w: 7, line: 'every month one primary follicle gets bigger in size and the others degenerate', src: [L6, 24] },
   { k: 'part', id: 'p7_primordial', l: 'Primordial follicles', match: 'Primordial follicles', parent: 'p_ovarian', w: 7, line: 'resting follicles present in ovary before monthly recruitment', src: [L6, 27] },
   { k: 'part', id: 'p7_primary_follicle', l: 'Primary follicle', match: 'Primary follicle', parent: 'p_ovarian', w: 7, line: 'one gets bigger each month while others degenerate', src: [L6, 27, 24] },
   { k: 'part', id: 'p7_secondary_follicle', l: 'Secondary follicle', match: 'Secondary follicle', parent: 'p_ovarian', w: 7, line: 'developing follicle with multiple layers and fluid accumulation', src: [L6, 27, 31] },
@@ -88,6 +90,7 @@ export const ROWS = [
   { k: 'process', id: 'p7_acrosome_reaction', l: 'Acrosome reaction', match: 'Acrosome Reaction', parent: 'p_fert', w: 7, line: 'association with zona pellucida stimulates release of acrosomal enzymes', src: [L6, 43], next: { p7_cortical_ca: 'leads to calcium activation when sperm enters oocyte' } },
   { k: 'part', id: 'p7_zona_pellucida', l: 'Zona pellucida', match: 'zona pellucida', parent: 'p_fert', w: 7, line: 'extracellular coat whose association stimulates release of acrosomal enzymes', src: [L6, 41, 46] },
   { k: 'process', id: 'p7_cortical_ca', l: 'Calcium activation', match: 'Ca2+', parent: 'p_fert', w: 7, line: 'calcium prevents polyspermy and activates oocyte to finish meiosis', src: [L6, 44], links: { p7_zygote: 'leads to formation of diploid zygote' } },
+  { k: 'cell', id: 'p7_ovum', l: 'Ovum', match: 'haploid ovum', parent: 'p_fert', w: 7, line: 'the haploid cell the oocyte becomes when calcium activates it to finish meiosis', src: [L6, 44, 24] },
   { k: 'cell', id: 'p7_zygote', l: 'Zygote', match: 'zygote', parent: 'p_fert', w: 7, line: 'diploid cell formed when chromosomes join twelve hours after entry', src: [L6, 45] },
 
   /* ---------------- Cleavage & Implantation (p46-48) ---------------- */

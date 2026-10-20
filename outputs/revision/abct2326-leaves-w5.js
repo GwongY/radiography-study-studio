@@ -75,6 +75,7 @@ export const ROWS = [
   /* ---------------- Reabsorption of salt and water (p20-26) ---------------- */
   { k: 'process', id: 'p5_obligatory_water_loss', l: 'Obligatory water loss', match: 'obligatory water loss', parent: 'p_reabs', w: 5, src: [L5, 21], line: 'minimum of 400 ml/day urine necessary to excrete metabolic wastes' },
   { k: 'process', id: 'p5_osmosis_h2o', l: 'Osmosis', match: 'osmosis', parent: 'p_reabs', w: 5, src: [L5, 22, 25], line: 'water is never transported actively and follows salt by osmosis' },
+  { k: 'process', id: 'p5_rme', l: 'Receptor-mediated endocytosis', match: 'receptor-mediated endocytosis', parent: 'p_gfiltration', w: 5, src: [L5, 16], line: 'how most of the protein (especially albumin) that enters the filtrate is reabsorbed' },
   { k: 'part', id: 'p5_nak_pump', l: 'Na+/K+ pump', match: 'Na+/K+ pump', parent: 'p_reabs', w: 5, src: [L5, 24], line: 'primary active transport of sodium across basolateral membrane' },
   { k: 'process', id: 'p5_coupled_transport', l: 'Coupled transport of glucose and Na+', match: 'coupled transport of glucose', parent: 'p_reabs', w: 5, src: [L5, 24], line: 'secondary active transport into tubular cytoplasm' },
   { k: 'process', id: 'p5_facilitated_diffusion', l: 'Facilitated diffusion', match: 'facilitated diffusion', parent: 'p_reabs', w: 5, src: [L5, 24], line: 'transports glucose out of cell to be reabsorbed into blood' },

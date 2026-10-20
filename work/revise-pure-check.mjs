@@ -8,7 +8,7 @@
  * revision-check.mjs's job; this file holds the three pure modules to what they
  * promise, so a change to one fails here before it reaches a phone.
  */
-import { leafLine, mergeLeaves, topicNodes } from '../outputs/revision/leaves.js';
+import { leafLine, linkThreads, mergeLeaves, threadTour, topicNodes } from '../outputs/revision/leaves.js';
 import { linkRows } from '../outputs/revision/link-rows.js';
 import { describe, firstSentence } from '../outputs/revision/describe.js';
 import { HUB, angle, hubLayout, pickFirst, SYSORDER } from '../outputs/revision/hub.js';
@@ -216,6 +216,18 @@ ok(decoderProblems([dterm], dz, new Set(['Spermatogenesis'])).length === 0, 'a r
 ok(decoderProblems([{ ...dterm, reading: 'spermat/o = seed + -genesis = production' }], dz, new Set(['Spermatogenesis']))[0].includes('changed'), 'a reading that no longer matches the reviewed one fails the check');
 ok(decoderProblems([{ term: 'Plasma', wk: 2, reading: '' }], () => null, new Set(['Plasma']))[0].includes('no word-part reading'), 'a term with no reading fails');
 ok(decoderProblems([dterm], dz, new Set())[0].includes('not a row or topic'), 'a decoder term is a name on the map');
+
+console.log('\nthreads linked to the map');
+const lthreads = [
+  { id: 'ta', steps: [{ wk: 8, ids: ['p5_renin'] }, { wk: 5, ids: ['p5_raas', 'p5_renin'] }] },
+  { id: 'tb', steps: [{ wk: 9, ids: ['p5_renin', 'p5_jg'] }] },
+];
+const linked = linkThreads(pm.NODES, lthreads);
+const ren = linked.find((n) => n.id === 'p5_renin');
+ok(ren.th.join() === 'ta,tb' && ren.thWk.ta === 5 && ren.thWk.tb === 9, 'a box offers every thread that names it, from the first step that does');
+ok(!pm.NODES.find((n) => n.id === 'p5_renin').th && linked.find((n) => n.id === 'p_k') === pm.NODES.find((n) => n.id === 'p_k'), 'linking leaves the input alone and unnamed boxes as they were');
+const tour = threadTour({ id: 'tb', steps: [{ wk: 5, ids: ['p5_renin', 'p5_jg'] }, { wk: 6, ids: ['p_k'] }] }, pm);
+ok(tour.th === 'tb' && tour.stops.join() === 'p_k', 'a derived tour lifts each row to its topic and never repeats a stop');
 
 console.log(fail ? `\n${fail} FAILED` : '\nALL PASS');
 process.exit(fail ? 1 : 0);
