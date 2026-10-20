@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v255';
+const CACHE_VERSION = 'v256';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -145,6 +145,7 @@ const SHELL = [
   './study/state.js',
   './study/storage-versioned-keys.js',
   './study/course-data.js',
+  './movements.js?v=1',
   './study/small-ui-helpers.js',
   './study/viewport-recovery.js',
   './study/home.js',

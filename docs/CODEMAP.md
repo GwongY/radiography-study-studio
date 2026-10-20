@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 429 lines
+## `outputs/radiography-study-studio.html` — 425 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–406 | markup — no banners, grep here |
-| 407–407 | importmap |
-| 408–408 | loads studio.js |
-| 409–409 | loads study.js |
-| 410–427 | classic script · preamble |
-| 428–429 | markup — no banners, grep here |
+| 1–402 | markup — no banners, grep here |
+| 403–403 | importmap |
+| 404–404 | loads studio.js |
+| 405–405 | loads study.js |
+| 406–423 | classic script · preamble |
+| 424–425 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1483 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
+- `outputs/app.css` — 1499 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
 - `outputs/studio.js` — 35 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiomodes-and-bridgejs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 47 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -38,6 +38,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `cavity-geom.js` | 1148 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
 | `landmarks.js` | 450 | landmarks.js -- the one place that knows how to find a named anatomical | [Named cut levels](TRAPS.md#named-cut-levels--outputsstudiotools-and-capturejs-outputslandmarksjs) |
 | `mesh-index.js` | 2645 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
+| `movements.js` | 76 | Joint movements the viewer can drive — the data, and nothing else. | [Joint movements](TRAPS.md#joint-movements--outputsmovementsjs-outputsstudiolive-physiologyjs-outputsstudiotools-and-capturejs) |
 | `physiology-mechanics.js` | 52 | Source-backed sequences; display timings are slowed for the motor example. |  |
 | `physiology-path.js` | 835 | Routes — pure rest-space route geometry, no three.js and no DOM. | [Routes](TRAPS.md#routes--outputsphysiology-pathjs-workbuild-physiology-pathsmjs-outputsstudiolive-physiologyjs) |
 | `physiology-paths.js` | 17 | Where the curated route payloads live, and what they were derived from. |  |
@@ -46,7 +47,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
 | `schedule.js` | 713 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `search-name.js` | 42 | Anatomical name matching shared by search and its regression gate. |  |
-| `sw.js` | 442 | Radiography Study Studio — service worker |  |
+| `sw.js` | 443 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 371 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 281 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 2465 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
@@ -62,6 +63,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 - `cavity-build.js` — `measureLandmarks`, `measureGrid`, `gridBounds`, `buildCavityGeometry`, `BUILDABLE`
 - `cavity-geom.js` — `boundsOf`, `ringStack`, `ringPoint`, `polyStack`, `stackMesh`, `planeThrough`, `heightField`, `sampleField`, `domeFromRim`, `starShell`, `starMesh`, `starPoint`, `foramenOf`, `foramenCandidates`, `canalPath`, `tubeMesh`, `torsoProfile`, `frontSurface`
 - `landmarks.js` — `normName`, `baseName`, `patternMatches`, `RIB_ORDINALS`, `LANDMARKS`, `REFERENCE_CHAINS`, `createResolver`, `LANDMARK_KEYS`
+- `movements.js` — `MOVEMENTS`, `MOVEMENT_REVISE`, `movementById`
 - `physiology-mechanics.js` — `MECHANISM_SOURCES`, `MOTOR_ROUTES`, `motorRoute`, `motorSequence`, `transmissionField`
 - `physiology-path.js` — `weldedGraph`, `geodesicFrom`, `stationsOf`, `resampleArcLength`, `pointAt`, `frameAt`, `pathGradient`, `progressField`, `derivePathRoute`, `deriveProgressRoute`, `derivePulseRoute`, `progressBand`, `pulseWave`, `PROGRESS_ATTRIBUTES`, `PATH_GLOW_VERTEX_GLSL`, `PATH_GLOW_FRAGMENT_GLSL`, `peristalticWave`, `pathDeformation`, `PATH_ATTRIBUTES`, `PATH_SHAPE_GLSL`, `PATH_PULSE_GLSL`
 - `physiology-paths.js` — `PATH_STAMP`, `PATH_PAYLOADS`
@@ -123,13 +125,13 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `hide-and-search.js` | 114 | Hide, and search-driven uncover |
 | `imports.js` | 98 | Block 0 has its own import scope -- block 1's copy is not visible here. |
 | `limb-atlas.js` | 347 | Limb vessels |
-| `live-physiology.js` | 1649 | Live physiology |
+| `live-physiology.js` | 1657 | Live physiology |
 | `modes-and-bridge.js` | 511 | Visualisation modes. |
 | `packed-spread.js` | 93 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
 | `scene.js` | 508 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 254 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 828 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
-| `tools-and-capture.js` | 561 | Tools — section cuts, layer separation, capture. |
+| `tools-and-capture.js` | 597 | Tools — section cuts, layer separation, capture. |
 
 ## The study system — `outputs/study/*.js`
 
@@ -205,6 +207,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `work/landmark-check.mjs` | Does every landmark actually resolve against the real GLBs? |  |
 | `work/limb-check.mjs` | Limb vessels check -- the BetterHeart limb frames against the explorer's own circulatory layer, offl | [The limb vessels mode -- outputs/studio/limb-atlas.js, outputs/limb/, work/limb-check.mjs](TRAPS.md#the-limb-vessels-mode----outputsstudiolimb-atlasjs-outputslimb-worklimb-checkmjs) |
 | `work/load-check.mjs` | Load-time verification for radiography-study-studio.html. |  |
+| `work/movement-check.mjs` | Movement check — the Viewer's Movements panel says only what a 2026 slide says, |  |
 | `work/pages-workflow-check.mjs` | Pages workflow check — every script .github/workflows/pages.yml runs exists. |  |
 | `work/physiology-breathing-check.mjs` |  |  |
 | `work/physiology-heart-check.mjs` | Piece-3 heart gate: the tethered chamber map, on the real circulatory GLB. |  |

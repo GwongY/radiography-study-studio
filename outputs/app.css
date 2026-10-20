@@ -115,11 +115,6 @@
 .opt.wrong{border-color:var(--red);background:rgba(241,129,129,.12)}
 .opt:disabled{cursor:default}
 
-.mv-panel{border:1px solid var(--line);border-radius:12px;padding:14px 15px;background:rgba(255,255,255,.025)}
-.mv-row{display:flex;align-items:center;gap:11px;flex-wrap:wrap}
-.mv-row input[type=range]{flex:1;min-width:170px;accent-color:var(--teal)}
-.mv-read{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--teal);min-width:150px}
-.mv-ends{display:flex;justify-content:space-between;margin-top:7px;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
 
 .conf{border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:9px;padding:7px 11px;font-size:calc(12.5px * var(--ts));cursor:pointer;transition:.14s ease}
 @media(hover:hover){.conf:hover{border-color:var(--teal)}}.conf.on{border-color:var(--teal);background:rgba(114,227,207,.13);color:var(--teal);font-weight:700}
@@ -1115,7 +1110,8 @@ html[data-ts="xl"]{--ts:1.55}
 /* The Tools panel shows only the section its bottom-bar button named. */
 .viewer-tools-panel[data-show="spread"] .vsheet-grid>[data-tsec]:not([data-tsec="spread"]),
 .viewer-tools-panel[data-show="cut"] .vsheet-grid>[data-tsec]:not([data-tsec="cut"]),
-.viewer-tools-panel[data-show="regions"] .vsheet-grid>[data-tsec]:not([data-tsec="regions"]){display:none}
+.viewer-tools-panel[data-show="regions"] .vsheet-grid>[data-tsec]:not([data-tsec="regions"]),
+.viewer-tools-panel[data-show="moves"] .vsheet-grid>[data-tsec]:not([data-tsec="moves"]){display:none}
 
 /*
  * Nothing on the stage may sit under the control bar. --pill-h is the bar's
@@ -1480,4 +1476,24 @@ ul.asslines{list-style:none;margin:0;padding:0}
 @media(max-width:700px){
   .segbar.coursetabs{display:flex;width:100%;gap:2px;padding:4px}
   .segbar.coursetabs>.seg{flex:1 1 auto;padding:0 3px;min-height:44px;font-size:calc(11px * var(--ts))}
+}
+
+/* Movements (studio/tools-and-capture.js renderMovements): one row per movement, its own slider. */
+.mv-list{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin:6px 0 10px}
+.mv-item{min-width:0;border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:rgba(255,255,255,.025)}
+.mv-item.on{border-color:rgba(114,227,207,.55)}
+.mv-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.mv-head b{font-size:calc(13.5px * var(--ts))}
+.mv-head small{color:var(--muted);font-size:calc(11.5px * var(--ts))}
+.mv-range{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:center;margin-top:6px;font-size:calc(11.5px * var(--ts));color:var(--muted)}
+.mv-range input[type=range]{width:100%;min-width:0;accent-color:var(--teal)}
+.mv-src{margin-top:4px;overflow-wrap:anywhere;color:var(--muted);font:11px ui-monospace,SFMono-Regular,Menlo,monospace;font-size:calc(11px * var(--ts))}
+.mv-revise{margin-top:8px}
+
+/* Seven buttons in the phone's bottom bar since Moves joined (2026-10-20): tighter padding so
+   all seven fit at the default text size. Labels still never shrink; at a larger text size the
+   bar scrolls, as before. */
+@media(max-width:700px){
+  #stageHome .ctrlpill{gap:2px;padding:4px}
+  #stageHome .ctrlpill button{padding:8px 2px;font-size:min(calc(11px * var(--ts)), 13px)}
 }

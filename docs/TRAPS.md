@@ -1425,3 +1425,21 @@ names it.
 - **`cross-links.js` entries show only in the notes panel;** `a` is the ABCT2326 end, `match` is on the cited page.
 - **The browser check needs a visible, real page.** In the Browser pane while it is hidden, the Map's transitions do not run and the first Jump-to after a render opens nothing; run `work/revise-browser-check.js` in real Chrome (or with the pane shown). It now waits for a box's notes to open instead of reading them at once.
 - **With 14 balls the number dots crowd near the centre at 390 px wide.** Legible, but tapping a list row is more reliable than tapping a dot there.
+
+### Joint movements — `outputs/movements.js`, `outputs/studio/live-physiology.js`, `outputs/studio/tools-and-capture.js`
+
+- **Ending a movement must put each mesh's own transform back, not re-attach it.**
+  `parent.attach(mesh)` keeps the world transform, so re-attaching while the pivot group
+  is still rotated leaves the bones where the slider left them. `startMovement` stores each
+  mesh's local position, quaternion and scale; `endMovement` re-adds and copies them back.
+  `work/movement-browser-check.js` requires matrixWorld to be identical after Stop and reset.
+- **`sign` is measured, not assumed.** The axis vectors came from the retired corpus and two
+  of three turned the wrong way (the hand went backwards in "flexion", across the body in
+  "abduction"). The browser check holds the direction of each; change an axis and run it.
+- **Starting a movement resets its slider to rest.** Read the slider's value before calling
+  `startMovement`, or the first drag drives the bones to 0.
+- **List every bone that rides along.** The hand list once had no phalanges, so the fingers
+  stayed in mid-air while the forearm moved. `work/movement-check.mjs` fails if any right-hand
+  bone in the GLB is missing from a movement that moves the hand.
+- **Names come off 2026 slides only.** Opposition of the thumb is not on any 2026 HSS2011
+  page, so it is not offered; the check holds each name, joint and range end against a cited page.

@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 996 —
-  9d2ca8a5c7a1f57a  WHOLE SET
+— user-facing strings in outputs/ — 999 —
+  7121c0977421351e  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -22,6 +22,8 @@
   8ea7e01970b3f34f  " data-depth="
   5265bd1a089ac9df  " data-groupopt="
   9d18b1672389d7fe  " data-groupset="
+  d07ebb87e1cca21f  " data-mvslider="
+  0916d2ff50dcb696  " data-rest="
   d73ec115ea9142c9  " data-state="
   ac18f6537d5721f5  " data-title="
   e2d80c92ddbb5f6d  " data-vtab="
@@ -31,6 +33,7 @@
   31b82f574a8c3ef0  " hidden><i style="background:var(--rv-c-
   46d6bbe92726dad5  " placeholder="—"
   f847813600bc8f62  " role="status">
+  e46944af191c11de  " step="1" value="
   eb82935571faaac8  " style="--acc:
   3921811003af6587  " style="padding:6px 10px">Link them →
   7a0a29093207a5f2  " style="padding:6px 10px">Revise →
@@ -141,6 +144,7 @@
   cce4305b03b60844  <div class="emptybox">Outside the teaching term — use the full-term view.</div>
   32ac2097168e30ba  <div class="emptybox">There is no next teaching week — the term ends this week.</div>
   81bbed0091211144  <div class="layerhint">tap to cycle · solid → ghost → off</div>
+  4ef88844437103f1  <div class="mv-item" data-mv="
   b72e23b04ca38453  <div class="note">Red is oxygenated, blue is not — which is why the pulmonary artery is blue-violet and the pulmonary veins are red. Vessel type does not decide the colour; what it carries does.</div>
   28c656ec553bbafd  <div class="nowcard
   ab35719b544daab9  <div class="ohead">Cavities</div>
@@ -159,6 +163,7 @@
   700d0e6637c671e0  <input type="checkbox" data-ha-part="
   660caf1b880e86b7  <input type="checkbox" data-ha-show="
   1b8b5718b484b569  <input type="checkbox" id="ceDots"
+  d958a4f248eaaf6a  <input type="range" min="
   3a324e9e0d188447  <input type="range" min="8" max="100" value="
   65da2d38aebef408  <li class="assrow
   4a0089a78242886e  <li class="sessrow
@@ -181,6 +186,7 @@
   0f87e484d07b041c  <span class="livenow">On now</span>
   ddc6aca43efa6a7e  <span class="mmt mmb" style="--bc:var(--c-
   b83f09d243f67fb8  <span class="mono" data-depthread="
+  4cd4fa59b810a429  <span class="mono" data-mvread="
   62bc3808f16130c2  <span class="mono" style="color:
   79494432a3df21c8  <span class="openwk">This week</span>
   24337fc436267890  <span class="pc" style="color:
@@ -384,7 +390,6 @@
   5cf93e96c7079784  It is a normal mind map: coloured branches, each opening into topics, and topics opening into
   8ccc3126acbbefa7  It is shaped like a cuckoo beak: the tail remnant left behind.
   8c279f0914b7eb4e  It is teaching week
-  9d0d3e0a20bc01d4  Joint angle
   90a8aa236c266060  Jugular notch
   2e5922f2b0aef227  Jump to today
   8270b0379eedc536  Jump to today ↓
@@ -782,7 +787,7 @@
   db8cb666a550bed1  could not load
   8936e4bc4884d331  could not locate that structure
   6c1f17a2f0ae1dbd  coverageEnd is before coverageStart.
-  d3967cf0a967dbd6  cross the joint and are ghosted and held still — muscle and vessel deform across a joint
+  dac737fee4061808  cross the joint, so they are ghosted and held still: a rigid rotation would pull them off the bone they start on.
   a419fe7f15c0a5e3  dated sessions written to radiography-timetable.ics — open it to add them to your calendar.
   b0b164def6e14665  deadline must be null or ISO with an offset.
   bbb10c71f4b6d8f3  density += n * uSigma * (0.35 + 0.65 * density);
@@ -810,7 +815,6 @@
   d98d17def3671391  float tau = max(0.0, texture2D(tTau, uv).r);
   3c9bbf25a1365e5d  full height
   c99a222fc3470c4f  ghost close
-  1a282eee876c39f0  ghost hidden
   8a4081dbed1f6c62  ghost tolesson
   13738eb831c94c95  gl_FragColor = vec4(bulk + shell, 0.0, 0.0, 1.0);
   2417f7519a9d91f5  gl_FragColor = vec4(vec3(clamp(density, 0.0, 1.0)), 1.0);
@@ -861,7 +865,6 @@
   9926eafbd8d2de07  more step
   65ee551fb198c26a  must be an ISO timestamp with an offset.
   f46b7e5ab634f52d  mv-note hidden
-  31f204f598d94b86  mv-panel hidden
   2db7c5d825e1b1e4  named atlas structure
   4f80462d467f4c06  named by your course ·
   19b05a182a8f5ce6  named by your course,
@@ -888,7 +891,6 @@
   46591e102d765ad8  priority must be urgent, normal or check.
   777503f25750cf8f  px "Instrument Sans", system-ui, -apple-system, sans-serif
   fe61828d0377d29b  question blank/Chapter 1–29.pdf
-  9104b22058806e6c  rather than rotating rigidly, so swinging them would tear them off their origin.
   6ab01b1dba123b71  region filter does not work
   ec6a0f3dde81ba11  repeats id
   9eb7149db5d15b08  rv-chip rv-auto
@@ -926,10 +928,11 @@
   2c7793c890df5263  skipped lines.
   7e1d4ce29beaeb4e  skipped must be an array.
   5c6db2f77cfe003a  small cut-levelnote
+  02cd0ea26e98c0c8  small mv-revise
   535432277ab15c02  small term-number
   31c5f19d08e70b45  so far' :
   b06f2f1ca52fc976  soft-tissue mesh
-  f004ce84a1c00cd6  soft-tissue structures travel with the bone.
+  f69e4d17ef14bc81  soft-tissue structures move with the bones.
   29a944fb41484f0b  something is wrong
   b43e10e950501611  source.from is missing.
   dd6b1fb86b59799a  source.quote is missing.
