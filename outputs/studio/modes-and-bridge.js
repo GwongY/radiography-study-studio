@@ -5,7 +5,7 @@
  */
 import { viewerStructureName } from '../search-name.js';
 import { $, BODY_CONCEPTS, CM_PER_UNIT, FLOW_CLASSES, LAYER_NAMES, MESH_INDEX, REGIONS, conceptById, els, layerOf, mu, state } from './imports.js';
-import { XRAY_LAYERS, XRAY_LAYER_FILES, applyLayers, endMovement, enterXray, exitXray, setExtraVisible, setLayer, setMovementAngle, setPhysiology, setXrayAec, setXrayKvp, setXrayMas, setXrayRegion, setXrayView, setXrayWindow, setXrayZoom, startMovement, unitFor, xrayDepthMaterial } from './live-physiology.js';
+import { XRAY_LAYERS, XRAY_LAYER_FILES, applyLayers, enterXray, exitXray, setExtraVisible, setLayer, setPhysiology, setXrayAec, setXrayKvp, setXrayMas, setXrayRegion, setXrayView, setXrayWindow, setXrayZoom, unitFor, xrayDepthMaterial } from './live-physiology.js';
 import { applyVisibility, boot3D, getRecord, resize } from './scene.js';
 import { bodyMetrics, ensureConceptGroup, showPickCallout } from './spatial-concept-overlays.js';
 import { buildCavity, buildCellGrid, buildPlane, cavityContext, cavityStyle } from './cavity-geometry-derived.js';
@@ -283,10 +283,6 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   cavityMode:()=>state.cavityMode||'normal',
   setCavityMode:(m)=>applyCavityMode(m),
   setConceptHook:(fn)=>{state.conceptHook=fn||null;publishConcepts();},
-  startMovement:(mv)=>startMovement(mv),
-  setMovementAngle:(d)=>setMovementAngle(d),
-  endMovement:()=>endMovement(),
-  movementState:()=>state.movement?{id:state.movement.mv.id,angle:state.movement.angle,moving:state.movement.restore.length}:null,
   /*
    * The beam's tissue layers, RESIDENT, before the projection is entered.
    *
@@ -498,7 +494,11 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
     if(row) return '<span class="chip beyond">Not named in your course material</span>';
     return '';
   }
-  function renderSelected(record,side){const card=$('selectedCard');if(card)card.classList.remove('quiet');els.selectedName.textContent=viewerStructureName(record.canonicalName);els.selectedChips.innerHTML=courseChipHTML(record,state.selectionAnchor);els.selectedDetails.innerHTML=`${physLineHTML(record.id)}<div class="info-grid"><div><div class="info-label">Landmarks</div><ul class="compact-list">${record.landmarks.slice(0,4).map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div><div><div class="info-label">Radiography</div><div class="info-value">${clean(record.radiographyImportance)}</div></div></div>${memoryTipHTML(record)}<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><button class="primary detail-open" id="openDetailBtn" style="margin-top:0">Open detail</button><button class="icon-btn" id="hideSelectedBtn" style="min-height:38px;border:1px solid var(--line);border-radius:9px;background:rgba(255,186,103,.12);color:var(--orange);padding:0 12px;font-size:12px">Hide this</button></div>`;$('openDetailBtn').onclick=()=>openDetail(record,side);const hb=$('hideSelectedBtn');if(hb)hb.onclick=()=>hideMesh(state.selectionAnchor)}
+  /* Landmarks and Radiography, each only when it says something: a soft-tissue structure has no landmarks, and
+     its "radiography" line is only the atlas's generic "Named structure in the ... layer" (unitBlurb), so a
+     muscle's card showed two boxes with nothing in them. */
+  function infoGridHTML(record){const lm=(record.landmarks||[]).slice(0,4),rad=String(record.radiographyImportance||'').trim();const boxes=[lm.length?`<div><div class="info-label">Landmarks</div><ul class="compact-list">${lm.map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div>`:'',rad&&!/^Named structure in the /.test(rad)?`<div><div class="info-label">Radiography</div><div class="info-value">${clean(rad)}</div></div>`:''].filter(Boolean);return boxes.length?`<div class="info-grid">${boxes.join('')}</div>`:''}
+  function renderSelected(record,side){const card=$('selectedCard');if(card)card.classList.remove('quiet');els.selectedName.textContent=viewerStructureName(record.canonicalName);els.selectedChips.innerHTML=courseChipHTML(record,state.selectionAnchor);els.selectedDetails.innerHTML=`${physLineHTML(record.id)}${infoGridHTML(record)}${memoryTipHTML(record)}<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><button class="primary detail-open" id="openDetailBtn" style="margin-top:0">Open detail</button><button class="icon-btn" id="hideSelectedBtn" style="min-height:38px;border:1px solid var(--line);border-radius:9px;background:rgba(255,186,103,.12);color:var(--orange);padding:0 12px;font-size:12px">Hide this</button></div>`;$('openDetailBtn').onclick=()=>openDetail(record,side);const hb=$('hideSelectedBtn');if(hb)hb.onclick=()=>hideMesh(state.selectionAnchor)}
   /* Tapping a bone selects it. */
   export function onBonePicked(obj){const {canonicalId,side}=obj.userData;if(getRecord(canonicalId))selectBone(canonicalId,side)}
   export function clearHighlight(){[...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].forEach(m=>{m.material.emissive?.setHex(0x000000);m.material.emissiveIntensity=0;m.userData.presentationActive=false;if(state.xray&&m.userData.xrayHot){m.material.dispose();m.material=state.xray.shared.get(m.userData.xrayTissue);delete m.userData.xrayHot}if(m.userData.baseScale)m.scale.set(...m.userData.baseScale);if(m.userData.basePosition)m.position.set(...m.userData.basePosition)});state.fullPickables.forEach(m=>{m.material.opacity=0})}

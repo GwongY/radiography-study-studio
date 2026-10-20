@@ -974,13 +974,30 @@ function paintSelectedRevise() {
   const slot = $$('selectedRevise');
   if (!slot) return;
   const units = window.__osteo && window.__osteo.selectedUnits ? window.__osteo.selectedUnits() : [];
-  const boxes = units.length ? reviseBoxesFor(units) : [];
+  paintReviseSlot(slot, units.length ? reviseBoxesFor(units) : []);
+}
+function paintReviseSlot(slot, boxes) {
   slot.hidden = !boxes.length;
   slot.innerHTML = boxes.length ? `<div class="info-label">In Revise</div>${boxes.map((b) => `<button type="button" class="sel-revise-btn" data-openrevise="${esc(b.subject)}" data-openreviseid="${esc(b.id)}">${esc(b.label)} <small>${esc(b.name)}, week ${b.week} →</small></button>`).join('')}` : '';
 }
 
+/* A studio panel (the muscle zoom) names boxes as [subject, id] and asks for their links in a slot of its own:
+   only the boxes the week each subject shows has taught get one, as on the selection card. */
+function paintAskedSlot(ev) {
+  const { el, boxes } = (ev && ev.detail) || {};
+  if (!el || !Array.isArray(boxes)) return;
+  const out = [];
+  for (const [subject, id] of boxes) {
+    if (!REVISION[subject] || !visibleAt(subject, weekFor(subject)).has(id)) continue;
+    const n = nodeOf(subject, id);
+    if (n) out.push({ subject, id, label: n.l, week: firstWk(n), name: REVISION[subject].copy.name });
+  }
+  paintReviseSlot(el, out);
+}
+
 export function init() {
   document.addEventListener('visibilitychange', () => { if (!document.hidden) followCalendar(); });
+  window.addEventListener('osteo:revise-slot', paintAskedSlot);
   const selName = $$('selectedName');
   if (selName && typeof MutationObserver === 'function') new MutationObserver(paintSelectedRevise).observe(selName, { childList: true, characterData: true, subtree: true });
   document.addEventListener('click', (ev) => {

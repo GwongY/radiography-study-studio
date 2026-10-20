@@ -931,7 +931,6 @@ export function enterXray(){
      a separated body it still produces a confident-looking image -- of a
      patient whose lungs are a body-depth in front of their chest wall. */
   if(state.separation)setSeparation(0);
-  if(state.movement)endMovement();
   const THREE=state.THREE;
   const c=state.camera, ctr=state.controls;
   /*
@@ -1309,9 +1308,6 @@ export function exitXray(){
 export function setLayer(key,on){
   if(!leaveHeartAtlasBeforeMode(true))return;
   if(state.xray)return;
-  /* Meshes carried by a movement live under the pivot group, not their layer
-     root, so a toggle mid-movement could not hide them. End it first. */
-  if(state.movement)endMovement();
   state.layers[key]=!!on;
   applyLayers();
 }
@@ -1441,175 +1437,6 @@ export function highlightExtra(mesh){
   showPickCallout(lit,side?`${name}\n${side}`:name);
   if(state.isolated){clearHighlight();applyVisibility();}
 }
-/*
- * Joint movement player.
- *
- * The skeleton has no skin and no animation track, so movement is driven by
- * rigid-body rotation: the moving meshes are reparented into a pivot group
- * whose origin sits on the joint axis, and that group is rotated. A bone
- * really is a rigid body rotating about a joint axis, so this is the honest
- * representation rather than a shortcut.
- *
- * Pivot and axis are resolved from the bounding boxes of named meshes at
- * runtime, never hard-coded, because the model is rescaled and recentred on
- * import — any baked-in coordinate would silently drift.
- */
-function meshesNamed(names,side){
-  const norm=s=>String(s||'').toLowerCase().replace(/[()'’]/g,'').replace(/[_\-.,]+/g,' ').replace(/\s+/g,' ').trim();
-  const want=names.map(norm);
-  const suffix=side==='left'?'l':side==='right'?'r':null;
-  return state.fullMeshes.filter(mesh=>{
-    const n=norm(mesh.userData?.label||mesh.name);
-    return want.some(w=> n===w || (suffix && n===w+suffix) || (!suffix && (n===w+'l'||n===w+'r')) );
-  });
-}
-function endPoint(THREE,names,side,at){
-  const ms=meshesNamed(names,side);
-  if(!ms.length)return null;
-  const box=new THREE.Box3();
-  ms.forEach(m=>box.expandByObject(m));
-  const c=box.getCenter(new THREE.Vector3());
-  /* 'proximal' is the higher end for a limb hanging at the side. */
-  if(at==='proximal')c.y=box.max.y;
-  else if(at==='distal')c.y=box.min.y;
-  return c;
-}
-
-/*
- * Soft tissue and a moving joint.
- *
- * A bone genuinely is a rigid body rotating about a joint axis, which is why
- * this player rotates bone meshes directly. Soft tissue splits in two:
- *
- *   distal to the joint  — the hand's vessels, nerves and intrinsic muscles
- *     travel with the forearm as one piece. Rotating them rigidly is right,
- *     so they are attached to the pivot group along with the bones.
- *
- *   crossing the joint   — biceps, the forearm flexors, anything anchored on a
- *     bone that is being held still. These shorten and bulge; they do not
- *     swing. Rotating them would tear them off their origin and quietly teach
- *     something false, so they are ghosted and held, and the panel says so.
- *
- * Classification is by bounding box against the movement's own fixed and
- * moving bone sets, so it follows the data rather than a hard-coded list.
- */
-function worldBox(THREE,mesh){
-  if(!mesh.geometry)return null;
-  if(!mesh.geometry.boundingBox)mesh.geometry.computeBoundingBox();
-  if(!mesh.geometry.boundingBox)return null;
-  mesh.updateMatrixWorld();
-  return mesh.geometry.boundingBox.clone().applyMatrix4(mesh.matrixWorld);
-}
-function unionBox(THREE,meshes){
-  const box=new THREE.Box3();
-  let any=false;
-  meshes.forEach(m=>{const b=worldBox(THREE,m);if(b){box.union(b);any=true}});
-  return any?box:null;
-}
-function classifySoftTissue(THREE,movingBones,fixedBones){
-  const carried=[],held=[];
-  const movingBox=unionBox(THREE,movingBones);
-  const fixedBox=unionBox(THREE,fixedBones);
-  if(!movingBox)return {carried,held};
-  /* Err towards holding: a little margin round the fixed bones means anything
-     that merely grazes an origin is held rather than rotated. */
-  if(fixedBox){
-    const pad=fixedBox.getSize(new THREE.Vector3()).multiplyScalar(.03);
-    fixedBox.expandByVector(pad);
-  }
-  Object.entries(state.extraModels||{}).forEach(([key,layer])=>{
-    if(!layerOn(key))return;
-    layer.meshes.forEach(mesh=>{
-      const b=worldBox(THREE,mesh);
-      if(!b||!b.intersectsBox(movingBox))return;
-      if(fixedBox&&b.intersectsBox(fixedBox))held.push(mesh);
-      else carried.push(mesh);
-    });
-  });
-  return {carried,held};
-}
-export function startMovement(mv){
-  if(state.separation)setSeparation(0);
-  const THREE=state.THREE;
-  if(!THREE||!state.fullModel){showToast('Open the 3D model first.');return false}
-  endMovement();
-  const moving=meshesNamed(mv.moves,mv.side);
-  if(!moving.length){showToast('Those bones are not in the loaded model.');return false}
-  const pivot=endPoint(THREE,[mv.pivot.mesh],mv.side,mv.pivot.at);
-  if(!pivot)return false;
-  let axis;
-  if(mv.axis.vector)axis=new THREE.Vector3(...mv.axis.vector).normalize();
-  else{
-    const a=endPoint(THREE,[mv.axis.from.mesh],mv.side,mv.axis.from.at);
-    const b=endPoint(THREE,[mv.axis.to.mesh],mv.side,mv.axis.to.at);
-    if(!a||!b)return false;
-    axis=b.clone().sub(a).normalize();
-  }
-  const group=new THREE.Group();
-  group.position.copy(pivot);
-  state.fullModel.add(group);
-  const {carried,held}=classifySoftTissue(THREE,moving,meshesNamed(mv.fixed,mv.side));
-  /* Reparent while preserving world transform, so nothing jumps on attach. */
-  const travelling=[...moving,...carried];
-  /* Each mesh's own local transform is kept, so ending the movement puts it back
-     exactly, not via two matrix inversions (work/movement-browser-check.js). */
-  const restore=travelling.map(mesh=>({mesh,parent:mesh.parent,
-    position:mesh.position.clone(),quaternion:mesh.quaternion.clone(),scale:mesh.scale.clone()}));
-  travelling.forEach(mesh=>group.attach(mesh));
-  const ghosted=held.map(mesh=>({mesh,opacity:mesh.material?mesh.material.opacity:1,
-    transparent:mesh.material?mesh.material.transparent:false}));
-  ghosted.forEach(({mesh})=>{
-    if(!mesh.material)return;
-    if(!mesh.material.transparent)mesh.material.needsUpdate=true;
-    mesh.material.transparent=true;mesh.material.opacity=.1;mesh.material.depthWrite=false;
-  });
-  const note=document.getElementById('mvNote');
-  if(note){
-    if(held.length){
-      note.textContent=`${carried.length} soft-tissue structures move with the bones. `
-        +`${held.length} cross the joint, so they are ghosted and held still: a rigid rotation would pull them off the bone they start on.`;
-      note.classList.remove('hidden');
-    } else if(carried.length){
-      note.textContent=`${carried.length} soft-tissue structures move with the bones.`;
-      note.classList.remove('hidden');
-    } else note.classList.add('hidden');
-  }
-  state.movement={mv,group,axis,restore,ghosted,angle:0,playing:false,dir:1};
-  /* start from the model's own pose (0), not from an end of the range */
-  setMovementAngle(Math.max(mv.range[0],Math.min(mv.range[1],0)));
-  return true;
-}
-export function setMovementAngle(deg){
-  const m=state.movement; if(!m)return;
-  const lo=m.mv.range[0], hi=m.mv.range[1];
-  m.angle=Math.max(lo,Math.min(hi,deg));
-  m.group.setRotationFromAxisAngle(m.axis, (m.mv.sign||1)*m.angle*Math.PI/180);
-  if(typeof document==='undefined')return;
-  const el=document.querySelector(`[data-mvread="${m.mv.id}"]`);
-  if(el)el.textContent=`${Math.round(m.angle)}°`;
-  const sl=document.querySelector(`[data-mvslider="${m.mv.id}"]`);
-  if(sl&&Math.round(+sl.value)!==Math.round(m.angle))sl.value=String(Math.round(m.angle));
-}
-export function endMovement(){
-  const m=state.movement; if(!m)return;
-  m.restore.forEach(({mesh,parent,position,quaternion,scale})=>{
-    if(parent)parent.add(mesh);
-    mesh.position.copy(position);mesh.quaternion.copy(quaternion);mesh.scale.copy(scale);
-  });
-  (m.ghosted||[]).forEach(({mesh,opacity,transparent})=>{
-    if(!mesh.material)return;
-    if(mesh.material.transparent!==transparent)mesh.material.needsUpdate=true;
-    mesh.material.transparent=transparent;mesh.material.opacity=opacity;mesh.material.depthWrite=!transparent;
-  });
-  m.group.parent&&m.group.parent.remove(m.group);
-  state.movement=null;
-  const note=document.getElementById('mvNote');
-  if(note)note.classList.add('hidden');
-  /* every slider back to the model's own pose */
-  document.querySelectorAll('[data-mvslider]').forEach(sl=>{sl.value=sl.dataset.rest||'0';});
-  document.querySelectorAll('[data-mvread]').forEach(el=>{el.textContent='';});
-  document.querySelectorAll('.mv-item.on').forEach(el=>el.classList.remove('on'));
-}
   if(false&&!sessionStorage.getItem('osteology-memory-tip-shown')){const tips=Object.values(MEMORY_TIPS);if(tips.length){showToast(`💡 ${tips[Math.floor(Math.random()*tips.length)].tip}`);sessionStorage.setItem('osteology-memory-tip-shown','1')}}
   window.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&state.selectedId&&!document.getElementById('viewerView').classList.contains('hidden')&&!document.querySelector('dialog[open]'))clearSelection()});
   function restoreFromHash(){if(!location.hash)return;const m=location.hash.match(/^#detail\/([\w:-]+)/);if(!m||m[1]===state.lastDetailId)return;state.hashTries=(state.hashTries||0)+1;const record=getRecord(m[1]);if(!record){if(!state.fullMeshes.length&&state.hashTries<20)setTimeout(restoreFromHash,250);return}selectBone(record.id);openDetail(record)}
@@ -1653,5 +1480,4 @@ export function init() {
     }
   }
   state.xray=null;
-  state.movement=null;
 }

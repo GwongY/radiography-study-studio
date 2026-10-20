@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1017 —
-  1e5e5f7c726b55c5  WHOLE SET
+— user-facing strings in outputs/ — 1042 —
+  806ce5423b3ca33b  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -22,8 +22,6 @@
   8ea7e01970b3f34f  " data-depth="
   5265bd1a089ac9df  " data-groupopt="
   9d18b1672389d7fe  " data-groupset="
-  d07ebb87e1cca21f  " data-mvslider="
-  0916d2ff50dcb696  " data-rest="
   d73ec115ea9142c9  " data-state="
   ac18f6537d5721f5  " data-title="
   e2d80c92ddbb5f6d  " data-vtab="
@@ -33,11 +31,11 @@
   31b82f574a8c3ef0  " hidden><i style="background:var(--rv-c-
   46d6bbe92726dad5  " placeholder="—"
   f847813600bc8f62  " role="status">
-  e46944af191c11de  " step="1" value="
   eb82935571faaac8  " style="--acc:
   3921811003af6587  " style="padding:6px 10px">Link them →
   7a0a29093207a5f2  " style="padding:6px 10px">Revise →
   a70a4627802e8fd1  " style="text-align:left;cursor:
+  c0989a4677742159  " tabindex="-1">
   e272ca64fe23b521  " title="
   b7337d3498ef8467  " title="Follow the teaching week by itself">Auto
   96de2d47a973c7ca  " transform="translate(
@@ -104,6 +102,7 @@
   93905c7a41a60262  5yrs PP module 1-4 FIB.pdf
   87e6af96083ec8da  6 CVS conducting-system slides transcribed to text: conductive vs contractile cells, contractile AP phases (rest −90 mV, plateau, absolute refractory), pacemaker AP (threshold −40 mV, Ca2+ upstroke, K+ repolarisation, HCN funny Na+ prepotential), and the ECG breakdown (P / QRS / T, P–R / Q–T / S–T intervals, QRS masks atrial repolarisation). Single page (p1).
   70ec40827f738641  8 carpals, 5 metacarpals, 14 phalanges
+  b5df3b723c7661ad  ; state.muscleZoomOn says which). See docs/TRAPS.md, 
   7b6a0c11cb331b4e  ; weeks 1–
   fbc7f40a78126f42  <b>—</b> so far
   1a6ab45c16783dc4  <button class="card" data-row="
@@ -122,6 +121,7 @@
   104dbe0e4864608b  <button class="sres" data-recent="
   4e33c3206cbfafcf  <button data-nav="
   a92d150b6b9eeea2  <button data-show="
+  b186fe40b4cf8cc2  <button type="button" class="mz-tag" data-mz-tag="
   a50502455aa65c33  <button type="button" class="nbtn" data-cross="
   25f49e24208984d6  <button type="button" class="nbtn" data-node="
   8f1ddc92fcdd66f1  <button type="button" class="nbtn" data-thread="
@@ -135,6 +135,8 @@
   a11210dc5f7b44a3  <button type="button" data-ha-preset="
   068e3f966e869db7  <button type="button" data-la-preset="
   3b01ee2603c4c016  <button type="button" data-la-region="
+  65baa9dde6737d5d  <button type="button" data-mz-label="
+  8a1703562edb0a1b  <button type="button" data-mz-level="
   9040bc486e8d129c  <button type="button" data-trail="
   61ed58a935c4a5a9  <details class="card progyear"
   03aacbab6b7dc7cb  <div class="empty">No classes today or tomorrow.</div>
@@ -146,7 +148,6 @@
   cce4305b03b60844  <div class="emptybox">Outside the teaching term — use the full-term view.</div>
   32ac2097168e30ba  <div class="emptybox">There is no next teaching week — the term ends this week.</div>
   81bbed0091211144  <div class="layerhint">tap to cycle · solid → ghost → off</div>
-  4ef88844437103f1  <div class="mv-item" data-mv="
   b72e23b04ca38453  <div class="note">Red is oxygenated, blue is not — which is why the pulmonary artery is blue-violet and the pulmonary veins are red. Vessel type does not decide the colour; what it carries does.</div>
   28c656ec553bbafd  <div class="nowcard
   ab35719b544daab9  <div class="ohead">Cavities</div>
@@ -165,7 +166,6 @@
   700d0e6637c671e0  <input type="checkbox" data-ha-part="
   660caf1b880e86b7  <input type="checkbox" data-ha-show="
   1b8b5718b484b569  <input type="checkbox" id="ceDots"
-  d958a4f248eaaf6a  <input type="range" min="
   3a324e9e0d188447  <input type="range" min="8" max="100" value="
   65da2d38aebef408  <li class="assrow
   996b63bf35e081b7  <li class="progrow
@@ -189,7 +189,6 @@
   0f87e484d07b041c  <span class="livenow">On now</span>
   ddc6aca43efa6a7e  <span class="mmt mmb" style="--bc:var(--c-
   b83f09d243f67fb8  <span class="mono" data-depthread="
-  4cd4fa59b810a429  <span class="mono" data-mvread="
   62bc3808f16130c2  <span class="mono" style="color:
   79494432a3df21c8  <span class="openwk">This week</span>
   24337fc436267890  <span class="pc" style="color:
@@ -266,9 +265,12 @@
   7650ff8a60e6603c  Circulatory system
   cd9a490533f1b735  Close Projection before opening the heart atlas.
   223b2c2730a583d5  Close Projection before opening the limb vessels.
+  807a858293ba89b7  Close Projection before zooming inside the muscle.
   85a5949c778aeb96  Close limb vessels
+  2d3ebc08516671d2  Close muscle zoom
   5fa16ee16664ed54  Close older Study Studio tabs to finish removing the retired question bank.
   55656b5e434f4c06  Close search
+  a90bf56c4253f69c  Close the focused lesson before zooming inside the muscle.
   e57c17d13927ddf0  Close the heart atlas
   7b41319301f2ac0e  Colour key
   2c5b57d5e71b2811  Colours and rhythms are drawn by this app, not measured.
@@ -278,6 +280,7 @@
   a75d43a157167800  Confirm it if that is right.
   e889a1ffb05f45ba  Connect a read-only GitHub token to read the private weekly university notice summary on Today.
   ea15571d2e81759e  Connect once to download the circulatory layer for offline use.
+  932723c34f1019ae  Connect once to download the muscle zoom for offline use.
   ecfa0bb83a393a74  Connect once to download the vessel routes for offline use.
   d092247971ad1619  Connected. The credential is stored in this browser.
   9b7b1f19bce40e3f  Connections in 3D
@@ -459,6 +462,7 @@
   ccc3f0daa040bf01  Loading skeleton, muscle, organs and heart…
   24c4a56f525fe0d9  Loading the Z-Anatomy skeleton — 159 named structures, 80 of them named by your course material, 88 things you can select. The other six system layers load on demand.
   d9ebad5495305a37  Loading the skeleton layer
+  0a6e65f24e308098  Loading the zoom…
   f244cc971bb836e5  Lymph nodes of the abdomen
   910325f3591fc4f6  Lymphatic system
   763ab63ebce1153d  M-mode could not be started.
@@ -490,14 +494,21 @@
   747fe599f992b303  Module 3 part one_cardiovascular system Student.pdf
   fe59e57a7a810873  More than
   4c67f0e5acff873f  Motion off. The anatomical colours stay.
+  1c6115557b0e1b10  Muscle zoom
+  46d0d8e25fc0475f  Muscle zoom controls
+  b28980b55a1846eb  Muscle zoom entry failed; restoring the viewer.
+  7b9d43e25bcfec2a  Muscle zoom failed.
+  1e9f72dbe2bb0ccb  Muscle zoom stopped; closing the mode.
   47bad95e45aec9ab  Muscles 345
   10f452f6c61c85b4  Muscular system
   d326e3de4eabd98d  Named atlas structure from the interactive skeleton source.
   dd5d38109490e655  Named in
   884edaf6a85ff6cc  Named in your notes, on the other side
   7a7ed8508aa3a822  Named structure in the
+  45f0a3e44678584e  Named structure in the ... layer
   1072a05d6e1e212d  Nearest first. Tap any of them, or tap the model again in the same spot to step deeper.
   16916d40e94cebba  Nervous system
+  e8f4e93d3af4fe80  Neuromuscular junction →
   36049fbc6e70d468  New development in arc radiation therapy.pdf
   65c52e4ee0ddb6fb  New source
   63bdf81a0a0279dd  New to link
@@ -531,6 +542,7 @@
   bc135a2d441222b6  Open the 3D model first.
   708b05ba8e2011a3  OpenStax — openstax.org
   5d4ccdb9cfeecb7a  Opens in Viewer
+  f16cfb35fa355477  Organization of muscle
   c4cc7f2e4076a489  Others/Temp all/Radiography Studies/Radiography Studies I/RS literature review/sources/source from Ben Chiu/literature review/reference
   86bfb88e1629383c  Others/Temp all/Radiography Studies/Radiography Studies III/Cancer Treatment/source from alex/Radiograhy Studies III/Physics of Radiation Therapy
   2053c76b6c147934  P wave, QRS and T wave with a cursor on the current phase
@@ -553,6 +565,7 @@
   9262778a6bdeefc5  Radiography Studies/Radiography Studies III/Cancer Treatment/source from alex/Radiograhy Studies III/Treatment modality of cancer
   cf9600734b54209e  Readable copy of the reproductive-system lecture, from the 2020/21 set.
   7914bbadb94c3bc3  Region filter cleared \u2014 that structure is outside it
+  53ffc95619932d84  Relaxed to contracted
   ce89ae822e8ba072  Reset view
   c1ed33754a522a46  Revise through
   cbdf42bd4926ebbc  Revise through week
@@ -628,6 +641,7 @@
   8a4f2ddb68e960e8  Syllabus mapped · audited sources
   eb81808a3bbd84cf  TIBia = TIBe weight-bearing. The medial malleolus is the inner ankle bump.
   a74b2c7ed30b2af3  TTE or TEE
+  648ec4a97c75f33b  Tap a muscle first.
   86e499302603b045  Tap a structure
   0e38c1877273b1c3  Tap any ball or name
   972ad77d901803a7  Tap the heart, or choose a chamber or valve, to read about it.
@@ -683,6 +697,9 @@
   5832f418f4bfcba2  The map library could not load (
   a7c6e6433e70b227  The mid-sagittal plane, measured from the midline structures themselves — the vertebral column and the sternum — rather than assumed to be x = 0.
   45ac6ce6220f94f4  The model is not rendering yet.
+  382cd5d1694db425  The muscle is the model's own (BodyParts3D, CC BY-SA 2.1 JP). The levels inside it are drawn for this app, schematic, not to scale. Labels and notes are the 2026 HSS2011 and ABCT2326 slides' words.
+  ef8f211af701c4cb  The muscle zoom could not open. Your viewer has been restored; try again.
+  69feac2d1f218a5c  The muscle zoom stopped after an error. The 3D viewer is still running.
   c30d436bb4db379e  The nine abdominopelvic regions
   f03b5c49a3a60d37  The numbers on the lines match the
   1ee065c69f618147  The only horizontal long bone: an S-shaped key between sternum and shoulder.
@@ -706,7 +723,6 @@
   749efd01151fa0f2  This is the
   8c4eef5ab2532515  This week
   2a2abf143c0b1cb9  Thoracic cage
-  8278421692e43358  Those bones are not in the loaded model.
   60fbbc864f3e78f7  Timetable to your calendar
   e8b3b668039def92  Timetable, syllabus, assessments
   4aeae9b304c159f5  Topic 01.pdf
@@ -764,6 +780,9 @@
   94661d68cd8ce6bb  Your course material names none of these one by one, so the
   62375359a1826914  Your groups
   5aacae2229c04415  Z-Anatomy / BodyParts3D skeleton · 159 named structures
+  fd11226e6478a251  Zoom in →
+  5af5d61116a439d7  Zoom in:
+  0a97754001739acf  Zoom inside
   e26a8924d8af2f86  \u00b7 2026 intake
   10c21ae68a2b089a  \u00b7 opens in Viewer
   e35624763580f152  \u2014 not chosen yet
@@ -775,6 +794,7 @@
   41ea005f14d7fd15  app-body padding-bottom=
   bbc5ad7b56c3c5a7  are shown, the latest with notes.
   57ed4210e238f869  are shown; week
+  8d0670e7a011af13  aria-current="true" class="active"
   2f4b24c630bdf091  aria-label="Your mark for
   c5fb5f7140d8d066  arteries and veins
   4dafb342c48fd85e  artery = red = oxygenated
@@ -802,7 +822,6 @@
   db8cb666a550bed1  could not load
   8936e4bc4884d331  could not locate that structure
   6c1f17a2f0ae1dbd  coverageEnd is before coverageStart.
-  dac737fee4061808  cross the joint, so they are ghosted and held still: a rigid rotation would pull them off the bone they start on.
   a419fe7f15c0a5e3  dated sessions written to radiography-timetable.ics — open it to add them to your calendar.
   b0b164def6e14665  deadline must be null or ISO with an offset.
   bbb10c71f4b6d8f3  density += n * uSigma * (0.35 + 0.65 * density);
@@ -829,12 +848,15 @@
   58c52e396dc3adee  float sgn = gl_FrontFacing ? -1.0 : 1.0;
   0b509037323249e4  float shell = uShell / max(uGraze, vCos);
   d98d17def3671391  float tau = max(0.0, texture2D(tTau, uv).r);
+  b504b5bda0270269  from the slides
   3c9bbf25a1365e5d  full height
   c99a222fc3470c4f  ghost close
   8a4081dbed1f6c62  ghost tolesson
   13738eb831c94c95  gl_FragColor = vec4(bulk + shell, 0.0, 0.0, 1.0);
   2417f7519a9d91f5  gl_FragColor = vec4(vec3(clamp(density, 0.0, 1.0)), 1.0);
   6a590bc9c97002da  gl_Position = projectionMatrix * mv;
+  0a2224d1b002b513  ha-info mz-info
+  e9433b9b95f5246f  ha-row mz-nav
   c3218bfbba24a149  half the model has gone missing
   45e1f41b67cfb2c2  has no action.
   cb60f96a9ee9ec62  has no id.
@@ -842,6 +864,7 @@
   7204bc464abbadf6  has no summary.
   678af8d54d4b2e77  has no title.
   d3626567f9a5400b  have I learnt it
+  c3d0e71b3b1207de  heart-atlas-panel muscle-zoom-panel
   13e89492fe874fed  heart-atlas-toggle limb-atlas-toggle
   801150784042ae58  hiddentray empty
   1627ca8d8438acb8  how far does this region reach
@@ -880,7 +903,6 @@
   2404a2a6da56a404  more in the list
   9926eafbd8d2de07  more step
   65ee551fb198c26a  must be an ISO timestamp with an offset.
-  f46b7e5ab634f52d  mv-note hidden
   2db7c5d825e1b1e4  named atlas structure
   4f80462d467f4c06  named by your course ·
   19b05a182a8f5ce6  named by your course,
@@ -905,6 +927,7 @@
   a78c340554344e5e  p5 "vertebral level of T4/T5"
   ccdf632a1acc3583  pickstack hidden
   d2c10c79856392a6  primary detail-open
+  f55bdbf34ca3bcdf  primary muscle-zoom-btn
   46591e102d765ad8  priority must be urgent, normal or check.
   f25d3de0f5e59dc2  progtag stream
   777503f25750cf8f  px "Instrument Sans", system-ui, -apple-system, sans-serif
@@ -922,6 +945,7 @@
   374ca136be919d16  s heart: whenever the Heart chip is on, the atlas heart stands in for the explorer
   df49128572cf09cb  s job is only to feed it those meshes in the body
   91f0e226c82016ff  s left), fz 0 the trunk
+  1bd4e44876b04147  s own (BodyParts3D, CC BY-SA 2.1 JP). The levels inside it are drawn for this app, schematic, not to scale. Labels and notes are the 2026 HSS2011 and ABCT2326 slides
   4e01dcdc55cd6293  s own half-width put the oesophagus
   ade98b80a888aed2  s own signature. 
   c1a643d0fef960be  s own words, not the slide
@@ -939,6 +963,7 @@
   d0f660b8c5b0b50c  segbar coursetabs
   cd3c2bcf3f5c6659  segbar hidden
   4e609444f1178e6b  segbar subjjump
+  f207ea4a81833602  sel-revise mz-revise
   65e03182d9d760c0  selpanel hidden
   37e8cb66682dd7b0  separately selectable">
   a8970b03087f1926  sheetscrim hidden
@@ -946,11 +971,9 @@
   2c7793c890df5263  skipped lines.
   7e1d4ce29beaeb4e  skipped must be an array.
   5c6db2f77cfe003a  small cut-levelnote
-  02cd0ea26e98c0c8  small mv-revise
   535432277ab15c02  small term-number
   31c5f19d08e70b45  so far' :
   b06f2f1ca52fc976  soft-tissue mesh
-  f69e4d17ef14bc81  soft-tissue structures move with the bones.
   29a944fb41484f0b  something is wrong
   b43e10e950501611  source.from is missing.
   dd6b1fb86b59799a  source.quote is missing.
@@ -960,6 +983,7 @@
   88a595b7ebfe83fb  summary small
   f5f88ae39b9a5ceb  that structure
   8ef9472e82771a5b  the body frame
+  d7928f8a1b7fd967  the model’s own muscle
   4f6a3d859e615a5a  the skeleton
   8a3a6bcf33fef191  this is what I got
   a9cfb7f3dd5ef2c1  to bring it to the middle. The trail at the top keeps the chain you walked;
@@ -1018,3 +1042,4 @@
   98702c9246db235b  · the page covers the status bar (top inset
   e22653df93982092  · viewport
   bbbede49d8c54941  — weeks 1–
+  d40cd709d2d09145  ← Zoom out

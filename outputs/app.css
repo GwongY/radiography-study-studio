@@ -1110,8 +1110,7 @@ html[data-ts="xl"]{--ts:1.55}
 /* The Tools panel shows only the section its bottom-bar button named. */
 .viewer-tools-panel[data-show="spread"] .vsheet-grid>[data-tsec]:not([data-tsec="spread"]),
 .viewer-tools-panel[data-show="cut"] .vsheet-grid>[data-tsec]:not([data-tsec="cut"]),
-.viewer-tools-panel[data-show="regions"] .vsheet-grid>[data-tsec]:not([data-tsec="regions"]),
-.viewer-tools-panel[data-show="moves"] .vsheet-grid>[data-tsec]:not([data-tsec="moves"]){display:none}
+.viewer-tools-panel[data-show="regions"] .vsheet-grid>[data-tsec]:not([data-tsec="regions"]){display:none}
 
 /*
  * Nothing on the stage may sit under the control bar. --pill-h is the bar's
@@ -1499,22 +1498,35 @@ ul.asslines{list-style:none;margin:0;padding:0}
   .segbar.coursetabs>.seg{flex:1 1 auto;padding:0 3px;min-height:44px;font-size:calc(11px * var(--ts))}
 }
 
-/* Movements (studio/tools-and-capture.js renderMovements): one row per movement, its own slider. */
-.mv-list{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin:6px 0 10px}
-.mv-item{min-width:0;border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:rgba(255,255,255,.025)}
-.mv-item.on{border-color:rgba(114,227,207,.55)}
-.mv-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
-.mv-head b{font-size:calc(13.5px * var(--ts))}
-.mv-head small{color:var(--muted);font-size:calc(11.5px * var(--ts))}
-.mv-range{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:center;margin-top:6px;font-size:calc(11.5px * var(--ts));color:var(--muted)}
-.mv-range input[type=range]{width:100%;min-width:0;accent-color:var(--teal)}
-.mv-src{margin-top:4px;overflow-wrap:anywhere;color:var(--muted);font:11px ui-monospace,SFMono-Regular,Menlo,monospace;font-size:calc(11px * var(--ts))}
-.mv-revise{margin-top:8px}
-
-/* Seven buttons in the phone's bottom bar since Moves joined (2026-10-20): tighter padding so
-   all seven fit at the default text size. Labels still never shrink; at a larger text size the
-   bar scrolls, as before. */
-@media(max-width:700px){
-  #stageHome .ctrlpill{gap:2px;padding:4px}
-  #stageHome .ctrlpill button{padding:8px 2px;font-size:min(calc(11px * var(--ts)), 13px)}
-}
+/* Muscle zoom (studio/muscle-zoom.js): the selection card's button, the panel's path and labels, and the
+   numbered tags that follow their parts on the stage. A tag shows its name beside its number on a wide stage,
+   and only its number on a phone, where ten names would cover the lattice; the panel lists them all. */
+.muscle-zoom-btn{display:block;width:100%;margin-top:10px}
+.muscle-zoom-btn[hidden]{display:none}
+.mz-path{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-bottom:8px}
+.mz-path button{padding:4px 8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--muted);font-size:calc(11.5px * var(--ts));cursor:pointer}
+.mz-path button.active{color:var(--text);border-color:var(--teal);background:rgba(114,227,207,.1)}
+.mz-path span{opacity:.5}
+.mz-nav{margin-bottom:6px}
+.mz-nav button[hidden]{display:none}
+.mz-level{margin:6px 0}
+.mz-level small{color:var(--muted)}
+.mz-contract{display:grid;gap:6px;margin:6px 0 10px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.04)}
+.mz-contract[hidden]{display:none}
+.mz-contract input[type=range]{width:100%}
+.mz-ends{display:flex;justify-content:space-between;font-size:calc(11.5px * var(--ts));color:var(--muted)}
+.mz-labels{list-style:none;margin:0 0 8px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:5px}
+.mz-labels button{display:flex;align-items:center;gap:6px;width:100%;text-align:left;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text);font-size:calc(12px * var(--ts));cursor:pointer}
+.mz-labels button.active{border-color:var(--teal);background:rgba(114,227,207,.12)}
+.mz-n{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:var(--teal);color:#0b151b;font-size:calc(10.5px * var(--ts));font-weight:700;flex:none}
+.mz-info[hidden]{display:none}
+.mz-info small{color:var(--muted)}
+.mz-revise{margin-top:6px}
+.mz-tags{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+.mz-tags[hidden]{display:none}
+.mz-tag{position:absolute;left:0;top:0;display:flex;align-items:center;gap:5px;margin:-9px 0 0 -9px;padding:2px 7px 2px 2px;border:0;border-radius:11px;background:rgba(8,16,22,.72);color:var(--text);font-size:calc(11px * var(--ts));white-space:nowrap;pointer-events:auto;cursor:pointer;will-change:transform}
+.mz-tag.active{background:rgba(30,185,166,.9);color:#0b151b}
+.mz-tag.active .mz-n{background:#0b151b;color:var(--teal)}
+@media(max-width:700px){.mz-tag{padding:2px}.mz-tag .mz-name{display:none}.mz-tag.active{padding-right:7px}.mz-tag.active .mz-name{display:inline}}
+.viewer-dock.muscle-zoom-open .heart-atlas-toggle{display:none}
+.mz-tag.flip{flex-direction:row-reverse;padding:2px 2px 2px 7px}

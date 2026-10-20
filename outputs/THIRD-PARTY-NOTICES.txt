@@ -32,3 +32,11 @@ Z-Anatomy vessel meshes and is distributed by its author under CC BY-SA 4.0 (see
 The limb meshes themselves are not included: the viewer's own circulatory layer is the same source.
 The blood-flow dots and the three peripheral-intervention animations (leg-proc.js, limb-flow.js, limb-text.js) are
 covered by the notice above.
+
+Muscle zoom (outputs/muscle/, outputs/studio/muscle-zoom.js)
+No third-party asset is added. The whole-muscle level shows the viewer's own muscle layer, BodyParts3D /
+Anatomography (c) DBCLS, CC BY-SA 2.1 JP, as above. The fascicle, muscle fiber, myofibril, sarcomere and
+neuromuscular junction levels are geometry generated in three.js by this app (outputs/muscle/zoom-scene.js).
+Openly licensed meshes were looked for first (Sketchfab, NIH 3D, Wikimedia Commons, Smithsonian 3D, RCSB PDB) on
+2026-10-20; none could be fetched and licence-checked from the build environment, and the one sarcomere mesh found
+by search (Sketchfab "Sarcomere Model", rgmz2015) is CC BY-NC, which this repository does not use.

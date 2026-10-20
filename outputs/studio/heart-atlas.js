@@ -329,7 +329,9 @@ export function frameWorldBox(box, direction = null, margin = 1.5) {
   /* The dock overlays part of the stage (the bottom on a phone, the right side
      on a wide screen). Centre the heart in what is left, not in the whole stage. */
   const dock = $('viewerDock'), sr = els.stage.getBoundingClientRect(), dr = dock ? dock.getBoundingClientRect() : null;
-  if (dr && dr.width > 0 && dr.height > 0 && sr.width > 0 && sr.height > 0) {
+  /* Only when the dock is ON the stage: at tablet widths it sits beside it, and is still wider than 60% of it. */
+  const overlaps = dr && Math.min(sr.right, dr.right) > Math.max(sr.left, dr.left) && Math.min(sr.bottom, dr.bottom) > Math.max(sr.top, dr.top);
+  if (overlaps && dr.width > 0 && dr.height > 0 && sr.width > 0 && sr.height > 0) {
     const view = offset.clone().negate().normalize(), right = view.clone().cross(camera.up).normalize(), up = right.clone().cross(view).normalize();
     const visH = 2 * dist * half, visW = visH * camera.aspect;
     const dy = dr.width >= sr.width * 0.6 ? Math.max(0, sr.bottom - Math.max(dr.top, sr.top)) / sr.height : 0;
@@ -484,7 +486,7 @@ function bindPicking() {
 /* ---- enter / exit ---- */
 export async function enterHeartAtlas() {
   if (state.enhancedHeartOn) exitEnhancedHeart();
-  if (state.limbAtlasOn) window.__osteo?.exitHeartAtlas?.(); /* the limb vessels mode is the other atlas: close it first */
+  if (state.limbAtlasOn || state.muscleZoomOn) window.__osteo?.exitHeartAtlas?.(); /* another atlas mode is open: close it first */
   if (state.heartAtlasOn || busy) return state.heartAtlasOn;
   if (state.xray) {
     showToast('Close Projection before opening the heart atlas.');
@@ -654,7 +656,7 @@ export function exitEnhancedHeart() {
 }
 
 export function exitHeartAtlas() {
-  if (state.limbAtlasOn) return; /* not ours to close */
+  if (state.limbAtlasOn || state.muscleZoomOn) return; /* not ours to close */
   if (state.enhancedHeartOn) { exitEnhancedHeart(); return; }
   if (!state.heartAtlasOn && !saved) return;
   const before = saved;
@@ -678,7 +680,7 @@ export function init() {
   toggle.setAttribute('aria-busy', 'false');
   toggle.textContent = 'Heart atlas';
   toggle.onclick = () => {
-    if (state.heartAtlasOn && !state.limbAtlasOn && !state.enhancedHeartOn) exitHeartAtlas();
+    if (state.heartAtlasOn && !state.limbAtlasOn && !state.muscleZoomOn && !state.enhancedHeartOn) exitHeartAtlas();
     else void enterHeartAtlas().catch((error) => {
       console.error('Heart atlas toggle failed.', error);
       showToast(loadFailureMessage());
