@@ -6,7 +6,7 @@ For anything more specific: `node work/query.mjs <unit|mesh|layer|source> <term>
 
 ## `outputs/mesh-index.js` — GENERATED, never hand-edit
 
-1686 structure rows resolving to 796 study units.
+1686 structure rows resolving to 835 study units.
 Rebuild: `node work/build-course-terms.mjs` (needs the Drive) then `node work/build-mesh-index.mjs`.
 
 One row per named structure per layer, collapsed across side letters and
@@ -24,34 +24,34 @@ Blender duplicate suffixes. Row shape:
 
 | Layer | Rows | Course-named (tier 0) |
 | --- | --- | --- |
-| circulatory | 419 | 186 |
-| muscle | 344 | 115 |
+| circulatory | 419 | 187 |
+| muscle | 344 | 104 |
 | nervous | 317 | 127 |
-| joint | 236 | 16 |
-| skeleton | 159 | 90 |
+| joint | 236 | 26 |
+| skeleton | 159 | 128 |
 | lymphatic | 107 | 33 |
-| organs | 104 | 62 |
-| **total** | **1686** | **629** |
+| organs | 104 | 59 |
+| **total** | **1686** | **664** |
 
 | Unit kind | Count | Meaning |
 | --- | --- | --- |
-| course | 629 | the course names this structure — it is its own unit |
-| group | 157 | finer than the course goes — folded into a named group |
-| lone | 10 | one of a kind, with nothing to join |
+| course | 691 | the course names this structure — it is its own unit |
+| group | 132 | finer than the course goes — folded into a named group |
+| lone | 12 | one of a kind, with nothing to join |
 
 | Evidence | Rows | How the source names it |
 | --- | --- | --- |
-| listed | 261 | appears in a term list or table |
-| named | 245 | named in running text |
-| described | 106 | named, with an explanation |
-| series | 16 | inferred: enough of a numbered series is named to fill in the rest |
+| named | 455 | named in running text |
+| listed | 130 | appears in a term list or table |
+| described | 64 | named, with an explanation |
+| series | 14 | inferred: enough of a numbered series is named to fill in the rest |
 | mirrored | 1 | the other side of a structure named once |
 
 ## `outputs/synonyms.js`
 
-- `SYNONYMS` — 387 query expansions (collarbone→clavicle, CN X→vagus).
-- `COMPOSITES` — 15 names with no mesh but real parts.
-  Auditory ossicles, Biceps femoris, Carpus, Colon, Eyeball, Hamstrings, Larynx, Lungs, Metacarpals, Metatarsals, Pharynx, Quadriceps, Rotator cuff, Tarsus, Thymus
+- `SYNONYMS` — 410 query expansions (collarbone→clavicle, CN X→vagus).
+- `COMPOSITES` — 17 names with no mesh but real parts.
+  Auditory ossicles, Biceps femoris, Carpus, Colon, Eyeball, Hamstrings, Iliopsoas, Larynx, Lungs, Metacarpals, Metatarsals, Pharynx, Quadriceps, Rotator cuff, Small intestine, Tarsus, Thymus
 - `NOT_MODELLED` — 3 things genuinely absent:
   breast, skin, uterus
 

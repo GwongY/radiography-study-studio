@@ -459,8 +459,12 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   export function renderRegions(){ els.regions.innerHTML=''; [['all','All regions'],...REGIONS.map(r=>[r.id,r.label])].forEach(([id,label])=>{const b=document.createElement('button');b.className='region-btn'+(state.region===id?' active':'');b.textContent=label;b.onclick=()=>{state.region=id;els.regionMeta.textContent=regionLabel(id);applyVisibility();/* Filtering without moving left you looking at a whole skeleton with most of it off. See frameRegion in studio/tools-and-capture.js. */frameRegion();renderRegions()};els.regions.appendChild(b)}) }
   export function selectBone(id, side=null){state.selectedId=id;state.selectedSide=side;const record=getRecord(id);if(!record)return;const layerMeshes=Object.values(state.extraModels||{}).flatMap(m=>m.meshes);state.selectionAnchor=state.meshes.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||layerMeshes.find(m=>m.userData.canonicalId===id)||state.fullMeshes.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||state.fullPickables.find(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()))||null;renderSelected(record,side);highlight(id,side);
     state.selectionMeshes=[...state.meshes,...layerMeshes,...state.fullMeshes,...state.fullPickables].filter(m=>m.userData.canonicalId===id&&(!side||m.userData.side===side.toLowerCase()));
-    /* the name stays on the model until the selection changes */
-    if(state.selectionAnchor)showPickCallout(state.selectionAnchor,side?`${record.canonicalName}\n${side}`:record.canonicalName);
+    /* the name stays on the model until the selection changes. Only a real
+       side is shown: the unpaired meshes of a layer carry the side bilateral,
+       which keeps their ids apart from the paired ones, and the liver used to
+       read Liver, bilateral. */
+    const shownSide=/^(left|right)$/i.test(side||'')?side[0].toUpperCase()+side.slice(1).toLowerCase():'';
+    if(state.selectionAnchor)showPickCallout(state.selectionAnchor,shownSide?`${record.canonicalName}\n${shownSide}`:record.canonicalName);
     if(state.isolated){clearHighlight();applyVisibility()}}
   export function openDetail(record,side=null){els.detailTitle.textContent=viewerStructureName(record.canonicalName);els.detailChips.innerHTML='';els.detailBody.innerHTML=`<div class="info-grid"><div><div class="info-label">Landmarks</div><ul class="compact-list">${record.landmarks.map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div><div><div class="info-label">Articulations</div><ul class="compact-list">${record.articulations.map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div></div>${memoryTipHTML(record)}<h3>Radiography</h3><p>${clean(record.radiographyImportance)}</p><h3>Common confusions</h3><p>${record.commonConfusions?.map(clean).join(', ')||'None listed.'}</p>`;state.lastDetailId=record.id;location.hash=`detail/${record.id}`;(window.__rssOpenDialog ? window.__rssOpenDialog(els.detailDialog) : els.detailDialog.showModal())}
   /*
@@ -488,20 +492,27 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
    */
   const INDEX_ROW=new Map();
   const INDEX_UNIT=new Map();
+  const INDEX_HEAD=new Map();
   MESH_INDEX.forEach(m=>{
     INDEX_ROW.set(m.layer+'|'+m.name.toLowerCase(),m);
     if(m.unitKind!=='course') INDEX_UNIT.set(m.layer+'|'+m.unit.toLowerCase(),m);
+    if(m.isUnit) INDEX_HEAD.set(m.layer+'|'+m.unitId,m);
   });
   export function courseChipHTML(record,anchor){
     const ud=anchor&&anchor.userData||{};
     const layer=ud.layerKey||ud.extraKey||'skeleton';
     const key=layer+'|'+String(record.canonicalName||'').toLowerCase();
-    const lecture=unitFor(layer,ud.label||record.canonicalName)?.lectureSource;
+    /* The row that IS the unit speaks for it. The anchor of a selection can be
+       any of its meshes (a branch of the femoral nerve, a segment of the liver),
+       and the chip lost the lecture page whenever it was one of those. */
+    const own=unitFor(layer,ud.label||record.canonicalName);
+    const head=own&&INDEX_HEAD.get(layer+'|'+own.unitId);
+    const lecture=own?.lectureSource||(head&&unitFor(layer,head.name)?.lectureSource);
     if(lecture){
       const leaf=lecture.file.replace(/\.pdf$/i,'').replace(/_/g,' ');
       return `<span class="chip learn" title="${clean(lecture.file)} · p${lecture.page}">Named in ${clean(leaf)} · p${lecture.page}</span>`;
     }
-    const row=INDEX_ROW.get(key);
+    const row=head||INDEX_ROW.get(key);
     if(row&&row.tier===0&&row.source){
       const leaf=row.source.file.split('/').pop().replace(/\.(pdf|pptx)$/i,'');
       const how=row.source.evidence==='listed'?'In the examinable glossary'

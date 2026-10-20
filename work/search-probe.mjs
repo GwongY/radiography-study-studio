@@ -15,6 +15,7 @@ import { MESH_INDEX, UNITS } from '../outputs/mesh-index.js';
 import { expandQuery, missingFor, compositeFor, NOT_MODELLED, COMPOSITES } from '../outputs/synonyms.js';
 import { SEARCH_EXTRAS } from '../outputs/bodymap.js';
 import { ANATOMY_DATABASE } from '../outputs/anatomy-data.js';
+import { lectureRow } from '../outputs/viewer-lecture-names.js';
 
 let fail = 0;
 const ok = (cond, msg) => { console.log(`  ${cond ? 'ok  ' : 'FAIL'} ${msg}`); if (!cond) fail++; };
@@ -174,8 +175,11 @@ console.log(`\u2014 study depth is read from the sources, not guessed \u2014`);
    * ligament, every named sulcus. The tier now comes from
    * work/course-terms.json, built from the HSS2011 / ABCT2326 material.
    */
+  /* The muscles used to be most of these. They come from the 2026 decks now
+     (work/build-viewer-lecture-names.mjs), so the glossary names what the
+     course has still to teach this year: vessels, organs, nerves. */
   const gloss = t0.filter((m) => m.source.evidence === 'listed');
-  ok(gloss.length > 200, `${gloss.length} rows are in the examinable glossary itself`);
+  ok(gloss.length > 100, `${gloss.length} rows are in the examinable glossary itself`);
 
   /* What the course does name stays visible, one row each. */
   for (const n of ['Liver', 'Stomach', 'Trachea', 'Kidney', 'Urinary bladder',
@@ -217,9 +221,11 @@ console.log(`\u2014 study depth is read from the sources, not guessed \u2014`);
     `all ${tv.length} thoracic vertebrae are at course level`);
   ok(tv.filter((m) => m.source.evidence === 'series').length === 6,
     'six of them by their siblings, six named outright');
+  /* Four ribs (first, second, fifth, sixth) are now named by the 2026 trunk
+     deck itself, so seven, not nine, come in by their siblings. */
   const ribsBySeries = MESH_INDEX.filter((m) => m.source && m.source.evidence === 'series' && / rib$/.test(m.name));
-  ok(ribsBySeries.length === 9, `nine ribs completed from the three the sources name`);
-  ok(MESH_INDEX.filter((m) => m.source && m.source.evidence === 'series').length === 16,
+  ok(ribsBySeries.length === 7, `seven ribs completed from the ones the sources name`);
+  ok(MESH_INDEX.filter((m) => m.source && m.source.evidence === 'series').length === 14,
     'and the series pass admits nothing beyond those, Vertebra L4 apart');
   /* What it does not name is grouped away. */
   const seg = MESH_INDEX.filter((m) => /segmental bronchus/i.test(m.name));
@@ -252,11 +258,22 @@ console.log(`${'\u2014'} every structure resolves to something a tap can select 
     'a unit never spans two layers -- the viewer keys ids by layer');
 
   /* Course-named structures keep their own name and their own unit. */
+  /* ...or the 2026 slide's name for it ("Anterior scalene" for the atlas's
+     "Scalenus anterior muscle"). A whole the model has only as parts and a
+     2026 deck names (the biceps' two heads) is one more course unit. */
   const t0 = MESH_INDEX.filter((m) => m.tier === 0);
-  ok(t0.every((m) => m.unitKind === 'course' && m.unit === m.name),
+  const slideName = (m) => lectureRow(m).lectureSource?.displayName || m.name;
+  ok(t0.every((m) => m.unitKind === 'course' && m.unit === slideName(m)),
     'no course-named structure is grouped away under another name');
-  ok(UNITS.filter((u) => u.kind === 'course').length === t0.length,
-    `${t0.length} course-named structures, ${t0.length} course units`);
+  /* (A course unit also holds the finer rows absorbed into its structure --
+     the liver's segments -- so a whole is a course unit with no course row.) */
+  const named = new Set(t0.map((m) => m.unitId));
+  const inWholes = MESH_INDEX.filter((m) => m.unitKind === 'course' && !named.has(m.unitId));
+  const wholes = new Set(inWholes.map((m) => m.unitId));
+  ok(inWholes.every((m) => lectureRow(m).lectureSource?.whole === m.unit),
+    'a course unit beyond the course-named rows is a whole a 2026 deck names');
+  ok(UNITS.filter((u) => u.kind === 'course').length === t0.length + wholes.size,
+    `${t0.length} course-named structures and ${wholes.size} named wholes, one course unit each`);
 
   /* A group is a group: at least two of something, or named after a whole. */
   const sized = new Map();
@@ -313,17 +330,21 @@ console.log(`${'\u2014'} groups are named after the thing, not the pieces ${'\u2
   for (const [part, want] of whole) ok(unit(part) === want,
     `"${part}" belongs to ${want}${unit(part) === want ? '' : ` (got ${unit(part)})`}`);
   /*
-   * The triceps used to be in that list. It is not any more, and the reason is
-   * the whole change: the 2019/20 musculoskeletal deck names the long, lateral
-   * and medial heads of triceps brachii one by one, so all three are at course
-   * level and are listed one by one. A part is only folded into its whole when
-   * the course does not name the part.
+   * The triceps was the counter-example here: a 2019/20 deck named its long,
+   * lateral and medial heads one by one, so they stood alone. The 2026 slide
+   * (UL p22) says "Triceps brachii", and this year's decks win, so the heads
+   * are the triceps -- as the biceps' two heads are the biceps and the
+   * gastrocnemius' two the gastrocnemius.
    */
-  for (const n of ['Long head of triceps brachii', 'Lateral head of triceps brachii',
-    'Medial head of triceps brachii']) {
-    const r = MESH_INDEX.find((m) => m.name === n);
-    ok(r && r.tier === 0 && r.unit === n, `${n} is named by the course, so it stands alone`);
-  }
+  for (const [part, want] of [['Long head of triceps brachii', 'Triceps brachii'],
+    ['Lateral head of triceps brachii', 'Triceps brachii'], ['Medial head of triceps brachii', 'Triceps brachii'],
+    ['Short head of biceps brachii', 'Biceps brachii'], ['Medial head of gastrocnemius', 'Gastrocnemius']])
+    ok(unit(part) === want, `"${part}" belongs to ${want}${unit(part) === want ? '' : ` (got ${unit(part)})`}`);
+  /* And a muscle no 2026 slide names is not a course name because an old
+     reading or question bank had it: the face (W4 p13 is an atlas picture with
+     nothing marked) and the gracilis (on no 2026 slide). */
+  for (const n of ['Zygomaticus major muscle', 'Gracilis muscle', 'Frontalis muscle'])
+    ok(MESH_INDEX.find((m) => m.name === n)?.tier === 1, `${n} is not a 2026 course name`);
 
   /*
    * Where the whole DOES have a mesh AND the course names it, the piece is
@@ -352,8 +373,10 @@ console.log(`${'\u2014'} groups are named after the thing, not the pieces ${'\u2
    * place rather than the thing: there is no "Right lung" mesh, only its three
    * lobes, and yet thirty-two rows say they are "of right lung".
    */
-  ok(unit('Anterior segmental bronchus of left lung (BIII)') === 'Bronchi of the left lung',
-    'segmental bronchi group as bronchi of the lung, not as the lung');
+  /* (The segmental bronchi now take the older deck's own name for them, per
+     lung -- work/lib/fallback-names.mjs.) */
+  ok(unit('Anterior segmental bronchus of left lung (BIII)') === 'Segmental bronchi of left lung',
+    'segmental bronchi group as the segmental bronchi of the lung, not as the lung');
   ok(unit('Superior lobar artery of right lung') === 'Arteries of the right lung',
     'and the vessels of a lung are named after it too');
 
@@ -364,9 +387,14 @@ console.log(`${'\u2014'} groups are named after the thing, not the pieces ${'\u2
   const zoned = [
     ['Capitohamate interosseous ligament', 'Ligaments of the hand'],
     ['Dorsal cuboideonavicular ligament', 'Ligaments of the foot'],
-    ['Abductor pollicis brevis', 'Muscles of the hand'],
-    ['Abductor hallucis', 'Muscles of the foot'],
-    ['Anconeus muscle', 'Muscles of the forearm'],
+    ['Palmar aponeurosis', 'Soft tissues of the hand'],
+    ['Plantar aponeurosis', 'Soft tissues of the foot'],
+    ['Anconeus muscle', 'Soft tissues of the forearm'],
+    /* within 5 cm of the midline, but at the ankle: the median-plane rule
+       stops at the perineum */
+    ['Subcutaneous bursa of medial malleolus', 'Bursae of the leg'],
+    /* nearest bone the trapezoid, which the hand's pattern used to miss */
+    ['Palmar carpometacarpal ligaments', 'Ligaments of the hand'],
     ['Retropharyngeal nodes', 'Lymph nodes of the head and neck'],
     ['Pararectal nodes', 'Lymph nodes of the pelvis'],
     ['Angular gyrus', 'Gyri of the brain'],
@@ -377,23 +405,25 @@ console.log(`${'\u2014'} groups are named after the thing, not the pieces ${'\u2
   /* A kind that is only ever in one place does not need the place naming it.
      The ribs used to demonstrate this and no longer can: all twelve are at
      course level now, so each is its own unit under its own name. The teeth
-     still make the point, and rib COSTAL CARTILAGES — which no source numbers
-     — make it in the thorax specifically. */
+     still make the point. The costal cartilages made it too, until the 2026
+     trunk deck (p23) named them as a set: they are one unit under its name. */
   const costal = MESH_INDEX.filter((m) => /^Costal cartilage of \w+ rib$/.test(m.name));
-  ok(costal.length >= 10 && costal.every((m) => m.unit === 'Cartilages of the thorax'),
-    `the ${costal.length} costal cartilages group under "Cartilages of the thorax"`);
+  ok(costal.length >= 10 && costal.every((m) => m.unit === 'Costal cartilages'),
+    `the ${costal.length} costal cartilages are one unit, "Costal cartilages"`);
   const ribs = MESH_INDEX.filter((m) => /^(First|Second|Third|Fourth|Fifth|Sixth|Seventh|Eighth|Ninth|Tenth|Eleventh|Twelfth) rib$/.test(m.name));
   ok(ribs.length === 12 && ribs.every((m) => m.tier === 0 && m.unit === m.name),
     `all ${ribs.length} ribs are at course level, each its own unit`);
   const teeth = MESH_INDEX.filter((m) => m.layer === 'skeleton' && /(canine|premolar|incisor|molar)( tooth)?$/i.test(m.name));
   ok(teeth.length === 14 && teeth.every((m) => m.unit === 'Teeth'),
     `the ${teeth.length} teeth group under "Teeth", not "Bones of the head and neck"`);
-  /* but one that is in several does. */
+  /* The phalanges used to show the opposite (a kind in two places, grouped per
+     place). The 2026 limb decks name them as a set (LL p12, UL p14), so each
+     phalanx is at course level under its own name. */
   const toes = MESH_INDEX.filter((m) => /phalanx of .* of foot/i.test(m.name));
-  ok(toes.length === 14 && toes.every((m) => m.unit === 'Phalanges of the foot'),
-    `all ${toes.length} phalanges of the foot group under one row`);
-  ok(MESH_INDEX.some((m) => m.unit === 'Phalanges of the hand'),
-    'and the hand keeps its own, because a phalanx is not always in the foot');
+  ok(toes.length === 14 && toes.every((m) => m.tier === 0 && m.unit === m.name),
+    `all ${toes.length} phalanges of the foot are course units of their own`);
+  ok(MESH_INDEX.filter((m) => /phalanx of .* of hand/i.test(m.name)).every((m) => m.tier === 0 && m.unit === m.name),
+    'and so are the phalanges of the hand');
 
   const groups = UNITS.filter((u) => u.kind === 'group').sort((a, b) => b.size - a.size);
   console.log(`       ${groups.length} groups, largest: `

@@ -1510,6 +1510,12 @@ function unitMap(){
     _unitMap.get(r.layer).set(tightKey(r.name),r);
     _unitMap.get(r.layer).set('exact:'+r.name.toLowerCase(),r);
   });
+  /* and by the mesh name in the GLB, which a renamed row no longer shows: the
+     jejunum mesh is the row for the jejunum and ileum (work/lib/fallback-names.mjs) */
+  MESH_INDEX.forEach((r)=>{
+    const m=_unitMap.get(r.layer), k=tightKey(r.mesh||'');
+    if(k&&!m.has(k)) m.set(k,r);
+  });
   return _unitMap;
 }
 /*
@@ -1533,9 +1539,19 @@ export function unitBlurb(unit,key){
 export function unitFor(layerKey,raw){
   const fm=unitMap().get(layerKey);
   if(!fm) return null;
-  const k=tightKey(raw);
-  const exact=String(raw).replace(/_/g,' ').replace(/\s+/g,' ').trim().toLowerCase();
-  const row=fm.get('exact:'+exact)||fm.get(k)||(/[lr]$/.test(k)?fm.get(k.slice(0,-1)):null)||null;
+  /* one GLB mesh drawn twice comes in as Lacrimal_canaliculus_instance_0 and
+     _instance_1, which no row is called: without this the canaliculi had no
+     unit and were labelled by the loader's suffix */
+  raw=String(raw).replace(/_instance_\d+$/,'');
+  const find=(name)=>{
+    const k=tightKey(name);
+    const exact=String(name).replace(/_/g,' ').replace(/\s+/g,' ').trim().toLowerCase();
+    return fm.get('exact:'+exact)||fm.get(k)||(/[lr]$/.test(k)?fm.get(k.slice(0,-1)):null)||null;
+  };
+  /* and a second node of the same name comes in with _1 on the end
+     (External_abdominal_oblique_muscle_1): tried only when the name as it
+     stands is no row, so a name that really ends in a number is safe */
+  const row=find(raw)||(/_\d+$/.test(raw)?find(raw.replace(/_\d+$/,'')):null);
   if(!row)return null;
   // Add identities only for newly evidenced names; existing unit IDs and
   // recorded progress remain stable. Coarse atlas families still cover names
@@ -1580,9 +1596,12 @@ export function highlightExtra(mesh){
     });
     if(partner){clean=stem;side=m2[2].toLowerCase()==='l'?'Left':'Right'}
   }
-  els.selectedName.textContent=viewerStructureName(clean);
+  /* the name of the unit, as a tap shows it: the atlas name for one mesh of a
+     group (the long head of the biceps) is not what the course calls it */
+  const name=getRecord(mesh.userData.canonicalId)?.canonicalName||clean;
+  els.selectedName.textContent=viewerStructureName(name);
   els.selectedChips.innerHTML='';
-  showPickCallout(lit,side?`${clean}\n${side}`:clean);
+  showPickCallout(lit,side?`${name}\n${side}`:name);
   if(state.isolated){clearHighlight();applyVisibility();}
 }
 /*

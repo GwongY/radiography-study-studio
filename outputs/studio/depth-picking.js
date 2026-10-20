@@ -10,7 +10,7 @@ import { clearPickCallout } from './spatial-concept-overlays.js';
 import { hideMesh } from './hide-and-search.js';
 import { installLayerFlow, layerOn, layerPool, loadPathRoutes, setXrayView, unitBlurb, unitFor } from './live-physiology.js';
 import { applySeparation } from './tools-and-capture.js';
-import { modelMeshName, namedSide, viewerStructureName } from '../search-name.js';
+import { modelMeshName, viewerStructureName } from '../search-name.js';
 
   /* ------------------------------------------------------------------ *
    * Depth picking
@@ -324,11 +324,36 @@ async function loadExtraModelUncached(key,file){
       const twin=(stem+(m[2].toLowerCase()==='l'?'r':'l')).toLowerCase();
       if(flat.has(twin))return {label:stem,side:m[2].toLowerCase()==='l'?'left':'right'};
     }
-    return {label:clean,side:namedSide(clean)||'bilateral'};
+    /* An unpaired mesh is one side of nothing, whatever its name says. The
+       side goes into the id, so reading it off the words split the liver in
+       two: its left segments (II to IV) were one selection, called Liver /
+       left, and the rest of it another, Liver / bilateral. The same split the
+       lobar bronchi and the papillary muscles. A search for a left or right
+       structure still filters on the words (search-viewer-frame.js). */
+    return {label:clean,side:'bilateral'};
+  };
+  /*
+   * One side of a pair can come without its side letter: the atlas exports
+   * Extensor_digitorum_longus and Extensor_digitorum_longus_1, or an r with no
+   * l twin, so readable() calls it unpaired and it became a selection of its
+   * own beside its own left and right. Where the index says the structure IS
+   * paired, the side is where the mesh sits: x below the midline is the right
+   * (the GLB frame, which measureStructures uses too).
+   */
+  root.updateMatrixWorld(true);
+  const pairedSide=(o,sides)=>{
+    if(sides==='l')return 'left';
+    if(sides==='r')return 'right';
+    const c=new THREE.Box3().setFromObject(o).getCenter(new THREE.Vector3());
+    const x=(c.x-root.position.x)/(root.scale.x||1);
+    return Math.abs(x)<0.02?'bilateral':x<0?'right':'left';
   };
   meshes.forEach((o,i)=>{
     const raw=raws[i];
-    const {label,side}=readable(raw);
+    const read=readable(raw);
+    const label=read.label;
+    const unitRow=unitFor(key,raw);
+    const side=read.side==='bilateral'&&unitRow&&/^[blr]$/.test(unitRow.sides||'')?pairedSide(o,unitRow.sides):read.side;
     /* A canonicalId is what makes a mesh pickable: pick() filters on it and
        confirmPick looks the record up. Without one these layers could only be
        selected programmatically from a structure-set question. */
@@ -349,7 +374,7 @@ async function loadExtraModelUncached(key,file){
      * The side stays in the id: left and right are never merged, because
      * telling them apart is the entire L2 drill.
      */
-    const unit=unitFor(key,raw);
+    const unit=unitRow;
     const id=unit?`sys:${key}:u:${unit.unitId}${side?':'+side:''}`:`sys:${key}:${i}:${raw}`;
     const shownName=unit?unit.unit:label;
     if(!state.importedRecords.has(id)){

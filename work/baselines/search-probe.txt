@@ -46,43 +46,44 @@
   ok   all 1686 index rows resolve after sanitizeNodeName
   ok   all 1616 rows the loader renames still match (e.g. Abdominal aorta -> Abdominal_aorta)
 — study depth is read from the sources, not guessed —
-  ok   629 of 1686 structures are named by the course material
+  ok   664 of 1686 structures are named by the course material
   ok   every course-level row names the file that names it
   ok   no row beyond the course claims a source
   ok   every source carries how it names the structure
-  ok   261 rows are in the examinable glossary itself
-  ok   Liver is named by the course (listed)
-  ok   Stomach is named by the course (listed)
-  ok   Trachea is named by the course (listed)
-  ok   Kidney is named by the course (listed)
+  ok   130 rows are in the examinable glossary itself
+  ok   Liver is named by the course (named)
+  ok   Stomach is named by the course (named)
+  ok   Trachea is named by the course (named)
+  ok   Kidney is named by the course (named)
   ok   Urinary bladder is named by the course (listed)
   ok   Thyroid cartilage is named by the course (listed)
-  ok   Femur is named by the course (listed)
-  ok   Scapula is named by the course (listed)
-  ok   Oesophagus is named by the course (listed)
+  ok   Femur is named by the course (named)
+  ok   Scapula is named by the course (named)
+  ok   Oesophagus is named by the course (named)
   ok   Body of sternum is named by the course (named)
-  ok   Diaphragm is named by the course (listed)
+  ok   Diaphragm is named by the course (named)
   ok   all 5 lung lobes are at course level
   ok   and they got there by being described in place, or mirrored from the other side
   ok   all 12 thoracic vertebrae are at course level
   ok   six of them by their siblings, six named outright
-  ok   nine ribs completed from the three the sources name
+  ok   seven ribs completed from the ones the sources name
   ok   and the series pass admits nothing beyond those, Vertebra L4 apart
   ok   all 22 segmental bronchi are folded away
   ok   the first rib, which the glossary lists, stays on its own
-       sources: 38 files name at least one structure
+       sources: 47 files name at least one structure
 — every structure resolves to something a tap can select —
   ok   every row has a unit
   ok   and every unit is course-named, a group, or one of a kind
-  ok   1686 structures resolve to 796 units
+  ok   1686 structures resolve to 835 units
   ok   the row and the unit table agree on the label
   ok   a unit never spans two layers -- the viewer keys ids by layer
   ok   no course-named structure is grouped away under another name
-  ok   629 course-named structures, 629 course units
+  ok   a course unit beyond the course-named rows is a whole a 2026 deck names
+  ok   664 course-named structures and 27 named wholes, one course unit each
   ok   every unit knows how many rows it holds
   ok   a lone unit holds exactly one structure
-  ok   only 10 structures are one of a kind
-  ok   vessels: 419 structures, 186 named by the course, 225 selectable (34 groups, 5 one of a kind)
+  ok   only 12 structures are one of a kind
+  ok   vessels: 419 structures, 187 named by the course, 224 selectable (32 groups, 4 one of a kind)
 — unit names read as anatomy, not as string surgery —
   ok   no double plurals
   ok   a phalanx of the foot is not a finger of it
@@ -95,9 +96,14 @@
   ok   "Left coronary leaflet" belongs to Aortic valve
   ok   "Anterior semilunar leaflet of pulmonary valve" belongs to Pulmonary valve
   ok   "Adenohypophysis" belongs to Pituitary gland
-  ok   Long head of triceps brachii is named by the course, so it stands alone
-  ok   Lateral head of triceps brachii is named by the course, so it stands alone
-  ok   Medial head of triceps brachii is named by the course, so it stands alone
+  ok   "Long head of triceps brachii" belongs to Triceps brachii
+  ok   "Lateral head of triceps brachii" belongs to Triceps brachii
+  ok   "Medial head of triceps brachii" belongs to Triceps brachii
+  ok   "Short head of biceps brachii" belongs to Biceps brachii
+  ok   "Medial head of gastrocnemius" belongs to Gastrocnemius
+  ok   Zygomaticus major muscle is not a 2026 course name
+  ok   Gracilis muscle is not a 2026 course name
+  ok   Frontalis muscle is not a 2026 course name
   ok   "Deep branch of ulnar nerve" is selected as Ulnar nerve (got Ulnar nerve)
   ok   Ulnar nerve still stands on its own
   ok   "Left medial segment of liver (IV)" is selected as Liver (got Liver)
@@ -105,22 +111,24 @@
   ok   "Motor root of trigeminal nerve" is selected as Trigeminal nerve (V) (got Trigeminal nerve (V))
   ok   Trigeminal nerve (V) still stands on its own
   ok   a ligament of a bone is not absorbed into the bone
-  ok   segmental bronchi group as bronchi of the lung, not as the lung
+  ok   segmental bronchi group as the segmental bronchi of the lung, not as the lung
   ok   and the vessels of a lung are named after it too
   ok   "Capitohamate interosseous ligament" is measured into Ligaments of the hand
   ok   "Dorsal cuboideonavicular ligament" is measured into Ligaments of the foot
-  ok   "Abductor pollicis brevis" is measured into Muscles of the hand
-  ok   "Abductor hallucis" is measured into Muscles of the foot
-  ok   "Anconeus muscle" is measured into Muscles of the forearm
+  ok   "Palmar aponeurosis" is measured into Soft tissues of the hand
+  ok   "Plantar aponeurosis" is measured into Soft tissues of the foot
+  ok   "Anconeus muscle" is measured into Soft tissues of the forearm
+  ok   "Subcutaneous bursa of medial malleolus" is measured into Bursae of the leg
+  ok   "Palmar carpometacarpal ligaments" is measured into Ligaments of the hand
   ok   "Retropharyngeal nodes" is measured into Lymph nodes of the head and neck
   ok   "Pararectal nodes" is measured into Lymph nodes of the pelvis
   ok   "Angular gyrus" is measured into Gyri of the brain
-  ok   the 10 costal cartilages group under "Cartilages of the thorax"
+  ok   the 10 costal cartilages are one unit, "Costal cartilages"
   ok   all 12 ribs are at course level, each its own unit
   ok   the 14 teeth group under "Teeth", not "Bones of the head and neck"
-  ok   all 14 phalanges of the foot group under one row
-  ok   and the hand keeps its own, because a phalanx is not always in the foot
-       157 groups, largest: Muscles of the head and neck (46), Ligaments of the foot (39), Ligaments of the hand (33)
+  ok   all 14 phalanges of the foot are course units of their own
+  ok   and so are the phalanges of the hand
+       132 groups, largest: Soft tissues of the head and neck (49), Ligaments of the foot (38), Ligaments of the hand (34)
 — composites point at real meshes —
   ok   Metacarpals: First metacarpal bone exists in the skeleton layer
   ok   Metacarpals: Second metacarpal bone exists in the skeleton layer
@@ -145,6 +153,10 @@
   ok   Hamstrings: Semimembranosus muscle exists in the muscle layer
   ok   Biceps femoris: Long head of biceps femoris exists in the muscle layer
   ok   Biceps femoris: Short head of biceps femoris exists in the muscle layer
+  ok   Iliopsoas: Iliacus muscle exists in the muscle layer
+  ok   Iliopsoas: Psoas major exists in the muscle layer
+  ok   Small intestine: Duodenum exists in the organs layer
+  ok   Small intestine: Jejunum and ileum exists in the organs layer
   ok   Lungs: Superior lobe of left lung exists in the organs layer
   ok   Lungs: Inferior lobe of left lung exists in the organs layer
   ok   Lungs: Superior lobe of right lung exists in the organs layer

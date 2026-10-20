@@ -59,13 +59,28 @@
  *   lone    one of a kind: no whole to join, nothing of its kind nearby. It
  *           stays selectable and the app says it is beyond the course.
  *
- * Usage: node work/build-mesh-index.mjs      (rebuild course-terms.json first
- *        with `node work/build-course-terms.mjs` if the sources have changed)
+ * 2026 PRECEDENCE
+ *
+ * course-terms.json reads the OLD material. outputs/viewer-lecture-names.js
+ * (work/build-viewer-lecture-names.mjs) reads this year's decks, and wins: a
+ * structure a 2026 deck names is at course level under the deck's name, and a
+ * whole the model has only as parts ("Biceps brachii" as its two heads) is ONE
+ * unit under that name. For the muscles, which this year's Module I decks have
+ * taught in full, an old file alone no longer puts a name at course level.
+ * The rest of the body keeps the old material as its fallback until its
+ * module is taught, with the corrections in work/lib/fallback-names.mjs.
+ *
+ * Usage: node work/build-viewer-lecture-names.mjs, then
+ *        node work/build-mesh-index.mjs      (rebuild course-terms.json first
+ *        with `node work/build-course-terms.mjs` if the old sources have changed)
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { collectStructures, measureStructures, LAYERS, OUTPUTS } from './lib/mesh-names.mjs';
+import { NAMED_GROUPS, RENAMED } from './lib/fallback-names.mjs';
+import { VIEWER_LECTURE_NAMES } from '../outputs/viewer-lecture-names.js';
+import { SOURCE_FILES } from '../outputs/study/course-data.js';
 
 const WORK = dirname(fileURLToPath(import.meta.url));
 
@@ -79,22 +94,8 @@ const TERMS = JSON.parse(readFileSync(termsPath, 'utf8'));
 const { rows, rawTotal, dropped } = collectStructures();
 measureStructures(rows);
 
-for (const r of rows) {
-  const hit = TERMS.named[r.layer + '|' + r.name];
-  r.tier = hit ? 0 : 1;
-  r.src = hit ? hit[0] : -1;
-  r.evidence = hit ? hit[1] : '';
-}
-
 const clean = (s) => s.replace(/\*/g, '').replace(/\s*\([^)]*\)/g, ' ').replace(/\s+/g, ' ').trim();
 const cap = (s) => s.replace(/^./, (c) => c.toUpperCase());
-const byName = new Map(rows.map((r) => [r.layer + '|' + r.name.toLowerCase(), r]));
-const anyLayer = new Map();
-for (const r of rows) {
-  const k = r.name.toLowerCase();
-  /* a course-named row wins the name over a finer one in another layer */
-  if (!anyLayer.has(k) || (r.tier === 0 && anyLayer.get(k).tier === 1)) anyLayer.set(k, r);
-}
 
 /* ------------------------------------------------------------------ *
  * Where each structure is — measured, not read off the name
@@ -112,7 +113,7 @@ for (const r of rows) {
  * ------------------------------------------------------------------ */
 
 const BONE_ZONE = [
-  ['hand', /\bhand\b|metacarp|scaphoid|lunate|triquetrum|pisiform|trapezi|capitate|hamate|carpal bone/],
+  ['hand', /\bhand\b|metacarp|scaphoid|lunate|triquetrum|pisiform|trapezi|trapezoid|capitate|hamate|carpal bone/],
   ['forearm', /^radius|^ulna/],
   ['arm', /humerus/],
   ['shoulder', /clavicle|scapula/],
@@ -185,10 +186,62 @@ function zoneOf(r) {
   }
   let best = null, bd = Infinity;
   for (const bo of bones) { const d = distTo(p, bo.b); if (d < bd) { bd = d; best = bo; } }
-  if (!best || best.zone === 'axial' || Math.abs(p[0]) < 0.05) return axialZone(p[1]);
+  /* The median-plane rule stops at the perineum (the anal sphincter's centre is
+     0.81, the hip bone's lowest point 0.80): below it the two legs are within
+     5 cm of the midline too, and the bursa of the medial malleolus came out
+     "of the pelvis". */
+  if (!best || best.zone === 'axial' || (Math.abs(p[0]) < 0.05 && p[1] > 0.70)) return axialZone(p[1]);
   return best.zone;
 }
 for (const r of rows) r.zone = zoneOf(r);
+
+/* ------------------------------------------------------------------ *
+ * Study depth — 2026 precedence (see the header)
+ *
+ * The muscles of the limbs, head, neck and trunk are Module I, and this year's
+ * decks for it are complete; the older files named the face's expression
+ * muscles off a question bank and the three heads of triceps off a 2019 deck,
+ * none of which the 2026 slides do. So in the muscle layer an older file alone
+ * no longer makes a name examinable. The pelvic floor, the perineum and the
+ * inguinal region belong to Module IV, still to come, and keep the older files
+ * as their fallback, like everything outside the muscle layer. (This used to be
+ * every muscle-layer row in the pelvis zone, which kept the gracilis and the
+ * pyramidalis on an old reading.)
+ * ------------------------------------------------------------------ */
+const LECTURE = new Map(VIEWER_LECTURE_NAMES.map((n) => [n.layer + '|' + n.name, n]));
+const MODULE_IV = /coccygeus|levator ani|pubo-?analis|puborectalis|pubo-?vaginalis|puboprostatic|sphincter|perine|bulbospongiosus|ischiocavernosus|cremaster|urogenital|anococcygeal|inguinal/i;
+const TAUGHT_2026 = (r) => r.layer === 'muscle' && !(r.zone === 'pelvis' && MODULE_IV.test(r.name));
+for (const r of rows) {
+  const key = r.layer + '|' + r.name;
+  const lec = LECTURE.get(key);
+  const hit = TERMS.named[key];
+  const renamed = RENAMED[key];
+  r.lecture = lec || null;
+  r.src = null;
+  r.evidence = '';
+  if (lec) {
+    r.tier = lec.whole ? 1 : 0;
+    if (!lec.whole) { r.src = { file: lec.file, subject: 'HSS2011' }; r.evidence = 'named'; }
+  } else if (renamed) {
+    r.tier = 0;
+    r.renamed = renamed;
+    r.src = { file: SOURCE_FILES[renamed.ref].file, subject: 'HSS2011' };
+    r.evidence = 'named';
+    r.name = renamed.name;
+  } else if (hit && !TAUGHT_2026(r)) {
+    r.tier = 0;
+    r.src = TERMS.sources[hit[0]];
+    r.evidence = hit[1];
+  } else r.tier = 1;
+}
+
+const byName = new Map(rows.map((r) => [r.layer + '|' + r.name.toLowerCase(), r]));
+const anyLayer = new Map();
+for (const r of rows) {
+  const k = r.name.toLowerCase();
+  /* a course-named row wins the name over a finer one in another layer */
+  if (!anyLayer.has(k) || (r.tier === 0 && anyLayer.get(k).tier === 1)) anyLayer.set(k, r);
+}
 
 /* ------------------------------------------------------------------ *
  * Absorption — a piece of a structure the course names IS that structure
@@ -211,7 +264,7 @@ const ABSORB = new Set(('part parts head heads belly bellies segment segments lo
   + 'leaflets horn horns crus crura limb limbs tendon tendons aponeurosis bifurcation lingula '
   + 'uvula nodule tonsil pyramis tuber wing process chamber ampulla cord peduncle matter '
   + 'surface border margin angle spine tubercle trochanter condyle facet fossa notch groove '
-  + 'canal foramen sinus septum sulcus cells cell').split(' '));
+  + 'canal foramen sinus septum sulcus cells cell mucosa').split(' '));
 
 /* Names as written, and names with their parentheses taken off, so "Motor root
    of trigeminal nerve" finds the row called "Trigeminal nerve (V)". */
@@ -225,6 +278,9 @@ const wholeNamed = (layer, name) => byName.get(layer + '|' + name.toLowerCase())
 
 function parentOf(r) {
   if (r.tier === 0) return null;
+  return wholeOf(r);
+}
+function wholeOf(r) {
   const s = clean(r.name);
   const low = s.toLowerCase();
   /*
@@ -240,6 +296,18 @@ function parentOf(r) {
     if (whole && whole !== r) return whole;
   }
   return null;
+}
+/*
+ * A piece an older file names is still a piece of a whole it names. The
+ * 2019/20 abdomen deck names four of the liver's eight segments, so tapping
+ * those four answered "Posterior segment of liver (I)" and the other four
+ * "Liver"; the mucosa of the stomach, the same size as the stomach, answered
+ * for it. A piece a 2026 deck names (the frontal sinus) keeps its own name.
+ */
+for (const r of rows) {
+  if (r.tier !== 0 || r.lecture || r.renamed) continue;
+  const whole = wholeOf(r);
+  if (whole && whole.tier === 0) { r.tier = 1; r.src = null; r.evidence = ''; }
 }
 for (const r of rows) r.parent = parentOf(r);
 
@@ -309,7 +377,7 @@ const ZONE_LABEL = { brain: 'the brain', 'head and neck': 'the head and neck', t
  * pieces are absorbed into it instead, higher up.
  */
 const PARTITIVE = new Set(['part', 'parts', 'head', 'heads', 'belly', 'bellies',
-  'leaflet', 'leaflets', 'cusp', 'cusps', 'layer', 'layers']);
+  'leaflet', 'leaflets', 'cusp', 'cusps', 'layer', 'layers', 'lobe', 'lobes']);
 
 /*
  * The two wholes no name states.
@@ -387,7 +455,8 @@ function candidates(r) {
   return out;
 }
 
-const roots = rows.filter((r) => r.root === r && r.tier === 1);
+/* A part of a whole a 2026 deck names is that whole's, not a group's (Units, below). */
+const roots = rows.filter((r) => r.root === r && r.tier === 1 && !r.lecture?.whole);
 const groups = new Map();
 function put(label, r, opts = {}) {
   const key = r.layer + '|' + label.toLowerCase();
@@ -400,14 +469,20 @@ function put(label, r, opts = {}) {
 }
 
 const pending = [];
+const namedGroupOf = (r) => NAMED_GROUPS.find((g) => g.layer === r.layer && g.rows.test(r.name));
 for (const r of roots) {
-  const forced = WHOLE_OF[r.layer + '|' + r.name];
+  const forced = WHOLE_OF[r.layer + '|' + r.name] || namedGroupOf(r)?.group;
   const tail = tailOf(r);
   /* one "of" only: "Cruciform part of fibrous sheath of digit of hand" is not
-     a part of the hand, and its immediate whole is not a name worth a group */
+     a part of the hand, and its immediate whole is not a name worth a group.
+     A muscle the 2026 decks do not name is not offered under its own name as
+     a group either: the orbicularis oculi's parts are muscles of the head.
+     A whole that is not a muscle still is: the three layers of the
+     thoracolumbar fascia are the thoracolumbar fascia. */
+  const tailKind = tail && KIND[clean(tail).toLowerCase().split(' ').pop()];
   const partitive = tail && PARTITIVE.has(headLastOf(r))
     && clean(r.name).toLowerCase().split(' of ').length === 2
-    && !wholeNamed(r.layer, tail);
+    && !wholeNamed(r.layer, tail) && !(TAUGHT_2026(r) && (!tailKind || tailKind === 'Muscles'));
   if (forced || partitive) { put(cap(forced || tail), r, { whole: true, zoned: false }); continue; }
   pending.push({ r, list: candidates(r), at: 0 });
 }
@@ -462,6 +537,10 @@ const SELF_LOCATING = new Set(['Ribs', 'Teeth', 'Vertebrae']);
       }
       continue;
     }
+    /* "Structures" is no kind at all, only the layer's shrug: one of them in
+       the thorax and one in the abdomen (the intermediate bronchus and the
+       meso-appendix) have nothing in common, so each stays on its own. */
+    if (kind === LAYER_KIND[gs[0].layer] && kind === 'Structures' && gs.every((g) => g.members.length < 2)) continue;
     const all = gs.flatMap((g) => g.members);
     gs.forEach((g) => groups.delete(g.key));
     const biggest = gs.slice().sort((a, b) => b.members.length - a.members.length)[0];
@@ -472,6 +551,26 @@ const SELF_LOCATING = new Set(['Ribs', 'Teeth', 'Vertebrae']);
   }
 }
 
+/*
+ * A layer's own kind is a fallback, not a finding. "Muscles of the thigh" took
+ * the iliotibial tract, the popliteal fascia and a patellar retinaculum along
+ * with the adductor minimus, each being the only one of its kind there, and
+ * "Muscles of the head and neck" the tarsal plates of the eyelids. A group
+ * whose members are not all of the layer's kind says what they all are.
+ */
+const MIXED_KIND = { muscle: 'Soft tissues', skeleton: 'Skeletal structures', circulatory: 'Cardiovascular structures',
+  lymphatic: 'Lymphatic structures' };
+for (const g of [...groups.values()]) {
+  const at = g.label.lastIndexOf(' of ');
+  if (!g.zoned || g.whole || at < 0 || !MIXED_KIND[g.layer]) continue;
+  const kind = g.label.slice(0, at);
+  if (kind !== LAYER_KIND[g.layer] || g.members.every((m) => kindOf(m) === kind)) continue;
+  groups.delete(g.key);
+  g.label = MIXED_KIND[g.layer] + g.label.slice(at);
+  g.key = g.layer + '|' + g.label.toLowerCase();
+  groups.set(g.key, g);
+}
+
 /* ------------------------------------------------------------------ *
  * Units
  * ------------------------------------------------------------------ */
@@ -480,12 +579,22 @@ const UNIT_KIND = ['course', 'group', 'lone'];
 const units = [];
 const unitIndex = new Map();
 
-/* every course-named structure is its own unit and keeps its own name */
+/* every course-named structure is its own unit and keeps its own name, or the
+   2026 slide's name for it ("Anterior scalene", "Hip joint") */
 for (const r of rows) {
   if (r.tier !== 0) continue;
   r.unit = units.length;
   unitIndex.set(r, r.unit);
-  units.push({ label: r.name, layer: r.layer, kind: 0, size: 0 });
+  units.push({ label: r.lecture?.displayName || r.name, layer: r.layer, kind: 0, size: 0, head: r.name });
+}
+/* a whole a 2026 deck names, modelled only as parts, is ONE course unit under
+   the deck's name: both heads of biceps brachii are the biceps */
+const wholeUnit = new Map();
+for (const r of rows) {
+  if (!r.lecture?.whole) continue;
+  const k = r.layer + '|' + r.lecture.whole.toLowerCase();
+  if (!wholeUnit.has(k)) { wholeUnit.set(k, units.length); units.push({ label: r.lecture.whole, layer: r.layer, kind: 0, size: 0, head: '' }); }
+  unitIndex.set(r, wholeUnit.get(k));
 }
 /* everything else joins the group its root landed in */
 for (const g of groups.values()) {
@@ -494,7 +603,7 @@ for (const g of groups.values()) {
   const kind = (g.members.length >= 2 || g.whole) ? 1 : 2;
   const label = kind === 2 ? g.members[0].name : g.label;
   const u = units.length;
-  units.push({ label, layer: g.layer, kind, size: 0 });
+  units.push({ label, layer: g.layer, kind, size: 0, head: kind === 2 ? label : '' });
   for (const m of g.members) unitIndex.set(m, u);
 }
 for (const r of rows) {
@@ -509,9 +618,10 @@ const srcList = [];
 {
   const used = new Map();
   for (const r of rows) {
-    if (r.src < 0) continue;
-    if (!used.has(r.src)) { used.set(r.src, srcList.length); srcList.push(TERMS.sources[r.src]); }
-    r.src = used.get(r.src);
+    if (!r.src || r.tier !== 0) { r.src = -1; continue; }
+    const k = r.src.subject + '|' + r.src.file;
+    if (!used.has(k)) { used.set(k, srcList.length); srcList.push(r.src); }
+    r.src = used.get(k);
   }
 }
 
@@ -528,7 +638,7 @@ const body = rows.map((r) => {
   return `[${lit(r.name)},${lit(r.layer)},${lit(mesh)},${lit(sides)},${r.tier},${r.unit},${r.src},${EVIDENCE.indexOf(r.evidence || '')}]`;
 }).join(',\n');
 
-const unitBody = units.map((u) => `[${lit(u.label)},${lit(u.layer)},${u.kind},${u.size}]`).join(',\n');
+const unitBody = units.map((u) => `[${lit(u.label)},${lit(u.layer)},${u.kind},${u.size}${u.head === u.label ? '' : ',' + lit(u.head)}]`).join(',\n');
 const srcBody = srcList.map((s) => `[${lit(s.file)},${lit(s.subject)}]`).join(',\n');
 
 const t0 = rows.filter((r) => r.tier === 0).length;
@@ -582,11 +692,14 @@ const EVIDENCE = ${JSON.stringify(EVIDENCE)};
 /*
  * What a tap can select.
  *
- * [label, layerKey, kind, size] where kind is an index into UNIT_KINDS:
- *   course  a structure the course names — its own name, its own unit
+ * [label, layerKey, kind, size, head?] where kind is an index into UNIT_KINDS:
+ *   course  a structure the course names — its own name (or the 2026 slide's
+ *           name for it), its own unit; or a whole a 2026 deck names that the
+ *           model has only as parts, all of them in one unit
  *   group   finer structures selected together under a more general name
  *   lone    one structure with nothing to group with, beyond the course
- * size is how many index rows resolve to it.
+ * size is how many index rows resolve to it. head is the row that IS the unit
+ * when it is not called by the label ('' when no row is: a group, a whole).
  */
 const UNIT_KINDS = ${JSON.stringify(UNIT_KIND)};
 const UNITS_RAW = [
@@ -607,7 +720,7 @@ export const MESH_INDEX = ROWS.map(([name, layer, mesh, sides, tier, unit, src, 
   unitKind: UNIT_KINDS[UNITS_RAW[unit][2]],
   unitSize: UNITS_RAW[unit][3],
   /* true when this row IS the unit rather than one of the things inside it */
-  isUnit: UNITS_RAW[unit][0] === name && UNITS_RAW[unit][2] !== 1,
+  isUnit: (UNITS_RAW[unit][4] ?? UNITS_RAW[unit][0]) === name,
   source: src < 0 ? null
     : { file: SOURCES[src][0], subject: SOURCES[src][1], evidence: EVIDENCE[ev] || 'named' },
 }));

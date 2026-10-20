@@ -44,8 +44,12 @@ function occludersOf(targets,frame){
   for(const dx of [-.5,.5]) for(const dy of [-.5,.5]){
     samples.push(frame.center.clone().add(new THREE.Vector3(dx*frame.radius,dy*frame.radius,0)));
   }
+  /* Nor anything that is the same structure: an exact search frames one head of
+     the biceps, and the other head, which the selection lights with it, was
+     being hidden as an obstruction. */
+  const targetIds=new Set(targets.map(m=>m.userData&&m.userData.canonicalId).filter(Boolean));
   const pool=[...state.fullMeshes,...state.meshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)]
-    .filter(m=>m.userData&&m.userData.canonicalId&&!targetSet.has(m));
+    .filter(m=>m.userData&&m.userData.canonicalId&&!targetSet.has(m)&&!targetIds.has(m.userData.canonicalId));
   samples.forEach(pt=>{
     const d=pt.clone().sub(from);
     const len=d.length();

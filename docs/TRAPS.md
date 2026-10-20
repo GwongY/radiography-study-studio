@@ -51,6 +51,26 @@ Grouped by file. `docs/CODEMAP.md` links each file to its section.
   landmark hotspots.
 - `MODEL_CATALOG` in `anatomy-data.js` records each layer's coverage *and its gaps* —
   check it before assuming a structure exists.
+- **A layer mesh's `side` is `'bilateral'` when it is unpaired.** That keeps its
+  `canonicalId` apart from the paired ones (`depth-picking.js`); it is not a label.
+  `selectBone` printed whatever side it was given under the name, so a tap on the
+  liver read "Liver / bilateral". Show a side only when it is left or right.
+- **The side in an id must come from pairing, never from the words.** The loader
+  used to read "Left" in "Left lateral segment of liver (II)" as a side, so the
+  liver was two selections (segments II to IV, and the rest). Now only the glued
+  side letter with its twin present makes a side; and where the index says the
+  structure is paired but a mesh lost its letter (`Extensor_digitorum_longus` and
+  `_1`, an `r` with no `l`), the side is where the mesh sits (x < 0 is right).
+- **Two ways to open a name must light the same thing.** An exact search hit
+  opens with `exact`, so it lights only the meshes of that name; for the row that
+  IS its unit that was one ninth of the liver. `exact` is for a part reached by
+  its own name, so the unit row opens unwidened only when it is not the unit.
+- **three.js renames meshes.** A second node of one name gets `_1`, a mesh drawn
+  twice `_instance_0`/`_instance_1`; `unitFor` strips both before it gives up, or
+  those meshes have no unit and show the loader's suffix.
+- **`selectInSystem` and `highlightExtra` name a tap themselves.** They printed the
+  mesh's own atlas name, not its unit's; anything that writes `#selectedName` must
+  go through the record (`getRecord(id).canonicalName`), which is the unit name.
 
 ### Overlays and cavities — `outputs/cavity-build.js`, `outputs/cavity-geom.js`, `outputs/studio.js`
 
@@ -225,6 +245,53 @@ shapes** — in "The region grid and classifiers" below.
   which is why "Abductor pollicis brevis" is a muscle and not a "Brevis".
   `search-probe.mjs` still scans every label for double plurals and for the
   "of the body" shrug, because the table is the kind of thing that grows.
+- **The median-plane rule stops at the perineum.** "Within 5 cm of the midline is
+  axial" also caught the legs, which are that close together below the pelvis:
+  the bursa of the medial malleolus and the medial patellar retinaculum were "of
+  the pelvis". It applies above height 0.70 only (the anal sphincter centres at
+  0.81, the hip bone's lowest point is 0.80).
+- **A limb bone the `BONE_ZONE` table misses is zoned as axial.** `trapezi` matched
+  the trapezium and not the trapezoid, so every ligament nearest the trapezoid was
+  zoned by height, and the palmar carpometacarpal ligaments became "Ligaments of the
+  pelvis". After adding a bone, list the paired skeleton rows that come out axial.
+- **A layer's own kind is a fallback, not a finding.** A singleton with no group of
+  its kind falls back to `LAYER_KIND`, so "Muscles of the thigh" held the iliotibial
+  tract and the popliteal fascia. A group whose members are not all of that kind is
+  relabelled from `MIXED_KIND` ("Soft tissues of the thigh").
+- **The 2026 rule against naming a group after an untaught muscle is for muscles.**
+  It stopped the orbicularis oculi's two parts becoming "Orbicularis oculi"; it also
+  stopped the three layers of the thoracolumbar fascia becoming "Thoracolumbar
+  fascia" until it was limited to wholes of kind Muscles.
+- **A renamed row keeps its GLB name in `mesh`.** `RENAMED` (`work/lib/fallback-names.mjs`)
+  changes `name` ("Jejunum" is shown as "Jejunum and ileum"), so a lookup by name from
+  a loaded mesh misses it. `unitMap` in `studio/live-physiology.js` keys by both.
+
+### The 2026 names — `work/build-viewer-lecture-names.mjs`, `work/lib/fallback-names.mjs`
+
+- **This year's decks decide; the older files only fill what is not taught yet.**
+  `course-terms.json` reads 2012-2020 material. It named the triceps' three heads, the
+  face's expression muscles (off a question bank) and the gracilis (off a reading),
+  none of which a 2026 slide names. In the muscle layer an older file alone no longer
+  makes a course name (`TAUGHT_2026` in `build-mesh-index.mjs`); the pelvic floor and
+  the inguinal region (`MODULE_IV`) are the exception until Module IV is taught.
+- **A label in a figure is not a name.** The owner's rule (outputs/README.md, "What
+  on a slide counts as taught"): the pictures come from online with every label their
+  maker drew. Only text counts, and a label the lecturer boxed, circled or
+  highlighted. W4 p13 labels all the face muscles and teaches none of them.
+  `FIGURE_LABELS` refuses an entry with no `mark`.
+- **The extracted text includes a figure's live text.** "Lecturio" and "Lateral view"
+  on W4 p12 are an online figure's, in the text layer; most typed labels are the
+  lecturer's, but a surprising "named" hit is worth a look at the slide.
+- **A name matched inside a longer one is the longer one.** "Extensor digitorum" in
+  "extensor digitorum longus" is the leg muscle, and "gracilis" after "nucleus" is in
+  the brain. `named()` skips a phrase whose next word continues another structure's
+  name, and one after nucleus / fasciculus / tract / tubercle outside the nervous layer.
+- **Hyphens and plurals differ between slide and atlas.** "Hemiazygos vein" is the
+  atlas's "Hemi-azygos vein"; "Lateral ventricles" its one "Lateral ventricle".
+  `sameName` compares squashed forms too.
+- **Every quote is held to its page.** `SLIDE_NAMES` and the Revise leaves stop the
+  build if the words are not on the page; `RENAMED` and `NAMED_GROUPS` are held by
+  `work/viewer-lecture-names-check.mjs`, which CI runs with `--check` on the builder.
 
 ### Study depth and course terms — `work/build-course-terms.mjs`
 

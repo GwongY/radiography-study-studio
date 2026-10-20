@@ -44,6 +44,8 @@ jobs:
         run: node work/binding-check.mjs
       - name: Search index, synonyms, tiering, study units
         run: node work/search-probe.mjs
+      - name: Viewer names follow the 2026 decks, with older decks only as fallback
+        run: node work/build-viewer-lecture-names.mjs --check && node work/viewer-lecture-names-check.mjs
       - name: Every skeleton mesh lands in the right region
         run: node work/region-probe.mjs
       - name: Body systems agree with the flow classes

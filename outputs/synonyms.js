@@ -134,6 +134,12 @@ const GROUPS = [
   ['calcaneal tendon', 'achilles tendon', 'achilles', 'tendo calcaneus'],
   ['diaphragm', 'thoracic diaphragm'],
   ['sternocleidomastoid', 'scm'],
+  ['iliotibial tract', 'iliotibial band', 'it band'],
+  ['tensor fasciae latae', 'tensor fascia latae', 'tfl'],
+  ['common fibular nerve', 'common peroneal nerve'],
+  ['fibularis longus', 'peroneus longus'],
+  ['fibularis brevis', 'peroneus brevis'],
+  ['fibularis tertius', 'peroneus tertius'],
 
   /* ---- nerves and brain ---- */
   ['medulla oblongata', 'medulla', 'bulb'],
@@ -158,6 +164,10 @@ const GROUPS = [
   ['lung', 'pulmonary', 'pulmo'],
   ['pleura', 'pleural membrane'],
   ['bronchus', 'bronchi', 'bronchial'],
+  /* the atlas's "main bronchus" is shown as the deck's "primary bronchus" */
+  ['main bronchus', 'primary bronchus', 'principal bronchus'],
+  ['left main bronchus', 'left primary bronchus'],
+  ['right main bronchus', 'right primary bronchus'],
   ['alveolus', 'alveoli', 'air sac'],
 
   /* ---- regional and directional words a search may carry ---- */
@@ -205,6 +215,11 @@ export const COMPOSITES = [
     parts:['Long head of biceps femoris','Semitendinosus muscle','Semimembranosus muscle'].map(n=>['muscle',n])},
   {term:'biceps femoris',also:['biceps femoris muscle'],name:'Biceps femoris',note:'Both heads, shown together.',
     parts:['Long head of biceps femoris','Short head of biceps femoris'].map(n=>['muscle',n])},
+  {term:'iliopsoas',also:['iliopsoas muscle'],name:'Iliopsoas',note:'Iliacus and psoas major, shown together.',
+    parts:[['muscle','Iliacus muscle'],['muscle','Psoas major']]},
+  {term:'small intestine',also:['small bowel'],name:'Small intestine',
+    note:'The duodenum, and the jejunum and ileum, which the model has as one mesh.',
+    parts:[['organs','Duodenum'],['organs','Jejunum and ileum']]},
   {term:'lung',also:['lungs'],name:'Lungs',note:'The five lobes, shown together.',
     parts:['Superior lobe of left lung','Inferior lobe of left lung','Superior lobe of right lung','Middle lobe of right lung','Inferior lobe of right lung'].map(n=>['organs',n])},
   {term:'colon',also:['colon segments'],name:'Colon',note:'The four named segments, shown together.',

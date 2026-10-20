@@ -219,6 +219,8 @@ export function searchHits(q) {
    */
   // Exact names remain individually reachable even when their teaching unit
   // groups many finer structures. Search must never silently substitute a group.
+  // The row that IS its unit opens the whole unit, as a tap does: the liver is
+  // the Liver mesh and its eight segments, and lit alone it was one ninth.
   const exactTerms = [...new Set([...expandQuery(structureNeedle),needle])];
   const sideFits = (m) => !side || (m.sides === 'b' || m.sides === side[0]
     || (!m.sides && !m.name.toLowerCase().includes(side === 'left' ? 'right' : 'left')));
@@ -229,7 +231,7 @@ export function searchHits(q) {
     claim(m.name);
     const mesh=m.sides==='b'?m.mesh.replace(/\.[lr]$/i,''):m.mesh;
     hits.push({kind:'Structure',title:m.name,note:`${m.layer} · ${sourceNote(m)}`,
-      go:()=>openStructure({system:m.layer,mesh,file:STRUCTURE_MODELS[m.layer]?.file,name:m.name,exact:true,
+      go:()=>openStructure({system:m.layer,mesh,file:STRUCTURE_MODELS[m.layer]?.file,name:m.name,exact:!m.isUnit,
         ...(modelSearchNames(mesh).length>1?{parts:modelSearchNames(mesh).map(n=>({system:m.layer,mesh:n,file:STRUCTURE_MODELS[m.layer]?.file}))}:{})})});
   });
   const idxHits = [];
