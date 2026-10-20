@@ -1,5 +1,5 @@
 — user-facing strings in outputs/ — 1012 —
-  6ccf40dffcbaa693  WHOLE SET
+  10dc2bbfc9897180  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -23,6 +23,7 @@
   5265bd1a089ac9df  " data-groupopt="
   9d18b1672389d7fe  " data-groupset="
   d73ec115ea9142c9  " data-state="
+  ac18f6537d5721f5  " data-title="
   e2d80c92ddbb5f6d  " data-vtab="
   828626d9f204fdc0  " data-week="
   40096d512b202dd9  " data-xregion="
@@ -31,6 +32,8 @@
   46d6bbe92726dad5  " placeholder="—"
   f847813600bc8f62  " role="status">
   eb82935571faaac8  " style="--acc:
+  3921811003af6587  " style="padding:6px 10px">Link them →
+  7a0a29093207a5f2  " style="padding:6px 10px">Revise →
   a70a4627802e8fd1  " style="text-align:left;cursor:
   e272ca64fe23b521  " title="
   b7337d3498ef8467  " title="Follow the teaching week by itself">Auto
@@ -102,15 +105,15 @@
   fbc7f40a78126f42  <b>—</b> so far
   1a6ab45c16783dc4  <button class="card" data-row="
   3f235ec9141a2347  <button class="conf
-  35206043a859fb0f  <button class="ghost tolesson" data-revise="1">Revise →</button>
+  cae1bf26f64ca2b1  <button class="ghost tolesson" data-revise="1" data-subject="
+  d99a34a805a50121  <button class="ghost" data-todaynew="
+  565469e5e89899fd  <button class="ghost" data-todayrev="
   6d228961058fd5cf  <button class="icon-btn
   efe13358035bbef6  <button class="layerchip" data-layer="
   7929e87a656cae65  <button class="livechip" id="liveChip" data-on="
   9cf783159a7226c8  <button class="ochip" data-kind="
   1b80327a8260e72e  <button class="oitem
   346f8acb28a2cff6  <button class="omode" data-mode="
-  bb756b89a204d236  <button class="primary" id="focusAssessBtn">See assessments →</button><button class="ghost" id="focusReviseBtn" style="margin-left:8px">Revise →</button>
-  0579935e689ae1c5  <button class="primary" id="openReviseBtn">Revise →</button>
   52c2a2e072de9ed6  <button class="seg
   6dcaad6caa1d4d6e  <button class="sres" data-hit="
   104dbe0e4864608b  <button class="sres" data-recent="
@@ -131,10 +134,12 @@
   3b01ee2603c4c016  <button type="button" data-la-region="
   9040bc486e8d129c  <button type="button" data-trail="
   61ed58a935c4a5a9  <details class="card progyear"
+  03aacbab6b7dc7cb  <div class="empty">No classes today or tomorrow.</div>
   42fe6c40c24b5c28  <div class="empty">Nothing important in this week\'s university email.</div>
   4e5528ba372cc6f9  <div class="empty">Nothing left on the published deadlines.</div>
+  cb756d340e8b2d2f  <div class="empty">Nothing new in Revise for the week shown.</div>
   6b5b6a25a2f50ee3  <div class="empty">Recent searches — tap to run again</div>
-  27df0481450ad677  <div class="empty">Search structures and topics. Press Esc to close.</div>
+  4d4be87cb1da2632  <div class="empty">Search structures, Revise topics and Decoder words. Press Esc to close.</div>
   cce4305b03b60844  <div class="emptybox">Outside the teaching term — use the full-term view.</div>
   32ac2097168e30ba  <div class="emptybox">There is no next teaching week — the term ends this week.</div>
   81bbed0091211144  <div class="layerhint">tap to cycle · solid → ghost → off</div>
@@ -239,7 +244,6 @@
   e270caf3ffdc6356  Bone landmarks
   63042ab0dfb866aa  Bottom strip left alone. The app stops at the edge of the viewport.
   3bde7bf844de948d  Brain 3D: how things connect
-  53c88dc6b8160b72  Breathing · diaphragm and lungs
   08dec09e60523dff  Browser tab · viewport
   f30ae92534e255f4  Built out of
   955687714a9cf383  Built out of: a-, near + b/o, thing
@@ -258,10 +262,7 @@
   85a5949c778aeb96  Close limb vessels
   5fa16ee16664ed54  Close older Study Studio tabs to finish removing the retired question bank.
   55656b5e434f4c06  Close search
-  a588a0ec5115695d  Close the focused lesson before opening the heart atlas.
-  3baf54f532efe7d3  Close the focused lesson before opening the limb vessels.
   e57c17d13927ddf0  Close the heart atlas
-  ed83ad7bf06ab235  Close the other viewer mode before opening the limb vessels.
   7b41319301f2ac0e  Colour key
   2c5b57d5e71b2811  Colours and rhythms are drawn by this app, not measured.
   c6ffddc144cdab7e  Common confusions
@@ -294,9 +295,11 @@
   153ad017bde62981  Daily pre-study
   364c244f38af2511  Dashed leaders: far side or inside
   792b1ed47ceecb59  Deadlines and weights come from the subject documents on the Syllabus tab.
+  158cf2b90b7b5607  Decoder · week
   6b4482e521d6ca2b  Described in
   b9d87a27ce7e548d  Device sizes, speeds and the clot and plaque shapes are teaching illustrations; the vessels are the explorer's own. Flow dots follow the vessel centre-lines.
   c83aee17dcb5bdf2  Diastole · ventricular filling
+  77f8b1d9fb3b3f0a  Digestive System
   6e3a2aaa642e7315  Distal phalanx of fifth finger of foot
   84aa3c799bf45058  Distal phalanx of third finger of foot
   ed4f9ed48186e320  Dr Chileka Chiyanika’s Week 2 tutorial on body tissues: cell junctions (tight, adherent, gap with connexons), 4 primary tissues, epithelial classifications with anatomical locations, and keratinized vs parakeratinized stratified squamous.
@@ -376,8 +379,8 @@
   d0c43bd380f45662  Human Physiology/Lecture
   68c77cca1226e49d  Human anatomy/useful HA!!!!/Exam
   4bf4f120eac41088  I have handed this in
-  faf46f11200150fe  Image not found — add it to assets/xray/ and reload.
   a149aa9f92e925e8  Image scan, 4 pp — ABCT2326 Tut1 (Cells/Tissues/Body Org, pp.1–2) + Tut2 (CVS, pp.3–4); not text-extractable; content verified via phys.cells.tut and phys.cvs.tut. Registry entry only — never appears in a sourceRefs.
+  932af6969eb76923  In Revise
   3cb628b528cea201  In brief, in the app's own words, not the slide's.
   ec0f7ff7ac2ed3e2  In the examinable glossary
   52e1d334ec0f4d41  Instrument Sans
@@ -481,7 +484,6 @@
   747fe599f992b303  Module 3 part one_cardiovascular system Student.pdf
   fe59e57a7a810873  More than
   4c67f0e5acff873f  Motion off. The anatomical colours stay.
-  7d7e2aaf6139362e  Motor transmission · deltoid, biceps and quadriceps · slowed
   47bad95e45aec9ab  Muscles 345
   10f452f6c61c85b4  Muscular system
   d326e3de4eabd98d  Named atlas structure from the interactive skeleton source.
@@ -492,19 +494,17 @@
   16916d40e94cebba  Nervous system
   36049fbc6e70d468  New development in arc radiation therapy.pdf
   65c52e4ee0ddb6fb  New source
+  63bdf81a0a0279dd  New to link
   a2750db0f176ee17  Next stop
   21fbde19cfb095cd  Next week
   0515d3e5e4343b2a  Nine pages of prose on how a hormone actually acts: receptors and up/downregulation, the three hydrophilic second-messenger systems (adenylate cyclase-cAMP, phospholipase C-Ca2+, tyrosine kinase), and the hydrophobic/genomic route. The Week 7 slide deck names the mechanisms; this is the file that explains them.
-  f66366c8e852a49b  No assessment in the next seven days. A good week to link what you have learnt.
   e15d3dda4ba3b830  No layer shown — turn one on to study it
   7b133c89847929de  No named structure here.
-  b7cae769b9db0fc6  No radiographs bundled
   f6a59c0ee7b34cc0  No source materials
   79575cdd56093f95  None listed.
   20e84bd6cc1b99f8  Not a briefing object.
   1317f61a70a5a29e  Not connected. Add a read-only token for the private weekly notice repository.
   24bc2b88e5e580eb  Not modelled
-  1e778de2e2378f44  Nothing due this week
   48973ea5c4589751  Nothing important in this week\'s university email.
   db09520da1bff2bb  Nothing left on the published timetable.
   4197398a69b67157  Nothing marked yet — enter a mark as each piece comes back.
@@ -772,7 +772,6 @@
   2f4b24c630bdf091  aria-label="Your mark for
   c5fb5f7140d8d066  arteries and veins
   4dafb342c48fd85e  artery = red = oxygenated
-  038dbe3356c60c5f  assets/xray/ is empty \u2014 add a licence-cleared image
   f0a2f6bcdb910bd5  axial at the sternal angle
   4c7527e58057a88f  beats and
   8db95312cb849877  bone mesh
@@ -826,6 +825,7 @@
   3c9bbf25a1365e5d  full height
   c99a222fc3470c4f  ghost close
   1a282eee876c39f0  ghost hidden
+  8a4081dbed1f6c62  ghost tolesson
   13738eb831c94c95  gl_FragColor = vec4(bulk + shell, 0.0, 0.0, 1.0);
   2417f7519a9d91f5  gl_FragColor = vec4(vec3(clamp(density, 0.0, 1.0)), 1.0);
   6a590bc9c97002da  gl_Position = projectionMatrix * mv;
@@ -880,7 +880,6 @@
   4f80462d467f4c06  named by your course ·
   19b05a182a8f5ce6  named by your course,
   fa33373d92168af7  named in
-  65a8e13d43e16a88  named mesh
   a9ff6c862d2bfd72  new Date(y, m, d, h, min)
   ef79fc55610a0395  new state.THREE.Vector3()
   326d83d3d43bbef3  next week
@@ -923,6 +922,8 @@
   ade98b80a888aed2  s own signature. 
   c1a643d0fef960be  s own words, not the slide
   0fb35ed1991ca018  s pages add to the explorer
+  bc09ef9032b412a7  s selection card. A week given here is the student
+  0ebe06048585c52f  s selection card: where the selected structure sits in Revise. The studio names the selection
   d10676d5ce41f402  s topics under this week
   f290c69ba59f71b0  s underline, clear of Markmap
   1946ee43aab92871  screen, but with no top inset — the status bar is opaque, so the page starts below it and reaches the bottom. No band.
@@ -952,7 +953,6 @@
   a1c7213f9215c796  source.threadId must be hexadecimal.
   4ff53f9057f1ce39  steps back.
   88a595b7ebfe83fb  summary small
-  ed964bcd197f9142  tap to name
   f5f88ae39b9a5ceb  that structure
   8ef9472e82771a5b  the body frame
   4f6a3d859e615a5a  the skeleton
@@ -1008,8 +1008,8 @@
   cede9d46ada8b8f1  · found under "
   36a28bbb25a617bc  · modelled, but named in none of your course material
   b49836c27fde6f76  · opens all together
+  562f352323720f75  · opens in Revise
   4b74c9a1d1103c73  · simulated · tap to name
-  dbfe3f147332dc00  · tap to name them
   98702c9246db235b  · the page covers the status bar (top inset
   e22653df93982092  · viewport
   bbbede49d8c54941  — weeks 1–

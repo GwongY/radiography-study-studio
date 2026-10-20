@@ -7,7 +7,7 @@
 import { $$, esc } from './imports.js';
 import { openViewer, leaveProjection } from './what-is-under.js';
 import { renderRevise } from './revise.js';
-import { renderMore } from './more-sources-coverage.js';
+import { renderMore } from './more.js';
 import { renderToday } from './home.js';
 import { renderCourse } from './course-timetable.js';
 

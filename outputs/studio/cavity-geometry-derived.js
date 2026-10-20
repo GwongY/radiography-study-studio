@@ -5,7 +5,6 @@
  */
 import { BODY_CONCEPTS, boundsOf, buildCavityGeometry, conceptLeaves, createResolver, gridBounds, measureGrid, measureLandmarks, state } from './imports.js';
 import { calloutAt, labelSprite } from './spatial-concept-overlays.js';
-import { meshesFor } from './search-viewer-frame.js';
 import { anatomicalMatrix } from './packed-spread.js';
 
 /* ------------------------------------------------------------------ *

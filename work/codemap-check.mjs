@@ -60,9 +60,9 @@ if (existsSync(mapPath)) {
     'the generator still finds the sections it maps — if this fails, teach work/codemap.mjs about the extracted files');
 }
 
-console.log('\u2014 the counts CLAUDE.md states by hand are the counts on disk \u2014');
+console.log('\u2014 the counts docs/LAYOUT.md states by hand are the counts on disk \u2014');
 /*
- * CLAUDE.md is the one file every session loads, and two of its numbers are
+ * docs/LAYOUT.md (until 2026-10-20 part of CLAUDE.md) has two numbers
  * kept by hand: how many parts study/ and studio/ are split into. Everything
  * around them is generated and checked, which is exactly why nobody noticed
  * when they rotted — 9 studio parts against 10. A number in a guide nobody
@@ -72,7 +72,7 @@ console.log('\u2014 the counts CLAUDE.md states by hand are the counts on disk \
  * Counted from disk, not from prose.
  */
 const countJs = (dir) => readdirSync(join(root, dir)).filter((f) => f.endsWith('.js')).length;
-const claude = readFileSync(join(root, 'CLAUDE.md'), 'utf8');
+const claude = readFileSync(join(root, 'docs', 'LAYOUT.md'), 'utf8');
 
 const claims = [
   { what: 'study/ parts',  re: /The study system, (\d+) parts/,                  got: () => countJs('outputs/study') },
@@ -81,12 +81,12 @@ const claims = [
 
 for (const c of claims) {
   const stated = claude.match(c.re);
-  if (!stated) { ok(false, `${c.what}: CLAUDE.md no longer states this in the form this check reads`); continue; }
+  if (!stated) { ok(false, `${c.what}: docs/LAYOUT.md no longer states this in the form this check reads`); continue; }
   const actual = c.got();
   if (actual === null) continue;
   const agree = Number(stated[1]) === actual;
-  ok(agree, `${c.what}: CLAUDE.md says ${stated[1]}, disk says ${actual}` +
-    (agree ? '' : ' — fix the number in CLAUDE.md'));
+  ok(agree, `${c.what}: docs/LAYOUT.md says ${stated[1]}, disk says ${actual}` +
+    (agree ? '' : ' — fix the number in docs/LAYOUT.md'));
 }
 
 console.log(fail ? `\n${fail} FAILED` : '\nALL PASS');

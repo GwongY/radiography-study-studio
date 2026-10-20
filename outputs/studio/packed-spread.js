@@ -1,5 +1,5 @@
 /* Packed course pieces — presentation parents keep mesh highlight transforms intact. */
-import { els, state } from './imports.js';
+import { state } from './imports.js';
 import { createExplosionLayout } from './explosion-layout.js';
 import { setPhysiology } from './live-physiology.js';
 
@@ -31,7 +31,8 @@ export function endPackedSpread(){
     state.controls.target.copy(saved.target);
     state.controls.maxDistance=saved.maxDistance;
     state.camera.far=saved.far;
-    state.motionEnabled=saved.motion;
+    state.motionEnabled=saved.motion;
+
     if(saved.physiology)setPhysiology(true);
     state.camera.updateProjectionMatrix();
     state.controls.update();
@@ -46,7 +47,8 @@ export function applyPackedSpread(t){
   if(!state.packedView){
     state.packedView={position:state.camera.position.clone(),target:state.controls.target.clone(),
       maxDistance:state.controls.maxDistance,far:state.camera.far,motion:state.motionEnabled,physiology:!!state.flow?.on};
-    state.motionEnabled=false;
+    state.motionEnabled=false;
+
     if(state.flow?.on)setPhysiology(false);
   }
   const shown=meshes().filter(visible);

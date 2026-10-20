@@ -4,7 +4,7 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$, abbrGloss, decompose, esc, memoryTip, partOf, termGloss, termNote } from './imports.js';
-import { openDialog } from './dialog-behaviour-applied.js';
+import { openDialog } from './dialogs.js';
 
 /* ------------------------------------------------------------------ *
  * Reading help

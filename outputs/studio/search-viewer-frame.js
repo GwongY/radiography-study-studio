@@ -4,11 +4,11 @@
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $, els, state, systemsIn } from './imports.js';
-import { applyLayers, clearStudyFocus, normName } from './live-physiology.js';
-import { applyVisibility, getRecord } from './region-boxes-how.js';
-import { clean, clearHighlight, courseChipHTML, renderRegions, selectBone, showToast } from './visualisation-modes.js';
+import { applyLayers, normName } from './live-physiology.js';
+import { applyVisibility, getRecord } from './scene.js';
+import { clearHighlight, courseChipHTML, renderRegions, selectBone, showToast } from './modes-and-bridge.js';
 import { enforceHidden, hiddenName, publishHidden } from './hide-and-search.js';
-import { loadExtraModel, pick } from './depth-picking.js';
+import { loadExtraModel } from './depth-picking.js';
 import { showPickCallout } from './spatial-concept-overlays.js';
 import { modelSearchNames, namedSide, viewerStructureName } from '../search-name.js';
 
@@ -97,7 +97,6 @@ export async function revealStructure(spec){
   state.autoHidden.clear();
   if(state.isolated){state.isolated=false;$('isolateBtn')?.classList.remove('active');}
   state.scene.updateMatrixWorld(true);
-  clearStudyFocus && clearStudyFocus();
   let targets=[];
   if(spec.id){
     const rec=getRecord(spec.id);

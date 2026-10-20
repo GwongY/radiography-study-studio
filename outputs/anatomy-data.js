@@ -26,7 +26,7 @@ export const REGIONS = [
      Named after the module that teaches it, exactly as 'skull' is labelled
      after Module 4.2: HSS2011 teaches the abdomen and the pelvis together, in
      '2.3 Regional Anatomy of the Abdominopelvic.pdf', titled "Abdomen &
-     Pelvis". Its box is measured in studio/region-boxes-how.js, and spans
+     Pelvis". Its box is measured in studio/scene.js, and spans
      precisely what the nine-region grid is painted on.
      bones:false keeps it out of the derived "In which region does the X sit?"
      question, which is asked about bones and offers every region as an option.
@@ -40,7 +40,7 @@ export const REGIONS = [
      could answer: Vertebral column shows the bones and nothing that lies on
      them, and no filter showed the muscles that a lumbar or cervical
      projection is actually looking through.
-     Defined, precisely, in studio/region-boxes-how.js: everything posterior to
+     Defined, precisely, in studio/scene.js: everything posterior to
      the front of the vertebral column at its own height. That boundary is
      measured from the column itself, band by band, because the column travels
      several centimetres forward and back between the neck and the sacrum and

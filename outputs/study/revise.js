@@ -23,13 +23,14 @@ import { scrollViewTop, showView } from './small-ui-helpers.js';
 import { glossifyNode } from './reading-help.js';
 import { bindLinkList, markLinkRow, renderLinkList } from './revise-links.js';
 import { DEFAULT_SUBJECT, REVISION } from '../revision/registry.js?v=1';
-import { autoWeek, firstWeek, lastWeekOf, newIds, pruneTree, releasedLast, resolveWeek, visibleEdges, visibleIds } from '../revision/weeks.js?v=1';
+import { autoWeek, lastWeekOf, newIds, pruneTree, releasedLast, resolveWeek, visibleEdges, visibleIds } from '../revision/weeks.js?v=1';
 import { linkRows } from '../revision/link-rows.js?v=1';
 import { describe } from '../revision/describe.js?v=1';
 import { OWN } from '../revision/own-words.js?v=1';
 import { crossFor, legendKeys, viewerEligible } from '../revision/rules.js?v=1';
 import { CROSS } from '../revision/cross-links.js?v=1';
-import { searchHits } from './global-search-one.js';
+import { UNIT_BOXES, VIEWER_UNITS } from '../revision/viewer-units.js?v=1';
+import { openUnitInViewer } from './global-search.js';
 import { createBrain } from './revise-brain.js';
 
 /* ------------------------------------------------------------------ *
@@ -87,16 +88,38 @@ function calendarWeek() {
 }
 /* Auto means the last week fully taught, not the one running: during week 8 it shows weeks 1-7, and week 8 joins
    on the Sunday that closes it (so the date is read a day ahead and one week is taken off). */
-function autoNow() {
+function autoNow(last = rv.last) {
   const c = calendarWeek();
   const ahead = weekOf(new Date(Date.now() + 864e5));
-  return autoWeek(ahead == null ? null : Math.max(1, ahead - 1), c.before, rv.last);
+  return autoWeek(ahead == null ? null : Math.max(1, ahead - 1), c.before, last);
 }
 
-function savedPref() {
-  const p = read(prefKey(), null);
+function savedPref(subject = rv.subject) {
+  const p = read(`${STORAGE_PREFIX}revise:${subject}`, null);
   return p && typeof p === 'object' ? p : null;
 }
+
+/* The week Revise shows a subject at, whether or not Revise has been opened: the student's
+   saved choice, else the calendar. Today, search and the viewer gate what they offer by it. */
+export function weekFor(subject) {
+  const sub = REVISION[subject];
+  if (!sub) return null;
+  if (rv.mounted && subject === rv.subject) return rv.week;
+  const last = releasedLast(lastWeekOf(sub.data), sub.released);
+  return resolveWeek(savedPref(subject), autoNow(last), last).week;
+}
+const visCache = new Map();
+function visibleAt(subject, week) {
+  const k = `${subject}:${week}`;
+  if (!visCache.has(k)) visCache.set(k, visibleIds(REVISION[subject].data, week));
+  return visCache.get(k);
+}
+const nodeCache = new Map();
+function nodeOf(subject, id) {
+  if (!nodeCache.has(subject)) nodeCache.set(subject, new Map(REVISION[subject].data.NODES.map((n) => [n.id, n])));
+  return nodeCache.get(subject).get(id) || null;
+}
+const firstWk = (n) => Math.min(...n.w);
 
 /* Choose a week. mode 'manual' sticks; 'auto' goes back to following the calendar. */
 export function setWeek(n, mode) {
@@ -254,13 +277,11 @@ function weeksTags(n) {
   return n.w.slice().sort((a, b) => a - b).filter((x) => x <= rv.week).map((x) => `<span class="rv-tag">Week ${x}</span>`).join('');
 }
 
-/* The viewer's own search says whether it has this structure; the button runs the same jump a search result does. */
-function viewerHit(label) {
-  const norm = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-  const want = norm(label);
-  let hit = null;
-  try { hit = searchHits(label).find((h) => h.kind === 'Structure' && (norm(h.title) === want || norm(h.title).startsWith(`${want} `))) || null; } catch { hit = null; }
-  return hit;
+/* The viewer unit for a box: a lookup in outputs/revision/viewer-units.js, generated and checked by
+   work/build-revision-units.mjs and revision-check. No unit, no button. */
+function viewerUnit(id, subject = rv.subject) {
+  const u = VIEWER_UNITS[subject] && VIEWER_UNITS[subject][id];
+  return u == null ? null : u;
 }
 
 function renderPanel(id, el) {
@@ -278,7 +299,7 @@ function renderPanel(id, el) {
       grand: ix.LABEL[ix.PARENT[ix.PARENT[id]]] || '',
     }))}</p>` : '';
     h += `<div class="rv-note">${said}${n.t}</div>`;
-    const vh = viewerEligible(n) ? viewerHit(n.l) : null;
+    const vh = viewerEligible(n) ? viewerUnit(id) != null : false;
     h += `<p class="rv-to3d"><button type="button" class="rv-linkbtn" data-to3d="${esc(id)}">Connections in 3D (${(ix.NB[id] || []).length})</button>${vh ? ` <button type="button" class="rv-linkbtn" data-toviewer="${esc(id)}">Show in the viewer</button>` : ''}</p>`;
     /* The owner's answer 8: the same thing in the other subject, once its week is reached. Tapping switches subject. */
     const cross = crossFor(CROSS, rv.subject, id, rv.week, firstWeekIn);
@@ -947,13 +968,30 @@ export function renderRevise() {
   if (rv.tab === 'map') ensureMap().then(() => map.shown());
 }
 
+/* The viewer's selection card: where the selected structure sits in Revise. The studio names the selection's
+   units (__osteo.selectedUnits); outputs/revision/viewer-units.js says which boxes they are. */
+function paintSelectedRevise() {
+  const slot = $$('selectedRevise');
+  if (!slot) return;
+  const units = window.__osteo && window.__osteo.selectedUnits ? window.__osteo.selectedUnits() : [];
+  const boxes = units.length ? reviseBoxesFor(units) : [];
+  slot.hidden = !boxes.length;
+  slot.innerHTML = boxes.length ? `<div class="info-label">In Revise</div>${boxes.map((b) => `<button type="button" class="sel-revise-btn" data-openrevise="${esc(b.subject)}" data-openreviseid="${esc(b.id)}">${esc(b.label)} <small>${esc(b.name)}, week ${b.week} →</small></button>`).join('')}` : '';
+}
+
 export function init() {
   document.addEventListener('visibilitychange', () => { if (!document.hidden) followCalendar(); });
+  const selName = $$('selectedName');
+  if (selName && typeof MutationObserver === 'function') new MutationObserver(paintSelectedRevise).observe(selName, { childList: true, characterData: true, subtree: true });
+  document.addEventListener('click', (ev) => {
+    const b = ev.target.closest && ev.target.closest('[data-openrevise]'); if (!b) return;
+    openRevise({ subject: b.dataset.openrevise, id: b.dataset.openreviseid });
+  });
   /* "Show in the viewer" in the notes, on the Map and on Brain 3D alike */
   document.addEventListener('click', (ev) => {
     const b = ev.target.closest && ev.target.closest('[data-toviewer]'); if (!b) return;
-    const n = ix.byId[b.dataset.toviewer]; const h = n && viewerEligible(n) && viewerHit(n.l);
-    if (h) h.go();
+    const n = ix.byId[b.dataset.toviewer]; const u = n && viewerEligible(n) ? viewerUnit(n.id) : null;
+    if (u != null) openUnitInViewer(u);
   });
   /* A link into the other subject: switch to it, at this week if the far box needs it, and open the box. */
   document.addEventListener('click', async (ev) => {
@@ -965,6 +1003,118 @@ export function init() {
     showTab('map');
     await ensureMap(); /* the Jump menu's listener lives in the map (createMap) */
     const j = $$('rvJump'); j.value = b.dataset.crossid; j.dispatchEvent(new Event('change'));
+  });
+}
+
+/* ------------------------------------------------------------------ *
+ * Ways in from the rest of the app
+ * ------------------------------------------------------------------ */
+
+const STOP = new Set(['lecture', 'tutorial', 'system', 'systems', 'the', 'and', 'of', 'to', 'in', 'a', 'body']);
+const wordsOf = (t) => new Set(String(t || '').toLowerCase().split(/[^a-z]+/).map((w) => w.replace(/s$/, '')).filter((w) => w.length > 2 && !STOP.has(w)));
+/* The branch a lecture filled: the one sharing a word with the session's title ("Digestive System" -> Digestive
+   system), else the one holding at least half of what joined that week. Neither: no branch, just the week. */
+function lectureBranch(week, title) {
+  const branches = (ix.KIDS.root || []).filter((b) => b in ix.PARENT);
+  const want = wordsOf(title);
+  const named = want.size ? branches.filter((b) => [...wordsOf(ix.LABEL[b])].some((w) => want.has(w))) : [];
+  if (named.length === 1) return named[0];
+  let best = null, bestN = 0, total = 0;
+  branches.forEach((b) => {
+    const n = [b, ...descendantsOf(b)].filter((k) => ix.byId[k] && firstWk(ix.byId[k]) === week).length;
+    total += n;
+    if (n > bestN) { best = b; bestN = n; }
+  });
+  return bestN && bestN * 2 >= total ? best : null;
+}
+
+/*
+ * Open Revise at a subject, a week and, if given, one box -- from a Course session row, Today, search or the
+ * viewer's selection card. A week given here is the student's choice, so it sticks as a manual week unless it
+ * is the calendar's own; a box not taught by the week shown moves the week to the one that teaches it.
+ * tab 'decoder' with q opens the Decoder filtered to that word.
+ */
+export async function openRevise({ subject, week, id, title, tab, q } = {}) {
+  renderRevise();
+  scrollViewTop();
+  if (subject && REVISION[subject] && subject !== rv.subject) setSubject(subject);
+  const pick = (w) => { if (w !== rv.week) setWeek(w, w === autoNow() ? 'auto' : 'manual'); };
+  if (Number(week) > 0) pick(Math.min(Number(week), rv.last));
+  if (id && ix.byId[id] && !ix.ids.has(id) && firstWk(ix.byId[id]) <= rv.last) pick(firstWk(ix.byId[id]));
+  if (tab === 'decoder' && !$$('rvTabDecoder').hidden) {
+    showTab('decoder');
+    const dq = $$('rvdq');
+    if (dq && q) { dq.value = q; filterDecoder(); }
+    return true;
+  }
+  showTab('map');
+  const m = await ensureMap();
+  if (!m.ready()) return false;
+  const target = id && ix.ids.has(id) ? id : (Number(week) > 0 ? lectureBranch(rv.week, title) : null);
+  if (target && target in ix.PARENT) await m.reveal(target);
+  return true;
+}
+
+/* Decoder words per subject, read once from its fragment: [{ term, wk }]. */
+const decoderCache = new Map();
+function decoderTerms(subject) {
+  if (!decoderCache.has(subject)) {
+    const html = REVISION[subject].decoder || '';
+    const rows = [...html.matchAll(/<tr data-wk="(\d+)"><td>([\s\S]*?)<\/td>/g)]
+      .map((m) => ({ wk: Number(m[1]), term: m[2].replace(/<[^>]+>/g, '').trim() })).filter((r) => r.term);
+    decoderCache.set(subject, rows);
+  }
+  return decoderCache.get(subject);
+}
+
+/* Global search: the Revise boxes and Decoder words taught by the week each subject shows. */
+export function reviseSearch(needle) {
+  const q = String(needle || '').trim().toLowerCase();
+  if (q.length < 3) return [];
+  const out = [];
+  for (const [subject, sub] of Object.entries(REVISION)) {
+    const week = weekFor(subject);
+    const vis = visibleAt(subject, week);
+    sub.data.NODES.forEach((n) => {
+      if (!vis.has(n.id)) return;
+      const l = n.l.toLowerCase();
+      if (!l.includes(q)) return;
+      out.push({ rank: l === q ? 0 : l.startsWith(q) ? 1 : 2, hit: { kind: 'Revise', title: n.l,
+        note: `${sub.copy.name} · ${n.leaf || 'topic'} · week ${firstWk(n)} · opens in Revise`,
+        go: () => openRevise({ subject, id: n.id }) } });
+    });
+    decoderTerms(subject).forEach((r) => {
+      if (r.wk > week || !r.term.toLowerCase().includes(q)) return;
+      out.push({ rank: 3, hit: { kind: 'Decoder', title: r.term, note: `${sub.copy.name} Decoder · week ${r.wk}`,
+        go: () => openRevise({ subject, tab: 'decoder', q: r.term }) } });
+    });
+  }
+  return out.sort((a, b) => a.rank - b.rank || a.hit.title.length - b.hit.title.length).slice(0, 12).map((r) => r.hit);
+}
+
+/* The viewer's way back: the boxes for these units, in each subject, that the week shown has taught. */
+export function reviseBoxesFor(unitIds) {
+  const seen = new Set();
+  const out = [];
+  for (const u of unitIds) {
+    for (const [subject, id] of UNIT_BOXES.get(u) || []) {
+      const key = `${subject}:${id}`;
+      if (seen.has(key) || !visibleAt(subject, weekFor(subject)).has(id)) continue;
+      seen.add(key);
+      const n = nodeOf(subject, id);
+      out.push({ subject, id, label: n.l, week: firstWk(n), name: REVISION[subject].copy.name });
+    }
+  }
+  return out;
+}
+
+/* Today: per subject, what joined Revise in the week it shows, topics before rows. */
+export function newToLink() {
+  return Object.entries(REVISION).map(([subject, sub]) => {
+    const week = weekFor(subject);
+    const fresh = [...newIds(sub.data, week)].map((id) => nodeOf(subject, id)).filter(Boolean)
+      .sort((a, b) => (a.leaf ? 1 : 0) - (b.leaf ? 1 : 0));
+    return { subject, name: sub.copy.name, week, count: fresh.length, first: fresh.slice(0, 3).map((n) => ({ id: n.id, label: n.l })) };
   });
 }
 

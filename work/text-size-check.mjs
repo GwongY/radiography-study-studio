@@ -173,7 +173,7 @@ console.log('\n— the sizes written inline in the templates scale too —');
 const TEMPLATES = ['radiography-study-studio.html', 'study/subject.js',
   'study/spatial-overlay-controls.js', 'study/what-is-under.js',
   'study/course-timetable.js', 'study/viewer-tools.js',
-  'study/global-search-one.js', 'study/small-ui-helpers.js'];
+  'study/global-search.js', 'study/small-ui-helpers.js'];
 const INLINE_FIXED = [/class="ic"/, /id="mvBarTitle"/];
 let inlineOk = 0;
 for (const rel of TEMPLATES) {

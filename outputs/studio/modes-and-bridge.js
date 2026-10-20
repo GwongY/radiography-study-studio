@@ -5,12 +5,12 @@
  */
 import { viewerStructureName } from '../search-name.js';
 import { $, BODY_CONCEPTS, CM_PER_UNIT, FLOW_CLASSES, LAYER_NAMES, MESH_INDEX, REGIONS, conceptById, els, layerOf, mu, state } from './imports.js';
-import { XRAY_LAYERS, XRAY_LAYER_FILES, applyLayers, clearStudyFocus, endMovement, enterXray, exitXray, focusPhysiologyExample, focusStructures, highlightExtra, setExtraVisible, setLayer, setMovementAngle, setPhysiology, setXrayAec, setXrayKvp, setXrayMas, setXrayRegion, setXrayView, setXrayWindow, setXrayZoom, startMovement, unitFor, xrayDepthMaterial } from './live-physiology.js';
-import { applyVisibility, boot3D, getRecord, resize } from './region-boxes-how.js';
+import { XRAY_LAYERS, XRAY_LAYER_FILES, applyLayers, endMovement, enterXray, exitXray, setExtraVisible, setLayer, setMovementAngle, setPhysiology, setXrayAec, setXrayKvp, setXrayMas, setXrayRegion, setXrayView, setXrayWindow, setXrayZoom, startMovement, unitFor, xrayDepthMaterial } from './live-physiology.js';
+import { applyVisibility, boot3D, getRecord, resize } from './scene.js';
 import { bodyMetrics, ensureConceptGroup, showPickCallout } from './spatial-concept-overlays.js';
-import { buildCavity, buildCellGrid, buildPlane, cavityContext, cavityStyle, layerSignature } from './cavity-geometry-derived.js';
+import { buildCavity, buildCellGrid, buildPlane, cavityContext, cavityStyle } from './cavity-geometry-derived.js';
 import { hiddenRows, hideMesh, publishHidden, unhide } from './hide-and-search.js';
-import { hideFromStack, loadExtraModel, pick, publishStack, restorePeel, selectFromStack, stackEntries } from './depth-picking.js';
+import { hideFromStack, loadExtraModel, publishStack, restorePeel, selectFromStack, stackEntries, pick } from './depth-picking.js';
 import { frameRegion, setSeparation } from './tools-and-capture.js';
 import { revealStructure } from './search-viewer-frame.js';
 
@@ -261,13 +261,11 @@ function closeHeartAtlasForAction(layerOnly = false) {
 
 window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootPromise=boot3D()}return state.bootPromise||Promise.resolve(!!state.scene)},resize,
   hide:(m)=>hideMesh(m||null),
-  hideSelected:()=>hideMesh(null),
   unhide:(t)=>unhide(t),
   hiddenList:()=>hiddenRows(),
   setHiddenHook:(fn)=>{state.hiddenHook=fn||null;publishHidden();},
   revealStructure:(spec)=>revealStructure(spec),
   showConcept:(id)=>showConcept(id),
-  hideConcept:(id)=>hideConcept(id),
   toggleConcept:(id)=>toggleConcept(id),
   toggleConceptKind:(k)=>showConceptKind(k),
   clearConcepts:()=>clearConcepts(),
@@ -284,15 +282,11 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   cavityModes:()=>CAVITY_MODES.map((m)=>({...m})),
   cavityMode:()=>state.cavityMode||'normal',
   setCavityMode:(m)=>applyCavityMode(m),
-  /* which optional layers are loaded — the card explains what loading one adds */
-  loadedLayers:()=>layerSignature().split(',').filter(Boolean),
   setConceptHook:(fn)=>{state.conceptHook=fn||null;publishConcepts();},
   startMovement:(mv)=>startMovement(mv),
   setMovementAngle:(d)=>setMovementAngle(d),
   endMovement:()=>endMovement(),
   movementState:()=>state.movement?{id:state.movement.mv.id,angle:state.movement.angle,moving:state.movement.restore.length}:null,
-  focusStructures:(spec)=>focusStructures(spec),
-  focusPhysiologyExample:(kind)=>focusPhysiologyExample(kind),
   /*
    * The beam's tissue layers, RESIDENT, before the projection is entered.
    *
@@ -329,16 +323,17 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   xrayZoom:(v)=>setXrayZoom(v),
   layerOpacity:()=>({...state.layerOpacity}),
   inXray:()=>!!state.xray,
-  setPickHook:(fn)=>{state.pickHook=fn||null},
   /* The panel subscribes; the viewer publishes the whole line of structures
      under the last tap, nearest first. */
   setStackHook:(fn)=>{state.stackHook=fn||null},
   pickStack:()=>stackEntries(),
+  /* The mesh-index study units of what is selected (ids carry them as ':u:<id>'), so the study half
+     can say where the selection sits in Revise. */
+  selectedUnits:()=>[...new Set([state.selectedId,...(state.selectionMeshes||[]).map(m=>m.userData&&m.userData.canonicalId)]
+    .map(id=>/:u:(\d+)/.exec(String(id||''))).filter(Boolean).map(m=>Number(m[1])))],
   pickFromStack:(i)=>selectFromStack(i),
   hideFromStack:(i)=>hideFromStack(i),
   clearPeel:()=>{restorePeel();publishStack()},
-  peelDepth:()=>state.peeled.length,
-  clearStudyFocus:()=>clearStudyFocus(),
   stageEl:()=>els.stage,
   setLayer:async(key,on,file)=>{
     if(!closeHeartAtlasForAction(true))return false;
@@ -354,14 +349,11 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
   layerState:()=>({...state.layers}),
   setPhysiology:(on)=>setPhysiology(on,true),
   physiologyOn:()=>state.flow.on,
-  /* How many meshes of each class a loaded layer turned out to hold -- the
-     legend prints the real count rather than a claim about the atlas. */
-  flowCounts:(key)=>key?{...(state.flow.counts[key]||{})}:JSON.parse(JSON.stringify(state.flow.counts)),
   /*
    * What is on screen RIGHT NOW, by flow class.
    *
-   * flowCounts above is a property of the FILE, counted once as it loaded, and
-   * two of the files now draw several chips each. With only Venous on, a
+   * The per-file counts are a property of the FILE, counted once as it loaded,
+   * and two of the files now draw several chips each. With only Venous on, a
    * legend built from the file printed the artery swatch and a count of 723
    * beside a screen with no arteries on it. This counts what is visible.
    */
@@ -371,11 +363,6 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
       .forEach(o=>{if(o.visible===false)return;const c=o.userData&&o.userData.flowClass;if(c)out[c]=(out[c]||0)+1});
     return out;
   },
-  flowClassOf:(id)=>{
-    const all=[...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)];
-    const hit=all.find(m=>m.userData.canonicalId===id);
-    return hit?hit.userData.flowClass||null:null;
-  },
   layerLoaded:(key)=>layerOf(key)==='skeleton'?!!state.fullModel:!!state.extraModels[layerOf(key)],
   setLayerOpacity:(key,v)=>{if(!closeHeartAtlasForAction(true))return;state.layerOpacity={...(state.layerOpacity||{}),[key]:v};applyLayers()},
   showSystem:async(key,file,options={})=>{
@@ -384,24 +371,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
     try{await loadExtraModel(key,file);setExtraVisible(key);return true}
     catch(e){showToast(options.failureMessage||'Could not load that model — the skeleton is still available.');return false}
   },
-  selectInSystem:async(key,file,meshName)=>{
-    if(!closeHeartAtlasForAction())return false;
-    try{
-      const m=await loadExtraModel(key,file);
-      setExtraVisible(key);
-      const norm=s=>String(s||'').toLowerCase().replace(/[()'’]/g,'').replace(/[_\-.,]+/g,' ').replace(/\s+/g,' ').trim();
-      const want=norm(meshName);
-      let hit=null;
-      for(const cand of [want,want+'l',want+'r']){
-        hit=m.meshes.find(o=>norm(o.userData.label||o.name)===cand);
-        if(hit)break;
-      }
-      if(!hit)hit=m.meshes.find(o=>norm(o.userData.label||o.name).startsWith(want));
-      if(!hit)return false;
-      highlightExtra(hit);
-      return true;
-    }catch(e){return false}
-  },select:(id)=>{const r=getRecord(id);if(r)selectBone(r.id)},selectMesh:(meshName,preferSide)=>{
+  select:(id)=>{const r=getRecord(id);if(r)selectBone(r.id)},selectMesh:(meshName,preferSide)=>{
     /*
      * Target one of the 277 atlas meshes by its source name. The loader
      * normalises names on import: "Scaphoid bone.r" arrives as "Scaphoid_boner",

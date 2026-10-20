@@ -5,15 +5,15 @@ export default async function(){
   const {openViewer}=await import('./study/what-is-under.js');
   const {renderViewerTools}=await import('./study/viewer-tools.js');
   const {BONE_LANDMARKS,boneLandmarkKey,surfaceLandmarks}=await import('./bone-landmarks.js');
-  const {focusSelected,applyVisibility}=await import('./studio/region-boxes-how.js');
+  const {focusSelected,applyVisibility}=await import('./studio/scene.js');
   const {updateHudSprites}=await import('./studio/spatial-concept-overlays.js');
-  const {onBonePicked,openDetail}=await import('./studio/visualisation-modes.js');
-  const {getRecord}=await import('./studio/region-boxes-how.js');
+  const {onBonePicked,openDetail}=await import('./studio/modes-and-bridge.js');
+  const {getRecord}=await import('./studio/scene.js');
   const {viewerStructureName}=await import('./search-name.js');
   openViewer();await window.__osteo.boot();
   const o=window.__osteo,s=o.state,T=s.THREE;
   s.motionEnabled=false;s.fullModel.rotation.y=0;
-  o.clearStudyFocus();o.setSeparation(0);s.mode='explore';s.isolated=false;
+  o.setSeparation(0);s.mode='explore';s.isolated=false;
   await o.setLayer('axial',true);await o.setLayer('appendicular',true);
   renderViewerTools();
   const slider=(key,pct)=>{

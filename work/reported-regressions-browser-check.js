@@ -1,3 +1,7 @@
+// STALE (2026-10-20): this check drives focusPhysiologyExample / focusStructures,
+// the lesson-era study focus removed with the Learn tab, and it expects muscles
+// to animate, which stopped in 45bc9bf. It already failed on master before the
+// removal. Rewrite it against the current viewer before relying on it.
 // Run in a fresh, isolated dev-server Chrome tab. Re-run after reload as well.
 async function reportedRegressionsBrowserCheck() {
   const failures = [], evidence = {};
@@ -25,7 +29,7 @@ async function reportedRegressionsBrowserCheck() {
   const {loadExtraModel} = await import('/studio/depth-picking.js');
   const {STRUCTURE_MODELS} = await import('/study/course-data.js');
   for (const key of ['muscle','nervous','organs']) await loadExtraModel(key, STRUCTURE_MODELS[key].file);
-  const {selectBone} = await import('/studio/visualisation-modes.js');
+  const {selectBone} = await import('/studio/modes-and-bridge.js');
   for (const m of [s.fullMeshes.find(m=>/femur/i.test(m.name)), s.extraModels.muscle.meshes.find(m=>m.userData.flowClass==='muscle')]) {
     try { selectBone(m.userData.canonicalId,m.userData.side); check(s.pickGroup?.children.length > 0, `${m.name}: missing tap label`); }
     catch(e) { failures.push(`${m.name}: ${e.message}`); }

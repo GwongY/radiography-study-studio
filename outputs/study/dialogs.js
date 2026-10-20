@@ -4,7 +4,7 @@
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $$ } from './imports.js';
-import { closeSearchSheet, openSearchSheet, runSearch, searchKeydown } from './global-search-one.js';
+import { closeSearchSheet, openSearchSheet, runSearch, searchKeydown } from './global-search.js';
 import { handleBriefingAccessSave, handleBriefingDisconnect, renderBriefingAccessDialog } from './briefing-access.js';
 import { forgetBriefing, paintBriefing, refreshBriefing } from './weekly-briefing.js';
 import { renderToday } from './home.js';

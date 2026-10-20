@@ -16,7 +16,7 @@
  *
  * THREE RULES, each of which cost something to learn elsewhere in this app:
  *
- * 1. ORDERED, first match wins. `outputs/studio/region-boxes-how.js` records
+ * 1. ORDERED, first match wins. `outputs/studio/scene.js` records
  *    what an unordered object-literal classifier did to the toe phalanges.
  *    Order here is argued in the comment above each list.
  *
@@ -154,7 +154,7 @@ const RULES = { circulatory: CIRCULATORY, organs: ORGANS, skeleton: SKELETON, mu
  * The oropharynx and the laryngopharynx are the crossing point: food and air
  * both pass through them, and a student asked to trace either route needs to
  * see them on either chip. They classify as digestive above and are ADDED to
- * respiratory here -- the same shape as REGION_ALSO in region-boxes-how.js,
+ * respiratory here -- the same shape as REGION_ALSO in scene.js,
  * where the sacrum belongs to the column and to the pelvic ring at once.
  *
  * Nothing else is dual. The pancreas is endocrine as well as exocrine, but its

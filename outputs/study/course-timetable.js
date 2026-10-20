@@ -25,7 +25,7 @@ import {
 import { showView } from './small-ui-helpers.js';
 import { setActiveNav } from './navigation-destinations.js';
 import { K, read, store, write } from './storage-versioned-keys.js';
-import { renderRevise } from './revise.js';
+import { openRevise } from './revise.js';
 import { REVISION } from '../revision/registry.js?v=1';
 import { lastWeekOf, releasedLast } from '../revision/weeks.js?v=1';
 import { PROGRAMME, PROGRAMME_TERMS, semLabel, semesterCredits, subjectsOf } from '../programme.js?v=1';
@@ -82,7 +82,7 @@ function sessionRow(r, now) {
   const lessons = s.noStudy
     ? `<span class="nostudy">${teachingGap ? 'Official notes missing — see weekly gap' : 'Nothing to revise on this administrative row'}</span>`
     : REVISION[s.subject] && ['past', 'now', 'open'].includes(r.status) && s.week <= releasedLast(lastWeekOf(REVISION[s.subject].data), REVISION[s.subject].released)
-      ? '<button class="ghost tolesson" data-revise="1">Revise →</button>' : '';
+      ? `<button class="ghost tolesson" data-revise="1" data-subject="${esc(s.subject)}" data-week="${esc(s.week)}" data-title="${esc(s.title)}">Revise →</button>` : '';
 
   return `<li class="sessrow ${esc(r.status)}${other ? ' otherg' : ''}" style="--acc:${esc(subjectAccent(s.subject))}">
     <div class="sesswhen">
@@ -386,7 +386,8 @@ export function renderCourse() {
     b.onclick = () => { setGroup(b.dataset.groupset, b.dataset.groupopt); renderCourse(); };
   });
   $$('courseView').querySelectorAll('[data-revise]').forEach((b) => {
-    b.onclick = () => renderRevise();
+    /* that session's subject and week, opened on the branch its lecture filled where that can be told */
+    b.onclick = () => openRevise({ subject: b.dataset.subject, week: Number(b.dataset.week), title: b.dataset.title });
   });
 }
 

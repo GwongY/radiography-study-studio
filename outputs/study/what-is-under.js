@@ -5,7 +5,6 @@
  */
 import { $$, esc, ui } from './imports.js';
 import { BODY_LAYERS, GHOST_OPACITY, layerState, renderLayerRail } from './subject.js';
-import { read } from './storage-versioned-keys.js';
 import { renderHiddenTray } from './hidden-tray.js';
 import { renderOverlayCard } from './spatial-overlay-controls.js';
 import { setActiveNav } from './navigation-destinations.js';
@@ -158,7 +157,6 @@ export function leaveProjection() {
 }
 async function syncLayersToRail() {
   if (!window.__osteo || !window.__osteo.setLayer) return;
-  if (window.__osteo.clearStudyFocus) window.__osteo.clearStudyFocus();
   for (const l of BODY_LAYERS) {
     if (ui.viewerTab !== '3d') return;
     const st = layerState[l.key] || 'off';

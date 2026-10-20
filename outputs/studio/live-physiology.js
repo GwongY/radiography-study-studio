@@ -6,9 +6,9 @@
 import { viewerStructureName } from '../search-name.js';
 import { lectureRow } from '../viewer-lecture-names.js';
 import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CIRCUITS, FLOW_CLASSES, GRAZE_CLAMP, RATES, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, avValveEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, fluence, mottleSigma, mu, prefersStill, semilunarEnvelope, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
-import { MEMORY_TIPS, clean, clearHighlight, openDetail, regionLabel, selectBone, showToast } from './visualisation-modes.js';
-import { animate, applyVisibility, getRecord } from './region-boxes-how.js';
-import { clearSelection, loadExtraModel, restorePeel } from './depth-picking.js';
+import { MEMORY_TIPS, clearHighlight, openDetail, regionLabel, selectBone, showToast } from './modes-and-bridge.js';
+import { applyVisibility, getRecord, animate } from './scene.js';
+import { clearSelection, restorePeel } from './depth-picking.js';
 import { enforceHidden } from './hide-and-search.js';
 import { showPickCallout } from './spatial-concept-overlays.js';
 import { setSeparation } from './tools-and-capture.js';
@@ -632,9 +632,6 @@ export function applyConnectiveVisibility(){
   if(!state.flow||!state.flow.connective) return;
   const show=!state.flow.on;
   state.flow.connective.forEach(m=>{ m.visible=show&&(!state.isolated||!state.selectedId||state.selectionMeshes.includes(m)); });
-  if(state.focus?.keep){
-    Object.values(state.extraModels).forEach(layer=>layer.meshes.forEach(m=>{if(!state.focus.keep.has(m))m.visible=false;}));
-  }
 }
 export function setPhysiology(on, explicit=false){
   if(explicit){state.flow.motionOptIn=!!on;state.flow.motionChoice=!!on;}
@@ -806,82 +803,9 @@ export function applyLayers(){
   if(typeof enforceHidden==='function')enforceHidden();
   updateStageMeta();
 }
-/*
- * Study focus.
- *
- * A lesson does not want the whole body -- it wants the four carpal rows, or
- * the heart valves, framed and named. focusStructures resolves names against a
- * layer, hides that layer's other meshes, ghosts the skeleton behind them for
- * context, and frames the camera on what is left.
- *
- * Names resolve exactly or with the glued side letter. Prefix a name with '~'
- * to match on containment instead -- "~vertebra" is how you ask for all 24 of
- * them without listing every one.
- */
+/* Names compared loosely: case, punctuation and underscores ignored. */
 export function normName(v){return String(v||'').toLowerCase().replace(/[()'’]/g,'').replace(/[_\-.,]+/g,' ').replace(/\s+/g,' ').trim()}
 export function layerPool(key){return key==='skeleton'?state.fullMeshes:(state.extraModels[key]?.meshes||[])}
-function resolveMeshNames(key,names){
-  const pool=layerPool(key);
-  const out=new Set();
-  (names||[]).forEach(n=>{
-    const loose=String(n).startsWith('~');
-    const w=normName(loose?String(n).slice(1):n);
-    if(!w)return;
-    pool.forEach(o=>{
-      const l=normName(o.userData.label||o.name);
-      if(loose?l.includes(w):(l===w||l===w+'l'||l===w+'r'))out.add(o);
-    });
-  });
-  return [...out];
-}
-/*
- * The lesson borrows the canvas. It must not borrow the viewer's settings.
- *
- * There is one WebGL context and one scene, moved into the lesson card rather
- * than duplicated, so everything the viewer page was left in is still in force
- * when a lesson mounts. focusStructures already handles the LAYERS -- it turns
- * every chip off and its own back on. Five other pieces of viewer state were
- * not handled, and each of them can silently break the thing being taught:
- *
- *   the cut       renderer.clippingPlanes is global. A coronal cut left armed
- *                 in the viewer sliced the lesson's carpal bones in half.
- *   hidden meshes focusStructures ended by calling enforceHidden(), so a bone
- *                 hidden by hand in the viewer stayed hidden in the lesson
- *                 teaching that bone -- the worst case in the list, because
- *                 the card renders successfully and shows nothing.
- *   the region    a lesson with isolate:false is subject to it, so a femur
- *                 taught while the filter said Thorax did not appear.
- *   isolation     same expression, same result.
- *   an armed tool a tap on the stage places ink or a pin instead of naming
- *                 the structure, on a card whose caption says "tap to name".
- *
- * They are suspended, not discarded: the viewer is a workspace and the state
- * a reader set up in it is theirs. Everything goes back when the lesson lets
- * the canvas go. state.cut itself is untouched -- only the planes handed to
- * the renderer -- which is the same shape the projection view already uses.
- */
-export function suspendViewerState(){
-  if(state.studySuspended)return;
-  state.studySuspended={
-    region:state.region,isolated:state.isolated,tool:state.tool,
-    hidden:state.hidden,autoHidden:state.autoHidden,
-    clip:state.renderer?state.renderer.clippingPlanes:null,
-  };
-  state.region='all';state.isolated=false;state.tool=null;
-  state.hidden=new Set();state.autoHidden=new Set();
-  if(state.renderer)state.renderer.clippingPlanes=[];
-}
-export function resumeViewerState(){
-  const was=state.studySuspended;
-  if(!was)return false;
-  state.studySuspended=null;
-  state.region=was.region;state.isolated=was.isolated;state.tool=was.tool;
-  state.hidden=was.hidden;state.autoHidden=was.autoHidden;
-  if(state.renderer&&was.clip)state.renderer.clippingPlanes=was.clip;
-  return true;
-}
-/* Just the meshes. focusStructures calls THIS on its way in -- it is replacing
-   one focus with another and must not hand the viewer's state back mid-way. */
 function leaveHeartAtlasBeforeMode(layerOnly = false) {
   if (state.heartAtlasLoading) {
     showToast('The heart atlas is loading. Please wait.');
@@ -890,92 +814,6 @@ function leaveHeartAtlasBeforeMode(layerOnly = false) {
   if (layerOnly && state.enhancedHeartOn) return true; /* the enhanced heart survives layer changes only */
   if (state.heartAtlasOn && typeof window !== 'undefined') window.__osteo?.exitHeartAtlas?.();
   return !state.heartAtlasOn;
-}
-
-function releaseFocusMeshes(){
-  if(!state.focus)return false;
-  (state.focus.keys||[state.focus.key]).flatMap(layerPool).forEach(o=>{o.visible=true;if(o.material)o.material.emissive?.setHex(0x000000)});
-  state.focus=null;
-  return true;
-}
-export function clearStudyFocus(){
-  const had=releaseFocusMeshes();
-  /* Even when there was no focus to clear: a lesson whose names did not
-     resolve suspended the viewer's state on the way in and still owes it. */
-  const resumed=resumeViewerState();
-  if(had||resumed)applyLayers();
-}
-/* A focused mechanism keeps the actual participating structures in view. */
-export function focusPhysiologyExample(kind){
-  if(!leaveHeartAtlasBeforeMode())return false;
-  if(!['breathing','motor'].includes(kind)||!state.THREE)return false;
-  if(state.separation)setSeparation(0);
-  clearStudyFocus();clearSelection();suspendViewerState();
-  const keys=kind==='breathing'?['organs','muscle']:['nervous','muscle'];
-  const hits=keys.flatMap(key=>layerPool(key).filter(m=>kind==='breathing'
-    ?m.userData.flowClass==='diaphragm'||(key==='organs'&&/lobe.*lung/i.test(m.userData.label||m.name))
-    :!!motorRoute(key,m.userData.label||m.name)));
-  if(!hits.length){resumeViewerState();return false;}
-  state.focus={key:keys[0],keys,keep:new Set(hits),count:hits.length};
-  setPhysiology(true);applyLayers();
-  const box=new state.THREE.Box3();hits.forEach(m=>box.expandByObject(m));
-  const centre=box.getCenter(new state.THREE.Vector3()),size=box.getSize(new state.THREE.Vector3());
-  const dir=state.camera.position.clone().sub(state.controls.target).normalize();
-  state.controls.target.copy(centre);
-  state.camera.position.copy(centre).addScaledVector(dir,Math.max(size.x,size.y,size.z,.4)*2.6);
-  state.controls.update();
-  els.stageMeta.textContent=kind==='breathing'?'Breathing · diaphragm and lungs':'Motor transmission · deltoid, biceps and quadriceps · slowed';
-  return true;
-}
-export async function focusStructures(spec){
-  if(!leaveHeartAtlasBeforeMode())return {ok:false,reason:'atlas-loading',found:0};
-  if(state.separation)setSeparation(0);
-  if(!state.scene)return {ok:false,reason:'not-booted',found:0};
-  suspendViewerState();
-  const key=spec.layer||'skeleton';
-  if(key!=='skeleton'){
-    if(!state.extraModels[key]){
-      if(!spec.file)return {ok:false,reason:'no-file',found:0};
-      await loadExtraModel(key,spec.file);
-    }
-  }
-  releaseFocusMeshes();
-  const hits=resolveMeshNames(key,spec.meshes);
-  /* An unresolvable name must not silently show the whole body as if it were
-     the answer -- the caller shows a still diagram instead. */
-  if(!hits.length)return {ok:false,reason:'no-match',found:0};
-  Object.keys(state.layers).forEach(k=>{state.layers[k]=false});
-  /* focusStructures is called with a GLB LAYER key, so it turns on every chip
-     that file draws -- a lesson that focuses the organ layer must not have to
-     know which of the four organ systems its structures happen to fall in. */
-  const focusChips=systemsIn(key).map(s=>s.key);
-  focusChips.forEach(k=>{state.layers[k]=true});
-  state.layerOpacity={...(state.layerOpacity||{})};
-  focusChips.forEach(k=>{state.layerOpacity[k]=1});
-  if(spec.ghostBody&&key!=='skeleton'){setLayerChips('skeleton',true);chipsOf('skeleton').forEach(k=>{state.layerOpacity[k]=.16})}
-  applyLayers();
-  if(spec.isolate!==false){
-    const keep=new Set(hits);
-    layerPool(key).forEach(o=>{o.visible=keep.has(o)});
-  }
-  if(typeof enforceHidden==='function')enforceHidden();
-  const THREE=state.THREE;
-  hits.forEach(o=>{if(o.material)o.material.emissive?.setHex(0x14574f)});
-  if(THREE&&state.camera&&state.controls){
-    const box=new THREE.Box3();
-    hits.forEach(o=>box.expandByObject(o));
-    const c=box.getCenter(new THREE.Vector3());
-    const size=box.getSize(new THREE.Vector3());
-    const radius=Math.max(size.x,size.y,size.z,.4);
-    const dir=state.camera.position.clone().sub(state.controls.target).normalize();
-    const dist=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,radius*2.6));
-    state.controls.target.copy(c);
-    state.camera.position.copy(c).add(dir.multiplyScalar(dist));
-    state.controls.update();
-  }
-  state.focus={key,count:hits.length};
-  els.stageMeta.textContent=`${spec.label||LAYER_NAMES[key]||key} · ${hits.length} named mesh${hits.length===1?'':'es'} · tap to name them`;
-  return {ok:true,found:hits.length};
 }
 
 /*
@@ -1471,7 +1309,6 @@ export function exitXray(){
 export function setLayer(key,on){
   if(!leaveHeartAtlasBeforeMode(true))return;
   if(state.xray)return;
-  if(state.focus?.keep)clearStudyFocus();
   /* Meshes carried by a movement live under the pivot group, not their layer
      root, so a toggle mid-movement could not hide them. End it first. */
   if(state.movement)endMovement();
@@ -1769,9 +1606,23 @@ export function endMovement(){
   window.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&state.selectedId&&!document.getElementById('viewerView').classList.contains('hidden')&&!document.querySelector('dialog[open]'))clearSelection()});
   function restoreFromHash(){if(!location.hash)return;const m=location.hash.match(/^#detail\/([\w:-]+)/);if(!m||m[1]===state.lastDetailId)return;state.hashTries=(state.hashTries||0)+1;const record=getRecord(m[1]);if(!record){if(!state.fullMeshes.length&&state.hashTries<20)setTimeout(restoreFromHash,250);return}selectBone(record.id);openDetail(record)}
   window.addEventListener('hashchange',restoreFromHash);setTimeout(restoreFromHash,250);
-  const activeModelCopy=document.querySelector('#aboutDialog .about p');
-  if(activeModelCopy)activeModelCopy.innerHTML='<strong>Active model:</strong> a precise Z-Anatomy / BodyParts3D full skeleton, plus six further BodyParts3D layers — muscles, ligaments, organs, vessels, nerves and lymphatic — in the same registered body frame. The seven layers hold 4,474 named nodes, which collapse to <strong>1,686 named structures</strong>: the counts shown on the layer chips are structures, not meshes, because the same thing is exported once per side, again per duplicate, and again per sub-part. Tapping a sub-part selects the whole structure it belongs to. Each chip carries two numbers &mdash; <strong>612 of those 1,686 structures are named somewhere in your own HSS2011 / ABCT2326 material</strong>, and those are the names worth learning. Which file names each one is read off the taught and assessed documents by <code>work/build-course-terms.mjs</code>, not decided here; the set textbook is deliberately excluded, because a reference that names every structure in the body is no evidence that a name is examinable. The rest are still modelled, still searchable and still tappable &mdash; the search groups them rather than listing them beside the ones you are asked to know.';
+  fillAboutCounts();
 
+/* The About dialog's numbers, counted from the mesh index rather than typed:
+   typed counts went stale every time the index was rebuilt. */
+function aboutCounts(rows=MESH_INDEX,units=UNITS){
+  const c={rows:rows.length,units:units.length,named:0,group:0,lone:0};
+  units.forEach(u=>{if(u.kind==='course')c.named++;else if(u.kind==='group')c.group++;else if(u.kind==='lone')c.lone++;});
+  rows.forEach(r=>{
+    c['layer:'+r.layer]=(c['layer:'+r.layer]||0)+1;
+    if(r.tier===0){c.tier0=(c.tier0||0)+1;const ev='ev:'+(r.source?.evidence||'named');c[ev]=(c[ev]||0)+1;}
+  });
+  return c;
+}
+function fillAboutCounts(){
+  const counts=aboutCounts();
+  document.querySelectorAll('#aboutDialog [data-count]').forEach(el=>{el.textContent=(counts[el.dataset.count]||0).toLocaleString('en-GB');});
+}
 /* Runs after every part has evaluated — see the entry point. */
 export function init() {
   state.flow?.disposeMotionPreference?.();
@@ -1793,7 +1644,6 @@ export function init() {
       state.flow.disposeMotionPreference=()=>preference.removeListener(change);
     }
   }
-  state.focus=null;
   state.xray=null;
   state.movement=null;
 }

@@ -1,7 +1,7 @@
 # Responsive optimization — PC and iPad (landscape + portrait)
 
 Date: 2026-08-29
-Status: Approved design, pending implementation plan
+Status: Built — the tablet tier is the `(min-width:701px) and (max-width:1023px)` rules in `outputs/app.css` (checked 2026-10-20). The Learn drill-in it mentions is gone with the Learn tab.
 Scope: `radiography-study-studio.html` (CSS + three inline attributes) and `sw.js` (cache version bump)
 
 ## Problem
