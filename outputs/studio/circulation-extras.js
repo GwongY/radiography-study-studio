@@ -19,7 +19,7 @@
  * Nothing runs at module scope; init() publishes the API and starts the per-frame watcher.
  */
 import { state } from './imports.js';
-import { showToast } from './visualisation-modes.js';
+import { showToast } from './modes-and-bridge.js';
 import { enterEnhancedHeart } from './heart-atlas.js';
 
 let dots = null, dotsOn = false, dotsLoading = false;

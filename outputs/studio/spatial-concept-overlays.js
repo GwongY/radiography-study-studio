@@ -8,7 +8,7 @@ import { viewerStructureName } from '../search-name.js';
 import { BONE_LANDMARKS, boneLandmarkKey, surfaceLandmarks } from '../bone-landmarks.js';
 import { anatomicalMatrix } from './packed-spread.js';
 import { $, state } from './imports.js';
-import { disposeConceptObj } from './visualisation-modes.js';
+import { disposeConceptObj } from './modes-and-bridge.js';
 
 /* ------------------------------------------------------------------ *
  * Spatial concept overlays -- cavities, regions, quadrants, planes.

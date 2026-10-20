@@ -13,7 +13,7 @@
  */
 import { $, els, prefersStill, state } from './imports.js';
 import { applyLayers, setLayerChips } from './live-physiology.js';
-import { showToast } from './visualisation-modes.js';
+import { showToast } from './modes-and-bridge.js';
 
 const CIRC_FILE = './assets/dolasim.glb';
 let atlas = null;          // createHeartAtlas() result, built once

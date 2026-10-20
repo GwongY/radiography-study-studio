@@ -3,9 +3,9 @@ export default async function(){
   const assert=(ok,message)=>{if(!ok)throw new Error(message);};
   const {openViewer}=await import('./study/what-is-under.js');
   const {BODY_LAYERS}=await import('./study/subject.js');
-  const {onBonePicked}=await import('./studio/visualisation-modes.js');
+  const {onBonePicked}=await import('./studio/modes-and-bridge.js');
   const {clearSelection}=await import('./studio/depth-picking.js');
-  const {applyVisibility}=await import('./studio/region-boxes-how.js');
+  const {applyVisibility}=await import('./studio/scene.js');
   const {hideMesh}=await import('./studio/hide-and-search.js');
   const {setPhysiology}=await import('./studio/live-physiology.js');
   const {revealStructure}=await import('./studio/search-viewer-frame.js');

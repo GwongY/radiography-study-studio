@@ -5,8 +5,8 @@
  */
 import { $, els, state, systemsIn } from './imports.js';
 import { applyLayers, normName } from './live-physiology.js';
-import { applyVisibility, getRecord } from './region-boxes-how.js';
-import { clearHighlight, courseChipHTML, renderRegions, selectBone, showToast } from './visualisation-modes.js';
+import { applyVisibility, getRecord } from './scene.js';
+import { clearHighlight, courseChipHTML, renderRegions, selectBone, showToast } from './modes-and-bridge.js';
 import { enforceHidden, hiddenName, publishHidden } from './hide-and-search.js';
 import { loadExtraModel } from './depth-picking.js';
 import { showPickCallout } from './spatial-concept-overlays.js';

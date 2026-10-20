@@ -29,7 +29,7 @@ This specification documents the procedure to run whenever new material arrives 
 2. Compare content against the registered source for that slot (`node work/query.mjs pages <ref>` or `text <term>`):
    - **Genuinely new slot** (no current study items cover this week/topic) → Proceed to Steps 3 and 4 to register and author question items.
    - **Newer edition of a registered source** (e.g. 2026 slides vs 2025/2019 fallback) → Register as `<ref>.2026` (kind: `primary`). Demote old source to `older-supporting`. Re-point affected `sourceRefs` to the 2026 pages. Update question or Apply content only where the curriculum actually changed.
-   - **Format-twin or identical duplicate** → Register nothing. Record the verdict in `outputs/README.md` and stop.
+   - **Format-twin or identical duplicate** → Register nothing. Record the verdict in `docs/DECISIONS.md` and stop.
 
 ### Step 3: Register and Cache
 1. Add entry to `SOURCE_FILES` in [`outputs/study/corpus/schema.js`](file:///c:/Users/leung/Documents/Codex/2026-08-24/files-pasted-by-the-user-yes/outputs/study/corpus/schema.js):
@@ -53,7 +53,7 @@ This specification documents the procedure to run whenever new material arrives 
    - If this fills a documented gap, **delete the corresponding entry in `WEEK_GAPS.<SUBJECT>["<week>"]`**.
 
 ### Step 5: Update Ledger
-1. Update `outputs/README.md` (the coverage and settled decisions section) noting the source registration, demotions (if any), and rationale.
+1. Update `docs/DECISIONS.md` (the settled decisions) noting the source registration, demotions (if any), and rationale.
 2. Commit messages in `git log` record the fine-grained provenance changes.
 
 ### Step 6: Verification Battery and Cache Bump

@@ -21,7 +21,7 @@ assert.equal((nodes.bottomTab.innerHTML.match(/data-nav=/g) || []).length, 4);
 assert.equal(nodes.bottomTab.innerHTML.includes('data-nav="exam"'), false);
 assert.equal(nodes.bottomTab.innerHTML.includes('data-nav="more"'), false);
 assert.equal(nodes.rail.includes('data-nav="more"'), false);
-const search = await read('outputs/study/global-search-one.js');
+const search = await read('outputs/study/global-search.js');
 const searchFunction = search.slice(search.indexOf('export function searchHits'), search.indexOf('export function runSearch'));
 let destination;
 const searchScope = { closeSearchSheet() {}, dismissSessionForNav() {}, goTo: (id) => { destination = id; } };

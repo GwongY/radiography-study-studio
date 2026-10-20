@@ -5,7 +5,7 @@
  */
 import { $$, esc } from './imports.js';
 import { setActiveNav } from './navigation-destinations.js';
-import { openDialog } from './dialog-behaviour-applied.js';
+import { openDialog } from './dialogs.js';
 import { showView } from './small-ui-helpers.js';
 import { exportCalendar } from './assessments-and-marks.js';
 import { recoverByHand, stripMode, toggleStripFill, viewportNote, viewportReport } from './viewport-recovery.js';

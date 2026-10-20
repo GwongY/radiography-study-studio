@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v253';
+const CACHE_VERSION = 'v254';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -74,8 +74,8 @@ const SHELL = [
   './studio/search-viewer-frame.js',
   './studio/spatial-concept-overlays.js',
   './studio/cavity-geometry-derived.js',
-  './studio/visualisation-modes.js',
-  './studio/region-boxes-how.js',
+  './studio/modes-and-bridge.js',
+  './studio/scene.js',
   './studio/depth-picking.js',
   './studio/live-physiology.js',
   './studio/heart-atlas.js',
@@ -149,8 +149,8 @@ const SHELL = [
   './study/viewport-recovery.js',
   './study/home.js',
   './study/navigation-destinations.js',
-  './study/more-sources-coverage.js',
-  './study/global-search-one.js',
+  './study/more.js',
+  './study/global-search.js',
   './study/search-viewer-open.js',
   './study/hidden-tray.js',
   './study/spatial-overlay-controls.js',
@@ -168,7 +168,7 @@ const SHELL = [
   './study/course-timetable.js',
   './study/viewer-tools.js',
   './study/boot.js',
-  './study/dialog-behaviour-applied.js',
+  './study/dialogs.js',
   './anatomy-data.js?v=5',
   /*
    * cavity-geom.js again, unversioned — NOT a duplicate. A cache key is the

@@ -29,7 +29,7 @@ import { describe } from '../revision/describe.js?v=1';
 import { OWN } from '../revision/own-words.js?v=1';
 import { crossFor, legendKeys, viewerEligible } from '../revision/rules.js?v=1';
 import { CROSS } from '../revision/cross-links.js?v=1';
-import { searchHits } from './global-search-one.js';
+import { searchHits } from './global-search.js';
 import { createBrain } from './revise-brain.js';
 
 /* ------------------------------------------------------------------ *

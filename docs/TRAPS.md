@@ -6,7 +6,7 @@ every session — everything area-specific lives here.
 
 Grouped by file. `docs/CODEMAP.md` links each file to its section.
 
-### The studio block — `outputs/studio.js`, `outputs/studio/visualisation-modes.js`, `outputs/studio/depth-picking.js`
+### The studio block — `outputs/studio.js`, `outputs/studio/modes-and-bridge.js`, `outputs/studio/depth-picking.js`
 
 - **The 3D module's top-level code is fatal ground.** It wires ~20 buttons as bare
   `$('id').onclick = …` at module top level; deleting any element throws and aborts
@@ -275,7 +275,7 @@ shapes** — in "The region grid and classifiers" below.
   none of which a 2026 slide names. In the muscle layer an older file alone no longer
   makes a course name (`TAUGHT_2026` in `build-mesh-index.mjs`); the pelvic floor and
   the inguinal region (`MODULE_IV`) are the exception until Module IV is taught.
-- **A label in a figure is not a name.** The owner's rule (outputs/README.md, "What
+- **A label in a figure is not a name.** The owner's rule (docs/DECISIONS.md, "What
   on a slide counts as taught"): the pictures come from online with every label their
   maker drew. Only text counts, and a label the lecturer boxed, circled or
   highlighted. W4 p13 labels all the face muscles and teaches none of them.
@@ -368,7 +368,7 @@ shapes** — in "The region grid and classifiers" below.
 
 - **Nothing may run at module scope in `study/*.js` or `studio/*.js`.** The parts import each
   other cyclically, so a part pulled in early as somebody's dependency evaluates
-  before another part has reached a `let` it needs. `dialog-behaviour-applied.js`
+  before another part has reached a `let` it needs. `dialogs.js`
   calling `renderToday()` at module scope gave
   `Cannot access 'currentTab' before initialization` — the same class of failure
   that killed the app on 2026-08-29. Side effects go in the part's exported
@@ -533,7 +533,7 @@ do the same job, the control is the one that can be found, undone and explained.
   ~75 a minute. Each shard writes its own `index-<i>.json`; a reader unions
   every `index*.json` it finds.
 
-### The projection's film — `outputs/studio/live-physiology.js`, `outputs/studio/region-boxes-how.js`
+### The projection's film — `outputs/studio/live-physiology.js`, `outputs/studio/scene.js`
 
 - **Open mesh faces must not contribute the source distance.** Integrating raw
   camera depth produced black/white spots at uncapped bronchi. Subtract the
@@ -795,15 +795,8 @@ Run `node work/separation-check.mjs` after touching any of it.
   so the count is in the baseline; a fourth appearing silently would be a
   structure on screen that no chip can turn off. `classify()` calls them
   arteries by fallback, so the colour key lists three arteries that are not.
-- **Adding a REGIONS entry edits the corpus.** `derived-items.js` builds an
-  "In which region does the X sit?" MCQ whose options are `REGIONS.map(label)`.
-  Appending is safe (`findIndex` still lands right); inserting would silently
-  re-key 127 items' answers. `bones:false` keeps a region out of that question
-  entirely — the abdomen needs it, or "Abdomen & pelvis" sits beside "Pelvis"
-  as a second defensible answer for every bone of the pelvic ring and is
-  marked wrong.
 
-### The abdomen has no bones of its own — `outputs/studio/region-boxes-how.js`
+### The abdomen has no bones of its own — `outputs/studio/scene.js`
 
 - **Every other region is a set of bones; this one is a space.** Its frame is
   borrowed — lower ribs and costal margin above, lumbar column and sacrum
@@ -823,7 +816,7 @@ Run `node work/separation-check.mjs` after touching any of it.
   the 23 gut meshes are in (the oesophagus is the one out, correctly), 2 of 35
   airway (the lung bases, below the xiphoid), 0 of the head structures.
 
-### The back is a half-space — `outputs/studio/region-boxes-how.js`, `outputs/anatomy-data.js`
+### The back is a half-space — `outputs/studio/scene.js`, `outputs/anatomy-data.js`
 
 Every other region filter is a box around that region's own bones. The back is
 "everything behind the vertebral column", and three things follow that are easy
@@ -974,8 +967,8 @@ to get wrong.
 All header controls tuck together, including text size and search. Do not apply
 an inverse translate to those buttons: that leaves them floating over the lesson.
 The hidden header also uses visibility:hidden so descendants cannot retain focus
-or pointer interaction. `work/header-tuck-browser-check.js` exercises long lesson
-metadata and repeated tuck/reveal cycles without changing scroller geometry.
+or pointer interaction. (Its browser check, `header-tuck-browser-check.js`, went
+with the testing removal on 2026-10-19; check tuck/reveal by hand on a long view.)
 
 The first version collapsed the header with a negative margin. It reclaims the
 space and it looks wrong: the scroller's top edge moves up by the header's
@@ -1379,7 +1372,7 @@ names it.
 - **The scenario panel sections must exist before `prepare()`**: `heart/panels.js` mounts every section (hemo, procedure player, IVUS, rhythm) once after `createHeartAtlas()`; the ported panels look up `ha-` ids at construction. A grid child with `minmax(0,1fr)` columns: without it a `<select>` with long options widens the whole panel sideways.
 ### Circulation extras -- `outputs/studio/circulation-extras.js`, `enterEnhancedHeart` in `outputs/studio/heart-atlas.js`
 
-- **The enhanced heart is the same `state.heartAtlasOn` as the modes, with `state.enhancedHeartOn` to tell them apart**, so everything that already closes an atlas before it starts (focus, Projection, isolation, the full atlas, the limb mode) also switches it off. Ordinary LAYER changes must not: `closeHeartAtlasForAction(true)` (visualisation-modes.js) and `leaveHeartAtlasBeforeMode(true)` (live-physiology.js) pass `layerOnly` and return early for it -- `setLayer`, `setLayerOpacity`, `showSystem` and the exported `setLayer`. Without that flag, ghosting any chip silently turned it off.
+- **The enhanced heart is the same `state.heartAtlasOn` as the modes, with `state.enhancedHeartOn` to tell them apart**, so everything that already closes an atlas before it starts (focus, Projection, isolation, the full atlas, the limb mode) also switches it off. Ordinary LAYER changes must not: `closeHeartAtlasForAction(true)` (modes-and-bridge.js) and `leaveHeartAtlasBeforeMode(true)` (live-physiology.js) pass `layerOnly` and return early for it -- `setLayer`, `setLayerOpacity`, `showSystem` and the exported `setLayer`. Without that flag, ghosting any chip silently turned it off.
 - **It starts by itself.** `circulation-extras.js`'s `watchHeart` (called every frame from `state.extrasTick`) enters it when the Heart chip is on, the circulatory layer is loaded and nothing else owns the heart (`!heartAtlasOn`, `!heartAtlasLoading`, `!focus`, `!xray`) for 30 consecutive frames -- the delay is what stops it re-entering between an exit hook and the `state.focus` that action sets a moment later. A failed start sets `heartFailed` and is not retried until reload. `enterEnhancedHeart({quiet:true})` skips the atlas button's loading label.
 - **It hides the explorer's heart with `atlasHidden`, and hides the atlas's own great vessels** (`setShow('great', false)`): the explorer's aorta, cavae and pulmonary vessels belong to the Arterial and Venous chips and coincide with the atlas's, so showing both z-fights. It follows the Heart chip (`atlas.group.visible`) and its ghost opacity (`state.layerOpacity.heart` -> wall opacity, chambers shown when ghosted), and holds still on Static model by feeding `atlas.update` the last live time (dt 0), not by skipping it -- the first frame still has to place the leaflets.
 - **`state.atlasTick` is one slot**, shared by the atlas modes and the enhanced heart (they exclude each other). The flow dots use `state.extrasTick`, called after it in the frame loop, and hide themselves while any atlas mode is open (the modes draw their own).
@@ -1387,7 +1380,7 @@ names it.
 
 ### The limb vessels mode -- `outputs/studio/limb-atlas.js`, `outputs/limb/`, `work/limb-check.mjs`
 
-- **`state.heartAtlasOn` means "an atlas mode is open"; `state.limbAtlasOn` says it is this one.** The four places that close the atlas before another viewer mode starts (live-physiology, region-boxes-how, visualisation-modes) call `window.__osteo.exitHeartAtlas()`; `limb-atlas.js`'s `init()` wraps it so whichever mode is open closes. It must run after the heart atlas's `init()` (order in `studio.js`), and the heart atlas's own `exitHeartAtlas()` returns at once while the limb mode is open -- calling it directly would clear flags it does not own.
+- **`state.heartAtlasOn` means "an atlas mode is open"; `state.limbAtlasOn` says it is this one.** The four places that close the atlas before another viewer mode starts (live-physiology, scene, modes-and-bridge) call `window.__osteo.exitHeartAtlas()`; `limb-atlas.js`'s `init()` wraps it so whichever mode is open closes. It must run after the heart atlas's `init()` (order in `studio.js`), and the heart atlas's own `exitHeartAtlas()` returns at once while the limb mode is open -- calling it directly would clear flags it does not own.
 - **The routes are in the limb page's frame, not the body's.** `limb = scale * (body - origin)`, scale 8, origin y 1.1 (arm) / 0.6 (leg). Each limb is a Group at scale 1/8 and position `origin`, a child of the circulatory `root`. `work/limb-check.mjs` fits it against `dolasim.glb` and fails if a route leaves its vessel; `outputs/limb/alignment.js` is generated from `work/limb-boxes.json` (`limb-check.mjs --write`).
 - **`leg-proc.js` is handed no vessel meshes.** Upstream's snap-to-lumen pass is behind `if(false)`; the vessels it would read are never used, and building them from the whole circulatory layer would cost a loop over every vertex for nothing. Lumen radius comes from the route radii.
 - **A tapped vessel's twin is found by the glued side letter, and only where the other side exists** (`vesselGroups` in `limb.js`), the same rule `highlightExtra` uses; `vessel` names that really end in l or r are left alone. The highlight is an overlay mesh child of each host mesh sharing its geometry, with `raycast` disabled so it never blocks the next tap.

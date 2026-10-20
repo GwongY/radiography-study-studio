@@ -6,7 +6,7 @@
 import { viewerStructureName } from '../search-name.js';
 import { $, BODY_CONCEPTS, CM_PER_UNIT, FLOW_CLASSES, LAYER_NAMES, MESH_INDEX, REGIONS, conceptById, els, layerOf, mu, state } from './imports.js';
 import { XRAY_LAYERS, XRAY_LAYER_FILES, applyLayers, endMovement, enterXray, exitXray, setExtraVisible, setLayer, setMovementAngle, setPhysiology, setXrayAec, setXrayKvp, setXrayMas, setXrayRegion, setXrayView, setXrayWindow, setXrayZoom, startMovement, unitFor, xrayDepthMaterial } from './live-physiology.js';
-import { applyVisibility, boot3D, getRecord, resize } from './region-boxes-how.js';
+import { applyVisibility, boot3D, getRecord, resize } from './scene.js';
 import { bodyMetrics, ensureConceptGroup, showPickCallout } from './spatial-concept-overlays.js';
 import { buildCavity, buildCellGrid, buildPlane, cavityContext, cavityStyle } from './cavity-geometry-derived.js';
 import { hiddenRows, hideMesh, publishHidden, unhide } from './hide-and-search.js';

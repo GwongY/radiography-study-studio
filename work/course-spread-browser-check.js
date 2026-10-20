@@ -8,10 +8,10 @@ export default async function(){
   const {applySeparation}=await import('./studio/tools-and-capture.js');
   const {bodyMetrics}=await import('./studio/spatial-concept-overlays.js');
   const {cavityContext}=await import('./studio/cavity-geometry-derived.js');
-  const {clearHighlight}=await import('./studio/visualisation-modes.js');
+  const {clearHighlight}=await import('./studio/modes-and-bridge.js');
   const {pick}=await import('./studio/depth-picking.js');
   const {BODY_LAYERS}=await import('./study/subject.js');
-  const {applyVisibility}=await import('./studio/region-boxes-how.js');
+  const {applyVisibility}=await import('./studio/scene.js');
   document.querySelector('[data-vtab="3d"]').click();
   assert(!document.querySelector('#modelSourceTabs,#viewerAtlasPane'),'alternate surface remains');
   s.isolated=false;applyVisibility();

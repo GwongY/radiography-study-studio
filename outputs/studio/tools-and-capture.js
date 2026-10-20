@@ -16,7 +16,7 @@
 import { boundsOf, state } from './imports.js';
 import { bodyMetrics } from './spatial-concept-overlays.js';
 import { cavityContext, gridMetrics } from './cavity-geometry-derived.js';
-import { clearConcepts, showToast } from './visualisation-modes.js';
+import { clearConcepts, showToast } from './modes-and-bridge.js';
 /* layerOn: a layer is on when any of the systems it draws is -- systems.js. */
 import { endMovement, renderXray } from './live-physiology.js';
 import { applyPackedSpread, endPackedSpread, restorePackedSpread } from './packed-spread.js';

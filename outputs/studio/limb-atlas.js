@@ -15,7 +15,7 @@
  */
 import { $, state } from './imports.js';
 import { applyLayers, meshOn, setLayerChips } from './live-physiology.js';
-import { showToast } from './visualisation-modes.js';
+import { showToast } from './modes-and-bridge.js';
 import { frameWorldBox, restoreSnapshot, takeSnapshot } from './heart-atlas.js';
 
 const CIRC_FILE = './assets/dolasim.glb';

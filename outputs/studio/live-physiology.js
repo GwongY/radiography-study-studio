@@ -6,8 +6,8 @@
 import { viewerStructureName } from '../search-name.js';
 import { lectureRow } from '../viewer-lecture-names.js';
 import { $, CM_PER_UNIT, CORTEX_CM, DEFAULT_WINDOW, FLOW_ANCHORS, FLOW_CIRCUITS, FLOW_CLASSES, GRAZE_CLAMP, RATES, LAYER_NAMES, MESH_INDEX, MODEL_CATALOG, REF_MAS, REF_SID_CM, SYSTEMS, UNITS, atriumEnvelope, avValveEnvelope, breathEnvelope, cardiacEnvelope, classify, contractEnvelope, els, fluence, mottleSigma, mu, prefersStill, semilunarEnvelope, spikeEnvelope, state, systemCounts, systemsIn, tissueForMesh, ventricleEnvelope } from './imports.js';
-import { MEMORY_TIPS, clearHighlight, openDetail, regionLabel, selectBone, showToast } from './visualisation-modes.js';
-import { applyVisibility, getRecord, animate } from './region-boxes-how.js';
+import { MEMORY_TIPS, clearHighlight, openDetail, regionLabel, selectBone, showToast } from './modes-and-bridge.js';
+import { applyVisibility, getRecord, animate } from './scene.js';
 import { clearSelection, restorePeel } from './depth-picking.js';
 import { enforceHidden } from './hide-and-search.js';
 import { showPickCallout } from './spatial-concept-overlays.js';

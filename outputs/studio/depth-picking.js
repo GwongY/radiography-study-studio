@@ -4,8 +4,8 @@
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
 import { $, els, getAnatomy, LAYER_NAMES, state, systemsIn, systemsOf } from './imports.js';
-import { clearHighlight, onBonePicked, rebuildConcepts, renderRegions } from './visualisation-modes.js';
-import { applyVisibility, boot3D, cameraView, confirmPick, focusSelected, getRecord, isSelfOrAncestorVisible, mapImportedName, nearestVisibleMesh, resize } from './region-boxes-how.js';
+import { clearHighlight, onBonePicked, rebuildConcepts, renderRegions } from './modes-and-bridge.js';
+import { applyVisibility, boot3D, cameraView, confirmPick, focusSelected, getRecord, isSelfOrAncestorVisible, mapImportedName, nearestVisibleMesh, resize } from './scene.js';
 import { clearPickCallout } from './spatial-concept-overlays.js';
 import { hideMesh } from './hide-and-search.js';
 import { installLayerFlow, layerOn, loadPathRoutes, setXrayView, unitBlurb, unitFor } from './live-physiology.js';

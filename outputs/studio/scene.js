@@ -6,7 +6,7 @@
 import { $, MODEL_CATALOG, els, getAnatomy, prefersStill, state, systemsOf } from './imports.js';
 import { applyConnectiveVisibility, layerOn, meshOn, renderXray, resizeXray, setMovementAngle, stepPhysiology, unitBlurb, unitFor, updateStageMeta, applyLayers } from './live-physiology.js';
 import { bodyMetrics, clearPickCallout, updateHudSprites } from './spatial-concept-overlays.js';
-import { clearHighlight, onBonePicked, renderRegions, showToast } from './visualisation-modes.js';
+import { clearHighlight, onBonePicked, renderRegions, showToast } from './modes-and-bridge.js';
 import { enforceHidden } from './hide-and-search.js';
 import { restorePeel, loadExtraModel } from './depth-picking.js';
 /* The abdomen's box is cut to the levels the nine-region grid is drawn on --

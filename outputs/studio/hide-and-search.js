@@ -5,9 +5,9 @@
  */
 import { LAYER_NAMES, state, $ } from './imports.js';
 import { applyLayers } from './live-physiology.js';
-import { applyVisibility, getRecord } from './region-boxes-how.js';
+import { applyVisibility, getRecord } from './scene.js';
 import { clearSelection } from './depth-picking.js';
-import { showToast } from './visualisation-modes.js';
+import { showToast } from './modes-and-bridge.js';
 
 /* ------------------------------------------------------------------ *
  * Hide, and search-driven uncover

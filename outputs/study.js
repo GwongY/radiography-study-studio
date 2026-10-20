@@ -13,8 +13,8 @@ import { init as init_small_ui_helpers_js } from './study/small-ui-helpers.js';
 import { init as init_viewport_recovery_js } from './study/viewport-recovery.js';
 import './study/home.js';
 import './study/navigation-destinations.js';
-import './study/more-sources-coverage.js';
-import './study/global-search-one.js';
+import './study/more.js';
+import './study/global-search.js';
 import './study/search-viewer-open.js';
 import './study/hidden-tray.js';
 import './study/spatial-overlay-controls.js';
@@ -29,7 +29,7 @@ import { init as init_course_timetable_js } from './study/course-timetable.js';
 import { init as init_text_size_js } from './study/text-size.js';
 import { init as init_viewer_tools_js } from './study/viewer-tools.js';
 import { init as init_boot_js } from './study/boot.js';
-import { init as init_dialog_behaviour_applied_js } from './study/dialog-behaviour-applied.js';
+import { init as init_dialog_behaviour_applied_js } from './study/dialogs.js';
 
 init_small_ui_helpers_js();
 /* Before anything measures a header: the viewport is what every other

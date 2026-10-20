@@ -7,7 +7,7 @@ async function physiologyBrowserCheck(){
   const check=(ok,message)=>{if(!ok)throw new Error(message);};
   const {goTo}=await import('/study/navigation-destinations.js');
   const {renderLayerRail}=await import('/study/subject.js');
-  const {searchHits}=await import('/study/global-search-one.js');
+  const {searchHits}=await import('/study/global-search.js');
   const {loadExtraModel}=await import('/studio/depth-picking.js');
   const {meshesFor}=await import('/studio/search-viewer-frame.js');
   const {stepPhysiology,focusPhysiologyExample,clearStudyFocus}=await import('/studio/live-physiology.js');

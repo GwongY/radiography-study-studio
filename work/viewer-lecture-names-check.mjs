@@ -37,7 +37,7 @@ for (const n of VIEWER_LECTURE_NAMES) {
   ok(n.page >= 1 && n.page <= TEXT[n.ref].pages.length, `${n.name}: ${n.ref} has no p${n.page}`);
   ok(MESH_INDEX.some((r) => r.layer === n.layer && (r.name === n.name || r.mesh === n.name)), `${n.name}: no such structure in the ${n.layer} layer`);
   /* the owner's rule: a figure's own label is not taught; one the lecturer
-     marked is, and says how (outputs/README.md, "What on a slide counts") */
+     marked is, and says how (docs/DECISIONS.md, "What on a slide counts as taught") */
   if (/figure/.test(n.evidence)) ok(/^marked figure label \(.+\)$/.test(n.evidence) && n.diagram, `${n.name}: a figure label with no mark`);
 }
 
