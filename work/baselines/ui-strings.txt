@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 999 —
-  7121c0977421351e  WHOLE SET
+— user-facing strings in outputs/ — 1017 —
+  1e5e5f7c726b55c5  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -91,6 +91,7 @@
   608f1c9133984842  20 Oste sourcesssss
   de6fcf7737dcf738  2021 Lordo source
   315afd5b7575b942  26 bones per foot
+  c5479bfd3bacd397  260805_Normal Progression Patterns_55403 wef 2026 intake_total credits_138 (for students).xlsx
   538cd6d8f58ba90f  2627_M2_L5_Nervous system I.pdf
   24b20d85be2745ac  29 chapter-level question sets.
   40b245d5adfefc87  3.2 Nervous System and Special Sense.pdf
@@ -135,6 +136,7 @@
   068e3f966e869db7  <button type="button" data-la-preset="
   3b01ee2603c4c016  <button type="button" data-la-region="
   9040bc486e8d129c  <button type="button" data-trail="
+  61ed58a935c4a5a9  <details class="card progyear"
   03aacbab6b7dc7cb  <div class="empty">No classes today or tomorrow.</div>
   42fe6c40c24b5c28  <div class="empty">Nothing important in this week\'s university email.</div>
   4e5528ba372cc6f9  <div class="empty">Nothing left on the published deadlines.</div>
@@ -166,6 +168,7 @@
   d958a4f248eaaf6a  <input type="range" min="
   3a324e9e0d188447  <input type="range" min="8" max="100" value="
   65da2d38aebef408  <li class="assrow
+  996b63bf35e081b7  <li class="progrow
   4a0089a78242886e  <li class="sessrow
   16b4b492a8dc070b  <option value="">Pick a pathway…</option>
   e118852a651db556  <option value="">Pick a topic…</option>
@@ -192,6 +195,10 @@
   24337fc436267890  <span class="pc" style="color:
   a8bd35f3ae605d47  <span class="pending" style="width:
   1120ce038e281d16  <span class="pill
+  7a8bff5574351808  <span class="progtag core">core</span>
+  cf3c1af52ef5a847  <span class="progtag exam
+  06b2775631a2be6d  <span class="progtag">elective</span>
+  91c5d6bfcd29c47a  <span class="progtag">general</span>
   db46554f991cfb54  <span class="rv-tag sys" style="background:var(--rv-c-
   c556c181d6a203e1  <span class="termpart
   a05bf7cf9eb01e77  <span class="termplus">+</span>
@@ -274,6 +281,7 @@
   ecfa0bb83a393a74  Connect once to download the vessel routes for offline use.
   d092247971ad1619  Connected. The credential is stored in this browser.
   9b7b1f19bce40e3f  Connections in 3D
+  3dcb665433de19fd  Core courses are the compulsory discipline-specific subjects that are not known to have no exam (rule in outputs/programme.js).
   5d1ae0c75b2cc967  Coronary arteries and veins
   4a0c3a0072aecfa0  Could not load that layer — the others are still there.
   7405b8bbcaf9d423  Could not load that model — the skeleton is still available.
@@ -322,6 +330,7 @@
   4e9ac1992ad89c82  Exam Past paper by year 2003-2013/ (11 papers, 2003-04 to 2013-14)
   024712ec57d80d28  Exploring Radiography
   058eb20c2b99e492  External — a reference the course names, not a file in the shared folders
+  2d0b76bdb337e12c  External — official programme document in E:/UNI sources, not a file in the shared folders
   ee0b93467f59d3a0  Extra exercise.pdf
   9f7d2428f854a82f  Fade everything except the structures that define the cavity.
   aa5a2ec02bc8fea1  Fetched from edb.gov.hk, not from the supplied shared folders. It is here for exactly one purpose: to say what HKDSE Biology already covered, and whether a topic sat in the compulsory part or in the Human Physiology elective. How deep each topic went is fixed by the Supplement, registered as edb.bio.supp. No anatomy or physiology claim in this file is sourced to it.
@@ -457,6 +466,7 @@
   1243b4c8fd76b896  M-mode image
   a7dc140c63a71953  MANdible = MAN-chews. It is the mobile skull bone.
   6e902246bc385253  MC + SQ by topic 2005-2011/ (14 topic folders)
+  87da54e9e01e6917  MI/RT -- not chosen yet
   ecc4d7aae0117e93  MOOC 1 Arterial Supply of Body Trunk and Upper Limbs.pdf
   10b818df0e9fa411  MOOC 2 Arterial Supply and Venous Drainage of Neck and Head, and Meninges.pdf
   d91df604e1ed5a64  MOOC 3 Anatomical Correlates of Stroke.pdf
@@ -601,6 +611,7 @@
   abf1b14dc2f90ee7  Static model
   a51ff0f4cfeac624  Stereotactic radiation therapy and selecive internal radiation therapy for hepatocellular carcinoma.pdf
   36d7a4f4ac12b2b4  Sternal angle
+  0defddf206b7e8fa  Stream: <b>not chosen yet</b> \u2014 subjects only one stream takes are marked MI or RT.
   a09bfd9a4bb9d092  Structures, topics…
   f10ea99fc47c7866  Student-compiled, module-grouped term list. Mostly names rather than definitions, but carries useful equivalences such as "visceral = epicardium".
   25bde9ac1130006c  Study Manual 1819.pdf
@@ -753,7 +764,9 @@
   94661d68cd8ce6bb  Your course material names none of these one by one, so the
   62375359a1826914  Your groups
   5aacae2229c04415  Z-Anatomy / BodyParts3D skeleton · 159 named structures
+  e26a8924d8af2f86  \u00b7 2026 intake
   10c21ae68a2b089a  \u00b7 opens in Viewer
+  e35624763580f152  \u2014 not chosen yet
   13a77ae510047ac8  above the
   0a48f9e432c65fab  above, upon
   8b989443dc296bd7  across it
@@ -777,6 +790,8 @@
   2cdd250c02ffc980  button, a, th, summary, script, style, select, option, textarea
   a4c18480ff6a58f4  card grouppick
   dee735ed000908c8  card overlaycard
+  8ba67ffa2a015427  card progintro
+  f5390529ec2f13e7  card progyear
   53a55ca51fe7c9ab  card sylcard
   3498234b41cec63c  card toolcard
   51d90b3094195356  change both, because the node check only tests that copy. */
@@ -796,6 +811,7 @@
   9c029c43f1357a43  drawn on the abdominal wall muscles
   ce6366d2f153989d  e.g. foramen, CN VII
   099aa9ffa0926efa  emptybox hidden
+  d4d55b82c7409a84  exam chip is a guess from past papers and may be wrong \u2014 hover for the evidence.
   68df191d51f4440a  extra source
   99ab1c88ca5ca156  extra source2.0/Year 1 Sem1/Anat/M3
   13a86f208033b6a8  failed its digest
@@ -873,6 +889,7 @@
   ef79fc55610a0395  new state.THREE.Vector3()
   326d83d3d43bbef3  next week
   10222398a8cb121a  none found
+  a887aac4401c4d80  not chosen yet
   29c0d92fb897dea2  not named in your course material
   f9af67a8e2ab418c  notices must be an array.
   5265228587b69a1f  of the mark
@@ -889,6 +906,7 @@
   ccdf632a1acc3583  pickstack hidden
   d2c10c79856392a6  primary detail-open
   46591e102d765ad8  priority must be urgent, normal or check.
+  f25d3de0f5e59dc2  progtag stream
   777503f25750cf8f  px "Instrument Sans", system-ui, -apple-system, sans-serif
   fe61828d0377d29b  question blank/Chapter 1–29.pdf
   6ab01b1dba123b71  region filter does not work

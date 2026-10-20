@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v256';
+const CACHE_VERSION = 'v257';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -188,6 +188,7 @@ const SHELL = [
   './physiology-paths.js',
   './radiography.js?v=1',
   './schedule.js?v=1',
+  './programme.js?v=2',
   /* Revise: the week rule, the subject registry and the HSS2011 content. d3 and markmap are the
      map's libraries and are small enough for the shell; 3d-force-graph (1.4 MB, three.js inside it)
      is cached on first use like the models, so Brain 3D works offline after it has been opened once. */

@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1499 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
+- `outputs/app.css` — 1520 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
 - `outputs/studio.js` — 35 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiomodes-and-bridgejs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 47 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -44,10 +44,11 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `physiology-paths.js` | 17 | Where the curated route payloads live, and what they were derived from. |  |
 | `physiology-shape.js` | 327 | Pure rest-space shape derivation and illustrative deformation profiles. | [The heart's shared tether](TRAPS.md#the-hearts-shared-tether--outputsphysiology-shapejs-outputsstudiolive-physiologyjs) |
 | `physiology.js` | 415 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
+| `programme.js` | 244 | Programme -- the BSc (Hons) in Radiography [55403] normal progression pattern |  |
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
 | `schedule.js` | 713 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `search-name.js` | 42 | Anatomical name matching shared by search and its regression gate. |  |
-| `sw.js` | 443 | Radiography Study Studio — service worker |  |
+| `sw.js` | 444 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 371 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 281 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 2465 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
@@ -69,6 +70,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 - `physiology-paths.js` — `PATH_STAMP`, `PATH_PAYLOADS`
 - `physiology-shape.js` — `deriveShape`, `muscleProfile`, `deformMuscle`, `MUSCLE_SHAPE_GLSL`, `principalMuscleAxis`, `deriveMuscleShape`, `deriveBreathingShape`, `chamberTetherField`, `deformChamber`, `CHAMBER_SHAPE_GLSL`, `deformBreathing`
 - `physiology.js` — `FLOW_ANCHORS`, `FLOW_CIRCUITS`, `FLOW_CLASSES`, `LAYER_CLASSES`, `classify`, `RATES`, `cardiacEnvelope`, `breathEnvelope`, `spikeEnvelope`, `contractEnvelope`, `ventricleEnvelope`, `atriumEnvelope`, `avValveEnvelope`, `semilunarEnvelope`, `advancePhysiology`, `CLASS_COUNT`
+- `programme.js` — `PROGRAMME_SOURCE`, `PROGRAMME_CODE`, `TOTAL_CREDITS`, `IMPORTANT_MIN_CREDITS`, `SHEET_SEMESTER_CREDITS`, `EXAM`, `isImportant`, `PROGRAMME`, `semLabel`, `subjectsOf`, `semesterCredits`, `PROGRAMME_TERMS`
 - `radiography.js` — `KEV_ROWS`, `TISSUES`, `massAtten`, `muAt`, `EFF_ENERGY_FRACTION`, `effectiveKeV`, `mu`, `contrastRatio`, `UNITS_PER_M`, `CM_PER_UNIT`, `unitsToCm`, `REF_MAS`, `fluence`, `REF_SIGMA`, `mottleSigma`, `magnification`, `DEFAULT_WINDOW`, `filmDensity`, `windowFor`, `CORTEX_CM`, `GRAZE_CLAMP`, `boneTau`, `AIR_FILLED`, `tissueForMesh`
 - `schedule.js` — `TERM`, `ymd`, `weekStart`, `weekEnd`, `weekOf`, `STAFF`, `SUBJECT_ADMIN`, `GROUP_CHOICES`, `dayOf`, `STUDY_SUBJECTS`, `WEEK_GAPS`, `gapFor`, `SESSIONS`, `sessionSpan`, `sessionStatus`, `sessionsWithStatus`, `isOtherGroup`, `fmtDate`, `fmtTime`, `fmtWeekRange`, `fmtWhen`, `KINDS`, `SCHEDULE_SOURCES`
 - `search-name.js` — `normaliseSearch`, `matchesSearch`, `exactSearch`, `namedSide`, `modelSearchNames`, `modelMeshName`, `viewerStructureName`
@@ -141,8 +143,8 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `boot.js` | 82 | Boot |
 | `briefing-access.js` | 129 | University notice access. |
 | `briefing-format.js` | 65 | Weekly briefing — the file format, and nothing else. |
-| `course-data.js` | 296 | Course data -- the source registry, the subject list and the model files. |
-| `course-timetable.js` | 360 | Course — the syllabus and the timetable |
+| `course-data.js` | 299 | Course data -- the source registry, the subject list and the model files. |
+| `course-timetable.js` | 409 | Course — the syllabus and the timetable |
 | `dialogs.js` | 88 | Dialog behaviour, applied to all seven at once |
 | `global-search.js` | 396 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
@@ -221,6 +223,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `work/physiology-path-profile.mjs` | Offline engineering profile, not an anatomical route generator. |  |
 | `work/physiology-shape-check.mjs` |  |  |
 | `work/port-betterheart.mjs` | Port BetterHeart's modules into outputs/heart/ and outputs/limb/ -- repeatably. |  |
+| `work/programme-check.mjs` | outputs/programme.js against the programme document it cites. |  |
 | `work/query.mjs` | Ask the data a question instead of reading the file. |  |
 | `work/radiography-check.mjs` | The projection's physics, checked without a browser. |  |
 | `work/reading-help-priority-check.mjs` | Regression gate for the highest-impact reading-help gaps. |  |

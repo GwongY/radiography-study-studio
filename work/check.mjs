@@ -48,6 +48,7 @@ export const CHECKS = [
   ['text-size', 'work/text-size-check.mjs'],
   ['reading-help-priority', 'work/reading-help-priority-check.mjs'],
   ['source', 'work/source-check.mjs'],
+  ['programme', 'work/programme-check.mjs'],
   ['source-resolve', 'work/source-resolve-check.mjs'],
   ['viewer-lecture-names-build', 'work/build-viewer-lecture-names.mjs', '--check'],
   ['viewer-lecture-names', 'work/viewer-lecture-names-check.mjs'],

@@ -28,6 +28,7 @@ stated below.
 
 | Module | What it holds |
 | --- | --- |
+| `programme.js` | The BSc (Hons) Radiography [55403] progression pattern, every subject by year/semester: code, title, level, credits, compulsory/elective, stream (`both`/`MI`/`RT`), `important`, and `chosenStream` (null until chosen). Source `prog.pattern` (the .xlsx in `E:\UNI sources`). Shown on Course > Programme. `work/programme-check.mjs` holds it to the sheet totals. |
 | `anatomy-data.js` | `ANATOMY_DATABASE` (curated bone records), `MODEL_CATALOG` (per-layer coverage **and gaps**), `REGIONS`, search. |
 | `bone-landmarks.js` | **Generated** close-view bone labels: course citations, reviewed mesh vertices and geometry signatures. Built by `work/build-bone-landmarks.mjs`; replacing the skeleton requires visual curation. See `docs/superpowers/specs/2026-10-04-viewer-bone-landmarks.md`. |
 | `viewer-lecture-names.js` | **Generated** supplemental structure names from the user's current Human Anatomy PDFs, with file/page references and hashes. Built by `work/build-viewer-lecture-names.mjs`; `lectureRow` gives newly named meshes additional identities while preserving existing course IDs. Verified by `work/viewer-lecture-names-check.mjs` and the matching browser check. |
