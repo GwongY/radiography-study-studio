@@ -33,7 +33,27 @@
  *      so the bar is 2: it only removes the zero-credit "L" row of Project
  *      in Sem 1 -- whose credits are counted with its Sem 2 row, so Project
  *      is important.
+ *   4. it is not known to have NO examination (exam !== 'no', see EXAM).
  * work/programme-check.mjs holds the stored flags to this rule.
+ *
+ * EXAM. The owner's rule: a subject with no examination (a closed-book test or
+ * an exam-period exam) is NOT important. They do not yet know which subjects
+ * have one, so every subject carries
+ *     exam:      'yes' | 'no' | 'unknown'
+ *     examBasis: 'confirmed' | 'estimated'
+ *     examNote:  the evidence, with the file or SOURCE_FILES ref it came from
+ * 'confirmed' = read off a 2026/27 syllabus, schedule or told by the owner.
+ * 'estimated' = a best guess from PAST material (the old-source catalogue,
+ * work/source-catalogue.json: how many past-paper / Exams-folder files the
+ * subject or its predecessor code has) and may be wrong; the Programme panel
+ * shows an "exam: estimated" chip so it is never mistaken for fact. 'unknown'
+ * is not 'no': an unknown subject stays important until the owner says so.
+ *
+ * TO CORRECT AN ESTIMATE: edit that subject's line in EXAM below -- change
+ * the first value to 'yes' or 'no', the second to 'confirmed', and put the
+ * source (e.g. "2026/27 SDF" or "owner, <date>") in the note. Then run
+ * `node work/check.mjs programme` (the flag follows by itself) and bump
+ * CACHE_VERSION in sw.js. A 'confirmed' line must not cite past papers.
  *
  * Pure data and pure functions: no DOM, no three.js, so work/ runs it.
  */
@@ -117,6 +137,59 @@ const ROWS = [
   [4, '2', 'RT', 'HTI49301', 'Clinical Studies IV (RT)', 4, 8, 'compulsory', 'discipline'],
 ];
 
+/* Examination per subject code: [exam, basis, evidence]. Counts are DISTINCT
+   file names in work/source-catalogue.json whose folder or name says past
+   paper / exam / test / quiz (`node work/query.mjs where "<code>"`), including
+   predecessor codes (docs/SOURCES.md). Subjects with no old-source material
+   at all (the Radiotherapy stream, new codes) are 'unknown'. */
+const E = (exam, basis, note) => ({ exam, examBasis: basis, examNote: note });
+export const EXAM = {
+  // ---- confirmed ------------------------------------------------------
+  HSS2011: E('yes', 'confirmed', '60% closed-book test; outputs/schedule.js, SOURCE hss.manual1819 p7 (final exam)'),
+  ABCT2326: E('yes', 'confirmed', '50% final examination; outputs/schedule.js, SOURCE phys.sdf p2'),
+  HTI17103: E('no', 'confirmed', 'worksheet + seminar, 100% continuous (SOURCE hti.sdf p2); owner confirmed no exam'),
+  DSAI1202: E('yes', 'confirmed', '60% final test, closed-book, paper-based (outputs/schedule.js; SOURCE dsai.w1 p8)'),
+  // ---- estimated: past papers exist ----------------------------------
+  AP10006: E('yes', 'estimated', 'predecessor AP10009 University Physics II: past-paper solutions (9 exam-ish files)'),
+  HTI17102: E('yes', 'estimated', '21 files in "Past Paper" folders incl. 2013-14 Imaging Anatomy Exam'),
+  ABCT2329: E('yes', 'estimated', '8 files, 2013-14..2015-16 "Systemic Physiology Exam" + answers'),
+  AP20015: E('yes', 'estimated', '50 exam-ish files: past papers 08-09 onward, mid-term test 2019-20'),
+  HTI37105: E('yes', 'estimated', 'predecessor HTI37103/HTI27103 Radiobiology: 16 files, mid-term and final papers'),
+  HTI27101: E('yes', 'estimated', '17 files in "Past Paper", 2011-12 Foundation Pathology Exam'),
+  HTI28102: E('yes', 'estimated', '9 files in "Examination": 2019-20 MIS I Written Test MC'),
+  HTI37102: E('yes', 'estimated', '22 files in "Exam"/"Test": 2015 exam + answers, 2018 final'),
+  HTI37104: E('yes', 'estimated', '35 files: 2011 test 1, test 2 (ICR) papers'),
+  HTI38102: E('yes', 'estimated', 'folder "Examination part info" + past exam files (6); weaker evidence'),
+  HTI38103: E('yes', 'estimated', 'MIS III final test and online test questions (2 files); weaker evidence'),
+  HTI48101: E('yes', 'estimated', 'CT Final Exam 2016, 2017-18 CT exam (5 files)'),
+  // ---- estimated: no examination --------------------------------------
+  HTI27001: E('no', 'estimated', 'clinical placement: no past papers (0 of 11 files); assessed in the clinic'),
+  HTI38203: E('no', 'estimated', 'clinical studies (MI): no past papers; same pattern as Clinical Studies I'),
+  HTI39303: E('no', 'estimated', 'clinical studies (RT): no past papers; same pattern as Clinical Studies I'),
+  HTI38204: E('no', 'estimated', 'clinical studies (MI): no past papers; same pattern as Clinical Studies I'),
+  HTI39304: E('no', 'estimated', 'clinical studies (RT): no past papers; same pattern as Clinical Studies I'),
+  HTI48201: E('no', 'estimated', 'clinical studies (MI): no past papers; same pattern as Clinical Studies I'),
+  HTI49301: E('no', 'estimated', 'clinical studies (RT): no past papers; same pattern as Clinical Studies I'),
+  HTI47103: E('no', 'estimated', 'final-year project: thesis/report; 0 exam files of 8'),
+  // ---- unknown: weak or no evidence -----------------------------------
+  HTI27107: E('unknown', 'estimated', 'only lab quizzes (3 files), no past paper; predecessor HTI27104 Radiographical Imaging Science'),
+  HTI37101: E('unknown', 'estimated', 'one online mid-term quiz (2020-21); no past paper'),
+  HTI27106: E('unknown', 'estimated', '"Exam preparation tutorial" only; likely practical/OSCE'),
+  HTI48102: E('unknown', 'estimated', 'a single 2022 exam file; mostly pre-class assignments'),
+  HTI48103: E('unknown', 'estimated', '26 files, none exam-ish'),
+  HTI48105: E('unknown', 'estimated', 'take-home exam 2020-21 only (not a closed-book test)'),
+  HTI29102: E('unknown', 'estimated', 'no old-source material (Radiotherapy stream)'),
+  HTI39103: E('unknown', 'estimated', 'no old-source material (Radiotherapy stream)'),
+  HTI29101: E('unknown', 'estimated', 'no old-source material (Radiotherapy stream)'),
+  HTI39104: E('unknown', 'estimated', 'no old-source material (Radiotherapy stream)'),
+  HTI39101: E('unknown', 'estimated', 'no old-source material (Radiotherapy stream)'),
+  HTI39105: E('unknown', 'estimated', 'no old-source material (Radiotherapy stream)'),
+  HTI49105: E('unknown', 'estimated', 'no old-source material (Radiotherapy stream)'),
+};
+/* General / elective / language slots: not important whatever the exam. */
+const EXAM_GENERAL = E('unknown', 'estimated', 'general or elective subject: not a core course, exam not researched');
+const examOf = (code) => EXAM[code] || EXAM_GENERAL;
+
 /* Credits of a subject across the whole programme, by code (Project is one
    subject on two rows). Subjects without a code stand alone. */
 function programmeCredits(code, title, stream) {
@@ -126,8 +199,9 @@ function programmeCredits(code, title, stream) {
 
 /* The rule in the header, as a function so the check can hold the stored
    flags to it. */
-export function isImportant({ required, group, credits, code, title, stream }) {
+export function isImportant({ required, group, credits, code, title, stream, exam }) {
   if (required !== 'compulsory' || GENERAL.has(group) || group === 'elective') return false;
+  if ((exam ?? examOf(code).exam) === 'no') return false;
   return programmeCredits(code, title, stream) >= IMPORTANT_MIN_CREDITS;
 }
 
@@ -143,6 +217,7 @@ export const PROGRAMME = {
   chosenStream: null,
   subjects: ROWS.map(([year, sem, stream, code, title, level, credits, required, group, note]) => ({
     year, sem, stream, code, title, level, credits, required, group,
+    ...examOf(code),
     important: isImportant({ required, group, credits, code, title, stream }),
     ...(note ? { note } : {}),
   })),

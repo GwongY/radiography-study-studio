@@ -1458,6 +1458,8 @@ ul.asslines{list-style:none;margin:0;padding:0}
 .progtag{border:1px solid var(--line);border-radius:99px;padding:1px 8px;font-size:calc(10px * var(--ts));font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
 .progtag.core{color:var(--teal);border-color:var(--teal)}
 .progtag.stream{color:var(--orange);border-color:rgba(255,186,103,.4)}
+.progtag.exam.estimated{color:var(--orange);border-style:dashed;border-color:rgba(255,186,103,.4)}
+.progtag.exam.confirmed{color:var(--teal);border-color:var(--teal)}
 
 /* "In Revise" on the viewer's selection card (study/revise.js paintSelectedRevise). */
 .sel-revise{display:grid;gap:6px;margin-top:10px}

@@ -28,7 +28,7 @@ import { K, read, store, write } from './storage-versioned-keys.js';
 import { openRevise } from './revise.js';
 import { REVISION } from '../revision/registry.js?v=1';
 import { lastWeekOf, releasedLast } from '../revision/weeks.js?v=1';
-import { PROGRAMME, PROGRAMME_TERMS, semLabel, semesterCredits, subjectsOf } from '../programme.js?v=1';
+import { PROGRAMME, PROGRAMME_TERMS, semLabel, semesterCredits, subjectsOf } from '../programme.js?v=2';
 import { assessmentsPanel, imminentHTML, wireAssessments } from './assessments-and-marks.js';
 
 /* ------------------------------------------------------------------ *
@@ -282,10 +282,12 @@ function programmeSubjectHTML(s) {
   const other = chosen && s.stream !== 'both' && s.stream !== chosen;
   const kind = s.required === 'elective' ? '<span class="progtag">elective</span>'
     : s.group === 'discipline' ? '' : '<span class="progtag">general</span>';
+  const examChip = s.group !== 'discipline' || s.required !== 'compulsory' ? ''
+    : `<span class="progtag exam ${esc(s.examBasis)}" title="${esc(s.examNote)}">exam: ${esc(s.exam)}${s.examBasis === 'estimated' ? ' (estimated)' : ''}</span>`;
   return `<li class="progrow${s.important ? ' important' : ''}${other ? ' off' : ''}">
     <span class="progcode">${esc(s.code || '\u2014')}</span>
     <span class="progtitle">${esc(s.title)}${s.note ? `<small>${esc(s.note)}</small>` : ''}</span>
-    <span class="progtags">${s.important ? '<span class="progtag core">core</span>' : ''}${streamTag}${kind}</span>
+    <span class="progtags">${s.important ? '<span class="progtag core">core</span>' : ''}${examChip}${streamTag}${kind}</span>
     <b class="progcr">${s.code === 'HTI47103' && s.credits === 0 ? 'L' : esc(s.credits)} cr</b>
   </li>`;
 }
@@ -296,7 +298,8 @@ function programmePanel() {
     <div class="task-kicker">${esc(PROGRAMME.programme)} \u00b7 ${esc(PROGRAMME.code)} \u00b7 2026 intake</div>
     <p class="small">${esc(PROGRAMME.totalCredits)} credits. ${chosen ? `Stream: <b>${esc(chosen)}</b>.`
     : 'Stream: <b>not chosen yet</b> \u2014 subjects only one stream takes are marked MI or RT.'}
-    Core courses are the compulsory discipline-specific subjects (rule in outputs/programme.js).</p>
+    Core courses are the compulsory discipline-specific subjects that are not known to have no exam (rule in outputs/programme.js).
+    An <b>estimated</b> exam chip is a guess from past papers and may be wrong \u2014 hover for the evidence.</p>
   </section>`;
   const years = PROGRAMME_TERMS.map(({ year, sems }) => `<details class="card progyear"${year === 1 ? ' open' : ''}>
     <summary><b>Year ${year}</b><span class="progsum">${sems.map((m) => semesterCredits(year, m, 'MI')).reduce((a, b) => a + b, 0)} cr</span></summary>

@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1015 —
-  29f7fe6a390e2476  WHOLE SET
+— user-facing strings in outputs/ — 1017 —
+  1e5e5f7c726b55c5  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -196,6 +196,7 @@
   a8bd35f3ae605d47  <span class="pending" style="width:
   1120ce038e281d16  <span class="pill
   7a8bff5574351808  <span class="progtag core">core</span>
+  cf3c1af52ef5a847  <span class="progtag exam
   06b2775631a2be6d  <span class="progtag">elective</span>
   91c5d6bfcd29c47a  <span class="progtag">general</span>
   db46554f991cfb54  <span class="rv-tag sys" style="background:var(--rv-c-
@@ -280,7 +281,7 @@
   ecfa0bb83a393a74  Connect once to download the vessel routes for offline use.
   d092247971ad1619  Connected. The credential is stored in this browser.
   9b7b1f19bce40e3f  Connections in 3D
-  cbf48cbcb24b7ca6  Core courses are the compulsory discipline-specific subjects (rule in outputs/programme.js).
+  3dcb665433de19fd  Core courses are the compulsory discipline-specific subjects that are not known to have no exam (rule in outputs/programme.js).
   5d1ae0c75b2cc967  Coronary arteries and veins
   4a0c3a0072aecfa0  Could not load that layer — the others are still there.
   7405b8bbcaf9d423  Could not load that model — the skeleton is still available.
@@ -810,6 +811,7 @@
   9c029c43f1357a43  drawn on the abdominal wall muscles
   ce6366d2f153989d  e.g. foramen, CN VII
   099aa9ffa0926efa  emptybox hidden
+  d4d55b82c7409a84  exam chip is a guess from past papers and may be wrong \u2014 hover for the evidence.
   68df191d51f4440a  extra source
   99ab1c88ca5ca156  extra source2.0/Year 1 Sem1/Anat/M3
   13a86f208033b6a8  failed its digest
