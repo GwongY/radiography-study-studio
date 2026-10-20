@@ -1389,6 +1389,17 @@ names it.
 
 - **Unclassified circulatory meshes follow the whole layer, so the atlas must hide ALL of them.** `dolasim.glb` has meshes whose names did not survive export (`????????`, `?x`) and no system rule claims them; with the Heart chip on they are drawn regardless. Two of them, `?x.l` and `?x.r`, are ~5 mm pieces at neck height, 0.3 m above the heart, and showed up as two small vessels floating over it. `hostHeartMeshes()` in `heart-atlas.js` flags every unclassified mesh as well as the heart-system ones, not only those inside the heart's box. Check: with the mode on, no visible mesh may sit outside the `heartAtlas` group.
 
+### The muscle zoom mode -- `outputs/studio/muscle-zoom.js`, `outputs/muscle/zoom-scene.js`, `work/muscle-zoom-check.mjs`
+
+- **It is the third atlas mode: `state.heartAtlasOn` plus `state.muscleZoomOn`.** Its `init()` wraps `window.__osteo.exitHeartAtlas` again, so it must run after the limb vessels' `init()` (order in `studio.js`); the heart atlas's own `exitHeartAtlas()`, its toggle and its `enterHeartAtlas()` check `muscleZoomOn` as they check `limbAtlasOn`. A new atlas mode needs the same three guards.
+- **The button lives on the selection card and follows `#selectedName`** (a MutationObserver, as Revise's "In Revise" does). It shows only for a muscle-layer mesh in the Muscles chip (`userData.systems` includes `muscle`), not for tendons, fasciae or bursae. On a phone the card is inside the Explore panel: the button is reached by Explore, not on the stage.
+- **The whole muscle is a clone, not the original.** Entry turns every layer off (the snapshot gives them back), so the tapped meshes are hidden with their layer; `cloneMuscle` shares their geometry and bakes their `matrixWorld`. Dispose only the clone's material, never the shared geometry.
+- **Revise links cross the seam by an event, not by import.** The studio cannot see the week gate, so the panel dispatches `osteo:revise-slot` with `{ el, boxes: [[subject, id]] }` and `study/revise.js` paints the slot with the boxes the week each subject shows has taught -- an empty slot before ABCT2326 week 11 is correct, not a bug.
+- **The labels' words are checked, the geometry is not.** `muscle-zoom-check.mjs` holds every title, label, note and quote to its cited page and every label to a part in `PARTS`; add a label and its part together. A note is the slide's words cut, never rephrased -- the check compares it verbatim. A label written "Name (ABBR)" passes when both halves are on the page.
+- **The sarcomere obeys p27:** filaments and the A band keep their length; only the thin filaments, Z discs, titin and the I-band and H-zone brackets move (`halfSarcomere(c)`). The thin tips meet at full contraction, so the H zone goes to zero and no further.
+- **Tall stages stand the levels up.** On a stage whose part the dock leaves visible is more than 1.3x taller than wide (a tablet beside the dock) the root turns 90 degrees about z and each level's view direction turns with it; the junction never does.
+- **`frameWorldBox` (heart-atlas.js) shifts the view only when the dock overlaps the stage.** At tablet widths the dock sits beside the stage and is still wider than 60% of it; the old test then shifted every framed scene up by half a screen, in all three atlas modes.
+
 ### Revise — week-gated fragments — `outputs/study/revise.js`, `outputs/revision/`, `work/revision-check.mjs`
 
 - **Revise ↔ viewer is a table, not a search.** `outputs/revision/viewer-units.js` is

@@ -5,6 +5,18 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-20 — Muscle zoom: the model's muscle, then procedural levels
+
+Tap a skeletal muscle, then **Zoom inside**: the muscle (the model's own mesh),
+Organization of muscle, Fascicle, Muscle fiber, Myofibril, Sarcomere, and from
+the fiber the Neuromuscular Junction, with a relaxed ↔ contracted slider on the
+myofibril and sarcomere that does only what ABCT2326 Muscle p27 says. Every
+label and note is 2026 slide text on the page it cites
+(`work/muscle-zoom-check.mjs`); links into Revise follow its week gate. No
+openly licensed mesh of these levels could be downloaded and licence-checked
+(the one sarcomere found is CC BY-NC), so the levels below the muscle are
+built in three.js. Spec: [`2026-10-20-muscle-zoom.md`](superpowers/specs/2026-10-20-muscle-zoom.md).
+
 ### 2026-10-20 — Joint movements are back, as a Viewer tool
 
 The Viewer's bottom bar has **Moves**: supination and pronation (radioulnar
