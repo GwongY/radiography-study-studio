@@ -80,7 +80,7 @@ predecessor mappings with their confidence, and lists the open decisions):
 
 Why the names are short (`2 GUR`, `CAR D Science Tech`): Windows is unreliable above
 259 characters, and the official cluster names pushed 21 files over. The longest
-study path is now 259 (after the 2026-10-20 move some inner folders under `HTI37105Predecessor HTI37103` were shortened to fit). Keep new folder names short.
+study path is now 259 (after the 2026-10-20 move some inner folders under `HTI37105 ... Predecessor HTI37103` were shortened to fit). Keep new folder names short.
 
 Where this semester's five subjects sit (reorganised 2026-10-20; old-source predecessors by course code —
 the codes changed, so a lesson may cite a predecessor only as old-source support):
