@@ -56,6 +56,8 @@ export const MODELS = {
   pacemaker: { file: './cell/models/pacemaker.glb', sources: ['membrane'] },
   myocardial: { file: './cell/models/myocardial.glb', sources: ['membrane'] },
   rmp: { file: './cell/models/rmp.glb', sources: ['membrane'] },
+  testis: { file: './cell/models/testis.glb', sources: [] },
+  follicle: { file: './cell/models/follicle.glb', sources: [] },
 };
 
 /* the credit line for a level's model */

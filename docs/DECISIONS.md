@@ -5,6 +5,26 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-21 — Spermatogenesis and ovarian-cycle levels; the resting potential is read off a meter
+
+The owner asked to see how FSH and LH act on the oocyte and follicle, and on sperm. Two model-only levels follow ABCT2326
+Reproduction. **Hormonal Control of Spermatogenesis** (a side level of the Spermatozoon) is a slice of a seminiferous
+tubule laid out like the p3 figure. Its four steps follow pp 11 and 15: LH, the Leydig cells and testosterone; FSH, the
+Sertoli cells and ABP; spermatids becoming spermatozoa in the lumen; inhibin. **Ovarian Cycle** (a side level of
+Meiosis) is one follicle cut open in the ovary. Its four steps follow pp 31-35: the follicular phase under FSH,
+estrogen rising; the LH surge and the bulge; ovulation of the secondary oocyte in its corona radiata; the corpus
+luteum under LH, secreting estrogen and progesterone. Names come from slide text only, so the follicle wall is
+"Graafian follicle" and the antrum "Follicular fluid". The p28 figure's granulosa cells, theca and antrum are left
+unnamed, as "What on a slide counts as taught" says.
+
+The owner found the resting-potential level hard to read. Its -70 mV is now a meter, with one lead in the cytosol and
+one in the extracellular fluid. Arrows show each step's ion movements, and each side is named on its back wall. The
+owner asked for the pump to be called the **Na,K–ATPase pump**, which is written only inside the p29 figure. So
+`work/figure-labels.json` holds that one transcribed figure label. `cell-zoom-check.mjs` accepts a cite marked
+`figure: true` only against it, and the panel's cite line reads "figure". An entry goes there only on the owner's
+word. Meiosis had the life cycle's free-ended spindle fibres; its pole-to-pole fibres now meet in the middle of each
+cell too.
+
 ### 2026-10-21 — Resting membrane potential level; basolateral is a membrane; spindle fibres run pole to pole
 
 The owner asked for the K+/Na+ distribution, the negative inside and the pump in the Cell tab. A new model-only

@@ -120,7 +120,7 @@ function buildPanel() {
 
 const parentOf = (id) => { const lv = levelById(id); return lv && lv.back ? lv.back : (LEVELS.find((l) => l.next === id) || {}).id || null; };
 const pathTo = (id) => { const out = []; for (let at = id; at && !out.includes(at); at = parentOf(at)) out.unshift(at); return out; };
-const citeLine = (cite) => (cite || []).map((c) => `${CELL_SOURCES[c.ref]} p${c.page}`).filter((v, i, a) => a.indexOf(v) === i).join(' · ');
+const citeLine = (cite) => (cite || []).map((c) => `${CELL_SOURCES[c.ref]} p${c.page}${c.figure ? ' figure' : ''}`).filter((v, i, a) => a.indexOf(v) === i).join(' · ');
 const notesHtml = (note) => [].concat(note || []).map((n) => `<p>“${esc(n)}”</p>`).join('');
 
 /* The study half paints Revise links for the boxes its week has taught; the studio only says which boxes. */

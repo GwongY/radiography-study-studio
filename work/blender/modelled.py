@@ -1058,7 +1058,9 @@ def meiosis():
     cpairs = [K.part(centriole_pair(ctm, f'cp{i}'), 'centrioles') for i in range(4)]
     spindle = spindle_rods(44, part=False)
     astral = [V(0, math.cos(i / 5 * 2 * math.pi), math.sin(i / 5 * 2 * math.pi) * 0.6) for i in range(5)]
-    polar = [((i - 1.5) * 0.6, ((i % 2) - 0.5) * 0.7) for i in range(4)]
+    # the fibres that "extend between centriole pairs" (L1 old p37): each pole's half meets the other pole's at the
+    # middle of the cell, in front of and behind the chromosomes, so each is one fibre from pole to pole
+    polar = [(sy * 1.6, sz * 1.2) for sy in (-1, 1) for sz in (-1, 1)]
     K.anchor('primary', (0, 4.8, 1.2))
     K.anchor('secondary', (-CX, 3.8, 0.8))
     K.anchor('spermatids', (-CX, CY + 2.9, 0.6))
@@ -1136,8 +1138,9 @@ def meiosis():
                 fibre(tr, spindle[r], frame, p, end, sp, 0.03, True)
                 r += 1
             centre_of_cell = p + toward * (p - poses[pi ^ 1]).length / 2
+            across = V(abs(toward.y), abs(toward.x), 0)   # the same for both poles of a cell, so the halves meet
             for a, z in polar:
-                end = centre_of_cell + toward * 0.7 + side_x * a + V(0, 0, z)
+                end = centre_of_cell + across * a + V(0, 0, z)
                 fibre(tr, spindle[r], frame, p, end, sp, 0.03, True)
                 r += 1
             for _, e in [x for x in ends if x[0] == pi]:
@@ -2503,10 +2506,13 @@ def pct():
 
 
 # ------------------------------------------------------------------ cardiac action potentials ----
-def text_mesh(body, at, size, m, name, align='RIGHT'):
-    """a line of text as a mesh, standing up and facing +z (the opening views), its anchor point at `at`"""
+def text_mesh(body, at, size, m, name, align='RIGHT', res=None):
+    """a line of text as a mesh, standing up and facing +z (the opening views), its anchor point at `at`; res, the
+    curve resolution of its letters (fewer triangles)"""
     cu = bpy.data.curves.new(name, 'FONT')
     cu.body = body
+    if res:
+        cu.resolution_u = res
     cu.size = size
     cu.extrude = 0.02
     cu.align_x = align
@@ -2870,8 +2876,45 @@ def rmp():
         plus = K.join([K.box((0.7, 0.17, 0.17), (0, 0, 0), chm, 'plus'), K.box((0.17, 0.7, 0.17), (0, 0, 0), chm, 'plus')], 'charge')
         signs.append((K.part(bake(plus), 'charge'), V(x + 0.7, 3.1, 5.3)))           # baked: posed at scale 1
         signs.append((K.part(bake(K.box((0.7, 0.17, 0.17), (0, 0, 0), cmm, 'minus')), 'charge'), V(x, -2.9, 5.3)))
-    # the potential, written large behind
-    K.part(text_mesh('-70 mV', (0, 7.6, -3.0), 1.3, K.mat('potential', 0xffd166, 0.4), 'potential', align='CENTER'), 'potential')
+    # which side is which, in p27's words, on the back wall of each side
+    tm = K.mat('side-text', 0x22333b, 0.6)
+    for body, at, part in (('Extracellular fluid', (-7.4, 6.6, -4.4), 'ecf'), ('Na+ more highly concentrated', (-7.4, 5.4, -4.4), 'ecf'),
+                           ('Cytosol', (-7.4, -3.4, -4.4), 'cytoplasm'), ('K+ more concentrated', (-7.4, -4.6, -4.4), 'cytoplasm')):
+        K.part(text_mesh(body, at, 0.75, tm, part, align='LEFT', res=3), part)
+    # the potential: a meter at the side, one lead in the cytosol and one in the extracellular fluid; it reads the
+    # inside against the outside
+    MX, MY, MZ = 11.2, 0.4, 2.6
+    mb, ms = K.mat('potential', 0x495057, 0.5), K.mat('potential-screen', 0x0b1d13, 0.4)
+    meter = [K.box((3.4, 2.4, 0.6), (MX, MY, MZ), mb, 'meter', bevel=0.1), K.box((2.8, 1.1, 0.1), (MX, MY + 0.35, MZ + 0.32), ms, 'screen')]
+    lin, lout = K.mat('lead-in', 0x4cc9f0, 0.4, emit=0x4cc9f0), K.mat('lead-out', 0xe63946, 0.4)
+    for m, a, b in ((lin, (MX - 1.2, MY - 1.2, MZ), (7.4, -4.4, 2.6)), (lout, (MX - 1.2, MY + 1.2, MZ), (7.4, 4.8, 2.6))):
+        meter.append(K.between(a, (8.6, b[1], MZ), 0.07, m, 'lead', seg=8))
+        meter.append(K.between((8.6, b[1], MZ), b, 0.07, m, 'lead', seg=8))
+        meter.append(K.sphere(0.2, b, m, seg=(12, 8), name='tip'))
+    K.part(K.join(meter, 'potential'), 'potential')
+    rm = K.mat('potential-reading', 0xffd166, 0.4, emit=0xffd166)
+    reading = (K.part(bake(text_mesh('-70 mV', (0, 0, 0), 0.75, rm, 'potential', align='CENTER', res=3)), 'potential'), V(MX, MY + 0.35, MZ + 0.4))
+
+    def arrow(L, up, m, name, text=None):
+        """an arrow L long pointing up (out of the cell) or down (in), centred on the origin, with optional words at
+        its point"""
+        sg = 1 if up else -1
+        objs = [K.between((0, -sg * L / 2, 0), (0, sg * (L / 2 - 0.6), 0), 0.13, m, name, seg=10)]
+        bm = bmesh.new()
+        bmesh.ops.create_cone(bm, cap_ends=True, segments=18, radius1=0.38, radius2=0.0, depth=0.6)
+        head = K.mesh_obj(name, bm, m)
+        head.rotation_euler = (0 if up else math.pi, 0, 0)
+        head.location = T((0, sg * (L / 2 - 0.3), 0))
+        objs.append(bake(head))
+        if text:
+            objs.append(bake(text_mesh(text, (0, sg * (L / 2 + 0.55), 0), 0.6, m, name, align='CENTER', res=3)))
+        return bake(K.join(objs, name))
+    arm_k, arm_na = K.mat('k-arrow', 0xc77dff, 0.4, emit=0xc77dff), K.mat('na-arrow', 0x3a86ff, 0.4, emit=0x3a86ff)
+    B, C, G = PU[0], KP[0], NP[0]
+    arrows = [(K.part(arrow(5.6, True, arm_k, 'kpassive'), 'kpassive'), V(C[0] + 0.6, 0.3, 5.9), lambda s: s < 2),
+              (K.part(arrow(5.6, False, arm_na, 'napassive'), 'napassive'), V(G[0], 0.3, 5.9), lambda s: s < 1),
+              (K.part(arrow(5.6, True, arm_na, 'pump', '3 Na+'), 'pump'), V(B[0] - 0.9, 0.0, 5.9), lambda s: s >= 2),
+              (K.part(arrow(5.6, False, arm_k, 'pump', '2 K+'), 'pump'), V(B[0] + 0.9, 0.0, 5.9), lambda s: s >= 2)]
     nam, kim = K.mat('na', 0x3a86ff, 0.35), K.mat('k', 0xc77dff, 0.35)
     ball = lambda r, m, name: K.part(K.sphere(r, (0, 0, 0), m, seg=(12, 8), name=name), name)
     k_leak = [[ball(0.26, kim, 'k') for _ in range(2)] for _ in kch]          # out, one in stage 1 and one in stage 2
@@ -2914,6 +2957,10 @@ def rmp():
         for j, (o, c) in enumerate(signs):
             u = (j // 2) / 11
             tr.pose(o, frame, c, None, max(HIDE, span(grow, 0.6 * u, 0.4 + 0.6 * u)) if s >= 1 else HIDE)
+        # the meter reads as the charge builds; the arrows show which way each ion goes in each step
+        tr.pose(reading[0], frame, reading[1], None, HIDE if s < 1 else max(HIDE, span(perm, 0.3, 0.9)) if s < 2 else 1)
+        for o, at, when in arrows:
+            tr.pose(o, frame, at, None, 1 if when(s) else HIDE)
         # the labels ride a moving ion: the Na+ coming in, then the first one pumped out; the first K+ out, then in
         na_at = through_point(nch[0][0], True, 0.3, 0.9, grad if s < 1 else 2, 0, 2) if s < 2 else through_point(PU3[0], False, 0.05, 0.55, pump, 0, 3, 0.5)
         k_at = through_point(kch[0][0], False, 0.2, 0.7, grad if s < 1 else 2, 0, 1, 2.0) if s < 2 else through_point(PU3[0], True, 0.45, 0.95, pump, 0, 2, 1.5)
@@ -2922,13 +2969,338 @@ def rmp():
     sample(place, 3, step=2)
     tr.write()
     K.anchor('membrane', (-6.6, 2.0, 4.6))
-    K.anchor('ecf', (6.0, 6.0, 4.8))
-    K.anchor('cytoplasm', (6.0, -5.8, 4.8))
+    K.anchor('ecf', (-7.2, 6.0, -4.3))
+    K.anchor('cytoplasm', (-7.2, -3.6, -4.3))
     K.anchor('kpassive', (KP[0][0], 3.6, KP[0][1] + 0.5))
     K.anchor('napassive', (NP[0][0], 3.6, NP[0][1] + 0.5))
     K.anchor('pump', (PU[0][0], 3.4, PU[0][1] + 0.6))
     K.anchor('proteins', tuple(prot[0][1] + V(0, 0.9, 0.3)))
     K.anchor('charge', (-5.6, -2.9, 5.4))
-    K.anchor('potential', (0, 8.6, -3.0))
+    K.anchor('potential', (MX, MY + 1.4, MZ + 0.3))
     VIEW['rmp'] = [0.2, 0.35, 1]
     export('rmp', ['membrane'])
+
+
+# ------------------------------------------------------------------ reproduction: testis and follicle ----
+def hormone(r, m, name):
+    """a hormone molecule, drawn as a glowing bead far larger than it is"""
+    return K.part(K.sphere(r, (0, 0, 0), m, seg=(14, 10), name=name), name)
+
+
+def fib_dirs(n, z_max=1.0, seed=0):
+    """n directions spread evenly over the sphere, kept to three z <= z_max (behind a cut made at the front)"""
+    out, i = [], 0
+    while len(out) < n:
+        y = 1 - 2 * (i + 0.5) / (n * 3)
+        r = math.sqrt(max(0.0, 1 - y * y))
+        a = i * 2.39996 + seed
+        d = V(r * math.cos(a), y, r * math.sin(a))
+        if d.z <= z_max:
+            out.append(d)
+        i += 1
+    return out
+
+
+def testis():
+    """Hormonal Control of Spermatogenesis (L6 pp 3-15), on a slice of one seminiferous tubule as the p3 figure cuts
+    it: the spermatogonia at the outermost layer, primary and secondary spermatocytes and spermatids toward the lumen,
+    the nurse (Sertoli) cells reaching from the wall to the lumen, the interstitial (Leydig) cells outside the tubule
+    and a capillary. Slider, the slide's own steps (p15, p11): (1) LH, brought by the blood, reaches the Leydig cells,
+    which secrete testosterone into the tubule; (2) FSH reaches the Sertoli cells, which make androgen-binding protein
+    (ABP); ABP binds the testosterone, concentrating it round the developing cells; (3) spermatogenesis proceeds toward
+    the lumen: spermatids differentiate into spermatozoa, which lose contact with the wall and enter the fluid in the
+    lumen; (4) the Sertoli cells' inhibin goes into the blood, to the pituitary, which secretes less FSH. Hormones are
+    drawn as beads far larger than they are."""
+    K.reset()
+    tr = Track()
+    rnd = random.Random(61)
+    R, H = 7.6, 2.8                                   # the tubule's radius; the slice's depth (three z)
+    CX = R + 3.4                                      # the capillary runs up the right side, outside the tubule
+    K.part(K.between((0, 0, -H / 2), (0, 0, H / 2), R + 0.35, K.mat('tubule', 0xf1c0c8, 0.6, alpha=0.16), 'tubule', seg=72), 'tubule', shell=True)
+    K.part(K.between((0, 0, -H / 2 + 0.05), (0, 0, H / 2 - 0.05), 2.3, K.mat('lumen', 0xf8f9fa, 0.8, alpha=0.1), 'lumen', seg=48), 'lumen', shell=True)
+    SA = [2 * math.pi * k / 9 + 0.17 for k in range(9)]           # the nurse cells' angles
+
+    def clear(a, r, gap):
+        return all(abs(((a - s + math.pi) % (2 * math.pi)) - math.pi) * r > gap for s in SA)
+    # the nurse (Sertoli) cells: each a column from the wall to the lumen, its broad base on the wall
+    sm = K.mat('sertoli', 0x9d4edd, 0.5)
+    ser = []
+    for s in SA:
+        u = V(math.cos(s), math.sin(s), 0)
+        ser.append(K.between(tuple(u * (R - 0.3)), tuple(u * 2.5), 0.4, sm, 'sertoli', seg=12))
+        ser.append(K.sphere(0.62, tuple(u * (R - 0.75)), sm, seg=(16, 10), scale=(1.0, 1.0, 1.4), name='sertoli'))
+    K.part(bake(K.join(ser, 'sertoli')), 'sertoli')
+
+    def ring(r, cell, m, name, rows=(-0.6, 0.6), gap=0.95):
+        objs, n = [], int(2 * math.pi * r / (cell * 2.25))
+        for z in rows:
+            for i in range(n):
+                a = 2 * math.pi * (i + (0.5 if z > 0 else 0)) / n
+                if not clear(a, r, gap):
+                    continue
+                p = V(math.cos(a) * r, math.sin(a) * r, z) + V(rnd.random() - 0.5, rnd.random() - 0.5, 0) * 0.15
+                objs.append(K.sphere(cell, tuple(p), m, seg=(16, 10), name=name))
+        return bake(K.join(objs, name))
+    K.part(ring(6.85, 0.5, K.mat('spermatogonium', 0x1d4e89, 0.5), 'spermatogonium'), 'spermatogonium')
+    K.part(ring(5.6, 0.66, K.mat('primary', 0x3a7ca5, 0.5), 'primary'), 'primary')
+    K.part(ring(4.3, 0.5, K.mat('secondary', 0x5fa8d3, 0.5), 'secondary'), 'secondary')
+    # spermatids, one by one (each becomes a spermatozoon), and the spermatozoa they become
+    sid_a = [a for a in (2 * math.pi * i / 22 + 0.05 for i in range(22)) if clear(a, 3.2, 0.55)]
+    dm, zm = K.mat('spermatids', 0x90e0ef, 0.5), K.mat('spermatozoa', 0x343a40, 0.45)
+    spermatids = [K.part(K.sphere(0.36, (0, 0, 0), dm, seg=(14, 10), name='spermatids'), 'spermatids') for _ in sid_a]
+
+    def spermatozoon():
+        head = K.sphere(0.24, (0, 0, 0), zm, seg=(14, 10), scale=(1.5, 0.9, 0.9), name='head')
+        tail = K.curve_tube([(-0.3, 0, 0), (-1.0, 0.14, 0), (-1.7, -0.14, 0), (-2.4, 0.1, 0), (-3.0, 0, 0)], 0.05, zm, 'tail', res=4)
+        return K.part(bake(K.join([head, tail], 'spermatozoa')), 'spermatozoa')
+    sperm = [spermatozoon() for _ in sid_a]
+    sperm_end = [(V(math.cos(a), math.sin(a), 0) * (1.2 + 0.6 * rnd.random()) + V(0, 0, (rnd.random() - 0.5) * 1.2),
+                  a + (rnd.random() - 0.5) * 1.2) for a in sid_a]
+    # interstitial (Leydig) cells, in clusters outside the tubule, and the capillary
+    lm = K.mat('leydig', 0xe5989b, 0.5)
+    LY = [V(R + 1.5, 4.7, 0), V(R + 1.5, -4.7, 0), V(-(R + 1.3), 5.2, 0), V(-(R + 1.3), -5.2, 0)]
+    ley = []
+    for c in LY:
+        for d in (V(-0.5, 0.45, 0.3), V(0.5, 0.4, -0.3), V(0.0, -0.5, 0.2), V(-0.1, 0.1, -0.6)):
+            ley.append(K.sphere(0.6, tuple(c + d), lm, seg=(16, 10), name='leydig'))
+    K.part(bake(K.join(ley, 'leydig')), 'leydig')
+    K.part(K.between((CX, -10.5, 0), (CX, 10.5, 0), 0.75, K.mat('capillary', 0xd62828, 0.5, alpha=0.35), 'capillary', seg=24), 'capillary', shell=True)
+    # the hormones
+    lhm, fsm = K.mat('lh', 0xff9f1c, 0.35, emit=0xff9f1c), K.mat('fsh', 0x2dc653, 0.35, emit=0x2dc653)
+    tm_, abm = K.mat('testosterone', 0xffd60a, 0.35, emit=0xffd60a), K.mat('abp', 0x4cc9f0, 0.35)
+    inm = K.mat('inhibin', 0xf15bb5, 0.35, emit=0xf15bb5)
+    lh = [hormone(0.26, lhm, 'lh') for _ in range(8)]
+    fsh = [hormone(0.28, fsm, 'fsh') for _ in range(8)]
+    tes = [hormone(0.2, tm_, 'testosterone') for _ in range(12)]
+    abp = [hormone(0.24, abm, 'abp') for _ in range(12)]
+    inh = [hormone(0.24, inm, 'inhibin') for _ in range(6)]
+    RIGHT = [s for s in SA if math.cos(s) > 0.2]
+    t_at = [V(math.cos(a) * r, math.sin(a) * r, (rnd.random() - 0.5) * 1.6)
+            for a, r in ((-1.0 + 2.0 * j / 11, 3.6 + 2.6 * rnd.random()) for j in range(12))]
+    an = anchors(('lh', 'fsh', 'testosterone', 'abp', 'inhibin', 'spermatozoa'))
+
+    def wob(i, s, a=0.08):
+        return V(math.sin(s * 6.1 + i * 2.3), math.sin(s * 5.3 + i * 1.1), math.sin(s * 5.7 + i * 3.7)) * a
+
+    def place(s, frame):
+        p = stage_prog(s, 4)
+        lhs, fs, gen, inb = p(0), p(1), p(2), p(3)
+        # (1) LH up the capillary to the Leydig cells; testosterone from them into the tubule
+        for j, o in enumerate(lh):
+            tgt = LY[j % 2] + V(0.9, 0.0, 0.0) + V(0, 0.35 * (j // 2 - 1.5), 0.5 * ((j % 4) - 1.5) * 0.5)
+            path = [V(CX, -10.0 - 0.8 * j, 0.1), V(CX, tgt.y, 0.1), tgt]
+            k = span(lhs, 0.05 * j, 0.4 + 0.05 * j)
+            tr.pose(o, frame, along(path, k) + wob(j, s))
+        for j, o in enumerate(tes):
+            src = LY[j % 2]
+            k = span(lhs, 0.45 + 0.03 * j, 0.8 + 0.015 * j)
+            at = lerp(src, t_at[j], k)
+            if fs > 0:                                   # bound to ABP, held among the developing cells
+                at = lerp(at, t_at[j] * 0.92, span(fs, 0.6, 1.0))
+            tr.pose(o, frame, at + wob(j + 10, s, 0.05), None, 1 if k > 0.02 else HIDE)
+        # (2) FSH to the Sertoli cells; ABP from them, binding the testosterone
+        for j, o in enumerate(fsh):
+            sa = RIGHT[j % len(RIGHT)]
+            tgt = V(math.cos(sa), math.sin(sa), 0) * (R - 0.2) + V(0, 0, 0.5 * ((j // len(RIGHT)) - 0.5) * 2)
+            path = [V(CX, -10.0 - 0.8 * j, -0.1), V(CX, tgt.y, -0.1), tgt]
+            k = span(fs, 0.04 * j, 0.4 + 0.04 * j)
+            tr.pose(o, frame, along(path, k) + wob(j + 30, s), None, max(HIDE, 1 - span(inb, 0.4, 0.9)))
+        for j, o in enumerate(abp):
+            sa = min(SA, key=lambda q: abs(((q - math.atan2(t_at[j].y, t_at[j].x) + math.pi) % (2 * math.pi)) - math.pi))
+            src = V(math.cos(sa), math.sin(sa), 0) * 5.0
+            k = span(fs, 0.45 + 0.03 * j, 0.85 + 0.01 * j)
+            at = lerp(src, t_at[j] * 0.92 + V(0.25, 0.2, 0.15), k)
+            tr.pose(o, frame, at + wob(j + 10, s, 0.05), None, 1 if k > 0.02 else HIDE)
+        # (3) spermatids become spermatozoa, which leave the wall and enter the fluid in the lumen
+        for j, (o, z) in enumerate(zip(spermatids, sperm)):
+            a = sid_a[j]
+            home = V(math.cos(a), math.sin(a), 0) * 3.2
+            k = span(gen, 0.05 + 0.025 * j, 0.45 + 0.025 * j)
+            tr.pose(o, frame, home, None, max(HIDE, 1 - k))
+            end, rot = sperm_end[j]
+            m = span(gen, 0.45 + 0.02 * j, 0.95)
+            at = lerp(home + V(math.cos(a), math.sin(a), 0) * 0.2, end, m)
+            tr.pose(z, frame, at + wob(j + 50, s, 0.05 * m), q_three((0, 0, 1), mix(a, rot, m)), max(HIDE, k))
+        # (4) inhibin from the Sertoli cells into the blood; less FSH arrives
+        for j, o in enumerate(inh):
+            sa = RIGHT[j % len(RIGHT)]
+            src = V(math.cos(sa), math.sin(sa), 0) * 5.4
+            path = [src, V(math.cos(sa), math.sin(sa), 0) * (R + 0.6), V(CX, src.y, 0.3), V(CX, 11.0 + 0.6 * j, 0.3)]
+            k = span(inb, 0.05 + 0.06 * j, 0.6 + 0.06 * j)
+            tr.pose(o, frame, along(path, k) + wob(j + 70, s), None, 1 if 0.01 < k < 0.99 else HIDE)
+        tr.pose(an['lh'], frame, along([V(CX, -10.0, 0.1), V(CX, LY[0].y, 0.1), LY[0] + V(0.9, -0.5, 0)], span(lhs, 0, 0.4)) + V(0.4, 0.5, 0.4))
+        tr.pose(an['testosterone'], frame, lerp(LY[0], t_at[0], span(lhs, 0.45, 0.8)) + V(0.3, 0.4, 0.3))
+        tr.pose(an['fsh'], frame, along([V(CX, -10.0, -0.1), V(CX, (R - 0.2) * math.sin(RIGHT[0]), -0.1), V(math.cos(RIGHT[0]), math.sin(RIGHT[0]), 0) * (R - 0.2)], span(fs, 0, 0.4)) + V(0.4, 0.5, 0.4))
+        tr.pose(an['abp'], frame, t_at[3] * 0.92 + V(0.6, 0.6, 0.5))
+        sa = RIGHT[0]
+        tr.pose(an['inhibin'], frame, along([V(math.cos(sa), math.sin(sa), 0) * 5.4, V(math.cos(sa), math.sin(sa), 0) * (R + 0.6), V(CX, 5.4 * math.sin(sa), 0.3), V(CX, 11.0, 0.3)], span(inb, 0.05, 0.6)) + V(0.4, 0.5, 0.4))
+        tr.pose(an['spermatozoa'], frame, sperm_end[0][0] + V(0.3, 0.5, 0.5))
+    sample(place, 4, step=2)
+    tr.write()
+    K.anchor('tubule', (0, R + 0.4, 1.4))
+    K.anchor('lumen', (-1.2, 0.6, 0.6))
+    K.anchor('sertoli', tuple(V(math.cos(SA[2]), math.sin(SA[2]), 0) * 4.4 + V(0, 0, 0.5)))
+    K.anchor('spermatogonium', tuple(V(math.cos(-2.3), math.sin(-2.3), 0) * 6.85 + V(0, 0, 0.9)))
+    K.anchor('primary', tuple(V(math.cos(-1.9), math.sin(-1.9), 0) * 5.6 + V(0, 0, 1.2)))
+    K.anchor('secondary', tuple(V(math.cos(2.6), math.sin(2.6), 0) * 4.3 + V(0, 0, 1.0)))
+    K.anchor('spermatids', tuple(V(math.cos(sid_a[5]), math.sin(sid_a[5]), 0) * 3.2 + V(0, 0, 0.5)))
+    K.anchor('leydig', tuple(LY[2] + V(0, 0.9, 0.5)))
+    K.anchor('capillary', (CX, 8.5, 0.8))
+    VIEW['testis'] = [0.12, 0.2, 1]
+    export('testis', [])
+
+
+def half_shell(r, thick, m, name, lump=0.0, seed=0, seg=(48, 24)):
+    """the back half of a hollow sphere (three z <= 0), r its outside, thick its wall: a follicle's layer cut open
+    toward the viewer"""
+    bm = bmesh.new()
+    bmesh.ops.create_uvsphere(bm, u_segments=seg[0], v_segments=seg[1], radius=r)
+    bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.calc_center_median().y < 0], context='FACES')   # a meridian lies on the cut
+    o = K.mesh_obj(name, bm, m)
+    if lump:
+        K.lumpy(o, lump, 0.35, seed)
+        o = K.apply(o)
+    if thick:
+        sol = o.modifiers.new('wall', 'SOLIDIFY')
+        sol.thickness, sol.offset, sol.use_rim = thick, -1.0, True
+        o = K.apply(o)
+    return K.smooth(o)
+
+
+def half_ball(r, m, name):
+    """the back half of a solid sphere, its cut face closed: fluid filling a cut-open follicle"""
+    bm = bmesh.new()
+    bmesh.ops.create_uvsphere(bm, u_segments=40, v_segments=20, radius=r)
+    bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.calc_center_median().y < 0], context='FACES')   # a meridian lies on the cut
+    bmesh.ops.holes_fill(bm, edges=bm.edges[:], sides=0)
+    return K.smooth(K.mesh_obj(name, bm, m))
+
+
+def follicle():
+    """The ovarian cycle (L6 pp 24-37) in one follicle, cut open toward the viewer, in a block of the ovary below its
+    outer surface, with a capillary: the oocyte in its zona pellucida, the granulosa cells round it, the theca outside
+    them (the p28 figure's layers). Slider, the slide's phases: (1) Follicular phase, "Initiated by FSH": FSH from the
+    blood binds the follicle, which grows from a primary follicle to a Graafian follicle, its antrum filling with
+    follicular fluid and the oocyte in its corona radiata; estrogen rises; (2) the LH surge: LH floods in, and "FSH
+    causes the Graafian follicle to bulge out of the ovary wall"; (3) Ovulation: the follicle ruptures, releasing the
+    secondary oocyte within its corona radiata, with follicular fluid; (4) Luteal phase: LH turns the ruptured follicle
+    into a corpus luteum, which secretes estrogen and progesterone; their high levels shut FSH and LH down. Hormones
+    are drawn as beads far larger than they are."""
+    K.reset()
+    tr = Track()
+    rnd = random.Random(71)
+    TOP = 5.0                                          # the outer surface of the ovary
+    K.part(K.rounded_box((20.0, 12.0, 9.0), (0, TOP - 6.0, 0), K.mat('ovary', 0xf5cac3, 0.7, alpha=0.12), 'ovary', radius=0.6), 'ovary', shell=True)
+    CAP_Y = -5.6
+    K.part(K.between((-10.2, CAP_Y, 0.6), (10.2, CAP_Y, 0.6), 0.75, K.mat('capillary', 0xd62828, 0.5, alpha=0.35), 'capillary', seg=24), 'capillary', shell=True)
+    # primordial follicles, waiting in the ovary: a small oocyte in one layer of flat cells
+    pm, pcm = K.mat('primordial', 0x7fd1d6, 0.5), K.mat('primordial-cells', 0xf4a259, 0.5)
+    prim = []
+    for c in (V(-7.6, 2.8, -1.0), V(-6.2, -1.2, 1.4), V(6.8, 3.0, -1.2), V(7.6, -1.6, 0.8), V(-8.0, -3.4, -0.4), V(5.4, -3.6, 1.6)):
+        prim.append(K.sphere(0.32, tuple(c), pm, seg=(14, 10), name='primordial'))
+        for d in fib_dirs(10, seed=c.x):
+            prim.append(K.sphere(0.13, tuple(c + d * 0.44), pcm, seg=(8, 6), scale=(1.3, 1.3, 0.6), name='primordial'))
+    K.part(bake(K.join(prim, 'primordial')), 'primordial')
+    # the follicle's layers, made at unit size round the origin and posed (scaled) each frame
+    theca = K.part(half_shell(1.0, 0.07, K.mat('theca', 0x8c4a1c, 0.55), 'follicle'), 'follicle')     # its wall: outer layer
+    gran = K.part(half_shell(0.93, 0.26, K.mat('granulosa', 0xf6bd60, 0.6), 'follicle'), 'follicle')   # and its cells
+    antrum = K.part(half_ball(1.0, K.mat('antrum', 0xffe8a3, 0.8, alpha=0.4), 'antrum'), 'antrum', shell=True)
+    om = K.mat('oocyte', 0x7fd1d6, 0.4, alpha=0.85)
+    oocyte = K.part(bake(K.join([K.sphere(1.0, (0, 0, 0), om, seg=(32, 20), name='oocyte'),
+                                 K.sphere(0.3, (0.1, 0.15, 0.2), K.mat('oocyte-nucleus', 0x1b6f75, 0.4), seg=(16, 10), name='oocyte')], 'oocyte')), 'oocyte')
+    zona = K.part(K.sphere(1.0, (0, 0, 0), K.mat('zona', 0xf1faee, 0.5, alpha=0.35), seg=(32, 20), name='zona'), 'zona', shell=True)
+    crm = K.mat('corona', 0xf6bd60, 0.6)
+    corona = K.part(bake(K.join([K.sphere(0.17, tuple(d * 1.25), crm, seg=(8, 6), name='corona') for d in fib_dirs(46, seed=3)], 'corona')), 'corona')
+    cl = K.part(K.apply(K.lumpy(K.ico(1.0, (0, 0, 0), K.mat('cl', 0xffd60a, 0.55), level=4, name='cl'), 0.12, 0.4, 5)), 'cl')
+    fluid = [K.part(K.sphere(0.32, (0, 0, 0), K.mat('antrum-drop', 0xffe8a3, 0.8, alpha=0.5), seg=(12, 8), name='antrum'), 'antrum', shell=True) for _ in range(7)]
+    # the hormones
+    fsm, lhm = K.mat('fsh', 0x2dc653, 0.35, emit=0x2dc653), K.mat('lh', 0xff9f1c, 0.35, emit=0xff9f1c)
+    esm, prm = K.mat('estrogen', 0xff70a6, 0.35, emit=0xff70a6), K.mat('progesterone', 0x9b5de5, 0.35, emit=0x9b5de5)
+    fsh = [hormone(0.26, fsm, 'fsh') for _ in range(10)]
+    lh = [hormone(0.26, lhm, 'lh') for _ in range(12)]
+    est = [hormone(0.22, esm, 'estrogen') for _ in range(14)]
+    pro = [hormone(0.22, prm, 'progesterone') for _ in range(9)]
+    DF, DL = fib_dirs(10, 0.15, seed=1), fib_dirs(12, 0.15, seed=2)
+    ESC = [V(-8.5 + 1.2 * j, CAP_Y + 0.25 * ((j % 3) - 1), 0.6 + 0.3 * ((j % 2) - 0.5)) for j in range(14)]
+    PSC = [V(-7.9 + 1.7 * j, CAP_Y - 0.3, 0.9) for j in range(9)]
+    an = anchors(('oocyte', 'zona', 'corona', 'follicle', 'antrum', 'cl', 'fsh', 'lh', 'estrogen', 'progesterone'))
+
+    def state(s):
+        """the follicle at slider value s: its centre, radius, antrum radius, oocyte radius and place"""
+        p = stage_prog(s, 4)
+        fol, surge, ovu, lut = p(0), p(1), p(2), p(3)
+        g = span(fol, 0.0, 0.9)
+        Rf = mix(1.3, 3.7, g * g * (3 - 2 * g)) + 0.55 * span(surge, 0.1, 0.9) - 1.2 * span(ovu, 0.35, 1.0)
+        F = V(0, mix(-2.4, 0.4, g) + 1.15 * span(surge, 0.1, 0.9) - 0.6 * span(ovu, 0.4, 1.0), 0)
+        ant = Rf * 0.8 * span(fol, 0.3, 0.85) * (1 - span(ovu, 0.15, 0.7))
+        orad = mix(0.55, 0.85, span(fol, 0.0, 0.3))
+        o_at = F + V(0, -(Rf - orad - 0.55) * span(fol, 0.3, 0.85), 0.25) if ovu == 0 else None
+        return p, F, Rf, ant, orad, o_at
+
+    def place(s, frame):
+        (p, F, Rf, ant, orad, o_at) = state(s)
+        fol, surge, ovu, lut = p(0), p(1), p(2), p(3)
+        wall = 1 - span(lut, 0.1, 0.6)                      # the ruptured wall gives way to the corpus luteum
+        tr.pose(theca, frame, F, None, max(HIDE, Rf * wall))
+        tr.pose(gran, frame, F, None, max(HIDE, Rf * wall))
+        tr.pose(antrum, frame, F, None, max(HIDE, ant))
+        tr.pose(cl, frame, F + V(0, -0.2, 0), None, max(HIDE, mix(0, 2.6, span(lut, 0.05, 0.6))))
+        # the oocyte: grows in the primary follicle, is pushed to one side as the antrum fills, and at ovulation
+        # leaves through the ruptured wall, in its corona radiata, with the follicular fluid
+        _, F0, R0, _, _, at0 = state(min(s, 1.999))
+        leave = span(ovu, 0.1, 0.85)
+        out = [at0, F0 + V(0.4, R0 + 0.4, 0.4), V(2.4, TOP + 2.2, 1.0)]
+        at = o_at if o_at is not None else along(out, leave)
+        tr.pose(oocyte, frame, at, None, orad)
+        tr.pose(zona, frame, at, None, max(HIDE, (orad + 0.13) * span(fol, 0.1, 0.3)))
+        tr.pose(corona, frame, at, None, max(HIDE, (orad + 0.13) * span(fol, 0.45, 0.8)))
+        for j, o in enumerate(fluid):
+            d = V(math.cos(j * 0.9) * 0.9, 0, math.sin(j * 0.9) * 0.6)
+            path = [F0 + d * 0.5, F0 + V(0, R0, 0) + d * 0.3, F0 + V(0, R0 + 2.2 + 0.4 * j, 0) + d * 2.2]
+            k = span(ovu, 0.1 + 0.05 * j, 0.7 + 0.04 * j)
+            tr.pose(o, frame, along(path, k), None, max(HIDE, (1.0 if 0.02 < k else 0) * (1 - span(lut, 0.2, 0.6))))
+        # FSH from the blood to the follicle, held there; shut down in the luteal phase
+        for j, o in enumerate(fsh):
+            on_f = F + DF[j] * (Rf * wall + 0.25)
+            path = [V(-10.4 - 0.8 * j, CAP_Y, 0.6), V(-2.0 + 0.5 * j, CAP_Y, 0.6), on_f]
+            k = span(fol, 0.03 * j, 0.35 + 0.03 * j)
+            tr.pose(o, frame, along(path, k), None, max(HIDE, 1 - span(lut, 0.55, 0.95) - span(ovu, 0.3, 0.8)))
+        # LH: the surge floods in to the Graafian follicle; after ovulation it turns the ruptured follicle into the
+        # corpus luteum; shut down at the end
+        for j, o in enumerate(lh):
+            r_on = Rf * wall + 0.25 if lut < 0.3 else mix(Rf * wall + 0.25, 2.85, span(lut, 0.1, 0.6))
+            on_f = F + DL[j] * r_on
+            path = [V(-10.4 - 0.6 * j, CAP_Y, 0.4), V(-1.5 + 0.4 * j, CAP_Y, 0.4), on_f]
+            k = span(surge, 0.02 * j, 0.4 + 0.03 * j)
+            tr.pose(o, frame, along(path, k), None, max(HIDE, 1 - span(lut, 0.65, 1.0)))
+        # estrogen: rising through the follicular phase (into the blood), and again from the corpus luteum
+        for j, o in enumerate(est):
+            if j < 9:
+                src = F + DF[j % 10] * Rf
+                k = span(fol, 0.3 + 0.06 * j, 0.55 + 0.05 * j)
+            else:
+                src = F + DL[j % 12] * 2.6
+                k = span(lut, 0.35 + 0.08 * (j - 9), 0.6 + 0.07 * (j - 9))
+            tr.pose(o, frame, lerp(src, ESC[j], k) + V(0, 0, 0.08 * math.sin(s * 5 + j)), None, 1 if k > 0.01 else HIDE)
+        for j, o in enumerate(pro):
+            src = F + DL[j % 12] * 2.6
+            k = span(lut, 0.3 + 0.05 * j, 0.62 + 0.04 * j)
+            tr.pose(o, frame, lerp(src, PSC[j], k) + V(0, 0, 0.08 * math.sin(s * 5 + j)), None, 1 if k > 0.01 else HIDE)
+        # labels
+        tr.pose(an['oocyte'], frame, at + V(0, orad + 0.3, 0.6))
+        tr.pose(an['zona'], frame, at + V(orad + 0.1, 0, 0.5))
+        tr.pose(an['corona'], frame, at + V(-orad - 0.3, 0.3, 0.5))
+        tr.pose(an['follicle'], frame, F + V(-0.75, 0.35, 0) * (Rf * wall))
+        tr.pose(an['antrum'], frame, F + V(0.2, 0.25, 0.2) * max(ant, 0.4))
+        tr.pose(an['cl'], frame, F + V(0, 2.6, 0.8))
+        tr.pose(an['fsh'], frame, F + DF[0] * (Rf * wall + 0.25) + V(0.3, 0.3, 0.3) if fol > 0.35 else along([V(-10.4, CAP_Y, 0.6), V(-2.0, CAP_Y, 0.6), F + DF[0] * (Rf + 0.25)], span(fol, 0, 0.35)) + V(0.3, 0.4, 0.3))
+        tr.pose(an['lh'], frame, F + DL[0] * (Rf * wall + 0.25) + V(0.3, 0.3, 0.3) if surge >= 0.4 else along([V(-10.4, CAP_Y, 0.4), V(-1.5, CAP_Y, 0.4), F + DL[0] * (Rf + 0.25)], span(surge, 0, 0.4)) + V(0.3, 0.4, 0.3))
+        tr.pose(an['estrogen'], frame, ESC[0] + V(0, 0.5, 0.4))
+        tr.pose(an['progesterone'], frame, PSC[4] + V(0, -0.6, 0.4))
+    sample(place, 4, step=2)
+    tr.write()
+    K.anchor('ovary', (7.0, TOP + 0.05, 2.0))
+    K.anchor('capillary', (8.4, CAP_Y + 0.8, 1.2))
+    K.anchor('primordial', (-7.6, 3.4, -0.6))
+    VIEW['follicle'] = [0.12, 0.22, 1]
+    export('follicle', [])

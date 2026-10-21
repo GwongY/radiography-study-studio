@@ -1,0 +1,10 @@
+{
+  "about": "Labels drawn inside a slide's figure, which text extraction does not reach, transcribed by reading the slide image. An unmarked figure label does not count as taught (DECISIONS, 'What on a slide counts as taught'); an entry here is one the owner asked for by name, and the Cell tab cites it with figure: true (checked by work/cell-zoom-check.mjs; its cite line reads 'figure'). Add one only on the owner's word, after reading it on the page, in its own spelling.",
+  "labels": {
+    "phys.l8.2026": {
+      "29": [
+        "Na,K–ATPase pump"
+      ]
+    }
+  }
+}

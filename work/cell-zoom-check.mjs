@@ -29,7 +29,12 @@ import { normaliseCitationText as norm } from './lib/source-lesson-map.mjs';
 let fail = 0;
 const ok = (good, msg) => { if (!good) { console.log(`  FAIL ${msg}`); fail++; } else if (process.argv.includes('-v')) console.log(`  ok   ${msg}`); };
 const TEXT = JSON.parse(readFileSync(new URL('./source-text.json', import.meta.url), 'utf8')).sources;
-const pageText = (c) => norm(((TEXT[c.ref] || { pages: [] }).pages[c.page - 1]) || '');
+/* A cite marked figure: true quotes a label drawn inside a slide's figure, which no text extraction reaches; those
+   labels are transcribed, page by page, in work/figure-labels.json (read off the slide image). */
+const FIGURE = JSON.parse(readFileSync(new URL('./figure-labels.json', import.meta.url), 'utf8')).labels;
+const pageText = (c) => c.figure
+  ? ((FIGURE[c.ref] || {})[c.page] || []).map((l) => norm(l)).join(' | ')
+  : norm(((TEXT[c.ref] || { pages: [] }).pages[c.page - 1]) || '');
 
 function checkCites(what, cite) {
   ok(Array.isArray(cite) && cite.length > 0, `${what}: cites at least one page`);
