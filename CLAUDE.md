@@ -36,8 +36,9 @@ it does not test.
    delivered lectures and tutorials. Source precedence: the 2026/27 iCloud subject
    folders first, the older PolyU material in `E:\UNI sources` as fallback; new
    files follow `docs/superpowers/specs/2026-09-10-new-source-intake-workflow.md`.
-   Where sources live and how the tooling reads them: `docs/SOURCES.md`. **Never
-   walk `G:` or the iCloud root** — ask `work/query.mjs`.
+   Where sources live and how the tooling reads them: `docs/SOURCES.md`. Google
+   Drive (`G:`) is retired: never use it. **Never walk the iCloud root** — ask
+   `work/query.mjs`.
 
 ## Find things here first
 
@@ -51,13 +52,13 @@ app, its file, its line range, and a link to the traps that govern it.
 | What breaks when you edit file F | the `docs/TRAPS.md` section CODEMAP links | this file |
 | What the model contains | `docs/DATA-INDEX.md`, then `node work/query.mjs` | `outputs/mesh-index.js` |
 | What one structure says | `node work/query.mjs unit\|mesh\|layer\|source <term>` | `outputs/mesh-index.js` |
-| Whether a source file exists, and where | `node work/query.mjs file\|where <term>` | walking `G:` |
+| Whether a source file exists, and where | `node work/query.mjs file\|where <term>` | walking a folder |
 | What a source actually SAYS, and on which page | `node work/query.mjs text <term>` | opening the PDF |
 | Why a decision was made | `docs/DECISIONS.md`, `git log`, `docs/history/README-archive.md` | reopening it |
 
 `outputs/mesh-index.js`, `work/course-terms.json` and `work/source-catalogue.json`
-are **generated** — never read or edit them, ask `work/query.mjs`. **Never walk
-`G:` for a source**: minutes of network stats, and the catalogue already knows.
+are **generated** — never read or edit them, ask `work/query.mjs`: the catalogue
+already knows where a source is.
 
 ## Layout
 

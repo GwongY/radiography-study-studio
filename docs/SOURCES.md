@@ -15,12 +15,18 @@ unrelated folders (Biology, DSE, Maths …) — never walk it. The list lives in
 `source-text.json` and the `SOURCE_FILES` registry still name these files by filename,
 so they stay valid.
 
+## Google Drive (`G:`): retired
+
+The Google Drive shortcut folders are outdated and no longer used (the owner,
+2026-10-21). New material comes from iCloud, old material from `E:\UNI sources` —
+never from `G:`.
+
 ## Old sources: `E:\UNI sources`
 
 The old (pre-2026) materials live in one organised offline collection,
 `E:\UNI sources` (31.6 GiB, 9,668 files after the records clean-up; it was 66.8 GB, 17,380 files). It replaced the `Old source/` `.lnk`
 shortcuts and the Drive walk. It is **local disk, so listing it is cheap** — the
-`G:` warning above does not apply to it. It is read-only reference: do not move,
+iCloud warning above does not apply to it. It is read-only reference: do not move,
 rename or delete anything in it unprompted. It was reorganised on request on 2026-10-02 and again on 2026-10-20
 (folder moves only; the 2026-10-20 one is journalled and undoable with
 `_Organization Records\Reorganisation 2026-10-20\undo-reorganisation.mjs`, and the
@@ -69,7 +75,7 @@ linked files and 20 old Dropbox links were inaccessible (`offline-unavailable-so
 and 12 files carry provisional placements.
 
 Tooling has **not** been repointed: `work/build-source-catalogue.mjs`,
-`build-course-terms.mjs` and `source-resolve-check.mjs` still default to the `G:`
+`build-course-terms.mjs` and `source-resolve-check.mjs` still default to the retired `G:`
 shortcuts and `Old source/`. The committed catalogue and `source-text.json` stay
 valid, so nothing needs re-running; for a rebuild pass `--root "E:/UNI sources"`
 (supported by `build-course-terms.mjs`) and check the result before committing.
