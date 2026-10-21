@@ -48,6 +48,8 @@ node_modules/
 # Cell zoom model build: unzipped CC BY downloads and the intermediate .glb files between
 # work/build-cell-models.mjs and Blender (work/blender/). Rebuildable; only outputs/cell/models/ ships.
 work/.cell-build/
+# Heart atlas pericardium build: the atlas heart handed to Blender (work/build-pericardium.mjs).
+work/.heart-build/
 
 # Python bytecode from running work/blender/ in Blender
 __pycache__/

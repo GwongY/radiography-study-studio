@@ -5,6 +5,17 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-21 — The heart atlas shows the pericardium; anaphase stretches the cell
+
+The owner asked for the pericardium, epicardium, serous membrane and pericardial cavity in the heart atlas. A
+**Pericardium** switch shows them as HSS2011 Cardiovascular system p7 lists them: the fibrous pericardium, the serous
+pericardium's parietal and visceral (epicardium) layers, and the pericardial cavity between them, each tappable with
+a card quoting that page. They are modelled in Blender from the atlas's own heart (`work/blender/pericardium.py`),
+so they fit it; the cavity is drawn far wider than its 15-50 mL of fluid would make it, and a window is cut in the
+front of the sac. The cards say both, in brackets, as the app's own words. The owner also found anaphase wrong: the
+cell now lengthens into an oval as the poles are pushed apart and a cleavage furrow starts at the equator, and each
+set of chromosomes ends packed against its centrioles, the kinetochore fibres almost gone.
+
 ### 2026-10-21 — Six model-only cell levels: red cell, hemoglobin, plasma, kidney tubule cell, SA node, myocardium
 
 The owner asked to zoom into a red cell, to see the plasma proteins, a proximal tubule cell showing its apical and

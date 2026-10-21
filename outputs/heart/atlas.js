@@ -16,13 +16,14 @@ import { createHeartMotion, cycleAt } from './heart-motion.js?v=26';
 import { createHeartbeat } from './heartbeat.js?v=11';
 import { ATLAS_SCALE, ATLAS_SHIFT } from './alignment.js?v=1';
 import { DESCRIPTIONS } from './descriptions.js?v=2';
+import { PERICARDIUM } from './pericardium-text.js?v=1';
 import { ECHO_VIEWS, computeEchoFrames, createEchoRenderer } from './echo-sim.js?v=21';
 import { mountClinicalPanels, PANEL_SECTIONS } from './panels.js?v=1';
 export { mountClinicalPanels };
 
 export const CHAMBER_COLOURS = { RA: 0x668ea9, RV: 0x759fae, LA: 0xca998d, LV: 0xb76659 };
 const COLOURS = { wall: 0xb97465, valves: 0xe7d6ac, coronary: 0xcf6651, cardiacVein: 0x6884aa, aorta: 0xc96758, cava: 0x7695b9, pa: 0x6c92ae, pv: 0xd78d7b };
-const GROUP_NAMES = ['wall', 'chambers', 'valves', 'coronary', 'cardiacVein', 'aorta', 'cava', 'pa', 'pv', 'conduction'];
+const GROUP_NAMES = ['wall', 'chambers', 'valves', 'coronary', 'cardiacVein', 'aorta', 'cava', 'pa', 'pv', 'conduction', 'pericardium'];
 const GREAT = ['aorta', 'cava', 'pa', 'pv'];
 export const PART_KEYS = ['RA', 'RV', 'LA', 'LV', 'TV', 'MV', 'AV', 'PV'];
 
@@ -46,9 +47,11 @@ export const PRESETS = {
 };
 
 export async function createHeartAtlas({ base = new URL('./', import.meta.url).href, startPaused = false } = {}) {
-  const [manifest, data] = await Promise.all([
+  const [manifest, data, periManifest, periData] = await Promise.all([
     fetch(base + 'heart-manifest.json').then((r) => { if (!r.ok) throw new Error('heart manifest ' + r.status); return r.json(); }),
     fetch(base + 'heart-meshes.bin').then((r) => { if (!r.ok) throw new Error('heart meshes ' + r.status); return r.arrayBuffer(); }),
+    fetch(base + 'pericardium.json').then((r) => { if (!r.ok) throw new Error('pericardium ' + r.status); return r.json(); }),
+    fetch(base + 'pericardium.bin').then((r) => { if (!r.ok) throw new Error('pericardium mesh ' + r.status); return r.arrayBuffer(); }),
   ]);
 
   const group = new THREE.Group();
@@ -76,12 +79,34 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
     (byKey[def.key] ||= []).push(mesh);
   }
 
+  /* The pericardium. Its meshes carry no positionCount (the echo and M-mode read every mesh that has one) and
+     only the beating layers a centre (heartbeat.js deforms a mesh that has one). */
+  const sac = [];
+  for (const def of periManifest.meshes) {
+    const look = PERICARDIUM[def.key];
+    const geometry = new THREE.BufferGeometry();
+    const pos = new Float32Array(periData, def.positionOffset, def.positionCount);
+    geometry.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geometry.setIndex(new THREE.BufferAttribute(new Uint32Array(periData, def.indexOffset, def.indexCount), 1));
+    geometry.computeVertexNormals();
+    const see = look.opacity < 1;
+    const material = new THREE.MeshStandardMaterial({ color: look.colour, roughness: 0.6, metalness: 0, side: THREE.DoubleSide, transparent: see, opacity: look.opacity, depthWrite: !see });
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.renderOrder = see ? 2 : 0;
+    mesh.userData = { group: 'pericardium', key: def.key, english: def.english, atlas: true, sac: true };
+    if (look.beats) mesh.userData.center = def.min.map((v, k) => (v + def.max[k]) / 2);
+    groups.pericardium.add(mesh);
+    (byKey[def.key] ||= []).push(mesh);
+    if (look.beats) meshes.push(mesh); else sac.push(mesh);
+  }
+
   /* Same order as BetterHeart's page: the conduction layer is built first and
      deforms through a late-bound heartbeat. */
   let heartbeat = null;
   const conduction = createConduction({ group: groups.conduction, byKey, deformPoint: (p) => (heartbeat ? heartbeat.deformPoint(p) : p) });
   meshes.push(...conduction.meshes);
   heartbeat = createHeartbeat({ meshes, startPaused });
+  meshes.push(...sac);
   const parts = {};
   const motion = createHeartMotion({ scene: group, byKey, deformPoint: heartbeat.deformPoint, isPartOn: (k) => parts[k] !== false });
   meshes.push(...motion.extraMeshes);
@@ -96,6 +121,7 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
     motion.setInteriorHidden(!p.echo && !!S.show.wall && opacity >= 0.85);
     for (const k of ['wall', 'chambers', 'valves', 'coronary', 'conduction']) groups[k].visible = !!S.show[k] && (k !== 'wall' || opacity > 0);
     groups.cardiacVein.visible = !!S.show.coronary;
+    groups.pericardium.visible = !!S.show.pericardium;
     for (const k of GREAT) groups[k].visible = !!S.show.great && !(p.hideGreat || []).includes(k);
     for (const m of meshes) {
       const g = m.userData.group, key = m.userData.key;
@@ -173,7 +199,7 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
   }
 
   function describe(key) {
-    const d = DESCRIPTIONS[key];
+    const d = DESCRIPTIONS[key] || (PERICARDIUM[key] && PERICARDIUM[key].text);
     const m = byKey[key] && byKey[key][0];
     return { key, category: d ? d[0] : '', title: d ? d[1] : (m && m.userData.english) || key, english: (m && m.userData.english) || key, text: d ? d[2] : '' };
   }

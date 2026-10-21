@@ -51,8 +51,8 @@ async function loadHeartModule() {
   if (heartModule) return heartModule;
   try {
     heartModule = importFailures === 0
-      ? await import('../heart/atlas.js?v=7')
-      : await import(`../heart/atlas.js?v=7&retry=${importFailures}`);
+      ? await import('../heart/atlas.js?v=8')
+      : await import(`../heart/atlas.js?v=8&retry=${importFailures}`);
   } catch (error) {
     importFailures += 1;
     throw error;
@@ -117,7 +117,7 @@ function panelHtml() {
   </div>`;
 }
 
-const SHOWS = [['wall', 'Myocardium'], ['chambers', 'Four chambers'], ['valves', 'Valves'], ['coronary', 'Coronary arteries and veins'], ['great', 'Great vessels'], ['conduction', 'Conduction system']];
+const SHOWS = [['wall', 'Myocardium'], ['chambers', 'Four chambers'], ['valves', 'Valves'], ['coronary', 'Coronary arteries and veins'], ['great', 'Great vessels'], ['conduction', 'Conduction system'], ['pericardium', 'Pericardium']];
 const PART_LABELS = { RA: 'RA', RV: 'RV', LA: 'LA', LV: 'LV', TV: 'Tricuspid', MV: 'Mitral', AV: 'Aortic', PV: 'Pulmonary' };
 
 function buildPanel() {

@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v265';
+const CACHE_VERSION = 'v266';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -48,7 +48,7 @@ const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
  * contents never change in place; the CDN URLs pin three.js to 0.161.0. Bump
  * MODEL_VERSION only when a .glb file is actually replaced.
  */
-const MODEL_VERSION = 'm6';
+const MODEL_VERSION = 'm7';
 const CDN_VERSION = 'c1';
 const MODEL_CACHE = `rss-models-${MODEL_VERSION}`;
 const CDN_CACHE = `rss-cdn-${CDN_VERSION}`;
@@ -93,7 +93,8 @@ const SHELL = [
    * The small atlas payload and source notice are also precached, so first use
    * works offline; the much larger circulatory GLB remains lazy.
    */
-  './heart/atlas.js?v=7',
+  './heart/atlas.js?v=8',
+  './heart/pericardium-text.js?v=1',
   /* Limb vessels: studio/limb-atlas.js reaches limb/limb.js by a dynamic import, like the heart atlas. The routes
      are small (~380 KB together) and cached whole so the mode opens offline; the circulatory GLB stays lazy. */
   './limb/limb.js?v=1',
@@ -133,6 +134,8 @@ const SHELL = [
   './heart/valve-apparatus.js?v=7',
   './heart/heart-manifest.json',
   './heart/heart-meshes.bin',
+  './heart/pericardium.json',
+  './heart/pericardium.bin',
   './heart/MODEL-NOTICES.txt',
   './heart/valve-rings.js?v=2',
   './heart/coronary-flow.js?v=19',

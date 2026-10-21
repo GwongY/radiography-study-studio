@@ -49,7 +49,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
 | `schedule.js` | 713 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `search-name.js` | 42 | Anatomical name matching shared by search and its regression gate. |  |
-| `sw.js` | 457 | Radiography Study Studio — service worker |  |
+| `sw.js` | 460 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 371 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 281 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 2465 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
@@ -190,6 +190,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `work/build-heart-alignment.mjs` | Build outputs/heart/alignment.js — the BetterHeart frame to dolasim.glb frame. |  |
 | `work/build-heart-i18n.mjs` | Build outputs/heart/i18n-en.js -- the English for every Chinese string the ported modules carry. |  |
 | `work/build-mesh-index.mjs` | Build outputs/mesh-index.js — the searchable name index for every mesh in | [The mesh index](TRAPS.md#the-mesh-index--workbuild-mesh-indexmjs-worklibmesh-namesmjs) |
+| `work/build-pericardium.mjs` | The heart atlas's pericardium, step 1 of 2: hand Blender the atlas's own heart. |  |
 | `work/build-physiology-paths.mjs` | Build the curated routes into a committed, immutable payload. | [Routes](TRAPS.md#routes--outputsphysiology-pathjs-workbuild-physiology-pathsmjs-outputsstudiolive-physiologyjs) |
 | `work/build-revision-units.mjs` | Revise box -> viewer unit, decided once, offline, and committed. |  |
 | `work/build-source-catalogue.mjs` | Build work/source-catalogue.json — what is on the source drive, so that no | [The source drive](TRAPS.md#the-source-drive--workbuild-source-cataloguemjs-worksource-checkmjs) |

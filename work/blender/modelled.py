@@ -879,21 +879,22 @@ def cycle():
     N = len(CYCLE_STAGES)
 
     def outline(s):
-        """the cell outline (radius, centres apart, pinch) at slider value s: elongating in anaphase, pinched in
-        telophase, two daughters by the end of cytokinesis"""
+        """the cell outline (radius, centres apart, pinch) at slider value s: the poles pushed apart in anaphase
+        stretch it into an oval and a cleavage furrow starts at the equator late in it; pinched deeper in
+        telophase; two daughters by the end of cytokinesis"""
         k = min(N - 1, int(math.floor(s)))
         f = s - k
         at = lambda i: 1.0 if k > i else 0.0 if k < i else f
         ana, telo, cyto = at(5), at(6), at(7)
         Rm, d, pinch = R, 0.0, 0.0
         if k >= 5:
-            d = mix(0, 1.2, ana) * 0.5
+            Rm, d, pinch = mix(R, 7.0, ana), mix(0, 2.6, ana), 0.12 * span(ana, 0.4, 1)
         if k >= 6:
-            d, pinch = mix(0.6, 1.2, telo), mix(0, 0.25, telo)
+            Rm, d, pinch = 7.0, mix(2.6, 3.2, telo), mix(0.12, 0.4, telo)
         if k >= 7:
-            Rm, d, pinch = mix(R, 6.2, cyto), mix(1.2, 6.6, cyto), mix(0.25, 1, cyto)
+            Rm, d, pinch = mix(7.0, 6.2, cyto), mix(3.2, 6.6, cyto), mix(0.4, 1, cyto)
         return Rm, d, pinch
-    XS = [5.5, 6.0, 6.5, 7.0, 7.3, 7.6, 7.85, 8.0]
+    XS = [5.25, 5.5, 5.75, 6.0, 6.5, 7.0, 7.3, 7.6, 7.85, 8.0]
     keys = morph(mem, [(f's{x}', peanut_profile(*outline(x), 40)) for x in XS], 'x', 36)
 
     def place(s, frame):
@@ -907,8 +908,9 @@ def cycle():
         tr.pose(mem, frame, scale=HIDE if split else mix(0.86, 1, span(g1, 0, 0.9)))
         for o in daughters:
             tr.pose(o, frame, scale=1 if split else HIDE)
-        cx = mix(4.6, 6.6, cyto) if k >= 7 else 4.6
-        pole = cx + 2.4 if k >= 7 else 5.8 + 1.2 * telo if k >= 6 else 5.8
+        # the poles: pushed apart through anaphase (the overlapping polar microtubules), then with each daughter
+        cx = mix(5.8, 6.6, cyto) if k >= 7 else 5.8
+        pole = cx + 1.8 if k >= 7 else 7.6 if k >= 6 else 5.8 + 1.8 * ana if k >= 5 else 5.8
         # the envelope breaks into fragments late in prophase; a new one forms round each set in telophase
         frag = 0 if k < 3 else span(f, 0.45, 0.95) if k == 3 else 1
         for p, c in zip(pieces, piece_at):
@@ -939,9 +941,11 @@ def cycle():
                 sgn = 1 if ci else -1
                 x, y, z = centre.x + sgn * 0.3, centre.y, centre.z
                 if k >= 5:
-                    x = sgn * mix(0.3, pole - 1.2, 1 if k > 5 else span(ana, 0, 1))
-                if k >= 6:
-                    x, y = sgn * (pole - 1.2), PLATE[i] * mix(1, 0.45, telo)
+                    # by the end of anaphase the kinetochore microtubules are nearly gone: each set a tight
+                    # cluster right by its centrioles
+                    u = 1 if k > 5 else span(ana, 0, 0.85)
+                    x = sgn * mix(0.3, pole - 0.6, u)
+                    y, z = PLATE[i] * mix(1, 0.3, u), mix(z, 0.8 if i % 2 else -0.8, u)
                 sc = mix(0.4, 1, span(f, 0.1, 0.7)) if k == 3 else 1
                 g_at = V(x - sgn * 0.3, y, z)
                 tr.pose(g, frame, g_at, q_three((0, 0, 1), rot), (L * sc) if cond > 0.15 else HIDE)

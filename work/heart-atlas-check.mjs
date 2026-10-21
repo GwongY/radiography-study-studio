@@ -11,6 +11,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { HEART_DIR, SCALE, fit, loadManifest, matchedRows } from './lib/heart-fit.mjs';
+import { normaliseCitationText as norm } from './lib/source-lesson-map.mjs';
 
 let fail = 0;
 const ok = (c, m) => { console.log(`  ${c ? 'ok  ' : 'FAIL'} ${m}`); if (!c) fail++; };
@@ -83,6 +84,33 @@ else {
   for (let t = 0; t < 2; t += 0.05) atlas.update(t);
   ok(atlas.state.beat && Number.isFinite(atlas.state.beat.phase), 'the cardiac clock advances');
   atlas.detach();
+}
+
+console.log('pericardium');
+{
+  const { PERICARDIUM } = await import(pathToFileURL(join(HEART_DIR, 'pericardium-text.js')).href);
+  const peri = JSON.parse(readFileSync(join(HEART_DIR, 'pericardium.json'), 'utf8'));
+  const pbin = readFileSync(join(HEART_DIR, 'pericardium.bin'));
+  const keys = peri.meshes.map((m) => m.key);
+  ok(['FP', 'PP', 'PC', 'EPI'].every((k) => keys.includes(k)) && keys.length === 4, `the four layers are there (${keys.join(', ')})`);
+  const wall = manifest.meshes.filter((m) => m.group === 'wall');
+  const lo = [0, 1, 2].map((k) => Math.min(...wall.map((m) => m.min[k]))), hi = [0, 1, 2].map((k) => Math.max(...wall.map((m) => m.max[k])));
+  for (const m of peri.meshes) {
+    const inBin = m.positionOffset % 4 === 0 && m.indexOffset % 4 === 0 && m.positionOffset + m.positionCount * 4 <= pbin.length && m.indexOffset + m.indexCount * 4 <= pbin.length;
+    let idxOk = inBin;
+    for (let i = 0; idxOk && i < m.indexCount; i++) if (pbin.readUInt32LE(m.indexOffset + i * 4) >= m.positionCount / 3) idxOk = false;
+    ok(idxOk, `${m.key}: inside pericardium.bin, indices in range`);
+    /* round the heart: its box holds the wall's (the epicardium, a smoothed skin on the wall, to within 0.1), and is
+       no more than 0.6 bigger on any side */
+    const tol = m.key === 'EPI' ? 0.1 : 0.05;
+    ok([0, 1, 2].every((k) => m.min[k] < lo[k] + tol && m.max[k] > hi[k] - tol && m.min[k] > lo[k] - 0.6 && m.max[k] < hi[k] + 0.6), `${m.key}: wraps the heart wall`);
+    ok(!!PERICARDIUM[m.key], `${m.key}: has a card`);
+  }
+  const TEXT = JSON.parse(readFileSync(new URL('./source-text.json', import.meta.url), 'utf8')).sources;
+  for (const [k, p] of Object.entries(PERICARDIUM)) {
+    const src = TEXT[p.cite.ref], page = src && (src.pages || src)[p.cite.page - 1];
+    for (const words of p.cite.match) ok(!!page && norm(page.text || page).includes(norm(words)), `${k}: "${words}" is on ${p.cite.ref} p${p.cite.page}`);
+  }
 }
 
 console.log(fail ? `\n${fail} FAILED` : '\nALL PASS');

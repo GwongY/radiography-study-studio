@@ -1,0 +1,81 @@
+{
+ "version": 1,
+ "meshes": [
+  {
+   "group": "pericardium",
+   "key": "EPI",
+   "english": "Visceral layer (epicardium)",
+   "positionOffset": 0,
+   "positionCount": 14874,
+   "indexOffset": 59496,
+   "indexCount": 30000,
+   "min": [
+    -1.4424853324890137,
+    -1.7022145986557007,
+    -1.3529003858566284
+   ],
+   "max": [
+    1.4410622119903564,
+    0.8492641448974609,
+    1.3623723983764648
+   ]
+  },
+  {
+   "group": "pericardium",
+   "key": "PC",
+   "english": "Pericardial cavity",
+   "positionOffset": 179496,
+   "positionCount": 14817,
+   "indexOffset": 238764,
+   "indexCount": 30129,
+   "min": [
+    -1.551180124282837,
+    -1.801806092262268,
+    -1.5366899967193604
+   ],
+   "max": [
+    1.5172871351242065,
+    1.120589017868042,
+    1.3219425678253174
+   ]
+  },
+  {
+   "group": "pericardium",
+   "key": "PP",
+   "english": "Parietal layer",
+   "positionOffset": 359280,
+   "positionCount": 11880,
+   "indexOffset": 406800,
+   "indexCount": 24000,
+   "min": [
+    -1.5803873538970947,
+    -1.831045150756836,
+    -1.5594810247421265
+   ],
+   "max": [
+    1.5414670705795288,
+    1.1256108283996582,
+    1.3470373153686523
+   ]
+  },
+  {
+   "group": "pericardium",
+   "key": "FP",
+   "english": "Fibrous pericardium",
+   "positionOffset": 502800,
+   "positionCount": 11916,
+   "indexOffset": 550464,
+   "indexCount": 24000,
+   "min": [
+    -1.6475430727005005,
+    -1.89546537399292,
+    -1.6342607736587524
+   ],
+   "max": [
+    1.611132264137268,
+    1.1412183046340942,
+    1.3717384338378906
+   ]
+  }
+ ]
+}
