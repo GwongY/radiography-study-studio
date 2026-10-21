@@ -172,6 +172,19 @@ function cavityWire(color){
     depthTest:!st.wireThrough,depthWrite:false});
 }
 
+/*
+ * A field-built part (the pleural sacs, the mediastinum and its divisions)
+ * comes with its own outline: its axial and sagittal cross-sections. Its mesh
+ * is fine and irregular, so as a wireframe it would read as a solid fog.
+ */
+function cavityOutline(lines,color){
+  const THREE=state.THREE, st=cavityStyle();
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.BufferAttribute(lines,3));
+  return new THREE.LineSegments(g,new THREE.LineBasicMaterial({color,transparent:true,
+    opacity:Math.min(1,st.wire*1.8),depthTest:!st.wireThrough,depthWrite:false}));
+}
+
 /* {positions, indices} from the builder -> a drawable pair of meshes */
 function cavityMeshes(part,color){
   const THREE=state.THREE;
@@ -181,10 +194,53 @@ function cavityMeshes(part,color){
   g.computeVertexNormals();
   const mesh=new THREE.Mesh(g,cavitySkin(color));
   mesh.renderOrder=6;
-  const wire=new THREE.Mesh(g,cavityWire(color));
+  const wire=part.lines?cavityOutline(part.lines,color):new THREE.Mesh(g,cavityWire(color));
   wire.renderOrder=7;
   mesh.add(wire);
+  /* a pleural sac breathes with its lung -- see syncBreathingOverlays */
+  if(part.breath){ mesh.userData.breath=part.breath; mesh.matrixAutoUpdate=false; }
   return mesh;
+}
+
+/*
+ * The pleural sacs move with the lungs.
+ *
+ * The lungs inflate in their vertex shader (live-physiology.js, the airway
+ * class's 'inflate' mode): an affine map about one shared superior reference
+ * per side. A sac drawn once at rest stayed put while its lung swelled out
+ * through it on every breath. The map is affine, so the sac does not need a
+ * shader of its own -- the same map, carried from that lobe's local frame into
+ * the overlay's frame, is simply the sac's matrix. Every frame, because the
+ * breath is every frame; identity when the lungs are still.
+ */
+export function syncBreathingOverlays(){
+  const grp=state.conceptGroup, THREE=state.THREE;
+  if(!grp||!THREE||!grp.children.length) return;
+  const sacs=grp.children.filter((o)=>o.userData&&o.userData.breath);
+  if(!sacs.length) return;
+  const u=state.flow&&state.flow.classes&&state.flow.classes.airway;
+  const lobes=state.flow&&state.flow.breathLobes;
+  const amount=state.flow&&state.flow.breathAmount;
+  const d=u?u.uDeform.value:0;
+  sacs.forEach((m)=>{
+    const lobe=lobes&&lobes[m.userData.breath];
+    if(!(d>0)||!lobe||!amount||!lobe.userData.flowCenter){ m.matrix.identity(); m.matrixWorldNeedsUpdate=true; return; }
+    const c=lobe.userData.flowCenter;
+    const up=new THREE.Vector3(0,1,0).transformDirection(new THREE.Matrix4().copy(lobe.matrixWorld).invert());
+    /* the shader's map in the lobe's frame: p' = c + (I + a(I - uu') + b uu')(p - c) */
+    const a=.65*d*amount, b=1.4*d*amount;
+    const L=new THREE.Matrix4().set(
+      1+a+(b-a)*up.x*up.x, (b-a)*up.x*up.y,   (b-a)*up.x*up.z,   0,
+      (b-a)*up.y*up.x,   1+a+(b-a)*up.y*up.y, (b-a)*up.y*up.z,   0,
+      (b-a)*up.z*up.x,   (b-a)*up.z*up.y,   1+a+(b-a)*up.z*up.z, 0,
+      0,0,0,1);
+    L.premultiply(new THREE.Matrix4().makeTranslation(c.x,c.y,c.z))
+      .multiply(new THREE.Matrix4().makeTranslation(-c.x,-c.y,-c.z));
+    /* lobe frame -> the overlay group's frame, which rides the same yaw as the pivots */
+    const B=new THREE.Matrix4().copy(grp.matrixWorld).invert().multiply(lobe.matrixWorld);
+    m.matrix.copy(B).multiply(L).multiply(B.clone().invert());
+    m.matrixWorldNeedsUpdate=true;
+  });
 }
 
 /*

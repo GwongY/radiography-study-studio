@@ -157,6 +157,13 @@ export function leaveProjection() {
 }
 async function syncLayersToRail() {
   if (!window.__osteo || !window.__osteo.setLayer) return;
+  /* An exclusive atlas mode (cell, limb, muscle, heart) holds the layers off,
+     and the rail mirrors that. Left open, the first setLayer below closes it,
+     the close puts the layers back and re-syncs the rail, and then that same
+     call applies the stale "off" it was handed: Axial stayed off behind a lit
+     chip. Close it first, so every layer is read after the restore. */
+  const o = window.__osteo;
+  if (o.atlasModeOn && o.atlasModeOn()) o.exitHeartAtlas?.();
   for (const l of BODY_LAYERS) {
     if (ui.viewerTab !== '3d') return;
     const st = layerState[l.key] || 'off';

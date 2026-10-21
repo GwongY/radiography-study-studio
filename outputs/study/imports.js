@@ -1,7 +1,7 @@
 
 import { STORAGE_PREFIX, STRUCTURE_MODELS, describeSource, getSubject } from './course-data.js';
 import { searchAnatomy } from '../anatomy-data.js?v=5';
-import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS, conceptAncestors, conceptChildren } from '../bodymap.js?v=4';
+import { SEARCH_EXTRAS, BODY_CONCEPTS, CONCEPT_GROUPS, conceptAncestors, conceptChildren } from '../bodymap.js?v=5';
 import { MESH_INDEX, UNITS } from '../mesh-index.js?v=5';
 import { expandQuery, missingFor, compositeFor } from '../synonyms.js?v=3';
 import { FLOW_CLASSES, LAYER_CLASSES, RATES } from '../physiology.js?v=4';

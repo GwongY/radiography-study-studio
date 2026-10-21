@@ -12,6 +12,7 @@ import { clearSelection, restorePeel } from './depth-picking.js';
 import { enforceHidden } from './hide-and-search.js';
 import { showPickCallout } from './spatial-concept-overlays.js';
 import { setSeparation } from './tools-and-capture.js';
+import { syncBreathingOverlays } from './cavity-geometry-derived.js';
 import { advancePhysiology } from '../physiology.js?v=4';
 import { MOTOR_ROUTES, motorRoute, motorSequence } from '../physiology-mechanics.js';
 import { CHAMBER_SHAPE_GLSL, chamberTetherField, deriveShape, deriveMuscleShape, deriveBreathingShape, MUSCLE_SHAPE_GLSL } from '../physiology-shape.js';
@@ -589,18 +590,49 @@ export function installLayerFlow(key,meshes){
       }
     }
   }
-  // Every lobe uses one superior geometric reference and world-up field.
-  // This is an illustrative apex reference, not a measured hilum attachment.
+  // Every lobe of a side shares one geometric reference and the world-up field.
+  // It sits at the lung's apex height on its MEDIAL and POSTERIOR edges, so the
+  // inflation pushes the lung down, forward and outward -- where the diaphragm
+  // and the rib cage let it go -- and leaves the mediastinal and vertebral
+  // surfaces nearly still. About the lung's own centre it swelled into the
+  // heart and the spine as much as out to the ribs. Illustrative, not a
+  // measured hilum attachment; measured in the skeleton pivot's frame so the
+  // turntable's yaw at load time cannot move it.
   if(key==='organs'&&state.THREE){
+    const T=state.THREE;
     state.scene?.updateMatrixWorld(true);
+    state.flow.breathLobes={};
+    state.flow.breathAmount=(FLOW_CLASSES.airway.rule||{}).inflate||.05;
+    const root=state.fullModel;
+    const toBody=root?new T.Matrix4().copy(root.matrixWorld).invert():new T.Matrix4();
+    const bodyBox=m=>{
+      if(!m.geometry.boundingBox)m.geometry.computeBoundingBox();
+      return m.geometry.boundingBox.clone().applyMatrix4(new T.Matrix4().multiplyMatrices(toBody,m.matrixWorld));
+    };
+    const sides={};
     for(const side of ['left','right']){
       const lobes=meshes.filter(m=>new RegExp('lobe.*'+side+'.*lung','i').test(m.userData.label||m.name));
-      const box=new state.THREE.Box3();lobes.forEach(m=>box.expandByObject(m));
+      const box=new T.Box3();
+      lobes.forEach(m=>box.union(bodyBox(m)));
       if(!box.isEmpty()){
-        const centre=box.getCenter(new state.THREE.Vector3());centre.y=box.max.y;
+        /* patient's left is +x in the body frame, anterior +z */
+        const centre=new T.Vector3(side==='left'?box.min.x:box.max.x,box.max.y,box.min.z);
+        if(root)centre.applyMatrix4(root.matrixWorld);
         lobes.forEach(m=>{m.userData.flowCenter=m.worldToLocal(centre.clone());});
+        state.flow.breathLobes[side]=lobes[0];
+        sides[side]={centre,x:box.getCenter(new T.Vector3()).x};
       }
     }
+    // The bronchial tree inside a lung moves under that lung's map, so it stays
+    // inside the lobes; about its own small centre it stood still while the
+    // lung base descended past it. The trachea keeps its own centre. A bronchus
+    // goes to the lung nearer it, since the intermediate and middle lobar bronchi name
+    // no side.
+    if(sides.left&&sides.right)meshes.filter(m=>/bronch/i.test(m.userData.label||m.name)).forEach(m=>{
+      const x=bodyBox(m).getCenter(new T.Vector3()).x;
+      const s=Math.abs(x-sides.left.x)<Math.abs(x-sides.right.x)?sides.left:sides.right;
+      m.userData.flowCenter=m.worldToLocal(s.centre.clone());
+    });
   }
   meshes.forEach(o=>{
     const cls=classify(key,o.userData.label||o.name);
@@ -701,6 +733,7 @@ export function stepPhysiology(t){
       :r.deform==='steady'?1 : 0;
     u.uDeform.value*=blend;
   });
+  syncBreathingOverlays();
 }
 /*
  * A GLB layer is on when ANY of the systems it draws is on, and a mesh is on

@@ -6,10 +6,18 @@
                        note: 25 vertebral foramina located
   cav-thoracic       exact  parts=1 verts= 2016  y 1.160..1.439  x -0.127..0.127  z -0.082..0.112
                        note: floor is the diaphragm mesh
-  cav-pleural        exact  parts=2 verts= 2240  y 1.174..1.424  x -0.136..0.137  z -0.085..0.105
-  cav-mediastinum    exact  parts=1 verts= 1144  y 1.222..1.399  x -0.079..0.080  z -0.034..0.095
-                       note: lateral walls are the medial surfaces of the lungs
+  cav-pleural        exact  parts=2 verts=21361  y 1.166..1.434  x -0.136..0.132  z -0.086..0.108
+  cav-mediastinum    exact  parts=1 verts= 6427  y 1.211..1.454  x -0.047..0.091  z -0.051..0.095
+                       note: lateral walls are the pleural sacs round each lung
   cav-pericardial    exact  parts=1 verts=  448  y 1.230..1.349  x -0.044..0.090  z -0.039..0.087
+  cav-med-superior   exact  parts=1 verts= 1756  y 1.355..1.454  x -0.031..0.036  z -0.047..0.052
+                       note: lateral walls are the pleural sacs round each lung; superior/inferior boundary: the plane through the sternal angle and the T4/T5 disc
+  cav-med-anterior   exact  parts=1 verts=  654  y 1.228..1.356  x -0.013..0.044  z 0.022..0.095
+                       note: lateral walls are the pleural sacs round each lung; superior/inferior boundary: the plane through the sternal angle and the T4/T5 disc; middle = the pericardial sac round the heart
+  cav-med-middle     exact  parts=1 verts= 4249  y 1.218..1.357  x -0.047..0.091  z -0.040..0.088
+                       note: lateral walls are the pleural sacs round each lung; superior/inferior boundary: the plane through the sternal angle and the T4/T5 disc; middle = the pericardial sac round the heart
+  cav-med-posterior  exact  parts=1 verts= 1906  y 1.211..1.360  x -0.031..0.041  z -0.051..0.030
+                       note: lateral walls are the pleural sacs round each lung; superior/inferior boundary: the plane through the sternal angle and the T4/T5 disc; middle = the pericardial sac round the heart
   cav-abdominal      exact  parts=1 verts= 1632  y 0.835..1.259  x -0.130..0.131  z -0.083..0.117
                        note: lateral wall measured from the abdominal muscles
   cav-pelvic         exact  parts=1 verts= 1144  y 0.806..0.985  x -0.072..0.074  z -0.077..0.042
@@ -25,8 +33,16 @@
     ok   vertebral canal is behind the thoracic cavity centre  — canal z -0.030 vs thorax centre 0.015
     ok   vertebral canal is narrow  — 0.040 m wide
     ok   vertebral canal runs most of the trunk  — 0.594 m long
-    ok   the two pleural cavities are separate  — left x 0.009..0.137   right x -0.136..-0.003
+    ok   the two pleural cavities are separate  — left x 0.004..0.132   right x -0.136..0.003
     ok   pleural cavities are lateral to the mediastinum
+    ok   superior mediastinum is inside the mediastinum
+    ok   anterior mediastinum is inside the mediastinum
+    ok   middle mediastinum is inside the mediastinum
+    ok   posterior mediastinum is inside the mediastinum
+    ok   superior mediastinum lies above the other three  — superior 1.355..1.454  middle 1.218..1.357
+    ok   anterior is in front of middle, middle in front of posterior  — z centres 0.058 > 0.024 > -0.010
+    ok   middle mediastinum holds the pericardial sac
+    ok   the inferior mediastinum is not all middle
 
 ================ SKELETON ONLY (first open) ================
   built in <ms>   diaphragm: synthesised from the costal margin
@@ -37,10 +53,18 @@
                        note: floor raised off the costal margin (muscle layer not loaded)
   cav-pleural        approx parts=2 verts= 3264  y 1.079..1.439  x -0.126..0.127  z -0.082..0.112
                        note: lungs not loaded — medial wall placed at the vertebral bodies
-  cav-mediastinum    approx parts=1 verts= 1144  y 1.218..1.400  x -0.033..0.033  z -0.034..0.088
+  cav-mediastinum    approx parts=1 verts= 3936  y 1.254..1.454  x -0.033..0.048  z -0.034..0.085
                        note: organ layer not loaded — width estimated from the vertebral bodies
   cav-pericardial    approx parts=1 verts=  792  y 1.287..1.351  x -0.009..0.047  z -0.024..0.077
                        note: circulatory layer not loaded — sac occupies the lower mediastinum, not measured from the heart
+  cav-med-superior   approx parts=1 verts= 1774  y 1.355..1.454  x -0.033..0.033  z -0.032..0.052
+                       note: organ layer not loaded — width estimated from the vertebral bodies; superior/inferior boundary: the plane through the sternal angle and the T4/T5 disc
+  cav-med-anterior   approx parts=1 verts= 1403  y 1.284..1.356  x -0.033..0.033  z 0.017..0.085
+                       note: organ layer not loaded — width estimated from the vertebral bodies; superior/inferior boundary: the plane through the sternal angle and the T4/T5 disc; circulatory layer not loaded — the pericardial sac, and so this split, is estimated
+  cav-med-middle     approx parts=1 verts= 1556  y 1.285..1.354  x -0.012..0.048  z -0.028..0.078
+                       note: organ layer not loaded — width estimated from the vertebral bodies; superior/inferior boundary: the plane through the sternal angle and the T4/T5 disc; circulatory layer not loaded — the pericardial sac, and so this split, is estimated
+  cav-med-posterior  approx parts=1 verts= 1940  y 1.254..1.359  x -0.033..0.033  z -0.034..0.028
+                       note: organ layer not loaded — width estimated from the vertebral bodies; superior/inferior boundary: the plane through the sternal angle and the T4/T5 disc; circulatory layer not loaded — the pericardial sac, and so this split, is estimated
   cav-abdominal      exact  parts=1 verts= 1632  y 0.860..1.277  x -0.130..0.131  z -0.085..0.109
                        note: lateral wall interpolated between the costal margin and the iliac crest
   cav-pelvic         exact  parts=1 verts= 1144  y 0.806..0.985  x -0.072..0.074  z -0.077..0.042
@@ -58,6 +82,14 @@
     ok   vertebral canal runs most of the trunk  — 0.594 m long
     ok   the two pleural cavities are separate  — left x 0.043..0.127   right x -0.126..-0.043
     ok   pleural cavities are lateral to the mediastinum
+    ok   superior mediastinum is inside the mediastinum
+    ok   anterior mediastinum is inside the mediastinum
+    ok   middle mediastinum is inside the mediastinum
+    ok   posterior mediastinum is inside the mediastinum
+    ok   superior mediastinum lies above the other three  — superior 1.355..1.454  middle 1.285..1.354
+    ok   anterior is in front of middle, middle in front of posterior  — z centres 0.051 > 0.025 > -0.003
+    ok   middle mediastinum holds the pericardial sac
+    ok   the inferior mediastinum is not all middle
 
 ================ EVERY LAYER COMBINATION ================
   cavity                  #0    #1    #2    #3    #4    #5    #6    #7
@@ -67,6 +99,10 @@
   cav-pleural            est    ok   est   est    ok    ok    ok    ok
   cav-mediastinum        est    ok   est   est    ok    ok    ok    ok
   cav-pericardial        est   est   est    ok   est    ok    ok    ok
+  cav-med-superior       est   est   est   est   est    ok    ok    ok
+  cav-med-anterior       est   est   est   est   est    ok    ok    ok
+  cav-med-middle         est   est   est   est   est    ok    ok    ok
+  cav-med-posterior      est   est   est   est   est    ok    ok    ok
   cav-abdominal           ok    ok    ok    ok    ok    ok    ok    ok
   cav-pelvic              ok    ok    ok    ok    ok    ok    ok    ok
     #0 skeleton

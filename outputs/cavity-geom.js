@@ -1146,3 +1146,289 @@ export function frontSurface(points, opts = {}) {
   for (let i = 0; i < (opts.smooth || 2); i++) smoothField(f);
   return f;
 }
+
+/* ------------------------------------------------------------------ *
+ * voxel fields -- the mediastinum, its four parts, and the pleural sacs
+ *
+ * A compartment that is "whatever is left between the lungs" cannot be swept
+ * from one axis: the lungs wrap the heart from in front and behind, the
+ * superior part narrows round the great vessels, and the lung meshes are low
+ * poly, so a thin band of vertices often holds no lung at all. Sampling
+ * vertices in bands is what made the old mediastinum a slot through the middle
+ * of the heart. Instead every structure is rasterised SOLID onto one grid and
+ * turned into a signed distance, and a compartment is written as a
+ * combination of those distances -- min for "and", max for "or" -- which is
+ * the anatomical definition read literally. The surface is wherever that
+ * combination crosses zero, so two compartments defined from the same field
+ * share their wall exactly instead of overlapping or leaving a gap.
+ * ------------------------------------------------------------------ */
+
+/** a grid over a box; `step` is the voxel edge. Index = (j * nz + k) * nx + i. */
+export function voxelGrid(b, step, pad) {
+  const p = pad != null ? pad : step * 2;
+  const x0 = b.minX - p, y0 = b.minY - p, z0 = b.minZ - p;
+  const nx = Math.ceil((b.maxX + p - x0) / step) + 1;
+  const ny = Math.ceil((b.maxY + p - y0) / step) + 1;
+  const nz = Math.ceil((b.maxZ + p - z0) / step) + 1;
+  return { x0, y0, z0, nx, ny, nz, step, n: nx * ny * nz };
+}
+
+/** the triangles `tris` of one mesh cut by the plane y = v, as [x1, z1, x2, z2] */
+function sliceAtY(P, I, tris, v) {
+  const segs = [];
+  for (const t of tris) {
+    const a = I[t] * 3, b = I[t + 1] * 3, c = I[t + 2] * 3;
+    const cut = [];
+    for (const [p, q] of [[a, b], [b, c], [c, a]]) {
+      const dp = P[p + 1] - v, dq = P[q + 1] - v;
+      if ((dp < 0) === (dq < 0)) continue;
+      const s = dp / (dp - dq);
+      cut.push(P[p] + (P[q] - P[p]) * s, P[p + 2] + (P[q + 2] - P[p + 2]) * s);
+    }
+    if (cut.length === 4) segs.push(cut);
+  }
+  return segs;
+}
+
+/**
+ * Mark every voxel inside any of `meshes` ({positions, indices}). Each mesh is
+ * filled on its own by even-odd crossings along x, row by row in each y layer,
+ * and the results are OR-ed: the five lung lobes touch at the fissures, and
+ * one even-odd pass over all of them would cancel exactly there.
+ */
+export function solidMask(grid, meshes, out) {
+  const { x0, y0, z0, nx, ny, nz, step } = grid;
+  const mask = out || new Uint8Array(grid.n);
+  for (const m of meshes) {
+    const P = m.positions, I = m.indices;
+    if (!P || !I || I.length < 3) continue;
+    /* bucket triangles by the layers they span, so each layer cuts only its own */
+    const buckets = Array.from({ length: ny }, () => []);
+    for (let t = 0; t + 2 < I.length; t += 3) {
+      const ya = P[I[t] * 3 + 1], yb = P[I[t + 1] * 3 + 1], yc = P[I[t + 2] * 3 + 1];
+      const lo = Math.max(0, Math.ceil((Math.min(ya, yb, yc) - y0) / step));
+      const hi = Math.min(ny - 1, Math.floor((Math.max(ya, yb, yc) - y0) / step));
+      for (let j = lo; j <= hi; j++) buckets[j].push(t);
+    }
+    for (let j = 0; j < ny; j++) {
+      if (!buckets[j].length) continue;
+      /* nudged off the lattice so no vertex lies exactly on the cutting plane */
+      const segs = sliceAtY(P, I, buckets[j], y0 + j * step + step * 1e-4);
+      if (!segs.length) continue;
+      for (let k = 0; k < nz; k++) {
+        const z = z0 + k * step + step * 1e-4;
+        const xs = [];
+        for (const s of segs) {
+          if ((s[1] <= z) === (s[3] <= z)) continue;
+          xs.push(s[0] + (s[2] - s[0]) * (z - s[1]) / (s[3] - s[1]));
+        }
+        if (xs.length < 2) continue;
+        xs.sort((p, q) => p - q);
+        /* an odd count is an open mesh: fill the pairs, drop the stray crossing */
+        const row = (j * nz + k) * nx;
+        for (let c = 0; c + 1 < xs.length; c += 2) {
+          const i0 = Math.max(0, Math.ceil((xs[c] - x0) / step));
+          const i1 = Math.min(nx - 1, Math.floor((xs[c + 1] - x0) / step));
+          for (let i = i0; i <= i1; i++) mask[row + i] = 1;
+        }
+      }
+    }
+  }
+  return mask;
+}
+
+/* Felzenszwalb-Huttenlocher squared distance along one line */
+function edt1d(f, n, d, v, zz) {
+  let k = 0;
+  v[0] = 0; zz[0] = -Infinity; zz[1] = Infinity;
+  for (let q = 1; q < n; q++) {
+    let s = ((f[q] + q * q) - (f[v[k]] + v[k] * v[k])) / (2 * q - 2 * v[k]);
+    while (s <= zz[k] && k > 0) {
+      k--;
+      s = ((f[q] + q * q) - (f[v[k]] + v[k] * v[k])) / (2 * q - 2 * v[k]);
+    }
+    k++; v[k] = q; zz[k] = s; zz[k + 1] = Infinity;
+  }
+  k = 0;
+  for (let q = 0; q < n; q++) {
+    while (zz[k + 1] < q) k++;
+    const r = v[k];
+    d[q] = (q - r) * (q - r) + f[r];
+  }
+}
+/* squared voxel distance from every voxel to the nearest one where mask === want */
+function squaredDistance(grid, mask, want) {
+  const { nx, ny, nz } = grid;
+  const BIG = 1e12;
+  const D = new Float64Array(grid.n);
+  for (let i = 0; i < grid.n; i++) D[i] = mask[i] === want ? 0 : BIG;
+  const m = Math.max(nx, ny, nz);
+  const f = new Float64Array(m), d = new Float64Array(m);
+  const v = new Int32Array(m), zz = new Float64Array(m + 1);
+  /* one line of `len` voxels starting at `base`, `stride` apart */
+  const line = (base, stride, len) => {
+    let any = false;
+    for (let q = 0, p = base; q < len; q++, p += stride) { f[q] = D[p]; if (f[q] < BIG) any = true; }
+    if (!any) return;                 /* nothing to propagate along this line yet */
+    edt1d(f, len, d, v, zz);
+    for (let q = 0, p = base; q < len; q++, p += stride) D[p] = d[q];
+  };
+  for (let j = 0; j < ny; j++) for (let k = 0; k < nz; k++) line((j * nz + k) * nx, 1, nx);   /* along x */
+  for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) line(j * nz * nx + i, nx, nz);    /* along z */
+  for (let k = 0; k < nz; k++) for (let i = 0; i < nx; i++) line(k * nx + i, nz * nx, ny);    /* along y */
+  return D;
+}
+
+/**
+ * Signed distance to a solid, in world units: negative inside, positive
+ * outside, zero half a voxel out from the last inside voxel -- which is where
+ * the rasterised surface actually was. An empty mask is "far away" everywhere.
+ */
+export function signedDistance(grid, mask) {
+  const out = new Float32Array(grid.n);
+  if (!mask.some((v) => v)) return out.fill(1e9);
+  const dOut = squaredDistance(grid, mask, 1), dIn = squaredDistance(grid, mask, 0);
+  for (let i = 0; i < grid.n; i++) {
+    out[i] = (mask[i] ? -(Math.sqrt(dIn[i]) - 0.5) : (Math.sqrt(dOut[i]) - 0.5)) * grid.step;
+  }
+  return out;
+}
+
+/**
+ * The zero surface of a field (positive inside) as a closed triangle mesh, by
+ * surface nets: one vertex per cell the surface crosses, at the mean of its
+ * edge crossings, and one quad per crossed grid edge. The grid's own border
+ * counts as outside, so the surface always closes. A Taubin pass then takes
+ * the voxel staircase out without shrinking the thin compartments the way
+ * plain averaging would -- the anterior mediastinum is only millimetres deep.
+ */
+export function surfaceNets(grid, F, opts = {}) {
+  const { nx, ny, nz, x0, y0, z0, step } = grid;
+  const val = (i, j, k) => ((i <= 0 || j <= 0 || k <= 0 || i >= nx - 1 || j >= ny - 1 || k >= nz - 1)
+    ? -step : F[(j * nz + k) * nx + i]);
+  const cx = nx - 1, cz = nz - 1;
+  const cell = new Int32Array(cx * (ny - 1) * cz).fill(-1);
+  const pos = [];
+  const C = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0], [0, 0, 1], [1, 0, 1], [0, 1, 1], [1, 1, 1]];
+  const E = [[0, 1], [2, 3], [4, 5], [6, 7], [0, 2], [1, 3], [4, 6], [5, 7], [0, 4], [1, 5], [2, 6], [3, 7]];
+  const g = new Array(8);
+  for (let j = 0; j < ny - 1; j++) for (let k = 0; k < nz - 1; k++) for (let i = 0; i < nx - 1; i++) {
+    let inside = 0;
+    for (let c = 0; c < 8; c++) { g[c] = val(i + C[c][0], j + C[c][1], k + C[c][2]); if (g[c] > 0) inside++; }
+    if (!inside || inside === 8) continue;
+    let sx = 0, sy = 0, sz = 0, n = 0;
+    for (const [a, b] of E) {
+      if ((g[a] > 0) === (g[b] > 0)) continue;
+      const t = g[a] / (g[a] - g[b]);
+      sx += C[a][0] + (C[b][0] - C[a][0]) * t;
+      sy += C[a][1] + (C[b][1] - C[a][1]) * t;
+      sz += C[a][2] + (C[b][2] - C[a][2]) * t;
+      n++;
+    }
+    cell[(j * cz + k) * cx + i] = pos.length / 3;
+    pos.push(x0 + (i + sx / n) * step, y0 + (j + sy / n) * step, z0 + (k + sz / n) * step);
+  }
+  const P = pos, idx = [];
+  const quad = (a, b, c, d, out) => {
+    if (a < 0 || b < 0 || c < 0 || d < 0) return;
+    /* wound so the normal points out of the solid */
+    const ux = P[c * 3] - P[a * 3], uy = P[c * 3 + 1] - P[a * 3 + 1], uz = P[c * 3 + 2] - P[a * 3 + 2];
+    const vx = P[d * 3] - P[b * 3], vy = P[d * 3 + 1] - P[b * 3 + 1], vz = P[d * 3 + 2] - P[b * 3 + 2];
+    const nn = (uy * vz - uz * vy) * out[0] + (uz * vx - ux * vz) * out[1] + (ux * vy - uy * vx) * out[2];
+    if (nn < 0) idx.push(a, d, c, a, c, b);
+    else idx.push(a, b, c, a, c, d);
+  };
+  const at = (i, j, k) => cell[(j * cz + k) * cx + i];
+  for (let j = 1; j < ny - 1; j++) for (let k = 1; k < nz - 1; k++) for (let i = 1; i < nx - 1; i++) {
+    const v0 = val(i, j, k) > 0;
+    /* each crossed edge is shared by four cells; walk them round the edge */
+    if (v0 !== (val(i + 1, j, k) > 0)) {
+      quad(at(i, j - 1, k - 1), at(i, j, k - 1), at(i, j, k), at(i, j - 1, k), [v0 ? 1 : -1, 0, 0]);
+    }
+    if (v0 !== (val(i, j + 1, k) > 0)) {
+      quad(at(i - 1, j, k - 1), at(i, j, k - 1), at(i, j, k), at(i - 1, j, k), [0, v0 ? 1 : -1, 0]);
+    }
+    if (v0 !== (val(i, j, k + 1) > 0)) {
+      quad(at(i - 1, j - 1, k), at(i, j - 1, k), at(i, j, k), at(i - 1, j, k), [0, 0, v0 ? 1 : -1]);
+    }
+  }
+  const positions = new Float32Array(pos);
+  taubin(positions, idx, opts.smooth != null ? opts.smooth : 4);
+  return { positions, indices: idx };
+}
+
+/* lambda/mu smoothing: alternately shrink and inflate, so the volume holds */
+function taubin(P, idx, passes) {
+  if (!passes) return;
+  const n = P.length / 3;
+  const nb = Array.from({ length: n }, () => new Set());
+  for (let t = 0; t < idx.length; t += 3) {
+    const a = idx[t], b = idx[t + 1], c = idx[t + 2];
+    nb[a].add(b); nb[a].add(c); nb[b].add(a); nb[b].add(c); nb[c].add(a); nb[c].add(b);
+  }
+  const tmp = new Float32Array(P.length);
+  for (let p = 0; p < passes * 2; p++) {
+    const f = p % 2 ? -0.53 : 0.5;
+    for (let v = 0; v < n; v++) {
+      let sx = 0, sy = 0, sz = 0;
+      for (const u of nb[v]) { sx += P[u * 3]; sy += P[u * 3 + 1]; sz += P[u * 3 + 2]; }
+      const c = nb[v].size || 1;
+      tmp[v * 3] = P[v * 3] + f * (sx / c - P[v * 3]);
+      tmp[v * 3 + 1] = P[v * 3 + 1] + f * (sy / c - P[v * 3 + 1]);
+      tmp[v * 3 + 2] = P[v * 3 + 2] + f * (sz / c - P[v * 3 + 2]);
+    }
+    P.set(tmp);
+  }
+}
+
+/**
+ * The outline drawn over a field-built surface: its own cross-sections, axial
+ * every `spacing` and sagittal every `spacing * 1.5`. A surface-nets mesh has
+ * no rows and columns for a wireframe to pick out -- drawn as wireframe it is
+ * a fog of tiny triangles -- but its sections are exactly how a compartment is
+ * read on CT, one slice at a time.
+ */
+export function contourLines(mesh, spacing) {
+  const P = mesh.positions, I = mesh.indices, out = [];
+  const b = boundsOf(P);
+  for (const [axis, sp] of [[1, spacing], [0, spacing * 1.5]]) {
+    const lo = axis ? b.minY : b.minX, hi = axis ? b.maxY : b.maxX;
+    for (let v = Math.ceil(lo / sp) * sp; v < hi; v += sp) {
+      for (let t = 0; t < I.length; t += 3) {
+        const cut = [];
+        for (const [p, q] of [[I[t], I[t + 1]], [I[t + 1], I[t + 2]], [I[t + 2], I[t]]]) {
+          const dp = P[p * 3 + axis] - v, dq = P[q * 3 + axis] - v;
+          if ((dp < 0) === (dq < 0)) continue;
+          const s = dp / (dp - dq);
+          cut.push(P[p * 3] + (P[q * 3] - P[p * 3]) * s, P[p * 3 + 1] + (P[q * 3 + 1] - P[p * 3 + 1]) * s,
+            P[p * 3 + 2] + (P[q * 3 + 2] - P[p * 3 + 2]) * s);
+        }
+        if (cut.length === 6) out.push(...cut);
+      }
+    }
+  }
+  return new Float32Array(out);
+}
+
+/**
+ * Drop the loose pieces of a mesh smaller than `frac` of its largest one. A
+ * compartment that is millimetres deep in places (the anterior mediastinum)
+ * can leave voxel-sized islands where its field just touches zero; they are
+ * noise, not anatomy.
+ */
+export function dropSpecks(mesh, frac) {
+  const I = mesh.indices, n = mesh.positions.length / 3;
+  const parent = new Int32Array(n);
+  for (let i = 0; i < n; i++) parent[i] = i;
+  const root = (a) => { while (parent[a] !== a) { parent[a] = parent[parent[a]]; a = parent[a]; } return a; };
+  for (let t = 0; t < I.length; t += 3) {
+    const a = root(I[t]), b = root(I[t + 1]), c = root(I[t + 2]);
+    parent[b] = a; parent[root(c)] = a;
+  }
+  const size = new Map();
+  for (let t = 0; t < I.length; t += 3) { const r = root(I[t]); size.set(r, (size.get(r) || 0) + 1); }
+  const big = Math.max(0, ...size.values());
+  const keep = [];
+  for (let t = 0; t < I.length; t += 3) if (size.get(root(I[t])) >= big * frac) keep.push(I[t], I[t + 1], I[t + 2]);
+  return { positions: mesh.positions, indices: keep };
+}

@@ -21,6 +21,7 @@ LANDMARK                LAYER            N  examples
  thorax.xiphoid         skeleton         1  xiphoid process
  thorax.clavicle        skeleton         2  claviclel, clavicler
  thorax.cartilageTenth  skeleton         2  costal cartilage of tenth ribl, costal cartilage of tenth ribr
+ spine.T1               skeleton         1  vertebra t1
  spine.T4               skeleton         1  vertebra t4
  spine.T5               skeleton         1  vertebra t5
  spine.L1               skeleton         1  vertebra l1
@@ -56,6 +57,10 @@ LANDMARK                LAYER            N  examples
   cav-thoracic           exact   usable: 4   thorax.ribs thorax.sternum spine.thoracic thorax.costalCartilage
   cav-pleural            exact   usable: 3   thorax.ribs thorax.sternum spine.thoracic
   cav-mediastinum        exact   usable: 3   thorax.sternum spine.thoracic thorax.ribs
+  cav-med-superior       exact   usable: 6   thorax.sternum spine.thoracic thorax.manubrium thorax.sternumBody spine.T4 spine.T5
+  cav-med-anterior       exact   usable: 6   thorax.sternum spine.thoracic thorax.manubrium thorax.sternumBody spine.T4 spine.T5
+  cav-med-middle         approx  usable: 6   thorax.sternum spine.thoracic thorax.manubrium thorax.sternumBody spine.T4 spine.T5
+  cav-med-posterior      exact   usable: 6   thorax.sternum spine.thoracic thorax.manubrium thorax.sternumBody spine.T4 spine.T5
   cav-pericardial        approx  usable: 3   thorax.sternum spine.thoracic thorax.ribsLower
   cav-abdominal          exact   usable: 4   thorax.ribsLower spine.lumbar pelvis.hipBone thorax.costalCartilage
   cav-pelvic             exact   usable: 1   pelvis.ring

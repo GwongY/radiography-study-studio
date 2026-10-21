@@ -130,6 +130,29 @@ function run(label, entries) {
         Math.max(a.maxX, c.maxX) > med.maxX - tol && Math.min(a.minX, c.minX) < med.minX + tol);
     }
   }
+  /*
+   * The four divisions of the mediastinum (hss.l8.2026 p4). Superior above
+   * the sternal-angle plane, the other three below it; the middle holds the
+   * pericardial sac; anterior in front of it, posterior behind it; and every
+   * part inside the whole, because they are cut from the same field.
+   */
+  const sup = B('cav-med-superior'), ant = B('cav-med-anterior');
+  const mid = B('cav-med-middle'), post = B('cav-med-posterior');
+  if (med && sup && ant && mid && post) {
+    for (const [name, b] of [['superior', sup], ['anterior', ant], ['middle', mid], ['posterior', post]]) {
+      check(`${name} mediastinum is inside the mediastinum`, inside(b, med, tol * 0.25));
+    }
+    check('superior mediastinum lies above the other three',
+      sup.minY > Math.max(ant.minY, mid.minY, post.minY) && sup.maxY > Math.max(ant.maxY, mid.maxY, post.maxY),
+      `superior ${f3(sup.minY)}..${f3(sup.maxY)}  middle ${f3(mid.minY)}..${f3(mid.maxY)}`);
+    const zc = (b) => (b.minZ + b.maxZ) / 2;
+    check('anterior is in front of middle, middle in front of posterior',
+      zc(ant) > zc(mid) && zc(mid) > zc(post),
+      `z centres ${f3(zc(ant))} > ${f3(zc(mid))} > ${f3(zc(post))}`);
+    if (per) check('middle mediastinum holds the pericardial sac', inside(per, mid, tol * 0.5));
+    /* the middle part is the sac, not the whole lower mediastinum */
+    check('the inferior mediastinum is not all middle', (mid.maxZ - mid.minZ) < (med.maxZ - med.minZ) * 0.97);
+  }
   /* nothing may escape the body */
   for (const id of BUILDABLE) {
     const r = built[id];

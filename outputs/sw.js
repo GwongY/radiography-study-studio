@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v269';
+const CACHE_VERSION = 'v270';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -250,7 +250,7 @@ const SHELL = [
   './revision/abct2326-decoder.js',
   './revision/vendor/d3.min.js',
   './revision/vendor/markmap-view.min.js',
-  './bodymap.js?v=4',
+  './bodymap.js?v=5',
   /* the search index: every named mesh in every layer, plus the synonym table
      that maps "collarbone" and "voice box" onto what the model calls them */
   './mesh-index.js?v=5',
@@ -261,9 +261,9 @@ const SHELL = [
   './systems.js?v=1',
   /* the cavity engine: resolver, maths, builders. Small, and the overlays are
      part of the study system, so they belong in the offline shell. */
-  './landmarks.js?v=2',
-  './cavity-geom.js?v=2',
-  './cavity-build.js?v=2',
+  './landmarks.js?v=3',
+  './cavity-geom.js?v=3',
+  './cavity-build.js?v=3',
   './manifest.webmanifest',
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png',

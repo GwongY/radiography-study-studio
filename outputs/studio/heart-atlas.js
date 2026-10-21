@@ -688,5 +688,9 @@ export function init() {
   };
   dock.appendChild(toggle);
   window.__osteo = window.__osteo || {};
-  Object.assign(window.__osteo, { enterHeartAtlas, exitHeartAtlas, heartAtlasOn: () => !!state.heartAtlasOn });
+  Object.assign(window.__osteo, {
+    enterHeartAtlas, exitHeartAtlas, heartAtlasOn: () => !!state.heartAtlasOn,
+    /* an exclusive mode (heart, cell, limb or muscle) holds the layers; the enhanced heart leaves them to the rail */
+    atlasModeOn: () => !!state.heartAtlasOn && !state.enhancedHeartOn,
+  });
 }

@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1077 —
-  e4ef07c449ece296  WHOLE SET
+— user-facing strings in outputs/ — 1079 —
+  6b1ff7d6040c79c0  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -977,9 +977,11 @@
   0eda74d519563cb0  s camera regions: a box in a limb
   039ed7115face420  s depth is a fraction of the vessel
   dce1c177b1e44a6a  s depth, less the tag
+  547ea064253c5f5a  s frame, is simply the sac
   374ca136be919d16  s heart: whenever the Heart chip is on, the atlas heart stands in for the explorer
   df49128572cf09cb  s job is only to feed it those meshes in the body
   91f0e226c82016ff  s left), fz 0 the trunk
+  9260618caffedf9d  s map in the lobe
   1bd4e44876b04147  s own (BodyParts3D, CC BY-SA 2.1 JP). The levels inside it are drawn for this app, schematic, not to scale. Labels and notes are the 2026 HSS2011 and ABCT2326 slides
   4e01dcdc55cd6293  s own half-width put the oesophagus
   ade98b80a888aed2  s own signature. 

@@ -28,6 +28,7 @@
 import {
   ringStack, stackMesh, starShell, starMesh, heightField, sampleField, domeFromRim,
   canalPath, tubeMesh, boundsOf, planeThrough, torsoProfile, polyStack,
+  voxelGrid, solidMask, signedDistance, surfaceNets, contourLines, dropSpecks,
 } from './cavity-geom.js';
 
 const pos = (meshes) => meshes.map((m) => m.positions);
@@ -201,38 +202,30 @@ function buildThoracic(ctx, M) {
 /*
  * PLEURAL -- one sac per lung.
  *
- * With the organ layer loaded these are measured from the lungs themselves,
- * which is what a pleural cavity actually wraps. Without it, the hemithorax is
- * used and the medial wall is placed at the edge of the vertebral bodies --
- * real bone, but an approximation of the mediastinal pleura, so `exact` is
- * false and the caption says so.
+ * With the organ layer loaded each sac is its lung grown by the pleural space,
+ * as a distance field (see thoraxFields) -- so it follows the cardiac
+ * impression and the hilum instead of bridging them. It used to be a radial
+ * hull of the lung, which filled the hollow the heart sits in and bulged out
+ * through the ribs; the sac then covered half the heart. The mediastinum is
+ * defined from the same field, so the two share their wall exactly.
+ *
+ * Each part says which lung it wraps (`breath`): the viewer moves it with
+ * that lung while the lungs breathe, or the lung pushes straight through it.
+ *
+ * Without the organ layer the hemithorax is used and the medial wall is placed
+ * at the edge of the vertebral bodies -- real bone, but an approximation of
+ * the mediastinal pleura, so `exact` is false and the caption says so.
  */
 function buildPleural(ctx, M) {
-  const L = ctx.meshesFor('lung.left'), R = ctx.meshesFor('lung.right');
+  const T = thoraxFields(ctx, M);
   const parts = [];
-  if (L.length && R.length) {
-    const lb = boundsOf(pos(L)), rb = boundsOf(pos(R));
-    for (const [lung, sign] of [[L, 1], [R, -1]]) {
-      const p = pos(lung);
-      const b = boundsOf(p);
-      const st = ringStack(p, {
-        bands: 20, sectors: 40, percentile: 0.97, smoothA: 2, smoothV: 1,
-        y0: b.minY, y1: b.maxY,
-      });
-      /* the sac is the lung plus the thin space around it */
-      const grow = (b.maxX - b.minX) * 0.045;
-      for (let i = 0; i < st.bands; i++) for (let s = 0; s < st.sectors; s++) st.r[i][s] += grow;
-      /*
-       * The two sacs must not meet: the mediastinum lies between them, and a
-       * sac that grew across the midline would erase exactly the point of
-       * drawing them separately. Hold each at its own lung's medial surface.
-       */
-      const medial = sign > 0 ? lb.minX : rb.maxX;
-      parts.push(stackMesh(st, {
-        capRings: 4,
-        adjust: (q) => [sign > 0 ? Math.max(q[0], medial) : Math.min(q[0], medial), q[1], q[2]],
-      }));
+  if (T && T.haveLungs) {
+    for (const [sd, side] of [[T.sdL, 'left'], [T.sdR, 'right']]) {
+      const F = new Float32Array(T.grid.n);
+      for (let i = 0; i < F.length; i++) F[i] = T.gap - sd[i];
+      parts.push(fieldPart(T, F, { breath: side }));
     }
+    const lb = boundsOf(pos(ctx.meshesFor('lung.left')));
     return {
       parts,
       centroid: [0, (lb.minY + lb.maxY) / 2, (lb.minZ + lb.maxZ) / 2],
@@ -273,22 +266,23 @@ function mediastinalHalfWidth(ctx, stack) {
 }
 
 /*
- * MEDIASTINUM -- the space between the two pleural sacs.
+ * The bony estimate of the mediastinum: a stack from the back of the sternum
+ * to the front of the vertebral bodies, its width estimated from the vertebral
+ * bodies. It is no longer drawn -- buildMediastinum is -- but the pericardial
+ * sac's no-heart fallback still subsets it, because a stack of rings is what
+ * that fallback tapers into a sac.
  *
- * Named walls rather than a sweep, and a real cross-section rather than a
- * width. At each height, and at each depth within that height, the compartment
- * runs from the medial surface of one lung to the other; front to back it runs
- * from the back of the sternum to the front of the vertebral bodies. That is
- * the textbook definition, and it is the only construction that gets the shape
- * right -- broad in front where the heart pushes the lungs apart, narrow behind
- * where they close in beside the vertebral column.
+ * It used to read the lungs too, by sampling lung VERTICES in thin bands. The
+ * lobes are low poly (~800 vertices each), so most bands held no lung at all,
+ * the gaps were held from their neighbours, and the compartment came out a
+ * slot narrower than the heart it is meant to contain.
  */
-function buildMediastinum(ctx, M) {
-  const L = ctx.meshesFor('lung.left'), R = ctx.meshesFor('lung.right');
+function mediastinumStack(ctx, M) {
+  const L = [], R = [];
   const sternum = ctx.meshesFor('thorax.sternum');
   const spine = ctx.meshesFor('spine.thoracic');
   if (!sternum.length || !spine.length) return null;
-  const haveLungs = L.length && R.length;
+  const haveLungs = false;
   const sb = boundsOf(pos(sternum));
   const vb = boundsOf(pos(spine));
   const bands = 18, depth = 9;
@@ -420,7 +414,7 @@ function buildPericardial(ctx, M) {
    * sit inside its parent cavity, which is the relationship that matters most
    * for teaching, and the caption says it is not measured from the heart.
    */
-  const med = buildMediastinum(ctx, M);
+  const med = mediastinumStack(ctx, M);
   if (!med || !med.stack) return null;
   const st = med.stack;
   const lo = Math.floor(st.bands * 0.10), hi = Math.floor(st.bands * 0.62);
@@ -447,6 +441,360 @@ function buildPericardial(ctx, M) {
     note: 'circulatory layer not loaded — sac occupies the lower mediastinum, not measured from the heart',
   };
 }
+
+/* ------------------------------------------------------------------ *
+ * the thorax as a voxel field
+ *
+ * The pleural sacs, the mediastinum and its four parts are all defined by
+ * what they lie BETWEEN, so they are built on one grid of signed distances
+ * (cavity-geom.js, "voxel fields") and cached on M, which every builder in
+ * one build shares. Every margin is a fraction of the thorax's own width, so
+ * the same code works in GLB metres and in the viewer's scaled frame.
+ * ------------------------------------------------------------------ */
+
+/* the anterior part of a vertebra -- its body -- as a vertex list */
+function vertebralBody(meshes) {
+  const p = pos(meshes);
+  if (!p.length) return null;
+  const b = boundsOf(p);
+  const cut = b.maxZ - (b.maxZ - b.minZ) * 0.35;
+  const out = [];
+  for (const a of p) for (let i = 0; i < a.length; i += 3) if (a[i + 2] > cut) out.push(a[i], a[i + 1], a[i + 2]);
+  return out.length ? boundsOf([Float32Array.from(out)]) : null;
+}
+/* the deepest (most posterior) point of a cloud within dy of height y */
+function backAt(clouds, y, dy) {
+  let z = Infinity;
+  for (const c of clouds) for (let i = 0; i < c.length; i += 3) if (Math.abs(c[i + 1] - y) <= dy && c[i + 2] < z) z = c[i + 2];
+  return z;
+}
+
+/*
+ * The two planes the mediastinum is read against, both measured on bone.
+ *
+ *   roof   the superior thoracic aperture: the top of the body of T1 behind,
+ *          the jugular notch in front -- sloping down anteriorly, as it does.
+ *   split  the sternal angle in front (the manubriosternal junction) and the
+ *          T4/T5 intervertebral disc behind: "boundary of superior & inferior
+ *          mediastinum", "vertebral level of T4/T5" (hss.thorax.deck p5, p19).
+ *          On this model the junction lands between the bodies of T4 and T5,
+ *          which work/cut-level-check.mjs asserts separately.
+ */
+function mediastinalPlanes(ctx, W) {
+  const man = ctx.meshesFor('thorax.manubrium'), body = ctx.meshesFor('thorax.sternumBody');
+  const out = {};
+  const near = W * 0.03;
+  if (man.length) {
+    const mb = boundsOf(pos(man));
+    const t1 = vertebralBody(ctx.meshesFor('spine.T1'));
+    if (t1) {
+      const plane = planeThrough([0, t1.maxY, t1.maxZ], [0, mb.maxY, backAt(pos(man), mb.maxY - near / 2, near / 2)]);
+      /* held at T1 behind its front: the plane would run on uphill past the bone */
+      out.roof = (x, z) => Math.min(plane(x, z), t1.maxY);
+    }
+    out.jugularY = mb.maxY;
+    const t4 = vertebralBody(ctx.meshesFor('spine.T4')), t5 = vertebralBody(ctx.meshesFor('spine.T5'));
+    if (body.length && t4 && t5) {
+      const ySA = (mb.minY + boundsOf(pos(body)).maxY) / 2;
+      const zSA = backAt(pos(man).concat(pos(body)), ySA, near);
+      const yDisc = (t4.minY + t5.maxY) / 2, zDisc = (t4.maxZ + t5.maxZ) / 2;
+      out.split = planeThrough([0, yDisc, zDisc], [0, ySA, zSA]);
+      out.sternalAngle = [0, ySA, zSA];
+      out.disc = [0, yDisc, zDisc];
+    }
+  }
+  return out;
+}
+
+/* r(direction) - distance from the axis: positive inside a ring stack */
+function ringInside(st, x, y, z) {
+  const n = st.bands - 1;
+  const t = Math.max(0, Math.min(n, (y - st.ys[0]) / ((st.ys[n] - st.ys[0]) || 1) * n));
+  const b0 = Math.floor(t), b1 = Math.min(n, b0 + 1), f = t - b0;
+  const cx = st.cx[b0] * (1 - f) + st.cx[b1] * f, cz = st.cz[b0] * (1 - f) + st.cz[b1] * f;
+  let a = Math.atan2(z - cz, x - cx) / (Math.PI * 2) * st.sectors;
+  if (a < 0) a += st.sectors;
+  const s0 = Math.floor(a) % st.sectors, s1 = (s0 + 1) % st.sectors, g = a - Math.floor(a);
+  const r = (st.r[b0][s0] * (1 - g) + st.r[b0][s1] * g) * (1 - f) + (st.r[b1][s0] * (1 - g) + st.r[b1][s1] * g) * f;
+  return r - Math.hypot(x - cx, z - cz);
+}
+
+/* one layer value per grid row, NaNs held from the nearest measured row */
+function holdLayers(a) {
+  const first = a.findIndex(Number.isFinite);
+  if (first < 0) return a;
+  for (let j = 0; j < first; j++) a[j] = a[first];
+  for (let j = first + 1; j < a.length; j++) if (!Number.isFinite(a[j])) a[j] = a[j - 1];
+  return a;
+}
+
+function thoraxFields(ctx, M) {
+  if (M._thorax !== undefined) return M._thorax;
+  M._thorax = null;
+  const wall = thoraxWall(ctx);
+  if (!wall.length) return null;
+  const wb = boundsOf(wall);
+  const L = ctx.meshesFor('lung.left'), R = ctx.meshesFor('lung.right');
+  const haveLungs = !!(L.length && R.length);
+  const parts = haveLungs ? [...wall, ...pos(L), ...pos(R)] : wall;
+  const b = boundsOf(parts);
+  const W = wb.maxX - wb.minX;
+  /* ~300k voxels whatever the scale: about 4 mm on this body */
+  const step = Math.cbrt((b.maxX - b.minX) * (b.maxY - b.minY) * (b.maxZ - b.minZ) / 300000);
+  const grid = voxelGrid(b, step, step * 3);
+  const T = { grid, W, haveLungs, gap: W * 0.016, spacing: W * 0.04 };
+  if (haveLungs) {
+    T.sdL = signedDistance(grid, solidMask(grid, L));
+    T.sdR = signedDistance(grid, solidMask(grid, R));
+  }
+  M._thorax = T;
+  return T;
+}
+
+/* a field's zero surface, with the cross-section outline drawn over it */
+function fieldPart(T, F, extra) {
+  const mesh = dropSpecks(surfaceNets(T.grid, F), 0.04);
+  if (!mesh.indices.length) return null;
+  return Object.assign(mesh, { lines: contourLines(mesh, T.spacing) }, extra || {});
+}
+
+/*
+ * The mediastinum and its parts, as fields on the thorax grid.
+ *
+ *   space     between the two pleural sacs (each lung grown by the pleural
+ *             space), behind the sternum, in front of the vertebral bodies,
+ *             inside the bony wall, and no wider at any height than what the
+ *             compartment holds -- without that last bound the narrow gap
+ *             between a lung base and the diaphragm reads as "between the
+ *             lungs" and the floor grows wings out to the ribs.
+ *   holds     the pericardial sac, the great vessels, the oesophagus and the
+ *             trachea, each with a small margin. They are OR-ed in, so the
+ *             descending aorta beside the vertebral bodies is inside even
+ *             though it is behind their front.
+ *   floor     the diaphragm; roof the superior thoracic aperture.
+ *
+ * Without the lungs the width falls back to the vertebral bodies, as before,
+ * and the result is flagged as estimated.
+ */
+function mediastinumFields(ctx, M) {
+  if (M._mediastinum !== undefined) return M._mediastinum;
+  M._mediastinum = null;
+  const T = thoraxFields(ctx, M);
+  const sternum = pos(ctx.meshesFor('thorax.sternum')), spine = pos(ctx.meshesFor('spine.thoracic'));
+  if (!T || !sternum.length || !spine.length) return null;
+  const { grid, W } = T;
+  const { nx, ny, nz, x0, y0, z0, step } = grid;
+  const sb = boundsOf(sternum), vb = boundsOf(spine);
+  const xm = (sb.minX + sb.maxX) / 2;
+
+  /* front and back, per layer: the back of the sternum, the front of the bodies */
+  const front = new Array(ny).fill(NaN), back = new Array(ny).fill(NaN);
+  for (let j = 0; j < ny; j++) {
+    const y = y0 + j * step;
+    const zf = backAt(sternum, y, step * 1.5);
+    if (Number.isFinite(zf)) front[j] = zf;
+    let zb = -Infinity;
+    for (const c of spine) for (let i = 0; i < c.length; i += 3) if (Math.abs(c[i + 1] - y) <= step * 1.5 && c[i + 2] > zb) zb = c[i + 2];
+    if (Number.isFinite(zb)) back[j] = zb;
+  }
+  holdLayers(front); holdLayers(back);
+
+  const peri = buildPericardial(ctx, M);
+  const sac = peri ? signedDistance(grid, solidMask(grid, peri.parts)) : null;
+  const held = ['heart.greatVessels', 'oesophagus'].flatMap((k) => ctx.meshesFor(k))
+    .concat(ctx.entriesFor(['trachea']).filter((e) => e.name === 'trachea').map((e) => e.mesh));
+  const holdMask = solidMask(grid, held);
+  const holds = signedDistance(grid, holdMask);
+  /*
+   * The roots of the great vessels leave the heart inside the pericardium, so
+   * below the sternal-angle plane they belong to the middle part with it: a
+   * pulmonary trunk poking out of the front of the sac is not "anterior
+   * mediastinum". The descending aorta is not a root and stays posterior.
+   */
+  const rootMeshes = ctx.entriesFor(['heart.greatVessels'])
+    .filter((e) => /^(ascending aorta|pulmonary trunk|superior vena cava|inferior vena cava)/.test(e.name))
+    .map((e) => e.mesh);
+  const roots = rootMeshes.length ? signedDistance(grid, solidMask(grid, rootMeshes)) : null;
+
+  /*
+   * How far the compartment may reach at each height, on each side: what it
+   * holds, plus room. Per side, because the heart lies to the left -- one
+   * symmetric width let the right half spread out to the heart's left reach.
+   */
+  const halfVB = (vb.maxX - vb.minX) / 2;
+  const capOf = (sign) => {
+    const reach = new Array(ny).fill(NaN);
+    for (let j = 0; j < ny; j++) {
+      let w = -Infinity;
+      for (let k = 0; k < nz; k++) for (let i = 0; i < nx; i++) {
+        const v = (j * nz + k) * nx + i;
+        if (holdMask[v] || (sac && sac[v] < 0)) w = Math.max(w, sign * (x0 + i * step - xm));
+      }
+      if (Number.isFinite(w)) reach[j] = w;
+    }
+    holdLayers(reach);
+    return reach.map((_, j) => {
+      let w = -Infinity;
+      for (let d = -2; d <= 2; d++) { const r = reach[j + d]; if (Number.isFinite(r)) w = Math.max(w, r); }
+      return Math.max(halfVB, (Number.isFinite(w) ? w : halfVB) + W * 0.03);
+    });
+  };
+  const capL = capOf(1), capR = capOf(-1);
+
+  const stack = thoraxStack(ctx, M, { bands: 20, sectors: 48 });
+  const planes = mediastinalPlanes(ctx, W);
+  const roof = planes.roof || (() => (M.thoracicInletY != null ? M.thoracicInletY : sb.maxY));
+  /*
+   * The floor is the diaphragm, but never below a level just under the
+   * xiphoid, where the diaphragm's anterior attachment is. Without the muscle
+   * layer the dome is raised off the costal margin, which runs far lower at
+   * the sides than the real dome does, and the space under each lung base then
+   * read as "between the lungs": the mediastinum hung a slab down the right
+   * costal margin. The measured diaphragm never goes that low under the
+   * mediastinum, so this changes nothing when it is loaded.
+   */
+  const xiphFloor = M.xiphoidBox ? M.xiphoidBox.minY - W * 0.05 : -Infinity;
+  const floor = M.diaphragmAt ? (x, z) => Math.max(M.diaphragmAt(x, z), xiphFloor)
+    : (Number.isFinite(xiphFloor) ? () => xiphFloor : null);
+  const gap = T.gap, margin = W * 0.012, sacMargin = W * 0.006;
+  const halfW = halfVB * 0.85;
+
+  /*
+   * In front of or behind the heart: the coronal plane through the middle of
+   * the pericardial sac at each height, held above and below it. That plane
+   * only matters beside the sac, where the anterior and posterior parts meet.
+   */
+  const zc = new Array(ny).fill(NaN);
+  if (sac) {
+    for (let j = 0; j < ny; j++) {
+      let lo = Infinity, hi = -Infinity;
+      for (let k = 0; k < nz; k++) for (let i = 0; i < nx; i++) {
+        if (sac[(j * nz + k) * nx + i] < 0) { const z = z0 + k * step; lo = Math.min(lo, z); hi = Math.max(hi, z); }
+      }
+      if (hi >= lo) zc[j] = (lo + hi) / 2;
+    }
+  }
+  holdLayers(zc);
+  if (!zc.some(Number.isFinite)) zc.fill((front[0] + back[0]) / 2);
+
+  /*
+   * The heart rests on the diaphragm, so in front of its mid-plane nothing is
+   * mediastinum below the bottom of the pericardial sac. Behind it the
+   * posterior part still runs down to the diaphragm with the aorta and the
+   * oesophagus. With the measured diaphragm the floor is there anyway; with
+   * the dome raised off the costal margin, which sags, this is what stops a
+   * box of "anterior mediastinum" hanging under the heart.
+   */
+  /*
+   * Under the sac, its own underside (the heart's inferior surface slopes, so
+   * one flat level leaves a wedge under the higher side); in front of it, the
+   * sac's lowest level, so the anterior part still reaches down in front of
+   * the pericardium as it should.
+   */
+  const sacFloor = new Float32Array(nx * nz).fill(-Infinity);
+  if (sac && peri) {
+    const lowest = boundsOf(peri.parts.map((p) => p.positions)).minY - W * 0.01;
+    for (let k = 0; k < nz; k++) for (let i = 0; i < nx; i++) {
+      let under = lowest;
+      for (let j = 0; j < ny; j++) if (sac[(j * nz + k) * nx + i] < 0) { under = y0 + j * step - W * 0.01; break; }
+      sacFloor[k * nx + i] = Math.max(lowest, under);
+    }
+  }
+
+  const F = new Float32Array(grid.n), fSac = new Float32Array(grid.n);
+  for (let j = 0; j < ny; j++) {
+    const y = y0 + j * step;
+    for (let k = 0; k < nz; k++) {
+      const z = z0 + k * step;
+      for (let i = 0; i < nx; i++) {
+        const x = x0 + i * step, v = (j * nz + k) * nx + i;
+        const ax = Math.abs(x - xm);
+        const lateral = T.haveLungs ? Math.min(T.sdL[v], T.sdR[v]) - gap : halfW - ax;
+        let space = Math.min(lateral, front[j] - z, z - back[j], (x > xm ? capL[j] : capR[j]) - ax);
+        /* only the sign and the value near zero shape the surface: skip the
+           costly ring lookup where the cheap bounds have already ruled it out */
+        if (stack && space > -step * 2) space = Math.min(space, ringInside(stack, x, y, z));
+        let f = Math.max(space, margin - holds[v]);
+        if (floor) f = Math.min(f, y - floor(x, z));
+        if (z > zc[j]) f = Math.min(f, y - sacFloor[k * nx + i]);
+        let s = sac ? sacMargin - sac[v] : -1;
+        /* the vena cava runs on through the diaphragm: its root stops at the floor */
+        if (roots) s = Math.max(s, floor ? Math.min(margin - roots[v], y - floor(x, z)) : margin - roots[v]);
+        f = Math.min(Math.max(f, s), roof(x, z) - y);
+        F[v] = f; fSac[v] = s;
+      }
+    }
+  }
+
+  M._mediastinum = { T, F, fSac, zc, planes, peri, haveLungs: T.haveLungs, xm };
+  return M._mediastinum;
+}
+
+/* one part of the mediastinum: the whole field combined with its own bounds */
+function mediastinalPart(ctx, M, which) {
+  const D = mediastinumFields(ctx, M);
+  if (!D) return null;
+  const { T, F, fSac, zc, planes } = D;
+  const { grid } = T;
+  if (which !== 'whole' && !planes.split) return null;
+  const out = new Float32Array(grid.n);
+  const { nx, nz, x0, y0, z0, step } = grid;
+  for (let v = 0; v < grid.n; v++) {
+    if (which === 'whole') { out[v] = F[v]; continue; }
+    const i = v % nx, k = Math.floor(v / nx) % nz, j = Math.floor(v / (nx * nz));
+    const x = x0 + i * step, y = y0 + j * step, z = z0 + k * step;
+    const below = planes.split(x, z) - y;
+    let f;
+    if (which === 'superior') f = Math.min(F[v], -below);
+    else if (which === 'middle') f = Math.min(F[v], below, fSac[v]);
+    else if (which === 'anterior') f = Math.min(F[v], below, -fSac[v], z - zc[j]);
+    else f = Math.min(F[v], below, -fSac[v], zc[j] - z);
+    out[v] = f;
+  }
+  const part = fieldPart(T, out);
+  if (!part) return null;
+  const b = boundsOf(part.positions);
+  const exact = D.haveLungs && !!(D.peri && D.peri.exact);
+  const basis = D.haveLungs ? ['lung.left', 'lung.right', 'thorax.sternum', 'spine.thoracic']
+    : ['thorax.sternum', 'spine.thoracic'];
+  if (which !== 'whole') basis.push('thorax.manubrium', 'thorax.sternumBody', 'spine.T4', 'spine.T5');
+  if (which !== 'whole' && D.peri && D.peri.exact) basis.push('heart');
+  const notes = [];
+  if (!D.haveLungs) notes.push('organ layer not loaded — width estimated from the vertebral bodies');
+  else notes.push('lateral walls are the pleural sacs round each lung');
+  if (which !== 'whole') notes.push('superior/inferior boundary: the plane through the sternal angle and the T4/T5 disc');
+  if (which === 'middle' || which === 'anterior' || which === 'posterior') {
+    notes.push(D.peri && D.peri.exact ? 'middle = the pericardial sac round the heart'
+      : 'circulatory layer not loaded — the pericardial sac, and so this split, is estimated');
+  }
+  return {
+    parts: [part],
+    centroid: [(b.minX + b.maxX) / 2, (b.minY + b.maxY) / 2, (b.minZ + b.maxZ) / 2],
+    exact: which === 'whole' ? D.haveLungs : exact,
+    basis,
+    note: notes.join('; '),
+  };
+}
+
+/*
+ * MEDIASTINUM -- the central compartment of the thorax, between the two
+ * pleural sacs, from the sternum to the vertebral bodies and from the
+ * thoracic inlet to the diaphragm, holding the heart in its pericardium, the
+ * great vessels, the trachea and the oesophagus (hss.l8.2026 p3-4).
+ */
+function buildMediastinum(ctx, M) { return mediastinalPart(ctx, M, 'whole'); }
+
+/*
+ * Its divisions, as the lecture gives them (hss.l8.2026 p4, hss.thorax.deck
+ * p19): superior above the sternal angle / T4-T5 plane; the inferior below it,
+ * divided into anterior (in front of the heart), middle (the heart and
+ * pericardium) and posterior (behind the heart). The four share every wall
+ * with each other and with the whole, because they are cut from one field.
+ */
+const buildMedSuperior = (ctx, M) => mediastinalPart(ctx, M, 'superior');
+const buildMedAnterior = (ctx, M) => mediastinalPart(ctx, M, 'anterior');
+const buildMedMiddle = (ctx, M) => mediastinalPart(ctx, M, 'middle');
+const buildMedPosterior = (ctx, M) => mediastinalPart(ctx, M, 'posterior');
 
 /* the wall of the belly: bone above and below, muscle in between if we have it */
 function abdomenWall(ctx) {
@@ -707,6 +1055,10 @@ const BUILDERS = {
   'cav-pleural': buildPleural,
   'cav-mediastinum': buildMediastinum,
   'cav-pericardial': buildPericardial,
+  'cav-med-superior': buildMedSuperior,
+  'cav-med-anterior': buildMedAnterior,
+  'cav-med-middle': buildMedMiddle,
+  'cav-med-posterior': buildMedPosterior,
   'cav-abdominal': buildAbdominal,
   'cav-pelvic': buildPelvic,
 };

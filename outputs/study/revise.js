@@ -559,7 +559,7 @@ function createMap() {
     (function walk(n) {
       if (n.payload && n.payload.id !== 'root' && (n.children || []).length) {
         const depth = ancestors(n.payload.id).length;
-        const fold = open ? 0 : (depth >= (NARROW ? 1 : 2) ? 1 : 0);
+        const fold = open ? 0 : (depth >= (NARROW ? 0 : 1) ? 1 : 0);
         n.payload = Object.assign({}, n.payload, { fold });
       }
       (n.children || []).forEach(walk);
@@ -627,7 +627,7 @@ function createMap() {
     svgEl.innerHTML = '';
     fitted = false;
     mm = window.markmap.Markmap.create(svgEl, {
-      initialExpandLevel: NARROW ? 2 : 3, maxWidth: 210, spacingHorizontal: NARROW ? 48 : 70, spacingVertical: NARROW ? 12 : 14, paddingX: 8,
+      initialExpandLevel: NARROW ? 1 : 2, maxWidth: 210, spacingHorizontal: NARROW ? 48 : 70, spacingVertical: NARROW ? 12 : 14, paddingX: 8,
       nodeMinHeight: 24, duration: 300,
       lineWidth: (node) => { const d = (node.state && node.state.depth) || 0; return Math.max(1.6, 4.2 - d * 0.85); },
       fitRatio: 0.96, maxInitialScale: NARROW ? 1.3 : 1.15,

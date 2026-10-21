@@ -199,11 +199,45 @@ export const BODY_CONCEPTS = [
   { id: 'cav-mediastinum', kind: 'cavity', name: 'Mediastinum', aliases: ['mediastinal'],
     blurb: 'The central compartment of the thorax, between the two pleural cavities — heart, great vessels, trachea and oesophagus.',
     color: 0xe8a53a, standalone: true, parent: 'cav-thoracic',
-    derivedFrom: 'the space left between the two lungs, the sternum in front and the vertebral column behind' },
+    derivedFrom: 'the space between the two pleural sacs, from the sternum to the vertebral bodies and from the thoracic inlet to the diaphragm' },
+
+  /*
+   * The divisions of the mediastinum, as the 2026 lecture lists them
+   * (hss.l8.2026 p4, "Divisions of the Mediastinum"): superior above the
+   * heart, and inferior divided into anterior, middle and posterior, with the
+   * contents of each; the blurbs keep to that slide's wording. The boundary
+   * between superior and inferior is the sternal angle at T4/T5
+   * (hss.thorax.deck p5, p19). Inferior is a union, like the abdominopelvic
+   * cavity: it IS its three parts, so it has no geometry of its own.
+   */
+  { id: 'cav-med-superior', kind: 'cavity', name: 'Superior mediastinum', aliases: ['superior mediastinal'],
+    blurb: 'Above the heart; contains the thymus, great vessels, trachea and oesophagus. Its lower boundary is the plane of the sternal angle, at T4/T5.',
+    color: 0xf2c94c, standalone: true, parent: 'cav-mediastinum',
+    derivedFrom: 'the mediastinum above the plane through the sternal angle and the T4/T5 disc' },
+
+  { id: 'cav-med-inferior', kind: 'cavity', name: 'Inferior mediastinum', aliases: ['inferior mediastinal'],
+    blurb: 'Below the superior mediastinum, divided into anterior, middle and posterior.',
+    color: 0xd98a3a, standalone: true, parent: 'cav-mediastinum',
+    combine: ['cav-med-anterior', 'cav-med-middle', 'cav-med-posterior'] },
+
+  { id: 'cav-med-anterior', kind: 'cavity', name: 'Anterior mediastinum', aliases: ['anterior mediastinal'],
+    blurb: 'In front of the heart, behind the sternum; contains fat and lymph nodes.',
+    color: 0xe36f9a, standalone: true, parent: 'cav-med-inferior',
+    derivedFrom: 'the inferior mediastinum in front of the pericardial sac' },
+
+  { id: 'cav-med-middle', kind: 'cavity', name: 'Middle mediastinum', aliases: ['middle mediastinal'],
+    blurb: 'Contains the heart and pericardium.',
+    color: 0xe0603c, standalone: true, parent: 'cav-med-inferior',
+    derivedFrom: 'the pericardial sac and the roots of the great vessels, below the sternal angle' },
+
+  { id: 'cav-med-posterior', kind: 'cavity', name: 'Posterior mediastinum', aliases: ['posterior mediastinal'],
+    blurb: 'Behind the heart, in front of the vertebral bodies; contains the oesophagus, descending aorta and thoracic duct.',
+    color: 0x8fbf5a, standalone: true, parent: 'cav-med-inferior',
+    derivedFrom: 'the inferior mediastinum behind the pericardial sac' },
 
   { id: 'cav-pericardial', kind: 'cavity', name: 'Pericardial cavity', aliases: ['pericardium'],
-    blurb: 'The sac around the heart, inside the mediastinum. Its film of fluid lets the heart beat without friction.',
-    color: 0x3fc4bd, standalone: true, parent: 'cav-mediastinum',
+    blurb: 'The sac around the heart, in the middle mediastinum. Its film of fluid lets the heart beat without friction.',
+    color: 0x3fc4bd, standalone: true, parent: 'cav-med-middle',
     derivedFrom: 'the outer surface of the four heart chambers' },
 
   { id: 'cav-pleural', kind: 'cavity', name: 'Pleural cavities', aliases: ['pleural cavity', 'pleura'],

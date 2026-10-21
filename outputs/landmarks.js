@@ -181,6 +181,8 @@ export const LANDMARKS = {
    * span these two bound. The claim is then this model's own geometry agreeing
    * with the lecture, rather than a number copied across from it.
    */
+  /* T1's body is the back of the superior thoracic aperture: the mediastinum's roof */
+  'spine.T1': { label: 'T1', layer: 'skeleton', match: ['^vertebra t1$'] },
   'spine.T4': { label: 'T4', layer: 'skeleton', match: ['^vertebra t4'] },
   'spine.T5': { label: 'T5', layer: 'skeleton', match: ['^vertebra t5'] },
   'spine.L1': { label: 'L1', layer: 'skeleton', match: ['^vertebra l1'] },
@@ -310,6 +312,23 @@ export const REFERENCE_CHAINS = {
   'cav-mediastinum': {
     primary: ['thorax.sternum', 'spine.thoracic', 'thorax.ribs'],
     secondary: ['lung.left', 'lung.right', 'heart', 'heart.greatVessels', 'trachea', 'oesophagus'],
+  },
+  /* its four divisions add the bones the superior/inferior plane is measured on */
+  'cav-med-superior': {
+    primary: ['thorax.sternum', 'spine.thoracic', 'thorax.manubrium', 'thorax.sternumBody', 'spine.T4', 'spine.T5'],
+    secondary: ['lung.left', 'lung.right', 'heart.greatVessels', 'trachea', 'oesophagus'],
+  },
+  'cav-med-anterior': {
+    primary: ['thorax.sternum', 'spine.thoracic', 'thorax.manubrium', 'thorax.sternumBody', 'spine.T4', 'spine.T5'],
+    secondary: ['lung.left', 'lung.right', 'heart'],
+  },
+  'cav-med-middle': {
+    primary: ['heart'],
+    fallback: ['thorax.sternum', 'spine.thoracic', 'thorax.manubrium', 'thorax.sternumBody', 'spine.T4', 'spine.T5'],
+  },
+  'cav-med-posterior': {
+    primary: ['thorax.sternum', 'spine.thoracic', 'thorax.manubrium', 'thorax.sternumBody', 'spine.T4', 'spine.T5'],
+    secondary: ['lung.left', 'lung.right', 'heart', 'heart.greatVessels', 'oesophagus'],
   },
   /*
    * The only cavity whose primary reference is not bone. With the circulatory

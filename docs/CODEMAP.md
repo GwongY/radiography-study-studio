@@ -32,12 +32,12 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds | Traps |
 | --- | --- | --- | --- |
 | `anatomy-data.js` | 144 | Osteology Studio — anatomy data layer | [The back is a half-space](TRAPS.md#the-back-is-a-half-space--outputsstudioscenejs-outputsanatomy-datajs) |
-| `bodymap.js` | 319 | Body map — search extras and spatial concepts for the 3D viewer. |  |
+| `bodymap.js` | 353 | Body map — search extras and spatial concepts for the 3D viewer. |  |
 | `bone-landmarks.js` | 1596 | Bone landmarks — curated on the shipped skeleton by work/build-bone-landmarks.mjs. |  |
-| `cavity-build.js` | 732 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
-| `cavity-geom.js` | 1148 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
+| `cavity-build.js` | 1084 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
+| `cavity-geom.js` | 1434 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
 | `cell-zoom.js` | 780 | Cell zoom — the levels, their labels and the two stage sliders: the data and nothing else. | [The cell zoom mode -- outputs/studio/cell-zoom.js, outputs/cell/, outputs/cell-zoom.js, work/cell-zoom-check.mjs](TRAPS.md#the-cell-zoom-mode----outputsstudiocell-zoomjs-outputscell-outputscell-zoomjs-workcell-zoom-checkmjs) |
-| `landmarks.js` | 450 | landmarks.js -- the one place that knows how to find a named anatomical | [Named cut levels](TRAPS.md#named-cut-levels--outputsstudiotools-and-capturejs-outputslandmarksjs) |
+| `landmarks.js` | 469 | landmarks.js -- the one place that knows how to find a named anatomical | [Named cut levels](TRAPS.md#named-cut-levels--outputsstudiotools-and-capturejs-outputslandmarksjs) |
 | `mesh-index.js` | 2645 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `muscle-zoom.js` | 122 | Muscle zoom — the levels and their labels, the data and nothing else. |  |
 | `physiology-mechanics.js` | 52 | Source-backed sequences; display timings are slowed for the motor example. |  |
@@ -63,7 +63,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 - `bodymap.js` — `SEARCH_EXTRAS`, `BODY_CONCEPTS`, `CONCEPT_GROUPS`, `conceptById`, `conceptAncestors`, `conceptChildren`, `conceptLeaves`
 - `bone-landmarks.js` — `BONE_LANDMARK_MODEL_HASH`, `BONE_LANDMARKS`, `boneLandmarkKey`, `surfaceLandmarks`
 - `cavity-build.js` — `measureLandmarks`, `measureGrid`, `gridBounds`, `buildCavityGeometry`, `BUILDABLE`
-- `cavity-geom.js` — `boundsOf`, `ringStack`, `ringPoint`, `polyStack`, `stackMesh`, `planeThrough`, `heightField`, `sampleField`, `domeFromRim`, `starShell`, `starMesh`, `starPoint`, `foramenOf`, `foramenCandidates`, `canalPath`, `tubeMesh`, `torsoProfile`, `frontSurface`
+- `cavity-geom.js` — `boundsOf`, `ringStack`, `ringPoint`, `polyStack`, `stackMesh`, `planeThrough`, `heightField`, `sampleField`, `domeFromRim`, `starShell`, `starMesh`, `starPoint`, `foramenOf`, `foramenCandidates`, `canalPath`, `tubeMesh`, `torsoProfile`, `frontSurface`, `voxelGrid`, `solidMask`, `signedDistance`, `surfaceNets`, `contourLines`, `dropSpecks`
 - `cell-zoom.js` — `CELL_SOURCES`, `FALLBACK`, `LEVELS`, `LABELS`, `SLIDERS`, `SHOW_IN_3D`, `UNLABELLED`, `stagesFor`, `levelById`, `showIn3D`
 - `landmarks.js` — `normName`, `baseName`, `patternMatches`, `RIB_ORDINALS`, `LANDMARKS`, `REFERENCE_CHAINS`, `createResolver`, `LANDMARK_KEYS`
 - `muscle-zoom.js` — `ZOOM_SOURCES`, `LEVELS`, `LABELS`, `CONTRACTION`, `levelById`
@@ -87,21 +87,23 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 | File | Lines | Section |
 | --- | --- | --- |
-| `cavity-build.js` | 1–34 | preamble |
-|  | 35–103 | shared anatomical measurements |
-|  | 104–520 | builders |
-|  | 521–732 | the surface grid: nine regions and four quadrants |
+| `cavity-build.js` | 1–35 | preamble |
+|  | 36–104 | shared anatomical measurements |
+|  | 105–444 | builders |
+|  | 445–868 | the thorax as a voxel field |
+|  | 869–1084 | the surface grid: nine regions and four quadrants |
 | `cavity-geom.js` | 1–43 | preamble |
 |  | 44–88 | small helpers |
 |  | 89–487 | ringStack -- cross-sections of an enclosing wall |
 |  | 488–613 | heightField -- the diaphragm |
 |  | 614–729 | starShell -- blobs (cranial cavity, pericardial sac) |
 |  | 730–1020 | vertebral canal |
-|  | 1021–1148 | anterior surface -- where the region grid gets painted |
+|  | 1021–1149 | anterior surface -- where the region grid gets painted |
+|  | 1150–1434 | voxel fields -- the mediastinum, its four parts, and the pleural sacs |
 | `landmarks.js` | 1–45 | preamble |
 |  | 46–84 | Name normalisation |
-|  | 85–354 | The registry |
-|  | 355–450 | Resolution |
+|  | 85–373 | The registry |
+|  | 374–469 | Resolution |
 | `schedule.js` | 1–67 | preamble |
 |  | 68–100 | The term |
 |  | 101–115 | Who teaches |
@@ -121,16 +123,16 @@ belong in `init()`. The two keep separate import scopes and talk only through
 
 | File | Lines | What it holds |
 | --- | --- | --- |
-| `cavity-geometry-derived.js` | 470 | Cavity geometry, derived from the loaded anatomy. |
+| `cavity-geometry-derived.js` | 526 | Cavity geometry, derived from the loaded anatomy. |
 | `cell-zoom.js` | 591 | Cell zoom |
 | `circulation-extras.js` | 91 | Circulation extras |
 | `depth-picking.js` | 440 | Depth picking |
 | `explosion-layout.js` | 16 | Pack only visible source meshes. Every projected bounding box gets its own cell. |
-| `heart-atlas.js` | 692 | Heart atlas |
+| `heart-atlas.js` | 696 | Heart atlas |
 | `hide-and-search.js` | 114 | Hide, and search-driven uncover |
 | `imports.js` | 98 | Block 0 has its own import scope -- block 1's copy is not visible here. |
 | `limb-atlas.js` | 347 | Limb vessels |
-| `live-physiology.js` | 1483 | Live physiology |
+| `live-physiology.js` | 1516 | Live physiology |
 | `modes-and-bridge.js` | 511 | Visualisation modes. |
 | `muscle-zoom.js` | 443 | Muscle zoom |
 | `packed-spread.js` | 93 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
@@ -170,7 +172,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `viewer-tools.js` | 257 | Viewer tools — spread, section cut, layer depth |
 | `viewport-recovery.js` | 485 | The band below the tab bar — measuring it, and asking for the space back |
 | `weekly-briefing.js` | 116 | Weekly briefing — this week's university notices, on Today. |
-| `what-is-under.js` | 227 | What is under the tap |
+| `what-is-under.js` | 234 | What is under the tap |
 
 ## Verifiers and generators — `work/*.mjs`
 

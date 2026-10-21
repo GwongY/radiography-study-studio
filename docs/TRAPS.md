@@ -119,6 +119,29 @@ Grouped by file. `docs/CODEMAP.md` links each file to its section.
 - **Sprites anchor by edge, not centre** (`lab.center`). `updateHudSprites`
   rescales tags every frame, so a centre-anchored tag positioned from its
   creation-time half-width walks outward as you zoom and leaves the stage.
+- **The lungs are low-poly shells; fill them, do not ray-sample them.** The
+  pleural sacs and the mediastinum are built on a voxel grid
+  (`thoraxFields`): every mesh is rasterised solid by even-odd crossings
+  along z rows, and signed distance comes from that mask. The lung vertices
+  are too sparse to stand for the surface: distance to the nearest vertex
+  overstates the gap between lung and mediastinum. A field-built part
+  carries `lines` (contour outlines), and a breathing part carries `breath`.
+- **A breathing overlay must use the lung's own map, not a scale of its own.**
+  The lung lobes deform in the vertex shader (airway `inflate`) about one
+  shared `flowCenter` per side. The pleural sac is static geometry, so
+  `syncBreathingOverlays` gives it the same affine map as a mesh matrix
+  (B·L·B⁻¹, B taking the overlay group's frame to the lobe's). Measured gap
+  1.8e-15. Change `flowCenter`, the 0.65/1.4 gains or `breathAmount` and the
+  sac stops matching. The bronchi share their lung's centre for the same
+  reason: about their own centres they stood still while the lung base
+  descended past them.
+- **The four mediastinal parts are field combinations, not separate builds.**
+  `mediastinumFields` builds the whole mediastinum once (cached on `M`). Superior
+  and inferior divide at the plane through the sternal angle and the T4/T5
+  disc. Middle is the pericardial sac plus the great-vessel roots. Anterior
+  and posterior are what lies in front of and behind the sac's mid-depth. Change
+  the whole and all four move together. `build-check.mjs` asserts the
+  ordering.
 
 See also: **The nine regions and four quadrants are topographic, not derived
 shapes** — in "The region grid and classifiers" below.
@@ -1361,6 +1384,7 @@ names it.
 - **`outputs/heart/alignment.js` is generated**; `work/heart-atlas-check.mjs` re-fits it against `dolasim.glb` and fails if the model is ever replaced without re-running `node work/build-heart-alignment.mjs --write`.
 - **Atlas entry is transactional.** Snapshot the layer switches, opacities and camera before `showSystem`; on any failure restore them, re-apply layers and publish `osteo:layers`. The runtime check compares at least 35 same-named world-space mesh bounds before the atlas is shown.
 - **The atlas is an exclusive layer mode.** The layer rail is hidden while it is open; the optional skeleton context is temporary. Any focus, Projection, or layer-selection action exits the atlas first, so restoring the snapshot cannot overwrite the new mode.
+- **Leaving the Viewer tab with an atlas open, then coming back, left Axial off behind a lit chip.** `syncLayersToRail` (`study/what-is-under.js`) pushes the rail's state one layer at a time. The rail had mirrored the atlas's all-off state, so the first call (Axial, off) closed the mode inside `setLayer`. That restored the snapshot and re-synced the rail, and then the call still applied its stale "off". It now closes the mode first through `atlasModeOn()`/`exitHeartAtlas()`. Do not test for "every layer off" instead: the heart atlas keeps the Heart chip on.
 - **The pericardium is generated** (`work/build-pericardium.mjs`, then Blender with `work/blender/pericardium.py`) from `heart-manifest.json`/`heart-meshes.bin` into `pericardium.json`/`.bin`; never edit those two, and rebuild them if the atlas heart is ever replaced. Its meshes carry no `positionCount` on purpose: the echo and M-mode read every mesh that has one. Only the epicardium and the cavity carry `center`, the field `heartbeat.js` deforms a mesh by; the sac stays still. The card text is `pericardium-text.js` (no three.js, so `heart-atlas-check` can hold its quotes to p7). The slide's bullets are Symbol-font characters, so a quote must not run across one.
 - **A layer built by voxel remesh keeps its largest piece** (`outer_skin`). Too fine a voxel and a chamber wall does not fuse with the rest, so the epicardium came out without the left ventricle; `heart-atlas-check` now fails a layer whose box does not hold the wall's.
 - **Pointer picking belongs to the renderer canvas only.** Ignore overlay targets, secondary pointers and non-left buttons; the panel sits inside `viewer-dock` at every viewport width.
