@@ -1,8 +1,8 @@
 /*
  * Cell zoom — the 3D models the levels wear, and how one is put on a level.
  *
- * Every level is drawn procedurally first (cell/zoom-scene.js, cell/lecture-cells.js), so it opens at once and
- * offline. Every level also has a model, outputs/cell/models/<level>.glb, built offline in Blender by
+ * Most levels are drawn procedurally first (cell/zoom-scene.js, cell/lecture-cells.js), so they open at once and
+ * offline; the newer ones (zoom-scene.js MODEL_ONLY) are their model alone. Every level also has a model, outputs/cell/models/<level>.glb, built offline in Blender by
  * work/build-cell-models.mjs and work/blender/: a CC BY download wherever one exists, everything else modelled there.
  * Its nodes are the level's labelled parts (extras.czPart), already in the level's frame; a level with a stage slider
  * is animated, stage k from second k (scene extras czClips: where each signal's run starts). When it arrives,
@@ -18,7 +18,6 @@
 /* Sketchfab downloads, all CC BY 4.0. "Changed" is what work/build-cell-models.mjs did to each. */
 export const MODEL_SOURCES = {
   cell: { title: 'Animal cell - Downloadable', author: 'Lauri Purhonen', url: 'https://sketchfab.com/3d-models/animal-cell-downloadable-ddc40bb0900544959f02d3ff83c32615' },
-  centrosome: { title: 'Structure of Centrosome', author: 'arloopa', url: 'https://sketchfab.com/3d-models/structure-of-centrosome-99723b77c5a84a20a9742f9976a62008' },
   rbc: { title: 'Red Blood Cells (Erythrocytes)', author: '_Bonehead14', url: 'https://sketchfab.com/3d-models/red-blood-cells-erythrocytes-657f7b34ab2e43878c4f366e3e940ebd' },
   lymphocyte: { title: 'Lympocyte', author: 'Vikrama Raghuraman', url: 'https://sketchfab.com/3d-models/lympocyte-f84f96cc9a9847a18e6b469eb2a81fb8' },
   platelet: { title: 'blood platelet / thrombocyte', author: 'i.isabelgordon', url: 'https://sketchfab.com/3d-models/blood-platelet-thrombocyte-08fed7ab59514804b07804e40a57ef33' },
@@ -34,7 +33,7 @@ export const MODEL_LICENCE = 'CC BY 4.0';
 /* level -> its .glb (relative to the page) and the downloads in it (none: modelled whole in Blender) */
 export const MODELS = {
   cell: { file: './cell/models/cell.glb', sources: ['cell'] },
-  centrosome: { file: './cell/models/centrosome.glb', sources: ['centrosome'] },
+  centrosome: { file: './cell/models/centrosome.glb', sources: [] },
   blood: { file: './cell/models/blood.glb', sources: ['rbc', 'lymphocyte', 'platelet'] },
   alveolus: { file: './cell/models/alveolus.glb', sources: ['macrophage'] },
   neuron: { file: './cell/models/neuron.glb', sources: ['neuron'] },
@@ -50,6 +49,12 @@ export const MODELS = {
   parietal: { file: './cell/models/parietal.glb', sources: [] },
   nk: { file: './cell/models/nk.glb', sources: ['lymphocyte'] },
   apc: { file: './cell/models/apc.glb', sources: ['macrophage'] },
+  redcell: { file: './cell/models/redcell.glb', sources: [] },
+  hemoglobin: { file: './cell/models/hemoglobin.glb', sources: [] },
+  plasma: { file: './cell/models/plasma.glb', sources: [] },
+  pct: { file: './cell/models/pct.glb', sources: ['rbc'] },
+  pacemaker: { file: './cell/models/pacemaker.glb', sources: ['membrane'] },
+  myocardial: { file: './cell/models/myocardial.glb', sources: ['membrane'] },
 };
 
 /* the credit line for a level's model */

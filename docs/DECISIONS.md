@@ -5,6 +5,20 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-21 — Six model-only cell levels: red cell, hemoglobin, plasma, kidney tubule cell, SA node, myocardium
+
+The owner asked to zoom into a red cell, to see the plasma proteins, a proximal tubule cell showing its apical and
+basolateral membranes, tubular fluid, interstitial fluid and blood with its channels and secondary active
+transport, and the SA node and ventricular muscle ion channels. These six levels are Blender models alone, with no
+drawn version (zoom-scene.js `MODEL_ONLY`, per the model rule: no code-drawn 3D); until the model loads the panel says
+so. Labels keep to the 2026 slide words. "Secondary active transport" is not in the 2026 Renal deck, so the
+transporter is labelled with the deck's own "Coupled transport (glucose and Na+)" (L5 p24). The K+ leak channels
+of the tubule cell cite the Nervous deck's "Passive Channels - Not gated (always open)" (L8 p24), the only 2026 page
+naming them. The ventricular level uses the deck's title, "Myocardial Action Potential" (L2 p58). The centrosome is
+now a Blender model with one centriole end on, so the 9 + 0 array L1 p5 states is what opens; the "Structure of
+Centrosome" download (86 tubes, not nine triplets) is no longer used or credited. Spec:
+[`2026-10-20-cell-zoom.md`](superpowers/specs/2026-10-20-cell-zoom.md), "Assets".
+
 ### 2026-10-21 — Life cycle in G1, S and G2; a real spindle; protein synthesis and the parietal cell remade
 
 The owner found the life cycle's spindle broken, meiosis without one, interphase one undivided step, and the protein

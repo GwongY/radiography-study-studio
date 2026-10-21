@@ -36,7 +36,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `bone-landmarks.js` | 1596 | Bone landmarks — curated on the shipped skeleton by work/build-bone-landmarks.mjs. |  |
 | `cavity-build.js` | 732 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
 | `cavity-geom.js` | 1148 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
-| `cell-zoom.js` | 504 | Cell zoom — the levels, their labels and the two stage sliders: the data and nothing else. | [The cell zoom mode -- outputs/studio/cell-zoom.js, outputs/cell/, outputs/cell-zoom.js, work/cell-zoom-check.mjs](TRAPS.md#the-cell-zoom-mode----outputsstudiocell-zoomjs-outputscell-outputscell-zoomjs-workcell-zoom-checkmjs) |
+| `cell-zoom.js` | 654 | Cell zoom — the levels, their labels and the two stage sliders: the data and nothing else. | [The cell zoom mode -- outputs/studio/cell-zoom.js, outputs/cell/, outputs/cell-zoom.js, work/cell-zoom-check.mjs](TRAPS.md#the-cell-zoom-mode----outputsstudiocell-zoomjs-outputscell-outputscell-zoomjs-workcell-zoom-checkmjs) |
 | `landmarks.js` | 450 | landmarks.js -- the one place that knows how to find a named anatomical | [Named cut levels](TRAPS.md#named-cut-levels--outputsstudiotools-and-capturejs-outputslandmarksjs) |
 | `mesh-index.js` | 2645 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `muscle-zoom.js` | 122 | Muscle zoom — the levels and their labels, the data and nothing else. |  |
@@ -122,7 +122,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `cavity-geometry-derived.js` | 470 | Cavity geometry, derived from the loaded anatomy. |
-| `cell-zoom.js` | 589 | Cell zoom |
+| `cell-zoom.js` | 591 | Cell zoom |
 | `circulation-extras.js` | 91 | Circulation extras |
 | `depth-picking.js` | 440 | Depth picking |
 | `explosion-layout.js` | 16 | Pack only visible source meshes. Every projected bounding box gets its own cell. |

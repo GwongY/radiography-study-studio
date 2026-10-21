@@ -165,6 +165,29 @@ def box(size, at=(0, 0, 0), material=None, name='box', bevel=0.0):
     return o
 
 
+def rounded_box(size, at=(0, 0, 0), material=None, name='box', radius=1.0, segments=10):
+    """a box of `size` (three.js x, y, z) with its edges and corners rounded to `radius`: the mesh is made at its
+    size and then bevelled (box()'s bevel acts on the unit cube before its scale, which rounds a long box into an
+    ellipsoid). in_rounded_box() is its inside test."""
+    bm = bmesh.new()
+    bmesh.ops.create_cube(bm, size=1)
+    bmesh.ops.scale(bm, vec=(size[0], size[2], size[1]), verts=bm.verts)
+    o = mesh_obj(name, bm, material)
+    o.location = T(at)
+    m = o.modifiers.new('bev', 'BEVEL')
+    m.width = radius
+    m.segments = segments
+    m.limit_method = 'NONE'
+    return smooth(apply(o))
+
+
+def in_rounded_box(c, size, bevel, clear):
+    """a three.js point c is at least `clear` inside a box of `size` (centred on the origin) whose edges are
+    rounded with radius `bevel` (box(..., bevel=...))"""
+    q = [max(0.0, abs(c[i]) - (size[i] / 2 - bevel)) for i in range(3)]
+    return all(abs(c[i]) <= size[i] / 2 - clear for i in range(3)) and math.sqrt(sum(x * x for x in q)) <= bevel - clear
+
+
 def curve_tube(points, r, material=None, name='tube', closed=False, caps=True, res=6):
     """a smooth tube through three.js points (a bevelled NURBS-ish poly curve), as a mesh"""
     cu = bpy.data.curves.new(name, 'CURVE')

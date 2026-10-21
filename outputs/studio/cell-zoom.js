@@ -351,7 +351,7 @@ async function ensureModel(id) {
   paintLabelPresence();
   /* a zoom still flying lands on the model instead; otherwise glide to it */
   const end = framePose(id), cam = state.camera, ctl = state.controls;
-  if (tween && !tween.then) tween.to = end;
+  if (tween && !tween.dive) tween.to = end;
   else if (!tween && prefersStill()) { cam.position.copy(end.position); ctl.target.copy(end.target); ctl.update(); }
   else if (!tween) tween = { t0: performance.now(), dur: 420, from: { position: cam.position.clone(), target: ctl.target.clone() }, to: end };
 }
@@ -369,7 +369,7 @@ function goTo(id, out = false, then = null) {
   const cam = state.camera, ctl = state.controls;
   const from = { position: cam.position.clone(), target: ctl.target.clone() };
   const dive = { target: from.target.clone(), position: from.target.clone().add(from.position.clone().sub(from.target).multiplyScalar(out ? 2.2 : 0.3)) };
-  tween = { t0: performance.now(), dur: 320, from, to: dive, then: () => {
+  tween = { t0: performance.now(), dur: 320, from, to: dive, dive: true, then: () => {
     showLevel(id);
     const end = framePose(id);
     const start = { target: end.target.clone(), position: end.target.clone().add(end.position.clone().sub(end.target).multiplyScalar(out ? 0.3 : 2.4)) };
@@ -404,6 +404,8 @@ function placeTags() {
     const flip = x + t.offsetWidth > w - 4;
     t.classList.toggle('flip', flip);
     if (flip) x -= t.offsetWidth - 18;
+    /* a name wider than the room on either side (a long one, on a phone) stays on the stage */
+    x = Math.max(4, Math.min(x, w - 4 - t.offsetWidth));
     t.style.transform = `translate(${x.toFixed(1)}px, ${((1 - v.y) / 2 * h).toFixed(1)}px)`;
   });
 }

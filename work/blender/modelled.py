@@ -604,7 +604,8 @@ def chromatid_templates():
 
 def chromatid(tpl, colour_mat, cen_mat, kin_mat, sgn, width, name, kin=True, cen_part='centromere'):
     """one chromatid of a chromosome: its body (part sisters), a centromere ball at the waist and, facing its pole, a
-    kinetochore. An empty at the waist carries them; scale it to the chromatid's length."""
+    kinetochore. An empty at the waist carries them; scale it to the chromatid's length. g['body'] and g['kin'] name
+    the body and the kinetochore, which anaphase moves (pull())."""
     g = empty(name)
     body = tpl.copy()
     body.data = tpl.data.copy()
@@ -612,14 +613,32 @@ def chromatid(tpl, colour_mat, cen_mat, kin_mat, sgn, width, name, kin=True, cen
     K.recolour(body, colour_mat)
     body.parent = g
     K.part(body, 'sisters')
+    g['body'] = body.name
     ball = K.sphere(0.07, (0, 0, 0), cen_mat, seg=(14, 8), name='cen')
     ball.parent = g
     K.part(ball, cen_part)
     if kin:
-        k = K.between((sgn * width, 0, 0), (sgn * (width + 0.04), 0, 0), 0.07, kin_mat, 'kin', seg=14)
+        k = K.between((-0.02, 0, 0), (0.02, 0, 0), 0.07, kin_mat, 'kin', seg=14)
+        bake(k)
         k.parent = g
+        k.location = T((sgn * (width + 0.02), 0, 0))
         K.part(k, 'kinetochore')
+        g['kin'] = k.name
     return g
+
+
+def pull(tr, g, frame, sgn, width, u):
+    """anaphase on one chromatid, u from 0 (still as at metaphase) to 1 (pulled): its centromere leads toward its pole
+    and its arms trail behind toward the equator, so the body turns over in x (the waist stays put: the arms, which
+    splay toward the pole at metaphase, swing round to the other side) and the kinetochore moves to the leading face.
+    Returns where, along the chromatid's own x and in its units, the kinetochore's outer face is."""
+    tr.pose(bpy.data.objects[g['body']], frame, V(), Quaternion(), (mix(1, -1, u), 1, 1))
+    # the body's waist runs from 0 (the face it shared with its sister) to sgn * width; turned over, to -sgn * width,
+    # and the leading face is then the centromere ball's (radius 0.07) on the pole side
+    kx = mix(width + 0.02, 0.09, u)
+    if 'kin' in g:
+        tr.pose(bpy.data.objects[g['kin']], frame, V(sgn * kx, 0, 0))
+    return sgn * (kx + 0.02)
 
 
 def bake(o):
@@ -630,14 +649,14 @@ def bake(o):
     return o
 
 
-def centriole(m, L=1.0, name='centriole'):
+def centriole(m, L=1.0, name='centriole', blades=range(9)):
     """one centriole: nine triplets of microtubules round an empty centre (the 9 + 0 array), L long along three.js +y
     from its proximal end (the object's origin), 0.5 across. Each triplet is a blade of three fused tubules leaning
     out from the tangent, as a pinwheel seen end on; each tubule is hollow, so the 27 rings read end on."""
     bm = bmesh.new()
     rA, step, lean = 0.155, 0.058, math.radians(50)
     ro, ri, n = 0.031, 0.018, 10
-    for i in range(9):
+    for i in blades:
         ang = i * 2 * math.pi / 9
         out = V(math.cos(ang), 0, math.sin(ang))
         along = V(-math.sin(ang), 0, math.cos(ang))
@@ -663,6 +682,81 @@ def centriole_pair(m, name='centrioles'):
     b = centriole(m, 1.0, 'b')
     b.data.transform(Matrix.Translation(T((0.3, -0.3, 0))) @ q_three((0, 0, 1), -math.pi / 2).to_matrix().to_4x4())
     return K.join([a, b], name)
+
+
+def aim(o, direction, at):
+    """turn an object built along three.js +y so that +y points along `direction`, its origin moved to `at`"""
+    o.rotation_mode = 'QUATERNION'
+    o.rotation_quaternion = Vector((0, 0, 1)).rotation_difference(T(tuple(direction)).normalized())
+    o.location = T(tuple(at))
+    return bake(o)
+
+
+# ------------------------------------------------------------------ the centrosome ----
+TRIPLET = dict(rA=0.155, step=0.058, lean=math.radians(50))
+
+
+def blade_centre(i):
+    """the middle tubule of triplet i of a centriole, in its built frame (three.js, at y = 0)"""
+    ang = i * 2 * math.pi / 9
+    out = V(math.cos(ang), 0, math.sin(ang))
+    along = V(-math.sin(ang), 0, math.cos(ang))
+    d = along * math.cos(TRIPLET['lean']) + out * math.sin(TRIPLET['lean'])
+    return out * TRIPLET['rA'] + d * TRIPLET['step']
+
+
+def centrosome():
+    """Centrosome and Centrioles (L1 p5): "Cytoplasm contains two centrioles at right angles; each centriole is
+    composed of 9 microtubule triplets in a 9 + 0 array". Two centrioles (centriole(): nine triplets of hollow
+    tubules round an empty centre), one turned end on toward the opening view so the 9 + 0 array reads, the other
+    across it at right angles; the centrosome's matrix round them; microtubules growing out from it ("organization of
+    microtubules in cytoskeleton"). One triplet of the end-on centriole is its own part, so its label points at a
+    triplet. Replaces the "Structure of Centrosome" download, whose centrioles are not nine triplets (86 tubes)."""
+    K.reset()
+    S = 4.0                                              # a centriole drawn 4 long
+    view = V(1, 0.6, 1).normalized()
+    VIEW['centrosome'] = [1, 0.6, 1]                     # the app opens on this view, so the 9 + 0 array faces it
+    axis = (view + V(0.02, -0.01, -0.01)).normalized()   # end on (a hair off, so the tubules' length just shows)
+    up = (V(0, 1, 0) - view * view.y).normalized()       # up on the screen
+    right = V(0, 1, 0).cross(view).normalized()          # right on the screen (the camera's x)
+    base = -axis * S * 0.5                               # the end-on centriole's proximal end; its distal end faces us
+    q = Vector((0, 0, 1)).rotation_difference(T(tuple(axis)).normalized())
+    at_screen = lambda i: three_of(q @ (T(tuple(blade_centre(i) + V(0, 1.0, 0))) * S) + T(tuple(base)))
+    lone = max(range(9), key=lambda i: at_screen(i).dot(right))   # the triplet on the screen's right, labelled
+    ctm, tpm = K.mat('centrioles', 0xffb703, 0.45), K.mat('triplets', 0xfb5607, 0.4)
+    a = centriole(ctm, 1.0, 'a', blades=[i for i in range(9) if i != lone])
+    a.scale = (S, S, S)
+    a = aim(a, axis, base)
+    t = centriole(tpm, 1.0, 'triplet', blades=[lone])
+    t.scale = (S, S, S)
+    K.part(aim(t, axis, base), 'triplets')
+    b = centriole(ctm, 1.0, 'b')
+    b.scale = (S, S, S)
+    b_at = -right * 2.6 - up * S * 0.5 - view * 1.2     # to the left, upright on the screen: at right angles to the first
+    b = aim(b, up, b_at)
+    K.part(K.join([a, b], 'centrioles'), 'centrioles')
+    # the centrosome: a soft matrix round both
+    halo = K.ico(1.0, (-0.6, 0, 0), K.mat('centrosome', 0xffe08a, 0.75, alpha=0.12), level=4, name='centrosome')
+    halo.scale = (S * 0.95, S * 0.95, S * 0.95)
+    K.lumpy(halo, 0.3, 1.1, 3)
+    K.part(K.apply(halo), 'centrosome', shell=True)
+    # microtubules out of the centrosome into the cytoplasm
+    rnd = random.Random(7)
+    mtm = K.mat('microtubules', 0x2a9d8f, 0.45)
+    tubes, tips = [], []
+    for d in fib(30):
+        if d.dot(view) > 0.45:                           # none toward the camera, over the centrioles
+            continue
+        bend = V(rnd.random() - 0.5, rnd.random() - 0.5, rnd.random() - 0.5) * 1.0
+        pts = [d * S * 0.9, d * S * 1.25 + bend * 0.25, d * S * 1.6 + bend * 0.5]
+        tubes.append(tube(pts, 0.07, mtm, 'microtubule', res=6))
+        tips.append(pts[1])
+    K.part(K.join(tubes, 'microtubules'), 'microtubules')
+    K.anchor('triplets', T(tuple(at_screen(lone) + right * 0.35)))
+    K.anchor('centrioles', T(tuple(b_at + up * S * 0.95)))
+    K.anchor('centrosome', T((0, S * 1.0, 0)))
+    K.anchor('microtubules', T(tuple(max(tips, key=lambda p: p.y - p.x))))
+    export('centrosome')
 
 
 def anchors(names):
@@ -701,10 +795,10 @@ def envelope_pieces(r, m, n=14):
     return out
 
 
-def kinetochore_at(at, rot, sgn, width, length):
-    """where a chromatid's kinetochore is: the chromatid's empty is at `at`, turned rot about z and scaled to `length`;
-    the kinetochore sits on the outer face of its waist, sgn * (width + 0.04) along the chromatid's own x"""
-    d = (width + 0.04) * length * sgn
+def kinetochore_at(at, rot, face, length):
+    """where a chromatid's kinetochore microtubule ends: the chromatid's empty is at `at`, turned rot about z and
+    scaled to `length`; the kinetochore's outer face is `face` along the chromatid's own x (pull() says where)"""
+    d = face * length
     return at + V(d * math.cos(rot), d * math.sin(rot), 0)
 
 
@@ -865,7 +959,9 @@ def cycle():
                 sc = mix(0.4, 1, span(f, 0.1, 0.7)) if k == 3 else 1
                 g_at = V(x - sgn * 0.3, y, z)
                 tr.pose(g, frame, g_at, q_three((0, 0, 1), rot), (L * sc) if cond > 0.15 else HIDE)
-                kins.append((sgn, kinetochore_at(g_at, rot, sgn, width, L * sc)))
+                # parted, each chromatid goes centromere first, its arms trailing
+                face = pull(tr, g, frame, sgn, width, 0 if k < 5 else span(ana, 0, 0.25) if k == 5 else 1)
+                kins.append((sgn, kinetochore_at(g_at, rot, face, L * sc)))
         # centrosomes: a new centriole grows beside each old one (S, finished in G2), the pairs part (G2) and go to
         # the poles (prophase)
         dup = 0 if k == 0 else 0.6 * span(f, 0.1, 1) if k == 1 else mix(0.6, 1, span(f, 0, 0.6)) if k == 2 else 1
@@ -1011,7 +1107,10 @@ def meiosis():
                 inward = Quaternion((0, 0, 1), theta) @ V(sgn * 0.28, 0, 0)
                 waist = centre + off - inward
                 tr.pose(g, frame, waist, q_three((0, 0, 1), theta), L)
-                face = waist + Quaternion((0, 0, 1), theta) @ V(sgn * width * L, 0, 0)
+                # meiosis II parts the sisters: each goes centromere first, its arms trailing (meiosis I keeps each
+                # homologue's sisters together, so they keep their shape)
+                lead = pull(tr, g, frame, sgn, width, span(mII, 0.3, 0.45) if k == 3 else 1 if k > 3 else 0)
+                face = waist + Quaternion((0, 0, 1), theta) @ V(lead * L, 0, 0)
                 if k == 3:
                     # meiosis II: each sister to the pole it faces, in its own cell
                     ends.append((2 * (0 if side < 0 else 1) + (0 if sgn < 0 else 1), face))
@@ -1268,13 +1367,14 @@ def apc():
 ATOM = {'C': (0x5c5c5c, 0.2), 'O': (0xe63946, 0.22), 'H': (0xf1f1f1, 0.13)}
 
 
-def molecule(atoms, name, scale=1.0):
-    """a ball-and-stick molecule: atoms [(element, three.js offset)], a stick between atoms closer than 0.6"""
+def molecule(atoms, name, scale=1.0, seg=(14, 10)):
+    """a ball-and-stick molecule: atoms [(element, three.js offset)], a stick between atoms closer than 0.6. Its
+    materials are its own (named after it), so lighting one labelled molecule never lights another."""
     objs = []
     for el, p in atoms:
         c, r = ATOM[el]
-        objs.append(K.sphere(r * scale, tuple(p * scale), K.mat(f'atom-{el}', c, 0.4), seg=(14, 10)))
-    stick = K.mat('stick', 0xbfc5cc, 0.5)
+        objs.append(K.sphere(r * scale, tuple(p * scale), K.mat(f'{name}-{el}', c, 0.4), seg=seg))
+    stick = K.mat(f'{name}-stick', 0xbfc5cc, 0.5)
     for i in range(len(atoms)):
         for j in range(i + 1, len(atoms)):
             a, b = atoms[i][1] * scale, atoms[j][1] * scale
@@ -1331,14 +1431,16 @@ def parietal():
     wall = cell.modifiers.new('wall', 'SOLIDIFY')
     wall.thickness = 0.3
     wall.offset = 0
-    K.decor(K.apply(cell), 'cell')
+    K.part(K.apply(cell), 'cell', shell=True)
+    K.anchor('cell', (-1.0, 4.9, 2.8))
     K.part(flat_box((3.8, 9, 6.4), (-W - 2.2, 0, 0), K.mat('isf', 0xffd6e0, 0.8, alpha=0.16), 'isf', bevel=0.3), 'isf', shell=True)
     K.part(flat_box((3.8, 9, 6.4), (W + 2.2, 0, 0), K.mat('lumen', 0xfff3b0, 0.8, alpha=0.16), 'lumen', bevel=0.3), 'lumen', shell=True)
     K.anchor('isf', (-W - 2.2, 4.0, 2.6))
     K.anchor('lumen', (W + 2.2, 4.0, 2.6))
     CAP = V(-W - 2.4, -3.0, 0)
     vessel = K.between(tuple(CAP + V(0, 0, -3.2)), tuple(CAP + V(0, 0, 3.2)), 0.85, K.mat('capillary', 0xd62828, 0.5, alpha=0.35), 'capillary', seg=28)
-    K.decor(vessel, 'capillary')
+    K.part(vessel, 'blood', shell=True)
+    K.anchor('blood', tuple(CAP + V(0.4, -0.9, -2.6)))
     ZS = [-1.8, 0.0, 1.8]                                 # three of everything, one behind the other
     # carbonic anhydrase: a globular enzyme, the reaction at it
     cam = K.mat('ca', 0x2a9d8f, 0.45)
@@ -1355,28 +1457,28 @@ def parietal():
     SWAP = [V(-W, -0.2 - 0.7 * i, z) for i, z in enumerate(ZS)]
     CHAN = [V(W, -2.2 - 0.6 * i, z) for i, z in enumerate(ZS)]
     pm, xm, chm = K.mat('pump', 0xffd60a, 0.45), K.mat('swap', 0x8e7cc3, 0.45), K.mat('clchannels', 0x4cc9f0, 0.45)
-    for p in PUMP:
-        K.decor(transmembrane(p, pm, 6, 0.3, 0.12, 'pump', head=p + V(-0.75, 0, 0)), 'pump')
-    for p in SWAP:
-        K.decor(transmembrane(p, xm, 6, 0.3, 0.12, 'countertransporter'), 'countertransporter')
+    K.part(K.join([transmembrane(p, pm, 6, 0.3, 0.12, 'pump', head=p + V(-0.75, 0, 0)) for p in PUMP], 'pump'), 'pump')
+    K.part(K.join([transmembrane(p, xm, 6, 0.3, 0.12, 'counter') for p in SWAP], 'counter'), 'counter')
+    K.anchor('pump', tuple(PUMP[0] + V(0.3, 0.75, 0.4)))
+    K.anchor('counter', tuple(SWAP[0] + V(-0.3, 0.75, 0.4)))
     # a channel: five subunits round an open pore wide enough for a chloride ion
     K.part(K.join([transmembrane(p, chm, 5, 0.42, 0.15, 'channel') for p in CHAN], 'clchannels'), 'clchannels')
     K.anchor('clchannels', tuple(CHAN[2] + V(0.2, -0.7, 0.5)))
     # the molecules and ions
     MS = 1.4                                              # molecules drawn larger still, so they read
-    co2 = [K.decor(molecule(CO2(), 'co2', MS), 'co2') for _ in ZS]
-    h2o = [K.decor(molecule(H2O(), 'h2o', MS), 'h2o') for _ in ZS]
-    h2co3 = [K.decor(molecule(H2CO3(), 'h2co3', MS), 'h2co3') for _ in ZS]
+    co2 = [K.part(molecule(CO2(), 'co2', MS), 'co2') for _ in ZS]
+    h2o = [K.part(molecule(H2O(), 'h2o', MS), 'h2o') for _ in ZS]
+    h2co3 = [K.part(molecule(H2CO3(), 'h2co3', MS), 'h2co3') for _ in ZS]
     hco3 = [K.part(molecule(HCO3(), 'hco3', MS), 'hco3') for _ in ZS]
     # H+ magenta (not red: red is oxygen here), Cl- green
     hm, clm = K.mat('hplus', 0xf72585, 0.35), K.mat('cl', 0x2dc653, 0.4)
     hplus = [K.part(K.sphere(0.24, (0, 0, 0), hm, seg=(16, 10), name='hplus'), 'hplus') for _ in ZS]
     cl = [K.part(K.sphere(0.33, (0, 0, 0), clm, seg=(16, 10), name='cl'), 'cl') for _ in ZS]
     # the alkaline tide: bicarbonate leaving the interstitial fluid into the capillary
-    tide = [K.part(molecule(HCO3(), 'tide', 0.75), 'tide') for _ in range(10)]
+    tide = [K.part(molecule(HCO3(), 'tide', 0.75, seg=(10, 7)), 'tide') for _ in range(10)]
     TIDE = [CAP + V(1.8, 2.6, 0), CAP + V(1.0, 1.4, 0), CAP + V(0.1, 0.2, 0), CAP + V(0, 0, 0)]
     K.anchor('tide', tuple(CAP + V(0.3, -1.3, 1.2)))
-    an = anchors(('hplus', 'hco3', 'cl'))
+    an = anchors(('hplus', 'hco3', 'cl', 'co2', 'h2o', 'h2co3'))
     rot = [q_three((0.3, 1, 0.2), i * 1.7) for i in range(10)]
 
     def wob(i, t, a=0.25):
@@ -1417,6 +1519,9 @@ def parietal():
             c = along(walk_pts, dif) if dif > 0 else c_in
             tr.pose(cl[i], frame, c + wob(i + 9, s, 0.12 * (1 - dif) if dif < 1 else 0.05))
             if i == 2:
+                tr.pose(an['co2'], frame, lerp(V(-4.0, 3.4, z + 0.6), ca + V(-0.35, -0.75, 0), meet) + V(0, 0.5, 0.3))
+                tr.pose(an['h2o'], frame, lerp(V(1.6, 3.6, z - 0.5), ca + V(0.35, -0.75, 0), meet) + V(0, 0.5, 0.3))
+                tr.pose(an['h2co3'], frame, lerp(ca + V(0, -0.85, 0), DROP, span(make, 0.5, 0.7)) + V(0, 0.6, 0.3))
                 tr.pose(an['hplus'], frame, hp + V(0, 0.4, 0.3))
                 tr.pose(an['hco3'], frame, bc + V(0, 0.55, 0.3))
                 tr.pose(an['cl'], frame, c + V(0, 0.45, 0.3))
@@ -1837,3 +1942,881 @@ def expression():
             place(signal, f / FPS, off * FPS + f)
     tr.write()
     export('expression', [], clips=dict(EXPRESSION_CLIPS))
+
+
+# ------------------------------------------------------------------ inside a red blood cell ----
+def rbc_half_thickness(rho):
+    """Evans & Fung's red cell: half the thickness at rho (0 at the centre, 1 at the rim), the radius being 1"""
+    rho = min(1.0, rho)
+    return 0.5 * math.sqrt(max(0.0, 1 - rho * rho)) * (0.207 + 2.003 * rho ** 2 - 1.123 * rho ** 4)
+
+
+def hb_icon(at, m, rnd, r=0.11):
+    """a hemoglobin molecule, small: four globular chains packed together (four icosahedra), turned at random"""
+    q = Quaternion((rnd.random() - 0.5, rnd.random() - 0.5, rnd.random() - 0.5, rnd.random() - 0.5)).normalized()
+    objs = []
+    for d in (V(1, 1, 1), V(1, -1, -1), V(-1, 1, -1), V(-1, -1, 1)):
+        o = K.ico(r, tuple(at + (q @ d) * r * 0.62), m, level=1, name='hb')
+        objs.append(o)
+    return objs
+
+
+def rbc_level():
+    """Inside a red blood cell (L2 p7): "RBCs are flattened biconcave discs", "Lack nuclei and mitochondria", "Each
+    RBC contains 280 million hemoglobin molecules". The cell is Evans and Fung's measured biconcave shape, 10 across,
+    with a quarter cut away toward the opening view; inside, no nucleus and no mitochondria, only hemoglobin, packed
+    (drawn hugely enlarged: a molecule is about 5.5 nm against a 7.8 µm cell, and these are a token few hundred)."""
+    K.reset()
+    rnd = random.Random(11)
+    Rr = 5.0
+    n_prof = 40
+    # the outline in (rho, height), top centre round the rim to the bottom centre
+    prof = []
+    for i in range(n_prof + 1):
+        rho = math.sin(i / n_prof * math.pi / 2)
+        prof.append((rho * Rr, rbc_half_thickness(rho) * Rr))
+    outline = prof + [(w, -h) for w, h in reversed(prof[:-1])]
+    gap = (math.radians(-90), 0.0)                       # the cut-away quarter, between +z and +x: toward the view
+    seg = 72
+    bm = bmesh.new()
+    rings = []
+    for j in range(seg + 1):
+        a = gap[1] + (2 * math.pi - (gap[1] - gap[0])) * j / seg
+        rings.append([bm.verts.new(T((w * math.cos(a), h, -w * math.sin(a)))) for w, h in outline])
+    for j in range(seg):
+        for i in range(len(outline) - 1):
+            bm.faces.new((rings[j][i], rings[j + 1][i], rings[j + 1][i + 1], rings[j][i + 1]))
+    bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-5)
+    surf = K.smooth(K.mesh_obj('rbc', bm, K.mat('rbc', 0xc1121f, 0.55)))
+    wall = surf.modifiers.new('wall', 'SOLIDIFY')
+    wall.thickness = 0.08
+    wall.offset = -1
+    K.part(K.apply(surf), 'rbc')
+    # the two cut faces: the cell's section, see-through, so the hemoglobin inside reads
+    faces = []
+    for a in gap:
+        bmf = bmesh.new()
+        vs = [bmf.verts.new(T((w * math.cos(a), h, -w * math.sin(a)))) for w, h in outline]
+        bmf.faces.new(vs)
+        bmesh.ops.triangulate(bmf, faces=list(bmf.faces))
+        faces.append(K.mesh_obj('section', bmf, K.mat('section', 0xe5383b, 0.7, alpha=0.18)))
+    K.part(K.join(faces, 'section'), 'rbc', shell=True)
+    # hemoglobin: near the two cut faces (where it can be seen), and a scatter through the rest of the opening
+    hm = K.mat('hemoglobin', 0xff4d6d, 0.45)
+    hb = []
+    tries = 0
+    while len(hb) < 900 and tries < 400000:
+        tries += 1
+        rho = math.sqrt(rnd.random()) * 0.97
+        # just behind one cut face or the other (within 0.7 of it), in what is left of the cell
+        depth = 0.05 + rnd.random() * 0.55
+        a = gap[1] + depth / max(0.3, rho * Rr) if rnd.random() < 0.5 else gap[0] - depth / max(0.3, rho * Rr)
+        h = rbc_half_thickness(rho) * Rr - 0.2
+        if h < 0.05:
+            continue
+        p = V(rho * Rr * math.cos(a), (rnd.random() * 2 - 1) * h, -rho * Rr * math.sin(a))
+        if all((p - q).length > 0.3 for q in hb):
+            hb.append(p)
+    objs = []
+    for p in hb:
+        objs += hb_icon(p, hm, rnd)
+    K.part(K.join(objs, 'hemoglobin'), 'hemoglobin')
+    print(f'rbc: {len(hb)} hemoglobin molecules')
+    K.anchor('rbc', (-1.5, rbc_half_thickness(0.7) * Rr + 0.3, -3.0))
+    near = max(hb, key=lambda p: p.x + p.z + 0.4 * p.y)
+    K.anchor('hemoglobin', tuple(near + V(0, 0.25, 0)))
+    export('redcell')
+
+
+# ------------------------------------------------------------------ one hemoglobin molecule ----
+def frame_of(n):
+    """two unit vectors at right angles to n (three.js)"""
+    a = V(0, 1, 0) if abs(n.y) < 0.9 else V(1, 0, 0)
+    u = n.cross(a).normalized()
+    return u, n.cross(u).normalized()
+
+
+def heme(at, n, m_ring, r=0.55):
+    """a heme unit: the flat porphyrin ring (four pyrrole rings, each a thin pentagon, joined round a square) facing
+    n, centred at `at`; its iron ion is placed by the caller at the centre"""
+    u, w = frame_of(n)
+    objs = []
+    for k in range(4):
+        a = k * math.pi / 2
+        c = at + (u * math.cos(a) + w * math.sin(a)) * r
+        objs.append(K.between(tuple(c - n * 0.06), tuple(c + n * 0.06), r * 0.42, m_ring, 'pyrrole', seg=5))
+        b = a + math.pi / 4
+        objs.append(K.sphere(r * 0.16, tuple(at + (u * math.cos(b) + w * math.sin(b)) * r * 0.95), m_ring, seg=(10, 6), name='bridge'))
+    # the macrocycle joining them round the iron
+    ring = K.torus(r * 0.92, r * 0.09, (0, 0, 0), m_ring, 'ring', axis=tuple(n), seg=(28, 6))
+    ring.location = T(tuple(at))
+    objs.append(K.apply(ring))
+    return K.join(objs, 'heme')
+
+
+def hemoglobin():
+    """One hemoglobin molecule (L3 pp 45-46, 56-57): four globular protein chains, each holding a heme unit with an
+    iron ion at its centre. Slider: "O2 binds to iron ions in hemoglobin (Hb) molecules", four, one to each iron,
+    making oxyhemoglobin (HbO2); then, in the tissues, the O2 leaves, CO2 binds to amino groups of the globular
+    proteins (carbaminohemoglobin) and hydrogen ions bind to the hemoglobin. The chains are lumpy globules, not the
+    measured fold; the arrangement (two pairs, crossed) is hemoglobin's."""
+    K.reset()
+    tr = Track()
+    gm = K.mat('globin', 0xe76f51, 0.6)
+    CH = [V(-1.15, 0.85, 0.5), V(1.15, 0.85, -0.5), V(1.15, -0.85, 0.5), V(-1.15, -0.85, -0.5)]
+    # each heme sits in a cleft on its chain's outer side, turned out toward the front, so its ring and iron show
+    OUT = [V(1 if c.x > 0 else -1, 0.55 if c.y > 0 else -0.55, 0.75).normalized() for c in CH]
+    chains = []
+    for i, c in enumerate(CH):
+        o = K.ico(1.45, tuple(c), gm, level=4, name='chain')
+        o.scale = (1.0, 0.9, 1.1)
+        K.lumpy(o, 0.38, 0.5, 20 + i)
+        o = K.apply(o)
+        # the cleft: push the surface in round where the heme sits
+        cleft = c + OUT[i] * 1.45
+        for v in o.data.vertices:
+            p = three_of(v.co)
+            dd = (p - cleft).length
+            if dd < 0.95:
+                v.co = T(tuple(p - OUT[i] * (0.95 - dd) * 0.75))
+        chains.append(o)
+    K.part(K.join(chains, 'globin'), 'globin')
+    # each heme in a cleft on its chain's outer face, tilted toward the viewer so its face and its iron show
+    hm, fem = K.mat('heme', 0x6a040f, 0.45), K.mat('iron', 0xf48c06, 0.35, metal=0.3)
+    HEME = [c + n * 1.3 for c, n in zip(CH, OUT)]
+    NORM = OUT
+    K.part(K.join([heme(p, n, hm, r=0.62) for p, n in zip(HEME, NORM)], 'heme'), 'heme')
+    K.part(K.join([K.sphere(0.24, tuple(p + n * 0.04), fem, seg=(16, 10), name='iron') for p, n in zip(HEME, NORM)], 'iron'), 'iron')
+    # O2: two oxygen atoms; CO2 on an amino group; H+
+    om = K.mat('o2', 0xd00000, 0.4)
+    o2 = []
+    for _ in range(4):
+        a = K.sphere(0.21, (0, 0, -0.16), om, seg=(14, 10), name='o')
+        b = K.sphere(0.21, (0, 0, 0.16), om, seg=(14, 10), name='o')
+        o2.append(K.part(bake(K.join([a, b], 'o2')), 'o2'))
+    co2 = [K.part(molecule(CO2(), 'co2', 1.5), 'co2') for _ in range(4)]
+    hpm = K.mat('hplus', 0xf72585, 0.35)
+    hplus = [K.part(K.sphere(0.22, (0, 0, 0), hpm, seg=(14, 10), name='hplus'), 'hplus') for _ in range(4)]
+    # the amino ends of the four chains, where CO2 binds; the places H+ binds
+    AMINO = [c + V(0.4 * (1 if c.x > 0 else -1), 1.55 if c.y > 0 else -1.55, 0) for c in CH]
+    HSITE = [c + V(-0.9 if c.x > 0 else 0.9, 0, 1.35 if c.z > 0 else -1.35) for c in CH]
+    FAR = [V(-6, 4.5, 3), V(6, 4.0, -2), V(6, -4.5, 3), V(-6, -4.0, -2)]
+    an = anchors(('o2', 'co2', 'hplus'))
+    K.anchor('globin', tuple(CH[0] + V(-0.6, 1.4, 0.6)))
+    K.anchor('heme', tuple(HEME[2] + NORM[2] * 0.2 + V(0.45, -0.55, 0)))
+    K.anchor('iron', tuple(HEME[1] + NORM[1] * 0.3 + V(0.2, 0.3, 0)))
+    order = [0, 2, 1, 3]                                 # the first O2 binds slowest; the rest follow more easily
+
+    def place(s, frame):
+        p = stage_prog(s, 2)
+        oxy, tis = p(0), p(1)
+        for j, i in enumerate(order):
+            t0 = [0.05, 0.4, 0.52, 0.62][j]
+            arrive = span(oxy, t0, t0 + 0.3)
+            leave = span(tis, 0.05 + 0.05 * j, 0.4 + 0.05 * j)
+            bound = HEME[i] + NORM[i] * 0.52
+            q = Vector((0, 0, 1)).rotation_difference(T(tuple((NORM[i] + V(0.5, 0.3, 0)).normalized())))
+            at = lerp(FAR[i], bound, arrive) if leave == 0 else lerp(bound, FAR[i] * 1.1, leave)
+            tr.pose(o2[i], frame, at, q, 1 if (arrive > 0.02 and leave < 0.98) else HIDE)
+            # CO2 to the amino groups, H+ to the protein
+            c_in = span(tis, 0.35 + 0.07 * j, 0.75 + 0.05 * j)
+            c_far = AMINO[i] + (AMINO[i] - V()).normalized() * 3.5
+            c_at = AMINO[i] + (AMINO[i] - CH[i]).normalized() * 0.35
+            tr.pose(co2[i], frame, lerp(c_far, c_at, c_in), q_three((0.2, 1, 0.4), i * 1.3), 1 if c_in > 0.02 else HIDE)
+            h_in = span(tis, 0.5 + 0.06 * j, 0.9)
+            out = (HSITE[i] - CH[i]).normalized()
+            h_at = lerp(HSITE[i] + out * 3.0, HSITE[i] + out * 0.25, h_in)
+            tr.pose(hplus[i], frame, h_at, scale=1 if h_in > 0.02 else HIDE)
+            if i == 0:
+                tr.pose(an['o2'], frame, at + V(0, 0.5, 0.2))
+                tr.pose(an['co2'], frame, lerp(c_far, c_at, c_in) + V(0, 0.55, 0.2))
+                tr.pose(an['hplus'], frame, h_at + V(0, 0.45, 0.2))
+    sample(place, 2, step=2)
+    tr.write()
+    VIEW['hemoglobin'] = [0.35, 0.3, 1]
+    export('hemoglobin')
+
+
+# ------------------------------------------------------------------ plasma ----
+def plasma():
+    """Plasma (L2 pp 5-6): "straw-colored liquid consisting of H2O and dissolved solutes", which "Includes ions";
+    plasma proteins, three types: albumins (60-80% of them), globulins (which "carry lipids"; gamma globulins are
+    antibodies) and fibrinogen. Shapes are the molecules' own in outline: albumin a heart-shaped globule, globulins
+    globular, an antibody a Y, fibrinogen a long rod with a knob at each end and one in the middle. Sizes keep their
+    order (water far smaller than any protein; fibrinogen, 45 nm, the longest), though water and ions are drawn larger
+    than they are, and there are a token few."""
+    K.reset()
+    rnd = random.Random(23)
+    BOX = V(22.0, 10.0, 13.0)
+    K.part(K.rounded_box(tuple(BOX), material=K.mat('plasma', 0xf3d98b, 0.8, alpha=0.08), name='plasma', radius=2.0), 'plasma', shell=True)
+    placed = {}
+
+    def spot(kind, r, tries=5000, ext=None):
+        ext = ext or (r, r, r)
+        for _ in range(tries):
+            c = V((rnd.random() - 0.5) * BOX.x, (rnd.random() - 0.5) * BOX.y, (rnd.random() - 0.5) * BOX.z)
+            if any(abs(c[i]) > BOX[i] / 2 - ext[i] - 0.5 for i in range(3)) or not K.in_rounded_box(c, BOX, 2.0, max(ext) + 0.3):
+                continue
+            if all((c - p).length > r + q + 0.25 for ps in placed.values() for p, q in ps):
+                placed.setdefault(kind, []).append((c, r))
+                return c
+        return None
+
+    def turned(o, c, level=False):
+        o.rotation_mode = 'QUATERNION'
+        if level:                                        # a long molecule lies roughly level, so it fits the box
+            o.rotation_quaternion = q_three((0, 1, 0), rnd.random() * math.pi) @ q_three((0, 0, 1), (rnd.random() - 0.5) * 0.5)
+        else:
+            o.rotation_quaternion = Quaternion((rnd.random() - 0.5, rnd.random() - 0.5, rnd.random() - 0.5, rnd.random() - 0.5)).normalized()
+        o.location = T(tuple(c))
+        return bake(o)
+    # fibrinogen first (the longest), then antibodies, globulins, albumins
+    fm = K.mat('fibrinogen', 0x2a9d8f, 0.5)
+    fib_objs = []
+
+    def rod_spot(half, r, tries=8000):
+        """a place and a turn for a long rod: five balls along it, each clear of everything placed and in the box"""
+        for _ in range(tries):
+            c = V((rnd.random() - 0.5) * BOX.x, (rnd.random() - 0.5) * BOX.y, (rnd.random() - 0.5) * BOX.z)
+            # across the opening view (along x - z, give or take), so the rod is seen at its length
+            q = q_three((0, 1, 0), math.pi / 4 + (rnd.random() - 0.5) * 1.0) @ q_three((0, 0, 1), (rnd.random() - 0.5) * 0.6)
+            d = three_of(q @ T((1, 0, 0)))
+            pts = [c + d * (half * k / 2) for k in (-2, -1, 0, 1, 2)]
+            if not all(K.in_rounded_box(p, BOX, 2.0, r + 0.3) for p in pts):
+                continue
+            if all((p - o).length > r + ro + 0.25 for p in pts for ps in placed.values() for o, ro in ps):
+                placed.setdefault('fibrinogen', []).extend((p, r) for p in pts)
+                return c, q
+        raise RuntimeError('no room for fibrinogen')
+    for _ in range(3):
+        c, q = rod_spot(4.3, 0.8)
+        bits = [K.between((-4.2, 0, 0), (4.2, 0, 0), 0.16, fm, 'rod', seg=10),
+                K.sphere(0.75, (-4.3, 0, 0), fm, seg=(18, 12), name='d'), K.sphere(0.75, (4.3, 0, 0), fm, seg=(18, 12), name='d'),
+                K.sphere(0.55, (0, 0, 0), fm, seg=(16, 10), name='e')]
+        o = bake(K.join(bits, 'fibrinogen'))     # the rod's own turn into its mesh, before the placing turn
+        o.rotation_mode = 'QUATERNION'
+        o.rotation_quaternion = q
+        o.location = T(tuple(c))
+        fib_objs.append(bake(o))
+    K.part(K.join(fib_objs, 'fibrinogen'), 'fibrinogen')
+    gam = K.mat('gamma', 0x7209b7, 0.5)
+    ys = []
+    for c in [spot('gamma', 1.6) for _ in range(5)]:
+        bits = [K.between((0, -1.4, 0), (0, 0, 0), 0.32, gam, 'stem', seg=10)]
+        for sx in (-1, 1):
+            bits.append(K.between((0, 0, 0), (sx * 1.0, 1.15, 0), 0.32, gam, 'arm', seg=10))
+            bits.append(K.sphere(0.36, (sx * 1.05, 1.2, 0), gam, seg=(12, 8), name='tip'))
+        bits.append(K.sphere(0.36, (0, -1.4, 0), gam, seg=(12, 8), name='tip'))
+        bits.append(K.sphere(0.36, (0, 0, 0), gam, seg=(12, 8), name='hinge'))
+        ys.append(turned(K.join(bits, 'gamma'), c))
+    K.part(K.join(ys, 'gamma'), 'gamma')
+    glm, lpm = K.mat('globulins', 0x4361ee, 0.5), K.mat('lipids', 0xfff3b0, 0.35)
+    globs, lips = [], []
+    for k, c in enumerate([spot('globulins', 1.3) for _ in range(7)]):
+        o = K.ico(0.95, (0, 0, 0), glm, level=3, name='globulin')
+        o.scale = (1.15, 0.9, 1.0)
+        K.lumpy(o, 0.22, 0.5, 40 + k)
+        globs.append(turned(K.apply(o), c))
+        if k % 2 == 0:                                   # some carrying a lipid
+            d = V(rnd.random() - 0.5, rnd.random() - 0.5, rnd.random() - 0.5).normalized()
+            lips.append(K.sphere(0.45, tuple(c + d * 1.15), lpm, seg=(16, 10), name='lipid'))
+            placed.setdefault('lipids', []).append((c + d * 1.15, 0.45))
+    K.part(K.join(globs, 'globulins'), 'globulins')
+    K.part(K.join(lips, 'lipids'), 'lipids')
+    alm = K.mat('albumin', 0xf4a261, 0.5)
+    albs = []
+    for k, c in enumerate([spot('albumin', 0.95) for _ in range(20)]):
+        if c is None:
+            continue
+        lobes = [K.ico(0.55, (-0.33, 0.12, 0), alm, level=2, name='lobe'), K.ico(0.55, (0.33, 0.12, 0), alm, level=2, name='lobe'),
+                 K.ico(0.45, (0, -0.38, 0), alm, level=2, name='lobe')]
+        o = K.join(lobes, 'albumin')
+        K.lumpy(o, 0.1, 0.4, 60 + k)
+        albs.append(turned(K.apply(o), c))
+    K.part(K.join(albs, 'albumin'), 'albumin')
+    # ions and water: small, many
+    im = K.mat('ions', 0x80ed99, 0.35)
+    ions = [K.ico(0.16, tuple(c), im, level=1, name='ion') for c in [spot('ions', 0.16, 400) for _ in range(40)] if c is not None]
+    K.part(K.join(ions, 'ions'), 'ions')
+    wo, wh = K.mat('water-O', 0x48cae4, 0.4), K.mat('water-H', 0xf1f1f1, 0.4)
+    water = []
+    for c in [spot('water', 0.16, 300) for _ in range(220)]:
+        if c is None:
+            continue
+        q = Quaternion((rnd.random() - 0.5, rnd.random() - 0.5, rnd.random() - 0.5, rnd.random() - 0.5)).normalized()
+        water.append(K.sphere(0.12, tuple(c), wo, seg=(8, 5), name='O'))
+        for sx in (-1, 1):
+            water.append(K.sphere(0.075, tuple(c + q @ V(sx * 0.11, 0.08, 0)), wh, seg=(6, 4), name='H'))
+    K.part(K.join(water, 'water'), 'water')
+    near = lambda kind: max((c for c, _ in placed[kind]), key=lambda c: c.x + c.y + c.z)
+    for kind, up in (('fibrinogen', 1.0), ('gamma', 1.7), ('globulins', 1.3), ('albumin', 0.9), ('lipids', 0.6), ('ions', 0.3), ('water', 0.3)):
+        K.anchor(kind, tuple(near(kind) + V(0, up, 0)))
+    K.anchor('plasma', (BOX.x / 2 - 3.0, BOX.y / 2 - 0.3, BOX.z / 2 - 1.0))
+    export('plasma')
+
+
+# ------------------------------------------------------------------ a proximal tubule cell ----
+def membrane_protein(at, m, n, ring, r, name, half=0.45, head=None, head_r=0.42):
+    """a protein through a membrane lying flat (normal along y, the membrane at at.y): n helices round a ring,
+    and optionally a globular domain on one side (head: its centre)"""
+    objs = []
+    for j in range(n):
+        a = j * 2 * math.pi / n
+        p = at + V(ring * math.cos(a), 0, ring * math.sin(a))
+        objs.append(K.between(tuple(p + V(0, -half, 0)), tuple(p + V(0, half, 0)), r, m, name, seg=10))
+    if head is not None:
+        objs.append(K.sphere(head_r, tuple(head), m, seg=(18, 12), name=name))
+    return K.join(objs, name)
+
+
+def glucose_molecule(name, scale=1.0):
+    """glucose, ball and stick: the six-membered ring (five C, one O) with its CH2OH"""
+    atoms = []
+    for k in range(6):
+        a = k * math.pi / 3
+        atoms.append(('O' if k == 0 else 'C', V(0.34 * math.cos(a), 0.34 * math.sin(a), 0.06 * (-1) ** k)))
+    atoms.append(('C', V(0.34 * math.cos(-math.pi / 3) * 1.9, 0.34 * math.sin(-math.pi / 3) * 1.9, 0.1)))
+    atoms.append(('O', V(0.34 * math.cos(-math.pi / 3) * 2.7, 0.34 * math.sin(-math.pi / 3) * 2.3, 0.1)))
+    for k in (2, 3, 4):
+        a = k * math.pi / 3
+        atoms.append(('O', V(0.34 * math.cos(a) * 1.75, 0.34 * math.sin(a) * 1.75, 0.0)))
+    return molecule(atoms, name, scale, seg=(10, 7))
+
+
+def pct():
+    """The mechanism of reabsorption in the proximal tubule (L5 pp 12, 21-26), as its figure (p23, Martini 26-11)
+    lays it out: tubular fluid above, the cells' apical surfaces with their microvilli, the cells (cuboidal, joined
+    by cell junctions), their basolateral membranes on the basement membrane, interstitial fluid, and a peritubular
+    capillary. Slider, the slide's steps: (1) "Primary active transport of Na+ across basolateral membrane by Na+/K+
+    pump", 3 Na+ out for 2 K+ in, the K+ leaving again through passive (leak) channels; (2) "coupled transport of
+    glucose and Na+ into the cytoplasm", Na+ running down into the cell and carrying glucose with it; (3) "Glucose is
+    then transported out of cell by facilitated diffusion and is reabsorbed into the blood", the Na+ pumped out
+    again; (4) "Cl- transport (passive)", between the cells, and "H2O follows salt by osmosis", through aquaporins
+    and between the cells, all into the capillary. Proteins and ions are drawn far larger than they are."""
+    K.reset()
+    tr = Track()
+    CW, CH, CD = 7.0, 5.0, 6.0                           # the cell in the middle: x across, y apical up, z deep
+    TOP, BOT = CH / 2, -CH / 2
+    GAP = 0.36                                           # between cells: the lateral intercellular space
+    # the middle cell's membrane: apical (the top) and basolateral (the rest)
+    shell = K.rounded_box((CW, CH, CD), (0, 0, 0), None, 'cell', radius=0.5)
+    bm = bmesh.new()
+    bm.from_mesh(shell.data)
+    up = [f for f in bm.faces if f.normal.z > 0.7]
+    rest = [f for f in bm.faces if f.normal.z <= 0.7]
+    ap, bl = bm.copy(), bm.copy()
+    bmesh.ops.delete(ap, geom=[f for f in ap.faces if f.normal.z <= 0.7], context='FACES')
+    bmesh.ops.delete(bl, geom=[f for f in bl.faces if f.normal.z > 0.7], context='FACES')
+    bm.free()
+    bpy.data.objects.remove(shell)
+    K.part(K.smooth(K.mesh_obj('apical', ap, K.mat('apical', 0x52b788, 0.5, alpha=0.45))), 'apical')
+    K.part(K.smooth(K.mesh_obj('basolateral', bl, K.mat('basolateral', 0xffc971, 0.5, alpha=0.18))), 'basolateral', shell=True)
+    # the neighbouring cells, cut off at the sides
+    nw = 5.0
+    cm = K.mat('cells', 0xcdb4db, 0.6, alpha=0.2)
+    for sx in (-1, 1):
+        K.part(K.rounded_box((nw, CH, CD), (sx * (CW / 2 + GAP + nw / 2), 0, 0), cm, 'cells', radius=0.5), 'cells', shell=True)
+    # cell junctions: a seal round the top of each gap
+    jm = K.mat('junctions', 0x3a0ca3, 0.45, alpha=0.75)
+    K.part(K.join([K.box((GAP + 0.2, 0.5, CD - 0.6), (sx * (CW / 2 + GAP / 2), TOP - 0.45, 0), jm, 'junction') for sx in (-1, 1)], 'junctions'), 'junctions')
+    # basement membrane, interstitial fluid, the capillary
+    W = CW + 2 * (GAP + nw)
+    K.part(K.rounded_box((W, 0.28, CD + 0.6), (0, BOT - 0.3, 0), K.mat('basement', 0x6c757d, 0.6, alpha=0.55), 'basement', radius=0.12), 'basement')
+    K.part(K.rounded_box((W, 7.4, CD + 0.6), (0, BOT - 0.45 - 3.7, 0), K.mat('isf', 0xffd6e0, 0.8, alpha=0.08), 'isf', radius=0.4), 'isf', shell=True)
+    K.part(K.rounded_box((W, 4.2, CD + 0.6), (0, TOP + 2.15, 0), K.mat('fluid', 0xfff3b0, 0.8, alpha=0.1), 'fluid', radius=0.4), 'fluid', shell=True)
+    CAP_Y = BOT - 4.6
+    capm = K.mat('capillary', 0xd62828, 0.5, alpha=0.28)
+    cap = K.between((-W / 2 + 0.8, CAP_Y, 0.4), (W / 2 - 0.8, CAP_Y, 0.4), 1.6, capm, 'capillary', seg=40)
+    rbcs = []
+    try:
+        src = PREP('rbc')['rbc'][0]
+        copies = [src] + [K.dup(src, linked=False) for _ in range(2)]   # copied before any is placed
+        for k, x in enumerate((-4.5, 1.0, 5.5)):
+            o = copies[k]
+            o.rotation_mode = 'QUATERNION'
+            o.rotation_quaternion = q_three((0, 0, 1), math.pi / 2 + 0.35 * (k - 1)) @ q_three((1, 0, 0), 0.3 * k)
+            o.location = T((x, CAP_Y, 0.4))
+            o.scale = (1.05, 1.05, 1.05)
+            rbcs.append(bake(o))
+    except Exception as e:                               # the download not prepared: the capillary on its own
+        print('pct: no red cells in the capillary', e)
+    K.part(K.join([cap] + rbcs, 'capillary'), 'capillary', shell=True)
+    # microvilli on every apical surface, clear of the apical proteins
+    # the proteins in rows along the front of the cut, where they can be seen: apical, one row; basolateral, two
+    COUP = [V(-2.4, TOP, 2.1), V(0.0, TOP, 2.1), V(2.4, TOP, 2.1)]
+    AQ_A = [V(-1.2, TOP, 2.2), V(1.2, TOP, 2.2)]
+    PUMP = [V(-2.6, BOT, 2.15), V(-0.3, BOT, 2.15), V(2.0, BOT, 2.15)]
+    CARR = [V(-1.45, BOT, 2.15), V(0.85, BOT, 2.15), V(2.95, BOT, 1.2)]
+    KCH = [V(-2.2, BOT, 0.6), V(0.2, BOT, 0.6), V(2.1, BOT, 0.3)]
+    AQ_B = [V(-0.95, BOT, 0.5), V(1.2, BOT, 0.4)]
+    vm = K.mat('microvilli', 0x95d5b2, 0.5)
+    vill = []
+    xs = [x * 0.5 for x in range(-int(W), int(W) + 1)]
+    for x in xs:
+        for z in [k * 0.5 - CD / 2 + 0.5 for k in range(int(CD * 2) - 1)]:
+            if abs(x) > W / 2 - 0.4 or (CW / 2 - 0.1 < abs(x) < CW / 2 + GAP + 0.1):
+                continue
+            if abs(x) < CW / 2 + 0.2 and z > CD / 2 - 1.6:   # the middle cell's front strip: its apical proteins
+                continue
+            h = 1.3 + 0.2 * math.sin(x * 3.1 + z * 1.7)
+            vill.append(K.between((x, TOP, z), (x, TOP + h, z), 0.12, vm, 'villus', seg=8))
+            vill.append(K.sphere(0.12, (x, TOP + h, z), vm, seg=(8, 4), name='tip'))
+    K.part(K.join(vill, 'microvilli'), 'microvilli')
+    # inside the cell: its nucleus, and mitochondria by the basolateral membrane (the pumps' ATP)
+    K.part(K.sphere(1.1, (0.2, 0.8, -1.3), K.mat('nucleus', 0x7b2cbf, 0.5), seg=(28, 18), name='nucleus'), 'nucleus')
+    mm = K.mat('mito', 0xe4774a, 0.5)
+    mitos = []
+    for k, (x, z) in enumerate(((-2.0, -0.6), (0.9, -0.4), (-0.6, -2.0), (2.4, -1.6))):
+        y = BOT + 1.75 + 0.15 * (k % 2)
+        o = K.between((x - 0.55, y, z), (x + 0.55, y + 0.05, z), 0.28, mm, 'mito', seg=12)
+        mitos.append(o)
+        mitos += [K.sphere(0.28, (x + sx * 0.55, y + 0.05 * (sx > 0), z), mm, seg=(12, 8), name='end') for sx in (-1, 1)]
+    K.part(K.join(mitos, 'mito'), 'mito')
+    # the transport proteins
+    K.part(K.join([membrane_protein(p, K.mat('coupled', 0x2d6a4f, 0.45), 7, 0.34, 0.13, 'coupled') for p in COUP], 'coupled'), 'coupled')
+    K.part(K.join([membrane_protein(p, K.mat('pump', 0xffd60a, 0.45), 7, 0.34, 0.13, 'pump', head=p + V(0, 0.8, 0)) for p in PUMP], 'pump'), 'pump')
+    K.part(K.join([membrane_protein(p, K.mat('carrier', 0x4895ef, 0.45), 5, 0.3, 0.13, 'carrier') for p in CARR], 'carrier'), 'carrier')
+    K.part(K.join([membrane_protein(p, K.mat('kchannels', 0x5a189a, 0.45), 4, 0.27, 0.12, 'kchannel') for p in KCH], 'kchannels'), 'kchannels')
+    K.part(K.join([membrane_protein(p, K.mat('aquaporins', 0x48cae4, 0.45), 4, 0.2, 0.09, 'aquaporin') for p in AQ_A + AQ_B], 'aquaporins'), 'aquaporins')
+    # ions and molecules: Na+ blue, K+ violet, Cl- green, glucose and water ball and stick
+    nam, km, clm = K.mat('na', 0x3a86ff, 0.35), K.mat('k', 0xc77dff, 0.35), K.mat('cl', 0x2dc653, 0.4)
+    ball = lambda r, m, name: K.part(K.sphere(r, (0, 0, 0), m, seg=(14, 10), name=name), name)
+    na_p = [[ball(0.2, nam, 'na') for _ in range(3)] for _ in PUMP]        # pumped out in step 1
+    k_p = [[ball(0.24, km, 'k') for _ in range(2)] for _ in PUMP]          # pumped in, then out through the channels
+    na_c = [ball(0.2, nam, 'na') for _ in COUP]                            # in with glucose (step 2), out again (step 3)
+    glu = [K.part(glucose_molecule('glucose', 0.9), 'glucose') for _ in COUP]
+    cl = [ball(0.3, clm, 'cl') for _ in range(4)]
+    h2o = [K.part(molecule(H2O(), 'h2o', 1.1, seg=(10, 7)), 'h2o') for _ in range(6)]
+    an = anchors(('na', 'k', 'glucose', 'cl', 'h2o'))
+    rot = [q_three((0.3, 1, 0.2), i * 1.7) for i in range(12)]
+    LUMEN, ISF, CAP = TOP + 3.0, BOT - 1.9, V(0, CAP_Y, 0.4)
+
+    def into_cap(p, i):
+        return CAP + V(-5.5 + 1.0 * (i % 12), 0.45 * ((i % 3) - 1), 0.5 * ((i % 4) - 1.5))
+
+    def wob(i, t, a=0.12):
+        return V(math.sin(t * 9.1 + i * 2.3), math.sin(t * 7.3 + i * 1.1), math.sin(t * 8.2 + i * 3.7)) * a
+
+    def place(s, frame):
+        p = stage_prog(s, 4)
+        pump, coup, gl, salt = p(0), p(1), p(2), p(3)
+        for i, P in enumerate(PUMP):
+            # step 1: 3 Na+ from the cytoplasm through the pump into the interstitial fluid; then on to the blood (4)
+            for j, o in enumerate(na_p[i]):
+                d = V((j - 1) * 0.45, 0, 0.25 * (j - 1))
+                path = [P + V(0, 1.6, 0) + d * 2, P + V(0, 0.7, 0) + d * 0.3, P + V(0, -0.7, 0) + d * 0.3, P + V(0, -1.6, 0) + d * 2.2]
+                at = along(path, span(pump, 0.05 + 0.05 * j, 0.5 + 0.05 * j))
+                at = lerp(at, into_cap(at, i * 3 + j), span(salt, 0.1, 0.8))
+                tr.pose(o, frame, at + wob(i * 3 + j, s, 0.06))
+            # 2 K+ from the interstitial fluid in through the pump, then out through a passive channel
+            for j, o in enumerate(k_p[i]):
+                d = V((j - 0.5) * 0.6, 0, 0.3)
+                inn = [P + V(0, -1.6, 0) + d * 2, P + V(0, -0.7, 0) + d * 0.3, P + V(0, 0.7, 0) + d * 0.3, P + V(0, 1.4, 0) + d]
+                Kc = KCH[i]
+                out = [P + V(0, 1.4, 0) + d, Kc + V(0, 0.9, 0), Kc + V(0, 0.3, 0), Kc + V(0, -0.6, 0), Kc + V(0.5 * (j - 0.5), -1.8, 0.3)]
+                at = along(inn, span(pump, 0.2 + 0.05 * j, 0.6)) if pump < 0.62 else along(out, span(pump, 0.62, 1))
+                tr.pose(o, frame, at + wob(i * 2 + j + 9, s, 0.05))
+        for i, C in enumerate(COUP):
+            # step 2: Na+ and glucose from the tubular fluid, down through the coupled transporter together
+            n0, g0 = C + V(-0.6, 2.4, 0.3), C + V(0.6, 2.6, -0.2)
+            top, inside = C + V(0, 0.7, 0), C + V(0, -0.8, 0)
+            u = span(coup, 0, 0.35)
+            v = span(coup, 0.35, 0.75)
+            na_at = lerp(n0, top + V(-0.18, 0, 0), u) if v == 0 else lerp(top + V(-0.18, 0, 0), inside + V(-0.3, -0.3, 0), v)
+            g_at = lerp(g0, top + V(0.2, 0.15, 0), u) if v == 0 else lerp(top + V(0.2, 0.15, 0), inside + V(0.3, 0, 0), v)
+            g_at = lerp(g_at, V(C.x * 0.4, 0.2, C.z * 0.6), span(coup, 0.75, 1))
+            # step 3: glucose to a carrier and out by facilitated diffusion, on into the blood; the Na+ is pumped out
+            Q = CARR[i]
+            g_path = [V(C.x * 0.4, 0.2, C.z * 0.6), Q + V(0, 1.0, 0), Q + V(0, 0.2, 0), Q + V(0, -0.8, 0), Q + V(0, -2.2, 0)]
+            if gl > 0:
+                g_at = along(g_path, span(gl, 0, 0.75))
+                g_at = lerp(g_at, into_cap(g_at, i + 6), span(gl, 0.75, 1))
+            P = PUMP[i]
+            n_path = [inside + V(-0.3, -0.3, 0), P + V(0.35, 0.9, 0), P + V(0.2, -0.4, 0), P + V(0.5, -1.5, 0.3)]
+            if gl > 0:
+                na_at = along(n_path, span(gl, 0.1, 0.7))
+            na_at = lerp(na_at, into_cap(na_at, i + 9), span(salt, 0.2, 0.9))
+            tr.pose(na_c[i], frame, na_at + wob(i + 20, s, 0.05))
+            tr.pose(glu[i], frame, g_at + wob(i + 23, s, 0.05), rot[i])
+            if i == 1:
+                tr.pose(an['na'], frame, na_at + V(0, 0.4, 0.25))
+                tr.pose(an['glucose'], frame, g_at + V(0, 0.55, 0.25))
+        # step 4: Cl- between the cells (through the junction, down the gap) and into the blood; H2O through the
+        # aquaporins and between the cells
+        for j, o in enumerate(cl):
+            sx = -1 if j % 2 else 1
+            gx = sx * (CW / 2 + GAP / 2)
+            z = -1.5 + j * 1.0
+            path = [V(gx + sx * 0.8, LUMEN, z), V(gx, TOP + 0.4, z), V(gx, TOP - 0.45, z), V(gx, BOT + 0.3, z), V(gx * 0.8, ISF, z)]
+            at = along(path, span(salt, 0.05 + 0.04 * j, 0.7))
+            at = lerp(at, into_cap(at, j + 12), span(salt, 0.7, 1))
+            tr.pose(o, frame, at + wob(j + 30, s, 0.06 * (1 - salt)))
+            if j == 0:
+                tr.pose(an['cl'], frame, at + V(0.35, 0.45, 0.3))
+        for j, o in enumerate(h2o):
+            if j < 4:                                    # through the cell: apical aquaporin, basolateral aquaporin
+                A, B = AQ_A[j % 2], AQ_B[j % 2]
+                d = V(0.15 * (j // 2), 0, 0.15 * (j // 2))
+                path = [A + V(0.3, 2.6, 0.2) + d * 3, A + V(0, 0.8, 0), A + V(0, -0.6, 0), B + V(0, 0.8, 0) + d, B + V(0, -0.6, 0), B + V(0, -2.0, 0) + d * 2]
+            else:                                        # between the cells, beside the Cl-
+                sx = -1 if j % 2 else 1
+                gx = sx * (CW / 2 + GAP / 2)
+                path = [V(gx + sx * 1.1, LUMEN + 0.3, 1.5), V(gx, TOP + 0.4, 1.2), V(gx, BOT + 0.3, 1.0), V(gx * 0.8, ISF - 0.3, 1.0)]
+            at = along(path, span(salt, 0.12 + 0.04 * j, 0.78))
+            at = lerp(at, into_cap(at, j + 16), span(salt, 0.78, 1))
+            tr.pose(o, frame, at + wob(j + 40, s, 0.05 * (1 - salt)), rot[j + 3])
+            if j == 0:
+                tr.pose(an['h2o'], frame, at + V(0.3, 0.4, 0.3))
+    # the K+ label rides the first pumped K+: posed again here from the same path as the ion
+    def k_anchor(s, frame):
+        p = stage_prog(s, 4)
+        P, d, Kc = PUMP[1], V(-0.3, 0, 0.3), KCH[1]
+        pump = p(0)
+        inn = [P + V(0, -1.6, 0) + d * 2, P + V(0, -0.7, 0) + d * 0.3, P + V(0, 0.7, 0) + d * 0.3, P + V(0, 1.4, 0) + d]
+        out = [P + V(0, 1.4, 0) + d, Kc + V(0, 0.9, 0), Kc + V(0, 0.3, 0), Kc + V(0, -0.6, 0), Kc + V(-0.25, -1.8, 0.3)]
+        at = along(inn, span(pump, 0.2, 0.6)) if pump < 0.62 else along(out, span(pump, 0.62, 1))
+        tr.pose(an['k'], frame, at + V(0.3, 0.45, 0.3))
+    sample(place, 4, step=2)
+    sample(k_anchor, 4, step=2)
+    tr.write()
+    K.anchor('fluid', (W / 2 - 2.2, TOP + 3.9, CD / 2))
+    K.anchor('microvilli', (CW / 2 + GAP + 1.4, TOP + 1.5, CD / 2 - 0.3))
+    K.anchor('apical', (-1.0, TOP + 0.15, CD / 2 + 0.1))
+    K.anchor('basolateral', (-CW / 2 + 0.6, BOT + 0.2, CD / 2 + 0.1))
+    K.anchor('cells', (-(CW / 2 + GAP + nw / 2), 0.6, CD / 2))
+    K.anchor('junctions', (CW / 2 + GAP / 2, TOP - 0.2, CD / 2 - 0.2))
+    K.anchor('basement', (W / 2 - 2.5, BOT - 0.3, CD / 2 + 0.3))
+    K.anchor('isf', (-(W / 2) + 2.2, BOT - 1.5, CD / 2 + 0.3))
+    K.anchor('capillary', (-W / 2 + 3.0, CAP_Y + 1.7, 1.2))
+    K.anchor('nucleus', (0.2, 2.0, -1.0))
+    K.anchor('mito', (-2.0, BOT + 2.1, -0.4))
+    K.anchor('coupled', tuple(COUP[0] + V(0, 0.9, 0.3)))
+    K.anchor('pump', tuple(PUMP[0] + V(0, 1.4, 0.3)))
+    K.anchor('carrier', tuple(CARR[0] + V(0, -0.85, 0.3)))
+    K.anchor('kchannels', tuple(KCH[0] + V(0.2, -0.8, 0.3)))
+    K.anchor('aquaporins', tuple(AQ_A[0] + V(0, 0.45, 0.3)))
+    VIEW['pct'] = [0.3, 0.25, 1]
+    export('pct', ['rbc'])
+
+
+
+# ------------------------------------------------------------------ cardiac action potentials ----
+def text_mesh(body, at, size, m, name, align='RIGHT'):
+    """a line of text as a mesh, standing up and facing +z (the opening views), its anchor point at `at`"""
+    cu = bpy.data.curves.new(name, 'FONT')
+    cu.body = body
+    cu.size = size
+    cu.extrude = 0.02
+    cu.align_x = align
+    cu.align_y = 'CENTER'
+    o = K.link(bpy.data.objects.new(name, cu))
+    o.data.materials.append(m)
+    o.rotation_mode = 'XYZ'
+    o.rotation_euler = (math.pi / 2, 0, 0)
+    o.location = T(tuple(at))
+    return K.to_mesh(o)
+
+
+def bilayer_with_holes(holes, r):
+    """the "Plasma Membrane" download's bilayer (its heads and tails), with every lipid within r of a hole's axis
+    (holes: three.js x, z) taken out, for a channel to stand in"""
+    got = PREP('membrane')
+    for k in list(got):
+        if k not in ('heads', 'tails'):
+            for o in got[k]:
+                bpy.data.objects.remove(o)
+    out = []
+    for o in got['heads'] + got['tails']:
+        bake(o)
+        bm = bmesh.new()
+        bm.from_mesh(o.data)
+        bm.faces.ensure_lookup_table()
+        seen, gone = set(), []
+        for f in bm.faces:
+            if f.index in seen:
+                continue
+            isl, stack = [], [f]
+            seen.add(f.index)
+            while stack:
+                x = stack.pop()
+                isl.append(x)
+                for e in x.edges:
+                    for g in e.link_faces:
+                        if g.index not in seen:
+                            seen.add(g.index)
+                            stack.append(g)
+            c = sum((v.co for x in isl for v in x.verts), Vector()) / sum(len(x.verts) for x in isl)
+            if any((c.x - hx) ** 2 + (-c.y - hz) ** 2 < r * r for hx, hz in holes):
+                gone += isl
+        bmesh.ops.delete(bm, geom=gone, context='FACES')
+        bm.to_mesh(o.data)
+        bm.free()
+        out.append(o)
+    return out
+
+
+def channel(at, m, name, h=6.2, r=0.48):
+    """an ion channel: four subunits round a pore along y at `at` (three.js), each a capsule centred on its own
+    origin, posed by open_close()"""
+    subs = []
+    for j in range(4):
+        parts = [K.between((0, -h / 2 + r, 0), (0, h / 2 - r, 0), r, m, name, seg=14),
+                 K.sphere(r, (0, -h / 2 + r, 0), m, seg=(14, 8), name=name), K.sphere(r, (0, h / 2 - r, 0), m, seg=(14, 8), name=name)]
+        o = K.join(parts, name)
+        bake(o)
+        subs.append(o)
+    return (at, subs)
+
+
+def open_close(tr, ch, frame, u):
+    """pose a channel u open (0 closed: the four subunits drawn in and leaning together at the cytoplasmic end,
+    the gate shut; 1 open: upright round a wide pore)"""
+    at, subs = ch
+    ring, tilt = mix(0.6, 0.86, u), mix(0.24, 0.0, u)
+    for j, o in enumerate(subs):
+        a = j * math.pi / 2 + math.pi / 4
+        rh = V(math.cos(a), 0, math.sin(a))
+        t = V(math.sin(a), 0, -math.cos(a))
+        tr.pose(o, frame, at + rh * ring, q_three(tuple(t), tilt))
+
+
+def ap_graph(curve, t_end, v_lo, v_hi, ticks):
+    """the membrane potential against time, drawn behind and above the membrane: axes, the trace, the tick values
+    (mV) and, for the caller to move, a marker. Returns (point_at(t), the marker)."""
+    X0, X1, Y0, Hg, Z = -7.0, 7.0, 6.6, 5.0, -5.4
+    px = lambda t: X0 + (X1 - X0) * t / t_end
+    py = lambda v: Y0 + (v - v_lo) / (v_hi - v_lo) * Hg
+    at = lambda t: V(px(t), py(curve(t)), Z)
+    gm = K.mat('potential', 0xffd166, 0.4)
+    am = K.mat('potential-axes', 0xadb5bd, 0.6)
+    tm = K.mat('potential-text', 0xe9ecef, 0.6)
+    pts = [at(t_end * i / 220) for i in range(221)]
+    objs = [K.curve_tube([T(tuple(p)) for p in pts], 0.07, gm, 'trace', res=2)]
+    objs.append(K.between((X0 - 0.3, Y0 - 0.3, Z), (X0 - 0.3, Y0 + Hg + 0.4, Z), 0.04, am, 'axis', seg=6))
+    objs.append(K.between((X0 - 0.3, Y0 - 0.3, Z), (X1 + 0.3, Y0 - 0.3, Z), 0.04, am, 'axis', seg=6))
+    for v in ticks:
+        objs.append(K.between((X0 - 0.5, py(v), Z), (X0 - 0.3, py(v), Z), 0.04, am, 'tick', seg=6))
+        objs.append(text_mesh(('+' if v > 0 else '') + str(v), (X0 - 0.65, py(v), Z), 0.42, tm, 'tick-text'))
+    objs.append(text_mesh('mV', (X0 - 0.3, Y0 + Hg + 0.85, Z), 0.42, tm, 'unit', align='CENTER'))
+    K.part(K.join(objs, 'potential'), 'potential')
+    marker = K.part(K.sphere(0.22, (0, 0, 0), K.mat('potential-marker', 0xff006e, 0.35, emit=0xff006e), seg=(16, 10), name='marker'), 'potential')
+    return at, marker, (px, py, Z)
+
+
+def ions_through(tr, frame, ions, ch_at, inward, u0, u1, f, spread=0.0, rest_in=None, rest_out=None):
+    """ions passing one at a time through a channel at ch_at while f runs from u0 to u1: from the side they are
+    concentrated on to the other; before, they wait near the pore, after, they drift off"""
+    n = len(ions)
+    src_y, dst_y = (4.2, -4.0) if inward else (-4.0, 4.2)
+    for j, o in enumerate(ions):
+        a = u0 + (u1 - u0) * j / max(1, n) * 0.85
+        b = a + (u1 - u0) * 0.4
+        k = span(f, a, b) if f < 1.5 else 1.0
+        off = V(0.5 * math.cos(j * 2.1 + spread), 0, 0.5 * math.sin(j * 2.1 + spread))
+        start = ch_at + V(0, src_y, 0) + off * 1.6 + V(0, 0.4 * j, 0) * (1 if inward else -1)
+        end = ch_at + V(0, dst_y, 0) + off * 2.2 - V(0, 0.4 * j, 0) * (1 if inward else -1)
+        path = [start, ch_at + V(0, src_y * 0.6, 0) + off * 0.2, ch_at, ch_at + V(0, dst_y * 0.6, 0) + off * 0.2, end]
+        tr.pose(o, frame, along(path, k))
+
+
+
+# where the channels stand: the gaps in the "Plasma Membrane" download's bilayer (its own channel, integral and inner
+# proteins, taken out, and the four spots the prep carves for the proteins the membrane level adds), three.js (x, z)
+SPOTS = {'B': (-3.0, 1.8), 'F': (3.2, -2.6), 'G': (-0.13, 3.45), 'E': (-5.56, -3.2), 'C': (3.6, 3.6), 'A': (-6.0, 2.6), 'D': (6.4, 1.72)}
+
+
+def pacemaker():
+    """SA node (pacemaker) action potential (L2 pp 48-51): a patch of the pacemaker cell's plasma membrane, the
+    extracellular fluid above (Na+ and Ca2+ ions concentrated there) and the cytoplasm below (K+ concentrated), with
+    its three kinds of channel: HCN channels (teal), voltage-gated Ca2+ channels (orange) and voltage-gated K+ channels
+    (violet). Above, the membrane potential of pacemaker cells: from about -60 mV it drifts up to the -40 mV threshold
+    (the prepotential: "HCN channels open", "Na+ ions into cells"), at threshold the Ca2+ channels open and Ca2+ rushes
+    in (the upstroke), then the Ca2+ channels close, the K+ channels open and K+ goes out (repolarization), until the
+    hyperpolarized membrane opens the HCN channels again. The marker on the trace follows the slider."""
+    K.reset()
+    tr = Track()
+    HCN, CA, KC = [SPOTS['B'], SPOTS['F']], [SPOTS['G'], SPOTS['E']], [SPOTS['C'], SPOTS['A'], SPOTS['D']]
+    COLS = HCN + CA + KC
+    lip = bilayer_with_holes(COLS, 1.4)
+    K.part(K.join(lip, 'membrane'), 'membrane')
+    ecf = K.rounded_box((16.0, 3.4, 10.0), (0, 4.5, 0.3), K.mat('ecf', 0xcaf0f8, 0.8, alpha=0.08), 'ecf', radius=0.5)
+    K.part(ecf, 'ecf', shell=True)
+    cyt = K.rounded_box((16.0, 3.4, 10.0), (0, -4.3, 0.3), K.mat('cytoplasm', 0xffe5ec, 0.8, alpha=0.08), 'cytoplasm', radius=0.5)
+    K.part(cyt, 'cytoplasm', shell=True)
+    hm, cm, km = K.mat('hcn', 0x2a9d8f, 0.45), K.mat('cachannels', 0xe85d04, 0.45), K.mat('kchannels', 0x5a189a, 0.45)
+    hcn = [channel(V(x, 0.1, z), hm, 'hcn') for x, z in HCN]
+    cac = [channel(V(x, 0.1, z), cm, 'cachannels') for x, z in CA]
+    kch = [channel(V(x, 0.1, z), km, 'kchannels') for x, z in KC]
+    for part, chs in (('hcn', hcn), ('cachannels', cac), ('kchannels', kch)):
+        for _, subs in chs:
+            for o in subs:
+                K.part(o, part)
+    nam, cam, kim = K.mat('na', 0x3a86ff, 0.35), K.mat('ca', 0xffb703, 0.35), K.mat('k', 0xc77dff, 0.35)
+    ball = lambda r, m, name: K.part(K.sphere(r, (0, 0, 0), m, seg=(12, 8), name=name), name)
+    na_in = [[ball(0.2, nam, 'na') for _ in range(3)] for _ in hcn]
+    ca_in = [[ball(0.24, cam, 'ca') for _ in range(4)] for _ in cac]
+    k_out = [[ball(0.26, kim, 'k') for _ in range(4)] for _ in kch]
+    # the gradients: Na+ and Ca2+ crowd the extracellular fluid, K+ the cytoplasm
+    rnd = random.Random(3)
+    rest = []
+    for m, name, n, y0 in ((nam, 'na', 12, 4.6), (cam, 'ca', 6, 4.6), (kim, 'k', 12, -4.4)):
+        for _ in range(n):
+            c = V((rnd.random() - 0.5) * 13, y0 + (rnd.random() - 0.5) * 2.0, (rnd.random() - 0.5) * 7.5 + 0.3)
+            if any((c.x - x) ** 2 + (c.z - z) ** 2 < 2.6 for x, z in COLS):
+                continue
+            rest.append((ball(0.2 if name == 'na' else 0.24 if name == 'ca' else 0.26, m, name), c))
+
+    def curve(t):
+        if t < 0.45:
+            return -60 + 20 * (t / 0.45) ** 1.4
+        if t < 0.55:
+            return -40 + 60 * math.sin(math.pi / 2 * (t - 0.45) / 0.1)
+        if t < 0.8:
+            return 20 - 80 * span(t, 0.55, 0.8)
+        return -60 + 20 * ((t - 0.8) / 0.45) ** 1.4
+    point_at, marker, (px, py, Z) = ap_graph(curve, 1.1, -70, 30, [20, 0, -40, -60])
+    thm = K.mat('threshold', 0xef476f, 0.5)
+    dashes = [K.between((x, py(-40), Z), (x + 0.35, py(-40), Z), 0.035, thm, 'dash', seg=6) for x in [-7 + 0.6 * i for i in range(24)]]
+    K.part(K.join(dashes, 'threshold'), 'threshold')
+    an = anchors(('na', 'ca', 'k'))
+
+    def place(s, frame):
+        p = stage_prog(s, 3)
+        pre, up, rep = p(0), p(1), p(2)
+        # the channels: HCN open through the prepotential, shutting in the upstroke and opening again at the end;
+        # Ca2+ open at threshold, shut as repolarization starts; K+ open in repolarization, shutting in the prepotential
+        h_open = (1 - span(up, 0.0, 0.3)) if s < 2 else span(rep, 0.85, 1.0)
+        c_open = span(up, 0.0, 0.2) * (1 - span(rep, 0.0, 0.2))
+        k_open = (1 - span(pre, 0.0, 0.35)) if s < 1 else span(rep, 0.1, 0.3)
+        for ch in hcn:
+            open_close(tr, ch, frame, h_open)
+        for ch in cac:
+            open_close(tr, ch, frame, c_open)
+        for ch in kch:
+            open_close(tr, ch, frame, k_open)
+        for i, ch in enumerate(hcn):
+            ions_through(tr, frame, na_in[i], ch[0], True, 0.15, 0.95, pre if s < 1 else 2)
+        for i, ch in enumerate(cac):
+            ions_through(tr, frame, ca_in[i], ch[0], True, 0.15, 0.9, up if s >= 1 else 0, spread=1.0)
+        for i, ch in enumerate(kch):
+            ions_through(tr, frame, k_out[i], ch[0], False, 0.25, 0.95, rep if s >= 2 else 0, spread=2.0)
+        for j, (o, c) in enumerate(rest):
+            tr.pose(o, frame, c + V(math.sin(s * 5.1 + j * 2.3), math.sin(s * 4.3 + j * 1.1), math.sin(s * 4.7 + j * 3.7)) * 0.12)
+        # the marker on the trace: stage 0 the prepotential, 1 the upstroke, 2 repolarization
+        t = 0.45 * pre if s < 1 else 0.45 + 0.1 * up if s < 2 else 0.55 + 0.25 * rep
+        tr.pose(marker, frame, point_at(t))
+    sample(place, 3, step=2)
+
+    def labels(s, frame):
+        p = stage_prog(s, 3)
+        pre, up, rep = p(0), p(1), p(2)
+        tr.pose(an['na'], frame, V(HCN[0][0] - 0.8, 3.0 - 6.0 * span(pre if s < 1 else 1, 0.15, 0.55), HCN[0][1] + 0.6))
+        tr.pose(an['ca'], frame, V(CA[0][0] - 0.8, 3.0 - 6.0 * span(up if s >= 1 else 0, 0.15, 0.55), CA[0][1] + 0.6))
+        tr.pose(an['k'], frame, V(KC[0][0] + 0.8, -3.0 + 6.0 * span(rep if s >= 2 else 0, 0.25, 0.65), KC[0][1] + 0.6))
+    sample(labels, 3, step=2)
+    tr.write()
+    K.anchor('membrane', (-6.6, 2.9, 4.6))
+    K.anchor('ecf', (6.0, 6.0, 4.8))
+    K.anchor('cytoplasm', (6.0, -5.8, 4.8))
+    K.anchor('hcn', (HCN[0][0], 3.6, HCN[0][1] + 0.5))
+    K.anchor('cachannels', (CA[0][0], 3.6, CA[0][1] + 0.5))
+    K.anchor('kchannels', (KC[0][0], 3.6, KC[0][1] + 0.5))
+    K.anchor('potential', (2.0, py(30) + 0.4, Z))
+    K.anchor('threshold', (5.5, py(-40) + 0.35, Z))
+    VIEW['pacemaker'] = [0.2, 0.35, 1]
+    export('pacemaker', ['membrane'])
+
+
+def myocardial():
+    """Myocardial (ventricular muscle) action potential (L2 pp 56-58): the same membrane patch with voltage-gated Na+
+    channels (blue), Ca2+ channels (orange) and K+ channels (violet). Rest at about -90 mV; the upstroke as the
+    voltage-gated Na+ channels open and Na+ rushes in, then they close; the plateau, Ca2+ channels and K+ channels
+    open, Ca2+ in and K+ out in near balance, for 200-300 msec; repolarization, the Ca2+ channels closed and more K+
+    channels open, more K+ out, back to rest."""
+    K.reset()
+    tr = Track()
+    NA, CA, KC = [SPOTS['B'], SPOTS['F']], [SPOTS['G'], SPOTS['E']], [SPOTS['C'], SPOTS['A'], SPOTS['D']]
+    COLS = NA + CA + KC
+    lip = bilayer_with_holes(COLS, 1.4)
+    K.part(K.join(lip, 'membrane'), 'membrane')
+    K.part(K.rounded_box((16.0, 3.4, 10.0), (0, 4.5, 0.3), K.mat('ecf', 0xcaf0f8, 0.8, alpha=0.08), 'ecf', radius=0.5), 'ecf', shell=True)
+    K.part(K.rounded_box((16.0, 3.4, 10.0), (0, -4.3, 0.3), K.mat('cytoplasm', 0xffe5ec, 0.8, alpha=0.08), 'cytoplasm', radius=0.5), 'cytoplasm', shell=True)
+    nm, cm, km = K.mat('nachannels', 0x0353a4, 0.45), K.mat('cachannels', 0xe85d04, 0.45), K.mat('kchannels', 0x5a189a, 0.45)
+    nac = [channel(V(x, 0.1, z), nm, 'nachannels') for x, z in NA]
+    cac = [channel(V(x, 0.1, z), cm, 'cachannels') for x, z in CA]
+    kch = [channel(V(x, 0.1, z), km, 'kchannels') for x, z in KC]
+    for part, chs in (('nachannels', nac), ('cachannels', cac), ('kchannels', kch)):
+        for _, subs in chs:
+            for o in subs:
+                K.part(o, part)
+    nam, cam, kim = K.mat('na', 0x3a86ff, 0.35), K.mat('ca', 0xffb703, 0.35), K.mat('k', 0xc77dff, 0.35)
+    ball = lambda r, m, name: K.part(K.sphere(r, (0, 0, 0), m, seg=(12, 8), name=name), name)
+    na_in = [[ball(0.2, nam, 'na') for _ in range(5)] for _ in nac]
+    ca_in = [[ball(0.24, cam, 'ca') for _ in range(3)] for _ in cac]
+    k_out = [[ball(0.26, kim, 'k') for _ in range(5)] for _ in kch]
+    rnd = random.Random(4)
+    rest = []
+    for m, name, n, y0 in ((nam, 'na', 12, 4.6), (cam, 'ca', 6, 4.6), (kim, 'k', 12, -4.4)):
+        for _ in range(n):
+            c = V((rnd.random() - 0.5) * 13, y0 + (rnd.random() - 0.5) * 2.0, (rnd.random() - 0.5) * 7.5 + 0.3)
+            if any((c.x - x) ** 2 + (c.z - z) ** 2 < 2.6 for x, z in COLS):
+                continue
+            rest.append((ball(0.2 if name == 'na' else 0.24 if name == 'ca' else 0.26, m, name), c))
+
+    def curve(t):
+        if t < 0.08:
+            return -90
+        if t < 0.095:
+            return -90 + 110 * span(t, 0.08, 0.095)
+        if t < 0.12:
+            return 20 - 15 * span(t, 0.095, 0.12)
+        if t < 0.34:
+            return 5 - 15 * (t - 0.12) / 0.22
+        if t < 0.44:
+            return -10 - 80 * span(t, 0.34, 0.44)
+        return -90
+    point_at, marker, (px, py, Z) = ap_graph(curve, 0.55, -100, 30, [20, 0, -90])
+    an = anchors(('na', 'ca', 'k'))
+
+    def place(s, frame):
+        p = stage_prog(s, 4)
+        rest_, dep, pla, rep = p(0), p(1), p(2), p(3)
+        n_open = span(dep, 0.0, 0.15) * (1 - span(dep, 0.7, 0.95)) if s >= 1 and s < 2 else 0
+        c_open = (span(pla, 0.0, 0.15) if s < 3 else 1 - span(rep, 0.0, 0.2)) if s >= 2 else 0
+        k_open2 = (span(pla, 0.05, 0.2) if s < 3 else 1 - span(rep, 0.85, 1.0)) if s >= 2 else 0
+        k_open3 = span(rep, 0.05, 0.25) * (1 - span(rep, 0.85, 1.0)) if s >= 3 else 0
+        for ch in nac:
+            open_close(tr, ch, frame, n_open)
+        for ch in cac:
+            open_close(tr, ch, frame, c_open)
+        for i, ch in enumerate(kch):
+            open_close(tr, ch, frame, k_open3 if i == 2 else k_open2)
+        for i, ch in enumerate(nac):
+            ions_through(tr, frame, na_in[i], ch[0], True, 0.1, 0.75, dep if s >= 1 and s < 2 else (2 if s >= 2 else 0))
+        for i, ch in enumerate(cac):
+            ions_through(tr, frame, ca_in[i], ch[0], True, 0.15, 0.95, pla if s >= 2 and s < 3 else (2 if s >= 3 else 0), spread=1.0)
+        for i, ch in enumerate(kch):
+            if i < 2:
+                # two K+ out through each K+ channel in the plateau, the rest in repolarization
+                k = (pla * 0.4 if s < 3 else 0.4 + 0.6 * rep) if s >= 2 else 0
+                ions_through(tr, frame, k_out[i], ch[0], False, 0.05, 0.95, k, spread=2.0)
+            else:
+                ions_through(tr, frame, k_out[i], ch[0], False, 0.2, 0.9, rep if s >= 3 else 0, spread=2.0)
+        for j, (o, c) in enumerate(rest):
+            tr.pose(o, frame, c + V(math.sin(s * 5.1 + j * 2.3), math.sin(s * 4.3 + j * 1.1), math.sin(s * 4.7 + j * 3.7)) * 0.12)
+        t = 0.08 * rest_ if s < 1 else 0.08 + 0.04 * dep if s < 2 else 0.12 + 0.22 * pla if s < 3 else 0.34 + 0.1 * rep
+        tr.pose(marker, frame, point_at(t))
+        tr.pose(an['na'], frame, V(NA[0][0] - 0.8, 3.0 - 6.0 * (span(dep, 0.1, 0.5) if s >= 1 else 0) if s < 2 else -3.0, NA[0][1] + 0.6))
+        tr.pose(an['ca'], frame, V(CA[0][0] - 0.8, 3.0 - 6.0 * (span(pla, 0.15, 0.55) if s >= 2 else 0) if s < 3 else -3.0, CA[0][1] + 0.6))
+        tr.pose(an['k'], frame, V(KC[0][0] + 0.8, -3.0 + 6.0 * (span(pla, 0.05, 0.4) * 0.6 if s < 3 else 0.6 + 0.4 * rep) if s >= 2 else -3.0, KC[0][1] + 0.6))
+    sample(place, 4, step=2)
+    tr.write()
+    K.anchor('membrane', (-6.6, 2.9, 4.6))
+    K.anchor('ecf', (6.0, 6.0, 4.8))
+    K.anchor('cytoplasm', (6.0, -5.8, 4.8))
+    K.anchor('nachannels', (NA[0][0], 3.6, NA[0][1] + 0.5))
+    K.anchor('cachannels', (CA[0][0], 3.6, CA[0][1] + 0.5))
+    K.anchor('kchannels', (KC[0][0], 3.6, KC[0][1] + 0.5))
+    K.anchor('potential', (2.0, py(30) + 0.4, Z))
+    VIEW['myocardial'] = [0.2, 0.35, 1]
+    export('myocardial', ['membrane'])

@@ -2,6 +2,7 @@
 Cell zoom, step 2 of work/build-cell-models.mjs: build each level's model in Blender.
 
   blender --background --factory-startup --python work/blender/build.py -- [--level cell,blood] [--build <dir>]
+      [--shots 0.5,1.5 --shot-dir <dir>]   (renders each level built at those slider values, to check it by eye)
 
 Reads work/.cell-build/prep/ (the downloads, already renamed to parts and put in the level's frame, and layout.json)
 and writes work/.cell-build/blender/<level>.glb; `node work/build-cell-models.mjs finish` checks and ships them. A
@@ -16,7 +17,7 @@ import random
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bpy                                           # noqa: E402
-from mathutils import Vector                         # noqa: E402
+from mathutils import Vector, Quaternion             # noqa: E402
 import cellkit as K                                  # noqa: E402
 from cellkit import T                                # noqa: E402
 
@@ -131,29 +132,21 @@ def cell():
     K.export(os.path.join(OUT, 'cell.glb'), {'czLevel': 'cell', 'czSources': ['cell'], 'czView': [0.85, 1.5, 1]})
 
 
-# ------------------------------------------------------------------ the centrosome ----
-def centrosome():
-    """'Structure of Centrosome' (arloopa): the two centrioles; the centrosome round them modelled here."""
-    K.reset()
-    got = prep('centrosome')
-    objs = tag_all(got['centrioles'], 'centrioles')
-    pts = [o.matrix_world @ v.co for o in objs for v in o.data.vertices]
-    c = sum(pts, Vector()) / len(pts)
-    ext = [max(abs((p - c)[i]) for p in pts) for i in range(3)]
-    halo = K.sphere(1, c, seg=(40, 24), name='centrosome')
-    halo.scale = [e * 1.25 for e in ext]
-    halo.data.materials.append(K.mat('centrosome', 0xffe08a, 0.75, alpha=0.18))
-    K.lumpy(halo, 0.12, 1.2)
-    halo = K.part(K.apply(halo), 'centrosome', shell=True)
-    K.anchor('centrosome', c + Vector((0, 0, ext[2] * 1.25)))
-    K.export(os.path.join(OUT, 'centrosome.glb'), {'czLevel': 'centrosome', 'czSources': ['centrosome'], 'czView': [1, 0.6, 1]})
-
-
 # ------------------------------------------------------------------ blood ----
+def random_turn(rnd):
+    """a uniformly random rotation, as a Blender quaternion"""
+    u1, u2, u3 = rnd.random(), rnd.random(), rnd.random()
+    return Quaternion((math.sqrt(u1) * math.cos(2 * math.pi * u3), math.sqrt(1 - u1) * math.sin(2 * math.pi * u2),
+                       math.sqrt(1 - u1) * math.cos(2 * math.pi * u2), math.sqrt(u1) * math.sin(2 * math.pi * u3)))
+
+
 def blood():
-    """Red cells, a leukocyte and platelets are downloads, put where the drawn level put them; plasma is modelled."""
+    """Composition of Blood (L2 p5): red cells, two leukocytes and platelets (downloads) in plasma (modelled). Red
+    cells far outnumber the rest ("RBCs comprise most of formed elements"); a red cell 2.5 across (7.5 µm), a
+    lymphocyte 3.2, a platelet about 1 ("smallest of formed elements"). Every cell is placed where nothing else is: its
+    bounding ball clear of every other cell's and inside the plasma, turned at random."""
     K.reset()
-    L = LAYOUT['blood']
+    rnd = random.Random(5)
     rbc = prep('rbc')['rbc'][0]
     lym = prep('lymphocyte')
     plt = prep('platelet')['platelets'][0]
@@ -163,25 +156,53 @@ def blood():
     nuc = lym['wbcnucleus'][0]
     nuc.data.materials.clear()
     nuc.data.materials.append(K.mat('wbc nucleus', 0x5a189a, 0.5))
-    for i, p in enumerate(L['rbc']):
-        o = rbc if i == 0 else K.dup(rbc)
-        K.part(K.place3(o, p['at'], p['q'], p['s'][0]), 'rbc')
-    for i, p in enumerate(L['wbc']):
+    PL = Vector((20.0, 9.0, 12.0))                       # the plasma, three.js x, y, z
+    BEVEL = 2.4
+    placed = []
+
+    def put(n, r):
+        out = []
+        for _ in range(20000):
+            if len(out) >= n:
+                break
+            c = Vector(((rnd.random() - 0.5) * PL.x, (rnd.random() - 0.5) * PL.y, (rnd.random() - 0.5) * PL.z))
+            if not K.in_rounded_box(c, PL, BEVEL, r + 0.3):
+                continue
+            if all((c - p).length > r + q + 0.2 for p, q in placed):
+                placed.append((c, r))
+                out.append(c)
+        return out
+    wbc_at = put(2, 1.75)
+    rbc_at = put(24, 1.3)
+    plt_at = put(9, 0.5)
+    print(f'blood: {len(rbc_at)} red cells, {len(wbc_at)} leukocytes, {len(plt_at)} platelets')
+
+    def pose(o, c, s):
+        o.rotation_mode = 'QUATERNION'
+        o.rotation_quaternion = random_turn(rnd)
+        o.location = T(tuple(c))
+        o.scale = (s, s, s)
+        return o
+    for i, c in enumerate(rbc_at):
+        K.part(pose(rbc if i == 0 else K.dup(rbc), c, 1.25), 'rbc')
+    for i, c in enumerate(wbc_at):
+        q = random_turn(rnd)
         for src in (surf, nuc):
             o = src if i == 0 else K.dup(src)
-            K.part(K.place3(o, p['at'], p['q'], p['s'][0]), 'wbc')
-    for i, p in enumerate(L['platelets']):
-        o = plt if i == 0 else K.dup(plt)
-        K.part(K.place3(o, p['at'], p['q'], 0.55), 'platelets')
-    plasma = K.box((19, 12, 8), material=K.mat('plasma', 0xffe8a3, 0.8, alpha=0.1), name='plasma', bevel=0.6)
-    K.part(K.apply(plasma), 'plasma', shell=True)
-    K.anchor('plasma', (8, 5, 3.5))
-    a = L['rbc'][0]['at']
-    K.anchor('rbc', (a[0], a[1] + 1.1, a[2]))
-    a = L['wbc'][0]['at']
-    K.anchor('wbc', (a[0], a[1] + 2.0, a[2]))
-    a = L['platelets'][0]['at']
-    K.anchor('platelets', (a[0], a[1] + 0.5, a[2]))
+            o.rotation_mode = 'QUATERNION'
+            o.rotation_quaternion = q
+            o.location = T(tuple(c))
+            o.scale = (1.6, 1.6, 1.6)
+            K.part(o, 'wbc')
+    for i, c in enumerate(plt_at):
+        K.part(pose(plt if i == 0 else K.dup(plt), c, 0.45), 'platelets')
+    K.part(K.rounded_box(tuple(PL), material=K.mat('plasma', 0xf3d98b, 0.8, alpha=0.1), name='plasma', radius=BEVEL), 'plasma', shell=True)
+    # labels on things seen from the opening view (+x, +y, +z): the plasma's near top edge, and the nearest cells
+    near = lambda c: c.x + c.y + c.z
+    K.anchor('plasma', (PL.x / 2 - 3.0, PL.y / 2 - 0.4, PL.z / 2 - 1.0))
+    for name, pts, up in (('rbc', rbc_at, 1.3), ('wbc', wbc_at, 1.9), ('platelets', plt_at, 0.6)):
+        c = max(pts, key=near)
+        K.anchor(name, (c.x, c.y + up, c.z))
     K.export(os.path.join(OUT, 'blood.glb'), {'czLevel': 'blood', 'czSources': ['rbc', 'lymphocyte', 'platelet']})
 
 
@@ -607,8 +628,47 @@ import modelled as M                                 # noqa: E402
 M.PREP, M.OUT = prep, OUT
 M.JSON = lambda name: json.load(open(os.path.join(PREP, f'{name}.json')))
 
-LEVELS = {'cell': cell, 'centrosome': centrosome, 'blood': blood, 'alveolus': alveolus, 'neuron': neuron, 'sperm': sperm, 'membrane': membrane,
-          'epithelium': epithelium, 'nucleus': M.nucleus, 'dna': M.dna, 'nucleosome': M.nucleosome, 'cycle': M.cycle, 'meiosis': M.meiosis, 'nk': M.nk, 'apc': M.apc, 'parietal': M.parietal, 'expression': M.expression}
+LEVELS = {'cell': cell, 'centrosome': M.centrosome, 'blood': blood, 'alveolus': alveolus, 'neuron': neuron, 'sperm': sperm, 'membrane': membrane,
+          'epithelium': epithelium, 'nucleus': M.nucleus, 'dna': M.dna, 'nucleosome': M.nucleosome, 'cycle': M.cycle, 'meiosis': M.meiosis, 'nk': M.nk, 'apc': M.apc, 'parietal': M.parietal, 'expression': M.expression,
+          'redcell': M.rbc_level, 'hemoglobin': M.hemoglobin, 'plasma': M.plasma, 'pct': M.pct,
+          'pacemaker': M.pacemaker, 'myocardial': M.myocardial}
+
+def shots(name, seconds, folder):
+    """check a level by eye: render the scene just built at the given slider values (workbench, from the level's
+    opening view) to <folder>/<level>_<s>.png"""
+    sc = bpy.context.scene
+    sc.render.engine = 'BLENDER_WORKBENCH'
+    sc.display.shading.light = 'STUDIO'
+    sc.display.shading.color_type = 'MATERIAL'
+    sc.render.resolution_x, sc.render.resolution_y = 1000, 800
+    sc.world = bpy.data.worlds.new('w')
+    sc.world.color = (0.03, 0.04, 0.05)
+    sc.display.shading.show_backface_culling = False
+    for m in bpy.data.materials:                         # workbench shows the viewport colour: give it the real one
+        b = m.node_tree.nodes.get('Principled BSDF') if m.node_tree else None
+        if b:
+            m.diffuse_color = (*b.inputs['Base Color'].default_value[:3], b.inputs['Alpha'].default_value)
+    bpy.context.view_layer.update()
+    lo, hi = Vector((1e9,) * 3), Vector((-1e9,) * 3)
+    for o in sc.objects:
+        if o.type == 'MESH' and min(o.matrix_world.to_scale()) > 0.02:
+            for c in o.bound_box:
+                w = o.matrix_world @ Vector(c)
+                lo, hi = Vector(map(min, lo, w)), Vector(map(max, hi, w))
+    view = sc.get('czView') or [1, 0.6, 1]
+    d = Vector((view[0], -view[2], view[1])).normalized()
+    cam = bpy.data.objects.new('cam', bpy.data.cameras.new('cam'))
+    sc.collection.objects.link(cam)
+    sc.camera = cam
+    cam.location = (lo + hi) / 2 + d * (hi - lo).length * 1.05
+    cam.rotation_mode = 'QUATERNION'
+    cam.rotation_quaternion = (-d).to_track_quat('-Z', 'Y')
+    cam.data.clip_end = 1000
+    for x in seconds:
+        sc.frame_set(int(round(x * K.FPS)))
+        sc.render.filepath = os.path.join(folder, f'{name}_{x:.2f}.png')
+        bpy.ops.render.render(write_still=True)
+
 
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True)
@@ -617,3 +677,5 @@ if __name__ == '__main__':
         print(f'— {name}')
         LEVELS[name]()
         print(f'wrote blender/{name}.glb')
+        if opt('--shots'):
+            shots(name, [float(x) for x in opt('--shots').split(',')], opt('--shot-dir', OUT))

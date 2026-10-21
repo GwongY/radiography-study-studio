@@ -14,7 +14,7 @@ export const LECTURE_PARTS = {
   epithelium: ['cilia', 'microvilli', 'apical', 'basolateral', 'junctions', 'basement', 'golgi', 'nucleus', 'mito'],
   blood: ['rbc', 'wbc', 'platelets', 'plasma'],
   alveolus: ['type1', 'type2', 'surfactant', 'macrophage', 'capillary', 'endothelial'],
-  parietal: ['ca', 'hplus', 'hco3', 'cl', 'clchannels', 'lumen', 'isf', 'tide'],
+  parietal: ['ca', 'hplus', 'hco3', 'cl', 'clchannels', 'lumen', 'isf', 'tide', 'cell', 'blood', 'pump', 'counter', 'co2', 'h2o', 'h2co3'],
   sperm: ['head', 'acrosome', 'nucleus', 'neck', 'centrioles', 'middle', 'spiral', 'tail', 'sheath'],
   neuron: ['body', 'nucleus', 'nucleolus', 'nissl', 'neurofibrils', 'dendrites', 'hillock', 'axon', 'myelin', 'schwann', 'node', 'terminals'],
   nk: ['nkcell', 'abnormal', 'golgi', 'vesicles', 'perforin', 'pores'],

@@ -1,9 +1,10 @@
 /*
  * Build the Cell zoom's 3D models — offline, in three steps, and commit what the last one writes.
  *
- * NOT a build step. Nothing in the app runs this; what ships is outputs/cell/models/<level>.glb. Every level of the
- * Viewer's Cell mode is also drawn in code (outputs/cell/zoom-scene.js, lecture-cells.js): that drawing opens at once
- * and offline, and outputs/cell/models.js swaps the level's model in when its .glb arrives. A level's model is an
+ * NOT a build step. Nothing in the app runs this; what ships is outputs/cell/models/<level>.glb. The older levels of
+ * the Viewer's Cell mode are also drawn in code (outputs/cell/zoom-scene.js, lecture-cells.js): that drawing opens at
+ * once and offline, and outputs/cell/models.js swaps the level's model in when its .glb arrives. The newer ones
+ * (zoom-scene.js MODEL_ONLY) are their model alone, built from PARTS and LEVELS like the rest. A level's model is an
  * openly licensed download wherever one exists (Sketchfab, CC BY 4.0 — never NC) and Blender-modelled everything
  * else: the downloads are never redrawn, and nothing is drawn in code that ships as a model.
  *

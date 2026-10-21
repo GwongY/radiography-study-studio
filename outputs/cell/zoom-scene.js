@@ -22,7 +22,7 @@ import { MODELS, attachModel } from './models.js?v=1';
 /* Which labelled part each level builds; work/cell-zoom-check.mjs holds this to outputs/cell-zoom.js. */
 export const PARTS = {
   cell: ['membrane', 'cytoplasm', 'nucleus', 'envelope', 'pores', 'nucleolus', 'ribosomes', 'rer', 'ser', 'golgi', 'vesicles', 'mito', 'lyso', 'peroxisomes', 'centrosome', 'centrioles', 'microtubules'],
-  centrosome: ['centrosome', 'centrioles'],
+  centrosome: ['centrosome', 'centrioles', 'triplets', 'microtubules'],
   nucleus: ['envelope', 'pores', 'nucleoplasm', 'nucleolus', 'chromatin'],
   dna: ['nucleosome', 'chromatin', 'supercoiled', 'chromosome', 'sisters', 'centromere', 'kinetochore'],
   nucleosome: ['histones', 'dna', 'helix', 'bases', 'gene', 'nucleosome'],
@@ -30,7 +30,20 @@ export const PARTS = {
   meiosis: ['primary', 'secondary', 'spermatids', 'sisters', 'centrioles'],
   expression: ['gene', 'promoter', 'polymerase', 'mrna', 'envelope', 'pores', 'ribosome', 'rer', 'trna', 'chain', 'membrane', 'lipo', 'carrier', 'nreceptor', 'hre', 'hydro', 'gpcr', 'gprotein', 'ac', 'camp', 'kinase', 'creb'],
   ...LECTURE_PARTS,
+  /* the levels that are their model and nothing else (MODEL_ONLY) */
+  redcell: ['rbc', 'hemoglobin'],
+  hemoglobin: ['globin', 'heme', 'iron', 'o2', 'co2', 'hplus'],
+  plasma: ['water', 'ions', 'albumin', 'globulins', 'lipids', 'gamma', 'fibrinogen', 'plasma'],
+  pct: ['fluid', 'microvilli', 'apical', 'basolateral', 'junctions', 'basement', 'isf', 'capillary', 'cells', 'nucleus', 'mito', 'coupled', 'pump', 'carrier', 'kchannels', 'aquaporins', 'na', 'k', 'glucose', 'cl', 'h2o'],
+  pacemaker: ['membrane', 'ecf', 'cytoplasm', 'hcn', 'cachannels', 'kchannels', 'na', 'ca', 'k', 'potential', 'threshold'],
+  myocardial: ['membrane', 'ecf', 'cytoplasm', 'nachannels', 'cachannels', 'kchannels', 'na', 'ca', 'k', 'potential'],
 };
+
+/* Levels drawn by no code: the Blender model (cell/models.js) is the whole level, so until it loads the level is
+   empty and the viewer says "Loading the 3D model…". Newer levels are made this way (CLAUDE.md: no code-drawn 3D). */
+export const MODEL_ONLY = ['redcell', 'hemoglobin', 'plasma', 'pct', 'pacemaker', 'myocardial'];
+/* the extent a model-only level frames before its model arrives (the models are built to about this size) */
+const MODEL_ONLY_EXTENT = 11;
 
 const COL = {
   membrane: 0xe7a0b4, cyto: 0xbfe6f2, envelope: 0x8f7fd6, nucleoplasm: 0xc9b8f5, nucleolus: 0x4b2a7b, chromatin: 0x7b4fa3,
@@ -676,6 +689,7 @@ export function createCellZoom(THREE) {
   buildCell(K); buildCentrosome(K); buildNucleus(K); buildDna(K, stageFns); buildNucleosome(K);
   buildCycle(K, stageFns); buildMeiosis(K, stageFns); buildExpression(K, stageFns);
   buildLectureCells(K, stageFns, tickFns);
+  for (const lv of MODEL_ONLY) K.level(lv);
   for (const lv of Object.keys(stageFns)) stageFns[lv](0, 'none');
   let current = null;
   /* level -> 'loading' | 'ready'; the scene extras of a level wearing its model */
@@ -715,7 +729,10 @@ export function createCellZoom(THREE) {
     box(lv) {
       root.updateMatrixWorld(true);
       const e = extras[lv], g = K.levels[lv];
-      if (!e || !e.action) return new THREE.Box3().setFromObject(g);
+      if (!e || !e.action) {
+        const b = new THREE.Box3().setFromObject(g);
+        return b.isEmpty() ? new THREE.Box3().setFromCenterAndSize(new THREE.Vector3(), new THREE.Vector3(1, 1, 1).multiplyScalar(MODEL_ONLY_EXTENT * 2)).applyMatrix4(g.matrixWorld) : b;
+      }
       const b = new THREE.Box3(), was = e.action.time, d = e.action.getClip().duration;
       for (const k of [0, 0.25, 0.5, 0.75, 1]) { e.action.time = k * d; e.mixer.update(0); root.updateMatrixWorld(true); b.union(new THREE.Box3().setFromObject(g)); }
       e.action.time = was; e.mixer.update(0); root.updateMatrixWorld(true);
