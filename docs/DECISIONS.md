@@ -5,6 +5,19 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-21 — Resting membrane potential level; basolateral is a membrane; spindle fibres run pole to pole
+
+The owner asked for the K+/Na+ distribution, the negative inside and the pump in the Cell tab. A new model-only
+level, **Membrane Potential (MP)**, is a side level of The Plasma Membrane. It draws ABCT2326 Nervous system pp 23-29:
+Na+ crowded outside and K+ inside, passive K+ channels outnumbering the passive Na+ one, negatively charged proteins
+that cannot leave, the inner surface negative to the outer (-70 mV), and the Na+/K+ pump moving 3 Na+ out for 2 K+ in.
+The slide names the pump "Na,K–ATPase" only inside the figure on p29, which no cite can be checked against, so the
+app says "Na+/K+ pump" and leaves ATP out. In the kidney tubule cell the basolateral membrane had been the whole cell
+body. It is now only the lateral faces and the basal face, as a band, like the apical surface. In the life cycle the
+six free-ended spindle fibres per pole are gone. In their place, four fibres run from pole to pole, "Microtubules
+(spindle fibers) extend between centriole pairs" (L1 old p37). They lengthen as the poles part in anaphase and go in
+telophase.
+
 ### 2026-10-21 — The heart atlas shows the pericardium; anaphase stretches the cell
 
 The owner asked for the pericardium, epicardium, serous membrane and pericardial cavity in the heart atlas. A

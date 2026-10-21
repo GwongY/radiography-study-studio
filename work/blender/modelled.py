@@ -870,9 +870,11 @@ def cycle():
     P0 = V(0, 4.6, 1.5)
     P1 = P0 + V(0, -0.35, 0.8)
     P1_APART = P0 + V(1.9, -0.4, 1.2)
-    spindle = spindle_rods(36)
+    spindle = spindle_rods(32)
     astral = [V(0, math.cos(i / 8 * 2 * math.pi), math.sin(i / 8 * 2 * math.pi) * 0.6) for i in range(8)]
-    polar = [V(0, (i - 2.5) * 0.7, ((i % 2) - 0.5) * 0.8) for i in range(6)]
+    # the fibres that "extend between centriole pairs" (L1 old p37): each pole's half meets the other's at the
+    # equator, in front of and behind the plate, so each reads as one fibre from pole to pole; no free ends
+    polar = [V(0, sy * 2.4, sz * 1.7) for sy in (-1, 1) for sz in (-1, 1)]
     an = anchors(('envelope', 'chromatin', 'centrioles', 'spindle'))
     K.anchor('membrane', (0, 7.6, 2.2))
     K.anchor('daughters', (6.6, 6.0, 1.2))
@@ -963,9 +965,9 @@ def cycle():
         tr.pose(cs[1], frame, c1, Q_TURN)
         for n in new:
             tr.pose(n, frame, V(0.3, -0.3, 0), Q_NEW, (1, dup, 1) if dup > 0.05 else HIDE)
-        # the spindle: astral and polar microtubules from the poles in prophase; kinetochore ones reach each sister's
-        # kinetochore at the end of prophase, shorten as anaphase pulls the sisters to the poles, and all go in
-        # telophase
+        # the spindle: astral microtubules and the pole-to-pole fibres from the poles in prophase; kinetochore ones
+        # reach each sister's kinetochore at the end of prophase, shorten as anaphase pulls the sisters to the poles;
+        # the pole-to-pole fibres lengthen as the poles part; all go in telophase
         sp = 0 if k < 3 else span(f, 0.25, 0.8) if k == 3 else 1 if k < 6 else 1 - span(f, 0, 0.7) if k == 6 else 0
         sk = 0 if k < 3 else span(f, 0.7, 1) if k == 3 else 1 if k < 6 else 1 - span(f, 0, 0.7) if k == 6 else 0
         r = 0
@@ -976,8 +978,7 @@ def cycle():
                 fibre(tr, spindle[r], frame, p, end, sp, 0.035, True)
                 r += 1
             for q in polar:
-                end = V(toward * 0.9 * (1 + 0.6 * ana if k >= 5 else 1), q.y, q.z)
-                fibre(tr, spindle[r], frame, p, end, sp, 0.035, True)
+                fibre(tr, spindle[r], frame, p, q, sp, 0.035, True)
                 r += 1
             for sgn, kp in [kk for kk in kins if kk[0] == (1 if pi else -1)]:
                 fibre(tr, spindle[r], frame, p, kp, sk, 0.035, cond > 0.15)
@@ -2288,22 +2289,33 @@ def pct():
     CW, CH, CD = 7.0, 5.0, 6.0                           # the cell in the middle: x across, y apical up, z deep
     TOP, BOT = CH / 2, -CH / 2
     GAP = 0.36                                           # between cells: the lateral intercellular space
-    # the middle cell's membrane: apical (the top) and basolateral (the rest)
+    # the middle cell's membrane, as the slide's figure cuts it: apical (the top, facing the lumen) and basolateral
+    # (the two lateral faces, against the neighbours, and the basal face, on the basement membrane); the front and
+    # back are only where the drawing cuts the cell, so they belong to the cell, not to either membrane
     shell = K.rounded_box((CW, CH, CD), (0, 0, 0), None, 'cell', radius=0.5)
     bm = bmesh.new()
     bm.from_mesh(shell.data)
-    up = [f for f in bm.faces if f.normal.z > 0.7]
-    rest = [f for f in bm.faces if f.normal.z <= 0.7]
-    ap, bl = bm.copy(), bm.copy()
-    bmesh.ops.delete(ap, geom=[f for f in ap.faces if f.normal.z <= 0.7], context='FACES')
-    bmesh.ops.delete(bl, geom=[f for f in bl.faces if f.normal.z > 0.7], context='FACES')
+    side = lambda f: max(range(3), key=lambda i: abs(f.normal[i]))   # Blender axes: 0 across, 1 front-back, 2 up
+    which = lambda f: 'ap' if side(f) == 2 and f.normal.z > 0 else 'cut' if side(f) == 1 else 'bl'
+    pieces = {}
+    for key in ('ap', 'bl', 'cut'):
+        b = bm.copy()
+        bmesh.ops.delete(b, geom=[f for f in b.faces if which(f) != key], context='FACES')
+        pieces[key] = b
     bm.free()
     bpy.data.objects.remove(shell)
-    K.part(K.smooth(K.mesh_obj('apical', ap, K.mat('apical', 0x52b788, 0.5, alpha=0.45))), 'apical')
-    K.part(K.smooth(K.mesh_obj('basolateral', bl, K.mat('basolateral', 0xffc971, 0.5, alpha=0.18))), 'basolateral', shell=True)
-    # the neighbouring cells, cut off at the sides
+    def sheet(name, b, m):
+        """a membrane: the faces given a thickness, inward, so it reads as a band where it is seen edge-on"""
+        o = K.mesh_obj(name, b, m)
+        sol = o.modifiers.new('sheet', 'SOLIDIFY')
+        sol.thickness, sol.offset = 0.14, -1.0
+        return K.smooth(K.apply(o))
+    K.part(sheet('apical', pieces['ap'], K.mat('apical', 0x52b788, 0.5, alpha=0.7)), 'apical')
+    K.part(sheet('basolateral', pieces['bl'], K.mat('basolateral', 0xf4a261, 0.5, alpha=0.7)), 'basolateral')
+    # the neighbouring cells, cut off at the sides; the middle cell's own cut faces are cell too
     nw = 5.0
     cm = K.mat('cells', 0xcdb4db, 0.6, alpha=0.2)
+    K.part(K.smooth(K.mesh_obj('cells', pieces['cut'], cm)), 'cells', shell=True)
     for sx in (-1, 1):
         K.part(K.rounded_box((nw, CH, CD), (sx * (CW / 2 + GAP + nw / 2), 0, 0), cm, 'cells', radius=0.5), 'cells', shell=True)
     # cell junctions: a seal round the top of each gap
@@ -2472,7 +2484,7 @@ def pct():
     K.anchor('fluid', (W / 2 - 2.2, TOP + 3.9, CD / 2))
     K.anchor('microvilli', (CW / 2 + GAP + 1.4, TOP + 1.5, CD / 2 - 0.3))
     K.anchor('apical', (-1.0, TOP + 0.15, CD / 2 + 0.1))
-    K.anchor('basolateral', (-CW / 2 + 0.6, BOT + 0.2, CD / 2 + 0.1))
+    K.anchor('basolateral', (-CW / 2 - 0.02, BOT + 1.0, CD / 2 - 0.7))
     K.anchor('cells', (-(CW / 2 + GAP + nw / 2), 0.6, CD / 2))
     K.anchor('junctions', (CW / 2 + GAP / 2, TOP - 0.2, CD / 2 - 0.2))
     K.anchor('basement', (W / 2 - 2.5, BOT - 0.3, CD / 2 + 0.3))
@@ -2593,20 +2605,24 @@ def ap_graph(curve, t_end, v_lo, v_hi, ticks):
     return at, marker, (px, py, Z)
 
 
+def through_point(ch_at, inward, u0, u1, f, j, n, spread=0.0):
+    """where the j-th of n ions passing through a channel at ch_at is, as ions_through() moves it"""
+    src_y, dst_y = (4.2, -4.0) if inward else (-4.0, 4.2)
+    a = u0 + (u1 - u0) * j / max(1, n) * 0.85
+    b = a + (u1 - u0) * 0.4
+    k = span(f, a, b) if f < 1.5 else 1.0
+    off = V(0.5 * math.cos(j * 2.1 + spread), 0, 0.5 * math.sin(j * 2.1 + spread))
+    start = ch_at + V(0, src_y, 0) + off * 1.6 + V(0, 0.4 * j, 0) * (1 if inward else -1)
+    end = ch_at + V(0, dst_y, 0) + off * 2.2 - V(0, 0.4 * j, 0) * (1 if inward else -1)
+    path = [start, ch_at + V(0, src_y * 0.6, 0) + off * 0.2, ch_at, ch_at + V(0, dst_y * 0.6, 0) + off * 0.2, end]
+    return along(path, k)
+
+
 def ions_through(tr, frame, ions, ch_at, inward, u0, u1, f, spread=0.0, rest_in=None, rest_out=None):
     """ions passing one at a time through a channel at ch_at while f runs from u0 to u1: from the side they are
     concentrated on to the other; before, they wait near the pore, after, they drift off"""
-    n = len(ions)
-    src_y, dst_y = (4.2, -4.0) if inward else (-4.0, 4.2)
     for j, o in enumerate(ions):
-        a = u0 + (u1 - u0) * j / max(1, n) * 0.85
-        b = a + (u1 - u0) * 0.4
-        k = span(f, a, b) if f < 1.5 else 1.0
-        off = V(0.5 * math.cos(j * 2.1 + spread), 0, 0.5 * math.sin(j * 2.1 + spread))
-        start = ch_at + V(0, src_y, 0) + off * 1.6 + V(0, 0.4 * j, 0) * (1 if inward else -1)
-        end = ch_at + V(0, dst_y, 0) + off * 2.2 - V(0, 0.4 * j, 0) * (1 if inward else -1)
-        path = [start, ch_at + V(0, src_y * 0.6, 0) + off * 0.2, ch_at, ch_at + V(0, dst_y * 0.6, 0) + off * 0.2, end]
-        tr.pose(o, frame, along(path, k))
+        tr.pose(o, frame, through_point(ch_at, inward, u0, u1, f, j, len(ions), spread))
 
 
 
@@ -2810,3 +2826,109 @@ def myocardial():
     K.anchor('potential', (2.0, py(30) + 0.4, Z))
     VIEW['myocardial'] = [0.2, 0.35, 1]
     export('myocardial', ['membrane'])
+
+
+def rmp():
+    """The resting membrane potential (L8 pp 23-31): the membrane patch of the heart levels, with the extracellular
+    fluid above (Na+ crowded there) and the cytosol below (K+ crowded there, with negatively charged proteins too large
+    to leave). In it: passive K+ channels (four, as the membrane has many more of them), one passive Na+ channel and
+    two Na+/K+ pumps. Slider: (1) "Concentration Gradient": Na+ diffuses in through its channel, K+ out through its
+    channels; (2) "The membrane is more permeable to K+ at rest": more K+ leaves while the proteins stay, so the inner
+    surface is left negative to the outer (the - and + rows, and the -70 mV of p23); (3) the Na+/K+ pump: 3 Na+ out
+    and 2 K+ in through each pump, "a net transfer of positive ions outside the cell". Ions drawn far larger, and far
+    fewer, than they are."""
+    K.reset()
+    tr = Track()
+    KP, NP, PU = [SPOTS['C'], SPOTS['A'], SPOTS['D'], SPOTS['E']], [SPOTS['G']], [SPOTS['B'], SPOTS['F']]
+    COLS = KP + NP + PU
+    lip = bilayer_with_holes(COLS, 1.4)
+    K.part(K.join(lip, 'membrane'), 'membrane')
+    K.part(K.rounded_box((16.0, 3.4, 10.0), (0, 4.5, 0.3), K.mat('ecf', 0xcaf0f8, 0.8, alpha=0.08), 'ecf', radius=0.5), 'ecf', shell=True)
+    K.part(K.rounded_box((16.0, 3.4, 10.0), (0, -4.3, 0.3), K.mat('cytoplasm', 0xffe5ec, 0.8, alpha=0.08), 'cytoplasm', radius=0.5), 'cytoplasm', shell=True)
+    km, nm = K.mat('kpassive', 0x5a189a, 0.45), K.mat('napassive', 0x0353a4, 0.45)
+    kch = [channel(V(x, 0.1, z), km, 'kpassive') for x, z in KP]
+    nch = [channel(V(x, 0.1, z), nm, 'napassive') for x, z in NP]
+    for part, chs in (('kpassive', kch), ('napassive', nch)):
+        for _, subs in chs:
+            for o in subs:
+                K.part(o, part)
+    # the pumps: seven helices round a pore, the head behind it, in the cytosol, so the ions in front can be seen
+    pm = K.mat('pump', 0xffd60a, 0.45)
+    K.part(K.join([membrane_protein(V(x, 0.1, z), pm, 7, 0.78, 0.36, 'pump', half=2.7, head=V(x, -3.0, z - 1.3), head_r=0.85)
+                   for x, z in PU], 'pump'), 'pump')
+    # the negatively charged proteins: large, in the cytosol, each with its minus sign
+    prm, sgm = K.mat('proteins', 0x8d99ae, 0.55), K.mat('minus', 0x4cc9f0, 0.4, emit=0x4cc9f0)
+    prot = []
+    for x, z in ((-4.6, 1.2), (-1.4, -1.0), (1.5, 1.6), (4.9, 0.0), (6.8, -2.8)):
+        blob = K.ico(0.75, (0, 0, 0), prm, level=3, name='protein')
+        dash = K.box((0.55, 0.13, 0.13), (0, 0, 0.78), sgm, 'minus')
+        prot.append((K.part(bake(K.join([blob, dash], 'proteins')), 'proteins'), V(x, -4.7, z)))
+    # the charge on the two faces: + along the outside, - along the inside, at the front of the patch
+    chm, cmm = K.mat('charge-plus', 0xe63946, 0.4), K.mat('charge', 0x4cc9f0, 0.4, emit=0x4cc9f0)
+    signs = []
+    for x in [-7.0 + 1.4 * i for i in range(11)]:
+        plus = K.join([K.box((0.7, 0.17, 0.17), (0, 0, 0), chm, 'plus'), K.box((0.17, 0.7, 0.17), (0, 0, 0), chm, 'plus')], 'charge')
+        signs.append((K.part(bake(plus), 'charge'), V(x + 0.7, 3.1, 5.3)))           # baked: posed at scale 1
+        signs.append((K.part(bake(K.box((0.7, 0.17, 0.17), (0, 0, 0), cmm, 'minus')), 'charge'), V(x, -2.9, 5.3)))
+    # the potential, written large behind
+    K.part(text_mesh('-70 mV', (0, 7.6, -3.0), 1.3, K.mat('potential', 0xffd166, 0.4), 'potential', align='CENTER'), 'potential')
+    nam, kim = K.mat('na', 0x3a86ff, 0.35), K.mat('k', 0xc77dff, 0.35)
+    ball = lambda r, m, name: K.part(K.sphere(r, (0, 0, 0), m, seg=(12, 8), name=name), name)
+    k_leak = [[ball(0.26, kim, 'k') for _ in range(2)] for _ in kch]          # out, one in stage 1 and one in stage 2
+    na_leak = [[ball(0.2, nam, 'na') for _ in range(2)] for _ in nch]         # in, stage 1
+    na_pump = [[ball(0.2, nam, 'na') for _ in range(3)] for _ in PU]          # 3 out per pump, stage 3
+    k_pump = [[ball(0.26, kim, 'k') for _ in range(2)] for _ in PU]           # 2 in per pump, stage 3
+    # the gradients: many Na+ outside and few in, many K+ inside and few out
+    rnd = random.Random(5)
+    rest = []
+    for m, name, n, y0 in ((nam, 'na', 16, 4.6), (kim, 'k', 3, 4.6), (kim, 'k', 14, -4.4), (nam, 'na', 3, -4.4)):
+        got = 0
+        while got < n:
+            c = V((rnd.random() - 0.5) * 13, y0 + (rnd.random() - 0.5) * 2.0, (rnd.random() - 0.5) * 7.5 + 0.3)
+            if any((c.x - x) ** 2 + (c.z - z) ** 2 < 2.6 for x, z in COLS) or any((c - p).length < 1.3 for _, p in prot):
+                continue
+            rest.append((ball(0.2 if name == 'na' else 0.26, m, name), c))
+            got += 1
+    an = anchors(('na', 'k'))
+    PU3 = [V(x, 0.1, z) for x, z in PU]
+
+    def place(s, frame):
+        p = stage_prog(s, 3)
+        grad, perm, pump = p(0), p(1), p(2)
+        for ch in kch + nch:
+            open_close(tr, ch, frame, 1.0)                  # passive: not gated, always open
+        for i, ch in enumerate(kch):
+            ions_through(tr, frame, k_leak[i][:1], ch[0], False, 0.2 + 0.1 * i, 0.7 + 0.05 * i, grad if s < 1 else 2, spread=2.0)
+            ions_through(tr, frame, k_leak[i][1:], ch[0], False, 0.1 + 0.12 * i, 0.6 + 0.08 * i, perm if 1 <= s < 2 else (2 if s >= 2 else 0), spread=3.0)
+        for i, ch in enumerate(nch):
+            ions_through(tr, frame, na_leak[i], ch[0], True, 0.3, 0.9, grad if s < 1 else 2)
+        for i, P in enumerate(PU3):
+            ions_through(tr, frame, na_pump[i], P, False, 0.05, 0.55, pump if s >= 2 else 0, spread=0.5 + i)
+            ions_through(tr, frame, k_pump[i], P, True, 0.45, 0.95, pump if s >= 2 else 0, spread=1.5 + i)
+        for j, (o, c) in enumerate(rest):
+            tr.pose(o, frame, c + V(math.sin(s * 5.1 + j * 2.3), math.sin(s * 4.3 + j * 1.1), math.sin(s * 4.7 + j * 3.7)) * 0.12)
+        for j, (o, c) in enumerate(prot):
+            tr.pose(o, frame, c + V(math.sin(s * 2.1 + j * 1.3), 0.4 * math.sin(s * 1.7 + j * 2.1), math.sin(s * 1.9 + j * 0.7)) * 0.15)
+        # the charge rows come as the K+ leaves the proteins behind, left to right
+        grow = span(perm, 0.2, 0.9) if s < 2 else 1.0
+        for j, (o, c) in enumerate(signs):
+            u = (j // 2) / 11
+            tr.pose(o, frame, c, None, max(HIDE, span(grow, 0.6 * u, 0.4 + 0.6 * u)) if s >= 1 else HIDE)
+        # the labels ride a moving ion: the Na+ coming in, then the first one pumped out; the first K+ out, then in
+        na_at = through_point(nch[0][0], True, 0.3, 0.9, grad if s < 1 else 2, 0, 2) if s < 2 else through_point(PU3[0], False, 0.05, 0.55, pump, 0, 3, 0.5)
+        k_at = through_point(kch[0][0], False, 0.2, 0.7, grad if s < 1 else 2, 0, 1, 2.0) if s < 2 else through_point(PU3[0], True, 0.45, 0.95, pump, 0, 2, 1.5)
+        tr.pose(an['na'], frame, na_at + V(0.3, 0.4, 0.3))
+        tr.pose(an['k'], frame, k_at + V(0.35, 0.45, 0.3))
+    sample(place, 3, step=2)
+    tr.write()
+    K.anchor('membrane', (-6.6, 2.0, 4.6))
+    K.anchor('ecf', (6.0, 6.0, 4.8))
+    K.anchor('cytoplasm', (6.0, -5.8, 4.8))
+    K.anchor('kpassive', (KP[0][0], 3.6, KP[0][1] + 0.5))
+    K.anchor('napassive', (NP[0][0], 3.6, NP[0][1] + 0.5))
+    K.anchor('pump', (PU[0][0], 3.4, PU[0][1] + 0.6))
+    K.anchor('proteins', tuple(prot[0][1] + V(0, 0.9, 0.3)))
+    K.anchor('charge', (-5.6, -2.9, 5.4))
+    K.anchor('potential', (0, 8.6, -3.0))
+    VIEW['rmp'] = [0.2, 0.35, 1]
+    export('rmp', ['membrane'])

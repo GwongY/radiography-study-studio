@@ -37,11 +37,12 @@ export const PARTS = {
   pct: ['fluid', 'microvilli', 'apical', 'basolateral', 'junctions', 'basement', 'isf', 'capillary', 'cells', 'nucleus', 'mito', 'coupled', 'pump', 'carrier', 'kchannels', 'aquaporins', 'na', 'k', 'glucose', 'cl', 'h2o'],
   pacemaker: ['membrane', 'ecf', 'cytoplasm', 'hcn', 'cachannels', 'kchannels', 'na', 'ca', 'k', 'potential', 'threshold'],
   myocardial: ['membrane', 'ecf', 'cytoplasm', 'nachannels', 'cachannels', 'kchannels', 'na', 'ca', 'k', 'potential'],
+  rmp: ['membrane', 'ecf', 'cytoplasm', 'kpassive', 'napassive', 'pump', 'proteins', 'charge', 'potential', 'na', 'k'],
 };
 
 /* Levels drawn by no code: the Blender model (cell/models.js) is the whole level, so until it loads the level is
    empty and the viewer says "Loading the 3D model…". Newer levels are made this way (CLAUDE.md: no code-drawn 3D). */
-export const MODEL_ONLY = ['redcell', 'hemoglobin', 'plasma', 'pct', 'pacemaker', 'myocardial'];
+export const MODEL_ONLY = ['redcell', 'hemoglobin', 'plasma', 'pct', 'pacemaker', 'myocardial', 'rmp'];
 /* the extent a model-only level frames before its model arrives (the models are built to about this size) */
 const MODEL_ONLY_EXTENT = 11;
 

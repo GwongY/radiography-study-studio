@@ -55,6 +55,7 @@ export const MODELS = {
   pct: { file: './cell/models/pct.glb', sources: ['rbc'] },
   pacemaker: { file: './cell/models/pacemaker.glb', sources: ['membrane'] },
   myocardial: { file: './cell/models/myocardial.glb', sources: ['membrane'] },
+  rmp: { file: './cell/models/rmp.glb', sources: ['membrane'] },
 };
 
 /* the credit line for a level's model */

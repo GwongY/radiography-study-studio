@@ -631,7 +631,7 @@ M.JSON = lambda name: json.load(open(os.path.join(PREP, f'{name}.json')))
 LEVELS = {'cell': cell, 'centrosome': M.centrosome, 'blood': blood, 'alveolus': alveolus, 'neuron': neuron, 'sperm': sperm, 'membrane': membrane,
           'epithelium': epithelium, 'nucleus': M.nucleus, 'dna': M.dna, 'nucleosome': M.nucleosome, 'cycle': M.cycle, 'meiosis': M.meiosis, 'nk': M.nk, 'apc': M.apc, 'parietal': M.parietal, 'expression': M.expression,
           'redcell': M.rbc_level, 'hemoglobin': M.hemoglobin, 'plasma': M.plasma, 'pct': M.pct,
-          'pacemaker': M.pacemaker, 'myocardial': M.myocardial}
+          'pacemaker': M.pacemaker, 'myocardial': M.myocardial, 'rmp': M.rmp}
 
 def shots(name, seconds, folder):
     """check a level by eye: render the scene just built at the given slider values (workbench, from the level's
