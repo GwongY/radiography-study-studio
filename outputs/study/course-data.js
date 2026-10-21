@@ -134,6 +134,7 @@ export const SOURCE_FILES = {
   'phys.ebook': { file: 'Fundamentals of Anatomy and Physiology_eBook.pdf', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology', kind: 'primary', note: 'Martini, Nath & Bartholomew (2015), 10th ed. — the core textbook named on the lecture-note title slides.' },
   'phys.qbank': { file: 'Fundamentals of Anatomy and Physiology_Question Bank.pdf', subject: 'ABCT2326', root: 'y1s1', folder: '(subject root)', kind: 'assessment' },
   'phys.1': { file: 'Lecture notes.pptx', subject: 'ABCT2326', root: 'y1s1', folder: 'ABCT2326 Human Physiology/1. Cells and Body Organization', kind: 'primary' },
+  'phys.cells.old': { file: 'cell_physiology_and_body_organization.pdf', subject: 'ABCT2326', root: 'hwater', folder: 'Sem 1/Human Physiology/Lecture notes', kind: 'primary', note: 'An older PolyU edition of Lecture 1, The Cellular Level of Organization (Martini Ch 3), 93 pages. Names the parts of interphase (p33: G0, G1, S and G2 phases), which the 2026 edition does not. Copy read from E:\\UNI sources (ABCT2326 Human Physiology/Notes/Year unspecified).' },
   /*
    * The 2026 edition of the same lecture, dropped into New source. It is the
    * Martini Chapter 3 lecture presentation at full length — 62 pages — where

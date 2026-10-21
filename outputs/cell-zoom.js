@@ -26,6 +26,7 @@ const L8 = 'phys.l8.2026';    /* ABCT2326 Lecture 8 Nervous System, 2026 */
 const L10 = 'phys.10.2026';   /* ABCT2326 Lecture 10 Immune System, 2026 */
 const N5 = 'hss.l5.2026';     /* HSS2011 W5 Nervous system I, 2026 */
 const HM = 'phys.hormech';    /* ABCT2326 Hormone Mechanism handout (older): a fallback, see FALLBACK below */
+const OC = 'phys.cells.old';  /* ABCT2326 Lecture 1, an older edition: a fallback, see FALLBACK below */
 
 /* Short names for the cite line; the registry (study/course-data.js) has the files. */
 export const CELL_SOURCES = {
@@ -35,6 +36,7 @@ export const CELL_SOURCES = {
   [TA]: 'ABCT2326 Tutorial answers',
   [L7]: 'ABCT2326 Endocrine',
   [HM]: 'ABCT2326 Hormone Mechanism handout',
+  [OC]: 'ABCT2326 Cells (older edition)',
   [L2]: 'ABCT2326 Cardiovascular',
   [L3]: 'ABCT2326 Respiratory',
   [L4]: 'ABCT2326 Digestive',
@@ -50,6 +52,7 @@ export const CELL_SOURCES = {
  */
 export const FALLBACK = {
   [HM]: 'The 2026 Endocrine slides do not say how cAMP reaches the gene (CREB) or what DNA a nuclear hormone receptor binds (hormone response element); this ABCT2326 handout does.',
+  [OC]: 'The 2026 Lecture 1 names interphase but not its phases (its mitosis figure, p25, is headed only "INTERPHASE (G2)"); the older edition of the same lecture names G1, S and G2 and says what happens in each (p33).',
 };
 
 /*
@@ -142,7 +145,7 @@ export const LABELS = {
     { id: 'sisters', ...SISTERS },
     { id: 'centromere', l: 'Centromere', cite: [{ ref: L1, page: 14, match: 'Centromere' }] },
     { id: 'kinetochore', l: 'Kinetochore', cite: [{ ref: L1, page: 14, match: 'Kinetochore' }] },
-    { id: 'centrioles', ...CENTRIOLES },
+    { id: 'centrioles', ...CENTRIOLES, note: 'each centriole is composed of 9 microtubule triplets in a 9 + 0 array', cite: [...CENTRIOLES.cite, { ref: L1, page: 5, match: 'each centriole is composed of 9 microtubule triplets in a 9 + 0 array' }] },
     { id: 'spindle', l: 'Mitotic spindle', cite: [{ ref: CT, page: 3, match: 'form the mitotic spindle' }, { ref: TA, page: 6, match: 'form the mitotic spindle' }], revise: [['ABCT2326', 'p1_centrioles']] },
     { id: 'daughters', l: 'Daughter cells', note: 'Cytokinesis divides cytoplasm and organelles into two daughter cells', cite: [{ ref: L1, page: 24, match: 'Cytokinesis divides cytoplasm and organelles into two daughter cells' }], revise: [['ABCT2326', 'p1_cytokinesis']] },
   ],
@@ -269,7 +272,7 @@ export const LABELS = {
     { id: 'secondary', l: 'Secondary spermatocytes', note: 'Secondary spermatocytes finish meiosis I', cite: [{ ref: L6, page: 5, match: 'Secondary spermatocytes finish meiosis I' }], revise: [['ABCT2326', 'p7_secondary_spermatocytes']] },
     { id: 'spermatids', l: 'Spermatids', note: 'Differentiate into spermatozoa', cite: [{ ref: L6, page: 5, match: 'Spermatids • Finish meiosis II • Differentiate into spermatozoa' }], revise: [['ABCT2326', 'p7_spermatids'], ['ABCT2326', 'p1_gametes']] },
     { id: 'sisters', ...SISTERS },
-    { id: 'centrioles', ...CENTRIOLES, cite: [...CENTRIOLES.cite, { ref: L6, page: 8, match: 'Centrioles' }] },
+    { id: 'centrioles', ...CENTRIOLES, note: 'each centriole is composed of 9 microtubule triplets in a 9 + 0 array', cite: [...CENTRIOLES.cite, { ref: L1, page: 5, match: 'each centriole is composed of 9 microtubule triplets in a 9 + 0 array' }, { ref: L6, page: 8, match: 'Centrioles' }] },
   ],
 };
 
@@ -285,8 +288,9 @@ export const SLIDERS = {
   },
   mitosis: {
     stages: [
-      { id: 'interphase', l: 'Interphase', note: 'Most of a cell’s life is spent in a nondividing state (interphase)', cite: [{ ref: L1, page: 24, match: 'nondividing state (interphase)' }], revise: [['ABCT2326', 'p1_interphase']] },
-      { id: 'replication', l: 'DNA replication', note: 'DNA replication duplicates genetic material exactly', cite: [{ ref: L1, page: 24, match: 'DNA replication duplicates genetic material exactly' }, { ref: CT, page: 3, match: 'When is DNA replicated? A) interphase' }], revise: [['ABCT2326', 'p1_dna_replication']] },
+      { id: 'g1', l: 'G1 phase', group: 'interphase', note: 'cell growth, organelle duplication, protein synthesis', cite: [{ ref: OC, page: 33, match: 'G1 phase -- cell growth, organelle duplication, protein synthesis' }], revise: [['ABCT2326', 'p1_interphase']] },
+      { id: 'replication', l: 'S phase', group: 'interphase', note: 'DNA replication and histone synthesis', cite: [{ ref: OC, page: 33, match: 'S phase -- DNA replication and histone synthesis' }, { ref: L1, page: 24, match: 'DNA replication duplicates genetic material exactly' }, { ref: CT, page: 3, match: 'When is DNA replicated? A) interphase' }], revise: [['ABCT2326', 'p1_dna_replication']] },
+      { id: 'g2', l: 'G2 phase', group: 'interphase', note: 'finishes protein synthesis and centriole replication', cite: [{ ref: OC, page: 33, match: 'G2 phase -- finishes protein synthesis and centriole replication' }, { ref: L1, page: 25, match: '(G2)' }], revise: [['ABCT2326', 'p1_interphase'], ['ABCT2326', 'p1_centrioles']] },
       { id: 'prophase', l: 'Prophase', group: 'mitosis', cite: [{ ref: CT, page: 3, match: 'B) prophase' }], revise: [['ABCT2326', 'p1_mitosis']] },
       { id: 'metaphase', l: 'Metaphase', group: 'mitosis', cite: [{ ref: CT, page: 3, match: 'C) metaphase' }, { ref: TA, page: 7, match: 'C) metaphase' }], revise: [['ABCT2326', 'p1_mitosis']] },
       { id: 'anaphase', l: 'Anaphase', group: 'mitosis', cite: [{ ref: TA, page: 7, match: 'B) anaphase' }], revise: [['ABCT2326', 'p1_mitosis']] },
@@ -294,6 +298,7 @@ export const SLIDERS = {
       { id: 'cytokinesis', l: 'Cytokinesis', note: 'Cytokinesis divides cytoplasm and organelles into two daughter cells', cite: [{ ref: L1, page: 24, match: 'Cytokinesis divides cytoplasm and organelles into two daughter cells' }], revise: [['ABCT2326', 'p1_cytokinesis']] },
     ],
     groups: {
+      interphase: { l: 'Interphase', note: 'Most of a cell’s life is spent in a nondividing state (interphase)', cite: [{ ref: L1, page: 24, match: 'nondividing state (interphase)' }], revise: [['ABCT2326', 'p1_interphase']] },
       mitosis: { l: 'Mitosis', note: 'Mitosis divides genetic material equally', cite: [{ ref: L1, page: 24, match: 'Mitosis divides genetic material equally' }], revise: [['ABCT2326', 'p1_mitosis']] },
     },
   },
@@ -416,7 +421,7 @@ export const SHOW_IN_3D = {
     p8_atp_to_camp: { level: 'expression', signal: 'hydrophilic', stage: 'hydro_camp', label: 'camp' },
     p8_camp: { level: 'expression', signal: 'hydrophilic', stage: 'hydro_camp', label: 'camp' },
     p8_pka_activation: { level: 'expression', signal: 'hydrophilic', stage: 'hydro_creb', label: 'kinase' },
-    p_cycle: { level: 'cycle', stage: 'interphase' },
+    p_cycle: { level: 'cycle', stage: 'g1' },
     p1_peroxisomes: { level: 'cell', label: 'peroxisomes' },
     p1_ecf: { level: 'membrane', label: 'ecf' },
     p1_phospholipid_bilayer: { level: 'membrane', label: 'bilayer' },
@@ -469,7 +474,7 @@ export const SHOW_IN_3D = {
     p12_perforins: { level: 'nk', stage: 'lysis', label: 'perforin' },
     p12_apcs: { level: 'apc', stage: 'engulf' },
     p12_mhc_ii: { level: 'apc', stage: 'display', label: 'mhc' },
-    p1_interphase: { level: 'cycle', stage: 'interphase' },
+    p1_interphase: { level: 'cycle', stage: 'g1' },
     p1_dna_replication: { level: 'cycle', stage: 'replication' },
     p1_mitosis: { level: 'cycle', stage: 'metaphase' },
     p1_cytokinesis: { level: 'cycle', stage: 'cytokinesis' },

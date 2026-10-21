@@ -437,7 +437,9 @@ function buildCycle(K, stageFns) {
   anchor(lv, 'kinetochore', () => (st.kin[1] ? st.kin[1].p.clone().add(V(0.15, 0, 0)) : V()));
   anchor(lv, 'centrioles', () => st.cenPos[0].clone().add(V(0, 0.4, 0)));
   anchor(lv, 'spindle', () => st.cenPos[1].clone().lerp(V(0, 0.6, 0), 0.45));
-  stageFns[lv] = (s) => place(s);
+  /* The drawing has one interphase step before DNA replication; the slider has G1, S and G2. G2 holds the end of S,
+     and mitosis on is one step later. The model (cell/models/cycle.glb) shows the three phases themselves. */
+  stageFns[lv] = (s) => place(s < 2 ? s : s < 3 ? 1.999 : s - 1);
 }
 
 /* ---------------------------------------------------------------- meiosis ---- */

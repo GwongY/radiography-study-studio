@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1075 —
-  531786ae368e3b5f  WHOLE SET
+— user-facing strings in outputs/ — 1077 —
+  e4ef07c449ece296  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -230,6 +230,7 @@
   92508480855a651c  Acromial part of deltoid muscle
   8968425df01d3da6  All regions
   e0122ea6ce287313  An Introduction to Tissues
+  448ab413304e09e6  An older PolyU edition of Lecture 1, The Cellular Level of Organization (Martini Ch 3), 93 pages. Names the parts of interphase (p33: G0, G1, S and G2 phases), which the 2026 edition does not. Copy read from <path> sources (ABCT2326 Human Physiology/Notes/Year unspecified).
   80bb9a8df0eb4726  Anat L1 Overview of Human Anatomy _ Body Movements.pdf
   e35519f2e580a097  Anat L9 The special senses.pdf
   cc330ab0b596ae50  Anatomical orientation and terminologies.docx
@@ -613,6 +614,7 @@
   c1079fd80cf63a76  Sem 1 (Year 1)/Human Anatomy/Lecture ppt_1920/Module 1
   f11329a3fa816f92  Sem 1 (Year 1)/Human Anatomy/Lectures ppt_1516
   e4e4ead186190113  Sem 1 (Year 1)/Human Physiology/Lecture
+  11c4147e9a9f7df8  Sem 1/Human Physiology/Lecture notes
   685257d015270bf3  Sem 1我哋又重新上路🌟/Human Physiology/Tutorial_1516
   50362bba1f6398aa  Sem 1我哋又重新上路🌟/Human Physiology/Tutorial_2021
   d622e8fd81460d52  Settings, sources and about this app

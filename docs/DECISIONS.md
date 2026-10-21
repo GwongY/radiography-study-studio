@@ -5,6 +5,18 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-21 — Life cycle in G1, S and G2; a real spindle; protein synthesis and the parietal cell remade
+
+The owner found the life cycle's spindle broken, meiosis without one, interphase one undivided step, and the protein
+synthesis and parietal cell models rough enough to mislead. Interphase is now G1, S and G2 under one Interphase
+group. The 2026 Lecture 1 names no phases of interphase (its figure is headed only "INTERPHASE (G2)"), so the
+phase notes come from the older edition of the same lecture (`phys.cells.old`, p33), a named fallback. Each
+centriole is nine triplets around an empty centre, the 9 + 0 array L1 p5 states; centrioles double in S and G2 and
+the pairs part for the poles. Kinetochore fibres end on the kinetochores, polar fibres overlap at the equator,
+astral fibres point out; meiosis I pulls homologues apart, meiosis II sisters. Protein synthesis and the parietal
+cell were modelled again, with the molecules and steps their slides name and nothing beyond them. Spec:
+[`2026-10-20-cell-zoom.md`](superpowers/specs/2026-10-20-cell-zoom.md), "Sources" and "Assets".
+
 ### 2026-10-21 — Cell zoom wears 3D models: downloads where they exist, Blender for the rest
 
 The owner found the drawn levels buggy, asked for online models wherever possible (signing in to Sketchfab for the

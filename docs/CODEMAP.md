@@ -36,7 +36,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `bone-landmarks.js` | 1596 | Bone landmarks — curated on the shipped skeleton by work/build-bone-landmarks.mjs. |  |
 | `cavity-build.js` | 732 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
 | `cavity-geom.js` | 1148 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
-| `cell-zoom.js` | 499 | Cell zoom — the levels, their labels and the two stage sliders: the data and nothing else. | [The cell zoom mode -- outputs/studio/cell-zoom.js, outputs/cell/, outputs/cell-zoom.js, work/cell-zoom-check.mjs](TRAPS.md#the-cell-zoom-mode----outputsstudiocell-zoomjs-outputscell-outputscell-zoomjs-workcell-zoom-checkmjs) |
+| `cell-zoom.js` | 504 | Cell zoom — the levels, their labels and the two stage sliders: the data and nothing else. | [The cell zoom mode -- outputs/studio/cell-zoom.js, outputs/cell/, outputs/cell-zoom.js, work/cell-zoom-check.mjs](TRAPS.md#the-cell-zoom-mode----outputsstudiocell-zoomjs-outputscell-outputscell-zoomjs-workcell-zoom-checkmjs) |
 | `landmarks.js` | 450 | landmarks.js -- the one place that knows how to find a named anatomical | [Named cut levels](TRAPS.md#named-cut-levels--outputsstudiotools-and-capturejs-outputslandmarksjs) |
 | `mesh-index.js` | 2645 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `muscle-zoom.js` | 122 | Muscle zoom — the levels and their labels, the data and nothing else. |  |
@@ -147,7 +147,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `boot.js` | 82 | Boot |
 | `briefing-access.js` | 129 | University notice access. |
 | `briefing-format.js` | 65 | Weekly briefing — the file format, and nothing else. |
-| `course-data.js` | 299 | Course data -- the source registry, the subject list and the model files. |
+| `course-data.js` | 300 | Course data -- the source registry, the subject list and the model files. |
 | `course-timetable.js` | 409 | Course — the syllabus and the timetable |
 | `dialogs.js` | 88 | Dialog behaviour, applied to all seven at once |
 | `global-search.js` | 396 | Global search -- one sheet over every destination, mixing structures, |

@@ -622,21 +622,47 @@ def chromatid(tpl, colour_mat, cen_mat, kin_mat, sgn, width, name, kin=True, cen
     return g
 
 
+def bake(o):
+    """put an object's transform into its mesh: the object then sits at the origin with no rotation or scale"""
+    bpy.context.view_layer.update()
+    o.data.transform(o.matrix_world)
+    o.matrix_world = Matrix.Identity(4)
+    return o
+
+
+def centriole(m, L=1.0, name='centriole'):
+    """one centriole: nine triplets of microtubules round an empty centre (the 9 + 0 array), L long along three.js +y
+    from its proximal end (the object's origin), 0.5 across. Each triplet is a blade of three fused tubules leaning
+    out from the tangent, as a pinwheel seen end on; each tubule is hollow, so the 27 rings read end on."""
+    bm = bmesh.new()
+    rA, step, lean = 0.155, 0.058, math.radians(50)
+    ro, ri, n = 0.031, 0.018, 10
+    for i in range(9):
+        ang = i * 2 * math.pi / 9
+        out = V(math.cos(ang), 0, math.sin(ang))
+        along = V(-math.sin(ang), 0, math.cos(ang))
+        d = along * math.cos(lean) + out * math.sin(lean)
+        for k in range(3):
+            c = out * rA + d * (step * k)
+            ring = [(math.cos(j * 2 * math.pi / n), math.sin(j * 2 * math.pi / n)) for j in range(n)]
+            vo = [bm.verts.new(T((c.x + ro * a, 0, c.z + ro * b))) for a, b in ring]
+            vi = [bm.verts.new(T((c.x + ri * a, 0, c.z + ri * b))) for a, b in ring]
+            for j in range(n):
+                bm.faces.new((vo[j], vo[(j + 1) % n], vi[(j + 1) % n], vi[j]))
+    got = bmesh.ops.extrude_face_region(bm, geom=list(bm.faces))
+    bmesh.ops.translate(bm, vec=T((0, L, 0)), verts=[g for g in got['geom'] if isinstance(g, bmesh.types.BMVert)])
+    bmesh.ops.recalc_face_normals(bm, faces=list(bm.faces))
+    return K.mesh_obj(name, bm, m)
+
+
 def centriole_pair(m, name='centrioles'):
-    """two centrioles at right angles, each a barrel of nine triplets of microtubules (0.56 long, as drawn)"""
-    rods = []
-    for axis in ((0, 1, 0), (0, 0, 1)):
-        a = Vector(axis)
-        u = Vector((1, 0, 0))
-        w = a.cross(u)
-        base = Vector((0.12, 0, 0)) if axis == (0, 0, 1) else Vector()
-        for i in range(9):
-            ang = i * 2 * math.pi / 9
-            for k in range(3):
-                rr = 0.1 + 0.035 * k
-                off = u * (rr * math.cos(ang + 0.25 * k)) + w * (rr * math.sin(ang + 0.25 * k)) + base
-                rods.append(K.between(tuple(off - a * 0.28), tuple(off + a * 0.28), 0.022, m, 'mt', seg=5))
-    return K.join(rods, name)
+    """two centrioles at right angles (L1 p5), each nine triplets in a 9 + 0 array: one along y, the other along x
+    beside its proximal end; the origin is the first one's middle"""
+    a = centriole(m, 1.0, 'a')
+    a.data.transform(Matrix.Translation(T((0, -0.5, 0))))
+    b = centriole(m, 1.0, 'b')
+    b.data.transform(Matrix.Translation(T((0.3, -0.3, 0))) @ q_three((0, 0, 1), -math.pi / 2).to_matrix().to_4x4())
+    return K.join([a, b], name)
 
 
 def anchors(names):
@@ -649,12 +675,65 @@ def anchors(names):
     return out
 
 
+def three_of(b):
+    """a Blender point back in three.js terms"""
+    return V(b.x, b.z, -b.y)
+
+
+def envelope_pieces(r, m, n=14):
+    """a nuclear envelope (a sphere of radius r) as n pieces, each with its origin at its own centre, so that in
+    prophase it can come apart into fragments (L1 p25: "Fragments of the nuclear envelope")"""
+    dirs = [T(tuple(d)) for d in fib(n)]
+    out = []
+    for i in range(n):
+        o = K.sphere(r, (0, 0, 0), m, seg=(36, 24), name='envelope')
+        bm = bmesh.new()
+        bm.from_mesh(o.data)
+        gone = [f for f in bm.faces if max(range(n), key=lambda j: f.calc_center_median().dot(dirs[j])) != i]
+        bmesh.ops.delete(bm, geom=gone, context='FACES')
+        c = sum((v.co for v in bm.verts), Vector()) / len(bm.verts)
+        for v in bm.verts:
+            v.co -= c
+        bm.to_mesh(o.data)
+        bm.free()
+        o.location = c
+        out.append(o)
+    return out
+
+
+def kinetochore_at(at, rot, sgn, width, length):
+    """where a chromatid's kinetochore is: the chromatid's empty is at `at`, turned rot about z and scaled to `length`;
+    the kinetochore sits on the outer face of its waist, sgn * (width + 0.04) along the chromatid's own x"""
+    d = (width + 0.04) * length * sgn
+    return at + V(d * math.cos(rot), d * math.sin(rot), 0)
+
+
+def fibre(tr, o, frame, pole, end, grow, r, on):
+    """a spindle microtubule from round a centrosome (not through its centrioles) toward end, grown to grow (0-1)"""
+    d = end - pole
+    if d.length < 0.7:
+        on = False
+    a = pole + d.normalized() * 0.6 if d.length > 1e-6 else pole
+    tr.rod(o, frame, a, lerp(a, end, grow), r, on and grow > 0.05)
+
+
+def spindle_rods(n, name='spindle', part=True):
+    sm = K.mat('spindle', 0x2a9d8f, 0.45, alpha=0.85)
+    rods = [unit_rod(sm, name, seg=6) for _ in range(n)]
+    return [K.part(o, 'spindle') if part else K.decor(o, 'spindle') for o in rods]
+
+
 # ------------------------------------------------------------------ the cell life cycle ----
 def cycle():
-    """Interphase, DNA replication, the four steps of mitosis and cytokinesis, as the drawn level: the cell (morphing
-    as it divides) and its daughters, the nuclear envelope breaking down and re-forming, chromatin doubling, four
-    duplicated chromosomes ("Chromosome X" chromatids) condensing, lining up and parting, centrioles moving to the
-    poles and the spindle between them."""
+    """The cell life cycle as Lecture 1 draws it (pp 24-26): interphase as G1, S and G2, the four steps of mitosis and
+    cytokinesis. G1: the cell grows; one centrosome, two centrioles at right angles. S: the chromatin doubles, and a
+    new centriole starts beside each old one. G2: the new centrioles are finished and the two centrosomes, each a
+    pair, part. Prophase: the chromatin condenses into duplicated chromosomes ("Chromosome X" chromatids), the
+    centrosomes go to the poles, the spindle grows and the envelope breaks into fragments; late in it, kinetochore
+    microtubules reach the kinetochores. Metaphase: the chromosomes on the plate, each sister's kinetochore tied to
+    the pole it faces. Anaphase: the sisters pulled apart along their microtubules. Telophase: envelopes form again
+    round each set; cytokinesis: two daughter cells, each with one centrosome. Every spindle microtubule runs from a
+    centrosome to where the thing it reaches actually is that frame."""
     K.reset()
     rnd = random.Random(31)
     R = 8
@@ -662,13 +741,10 @@ def cycle():
     mem = lathe_mesh(peanut_profile(R, 0, 0, 40), 36, K.mat('membrane', 0xe7a0b4, 0.5, alpha=0.28), 'membrane')
     K.part(mem, 'membrane', shell=True)
     dm = K.mat('daughters', 0xe7a0b4, 0.5, alpha=0.3)
-    daughters = []
-    for sgn in (-1, 1):
-        o = K.sphere(6.2, (sgn * 6.6, 0, 0), dm, seg=(40, 28), name='daughter')
-        K.part(o, 'daughters', shell=True)
-        daughters.append(o)
+    daughters = [K.part(K.sphere(6.2, (sgn * 6.6, 0, 0), dm, seg=(40, 28), name='daughter'), 'daughters', shell=True) for sgn in (-1, 1)]
     em = K.mat('envelope', 0x8f7fd6, 0.45, alpha=0.45)
-    env0 = K.part(K.sphere(3.4, (0, 0, 0), em, seg=(36, 24)), 'envelope', shell=True)
+    pieces = [K.part(p, 'envelope', shell=True) for p in envelope_pieces(3.4, em)]
+    piece_at = [three_of(p.location) for p in pieces]
     envD = [K.part(K.sphere(2.2, (0, 0, 0), em, seg=(28, 20)), 'envelope', shell=True) for _ in range(2)]
     cm = K.mat('chromatin', 0x7b4fa3, 0.5)
 
@@ -694,107 +770,135 @@ def cycle():
         bpy.data.objects.remove(t)
     pro_pos = [V((rnd.random() - 0.5) * 3.4, (rnd.random() - 0.5) * 3.4, (rnd.random() - 0.5) * 1.6) for _ in LEN]
     pro_rot = [rnd.random() * math.pi for _ in LEN]
-    # centrioles (two pairs) and the spindle
+    # two centrosomes. In G1 they are one: two centrioles at right angles. Each old centriole grows a new one at right
+    # angles to it (S, finished in G2), and each old-and-new pair is then a centrosome of its own.
     ctm = K.mat('centrioles', 0xffb703, 0.45)
-    cpairs = [K.part(centriole_pair(ctm, f'cp{i}'), 'centrioles') for i in range(2)]
-    sm = K.mat('spindle', 0x2a9d8f, 0.45, alpha=0.85)
-    spindle = [K.part(unit_rod(sm, 'spindle', seg=6), 'spindle') for _ in range(36)]
+    cs = [empty(f'centrosome{i}') for i in range(2)]
+    for g in cs:
+        g.rotation_mode = 'QUATERNION'
+    old, new = [], []
+    for i in range(2):
+        o = K.part(centriole(ctm, 1.0, f'old{i}'), 'centrioles')
+        o.parent = cs[i]
+        o.location = T((0, -0.5, 0))
+        old.append(o)
+        n = K.part(centriole(ctm, 1.0, f'new{i}'), 'centrioles')
+        n.parent = cs[i]
+        new.append(n)
+    Q_NEW = q_three((0, 0, 1), -math.pi / 2)
+    Q_TURN = q_three((1, 0, 0), math.pi / 2)
+    P0 = V(0, 4.6, 1.5)
+    P1 = P0 + V(0, -0.35, 0.8)
+    P1_APART = P0 + V(1.9, -0.4, 1.2)
+    spindle = spindle_rods(36)
     astral = [V(0, math.cos(i / 8 * 2 * math.pi), math.sin(i / 8 * 2 * math.pi) * 0.6) for i in range(8)]
     polar = [V(0, (i - 2.5) * 0.7, ((i % 2) - 0.5) * 0.8) for i in range(6)]
-    P0 = V(0, 4.6, 1.5)
     an = anchors(('envelope', 'chromatin', 'centrioles', 'spindle'))
     K.anchor('membrane', (0, 7.6, 2.2))
     K.anchor('daughters', (6.6, 6.0, 1.2))
+    N = len(CYCLE_STAGES)
 
     def outline(s):
-        """the drawn level's cell outline (radius, centres apart, pinch) at slider value s"""
-        k = min(6, int(math.floor(s)))
+        """the cell outline (radius, centres apart, pinch) at slider value s: elongating in anaphase, pinched in
+        telophase, two daughters by the end of cytokinesis"""
+        k = min(N - 1, int(math.floor(s)))
         f = s - k
         at = lambda i: 1.0 if k > i else 0.0 if k < i else f
-        ana, telo, cyto = at(4), at(5), at(6)
+        ana, telo, cyto = at(5), at(6), at(7)
         Rm, d, pinch = R, 0.0, 0.0
-        if k >= 4:
-            d = mix(0, 1.2, ana) * 0.5
         if k >= 5:
-            d, pinch = mix(0.6, 1.2, telo), mix(0, 0.25, telo)
+            d = mix(0, 1.2, ana) * 0.5
         if k >= 6:
+            d, pinch = mix(0.6, 1.2, telo), mix(0, 0.25, telo)
+        if k >= 7:
             Rm, d, pinch = mix(R, 6.2, cyto), mix(1.2, 6.6, cyto), mix(0.25, 1, cyto)
         return Rm, d, pinch
-    # the outline as shape keys from anaphase on, blended linearly between
-    XS = [4.5, 5.0, 5.5, 6.0, 6.3, 6.6, 6.85, 7.0]
+    XS = [5.5, 6.0, 6.5, 7.0, 7.3, 7.6, 7.85, 8.0]
     keys = morph(mem, [(f's{x}', peanut_profile(*outline(x), 40)) for x in XS], 'x', 36)
 
     def place(s, frame):
-        k = min(6, int(math.floor(s)))
+        k = min(N - 1, int(math.floor(s)))
         f = s - k
         at = lambda i: 1.0 if k > i else 0.0 if k < i else f
-        meta, ana, telo, cyto = at(3), at(4), at(5), at(6)
-        key_weights(keys, frame, hat_weights([4.0] + XS, s)[1:])
-        split = k >= 6 and f > 0.85
-        tr.pose(mem, frame, scale=HIDE if split else 1)
+        g1, meta, ana, telo, cyto = at(0), at(4), at(5), at(6), at(7)
+        key_weights(keys, frame, hat_weights([5.0] + XS, s)[1:])
+        split = k >= 7 and f > 0.85
+        # G1: the cell grows
+        tr.pose(mem, frame, scale=HIDE if split else mix(0.86, 1, span(g1, 0, 0.9)))
         for o in daughters:
             tr.pose(o, frame, scale=1 if split else HIDE)
-        cx = mix(4.6, 6.6, cyto) if k >= 6 else 4.6
-        pole = cx + 2.4 if k >= 6 else 5.8 + 1.2 * telo if k >= 5 else 5.8
-        # the envelope breaks down in prophase and forms again round each set in telophase
-        tr.pose(env0, frame, V(0, 0, 0), scale=1 if (k < 2 or (k == 2 and f < 0.5)) else HIDE)
-        grow = 0 if k < 5 else span(f, 0.4, 1) if k == 5 else 1
+        cx = mix(4.6, 6.6, cyto) if k >= 7 else 4.6
+        pole = cx + 2.4 if k >= 7 else 5.8 + 1.2 * telo if k >= 6 else 5.8
+        # the envelope breaks into fragments late in prophase; a new one forms round each set in telophase
+        frag = 0 if k < 3 else span(f, 0.45, 0.95) if k == 3 else 1
+        for p, c in zip(pieces, piece_at):
+            tr.pose(p, frame, c * (1 + 0.35 * frag), scale=HIDE if frag > 0.97 else 1 - 0.45 * frag)
+        grow = 0 if k < 6 else span(f, 0.4, 1) if k == 6 else 1
         for i, e in enumerate(envD):
             tr.pose(e, frame, V((1 if i else -1) * cx, 0, 0), scale=grow if grow > 0.02 else HIDE)
-        # chromatin: doubled by replication, condensing away in prophase, back in telophase
-        early = k < 2 or (k == 2 and f < 0.3)
+        # chromatin: doubled in S, condensing away in prophase, back in telophase
+        early = k < 3 or (k == 3 and f < 0.3)
         tr.pose(chromA, frame, V(0, 0, 0), scale=1 if early else HIDE)
         b = HIDE if k == 0 else max(HIDE, f) if k == 1 else 1 if early else HIDE
         tr.pose(chromB, frame, V(0.25, 0.2, 0), scale=b)
-        back = 0 if k < 5 else span(f, 0.5, 1) if k == 5 else 1
+        back = 0 if k < 6 else span(f, 0.5, 1) if k == 6 else 1
         for i, g in enumerate(chromD):
             tr.pose(g, frame, V((1 if i else -1) * cx, 0, 0), scale=back if back > 0.02 else HIDE)
-        tr.pose(an['envelope'], frame, V(0, 3.4, 0) if k < 3 else V(cx, 2.2, 0))
-        tr.pose(an['chromatin'], frame, V(0.6, 0.9, 0.6) if k < 3 else V(cx, 0.6, 0.6))
+        tr.pose(an['envelope'], frame, V(0, 3.4, 0) if k < 4 else V(cx, 2.2, 0))
+        tr.pose(an['chromatin'], frame, V(0.6, 0.9, 0.6) if k < 4 else V(cx, 0.6, 0.6))
         # chromosomes
-        cond = 0 if k < 2 else span(f, 0.1, 0.7) if k == 2 else 1 if k < 5 else 1 - span(f, 0.4, 1) if k == 5 else 0
+        cond = 0 if k < 3 else span(f, 0.1, 0.7) if k == 3 else 1 if k < 6 else 1 - span(f, 0.4, 1) if k == 6 else 0
         kins = []
         for i, L in enumerate(LEN):
             plate = V(0, PLATE[i], 0.4 if i % 2 else -0.4)
             centre = pro_pos[i].copy()
             rot = pro_rot[i] * (1 - span(meta, 0, 0.6))
-            if k >= 3:
-                centre = lerp(pro_pos[i], plate, 1 if k > 3 else span(f, 0, 0.6))
+            if k >= 4:
+                centre = lerp(pro_pos[i], plate, 1 if k > 4 else span(f, 0, 0.6))
             for ci, g in enumerate(chromatids[i]):
                 sgn = 1 if ci else -1
                 x, y, z = centre.x + sgn * 0.3, centre.y, centre.z
-                if k >= 4:
-                    x = sgn * mix(0.3, pole - 1.2, 1 if k > 4 else span(ana, 0, 1))
                 if k >= 5:
+                    x = sgn * mix(0.3, pole - 1.2, 1 if k > 5 else span(ana, 0, 1))
+                if k >= 6:
                     x, y = sgn * (pole - 1.2), PLATE[i] * mix(1, 0.45, telo)
-                sc = mix(0.4, 1, span(f, 0.1, 0.7)) if k == 2 else 1
-                tr.pose(g, frame, V(x - sgn * 0.3, y, z), q_three((0, 0, 1), rot), (L * sc) if cond > 0.15 else HIDE)
-                kins.append((sgn, V(x + sgn * 0.3, y, z)))
-        # centrosomes: duplicated with the DNA, moving to the poles
-        pair2 = 0 if k == 0 else span(f, 0.3, 1) if k == 1 else 1
-        to_pole = 0 if k < 2 else span(f, 0, 0.8) if k == 2 else 1
+                sc = mix(0.4, 1, span(f, 0.1, 0.7)) if k == 3 else 1
+                g_at = V(x - sgn * 0.3, y, z)
+                tr.pose(g, frame, g_at, q_three((0, 0, 1), rot), (L * sc) if cond > 0.15 else HIDE)
+                kins.append((sgn, kinetochore_at(g_at, rot, sgn, width, L * sc)))
+        # centrosomes: a new centriole grows beside each old one (S, finished in G2), the pairs part (G2) and go to
+        # the poles (prophase)
+        dup = 0 if k == 0 else 0.6 * span(f, 0.1, 1) if k == 1 else mix(0.6, 1, span(f, 0, 0.6)) if k == 2 else 1
+        apart = 0 if k < 2 else span(f, 0.5, 1) if k == 2 else 1
+        to_pole = 0 if k < 3 else span(f, 0, 0.8) if k == 3 else 1
         c0 = lerp(P0, V(-pole, 0, 0), to_pole)
-        c1 = lerp(P0 + V(0.7, 0, 0), V(pole, 0, 0), to_pole)
-        tr.pose(cpairs[0], frame, c0, scale=1)
-        tr.pose(cpairs[1], frame, c1, scale=1 if pair2 >= 0.05 else HIDE)
-        # the spindle: astral and polar microtubules from prophase, kinetochore ones from metaphase
-        sp = 0 if k < 2 else span(f, 0.3, 1) if k == 2 else 1 if k < 5 else 1 - span(f, 0, 0.7) if k == 5 else 0
-        on = sp > 0.15
+        c1 = lerp(lerp(P1, P1_APART, apart), V(pole, 0, 0), to_pole)
+        tr.pose(cs[0], frame, c0, Quaternion())
+        tr.pose(cs[1], frame, c1, Q_TURN)
+        for n in new:
+            tr.pose(n, frame, V(0.3, -0.3, 0), Q_NEW, (1, dup, 1) if dup > 0.05 else HIDE)
+        # the spindle: astral and polar microtubules from the poles in prophase; kinetochore ones reach each sister's
+        # kinetochore at the end of prophase, shorten as anaphase pulls the sisters to the poles, and all go in
+        # telophase
+        sp = 0 if k < 3 else span(f, 0.25, 0.8) if k == 3 else 1 if k < 6 else 1 - span(f, 0, 0.7) if k == 6 else 0
+        sk = 0 if k < 3 else span(f, 0.7, 1) if k == 3 else 1 if k < 6 else 1 - span(f, 0, 0.7) if k == 6 else 0
         r = 0
-        for pi, pole_at in enumerate((c0, c1)):
+        for pi, p in enumerate((c0, c1)):
             toward = -1 if pi else 1
             for a in astral:
-                tr.rod(spindle[r], frame, pole_at, pole_at + V(-toward * 0.9, a.y * 1.6, a.z * 1.6), 0.035, on)
+                end = p + V(-toward, a.y, a.z).normalized() * 1.8
+                fibre(tr, spindle[r], frame, p, end, sp, 0.035, True)
                 r += 1
             for q in polar:
-                tr.rod(spindle[r], frame, pole_at, V(toward * 1.2 * ((1 + ana) if k >= 4 else 1), q.y, q.z), 0.035, on)
+                end = V(toward * 0.9 * (1 + 0.6 * ana if k >= 5 else 1), q.y, q.z)
+                fibre(tr, spindle[r], frame, p, end, sp, 0.035, True)
                 r += 1
-            for sgn, p in [kk for kk in kins if kk[0] == (1 if pi else -1)]:
-                tr.rod(spindle[r], frame, pole_at, p, 0.035, on and k >= 3)
+            for sgn, kp in [kk for kk in kins if kk[0] == (1 if pi else -1)]:
+                fibre(tr, spindle[r], frame, p, kp, sk, 0.035, cond > 0.15)
                 r += 1
-        tr.pose(an['centrioles'], frame, c0 + V(0, 0.4, 0))
+        tr.pose(an['centrioles'], frame, c0 + V(0, 0.9, 0))
         tr.pose(an['spindle'], frame, lerp(c1, V(0, 0.6, 0), 0.45))
-    sample(place, 7, step=2, extra=[6.86, 6.9])
+    sample(place, N, step=2, extra=[N - 0.14, N - 0.1])
     linear_keys(mem.data.shape_keys)
     # labels that ride on a chromatid: anchors parented to it (the chromatid is 1 tall, scaled to its length)
     for p, off, src in (('sisters', (0, 0.55, 0.15), chromatids[0][0]), ('centromere', (0, 0, 0.12), chromatids[3][1]),
@@ -803,6 +907,9 @@ def cycle():
         e['czAnchorOf'] = p
     tr.write()
     export('cycle', ['chromosome'])
+
+
+CYCLE_STAGES = ['g1', 'replication', 'g2', 'prophase', 'metaphase', 'anaphase', 'telophase', 'cytokinesis']
 
 
 def arc(R, r, ang, m, name='arc', n=24):
@@ -827,9 +934,12 @@ def flat_box(size, at, material, name, bevel=0.4, lump=0.0, seed=0):
 
 # ------------------------------------------------------------------ meiosis ----
 def meiosis():
-    """Spermatocytes through meiosis, as the drawn level: a primary spermatocyte, its two secondary spermatocytes and
-    four spermatids (each cell morphing as it divides), two pairs of chromosomes ("Chromosome X" chromatids) and the
-    centrioles at the poles while a cell divides."""
+    """Spermatocytes through meiosis, after Lecture 1's figures (pp 28-29): a primary spermatocyte, its two secondary
+    spermatocytes and four spermatids (each cell morphing as it divides), two pairs of chromosomes ("Chromosome X"
+    chromatids), and while a cell divides, a centrosome (two centrioles, each 9 + 0) at each pole with the spindle
+    between them. Meiosis I: each homologue's kinetochore microtubules come from the pole it goes to, and the
+    homologues part. Meiosis II: in each secondary spermatocyte the spindle turns across, and each sister's
+    microtubules come from the pole it faces, so the sisters part."""
     K.reset()
     rnd = random.Random(41)
     R, CX, CY = 5, 4.6, 3.4
@@ -859,6 +969,9 @@ def meiosis():
     start = [V((rnd.random() - 0.5) * 4, (rnd.random() - 0.5) * 4, (rnd.random() - 0.5) * 1.5) for _ in DEF]
     ctm = K.mat('centrioles', 0xffb703, 0.45)
     cpairs = [K.part(centriole_pair(ctm, f'cp{i}'), 'centrioles') for i in range(4)]
+    spindle = spindle_rods(44, part=False)
+    astral = [V(0, math.cos(i / 5 * 2 * math.pi), math.sin(i / 5 * 2 * math.pi) * 0.6) for i in range(5)]
+    polar = [((i - 1.5) * 0.6, ((i % 2) - 0.5) * 0.7) for i in range(4)]
     K.anchor('primary', (0, 4.8, 1.2))
     K.anchor('secondary', (-CX, 3.8, 0.8))
     K.anchor('spermatids', (-CX, CY + 2.9, 0.6))
@@ -880,6 +993,7 @@ def meiosis():
             tr.pose(o, frame, scale=1 if 1.95 <= s < 3.95 else HIDE)
         for o in spermatids:
             tr.pose(o, frame, scale=1 if s >= 3.95 else HIDE)
+        ends = []        # (pole index, where a kinetochore microtubule ends)
         for i, (L, c, pair, side) in enumerate(DEF):
             y = -1.3 if pair else 1.3
             cell_x = side * CX
@@ -895,16 +1009,26 @@ def meiosis():
                 sgn = 1 if ci else -1
                 off = Quaternion((0, 0, 1), theta) @ V(sgn * sep, 0, 0)
                 inward = Quaternion((0, 0, 1), theta) @ V(sgn * 0.28, 0, 0)
-                tr.pose(g, frame, centre + off - inward, q_three((0, 0, 1), theta), L)
-        # centrioles at the poles while a cell divides
-        poses = []
+                waist = centre + off - inward
+                tr.pose(g, frame, waist, q_three((0, 0, 1), theta), L)
+                face = waist + Quaternion((0, 0, 1), theta) @ V(sgn * width * L, 0, 0)
+                if k == 3:
+                    # meiosis II: each sister to the pole it faces, in its own cell
+                    ends.append((2 * (0 if side < 0 else 1) + (0 if sgn < 0 else 1), face))
+                elif k == 1 and sgn == side:
+                    # meiosis I: the homologue, both sisters, to the pole on its side
+                    ends.append((0 if side < 0 else 1, face))
+        # centrosomes at the poles while a cell divides, and the spindle between them
+        poses, axes = [], []
         if k == 1:
             x = mix(3.8, CX + 2.2, span(mI, 0.4, 1))
             poses = [V(-x, 0, 0), V(x, 0, 0)]
+            axes = [V(1, 0, 0), V(-1, 0, 0)]
             first_cen = V(-3.8, 0.5, 0)
         if k == 3:
             yy = mix(3.0, CY + 1.6, span(mII, 0.4, 1))
             poses = [V(sx * CX, sy * yy, 0) for sx in (-1, 1) for sy in (-1, 1)]
+            axes = [V(0, -sy, 0) for sx in (-1, 1) for sy in (-1, 1)]
             first_cen = V(-CX, 3.4, 0)
         for i, o in enumerate(cpairs):
             if i < len(poses):
@@ -912,6 +1036,26 @@ def meiosis():
             else:
                 tr.pose(o, frame, None, scale=HIDE)
         tr.pose(an['centrioles'], frame, first_cen)
+        prog = mI if k == 1 else mII if k == 3 else 0
+        sp = span(prog, 0, 0.2) * (1 - span(prog, 0.8, 0.97))
+        r = 0
+        for pi, (p, toward) in enumerate(zip(poses, axes)):
+            side_x = V(toward.y, -toward.x, 0)       # across the spindle
+            for a in astral:
+                end = p + (-toward + side_x * a.y + V(0, 0, a.z)).normalized() * 1.5
+                fibre(tr, spindle[r], frame, p, end, sp, 0.03, True)
+                r += 1
+            centre_of_cell = p + toward * (p - poses[pi ^ 1]).length / 2
+            for a, z in polar:
+                end = centre_of_cell + toward * 0.7 + side_x * a + V(0, 0, z)
+                fibre(tr, spindle[r], frame, p, end, sp, 0.03, True)
+                r += 1
+            for _, e in [x for x in ends if x[0] == pi]:
+                fibre(tr, spindle[r], frame, p, e, sp, 0.03, True)
+                r += 1
+        while r < len(spindle):
+            tr.rod(spindle[r], frame, V(), V(), 0.03, False)
+            r += 1
     sample(place, 5, step=2, extra=[1.94, 1.96, 3.94, 3.96])
     linear_keys(primary.data.shape_keys)
     for o in secondary:
@@ -1121,69 +1265,166 @@ def apc():
 
 
 # ------------------------------------------------------------------ the parietal cell ----
+ATOM = {'C': (0x5c5c5c, 0.2), 'O': (0xe63946, 0.22), 'H': (0xf1f1f1, 0.13)}
+
+
+def molecule(atoms, name, scale=1.0):
+    """a ball-and-stick molecule: atoms [(element, three.js offset)], a stick between atoms closer than 0.6"""
+    objs = []
+    for el, p in atoms:
+        c, r = ATOM[el]
+        objs.append(K.sphere(r * scale, tuple(p * scale), K.mat(f'atom-{el}', c, 0.4), seg=(14, 10)))
+    stick = K.mat('stick', 0xbfc5cc, 0.5)
+    for i in range(len(atoms)):
+        for j in range(i + 1, len(atoms)):
+            a, b = atoms[i][1] * scale, atoms[j][1] * scale
+            if (a - b).length < 0.6 * scale:
+                objs.append(K.between(tuple(a), tuple(b), 0.05 * scale, stick, 'stick', seg=6))
+    return bake(K.join(objs, name))
+
+
+def CO2():
+    return [('C', V()), ('O', V(0.42, 0, 0)), ('O', V(-0.42, 0, 0))]
+
+
+def H2O():
+    return [('O', V()), ('H', V(0.3, 0.22, 0)), ('H', V(-0.3, 0.22, 0))]
+
+
+def H2CO3():
+    return [('C', V()), ('O', V(0.42, 0, 0)), ('O', V(-0.21, 0.36, 0)), ('O', V(-0.21, -0.36, 0)),
+            ('H', V(-0.5, 0.5, 0)), ('H', V(-0.5, -0.5, 0))]
+
+
+def HCO3():
+    return [('C', V()), ('O', V(0.42, 0, 0)), ('O', V(-0.21, 0.36, 0)), ('O', V(-0.21, -0.36, 0)), ('H', V(-0.5, 0.5, 0))]
+
+
+def transmembrane(at, m, n, ring, r, name, head=None):
+    """a protein through a membrane (normal along x, membrane 0.9 thick at x = at.x): n helices round a ring, with an
+    optional globular domain on the cytoplasmic side (head: its centre)"""
+    objs = []
+    for j in range(n):
+        a = j * 2 * math.pi / n
+        p = at + V(0, ring * math.cos(a), ring * math.sin(a))
+        objs.append(K.between(tuple(p + V(-0.5, 0, 0)), tuple(p + V(0.5, 0, 0)), r, m, name, seg=10))
+    if head is not None:
+        h = K.sphere(0.42, tuple(head), m, seg=(20, 14), name=name)
+        h.scale = (0.8, 1, 1)
+        objs.append(K.apply(h))
+    return K.join(objs, name)
+
+
 def parietal():
-    """A parietal cell making acid, as the drawn level: carbonic anhydrase makes H+ and HCO3-, a pump moves the H+ into
-    the lumen of the gastric gland, a countertransporter swaps HCO3- (the alkaline tide) for Cl-, and the Cl- leaves
-    through chloride channels into the lumen."""
+    """A parietal cell making acid, laid out as Lecture 4's figure (p29): interstitial fluid on the left (basolateral
+    side, with a capillary: "Enters bloodstream"), the lumen of the gastric gland on the right (apical side).
+    1: carbonic anhydrase (an enzyme, one of several in the cell) joins CO2 and H2O into H2CO3, which dissociates into
+    H+ and HCO3-. 4 (the slider's second step): the H+ is actively transported through a pump into the lumen.
+    2: a countertransporter in the basolateral membrane swaps HCO3- out for Cl- in; the HCO3- is the alkaline tide,
+    into the capillary. 3: the Cl- diffuses across the cell and leaves through open chloride channels into the lumen,
+    beside the H+. Molecules are ball and stick (C grey, O red, H white); H+ and Cl- are coloured balls. Nothing is to
+    scale: the proteins and ions are drawn far larger than they are against the cell."""
     K.reset()
     tr = Track()
-    K.decor(flat_box((10, 8, 5), (0, 0, 0), K.mat('cell', 0xbde0fe, 0.6, alpha=0.22), 'cell', bevel=0.8, lump=0.15), 'cell')
-    K.part(flat_box((10, 3, 5), (0, 5.5, 0), K.mat('lumen', 0xfff3b0, 0.8, alpha=0.18), 'lumen', bevel=0.3), 'lumen', shell=True)
-    K.part(flat_box((10, 3, 5), (0, -5.5, 0), K.mat('isf', 0xffd6e0, 0.8, alpha=0.18), 'isf', bevel=0.3), 'isf', shell=True)
-    K.anchor('lumen', (-4, 6.4, 2.5))
-    K.anchor('isf', (-4, -6.4, 2.5))
-    ca = K.sphere(0.9, (0, 0, 0), K.mat('ca', 0x2a9d8f, 0.45), seg=(32, 20))
-    ca.scale = (1.2, 0.9, 0.9)
-    K.lumpy(ca, 0.18, 0.5, 1)
-    K.part(K.apply(ca), 'ca')
-    K.anchor('ca', (0, 0.9, 0.6))
-    chm = K.mat('clchannels', 0x4cc9f0, 0.45)
-    chans = []
-    for x in (2.5, 3.6):
-        # a channel: a ring of subunits round an open pore
-        for j in range(6):
-            a = j * 2 * math.pi / 6
-            chans.append(K.between((x + 0.42 * math.cos(a), 3.7, 0.42 * math.sin(a)), (x + 0.42 * math.cos(a), 4.3, 0.42 * math.sin(a)), 0.16, chm, 'ch', seg=8))
-    K.part(K.join(chans, 'clchannels'), 'clchannels')
-    K.anchor('clchannels', (3.05, 4.5, 0.6))
-    for at, c in (((-2, 4, 0), 0xe63946), ((1, -4, 0), 0x8338ec)):
-        o = K.sphere(0.5, at, K.mat(f'pump{c}', c, 0.45), seg=(20, 12))
-        o.scale = (1, 1, 0.75)
-        K.lumpy(o, 0.12, 0.4, c % 7)
-        K.decor(K.apply(o), 'transporter')
-    hm, bm_, cm = K.mat('hplus', 0xe63946, 0.4), K.mat('hco3', 0x8338ec, 0.4), K.mat('cl', 0x06d6a0, 0.4)
-    H = [K.part(K.sphere(0.22, (0, 0, 0), hm, seg=(12, 8)), 'hplus') for _ in range(4)]
-    B = [K.part(K.sphere(0.3, (0, 0, 0), bm_, seg=(12, 8)), 'hco3') for _ in range(4)]
-    C = [K.part(K.sphere(0.28, (0, 0, 0), cm, seg=(12, 8)), 'cl') for _ in range(4)]
-    tm = K.mat('tide', 0xc77dff, 0.5, alpha=0.7)
-    tide = [K.part(K.sphere(0.24, (-3 + (i % 8) * 1.1, -5.2 - (i // 8) * 0.8, ((i * 7) % 5) * 0.4 - 0.8), tm, seg=(12, 8)), 'tide') for i in range(16)]
-    tide_g = empty('tide-at', (0.85, -5.6, 0))
-    for o in tide:
-        adopt(o, tide_g)
-    K.anchor('tide', (2.5, -6.2, 0.6))
+    W = 6.0                                              # the membranes: basolateral at x = -W, apical at x = +W
+    cell = flat_box((2 * W, 9, 6.4), (0, 0, 0), K.mat('cell', 0xbde0fe, 0.6, alpha=0.2), 'cell', bevel=0.9)
+    wall = cell.modifiers.new('wall', 'SOLIDIFY')
+    wall.thickness = 0.3
+    wall.offset = 0
+    K.decor(K.apply(cell), 'cell')
+    K.part(flat_box((3.8, 9, 6.4), (-W - 2.2, 0, 0), K.mat('isf', 0xffd6e0, 0.8, alpha=0.16), 'isf', bevel=0.3), 'isf', shell=True)
+    K.part(flat_box((3.8, 9, 6.4), (W + 2.2, 0, 0), K.mat('lumen', 0xfff3b0, 0.8, alpha=0.16), 'lumen', bevel=0.3), 'lumen', shell=True)
+    K.anchor('isf', (-W - 2.2, 4.0, 2.6))
+    K.anchor('lumen', (W + 2.2, 4.0, 2.6))
+    CAP = V(-W - 2.4, -3.0, 0)
+    vessel = K.between(tuple(CAP + V(0, 0, -3.2)), tuple(CAP + V(0, 0, 3.2)), 0.85, K.mat('capillary', 0xd62828, 0.5, alpha=0.35), 'capillary', seg=28)
+    K.decor(vessel, 'capillary')
+    ZS = [-1.8, 0.0, 1.8]                                 # three of everything, one behind the other
+    # carbonic anhydrase: a globular enzyme, the reaction at it
+    cam = K.mat('ca', 0x2a9d8f, 0.45)
+    DX = [-1.3, 0.0, 1.3]                                # and spread across, so they do not hide each other
+    CA = [V(-1.4 + DX[i], 2.0 - 0.25 * i, z) for i, z in enumerate(ZS)]
+    for i, p in enumerate(CA):
+        o = K.sphere(0.6, tuple(p), cam, seg=(28, 18), name='ca')
+        o.scale = (1.15, 1.0, 0.9)
+        K.lumpy(o, 0.14, 0.35, 10 + i)
+        K.part(K.apply(o), 'ca')
+    K.anchor('ca', tuple(CA[2] + V(0, 0.75, 0.3)))
+    # the transporters, through the membranes; the KEY's colours: active transport yellow, countertransport purple
+    PUMP = [V(W, 0.7 - 0.7 * i, z) for i, z in enumerate(ZS)]
+    SWAP = [V(-W, -0.2 - 0.7 * i, z) for i, z in enumerate(ZS)]
+    CHAN = [V(W, -2.2 - 0.6 * i, z) for i, z in enumerate(ZS)]
+    pm, xm, chm = K.mat('pump', 0xffd60a, 0.45), K.mat('swap', 0x8e7cc3, 0.45), K.mat('clchannels', 0x4cc9f0, 0.45)
+    for p in PUMP:
+        K.decor(transmembrane(p, pm, 6, 0.3, 0.12, 'pump', head=p + V(-0.75, 0, 0)), 'pump')
+    for p in SWAP:
+        K.decor(transmembrane(p, xm, 6, 0.3, 0.12, 'countertransporter'), 'countertransporter')
+    # a channel: five subunits round an open pore wide enough for a chloride ion
+    K.part(K.join([transmembrane(p, chm, 5, 0.42, 0.15, 'channel') for p in CHAN], 'clchannels'), 'clchannels')
+    K.anchor('clchannels', tuple(CHAN[2] + V(0.2, -0.7, 0.5)))
+    # the molecules and ions
+    MS = 1.4                                              # molecules drawn larger still, so they read
+    co2 = [K.decor(molecule(CO2(), 'co2', MS), 'co2') for _ in ZS]
+    h2o = [K.decor(molecule(H2O(), 'h2o', MS), 'h2o') for _ in ZS]
+    h2co3 = [K.decor(molecule(H2CO3(), 'h2co3', MS), 'h2co3') for _ in ZS]
+    hco3 = [K.part(molecule(HCO3(), 'hco3', MS), 'hco3') for _ in ZS]
+    # H+ magenta (not red: red is oxygen here), Cl- green
+    hm, clm = K.mat('hplus', 0xf72585, 0.35), K.mat('cl', 0x2dc653, 0.4)
+    hplus = [K.part(K.sphere(0.24, (0, 0, 0), hm, seg=(16, 10), name='hplus'), 'hplus') for _ in ZS]
+    cl = [K.part(K.sphere(0.33, (0, 0, 0), clm, seg=(16, 10), name='cl'), 'cl') for _ in ZS]
+    # the alkaline tide: bicarbonate leaving the interstitial fluid into the capillary
+    tide = [K.part(molecule(HCO3(), 'tide', 0.75), 'tide') for _ in range(10)]
+    TIDE = [CAP + V(1.8, 2.6, 0), CAP + V(1.0, 1.4, 0), CAP + V(0.1, 0.2, 0), CAP + V(0, 0, 0)]
+    K.anchor('tide', tuple(CAP + V(0.3, -1.3, 1.2)))
     an = anchors(('hplus', 'hco3', 'cl'))
+    rot = [q_three((0.3, 1, 0.2), i * 1.7) for i in range(10)]
 
-    def jit(i):
-        return V(((i * 37) % 7) / 7 - 0.5, ((i * 53) % 5) / 5 - 0.5, ((i * 11) % 3) / 3 - 0.5) * 0.8
+    def wob(i, t, a=0.25):
+        """a little Brownian wobble"""
+        return V(math.sin(t * 9.1 + i * 2.3), math.sin(t * 7.3 + i * 1.1), math.sin(t * 8.2 + i * 3.7)) * a
 
     def place(s, frame):
         p = stage_prog(s, 4)
         make, pump, cnt, dif = p(0), p(1), p(2), p(3)
-        born = span(make, 0, 0.6)
-        for i in range(4):
-            j = jit(i)
-            h = along([V(0.6, 0.3, 0) + j, V(-2, 3.5, 0), V(-2, 5.4, 0) + j], pump)
-            b = along([V(-0.6, -0.3, 0) + j, V(1, -3.5, 0), V(1, -5.4, 0) + j], cnt)
-            c = along([V(1, -5.6, 0) + j, V(1, -3.5, 0), V(1.5, -2.6, 0) + j, V(3.05, 3.6, 0), V(3.05, 5.4, 0) + j], mix(0, 0.5, cnt) + mix(0, 0.5, dif))
-            tr.pose(H[i], frame, h, scale=born if born > 0.05 else HIDE)
-            tr.pose(B[i], frame, b, scale=born if born > 0.05 else HIDE)
-            tr.pose(C[i], frame, c, scale=1)
-            if i == 0:
-                tr.pose(an['hplus'], frame, h + V(0, 0.4, 0.3))
-                tr.pose(an['hco3'], frame, b + V(0, 0.45, 0.3))
+        for i, z in enumerate(ZS):
+            ca = CA[i]
+            # 1: CO2 and H2O meet at the enzyme; H2CO3 forms there and drops away to dissociate
+            meet, formed, split = span(make, 0.05, 0.4), span(make, 0.4, 0.5), span(make, 0.72, 0.82)
+            tr.pose(co2[i], frame, lerp(V(-4.0, 3.4, z + 0.6), ca + V(-0.35, -0.75, 0), meet) + wob(i, s, 0.15 * (1 - meet)),
+                    rot[i], 1 if formed < 0.5 else HIDE)
+            tr.pose(h2o[i], frame, lerp(V(1.6, 3.6, z - 0.5), ca + V(0.35, -0.75, 0), meet) + wob(i + 3, s, 0.15 * (1 - meet)),
+                    rot[i + 3], 1 if formed < 0.5 else HIDE)
+            DROP = V(-1.0 + DX[i], 0.1 - 0.25 * i, z)
+            tr.pose(h2co3[i], frame, lerp(ca + V(0, -0.85, 0), DROP, span(make, 0.5, 0.7)), rot[i + 1],
+                    1 if 0.5 <= formed and split < 0.5 else HIDE)
+            born = split >= 0.5
+            # 4: H+ to the pump and through it into the lumen
+            hp = along([DROP + V(0.5, 0, 0), PUMP[i] + V(-1.3, 0, 0), PUMP[i] + V(-0.3, 0, 0), PUMP[i] + V(1.4, 0.1, 0)], pump)
+            hp = hp + V(0.5 * span(make, 0.82, 1), 0, 0) * (1 - pump) + wob(i, s, 0.1 * (1 - pump))
+            tr.pose(hplus[i], frame, hp, scale=1 if born else HIDE)
+            # 2: HCO3- to the countertransporter, out to the interstitial fluid, and into the capillary (the alkaline
+            # tide); Cl- in through the same transporter
+            bc = along([DROP + V(-0.6, 0, 0), SWAP[i] + V(1.3, 0.5, 0), SWAP[i] + V(0.3, 0.2, 0), SWAP[i] + V(-1.2, 0.5, 0)],
+                       span(cnt, 0, 0.75))
+            bc = bc + V(-0.5 * span(make, 0.82, 1), 0, 0) * (1 - span(cnt, 0, 0.1))
+            bc = lerp(bc, CAP + V(0.2 * (i - 1), 0.15 * i, z * 0.9), span(cnt, 0.75, 1))
+            tr.pose(hco3[i], frame, bc + wob(i + 6, s, 0.08), rot[i + 4], 1 if born else HIDE)
+            c_in = along([SWAP[i] + V(-1.7, -0.5, 0.4), SWAP[i] + V(-1.1, -0.4, 0), SWAP[i] + V(0.3, -0.25, 0), SWAP[i] + V(1.3, -0.6, 0)],
+                         span(cnt, 0.1, 0.85))
+            # 3: Cl- diffuses across the cell (a wandering path) and out through a channel into the lumen
+            walk_pts = [SWAP[i] + V(1.3, -0.6, 0), V(-2.5, -1.4 - 0.4 * i, z + 0.5), V(0.5, -2.6 - 0.3 * i, z - 0.4), V(3.4, -1.8 - 0.5 * i, z + 0.3),
+                        CHAN[i] + V(-1.2, 0, 0), CHAN[i] + V(-0.3, 0, 0), CHAN[i] + V(1.4, 0.4, 0)]
+            c = along(walk_pts, dif) if dif > 0 else c_in
+            tr.pose(cl[i], frame, c + wob(i + 9, s, 0.12 * (1 - dif) if dif < 1 else 0.05))
+            if i == 2:
+                tr.pose(an['hplus'], frame, hp + V(0, 0.4, 0.3))
+                tr.pose(an['hco3'], frame, bc + V(0, 0.55, 0.3))
                 tr.pose(an['cl'], frame, c + V(0, 0.45, 0.3))
-        t = span(cnt, 0.6, 1)
-        tr.pose(tide_g, frame, scale=t if t > 0.15 else HIDE)
+        t = span(cnt, 0.65, 1)
+        for j, o in enumerate(tide):
+            u = clamp01(t * 1.6 - j * 0.06)
+            q = along(TIDE, u) + V(0, 0, (j - 4.5) * 0.55 * u) + V(0, -0.15 * (j % 3), 0)
+            tr.pose(o, frame, q + wob(j + 12, s, 0.06), rot[j], 1 if 0.02 < u else HIDE)
     sample(place, 4, step=2)
     tr.write()
     export('parietal')
@@ -1228,124 +1469,233 @@ EXPRESSION_STAGES = {
 EXPRESSION_CLIPS = {'none': 0, 'lipophilic': 6, 'hydrophilic': 14}
 
 
+def resample(pts, step):
+    """three.js points every `step` along a polyline, and their arc lengths"""
+    acc = [0.0]
+    for a, b in zip(pts, pts[1:]):
+        acc.append(acc[-1] + (b - a).length)
+    total = acc[-1]
+    n = max(2, int(round(total / step)))
+    out, j = [], 0
+    for i in range(n + 1):
+        d = total * i / n
+        while j < len(acc) - 2 and acc[j + 1] < d:
+            j += 1
+        seg = acc[j + 1] - acc[j]
+        out.append(lerp(pts[j], pts[j + 1], 0 if seg == 0 else (d - acc[j]) / seg))
+    return out, [total * i / n for i in range(n + 1)]
+
+
+def frames(pts):
+    """parallel-transport normals and binormals along three.js points"""
+    n = len(pts)
+    ts = [(pts[min(n - 1, i + 1)] - pts[max(0, i - 1)]).normalized() for i in range(n)]
+    up = V(0, 0, 1) if abs(ts[0].z) < 0.9 else V(0, 1, 0)
+    nn = (up - ts[0] * up.dot(ts[0])).normalized()
+    ns = [nn]
+    for i in range(1, n):
+        axis = ts[i - 1].cross(ts[i])
+        if axis.length > 1e-9:
+            nn = Quaternion(axis.normalized(), ts[i - 1].angle(ts[i])) @ nn
+        nn = (nn - ts[i] * nn.dot(ts[i])).normalized()
+        ns.append(nn)
+    return ns, [t.cross(m) for t, m in zip(ts, ns)]
+
+
+def double_helix(centre, m_strand, m_rung, name, r=0.25):
+    """a stretch of DNA double helix round a centre line (three.js points): two strands and a base pair every 0.34,
+    a whole number of turns long so that stretches laid end to end join up"""
+    pts, acc = resample(centre, 0.12)
+    L = acc[-1]
+    per = L / max(1, round(L / 3.4))
+    ns, bs = frames(pts)
+    s1, s2 = [], []
+    for p, s, nn, bb in zip(pts, acc, ns, bs):
+        a = 2 * math.pi * s / per
+        s1.append(p + (nn * math.cos(a) + bb * math.sin(a)) * r)
+        s2.append(p + (nn * math.cos(a + 2.4) + bb * math.sin(a + 2.4)) * r)
+    objs = [tube(s1, 0.06, m_strand, 'strand', res=1), tube(s2, 0.06, m_strand, 'strand', res=1)]
+    nr = max(1, int(L / 0.34))
+    for i in range(nr):
+        j = min(len(pts) - 1, int(round((i + 0.5) / nr * (len(pts) - 1))))
+        objs.append(K.between(tuple(s1[j]), tuple(s2[j]), 0.035, m_rung, 'pair', seg=5))
+    return K.join(objs, name)
+
+
+def wrapped(x0, x1, beads, y=-3.0, Rw=1.0, pitch=0.6):
+    """the centre line of DNA along x from x0 to x1 at height y, wrapped twice round a histone core hanging below it at
+    each x in beads"""
+    pts = [V(x0, y, 0)]
+    for xb in beads:
+        pts.append(V(xb - 1.0, y, 0))
+        for i in range(97):
+            ph = 4 * math.pi * i / 96
+            pts.append(V(xb + Rw * math.sin(ph), y - Rw + Rw * math.cos(ph), -pitch + pitch * ph / (2 * math.pi)))
+        pts.append(V(xb + 1.0, y, 0))
+    pts.append(V(x1, y, 0))
+    return pts
+
+
+def histone_core(at, m, name='nucleosome'):
+    """the histone core of a nucleosome, its axis along z, under the DNA wrapped round it"""
+    o = K.between(tuple(at + V(0, 0, -0.55)), tuple(at + V(0, 0, 0.55)), 0.72, m, name, seg=28)
+    K.lumpy(o, 0.06, 0.3, 7)
+    o = bake(K.apply(o))
+    o.data.transform(Matrix.Translation(-T(tuple(at))))
+    o.location = T(tuple(at))
+    return o
+
+
+def dish(R, bend, thick, m, name):
+    """a curved, flattened sac (a Golgi cisterna): a lathe about y, rim turned up by `bend`"""
+    n = 14
+    prof = [(0.001, thick)] + [(R * i / n, thick + bend * (i / n) ** 2) for i in range(1, n + 1)]
+    prof += [(R * (n - i) / n, bend * ((n - i) / n) ** 2) for i in range(n)] + [(0.001, 0.0)]
+    return lathe_mesh(prof, 36, m, name, axis='y')
+
+
 def expression():
-    """Protein synthesis, with a hormone signal in front of it, as the drawn level (outputs/cell/zoom-scene.js): gene
-    activation, transcription by RNA polymerase, the mRNA out through a nuclear pore, translation by a ribosome on the
-    rough ER with tRNAs, and the chain processed. A lipophilic hormone comes off its carrier, through the membrane, to a
-    nuclear hormone receptor and to its response element; a hydrophilic one binds a G-protein coupled receptor, a
-    G-protein subunit goes to adenylate cyclase, cAMP, protein kinase, CREB to the DNA. Each signal is its own run of
-    the timeline (scene extras czClips: its first second)."""
+    """Protein synthesis, after Lecture 1 (pp 21-22), with a hormone signal in front of it.
+    The nucleus on the left: its DNA a double helix, wound twice round histone cores (nucleosomes); the gene (gold),
+    its promoter (green) and, for the lipophilic hormone, its hormone response element (pink) are stretches of that
+    helix. The nuclear envelope is two membranes, joined round each nuclear pore, a ring of pore proteins on each face.
+    Gene activation: the histones come off the gene and its DNA uncoils. Transcription: RNA polymerase binds at the
+    promoter and runs along the gene, the mRNA growing behind it. The mRNA leaves through a nuclear pore to the rough
+    ER, a flattened sac studded with ribosomes. Translation: a ribosome, its two subunits either side of the mRNA, moves
+    along it; tRNAs bring amino acids in and leave without them; the polypeptide chain grows out of the ribosome
+    through the ER membrane into the lumen. Processing: the chain folds in the ER and a vesicle carries it to the
+    Golgi apparatus. A lipophilic hormone comes off its carrier, through the plasma membrane, to a nuclear hormone
+    receptor and with it through a pore to its response element; a hydrophilic one binds a G-protein coupled
+    receptor, a G-protein subunit goes to adenylate cyclase, cAMP is made, protein kinase goes to the nucleus and
+    CREB onto the DNA. Each signal is its own run of the timeline (scene extras czClips: its first second)."""
     K.reset()
     tr = Track()
-    # the nuclear envelope: a double wall at x = -2 with one pore through it
-    em = K.mat('envelope', 0x8f7fd6, 0.45, alpha=0.5)
+    # ---- the nuclear envelope: two membranes, holes through both at each pore, joined round it
+    em = K.mat('envelope', 0x8f7fd6, 0.45, alpha=0.45)
+    PORES = [(1.5, 0.0), (4.8, -2.6), (-1.2, 3.6), (4.6, 3.4), (-5.6, -2.8), (-6.0, 2.8), (6.6, 0.4), (1.8, -4.4)]
     walls = []
     for x in (-2.3, -1.7):
-        w = K.box((0.22, 16, 12), (x, 0, 0), em, 'wall')
-        hole = K.between((x - 0.5, 1.5, 0), (x + 0.5, 1.5, 0), 0.75, None, 'hole', seg=24)
-        b = w.modifiers.new('pore', 'BOOLEAN')
-        b.object = hole
-        b.operation = 'DIFFERENCE'
-        w = K.apply(w)
-        bpy.data.objects.remove(hole)
+        w = K.box((0.18, 16, 12), (x, 0, 0), em, 'wall')
+        for py, pz in PORES:
+            hole = K.between((x - 0.5, py, pz), (x + 0.5, py, pz), 0.7, None, 'hole', seg=24)
+            b = w.modifiers.new('pore', 'BOOLEAN')
+            b.object = hole
+            b.operation = 'DIFFERENCE'
+            w = K.apply(w)
+            bpy.data.objects.remove(hole)
         walls.append(w)
+    for py, pz in PORES:
+        walls.append(K.torus(0.78, 0.3, (-2.0, py, pz), em, 'rim', axis=(1, 0, 0), seg=(28, 10)))
     K.part(K.join(walls, 'envelope'), 'envelope', shell=True)
     K.anchor('envelope', (-2, 6.5, 3))
     pm = K.mat('pores', 0x3c2f80, 0.5)
-    pore = [K.torus(0.85, 0.3, (-2, 1.5, 0), pm, 'pore', axis=(1, 0, 0), seg=(28, 10))]
-    for j in range(8):
-        a = j * 2 * math.pi / 8
-        pore.append(K.ico(0.16, (-1.45, 1.5 + 0.7 * math.cos(a), 0.7 * math.sin(a)), pm, level=1))
+    pore = []
+    for py, pz in PORES:
+        for xf in (-2.55, -1.45):
+            for j in range(8):
+                a = j * 2 * math.pi / 8
+                pore.append(K.sphere(0.15, (xf, py + 0.62 * math.cos(a), pz + 0.62 * math.sin(a)), pm, seg=(8, 5), name='pore'))
+        for j in range(8):
+            a = (j + 0.5) * 2 * math.pi / 8
+            pore.append(K.between((-2.55, py + 0.58 * math.cos(a), pz + 0.58 * math.sin(a)),
+                                  (-1.45, py + 0.58 * math.cos(a), pz + 0.58 * math.sin(a)), 0.07, pm, 'spoke', seg=6))
     K.part(K.join(pore, 'pores'), 'pores')
-    K.anchor('pores', (-2, 2.6, 0))
-    # the DNA: a double helix along x, with the hormone response element, the promoter and the gene marked
-    def helix(x0, x1, ph):
-        out, x = [], x0
-        while x <= x1 + 1e-6:
-            a = x * 2 * math.pi / 3.4 + ph
-            out.append(V(x, -3 + 0.5 * math.sin(a), 0.5 * math.cos(a)))
-            x += 0.12
-        return out
+    K.anchor('pores', (-1.2, 2.5, 0.6))
+    # ---- the DNA, its gene wound round two nucleosomes until gene activation
     dm, rm = K.mat('dna', 0xe9ecef, 0.4), K.mat('rung', 0x9aa5b1, 0.5)
-    dna = [tube(helix(-13, -3.2, 0), 0.08, dm, 'strand', res=3), tube(helix(-13, -3.2, 2.4), 0.08, dm, 'strand', res=3)]
-    for i in range(30):
-        x = -13 + i * 0.34
-        a = x * 2 * math.pi / 3.4
-        dna.append(K.between((x, -3 + 0.5 * math.sin(a), 0.5 * math.cos(a)), (x, -3 + 0.5 * math.sin(a + 2.4), 0.5 * math.cos(a + 2.4)), 0.05, rm, 'rung', seg=6))
-    K.decor(K.join(dna, 'dna'), 'dna')
-
-    def sleeve(x0, x1, colour, part, alpha):
-        o = K.between((x0, -3, 0), (x1, -3, 0), 0.72, K.mat(part, colour, 0.5, alpha=alpha), part, seg=24)
-        return K.part(o, part, shell=True)
-    hre = sleeve(-10.7, -10.0, 0xff8fab, 'hre', 0.55)
-    sleeve(-9.9, -8.9, 0x80ed99, 'promoter', 0.5)
-    sleeve(-8.8, -4.2, 0xffb703, 'gene', 0.35)
-    K.anchor('hre', (-10.35, -2.1, 0.7))
-    K.anchor('promoter', (-9.4, -2.1, 0.7))
-    K.anchor('gene', (-6.5, -2.1, 0.8))
-    # nucleosomes on the DNA (unlabelled here); the two on the gene slide off at gene activation
-    beads = []
-    for x in (-12, -7.5, -5.2):
-        b = bead(K.mat('bead', 0xf4a261, 0.5), dm)
-        b.scale = (1.9, 1.9, 1.9)
-        b.rotation_mode = 'QUATERNION'
-        b.rotation_quaternion = Vector((0, 0, 1)).rotation_difference(T((1, 0, 0)))
-        b.location = T((x, -3, 0))
-        beads.append(K.decor(b, 'nucleosome'))
-    # RNA polymerase: a clamp round the DNA
-    pol = K.sphere(1, (0, 0, 0), K.mat('polymerase', 0x06d6a0, 0.45), seg=(32, 20))
-    pol.scale = (1.05, 0.85, 0.85)
-    K.lumpy(pol, 0.18, 0.5, 2)
+    HRE, PROM, GENE = (-11.3, -10.6), (-10.5, -9.5), (-9.4, -3.6)
+    K.decor(double_helix(wrapped(-15.0, HRE[0], [-13.0]), dm, rm, 'dna'), 'dna')
+    hre_plain = K.decor(double_helix([V(HRE[0], -3, 0), V(HRE[1], -3, 0)], dm, rm, 'dna'), 'dna')
+    hre = K.part(double_helix([V(HRE[0], -3, 0), V(HRE[1], -3, 0)], K.mat('hre', 0xff8fab, 0.45), rm, 'hre'), 'hre')
+    K.decor(double_helix([V(HRE[1], -3, 0), V(PROM[0], -3, 0)], dm, rm, 'dna'), 'dna')
+    K.part(double_helix([V(PROM[0], -3, 0), V(PROM[1], -3, 0)], K.mat('promoter', 0x80ed99, 0.45), rm, 'promoter'), 'promoter')
+    K.decor(double_helix([V(PROM[1], -3, 0), V(GENE[0], -3, 0)], dm, rm, 'dna'), 'dna')
+    gm = K.mat('gene', 0xffb703, 0.45)
+    BEADS = [-8.2, -5.0]
+    gene_closed = K.part(double_helix(wrapped(GENE[0], GENE[1], BEADS), gm, rm, 'gene'), 'gene')
+    gene_open = K.part(double_helix([V(GENE[0], -3, 0), V(GENE[1], -3, 0)], gm, rm, 'gene'), 'gene')
+    K.anchor('hre', (sum(HRE) / 2, -2.2, 0.6))
+    K.anchor('promoter', (sum(PROM) / 2, -2.2, 0.6))
+    hm_ = K.mat('histone', 0x7aa6e0, 0.5)
+    K.decor(histone_core(V(-13.0, -4.0, 0), hm_), 'nucleosome')
+    cores = [K.decor(histone_core(V(x, -4.0, 0), hm_), 'nucleosome') for x in BEADS]
+    an_gene = empty('cz-anchor-gene')
+    an_gene['czAnchorOf'] = 'gene'
+    # ---- RNA polymerase: a protein that clamps the DNA
+    pol = K.sphere(0.85, (0, 0, 0), K.mat('polymerase', 0x06d6a0, 0.45), seg=(32, 20))
+    pol.scale = (1.1, 0.9, 0.9)
+    K.lumpy(pol, 0.16, 0.45, 2)
     pol = K.part(K.apply(pol), 'polymerase')
-    # the mRNA: a strand of 39 short pieces, each posed between two of its points
+    # ---- the mRNA: 39 short pieces, each posed between two of its points
     mm = K.mat('mrna', 0xef476f, 0.45)
     M, STEP = 40, 0.22
     seg = [K.part(unit_rod(mm, 'mrna', seg=6), 'mrna') for _ in range(M - 1)]
-    joints = [K.part(K.sphere(0.13, (0, 0, 0), mm, seg=(8, 6), name='mrna'), 'mrna') for _ in range(M)]
-    point_at, TL = catmull([V(-5, -1.6, 0.4), V(-3.6, 0.6, 0), V(-2, 1.5, 0), V(0.4, 1.4, 0), V(2.2, -0.6, 0), V(3.6, -1.35, 0), V(10, -1.35, 0)])
-    # the rough ER below, studded with ribosomes
-    er = flat_box((10, 1.2, 8), (5.5, -2.4, 0), K.mat('rer', 0x5fa8d3, 0.5, alpha=0.45), 'rer', bevel=0.4, lump=0.12)
-    ribs = [er]
-    rbm = K.mat('ribo', 0x24395c, 0.5)
-    for i in range(40):
-        ribs.append(K.ico(0.22, (1 + (i % 10) * 0.95, -1.7, -3.4 + (i // 10) * 1.9 + (i % 3) * 0.2), rbm, level=1))
-    K.part(K.join(ribs, 'rer'), 'rer', shell=True)
-    K.anchor('rer', (2, -1.9, 3.6))
+    joints = [K.part(K.sphere(0.12, (0, 0, 0), mm, seg=(8, 6), name='mrna'), 'mrna') for _ in range(M)]
+    ER_TOP, ER_Y = -2.15, -2.55
+    MR = ER_TOP + 0.7                                    # the height the mRNA lies at, between a ribosome's subunits
+    point_at, TL = catmull([V(-6.4, -1.6, 0.4), V(-3.6, 0.9, 0), V(-2, 1.5, 0), V(0.4, 1.3, 0), V(1.3, -0.6, 0),
+                            V(2.3, MR, 0), V(9.6, MR, 0)])
+    # ---- the rough ER: a flattened sac, ribosomes bound to its cytoplasmic face
+    er_parts = [flat_box((9.0, 0.8, 7.0), (5.0, ER_Y, 0), K.mat('rer', 0x5fa8d3, 0.5, alpha=0.4), 'rer', bevel=0.38, lump=0.08)]
+    big, small = K.mat('ribo-large', 0x24395c, 0.5), K.mat('ribo-small', 0x3a5a80, 0.5)
+    rnd = random.Random(7)
+    for i in range(34):
+        x, z = 1.0 + rnd.random() * 8.0, (rnd.random() - 0.5) * 6.2
+        if abs(z) < 0.9:
+            z = 0.9 * (1 if z >= 0 else -1) + z
+        lg = K.sphere(0.3, (x, ER_TOP + 0.2, z), big, seg=(10, 7), name='bound')
+        lg.scale = (1.15, 1, 0.75)
+        er_parts += [K.apply(lg), K.sphere(0.2, (x, ER_TOP + 0.58, z), small, seg=(8, 6), name='bound')]
+    K.part(K.join(er_parts, 'rer'), 'rer', shell=True)
+    K.anchor('rer', (2.0, ER_TOP + 0.2, 3.5))
+    # ---- the translating ribosome: the large subunit on the ER membrane, the small one above, the mRNA between
     ribo = empty('ribosome-at')
-    for r, y, c in ((0.62, 0.15, 0x415a77), (0.42, 0.9, 0x778da9)):
-        o = K.sphere(r, (0, y, 0), K.mat(f'ribosome{c}', c, 0.5), seg=(20, 14))
-        o.scale = (1.15, 0.85, 1)
+    for r, y, sc, mtl in ((0.42, -0.4, (1.15, 0.75, 1.0), big), (0.3, 0.3, (1.1, 0.7, 0.95), small)):
+        o = K.sphere(r, (0, y, 0), mtl, seg=(22, 14), name='ribosome')
+        o.scale = (sc[0], sc[2], sc[1])
+        o = K.apply(o)
         o.parent = ribo
         K.part(o, 'ribosome')
-    tm = K.mat('trna', 0xb5838d, 0.5)
-    trnas = []
+    # ---- tRNAs: an L, the anticodon end at the mRNA, the amino acid at the other end
+    tm, aam = K.mat('trna', 0xb5838d, 0.5), K.mat('chain', 0xffd166, 0.45)
+    trnas, aas = [], []
     for _ in range(3):
         g = empty('trna-at')
-        for a, b in (((0, 0, 0), (0, -0.6, 0)), ((0, 0, 0), (0.45, 0.1, 0))):
-            o = K.between(a, b, 0.08, tm, 'trna', seg=8)
+        for a, b in (((0, 0, 0), (0, -0.55, 0)), ((0, -0.55, 0), (0.42, -0.55, 0))):
+            o = K.between(a, b, 0.075, tm, 'trna', seg=8)
             o.parent = g
             K.part(o, 'trna')
+        aa = K.sphere(0.12, (0.52, -0.55, 0), aam, seg=(10, 8), name='aa')
+        aa.parent = g
+        K.part(aa, 'trna')
         trnas.append(g)
-    cm = K.mat('chain', 0xffd166, 0.45)
-    chain = [K.part(K.sphere(0.17, (0, 0, 0), cm, seg=(10, 8)), 'chain') for _ in range(24)]
-    # the Golgi apparatus (drawn, unlabelled here), where processing ends
-    gm = K.mat('golgi', 0xf2c14e, 0.45)
+        aas.append(aa)
+    NB, SP = 24, 0.25
+    chain = [K.part(K.sphere(0.12, (0, 0, 0), aam, seg=(10, 8)), 'chain') for _ in range(NB)]
+    X0 = 2.8                                              # where translation starts on the mRNA
+    # ---- processing: a transport vesicle from the ER to the Golgi apparatus (unlabelled here)
+    ves = K.decor(K.sphere(0.55, (0, 0, 0), K.mat('vesicle', 0xf7e1a0, 0.4, alpha=0.4), seg=(22, 14), name='vesicle'), 'vesicle')
+    GOLGI = V(4.6, -5.6, 1.4)
+    gom = K.mat('golgi', 0xf2c14e, 0.45)
     for k in range(4):
-        d = K.sphere(1.6 - 0.2 * k, (8, -5 - k * 0.38, 0), gm, seg=(28, 10), name='golgi')
-        d.scale = (1, 1, 0.07)
-        K.decor(K.apply(d), 'golgi')
-    # the plasma membrane on the right, the extracellular fluid beyond it
+        d = dish(1.45 - 0.1 * k, 0.16, 0.11, gom, 'golgi')
+        d.location = T(tuple(GOLGI + V(0, -0.3 * k, 0)))
+        d.rotation_mode = 'QUATERNION'
+        d.rotation_quaternion = q_three((1, 0, 0), 0.55)
+        K.decor(d, 'golgi')
+    FOLD = V(5.4, ER_Y, -0.3)
+    # ---- the plasma membrane on the right, the extracellular fluid beyond it
     K.part(flat_box((0.6, 16, 12), (11.5, 0, 0), K.mat('membrane', 0xe7a0b4, 0.5, alpha=0.45), 'membrane', bevel=0.2), 'membrane', shell=True)
     K.anchor('membrane', (11.5, 6.5, 3))
-    # the lipophilic hormone, its carrier and the nuclear hormone receptor
+    # ---- the lipophilic hormone, its carrier and the nuclear hormone receptor
     carrier = K.sphere(0.8, (14.6, 4, 0), K.mat('carrier', 0x8d99ae, 0.5), seg=(24, 16))
     K.lumpy(carrier, 0.12, 0.4, 3)
     carrier = K.part(K.apply(carrier), 'carrier')
-    lipo = K.part(K.sphere(0.34, (0, 0, 0), K.mat('lipo', 0xffd60a, 0.4), seg=(16, 10)), 'lipo')
-    nhr = K.sphere(0.7, (0, 0, 0), K.mat('nreceptor', 0xff8fab, 0.45), seg=(24, 16))
-    K.lumpy(nhr, 0.12, 0.4, 4)
+    lipo = K.part(K.sphere(0.32, (0, 0, 0), K.mat('lipo', 0xffd60a, 0.4), seg=(16, 10)), 'lipo')
+    nhr = K.sphere(0.5, (0, 0, 0), K.mat('nreceptor', 0xff8fab, 0.45), seg=(24, 16))
+    K.lumpy(nhr, 0.1, 0.4, 4)
     nhr = K.part(K.apply(nhr), 'nreceptor')
-    # the hydrophilic hormone, its G-protein coupled receptor (seven helices across the membrane), the G-protein
+    # ---- the hydrophilic hormone, its G-protein coupled receptor (seven helices across the membrane), the G-protein
     # subunit, adenylate cyclase, cAMP, protein kinase and CREB
     hydro = K.part(K.sphere(0.4, (0, 0, 0), K.mat('hydro', 0x4cc9f0, 0.4), seg=(16, 10)), 'hydro')
     gp_m, ac_m = K.mat('gpcr', 0x4361ee, 0.45), K.mat('ac', 0x7209b7, 0.45)
@@ -1361,15 +1711,14 @@ def expression():
     camp_pts = [V(math.cos(i * 2.4), math.sin(i * 1.7), math.sin(i * 3.1)).normalized() for i in range(14)]
     camp_m = K.mat('camp', 0xf72585, 0.45)
     camp = [K.part(K.sphere(0.2, (0, 0, 0), camp_m, seg=(10, 8)), 'camp') for _ in range(14)]
-    camp_at = V(9.3, -5.8, -1)
+    camp_at = V(10.0, -5.8, -1)
     K.anchor('camp', tuple(camp_at + V(-1.4, 0.6, 0)))
-    kin = K.sphere(0.7, (0, 0, 0), K.mat('kinase', 0xffb703, 0.45), seg=(24, 16))
-    K.lumpy(kin, 0.12, 0.4, 6)
+    kin = K.sphere(0.5, (0, 0, 0), K.mat('kinase', 0xffb703, 0.45), seg=(24, 16))
+    K.lumpy(kin, 0.1, 0.4, 6)
     kin = K.part(K.apply(kin), 'kinase')
-    creb = K.part(K.sphere(0.55, (0, 0, 0), K.mat('creb', 0xfb5607, 0.45), seg=(20, 14)), 'creb')
+    creb = K.part(K.sphere(0.45, (0, 0, 0), K.mat('creb', 0xfb5607, 0.45), seg=(20, 14)), 'creb')
     an = anchors(('mrna', 'ribosome', 'trna', 'chain'))
     hydro_parts = [hydro, gpcr, gpr, ac, kin, creb] + camp
-    state = {'mrna': None}
 
     def place(signal, s, frame):
         ids = EXPRESSION_STAGES[signal]
@@ -1383,15 +1732,16 @@ def expression():
             return 1.0 if k > j else 0.0 if k < j else f
         lipo_on, hydro_on = signal == 'lipophilic', signal == 'hydrophilic'
         tr.pose(hre, frame, scale=1 if lipo_on else HIDE)
+        tr.pose(hre_plain, frame, scale=HIDE if lipo_on else 1)
         if not lipo_on:
             for o in (lipo, carrier, nhr):
                 tr.pose(o, frame, scale=HIDE)
         else:
             a, b = prog('lipo_enter'), prog('lipo_bind')
             h = along([V(14.6, 4.75, 0), V(13.4, 4.4, 0), V(9.6, 3.9, 0.8), V(5, 4.15, 1.5)], a)
-            rr = along([V(5, 3.5, 1.5), V(-0.4, 1.5, 0), V(-3.6, 1.5, 0), V(-10.35, -2.0, 0.2)], b)
+            rr = along([V(5, 3.5, 1.5), V(0.4, 1.5, 0), V(-3.6, 1.5, 0), V(-8.0, -0.6, 0.3), V(sum(HRE) / 2, -2.3, 0.3)], b)
             tr.pose(nhr, frame, rr, scale=1)
-            tr.pose(lipo, frame, rr + V(0, 0.65, 0) if b > 0 else h, scale=1)
+            tr.pose(lipo, frame, rr + V(0, 0.55, 0) if b > 0 else h, scale=1)
             tr.pose(carrier, frame, scale=1)
         if not hydro_on:
             for o in hydro_parts:
@@ -1403,22 +1753,29 @@ def expression():
             tr.pose(gpcr, frame, scale=1)
             tr.pose(ac, frame, scale=1)
             for i, o in enumerate(camp):
-                p = camp_at + camp_pts[i] * (0.4 + 2.6 * c * ((i % 4) + 1) / 4) + V(-1.6 * c, 0.4 * c, 0)
+                p = camp_at + camp_pts[i] * (0.4 + 1.6 * c * ((i % 4) + 1) / 4) + V(-1.0 * c, 0.3 * c, 0)
                 tr.pose(o, frame, p, scale=1 if c > 0.02 else HIDE)
-            tr.pose(kin, frame, along([V(7, -5.2, 1.5), V(2, 0.5, 0.6), V(-0.4, 1.5, 0), V(-3.8, 1.2, 0.8)], span(d, 0, 0.6)), scale=1)
-            tr.pose(creb, frame, lerp(V(-6, 1, 1), V(-9.5, -2.0, 0.6), span(d, 0.5, 1)), scale=1)
+            # protein kinase round the end of the ER and in through a nuclear pore; CREB onto the DNA by the promoter
+            tr.pose(kin, frame, along([V(9.2, -5.0, -1.2), V(10.2, -3.6, -1.0), V(10.2, -1.0, -0.4), V(6.0, 0.8, 0.4), V(1.0, 1.4, 0.2),
+                                       V(-0.6, 1.5, 0), V(-3.6, 1.3, 0.6)], span(d, 0, 0.6)), scale=1)
+            tr.pose(creb, frame, lerp(V(-6.0, 1.0, 1.0), V(sum(PROM) / 2 - 0.3, -2.3, 0.5), span(d, 0.5, 1)), scale=1)
         act, trn, ex, tl, pr = prog('activation'), prog('transcription'), prog('export'), prog('translation'), prog('processing')
-        for i, b in enumerate(beads):
-            if i:
-                x = (-7.5, -5.2)[i - 1]
-                tr.pose(b, frame, V(x, -3 + 2.6 * act, 0), scale=(1.9 * max(HIDE, 1 - act)) if act < 0.99 else HIDE)
-        pol_at = lerp(lerp(lerp(V(-9.3, 0.2, 1.8), V(-9.3, -3, 0), span(act, 0.4, 1)), V(-4.4, -3, 0), trn), V(-4.6, -0.6, 2.2), span(ex, 0, 0.4))
+        # gene activation: the histones come off the gene and its DNA uncoils
+        opened = act >= 0.5
+        tr.pose(gene_closed, frame, scale=HIDE if opened else 1)
+        tr.pose(gene_open, frame, scale=1 if opened else HIDE)
+        off = span(act, 0.5, 1)
+        for x, o in zip(BEADS, cores):
+            tr.pose(o, frame, V(x + (0.6 if x > -6 else -0.6) * off, -4.0 - 2.2 * off, 0.8 * off), scale=1 - off if off < 0.95 else HIDE)
+        tr.pose(an_gene, frame, V(-6.5, -2.0, 0.8) if opened else V(-6.6, -1.9, 0.9))
+        # transcription: RNA polymerase onto the promoter, along the gene, and off it
+        pol_at = lerp(lerp(lerp(V(-10.0, 0.2, 1.8), V(sum(PROM) / 2, -3, 0), span(act, 0.4, 1)), V(-4.0, -3, 0), trn),
+                      V(-4.6, -0.6, 2.2), span(ex, 0, 0.4))
         tr.pose(pol, frame, pol_at)
-        # the mRNA: grows behind the polymerase, then runs along its track through the pore to the ER
         pts = None
         if trn > 0.02:
             n = max(3, round(M * trn))
-            frm = lerp(V(-9.3, -3, 0), V(-4.4, -3, 0), trn) + V(0, 0.9, 0)
+            frm = lerp(V(sum(PROM) / 2, -3, 0), V(-4.0, -3, 0), trn) + V(0, 0.9, 0)
             made = [frm + V(-0.16 * j, 0.1 * j + 0.3 * math.sin(j * 0.6), 0.3 * math.cos(j * 0.5)) for j in range(n)]
             pts = made
             if ex > 0 or tl > 0 or pr > 0:
@@ -1428,34 +1785,52 @@ def expression():
                 pts = [lerp(made[j] if j < len(made) else made[-1], p, blend) for j, p in enumerate(on_track)]
         for j in range(M - 1):
             ok = pts is not None and j + 1 < len(pts)
-            tr.rod(seg[j], frame, pts[j] if ok else V(), pts[j + 1] if ok else V(), 0.13, ok)
+            tr.rod(seg[j], frame, pts[j] if ok else V(), pts[j + 1] if ok else V(), 0.12, ok)
         for j in range(M):
             ok = pts is not None and j < len(pts)
             tr.pose(joints[j], frame, pts[j] if ok else None, scale=1 if ok else HIDE)
         if pts:
-            tr.pose(an['mrna'], frame, pts[len(pts) // 2] + V(0, 0.3, 0))
-        # translation: a ribosome on the ER reads the mRNA; tRNAs bring amino acids; the chain grows into the ER
-        on_er = pts if (pts and ex > 0.95) else None
-        rp = on_er[min(len(on_er) - 1, max(0, round((M - 6) * (1 - tl))))].copy() if on_er else V(9, -1.35, 0)
-        rp.y = -1.35 + 0.55
-        tr.pose(ribo, frame, rp, scale=1 if (ex > 0.95 or tl > 0 or pr > 0) else HIDE)
-        tr.pose(an['ribosome'], frame, rp + V(0, 1.3, 0))
-        tr.pose(an['trna'], frame, rp + V(0, 2.6, 0.9))
+            tr.pose(an['mrna'], frame, pts[len(pts) // 3] + V(0, 0.3, 0))
+        # translation: the ribosome moves one amino acid's width along the mRNA for each amino acid added
+        made_n = NB * span(tl, 0.05, 0.95)
+        rp = V(X0 + SP * made_n, MR, 0)
+        on = ex > 0.95 or tl > 0 or pr > 0
+        tr.pose(ribo, frame, rp, scale=1 if on else HIDE)
+        tr.pose(an['ribosome'], frame, rp + V(0, 0.9, 0))
+        tr.pose(an['trna'], frame, rp + V(-0.3, 1.5, 0.9))
         for i, g in enumerate(trnas):
-            ph = (tl * 5 + i / 3) % 1
-            tr.pose(g, frame, rp + V(0.3 * (i - 1), 3.4 - 2.3 * ph, 0.9), scale=1 if 0 < tl < 1 else HIDE)
-        nb = round(24 * tl)
-        fold = lerp(V(6.5, -2.4, 0), V(8, -4.2, 0), span(pr, 0.5, 1))
+            ph = (tl * 6 + i / 3) % 1
+            dock = rp + V(0.2, 0.02, 0.55)
+            p = (lerp(rp + V(0.9, 1.6, 1.0), dock, span(ph, 0, 0.35)) if ph < 0.35 else dock if ph < 0.65
+                 else lerp(dock, rp + V(-1.0, 1.5, 1.0), span(ph, 0.65, 1)))
+            vis = 0.04 < tl < 0.96
+            tr.pose(g, frame, p, scale=1 if vis else HIDE)
+            tr.pose(aas[i], frame, V(0.52, -0.55, 0), scale=1 if ph < 0.55 else HIDE)
+        # the chain: out of the large subunit, through the ER membrane, lying in the lumen behind the ribosome
+        nb = int(made_n)
         mid = None
+        ves_at = lerp(FOLD + V(0, -0.85, 0), GOLGI + V(0, 0.75, 0), span(pr, 0.5, 0.85))
         for b, o in enumerate(chain):
-            free = rp + V(-0.25 * b, -1.15 - 0.22 * math.sin(b * 0.9), 0.3 * math.cos(b * 0.7))
-            ball = fold + V(math.sin(b * 2.1), math.cos(b * 1.3), math.sin(b * 0.7)) * 0.45
-            p = lerp(free, ball, span(pr, 0, 0.5))
-            tr.pose(o, frame, p, scale=1 if (b < nb and tl > 0.04) else HIDE)
+            j = nb - 1 - b
+            if j <= 0:
+                q = rp + V(-0.05, -0.75, 0)
+            elif j == 1:
+                q = V(rp.x - 0.15, ER_TOP - 0.15, 0)
+            else:
+                q = V(X0 + SP * (b + 1) - 0.25, ER_Y - 0.05 + 0.12 * math.sin(b * 1.3), 0.18 * math.cos(b * 0.9))
+            ball = FOLD + V(math.sin(b * 2.1), math.cos(b * 1.3) * 0.6, math.sin(b * 0.7)) * 0.32
+            q = lerp(q, ball, span(pr, 0, 0.3))
+            q = lerp(q, ves_at + (ball - FOLD), span(pr, 0.35, 0.5))
+            if pr >= 0.5:
+                q = ves_at + (ball - FOLD)
+            q = lerp(q, GOLGI + V(0, 0.08, 0) + (ball - FOLD) * 0.8, span(pr, 0.86, 1))
+            tr.pose(o, frame, q, scale=1 if (b < nb and tl > 0.04) else HIDE)
             if b == nb // 2:
-                mid = p
+                mid = q
+        bud = span(pr, 0.33, 0.5) * (1 - span(pr, 0.85, 0.92))
+        tr.pose(ves, frame, ves_at if pr >= 0.5 else FOLD + V(0, -0.85, 0), scale=bud if bud > 0.03 else HIDE)
         if mid is not None:
-            tr.pose(an['chain'], frame, mid + V(0, 0.3, 0))
+            tr.pose(an['chain'], frame, mid + V(0, 0.35, 0.3))
     for signal, off in EXPRESSION_CLIPS.items():
         n = len(EXPRESSION_STAGES[signal])
         for f in range(0, n * FPS + 1, 2):
