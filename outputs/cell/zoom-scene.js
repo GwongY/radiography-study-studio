@@ -22,7 +22,7 @@ import { MODELS, attachModel } from './models.js?v=1';
 /* Which labelled part each level builds; work/cell-zoom-check.mjs holds this to outputs/cell-zoom.js. */
 export const PARTS = {
   cell: ['membrane', 'cytoplasm', 'nucleus', 'envelope', 'pores', 'nucleolus', 'ribosomes', 'rer', 'ser', 'golgi', 'vesicles', 'mito', 'lyso', 'peroxisomes', 'centrosome', 'centrioles', 'microtubules'],
-  centrosome: ['centrosome', 'centrioles', 'triplets', 'microtubules'],
+  centrosome: ['centrosome', 'centrioles', 'triplets'],
   nucleus: ['envelope', 'pores', 'nucleoplasm', 'nucleolus', 'chromatin'],
   dna: ['nucleosome', 'chromatin', 'supercoiled', 'chromosome', 'sisters', 'centromere', 'kinetochore'],
   nucleosome: ['histones', 'dna', 'helix', 'bases', 'gene', 'nucleosome'],

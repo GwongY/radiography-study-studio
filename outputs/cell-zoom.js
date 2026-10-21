@@ -122,7 +122,6 @@ export const LABELS = {
     { id: 'centrosome', l: 'Centrosome', cite: [{ ref: L1, page: 5, match: 'Centrosome and Centrioles' }], revise: [['ABCT2326', 'p1_centrosome']] },
     { id: 'centrioles', l: 'Centrioles', note: 'each centriole is composed of 9 microtubule triplets in a 9 + 0 array', cite: [{ ref: L1, page: 5, match: 'each centriole is composed of 9 microtubule triplets in a 9 + 0 array' }], revise: [['ABCT2326', 'p1_centrioles']] },
     { id: 'triplets', l: 'Microtubule triplets', note: 'each centriole is composed of 9 microtubule triplets in a 9 + 0 array', cite: [{ ref: L1, page: 5, match: 'each centriole is composed of 9 microtubule triplets in a 9 + 0 array' }], revise: [['ABCT2326', 'p1_centrioles']] },
-    { id: 'microtubules', l: 'Microtubules', cite: [{ ref: L1, page: 6, match: 'Microtubule' }, { ref: L1, page: 11, match: 'containing microtubules' }], revise: [['ABCT2326', 'p1_microtubules']] },
   ],
   nucleus: [
     { id: 'envelope', ...ENVELOPE },

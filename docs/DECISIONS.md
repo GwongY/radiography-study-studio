@@ -16,7 +16,8 @@ transporter is labelled with the deck's own "Coupled transport (glucose and Na+)
 of the tubule cell cite the Nervous deck's "Passive Channels - Not gated (always open)" (L8 p24), the only 2026 page
 naming them. The ventricular level uses the deck's title, "Myocardial Action Potential" (L2 p58). The centrosome is
 now a Blender model with one centriole end on, so the 9 + 0 array L1 p5 states is what opens; the "Structure of
-Centrosome" download (86 tubes, not nine triplets) is no longer used or credited. Spec:
+Centrosome" download (86 tubes, not nine triplets) is no longer used or credited. It shows the two centrioles in their matrix and nothing else: the microtubules first drawn radiating
+from it looked like spikes, and no 2026 slide pictures them there. Spec:
 [`2026-10-20-cell-zoom.md`](superpowers/specs/2026-10-20-cell-zoom.md), "Assets".
 
 ### 2026-10-21 — Life cycle in G1, S and G2; a real spindle; protein synthesis and the parietal cell remade

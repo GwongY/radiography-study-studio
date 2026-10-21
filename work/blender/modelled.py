@@ -709,8 +709,7 @@ def centrosome():
     """Centrosome and Centrioles (L1 p5): "Cytoplasm contains two centrioles at right angles; each centriole is
     composed of 9 microtubule triplets in a 9 + 0 array". Two centrioles (centriole(): nine triplets of hollow
     tubules round an empty centre), one turned end on toward the opening view so the 9 + 0 array reads, the other
-    across it at right angles; the centrosome's matrix round them; microtubules growing out from it ("organization of
-    microtubules in cytoskeleton"). One triplet of the end-on centriole is its own part, so its label points at a
+    across it at right angles; the centrosome's matrix round them; One triplet of the end-on centriole is its own part, so its label points at a
     triplet. Replaces the "Structure of Centrosome" download, whose centrioles are not nine triplets (86 tubes)."""
     K.reset()
     S = 4.0                                              # a centriole drawn 4 long
@@ -740,22 +739,9 @@ def centrosome():
     halo.scale = (S * 0.95, S * 0.95, S * 0.95)
     K.lumpy(halo, 0.3, 1.1, 3)
     K.part(K.apply(halo), 'centrosome', shell=True)
-    # microtubules out of the centrosome into the cytoplasm
-    rnd = random.Random(7)
-    mtm = K.mat('microtubules', 0x2a9d8f, 0.45)
-    tubes, tips = [], []
-    for d in fib(30):
-        if d.dot(view) > 0.45:                           # none toward the camera, over the centrioles
-            continue
-        bend = V(rnd.random() - 0.5, rnd.random() - 0.5, rnd.random() - 0.5) * 1.0
-        pts = [d * S * 0.9, d * S * 1.25 + bend * 0.25, d * S * 1.6 + bend * 0.5]
-        tubes.append(tube(pts, 0.07, mtm, 'microtubule', res=6))
-        tips.append(pts[1])
-    K.part(K.join(tubes, 'microtubules'), 'microtubules')
     K.anchor('triplets', T(tuple(at_screen(lone) + right * 0.35)))
     K.anchor('centrioles', T(tuple(b_at + up * S * 0.95)))
     K.anchor('centrosome', T((0, S * 1.0, 0)))
-    K.anchor('microtubules', T(tuple(max(tips, key=lambda p: p.y - p.x))))
     export('centrosome')
 
 
