@@ -11,11 +11,16 @@
  * Revise link to a real box, each label to a part outputs/cell/zoom-scene.js builds (its PARTS export, which needs
  * no three.js), each "Show in 3D" target to a real level, label, stage and signal, refuses a label that is one of
  * the UNLABELLED terms, and checks the nucleosome data (outputs/cell/nucleosome-3afa.js): two 146-nucleotide
- * strands whose every pair is A-T or G-C, eight histone chains.
+ * strands whose every pair is A-T or G-C, eight histone chains. Last, the models (outputs/cell/models.js): every
+ * level has its .glb, each .glb's nodes are that level's parts and all of them, its label anchors name real parts,
+ * a level with a slider is animated (and a signal's run, czClips, is one of the slider's signals), and every
+ * download a model is made from is credited in outputs/THIRD-PARTY-NOTICES.txt by title, author and URL. A .glb is
+ * read by its JSON chunk alone, so the check needs no glTF library.
  */
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { LEVELS, LABELS, SLIDERS, SHOW_IN_3D, CELL_SOURCES, FALLBACK, UNLABELLED, stagesFor } from '../outputs/cell-zoom.js';
 import { PARTS } from '../outputs/cell/zoom-scene.js';
+import { MODELS, MODEL_SOURCES, MODEL_LICENCE } from '../outputs/cell/models.js';
 import { DNA_STRANDS, BASE_PAIRS, HISTONE_CHAINS, NUCLEOSOME_SOURCE } from '../outputs/cell/nucleosome-3afa.js';
 import { SOURCE_FILES } from '../outputs/study/course-data.js';
 import { REVISION } from '../outputs/revision/registry.js';
@@ -117,6 +122,45 @@ ok(DNA_STRANDS.length === 2 && DNA_STRANDS.every((s) => s.bases.length === 146 &
   ok(good, '146 base pairs, every one A-T or G-C');
 }
 ok(HISTONE_CHAINS.length === 8 && ['H3.1', 'H4', 'H2A', 'H2B'].every((n) => HISTONE_CHAINS.filter((h) => h.name === n).length === 2), 'eight histone chains, two each of H3, H4, H2A, H2B');
+
+console.log('— every level wears a model made of its own parts, and every download is credited —');
+/* the JSON chunk of a .glb: 12-byte header, then [length, type 'JSON', bytes] */
+const glbJson = (file) => { const b = readFileSync(file); return JSON.parse(b.subarray(20, 20 + b.readUInt32LE(12)).toString('utf8')); };
+const NOTICES = readFileSync(new URL('../outputs/THIRD-PARTY-NOTICES.txt', import.meta.url), 'utf8');
+ok(MODEL_LICENCE === 'CC BY 4.0', 'the downloads are CC BY 4.0 (no NC licence)');
+for (const [id, src] of Object.entries(MODEL_SOURCES)) {
+  for (const k of ['title', 'author', 'url']) ok(NOTICES.includes(src[k]), `download ${id}: its ${k} is in THIRD-PARTY-NOTICES.txt`);
+  ok(Object.values(MODELS).some((m) => m.sources.includes(id)), `download ${id}: a model uses it`);
+}
+for (const lv of LEVELS) ok(!!MODELS[lv.id], `level ${lv.id}: has a model`);
+for (const [lvId, m] of Object.entries(MODELS)) {
+  const what = `model ${lvId}`, file = new URL(`../outputs/${m.file.slice(2)}`, import.meta.url);
+  ok(ids.has(lvId), `${what}: the level exists`);
+  for (const s of m.sources) ok(!!MODEL_SOURCES[s], `${what}: download ${s} is credited in MODEL_SOURCES`);
+  if (!existsSync(file)) { ok(false, `${what}: ${m.file} exists`); continue; }
+  const j = glbJson(file), scene = (j.scenes || [])[j.scene || 0] || {}, ex = scene.extras || {};
+  ok(ex.czLevel === lvId, `${what}: the .glb says it is level ${lvId}`);
+  const parts = new Set(PARTS[lvId] || []), seen = new Set();
+  for (const nd of j.nodes || []) {
+    const e = nd.extras || {};
+    if (e.czAnchorOf) ok(parts.has(e.czAnchorOf), `${what}: anchor ${nd.name} names part ${e.czAnchorOf}`);
+    /* a mesh node without extras is one quantization put under an animated node: it is that node's (the app looks
+       up the nearest ancestor's part too) */
+    const up = (j.nodes.find((p) => (p.children || []).includes(j.nodes.indexOf(nd))) || {}).extras || {};
+    if (nd.mesh == null || e.czDecor || (!e.czPart && up.czDecor)) continue;
+    const own = e.czPart || up.czPart;
+    ok(!!own && parts.has(own), `${what}: node ${nd.name} is a part of the level (${own || 'none'})`);
+    if (own) seen.add(own);
+  }
+  for (const p of parts) ok(seen.has(p), `${what}: carries part ${p}`);
+  const lv = LEVELS.find((l) => l.id === lvId);
+  if (lv && lv.slider) {
+    ok((j.animations || []).length === 1, `${what}: its stage slider has one animation`);
+    const signals = new Set((SLIDERS[lv.slider].signals || [{ id: 'none' }]).map((g) => g.id));
+    for (const sig of Object.keys(ex.czClips || {})) ok(signals.has(sig), `${what}: czClips ${sig} is a signal of slider ${lv.slider}`);
+    if ((SLIDERS[lv.slider].signals || []).length) for (const sig of signals) ok(ex.czClips && ex.czClips[sig] != null, `${what}: signal ${sig} has its run (czClips)`);
+  }
+}
 
 const n = Object.values(LABELS).reduce((s, l) => s + l.length, 0);
 const st = Object.values(SLIDERS).reduce((s, l) => s + (l.stages || []).length, 0);

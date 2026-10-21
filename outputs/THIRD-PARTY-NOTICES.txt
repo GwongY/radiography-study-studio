@@ -51,9 +51,36 @@ https://www.rcsb.org/pages/usage-policy, checked 2026-10-20). The same structure
 (public domain), https://3d.nih.gov/entries/3DPX-002662. outputs/cell/nucleosome-3afa.js keeps, per nucleotide, its
 base, one backbone atom and C1', and each histone's C-alpha trace, reduced by work/build-cell-nucleosome.mjs from
 the 3AFA mmCIF file; nothing else of the entry is redistributed.
-Every other level (the cell, nucleus, chromatin and chromosome, life cycle, meiosis, protein synthesis and the
-hormone signals, the plasma membrane, epithelium, blood, alveolus, parietal cell, spermatozoon, neuron, NK cell and
-antigen-presenting cell), and the nucleosome's linker DNA and neighbours, is geometry generated in three.js by this
-app. Openly licensed models were looked for first on 2026-10-20 (NIH 3D, Sketchfab, RCSB PDB); the NIH 3D model
-files could not be downloaded from the build environment and Sketchfab downloads need an account, so no other
-third-party asset is added.
+Each level opens as a drawing generated in three.js by this app, then wears a 3D model (outputs/cell/models/*.glb,
+outputs/cell/models.js) built in Blender by work/build-cell-models.mjs and work/blender/. The models use these
+Sketchfab downloads, each licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), downloaded 2026-10-20:
+  "Animal cell - Downloadable" by Lauri Purhonen — https://sketchfab.com/3d-models/animal-cell-downloadable-ddc40bb0900544959f02d3ff83c32615
+    (the typical cell)
+  "Structure of Centrosome" by arloopa — https://sketchfab.com/3d-models/structure-of-centrosome-99723b77c5a84a20a9742f9976a62008
+    (the centrosome)
+  "Red Blood Cells (Erythrocytes)" by _Bonehead14 — https://sketchfab.com/3d-models/red-blood-cells-erythrocytes-657f7b34ab2e43878c4f366e3e940ebd
+    (blood)
+  "Lympocyte" by Vikrama Raghuraman — https://sketchfab.com/3d-models/lympocyte-f84f96cc9a9847a18e6b469eb2a81fb8
+    (blood's leukocyte; the NK cell)
+  "blood platelet / thrombocyte" by i.isabelgordon — https://sketchfab.com/3d-models/blood-platelet-thrombocyte-08fed7ab59514804b07804e40a57ef33
+    (blood)
+  "Macrophage" by andrewfrueh — https://sketchfab.com/3d-models/macrophage-1aa1ce1930f54580b83d4b47f9d405c0
+    (the alveolar macrophage; the antigen-presenting cell and its bacteria)
+  "Neuron" by Versal — https://sketchfab.com/3d-models/neuron-d40557a1e4154267b78117433bc51296
+    (the neuron)
+  "CC0 - Sperm" by plaggy — https://sketchfab.com/3d-models/cc0-sperm-af340f33a8574d60a65fa008233ad934
+    (the spermatozoon; CC BY 4.0 as downloaded, whatever its title says)
+  "Plasma Membrane" by Konstantin_Keller — https://sketchfab.com/3d-models/plasma-membrane-53304c29aa2c41479488f06d3470c796
+    (the plasma membrane)
+  "Epithelium of the Trachea" by Sieben Medical Art — https://sketchfab.com/3d-models/epithelium-of-the-trachea-cb418d1b3f234f04bd3e17075970b222
+    (characteristics of epithelia)
+  "Chromosome X" by LucasPresoto — https://sketchfab.com/3d-models/chromosome-x-4ab2fe1dfcba469097e2d0fe4a0f942b
+    (the visible chromosome; the chromatids of the life cycle and meiosis)
+Changes made to every download: simplified (fewer triangles), textures shrunk, cut into the parts the app labels
+and recoloured to them, scaled and placed in the level's frame; parts of some were reshaped to the slide's
+proportions (the spermatozoon's head, neck, middle piece and tail; the neuron's myelinated axon), made see-through
+(cells whose insides are shown), or set moving with the level's stage slider. What the downloads lack — organelles,
+membrane proteins, junctions, the nucleus and DNA levels, the life cycle, meiosis, protein synthesis and the
+hormone signals, the parietal cell, the perforin and MHC proteins, the nucleosome's surfaces from PDB 3AFA — is
+modelled in Blender for this app. Sketchfab models that were found but are CC BY-NC, or are photographs of a
+physical model with no separable parts ("Mitosis Stage 1"…"9" by jkane326, CC BY 4.0), are not used.
