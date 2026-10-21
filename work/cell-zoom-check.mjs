@@ -33,7 +33,7 @@ const TEXT = JSON.parse(readFileSync(new URL('./source-text.json', import.meta.u
    labels are transcribed, page by page, in work/figure-labels.json (read off the slide image). */
 const FIGURE = JSON.parse(readFileSync(new URL('./figure-labels.json', import.meta.url), 'utf8')).labels;
 const pageText = (c) => c.figure
-  ? ((FIGURE[c.ref] || {})[c.page] || []).map((l) => norm(l)).join(' | ')
+  ? (((FIGURE[c.ref] || {})[c.page] || {}).labels || []).map((l) => norm(l)).join(' | ')
   : norm(((TEXT[c.ref] || { pages: [] }).pages[c.page - 1]) || '');
 
 function checkCites(what, cite) {

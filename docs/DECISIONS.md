@@ -5,6 +5,17 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-21 — Oogenesis, as the L6 p23 figure draws it
+
+The owner asked for oogenesis to be shown. ABCT2326 Reproduction p23 is that figure, and nearly all of its words are
+figure labels. The lecturer's own mark is the red "disintegrates" pointing at both polar bodies. Because the owner
+asked for this figure, its labels are transcribed in `work/figure-labels.json`, each page with the reason it is
+there (`why`). **Oogenesis** is a model-only level between Meiosis and the Ovarian Cycle. It builds the figure's
+lineage beside its timeline of a woman's life: oogonia by mitosis in fetal life; one primary oocyte (46), waiting from
+birth to puberty; the 1st meiotic division giving the secondary oocyte (23) and the first polar body; and, after a
+sperm enters, the 2nd giving the ovum (23) and the second polar body. Both polar bodies then disintegrate. Slide text
+adds the 7 million primary oocytes (p22), "only if there is fertilization" (p24) and the haploid ovum (p44).
+
 ### 2026-10-21 — Spermatogenesis and ovarian-cycle levels; the resting potential is read off a meter
 
 The owner asked to see how FSH and LH act on the oocyte and follicle, and on sperm. Two model-only levels follow ABCT2326

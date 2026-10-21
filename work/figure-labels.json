@@ -1,10 +1,36 @@
 {
-  "about": "Labels drawn inside a slide's figure, which text extraction does not reach, transcribed by reading the slide image. An unmarked figure label does not count as taught (DECISIONS, 'What on a slide counts as taught'); an entry here is one the owner asked for by name, and the Cell tab cites it with figure: true (checked by work/cell-zoom-check.mjs; its cite line reads 'figure'). Add one only on the owner's word, after reading it on the page, in its own spelling.",
+  "about": "Labels drawn inside a slide's figure, which text extraction does not reach, transcribed by reading the slide image. An unmarked figure label does not count as taught (DECISIONS, 'What on a slide counts as taught'); a page is here only because the owner asked for that figure by name, and `why` says when. The Cell tab cites these with figure: true (checked by work/cell-zoom-check.mjs; its cite line reads 'figure'). Add labels only on the owner's word, after reading them on the page, in their own spelling.",
   "labels": {
     "phys.l8.2026": {
-      "29": [
-        "Na,K–ATPase pump"
-      ]
+      "29": {
+        "why": "2026-10-21: the owner asked for the pump to be shown as the Na,K–ATPase pump",
+        "labels": [
+          "Na,K–ATPase pump"
+        ]
+      }
+    },
+    "phys.l6.2026": {
+      "23": {
+        "why": "2026-10-21: the owner asked for oogenesis to be shown as this figure draws it",
+        "labels": [
+          "Oogenesis",
+          "Oogonia",
+          "Mitosis",
+          "Differentiation",
+          "Primary oocyte",
+          "1st meiotic division (begins in utero, completed prior to ovulation)",
+          "Secondary oocyte",
+          "2nd meiotic division (completed after fertilization)",
+          "Ovum",
+          "First polar body",
+          "Second polar body",
+          "Fetal life",
+          "Birth",
+          "Childhood",
+          "Puberty",
+          "Adult reproductive life"
+        ]
+      }
     }
   }
 }

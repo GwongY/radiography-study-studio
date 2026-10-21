@@ -3304,3 +3304,118 @@ def follicle():
     K.anchor('primordial', (-7.6, 3.4, -0.6))
     VIEW['follicle'] = [0.12, 0.22, 1]
     export('follicle', [])
+
+
+def oogenesis():
+    """Oogenesis as the L6 p23 figure draws it, a lineage read top to bottom beside a timeline of a woman's life:
+    an oogonium divides by mitosis into oogonia (fetal life), one becomes a primary oocyte (46 chromosomes; seven
+    million are made in the first six months of embryonic life, p22), the first meiotic division (begun in utero,
+    finished before ovulation) makes a secondary oocyte (23) and the first polar body, and the second meiotic division,
+    which takes place only if there is fertilization (p24), makes the ovum (23) and the second polar body; both polar
+    bodies disintegrate (the lecturer's red arrows). Every cell stays in the tree, as in the figure; each new one grows
+    out of its parent along the connecting line."""
+    K.reset()
+    tr = Track()
+    gm, pm, sm, om = K.mat('oogonia', 0xbc4b21, 0.5), K.mat('primary', 0x7ec4cf, 0.45), K.mat('secondary', 0x5fb8c4, 0.45), K.mat('ovum', 0xa05fb0, 0.45)
+    bm_ = K.mat('polar1', 0x22223b, 0.5)
+    b2m = K.mat('polar2', 0x22223b, 0.5)
+    nuc = K.mat('nuclei', 0x2b2d42, 0.4)
+
+    def cell(r, m, name, n_r=0.28):
+        return K.part(bake(K.join([K.sphere(r, (0, 0, 0), m, seg=(28, 18), name=name),
+                                   K.sphere(n_r, (0, 0, r * 0.88), nuc, seg=(12, 8), name=name)], name)), name)
+    # where each cell sits (three.js), its parent, and its radius
+    G0 = V(0, 7.2, 0)
+    G1 = [V(-2.4, 4.9, 0), V(2.4, 4.9, 0)]
+    G2 = [V(-3.6, 2.7, 0), V(-1.2, 2.7, 0), V(1.2, 2.7, 0), V(3.6, 2.7, 0)]
+    P, S, B1, O, B2 = V(1.2, -0.7, 0), V(2.6, -4.0, 0), V(-0.4, -3.7, 0), V(3.6, -7.3, 0), V(1.2, -7.0, 0)
+    og = [cell(0.75, gm, 'oogonia') for _ in range(7)]
+    og_at = [G0] + G1 + G2
+    og_from = [G0, G0, G0, G1[0], G1[0], G1[1], G1[1]]
+    primary = cell(1.3, pm, 'primary', 0.42)
+    secondary = cell(1.2, sm, 'secondary', 0.38)
+    ovum = cell(1.1, om, 'ovum', 0.36)
+    pb1 = K.part(K.sphere(0.32, (0, 0, 0), bm_, seg=(14, 10), name='polar1'), 'polar1')
+    pb2 = K.part(K.sphere(0.28, (0, 0, 0), b2m, seg=(14, 10), name='polar2'), 'polar2')
+    bits = [K.part(K.sphere(0.09, (0, 0, 0), bm_ if j < 5 else b2m, seg=(8, 6), name='polar1' if j < 5 else 'polar2'), 'polar1' if j < 5 else 'polar2') for j in range(10)]
+    # the lines of descent, each a unit rod grown from parent to child as the child appears
+    lm = K.mat('lineage', 0x6c757d, 0.6)
+    links = [(og_from[i], og_at[i]) for i in range(1, 7)] + [(G2[2], P), (P, S), (P, B1), (S, O), (S, B2)]
+    rods = [K.decor(unit_rod(lm, 'lineage', seg=8), 'lineage') for _ in links]
+    # chromosomes per cell, as the figure's table gives them
+    tm = K.mat('counts', 0xe9ecef, 0.6)
+    counts = []
+    for body, at in (('46', G0), ('46', P), ('23', S), ('23', O)):
+        counts.append((K.decor(bake(text_mesh(body, (0, 0, 0), 0.55, tm, 'count', align='LEFT', res=3)), 'count'), at))
+    # the timeline of a woman's life down the left, as the figure has it, with a marker that follows the slider
+    xm = K.mat('timeline', 0xadb5bd, 0.6)
+    TL = -7.2
+    tl = [K.between((TL, 8.2, 0), (TL, -8.4, 0), 0.05, xm, 'timeline', seg=8)]
+    for body, y in (('Fetal life', 5.2), ('Birth', 1.1), ('Childhood', 0.0), ('Puberty', -1.6), ('Adult reproductive life', -5.2)):
+        tl.append(text_mesh(body, (TL - 0.4, y, 0), 0.45, xm, 'timeline', res=3))
+    for y in (1.1, -1.6):
+        tl += [K.between((x, y, 0), (x + 0.35, y, 0), 0.03, xm, 'timeline', seg=6) for x in [TL + 0.4 + 0.6 * i for i in range(14)]]
+    K.decor(K.join(tl, 'timeline'), 'timeline')
+    marker = K.decor(K.sphere(0.22, (0, 0, 0), K.mat('timeline-marker', 0xff006e, 0.35, emit=0xff006e), seg=(14, 10), name='marker'), 'marker')
+    # the sperm whose entry lets the second meiotic division take place
+    zm = K.mat('sperm', 0x343a40, 0.45)
+    sperm = K.part(bake(K.join([K.sphere(0.2, (0, 0, 0), zm, seg=(12, 8), scale=(1.5, 0.9, 0.9), name='sperm'),
+                                K.curve_tube([(0.25, 0, 0), (0.9, 0.12, 0), (1.5, -0.12, 0), (2.1, 0.1, 0), (2.6, 0, 0)], 0.045, zm, 'sperm', res=4)], 'sperm')), 'sperm')
+    an = anchors(('oogonia', 'primary', 'secondary', 'polar1', 'polar2', 'ovum', 'sperm'))
+    rnd = random.Random(81)
+    drift = [V(rnd.random() - 0.5, rnd.random() - 0.5, rnd.random() - 0.5) * 1.6 for _ in bits]
+
+    def grow(o, frame, src, dst, k, size=1.0):
+        """a cell growing out of its parent: from src (small) to dst (full size) as k goes 0 to 1"""
+        tr.pose(o, frame, lerp(src, dst, k), None, max(HIDE, size * mix(0.35, 1.0, k)) if k > 0.01 else HIDE)
+
+    def place(s, frame):
+        p = stage_prog(s, 4)
+        mit, pri, m1, m2 = p(0), p(1), p(2), p(3)
+        # (1) mitosis: one oogonium, then two, then four
+        tr.pose(og[0], frame, G0)
+        for i in range(1, 7):
+            k = span(mit, 0.05, 0.45) if i < 3 else span(mit, 0.5, 0.95)
+            grow(og[i], frame, og_from[i], og_at[i], k)
+        # (2) one oogonium becomes a primary oocyte
+        kp = span(pri, 0.1, 0.8)
+        grow(primary, frame, G2[2], P, kp)
+        # (3) the first meiotic division: a secondary oocyte and the first polar body, by far the smaller
+        k1 = span(m1, 0.15, 0.85)
+        grow(secondary, frame, P, S, k1)
+        gone1 = span(m2, 0.75, 1.0)
+        tr.pose(pb1, frame, lerp(P, B1, k1), None, max(HIDE, mix(0.35, 1.0, k1) * (1 - gone1)) if k1 > 0.01 else HIDE)
+        # (4) a sperm reaches the secondary oocyte; the second meiotic division: the ovum and the second polar body;
+        # both polar bodies disintegrate
+        ks = span(m2, 0.0, 0.3)
+        tip = S + V(1.25, 0.3, 0.2)
+        tr.pose(sperm, frame, lerp(S + V(7.0, 2.2, 0.4), tip, ks), q_three((0, 0, 1), 0.2), 1 if m2 > 0.01 and m2 < 0.98 else HIDE)
+        k2 = span(m2, 0.3, 0.75)
+        grow(ovum, frame, S, O, k2)
+        tr.pose(pb2, frame, lerp(S, B2, k2), None, max(HIDE, mix(0.35, 1.0, k2) * (1 - gone1)) if k2 > 0.01 else HIDE)
+        for j, o in enumerate(bits):
+            home = B1 if j < 5 else B2
+            tr.pose(o, frame, home + drift[j] * gone1, None, 1 if 0.02 < gone1 < 0.98 else HIDE)
+        for idx, (o, (a, b)) in enumerate(zip(rods, links)):
+            k = (span(mit, 0.05, 0.45) if idx < 2 else span(mit, 0.5, 0.95)) if idx < 6 else kp if idx == 6 else k1 if idx < 9 else k2
+            if idx in (8, 10):                           # the polar bodies' lines go as they disintegrate
+                k *= 1 - gone1
+            tr.rod(o, frame, a, lerp(a, b, k), 0.05, k > 0.05)
+        for o, at in counts:
+            show = 1 if at == G0 else kp if at == P else k1 if at == S else k2
+            tr.pose(o, frame, at + V(1.5, 0.3, 0), None, 1 if show > 0.9 else HIDE)
+        # the marker on the timeline: fetal life through mitosis and the primary oocyte, birth to puberty while
+        # the oocyte waits, adult life for both divisions
+        y = mix(6.8, 2.0, mit) if s < 1 else mix(2.0, -1.6, pri) if s < 2 else mix(-1.6, -4.2, m1) if s < 3 else mix(-4.2, -7.4, m2)
+        tr.pose(marker, frame, V(TL, y, 0))
+        tr.pose(an['oogonia'], frame, G2[0] + V(0, 0.95, 0.4))
+        tr.pose(an['primary'], frame, lerp(G2[2], P, kp) + V(0, 1.5, 0.5))
+        tr.pose(an['secondary'], frame, lerp(P, S, k1) + V(0, 1.4, 0.5))
+        tr.pose(an['polar1'], frame, lerp(P, B1, k1) + V(0, 0.5, 0.3))
+        tr.pose(an['polar2'], frame, lerp(S, B2, k2) + V(0, 0.5, 0.3))
+        tr.pose(an['ovum'], frame, lerp(S, O, k2) + V(0, 1.3, 0.5))
+        tr.pose(an['sperm'], frame, lerp(S + V(7.0, 2.2, 0.4), tip, ks) + V(0.8, 0.5, 0.3))
+    sample(place, 4, step=2)
+    tr.write()
+    VIEW['oogenesis'] = [0.05, 0.1, 1]
+    export('oogenesis', [])

@@ -58,6 +58,7 @@ export const MODELS = {
   rmp: { file: './cell/models/rmp.glb', sources: ['membrane'] },
   testis: { file: './cell/models/testis.glb', sources: [] },
   follicle: { file: './cell/models/follicle.glb', sources: [] },
+  oogenesis: { file: './cell/models/oogenesis.glb', sources: [] },
 };
 
 /* the credit line for a level's model */
