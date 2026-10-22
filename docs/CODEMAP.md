@@ -48,7 +48,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `physiology.js` | 415 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `programme.js` | 244 | Programme -- the BSc (Hons) in Radiography [55403] normal progression pattern |  |
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
-| `schedule.js` | 727 | schedule.js — the semester itself: what the syllabus says, and when each |  |
+| `schedule.js` | 725 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `search-name.js` | 42 | Anatomical name matching shared by search and its regression gate. |  |
 | `sw.js` | 461 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 378 | Synonyms — the other names for the same thing. |  |
@@ -109,13 +109,13 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `schedule.js` | 1–67 | preamble |
 |  | 68–100 | The term |
 |  | 101–115 | Who teaches |
-|  | 116–288 | The syllabus, per subject — straight off the subject description forms |
-|  | 289–318 | Groups the student belongs to but the schedule does not say |
-|  | 319–327 | Every timetabled session |
-|  | 328–381 | Weekly slots, from the university timetable |
-|  | 382–622 | The five subjects, and the weeks whose teaching notes are missing |
-|  | 623–671 | Where a session sits in time |
-|  | 672–727 | Formatting — kept here so the view has no date arithmetic in it |
+|  | 116–286 | The syllabus, per subject — straight off the subject description forms |
+|  | 287–316 | Groups the student belongs to but the schedule does not say |
+|  | 317–325 | Every timetabled session |
+|  | 326–379 | Weekly slots, from the university timetable |
+|  | 380–620 | The five subjects, and the weeks whose teaching notes are missing |
+|  | 621–669 | Where a session sits in time |
+|  | 670–725 | Formatting — kept here so the view has no date arithmetic in it |
 | `term-gloss.js` | 1–708 | preamble |
 |  | 709–794 | 2026 sweep — the cell, from the Lecture 1 items |
 |  | 795–837 | 2026 sweep — bone, muscle and the tissues of movement |
