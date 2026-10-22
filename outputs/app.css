@@ -1593,7 +1593,7 @@ ul.asslines{list-style:none;margin:0;padding:0}
 .navhead .kicker{display:none}
 .navhead:has(#rvSubjects:not(.hidden)){padding:8px 16px;gap:10px}
 .navhead:has(#rvSubjects:not(.hidden)) .htitle{font-size:20px;margin:0}
-#reviseView .rv-weeknote,#reviseView .rv-legend .rv-lab{display:none}
+#reviseView .rv-weeknote,#reviseView .rv-legend{display:none}
 @media(max-width:700px){
   #reviseView .rv-head{margin-bottom:4px}
   #reviseView .rv-legend{margin-bottom:4px}
