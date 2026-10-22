@@ -1588,3 +1588,13 @@ ul.asslines{list-style:none;margin:0;padding:0}
   .navhead #rvSubjects .seg{padding:0 8px;font-size:11.5px;min-height:36px}
   .navhead:has(#rvSubjects:not(.hidden)) .grow{flex:0 0 auto}
 }
+
+/* Slim headers: the kicker line ("Link what you have learnt...") only restated the title, so it is gone everywhere. */
+.navhead .kicker{display:none}
+.navhead:has(#rvSubjects:not(.hidden)){padding:8px 16px;gap:10px}
+.navhead:has(#rvSubjects:not(.hidden)) .htitle{font-size:20px;margin:0}
+@media(max-width:700px){
+  #reviseView .rv-weeknote,#reviseView .rv-legend .rv-lab{display:none}
+  #reviseView .rv-head{margin-bottom:4px}
+  #reviseView .rv-legend{margin-bottom:4px}
+}
