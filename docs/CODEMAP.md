@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 420 lines
+## `outputs/radiography-study-studio.html` — 422 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–397 | markup — no banners, grep here |
-| 398–398 | importmap |
-| 399–399 | loads studio.js |
-| 400–400 | loads study.js |
-| 401–418 | classic script · preamble |
-| 419–420 | markup — no banners, grep here |
+| 1–399 | markup — no banners, grep here |
+| 400–400 | importmap |
+| 401–401 | loads studio.js |
+| 402–402 | loads study.js |
+| 403–420 | classic script · preamble |
+| 421–422 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1600 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
+- `outputs/app.css` — 1605 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
 - `outputs/studio.js` — 39 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiomodes-and-bridgejs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 47 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -48,7 +48,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `physiology.js` | 415 | physiology.js — what each mesh IS, so the viewer can show what it DOES. |  |
 | `programme.js` | 244 | Programme -- the BSc (Hons) in Radiography [55403] normal progression pattern |  |
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
-| `schedule.js` | 713 | schedule.js — the semester itself: what the syllabus says, and when each |  |
+| `schedule.js` | 727 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `search-name.js` | 42 | Anatomical name matching shared by search and its regression gate. |  |
 | `sw.js` | 461 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 378 | Synonyms — the other names for the same thing. |  |
@@ -109,13 +109,13 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `schedule.js` | 1–67 | preamble |
 |  | 68–100 | The term |
 |  | 101–115 | Who teaches |
-|  | 116–274 | The syllabus, per subject — straight off the subject description forms |
-|  | 275–304 | Groups the student belongs to but the schedule does not say |
-|  | 305–313 | Every timetabled session |
-|  | 314–367 | Weekly slots, from the university timetable |
-|  | 368–608 | The five subjects, and the weeks whose teaching notes are missing |
-|  | 609–657 | Where a session sits in time |
-|  | 658–713 | Formatting — kept here so the view has no date arithmetic in it |
+|  | 116–288 | The syllabus, per subject — straight off the subject description forms |
+|  | 289–318 | Groups the student belongs to but the schedule does not say |
+|  | 319–327 | Every timetabled session |
+|  | 328–381 | Weekly slots, from the university timetable |
+|  | 382–622 | The five subjects, and the weeks whose teaching notes are missing |
+|  | 623–671 | Where a session sits in time |
+|  | 672–727 | Formatting — kept here so the view has no date arithmetic in it |
 | `term-gloss.js` | 1–708 | preamble |
 |  | 709–794 | 2026 sweep — the cell, from the Lecture 1 items |
 |  | 795–837 | 2026 sweep — bone, muscle and the tissues of movement |
@@ -152,7 +152,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `briefing-access.js` | 129 | University notice access. |
 | `briefing-format.js` | 65 | Weekly briefing — the file format, and nothing else. |
 | `course-data.js` | 301 | Course data -- the source registry, the subject list and the model files. |
-| `course-timetable.js` | 409 | Course — the syllabus and the timetable |
+| `course-timetable.js` | 395 | Course — the syllabus and the timetable |
 | `dialogs.js` | 88 | Dialog behaviour, applied to all seven at once |
 | `global-search.js` | 430 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |

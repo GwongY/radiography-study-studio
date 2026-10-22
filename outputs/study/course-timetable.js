@@ -237,31 +237,17 @@ function syllabusPanel() {
         <b>${esc(a.title)}</b>
         ${meta ? `<span class="sylmeta">${esc(meta)}</span>` : ''}
       </div>
-      <p class="sylobj">${esc(a.objective)}</p>
-      ${a.objectiveNote ? `<p class="small"><span class="apptag">App note</span>${esc(a.objectiveNote)}</p>` : ''}
-      ${a.ilos.length ? `<div class="subhead">Intended learning outcomes</div>
-        <ol class="ilos">${a.ilos.map((t) => `<li>${esc(t)}</li>`).join('')}</ol>` : ''}
       <div class="subhead">Assessment${total === 100 ? '' : ` — the parts listed here sum to ${total}%`}</div>
       <ul class="asslist">${a.assessment.map((x) => `<li>
         <span class="assw">${esc(x.weight)}%</span>
         <span class="assn"><b>${esc(x.name)}</b>${x.note ? `<small>${esc(x.note)}</small>` : ''}${cite(x.src)}</span>
       </li>`).join('')}</ul>
       ${a.assessmentNote ? `<p class="small">${esc(a.assessmentNote)}</p>` : ''}
-      ${a.effort.length ? `<div class="subhead">Study effort</div>
-      <ul class="efflist">${a.effort.map((e) => `<li${e.total ? ' class="tot"' : ''}><span>${esc(e.what)}</span><b>${esc(e.hours)} h</b></li>`).join('')}</ul>` : ''}
-      ${a.effortNote ? `<p class="small">${esc(a.effortNote)}</p>` : ''}
-      ${a.teaching ? `<div class="subhead">How it is taught</div><p class="small">${esc(a.teaching)}</p>` : ''}
-      ${a.texts.length ? `<div class="subhead">Books</div>
-        <ul class="txtlist">${a.texts.map((t) => `<li><span class="txtrole">${esc(t.role)}</span>${
-          t.url ? `<a href="${esc(t.url)}" target="_blank" rel="noreferrer">${esc(t.cite)}</a>` : esc(t.cite)}</li>`).join('')}</ul>` : ''}
-      ${a.textNote ? `<p class="small">${esc(a.textNote)}</p>` : ''}
+      ${a.notTested && a.notTested.length ? `<div class="subhead">Not tested</div>
+        <ul class="nottested">${a.notTested.map((t) => `<li><b>${esc(t.what)}</b>${t.app ? `<small>${esc(t.app)}</small>` : ''}</li>`).join('')}</ul>
+        ${a.notTestedSrc ? `<p class="small">${esc(a.notTestedSrc)}</p>` : ''}` : ''}
     </section>`;
-  }).join('') + `<section class="card">
-    <div class="task-kicker">Where all of this came from</div>
-    <ul class="txtlist" style="margin-top:10px">${SCHEDULE_SOURCES.map((s) =>
-      `<li><span class="txtrole">${esc(s.subject)}</span>${esc(s.label || describeSource({ ref: s.ref }).file || s.ref)} — ${esc(s.what)}</li>`).join('')}</ul>
-    <p class="small" style="margin-top:11px">Current files take priority for dates, topics and assessment. Older official lectures are used only to teach a current syllabus topic when the matching 2026 lecture is absent; student coursework is never used as a factual source.</p>
-  </section>`;
+  }).join('');
 }
 
 /* ------------------------------------------------------------------ *

@@ -124,6 +124,20 @@ export const SUBJECT_ADMIN = {
     credits: 3,
     level: '2 · Year 1, Semester 1',
     prereq: 'Nil',
+    /* Said in the Week 4 lecture (25 Sep 2026), slide "I will not test the following". Only what the app itself shows or names
+       is listed; the lecturer's slide also lists origins/insertions of muscles, which the app does not name. */
+    notTestedSrc: 'From the Week 4 lecture slide “I will not test the following”, limited to what this app shows.',
+    notTested: [
+      { what: 'Specific names of the bony landmarks', app: 'The viewer labels them (Parts menu on a bone).' },
+      { what: 'Muscle fibre types (I, IIa, IIx)', app: 'Named in the Week 1 muscle notes in Revise.' },
+      { what: 'Nerve supply — except that the arm is innervated by the brachial plexus, from the ventral rami of C5–T1', app: 'Nerves in the viewer and in Revise.' },
+      { what: 'Individual names of the ligaments — except ATFL and DL', app: 'The Ligaments layer of the viewer names them.' },
+      { what: 'Names and functions of the facial muscles and tongue muscles', app: 'Named in the Muscles layer of the viewer.' },
+      { what: 'Names of the suprahyoid and infrahyoid muscles', app: 'Named in the Muscles layer of the viewer.' },
+      { what: 'Orientation of the intrinsic back muscles', app: 'The intrinsic back muscles are in Revise and the viewer.' },
+      { what: 'Individual names of the intrinsic back muscles — you only need splenius, erector spinae and transversospinalis', app: 'Revise and the viewer name them all.' },
+      { what: 'The short muscles of the foot', app: 'Named in the Muscles layer of the viewer.' },
+    ],
     objective: 'By completing this subject using a systemic and regional approach in teaching and learning, students will be able to demonstrate a basic understanding of the structure, organization and function of the human body.',
     ilos: [
       'Understand and familiarize anatomical terminology of the human body',

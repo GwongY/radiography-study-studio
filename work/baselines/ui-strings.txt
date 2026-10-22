@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1048 —
-  f40245e044e639af  WHOLE SET
+— user-facing strings in outputs/ — 1046 —
+  ac1c4a693bbd835d  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -312,7 +312,6 @@
   f1db5a06963b0c7e  Current T02A lecture, September 2026, pp1-12 of the combined T02A/T02B deck. The three major theoretical approaches: structural-functional (manifest/latent functions, social dysfunction), social-conflict (gender-conflict and race-conflict theory, an educational-system and a Hong Kong healthcare example) and symbolic-interaction, closing with a comparison table across all three.
   59e84a3ffabc8c50  Current T02B lecture, September 2026, pp13-28 of the combined T02A/T02B deck. Four modern contemporary theorists: Goffman (dramaturgy, front/backstage), Bourdieu (forms of capital, cultural-capital reproduction, a Hong Kong poverty case), Foucault (knowledge/power, disciplinary power, the historical discourse of sexuality) and Giddens (the pure relationship, democratization of intimacy).
   9d910f0b6571edcc  Current Topic 01 lecture, September 2026. Defines sociology and the sociological perspective, applies it to partner selection and educational opportunity, extends it to the global perspective, and introduces Marx and Weber.
-  650bfee8c10b708c  Current files take priority for dates, topics and assessment. Older official lectures are used only to teach a current syllabus topic when the matching 2026 lecture is absent; student coursework is never used as a factual source.
   991657a98eb07682  Current self-study deck explicitly assigned for Weeks 2–4. Ten image-led pages covering anatomical position, directional terms, regional flexion and extension, shoulder rotation, abduction and adduction, forearm rotation, ankle and foot movements, thumb movements and circumduction. OCR was checked against rendered pages before use.
   f1a34f27fd3f7125  Current supplied Head, Neck and Trunk lecture, Dr Alex Cheung, 36 pages. Viewer landmark scope reviewed from skull and orbit diagrams, cranial sutures and junctions, TMJ and the base of skull. Image-only pages are reviewed visually; no older reference-only features are added to the viewer.
   80593d9330e238e5  Cut position
@@ -774,7 +773,6 @@
   9aa8e28faa9142cd  What the colours mean
   536306b242c83602  What to do now
   b8babfa53259c4ba  What you scored is yours, kept on this device with the rest of your progress.
-  7efbff3832400d93  Where all of this came from
   595c0868c16492a2  Where the xiphoid process meets the body of the sternum, at the anterior end of the thoracic outlet.
   c19e1f70b7aed2d9  Which arm
   14ab8c8c07e135d1  Whole body
