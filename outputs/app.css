@@ -173,6 +173,7 @@
 .navhead #viewerTabs{flex:none}
 .navhead #viewerTabs.hidden,.navhead #rvSubjects.hidden{display:none}
 .navhead #rvSubjects{flex:none}
+.navhead #rvSubjects:empty{display:none}
 /* On the viewer every header pixel is a pixel off the model, so the header
    tightens and the kicker -- which only restates the title -- goes. */
 /*

@@ -169,7 +169,6 @@ function paintSubjects() {
   const box = $$('rvSubjects');
   const subs = Object.values(REVISION);
   box.innerHTML = subs.length < 2 ? '' : subs.map((s) => `<button type="button" class="seg${s.id === rv.subject ? ' active' : ''}" data-subject="${esc(s.id)}" aria-pressed="${s.id === rv.subject}">${esc(s.copy.name)}</button>`).join('');
-  box.classList.toggle('hidden', subs.length < 2 || !$$('reviseView') || $$('reviseView').classList.contains('hidden'));
   box.querySelectorAll('[data-subject]').forEach((b) => { b.onclick = () => setSubject(b.dataset.subject); });
 }
 
