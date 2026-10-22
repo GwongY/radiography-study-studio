@@ -1,12 +1,11 @@
 /*
  * Cell zoom — the 3D models the levels wear, and how one is put on a level.
  *
- * Most levels are drawn procedurally first (cell/zoom-scene.js, cell/lecture-cells.js), so they open at once and
- * offline; the newer ones (zoom-scene.js MODEL_ONLY) are their model alone. Every level also has a model, outputs/cell/models/<level>.glb, built offline in Blender by
+ * Every level is its model alone (cell/zoom-scene.js holds an empty group per level): outputs/cell/models/<level>.glb, built offline in Blender by
  * work/build-cell-models.mjs and work/blender/: a CC BY download wherever one exists, everything else modelled there.
  * Its nodes are the level's labelled parts (extras.czPart), already in the level's frame; a level with a stage slider
  * is animated, stage k from second k (scene extras czClips: where each signal's run starts). When it arrives,
- * attachModel() puts it on in place of the whole drawing. A .glb is cache-first in the service worker's model
+ * attachModel() puts it on the level's group. A .glb is cache-first in the service worker's model
  * cache, so a level seen once online keeps its model offline.
  *
  * MODEL_SOURCES credits each download (author, title, URL, licence); outputs/THIRD-PARTY-NOTICES.txt carries the

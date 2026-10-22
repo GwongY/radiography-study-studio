@@ -1,5 +1,5 @@
 /*
- * Cell zoom — the shared building kit for the procedural levels (cell/zoom-scene.js, cell/lecture-cells.js).
+ * Cell zoom — the shared building kit for the level groups (cell/zoom-scene.js) and the models put on them (cell/models.js).
  *
  * makeKit(THREE, root) returns the helpers every level is built with: one material per labelled part (so a
  * highlight or a fade never spills onto another part), tagging a mesh with its part, label anchors, fading a part

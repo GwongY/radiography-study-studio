@@ -10,7 +10,7 @@
  * 2026 deck, a tutorial (kind "assessment"), or an older file FALLBACK names with its reason. It also holds each
  * Revise link to a real box, each label to a part outputs/cell/zoom-scene.js builds (its PARTS export, which needs
  * no three.js), each "Show in 3D" target to a real level, label, stage and signal, refuses a label that is one of
- * the UNLABELLED terms, and checks the nucleosome data (outputs/cell/nucleosome-3afa.js): two 146-nucleotide
+ * the UNLABELLED terms, and checks the nucleosome data (work/data/nucleosome-3afa.js): two 146-nucleotide
  * strands whose every pair is A-T or G-C, eight histone chains. Last, the models (outputs/cell/models.js): every
  * level has its .glb, each .glb's nodes are that level's parts and all of them, its label anchors name real parts,
  * a level with a slider is animated (and a signal's run, czClips, is one of the slider's signals), and every
@@ -21,7 +21,8 @@ import { readFileSync, existsSync } from 'node:fs';
 import { LEVELS, LABELS, SLIDERS, SHOW_IN_3D, CELL_SOURCES, FALLBACK, UNLABELLED, SYSTEMS, stagesFor } from '../outputs/cell-zoom.js';
 import { PARTS } from '../outputs/cell/zoom-scene.js';
 import { MODELS, MODEL_SOURCES, MODEL_LICENCE } from '../outputs/cell/models.js';
-import { DNA_STRANDS, BASE_PAIRS, HISTONE_CHAINS, NUCLEOSOME_SOURCE } from '../outputs/cell/nucleosome-3afa.js';
+import { DNA_STRANDS, BASE_PAIRS, HISTONE_CHAINS, NUCLEOSOME_SOURCE } from './data/nucleosome-3afa.js';
+import { EXPLAIN } from '../outputs/cell-explain.js';
 import { SOURCE_FILES } from '../outputs/study/course-data.js';
 import { REVISION } from '../outputs/revision/registry.js';
 import { normaliseCitationText as norm } from './lib/source-lesson-map.mjs';
@@ -93,6 +94,17 @@ for (const [lvId, labels] of Object.entries(LABELS)) {
   }
   for (const p of PARTS[lvId] || []) ok(labels.some((x) => x.id === p), `${lvId}: built part "${p}" has a label`);
 }
+
+console.log('— every label has one plain sentence of its own —');
+for (const [lvId, labels] of Object.entries(LABELS)) {
+  for (const x of labels) {
+    const t = (EXPLAIN[lvId] || {})[x.id];
+    ok(typeof t === 'string' && t.length > 20 && t.length <= 240, `${lvId}/${x.id}: has an explanation of a sentence`);
+    ok(typeof t === 'string' && /[.]$/.test(t) && !/[.!?]\s+[A-Z]/.test(t) && !/[“”"]/.test(t), `${lvId}/${x.id}: the explanation is exactly one sentence, not a quotation`);
+  }
+  for (const id of Object.keys(EXPLAIN[lvId] || {})) ok(labels.some((x) => x.id === id), `${lvId}/${id}: the explanation belongs to a label`);
+}
+for (const lvId of Object.keys(EXPLAIN)) ok(!!LABELS[lvId], `explanations for level ${lvId}: the level exists`);
 
 console.log('— every stage, signal and group of the sliders —');
 for (const [sid, sl] of Object.entries(SLIDERS)) {

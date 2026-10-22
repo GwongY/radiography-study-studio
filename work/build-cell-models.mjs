@@ -2,9 +2,8 @@
  * Build the Cell zoom's 3D models — offline, in three steps, and commit what the last one writes.
  *
  * NOT a build step. Nothing in the app runs this; what ships is outputs/cell/models/<level>.glb. The older levels of
- * the Viewer's Cell mode are also drawn in code (outputs/cell/zoom-scene.js, lecture-cells.js): that drawing opens at
- * once and offline, and outputs/cell/models.js swaps the level's model in when its .glb arrives. The newer ones
- * (zoom-scene.js MODEL_ONLY) are their model alone, built from PARTS and LEVELS like the rest. A level's model is an
+ * the Viewer's Cell mode: every level is its model alone (outputs/cell/zoom-scene.js holds an empty group per level, and
+ * outputs/cell/models.js puts the level's model in when its .glb arrives), built from PARTS and LEVELS. A level's model is an
  * openly licensed download wherever one exists (Sketchfab, CC BY 4.0 — never NC) and Blender-modelled everything
  * else: the downloads are never redrawn, and nothing is drawn in code that ships as a model.
  *
@@ -431,7 +430,7 @@ PREPARE.neuron = async function neuron() {
 PREPARE.sperm = async function sperm() {
   /* "CC0 - Sperm" (plaggy; CC BY 4.0 as downloaded): one mesh along x, head at -x. Its radius profile (work notes:
      head to x = -0.050, neck to -0.047, middle piece to -0.031, then the tail) is stretched piece by piece to the
-     slide's proportions — head 5, neck 1, middle piece 5, tail 55 (outputs/cell/lecture-cells.js, 0.4 a unit) — and
+     slide's proportions — head 5, neck 1, middle piece 5, tail 55 (0.4 a unit) — and
      its thickness scaled so the head is 1.5 across, as the drawn level's is. */
   const pc = (await readSource('sperm'))[0], st = stats(pc), U = 0.4;
   const from = [st.min.x, -0.050, -0.047, -0.031, st.max.x], to = [0, 5 * U, 6 * U, 11 * U, 66 * U];
@@ -578,9 +577,9 @@ PREPARE.chromosome = async function chromosome() {
 };
 
 PREPARE.nucleosome = async function nucleosome() {
-  /* not a download: PDB 3AFA as outputs/cell/nucleosome-3afa.js keeps it, in the drawn level's units (10 Å), for
+  /* not a download: PDB 3AFA as work/data/nucleosome-3afa.js keeps it, in the drawn level's units (10 Å), for
      Blender to model the histone surfaces, the DNA, its bases and the linker DNA from */
-  const N = await import(pathToFileURL(join(root, 'outputs', 'cell', 'nucleosome-3afa.js')).href + '?v=1');
+  const N = await import(pathToFileURL(join(root, 'work', 'data', 'nucleosome-3afa.js')).href + '?v=1');
   const sc = (arr) => Array.from(arr, (x) => x * 0.01);
   const out = {
     histones: N.HISTONE_CHAINS.map((h) => ({ name: h.name, ca: sc(h.ca) })),

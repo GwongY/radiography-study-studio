@@ -22,6 +22,7 @@ import { applyLayers } from './live-physiology.js';
 import { showToast } from './modes-and-bridge.js';
 import { collapsible, frameWorldBox, restoreSnapshot, takeSnapshot } from './heart-atlas.js';
 import { LEVELS, LABELS, SLIDERS, CELL_SOURCES, SYSTEMS, levelById, stagesFor, zoomFrom } from '../cell-zoom.js?v=1';
+import { EXPLAIN } from '../cell-explain.js?v=1';
 import { modelMeshName } from '../search-name.js';
 
 let zoom = null;            /* createCellZoom() result, built once */
@@ -86,8 +87,8 @@ function panelHtml() {
       <div class="ha-row"><button type="button" id="cz-play" aria-pressed="false">Play</button></div>
       <article class="cz-stage" id="cz-stage" aria-live="polite" hidden><strong id="cz-stageTitle"></strong><p id="cz-stageNote"></p><small id="cz-stageCite"></small><div class="cz-links" id="cz-stageLinks" hidden></div><div class="sel-revise mz-revise" data-cz-revise="stage" hidden></div></article>
     </section>
-    <ol class="mz-labels" id="cz-labels" aria-label="Labels"></ol>
     <article class="ha-info mz-info" id="cz-info" aria-live="polite" hidden><strong id="cz-infoTitle"></strong><div id="cz-infoNote"></div><small id="cz-infoCite"></small><div class="sel-revise mz-revise" data-cz-revise="label" hidden></div></article>
+    <ol class="mz-labels" id="cz-labels" aria-label="Labels"></ol>
     <p class="ha-credit cz-model" id="cz-model" aria-live="polite" hidden></p>
     <p class="ha-credit"><a href="./THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Model credits</a></p>
   </div>`;
@@ -268,8 +269,9 @@ function selectLabel(id) {
   info.hidden = !x;
   if (!x) return;
   $('cz-infoTitle').textContent = x.l;
-  $('cz-infoNote').innerHTML = notesHtml(x.note);
-  $('cz-infoNote').hidden = !x.note;
+  const sentence = (EXPLAIN[current] || {})[x.id] || '';
+  $('cz-infoNote').innerHTML = sentence ? `<p>${esc(sentence)}</p>` : '';
+  $('cz-infoNote').hidden = !sentence;
   $('cz-infoCite').textContent = citeLine(x.cite);
   reviseSlot(info.querySelector('[data-cz-revise="label"]'), x.revise);
 }
@@ -327,7 +329,7 @@ function showLevel(id) {
   void ensureModel(id);
 }
 
-/* ---- a level's model (cell/models.js): the drawing shows at once, the model replaces it when it has loaded ---- */
+/* ---- a level's model (cell/models.js): the level is empty until its model has loaded ---- */
 let gltfLoader = null;
 async function loadGLTF(url) {
   if (!gltfLoader) {
@@ -349,8 +351,8 @@ async function ensureModel(id) {
   try {
     if (!(await zoom.loadModel(id, loadGLTF)) || !state.cellZoomOn) return;
   } catch (error) {
-    console.warn('Cell zoom: the model did not load; the drawing stays.', error);
-    paintModelNote(id, typeof navigator !== 'undefined' && navigator.onLine === false ? 'Connect once to download this level’s 3D model.' : '');
+    console.warn('Cell zoom: the model did not load.', error);
+    paintModelNote(id, typeof navigator !== 'undefined' && navigator.onLine === false ? 'Connect once to download this level’s 3D model.' : 'This level’s 3D model did not load.');
     return;
   }
   if (id !== current) return;
@@ -397,25 +399,39 @@ function stepTween(now) {
   if (k >= 1) { const then = tween.then; tween = null; if (then) then(); }
 }
 
-/* The tags follow their parts on screen; a part the stage does not show has no tag. */
+/* The tags follow their parts on screen; a part the stage does not show has no tag. They are placed from a microtask
+   queued by tick(), which runs after the frame's controls.update() and render (outputs/studio/scene.js animate): placed
+   inside the tick itself they were projected with the previous frame's camera, so while the model turned slowly every
+   tag trailed it by a frame and shuddered. Every width is read before any transform is written, so there is one layout. */
+let placing = false;
+function placeTagsAfterFrame() {
+  if (placing) return;
+  placing = true;
+  queueMicrotask(() => { placing = false; placeTags(); });
+}
 function placeTags() {
-  if (!tags || tags.hidden || !current) return;
+  if (!tags || tags.hidden || !current || !state.cellZoomOn) return;
   const canvas = state.renderer.domElement, w = canvas.clientWidth, h = canvas.clientHeight;
   const at = new Map(zoom.anchors(current).map((a) => [a.id, a.pos]));
   /* a tag the dock would cover is not drawn */
   const { fx, fy } = openFraction();
-  tags.querySelectorAll('[data-cz-tag]').forEach((t) => {
+  const list = [...tags.querySelectorAll('[data-cz-tag]')];
+  const widths = list.map((t) => t.offsetWidth);
+  list.forEach((t, i) => {
     const p = at.get(t.dataset.czTag);
-    if (!p) { t.style.display = 'none'; return; }
+    if (!p) { if (t.style.display !== 'none') t.style.display = 'none'; return; }
     const v = p.clone().project(state.camera);
-    if (v.z > 1 || v.z < -1 || v.x < -1.05 || v.y > 1.05 || (v.x + 1) / 2 > fx + 0.02 || (1 - v.y) / 2 > fy + 0.02) { t.style.display = 'none'; return; }
-    t.style.display = '';
+    if (v.z > 1 || v.z < -1 || v.x < -1.05 || v.y > 1.05 || (v.x + 1) / 2 > fx + 0.02 || (1 - v.y) / 2 > fy + 0.02) { if (t.style.display !== 'none') t.style.display = 'none'; return; }
+    if (t.style.display) t.style.display = '';
+    const tw = widths[i];
     let x = (v.x + 1) / 2 * w;
-    const flip = x + t.offsetWidth > w - 4;
-    t.classList.toggle('flip', flip);
-    if (flip) x -= t.offsetWidth - 18;
+    /* the side a tag sits on changes only once the anchor is clear of the edge, so one near it does not flicker */
+    const flipped = t.classList.contains('flip');
+    const flip = flipped ? x + tw > w - 4 - 24 : x + tw > w - 4;
+    if (flip !== flipped) t.classList.toggle('flip', flip);
+    if (flip) x -= tw - 18;
     /* a name wider than the room on either side (a long one, on a phone) stays on the stage */
-    x = Math.max(4, Math.min(x, w - 4 - t.offsetWidth));
+    x = Math.max(4, Math.min(x, w - 4 - tw));
     t.style.transform = `translate(${x.toFixed(1)}px, ${((1 - v.y) / 2 * h).toFixed(1)}px)`;
   });
 }
@@ -439,7 +455,7 @@ function tick(t) {
   }
   lastNow = now;
   zoom.update(t, prefersStill());
-  placeTags();
+  placeTagsAfterFrame();
 }
 
 /* ---- tapping a part in 3D picks its label: a solid part before a see-through shell ---- */

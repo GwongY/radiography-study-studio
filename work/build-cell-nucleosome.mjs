@@ -1,5 +1,5 @@
 /*
- * Build outputs/cell/nucleosome-3afa.js — the nucleosome the cell zoom shows,
+ * Build work/data/nucleosome-3afa.js — the nucleosome the cell zoom shows,
  * from the Protein Data Bank's own coordinates. Run once, offline, and commit.
  *
  *   curl -o <scratch>/3AFA.cif https://files.rcsb.org/download/3AFA.cif
@@ -30,7 +30,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const OUT = join(root, 'outputs/cell/nucleosome-3afa.js');
+const OUT = join(root, 'work/data/nucleosome-3afa.js');
 const src = process.argv[2];
 if (!src) { console.error('Usage: node work/build-cell-nucleosome.mjs <path to 3AFA.cif>'); process.exit(2); }
 

@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1044 —
-  73b1fa2dbf848817  WHOLE SET
+— user-facing strings in outputs/ — 1045 —
+  0c2ad977a2dda545  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -267,7 +267,7 @@
   1166eb6e8260ba58  Cell zoom failed.
   02f919406d56e574  Cell zoom stopped; closing the mode.
   20ccfbead7fd8178  Cell zoom toggle failed.
-  5ba9eaac71ca6bd9  Cell zoom: the model did not load; the drawing stays.
+  8cabc2fde81f11da  Cell zoom: the model did not load.
   9eb78b423e03f32d  Chambers and valves
   b21cbce6bf98471b  Check this
   4cad109bd8bf7ba8  Choose a bone landmark
@@ -726,6 +726,7 @@
   0593a567427cea70  This device cannot render the floating-point projection. The 3D viewer is still available.
   d424b366dd8d36ab  This fallback reference is fused. Use Upper limb for per-bone isolation.
   749efd01151fa0f2  This is the
+  009f3b48b8db77f1  This level’s 3D model did not load.
   8c4eef5ab2532515  This week
   2a2abf143c0b1cb9  Thoracic cage
   60fbbc864f3e78f7  Timetable to your calendar
