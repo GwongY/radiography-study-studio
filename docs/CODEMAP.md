@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1550 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
+- `outputs/app.css` — 1552 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
 - `outputs/studio.js` — 39 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiomodes-and-bridgejs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 47 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -36,7 +36,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `bone-landmarks.js` | 1596 | Bone landmarks — curated on the shipped skeleton by work/build-bone-landmarks.mjs. |  |
 | `cavity-build.js` | 1084 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
 | `cavity-geom.js` | 1434 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
-| `cell-zoom.js` | 780 | Cell zoom — the levels, their labels and the two stage sliders: the data and nothing else. | [The cell zoom mode -- outputs/studio/cell-zoom.js, outputs/cell/, outputs/cell-zoom.js, work/cell-zoom-check.mjs](TRAPS.md#the-cell-zoom-mode----outputsstudiocell-zoomjs-outputscell-outputscell-zoomjs-workcell-zoom-checkmjs) |
+| `cell-zoom.js` | 786 | Cell zoom — the levels, their labels and the two stage sliders: the data and nothing else. | [The cell zoom mode -- outputs/studio/cell-zoom.js, outputs/cell/, outputs/cell-zoom.js, work/cell-zoom-check.mjs](TRAPS.md#the-cell-zoom-mode----outputsstudiocell-zoomjs-outputscell-outputscell-zoomjs-workcell-zoom-checkmjs) |
 | `landmarks.js` | 469 | landmarks.js -- the one place that knows how to find a named anatomical | [Named cut levels](TRAPS.md#named-cut-levels--outputsstudiotools-and-capturejs-outputslandmarksjs) |
 | `mesh-index.js` | 2645 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `muscle-zoom.js` | 122 | Muscle zoom — the levels and their labels, the data and nothing else. |  |
@@ -124,7 +124,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `cavity-geometry-derived.js` | 526 | Cavity geometry, derived from the loaded anatomy. |
-| `cell-zoom.js` | 591 | Cell zoom |
+| `cell-zoom.js` | 601 | Cell zoom |
 | `circulation-extras.js` | 91 | Circulation extras |
 | `depth-picking.js` | 440 | Depth picking |
 | `explosion-layout.js` | 16 | Pack only visible source meshes. Every projected bounding box gets its own cell. |

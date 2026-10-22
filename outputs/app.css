@@ -1534,6 +1534,8 @@ ul.asslines{list-style:none;margin:0;padding:0}
    menu, the stage chips and the hormone choice. */
 .viewer-dock.cell-zoom-open .heart-atlas-toggle:not(.cell-zoom-toggle){display:none}
 .cz-side{display:contents}
+.cz-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.cz-links button{padding:6px 10px;border-radius:10px;border:1px solid var(--teal);background:transparent;color:var(--text);font-size:calc(12px * var(--ts));cursor:pointer;text-align:left}
 .cz-side button{padding:6px 10px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--text);font-size:calc(12px * var(--ts));cursor:pointer}
 .cz-goto,.cz-signal{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:calc(12px * var(--ts));color:var(--muted)}
 .cz-goto[hidden],.cz-signal[hidden]{display:none}

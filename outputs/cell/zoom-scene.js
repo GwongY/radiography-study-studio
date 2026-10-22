@@ -39,8 +39,8 @@ export const PARTS = {
   myocardial: ['membrane', 'ecf', 'cytoplasm', 'nachannels', 'cachannels', 'kchannels', 'na', 'ca', 'k', 'potential'],
   rmp: ['membrane', 'ecf', 'cytoplasm', 'kpassive', 'napassive', 'pump', 'proteins', 'charge', 'potential', 'na', 'k'],
   testis: ['tubule', 'lumen', 'sertoli', 'spermatogonium', 'primary', 'secondary', 'spermatids', 'spermatozoa', 'leydig', 'capillary', 'lh', 'fsh', 'testosterone', 'abp', 'inhibin'],
-  oogenesis: ['oogonia', 'primary', 'secondary', 'polar1', 'polar2', 'ovum', 'sperm'],
-  follicle: ['ovary', 'capillary', 'primordial', 'follicle', 'antrum', 'oocyte', 'zona', 'corona', 'cl', 'fsh', 'lh', 'estrogen', 'progesterone'],
+  oogenesis: ['oogonia', 'primary', 'follicle', 'antrum', 'secondary', 'polar1', 'polar2', 'ovum', 'sperm'],
+  follicle: ['ovary', 'capillary', 'primordial', 'follicle', 'antrum', 'primary', 'oocyte', 'polar1', 'zona', 'corona', 'cl', 'fsh', 'lh', 'estrogen', 'progesterone'],
 };
 
 /* Levels drawn by no code: the Blender model (cell/models.js) is the whole level, so until it loads the level is

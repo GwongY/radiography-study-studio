@@ -100,6 +100,12 @@ for (const [sid, sl] of Object.entries(SLIDERS)) {
     checkShown(`slider ${sid}/${s.id}`, s, s.l === 'mRNA leaves nucleus' ? 'mRNA leaves nucleus' : s.l);
     if (s.group) ok(!!(sl.groups || {})[s.group], `slider ${sid}/${s.id}: group ${s.group} exists`);
     if (s.signal) ok(signals.has(s.signal), `slider ${sid}/${s.id}: signal ${s.signal} exists`);
+    for (const t of [].concat(s.link || [])) {
+      const to = LEVELS.find((l) => l.id === t.level);
+      ok(!!to, `slider ${sid}/${s.id}: link → ${t.level} exists`);
+      if (t.stage) ok(!!to && !!to.slider && stagesFor(to.slider, 'none').some((x) => x.id === t.stage), `slider ${sid}/${s.id}: link → ${t.level}/${t.stage} is a stage there`);
+      if (t.label) ok((LABELS[t.level] || []).some((x) => x.id === t.label), `slider ${sid}/${s.id}: link → label ${t.label} is on ${t.level}`);
+    }
   }
   for (const [gid, g] of Object.entries(sl.groups || {})) checkShown(`slider ${sid} group ${gid}`, g, g.l);
   for (const g of sl.signals || []) if (g.id !== 'none') checkShown(`slider ${sid} signal ${g.id}`, g, g.l.replace(/ hormone$/, ' hormones'));

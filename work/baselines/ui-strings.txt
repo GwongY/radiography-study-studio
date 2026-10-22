@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1079 —
-  6b1ff7d6040c79c0  WHOLE SET
+— user-facing strings in outputs/ — 1080 —
+  88c18e2b2e2ad85c  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -135,6 +135,7 @@
   5037f4fbb7be28c4  <button type="button" class="term" data-term="
   f80810c7b1b63271  <button type="button" data-cz-label="
   fa7032ba339fc668  <button type="button" data-cz-level="
+  4f02a969b4e30ee7  <button type="button" data-cz-link="
   9bb5af6c504888a9  <button type="button" data-cz-side="
   e82fefb511f86939  <button type="button" data-cz-stage="
   f67a053a761acb59  <button type="button" data-ha-echo="

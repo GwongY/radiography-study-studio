@@ -85,7 +85,7 @@ function panelHtml() {
       <div class="cz-chips" id="cz-chips" role="group" aria-label="Stages"></div>
       <input type="range" id="cz-slider" min="0" max="100" value="0" aria-label="Stage">
       <div class="ha-row"><button type="button" id="cz-play" aria-pressed="false">Play</button></div>
-      <article class="cz-stage" id="cz-stage" aria-live="polite" hidden><strong id="cz-stageTitle"></strong><p id="cz-stageNote"></p><small id="cz-stageCite"></small><div class="sel-revise mz-revise" data-cz-revise="stage" hidden></div></article>
+      <article class="cz-stage" id="cz-stage" aria-live="polite" hidden><strong id="cz-stageTitle"></strong><p id="cz-stageNote"></p><small id="cz-stageCite"></small><div class="cz-links" id="cz-stageLinks" hidden></div><div class="sel-revise mz-revise" data-cz-revise="stage" hidden></div></article>
     </section>
     <ol class="mz-labels" id="cz-labels" aria-label="Labels"></ol>
     <article class="ha-info mz-info" id="cz-info" aria-live="polite" hidden><strong id="cz-infoTitle"></strong><div id="cz-infoNote"></div><small id="cz-infoCite"></small><div class="sel-revise mz-revise" data-cz-revise="label" hidden></div></article>
@@ -206,9 +206,19 @@ function setStage(s, repaint) {
     $('cz-stageTitle').textContent = st.l;
     $('cz-stageNote').innerHTML = notesHtml(st.note);
     $('cz-stageCite').textContent = citeLine(st.cite);
+    paintLinks(st.link);
     reviseSlot(stageEl.querySelector('[data-cz-revise="stage"]'), st.revise || (grp && grp.revise));
   }
   paintLabelPresence();
+}
+
+/* a stage's links: the same moment of a process on another level (the oocyte in its follicle, the sperm in its tubule) */
+const linkName = (t) => { const lv = levelById(t.level), st = t.stage && lv.slider ? stagesFor(lv.slider, 'none').find((x) => x.id === t.stage) : null; return st ? `${lv.title}: ${st.l}` : lv.title; };
+function paintLinks(links) {
+  const el = $('cz-stageLinks'), list = [].concat(links || []);
+  el.hidden = !list.length;
+  el.innerHTML = list.map((t, i) => `<button type="button" data-cz-link="${i}">${esc(linkName(t))} →</button>`).join('');
+  el.querySelectorAll('[data-cz-link]').forEach((b) => { b.onclick = () => { stopPlay(); stageAnim = null; applyTarget(list[Number(b.dataset.czLink)]); }; });
 }
 
 /* the labels of parts this stage does not show are dimmed in the list (their tags hide themselves) */

@@ -5,6 +5,22 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-22 — The gamete levels are one journey, joined stage to stage
+
+The owner found Oogenesis only repeated Meiosis and asked for the stages to connect: the oocyte in its follicle, and
+fertilization driving the 2nd meiotic division; the same for sperm. A slider stage can now carry `link` (level, stage,
+label); the panel shows it as a button that opens that moment on the other level (`work/cell-zoom-check.mjs` checks
+each target exists). **Oogenesis** has five steps: mitosis; the primary oocyte wrapped as a primordial follicle,
+waiting to puberty (p22 numbers); "Every month" the follicle grows (p24, FSH p32); the 1st meiotic division inside it,
+then ovulation releases the secondary oocyte and first polar body; fertilization and the 2nd division. Each step links
+to its Ovarian Cycle stage, and those link back. Inside the **Ovarian Cycle** the oocyte is labelled the primary oocyte
+until the 1st meiotic division ends during the LH surge, then the secondary oocyte with its first polar body. The p23
+figure says only "completed prior to ovulation", so the app does not say that LH causes it. The luteal phase adds
+p36's "a chance to be fertilized". **Spermatogenesis** traces one spermatogonium in front of the tubule slice:
+mitosis, then a primary spermatocyte (46) on which testosterone gathers (p15, "required to stimulate meiosis"), two
+secondary spermatocytes (23), four spermatids, then four spermatozoa in their own step. The chain is now
+Meiosis → Spermatogenesis → Spermatozoon, matching Meiosis → Oogenesis → Ovarian Cycle.
+
 ### 2026-10-21 — Oogenesis, as the L6 p23 figure draws it
 
 The owner asked for oogenesis to be shown. ABCT2326 Reproduction p23 is that figure, and nearly all of its words are

@@ -3005,12 +3005,14 @@ def testis():
     """Hormonal Control of Spermatogenesis (L6 pp 3-15), on a slice of one seminiferous tubule as the p3 figure cuts
     it: the spermatogonia at the outermost layer, primary and secondary spermatocytes and spermatids toward the lumen,
     the nurse (Sertoli) cells reaching from the wall to the lumen, the interstitial (Leydig) cells outside the tubule
-    and a capillary. Slider, the slide's own steps (p15, p11): (1) LH, brought by the blood, reaches the Leydig cells,
-    which secrete testosterone into the tubule; (2) FSH reaches the Sertoli cells, which make androgen-binding protein
-    (ABP); ABP binds the testosterone, concentrating it round the developing cells; (3) spermatogenesis proceeds toward
-    the lumen: spermatids differentiate into spermatozoa, which lose contact with the wall and enter the fluid in the
-    lumen; (4) the Sertoli cells' inhibin goes into the blood, to the pituitary, which secretes less FSH. Hormones are
-    drawn as beads far larger than they are."""
+    and a capillary. Slider, the slide's own steps (p15, p11, pp 4-5): (1) LH, brought by the blood, reaches the Leydig
+    cells, which secrete testosterone into the tubule; (2) FSH reaches the Sertoli cells, which make androgen-binding
+    protein (ABP); ABP binds the testosterone, concentrating it round the developing cells; (3) spermatogenesis, traced
+    in one line of cells drawn in front of the slice: a spermatogonium divides by mitosis, one daughter stays, the
+    other becomes a primary spermatocyte (46); testosterone gathers on it ("required to stimulate meiosis"); meiosis I
+    gives two secondary spermatocytes (23), meiosis II four spermatids; (4) spermatids differentiate into spermatozoa,
+    which lose contact with the wall and enter the fluid in the lumen; (5) the Sertoli cells' inhibin goes into the
+    blood, to the pituitary, which secretes less FSH. Hormones are drawn as beads far larger than they are."""
     K.reset()
     tr = Track()
     rnd = random.Random(61)
@@ -3077,14 +3079,33 @@ def testis():
     RIGHT = [s for s in SA if math.cos(s) > 0.2]
     t_at = [V(math.cos(a) * r, math.sin(a) * r, (rnd.random() - 0.5) * 1.6)
             for a, r in ((-1.0 + 2.0 * j / 11, 3.6 + 2.6 * rnd.random()) for j in range(12))]
-    an = anchors(('lh', 'fsh', 'testosterone', 'abp', 'inhibin', 'spermatozoa'))
+    # the traced lineage: one spermatogonium's descendants, between two nurse cells on the left, in front of the slice
+    A0 = 2 * math.pi * 4 / 9 + 0.17 + math.pi / 9
+    RAD, TAN, LZ = V(math.cos(A0), math.sin(A0), 0), V(-math.sin(A0), math.cos(A0), 0), V(0, 0, 1.75)
+    at_r = lambda r, t=0.0: RAD * r + TAN * t + LZ
+    gm2 = K.mat('spermatogonium-traced', 0x1d4e89, 0.4, emit=0x1d4e89)
+    pm2, sm2 = K.mat('primary-traced', 0x3a7ca5, 0.4, emit=0x3a7ca5), K.mat('secondary-traced', 0x5fa8d3, 0.4, emit=0x5fa8d3)
+    dm2 = K.mat('spermatids-traced', 0x90e0ef, 0.4, emit=0x90e0ef)
+    L_gon = [K.part(K.sphere(0.5, (0, 0, 0), gm2, seg=(16, 10), name='spermatogonium'), 'spermatogonium') for _ in range(2)]
+    L_pri = K.part(K.sphere(0.66, (0, 0, 0), pm2, seg=(18, 12), name='primary'), 'primary')
+    L_sec = [K.part(K.sphere(0.5, (0, 0, 0), sm2, seg=(16, 10), name='secondary'), 'secondary') for _ in range(2)]
+    L_sid = [K.part(K.sphere(0.36, (0, 0, 0), dm2, seg=(14, 10), name='spermatids'), 'spermatids') for _ in range(4)]
+    L_zoa = [spermatozoon() for _ in range(4)]
+    SEC_T, SID_T = (-0.6, 0.6), (-1.05, -0.35, 0.35, 1.05)
+    zoa_end = [V(0.4 * (j - 1.5), 0.5 * (j - 1.5), 1.3 + 0.1 * j) for j in range(4)]
+    cm_ = K.mat('counts', 0xf8f9fa, 0.6, emit=0xf8f9fa)
+    L_cnt = [(K.decor(bake(text_mesh(b, (0, 0, 0), 0.5, cm_, 'count', align='CENTER', res=3)), 'count'), r) for b, r in (('46', 6.0), ('23', 4.6), ('23', 3.4))]
+    # the testosterone that stimulates meiosis, from the Leydig cells on the left, gathering on the traced cells
+    tes2 = [hormone(0.2, tm_, 'testosterone') for _ in range(7)]
+    tes2_at = [at_r(5.0 - 0.25 * j, (j - 3) * 0.45) + V(0, 0, 0.55) for j in range(7)]
+    an = anchors(('lh', 'fsh', 'testosterone', 'abp', 'inhibin', 'spermatozoa', 'spermatogonium', 'primary', 'secondary', 'spermatids'))
 
     def wob(i, s, a=0.08):
         return V(math.sin(s * 6.1 + i * 2.3), math.sin(s * 5.3 + i * 1.1), math.sin(s * 5.7 + i * 3.7)) * a
 
     def place(s, frame):
-        p = stage_prog(s, 4)
-        lhs, fs, gen, inb = p(0), p(1), p(2), p(3)
+        p = stage_prog(s, 5)
+        lhs, fs, gen, rel, inb = p(0), p(1), p(2), p(3), p(4)
         # (1) LH up the capillary to the Leydig cells; testosterone from them into the tubule
         for j, o in enumerate(lh):
             tgt = LY[j % 2] + V(0.9, 0.0, 0.0) + V(0, 0.35 * (j // 2 - 1.5), 0.5 * ((j % 4) - 1.5) * 0.5)
@@ -3111,14 +3132,35 @@ def testis():
             k = span(fs, 0.45 + 0.03 * j, 0.85 + 0.01 * j)
             at = lerp(src, t_at[j] * 0.92 + V(0.25, 0.2, 0.15), k)
             tr.pose(o, frame, at + wob(j + 10, s, 0.05), None, 1 if k > 0.02 else HIDE)
-        # (3) spermatids become spermatozoa, which leave the wall and enter the fluid in the lumen
+        # (3) the traced lineage: mitosis, then a primary spermatocyte; testosterone gathers on it; meiosis I, meiosis II
+        mit, grow_p, t_in, m1, m2 = span(gen, 0.0, 0.2), span(gen, 0.15, 0.3), span(gen, 0.25, 0.5), span(gen, 0.5, 0.7), span(gen, 0.72, 0.92)
+        tr.pose(L_gon[0], frame, at_r(6.85), None, 1)
+        tr.pose(L_gon[1], frame, lerp(at_r(6.85), at_r(6.0), mit), None, HIDE if mit < 0.01 or grow_p > 0.01 else 1)
+        tr.pose(L_pri, frame, at_r(6.0), None, HIDE if grow_p < 0.01 or m1 > 0.99 else mix(0.76, 1.0, grow_p))
+        for i, o in enumerate(L_sec):
+            tr.pose(o, frame, lerp(at_r(6.0), at_r(4.6, SEC_T[i]), m1), None, HIDE if m1 < 0.01 or m2 > 0.99 else 1)
+        sid_k = span(rel, 0.05, 0.45)
+        for i, o in enumerate(L_sid):
+            tr.pose(o, frame, lerp(at_r(4.6, SEC_T[i // 2]), at_r(3.4, SID_T[i]), m2), None, HIDE if m2 < 0.01 else max(HIDE, 1 - sid_k))
+        for o, r in L_cnt:
+            on = (grow_p > 0.9 and m1 < 0.05) if r == 6.0 else (m1 > 0.9 and m2 < 0.05) if r == 4.6 else (m2 > 0.9 and rel < 0.4)
+            tr.pose(o, frame, at_r(r, 1.3) + V(0, 0, 0.4), None, 1 if on else HIDE)
+        for j, o in enumerate(tes2):
+            src = LY[2 + j % 2]
+            k = span(t_in, 0.06 * j, 0.6 + 0.06 * j)
+            tr.pose(o, frame, lerp(src, tes2_at[j], k) + wob(j + 90, s, 0.05), None, 1 if k > 0.02 else HIDE)
+        # (4) spermatids become spermatozoa, which leave the wall and enter the fluid in the lumen
+        for i, z in enumerate(L_zoa):
+            m = span(rel, 0.45, 0.95)
+            st_ = at_r(3.4, SID_T[i])
+            tr.pose(z, frame, lerp(st_, zoa_end[i], m), q_three((0, 0, 1), A0 + math.pi + (i - 1.5) * 0.3 * m), HIDE if sid_k < 0.01 else 1)
         for j, (o, z) in enumerate(zip(spermatids, sperm)):
             a = sid_a[j]
             home = V(math.cos(a), math.sin(a), 0) * 3.2
-            k = span(gen, 0.05 + 0.025 * j, 0.45 + 0.025 * j)
+            k = span(rel, 0.05 + 0.025 * j, 0.45 + 0.025 * j)
             tr.pose(o, frame, home, None, max(HIDE, 1 - k))
             end, rot = sperm_end[j]
-            m = span(gen, 0.45 + 0.02 * j, 0.95)
+            m = span(rel, 0.45 + 0.02 * j, 0.95)
             at = lerp(home + V(math.cos(a), math.sin(a), 0) * 0.2, end, m)
             tr.pose(z, frame, at + wob(j + 50, s, 0.05 * m), q_three((0, 0, 1), mix(a, rot, m)), max(HIDE, k))
         # (4) inhibin from the Sertoli cells into the blood; less FSH arrives
@@ -3135,15 +3177,16 @@ def testis():
         sa = RIGHT[0]
         tr.pose(an['inhibin'], frame, along([V(math.cos(sa), math.sin(sa), 0) * 5.4, V(math.cos(sa), math.sin(sa), 0) * (R + 0.6), V(CX, 5.4 * math.sin(sa), 0.3), V(CX, 11.0, 0.3)], span(inb, 0.05, 0.6)) + V(0.4, 0.5, 0.4))
         tr.pose(an['spermatozoa'], frame, sperm_end[0][0] + V(0.3, 0.5, 0.5))
-    sample(place, 4, step=2)
+        # each cell's label moves onto the traced lineage for its own step, and sits on its ring otherwise
+        tr.pose(an['spermatogonium'], frame, at_r(6.85) + V(0, 0.55, 0.4) if 0 < gen < 0.15 else V(math.cos(-2.3), math.sin(-2.3), 0) * 6.85 + V(0, 0, 0.9))
+        tr.pose(an['primary'], frame, at_r(6.0) + V(0, 0.75, 0.4) if 0.15 < gen < 0.5 else V(math.cos(-1.9), math.sin(-1.9), 0) * 5.6 + V(0, 0, 1.2))
+        tr.pose(an['secondary'], frame, at_r(4.6, SEC_T[1]) + V(0, 0.6, 0.4) if 0.5 < gen < 0.72 else V(math.cos(2.6), math.sin(2.6), 0) * 4.3 + V(0, 0, 1.0))
+        tr.pose(an['spermatids'], frame, at_r(3.4, SID_T[3]) + V(0, 0.5, 0.4) if 0.72 < gen and rel < 0.45 else V(math.cos(sid_a[5]), math.sin(sid_a[5]), 0) * 3.2 + V(0, 0, 0.5))
+    sample(place, 5, step=2)
     tr.write()
     K.anchor('tubule', (0, R + 0.4, 1.4))
     K.anchor('lumen', (-1.2, 0.6, 0.6))
     K.anchor('sertoli', tuple(V(math.cos(SA[2]), math.sin(SA[2]), 0) * 4.4 + V(0, 0, 0.5)))
-    K.anchor('spermatogonium', tuple(V(math.cos(-2.3), math.sin(-2.3), 0) * 6.85 + V(0, 0, 0.9)))
-    K.anchor('primary', tuple(V(math.cos(-1.9), math.sin(-1.9), 0) * 5.6 + V(0, 0, 1.2)))
-    K.anchor('secondary', tuple(V(math.cos(2.6), math.sin(2.6), 0) * 4.3 + V(0, 0, 1.0)))
-    K.anchor('spermatids', tuple(V(math.cos(sid_a[5]), math.sin(sid_a[5]), 0) * 3.2 + V(0, 0, 0.5)))
     K.anchor('leydig', tuple(LY[2] + V(0, 0.9, 0.5)))
     K.anchor('capillary', (CX, 8.5, 0.8))
     VIEW['testis'] = [0.12, 0.2, 1]
@@ -3182,7 +3225,9 @@ def follicle():
     them (the p28 figure's layers). Slider, the slide's phases: (1) Follicular phase, "Initiated by FSH": FSH from the
     blood binds the follicle, which grows from a primary follicle to a Graafian follicle, its antrum filling with
     follicular fluid and the oocyte in its corona radiata; estrogen rises; (2) the LH surge: LH floods in, and "FSH
-    causes the Graafian follicle to bulge out of the ovary wall"; (3) Ovulation: the follicle ruptures, releasing the
+    causes the Graafian follicle to bulge out of the ovary wall"; the primary oocyte inside finishes its first meiotic
+    division ("completed prior to ovulation", the p23 figure), becoming a secondary oocyte with the first polar body
+    beside it under the zona; (3) Ovulation: the follicle ruptures, releasing the
     secondary oocyte within its corona radiata, with follicular fluid; (4) Luteal phase: LH turns the ruptured follicle
     into a corpus luteum, which secretes estrogen and progesterone; their high levels shut FSH and LH down. Hormones
     are drawn as beads far larger than they are."""
@@ -3205,9 +3250,16 @@ def follicle():
     theca = K.part(half_shell(1.0, 0.07, K.mat('theca', 0x8c4a1c, 0.55), 'follicle'), 'follicle')     # its wall: outer layer
     gran = K.part(half_shell(0.93, 0.26, K.mat('granulosa', 0xf6bd60, 0.6), 'follicle'), 'follicle')   # and its cells
     antrum = K.part(half_ball(1.0, K.mat('antrum', 0xffe8a3, 0.8, alpha=0.4), 'antrum'), 'antrum', shell=True)
-    om = K.mat('oocyte', 0x7fd1d6, 0.4, alpha=0.85)
-    oocyte = K.part(bake(K.join([K.sphere(1.0, (0, 0, 0), om, seg=(32, 20), name='oocyte'),
-                                 K.sphere(0.3, (0.1, 0.15, 0.2), K.mat('oocyte-nucleus', 0x1b6f75, 0.4), seg=(16, 10), name='oocyte')], 'oocyte')), 'oocyte')
+    nm_ = K.mat('oocyte-nucleus', 0x1b6f75, 0.4)
+
+    def egg(m, name):
+        return K.part(bake(K.join([K.sphere(1.0, (0, 0, 0), m, seg=(32, 20), name=name),
+                                   K.sphere(0.3, (0.1, 0.15, 0.2), nm_, seg=(16, 10), name=name)], name)), name)
+    # the primary oocyte until its first meiotic division ends, then the secondary oocyte and the first polar body
+    primary = egg(K.mat('primary', 0x7ec4cf, 0.4, alpha=0.85), 'primary')
+    oocyte = egg(K.mat('oocyte', 0x5fb8c4, 0.4, alpha=0.85), 'oocyte')
+    pb1 = K.part(K.sphere(1.0, (0, 0, 0), K.mat('polar1', 0x22223b, 0.5), seg=(14, 10), name='polar1'), 'polar1')
+    PB_D = V(0.62, 0.55, 0.56).normalized()
     zona = K.part(K.sphere(1.0, (0, 0, 0), K.mat('zona', 0xf1faee, 0.5, alpha=0.35), seg=(32, 20), name='zona'), 'zona', shell=True)
     crm = K.mat('corona', 0xf6bd60, 0.6)
     corona = K.part(bake(K.join([K.sphere(0.17, tuple(d * 1.25), crm, seg=(8, 6), name='corona') for d in fib_dirs(46, seed=3)], 'corona')), 'corona')
@@ -3223,7 +3275,7 @@ def follicle():
     DF, DL = fib_dirs(10, 0.15, seed=1), fib_dirs(12, 0.15, seed=2)
     ESC = [V(-8.5 + 1.2 * j, CAP_Y + 0.25 * ((j % 3) - 1), 0.6 + 0.3 * ((j % 2) - 0.5)) for j in range(14)]
     PSC = [V(-7.9 + 1.7 * j, CAP_Y - 0.3, 0.9) for j in range(9)]
-    an = anchors(('oocyte', 'zona', 'corona', 'follicle', 'antrum', 'cl', 'fsh', 'lh', 'estrogen', 'progesterone'))
+    an = anchors(('oocyte', 'primary', 'polar1', 'zona', 'corona', 'follicle', 'antrum', 'cl', 'fsh', 'lh', 'estrogen', 'progesterone'))
 
     def state(s):
         """the follicle at slider value s: its centre, radius, antrum radius, oocyte radius and place"""
@@ -3251,7 +3303,11 @@ def follicle():
         leave = span(ovu, 0.1, 0.85)
         out = [at0, F0 + V(0.4, R0 + 0.4, 0.4), V(2.4, TOP + 2.2, 1.0)]
         at = o_at if o_at is not None else along(out, leave)
-        tr.pose(oocyte, frame, at, None, orad)
+        m1 = span(surge, 0.45, 0.85)
+        tr.pose(primary, frame, at, None, orad if m1 < 0.5 else HIDE)
+        tr.pose(oocyte, frame, at, None, orad if m1 >= 0.5 else HIDE)
+        pr = 0.18 * span(m1, 0.4, 1.0)
+        tr.pose(pb1, frame, at + PB_D * (orad - 0.06), None, max(HIDE, pr))
         tr.pose(zona, frame, at, None, max(HIDE, (orad + 0.13) * span(fol, 0.1, 0.3)))
         tr.pose(corona, frame, at, None, max(HIDE, (orad + 0.13) * span(fol, 0.45, 0.8)))
         for j, o in enumerate(fluid):
@@ -3288,6 +3344,8 @@ def follicle():
             tr.pose(o, frame, lerp(src, PSC[j], k) + V(0, 0, 0.08 * math.sin(s * 5 + j)), None, 1 if k > 0.01 else HIDE)
         # labels
         tr.pose(an['oocyte'], frame, at + V(0, orad + 0.3, 0.6))
+        tr.pose(an['primary'], frame, at + V(0, orad + 0.3, 0.6))
+        tr.pose(an['polar1'], frame, at + PB_D * (orad + 0.1) + V(0.2, 0.1, 0.3))
         tr.pose(an['zona'], frame, at + V(orad + 0.1, 0, 0.5))
         tr.pose(an['corona'], frame, at + V(-orad - 0.3, 0.3, 0.5))
         tr.pose(an['follicle'], frame, F + V(-0.75, 0.35, 0) * (Rf * wall))
@@ -3307,13 +3365,16 @@ def follicle():
 
 
 def oogenesis():
-    """Oogenesis as the L6 p23 figure draws it, a lineage read top to bottom beside a timeline of a woman's life:
-    an oogonium divides by mitosis into oogonia (fetal life), one becomes a primary oocyte (46 chromosomes; seven
-    million are made in the first six months of embryonic life, p22), the first meiotic division (begun in utero,
-    finished before ovulation) makes a secondary oocyte (23) and the first polar body, and the second meiotic division,
-    which takes place only if there is fertilization (p24), makes the ovum (23) and the second polar body; both polar
-    bodies disintegrate (the lecturer's red arrows). Every cell stays in the tree, as in the figure; each new one grows
-    out of its parent along the connecting line."""
+    """Oogenesis as the L6 p23 figure draws it, a lineage read top to bottom beside a timeline of a woman's life, with
+    the follicle the oocyte lives in, so that it joins the ovarian cycle: (1) an oogonium divides by mitosis into
+    oogonia (fetal life); (2) one becomes a primary oocyte (46; seven million are made in the first six months of
+    embryonic life, p22), wrapped in a layer of flat cells, a primordial follicle, in which it waits until puberty;
+    (3) "Every month, one primary follicle gets bigger in size" (p24): the follicle cells multiply round it and
+    follicular fluid gathers; (4) the first meiotic division, "completed prior to ovulation", gives a secondary oocyte
+    (23) and the first polar body inside the follicle, which ruptures and releases them (ovulation); (5) "Only if there
+    is fertilization, will the second meiotic division take place" (p24): a sperm reaches the secondary oocyte, which
+    divides into the ovum (23) and the second polar body; both polar bodies disintegrate (the lecturer's red arrows).
+    The ovarian cycle level shows the same follicle with FSH and LH acting on it."""
     K.reset()
     tr = Track()
     gm, pm, sm, om = K.mat('oogonia', 0xbc4b21, 0.5), K.mat('primary', 0x7ec4cf, 0.45), K.mat('secondary', 0x5fb8c4, 0.45), K.mat('ovum', 0xa05fb0, 0.45)
@@ -3323,21 +3384,29 @@ def oogenesis():
 
     def cell(r, m, name, n_r=0.28):
         return K.part(bake(K.join([K.sphere(r, (0, 0, 0), m, seg=(28, 18), name=name),
-                                   K.sphere(n_r, (0, 0, r * 0.88), nuc, seg=(12, 8), name=name)], name)), name)
+                                   K.sphere(n_r, (0, 0, r * 0.6), nuc, seg=(12, 8), name=name)], name)), name)
     # where each cell sits (three.js), its parent, and its radius
     G0 = V(0, 7.2, 0)
     G1 = [V(-2.4, 4.9, 0), V(2.4, 4.9, 0)]
     G2 = [V(-3.6, 2.7, 0), V(-1.2, 2.7, 0), V(1.2, 2.7, 0), V(3.6, 2.7, 0)]
-    P, S, B1, O, B2 = V(1.2, -0.7, 0), V(2.6, -4.0, 0), V(-0.4, -3.7, 0), V(3.6, -7.3, 0), V(1.2, -7.0, 0)
+    P, S, B1, O, B2 = V(1.2, -1.0, 0), V(3.4, -4.6, 0), V(-0.6, -4.3, 0), V(4.2, -7.6, 0), V(1.8, -7.4, 0)
     og = [cell(0.75, gm, 'oogonia') for _ in range(7)]
     og_at = [G0] + G1 + G2
     og_from = [G0, G0, G0, G1[0], G1[0], G1[1], G1[1]]
-    primary = cell(1.3, pm, 'primary', 0.42)
-    secondary = cell(1.2, sm, 'secondary', 0.38)
-    ovum = cell(1.1, om, 'ovum', 0.36)
-    pb1 = K.part(K.sphere(0.32, (0, 0, 0), bm_, seg=(14, 10), name='polar1'), 'polar1')
-    pb2 = K.part(K.sphere(0.28, (0, 0, 0), b2m, seg=(14, 10), name='polar2'), 'polar2')
+    primary = cell(1.0, pm, 'primary', 0.34)
+    secondary = cell(1.0, sm, 'secondary', 0.32)
+    ovum = cell(0.95, om, 'ovum', 0.3)
+    pb1 = K.part(K.sphere(0.3, (0, 0, 0), bm_, seg=(14, 10), name='polar1'), 'polar1')
+    pb2 = K.part(K.sphere(0.27, (0, 0, 0), b2m, seg=(14, 10), name='polar2'), 'polar2')
     bits = [K.part(K.sphere(0.09, (0, 0, 0), bm_ if j < 5 else b2m, seg=(8, 6), name='polar1' if j < 5 else 'polar2'), 'polar1' if j < 5 else 'polar2') for j in range(10)]
+    # the follicle round the primary oocyte: first one layer of flat cells (primordial), then many layers of cells
+    # with follicular fluid among them, cut open toward the viewer like the ovarian cycle's
+    fcm = K.mat('follicle-cells', 0xf4a259, 0.5)
+    flat = K.part(bake(K.join([K.sphere(0.2, tuple(d * 1.25), fcm, seg=(8, 6), scale=(1.4, 1.4, 0.6), name='follicle')
+                               for d in fib_dirs(26, 0.2, seed=4)], 'follicle')), 'follicle')
+    gran = K.part(half_shell(1.0, 0.3, K.mat('granulosa', 0xf6bd60, 0.6), 'follicle'), 'follicle')
+    theca = K.part(half_shell(1.06, 0.06, K.mat('theca', 0x8c4a1c, 0.55), 'follicle'), 'follicle')
+    antrum = K.part(half_ball(1.0, K.mat('antrum', 0xffe8a3, 0.8, alpha=0.4), 'antrum'), 'antrum', shell=True)
     # the lines of descent, each a unit rod grown from parent to child as the child appears
     lm = K.mat('lineage', 0x6c757d, 0.6)
     links = [(og_from[i], og_at[i]) for i in range(1, 7)] + [(G2[2], P), (P, S), (P, B1), (S, O), (S, B2)]
@@ -3350,72 +3419,96 @@ def oogenesis():
     # the timeline of a woman's life down the left, as the figure has it, with a marker that follows the slider
     xm = K.mat('timeline', 0xadb5bd, 0.6)
     TL = -7.2
-    tl = [K.between((TL, 8.2, 0), (TL, -8.4, 0), 0.05, xm, 'timeline', seg=8)]
+    tl = [K.between((TL, 8.2, 0), (TL, -8.6, 0), 0.05, xm, 'timeline', seg=8)]
     for body, y in (('Fetal life', 5.2), ('Birth', 1.1), ('Childhood', 0.0), ('Puberty', -1.6), ('Adult reproductive life', -5.2)):
         tl.append(text_mesh(body, (TL - 0.4, y, 0), 0.45, xm, 'timeline', res=3))
     for y in (1.1, -1.6):
-        tl += [K.between((x, y, 0), (x + 0.35, y, 0), 0.03, xm, 'timeline', seg=6) for x in [TL + 0.4 + 0.6 * i for i in range(14)]]
+        tl += [K.between((x, y, 0), (x + 0.35, y, 0), 0.03, xm, 'timeline', seg=6) for x in [TL + 0.4 + 0.6 * i for i in range(5)]]
     K.decor(K.join(tl, 'timeline'), 'timeline')
     marker = K.decor(K.sphere(0.22, (0, 0, 0), K.mat('timeline-marker', 0xff006e, 0.35, emit=0xff006e), seg=(14, 10), name='marker'), 'marker')
     # the sperm whose entry lets the second meiotic division take place
     zm = K.mat('sperm', 0x343a40, 0.45)
     sperm = K.part(bake(K.join([K.sphere(0.2, (0, 0, 0), zm, seg=(12, 8), scale=(1.5, 0.9, 0.9), name='sperm'),
                                 K.curve_tube([(0.25, 0, 0), (0.9, 0.12, 0), (1.5, -0.12, 0), (2.1, 0.1, 0), (2.6, 0, 0)], 0.045, zm, 'sperm', res=4)], 'sperm')), 'sperm')
-    an = anchors(('oogonia', 'primary', 'secondary', 'polar1', 'polar2', 'ovum', 'sperm'))
+    an = anchors(('oogonia', 'primary', 'follicle', 'antrum', 'secondary', 'polar1', 'polar2', 'ovum', 'sperm'))
     rnd = random.Random(81)
     drift = [V(rnd.random() - 0.5, rnd.random() - 0.5, rnd.random() - 0.5) * 1.6 for _ in bits]
+    PB_D = V(-0.75, -0.55, 0.37).normalized()
 
     def grow(o, frame, src, dst, k, size=1.0):
         """a cell growing out of its parent: from src (small) to dst (full size) as k goes 0 to 1"""
         tr.pose(o, frame, lerp(src, dst, k), None, max(HIDE, size * mix(0.35, 1.0, k)) if k > 0.01 else HIDE)
 
     def place(s, frame):
-        p = stage_prog(s, 4)
-        mit, pri, m1, m2 = p(0), p(1), p(2), p(3)
+        p = stage_prog(s, 5)
+        mit, pri, fol, m1, m2 = p(0), p(1), p(2), p(3), p(4)
         # (1) mitosis: one oogonium, then two, then four
         tr.pose(og[0], frame, G0)
         for i in range(1, 7):
             k = span(mit, 0.05, 0.45) if i < 3 else span(mit, 0.5, 0.95)
             grow(og[i], frame, og_from[i], og_at[i], k)
-        # (2) one oogonium becomes a primary oocyte
-        kp = span(pri, 0.1, 0.8)
-        grow(primary, frame, G2[2], P, kp)
-        # (3) the first meiotic division: a secondary oocyte and the first polar body, by far the smaller
-        k1 = span(m1, 0.15, 0.85)
-        grow(secondary, frame, P, S, k1)
+        # (2) one oogonium becomes a primary oocyte; flat cells wrap it: a primordial follicle
+        kp = span(pri, 0.05, 0.55)
+        wrap = span(pri, 0.55, 0.95)
+        # (3) the follicle grows round it: the cells multiply into layers, follicular fluid gathers
+        g = span(fol, 0.05, 0.9)
+        # (4) the first meiotic division inside the follicle, then ovulation: the follicle ruptures, releasing them
+        div, out = span(m1, 0.05, 0.4), span(m1, 0.45, 0.9)
+        Rf = mix(1.35, 2.5, g) * (1 - 0.35 * out)
+        gone_f = span(m1, 0.55, 0.95)
+        grow(primary, frame, G2[2], P, kp) if div < 0.5 else tr.pose(primary, frame, P, None, HIDE)
+        tr.pose(flat, frame, P, None, max(HIDE, wrap * (1 - span(fol, 0.05, 0.5))))
+        tr.pose(gran, frame, P, None, max(HIDE, Rf * span(fol, 0.0, 0.25) * (1 - gone_f)))
+        tr.pose(theca, frame, P, None, max(HIDE, Rf * span(fol, 0.0, 0.25) * (1 - gone_f)))
+        tr.pose(antrum, frame, P, None, max(HIDE, Rf * 0.88 * span(fol, 0.3, 0.9) * (1 - span(m1, 0.45, 0.7))))
+        sec_at = lerp(P, S, out)
+        tr.pose(secondary, frame, sec_at, None, 1 if div >= 0.5 and m2 < 0.5 else HIDE)
         gone1 = span(m2, 0.75, 1.0)
-        tr.pose(pb1, frame, lerp(P, B1, k1), None, max(HIDE, mix(0.35, 1.0, k1) * (1 - gone1)) if k1 > 0.01 else HIDE)
-        # (4) a sperm reaches the secondary oocyte; the second meiotic division: the ovum and the second polar body;
+        pb_home = lerp(P + PB_D * 1.15, B1, out)
+        tr.pose(pb1, frame, pb_home, None, max(HIDE, span(div, 0.3, 1.0) * (1 - gone1)))
+        # (5) a sperm reaches the secondary oocyte; the second meiotic division: the ovum and the second polar body;
         # both polar bodies disintegrate
         ks = span(m2, 0.0, 0.3)
-        tip = S + V(1.25, 0.3, 0.2)
-        tr.pose(sperm, frame, lerp(S + V(7.0, 2.2, 0.4), tip, ks), q_three((0, 0, 1), 0.2), 1 if m2 > 0.01 and m2 < 0.98 else HIDE)
+        tip = S + V(1.15, 0.3, 0.2)
+        tr.pose(sperm, frame, lerp(S + V(6.0, 2.0, 0.4), tip, ks), q_three((0, 0, 1), 0.2), 1 if m2 > 0.01 and m2 < 0.98 else HIDE)
         k2 = span(m2, 0.3, 0.75)
-        grow(ovum, frame, S, O, k2)
+        if m2 >= 0.5:
+            tr.pose(secondary, frame, sec_at, None, HIDE)
+        grow(ovum, frame, S, O, k2) if k2 > 0.01 else tr.pose(ovum, frame, S, None, HIDE)
         tr.pose(pb2, frame, lerp(S, B2, k2), None, max(HIDE, mix(0.35, 1.0, k2) * (1 - gone1)) if k2 > 0.01 else HIDE)
         for j, o in enumerate(bits):
             home = B1 if j < 5 else B2
             tr.pose(o, frame, home + drift[j] * gone1, None, 1 if 0.02 < gone1 < 0.98 else HIDE)
-        for idx, (o, (a, b)) in enumerate(zip(rods, links)):
-            k = (span(mit, 0.05, 0.45) if idx < 2 else span(mit, 0.5, 0.95)) if idx < 6 else kp if idx == 6 else k1 if idx < 9 else k2
-            if idx in (8, 10):                           # the polar bodies' lines go as they disintegrate
-                k *= 1 - gone1
-            tr.rod(o, frame, a, lerp(a, b, k), 0.05, k > 0.05)
+        for o, (a, b) in zip(rods, links):
+            if b == P:
+                k = kp
+            elif b in (S, B1):
+                k = out
+            elif b in (O, B2):
+                k = k2
+            else:
+                i = og_at.index(b)
+                k = span(mit, 0.05, 0.45) if i < 3 else span(mit, 0.5, 0.95)
+            tail = (1 - gone1) if b == B1 or b == B2 else 1
+            tr.rod(o, frame, a, lerp(a, b, k * tail), 0.05, k * tail > 0.05)
         for o, at in counts:
-            show = 1 if at == G0 else kp if at == P else k1 if at == S else k2
-            tr.pose(o, frame, at + V(1.5, 0.3, 0), None, 1 if show > 0.9 else HIDE)
-        # the marker on the timeline: fetal life through mitosis and the primary oocyte, birth to puberty while
-        # the oocyte waits, adult life for both divisions
-        y = mix(6.8, 2.0, mit) if s < 1 else mix(2.0, -1.6, pri) if s < 2 else mix(-1.6, -4.2, m1) if s < 3 else mix(-4.2, -7.4, m2)
+            show = 1 if at == G0 else kp * (div < 0.5) if at == P else out * (m2 < 0.5) if at == S else k2
+            tr.pose(o, frame, at + V(1.35, 0.3, 0.6), None, 1 if show > 0.9 else HIDE)
+        # the marker on the timeline: fetal life for mitosis; the primary oocyte waits from before birth to puberty;
+        # then, every month in adult reproductive life, a follicle grows, ovulates and may be fertilized
+        y = (mix(6.8, 3.0, mit) if s < 1 else mix(3.0, -1.6, pri) if s < 2 else mix(-1.6, -3.0, fol) if s < 3
+             else mix(-3.0, -4.6, m1) if s < 4 else mix(-4.6, -7.6, m2))
         tr.pose(marker, frame, V(TL, y, 0))
         tr.pose(an['oogonia'], frame, G2[0] + V(0, 0.95, 0.4))
-        tr.pose(an['primary'], frame, lerp(G2[2], P, kp) + V(0, 1.5, 0.5))
-        tr.pose(an['secondary'], frame, lerp(P, S, k1) + V(0, 1.4, 0.5))
-        tr.pose(an['polar1'], frame, lerp(P, B1, k1) + V(0, 0.5, 0.3))
+        tr.pose(an['primary'], frame, lerp(G2[2], P, kp) + V(-0.2, 1.2, 0.6))
+        tr.pose(an['follicle'], frame, P + V(-0.72, 0.72, 0.3) * max(Rf, 1.4))
+        tr.pose(an['antrum'], frame, P + V(0.55, -0.55, 0.2) * max(Rf, 1.4))
+        tr.pose(an['secondary'], frame, sec_at + V(0, 1.2, 0.6))
+        tr.pose(an['polar1'], frame, pb_home + V(0, 0.5, 0.3))
         tr.pose(an['polar2'], frame, lerp(S, B2, k2) + V(0, 0.5, 0.3))
-        tr.pose(an['ovum'], frame, lerp(S, O, k2) + V(0, 1.3, 0.5))
-        tr.pose(an['sperm'], frame, lerp(S + V(7.0, 2.2, 0.4), tip, ks) + V(0.8, 0.5, 0.3))
-    sample(place, 4, step=2)
+        tr.pose(an['ovum'], frame, lerp(S, O, k2) + V(0, 1.2, 0.6))
+        tr.pose(an['sperm'], frame, lerp(S + V(6.0, 2.0, 0.4), tip, ks) + V(0.8, 0.5, 0.3))
+    sample(place, 5, step=2)
     tr.write()
     VIEW['oogenesis'] = [0.05, 0.1, 1]
     export('oogenesis', [])
