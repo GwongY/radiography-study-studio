@@ -50,13 +50,13 @@
   ok   every course-level row names the file that names it
   ok   no row beyond the course claims a source
   ok   every source carries how it names the structure
-  ok   130 rows are in the examinable glossary itself
+  ok   123 rows are in the examinable glossary itself
   ok   Liver is named by the course (named)
   ok   Stomach is named by the course (named)
   ok   Trachea is named by the course (named)
   ok   Kidney is named by the course (named)
   ok   Urinary bladder is named by the course (listed)
-  ok   Thyroid cartilage is named by the course (listed)
+  ok   Thyroid cartilage is named by the course (named)
   ok   Femur is named by the course (named)
   ok   Scapula is named by the course (named)
   ok   Oesophagus is named by the course (named)

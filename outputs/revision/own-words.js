@@ -324,4 +324,10 @@ export const OWN = {
   w3_antforearm: 'The front of the forearm, holding the muscles that bend the wrist and fingers and turn the palm down.',
   w3_postforearm: 'The back of the forearm, holding the muscles that straighten the wrist, fingers and thumb.',
   w4_quadlumb: 'A deep muscle of the posterior abdominal wall that steadies the hip.',
+  /* ---- Week 9: respiratory ---- */
+  w9_olfrec: 'The nerve ending in the nose that detects smell molecules and starts the signal for smell.',
+  w9_cricothyroid: 'A sheet of tissue between the thyroid and cricoid cartilages at the front of the larynx.',
+  w9_arytenoid: 'A small cartilage at the back of the larynx that moves the vocal folds.',
+  w9_pulmvein: 'The veins that carry oxygen-rich blood from the lungs back to the heart.',
+  w9_bronchialcirc: 'The blood supply that feeds the tissue of the lungs themselves.',
 };

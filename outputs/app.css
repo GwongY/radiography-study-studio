@@ -1286,7 +1286,7 @@ ul.asslines{list-style:none;margin:0;padding:0}
  * The map and the 3D graph sit on a dark stage whose colours are the
  * stage tokens below; the page around them uses the app's own tokens.
  * ------------------------------------------------------------------ */
-#reviseView{--rv-surface:#162428;--rv-surface2:#1e2f34;--rv-ink:#e5eef1;--rv-ink2:#b9c8cd;--rv-muted:#8ca0a7;--rv-line:#2b3f45;--rv-accent:#5cc4d4;--rv-accent-ink:#06222a;--rv-accent-soft:#15373f;--rv-star:#f0a24a;--rv-yue-bg:#2b2410;--rv-yue-ink:#ebddb3;--rv-c-skel:#d1a94f;--rv-c-musc:#e3786b;--rv-c-pns:#6fa8e8;--rv-c-cns:#ae98ec;--rv-c-sense:#55c4a4;--rv-c-cv:#e879c6;--rv-c-tissue:#9fb2bb;--rv-c-on:#0e191d;color:var(--rv-ink2)}
+#reviseView{--rv-surface:#162428;--rv-surface2:#1e2f34;--rv-ink:#e5eef1;--rv-ink2:#b9c8cd;--rv-muted:#8ca0a7;--rv-line:#2b3f45;--rv-accent:#5cc4d4;--rv-accent-ink:#06222a;--rv-accent-soft:#15373f;--rv-star:#f0a24a;--rv-yue-bg:#2b2410;--rv-yue-ink:#ebddb3;--rv-c-skel:#d1a94f;--rv-c-musc:#e3786b;--rv-c-pns:#6fa8e8;--rv-c-cns:#ae98ec;--rv-c-sense:#55c4a4;--rv-c-cv:#e879c6;--rv-c-resp:#4fd6e6;--rv-c-tissue:#9fb2bb;--rv-c-on:#0e191d;color:var(--rv-ink2)}
 #reviseView .rv-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-bottom:12px}
 #reviseView .rv-weekbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 #reviseView .rv-weekbar .rv-lab{margin-right:2px}
@@ -1320,7 +1320,7 @@ ul.asslines{list-style:none;margin:0;padding:0}
 #reviseView .rv-linkbtn[aria-pressed="true"]{background:var(--rv-accent);color:var(--rv-accent-ink);border-color:var(--rv-accent)}
 #reviseView .rv-linkbtn:disabled{opacity:.4;cursor:default}
 #reviseView .rv-mapwrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;align-items:start}
-#rvMmwrap,#rvBwrap{--rv-ink:#e9f3f5;--rv-ink2:#b9ccd1;--rv-muted:#7f9fa7;--rv-surface:#081519;--rv-surface2:#0f242a;--rv-line:#1c3a42;--rv-accent:#5cc4d4;--rv-accent-ink:#06222a;--rv-accent-soft:#16404a;--c-skel:#e2b65a;--c-musc:#f0806f;--c-pns:#78b2f2;--c-cns:#b9a1f5;--c-sense:#5ed0ae;--c-cv:#ee86cc;--c-tissue:#a9bec7;--c-accent:#5cc4d4}
+#rvMmwrap,#rvBwrap{--rv-ink:#e9f3f5;--rv-ink2:#b9ccd1;--rv-muted:#7f9fa7;--rv-surface:#081519;--rv-surface2:#0f242a;--rv-line:#1c3a42;--rv-accent:#5cc4d4;--rv-accent-ink:#06222a;--rv-accent-soft:#16404a;--c-skel:#e2b65a;--c-musc:#f0806f;--c-pns:#78b2f2;--c-cns:#b9a1f5;--c-sense:#5ed0ae;--c-cv:#ee86cc;--c-resp:#62dcea;--c-tissue:#a9bec7;--c-accent:#5cc4d4}
 #rvMmwrap{position:relative;height:660px;border:1px solid var(--rv-line);border-radius:12px;overflow:hidden;background:radial-gradient(rgba(143,230,242,.06) 1px,transparent 1.4px) 0 0/22px 22px,radial-gradient(ellipse at 35% 45%,#0e2730 0%,#081519 65%)}
 #rvMm{width:100%;height:100%;display:block;touch-action:none;cursor:grab;--markmap-text-color:var(--rv-ink);--markmap-circle-open-bg:var(--rv-surface);--markmap-font:500 15px/1.3 'Instrument Sans',sans-serif;font-size:calc(15px * var(--ts));--markmap-a-color:var(--rv-accent);--markmap-code-bg:var(--rv-surface2);--markmap-code-color:var(--rv-ink2)}
 #rvMm:active{cursor:grabbing}

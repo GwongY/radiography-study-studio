@@ -88,11 +88,11 @@ function calendarWeek() {
   const now = new Date();
   return { teaching: weekOf(now), before: now < weekStart(1) };
 }
-/* Auto means the last week fully taught, not the one running: during week 8 it shows weeks 1-7, and week 8 joins
-   on the Sunday that closes it (so the date is read a day ahead and one week is taken off). */
+/* Auto means the last week taught by Thursday, not the one just starting: weeks 1-7 show until week 8's Thursday, when
+   week 8 joins (the date is read four days ahead, which lands in the next week from Thursday, and one week is taken off). */
 function autoNow(last = rv.last) {
   const c = calendarWeek();
-  const ahead = weekOf(new Date(Date.now() + 864e5));
+  const ahead = weekOf(new Date(Date.now() + 4 * 864e5));
   return autoWeek(ahead == null ? null : Math.max(1, ahead - 1), c.before, last);
 }
 
@@ -154,7 +154,7 @@ function paintWeekBar() {
       ? (c.before ? 'The term has not started — showing week 1.' : `The term is over — showing everything, weeks 1–${rv.last}.`)
       : (rv.week >= rv.last
         ? `It is teaching week ${c.teaching}; weeks 1–${rv.last} are shown, the latest with notes.`
-        : `Teaching week ${c.teaching} — weeks 1–${rv.week} are shown; week ${rv.week + 1} joins on Sunday.`);
+        : `Teaching week ${c.teaching} — weeks 1–${rv.week} are shown; week ${rv.week + 1} joins on Thursday.`);
   } else {
     where = `You chose week ${rv.week}. Press Auto to follow the teaching week${c.teaching != null ? ` (now week ${autoNow()})` : ''}.`;
   }

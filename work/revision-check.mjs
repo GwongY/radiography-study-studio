@@ -337,7 +337,7 @@ ok(autoWeek(5, false, 13) === 5, 'once a subject has content to week 13 the curr
 ok(clampWeek('3', 7) === 3 && clampWeek(0, 7) === 1 && clampWeek(99, 7) === 7 && clampWeek('x', 7) === 7, 'clampWeek holds 1..last and survives rubbish');
 ok(releasedLast(8, 7) === 7 && releasedLast(8, 8) === 8 && releasedLast(8, 13) === 8 && releasedLast(7, 3) === 3, 'a week beyond the released one is not offered: the chips stop there');
 ok(releasedLast(8, null) === 8 && releasedLast(8, 0) === 1, 'no released limit holds nothing back');
-ok(REVISION.HSS2011.released == null && lastWeekOf(REVISION.HSS2011.data) === 8, 'every week with notes (through Week 8) is offered; the auto week follows the calendar');
+ok(REVISION.HSS2011.released == null && lastWeekOf(REVISION.HSS2011.data) === 9, 'every week with notes (through Week 9) is offered; the auto week follows the calendar');
 ok(!REVISION.ABCT2326 || REVISION.ABCT2326.released == null, 'ABCT2326 has no released cap: every week with notes is a chip');
 
 console.log('\nsaved choice');

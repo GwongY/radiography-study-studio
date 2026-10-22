@@ -105,7 +105,7 @@ function named(phrase, r) {
       const before = p.text.slice(0, at).trim().split(' ').slice(-3);
       if (/bone$/.test(r.name) && !/bone$/.test(phrase) && !/^hss\.(ll|ul|hnt|msk)\.2026$/.test(p.ref)) continue;
       if (/bone$/.test(r.name) && /^(?:lobe|cortex|plane|sinus)$/.test(next)) continue;
-      if (/muscle$/.test(r.name) && /^(?:ligament|nerve|artery|vein|fascia)$/.test(next)) continue;
+      if (/muscle$/.test(r.name) && /^(?:ligament|nerve|artery|vein|fascia|membrane)$/.test(next)) continue;
       if (r.layer !== 'nervous' && before.some((w) => NOT_AFTER.has(w))) continue;
       const longer = prefixOwners.get(r.layer + '|' + phrase + ' ' + next);
       if (next && longer && [...longer].some((n) => n !== r.name)) continue;

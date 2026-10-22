@@ -63,4 +63,13 @@ export const CROSS = [
   { a: ['ABCT2326', 'p_hypothal'], b: ['HSS2011', 'hypothalamus'], why: 'Hypothalamic Control of Posterior Pituitary', src: ['phys.l7.2026', 27], match: 'Hypothalamic Control' },
   { a: ['ABCT2326', 'p_synapses'], b: ['HSS2011', 'synapse'], why: 'Chemical Synapse: most synapses involve the release of a chemical called a neurotransmitter', src: ['phys.l8.2026', 46], match: 'Chemical Synapse' },
   { a: ['ABCT2326', 'p_symp_path'], b: ['HSS2011', 'symp'], why: 'Sympathetic Neuron Pathways', src: ['phys.l8.2026', 57], match: 'Sympathetic Neuron Pathways' },
+  { a: ['ABCT2326', 'p3_sinuses'], b: ['HSS2011', 'w9_frontal_s'], why: 'Paranasal sinuses are air-filled spaces in skull bones that connect to the nasal cavity', src: ['hss.l9.2026', 8], match: 'Paranasal sinuses' },
+  { a: ['ABCT2326', 'p3_pharynx'], b: ['HSS2011', 'pharynx'], why: 'Nasopharynx; Oropharynx; Laryngopharynx', src: ['hss.l9.2026', 17], match: 'Oropharynx' },
+  { a: ['ABCT2326', 'p3_larynx'], b: ['HSS2011', 'larynx'], why: 'The larynx (voice box) produces sound', src: ['hss.l9.2026', 21], match: 'voice box' },
+  { a: ['ABCT2326', 'p3_trachea'], b: ['HSS2011', 'trachea'], why: 'Trachea: windpipe, a tubular passageway for air', src: ['hss.l9.2026', 23], match: 'windpipe' },
+  { a: ['ABCT2326', 'p3_alveoli'], b: ['HSS2011', 'w9_alveolus'], why: 'Alveoli: thin-walled cells, a lot of surface area, direct contact with capillaries', src: ['hss.l9.2026', 35], match: 'Alveoli' },
+  { a: ['ABCT2326', 'p3_type1_pneumocytes'], b: ['HSS2011', 'w9_type1'], why: 'Type I Alveolar cells (type 1 Pneumocytes)', src: ['hss.l9.2026', 39], match: 'Type I Alveolar' },
+  { a: ['ABCT2326', 'p3_type2_pneumocytes'], b: ['HSS2011', 'w9_type2'], why: 'Type II cells (type 2 pneumocytes)', src: ['hss.l9.2026', 39], match: 'Type II' },
+  { a: ['ABCT2326', 'p3_surfactant'], b: ['HSS2011', 'w9_surfactant'], why: 'Surfactant: a lipoprotein that reduces surface tension', src: ['hss.l9.2026', 40], match: 'surfactant' },
+  { a: ['ABCT2326', 'p3_diaphragm'], b: ['HSS2011', 'w9_diaphragm'], why: 'A large, dome-shaped muscle below the lungs; the main muscle used for breathing', src: ['hss.l9.2026', 50], match: 'Diaphragm' },
 ];

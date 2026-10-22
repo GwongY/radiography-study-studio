@@ -139,5 +139,52 @@ export const DECODER_HTML = `<h2>Decoder</h2>
   <tr data-wk="7"><td>Preganglionic / postganglionic</td><td>before the ganglion / after it → <b>pre = from the CNS to the ganglion, post = from ganglion to organ</b>.</td></tr>
   <tr data-wk="7"><td>Thoracolumbar / craniosacral</td><td>chest + loin cord segments = sympathetic · skull + sacrum = parasympathetic.</td></tr>
   <tr data-wk="7"><td>Baroreceptor</td><td>baros = pressure (as in barometer) → pressure sensor in vessel walls.</td></tr>
+  <tr class="grp" data-wk="8"><td colspan="2">Week 8 · heart and vessels</td></tr>
+  <tr data-wk="8"><td>Pericardium</td><td>peri (around) + kardia (heart) → the sac around the heart.</td></tr>
+  <tr data-wk="8"><td>Epicardium, myocardium, endocardium</td><td>epi (upon) · myo (muscle) · endo (inside) + cardium → <b>outside skin, middle muscle, inner lining</b>.</td></tr>
+  <tr data-wk="8"><td>Mesothelium</td><td>meso (middle) + thele (nipple, thin layer) → the thin cell layer that makes pericardial fluid.</td></tr>
+  <tr data-wk="8"><td>Atrium, ventricle</td><td>Latin "entrance hall" · "little belly" → the receiving room and the pumping belly.</td></tr>
+  <tr data-wk="8"><td>Septum</td><td>Latin "partition" → the wall between two chambers.</td></tr>
+  <tr data-wk="8"><td>Tricuspid, bicuspid, mitral</td><td>three points · two points · a bishop's mitre (two-peaked hat) → the mitral valve is the two-flap one.</td></tr>
+  <tr data-wk="8"><td>Semilunar</td><td>semi (half) + luna (moon) → valve cusps shaped like half-moons.</td></tr>
+  <tr data-wk="8"><td>Chordae tendineae</td><td>tendinous cords → the heart strings that hold the valve flaps.</td></tr>
+  <tr data-wk="8"><td>Papillary muscle</td><td>papilla (nipple) → the nipple-shaped muscle that pulls on the cords.</td></tr>
+  <tr data-wk="8"><td>Trabeculae carneae</td><td>little beams + fleshy → the fleshy ridges inside the ventricles.</td></tr>
+  <tr data-wk="8"><td>Fossa ovalis, foramen ovale</td><td>oval pit · oval hole → <b>the hole closes after birth and leaves a pit</b>.</td></tr>
+  <tr data-wk="8"><td>Coronary</td><td>corona (crown) → the arteries that crown the heart.</td></tr>
+  <tr data-wk="8"><td>Aorta</td><td>Greek "that which is lifted" → the great artery rising from the left ventricle.</td></tr>
+  <tr data-wk="8"><td>Arteriole, venule, metarteriole</td><td>-ole (little) · meta (beyond) → little artery · little vein · the branch beyond the arteriole.</td></tr>
+  <tr data-wk="8"><td>Anastomosis</td><td>ana + stoma (mouth) → a joining of two channels, mouth to mouth.</td></tr>
+  <tr data-wk="8"><td>Fenestrated</td><td>fenestra (window) → capillaries with windows (pores).</td></tr>
+  <tr data-wk="8"><td>Sinusoid</td><td>sinus (hollow) + -oid (like) → a wide, leaky, hollow-like capillary.</td></tr>
+  <tr data-wk="8"><td>Tunica intima, media, externa</td><td>coat · innermost, middle, outer → <b>In, Mid, Ex</b>.</td></tr>
+  <tr data-wk="8"><td>Vasa vasorum, nervi vasorum</td><td>vessels of the vessels · nerves of the vessels.</td></tr>
+  <tr data-wk="8"><td>Azygos, hemiazygos</td><td>a (not) + zygon (yoke, pair) → the unpaired vein · hemi (half) → the half-azygos on the left.</td></tr>
+  <tr data-wk="8"><td>Ischaemia, infarct</td><td>ischein (hold back) + haima (blood) → blood held back · Latin "stuffed in" → the dead patch of tissue.</td></tr>
+  <tr data-wk="8"><td>Angina</td><td>Latin "a strangling" → the tight, squeezing chest pain.</td></tr>
+  <tr data-wk="8"><td>Atherosclerosis</td><td>athere (porridge) + sclerosis (hardening) → soft fatty plaque that hardens the artery wall.</td></tr>
+  <tr data-wk="8"><td>Tamponade</td><td>French "plug" → fluid plugging the sac so the heart cannot fill.</td></tr>
+  <tr class="grp" data-wk="9"><td colspan="2">Week 9 · respiratory system</td></tr>
+  <tr data-wk="9"><td>Pharynx</td><td>Greek "throat" → the shared tube behind the nose, mouth and larynx.</td></tr>
+  <tr data-wk="9"><td>Nasopharynx, oropharynx, laryngopharynx</td><td>naso (nose) · oro (mouth) · laryngo (voice box) + pharynx → the throat named for what lies in front of it.</td></tr>
+  <tr data-wk="9"><td>Choanae</td><td>Greek "funnel" → the funnel-shaped back openings of the nasal cavity.</td></tr>
+  <tr data-wk="9"><td>Adenoids</td><td>aden (gland) + -oid (like) → gland-like lymphoid tissue in the nasopharynx.</td></tr>
+  <tr data-wk="9"><td>Uvula</td><td>Latin "little grape" → the small hanging lobe of the soft palate.</td></tr>
+  <tr data-wk="9"><td>Piriform recess</td><td>pirum (pear) + form → a pear-shaped pocket beside the laryngeal inlet.</td></tr>
+  <tr data-wk="9"><td>Epiglottis, glottis</td><td>epi (upon) + glottis (the opening of the larynx) → the lid sitting on the glottis.</td></tr>
+  <tr data-wk="9"><td>Cricoid</td><td>krikos (ring) + -oid (like) → the ring-shaped cartilage.</td></tr>
+  <tr data-wk="9"><td>Arytenoid</td><td>Greek "ladle-like" → the small cartilages shaped like a jug lip.</td></tr>
+  <tr data-wk="9"><td>Trachea</td><td>Greek "rough (windpipe)" → the ridged tube of cartilage rings.</td></tr>
+  <tr data-wk="9"><td>Bronchus, bronchiole</td><td>bronchos (windpipe) · -ole (small) → <b>-ole = little</b>, as in arteriole and venule.</td></tr>
+  <tr data-wk="9"><td>Alveolus</td><td>Latin "small hollow" → the tiny air sac where gas is exchanged.</td></tr>
+  <tr data-wk="9"><td>Pneumocyte</td><td>pneumo (air, lung) + cyte (cell) → a lung cell; Type I thin, Type II makes surfactant.</td></tr>
+  <tr data-wk="9"><td>Surfactant</td><td>surface + active + agent → it lowers surface tension so alveoli do not collapse.</td></tr>
+  <tr data-wk="9"><td>Pleura</td><td>Greek "rib, side" → the membrane lining the chest wall and covering the lung.</td></tr>
+  <tr data-wk="9"><td>Visceral / parietal</td><td>viscera (organs) · paries (wall) → <b>visceral hugs the lung, parietal lines the wall</b>.</td></tr>
+  <tr data-wk="9"><td>Diaphragm</td><td>dia (across) + phragma (partition) → the muscle wall across the body.</td></tr>
+  <tr data-wk="9"><td>Phrenic</td><td>phren (diaphragm) → the nerve of the diaphragm.</td></tr>
+  <tr data-wk="9"><td>Pneumothorax</td><td>pneumo (air) + thorax (chest) → air in the chest cavity.</td></tr>
+  <tr data-wk="9"><td>Atelectasis</td><td>a (not) + telos (complete) + ektasis (stretching) → incomplete expansion, a collapsed lung or alveoli.</td></tr>
+  <tr data-wk="9"><td>Apnoea</td><td>a (without) + pnoia (breathing) → breathing that stops, as in sleep apnoea.</td></tr>
   </tbody></table></div>`;
-export const SOURCES_HTML = `<p class="foot">Free sources to confirm anything here: <a href="https://openstax.org/books/anatomy-and-physiology-2e/pages/4-introduction" target="_blank" rel="noopener">OpenStax Anatomy &amp; Physiology 2e</a> (the tissues chapter is linked on your Week 2 tutorial), the <a href="https://www.edx.org/course/human-anatomy" target="_blank" rel="noopener">ANA101x Human Anatomy MOOC</a> from the Week 1 reference list, and Martini's <i>Fundamentals of Anatomy &amp; Physiology</i> (the course textbook). Built from your Week 1–7 slides, the Week 2 tissue tutorial and the movement-terminology handout.</p>`;
+export const SOURCES_HTML = `<p class="foot">Free sources to confirm anything here: <a href="https://openstax.org/books/anatomy-and-physiology-2e/pages/4-introduction" target="_blank" rel="noopener">OpenStax Anatomy &amp; Physiology 2e</a> (the tissues chapter is linked on your Week 2 tutorial), the <a href="https://www.edx.org/course/human-anatomy" target="_blank" rel="noopener">ANA101x Human Anatomy MOOC</a> from the Week 1 reference list, and Martini's <i>Fundamentals of Anatomy &amp; Physiology</i> (the course textbook). Built from your Week 1–9 slides, the Week 2 tissue tutorial and the movement-terminology handout.</p>`;

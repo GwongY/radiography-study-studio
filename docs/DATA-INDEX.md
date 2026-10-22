@@ -41,8 +41,8 @@ Blender duplicate suffixes. Row shape:
 
 | Evidence | Rows | How the source names it |
 | --- | --- | --- |
-| named | 455 | named in running text |
-| listed | 130 | appears in a term list or table |
+| named | 462 | named in running text |
+| listed | 123 | appears in a term list or table |
 | described | 64 | named, with an explanation |
 | series | 14 | inferred: enough of a numbered series is named to fill in the rest |
 | mirrored | 1 | the other side of a structure named once |

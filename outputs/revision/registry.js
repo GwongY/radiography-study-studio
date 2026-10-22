@@ -19,6 +19,7 @@ import * as hss2011W5 from './hss2011-leaves-w5.js';
 import * as hss2011W6 from './hss2011-leaves-w6.js';
 import * as hss2011W7 from './hss2011-leaves-w7.js';
 import * as hss2011W8 from './hss2011-leaves-w8.js';
+import * as hss2011W9 from './hss2011-leaves-w9.js';
 import { THREADS_HTML } from './hss2011-threads.js';
 import { TABLES_HTML } from './hss2011-tables.js';
 import { DECODER_HTML, SOURCES_HTML } from './hss2011-decoder.js';
@@ -40,14 +41,14 @@ import * as abctW12 from './abct2326-leaves-w12.js';
 import * as abctFrag from './abct2326-fragments.js';
 
 /* Leaf rows, week by week (outputs/revision/leaves.js). */
-const HSS2011_ROWS = [...hss2011W1.ROWS, ...hss2011W2.ROWS, ...hss2011W3.ROWS, ...hss2011W4.ROWS, ...hss2011W5.ROWS, ...hss2011W6.ROWS, ...hss2011W7.ROWS, ...hss2011W8.ROWS];
-const HSS2011_LEAF_SOURCES = { ...hss2011W1.SOURCES, ...hss2011W2.SOURCES, ...hss2011W3.SOURCES, ...hss2011W4.SOURCES, ...hss2011W5.SOURCES, ...hss2011W6.SOURCES, ...hss2011W7.SOURCES, ...hss2011W8.SOURCES };
+const HSS2011_ROWS = [...hss2011W1.ROWS, ...hss2011W2.ROWS, ...hss2011W3.ROWS, ...hss2011W4.ROWS, ...hss2011W5.ROWS, ...hss2011W6.ROWS, ...hss2011W7.ROWS, ...hss2011W8.ROWS, ...hss2011W9.ROWS];
+const HSS2011_LEAF_SOURCES = { ...hss2011W1.SOURCES, ...hss2011W2.SOURCES, ...hss2011W3.SOURCES, ...hss2011W4.SOURCES, ...hss2011W5.SOURCES, ...hss2011W6.SOURCES, ...hss2011W7.SOURCES, ...hss2011W8.SOURCES, ...hss2011W9.SOURCES };
 
-/* Week 8 brings new headings and one new branch; the earlier weeks' headings stay as they are. */
+/* Weeks 8 and 9 each bring new headings and one new branch; the earlier weeks' headings stay as they are. */
 const HSS2011_ALL = {
-  NODES: [...hss2011.NODES, ...hss2011W8.TOPICS],
-  EDGES: [...hss2011.EDGES, ...hss2011W8.EDGES],
-  TREE: { ...hss2011.TREE, kids: [...hss2011.TREE.kids, hss2011W8.BRANCH] },
+  NODES: [...hss2011.NODES, ...hss2011W8.TOPICS, ...hss2011W9.TOPICS],
+  EDGES: [...hss2011.EDGES, ...hss2011W8.EDGES, ...hss2011W9.EDGES],
+  TREE: { ...hss2011.TREE, kids: [...hss2011.TREE.kids, hss2011W8.BRANCH, hss2011W9.BRANCH] },
 };
 
 /* Colour groups. col = legend, notes tag and Brain 3D; map = the Map's own shade. The HSS2011 values are app.css's
@@ -61,6 +62,7 @@ const HSS2011_SYSTEMS = [
   { key: 'cns', label: 'Brain & spinal cord', col: '#ae98ec', map: '#b9a1f5' },
   { key: 'sense', label: 'Senses & autonomic', col: '#55c4a4', map: '#5ed0ae' },
   { key: 'cv', label: 'Heart & vessels', col: '#e879c6', map: '#ee86cc', body: 'heart' },
+  { key: 'resp', label: 'Airways & lungs', col: '#4fd6e6', map: '#62dcea', body: 'lungs' },
 ];
 
 /* Physiology's groups, one per lecture system (spec 4.3). Cells, heart and muscle share anatomy's colour on purpose:

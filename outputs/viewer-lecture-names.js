@@ -31,6 +31,11 @@ export const VIEWER_LECTURE_SOURCES = [
     "pages": 69
   },
   {
+    "ref": "hss.l9.2026",
+    "file": "Module 3 part two_ respiratory system_Student.pdf",
+    "pages": 66
+  },
+  {
     "ref": "hss.ul.2026",
     "file": "Week 3_UL_2026_CKK_upload.pdf",
     "pages": 29
@@ -39,11 +44,6 @@ export const VIEWER_LECTURE_SOURCES = [
     "ref": "hss.ll.2026",
     "file": "Week 2_LL _2026_CKK_upload.pdf",
     "pages": 35
-  },
-  {
-    "ref": "hss.tut.ice",
-    "file": "Tutorial 1_ HSS2011_Human Anatomy_2026-27-Ice breaking.pdf",
-    "pages": 21
   }
 ];
 export const VIEWER_LECTURE_NAMES = [
@@ -386,6 +386,14 @@ export const VIEWER_LECTURE_NAMES = [
     "file": "W1_MusculoskeletalSystem_2026_CKK_upload.pdf",
     "page": 28,
     "evidence": "named"
+  },
+  {
+    "layer": "lymphatic",
+    "name": "Palatine tonsil",
+    "ref": "hss.l9.2026",
+    "file": "Module 3 part two_ respiratory system_Student.pdf",
+    "page": 15,
+    "evidence": "slide row"
   },
   {
     "layer": "lymphatic",
@@ -2328,10 +2336,10 @@ export const VIEWER_LECTURE_NAMES = [
   {
     "layer": "organs",
     "name": "Epiglottis",
-    "ref": "hss.l7.2026",
-    "file": "2627_M2_L7_ANS_spec_sen.pdf",
-    "page": 22,
-    "evidence": "named"
+    "ref": "hss.l9.2026",
+    "file": "Module 3 part two_ respiratory system_Student.pdf",
+    "page": 16,
+    "evidence": "slide row"
   },
   {
     "layer": "organs",
@@ -2339,6 +2347,14 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.hnt.2026",
     "file": "W4_Head_Neck_Trunk_2026_CKK_upload_20260920.pdf",
     "page": 26,
+    "evidence": "named"
+  },
+  {
+    "layer": "organs",
+    "name": "Laryngopharynx",
+    "ref": "hss.l9.2026",
+    "file": "Module 3 part two_ respiratory system_Student.pdf",
+    "page": 15,
     "evidence": "named"
   },
   {
@@ -2367,18 +2383,34 @@ export const VIEWER_LECTURE_NAMES = [
   },
   {
     "layer": "organs",
-    "name": "Soft palate",
-    "ref": "hss.l6.2026",
-    "file": "2627_M2_L6_brain_cranial_N.pdf",
-    "page": 54,
+    "name": "Oropharynx",
+    "ref": "hss.l9.2026",
+    "file": "Module 3 part two_ respiratory system_Student.pdf",
+    "page": 13,
     "evidence": "named"
   },
   {
     "layer": "organs",
+    "name": "Pleura",
+    "ref": "hss.l9.2026",
+    "file": "Module 3 part two_ respiratory system_Student.pdf",
+    "page": 48,
+    "evidence": "named"
+  },
+  {
+    "layer": "organs",
+    "name": "Soft palate",
+    "ref": "hss.l9.2026",
+    "file": "Module 3 part two_ respiratory system_Student.pdf",
+    "page": 13,
+    "evidence": "slide row"
+  },
+  {
+    "layer": "organs",
     "name": "Stomach",
-    "ref": "hss.tut.ice",
-    "file": "Tutorial 1_ HSS2011_Human Anatomy_2026-27-Ice breaking.pdf",
-    "page": 14,
+    "ref": "hss.l9.2026",
+    "file": "Module 3 part two_ respiratory system_Student.pdf",
+    "page": 50,
     "evidence": "named"
   },
   {
@@ -2396,6 +2428,14 @@ export const VIEWER_LECTURE_NAMES = [
     "file": "Module 3 part one_cardiovascular system Student.pdf",
     "page": 4,
     "evidence": "named"
+  },
+  {
+    "layer": "skeleton",
+    "name": "Arytenoid cartilage",
+    "ref": "hss.l9.2026",
+    "file": "Module 3 part two_ respiratory system_Student.pdf",
+    "page": 20,
+    "evidence": "slide row"
   },
   {
     "layer": "skeleton",
@@ -2534,6 +2574,14 @@ export const VIEWER_LECTURE_NAMES = [
     "page": 23,
     "evidence": "slide name",
     "whole": "Costal cartilages"
+  },
+  {
+    "layer": "skeleton",
+    "name": "Cricoid cartilage",
+    "ref": "hss.l9.2026",
+    "file": "Module 3 part two_ respiratory system_Student.pdf",
+    "page": 20,
+    "evidence": "slide row"
   },
   {
     "layer": "skeleton",
@@ -2741,6 +2789,14 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.ul.2026",
     "file": "Week 3_UL_2026_CKK_upload.pdf",
     "page": 6,
+    "evidence": "slide row"
+  },
+  {
+    "layer": "skeleton",
+    "name": "Hyoid bone",
+    "ref": "hss.l9.2026",
+    "file": "Module 3 part two_ respiratory system_Student.pdf",
+    "page": 24,
     "evidence": "slide row"
   },
   {
@@ -3152,6 +3208,14 @@ export const VIEWER_LECTURE_NAMES = [
     "file": "Week 2_LL _2026_CKK_upload.pdf",
     "page": 12,
     "evidence": "named set"
+  },
+  {
+    "layer": "skeleton",
+    "name": "Thyroid cartilage",
+    "ref": "hss.l9.2026",
+    "file": "Module 3 part two_ respiratory system_Student.pdf",
+    "page": 20,
+    "evidence": "slide row"
   },
   {
     "layer": "skeleton",

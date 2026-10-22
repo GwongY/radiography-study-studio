@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1042 —
-  b18986cf1e829457  WHOLE SET
+— user-facing strings in outputs/ — 1044 —
+  73b1fa2dbf848817  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -501,7 +501,9 @@
   d9acc7d3dcc5e22f  Module 2 lecture 1 (Week 5 Nervous System), Prof Benson Lau, 43 pages. Nervous system overview, neurons (functional and structural classes), neuroglia of the CNS and PNS, myelin, synapses and neural circuits, the spinal cord (surface and cross-sectional anatomy, tracts), nerves, spinal nerves, plexuses and dermatomes. Pages 40 to 42 are clinical conditions.
   5316729540993bfa  Module 2 lecture 2 (Week 6 Brain and Cranial Nerve), Prof Benson Lau, 56 pages. Overview of the brain, meninges, ventricles and cerebrospinal fluid, the brain barrier system, brainstem (medulla, pons, midbrain, reticular formation), cerebellum, diencephalon (thalamus, hypothalamus), cerebrum (lobes, white matter, limbic system, basal nuclei, motor and sensory areas) and the twelve cranial nerves.
   815dede96d975e40  Module 2 lecture 3 (Week 7 Special Senses), Prof Benson Lau, 55 pages. Sensory receptors and general senses, taste and smell, the ear (hearing and equilibrium), the eye and visual pathway, and the autonomic nervous system (visceral reflexes, sympathetic and parasympathetic divisions).
+  a6e89fbf3766ba60  Module 3 lecture 2 (Week 9 Respiratory System), Dr Monly Yeung. Nose and paranasal sinuses, pharynx, larynx, trachea, bronchi and bronchioles, alveoli and the respiratory membrane, the lungs and pleurae, the respiratory muscles and diaphragm, and the specialised cells of the respiratory tract.
   747fe599f992b303  Module 3 part one_cardiovascular system Student.pdf
+  5bca5c1ddee03275  Module 3 part two_ respiratory system_Student.pdf
   fe59e57a7a810873  More than
   4c67f0e5acff873f  Motion off. The anatomical colours stay.
   1c6115557b0e1b10  Muscle zoom
@@ -887,7 +889,7 @@
   3e48f87cb43c928d  is missing from the markup
   eaca51006df81f64  is not an object.
   63ba7e6dace7932d  is outside the current region filter
-  b778d5e9f409c168  joins on Sunday.
+  19941da151efd9d5  joins on Thursday.
   ffffa4a4024beb37  just outside it
   bc90f206ab9838a2  layer and named in none of your course material. Nothing of its kind is near enough to group it with, so it stays on its own.
   025e05ffcefaecc7  layer load failed

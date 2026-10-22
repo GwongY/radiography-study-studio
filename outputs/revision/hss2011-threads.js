@@ -206,4 +206,40 @@ export const THREADS_HTML = `<h2>Threads</h2>
 </details>
 
 
-<p class="foot" style="margin-top:12px">Week sources: W1 orientation + musculoskeletal system · W2 lower limb + body tissues · W3 upper limb · W4 head, neck and trunk · W5 nervous tissue, spinal cord, spinal nerves · W6 brain and cranial nerves · W7 special senses and autonomic nervous system.</p>`;
+<details class="thread" id="t12">
+<summary>One circuit: heart, lungs, body and back<small>W6 · W7 · W8</small></summary>
+<div class="tbody">
+<ol class="chain">
+  <li data-wk="8"><span class="wk">W8</span><span class="hd">Right atrium.</span> It receives blood from the systemic circuit through the superior and inferior vena cava; the coronary sinus empties into it too. The tricuspid valve (three flaps) opens to the right ventricle.</li>
+  <li data-wk="8"><span class="wk">W8</span><span class="hd">To the lungs.</span> The right ventricle pumps into the pulmonary circuit through the pulmonary valve. The pulmonary arteries are the exception: arteries that carry deoxygenated blood. In the lungs the blood picks up oxygen and gives off carbon dioxide.</li>
+  <li data-wk="8"><span class="wk">W8</span><span class="hd">Back.</span> The pulmonary veins are the other exception: veins that carry oxygenated blood to the left atrium. The mitral valve (two flaps) opens to the left ventricle.</li>
+  <li data-wk="8"><span class="wk">W8</span><span class="hd">Left ventricle.</span> Its thicker wall gives the high pressure to drive the systemic circuit. Both ventricles contract at the same time. Chordae tendineae and papillary muscles keep the valve cusps closed; the aortic valve opens while the ventricles contract.</li>
+  <li data-wk="8"><span class="wk">W8</span><span class="hd">Aorta.</span> It leaves the left ventricle. The ascending aorta gives rise to the coronary arteries; the arch branches into the brachiocephalic trunk, left common carotid and left subclavian arteries; the descending aorta runs through the thorax and abdomen.</li>
+  <li data-wk="8"><span class="wk">W8</span><span class="hd">Arteries to capillaries.</span> Arteries have thick walls and a narrow lumen; arterioles control flow into the capillaries by vasoconstriction and vasodilation. In the capillary bed, metarterioles and precapillary sphincters regulate flow, and blood can bypass the true capillaries by the thoroughfare channel.</li>
+  <li data-wk="8"><span class="wk">W8</span><span class="hd">Exchange.</span> Capillaries are one cell layer thick: continuous (tight junctions, as in the CNS, so the W6 blood-brain barrier), fenestrated (pores, as in the choroid plexus) or sinusoid (large gaps, as in the liver and spleen).</li>
+  <li data-wk="8"><span class="wk">W8</span><span class="hd">Veins home.</span> Venules collect the blood into veins, which have thinner walls, a larger lumen and valves; the muscle pump squeezes them. The superior vena cava drains the head, neck, upper limbs and chest, the inferior vena cava drains the abdomen, pelvis and lower limbs, and the hepatic portal vein takes gut blood to the liver first.</li>
+  <li data-wk="8"><span class="wk">W7</span><span class="wk">W6</span><span class="wk">W8</span><span class="hd">Control.</span> Pacemaker cells start the beat at the SA node. The sympathetic system (norepinephrine) speeds and strengthens it; the parasympathetic system acts through the vagus nerve (cranial nerve X), releasing acetylcholine to slow the heart rate.</li>
+</ol>
+<p>Hook: the heart is two pumps in series. The right side serves the lungs, the left side serves everything else, and the same four valves keep it one-way.</p>
+</div>
+</details>
+
+<details class="thread" id="t11">
+<summary>Breathing in: from the nose to the blood<small>W4 · W6 · W8 · W9</small></summary>
+<div class="tbody">
+<ol class="chain">
+  <li data-wk="9"><span class="wk">W9</span><span class="hd">Nose.</span> Air enters the nasal cavity through the nostrils. The nose, mouth, pharynx and larynx clean, filter, humidify and warm it. The olfactory epithelium in the slitlike superior region holds the smell receptors.</li>
+  <li data-wk="9"><span class="wk">W9</span><span class="wk">W4</span><span class="hd">Sinuses.</span> The paranasal sinuses are air-filled spaces in the frontal, maxillary, ethmoid and sphenoid bones. They connect to the nasal cavity and drain their mucus into it by ciliary action.</li>
+  <li data-wk="9"><span class="wk">W9</span><span class="hd">Pharynx.</span> Nasopharynx (air only, behind the nasal cavity) → oropharynx (air and food, behind the mouth) → laryngopharynx (behind the larynx). The soft palate rises to close the nasopharynx when you swallow, and the epiglottis helps protect the laryngeal inlet.</li>
+  <li data-wk="9"><span class="wk">W9</span><span class="hd">Larynx.</span> The voice box keeps the airway open and routes food and air into the right channels. Air passing through the glottis vibrates the vocal folds.</li>
+  <li data-wk="9"><span class="wk">W9</span><span class="hd">Trachea.</span> The windpipe, about 12 cm long, is held open by C-shaped hyaline cartilage rings with the trachealis muscle behind. Goblet cells make mucus; ciliated cells sweep it upward to the throat, where it is swallowed or coughed out.</li>
+  <li data-wk="9"><span class="wk">W9</span><span class="hd">Bronchi.</span> The trachea divides into two primary bronchi: the right is shorter, more vertical and wider; the left is longer, more horizontal and narrower. They branch into bronchioles (under 1 mm) and terminal bronchioles (under 0.5 mm).</li>
+  <li data-wk="9"><span class="wk">W9</span><span class="hd">Alveoli.</span> Respiratory bronchioles lead to alveolar ducts and alveoli. Thin, flat Type I cells cover about 95% of the surface and carry the gas exchange; Type II cells make surfactant; macrophages keep the surface sterile.</li>
+  <li data-wk="9"><span class="wk">W8</span><span class="wk">W9</span><span class="hd">Blood.</span> Alveoli touch capillaries directly. The pulmonary arteries bring deoxygenated blood (the pulmonary circuit of W8) and the pulmonary veins carry oxygenated blood back toward the left atrium.</li>
+  <li data-wk="9"><span class="wk">W9</span><span class="hd">Pump.</span> The diaphragm contracts, moves down and flattens, the chest space grows and the lungs fill. It is driven mainly by the phrenic nerve from C3, C4 and C5. The visceral and parietal pleurae, with pleural fluid between, let the lungs slide as they expand.</li>
+</ol>
+<p>Hook: air is cleaned on the way in (nose, mucus, cilia), travels down a branching tube that gets narrower and loses its cartilage, and ends where one cell layer separates it from a capillary.</p>
+</div>
+</details>
+
+<p class="foot" style="margin-top:12px">Week sources: W1 orientation + musculoskeletal system · W2 lower limb + body tissues · W3 upper limb · W4 head, neck and trunk · W5 nervous tissue, spinal cord, spinal nerves · W6 brain and cranial nerves · W7 special senses and autonomic nervous system · W8 heart and vessels · W9 respiratory system.</p>`;

@@ -7,6 +7,8 @@ export const TABLES_HTML = `<h2>Tables</h2>
     <a href="#tb-joints" data-jump="tb-joints">Joints</a>
     <a href="#tb-twins" data-jump="tb-twins">Twin pairs</a>
     <a href="#tb-nums" data-jump="tb-nums">Numbers</a>
+    <a href="#tb-cv" data-jump="tb-cv">Heart and vessels</a>
+    <a href="#tb-resp" data-jump="tb-resp">Pharynx and airways</a>
     <a href="#tb-check" data-jump="tb-check">Double-check list</a>
   </div>
 
@@ -114,7 +116,71 @@ export const TABLES_HTML = `<h2>Tables</h2>
   <tr data-wk="7"><td>Primary tastes</td><td>5</td><td>Sweet, salty, sour, bitter, umami</td></tr>
   <tr data-wk="3"><td>Carpal bones</td><td>8</td><td>Sam Likes To Push The Toy Car Hard</td></tr>
   <tr data-wk="1"><td>Motor unit size</td><td>13–20 vs ~2000</td><td>Eye muscle vs calf</td></tr>
+  <tr data-wk="8"><td>Heart chambers</td><td>4</td><td>Right and left atrium, right and left ventricle</td></tr>
+  <tr data-wk="8"><td>Heart valves</td><td>4</td><td>2 atrioventricular (tricuspid, mitral) + 2 semilunar (pulmonary, aortic)</td></tr>
+  <tr data-wk="8"><td>Heart wall</td><td>3 layers</td><td>Endocardium, myocardium, epicardium</td></tr>
+  <tr data-wk="8"><td>Vessel wall</td><td>3 layers</td><td>Tunica intima, media, externa</td></tr>
+  <tr data-wk="8"><td>Capillary types</td><td>3</td><td>Continuous, fenestrated, sinusoid</td></tr>
+  <tr data-wk="8"><td>Pericardial fluid</td><td>15–50 mL</td><td>Normal amount; lubricates the heart</td></tr>
+  <tr data-wk="9"><td>Paranasal sinuses</td><td>4</td><td>Frontal, maxillary, ethmoidal, sphenoidal</td></tr>
+  <tr data-wk="9"><td>Pharynx</td><td>3 parts</td><td>Naso-, oro-, laryngopharynx</td></tr>
+  <tr data-wk="9"><td>Tracheal wall</td><td>4 layers</td><td>Adventitia, cartilage and trachealis muscle, submucosa, mucosa</td></tr>
+  <tr data-wk="9"><td>Lung lobes</td><td>3 right / 2 left</td><td>Oblique and horizontal fissures on the right; oblique on the left</td></tr>
+  <tr data-wk="9"><td>Alveolar cell types</td><td>95% / 5%</td><td>Type I / Type II</td></tr>
   <tr data-wk="7"><td>Receptor turnover</td><td>7–10 days / ~60 days</td><td>Taste cells / olfactory receptors</td></tr>
+  </tbody></table></div></div>
+<div class="rv-sec"><h3 id="tb-cv">Heart and vessels at a glance (W8)</h3>
+  <div class="tw"><table>
+  <thead><tr><th>Valve</th><th>Type</th><th>Between</th><th>Note</th></tr></thead>
+  <tbody>
+  <tr data-wk="8"><td><b>Tricuspid</b></td><td>Atrioventricular</td><td>Right atrium → right ventricle</td><td>Three flaps (cusps)</td></tr>
+  <tr data-wk="8"><td><b>Mitral</b></td><td>Atrioventricular</td><td>Left atrium → left ventricle</td><td>Two flaps (bicuspid)</td></tr>
+  <tr data-wk="8"><td><b>Pulmonary</b></td><td>Semilunar</td><td>Right ventricle → pulmonary circuit</td><td>Open while the ventricles contract</td></tr>
+  <tr data-wk="8"><td><b>Aortic</b></td><td>Semilunar</td><td>Left ventricle → systemic circuit</td><td>Open while the ventricles contract</td></tr>
+  </tbody></table></div>
+  <div class="tw"><table>
+  <thead><tr><th>Capillary type</th><th>Permeability</th><th>Where</th></tr></thead>
+  <tbody>
+  <tr data-wk="8"><td><b>Continuous</b></td><td>Least permeable; tight junctions</td><td>Muscle, skin, lungs and the CNS</td></tr>
+  <tr data-wk="8"><td><b>Fenestrated</b></td><td>Pores raise permeability</td><td>Kidneys, intestines, endocrine glands, choroid plexus</td></tr>
+  <tr data-wk="8"><td><b>Sinusoid</b></td><td>Large gaps between cells</td><td>Liver, spleen, bone marrow, adrenal medulla</td></tr>
+  </tbody></table></div>
+  <div class="tw"><table>
+  <thead><tr><th>Vessel</th><th>Direction</th><th>Wall and lumen</th></tr></thead>
+  <tbody>
+  <tr data-wk="8"><td><b>Arteries</b></td><td>Away from the heart</td><td>Thick walls, narrow lumen</td></tr>
+  <tr data-wk="8"><td><b>Capillaries</b></td><td>Exchange</td><td>One cell layer thick</td></tr>
+  <tr data-wk="8"><td><b>Veins</b></td><td>Toward the heart</td><td>Thinner walls, larger lumen, valves</td></tr>
+  </tbody></table></div>
+  <div class="tw"><table>
+  <thead><tr><th>Coronary artery</th><th>Supplies</th></tr></thead>
+  <tbody>
+  <tr data-wk="8"><td><b>Left anterior descending (LAD)</b></td><td>Anterior wall of the left ventricle and the interventricular septum</td></tr>
+  <tr data-wk="8"><td><b>Circumflex</b></td><td>Lateral and posterior walls of the left ventricle</td></tr>
+  <tr data-wk="8"><td><b>Right coronary artery</b></td><td>Right atrium, right ventricle and part of the posterior left ventricle</td></tr>
+  </tbody></table></div></div>
+<div class="rv-sec"><h3 id="tb-resp">Pharynx and airways at a glance (W9)</h3>
+  <div class="tw"><table>
+  <thead><tr><th>Part</th><th>Where</th><th>Air / food?</th><th>Important structures</th></tr></thead>
+  <tbody>
+  <tr data-wk="9"><td><b>Nasopharynx</b></td><td>Behind the nasal cavity; base of the skull to the soft palate</td><td>Air only</td><td>Pharyngeal tonsil (adenoids); openings of the auditory tubes</td></tr>
+  <tr data-wk="9"><td><b>Oropharynx</b></td><td>Behind the oral cavity; soft palate to the epiglottis</td><td>Air and food</td><td>Palatine and lingual tonsils; uvula and soft palate</td></tr>
+  <tr data-wk="9"><td><b>Laryngopharynx</b></td><td>Behind the larynx; epiglottis to the oesophagus</td><td>Air and food</td><td>Laryngeal inlet; epiglottis; piriform recesses</td></tr>
+  </tbody></table></div>
+  <div class="tw"><table>
+  <thead><tr><th>Airway</th><th>Size or wall</th><th>Note</th></tr></thead>
+  <tbody>
+  <tr data-wk="9"><td><b>Trachea</b></td><td>About 12 cm long, 2.5 cm across</td><td>C-shaped hyaline cartilage rings; mucous glands and cilia</td></tr>
+  <tr data-wk="9"><td><b>Right primary bronchus</b></td><td>About 2.5 cm long</td><td>More vertical and wider</td></tr>
+  <tr data-wk="9"><td><b>Left primary bronchus</b></td><td>About 5 cm long</td><td>More horizontal and narrower</td></tr>
+  <tr data-wk="9"><td><b>Bronchiole</b></td><td>Under 1 mm</td><td>Branches from the bronchi</td></tr>
+  <tr data-wk="9"><td><b>Terminal bronchiole</b></td><td>Under 0.5 mm; thin wall</td><td>Respiratory bronchioles and alveolar ducts lie beyond</td></tr>
+  </tbody></table></div>
+  <div class="tw"><table>
+  <thead><tr><th>Lung</th><th>Lobes</th><th>Fissures</th></tr></thead>
+  <tbody>
+  <tr data-wk="9"><td><b>Right</b></td><td>3: superior, middle, inferior</td><td>Oblique and horizontal</td></tr>
+  <tr data-wk="9"><td><b>Left</b></td><td>2: superior, inferior; cardiac notch for the heart</td><td>Oblique</td></tr>
   </tbody></table></div></div>
 <div class="rv-sec"><h3 id="tb-check">6 · Double-check list: where the slides and standard textbooks differ or stay silent</h3>
   <div class="note-box" data-wk="6"><b>Facial nerve and chewing.</b> The W6 slide lists "muscles for mastication" under VII's motor targets. Standard textbooks give the chewing muscles to <b>V3</b>; VII is for facial expression (plus stapedius <span class="star">★</span>, tears, saliva). Use V3 for chewing unless your lecturer says otherwise.</div>
