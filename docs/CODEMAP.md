@@ -50,7 +50,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `radiography.js` | 236 | radiography.js -- the physics the projection is made of. |  |
 | `schedule.js` | 713 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `search-name.js` | 42 | Anatomical name matching shared by search and its regression gate. |  |
-| `sw.js` | 459 | Radiography Study Studio — service worker |  |
+| `sw.js` | 461 | Radiography Study Studio — service worker |  |
 | `synonyms.js` | 371 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 281 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 2465 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |

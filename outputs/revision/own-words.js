@@ -330,4 +330,11 @@ export const OWN = {
   w9_arytenoid: 'A small cartilage at the back of the larynx that moves the vocal folds.',
   w9_pulmvein: 'The veins that carry oxygen-rich blood from the lungs back to the heart.',
   w9_bronchialcirc: 'The blood supply that feeds the tissue of the lungs themselves.',
+  /* ---- Rows for headings that had none: movements, muscle teamwork, hypothalamus, reticular formation ---- */
+  w2_mv_pronation: 'Turning the forearm so the palm faces down.',
+  w2_mv_supination: 'Turning the forearm so the palm faces up.',
+  w3_mv_protraction: 'Moving the shoulder blade forward around the chest wall.',
+  w6_hy_thermo: 'Keeping the body temperature steady.',
+  w6_hy_circadian: 'The body clock that sets the daily cycle of sleep and waking.',
+  w6_rf_cardio: 'Helping to adjust the work of the heart and blood vessels.',
 };

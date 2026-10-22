@@ -30,6 +30,7 @@ import { checkSystems, needsOwn, ownProblems, rowWeekOk, starProblems, yueProble
 import { decoderProblems, decoderReading } from '../outputs/revision/fragments.js';
 import { decompose } from '../outputs/wordparts.js';
 import { CROSS } from '../outputs/revision/cross-links.js';
+import { LINKS as HSS2011_LINKS } from '../outputs/revision/hss2011-links.js';
 import { COVERAGE } from './revision-coverage.mjs';
 import { deriveViewerUnits, viewerUnitsSource } from './build-revision-units.mjs';
 import { UNITS } from '../outputs/mesh-index.js';
@@ -139,6 +140,15 @@ const crossKey = (c) => [c.a.join(':'), c.b.join(':')].sort().join('|');
 ok(new Set(CROSS.map(crossKey)).size === CROSS.length, 'no cross-subject link is written twice');
 const crossOff = CROSS.filter((c) => !String(c.why || '').trim() || !c.match || !onPage(c.src, c.match)).map(crossKey);
 ok(!crossOff.length, `every cross-subject link's reason is on the page it cites${crossOff.length ? ` (${crossOff.slice(0, 6).join(', ')})` : ''}`);
+/* Links inside HSS2011 (revision/hss2011-links.js): both ends are real, the pair is written once, and the name that
+   shows the relation is on the page it cites. A row with no link of any kind (a suture knowing no bone) was the gap. */
+const hssIds = new Set(REVISION.HSS2011.data.NODES.map((n) => n.id));
+const linkKey = (l) => [l[0], l[1]].sort().join('|');
+const linkBad = HSS2011_LINKS.filter((l) => !hssIds.has(l[0]) || !hssIds.has(l[1]) || l[0] === l[1]).map(linkKey);
+ok(!linkBad.length, `every HSS2011 link joins two real, different boxes${linkBad.length ? ` (${linkBad.slice(0, 6).join(', ')})` : ''}`);
+ok(new Set(HSS2011_LINKS.map(linkKey)).size === HSS2011_LINKS.length, 'no HSS2011 link is written twice');
+const linkOff = HSS2011_LINKS.filter((l) => !String(l[2] || '').trim() || !onPage([l[3], l[4]], l[5])).map((l) => `${linkKey(l)} (${l[3]} p${l[4]}: "${l[5]}")`);
+ok(!linkOff.length, `every HSS2011 link's name is on the page it cites${linkOff.length ? ` — ${linkOff.slice(0, 6).join('; ')}` : ''}`);
 /* Rule 3: the Map draws a box's name only; the sentence lives in the notes. */
 const reviseSrc = readFileSync(new URL('../outputs/study/revise.js', import.meta.url), 'utf8');
 const deriveBody = (reviseSrc.match(/function deriveWeek\(\)[\s\S]*?\n\}/) || [''])[0];
@@ -172,6 +182,13 @@ for (const subject of Object.values(REVISION)) {
   const seen = [];
   (function walk(s) { if (s.id) seen.push(s.id); (s.kids || []).forEach(walk); })(data.TREE);
   ok(seen.length === ids.size && seen.every((id) => ids.has(id)) && new Set(seen).size === seen.length, 'every topic is in the tree exactly once');
+  /* A box on the map with nothing under it is a hole (Movement vocabulary, Muscle teamwork, Dermatomes, the Hypothalamus and
+     the Reticular formation were, until 23 Oct 2026). Only a heading whose slide is a picture with no text may stay bare. */
+  const PICTURE_ONLY = new Set(['p_ns_vs_endo']);
+  const kidCount = new Map();
+  (function walkKids(s) { if (s.id) kidCount.set(s.id, (s.kids || []).length); (s.kids || []).forEach(walkKids); })(data.TREE);
+  const bare = data.NODES.filter((n) => !n.leaf && kidCount.get(n.id) === 0 && !PICTURE_ONLY.has(n.id)).map((n) => n.id);
+  ok(!bare.length, `every heading has rows under it${bare.length ? ` (bare: ${bare.join(' ')})` : ''}`);
 
   const threadIds = new Set([...subject.threads.matchAll(/<details class="thread" id="(t\d+)"/g)].map((m) => m[1]));
   ok(data.NODES.every((n) => (n.th || []).every((t) => threadIds.has(t))), 'every thread a topic names exists');

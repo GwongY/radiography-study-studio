@@ -10,7 +10,7 @@
  * its `decks`. No view code knows which subject it is showing.
  */
 import * as hss2011 from './hss2011-data.js';
-import { linkThreads, mergeLeaves, threadTour, topicNodes } from './leaves.js';
+import { addLinks, linkThreads, mergeLeaves, threadTour, topicNodes } from './leaves.js';
 import * as hss2011W1 from './hss2011-leaves-w1.js';
 import * as hss2011W2 from './hss2011-leaves-w2.js';
 import * as hss2011W3 from './hss2011-leaves-w3.js';
@@ -20,6 +20,8 @@ import * as hss2011W6 from './hss2011-leaves-w6.js';
 import * as hss2011W7 from './hss2011-leaves-w7.js';
 import * as hss2011W8 from './hss2011-leaves-w8.js';
 import * as hss2011W9 from './hss2011-leaves-w9.js';
+import * as hss2011Fill from './hss2011-leaves-fill.js';
+import { LINKS as HSS2011_LINKS } from './hss2011-links.js';
 import { THREADS_HTML } from './hss2011-threads.js';
 import { TABLES_HTML } from './hss2011-tables.js';
 import { DECODER_HTML, SOURCES_HTML } from './hss2011-decoder.js';
@@ -41,8 +43,8 @@ import * as abctW12 from './abct2326-leaves-w12.js';
 import * as abctFrag from './abct2326-fragments.js';
 
 /* Leaf rows, week by week (outputs/revision/leaves.js). */
-const HSS2011_ROWS = [...hss2011W1.ROWS, ...hss2011W2.ROWS, ...hss2011W3.ROWS, ...hss2011W4.ROWS, ...hss2011W5.ROWS, ...hss2011W6.ROWS, ...hss2011W7.ROWS, ...hss2011W8.ROWS, ...hss2011W9.ROWS];
-const HSS2011_LEAF_SOURCES = { ...hss2011W1.SOURCES, ...hss2011W2.SOURCES, ...hss2011W3.SOURCES, ...hss2011W4.SOURCES, ...hss2011W5.SOURCES, ...hss2011W6.SOURCES, ...hss2011W7.SOURCES, ...hss2011W8.SOURCES, ...hss2011W9.SOURCES };
+const HSS2011_ROWS = [...hss2011W1.ROWS, ...hss2011W2.ROWS, ...hss2011W3.ROWS, ...hss2011W4.ROWS, ...hss2011W5.ROWS, ...hss2011W6.ROWS, ...hss2011W7.ROWS, ...hss2011W8.ROWS, ...hss2011W9.ROWS, ...hss2011Fill.ROWS];
+const HSS2011_LEAF_SOURCES = { ...hss2011W1.SOURCES, ...hss2011W2.SOURCES, ...hss2011W3.SOURCES, ...hss2011W4.SOURCES, ...hss2011W5.SOURCES, ...hss2011W6.SOURCES, ...hss2011W7.SOURCES, ...hss2011W8.SOURCES, ...hss2011W9.SOURCES, ...hss2011Fill.SOURCES };
 
 /* Weeks 8 and 9 each bring new headings and one new branch; the earlier weeks' headings stay as they are. */
 const HSS2011_ALL = {
@@ -93,7 +95,7 @@ export const REVISION = {
   HSS2011: {
     id: 'HSS2011',
     label: 'HSS2011 Human Anatomy',
-    data: mergeLeaves(HSS2011_ALL, HSS2011_ROWS, HSS2011_LEAF_SOURCES),
+    data: addLinks(mergeLeaves(HSS2011_ALL, HSS2011_ROWS, HSS2011_LEAF_SOURCES), HSS2011_LINKS),
     rows: HSS2011_ROWS,
     threads: THREADS_HTML,
     tables: TABLES_HTML,

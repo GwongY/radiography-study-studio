@@ -100,6 +100,27 @@ export function mergeLeaves(data, rows, sources = {}) {
 }
 
 /**
+ * Links written as a list of [a, b, why, source, page, match] (revision/hss2011-links.js), added to a merged map.
+ * Ends are row or topic ids (a row folded into its heading is followed through ALIAS); a pair already linked is kept once.
+ * Throws on an id that is not in the map, so a renamed row cannot silently lose its links.
+ */
+export function addLinks(data, links) {
+  const ids = new Set(data.NODES.map((n) => n.id));
+  const to = (id) => (data.ALIAS && data.ALIAS[id]) || id;
+  const seen = new Set(data.EDGES.map((e) => pairKey(e[0], e[1])));
+  const edges = data.EDGES.slice();
+  for (const [a0, b0, why] of links) {
+    const a = to(a0), b = to(b0);
+    if (!ids.has(a) || !ids.has(b)) throw new Error(`revision link ${a0} - ${b0}: an end is not in the map`);
+    if (a === b) continue;
+    const k = pairKey(a, b);
+    if (seen.has(k)) continue;
+    seen.add(k); edges.push([a, b, why]);
+  }
+  return { ...data, EDGES: edges };
+}
+
+/**
  * Threads written as data (physiology) name the map boxes each step is about (`ids`). Every such box
  * gets the thread under "Pathways through this topic" (`th`), with the first week a step names it
  * (`thWk`): a box can be taught before the step that links it, and the link waits for that step.
