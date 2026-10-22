@@ -1577,3 +1577,14 @@ ul.asslines{list-style:none;margin:0;padding:0}
 #searchScrim{align-items:flex-start;padding:env(safe-area-inset-top) 0 0}
 #searchSheet{border-radius:0 0 18px 18px;margin-top:40px}
 @media(max-width:700px){#searchScrim{padding:env(safe-area-inset-top) 0 0}#searchSheet{margin-top:0;border-radius:0 0 18px 18px;max-height:46vh;max-height:46dvh;padding-bottom:18px}}
+
+/* Revise on a phone: the Anatomy / Physiology switch takes the kicker's room, so the kicker (it only restates the title) goes */
+@media(max-width:700px){
+  .navhead:has(#rvSubjects:not(.hidden)) #navKicker{display:none}
+  .navhead #rvSubjects .seg{padding:0 12px}
+}
+@media(max-width:700px){
+  .navhead #rvSubjects{margin-right:0;margin-left:auto;min-width:0}
+  .navhead #rvSubjects .seg{padding:0 8px;font-size:11.5px;min-height:36px}
+  .navhead:has(#rvSubjects:not(.hidden)) .grow{flex:0 0 auto}
+}

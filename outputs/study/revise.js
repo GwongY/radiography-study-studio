@@ -640,7 +640,7 @@ function createMap() {
     svgEl.innerHTML = '';
     fitted = false;
     mm = window.markmap.Markmap.create(svgEl, {
-      initialExpandLevel: NARROW ? 1 : 2, maxWidth: 210, spacingHorizontal: NARROW ? 48 : 70, spacingVertical: NARROW ? 12 : 14, paddingX: 8,
+      initialExpandLevel: 2, maxWidth: 210, spacingHorizontal: NARROW ? 48 : 70, spacingVertical: NARROW ? 12 : 14, paddingX: 8,
       nodeMinHeight: 24, duration: 300,
       lineWidth: (node) => { const d = (node.state && node.state.depth) || 0; return Math.max(1.6, 4.2 - d * 0.85); },
       fitRatio: 0.96, maxInitialScale: NARROW ? 1.3 : 1.15,
