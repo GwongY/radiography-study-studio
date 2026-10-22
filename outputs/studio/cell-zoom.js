@@ -20,7 +20,7 @@
 import { $, els, state, prefersStill } from './imports.js';
 import { applyLayers } from './live-physiology.js';
 import { showToast } from './modes-and-bridge.js';
-import { frameWorldBox, restoreSnapshot, takeSnapshot } from './heart-atlas.js';
+import { collapsible, frameWorldBox, restoreSnapshot, takeSnapshot } from './heart-atlas.js';
 import { LEVELS, LABELS, SLIDERS, CELL_SOURCES, SYSTEMS, levelById, stagesFor, zoomFrom } from '../cell-zoom.js?v=1';
 import { modelMeshName } from '../search-name.js';
 
@@ -102,6 +102,7 @@ function buildPanel() {
   panel.hidden = true;
   panel.innerHTML = panelHtml();
   $('viewerDock').appendChild(panel);
+  collapsible(panel);
   $('cz-close').onclick = () => exitCellZoom();
   panel.onkeydown = (event) => { if (event.key === 'Escape') { event.preventDefault(); exitCellZoom(); } };
   $('cz-in').onclick = () => { const n = levelById(current)?.next; if (n) goTo(n); };

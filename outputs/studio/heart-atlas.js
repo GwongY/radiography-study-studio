@@ -130,6 +130,7 @@ function buildPanel() {
   panel.hidden = true;
   panel.innerHTML = panelHtml();
   $('viewerDock').appendChild(panel);
+  collapsible(panel);
   $('ha-close').onclick = () => exitHeartAtlas();
   panel.onkeydown = (event) => {
     if (event.key === 'Escape') {
@@ -317,12 +318,42 @@ function setContext(on) {
   window.dispatchEvent(new CustomEvent('osteo:layers'));
 }
 
+/* ---- collapse (phone only) ----
+   On a phone the panel takes the lower half of the stage. A Hide button beside
+   Close folds it to its header; app.css shows the button below 701px only, and
+   a wider screen ignores the class, so nothing stays hidden after a rotation.
+   Shared by every atlas panel. */
+/* The last box frameWorldBox centred, so a fold can centre it again. */
+let lastFrame = null;
+export function collapsible(panelEl) {
+  const head = panelEl.querySelector('.ha-head');
+  const close = head && head.querySelector('button');
+  if (!close) return;
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'ha-collapse';
+  btn.setAttribute('aria-expanded', 'true');
+  btn.textContent = 'Hide';
+  btn.onclick = () => {
+    const folded = panelEl.classList.toggle('ha-folded');
+    btn.setAttribute('aria-expanded', String(!folded));
+    btn.textContent = folded ? 'Show' : 'Hide';
+    /* The dock just changed height: centre the last framed box in what it now leaves. */
+    if (lastFrame) frameWorldBox(lastFrame.box, null, lastFrame.margin);
+  };
+  const group = document.createElement('div');
+  group.className = 'ha-headbtns';
+  close.replaceWith(group);
+  group.append(btn, close);
+}
+
 /* ---- camera ---- */
 function frameHeart() { frameWorldBox(atlas.worldBox()); }
 
 /* Put a world-space box in the middle of what the dock leaves of the stage. Shared with the limb vessels mode. */
 export function frameWorldBox(box, direction = null, margin = 1.5) {
   if (box.isEmpty()) return;
+  lastFrame = { box: box.clone(), margin };
   const c = box.getCenter(new state.THREE.Vector3()), size = box.getSize(new state.THREE.Vector3());
   const camera = state.camera, controls = state.controls;
   const offset = direction ? direction.clone().normalize() : camera.position.clone().sub(controls.target).normalize();

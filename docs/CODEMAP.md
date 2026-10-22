@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1557 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
+- `outputs/app.css` — 1569 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
 - `outputs/studio.js` — 39 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiomodes-and-bridgejs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 47 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -124,17 +124,17 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `cavity-geometry-derived.js` | 526 | Cavity geometry, derived from the loaded anatomy. |
-| `cell-zoom.js` | 626 | Cell zoom |
+| `cell-zoom.js` | 627 | Cell zoom |
 | `circulation-extras.js` | 91 | Circulation extras |
 | `depth-picking.js` | 440 | Depth picking |
 | `explosion-layout.js` | 16 | Pack only visible source meshes. Every projected bounding box gets its own cell. |
-| `heart-atlas.js` | 702 | Heart atlas |
+| `heart-atlas.js` | 733 | Heart atlas |
 | `hide-and-search.js` | 114 | Hide, and search-driven uncover |
 | `imports.js` | 98 | Block 0 has its own import scope -- block 1's copy is not visible here. |
-| `limb-atlas.js` | 351 | Limb vessels |
+| `limb-atlas.js` | 352 | Limb vessels |
 | `live-physiology.js` | 1516 | Live physiology |
 | `modes-and-bridge.js` | 511 | Visualisation modes. |
-| `muscle-zoom.js` | 443 | Muscle zoom |
+| `muscle-zoom.js` | 444 | Muscle zoom |
 | `packed-spread.js` | 93 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
 | `scene.js` | 502 | Region boxes — how the region filter reaches the six soft-tissue layers |
 | `search-viewer-frame.js` | 254 | Search -> viewer: frame the part, then hide only what stands in front |
@@ -170,7 +170,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `subject.js` | 201 | Subject |
 | `text-size.js` | 81 | Text size |
 | `viewer-tools.js` | 244 | Viewer tools — spread, section cut, layer depth |
-| `viewport-recovery.js` | 485 | The band below the tab bar — measuring it, and asking for the space back |
+| `viewport-recovery.js` | 486 | The band below the tab bar — measuring it, and asking for the space back |
 | `weekly-briefing.js` | 116 | Weekly briefing — this week's university notices, on Today. |
 | `what-is-under.js` | 234 | What is under the tap |
 

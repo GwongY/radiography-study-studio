@@ -897,6 +897,13 @@ to get wrong.
   bottom-tab backgrounds consistent as visual mitigation, not as a claim that
   the missing space is reclaimed. Never compensate with a device-specific
   height or negative bottom offset without on-device evidence.
+- **On the rail layout (701px and up) the home-indicator inset goes INSIDE
+  `.navrail` and `.navcontent`, never as padding on `.app-body`.** Padding on
+  `.app-body` stops the rail's background and border-right 20pt above the
+  bottom of an iPad. The viewport was full height (More's readout said "No
+  band") and the strip of bare `--bg` under the rail still read as a band in
+  the owner's 2026-10-22 screenshot. One custom property, `--bodyinset`,
+  carries the inset (8px when `data-inset="dead"`).
 - **Five fixes for one band, and the fifth is not a length either.** The four
   above all supply or pin a NUMBER, and they fail together because none of them
   is wrong: they fill the viewport the browser gave them, and that viewport is

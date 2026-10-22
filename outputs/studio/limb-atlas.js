@@ -16,7 +16,7 @@
 import { $, state } from './imports.js';
 import { applyLayers, meshOn, setLayerChips } from './live-physiology.js';
 import { showToast } from './modes-and-bridge.js';
-import { frameWorldBox, restoreSnapshot, takeSnapshot } from './heart-atlas.js';
+import { collapsible, frameWorldBox, restoreSnapshot, takeSnapshot } from './heart-atlas.js';
 
 const CIRC_FILE = './assets/dolasim.glb';
 let limb = null;           // createLimbAtlas() result, built once
@@ -90,6 +90,7 @@ function buildPanel() {
   panel.hidden = true;
   panel.innerHTML = panelHtml();
   $('viewerDock').appendChild(panel);
+  collapsible(panel);
   $('la-close').onclick = () => exitLimbAtlas();
   panel.onkeydown = (event) => { if (event.key === 'Escape') { event.preventDefault(); exitLimbAtlas(); } };
 }

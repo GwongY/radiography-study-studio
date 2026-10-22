@@ -375,12 +375,13 @@ export function appliedNote() {
     const h = Math.round((document.querySelector('.shell')?.getBoundingClientRect().height) || 0);
     const shell = cs('.shell');
     const appBody = cs('.app-body');
+    const rail = cs('.navrail');
     const tab = cs('.bottomtab');
     const shortfall = getComputedStyle(html).getPropertyValue('--vp-shortfall').trim() || '(unset)';
     return `applied: strip=${html.dataset.strip || '?'} inset=${html.dataset.inset || '?'} `
       + `state=${html.dataset.viewport || '?'} --vp-shortfall=${shortfall}, `
       + `shell position=${shell?.position || '?'} bottom=${shell?.bottom || '?'} height=${h}, `
-      + `app-body padding-bottom=${appBody?.paddingBottom || '?'}, `
+      + `app-body padding-bottom=${appBody?.paddingBottom || '?'} inset=${appBody?.getPropertyValue('--bodyinset').trim() || '-'}, rail padding-bottom=${rail?.paddingBottom || '?'}, `
       + `bottomtab display=${tab?.display || '?'}`;
   } catch {
     return 'applied: unreadable';

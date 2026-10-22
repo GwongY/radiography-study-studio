@@ -18,7 +18,7 @@
 import { $, els, state, prefersStill } from './imports.js';
 import { applyLayers } from './live-physiology.js';
 import { showToast } from './modes-and-bridge.js';
-import { frameWorldBox, restoreSnapshot, takeSnapshot } from './heart-atlas.js';
+import { collapsible, frameWorldBox, restoreSnapshot, takeSnapshot } from './heart-atlas.js';
 import { LEVELS, LABELS, CONTRACTION, ZOOM_SOURCES, levelById } from '../muscle-zoom.js?v=1';
 
 let zoom = null;            /* createMuscleZoom() result, built once */
@@ -99,6 +99,7 @@ function buildPanel() {
   panel.hidden = true;
   panel.innerHTML = panelHtml();
   $('viewerDock').appendChild(panel);
+  collapsible(panel);
   $('mz-close').onclick = () => exitMuscleZoom();
   panel.onkeydown = (event) => { if (event.key === 'Escape') { event.preventDefault(); exitMuscleZoom(); } };
   $('mz-in').onclick = () => { const n = levelById(current)?.next; if (n) goTo(n); };

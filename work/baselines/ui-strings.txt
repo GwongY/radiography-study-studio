@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1041 —
-  ca50da96a5ea24e7  WHOLE SET
+— user-facing strings in outputs/ — 1042 —
+  b18986cf1e829457  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -60,6 +60,7 @@
   75c7ea370d30e16f  , as a percentage"
   843bdca5f41b8d44  , floating
   9a278d9bf11e90ec  , inset dead
+  b49606905000e85d  , rail padding-bottom=
   0bff6b241b6ff6c2  , short by
   bfd4242c0712a338  , tap for
   047d5c333d912982  , viewport

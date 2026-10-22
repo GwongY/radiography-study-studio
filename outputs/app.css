@@ -140,9 +140,17 @@
    both start below the status bar in standalone mode. */
 .app-shell{flex:1;min-height:0;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
 .app-body{flex:1;min-height:0;display:flex;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
-/* The rail layout has no bottom tab to protect the home indicator. Reserve
-   that inset once, outside both the scroller and the viewer controls. */
-@media(min-width:701px){.app-body{padding-bottom:env(safe-area-inset-bottom,0px)}}
+/* The rail layout has no bottom tab to protect the home indicator. The inset
+   is reserved INSIDE the rail and the content, not as padding on .app-body:
+   padding there stopped the rail's background and border 20pt above the
+   bottom of an iPad, and that strip of bare page read as a band. */
+@media(min-width:701px){
+  .app-body{--bodyinset:env(safe-area-inset-bottom,0px)}
+  .app-body .navrail{padding-bottom:max(14px,var(--bodyinset))}
+  .app-body .navcontent{padding-bottom:calc(22px + var(--bodyinset))}
+  .app-body .navcontent.bleed{padding-bottom:var(--bodyinset)}
+}
+@media(min-width:1500px){.app-body .navcontent{padding-bottom:calc(26px + var(--bodyinset))}.app-body .navcontent.bleed{padding-bottom:var(--bodyinset)}}
 .navrail{flex:none;width:86px;border-right:1px solid var(--line);background:rgba(8,16,22,.6);padding:14px 10px;display:flex;flex-direction:column;gap:6px}
 .navrail .navlabel{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);padding:0 8px 10px}
 .navrail button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:46px;border:0;border-radius:11px;cursor:pointer;background:transparent;color:var(--muted);font:600 10.5px 'Instrument Sans',sans-serif}
@@ -319,7 +327,7 @@ html[data-strip="on"] .shell{bottom:calc(-1 * var(--vp-shortfall,0px))}
  * element that actually carries the padding at this width.
  */
 @media(min-width:701px){
-  html[data-inset="dead"] .app-body{padding-bottom:8px}
+  html[data-inset="dead"] .app-body{--bodyinset:8px}
 }
 /* ---------- IA redesign: session overlay ---------- */
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -1173,6 +1181,10 @@ ul.asslines{list-style:none;margin:0;padding:0}
 .ha-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line,rgba(255,255,255,.14))}
 .ha-head strong{font-size:calc(14px * var(--ts))}.ha-head span{opacity:.7}
 .ha-head button,.ha-row button,.ha-ecg-head button{font-size:calc(11px * var(--ts));padding:5px 9px;min-height:40px;border-radius:8px;border:1px solid var(--line,rgba(255,255,255,.2));background:transparent;color:inherit;cursor:pointer}
+.ha-headbtns{display:flex;gap:6px;flex:none}
+/* Hide/Show is a phone control (studio/heart-atlas.js collapsible): wider screens never fold. */
+.ha-collapse{display:none}
+@media(max-width:700px){.ha-collapse{display:inline-block}.heart-atlas-panel.ha-folded{flex:0 0 auto}.heart-atlas-panel.ha-folded .ha-scroll{display:none}.heart-atlas-panel.ha-folded .ha-head{border-bottom:0}}
 .ha-row button.active,.ha-ecg-head button[aria-pressed="true"]{background:var(--orange,#e08a5a);color:#1b1b1b;border-color:transparent}
 .ha-scroll{flex:1;min-height:0;overflow:auto;padding:10px 12px;display:grid;grid-template-columns:minmax(0,1fr);gap:10px;align-content:start}
 .ha-row,.ha-shows,.ha-parts{display:flex;flex-wrap:wrap;gap:6px}
