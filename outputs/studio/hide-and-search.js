@@ -6,7 +6,7 @@
 import { LAYER_NAMES, state, $ } from './imports.js';
 import { applyLayers } from './live-physiology.js';
 import { applyVisibility, getRecord } from './scene.js';
-import { clearSelection } from './depth-picking.js';
+import { clearSelection, selectFromStack } from './depth-picking.js';
 import { showToast } from './modes-and-bridge.js';
 
 /* ------------------------------------------------------------------ *
@@ -75,7 +75,14 @@ export function hideMesh(mesh){
   const m=mesh||state.selectionAnchor;
   if(!m){ showToast('Select a structure first'); return false; }
   kinOf(m).forEach(o=>{ state.hidden.add(o); state.autoHidden.delete(o); });
-  if(state.selectionAnchor&&kinOf(m).includes(state.selectionAnchor)){ clearSelection(); window.dispatchEvent(new Event('osteo:selection-hidden')); }
+  if(state.selectionAnchor&&kinOf(m).includes(state.selectionAnchor)){
+    /* Hiding the chosen structure hands the selection to the next one under the tap (the second in the stack), and the
+       Explore card stays open on it; with nothing left under the tap the selection simply clears. */
+    const gone=new Set(kinOf(m));
+    const rest=(state.pickStack||[]).filter(o=>!gone.has(o)&&!state.hidden.has(o));
+    clearSelection();
+    if(rest.length){ state.pickStack=rest; selectFromStack(0); }
+  }
   applyLayers(); applyVisibility(); enforceHidden(); publishHidden();
   showToast(`${hiddenName(m)} hidden`);
   return true;

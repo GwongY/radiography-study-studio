@@ -131,7 +131,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `depth-picking.js` | 440 | Depth picking |
 | `explosion-layout.js` | 16 | Pack only visible source meshes. Every projected bounding box gets its own cell. |
 | `heart-atlas.js` | 733 | Heart atlas |
-| `hide-and-search.js` | 114 | Hide, and search-driven uncover |
+| `hide-and-search.js` | 121 | Hide, and search-driven uncover |
 | `imports.js` | 98 | Block 0 has its own import scope -- block 1's copy is not visible here. |
 | `limb-atlas.js` | 352 | Limb vessels |
 | `live-physiology.js` | 1516 | Live physiology |
@@ -165,7 +165,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `revise-links.js` | 32 | Revise · the numbered links list under the Map and under the 3D hub. |
 | `revise.js` | 1193 | Revise |
 | `search-viewer-open.js` | 56 | Search -> viewer: open the model, select the part, auto-uncover, and |
-| `small-ui-helpers.js` | 260 | Small UI helpers |
+| `small-ui-helpers.js` | 258 | Small UI helpers |
 | `spatial-overlay-controls.js` | 120 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 29 | The study system's mutable UI state. |
 | `storage-versioned-keys.js` | 74 | Storage -- versioned keys and the one-time purge of the retired testing data |
