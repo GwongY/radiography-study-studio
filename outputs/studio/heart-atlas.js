@@ -114,7 +114,7 @@ function panelHtml() {
     <section class="ha-echo" id="ha-echoPanel" hidden></section>
     <div id="ha-clinical"></div>
     <article class="ha-info" aria-live="polite"><strong id="ha-infoTitle"></strong><span id="ha-infoCat"></span><p id="ha-infoText"></p></article>
-    <p class="ha-credit">Heart model and teaching scripts: BetterHeart, meshes CC BY-SA 4.0, from BodyParts3D / Z-Anatomy. <a href="./heart/MODEL-NOTICES.txt" target="_blank" rel="noopener">Sources and licence</a></p>
+    <p class="ha-credit"><a href="./heart/MODEL-NOTICES.txt" target="_blank" rel="noopener">Model credits</a></p>
   </div>`;
 }
 
@@ -692,7 +692,7 @@ export function init() {
       showToast(loadFailureMessage());
     });
   };
-  dock.appendChild(toggle);
+  ($('viewerModes') || dock).appendChild(toggle);
   window.__osteo = window.__osteo || {};
   Object.assign(window.__osteo, {
     enterHeartAtlas, exitHeartAtlas, heartAtlasOn: () => !!state.heartAtlasOn,

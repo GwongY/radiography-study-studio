@@ -73,7 +73,7 @@ function setDockMode(on) {
 /* ---- the panel ---- */
 function panelHtml() {
   return `
-  <div class="ha-head"><strong>Muscle zoom</strong><span>from the slides</span><button type="button" id="mz-close" aria-label="Close muscle zoom">Close</button></div>
+  <div class="ha-head"><strong>Muscle zoom</strong><button type="button" id="mz-close" aria-label="Close muscle zoom">Close</button></div>
   <div class="ha-scroll">
     <nav class="mz-path" id="mz-path" aria-label="Levels"></nav>
     <div class="ha-row mz-nav"><button type="button" id="mz-out">← Zoom out</button><button type="button" id="mz-in" class="primary">Zoom in →</button><button type="button" id="mz-side" hidden>Neuromuscular junction →</button></div>
@@ -86,7 +86,7 @@ function panelHtml() {
     </section>
     <ol class="mz-labels" id="mz-labels" aria-label="Labels"></ol>
     <article class="ha-info mz-info" id="mz-info" aria-live="polite" hidden><strong id="mz-infoTitle"></strong><p id="mz-infoNote"></p><small id="mz-infoCite"></small><div class="sel-revise mz-revise" data-mz-revise="label" hidden></div></article>
-    <p class="ha-credit">Muscle model: BodyParts3D, CC BY-SA 2.1 JP. <a href="./THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Notices</a></p>
+    <p class="ha-credit"><a href="./THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Model credits</a></p>
   </div>`;
 }
 

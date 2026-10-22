@@ -1103,7 +1103,7 @@ html[data-ts="xl"]{--ts:1.55}
 .viewer-dock .viewer-tools-panel.tools-collapsed{display:none}
 .viewer-dock #taskPanelContent{padding-top:12px}
 .viewer-tools-panel .vsheet{padding-top:12px}
-#stageHome .ctrlpill #viewerExploreBtn.active,#stageHome .ctrlpill [data-tsec].active{background:rgba(114,227,207,.16);color:var(--teal)}
+#stageHome .ctrlpill #viewerExploreBtn.active,#stageHome .ctrlpill #viewerModesBtn.active,#stageHome .ctrlpill [data-tsec].active{background:rgba(114,227,207,.16);color:var(--teal)}
 
 /* The Tools panel shows only the section its bottom-bar button named. */
 .viewer-tools-panel[data-show="spread"] .vsheet-grid>[data-tsec]:not([data-tsec="spread"]),
@@ -1116,6 +1116,13 @@ html[data-ts="xl"]{--ts:1.55}
  */
 @media(min-width:701px){.viewer-dock{bottom:calc(var(--pill-h,56px) + 24px)}}
 #stageHome .hiddentray{bottom:calc(var(--pill-h,56px) + 22px)}
+/* Atlas: the three mode toggles (heart atlas, limb vessels, cell) in one row standing on the bar */
+#stageHome .modegroup{position:absolute;z-index:7;bottom:calc(var(--pill-h,56px) + 22px);left:50%;transform:translateX(-50%);display:flex;gap:6px;width:min(420px,calc(100% - 16px));padding:6px;border:1px solid var(--line);border-radius:14px;background:rgba(8,16,22,.94);backdrop-filter:blur(14px)}
+#stageHome .modegroup[hidden]{display:none}
+#stageHome .modegroup .heart-atlas-toggle{text-align:center;white-space:nowrap}
+@media(min-width:701px){#stageHome .modegroup{left:calc((100% - 334px)/2)}}
+@media(min-width:1500px){#stageHome .modegroup{left:calc((100% - 374px)/2)}}
+@media(min-width:701px) and (max-width:1023px){#stageHome .modegroup{left:calc((100% - 294px)/2)}}
 /* On a phone the bar and the dock own the whole bottom edge, so the tray goes
    to the top-right corner, opposite the Layers button, and opens downward
    over the model rather than into the panels. */
@@ -1156,7 +1163,7 @@ ul.asslines{list-style:none;margin:0;padding:0}
 
 /* Heart atlas — outputs/studio/heart-atlas.js. Both controls live in the
    viewer dock, so they share its responsive layout and never cover the stage. */
-.heart-atlas-toggle{position:static;order:-1;flex:none;width:100%;min-height:44px;padding:8px 12px;border-radius:14px;border:1px solid var(--line,rgba(255,255,255,.18));background:rgba(8,16,22,.96);color:var(--teal);font-size:calc(12px * var(--ts));font-weight:700;text-align:left;cursor:pointer}
+.heart-atlas-toggle{position:static;flex:1 1 0;min-width:0;min-height:44px;padding:8px 12px;border-radius:14px;border:1px solid var(--line,rgba(255,255,255,.18));background:rgba(8,16,22,.96);color:var(--teal);font-size:calc(12px * var(--ts));font-weight:700;text-align:left;cursor:pointer}
 .heart-atlas-toggle:disabled{opacity:.72;cursor:progress}
 .heart-atlas-toggle[aria-pressed="true"]{background:var(--orange,#e08a5a);color:#1b1b1b}
 .heart-atlas-panel{position:static;flex:1 1 auto;min-height:0;width:auto;z-index:auto;display:flex;flex-direction:column;border-radius:14px;border:1px solid var(--line,rgba(255,255,255,.18));background:var(--panel,rgba(20,24,30,.96));backdrop-filter:blur(8px);font-size:calc(12px * var(--ts));line-height:1.45;overflow:hidden}
@@ -1528,11 +1535,9 @@ ul.asslines{list-style:none;margin:0;padding:0}
 .mz-tag.active{background:rgba(30,185,166,.9);color:#0b151b}
 .mz-tag.active .mz-n{background:#0b151b;color:var(--teal)}
 @media(max-width:700px){.mz-tag{padding:2px}.mz-tag .mz-name{display:none}.mz-tag.active{padding-right:7px}.mz-tag.active .mz-name{display:inline}}
-.viewer-dock.muscle-zoom-open .heart-atlas-toggle{display:none}
 .mz-tag.flip{flex-direction:row-reverse;padding:2px 2px 2px 7px}
 /* Cell zoom (studio/cell-zoom.js): the same panel and tags as the muscle zoom, plus the side levels, the Go to
    menu, the stage chips and the hormone choice. */
-.viewer-dock.cell-zoom-open .heart-atlas-toggle:not(.cell-zoom-toggle){display:none}
 .cz-side{display:contents}
 .cz-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .cz-links button{padding:6px 10px;border-radius:10px;border:1px solid var(--teal);background:transparent;color:var(--text);font-size:calc(12px * var(--ts));cursor:pointer;text-align:left}

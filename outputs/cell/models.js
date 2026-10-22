@@ -27,6 +27,8 @@ export const MODEL_SOURCES = {
   membrane: { title: 'Plasma Membrane', author: 'Konstantin_Keller', url: 'https://sketchfab.com/3d-models/plasma-membrane-53304c29aa2c41479488f06d3470c796' },
   trachea: { title: 'Epithelium of the Trachea', author: 'Sieben Medical Art', url: 'https://sketchfab.com/3d-models/epithelium-of-the-trachea-cb418d1b3f234f04bd3e17075970b222' },
   chromosome: { title: 'Chromosome X', author: 'LucasPresoto', url: 'https://sketchfab.com/3d-models/chromosome-x-4ab2fe1dfcba469097e2d0fe4a0f942b' },
+  capnet: { title: 'Capillary network (毛細血管)', author: 'yanosen', url: 'https://sketchfab.com/3d-models/capillary-network-dabe5b7050494e66be33be3bb65592f0' },
+  bone: { title: 'Long Bone', author: 'iqcenter', url: 'https://sketchfab.com/3d-models/long-bone-900a320bdc6244bd8f6b761441031ae9' },
 };
 export const MODEL_LICENCE = 'CC BY 4.0';
 
@@ -62,6 +64,12 @@ export const MODELS = {
   vessels: { file: './cell/models/vessels.glb', sources: [] },
   capillaries: { file: './cell/models/capillaries.glb', sources: [] },
   gutwall: { file: './cell/models/gutwall.glb', sources: [] },
+  capbed: { file: './cell/models/capbed.glb', sources: ['capnet'] },
+  stomach: { file: './cell/models/stomach.glb', sources: [] },
+  glomerulus: { file: './cell/models/glomerulus.glb', sources: [] },
+  duct: { file: './cell/models/duct.glb', sources: [] },
+  heartwall: { file: './cell/models/heartwall.glb', sources: [] },
+  osteon: { file: './cell/models/osteon.glb', sources: ['bone'] },
 };
 
 /* the credit line for a level's model */

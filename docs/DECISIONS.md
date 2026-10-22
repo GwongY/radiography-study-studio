@@ -5,6 +5,17 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-22 — The capillary bed and the osteon wear downloads; the nephron download is not used
+
+The owner judged the Blender-only capillary bed, glomerulus and osteon poor and picked three CC BY 4.0 Sketchfab
+models. "Capillary network" (yanosen) is now the capillary bed: its lens of capillaries is cut into arteriole,
+metarteriole (the upper rim's first half), thoroughfare channel, true capillaries and venule, and the sphincters,
+smooth muscle and AVA are modelled on it. "Long Bone" (iqcenter) is now the osteon level, the textbook block with
+osteons on its end face and one drawn out like a telescope; the periosteum and bone cells are modelled on it, and its
+nerves are left out because no delivered lecture names them. "[Free] Nephron 3D Model" (Novsred) was downloaded,
+judged and deleted: its corpuscle is an empty sphere and its vessels single lines, so it shows less than the
+modelled glomerulus level, which stays. Labels, notes and cites are unchanged.
+
 ### 2026-10-22 — HSS2011 Revise drops what the lecturer said is not examined
 
 The HSS2011 lecturer listed what is not tested: specific bony-landmark names; muscle fibre types (I, IIa, IIx);

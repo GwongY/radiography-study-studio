@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 417 lines
+## `outputs/radiography-study-studio.html` — 418 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–394 | markup — no banners, grep here |
-| 395–395 | importmap |
-| 396–396 | loads studio.js |
-| 397–397 | loads study.js |
-| 398–415 | classic script · preamble |
-| 416–417 | markup — no banners, grep here |
+| 1–395 | markup — no banners, grep here |
+| 396–396 | importmap |
+| 397–397 | loads studio.js |
+| 398–398 | loads study.js |
+| 399–416 | classic script · preamble |
+| 417–418 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1552 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
+- `outputs/app.css` — 1557 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
 - `outputs/studio.js` — 39 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiomodes-and-bridgejs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 47 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -36,7 +36,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `bone-landmarks.js` | 1596 | Bone landmarks — curated on the shipped skeleton by work/build-bone-landmarks.mjs. |  |
 | `cavity-build.js` | 1084 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
 | `cavity-geom.js` | 1434 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
-| `cell-zoom.js` | 895 | Cell zoom — the levels, their labels and the two stage sliders: the data and nothing else. | [The cell zoom mode -- outputs/studio/cell-zoom.js, outputs/cell/, outputs/cell-zoom.js, work/cell-zoom-check.mjs](TRAPS.md#the-cell-zoom-mode----outputsstudiocell-zoomjs-outputscell-outputscell-zoomjs-workcell-zoom-checkmjs) |
+| `cell-zoom.js` | 1130 | Cell zoom — the levels, their labels and the two stage sliders: the data and nothing else. | [The cell zoom mode -- outputs/studio/cell-zoom.js, outputs/cell/, outputs/cell-zoom.js, work/cell-zoom-check.mjs](TRAPS.md#the-cell-zoom-mode----outputsstudiocell-zoomjs-outputscell-outputscell-zoomjs-workcell-zoom-checkmjs) |
 | `landmarks.js` | 469 | landmarks.js -- the one place that knows how to find a named anatomical | [Named cut levels](TRAPS.md#named-cut-levels--outputsstudiotools-and-capturejs-outputslandmarksjs) |
 | `mesh-index.js` | 2645 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `muscle-zoom.js` | 122 | Muscle zoom — the levels and their labels, the data and nothing else. |  |
@@ -64,7 +64,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 - `bone-landmarks.js` — `BONE_LANDMARK_MODEL_HASH`, `BONE_LANDMARKS`, `boneLandmarkKey`, `surfaceLandmarks`
 - `cavity-build.js` — `measureLandmarks`, `measureGrid`, `gridBounds`, `buildCavityGeometry`, `BUILDABLE`
 - `cavity-geom.js` — `boundsOf`, `ringStack`, `ringPoint`, `polyStack`, `stackMesh`, `planeThrough`, `heightField`, `sampleField`, `domeFromRim`, `starShell`, `starMesh`, `starPoint`, `foramenOf`, `foramenCandidates`, `canalPath`, `tubeMesh`, `torsoProfile`, `frontSurface`, `voxelGrid`, `solidMask`, `signedDistance`, `surfaceNets`, `contourLines`, `dropSpecks`
-- `cell-zoom.js` — `CELL_SOURCES`, `FALLBACK`, `LEVELS`, `LABELS`, `SLIDERS`, `SHOW_IN_3D`, `UNLABELLED`, `ZOOM_FROM`, `zoomFrom`, `stagesFor`, `levelById`, `showIn3D`
+- `cell-zoom.js` — `CELL_SOURCES`, `FALLBACK`, `LEVELS`, `LABELS`, `SLIDERS`, `SHOW_IN_3D`, `UNLABELLED`, `SYSTEMS`, `ZOOM_FROM`, `zoomFrom`, `stagesFor`, `levelById`, `showIn3D`
 - `landmarks.js` — `normName`, `baseName`, `patternMatches`, `RIB_ORDINALS`, `LANDMARKS`, `REFERENCE_CHAINS`, `createResolver`, `LANDMARK_KEYS`
 - `muscle-zoom.js` — `ZOOM_SOURCES`, `LEVELS`, `LABELS`, `CONTRACTION`, `levelById`
 - `physiology-mechanics.js` — `MECHANISM_SOURCES`, `MOTOR_ROUTES`, `motorRoute`, `motorSequence`, `transmissionField`
@@ -124,7 +124,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | File | Lines | What it holds |
 | --- | --- | --- |
 | `cavity-geometry-derived.js` | 526 | Cavity geometry, derived from the loaded anatomy. |
-| `cell-zoom.js` | 629 | Cell zoom |
+| `cell-zoom.js` | 626 | Cell zoom |
 | `circulation-extras.js` | 91 | Circulation extras |
 | `depth-picking.js` | 440 | Depth picking |
 | `explosion-layout.js` | 16 | Pack only visible source meshes. Every projected bounding box gets its own cell. |
@@ -163,7 +163,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `revise-links.js` | 32 | Revise · the numbered links list under the Map and under the 3D hub. |
 | `revise.js` | 1140 | Revise |
 | `search-viewer-open.js` | 52 | Search -> viewer: open the model, select the part, auto-uncover, and |
-| `small-ui-helpers.js` | 253 | Small UI helpers |
+| `small-ui-helpers.js` | 258 | Small UI helpers |
 | `spatial-overlay-controls.js` | 120 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 29 | The study system's mutable UI state. |
 | `storage-versioned-keys.js` | 74 | Storage -- versioned keys and the one-time purge of the retired testing data |

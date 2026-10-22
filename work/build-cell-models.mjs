@@ -594,12 +594,154 @@ PREPARE.nucleosome = async function nucleosome() {
 
 /* where the drawn levels put what a model must match */
 const extraLayout = {};
+PREPARE.capnet = async function capnet() {
+  /* "Capillary network" (yanosen): one mesh lying in a plane (z within +-0.33), an arteriole trunk opening into a lens
+     of capillaries that closes into a venule, its texture red to blue along the way. Turned so the arteriole is on the
+     left and the venule on the right, their ends at x = -+7.6 in the plane z = 0, and cut into the two trunks, the
+     lens's upper rim (its first half the metarteriole, the rest the thoroughfare channel) and the true capillaries
+     between. prep/capnet.json holds what the capillary bed level builds on it: the centrelines the red cells follow
+     (each true capillary's route from where it leaves the metarteriole to the venule), where a precapillary sphincter
+     goes, the trunk radius and where the trunks end. */
+  const [raw] = await readSource('capnet');
+  const P0 = (i) => V(raw.pos[i * 3], raw.pos[i * 3 + 1], raw.pos[i * 3 + 2]), n0 = raw.pos.length / 3;
+  /* the arteriole's end is the top left of the model as published, the venule's the vertex farthest from it */
+  let top = 0;
+  for (let i = 1; i < n0; i++) if (raw.pos[i * 3 + 1] - raw.pos[i * 3] > raw.pos[top * 3 + 1] - raw.pos[top * 3]) top = i;
+  const far = (from) => { let b = 0, d = -1; for (let i = 0; i < n0; i++) { const e = P0(i).distanceTo(from); if (e > d) { d = e; b = i; } } return P0(b); };
+  const tipB = far(P0(top)), tipA = far(tipB);
+  const capOf = (tip) => { const s = V(); let k = 0; for (let i = 0; i < n0; i++) if (P0(i).distanceTo(tip) < 0.35) { s.add(P0(i)); k++; } return s.multiplyScalar(1 / k); };
+  const A = capOf(tipA), B = capOf(tipB), d = B.clone().sub(A);
+  const k = 15.2 / d.length();
+  const M = new THREE.Matrix4().makeScale(k, k, k).multiply(new THREE.Matrix4().makeRotationZ(-Math.atan2(d.y, d.x)))
+    .multiply(new THREE.Matrix4().makeTranslation(...A.clone().add(B).multiplyScalar(-0.5).toArray()));
+  const pc = weld(transform(raw, M)), n = pc.pos.length / 3, P = (i) => V(pc.pos[i * 3], pc.pos[i * 3 + 1], pc.pos[i * 3 + 2]);
+  let r = 0;
+  for (let i = 0; i < n; i++) r = Math.max(r, Math.abs(pc.pos[i * 3 + 2]));
+  /* the outline of the lens, column by column along x */
+  const W = 0.15, col = (x) => Math.floor((x + 7.8) / W), lo = [], hi = [];
+  for (let i = 0; i < n; i++) { const c = col(pc.pos[i * 3]), y = pc.pos[i * 3 + 1]; lo[c] = Math.min(lo[c] ?? y, y); hi[c] = Math.max(hi[c] ?? y, y); }
+  const wide = (c) => hi[c] !== undefined && hi[c] - lo[c] > 3.2 * r;
+  let ca = col(-7.6); while (!wide(ca)) ca++;
+  let cv = col(7.6); while (!wide(cv)) cv--;
+  const xa = ca * W - 7.8, xv = (cv + 1) * W - 7.8, xm = (xa + xv) / 2;
+  /* the rim: within one rim's breadth of the column's top; the column's top itself smoothed over its neighbours */
+  const roof = (x) => { const c = col(x); let m = -Infinity; for (let j = c - 1; j <= c + 1; j++) if (hi[j] !== undefined) m = Math.max(m, hi[j]); return m; };
+  const RIM = 1.9 * r;
+  const kind = (c) => (c.x < xa ? 'arteriole' : c.x > xv ? 'venule' : c.y > roof(c.x) - RIM ? (c.x < xm ? 'metart' : 'thorough') : 'truecap');
+  const cut = splitTris(pc, (c) => kind(c));
+  /* each vertex's kind, by the triangles round it (a vertex where two kinds meet has both) */
+  const kinds = Array.from({ length: n }, () => new Set()), nb = Array.from({ length: n }, () => new Set());
+  const c = V();
+  for (let t = 0; t < pc.idx.length / 3; t++) {
+    const [a, b, e] = [pc.idx[t * 3], pc.idx[t * 3 + 1], pc.idx[t * 3 + 2]];
+    c.copy(P(a)).add(P(b)).add(P(e)).multiplyScalar(1 / 3);
+    const kd = kind(c);
+    for (const v of [a, b, e]) kinds[v].add(kd);
+    nb[a].add(b); nb[a].add(e); nb[b].add(a); nb[b].add(e); nb[e].add(a); nb[e].add(b);
+  }
+  /* a centreline: mean-shift each point into the middle of its vessel, over the vertices of the kinds allowed */
+  const centre = (p, ok, rad) => {
+    let q = p.clone();
+    for (let it = 0; it < 4; it++) {
+      const s = V(); let m = 0;
+      for (let i = 0; i < n; i++) if (ok(i)) { const v = P(i); if (v.distanceTo(q) < rad) { s.add(v); m++; } }
+      if (!m) break;
+      q = s.multiplyScalar(1 / m);
+    }
+    return q;
+  };
+  const r3 = (v) => v.toArray().map((x) => +x.toFixed(3));
+  const line = (x0, x1, ok, rad, at) => { const out = []; for (let x = x0; x <= x1 + 1e-6; x += 0.5) out.push(centre(at(x), ok, rad)); return out; };
+  const has = (...ks) => (i) => ks.some((kd) => kinds[i].has(kd));
+  const art = line(-7.4, xa, has('arteriole'), 1.6 * r, (x) => V(x, 0, 0));
+  const ven = line(xv, 7.4, has('venule'), 1.6 * r, (x) => V(x, 0, 0));
+  const rim = line(xa + 0.2, xv - 0.2, has('metart', 'thorough'), 1.2 * r, (x) => V(x, roof(x) - RIM / 2, 0));
+  /* where a true capillary leaves the metarteriole: the vertices both kinds share, gathered into clusters */
+  const shared = [];
+  for (let i = 0; i < n; i++) if (kinds[i].has('metart') && kinds[i].has('truecap')) shared.push(P(i));
+  const clusters = [];
+  for (const p of shared) { const cl = clusters.find((q) => q.c.distanceTo(p) < 0.6); if (cl) { cl.pts.push(p); cl.c = cl.pts.reduce((s, q) => s.add(q), V()).multiplyScalar(1 / cl.pts.length); } else clusters.push({ c: p.clone(), pts: [p] }); }
+  /* the route each takes to the venule: the shortest path over true capillary vertices, its steps jittered so routes
+     from neighbouring branches part */
+  const capOk = (i) => kinds[i].has('truecap') && !kinds[i].has('metart') && !kinds[i].has('thorough');
+  let rnd = 7;
+  const jitter = () => { rnd = (rnd * 16807) % 2147483647; return 1 + 0.8 * (rnd / 2147483647); };
+  const route = (from) => {
+    const dist = new Float64Array(n).fill(Infinity), prev = new Int32Array(n).fill(-1), done = new Uint8Array(n);
+    let s = -1, best = Infinity;
+    for (let i = 0; i < n; i++) if (capOk(i)) { const e = P(i).distanceTo(from); if (e < best) { best = e; s = i; } }
+    dist[s] = 0;
+    const heap = [[0, s]];
+    const push = (x) => { heap.push(x); let i = heap.length - 1; while (i > 0) { const p = (i - 1) >> 1; if (heap[p][0] <= heap[i][0]) break; [heap[p], heap[i]] = [heap[i], heap[p]]; i = p; } };
+    const pop = () => { const top = heap[0], last = heap.pop(); if (heap.length) { heap[0] = last; let i = 0; for (;;) { const l = 2 * i + 1, rr = l + 1; let m = i; if (l < heap.length && heap[l][0] < heap[m][0]) m = l; if (rr < heap.length && heap[rr][0] < heap[m][0]) m = rr; if (m === i) break; [heap[m], heap[i]] = [heap[i], heap[m]]; i = m; } } return top; };
+    let end = -1;
+    while (heap.length) {
+      const [dd, u] = pop();
+      if (done[u]) continue;
+      done[u] = 1;
+      if (kinds[u].has('venule')) { end = u; break; }
+      for (const w of nb[u]) {
+        if (!capOk(w) && !kinds[w].has('venule')) continue;
+        const nd = dd + P(u).distanceTo(P(w)) * jitter();
+        if (nd < dist[w]) { dist[w] = nd; prev[w] = u; push([nd, w]); }
+      }
+    }
+    if (end < 0) return null;
+    const path = [];
+    for (let u = end; u >= 0; u = prev[u]) path.push(P(u));
+    path.reverse();
+    const out = [path[0]];
+    for (const p of path) if (p.distanceTo(out[out.length - 1]) > 0.35) out.push(p);
+    return out.map((p) => centre(p, (i) => capOk(i) || kinds[i].has('venule'), 0.45));
+  };
+  const branches = clusters.filter((cl) => cl.c.x < xm - 0.3).sort((a, b) => a.c.x - b.c.x);
+  const caps = [], sph = [];
+  for (const cl of branches) {
+    const path = route(cl.c);
+    if (!path || path.length < 4) continue;
+    caps.push(path.map(r3));
+    sph.push({ at: r3(cl.c), dir: r3(path[Math.min(2, path.length - 1)].clone().sub(cl.c).normalize()) });
+  }
+  console.log(`capnet: trunk radius ${r.toFixed(2)}, lens from x ${xa.toFixed(2)} to ${xv.toFixed(2)}, ${branches.length} branches off the metarteriole, ${caps.length} routed`);
+  writeFileSync(join(PREP, 'capnet.json'), JSON.stringify({ r: +r.toFixed(3), xa: +xa.toFixed(3), xv: +xv.toFixed(3), xm: +xm.toFixed(3), art: art.map(r3), ven: ven.map(r3), rim: rim.map(r3), caps, sph }));
+  await writePrep('capnet', ['arteriole', 'metart', 'thorough', 'truecap', 'venule'].map((part) => ({ part, pieces: [cut.get(part)] })));
+};
+
+PREPARE.bone = async function bone() {
+  /* "Long Bone" (iqcenter): a block of a long bone's wall, its end face drawn with osteons in cross-section (rings
+     round a central canal) inside the circumferential lamellae of the curved outer surface, spongy bone's
+     trabeculae along the inner side, two central canals opened lengthwise with an artery, a vein and a nerve in each,
+     and one osteon drawn out of the end face like a telescope. Turned so the end face looks along +z (the telescope
+     toward the viewer), the long axis halved (the block is three times as long as it is wide), 7 tall, centred. Cut
+     by material: the block is the matrix, the telescope the osteon, the canals' linings the canal, the red and blue
+     tubes the vessels, the rest of the inner side the trabeculae. The nerves (yellow) are left out: no lecture
+     names them, and unlabelled they would read as a third vessel. */
+  const src = await readSource('bone');
+  const turn = new THREE.Matrix4().makeRotationY(Math.PI / 2);
+  const box = boxOf(src.map((p) => transform(p, turn))), size = box.getSize(V()), k = 7 / size.y;
+  const M = new THREE.Matrix4().makeScale(k, k, k * 0.5).multiply(new THREE.Matrix4().makeTranslation(...box.getCenter(V()).negate().toArray())).multiply(turn);
+  const PART = { 'Mat.1': 'matrix', 'Mat.5': 'osteon', Canal_top: 'canal', Cylinder: 'canal', 'Mat.2': 'vessels', 'Mat.3': 'vessels', default: 'trabeculae', Carpet: 'trabeculae' };
+  const RATIO = { matrix: 1, osteon: 1, canal: 1, vessels: 0.3, trabeculae: 0.12 };
+  /* the trabeculae lose their texture coordinates (and the normal map that needed them) so their seams weld and they
+     simplify: Blender recolours them anyway */
+  const plain = src.find((p) => p.mat && p.mat.getName() === 'default').mat;
+  const P = {};
+  for (let raw of src) {
+    const part = PART[raw.mat && raw.mat.getName()];
+    if (!part) continue;                                 /* Mat.4: the nerves */
+    if (part === 'trabeculae') raw = { ...raw, uv: null, mat: plain };
+    (P[part] || (P[part] = [])).push(simplify(transform(raw, M), RATIO[part], part === 'trabeculae' ? 0.1 : 0.01, 24, part !== 'trabeculae'));
+  }
+  console.log('bone', Object.entries(P).map(([p, l]) => `${p} ${l.reduce((a, q) => a + tris(q), 0)}`).join(', '));
+  await writePrep('bone', Object.entries(P).map(([part, pieces]) => ({ part, pieces })));
+};
+
 function writeLayout() {
   const old = existsSync(join(PREP, 'layout.json')) ? JSON.parse(readFileSync(join(PREP, 'layout.json'), 'utf8')) : {};
   const layout = {
     ...old, ...extraLayout,
     blood: { rbc: drawn('blood', 'rbc').map(pose), wbc: drawn('blood', 'wbc').filter((m) => m.scale.x > 1.5).map(pose), platelets: drawn('blood', 'platelets').map(pose) },
-    alveolus: { macrophage: drawn('alveolus', 'macrophage').map(pose) },
+    /* alveolus: kept from the old layout.json (...old): the level is model-only now and has no drawing to measure */
   };
   mkdirSync(PREP, { recursive: true });
   writeFileSync(join(PREP, 'layout.json'), JSON.stringify(layout, null, 1));
@@ -622,7 +764,7 @@ function flatToY(pc) {
 
 /* ------------------------------------------------------------------ step 3: finish Blender's output ---- */
 const { LEVELS: CELL_LEVELS } = await import(pathToFileURL(join(root, 'outputs', 'cell-zoom.js')).href + '?v=1');
-const VIEW = { cell: [0.85, 1.5, 1], centrosome: [1, 0.6, 1], alveolus: [1, 0.45, 1], nucleus: [1, 0.5, 1], membrane: [0.35, 0.55, 1], epithelium: [0.45, 0.35, 1], apc: [1, 0.4, 1.1], nucleosome: [0.15, 0.35, 1] };
+const VIEW = { cell: [0.85, 1.5, 1], centrosome: [1, 0.6, 1], alveolus: [0.4, 0.35, 1], nucleus: [1, 0.5, 1], membrane: [0.35, 0.55, 1], epithelium: [0.45, 0.35, 1], apc: [1, 0.4, 1.1], nucleosome: [0.15, 0.35, 1] };
 async function finish(level, file) {
   const doc = await io.read(file), rt = doc.getRoot(), errors = [];
   const parts = new Set(PARTS[level] || []), lv = CELL_LEVELS.find((l) => l.id === level);

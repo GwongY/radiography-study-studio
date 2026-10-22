@@ -3946,3 +3946,774 @@ def gutwall():
     K.anchor('serosa', tuple(on_tube(-3.4, R['serosa'][1] + 0.05, a)))
     VIEW['gutwall'] = [0.4, 0.35, 1]
     export('gutwall', [])
+
+
+def bracket(a, b, tick, m, name):
+    """a white bracket from three.js a to b, its two ends bent toward `tick` (a three.js offset)"""
+    a, b, t = V(*a), V(*b), V(*tick)
+    return K.join([K.between(tuple(a), tuple(b), 0.03, m, name, seg=8), K.between(tuple(a), tuple(a + t), 0.03, m, name, seg=8),
+                   K.between(tuple(b), tuple(b + t), 0.03, m, name, seg=8)], name)
+
+
+def dots(n, r, m, name, seg=(10, 6), scale=None):
+    """n small spheres at the origin, to be posed"""
+    return [K.sphere(r, (0, 0, 0), m, seg=seg, scale=scale, name=name) for _ in range(n)]
+
+
+def cycle_pose(tr, o, frame, pts, u, on=True):
+    """o along the path pts at u (0..1, wrapping), hidden near the wrap so it never sweeps back across the scene"""
+    u = u % 1.0
+    tr.pose(o, frame, along(pts, u), None, 1 if on and 0.03 < u < 0.97 else HIDE)
+
+
+def capbed():
+    """The structure of the capillary bed (HSS2011 W8 pp 40-44), on "Capillary network" (yanosen): its arteriole on the
+    left opens into a bed whose upper rim is the metarteriole, running on as the thoroughfare channel to the venule on
+    the right; the true capillaries hang between (build-cell-models.mjs capnet cuts them apart). Modelled here: a
+    precapillary sphincter (yellow ring) where each true capillary leaves the metarteriole; smooth muscle round the
+    arteriole and the metarteriole, none on the thoroughfare channel; below the bed an arteriovenous anastomosis
+    joining arteriole to venule directly, wrapped in smooth muscle. Slider, one step each: the AVA closed, blood
+    through the true capillaries; the precapillary sphincters close; the AVA opens and blood bypasses the
+    capillaries. Red cells show the flow. Not to scale."""
+    K.reset()
+    tr = Track()
+    got = PREP('capnet')
+    J = JSON('capnet')
+    for name, objs in got.items():
+        o = K.join(objs, name)
+        m = o.data.materials[0].copy()                   # each part its own material, the download's texture kept
+        m.name = name
+        b = m.node_tree.nodes.get('Principled BSDF')
+        b.inputs['Alpha'].default_value = 0.6
+        if hasattr(m, 'surface_render_method'):
+            m.surface_render_method = 'BLENDED'
+        else:
+            m.blend_method = 'BLEND'
+        K.recolour(o, m)
+        K.part(o, name)
+    r = J['r']
+    art, ven, rim = ([V(*p) for p in J[k]] for k in ('art', 'ven', 'rim'))
+    msm, msp = K.mat('smooth', 0x7a1f2b, 0.5), K.mat('sphincter', 0xffd166, 0.4, emit=0xffd166)
+    mava, rbm = K.mat('ava', 0x9d4edd, 0.45, alpha=0.55), K.mat('red-cells', 0xc1121f, 0.45)
+    met = [p for p in rim if p.x < J['xm']]
+
+    def rings_on(pts, R, n):
+        out = []
+        for k in range(n):
+            t = (k + 0.5) / n
+            p, q = along(pts, t), along(pts, min(1, t + 0.02))
+            out.append(K.torus(R, 0.055, tuple(p), msm, 'ring', axis=tuple(q - p), seg=(20, 6)))
+        return out
+    smooth_rings = rings_on(art[1:], r + 0.08, 6) + rings_on(met, 0.45, 8)
+    sph = [K.part(K.torus(0.24, 0.08, tuple(V(*s['at']) + V(*s['dir']) * 0.15), msp, 'sphincter', axis=tuple(s['dir']), seg=(20, 8)), 'sphincter')
+           for s in J['sph']]
+    # the AVA: off the arteriole, under the bed, into the venule; its straight run narrows (closed) and widens (open)
+    low = -4.9
+    a0, v0 = art[2], ven[-3]
+    ava_l = [tuple(a0), (a0.x + 0.4, -1.8, 0), (a0.x + 1.2, low + 0.4, 0), (-4.2, low, 0)]
+    ava_r = [(4.2, low, 0), (v0.x - 1.2, low + 0.4, 0), (v0.x - 0.4, -1.8, 0), tuple(v0)]
+    K.part(K.join([K.curve_tube(ava_l, 0.36, mava, 'ava'), K.curve_tube(ava_r, 0.36, mava, 'ava')], 'ava'), 'ava')
+    straight = K.part(K.between((-4.2, low, 0), (4.2, low, 0), 0.36, mava, 'ava', seg=24), 'ava')
+    ava_rings = [K.part(K.torus(0.44, 0.06, (x, low, 0), msm, 'ring', axis=(1, 0, 0), seg=(20, 6)), 'smooth') for x in [-3.8 + 0.5 * k for k in range(16)]]
+    K.part(K.join(smooth_rings, 'smooth'), 'smooth')
+    # the blood, as red cells
+    upto = lambda pts, x: [p for p in pts if p.x < x]
+    after = lambda pts, x: [p for p in pts if p.x > x]
+    path_tc = art + rim + ven
+    path_ava = upto(art, a0.x + 0.01) + [V(*p) for p in ava_l[1:] + ava_r[:-1]] + after(ven, v0.x - 0.01)
+    paths_cap = []
+    for s, cap in zip(J['sph'], J['caps']):
+        c = [V(*p) for p in cap]
+        paths_cap.append(art + upto(rim, s['at'][0]) + c + after(ven, c[-1].x + 0.3))
+    rbc = (0.36, 1, 1)
+    d_tc = [(o, k / 8) for k, o in enumerate(dots(8, 0.2, rbm, 'rbc', scale=rbc))]
+    d_ava = [(o, k / 8) for k, o in enumerate(dots(8, 0.2, rbm, 'rbc', scale=rbc))]
+    d_cap = [(o, j, k / 6) for j in range(len(paths_cap)) for k, o in enumerate(dots(6, 0.12, rbm, 'rbc', scale=rbc))]
+    for o, *_ in d_tc + d_ava + d_cap:
+        K.decor(o, 'red-cells')
+
+    def place(s, frame):
+        p = stage_prog(s, 3)
+        k1, k2 = p(1), p(2)
+        close = span(k1, 0.0, 0.5)
+        for o in sph:
+            tr.pose(o, frame, None, None, 1 - 0.3 * close)
+        w = 0.4 + 0.6 * span(k2, 0.0, 0.5)
+        tr.pose(straight, frame, None, None, ('blender', (w, w, 1)))
+        for o in ava_rings:
+            tr.pose(o, frame, None, None, w)
+        for o, ph in d_tc:
+            cycle_pose(tr, o, frame, path_tc, ph + 0.3 * s)
+        for o, ph in d_ava:
+            cycle_pose(tr, o, frame, path_ava, ph + 0.3 * s, k2 > 0.5)
+        for o, j, ph in d_cap:
+            cycle_pose(tr, o, frame, paths_cap[j], ph + 0.22 * s + 0.09 * j, close < 0.5)
+    sample(place, 3, step=2)
+    tr.write()
+    mid = lambda pts: pts[len(pts) // 2]
+    cap_mid = V(*J['caps'][len(J['caps']) // 2][len(J['caps'][len(J['caps']) // 2]) // 2])
+    tc = [p for p in rim if p.x > J['xm']]
+    for name, at in (('arteriole', art[3] + V(0, r + 0.2, 0.4)), ('metart', mid(met) + V(0, 0.5, 0.4)),
+                     ('sphincter', V(*J['sph'][1]['at']) + V(0, -0.35, 0.4)), ('truecap', cap_mid + V(0, 0, 0.3)),
+                     ('thorough', mid(tc) + V(0, 0.5, 0.4)), ('ava', V(0, low + 0.55, 0.5)), ('venule', ven[-3] + V(0, r + 0.2, 0.4)),
+                     ('smooth', V(2.6, low - 0.55, 0.45))):
+        K.anchor(name, tuple(at))
+    VIEW['capbed'] = [0, 0.3, 1]
+    export('capbed', ['capnet'])
+
+
+def stomach():
+    """Layers of the Stomach Wall and the gastric gland (ABCT2326 L4 pp 23-26): on the left a block of the wall,
+    stepped so each layer shows, from the lumen out: the mucous epithelium with its gastric pits, the lamina propria
+    with the gastric glands in it, the muscularis mucosae, the submucosa (an artery and vein, a lymphatic vessel), the
+    muscularis externa's oblique, circular and longitudinal muscle (fibres drawn on each step's top in its own
+    direction, the myenteric plexus between circular and longitudinal), the serosa. On the right one gastric gland,
+    enlarged and cut open: mucous cells lining the pit and neck, parietal cells, chief cells at its base with a G cell
+    and a D cell, and a capillary beside it. Slider, one step each: the G cell's gastrin carried by the blood to the
+    parietal and chief cells, and acid into the lumen; pepsinogen from the chief cells turned to pepsin by the acid;
+    the D cell's somatostatin on the G cell. Not to scale."""
+    K.reset()
+    tr = Track()
+    X0, Z0, Z1 = -7.5, -2.6, 2.6
+    D = Z1 - Z0
+
+    def slab(y0, y1, x1, m, name):
+        return K.box((x1 - X0, y1 - y0, D), ((X0 + x1) / 2, (y0 + y1) / 2, 0), m, name)
+    mmuc = K.mat('mucous', 0xf7c6d0, 0.5)
+    K.part(slab(3.45, 3.6, 0.0, mmuc, 'epithelium'), 'mucous')
+    K.part(slab(1.0, 3.45, 0.0, K.mat('lamina', 0xffe5d9, 0.6, alpha=0.4), 'lamina'), 'lamina')
+    K.part(slab(0.75, 1.0, 0.4, K.mat('mm', 0xe5989b, 0.55), 'mm'), 'mm')
+    K.part(slab(-0.9, 0.75, 0.8, K.mat('submucosa', 0xf1e3c8, 0.7), 'sub'), 'submucosa')
+    K.part(slab(-1.5, -0.9, 1.2, K.mat('oblique', 0xd1495b, 0.55), 'oblique'), 'oblique')
+    K.part(slab(-2.2, -1.5, 1.6, K.mat('circular', 0xc0394d, 0.55), 'circular'), 'circular')
+    K.part(slab(-2.8, -2.2, 2.0, K.mat('longitudinal', 0xa62f43, 0.55), 'longitudinal'), 'longitudinal')
+    K.part(slab(-3.0, -2.8, 2.4, K.mat('serosa', 0xcdeaf5, 0.4), 'serosa'), 'serosa')
+    # each muscle layer's fibres on its step, in its own direction
+    fm = K.mat('externa-fibres', 0x6a1424, 0.5)
+    fib = []
+    for k in range(9):                                   # oblique: diagonal on the step x 0.8..1.2
+        z = Z0 + 0.3 + 0.55 * k
+        fib.append(K.between((0.82, -0.89, z), (1.18, -0.89, min(Z1 - 0.05, z + 0.5)), 0.025, fm, 'f', seg=6))
+    for k in range(9):                                   # circular: across the step (along z)
+        x = 1.22 + 0.04 * k
+        fib.append(K.between((x, -1.49, Z0 + 0.05), (x, -1.49, Z1 - 0.05), 0.018, fm, 'f', seg=6))
+    for k in range(10):                                  # longitudinal: along x
+        z = Z0 + 0.25 + 0.5 * k
+        fib.append(K.between((1.62, -2.19, z), (1.98, -2.19, z), 0.022, fm, 'f', seg=6))
+    K.decor(K.join(fib, 'fibres'), 'muscle-fibres')
+    K.part(bracket((X0 - 0.25, -2.8, Z1), (X0 - 0.25, -0.9, Z1), (0.22, 0, 0), K.mat('externa', 0xffffff, 0.4, emit=0xffffff), 'externa'), 'externa')
+    # gastric pits and glands in the lamina propria
+    gm, pm = K.mat('gland', 0xf08080, 0.5), K.mat('pit', 0x5c1a2a, 0.6)
+    rnd = random.Random(31)
+    glands, pits = [], []
+    for i in range(8):
+        for j in range(4):
+            x, z = X0 + 0.55 + 0.9 * i, Z0 + 0.6 + 1.3 * j
+            glands.append(K.curve_tube([(x, 3.5, z), (x + rnd.uniform(-0.1, 0.1), 2.3, z), (x + rnd.uniform(-0.15, 0.15), 1.15, z + rnd.uniform(-0.1, 0.1))], 0.17, gm, 'gland', res=3))
+            pits.append(K.between((x, 3.58, z), (x, 3.63, z), 0.2, pm, 'pit', seg=14))
+    K.part(K.join(glands, 'gland'), 'gland')
+    # submucosa: an artery and a vein, a lymphatic vessel (cut ends on the front face)
+    K.part(K.join([K.between((x, -0.1, Z0), (x, -0.1, Z1 + 0.04), r, K.mat('vessels', c, 0.45), 'v', seg=20)
+                   for x, r, c in ((-5.4, 0.22, 0xd62828), (-4.7, 0.28, 0x3a6ea5), (-1.6, 0.2, 0xd62828), (-0.9, 0.26, 0x3a6ea5))], 'vessels'), 'vessels')
+    K.part(K.between((-3.2, 0.15, Z0), (-3.2, 0.15, Z1 + 0.04), 0.24, K.mat('lymph', 0x95d5b2, 0.45), 'lymph', seg=20), 'lymph')
+    # the myenteric plexus between circular and longitudinal muscle, showing on the front face
+    plx = K.mat('plexus', 0xffd166, 0.4, emit=0xffd166)
+    nodes = [V(X0 + 0.6 + 1.0 * k, -2.2, Z1 + 0.02) for k in range(9)]
+    K.part(K.join([K.sphere(0.14, tuple(n), plx, seg=(12, 8), name='ganglion') for n in nodes] +
+                  [K.between(tuple(a), tuple(b), 0.035, plx, 'nerve', seg=6) for a, b in zip(nodes, nodes[1:])], 'plexus'), 'plexus')
+    # ---- one gland, enlarged and cut open (back half), on the right
+    GX = 5.0
+
+    def rl(y):
+        return 0.55 if y > 2.6 else 0.32
+    mpar, mchief = K.mat('parietal', 0xff6b6b, 0.45), K.mat('chief', 0x7b5ea7, 0.45)
+    mg, md = K.mat('gcell', 0xffb703, 0.4, emit=0xffb703), K.mat('dcell', 0x2ec4b6, 0.4, emit=0x2ec4b6)
+    cells = {'mucous': [], 'parietal': [], 'chief': []}
+    G = D = None
+    for i in range(14):
+        y = -2.2 + 0.5 * i
+        for j in range(6):
+            a = math.pi * j / 5
+            if y > 1.5:
+                kind, r, sc = 'mucous', 0.27, (0.75, 1.0, 0.75)
+            elif y > -0.6:
+                kind, r, sc = 'parietal', 0.36, (1, 1, 1)
+            else:
+                kind, r, sc = 'chief', 0.31, (1, 0.9, 1)
+            R = rl(y) + r * 0.95
+            at = (GX + R * math.cos(a), y, -R * math.sin(a))
+            if kind == 'chief' and i == 1 and j == 0:
+                G = at
+                K.part(K.sphere(r, at, mg, seg=(18, 10), name='gcell'), 'gcell')
+                continue
+            if kind == 'chief' and i == 0 and j == 5:
+                D = at
+                K.part(K.sphere(r, at, md, seg=(18, 10), name='dcell'), 'dcell')
+                continue
+            cells[kind].append(K.sphere(r, at, {'mucous': mmuc, 'parietal': mpar, 'chief': mchief}[kind], seg=(16, 10), scale=sc, name=kind))
+    cells['chief'].append(K.sphere(0.34, (GX, -2.62, -0.1), mchief, seg=(16, 10), name='chief'))   # the base
+    for kind, objs in cells.items():
+        K.part(K.join(objs, kind), kind)
+    pits.append(K.torus(0.62, 0.05, (GX, 4.48, -0.2), pm, 'pit', axis=(0, 1, 0)))
+    K.part(K.join(pits, 'pit'), 'pit')
+    K.decor(K.between((GX, -2.4, 0), (GX, 4.3, 0), 0.3, K.mat('gland-lumen', 0xfff1e6, 0.8, alpha=0.15), 'lumen', seg=20), 'gland-lumen')
+    cap = [(6.6, -2.9, -0.7), (6.5, -1.0, -0.7), (6.4, 0.6, -0.7), (6.0, 2.2, -0.9)]
+    K.decor(K.curve_tube(cap, 0.22, K.mat('capillary', 0xd62828, 0.45, alpha=0.6), 'capillary'), 'capillary')
+    # zoom lines from a gland in the block to the enlarged one
+    zl = K.mat('zoom', 0x8ecae6, 0.5, alpha=0.5)
+    gx0 = X0 + 0.55 + 0.9 * 7
+    K.decor(K.join([K.between((gx0, 3.6, Z1 - 0.6), (GX - 0.7, 4.5, 0), 0.015, zl, 'z', seg=6),
+                    K.between((gx0, 1.15, Z1 - 0.6), (GX - 0.5, -2.7, 0), 0.015, zl, 'z', seg=6)], 'zoom'), 'zoom-lines')
+    # what moves: gastrin, acid, pepsinogen to pepsin, somatostatin
+    gas = dots(8, 0.09, K.mat('gastrin', 0xffd60a, 0.4, emit=0xffd60a), 'gastrin')
+    for o in gas:
+        K.part(o, 'gastrin')
+    acid = [K.decor(o, 'hcl') for o in dots(12, 0.06, K.mat('hcl', 0xff1744, 0.4, emit=0xff1744), 'hcl')]
+    pgen = [K.decor(o, 'pepsinogen') for o in dots(8, 0.08, K.mat('pepsinogen', 0xb39ddb, 0.4), 'pepsinogen')]
+    pep = dots(8, 0.09, K.mat('pepsin', 0xff9f1c, 0.4, emit=0xff9f1c), 'pepsin')
+    for o in pep:
+        K.part(o, 'pepsin')
+    som = dots(8, 0.08, K.mat('somatostatin', 0x52b788, 0.4, emit=0x52b788), 'somatostatin')
+    for o in som:
+        K.part(o, 'somatostatin')
+    G, D = V(*G), V(*D)
+    par_targets = [V(GX + 0.7 * math.cos(a), y, -0.7 * math.sin(a)) for y in (0.0, 0.6, 1.1) for a in (0.3, 0.9, 1.5)]
+
+    def place(s, frame):
+        p = stage_prog(s, 3)
+        k0, k1, k2 = p(0), p(1), p(2)
+        for i, o in enumerate(gas):                      # G cell -> capillary -> up -> parietal cells
+            u = span(k0, 0.04 * i, 0.55 + 0.04 * i)
+            pts = [G, V(6.5, G.y, -0.7), V(6.45, 0.2 + 0.1 * i, -0.7), par_targets[i % len(par_targets)] + V(0.25, 0, 0)]
+            tr.pose(o, frame, along(pts, u), None, 1 if 0.01 < u and k1 < 0.3 else HIDE)
+        for i, o in enumerate(acid):                     # parietal cells -> lumen -> up the pit
+            u = span(k0 + k1, 0.6 + 0.03 * i, 1.4 + 0.03 * i)
+            c0 = par_targets[i % len(par_targets)]
+            pts = [c0, V(GX, c0.y, -0.05), V(GX, 2.6, -0.05), V(GX + 0.1 * math.sin(i), 4.6, 0)]
+            tr.pose(o, frame, along(pts, u), None, 1 if 0.01 < u < 0.99 else HIDE)
+        for i, o in enumerate(pgen):                     # chief cells -> lumen -> up to the acid
+            u = span(k1, 0.03 * i, 0.45 + 0.03 * i)
+            a = math.pi * (i % 5) / 4
+            pts = [V(GX + 0.6 * math.cos(a), -1.7 + 0.25 * (i % 3), -0.6 * math.sin(a)), V(GX, -1.4, -0.05), V(GX, 0.3, -0.05)]
+            tr.pose(o, frame, along(pts, u), None, 1 if 0.01 < u < 0.99 else HIDE)
+        for i, o in enumerate(pep):                      # pepsin from there up the pit
+            u = span(k1, 0.5 + 0.03 * i, 0.95 + 0.03 * i)
+            pts = [V(GX, 0.3, -0.05), V(GX + 0.08 * math.cos(i), 2.6, 0), V(GX + 0.2 * math.cos(2 * i), 4.6 + 0.1 * (i % 3), 0.1)]
+            tr.pose(o, frame, along(pts, u), None, 1 if u > 0.01 else HIDE)
+        for i, o in enumerate(som):                      # D cell -> round the base -> the G cell
+            u = span(k2, 0.04 * i, 0.6 + 0.04 * i)
+            pts = [D, V(GX - 0.3, -2.75, 0.25), V(GX + 0.4, -2.55, 0.3), G + V(-0.05 + 0.08 * math.cos(i), 0.12 * math.sin(i), 0.32)]
+            tr.pose(o, frame, along(pts, u), None, 1 if u > 0.01 else HIDE)
+    sample(place, 3, step=2)
+    tr.write()
+    for name, at in (('pit', (GX - 0.5, 4.75, 0.2)), ('mucous', (GX - 0.75, 2.6, -0.2)), ('parietal', (GX - 0.75, 0.6, -0.2)),
+                     ('chief', (GX - 0.65, -1.3, -0.2)), ('gcell', tuple(G + V(0.2, 0, 0.3))), ('dcell', tuple(D + V(-0.2, 0, 0.3))),
+                     ('gland', (-1.6, 2.2, Z1 - 0.6)), ('lamina', (-4.5, 2.4, Z1)), ('mm', (-0.4, 0.88, Z1)), ('submucosa', (-2.4, -0.3, Z1)),
+                     ('oblique', (1.0, -0.88, 0.5)), ('circular', (1.4, -1.48, 0.0)), ('longitudinal', (1.8, -2.18, -0.6)), ('serosa', (2.2, -2.85, 0.6)),
+                     ('externa', (X0 - 0.3, -1.85, Z1)), ('vessels', (-5.0, -0.1, Z1 + 0.1)), ('lymph', (-3.2, 0.15, Z1 + 0.1)),
+                     ('plexus', (-4.4, -2.2, Z1 + 0.1)), ('gastrin', (6.45, -0.5, -0.7)), ('pepsin', (GX, 3.4, 0)), ('somatostatin', (GX + 0.2, -2.65, 0.3))):
+        K.anchor(name, at)
+    VIEW['stomach'] = [0.3, 0.45, 1]
+    export('stomach', [])
+
+
+def membrane_inset(XC=15.5, zoom_from=None):
+    """The respiratory membrane (HSS2011 respiratory lecture p25; ABCT2326 L3 pp 40-43), enlarged beside the alveolus
+    in the alveolus level (build.py alveolus()), centred on x = XC: a pulmonary capillary along x, its front cut away,
+    under a slab of alveolar air. On its top the membrane's three layers, stepped so each shows: the type I (squamous
+    epithelial) cells of the alveolus, the fused basement membranes, the endothelial cells lining the capillary; a
+    bracket spans the three. Red blood cells pass along the capillary. Slider, one step each: blood arrives (O2 in
+    the air, CO2 in the blood); O2 crosses into the blood and CO2 out; the two sides even out. O2 is drawn blue, CO2
+    grey. zoom_from: a three.js point on the alveolus the zoom lines start from. Builds into the scene; the caller
+    exports. Not to scale."""
+    tr = Track()
+    X0, X1 = XC - 5.5, XC + 5.5
+    c = (-1.6, 0.0)
+    TOP = (-1.0, 0.5)
+    me, mb, ms = K.mat('endothelial-inset', 0xf4a3a8, 0.5), K.mat('basement', 0x9fa8ff, 0.6), K.mat('type1-inset', 0xc8e7ff, 0.5)
+    K.part(wall(1.25, 1.37, X0, X1, me, 'endo', CUT, c, nx=24, na=72), 'endothelial')
+    K.part(wall(1.37, 1.45, X0 + 1.0, X1 - 2.0, mb, 'bm', TOP, c, nx=16, na=24), 'basement')
+    K.part(wall(1.45, 1.57, X0 + 1.0, X1 - 3.2, ms, 'epi', TOP, c, nx=16, na=24), 'type1')
+    nuc = [K.sphere(1.0, tuple(on_tube(XC + dx, 1.24, a, c)), me, seg=(14, 8), scale=(0.35, 0.12, 0.22), name='n') for dx, a in ((-4.3, 3.6), (-0.5, 4.4), (3.5, 3.4))]
+    K.part(K.join(nuc, 'endo-nuclei'), 'endothelial')
+    K.part(K.box((X1 - X0 - 1.0, 3.2, 2.6), (XC - 0.5, 1.62, -0.7), K.mat('alveolus', 0xbde0fe, 0.8, alpha=0.1), 'air'), 'alveolus', shell=True)
+    K.part(K.between((X0, -1.6, 0), (X1, -1.6, 0), 1.2, K.mat('capillary-blood', 0xff8fa3, 0.8, alpha=0.12), 'blood', seg=40), 'capillary', shell=True)
+    xb = X1 - 3.15
+    K.part(bracket(tuple(on_tube(xb, 1.25, 0.15, c)), tuple(on_tube(xb, 1.57, 0.15, c)), (0.0, 0.0, -0.25), K.mat('membrane', 0xffffff, 0.4, emit=0xffffff), 'bracket'), 'membrane')
+    if zoom_from is not None:
+        zl = K.mat('zoom', 0x8ecae6, 0.5, alpha=0.5)
+        K.decor(K.join([K.between(tuple(zoom_from), (X0 - 0.1, 3.3, -0.7), 0.02, zl, 'z', seg=6),
+                        K.between(tuple(zoom_from), (X0 - 0.1, -2.9, 0.0), 0.02, zl, 'z', seg=6)], 'zoom'), 'zoom-lines')
+    rnd = random.Random(5)
+    reds = [K.part(o, 'rbc') for o in dots(6, 0.55, K.mat('rbc', 0xc1121f, 0.45), 'rbc', seg=(20, 12), scale=(0.34, 1, 1))]
+    o2 = [K.decor(o, 'o2') for o in dots(18, 0.1, K.mat('o2', 0x48cae4, 0.4, emit=0x48cae4), 'o2')]
+    co2 = [K.decor(o, 'co2') for o in dots(14, 0.11, K.mat('co2', 0x9e9e9e, 0.5), 'co2')]
+    air = [V(rnd.uniform(X0 - 0.3, X1 - 1.2), rnd.uniform(0.6, 2.9), rnd.uniform(-1.8, 0.4)) for _ in range(40)]
+
+    def place(s, frame):
+        k1 = stage_prog(s, 3)(1)
+        for i, o in enumerate(reds):
+            u = (i / 6 + 0.12 * s) % 1.0
+            tr.pose(o, frame, V(X0 + u * (X1 - X0), -1.6 + 0.35 * math.sin(i * 2.1), -0.2 + 0.3 * math.cos(i)), q_three((0, 0, 1), 0.3 * math.sin(i)), 1 if 0.03 < u < 0.97 else HIDE)
+        for i, o in enumerate(o2):                       # the air -> across the membrane -> the blood
+            x = X0 + 1.4 + 0.33 * i
+            a = -0.4 + 0.05 * (i % 6)
+            pts = [air[i], on_tube(x, 1.7, a, c), on_tube(x, 1.3, a, c), V(x + 0.2, -1.6 + 0.4 * math.sin(i), -0.4)]
+            u = span(k1, 0.03 * i, 0.5 + 0.03 * i) if i % 3 else 0.0      # every third one stays: the two sides even out
+            tr.pose(o, frame, along(pts, u), None, 1)
+        for i, o in enumerate(co2):                      # the blood -> across -> the air
+            x = X0 + 1.6 + 0.4 * i
+            a = -0.5 + 0.06 * (i % 5)
+            pts = [V(x - 0.3, -1.6 - 0.4 * math.cos(i), -0.5), on_tube(x, 1.3, a, c), on_tube(x, 1.7, a, c), air[20 + i]]
+            u = span(k1, 0.04 * i, 0.55 + 0.04 * i) if i % 3 else 0.0
+            tr.pose(o, frame, along(pts, u), None, 1)
+    sample(place, 3, step=2)
+    tr.write()
+    return {'type1': tuple(on_tube(X0 + 1.6, 1.62, -0.5, c)), 'basement': tuple(on_tube(XC - 1.0, 1.46, 0.3, c)),
+            'endothelial': tuple(on_tube(X1 - 0.6, 1.3, 3.6, c)), 'membrane': tuple(on_tube(xb + 0.1, 1.4, 0.15, c)),
+            'alveolus': (XC - 2.5, 2.9, -0.4), 'capillary': (X0 + 0.6, -2.4, 0.2), 'rbc': (XC + 1.6, -2.1, 0.6)}
+
+
+def glomerulus():
+    """Glomerular Filtration (ABCT2326 L5 pp 9-16): on the left a renal corpuscle, the glomerular (Bowman's) capsule cut
+    open with the glomerulus inside, a tangle of capillary loops between the afferent arteriole in and the efferent
+    arteriole out, podocytes on the loops, and the proximal convoluted tubule leaving the capsule's base. On the right
+    the filter, enlarged: a glomerular capillary cut open, its endothelium holed with large pores, wrapped by the
+    pedicels (foot processes) of podocytes with slit diaphragms between them. Slider, one step each: small plasma
+    molecules cross into the capsule as filtrate; plasma proteins come up to the slits and are turned back; the filtrate
+    passes into the proximal convoluted tubule. Not to scale."""
+    K.reset()
+    tr = Track()
+    rnd = random.Random(17)
+    c, RC = V(-3.4, 0.6, 0), 4.0
+    cap = half_shell(RC, 0.2, K.mat('capsule', 0xf9dcc4, 0.55, alpha=0.75), 'capsule')
+    cap.location = T(tuple(c))
+    K.part(cap, 'capsule')
+    ma, me = K.mat('afferent', 0xd62828, 0.45), K.mat('efferent', 0xa4161a, 0.45)
+    aff = [(-8.4, 6.8, 0), (-6.3, 5.9, 0), (c.x - 0.5, c.y + RC + 0.2, 0), (c.x - 0.45, c.y + RC - 0.9, 0)]
+    eff = [(c.x + 0.45, c.y + RC - 0.9, 0), (c.x + 0.5, c.y + RC + 0.2, 0), (-0.6, 5.9, 0), (1.4, 6.7, 0)]
+    K.part(K.curve_tube(aff, 0.42, ma, 'afferent'), 'afferent')
+    K.part(K.curve_tube(eff, 0.32, me, 'efferent'), 'efferent')
+    mgl = K.mat('glomerulus', 0xe63946, 0.45)
+    loops, mids = [], []
+    for k in range(9):
+        ph = 2 * math.pi * k / 9 + rnd.uniform(-0.2, 0.2)
+        d1 = V(math.cos(ph), -0.55 + rnd.uniform(-0.3, 0.3), math.sin(ph)).normalized()
+        d2 = V(math.cos(ph + 0.55), -0.75 + rnd.uniform(-0.3, 0.3), math.sin(ph + 0.55)).normalized()
+        pts = [V(c.x - 0.45, c.y + RC - 0.9, 0), c + d1 * 1.2 + V(0, 1.6, 0), c + d1 * 2.7, c + d2 * 2.9, c + d2 * 1.3 + V(0, 1.5, 0), V(c.x + 0.45, c.y + RC - 0.9, 0)]
+        loops.append([tuple(p) for p in pts])
+        mids.append((c + d1 * 2.7, d1))
+    K.part(K.join([K.curve_tube(l, 0.24, mgl, 'loop') for l in loops], 'glomerulus'), 'glomerulus')
+    mpod = K.mat('podocyte', 0x80b918, 0.45)
+    pods = [K.sphere(0.3, tuple(p + d * 0.42), mpod, seg=(14, 8), name='pod') for p, d in mids]
+    pct_pts = [(c.x, c.y - RC + 0.3, 0), (c.x + 0.2, c.y - RC - 0.9, 0.2), (c.x + 2.0, c.y - RC - 1.8, 0.3), (c.x + 4.6, c.y - RC - 1.5, 0)]
+    K.part(K.curve_tube(pct_pts, 0.55, K.mat('pct', 0xfde68a, 0.5, alpha=0.7), 'pct'), 'pct')
+    # ---- the filter, enlarged, on the right: a capillary along x at y -0.2
+    IX0, IX1 = 2.6, 8.2
+    c2 = (-0.2, 0.0)
+
+    def fen(x, a):
+        return ((x * 2.6) % 1.0) < 0.38 and ((a * 3.2) % 1.0) < 0.38
+    K.part(wall(0.9, 1.0, IX0, IX1, K.mat('fenestrated', 0xf4a3a8, 0.5), 'endothelium', CUT, c2, nx=90, na=96, hole=fen), 'fenestrated')
+    K.decor(wall(1.0, 1.06, IX0, IX1, K.mat('basal', 0x9fa8ff, 0.6, alpha=0.6), 'bm', (-1.2, 0.5), c2, nx=8, na=24), 'basement')
+    K.decor(K.between((IX0, -0.2, 0), (IX1, -0.2, 0), 0.86, K.mat('plasma', 0xff8fa3, 0.8, alpha=0.1), 'blood', seg=32), 'plasma')
+    mped, msl = K.mat('pedicels', 0x9ef01a, 0.45), K.mat('slit', 0x3a86ff, 0.5, alpha=0.7)
+    peds, slits, slit_x = [], [], []
+    for k in range(17):
+        x = IX0 + 0.25 + 0.32 * k
+        a0, a1 = (-1.1, 0.3) if k % 2 else (-0.95, 0.45)
+        peds.append(arc_line(x, 1.15, a0, a1, mped, 'ped', c2, rr=0.11, n=12))
+        if k < 16:
+            slits.append(wall(1.06, 1.24, x + 0.13, x + 0.19, msl, 'slit', (-0.95, 0.3), c2, nx=1, na=12))
+            slit_x.append(x + 0.16)
+    body = V(5.4, 2.3, -0.5)
+    procs = [K.curve_tube([tuple(body), tuple(body + V(dx * 0.5, -0.6, 0.1)), tuple(on_tube(5.4 + dx, 1.25, -0.25, c2))], 0.13, mpod, 'process') for dx in (-1.9, -0.7, 0.6, 1.8)]
+    pods += [K.sphere(0.7, tuple(body), mpod, seg=(20, 12), name='pod')] + procs
+    K.part(K.join(pods, 'podocyte'), 'podocyte')
+    K.part(K.join(peds, 'pedicels'), 'pedicels')
+    K.part(K.join(slits, 'slit'), 'slit')
+    zl = K.mat('zoom', 0x8ecae6, 0.5, alpha=0.5)
+    zp, _ = mids[0]
+    K.decor(K.join([K.between(tuple(zp), (IX0 - 0.2, 1.3, 0), 0.015, zl, 'z', seg=6), K.between(tuple(zp), (IX0 - 0.2, -1.6, 0), 0.015, zl, 'z', seg=6)], 'zoom'), 'zoom-lines')
+    # what moves
+    fm = K.mat('filtrate', 0x48cae4, 0.4, emit=0x48cae4)
+    small = dots(14, 0.07, fm, 'filtrate')
+    tub = dots(14, 0.1, fm, 'filtrate')
+    for o in small + tub:
+        K.part(o, 'filtrate')
+    prot = []
+    for k in range(5):
+        o = K.ico(0.17, (0, 0, 0), K.mat('proteins', 0xffb703, 0.5), level=2, name='protein')
+        K.lumpy(o, 0.05, 0.3, 40 + k)
+        prot.append(K.part(K.apply(o), 'proteins'))
+    rbm = K.mat('red-cells', 0xc1121f, 0.45)
+    blood = [K.decor(o, 'red-cells') for o in dots(9, 0.16, rbm, 'rbc', scale=(0.4, 1, 1))]
+    bpaths = [[V(*p) for p in aff[:3]] + [V(*p) for p in loops[k][1:-1]] + [V(*p) for p in eff[1:]] for k in range(9)]
+
+    def place(s, frame):
+        p = stage_prog(s, 3)
+        k0, k1, k2 = p(0), p(1), p(2)
+        for i, o in enumerate(small):
+            x = slit_x[(i * 5) % len(slit_x)]
+            a = -0.35 + 0.08 * (i % 4)
+            u = span(k0, 0.04 * i, 0.5 + 0.04 * i)
+            pts = [V(x - 0.4, -0.2, -0.2), on_tube(x - 0.05, 0.95, a, c2), on_tube(x, 1.15, a, c2), on_tube(x + 0.1, 2.3, a, c2)]
+            tr.pose(o, frame, along(pts, u), None, 1 if 0.01 < u < 0.99 else HIDE)
+        for i, o in enumerate(prot):
+            x = slit_x[(i * 3 + 2) % len(slit_x)]
+            u = span(k1, 0.08 * i, 0.6 + 0.08 * i)
+            pts = [V(x - 0.5, -0.3, -0.1), on_tube(x, 0.8, -0.3, c2), V(x + 0.4, -0.25, -0.15)]
+            tr.pose(o, frame, along(pts, u), None, 1 if 0.01 < u < 0.99 else HIDE)
+        for i, o in enumerate(tub):                      # in the capsule from the start of filtration, then into the PCT
+            d = V(math.cos(1.3 * i), -0.4 - 0.4 * math.sin(0.7 * i), 0.3 * math.sin(i)).normalized()
+            start = c + d * 3.45
+            u = span(k2, 0.03 * i, 0.6 + 0.03 * i)
+            pts = [start, V(c.x + 0.1 * math.sin(i), c.y - RC + 0.4, 0.1)] + [V(*q) for q in pct_pts[1:]]
+            tr.pose(o, frame, along(pts, u), None, max(HIDE, span(k0, 0.3, 0.8)) if u < 0.97 else HIDE)
+        for i, o in enumerate(blood):
+            cycle_pose(tr, o, frame, bpaths[i], i / 9 + 0.35 * s)
+    sample(place, 3, step=2)
+    tr.write()
+    for name, at in (('capsule', tuple(c + V(-2.4, 2.6, -1.8))), ('glomerulus', tuple(c + V(0.8, 0.2, 1.6))), ('afferent', (-6.6, 6.4, 0.4)),
+                     ('efferent', (-0.4, 6.4, 0.4)), ('pct', (c.x + 3.0, c.y - RC - 1.4, 0.6)), ('podocyte', tuple(body + V(0, 0.7, 0.3))),
+                     ('pedicels', tuple(on_tube(3.2, 1.3, 0.35, c2))), ('slit', tuple(on_tube(7.0, 1.3, 0.3, c2))),
+                     ('fenestrated', tuple(on_tube(7.6, 0.95, 4.2, c2))), ('filtrate', (5.0, 2.0, 0.3)), ('proteins', (4.0, -0.4, 0.2))):
+        K.anchor(name, at)
+    VIEW['glomerulus'] = [0.2, 0.3, 1]
+    export('glomerulus', [])
+
+
+def duct():
+    """Collecting duct (ABCT2326 L5 pp 30-38): a length of cortical collecting duct, its front third cut away, its
+    wall of cells round the lumen; below it the interstitial fluid and a vasa recta capillary. Slider, one step each:
+    ADH arrives from the blood and aquaporins are inserted into the cells' lumen-side membrane, then water crosses
+    through them, out into the interstitial fluid and into the vasa recta; aldosterone arrives and Na+ is reabsorbed;
+    under aldosterone K+ is secreted from the blood into the duct. Not to scale."""
+    K.reset()
+    tr = Track()
+    X0, X1 = -6.0, 6.0
+    YD = 1.6
+    c = (YD, 0.0)
+    md = K.mat('duct', 0xffd6a5, 0.55, alpha=0.8)
+    cellwall = wall(0.95, 1.85, X0, X1, md, 'cells', CUT, c, nx=24, na=72)
+    seams = K.mat('cell-borders', 0xb07d48, 0.5)
+    lines = [arc_line(x, 1.86, CUT[0], CUT[1], seams, 'seam', c, rr=0.022, n=60) for x in [X0 + 1.5 * k for k in range(1, 8)]]
+    lines += [K.curve_tube([tuple(on_tube(x, 1.86, a, c)) for x in (X0, X1)], 0.022, seams, 'seam', res=2) for a in [CUT[0] + 0.62 * k for k in range(1, 7)]]
+    nuc = [K.sphere(1.0, tuple(on_tube(X0 + 0.75 + 1.5 * k, 1.45, a, c)), K.mat('duct-nuclei', 0x9c6644, 0.5), seg=(14, 8), scale=(0.3, 0.25, 0.25), name='n')
+           for k in range(8) for a in (math.pi, 4.3, 5.4)]
+    K.part(K.join([cellwall] + nuc, 'duct'), 'duct')
+    K.decor(K.join(lines, 'borders'), 'cell-borders')
+    K.decor(K.between((X0, YD, 0), (X1, YD, 0), 0.93, K.mat('tubular-fluid', 0xfff3b0, 0.8, alpha=0.12), 'fluid', seg=32), 'tubular-fluid')
+    K.part(K.box((X1 - X0, 2.6, 3.4), (0, -1.55, -0.3), K.mat('isf', 0x90e0ef, 0.8, alpha=0.08), 'isf'), 'isf', shell=True)
+    YV = -4.0
+    K.part(K.between((X0, YV, 0), (X1, YV, 0), 0.75, K.mat('vasa', 0xe5383b, 0.5, alpha=0.45), 'vasa', seg=32), 'vasa')
+    rbm = K.mat('red-cells', 0xc1121f, 0.45)
+    reds = [K.decor(o, 'red-cells') for o in dots(6, 0.4, rbm, 'rbc', seg=(16, 10), scale=(0.34, 1, 1))]
+    aq = [K.part(K.between((0, -0.17, 0), (0, 0.17, 0), 0.09, K.mat('aquaporins', 0x4361ee, 0.4, emit=0x4361ee), 'aqp', seg=10), 'aquaporins') for _ in range(9)]
+    aq_x = [X0 + 1.0 + 1.25 * k for k in range(9)]
+
+    def cross(x, z=0.0):
+        """lumen -> apical -> basal -> interstitial fluid -> vasa recta, at x"""
+        return [V(x, YD, z), V(x, YD - 0.9, z), V(x, YD - 1.9, z), V(x + 0.2, -1.6, 0.3), V(x + 0.3, YV, 0.0)]
+    adh = [K.part(o, 'adh') for o in dots(7, 0.11, K.mat('adh', 0xffd60a, 0.4, emit=0xffd60a), 'adh')]
+    ald = [K.part(o, 'aldosterone') for o in dots(7, 0.12, K.mat('aldosterone', 0xfb8500, 0.4, emit=0xfb8500), 'aldosterone')]
+    h2o = [K.part(o, 'h2o') for o in dots(14, 0.08, K.mat('h2o', 0x90e0ef, 0.4, emit=0x90e0ef), 'h2o')]
+    na = [K.part(o, 'na') for o in dots(12, 0.09, K.mat('na', 0x9d4edd, 0.4, emit=0x9d4edd), 'na')]
+    kk = [K.part(o, 'k') for o in dots(12, 0.1, K.mat('k', 0x80ed99, 0.4, emit=0x80ed99), 'k')]
+
+    def place(s, frame):
+        p = stage_prog(s, 3)
+        k0, k1, k2 = p(0), p(1), p(2)
+        for i, o in enumerate(reds):
+            x = X0 + ((i / 6 + 0.1 * s) % 1.0) * (X1 - X0)
+            u = (x - X0) / (X1 - X0)
+            tr.pose(o, frame, V(x, YV + 0.2 * math.sin(i), 0.2 * math.cos(i)), None, 1 if 0.03 < u < 0.97 else HIDE)
+        for i, o in enumerate(adh):                      # ADH from the blood to the cells' basal side
+            x = X0 + 1.2 + 1.6 * i
+            u = span(k0, 0.03 * i, 0.3 + 0.03 * i)
+            pts = list(reversed(cross(x)))[:3]
+            tr.pose(o, frame, along(pts, u), None, 1 if 0.01 < u and k1 < 0.2 else HIDE)
+        ins = span(k0, 0.3, 0.5)                         # aquaporins: from inside the cells to the lumen side
+        for i, o in enumerate(aq):
+            tr.pose(o, frame, V(aq_x[i], YD - 1.5 + 0.55 * ins, 0.0), None, 1)
+        for i, o in enumerate(h2o):                      # water through the aquaporins and out to the vasa recta
+            x = aq_x[i % 9] + 0.04 * (i // 9)
+            u = span(k0, 0.5 + 0.02 * i, 0.85 + 0.02 * i)
+            tr.pose(o, frame, along(cross(x, 0.05), u), None, 1 if 0.01 < u < 0.99 else HIDE)
+        for i, o in enumerate(ald):                      # aldosterone from the blood into the cells; it stays
+            x = X0 + 1.0 + 1.6 * i
+            u = span(k1, 0.03 * i, 0.3 + 0.03 * i)
+            pts = list(reversed(cross(x, -0.3)))[:3] + [V(x, YD - 1.4, -0.3)]
+            tr.pose(o, frame, along(pts, u), None, 1 if 0.01 < u else HIDE)
+        for i, o in enumerate(na):                       # Na+ reabsorbed: lumen -> blood
+            x = X0 + 0.8 + 0.88 * i
+            u = span(k1, 0.35 + 0.025 * i, 0.75 + 0.025 * i)
+            tr.pose(o, frame, along(cross(x, -0.15), u), None, 1 if 0.01 < u < 0.99 else HIDE)
+        for i, o in enumerate(kk):                       # K+ secreted: blood -> lumen
+            x = X0 + 1.1 + 0.85 * i
+            u = span(k2, 0.03 * i, 0.55 + 0.03 * i)
+            tr.pose(o, frame, along(list(reversed(cross(x, 0.15))), u), None, 1 if 0.01 < u < 0.99 else HIDE)
+    sample(place, 3, step=2)
+    tr.write()
+    for name, at in (('duct', tuple(on_tube(-4.0, 1.9, 0.2, c))), ('aquaporins', (aq_x[4], YD - 0.7, 0.3)), ('adh', (X0 + 2.8, -0.6, 0.4)),
+                     ('aldosterone', (X0 + 4.2, 0.2, 0.2)), ('isf', (4.6, -1.4, 1.3)), ('vasa', (-4.6, YV - 0.8, 0.5)), ('h2o', (aq_x[6], -1.4, 0.5)),
+                     ('na', (0.0, -2.4, 0.3)), ('k', (2.2, -0.6, 0.4))):
+        K.anchor(name, at)
+    VIEW['duct'] = [0.25, 0.3, 1]
+    export('duct', [])
+
+
+def heartwall():
+    """The Heart Wall (ABCT2326 L2 pp 21-26; HSS2011 W8 pp 7-9), as the slide's diagrammatic section: on the left a block
+    of the wall and its sac, stepped so each layer shows, from outside in: the parietal pericardium (dense fibrous
+    layer, areolar tissue, mesothelium), the pericardial cavity, the epicardium (mesothelium, areolar tissue with an
+    artery and a vein), the myocardium, the endocardium (areolar tissue, endothelium). On the right cardiac muscle
+    cells, enlarged: branching cells, each with its central nucleus and bundles of myofibrils, joined end to end by
+    intercalated discs, with desmosomes and gap junctions in the discs. Not to scale (the slide's own caution)."""
+    K.reset()
+    X0, Z0, Z1 = -7.4, -2.2, 2.2
+    D = Z1 - Z0
+
+    def slab(y0, y1, x1, m, name):
+        return K.box((x1 - X0, y1 - y0, D), ((X0 + x1) / 2, (y0 + y1) / 2, 0), m, name)
+    mf, ma, mme = K.mat('fibrous', 0xdddbd2, 0.7), K.mat('areolar', 0xfde2c8, 0.6), K.mat('mesothelium', 0x8ecae6, 0.4)
+    K.part(slab(4.9, 5.4, -5.8, mf, 'fibrous'), 'fibrous')
+    K.part(K.join([slab(4.6, 4.9, -5.4, ma, 'areolar'), slab(3.0, 3.8, -3.8, ma, 'areolar'), slab(-1.0, -0.6, -0.8, ma, 'areolar')], 'areolar'), 'areolar')
+    K.part(K.join([slab(4.5, 4.6, -5.0, mme, 'meso'), slab(3.8, 3.9, -4.4, mme, 'meso')], 'mesothelium'), 'mesothelium')
+    K.part(slab(3.9, 4.5, -4.7, K.mat('cavity', 0xcaf0f8, 0.8, alpha=0.25), 'cavity'), 'cavity', shell=True)
+    K.part(slab(-0.6, 3.0, -2.2, K.mat('myocardium', 0xb5323d, 0.55), 'myocardium'), 'myocardium')
+    K.part(slab(-1.12, -1.0, -0.4, K.mat('endothelium', 0xfff0f3, 0.5), 'endothelium'), 'endothelium')
+    # cardiac muscle cells drawn on the myocardium's front face and step
+    mc = K.mat('myocardium-cells', 0x7a1f2b, 0.5)
+    out = []
+    for r in range(5):
+        y = -0.3 + 0.68 * r
+        for k in range(4):
+            x = X0 + 0.4 + 1.25 * k + (0.6 if r % 2 else 0)
+            out.append(K.between((x, y, Z1 + 0.01), (x + 1.0, y + 0.08, Z1 + 0.01), 0.04, mc, 'm', seg=6))
+            out.append(K.between((x + 1.12, y - 0.2, Z1 + 0.01), (x + 1.12, y + 0.25, Z1 + 0.01), 0.03, mc, 'm', seg=6))
+    K.decor(K.join(out, 'myo-lines'), 'myocardium-lines')
+    # an artery and a vein in the epicardium's areolar tissue (cut ends on the front face)
+    K.part(K.between((-6.1, 3.4, Z0), (-6.1, 3.4, Z1 + 0.04), 0.28, K.mat('vessels', 0xd62828, 0.45), 'artery', seg=24), 'vessels')
+    K.decor(K.between((-5.1, 3.4, Z0), (-5.1, 3.4, Z1 + 0.04), 0.3, K.mat('vein', 0x3a6ea5, 0.45), 'vein', seg=24), 'vein')
+    tick = (0.2, 0, 0)
+    K.part(bracket((X0 - 0.25, 4.5, Z1), (X0 - 0.25, 5.4, Z1), tick, K.mat('parietal', 0xffffff, 0.4, emit=0xffffff), 'parietal'), 'parietal')
+    K.part(bracket((X0 - 0.25, 3.0, Z1), (X0 - 0.25, 3.9, Z1), tick, K.mat('epicardium', 0xfff3b0, 0.4, emit=0xfff3b0), 'epicardium'), 'epicardium')
+    K.part(bracket((X0 - 0.25, -1.12, Z1), (X0 - 0.25, -0.6, Z1), tick, K.mat('endocardium', 0xffc8dd, 0.4, emit=0xffc8dd), 'endocardium'), 'endocardium')
+    # ---- cardiac muscle cells, enlarged, on the right
+    mcell = K.mat('cells', 0xe76f51, 0.5, alpha=0.55)
+    mnuc, mfib = K.mat('nucleus', 0x5a189a, 0.45), K.mat('myofibrils', 0x9d0208, 0.45)
+    mdisc = K.mat('discs', 0x2b2d42, 0.5)
+    mdes, mgap = K.mat('desmosomes', 0xffd166, 0.4, emit=0xffd166), K.mat('gap', 0x06d6a0, 0.4, emit=0x06d6a0)
+    cells, nucs, fibs, discs, des, gaps = [], [], [], [], [], []
+    rows = (3.6, 1.9, 0.2)
+    XS = [(1.3, 3.4), (3.52, 5.62), (5.74, 7.84)]
+    for ri, y in enumerate(rows):
+        for ci, (xa, xb) in enumerate(XS):
+            xa2, xb2 = xa + (0.35 if ri == 1 and ci == 0 else 0), xb
+            cells.append(K.rounded_box((xb2 - xa2, 1.0, 1.0), ((xa2 + xb2) / 2, y, 0), mcell, 'cell', radius=0.22, segments=4))
+            nucs.append(K.sphere(1.0, ((xa2 + xb2) / 2, y, 0), mnuc, seg=(18, 10), scale=(0.34, 0.2, 0.2), name='nuc'))
+            for dy, dz in ((0.28, 0.25), (-0.28, 0.25), (0.28, -0.25), (-0.28, -0.25)):
+                fibs.append(K.between((xa2 + 0.15, y + dy, dz), (xb2 - 0.15, y + dy, dz), 0.06, mfib, 'fib', seg=8))
+            if ci < 2:
+                xd = xb + 0.06
+                discs.append(K.box((0.07, 0.95, 0.95), (xd, y, 0), mdisc, 'disc'))
+                for dy in (0.32, -0.32):
+                    des.append(K.sphere(0.075, (xd - 0.05, y + dy, 0.5), mdes, seg=(12, 8), name='des'))
+                    des.append(K.sphere(0.075, (xd + 0.05, y + dy, 0.5), mdes, seg=(12, 8), name='des'))
+                for dy in (-0.08, 0.06):
+                    gaps.append(K.between((xd - 0.12, y + dy, 0.47), (xd + 0.12, y + dy, 0.47), 0.04, mgap, 'gap', seg=8))
+    # branching: a cell's arm from the top row down to the middle row, with its own disc
+    cells.append(K.curve_tube([(2.6, 3.2, 0), (2.2, 2.6, 0), (1.85, 2.15, 0)], 0.36, mcell, 'branch'))
+    discs.append(K.box((0.07, 0.75, 0.75), (1.62, 1.95, 0), mdisc, 'disc'))
+    K.part(K.join(cells, 'cells'), 'cells')
+    K.part(K.join(nucs, 'nucleus'), 'nucleus')
+    K.part(K.join(fibs, 'myofibrils'), 'myofibrils')
+    K.part(K.join(discs, 'discs'), 'discs')
+    K.part(K.join(des, 'desmosomes'), 'desmosomes')
+    K.part(K.join(gaps, 'gap'), 'gap')
+    zl = K.mat('zoom', 0x8ecae6, 0.5, alpha=0.5)
+    K.decor(K.join([K.between((-2.2, 2.9, Z1), (1.1, 4.3, 0), 0.015, zl, 'z', seg=6), K.between((-2.2, -0.5, Z1), (1.1, -0.45, 0), 0.015, zl, 'z', seg=6)], 'zoom'), 'zoom-lines')
+    for name, at in (('fibrous', (-6.6, 5.4, 0.4)), ('areolar', (-5.6, 4.75, Z1)), ('mesothelium', (-5.2, 4.55, Z1)), ('cavity', (-5.0, 4.2, Z1)),
+                     ('parietal', (X0 - 0.3, 4.95, Z1)), ('epicardium', (X0 - 0.3, 3.45, Z1)), ('endocardium', (X0 - 0.3, -0.86, Z1)),
+                     ('myocardium', (-3.4, 3.0, 0.3)), ('endothelium', (-0.6, -1.0, 0.6)), ('vessels', (-6.1, 3.4, Z1 + 0.1)),
+                     ('cells', (6.8, 3.6, 0.5)), ('nucleus', (4.57, 1.9, 0.25)), ('myofibrils', (6.3, 0.48, 0.3)), ('discs', (3.46, 1.9, 0.5)),
+                     ('desmosomes', (5.68, 3.92, 0.55)), ('gap', (5.68, 0.15, 0.5))):
+        K.anchor(name, at)
+    VIEW['heartwall'] = [0.25, 0.3, 1]
+    export('heartwall', [])
+
+
+def three_verts(o):
+    """an object's vertices (world) and normals, in three.js coordinates"""
+    bpy.context.view_layer.update()
+    W, N = o.matrix_world, o.matrix_world.to_3x3().inverted().transposed()
+    return [(V(p.x, p.z, -p.y), V(q.x, q.z, -q.y).normalized()) for p, q in ((W @ v.co, N @ v.normal) for v in o.data.vertices)]
+
+
+def osteon():
+    """Osteon (ABCT2326 L1 pp 49-50, L9 pp 65-68; HSS2011 W1 pp 5-8), on "Long Bone" (iqcenter): a block of a long
+    bone's wall, its end face toward the viewer drawn with osteons in cross-section inside the circumferential
+    lamellae, spongy bone's trabeculae along the inner (upper right) side, two central canals opened along the right
+    face with their blood vessels, and one osteon standing out of the end face, its rings stepped like a telescope
+    (build-cell-models.mjs bone cuts these apart). Modelled here: the periosteum over the curved outer surface,
+    stepped back from the end face so each layer shows (bone surface with osteoblasts, then the cellular layer, then
+    the fibrous layer); osteocytes with their canaliculi on the stepped osteon's rings; osteoblasts and an osteoclast
+    on trabeculae; brackets for compact and spongy bone. Not to scale."""
+    K.reset()
+    rnd = random.Random(29)
+    got = PREP('bone')
+    look = {'matrix': None, 'osteon': None, 'canal': K.mat('canal', 0x3d2b1f, 0.7), 'vessels': None,
+            'trabeculae': K.mat('trabeculae', 0xe9d8a6, 0.65)}
+    objs = {}
+    for name, parts in got.items():
+        o = K.join(parts, name)
+        if look[name] is not None:
+            K.recolour(o, look[name])
+        else:                                            # the download's own colours, under the part's own materials
+            for i, m in enumerate(o.data.materials):
+                o.data.materials[i] = m.copy()
+                o.data.materials[i].name = f'{name}-{i}'
+        objs[name] = K.part(o, name)
+    block = objs['matrix']
+    vs = three_verts(block)
+    zf = max(p.z for p, _ in vs)                         # the end face
+    x0, x1 = min(p.x for p, _ in vs), max(p.x for p, _ in vs)
+    y0, y1 = min(p.y for p, _ in vs), max(p.y for p, _ in vs)
+    tv = three_verts(objs['trabeculae'])
+    ys = min(p.y for p, _ in tv)                         # where spongy bone begins
+    tx = min(p.x for p, _ in tv)
+
+    def outer(p, n):
+        """on the curved outer surface (not an end, the cut faces, the grooves of the opened canals or the hollow the
+        trabeculae fill)"""
+        return abs(n.z) < 0.3 and (n.x < -0.15 or n.y < -0.15) and p.x < x1 - 0.9 and not (p.x > tx - 0.3 and p.y > ys - 0.3)
+
+    # ---- the periosteum: the curved outer surface, thickened outward, stepped back from the end face
+    def outer_layer(thick, z_end, m, name):
+        o = block.copy()
+        o.data = block.data.copy()
+        K.link(o)
+        bm = bmesh.new()
+        bm.from_mesh(o.data)
+        bm.transform(o.matrix_world)
+        o.matrix_world = Matrix.Identity(4)
+        bmesh.ops.bisect_plane(bm, geom=bm.verts[:] + bm.edges[:] + bm.faces[:], plane_co=T((0, 0, z_end)), plane_no=(0, 1, 0))
+        drop = []
+        for f in bm.faces:
+            c, n = f.calc_center_median(), f.normal
+            c3, n3 = V(c.x, c.z, -c.y), V(n.x, n.z, -n.y)
+            if c3.z > z_end or not outer(c3, n3):
+                drop.append(f)
+        bmesh.ops.delete(bm, geom=drop, context='FACES')
+        bm.to_mesh(o.data)
+        bm.free()
+        K.recolour(o, m)
+        s = o.modifiers.new('thick', 'SOLIDIFY')
+        s.thickness, s.offset, s.use_even_offset = thick, 1.0, True
+        return K.part(K.apply(o), name)
+    outer_layer(0.12, zf - 0.7, K.mat('cellular', 0xe5989b, 0.6), 'cellular')
+    outer_layer(0.3, zf - 1.6, K.mat('fibrous', 0xc9ada7, 0.7), 'fibrous')
+    # the outer surface's outline at the end face (its long faces have corners only at the two ends), with the outer
+    # faces' normal: the bare strip in front of the cellular layer, where osteoblasts sit; round the outline
+    bm = bmesh.new()
+    bm.from_mesh(block.data)
+    bm.transform(block.matrix_world)
+    edge = {}
+    for f in bm.faces:
+        c, n = f.calc_center_median(), f.normal
+        n3 = V(n.x, n.z, -n.y)
+        if outer(V(c.x, c.z, -c.y), n3):
+            for v in f.verts:
+                p = V(v.co.x, v.co.z, -v.co.y)
+                if p.z > zf - 0.02:
+                    edge.setdefault(v.index, [p, V()])[1] += n3
+    bm.free()
+    rim = sorted([(p, n.normalized()) for p, n in edge.values()], key=lambda pn: math.atan2(-pn[0].y, -pn[0].x))
+    mbl = K.mat('osteoblasts', 0x7209b7, 0.45)
+    bl = []
+    for k in range(14):                                  # evenly along the outline
+        t = (k + 0.5) / 14
+        p, n = along([p for p, _ in rim], t), along([n for _, n in rim], t).normalized()
+        o = K.rounded_box((0.16, 0.16, 0.24), (0, 0, 0), mbl, 'ob', radius=0.05, segments=2)
+        o.location = T(tuple(p + n * 0.08 + V(0, 0, -0.3)))
+        bl.append(o)
+
+    # ---- osteocytes in lacunae on the stepped osteon's rings, their canaliculi round the ring
+    ov = three_verts(objs['osteon'])
+    cx, cy = sum(p.x for p, _ in ov) / len(ov), sum(p.y for p, _ in ov) / len(ov)
+    steps = {}
+    for p, n in ov:
+        if abs(n.z) < 0.3:                               # the cylinders' sides, not the step faces
+            r = math.hypot(p.x - cx, p.y - cy)
+            R = next((q for q in steps if abs(q - r) < 0.04), r)       # a ring's facets are a few radii
+            lo, hi = steps.pop(R, (1e9, -1e9))
+            steps[max(R, r)] = (min(lo, p.z), max(hi, p.z))
+    rings = sorted((R, z) for R, z in steps.items() if z[1] - z[0] > 0.15)
+    print('osteon rings', [(R, tuple(round(v, 2) for v in z)) for R, z in rings])
+    mcyte, mcal = K.mat('osteocytes', 0x6f1d1b, 0.5), K.mat('canaliculi', 0x99582a, 0.5)
+    cytes, cals = [], []
+    for R, (za, zb) in rings[1:]:                        # not the innermost: the canal's own lining
+        n_at = max(4, int(R * 16))
+        for k in range(n_at):
+            a = math.pi * (0.1 + 1.2 * (k + rnd.random() * 0.3) / n_at)     # the half that faces the viewer
+            for z in (za + (zb - za) * 0.33, za + (zb - za) * 0.75):
+                d = V(math.cos(a), math.sin(a), 0)
+                p = V(cx, cy, z) + d * (R + 0.005)
+                o = K.sphere(1.0, (0, 0, 0), mcyte, seg=(10, 6), name='cyte')
+                o.scale = (0.035, 0.07, 0.02)
+                o.rotation_mode = 'QUATERNION'
+                o.rotation_quaternion = T(tuple(d)).to_track_quat('Z', 'Y')
+                o.location = T(tuple(p))
+                cytes.append(o)
+                tang = V(-math.sin(a), math.cos(a), 0)
+                for s in (-1, 1):
+                    for tw in (-0.6, 0.0, 0.6):
+                        e = (tang * s + V(0, 0, tw)).normalized()
+                        cals.append(K.between(tuple(p), tuple(p + e * 0.12), 0.006, mcal, 'cal', seg=4))
+    K.part(K.join(cytes, 'osteocytes'), 'osteocytes')
+    K.part(K.join(cals, 'canaliculi'), 'canaliculi')
+
+    # ---- osteoblasts and an osteoclast on trabeculae: on their upper surfaces near the front
+    seats = [(p, n) for p, n in tv if n.y > 0.6 and p.z > zf - 2.5]
+    rnd.shuffle(seats)
+    picked = []
+    for p, n in seats:
+        if all((p - q).length > 0.6 for q, _ in picked):
+            picked.append((p, n))
+        if len(picked) >= 7:
+            break
+    for p, n in picked[1:]:
+        o = K.rounded_box((0.16, 0.16, 0.22), (0, 0, 0), mbl, 'ob', radius=0.05, segments=2)
+        o.location = T(tuple(p + n * 0.08))
+        bl.append(o)
+    K.part(K.join(bl, 'osteoblasts'), 'osteoblasts')
+    oc_at = picked[0][0] + picked[0][1] * 0.3
+    oc = K.ico(0.32, tuple(oc_at), K.mat('osteoclasts', 0x3a0ca3, 0.45), level=3, name='oc')
+    K.lumpy(oc, 0.08, 0.3, 7)
+    K.part(K.apply(oc), 'osteoclasts')
+
+    # ---- brackets beside the right face: compact bone below, spongy above
+    bx = x1 + 0.6
+    K.part(bracket((bx, y0, zf), (bx, ys - 0.05, zf), (-0.2, 0, 0), K.mat('compact', 0xffffff, 0.4, emit=0xffffff), 'compact'), 'compact')
+    K.part(bracket((bx, ys + 0.05, zf), (bx, y1, zf), (-0.2, 0, 0), K.mat('spongy', 0xfff3b0, 0.4, emit=0xfff3b0), 'spongy'), 'spongy')
+    # the periosteum's bracket spans its two layers where the fibrous layer ends, on the outline where it faces left
+    lp, ln = max(rim, key=lambda pn: -pn[1].x)
+    lp, ln = V(lp.x, lp.y, zf - 1.6), V(ln.x, ln.y, 0).normalized()
+    K.part(bracket(tuple(lp + V(0, 0, 0.05)), tuple(lp + ln * 0.42 + V(0, 0, 0.05)), (0, 0, -0.2), K.mat('periosteum', 0xffc8dd, 0.4, emit=0xffc8dd), 'periosteum'), 'periosteum')
+
+    vt = three_verts(objs['vessels'])
+    vfront = max((p for p, _ in vt if p.x > cx + 1.5), key=lambda p: p.z, default=max((p for p, _ in vt), key=lambda p: p.z))
+    ct = three_verts(objs['canal'])
+    cfront = max((p for p, _ in ct), key=lambda p: p.z)
+    mid_rim, mid_n = along([p for p, _ in rim], 0.45), along([n for _, n in rim], 0.45).normalized()
+    for name, at in (('osteon', V(cx + rings[-1][0] + 0.05, cy + 0.2, rings[-1][1][1] - 0.2)), ('canal', cfront + V(0, 0.15, 0.05)),
+                     ('vessels', vfront + V(0, 0.1, 0.05)), ('osteocytes', V(cx, cy + rings[1][0] + 0.05, rings[1][1][1] - 0.15)),
+                     ('canaliculi', V(cx - rings[-1][0] * 0.7, cy + rings[-1][0] * 0.7, (rings[-1][1][0] + rings[-1][1][1]) / 2)),
+                     ('matrix', V((x0 + x1) / 2, y0 + 1.2, zf + 0.02)),
+                     ('periosteum', lp + ln * 0.5 + V(0, 0, 0.05)), ('fibrous', lp + ln * 0.32 + V(0, 0, -1.2)), ('cellular', mid_rim + mid_n * 0.1 + V(0, 0, -1.15)),
+                     ('osteoblasts', mid_rim + mid_n * 0.16 + V(0, 0, -0.3)), ('osteoclasts', oc_at + V(0, 0.35, 0)),
+                     ('compact', V(bx, (y0 + ys) / 2, zf)), ('spongy', V(bx, (ys + y1) / 2, zf)), ('trabeculae', picked[2][0] + V(0, 0.2, 0))):
+        K.anchor(name, tuple(at))
+    VIEW['osteon'] = [-0.6, 0.35, 1]
+    export('osteon', ['bone'])

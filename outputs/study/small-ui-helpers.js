@@ -226,6 +226,11 @@ export function init() {
     setTaskPanelExpanded(open);
     if (open && isPhoneViewer()) setToolsPanelOpen(false);
   });
+  /* Atlas: the heart atlas, limb vessels and cell toggles in one row above the bar; a pick closes the row */
+  const modes = $$('viewerModes'), modesBtn = $$('viewerModesBtn');
+  const setModes = (open) => { modes.hidden = !open; modesBtn.classList.toggle('active', open); modesBtn.setAttribute('aria-expanded', String(open)); };
+  modesBtn.addEventListener('click', () => setModes(modes.hidden));
+  modes.addEventListener('click', (event) => { if (event.target.closest('button')) setModes(false); });
   /* Explore opens only when requested from the bottom bar. */
   setTaskPanelExpanded(false);
   setToolsPanelOpen(!$$('viewerToolsPanel').classList.contains('tools-collapsed'), 'spread');

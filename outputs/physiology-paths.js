@@ -9,9 +9,9 @@
  * the route definitions or the model version change, so a regenerated payload
  * is a new URL rather than a stale entry in the model cache.
  */
-export const PATH_STAMP = '6199d9659b68';
+export const PATH_STAMP = '6e4c6f59ac52';
 export const PATH_PAYLOADS = {
-  organs: { url: './assets/physiology/organs-paths.json?g=6199d9659b68', bytes: 247059, routes: 6, rejected: 3 },
-  circulatory: { url: './assets/physiology/circulatory-paths.json?g=6199d9659b68', bytes: 158606, routes: 40, rejected: 4 },
-  nervous: { url: './assets/physiology/nervous-paths.json?g=6199d9659b68', bytes: 7449, routes: 6, rejected: 2 },
+  organs: { url: './assets/physiology/organs-paths.json?g=6e4c6f59ac52', bytes: 247059, routes: 6, rejected: 3 },
+  circulatory: { url: './assets/physiology/circulatory-paths.json?g=6e4c6f59ac52', bytes: 158606, routes: 40, rejected: 4 },
+  nervous: { url: './assets/physiology/nervous-paths.json?g=6e4c6f59ac52', bytes: 7449, routes: 6, rejected: 2 },
 };

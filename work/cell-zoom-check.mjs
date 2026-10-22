@@ -18,7 +18,7 @@
  * read by its JSON chunk alone, so the check needs no glTF library.
  */
 import { readFileSync, existsSync } from 'node:fs';
-import { LEVELS, LABELS, SLIDERS, SHOW_IN_3D, CELL_SOURCES, FALLBACK, UNLABELLED, stagesFor } from '../outputs/cell-zoom.js';
+import { LEVELS, LABELS, SLIDERS, SHOW_IN_3D, CELL_SOURCES, FALLBACK, UNLABELLED, SYSTEMS, stagesFor } from '../outputs/cell-zoom.js';
 import { PARTS } from '../outputs/cell/zoom-scene.js';
 import { MODELS, MODEL_SOURCES, MODEL_LICENCE } from '../outputs/cell/models.js';
 import { DNA_STRANDS, BASE_PAIRS, HISTONE_CHAINS, NUCLEOSOME_SOURCE } from '../outputs/cell/nucleosome-3afa.js';
@@ -72,6 +72,10 @@ for (const lv of LEVELS) {
   if (lv.slider) ok(!!SLIDERS[lv.slider], `level ${lv.id}: slider ${lv.slider} exists`);
   ok(Array.isArray(LABELS[lv.id]), `level ${lv.id}: has a label list`);
 }
+const grouped = SYSTEMS.flatMap(([, ids]) => ids);
+ok(grouped.length === new Set(grouped).size, 'Go to: no level is in two body systems');
+for (const lv of LEVELS) ok(grouped.includes(lv.id), `Go to: level ${lv.id} is under a body system`);
+for (const id of grouped) ok(ids.has(id), `Go to: ${id} is a level`);
 /* Every level is in the panel's "Go to" menu; the path back from each must still end at the first level. */
 for (const lv of LEVELS) {
   const seen = []; let at = lv;

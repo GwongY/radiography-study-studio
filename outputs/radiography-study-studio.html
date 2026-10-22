@@ -224,8 +224,8 @@
         <button class="panel-toggle" id="taskPanelToggle" aria-expanded="false" aria-controls="taskPanelContent">Explore &amp; study</button>
         <div id="taskPanelContent">
         <div class="pickstack hidden" id="pickStack"></div>
-        <div class="task-kicker" id="taskKicker">Explore</div>
-        <h2 class="task-title" id="taskTitle">Select a structure</h2>
+        <div class="task-kicker" id="taskKicker" hidden></div>
+        <h2 class="task-title" id="taskTitle" hidden></h2>
         <p class="task-copy" id="taskCopy" hidden></p>
         <div class="selected" id="selectedCard"><div class="selected-name" id="selectedName">Nothing selected</div><div class="chips" id="selectedChips"></div><div id="selectedDetails"></div><div id="selectedRevise" class="sel-revise" hidden></div></div>
         </div>
@@ -265,7 +265,8 @@
       </div>
     </div>
 </section></div>
-<div class="ctrlpill"><button class="icon-btn" id="viewerExploreBtn" aria-expanded="false" aria-controls="taskCard">Explore</button><button class="icon-btn" data-tsec="spread" aria-expanded="false" aria-controls="viewerToolsPanel">Tools</button><button class="icon-btn" data-tsec="regions" aria-expanded="false" aria-controls="viewerToolsPanel">Regions</button><button class="icon-btn" id="resetBtn" aria-label="Reset view">Reset</button><button class="icon-btn" id="focusBtn">Focus</button></div>
+<div class="modegroup" id="viewerModes" role="group" aria-label="Atlases" hidden></div>
+<div class="ctrlpill"><button class="icon-btn" id="viewerExploreBtn" aria-expanded="false" aria-controls="taskCard">Explore</button><button class="icon-btn" id="viewerModesBtn" aria-expanded="false" aria-controls="viewerModes">Atlas</button><button class="icon-btn" data-tsec="spread" aria-expanded="false" aria-controls="viewerToolsPanel">Tools</button><button class="icon-btn" data-tsec="regions" aria-expanded="false" aria-controls="viewerToolsPanel">Regions</button><button class="icon-btn" id="resetBtn" aria-label="Reset view">Reset</button><button class="icon-btn" id="focusBtn">Focus</button></div>
     </div>
             </div>
             <div id="viewerXrayPane" class="hidden">

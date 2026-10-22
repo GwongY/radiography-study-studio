@@ -21,8 +21,7 @@ import { $, els, state, prefersStill } from './imports.js';
 import { applyLayers } from './live-physiology.js';
 import { showToast } from './modes-and-bridge.js';
 import { frameWorldBox, restoreSnapshot, takeSnapshot } from './heart-atlas.js';
-import { LEVELS, LABELS, SLIDERS, CELL_SOURCES, levelById, stagesFor, zoomFrom } from '../cell-zoom.js?v=1';
-import { modelCredit } from '../cell/models.js?v=1';
+import { LEVELS, LABELS, SLIDERS, CELL_SOURCES, SYSTEMS, levelById, stagesFor, zoomFrom } from '../cell-zoom.js?v=1';
 import { modelMeshName } from '../search-name.js';
 
 let zoom = null;            /* createCellZoom() result, built once */
@@ -67,12 +66,10 @@ function setDockMode(on) {
 
 /* ---- the panel ---- */
 function panelHtml() {
-  /* "Go to": every level, grouped by the source of its first page */
-  const groups = new Map();
-  for (const lv of LEVELS) { const k = CELL_SOURCES[lv.cite[0].ref]; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(lv); }
-  const options = [...groups].map(([k, lvs]) => `<optgroup label="${esc(k)}">${lvs.map((lv) => `<option value="${lv.id}">${esc(lv.title)}</option>`).join('')}</optgroup>`).join('');
+  /* "Go to": every level, grouped by body system (anatomy and physiology together) */
+  const options = SYSTEMS.map(([k, ids]) => `<optgroup label="${esc(k)}">${ids.map(levelById).map((lv) => `<option value="${lv.id}">${esc(lv.title)}</option>`).join('')}</optgroup>`).join('');
   return `
-  <div class="ha-head"><strong>Cell</strong><span>from the slides</span><button type="button" id="cz-close" aria-label="Close cell zoom">Close</button></div>
+  <div class="ha-head"><strong>Cell</strong><button type="button" id="cz-close" aria-label="Close cell zoom">Close</button></div>
   <div class="ha-scroll">
     <nav class="mz-path" id="cz-path" aria-label="Levels"></nav>
     <div class="ha-row mz-nav"><button type="button" id="cz-out">← Zoom out</button><button type="button" id="cz-in" class="primary">Zoom in →</button><span id="cz-side" class="cz-side"></span></div>
@@ -92,7 +89,7 @@ function panelHtml() {
     <ol class="mz-labels" id="cz-labels" aria-label="Labels"></ol>
     <article class="ha-info mz-info" id="cz-info" aria-live="polite" hidden><strong id="cz-infoTitle"></strong><div id="cz-infoNote"></div><small id="cz-infoCite"></small><div class="sel-revise mz-revise" data-cz-revise="label" hidden></div></article>
     <p class="ha-credit cz-model" id="cz-model" aria-live="polite" hidden></p>
-    <p class="ha-credit">Nucleosome: PDB 3AFA (Tachiwana et al. 2010; CC0). <a href="./THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Notices</a></p>
+    <p class="ha-credit"><a href="./THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Model credits</a></p>
   </div>`;
 }
 
@@ -346,7 +343,7 @@ function paintModelNote(id, text) {
 }
 async function ensureModel(id) {
   if (!zoom || !zoom.modelFor(id)) { paintModelNote(id, ''); return; }
-  if (zoom.modelReady(id)) { paintModelNote(id, `3D model: ${modelCredit(id)}.`); return; }
+  if (zoom.modelReady(id)) { paintModelNote(id, ''); return; }
   paintModelNote(id, 'Loading the 3D model…');
   try {
     if (!(await zoom.loadModel(id, loadGLTF)) || !state.cellZoomOn) return;
@@ -356,7 +353,7 @@ async function ensureModel(id) {
     return;
   }
   if (id !== current) return;
-  paintModelNote(id, `3D model: ${modelCredit(id)}.`);
+  paintModelNote(id, '');
   /* the model's parts take over: stage, highlight and label presence again, then settle the camera on it */
   if (sliderOf(id)) setStage(stageVal[id] ?? 0, true);
   if (selected) setHighlight(selected, true);
@@ -592,7 +589,7 @@ export function init() {
     if (state.cellZoomOn) exitCellZoom();
     else void enterCellZoom().catch((error) => { console.error('Cell zoom toggle failed.', error); showToast(loadFailureMessage()); });
   };
-  dock.appendChild(toggle);
+  ($('viewerModes') || dock).appendChild(toggle);
   /* "Zoom inside" on the selection card, as the muscle zoom has: a tapped organ or vessel opens the level inside it */
   const card = $('selectedCard');
   if (card) {

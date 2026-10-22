@@ -60,7 +60,7 @@ function loadFailureMessage() {
 
 function panelHtml() {
   return `
-  <div class="ha-head"><strong>Limb vessels</strong><span>BetterHeart</span><button type="button" id="la-close" aria-label="Close limb vessels">Close</button></div>
+  <div class="ha-head"><strong>Limb vessels</strong><button type="button" id="la-close" aria-label="Close limb vessels">Close</button></div>
   <div class="ha-scroll">
     <div class="ha-row" id="la-presets" role="group" aria-label="Scenario"></div>
     <label class="ha-check"><input type="checkbox" id="la-context"> Show the skeleton around the vessels</label>
@@ -77,7 +77,7 @@ function panelHtml() {
       <p id="la-procCaption" class="ha-proc-caption" aria-live="polite"></p>
     </section>
     <article class="ha-info" aria-live="polite"><strong id="la-infoTitle"></strong><span id="la-infoCat"></span><p id="la-infoText"></p></article>
-    <p class="ha-credit">Limb routes and procedure animations: BetterHeart, vessels CC BY-SA 4.0, from BodyParts3D / Z-Anatomy. <a href="./heart/MODEL-NOTICES.txt" target="_blank" rel="noopener">Sources and licence</a></p>
+    <p class="ha-credit"><a href="./heart/MODEL-NOTICES.txt" target="_blank" rel="noopener">Model credits</a></p>
   </div>`;
 }
 
@@ -340,7 +340,7 @@ export function init() {
     if (state.limbAtlasOn) exitLimbAtlas();
     else void enterLimbAtlas().catch((error) => { console.error('Limb vessels toggle failed.', error); showToast(loadFailureMessage()); });
   };
-  dock.appendChild(toggle);
+  ($('viewerModes') || dock).appendChild(toggle);
   window.__osteo = window.__osteo || {};
   const heartExit = window.__osteo.exitHeartAtlas;
   Object.assign(window.__osteo, {

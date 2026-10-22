@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1047 —
-  0d89c00393bec08d  WHOLE SET
+— user-facing strings in outputs/ — 1041 —
+  ca50da96a5ea24e7  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -93,7 +93,6 @@
   ac30f30602e06aa0  3003 parts
   5bc27994a6e1afa3  3D is unavailable, so the projection cannot be drawn.
   58982e92cc27e4fa  3D model unavailable
-  299aa8c70bc621fe  3D model:
   69ea32698864c4c1  3D scene not ready
   27bd7fece1d0b1aa  4.2 Head and Neck.pdf
   dd8fe4c9c3840f24  4.3 Upper and Lower Limbs.pdf
@@ -388,7 +387,6 @@
   c33b6aacc31eb4bc  Heart atlas scenario failed to load
   a01e69ecda6b2a0a  Heart atlas selection cleanup failed
   4ef6cff4e69f817a  Heart atlas toggle failed.
-  831bef238aea50ce  Heart model and teaching scripts: BetterHeart, meshes CC BY-SA 4.0, from BodyParts3D / Z-Anatomy.
   1dd81b3e6efbe82c  Heartbeat and schematic ECG
   2a7c8d2f587fec15  Hidden (
   33832e6712de5c86  Hide this
@@ -447,7 +445,6 @@
   f8da99dc7400ec37  Legacy binary .ppt, not readable offline. Superseded here by Lec6_Reproduction.pdf, which is the same lecture in a readable form.
   4e0daaeb43239f40  Lift out whatever sits in front of the cavity.
   ecfc1f95e84fd1fe  Ligaments and joints
-  a0787f112df22192  Limb routes and procedure animations: BetterHeart, vessels CC BY-SA 4.0, from BodyParts3D / Z-Anatomy.
   5d92523f2489ac18  Limb vessels
   fb1a1372b5ceaba2  Limb vessels animation stopped; closing the mode.
   9edaf73ab1c50e21  Limb vessels controls
@@ -497,6 +494,7 @@
   0dfab81b0e03a15c  Mind map of the topics learnt so far. Use the Find box or the Jump to menu for a text route into the same content.
   57fe077d62f2439c  Model and images in one place
   0786ba6804f53fd4  Model answers for every module revision exercise. Same content as the Study Manual appendix; read with layout preserved so the three-column answer table resolves correctly.
+  91a8b74d6d22731d  Model credits
   5eece731d84439fc  Modelled in the
   16ad3d834f99b1f1  Module 1 Thorax/Previous Years/1.1 Cardiovascular System and Lungs (17-18)
   d9acc7d3dcc5e22f  Module 2 lecture 1 (Week 5 Nervous System), Prof Benson Lau, 43 pages. Nervous system overview, neurons (functional and structural classes), neuroglia of the CNS and PNS, myelin, synapses and neural circuits, the spinal cord (surface and cross-sectional anatomy, tracts), nerves, spinal nerves, plexuses and dermatomes. Pages 40 to 42 are clinical conditions.
@@ -505,7 +503,6 @@
   747fe599f992b303  Module 3 part one_cardiovascular system Student.pdf
   fe59e57a7a810873  More than
   4c67f0e5acff873f  Motion off. The anatomical colours stay.
-  45a259dd04325482  Muscle model: BodyParts3D, CC BY-SA 2.1 JP.
   1c6115557b0e1b10  Muscle zoom
   46d0d8e25fc0475f  Muscle zoom controls
   b28980b55a1846eb  Muscle zoom entry failed; restoring the viewer.
@@ -543,7 +540,6 @@
   f8c104249eb21c8b  Nothing selected
   a4f1b0cac239a4df  Nothing to revise on this administrative row
   ad0e73f2f15963a1  Nothing under “
-  de35f726cfee90f2  Nucleosome: PDB 3AFA (Tachiwana et al. 2010; CC0).
   a6e0c34b9bca71d0  Off. The app stops at the bottom of the viewport, leaving the strip below it empty.
   2b12d09ebcacae94  Official notes missing — see weekly gap
   2efc956104ec7d7a  Offline & storage
@@ -632,7 +628,6 @@
   1bfa470c34403319  Some tissue layers could not load. This is an incomplete projection; reopen this tab to retry.
   da72a8dda063752a  Sources & model attribution
   e42ce7f100acb20d  Sources (Year1)
-  c204e763aa80733c  Sources and licence
   781ffed29fcefcff  Sources, coverage, settings
   a5e79c9bffea95ae  Spread layout
   58f0fa59236bbc71  Spread the course body
@@ -855,7 +850,6 @@
   58c52e396dc3adee  float sgn = gl_FrontFacing ? -1.0 : 1.0;
   0b509037323249e4  float shell = uShell / max(uGraze, vCos);
   d98d17def3671391  float tau = max(0.0, texture2D(tTau, uv).r);
-  b504b5bda0270269  from the slides
   3c9bbf25a1365e5d  full height
   c99a222fc3470c4f  ghost close
   8a4081dbed1f6c62  ghost tolesson

@@ -1,8 +1,7 @@
 /*
  * Cell zoom — the cells of the other lectures, each its own level beside the typical cell.
  *
- * The plasma membrane and an epithelial cell row (ABCT2326 Cells), blood (Cardiovascular), the alveolar epithelium
- * (Respiratory), a spermatozoon in the slide's proportions (Reproduction),
+ * The plasma membrane and an epithelial cell row (ABCT2326 Cells), blood (Cardiovascular), a spermatozoon in the slide's proportions (Reproduction),
  * a neuron (HSS2011 W5 Nervous system I), an NK cell killing an abnormal cell and a phagocytic antigen-presenting
  * cell (Immune). Which page each comes from is its cite in outputs/cell-zoom.js, with the labels, stages and notes.
  * Procedural and schematic. The shared helpers are cell/kit.js. Nothing runs at module scope.
@@ -13,7 +12,6 @@ export const LECTURE_PARTS = {
   membrane: ['ecf', 'bilayer', 'heads', 'tails', 'cholesterol', 'glycolipids', 'integral', 'anchoring', 'recognition', 'enzymes', 'receptor', 'carrier', 'channels', 'microfilaments', 'cytoplasm'],
   epithelium: ['cilia', 'microvilli', 'apical', 'basolateral', 'junctions', 'basement', 'golgi', 'nucleus', 'mito'],
   blood: ['rbc', 'wbc', 'platelets', 'plasma'],
-  alveolus: ['type1', 'type2', 'surfactant', 'macrophage', 'capillary', 'endothelial'],
   sperm: ['head', 'acrosome', 'nucleus', 'neck', 'centrioles', 'middle', 'spiral', 'tail', 'sheath'],
   neuron: ['body', 'nucleus', 'nucleolus', 'nissl', 'neurofibrils', 'dendrites', 'hillock', 'axon', 'myelin', 'schwann', 'node', 'terminals'],
   nk: ['nkcell', 'abnormal', 'golgi', 'vesicles', 'perforin', 'pores'],
@@ -165,29 +163,6 @@ function buildBlood(K) {
   add(g, lv, 'plasma', new THREE.Mesh(K.keep(new THREE.BoxGeometry(19, 12, 8)), mat(0xffe8a3, { opacity: 0.12, side: THREE.BackSide })), { shell: true });
   anchor(lv, 'rbc', r0.clone().add(V(0, 0.6, 0))); anchor(lv, 'wbc', wAt[0].clone().add(V(0, 1.9, 0)));
   anchor(lv, 'platelets', p0); anchor(lv, 'plasma', V(8, 5, 3.5));
-}
-
-/* ---------------------------------------------------------------- Alveolar epithelium ---- */
-function buildAlveolus(K) {
-  const { THREE, V, mat, level, add, anchor, sphere, cutSphere, tube, fib, inWedge } = K;
-  const lv = 'alveolus', g = level(lv), R = 6;
-  /* the wall: thin type I cells, with type II cells set into it; surfactant lines the inside */
-  add(g, lv, 'type1', cutSphere(R, mat(0xffc8dd, { opacity: 0.55, side: THREE.DoubleSide })), { shell: true });
-  add(g, lv, 'surfactant', cutSphere(R - 0.18, mat(0x90e0ef, { opacity: 0.35, side: THREE.DoubleSide })), { shell: true });
-  const t2 = fib(14).filter((p) => !inWedge(p) && p.y > -0.6).slice(0, 4);
-  const t2Mat = mat(0xc9184a);
-  for (const p of t2) { const m = sphere(0.95, t2Mat, p.clone().multiplyScalar(R - 0.1)); m.scale.set(0.95, 0.95, 0.95); add(g, lv, 'type2', m); }
-  anchor(lv, 'type1', V(-R * 0.6, R * 0.6, R * 0.3)); anchor(lv, 'surfactant', V(-R * 0.75, -R * 0.2, -0.4));
-  anchor(lv, 'type2', t2[0].clone().multiplyScalar(R + 0.8));
-  /* an alveolar macrophage inside, on the wall */
-  const mac = V(-1.5, -R + 1.4, -1.5);
-  add(g, lv, 'macrophage', sphere(1.2, mat(0x9b5de5), mac)).scale.set(1.3, 0.8, 1.1);
-  anchor(lv, 'macrophage', mac.clone().add(V(0, 1, 0)));
-  /* a capillary wrapped over the outside: endothelial wall, blood inside */
-  const pts = []; for (let i = 0; i <= 60; i++) { const a = -0.3 + (i / 60) * 4.4; pts.push(V(-Math.sin(a) * (R + 1.0), 2.8 * Math.sin(a * 1.3) - 1, -Math.cos(a) * (R + 1.0))); }
-  add(g, lv, 'endothelial', tube(pts, 0.85, mat(0xff99ac, { opacity: 0.45, side: THREE.DoubleSide }), 200), { shell: true });
-  add(g, lv, 'capillary', tube(pts, 0.55, mat(0xd00000), 200));
-  anchor(lv, 'endothelial', pts[18].clone().add(V(0, 0.9, 0))); anchor(lv, 'capillary', pts[40]);
 }
 
 /* ---------------------------------------------------------------- Spermatozoon ---- */
@@ -408,6 +383,6 @@ function buildApc(K, stageFns) {
 }
 
 export function buildLectureCells(K, stageFns, tickFns) {
-  buildMembrane(K); buildEpithelium(K); buildBlood(K); buildAlveolus(K);
+  buildMembrane(K); buildEpithelium(K); buildBlood(K);
   buildSperm(K, tickFns); buildNeuron(K); buildNk(K, stageFns); buildApc(K, stageFns);
 }

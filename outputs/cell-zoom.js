@@ -27,6 +27,9 @@ const L8 = 'phys.l8.2026';    /* ABCT2326 Lecture 8 Nervous System, 2026 */
 const L10 = 'phys.10.2026';   /* ABCT2326 Lecture 10 Immune System, 2026 */
 const N5 = 'hss.l5.2026';     /* HSS2011 W5 Nervous system I, 2026 */
 const H8 = 'hss.l8.2026';     /* HSS2011 W8 Cardiovascular system, 2026 */
+const H1 = 'hss.msk.2026';    /* HSS2011 W1 Musculoskeletal system, 2026 */
+const L9 = 'phys.l9.2026';    /* ABCT2326 Lecture 9 Muscle (and bone), 2026 */
+const HR = 'hss.resp';        /* HSS2011 The Respiratory System (older): a fallback, see FALLBACK below */
 const HM = 'phys.hormech';    /* ABCT2326 Hormone Mechanism handout (older): a fallback, see FALLBACK below */
 const OC = 'phys.cells.old';  /* ABCT2326 Lecture 1, an older edition: a fallback, see FALLBACK below */
 
@@ -47,6 +50,9 @@ export const CELL_SOURCES = {
   [L10]: 'ABCT2326 Immune',
   [N5]: 'HSS2011 W5 Nervous system I',
   [H8]: 'HSS2011 W8 Cardiovascular system',
+  [H1]: 'HSS2011 W1 Musculoskeletal system',
+  [L9]: 'ABCT2326 Muscle',
+  [HR]: 'HSS2011 Respiratory system',
 };
 
 /*
@@ -57,6 +63,7 @@ export const CELL_SOURCES = {
 export const FALLBACK = {
   [HM]: 'The 2026 Endocrine slides do not say how cAMP reaches the gene (CREB) or what DNA a nuclear hormone receptor binds (hormone response element); this ABCT2326 handout does.',
   [OC]: 'The 2026 Lecture 1 names interphase but not its phases (its mitosis figure, p25, is headed only "INTERPHASE (G2)"); the older edition of the same lecture names G1, S and G2 and says what happens in each (p33).',
+  [HR]: 'The 2026 Respiratory slides name the respiratory membrane (pp 40, 42) but not what it is made of; the HSS2011 respiratory lecture gives its three layers (p25).',
 };
 
 /*
@@ -80,11 +87,15 @@ export const LEVELS = [
   { id: 'hemoglobin', title: 'Hemoglobin (Hb)', note: 'Each Hb binds four oxygen molecules', cite: [{ ref: L3, page: 45, match: 'hemoglobin (Hb) molecules' }, { ref: L3, page: 45, match: 'Each Hb binds four oxygen molecules' }], slider: 'hemoglobin' },
   { id: 'plasma', title: 'Plasma', note: 'Plasma proteins constitute 7-9% of plasma', cite: [{ ref: L2, page: 6, match: 'Plasma • Plasma proteins constitute 7-9% of plasma' }], back: 'blood' },
   { id: 'vessels', title: 'Structures of different types of blood vessels', note: 'Both arteries and veins have the same three distinct tissue layers', cite: [{ ref: H8, page: 33, match: 'Structures of different types of blood vessels' }, { ref: H8, page: 33, match: 'Both arteries and veins have the same three distinct tissue layers' }], back: 'cell', side: 'capillaries' },
-  { id: 'capillaries', title: 'Types of Capillaries', note: 'Very thin walls--only one cell layer (endothelium).', cite: [{ ref: H8, page: 37, match: 'Types of Capillaries' }, { ref: H8, page: 35, match: 'Very thin walls--only one cell layer (endothelium).' }], back: 'vessels', slider: 'capillaries' },
-  { id: 'gutwall', title: 'Digestive Tract Layers', note: 'Four major layers of the digestive tract', cite: [{ ref: L4, page: 7, match: 'Digestive Tract Layers' }, { ref: L4, page: 7, match: 'Four major layers of the digestive tract' }], back: 'cell', side: 'parietal' },
-  { id: 'alveolus', title: 'Alveolar epithelium', note: 'Consists of simple squamous epithelium', cite: [{ ref: L3, page: 10, match: 'Alveolar epithelium – Consists of simple squamous epithelium' }], back: 'cell' },
-  { id: 'parietal', title: 'Parietal cell', note: 'Secrete intrinsic factor and hydrochloric acid (HCl)', cite: [{ ref: L4, page: 29, match: 'Parietal cell' }, { ref: L4, page: 26, match: 'Parietal Cells • Secrete intrinsic factor and hydrochloric acid (HCl)' }], back: 'cell', slider: 'parietal' },
-  { id: 'pct', title: 'The mechanism of Reabsorption in the proximal tubule', note: 'In proximal convoluted tubule, most molecules and H2O return from filtrate back to peritubular capillaries', cite: [{ ref: L5, page: 24, match: 'The mechanism of Reabsorption in the proximal tubule' }, { ref: L5, page: 21, match: 'In proximal convoluted tubule, most molecules and H2O return from filtrate back to peritubular capillaries' }], back: 'cell', slider: 'pct' },
+  { id: 'capillaries', title: 'Types of Capillaries', note: 'Very thin walls--only one cell layer (endothelium).', cite: [{ ref: H8, page: 37, match: 'Types of Capillaries' }, { ref: H8, page: 35, match: 'Very thin walls--only one cell layer (endothelium).' }], back: 'vessels', side: 'capbed', slider: 'capillaries' },
+  { id: 'capbed', title: 'The structure of the capillary bed', note: 'True capillaries make up the majority of the capillary bed.', cite: [{ ref: H8, page: 40, match: 'The structure of the capillary bed' }, { ref: H8, page: 41, match: 'True capillaries make up the majority of the capillary bed.' }], back: 'vessels', side: 'capillaries', slider: 'capbed' },
+  { id: 'gutwall', title: 'Digestive Tract Layers', note: 'Four major layers of the digestive tract', cite: [{ ref: L4, page: 7, match: 'Digestive Tract Layers' }, { ref: L4, page: 7, match: 'Four major layers of the digestive tract' }], back: 'cell', side: 'stomach' },
+  { id: 'stomach', title: 'Layers of the Stomach Wall', note: 'Each gastric pit communicates with several gastric glands', cite: [{ ref: L4, page: 24, match: 'Layers of the Stomach Wall' }, { ref: L4, page: 23, match: 'Each gastric pit communicates with several gastric glands' }], back: 'gutwall', next: 'parietal', slider: 'stomach' },
+  { id: 'alveolus', title: 'Alveolar epithelium', note: 'Consists of simple squamous epithelium', cite: [{ ref: L3, page: 10, match: 'Alveolar epithelium – Consists of simple squamous epithelium' }, { ref: HR, page: 25, match: 'Respiratory Membrane' }, { ref: L3, page: 42, match: 'Respiratory membrane' }], back: 'cell', slider: 'alveolus' },
+  { id: 'parietal', title: 'Parietal cell', note: 'Secrete intrinsic factor and hydrochloric acid (HCl)', cite: [{ ref: L4, page: 29, match: 'Parietal cell' }, { ref: L4, page: 26, match: 'Parietal Cells • Secrete intrinsic factor and hydrochloric acid (HCl)' }], back: 'stomach', slider: 'parietal' },
+  { id: 'pct', title: 'The mechanism of Reabsorption in the proximal tubule', note: 'In proximal convoluted tubule, most molecules and H2O return from filtrate back to peritubular capillaries', cite: [{ ref: L5, page: 24, match: 'The mechanism of Reabsorption in the proximal tubule' }, { ref: L5, page: 21, match: 'In proximal convoluted tubule, most molecules and H2O return from filtrate back to peritubular capillaries' }], back: 'cell', side: ['glomerulus', 'duct'], slider: 'pct' },
+  { id: 'glomerulus', title: 'Glomerular Filtration', note: "Glomerular capillaries and Bowman's capsule form a filter for blood", cite: [{ ref: L5, page: 14, match: 'Glomerular Filtration' }, { ref: L5, page: 14, match: "Glomerular capillaries and Bowman's capsule form a filter for blood" }], back: 'cell', side: 'pct', slider: 'glomerulus' },
+  { id: 'duct', title: 'Collecting duct', note: 'Tubule ends where it empties into collecting duct.', cite: [{ ref: L5, page: 31, match: 'collecting duct' }, { ref: L5, page: 10, match: 'Tubule ends where it empties into collecting duct.' }], back: 'cell', side: 'pct', slider: 'duct' },
   { id: 'pacemaker', title: 'SA node (pacemaker) Action Potential', note: 'Membrane voltage begins at around -60mV and gradually depolarizes to -40mV threshold', cite: [{ ref: L2, page: 51, match: 'SA node (pacemaker) Action Potential' }, { ref: L2, page: 50, match: 'Membrane voltage begins at around -60mV and gradually depolarizes to -40mV threshold' }], back: 'cell', side: 'myocardial', slider: 'pacemaker' },
   { id: 'myocardial', title: 'Myocardial Action Potential', note: 'Myocardial cells have resting membrane potential of –90 mV', cite: [{ ref: L2, page: 58, match: 'Myocardial Action Potential' }, { ref: L2, page: 56, match: 'Myocardial cells have resting membrane potential of –90 mV' }], back: 'pacemaker', slider: 'myocardial' },
   { id: 'sperm', title: 'Spermatozoon', note: 'Mature sperm lacks: ER, Golgi, lysosomes, other intracellular structures', cite: [{ ref: L6, page: 8, match: 'Spermatozoon' }, { ref: L6, page: 8, match: 'Mature sperm lacks: ER, Golgi, lysosomes, other intracellular structures' }], back: 'testis' },
@@ -93,6 +104,8 @@ export const LEVELS = [
   { id: 'oogenesis', title: 'Oogenesis', note: 'First 6 months of embryonic life = produce 7 million primary oocytes.', cite: [{ ref: L6, page: 23, match: 'Oogenesis', figure: true }, { ref: L6, page: 22, match: 'First 6 months of embryonic life = produce 7 million primary oocytes.' }], back: 'meiosis', side: 'follicle', slider: 'oogenesis' },
   { id: 'neuron', title: 'Neuron: structure', cite: [{ ref: N5, page: 11, match: 'Neuron: structure' }, { ref: L8, page: 12, match: 'The Anatomy of a Multipolar Neuron' }], back: 'cell' },
   { id: 'nk', title: 'Immunological Surveillance', note: 'Is carried out by natural killer (NK) cells', cite: [{ ref: L10, page: 22, match: 'Immunological Surveillance • Is carried out by natural killer (NK) cells' }], back: 'cell', slider: 'nk' },
+  { id: 'heartwall', title: 'The Heart Wall', note: 'The proportions are not to scale; the thickness of the myocardial wall has been greatly reduced.', cite: [{ ref: L2, page: 22, match: 'The Heart Wall.' }, { ref: L2, page: 22, match: 'The proportions are not to scale; the thickness of the myocardial wall has been greatly reduced.' }], back: 'cell', side: 'myocardial' },
+  { id: 'osteon', title: 'Osteon', note: 'basic functional unit: osteon (or called Haversian system)', cite: [{ ref: L1, page: 50, match: 'Osteon' }, { ref: L9, page: 65, match: 'basic functional unit: osteon (or called Haversian system)' }], back: 'cell' },
   { id: 'apc', title: 'Phagocytic antigen-presenting cell', cite: [{ ref: L10, page: 59, match: 'Phagocytic antigen-presenting cell' }], back: 'cell', slider: 'apc' },
 ];
 
@@ -354,12 +367,16 @@ export const LABELS = {
     { id: 'progesterone', l: 'Progesterone', note: 'Progesterone peaks ~1 week after ovulation.', cite: [{ ref: L6, page: 35, match: 'Progesterone peaks ~1 week after ovulation.' }], revise: [['ABCT2326', 'p7_progesterone']] },
   ],
   alveolus: [
-    { id: 'type1', l: 'Type I pneumocytes', note: 'Majority of gas exchange occurs in type I pneumocytes', cite: [{ ref: L3, page: 10, match: 'Majority of gas exchange occurs in type I pneumocytes' }], revise: [['ABCT2326', 'p3_type1_pneumocytes']] },
+    { id: 'type1', l: 'Type I pneumocytes', note: ['Majority of gas exchange occurs in type I pneumocytes', 'Squamous epithelial cells of the alveolus'], cite: [{ ref: L3, page: 10, match: 'Majority of gas exchange occurs in type I pneumocytes' }, { ref: HR, page: 25, match: 'Squamous epithelial cells of the alveolus' }], revise: [['ABCT2326', 'p3_type1_pneumocytes']] },
     { id: 'type2', l: 'Type II pneumocytes', note: 'type II pneumocytes (septal cells) that produce surfactant', cite: [{ ref: L3, page: 10, match: 'type II pneumocytes (septal cells) that produce surfactant' }], revise: [['ABCT2326', 'p3_type2_pneumocytes']] },
     { id: 'surfactant', l: 'Surfactant', note: 'Coats alveolar surfaces and reduces surface tension', cite: [{ ref: L3, page: 13, match: 'Coats alveolar surfaces and reduces surface tension' }, { ref: L3, page: 13, match: 'Surfactant' }], revise: [['ABCT2326', 'p3_surfactant']] },
     { id: 'macrophage', l: 'Alveolar macrophage', note: 'patrolled by alveolar macrophages (dust cells)', cite: [{ ref: L3, page: 12, match: 'Alveolar macrophage' }, { ref: L3, page: 10, match: 'patrolled by alveolar macrophages (dust cells)' }], revise: [['ABCT2326', 'p3_alveolar_macrophages']] },
-    { id: 'capillary', l: 'Capillary', cite: [{ ref: L3, page: 12, match: 'Capillary' }] },
-    { id: 'endothelial', l: 'Endothelial cell of capillary', cite: [{ ref: L3, page: 12, match: 'Endothelial cell of capillary' }] },
+    { id: 'capillary', l: 'Pulmonary capillary', cite: [{ ref: L3, page: 42, match: 'Pulmonary capillary' }] },
+    { id: 'endothelial', l: 'Endothelial cell of capillary', note: 'Endothelial cells lining an adjacent capillary', cite: [{ ref: L3, page: 12, match: 'Endothelial cell of capillary' }, { ref: HR, page: 25, match: 'Endothelial cells lining an adjacent capillary' }] },
+    { id: 'basement', l: 'Fused basement membranes', note: 'between the alveolar and endothelial cells', cite: [{ ref: HR, page: 25, match: 'Fused basement membranes between the alveolar and endothelial cells' }] },
+    { id: 'membrane', l: 'Respiratory membrane', note: 'Three layers:', cite: [{ ref: L3, page: 42, match: 'Respiratory membrane' }, { ref: HR, page: 25, match: 'Three layers:' }], revise: [['ABCT2326', 'p3_resp_membrane']] },
+    { id: 'alveolus', l: 'Alveolus', note: 'Where all gas exchange takes place', cite: [{ ref: L3, page: 42, match: 'Alveolus' }, { ref: L3, page: 9, match: 'Where all gas exchange takes place' }], revise: [['ABCT2326', 'p3_alveoli']] },
+    { id: 'rbc', l: 'Red blood cells (RBCs)', note: 'Remove O2 and CO2 from plasma, allowing gases to diffuse into blood', cite: [{ ref: L3, page: 43, match: 'Red blood cells (RBCs)' }, { ref: L3, page: 43, match: 'Remove O2 and CO2 from plasma, allowing gases to diffuse into blood' }], revise: [['ABCT2326', 'p2_rbc']] },
   ],
   parietal: [
     { id: 'ca', l: 'Carbonic anhydrase', cite: [{ ref: L4, page: 29, match: 'carbonic anhydrase converts CO2 and H2O to carbonic acid (H2CO3)' }], revise: [['ABCT2326', 'p4_carbonic_anhydrase']] },
@@ -416,6 +433,97 @@ export const LABELS = {
     { id: 'glands', l: 'Exocrine glands', note: ['May contain exocrine glands', 'Secrete buffers and enzymes into digestive tract'], cite: [{ ref: L4, page: 10, match: 'May contain exocrine glands' }, { ref: L4, page: 10, match: 'Secrete buffers and enzymes into digestive tract' }] },
     { id: 'externa', l: 'Muscularis externa', note: ['Is dominated by smooth muscle cells', 'Mechanical processing', 'Movement of materials along digestive tract'], cite: [{ ref: L4, page: 11, match: 'The Muscularis Externa' }, { ref: L4, page: 11, match: 'Is dominated by smooth muscle cells' }, { ref: L4, page: 11, match: 'Mechanical processing' }, { ref: L4, page: 11, match: 'Movement of materials along digestive tract' }], revise: [['ABCT2326', 'p4_musc_externa']] },
     { id: 'serosa', l: 'Serosa', note: ['Serous membrane covering muscularis externa', 'Outer binding and protective layer'], cite: [{ ref: L4, page: 11, match: 'Serous membrane covering muscularis externa' }, { ref: L4, page: 11, match: 'Outer binding and protective layer' }], revise: [['ABCT2326', 'p4_serosa']] },
+  ],
+  capbed: [
+    { id: 'arteriole', l: 'Arterioles', note: 'Arterioles give rise to metarterioles within a capillary bed.', cite: [{ ref: H8, page: 40, match: 'Arterioles give rise to metarterioles within a capillary bed.' }], revise: [['HSS2011', 'w8_arteriole'], ['ABCT2326', 'p2_arterioles']] },
+    { id: 'metart', l: 'Metarterioles', note: 'The smooth muscle in a metarteriole regulates blood flow into the true capillaries', cite: [{ ref: H8, page: 44, match: 'Metarterioles' }, { ref: H8, page: 41, match: 'The smooth muscle in a metarteriole regulates blood flow into the true capillaries' }], revise: [['HSS2011', 'w8_metart']] },
+    { id: 'sphincter', l: 'Precapillary sphincters', note: 'Precapillary sphincters are located at the junction of a metarteriole and a capillary', cite: [{ ref: H8, page: 40, match: 'Precapillary sphincters are located at the junction of a metarteriole and a capillary' }], revise: [['ABCT2326', 'p2_precap_sphincters']] },
+    { id: 'truecap', l: 'True capillaries', note: 'True capillaries make up the majority of the capillary bed.', cite: [{ ref: H8, page: 41, match: 'True capillaries make up the majority of the capillary bed.' }], revise: [['HSS2011', 'w8_truecap']] },
+    { id: 'thorough', l: 'Thoroughfare channel', note: ['A thoroughfare channel connects the metarteriole directly to a venule, allowing blood to bypass the capillaries.', 'the thoroughfare channel connecting to the venule lacks smooth muscle'], cite: [{ ref: H8, page: 40, match: 'A thoroughfare channel connects the metarteriole directly to a venule, allowing blood to bypass the capillaries.' }, { ref: H8, page: 41, match: 'the thoroughfare channel connecting to the venule lacks smooth muscle' }], revise: [['HSS2011', 'w8_thorough']] },
+    { id: 'ava', l: 'Arteriovenous anastomosis (AVA)', note: 'Arteriovenous anastomoses (AVAs) are surrounded by smooth muscle because they act as control valves for blood flow.', cite: [{ ref: H8, page: 40, match: 'Arteriovenous anastomosis (AVA)' }, { ref: H8, page: 40, match: 'Arteriovenous anastomoses (AVAs) are surrounded by smooth muscle because they act as control valves for blood flow.' }], revise: [['HSS2011', 'w8_ava']] },
+    { id: 'venule', l: 'Postcapillary venules', note: 'Postcapillary venules collect blood from multiple capillaries exiting the capillary bed', cite: [{ ref: H8, page: 40, match: 'Postcapillary venules collect blood from multiple capillaries exiting the capillary bed' }], revise: [['HSS2011', 'w8_postcap'], ['HSS2011', 'w8_venule']] },
+    { id: 'smooth', l: 'Smooth muscle cells', cite: [{ ref: H8, page: 44, match: 'Smooth muscle cells' }], revise: [['HSS2011', 'w8_smoothmuscle']] },
+  ],
+  stomach: [
+    { id: 'pit', l: 'Gastric pit', note: 'Gastric pit (opening to gastric gland)', cite: [{ ref: L4, page: 24, match: 'Gastric pit (opening to gastric gland)' }], revise: [['ABCT2326', 'p4_gastric_pit']] },
+    { id: 'mucous', l: 'Mucous cells', cite: [{ ref: L4, page: 25, match: 'Mucous cells' }], revise: [['ABCT2326', 'p4_mucous_cells']] },
+    { id: 'gland', l: 'Gastric gland', note: 'Extend deep into underlying lamina propria', cite: [{ ref: L4, page: 25, match: 'Gastric gland' }, { ref: L4, page: 23, match: 'Extend deep into underlying lamina propria' }], revise: [['ABCT2326', 'p4_gastric_glands']] },
+    { id: 'parietal', l: 'Parietal cells', note: 'Secrete intrinsic factor and hydrochloric acid (HCl)', cite: [{ ref: L4, page: 25, match: 'Parietal cells' }, { ref: L4, page: 26, match: 'Secrete intrinsic factor and hydrochloric acid (HCl)' }], revise: [['ABCT2326', 'p4_parietal_cells']] },
+    { id: 'chief', l: 'Chief cells', note: 'Secrete pepsinogen (inactive proenzyme)', cite: [{ ref: L4, page: 25, match: 'Chief cells' }, { ref: L4, page: 26, match: 'Secrete pepsinogen (inactive proenzyme)' }], revise: [['ABCT2326', 'p4_chief_cells']] },
+    { id: 'gcell', l: 'G cell', note: 'G cells produce gastrin', cite: [{ ref: L4, page: 25, match: 'G cell' }, { ref: L4, page: 26, match: 'G cells produce gastrin' }], revise: [['ABCT2326', 'p4_g_cells']] },
+    { id: 'dcell', l: 'D cells', note: 'D cells release somatostatin, a hormone that inhibits release of gastrin', cite: [{ ref: L4, page: 26, match: 'D cells release somatostatin, a hormone that inhibits release of gastrin' }], revise: [['ABCT2326', 'p4_d_cells']] },
+    { id: 'gastrin', l: 'Gastrin', note: 'Stimulates acids and enzyme production', cite: [{ ref: L4, page: 56, match: 'Gastrin' }, { ref: L4, page: 56, match: 'Stimulates acids and enzyme production' }], revise: [['ABCT2326', 'p4_gastrin']] },
+    { id: 'somatostatin', l: 'Somatostatin', note: 'a hormone that inhibits release of gastrin', cite: [{ ref: L4, page: 26, match: 'somatostatin, a hormone that inhibits release of gastrin' }], revise: [['ABCT2326', 'p4_somatostatin']] },
+    { id: 'pepsin', l: 'Pepsin', note: 'Pepsinogen is converted by HCl in the gastric lumen to pepsin (active proteolytic enzyme)', cite: [{ ref: L4, page: 26, match: 'Pepsinogen is converted by HCl in the gastric lumen to pepsin (active proteolytic enzyme)' }], revise: [['ABCT2326', 'p4_pepsinogen'], ['ABCT2326', 'p4_pepsin']] },
+    { id: 'lamina', l: 'Lamina propria', cite: [{ ref: L4, page: 24, match: 'Lamina propria' }], revise: [['ABCT2326', 'p4_lamina_propria']] },
+    { id: 'mm', l: 'Muscularis mucosae', cite: [{ ref: L4, page: 24, match: 'Muscularis mucosae' }] },
+    { id: 'submucosa', l: 'Submucosa', cite: [{ ref: L4, page: 24, match: 'Submucosa' }], revise: [['ABCT2326', 'p4_submucosa']] },
+    { id: 'oblique', l: 'Oblique muscle', cite: [{ ref: L4, page: 24, match: 'Oblique muscle' }] },
+    { id: 'circular', l: 'Circular muscle', cite: [{ ref: L4, page: 24, match: 'Circular muscle' }] },
+    { id: 'longitudinal', l: 'Longitudinal muscle', cite: [{ ref: L4, page: 24, match: 'Longitudinal muscle' }] },
+    { id: 'externa', l: 'Muscularis externa', cite: [{ ref: L4, page: 24, match: 'Muscularis externa' }], revise: [['ABCT2326', 'p4_musc_externa']] },
+    { id: 'serosa', l: 'Serosa', cite: [{ ref: L4, page: 24, match: 'Serosa' }], revise: [['ABCT2326', 'p4_serosa']] },
+    { id: 'vessels', l: 'Artery and vein', cite: [{ ref: L4, page: 24, match: 'Artery and vein' }] },
+    { id: 'lymph', l: 'Lymphatic vessel', cite: [{ ref: L4, page: 24, match: 'Lymphatic vessel' }] },
+    { id: 'plexus', l: 'Myenteric plexus', cite: [{ ref: L4, page: 24, match: 'Myenteric plexus' }], revise: [['ABCT2326', 'p4_myenteric_plexus']] },
+  ],
+  glomerulus: [
+    { id: 'capsule', l: "Glomerular (Bowman's) Capsule", note: ['Surrounds glomerulus', 'Together they form renal corpuscle'], cite: [{ ref: L5, page: 11, match: "Glomerular (Bowman's) Capsule" }, { ref: L5, page: 11, match: 'Surrounds glomerulus' }, { ref: L5, page: 11, match: 'Together they form renal corpuscle' }], revise: [['ABCT2326', 'p5_glomerular_capsule'], ['ABCT2326', 'p5_renal_corpuscle']] },
+    { id: 'glomerulus', l: 'Glomeruli', note: 'Glomeruli are mass of capillaries inside glomerular capsule that gives rise to filtrate that enters nephron tubule', cite: [{ ref: L5, page: 9, match: 'Glomeruli are mass of capillaries inside glomerular capsule that gives rise to filtrate that enters nephron tubule' }], revise: [['ABCT2326', 'p5_glomerulus']] },
+    { id: 'fenestrated', l: 'Glomerular capillaries', note: ['fenestrated--have large pores between its endothelial cells', '100-400 times more permeable than other capillaries'], cite: [{ ref: L5, page: 14, match: 'Glomerular capillaries are fenestrated--have large pores between its endothelial cells' }, { ref: L5, page: 14, match: '100-400 times more permeable than other capillaries' }], revise: [['ABCT2326', 'p5_fenestrated_capillaries']] },
+    { id: 'podocyte', l: 'Podocytes', cite: [{ ref: L5, page: 15, match: 'podocytes of glomerular capsule' }], revise: [['ABCT2326', 'p5_podocytes']] },
+    { id: 'pedicels', l: 'Pedicels (foot processes)', cite: [{ ref: L5, page: 15, match: 'pedicels (foot processes)' }], revise: [['ABCT2326', 'p5_pedicels']] },
+    { id: 'slit', l: 'Slit diaphragms', note: 'The slit diaphragms are lined with negative charges which repel negatively-charged proteins', cite: [{ ref: L5, page: 15, match: 'slit diaphragms' }, { ref: L5, page: 16, match: 'The slit diaphragms are lined with negative charges which repel negatively-charged proteins' }], revise: [['ABCT2326', 'p5_slit_diaphragms']] },
+    { id: 'afferent', l: 'Afferent arterioles', note: 'Interlobular arteries give rise to afferent arterioles which supply glomeruli', cite: [{ ref: L5, page: 9, match: 'Interlobular arteries give rise to afferent arterioles which supply glomeruli' }], revise: [['ABCT2326', 'p5_afferent_arteriole']] },
+    { id: 'efferent', l: 'Efferent arteriole', note: 'Efferent arteriole drains glomerulus', cite: [{ ref: L5, page: 9, match: 'Efferent arteriole drains glomerulus' }], revise: [['ABCT2326', 'p5_efferent_arteriole']] },
+    { id: 'pct', l: 'Proximal convoluted tubule', note: 'Filtrate passes into proximal convoluted tubule', cite: [{ ref: L5, page: 11, match: 'Filtrate passes into proximal convoluted tubule' }], revise: [['ABCT2326', 'p5_pct']] },
+    { id: 'filtrate', l: 'Filtrate', cite: [{ ref: L5, page: 11, match: 'Filtrate passes' }], revise: [['ABCT2326', 'p5_ultrafiltrate']] },
+    { id: 'proteins', l: 'Plasma proteins', note: 'Plasma proteins are mostly excluded from the filtrate because of large size and negative charge', cite: [{ ref: L5, page: 16, match: 'Plasma proteins are mostly excluded from the filtrate because of large size and negative charge' }] },
+  ],
+  duct: [
+    { id: 'duct', l: 'Cortical collecting duct', note: 'Remaining is variably reabsorbed in distal tubule and cortical collecting duct according to bodily needs', cite: [{ ref: L5, page: 37, match: 'Remaining is variably reabsorbed in distal tubule and cortical collecting duct according to bodily needs' }], revise: [['ABCT2326', 'p5_cortical_collecting_duct'], ['ABCT2326', 'p5_collecting_duct']] },
+    { id: 'aquaporins', l: 'Aquaporins (water channels)', note: 'Stimulates insertion of aquaporins (water channels) into plasma membrane of collecting duct', cite: [{ ref: L5, page: 31, match: 'Stimulates insertion of aquaporins (water channels) into plasma membrane of collecting duct' }], revise: [['ABCT2326', 'p5_aquaporins']] },
+    { id: 'adh', l: 'ADH', note: 'Is secreted by post pituitary in response to dehydration', cite: [{ ref: L5, page: 31, match: 'Is secreted by post pituitary in response to dehydration' }, { ref: L5, page: 31, match: 'maintained by ADH' }], revise: [['ABCT2326', 'p5_adh']] },
+    { id: 'aldosterone', l: 'Aldosterone', note: 'Regulated by aldosterone (controls K+ secretion and Na+ reabsorption)', cite: [{ ref: L5, page: 37, match: 'Regulated by aldosterone (controls K+ secretion and Na+ reabsorption)' }], revise: [['ABCT2326', 'p5_aldosterone']] },
+    { id: 'isf', l: 'Interstitial fluid', note: 'When ADH is high, H2O is drawn out of collecting duct by high osmolality of interstitial fluid', cite: [{ ref: L5, page: 31, match: 'When ADH is high, H2O is drawn out of collecting duct by high osmolality of interstitial fluid' }] },
+    { id: 'vasa', l: 'Vasa recta', note: 'And reabsorbed by vasa recta', cite: [{ ref: L5, page: 31, match: 'And reabsorbed by vasa recta' }], revise: [['ABCT2326', 'p5_vasa_recta']] },
+    { id: 'h2o', l: 'H2O', cite: [{ ref: L5, page: 31, match: 'H2O is drawn out of collecting duct' }], revise: [['ABCT2326', 'p5_osmosis_h2o']] },
+    { id: 'na', l: 'Na+', note: 'When aldosterone is high all remaining Na+ is reabsorbed', cite: [{ ref: L5, page: 37, match: 'When aldosterone is high all remaining Na+ is reabsorbed' }], revise: [['ABCT2326', 'p5_sodium_ion']] },
+    { id: 'k', l: 'K+', note: 'Under aldosterone stimulation, K+ is secreted into cortical collecting duct', cite: [{ ref: L5, page: 38, match: 'Under aldosterone stimulation, K+ is secreted into cortical collecting duct' }], revise: [['ABCT2326', 'p5_potassium_ion']] },
+  ],
+  heartwall: [
+    { id: 'epicardium', l: 'Epicardium (visceral pericardium)', note: 'Covers the heart', cite: [{ ref: L2, page: 22, match: 'Epicardium (visceral pericardium)' }, { ref: L2, page: 21, match: 'Covers the heart' }], revise: [['ABCT2326', 'p2_epicardium'], ['HSS2011', 'w8_epicardium']] },
+    { id: 'myocardium', l: 'Myocardium (cardiac muscle tissue)', note: ['Muscular wall of the heart', 'Concentric layers of cardiac muscle tissue'], cite: [{ ref: L2, page: 22, match: 'Myocardium (cardiac muscle tissue)' }, { ref: L2, page: 21, match: 'Muscular wall of the heart' }, { ref: L2, page: 21, match: 'Concentric layers of cardiac muscle tissue' }], revise: [['ABCT2326', 'p2_myocardium'], ['HSS2011', 'w8_myocardium']] },
+    { id: 'endocardium', l: 'Endocardium', note: 'Simple squamous epithelium', cite: [{ ref: L2, page: 22, match: 'Endocardium' }, { ref: L2, page: 21, match: 'Endocardium (Inner Layer) • Simple squamous epithelium' }], revise: [['ABCT2326', 'p2_endocardium'], ['HSS2011', 'w8_endocardium']] },
+    { id: 'parietal', l: 'Parietal pericardium', cite: [{ ref: L2, page: 22, match: 'Parietal pericardium' }], revise: [['HSS2011', 'w8_parietal']] },
+    { id: 'fibrous', l: 'Dense fibrous layer', cite: [{ ref: L2, page: 22, match: 'Dense fibrous layer' }], revise: [['HSS2011', 'w8_fibperic']] },
+    { id: 'cavity', l: 'Pericardial cavity', note: 'Contains pericardial fluid', cite: [{ ref: L2, page: 22, match: 'Pericardial cavity' }, { ref: H8, page: 7, match: 'Contains pericardial fluid' }], revise: [['HSS2011', 'w8_pericavity']] },
+    { id: 'mesothelium', l: 'Mesothelium', note: 'Smooth, slippery surface', cite: [{ ref: L2, page: 22, match: 'Mesothelium' }, { ref: H8, page: 9, match: 'Smooth, slippery surface' }], revise: [['HSS2011', 'w8_mesothelium']] },
+    { id: 'areolar', l: 'Areolar tissue', note: 'Loose connective tissue', cite: [{ ref: L2, page: 22, match: 'Areolar tissue' }, { ref: H8, page: 9, match: 'Loose connective tissue' }], revise: [['HSS2011', 'w8_areolar']] },
+    { id: 'endothelium', l: 'Endothelium', cite: [{ ref: L2, page: 22, match: 'Endothelium' }] },
+    { id: 'vessels', l: 'Artery', cite: [{ ref: L2, page: 22, match: 'Artery' }] },
+    { id: 'cells', l: 'Cardiac muscle cells', note: ['Small size', 'Single, central nucleus', 'Branching interconnections between cells'], cite: [{ ref: L2, page: 22, match: 'Cardiac muscle cells' }, { ref: L2, page: 26, match: 'Small size' }, { ref: L2, page: 26, match: 'Single, central nucleus' }, { ref: L2, page: 26, match: 'Branching interconnections between cells' }], revise: [['HSS2011', 'w8_cardiomyocyte']] },
+    { id: 'discs', l: 'Intercalated discs', note: ['Interconnect cardiac muscle cells', 'Convey force of contraction', 'Propagate action potentials'], cite: [{ ref: L2, page: 23, match: 'Intercalated discs' }, { ref: L2, page: 23, match: 'Interconnect cardiac muscle cells' }, { ref: L2, page: 23, match: 'Convey force of contraction' }, { ref: L2, page: 23, match: 'Propagate action potentials' }], revise: [['ABCT2326', 'p2_intercalated_discs'], ['HSS2011', 'w8_icd']] },
+    { id: 'desmosomes', l: 'Desmosomes', note: 'Secured by desmosomes', cite: [{ ref: L2, page: 25, match: 'Desmosomes' }, { ref: L2, page: 23, match: 'Secured by desmosomes' }], revise: [['ABCT2326', 'p2_desmosomes'], ['HSS2011', 'w8_desmo']] },
+    { id: 'gap', l: 'Gap junction', note: 'Linked by gap junctions', cite: [{ ref: L2, page: 25, match: 'Gap junction' }, { ref: L2, page: 23, match: 'Linked by gap junctions' }], revise: [['ABCT2326', 'p2_gap_junctions'], ['HSS2011', 'w8_gapj']] },
+    { id: 'nucleus', l: 'Nucleus', cite: [{ ref: L2, page: 24, match: 'Nucleus' }] },
+    { id: 'myofibrils', l: 'Bundles of myofibrils', cite: [{ ref: L2, page: 24, match: 'Bundles of myofibrils' }] },
+  ],
+  osteon: [
+    { id: 'osteon', l: 'Osteon', note: 'basic functional unit: osteon (or called Haversian system)', cite: [{ ref: L1, page: 50, match: 'Osteon' }, { ref: L9, page: 65, match: 'basic functional unit: osteon (or called Haversian system)' }], revise: [['ABCT2326', 'p11_osteon']] },
+    { id: 'canal', l: 'Central canal', note: 'Arranged around central canals within matrix', cite: [{ ref: L1, page: 50, match: 'Central canal' }, { ref: L1, page: 49, match: 'Arranged around central canals within matrix' }] },
+    { id: 'vessels', l: 'Blood vessels', cite: [{ ref: L1, page: 50, match: 'Blood vessels' }] },
+    { id: 'osteocytes', l: 'Osteocytes', note: 'mature bone cells located in lacunae', cite: [{ ref: L1, page: 49, match: 'Bone Cells or Osteocytes' }, { ref: H1, page: 5, match: 'Osteocytes: mature bone cells located in lacunae' }], revise: [['ABCT2326', 'p1_osteocytes'], ['HSS2011', 'w1_osteocyte'], ['HSS2011', 'w1_lacunae']] },
+    { id: 'canaliculi', l: 'Canaliculi', note: 'Small channels through matrix (canaliculi) access blood supply', cite: [{ ref: L1, page: 50, match: 'Canaliculi' }, { ref: L1, page: 49, match: 'Small channels through matrix (canaliculi) access blood supply' }], revise: [['ABCT2326', 'p1_canaliculi'], ['HSS2011', 'w1_canaliculi']] },
+    { id: 'matrix', l: 'Matrix', note: ['Strong (calcified calcium salt deposits)', 'Resists shattering (flexible collagen fibers)'], cite: [{ ref: L1, page: 50, match: 'Matrix' }, { ref: L1, page: 49, match: 'Strong (calcified calcium salt deposits)' }, { ref: L1, page: 49, match: 'Resists shattering (flexible collagen fibers)' }], revise: [['ABCT2326', 'p1_matrix'], ['HSS2011', 'w1_matrix']] },
+    { id: 'periosteum', l: 'Periosteum', note: 'Covers bone surfaces', cite: [{ ref: L1, page: 50, match: 'Periosteum' }, { ref: L1, page: 49, match: 'Periosteum – Covers bone surfaces' }], revise: [['ABCT2326', 'p1_periosteum'], ['HSS2011', 'w1_periosteum']] },
+    { id: 'fibrous', l: 'Fibrous layer', cite: [{ ref: L1, page: 50, match: 'Fibrous layer' }] },
+    { id: 'cellular', l: 'Cellular layer', note: 'Inner layer is osteogenic, capable of differentiating into osteoblasts', cite: [{ ref: L1, page: 49, match: 'Cellular layer' }, { ref: H1, page: 8, match: 'Inner layer is osteogenic, capable of differentiating into osteoblasts' }] },
+    { id: 'osteoblasts', l: 'Osteoblasts', note: 'immature bone cells sitting on the outer bone', cite: [{ ref: H1, page: 5, match: 'Osteoblasts: immature bone cells sitting on the outer bone' }], revise: [['HSS2011', 'w1_osteoblast']] },
+    { id: 'osteoclasts', l: 'Osteoclasts', note: 'dissolve bone matrix and release minerals', cite: [{ ref: H1, page: 5, match: 'Osteoclasts: dissolve bone matrix and release minerals' }], revise: [['HSS2011', 'w1_osteoclast']] },
+    { id: 'compact', l: 'Compact bone', note: 'dense and solid', cite: [{ ref: L9, page: 65, match: 'Compact bone:' }, { ref: L9, page: 65, match: 'dense and solid' }], revise: [['HSS2011', 'w1_compact'], ['ABCT2326', 'p11_compact_bone']] },
+    { id: 'spongy', l: 'Spongy bone', note: 'Less dense; an open network', cite: [{ ref: L9, page: 68, match: 'Spongy bone:' }, { ref: L9, page: 68, match: 'Less dense; an open network' }], revise: [['HSS2011', 'w1_spongy'], ['ABCT2326', 'p11_spongy_bone']] },
+    { id: 'trabeculae', l: 'Trabeculae', note: 'Characterized by the presence of bone plates, called trabeculae', cite: [{ ref: L9, page: 68, match: 'Characterized by the presence of bone plates, called trabeculae' }], revise: [['HSS2011', 'w1_trabeculae'], ['ABCT2326', 'p11_trabeculae']] },
   ],
   sperm: [
     { id: 'head', l: 'Head', cite: [{ ref: L6, page: 8, match: 'Head (5' }], revise: [['ABCT2326', 'p7_sperm_head']] },
@@ -641,6 +749,48 @@ export const SLIDERS = {
     ],
     groups: {},
   },
+  capbed: {
+    stages: [
+      { id: 'closed', l: 'Closed', group: 'ava', note: 'Blood goes through capillaries for nutrient exchange.', cite: [{ ref: H8, page: 40, match: 'Closed  Blood goes through capillaries for nutrient exchange.' }], revise: [['HSS2011', 'w8_truecap']] },
+      { id: 'sphincters', l: 'Precapillary sphincters', note: 'regulate blood flow into the capillaries.', cite: [{ ref: H8, page: 40, match: 'Precapillary sphincters' }, { ref: H8, page: 40, match: 'regulate blood flow into the capillaries.' }], revise: [['ABCT2326', 'p2_precap_sphincters']] },
+      { id: 'open', l: 'Open', group: 'ava', note: 'Blood bypasses capillaries (conserves heat or redirects flow).', cite: [{ ref: H8, page: 40, match: 'Open  Blood bypasses capillaries (conserves heat or redirects flow).' }], revise: [['HSS2011', 'w8_ava']] },
+    ],
+    groups: {
+      ava: { l: 'Arteriovenous anastomosis (AVA)', note: 'they act as control valves for blood flow.', cite: [{ ref: H8, page: 40, match: 'Arteriovenous anastomosis (AVA)' }, { ref: H8, page: 40, match: 'they act as control valves for blood flow.' }] },
+    },
+  },
+  stomach: {
+    stages: [
+      { id: 'gastrin', l: 'Gastrin', note: ['G cells produce gastrin', 'Stimulates acids and enzyme production'], cite: [{ ref: L4, page: 56, match: 'Gastrin' }, { ref: L4, page: 26, match: 'G cells produce gastrin' }, { ref: L4, page: 56, match: 'Stimulates acids and enzyme production' }], revise: [['ABCT2326', 'p4_gastrin'], ['ABCT2326', 'p4_g_cells']], link: { level: 'parietal', stage: 'gastric' } },
+      { id: 'pepsin', l: 'Pepsin', note: ['Secrete pepsinogen (inactive proenzyme)', 'Pepsinogen is converted by HCl in the gastric lumen to pepsin (active proteolytic enzyme)'], cite: [{ ref: L4, page: 26, match: 'Secrete pepsinogen (inactive proenzyme)' }, { ref: L4, page: 26, match: 'Pepsinogen is converted by HCl in the gastric lumen to pepsin (active proteolytic enzyme)' }], revise: [['ABCT2326', 'p4_pepsinogen'], ['ABCT2326', 'p4_pepsin']] },
+      { id: 'somatostatin', l: 'Somatostatin', note: 'D cells release somatostatin, a hormone that inhibits release of gastrin', cite: [{ ref: L4, page: 26, match: 'D cells release somatostatin, a hormone that inhibits release of gastrin' }], revise: [['ABCT2326', 'p4_somatostatin'], ['ABCT2326', 'p4_d_cells']] },
+    ],
+    groups: {},
+  },
+  alveolus: {
+    stages: [
+      { id: 'arrive', l: 'Blood arriving in pulmonary arteries has:', note: ['Low PO2', 'High PCO2'], cite: [{ ref: L3, page: 41, match: 'Blood arriving in pulmonary arteries has: • Low PO2 • High PCO2' }], revise: [['ABCT2326', 'p3_partial_pressures']] },
+      { id: 'exchange', l: 'The concentration gradient causes:', note: ['O2 to enter blood', 'CO2 to leave blood'], cite: [{ ref: L3, page: 41, match: 'The concentration gradient causes: • O2 to enter blood • CO2 to leave blood' }], revise: [['ABCT2326', 'p3_external_resp'], ['ABCT2326', 'p3_gas_diffusion']] },
+      { id: 'equilibrium', l: 'Equilibrium', note: 'Rapid exchange allows blood and alveolar air to reach equilibrium', cite: [{ ref: L3, page: 41, match: 'Rapid exchange allows blood and alveolar air to reach equilibrium' }], revise: [['ABCT2326', 'p3_equilibrium']] },
+    ],
+    groups: {},
+  },
+  glomerulus: {
+    stages: [
+      { id: 'filter', l: 'Glomerular Filtration', note: 'To enter tubule filtrate must pass through narrow slit diaphragms formed between pedicels (foot processes) of podocytes of glomerular capsule', cite: [{ ref: L5, page: 15, match: 'Glomerular Filtration' }, { ref: L5, page: 15, match: 'To enter tubule filtrate must pass through narrow slit diaphragms formed between pedicels (foot processes) of podocytes of glomerular capsule' }], revise: [['ABCT2326', 'p5_ultrafiltrate']] },
+      { id: 'proteins', l: 'Plasma proteins', note: 'The slit diaphragms are lined with negative charges which repel negatively-charged proteins', cite: [{ ref: L5, page: 16, match: 'Plasma proteins' }, { ref: L5, page: 16, match: 'The slit diaphragms are lined with negative charges which repel negatively-charged proteins' }], revise: [['ABCT2326', 'p5_slit_diaphragms']] },
+      { id: 'tubule', l: 'Proximal convoluted tubule', note: 'Filtrate passes into proximal convoluted tubule', cite: [{ ref: L5, page: 11, match: 'Filtrate passes into proximal convoluted tubule' }], revise: [['ABCT2326', 'p5_pct']], link: { level: 'pct' } },
+    ],
+    groups: {},
+  },
+  duct: {
+    stages: [
+      { id: 'adh', l: 'ADH', note: ['Stimulates insertion of aquaporins (water channels) into plasma membrane of collecting duct', 'When ADH is high, H2O is drawn out of collecting duct by high osmolality of interstitial fluid', 'And reabsorbed by vasa recta'], cite: [{ ref: L5, page: 31, match: 'maintained by ADH' }, { ref: L5, page: 31, match: 'Stimulates insertion of aquaporins (water channels) into plasma membrane of collecting duct' }, { ref: L5, page: 31, match: 'When ADH is high, H2O is drawn out of collecting duct by high osmolality of interstitial fluid' }, { ref: L5, page: 31, match: 'And reabsorbed by vasa recta' }], revise: [['ABCT2326', 'p5_adh'], ['ABCT2326', 'p5_aquaporins']] },
+      { id: 'aldosterone', l: 'Aldosterone', note: 'When aldosterone is high all remaining Na+ is reabsorbed', cite: [{ ref: L5, page: 37, match: 'Role of Aldosterone' }, { ref: L5, page: 37, match: 'When aldosterone is high all remaining Na+ is reabsorbed' }], revise: [['ABCT2326', 'p5_aldosterone']] },
+      { id: 'secretion', l: 'Secretion', note: ['Under aldosterone stimulation, K+ is secreted into cortical collecting duct', 'All K+ in urine from secretion rather than filtration'], cite: [{ ref: L5, page: 34, match: 'secretion' }, { ref: L5, page: 38, match: 'Under aldosterone stimulation, K+ is secreted into cortical collecting duct' }, { ref: L5, page: 38, match: 'All K+ in urine from secretion rather than filtration' }], revise: [['ABCT2326', 'p5_secretion'], ['ABCT2326', 'p5_potassium_ion']] },
+    ],
+    groups: {},
+  },
 };
 
 /*
@@ -739,7 +889,6 @@ export const SHOW_IN_3D = {
     p5_potassium_ion: { level: 'pct', stage: 'pump', label: 'k' },
     p5_chloride_ion: { level: 'pct', stage: 'salt', label: 'cl' },
     p5_osmosis_h2o: { level: 'pct', stage: 'salt', label: 'h2o' },
-    p5_aquaporins: { level: 'pct', stage: 'salt', label: 'aquaporins' },
     p2_pacemaker_potential: { level: 'pacemaker', stage: 'prepotential', label: 'hcn' },
     p2_hcn_channels: { level: 'pacemaker', stage: 'prepotential', label: 'hcn' },
     p2_threshold: { level: 'pacemaker', stage: 'upstroke', label: 'threshold' },
@@ -815,6 +964,50 @@ export const SHOW_IN_3D = {
     p2_capillaries: { level: 'capillaries' },
     p2_continuous_cap: { level: 'capillaries', stage: 'continuous', label: 'continuous' },
     p2_fenestrated_cap: { level: 'capillaries', stage: 'fenestrated', label: 'fenestrated' },
+    p2_precap_sphincters: { level: 'capbed', stage: 'sphincters', label: 'sphincter' },
+    p4_gastric_pit: { level: 'stomach', label: 'pit' },
+    p4_gastric_glands: { level: 'stomach', label: 'gland' },
+    p4_chief_cells: { level: 'stomach', label: 'chief' },
+    p4_mucous_cells: { level: 'stomach', label: 'mucous' },
+    p4_d_cells: { level: 'stomach', stage: 'somatostatin', label: 'dcell' },
+    p4_somatostatin: { level: 'stomach', stage: 'somatostatin', label: 'somatostatin' },
+    p4_pepsinogen: { level: 'stomach', stage: 'pepsin', label: 'chief' },
+    p4_pepsin: { level: 'stomach', stage: 'pepsin', label: 'pepsin' },
+    p4_myenteric_plexus: { level: 'stomach', label: 'plexus' },
+    p3_resp_membrane: { level: 'alveolus', label: 'membrane' },
+    p3_external_resp: { level: 'alveolus', stage: 'exchange' },
+    p3_equilibrium: { level: 'alveolus', stage: 'equilibrium' },
+    p5_glomerulus: { level: 'glomerulus', label: 'glomerulus' },
+    p5_glomerular_capsule: { level: 'glomerulus', label: 'capsule' },
+    p5_renal_corpuscle: { level: 'glomerulus', label: 'capsule' },
+    p5_fenestrated_capillaries: { level: 'glomerulus', label: 'fenestrated' },
+    p5_podocytes: { level: 'glomerulus', label: 'podocyte' },
+    p5_pedicels: { level: 'glomerulus', label: 'pedicels' },
+    p5_slit_diaphragms: { level: 'glomerulus', stage: 'proteins', label: 'slit' },
+    p5_ultrafiltrate: { level: 'glomerulus', stage: 'filter', label: 'filtrate' },
+    p5_afferent_arteriole: { level: 'glomerulus', label: 'afferent' },
+    p5_efferent_arteriole: { level: 'glomerulus', label: 'efferent' },
+    p5_collecting_duct: { level: 'duct', label: 'duct' },
+    p5_cortical_collecting_duct: { level: 'duct', label: 'duct' },
+    p5_adh: { level: 'duct', stage: 'adh', label: 'adh' },
+    p5_aquaporins: { level: 'duct', stage: 'adh', label: 'aquaporins' },
+    p5_aldosterone: { level: 'duct', stage: 'aldosterone', label: 'aldosterone' },
+    p5_secretion: { level: 'duct', stage: 'secretion', label: 'k' },
+    p5_vasa_recta: { level: 'duct', label: 'vasa' },
+    p2_epicardium: { level: 'heartwall', label: 'epicardium' },
+    p2_myocardium: { level: 'heartwall', label: 'myocardium' },
+    p2_endocardium: { level: 'heartwall', label: 'endocardium' },
+    p2_intercalated_discs: { level: 'heartwall', label: 'discs' },
+    p2_desmosomes: { level: 'heartwall', label: 'desmosomes' },
+    p2_gap_junctions: { level: 'heartwall', label: 'gap' },
+    p1_osteocytes: { level: 'osteon', label: 'osteocytes' },
+    p1_canaliculi: { level: 'osteon', label: 'canaliculi' },
+    p1_matrix: { level: 'osteon', label: 'matrix' },
+    p1_periosteum: { level: 'osteon', label: 'periosteum' },
+    p11_osteon: { level: 'osteon', label: 'osteon' },
+    p11_compact_bone: { level: 'osteon', label: 'compact' },
+    p11_spongy_bone: { level: 'osteon', label: 'spongy' },
+    p11_trabeculae: { level: 'osteon', label: 'trabeculae' },
     p7_spermatozoa: { level: 'sperm' },
     p7_sperm_head: { level: 'sperm', label: 'head' },
     p7_acrosome: { level: 'sperm', label: 'acrosome' },
@@ -855,6 +1048,28 @@ export const SHOW_IN_3D = {
     w5_axons: { level: 'neuron', label: 'axon' },
     w5_myelin: { level: 'neuron', label: 'myelin' },
     w5_schwann: { level: 'neuron', label: 'schwann' },
+    w8_metart: { level: 'capbed', label: 'metart' },
+    w8_truecap: { level: 'capbed', stage: 'closed', label: 'truecap' },
+    w8_thorough: { level: 'capbed', stage: 'sphincters', label: 'thorough' },
+    w8_ava: { level: 'capbed', stage: 'open', label: 'ava' },
+    w8_postcap: { level: 'capbed', label: 'venule' },
+    w8_arteriole: { level: 'capbed', label: 'arteriole' },
+    w8_epicardium: { level: 'heartwall', label: 'epicardium' },
+    w8_myocardium: { level: 'heartwall', label: 'myocardium' },
+    w8_endocardium: { level: 'heartwall', label: 'endocardium' },
+    w8_icd: { level: 'heartwall', label: 'discs' },
+    w8_cardiomyocyte: { level: 'heartwall', label: 'cells' },
+    w8_mesothelium: { level: 'heartwall', label: 'mesothelium' },
+    w8_pericavity: { level: 'heartwall', label: 'cavity' },
+    w1_osteocyte: { level: 'osteon', label: 'osteocytes' },
+    w1_canaliculi: { level: 'osteon', label: 'canaliculi' },
+    w1_lacunae: { level: 'osteon', label: 'osteocytes' },
+    w1_periosteum: { level: 'osteon', label: 'periosteum' },
+    w1_compact: { level: 'osteon', label: 'compact' },
+    w1_spongy: { level: 'osteon', label: 'spongy' },
+    w1_trabeculae: { level: 'osteon', label: 'trabeculae' },
+    w1_osteoblast: { level: 'osteon', label: 'osteoblasts' },
+    w1_osteoclast: { level: 'osteon', label: 'osteoclasts' },
     w8_texterna: { level: 'vessels', label: 'externa' },
     w8_tmedia: { level: 'vessels', label: 'media' },
     w8_tintima: { level: 'vessels', label: 'intima' },
@@ -873,19 +1088,39 @@ export const SHOW_IN_3D = {
 /* Terms the geometry shows that no course source names on a page: drawn, never labelled (the check refuses them). */
 export const UNLABELLED = ['base pair', 'tetrad', 'homologous', 'linker DNA', 'H2A', 'H2B', 'H3', 'H4'];
 
+/*
+ * The panel's "Go to" menu, by body system: anatomy and physiology levels side by side under one heading, whichever
+ * lecture each cites. The headings are the app's own navigation, not a source's words; every level is in one group
+ * (work/cell-zoom-check.mjs).
+ */
+export const SYSTEMS = [
+  ['Cells and tissues', ['cell', 'nucleus', 'dna', 'nucleosome', 'centrosome', 'cycle', 'expression', 'meiosis', 'membrane', 'rmp', 'epithelium']],
+  ['Blood', ['blood', 'redcell', 'hemoglobin', 'plasma']],
+  ['Cardiovascular', ['heartwall', 'pacemaker', 'myocardial', 'vessels', 'capillaries', 'capbed']],
+  ['Respiratory', ['alveolus']],
+  ['Digestive', ['gutwall', 'stomach', 'parietal']],
+  ['Renal', ['glomerulus', 'pct', 'duct']],
+  ['Reproductive', ['testis', 'sperm', 'oogenesis', 'follicle']],
+  ['Nervous', ['neuron']],
+  ['Immune', ['nk', 'apc']],
+  ['Skeletal', ['osteon']],
+];
+
 /* The stages a slider shows for a signal (the expression slider; the others have none). */
 /*
  * "Zoom inside" from the body: a tapped structure of the 3D model opens the Cell level inside it, as a tapped muscle
  * opens the muscle zoom. Matched on the mesh's layer and name, first row that fits; muscles stay with the muscle zoom.
  */
 export const ZOOM_FROM = [
-  { layer: 'organs', name: /stomach|oesophag|esophag|duodenum|jejunum|ileum|colon|caecum|cecum|rectum|appendix|intestine/i, level: 'gutwall' },
+  { layer: 'organs', name: /stomach/i, level: 'stomach' },
+  { layer: 'organs', name: /oesophag|esophag|duodenum|jejunum|ileum|colon|caecum|cecum|rectum|appendix|intestine/i, level: 'gutwall' },
   { layer: 'organs', name: /lung/i, level: 'alveolus' },
-  { layer: 'organs', name: /^kidney/i, level: 'pct' },
+  { layer: 'organs', name: /^kidney/i, level: 'glomerulus' },
   { layer: 'organs', name: /^testis/i, level: 'testis' },
   { layer: 'organs', name: /ovary/i, level: 'follicle' },
   { layer: 'circulatory', name: /arter|aort|vein|vena|venous|trunk/i, level: 'vessels' },
-  { layer: 'circulatory', name: /^(left|right) (ventricle|atrium)/i, level: 'myocardial' },
+  { layer: 'circulatory', name: /^(left|right) (ventricle|atrium)/i, level: 'heartwall' },
+  { layer: 'skeleton', name: /^(?!.*cartilage)/i, level: 'osteon' },
   { layer: 'nervous', name: /nerve|spinal cord|brain|cerebr|cerebell|plexus/i, level: 'neuron' },
 ];
 export const zoomFrom = (layer, name) => (ZOOM_FROM.find((z) => z.layer === layer && z.name.test(name)) || {}).level || null;

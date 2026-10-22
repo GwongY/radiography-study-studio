@@ -74,11 +74,17 @@ Sketchfab downloads, each licensed CC BY 4.0 (https://creativecommons.org/licens
     (characteristics of epithelia)
   "Chromosome X" by LucasPresoto — https://sketchfab.com/3d-models/chromosome-x-4ab2fe1dfcba469097e2d0fe4a0f942b
     (the visible chromosome; the chromatids of the life cycle and meiosis)
+Downloaded 2026-10-22, also CC BY 4.0:
+  "Capillary network (毛細血管)" by yanosen — https://sketchfab.com/3d-models/capillary-network-dabe5b7050494e66be33be3bb65592f0
+    (the capillary bed: its arteriole, metarteriole, thoroughfare channel, true capillaries and venule)
+  "Long Bone" by iqcenter — https://sketchfab.com/3d-models/long-bone-900a320bdc6244bd8f6b761441031ae9
+    (the osteon: compact bone, the osteons, central canals, blood vessels and trabeculae; its nerves left out)
 Changes made to every download: simplified (fewer triangles), textures shrunk, cut into the parts the app labels
 and recoloured to them, scaled and placed in the level's frame; parts of some were reshaped to the slide's
 proportions (the spermatozoon's head, neck, middle piece and tail; the neuron's myelinated axon), made see-through
 (cells whose insides are shown), or set moving with the level's stage slider. What the downloads lack — organelles,
 membrane proteins, junctions, the nucleus and DNA levels, the life cycle, meiosis, protein synthesis and the
-hormone signals, the parietal cell, the perforin and MHC proteins, the nucleosome's surfaces from PDB 3AFA — is
-modelled in Blender for this app. Sketchfab models that were found but are CC BY-NC, or are photographs of a
+hormone signals, the parietal cell, the perforin and MHC proteins, the capillary bed's precapillary sphincters,
+smooth muscle and arteriovenous anastomosis, the osteon's periosteum and bone cells, the nucleosome's surfaces from
+PDB 3AFA — is modelled in Blender for this app. Sketchfab models that were found but are CC BY-NC, or are photographs of a
 physical model with no separable parts ("Mitosis Stage 1"…"9" by jkane326, CC BY 4.0), are not used.

@@ -239,7 +239,8 @@ def cut_sphere(r, material, name, thick, seg=(64, 32)):
 
 def alveolus():
     """The alveolus modelled here (a cut-open sac of type I cells, type II cells set in its wall, surfactant inside,
-    a capillary over it); its alveolar macrophage is the 'Macrophage' download (andrewfrueh)."""
+    a capillary over it); its alveolar macrophage is the 'Macrophage' download (andrewfrueh). Beside it, the respiratory
+    membrane enlarged, with gas exchange on the slider (modelled.membrane_inset)."""
     K.reset()
     R = 6
     wall = cut_sphere(R, K.mat('type1', 0xffc8dd, 0.6, alpha=0.6), 'type1', 0.22)
@@ -287,7 +288,11 @@ def alveolus():
     K.anchor('endothelial', (pts[12][0], pts[12][1] + 0.9, pts[12][2]))
     K.anchor('capillary', pts[27])
     del cap, endo
-    K.export(os.path.join(OUT, 'alveolus.glb'), {'czLevel': 'alveolus', 'czSources': ['macrophage']})
+    # the respiratory membrane, enlarged on the right, with the gas-exchange slider
+    at = M.membrane_inset(15.5, zoom_from=Vector(pts[6]))
+    for name in ('basement', 'membrane', 'alveolus', 'rbc'):
+        K.anchor(name, at[name])
+    K.export(os.path.join(OUT, 'alveolus.glb'), {'czLevel': 'alveolus', 'czSources': ['macrophage'], 'czView': [0.4, 0.35, 1]})
 
 
 # ------------------------------------------------------------------ the neuron ----
@@ -632,7 +637,8 @@ LEVELS = {'cell': cell, 'centrosome': M.centrosome, 'blood': blood, 'alveolus': 
           'epithelium': epithelium, 'nucleus': M.nucleus, 'dna': M.dna, 'nucleosome': M.nucleosome, 'cycle': M.cycle, 'meiosis': M.meiosis, 'nk': M.nk, 'apc': M.apc, 'parietal': M.parietal, 'expression': M.expression,
           'redcell': M.rbc_level, 'hemoglobin': M.hemoglobin, 'plasma': M.plasma, 'pct': M.pct,
           'pacemaker': M.pacemaker, 'myocardial': M.myocardial, 'rmp': M.rmp, 'testis': M.testis, 'follicle': M.follicle, 'oogenesis': M.oogenesis,
-          'vessels': M.vessels, 'capillaries': M.capillaries, 'gutwall': M.gutwall}
+          'vessels': M.vessels, 'capillaries': M.capillaries, 'gutwall': M.gutwall,
+          'capbed': M.capbed, 'stomach': M.stomach, 'glomerulus': M.glomerulus, 'duct': M.duct, 'heartwall': M.heartwall, 'osteon': M.osteon}
 
 def shots(name, seconds, folder):
     """check a level by eye: render the scene just built at the given slider values (workbench, from the level's

@@ -31,6 +31,7 @@ export const PARTS = {
   expression: ['gene', 'promoter', 'polymerase', 'mrna', 'envelope', 'pores', 'ribosome', 'rer', 'trna', 'chain', 'membrane', 'lipo', 'carrier', 'nreceptor', 'hre', 'hydro', 'gpcr', 'gprotein', 'ac', 'camp', 'kinase', 'creb'],
   ...LECTURE_PARTS,
   /* the levels that are their model and nothing else (MODEL_ONLY) */
+  alveolus: ['type1', 'type2', 'surfactant', 'macrophage', 'capillary', 'endothelial', 'basement', 'membrane', 'alveolus', 'rbc'],
   redcell: ['rbc', 'hemoglobin'],
   hemoglobin: ['globin', 'heme', 'iron', 'o2', 'co2', 'hplus'],
   plasma: ['water', 'ions', 'albumin', 'globulins', 'lipids', 'gamma', 'fibrinogen', 'plasma'],
@@ -45,11 +46,17 @@ export const PARTS = {
   vessels: ['artery', 'vein', 'externa', 'media', 'intima', 'endothelium', 'valves', 'vasa'],
   capillaries: ['continuous', 'fenestrated', 'sinusoid', 'endothelial', 'tight', 'fenestrations', 'basement', 'rbc'],
   gutwall: ['mucosa', 'epithelium', 'enteroendocrine', 'lamina', 'mm', 'submucosa', 'bloodvessels', 'lymph', 'glands', 'externa', 'serosa'],
+  capbed: ['arteriole', 'metart', 'sphincter', 'truecap', 'thorough', 'ava', 'venule', 'smooth'],
+  stomach: ['pit', 'mucous', 'gland', 'parietal', 'chief', 'gcell', 'dcell', 'gastrin', 'somatostatin', 'pepsin', 'lamina', 'mm', 'submucosa', 'oblique', 'circular', 'longitudinal', 'externa', 'serosa', 'vessels', 'lymph', 'plexus'],
+  glomerulus: ['capsule', 'glomerulus', 'fenestrated', 'podocyte', 'pedicels', 'slit', 'afferent', 'efferent', 'pct', 'filtrate', 'proteins'],
+  duct: ['duct', 'aquaporins', 'adh', 'aldosterone', 'isf', 'vasa', 'h2o', 'na', 'k'],
+  heartwall: ['epicardium', 'myocardium', 'endocardium', 'parietal', 'fibrous', 'cavity', 'mesothelium', 'areolar', 'endothelium', 'vessels', 'cells', 'discs', 'desmosomes', 'gap', 'nucleus', 'myofibrils'],
+  osteon: ['osteon', 'canal', 'vessels', 'osteocytes', 'canaliculi', 'matrix', 'periosteum', 'fibrous', 'cellular', 'osteoblasts', 'osteoclasts', 'compact', 'spongy', 'trabeculae'],
 };
 
 /* Levels drawn by no code: the Blender model (cell/models.js) is the whole level, so until it loads the level is
    empty and the viewer says "Loading the 3D model…". Newer levels are made this way (CLAUDE.md: no code-drawn 3D). */
-export const MODEL_ONLY = ['redcell', 'hemoglobin', 'plasma', 'pct', 'pacemaker', 'myocardial', 'rmp', 'testis', 'follicle', 'oogenesis', 'parietal', 'vessels', 'capillaries', 'gutwall'];
+export const MODEL_ONLY = ['redcell', 'hemoglobin', 'plasma', 'pct', 'pacemaker', 'myocardial', 'rmp', 'testis', 'follicle', 'oogenesis', 'parietal', 'vessels', 'capillaries', 'gutwall', 'capbed', 'stomach', 'alveolus', 'glomerulus', 'duct', 'heartwall', 'osteon'];
 /* the extent a model-only level frames before its model arrives (the models are built to about this size) */
 const MODEL_ONLY_EXTENT = 11;
 
