@@ -1315,7 +1315,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.hnt.2026",
     "file": "W4_Head_Neck_Trunk_2026_CKK_upload_20260920.pdf",
     "page": 14,
-    "evidence": "slide row"
+    "evidence": "named"
   },
   {
     "layer": "muscle",
@@ -1413,7 +1413,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.hnt.2026",
     "file": "W4_Head_Neck_Trunk_2026_CKK_upload_20260920.pdf",
     "page": 31,
-    "evidence": "slide row"
+    "evidence": "named"
   },
   {
     "layer": "muscle",
@@ -1482,7 +1482,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.hnt.2026",
     "file": "W4_Head_Neck_Trunk_2026_CKK_upload_20260920.pdf",
     "page": 31,
-    "evidence": "slide row"
+    "evidence": "named"
   },
   {
     "layer": "muscle",
@@ -1559,7 +1559,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.hnt.2026",
     "file": "W4_Head_Neck_Trunk_2026_CKK_upload_20260920.pdf",
     "page": 30,
-    "evidence": "slide row"
+    "evidence": "named"
   },
   {
     "layer": "muscle",
@@ -1971,7 +1971,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.ll.2026",
     "file": "Week 2_LL _2026_CKK_upload.pdf",
     "page": 33,
-    "evidence": "slide row"
+    "evidence": "named"
   },
   {
     "layer": "nervous",
@@ -2091,7 +2091,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.ul.2026",
     "file": "Week 3_UL_2026_CKK_upload.pdf",
     "page": 23,
-    "evidence": "slide row"
+    "evidence": "named"
   },
   {
     "layer": "nervous",
@@ -2123,7 +2123,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.ll.2026",
     "file": "Week 2_LL _2026_CKK_upload.pdf",
     "page": 33,
-    "evidence": "slide row"
+    "evidence": "named"
   },
   {
     "layer": "nervous",
@@ -2195,7 +2195,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.ul.2026",
     "file": "Week 3_UL_2026_CKK_upload.pdf",
     "page": 27,
-    "evidence": "slide row"
+    "evidence": "named"
   },
   {
     "layer": "nervous",
@@ -2208,10 +2208,10 @@ export const VIEWER_LECTURE_NAMES = [
   {
     "layer": "nervous",
     "name": "Sciatic nerve",
-    "ref": "hss.ll.2026",
-    "file": "Week 2_LL _2026_CKK_upload.pdf",
-    "page": 33,
-    "evidence": "slide row"
+    "ref": "hss.l5.2026",
+    "file": "2627_M2_L5_Nervous system I.pdf",
+    "page": 38,
+    "evidence": "named"
   },
   {
     "layer": "nervous",
@@ -2235,7 +2235,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.ll.2026",
     "file": "Week 2_LL _2026_CKK_upload.pdf",
     "page": 33,
-    "evidence": "slide row"
+    "evidence": "named"
   },
   {
     "layer": "nervous",
@@ -2259,14 +2259,6 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.l6.2026",
     "file": "2627_M2_L6_brain_cranial_N.pdf",
     "page": 13,
-    "evidence": "slide row"
-  },
-  {
-    "layer": "nervous",
-    "name": "Tibial nerve",
-    "ref": "hss.ll.2026",
-    "file": "Week 2_LL _2026_CKK_upload.pdf",
-    "page": 33,
     "evidence": "slide row"
   },
   {
@@ -2299,7 +2291,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.ul.2026",
     "file": "Week 3_UL_2026_CKK_upload.pdf",
     "page": 23,
-    "evidence": "slide row"
+    "evidence": "named"
   },
   {
     "layer": "nervous",

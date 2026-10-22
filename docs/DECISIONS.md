@@ -5,6 +5,18 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-22 — HSS2011 Revise drops what the lecturer said is not examined
+
+The HSS2011 lecturer listed what is not tested: specific bony-landmark names; muscle fibre types (I, IIa, IIx);
+nerve supply, except that the arm is innervated by the brachial plexus from the ventral rami of C5-T1; individual
+ligament names except the ATFL and the deltoid ligament; origin and insertion sites; facial and tongue muscles;
+suprahyoid and infrahyoid muscles; the orientation and individual names of the intrinsic back muscles (only
+splenius, erector spinae and transversospinalis); the short muscles of the foot. HSS2011 Revise (leaves, topics,
+Tables, Threads, Decoder, own words) no longer carries them. Spinal nerves, plexus levels and the cranial nerves
+are their own nervous-system lectures and stay; so do sutures (joints, not landmarks) and the origin/insertion
+definition. ABCT2326 week 11 keeps its Type I / IIA / IIX fibres: the list is HSS2011's. The viewer is a reference
+tool and keeps its labels.
+
 ### 2026-10-22 — The gamete levels are one journey, joined stage to stage
 
 The owner found Oogenesis only repeated Meiosis and asked for the stages to connect: the oocyte in its follicle, and

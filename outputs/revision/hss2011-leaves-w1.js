@@ -41,19 +41,13 @@ export const ROWS = [
 { k: 'part', id: 'w1_yellowmarrow', l: 'Yellow bone marrow', parent: 'w1_marrow', w: 1, line: 'in the cavities of long bones; adipose tissue', links: { w1_redmarrow: 'red marrow gradually transforms into yellow' }, src: [MSK, 7] },
 { k: 'part', id: 'w1_msc', l: 'Mesenchymal stem cells', parent: 'w1_yellowmarrow', w: 1, line: 'can develop into cartilage, bone, fat or muscle cells', src: [MSK, 7] },
 
-/* ---------------- types of bone and landmarks (p9-11) ---------------- */
+/* ---------------- types of bone (p9-11; landmark names are not examined) ---------------- */
 { k: 'group', id: 'w1_bonetypes', l: 'Types of Bone', parent: 'bone', w: 1, src: [MSK, 9] },
 { k: 'part', id: 'w1_longbone', l: 'Long bones', parent: 'w1_bonetypes', w: 1, line: 'tubular, in limbs; levers for muscles', src: [MSK, 9] },
 { k: 'part', id: 'w1_shortbone', l: 'Short bones', parent: 'w1_bonetypes', w: 1, line: 'cubical; support and stability with little or no movement', src: [MSK, 9] },
 { k: 'part', id: 'w1_flatbone', l: 'Flat bones', parent: 'w1_bonetypes', w: 1, line: 'flat surface for muscle attachment or protection', src: [MSK, 9] },
 { k: 'part', id: 'w1_irregbone', l: 'Irregular bones', parent: 'w1_bonetypes', w: 1, line: 'irregular or mixed shape', src: [MSK, 9] },
 { k: 'part', id: 'w1_sesamoid', l: 'Sesamoid bones', parent: 'w1_bonetypes', w: 1, line: 'small, like a sesame seed; develop inside tendons', src: [MSK, 9] },
-{ k: 'group', id: 'w1_landmarks', l: 'Bony Landmarks', parent: 'bone', w: 1, src: [MSK, 10, 11] },
-{ k: 'part', id: 'w1_lm_ramus', l: 'Ramus of the mandible', parent: 'w1_landmarks', w: 1, src: [MSK, 10] },
-{ k: 'part', id: 'w1_lm_mastoid', l: 'Mastoid process', parent: 'w1_landmarks', w: 1, src: [MSK, 10] },
-{ k: 'part', id: 'w1_lm_frontalsinus', l: 'Frontal sinus', parent: 'w1_landmarks', w: 1, src: [MSK, 11] },
-{ k: 'part', id: 'w1_lm_sphenoidalsinus', l: 'Sphenoidal sinus', parent: 'w1_landmarks', w: 1, src: [MSK, 11] },
-{ k: 'part', id: 'w1_lm_iam', l: 'Internal acoustic meatus', parent: 'w1_landmarks', w: 1, src: [MSK, 11] },
 
 /* ---------------- joints: three ways to classify (p13-16) ---------------- */
 { k: 'group', id: 'w1_jregion', l: 'Anatomical aspects (regions)', parent: 'joints', w: 1, links: { w2_j_hip: 'hip joint = acetabulofemoral joint', w2_j_knee: 'knee joint = patellofemoral / tibiofemoral joint', w2_j_ankle: 'ankle joint = talocrural joint' }, src: [MSK, 14] },
@@ -95,9 +89,7 @@ export const ROWS = [
 /* ---------------- ligaments and cartilage (p28-29) ---------------- */
 { k: 'part', id: 'w1_ligament', l: 'Ligaments', parent: 'ligcart', w: 1, line: 'join bones together and stabilise the joints', src: [MSK, 28] },
 { k: 'part', id: 'w1_intrinsic', l: 'Intrinsic ligament', parent: 'w1_ligament', w: 1, line: 'intracapsular; thickenings of the capsule that reinforce the joint', src: [MSK, 28] },
-{ k: 'part', id: 'w1_cruciate', l: 'Cruciate ligament', parent: 'w1_intrinsic', w: 1, line: 'anterior and posterior', src: [MSK, 28] },
 { k: 'part', id: 'w1_extrinsic', l: 'Extrinsic ligament', parent: 'w1_ligament', w: 1, line: 'accessory; separate from the capsule; attaches bones together', src: [MSK, 28] },
-{ k: 'part', id: 'w1_collateral', l: 'Collateral ligament', parent: 'w1_extrinsic', w: 1, line: 'medial and lateral', src: [MSK, 28] },
 { k: 'part', id: 'w1_cartilage', l: 'Cartilage', parent: 'ligcart', w: 1, line: 'strong but flexible; absorbs shock, reduces friction, supports', src: [MSK, 29] },
 { k: 'part', id: 'w1_hyaline', l: 'Hyaline cartilage', parent: 'w1_cartilage', w: 1, src: [MSK, 29] },
 { k: 'part', id: 'w1_fibrocart', l: 'Fibrocartilage', parent: 'w1_cartilage', w: 1, links: { w1_meniscus: 'fibrocartilage (meniscus) lies between the articular bones' }, src: [MSK, 29, 17] },
@@ -131,13 +123,10 @@ export const ROWS = [
 { k: 'part', id: 'w1_bipennate', l: 'Bipennate', parent: 'w1_pennate', w: 1, line: 'fascicles on both sides of a central tendon', src: [MSK, 36] },
 { k: 'part', id: 'w1_multipennate', l: 'Multipennate', parent: 'w1_pennate', w: 1, line: 'fascicles attach obliquely from many directions to several tendons', src: [MSK, 36] },
 
-/* ---------------- motor unit and fibre types (p37-38) ---------------- */
+/* ---------------- motor unit (p37-38; fibre types are not examined) ---------------- */
 { k: 'part', id: 'w1_motorunit', l: 'Motor unit', parent: 'motorunit', w: 1, line: 'motor neuron plus its fibres; 13-20 in eye muscle, 2000 in calf', src: [MSK, 37] },
 { k: 'part', id: 'w1_motorneuron', l: 'Motor neuron', parent: 'w1_motorunit', w: 1, src: [MSK, 37] },
 { k: 'part', id: 'w1_tone', l: 'Muscle tone', parent: 'motorunit', w: 1, line: 'low level of contraction even at rest; keeps muscle firm', src: [MSK, 37] },
-{ k: 'part', id: 'w1_slowox', l: 'Slow oxidative', parent: 'fibretypes', w: 1, src: [MSK, 38] },
-{ k: 'part', id: 'w1_fastox', l: 'Fast oxidative', parent: 'fibretypes', w: 1, src: [MSK, 38] },
-{ k: 'part', id: 'w1_fastgly', l: 'Fast glycolytic', parent: 'fibretypes', w: 1, src: [MSK, 38] },
 
 /* ---------------- body orientation words and planes (orientation deck p14-16) ---------------- */
 { k: 'group', id: 'w1_directions', l: 'Word pairs', parent: 'orient', w: 1, src: [ORI, 14] },

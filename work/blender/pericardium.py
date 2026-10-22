@@ -11,7 +11,8 @@ parietal and visceral layers, containing pericardial fluid).
 Everything stays in the atlas's (BetterHeart's) frame: y up, +z anterior, +x the patient's left; nothing is turned
 into Blender's axes, so the numbers go back out as they came in. Each layer is a sphere shrink-wrapped onto the heart
 at its own distance, so the sac is smooth where the epicardium follows the sulci. A window is cut in the front of
-the sac (wider in the fibrous layer than the parietal, so both edges show) to let the heart be seen inside. The
+the sac (widest in the fibrous layer, narrower in the parietal layer and narrower again in the cavity, so each layer's
+edge shows as a ring) to let the heart be seen inside. The
 pericardial cavity is drawn far wider than it is (it holds only 15-50 mL of fluid), so it can be seen and tapped.
 
 Writes outputs/heart/pericardium.json (the heart-manifest.json shape) and outputs/heart/pericardium.bin.
@@ -31,10 +32,12 @@ OBJ = os.path.join(ROOT, 'work', '.heart-build', 'heart.obj')
 OUT = os.path.join(ROOT, 'outputs', 'heart')
 
 # the layers, inside out: distance from the heart, thickness, the window's radius (0: no window), triangles kept
-EPI = dict(key='EPI', offset=0.025, thick=0.0, window=0.0, tris=5000)
-CAVITY = dict(key='PC', offset=0.165, thick=0.0, window=0.78, tris=5000)    # the volume inside the parietal layer
-PARIETAL = dict(key='PP', offset=0.165, thick=0.025, window=0.78, tris=4000)
-FIBROUS = dict(key='FP', offset=0.19, thick=0.07, window=0.95, tris=4000)
+# The windows step inward like a cut-away diagram: the fibrous layer's is widest, the parietal layer's narrower, the
+# cavity's narrower still and the epicardium has none, so each layer shows as its own ring round the one inside it.
+EPI = dict(key='EPI', offset=0.025, thick=0.0, window=0.0, tris=8000)
+CAVITY = dict(key='PC', offset=0.165, thick=0.0, window=0.66, tris=8000)    # the volume inside the parietal layer
+PARIETAL = dict(key='PP', offset=0.165, thick=0.03, window=0.88, tris=8000)
+FIBROUS = dict(key='FP', offset=0.195, thick=0.07, window=1.06, tris=8000)
 WINDOW_AT = Vector((-0.1, -0.45))          # the window's centre, (x, y), looking from the front (+z)
 TOP, BOTTOM = 1.12, -1.95                  # the sac is open above TOP (round the great vessels) and the IVC is cut at BOTTOM
 
@@ -154,6 +157,11 @@ def wrapped(target, offset, voxel, smooth, name):
     rm.voxel_size = 0.03
     apply_all(o)
     outer_skin(o)
+    # the voxel steps of that remesh read as ripples once lit; relax them without shrinking the shape
+    cs = o.modifiers.new('relax', 'CORRECTIVE_SMOOTH')
+    cs.iterations = 12
+    cs.use_only_smooth = True
+    apply_all(o)
     return o
 
 
@@ -249,7 +257,7 @@ def main():
     epi = wrapped(wall, EPI['offset'], 0.07, 4, 'EPI')    # coarse enough that the four chambers fuse into one
     out.append((EPI, layer(epi, EPI)))
     # the sac: one smooth shape round the heart and the great vessels' roots, each layer at its own distance
-    sac = lambda spec: wrapped(sac_target, spec['offset'], 0.12, 30, spec['key'])
+    sac = lambda spec: wrapped(sac_target, spec['offset'], 0.12, 60, spec['key'])
     # the pericardial cavity: inside the parietal layer, outside the epicardium
     cav = sac(CAVITY)
     b = cav.modifiers.new('heart', 'BOOLEAN')

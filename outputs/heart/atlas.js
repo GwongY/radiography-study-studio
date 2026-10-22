@@ -16,7 +16,7 @@ import { createHeartMotion, cycleAt } from './heart-motion.js?v=26';
 import { createHeartbeat } from './heartbeat.js?v=11';
 import { ATLAS_SCALE, ATLAS_SHIFT } from './alignment.js?v=1';
 import { DESCRIPTIONS } from './descriptions.js?v=2';
-import { PERICARDIUM } from './pericardium-text.js?v=1';
+import { PERICARDIUM } from './pericardium-text.js?v=2';
 import { ECHO_VIEWS, computeEchoFrames, createEchoRenderer } from './echo-sim.js?v=21';
 import { mountClinicalPanels, PANEL_SECTIONS } from './panels.js?v=1';
 export { mountClinicalPanels };
@@ -379,6 +379,8 @@ export async function createHeartAtlas({ base = new URL('./', import.meta.url).h
   return {
     group, groups, meshes, byKey, manifest, motion, heartbeat, parts,
     state: S, PRESETS,
+    /* the pericardium's layers outside in, with the colour each is drawn in (the panel's legend) */
+    sacLayers: () => ['FP', 'PP', 'PC', 'EPI'].filter((k) => byKey[k]).map((k) => ({ key: k, colour: PERICARDIUM[k].colour, title: describe(k).title })),
     setPreset, setShow, setOpacity, setPart, select, describe, pick, prepare, features, setHost,
     intro: () => { const f = features[PRESETS[S.preset].feature]; return f && f.intro ? f.intro() : null; },
     attach, detach, update, dispose,

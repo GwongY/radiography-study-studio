@@ -36,14 +36,12 @@ export const DECODER_HTML = `<h2>Decoder</h2>
   <tr data-wk="2"><td>Gastrocnemius</td><td>gastro (belly) + kneme (leg) → the belly of the leg, i.e. the calf bulge.</td></tr>
   <tr data-wk="2"><td>Soleus</td><td>solea = sole (the flatfish or the sandal) → a flat muscle under the gastrocnemius that works when you stand.</td></tr>
   <tr data-wk="2"><td>Tibia / fibula</td><td>tibia = flute (the big shin pipe) · fibula = brooch or pin (the thin pin beside it).</td></tr>
-  <tr data-wk="2"><td>Peroneal = fibular</td><td>Same bone, two names: common <b>peroneal</b> nerve and <b>fibularis</b> muscles both mean "of the fibula".</td></tr>
-  <tr data-wk="2"><td>Malleolus</td><td>little hammer → the hammer-head knobs at the ankle (medial = tibia, lateral = fibula). Ear bone <b>malleus</b> is the same root.</td></tr>
+  <tr data-wk="2"><td>Peroneal = fibular</td><td>Same bone, two names: <b>peroneal</b> and <b>fibularis</b> both mean "of the fibula".</td></tr>
   <tr data-wk="2"><td>Talus / calcaneus</td><td>talus = ankle · calcaneus from calx = heel → the heel bone.</td></tr>
   <tr data-wk="2"><td>Navicular, cuboid, cuneiform</td><td>little boat · cube · wedge → shapes of three tarsal bones.</td></tr>
   <tr data-wk="2"><td>Dorsiflexion / plantarflexion</td><td>dorsum of the foot up toward the shin vs plantar sole pushed down → <b>Plantar = Press the pedal</b>.</td></tr>
   <tr class="grp" data-wk="3"><td colspan="2">Week 3 · shoulder girdle and upper limb</td></tr>
   <tr data-wk="3"><td>Clavicle</td><td>"little key" → the collarbone looks like an old skeleton key.</td></tr>
-  <tr data-wk="3"><td>Glenoid</td><td>glene (socket) → the shallow socket of the glenohumeral joint.</td></tr>
   <tr data-wk="3"><td>Radius / ulna</td><td>radius = spoke, it rotates around the ulna; thumb side · ulna = elbow, little-finger side.</td></tr>
   <tr data-wk="3"><td>Pronation / supination</td><td>prone = face down, supine = face up → <b>supination = carrying a bowl of soup</b>.</td></tr>
   <tr data-wk="3"><td>Biceps / triceps brachii</td><td>two heads / three heads of the arm (brachium) → triceps = long, lateral, medial.</td></tr>
@@ -59,17 +57,14 @@ export const DECODER_HTML = `<h2>Decoder</h2>
   <tr data-wk="4"><td>Sphenoid / ethmoid</td><td>sphen = wedge (wedged in the middle of the skull) · ethmos = sieve (the olfactory plate is full of holes).</td></tr>
   <tr data-wk="4"><td>Zygomatic, vomer, mandible</td><td>yoke (cheek bar) · ploughshare · mandere = to chew.</td></tr>
   <tr data-wk="4"><td>Lambdoid suture</td><td>shaped like the Greek letter λ at the back of the skull.</td></tr>
-  <tr data-wk="4"><td>Mastoid process</td><td>mastos = breast → the breast-shaped bump behind the ear.</td></tr>
   <tr data-wk="4"><td>Masseter / temporalis / pterygoid</td><td>masseter = chewer · temporalis over the temple · pterygoid = wing-like (pterodactyl wings from the sphenoid).</td></tr>
-  <tr data-wk="4"><td>Platysma</td><td>platys = flat → the thin flat sheet under the neck skin that pulls the mouth down in horror.</td></tr>
-  <tr data-wk="4"><td>Sternocleidomastoid</td><td>reads out its three attachments: <b>stern</b>um + <b>cleido</b> (clavicle) + <b>mastoid</b> process. Neck flexor; unilateral = turns the face to the opposite side.</td></tr>
-  <tr data-wk="4"><td>Scalene</td><td>scalenos = uneven triangle → three muscles of unequal length from neck to ribs 1 and 2.</td></tr>
+  <tr data-wk="4"><td>Sternocleidomastoid</td><td>stern + cleido (clavicle) + mastoid. Neck flexor; unilateral = turns the face to the opposite side.</td></tr>
+  <tr data-wk="4"><td>Scalene</td><td>scalenos = uneven triangle → three muscles of unequal length.</td></tr>
   <tr data-wk="4"><td>Splenius</td><td>splenion = bandage → a bandage wrapped over the back of the neck.</td></tr>
-  <tr data-wk="4"><td>Multifidus, rotatores, semispinalis</td><td>many-split · rotators · half-spinous → small deep muscles hugging the spine; they fine-tune, they don't power.</td></tr>
   <tr data-wk="4"><td>Erector spinae</td><td>"makes the spine erect" → the thick columns on each side of your spine.</td></tr>
   <tr data-wk="4"><td>Rectus / oblique / transversus abdominis</td><td>fibres run straight · slanting · across → three directions like plywood layers.</td></tr>
   <tr data-wk="4"><td>Quadratus lumborum</td><td>four-sided muscle of the loin (lumbar).</td></tr>
-  <tr data-wk="4"><td>Atlas / axis / odontoid</td><td>Atlas carries the sky (skull) · axis = pivot · odous = tooth → the tooth-shaped dens that C1 spins around.</td></tr>
+  <tr data-wk="4"><td>Atlas / axis</td><td>Atlas carries the sky (skull) · axis = pivot, the one the atlas turns on for "no".</td></tr>
   <tr data-wk="4"><td>Sacrum / coccyx</td><td>os sacrum = sacred bone · kokkyx = cuckoo → the tail-bone is a cuckoo's beak.</td></tr>
   <tr data-wk="4"><td>Intorsion / extorsion</td><td>torsion = twist; in = top of the eye twists toward the nose, ex = away.</td></tr>
   <tr class="grp" data-wk="5"><td colspan="2">Week 5 · nervous tissue, cord, spinal nerves</td></tr>
@@ -87,7 +82,7 @@ export const DECODER_HTML = `<h2>Decoder</h2>
   <tr data-wk="5"><td>Cauda equina / caudal / caudate</td><td>cauda = tail → horse's tail of nerve roots · toward the tail · the tail-shaped nucleus of the basal nuclei.</td></tr>
   <tr data-wk="5"><td>Dura, arachnoid, pia mater</td><td>tough mother · spider-web · tender mother → <b>Dura Durable outside, Arachnoid spiderweb under it, Pia hugs the brain</b>. Sub-arachnoid = the space under the web, filled with CSF.</td></tr>
   <tr data-wk="5"><td>Plexus</td><td>Latin "braid" → anterior rami plait together like hair. The choroid plexus is a braid of capillaries.</td></tr>
-  <tr data-wk="5"><td>Ramus</td><td>"branch" → anterior / posterior ramus of the spinal nerve. The ramus of the mandible (W1 slide) is the branch of the jaw that goes up.</td></tr>
+  <tr data-wk="5"><td>Ramus</td><td>"branch" → anterior / posterior ramus of the spinal nerve.</td></tr>
   <tr data-wk="5"><td>Dermatome</td><td>derma (skin) + tome (slice) → a slice of skin served by one spinal nerve.</td></tr>
   <tr data-wk="5"><td>Shingles</td><td>cingulum = belt → a belt-shaped rash. The cingulate gyrus of the limbic system shares the same "belt" root.</td></tr>
   <tr class="grp" data-wk="6"><td colspan="2">Week 6 · brain and cranial nerves</td></tr>

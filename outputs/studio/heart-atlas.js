@@ -51,8 +51,8 @@ async function loadHeartModule() {
   if (heartModule) return heartModule;
   try {
     heartModule = importFailures === 0
-      ? await import('../heart/atlas.js?v=8')
-      : await import(`../heart/atlas.js?v=8&retry=${importFailures}`);
+      ? await import('../heart/atlas.js?v=9')
+      : await import(`../heart/atlas.js?v=9&retry=${importFailures}`);
   } catch (error) {
     importFailures += 1;
     throw error;
@@ -91,6 +91,7 @@ function panelHtml() {
     <div class="ha-row" id="ha-presets" role="group" aria-label="Scenario"></div>
     <label class="ha-check"><input type="checkbox" id="ha-context"> Show the skeleton around the heart</label>
     <div class="ha-shows" id="ha-shows"></div>
+    <div class="ha-legend" id="ha-periLegend" role="group" aria-label="Pericardium layers, outside in" hidden></div>
     <label class="ha-slider">Wall opacity <input type="range" id="ha-opacity" min="0" max="100" value="100"><output id="ha-opacityValue">100%</output></label>
     <div class="ha-parts" id="ha-parts" role="group" aria-label="Chambers and valves"></div>
     <section id="ha-ecgPanel" class="ha-ecg" aria-label="Schematic ECG">
@@ -153,6 +154,7 @@ function syncControls() {
   const open = new Set((atlas.PANEL_SECTIONS || {})[S.preset] || []);
   for (const id of new Set(Object.values(atlas.PANEL_SECTIONS || {}).flat())) { const el = $(id); if (el) el.hidden = !open.has(id); }
   $('ha-conductionStatus').hidden = !S.show.conduction;
+  $('ha-periLegend').hidden = !S.show.pericardium;
 }
 
 async function choosePreset(name) {
@@ -176,6 +178,9 @@ function wireControls() {
   });
   $('ha-shows').innerHTML = SHOWS.map(([k, l]) => `<label><input type="checkbox" data-ha-show="${k}"> ${l}</label>`).join('');
   $('ha-shows').querySelectorAll('[data-ha-show]').forEach((c) => { c.oninput = () => { atlas.setShow(c.dataset.haShow, c.checked); syncControls(); }; });
+  /* the pericardium's layers outside in: a swatch in the colour each is drawn in; tapping one lights it and reads its card */
+  $('ha-periLegend').innerHTML = '<span>Outside in</span>' + atlas.sacLayers().map((l) => `<button type="button" data-ha-layer="${l.key}"><i style="background:#${l.colour.toString(16).padStart(6, '0')}"></i>${l.title}</button>`).join('');
+  $('ha-periLegend').querySelectorAll('[data-ha-layer]').forEach((b) => { b.onclick = () => { atlas.select(b.dataset.haLayer); showInfo(b.dataset.haLayer); }; });
   $('ha-parts').innerHTML = Object.entries(PART_LABELS).map(([k, l]) => `<label><input type="checkbox" data-ha-part="${k}"> ${l}</label>`).join('');
   $('ha-parts').querySelectorAll('[data-ha-part]').forEach((c) => { c.oninput = () => atlas.setPart(c.dataset.haPart, c.checked); });
   $('ha-opacity').oninput = () => { atlas.setOpacity($('ha-opacity').value); $('ha-opacityValue').textContent = Math.round(atlas.state.opacity) + '%'; };
@@ -521,6 +526,7 @@ export async function enterHeartAtlas() {
     if (!circ) throw new Error('The circulatory layer did not load.');
     atlas.setHost({ camera: state.camera, controls: state.controls }, showIntro);
     atlas.attach(circ.root);
+    atlas.group.visible = true; /* the enhanced heart hides the group while the Heart chip is off; the mode always shows it */
     circ.root.updateMatrixWorld(true);
     state.scene.updateMatrixWorld(true);
     const alignment = checkAtlasAlignment(circ);
@@ -649,7 +655,7 @@ export function exitEnhancedHeart() {
   state.enhancedHeartOn = false;
   state.heartAtlasOn = false;
   state.atlasTick = null;
-  try { atlas.select(null); atlas.detach(); atlas.setPreset('natural'); } catch (error) { console.error('Enhanced heart cleanup failed', error); }
+  try { atlas.select(null); atlas.detach(); atlas.group.visible = true; atlas.setPreset('natural'); } catch (error) { console.error('Enhanced heart cleanup failed', error); }
   setHostHeartHidden(false);
   applyLayers();
   notifyLayersChanged();

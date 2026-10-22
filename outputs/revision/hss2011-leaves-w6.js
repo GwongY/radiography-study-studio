@@ -191,5 +191,5 @@ export const ROWS = [
 { k: 'nerve', id: 'w6_cn11', l: 'Accessory Nerve (XI)', match: 'Accessory Nerve', parent: 'cranialnerves', w: 6, line: 'motor: swallowing; head/neck/shoulder movements',
   supplies: { w3_trapezius: 'termination: trapezius (head and neck muscles)', w4_scm: 'termination: sternocleidomastoid (head and neck muscles)', w6_medulla: 'origins: medulla oblongata (also spinal nerves C1-C6)' }, src: [L6, 50, 44] },
 { k: 'nerve', id: 'w6_cn12', l: 'Hypoglossal Nerve (XII)', match: 'Hypoglossal Nerve', parent: 'cranialnerves', w: 6, line: 'motor: tongue movement for speech, food manipulation, swallowing',
-  supplies: { w4_tongue_int: 'termination: muscles of tongues', w4_tongue_ext: 'termination: muscles of tongues', w6_medulla: 'origins: medulla oblongata' }, src: [L6, 50, 44] },
+  supplies: { w4_tongue: 'termination: muscles of tongues', w6_medulla: 'origins: medulla oblongata' }, src: [L6, 50, 44] },
 ];

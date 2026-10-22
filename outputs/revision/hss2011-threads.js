@@ -11,16 +11,16 @@ export const THREADS_HTML = `<h2>Threads</h2>
   <li data-wk="5"><span class="wk">W5</span><span class="hd">Cross.</span> The fibres <b>decussate</b>: the left hemisphere drives the right arm. The slide says "left brain sends motor commands to the right side of the body"; the crossing happens low in the medulla <span class="star">★</span>.</li>
   <li data-wk="5"><span class="wk">W5</span><span class="hd">Cord.</span> The tract synapses on a motor neuron in the <b>anterior horn</b> of gray matter at the <b>cervical enlargement</b> (the segments that feed the arm; C5–C6 for elbow flexion <span class="star">★</span>).</li>
   <li data-wk="5"><span class="wk">W5</span><span class="hd">Exit.</span> The axon leaves in the <b>anterior (ventral) root</b>, joins the posterior root to form the <b>spinal nerve</b>, then travels in the <b>anterior ramus</b> into the <b>brachial plexus</b> (C5–T1).</li>
-  <li data-wk="3"><span class="wk">W3</span><span class="hd">Nerve = compartment.</span> The plexus delivers one nerve per compartment: <b>musculocutaneous</b> <span class="star">★</span> to the arm flexors, <b>radial</b> to triceps and every forearm extensor, <b>median / ulnar</b> to the forearm flexors.</li>
+  <li data-wk="3"><span class="wk">W3</span><span class="hd">Plexus to arm.</span> The arm is basically innervated by the <b>brachial plexus</b>, from the ventral rami of C5–T1.</li>
   <li data-wk="5"><span class="wk">W5</span><span class="wk">W1</span><span class="hd">Junction.</span> At the neuromuscular junction: action potential arrives → Ca²⁺ enters the terminal → ACh released → binds receptors and depolarises the fibre → AChE clears the ACh. One motor neuron plus the fibres it supplies is a <b>motor unit</b>; this one is calf-style big or eye-style tiny depending on the muscle.</li>
-  <li data-wk="1"><span class="wk">W1</span><span class="hd">Muscle.</span> Sarcomeres shorten (actin sliding on myosin), the fascicle pulls, and force passes through the epimysium into the <b>tendon</b> and onto the insertion on the radius and ulna. The origin on the scapula and humerus stays still.</li>
+  <li data-wk="1"><span class="wk">W1</span><span class="hd">Muscle.</span> Sarcomeres shorten (actin sliding on myosin), the fascicle pulls, and force passes through the epimysium into the <b>tendon</b> and onto the insertion, the end that moves. The origin stays still.</li>
   <li data-wk="3"><span class="wk">W1</span><span class="wk">W3</span><span class="hd">Joint.</span> The elbow is a <b>hinge</b> (humeroulnar, humeroradial): flexion. Brachialis works in every forearm position, biceps works best with the palm up, brachioradialis best in mid-pronation. Triceps is the <b>antagonist</b>; shoulder muscles act as <b>fixators</b> (W2 teamwork vocabulary).</li>
   <li data-wk="7"><span class="wk">W1</span><span class="wk">W7</span><span class="wk">W6</span><span class="hd">Feedback.</span> The Golgi tendon organ (tension, at the myotendinous junction) and muscle spindles (length) fire sensory neurons up the posterior root and into the cord. The <b>cerebellum</b> compares them with the command and corrects it.</li>
 </ol>
 <div class="yue" data-wk="7"><b>廣東話</b>大腦落命令 → 上運動神經元（皮質脊髓束）→ 交叉（decussation，好似個「X」）→ 脊髓前角嘅運動神經元 → 前根 → 脊神經 → 神經叢 → 神經 → 肌肉 → 關節郁動。左腦控制右手；反饋由肌腱同肌梭上返小腦。</div>
 <div class="cols">
-  <div class="col"><h4>Same chain, kicking a ball</h4><p>Motor cortex → corticospinal tract → <b>lumbosacral enlargement</b> → anterior horn → <b>lumbar plexus</b> (L1–L4) → <b>femoral nerve</b> → quadriceps extend the knee (rectus femoris also flexes the hip).</p></div>
-  <div class="col"><h4>Same chain, lifting the toes</h4><p>… → <b>sacral plexus</b> (L4–S4) → <b>sciatic nerve</b> → <b>common peroneal</b> → tibialis anterior and the other anterior-compartment muscles dorsiflex the ankle. Tibial nerve takes the opposite job: plantarflexion.</p></div>
+  <div class="col"><h4>Same chain, kicking a ball</h4><p>Motor cortex → corticospinal tract → <b>lumbosacral enlargement</b> → anterior horn → <b>lumbar plexus</b> (L1–L4) → quadriceps extend the knee (rectus femoris also flexes the hip).</p></div>
+  <div class="col"><h4>Same chain, lifting the toes</h4><p>… → <b>sacral plexus</b> (L4–S4) → tibialis anterior and the other anterior-compartment muscles dorsiflex the ankle.</p></div>
   <div class="col"><h4>Same chain, chewing</h4><p>Motor cortex → pons (CN V motor nucleus) → <b>V3</b> → temporalis, masseter, pterygoids → TMJ (hinge then glide). No plexus involved: cranial nerves go straight from brainstem to muscle.</p></div>
 </div>
 </div>
@@ -51,7 +51,7 @@ export const THREADS_HTML = `<h2>Threads</h2>
 <summary>The eye, from socket to cortex<small>W4 · W6 · W7</small></summary>
 <div class="tbody">
 <ol class="chain">
-  <li data-wk="4"><span class="wk">W4</span><span class="hd">Bone.</span> The orbit uses seven bones. The <b>optic canal</b> carries CN II; the superior and inferior orbital fissures carry the other eye nerves and vessels <span class="star">★</span>; the <b>lacrimal sulcus → nasolacrimal canal</b> is the bony tube that tears drain through.</li>
+  <li data-wk="4"><span class="wk">W4</span><span class="hd">Bone.</span> The orbit uses seven bones: frontal, sphenoid, ethmoid, lacrimal, zygomatic, maxilla, palatine. Tears drain from it into the nose.</li>
   <li data-wk="7"><span class="wk">W7</span><span class="hd">Protect and lubricate.</span> Lashes, lids (tarsal glands add oil so tears don't evaporate), conjunctiva. Tears: lacrimal gland → conjunctiva → lacrimal caruncle → punctum → canaliculus → sac → <b>nasolacrimal duct</b> → nasal cavity. Tear secretion is a CN VII job.</li>
   <li data-wk="6"><span class="wk">W4</span><span class="wk">W6</span><span class="hd">Move.</span> Six muscles: <b>III</b> drives SR, MR, IR and IO; <b>IV</b> drives SO (its tendon loops through the trochlea); <b>VI</b> drives LR (abducens). Nuclei: III and IV in the midbrain, VI in the pons. The <b>frontal eye field</b> orders saccades; the <b>superior colliculus</b> tracks moving objects and handles visual reflexes. Each motor unit here is tiny (13–20 fibres), hence the precision.</li>
   <li data-wk="7"><span class="wk">W7</span><span class="hd">Focus and light control.</span> Cornea and lens bend light; the ciliary body (ciliary muscle + suspensory ligament) adjusts the lens; the iris constrictor and dilator set the pupil; aqueous humor fills the front, vitreous jelly keeps the shape. Parasympathetic CN III supplies the sphincter pupillae and ciliary muscle <span class="star">★</span>, so the oculomotor nerve is both a somatic and an autonomic nerve (W7 craniosacral list).</li>
@@ -73,7 +73,7 @@ export const THREADS_HTML = `<h2>Threads</h2>
 <ol class="chain">
   <li data-wk="7"><span class="wk">W7</span><span class="wk">W2</span><span class="hd">Outer ear.</span> The auricle is supported by <b>elastic cartilage</b> (the third cartilage type from W1/W2). Guard hairs and cerumen protect the canal.</li>
   <li data-wk="7"><span class="wk">W7</span><span class="wk">W1</span><span class="hd">Middle ear.</span> The tympanic membrane attaches to three ossicles (malleus, incus, stapes), the smallest bones in the body <span class="star">★</span>. Two tiny <b>skeletal muscles</b> (tensor tympani on the malleus, stapedius on the stapes) dampen loud sound. The eustachian tube links the ear to the nasopharynx.</li>
-  <li data-wk="7"><span class="wk">W4</span><span class="wk">W7</span><span class="hd">Inner ear in bone.</span> The bony labyrinth is carved into the temporal bone (mastoid process and internal acoustic meatus are W4 landmarks).</li>
+  <li data-wk="7"><span class="wk">W4</span><span class="wk">W7</span><span class="hd">Inner ear in bone.</span> The bony labyrinth is carved into the temporal bone.</li>
   <li data-wk="7"><span class="wk">W7</span><span class="hd">Hearing.</span> Sound → drum → ossicles → inner-ear fluid → basilar membrane up and down → stereocilia rock → K⁺ enters hair cells → neurotransmitter → CN VIII. Inner hair cells supply 90–95% of the sensory fibres; outer hair cells tune to frequency.</li>
   <li data-wk="7"><span class="wk">W7</span><span class="hd">Balance.</span> Saccule and utricle (linear movement and static position, otoliths on the otolithic membrane); three semicircular ducts (rotation: endolymph lags, cupula bends hair cells).</li>
   <li data-wk="6"><span class="wk">W6</span><span class="hd">Into the brain.</span> CN VIII ends in the medulla and pons. The <b>inferior colliculus</b> handles auditory reflexes such as the startle response; hearing is perceived in the temporal lobe <span class="star">★</span>.</li>
@@ -134,8 +134,7 @@ export const THREADS_HTML = `<h2>Threads</h2>
   </ul></div>
   <div class="col"><h4>Swallowing</h4>
   <ul>
-    <li data-wk="4"><span class="wk">W4</span> Mandible held by V3 muscles; suprahyoid and infrahyoid muscles move the hyoid.</li>
-    <li data-wk="6"><span class="wk">W4</span><span class="wk">W6</span> Tongue pushes: extrinsic muscles, nerve <b>XII</b>.</li>
+    <li data-wk="6"><span class="wk">W4</span><span class="wk">W6</span> Tongue: nerve <b>XII</b>.</li>
     <li data-wk="6"><span class="wk">W6</span> Pharynx: <b>IX</b> (motor, dilates pharynx) and <b>X</b>; <b>XI</b> to palate and pharynx.</li>
     <li data-wk="6"><span class="wk">W6</span> Medulla coordinates. Slides list "swallowing" under IX, X, XI and XII.</li>
   </ul></div>

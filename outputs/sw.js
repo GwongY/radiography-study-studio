@@ -31,7 +31,7 @@
  * whatever a browser already stored under the newer name in play. v59 shipped a
  * split that was reverted, so the revert went to v60 rather than back to v53.
  */
-const CACHE_VERSION = 'v271';
+const CACHE_VERSION = 'v272';
 const SHELL_CACHE = `rss-shell-${CACHE_VERSION}`;
 
 /*
@@ -93,8 +93,8 @@ const SHELL = [
    * The small atlas payload and source notice are also precached, so first use
    * works offline; the much larger circulatory GLB remains lazy.
    */
-  './heart/atlas.js?v=8',
-  './heart/pericardium-text.js?v=1',
+  './heart/atlas.js?v=9',
+  './heart/pericardium-text.js?v=2',
   /* Limb vessels: studio/limb-atlas.js reaches limb/limb.js by a dynamic import, like the heart atlas. The routes
      are small (~380 KB together) and cached whole so the mode opens offline; the circulatory GLB stays lazy. */
   './limb/limb.js?v=1',

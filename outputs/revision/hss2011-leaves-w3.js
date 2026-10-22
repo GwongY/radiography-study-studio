@@ -20,21 +20,12 @@ export const ROWS = [
 { k: 'group', id: 'w3_pectoral', l: 'Pectoral girdle', parent: 'ul_bones', w: 3, line: 'connects the arm to the axial skeleton', src: [UL, 2] },
 { k: 'bone', id: 'w3_clavicle', l: 'Clavicle', parent: 'w3_pectoral', w: 3, line: 'appendicular skeleton; connects the arm to the manubrium', src: [UL, 2, 4] },
 { k: 'bone', id: 'w3_scapula', l: 'Scapula', parent: 'w3_pectoral', w: 3, joints: ['w1_j_gh'], src: [UL, 2, 4, 3] },
-{ k: 'part', id: 'w3_glenoid', l: 'Glenoid cavity', parent: 'w3_scapula', w: 3, line: 'the head of the humerus articulates with it', src: [UL, 7] },
 { k: 'bone', id: 'w3_manubrium', l: 'Manubrium', parent: 'w3_pectoral', w: 3, src: [UL, 2] },
 { k: 'bone', id: 'w3_sternum', l: 'Sternum', parent: 'w3_pectoral', w: 3, src: [UL, 2] },
 
 /* ---------------- arm (p6-7) ---------------- */
 { k: 'group', id: 'w3_arm', l: 'Arm', parent: 'ul_bones', w: 3, src: [UL, 3] },
 { k: 'bone', id: 'w3_humerus', l: 'Humerus', parent: 'w3_arm', w: 3, joints: ['w1_j_gh', 'w1_j_hu', 'w1_j_hr'], src: [UL, 6, 2] },
-{ k: 'part', id: 'w3_hum_head', l: 'Head of humerus', parent: 'w3_humerus', w: 3, line: 'articulates with the glenoid cavity of the scapula', src: [UL, 7] },
-{ k: 'part', id: 'w3_hum_neck', l: 'Neck', parent: 'w3_humerus', w: 3, line: 'proximal, with the head and tubercle', src: [UL, 6] },
-{ k: 'part', id: 'w3_hum_tubercle', l: 'Tubercle, tuberosity', parent: 'w3_humerus', w: 3, line: 'proximal landmarks to identify', src: [UL, 6] },
-{ k: 'part', id: 'w3_hum_shaft', l: 'Shaft', parent: 'w3_humerus', w: 3, src: [UL, 6] },
-{ k: 'part', id: 'w3_hum_condyle', l: 'Condyle', parent: 'w3_humerus', w: 3, line: 'smooth: trochlea and capitulum', src: [UL, 6] },
-{ k: 'part', id: 'w3_hum_trochlea', l: 'Trochlea', parent: 'w3_hum_condyle', w: 3, src: [UL, 6] },
-{ k: 'part', id: 'w3_hum_capitulum', l: 'Capitulum', parent: 'w3_hum_condyle', w: 3, src: [UL, 6] },
-{ k: 'part', id: 'w3_hum_epicondyles', l: 'Medial and lateral epicondyles', parent: 'w3_humerus', w: 3, line: 'rough', match: 'epicondyles', src: [UL, 6] },
 
 /* ---------------- forearm (p8-10) ---------------- */
 { k: 'group', id: 'w3_forearm', l: 'Forearm', parent: 'ul_bones', w: 3, src: [UL, 3] },
@@ -80,8 +71,6 @@ export const ROWS = [
 { k: 'muscle', id: 'w3_teresmaj', l: 'Teres major', parent: 'w3_armmusc', w: 3, joints: { w1_j_gh: 'extend, adduct, medially rotate the arm' }, note: 'pulls the arm down, back and inward', src: [UL, 18] },
 
 /* ---------------- rotator cuff (p19) ---------------- */
-{ k: 'part', id: 'w3_supraspfossa', l: 'Supraspinous fossa', parent: 'w3_scapula', w: 3, src: [UL, 19] },
-{ k: 'part', id: 'w3_infraspfossa', l: 'Infraspinous fossa', parent: 'w3_scapula', w: 3, src: [UL, 19] },
 { k: 'group', id: 'w3_rotcuff', l: 'Rotator cuff muscles', parent: 'ul_muscles', w: 3, line: 'stabilize shoulder joint by compressing humeral head against glenoid fossa', match: 'rotator cuff muscle', src: [UL, 19] },
 { k: 'muscle', id: 'w3_subscap', l: 'Subscapularis', parent: 'w3_rotcuff', w: 3, joints: { w1_j_gh: 'medially rotate arm' }, src: [UL, 19] },
 { k: 'muscle', id: 'w3_supraspin', l: 'Supraspinatus', parent: 'w3_rotcuff', w: 3, joints: { w1_j_gh: 'initiate arm abduction at the first 0-15 degrees; assist deltoid at 15-90' }, src: [UL, 19, 20] },
@@ -94,10 +83,10 @@ export const ROWS = [
 { k: 'muscle', id: 'w3_biceps', l: 'Biceps brachii', parent: 'w3_elbowflex', w: 3, joints: { w1_j_hu: 'flexion', w1_j_hr: 'flexion', w1_j_pru: 'supination' }, note: 'works better while flexion comes with supination but not pronation', src: [UL, 21, 28] },
 { k: 'muscle', id: 'w3_brachiorad', l: 'Brachioradialis', parent: 'w3_elbowflex', w: 3, joints: { w1_j_hu: 'flexion', w1_j_hr: 'flexion' }, note: 'works better while flexion comes with pronation (takes up the role of biceps)', src: [UL, 21, 28] },
 { k: 'group', id: 'w3_elbowext', l: 'Elbow extensor', parent: 'ul_muscles', w: 3, match: 'main elbow extensor', src: [UL, 22, 28] },
-{ k: 'muscle', id: 'w3_triceps', l: 'Triceps brachii', parent: 'w3_elbowext', w: 3, joints: { w1_j_hu: 'extension of the forearm', w1_j_hr: 'extension of the forearm' }, note: 'lateral and medial heads from posterior humerus; long head from scapula', src: [UL, 22, 28] },
+{ k: 'muscle', id: 'w3_triceps', l: 'Triceps brachii', parent: 'w3_elbowext', w: 3, joints: { w1_j_hu: 'extension of the forearm', w1_j_hr: 'extension of the forearm' }, src: [UL, 22, 28] },
 
 /* ---------------- anterior compartment of forearm, extrinsic (p23, 28) ---------------- */
-{ k: 'group', id: 'w3_antforearm', l: 'Anterior compartment of forearm', parent: 'ul_muscles', w: 3, line: 'extrinsic muscles; median nerve (*) and ulnar nerve (#)', src: [UL, 23] },
+{ k: 'group', id: 'w3_antforearm', l: 'Anterior compartment of forearm', parent: 'ul_muscles', w: 3, line: 'extrinsic muscles', src: [UL, 23] },
 { k: 'muscle', id: 'w3_pq', l: 'Pronator quadratus', parent: 'w3_antforearm', w: 3, joints: { w1_j_pru: 'major pronator' }, note: 'the slide labels it PQ', src: [UL, 28, 23] },
 { k: 'muscle', id: 'w3_fcr', l: 'Flexor carpi radialis', parent: 'w3_antforearm', w: 3, joints: { w1_j_rc: 'major wrist flexor' }, note: 'the slide labels it FCR', match: '(fcr)*', src: [UL, 23, 28] },
 { k: 'muscle', id: 'w3_fcu', l: 'Flexor carpi ulnaris', parent: 'w3_antforearm', w: 3, joints: { w1_j_rc: 'major wrist flexor' }, note: 'the slide labels it FCU', match: '(fcu)#', src: [UL, 23, 28] },
@@ -112,13 +101,13 @@ export const ROWS = [
 { k: 'group', id: 'w3_adductorcomp', l: 'Adductor compartment', parent: 'w3_intrinsic', w: 3, src: [UL, 25] },
 { k: 'muscle', id: 'w3_addpoll', l: 'Adductor pollicis', parent: 'w3_adductorcomp', w: 3, moves: { w3_phalanges: 'major muscle controlling thumb movement' }, src: [UL, 25] },
 { k: 'group', id: 'w3_centralcomp', l: 'Central compartment', parent: 'w3_intrinsic', w: 3, line: 'lumbricals', src: [UL, 26] },
-{ k: 'muscle', id: 'w3_lumbricals', l: 'Lumbricals', parent: 'w3_centralcomp', w: 3, joints: { w3_j_mcp: 'flex metacarpophalangeal joints' }, moves: { w3_phalanges: 'extend interphalangeal joints' }, note: 'each arises from a tendon of FDP', src: [UL, 26] },
+{ k: 'muscle', id: 'w3_lumbricals', l: 'Lumbricals', parent: 'w3_centralcomp', w: 3, joints: { w3_j_mcp: 'flex metacarpophalangeal joints' }, moves: { w3_phalanges: 'extend interphalangeal joints' }, src: [UL, 26] },
 { k: 'group', id: 'w3_interosseouscomp', l: 'Interosseous compartment', parent: 'w3_intrinsic', w: 3, line: 'dorsal and palmar interossei', src: [UL, 26] },
 { k: 'muscle', id: 'w3_dorsalinteross', l: 'Dorsal interossei', parent: 'w3_interosseouscomp', w: 3, moves: { w3_phalanges: 'abduct 2nd-4th digits' }, note: 'unipennate; major finger abductor', src: [UL, 26, 28] },
 { k: 'muscle', id: 'w3_palmarinteross', l: 'Palmar interossei', parent: 'w3_interosseouscomp', w: 3, moves: { w3_phalanges: 'adduct 2nd, 4th, 5th digits' }, note: 'bipennate; major finger adductor', src: [UL, 26, 28] },
 
 /* ---------------- posterior compartment of forearm, extrinsic (p27-28) ---------------- */
-{ k: 'group', id: 'w3_postforearm', l: 'Posterior compartment of forearm', parent: 'ul_muscles', w: 3, line: 'extrinsic muscles; all extensors are innervated by the radial nerve', src: [UL, 27] },
+{ k: 'group', id: 'w3_postforearm', l: 'Posterior compartment of forearm', parent: 'ul_muscles', w: 3, line: 'extrinsic muscles', src: [UL, 27] },
 { k: 'muscle', id: 'w3_apl', l: 'Abductor pollicis longus', parent: 'w3_postforearm', w: 3, moves: { w3_hand: 'extensor of the posterior compartment' }, note: 'the slide labels it APL and gives no action', match: 'apl epb', src: [UL, 27] },
 { k: 'muscle', id: 'w3_epb', l: 'Extensor pollicis brevis', parent: 'w3_postforearm', w: 3, moves: { w3_phalanges: 'major muscle controlling thumb movement' }, note: 'the slide labels it EPB', match: 'epb epl', src: [UL, 27, 28] },
 { k: 'muscle', id: 'w3_epl', l: 'Extensor pollicis longus', parent: 'w3_postforearm', w: 3, moves: { w3_phalanges: 'major muscle controlling thumb movement' }, note: 'the slide labels it EPL', match: 'epl ei', src: [UL, 27, 28] },
@@ -130,7 +119,4 @@ export const ROWS = [
 { k: 'muscle', id: 'w3_ed', l: 'Extensor digitorum', parent: 'w3_postforearm', w: 3, moves: { w3_phalanges: 'major finger extensor' }, note: 'the slide labels it ED', match: 'ecrl ed', src: [UL, 27, 28] },
 
 /* ---------------- nerves (p23, 27) ---------------- */
-{ k: 'nerve', id: 'w3_n_median', l: 'Median nerve', parent: 'plexuses', w: 3, from: 'w3_brachial', supplies: { w3_pq: 'marked * on the anterior forearm slide', w3_fcr: 'marked *', w3_fds: 'marked *', w3_fdp: 'marked *', w3_fpl: 'marked *' }, src: [UL, 23] },
-{ k: 'nerve', id: 'w3_n_ulnar', l: 'Ulnar nerve', parent: 'plexuses', w: 3, from: 'w3_brachial', supplies: { w3_fcu: 'marked #', w3_fdp: 'marked #' }, src: [UL, 23] },
-{ k: 'nerve', id: 'w3_n_radial', l: 'Radial nerve', parent: 'plexuses', w: 3, from: 'w3_brachial', line: 'innervates all extensors', supplies: { w3_postforearm: 'all extensors are innervated by radial nerve' }, src: [UL, 27] },
 ];

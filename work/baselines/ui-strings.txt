@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1080 —
-  88c18e2b2e2ad85c  WHOLE SET
+— user-facing strings in outputs/ — 1084 —
+  65ef9419c9b09ff4  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -39,6 +39,7 @@
   e272ca64fe23b521  " title="
   b7337d3498ef8467  " title="Follow the teaching week by itself">Auto
   96de2d47a973c7ca  " transform="translate(
+  f3d8b40b607f89b2  "><i style="background:#
   ddaed8f0c0a21455  ">Connections in 3D (
   98dff919a1651387  ">Named in
   fe28989274e10994  % banked from
@@ -139,6 +140,7 @@
   9bb5af6c504888a9  <button type="button" data-cz-side="
   e82fefb511f86939  <button type="button" data-cz-stage="
   f67a053a761acb59  <button type="button" data-ha-echo="
+  01dcfba75bb42bda  <button type="button" data-ha-layer="
   a11210dc5f7b44a3  <button type="button" data-ha-preset="
   068e3f966e869db7  <button type="button" data-la-preset="
   3b01ee2603c4c016  <button type="button" data-la-region="
@@ -213,6 +215,7 @@
   a8c0e6943d65acd5  <span class="vague" title="No time published for this subject">week only</span>
   de168730add79551  <span class="wknew">new</span>
   6377e6d17ad08b7c  <span data-sys="
+  2d03f2b92e2a9f62  <span>Outside in</span>
   c12c67df1fb8fe14  A basin made of ilium, ischium and pubis: I sit on my ischial tuberosity.
   bd5105f51b6139f1  A flat triangle with a spine and a shallow glenoid socket: mobility over stability.
   023844eacdc79cc6  A frontal slice. Keeps the anterior half; flip for the posterior.
@@ -571,6 +574,7 @@
   2053c76b6c147934  P wave, QRS and T wave with a cursor on the current phase
   3c34b55bcf13722f  Past-paper questions sorted by topic across 14 folders. QUESTIONS ONLY — it carries no answer key, so it cannot by itself supply a verified answer. Used here only where the answer is independently confirmed by a current HSS2011 source.
   75f9b67785ab2af8  Pause heartbeat
+  7ab079c5288f86bc  Pericardium layers, outside in
   ce253ba033cf1abf  Phalanges of the hand
   c062efd4ef2d7f80  Photographs. Not machine-readable offline, so their contents are unverified.
   dd6885dd0073e45c  Physi sources

@@ -80,6 +80,7 @@ for (const [whole, parts] of [
 const NOT_A_UNIT = {
   Iliopsoas: 'iliacus and psoas major are taught one by one too; the search composite opens both',
   'Semispinalis capitis': 'not modelled', 'Tensor tympani': 'not modelled', Stapedius: 'not modelled',
+  Splenius: 'HSS2011 examines the name splenius only; the viewer keeps splenius capitis and cervicis as two units',
 };
 const squash = (s) => String(s).toLowerCase().replace(/\([^)]*\)/g, '').replace(/[^a-z]/g, '');
 const unitNames = UNITS.filter((u) => u.layer === 'muscle').map((u) => squash(u.label).replace(/muscles?$/, ''));

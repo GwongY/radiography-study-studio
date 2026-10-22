@@ -23,7 +23,7 @@ let limb = null;           // createLimbAtlas() result, built once
 let saved = null;          // the snapshot taken on entry
 let panel = null, toggle = null, busy = false, controlsWired = false;
 let onPointerUp = null;
-let circ = null, groups = new Map(), selectedKey = null, armSide = 'R', vesselGroups = null;
+let circ = null, groups = new Map(), selectedKey = null, armSide = 'R', lastArmRegion = null, vesselGroups = null;
 
 function setBusy(on) {
   busy = on;
@@ -156,6 +156,10 @@ function wireControls() {
     b.onclick = () => {
       armSide = b.dataset.laSide;
       panel.querySelectorAll('[data-la-side]').forEach((o) => { const on = o === b; o.classList.toggle('active', on); o.setAttribute('aria-pressed', String(on)); });
+      /* the side takes effect at once: the arm region last framed moves to this arm. The arch is midline and
+         looks the same from either side, so then (or before any region) it frames the upper arm. */
+      const sided = limb.regions('upper').map((r) => r.key).filter((k) => limb.regionBox('upper', k, 'R').min[0] !== limb.regionBox('upper', k, 'L').min[0]);
+      focusRegion('upper', sided.includes(lastArmRegion) ? lastArmRegion : (sided.includes('upper') ? 'upper' : sided[0]));
     };
   });
   controlsWired = true;
@@ -163,6 +167,7 @@ function wireControls() {
 
 /* Frame one of BetterHeart's camera regions: a box in a limb's own frame, moved into the world. */
 function focusRegion(page, key) {
+  if (page === 'upper') lastArmRegion = key;
   const r = limb.regionBox(page, key, armSide);
   if (!r || !state.THREE) return;
   const T = state.THREE;

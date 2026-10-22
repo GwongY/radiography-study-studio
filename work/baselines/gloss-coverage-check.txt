@@ -1,5 +1,5 @@
 — gloss coverage check: underlined tokens without gloss —
-warn  126 underlined Revise token(s) have no TERM_GLOSS and are not stoplisted:
+warn  125 underlined Revise token(s) have no TERM_GLOSS and are not stoplisted:
     cyt/o (15)
     -crine (13)
     -ary (11)
@@ -67,7 +67,6 @@ warn  126 underlined Revise token(s) have no TERM_GLOSS and are not stoplisted:
     dendr/o (2)
     ad- (1)
     monochromatic (1)
-    supra/i (1)
     ligature (1)
     mandere (1)
     barometer (1)
