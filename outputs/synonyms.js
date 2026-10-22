@@ -127,6 +127,7 @@ const GROUPS = [
   ['biceps brachii', 'biceps'],
   ['triceps brachii', 'triceps'],
   ['gluteus maximus', 'glutes', 'glute'],
+  ['gluteal group', 'glutei', 'gluteal muscles'],
   ['gastrocnemius', 'calf muscle', 'calf'],
   ['quadriceps femoris', 'quads', 'quadriceps'],
   ['rectus abdominis', 'abs', 'six pack'],

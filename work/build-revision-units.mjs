@@ -61,6 +61,7 @@ const SETS = {
     w4_floatribs: ORD.slice(10, 12).map((o) => `${o} rib`),
     w4_transpin: ['Semispinalis cervicis', 'Semispinalis thoracis muscle', 'Multifidus', 'Rotatores'],
     w4_backextr: ['Trapezius muscle', 'Latissimus dorsi muscle', 'Levator scapulae', 'Rhomboid major muscle', 'Rhomboid minor muscle'],
+    w2_medthigh: ['Adductor longus', 'Adductor brevis', 'Adductor magnus'],
     w4_splcap: ['Splenius capitis muscle', 'Splenius cervicis'],
     w2_iliopsoas: ['Psoas major', 'Iliacus muscle'],
     w3_lumbricals: ['Lumbricals of hand'],

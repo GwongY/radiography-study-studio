@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1047 —
-  92070afd9db09e6a  WHOLE SET
+— user-facing strings in outputs/ — 1048 —
+  f40245e044e639af  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -373,6 +373,7 @@
   a5ae4d1e81505bca  Greek sternon — chest
   a7412a5575ad7d75  Greek thorax — chest armour
   558fbf2237b42482  Green Group Source
+  8ca8240a3d24a547  Grouped in Revise · opens all in Viewer
   68d33afb48f57eb9  Guidelines and Topics for Presentations 2018-19.pdf
   14d3326b9e65363b  HSS2011 Human Anatomy/Module 0 Online Studies on Human Body and Movement/Previous Years
   f8935505567e0234  HSS2011 Human Anatomy/Module 3 Abdomen and Pelvis/Previous Years

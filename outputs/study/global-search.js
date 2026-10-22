@@ -7,7 +7,7 @@ import { $$, BODY_CONCEPTS, CONCEPT_GROUPS, MESH_INDEX as ATLAS_MESH_INDEX, SEAR
 import { K, read, write } from './storage-versioned-keys.js';
 import { goTo } from './navigation-destinations.js';
 import { openStructureInViewer } from './search-viewer-open.js';
-import { reviseSearch } from './revise.js';
+import { reviseSearch, viewerGroups } from './revise.js';
 import { exactSearch, matchesSearch, modelSearchNames } from '../search-name.js';
 import { lectureRow } from '../viewer-lecture-names.js';
 import { BONE_LANDMARKS } from '../bone-landmarks.js';
@@ -339,6 +339,16 @@ export function searchHits(q) {
       note: comp.note,
       go: () => openStructure({ parts, name: comp.name, exact:true }) });
   }
+
+  /* Revise's grouped names (Quadriceps, Glutei, Anterior compartment, Transversospinalis...): each opens ALL its members
+     together, and a group already offered as a composite above is not listed twice. */
+  viewerGroups().forEach((g) => {
+    const t = g.label.toLowerCase();
+    if (!matches(t) || hits.some((h) => h.kind === 'Composite' && h.title.toLowerCase().startsWith(t))) return;
+    if (hits.some((h) => h.kind === 'Group' && h.title.toLowerCase().startsWith(t))) return;
+    hits.unshift({ kind: 'Group', title: `${g.label} — ${g.units.length} structure${g.units.length === 1 ? "" : "s"}`, note: 'Grouped in Revise · opens all in Viewer',
+      go: () => { openUnitInViewer(g.units, g.label); } });
+  });
 
   /*
    * Name the gap rather than returning nothing.

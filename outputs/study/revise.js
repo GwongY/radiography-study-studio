@@ -1124,6 +1124,20 @@ function decoderTerms(subject) {
   return decoderCache.get(subject);
 }
 
+/* Every Revise box that stands for several structures (a group, or a row naming a set), with the units it opens.
+   The viewer's search offers each by name, so a grouped name always finds all of its members. */
+export function viewerGroups() {
+  const out = [];
+  for (const subject of Object.keys(REVISION)) {
+    const table = VIEWER_UNITS[subject] || {};
+    for (const n of REVISION[subject].data.NODES) {
+      const u = table[n.id];
+      if (u != null && (Array.isArray(u) || n.leaf === 'group')) out.push({ label: n.l, units: [].concat(u), subject });
+    }
+  }
+  return out;
+}
+
 /* Global search: the Revise boxes and Decoder words taught by the week each subject shows. */
 export function reviseSearch(needle) {
   const q = String(needle || '').trim().toLowerCase();

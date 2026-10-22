@@ -49,7 +49,7 @@ Blender duplicate suffixes. Row shape:
 
 ## `outputs/synonyms.js`
 
-- `SYNONYMS` — 418 query expansions (collarbone→clavicle, CN X→vagus).
+- `SYNONYMS` — 421 query expansions (collarbone→clavicle, CN X→vagus).
 - `COMPOSITES` — 20 names with no mesh but real parts.
   Auditory ossicles, Biceps femoris, Carpus, Colon, Extrinsic back muscles, Eyeball, Hamstrings, Iliopsoas, Larynx, Lungs, Metacarpals, Metatarsals, Pharynx, Quadriceps, Rotator cuff, Small intestine, Splenius, Tarsus, Thymus, Transversospinalis
 - `NOT_MODELLED` — 3 things genuinely absent:

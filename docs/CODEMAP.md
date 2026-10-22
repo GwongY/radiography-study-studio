@@ -51,7 +51,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `schedule.js` | 713 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `search-name.js` | 42 | Anatomical name matching shared by search and its regression gate. |  |
 | `sw.js` | 461 | Radiography Study Studio — service worker |  |
-| `synonyms.js` | 377 | Synonyms — the other names for the same thing. |  |
+| `synonyms.js` | 378 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 281 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 2465 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
 | `term-notes.js` | 1535 | Term notes — say it, then mean it. |  |
@@ -154,7 +154,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `course-data.js` | 301 | Course data -- the source registry, the subject list and the model files. |
 | `course-timetable.js` | 409 | Course — the syllabus and the timetable |
 | `dialogs.js` | 88 | Dialog behaviour, applied to all seven at once |
-| `global-search.js` | 420 | Global search -- one sheet over every destination, mixing structures, |
+| `global-search.js` | 430 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
 | `home.js` | 109 | Home |
 | `imports.js` | 71 | The layer rail is a rail of SYSTEMS, not of files: two of the seven GLBs |
@@ -163,7 +163,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `reading-help.js` | 218 | Reading help |
 | `revise-brain.js` | 424 | Revise · Brain 3D — the connections hub |
 | `revise-links.js` | 32 | Revise · the numbered links list under the Map and under the 3D hub. |
-| `revise.js` | 1179 | Revise |
+| `revise.js` | 1193 | Revise |
 | `search-viewer-open.js` | 56 | Search -> viewer: open the model, select the part, auto-uncover, and |
 | `small-ui-helpers.js` | 260 | Small UI helpers |
 | `spatial-overlay-controls.js` | 120 | Spatial overlay controls (viewer "..." sheet) |
