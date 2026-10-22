@@ -39,9 +39,8 @@ export const ROWS = [
 { k: 'part', id: 'w4_coronal', l: 'Coronal suture', parent: 'w4_sutures', w: 4, src: [HN, 6] },
 { k: 'part', id: 'w4_sagittal', l: 'Sagittal suture', match: 'Sagittal', parent: 'w4_sutures', w: 4, src: [HN, 6] },
 { k: 'part', id: 'w4_lambdoid', l: 'Lambdoid suture', parent: 'w4_sutures', w: 4, src: [HN, 6] },
-{ k: 'part', id: 'w4_squamous', l: 'Squamous suture', parent: 'w4_sutures', w: 4, src: [HN, 6] },
+{ k: 'part', id: 'w4_squamous', l: 'Squamous / parietomastoid suture', match: 'Squamous suture', parent: 'w4_sutures', w: 4, src: [HN, 6] },
 { k: 'part', id: 'w4_occtemp', l: 'Occipitotemporal suture', parent: 'w4_sutures', w: 4, src: [HN, 6] },
-{ k: 'part', id: 'w4_parmast', l: 'Parietomastoid suture', parent: 'w4_sutures', w: 4, src: [HN, 6] },
 
 /* ---------------- orbit (p8) ---------------- */
 { k: 'group', id: 'w4_orbit', l: 'Orbit', parent: 'orbit', w: 4, line: 'the bony cavity in the skull that houses the eyeball', src: [HN, 8],

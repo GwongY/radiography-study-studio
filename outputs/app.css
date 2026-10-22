@@ -1567,3 +1567,7 @@ ul.asslines{list-style:none;margin:0;padding:0}
 .cz-stage{padding:6px 8px;border-radius:8px;background:rgba(255,255,255,.04)}
 .cz-stage small{color:var(--muted)}
 .mz-labels button.cz-absent{opacity:.5}
+/* The search sheet sits at the TOP: a sheet pinned to the bottom edge lies under the on-screen keyboard the moment the field is focused, so the field and the results it makes were hidden. Capped short enough that the results stay above a phone keyboard. */
+#searchScrim{align-items:flex-start;padding:env(safe-area-inset-top) 0 0}
+#searchSheet{border-radius:0 0 18px 18px;margin-top:40px}
+@media(max-width:700px){#searchScrim{padding:env(safe-area-inset-top) 0 0}#searchSheet{margin-top:0;border-radius:0 0 18px 18px;max-height:46vh;max-height:46dvh;padding-bottom:18px}}

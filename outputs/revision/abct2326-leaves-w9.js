@@ -79,7 +79,7 @@ export const ROWS = [
 
   /* ---------------- Synapses & Acetylcholine (p44-50) ---------------- */
   { k: 'part', id: 'p9_electrical_synapse', l: 'Electrical Synapses', match: 'Electrical Synapses', parent: 'p_synapses', w: 9, line: 'occur in smooth and cardiac muscle where cells join by gap junctions', src: [L8, 45, 44] },
-  { k: 'part', id: 'p9_gap_junctions', l: 'Gap junctions', match: 'gap junctions', parent: 'p9_electrical_synapse', w: 9, line: 'join cells directly allowing electrical current to pass across synapses', src: [L8, 45] },
+  { k: 'part', id: 'p9_gap_junctions', l: 'Gap junctions', match: 'gap junctions', parent: 'p9_electrical_synapse', w: 9, line: 'join cells directly allowing electrical current to pass across synapses', links: { p2_gap_junctions: 'the same channels join cardiac muscle cells' }, src: [L8, 45] },
   { k: 'part', id: 'p9_chemical_synapse', l: 'Chemical Synapse', match: 'Chemical Synapse', parent: 'p_synapses', w: 9, line: 'involve release of a neurotransmitter from axon terminal boutons', src: [L8, 46, 44] },
   { k: 'part', id: 'p9_terminal_boutons', l: 'Terminal boutons', match: 'terminal boutons', parent: 'p9_chemical_synapse', w: 9, line: 'specialized axon swellings that release neurotransmitters into synapses', src: [L8, 46] },
   { k: 'substance', id: 'p9_neurotransmitter', l: 'Neurotransmitter', match: 'neurotransmitter', parent: 'p9_chemical_synapse', w: 9, line: 'chemical released from terminal boutons to stimulate or inhibit target cells', src: [L8, 46, 19, 48] },

@@ -89,11 +89,11 @@ export const ROWS = [
   links: { w7_olftract: 'olfactory tract sends signals to primary olfactory cortex', w6_insula: 'signals sent to insula', limbic: 'signals sent to limbic system', w6_amygdala: 'limbic system (amygdala and hippocampus)', w6_hippocampus: 'limbic system (amygdala and hippocampus)' }, src: [L7, 25] },
 
 /* ---------------- the ear (p27-34) ---------------- */
-{ k: 'group', id: 'w7_outerear', l: 'Outer Ear', parent: 'ear_hearing', w: 7, line: 'conducts sound to inner ear', src: [L7, 27] },
+{ k: 'group', id: 'w7_outerear', l: 'Outer Ear', parent: 'ear_hearing', w: 7, line: 'directs sound into the auditory canal; with the middle ear, conducts sound to the inner ear', src: [L7, 27] },
 { k: 'part', id: 'w7_auricle', l: 'Auricle', parent: 'w7_outerear', w: 7, line: 'supported by elastic cartilage', src: [L7, 27] },
 { k: 'part', id: 'w7_meatus', l: 'External acoustic meatus', parent: 'w7_outerear', w: 7, line: 'auditory canal; protected by guard hairs and cerumen',
   links: { w7_auricle: 'auricle directs sound into auditory canal' }, src: [L7, 27] },
-{ k: 'group', id: 'w7_middleear', l: 'Middle Ear', parent: 'ear_hearing', w: 7, line: 'conducts sound to inner ear', src: [L7, 28] },
+{ k: 'group', id: 'w7_middleear', l: 'Middle Ear', parent: 'ear_hearing', w: 7, line: 'tympanic membrane and three ossicles; with the outer ear, conducts sound to the inner ear', src: [L7, 28] },
 { k: 'part', id: 'w7_tympanic', l: 'Tympanic membrane', parent: 'w7_middleear', w: 7, line: 'begins the middle ear; attached to three ear-bones',
   links: { w7_meatus: 'sound directed into the auditory canal', w7_ossicles: 'sound waves vibrate tympanic membrane; ossicles transfer the vibrations' }, src: [L7, 28, 32] },
 { k: 'group', id: 'w7_ossicles', l: 'Auditory ossicles', parent: 'w7_middleear', w: 7, line: 'the 3 ossicles', src: [L7, 28, 32] },

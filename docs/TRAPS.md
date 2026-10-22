@@ -1484,6 +1484,13 @@ names it.
   "from the orbit" and implied a bone count the slides give only as labels; the dermatome note described a rash the
   slide does not). Audit a note by sentence against the deck of its week, not by vocabulary: a word screen passes
   nearly every note, because the vocabulary is on some slide somewhere. A `★` marks a textbook fact on purpose.
+- **Twins split into two boxes with one description are one box.** Squamous and parietomastoid suture, SA and AV node and
+  Acidosis and alkalosis were each two rows saying the same thing; they are now one row named "A / B" (the `match` is
+  the first name, which is the one on the page). Before merging, check the pair is not a viewer unit or linked to
+  different things (the valves, the cardiac veins and the deep hip rotators stay separate for that reason). Rows that
+  only look alike (both ears "conduct sound") need their own distinguishing slide line, not a merge.
+- **The search sheet is pinned to the TOP** (`#searchScrim` at the end of app.css). At the bottom edge it lay under the
+  on-screen keyboard as soon as the field took focus, hiding the field and its results. Keep it capped (46dvh on a phone).
 - **Rows folded into their heading hide a bare heading.** A row named exactly like its topic is merged into it (leaves.js
   `alias`), so a topic can look as if it has a child row and have none. Count children in `data.TREE`, not in the rows.
 

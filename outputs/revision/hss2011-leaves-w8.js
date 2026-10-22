@@ -132,8 +132,7 @@ export const ROWS = [
 { k: 'part', id: 'w8_smoothmuscle', l: 'Smooth muscle cells', parent: 'cardiaccells', w: 8, line: 'in the walls of blood vessels; control vessel diameter', src: [L8, 28] },
 { k: 'part', id: 'w8_hsymp', l: 'Sympathetic Nervous System', parent: 'cardiaccells', w: 8, line: 'the accelerator: norepinephrine speeds the rate and strengthens contraction', links: { symp: 'sympathetic division, Week 7' }, src: [L8, 31] },
 { k: 'part', id: 'w8_hpara', l: 'Parasympathetic Nervous System', parent: 'cardiaccells', w: 8, line: 'the brake: the vagus nerve releases acetylcholine to slow the heart rate', links: { parasymp: 'parasympathetic division, Week 7', w6_cn10: 'uses the vagus nerve' }, src: [L8, 31] },
-{ k: 'part', id: 'w8_sanode', l: 'SA node', parent: 'cardiaccells', w: 8, line: 'heavily supplied by both sympathetic and parasympathetic fibres', links: { w8_pacemaker: 'a pacemaker node' }, src: [L8, 31] },
-{ k: 'part', id: 'w8_avnode', l: 'AV node', parent: 'cardiaccells', w: 8, line: 'heavily supplied by both sympathetic and parasympathetic fibres', links: { w8_pacemaker: 'a pacemaker node' }, src: [L8, 31] },
+{ k: 'part', id: 'w8_sanode', l: 'SA node / AV node', match: 'SA node', parent: 'cardiaccells', w: 8, line: 'heavily supplied by both sympathetic and parasympathetic fibres', links: { w8_pacemaker: 'a pacemaker node' }, src: [L8, 31] },
 
 /* ---------------- blood vessels (p33-49) ---------------- */
 { k: 'part', id: 'w8_lumen', l: 'lumens', parent: 'bloodvessels', w: 8, match: 'lumens', line: 'the hollow passageway through which blood flows', src: [L8, 33] },

@@ -21,7 +21,7 @@ export const ROWS = [
   { k: 'group', id: 'p1_tis_junctions', l: 'Intercellular Junctions', parent: 'p_cells', w: 1, line: 'cells adhere to and communicate with one another', src: [TIS, 6, 5] },
   { k: 'part', id: 'p1_tis_tight', l: 'Tight Junctions', parent: 'p1_tis_junctions', w: 1, line: 'protein band fusing plasma membranes into an impermeable seal', links: { p1_tis_plasmamem: 'fuse the plasma membranes together' }, src: [TIS, 6] },
   { k: 'part', id: 'p1_tis_adherent', l: 'Adherent Junctions', parent: 'p1_tis_junctions', w: 1, line: 'strengthen tight junctions; link cytoskeletons of adjacent cells', links: { p1_tis_tight: 'located just below tight junctions', p1_cytoskeleton: 'mechanically link the cytoskeletons' }, src: [TIS, 7] },
-  { k: 'part', id: 'p1_tis_gap', l: 'Gap Junctions', parent: 'p1_tis_junctions', w: 1, line: 'open channels exchanging nutrients, ions and signals between cells', src: [TIS, 8] },
+  { k: 'part', id: 'p1_tis_gap', l: 'Gap Junctions', parent: 'p1_tis_junctions', w: 1, line: 'open channels exchanging nutrients, ions and signals between cells', links: { p2_gap_junctions: 'in cardiac intercalated discs', p9_gap_junctions: 'in electrical synapses' }, src: [TIS, 8] },
   { k: 'part', id: 'p1_tis_connexins', l: 'Connexins', parent: 'p1_tis_gap', w: 1, line: 'rings of transmembrane proteins', src: [TIS, 8] },
   { k: 'part', id: 'p1_tis_connexon', l: 'Connexon', parent: 'p1_tis_gap', w: 1, line: 'hollow cylinder formed by aligned connexins', links: { p1_tis_connexins: 'connexins align to form the connexon' }, src: [TIS, 8] },
 

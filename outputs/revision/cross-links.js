@@ -42,7 +42,7 @@ export const CROSS = [
   { a: ['ABCT2326', 'p_valves'], b: ['HSS2011', 'valves'], why: 'Atrioventricular Valves', src: ['phys.l2.2026', 32], match: 'atrioventricular' },
   { a: ['ABCT2326', 'p_conduction'], b: ['HSS2011', 'cardiaccells'], why: 'The Conducting System', src: ['phys.l2.2026', 41], match: 'Conducting System' },
   { a: ['ABCT2326', 'p2_sa_node'], b: ['HSS2011', 'w8_sanode'], why: 'SA node (pacemaker)', src: ['phys.l2.2026', 51], match: 'SA node' },
-  { a: ['ABCT2326', 'p2_av_node'], b: ['HSS2011', 'w8_avnode'], why: 'From SA node to AV node', src: ['phys.l2.2026', 52], match: 'AV node' },
+  { a: ['ABCT2326', 'p2_av_node'], b: ['HSS2011', 'w8_sanode'], why: 'From SA node to AV node', src: ['phys.l2.2026', 52], match: 'AV node' },
   { a: ['ABCT2326', 'p2_purkinje_fibers'], b: ['HSS2011', 'w8_purkinje'], why: 'Purkinje Fibers: distribute impulse through ventricles', src: ['phys.l2.2026', 55], match: 'Purkinje Fibers' },
   { a: ['ABCT2326', 'p2_tricuspid_valve'], b: ['HSS2011', 'w8_tricuspid'], why: 'Between right atrium and ventricle is tricuspid valve', src: ['phys.l2.2026', 32], match: 'tricuspid valve' },
   { a: ['ABCT2326', 'p2_bicuspid_valve'], b: ['HSS2011', 'w8_mitral'], why: 'Between left atrium and ventricle is bicuspid or mitral valve', src: ['phys.l2.2026', 32], match: 'mitral valve' },
@@ -72,4 +72,5 @@ export const CROSS = [
   { a: ['ABCT2326', 'p3_type2_pneumocytes'], b: ['HSS2011', 'w9_type2'], why: 'Type II cells (type 2 pneumocytes)', src: ['hss.l9.2026', 39], match: 'Type II' },
   { a: ['ABCT2326', 'p3_surfactant'], b: ['HSS2011', 'w9_surfactant'], why: 'Surfactant: a lipoprotein that reduces surface tension', src: ['hss.l9.2026', 40], match: 'surfactant' },
   { a: ['ABCT2326', 'p3_diaphragm'], b: ['HSS2011', 'w9_diaphragm'], why: 'A large, dome-shaped muscle below the lungs; the main muscle used for breathing', src: ['hss.l9.2026', 50], match: 'Diaphragm' },
+  { a: ['ABCT2326', 'p9_gap_junctions'], b: ['HSS2011', 'w5_elecsyn'], why: 'Electrical: with gap junctions, allows ions diffuse directly', src: ['hss.l5.2026', 20], match: 'gap junctions' },
 ];
