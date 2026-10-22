@@ -75,7 +75,7 @@ export function hideMesh(mesh){
   const m=mesh||state.selectionAnchor;
   if(!m){ showToast('Select a structure first'); return false; }
   kinOf(m).forEach(o=>{ state.hidden.add(o); state.autoHidden.delete(o); });
-  if(state.selectionAnchor&&kinOf(m).includes(state.selectionAnchor)){ clearSelection(); }
+  if(state.selectionAnchor&&kinOf(m).includes(state.selectionAnchor)){ clearSelection(); window.dispatchEvent(new Event('osteo:selection-hidden')); }
   applyLayers(); applyVisibility(); enforceHidden(); publishHidden();
   showToast(`${hiddenName(m)} hidden`);
   return true;

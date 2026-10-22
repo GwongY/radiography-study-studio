@@ -15,7 +15,7 @@ import { modelSearchNames, namedSide, viewerStructureName } from '../search-name
 /* ------------------------------------------------------------------ *
  * Search -> viewer: frame the part, then hide only what stands in front
  * ------------------------------------------------------------------ */
-function frameOn(objs){
+function frameOn(objs,dirOverride){
   const THREE=state.THREE;
   if(!THREE||!state.camera||!state.controls||!objs.length) return null;
   const box=new THREE.Box3();
@@ -24,42 +24,96 @@ function frameOn(objs){
   const c=box.getCenter(new THREE.Vector3());
   const size=box.getSize(new THREE.Vector3());
   const radius=Math.max(size.x,size.y,size.z,.35);
-  const dir=state.camera.position.clone().sub(state.controls.target).normalize();
+  const dir=(dirOverride||state.camera.position.clone().sub(state.controls.target)).clone().normalize();
   const dist=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,radius*3.4));
   state.controls.target.copy(c);
   state.camera.position.copy(c).add(dir.multiplyScalar(dist));
   state.controls.update();
   return {center:c,radius};
 }
-function occludersOf(targets,frame){
+/* Points ON the structure, so a ray to one of them is a ray to the structure itself and not to the empty middle of
+   its bounding box (a curved rib or a long muscle has no surface at its centre). */
+function surfacePoints(targets,frame,count=28){
   const THREE=state.THREE;
-  if(!THREE||!frame||!targets.length) return [];
+  const pts=[frame.center.clone()];
+  const meshes=targets.filter(o=>o.geometry&&o.geometry.attributes&&o.geometry.attributes.position);
+  if(!meshes.length) return pts;
+  const per=Math.max(3,Math.ceil(count/meshes.length));
+  const v=new THREE.Vector3();
+  meshes.slice(0,count).forEach(o=>{
+    const pos=o.geometry.attributes.position, n=pos.count;
+    o.updateWorldMatrix(true,false);
+    const step=Math.max(1,Math.floor(n/per));
+    for(let i=Math.floor(step/2);i<n&&pts.length<count+1;i+=step){
+      v.fromBufferAttribute(pos,i).applyMatrix4(o.matrixWorld);
+      pts.push(v.clone());
+    }
+  });
+  return pts;
+}
+function occluderPool(targets){
   const targetSet=new Set(targets);
-  const from=state.camera.position.clone();
-  const ray=new THREE.Raycaster();
-  const covered=new Set();
-  /* A few rays across the target, not just its centre, so a part half behind
-     something still reads as covered. */
-  const samples=[frame.center.clone()];
-  for(const dx of [-.5,.5]) for(const dy of [-.5,.5]){
-    samples.push(frame.center.clone().add(new THREE.Vector3(dx*frame.radius,dy*frame.radius,0)));
-  }
   /* Nor anything that is the same structure: an exact search frames one head of
      the biceps, and the other head, which the selection lights with it, was
      being hidden as an obstruction. */
   const targetIds=new Set(targets.map(m=>m.userData&&m.userData.canonicalId).filter(Boolean));
-  const pool=[...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)]
-    .filter(m=>m.userData&&m.userData.canonicalId&&!targetSet.has(m)&&!targetIds.has(m.userData.canonicalId));
-  samples.forEach(pt=>{
+  return [...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)]
+    .filter(m=>m.userData&&m.userData.canonicalId&&!targetSet.has(m)&&!targetIds.has(m.userData.canonicalId)&&m.visible);
+}
+/*
+ * What stands between a camera at `from` and the structure.
+ *
+ * exact=false tests each candidate's bounding box, exact=true its triangles. Bounding boxes of whole-body layers cover
+ * every direction, so the choice of side uses triangles too, with fewer rays. Rays go to points on the structure's own surface; a blocker counts
+ * when it covers more than a graze of them.
+ */
+function occludersOf(targets,frame,from,exact=true,pool,pts){
+  const THREE=state.THREE;
+  if(!THREE||!frame||!targets.length) return [];
+  from=from||state.camera.position;
+  pool=pool||occluderPool(targets);
+  pts=pts||surfacePoints(targets,frame);
+  const ray=new THREE.Raycaster();
+  const tally=new Map();
+  const tmp=new THREE.Vector3();
+  const boxes=exact?null:pool.map(m=>new THREE.Box3().setFromObject(m));
+  pts.forEach(pt=>{
     const d=pt.clone().sub(from);
     const len=d.length();
     ray.set(from,d.normalize());
-    ray.far=len-0.02;
-    ray.intersectObjects(pool,true).forEach(h=>{
-      if(h.object.userData&&h.object.userData.canonicalId&&h.object.visible) covered.add(h.object);
-    });
+    ray.far=len-0.01;
+    if(exact){
+      const seen=new Set();
+      ray.intersectObjects(pool,true).forEach(h=>{ if(h.object.userData&&h.object.userData.canonicalId&&h.object.visible) seen.add(h.object); });
+      seen.forEach(o=>tally.set(o,(tally.get(o)||0)+1));
+    } else {
+      pool.forEach((m,i)=>{ const hit=ray.ray.intersectBox(boxes[i],tmp); if(hit&&hit.distanceTo(from)<len-0.01) tally.set(m,(tally.get(m)||0)+1); });
+    }
   });
-  return [...covered];
+  const need=Math.max(1,Math.round(pts.length*.06));
+  return [...tally].filter(([,n])=>n>=need).map(([m])=>m);
+}
+/*
+ * Choose the side to look from.
+ *
+ * A jump kept whatever angle the camera happened to have, so a kidney was framed from behind the spine or a deep
+ * muscle from inside the rib cage, and hiding "what is in front" meant hiding half the body. Try the current side
+ * and the six axis sides, count what each would have to hide, and look from the side that hides least (the current
+ * one wins a tie, so the view does not swing for nothing).
+ */
+function bestViewDir(targets,frame){
+  const THREE=state.THREE;
+  const cur=state.camera.position.clone().sub(state.controls.target).normalize();
+  const cands=[cur,[0,0,1],[0,0,-1],[1,0,0],[-1,0,0],[0,1,0],[0,-1,0]].map((d,i)=>i?new THREE.Vector3(...d):d);
+  const dist=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,frame.radius*3.4));
+  const pool=occluderPool(targets), pts=surfacePoints(targets,frame,9);
+  let best=cur,bestN=Infinity;
+  cands.forEach((d,i)=>{
+    const from=frame.center.clone().add(d.clone().multiplyScalar(dist));
+    const n=occludersOf(targets,frame,from,true,pool,pts).length;
+    if(n<bestN){ bestN=n; best=d; }
+  });
+  return best;
 }
 /*
  * Find the meshes a catalogue name refers to, inside one loaded layer.
@@ -216,7 +270,8 @@ export async function revealStructure(spec){
     &&o.userData.canonicalId===primary.userData.canonicalId);
   const frameTargets=curatedGroup?targets:(kin.length>1?kin:[primary]);
   state.selectionAnchor=primary;state.selectionMeshes=frameTargets;
-  const frame=frameOn(frameTargets);
+  let frame=frameOn(frameTargets);
+  if(frame&&state.controls&&!spec.keepView){ try{ frameOn(frameTargets,bestViewDir(frameTargets,frame)); }catch(e){ console.warn('view choice failed',e); } }
   const occ=occludersOf(frameTargets,frame);
   occ.forEach(m=>state.autoHidden.add(m));
   applyLayers(); applyVisibility(); enforceHidden();

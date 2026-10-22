@@ -183,8 +183,8 @@ for (const subject of Object.values(REVISION)) {
   (function walk(s) { if (s.id) seen.push(s.id); (s.kids || []).forEach(walk); })(data.TREE);
   ok(seen.length === ids.size && seen.every((id) => ids.has(id)) && new Set(seen).size === seen.length, 'every topic is in the tree exactly once');
   /* A box on the map with nothing under it is a hole (Movement vocabulary, Muscle teamwork, Dermatomes, the Hypothalamus and
-     the Reticular formation were, until 23 Oct 2026). Only a heading whose slide is a picture with no text may stay bare. */
-  const PICTURE_ONLY = new Set(['p_ns_vs_endo']);
+     the Reticular formation were, until 23 Oct 2026). A heading whose slide is a picture with no text is dropped from the map instead (owner, 23 Oct 2026). */
+  const PICTURE_ONLY = new Set();
   const kidCount = new Map();
   (function walkKids(s) { if (s.id) kidCount.set(s.id, (s.kids || []).length); (s.kids || []).forEach(walkKids); })(data.TREE);
   const bare = data.NODES.filter((n) => !n.leaf && kidCount.get(n.id) === 0 && !PICTURE_ONLY.has(n.id)).map((n) => n.id);
@@ -370,7 +370,7 @@ console.log('\nRevise box -> viewer unit (outputs/revision/viewer-units.js)');
   const committed = readFileSync(new URL('../outputs/revision/viewer-units.js', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
   ok(committed === viewerUnitsSource(derived), 'the committed table is what the generator derives now — if not: node work/build-revision-units.mjs --write');
   for (const [sub, r] of Object.entries(derived)) {
-    const ids = Object.values(r.units);
+    const ids = Object.values(r.units).flat();
     ok(ids.every((u) => UNITS[u]), `${sub}: every linked unit exists in the mesh index`);
     const nodes = new Set(REVISION[sub].data.NODES.map((n) => n.id));
     ok(Object.keys(r.units).every((id) => nodes.has(id)), `${sub}: every linked box exists`);

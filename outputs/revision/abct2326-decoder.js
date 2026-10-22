@@ -106,7 +106,6 @@ export const DECODER = [
   { wk: 7, term: 'Trophoblast', reading: 'troph/o = nourishment, growth; development + -blast = a building, immature cell' },
   { wk: 7, term: 'Cellular trophoblast', reading: 'troph/o = nourishment, growth; development + -blast = a building, immature cell' },
   { wk: 7, term: 'Syncytial trophoblast', reading: 'troph/o = nourishment, growth; development + -blast = a building, immature cell' },
-  { wk: 8, term: 'Nervous and endocrine systems compared', reading: 'endo- = within, inner + -crine = secrete, secreting' },
   { wk: 8, term: 'Hypothalamic control of the pituitary', reading: 'hypo- = below + thalam/o = thalamus' },
   { wk: 8, term: 'Feedback control of anterior pituitary', reading: 'anter/o = front, forehead + -ior = pertaining to' },
   { wk: 8, term: 'Autocrine and paracrine regulation', reading: 'auto- = self + -crine = secrete, secreting · para-, -para = beside, near; abnormal + -crine = secrete, secreting' },

@@ -47,6 +47,8 @@ export function setActiveNav(id) {
   $$('navContent').classList.toggle('bleed', viewer);
   document.querySelector('.navmain > .navhead').classList.toggle('compact', viewer);
   $$('viewerTabs').classList.toggle('hidden', !viewer);
+  /* Revise's Anatomy / Physiology switch sits beside the text-size button, as the viewer's 3D / Projection switch does */
+  $$('rvSubjects').classList.toggle('hidden', id !== 'revise' || !$$('rvSubjects').children.length);
   /* The canvas box changed size; tell the renderer before the next frame. */
   if (viewer && window.__osteo && window.__osteo.resize) requestAnimationFrame(() => window.__osteo.resize());
   document.querySelectorAll('.navrail [data-nav], .bottomtab [data-nav]').forEach((b) => {

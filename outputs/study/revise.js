@@ -168,8 +168,8 @@ function paintWeekBar() {
 function paintSubjects() {
   const box = $$('rvSubjects');
   const subs = Object.values(REVISION);
-  box.hidden = subs.length < 2;
-  box.innerHTML = subs.map((s) => `<button type="button" class="rv-chip rv-subj" data-subject="${esc(s.id)}" aria-pressed="${s.id === rv.subject}">${esc(s.copy.name)}</button>`).join('');
+  box.innerHTML = subs.length < 2 ? '' : subs.map((s) => `<button type="button" class="seg${s.id === rv.subject ? ' active' : ''}" data-subject="${esc(s.id)}" aria-pressed="${s.id === rv.subject}">${esc(s.copy.name)}</button>`).join('');
+  box.classList.toggle('hidden', subs.length < 2 || !$$('reviseView') || $$('reviseView').classList.contains('hidden'));
   box.querySelectorAll('[data-subject]').forEach((b) => { b.onclick = () => setSubject(b.dataset.subject); });
 }
 
@@ -295,7 +295,7 @@ function renderPanel(id, el) {
     }))}</p>` : '';
     h += `<div class="rv-note">${said}${n.t}</div>`;
     const vh = viewerEligible(n) ? viewerUnit(id) != null : false;
-    h += `<p class="rv-to3d"><button type="button" class="rv-linkbtn" data-to3d="${esc(id)}">Connections in 3D (${(ix.NB[id] || []).length})</button>${vh ? ` <button type="button" class="rv-linkbtn" data-toviewer="${esc(id)}">Show in the viewer</button>` : ''}${showIn3D(rv.subject, id) ? ` <button type="button" class="rv-linkbtn" data-tocell="${esc(id)}">Show in 3D</button>` : ''}</p>`;
+    h += `<p class="rv-to3d">${(ix.NB[id] || []).length ? `<button type="button" class="rv-linkbtn" data-to3d="${esc(id)}">Connections in 3D (${(ix.NB[id] || []).length})</button>` : ''}${vh ? ` <button type="button" class="rv-linkbtn" data-toviewer="${esc(id)}">Show in the viewer</button>` : ''}${showIn3D(rv.subject, id) ? ` <button type="button" class="rv-linkbtn" data-tocell="${esc(id)}">Show in 3D</button>` : ''}${decoderFor(n) ? ` <button type="button" class="rv-linkbtn" data-todecoder="${esc(decoderFor(n))}">Word in Decoder</button>` : ''}</p>`;
     /* The owner's answer 8: the same thing in the other subject, once its week is reached. Tapping switches subject. */
     const cross = crossFor(CROSS, rv.subject, id, rv.week, firstWeekIn);
     for (const sub of [...new Set(cross.map((c) => c.subject))]) {
@@ -546,18 +546,39 @@ function createMap() {
     const node = findNode(id);
     if (node) mm.centerNode(node, NARROW ? { left: 8, right: 130 } : { left: 20, right: 20 });
     track(800);
+    commitSoon(600);
   }
 
-  function setFold(open) {
+  /* ---- undo / redo: what is open and what is chosen, one step per tap ---- */
+  const hist = []; let hi = -1; let restoring = false; let commitTimer = null;
+  function capture() {
+    const folds = {};
+    (function walk(n) { if (n.payload && n.payload.fold) folds[n.payload.id] = 1; (n.children || []).forEach(walk); })(mm.state.data);
+    return { sel: selId, folds };
+  }
+  const sameSnap = (a, b) => a.sel === b.sel && Object.keys(a.folds).length === Object.keys(b.folds).length && Object.keys(a.folds).every((k) => b.folds[k]);
+  function paintHist() { $$('rvUndo').disabled = hi <= 0; $$('rvRedo').disabled = hi >= hist.length - 1; }
+  function commit() {
+    clearTimeout(commitTimer);
+    if (restoring || !mm || !mm.state) return;
+    const s = capture();
+    if (hi >= 0 && sameSnap(hist[hi], s)) return;
+    hist.length = hi + 1; hist.push(s); if (hist.length > 60) hist.shift();
+    hi = hist.length - 1; paintHist();
+  }
+  const commitSoon = (ms = 800) => { clearTimeout(commitTimer); commitTimer = setTimeout(commit, ms); };
+  async function goHist(to) {
+    if (to < 0 || to >= hist.length) return;
+    hi = to; restoring = true;
+    const s = hist[hi];
     (function walk(n) {
-      if (n.payload && n.payload.id !== 'root' && (n.children || []).length) {
-        const depth = ancestors(n.payload.id).length;
-        const fold = open ? 0 : (depth >= (NARROW ? 0 : 1) ? 1 : 0);
-        n.payload = Object.assign({}, n.payload, { fold });
-      }
+      if (n.payload && n.payload.id !== 'root' && (n.children || []).length) n.payload = Object.assign({}, n.payload, { fold: s.folds[n.payload.id] ? 1 : 0 });
       (n.children || []).forEach(walk);
     })(mm.state.data);
-    return mm.renderData().then(() => { mm.fit(); track(700); });
+    await mm.renderData();
+    if (s.sel) select(s.sel); else clearSel();
+    applyMarks(); track(500);
+    restoring = false; paintHist();
   }
 
   /* ---- find: matches stay with their parent branches, so each hit keeps its context ---- */
@@ -589,7 +610,7 @@ function createMap() {
       if (n.payload && need[n.payload.id] && n.payload.fold) { n.payload = Object.assign({}, n.payload, { fold: 0 }); changed = true; }
       (n.children || []).forEach(walk);
     })(mm.state.data);
-    (changed ? mm.renderData() : Promise.resolve()).then(() => { applyMarks(); mm.fit(); });
+    (changed ? mm.renderData() : Promise.resolve()).then(() => { applyMarks(); mm.fit(); commitSoon(300); });
   }
 
   function fillJump() {
@@ -722,8 +743,11 @@ function createMap() {
 
     $$('rvJump').addEventListener('change', () => { const v = $$('rvJump').value; if (v) reveal(v); else clearSel(); });
     $$('rvFit').addEventListener('click', () => { clearSel(); mm.fit(); track(700); });
-    $$('rvOpenAll').addEventListener('click', () => { setFold(true); });
-    $$('rvCloseAll').addEventListener('click', () => { clearSel(); setFold(false); });
+    $$('rvUndo').addEventListener('click', () => goHist(hi - 1));
+    $$('rvRedo').addEventListener('click', () => goHist(hi + 1));
+    /* every tap on the map, the Jump menu, a link in the side panel or the Find box is one step */
+    [svgEl, side, $$('rvLinkList'), $$('rvJump'), $$('rvFit')].forEach((el) => { if (el) el.addEventListener('click', () => commitSoon()); });
+    $$('rvJump').addEventListener('change', () => commitSoon());
     $$('rvFind').addEventListener('input', () => { clearTimeout(findTimer); findTimer = setTimeout(runFind, 220); });
     $$('rvFind').addEventListener('keydown', (ev) => {
       if (ev.key === 'Enter') { ev.preventDefault(); clearTimeout(findTimer); runFind(); const first = TREE_ORDER.filter((k) => hits[k])[0]; if (first) reveal(first); }
@@ -733,7 +757,7 @@ function createMap() {
     try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => mm.renderData()); } catch { /* older browsers: no change listener */ }
 
     home();
-    setTimeout(() => { applyMarks(); fitNow(); }, 60);
+    setTimeout(() => { applyMarks(); fitNow(); commit(); }, 60);
   }
 
   return {
@@ -758,14 +782,21 @@ function openThread(id) {
   if (d && !d.hidden) { d.open = true; setTimeout(() => d.scrollIntoView({ behavior: 'smooth', block: 'start' }), 40); }
 }
 
+/* What each of the three tabs is for and how to read it, said once above the fragment. */
+const INTROS = {
+  threads: '<div class="rv-intro"><b>What this is.</b> One thing followed from start to finish across the weeks: a signal, a pathway, a process. The map shows how topics sit together; a thread shows them in the order they happen.<br><b>How to use it.</b> Open a thread and read the steps top to bottom. The tag on each step is the week it comes from, and steps from a week you have not reached stay hidden. A topic on the map that belongs to a thread has a button that opens it here.</div>',
+  tables: '<div class="rv-intro"><b>What this is.</b> The same facts laid out in rows and columns so that things that look alike can be compared side by side: levels with plexuses, nerves with what they serve, joints with their movers, look-alike pairs.<br><b>How to use it.</b> Tap a name in the strip below to jump to that table. Rows from a week you have not reached stay hidden, so the tables grow as you move the week forward.</div>',
+  decoder: '<div class="rv-intro"><b>What this is.</b> A word list for the strange names. Each term is split into its roots and given one hook that ties the name to what the structure does or where it sits.<br><b>How to use it.</b> Type part of a word in the Filter box and the list narrows as you type. Terms from a week you have not reached stay hidden.</div>',
+};
+
 function mountFragments() {
   const sub = subjectData();
   ix.threadTitles = {};
   /* a subject still being written has no Threads, Tables or Decoder yet: its tabs are hidden */
   [['threads', 'rvTabThreads'], ['tables', 'rvTabTables'], ['decoder', 'rvTabDecoder']].forEach(([k, tab]) => { $$(tab).hidden = !sub[k]; });
-  $$('rvThreads').innerHTML = sub.threads;
-  $$('rvTables').innerHTML = `${sub.tables}`;
-  $$('rvDecoder').innerHTML = `${sub.decoder}<div class="rv-foot">${sub.sources}</div>`;
+  $$('rvThreads').innerHTML = INTROS.threads + sub.threads;
+  $$('rvTables').innerHTML = INTROS.tables + sub.tables;
+  $$('rvDecoder').innerHTML = `${INTROS.decoder}${sub.decoder}<div class="rv-foot">${sub.sources}</div>`;
   /* class names that would collide with the app's own */
   ['rvThreads', 'rvTables', 'rvDecoder'].forEach((id) => {
     const root = $$(id);
@@ -1003,7 +1034,11 @@ export function init() {
   document.addEventListener('click', (ev) => {
     const b = ev.target.closest && ev.target.closest('[data-toviewer]'); if (!b) return;
     const n = ix.byId[b.dataset.toviewer]; const u = n && viewerEligible(n) ? viewerUnit(n.id) : null;
-    if (u != null) openUnitInViewer(u);
+    if (u != null) openUnitInViewer(u, n.l);
+  });
+  document.addEventListener('click', (ev) => {
+    const b = ev.target.closest && ev.target.closest('[data-todecoder]'); if (!b) return;
+    openRevise({ subject: rv.subject, tab: 'decoder', q: b.dataset.todecoder });
   });
   /* "Show in 3D": the viewer's Cell mode at this box's level, stage and label */
   document.addEventListener('click', (ev) => {
@@ -1075,6 +1110,18 @@ export async function openRevise({ subject, week, id, title, tab, q } = {}) {
 
 /* Decoder words per subject, read once from its fragment: [{ term, wk }]. */
 const decoderCache = new Map();
+/* The Decoder word that is this box's own word: its name, the name without its kind (Vagus nerve -> Vagus), or a
+   single word of it the Decoder splits. Only a word taught by the week shown. */
+const KIND_WORDS = /\s+(muscles?|bones?|nerves?|arter(?:y|ies)|veins?|joints?|glands?|nucle(?:us|i)|ligaments?|tract|lobe|gyrus|cortex)$/i;
+function decoderFor(n, subject = rv.subject) {
+  const week = weekFor(subject);
+  const terms = decoderTerms(subject).filter((r) => r.wk <= week);
+  const find = (t) => { const l = t.toLowerCase(); const r = terms.find((x) => x.term.toLowerCase() === l); return r ? r.term : null; };
+  const label = n.l.replace(/\s*\([^)]*\)/g, '').trim();
+  const words = label.split(/[\s/]+/);
+  return find(label) || find(label.replace(KIND_WORDS, '')) || (words.length === 1 ? null : words.filter((w) => w.length > 4).map(find).find(Boolean)) || null;
+}
+
 function decoderTerms(subject) {
   if (!decoderCache.has(subject)) {
     const html = REVISION[subject].decoder || '';

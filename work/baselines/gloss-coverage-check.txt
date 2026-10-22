@@ -1,7 +1,7 @@
 — gloss coverage check: underlined tokens without gloss —
 warn  125 underlined Revise token(s) have no TERM_GLOSS and are not stoplisted:
     cyt/o (15)
-    -crine (13)
+    -crine (12)
     -ary (11)
     gen/o (10)
     -gen (10)

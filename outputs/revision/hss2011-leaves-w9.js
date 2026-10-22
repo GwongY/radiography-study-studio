@@ -57,7 +57,8 @@ export const ROWS = [
 { k: 'process', id: 'w9_voice', l: 'Voice production', parent: 'respsys', w: 9, line: 'movement of air past the vocal cords makes sound and speech', src: [L9, 4] },
 { k: 'process', id: 'w9_olfaction', l: 'Olfaction', parent: 'respsys', w: 9, line: 'smell occurs when airborne molecules are drawn into the nasal cavity', src: [L9, 4] },
 { k: 'process', id: 'w9_resp_protect', l: 'Protection', parent: 'respsys', w: 9, line: 'against microorganisms, by preventing entry and removing them', src: [L9, 4] },
-{ k: 'part', id: 'w9_acidosis', l: 'Acidosis / alkalosis', match: 'Acidosis', parent: 'respsys', w: 9, line: 'a pH imbalance; critical limits are below 6.8 or above 7.8', src: [L9, 4] },
+{ k: 'part', id: 'w9_acidosis', l: 'Acidosis', parent: 'respsys', w: 9, line: 'a pH imbalance; critical limits are below 6.8 or above 7.8', src: [L9, 4] },
+{ k: 'part', id: 'w9_alkalosis', l: 'Alkalosis', parent: 'respsys', w: 9, line: 'a pH imbalance; critical limits are below 6.8 or above 7.8', src: [L9, 4] },
 
 /* ---------------- nose and paranasal sinuses (p6-11) ---------------- */
 { k: 'part', id: 'w9_nostrils', l: 'nostrils', parent: 'nose', w: 9, line: 'air enters the nasal cavity by passing through them', src: [L9, 6] },

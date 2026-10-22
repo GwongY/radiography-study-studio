@@ -4,16 +4,16 @@
 Where everything is. **Read this before grepping.**
 Traps for a file live in [TRAPS.md](TRAPS.md) — follow the link in the Traps column.
 
-## `outputs/radiography-study-studio.html` — 418 lines
+## `outputs/radiography-study-studio.html` — 420 lines
 
 | Lines | Section |
 | --- | --- |
-| 1–395 | markup — no banners, grep here |
-| 396–396 | importmap |
-| 397–397 | loads studio.js |
-| 398–398 | loads study.js |
-| 399–416 | classic script · preamble |
-| 417–418 | markup — no banners, grep here |
+| 1–397 | markup — no banners, grep here |
+| 398–398 | importmap |
+| 399–399 | loads studio.js |
+| 400–400 | loads study.js |
+| 401–418 | classic script · preamble |
+| 419–420 | markup — no banners, grep here |
 
 ## The application — `outputs/app.css`, `outputs/studio.js`, `outputs/study.js`
 
@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1573 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
+- `outputs/app.css` — 1579 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
 - `outputs/studio.js` — 39 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiomodes-and-bridgejs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 47 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -139,7 +139,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `muscle-zoom.js` | 444 | Muscle zoom |
 | `packed-spread.js` | 93 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
 | `scene.js` | 502 | Region boxes — how the region filter reaches the six soft-tissue layers |
-| `search-viewer-frame.js` | 254 | Search -> viewer: frame the part, then hide only what stands in front |
+| `search-viewer-frame.js` | 309 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 828 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
 | `tools-and-capture.js` | 561 | Tools — section cuts, layer separation, capture. |
 
@@ -154,18 +154,18 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `course-data.js` | 301 | Course data -- the source registry, the subject list and the model files. |
 | `course-timetable.js` | 409 | Course — the syllabus and the timetable |
 | `dialogs.js` | 88 | Dialog behaviour, applied to all seven at once |
-| `global-search.js` | 396 | Global search -- one sheet over every destination, mixing structures, |
+| `global-search.js` | 420 | Global search -- one sheet over every destination, mixing structures, |
 | `hidden-tray.js` | 27 | Hidden tray |
 | `home.js` | 109 | Home |
 | `imports.js` | 71 | The layer rail is a rail of SYSTEMS, not of files: two of the seven GLBs |
 | `more.js` | 75 | More -- sources, coverage, and the things demoted out of the topbar. |
-| `navigation-destinations.js` | 71 | Navigation -- four destinations, rendered into both the icon rail and |
+| `navigation-destinations.js` | 73 | Navigation -- four destinations, rendered into both the icon rail and |
 | `reading-help.js` | 218 | Reading help |
 | `revise-brain.js` | 424 | Revise · Brain 3D — the connections hub |
 | `revise-links.js` | 32 | Revise · the numbered links list under the Map and under the 3D hub. |
-| `revise.js` | 1140 | Revise |
-| `search-viewer-open.js` | 52 | Search -> viewer: open the model, select the part, auto-uncover, and |
-| `small-ui-helpers.js` | 258 | Small UI helpers |
+| `revise.js` | 1187 | Revise |
+| `search-viewer-open.js` | 56 | Search -> viewer: open the model, select the part, auto-uncover, and |
+| `small-ui-helpers.js` | 260 | Small UI helpers |
 | `spatial-overlay-controls.js` | 120 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 29 | The study system's mutable UI state. |
 | `storage-versioned-keys.js` | 74 | Storage -- versioned keys and the one-time purge of the retired testing data |

@@ -1484,11 +1484,23 @@ names it.
   "from the orbit" and implied a bone count the slides give only as labels; the dermatome note described a rash the
   slide does not). Audit a note by sentence against the deck of its week, not by vocabulary: a word screen passes
   nearly every note, because the vocabulary is on some slide somewhere. A `★` marks a textbook fact on purpose.
-- **Twins split into two boxes with one description are one box.** Squamous and parietomastoid suture, SA and AV node and
-  Acidosis and alkalosis were each two rows saying the same thing; they are now one row named "A / B" (the `match` is
-  the first name, which is the one on the page). Before merging, check the pair is not a viewer unit or linked to
-  different things (the valves, the cardiac veins and the deep hip rotators stay separate for that reason). Rows that
-  only look alike (both ears "conduct sound") need their own distinguishing slide line, not a merge.
+- **Merge twins only when they are literally the same thing.** Squamous and parietomastoid suture are one structure
+  and are one row ("A / B", `match` the first name). SA node and AV node, and acidosis and alkalosis, share a slide
+  line but are different things; the owner un-merged them (23 Oct 2026) — keep them apart. Also check a pair is not a
+  viewer unit or linked to different things (valves, cardiac veins, deep hip rotators stay separate). Rows that only
+  look alike (both ears "conduct sound") need their own distinguishing slide line, not a merge.
+- **A heading whose slide is a picture with no text is dropped from the map**, not left bare (Nervous and endocrine
+  systems compared, removed with its Decoder row). The bare-heading check has no exemption list.
+- **A map box that names a set opens the set in the viewer.** `SETS` in `work/build-revision-units.mjs` lists unit
+  labels (Splenius = capitis + cervicis, ribs 1–7, the cuneiforms); `VIEWER_UNITS` values may be an array, so
+  `openUnitInViewer` and `UNIT_BOXES` take both. A label that is not a unit throws.
+- **A jump to a structure chooses the side to look from** (`bestViewDir` in search-viewer-frame.js): current side plus
+  the six axis sides, fewest blockers by triangle ray tests to surface points of the target, then hides what still
+  stands in front. A bounding-box test is useless here: whole-body layers' boxes cover every direction.
+- **The Explore card opens on every result and closes when its structure is hidden** (`osteo:selection-hidden`).
+- **Bone landmarks are searchable** (global-search.js, kind "Landmark"): the hit opens the bone and presses that
+  landmark's entry in its Parts menu. Vertebrae still have almost no landmarks: each needs a pinned vertex and a slide
+  citation (work/bone-landmark-additions.mjs).
 - **The search sheet is pinned to the TOP** (`#searchScrim` at the end of app.css). At the bottom edge it lay under the
   on-screen keyboard as soon as the field took focus, hiding the field and its results. Keep it capped (46dvh on a phone).
 - **Rows folded into their heading hide a bare heading.** A row named exactly like its topic is merged into it (leaves.js

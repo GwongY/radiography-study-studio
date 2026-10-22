@@ -10,6 +10,7 @@ import { openStructureInViewer } from './search-viewer-open.js';
 import { reviseSearch } from './revise.js';
 import { exactSearch, matchesSearch, modelSearchNames } from '../search-name.js';
 import { lectureRow } from '../viewer-lecture-names.js';
+import { BONE_LANDMARKS } from '../bone-landmarks.js';
 const lectureRows=ATLAS_MESH_INDEX.map(lectureRow);
 const unitSizes=new Map();
 lectureRows.forEach(r=>unitSizes.set(r.unitId,(unitSizes.get(r.unitId)||0)+1));
@@ -153,13 +154,20 @@ MESH_INDEX.forEach((m) => {
 
 /* One study unit, opened whole in the viewer, exactly as a unit search hit opens it.
    Revise's "Show in the viewer" uses it with the unit outputs/revision/viewer-units.js names. */
-export function openUnitInViewer(unitId) {
-  const rows = UNIT_ROWS.get(unitId);
-  if (!rows || !rows.length) return false;
-  const head = UNIT_HEAD.get(unitId) || rows[0];
-  const model = STRUCTURE_MODELS[head.layer];
-  openStructureInViewer({ parts: rows.map((m) => ({ system: m.layer, mesh: m.mesh, file: model && model.file })), name: head.unit });
+export function openUnitInViewer(unitId, setName) {
+  const ids = [].concat(unitId);
+  const rows = ids.flatMap((id) => UNIT_ROWS.get(id) || []);
+  if (!rows.length) return false;
+  const head = UNIT_HEAD.get(ids[0]) || rows[0];
+  openStructureInViewer({ parts: rows.map((m) => ({ system: m.layer, mesh: m.mesh, file: STRUCTURE_MODELS[m.layer] && STRUCTURE_MODELS[m.layer].file })), name: ids.length > 1 ? setName : head.unit });
   return true;
+}
+
+/* Once the bone is open its Parts menu exists; press the entry for this landmark (it may take a moment to appear). */
+function showBoneLandmark(name, tries = 0) {
+  const b = [...document.querySelectorAll('.bone-landmark-menu [data-landmark-choice]')].find((x) => x.dataset.landmarkChoice === name);
+  if (b) { b.click(); return; }
+  if (tries < 20) setTimeout(() => showBoneLandmark(name, tries + 1), 250);
 }
 
 export function searchHits(q) {
@@ -207,6 +215,22 @@ export function searchHits(q) {
       note: `${STRUCTURE_MODELS[x.system] ? STRUCTURE_MODELS[x.system].label : x.system} \u00b7 ${x.blurb}`,
       go: () => openStructure({ system: x.system, mesh: x.mesh,
         file: STRUCTURE_MODELS[x.system] && STRUCTURE_MODELS[x.system].file, name: x.name }) });
+  });
+
+  /* Bone landmarks (lambda, bregma, a suture, a tubercle): each opens its bone and turns that label on. The bone's own
+     Parts menu holds the same names, so the two agree by construction. */
+  Object.entries(BONE_LANDMARKS).forEach(([bone, spec]) => {
+    /* a curated bone record where there is one, else the skeleton mesh the landmarks were pinned to */
+    const rec = searchAnatomy(bone).find((r) => String(r.canonicalName).toLowerCase() === bone);
+    const title = bone.charAt(0).toUpperCase() + bone.slice(1);
+    const names = new Set();
+    (spec.points || []).forEach((p) => {
+      const key = p.name.toLowerCase();
+      if (names.has(key) || !matches(`${p.name} ${bone}`.toLowerCase()) || !matchesSearch(p.name, structureNeedle)) return;
+      names.add(key);
+      hits.push({ kind: 'Landmark', title: `${p.name} · ${title}`, note: 'Bone landmark · opens in Viewer',
+        go: () => { openStructure(rec ? { id: rec.id } : { system: 'skeleton', mesh: spec.mesh, name: title, exact: true }); showBoneLandmark(p.name); } });
+    });
   });
 
   /*

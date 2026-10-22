@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1045 —
-  0c2ad977a2dda545  WHOLE SET
+— user-facing strings in outputs/ — 1048 —
+  c98360d2ca7cc793  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -23,6 +23,7 @@
   5265bd1a089ac9df  " data-groupopt="
   9d18b1672389d7fe  " data-groupset="
   d73ec115ea9142c9  " data-state="
+  1b6d4352c49c1112  " data-subject="
   ac18f6537d5721f5  " data-title="
   e2d80c92ddbb5f6d  " data-vtab="
   828626d9f204fdc0  " data-week="
@@ -40,7 +41,6 @@
   b7337d3498ef8467  " title="Follow the teaching week by itself">Auto
   96de2d47a973c7ca  " transform="translate(
   f3d8b40b607f89b2  "><i style="background:#
-  ddaed8f0c0a21455  ">Connections in 3D (
   98dff919a1651387  ">Named in
   fe28989274e10994  % banked from
   cce4036d8e09c47c  % marked
@@ -126,9 +126,8 @@
   8f1ddc92fcdd66f1  <button type="button" class="nbtn" data-thread="
   380f864b046ac3b9  <button type="button" class="rv-back" data-back="1">Back</button>
   988f0b5e4825f8c7  <button type="button" class="rv-chip rv-auto" data-auto="1" aria-pressed="
-  40e4f643a5dc2b8a  <button type="button" class="rv-chip rv-subj" data-subject="
   b2f06ab240053277  <button type="button" class="rv-chip" data-week="
-  7be6ad5156454d4e  <button type="button" class="rv-linkbtn" data-to3d="
+  2dd9468b3201da38  <button type="button" class="seg
   5037f4fbb7be28c4  <button type="button" class="term" data-term="
   f80810c7b1b63271  <button type="button" data-cz-label="
   fa7032ba339fc668  <button type="button" data-cz-level="
@@ -158,6 +157,7 @@
   cd51c79109a79fed  <div class="ohead">How to look</div>
   4008203e0b664f6f  <div class="ohead">Planes</div>
   e0871ec754d0a09c  <div class="physline" style="--tone:#
+  ee4fec004194a34f  <div class="rv-intro"><b>What this is.</b> A word list for the strange names. Each term is split into its roots and given one hook that ties the name to what the structure does or where it sits.<br><b>How to use it.</b> Type part of a word in the Filter box and the list narrows as you type. Terms from a week you have not reached stay hidden.</div>
   a2a3d9fba89127bb  <div class="rv-note shown">Branch heading. Topics inside:</div><div class="nlist" style="margin-top:8px">
   079bd17310af1ec7  <div class="sessnote">Another group’s slot — hidden from your counts.</div>
   6634c6d53e1e4431  <div class="upnext
@@ -252,6 +252,7 @@
   e72ca92c0272f35b  Body layers
   2cea2e3a045ac3d2  BodyParts3D / Anatomography model licensing and the candidate sources that were reviewed.
   14352d43201b3476  Bone goes translucent; the cavity reads straight through it.
+  ece65ecbb8deec76  Bone landmark · opens in Viewer
   e270caf3ffdc6356  Bone landmarks
   63042ab0dfb866aa  Bottom strip left alone. The app stops at the edge of the viewport.
   08dec09e60523dff  Browser tab · viewport
@@ -939,10 +940,10 @@
   6ab01b1dba123b71  region filter does not work
   ec6a0f3dde81ba11  repeats id
   9eb7149db5d15b08  rv-chip rv-auto
-  413af7071953d105  rv-chip rv-subj
   2acea9fe38b93d3f  rv-tag sys
   645dd7161deaf67a  rv-weeknote small
   aec5179492e675e7  s "Show in 3D": the viewer
+  0338641b7bc29148  s Anatomy / Physiology switch sits beside the text-size button, as the viewer
   674137d425f5c5ff  s Cell mode at this box
   2c0e6e68763510e0  s `root`; the vessels themselves are the explorer
   0eda74d519563cb0  s camera regions: a box in a limb
@@ -1022,9 +1023,11 @@
   dece92bf4fa4cd18  vec3 n = normalize(normalMatrix * normal);
   48aeee7eb3f531af  vec3 rssPerp=(transformed-uMCenter)-rssAlong*uMAxis;\n
   eddc22218b2be4a2  vec4 mv = modelViewMatrix * vec4(position,1.0);
+  ef694355bef1123b  view choice failed
   6a721f9bcdcf952d  view hidden
   691c01cec2897213  viewer-tools-panel tools-collapsed
   517a9e300094cc0d  wall interpolated between the costal margin and the pelvis (muscle layer not loaded)
+  1b9aee3454d7103b  what is in front
   e78e242b95628323  what is left
   d1d9ae15f23c9b21  what should I study
   9e3ac18c25c2c980  where am I meant to be

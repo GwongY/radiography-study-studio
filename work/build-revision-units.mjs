@@ -43,6 +43,28 @@ const OUT = fileURLToPath(new URL('../outputs/revision/viewer-units.js', import.
 const NOT_THE_SAME = {
   ABCT2326: { p5_renal_medulla: 'the renal medulla (under Kidneys), not the medulla oblongata' },
 };
+/* A box that names a set of structures (a row "Splenius" is two muscles; "True ribs" is ribs 1-7) opens the whole set.
+   Each entry lists unit labels exactly, case ignored; every label must exist, the builder throws otherwise. */
+const ORD = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth', 'Eleventh', 'Twelfth'];
+const FINGERS = ['first', 'second', 'third', 'fourth', 'fifth'];
+const phal = (side) => ['Proximal', 'Middle', 'Distal'].flatMap((p) => FINGERS.filter((f) => !(p === 'Middle' && f === 'first')).map((f) => `${p} phalanx of ${f} finger of ${side}`));
+const SETS = {
+  HSS2011: {
+    w2_cuneiforms: ['Medial cuneiform bone', 'Intermediate cuneiform bone', 'Lateral cuneiform bone'],
+    w2_metatarsals: ORD.slice(0, 5).map((o) => `${o} metatarsal bone`),
+    w3_metacarpals: ORD.slice(0, 5).map((o) => `${o} metacarpal bone`),
+    w2_phalanges: phal('foot'),
+    w3_phalanges: phal('hand'),
+    w3_sternum: ['Manubrium of sternum', 'Body of sternum', 'Xiphoid process'],
+    w4_trueribs: ORD.slice(0, 7).map((o) => `${o} rib`),
+    w4_falseribs: ORD.slice(7, 10).map((o) => `${o} rib`),
+    w4_floatribs: ORD.slice(10, 12).map((o) => `${o} rib`),
+    w4_splcap: ['Splenius capitis muscle', 'Splenius cervicis'],
+    w2_iliopsoas: ['Psoas major', 'Iliacus muscle'],
+    w3_lumbricals: ['Lumbricals of hand'],
+    w3_dorsalinteross: ['Dorsal interossei of hand'],
+  },
+};
 /* The layer each structure row's kind lives in. */
 const KIND_LAYERS = { bone: ['skeleton'], muscle: ['muscle'], joint: ['joint'], nerve: ['nervous'] };
 const norm = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
@@ -68,6 +90,11 @@ export function deriveViewerUnits() {
     const res = { units: {}, how: {}, missing: [], ambiguous: [] };
     for (const n of S.data.NODES) {
       if (!viewerEligible(n)) continue;
+      const set = SETS[sub] && SETS[sub][n.id];
+      if (set) {
+        const ids = set.map((lab) => { const u = UNITS.find((x) => x.label.toLowerCase() === lab.toLowerCase()); if (!u) throw new Error(`viewer set ${n.id}: no unit called ${lab}`); return u.id; });
+        res.units[n.id] = ids.length === 1 ? ids[0] : ids; res.how[n.id] = 'set'; continue;
+      }
       if (NOT_THE_SAME[sub] && NOT_THE_SAME[sub][n.id]) { res.missing.push(n.id); continue; }
       const own = norm(n.l);
       const syn = [...new Set([...(SYNONYMS.get(n.l.toLowerCase()) || [])].map(norm))].filter((t) => t && t !== own);
@@ -124,7 +151,7 @@ export const VIEWER_UNITS = ${JSON.stringify(table)};
 /** unit id -> [[subject, box id], ...], for the viewer's way back. */
 export const UNIT_BOXES = (() => {
   const m = new Map();
-  for (const [sub, t] of Object.entries(VIEWER_UNITS)) for (const [id, u] of Object.entries(t)) {
+  for (const [sub, t] of Object.entries(VIEWER_UNITS)) for (const [id, us] of Object.entries(t)) for (const u of [].concat(us)) {
     if (!m.has(u)) m.set(u, []);
     m.get(u).push([sub, id]);
   }

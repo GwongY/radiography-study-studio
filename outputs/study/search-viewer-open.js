@@ -6,6 +6,7 @@
 import { $$, esc, ui } from './imports.js';
 import { closeSearchSheet } from './global-search.js';
 import { goTo } from './navigation-destinations.js';
+import { isPhoneViewer, setTaskPanelExpanded, setToolsPanelOpen } from './small-ui-helpers.js';
 
 /* ------------------------------------------------------------------ *
  * Search -> viewer: open the model, select the part, auto-uncover, and
@@ -15,6 +16,9 @@ export function openStructureInViewer(spec) {
   closeSearchSheet();
   ui.viewerTab = '3d';
   goTo('viewer');
+  /* The card that names what was found lives in Explore, so a result opens it (a phone keeps one panel at a time). */
+  setTaskPanelExpanded(true);
+  if (isPhoneViewer()) setToolsPanelOpen(false);
   setTimeout(async () => {
     if (!window.__osteo || !window.__osteo.revealStructure) return;
     const res = await window.__osteo.revealStructure(spec);

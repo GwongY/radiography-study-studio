@@ -226,6 +226,8 @@ export function init() {
     setTaskPanelExpanded(open);
     if (open && isPhoneViewer()) setToolsPanelOpen(false);
   });
+  /* Hiding the chosen structure ends the selection, so the Explore card that described it closes with it */
+  window.addEventListener('osteo:selection-hidden', () => setTaskPanelExpanded(false));
   /* Atlas: the heart atlas, limb vessels and cell toggles in one row above the bar; a pick closes the row */
   const modes = $$('viewerModes'), modesBtn = $$('viewerModesBtn');
   const setModes = (open) => { modes.hidden = !open; modesBtn.classList.toggle('active', open); modesBtn.setAttribute('aria-expanded', String(open)); };

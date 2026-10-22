@@ -113,7 +113,6 @@ export const TOPICS = [
   { id: 'p_delivery', l: 'Classes of hormone delivery', s: 'p_endo', w: 8, src: [L7, 5], line: 'hormone released feeds-back on the same cell, without entering blood' },
   { id: 'p_endo_glands', l: 'Endocrine glands', s: 'p_endo', w: 8, src: [L7, 7], line: 'ductless and secrete hormones into bloodstream' },
   { id: 'p_hormone_chem', l: 'Chemical classification of hormones', match: 'Chemical Classifications of Hormones', s: 'p_endo', w: 8, src: [L7, 9], line: 'secreted by an endocrine gland into the bloodstream' },
-  { id: 'p_ns_vs_endo', l: 'Nervous and endocrine systems compared', match: 'Comparison of the nervous system and endocrine', s: 'p_endo', w: 8, src: [L7, 11], own: 'Nerves provide rapid and targeted electrical signals while hormones provide broad chemical regulation.' },
   { id: 'p_hormone_action', l: 'Mechanisms of hormone action', s: 'p_endo', w: 8, src: [L7, 12, 13], own: 'Hormones alter target cell activity through genomic actions in the nucleus or surface receptor cascades.' },
   { id: 'p_pituitary', l: 'Pituitary gland', s: 'p_endo', w: 8, src: [L7, 24], viewer: true, line: 'structurally and functionally divided into anterior and posterior lobes' },
   { id: 'p_hypothal', l: 'Hypothalamic control of the pituitary', match: 'Hypothalamic Control of', s: 'p_endo', w: 8, src: [L7, 27, 29], own: 'The hypothalamus controls the posterior pituitary via axons and the anterior pituitary via releasing hormones.' },
@@ -232,7 +231,6 @@ export const TREE = { label: 'root', kids: [
     { id: 'p_fert', kids: [{ id: 'p_implant' }, { id: 'p_placenta' }, { id: 'p_parturition' }] }] },
   { sys: 'p_endo', label: 'Hormones', kids: [
     { id: 'p_hormone', kids: [{ id: 'p_delivery' }, { id: 'p_hormone_chem' }, { id: 'p_hormone_action' }, { id: 'p_paracrine' }] },
-    { id: 'p_ns_vs_endo' },
     { id: 'p_endo_glands', kids: [
       { id: 'p_pituitary', kids: [{ id: 'p_hypothal' }, { id: 'p_pit_feedback' }] },
       { id: 'p_adrenal' }, { id: 'p_thyroid' }, { id: 'p_parathyroid' }, { id: 'p_islets' }, { id: 'p_pineal' }, { id: 'p_sex_hormones' }] }] },

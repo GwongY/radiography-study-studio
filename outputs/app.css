@@ -171,7 +171,8 @@
  */
 .navhead .small{font-size:12px}
 .navhead #viewerTabs{flex:none}
-.navhead #viewerTabs.hidden{display:none}
+.navhead #viewerTabs.hidden,.navhead #rvSubjects.hidden{display:none}
+.navhead #rvSubjects{flex:none}
 /* On the viewer every header pixel is a pixel off the model, so the header
    tightens and the kicker -- which only restates the title -- goes. */
 /*
@@ -1108,6 +1109,8 @@ html[data-ts="xl"]{--ts:1.55}
  * rather than left as a bar across the model. (Every width, not just phones.)
  */
 .viewer-dock .panel-toggle,.viewer-tools-panel>#toolsPanelToggle{display:none}
+/* One panel open takes the dock's whole height; two share it (Explore above, capped at 42%). */
+.viewer-dock:has(.viewer-tools-panel.tools-collapsed) .selpanel:not(.hidden){max-height:none;flex:1 1 auto}
 .viewer-dock .viewer-tools-panel.tools-collapsed{display:none}
 .viewer-dock #taskPanelContent{padding-top:12px}
 .viewer-tools-panel .vsheet{padding-top:12px}
@@ -1163,7 +1166,7 @@ html[data-ts="xl"]{--ts:1.55}
 .segbar::-webkit-scrollbar{display:none}
 .segbar>.seg{flex:none}
 ul.asslines{list-style:none;margin:0;padding:0}
-.navhead #viewerTabs{margin-right:auto}
+.navhead #viewerTabs,.navhead #rvSubjects{margin-right:auto}
 .asscount{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;margin-top:14px}
 .asscount>.seg{display:grid;gap:1px;justify-items:center;align-content:center;min-height:54px;padding:6px 4px;white-space:normal}
 .asscount>.seg b{font-size:calc(18px * var(--ts));letter-spacing:-.03em;line-height:1.1}
@@ -1349,6 +1352,9 @@ ul.asslines{list-style:none;margin:0;padding:0}
 #rvLinks .rv-dot.hot .ring{fill:var(--rv-accent)}
 #rvLinks .rv-dot text{font:600 11px 'Instrument Sans',sans-serif;font-size:calc(11px * var(--ts));fill:var(--rv-ink);text-anchor:middle}
 #rvLinks .rv-dot.hot text{fill:var(--rv-accent-ink)}
+#reviseView .rv-intro{margin:0 0 14px;padding:12px 14px;border:1px solid var(--rv-line);border-radius:12px;background:var(--rv-surface);color:var(--rv-ink2);font-size:calc(14px * var(--ts));line-height:1.55}
+#reviseView .rv-intro b{color:var(--rv-ink)}
+#reviseView .rv-right{min-width:0;display:flex;flex-direction:column;gap:10px}
 #reviseView .rv-col{min-width:0;display:flex;flex-direction:column;gap:10px}
 #reviseView .rv-links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
 #reviseView .rv-links[hidden]{display:none}

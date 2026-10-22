@@ -101,6 +101,7 @@ export const LINKS = [
   ['w9_voice', 'w9_vocalfold', 'movement of air past the vocal cords makes sound and speech', L9, 4, 'vocal cords'],
   ['w9_olfaction', 'w9_olfepi', 'airborne molecules drawn into the nasal cavity', L9, 4, 'Olfaction'],
   ['w9_phreg', 'w9_acidosis', 'imbalances of blood pH', L9, 4, 'Acidosis'],
+  ['w9_phreg', 'w9_alkalosis', 'imbalances of blood pH', L9, 4, 'Alkalosis'],
   ['w9_resp_protect', 'w9_goblet', 'mucus traps dust, bacteria and viruses', L9, 30, 'Goblet'],
   ['w9_resp_protect', 'w9_ciliated', 'cilia move mucus upward', L9, 32, 'Ciliated'],
   ['w9_goblet', 'w9_ciliated', 'usually found among ciliated columnar epithelial cells', L9, 31, 'ciliated'],

@@ -70,6 +70,7 @@
             here it costs none.
           -->
           <div class="segbar hidden" id="viewerTabs"></div>
+          <div class="segbar hidden" id="rvSubjects" role="group" aria-label="Subject"></div>
           <button class="icon-btn tsbtn" id="rssTextSize" data-textsize aria-label="Text size" style="min-width:44px;min-height:44px;border-radius:11px">Aa</button>
           <button class="icon-btn" id="rssSearchBtn" aria-label="Search" style="min-width:44px;min-height:44px;border-radius:11px">⌕</button>
         </header>
@@ -113,7 +114,6 @@
           </section>
           <section class="view hidden" id="reviseView">
             <div class="rv-head">
-              <div class="rv-subjects" id="rvSubjects" role="group" aria-label="Subject" hidden></div>
               <div class="rv-weekbar" id="rvWeekBar" role="group" aria-label="Revise through week"></div>
               <p class="rv-weeknote small" id="rvWeekNote" aria-live="polite"></p>
             </div>
@@ -137,8 +137,8 @@
                   <select id="rvJump"><option value="">Pick a topic…</option></select>
                   <span class="rv-jbtns">
                     <button class="rv-linkbtn" id="rvFit" type="button">Fit</button>
-                    <button class="rv-linkbtn" id="rvOpenAll" type="button">Open all</button>
-                    <button class="rv-linkbtn" id="rvCloseAll" type="button">Close all</button>
+                    <button class="rv-linkbtn" id="rvUndo" type="button" disabled>Undo</button>
+                    <button class="rv-linkbtn" id="rvRedo" type="button" disabled>Redo</button>
                   </span>
                 </div>
               </div>
@@ -152,9 +152,11 @@
                   <svg id="rvLinks" aria-hidden="true"></svg>
                   <button class="rv-linkbtn" id="rvNotesBtn" type="button" hidden>Notes ↓</button>
                 </div>
+                </div>
+                <div class="rv-right">
+                <aside class="rv-side" id="rvSide" aria-live="polite"></aside>
                 <ol class="rv-links" id="rvLinkList" aria-label="Why each topic links" hidden></ol>
                 </div>
-                <aside class="rv-side" id="rvSide" aria-live="polite"></aside>
               </div>
             </section>
 
