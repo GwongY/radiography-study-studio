@@ -294,8 +294,8 @@ function renderPanel(id, el) {
       grand: ix.LABEL[ix.PARENT[ix.PARENT[id]]] || '',
     }))}</p>` : '';
     h += `<div class="rv-note">${said}${n.t}</div>`;
-    const vh = viewerEligible(n) ? viewerUnit(id) != null : false;
-    h += `<p class="rv-to3d">${(ix.NB[id] || []).length ? `<button type="button" class="rv-linkbtn" data-to3d="${esc(id)}">Connections in 3D (${(ix.NB[id] || []).length})</button>` : ''}${vh ? ` <button type="button" class="rv-linkbtn" data-toviewer="${esc(id)}">Show in the viewer</button>` : ''}${showIn3D(rv.subject, id) ? ` <button type="button" class="rv-linkbtn" data-tocell="${esc(id)}">Show in 3D</button>` : ''}${decoderFor(n) ? ` <button type="button" class="rv-linkbtn" data-todecoder="${esc(decoderFor(n))}">Word in Decoder</button>` : ''}</p>`;
+    const vh = viewerUnit(id) != null;
+    h += `<p class="rv-to3d">${(ix.NB[id] || []).length ? `<button type="button" class="rv-linkbtn" data-to3d="${esc(id)}">Connections in 3D (${(ix.NB[id] || []).length})</button>` : ''}${vh ? ` <button type="button" class="rv-linkbtn" data-toviewer="${esc(id)}">Show in the viewer</button>` : ''}${showIn3D(rv.subject, id, n.l) ? ` <button type="button" class="rv-linkbtn" data-tocell="${esc(id)}">Show in 3D</button>` : ''}${decoderFor(n) ? ` <button type="button" class="rv-linkbtn" data-todecoder="${esc(decoderFor(n))}">Word in Decoder</button>` : ''}</p>`;
     /* The owner's answer 8: the same thing in the other subject, once its week is reached. Tapping switches subject. */
     const cross = crossFor(CROSS, rv.subject, id, rv.week, firstWeekIn);
     for (const sub of [...new Set(cross.map((c) => c.subject))]) {
@@ -686,8 +686,7 @@ function createMap() {
     if ('ResizeObserver' in window) {
       new ResizeObserver(() => { if (!fitted && wrap.clientWidth >= 10 && wrap.clientHeight >= 10) fitNow(); }).observe(wrap);
     }
-    /* plain scrolling scrolls the page; Ctrl/Cmd + scroll zooms the map */
-    wrap.addEventListener('wheel', (ev) => { if (!(ev.ctrlKey || ev.metaKey)) ev.stopPropagation(); }, true);
+    /* the mouse wheel zooms the map (no Ctrl needed); the page scrolls from outside the map */
 
     /* clicking text: select, and open the branch; clicking the small circle only folds/unfolds */
     svgEl.addEventListener('click', (ev) => {
@@ -782,21 +781,14 @@ function openThread(id) {
   if (d && !d.hidden) { d.open = true; setTimeout(() => d.scrollIntoView({ behavior: 'smooth', block: 'start' }), 40); }
 }
 
-/* What each of the three tabs is for and how to read it, said once above the fragment. */
-const INTROS = {
-  threads: '<div class="rv-intro"><b>What this is.</b> One thing followed from start to finish across the weeks: a signal, a pathway, a process. The map shows how topics sit together; a thread shows them in the order they happen.<br><b>How to use it.</b> Open a thread and read the steps top to bottom. The tag on each step is the week it comes from, and steps from a week you have not reached stay hidden. A topic on the map that belongs to a thread has a button that opens it here.</div>',
-  tables: '<div class="rv-intro"><b>What this is.</b> The same facts laid out in rows and columns so that things that look alike can be compared side by side: levels with plexuses, nerves with what they serve, joints with their movers, look-alike pairs.<br><b>How to use it.</b> Tap a name in the strip below to jump to that table. Rows from a week you have not reached stay hidden, so the tables grow as you move the week forward.</div>',
-  decoder: '<div class="rv-intro"><b>What this is.</b> A word list for the strange names. Each term is split into its roots and given one hook that ties the name to what the structure does or where it sits.<br><b>How to use it.</b> Type part of a word in the Filter box and the list narrows as you type. Terms from a week you have not reached stay hidden.</div>',
-};
-
 function mountFragments() {
   const sub = subjectData();
   ix.threadTitles = {};
   /* a subject still being written has no Threads, Tables or Decoder yet: its tabs are hidden */
   [['threads', 'rvTabThreads'], ['tables', 'rvTabTables'], ['decoder', 'rvTabDecoder']].forEach(([k, tab]) => { $$(tab).hidden = !sub[k]; });
-  $$('rvThreads').innerHTML = INTROS.threads + sub.threads;
-  $$('rvTables').innerHTML = INTROS.tables + sub.tables;
-  $$('rvDecoder').innerHTML = `${INTROS.decoder}${sub.decoder}<div class="rv-foot">${sub.sources}</div>`;
+  $$('rvThreads').innerHTML = sub.threads;
+  $$('rvTables').innerHTML = sub.tables;
+  $$('rvDecoder').innerHTML = `${sub.decoder}<div class="rv-foot">${sub.sources}</div>`;
   /* class names that would collide with the app's own */
   ['rvThreads', 'rvTables', 'rvDecoder'].forEach((id) => {
     const root = $$(id);
@@ -1033,7 +1025,7 @@ export function init() {
   /* "Show in the viewer" in the notes, on the Map and on Brain 3D alike */
   document.addEventListener('click', (ev) => {
     const b = ev.target.closest && ev.target.closest('[data-toviewer]'); if (!b) return;
-    const n = ix.byId[b.dataset.toviewer]; const u = n && viewerEligible(n) ? viewerUnit(n.id) : null;
+    const n = ix.byId[b.dataset.toviewer]; const u = n ? viewerUnit(n.id) : null;
     if (u != null) openUnitInViewer(u, n.l);
   });
   document.addEventListener('click', (ev) => {
@@ -1043,7 +1035,7 @@ export function init() {
   /* "Show in 3D": the viewer's Cell mode at this box's level, stage and label */
   document.addEventListener('click', (ev) => {
     const b = ev.target.closest && ev.target.closest('[data-tocell]'); if (!b) return;
-    const t = showIn3D(rv.subject, b.dataset.tocell);
+    const t = showIn3D(rv.subject, b.dataset.tocell, (ix.byId[b.dataset.tocell] || {}).l);
     if (t) openCellInViewer(t);
   });
   /* A link into the other subject: switch to it, at this week if the far box needs it, and open the box. */

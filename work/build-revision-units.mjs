@@ -59,6 +59,8 @@ const SETS = {
     w4_trueribs: ORD.slice(0, 7).map((o) => `${o} rib`),
     w4_falseribs: ORD.slice(7, 10).map((o) => `${o} rib`),
     w4_floatribs: ORD.slice(10, 12).map((o) => `${o} rib`),
+    w4_transpin: ['Semispinalis cervicis', 'Semispinalis thoracis muscle', 'Multifidus', 'Rotatores'],
+    w4_backextr: ['Trapezius muscle', 'Latissimus dorsi muscle', 'Levator scapulae', 'Rhomboid major muscle', 'Rhomboid minor muscle'],
     w4_splcap: ['Splenius capitis muscle', 'Splenius cervicis'],
     w2_iliopsoas: ['Psoas major', 'Iliacus muscle'],
     w3_lumbricals: ['Lumbricals of hand'],
@@ -88,9 +90,10 @@ export function deriveViewerUnits() {
   const out = {};
   for (const [sub, S] of Object.entries(REVISION)) {
     const res = { units: {}, how: {}, missing: [], ambiguous: [] };
+    const nodeById = new Map(S.data.NODES.map((x) => [x.id, x]));
     for (const n of S.data.NODES) {
-      if (!viewerEligible(n)) continue;
       const set = SETS[sub] && SETS[sub][n.id];
+      if (!viewerEligible(n) && !set) continue;
       if (set) {
         const ids = set.map((lab) => { const u = UNITS.find((x) => x.label.toLowerCase() === lab.toLowerCase()); if (!u) throw new Error(`viewer set ${n.id}: no unit called ${lab}`); return u.id; });
         res.units[n.id] = ids.length === 1 ? ids[0] : ids; res.how[n.id] = 'set'; continue;
@@ -131,6 +134,17 @@ export function deriveViewerUnits() {
       }
       if (unit != null) { res.units[n.id] = unit; res.how[n.id] = how; } else (amb ? res.ambiguous : res.missing).push(n.id);
     }
+    /* A heading row that groups structures (Quadriceps, Transversospinalis, Anterior compartment) opens all of its
+       members that have a unit; it is not a unit of its own, so the viewer's way back skips it (FROM_MEMBERS). */
+    res.members = [];
+    const collect = (spec) => [...(res.units[spec.id] != null ? [].concat(res.units[spec.id]) : []), ...(spec.kids || []).flatMap(collect)];
+    (function walk(spec) {
+      (spec.kids || []).forEach(walk);
+      const n = nodeById.get(spec.id);
+      if (!n || !n.leaf || n.leaf !== 'group' || res.units[n.id] != null) return;
+      const ids = [...new Set((spec.kids || []).flatMap(collect))];
+      if (ids.length && ids.length <= 60) { res.units[n.id] = ids.length === 1 ? ids[0] : ids; res.how[n.id] = 'members'; res.members.push(n.id); }
+    })(S.data.TREE);
     out[sub] = res;
   }
   return out;
@@ -148,10 +162,14 @@ export function viewerUnitsSource(derived = deriveViewerUnits()) {
  */
 export const VIEWER_UNITS = ${JSON.stringify(table)};
 
+/** Boxes whose units are only their members' (a heading row): they open the viewer, but are not what a unit "is" in Revise. */
+export const FROM_MEMBERS = new Set(${JSON.stringify(Object.entries(derived).flatMap(([sub, r]) => r.members.map((id) => `${sub}:${id}`)))});
+
 /** unit id -> [[subject, box id], ...], for the viewer's way back. */
 export const UNIT_BOXES = (() => {
   const m = new Map();
   for (const [sub, t] of Object.entries(VIEWER_UNITS)) for (const [id, us] of Object.entries(t)) for (const u of [].concat(us)) {
+    if (FROM_MEMBERS.has(sub + ":" + id)) continue;
     if (!m.has(u)) m.set(u, []);
     m.get(u).push([sub, id]);
   }

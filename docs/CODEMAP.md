@@ -23,7 +23,7 @@ each other cyclically, so **nothing may run at module scope**; side effects
 belong in `init()`. The two keep separate import scopes and talk only through
 `window.__osteo`. See [TRAPS.md](TRAPS.md).
 
-- `outputs/app.css` — 1579 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
+- `outputs/app.css` — 1578 lines. Traps: [CSS](TRAPS.md#css--outputsappcss) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [Phone and tablet layout](TRAPS.md#phone-and-tablet-layout--outputsappcss-outputsstudysmall-ui-helpersjs) · [The tucking header must not change the scroller's geometry](TRAPS.md#the-tucking-header-must-not-change-the-scrollers-geometry--outputsappcss-outputsstudysmall-ui-helpersjs) · [The text-size control](TRAPS.md#the-text-size-control--outputsappcss-outputsstudytext-sizejs-worktext-size-checkmjs)
 - `outputs/studio.js` — 39 lines. Traps: [The studio block](TRAPS.md#the-studio-block--outputsstudiojs-outputsstudiomodes-and-bridgejs-outputsstudiodepth-pickingjs) · [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) · [The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) · [Visibility and hiding](TRAPS.md#visibility-and-hiding--outputsstudiojs) · [The viewer is a manipulation surface](TRAPS.md#the-viewer-is-a-manipulation-surface--outputsstudiojs-outputsappcss) · [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 - `outputs/study.js` — 47 lines. Traps: [The split app](TRAPS.md#the-split-app--outputsstudyjs-outputsstudiojs-outputsstudystatejs)
 
@@ -33,11 +33,11 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | --- | --- | --- | --- |
 | `anatomy-data.js` | 144 | Osteology Studio — anatomy data layer | [The back is a half-space](TRAPS.md#the-back-is-a-half-space--outputsstudioscenejs-outputsanatomy-datajs) |
 | `bodymap.js` | 353 | Body map — search extras and spatial concepts for the 3D viewer. |  |
-| `bone-landmarks.js` | 1596 | Bone landmarks — curated on the shipped skeleton by work/build-bone-landmarks.mjs. |  |
+| `bone-landmarks.js` | 3219 | Bone landmarks — curated on the shipped skeleton by work/build-bone-landmarks.mjs. |  |
 | `cavity-build.js` | 1084 | cavity-build.js -- one builder per cavity, each defined by the structures | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs)<br>[The region grid and classifiers](TRAPS.md#the-region-grid-and-classifiers--outputsstudiojs-outputscavity-buildjs) |
 | `cavity-geom.js` | 1434 | cavity-geom.js -- deriving cavity surfaces from real anatomy. | [Overlays and cavities](TRAPS.md#overlays-and-cavities--outputscavity-buildjs-outputscavity-geomjs-outputsstudiojs) |
 | `cell-explain.js` | 505 | Cell zoom — one plain sentence for every label, shown when the label is tapped (studio/cell-zoom.js) |  |
-| `cell-zoom.js` | 1129 | Cell zoom — the levels, their labels and the two stage sliders: the data and nothing else. | [The cell zoom mode -- outputs/studio/cell-zoom.js, outputs/cell/, outputs/cell-zoom.js, work/cell-zoom-check.mjs](TRAPS.md#the-cell-zoom-mode----outputsstudiocell-zoomjs-outputscell-outputscell-zoomjs-workcell-zoom-checkmjs) |
+| `cell-zoom.js` | 1140 | Cell zoom — the levels, their labels and the two stage sliders: the data and nothing else. | [The cell zoom mode -- outputs/studio/cell-zoom.js, outputs/cell/, outputs/cell-zoom.js, work/cell-zoom-check.mjs](TRAPS.md#the-cell-zoom-mode----outputsstudiocell-zoomjs-outputscell-outputscell-zoomjs-workcell-zoom-checkmjs) |
 | `landmarks.js` | 469 | landmarks.js -- the one place that knows how to find a named anatomical | [Named cut levels](TRAPS.md#named-cut-levels--outputsstudiotools-and-capturejs-outputslandmarksjs) |
 | `mesh-index.js` | 2645 | **GENERATED — do not read, do not edit.** See `docs/DATA-INDEX.md`, or ask: `node work/query.mjs` |  |
 | `muscle-zoom.js` | 122 | Muscle zoom — the levels and their labels, the data and nothing else. |  |
@@ -51,7 +51,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `schedule.js` | 713 | schedule.js — the semester itself: what the syllabus says, and when each |  |
 | `search-name.js` | 42 | Anatomical name matching shared by search and its regression gate. |  |
 | `sw.js` | 461 | Radiography Study Studio — service worker |  |
-| `synonyms.js` | 371 | Synonyms — the other names for the same thing. |  |
+| `synonyms.js` | 377 | Synonyms — the other names for the same thing. |  |
 | `systems.js` | 281 | Body systems — which named system a mesh belongs to, inside its GLB layer | [A name classifier is fed a different name than the GLB holds](TRAPS.md#a-name-classifier-is-fed-a-different-name-than-the-glb-holds--outputssystemsjs-worksystem-checkmjs)<br>[Body systems, not files](TRAPS.md#body-systems-not-files--outputssystemsjs-outputsstudysubjectjs-outputsstudiolive-physiologyjs) |
 | `term-gloss.js` | 2465 | Term glossary — what the word MEANS, in English and in Traditional Chinese. |  |
 | `term-notes.js` | 1535 | Term notes — say it, then mean it. |  |
@@ -139,7 +139,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `muscle-zoom.js` | 444 | Muscle zoom |
 | `packed-spread.js` | 93 | Packed course pieces — presentation parents keep mesh highlight transforms intact. |
 | `scene.js` | 502 | Region boxes — how the region filter reaches the six soft-tissue layers |
-| `search-viewer-frame.js` | 309 | Search -> viewer: frame the part, then hide only what stands in front |
+| `search-viewer-frame.js` | 325 | Search -> viewer: frame the part, then hide only what stands in front |
 | `spatial-concept-overlays.js` | 828 | Spatial concept overlays -- cavities, regions, quadrants, planes. |
 | `tools-and-capture.js` | 561 | Tools — section cuts, layer separation, capture. |
 
@@ -163,7 +163,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `reading-help.js` | 218 | Reading help |
 | `revise-brain.js` | 424 | Revise · Brain 3D — the connections hub |
 | `revise-links.js` | 32 | Revise · the numbered links list under the Map and under the 3D hub. |
-| `revise.js` | 1187 | Revise |
+| `revise.js` | 1179 | Revise |
 | `search-viewer-open.js` | 56 | Search -> viewer: open the model, select the part, auto-uncover, and |
 | `small-ui-helpers.js` | 260 | Small UI helpers |
 | `spatial-overlay-controls.js` | 120 | Spatial overlay controls (viewer "..." sheet) |
@@ -185,6 +185,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `work/binding-check.mjs` | Binding check — does every split part import the names it uses? | [Missing imports in a split part](TRAPS.md#missing-imports-in-a-split-part--workbinding-checkmjs) |
 | `work/bone-landmark-additions.mjs` | Reviewed lecture diagrams, 2026-10-04. |  |
 | `work/bone-landmark-check.mjs` | Bone labels: actual geometry signatures, source pages/quotes and refusal on drift. |  |
+| `work/bone-landmark-vertebrae.mjs` | GENERATED by work/derive-vertebra-landmarks.mjs, then reviewed on screen. See that file's header. |  |
 | `work/bridge-check.mjs` | Does the studio actually expose everything the study system calls on it? |  |
 | `work/build-bone-landmarks.mjs` | Bone landmark curation: vertex indices were inspected on the shipped skeleton. |  |
 | `work/build-cell-models.mjs` | Build the Cell zoom's 3D models — offline, in three steps, and commit what the last one writes. |  |
@@ -208,6 +209,7 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `work/cut-level-check.mjs` | Do the named section levels mean what they say? |  |
 | `work/data-index-check.mjs` | Data index check — is docs/DATA-INDEX.md what work/data-index.mjs would |  |
 | `work/data-index.mjs` | Data index generator — writes docs/DATA-INDEX.md. |  |
+| `work/derive-vertebra-landmarks.mjs` | Vertebra landmark targets, derived once from the shipped skeleton's own vertices and committed as |  |
 | `work/dev-server.mjs` | Minimal static server for outputs/ — same role as `python -m http.server 8420` | [The dev server had no cache headers](TRAPS.md#the-dev-server-had-no-cache-headers--workdev-servermjs) |
 | `work/doc-text-check.mjs` | Regression check for PDF extraction when Poppler's pdftotext executable is |  |
 | `work/full-atlas-check.mjs` | Course-only replacement gate: removed surface plus retained packing algorithm. |  |

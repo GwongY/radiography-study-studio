@@ -1330,18 +1330,19 @@ ul.asslines{list-style:none;margin:0;padding:0}
 #rvMm .markmap-node{font-size:calc(15px * var(--ts))}
 #rvMm .markmap-node{transition:opacity .2s}
 #rvMm .markmap-node>circle{stroke-width:1.5}
+/* One weight in every state: the box was measured at this weight, so a bolder selected or hit label ran out of its box and lost its last word ("Extrinsic back muscles" -> "Extrinsic back") */
 #rvMm .mmt{font-weight:500;color:var(--rv-ink)}
 #rvMm .mmb{display:inline-block;white-space:nowrap;margin:7px 9px 7px 3px;padding:5px 12px;border-radius:10px;font-weight:700;font-size:1.04em;color:#fff;border:1.5px solid var(--bc);background:color-mix(in srgb,var(--bc) 18%,#081519);box-shadow:0 0 14px color-mix(in srgb,var(--bc) 45%,transparent),inset 0 0 8px color-mix(in srgb,var(--bc) 22%,transparent)}
 #rvMm .mmroot{font-size:1.15em;padding:7px 14px}
 #rvMm .mwk{font:500 10px ui-monospace,SFMono-Regular,Menlo,monospace;font-size:calc(10px * var(--ts));color:var(--rv-muted);margin-left:7px;padding:1px 5px;border:1px solid var(--rv-line);border-radius:5px;letter-spacing:.02em;background:rgba(8,21,25,.6)}
 #rvMm .wknew{font:700 9.5px ui-monospace,SFMono-Regular,Menlo,monospace;font-size:calc(9.5px * var(--ts));color:#06222a;margin-left:6px;padding:1px 5px;border-radius:5px;background:var(--rv-accent);letter-spacing:.06em;text-transform:uppercase}
 #rvMm path.markmap-link{transition:opacity .2s}
-#rvMm g.markmap-node.rel .mmt{color:var(--rv-accent);font-weight:600}
-#rvMm g.markmap-node.sel .mmt{color:#fff;font-weight:700;text-decoration:underline;text-decoration-color:var(--rv-accent);text-decoration-thickness:2px;text-underline-offset:3px}
+#rvMm g.markmap-node.rel .mmt{color:var(--rv-accent);font-weight:500}
+#rvMm g.markmap-node.sel .mmt{color:#fff;font-weight:500;text-decoration:underline;text-decoration-color:var(--rv-accent);text-decoration-thickness:2px;text-underline-offset:3px}
 #rvMm.focus g.markmap-node:not(.sel):not(.rel):not(.anc):not(.kid){opacity:.62}
 #rvMm.focus path.markmap-link,#rvMm.searching path.markmap-link{opacity:.4}
 #rvMm.searching g.markmap-node:not(.hit):not(.hanc){opacity:.55}
-#rvMm g.markmap-node.hit .mmt,#rvMm g.markmap-node.hot .mmt{color:#fff;font-weight:700;text-decoration:underline;text-decoration-color:var(--rv-accent);text-decoration-thickness:2px;text-underline-offset:3px}
+#rvMm g.markmap-node.hit .mmt,#rvMm g.markmap-node.hot .mmt{color:#fff;font-weight:500;text-decoration:underline;text-decoration-color:var(--rv-accent);text-decoration-thickness:2px;text-underline-offset:3px}
 #rvLinks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:hidden}
 #rvLinks path{fill:none;stroke:var(--rv-accent);stroke-width:1.6;opacity:.7;stroke-linecap:round}
 #rvLinks path.far{stroke-dasharray:4 5;opacity:.5}
@@ -1352,8 +1353,6 @@ ul.asslines{list-style:none;margin:0;padding:0}
 #rvLinks .rv-dot.hot .ring{fill:var(--rv-accent)}
 #rvLinks .rv-dot text{font:600 11px 'Instrument Sans',sans-serif;font-size:calc(11px * var(--ts));fill:var(--rv-ink);text-anchor:middle}
 #rvLinks .rv-dot.hot text{fill:var(--rv-accent-ink)}
-#reviseView .rv-intro{margin:0 0 14px;padding:12px 14px;border:1px solid var(--rv-line);border-radius:12px;background:var(--rv-surface);color:var(--rv-ink2);font-size:calc(14px * var(--ts));line-height:1.55}
-#reviseView .rv-intro b{color:var(--rv-ink)}
 #reviseView .rv-right{min-width:0;display:flex;flex-direction:column;gap:10px}
 #reviseView .rv-col{min-width:0;display:flex;flex-direction:column;gap:10px}
 #reviseView .rv-links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}

@@ -1575,6 +1575,1629 @@ export const BONE_LANDMARKS = {
     "primaryNames": [
       "Odontoid process"
     ]
+  },
+  "vertebra c3": {
+    "mesh": "Vertebra_C3",
+    "vertices": 548,
+    "points": [
+      {
+        "name": "Vertebral body",
+        "vertex": 251,
+        "expected": [
+          -0.000244,
+          0.267616,
+          0.954955
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Vertebral body"
+        }
+      },
+      {
+        "name": "Vertebral foramen",
+        "vertex": 216,
+        "expected": [
+          -0.147832,
+          -0.153813,
+          -0.130375
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Vertebral foramen"
+        }
+      },
+      {
+        "name": "Pedicle",
+        "vertex": 474,
+        "expected": [
+          0.398602,
+          0.180793,
+          0.000854
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Pedicle"
+        }
+      },
+      {
+        "name": "Transverse process",
+        "vertex": 317,
+        "expected": [
+          1,
+          -0.065555,
+          0.232673
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Spinous process",
+        "vertex": 266,
+        "expected": [
+          -0.010376,
+          -0.44548,
+          -0.954955
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Spinous process"
+        }
+      },
+      {
+        "name": "Lamina",
+        "vertex": 536,
+        "expected": [
+          0.095584,
+          -0.196418,
+          -0.585772
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Lamina"
+        }
+      },
+      {
+        "name": "Superior articular process",
+        "vertex": 440,
+        "expected": [
+          0.50032,
+          0.282022,
+          0.132206
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Superior articular process"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Vertebral body",
+      "Vertebral foramen",
+      "Pedicle",
+      "Transverse process",
+      "Spinous process"
+    ]
+  },
+  "vertebra c4": {
+    "mesh": "Vertebra_C4",
+    "vertices": 437,
+    "points": [
+      {
+        "name": "Vertebral body",
+        "vertex": 217,
+        "expected": [
+          0,
+          -0.077761,
+          0.891354
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Vertebral body"
+        }
+      },
+      {
+        "name": "Vertebral foramen",
+        "vertex": 164,
+        "expected": [
+          -0.207526,
+          0.150884,
+          -0.083743
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Vertebral foramen"
+        }
+      },
+      {
+        "name": "Pedicle",
+        "vertex": 352,
+        "expected": [
+          0.431562,
+          0.064333,
+          -0.027711
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Pedicle"
+        }
+      },
+      {
+        "name": "Transverse process",
+        "vertex": 237,
+        "expected": [
+          1,
+          -0.075442,
+          0.49675
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Spinous process",
+        "vertex": 230,
+        "expected": [
+          0,
+          -0.367596,
+          -0.900143
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Spinous process"
+        }
+      },
+      {
+        "name": "Lamina",
+        "vertex": 423,
+        "expected": [
+          0.098392,
+          -0.100713,
+          -0.456587
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Lamina"
+        }
+      },
+      {
+        "name": "Superior articular process",
+        "vertex": 326,
+        "expected": [
+          0.520829,
+          0.329998,
+          0.229377
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Superior articular process"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Vertebral body",
+      "Vertebral foramen",
+      "Pedicle",
+      "Transverse process",
+      "Spinous process"
+    ]
+  },
+  "vertebra c5": {
+    "mesh": "Vertebra_C5",
+    "vertices": 526,
+    "points": [
+      {
+        "name": "Vertebral body",
+        "vertex": 217,
+        "expected": [
+          0,
+          0.010865,
+          0.923826
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Vertebral body"
+        }
+      },
+      {
+        "name": "Vertebral foramen",
+        "vertex": 251,
+        "expected": [
+          -0.0271,
+          0.033327,
+          -0.428022
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Vertebral foramen"
+        }
+      },
+      {
+        "name": "Pedicle",
+        "vertex": 435,
+        "expected": [
+          0.426069,
+          0.037353,
+          0.059328
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Pedicle"
+        }
+      },
+      {
+        "name": "Transverse process",
+        "vertex": 281,
+        "expected": [
+          1,
+          -0.088868,
+          0.493576
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Spinous process",
+        "vertex": 257,
+        "expected": [
+          0.007691,
+          -0.316936,
+          -0.923093
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Spinous process"
+        }
+      },
+      {
+        "name": "Lamina",
+        "vertex": 502,
+        "expected": [
+          0.113163,
+          -0.103153,
+          -0.528031
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Lamina"
+        }
+      },
+      {
+        "name": "Superior articular process",
+        "vertex": 391,
+        "expected": [
+          0.608844,
+          0.175299,
+          0.014771
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Superior articular process"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Vertebral body",
+      "Vertebral foramen",
+      "Pedicle",
+      "Transverse process",
+      "Spinous process"
+    ]
+  },
+  "vertebra c6": {
+    "mesh": "Vertebra_C6",
+    "vertices": 514,
+    "points": [
+      {
+        "name": "Vertebral body",
+        "vertex": 271,
+        "expected": [
+          0,
+          -0.050537,
+          0.993042
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Vertebral body"
+        }
+      },
+      {
+        "name": "Vertebral foramen",
+        "vertex": 250,
+        "expected": [
+          0,
+          -0.0083,
+          -0.58272
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Vertebral foramen"
+        }
+      },
+      {
+        "name": "Pedicle",
+        "vertex": 458,
+        "expected": [
+          0.407147,
+          -0.146855,
+          0.01648
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Pedicle"
+        }
+      },
+      {
+        "name": "Transverse process",
+        "vertex": 277,
+        "expected": [
+          0.960692,
+          -0.086674,
+          0.560015
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Spinous process",
+        "vertex": 256,
+        "expected": [
+          0,
+          -0.262247,
+          -1
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Spinous process"
+        }
+      },
+      {
+        "name": "Lamina",
+        "vertex": 499,
+        "expected": [
+          0.090335,
+          -0.098514,
+          -0.639119
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Lamina"
+        }
+      },
+      {
+        "name": "Superior articular process",
+        "vertex": 430,
+        "expected": [
+          0.485031,
+          0.290566,
+          0.380047
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p20: labelled anatomy diagram",
+          "diagramLabel": "Superior articular process"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Vertebral body",
+      "Vertebral foramen",
+      "Pedicle",
+      "Transverse process",
+      "Spinous process"
+    ]
+  },
+  "vertebra t1": {
+    "mesh": "Vertebra_T1",
+    "vertices": 437,
+    "points": [
+      {
+        "name": "Transverse process",
+        "vertex": 426,
+        "expected": [
+          1,
+          0.247322,
+          0.28312
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Superior articular facet",
+        "vertex": 382,
+        "expected": [
+          0.516068,
+          0.396404,
+          0.416547
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior articular facet"
+        }
+      },
+      {
+        "name": "Superior costal facet",
+        "vertex": 317,
+        "expected": [
+          0.379559,
+          0.33024,
+          0.344523
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior costal facet"
+        }
+      },
+      {
+        "name": "Inferior costal facet",
+        "vertex": 346,
+        "expected": [
+          0.388348,
+          -0.274821,
+          0.40141
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Inferior costal facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Transverse process",
+      "Superior articular facet",
+      "Superior costal facet",
+      "Inferior costal facet"
+    ]
+  },
+  "vertebra t2": {
+    "mesh": "Vertebra_T2",
+    "vertices": 483,
+    "points": [
+      {
+        "name": "Transverse process",
+        "vertex": 273,
+        "expected": [
+          1,
+          0.379925,
+          0.058107
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Superior articular facet",
+        "vertex": 311,
+        "expected": [
+          0.717124,
+          0.413617,
+          0.050417
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior articular facet"
+        }
+      },
+      {
+        "name": "Superior costal facet",
+        "vertex": 415,
+        "expected": [
+          0.332316,
+          0.387858,
+          0.28959
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior costal facet"
+        }
+      },
+      {
+        "name": "Inferior costal facet",
+        "vertex": 379,
+        "expected": [
+          0.385174,
+          -0.303142,
+          0.306925
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Inferior costal facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Transverse process",
+      "Superior articular facet",
+      "Superior costal facet",
+      "Inferior costal facet"
+    ]
+  },
+  "vertebra t3": {
+    "mesh": "Vertebra_T3",
+    "vertices": 526,
+    "points": [
+      {
+        "name": "Transverse process",
+        "vertex": 281,
+        "expected": [
+          0.884518,
+          0.314371,
+          -0.085696
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Superior articular facet",
+        "vertex": 313,
+        "expected": [
+          0.586505,
+          0.389203,
+          -0.003418
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior articular facet"
+        }
+      },
+      {
+        "name": "Superior costal facet",
+        "vertex": 400,
+        "expected": [
+          0.292764,
+          0.530108,
+          0.325114
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior costal facet"
+        }
+      },
+      {
+        "name": "Inferior costal facet",
+        "vertex": 408,
+        "expected": [
+          0.321696,
+          -0.282752,
+          0.25956
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Inferior costal facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Transverse process",
+      "Superior articular facet",
+      "Superior costal facet",
+      "Inferior costal facet"
+    ]
+  },
+  "vertebra t4": {
+    "mesh": "Vertebra_T4",
+    "vertices": 503,
+    "points": [
+      {
+        "name": "Transverse process",
+        "vertex": 286,
+        "expected": [
+          0.99414,
+          0.200691,
+          -0.215583
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Superior articular facet",
+        "vertex": 312,
+        "expected": [
+          0.699423,
+          0.469648,
+          -0.147221
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior articular facet"
+        }
+      },
+      {
+        "name": "Superior costal facet",
+        "vertex": 418,
+        "expected": [
+          0.350993,
+          0.603716,
+          0.165044
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior costal facet"
+        }
+      },
+      {
+        "name": "Inferior costal facet",
+        "vertex": 387,
+        "expected": [
+          0.425214,
+          -0.26017,
+          0.159307
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Inferior costal facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Transverse process",
+      "Superior articular facet",
+      "Superior costal facet",
+      "Inferior costal facet"
+    ]
+  },
+  "vertebra t5": {
+    "mesh": "Vertebra_T5",
+    "vertices": 484,
+    "points": [
+      {
+        "name": "Transverse process",
+        "vertex": 263,
+        "expected": [
+          1,
+          0.306314,
+          -0.382122
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Superior articular facet",
+        "vertex": 379,
+        "expected": [
+          0.443892,
+          0.672321,
+          0.018189
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior articular facet"
+        }
+      },
+      {
+        "name": "Superior costal facet",
+        "vertex": 398,
+        "expected": [
+          0.366863,
+          0.704551,
+          0.004273
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior costal facet"
+        }
+      },
+      {
+        "name": "Inferior costal facet",
+        "vertex": 329,
+        "expected": [
+          0.380779,
+          -0.232918,
+          0.102786
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Inferior costal facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Transverse process",
+      "Superior articular facet",
+      "Superior costal facet",
+      "Inferior costal facet"
+    ]
+  },
+  "vertebra t6": {
+    "mesh": "Vertebra_T6",
+    "vertices": 400,
+    "points": [
+      {
+        "name": "Transverse process",
+        "vertex": 372,
+        "expected": [
+          1,
+          0.325236,
+          -0.564409
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Superior articular facet",
+        "vertex": 286,
+        "expected": [
+          0.370769,
+          0.797603,
+          -0.145512
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior articular facet"
+        }
+      },
+      {
+        "name": "Superior costal facet",
+        "vertex": 315,
+        "expected": [
+          0.360393,
+          0.80102,
+          -0.117069
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior costal facet"
+        }
+      },
+      {
+        "name": "Inferior costal facet",
+        "vertex": 340,
+        "expected": [
+          0.420087,
+          -0.079349,
+          0.29252
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Inferior costal facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Transverse process",
+      "Superior articular facet",
+      "Superior costal facet",
+      "Inferior costal facet"
+    ]
+  },
+  "vertebra t7": {
+    "mesh": "Vertebra_T7",
+    "vertices": 628,
+    "points": [
+      {
+        "name": "Transverse process",
+        "vertex": 337,
+        "expected": [
+          1,
+          0.243781,
+          -0.50032
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Superior articular facet",
+        "vertex": 494,
+        "expected": [
+          0.444746,
+          0.781733,
+          -0.260781
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior articular facet"
+        }
+      },
+      {
+        "name": "Superior costal facet",
+        "vertex": 415,
+        "expected": [
+          0.384075,
+          0.506791,
+          0.183844
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior costal facet"
+        }
+      },
+      {
+        "name": "Inferior costal facet",
+        "vertex": 422,
+        "expected": [
+          0.359539,
+          -0.106692,
+          0.254677
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Inferior costal facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Transverse process",
+      "Superior articular facet",
+      "Superior costal facet",
+      "Inferior costal facet"
+    ]
+  },
+  "vertebra t8": {
+    "mesh": "Vertebra_T8",
+    "vertices": 356,
+    "points": [
+      {
+        "name": "Transverse process",
+        "vertex": 275,
+        "expected": [
+          0.954955,
+          0.165534,
+          -0.515702
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Superior articular facet",
+        "vertex": 253,
+        "expected": [
+          0.418378,
+          0.811762,
+          -0.356609
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior articular facet"
+        }
+      },
+      {
+        "name": "Superior costal facet",
+        "vertex": 219,
+        "expected": [
+          0.442427,
+          0.577837,
+          0.447798
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior costal facet"
+        }
+      },
+      {
+        "name": "Inferior costal facet",
+        "vertex": 240,
+        "expected": [
+          0.361858,
+          -0.053834,
+          0.178961
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Inferior costal facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Transverse process",
+      "Superior articular facet",
+      "Superior costal facet",
+      "Inferior costal facet"
+    ]
+  },
+  "vertebra t9": {
+    "mesh": "Vertebra_T9",
+    "vertices": 673,
+    "points": [
+      {
+        "name": "Transverse process",
+        "vertex": 377,
+        "expected": [
+          0.955687,
+          0.159794,
+          -0.553423
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Superior articular facet",
+        "vertex": 516,
+        "expected": [
+          0.470016,
+          0.719198,
+          -0.338176
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior articular facet"
+        }
+      },
+      {
+        "name": "Superior costal facet",
+        "vertex": 441,
+        "expected": [
+          0.51326,
+          0.477216,
+          0.215583
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior costal facet"
+        }
+      },
+      {
+        "name": "Inferior costal facet",
+        "vertex": 446,
+        "expected": [
+          0.438398,
+          -0.110965,
+          0.250404
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Inferior costal facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Transverse process",
+      "Superior articular facet",
+      "Superior costal facet",
+      "Inferior costal facet"
+    ]
+  },
+  "vertebra t10": {
+    "mesh": "Vertebra_T10",
+    "vertices": 684,
+    "points": [
+      {
+        "name": "Transverse process",
+        "vertex": 362,
+        "expected": [
+          0.968383,
+          0.194221,
+          -0.46025
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Superior articular facet",
+        "vertex": 512,
+        "expected": [
+          0.482589,
+          0.694784,
+          -0.296793
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior articular facet"
+        }
+      },
+      {
+        "name": "Superior costal facet",
+        "vertex": 475,
+        "expected": [
+          0.468795,
+          0.543902,
+          0.237434
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior costal facet"
+        }
+      },
+      {
+        "name": "Inferior costal facet",
+        "vertex": 486,
+        "expected": [
+          0.379803,
+          -0.057252,
+          0.157109
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Inferior costal facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Transverse process",
+      "Superior articular facet",
+      "Superior costal facet",
+      "Inferior costal facet"
+    ]
+  },
+  "vertebra t11": {
+    "mesh": "Vertebra_T11",
+    "vertices": 404,
+    "points": [
+      {
+        "name": "Transverse process",
+        "vertex": 358,
+        "expected": [
+          0.735801,
+          0.212164,
+          -0.454634
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Superior articular facet",
+        "vertex": 245,
+        "expected": [
+          0.377239,
+          0.594196,
+          -0.300333
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior articular facet"
+        }
+      },
+      {
+        "name": "Superior costal facet",
+        "vertex": 227,
+        "expected": [
+          0.423139,
+          0.50203,
+          0.144536
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior costal facet"
+        }
+      },
+      {
+        "name": "Inferior costal facet",
+        "vertex": 391,
+        "expected": [
+          0.322062,
+          -0.082034,
+          0.264321
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Inferior costal facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Transverse process",
+      "Superior articular facet",
+      "Superior costal facet",
+      "Inferior costal facet"
+    ]
+  },
+  "vertebra t12": {
+    "mesh": "Vertebra_T12",
+    "vertices": 584,
+    "points": [
+      {
+        "name": "Transverse process",
+        "vertex": 553,
+        "expected": [
+          0.57796,
+          0.105717,
+          -0.364422
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Transverse process"
+        }
+      },
+      {
+        "name": "Superior articular facet",
+        "vertex": 359,
+        "expected": [
+          0.324259,
+          0.581376,
+          -0.352458
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior articular facet"
+        }
+      },
+      {
+        "name": "Superior costal facet",
+        "vertex": 308,
+        "expected": [
+          0,
+          0.506302,
+          0.237922
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior costal facet"
+        }
+      },
+      {
+        "name": "Inferior costal facet",
+        "vertex": 395,
+        "expected": [
+          0.217536,
+          -0.191046,
+          0.136235
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Inferior costal facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Transverse process",
+      "Superior articular facet",
+      "Superior costal facet",
+      "Inferior costal facet"
+    ]
+  },
+  "vertebra l1": {
+    "mesh": "Vertebra_L1",
+    "vertices": 715,
+    "points": [
+      {
+        "name": "Vertebral body",
+        "vertex": 292,
+        "expected": [
+          0,
+          0.115849,
+          1
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Vertebral body"
+        }
+      },
+      {
+        "name": "Vertebral foramen",
+        "vertex": 273,
+        "expected": [
+          -0.101077,
+          -0.023438,
+          0.535234
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Vertebral foramen"
+        }
+      },
+      {
+        "name": "Lamina",
+        "vertex": 694,
+        "expected": [
+          0.049684,
+          -0.042483,
+          -0.583453
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Lamina"
+        }
+      },
+      {
+        "name": "Articular facet",
+        "vertex": 540,
+        "expected": [
+          0.339763,
+          0.513749,
+          -0.361614
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Articular facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Vertebral body",
+      "Vertebral foramen",
+      "Lamina",
+      "Articular facet"
+    ]
+  },
+  "vertebra l2": {
+    "mesh": "Vertebra_L2",
+    "vertices": 602,
+    "points": [
+      {
+        "name": "Vertebral body",
+        "vertex": 312,
+        "expected": [
+          0,
+          -0.049807,
+          0.992553
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Vertebral body"
+        }
+      },
+      {
+        "name": "Vertebral foramen",
+        "vertex": 127,
+        "expected": [
+          0,
+          -0.102665,
+          0.702231
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Vertebral foramen"
+        }
+      },
+      {
+        "name": "Lamina",
+        "vertex": 361,
+        "expected": [
+          0.131718,
+          -0.196905,
+          -0.472945
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Lamina"
+        }
+      },
+      {
+        "name": "Articular facet",
+        "vertex": 450,
+        "expected": [
+          0.347087,
+          0.560136,
+          -0.283731
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Articular facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Vertebral body",
+      "Vertebral foramen",
+      "Lamina",
+      "Articular facet"
+    ]
+  },
+  "vertebra l3": {
+    "mesh": "Vertebra_L3",
+    "vertices": 719,
+    "points": [
+      {
+        "name": "Vertebral body",
+        "vertex": 374,
+        "expected": [
+          0,
+          -0.155768,
+          1
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Vertebral body"
+        }
+      },
+      {
+        "name": "Vertebral foramen",
+        "vertex": 373,
+        "expected": [
+          0,
+          -0.221807,
+          0.589801
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Vertebral foramen"
+        }
+      },
+      {
+        "name": "Lamina",
+        "vertex": 690,
+        "expected": [
+          0.11829,
+          -0.221687,
+          -0.589557
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Lamina"
+        }
+      },
+      {
+        "name": "Articular facet",
+        "vertex": 503,
+        "expected": [
+          0.460616,
+          0.507156,
+          -0.327311
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Articular facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Vertebral body",
+      "Vertebral foramen",
+      "Lamina",
+      "Articular facet"
+    ]
+  },
+  "vertebra l4": {
+    "mesh": "Vertebra_L4",
+    "vertices": 858,
+    "points": [
+      {
+        "name": "Vertebral body",
+        "vertex": 400,
+        "expected": [
+          0,
+          0.20716,
+          0.948851
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Vertebral body"
+        }
+      },
+      {
+        "name": "Vertebral foramen",
+        "vertex": 347,
+        "expected": [
+          -0.137944,
+          0.098391,
+          -0.23719
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Vertebral foramen"
+        }
+      },
+      {
+        "name": "Lamina",
+        "vertex": 807,
+        "expected": [
+          0.215827,
+          -0.170292,
+          -0.504715
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Lamina"
+        }
+      },
+      {
+        "name": "Articular facet",
+        "vertex": 595,
+        "expected": [
+          0.508499,
+          0.439497,
+          -0.295816
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Articular facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Vertebral body",
+      "Vertebral foramen",
+      "Lamina",
+      "Articular facet"
+    ]
+  },
+  "vertebra l5": {
+    "mesh": "Vertebra_L5",
+    "vertices": 888,
+    "points": [
+      {
+        "name": "Vertebral body",
+        "vertex": 453,
+        "expected": [
+          0,
+          0.054079,
+          0.782342
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Vertebral body"
+        }
+      },
+      {
+        "name": "Vertebral foramen",
+        "vertex": 399,
+        "expected": [
+          -0.078616,
+          0.109256,
+          -0.315714
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Vertebral foramen"
+        }
+      },
+      {
+        "name": "Lamina",
+        "vertex": 851,
+        "expected": [
+          0.152593,
+          -0.00647,
+          -0.455733
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Lamina"
+        }
+      },
+      {
+        "name": "Articular facet",
+        "vertex": 585,
+        "expected": [
+          0.504715,
+          0.456466,
+          -0.178106
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p26: labelled anatomy diagram",
+          "diagramLabel": "Articular facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Vertebral body",
+      "Vertebral foramen",
+      "Lamina",
+      "Articular facet"
+    ]
+  },
+  "atlas (c1)": {
+    "mesh": "Atlas_(C1)",
+    "vertices": 488,
+    "points": [
+      {
+        "name": "Superior articular facet",
+        "vertex": 391,
+        "expected": [
+          0.498947,
+          0.180182,
+          -0.039308
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p19: labelled anatomy diagram",
+          "diagramLabel": "Superior articular facet"
+        }
+      }
+    ],
+    "primaryNames": [
+      "Superior articular facet"
+    ]
   }
 };
 

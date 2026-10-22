@@ -7,6 +7,7 @@ import { createHash } from 'node:crypto';
 import { loadGlbMeshes } from './glb-mesh.mjs';
 import { citationEvidence } from './lib/source-lesson-map.mjs';
 import { ADDITIONAL_BONE_LANDMARKS, PRIMARY_BONE_LANDMARKS } from './bone-landmark-additions.mjs';
+import { VERTEBRA_LANDMARKS } from './bone-landmark-vertebrae.mjs';
 
 const model = 'outputs/assets/z-anatomy-skeleton.glb';
 const stamp = 'd7d08a44b1020f1096dcc6364068eac6ba672986e98c992597878034b17b7040';
@@ -129,7 +130,7 @@ function sourceRef(ref,page,quote) {
   return r;
 }
 const grouped=new Map();
-for(const [key,mesh,points] of [...entries,...ADDITIONAL_BONE_LANDMARKS]) {
+for(const [key,mesh,points] of [...entries,...ADDITIONAL_BONE_LANDMARKS,...VERTEBRA_LANDMARKS]) {
   const group=grouped.get(key)||{mesh,points:[]};
   if(group.mesh!==mesh)throw new Error(`Conflicting host mesh for ${key}`);
   group.points.push(...points);if(group.points.length)grouped.set(key,group);

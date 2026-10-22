@@ -155,6 +155,21 @@
   ok   Biceps femoris: Short head of biceps femoris exists in the muscle layer
   ok   Iliopsoas: Iliacus muscle exists in the muscle layer
   ok   Iliopsoas: Psoas major exists in the muscle layer
+  ok   Transversospinalis: Semispinalis colli muscle exists in the muscle layer
+  ok   Transversospinalis: Semispinalis thoracis muscle exists in the muscle layer
+  ok   Transversospinalis: Multifidus colli muscle exists in the muscle layer
+  ok   Transversospinalis: Multifidus thoracis muscle exists in the muscle layer
+  ok   Transversospinalis: Multifidus lumborum muscle exists in the muscle layer
+  ok   Transversospinalis: Rotatores exists in the muscle layer
+  ok   Extrinsic back muscles: Ascending part of trapezius muscle exists in the muscle layer
+  ok   Extrinsic back muscles: Descending part of trapezius muscle exists in the muscle layer
+  ok   Extrinsic back muscles: Transverse part of trapezius muscle exists in the muscle layer
+  ok   Extrinsic back muscles: Latissimus dorsi muscle exists in the muscle layer
+  ok   Extrinsic back muscles: Levator scapulae exists in the muscle layer
+  ok   Extrinsic back muscles: Rhomboid major muscle exists in the muscle layer
+  ok   Extrinsic back muscles: Rhomboid minor muscle exists in the muscle layer
+  ok   Splenius: Splenius capitis muscle exists in the muscle layer
+  ok   Splenius: Splenius colli muscle exists in the muscle layer
   ok   Small intestine: Duodenum exists in the organs layer
   ok   Small intestine: Jejunum and ileum exists in the organs layer
   ok   Lungs: Superior lobe of left lung exists in the organs layer

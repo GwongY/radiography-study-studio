@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1048 —
-  c98360d2ca7cc793  WHOLE SET
+— user-facing strings in outputs/ — 1047 —
+  92070afd9db09e6a  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -157,7 +157,6 @@
   cd51c79109a79fed  <div class="ohead">How to look</div>
   4008203e0b664f6f  <div class="ohead">Planes</div>
   e0871ec754d0a09c  <div class="physline" style="--tone:#
-  ee4fec004194a34f  <div class="rv-intro"><b>What this is.</b> A word list for the strange names. Each term is split into its roots and given one hook that ties the name to what the structure does or where it sits.<br><b>How to use it.</b> Type part of a word in the Filter box and the list narrows as you type. Terms from a week you have not reached stay hidden.</div>
   a2a3d9fba89127bb  <div class="rv-note shown">Branch heading. Topics inside:</div><div class="nlist" style="margin-top:8px">
   079bd17310af1ec7  <div class="sessnote">Another group’s slot — hidden from your counts.</div>
   6634c6d53e1e4431  <div class="upnext

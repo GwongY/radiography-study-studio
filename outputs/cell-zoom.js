@@ -1126,4 +1126,15 @@ export const zoomFrom = (layer, name) => (ZOOM_FROM.find((z) => z.layer === laye
 
 export const stagesFor = (slider, signal = 'none') => ((SLIDERS[slider] && SLIDERS[slider].stages) || []).filter((s) => !s.signal || s.signal === signal);
 export const levelById = (id) => LEVELS.find((l) => l.id === id) || null;
-export const showIn3D = (subject, id) => (SHOW_IN_3D[subject] && SHOW_IN_3D[subject][id]) || null;
+/* A box with no curated target still opens the Cell mode when its name IS a label or a level the mode has
+   (Mitochondria, Golgi apparatus, Cell Nucleus): matched on the whole name, plural or not, never on part of it. */
+const normCell = (t) => String(t || '').toLowerCase().replace(/\([^)]*\)/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim().replace(/s$/, '');
+let cellNames = null;
+function cellNameIndex() {
+  if (cellNames) return cellNames;
+  cellNames = new Map();
+  for (const lv of LEVELS) if (!cellNames.has(normCell(lv.title))) cellNames.set(normCell(lv.title), { level: lv.id });
+  for (const [level, list] of Object.entries(LABELS)) for (const lb of list) if (lb.l && !cellNames.has(normCell(lb.l))) cellNames.set(normCell(lb.l), { level, label: lb.id });
+  return cellNames;
+}
+export const showIn3D = (subject, id, name) => (SHOW_IN_3D[subject] && SHOW_IN_3D[subject][id]) || (name ? cellNameIndex().get(normCell(name)) || null : null);

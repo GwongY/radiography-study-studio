@@ -222,7 +222,7 @@ export function searchHits(q) {
   Object.entries(BONE_LANDMARKS).forEach(([bone, spec]) => {
     /* a curated bone record where there is one, else the skeleton mesh the landmarks were pinned to */
     const rec = searchAnatomy(bone).find((r) => String(r.canonicalName).toLowerCase() === bone);
-    const title = bone.charAt(0).toUpperCase() + bone.slice(1);
+    const title = (bone.charAt(0).toUpperCase() + bone.slice(1)).replace(/\b([a-z])(\d+)\b/g, (m, a, n) => a.toUpperCase() + n);
     const names = new Set();
     (spec.points || []).forEach((p) => {
       const key = p.name.toLowerCase();

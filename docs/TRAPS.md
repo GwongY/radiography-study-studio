@@ -1497,10 +1497,22 @@ names it.
 - **A jump to a structure chooses the side to look from** (`bestViewDir` in search-viewer-frame.js): current side plus
   the six axis sides, fewest blockers by triangle ray tests to surface points of the target, then hides what still
   stands in front. A bounding-box test is useless here: whole-body layers' boxes cover every direction.
+- **A heading row (kind `group`) opens its members in the viewer.** `deriveViewerUnits` collects every descendant row's unit
+  (up to 60); `FROM_MEMBERS` keeps those boxes out of the viewer's "In Revise" way back. A group with no member rows
+  needs a `SETS` entry (Transversospinalis, Extrinsic back muscles). Muscle sets also need a `COMPOSITES` row in
+  synonyms.js so the same word finds them in search.
+- **Tendons & bursae are OFF after a jump** unless the structure itself is one (`tendonChips` in revealStructure).
+- **One weight for a map label in every state** (`#rvMm .mmt`): the box is measured at render, so a bolder selected label
+  lost its last word. Emphasise with colour and underline, never weight or size.
+- **The map zooms with the plain mouse wheel**; do not put the Ctrl-only capture handler back.
+- **A Revise box whose name is a Cell-mode label or level opens it** (`showIn3D(subject, id, name)` in cell-zoom.js), in
+  addition to the curated `SHOW_IN_3D` entries.
+- **Vertebra landmarks** come from `work/derive-vertebra-landmarks.mjs` (extreme/nearest vertices, names from W4 p19/20/22/26),
+  committed as `work/bone-landmark-vertebrae.mjs`; the camera comes in to Focus distance for one bone with landmarks, or the
+  labels (drawn only when close) never appear on a 6 cm vertebra.
 - **The Explore card opens on every result and closes when its structure is hidden** (`osteo:selection-hidden`).
 - **Bone landmarks are searchable** (global-search.js, kind "Landmark"): the hit opens the bone and presses that
-  landmark's entry in its Parts menu. Vertebrae still have almost no landmarks: each needs a pinned vertex and a slide
-  citation (work/bone-landmark-additions.mjs).
+  landmark's entry in its Parts menu.
 - **The search sheet is pinned to the TOP** (`#searchScrim` at the end of app.css). At the bottom edge it lay under the
   on-screen keyboard as soon as the field took focus, hiding the field and its results. Keep it capped (46dvh on a phone).
 - **Rows folded into their heading hide a bare heading.** A row named exactly like its topic is merged into it (leaves.js

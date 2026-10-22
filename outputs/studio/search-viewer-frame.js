@@ -3,13 +3,14 @@
  *
  * Split out of studio.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $, els, state, systemsIn } from './imports.js';
+import { $, els, state, systemsIn, systemsOf } from './imports.js';
 import { applyLayers, normName } from './live-physiology.js';
 import { applyVisibility, getRecord } from './scene.js';
 import { clearHighlight, courseChipHTML, renderRegions, selectBone, showToast } from './modes-and-bridge.js';
 import { enforceHidden, hiddenName, publishHidden } from './hide-and-search.js';
 import { loadExtraModel } from './depth-picking.js';
 import { showPickCallout } from './spatial-concept-overlays.js';
+import { BONE_LANDMARKS, boneLandmarkKey } from '../bone-landmarks.js';
 import { modelSearchNames, namedSide, viewerStructureName } from '../search-name.js';
 
 /* ------------------------------------------------------------------ *
@@ -25,7 +26,17 @@ function frameOn(objs,dirOverride){
   const size=box.getSize(new THREE.Vector3());
   const radius=Math.max(size.x,size.y,size.z,.35);
   const dir=(dirOverride||state.camera.position.clone().sub(state.controls.target)).clone().normalize();
-  const dist=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,radius*3.4));
+  let dist=Math.min(state.controls.maxDistance,Math.max(state.controls.minDistance,radius*3.4));
+  /* One bone that has named parts: come in as close as the Focus button does, which is where its part names are drawn
+     (updateBoneLandmarks wants the camera within 1/.82 of the bone's own fit). A vertebra is 6 cm: at the default
+     distance it was a speck and its labels never appeared. */
+  const only=objs.length===1&&objs[0].userData&&objs[0].userData.layerKey==='skeleton'&&BONE_LANDMARKS[boneLandmarkKey(objs[0].userData.label||objs[0].name,objs[0].userData.side)];
+  if(only){
+    const halfFov=Math.tan(state.camera.fov*Math.PI/360)/state.camera.zoom;
+    const own=Math.max(.07,Math.max(size.y,size.x/Math.max(.1,state.camera.aspect*.5))/(2*halfFov)+size.z/2);
+    dist=Math.min(dist,own/.9);
+    state.controls.minDistance=Math.min(state.controls.minDistance,dist*.5);
+  }
   state.controls.target.copy(c);
   state.camera.position.copy(c).add(dir.multiplyScalar(dist));
   state.controls.update();
@@ -180,6 +191,7 @@ export async function revealStructure(spec){
      * {system, mesh} is just the one-part case.
      */
     const parts=spec.parts||[{system:spec.system,mesh:spec.mesh,file:spec.file}];
+    let wantTendons=false; const tendonChips=[];
     for(const p of parts){
       let layer=p.system==='skeleton'&&state.fullMeshes.length ? {meshes:state.fullMeshes} : state.extraModels[p.system];
       if(!layer&&p.file){
@@ -192,8 +204,11 @@ export async function revealStructure(spec){
          is visible whichever system it turns out to belong to. */
       const chips=systemsIn(p.system).map(s=>s.key);
       state.layerOpacity={...(state.layerOpacity||{})};
-      chips.forEach(k=>{state.layers[k]=true;state.layerOpacity[k]=1});
+      /* Tendons & bursae stay OFF unless the structure itself is one: a muscle's tendon is a second structure, and
+         switching it on buried the muscle that was asked for. The chip is still there to turn on. */
+      chips.forEach(k=>{ if(k==='tendon'){ tendonChips.push(k); return; } state.layers[k]=true;state.layerOpacity[k]=1; });
       const hits=meshesFor(layer,p.mesh);
+      if(tendonChips.length&&hits.some(o=>systemsOf(p.system,o.userData.label||o.name).includes('tendon'))) wantTendons=true;
       /*
        * Widen to the whole structure.
        *
@@ -210,6 +225,7 @@ export async function revealStructure(spec){
     /* Each part widens to its whole unit, so a 39-part spec collected the same
        77 meshes 39 times and the panel read "3003 parts". */
     targets=[...new Set(targets)];
+    tendonChips.forEach(k=>{ state.layers[k]=wantTendons; state.layerOpacity[k]=1; });
     applyLayers();
     if(targets.length){
       const id=targets[0].userData.canonicalId;
